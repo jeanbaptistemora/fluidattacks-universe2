@@ -130,8 +130,8 @@ async def _do_add_repositories(_, info, repos: List[Dict[str, str]],
     """Resolve add_repositories mutation."""
     user_email = util.get_jwt_content(info.context)['user_email']
     new_repos = util.camel_case_list_dict(repos)
-    success = await sync_to_async(resources.create_resource)(
-        new_repos, project_name, 'repository', user_email)
+    success = await sync_to_async(resources.create_repositories)(
+        new_repos, project_name, user_email)
 
     if success:
         util.invalidate_cache(project_name)
@@ -162,8 +162,8 @@ async def _do_add_environments(_, info, envs: List[Dict[str, str]],
     """Resolve add_environments mutation."""
     new_envs = util.camel_case_list_dict(envs)
     user_email = util.get_jwt_content(info.context)['user_email']
-    success = await sync_to_async(resources.create_resource)(
-        new_envs, project_name, 'environment', user_email)
+    success = await sync_to_async(resources.create_environments)(
+        new_envs, project_name, user_email)
 
     if success:
         util.invalidate_cache(project_name)

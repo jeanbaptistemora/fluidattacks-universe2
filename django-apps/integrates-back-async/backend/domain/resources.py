@@ -3,6 +3,7 @@
 
 from collections import namedtuple
 from datetime import datetime
+from urllib.parse import quote_plus
 from typing import Dict, List, NamedTuple, cast
 import threading
 import rollbar
@@ -204,61 +205,74 @@ def has_repeated_repos(
     return has_repeated_inputs or has_repeated_existing
 
 
-def create_resource(res_data: List[Dict[str, str]], project_name: str,
-                    res_type: str, user_email: str) -> bool:
+def encode_resources(res_data: List[Dict[str, str]]) -> List[Dict[str, str]]:
+    return [
+        {
+            key: quote_plus(value)
+            for key, value in res.items()
+        } for res in res_data
+    ]
+
+
+def create_initial_state(user_email: str) -> Dict[str, str]:
+    return {
+        'user': user_email,
+        'date': util.format_comment_date(
+            datetime.today().strftime('%Y-%m-%d %H:%M:%S')),
+        'state': 'ACTIVE'
+    }
+
+
+def create_repositories(
+        res_data: List[Dict[str, str]],
+        project_name: str,
+        user_email: str) -> bool:
+
     project_name = project_name.lower()
-    if res_type == 'repository':
-        validations.validate_url(res_data[0].get('branch', ''))
-        validations.validate_url(res_data[0].get('urlRepo', ''))
-        res_id = 'urlRepo'
-        res_name = 'repositories'
-        if has_repeated_repos(project_name, res_data):
-            raise RepeatedValues()
-    elif res_type == 'environment':
-        validations.validate_fields([res_data[0].get('urlEnv', '')])
-        res_id = 'urlEnv'
-        res_name = 'environments'
-        if has_repeated_envs(project_name, res_data):
-            raise RepeatedValues()
-    else:
-        validations.validate_fields(list(res_data[0].values()))
+
+    res_data_enc = encode_resources(res_data)
+    if has_repeated_repos(project_name, res_data_enc):
+        raise RepeatedValues()
+
     json_data: List[resources_dal.ResourceType] = []
-    for res in res_data:
-        if res_id in res:
-            new_state = {
-                'user': user_email,
-                'date': util.format_comment_date(
-                    datetime.today().strftime('%Y-%m-%d %H:%M:%S')
-                ),
-                'state': 'ACTIVE'
-            }
-            if res_type == 'repository':
-                url_repo = res.get('urlRepo', '')
-                branch = res.get('branch', '')
-                validations.validate_field_length(url_repo, 150)
-                validations.validate_field_length(branch, 30)
-                res_object: resources_dal.ResourceType = {
-                    'urlRepo': url_repo,
-                    'branch': branch,
-                    'protocol': res.get('protocol', ''),
-                    'uploadDate': str(
-                        datetime.now().replace(second=0, microsecond=0)
-                    )[:-3],
-                    'historic_state': [new_state],
-                }
-            elif res_type == 'environment':
-                url_env = res.get('urlEnv', '')
-                validations.validate_field_length(url_env, 400)
-                res_object = {
-                    'urlEnv': url_env,
-                    'historic_state': [new_state],
-                }
-            json_data.append(res_object)
-        else:
-            rollbar.report_message(
-                'Error: An error occurred adding repository', 'error'
-            )
-    return resources_dal.create(json_data, project_name, res_name)
+    for res in res_data_enc:
+        url_repo = res.get('urlRepo', '')
+        branch = res.get('branch', '')
+        validations.validate_field_length(url_repo, 150)
+        validations.validate_field_length(branch, 30)
+        res_object: resources_dal.ResourceType = {
+            'urlRepo': url_repo,
+            'branch': branch,
+            'protocol': res.get('protocol', ''),
+            'uploadDate': str(
+                datetime.now().replace(second=0, microsecond=0))[:-3],
+            'historic_state': [create_initial_state(user_email)],
+        }
+        json_data.append(res_object)
+    return resources_dal.create(json_data, project_name, 'repositories')
+
+
+def create_environments(
+        res_data: List[Dict[str, str]],
+        project_name: str,
+        user_email: str) -> bool:
+
+    project_name = project_name.lower()
+
+    res_data_enc = encode_resources(res_data)
+    if has_repeated_envs(project_name, res_data_enc):
+        raise RepeatedValues()
+
+    json_data: List[resources_dal.ResourceType] = []
+    for res in res_data_enc:
+        url_env = res.get('urlEnv', '')
+        validations.validate_field_length(url_env, 400)
+        res_object = {
+            'urlEnv': url_env,
+            'historic_state': [create_initial_state(user_email)],
+        }
+        json_data.append(res_object)
+    return resources_dal.create(json_data, project_name, 'environments')
 
 
 def update_resource(
