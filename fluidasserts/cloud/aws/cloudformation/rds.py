@@ -228,26 +228,34 @@ def is_not_inside_a_db_subnet_group(
               - ``CLOSED`` otherwise.
     :rtype: :class:`fluidasserts.Result`
     """
-    vulnerabilities: list = []
-    for yaml_path, res_name, res_props in helper.iterate_rsrcs_in_cfn_template(
-            starting_path=path,
-            resource_types=[
-                'AWS::RDS::DBCluster',
-                'AWS::RDS::DBInstance',
-            ],
-            exclude=exclude):
-        res_type = res_props['../Type']
-        db_subnet_group_name: bool = res_props.get('DBSubnetGroupName')
 
-        if not db_subnet_group_name:
+    graph: DiGraph = get_graph(path, exclude)
+    templates: List[Tuple[int, Dict]] = get_templates(graph, path, exclude)
+    clusters: List[int] = [
+        node
+        for template, _ in templates
+        for node in dfs_preorder_nodes(graph, template, 2)
+        if len(graph.nodes[node]['labels'].intersection(
+            {'AWS', 'RDS', 'DBCluster', 'DBInstance'})) > 2
+    ]
+    vulnerabilities: List[Vulnerability] = []
+    for cluster in clusters:
+        template: Dict = graph.nodes[get_predecessor(graph, cluster,
+                                                     'CloudFormationTemplate')]
+        resource: Dict = graph.nodes[cluster]
+        _subnet: List[int] = [
+            node for node in dfs_preorder_nodes(graph, cluster, 3)
+            if 'DBSubnetGroupName' in graph.nodes[node]['labels']
+        ]
+
+        if not _subnet:
             vulnerabilities.append(
                 Vulnerability(
-                    path=yaml_path,
-                    entity=(f'{res_type}'
-                            f'/DBSubnetGroupName'
-                            f'/{db_subnet_group_name}'),
-                    identifier=res_name,
-                    line=helper.get_line(res_props),
+                    path=template['path'],
+                    entity=get_type(graph, cluster, {'DBCluster',
+                                                     'DBInstance'}),
+                    identifier=resource['name'],
+                    line=resource['line'],
                     reason='is not inside a DB Subnet Group'))
 
     return _get_result_as_tuple(
