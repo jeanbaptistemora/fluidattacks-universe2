@@ -17,6 +17,9 @@ in
         pkgs.sops
       ];
 
-      androidSdk = pkgs.androidenv.androidPkgs_9_0.androidsdk;
+      androidSdk = (pkgs.androidenv.composeAndroidPackages {
+        abiVersions = [ "x86" "x86_64" ];
+        platformVersions = [ "29" ];
+      }).androidsdk;
     })
   )

@@ -69,8 +69,9 @@ function job_build_mobile_android {
             "s3://fluidintegrates.build/mobile/certs" \
             ./certs \
       &&  echo '[INFO] Patching android sdk' \
+      &&  rm -rf "${HOME}/.turtle/" \
       &&  mkdir -p "${TURTLE_ANDROID_DEPENDENCIES_DIR}/sdk" \
-      &&  ln -s \
+      &&  cp -r --no-preserve=mode,ownership \
             "${androidSdk}"/libexec/android-sdk/* \
             "${TURTLE_ANDROID_DEPENDENCIES_DIR}/sdk" \
       &&  touch "${TURTLE_ANDROID_DEPENDENCIES_DIR}/sdk/.ready" \
