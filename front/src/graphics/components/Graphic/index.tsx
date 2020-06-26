@@ -91,8 +91,10 @@ export const Graphic: React.FC<IGraphicProps> = (
             <div className={bsClass} ref={containerReference}>
               <iframe
                 className={styles.frame}
+                frameBorder={"no"}
                 onLoad={frameOnLoad}
                 ref={iframeReference}
+                scrolling={"no"}
                 src={url.toString()}
                 style={{
                   /* The element must be rendered for C3 legends to work,

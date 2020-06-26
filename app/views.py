@@ -180,8 +180,6 @@ def app(request):
     return response
 
 
-@cache_content
-@cache_control(private=True, max_age=31536000)
 @csrf_exempt
 @authenticate
 @require_http_methods(['GET'])
