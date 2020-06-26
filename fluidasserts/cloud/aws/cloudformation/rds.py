@@ -171,25 +171,41 @@ def is_publicly_accessible(
               - ``CLOSED`` otherwise.
     :rtype: :class:`fluidasserts.Result`
     """
-    vulnerabilities: list = []
-    for yaml_path, res_name, res_props in helper.iterate_rsrcs_in_cfn_template(
-            starting_path=path,
-            resource_types=[
-                'AWS::RDS::DBInstance',
-            ],
-            exclude=exclude):
-        is_public: bool = res_props.get('PubliclyAccessible', False)
+    graph: DiGraph = get_graph(path, exclude)
+    templates: List[Tuple[int, Dict]] = get_templates(graph, path, exclude)
+    clusters: List[int] = [
+        node
+        for template, _ in templates
+        for node in dfs_preorder_nodes(graph, template, 2)
+        if len(graph.nodes[node]['labels'].intersection(
+            {'AWS', 'RDS', 'DBInstance'})) > 2
+    ]
+    vulnerable: bool = False
+    vulnerabilities: List[Vulnerability] = []
+    for cluster in clusters:
+        template: Dict = graph.nodes[get_predecessor(graph, cluster,
+                                                     'CloudFormationTemplate')]
+        resource: Dict = graph.nodes[cluster]
+        _public: List[int] = [
+            node for node in dfs_preorder_nodes(graph, cluster, 3)
+            if 'PubliclyAccessible' in graph.nodes[node]['labels']
+        ]
 
-        with contextlib.suppress(CloudFormationInvalidTypeError):
-            is_public = helper.to_boolean(is_public)
-
-        if is_public:
+        if _public:
+            public: int = _public[0]
+            with contextlib.suppress(CloudFormationInvalidTypeError):
+                is_public: List[int] = get_ref_nodes(
+                    graph, public,
+                    lambda x: x in (True, 'true', 'True', '1', 1))
+                if is_public:
+                    vulnerable = True
+        if vulnerable:
             vulnerabilities.append(
                 Vulnerability(
-                    path=yaml_path,
-                    entity=f'AWS::RDS::DBInstance',
-                    identifier=res_name,
-                    line=helper.get_line(res_props),
+                    path=template['path'],
+                    entity=get_type(graph, public, {'DBInstance'}),
+                    identifier=resource['name'],
+                    line=graph.nodes[is_public[0]]['line'],
                     reason='is publicly accessible'))
 
     return _get_result_as_tuple(
