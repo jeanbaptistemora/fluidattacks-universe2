@@ -108,7 +108,7 @@ class ViewTestCase(unittest.TestCase):
 
     def __click(self, element):
         self.selenium.execute_script('arguments[0].click()', element)
-        time.sleep(3)
+        time.sleep(6)
 
     def __login(self):
         selenium = self.selenium
