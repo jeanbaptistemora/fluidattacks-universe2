@@ -31,6 +31,7 @@ from backend.utils import (
     aio,
     apm,
 )
+from backend import util
 
 # Containers
 GRAPHIC_PARAMETERS = NamedTuple('GraphicParameters', [
@@ -69,7 +70,9 @@ async def get_document_from_graphic_request(
     params: GRAPHIC_PARAMETERS,
     request: HttpRequest,
 ) -> object:
-    email = request.session['username']
+    # Get the requester email from the session or from its API token
+    email = request.session.get('username') \
+        or util.get_jwt_content(request)['user_email']
 
     if params.entity == 'group':
         if not await aio.ensure_io_bound(

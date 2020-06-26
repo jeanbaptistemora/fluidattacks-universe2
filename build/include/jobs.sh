@@ -648,13 +648,18 @@ function _job_analytics_all {
                 echo "[INFO] Running: ${generator}" \
             &&  _job_analytics "${generator}"
           done \
-  &&  echo '[INFO] Collecting snapshots' \
-  &&  python3 analytics/collector/execute.py \
-  &&  aws s3 sync --delete \
-        'analytics/collector' "s3://${remote_bucket}/${CI_COMMIT_REF_NAME}/snapshots" \
+  &&  echo '[INFO] Uploading documents' \
   &&  aws s3 sync --delete \
         'analytics/generators' "s3://${remote_bucket}/${CI_COMMIT_REF_NAME}/documents" \
+  &&  if test "${CI_COMMIT_REF_NAME}" = 'master'
+      then
+            echo '[INFO] Collecting snapshots' \
+        &&  python3 analytics/collector/execute.py \
+        &&  echo '[INFO] Uploading snapshots' \
+        &&  aws s3 sync --delete \
+              'analytics/collector' "s3://${remote_bucket}/${CI_COMMIT_REF_NAME}/snapshots" \
 
+      fi
 }
 
 function job_analytics_dev_all {

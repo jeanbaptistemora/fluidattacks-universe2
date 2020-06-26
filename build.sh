@@ -41,6 +41,7 @@ function decide_and_call_provisioner {
         --keep DEV_AWS_SECRET_ACCESS_KEY \
         --keep DNS_ZONE_ID \
         --keep GITLAB_TOKEN \
+        --keep INTEGRATES_API_TOKEN \
         --keep JWT_TOKEN \
         --keep KUBECONFIG \
         --keep KUBE_CA_PEM \
