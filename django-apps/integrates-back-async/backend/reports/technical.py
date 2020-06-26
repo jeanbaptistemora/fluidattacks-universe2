@@ -35,21 +35,20 @@ def generate_pdf_file(
     download_evidences_for_pdf(findings_ord)
     report_filename = ''
     pdf_maker.tech(findings_ord, group_name, description, user_email)
-    report_filename = secure_pdf.create_full(user_email,
-                                             pdf_maker.out_name,
-                                             group_name)
+    report_filename = secure_pdf.create_full(
+        user_email, pdf_maker.out_name, group_name
+    )
 
     return report_filename
 
 
 def generate_pdf(
-    *,
-    description: str,
-    findings_ord: List[Dict[str, FindingType]],
-    group_name: str,
-    lang: str,
-    user_email: str,
-):
+        *,
+        description: str,
+        findings_ord: List[Dict[str, FindingType]],
+        group_name: str,
+        lang: str,
+        user_email: str):
     passphrase = get_passphrase(4)
 
     report_filename = generate_pdf_file(
@@ -78,11 +77,12 @@ def generate_xls_file(
     it_report = ITReport(data=findings_ord)
     filepath = it_report.result_filename
 
-    cmd = 'cat {filepath} | secure-spreadsheet '
-    cmd += '--password "{passphrase}" '
-    cmd += '--input-format xlsx '
-    cmd += '> {filepath}-pwd'
-    cmd = cmd.format(filepath=filepath, passphrase=passphrase)
+    cmd = (
+        f'cat {filepath} | secure-spreadsheet '
+        f'--password "{passphrase}" '
+        '--input-format xlsx '
+        f'> {filepath}-pwd'
+    )
 
     os.system(cmd)
     os.unlink(filepath)
@@ -122,19 +122,29 @@ def download_evidences_for_pdf(findings: List[Dict[str, FindingType]]):
     )
 
     for finding in findings:
-        folder_name = str(finding['projectName']) + '/' + str(finding['findingId'])
+        folder_name = (
+            str(finding['projectName']) + '/' +
+            str(finding['findingId'])
+        )
         evidences = cast(Dict[str, Dict[str, str]], finding['evidence'])
-        evidence_set: List[Dict[str, str]] = [{
-            'id': '{}/{}'.format(folder_name, str(evidences[ev_item]['url'])),
-            'explanation': evidences[ev_item]['description'].capitalize()
-        } for ev_item in evidences if evidences[ev_item]['url'].endswith('.png')]
+        evidence_set: List[Dict[str, str]] = [
+            {
+                'id': f'{folder_name}/{evidences[ev_item]["url"]}',
+                'explanation': evidences[ev_item]['description'].capitalize()
+            }
+            for ev_item in evidences
+            if evidences[ev_item]['url'].endswith('.png')
+        ]
 
         if evidence_set:
             finding['evidence_set'] = evidence_set
             for evidence in evidence_set:
+                evidence_id_2 = str(evidence['id']).split('/')[2]
                 finding_dal.download_evidence(
                     evidence['id'],
-                    path + '/' +
-                    str(evidence['id']).split('/')[2])
-                evidence['name'] = 'image::../images/' + \
-                    str(evidence['id']).split('/')[2] + '[align="center"]'
+                    f'{path}/{evidence_id_2}'
+                )
+                evidence['name'] = (
+                    f'image::../images/{evidence_id_2}'
+                    '[align="center"]'
+                )
