@@ -387,28 +387,36 @@ async def get_new_vulnerabilities():
                 )
         except (TypeError, KeyError):
             rollbar.report_message(
-                'Error: An error ocurred getting new vulnerabilities '
-                'notification email',
+                ('Error: An error ocurred getting new vulnerabilities '
+                 'notification email'),
                 'error', payload_data=locals())
             raise
         if context['updated_findings']:
             mail_to = await project_domain.get_users_to_notify(project)
-            await sync_to_async(mailer.send_mail_new_vulnerabilities)(mail_to, context)
+            await sync_to_async(mailer.send_mail_new_vulnerabilities)(
+                mail_to, context
+            )
 
 
 async def calculate_vulnerabilities(act_finding: Dict[str, str]) -> int:
-    vulns = await sync_to_async(vuln_dal.get_vulnerabilities)(act_finding['finding_id'])
+    vulns = await sync_to_async(vuln_dal.get_vulnerabilities)(
+        act_finding['finding_id']
+    )
     all_tracking = await finding_domain.get_tracking_vulnerabilities(vulns)
     delta_total = 0
     if len(all_tracking) > 1:
-        if (datetime.strptime(str(all_tracking[-1]['date']), "%Y-%m-%d")) \
-           > (datetime.now() - timedelta(days=8)):
-            delta_open = abs(all_tracking[-1]['open'] - all_tracking[-2]['open'])
-            delta_closed = abs(all_tracking[-1]['closed'] - all_tracking[-2]['closed'])
+        if ((datetime.strptime(str(all_tracking[-1]['date']), "%Y-%m-%d")) >
+                (datetime.now() - timedelta(days=8))):
+            delta_open = abs(
+                all_tracking[-1]['open'] - all_tracking[-2]['open']
+            )
+            delta_closed = abs(
+                all_tracking[-1]['closed'] - all_tracking[-2]['closed']
+            )
             delta_total = delta_open - delta_closed
-    elif len(all_tracking) == 1 and \
-        (datetime.strptime(str(all_tracking[-1]['date']), "%Y-%m-%d")) > \
-            (datetime.now() - timedelta(days=8)):
+    elif (len(all_tracking) == 1 and
+            (datetime.strptime(str(all_tracking[-1]['date']), "%Y-%m-%d")) >
+            (datetime.now() - timedelta(days=8))):
         delta_open = all_tracking[-1]['open']
         delta_closed = all_tracking[-1]['closed']
         delta_total = delta_open - delta_closed
@@ -418,35 +426,35 @@ async def calculate_vulnerabilities(act_finding: Dict[str, str]) -> int:
 def format_vulnerabilities(delta: int, act_finding: Dict[str, str]) -> str:
     """Format vulnerabities changes in findings."""
     if delta > 0:
-        finding_text = '{finding!s} (+{delta!s})'.format(
-            finding=act_finding['finding'],
-            delta=delta)
+        finding_text = f'{act_finding["finding"]} (+{delta})'
     elif delta < 0:
-        finding_text = '{finding!s} ({delta!s})'.format(
-            finding=act_finding['finding'],
-            delta=delta)
+        finding_text = f'{act_finding["finding"]} ({delta})'
     else:
         finding_text = ''
-        message = 'Finding {finding!s} of project ' \
-            '{project!s} has no changes during the week' \
-            .format(finding=act_finding['finding_id'],
-                    project=act_finding['project_name'])
+        message = (
+            f'Finding {act_finding["finding_id"]} of project '
+            f'{act_finding["project_name"]} has no changes during the week'
+        )
         LOGGER.info(message)
     return finding_text
 
 
 def create_msj_finding_pending(act_finding: Dict[str, FindingType]) -> str:
     """Validate if a finding has treatment."""
-    historic_treatment = cast(List[Dict[str, str]],
-                              act_finding.get('historic_treatment', [{}]))
+    historic_treatment = cast(
+        List[Dict[str, str]],
+        act_finding.get('historic_treatment', [{}])
+    )
     open_vulns = [
-        vuln for vuln in vuln_domain.get_vulnerabilities(
-            str(act_finding['finding_id']))
-        if vuln['current_state'] == 'open']
+        vuln
+        for vuln in vuln_domain.get_vulnerabilities(
+            str(act_finding['finding_id'])
+        )
+        if vuln['current_state'] == 'open'
+    ]
     if historic_treatment[-1].get('treatment', 'NEW') == 'NEW' and open_vulns:
         days = finding_domain.get_age_finding(act_finding)
-        finding_name = str(act_finding['finding']) + ' -' + \
-            str(days) + ' day(s)-'
+        finding_name = f'{act_finding["finding"]} -{days} day(s)-'
         result = finding_name
     else:
         result = ''
@@ -457,7 +465,9 @@ def create_msj_finding_pending(act_finding: Dict[str, FindingType]) -> str:
 async def get_remediated_findings():
     """Summary mail send with findings that have not been verified yet."""
     rollbar.report_message(
-        'Warning: Function to get remediated findings is running', 'warning')
+        'Warning: Function to get remediated findings is running',
+        'warning'
+    )
     active_projects = await sync_to_async(project_domain.get_active_projects)()
     findings = []
     pending_verification_findings = await asyncio.gather(*[
@@ -478,18 +488,23 @@ async def get_remediated_findings():
             for finding in findings:
                 context['findings'].append({
                     'finding_name': finding['finding'],
-                    'finding_url':
-                    '{url!s}/groups/{project!s}/{finding!s}/description'
-                        .format(url=BASE_URL,
-                                project=str.lower(str(finding['project_name'])),
-                                finding=finding['finding_id']),
+                    'finding_url': (
+                        f'{BASE_URL}/groups/'
+                        f'{str.lower(str(finding["project_name"]))}/'
+                        f'{finding["finding_id"]}/description'
+                    ),
                     'project': str.upper(str(finding['project_name']))})
             context['total'] = len(findings)
-            await sync_to_async(mailer.send_mail_new_remediated)(mail_to, context)
+            await sync_to_async(mailer.send_mail_new_remediated)(
+                mail_to, context
+            )
         except (TypeError, KeyError) as ex:
             rollbar.report_message(
                 'Warning: An error ocurred getting data for remediated email',
-                'warning', extra_data=ex, payload_data=locals())
+                'warning',
+                extra_data=ex,
+                payload_data=locals()
+            )
     else:
         LOGGER.info('There are no findings to verificate')
 
@@ -498,11 +513,15 @@ async def get_remediated_findings():
 async def weekly_report():
     """Save weekly report in dynamo."""
     rollbar.report_message(
-        'Warning: Function to do weekly report in DynamoDB is running', 'warning')
-    init_date = \
-        (datetime.today() - timedelta(days=7)).date().strftime('%Y-%m-%d')
-    final_date = \
-        (datetime.today() - timedelta(days=1)).date().strftime('%Y-%m-%d')
+        'Warning: Function to do weekly report in DynamoDB is running',
+        'warning'
+    )
+    init_date = (datetime.today() - timedelta(days=7)).date().strftime(
+        '%Y-%m-%d'
+    )
+    final_date = (datetime.today() - timedelta(days=1)).date().strftime(
+        '%Y-%m-%d'
+    )
     all_companies = await sync_to_async(user_domain.get_all_companies)()
     all_users = await asyncio.gather(*[
         asyncio.create_task(
@@ -510,9 +529,12 @@ async def weekly_report():
         )
         for x in all_companies
     ])
-    registered_users = await sync_to_async(user_domain.get_all_users_report)('FLUID', final_date)
+    registered_users = await sync_to_async(user_domain.get_all_users_report)(
+        'FLUID', final_date
+    )
     logged_users = await sync_to_async(user_domain.logging_users_report)(
-        'FLUID', init_date, final_date)
+        'FLUID', init_date, final_date
+    )
     await sync_to_async(project_dal.get_weekly_report)(
         init_date,
         final_date,
@@ -532,8 +554,10 @@ async def all_users_formatted(company: str) -> Dict[str, int]:
 @async_to_sync
 async def get_new_releases():
     """Summary mail send with findings that have not been released yet."""
-    rollbar.report_message('Warning: Function to get new releases is running',
-                           'warning')
+    rollbar.report_message(
+        'Warning: Function to get new releases is running',
+        'warning'
+    )
     test_projects = FI_TEST_PROJECTS.split(',')
     projects = await sync_to_async(project_domain.get_active_projects)()
     email_context = defaultdict(list)
@@ -563,23 +587,26 @@ async def get_new_releases():
                     if 'releaseDate' not in finding:
                         submission = finding.get('historicState')
                         status = submission[-1].get('state')
-                        category = ('unsubmitted' if status in ('CREATED', 'REJECTED')
-                                    else 'unreleased')
+                        category = (
+                            'unsubmitted'
+                            if status in ('CREATED', 'REJECTED')
+                            else 'unreleased'
+                        )
                         email_context[category].append({
                             'finding_name': finding.get('finding'),
-                            'finding_url':
-                            '{url!s}/groups/{project!s}/drafts/'
-                            '{finding!s}/description'
-                                .format(url=BASE_URL,
-                                        project=project,
-                                        finding=finding.get('findingId')),
+                            'finding_url': (
+                                f'{BASE_URL}/groups/{project}/drafts/'
+                                f'{finding.get("findingId")}/description'
+                            ),
                             'project': project.upper()
                         })
                         cont += 1
             except (TypeError, KeyError):
                 rollbar.report_message(
-                    'Warning: An error ocurred getting data for new drafts email',
-                    'warning')
+                    ('Warning: An error ocurred getting '
+                     'data for new drafts email'),
+                    'warning'
+                )
         else:
             # ignore test projects
             pass
@@ -589,17 +616,23 @@ async def get_new_releases():
         approvers = FI_MAIL_REVIEWERS.split(',')
         mail_to = [FI_MAIL_PROJECTS]
         mail_to.extend(approvers)
-        await sync_to_async(mailer.send_mail_new_releases)(mail_to, email_context)
+        await sync_to_async(mailer.send_mail_new_releases)(
+            mail_to, email_context
+        )
     else:
-        rollbar.report_message('Warning: There are no new drafts',
-                               'warning')
+        rollbar.report_message(
+            'Warning: There are no new drafts',
+            'warning'
+        )
 
 
 @async_to_sync
 async def send_unsolved_to_all() -> List[bool]:
     """Send email with unsolved events to all projects """
-    rollbar.report_message('Warning: Function to send email with unsolved events is running',
-                           'warning')
+    rollbar.report_message(
+        'Warning: Function to send email with unsolved events is running',
+        'warning'
+    )
     projects = await sync_to_async(project_domain.get_active_projects)()
     return await asyncio.gather(*[
         send_unsolved_events_email(project)
@@ -609,30 +642,45 @@ async def send_unsolved_to_all() -> List[bool]:
 
 async def get_project_indicators(project: str) -> Dict[str, object]:
     findings = await sync_to_async(project_domain.get_released_findings)(
-        project, 'finding_id, historic_treatment, cvss_temporal')
-    last_closing_vuln_days, last_closing_vuln = \
+        project, 'finding_id, historic_treatment, cvss_temporal'
+    )
+    last_closing_vuln_days, last_closing_vuln = (
         await project_domain.get_last_closing_vuln_info(findings)
-    max_open_severity, max_open_severity_finding = \
+    )
+    max_open_severity, max_open_severity_finding = (
         await project_domain.get_max_open_severity(findings)
+    )
     indicators = {
-        'closed_vulnerabilities': await project_domain.get_closed_vulnerabilities(project),
+        'closed_vulnerabilities': (
+            await project_domain.get_closed_vulnerabilities(project)
+        ),
         'last_closing_date': last_closing_vuln_days,
         'last_closing_vuln_finding': last_closing_vuln.get('finding_id', ''),
         'mean_remediate': await project_domain.get_mean_remediate(findings),
-        'mean_remediate_critical_severity': await project_domain.get_mean_remediate_severity(
-            project, 9, 10),
-        'mean_remediate_high_severity': await project_domain.get_mean_remediate_severity(
-            project, 7, 8.9),
-        'mean_remediate_low_severity': await project_domain.get_mean_remediate_severity(
-            project, 0.1, 3.9),
-        'mean_remediate_medium_severity': await project_domain.get_mean_remediate_severity(
-            project, 4, 6.9),
+        'mean_remediate_critical_severity': (
+            await project_domain.get_mean_remediate_severity(project, 9, 10)
+        ),
+        'mean_remediate_high_severity': (
+            await project_domain.get_mean_remediate_severity(project, 7, 8.9)
+        ),
+        'mean_remediate_low_severity': (
+            await project_domain.get_mean_remediate_severity(project, 0.1, 3.9)
+        ),
+        'mean_remediate_medium_severity': (
+            await project_domain.get_mean_remediate_severity(project, 4, 6.9)
+        ),
         'max_open_severity': max_open_severity,
-        'max_open_severity_finding': max_open_severity_finding.get('finding_id', ''),
+        'max_open_severity_finding': max_open_severity_finding.get(
+            'finding_id', ''
+        ),
         'open_findings': await project_domain.get_open_finding(project),
-        'open_vulnerabilities': await project_domain.get_open_vulnerabilities(project),
+        'open_vulnerabilities': (
+            await project_domain.get_open_vulnerabilities(project)
+        ),
         'total_treatment': await project_domain.get_total_treatment(findings),
-        'remediated_over_time': await sync_to_async(create_register_by_week)(project)
+        'remediated_over_time': (
+            await sync_to_async(create_register_by_week)(project)
+        )
     }
     return indicators
 
