@@ -130,19 +130,27 @@ async def create(organization_name: str) -> OrganizationType:
     """
     Create an organization and returns its key
     """
-    org_exists = await exists(organization_name)
+    org_name = organization_name.lower()
+    org_exists = await exists(org_name)
     if org_exists:
         raise InvalidOrganization()
 
-    new_item: OrganizationType = {
-        'pk': 'ORG#{}'.format(str(uuid.uuid4())),
-        'sk': organization_name.lower()
+    org_id = str(uuid.uuid4())
+    new_items: Dict[str, OrganizationType] = {
+        OLD_TABLE_NAME: {
+            'pk': f'ORG#{org_id}',
+            'sk': org_name
+        },
+        TABLE_NAME: {
+            'pk': f'ORG#{org_id}',
+            'sk': f'INFO#{org_name}'
+        }
     }
 
     try:
         await asyncio.gather(*[
             asyncio.create_task(
-                dynamo_async_put_item(table, new_item)
+                dynamo_async_put_item(table, new_items[table])
             )
             for table in [OLD_TABLE_NAME, TABLE_NAME]
         ])
@@ -153,7 +161,7 @@ async def create(organization_name: str) -> OrganizationType:
             extra_data=ex,
             payload_data=locals()
         )
-    return _map_keys_to_domain(new_item)
+    return _map_keys_to_domain(new_items[TABLE_NAME])
 
 
 async def exists(org_name: str) -> bool:

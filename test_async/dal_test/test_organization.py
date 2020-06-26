@@ -83,7 +83,7 @@ async def test_create():
     new_org = await org_dal.create(org_name)
     assert isinstance(new_org, dict)
     assert 'id' in new_org
-    assert new_org['name'] == org_name
+    assert new_org['name'] == f'INFO#{org_name}'
     with pytest.raises(InvalidOrganization):
         await org_dal.create(org_name)
 
@@ -152,7 +152,7 @@ async def test_get_or_create():
     not_existent_org = await org_dal.get_or_create(not_ex_org_name)
     assert isinstance(not_existent_org, dict)
     assert 'id' in not_existent_org
-    assert not_existent_org['name'] == not_ex_org_name
+    assert not_existent_org['name'] == f'INFO#{not_ex_org_name}'
 
 @pytest.mark.changes_db
 async def test_update():
