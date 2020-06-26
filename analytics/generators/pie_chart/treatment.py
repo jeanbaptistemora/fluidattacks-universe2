@@ -10,6 +10,9 @@ from backend.domain import (
 from analytics import (
     utils,
 )
+from analytics.colors import (
+    TREATMENT,
+)
 
 
 async def generate_one(group: str):
@@ -37,15 +40,15 @@ async def generate_one(group: str):
             ],
             'type': 'pie',
             'colors': {
-                'Accepted': '#999797',
-                'Eternally accepted': '#000000',
-                'In Progress': '#FF9034',
-                'Not defined': '#A70762',
+                'Accepted': TREATMENT.passive,
+                'Eternally accepted': TREATMENT.more_passive,
+                'In Progress': TREATMENT.neutral,
+                'Not defined': TREATMENT.more_agressive,
             },
         },
         'pie': {
             'label': {
-                'show': False,
+                'show': True,
             },
         },
     }

@@ -12,8 +12,11 @@ const enTranslations: Dictionary = {
       },
     },
     pieChart: {
+      status: {
+        title: "Vulnerabilities status",
+      },
       treatment: {
-        title: "Treatment",
+        title: "Vulnerabilities treatment",
       },
     },
     stackedBarChart: {

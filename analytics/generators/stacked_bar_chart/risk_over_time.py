@@ -8,6 +8,9 @@ from backend.api.dataloaders.project import ProjectLoader
 from analytics import (
     utils,
 )
+from analytics.colors import (
+    RISK,
+)
 
 
 async def generate_one(group: str):
@@ -45,25 +48,38 @@ async def generate_one(group: str):
         data=dict(
             x='date',
             columns=[
-                ['date'] + [datum['name'] for datum in data],
-                ['Accepted + Closed'] + [
-                    datum['accepted'] + datum['closed'] for datum in data
+                ['date'] + [
+                    datum['name']
+                    for datum in data
                 ],
-                ['Closed'] + [datum['closed'] for datum in data],
-                ['Found'] + [datum['total'] for datum in data],
-            ],
-            groups=[
-                ['Accepted', 'Closed', 'Found'],
+                ['Found'] + [
+                    datum['total']
+                    for datum in data
+                ],
+                ['Closed + Accepted + Open'] + [
+                    datum['closed'] + datum['accepted'] + datum['opened']
+                    for datum in data
+                ],
+                ['Closed + Accepted'] + [
+                    datum['closed'] + datum['accepted']
+                    for datum in data
+                ],
+                ['Closed'] + [
+                    datum['closed']
+                    for datum in data
+                ],
             ],
             colors={
-                'Accepted + Closed': '#FE7F2D',
-                'Closed': '#A1C181',
-                'Found': '#233D4D',
+                'Found': RISK.neutral,
+                'Closed + Accepted + Open': RISK.more_agressive,
+                'Closed + Accepted': RISK.agressive,
+                'Closed': RISK.more_passive,
             },
             types={
-                'Accepted + Closed': 'spline',
-                'Closed': 'spline',
                 'Found': 'spline',
+                'Closed + Accepted + Open': 'spline',
+                'Closed + Accepted': 'spline',
+                'Closed': 'spline',
             },
         ),
         axis=dict(
