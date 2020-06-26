@@ -48,13 +48,21 @@ async def ensure_many_io_bound(py_callables: List[PyCallable]) -> Coroutine:
 
 
 @apm.trace()
-async def ensure_cpu_bound(py_callable: PyCallable) -> Coroutine:
-    return await _ensure_one(ProcessPoolExecutor, py_callable)
+async def ensure_cpu_bound(function: Callable, *args, **kwargs) -> Coroutine:
+    return await _ensure_one(ProcessPoolExecutor, PyCallable(
+        instance=function,
+        args=tuple(args),
+        kwargs=frozendict(kwargs),
+    ))
 
 
 @apm.trace()
-async def ensure_io_bound(py_callable: PyCallable) -> Coroutine:
-    return await _ensure_one(ThreadPoolExecutor, py_callable)
+async def ensure_io_bound(function: Callable, *args, **kwargs) -> Coroutine:
+    return await _ensure_one(ThreadPoolExecutor, PyCallable(
+        instance=function,
+        args=tuple(args),
+        kwargs=frozendict(kwargs),
+    ))
 
 
 @apm.trace()

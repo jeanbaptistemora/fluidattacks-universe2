@@ -72,10 +72,9 @@ async def get_document_from_graphic_request(
     email = request.session['username']
 
     if params.entity == 'group':
-        if not await aio.ensure_io_bound(aio.PyCallable(
-            instance=has_access_to_group,
-            args=(email, params.subject),
-        )):
+        if not await aio.ensure_io_bound(
+            has_access_to_group, email, params.subject,
+        ):
             raise PermissionError('Access denied')
 
         document = await get_document(

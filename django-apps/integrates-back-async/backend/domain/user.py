@@ -52,15 +52,13 @@ def get_data(email: str, attr: str) -> Union[str, UserType]:
 @apm.trace()
 async def get_projects(user_email: str, active: bool = True,
                        access_pending_projects: bool = True) -> List[str]:
-    projects = await aio.ensure_io_bound(aio.PyCallable(
-        instance=user_dal.get_projects,
-        args=(user_email, active),
-    ))
+    projects = await aio.ensure_io_bound(
+        user_dal.get_projects, user_email, active,
+    )
 
-    group_level_roles = await aio.ensure_io_bound(aio.PyCallable(
-        instance=authz.get_group_level_roles,
-        args=(user_email, projects),
-    ))
+    group_level_roles = await aio.ensure_io_bound(
+        authz.get_group_level_roles, user_email, projects,
+    )
 
     can_access_list = await aio.ensure_many_io_bound([
         aio.PyCallable(

@@ -14,7 +14,6 @@ from django.core.cache import cache
 from django.core.cache.backends.base import DEFAULT_TIMEOUT
 from django.http import HttpRequest, HttpResponse
 from django.views.decorators.csrf import csrf_protect
-from frozendict import frozendict
 from graphql import GraphQLError
 from graphql.type import GraphQLResolveInfo
 from rediscluster.nodemanager import RedisClusterException
@@ -476,22 +475,13 @@ def get_entity_cache_async(func: Callable[..., Any]) -> Callable[..., Any]:
         )
         key_name = key_name.lower()
         try:
-            ret = await aio.ensure_io_bound(
-                aio.PyCallable(
-                    instance=cache.get,
-                    args=(key_name,),
-                )
-            )
+            ret = await aio.ensure_io_bound(cache.get, key_name)
 
             if ret is None:
                 ret = await func(*args, **kwargs)
 
                 await aio.ensure_io_bound(
-                    aio.PyCallable(
-                        instance=cache.set,
-                        args=(key_name, ret),
-                        kwargs=frozendict(timeout=CACHE_TTL)
-                    )
+                    cache.set, key_name, ret, timeout=CACHE_TTL,
                 )
             return ret
         except RedisClusterException:
@@ -535,22 +525,13 @@ def cache_idempotent(function: Callable) -> Callable:
         )
 
         try:
-            ret = await aio.ensure_io_bound(
-                aio.PyCallable(
-                    instance=cache.get,
-                    args=(cache_key,),
-                )
-            )
+            ret = await aio.ensure_io_bound(cache.get, cache_key)
 
             if ret is None:
                 ret = await function(*args, **kwargs)
 
                 await aio.ensure_io_bound(
-                    aio.PyCallable(
-                        instance=cache.set,
-                        args=(cache_key, ret),
-                        kwargs=frozendict(timeout=CACHE_TTL)
-                    )
+                    cache.set, cache_key, ret, timeout=CACHE_TTL,
                 )
             return ret
         except RedisClusterException:
