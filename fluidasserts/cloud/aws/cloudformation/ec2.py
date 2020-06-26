@@ -372,59 +372,26 @@ def has_unrestricted_ports(
     # all security groups in templates
     security_groups: List[int] = _get_securitygroups(graph, path, exclude)
     for group in security_groups:
-        # node of resource
         resource: Dict = graph.nodes[group]
         template = graph.nodes[get_predecessor(graph, group,
                                                'CloudFormationTemplate')]
-        # nodes that could be a rule within the security group
-        rules: List[int] = list(dfs_preorder_nodes(graph, group, 5))
-        ports = [
-            x for rule in rules
-            for x in dfs_preorder_nodes(graph, rule, 5)
-            if not graph.nodes[x]['labels'].intersection(
-                {'FromPort', 'ToPort'}
-            )
-        ]
-        for node in ports:
-            from_port_node: Union[List[int], int] = [
-                x for x in dfs_preorder_nodes(graph, node, 1)
-                if 'FromPort' in graph.nodes[x]['labels']
-            ]
+        rules: List[int] = _iterate_security_group_rules_(graph, group)
 
-            to_port_node: Union[List[int], int] = [
-                x for x in dfs_preorder_nodes(graph, node, 1)
-                if 'ToPort' in graph.nodes[x]['labels']
-            ]
-            # validate if there are nodes with labels FromPor and ToPort
-            if not from_port_node or not to_port_node:
-                continue
+        for rule in rules:
+            entities = []
+            from_port, to_port = tuple(
+                map(str, (graph.nodes[rule['FromPort']]['value'],
+                          graph.nodes[rule['ToPort']]['value'])))
+            if float(from_port) != float(to_port):
+                entities.append(f'{from_port}->{to_port}')
 
-            # get the FromPort reference if it exists
-            from_port_node = get_ref_nodes(
-                graph, from_port_node[0],
-                lambda x: isinstance(x, (int, float)))[0]
-            # get the ToPort reference if it exists
-            to_port_node = get_ref_nodes(
-                graph, to_port_node[0],
-                lambda x: isinstance(x, (int, float)))[0]
-            # get the type of rule (SecurityGroupEgress,
-            #                           SecurityGroupIngress)
-            _type: str = get_type(graph, node, allow_groups)
+            _type: str = rule['type']
             resource_type: str = [
                 res for res in resource['labels']
                 if res in {'SecurityGroup', *allow_groups}
             ][-1]
             resource_type = (f'{resource_type}/{_type}'
                              if _type != resource_type else f'{resource_type}')
-            entities = []
-            from_port: str
-            to_port: str
-            from_port, to_port = tuple(
-                map(str, (graph.nodes[from_port_node]['value'],
-                          graph.nodes[to_port_node]['value'])))
-
-            if float(from_port) != float(to_port):
-                entities.append(f'{from_port}->{to_port}')
 
             vulnerabilities.extend(
                 Vulnerability(
@@ -432,7 +399,7 @@ def has_unrestricted_ports(
                     entity=(f"AWS::EC2::{resource_type}/"
                             f"FromPort->ToPort/{entity}"),
                     identifier=resource['name'],
-                    line=graph.nodes[from_port_node]['line'],
+                    line=graph.nodes[rule['FromPort']]['line'],
                     reason='Grants access over a port range')
                 for entity in entities)
     return _get_result_as_tuple(
@@ -1093,24 +1060,39 @@ def has_security_groups_ip_ranges_in_rfc1918(
 
     rfc1918 = {'10.0.0.0/8', '172.16.0.0/12', '192.168.0.0/16', }
 
-    for yaml_path, sg_name, sg_rule, sg_path, _, sg_line in \
-            _iterate_security_group_rules(path, exclude):
+    graph: DiGraph = get_graph(path, exclude)
+    vulnerabilities: List[Vulnerability] = []
+    allow_groups: Set[str] = {'SecurityGroupEgress', 'SecurityGroupIngress'}
+    security_groups: List[int] = _get_securitygroups(graph, path, exclude)
 
-        entities = []
-        with contextlib.suppress(KeyError, TypeError, ValueError):
-            if sg_rule['CidrIp'] in rfc1918 \
-                    and 'SecurityGroupIngress' in sg_path:
-                entities.append(f'{sg_name}')
-
-        vulnerabilities.extend(
-            Vulnerability(
-                path=yaml_path,
-                entity=f'{sg_path}/{entity}',
-                identifier=sg_name,
-                line=sg_line,
-                reason=('Group must restrict access to TCP port'
-                        ' 20/21 to the necessary IP addresses.'))
-            for entity in entities)
+    for group in security_groups:
+        resource: Dict = graph.nodes[group]
+        template = graph.nodes[get_predecessor(graph, group,
+                                               'CloudFormationTemplate')]
+        for rule in _iterate_security_group_rules_(graph, group):
+            cidr = rule.get('CidrIp', None)
+            if not cidr:
+                continue
+            entities = []
+            if graph.nodes[cidr]['value'] in rfc1918 \
+                    and rule['type'] == 'SecurityGroupIngress':
+                entities.append(f"rule/CidrIp/{graph.nodes[cidr]['value']}")
+            _type = rule['type']
+            resource_type: str = [
+                res for res in resource['labels']
+                if res in {'SecurityGroup', *allow_groups}
+            ][-1]
+            resource_type = (f'{resource_type}/{_type}'
+                             if _type != resource_type else f'{resource_type}')
+            vulnerabilities.extend(
+                Vulnerability(
+                    path=template['path'],
+                    entity=f'{resource_type}/{entity}',
+                    identifier=resource['name'],
+                    line=graph.nodes[cidr]['line'],
+                    reason=('Group must restrict access only to the'
+                            ' necessary private IP addresses.'))
+                for entity in entities)
 
     return _get_result_as_tuple(
         vulnerabilities=vulnerabilities,
