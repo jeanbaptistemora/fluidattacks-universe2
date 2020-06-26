@@ -42,6 +42,13 @@ export interface IUploadVulnerabilitiesResult {
   };
 }
 
+export interface IDownloadVulnerabilitiesResult {
+  downloadVulnFile: {
+    success: boolean;
+    url: string;
+  };
+}
+
 export interface IUpdateTreatmentVulnAttr {
   findingId: string;
   severity?: number;

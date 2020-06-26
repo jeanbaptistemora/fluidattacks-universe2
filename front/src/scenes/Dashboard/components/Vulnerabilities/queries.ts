@@ -74,18 +74,20 @@ export const APPROVE_VULN_MUTATION: DocumentNode = gql`
   `;
 
 export const UPLOAD_VULNERABILITIES: DocumentNode = gql`
-mutation UploadVulnerabilites ($file: Upload!, $findingId: String!){
-  uploadFile(findingId: $findingId, file: $file) {
-    success
-  }
-}`;
+  mutation UploadVulnerabilites ($file: Upload!, $findingId: String!){
+    uploadFile(findingId: $findingId, file: $file) {
+      success
+    }
+  }`
+;
 
 export const DELETE_TAGS_MUTATION: DocumentNode = gql`
-mutation DeleteTagsVuln ($findingId: String!, $tag: String, $vulnerabilities: [String]!){
-  deleteTags(findingId: $findingId, tag: $tag, vulnerabilities: $vulnerabilities) {
-    success
-  }
-}`;
+  mutation DeleteTagsVuln ($findingId: String!, $tag: String, $vulnerabilities: [String]!){
+    deleteTags(findingId: $findingId, tag: $tag, vulnerabilities: $vulnerabilities) {
+      success
+    }
+  }`
+;
 
 export const GET_PROJECT_USERS: DocumentNode = gql`
   query GetProjectUsers($projectName: String!) {
@@ -93,6 +95,15 @@ export const GET_PROJECT_USERS: DocumentNode = gql`
       users {
         email
       }
+    }
+  }
+`;
+
+export const DOWNLOAD_VULNERABILITIES: DocumentNode = gql`
+  mutation downloadVulnFile($findingId: String!) {
+    downloadVulnFile(findingId: $findingId) {
+      success
+      url
     }
   }
 `;

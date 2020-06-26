@@ -3,6 +3,7 @@
  */
 import { MutationFunction, MutationResult } from "@apollo/react-common";
 import { Mutation } from "@apollo/react-components";
+import { useMutation } from "@apollo/react-hooks";
 import { PureAbility } from "@casl/ability";
 import { useAbility } from "@casl/react";
 import { ApolloError } from "apollo-client";
@@ -21,8 +22,12 @@ import translate from "../../../../utils/translations/translate";
 import { isValidVulnsFile } from "../../../../utils/validations";
 import { GET_FINDING_HEADER } from "../../containers/FindingContent/queries";
 import { FileInput } from "../FileInput";
-import { GET_VULNERABILITIES, UPLOAD_VULNERABILITIES } from "./queries";
-import { IUploadVulnerabilitiesResult, IVulnerabilitiesViewProps } from "./types";
+import {
+  DOWNLOAD_VULNERABILITIES, GET_VULNERABILITIES, UPLOAD_VULNERABILITIES,
+} from "./queries";
+import {
+  IDownloadVulnerabilitiesResult, IUploadVulnerabilitiesResult, IVulnerabilitiesViewProps,
+} from "./types";
 
 const uploadVulnerabilities: ((props: IVulnerabilitiesViewProps) => JSX.Element) =
 (props: IVulnerabilitiesViewProps): JSX.Element => {
@@ -87,6 +92,32 @@ const uploadVulnerabilities: ((props: IVulnerabilitiesViewProps) => JSX.Element)
     });
   };
 
+  const [downloadVulnerability] = useMutation(DOWNLOAD_VULNERABILITIES, {
+    onCompleted: (result: IDownloadVulnerabilitiesResult): void => {
+      if (!_.isUndefined(result)) {
+        if (result.downloadVulnFile.success && result.downloadVulnFile.url !== "") {
+          const newTab: Window | null = window.open(result.downloadVulnFile.url);
+          (newTab as Window).opener = undefined;
+        }
+      }
+    },
+    onError: (downloadError: ApolloError): void => {
+      downloadError.graphQLErrors.forEach(({ message }: GraphQLError): void => {
+        msgError(translate.t("group_alerts.error_textsad"));
+        switch (message) {
+          case "Exception - Error Uploading File to S3":
+            rollbar.error(
+              "An error occurred downloading vuln file while uploading file to S3",
+              downloadError,
+            );
+            break;
+          default:
+            rollbar.error("An error occurred downloading vuln file", downloadError);
+        }
+      });
+    },
+  });
+
   return (
     <Mutation
       mutation={UPLOAD_VULNERABILITIES}
@@ -126,13 +157,22 @@ const uploadVulnerabilities: ((props: IVulnerabilitiesViewProps) => JSX.Element)
         }
       };
 
+      const handleDownloadVulnerability: (() => void) = (): void => {
+        downloadVulnerability({
+          variables: {
+            findingId: props.findingId,
+          },
+        });
+      };
+
       return (
         <React.Fragment>
           <Row>
             <Col md={4} sm={12}>
               <Button
                 bsStyle="default"
-                href={`https://${location.host}/integrates/${props.findingId}/download_vulnerabilities`}
+                onClick={handleDownloadVulnerability}
+                disabled={mutationResult.loading}
               >
                 <FluidIcon icon="export" />
                 &nbsp;{translate.t("search_findings.tab_description.download_vulnerabilities")}
@@ -142,7 +182,11 @@ const uploadVulnerabilities: ((props: IVulnerabilitiesViewProps) => JSX.Element)
               <FileInput icon="search" id="vulnerabilities" type=".yaml, .yml" visible={true} />
             </Col>
             <Col md={3} sm={12}>
-              <Button bsStyle="primary" onClick={handleUploadVulnerability} disabled={mutationResult.loading}>
+              <Button
+                bsStyle="primary"
+                onClick={handleUploadVulnerability}
+                disabled={mutationResult.loading}
+              >
                 <FluidIcon icon="import" />
                 &nbsp;{translate.t("search_findings.tab_description.update_vulnerabilities")}
               </Button>
