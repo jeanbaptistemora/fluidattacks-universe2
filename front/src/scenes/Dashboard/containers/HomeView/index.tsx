@@ -145,7 +145,7 @@ const homeView: React.FC<IHomeViewProps> = (props: IHomeViewProps): JSX.Element 
           <Row>
             <Col md={2} mdOffset={5}>
               <ButtonToolbar>
-                <TooltipWrapper message={translate.t("home.newGroup.new.tooltip")} placement="bottom">
+                <TooltipWrapper message={translate.t("home.newGroup.new.tooltip")}>
                   <Button onClick={openNewProjectModal}>
                     <Glyphicon glyph="plus" />&nbsp;{translate.t("home.newGroup.new.text")}
                   </Button>

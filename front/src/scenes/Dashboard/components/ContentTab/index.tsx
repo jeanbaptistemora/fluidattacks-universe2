@@ -13,7 +13,7 @@ interface IContentTabProps {
 
 const contentTab: React.FC<IContentTabProps> = (props: IContentTabProps): JSX.Element => (
   <React.StrictMode>
-    <TooltipWrapper message={props.tooltip} placement="bottom">
+    <TooltipWrapper message={props.tooltip}>
       <li id={props.id} className={style.tab}>
         <NavLink activeClassName={style.active} to={props.link}>
           <i className={props.icon} />

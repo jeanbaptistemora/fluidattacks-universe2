@@ -258,7 +258,6 @@ const descriptionView: React.FC = (): JSX.Element => {
                   <Col md={12}>
                     <TooltipWrapper
                       message={translate.t("search_findings.tab_description.title.tooltip")}
-                      placement="bottom"
                     >
                       <FormGroup>
                         <ControlLabel>

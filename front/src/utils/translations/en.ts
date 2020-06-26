@@ -793,26 +793,44 @@ const enTranslations: Dictionary = {
       groupIsRemoving: "This group is expected to be removed on <strong>{{deletionDate}}</strong>" +
         "<br />Requested by <strong>{{userEmail}}</strong>",
       group_title: "Group Indicators",
-      last_closing_vuln: "Days since last closed vulnerability",
+      last_closing_vuln: {
+        text: "Days since last closed vulnerability",
+        tooltip: "Last time you fixed a vulnerability",
+      },
       max_open_severity: "Max open severity",
       max_severity: "Max severity found",
-      mean_remediate: "Mean time to remediate",
+      mean_remediate: {
+        text: "Mean time to remediate",
+        tooltip: "Amount of time it will takes your development team to fix a vulnerability",
+      },
       open: "Open",
-      pending_closing_check: "Pending closing verification",
+      pending_closing_check: {
+        text: "Pending closing verification",
+        tooltip: "Number of vulnerabilities you addressed and are pending for Fluid Attacks validation",
+      },
       repositories: "Analyzed Repositories",
       status_graph: "Status",
       success: "Group deletion was cancelled successfully",
       tags: {
         modal_title: "Add tags information",
       },
-      total_findings: "Total Findings",
-      total_vulnerabilitites: "Total Vulnerabilities",
+      total_findings: {
+        text: "Total Findings",
+        tooltip: "Number of types of vulnerabilities that you have",
+      },
+      total_vulnerabilitites: {
+        text: "Total Vulnerabilities",
+        tooltip: "Number of times that the total findings types repeat within your system",
+      },
       treatment_accepted: "Temporarily accepted",
       treatment_accepted_undefined: "Eternally accepted",
       treatment_graph: "Treatment",
       treatment_in_progress: "In progress",
       treatment_no_defined: "Not defined",
-      undefined_treatment: "Open vulnerabilities with no defined treatment",
+      undefined_treatment: {
+        text: "Open vulnerabilities with no defined treatment",
+        tooltip: "Number of vulnerabilities that have a default treatment setting",
+      },
     },
     tab_observations: {
       tab_title: "Observations",

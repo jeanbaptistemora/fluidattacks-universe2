@@ -96,7 +96,7 @@ const renderExportCsvButton: ((toolkitProps: ToolkitProviderProps) => JSX.Elemen
   const { ExportCSVButton } = CSVExport;
 
   return (
-    <TooltipWrapper message={translate.t("group.findings.exportCsv.tooltip")} placement="bottom">
+    <TooltipWrapper message={translate.t("group.findings.exportCsv.tooltip")}>
       <div className={style.buttonWrapper}>
         <ExportCSVButton {...toolkitProps.csvProps} className={style.exportCsv}>
           <FluidIcon icon="export" />
@@ -158,7 +158,7 @@ const CustomToggleList: ((props: ICustomToggle) => JSX.Element) =
 
   return (
     <div>
-      <TooltipWrapper message={translate.t("group.findings.tableSet.btn.tooltip")} placement="bottom">
+      <TooltipWrapper message={translate.t("group.findings.tableSet.btn.tooltip")}>
         <Button onClick={handleOpenTableSetClick}>
           <Glyphicon glyph="glyphicon glyphicon-cog" />&nbsp;
           {translate.t("group.findings.tableSet.btn.text")}
@@ -218,7 +218,7 @@ const renderTable: ((toolkitProps: ToolkitProviderProps, props: ITableProps, dat
       };
 
       return (
-        <TooltipWrapper message={translate.t("dataTableNext.tooltip")} placement="bottom">
+        <TooltipWrapper message={translate.t("dataTableNext.tooltip")}>
           <Button onClick={handleUpdateEnableFilter} active={!isEnableFilter}>
             {isEnableFilter ? <Glyphicon glyph="minus"/> : <Glyphicon glyph="plus"/>}&nbsp;
             {isEnableFilter ? translate.t("dataTableNext.filterEnabled") : translate.t("dataTableNext.filterDisabled")}

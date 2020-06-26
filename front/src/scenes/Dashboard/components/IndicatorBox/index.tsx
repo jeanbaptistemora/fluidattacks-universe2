@@ -6,6 +6,7 @@ import _ from "lodash";
 import React from "react";
 import { Col, Row } from "react-bootstrap";
 import { FluidIcon } from "../../../../components/FluidIcon/index";
+import { TooltipWrapper } from "../../../../components/TooltipWrapper";
 import { default as style } from "./index.css";
 /**
  * Indicator's Box properties
@@ -17,13 +18,15 @@ interface IBoxProps {
   quantity: number | string;
   small?: boolean;
   title: string;
+  tooltip?: string;
+  tooltipPlacement?: "left" | "right" | "top";
   total?: string;
   onClick?(): void;
 }
 /**
  * Project Indicator Box
  */
-const indicatorBox: React.FunctionComponent<IBoxProps> =
+const renderIndicatorBox: ((props: IBoxProps) => JSX.Element) =
   (props: IBoxProps): JSX.Element => {
     const useSmallStyle: boolean = _.isUndefined(props.small) ? false : props.small;
 
@@ -34,49 +37,63 @@ const indicatorBox: React.FunctionComponent<IBoxProps> =
     };
 
     return (
-     <React.StrictMode>
-        <div
-            className={style.widgetbox}
-            data-toggle="tooltip"
-            data-placement="top"
-            title={props.title}
-            onClick={handleClick}
-        >
-            <Row>
-            <Col xs={2} md={2}>
-                <FluidIcon icon={props.icon} width="30px" height="30px"/>
-            </Col>
-            <Col xs={10} md={10}>
-                <div className={style.widgetdesc} >
-                {props.name}
-                </div>
-            </Col>
-            </Row>
-            <hr />
-            <Row>
-            <div
-              data-toggle="counter"
-              className={useSmallStyle ? style.widgetvaluesmall : style.widgetvalue}
-            >
-                { _.isUndefined(props.total)
-                ? <React.Fragment>
-                    {props.quantity}
-                    </React.Fragment>
-                : <React.Fragment>
-                    {props.quantity} <sup>{props.total}</sup>
-                    </React.Fragment>
-                }
-                <br />
-                { _.isUndefined(props.description)
-                ? <React.Fragment />
-                : <React.Fragment>
-                    <text className={style.widgetdescription}>{props.description}</text>
-                  </React.Fragment>
-                }
+      <div
+        className={style.widgetbox}
+        data-toggle="tooltip"
+        data-placement="top"
+        title={props.title}
+        onClick={handleClick}
+      >
+        <Row>
+          <Col xs={2} md={2}>
+            <FluidIcon icon={props.icon} width="30px" height="30px"/>
+          </Col>
+          <Col xs={10} md={10}>
+            <div className={style.widgetdesc} >
+              {props.name}
             </div>
-            </Row>
-        </div>
-    </React.StrictMode>
+          </Col>
+        </Row>
+        <hr />
+        <Row>
+          <div
+            data-toggle="counter"
+            className={useSmallStyle ? style.widgetvaluesmall : style.widgetvalue}
+          >
+            { _.isUndefined(props.total)
+            ? <React.Fragment>
+              {props.quantity}
+              </React.Fragment>
+            : <React.Fragment>
+              {props.quantity} <sup>{props.total}</sup>
+              </React.Fragment>
+            }
+          <br />
+          { _.isUndefined(props.description)
+            ? <React.Fragment />
+            : <React.Fragment>
+                <text className={style.widgetdescription}>{props.description}</text>
+            </React.Fragment>
+          }
+          </div>
+        </Row>
+      </div>
+    );
+  };
+
+const indicatorBox: React.FunctionComponent<IBoxProps> =
+  (props: IBoxProps): JSX.Element => {
+    const { tooltip , tooltipPlacement } = props;
+    const render: JSX.Element = renderIndicatorBox(props);
+
+    return (_.isUndefined(tooltip)
+      ? <React.StrictMode children={render}/>
+      : <React.StrictMode>
+          <TooltipWrapper
+            message={tooltip}
+            placement={tooltipPlacement}
+            children={render}/>
+      </React.StrictMode>
     );
 };
 

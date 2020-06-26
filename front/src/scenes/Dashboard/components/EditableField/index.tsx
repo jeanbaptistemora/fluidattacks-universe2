@@ -63,7 +63,7 @@ const renderVertical: ((props: EditableFieldProps) => JSX.Element) =
         { tooltip === undefined ? (
           renderAsEditable ? <Field {...fieldProps} /> : renderCurrentValue(currentValue)
           ) : (
-          <TooltipWrapper message={tooltip} placement={ tooltipPlacement === undefined ? "bottom" : tooltipPlacement}>
+          <TooltipWrapper message={tooltip} placement={tooltipPlacement}>
             {renderAsEditable ? <Field {...fieldProps} /> : renderCurrentValue(currentValue)}
           </TooltipWrapper>)
         }

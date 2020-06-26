@@ -590,7 +590,7 @@ const tagsInfo: React.FC<TagsProps> = (props: TagsProps): JSX.Element => {
         <Col md={3} sm={12} xs={12}>
           <IndicatorBox
             icon="graph"
-            name={translate.t("search_findings.tab_indicators.mean_remediate")}
+            name={translate.t("search_findings.tab_indicators.mean_remediate.text")}
             quantity={_.round(data.tag.meanRemediate, 1)}
             title=""
             total={translate.t("search_findings.tab_indicators.days")}
@@ -623,7 +623,7 @@ const tagsInfo: React.FC<TagsProps> = (props: TagsProps): JSX.Element => {
         <Col md={3} sm={12} xs={12}>
           <IndicatorBox
             icon="calendar"
-            name={translate.t("search_findings.tab_indicators.last_closing_vuln")}
+            name={translate.t("search_findings.tab_indicators.last_closing_vuln.text")}
             quantity={_.round(data.tag.lastClosingVuln, 1)}
             title=""
             total=""

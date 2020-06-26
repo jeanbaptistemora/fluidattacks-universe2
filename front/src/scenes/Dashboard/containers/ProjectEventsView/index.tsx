@@ -232,7 +232,7 @@ const projectEventsView: React.FunctionComponent<EventsViewProps> = (props: Even
                   <Col md={2} mdOffset={5}>
                     <ButtonToolbar>
                       <Can do="backend_api_resolvers_event__do_create_event">
-                        <TooltipWrapper message={translate.t("group.events.btn.tooltip")} placement="bottom">
+                        <TooltipWrapper message={translate.t("group.events.btn.tooltip")}>
                           <Button onClick={openNewEventModal}>
                             <Glyphicon glyph="plus" />&nbsp;{translate.t("group.events.btn.text")}
                           </Button>

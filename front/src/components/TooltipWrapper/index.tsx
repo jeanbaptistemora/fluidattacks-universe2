@@ -5,7 +5,7 @@ import { default as style } from "./index.css";
 interface ITooltipWrapperProps {
   children: React.ReactNode;
   message: string;
-  placement: "top" | "bottom" | "right" | "left";
+  placement?: "left" | "right" | "top";
 }
 
 const tooltipWrapper: React.FunctionComponent<ITooltipWrapperProps> = (props: ITooltipWrapperProps): JSX.Element => (
@@ -15,7 +15,7 @@ const tooltipWrapper: React.FunctionComponent<ITooltipWrapperProps> = (props: IT
       delayHide={150}
       delayShow={300}
       overlay={<Tooltip className={style.tooltip} id={`tt-${props.placement}`}>{props.message}</Tooltip>}
-      placement={props.placement}
+      placement={ props.placement === undefined ? "bottom" : props.placement }
     >
       {props.children}
     </OverlayTrigger>

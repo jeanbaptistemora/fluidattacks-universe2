@@ -168,9 +168,10 @@ const indicatorsView: React.FC<IIndicatorsViewBaseProps> = (props: IIndicatorsVi
                         <Col md={6} sm={12} xs={12}>
                           <IndicatorBox
                             icon="findings"
-                            name={translate.t("search_findings.tab_indicators.total_findings")}
+                            name={translate.t("search_findings.tab_indicators.total_findings.text")}
                             quantity={data.project.totalFindings}
                             title=""
+                            tooltip={translate.t("search_findings.tab_indicators.total_findings.tooltip")}
                             total=""
                             onClick={goToProjectFindings}
                           />
@@ -178,9 +179,10 @@ const indicatorsView: React.FC<IIndicatorsViewBaseProps> = (props: IIndicatorsVi
                         <Col md={6} sm={12} xs={12}>
                           <IndicatorBox
                             icon="vulnerabilities"
-                            name={translate.t("search_findings.tab_indicators.total_vulnerabilitites")}
+                            name={translate.t("search_findings.tab_indicators.total_vulnerabilitites.text")}
                             quantity={totalVulnerabilities}
                             title=""
+                            tooltip={translate.t("search_findings.tab_indicators.total_vulnerabilitites.tooltip")}
                             total=""
                             onClick={goToProjectFindings}
                           />
@@ -188,9 +190,10 @@ const indicatorsView: React.FC<IIndicatorsViewBaseProps> = (props: IIndicatorsVi
                         <Col md={6} sm={12} xs={12}>
                           <IndicatorBox
                             icon="totalVulnerabilities"
-                            name={translate.t("search_findings.tab_indicators.pending_closing_check")}
+                            name={translate.t("search_findings.tab_indicators.pending_closing_check.text")}
                             quantity={data.project.pendingClosingCheck}
                             title=""
+                            tooltip={translate.t("search_findings.tab_indicators.pending_closing_check.tooltip")}
                             total=""
                             onClick={goToProjectPendingFindings}
                           />
@@ -198,9 +201,10 @@ const indicatorsView: React.FC<IIndicatorsViewBaseProps> = (props: IIndicatorsVi
                         <Col md={6} sm={12} xs={12}>
                           <IndicatorBox
                             icon="calendar"
-                            name={translate.t("search_findings.tab_indicators.last_closing_vuln")}
+                            name={translate.t("search_findings.tab_indicators.last_closing_vuln.text")}
                             quantity={data.project.lastClosingVuln}
                             title=""
+                            tooltip={translate.t("search_findings.tab_indicators.last_closing_vuln.tooltip")}
                             total=""
                             onClick={goToProjectFindingTracking}
                           />
@@ -208,9 +212,10 @@ const indicatorsView: React.FC<IIndicatorsViewBaseProps> = (props: IIndicatorsVi
                         <Col md={6} sm={12} xs={12}>
                           <IndicatorBox
                             icon="integrityHigh"
-                            name={translate.t("search_findings.tab_indicators.undefined_treatment")}
+                            name={translate.t("search_findings.tab_indicators.undefined_treatment.text")}
                             quantity={undefinedTreatment}
                             title=""
+                            tooltip={translate.t("search_findings.tab_indicators.undefined_treatment.tooltip")}
                             total=""
                             onClick={goToProjectNewTreatmentFindings}
                           />
@@ -218,9 +223,10 @@ const indicatorsView: React.FC<IIndicatorsViewBaseProps> = (props: IIndicatorsVi
                         <Col md={6} sm={12} xs={12}>
                           <IndicatorBox
                             icon="graph"
-                            name={translate.t("search_findings.tab_indicators.mean_remediate")}
+                            name={translate.t("search_findings.tab_indicators.mean_remediate.text")}
                             quantity={data.project.meanRemediate}
                             title=""
+                            tooltip={translate.t("search_findings.tab_indicators.mean_remediate.tooltip")}
                             total={translate.t("search_findings.tab_indicators.days")}
                             onClick={goToProjectFindings}
                           />

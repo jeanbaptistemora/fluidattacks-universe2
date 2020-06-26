@@ -242,7 +242,6 @@ const projectUsersView: React.FC<IProjectUsersViewProps> = (props: IProjectUsers
                   <Can do="backend_api_resolvers_user__do_grant_user_access">
                     <TooltipWrapper
                       message={translate.t("search_findings.tab_users.add_button.tooltip")}
-                      placement="bottom"
                     >
                       <Button id="addUser" onClick={openAddUserModal}>
                         <Glyphicon glyph="plus" />
@@ -253,7 +252,6 @@ const projectUsersView: React.FC<IProjectUsersViewProps> = (props: IProjectUsers
                   <Can do="backend_api_resolvers_user__do_edit_user">
                     <TooltipWrapper
                       message={translate.t("search_findings.tab_users.edit_button.tooltip")}
-                      placement="bottom"
                     >
                       <Button id="editUser" onClick={openEditUserModal} disabled={_.isEmpty(currentRow)}>
                         <FluidIcon icon="edit" />
@@ -264,7 +262,6 @@ const projectUsersView: React.FC<IProjectUsersViewProps> = (props: IProjectUsers
                   <Can do="backend_api_resolvers_user__do_remove_user_access">
                     <TooltipWrapper
                       message={translate.t("search_findings.tab_users.remove_user_button.tooltip")}
-                      placement="bottom"
                     >
                       <Button
                         id="removeUser"

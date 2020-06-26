@@ -312,7 +312,7 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
             <Row>
               <Col md={2} mdOffset={5}>
                 <ButtonToolbar className={style.reportsBtn}>
-                  <TooltipWrapper message={translate.t("group.findings.report.btn.tooltip")} placement="bottom">
+                  <TooltipWrapper message={translate.t("group.findings.report.btn.tooltip")}>
                     <Button onClick={openReportsModal}>{translate.t("group.findings.report.btn.text")}</Button>
                   </TooltipWrapper>
                 </ButtonToolbar>

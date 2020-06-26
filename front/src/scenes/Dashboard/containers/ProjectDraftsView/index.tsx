@@ -173,7 +173,7 @@ const projectDraftsView: React.FC<IProjectDraftsBaseProps> = (props: IProjectDra
                 <Row>
                   <Col md={2} mdOffset={5}>
                     <ButtonToolbar>
-                      <TooltipWrapper message={translate.t("group.drafts.btn.tooltip")} placement="bottom">
+                      <TooltipWrapper message={translate.t("group.drafts.btn.tooltip")}>
                         <Button onClick={openNewDraftModal}>
                           <Glyphicon glyph="plus" />&nbsp;{translate.t("group.drafts.btn.text")}
                         </Button>
