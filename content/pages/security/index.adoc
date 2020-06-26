@@ -1,6 +1,6 @@
 :slug: security/
-:description: This page summarizes all the best practices and technology Fluid Attacks implements in order to keep internal products and customer data secure. It goes from philosophies as having open source code, to particular ciphering algorithms used and internal behavioral policies.
-:keywords: Fluid Attacks, Security, Data, Policy, Breach, Best practices
+:description: These are the best practices and technology implemented by Fluid Attacks to keep internal products and customer data secure.
+:keywords: Fluid Attacks, Security, Data, Policy, Breach, Best Practices
 :subtitle: How we keep things secure
 
 = Security

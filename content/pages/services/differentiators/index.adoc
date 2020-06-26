@@ -1,7 +1,7 @@
 :slug: services/differentiators/
 :category: services
-:description: Our Ethical Hacking and Pentesting services seek to find and report all the present security vulnerabilities in your application. It is important to distinguish between a penetration testing performed by Fluid Attacks and a vulnerability analysis using automated tools.
-:keywords: Fluid Attacks, Ethical Hacking, Pentesting, Analysis, Vulnerabilities, Comparison.
+:description: We're an Ethical Hacking and Pentesting company offering services to identify cybersecurity vulnerabilities. Find here what differentiates us from competitors.
+:keywords: Fluid Attacks, Ethical Hacking, Pentesting, Differentiators, Cybersecurity
 :yes: image:../../images/icons/yes.png[yes]
 :no: image:../../images/icons/no.png[no]
 

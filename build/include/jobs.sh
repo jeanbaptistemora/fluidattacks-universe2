@@ -117,7 +117,7 @@ function job_test_generic {
   local all_content_files
   local touched_adoc_files
   local max_columns='81'
-  local min_words='10'
+  local min_words='1'
   local max_words='4500'
   local max_lix='65'
 

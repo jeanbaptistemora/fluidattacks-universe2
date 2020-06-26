@@ -1,6 +1,6 @@
 :slug: products/drills/
-:description: The rigorous inspection carried out makes it possible to detect all security issues with no false positives and no false negatives, and to check if the issues have been repaired before the system goes into production. Drills finds deep and zero-day vulnerabilities during software development.
-:keywords: Fluid Attacks, Products, Drills, Ethical Hacking, Pentesting, Security.
+:description: Drills finds deep and zero-day vulnerabilities during the software development lifecycle with no false positives and no false negatives.
+:keywords: Fluid Attacks, Products, Drills, Ethical Hacking, Pentesting, Security
 :template: products/drills
 
 = Drills

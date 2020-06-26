@@ -1,6 +1,6 @@
 :slug: use-cases/one-shot-hacking/
-:description: In this page we present our One Shot Hacking service, which aims to detect and report all vulnerabilities and security issues within your application. The rigorous inspection of our team allow us to detect all existing security findings with no false positives.
-:keywords: Fluid Attacks, Services, Ethical Hacking, Pentesting, Security, Application.
+:description: Our One-Shot Hacking service reports security vulnerabilities in specific versions of your applications.
+:keywords: Fluid Attacks, Services, Ethical Hacking, Security, Application, Vulnerabilities, One-Shot Hacking
 :template: use-cases/one-shot
 
 = One-Shot Hacking

@@ -1,6 +1,6 @@
 :slug: resources/
-:description: The purpose of this page is to present resources of Fluid Attacks. Here are Rules and Asserts, and the datasheets of our products: Drills, Forces, and Integrates. Besides, all the annual reports will appear. Users who visit our website can download all the elements presented here.
-:keywords: Fluid Attacks, Products, Software, Documentation, Security, Information.
+:description: Here are Fluid Attacks' Resources. These are documents like annual reports, ebooks, webinars, and other content that can help you learn about cybersecurity.
+:keywords: Fluid Attacks, Resources, Documentation, Security, Information, Annual Reports, Rules, Asserts
 
 = Resources
 

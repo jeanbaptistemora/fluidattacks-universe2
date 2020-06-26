@@ -1,6 +1,6 @@
 :slug: asserts/
-:description: The purpose of this page is to present the Fluid Attacks's tool, Asserts. Asserts is an open-source tool that looks for deterministic and peripheral vulnerabilities, and that automates attacks to verify the status of vulnerabilities on different systems.
-:keywords: Fluid Attacks, Products, Asserts, Ethical Hacking, Pentesting, Security.
+:description: Fluid Attacks presents Asserts, an open-source tool that looks for deterministic and peripheral vulnerabilities verifying their status by automated attacks.
+:keywords: Fluid Attacks, Resources, Asserts, Security, Vulnerabilities, Automated Attacks
 :assertsindex: yes
 
 = Asserts
