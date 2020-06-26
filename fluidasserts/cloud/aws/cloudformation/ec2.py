@@ -7,7 +7,7 @@ stelligent/cfn_nag/blob/master/LICENSE.md>`_
 """
 
 # Standard imports
-from ipaddress import IPv4Network, IPv6Network, AddressValueError
+from ipaddress import IPv4Network, IPv6Network
 import contextlib
 from typing import List, Optional, Tuple, Dict, Set, Union
 
@@ -33,36 +33,7 @@ from fluidasserts.cloud.aws.cloudformation import (
 from fluidasserts.utils.decorators import api, unknown_if
 
 
-def _iterate_security_group_rules(
-        path: str, exclude: Optional[List[str]] = None):
-    """Iterate over the different security groups entities in the template."""
-    for yaml_path, sg_name, sg_props in helper.iterate_rsrcs_in_cfn_template(
-            starting_path=path,
-            resource_types=[
-                'AWS::EC2::SecurityGroup',
-            ],
-            exclude=exclude):
-        sg_type = sg_props['../Type']
-        sg_line = helper.get_line(sg_props)
-        for sg_flow in ('SecurityGroupEgress', 'SecurityGroupIngress'):
-            for sg_rule in sg_props.get(sg_flow, []):
-                sg_path = f'{sg_type}/{sg_flow}'
-                yield yaml_path, sg_name, sg_rule, sg_path, sg_flow, sg_line
-
-    for yaml_path, sg_name, sg_rule in helper.iterate_rsrcs_in_cfn_template(
-            starting_path=path,
-            resource_types=[
-                'AWS::EC2::SecurityGroupEgress',
-                'AWS::EC2::SecurityGroupIngress',
-            ],
-            exclude=exclude):
-        sg_path = sg_rule['../Type']
-        sg_flow = sg_path.replace('AWS::EC2::', '')
-        sg_line = helper.get_line(sg_rule)
-        yield yaml_path, sg_name, sg_rule, sg_path, sg_flow, sg_line
-
-
-def _iterate_security_group_rules_(graph: DiGraph, group: int):
+def _iterate_security_group_rules(graph: DiGraph, group: int):
     """Iterate over the different security groups entities in the template."""
     allow_groups: Set[str] = {'SecurityGroupEgress', 'SecurityGroupIngress'}
     cidrs: List[int] = [
@@ -235,7 +206,7 @@ def has_unrestricted_cidrs(path: str,
         template: Dict = graph.nodes[get_predecessor(graph, group,
                                                      'CloudFormationTemplate')]
         resource: Dict = graph.nodes[group]
-        rules: List[Dict] = _iterate_security_group_rules_(graph, group)
+        rules: List[Dict] = _iterate_security_group_rules(graph, group)
 
         for rule in rules:
             cidr_ip = None
@@ -317,7 +288,7 @@ def has_unrestricted_ip_protocols(
         resource: Dict = graph.nodes[group]
         template: Dict = graph.nodes[get_predecessor(graph, group,
                                                      'CloudFormationTemplate')]
-        for rule in _iterate_security_group_rules_(graph, group):
+        for rule in _iterate_security_group_rules(graph, group):
             _type: str = rule['type']
             resource_type: str = [
                 res for res in resource['labels']
@@ -375,7 +346,7 @@ def has_unrestricted_ports(
         resource: Dict = graph.nodes[group]
         template = graph.nodes[get_predecessor(graph, group,
                                                'CloudFormationTemplate')]
-        rules: List[int] = _iterate_security_group_rules_(graph, group)
+        rules: List[int] = _iterate_security_group_rules(graph, group)
 
         for rule in rules:
             entities = []
@@ -925,7 +896,7 @@ def has_unrestricted_dns_access(
         resource: Dict = graph.nodes[group]
         template = graph.nodes[get_predecessor(graph, group,
                                                'CloudFormationTemplate')]
-        for rule in _iterate_security_group_rules_(graph, group):
+        for rule in _iterate_security_group_rules(graph, group):
             cidr = rule.get('CidrIp', None) or rule.get('CidrIpv6', None)
             is_public_cidr = graph.nodes[cidr]['value'] in ('::/0',
                                                             '0.0.0.0/0')
@@ -994,7 +965,7 @@ def has_unrestricted_ftp_access(
         resource: Dict = graph.nodes[group]
         template = graph.nodes[get_predecessor(graph, group,
                                                'CloudFormationTemplate')]
-        for rule in _iterate_security_group_rules_(graph, group):
+        for rule in _iterate_security_group_rules(graph, group):
             cidr = rule.get('CidrIp', None) or rule.get('CidrIpv6', None)
             is_public_cidr = graph.nodes[cidr]['value'] in ('::/0',
                                                             '0.0.0.0/0')
@@ -1069,7 +1040,7 @@ def has_security_groups_ip_ranges_in_rfc1918(
         resource: Dict = graph.nodes[group]
         template = graph.nodes[get_predecessor(graph, group,
                                                'CloudFormationTemplate')]
-        for rule in _iterate_security_group_rules_(graph, group):
+        for rule in _iterate_security_group_rules(graph, group):
             cidr = rule.get('CidrIp', None)
             if not cidr:
                 continue
@@ -1114,37 +1085,44 @@ def has_open_all_ports_to_the_public(
               - ``CLOSED`` otherwise.
     :rtype: :class:`fluidasserts.Result`
     """
-    vulnerabilities: List = []
-    unrestricted_ipv4 = IPv4Network('0.0.0.0/0')
-    unrestricted_ipv6 = IPv6Network('::/0')
-    for yaml_path, sg_name, sg_rule, sg_path, _, sg_line in \
-            _iterate_security_group_rules(path, exclude):
+    vulnerabilities: list = []
 
-        entities: List = []
+    graph: DiGraph = get_graph(path, exclude)
+    vulnerabilities: List[Vulnerability] = []
+    allow_groups: Set[str] = {'SecurityGroupEgress', 'SecurityGroupIngress'}
+    security_groups: List[int] = _get_securitygroups(graph, path, exclude)
 
-        with contextlib.suppress(KeyError, TypeError, ValueError,
-                                 AddressValueError):
-            from_port, to_port = tuple(map(
-                float, (sg_rule['FromPort'], sg_rule['ToPort'])))
-            ipv4: str = sg_rule.get('CidrIp', '')
-            ipv6: str = sg_rule.get('CidrIpv6', '')
-            if ipv4:
-                ipv4_obj: IPv4Network = IPv4Network(ipv4, strict=False)
-            else:
-                ipv6_obj: IPv6Network = IPv6Network(ipv6, strict=False)
-            if (from_port == 1 and to_port == 65535) \
-                    and (ipv4_obj == unrestricted_ipv4
-                         or ipv6_obj == unrestricted_ipv6):
+    for group in security_groups:
+        resource: Dict = graph.nodes[group]
+        template = graph.nodes[get_predecessor(graph, group,
+                                               'CloudFormationTemplate')]
+        for rule in _iterate_security_group_rules(graph, group):
+            cidr = rule.get('CidrIp', None) or rule.get('CidrIpv6', None)
+            is_public_cidr = graph.nodes[cidr]['value'] in ('::/0',
+                                                            '0.0.0.0/0')
+            if not is_public_cidr:
+                continue
+            entities = []
+            from_port, to_port = tuple(
+                map(float, (graph.nodes[rule['FromPort']]['value'],
+                            graph.nodes[rule['ToPort']]['value'])))
+            _type = rule['type']
+            resource_type: str = [
+                res for res in resource['labels']
+                if res in {'SecurityGroup', *allow_groups}
+            ][-1]
+            resource_type = (f'{resource_type}/{_type}'
+                             if _type != resource_type else f'{resource_type}')
+            if (from_port == 1 and to_port == 65535):
                 entities.append(f'{from_port}->{to_port}')
-
-        vulnerabilities.extend(
-            Vulnerability(
-                path=yaml_path,
-                entity=f'{sg_path}/FromPort->ToPort/{entity}',
-                identifier=sg_name,
-                line=sg_line,
-                reason='Grants public access to all ports')
-            for entity in entities)
+            vulnerabilities.extend(
+                Vulnerability(
+                    path=template['path'],
+                    entity=f'{resource_type}/FromPort->ToPort/{entity}',
+                    identifier=resource['name'],
+                    line=graph.nodes[rule['FromPort']]['line'],
+                    reason='Grants public access to all ports')
+                for entity in entities)
 
     return _get_result_as_tuple(
         vulnerabilities=vulnerabilities,
