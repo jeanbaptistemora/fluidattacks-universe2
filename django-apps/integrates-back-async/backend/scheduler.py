@@ -689,7 +689,9 @@ async def get_project_indicators(project: str) -> Dict[str, object]:
 async def update_indicators():
     """Update in dynamo indicators."""
     rollbar.report_message(
-        'Warning: Function to update indicators in DynamoDB is running', 'warning')
+        'Warning: Function to update indicators in DynamoDB is running',
+        'warning'
+    )
     projects = await sync_to_async(project_domain.get_active_projects)()
     project_indicators = await asyncio.gather(*[
         asyncio.create_task(
@@ -700,26 +702,33 @@ async def update_indicators():
     for project in projects:
         indicators = project_indicators.pop(0)
         try:
-            response = await sync_to_async(project_dal.update)(project, indicators)
+            response = await sync_to_async(project_dal.update)(
+                project, indicators
+            )
             if response:
                 util.invalidate_cache(project)
             else:
                 rollbar.report_message(
-                    'Error: An error ocurred updating indicators of '
-                    'the project {project} in dynamo'.format(project=project),
-                    'error')
+                    ('Error: An error ocurred updating indicators of '
+                     f'the project {project} in dynamo'),
+                    'error'
+                )
         except ClientError:
             rollbar.report_message(
-                'Error: An error ocurred updating '
-                'indicators of the project {project}'.format(project=project),
-                'error')
+                ('Error: An error ocurred updating '
+                 f'indicators of the project {project}'),
+                'error'
+            )
 
 
 @async_to_sync
 async def reset_expired_accepted_findings():
     """ Update treatment if acceptance date expires """
-    rollbar.report_message('Warning: Function to update treatment if'
-                           'acceptance date expires is running', 'warning')
+    rollbar.report_message(
+        ('Warning: Function to update treatment if'
+         'acceptance date expires is running'),
+        'warning'
+    )
     today = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     projects = await sync_to_async(project_domain.get_active_projects)()
     list_findings = await asyncio.gather(*[
@@ -743,12 +752,21 @@ async def reset_expired_accepted_findings():
         for finding in findings:
             finding_id = finding.get('findingId')
             historic_treatment = finding.get('historicTreatment', [{}])
-            is_accepted_expired = historic_treatment[-1].get('acceptance_date', today) < today
+            is_accepted_expired = (
+                historic_treatment[-1].get('acceptance_date', today) < today
+            )
             is_undefined_accepted_expired = (
-                historic_treatment[-1].get('treatment') == 'ACCEPTED_UNDEFINED' and
-                historic_treatment[-1].get('acceptance_status') == 'SUBMITTED' and
-                datetime.strptime(historic_treatment[-1].get('date'), "%Y-%m-%d %H:%M:%S")
-                + timedelta(days=5) <= datetime.strptime(today, "%Y-%m-%d %H:%M:%S"))
+                (historic_treatment[-1].get('treatment') ==
+                 'ACCEPTED_UNDEFINED') and
+                (historic_treatment[-1].get('acceptance_status') ==
+                 'SUBMITTED') and
+                (
+                    datetime.strptime(
+                        historic_treatment[-1].get('date'),
+                        "%Y-%m-%d %H:%M:%S"
+                    ) + timedelta(days=5)
+                ) <= datetime.strptime(today, "%Y-%m-%d %H:%M:%S")
+            )
             if is_accepted_expired or is_undefined_accepted_expired:
                 updated_values = {'treatment': 'NEW'}
                 task = asyncio.create_task(
@@ -764,8 +782,11 @@ async def reset_expired_accepted_findings():
 @async_to_sync
 async def delete_pending_projects():
     """ Delete pending to delete projects """
-    rollbar.report_message('Warning: Function to delete projects if '
-                           'deletion_date expires is running', 'warning')
+    rollbar.report_message(
+        ('Warning: Function to delete projects if '
+         'deletion_date expires is running'),
+        'warning'
+    )
     today = datetime.now()
     projects = await sync_to_async(project_domain.get_pending_to_delete)()
     remove_project_tasks = []
@@ -773,7 +794,8 @@ async def delete_pending_projects():
         historic_deletion = project.get('historic_deletion', [{}])
         last_state = historic_deletion[-1]
         deletion_date = last_state.get(
-            'deletion_date', today.strftime('%Y-%m-%d %H:%M:%S'))
+            'deletion_date', today.strftime('%Y-%m-%d %H:%M:%S')
+        )
         deletion_date = datetime.strptime(deletion_date, '%Y-%m-%d %H:%M:%S')
         if deletion_date < today:
             task = asyncio.create_task(
@@ -789,8 +811,11 @@ async def delete_pending_projects():
 @async_to_sync
 async def update_tags_indicators():
     """Update tag indicators in dynamo."""
-    rollbar.report_message('Warning: Function to update tag'
-                           'indicators in DynamoDB is running', 'warning')
+    rollbar.report_message(
+        ('Warning: Function to update tag'
+         'indicators in DynamoDB is running'),
+        'warning'
+    )
     projects = await sync_to_async(project_domain.get_active_projects)()
     projects = await asyncio.gather(*[
         asyncio.create_task(
@@ -807,8 +832,12 @@ async def update_tags_indicators():
     }
     for organization in all_organization:
         try:
-            await tag_domain.update_organization_indicators(organization, projects)
+            await tag_domain.update_organization_indicators(
+                organization, projects
+            )
         except ClientError:
             rollbar.report_message(
-                'Error: An error ocurred updating tag '
-                f'indicators of organizaion {organization}', 'error')
+                ('Error: An error ocurred updating tag '
+                 f'indicators of organizaion {organization}'),
+                'error'
+            )
