@@ -1,7 +1,7 @@
 :slug: events/
 :category: about-us
-:description: This page aims to inform the customer about the different talks offered by Fluid Attacks. These talks are all related to the field of Information Security and are prepared by experienced professionals. Learn how to book one of our speakers to give a talk in your own facilities.
-:keywords: Fluid Attacks, Talk, Security, Experience, Information, Service
+:description: As cybersecurity experts, we offer talks related to the security information field. Fluid Attacks can help you with your next conference. Check our options.
+:keywords: Fluid Attacks, Talk, Security, Experts, Cybersecurity, Conference, Events
 
 = Events
 

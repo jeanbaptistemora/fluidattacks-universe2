@@ -51,7 +51,7 @@ function helper_generic_adoc_main_title {
 function helper_generic_adoc_min_keywords {
   local file="${1}"
   local tag=':keywords:'
-  local min_keywords='6'
+  local min_keywords='5'
   local keywords
 
       helper_file_exists "${file}" \
@@ -214,8 +214,8 @@ function helper_generic_adoc_others {
     [error_metadata_lowercase]='All metadata must be lowercase'
     [regex_no_monospace_header]='^=+ \+.+\+.*'
     [error_no_monospace_header]='Headers must not have monospaces'
-    [regex_description_char_range]='(?<=^:description: )(.{0,249}|.{301,})$'
-    [error_description_char_range]='Descriptions must be in the 250-300 character range'
+    [regex_description_char_range]='(?<=^:description: )(.{0,49}|.{161,})$'
+    [error_description_char_range]='Descriptions must be in the 50-160 character range'
     [regex_local_relative_paths]='link:http(s)?://fluidattacks.com/web'
     [error_local_relative_paths]='Local URLs must use relative paths'
     [regex_only_autonomic_com]='autonomicmind.co(?!m)'

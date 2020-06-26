@@ -1,7 +1,7 @@
 :slug: partners/terms/
 :category: partners
-:description: Terms of the contractual relationship between Fluid Attacks and its PARTNERS. Commissions, cut-off dates,  and goals to be achieved to stay within a commission range are specified, among other aspects. These can change at any time and are established only by signing the physical document.
-:keywords: Fluid Attacks, Partners, Pentesting, Terms, Agreement, Information Security.
+:description: If you're interested in becoming one of Fluid Attacks Partners, find here the terms of our general partner agreement.
+:keywords: Fluid Attacks, Partners, Pentesting, Terms, Agreement, Information Security, Securtiy Testing, Partners Terms
 :partnerspage: yes
 
 = Partners Terms

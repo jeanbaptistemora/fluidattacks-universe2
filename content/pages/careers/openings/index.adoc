@@ -1,7 +1,7 @@
 :slug: careers/openings/
 :category: careers
-:description: The main goal of the following page is to inform potential talents and people interested in working with us about our selection process. Here we describe the desired profiles and available job openings in our company. If you fit any of them, do not hesitate to apply for it.
-:keywords: Fluid Attacks, Careers, Position, Profile, Selection, Process.
+:description: The following are Fluid Attacks' job openings. Do not hesitate to apply now!
+:keywords: Fluid Attacks, Careers, Profile, Selection, Process, Job, Developer, Ethical Hacker, Web Developer, Pentester
 
 = Openings
 
