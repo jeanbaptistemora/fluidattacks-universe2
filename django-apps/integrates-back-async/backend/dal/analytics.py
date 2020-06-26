@@ -11,13 +11,12 @@ from backend.utils import (
 from __init__ import (
     CI_COMMIT_REF_NAME,
     FI_AWS_S3_ANALYTICS_BUCKET as BUCKET_ANALYTICS,
-    FI_ENVIRONMENT,
 )
 
 
 @apm.trace()
 async def get_document(key: str) -> str:
-    key = f'{FI_ENVIRONMENT}/{CI_COMMIT_REF_NAME}/documents/{key}'
+    key = f'{CI_COMMIT_REF_NAME}/documents/{key}'
 
     with io.BytesIO() as stream:
 

@@ -36,7 +36,11 @@ from backend.domain import (
 from backend.domain.vulnerability import (
     get_vulnerabilities_by_type, get_vulnerabilities
 )
-from backend.decorators import authenticate, cache_content
+from backend.decorators import (
+    authenticate,
+    cache_content,
+    require_login,
+)
 from backend.dal import (
     finding as finding_dal, user as user_dal
 )
@@ -181,7 +185,7 @@ def app(request):
 
 
 @csrf_exempt
-@authenticate
+@require_login
 @require_http_methods(['GET'])
 @async_to_sync
 async def graphic(request: HttpRequest) -> HttpResponse:

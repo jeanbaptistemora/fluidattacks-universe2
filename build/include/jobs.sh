@@ -639,9 +639,7 @@ function job_analytics_prod {
 function _job_analytics_all {
   export CI_COMMIT_REF_NAME
   export DJANGO_SETTINGS_MODULE='fluidintegrates.settings' \
-  export ENVIRONMENT
   export PYTHONPATH="${PWD}:${PWD}/analytics:${PYTHONPATH}" \
-  local env="${ENVIRONMENT}/${CI_COMMIT_REF_NAME}"
   local remote_bucket='fluidintegrates.analytics'
 
       find 'analytics/generators' -wholename '*.py' \
@@ -653,9 +651,9 @@ function _job_analytics_all {
   &&  echo '[INFO] Collecting snapshots' \
   &&  python3 analytics/collector/execute.py \
   &&  aws s3 sync --delete \
-        'analytics/collector' "s3://${remote_bucket}/${env}/snapshots" \
+        'analytics/collector' "s3://${remote_bucket}/${CI_COMMIT_REF_NAME}/snapshots" \
   &&  aws s3 sync --delete \
-        'analytics/generators' "s3://${remote_bucket}/${env}/documents" \
+        'analytics/generators' "s3://${remote_bucket}/${CI_COMMIT_REF_NAME}/documents" \
 
 }
 

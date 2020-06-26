@@ -91,7 +91,9 @@ def require_login(func: Callable[..., Any]) -> Callable[..., Any]:
     @apm.trace(display_name='require_login')
     @functools.wraps(func)
     def verify_and_call(*args, **kwargs) -> Callable[..., Any]:
-        context = args[1].context
+        # The underlying request object being served
+        context = args[1].context if len(args) > 1 else args[0]
+
         try:
             user_data = util.get_jwt_content(context)
             if util.is_api_token(user_data):
