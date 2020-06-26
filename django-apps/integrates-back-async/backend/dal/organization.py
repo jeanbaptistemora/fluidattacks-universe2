@@ -442,7 +442,9 @@ async def update(
                 'pk': organization_id,
                 'sk': f'INFO#{organization_name}'
             },
-            'UpdateExpression': f'{set_expression} {remove_expression}'.strip(),
+            'UpdateExpression': (
+                f'{set_expression} {remove_expression}'.strip()
+            ),
             'ExpressionAttributeValues': expression_values
         }
         success = await dynamo_async_update_item(TABLE_NAME, update_attrs)
