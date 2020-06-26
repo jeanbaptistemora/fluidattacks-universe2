@@ -573,3 +573,11 @@ def is_ip_protocol(protocol):
         int(protocol)
         return True
     return False
+
+
+def get_index(items: List, index: int, default: Any = None):
+    """Get items from a list safely."""
+    value = default
+    with suppress(IndexError):
+        value = items[index]
+    return value

@@ -3,6 +3,9 @@
 # Standard imports
 from typing import List, Set, Optional, Tuple
 
+# Treed imports
+from networkx import DiGraph
+
 # Local imports
 from fluidasserts import SAST, LOW
 from fluidasserts.helper import aws as helper
@@ -11,6 +14,10 @@ from fluidasserts.cloud.aws.cloudformation import (
     _get_result_as_tuple,
 )
 from fluidasserts.utils.decorators import api, unknown_if
+from fluidasserts.cloud.aws.cloudformation import get_templates
+from fluidasserts.cloud.aws.cloudformation import get_graph
+from fluidasserts.cloud.aws.cloudformation import get_predecessor
+from fluidasserts.cloud.aws.cloudformation import get_resources
 
 
 @api(risk=LOW, kind=SAST)
@@ -29,30 +36,42 @@ def has_access_logging_disabled(
     :rtype: :class:`fluidasserts.Result`
     """
     vulnerabilities: list = []
-    for yaml_path, res_name, res_props in helper.iterate_rsrcs_in_cfn_template(
-            starting_path=path,
-            resource_types=[
-                'AWS::ElasticLoadBalancingV2::LoadBalancer',
-            ],
-            exclude=exclude):
-        access_logs = 'false'
-        for attribute in res_props.get('LoadBalancerAttributes', [{
-                'Key': 'access_logs.s3.enabled',
-                'Value': 'false'}]):
-            key = attribute.get('Key', 'default')
-            if key == 'access_logs.s3.enabled':
-                access_logs = attribute.get('Value', 'false')
+    graph: DiGraph = get_graph(path, exclude)
+    templates = get_templates(graph, path, exclude)
+    balancers = get_resources(
+        graph, map(lambda x: x[0], templates),
+        {'AWS', 'ElasticLoadBalancingV2', 'LoadBalancer'})
+    attributes = get_resources(
+        graph, balancers, 'LoadBalancerAttributes', depth=3)
+    for attr in attributes:
+        templates = graph.nodes[get_predecessor(
+            graph, attr, 'CloudFormationTemplate')]
+        resource = graph.nodes[get_predecessor(graph, attr, 'LoadBalancer')]
+        keys = [
+            node for node in get_resources(graph, attr, 'Key', depth=3)
+            if graph.nodes[node]['value'] == 'access_logs.s3.enabled'
+        ]
+        vulnerable = True
+        if keys:
+            key = keys[0]
+            father = list(graph.predecessors(key))[0]
+            value = [
+                node for node in get_resources(graph, father, 'Value')
+                if graph.nodes[node]['value'] == 'false'
+            ]
+            if not value:
+                vulnerable = False
 
-        if access_logs == 'false':
+        if vulnerable:
             vulnerabilities.append(
                 Vulnerability(
-                    path=yaml_path,
+                    path=templates['path'],
                     entity=(f'AWS::ElasticLoadBalancingV2::LoadBalancer'
                             f'/LoadBalancerAttributes'
                             f'/access_logs.s3.enabled'
-                            f'/{access_logs}'),
-                    identifier=res_name,
-                    line=helper.get_line(res_props),
+                            f'/false'),
+                    identifier=resource['name'],
+                    line=graph.nodes[value[0]]['line'],
                     reason='has access logging disabled'))
 
     return _get_result_as_tuple(
@@ -77,30 +96,41 @@ def has_not_deletion_protection(
     :rtype: :class:`fluidasserts.Result`
     """
     vulnerabilities: list = []
-    for yaml_path, res_name, res_props in helper.iterate_rsrcs_in_cfn_template(
-            starting_path=path,
-            resource_types=[
-                'AWS::ElasticLoadBalancingV2::LoadBalancer',
-            ],
-            exclude=exclude):
-        deletion_protection = 'false'
-        for attribute in res_props.get('LoadBalancerAttributes', [{
-                'Key': 'deletion_protection.enabled',
-                'Value': 'false'}]):
-            key = attribute.get('Key', 'default')
-            if key == 'deletion_protection.enabled':
-                deletion_protection = attribute.get('Value', 'false')
-
-        if deletion_protection == 'false':
+    graph: DiGraph = get_graph(path, exclude)
+    templates = get_templates(graph, path, exclude)
+    balancers = get_resources(
+        graph, map(lambda x: x[0], templates),
+        {'AWS', 'ElasticLoadBalancingV2', 'LoadBalancer'})
+    attributes = get_resources(
+        graph, balancers, 'LoadBalancerAttributes', depth=3)
+    for attr in attributes:
+        template = graph.nodes[get_predecessor(
+            graph, attr, 'CloudFormationTemplate')]
+        resource = graph.nodes[get_predecessor(graph, attr, 'LoadBalancer')]
+        keys = [
+            node for node in get_resources(graph, attr, 'Key', depth=3)
+            if graph.nodes[node]['value'] == 'deletion_protection.enabled'
+        ]
+        vulnerable = True
+        if keys:
+            key = keys[0]
+            father = list(graph.predecessors(key))[0]
+            value = [
+                node for node in get_resources(graph, father, 'Value')
+                if graph.nodes[node]['value'] == 'false'
+            ]
+            if not value:
+                vulnerable = False
+        if vulnerable:
             vulnerabilities.append(
                 Vulnerability(
-                    path=yaml_path,
+                    path=template['path'],
                     entity=(f'AWS::ElasticLoadBalancingV2::LoadBalancer'
                             f'/LoadBalancerAttributes'
                             f'/deletion_protection.enabled'
-                            f'/{deletion_protection}'),
-                    identifier=res_name,
-                    line=helper.get_line(res_props),
+                            f'/false'),
+                    identifier=resource['name'],
+                    line=graph.nodes[value[0]]['line'],
                     reason='has not deletion protection'))
 
     return _get_result_as_tuple(

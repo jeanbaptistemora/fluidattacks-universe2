@@ -165,3 +165,18 @@ def get_templates(graph: DiGraph,
         result = [(_id, node) for _id, node in result
                   if not any(ex in node['path'] for ex in exclude)]
     return result
+
+
+def get_resources(graph: DiGraph,
+                  nodes: Union[List[int], int],
+                  labels: Union[Set[str], str],
+                  depth: int = 2) -> List[int]:
+    """Returns all the resources that those labels contain."""
+    if isinstance(nodes, int):
+        nodes = [nodes]
+    if isinstance(labels, str):
+        labels = {labels}
+    return [
+        node for x in nodes for node in dfs_preorder_nodes(graph, x, depth)
+        if len(graph.nodes[node]['labels'].intersection(labels)) >= len(labels)
+    ]
