@@ -7,7 +7,7 @@
       "*.ts",
       "src/app.tsx",
       "src/graphics/**",
-      "src/components/+(Button)/**"
+      "src/components/+(Button|ConfirmDialog)/**"
     ]
   },
   "rules": {

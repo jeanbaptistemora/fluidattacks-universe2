@@ -4,10 +4,12 @@ import { Button } from "./index";
 
 describe("Button", (): void => {
   it("should return a fuction", (): void => {
-    expect(typeof Button).toEqual("function");
+    expect.hasAssertions();
+    expect(typeof Button).toStrictEqual("function");
   });
 
   it("should render a button", (): void => {
+    expect.hasAssertions();
     const clickCallback: jest.Mock = jest.fn();
     const wrapper: ShallowWrapper = shallow(
       <Button bsStyle={"primary"} onClick={clickCallback}>
@@ -18,6 +20,7 @@ describe("Button", (): void => {
   });
 
   it("should be clickable", (): void => {
+    expect.hasAssertions();
     const clickCallback: jest.Mock = jest.fn();
     const wrapper: ShallowWrapper = shallow(
       <Button bsStyle={"primary"} onClick={clickCallback}>
@@ -26,6 +29,6 @@ describe("Button", (): void => {
     );
 
     wrapper.find("Button").simulate("click");
-    expect(clickCallback.mock.calls.length).toEqual(1);
+    expect(clickCallback.mock.calls).toHaveLength(1);
   });
 });

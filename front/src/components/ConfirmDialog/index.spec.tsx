@@ -1,56 +1,54 @@
-/* tslint:disable:jsx-no-multiline-js
- *
- * Disabling this rule is necessary for using components with render props
- */
 import { mount, ReactWrapper } from "enzyme";
 import * as React from "react";
 import { Button } from "../Button/index";
 import { ConfirmDialog, ConfirmFn } from "./index";
 
 describe("ConfirmDialog", (): void => {
-
   it("should return a fuction", (): void => {
-    expect(typeof (ConfirmDialog))
-      .toEqual("function");
+    expect.hasAssertions();
+    expect(typeof ConfirmDialog).toStrictEqual("function");
   });
 
-  it("should handle cancel", async () => {
+  it("should handle cancel", (): void => {
+    expect.hasAssertions();
     const confirmCallback: jest.Mock = jest.fn();
     const cancelCallback: jest.Mock = jest.fn();
     const wrapper: ReactWrapper = mount(
-      <ConfirmDialog title="Title test">
+      <ConfirmDialog title={"Title test"}>
         {(confirm: ConfirmFn): React.ReactNode => {
-          const handleClick: (() => void) = (): void => { confirm(confirmCallback, cancelCallback); };
+          function handleClick(): void {
+            confirm(confirmCallback, cancelCallback);
+          }
 
-          return (
-            <Button onClick={handleClick}>
-              Test
-            </Button>
-          );
+          return <Button onClick={handleClick}>{"Test"}</Button>;
         }}
-      </ConfirmDialog>,
+      </ConfirmDialog>
     );
-    const testButton: ReactWrapper = wrapper.find("button")
-      .findWhere((element: ReactWrapper) => element.contains("Test"))
+
+    const testButton: ReactWrapper = wrapper
+      .find("button")
+      .findWhere((element: Readonly<ReactWrapper>): boolean =>
+        element.contains("Test")
+      )
       .at(0);
     testButton.simulate("click");
-    let confirmDialogModal: ReactWrapper = wrapper
+    const confirmDialogModal: ReactWrapper = wrapper
       .find("modal")
-      .find({open: true, headerTitle: "Title test"});
-    expect(confirmDialogModal)
-      .toHaveLength(1);
-    const cancelButton: ReactWrapper = wrapper.find("button")
-      .findWhere((element: ReactWrapper) => element.contains("Cancel"))
+      .find({ open: true, headerTitle: "Title test" });
+    const cancelButton: ReactWrapper = wrapper
+      .find("button")
+      .findWhere((element: Readonly<ReactWrapper>): boolean =>
+        element.contains("Cancel")
+      )
       .at(0);
     cancelButton.simulate("click");
-    confirmDialogModal = wrapper
+    const confirmDialogModalAfterClickCancel: ReactWrapper = wrapper
       .find("modal")
-      .find({open: true, headerTitle: "Title test"});
-    expect(confirmDialogModal)
-      .toHaveLength(0);
-    expect(confirmCallback)
-      .toHaveBeenCalledTimes(0);
-    expect(cancelCallback)
-      .toHaveBeenCalledTimes(1);
+      .find({ open: true, headerTitle: "Title test" });
+
+    expect(confirmDialogModal).toHaveLength(1);
+    expect(confirmDialogModalAfterClickCancel).toHaveLength(0);
+    expect(confirmCallback).toHaveBeenCalledTimes(0);
+    expect(cancelCallback).toHaveBeenCalledTimes(1);
   });
 });

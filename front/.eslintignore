@@ -6,7 +6,6 @@ src/styles/
 src/typings/
 src/utils/
 src/**/*.css.d.ts
-src/components/ConfirmDialog
 src/components/DataTableNext
 src/components/FluidIcon
 src/components/Modal
