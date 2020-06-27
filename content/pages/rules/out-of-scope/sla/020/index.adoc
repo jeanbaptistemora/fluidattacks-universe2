@@ -1,7 +1,7 @@
 :slug: rules/020/
 :category: sla
-:description: This document contains the details of the security requirements related to service level agreements in the organization. This requirement establishes the importance of defining penalties for non-compliance of a service level agreement (SLA) according to the cost of the service contracted.
-:keywords: Requirement, SLA, Fines, Agreement, Infringement, Organization
+:description: This requirement establishes the importance of defining penalties for non-compliance with a service level agreement (SLA) based on the cost of the service.
+:keywords: Requirement, SLA, Fines, Agreement, Infringement, Organization, Rules, Ethical Hacking, Pentesting
 :rules: yes
 :extended: yes
 

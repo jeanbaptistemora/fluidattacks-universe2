@@ -1,7 +1,7 @@
 :slug: careers/portfolio/
 :category: careers
-:description: The following page is meant to inform everyone interested in being part of the Fluid Attacks team about the selection process. The portfolio is a document that describes your biggest personal, professional and academic achievements, examples and results of your best projects.
-:keywords: Fluid Attacks, Career, Process, Selection, Portfolio, Candidate.
+:description: A portfolio is a document that describes your biggest personal, professional, and academic achievements. Do you want to show us your portfolio?
+:keywords: Fluid Attacks, Careers, Process, Selection, Portfolio, Candidate, Pentester, Ethical Hacker
 
 = Portfolio
 

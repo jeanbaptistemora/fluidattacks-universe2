@@ -1,7 +1,7 @@
 :slug: rules/025/
 :category: session
-:description: This documents contains the details of the security requirements related to web application session management and session variables. This requirement establishes the importance of informing and controlling concurrent sessions, in order to detect user impersonations and identity thefts.
-:keywords: Manage, Concurrent, Session, ASVS, CWE, NIST
+:description: This requirement establishes the importance of informing and controlling concurrent sessions to detect user impersonation and identity theft.
+:keywords: Manage, Concurrent, Session, ASVS, CWE, NIST, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R025. Manage concurrent sessions

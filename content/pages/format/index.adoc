@@ -1,6 +1,6 @@
 :slug: format/
-:description: Fluid Attacks uses AsciiDoc as main extension for several documents and articles in our website. The purpose of this page is to present a compilation of useful AsciiDoc commands and allowed formats in order to help our candidates and personnel build their documents in a proper way.
-:keywords: Fluid Attacks, Format, AsciiDoc, Templates, Tutorial, Document.
+:description: Fluid Attacks uses AsciiDoc as the main extension to help candidates and personnel build their documents properly.
+:keywords: Fluid Attacks, Format, AsciiDoc, Templates, Tutorial, Document, Blog
 :variable: AsciiDoc
 :category: blog
 :plus: &#43

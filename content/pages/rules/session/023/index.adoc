@@ -1,7 +1,7 @@
 :slug: rules/023/
 :category: session
-:description: This documents contains the details of the security requirements related to web application session management and session variables. This requirement establishes the importance of closing inactive user sessions after a certain period inactivity in order to avoid security breaches.
-:keywords: Session, Inactive, Close, ASVS, CWE, NIST
+:description: This requirement establishes the importance of closing inactive user sessions after a certain period of inactivity to avoid security breaches.
+:keywords: Session, Inactive, Close, ASVS, CWE, NIST, Breaches, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R023. Close inactive users sessions

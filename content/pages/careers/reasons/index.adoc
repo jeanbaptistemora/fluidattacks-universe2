@@ -1,7 +1,7 @@
 :slug: careers/reasons/
 :category: careers
-:description: If you are someone who is talented and passionate about software development, information technology and are eager to learn, you should consider being a part of our team here at `Fluid Attacks`. Here are some reasons why `Fluid Attacks` is a great place to work.
-:keywords: Fluid Attacks, Career, Reasons, Work, Projects, Clients.
+:description: Here are some reasons why Fluid Attacks is a great place to work.
+:keywords: Fluid Attacks, Careers, Reasons, Work, Projects, Clients, Candidates, Jobs, Pentester, Ethical Hacker
 
 = Reasons to work with us
 

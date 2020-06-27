@@ -1,7 +1,7 @@
 :slug: rules/006/
 :category: assets
-:description: This document contains the details of the security requirements related to a company's information assets. All threats to the information assets must be clearly identified and documented in order to make informed decisions regarding the asset's security risks.
-:keywords: Requirement, Security, Assets, Information, Documentation, Threats.
+:description: All threats to the information assets must be identified and documented to make informed decisions regarding the assets' security risks.
+:keywords: Requirement, Security, Assets, Information, Documentation, Threats, Rules, Ethical Hacking, Pentesting
 :rules: yes
 :extended: yes
 

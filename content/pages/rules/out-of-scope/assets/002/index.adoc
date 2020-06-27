@@ -1,7 +1,7 @@
 :slug: rules/002/
 :category: assets
-:description: This document contains the details of the security requirements related to the definition and management of information assets in the organization. This requirement establishes the importance of identifying all system dependencies and components used in information systems.
-:keywords: Requirement, Security, Dependencies, Components, Identification, System
+:description: This requirement establishes the importance of identifying all dependencies and components used in information systems.
+:keywords: Requirement, Security, Dependencies, Components, Identification, System, Rules, Ethical Hacking, Pentesting
 :rules: yes
 :extended: yes
 

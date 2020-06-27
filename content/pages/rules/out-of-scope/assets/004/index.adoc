@@ -1,7 +1,7 @@
 :slug: rules/004/
 :category: assets
-:description: This document contains the details of the security requirements related to a company's information assets. Each and every single information asset must have an owner or owners in order to assure the correct execution of the implemented security controls.
-:keywords: Requirement, Security, Assets, Information, Assignment, Responsible.
+:description: Every single information asset must have an owner or owners to guarantee the correct execution of the implemented security controls.
+:keywords: Requirement, Security, Assets, Information, Assignment, Responsible, Rules, Ethical Hacking, Pentesting
 :rules: yes
 :extended: yes
 

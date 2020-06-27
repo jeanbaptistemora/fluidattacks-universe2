@@ -1,6 +1,6 @@
 :slug: style/
-:description: The purpose of this page is to establish the main guidelines for the articles and documents published in our website. Also, we present the acceptance criteria, the format and structure requirements and all the information you may need if you wish to share your opinion in our blog.
-:keywords: Fluid Attacks, Style, AsciiDoc, Articles, Requirement, Website.
+:description: Learn the acceptance criteria, the format and structure requirements, and all the main guidelines to publish articles and documents on our website.
+:keywords: Fluid Attacks, Style, AsciiDoc, Articles, Requirement, Website, Guidelines, Writer's Guidelines, Ethical Hacking, Pentesting
 :category: blog
 
 = Writer's Guidelines

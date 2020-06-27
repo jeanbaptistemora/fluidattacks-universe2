@@ -1,7 +1,7 @@
 :slug: rules/027/
 :category: session
-:description: This documents contains the details of the security requirements related to the definition and management of session and session variables in the organization. This requirement establishes the importance of allowing temporary lockouts over sessions in order to avoid bruteforce attacks.
-:keywords: Requirement, Security, Session, User, Lockout, Account
+:description: This requirement establishes the importance of allowing temporary lockouts over sessions to avoid brute-force attacks.
+:keywords: Requirement, Security, Session, User, Lockout, Account, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R027. Allow session lockout

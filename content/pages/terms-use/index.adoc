@@ -1,6 +1,6 @@
 :slug: terms-use/
-:description: The main purpose of the following page is to describe the Terms of Use of our web site. Here we detail the restrictions, warranties, intellectual property rights, limitations, agreements, jurisdiction and all topics related to the Fluid Attacks website content.
-:keywords: Fluid Attacks, Terms, Use, Website, Rights, Restrictions.
+:description: The following are restrictions, intellectual property rights, limitations, agreements, and all related to the Terms of Use of Fluid Attacks website content.
+:keywords: Fluid Attacks, Terms, Use, Website, Rights, Restrictions, Terms of Use, Ethical Hacking, Pentesting
 
 = Terms of Use
 

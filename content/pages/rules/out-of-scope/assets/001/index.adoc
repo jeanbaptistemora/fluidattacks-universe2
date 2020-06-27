@@ -1,7 +1,7 @@
 :slug: rules/001/
 :category: assets
-:description: This document contains the details of the security requirements related to a company's information assets. All the information assets must be properly identified in order to protect them from potential risks and allow for implementation of security controls.
-:keywords: Requirement, Security, Assets, Information, Identification, Classification.
+:description: All information assets must be properly identified to protect them from potential risks and to enable security controls to be implemented.
+:keywords: Requirement, Security, Assets, Information, Identification, Rules, Potential Risks, Ethical Hacking, Pentesting
 :rules: yes
 :extended: yes
 
