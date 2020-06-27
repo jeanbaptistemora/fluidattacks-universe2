@@ -430,7 +430,7 @@ def should_send_mail(
         finding_utils.send_accepted_email(
             finding,
             ('Treatment state approval is pending '
-             f'''for finding {finding.get('finding', '')}''')
+             f'for finding {finding.get("finding", "")}')
         )
 
 
@@ -1009,7 +1009,7 @@ def mask_finding(finding_id: str) -> bool:
         mask_verification(finding_id, historic_verification)
     )
 
-    evidence_prefix = f'''{finding['projectName']}/{finding_id}'''
+    evidence_prefix = f'{finding["projectName"]}/{finding_id}'
     evidence_result = all([
         finding_dal.remove_evidence(file_name)
         for file_name in finding_dal.search_evidence(evidence_prefix)
