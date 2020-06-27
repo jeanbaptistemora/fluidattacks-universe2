@@ -20,23 +20,30 @@ async def validate_fluidattacks_staff_on_group(group, email, role) -> bool:
     enforcer = authz.get_group_service_attributes_enforcer(group)
 
     is_user_at_fluidattacks: bool = email.endswith(FLUIDATTACKS_EMAIL_SUFFIX)
-    user_has_hacker_role: bool = \
+    user_has_hacker_role: bool = (
         role in authz.get_group_level_roles_with_tag('drills')
+    )
 
-    group_must_only_have_fluidattacks_hackers: bool = \
-        await enforcer('must_only_have_fluidattacks_hackers')
+    group_must_only_have_fluidattacks_hackers: bool = await enforcer(
+        'must_only_have_fluidattacks_hackers'
+    )
 
     if group_must_only_have_fluidattacks_hackers:
         if user_has_hacker_role and not is_user_at_fluidattacks:
-            raise UnexpectedUserRole('Groups with any active Fluid Attacks service can '
-                                     'only have Hackers provided by Fluid Attacks')
+            raise UnexpectedUserRole(
+                'Groups with any active Fluid Attacks service can '
+                'only have Hackers provided by Fluid Attacks'
+            )
 
-    group_is_fluidattacks_customer: bool = \
-        await enforcer('is_fluidattacks_customer')
+    group_is_fluidattacks_customer: bool = await enforcer(
+        'is_fluidattacks_customer'
+    )
 
     if not group_is_fluidattacks_customer and is_user_at_fluidattacks:
-        raise UnexpectedUserRole('Groups without an active Fluid Attacks service can '
-                                 'not have Fluid Attacks staff')
+        raise UnexpectedUserRole(
+            'Groups without an active Fluid Attacks service can '
+            'not have Fluid Attacks staff'
+        )
 
     return True
 
@@ -52,8 +59,10 @@ def validate_email_address(email: str) -> bool:
 
 
 def validate_fields(fields: List[str]):
-    allowed_chars = r'a-zA-Z0-9ñáéíóúäëïöüÑÁÉÍÓÚÄËÏÖÜ \t\n\r\x0b\x0c(),./:;@_$#=\?-'
-    regex = r'^[{}]+[{}]*$'.format(allowed_chars.replace('=', ''), allowed_chars)
+    allowed_chars = (
+        r'a-zA-Z0-9ñáéíóúäëïöüÑÁÉÍÓÚÄËÏÖÜ \t\n\r\x0b\x0c(),./:;@_$#=\?-'
+    )
+    regex = fr'^[{allowed_chars.replace("=", "")}]+[{"allowed_chars"}]*$'
     for field in map(str, fields):
         if field:
             check_field(field, regex)
@@ -69,7 +78,7 @@ def validate_url(url: str):
         allowed_chars = r'a-zA-Z0-9(),./:;@_$#=\?-'
         check_field(
             clean_url,
-            r'^[{}]+[{}]*$'.format(allowed_chars.replace('=', ''), allowed_chars)
+            fr'^[{allowed_chars.replace("=", "")}]+[{allowed_chars}]*$'
         )
 
 
@@ -78,7 +87,10 @@ def validate_file_name(name: str) -> bool:
     name = str(name)
     name_len = len(name.split('.'))
     if name_len <= 2:
-        is_valid = bool(re.search("^[A-Za-z0-9!_.*'()&$@=;:+,? -]*$", str(name)))
+        is_valid = bool(re.search(
+            '^[A-Za-z0-9!_.*\'()&$@=;:+,? -]*$',
+            str(name)
+        ))
     else:
         is_valid = False
     return is_valid
@@ -90,7 +102,10 @@ def check_field(field: str, regexp: str):
 
 
 def validate_field_length(field: str, limit: int, is_greater_than_limit=True):
-    """if is_greater_than_limit equals False, it means we are checking if field < limit"""
+    """
+    if is_greater_than_limit equals False,
+    it means we are checking if field < limit
+    """
     if (len(field) >= limit) == is_greater_than_limit:
         raise InvalidFieldLength()
 
