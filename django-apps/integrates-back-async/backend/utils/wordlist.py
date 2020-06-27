@@ -2,7 +2,8 @@
 from typing import List
 
 
-# wordlist obtained from https://github.com/mike-hearn/useapassphrase/blob/master/js/wordlist.js
+# wordlist obtained from
+# https://github.com/mike-hearn/useapassphrase/blob/master/js/wordlist.js
 wordlist: List[str] = [
     'abacus',
     'abdomen',
