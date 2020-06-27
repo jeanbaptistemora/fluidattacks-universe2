@@ -28,7 +28,8 @@ def upload_report_from_file_descriptor(report) -> str:
     file_path = report.name
     file_name = file_path.split('_')[-1]
 
-    if not s3.upload_memory_file(FI_AWS_S3_REPORTS_BUCKET, report, file_name):  # type: ignore
+    if not s3.upload_memory_file(  # type: ignore
+            FI_AWS_S3_REPORTS_BUCKET, report, file_name):
         raise ErrorUploadingFileS3()
 
     return file_name
