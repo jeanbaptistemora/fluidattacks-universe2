@@ -31,7 +31,7 @@ from backend.utils import (
 # Containers
 # I'm using a class because this is the only way to pass default values
 # It is still an immutable typed wonderfully awesome NamedTuple
-class PyCallable(NamedTuple):
+class PyCallable(NamedTuple):  # pylint:disable=too-few-public-methods
     instance: Callable
     args: tuple = tuple()
     kwargs: frozendict = frozendict()
@@ -107,7 +107,8 @@ async def _ensure_many(
 
 @apm.trace()
 async def materialize(obj: object) -> object:
-    """Turn any awaitable and possibly nested-object into a real object.
+    """
+    Turn any awaitable and possibly nested-object into a real object.
 
     It takes care of doing so concurrently, event for nested objects.
 
