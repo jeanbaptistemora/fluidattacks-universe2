@@ -15,35 +15,10 @@ Meet some of our team:
 [cols=3]
 |===
 
-a|=== Paula Vélez
-image::pvelez.png[alt="Paula Vélez", width=100 ]
-Marketing Team +
-link:https://www.linkedin.com/in/pauveelez/[LinkedIn]
-
 a|=== link:ralvarez/[Rafael Alvarez]
 image::ralvarez.png[alt="Rafael Álvarez", width=100 ]
 Management Team +
 link:https://www.linkedin.com/in/rafael-alvarez-7b04a2177/[LinkedIn]
-
-a|=== link:jarmas/[Jonathan Armas]
-image::jarmas.png[alt="Jonathan Armas", width=100 ]
-Hacking Team +
-link:https://www.linkedin.com/in/jonathan-armas[LinkedIn]
-
-a|=== Diana Naspirán
-image::dnaspiran.png[alt="Diana Naspirán", width=100 ]
-Projects Team +
-link:https://www.linkedin.com/in/dianacarolinanaspiran/[LinkedIn]
-
-a|=== Juan Restrepo
-image::jrestrepo.png[alt="Juan Carlos Restrepo", width=100 ]
-Product Team +
-link:https://www.linkedin.com/in/juancrestrepo[LinkedIn]
-
-a|=== Felipe Gómez
-image::fgomez.png[alt="Felipe Gómez", width=100 ]
-Sales Team +
-link:https://www.linkedin.com/in/felipegomezarango[LinkedIn]
 
 a|=== Vladimir Villa
 image::vvilla.png[alt="Vladimir Villa", width=100]
@@ -55,25 +30,50 @@ image::mgomez.png[alt="Mauricio Gómez", width=100 ]
 Management Team +
 link:https://www.linkedin.com/in/mgomezarango/[LinkedIn]
 
-a|=== link:ccarrasco/[Carolina Carrasco]
-image::ccarrasco.png[alt="Carolina Carrasco", width=100 ]
-Service Team +
-link:https://www.linkedin.com/in/carolina-carrasco-01612767/[LinkedIn]
+a|=== Elkin Echeverri
+image::eecheverri.png[alt="Elkin Echeverri", width=100 ]
+Board Team +
+link:https://www.linkedin.com/in/elkin-echeverri-garcia-bb81505/[LinkedIn]
+
+a|=== Felipe Gómez
+image::fgomez.png[alt="Felipe Gómez", width=100 ]
+Sales Team +
+link:https://www.linkedin.com/in/felipegomezarango[LinkedIn]
+
+a|=== link:jarmas/[Jonathan Armas]
+image::jarmas.png[alt="Jonathan Armas", width=100 ]
+Hacking Team +
+link:https://www.linkedin.com/in/jonathan-armas[LinkedIn]
 
 a|=== link:aroldan/[Andrés Roldán]
 image::aroldan.png[alt="Andrés Roldan", width=100 ]
 Hacking Team +
 link:https://www.linkedin.com/in/andr%C3%A9s-rold%C3%A1n-0602702/[LinkedIn]
 
+a|=== Juan Restrepo
+image::jrestrepo.png[alt="Juan Carlos Restrepo", width=100 ]
+Product Team +
+link:https://www.linkedin.com/in/juancrestrepo[LinkedIn]
+
+a|=== link:ccarrasco/[Carolina Carrasco]
+image::ccarrasco.png[alt="Carolina Carrasco", width=100 ]
+Service Team +
+link:https://www.linkedin.com/in/carolina-carrasco-01612767/[LinkedIn]
+
+a|=== Diana Naspirán
+image::dnaspiran.png[alt="Diana Naspirán", width=100 ]
+Projects Team +
+link:https://www.linkedin.com/in/dianacarolinanaspiran/[LinkedIn]
+
 a|=== David Cardona
 image::dcardona.png[alt="David Cardona", width=100 ]
 Finance Team +
 link:https://www.linkedin.com/in/david-145843146/[LinkedIn]
 
-a|=== Elkin Echeverri
-image::eecheverri.png[alt="Elkin Echeverri", width=100 ]
-Board Team +
-link:https://www.linkedin.com/in/elkin-echeverri-garcia-bb81505/[LinkedIn]
+a|=== Paula Vélez
+image::pvelez.png[alt="Paula Vélez", width=100 ]
+Marketing Team +
+link:https://www.linkedin.com/in/pauveelez/[LinkedIn]
 
 a|=== Juan Echeverri
 image::jecheverri.png[alt="Juan Carlos Echeverri", width=100 ]
