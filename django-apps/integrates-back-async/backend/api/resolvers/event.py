@@ -161,7 +161,7 @@ async def _get_comments(info, identifier: str) -> List[CommentType]:
     event = await info.context.loaders['event'].load(identifier)
     project_name = event['project_name']
 
-    comments = await sync_to_async(comment_domain.get_event_comments)(
+    comments = await comment_domain.get_event_comments(
         project_name, identifier, user_email)
     return comments
 

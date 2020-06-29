@@ -227,7 +227,7 @@ async def _get_comments(info, identifier: str) -> List[CommentType]:
     user_data = util.get_jwt_content(info.context)
     user_email = user_data['user_email']
 
-    comments = await sync_to_async(comment_domain.get_comments)(
+    comments = await comment_domain.get_comments(
         project_name, finding_id, user_email
     )
     return comments
@@ -245,7 +245,7 @@ async def _get_observations(info, identifier: str) -> List[CommentType]:
     project_name = finding['project_name']
     user_data = util.get_jwt_content(info.context)
     user_email = user_data['user_email']
-    observations = await sync_to_async(comment_domain.get_observations)(
+    observations = await comment_domain.get_observations(
         project_name, finding_id, user_email
     )
     return observations

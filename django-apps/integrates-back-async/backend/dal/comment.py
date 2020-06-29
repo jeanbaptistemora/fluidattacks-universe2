@@ -1,7 +1,6 @@
 """DAL functions for comments."""
 
 from typing import List
-from contextlib import AsyncExitStack
 import rollbar
 from boto3.dynamodb.conditions import Attr, Key
 from botocore.exceptions import ClientError
@@ -16,21 +15,18 @@ TABLE_NAME: str = 'FI_comments'
 
 async def create(comment_id: int, comment_attributes: CommentType) -> bool:
     success = False
-    async with AsyncExitStack() as stack:
-        try:
-            comment_attributes.update({'user_id': comment_id})
-            resource = await stack.enter_async_context(
-                dynamodb.start_context())
-            table = await resource.Table(TABLE_NAME)
-            response = await table.put_item(Item=comment_attributes)
-            success = response['ResponseMetadata']['HTTPStatusCode'] == 200
-        except ClientError as ex:
-            rollbar.report_message(
-                'Error: Couldn\'nt create comment',
-                'error',
-                extra_data=ex,
-                payload_data=locals()
-            )
+    try:
+        comment_attributes.update({'user_id': comment_id})
+        success = await dynamodb.async_put_item(
+            TABLE_NAME, comment_attributes
+        )
+    except ClientError as ex:
+        rollbar.report_message(
+            'Error: Couldn\'nt create comment',
+            'error',
+            extra_data=ex,
+            payload_data=locals()
+        )
     return success
 
 
@@ -49,7 +45,9 @@ def delete(finding_id, user_id) -> bool:
     return resp
 
 
-def get_comments(comment_type: str, finding_id: int) -> List[CommentType]:
+async def get_comments(
+        comment_type: str,
+        finding_id: int) -> List[CommentType]:
     """Get comments of the given finding"""
     key_exp = Key('finding_id').eq(finding_id)
     comment_type = comment_type.lower()
@@ -61,14 +59,8 @@ def get_comments(comment_type: str, finding_id: int) -> List[CommentType]:
     elif comment_type == 'event':
         filter_exp = Attr('comment_type').eq('event')
 
-    response = TABLE.query(
-        FilterExpression=filter_exp, KeyConditionExpression=key_exp)
-    comments = response.get('Items', [])
-    while 'LastEvaluatedKey' in response:
-        response = TABLE.query(
-            ExclusiveStartKey=response['LastEvaluatedKey'],
-            FilterExpression=filter_exp,
-            KeyConditionExpression=key_exp)
-        comments += response.get('Items', [])
-
-    return comments
+    query_attrs = {
+        'KeyConditionExpression': key_exp,
+        'FilterExpression': filter_exp
+    }
+    return await dynamodb.async_query(TABLE_NAME, query_attrs)

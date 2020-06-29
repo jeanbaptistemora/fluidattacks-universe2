@@ -146,7 +146,7 @@ async def add_comment(
     if parent != '0':
         finding_comments = [
             str(comment.get('user_id'))
-            for comment in comment_dal.get_comments(
+            for comment in await comment_dal.get_comments(
                 str(comment_data.get('comment_type')),
                 int(finding_id))
         ]
@@ -1022,8 +1022,9 @@ def mask_finding(finding_id: str) -> bool:
     })
 
     comments_and_observations = (
-        comment_dal.get_comments('comment', int(finding_id)) +
-        comment_dal.get_comments('observation', int(finding_id))
+        async_to_sync(comment_dal.get_comments)('comment', int(finding_id)) +
+        async_to_sync(comment_dal.get_comments)(
+            'observation', int(finding_id))
     )
     comments_result = all([
         comment_dal.delete(comment['finding_id'], comment['user_id'])

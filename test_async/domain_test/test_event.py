@@ -3,7 +3,7 @@ from time import time
 import pytest
 from aniso8601 import parse_datetime
 
-from asgiref.sync import async_to_sync
+from asgiref.sync import async_to_sync, sync_to_async
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.test import TestCase
 from backend.domain import event as event_domain
@@ -191,13 +191,13 @@ async def test_mask_event():
             'last_name': 'test'
         })
     assert success
-    assert len(comment_dal.get_comments('event', int(event_id))) >= 1
+    assert len(await comment_dal.get_comments('event', int(event_id))) >= 1
 
-    test_data = event_domain.mask(event_id)
+    test_data = await sync_to_async(event_domain.mask)(event_id)
     expected_output = True
     assert isinstance(test_data, bool)
     assert test_data == expected_output
-    assert len(comment_dal.get_comments('event', int(event_id))) == 0
+    assert len(await comment_dal.get_comments('event', int(event_id))) == 0
 
     event = event_domain.get_event(event_id)
     assert event.get('detail') == 'Masked'

@@ -52,18 +52,27 @@ DYNAMODB_RESOURCE = boto3.resource(**RESOURCE_OPTIONS)
 TABLE_NAME: str = 'integrates'
 
 
-async def async_put_item(table: str, item: Dict[str, Any]) -> None:
+async def async_put_item(table: str, item: Dict[str, Any]) -> bool:
+    success: bool = False
     async with aioboto3.resource(**RESOURCE_OPTIONS) as dynamodb_resource:
         dynamo_table = await dynamodb_resource.Table(table)
-        await dynamo_table.put_item(Item=item)
+        response = await dynamo_table.put_item(Item=item)
+        success = response['ResponseMetadata']['HTTPStatusCode'] == 200
+    return success
 
 
-async def async_query(table: str, query_attrs: DynamoQueryType) -> \
-        List[DynamoType]:
+async def async_query(
+        table: str, query_attrs: DynamoQueryType) -> List:
     async with aioboto3.resource(**RESOURCE_OPTIONS) as dynamodb_resource:
         dynamo_table = await dynamodb_resource.Table(table)
         response = await dynamo_table.query(**query_attrs)
         response_items = response.get('Items', [])
+        while response.get('LastEvaluatedKey'):
+            query_attrs.update(
+                {'ExclusiveStartKey': response.get('LastEvaluatedKey')}
+            )
+            response = await dynamo_table.query(**query_attrs)
+            response_items += response.get('Items', [])
     return response_items
 
 

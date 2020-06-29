@@ -6,7 +6,7 @@ import threading
 from datetime import datetime
 
 import pytz
-from asgiref.sync import sync_to_async
+from asgiref.sync import async_to_sync, sync_to_async
 from django.conf import settings
 from magic import Magic
 
@@ -291,7 +291,10 @@ async def add_comment(
     if parent != '0':
         event_comments = [
             str(comment.get('user_id'))
-            for comment in comment_dal.get_comments('event', int(event_id))
+            for comment in await comment_dal.get_comments(
+                'event',
+                int(event_id)
+            )
         ]
         if parent not in event_comments:
             raise InvalidCommentParent()
@@ -351,7 +354,10 @@ def mask(event_id: str) -> bool:
 
     comments_result = all([
         comment_dal.delete(comment['finding_id'], comment['user_id'])
-        for comment in comment_dal.get_comments('event', int(event_id))
+        for comment in async_to_sync(comment_dal.get_comments)(
+            'event',
+            int(event_id)
+        )
     ])
 
     success = all([event_result, evidence_result, comments_result])

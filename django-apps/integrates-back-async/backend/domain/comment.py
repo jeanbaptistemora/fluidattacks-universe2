@@ -2,7 +2,7 @@
 from typing import Dict, List, Tuple, Union, cast
 from datetime import datetime
 
-from asgiref.sync import async_to_sync
+from asgiref.sync import sync_to_async
 import pytz
 from django.conf import settings
 
@@ -18,7 +18,7 @@ from backend.typing import (
 )
 
 
-def _get_comments(
+async def _get_comments(
         comment_type: str,
         project_name: str,
         finding_id: str,
@@ -29,18 +29,26 @@ def _get_comments(
             user_email,
             cast(Dict[str, str], comment)
         )
-        for comment in comment_dal.get_comments(comment_type, int(finding_id))
+        for comment in await comment_dal.get_comments(
+            comment_type,
+            int(finding_id)
+        )
     ]
     return comments
 
 
-def get_comments(
+async def get_comments(
         project_name: str,
         finding_id: str,
         user_email: str) -> List[CommentType]:
-    comments = _get_comments('comment', project_name, finding_id, user_email)
+    comments = await _get_comments(
+        'comment',
+        project_name,
+        finding_id,
+        user_email
+    )
 
-    finding_attr = async_to_sync(finding_dal.get_attributes)(
+    finding_attr = await finding_dal.get_attributes(
         finding_id,
         ['historic_verification']
     )
@@ -54,7 +62,7 @@ def get_comments(
         if cast(List[str], verification.get('vulns', []))
     ]
     if verified:
-        vulns = vuln_dal.get_vulnerabilities(finding_id)
+        vulns = await sync_to_async(vuln_dal.get_vulnerabilities)(finding_id)
         comments = [
             fill_vuln_info(
                 cast(Dict[str, str], comment),
@@ -70,11 +78,11 @@ def get_comments(
     return comments
 
 
-def get_event_comments(
+async def get_event_comments(
         project_name: str,
         finding_id: str,
         user_email: str) -> List[CommentType]:
-    comments = _get_comments(
+    comments = await _get_comments(
         'event',
         project_name,
         finding_id,
@@ -151,11 +159,11 @@ def fill_comment_data(
         'parent': int(data['parent'])}
 
 
-def get_observations(
+async def get_observations(
         project_name: str,
         finding_id: str,
         user_email: str) -> List[CommentType]:
-    observations = _get_comments(
+    observations = await _get_comments(
         'observation',
         project_name,
         finding_id, user_email
