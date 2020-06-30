@@ -9,6 +9,9 @@ stelligent/cfn_nag/blob/master/LICENSE.md>`_
 import contextlib
 from typing import Dict, List, Optional, Tuple
 
+# Treed imports
+from networkx import DiGraph
+
 # Local imports
 from fluidasserts import SAST, MEDIUM
 from fluidasserts.helper import aws as helper
@@ -18,6 +21,11 @@ from fluidasserts.cloud.aws.cloudformation import (
     _get_result_as_tuple
 )
 from fluidasserts.utils.decorators import api, unknown_if
+from fluidasserts.cloud.aws.cloudformation import get_templates
+from fluidasserts.cloud.aws.cloudformation import get_graph
+from fluidasserts.cloud.aws.cloudformation import get_predecessor
+from fluidasserts.cloud.aws.cloudformation import get_resources
+from fluidasserts.cloud.aws.cloudformation import get_ref_nodes
 
 
 @api(risk=MEDIUM, kind=SAST)
@@ -38,26 +46,34 @@ def is_key_rotation_absent_or_disabled(
               - ``CLOSED`` otherwise.
     :rtype: :class:`fluidasserts.Result`
     """
-    vulnerabilities: list = []
-    for yaml_path, res_name, res_props in helper.iterate_rsrcs_in_cfn_template(
-            starting_path=path,
-            resource_types=[
-                'AWS::KMS::Key',
-            ],
-            exclude=exclude):
-
-        key_rotation: bool = res_props.get('EnableKeyRotation', False)
-
-        with contextlib.suppress(CloudFormationInvalidTypeError):
-            key_rotation = helper.to_boolean(key_rotation)
+    vulnerabilities: List[Vulnerability] = []
+    graph: DiGraph = get_graph(path, exclude)
+    templates: List[Tuple[int, Dict]] = get_templates(graph, path, exclude)
+    keys: List[int] = get_resources(graph, map(lambda x: x[0], templates),
+                                    {'AWS', 'KMS', 'Key'})
+    for key in keys:
+        template: Dict = graph.nodes[get_predecessor(graph, key,
+                                                     'CloudFormationTemplate')]
+        resource: Dict = graph.nodes[get_predecessor(graph, key,
+                                                     {'AWS', 'KMS', 'Key'})]
+        line: int = resource['line']
+        key_rotation: bool = False
+        rotation_node: int = helper.get_index(
+            get_resources(graph, key, 'EnableKeyRotation', depth=3), 0)
+        if rotation_node:
+            rotation_node_value: int = get_ref_nodes(graph, rotation_node)[0]
+            line = graph.nodes[rotation_node_value]['line']
+            with contextlib.suppress(CloudFormationInvalidTypeError):
+                key_rotation = helper.to_boolean(
+                    graph.nodes[rotation_node_value]['value'])
 
         if not key_rotation:
             vulnerabilities.append(
                 Vulnerability(
-                    path=yaml_path,
+                    path=template['path'],
                     entity=f'AWS::KMS::Key',
-                    identifier=res_name,
-                    line=helper.get_line(res_props),
+                    identifier=resource['name'],
+                    line=line,
                     reason='has key rotation absent or disabled'))
 
     return _get_result_as_tuple(
@@ -83,31 +99,44 @@ def has_master_keys_exposed_to_everyone(
               - ``CLOSED`` otherwise.
     :rtype: :class:`fluidasserts.Result`
     """
-    vulnerabilities: list = []
-    for yaml_path, res_name, res_props in helper.iterate_rsrcs_in_cfn_template(
-            starting_path=path,
-            resource_types=[
-                'AWS::KMS::Key',
-            ],
-            exclude=exclude):
-
-        key_policy: Dict = res_props.get('KeyPolicy', {})
-        with contextlib.suppress(KeyError):
-            if key_policy:
-                vulnerable: bool = any(
-                    map(lambda x:
-                        x.get('Principal', {}).get('AWS', '') == '*'
-                        and 'Condition' not in x,
-                        key_policy.get('Statement', {})))
-                if vulnerable:
-                    vulnerabilities.append(
-                        Vulnerability(
-                            path=yaml_path,
-                            entity=f'AWS::KMS::Key',
-                            identifier=res_name,
-                            line=helper.get_line(res_props),
-                            reason=('AWS KMS master key must not be '
-                                    'publicly accessible,')))
+    vulnerabilities: List = []
+    graph: DiGraph = get_graph(path, exclude)
+    templates: List[Tuple[int, Dict]] = get_templates(graph, path, exclude)
+    keys: List[int] = get_resources(graph, map(lambda x: x[0], templates),
+                                    {'AWS', 'KMS', 'Key'})
+    for key in keys:
+        template: Dict = graph.nodes[get_predecessor(graph, key,
+                                                     'CloudFormationTemplate')]
+        resource: Dict = graph.nodes[get_predecessor(graph, key,
+                                                     {'AWS', 'KMS', 'Key'})]
+        line: int = resource['line']
+        key_policy_node: int = helper.get_index(
+            get_resources(graph, key, 'KeyPolicy', depth=3), 0)
+        statements: List[int] = get_resources(
+            graph, key_policy_node, 'Statement', depth=3)
+        principals: List[int] = get_resources(
+            graph, statements, 'Principal', depth=3)
+        for principal in principals:
+            line = graph.nodes[principal]['line']
+            vulnerable: bool = False
+            father = list(graph.predecessors(principal))[0]
+            condition: int = get_resources(graph, father, 'Condition')
+            aws_node: int = helper.get_index(
+                get_resources(graph, principal, 'AWS'), 0)
+            if aws_node:
+                node: int = graph.nodes[aws_node]
+                line = node['line']
+                if node['value'] == '*' and not condition:
+                    vulnerable = True
+            if vulnerable:
+                vulnerabilities.append(
+                    Vulnerability(
+                        path=template['path'],
+                        entity=f'AWS::KMS::Key',
+                        identifier=resource['name'],
+                        line=line,
+                        reason=('AWS KMS master key must not be '
+                                'publicly accessible,')))
 
     return _get_result_as_tuple(
         vulnerabilities=vulnerabilities,
