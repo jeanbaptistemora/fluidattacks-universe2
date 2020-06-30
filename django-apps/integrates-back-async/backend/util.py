@@ -21,8 +21,14 @@ from cryptography.hazmat.primitives.kdf.scrypt import Scrypt
 from cryptography.hazmat.backends import default_backend
 from cryptography.exceptions import InvalidKey
 from graphql.language.ast import (
-    BooleanValueNode, NameNode, ObjectFieldNode, ObjectValueNode,
-    VariableNode, SelectionSetNode, FieldNode, StringValueNode
+    BooleanValueNode,
+    FieldNode,
+    NameNode,
+    ObjectFieldNode,
+    ObjectValueNode,
+    SelectionSetNode,
+    StringValueNode,
+    VariableNode
 )
 from magic import Magic
 from django.conf import settings
@@ -36,11 +42,17 @@ from jose import jwt, JWTError
 
 from backend.dal import session as session_dal
 from backend.exceptions import (
-    ConcurrentSession, ExpiredToken, InvalidAuthorization,
-    InvalidDate, InvalidDateFormat
+    ConcurrentSession,
+    ExpiredToken,
+    InvalidAuthorization,
+    InvalidDate,
+    InvalidDateFormat
 )
 
-from backend.typing import Finding as FindingType, User as UserType
+from backend.typing import (
+    Finding as FindingType,
+    User as UserType
+)
 from backend.utils import (
     apm,
 )
@@ -102,15 +114,19 @@ def assert_file_mime(filename: str, allowed_mimes: List[str]) -> bool:
     return mime_type in allowed_mimes
 
 
-def assert_uploaded_file_mime(file_instance: str, allowed_mimes: List[str]) -> bool:
+def assert_uploaded_file_mime(
+        file_instance: str,
+        allowed_mimes: List[str]) -> bool:
     mime = Magic(mime=True)
     if isinstance(file_instance, TemporaryUploadedFile):
         mime_type = mime.from_file(file_instance.temporary_file_path())
     elif isinstance(file_instance, InMemoryUploadedFile):
         mime_type = mime.from_buffer(file_instance.file.getvalue())
     else:
-        raise Exception('Provided file is not a valid django upload file. \
-                            Use util.assert_file_mime instead.')
+        raise Exception(
+            'Provided file is not a valid django upload file. '
+            'Use util.assert_file_mime instead.'
+        )
     return mime_type in allowed_mimes
 
 
@@ -178,21 +194,33 @@ def get_jwt_content(context) -> Dict[str, str]:
             if hasattr(context, 'COOKIES') \
             else context['request'].scope.get('cookies', {})
         cookie_token = cookies.get(settings.JWT_COOKIE_NAME)  # type: ignore
-        header_token = context.META.get('HTTP_AUTHORIZATION') \
-            if hasattr(context, 'META') \
-            else dict(context['request'].scope['headers']).get('Authorization', '')
+        header_token = (
+            context.META.get('HTTP_AUTHORIZATION')
+            if hasattr(context, 'META')
+            else dict(context['request'].scope['headers']).get(
+                'Authorization', ''
+            )
+        )
         token = header_token.split()[1] if header_token else cookie_token
         payload = jwt.get_unverified_claims(token)
         if is_api_token(payload):
             content = jwt.decode(
-                token=token, key=settings.JWT_SECRET_API, algorithms='HS512')  # type: ignore
+                token=token,
+                key=settings.JWT_SECRET_API,  # type: ignore
+                algorithms='HS512'
+            )
         else:
             content = jwt.decode(
-                token=token, key=settings.JWT_SECRET, algorithms='HS512')  # type: ignore
+                token=token,
+                key=settings.JWT_SECRET,  # type: ignore
+                algorithms='HS512'
+            )
             jti = content.get('jti')
-            if content.get('sub') == 'django_session' and not token_exists(f'fi_jwt:{jti}'):
+            if (content.get('sub') == 'django_session' and
+                    not token_exists(f'fi_jwt:{jti}')):
                 rollbar.report_message(
-                    'Error: Expired token', 'error', context)
+                    'Error: Expired token', 'error', context
+                )
                 raise ExpiredToken()
 
         return content
@@ -236,7 +264,8 @@ def replace_all(text: str, dic: Dict[str, str]) -> str:
     return text
 
 
-def list_to_dict(keys: List[object], values: List[object]) -> Dict[object, object]:
+def list_to_dict(keys: List[object], values: List[object]) -> \
+        Dict[object, object]:
     """ Merge two lists into a {key: value} dictionary """
 
     dct: Dict[object, object] = collections.OrderedDict()
@@ -324,7 +353,8 @@ def calculate_hash_token() -> Dict[str, str]:
     }
 
 
-def verificate_hash_token(access_token: Dict[str, str], jti_token: str) -> bool:
+def verificate_hash_token(access_token: Dict[str, str], jti_token: str) -> \
+        bool:
     resp = False
     backend = default_backend()
     token_hashed = Scrypt(
@@ -347,7 +377,11 @@ def verificate_hash_token(access_token: Dict[str, str], jti_token: str) -> bool:
 
 
 def is_api_token(user_data: UserType) -> bool:
-    return user_data.get('sub') == 'api_token' if 'sub' in user_data else 'jti' in user_data
+    return user_data.get('sub') == (
+        'api_token'
+        if 'sub' in user_data
+        else 'jti' in user_data
+    )
 
 
 def is_valid_format(date: str) -> bool:
@@ -432,34 +466,46 @@ def update_treatment_values(updated_values: Dict[str, str]) -> Dict[str, str]:
             updated_values['acceptance_date'] = max_date
         date_size = updated_values['acceptance_date'].split(' ')
         if len(date_size) == 1:
-            updated_values['acceptance_date'] += ' ' + datetime.now().strftime('%H:%M:%S')
+            updated_values['acceptance_date'] += (
+                f' {datetime.now().strftime("%H:%M:%S")}'
+            )
         date_value = updated_values['acceptance_date']
         is_valid_date = is_valid_format(date_value)
         if is_valid_date is False:
             raise InvalidDateFormat()
         if updated_values.get('acceptance_date'):
             today_date = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-            if str(updated_values.get('acceptance_date', '')) <= today_date \
-               or str(updated_values.get('acceptance_date', '')) > \
-               date.strftime('%Y-%m-%d %H:%M:%S'):
+            if (str(updated_values.get('acceptance_date', '')) <= today_date or
+                    str(updated_values.get('acceptance_date', '')) >
+                    date.strftime('%Y-%m-%d %H:%M:%S')):
                 raise InvalidDate()
     if updated_values['treatment'] == 'ACCEPTED_UNDEFINED':
         updated_values['acceptation_approval'] = 'SUBMITTED'
         today = datetime.now()
         days = [
-            today + timedelta(x + 1) for x in range((today + timedelta(days=5) - today).days)]
-        weekend_days = sum(1 for day in days if day.weekday() >= 5)
+            today + timedelta(x + 1)
+            for x in range((today + timedelta(days=5) - today).days)
+        ]
+        weekend_days = sum(
+            1
+            for day in days
+            if day.weekday() >= 5
+        )
         updated_values['acceptance_date'] = (
-            datetime.now() + timedelta(days=5 + weekend_days)).strftime('%Y-%m-%d %H:%M:%S')
+            datetime.now() + timedelta(days=5 + weekend_days)
+        ).strftime('%Y-%m-%d %H:%M:%S')
     return updated_values
 
 
-def get_requested_fields(field_name: str, selection_set: SelectionSetNode) -> List[FieldNode]:
+def get_requested_fields(field_name: str, selection_set: SelectionSetNode) -> \
+        List[FieldNode]:
     """Get requested fields from selections."""
     try:
         field_set = list(
-            filter(lambda sel: sel.name.value == field_name,
-                   selection_set.selections)
+            filter(
+                lambda sel: sel.name.value == field_name,
+                selection_set.selections
+            )
         )
         selections = field_set[0].selection_set.selections
     except IndexError:
@@ -468,8 +514,9 @@ def get_requested_fields(field_name: str, selection_set: SelectionSetNode) -> Li
 
 
 @apm.trace()
-def get_field_parameters(field: FieldNode,
-                         variable_values: Dict[str, Any] = None) -> Dict[str, Any]:
+def get_field_parameters(
+        field: FieldNode,
+        variable_values: Dict[str, Any] = None) -> Dict[str, Any]:
     """Get a dict of parameters for field."""
     if not hasattr(field, 'arguments'):
         return {}
@@ -527,7 +574,8 @@ def camel_case_list_dict(elements: List[Dict]) -> List[Dict]:
     ]
 
 
-def dict_to_object_field_node(input_dict: dict) -> List[Union[None, ObjectFieldNode]]:
+def dict_to_object_field_node(input_dict: dict) -> \
+        List[Union[None, ObjectFieldNode]]:
     """Convert a dict into a list of ObjectFieldNode objects."""
     if not input_dict:
         return []
@@ -563,7 +611,10 @@ async def get_filtered_elements(elements, filters):
 
 
 def check_concurrent_sessions(email: str, session_key: str):
-    """ This method checks if current user already has an active session and if so, removes it"""
+    """
+    This method checks if current user
+    already has an active session and if so, removes it
+    """
     previous_session_key = session_dal.get_previous_session(email, session_key)
     if previous_session_key:
         session_dal.invalidate_session(previous_session_key)
