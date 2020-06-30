@@ -25,6 +25,7 @@ metadata:
       set $CSP '${CSP} *.d2yyd1h5u9mauk.cloudfront.net';	            # Delighted
       set $CSP '${CSP} *.zdassets.com';	        # Zendesk Widget
       set $CSP '${CSP} *.cookiebot.com';        # Cookie consent
+      set $CSP '${CSP} *.lr-ingest.io';	        # LogRocket
 
       more_set_headers "Content-Security-Policy: ${CSP};";
       more_set_headers "Expires: 0";
