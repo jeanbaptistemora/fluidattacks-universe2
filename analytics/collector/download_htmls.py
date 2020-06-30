@@ -1,6 +1,7 @@
 # Standard library
 import asyncio
 import os
+import socket
 from typing import (
     Dict,
 )
@@ -32,6 +33,8 @@ SIZES = [
     default_value=bytes(),
     exceptions=(
         aiohttp.ClientError,
+        aiohttp.ClientOSError,
+        socket.gaierror,
     ),
     retry_times=5,
 )
@@ -83,7 +86,7 @@ async def generate_html(
 
 
 async def collect():
-    for width, height in SIZES:
+    for group in utils.iterate_groups():
         for document_type, document_name, generator_type, generator_name in [
             ['stackedBarChart', 'riskOverTime', 'c3', 'generic'],
             ['pieChart', 'treatment', 'c3', 'generic'],
@@ -91,16 +94,19 @@ async def collect():
             ['disjointForceDirectedGraph', 'whereToFindings',
              'disjointForceDirectedGraph', 'whereToFindings'],
         ]:
-            for group in utils.iterate_groups():
+            for width, height in SIZES:
                 folder = (
-                    f'analytics/collector/'
+                    f'analytics/collector'
                     f'/{generator_type}/{generator_name}'
                     f'/{document_type}/{document_name}'
                     f'/group:{group}'
                 )
-                os.makedirs(folder, exist_ok=True)
+                path = f'{folder}/{width}x{height}.html'
 
-                with open(f'{folder}/{width}x{height}.html', 'wb') as file:
+                print(f'[INFO] Generating html: {path}')
+
+                os.makedirs(folder, exist_ok=True)
+                with open(path, 'wb') as file:
                     file.write(await generate_html(
                         document_name=document_name,
                         document_type=document_type,
