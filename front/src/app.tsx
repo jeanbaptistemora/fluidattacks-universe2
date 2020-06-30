@@ -61,7 +61,7 @@ if (extendedModule.hot !== undefined) {
 const { userEmail, userName } = window as typeof window & Dictionary<string>;
 if (getEnvironment() === "production") {
   LogRocket.init("3ktlih/integrates");
-  LogRocket.identify(userEmail, { userName });
+  LogRocket.identify(userEmail, { email: userEmail, name: userName });
 }
 mixpanel.init("7a7ceb75ff1eed29f976310933d1cc3e");
 ReactDOM.render(React.createElement(App), document.getElementById("root"));

@@ -1,3 +1,4 @@
+import LogRocket from "logrocket";
 import Rollbar from "rollbar";
 import { getEnvironment } from "./environment";
 
@@ -15,6 +16,10 @@ const config: Rollbar.Configuration = {
             username: userName,
         },
     },
+    transform: (payload: object): object => ({
+        ...payload,
+        sessionURL: LogRocket.sessionURL,
+    }),
 };
 
 const rollbar: Rollbar = new Rollbar(config);
