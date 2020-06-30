@@ -298,6 +298,12 @@ def to_boolean(obj: str) -> bool:
         f'{obj} is not a CloudFormation boolean')
 
 
+def is_boolean(obj) -> bool:
+    """Validate if it is a cloudformation boolean."""
+    return obj in (True, 'true', 'True', '1', 1, False, 'false', 'False', '0',
+                   0)
+
+
 def is_scalar(obj: Any) -> bool:
     """True if obj is an scalar."""
     return isinstance(obj, (bool, int, float, str))

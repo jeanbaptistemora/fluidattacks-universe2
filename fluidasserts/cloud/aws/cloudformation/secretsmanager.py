@@ -4,6 +4,9 @@
 import contextlib
 from typing import List, Optional
 
+# Treed imports
+from networkx import DiGraph
+
 # Local imports
 from fluidasserts import SAST, HIGH
 from fluidasserts.helper import aws as helper
@@ -13,6 +16,10 @@ from fluidasserts.cloud.aws.cloudformation import (
     _get_result_as_tuple,
 )
 from fluidasserts.utils.decorators import api, unknown_if
+from fluidasserts.cloud.aws.cloudformation import get_templates
+from fluidasserts.cloud.aws.cloudformation import get_graph
+from fluidasserts.cloud.aws.cloudformation import get_ref_nodes
+from fluidasserts.cloud.aws.cloudformation import get_resources
 
 # ASCII Constants
 NUMERICS: set = set('01234567890')
@@ -86,30 +93,72 @@ def insecure_generate_secret_string(path: str,
     :rtype: :class:`fluidasserts.Result`
     """
     vulnerabilities: list = []
-    for yaml_path, res_name, res_props in helper.iterate_rsrcs_in_cfn_template(
-            starting_path=path,
-            resource_types=[
-                'AWS::SecretsManager::Secret',
-            ],
-            exclude=exclude):
-        res_props_gss = res_props.get('GenerateSecretString')
-        if not res_props_gss:
+    graph: DiGraph = get_graph(path, exclude)
+    templates = get_templates(graph, path, exclude)
+    secrets = get_resources(
+        graph,
+        map(lambda x: x[0], templates), {'AWS', 'SecretsManager', 'Secret'},
+        info=True)
+    for secret, resource, template in secrets:
+        string = helper.get_index(
+            get_resources(graph, secret, 'GenerateSecretString'), 0)
+        if not string:
             continue
-
-        exclude_chars: str = res_props_gss.get('ExcludeCharacters', '')
-        password_length: str = res_props_gss.get('PasswordLength', 32)
-
+        exclude_chars_node: str = helper.get_index(
+            get_ref_nodes(graph,
+                          get_resources(graph, string, 'ExcludeCharacters')[0],
+                          lambda x: isinstance(x, str)), 0)
+        exclude_chars = graph.nodes[exclude_chars_node][
+            'value'] if exclude_chars_node else ''
+        password_length_node: str = helper.get_index(
+            get_ref_nodes(graph,
+                          get_resources(graph, string, 'PasswordLength')[0],
+                          lambda x: isinstance(x, (float, int))), 0)
+        password_length = graph.nodes[password_length_node][
+            'value'] if password_length_node else 32
         with contextlib.suppress(CloudFormationInvalidTypeError):
-            exclude_lower: str = helper.to_boolean(
-                res_props_gss.get('ExcludeLowercase', False))
-            exclude_upper: str = helper.to_boolean(
-                res_props_gss.get('ExcludeUppercase', False))
-            exclude_numbers: str = helper.to_boolean(
-                res_props_gss.get('ExcludeNumbers', False))
-            exclude_punctuation: str = helper.to_boolean(
-                res_props_gss.get('ExcludePunctuation', False))
-            require_each_include_type: str = helper.to_boolean(
-                res_props_gss.get('RequireEachIncludedType', True))
+            exclude_lower_node: str = helper.get_index(
+                get_ref_nodes(graph,
+                              get_resources(graph, string,
+                                            'ExcludeLowercase')[0],
+                              helper.is_boolean), 0)
+            exclude_lower: bool = helper.to_boolean(graph.nodes[
+                exclude_lower_node]['value']) if exclude_lower_node else False
+
+            exclude_upper_node: str = helper.get_index(
+                get_ref_nodes(graph,
+                              get_resources(graph, string,
+                                            'ExcludeUppercase')[0],
+                              helper.is_boolean), 0)
+            exclude_upper = helper.to_boolean(graph.nodes[exclude_upper_node][
+                'value']) if exclude_upper_node else False
+
+            exclude_numbers_node: str = helper.get_index(
+                get_ref_nodes(graph,
+                              get_resources(graph, string,
+                                            'ExcludeNumbers')[0],
+                              helper.is_boolean), 0)
+            exclude_numbers = helper.to_boolean(
+                graph.nodes[exclude_numbers_node][
+                    'value']) if exclude_numbers_node else False
+
+            exclude_punctuation_node: str = helper.get_index(
+                get_ref_nodes(graph,
+                              get_resources(graph, string,
+                                            'ExcludePunctuation')[0],
+                              helper.is_boolean), 0)
+            exclude_punctuation = helper.to_boolean(
+                graph.nodes[exclude_punctuation_node][
+                    'value']) if exclude_punctuation_node else False
+
+            require_each_include_type_node: str = helper.get_index(
+                get_ref_nodes(graph,
+                              get_resources(graph, string,
+                                            'RequireEachIncludedType')[0],
+                              helper.is_boolean), 0)
+            require_each_include_type = helper.to_boolean(
+                graph.nodes[require_each_include_type_node][
+                    'value']) if require_each_include_type_node else False
 
         reasons: List[str] = _insecure_generate_secret_string_get_reasons(
             exclude_lower=exclude_lower,
@@ -124,10 +173,10 @@ def insecure_generate_secret_string(path: str,
         if reasons:
             vulnerabilities.extend(
                 Vulnerability(
-                    path=yaml_path,
+                    path=template['path'],
                     entity='AWS::SecretsManager::Secret',
-                    identifier=res_name,
-                    line=helper.get_line(res_props),
+                    identifier=resource['name'],
+                    line=graph.nodes[string]['line'],
                     reason=reason)
                 for reason in reasons)
 
