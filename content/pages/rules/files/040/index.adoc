@@ -1,7 +1,7 @@
 :slug: rules/040/
 :category: files
-:description: This document details the security guidelines and requirements related to files management within the organization or company. In this case, it is recommended that the the system validates that the format of the files correspond to the extension specified by them.
-:keywords: System, Size, File, MB, Security, CWE
+:description: This requirement establishes that the system validates that the files' format corresponds to the specified extension.
+:keywords: System, Size, File, MB, Security, CWE, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R040. Validate file format and extension

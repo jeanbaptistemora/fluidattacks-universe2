@@ -1,7 +1,7 @@
 :slug: rules/039/
 :category: files
-:description: This document contains the details of the security requirements related to the definition and management of files in the organization. This requirement establishes the importance of defining a maximum value for files sizes in the application, in order to avoid DoS attacks.
-:keywords: Requirement, Security, Files, Size, Limit, DoS
+:description: This requirement establishes the importance of defining a maximum size for files in the application to avoid DoS attacks.
+:keywords: Requirement, Security, Files, Size, Limit, DoS, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R039. Define maximum file size

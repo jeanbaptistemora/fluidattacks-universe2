@@ -1,7 +1,7 @@
 :slug: rules/033/
 :category: authorization
-:description: This document contains the details of the security requirements related to the definition and management of systems in the organization. This requirement establishes the importance of limiting administrative access to applications to authorized users only, in order to avoid several common attacks.
-:keywords: Restrict, Administrative, Access Control, Network, CWE, ASVS
+:description: This requirement establishes the importance of limiting administrative access to apps to authorized users only in order to avoid several common attacks.
+:keywords: Restrict, Administrative, Access Control, Network, CWE, ASVS, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R033. Restrict administrative access

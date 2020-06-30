@@ -1,7 +1,7 @@
 :slug: rules/030/
 :category: session
-:description: This document contains the details of the security requirements related to the definition and management of sessions and session variables the organization. This requirement establishes the importance of defining controls to manage object sessions securely to avoid reuse and replay attacks.
-:keywords: Replay, Reuse, Session, ASVS, CWE, NIST
+:description: This requirement establishes the importance of defining controls to manage object sessions securely to avoid reuse and replay attacks.
+:keywords: Replay, Reuse, Session, ASVS, CWE, NIST, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R030. Avoid object reutilization

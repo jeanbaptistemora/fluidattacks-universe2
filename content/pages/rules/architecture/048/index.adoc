@@ -1,7 +1,7 @@
 :slug: rules/048/
 :category: architecture
-:description: This document contains the details of the security requirements related to the definition and management of software architecture in the organization. Therefore, it is recommended that, in the source code, a component have as few dependencies as possible.
-:keywords: Component, Source Code, System, Dependencies, Requirement, Security
+:description: This requirement establishes that a component in the source code must have as few dependencies as possible.
+:keywords: Component, Source Code, System, Dependencies, Requirement, Security, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R048. Components with a minimum of dependencies

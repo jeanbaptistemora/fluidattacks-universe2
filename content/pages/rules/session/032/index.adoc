@@ -1,7 +1,7 @@
 :slug: rules/032/
 :category: session
-:description: This document contains the details of the security requirements related to the definition and management of sessions and session variables in the organization. This requirement establishes the importance of managing session IDs securely in order to avoid session hijacking attacks.
-:keywords: Session ID, Leakage, URL, Messages, ASVS, CWE
+:description: This requirement establishes the importance of managing session IDs securely to avoid session hijacking attacks.
+:keywords: Session ID, Leakage, URL, Messages, ASVS, CWE, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R032. Avoid session ID leakages

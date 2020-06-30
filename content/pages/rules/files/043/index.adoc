@@ -1,7 +1,7 @@
 :slug: rules/043/
 :category: files
-:description: This document contains the details of the security requirements related to the definition and management of files in the organization. This requirement establishes the importance of defining explicit content type and codification for all system files dynamically generated.
-:keywords: Requirement, Security, Content Type, Encoding, Files, Dynamic
+:description: This requirement establishes the importance of defining explicit Content-Type and codification for all system files dynamically generated.
+:keywords: Requirement, Security, Content Type, Encoding, Files, Dynamic, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R043. Define explicit content type

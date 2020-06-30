@@ -1,7 +1,7 @@
 :slug: rules/035/
 :category: authorization
-:description: This document details the security guidelines and requirements related to the administration of the system. The objective of this requirement is to define the importance of implementing measures to prevent system actors from increasing privileges for themselves.
-:keywords: System, Privileges, Modification, Administration, ASVS, CWE
+:description: This requirement aims to define the importance of implementing measures to prevent system actors from increasing privileges for themselves.
+:keywords: System, Privileges, Modification, Administration, ASVS, CWE, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R035. Manage privilege modifications

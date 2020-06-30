@@ -1,7 +1,7 @@
 :slug: rules/028/
 :category: session
-:description: This document contains the details of the security requirements related to the definition and management of sessions and session variables in the organization. This requirement establishes the importance of allowing users to terminate any active sessions that they have.
-:keywords: Session, Logout, Allow, ASVS, CWE, NIST
+:description: This requirement establishes the importance of allowing users to end any active session they have.
+:keywords: Session, Logout, Allow, ASVS, CWE, NIST, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R028. Allow users to log out
