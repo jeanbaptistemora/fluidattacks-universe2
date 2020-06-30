@@ -1,6 +1,5 @@
 stages:
   - rotation
-  - pre-build
   - build
   - lint-code
   - test-code
@@ -215,20 +214,6 @@ deploy_mobile_ota:
   <<: *in_everywhere_except_periodic_jobs
   stage: deploy-app
   tags: [autoscaling-large]
-  environment:
-    name: "mobile/$CI_COMMIT_REF_NAME"
-    url: "https://expo.io/@developmentatfluid/integrates?release-channel=$CI_COMMIT_REF_NAME"
-    on_stop: deploy_mobile_ota_stop
-
-deploy_mobile_ota_stop:
-  <<: *in_dev_branch
-  stage: deploy-app
-  tags: [autoscaling]
-  when: manual
-  script: [""]
-  environment:
-    name: "mobile/$CI_COMMIT_REF_NAME"
-    action: stop
 
 deploy_mobile_playstore:
   <<: *with_nix
