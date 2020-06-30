@@ -12,9 +12,9 @@ const d3GroupIndicatorsView: React.FC<ID3GroupIndicatorsProps> = (props: ID3Grou
 
   return (
     <React.StrictMode>
-      <Grid>
+      <Grid fluid={true}>
         <Row>
-          <Col xs={6} sm={8} md={10}>
+          <Col md={12}>
             <Graphic
               bsClass={styles.height320}
               documentName="riskOverTime"
@@ -38,7 +38,7 @@ const d3GroupIndicatorsView: React.FC<ID3GroupIndicatorsProps> = (props: ID3Grou
           </Col>
         </Row>
         <Row>
-          <Col xs={3} sm={4} md={5}>
+          <Col md={6}>
             <Graphic
               bsClass={styles.height160}
               documentName="treatment"
@@ -61,7 +61,7 @@ const d3GroupIndicatorsView: React.FC<ID3GroupIndicatorsProps> = (props: ID3Grou
               title={translate.t("analytics.pieChart.treatment.title")}
             />
           </Col>
-          <Col xs={3} sm={4} md={5}>
+          <Col md={6}>
             <Graphic
               bsClass={styles.height160}
               documentName="status"
@@ -78,7 +78,57 @@ const d3GroupIndicatorsView: React.FC<ID3GroupIndicatorsProps> = (props: ID3Grou
           </Col>
         </Row>
         <Row>
-          <Col xs={6} sm={8} md={10}>
+          <Col md={3}>
+            <Graphic
+              bsClass={styles.height80}
+              documentName="totalFindings"
+              documentType="textBox"
+              entity="group"
+              generatorName="raw"
+              generatorType="textBox"
+              subject={groupName}
+              title={translate.t("analytics.textBox.totalFindings.title")}
+            />
+          </Col>
+          <Col md={3}>
+            <Graphic
+              bsClass={styles.height80}
+              documentName="totalVulnerabilities"
+              documentType="textBox"
+              entity="group"
+              generatorName="raw"
+              generatorType="textBox"
+              subject={groupName}
+              title={translate.t("analytics.textBox.totalVulnerabilities.title")}
+            />
+          </Col>
+          <Col md={3}>
+            <Graphic
+              bsClass={styles.height80}
+              documentName="maxSeverityFound"
+              documentType="textBox"
+              entity="group"
+              generatorName="raw"
+              generatorType="textBox"
+              subject={groupName}
+              title={translate.t("analytics.textBox.maxSeverityFound.title")}
+            />
+          </Col>
+          <Col md={3}>
+            <Graphic
+              bsClass={styles.height80}
+              documentName="maxOpenSeverity"
+              documentType="textBox"
+              entity="group"
+              generatorName="raw"
+              generatorType="textBox"
+              subject={groupName}
+              title={translate.t("analytics.textBox.maxOpenSeverity.title")}
+            />
+          </Col>
+        </Row>
+        <Row>
+          <Col md={12}>
             <Graphic
               bsClass={styles.height320}
               documentName="whereToFindings"
@@ -95,32 +145,6 @@ const d3GroupIndicatorsView: React.FC<ID3GroupIndicatorsProps> = (props: ID3Grou
               generatorType="disjointForceDirectedGraph"
               subject={groupName}
               title={translate.t("analytics.disjointForceDirectedGraph.whereToFindings.title")}
-            />
-          </Col>
-        </Row>
-        <Row>
-          <Col xs={2} sm={2} md={2}>
-            <Graphic
-              bsClass={styles.height80}
-              documentName="totalFindings"
-              documentType="textBox"
-              entity="group"
-              generatorName="raw"
-              generatorType="textBox"
-              subject={groupName}
-              title={translate.t("analytics.textBox.totalFindings.title")}
-            />
-          </Col>
-          <Col xs={2} sm={2} md={2}>
-            <Graphic
-              bsClass={styles.height80}
-              documentName="totalVulnerabilities"
-              documentType="textBox"
-              entity="group"
-              generatorName="raw"
-              generatorType="textBox"
-              subject={groupName}
-              title={translate.t("analytics.textBox.totalVulnerabilities.title")}
             />
           </Col>
         </Row>

@@ -43,6 +43,12 @@ const enTranslations: Dictionary = {
       },
     },
     textBox: {
+      maxOpenSeverity: {
+        title: "Max open severity",
+      },
+      maxSeverityFound: {
+        title: "Max severity found",
+      },
       totalFindings: {
         title: "Total findings",
       },

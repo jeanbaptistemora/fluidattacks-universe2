@@ -82,7 +82,7 @@ export const Graphic: React.FC<IGraphicProps> = (
                   rel={"noopener noreferrer"}
                   target={"_blank"}
                 >
-                  {title}
+                  <b>{title}</b>
                 </a>
               </Panel.Title>
             </Panel.Heading>
