@@ -94,6 +94,9 @@ async def generate_one(group: str):
                 show=True,
             ),
         ),
+        legend=dict(
+            position='bottom',
+        ),
         point=dict(
             focus=dict(
                 expand=dict(

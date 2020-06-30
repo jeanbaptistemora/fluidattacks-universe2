@@ -12,6 +12,14 @@ const enTranslations: Dictionary = {
         title: "Systems Risk",
       },
     },
+    gauge: {
+      maxOpenSeverity: {
+        title: "Max open severity",
+      },
+      maxSeverityFound: {
+        title: "Max severity found",
+      },
+    },
     pieChart: {
       status: {
         footer: {
@@ -21,7 +29,7 @@ const enTranslations: Dictionary = {
       },
       treatment: {
         footer: {
-          accepted: "Accepted: A manager decided to temporarily coexist with the risk.",
+          accepted: "Temporarily accepted: A manager decided to temporarily coexist with the risk.",
           eternally: "Eternally accepted: A vulnerability that will never be remediated.",
           inProgress: "In progress: The system is currently being hardened by your developers.",
           intro: "At Integrates you can plan and manage the remediation of security findings:",
@@ -48,12 +56,6 @@ const enTranslations: Dictionary = {
       },
       findingsBeingReattacked: {
         title: "Findings being re-attacked",
-      },
-      maxOpenSeverity: {
-        title: "Max open severity",
-      },
-      maxSeverityFound: {
-        title: "Max severity found",
       },
       totalFindings: {
         title: "Total findings",

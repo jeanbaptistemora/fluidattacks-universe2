@@ -2,8 +2,8 @@
 import asyncio
 
 # Third party libraries
-from backend.domain import (
-    project as group_domain,
+from backend.api.dataloaders.project import (
+    ProjectLoader as GroupLoader,
 )
 
 # Local libraries
@@ -16,30 +16,28 @@ from analytics.colors import (
 
 
 async def generate_one(group: str):
-    item = group_domain.get_attributes(group, [
-        'open_vulnerabilities',
-        'closed_vulnerabilities',
-    ])
+    group_data = (await GroupLoader().load(group))
 
     return {
+        'color': {
+            'pattern': [RISK.more_agressive],
+        },
         'data': {
             'columns': [
-                ['Closed', item.get('closed_vulnerabilities', 0)],
-                ['Open', item.get('open_vulnerabilities', 0)],
+                ['CVSS v3', group_data['attrs'].get('max_open_severity', 0)]
             ],
-            'type': 'pie',
-            'colors': {
-                'Closed': RISK.more_passive,
-                'Open': RISK.more_agressive,
-            },
+            'type': 'gauge',
         },
-        'legend': {
-            'position': 'right',
-        },
-        'pie': {
+        'gauge': {
             'label': {
+                'format': None,
                 'show': True,
             },
+            'max': 10,
+            'min': 0,
+        },
+        'legend': {
+            'position': 'bottom',
         },
     }
 

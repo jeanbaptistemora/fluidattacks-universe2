@@ -3,12 +3,14 @@
 const paddingRatio = 0.05;
 
 function render(dataDocument, height, width) {
+  if (typeof dataDocument.gauge !== 'undefined') {
+    // Clear the original gauge label format
+    dataDocument.gauge.label.format = (datum) => datum;
+  }
+
   c3.generate({
     ...dataDocument,
     bindto: 'div',
-    legend: {
-      position: 'inset',
-    },
     padding: {
       bottom: paddingRatio * height,
       left: paddingRatio * width,

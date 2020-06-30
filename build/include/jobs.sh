@@ -646,7 +646,8 @@ function _job_analytics_all {
         | while read -r generator
           do
                 echo "[INFO] Running: ${generator}" \
-            &&  _job_analytics "${generator}"
+            &&  _job_analytics "${generator}" \
+            ||  return 1
           done \
   &&  echo '[INFO] Uploading documents' \
   &&  aws s3 sync --delete \
@@ -741,7 +742,7 @@ function job_lint_front {
 function job_lint_graphics {
       env_prepare_node_modules \
   &&  pushd app/assets/graphics \
-        &&  eslint --config .eslintrc . \
+        &&  eslint --config .eslintrc --fix . \
   &&  popd \
   ||  return 1
 }

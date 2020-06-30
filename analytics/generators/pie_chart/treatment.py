@@ -21,10 +21,10 @@ async def generate_one(group: str):
     treatment = item.get('total_treatment', {})
 
     translations = {
-        'undefined': 'Not defined',
-        'inProgress': 'In Progress',
-        'accepted': 'Accepted',
         'acceptedUndefined': 'Eternally accepted',
+        'accepted': 'Temporarily Accepted',
+        'inProgress': 'In Progress',
+        'undefined': 'Not defined',
     }
 
     return {
@@ -35,11 +35,14 @@ async def generate_one(group: str):
             ],
             'type': 'pie',
             'colors': {
-                'Accepted': TREATMENT.passive,
                 'Eternally accepted': TREATMENT.more_passive,
+                'Temporarily Accepted': TREATMENT.passive,
                 'In Progress': TREATMENT.neutral,
                 'Not defined': TREATMENT.more_agressive,
             },
+        },
+        'legend': {
+            'position': 'right',
         },
         'pie': {
             'label': {
