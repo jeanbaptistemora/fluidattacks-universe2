@@ -373,6 +373,10 @@ const enTranslations: Dictionary = {
     no_file_update: "Failed to update the file",
     no_found: "Vulnerabilities in the request not found",
     no_verification_requested: "No verification requested",
+    organization_settings: {
+      exceeds_acceptance_date: "Chosen date is either in the past or exceeds the maximum number of days allowed " +
+        "by the organization",
+    },
     path_value: "Path value should not use backslash.",
     port_value: "Port value should be between 0 and 65535.",
     range_error: "Range limits are wrong.",
@@ -454,7 +458,7 @@ const enTranslations: Dictionary = {
         errors: {
           acceptanceSeverity: "Acceptance severity score should be a positive floating number between 0.0 and 10.0",
           acceptanceSeverityRange: "Minimum acceptance score should be lower than the maximum value",
-          maxAcceptanceDays: "Maximum acceptations days should be a positive integer",
+          maxAcceptanceDays: "Maximum acceptance days should be a positive integer between 0 and 180",
           maxNumberAcceptations: "Maximum number of acceptations should be a positive integer",
         },
         rule: "Rule",

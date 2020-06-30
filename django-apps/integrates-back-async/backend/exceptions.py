@@ -47,8 +47,14 @@ class RequestedReportError(Exception):
 
 class InvalidAcceptanceDays(Exception):
     """ Exception to control correct input in organization settings """
-    def __init__(self):
-        msg = 'Exception - Acceptance days should be zero or positive'
+    def __init__(self, expr=''):
+        if expr:
+            msg = f'Exception - {expr}'
+        else:
+            msg = (
+                'Exception - Acceptance days should be a positive integer '
+                'between 0 and 180'
+            )
         super(InvalidAcceptanceDays, self).__init__(msg)
 
 

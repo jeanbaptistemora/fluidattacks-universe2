@@ -1,17 +1,17 @@
 import asyncio
 import re
 import random
-from datetime import datetime, timedelta
+from datetime import datetime
 from decimal import Decimal
 from contextlib import AsyncExitStack
-
 from typing import Dict, List, Optional, Tuple, Union, cast
-import pytz
 
 import aioboto3
+import pytz
 from asgiref.sync import async_to_sync, sync_to_async
 from django.conf import settings
 from magic import Magic
+from pytz.tzinfo import DstTzInfo
 
 from backend.domain import (
     comment as comment_domain,
@@ -26,7 +26,9 @@ from backend.exceptions import (
     EvidenceNotFound,
     FindingNotFound,
     IncompleteDraft,
+    InvalidAcceptanceDays,
     InvalidCommentParent,
+    InvalidDateFormat,
     InvalidDraftTitle,
     InvalidFileSize,
     InvalidFileType,
@@ -45,6 +47,7 @@ from backend.dal import (
     finding as finding_dal,
     vulnerability as vuln_dal
 )
+from backend.domain import organization as org_domain
 from backend.typing import (
     Comment as CommentType,
     Finding as FindingType,
@@ -236,9 +239,18 @@ async def update_treatment_in_vuln(
     return resp
 
 
-def update_client_description(finding_id: str, updated_values: Dict[str, str],
-                              user_mail: str, update) -> bool:
+def update_client_description(
+    finding_id: str,
+    updated_values: Dict[str, str],
+    organization: str,
+    user_mail: str,
+    update
+) -> bool:
     validations.validate_fields(list(updated_values.values()))
+    valid_treatment: bool = (
+        validate_acceptance_date(updated_values) and
+        validate_acceptance_days(updated_values, organization)
+    )
     success_treatment, success_external_bts = True, True
     if update.bts_changed:
         validations.validate_url(updated_values['bts_url'])
@@ -246,11 +258,11 @@ def update_client_description(finding_id: str, updated_values: Dict[str, str],
         success_external_bts = finding_dal.update(
             finding_id,
             {
-                'external_bts': updated_values['bts_url']
-                if updated_values['bts_url'] else None
+                'external_bts': updated_values.get('bts_url', None)
             }
         )
-    if update.treatment_changed:
+    if update.treatment_changed and valid_treatment:
+        updated_values.pop('bts_url', None)
         success_treatment = update_treatment(
             finding_id, updated_values, user_mail
         )
@@ -262,19 +274,13 @@ def update_treatment(
         updated_values: Dict[str, str],
         user_mail: str) -> bool:
     success = False
-    tzn = pytz.timezone(settings.TIME_ZONE)  # type: ignore
-    today = datetime.now(tz=tzn).today().strftime('%Y-%m-%d %H:%M:%S')
+    tzn: DstTzInfo = pytz.timezone(settings.TIME_ZONE)
+    today = datetime.now(tz=tzn).strftime('%Y-%m-%d %H:%M:%S')
     finding = get_finding(finding_id)
     historic_treatment = cast(
         List[Dict[str, str]],
         finding.get('historicTreatment', [])
     )
-    if (updated_values['treatment'] == 'ACCEPTED' and
-            updated_values['acceptance_date'] == '-'):
-        updated_values['acceptance_date'] = (
-            (datetime.now() + timedelta(days=180))
-            .strftime('%Y-%m-%d %H:%M:%S')
-        )
     updated_values = util.update_treatment_values(updated_values)
     new_treatment = updated_values['treatment']
     new_state = {
@@ -293,8 +299,7 @@ def update_treatment(
             new_state['acceptance_status'] = \
                 updated_values['acceptance_status']
     if historic_treatment:
-        if compare_historic_treatments(historic_treatment[-1], new_state):
-            historic_treatment.append(new_state)
+        historic_treatment.append(new_state)
     else:
         historic_treatment = [new_state]
     result_update_finding = finding_dal.update(
@@ -864,6 +869,54 @@ def validate_finding(
         finding.get('historic_state', [{}])
     )
     return historic_state[-1].get('state', '') != 'DELETED'
+
+
+def validate_acceptance_date(values: Dict[str, str]) -> bool:
+    """
+    Check that the date set to temporarily accept a finding is logical
+    """
+    valid: bool = True
+    if values['treatment'] == 'ACCEPTED':
+        if values.get("acceptance_date"):
+            tzn: DstTzInfo = pytz.timezone(settings.TIME_ZONE)
+            today = datetime.now(tz=tzn).strftime('%Y-%m-%d %H:%M:%S')
+            values['acceptance_date'] = (
+                f'{values["acceptance_date"].split()[0]} {today.split()[1]}'
+            )
+            if not util.is_valid_format(values['acceptance_date']):
+                raise InvalidDateFormat()
+        else:
+            raise InvalidDateFormat()
+    return valid
+
+
+def validate_acceptance_days(
+    values: Dict[str, str],
+    organization: str
+) -> bool:
+    """
+    Check that the date during which the finding will be temporarily accepted
+    complies with organization settings
+    """
+    valid: bool = True
+    if values.get('treatment') == 'ACCEPTED':
+        tzn: DstTzInfo = pytz.timezone(settings.TIME_ZONE)
+        today = datetime.now(tz=tzn)
+        acceptance_date = datetime.strptime(
+            values['acceptance_date'],
+            '%Y-%m-%d %H:%M:%S'
+        ).replace(tzinfo=tzn)
+        acceptance_days = (acceptance_date - today).days
+        max_acceptance_days: int = async_to_sync(
+            org_domain.get_max_acceptance_days
+        )(organization)
+        if (max_acceptance_days and acceptance_days > max_acceptance_days) or \
+                acceptance_days < 0:
+            raise InvalidAcceptanceDays(
+                'Chosen date is either in the past or exceeds '
+                'the maximum number of days allowed by the organization'
+            )
+    return valid
 
 
 def cast_new_vulnerabilities(

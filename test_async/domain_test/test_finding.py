@@ -17,10 +17,14 @@ from backend.domain.finding import (
     handle_acceptation, mask_finding, validate_evidence,
     approve_draft, compare_historic_treatments
 )
+from backend.domain.organization import get_max_acceptance_days
 from backend.dal import finding as finding_dal
 from backend.dal.vulnerability import get_vulnerabilities
 from backend.exceptions import (
-    InvalidDateFormat, InvalidDate, InvalidFileType
+    InvalidAcceptanceDays,
+    InvalidDateFormat,
+    InvalidDate,
+    InvalidFileType
 )
 
 pytestmark = [
@@ -69,31 +73,62 @@ class FindingTests(TestCase):
         Status = namedtuple('Status', 'bts_changed treatment_changed')
         update = Status(bts_changed=True, treatment_changed=True)
         finding_id = '463461507'
-        values_accepted = {'justification': 'This is a test treatment justification',
-                           'bts_url': '',
-                           'treatment': 'ACCEPTED',
-                           'acceptance_date': '-'}
+        org_id = 'ORG#708f518a-d2c3-4441-b367-eec85e53d134'
+        acceptance_date = (
+            datetime.now() + timedelta(days=10)
+        ).strftime('%Y-%m-%d %H:%M:%D')
+        values_accepted = {
+            'justification': 'This is a test treatment justification',
+            'bts_url': '',
+            'treatment': 'ACCEPTED',
+            'acceptance_date': acceptance_date
+        }
         test_accepted = update_client_description(
-            finding_id, values_accepted, 'unittesting@fluidattacks.com', update)
+            finding_id,
+            values_accepted,
+            org_id,
+            'unittesting@fluidattacks.com',
+            update
+        )
         assert test_accepted is True
-        date = datetime.now() + timedelta(days=181)
-        date = date.strftime('%Y-%m-%d %H:%M:%S')
-        values_accepted_date_error = {'justification': 'This is a test treatment justification',
-                                      'bts_url': '',
-                                      'treatment': 'ACCEPTED',
-                                      'acceptance_date': date}
-        with pytest.raises(InvalidDate):
+
+        max_acceptance_days = async_to_sync(get_max_acceptance_days)(org_id)
+        assert max_acceptance_days == 60
+        acceptance_date = (
+            datetime.now() + timedelta(days=65)
+        ).strftime('%Y-%m-%d %H:%M:%D')
+        values_accepted_date_error = {
+            'justification': 'This is a test treatment justification',
+            'bts_url': '',
+            'treatment': 'ACCEPTED',
+            'acceptance_date': acceptance_date
+        }
+        with pytest.raises(InvalidAcceptanceDays):
             assert update_client_description(
-                finding_id, values_accepted_date_error, 'unittesting@fluidattacks.com', update)
-        date_future = datetime.now() + timedelta(days=60)
-        date_future = date_future.strftime('%Y/%m/%d %H:%M:%S')
-        values_accepted_format_error = {'justification': 'This is a test treatment justification',
-                                        'bts_url': '',
-                                        'treatment': 'ACCEPTED',
-                                        'acceptance_date': date_future}
+                finding_id,
+                values_accepted_date_error,
+                org_id,
+                'unittesting@fluidattacks.com',
+                update
+            )
+
+        acceptance_date = (
+            datetime.now() + timedelta(days=10)
+        ).strftime('%Y/%m/%d %H:%M:%D')
+        values_accepted_format_error = {
+            'justification': 'This is a test treatment justification',
+            'bts_url': '',
+            'treatment': 'ACCEPTED',
+            'acceptance_date': acceptance_date
+        }
         with pytest.raises(InvalidDateFormat):
             assert update_client_description(
-                finding_id, values_accepted_format_error, 'unittesting@fluidattacks.com', update)
+                finding_id,
+                values_accepted_format_error,
+                org_id,
+                'unittesting@fluidattacks.com',
+                update
+            )
 
     @pytest.mark.changes_db
     async def test_add_comment(self):

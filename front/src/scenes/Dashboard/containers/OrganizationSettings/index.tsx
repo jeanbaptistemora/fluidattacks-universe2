@@ -61,7 +61,7 @@ const organizationSettings: React.FC = (): JSX.Element => {
         let msg: string;
 
         switch (message) {
-          case "Exception - Acceptance days should be zero or positive":
+          case "Exception - Acceptance days should be a positive integer between 0 and 180":
             msg = "organization.tabs.settings.errors.maxAcceptanceDays";
             break;
           case "Exception - Severity value should be a positive floating number between 0.0 a 10.0":

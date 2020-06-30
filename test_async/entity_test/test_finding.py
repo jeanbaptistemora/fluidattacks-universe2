@@ -381,22 +381,25 @@ class FindingTests(TestCase):
     @pytest.mark.changes_db
     async def test_update_client_description(self):
         """Check for updateClientDescription mutation."""
-        query = '''
-            mutation {
+        acceptance_date = (
+          datetime.now() + timedelta(days=5)
+        ).strftime('%Y-%m-%d %H:%M:%S')
+        query = f'''
+            mutation {{
                 updateClientDescription (
                 btsUrl: "",
                 findingId: "463558592",
                 treatment: ACCEPTED,
                 justification: "This is a treatment justification test",
-                acceptanceDate: "-"
-                ) {
+                acceptanceDate: "{acceptance_date}"
+                ) {{
                 success
-                finding {
+                finding {{
                     btsUrl
                     historicTreatment
-                }
-                }
-            }
+                }}
+                }}
+            }}
         '''
         data = {'query': query}
         result = await self._get_result(data, user='integratesuser@gmail.com')

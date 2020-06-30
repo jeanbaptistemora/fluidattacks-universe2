@@ -83,6 +83,24 @@
                     }
                 }
             }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "pk": {
+                        "S": "ORG#708f518a-d2c3-4441-b367-eec85e53d134"
+                    },
+                    "sk": {
+                        "S": "INFO#testorg3"
+                    },
+                    "max_acceptance_days": {
+                        "N": "60"
+                    },
+                    "max_number_acceptations": {
+                        "N": "2"
+                    }
+                }
+            }
         }
     ]
 }

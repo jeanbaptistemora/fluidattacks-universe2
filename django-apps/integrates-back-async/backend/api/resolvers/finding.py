@@ -17,6 +17,7 @@ from backend.decorators import (
 from backend.domain import (
     comment as comment_domain,
     finding as finding_domain,
+    organization as org_domain,
     vulnerability as vuln_domain
 )
 from backend.typing import (
@@ -755,38 +756,55 @@ finding {finding_id} successfully')  # pragma: no cover
 @require_integrates
 @require_finding_access
 async def _do_update_client_description(
-        _, info, finding_id: str, **parameters) -> SimpleFindingPayloadType:
-    """Perform update_client_description mutation."""
+    _,
+    info,
+    finding_id: str,
+    **parameters
+) -> SimpleFindingPayloadType:
+    """
+    Perform update_client_description mutation.
+    """
     finding_loader = info.context.loaders['finding']
     finding = await finding_loader.load(finding_id)
     project_name = finding['project_name']
+    organization = await org_domain.get_id_for_group(project_name)
     user_mail = util.get_jwt_content(info.context)['user_email']
-    if parameters.get('acceptance_status') == '':
-        del parameters['acceptance_status']
-    historic_treatment = finding['historic_treatment']
+
     last_state = {
-        key: value for key, value in historic_treatment[-1].items()
-        if key not in ['date', 'user']}
+        key: value
+        for key, value in finding['historic_treatment'][-1].items()
+        if key not in ['date', 'user']
+    }
     new_state = {
-        key: value for key, value in parameters.items() if key != 'bts_url'}
-    bts_changed, treatment_changed = True, True
+        key: value
+        for key, value in parameters.items()
+        if key not in ['acceptance_status', 'bts_url']
+    }
+    treatment_changed = await sync_to_async(
+        finding_domain.compare_historic_treatments
+    )(last_state, new_state)
+
+    bts_changed = bool(
+        parameters.get('bts_url') and
+        parameters.get('bts_url') != finding.get('bts_url')
+    )
+
     Status = namedtuple('Status', 'bts_changed treatment_changed')
-    if not await \
-        sync_to_async(finding_domain.compare_historic_treatments)(
-            last_state, new_state):
-        treatment_changed = False
-    if 'bts_url' in finding and \
-            parameters.get('bts_url') == finding['bts_url']:
-        bts_changed = False
-    update = Status(bts_changed=bts_changed,
-                    treatment_changed=treatment_changed)
+    update = Status(
+        bts_changed=bts_changed,
+        treatment_changed=treatment_changed
+    )
     if not any(list(update)):
         raise GraphQLError(
-            'It cant be updated a finding with same values it already has'
+            'Finding treatment cannot be updated with the same values'
         )
     success = await \
         sync_to_async(finding_domain.update_client_description)(
-            finding_id, parameters, user_mail, update
+            finding_id,
+            parameters,
+            organization,
+            user_mail,
+            update
         )
     if success:
         finding_loader.clear(finding_id)

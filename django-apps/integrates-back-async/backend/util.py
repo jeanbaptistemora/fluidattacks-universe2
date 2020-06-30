@@ -44,9 +44,7 @@ from backend.dal import session as session_dal
 from backend.exceptions import (
     ConcurrentSession,
     ExpiredToken,
-    InvalidAuthorization,
-    InvalidDate,
-    InvalidDateFormat
+    InvalidAuthorization
 )
 
 from backend.typing import (
@@ -456,46 +454,21 @@ def forces_trigger_deployment(project_name: str) -> bool:
 
 
 def update_treatment_values(updated_values: Dict[str, str]) -> Dict[str, str]:
-    updated_values['external_bts'] = updated_values.get('bts_url', '')
-    date = datetime.now() + timedelta(days=180)
-    if updated_values.get('bts_url'):
-        del updated_values['bts_url']
-
+    tzn = pytz.timezone(settings.TIME_ZONE)
+    today = datetime.now(tz=tzn)
     if updated_values['treatment'] == 'NEW':
         updated_values['acceptance_date'] = ''
-    if updated_values['treatment'] == 'ACCEPTED':
-        if updated_values.get('acceptance_date', '') == '':
-            max_date = date.strftime('%Y-%m-%d %H:%M:%S')
-            updated_values['acceptance_date'] = max_date
-        date_size = updated_values['acceptance_date'].split(' ')
-        if len(date_size) == 1:
-            updated_values['acceptance_date'] += (
-                f' {datetime.now().strftime("%H:%M:%S")}'
-            )
-        date_value = updated_values['acceptance_date']
-        is_valid_date = is_valid_format(date_value)
-        if is_valid_date is False:
-            raise InvalidDateFormat()
-        if updated_values.get('acceptance_date'):
-            today_date = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-            if (str(updated_values.get('acceptance_date', '')) <= today_date or
-                    str(updated_values.get('acceptance_date', '')) >
-                    date.strftime('%Y-%m-%d %H:%M:%S')):
-                raise InvalidDate()
-    if updated_values['treatment'] == 'ACCEPTED_UNDEFINED':
-        updated_values['acceptation_approval'] = 'SUBMITTED'
-        today = datetime.now()
+    elif updated_values['treatment'] == 'ACCEPTED_UNDEFINED':
+        updated_values['acceptance_status'] = 'SUBMITTED'
         days = [
             today + timedelta(x + 1)
-            for x in range((today + timedelta(days=5) - today).days)
+            for x in range(
+                (today + timedelta(days=5) - today).days
+            )
         ]
-        weekend_days = sum(
-            1
-            for day in days
-            if day.weekday() >= 5
-        )
+        weekend_days = sum(1 for day in days if day.weekday() >= 5)
         updated_values['acceptance_date'] = (
-            datetime.now() + timedelta(days=5 + weekend_days)
+            today + timedelta(days=5 + weekend_days)
         ).strftime('%Y-%m-%d %H:%M:%S')
     return updated_values
 

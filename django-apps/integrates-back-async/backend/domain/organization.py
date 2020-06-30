@@ -155,7 +155,7 @@ def validate_acceptance_severity_range(
 
 def validate_max_acceptance_days(value: int) -> bool:
     success: bool = True
-    if value < 0:
+    if not 0 <= value <= 180:
         raise InvalidAcceptanceDays()
     return success
 
