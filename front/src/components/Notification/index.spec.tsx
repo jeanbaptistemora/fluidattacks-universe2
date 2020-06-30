@@ -1,19 +1,18 @@
-import { shallow, ShallowWrapper } from "enzyme";
-import * as React from "react";
 import { Notification } from "./index";
+import * as React from "react";
+import { ShallowWrapper, shallow } from "enzyme";
 
-describe("Notification", () => {
-
-  it("should return a function", () => {
-    expect(typeof (Notification))
-      .toEqual("function");
+describe("Notification", (): void => {
+  it("should return a function", (): void => {
+    expect.hasAssertions();
+    expect(typeof Notification).toStrictEqual("function");
   });
 
-  it("should render a notification", () => {
+  it("should render a notification", (): void => {
+    expect.hasAssertions();
     const wrapper: ShallowWrapper = shallow(
-      <Notification title="Title test" text="text test" />,
+      <Notification text={"text test"} title={"Title test"} />
     );
-    expect(wrapper)
-      .toHaveLength(1);
+    expect(wrapper).toHaveLength(1);
   });
 });

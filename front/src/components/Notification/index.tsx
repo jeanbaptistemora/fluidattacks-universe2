@@ -2,17 +2,20 @@ import React from "react";
 import { default as style } from "./index.css";
 
 interface INotificationProps {
-    text: string;
-    title: string;
+  text: string;
+  title: string;
 }
 
-const notification: React.FC<INotificationProps> = (props: INotificationProps): JSX.Element => (
-    <React.StrictMode>
-        <div className={style.container}>
-            <p><small>{props.title}</small></p>
-            <p>{props.text}</p>
-        </div>
-    </React.StrictMode>
-);
-
-export { notification as Notification };
+export const Notification: React.FC<INotificationProps> = (
+  props: Readonly<INotificationProps>
+): JSX.Element => {
+  const { title, text } = props;
+  return (
+    <div className={style.container}>
+      <p>
+        <small>{title}</small>
+      </p>
+      <p>{text}</p>
+    </div>
+  );
+};

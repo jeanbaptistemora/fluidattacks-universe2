@@ -1,19 +1,16 @@
-import { shallow, ShallowWrapper } from "enzyme";
-import * as React from "react";
 import { ScrollUpButton } from "./index";
+import * as React from "react";
+import { ShallowWrapper, shallow } from "enzyme";
 
-describe("ScrollUpButton", () => {
-
-  it("should return a function", () => {
-    expect(typeof (ScrollUpButton))
-      .toEqual("function");
+describe("ScrollUpButton", (): void => {
+  it("should return a function", (): void => {
+    expect.hasAssertions();
+    expect(typeof ScrollUpButton).toStrictEqual("function");
   });
 
-  it("should render a scroll up button", () => {
-    const wrapper: ShallowWrapper = shallow(
-      <ScrollUpButton visibleAt={400} />,
-    );
-    expect(wrapper)
-      .toHaveLength(1);
+  it("should render a scroll up button", (): void => {
+    expect.hasAssertions();
+    const wrapper: ShallowWrapper = shallow(<ScrollUpButton visibleAt={400} />);
+    expect(wrapper).toHaveLength(1);
   });
 });

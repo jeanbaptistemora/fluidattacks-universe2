@@ -60,7 +60,7 @@ describe("Dashboard", () => {
 
     const sideBar: ReactWrapper = wrapper.find("sidebar");
 
-    const scrollUpButton: ReactWrapper = wrapper.find("scrollUpButton");
+    const scrollUpButton: ReactWrapper = wrapper.find("ScrollUp");
 
     const navBar: ReactWrapper = wrapper
       .find({ id: "navbar" })

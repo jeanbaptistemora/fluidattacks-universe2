@@ -1,10 +1,10 @@
 import React from "react";
-/**
- * Disabling here is necessary because
- * there are currently no available type definitions for
- * neither this nor any other 3rd-party scroll-up components
+/*
+ * Disabling here is necessary because there are currently no available
+ * type definitions for neither this nor any other 3rd-party scroll-up
+ * components.
  */
-// @ts-ignore
+// @ts-expect-error: Explanation above
 import ScrollUp from "react-scroll-up";
 import { default as style } from "./index.css";
 
@@ -12,12 +12,13 @@ interface IScrollUPButtonProps {
   visibleAt: number;
 }
 
-const scrollUpButton: React.FC<IScrollUPButtonProps> = (props: IScrollUPButtonProps): JSX.Element => (
-  <React.StrictMode>
-    <ScrollUp showUnder={props.visibleAt} duration={400}>
-      <span id="scroll-up" className={style.container} />
+export const ScrollUpButton: React.FC<IScrollUPButtonProps> = (
+  props: Readonly<IScrollUPButtonProps>
+): JSX.Element => {
+  const { visibleAt } = props;
+  return (
+    <ScrollUp duration={400} showUnder={visibleAt}>
+      <span className={style.container} id={"scroll-up"} />
     </ScrollUp>
-  </React.StrictMode>
-);
-
-export { scrollUpButton as ScrollUpButton };
+  );
+};

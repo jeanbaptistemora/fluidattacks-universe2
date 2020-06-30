@@ -7,7 +7,4 @@ src/typings/
 src/utils/
 src/**/*.css.d.ts
 src/components/DataTableNext
-src/components/Notification
-src/components/Preloader
-src/components/ScrollUpButton
 src/components/TooltipWrapper
