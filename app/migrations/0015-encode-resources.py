@@ -5,13 +5,14 @@
 This migration encodes all environments and repositories using urllib
 in all groups
 
-Migration must be executed when the code that decode the resources in the front
-is in production, so the resources are updated correctly by the customers
+Execution Time:     2020-06-30 18:39 UTC-5
+Finalization Time:  2020-06-30 18:40 UTC-5
+
 """
 
 import os
 import uuid
-from urllib.parse import quote_plus, unquote_plus
+from urllib.parse import quote, unquote
 import rollbar
 import django
 
@@ -50,19 +51,23 @@ def main() -> None:
         repos = group.get('repositories', [])
         for repo in repos:
             url = repo.get('urlRepo', '')
-            url_enc = quote_plus(url)
+            url_enc = quote(url)
             branch = repo.get('branch', '')
-            branch_enc = quote_plus(branch)
+            branch_enc = quote(branch)
             # Update only no encoded repositories
-            if url == unquote_plus(url) and branch == unquote_plus(branch):
+            if url != quote(unquote(url)):
                 if STAGE == 'test':
                     log(f'---\nrepo before: {repo}')
-
                 repo['urlRepo'] = url_enc
-                repo['branch'] = branch_enc
-
                 if STAGE == 'test':
                     log(f'---\nrepo after: {repo}')
+            elif branch != quote(unquote(branch)):
+                if STAGE == 'test':
+                    log(f'---\nrepo before: {repo}')
+                repo['branch'] = branch_enc
+                if STAGE == 'test':
+                    log(f'---\nrepo after: {repo}')
+
             else:
                 if STAGE == 'test':
                     log(f'---\nrepo is already encoded: {repo}')
@@ -71,9 +76,9 @@ def main() -> None:
         for env in envs:
             url = env.get('urlEnv', '')
 
-            url_enc = quote_plus(url)
+            url_enc = quote(url)
             # Update only no encoded environments
-            if url == unquote_plus(url):
+            if url != quote(unquote(url)):
                 if STAGE == 'test':
                     log(f'---\nenv before: {env}')
 
