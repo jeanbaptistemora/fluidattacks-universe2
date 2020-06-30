@@ -35,6 +35,9 @@ in
           requirement = "secure-spreadsheet@0.1.0";
         };
 
+      pkgGeckoDriver = pkgs.geckodriver;
+      pkgFirefox = pkgs.firefox;
+
       pyPkgIntegratesBack =
         import ../../django-apps/integrates-back-async pkgs;
 

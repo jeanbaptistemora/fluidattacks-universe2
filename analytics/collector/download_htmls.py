@@ -28,6 +28,13 @@ SIZES = [
 ]
 
 
+@utils.retry_on_exceptions(
+    default_value=bytes(),
+    exceptions=(
+        aiohttp.ClientError,
+    ),
+    retry_times=5,
+)
 async def generate_html(
     *,
     document_name: str,
@@ -76,7 +83,7 @@ async def generate_html(
 
 
 async def collect():
-    for height, width in SIZES:
+    for width, height in SIZES:
         for document_type, document_name, generator_type, generator_name in [
             ['stackedBarChart', 'riskOverTime', 'c3', 'generic'],
             ['pieChart', 'treatment', 'c3', 'generic'],

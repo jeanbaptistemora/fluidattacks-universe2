@@ -1,11 +1,16 @@
 # Standard library
+import contextlib
 from decimal import Decimal
+import functools
 import json
 import os
 from typing import (
     Any,
+    Callable,
     Dict,
     Iterable,
+    Tuple,
+    Type,
 )
 from urllib.parse import urlparse
 
@@ -90,3 +95,26 @@ def json_encoder(obj: Any) -> Any:
 # Using Any because this is a generic-input function
 def log_info(*args: Any, **kwargs: Any) -> None:
     print('[INFO]', *args, **kwargs)
+
+
+# Using Any because this is a generic-input decorator
+def retry_on_exceptions(
+    *,
+    default_value: Any,
+    exceptions: Tuple[Type[Exception], ...],
+    retry_times: int,
+) -> Callable[..., Any]:
+
+    def decorator(function: Callable[..., Any]) -> Callable[..., Any]:
+
+        @functools.wraps(function)
+        def wrapper(*args: Any, **kwargs: Any) -> Any:
+            for _ in range(retry_times):
+                with contextlib.suppress(*exceptions):
+                    return function(*args, **kwargs)
+
+            return default_value
+
+        return wrapper
+
+    return decorator
