@@ -98,6 +98,32 @@ const d3GroupIndicatorsView: React.FC<ID3GroupIndicatorsProps> = (props: ID3Grou
             />
           </Col>
         </Row>
+        <Row>
+          <Col xs={2} sm={2} md={2}>
+            <Graphic
+              bsClass={styles.height80}
+              documentName="totalFindings"
+              documentType="textBox"
+              entity="group"
+              generatorName="raw"
+              generatorType="textBox"
+              subject={groupName}
+              title={translate.t("analytics.textBox.totalFindings.title")}
+            />
+          </Col>
+          <Col xs={2} sm={2} md={2}>
+            <Graphic
+              bsClass={styles.height80}
+              documentName="totalVulnerabilities"
+              documentType="textBox"
+              entity="group"
+              generatorName="raw"
+              generatorType="textBox"
+              subject={groupName}
+              title={translate.t("analytics.textBox.totalVulnerabilities.title")}
+            />
+          </Col>
+        </Row>
       </Grid>
     </React.StrictMode>
   );

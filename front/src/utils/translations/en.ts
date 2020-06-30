@@ -42,6 +42,14 @@ const enTranslations: Dictionary = {
         title: "Vulnerabilities over time",
       },
     },
+    textBox: {
+      totalFindings: {
+        title: "Total findings",
+      },
+      totalVulnerabilities: {
+        title: "Total vulnerabilities",
+      },
+    },
   },
   confirmmodal: {
     cancel: "Cancel",

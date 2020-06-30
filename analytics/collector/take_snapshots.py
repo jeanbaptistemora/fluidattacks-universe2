@@ -9,6 +9,7 @@ from selenium import webdriver
 from selenium.webdriver.firefox.options import Options
 from selenium.common.exceptions import (
     TimeoutException,
+    WebDriverException,
 )
 
 # Local libraries
@@ -25,6 +26,7 @@ FIREFOX = os.environ['pkgFirefox']
     default_value=None,
     exceptions=(
         TimeoutException,
+        WebDriverException,
     ),
     retry_times=5,
 )
