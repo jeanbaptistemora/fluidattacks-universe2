@@ -46,6 +46,14 @@ type Query {
     "Tag entity"
     tag(tag: String!): Tag
 
+    "Report entity"
+    report(
+        reportType: ReportType!,
+        userEmail: String!,
+        findingId: String,
+        projectName: String
+    ): Report
+
     "List of alive projects"
     projects(filters: GenericScalar): [Project]
 

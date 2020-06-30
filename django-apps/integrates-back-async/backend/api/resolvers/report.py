@@ -1,19 +1,32 @@
 
 import asyncio
+import sys
+import rollbar
 from asgiref.sync import sync_to_async
 from backend.decorators import require_login, require_project_access
 from backend.domain import (
     finding as finding_domain, project as project_domain,
-    vulnerability as vuln_domain
+    user as user_domain, vulnerability as vuln_domain
 )
 from backend.reports import (
+    complete as complete_report,
     data as data_report,
     technical as technical_report,
 )
-from backend.typing import SimplePayload as SimplePayloadType
+from backend.typing import (
+    Report as ReportType,
+    SimplePayload as SimplePayloadType
+)
 from backend import util
 
-from ariadne import convert_kwargs_to_snake_case
+from ariadne import convert_kwargs_to_snake_case, convert_camel_case_to_snake
+
+
+@convert_kwargs_to_snake_case
+@require_login
+async def resolve_report(_, info, **parameters) -> ReportType:
+    """Resolve report query."""
+    return await resolve(info, **parameters)
 
 
 @convert_kwargs_to_snake_case
@@ -22,6 +35,47 @@ from ariadne import convert_kwargs_to_snake_case
 async def resolve_report_mutation(_, info, **parameters):
     """Resolve reports mutation."""
     return await _do_request_project_report(info, **parameters)
+
+
+async def resolve(info, report_type: str, **parameters) -> ReportType:
+    """Async resolve fields."""
+    result: ReportType = dict()
+    for requested_field in info.field_nodes[0].selection_set.selections:
+        if util.is_skippable(info, requested_field):
+            continue
+        params = {
+            'report_type': report_type,
+            **parameters
+        }
+        field_params = util.get_field_parameters(requested_field)
+        if field_params:
+            params.update(field_params)
+        requested_field = \
+            convert_camel_case_to_snake(requested_field.name.value)
+        if requested_field.startswith('_'):
+            continue
+        resolver_func = getattr(
+            sys.modules[__name__],
+            f'_get_{requested_field}'
+        )
+        result[requested_field] = resolver_func(info, **params)
+    return result
+
+
+async def _get_url(info, report_type: str, **parameters) -> str:
+    if report_type == 'COMPLETE':
+        user_email = parameters.get('user_email')
+        projects = await user_domain.get_projects(user_email)
+        uploaded_file_url = \
+            await sync_to_async(
+                complete_report.generate)(projects, user_email)
+        util.cloudwatch_log(
+            info.context,
+            f'Security: Complete report succesfully requested by {user_email}')
+    else:
+        msg = f'Error: An error occurred getting the specified {report_type}'
+        rollbar.report_message(msg, 'error')
+    return uploaded_file_url
 
 
 async def _do_request_project_report(info, **parameters) -> SimplePayloadType:

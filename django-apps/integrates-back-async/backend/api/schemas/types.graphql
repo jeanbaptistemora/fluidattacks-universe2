@@ -279,6 +279,11 @@ type ExploitResult {
     who: String
 }
 
+"Report type definition"
+type Report {
+    url: String
+}
+
 input EnvironmentInput {
     "Environment URL"
     urlEnv: String!
@@ -426,6 +431,7 @@ enum EventEvidenceType {
 }
 
 enum ReportType {
+    COMPLETE
     DATA
     PDF
     XLS

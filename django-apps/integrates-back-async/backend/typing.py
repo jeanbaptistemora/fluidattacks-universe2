@@ -85,6 +85,9 @@ Vulnerability = Dict[str, Union[
     Historic,
     List[str]
 ]]
+Report = Dict[str, Union[
+    str
+]]
 AddUserPayload = NamedTuple('AddUserPayload', [
     ('success', bool),
     ('email', str),

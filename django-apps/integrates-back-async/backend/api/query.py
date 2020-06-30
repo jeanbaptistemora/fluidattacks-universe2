@@ -8,6 +8,7 @@ from backend.api.resolvers import (
     me,
     organization,
     project,
+    report,
     resource,
     tag,
     user
@@ -34,3 +35,4 @@ QUERY.set_field('aliveProjects', project.resolve_alive_projects)
 QUERY.set_field('projects', project.resolve_alive_projects)
 QUERY.set_field('userListProjects', user.resolve_user_list_projects)
 QUERY.set_field('tag', tag.resolve_tag)
+QUERY.set_field('report', report.resolve_report)
