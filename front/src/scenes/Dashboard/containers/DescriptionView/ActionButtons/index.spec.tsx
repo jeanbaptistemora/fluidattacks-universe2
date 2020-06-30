@@ -83,7 +83,7 @@ describe("ActionButtons", () => {
       .filterWhere((button: ReactWrapper): boolean =>
         button
           .text()
-          .includes("Request"));
+          .includes("Reattack"));
     expect(requestButton)
       .toHaveLength(1);
     requestButton.simulate("click");

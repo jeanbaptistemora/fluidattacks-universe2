@@ -221,7 +221,7 @@ const renderTable: ((toolkitProps: ToolkitProviderProps, props: ITableProps, dat
         <TooltipWrapper message={translate.t("dataTableNext.tooltip")}>
           <Button onClick={handleUpdateEnableFilter} active={!isEnableFilter}>
             {isEnableFilter ? <Glyphicon glyph="minus"/> : <Glyphicon glyph="plus"/>}&nbsp;
-            {isEnableFilter ? translate.t("dataTableNext.filterEnabled") : translate.t("dataTableNext.filterDisabled")}
+            {translate.t("dataTableNext.filters")}
           </Button>
         </TooltipWrapper>
       );

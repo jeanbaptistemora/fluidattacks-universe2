@@ -73,8 +73,7 @@ const enTranslations: Dictionary = {
     title_generic: "Confirm action",
   },
   dataTableNext: {
-    filterDisabled: "Display filters",
-    filterEnabled: "Hide filters",
+    filters: "Filters",
     more: "--More--",
     noDataIndication: "There is no data to display",
     tooltip: "filters of search on the table",
@@ -210,8 +209,8 @@ const enTranslations: Dictionary = {
         no_data: "There is no exploit",
       },
       exportCsv: {
-        text: "Export to CSV",
-        tooltip: "Comma-separated values file",
+        text: "Export",
+        tooltip: "Export to comma-separated values file",
       },
       help_label: "Click on a finding to see more details",
       records: {
@@ -239,7 +238,7 @@ const enTranslations: Dictionary = {
       },
       tableSet: {
         btn: {
-          text: "Table settings",
+          text: "Columns",
           tooltip: "Pick out the fields you would like to display",
         },
         modal_title: "Columns Filter",
@@ -651,7 +650,7 @@ const enTranslations: Dictionary = {
         title_observations: "Observations",
         title_request: "Justification",
       },
-      request_verify: "Request Reattack",
+      request_verify: "Reattack",
       requirements: {
         text: "Requirements",
         tooltip: "Rules that are broken and lead to the existence of the vulnerability",
