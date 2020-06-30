@@ -10,12 +10,21 @@ from backports import csv  # type: ignore
 from magic import Magic
 
 from backend import mailer, util
-from backend.utils import cvss, forms as forms_utils
-from backend.dal import finding as finding_dal, project as project_dal
+from backend.utils import (
+    cvss,
+    forms as forms_utils
+)
+from backend.dal import (
+    finding as finding_dal,
+    project as project_dal
+)
 from backend.domain import project as project_domain
 from backend.typing import Finding as FindingType
 from __init__ import (
-    BASE_URL, FI_MAIL_CONTINUOUS, FI_MAIL_PROJECTS, FI_MAIL_REVIEWERS
+    BASE_URL,
+    FI_MAIL_CONTINUOUS,
+    FI_MAIL_PROJECTS,
+    FI_MAIL_REVIEWERS
 )
 
 
@@ -39,14 +48,19 @@ CVSS_PARAMETERS = {
 
 def _get_evidence(name: str, items: List[Dict[str, str]]) -> Dict[str, str]:
     evidence = [
-        {'url': item['file_url'], 'description': item.get('description', '')}
+        {'url': item['file_url'],
+         'description': item.get('description', '')}
         for item in items
-        if item['name'] == name]
+        if item['name'] == name
+    ]
 
     return evidence[0] if evidence else {'url': '', 'description': ''}
 
 
-def _download_evidence_file(project_name: str, finding_id: str, file_name: str) -> str:
+def _download_evidence_file(
+        project_name: str,
+        finding_id: str,
+        file_name: str) -> str:
     file_id = '/'.join([project_name.lower(), finding_id, file_name])
     file_exists = finding_dal.search_evidence(file_id)
 
@@ -61,7 +75,9 @@ def _download_evidence_file(project_name: str, finding_id: str, file_name: str) 
 
 
 def get_records_from_file(
-        project_name: str, finding_id: str, file_name: str) -> List[Dict[object, object]]:
+        project_name: str,
+        finding_id: str,
+        file_name: str) -> List[Dict[object, object]]:
     file_path = _download_evidence_file(project_name, finding_id, file_name)
     file_content = []
     encoding = Magic(mime_encoding=True).from_file(file_path)
@@ -71,16 +87,25 @@ def get_records_from_file(
             csv_reader = csv.reader(records_file)
             max_rows = 1000
             headers = next(csv_reader)
-            file_content = [util.list_to_dict(headers, row)
-                            for row in itertools.islice(csv_reader, max_rows)]
+            file_content = [
+                util.list_to_dict(headers, row)
+                for row in itertools.islice(csv_reader, max_rows)
+            ]
     except (csv.Error, LookupError, UnicodeDecodeError) as ex:
-        rollbar.report_message('Error: Couldnt read records file', 'error',
-                               extra_data=ex, payload_data=locals())
+        rollbar.report_message(
+            'Error: Couldnt read records file',
+            'error',
+            extra_data=ex,
+            payload_data=locals()
+        )
 
     return file_content
 
 
-def get_exploit_from_file(project_name: str, finding_id: str, file_name: str) -> str:
+def get_exploit_from_file(
+        project_name: str,
+        finding_id: str,
+        file_name: str) -> str:
     file_path = _download_evidence_file(project_name, finding_id, file_name)
     file_content = ''
 
@@ -103,14 +128,21 @@ def format_data(finding: Dict[str, FindingType]) -> Dict[str, FindingType]:
         finding['cvssVersion'] = finding.get('cvssVersion', '2')
     else:
         finding['age'] = util.calculate_datediff_since(
-            cast(datetime, finding['releaseDate'])).days
+            cast(datetime, finding['releaseDate'])
+        ).days
     finding['exploitable'] = forms_utils.is_exploitable(
-        float(str(finding.get('exploitability', ''))), str(finding.get('cvssVersion', ''))) == 'Si'
+        float(str(finding.get('exploitability', ''))),
+        str(finding.get('cvssVersion', ''))
+    ) == 'Si'
 
-    historic_verification = cast(List[Dict[str, str]], finding.get('historicVerification', [{}]))
-    finding['remediated'] = \
-        (historic_verification[-1].get('status') == 'REQUESTED' and
-         not historic_verification[-1].get('vulns', []))
+    historic_verification = cast(
+        List[Dict[str, str]],
+        finding.get('historicVerification', [{}])
+    )
+    finding['remediated'] = (
+        historic_verification[-1].get('status') == 'REQUESTED' and
+        not historic_verification[-1].get('vulns', [])
+    )
 
     finding_files = cast(List[Dict[str, str]], finding.get('files'))
     finding['evidence'] = {
@@ -127,38 +159,52 @@ def format_data(finding: Dict[str, FindingType]) -> Dict[str, FindingType]:
     finding['exploit'] = _get_evidence('exploit', finding_files)
 
     cvss_fields = {
-        '2': ['accessComplexity', 'accessVector', 'authentication',
-              'availabilityImpact', 'availabilityRequirement',
-              'collateralDamagePotential', 'confidenceLevel',
-              'confidentialityImpact', 'confidentialityRequirement',
-              'exploitability', 'findingDistribution', 'integrityImpact',
-              'integrityRequirement', 'resolutionLevel'],
-        '3.1': ['attackComplexity', 'attackVector', 'availabilityImpact',
-                'availabilityRequirement', 'confidentialityImpact',
-                'confidentialityRequirement', 'exploitability',
-                'integrityImpact', 'integrityRequirement',
-                'modifiedAttackComplexity', 'modifiedAttackVector',
-                'modifiedAvailabilityImpact', 'modifiedConfidentialityImpact',
-                'modifiedIntegrityImpact', 'modifiedPrivilegesRequired',
-                'modifiedUserInteraction', 'modifiedSeverityScope',
-                'privilegesRequired', 'remediationLevel', 'reportConfidence',
-                'severityScope', 'userInteraction']
+        '2': [
+            'accessComplexity', 'accessVector', 'authentication',
+            'availabilityImpact', 'availabilityRequirement',
+            'collateralDamagePotential', 'confidenceLevel',
+            'confidentialityImpact', 'confidentialityRequirement',
+            'exploitability', 'findingDistribution', 'integrityImpact',
+            'integrityRequirement', 'resolutionLevel'
+        ],
+        '3.1': [
+            'attackComplexity', 'attackVector', 'availabilityImpact',
+            'availabilityRequirement', 'confidentialityImpact',
+            'confidentialityRequirement', 'exploitability',
+            'integrityImpact', 'integrityRequirement',
+            'modifiedAttackComplexity', 'modifiedAttackVector',
+            'modifiedAvailabilityImpact', 'modifiedConfidentialityImpact',
+            'modifiedIntegrityImpact', 'modifiedPrivilegesRequired',
+            'modifiedUserInteraction', 'modifiedSeverityScope',
+            'privilegesRequired', 'remediationLevel', 'reportConfidence',
+            'severityScope', 'userInteraction'
+        ]
     }
     finding['severity'] = {
         field: cast(str, float(str(finding.get(field, 0))))
         for field in cvss_fields[str(finding['cvssVersion'])]
     }
     base_score = cvss.calculate_cvss_basescore(
-        cast(Dict[str, float], finding['severity']), CVSS_PARAMETERS[str(finding['cvssVersion'])],
-        str(finding['cvssVersion']))
+        cast(Dict[str, float], finding['severity']),
+        CVSS_PARAMETERS[str(finding['cvssVersion'])],
+        str(finding['cvssVersion'])
+    )
     finding['severityCvss'] = cvss.calculate_cvss_temporal(
-        cast(Dict[str, float], finding['severity']), base_score, str(finding['cvssVersion']))
+        cast(Dict[str, float], finding['severity']),
+        base_score,
+        str(finding['cvssVersion'])
+    )
 
     return finding
 
 
-def send_finding_verified_email(finding_id: str, finding_name: str, project_name: str):
-    recipients = async_to_sync(project_domain.get_users_to_notify)(project_name)
+def send_finding_verified_email(
+        finding_id: str,
+        finding_name: str,
+        project_name: str):
+    recipients = async_to_sync(project_domain.get_users_to_notify)(
+        project_name
+    )
 
     email_send_thread = threading.Thread(
         name='Verified finding email thread',
@@ -166,16 +212,22 @@ def send_finding_verified_email(finding_id: str, finding_name: str, project_name
         args=(recipients, {
             'project': project_name,
             'finding_name': finding_name,
-            'finding_url':
-                f'{BASE_URL}/groups/{project_name}/findings/{finding_id}/tracking',
+            'finding_url': (
+                f'{BASE_URL}/groups/{project_name}'
+                f'/findings/{finding_id}/tracking'
+            ),
             'finding_id': finding_id
         }))
 
     email_send_thread.start()
 
 
-def send_finding_delete_mail(finding_id: str, finding_name: str, project_name: str,
-                             discoverer_email: str, justification: str):
+def send_finding_delete_mail(
+        finding_id: str,
+        finding_name: str,
+        project_name: str,
+        discoverer_email: str,
+        justification: str):
     recipients = [FI_MAIL_CONTINUOUS, FI_MAIL_PROJECTS]
     approvers = FI_MAIL_REVIEWERS.split(',')
     recipients.extend(approvers)
@@ -193,17 +245,25 @@ def send_finding_delete_mail(finding_id: str, finding_name: str, project_name: s
     email_send_thread.start()
 
 
-def send_remediation_email(user_email: str, finding_id: str, finding_name: str,
-                           project_name: str, justification: str):
-    recipients = async_to_sync(project_domain.get_users_to_notify)(project_name)
+def send_remediation_email(
+        user_email: str,
+        finding_id: str,
+        finding_name: str,
+        project_name: str,
+        justification: str):
+    recipients = async_to_sync(project_domain.get_users_to_notify)(
+        project_name
+    )
     email_send_thread = threading.Thread(
         name='Remediate finding email thread',
         target=mailer.send_mail_remediate_finding,
         args=(recipients, {
             'project': project_name.lower(),
             'finding_name': finding_name,
-            'finding_url':
-                f'{BASE_URL}/groups/{project_name}/{finding_id}/description',
+            'finding_url': (
+                f'{BASE_URL}/groups/{project_name}'
+                f'/{finding_id}/description'
+            ),
             'finding_id': finding_id,
             'user_email': user_email,
             'solution_description': justification
@@ -215,8 +275,13 @@ def send_remediation_email(user_email: str, finding_id: str, finding_name: str,
 def send_accepted_email(finding: Dict[str, FindingType], justification: str):
     project_name = str(finding.get('projectName', ''))
     finding_name = str(finding.get('finding', ''))
-    last_historic_treatment = cast(List[Dict[str, str]], finding.get('historicTreatment'))[-1]
-    recipients = async_to_sync(project_domain.get_users_to_notify)(project_name)
+    last_historic_treatment = cast(
+        List[Dict[str, str]],
+        finding.get('historicTreatment')
+    )[-1]
+    recipients = async_to_sync(project_domain.get_users_to_notify)(
+        project_name
+    )
     treatment = 'Temporarily accepted'
     if last_historic_treatment['treatment'] == 'ACCEPTED_UNDEFINED':
         treatment = 'Eternally accepted'
@@ -235,15 +300,21 @@ def send_accepted_email(finding: Dict[str, FindingType], justification: str):
     email_send_thread.start()
 
 
-def send_draft_reject_mail(draft_id: str, project_name: str, discoverer_email: str,
-                           finding_name: str, reviewer_email: str):
+def send_draft_reject_mail(
+        draft_id: str,
+        project_name: str,
+        discoverer_email: str,
+        finding_name: str,
+        reviewer_email: str):
     recipients = FI_MAIL_REVIEWERS.split(',')
     recipients.append(discoverer_email)
     email_context = {
         'admin_mail': reviewer_email,
         'analyst_mail': discoverer_email,
-        'draft_url':
-            f'{BASE_URL}/groups/{project_name}/drafts/{draft_id}/description',
+        'draft_url': (
+            f'{BASE_URL}/groups/{project_name}'
+            f'/drafts/{draft_id}/description'
+        ),
         'finding_id': draft_id,
         'finding_name': finding_name,
         'project': project_name
@@ -251,13 +322,16 @@ def send_draft_reject_mail(draft_id: str, project_name: str, discoverer_email: s
     email_send_thread = threading.Thread(
         name='Reject draft email thread',
         target=mailer.send_mail_reject_draft,
-        args=(recipients, email_context))
+        args=(recipients, email_context)
+    )
 
     email_send_thread.start()
 
 
 def send_new_draft_mail(
-        analyst_email: str, finding_id: str, finding_title: str, project_name: str):
+        analyst_email: str,
+        finding_id: str, finding_title: str,
+        project_name: str):
     recipients = FI_MAIL_REVIEWERS.split(',')
     recipients += project_dal.list_internal_managers(project_name)
 
@@ -265,8 +339,10 @@ def send_new_draft_mail(
         'analyst_email': analyst_email,
         'finding_id': finding_id,
         'finding_name': finding_title,
-        'finding_url':
-            f'{BASE_URL}/groups/{project_name}/drafts/{finding_id}/description',
+        'finding_url': (
+            f'{BASE_URL}/groups/{project_name}'
+            f'/drafts/{finding_id}/description'
+        ),
         'project': project_name
     }
     email_send_thread = threading.Thread(
