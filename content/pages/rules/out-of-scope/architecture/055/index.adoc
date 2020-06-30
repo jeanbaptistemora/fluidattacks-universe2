@@ -1,7 +1,7 @@
 :slug: rules/055/
 :category: architecture
-:description: This document contains the details of the security requirements related to the definition and management of logical architecture in the organization. This requirement establishes the importance of documenting all system security cases in order to facilitate the response to a security breach.
-:keywords: Requirement, Security, Cases, Documentation, Record, Procedure
+:description: This requirement establishes the importance of documenting all system security cases in order to facilitate the response to a security breach.
+:keywords: Requirement, Security, Cases, Documentation, Record, Procedure, Security Breach, Rules, Ethical Hacking, Pentesting
 :rules: yes
 :extended: yes
 

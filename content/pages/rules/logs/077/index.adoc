@@ -1,7 +1,7 @@
 :slug: rules/077/
 :category: logs
-:description: This document contains the details of the security requirements related to the definition and management of logs in the organization. This requirement establishes the importance of preventing data leakages by avoiding sensitive information disclosure in the application.
-:keywords: Information, Disclosure, SQL, Database, Security, Requirement
+:description: This requirement establishes the importance of preventing data leakages by avoiding sensitive information disclosure in the application.
+:keywords: Information, Disclosure, SQL, Database, Security, Requirement, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R077. Avoid disclosing technical information

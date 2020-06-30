@@ -1,7 +1,7 @@
 :slug: rules/050/
 :category: architecture
-:description: This document contains the details of the security requirements related to the definition and management of software architecture in the organization. This requirement establishes the importance of controlling the calls to interpreted code in order to avoid malicious code injections.
-:keywords: Code, System, Interpreted, JavaScript, ASVS, CWE
+:description: This requirement establishes the importance of controlling the calls to interpreted code in order to avoid malicious code injections.
+:keywords: Code, System, Security, Requirement, Interpreted, JavaScript, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R050. Control calls to interpreted code

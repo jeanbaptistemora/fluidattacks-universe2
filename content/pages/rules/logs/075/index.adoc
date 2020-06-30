@@ -1,7 +1,7 @@
 :slug: rules/075/
 :category: logs
-:description: This document contains the details of the security requirements related to the definition and management of logs. This requirement establishes the importance of recording exceptional and security events in logs, allowing the backtracking and proper response in an undesired scenario.
-:keywords: Logs, Events, Tracking, CWE, GDPR, ASVS
+:description: This requirement establishes the importance of recording exceptional events in logs, allowing backtracking and proper responses in undesired scenarios.
+:keywords: Logs, Events, Tracking, CWE, GDPR, ASVS, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R075. Record exceptional events in logs

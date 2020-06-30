@@ -1,7 +1,7 @@
 :slug: rules/085/
 :category: logs
-:description: This document contains the details of the security requirements related to the definition and management of logs in the organization. This requirement establishes the importance of allowing authorized users to query and inspect their own session history.
-:keywords: Requirement, Security, Logs, Session, History, GDPR
+:description: This requirement establishes the importance of allowing authorized users to query and inspect their session history.
+:keywords: Requirement, Security, Logs, Session, GDPR, History Queries, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R085. Allow session history queries

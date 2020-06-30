@@ -1,7 +1,7 @@
 :slug: rules/061/
 :category: architecture
-:description: This document contains the details of the security requirements related to the definition and management of logical architecture in the organization. This requirement establishes the importance of documenting a security chapter, establishing the procedures to follow in case of a security breach.
-:keywords: Requirement, Security, System, Documentation, Chapter, Procedure
+:description: This requirement establishes the importance of documenting a chapter on security, defining the procedures to be followed in the event of a security breach.
+:keywords: Requirement, Security, System, Documentation, Chapter, Procedure, Security Breach, Rules, Ethical Hacking, Pentesting
 :rules: yes
 :extended: yes
 

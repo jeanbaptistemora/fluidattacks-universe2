@@ -1,7 +1,7 @@
 :slug: rules/078/
 :category: logs
-:description: This document details the security guidelines and requirements related to logs that record relevant events. This requirement establishes for companies or organizations the importance of disabling debugging events in different production environments.
-:keywords: Requirement, Security, Logs, Events, Severity, Production
+:description: This requirement establishes for companies or organizations the importance of disabling debugging events in different production environments.
+:keywords: Requirement, Security, Logs, Events, Severity, Production, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R078. Disable debugging events

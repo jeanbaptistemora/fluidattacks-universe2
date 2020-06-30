@@ -1,7 +1,7 @@
 :slug: rules/052/
 :category: architecture
-:description: This documents contains the details of the security requirements related to logical architecture management in the organization. This requirement establishes the importance of identifying critical components related to security in order to protect sensitive information there stored.
-:keywords: Requirement, Security, Critical, Components, Application, Identification
+:description: This requirement establishes the importance of identifying the critical components related to security to protect sensitive information stored there.
+:keywords: Requirement, Security, Critical, Components, Application, Identification, Rules, Ethical Hacking, Pentesting
 :rules: yes
 :extended: yes
 

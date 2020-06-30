@@ -1,7 +1,7 @@
 :slug: rules/081/
 :category: logs
-:description: This document contains the details of the security requirements related to the definition and management of Logs and events. This requirement establishes the importance of properly storing logs after the occurrence of security events according to the current legislation.
-:keywords: Security, Requirement, System, Logs, Law, Event
+:description: This requirement establishes the importance of adequately storing logs after the occurrence of security events according to the current legislation.
+:keywords: Security, Requirement, System, Logs, Legislation, Event, Rules, Ethical Hacking, Pentesting
 :rules: yes
 :extended: yes
 

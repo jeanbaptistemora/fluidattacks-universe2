@@ -1,7 +1,7 @@
 :slug: rules/079/
 :category: logs
-:description: This document contains the details of the security requirements related to the definition and management of logs and events. This requirement establishes the importance of recording all relevant time parameters in order to detect the exact moment of occurrence of a security event.
-:keywords: Time, Logs, Events, Occurrence, CWE, ASVS
+:description: This requirement establishes the importance of recording all relevant time parameters to detect the exact moment when a security event occurs.
+:keywords: Time, Logs, Events, Occurrence, CWE, ASVS, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R079. Record exact occurrence time of events
@@ -9,7 +9,7 @@
 == Requirement
 
 The system must log the exact occurrence time
-(date, hour, seconds, milliseconds and time zone)
+(date, hour, seconds, milliseconds, and time zone)
 for each exceptional and security event.
 
 == Description

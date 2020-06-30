@@ -1,7 +1,7 @@
 :slug: rules/068/
 :category: architecture
-:description: This document details the security guidelines and requirements related to the secure management of the components defined for a given system. Therefore, these tested components must be identified by the organization after performing the white box tests.
-:keywords: Component, Identify, Test, White Box, Define, Security
+:description: This requirement establishes that the organization must identify the tested components after performing the white box testing.
+:keywords: Component, Identify, Test, White Box, Define, Security, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R068. Identify tested components

@@ -1,7 +1,7 @@
 :slug: rules/072/
 :category: architecture
-:description: This document details the security guidelines and requirements related to logical architecture management within the organization. This requirement establishes the importance of defining an adequate maximum response time with the maximum expected concurrence.
-:keywords: Time, Response, Concurrency, ASVS, CWE, GDPR
+:description: This requirement establishes the importance of defining an adequate maximum response time with the maximum expected concurrence.
+:keywords: Time, Response, Concurrency, ASVS, CWE, GDPR, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R072. Set maximum response time

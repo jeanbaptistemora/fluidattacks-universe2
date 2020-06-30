@@ -1,7 +1,7 @@
 :slug: rules/051/
 :category: architecture
-:description: This document details the security guidelines and requirements related to the management of the source code of a system or application. In this case, it is recommended that the organization or company always store the source code in a central repository.
-:keywords: Store, Source Code, System, Repository, Requirement, ASVS
+:description: This requirement establishes that the organization or company must store the source code in a central repository.
+:keywords: Store, Source Code, System, Repository, Requirement, ASVS, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R051. Store source code in a repository

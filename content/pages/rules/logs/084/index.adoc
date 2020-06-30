@@ -1,7 +1,7 @@
 :slug: rules/084/
 :category: logs
-:description: This document contains the details of the security requirements related to the definition and management of logs in the organization. This requirement establishes the importance of allowing authorized users to query and inspect their own transaction history.
-:keywords: Requirement, Security, Logs, Transaction, History, GDPR
+:description: This requirement establishes the importance of allowing authorized users to query and inspect their transaction history.
+:keywords: Requirement, Security, Logs, Transaction, GDPR, Rules, History Queries, Ethical Hacking, Pentesting
 :rules: yes
 
 = R084. Allow transaction history queries

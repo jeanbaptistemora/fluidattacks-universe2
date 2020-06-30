@@ -1,7 +1,12 @@
 :slug: rules/062/
 :category: architecture
+<<<<<<< Updated upstream
 :description: This requirement establishes the importance of using standard industry-approved configurations.
 :keywords: Configuration, Vulnerability, Standard, Industry, ASVS, GDPR
+=======
+:description: This requirement establishes that the organization must define standard configurations that correct all known vulnerabilities.
+:keywords: Configuration, Vulnerability, Standard, Industry, GDPR, Security, Rules, Ethical Hacking, Pentesting
+>>>>>>> Stashed changes
 :rules: yes
 
 = R062. Define standard configurations
