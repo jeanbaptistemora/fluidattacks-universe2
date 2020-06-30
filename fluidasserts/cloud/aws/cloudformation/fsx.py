@@ -1,16 +1,21 @@
 """AWS CloudFormation checks for ``FSx`` (Amazon FSx file systems)."""
 
 # Standard imports
-from typing import List, Optional
+from typing import List, Optional, Tuple, Dict
+
+# Treed imports
+from networkx import DiGraph
 
 # Local imports
 from fluidasserts import SAST, MEDIUM
-from fluidasserts.helper import aws as helper
 from fluidasserts.cloud.aws.cloudformation import (
     Vulnerability,
     _get_result_as_tuple,
 )
 from fluidasserts.utils.decorators import api, unknown_if
+from fluidasserts.cloud.aws.cloudformation import get_templates
+from fluidasserts.cloud.aws.cloudformation import get_graph
+from fluidasserts.cloud.aws.cloudformation import get_resources
 
 
 @api(risk=MEDIUM, kind=SAST)
@@ -27,22 +32,22 @@ def has_unencrypted_volumes(
               - ``CLOSED`` otherwise.
     :rtype: :class:`fluidasserts.Result`
     """
-    vulnerabilities: list = []
-    for yaml_path, res_name, res_props in helper.iterate_rsrcs_in_cfn_template(
-            starting_path=path,
-            resource_types=[
-                'AWS::FSx::FileSystem',
-            ],
-            exclude=exclude):
-        is_vulnerable: bool = 'KmsKeyId' not in res_props
-
+    vulnerabilities: List[Vulnerability] = []
+    graph: DiGraph = get_graph(path, exclude)
+    templates: List[Tuple[int, Dict]] = get_templates(graph, path, exclude)
+    files: List[int] = get_resources(
+        graph,
+        map(lambda x: x[0], templates), {'AWS', 'FSx', 'FileSystem'},
+        info=True)
+    for file, resource, template in files:
+        is_vulnerable: bool = not bool(get_resources(graph, file, 'KmsKeyId'))
         if is_vulnerable:
             vulnerabilities.append(
                 Vulnerability(
-                    path=yaml_path,
+                    path=template['path'],
                     entity='AWS::FSx::FileSystem',
-                    identifier=res_name,
-                    line=helper.get_line(res_props),
+                    identifier=resource['name'],
+                    line=resource['line'],
                     reason='volume is not encrypted'))
 
     return _get_result_as_tuple(

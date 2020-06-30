@@ -1,18 +1,23 @@
 """AWS CloudFormation checks for ``DynamoDB`` (NoSQL Database Service)."""
 
 # Standard imports
-import contextlib
-from typing import List, Optional
+from typing import List, Optional, Tuple, Dict
+
+# Treed imports
+from networkx import DiGraph
 
 # Local imports
 from fluidasserts import SAST, MEDIUM
 from fluidasserts.helper import aws as helper
-from fluidasserts.helper.aws import CloudFormationInvalidTypeError
 from fluidasserts.cloud.aws.cloudformation import (
     Vulnerability,
     _get_result_as_tuple,
 )
 from fluidasserts.utils.decorators import api, unknown_if
+from fluidasserts.cloud.aws.cloudformation import get_templates
+from fluidasserts.cloud.aws.cloudformation import get_graph
+from fluidasserts.cloud.aws.cloudformation import get_ref_nodes
+from fluidasserts.cloud.aws.cloudformation import get_resources
 
 
 @api(risk=MEDIUM, kind=SAST)
@@ -30,31 +35,35 @@ def has_not_point_in_time_recovery(
               - ``CLOSED`` otherwise.
     :rtype: :class:`fluidasserts.Result`
     """
-    vulnerabilities: list = []
-    for yaml_path, res_name, res_props in helper.iterate_rsrcs_in_cfn_template(
-            starting_path=path,
-            resource_types=[
-                'AWS::DynamoDB::Table',
-            ],
-            exclude=exclude):
-        point_in_time_recovery = res_props
-        point_in_time_recovery = \
-            point_in_time_recovery.get('PointInTimeRecoverySpecification', {})
-        point_in_time_recovery = \
-            point_in_time_recovery.get('PointInTimeRecoveryEnabled', False)
+    vulnerabilities: List[Vulnerability] = []
+    graph: DiGraph = get_graph(path, exclude)
+    templates: List[Tuple[int, Dict]] = get_templates(graph, path, exclude)
+    tables: List[int] = get_resources(
+        graph,
+        map(lambda x: x[0], templates), {'AWS', 'DynamoDB', 'Table'},
+        info=True)
+    for table, resource, template in tables:
+        line = resource['line']
+        vulnerable = True
+        specify_node = get_resources(graph, table,
+                                     'PointInTimeRecoverySpecification')
+        enabled_node = helper.get_index(
+            get_resources(graph, specify_node, 'PointInTimeRecoveryEnabled'),
+            0)
+        if enabled_node:
+            line = graph.nodes[enabled_node]['line']
+            value = get_ref_nodes(graph, enabled_node, helper.is_boolean)
+            if value:
+                vulnerable = not helper.to_boolean(
+                    graph.nodes[value[0]]['value'])
 
-        with contextlib.suppress(CloudFormationInvalidTypeError):
-            point_in_time_recovery = helper.to_boolean(point_in_time_recovery)
-
-        is_vulnerable: bool = not point_in_time_recovery
-
-        if is_vulnerable:
+        if vulnerable:
             vulnerabilities.append(
                 Vulnerability(
-                    path=yaml_path,
+                    path=template['path'],
                     entity='AWS::DynamoDB::Table',
-                    identifier=res_name,
-                    line=helper.get_line(res_props),
+                    identifier=resource['name'],
+                    line=line,
                     reason='is missing Point In Time Recovery'))
 
     return _get_result_as_tuple(
