@@ -168,10 +168,12 @@ rds_cluster = troposphere.rds.DBCluster(
     BackupRetentionPeriod=32,
     DeletionProtection='true',
     DBSubnetGroupName=troposphere.Ref(rds_db_subnet_group),
+    EnableIAMDatabaseAuthentication=True,
 )
 rds_instance = troposphere.rds.DBInstance(
     title='instance1',
     DBInstanceClass='t3.nano',
+    EnableIAMDatabaseAuthentication=True,
     DBSubnetGroupName=troposphere.Ref(rds_db_subnet_group),
     Engine='postgres',
     MasterUsername='user',

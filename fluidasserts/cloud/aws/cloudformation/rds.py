@@ -332,3 +332,74 @@ def has_not_termination_protection(
         vulnerabilities=vulnerabilities,
         msg_open='RDS instances or clusters have not deletion protection',
         msg_closed='RDS instances or clusters have deletion protection')
+
+
+@api(risk=LOW, kind=SAST)
+@unknown_if(FileNotFoundError)
+def not_uses_iam_authentication(
+        path: str, exclude: Optional[List[str]] = None) -> tuple:
+    """
+    Check if ``RDS`` clusters and instances have termination protection.
+
+    By default RDS Clusters and Instances can be terminated using the
+    Amazon EC2 console, CLI, or API.
+
+    This is not desirable if the termination is done unintentionally
+    because DB Snapshots and Automated Backups are deleted
+    automatically after some time (or immediately in some cases)
+    which make cause data lost and service interruption.
+
+    :param path: Location of CloudFormation's template file.
+    :param exclude: Paths that contains any string from this list are ignored.
+    :returns: - ``OPEN`` if the instance or cluster have not the
+                **DeletionProtection** parameter set to **true**.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+    :rtype: :class:`fluidasserts.Result`
+    """
+
+    graph: DiGraph = get_graph(path, exclude)
+    templates: List[Tuple[int, Dict]] = get_templates(graph, path, exclude)
+    clusters: List[int] = [
+        node
+        for template, _ in templates
+        for node in dfs_preorder_nodes(graph, template, 2)
+        if len(graph.nodes[node]['labels'].intersection(
+            {'AWS', 'RDS', 'DBCluster', 'DBInstance'})) > 2
+    ]
+    vulnerable: bool = False
+    vulnerabilities: List[Vulnerability] = []
+    for cluster in clusters:
+        template: Dict = graph.nodes[get_predecessor(graph, cluster,
+                                                     'CloudFormationTemplate')]
+        resource: Dict = graph.nodes[cluster]
+        _iam_authentication: List[int] = [
+            node for node in dfs_preorder_nodes(graph, cluster, 3)
+            if 'EnableIAMDatabaseAuthentication' in graph.nodes[node]['labels']
+        ]
+
+        if _iam_authentication:
+            iam_authentication: int = _iam_authentication[0]
+            with contextlib.suppress(CloudFormationInvalidTypeError):
+                no_protection: List[int] = get_ref_nodes(
+                    graph, iam_authentication,
+                    lambda x: x not in (True, 'true', 'True', '1', 1))
+                if no_protection:
+                    vulnerable = True
+        else:
+            vulnerable = True
+        if vulnerable:
+            vulnerabilities.append(
+                Vulnerability(
+                    path=template['path'],
+                    entity=get_type(graph, cluster,
+                                    {'DBCluster',
+                                     'DBInstance'}),
+                    identifier=resource['name'],
+                    line=resource['line'],
+                    reason='does not have IAM authentication'))
+
+    return _get_result_as_tuple(
+        vulnerabilities=vulnerabilities,
+        msg_open='RDS instances or clusters do not use IAM authentication',
+        msg_closed='RDS instances or clusters use IAM authentication')

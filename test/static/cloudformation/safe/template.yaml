@@ -24,6 +24,7 @@ Resources:
       DBSubnetGroupName:
         Ref: DbSubnetGroup
       DeletionProtection: 'true'
+      EnableIAMDatabaseAuthentication: 'true'
       Engine: postgres
       StorageEncrypted: 'true'
     Type: AWS::RDS::DBCluster
@@ -135,6 +136,7 @@ Resources:
       DBSubnetGroupName:
         Ref: DbSubnetGroup
       DeletionProtection: 'true'
+      EnableIAMDatabaseAuthentication: 'true'
       Engine: postgres
       MasterUserPassword: pass
       MasterUsername: user

@@ -55,3 +55,12 @@ def test_has_not_termination_protection():
     assert result.get_vulns_number() == 2 * 3
     assert rds.has_not_termination_protection(SAFE).is_closed()
     assert rds.has_not_termination_protection(NOT_EXISTS).is_unknown()
+
+
+def test_not_uses_iam_authentication():
+    """test rds.not_uses_iam_authentication."""
+    result = rds.not_uses_iam_authentication(VULN)
+    assert result.is_open()
+    assert result.get_vulns_number() == 2 * 3
+    assert rds.not_uses_iam_authentication(SAFE).is_closed()
+    assert rds.not_uses_iam_authentication(NOT_EXISTS).is_unknown()

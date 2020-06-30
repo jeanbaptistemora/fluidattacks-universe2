@@ -30,6 +30,7 @@
           "Ref": "DbSubnetGroup"
         },
         "DeletionProtection": "true",
+        "EnableIAMDatabaseAuthentication": "true",
         "Engine": "postgres",
         "StorageEncrypted": "true"
       },
@@ -213,6 +214,7 @@
           "Ref": "DbSubnetGroup"
         },
         "DeletionProtection": "true",
+        "EnableIAMDatabaseAuthentication": "true",
         "Engine": "postgres",
         "MasterUserPassword": "pass",
         "MasterUsername": "user",
