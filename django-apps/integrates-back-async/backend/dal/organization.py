@@ -4,8 +4,7 @@ import uuid
 from typing import (
     cast,
     Dict,
-    List,
-    Optional
+    List
 )
 
 # third-party imports
@@ -18,8 +17,7 @@ from botocore.exceptions import ClientError
 from backend.dal.helpers.dynamodb import (
     async_query as dynamo_async_query,
     async_put_item as dynamo_async_put_item,
-    async_update_item as dynamo_async_update_item,
-    TABLE_NAME as OLD_TABLE_NAME
+    async_update_item as dynamo_async_update_item
 )
 from backend.exceptions import InvalidOrganization
 from backend.typing import (
@@ -136,24 +134,13 @@ async def create(organization_name: str) -> OrganizationType:
         raise InvalidOrganization()
 
     org_id = str(uuid.uuid4())
-    new_items: Dict[str, OrganizationType] = {
-        OLD_TABLE_NAME: {
-            'pk': f'ORG#{org_id}',
-            'sk': org_name
-        },
-        TABLE_NAME: {
-            'pk': f'ORG#{org_id}',
-            'sk': f'INFO#{org_name}'
-        }
+    new_item: OrganizationType = {
+        'pk': f'ORG#{org_id}',
+        'sk': f'INFO#{org_name}'
     }
 
     try:
-        await asyncio.gather(*[
-            asyncio.create_task(
-                dynamo_async_put_item(table, new_items[table])
-            )
-            for table in [OLD_TABLE_NAME, TABLE_NAME]
-        ])
+        await dynamo_async_put_item(TABLE_NAME, new_item)
     except ClientError as ex:
         await sync_to_async(rollbar.report_message)(
             'Error creating organization',
@@ -161,51 +148,18 @@ async def create(organization_name: str) -> OrganizationType:
             extra_data=ex,
             payload_data=locals()
         )
-    return _map_keys_to_domain(new_items[TABLE_NAME])
+    return _map_keys_to_domain(new_item)
 
 
 async def exists(org_name: str) -> bool:
     """
     Returns True if the organization key exists
     """
-    org = await get(org_name)
+    org = await get_by_name(org_name)
     resp = False
     if org:
         resp = True
     return resp
-
-
-async def get(org_name: str,
-              attributes: List[str] = None) -> Optional[OrganizationType]:
-    """
-    Get an organization info given its name
-    Return specified attributes or all if not setted
-    """
-    query_attrs = {
-        'KeyConditionExpression': Key('sk').eq(org_name) &
-        Key('pk').begins_with('ORG#'),
-        'IndexName': 'gsi-1',
-        'Limit': 1
-    }
-    if attributes:
-        projection = ','.join(_map_attributes_to_dal(attributes))
-        query_attrs['ProjectionExpression'] = projection
-    org = None
-    try:
-        response_items = cast(
-            List[OrganizationType],
-            await dynamo_async_query(OLD_TABLE_NAME, query_attrs)
-        )
-        if response_items:
-            org = _map_keys_to_domain(response_items[0])
-    except ClientError as ex:
-        await sync_to_async(rollbar.report_message)(
-            'Error fetching organization attributes',
-            'error',
-            extra_data=ex,
-            payload_data=locals()
-        )
-    return org
 
 
 async def get_by_id(
@@ -228,10 +182,7 @@ async def get_by_id(
         query_attrs.update({'ProjectionExpression': projection})
 
     try:
-        response_item = cast(
-            List[OrganizationType],
-            await dynamo_async_query(TABLE_NAME, query_attrs)
-        )
+        response_item = await dynamo_async_query(TABLE_NAME, query_attrs)
         if response_item:
             organization = response_item[0]
             if 'sk' in organization:
@@ -241,6 +192,44 @@ async def get_by_id(
     except ClientError as ex:
         await sync_to_async(rollbar.report_message)(
             'Error fetching organization info by their ID',
+            'error',
+            extra_data=ex,
+            payload_data=locals()
+        )
+    return _map_keys_to_domain(organization)
+
+
+async def get_by_name(
+    org_name: str,
+    attributes: List[str] = None
+) -> OrganizationType:
+    """
+    Get an organization info given its name
+    Return specified attributes or all if not setted
+    """
+    organization: OrganizationType = {}
+    query_attrs = {
+        'KeyConditionExpression': (
+            Key('sk').eq(f'INFO#{org_name}') &
+            Key('pk').begins_with('ORG#')
+        ),
+        'IndexName': 'gsi-1',
+        'Limit': 1
+    }
+    if attributes:
+        projection = ','.join(_map_attributes_to_dal(attributes))
+        query_attrs['ProjectionExpression'] = projection
+    try:
+        response_items = await dynamo_async_query(TABLE_NAME, query_attrs)
+        if response_items:
+            organization = response_items[0]
+            if 'sk' in organization:
+                organization.update({
+                    'sk': cast(str, organization['sk']).split('#')[1]
+                })
+    except ClientError as ex:
+        await sync_to_async(rollbar.report_message)(
+            'Error fetching organization attributes',
             'error',
             extra_data=ex,
             payload_data=locals()
@@ -274,12 +263,9 @@ async def get_id_by_name(organization_name: str) -> str:
         'ProjectionExpression': 'pk'
     }
     try:
-        response_item = cast(
-            List[OrganizationType],
-            await dynamo_async_query(TABLE_NAME, query_attrs)
-        )
+        response_item = await dynamo_async_query(TABLE_NAME, query_attrs)
         if response_item:
-            organization_id = cast(str, response_item[0]['pk'])
+            organization_id = response_item[0]['pk']
     except ClientError as ex:
         await sync_to_async(rollbar.report_message)(
             'Error fetching the ID of an organization from its name',
@@ -301,12 +287,9 @@ async def get_id_for_group(group_name: str) -> str:
         'ProjectionExpression': 'pk'
     }
     try:
-        response_item = cast(
-            List[OrganizationType],
-            await dynamo_async_query(TABLE_NAME, query_attrs)
-        )
+        response_item = await dynamo_async_query(TABLE_NAME, query_attrs)
         if response_item:
-            organization_id = cast(str, response_item[0]['pk'])
+            organization_id = response_item[0]['pk']
     except ClientError as ex:
         await sync_to_async(rollbar.report_message)(
             'Error fetching the organization a group belongs to',
@@ -328,15 +311,9 @@ async def get_ids_for_user(email: str) -> List[str]:
         'ProjectionExpression': 'pk'
     }
     try:
-        response_items = cast(
-            List[OrganizationType],
-            await dynamo_async_query(TABLE_NAME, query_attrs)
-        )
+        response_items = await dynamo_async_query(TABLE_NAME, query_attrs)
         if response_items:
-            organization_ids = [
-                cast(str, item['pk'])
-                for item in response_items
-            ]
+            organization_ids = [item['pk'] for item in response_items]
     except ClientError as ex:
         await sync_to_async(rollbar.report_message)(
             'Error fetching user organizations',
@@ -353,7 +330,7 @@ async def get_or_create(organization_name: str) -> OrganizationType:
     in which case it will be created
     """
     org_name = organization_name.lower()
-    org = await get(org_name, ['id', 'name'])
+    org = await get_by_name(org_name, ['id', 'name'])
     if not org:
         org = await create(org_name)
     return org
@@ -370,13 +347,10 @@ async def get_groups(organization_id: str) -> List[str]:
         Key('sk').begins_with('GROUP#')
     }
     try:
-        response_items = cast(
-            List[OrganizationType],
-            await dynamo_async_query(TABLE_NAME, query_attrs)
-        )
+        response_items = await dynamo_async_query(TABLE_NAME, query_attrs)
         if response_items:
             groups = [
-                cast(str, item['sk']).split('#')[1]
+                item['sk'].split('#')[1]
                 for item in response_items
             ]
     except ClientError as ex:
@@ -400,13 +374,10 @@ async def get_users(organization_id: str) -> List[str]:
         Key('sk').begins_with('USER#')
     }
     try:
-        response_items = cast(
-            List[OrganizationType],
-            await dynamo_async_query(TABLE_NAME, query_attrs)
-        )
+        response_items = await dynamo_async_query(TABLE_NAME, query_attrs)
         if response_items:
             users = [
-                cast(str, item['sk']).split('#')[1]
+                item['sk'].split('#')[1]
                 for item in response_items
             ]
     except ClientError as ex:

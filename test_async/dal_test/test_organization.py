@@ -96,11 +96,11 @@ async def test_exists():
 async def test_get():
     ex_org_name = 'testorg'
     not_ex_org_name = 'no-exists'
-    existing_org = await org_dal.get(ex_org_name)
+    existing_org = await org_dal.get_by_name(ex_org_name)
     assert isinstance(existing_org, dict)
     assert 'id' in existing_org
     assert existing_org['name'] == ex_org_name
-    not_existent_org = await org_dal.get(not_ex_org_name)
+    not_existent_org = await org_dal.get_by_name(not_ex_org_name)
     assert not not_existent_org
 
 
