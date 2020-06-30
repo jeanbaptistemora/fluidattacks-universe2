@@ -3,7 +3,7 @@
 
 from collections import namedtuple
 from datetime import datetime
-from urllib.parse import quote_plus
+from urllib.parse import quote
 from typing import Dict, List, NamedTuple, cast
 import threading
 import rollbar
@@ -208,7 +208,7 @@ def has_repeated_repos(
 def encode_resources(res_data: List[Dict[str, str]]) -> List[Dict[str, str]]:
     return [
         {
-            key: quote_plus(value)
+            key: quote(value)
             for key, value in res.items()
         } for res in res_data
     ]
