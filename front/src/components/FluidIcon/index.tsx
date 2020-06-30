@@ -33,6 +33,7 @@ import { default as privilegesNoneIcon } from "../../resources/privileges_none.s
 import { default as scopeChangedIcon } from "../../resources/scope_changed.svg";
 import { default as scopeUnchangedIcon } from "../../resources/scope_unchanged.svg";
 import { default as searchIcon } from "../../resources/search.svg";
+import { default as style } from "./index.css";
 import { default as terminalIcon } from "../../resources/terminal.svg";
 import { default as totalIcon } from "../../resources/total.svg";
 import { default as totalVulnerabilitiesIcon } from "../../resources/total_vulnerabilities.svg";
@@ -45,7 +46,6 @@ import { default as vectorNetworkIcon } from "../../resources/vector_network.svg
 import { default as vectorPhysicalIcon } from "../../resources/vector_physical.svg";
 import { default as verifiedIcon } from "../../resources/verified.svg";
 import { default as vulnerabilitiesIcon } from "../../resources/vulnerabilities.svg";
-import { default as style } from "./index.css";
 
 const getIcon: { [value: string]: string } = {
   authors: authorsIcon,
@@ -106,8 +106,10 @@ export const FluidIcon: React.FC<IFluidIconProps> = (
 ): JSX.Element => {
   const { icon, height = "16px", width = "16px" } = props;
 
-  // The ReactSVG beforeInjection prop works by mutating the SVGElement pass as
-  // an argument, please refer to https://www.npmjs.com/package/react-svg#api.
+  /*
+   * The ReactSVG beforeInjection prop works by mutating the SVGElement pass as
+   * an argument, please refer to https://www.npmjs.com/package/react-svg#api.
+   */
   // eslint-disable-next-line @typescript-eslint/prefer-readonly-parameter-types
   function setStyles(svg: SVGElement): void {
     svg.setAttribute("heigth", height);

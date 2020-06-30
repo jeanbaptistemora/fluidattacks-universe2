@@ -31,6 +31,21 @@
     "prettier/react"
   ],
   "rules": {
+    "func-style": ["error", "declaration", { "allowArrowFunctions": true }],
+    "line-comment-position": ["error", "above"],
+    "multiline-comment-style": ["error", "starred-block"],
+    "no-console": "error",
+    "no-duplicate-imports": "error",
+    "no-useless-rename": "error",
+    "one-var": ["error", "never"],
+    "require-unicode-regexp": "error",
+    "sort-keys": "error",
+    "sort-imports": [
+      "error",
+      {
+        "memberSyntaxSortOrder": ["single", "all", "multiple", "none"]
+      }
+    ],
     "prettier/prettier": [
       "error",
       {},
@@ -62,7 +77,8 @@
         "ignore": [0, 1, 2]
       }
     ],
-    /* Since we are working with external libraries that use any in there type
+    /*
+     * Since we are working with external libraries that use any in there type
      * definitions. We need to disable the next rule, until they update to the
      * new unknown type.
      */
@@ -80,7 +96,8 @@
         "commonjs": true
       }
     ],
-    /* Since we need side effects to make our program meaningful, for instace:
+    /*
+     * Since we need side effects to make our program meaningful, for instace:
      * callbacks, DOM mutations, Node processes, etc. We need to disable the
      * next TWO rules, the result is: from now on it should be inferred that
      * any method call without an assignment, produce some kind of side effect.
@@ -93,7 +110,8 @@
         "ignoreTopLevelDescribe": true
       }
     ],
-    /* This rule has been deprecated in favor of jest/no-restricted-matchers.
+    /*
+     * This rule has been deprecated in favor of jest/no-restricted-matchers.
      */
     "jest/no-truthy-falsy": "off",
     "jest/no-restricted-matchers": [

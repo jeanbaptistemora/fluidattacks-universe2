@@ -2,7 +2,7 @@
   --------
   Disable for testing purposes
 */
-import { shallow, ShallowWrapper } from "enzyme";
+import { Modal } from "./index";
 import React from "react";
 import {
   Button,
@@ -11,7 +11,7 @@ import {
   ModalHeader,
   ModalTitle,
 } from "react-bootstrap";
-import { Modal } from "./index";
+import { ShallowWrapper, shallow } from "enzyme";
 
 describe("Generic modal", (): void => {
   it("should return a function", (): void => {

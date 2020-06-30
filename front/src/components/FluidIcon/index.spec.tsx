@@ -1,6 +1,6 @@
-import { shallow, ShallowWrapper } from "enzyme";
-import * as React from "react";
 import { FluidIcon } from "./index";
+import * as React from "react";
+import { ShallowWrapper, shallow } from "enzyme";
 
 describe("FluidIcon", (): void => {
   it("should return a function", (): void => {

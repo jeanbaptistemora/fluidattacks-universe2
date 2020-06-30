@@ -1,9 +1,9 @@
-import _ from "lodash";
-import React from "react";
-import { ButtonToolbar } from "react-bootstrap";
-import translate from "../../utils/translations/translate";
 import { Button } from "../Button/index";
+import { ButtonToolbar } from "react-bootstrap";
 import { Modal } from "../Modal/index";
+import React from "react";
+import _ from "lodash";
+import translate from "../../utils/translations/translate";
 
 export interface ConfirmFn {
   (confirmCallback: () => void, cancelCallback?: () => void): void;

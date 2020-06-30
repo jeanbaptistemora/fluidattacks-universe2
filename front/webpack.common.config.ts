@@ -10,7 +10,7 @@ export const commonConfig: webpack.Configuration = {
   module: {
     rules: [
       {
-        test: /\.tsx?$/,
+        test: /\.tsx?$/u,
         use: [
           {
             loader: "ts-loader",
@@ -22,8 +22,8 @@ export const commonConfig: webpack.Configuration = {
         ],
       },
       {
-        include: /node_modules/,
-        test: /\.css$/,
+        include: /node_modules/u,
+        test: /\.css$/u,
         use: [
           {
             loader: MiniCssExtractPlugin.loader,
@@ -32,8 +32,8 @@ export const commonConfig: webpack.Configuration = {
         ],
       },
       {
-        exclude: /node_modules/,
-        test: /\.css$/,
+        exclude: /node_modules/u,
+        test: /\.css$/u,
         use: [
           {
             loader: MiniCssExtractPlugin.loader,

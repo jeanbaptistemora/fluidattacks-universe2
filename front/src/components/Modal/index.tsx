@@ -3,8 +3,8 @@
   We need className to override default styles from react-bootstrap
 */
 import React from "react";
-import { Modal, Sizes } from "react-bootstrap";
 import { default as style } from "./index.css";
+import { Modal, Sizes } from "react-bootstrap";
 
 export interface IModalProps {
   bsSize?: Sizes;

@@ -1,13 +1,13 @@
 /* eslint-disable react/forbid-component-props
   --------
   We need className to override default styles from react-bootstrap.
-*/
-import useComponentSize, { ComponentSize } from "@rehooks/component-size";
-import _ from "lodash";
-import React from "react";
-import { Glyphicon, Panel } from "react-bootstrap";
+  */
 import { IGraphicProps } from "../../types";
+import React from "react";
+import _ from "lodash";
 import styles from "./index.css";
+import { Glyphicon, Panel } from "react-bootstrap";
+import useComponentSize, { ComponentSize } from "@rehooks/component-size";
 
 export const Graphic: React.FC<IGraphicProps> = (
   props: Readonly<IGraphicProps>
@@ -97,7 +97,8 @@ export const Graphic: React.FC<IGraphicProps> = (
                 scrolling={"no"}
                 src={url.toString()}
                 style={{
-                  /* The element must be rendered for C3 legends to work,
+                  /*
+                   * The element must be rendered for C3 legends to work,
                    * so lets just hide it from the user
                    */
                   opacity: iframeState === "ready" ? 1 : 0,

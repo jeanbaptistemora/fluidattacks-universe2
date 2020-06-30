@@ -1,6 +1,5 @@
-import webpack from "webpack";
-
 import { commonConfig } from "./webpack.common.config";
+import webpack from "webpack";
 
 const devConfig: webpack.Configuration = {
   ...commonConfig,
@@ -23,7 +22,7 @@ const devConfig: webpack.Configuration = {
     rules: [
       ...(commonConfig.module as webpack.Module).rules,
       {
-        test: /\.(gif|jpg|png|svg)$/,
+        test: /\.(gif|jpg|png|svg)$/u,
         use: [
           {
             loader: "file-loader",

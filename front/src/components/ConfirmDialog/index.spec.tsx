@@ -1,7 +1,7 @@
-import { mount, ReactWrapper } from "enzyme";
-import * as React from "react";
 import { Button } from "../Button/index";
+import * as React from "react";
 import { ConfirmDialog, ConfirmFn } from "./index";
+import { ReactWrapper, mount } from "enzyme";
 
 describe("ConfirmDialog", (): void => {
   it("should return a fuction", (): void => {
@@ -34,7 +34,7 @@ describe("ConfirmDialog", (): void => {
     testButton.simulate("click");
     const confirmDialogModal: ReactWrapper = wrapper
       .find("modal")
-      .find({ open: true, headerTitle: "Title test" });
+      .find({ headerTitle: "Title test", open: true });
     const cancelButton: ReactWrapper = wrapper
       .find("button")
       .findWhere((element: Readonly<ReactWrapper>): boolean =>
@@ -44,7 +44,7 @@ describe("ConfirmDialog", (): void => {
     cancelButton.simulate("click");
     const confirmDialogModalAfterClickCancel: ReactWrapper = wrapper
       .find("modal")
-      .find({ open: true, headerTitle: "Title test" });
+      .find({ headerTitle: "Title test", open: true });
 
     expect(confirmDialogModal).toHaveLength(1);
     expect(confirmDialogModalAfterClickCancel).toHaveLength(0);

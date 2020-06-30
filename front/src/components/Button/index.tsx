@@ -3,8 +3,8 @@
   We need className to override default styles and props spreading in
   order to pass down props to react-bootstrap Button.
 */
-import React from "react";
 import { Button } from "react-bootstrap";
+import React from "react";
 import { default as style } from "./index.css";
 
 const button: React.FC<Button.ButtonProps> = (

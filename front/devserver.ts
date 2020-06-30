@@ -1,7 +1,11 @@
-import open from "open";
-import webpack from "webpack";
+/* eslint-disable no-console
+  --------
+  We need console methods for easy debugging during development.
+*/
 import WebpackDevServer from "webpack-dev-server";
 import devConfig from "./webpack.dev.config";
+import open from "open";
+import webpack from "webpack";
 
 const HOST: string = "localhost";
 const PORT: number = 3000;
@@ -16,8 +20,10 @@ process.on(
 const compiler: webpack.Compiler = webpack(devConfig);
 const serverConfig: WebpackDevServer.Configuration = {
   compress: true,
-  // Access-Control-Allow-Origin response header tell the browser that the
-  // content on this page is accessible from all origins.
+  /*
+   * Access-Control-Allow-Origin response header tell the browser that the
+   * content on this page is accessible from all origins.
+   */
   // eslint-disable-next-line @typescript-eslint/naming-convention
   headers: { "Access-Control-Allow-Origin": "*" },
   historyApiFallback: true,

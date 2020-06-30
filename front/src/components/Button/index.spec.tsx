@@ -1,6 +1,6 @@
-import { shallow, ShallowWrapper } from "enzyme";
-import * as React from "react";
 import { Button } from "./index";
+import * as React from "react";
+import { ShallowWrapper, shallow } from "enzyme";
 
 describe("Button", (): void => {
   it("should return a fuction", (): void => {

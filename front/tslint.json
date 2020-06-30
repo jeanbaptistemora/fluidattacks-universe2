@@ -6,6 +6,7 @@
       "node_modules",
       "*.ts",
       "src/app.tsx",
+      "src/store/**",
       "src/graphics/**",
       "src/components/+(Button|ConfirmDialog|FluidIcon|Modal)/**"
     ]

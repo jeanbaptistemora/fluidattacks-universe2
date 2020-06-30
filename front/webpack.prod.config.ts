@@ -1,7 +1,7 @@
 import OptimizeCssAssetsPlugin from "optimize-css-assets-webpack-plugin";
 import TerserPlugin from "terser-webpack-plugin";
-import webpack from "webpack";
 import { commonConfig } from "./webpack.common.config";
+import webpack from "webpack";
 
 const bucketName: string = "fluidintegrates-static";
 const branchName: string =
@@ -18,7 +18,7 @@ const prodConfig: webpack.Configuration = {
     rules: [
       ...(commonConfig.module as webpack.Module).rules,
       {
-        test: /\.(gif|jpg|png|svg)$/,
+        test: /\.(gif|jpg|png|svg)$/u,
         use: [
           {
             loader: "file-loader",
