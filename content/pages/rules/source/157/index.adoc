@@ -1,12 +1,25 @@
 :slug: rules/157/
 :category: source
-:description: This documents contains the details of the security requirements related to source code security in the applications. This requirement establishes the importance of compiling and interpreting the source code in a strict manner to avoid technical information disclosure.
-:keywords: Requirement, Security, Source Code, Strict, Compilation, Interpretation
+:description: This requirement establishes the importance of compiling and interpreting the source code in strict mode.
+:keywords: Source Code, Strict, Mode, Compilation, ASVS, CWE
 :rules: yes
 
-= R157. Use strict compilation
+= R157. Use the strict mode
 
 == Requirement
 
-The source code must be compiled or interpreted
-in a strict manner.
+The organization should set its parsers, linters, compilers and interpreters
+to run in strict mode.
+
+== Rereferences
+
+. [[r1]] link:https://cwe.mitre.org/data/definitions/611.html[CWE-611: Improper Restriction of XML External Entity Reference].
+The software processes an *XML* document that can contain *XML* entities with
+**URI**s that resolve to documents outside of the intended sphere of control,
+causing the product to embed incorrect documents into its output.
+
+. [[r2]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V5.5 Deserialization Prevention Requirements.(5.5.2)]
+Verify that the application correctly restricts *XML* parsers to only use the
+most restrictive configuration possible and to ensure that unsafe features such
+as resolving external entities are disabled to prevent *XXE*.

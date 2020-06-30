@@ -327,3 +327,9 @@ and are constant.
 V5.4 Memory, String, and Unmanaged Code Requirements.(5.4.3)]
 Verify that sign, range, and input validation techniques are used to prevent
 integer overflows.
+
+. [[r39]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V5.5 Deserialization Prevention Requirements.(5.5.2)]
+Verify that the application correctly restricts *XML* parsers to only use the
+most restrictive configuration possible and to ensure that unsafe features such
+as resolving external entities are disabled to prevent *XXE*.

@@ -1,7 +1,7 @@
 :slug: rules/062/
 :category: architecture
-:description: This document details the security guidelines and requirements related to the management of the documentation that supports all the systems of an organization. In this case, it is recommended that at least one chapter be devoted to system security issues.
-:keywords: Configuration, Vulnerability, Standard, Industry, GDPR, Security
+:description: This requirement establishes the importance of using standard industry-approved configurations.
+:keywords: Configuration, Vulnerability, Standard, Industry, ASVS, GDPR
 :rules: yes
 
 = R062. Define standard configurations
@@ -43,3 +43,9 @@ The controller and the processor shall implement appropriate technical and
 organizational measures to ensure an appropriate level of security,
 including the ability to ensure the ongoing confidentiality, integrity,
 availability and resilience of processing systems and services.
+
+. [[r2]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V5.5 Deserialization Prevention Requirements.(5.5.2)]
+Verify that the application correctly restricts *XML* parsers to only use the
+most restrictive configuration possible and to ensure that unsafe features such
+as resolving external entities are disabled to prevent *XXE*.
