@@ -1,4 +1,5 @@
 import { ApolloProvider } from "@apollo/react-hooks";
+import LogRocket from "logrocket";
 import mixpanel from "mixpanel-browser";
 import React from "react";
 import { NetworkStatus } from "react-apollo-network-status";
@@ -7,6 +8,7 @@ import { Provider as ReduxProvider } from "react-redux";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
+
 import { Preloader } from "./components/Preloader";
 import { Dashboard } from "./scenes/Dashboard";
 import { default as Registration } from "./scenes/Registration";
@@ -16,6 +18,7 @@ import {
   authzPermissionsContext,
   userLevelPermissions,
 } from "./utils/authz/config";
+import { getEnvironment } from "./utils/environment";
 
 const App: React.FC = (): JSX.Element => {
   const status: NetworkStatus = networkStatusNotifier.useApolloNetworkStatus();
@@ -56,5 +59,10 @@ if (extendedModule.hot !== undefined) {
   extendedModule.hot.accept();
 }
 
+const { userEmail, userName } = window as typeof window & Dictionary<string>;
+if (getEnvironment() === "production") {
+  LogRocket.init("3ktlih/integrates");
+  LogRocket.identify(userEmail, { userName });
+}
 mixpanel.init("7a7ceb75ff1eed29f976310933d1cc3e");
 ReactDOM.render(React.createElement(App), document.getElementById("root"));

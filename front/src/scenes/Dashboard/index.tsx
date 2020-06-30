@@ -3,12 +3,13 @@
  * Disabling this rule is necessary for accessing render props from
  * apollo components
  */
-import { MutationFunction, OnSubscriptionDataOptions } from "@apollo/react-common";
+import { MutationFunction } from "@apollo/react-common";
 import { Mutation } from "@apollo/react-components";
-import { useQuery, useSubscription } from "@apollo/react-hooks";
+import { useQuery } from "@apollo/react-hooks";
 import { PureAbility } from "@casl/ability";
 import { ApolloError } from "apollo-client";
 import _ from "lodash";
+import LogRocket from "logrocket";
 import React from "react";
 import { BrowserRouter, Redirect, Route, Switch, useLocation } from "react-router-dom";
 import { ConfirmDialog, ConfirmFn } from "../../components/ConfirmDialog";
@@ -21,12 +22,12 @@ import {
 } from "../../utils/authz/config";
 import { handleGraphQLErrors } from "../../utils/formatHelpers";
 import { msgSuccess } from "../../utils/notifications";
+import rollbar from "../../utils/rollbar";
 import translate from "../../utils/translations/translate";
 import { updateAccessTokenModal as UpdateAccessTokenModal } from "./components/AddAccessTokenModal/index";
 import { Navbar } from "./components/Navbar/index";
 import { Sidebar } from "./components/Sidebar";
 import { HomeView } from "./containers/HomeView";
-import { IHomeViewProps } from "./containers/HomeView/types";
 import { ProjectRoute } from "./containers/ProjectRoute/index";
 import { addUserModal as AddUserModal } from "./containers/ProjectUsersView/AddUserModal/index";
 import { IUserDataAttr } from "./containers/ProjectUsersView/types";
@@ -72,6 +73,18 @@ const dashboard: React.FC = (): JSX.Element => {
   useQuery(GET_USER_PERMISSIONS, {
     onCompleted: (data: IGetUserPermissionsAttr): void => {
       permissions.update(data.me.permissions.map((action: string) => ({ action })));
+      if (data.me.permissions.length === 0) {
+        LogRocket.captureMessage("Empty permissions", {
+          extra: { permissions: JSON.stringify(data.me.permissions) },
+          tags: { level: "user" },
+        });
+      }
+    },
+    onError: (permissionsError: ApolloError): void => {
+      rollbar.critical(
+        "Couldn't load user-level permissions",
+        { ...permissionsError },
+      );
     },
   });
 
@@ -103,13 +116,13 @@ const dashboard: React.FC = (): JSX.Element => {
             <div id="dashboard" className={style.container}>
               <Switch>
                 <Route path="/home" exact={true}>
-                  <HomeView setUserRole={setUserRole}/>
+                  <HomeView setUserRole={setUserRole} />
                 </Route>
                 <Route path="/reports" component={ReportsView} />
                 <Route path="/groups/:projectName">
                   <authzGroupContext.Provider value={groupAttributes}>
                     <authzPermissionsContext.Provider value={groupLevelPermissions}>
-                      <ProjectRoute setUserRole={setUserRole}/>
+                      <ProjectRoute setUserRole={setUserRole} />
                     </authzPermissionsContext.Provider>
                   </authzGroupContext.Provider>
                 </Route>

@@ -40,7 +40,6 @@ const actionButtons: React.FC<IActionButtonsProps> = (props: IActionButtonsProps
   const shouldRenderRequestVerifyBtn: boolean =
     isContinuous
     && props.state === "open"
-    && !props.isRemediated
     && !(props.isEditing || props.isVerifying);
 
   const shouldRenderVerifyBtn: boolean =
@@ -55,18 +54,19 @@ const actionButtons: React.FC<IActionButtonsProps> = (props: IActionButtonsProps
     <Row>
       <ButtonToolbar className="pull-right">
         <Can do="backend_api_resolvers_vulnerability__do_verify_request_vuln">
-        {shouldRenderVerifyBtn ? (
-          <Button onClick={onVerify}>
-            <FluidIcon icon="verified" />&nbsp;
-            {props.isVerifying
-              ? translate.t("search_findings.tab_description.cancel_verified")
-              : translate.t("search_findings.tab_description.mark_verified")}
-          </Button>
-        ) : undefined}
+          {shouldRenderVerifyBtn ? (
+            <Button onClick={onVerify}>
+              <FluidIcon icon="verified" />&nbsp;
+              {props.isVerifying
+                ? translate.t("search_findings.tab_description.cancel_verified")
+                : translate.t("search_findings.tab_description.mark_verified")}
+            </Button>
+          ) : undefined}
         </Can>
         <Can do="backend_api_resolvers_vulnerability__do_request_verification_vuln">
+          <br />
           {shouldRenderRequestVerifyBtn ? (
-            <Button onClick={onRequestVerify}>
+            <Button onClick={onRequestVerify} disabled={props.isRemediated}>
               <FluidIcon icon="verified" />&nbsp;
               {props.isRequestingVerify
                 ? translate.t("search_findings.tab_description.cancel_verify")
@@ -75,17 +75,17 @@ const actionButtons: React.FC<IActionButtonsProps> = (props: IActionButtonsProps
           ) : undefined}
         </Can>
         <Can do="backend_api_resolvers_finding__do_handle_acceptation">
-        {shouldRenderApprovalBtns ? (
-          <React.Fragment>
-            <Button onClick={onApproveAcceptation}>
-              <FluidIcon icon="verified" />&nbsp;
+          {shouldRenderApprovalBtns ? (
+            <React.Fragment>
+              <Button onClick={onApproveAcceptation}>
+                <FluidIcon icon="verified" />&nbsp;
               {translate.t("search_findings.acceptation_buttons.approve")}
-            </Button>
-            <Button onClick={onRejectAcceptation}>
-              {translate.t("search_findings.acceptation_buttons.reject")}
-            </Button>
-          </React.Fragment>
-        ) : undefined}
+              </Button>
+              <Button onClick={onRejectAcceptation}>
+                {translate.t("search_findings.acceptation_buttons.reject")}
+              </Button>
+            </React.Fragment>
+          ) : undefined}
         </Can>
         {props.isEditing ? (
           <Button onClick={onUpdate} disabled={props.isPristine}>
