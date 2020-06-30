@@ -43,6 +43,12 @@ const enTranslations: Dictionary = {
       },
     },
     textBox: {
+      daysSinceLastRemediation: {
+        title: "Days since last remediation",
+      },
+      findingsBeingReattacked: {
+        title: "Findings being re-attacked",
+      },
       maxOpenSeverity: {
         title: "Max open severity",
       },

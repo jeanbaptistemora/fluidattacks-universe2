@@ -105,6 +105,32 @@ const d3GroupIndicatorsView: React.FC<ID3GroupIndicatorsProps> = (props: ID3Grou
           <Col md={3}>
             <Graphic
               bsClass={styles.height80}
+              documentName="findingsBeingReattacked"
+              documentType="textBox"
+              entity="group"
+              generatorName="raw"
+              generatorType="textBox"
+              subject={groupName}
+              title={translate.t("analytics.textBox.findingsBeingReattacked.title")}
+            />
+          </Col>
+          <Col md={3}>
+            <Graphic
+              bsClass={styles.height80}
+              documentName="daysSinceLastRemediation"
+              documentType="textBox"
+              entity="group"
+              generatorName="raw"
+              generatorType="textBox"
+              subject={groupName}
+              title={translate.t("analytics.textBox.daysSinceLastRemediation.title")}
+            />
+          </Col>
+        </Row>
+        <Row>
+          <Col md={3}>
+            <Graphic
+              bsClass={styles.height80}
               documentName="maxSeverityFound"
               documentType="textBox"
               entity="group"
