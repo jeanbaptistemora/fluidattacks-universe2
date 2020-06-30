@@ -12,6 +12,7 @@
 
 :local .tableHeader > th {
   text-align: center !important;
+  vertical-align: middle !important;
   white-space: unset !important;
   font-weight: 400;
 }
@@ -21,8 +22,7 @@
 }
 
 :local .tableBody > td {
-  text-align: center !important;
-  vertical-align: middle !important;
+  vertical-align: middle;
 }
 
 :local .label {
