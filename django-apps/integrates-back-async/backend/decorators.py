@@ -87,7 +87,7 @@ def require_login(func: Callable[..., Any]) -> Callable[..., Any]:
     Verifies that the user is logged in with a valid JWT
     """
 
-    @apm.trace(display_name='require_login')
+    @apm.trace(overridden_function=require_login)
     @functools.wraps(func)
     def verify_and_call(*args, **kwargs) -> Callable[..., Any]:
         # The underlying request object being served
@@ -142,7 +142,7 @@ def enforce_group_level_auth_async(func: Callable[..., Any]) -> \
         Callable[..., Any]:
     """Enforce authorization using the group-level role."""
 
-    @apm.trace(display_name='enforce_group_level_auth_async')
+    @apm.trace(overridden_function=enforce_group_level_auth_async)
     @functools.wraps(func)
     async def verify_and_call(*args, **kwargs) -> Callable[..., Any]:
         if hasattr(args[0], 'context'):
@@ -213,7 +213,7 @@ def require_attribute(attribute: str):
 
     def wrapper(function: Callable) -> Callable:
 
-        @apm.trace(display_name='require_attribute')
+        @apm.trace(overridden_function=require_attribute)
         @functools.wraps(function)
         async def resolve_and_call(*args, **kwargs):
             group = await resolve_project_name(args, kwargs)
@@ -241,7 +241,7 @@ def require_project_access(func: Callable[..., Any]) -> Callable[..., Any]:
     Verifies that the current user has access to a given project
     """
 
-    @apm.trace(display_name='require_project_access')
+    @apm.trace(overridden_function=require_project_access)
     @functools.wraps(func)
     async def verify_and_call(*args, **kwargs) -> Callable[..., Any]:
         context = args[1].context
@@ -448,7 +448,7 @@ def cache_content(func: Callable[..., Any]) -> Callable[..., Any]:
 def get_entity_cache_async(func: Callable[..., Any]) -> Callable[..., Any]:
     """Get cached response of a GraphQL entity if it exists."""
 
-    @apm.trace(display_name='get_entity_cache_async')
+    @apm.trace(overridden_function=get_entity_cache_async)
     @functools.wraps(func)
     async def decorated(*args, **kwargs) -> Callable[..., Any]:
         """Get cached response from function if it exists."""
@@ -514,7 +514,7 @@ def rename_kwargs(mapping: Dict[str, str]) -> Callable[..., Any]:
 
 def cache_idempotent(function: Callable) -> Callable:
 
-    @apm.trace(display_name='get_entity_cache_async')
+    @apm.trace(overridden_function=cache_idempotent)
     @functools.wraps(function)
     async def wrapper(*args, **kwargs) -> Callable[..., Any]:
         signature = inspect.signature(function).bind(*args, **kwargs)

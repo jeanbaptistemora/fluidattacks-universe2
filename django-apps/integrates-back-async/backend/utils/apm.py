@@ -1,6 +1,7 @@
 # Standard library
 from typing import (
     Callable,
+    Optional,
 )
 
 # Third party libraries
@@ -12,8 +13,8 @@ from __init__ import (
 )
 
 
-def trace(display_name: str = '') -> Callable:
+def trace(overridden_function: Optional[Callable] = None) -> Callable:
     return tracers.function.trace(
-        do_trace=DEBUG.lower() == 'true',
-        function_name=display_name,
+        enabled=DEBUG.lower() == 'true',
+        overridden_function=overridden_function,
     )
