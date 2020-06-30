@@ -56,11 +56,11 @@ a|==== Method
 
 a|==== Team
 a|{yes} Our hackers are certified in practical hacking in real scenarios
-link:../../use-cases/continuous-hacking/[^3^]
-link:../../use-cases/one-shot-hacking/[^4^]:
+link:../certifications/[^3^]:
 
 * `OSCP`.
 * `OSWP`.
+* `CRTE`.
 
 Additionally they are selected and trained through the most demanding
 [button]#link:../../careers/[process]# in the industry,
@@ -75,8 +75,8 @@ through questions and answers:
 
 a|==== Model
 | `Red Team`
-link:../../use-cases/continuous-hacking/hacking-tech/[^5^]
-link:../../use-cases/one-shot-hacking/hacking-tech/[^6^].
+link:../../use-cases/continuous-hacking/hacking-tech/[^4^]
+link:../../use-cases/one-shot-hacking/hacking-tech/[^5^].
 | Vulnerability Analysis with selective exploitation.
 
 a|==== Targets
@@ -97,10 +97,10 @@ a|* Web applications.
 
 a|==== Techniques
 a|{yes} 1 service, all the techniques
-link:../../use-cases/continuous-hacking/mock-attacks/[^7^]
-link:../../use-cases/continuous-hacking/critical-info/[^8^]
-link:../../use-cases/one-shot-hacking/infection/[^9^]
-link:../../use-cases/one-shot-hacking/critical-info/[^10^]:
+link:../../use-cases/continuous-hacking/mock-attacks/[^6^]
+link:../../use-cases/continuous-hacking/critical-info/[^7^]
+link:../../use-cases/one-shot-hacking/infection/[^8^]
+link:../../use-cases/one-shot-hacking/critical-info/[^9^]:
 
 * link:../../blog/fuzzy-bugs-online/[Fuzzing].
 * Dynamic (`DAST`), Static (`SAST`) and Interactive (`IAST`) Security Testing.
@@ -116,8 +116,8 @@ link:../../use-cases/one-shot-hacking/critical-info/[^10^]:
 
 a|==== link:../../blog/delimit-ethical-hacking/[Scope]
 a|{yes} Precision and granularity in the attack surface
-link:../../use-cases/continuous-hacking/environments/[^11^]
-link:../../use-cases/one-shot-hacking/environments/[^12^]:
+link:../../use-cases/continuous-hacking/environments/[^10^]
+link:../../use-cases/one-shot-hacking/environments/[^11^]:
 
 * For infrastructure (networks, servers, etc),
 according to `TCP` and `UDP` open ports.
@@ -164,8 +164,8 @@ a|* Integration:
 [button]#link:../../use-cases/continuous-hacking/[Continuous Hacking]#
 and [button]#link:../../asserts/[Asserts]#
 fit perfectly in this use case
-link:../../use-cases/continuous-hacking/environments/[^13^]
-link:../../use-cases/one-shot-hacking/environments/[^14^].
+link:../../use-cases/continuous-hacking/environments/[^12^]
+link:../../use-cases/one-shot-hacking/environments/[^13^].
 * Staging.
 * Production.
 a|* Staging.
@@ -182,8 +182,8 @@ service environments:
 
 a|==== Coverage
 a|{yes} Known
-link:../../use-cases/continuous-hacking/environments/[^15^]
-link:../../use-cases/one-shot-hacking/environments/[^16^]:
+link:../../use-cases/continuous-hacking/environments/[^16^]
+link:../../use-cases/one-shot-hacking/environments/[^17^]:
 
 * In fixed scopes the exact part of the attack surface to be verified,
 and its proportion with respect to the total, is agreed upon in advance.
@@ -204,8 +204,8 @@ a|==== Strictness
 | {yes} You will know the exact strictness of the hacking
 (for inspected and non-inspected
 link:#profiling[profiled] requirements)
-link:../../use-cases/continuous-hacking/environments/[^17^]
-link:../../use-cases/one-shot-hacking/environments/[^18^].
+link:../../use-cases/continuous-hacking/environments/[^18^]
+link:../../use-cases/one-shot-hacking/environments/[^19^].
 | {no} Unknown.
 
 a|==== Finding Types
@@ -226,7 +226,7 @@ a|{no} In the case of other suppliers:
 * Copy-paste of test outcomes which may include false positives.
 
 a|==== Zero Day Vulnerabilities
-| {yes} Yes link:../../use-cases/continuous-hacking/hacking-tech/[^19^]
+| {yes} Yes link:../../use-cases/continuous-hacking/hacking-tech/[^20^]
 | {no} No
 
 a|==== False Positives
@@ -235,8 +235,8 @@ a|==== False Positives
 
 a|==== Exploitation
 a|{yes} Yes, as long as we have
-link:../../use-cases/continuous-hacking/mock-attacks/[^20^]
-link:../../use-cases/one-shot-hacking/infection/[^21^]:
+link:../../use-cases/continuous-hacking/mock-attacks/[^21^]
+link:../../use-cases/one-shot-hacking/infection/[^22^]:
 
 * An available environment.
 * The appropriate authorization.
