@@ -21,7 +21,8 @@
 }
 
 :local .tableBody > td {
-  vertical-align: middle;
+  text-align: center !important;
+  vertical-align: middle !important;
 }
 
 :local .label {
