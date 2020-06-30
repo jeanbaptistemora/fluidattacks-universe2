@@ -8,8 +8,10 @@ from backend.typing import Finding as FindingType
 
 
 def format_data(vuln: Dict[str, FindingType]) -> Dict[str, FindingType]:
-    vuln['current_state'] = cast(List[Dict[str, str]],
-                                 vuln.get('historic_state', [{}]))[-1].get('state')
+    vuln['current_state'] = cast(
+        List[Dict[str, str]],
+        vuln.get('historic_state', [{}])
+    )[-1].get('state')
 
     return vuln
 
@@ -19,9 +21,9 @@ def as_range(iterable: Iterable) -> str:
     my_list = list(iterable)
     range_value = ''
     if len(my_list) > 1:
-        range_value = '{0}-{1}'.format(my_list[0], my_list[-1])
+        range_value = f'{my_list[0]}-{my_list[-1]}'
     else:
-        range_value = '{0}'.format(my_list[0])
+        range_value = f'{my_list[0]}'
     return range_value
 
 
@@ -46,26 +48,43 @@ def sort_vulnerabilities(item: List[str]) -> List[str]:
     return sorted_item
 
 
-def group_specific(specific: List[str], vuln_type: str) -> List[Dict[str, FindingType]]:
+def group_specific(specific: List[str], vuln_type: str) -> \
+        List[Dict[str, FindingType]]:
     """Group vulnerabilities by its specific field."""
     sorted_specific = sort_vulnerabilities(specific)
     lines = []
     vuln_keys = ['historic_state', 'vuln_type', 'UUID', 'finding_id']
-    for key, group in itertools.groupby(sorted_specific,
-                                        key=lambda x: x['where']):  # type: ignore
+    for key, group in itertools.groupby(
+            sorted_specific, key=lambda x: x['where']):  # type: ignore
         vuln_info = list(group)
         if vuln_type == 'inputs':
             specific_grouped: List[Union[int, str]] = [
-                cast(Dict[str, str], i).get('specific', '') for i in vuln_info]
-            dictlines: Dict[str, FindingType] = \
-                {'where': key, 'specific': ','.join(cast(List[str], specific_grouped))}
+                cast(Dict[str, str], i).get('specific', '')
+                for i in vuln_info
+            ]
+            dictlines: Dict[str, FindingType] = {
+                'where': key,
+                'specific': ','.join(cast(List[str], specific_grouped))
+            }
         else:
-            specific_grouped = [get_specific(cast(Dict[str, str], i)) for i in vuln_info]
+            specific_grouped = [
+                get_specific(cast(Dict[str, str], i))
+                for i in vuln_info
+            ]
             specific_grouped.sort()
-            dictlines = {'where': key, 'specific': get_ranges(cast(List[int], specific_grouped))}
-        if vuln_info and all(key_vuln in vuln_info[0] for key_vuln in vuln_keys):
-            dictlines.update({key_vuln: cast(Dict[str, FindingType], vuln_info[0]).get(key_vuln)
-                             for key_vuln in vuln_keys})
+            dictlines = {
+                'where': key,
+                'specific': get_ranges(cast(List[int], specific_grouped))
+            }
+        if (vuln_info and
+                all(key_vuln in vuln_info[0] for key_vuln in vuln_keys)):
+            dictlines.update({
+                key_vuln: cast(
+                    Dict[str, FindingType],
+                    vuln_info[0]
+                ).get(key_vuln)
+                for key_vuln in vuln_keys
+            })
         else:
             # Vulnerability doesn't have more attributes.
             pass
@@ -103,17 +122,13 @@ def range_to_list(range_value: str) -> List[str]:
         init_val = int(limits[0])
         end_val = int(limits[1]) + 1
     else:
-        error_value = '"values": "{init_val} >= {end_val}"'.format(
-            init_val=limits[0],
-            end_val=limits[1]
-        )
+        error_value = f'"values": "{limits[0]} >= {limits[1]}"'
         raise InvalidRange(expr=error_value)
     specific_values = list(map(str, list(range(init_val, end_val))))
     return specific_values
 
 
-def format_vulnerabilities(
-        vulnerabilities: List[Dict[str, FindingType]]) -> \
+def format_vulnerabilities(vulnerabilities: List[Dict[str, FindingType]]) -> \
         Dict[str, List[FindingType]]:
     """Format vulnerabilitites."""
     finding: Dict[str, List[FindingType]] = {
@@ -137,27 +152,36 @@ def format_vulnerabilities(
         }
     }
     for vuln in vulnerabilities:
-        all_states = cast(List[Dict[str, FindingType]], vuln.get('historic_state'))
-        current_state = all_states[len(all_states) - 1].get('state')
+        all_states = cast(
+            List[Dict[str, FindingType]],
+            vuln.get('historic_state')
+        )
+        current_state = all_states[-1].get('state')
         vuln_type = str(vuln.get('vuln_type', ''))
         if vuln_type in vulns_types:
             finding[vuln_type].append({
-                vuln_values[vuln_type]['where']:
-                    html.parser.HTMLParser().unescape(vuln.get('where')),  # type: ignore
-                vuln_values[vuln_type]['specific']:
-                    html.parser.HTMLParser().unescape(vuln.get('specific')),  # type: ignore
+                vuln_values[vuln_type]['where']: (
+                    html.parser.HTMLParser().unescape(  # type: ignore
+                        vuln.get('where')
+                    )
+                ),
+                vuln_values[vuln_type]['specific']: (
+                    html.parser.HTMLParser().unescape(  # type: ignore
+                        vuln.get('specific')
+                    )
+                ),
                 'state': str(current_state)
             })
         else:
-            error_msg = 'Error: Vulnerability {vuln_id} of finding \
-                {finding_id} does not have the right type'\
-                .format(vuln_id=vuln.get('UUID'), finding_id=vuln.get('finding_id'))
+            error_msg = (
+                f'Error: Vulnerability {vuln.get("UUID")} of finding '
+                f'{vuln.get("finding_id")} does not have the right type'
+            )
             rollbar.report_message(error_msg, 'error')
     return finding
 
 
 def format_where(where: str, vulnerabilities: List[Dict[str, str]]) -> str:
     for vuln in vulnerabilities:
-        where = '{where!s}{vuln_where!s} ({vuln_specific!s})\n'.format(
-            where=where, vuln_where=vuln.get('where'), vuln_specific=vuln.get('specific'))
+        where = f'{where}{vuln.get("where")} ({vuln.get("specific")})\n'
     return where
