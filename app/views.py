@@ -15,7 +15,6 @@ from typing import (
 # Third party libraries
 import boto3
 import rollbar
-import yaml
 from asgiref.sync import async_to_sync
 from django.conf import settings
 from django.core.cache.backends.base import DEFAULT_TIMEOUT
@@ -32,9 +31,9 @@ from openpyxl import load_workbook, Workbook
 from backend import authz, util
 from backend.domain import (
     analytics as analytics_domain,
-    finding as finding_domain, project as project_domain, user as user_domain)
+    project as project_domain, user as user_domain)
 from backend.domain.vulnerability import (
-    get_vulnerabilities_by_type, get_vulnerabilities
+    get_vulnerabilities
 )
 from backend.decorators import (
     authenticate,
@@ -42,7 +41,7 @@ from backend.decorators import (
     require_login,
 )
 from backend.dal import (
-    finding as finding_dal, user as user_dal
+    user as user_dal
 )
 from backend.exceptions import ConcurrentSession
 from backend.services import (
@@ -272,57 +271,6 @@ def retrieve_image(request, img_file):
 def list_s3_evidences(prefix) -> List[str]:
     """return keys that begin with prefix from the evidences folder."""
     return list(util.iterate_s3_keys(CLIENT_S3, BUCKET_S3, prefix))
-
-
-@cache_content
-@never_cache
-@csrf_exempt
-@authenticate
-@require_http_methods(['GET'])
-def download_vulnerabilities(request, findingid):
-    """Download a file with all the vulnerabilities."""
-    allowed_roles = ['analyst', 'admin', 'closer']
-
-    if not has_access_to_finding(request.session['username'], findingid):
-        util.cloudwatch_log(request,
-                            'Security: \
-Attempted to retrieve vulnerabilities without permission')
-        return util.response([], 'Access denied', True)
-    else:
-        group = finding_dal.get_finding(findingid).get('project_name', '')
-
-        error = enforce_group_level_role(request, group, *allowed_roles)
-        if error is not None:
-            return error
-
-        finding = get_vulnerabilities_by_type(findingid)
-        data_yml = {}
-        vuln_types = {'ports': dict, 'lines': dict, 'inputs': dict}
-        if finding:
-            for vuln_key, cast_fuction in list(vuln_types.items()):
-                if finding.get(vuln_key):
-                    data_yml[vuln_key] = list(map(cast_fuction, list(finding.get(vuln_key))))
-                else:
-                    # This finding does not have this type of vulnerabilities
-                    pass
-        else:
-            # This finding does not have new vulnerabilities
-            pass
-        project = finding_domain.get_finding(findingid)['projectName']
-        file_name = '/tmp/{project}-{finding_id}.yaml'.format(
-            finding_id=findingid, project=project)
-        stream = open(file_name, 'w')
-        yaml.safe_dump(data_yml, stream, default_flow_style=False)
-        try:
-            with open(file_name, 'rb') as file_obj:
-                response = HttpResponse(file_obj.read(), content_type='text/x-yaml')
-                response['Content-Disposition'] = \
-                    'attachment; filename="{project}-{finding_id}.yaml"'.format(
-                        finding_id=findingid, project=project)
-                return response
-        except IOError:
-            rollbar.report_message('Error: Invalid vulnerabilities file format', 'error', request)
-            return util.response([], 'Invalid vulnerabilities file format', True)
 
 
 @never_cache
