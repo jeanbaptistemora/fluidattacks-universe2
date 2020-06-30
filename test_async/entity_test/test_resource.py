@@ -52,9 +52,9 @@ class ResourceTests(TestCase):
         assert 'shell.exe' in result['data']['resources']['files']
         assert 'shell2.exe' in result['data']['resources']['files']
         assert 'asdasd.py' in result['data']['resources']['files']
-        assert 'https://gitlab.com/fluidsignal/engineering/' in \
+        assert 'https%3A%2F%2Fgitlab.com%2Ffluidsignal%2Fengineering%2F' in \
             result['data']['resources']['repositories']
-        assert 'https://fluidattacks.com/' in \
+        assert 'https%3A%2F%2Ffluidattacks.com%2F' in \
             result['data']['resources']['environments']
 
     @pytest.mark.changes_db

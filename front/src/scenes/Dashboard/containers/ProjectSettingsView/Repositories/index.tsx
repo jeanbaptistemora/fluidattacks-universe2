@@ -16,6 +16,7 @@ import { DataTableNext } from "../../../../../components/DataTableNext";
 import { changeFormatter, statusFormatter } from "../../../../../components/DataTableNext/formatters";
 import { IHeader } from "../../../../../components/DataTableNext/types";
 import { Can } from "../../../../../utils/authz/Can";
+import { fixedEncodeURIComponent } from "../../../../../utils/formatHelpers";
 import { msgError, msgSuccess } from "../../../../../utils/notifications";
 import rollbar from "../../../../../utils/rollbar";
 import translate from "../../../../../utils/translations/translate";
@@ -90,7 +91,9 @@ const repositories: React.FC<IRepositoriesProps> = (props: IRepositoriesProps): 
 
       return {
         ...repo,
+        branch: decodeURIComponent(_.get(repo, "branch")),
         state: _.capitalize((_.last(historicState) as IHistoricState).state),
+        urlRepo: decodeURIComponent(_.get(repo, "urlRepo")),
       };
     });
 
@@ -145,9 +148,9 @@ const repositories: React.FC<IRepositoriesProps> = (props: IRepositoriesProps): 
                 variables: {
                   projectName: props.projectName,
                   repo: {
-                    branch: repo.branch,
+                    branch: fixedEncodeURIComponent(repo.branch),
                     protocol: _.isNil(repo.protocol) ? "" : repo.protocol,
-                    urlRepo: repo.urlRepo,
+                    urlRepo: fixedEncodeURIComponent(repo.urlRepo),
                   },
                   state: repo.state === "Active" ? "INACTIVE" : "ACTIVE",
                 },

@@ -414,7 +414,7 @@
                               "S": "HTTPS"
                            },
                            "urlRepo" : {
-                              "S" : "https://gitlab.com/fluidsignal/integrates"
+                              "S" : "https%3A%2F%2Fgitlab.com%2Ffluidsignal%2Fintegrates"
                            }
                         }
                      },
@@ -444,7 +444,7 @@
                               "S": "HTTPS"
                            },
                            "urlRepo" : {
-                              "S" : "https://someoneatfluid.integrates.env.fluidattacks.com/index"
+                              "S" : "https%3A%2F%2Fsomeoneatfluid.integrates.env.fluidattacks.com%2Findex"
                            }
                         }
                      },
@@ -487,7 +487,7 @@
                               "S" : "SSH"
                            },
                            "urlRepo" : {
-                              "S" : "git@gitlab.com:fluidattacks/integrates.git"
+                              "S" : "git%40gitlab.com%3Afluidattacks%2Fintegrates.git"
                            }
                         }
                      },
@@ -530,7 +530,7 @@
                               "S" : "HTTPS"
                            },
                            "urlRepo" : {
-                              "S" : "https://gitlab.com/fluidattacks/web"
+                              "S" : "https%3A%2F%2Fgitlab.com%2Ffluidattacks%2Fweb"
                            }
                         }
                      }
@@ -628,7 +628,7 @@
                               ]
                            },
                            "urlEnv" : {
-                              "S" : "https://someoneatfluid.integrates.env."
+                              "S" : "https%3A%2F%2Fsomeoneatfluid.integrates.env."
                            }
                         }
                      },
@@ -678,14 +678,14 @@
                               ]
                            },
                            "urlEnv" : {
-                              "S" : "https://someoneatfluid2.integrates.env."
+                              "S" : "https%3A%2F%2Fsomeoneatfluid2.integrates.env."
                            }
                         }
                      },
                      {
                         "M" : {
                            "urlEnv" : {
-                              "S" : "https://fluidattacks.com/"
+                              "S" : "https%3A%2F%2Ffluidattacks.com%2F"
                            }
                         }
                      },
@@ -712,7 +712,7 @@
                               "S" : "2019-10-29 13:40"
                            },
                            "urlEnv" : {
-                              "S" : "https://unittesting.fluidattacks.com/"
+                              "S" : "https%3A%2F%2Funittesting.fluidattacks.com%2F"
                            }
                         }
                      }
@@ -1802,7 +1802,7 @@
                               "S" : "2019-10-29 13:40"
                            },
                            "urlRepo" : {
-                              "S" : "https://gitlab.com/fluidsignal/engineering/"
+                              "S" : "https%3A%2F%2Fgitlab.com%2Ffluidsignal%2Fengineering%2F"
                            }
                         }
                      },
@@ -1848,7 +1848,7 @@
                               "S" : "2019-10-29 13:40"
                            },
                            "urlRepo" : {
-                              "S" : "https://gitlab.com/fluidsignal/unittest"
+                              "S" : "https%3A%2F%2Fgitlab.com%2Ffluidsignal%2Funittest"
                            }
                         }
                      }
@@ -1944,14 +1944,14 @@
                               ]
                            },
                           "urlEnv" : {
-                             "S" : "https://someoneatfluid.integrates.env."
+                             "S" : "https%3A%2F%2Fsomeoneatfluid.integrates.env."
                           }
                        }
                     },
                     {
                        "M" : {
                           "urlEnv" : {
-                             "S" : "https://fluidattacks.com/"
+                             "S" : "https%3A%2F%2Ffluidattacks.com%2F"
                           }
                        }
                     },
@@ -1978,7 +1978,7 @@
                              "S" : "2019-10-29 13:40"
                           },
                           "urlEnv" : {
-                             "S" : "https://continuous.fluidattacks.com/"
+                             "S" : "https%3A%2F%2Fcontinuous.fluidattacks.com%2F"
                           }
                        }
                     }
@@ -2190,7 +2190,7 @@
                               "S": "HTTPS"
                            },
                           "urlRepo" : {
-                             "S" : "https://gitlab.com/fluidsignal/engineering/"
+                             "S" : "https%3A%2F%2Fgitlab.com%2Ffluidsignal%2Fengineering%2F"
                           }
                        }
                     },
@@ -2223,7 +2223,7 @@
                              "S" : "2019-10-29 13:40"
                           },
                           "urlRepo" : {
-                             "S" : "https://gitlab.com/fluidsignal/unittest"
+                             "S" : "https%3A%2F%2Fgitlab.com%2Ffluidsignal%2Funittest"
                           }
                        }
                     }
@@ -2316,14 +2316,14 @@
                                ]
                             },
                            "urlEnv" : {
-                              "S" : "https://someoneatfluid.integrates.env."
+                              "S" : "https%3A%2F%2Fsomeoneatfluid.integrates.env."
                            }
                         }
                      },
                      {
                         "M" : {
                            "urlEnv" : {
-                              "S" : "https://fluidattacks.com/"
+                              "S" : "https%3A%2F%2Ffluidattacks.com%2F"
                            }
                         }
                      },
@@ -2350,7 +2350,7 @@
                               "S" : "2019-10-29 13:40"
                            },
                            "urlEnv" : {
-                              "S" : "https://continuous.fluidattacks.com/"
+                              "S" : "https%3A%2F%2Fcontinuous.fluidattacks.com%2F"
                            }
                         }
                      }
@@ -2562,7 +2562,7 @@
                               "S": "HTTPS"
                            },
                            "urlRepo" : {
-                              "S" : "https://gitlab.com/fluidsignal/engineering/"
+                              "S" : "https%3A%2F%2Fgitlab.com%2Ffluidsignal%2Fengineering%2F"
                            }
                         }
                      },
@@ -2578,7 +2578,7 @@
                               "S" : "2019-10-29 13:40"
                            },
                            "urlRepo" : {
-                              "S" : "https://gitlab.com/fluidsignal/unittest"
+                              "S" : "https%3A%2F%2Fgitlab.com%2Ffluidsignal%2Funittest"
                            }
                         }
                      }

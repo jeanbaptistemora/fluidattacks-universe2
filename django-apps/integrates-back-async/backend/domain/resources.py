@@ -243,7 +243,7 @@ def create_repositories(
         res_object: resources_dal.ResourceType = {
             'urlRepo': url_repo,
             'branch': branch,
-            'protocol': res.get('protocol', ''),
+            'protocol': res.get('protocol', 'HTTPS'),
             'uploadDate': str(
                 datetime.now().replace(second=0, microsecond=0))[:-3],
             'historic_state': [create_initial_state(user_email)],

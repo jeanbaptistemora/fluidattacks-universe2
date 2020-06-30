@@ -25,7 +25,9 @@ class ResourcesTests(TestCase):
             {'urlEnv': 'https://test.com/repeated'},
             {'urlEnv': 'https://test.com/repeated'}
         ]
-        repeated_envs = [{'urlEnv': 'https://unittesting.fluidattacks.com/'}]
+        repeated_envs = [{
+            'urlEnv': 'https%3A%2F%2Funittesting.fluidattacks.com%2F'
+        }]
 
         assert not resources_domain.has_repeated_envs('unittesting', envs)
         assert resources_domain.has_repeated_envs(
@@ -54,7 +56,7 @@ class ResourcesTests(TestCase):
         ]
         repeated_repos = [
             {
-                'urlRepo': 'https://gitlab.com/fluidsignal/unittest',
+                'urlRepo': 'https%3A%2F%2Fgitlab.com%2Ffluidsignal%2Funittest',
                 'branch': 'master',
                 'protocol': 'HTTPS'
             }

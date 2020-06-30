@@ -16,6 +16,7 @@ import { DataTableNext } from "../../../../../components/DataTableNext";
 import { changeFormatter, statusFormatter } from "../../../../../components/DataTableNext/formatters";
 import { IHeader } from "../../../../../components/DataTableNext/types";
 import { Can } from "../../../../../utils/authz/Can";
+import { fixedEncodeURIComponent } from "../../../../../utils/formatHelpers";
 import { msgError, msgSuccess } from "../../../../../utils/notifications";
 import rollbar from "../../../../../utils/rollbar";
 import translate from "../../../../../utils/translations/translate";
@@ -91,6 +92,7 @@ const environments: React.FC<IEnvironmentsProps> = (props: IEnvironmentsProps): 
       return {
         ...env,
         state: _.capitalize((_.last(historicState) as IHistoricState).state),
+        urlEnv: decodeURIComponent(_.get(env, "urlEnv")),
       };
     });
 
@@ -143,7 +145,7 @@ const environments: React.FC<IEnvironmentsProps> = (props: IEnvironmentsProps): 
             confirm(() => {
               updateEnvironment({
                 variables: {
-                  env: { urlEnv: env.urlEnv },
+                  env: { urlEnv: fixedEncodeURIComponent(env.urlEnv) },
                   projectName: props.projectName,
                   state: env.state === "Active" ? "INACTIVE" : "ACTIVE",
                 },

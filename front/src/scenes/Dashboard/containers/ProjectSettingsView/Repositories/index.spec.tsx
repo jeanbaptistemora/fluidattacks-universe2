@@ -229,7 +229,7 @@ describe("Repositories", () => {
           repo: {
             branch: "develop",
             protocol: "HTTPS",
-            urlRepo: "pruebarepo/git",
+            urlRepo: "pruebarepo%2Fgit",
           },
           state: "ACTIVE",
         },
@@ -360,7 +360,7 @@ describe("Repositories", () => {
           repo: {
             branch: "develop",
             protocol: "HTTPS",
-            urlRepo: "pruebarepo/git",
+            urlRepo: "pruebarepo%2Fgit",
           },
           state: "ACTIVE",
         },
