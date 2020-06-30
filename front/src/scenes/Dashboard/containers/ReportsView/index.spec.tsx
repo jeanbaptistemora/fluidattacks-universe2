@@ -1,8 +1,10 @@
+import { MockedProvider, MockedResponse } from "@apollo/react-testing";
 import { shallow, ShallowWrapper } from "enzyme";
 import * as React from "react";
 import { Button } from "react-bootstrap";
 import { RouteComponentProps } from "react-router";
 import { ReportsView } from "./index";
+import { GET_COMPLETE_REPORT } from "./queries";
 
 describe("ReportsView", () => {
 
@@ -43,6 +45,24 @@ describe("ReportsView", () => {
     },
   };
 
+  const mocks: ReadonlyArray<MockedResponse> = [
+    {
+      request: {
+        query: GET_COMPLETE_REPORT,
+        variables: {
+          projectName: "TEST",
+        },
+      },
+      result: {
+        data: {
+          report: {
+            url: "testurl",
+          },
+        },
+      },
+    },
+  ];
+
   it("should return a function", () => {
     expect(typeof (ReportsView))
       .toEqual("function");
@@ -50,7 +70,9 @@ describe("ReportsView", () => {
 
   it("should render a project box", () => {
     const wrapper: ShallowWrapper = shallow(
-      <ReportsView {...mockProps}/>,
+      <MockedProvider mocks={mocks}>
+        <ReportsView {...mockProps}/>
+      </MockedProvider>,
     );
     expect(wrapper.find(Button))
       .toBeTruthy();
