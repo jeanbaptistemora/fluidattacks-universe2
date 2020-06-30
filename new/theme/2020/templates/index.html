@@ -127,38 +127,56 @@ Blog | {{ SITENAME }}
       </div>
     </div>
   {% endfor %}
-  {% if DEFAULT_PAGINATION and articles_paginator.num_pages > 1 %}
-    <!-- Pager -->
-      <ul class="pager mt3 mb3 ml-auto mr-auto">
-        <li class="next di">
-          {% if articles_page.has_previous() %}
-            <a class="c-fluid-bk roboto hv-fluid-dkred"
-               href= "{{ SITEURL }}/{{ articles_previous_page.url }} ">
-               &lt; Previous
-            </a>
-          {% endif %}
-          {% for page_num in range(articles_paginator.num_pages) %}
-            {% if loop.first %}
-              <a href='{{ SITEURL }}/blog/index.html'
-                 class="{{ 'current b' if page_num + 1 == articles_page.number else '' }} c-fluid-bk roboto hv-fluid-dkred pr3 pl3">
-                 {{ page_num + 1 }}
-              </a>
-            {% else %}
-              <a href='{{ SITEURL }}/blog/index{{ page_num + 1 }}.html'
-                 class="{{ 'current b' if page_num + 1 == articles_page.number else '' }} c-fluid-bk roboto hv-fluid-dkred pr3 pl3">
-                 {{ page_num + 1 }}
-              </a>
-            {% endif %}
-          {% endfor %}
-          {% if articles_page.has_next() %}
-            <a class="c-fluid-bk roboto hv-fluid-dkred"
-               href="{{ SITEURL }}/{{ articles_next_page.url }} " >
-               Next &gt;
-            </a>
-          {% endif %}
-        </li>
-      </ul>
-      <br/>
-  {% endif %}
 </div>
+{% if DEFAULT_PAGINATION and articles_paginator.num_pages > 1 %}
+  <!-- Pager -->
+    <ul class="pager mt0 pb3 ml-auto mr-auto bg-graylight tc">
+      <li class="next di">
+        {% if articles_page.has_previous() %}
+          <a class="c-fluid-bk roboto hv-fluid-dkred"
+             href= "{{ SITEURL }}/{{ articles_previous_page.url }} ">
+             &lt; Previous
+          </a>
+        {% endif %}
+        {% for page_num in range(articles_paginator.num_pages) %}
+          {% if loop.first %}
+            {% if "tags" not in articles_page.url and "authors" not in articles_page.url and "categories" not in articles_page.url %}
+              <a href='{{ SITEURL }}/blog/index.html'
+                class="{{ 'current b' if page_num + 1 == articles_page.number else '' }} c-fluid-bk roboto hv-fluid-dkred pr3 pl3">{{ page_num + 1 }}</a>
+            {% elif "tags" in articles_page.url %}
+              <a href='{{ SITEURL }}/blog/tags/{{ tag }}/index.html'
+                class="{{ 'current b' if page_num + 1 == articles_page.number else '' }} c-fluid-bk roboto hv-fluid-dkred pr3 pl3">{{ page_num + 1 }}</a>
+            {% elif "categories" in articles_page.url %}
+              <a href='{{ SITEURL }}/blog/categories/{{ category }}/index.html'
+                class="{{ 'current b' if page_num + 1 == articles_page.number else '' }} c-fluid-bk roboto hv-fluid-dkred pr3 pl3">{{ page_num + 1 }}</a>
+            {% elif "authors" in articles_page.url %}
+              <a href='{{ SITEURL }}/blog/authors/{{ author|replace(" ", "-")|lower }}/index.html'
+                class="{{ 'current b' if page_num + 1 == articles_page.number else '' }} c-fluid-bk roboto hv-fluid-dkred pr3 pl3">{{ page_num + 1 }}</a>
+            {% endif %}
+          {% else %}
+            {% if "tags" not in articles_page.url and "authors" not in articles_page.url and "categories" not in articles_page.url %}
+              <a href='{{ SITEURL }}/blog/index{{ page_num + 1 }}.html'
+                class="{{ 'current b' if page_num + 1 == articles_page.number else '' }} c-fluid-bk roboto hv-fluid-dkred pr3 pl3">{{ page_num + 1 }}</a>
+            {% elif "tags" in articles_page.url %}
+              <a href='{{ SITEURL }}/blog/tags/{{ tag }}/index{{ page_num + 1 }}.html'
+                class="{{ 'current b' if page_num + 1 == articles_page.number else '' }} c-fluid-bk roboto hv-fluid-dkred pr3 pl3">{{ page_num + 1 }}</a>
+            {% elif "categories" in articles_page.url %}
+              <a href='{{ SITEURL }}/blog/categories/{{ category }}/index{{ page_num + 1 }}.html'
+                class="{{ 'current b' if page_num + 1 == articles_page.number else '' }} c-fluid-bk roboto hv-fluid-dkred pr3 pl3">{{ page_num + 1 }}</a>
+            {% elif "authors" in articles_page.url %}
+              <a href='{{ SITEURL }}/blog/authors/{{ author|replace(" ", "-")|lower }}/index{{ page_num + 1 }}.html'
+                class="{{ 'current b' if page_num + 1 == articles_page.number else '' }} c-fluid-bk roboto hv-fluid-dkred pr3 pl3">{{ page_num + 1 }}</a>
+            {% endif %}
+          {% endif %}
+        {% endfor %}
+        {% if articles_page.has_next() %}
+          <a class="c-fluid-bk roboto hv-fluid-dkred"
+             href="{{ SITEURL }}/{{ articles_next_page.url }} " >
+             Next &gt;
+          </a>
+        {% endif %}
+      </li>
+    </ul>
+    <br/>
+{% endif %}
 {% endblock content %}
