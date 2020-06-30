@@ -44,9 +44,10 @@ def has_access_logging_disabled(
     attributes = get_resources(
         graph, balancers, 'LoadBalancerAttributes', depth=3)
     for attr in attributes:
-        templates = graph.nodes[get_predecessor(
+        template = graph.nodes[get_predecessor(
             graph, attr, 'CloudFormationTemplate')]
         resource = graph.nodes[get_predecessor(graph, attr, 'LoadBalancer')]
+
         keys = [
             node for node in get_resources(graph, attr, 'Key', depth=3)
             if graph.nodes[node]['value'] == 'access_logs.s3.enabled'
@@ -65,7 +66,7 @@ def has_access_logging_disabled(
         if vulnerable:
             vulnerabilities.append(
                 Vulnerability(
-                    path=templates['path'],
+                    path=template['path'],
                     entity=(f'AWS::ElasticLoadBalancingV2::LoadBalancer'
                             f'/LoadBalancerAttributes'
                             f'/access_logs.s3.enabled'
@@ -141,8 +142,8 @@ def has_not_deletion_protection(
 
 @api(risk=LOW, kind=SAST)
 @unknown_if(FileNotFoundError)
-def uses_insecure_port(
-        path: str, exclude: Optional[List[str]] = None) -> tuple:
+def uses_insecure_port(path: str,
+                       exclude: Optional[List[str]] = None) -> tuple:
     """
     Check if ``TargetGroup`` uses **Port 443**.
 
@@ -158,12 +159,13 @@ def uses_insecure_port(
     vulnerabilities: list = []
     graph: DiGraph = get_graph(path, exclude)
     templates = get_templates(graph, path, exclude)
-    groups = get_resources(graph, map(lambda x: x[0], templates),
-                           {'AWS', 'ElasticLoadBalancingV2', 'TargetGroup'})
-    for group in groups:
-        template = graph.nodes[get_predecessor(graph, group,
-                                               'CloudFormationTemplate')]
-        resource = graph.nodes[get_predecessor(graph, group, 'TargetGroup')]
+    groups = get_resources(
+        graph,
+        map(lambda x: x[0], templates),
+        {'AWS', 'ElasticLoadBalancingV2', 'TargetGroup'},
+        info=True)
+
+    for group, resource, template in groups:
         port_node = helper.get_index(
             get_resources(graph, group, 'Port', depth=3), 0)
         if not port_node:
@@ -214,12 +216,12 @@ def uses_insecure_protocol(
     vulnerabilities: list = []
     graph: DiGraph = get_graph(path, exclude)
     templates = get_templates(graph, path, exclude)
-    groups = get_resources(graph, map(lambda x: x[0], templates),
-                           {'AWS', 'ElasticLoadBalancingV2', 'TargetGroup'})
-    for group in groups:
-        template = graph.nodes[get_predecessor(graph, group,
-                                               'CloudFormationTemplate')]
-        resource = graph.nodes[get_predecessor(graph, group, 'TargetGroup')]
+    groups = get_resources(
+        graph,
+        map(lambda x: x[0], templates),
+        {'AWS', 'ElasticLoadBalancingV2', 'TargetGroup'},
+        info=True)
+    for group, resource, template in groups:
         port_node = helper.get_index(
             get_resources(graph, group, 'Protocol', depth=3), 0)
         proto = graph.nodes[port_node]['value'] if port_node else 'HTTP'
@@ -274,12 +276,12 @@ def uses_insecure_security_policy(
     vulnerabilities: list = []
     graph: DiGraph = get_graph(path, exclude)
     templates = get_templates(graph, path, exclude)
-    listeners = get_resources(graph, map(lambda x: x[0], templates),
-                              {'AWS', 'ElasticLoadBalancingV2', 'Listener'})
-    for listener in listeners:
-        template = graph.nodes[get_predecessor(graph, listener,
-                                               'CloudFormationTemplate')]
-        resource = graph.nodes[get_predecessor(graph, listener, 'Listener')]
+    listeners = get_resources(
+        graph,
+        map(lambda x: x[0], templates),
+        {'AWS', 'ElasticLoadBalancingV2', 'Listener'},
+        info=True)
+    for listener, resource, template in listeners:
         policy_node = helper.get_index(
             get_resources(graph, listener, 'SslPolicy', depth=3), 0)
         policy = graph.nodes[policy_node]['value'] if policy_node else ''

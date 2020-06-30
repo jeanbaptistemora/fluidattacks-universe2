@@ -2,7 +2,7 @@
 
 # Standard imports
 import contextlib
-from typing import List, Optional, Dict
+from typing import List, Optional
 
 # Treed imports
 from networkx import DiGraph
@@ -18,15 +18,14 @@ from fluidasserts.cloud.aws.cloudformation import (
 from fluidasserts.utils.decorators import api, unknown_if
 from fluidasserts.cloud.aws.cloudformation import get_templates
 from fluidasserts.cloud.aws.cloudformation import get_graph
-from fluidasserts.cloud.aws.cloudformation import get_predecessor
 from fluidasserts.cloud.aws.cloudformation import get_resources
 from fluidasserts.cloud.aws.cloudformation import get_ref_nodes
 
 
 @api(risk=LOW, kind=SAST)
 @unknown_if(FileNotFoundError)
-def has_access_logging_disabled(
-        path: str, exclude: Optional[List[str]] = None) -> tuple:
+def has_access_logging_disabled(path: str,
+                                exclude: Optional[List[str]] = None) -> tuple:
     """
     Check if any ``LoadBalancer`` **has Access Logging** disabled.
 
@@ -42,13 +41,11 @@ def has_access_logging_disabled(
     graph: DiGraph = get_graph(path, exclude)
     templates: List[int] = get_templates(graph, path, exclude)
     balancers: List[int] = get_resources(
-        graph, map(lambda x: x[0],
-                   templates), {'AWS', 'ElasticLoadBalancing', 'LoadBalancer'})
-    for balancer in balancers:
-        template: Dict = graph.nodes[get_predecessor(graph, balancer,
-                                                     'CloudFormationTemplate')]
-        resource: Dict = graph.nodes[get_predecessor(graph, balancer,
-                                                     'LoadBalancer')]
+        graph,
+        map(lambda x: x[0], templates),
+        {'AWS', 'ElasticLoadBalancing', 'LoadBalancer'},
+        info=True)
+    for balancer, resource, template in balancers:
         line: int = resource['line']
         vulnerable: bool = True
         logging_node: int = helper.get_index(

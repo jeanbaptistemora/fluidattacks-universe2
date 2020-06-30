@@ -166,15 +166,35 @@ def get_templates(graph: DiGraph,
     return result
 
 
-def get_resources(graph: DiGraph,
-                  nodes: Union[List[int], int],
-                  labels: Union[Set[str], str],
-                  depth: int = 2) -> List[int]:
-    """Returns all the resources that those labels contain."""
+def get_resources(
+        graph: DiGraph,
+        nodes: Union[List[int], int],
+        labels: Union[Set[str], str],
+        depth: int = 2,
+        info: bool = False) -> Union[Tuple[int, Dict, Dict], List[int]]:
+    """
+    Returns all the resources that those labels contain.
+
+    :param graph: Templates converted into a graph.
+    :param nodes: Main nodes.
+    :param labels: Labels that the nodes to find must have.
+    :param depth: Search depth.
+    :param info: If the information is enabled a tuple is returned that
+        continues (node_id, node, template).
+    """
     if isinstance(nodes, int):
         nodes = [nodes]
     if isinstance(labels, str):
         labels = {labels}
+    if info:
+        return [
+            (node, graph.nodes[node], graph.nodes[get_predecessor(
+                graph, node, 'CloudFormationTemplate')])
+            for x in nodes for node in dfs_preorder_nodes(
+                graph, x, depth)
+            if len(graph.nodes[node]['labels'].intersection(
+                labels)) >= len(labels)
+        ]
     return [
         node for x in nodes for node in dfs_preorder_nodes(graph, x, depth)
         if len(graph.nodes[node]['labels'].intersection(labels)) >= len(labels)

@@ -1,7 +1,10 @@
 """AWS CloudFormation checks for ``S3`` (Simple Storage Service)."""
 
 # Standard imports
-from typing import List, Optional, Set
+from typing import List, Optional, Set, Dict, Tuple
+
+# Treed imports
+from networkx import DiGraph
 
 # Local imports
 from fluidasserts import SAST, HIGH
@@ -11,7 +14,10 @@ from fluidasserts.cloud.aws.cloudformation import (
     _get_result_as_tuple,
 )
 from fluidasserts.utils.decorators import api, unknown_if
-
+from fluidasserts.cloud.aws.cloudformation import get_templates
+from fluidasserts.cloud.aws.cloudformation import get_graph
+from fluidasserts.cloud.aws.cloudformation import get_resources
+from fluidasserts.cloud.aws.cloudformation import get_ref_nodes
 
 #: A set of available S3 Access Controls
 ACCESS_CONTROLS = {
@@ -35,26 +41,35 @@ def _has_not_access_control_in_list(
     safe_access_controls = set(safe_access_controls)
     helper.validate_access_controls(safe_access_controls, ACCESS_CONTROLS)
     vulnerable_access_controls = ACCESS_CONTROLS - safe_access_controls
+    vulnerabilities: List[Vulnerability] = []
 
-    vulnerabilities: list = []
-    for yaml_path, res_name, res_props in helper.iterate_rsrcs_in_cfn_template(
-            starting_path=path,
-            resource_types=[
-                'AWS::S3::Bucket',
-            ],
-            exclude=exclude):
-        access_control: bool = res_props.get('AccessControl', 'Private')
+    graph: DiGraph = get_graph(path, exclude)
+    templates: List[Tuple[int, Dict]] = get_templates(graph, path, exclude)
+    buckets: List[int] = get_resources(graph, map(lambda x: x[0], templates),
+                                       {'AWS', 'S3', 'Bucket'}, info=True)
+    for bucket, resource, template in buckets:
+        line: int = resource['line']
+        access_control: str = 'Private'
+        access_control_node: int = helper.get_index(
+            get_resources(graph, bucket, 'AccessControl'), 0)
+
+        if access_control_node:
+            access_control_value_node: int = get_ref_nodes(
+                graph, access_control_node, lambda x: isinstance(x, str))[0]
+            access_control = graph.nodes[access_control_value_node]['value']
+            line = graph.nodes[access_control_value_node]['line']
+
         if not isinstance(access_control, str):
             continue
         if access_control in vulnerable_access_controls:
             vulnerabilities.append(
                 Vulnerability(
-                    path=yaml_path,
+                    path=template['path'],
                     entity=(f'AWS::S3::Bucket/'
                             f'AccessControl/'
                             f'{access_control}'),
-                    identifier=res_name,
-                    line=helper.get_line(res_props),
+                    identifier=resource['name'],
+                    line=line,
                     reason=vulnerability_reason))
 
     return _get_result_as_tuple(
