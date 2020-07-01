@@ -3,8 +3,7 @@
 const paddingRatio = 0.05;
 
 function render(dataDocument, height, width) {
-  if (typeof dataDocument.gauge !== 'undefined') {
-    // Clear the original gauge label format
+  if (dataDocument.gaugeClearFormat) {
     dataDocument.gauge.label.format = (datum) => datum;
   }
 

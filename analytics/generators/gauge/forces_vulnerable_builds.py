@@ -1,14 +1,6 @@
 # Standard library
 import asyncio
 
-# Third party libraries
-from backend.api.dataloaders.finding import (
-    FindingLoader,
-)
-from backend.api.dataloaders.project import (
-    ProjectLoader as GroupLoader,
-)
-
 # Local libraries
 from analytics import (
     utils,
@@ -19,29 +11,24 @@ from analytics.colors import (
 
 
 async def generate_one(group: str):
-    group_data = await GroupLoader().load(group)
+    executions = await utils.get_last_week_forces_executions(group)
 
-    findings = await FindingLoader().load_many(
-        group_data['findings']
+    executions_in_any_mode_with_vulns = tuple(
+        execution
+        for execution in executions
+        for vulns in [execution['vulnerabilities']]
+        if vulns['num_of_vulnerabilities_in_exploits'] > 0
+        or vulns['num_of_vulnerabilities_in_integrates_exploits'] > 0
     )
-
-    max_severity_found = 0 if not findings else max(
-        finding['severity_score']
-        for finding in findings
-        if 'current_state' in finding
-        and finding['current_state'] != 'DELETED'
-    )
-
-    max_open_severity = group_data['attrs'].get('max_open_severity', 0)
 
     return {
         'color': {
-            'pattern': ['#535051', RISK.more_agressive],
+            'pattern': [RISK.more_agressive],
         },
         'data': {
             'columns': [
-                ['Max severity found', max_severity_found],
-                ['Max open severity', max_open_severity],
+                ['Builds with security issues',
+                 len(executions_in_any_mode_with_vulns)],
             ],
             'type': 'gauge',
         },
@@ -50,7 +37,7 @@ async def generate_one(group: str):
                 'format': None,
                 'show': True,
             },
-            'max': 10,
+            'max': len(executions),
             'min': 0,
         },
         'gaugeClearFormat': False,

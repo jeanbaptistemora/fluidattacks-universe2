@@ -198,6 +198,32 @@ const d3GroupIndicatorsView: React.FC<ID3GroupIndicatorsProps> = (props: ID3Grou
             />
           </Col>
         </Row>
+        <Row>
+          <Col md={6}>
+            <Graphic
+              bsClass={styles.height160}
+              documentName="forcesSecurityCommitment"
+              documentType="gauge"
+              entity="group"
+              generatorName="generic"
+              generatorType="c3"
+              subject={groupName}
+              title={translate.t("analytics.gauge.forcesSecurityCommitment.title")}
+            />
+          </Col>
+          <Col md={6}>
+            <Graphic
+              bsClass={styles.height160}
+              documentName="forcesVulnerableBuilds"
+              documentType="gauge"
+              entity="group"
+              generatorName="generic"
+              generatorType="c3"
+              subject={groupName}
+              title={translate.t("analytics.gauge.forcesVulnerableBuilds.title")}
+            />
+          </Col>
+        </Row>
       </Grid>
     </React.StrictMode>
   );

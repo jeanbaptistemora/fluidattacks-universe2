@@ -13,11 +13,17 @@ const enTranslations: Dictionary = {
       },
     },
     gauge: {
+      forcesSecurityCommitment: {
+        title: "Security Commitment",
+      },
       forcesStatus: {
         title: "Service status",
       },
       forcesUsage: {
         title: "Service usage",
+      },
+      forcesVulnerableBuilds: {
+        title: "Vulnerable Builds",
       },
       severity: {
         title: "Severity",
