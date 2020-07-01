@@ -17,29 +17,33 @@ import { msgError, msgSuccess } from "../../../../utils/notifications";
 import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
 import { GenericForm } from "../../components/GenericForm";
-import { GET_ORGANIZATION_SETTINGS, UPDATE_ORGANIZATION_SETTINGS } from "./queries";
-import { ILocationState, ISettingsFormData } from "./types";
+import { GET_ORGANIZATION_ID, GET_ORGANIZATION_SETTINGS, UPDATE_ORGANIZATION_SETTINGS } from "./queries";
+import { ISettingsFormData } from "./types";
 
 const organizationSettings: React.FC = (): JSX.Element => {
 
   // State management
   const { organizationName } = useParams();
-  const location: ILocationState = useLocation<{ organizationId: string }>();
   const selector: (state: {}, ...fields: string[]) => ISettingsFormData = formValueSelector("orgSettings");
   const formValues: ISettingsFormData = useSelector((state: {}) =>
     selector(state, "maxAcceptanceDays", "maxAcceptanceSeverity", "maxNumberAcceptations", "minAcceptanceSeverity"));
 
-  let identifier: string = organizationName;
-  if (!(_.isUndefined(location.state) || _.isNull(location.state))) {
-    identifier = location.state.organizationId;
-  }
-
   // GraphQL Operations
+  const { data: basicData } = useQuery(GET_ORGANIZATION_ID, {
+    onError: (error: ApolloError): void => {
+      handleGraphQLErrors("An error occurred fetching organization ID", error);
+    },
+    variables: { organizationName },
+  });
+
   const { data, loading: loadingSettings, refetch: refetchSettings } = useQuery(GET_ORGANIZATION_SETTINGS, {
     onError: (error: ApolloError): void => {
       handleGraphQLErrors("An error occurred fetching organization settings", error);
     },
-    variables: { identifier },
+    skip: !basicData,
+    variables: {
+      organizationId: basicData && basicData.organizationId.id,
+    },
   });
 
   const [saveSettings, { loading: savingSettings }] = useMutation(UPDATE_ORGANIZATION_SETTINGS, {
@@ -77,11 +81,12 @@ const organizationSettings: React.FC = (): JSX.Element => {
       });
     },
     variables: {
-      identifier,
       maxAcceptanceDays: parseInt(formValues.maxAcceptanceDays, 10),
       maxAcceptanceSeverity: parseFloat(formValues.maxAcceptanceSeverity),
       maxNumberAcceptations: parseInt(formValues.maxNumberAcceptations, 10),
       minAcceptanceSeverity: parseFloat(formValues.minAcceptanceSeverity),
+      organizationId: basicData && basicData.organizationId.id,
+      organizationName,
     },
   });
 

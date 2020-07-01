@@ -106,7 +106,7 @@ const homeView: React.FC<IHomeViewProps> = (props: IHomeViewProps): JSX.Element 
       organization.name === choosedOrganization.toLowerCase()
     ))[0].id;
 
-    push(`/organizations/${choosedOrganization.toLowerCase()}/settings`, { organizationId: choosedOrganizationId });
+    push(`/organizations/${choosedOrganization.toLowerCase()}/settings`);
   };
 
   const displayTag: ((choosedTag: string) => void) = (choosedTag: string): void => {

@@ -9,7 +9,10 @@ from ariadne import (
 from graphql.language.ast import SelectionSetNode
 
 from backend import util
-from backend.decorators import require_login
+from backend.decorators import (
+    rename_kwargs,
+    require_login
+)
 from backend.domain import organization as org_domain
 from backend.typing import (
     Organization as OrganizationType,
@@ -20,69 +23,58 @@ from backend.typing import (
 async def _do_update_organization_settings(
     _,
     info,
-    identifier: str,
+    organization_id: str,
+    organization_name: str,
     **parameters
 ) -> SimplePayloadType:
-
-    if identifier.startswith('ORG#'):
-        org_id = identifier
-        org_name = await _get_name(_, identifier)
-    else:
-        org_id = await _get_id(_, identifier)
-        org_name = identifier
     success: bool = await org_domain.update_settings(
-        org_id,
-        org_name,
+        organization_id,
+        organization_name,
         parameters
     )
     if success:
         util.cloudwatch_log(
             info.context,
-            f'Security: Updated settings for organization {org_name} with ID'
-            f' {org_id}'
+            f'Security: Updated settings for organization {organization_name} '
+            f'with ID {organization_id}'
         )
     return SimplePayloadType(success=success)
 
 
-async def _get_id(_, identifier: str) -> str:
-    org_id = (
-        identifier
-        if identifier.startswith('ORG#')
-        else await org_domain.get_id_by_name(identifier)
-    )
-    return org_id
+@rename_kwargs({'identifier': 'organization_name'})
+async def _get_id(_, organization_name: str) -> str:
+    return await org_domain.get_id_by_name(organization_name)
 
 
-async def _get_name(_, identifier: str) -> str:
-    org_name = (
-        identifier
-        if not identifier.startswith('ORG#')
-        else await org_domain.get_name_by_id(identifier)
-    )
-    return org_name
+@rename_kwargs({'identifier': 'organization_id'})
+async def _get_name(_, organization_id: str) -> str:
+    return await org_domain.get_name_by_id(organization_id)
 
 
-async def _get_max_acceptance_days(_, identifier: str) -> Optional[Decimal]:
-    org_id = await _get_id(_, identifier)
-    return await org_domain.get_max_acceptance_days(org_id)
+@rename_kwargs({'identifier': 'organization_id'})
+async def _get_max_acceptance_days(
+    _,
+    organization_id: str
+) -> Optional[Decimal]:
+    return await org_domain.get_max_acceptance_days(organization_id)
 
 
-async def _get_max_acceptance_severity(_, identifier: str) -> Decimal:
-    org_id = await _get_id(_, identifier)
-    return await org_domain.get_max_acceptance_severity(org_id)
+@rename_kwargs({'identifier': 'organization_id'})
+async def _get_max_acceptance_severity(_, organization_id: str) -> Decimal:
+    return await org_domain.get_max_acceptance_severity(organization_id)
 
 
+@rename_kwargs({'identifier': 'organization_id'})
 async def _get_max_number_acceptations(
     _,
-    identifier: str
+    organization_id: str
 )-> Optional[Decimal]:
-    org_id = await _get_id(_, identifier)
-    return await org_domain.get_max_number_acceptations(org_id)
+    return await org_domain.get_max_number_acceptations(organization_id)
 
 
-async def _get_min_acceptance_severity(_, identifier: str) -> Decimal:
-    org_id = await _get_id(_, identifier)
-    return await org_domain.get_min_acceptance_severity(org_id)
+@rename_kwargs({'identifier': 'organization_id'})
+async def _get_min_acceptance_severity(_, organization_id: str) -> Decimal:
+    return await org_domain.get_min_acceptance_severity(organization_id)
 
 
 async def resolve(
@@ -123,8 +115,15 @@ async def resolve(
 
 
 @convert_kwargs_to_snake_case
+@rename_kwargs({
+    'organization_id': 'identifier',
+    'organization_name': 'identifier'
+})
 @require_login
-async def resolve_organization(_, info, identifier: str) -> OrganizationType:
+async def resolve_organization(
+    _, info,
+    identifier: str
+) -> OrganizationType:
     """Resolve Organization query """
     return await resolve(info, identifier)
 

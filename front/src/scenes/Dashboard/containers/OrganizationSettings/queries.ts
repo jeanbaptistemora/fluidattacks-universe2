@@ -1,9 +1,17 @@
 import { DocumentNode } from "graphql";
 import gql from "graphql-tag";
 
+export const GET_ORGANIZATION_ID: DocumentNode = gql`
+query GetOrganizationId ($organizationName: String!) {
+  organizationId(organizationName: $organizationName) {
+    id
+  }
+}
+`;
+
 export const GET_ORGANIZATION_SETTINGS: DocumentNode = gql`
-  query GetOrganizationSettings ($identifier: String!) {
-    organization(identifier: $identifier) {
+  query GetOrganizationSettings ($organizationId: String!) {
+    organization(organizationId: $organizationId) {
       maxAcceptanceDays
       maxAcceptanceSeverity
       maxNumberAcceptations
@@ -14,18 +22,20 @@ export const GET_ORGANIZATION_SETTINGS: DocumentNode = gql`
 
 export const UPDATE_ORGANIZATION_SETTINGS: DocumentNode = gql`
   mutation UpdateOrganizationSettings(
-    $identifier: String!
     $maxAcceptanceDays: Int,
     $maxAcceptanceSeverity: Float!,
     $maxNumberAcceptations: Int,
     $minAcceptanceSeverity: Float!
+    $organizationId: String!
+    $organizationName: String!
   ) {
     updateOrganizationSettings(
-      identifier: $identifier
       maxAcceptanceDays: $maxAcceptanceDays,
       maxAcceptanceSeverity: $maxAcceptanceSeverity,
       maxNumberAcceptations: $maxNumberAcceptations,
-      minAcceptanceSeverity: $minAcceptanceSeverity
+      minAcceptanceSeverity: $minAcceptanceSeverity,
+      organizationId: $organizationId,
+      organizationName: $organizationName
     ) {
       success
     }
