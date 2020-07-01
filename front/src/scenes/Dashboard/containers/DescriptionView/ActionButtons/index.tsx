@@ -5,7 +5,7 @@
 
 import _ from "lodash";
 import React from "react";
-import { ButtonToolbar, Row } from "react-bootstrap";
+import { ButtonToolbar, Glyphicon, Row } from "react-bootstrap";
 import { Button } from "../../../../../components/Button";
 import { FluidIcon } from "../../../../../components/FluidIcon";
 import { Can } from "../../../../../utils/authz/Can";
@@ -94,8 +94,15 @@ const actionButtons: React.FC<IActionButtonsProps> = (props: IActionButtonsProps
           </Button>
         ) : undefined}
         <Button onClick={onEdit}>
-          <FluidIcon icon="edit" />&nbsp;
-          {translate.t("search_findings.tab_description.editable")}
+          {props.isEditing ? (
+            <React.Fragment>
+              <Glyphicon glyph="remove" />&nbsp;{translate.t("search_findings.tab_description.editable.cancel")}
+            </React.Fragment>
+          ) : (
+            <React.Fragment>
+              <FluidIcon icon="edit" />&nbsp;{translate.t("search_findings.tab_description.editable.text")}
+            </React.Fragment>
+          )}
         </Button>
       </ButtonToolbar>
     </Row>

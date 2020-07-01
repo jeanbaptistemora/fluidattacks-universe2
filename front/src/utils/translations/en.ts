@@ -622,7 +622,10 @@ const enTranslations: Dictionary = {
       },
       download_vulnerabilities: "Download Vulnerabilities",
       editVuln: "Edit vulnerabilites",
-      editable: "Edit",
+      editable: {
+        cancel: "Cancel",
+        text: "Edit",
+      },
       errorFileVuln: "Vulnerabilities file has errors",
       field: "Field",
       inputs: "Inputs",
