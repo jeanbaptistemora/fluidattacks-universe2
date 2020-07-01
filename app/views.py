@@ -25,15 +25,13 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
 from jose import jwt
 from magic import Magic
-from openpyxl import load_workbook, Workbook
+from openpyxl import Workbook
 
 # Local libraries
 from backend import authz, util
 from backend.domain import (
     analytics as analytics_domain,
-    project as project_domain, user as user_domain)
-from backend.domain.vulnerability import (
-    get_vulnerabilities
+    user as user_domain,
 )
 from backend.decorators import (
     authenticate,
@@ -271,60 +269,6 @@ def retrieve_image(request, img_file):
 def list_s3_evidences(prefix) -> List[str]:
     """return keys that begin with prefix from the evidences folder."""
     return list(util.iterate_s3_keys(CLIENT_S3, BUCKET_S3, prefix))
-
-
-@never_cache
-@require_http_methods(["GET"])
-# pylint: disable=too-many-locals
-def generate_complete_report(request):
-    user_data = util.get_jwt_content(request)
-    projects = async_to_sync(user_domain.get_projects)(user_data['user_email'])
-    book = load_workbook('/usr/src/app/app/techdoc/templates/COMPLETE.xlsx')
-    sheet = book.active
-
-    project_col = 1
-    finding_col = 2
-    vuln_where_col = 3
-    vuln_specific_col = 4
-    treatment_col = 5
-    treatment_mgr_col = 6
-    row_offset = 2
-
-    row_index = row_offset
-    for project in projects:
-        findings = project_domain.get_released_findings(
-            project, 'finding_id, finding, historic_treatment')
-        for finding in findings:
-            vulns = get_vulnerabilities(finding['finding_id'])
-            for vuln in vulns:
-                sheet.cell(row_index, vuln_where_col, vuln['where'])
-                sheet.cell(row_index, vuln_specific_col, vuln['specific'])
-
-                sheet.cell(row_index, project_col, project.upper())
-                sheet.cell(row_index, finding_col, '{name!s} (#{id!s})'.format(
-                           name=finding['finding'].encode('utf-8'),
-                           id=finding['finding_id']))
-                historic_treatment = finding.get('historic_treatment', [{}])
-                sheet.cell(row_index, treatment_col,
-                           historic_treatment[-1].get('treatment', ''))
-                sheet.cell(row_index, treatment_mgr_col,
-                           vuln.get('treatment_manager', 'Unassigned'))
-
-                row_index += 1
-
-    username = user_data['user_email'].split('@')[0].encode('utf8', 'ignore')
-    filename = 'complete_report.xlsx'
-    filepath = '/tmp/{username}-{filename}'.format(filename=filename,
-                                                   username=username)
-    book.save(filepath)
-
-    with open(filepath, 'rb') as document:
-        response = HttpResponse(document.read())
-        response['Content-Type'] = 'application/vnd.openxmlformats\
-                        -officedocument.spreadsheetml.sheet'
-        response['Content-Disposition'] = 'inline;filename={filename}'.format(
-            filename=filename)
-    return response
 
 
 @cache_content
