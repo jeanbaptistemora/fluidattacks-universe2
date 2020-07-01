@@ -80,9 +80,6 @@
              alt="{{ article.alt }}"
              class="w-100 db">
       </div>
-      <p class="f-key-features tc c-fluid-gray fw6 bg-white mw-banner ml-auto mr-auto mv0 pt2">
-        {{ article.locale_date }}
-     </p>
     </div>
   </div>
 </div>
@@ -108,7 +105,7 @@
       alt="Author picture">
       <div class="dib-l tl v-top ph3">
         <!-- Author -->
-        <p class="c-fluid-bk fw4 f-key-features mv0 pv2">Author:
+        <p class="c-fluid-bk fw4 f-key-features mv0 pv1">Author:
           {% for author in article.authors %}
             <a class="c-fluid-gray hover-black no-underline"
                 href="{{ SITEURL }}/{{ author.url }}">
@@ -117,14 +114,14 @@
           {% endfor %}
           </p>
           <!-- Category -->
-          <p class="c-fluid-bk fw4 f-key-features mv0 pv2">Category:
+          <p class="c-fluid-bk fw4 f-key-features mv0 pv1">Category:
             <a class="c-fluid-gray hover-black no-underline"
               href="{{ SITEURL }}/{{ article.category.url }}">
               {{ article.category|replace("-", " ") }}
             </a><br/>
           </p>
           <!-- Tags -->
-          <p class="c-fluid-bk fw4 f-key-features mv0 pv2">Tags:
+          <p class="c-fluid-bk fw4 f-key-features mv0 pv1">Tags:
           {% for tag in article.tags %}
             {% if loop.last %}
               <a class="c-fluid-gray hover-black no-underline"
@@ -134,6 +131,9 @@
                   href="{{ SITEURL }}/{{ tag.url }}">{{ tag }},&nbsp;</a>
             {% endif %}
           {% endfor %}
+          </p>
+          <p class="c-fluid-bk fw4 f-key-features mv0 pv1">Date:
+            <span class="c-fluid-gray">{{ article.locale_date }}</span>
           </p>
       </div>
     </div>
