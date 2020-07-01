@@ -27,7 +27,7 @@ import { AddProjectModal } from "../../components/AddProjectModal";
 import { ProjectBox } from "../../components/ProjectBox";
 import { default as style } from "./index.css";
 import { PROJECTS_QUERY } from "./queries";
-import { IHomeViewProps, ITagData, IUserAttr } from "./types";
+import { IHomeViewProps, IOrganizationData, ITagData, IUserAttr } from "./types";
 
 interface ITagDataTable {
   name: string;
@@ -39,6 +39,10 @@ const tableHeaders: IHeader[] = [
   { dataField: "description", header: "Description" },
 ];
 
+const tableHeadersOrganizations: IHeader[] = [
+  { dataField: "name", header: "Organization Name" },
+];
+
 const tableHeadersTags: IHeader[] = [
   { dataField: "name", header: "Tag" },
   { dataField: "projects", header: "Projects" },
@@ -48,6 +52,8 @@ const homeView: React.FC<IHomeViewProps> = (props: IHomeViewProps): JSX.Element 
   const { setUserRole } = props;
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
   const { push } = useHistory();
+  const { userEmail } = (window as typeof window & { userEmail: string });
+  const fluidUser: boolean = userEmail.endsWith("@fluidattacks.com");
 
   const goToProject: ((projectName: string) => void) = (projectName: string): void => {
     push(`/groups/${projectName.toLowerCase()}/indicators`);
@@ -94,8 +100,23 @@ const homeView: React.FC<IHomeViewProps> = (props: IHomeViewProps): JSX.Element 
     variables: { tagsField: permissions.can("backend_api_resolvers_me__get_tags") },
   });
 
+  const displayOrganization: ((choosedOrganization: string) => void) = (choosedOrganization: string): void => {
+    const organizations: IOrganizationData[] = data.me.organizations;
+    const choosedOrganizationId: string = organizations.filter((organization: IOrganizationData): boolean => (
+      organization.name === choosedOrganization.toLowerCase()
+    ))[0].id;
+
+    push(`/organizations/${choosedOrganization.toLowerCase()}/settings`, { organizationId: choosedOrganizationId });
+  };
+
   const displayTag: ((choosedTag: string) => void) = (choosedTag: string): void => {
     push(`/portfolios/${choosedTag.toLowerCase()}/indicators`);
+  };
+
+  const handleRowOrganizationClick: ((event: React.FormEvent<HTMLButtonElement>, rowInfo: { name: string }) => void) = (
+    _0: React.FormEvent<HTMLButtonElement>, rowInfo: { name: string },
+  ): void => {
+    displayOrganization(rowInfo.name);
   };
 
   const handleRowTagClick: ((event: React.FormEvent<HTMLButtonElement>, rowInfo: { name: string }) => void) = (
@@ -216,6 +237,39 @@ const homeView: React.FC<IHomeViewProps> = (props: IHomeViewProps): JSX.Element 
                       </Row>
                     </React.Fragment>
                   )}
+                  {!_.isUndefined(data.me.organizations) && fluidUser ? (
+                    <React.Fragment>
+                      <h2>{translate.t("home.organizations")}</h2>
+                      <Row className={style.content}>
+                        {display === "grid"
+                          ? data.me.organizations.map(
+                              (organizationMap: IUserAttr["me"]["organizations"][0], index: number): JSX.Element => (
+                            <Col md={3} key={index}>
+                              <ProjectBox
+                                name={organizationMap.name.toUpperCase()}
+                                description=""
+                                onClick={displayOrganization}
+                              />
+                            </Col>
+                          ))
+                          : (
+                            <React.Fragment>
+                              <DataTableNext
+                                bordered={true}
+                                dataset={data.me.organizations.name}
+                                exportCsv={false}
+                                headers={tableHeadersOrganizations}
+                                id="tblProjects"
+                                pageSize={15}
+                                remote={false}
+                                rowEvents={{ onClick: handleRowOrganizationClick }}
+                                search={true}
+                              />
+                            </React.Fragment>
+                          )}
+                      </Row>
+                    </React.Fragment>
+                  ) : undefined}
                 </Col>
                 <AddProjectModal isOpen={isProjectModalOpen} onClose={closeNewProjectModal} />
               </Row>

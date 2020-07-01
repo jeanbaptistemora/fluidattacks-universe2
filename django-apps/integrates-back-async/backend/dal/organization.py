@@ -173,7 +173,7 @@ async def get_by_id(
     query_attrs = {
         'KeyConditionExpression': (
             Key('pk').eq(organization_id) &
-            Key('sk').begins_with('INFO')
+            Key('sk').begins_with('INFO#')
         )
     }
 
@@ -250,30 +250,6 @@ async def get_many_by_id(
         )
         for org_id in organization_ids
     ])
-
-
-async def get_id_by_name(organization_name: str) -> str:
-    """
-    Return the ID of an organization by having its name
-    """
-    organization_id: str = ''
-    query_attrs = {
-        'KeyConditionExpression': Key('sk').eq(f'INFO#{organization_name}'),
-        'IndexName': 'gsi-1',
-        'ProjectionExpression': 'pk'
-    }
-    try:
-        response_item = await dynamo_async_query(TABLE_NAME, query_attrs)
-        if response_item:
-            organization_id = response_item[0]['pk']
-    except ClientError as ex:
-        await sync_to_async(rollbar.report_message)(
-            'Error fetching the ID of an organization from its name',
-            'error',
-            extra_data=ex,
-            payload_data=locals()
-        )
-    return organization_id
 
 
 async def get_id_for_group(group_name: str) -> str:

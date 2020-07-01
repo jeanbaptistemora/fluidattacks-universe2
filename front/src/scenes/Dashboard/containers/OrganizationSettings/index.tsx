@@ -23,19 +23,23 @@ import { ILocationState, ISettingsFormData } from "./types";
 const organizationSettings: React.FC = (): JSX.Element => {
 
   // State management
-  const location: ILocationState = useLocation<{ organizationId: string }>();
-  const organizationId: string = location.state.organizationId;
   const { organizationName } = useParams();
+  const location: ILocationState = useLocation<{ organizationId: string }>();
   const selector: (state: {}, ...fields: string[]) => ISettingsFormData = formValueSelector("orgSettings");
   const formValues: ISettingsFormData = useSelector((state: {}) =>
     selector(state, "maxAcceptanceDays", "maxAcceptanceSeverity", "maxNumberAcceptations", "minAcceptanceSeverity"));
+
+  let identifier: string = organizationName;
+  if (!_.isUndefined(location.state)) {
+    identifier = location.state.organizationId;
+  }
 
   // GraphQL Operations
   const { data, loading: loadingSettings } = useQuery(GET_ORGANIZATION_SETTINGS, {
     onError: (error: ApolloError): void => {
       handleGraphQLErrors("An error occurred fetching organization settings", error);
     },
-    variables: { identifier: organizationId },
+    variables: { identifier },
   });
 
   const [saveSettings, { loading: savingSettings }] = useMutation(UPDATE_ORGANIZATION_SETTINGS, {
@@ -71,12 +75,11 @@ const organizationSettings: React.FC = (): JSX.Element => {
       });
     },
     variables: {
+      identifier,
       maxAcceptanceDays: parseInt(formValues.maxAcceptanceDays, 10),
       maxAcceptanceSeverity: parseFloat(formValues.maxAcceptanceSeverity),
       maxNumberAcceptations: parseInt(formValues.maxNumberAcceptations, 10),
       minAcceptanceSeverity: parseFloat(formValues.minAcceptanceSeverity),
-      organizationId,
-      organizationName,
     },
   });
 
@@ -156,9 +159,13 @@ const organizationSettings: React.FC = (): JSX.Element => {
         name="orgSettings"
         onSubmit={handleFormSubmit}
         initialValues={{
-          maxAcceptanceDays: data.organization.maxAcceptanceDays.toString(),
+          maxAcceptanceDays: _.isNull(data.organization.maxAcceptanceDays)
+                              ? ""
+                              : data.organization.maxAcceptanceDays.toString(),
           maxAcceptanceSeverity: data.organization.maxAcceptanceSeverity.toString(),
-          maxNumberAcceptations: data.organization.maxNumberAcceptations.toString(),
+          maxNumberAcceptations: _.isNull(data.organization.maxNumberAcceptations)
+                                  ? ""
+                                  : data.organization.maxNumberAcceptations.toString(),
           minAcceptanceSeverity: data.organization.minAcceptanceSeverity.toString(),
         }}
       >

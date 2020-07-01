@@ -24,7 +24,25 @@ from backend.typing import (
 
 
 async def get_id_by_name(organization_name: str) -> str:
-    return await org_dal.get_id_by_name(organization_name)
+    org_id: str = ''
+    result: OrganizationType = await org_dal.get_by_name(
+        organization_name,
+        ['id']
+    )
+    if result:
+        org_id = str(result['id'])
+    return org_id
+
+
+async def get_name_by_id(organization_id: str) -> str:
+    org_name: str = ''
+    result: OrganizationType = await org_dal.get_by_id(
+        organization_id,
+        ['name']
+    )
+    if result:
+        org_name = str(result['name'])
+    return org_name
 
 
 async def get_id_for_group(group_name: str) -> str:

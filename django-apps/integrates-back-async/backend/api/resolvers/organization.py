@@ -9,10 +9,7 @@ from ariadne import (
 from graphql.language.ast import SelectionSetNode
 
 from backend import util
-from backend.decorators import (
-    rename_kwargs,
-    require_login
-)
+from backend.decorators import require_login
 from backend.domain import organization as org_domain
 from backend.typing import (
     Organization as OrganizationType,
@@ -24,19 +21,25 @@ async def _do_update_organization_settings(
     _,
     info,
     identifier: str,
-    name: str,
     **parameters
 ) -> SimplePayloadType:
+
+    if identifier.startswith('ORG#'):
+        org_id = identifier
+        org_name = await _get_name(_, identifier)
+    else:
+        org_id = await _get_id(_, identifier)
+        org_name = identifier
     success: bool = await org_domain.update_settings(
-        identifier,
-        name,
+        org_id,
+        org_name,
         parameters
     )
     if success:
         util.cloudwatch_log(
             info.context,
-            f'Security: Updated settings for organization {name} with ID'
-            f' {identifier}'
+            f'Security: Updated settings for organization {org_name} with ID'
+            f' {org_id}'
         )
     return SimplePayloadType(success=success)
 
@@ -48,6 +51,15 @@ async def _get_id(_, identifier: str) -> str:
         else await org_domain.get_id_by_name(identifier)
     )
     return org_id
+
+
+async def _get_name(_, identifier: str) -> str:
+    org_name = (
+        identifier
+        if not identifier.startswith('ORG#')
+        else await org_domain.get_name_by_id(identifier)
+    )
+    return org_name
 
 
 async def _get_max_acceptance_days(_, identifier: str) -> Optional[Decimal]:
@@ -118,10 +130,6 @@ async def resolve_organization(_, info, identifier: str) -> OrganizationType:
 
 
 @convert_kwargs_to_snake_case
-@rename_kwargs({
-    'organization_id': 'identifier',
-    'organization_name': 'name'
-})
 @require_login
 async def resolve_organization_mutation(obj, info, **parameters):
     """Resolve Organization mutation """

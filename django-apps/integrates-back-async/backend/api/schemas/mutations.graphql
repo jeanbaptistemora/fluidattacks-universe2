@@ -29,12 +29,11 @@ type Mutation {
         state: ResourceState!
     ): SimplePayload!
     updateOrganizationSettings(
+        identifier: String!
         maxAcceptanceDays: Int
         maxAcceptanceSeverity: Float!
         maxNumberAcceptations: Int
         minAcceptanceSeverity: Float!
-        organizationId: String!
-        organizationName: String!
     ): SimplePayload!
     updateRepository(
         projectName: String!,

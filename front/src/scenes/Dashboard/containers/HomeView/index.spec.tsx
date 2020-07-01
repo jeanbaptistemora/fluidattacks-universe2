@@ -12,6 +12,7 @@ import { PROJECTS_QUERY } from "./queries";
 import { IHomeViewProps } from "./types";
 
 describe("HomeView", () => {
+  (window as typeof window & { userEmail: string }).userEmail = "test@test.com";
   const setUserRoleCallback: jest.Mock = jest.fn();
   const mocks: ReadonlyArray<MockedResponse> = [
     {

@@ -12,6 +12,8 @@ import { GET_USER_PERMISSIONS } from "./queries";
 import { IGetUserPermissionsAttr } from "./types";
 
 describe("Dashboard", () => {
+  (window as typeof window & { userEmail: string }).userEmail = "test@test.com";
+
   it("should return a function", () => {
     expect(typeof (Dashboard))
       .toEqual("function");

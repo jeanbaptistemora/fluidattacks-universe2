@@ -28,6 +28,7 @@ import { updateAccessTokenModal as UpdateAccessTokenModal } from "./components/A
 import { Navbar } from "./components/Navbar/index";
 import { Sidebar } from "./components/Sidebar";
 import { HomeView } from "./containers/HomeView";
+import { OrganizationContent } from "./containers/OrganizationContent/index";
 import { ProjectRoute } from "./containers/ProjectRoute/index";
 import { addUserModal as AddUserModal } from "./containers/ProjectUsersView/AddUserModal/index";
 import { IUserDataAttr } from "./containers/ProjectUsersView/types";
@@ -126,6 +127,7 @@ const dashboard: React.FC = (): JSX.Element => {
                     </authzPermissionsContext.Provider>
                   </authzGroupContext.Provider>
                 </Route>
+                <Route path="/organizations/:organizationName" component={OrganizationContent} />
                 <Route path="/portfolios/:tagName" component={TagContent} />
                 {/* Necessary to support hashrouter URLs */}
                 <Redirect path="/dashboard" to={hash.replace("#!", "")} />
