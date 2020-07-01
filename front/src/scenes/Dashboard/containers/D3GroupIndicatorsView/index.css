@@ -1,3 +1,7 @@
+:local .centerTitle {
+  text-align: center;
+}
+
 :local .height160 {
   height: 160px;
 }
@@ -8,4 +12,8 @@
 
 :local .height320 {
   height: 320px;
+}
+
+:local .separatorTitleFromCharts {
+  padding-top: 35px;
 }

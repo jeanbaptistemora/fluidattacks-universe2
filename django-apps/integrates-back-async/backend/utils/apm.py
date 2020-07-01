@@ -16,5 +16,8 @@ from __init__ import (
 def trace(overridden_function: Optional[Callable] = None) -> Callable:
     return tracers.function.trace(
         enabled=DEBUG.lower() == 'true',
+        # Please remove this line if you want to see the traces
+        #   it's hidden in normal operations to avoid cluttering logs
+        log_to=None,
         overridden_function=overridden_function,
     )

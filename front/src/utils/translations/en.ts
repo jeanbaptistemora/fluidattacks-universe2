@@ -13,6 +13,12 @@ const enTranslations: Dictionary = {
       },
     },
     gauge: {
+      forcesStatus: {
+        title: "Service status",
+      },
+      forcesUsage: {
+        title: "Service usage",
+      },
       severity: {
         title: "Severity",
       },

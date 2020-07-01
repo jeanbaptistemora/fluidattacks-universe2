@@ -1,5 +1,6 @@
 # Standard library
 import contextlib
+from datetime import datetime
 from decimal import Decimal
 import functools
 import json
@@ -9,16 +10,41 @@ from typing import (
     Callable,
     Dict,
     Iterable,
+    List,
     Tuple,
     Type,
+    Union,
 )
 from urllib.parse import urlparse
 
 # Third party libraries
+from backend.api.resolvers import (
+    forces as forces_resolver,
+)
 from backend.domain import (
     project as group_domain,
 )
+from backend import (
+    util,
+)
 from frozendict import frozendict
+
+
+async def get_last_week_forces_executions(
+    group: str,
+) -> List[Dict[str, Union[str, int]]]:
+    executions: List[Dict[str, Union[str, int]]]
+
+    # pylint: disable=protected-access
+    # disabling this rule because accessing _get_executions function is safe
+    executions = await forces_resolver._get_executions(
+        None,
+        project_name=group,
+        from_date=util.get_current_time_minus_delta(weeks=1),
+        to_date=datetime.utcnow(),
+    )
+
+    return executions
 
 
 def get_result_path(name: str) -> str:

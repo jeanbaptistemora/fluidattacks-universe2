@@ -163,6 +163,42 @@ const d3GroupIndicatorsView: React.FC<ID3GroupIndicatorsProps> = (props: ID3Grou
           </Col>
         </Row>
       </Grid>
+      <hr />
+      <Grid fluid={true}>
+        <Row>
+          <Col md={12}>
+            <h2 className={styles.centerTitle}>Forces Indicators</h2>
+            <h4 className={styles.centerTitle}>Last 7 days</h4>
+          </Col>
+        </Row>
+        <div className={styles.separatorTitleFromCharts} />
+        <Row>
+          <Col md={3}>
+            <Graphic
+              bsClass={styles.height80}
+              documentName="forcesStatus"
+              documentType="textBox"
+              entity="group"
+              generatorName="raw"
+              generatorType="textBox"
+              subject={groupName}
+              title={translate.t("analytics.gauge.forcesStatus.title")}
+            />
+          </Col>
+          <Col md={3}>
+            <Graphic
+              bsClass={styles.height80}
+              documentName="forcesUsage"
+              documentType="textBox"
+              entity="group"
+              generatorName="raw"
+              generatorType="textBox"
+              subject={groupName}
+              title={translate.t("analytics.gauge.forcesUsage.title")}
+            />
+          </Col>
+        </Row>
+      </Grid>
     </React.StrictMode>
   );
 };
