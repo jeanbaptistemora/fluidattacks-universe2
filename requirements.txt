@@ -37,7 +37,6 @@ mitmproxy==5.0.1            # fluidasserts.helper.proxy
 mixpanel==4.5.0             # fluidasserts.utils.decorators
 mysql-connector-python==8.0.19  # fluidasserts.db.mysql_db
 names==0.3.0                # fluidasserts.helper.http
-neo4j==4.0.0a4
 networkx==2.4
 ntplib==0.3.4               # fluidasserts.proto.http
 oyaml==0.9                  # fluidasserts

@@ -12,19 +12,14 @@ from git import Repo
 from typing import Optional
 from multiprocessing import Process, cpu_count
 from multiprocessing.pool import Pool
-from contextlib import suppress
 
 # 3rd party imports
 import docker
 import pytest  # pylint: disable=E0401
 import wait  # pylint: disable=E0401
 from docker.models.containers import Image, Container
-from neo4j.exceptions import ServiceUnavailable
 
 # local imports
-from fluidasserts.cloud.aws.cloudformation.graphs.loader import Loader
-from fluidasserts.db.neo4j_connection import ConnectionString
-from fluidasserts.db.neo4j_connection import database
 from test.mock import sip_server
 from test.mock import http_server
 from test.mock import graphql_server
@@ -383,29 +378,6 @@ def run_mocks(request):
             }
             workers.map(create_container, tuple(mocks.keys()), 1)
             workers.starmap(open_ports, tuple(mocks.items()), 1)
-    if should_run_mock(
-            current_module=asserts_module,
-            modules_where_should_run=['cloud_aws_cloudformation']):
-        safe_pah: str = 'test/static/cloudformation/code_as_data_safe'
-        vuln_path: str = 'test/static/cloudformation/code_as_data_vulnerable'
-        loader_ = Loader(passwd='12345678',
-                         container_name='asserts_neo4j', database='system')
-        availabele = False
-        while not availabele:
-            time.sleep(1)
-            with suppress(ServiceUnavailable):
-                with database(loader_.connection) as session:
-                    session.run('CREATE DATABASE vulnerable')
-                    session.run('CREATE DATABASE safe')
-                    list(session.run('SHOW DATABASES'))
-                    availabele = True
-        _safe_loader = Loader(create_db=False)
-        _safe_loader.connection = loader_.connection._replace(database='safe')
-        _safe_loader.load_templates(safe_pah, retry=True)
-        _vuln_loader = Loader(create_db=False)
-        _vuln_loader.connection = loader_.connection._replace(
-            database='vulnerable')
-        _vuln_loader.load_templates(vuln_path, retry=True)
 
 
 @pytest.fixture()
@@ -424,13 +396,6 @@ def stop_mocks(request):
             }
             mock_names: tuple = tuple(map(get_mock_name, mocks.keys()))
             workers.map(stop_container, mock_names, 1)
-    if should_run_mock(
-            current_module=asserts_module,
-            modules_where_should_run=['cloud_aws_cloudformation']):
-
-        loader_ = Loader(create_db=False)
-        loader_.container_database = CLIENT.containers.get('asserts_neo4j')
-        loader_.delete_database()
 
 
 @pytest.fixture(scope='function')
@@ -441,27 +406,3 @@ def get_mock_ip(request):
     if con.status != 'running':
         con.start()
     yield get_container_ip(con)
-
-
-@pytest.fixture(scope='session')
-def safe_loader():
-    """Get connection string to cloudformation safe."""
-    con = CLIENT.containers.get('asserts_neo4j')
-    yield ConnectionString(
-        user='neo4j',
-        passwd='12345678',
-        host=get_container_ip(con),
-        port=7687,
-        database='safe')
-
-
-@pytest.fixture(scope='session')
-def vuln_loader():
-    """Get connection string to cloudformation vulnerable."""
-    con = CLIENT.containers.get('asserts_neo4j')
-    yield ConnectionString(
-        user='neo4j',
-        passwd='12345678',
-        host=get_container_ip(con),
-        port=7687,
-        database='vulnerable')
