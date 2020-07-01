@@ -1,7 +1,7 @@
 :slug: rules/105/
 :category: authorization
-:description: This document contains the details of the security requirements related to the definition and management of access control in the organization. This requirement establishes the importance of avoiding assets leakage by forbidding the entry of elements that may extract information from the facilities.
-:keywords: Requirement, Security, Assets, Leakage, Extraction, Policies
+:description: This requirement establishes the importance of avoiding assets leakage by forbidding the entry of elements that allow information extraction from facilities.
+:keywords: Requirement, Security, Assets, Leakage, Extraction, Policies, Rules, Ethical Hacking, Pentesting
 :rules: yes
 :extended: yes
 

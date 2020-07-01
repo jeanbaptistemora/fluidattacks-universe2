@@ -1,7 +1,7 @@
 :slug: rules/088/
 :category: certificates
-:description: This document contains the details of the security requirements related to the definition, management and usage of digital certificates. In this case, it is recommended that the system require digital certificates from the client during the authentication process.
-:keywords: Certificate, Digital, Client, ASVS, CWE, NIST
+:description: This requirement establishes that the system demands digital certificates from the client during the authentication process.
+:keywords: Certificate, Digital, Client, ASVS, CWE, NIST, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R088. Request client certificates

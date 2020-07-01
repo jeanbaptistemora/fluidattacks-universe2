@@ -1,7 +1,7 @@
 :slug: rules/110/
 :category: authorization
-:description: This document contains the details of the security requirements related to the definition and management of access control in the organization. This requirement establishes the importance of preventing thefts in facilities by monitoring restricted areas with physical access control mechanisms.
-:keywords: Requirement, Security, Physical Access, Preventive Control, Restricted Areas, Mechanisms
+:description: This requirement establishes the importance of preventing thefts in facilities by monitoring restricted areas with physical access control mechanisms.
+:keywords: Requirement, Security, Physical Access, Preventive Control, Restricted Areas, Mechanisms, Rules, Ethical Hacking, Pentesting
 :rules: yes
 :extended: yes
 

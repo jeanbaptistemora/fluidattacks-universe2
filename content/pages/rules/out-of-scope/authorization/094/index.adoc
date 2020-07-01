@@ -1,7 +1,7 @@
 :slug: rules/094/
 :category: authorization
-:description: This document contains the details of the security requirements related to the definition and management of access control in the organization. This requirement establishes the importance of specify access control rules in a declarative mood instead of pragmatic mood.
-:keywords: Requirement, Security, Access, Control, Rules, Mood
+:description: This requirement establishes the importance of specifying access control rules in a declarative rather than pragmatic mood.
+:keywords: Requirement, Security, Access, Control, Mood, Rules, Ethical Hacking, Pentesting
 :rules: yes
 :extended: yes
 

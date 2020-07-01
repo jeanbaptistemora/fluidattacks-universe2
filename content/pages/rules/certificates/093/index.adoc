@@ -1,7 +1,7 @@
 :slug: rules/093/
 :category: certificates
-:description: This document contains the details of the security requirements related to the definition and management of digital certificates. This requirement establishes the importance of using consistent certificates, with valid and updated information about the associated organization.
-:keywords: Services, Server, Digital, Certificates, Consistent, Organization
+:description: This requirement establishes the importance of using consistent certificates with valid and updated information about the associated organization.
+:keywords: Services, Server, Digital, Certificates, Consistent, Organization, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R093. Use consistent certificates

@@ -1,7 +1,7 @@
 :slug: rules/098/
 :category: authorization
-:description: This document contains the details of the security requirements related to the definition and management of access control in the organization. This requirement establishes the importance of safeguarding the information assets by implementing physical barriers in the facilities.
-:keywords: Requirement, Security, Information, Assets, Physical Access, Barriers
+:description: This requirement establishes the importance of safeguarding information assets by implementing physical barriers in the facilities.
+:keywords: Requirement, Security, Information, Assets, Physical Access, Barriers, Rules, Ethical Hacking, Pentesting
 :rules: yes
 :extended: yes
 
@@ -9,8 +9,8 @@
 
 == Requirement
 
-The organization must have physical barriers (doors, fences, walls, etc)
-required to safeguard logical and physical information assets
+The organization must have physical barriers (doors, fences, walls, etc.)
+required to safeguard logical and physical information assets.
 
 == References
 

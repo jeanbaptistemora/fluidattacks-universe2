@@ -1,7 +1,7 @@
 :slug: rules/095/
 :category: authorization
-:description: This document contains the details of the security requirements related to the definition and management of access control in the organization. This requirement establishes the importance of defining the users with administrator and root privileges in the system.
-:keywords: Users, Privileges, Administrator, ASVS, HIPAA, NIST
+:description: This requirement establishes the importance of defining the users with administrator or root privileges in the system.
+:keywords: Users, Privileges, Root, Administrator, ASVS, HIPAA, NIST, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R095. Define users with privileges

@@ -1,7 +1,7 @@
 :slug: rules/097/
 :category: authorization
-:description: This document contains the details of the security requirements related to the definition and management of access control in the organization. This requirement establishes the importance of defining a control access model to the systems and the sensitive information there stored.
-:keywords: Requirement, Security, Access, Control, Model, Systems
+:description: This requirement establishes the importance of defining an access control model to the systems and sensitive information.
+:keywords: Requirement, Security, Access, Control, Model, Systems, Rules, Ethical Hacking, Pentesting
 :rules: yes
 :extended: yes
 

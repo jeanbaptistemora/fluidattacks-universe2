@@ -1,7 +1,7 @@
 :slug: rules/091/
 :category: certificates
-:description: This document details the security guidelines and requirements related to the use of certificates (within the organizations), which, it is highly recommended, must be signed by valid internal certification bodies when they are for internal applications.
-:keywords: Certificate, Certification Bodies, Applications, Signature, ASVS, CWE
+:description: This requirement establishes that certificates, to use within the organization for internal apps, must be signed by valid internal certification bodies.
+:keywords: Certificate, Certification Bodies, Applications, Signature, ASVS, CWE, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R091. Use internally signed certificates

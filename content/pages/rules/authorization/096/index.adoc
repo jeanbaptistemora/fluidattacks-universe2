@@ -1,7 +1,7 @@
 :slug: rules/096/
 :category: authorization
-:description: This document contains the details of the security requirements related to the definition and management of access control in the organization. This requirement establishes the importance of defining the required privileges for each user to access the sensitive information of the organization.
-:keywords: Access Control, Required, Privileges, ASVS, HIPAA, NIST
+:description: This requirement establishes the importance of defining the privileges for each user to access the system.
+:keywords: Access Control, Privileges, ASVS, HIPAA, NIST, CWE, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R096. Set user required privileges

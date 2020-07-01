@@ -1,7 +1,7 @@
 :slug: rules/100/
 :category: authorization
-:description: This document contains the details of the security requirements related to the definition and management of access control in the organization. This requirement establishes the importance of safeguarding physical and logical information assets by sealing windows to avoid unauthorized access.
-:keywords: Requirement, Security, Physical Access, Windows, Information, Assets
+:description: This requirement establishes the importance of safeguarding physical and logical information assets by sealing windows to avoid unauthorized access.
+:keywords: Requirement, Security, Physical Access, Windows, Information, Assets, Rules, Ethical Hacking, Pentesting
 :rules: yes
 :extended: yes
 

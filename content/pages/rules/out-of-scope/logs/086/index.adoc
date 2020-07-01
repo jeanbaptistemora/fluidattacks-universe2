@@ -1,7 +1,7 @@
 :slug: rules/086/
 :category: logs
-:description: This document contains the details of the security requirements related to the definition and management of logs in the organization. This requirement establishes the importance of generating alarms when a security event is registered in the system logs.
-:keywords: Register, Log, Event, Security, Information, Alarm.
+:description: This requirement establishes the importance of generating alarms when a security event is registered in the system logs.
+:keywords: Register, Log, Event, Security, Information, Alarm, Rules, Ethical Hacking, Pentesting
 :rules: yes
 :extended: yes
 

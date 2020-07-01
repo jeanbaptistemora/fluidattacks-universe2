@@ -1,7 +1,7 @@
 :slug: rules/101/
 :category: authorization
-:description: This document contains the details of the security requirements related to the definition and management of access control in the organization. This requirement establishes the importance of assigning ID cards in order to restrict the physical access only to the allowed personnel.
-:keywords: Requirement, Security, Access Control, Parking, Vehicles, Physical Access
+:description: This requirement establishes the importance of assigning ID cards to restrict physical access only to the allowed personnel.
+:keywords: Requirement, Security, Access Control, Parking, Vehicles, Physical Access, Rules, Ethical Hacking, Pentesting
 :rules: yes
 :extended: yes
 
