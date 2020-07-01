@@ -6,6 +6,10 @@ from typing import (
     List,
 )
 
+# Third party libraries
+from botocore.exceptions import ClientError
+import rollbar
+
 # Local libraries
 from backend.dal import (
     finding as finding_dal,
@@ -140,10 +144,19 @@ def download_evidences_for_pdf(findings: List[Dict[str, FindingType]]):
             finding['evidence_set'] = evidence_set
             for evidence in evidence_set:
                 evidence_id_2 = str(evidence['id']).split('/')[2]
-                finding_dal.download_evidence(
-                    evidence['id'],
-                    f'{path}/{evidence_id_2}'
-                )
+                try:
+                    finding_dal.download_evidence(
+                        evidence['id'],
+                        f'{path}/{evidence_id_2}',
+                    )
+                except ClientError:
+                    rollbar.report_message(
+                        'Missing evidences in group while generating report',
+                        'error', {
+                            'group_name': finding['projectName'],
+                            'evidence_id': evidence['id'],
+                        },
+                    )
                 evidence['name'] = (
                     f'image::../images/{evidence_id_2}'
                     '[align="center"]'
