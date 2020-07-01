@@ -566,5 +566,5 @@ class ViewTestCase(unittest.TestCase):
         selenium.get(self.url + '/dashboard#!/portfolio/DOESNOTEXIST/indicators')
         WebDriverWait(selenium, self.delay).until(
             expected.presence_of_element_located(
-                (By.XPATH, "//*[contains(text(), 'Access denied')]")))
+                (By.XPATH, "//*[contains(text(), 'Integrates unit test project')]")))
         selenium.save_screenshot(SCR_PATH + '18-09-tag_indicators.png')
