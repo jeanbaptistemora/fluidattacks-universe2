@@ -63,7 +63,7 @@ async def get_unsolved_events(project: str) -> List[EventType]:
     events = await sync_to_async(project_domain.list_events)(project)
     event_list = await asyncio.gather(*[
         asyncio.create_task(
-            sync_to_async(event_domain.get_event)(
+            event_domain.get_event(
                 event
             )
         )

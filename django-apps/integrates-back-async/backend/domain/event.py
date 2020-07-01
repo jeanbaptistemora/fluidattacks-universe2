@@ -46,12 +46,12 @@ from __init__ import (
 )
 
 
-def solve_event(
+async def solve_event(
         event_id: str,
         affectation: str,
         analyst_email: str,
         date: datetime) -> bool:
-    event = get_event(event_id)
+    event = await get_event(event_id)
     success = False
 
     if cast(
@@ -77,13 +77,13 @@ def solve_event(
         }
     ]
 
-    success = event_dal.update(event_id, {'historic_state': history})
+    success = await event_dal.update(event_id, {'historic_state': history})
 
     return success
 
 
-def update_evidence(event_id: str, evidence_type: str, file) -> bool:
-    event = get_event(event_id)
+async def update_evidence(event_id: str, evidence_type: str, file) -> bool:
+    event = await get_event(event_id)
     success = False
 
     if cast(
@@ -110,7 +110,8 @@ def update_evidence(event_id: str, evidence_type: str, file) -> bool:
     full_name = f'{project_name}/{event_id}/{evidence_id}'
 
     if event_dal.save_evidence(file, full_name):
-        success = event_dal.update(event_id, {evidence_type: evidence_id})
+        success = await event_dal.update(
+            event_id, {evidence_type: evidence_id})
 
     return success
 
@@ -265,18 +266,18 @@ def create_event(analyst_email: str, project_name: str, file=None,
     return success
 
 
-def get_event(event_id: str) -> EventType:
-    event = event_dal.get_event(event_id)
+async def get_event(event_id: str) -> EventType:
+    event = await event_dal.get_event(event_id)
     if not event:
         raise EventNotFound()
 
-    return event
+    return event_utils.format_data(event)
 
 
 async def get_events(event_ids: List[str]) -> List[EventType]:
     events_tasks = [
         asyncio.create_task(
-            sync_to_async(event_utils.format_data)(get_event(event_id))
+            get_event(event_id)
         )
         for event_id in event_ids
     ]
@@ -311,36 +312,36 @@ async def add_comment(
             comment_data,
             'event',
             str(user_info['user_email']),
-            'event', get_event(event_id)
+            'event', await get_event(event_id)
         )
 
     return success
 
 
 def get_evidence_link(event_id: str, file_name: str) -> str:
-    project_name = get_event(event_id).get('project_name')
+    project_name = async_to_sync(get_event)(event_id).get('project_name', '')
     file_url = f'{project_name}/{event_id}/{file_name}'
 
     return event_dal.sign_url(file_url)
 
 
-def remove_evidence(evidence_type: str, event_id: str) -> bool:
-    finding = get_event(event_id)
-    project_name = finding['project_name']
+async def remove_evidence(evidence_type: str, event_id: str) -> bool:
+    event = await get_event(event_id)
+    project_name = event['project_name']
     success = False
 
-    full_name = f'{project_name}/{event_id}/{finding[evidence_type]}'
+    full_name = f'{project_name}/{event_id}/{event[evidence_type]}'
     if event_dal.remove_evidence(full_name):
-        success = event_dal.update(event_id, {evidence_type: None})
+        success = await event_dal.update(event_id, {evidence_type: None})
 
     return success
 
 
 def mask(event_id: str) -> bool:
-    event = event_dal.get_event(event_id)
+    event = async_to_sync(event_dal.get_event)(event_id)
 
     attrs_to_mask = ['client', 'detail', 'evidence', 'evidence_file']
-    event_result = event_dal.update(
+    event_result = async_to_sync(event_dal.update)(
         event_id,
         {attr: 'Masked' for attr in attrs_to_mask}
     )

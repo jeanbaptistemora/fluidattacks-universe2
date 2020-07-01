@@ -11,7 +11,6 @@ import boto3
 import botocore
 
 from backend.typing import (
-    Dynamo as DynamoType,
     DynamoQuery as DynamoQueryType
 )
 from __init__ import (
@@ -78,7 +77,7 @@ async def async_query(
 
 async def async_update_item(
     table: str,
-    update_attrs: Dict[str, DynamoType]
+    update_attrs: Dict[str, Any]
 ) -> bool:
     success: bool = False
     async with aioboto3.resource(**RESOURCE_OPTIONS) as dynamodb_resource:

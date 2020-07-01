@@ -262,12 +262,11 @@ async def _do_solve_event(_, info, event_id: str, affectation: str,
                           date: datetime) -> SimplePayloadType:
     """Resolve solve_event mutation."""
     analyst_email = util.get_jwt_content(info.context)['user_email']
-    success = await sync_to_async(event_domain.solve_event)(
+    success = await event_domain.solve_event(
         event_id, affectation, analyst_email, date)
     if success:
-        event = await \
-            sync_to_async(event_domain.get_event)(event_id)
-        project_name = event.get('project_name')
+        event = await event_domain.get_event(event_id)
+        project_name = str(event.get('project_name', ''))
         util.invalidate_cache(event_id)
         util.invalidate_cache(project_name)
         util.cloudwatch_log(
@@ -318,7 +317,7 @@ async def _do_update_event_evidence(_, info, event_id: str, evidence_type: str,
     success = False
     if await \
             sync_to_async(event_domain.validate_evidence)(evidence_type, file):
-        success = await sync_to_async(event_domain.update_evidence)(
+        success = await event_domain.update_evidence(
             event_id, evidence_type, file)
     if success:
         util.invalidate_cache(event_id)
@@ -365,8 +364,7 @@ async def _do_download_event_file(_, info, event_id: str,
 async def _do_remove_event_evidence(_, info, event_id: str,
                                     evidence_type: str) -> SimplePayloadType:
     """Resolve remove_event_evidence mutation."""
-    success = await \
-        sync_to_async(event_domain.remove_evidence)(evidence_type, event_id)
+    success = await event_domain.remove_evidence(evidence_type, event_id)
     if success:
         util.cloudwatch_log(
             info.context,

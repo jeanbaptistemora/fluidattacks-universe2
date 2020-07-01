@@ -124,7 +124,7 @@ async def resolve_project_name(args, kwargs) -> str:  # noqa: MC0001
     elif 'draft_id' in kwargs:
         project_name = await finding_domain.get_project(kwargs['draft_id'])
     elif 'event_id' in kwargs:
-        event = await sync_to_async(event_domain.get_event)(
+        event = await event_domain.get_event(
             kwargs['event_id'])
         project_name = event.get('project_name')
     elif settings.DEBUG:
@@ -359,10 +359,10 @@ def require_event_access(func: Callable[..., Any]) -> Callable[..., Any]:
                 active=False
             )
         )
-        event_project = await sync_to_async(event_domain.get_event)(event_id)
-        event_project = event_project.get('project_name')
+        event_project = await event_domain.get_event(event_id)
+        project_name = str(event_project.get('project_name', ''))
         user_data['role'] = await sync_to_async(authz.get_group_level_role)(
-            user_email, event_project)
+            user_email, project_name)
 
         if not re.match('^[0-9]*$', event_id):
             await sync_to_async(rollbar.report_message)(
@@ -371,7 +371,7 @@ def require_event_access(func: Callable[..., Any]) -> Callable[..., Any]:
 
         enforcer = authz.get_group_access_enforcer()
 
-        if not await enforcer(user_data, event_project):
+        if not await enforcer(user_data, project_name):
             util.cloudwatch_log(
                 context,
                 'Security: Attempted to retrieve '

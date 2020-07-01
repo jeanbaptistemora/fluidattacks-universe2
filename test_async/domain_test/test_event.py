@@ -18,13 +18,13 @@ pytestmark = [
 ]
 
 
-def test_get_event():
+async def test_get_event():
     event_id = '418900971'
-    test_data = event_domain.get_event(event_id)
+    test_data = await event_domain.get_event(event_id)
     expected_output = 'unittesting'
     assert test_data.get('project_name') == expected_output
     with pytest.raises(EventNotFound):
-        event_domain.get_event('000001111')
+        await event_domain.get_event('000001111')
 
 @pytest.mark.changes_db
 def test_create_event():
@@ -72,16 +72,16 @@ def test_create_event_file_image():
     assert test_data == expected_output
 
 @pytest.mark.changes_db
-def test_solve_event():
-    assert event_domain.solve_event(
+async def test_solve_event():
+    assert await event_domain.solve_event(
         event_id='538745942',
         affectation=1,
         analyst_email='unittesting@fluidattacks.com',
         date=parse_datetime('2019-12-09T05:00:00.000Z'))
-    event = event_domain.get_event('538745942')
+    event = await event_domain.get_event('538745942')
     assert event['historic_state'][-1]['state'] == 'SOLVED'
     with pytest.raises(EventAlreadyClosed):
-        assert event_domain.solve_event(
+        assert await event_domain.solve_event(
             event_id='538745942',
             affectation=1,
             analyst_email='unittesting@fluidattacks.com',
@@ -129,7 +129,7 @@ async def test_add_comment():
             })
 
 @pytest.mark.changes_db
-def test_update_evidence():
+async def test_update_evidence():
     event_id = '418900978'
     evidence_type = 'records'
     filename = os.path.dirname(os.path.abspath(__file__))
@@ -138,16 +138,18 @@ def test_update_evidence():
         uploaded_file = SimpleUploadedFile(name=test_file.name,
                                             content=test_file.read(),
                                             content_type='text/csv')
-    test_data = event_domain.update_evidence(event_id, evidence_type, uploaded_file)
+    test_data = await event_domain.update_evidence(
+        event_id, evidence_type, uploaded_file)
     expected_output = True
     assert isinstance(test_data, bool)
     assert test_data == expected_output
 
 @pytest.mark.changes_db
-def test_update_evidence_attribute_error():
+async def test_update_evidence_attribute_error():
     event_id = '418900978'
     evidence_type = 'records'
-    test_data = event_domain.update_evidence(event_id, evidence_type, '')
+    test_data = await event_domain.update_evidence(
+        event_id, evidence_type, '')
     expected_output = False
     assert isinstance(test_data, bool)
     assert test_data == expected_output
@@ -199,5 +201,5 @@ async def test_mask_event():
     assert test_data == expected_output
     assert len(await comment_dal.get_comments('event', int(event_id))) == 0
 
-    event = event_domain.get_event(event_id)
+    event = await event_domain.get_event(event_id)
     assert event.get('detail') == 'Masked'

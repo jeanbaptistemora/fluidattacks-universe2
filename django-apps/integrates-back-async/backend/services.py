@@ -1,6 +1,7 @@
 """ FluidIntegrates services definition """
 
 from typing import Dict, cast
+from asgiref.sync import async_to_sync
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
@@ -36,7 +37,7 @@ def has_access_to_finding(email: str, finding_id: str) -> bool:
 
 def has_access_to_event(email: str, event_id: str) -> bool:
     """ Verify if the user has access to a event submission. """
-    event = event_domain.get_event(event_id)
+    event = async_to_sync(event_domain.get_event)(event_id)
     group = cast(str, event.get('project_name', ''))
     return has_access_to_project(email, group)
 
