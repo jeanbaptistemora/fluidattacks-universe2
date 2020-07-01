@@ -2,23 +2,28 @@
 import asyncio
 
 # Third party libraries
-from backend.api.dataloaders.project import (
-    ProjectLoader as GroupLoader,
-)
 from backend.api.dataloaders.finding import (
     FindingLoader,
+)
+from backend.api.dataloaders.project import (
+    ProjectLoader as GroupLoader,
 )
 
 # Local libraries
 from analytics import (
     utils,
 )
+from analytics.colors import (
+    RISK,
+)
 
 
 async def generate_one(group: str):
-    findings = (await FindingLoader().load_many(
-        (await GroupLoader().load(group))['findings']
-    ))
+    group_data = await GroupLoader().load(group)
+
+    findings = await FindingLoader().load_many(
+        group_data['findings']
+    )
 
     max_severity_found = 0 if not findings else max(
         finding['severity_score']
@@ -27,13 +32,16 @@ async def generate_one(group: str):
         and finding['current_state'] != 'DELETED'
     )
 
+    max_open_severity = group_data['attrs'].get('max_open_severity', 0)
+
     return {
         'color': {
-            'pattern': ['#535051'],
+            'pattern': ['#535051', RISK.more_agressive],
         },
         'data': {
             'columns': [
-                ['CVSS v3', max_severity_found],
+                ['Max severity found', max_severity_found],
+                ['Max open severity', max_open_severity],
             ],
             'type': 'gauge',
         },

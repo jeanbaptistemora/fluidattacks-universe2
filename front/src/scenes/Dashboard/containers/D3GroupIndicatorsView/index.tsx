@@ -128,28 +128,16 @@ const d3GroupIndicatorsView: React.FC<ID3GroupIndicatorsProps> = (props: ID3Grou
           </Col>
         </Row>
         <Row>
-          <Col md={6}>
+          <Col md={12}>
             <Graphic
               bsClass={styles.height160}
-              documentName="maxSeverityFound"
+              documentName="severity"
               documentType="gauge"
               entity="group"
               generatorName="generic"
               generatorType="c3"
               subject={groupName}
-              title={translate.t("analytics.gauge.maxSeverityFound.title")}
-            />
-          </Col>
-          <Col md={6}>
-            <Graphic
-              bsClass={styles.height160}
-              documentName="maxOpenSeverity"
-              documentType="gauge"
-              entity="group"
-              generatorName="generic"
-              generatorType="c3"
-              subject={groupName}
-              title={translate.t("analytics.gauge.maxOpenSeverity.title")}
+              title={translate.t("analytics.gauge.severity.title")}
             />
           </Col>
         </Row>

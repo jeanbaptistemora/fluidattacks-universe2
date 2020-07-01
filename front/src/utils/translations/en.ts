@@ -13,11 +13,8 @@ const enTranslations: Dictionary = {
       },
     },
     gauge: {
-      maxOpenSeverity: {
-        title: "Max open severity",
-      },
-      maxSeverityFound: {
-        title: "Max severity found",
+      severity: {
+        title: "Severity",
       },
     },
     pieChart: {
