@@ -5,6 +5,10 @@ import asyncio
 from analytics import (
     utils,
 )
+from analytics.colors import (
+    RISK,
+    TREATMENT,
+)
 
 
 async def generate_one(group: str):
@@ -16,13 +20,23 @@ async def generate_one(group: str):
         if execution['strictness'] == 'strict'
     )
 
+    executions_in_any_mode_with_accepted_vulns = tuple(
+        execution
+        for execution in executions
+        for vulns in [execution['vulnerabilities']]
+        if vulns['num_of_vulnerabilities_in_accepted_exploits'] > 0
+    )
+
     return {
         'color': {
-            'pattern': ['#535051'],
+            'pattern': [RISK.more_passive, TREATMENT.passive],
         },
         'data': {
             'columns': [
-                ['Builds in strict mode', len(executions_in_strict_mode)],
+                ['Builds in strict mode',
+                 len(executions_in_strict_mode)],
+                ['Builds with accepted risk',
+                 len(executions_in_any_mode_with_accepted_vulns)],
             ],
             'type': 'gauge',
         },
@@ -34,7 +48,7 @@ async def generate_one(group: str):
             'max': len(executions),
             'min': 0,
         },
-        'gaugeClearFormat': False,
+        'gaugeClearFormat': True,
         'legend': {
             'position': 'bottom',
         },

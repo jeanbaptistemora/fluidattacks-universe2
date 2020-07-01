@@ -13,9 +13,24 @@ from analytics.colors import (
 async def generate_one(group: str):
     executions = await utils.get_last_week_forces_executions(group)
 
+    executions_in_strict_mode = tuple(
+        execution
+        for execution in executions
+        if execution['strictness'] == 'strict'
+    )
+
     executions_in_any_mode_with_vulns = tuple(
         execution
         for execution in executions
+        for vulns in [execution['vulnerabilities']]
+        if vulns['num_of_vulnerabilities_in_exploits'] > 0
+        or vulns['num_of_vulnerabilities_in_integrates_exploits'] > 0
+        or vulns['num_of_vulnerabilities_in_accepted_exploits'] > 0
+    )
+
+    executions_in_strict_mode_with_vulns = tuple(
+        execution
+        for execution in executions_in_strict_mode
         for vulns in [execution['vulnerabilities']]
         if vulns['num_of_vulnerabilities_in_exploits'] > 0
         or vulns['num_of_vulnerabilities_in_integrates_exploits'] > 0
@@ -23,10 +38,12 @@ async def generate_one(group: str):
 
     return {
         'color': {
-            'pattern': [RISK.more_agressive],
+            'pattern': [RISK.more_passive, RISK.more_agressive],
         },
         'data': {
             'columns': [
+                ['Builds with vulnerabilities that did not reach production',
+                 len(executions_in_strict_mode_with_vulns)],
                 ['Builds with security issues',
                  len(executions_in_any_mode_with_vulns)],
             ],
@@ -40,7 +57,7 @@ async def generate_one(group: str):
             'max': len(executions),
             'min': 0,
         },
-        'gaugeClearFormat': False,
+        'gaugeClearFormat': True,
         'legend': {
             'position': 'bottom',
         },

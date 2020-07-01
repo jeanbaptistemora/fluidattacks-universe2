@@ -36,7 +36,7 @@ async def generate_one(group: str):
 
     return {
         'color': {
-            'pattern': ['#535051', RISK.more_agressive],
+            'pattern': [RISK.more_passive, RISK.more_agressive],
         },
         'data': {
             'columns': [
@@ -53,7 +53,7 @@ async def generate_one(group: str):
             'max': 10,
             'min': 0,
         },
-        'gaugeClearFormat': False,
+        'gaugeClearFormat': True,
         'legend': {
             'position': 'bottom',
         },

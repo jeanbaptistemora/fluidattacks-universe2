@@ -214,13 +214,13 @@ const d3GroupIndicatorsView: React.FC<ID3GroupIndicatorsProps> = (props: ID3Grou
           <Col md={6}>
             <Graphic
               bsClass={styles.height160}
-              documentName="forcesVulnerableBuilds"
+              documentName="forcesBuildsRisk"
               documentType="gauge"
               entity="group"
               generatorName="generic"
               generatorType="c3"
               subject={groupName}
-              title={translate.t("analytics.gauge.forcesVulnerableBuilds.title")}
+              title={translate.t("analytics.gauge.forcesBuildsRisk.title")}
             />
           </Col>
         </Row>
