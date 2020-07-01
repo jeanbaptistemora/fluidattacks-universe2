@@ -30,12 +30,12 @@ const organizationSettings: React.FC = (): JSX.Element => {
     selector(state, "maxAcceptanceDays", "maxAcceptanceSeverity", "maxNumberAcceptations", "minAcceptanceSeverity"));
 
   let identifier: string = organizationName;
-  if (!_.isUndefined(location.state)) {
+  if (!(_.isUndefined(location.state) || _.isNull(location.state))) {
     identifier = location.state.organizationId;
   }
 
   // GraphQL Operations
-  const { data, loading: loadingSettings } = useQuery(GET_ORGANIZATION_SETTINGS, {
+  const { data, loading: loadingSettings, refetch: refetchSettings } = useQuery(GET_ORGANIZATION_SETTINGS, {
     onError: (error: ApolloError): void => {
       handleGraphQLErrors("An error occurred fetching organization settings", error);
     },
@@ -49,6 +49,8 @@ const organizationSettings: React.FC = (): JSX.Element => {
         translate.t("organization.tabs.settings.success"),
         translate.t("organization.tabs.settings.success_title"),
       );
+
+      refetchSettings();
     },
     onError: (error: ApolloError): void => {
       error.graphQLErrors.forEach(({ message }: GraphQLError): void => {
