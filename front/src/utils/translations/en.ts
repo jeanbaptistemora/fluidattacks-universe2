@@ -38,7 +38,7 @@ const enTranslations: Dictionary = {
     stackedBarChart: {
       riskOverTime: {
         footer: {
-          accepted: "Accepted vulnerabilities are exactly as the open ones"
+          accepted: "Open vulnerabilities with accepted treatment are exactly as the open ones"
             + ", except you decided to coexist with that risk.",
           closed: "Closed vulnerabilities may be seen as security breaches your system no longer have.",
           intro: "At Integrates you can track the evolution of your systems from a security point of view:",

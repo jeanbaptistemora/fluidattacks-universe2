@@ -52,28 +52,28 @@ async def generate_one(group: str):
                     datum['name']
                     for datum in data
                 ],
-                ['Closed + Accepted + Open'] + [
-                    datum['closed'] + datum['accepted'] + datum['opened']
-                    for datum in data
-                ],
-                ['Closed + Accepted'] + [
-                    datum['closed'] + datum['accepted']
-                    for datum in data
-                ],
                 ['Closed'] + [
                     datum['closed']
                     for datum in data
                 ],
+                ['Closed + Open with accepted treatment'] + [
+                    datum['closed'] + datum['accepted']
+                    for datum in data
+                ],
+                ['Closed + Open'] + [
+                    datum['closed'] + datum['accepted'] + datum['opened']
+                    for datum in data
+                ],
             ],
             colors={
-                'Closed + Accepted + Open': RISK.more_agressive,
-                'Closed + Accepted': RISK.agressive,
                 'Closed': RISK.more_passive,
+                'Closed + Open with accepted treatment': RISK.agressive,
+                'Closed + Open': RISK.more_agressive,
             },
             types={
-                'Closed + Accepted + Open': 'spline',
-                'Closed + Accepted': 'spline',
                 'Closed': 'spline',
+                'Closed + Open with accepted treatment': 'spline',
+                'Closed + Open': 'spline',
             },
         ),
         axis=dict(
