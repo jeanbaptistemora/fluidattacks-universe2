@@ -13,6 +13,25 @@ variable "autoscaling_ci_s3_cache_bucket" {
   default = "autoscaling-ci-cache"
 }
 
+data "aws_iam_policy_document" "lambda-assume-role-policy" {
+  statement {
+    sid    = "LambdaAssumeRolePolicy"
+    effect = "Allow"
+
+    principals {
+      type        = "Service"
+      identifiers = [
+        "lambda.amazonaws.com",
+        "edgelambda.amazonaws.com",
+      ]
+    }
+
+    actions = [
+      "sts:AssumeRole",
+    ]
+  }
+}
+
 #
 # Reused infrastructure from other services
 #

@@ -57,6 +57,7 @@ data "aws_iam_policy_document" "asserts-dev-policy-data" {
     ]
   }
 }
+
 resource "aws_iam_policy" "asserts-dev-policy" {
   description = "asserts-dev policy"
   name        = "${var.user-name}-policy"
