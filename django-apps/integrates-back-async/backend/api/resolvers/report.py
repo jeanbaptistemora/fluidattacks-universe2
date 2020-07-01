@@ -8,9 +8,11 @@ from backend.domain import (
     finding as finding_domain, project as project_domain,
     user as user_domain, vulnerability as vuln_domain
 )
+from backend.exceptions import RequestedReportError
 from backend.reports import (
     complete as complete_report,
     data as data_report,
+    report,
     technical as technical_report,
 )
 from backend.typing import (
@@ -63,19 +65,47 @@ async def resolve(info, report_type: str, **parameters) -> ReportType:
 
 
 async def _get_url(info, report_type: str, **parameters) -> str:
+    url = ''
+    user_email = parameters.get('user_email')
     if report_type == 'COMPLETE':
-        user_email = parameters.get('user_email')
         projects = await user_domain.get_projects(user_email)
-        uploaded_file_url = \
+        url = \
             await sync_to_async(
                 complete_report.generate)(projects, user_email)
         util.cloudwatch_log(
             info.context,
             f'Security: Complete report succesfully requested by {user_email}')
+    elif report_type in ['PDF', 'XLS', 'DATA']:
+        project_name = parameters.get('project_name')
+        project_findings = \
+            await info.context.loaders['project'].load(project_name)
+        project_findings = project_findings['findings']
+        params = {
+            'project_findings': project_findings,
+            'context': info.context,
+            'project_name': project_name,
+        }
+        try:
+            url = await report.generate_group_report(
+                report_type,
+                str(user_email),
+                **params
+            )
+            msg = (
+                f'Security: {report_type} report successfully requested '
+                f'by {user_email} in project {project_name}'
+            )
+            util.cloudwatch_log(info.context, msg)
+        except RequestedReportError:
+            msg = (
+                f'Error: An error occurred getting the specified'
+                f'{report_type} for proyect {project_name} by {user_email}'
+            )
+            rollbar.report_message(msg, 'error')
     else:
         msg = f'Error: An error occurred getting the specified {report_type}'
         rollbar.report_message(msg, 'error')
-    return uploaded_file_url
+    return url
 
 
 async def _do_request_project_report(info, **parameters) -> SimplePayloadType:

@@ -38,6 +38,13 @@ class LogicException(Exception):
         super(LogicException, self).__init__(msg)
 
 
+class RequestedReportError(Exception):
+    """ Exception to control pdf, xls or data report error. """
+    def __init__(self):
+        msg = "Error - Some error ocurred generating the report"
+        super(RequestedReportError, self).__init__(msg)
+
+
 class InvalidAcceptanceDays(Exception):
     """ Exception to control correct input in organization settings """
     def __init__(self):
