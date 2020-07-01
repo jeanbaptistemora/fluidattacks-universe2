@@ -18,11 +18,9 @@ from typing import (
 from urllib.parse import urlparse
 
 # Third party libraries
-from backend.api.resolvers import (
-    forces as forces_resolver,
-)
 from backend.domain import (
     project as group_domain,
+    forces as forces_domain,
 )
 from backend import (
     util,
@@ -34,13 +32,9 @@ async def get_last_week_forces_executions(
     group: str,
 ) -> List[Dict[str, Union[str, int]]]:
     executions: List[Dict[str, Union[str, int]]]
-
-    # pylint: disable=protected-access
-    # disabling this rule because accessing _get_executions function is safe
-    executions = await forces_resolver._get_executions(
-        None,
-        project_name=group,
+    executions = await forces_domain.get_executions(
         from_date=util.get_current_time_minus_delta(weeks=1),
+        group_name=group,
         to_date=datetime.utcnow(),
     )
 

@@ -1,7 +1,6 @@
 from datetime import datetime
-from functools import reduce
 import sys
-from typing import Any, Dict, List
+from typing import List
 
 from asgiref.sync import sync_to_async
 from backend.decorators import (
@@ -9,7 +8,9 @@ from backend.decorators import (
     require_integrates,
     require_project_access
 )
-from backend.dal import forces as forces_dal
+from backend.domain import (
+    forces as forces_domain,
+)
 from backend.typing import (
     ForcesExecution as ForcesExecutionType,
     ForcesExecutions as ForcesExecutionsType,
@@ -17,28 +18,6 @@ from backend.typing import (
 from backend import util
 
 from ariadne import convert_kwargs_to_snake_case, convert_camel_case_to_snake
-
-
-def match_fields(my_dict: Dict[str, Any]) -> ForcesExecutionType:
-    """Replace fields from response according to schema."""
-    replace_tuple = (
-        ('mocked_exploits',
-         'integrates_exploits'),
-        ('vulnerability_count_mocked_exploits',
-         'num_of_vulnerabilities_in_integrates_exploits'),
-        ('vulnerability_count_integrates_exploits',
-         'num_of_vulnerabilities_in_integrates_exploits'),
-        ('vulnerability_count_exploits',
-         'num_of_vulnerabilities_in_exploits'),
-        ('vulnerability_count_accepted_exploits',
-         'num_of_vulnerabilities_in_accepted_exploits')
-    )
-    new = {}
-    for key, val in my_dict.items():
-        if isinstance(val, dict):
-            val = match_fields(val)
-        new[reduce(lambda a, kv: a.replace(*kv), replace_tuple, key)] = val
-    return new
 
 
 @sync_to_async
@@ -64,15 +43,11 @@ async def _get_executions(
         _, project_name: str, from_date: datetime, to_date: datetime) -> \
         List[ForcesExecutionType]:
     """Get executions."""
-    executions_iterator = forces_dal.yield_executions(
-        project_name=project_name,
+    return await forces_domain.get_executions(
         from_date=from_date,
+        group_name=project_name,
         to_date=to_date
     )
-    res = [
-        match_fields(execution) async for execution in executions_iterator
-    ]
-    return res
 
 
 async def _resolve_fields(info, project_name: str, from_date: datetime,
