@@ -1,5 +1,4 @@
 # Standard library
-import contextlib
 from typing import (
     Dict,
     List,
@@ -38,22 +37,24 @@ def get_cached_group_service_attributes_policies(
     """Cached function to get 1 group features authorization policies."""
     cache_key: str = get_group_cache_key(group)
 
-    # Attempt to retrieve data from the cache
-    with contextlib.suppress(RedisClusterException):
-        cached_data = cache.get(cache_key)
+    try:
+        # Attempt to retrieve data from the cache
+        ret = cache.get(cache_key)
+    except RedisClusterException:
+        ret = None
 
-        if cached_data:
-            return cached_data
+    if ret is None:
+        # Let's fetch the data from the database
+        ret = tuple(
+            (policy.group, policy.service)
+            for policy in project_dal.get_service_policies(group))
+        try:
+            # Put the data in the cache
+            cache.set(cache_key, ret, timeout=3600)
+        except RedisClusterException:
+            pass
 
-    # Let's fetch the data from the database
-    fetched_data = tuple(
-        (policy.group, policy.service)
-        for policy in project_dal.get_service_policies(group))
-
-    # Put the data in the cache
-    cache.set(cache_key, fetched_data, timeout=3600)
-
-    return fetched_data
+    return ret
 
 
 def get_cached_subject_policies(
@@ -62,22 +63,24 @@ def get_cached_subject_policies(
     """Cached function to get 1 user authorization policies."""
     cache_key: str = get_subject_cache_key(subject)
 
-    # Attempt to retrieve data from the cache
-    with contextlib.suppress(RedisClusterException):
-        cached_data = cache.get(cache_key)
+    try:
+        # Attempt to retrieve data from the cache
+        ret = cache.get(cache_key)
+    except RedisClusterException:
+        ret = None
 
-        if cached_data:
-            return cached_data
+    if ret is None:
+        # Let's fetch the data from the database
+        ret = tuple(
+            (policy.level, policy.subject, policy.object, policy.role)
+            for policy in user_dal.get_subject_policies(subject))
+        try:
+            # Put the data in the cache
+            cache.set(cache_key, ret, timeout=300)
+        except RedisClusterException:
+            pass
 
-    # Let's fetch the data from the database
-    fetched_data = tuple(
-        (policy.level, policy.subject, policy.object, policy.role)
-        for policy in user_dal.get_subject_policies(subject))
-
-    # Put the data in the cache
-    cache.set(cache_key, fetched_data, timeout=300)
-
-    return fetched_data
+    return ret
 
 
 @apm.trace()
