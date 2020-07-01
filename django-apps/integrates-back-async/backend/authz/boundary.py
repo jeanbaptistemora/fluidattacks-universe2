@@ -54,7 +54,7 @@ async def get_group_level_actions(subject: str, group: str) -> Set[str]:
         action
         for role_definition in GROUP_LEVEL_ROLES.values()
         for action in role_definition['actions']
-        if await enforcer(subject, group, action)
+        if await enforcer(subject, group.lower(), action)
     ]))
 
 

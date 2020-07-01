@@ -35,6 +35,7 @@ async def test_get_user_level_actions(email):
 @pytest.mark.parametrize(
     ['email', 'group'],
     [
+        ['continuoushacking@gmail.com', 'UnItTeStInG'],
         ['continuoushacking@gmail.com', 'unittesting'],
         ['continuoushacking@gmail.com', 'oneshottest'],
         ['integratesuser@gmail.com', 'unittesting'],
