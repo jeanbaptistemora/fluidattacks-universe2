@@ -1,7 +1,7 @@
 :slug: rules/113/
 :category: authorization
-:description: This document contains the details of the security requirements related to the definition and management of access control in the organization. This requirement establishes the importance managing correctly the access points in the facilities defining a small and controllable number of them.
-:keywords: Requirement, Security, Physical Access, Access Points, Management, Policies
+:description: This requirement establishes the importance managing correctly the access points in the facilities defining a small and controllable number of them.
+:keywords: Requirement, Security, Physical Access, Access Points, Management, Policies, Rules, Ethical Hacking, Pentesting
 :rules: yes
 :extended: yes
 

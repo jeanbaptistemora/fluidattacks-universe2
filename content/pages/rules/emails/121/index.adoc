@@ -1,7 +1,7 @@
 :slug: rules/121/
 :category: emails
-:description: This document details the security guidelines and requirements related to the administration of emails in companies and organizations. This requirement establishes the importance of guaranteeing the uniqueness of the emails at the time of user registration.
-:keywords: Requirement, Security, Email, Uniqueness, Registration, User
+:description: This requirement establishes the importance of guaranteeing the uniqueness of the emails at the time of user registration.
+:keywords: Requirement, Security, Email, Uniqueness, Registration, User, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R121. Guarantee uniqueness of emails

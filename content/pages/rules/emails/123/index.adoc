@@ -1,15 +1,15 @@
 :slug: rules/123/
 :category: emails
-:description: This document details the security guidelines and requirements related to the administration of emails in companies and organizations. In this case, it is recommended that exposed corporate email addresses be only visible to humans and not to robots.
-:keywords: Person, Email, Robot, Human, Scrapper, ASVS
+:description: This requirement establishes that exposed corporate email addresses must be visible only to humans and not to robots.
+:keywords: Person, Email, Robot, Human, Scrapper, ASVS, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R123. Restrict reading of emails
 
 == Requirement
 
-The system must guarantee that exposed email addresses can only be viewed by
-humans.
+The system must guarantee that
+exposed email addresses can only be viewed by humans.
 
 == Description
 

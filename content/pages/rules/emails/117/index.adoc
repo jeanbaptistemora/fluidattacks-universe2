@@ -1,7 +1,7 @@
 :slug: rules/117/
 :category: emails
-:description: This document details the security guidelines and requirements related to the administration of emails in companies and organizations. This requirement establishes the importance of avoiding the interpretation and execution of HTML code in business emails.
-:keywords: HTML, Email, Business, Security, Requirement, Code injection.
+:description: This requirement establishes the importance of avoiding the interpretation and execution of HTML code in business emails.
+:keywords: HTML, Email, Business, Security, Requirement, Code injection, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R117. Do not interpret HTML code

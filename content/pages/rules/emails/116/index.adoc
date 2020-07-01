@@ -1,7 +1,7 @@
 :slug: rules/116/
 :category: emails
-:description: This document details the security guidelines and requirements related to the administration of emails in companies and organizations. This requirement establishes the importance of filtering outgoing and incoming emails against the possible presence of spam.
-:keywords: Images, Email, Display, Security, Requirement, Client
+:description: This requirement establishes the importance of disabling the display of images of unknown origin in corporate emails.
+:keywords: Images, Email, Display, Security, Requirement, Client, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R116. Disable images of unknown origin
