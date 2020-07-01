@@ -1,6 +1,6 @@
 :slug: rules/161/
 :category: source
-:description: This document contains the details of the security requirements related to the definition and management of source code in the organization. This requirement establishes the importance of defining secure default options in order to avoid unexpected behaviors in the application.
+:description: This requirement establishes the importance of defining secure default options in order to avoid unexpected behaviors in the application.
 :keywords: Default, Source Code, Conditional, Programming, ASVS, CWE
 :rules: yes
 
@@ -82,3 +82,9 @@ which might lead to complex logical errors and resultant weaknesses.
 . [[r4]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V4.1 General Access Control Design.(4.1.5)]
 Verify that access controls fail securely including when an exception occurs.
+
+. [[r5]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V6.2 Algorithms.(6.2.1)]
+Verify that all cryptographic modules fail securely,
+and errors are handled in a way that does not enable **Padding Oracle**
+attacks.

@@ -1,6 +1,6 @@
 :slug: rules/224/
 :category: cryptography
-:description: This document contains the details of the security requirements related to the definition and management of random numbers in the organization. This requirement establishes the importance of using secure cryptographic mechanisms to generate the random numbers used in data encryption.
+:description: This requirement establishes the importance of using secure cryptographic mechanisms to generate the random numbers used in data encryption.
 :keywords: Cryptographic, Mechanism, Random Number, CWE, NIST, ASVS
 :rules: yes
 
@@ -95,3 +95,16 @@ seeding, and verification.
 V3.2 Session Binding Requirements.(3.2.4)]
 Verify that session token are generated using approved cryptographic
 algorithms.
+
+. [[r15]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V6.2 Algorithms.(6.2.3)]
+Verify that encryption initialization vector, cipher configuration,
+and block modes are configured securely using the latest advice.
+
+. [[r16]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V6.2 Algorithms.(6.2.5)]
+Verify that known insecure block modes (i.e. *ECB*, etc.), padding modes
+(i.e. **PKCS#1** v1.5, etc.), ciphers with small block sizes
+(i.e. **Triple-DES**, *Blowfish*, etc.), and weak hashing algorithms
+(i.e. *MD5*, *SHA1*, etc.) are not used unless required for backwards
+compatibility.

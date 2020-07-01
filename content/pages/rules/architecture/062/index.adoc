@@ -1,12 +1,7 @@
 :slug: rules/062/
 :category: architecture
-<<<<<<< Updated upstream
 :description: This requirement establishes the importance of using standard industry-approved configurations.
 :keywords: Configuration, Vulnerability, Standard, Industry, ASVS, GDPR
-=======
-:description: This requirement establishes that the organization must define standard configurations that correct all known vulnerabilities.
-:keywords: Configuration, Vulnerability, Standard, Industry, GDPR, Security, Rules, Ethical Hacking, Pentesting
->>>>>>> Stashed changes
 :rules: yes
 
 = R062. Define standard configurations
@@ -54,3 +49,13 @@ V5.5 Deserialization Prevention Requirements.(5.5.2)]
 Verify that the application correctly restricts *XML* parsers to only use the
 most restrictive configuration possible and to ensure that unsafe features such
 as resolving external entities are disabled to prevent *XXE*.
+
+. [[r3]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V6.2 Algorithms.(6.2.2)]
+Verify that industry proven or government approved cryptographic algorithms,
+modes, and libraries are used, instead of custom coded cryptography.
+
+. [[r4]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V6.2 Algorithms.(6.2.3)]
+Verify that encryption initialization vector, cipher configuration,
+and block modes are configured securely using the latest advice.

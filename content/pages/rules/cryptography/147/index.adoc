@@ -1,6 +1,6 @@
 :slug: rules/147/
 :category: cryptography
-:description: This document contains the details of the security requirements related to definition and management of cryptographic systems. This requirement establishes the importance of using pre-existing and up-to-date mechanisms to implement the cryptographic functions used by the system.
+:description: This requirement establishes the importance of using pre-existing and up-to-date cryptographic mechanisms.
 :keywords: Cryptographic, Encryption, Mechanisms, HIPAA, NIST, ASVS
 :rules: yes
 
@@ -27,7 +27,7 @@ but is not strong enough for the level of protection required.
 
 . [[r2]] link:https://cwe.mitre.org/data/definitions/327.html[CWE-327: Use of a Broken or Risky Cryptographic Algorithm]
 The use of a broken or risky cryptographic algorithm is an unnecessary risk
-that may result in the exposure of sensitive information. 
+that may result in the exposure of sensitive information.
 
 . [[r3]] link:https://www.law.cornell.edu/cfr/text/45/164.312[HIPAA Security Rules 164.312(a)(2)(iv):]
 Encryption and Decryption: Implement a mechanism to encrypt and decrypt
@@ -65,3 +65,13 @@ seeding, and verification.
 V2.9 Cryptographic Software and Devices Verifier Requirements.(2.9.3)]
 Verify that approved cryptographic algorithms are used in the generation,
 seeding, and verification.
+
+. [[r10]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V6.2 Algorithms.(6.2.2)]
+Verify that industry proven or government approved cryptographic algorithms,
+modes, and libraries are used, instead of custom coded cryptography.
+
+. [[r11]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V6.2 Algorithms.(6.2.3)]
+Verify that encryption initialization vector, cipher configuration,
+and block modes are configured securely using the latest advice.

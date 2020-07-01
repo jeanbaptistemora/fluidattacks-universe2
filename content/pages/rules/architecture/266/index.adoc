@@ -1,6 +1,6 @@
 :slug: rules/266/
 :category: architecture
-:description: This document details the security guidelines and requirements related to logical architecture management within the organization. This requirement establishes the importance of disabling or controlling system functions that could be harmful for the application.
+:description: This requirement establishes the importance of disabling or controlling system functions that could be harmful for the application.
 :keywords: Insecure, Functionality, System, Hardening, ASVS, CWE
 :rules: yes
 
@@ -73,6 +73,14 @@ layer,
 especially if client-side access control is present and could be bypassed.
 
 . [[r6]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V6.2 Algorithms.(6.2.5)]
+Verify that known insecure block modes (i.e. *ECB*, etc.), padding modes
+(i.e. **PKCS#1** v1.5, etc.), ciphers with small block sizes
+(i.e. **Triple-DES**, *Blowfish*, etc.), and weak hashing algorithms
+(i.e. *MD5*, *SHA1*, etc.) are not used unless required for backwards
+compatibility.
+
+. [[r7]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V9.1 Communications Security Requirements.(9.1.3)]
 Verify that old versions of SSL and TLS protocols, algorithms, ciphers, and
 configuration are disabled,
