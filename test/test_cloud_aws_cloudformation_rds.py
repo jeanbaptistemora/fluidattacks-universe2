@@ -34,7 +34,7 @@ def test_is_publicly_accessible():
     """test rds.is_publicly_accessible."""
     result = rds.is_publicly_accessible(VULN)
     assert result.is_open()
-    assert result.get_vulns_number() == 2 * 1
+    assert result.get_vulns_number() == 2 * 2
     assert rds.is_publicly_accessible(SAFE).is_closed()
     assert rds.is_publicly_accessible(NOT_EXISTS).is_unknown()
 

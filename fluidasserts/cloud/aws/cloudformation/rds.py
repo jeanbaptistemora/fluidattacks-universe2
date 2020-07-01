@@ -20,8 +20,8 @@ from fluidasserts.cloud.aws.cloudformation import (
     Vulnerability,
     get_templates,
     get_graph,
-    get_predecessor,
     get_ref_nodes,
+    get_resources,
     get_type,
     _get_result_as_tuple,
 )
@@ -49,19 +49,15 @@ def has_unencrypted_storage(
     """
     graph: DiGraph = get_graph(path, exclude)
     templates: List[Tuple[int, Dict]] = get_templates(graph, path, exclude)
-    clusters: List[int] = [
-        node
-        for template, _ in templates
-        for node in dfs_preorder_nodes(graph, template, 2)
-        if len(graph.nodes[node]['labels'].intersection(
-            {'AWS', 'RDS', 'DBCluster', 'DBInstance'})) > 2
-    ]
+    clusters: List[int] = get_resources(
+        graph,
+        map(lambda x: x[0], templates), {
+            'AWS', 'RDS', 'DBCluster', 'DBInstance'},
+        info=True, num_labels=3)
     vulnerable: bool = False
     vulnerabilities: List[Vulnerability] = []
-    for cluster in clusters:
-        template: Dict = graph.nodes[get_predecessor(graph, cluster,
-                                                     'CloudFormationTemplate')]
-        resource: Dict = graph.nodes[cluster]
+    for cluster, resource, template in clusters:
+        line = resource['line']
         _encryption: List[int] = [
             node for node in dfs_preorder_nodes(graph, cluster, 3)
             if 'StorageEncrypted' in graph.nodes[node]['labels']
@@ -69,11 +65,13 @@ def has_unencrypted_storage(
 
         if _encryption:
             encryption: int = _encryption[0]
+            line = graph.nodes[encryption]['line']
             with contextlib.suppress(CloudFormationInvalidTypeError):
                 un_encryption: List[int] = get_ref_nodes(
                     graph, encryption,
                     lambda x: x not in (True, 'true', 'True', '1', 1))
                 if un_encryption:
+                    line = graph.nodes[un_encryption[0]]['line']
                     vulnerable = True
         else:
             vulnerable = True
@@ -84,7 +82,7 @@ def has_unencrypted_storage(
                     entity=get_type(graph, encryption, {'DBCluster',
                                                         'DBInstance'}),
                     identifier=resource['name'],
-                    line=graph.nodes[un_encryption[0]]['line'],
+                    line=line,
                     reason='is not encrypted'))
 
     return _get_result_as_tuple(
@@ -109,19 +107,15 @@ def has_not_automated_backups(
     """
     graph: DiGraph = get_graph(path, exclude)
     templates: List[Tuple[int, Dict]] = get_templates(graph, path, exclude)
-    clusters: List[int] = [
-        node
-        for template, _ in templates
-        for node in dfs_preorder_nodes(graph, template, 2)
-        if len(graph.nodes[node]['labels'].intersection(
-            {'AWS', 'RDS', 'DBCluster', 'DBInstance'})) > 2
-    ]
+    clusters: List[int] = get_resources(
+        graph,
+        map(lambda x: x[0], templates), {
+            'AWS', 'RDS', 'DBCluster', 'DBInstance'},
+        info=True, num_labels=3)
     vulnerable: bool = False
     vulnerabilities: List[Vulnerability] = []
-    for cluster in clusters:
-        template: Dict = graph.nodes[get_predecessor(graph, cluster,
-                                                     'CloudFormationTemplate')]
-        resource: Dict = graph.nodes[cluster]
+    for cluster, resource, template in clusters:
+        line = resource['line']
         _retention: List[int] = [
             node for node in dfs_preorder_nodes(graph, cluster, 3)
             if 'BackupRetentionPeriod' in graph.nodes[node]['labels']
@@ -129,11 +123,13 @@ def has_not_automated_backups(
 
         if _retention:
             retention: int = _retention[0]
+            line = graph.nodes[retention]['line']
             with contextlib.suppress(CloudFormationInvalidTypeError):
                 no_retention: List[int] = get_ref_nodes(
                     graph, retention,
                     lambda x: x in ('0', 0))
                 if no_retention:
+                    line = graph.nodes[no_retention[0]]['line']
                     vulnerable = True
         if vulnerable:
             vulnerabilities.append(
@@ -142,7 +138,7 @@ def has_not_automated_backups(
                     entity=get_type(graph, retention, {'DBCluster',
                                                        'DBInstance'}),
                     identifier=resource['name'],
-                    line=graph.nodes[no_retention[0]]['line'],
+                    line=line,
                     reason='has not automated backups enabled'))
 
     return _get_result_as_tuple(
@@ -172,19 +168,15 @@ def is_publicly_accessible(
     """
     graph: DiGraph = get_graph(path, exclude)
     templates: List[Tuple[int, Dict]] = get_templates(graph, path, exclude)
-    clusters: List[int] = [
-        node
-        for template, _ in templates
-        for node in dfs_preorder_nodes(graph, template, 2)
-        if len(graph.nodes[node]['labels'].intersection(
-            {'AWS', 'RDS', 'DBInstance'})) > 2
-    ]
+    clusters: List[int] = get_resources(
+        graph,
+        map(lambda x: x[0], templates), {
+            'AWS', 'RDS', 'DBCluster', 'DBInstance'},
+        info=True, num_labels=3)
     vulnerable: bool = False
     vulnerabilities: List[Vulnerability] = []
-    for cluster in clusters:
-        template: Dict = graph.nodes[get_predecessor(graph, cluster,
-                                                     'CloudFormationTemplate')]
-        resource: Dict = graph.nodes[cluster]
+    for cluster, resource, template in clusters:
+        line = resource['line']
         _public: List[int] = [
             node for node in dfs_preorder_nodes(graph, cluster, 3)
             if 'PubliclyAccessible' in graph.nodes[node]['labels']
@@ -192,11 +184,13 @@ def is_publicly_accessible(
 
         if _public:
             public: int = _public[0]
+            line = graph.nodes[public]['line']
             with contextlib.suppress(CloudFormationInvalidTypeError):
                 is_public: List[int] = get_ref_nodes(
                     graph, public,
                     lambda x: x in (True, 'true', 'True', '1', 1))
                 if is_public:
+                    line = graph.nodes[is_public[0]]['line']
                     vulnerable = True
         if vulnerable:
             vulnerabilities.append(
@@ -204,7 +198,7 @@ def is_publicly_accessible(
                     path=template['path'],
                     entity=get_type(graph, public, {'DBInstance'}),
                     identifier=resource['name'],
-                    line=graph.nodes[is_public[0]]['line'],
+                    line=line,
                     reason='is publicly accessible'))
 
     return _get_result_as_tuple(
@@ -230,18 +224,13 @@ def is_not_inside_a_db_subnet_group(
 
     graph: DiGraph = get_graph(path, exclude)
     templates: List[Tuple[int, Dict]] = get_templates(graph, path, exclude)
-    clusters: List[int] = [
-        node
-        for template, _ in templates
-        for node in dfs_preorder_nodes(graph, template, 2)
-        if len(graph.nodes[node]['labels'].intersection(
-            {'AWS', 'RDS', 'DBCluster', 'DBInstance'})) > 2
-    ]
+    clusters: List[int] = get_resources(
+        graph,
+        map(lambda x: x[0], templates), {
+            'AWS', 'RDS', 'DBCluster', 'DBInstance'},
+        info=True, num_labels=3)
     vulnerabilities: List[Vulnerability] = []
-    for cluster in clusters:
-        template: Dict = graph.nodes[get_predecessor(graph, cluster,
-                                                     'CloudFormationTemplate')]
-        resource: Dict = graph.nodes[cluster]
+    for cluster, resource, template in clusters:
         _subnet: List[int] = [
             node for node in dfs_preorder_nodes(graph, cluster, 3)
             if 'DBSubnetGroupName' in graph.nodes[node]['labels']
@@ -289,19 +278,15 @@ def has_not_termination_protection(
 
     graph: DiGraph = get_graph(path, exclude)
     templates: List[Tuple[int, Dict]] = get_templates(graph, path, exclude)
-    clusters: List[int] = [
-        node
-        for template, _ in templates
-        for node in dfs_preorder_nodes(graph, template, 2)
-        if len(graph.nodes[node]['labels'].intersection(
-            {'AWS', 'RDS', 'DBCluster', 'DBInstance'})) > 2
-    ]
+    clusters: List[int] = get_resources(
+        graph,
+        map(lambda x: x[0], templates), {
+            'AWS', 'RDS', 'DBCluster', 'DBInstance'},
+        info=True, num_labels=3)
     vulnerable: bool = False
     vulnerabilities: List[Vulnerability] = []
-    for cluster in clusters:
-        template: Dict = graph.nodes[get_predecessor(graph, cluster,
-                                                     'CloudFormationTemplate')]
-        resource: Dict = graph.nodes[cluster]
+    for cluster, resource, template in clusters:
+        line = resource['line']
         _termination_protection: List[int] = [
             node for node in dfs_preorder_nodes(graph, cluster, 3)
             if 'DeletionProtection' in graph.nodes[node]['labels']
@@ -309,11 +294,13 @@ def has_not_termination_protection(
 
         if _termination_protection:
             termination_protection: int = _termination_protection[0]
+            line = graph.nodes[termination_protection]['line']
             with contextlib.suppress(CloudFormationInvalidTypeError):
                 no_protection: List[int] = get_ref_nodes(
                     graph, termination_protection,
                     lambda x: x not in (True, 'true', 'True', '1', 1))
                 if no_protection:
+                    line = graph.nodes[no_protection[0]]['line']
                     vulnerable = True
         else:
             vulnerable = True
@@ -325,7 +312,7 @@ def has_not_termination_protection(
                                     {'DBCluster',
                                      'DBInstance'}),
                     identifier=resource['name'],
-                    line=resource['line'],
+                    line=line,
                     reason='has not deletion protection'))
 
     return _get_result_as_tuple(
@@ -360,19 +347,15 @@ def not_uses_iam_authentication(
 
     graph: DiGraph = get_graph(path, exclude)
     templates: List[Tuple[int, Dict]] = get_templates(graph, path, exclude)
-    clusters: List[int] = [
-        node
-        for template, _ in templates
-        for node in dfs_preorder_nodes(graph, template, 2)
-        if len(graph.nodes[node]['labels'].intersection(
-            {'AWS', 'RDS', 'DBCluster', 'DBInstance'})) > 2
-    ]
+    clusters: List[int] = get_resources(
+        graph,
+        map(lambda x: x[0], templates), {
+            'AWS', 'RDS', 'DBCluster', 'DBInstance'},
+        info=True, num_labels=3)
     vulnerable: bool = False
     vulnerabilities: List[Vulnerability] = []
-    for cluster in clusters:
-        template: Dict = graph.nodes[get_predecessor(graph, cluster,
-                                                     'CloudFormationTemplate')]
-        resource: Dict = graph.nodes[cluster]
+    for cluster, resource, template in clusters:
+        line = resource['line']
         _iam_authentication: List[int] = [
             node for node in dfs_preorder_nodes(graph, cluster, 3)
             if 'EnableIAMDatabaseAuthentication' in graph.nodes[node]['labels']
@@ -380,11 +363,13 @@ def not_uses_iam_authentication(
 
         if _iam_authentication:
             iam_authentication: int = _iam_authentication[0]
+            line = graph.nodes[iam_authentication]['line']
             with contextlib.suppress(CloudFormationInvalidTypeError):
                 no_protection: List[int] = get_ref_nodes(
                     graph, iam_authentication,
                     lambda x: x not in (True, 'true', 'True', '1', 1))
                 if no_protection:
+                    line = graph.nodes[no_protection[0]]['line']
                     vulnerable = True
         else:
             vulnerable = True
@@ -396,7 +381,7 @@ def not_uses_iam_authentication(
                                     {'DBCluster',
                                      'DBInstance'}),
                     identifier=resource['name'],
-                    line=resource['line'],
+                    line=line,
                     reason='does not have IAM authentication'))
 
     return _get_result_as_tuple(

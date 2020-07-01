@@ -171,7 +171,8 @@ def get_resources(
         nodes: Union[List[int], int],
         labels: Union[Set[str], str],
         depth: int = 2,
-        info: bool = False) -> Union[Tuple[int, Dict, Dict], List[int]]:
+        info: bool = False,
+        num_labels: int = None) -> Union[Tuple[int, Dict, Dict], List[int]]:
     """
     Returns all the resources that those labels contain.
 
@@ -182,6 +183,8 @@ def get_resources(
     :param info: If the information is enabled a tuple is returned that
         continues (node_id, node, template).
     """
+    if not num_labels:
+        num_labels = len(labels)
     if isinstance(nodes, int):
         nodes = [nodes]
     if isinstance(labels, str):
@@ -193,7 +196,7 @@ def get_resources(
             for x in nodes for node in dfs_preorder_nodes(
                 graph, x, depth)
             if len(graph.nodes[node]['labels'].intersection(
-                labels)) >= len(labels)
+                labels)) >= num_labels
         ]
     return [
         node for x in nodes for node in dfs_preorder_nodes(graph, x, depth)
