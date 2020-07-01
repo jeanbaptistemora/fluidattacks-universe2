@@ -175,6 +175,8 @@ const errorLink: ApolloLink =
             response.errors = [];
           }
           msgError(translate.t("group_alerts.access_denied"));
+          // Let alert to be shown
+          setTimeout((): void => { location.assign("/integrates/home"); }, 100);
         }
       });
     }
