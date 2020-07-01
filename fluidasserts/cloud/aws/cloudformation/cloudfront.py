@@ -12,7 +12,6 @@ from fluidasserts import SAST, MEDIUM, LOW
 from fluidasserts.helper import aws as helper
 from fluidasserts.cloud.aws.cloudformation import (
     Vulnerability,
-    _index,
     _get_result_as_tuple,
 )
 from fluidasserts.utils.decorators import api, unknown_if
@@ -178,8 +177,8 @@ def serves_content_over_insecure_protocols(
 
 @api(risk=LOW, kind=SAST)
 @unknown_if(FileNotFoundError)
-def has_not_geo_restrictions(
-        path: str, exclude: Optional[List[str]] = None) -> tuple:
+def has_not_geo_restrictions(path: str,
+                             exclude: Optional[List[str]] = None) -> tuple:
     """
     Check if ``Distributions`` has geo restrictions.
 
@@ -191,39 +190,50 @@ def has_not_geo_restrictions(
               - ``CLOSED`` otherwise.
     :rtype: :class:`fluidasserts.Result`
     """
-    vulnerabilities: list = []
-    for yaml_path, res_name, res_props in helper.iterate_rsrcs_in_cfn_template(
-            starting_path=path,
-            resource_types=[
-                'AWS::CloudFront::Distribution',
-            ],
-            exclude=exclude):
+    vulnerabilities: List[Vulnerability] = []
+    graph: DiGraph = get_graph(path, exclude)
+    templates: List[Tuple[int, Dict]] = get_templates(graph, path, exclude)
+    distributions: List[int] = get_resources(
+        graph,
+        map(lambda x: x[0], templates), {'AWS', 'CloudFront', 'Distribution'},
+        info=True)
+    for dist, resource, template in distributions:
+        line = resource['line']
         found_issues: list = []
+        restrictions = helper.get_index(
+            get_resources(graph, dist, 'GeoRestriction', 4), 0)
+        if restrictions:
+            line = graph.nodes[restrictions]['line']
+        rest_type = helper.get_index(
+            get_resources(graph, dist, 'RestrictionType', 5), 0)
 
-        geo_restriction = _index(
-            dictionary=res_props,
-            indexes=(
-                'DistributionConfig',
-                'Restrictions',
-                'GeoRestriction'))
-
-        if not geo_restriction \
-                or geo_restriction['RestrictionType'] == 'none':
-            found_issues.append(('GeoRestriction', geo_restriction))
+        res_value = None
+        if rest_type:
+            rest_node = helper.get_index(get_ref_nodes(graph, rest_type), 0)
+            res_value = graph.nodes[rest_node]['value']
+        if not rest_type or (res_value and res_value == 'none'):
+            found_issues.append(('GeoRestriction', restrictions))
 
         for issue in found_issues:
-            locations = issue[1].get("Locations", [])[0] \
-                if geo_restriction else None
+            locations_node = helper.get_index(
+                get_resources(graph, issue[1], 'Item'), 0)
+            locations = None
+            if locations_node:
+                value = helper.get_index(
+                    get_ref_nodes(graph, locations_node,
+                                  lambda x: isinstance(x, str)), 0)
+                locations = value['value'] if value else None
+
             vulnerabilities.append(
                 Vulnerability(
-                    path=yaml_path,
+                    path=template['path'],
                     entity=(f'AWS::CloudFront::Distribution'
                             f'/DistributionConfig'
                             f'/Restrictions'
                             f'/GeoRestriction/'
                             f'{locations}'),
-                    identifier=res_name,
-                    line=helper.get_line(res_props),
+                    identifier=resource['name'],
+                    line=line,
                     reason='has no GeoRestriction'))
 
     return _get_result_as_tuple(
@@ -247,29 +257,25 @@ def has_logging_disabled(
               - ``CLOSED`` otherwise.
     :rtype: :class:`fluidasserts.Result`
     """
-    vulnerabilities: list = []
-    for yaml_path, res_name, res_props in helper.iterate_rsrcs_in_cfn_template(
-            starting_path=path,
-            resource_types=[
-                'AWS::CloudFront::Distribution',
-            ],
-            exclude=exclude):
-
-        logging = _index(
-            dictionary=res_props,
-            indexes=(
-                'DistributionConfig',
-                'Logging'))
-
+    vulnerabilities: List[Vulnerability] = []
+    graph: DiGraph = get_graph(path, exclude)
+    templates: List[Tuple[int, Dict]] = get_templates(graph, path, exclude)
+    distributions: List[int] = get_resources(
+        graph,
+        map(lambda x: x[0], templates), {'AWS', 'CloudFront', 'Distribution'},
+        info=True)
+    for dist, resource, template in distributions:
+        line = resource['line']
+        logging = get_resources(graph, dist, 'Logging', 4)
         if not logging:
             vulnerabilities.append(
                 Vulnerability(
-                    path=yaml_path,
+                    path=template['path'],
                     entity=(f'AWS::CloudFront::Distribution'
                             f'/DistributionConfig'
                             f'/Logging'),
-                    identifier=res_name,
-                    line=helper.get_line(res_props),
+                    identifier=resource['name'],
+                    line=line,
                     reason='has no GeoRestriction'))
 
     return _get_result_as_tuple(
