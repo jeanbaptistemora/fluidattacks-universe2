@@ -5,14 +5,14 @@ import React from "react";
 import _ from "lodash";
 import translate from "../../utils/translations/translate";
 
-export interface ConfirmFn {
+export interface IConfirmFn {
   (confirmCallback: () => void, cancelCallback?: () => void): void;
 }
 
 interface IConfirmDialogProps {
   message?: string;
   title: string;
-  children: (confirm: ConfirmFn) => React.ReactNode;
+  children: (confirm: IConfirmFn) => React.ReactNode;
 }
 
 export const ConfirmDialog: React.FC<IConfirmDialogProps> = (
@@ -29,7 +29,7 @@ export const ConfirmDialog: React.FC<IConfirmDialogProps> = (
     setCancelCallback,
   ] = React.useState((): (() => void) => (): void => undefined);
 
-  const confirm: ConfirmFn = (
+  const confirm: IConfirmFn = (
     confirmFn: () => void,
     cancelFn?: () => void
   ): void => {

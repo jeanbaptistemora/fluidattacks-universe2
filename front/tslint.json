@@ -8,7 +8,7 @@
       "src/app.tsx",
       "src/store/**",
       "src/graphics/**",
-      "src/components/+(Button|ConfirmDialog|FluidIcon|Modal|Notification|Preloader|ScrollUpButton)/**"
+      "src/components/+(Button|ConfirmDialog|FluidIcon|Modal|Notification|Preloader|ScrollUpButton|TooltipWrapper)/**"
     ]
   },
   "rules": {

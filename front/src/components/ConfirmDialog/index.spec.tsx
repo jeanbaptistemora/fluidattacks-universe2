@@ -1,6 +1,6 @@
 import { Button } from "../Button/index";
 import * as React from "react";
-import { ConfirmDialog, ConfirmFn } from "./index";
+import { ConfirmDialog, IConfirmFn } from "./index";
 import { ReactWrapper, mount } from "enzyme";
 
 describe("ConfirmDialog", (): void => {
@@ -15,7 +15,7 @@ describe("ConfirmDialog", (): void => {
     const cancelCallback: jest.Mock = jest.fn();
     const wrapper: ReactWrapper = mount(
       <ConfirmDialog title={"Title test"}>
-        {(confirm: ConfirmFn): React.ReactNode => {
+        {(confirm: IConfirmFn): React.ReactNode => {
           function handleClick(): void {
             confirm(confirmCallback, cancelCallback);
           }

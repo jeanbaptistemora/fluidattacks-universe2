@@ -13,7 +13,7 @@ import { Col, ControlLabel, FormGroup, Row } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { formValueSelector } from "redux-form";
 import { ConfigurableValidator } from "revalidate";
-import { ConfirmDialog, ConfirmFn } from "../../../../../components/ConfirmDialog";
+import { ConfirmDialog, IConfirmFn } from "../../../../../components/ConfirmDialog";
 import { DataTableNext } from "../../../../../components/DataTableNext";
 import { IHeader } from "../../../../../components/DataTableNext/types";
 import { FluidIcon } from "../../../../../components/FluidIcon";
@@ -186,7 +186,7 @@ const treatmentView: React.FC<ITreatmentViewProps> = (props: ITreatmentViewProps
         message={translate.t("search_findings.tab_description.approval_message")}
         title={translate.t("search_findings.tab_description.approval_title")}
       >
-        {(confirm: ConfirmFn): JSX.Element => {
+        {(confirm: IConfirmFn): JSX.Element => {
           const confirmUndefined: ((values: Dictionary<string>) => void) = (values: Dictionary<string>): void => {
             const changedToUndefined: boolean =
               values.treatment === "ACCEPTED_UNDEFINED"

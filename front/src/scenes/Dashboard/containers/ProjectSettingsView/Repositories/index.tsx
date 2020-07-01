@@ -11,7 +11,7 @@ import React from "react";
 import { ButtonToolbar, Col, Glyphicon, Row } from "react-bootstrap";
 import { selectFilter } from "react-bootstrap-table2-filter";
 import { Button } from "../../../../../components/Button";
-import { ConfirmDialog, ConfirmFn } from "../../../../../components/ConfirmDialog";
+import { ConfirmDialog, IConfirmFn } from "../../../../../components/ConfirmDialog";
 import { DataTableNext } from "../../../../../components/DataTableNext";
 import { changeFormatter, statusFormatter } from "../../../../../components/DataTableNext/formatters";
 import { IHeader } from "../../../../../components/DataTableNext/types";
@@ -141,7 +141,7 @@ const repositories: React.FC<IRepositoriesProps> = (props: IRepositoriesProps): 
       <Can do="backend_api_resolvers_resource__do_update_repository" passThrough={true}>
         {(canUpdate: boolean): JSX.Element => (
       <ConfirmDialog title="Change repository state">
-        {(confirm: ConfirmFn): React.ReactNode => {
+        {(confirm: IConfirmFn): React.ReactNode => {
           const handleStateUpdate: ((repo: Dictionary<string>) => void) = (repo: Dictionary<string>): void => {
             confirm(() => {
               updateRepository({

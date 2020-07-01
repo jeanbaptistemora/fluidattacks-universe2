@@ -72,8 +72,18 @@
         "format": ["camelCase", "UPPER_CASE", "PascalCase"],
         "leadingUnderscore": "allow",
         "trailingUnderscore": "allow"
+      },
+      {
+        "selector": "interface",
+        "format":["PascalCase"],
+        "prefix": ["I"],
+        "suffix": ["Props", "Fn"]
       }
     ],
+    /*
+     * Disabling this rule is necessary to avoid a conflict with
+     * @typescript-eslint/typedef that checks for all variables to be typed.
+     */
     "@typescript-eslint/no-inferrable-types": "off",
     "@typescript-eslint/no-magic-numbers": [
       "error",
@@ -83,10 +93,14 @@
     ],
     /*
      * Since we are working with external libraries that use any in there type
-     * definitions. We need to disable the next rule, until they update to the
+     * definitions. We need to disable the NEXT rule, until they update to the
      * new unknown type.
      */
     "@typescript-eslint/no-unsafe-assignment": "off",
+    /*
+     * We prefer interfaces over type aliases, the reason is no more than
+     * consistency.
+     */
     "@typescript-eslint/prefer-function-type": "off",
     "@typescript-eslint/typedef": [
       "error",

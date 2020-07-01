@@ -7,7 +7,7 @@ import _ from "lodash";
 import React from "react";
 import { ButtonToolbar } from "react-bootstrap";
 import { Button } from "../../../../components/Button";
-import { ConfirmDialog, ConfirmFn } from "../../../../components/ConfirmDialog";
+import { ConfirmDialog, IConfirmFn } from "../../../../components/ConfirmDialog";
 import { FluidIcon } from "../../../../components/FluidIcon";
 import { Can } from "../../../../utils/authz/Can";
 import translate from "../../../../utils/translations/translate";
@@ -41,7 +41,7 @@ const findingActions: React.FC<IFindingActionsProps> = (props: IFindingActionsPr
           </Can>
           <Can do="backend_api_resolvers_finding__do_approve_draft">
             <ConfirmDialog title={translate.t("group.drafts.approve")}>
-              {(confirm: ConfirmFn): React.ReactNode => {
+              {(confirm: IConfirmFn): React.ReactNode => {
                 const handleClick: (() => void) = (): void => { confirm(() => { onApprove(); }); };
 
                 return (
@@ -54,7 +54,7 @@ const findingActions: React.FC<IFindingActionsProps> = (props: IFindingActionsPr
           </Can>
           <Can do="backend_api_resolvers_finding__do_reject_draft">
             <ConfirmDialog title={translate.t("group.drafts.reject")}>
-              {(confirm: ConfirmFn): React.ReactNode => {
+              {(confirm: IConfirmFn): React.ReactNode => {
                 const handleClick: (() => void) = (): void => { confirm(() => { onReject(); }); };
 
                 return (

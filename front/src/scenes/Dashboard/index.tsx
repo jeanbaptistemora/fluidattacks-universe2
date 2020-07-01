@@ -12,7 +12,7 @@ import _ from "lodash";
 import LogRocket from "logrocket";
 import React from "react";
 import { BrowserRouter, Redirect, Route, Switch, useLocation } from "react-router-dom";
-import { ConfirmDialog, ConfirmFn } from "../../components/ConfirmDialog";
+import { ConfirmDialog, IConfirmFn } from "../../components/ConfirmDialog";
 import { ScrollUpButton } from "../../components/ScrollUpButton";
 import {
   authzGroupContext,
@@ -95,7 +95,7 @@ const dashboard: React.FC = (): JSX.Element => {
       <BrowserRouter basename="/integrates">
         <React.Fragment>
           <ConfirmDialog title="Logout">
-            {(confirm: ConfirmFn): React.ReactNode => {
+            {(confirm: IConfirmFn): React.ReactNode => {
               const handleLogout: (() => void) = (): void => {
                 confirm(() => { location.assign("/integrates/logout"); });
               };

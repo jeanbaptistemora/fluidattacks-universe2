@@ -13,7 +13,7 @@ import React, { useState } from "react";
 import { ButtonToolbar, Col, Row } from "react-bootstrap";
 import { Comparator, textFilter } from "react-bootstrap-table2-filter";
 import { Button } from "../../../../components/Button/index";
-import { ConfirmDialog, ConfirmFn } from "../../../../components/ConfirmDialog/index";
+import { ConfirmDialog, IConfirmFn } from "../../../../components/ConfirmDialog/index";
 import { DataTableNext } from "../../../../components/DataTableNext";
 import { approveFormatter, deleteFormatter, statusFormatter } from "../../../../components/DataTableNext/formatters";
 import { IHeader } from "../../../../components/DataTableNext/types";
@@ -1032,7 +1032,7 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                         <Can do="backend_api_resolvers_vulnerability__do_approve_vulnerability">
                           <ButtonToolbar className="pull-right">
                             <ConfirmDialog title={translate.t("search_findings.tab_description.approve_all_vulns")}>
-                              {(confirm: ConfirmFn): React.ReactNode => {
+                              {(confirm: IConfirmFn): React.ReactNode => {
                                 const handleClick: (() => void) = (): void => {
                                   confirm(() => { handleApproveAllVulnerabilities(); });
                                 };
@@ -1046,7 +1046,7 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                               }}
                             </ConfirmDialog>
                             <ConfirmDialog title={translate.t("search_findings.tab_description.delete_all_vulns")}>
-                              {(confirm: ConfirmFn): React.ReactNode => {
+                              {(confirm: IConfirmFn): React.ReactNode => {
                                 const handleClick: (() => void) = (): void => {
                                   confirm(() => { handleDeleteAllVulnerabilities(); });
                                 };

@@ -11,7 +11,7 @@ import React from "react";
 import { ButtonToolbar, Col, Glyphicon, Row } from "react-bootstrap";
 import { selectFilter } from "react-bootstrap-table2-filter";
 import { Button } from "../../../../../components/Button";
-import { ConfirmDialog, ConfirmFn } from "../../../../../components/ConfirmDialog";
+import { ConfirmDialog, IConfirmFn } from "../../../../../components/ConfirmDialog";
 import { DataTableNext } from "../../../../../components/DataTableNext";
 import { changeFormatter, statusFormatter } from "../../../../../components/DataTableNext/formatters";
 import { IHeader } from "../../../../../components/DataTableNext/types";
@@ -140,7 +140,7 @@ const environments: React.FC<IEnvironmentsProps> = (props: IEnvironmentsProps): 
       <Can do="backend_api_resolvers_resource__do_update_environment" passThrough={true}>
         {(canUpdate: boolean): JSX.Element => (
       <ConfirmDialog title="Change environment state">
-        {(confirm: ConfirmFn): React.ReactNode => {
+        {(confirm: IConfirmFn): React.ReactNode => {
           const handleStateUpdate: ((env: Dictionary<string>) => void) = (env: Dictionary<string>): void => {
             confirm(() => {
               updateEnvironment({
