@@ -4,7 +4,7 @@
 
 = Resources
 
-== link:../rules/[Rules]
+== link:../products/rules/[Rules]
 
 *Rules* is a set of security requirements
 that allows you to parameterize a pentest
