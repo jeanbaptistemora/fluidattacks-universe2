@@ -208,7 +208,7 @@ def has_repeated_repos(
 def encode_resources(res_data: List[Dict[str, str]]) -> List[Dict[str, str]]:
     return [
         {
-            key: quote(value)
+            key: quote(value, safe='')
             for key, value in res.items()
         } for res in res_data
     ]

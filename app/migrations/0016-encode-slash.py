@@ -2,17 +2,18 @@
 # -*- coding: utf-8 -*-
 
 """
-This migration encodes all environments and repositories using urllib
-in all groups
+Yesterday's migration did not take into account the slash since
+that for the function quote this is a safe character by default.
 
-Execution Time:     2020-06-30 18:39 UTC-5
-Finalization Time:  2020-06-30 18:40 UTC-5
+In this migration, the slash will be correctly encoded
+
+Execution Time:     2020-07-01 12:14 UTC-5
+Finalization Time:  2020-07-01 12:16 UTC-5
 
 """
 
 import os
 import uuid
-from urllib.parse import quote, unquote
 import rollbar
 import django
 
@@ -29,11 +30,19 @@ def log(message: str) -> None:
         rollbar.report_message(message, level='debug')
 
 
+def encode_slash(res: str) -> str:
+    return res.replace('/', '%2F')
+
+
+def decode_slash(res: str) -> str:
+    return res.replace('%2F', '/')
+
+
 def main() -> None:
     """
     Update resources
     """
-    log('Starting migration 0015')
+    log('Starting migration 0016')
     all_groups = group_dal.get_all(
         filtering_exp= 'attribute_exists(environments) or \
             attribute_exists(repositories)',
@@ -51,17 +60,17 @@ def main() -> None:
         repos = group.get('repositories', [])
         for repo in repos:
             url = repo.get('urlRepo', '')
-            url_enc = quote(url)
+            url_enc = encode_slash(url)
             branch = repo.get('branch', '')
-            branch_enc = quote(branch)
+            branch_enc = encode_slash(branch)
             # Update only no encoded repositories
-            if url != quote(unquote(url)):
+            if url != encode_slash(decode_slash(url)):
                 if STAGE == 'test':
                     log(f'---\nrepo before: {repo}')
                 repo['urlRepo'] = url_enc
                 if STAGE == 'test':
                     log(f'---\nrepo after: {repo}')
-            elif branch != quote(unquote(branch)):
+            elif branch != encode_slash(decode_slash(branch)):
                 if STAGE == 'test':
                     log(f'---\nrepo before: {repo}')
                 repo['branch'] = branch_enc
@@ -76,9 +85,9 @@ def main() -> None:
         for env in envs:
             url = env.get('urlEnv', '')
 
-            url_enc = quote(url)
+            url_enc = encode_slash(url)
             # Update only no encoded environments
-            if url != quote(unquote(url)):
+            if url != encode_slash(decode_slash(url)):
                 if STAGE == 'test':
                     log(f'---\nenv before: {env}')
 
@@ -96,7 +105,7 @@ def main() -> None:
                 data={'environments': envs, 'repositories': repos}    
             )
             if success:
-                log(f'Migration 0015: Group {group_name} succesfully encoded')
+                log(f'Migration 0016: Group {group_name} succesfully encoded')
 
 
 if __name__ == '__main__':
