@@ -4,7 +4,9 @@
 
 from decimal import Decimal
 import math
-from typing import Dict, Union
+from typing import Dict, Union, cast
+from backend.typing import Finding as FindingType
+from backend import util
 
 
 def _calc_cvss2_temporal(
@@ -302,3 +304,79 @@ def calculate_privileges(privileges: float, scope: float) -> float:
             privileges = 0.27
 
     return privileges
+
+
+def calculate_severity(
+    cvss_version: str,
+    finding: Dict[str, FindingType],
+    cvss_parameters: Dict[str, Union[float, int]]) -> \
+        Dict[str, FindingType]:
+    if cvss_version == '3.1':
+        severity_fields = [
+            'attackVector', 'attackComplexity',
+            'privilegesRequired', 'userInteraction',
+            'severityScope', 'confidentialityImpact',
+            'integrityImpact', 'availabilityImpact',
+            'exploitability', 'remediationLevel',
+            'reportConfidence', 'confidentialityRequirement',
+            'integrityRequirement', 'availabilityRequirement',
+            'modifiedAttackVector', 'modifiedAttackComplexity',
+            'modifiedPrivilegesRequired', 'modifiedUserInteraction',
+            'modifiedSeverityScope', 'modifiedConfidentialityImpact',
+            'modifiedIntegrityImpact', 'modifiedAvailabilityImpact'
+        ]
+        severity: Dict[str, FindingType] = {
+            util.camelcase_to_snakecase(k): Decimal(str(finding.get(k)))
+            for k in severity_fields
+        }
+        unformatted_severity = {
+            k: float(str(finding.get(k)))
+            for k in severity_fields
+        }
+        privileges = calculate_privileges(
+            unformatted_severity['privilegesRequired'],
+            unformatted_severity['severityScope']
+        )
+        unformatted_severity['privilegesRequired'] = privileges
+        severity['privileges_required'] = Decimal(
+            privileges
+        ).quantize(Decimal('0.01'))
+        modified_priviles = calculate_privileges(
+            unformatted_severity['modifiedPrivilegesRequired'],
+            unformatted_severity['modifiedSeverityScope']
+        )
+        unformatted_severity['modifiedPrivilegesRequired'] = modified_priviles
+        severity['modified_privileges_required'] = Decimal(
+            modified_priviles
+        ).quantize(Decimal('0.01'))
+    else:
+        severity_fields = [
+            'accessVector', 'accessComplexity',
+            'authentication', 'exploitability',
+            'confidentialityImpact', 'integrityImpact',
+            'availabilityImpact', 'resolutionLevel',
+            'confidenceLevel', 'collateralDamagePotential',
+            'findingDistribution', 'confidentialityRequirement',
+            'integrityRequirement', 'availabilityRequirement'
+        ]
+        severity = {
+            util.camelcase_to_snakecase(k): Decimal(str(finding.get(k)))
+            for k in severity_fields
+        }
+        unformatted_severity = {
+            k: float(str(finding.get(k)))
+            for k in severity_fields
+        }
+    severity['cvss_basescore'] = calculate_cvss_basescore(
+        unformatted_severity, cvss_parameters, cvss_version
+    )
+    severity['cvss_temporal'] = calculate_cvss_temporal(
+        unformatted_severity,
+        float(cast(Decimal, severity['cvss_basescore'])),
+        cvss_version
+    )
+    severity['cvss_env'] = calculate_cvss_environment(
+        unformatted_severity, cvss_parameters, cvss_version
+    )
+    severity['cvss_version'] = cvss_version
+    return severity

@@ -3,6 +3,7 @@ import itertools
 import threading
 from datetime import datetime
 from typing import Dict, List, cast
+from django.core.files.base import ContentFile
 
 import rollbar
 from asgiref.sync import async_to_sync
@@ -10,13 +11,18 @@ from backports import csv  # type: ignore
 from magic import Magic
 
 from backend import mailer, util
+from backend.exceptions import (
+    FindingNotFound,
+    InvalidFileStructure,
+)
 from backend.utils import (
     cvss,
     forms as forms_utils
 )
 from backend.dal import (
     finding as finding_dal,
-    project as project_dal
+    project as project_dal,
+    vulnerability as vuln_dal
 )
 from backend.domain import project as project_domain
 from backend.typing import Finding as FindingType
@@ -74,6 +80,73 @@ def _download_evidence_file(
     raise Exception('Evidence not found')
 
 
+def append_records_to_file(records: List[Dict[str, str]], new_file):
+    header = records[0].keys()
+    values = [
+        list(v)
+        for v in [
+            record.values()
+            for record in records
+        ]
+    ]
+    new_file_records = new_file.read()
+    new_file_header = new_file_records.decode('utf-8').split('\n')[0]
+    new_file_records = r'\n'.join(
+        new_file_records.decode('utf-8').split('\n')[1:]
+    )
+    records_str = ''
+    for record in values:
+        records_str += repr(str(','.join(record)) + '\n').replace('\'', '')
+    aux = records_str
+    records_str = (
+        str(','.join(header)) +
+        r'\n' + aux +
+        str(new_file_records).replace('\'', '')
+    )
+    if new_file_header != str(','.join(header)):
+        raise InvalidFileStructure()
+
+    buff = io.BytesIO(
+        records_str.encode('utf-8').decode('unicode_escape').encode('utf-8')
+    )
+    content_file = ContentFile(buff.read())
+    content_file.close()
+    return content_file
+
+
+def cast_tracking(tracking) -> List[Dict[str, int]]:
+    """Cast tracking in accordance to schema."""
+    cycle = 0
+    tracking_casted = []
+    for date, value in tracking:
+        effectiveness = int(
+            round(
+                int(value['closed']) / float(value['open'] + value['closed'])
+            ) * 100
+        )
+        closing_cicle = {
+            'cycle': cycle,
+            'open': value['open'],
+            'closed': value['closed'],
+            'effectiveness': effectiveness,
+            'date': date,
+        }
+        cycle += 1
+        tracking_casted.append(closing_cicle)
+    return tracking_casted
+
+
+async def get_attributes(
+        finding_id: str,
+        attributes: List[str]) -> Dict[str, FindingType]:
+    if 'finding_id' not in attributes:
+        attributes = [*attributes, 'finding_id']
+    response = await finding_dal.get_attributes(finding_id, attributes)
+    if not response:
+        raise FindingNotFound()
+    return response
+
+
 def get_records_from_file(
         project_name: str,
         finding_id: str,
@@ -113,6 +186,53 @@ def get_exploit_from_file(
         file_content = exploit_file.read()
 
     return file_content
+
+
+def get_tracking_dict(unique_dict: Dict[str, Dict[str, str]]) -> \
+        Dict[str, Dict[str, str]]:
+    """Get tracking dictionary."""
+    sorted_dates = sorted(unique_dict.keys())
+    tracking_dict = {}
+    if sorted_dates:
+        tracking_dict[sorted_dates[0]] = unique_dict[sorted_dates[0]]
+        for date in range(1, len(sorted_dates)):
+            prev_date = sorted_dates[date - 1]
+            tracking_dict[sorted_dates[date]] = tracking_dict[prev_date].copy()
+            actual_date_dict = list(unique_dict[sorted_dates[date]].items())
+            for vuln, state in actual_date_dict:
+                tracking_dict[sorted_dates[date]][vuln] = state
+    return tracking_dict
+
+
+def get_unique_dict(list_dict: List[Dict[str, Dict[str, str]]]) -> \
+        Dict[str, Dict[str, str]]:
+    """Get unique dict."""
+    unique_dict: Dict[str, Dict[str, str]] = {}
+    for entry in list_dict:
+        date = next(iter(entry))
+        if not unique_dict.get(date):
+            unique_dict[date] = {}
+        vuln = next(iter(entry[date]))
+        unique_dict[date][vuln] = entry[date][vuln]
+    return unique_dict
+
+
+def group_by_state(tracking_dict: Dict[str, Dict[str, str]]) -> \
+        Dict[str, Dict[str, int]]:
+    """Group vulnerabilities by state."""
+    tracking: Dict[str, Dict[str, int]] = {}
+    for tracking_date, status in list(tracking_dict.items()):
+        for vuln_state in list(status.values()):
+            status_dict = tracking.setdefault(
+                tracking_date,
+                {'open': 0, 'closed': 0}
+            )
+            status_dict[vuln_state] += 1
+    return tracking
+
+
+def get_vulnerabilities(finding_id: str) -> List[Dict[str, FindingType]]:
+    return vuln_dal.get_vulnerabilities(finding_id)
 
 
 # pylint: disable=simplifiable-if-expression
@@ -198,6 +318,26 @@ def format_data(finding: Dict[str, FindingType]) -> Dict[str, FindingType]:
     return finding
 
 
+def mask_treatment(
+        finding_id: str,
+        historic_treatment: List[Dict[str, str]]) -> bool:
+    historic = [
+        {**treatment, 'user': 'Masked', 'justification': 'Masked'}
+        for treatment in historic_treatment
+    ]
+    return finding_dal.update(finding_id, {'historic_treatment': historic})
+
+
+def mask_verification(
+        finding_id: str,
+        historic_verification: List[Dict[str, str]]) -> bool:
+    historic = [
+        {**treatment, 'user': 'Masked'}
+        for treatment in historic_verification
+    ]
+    return finding_dal.update(finding_id, {'historic_verification': historic})
+
+
 def send_finding_verified_email(
         finding_id: str,
         finding_name: str,
@@ -220,6 +360,25 @@ def send_finding_verified_email(
         }))
 
     email_send_thread.start()
+
+
+def remove_repeated(vulnerabilities: List[Dict[str, FindingType]]) -> \
+        List[Dict[str, Dict[str, str]]]:
+    """Remove vulnerabilities that changes in the same day."""
+    vuln_casted = []
+    for vuln in vulnerabilities:
+        for state in cast(List[Dict[str, str]], vuln['historic_state']):
+            vuln_without_repeated = {}
+            format_date = str(state.get('date', '')).split(' ')[0]
+            vuln_without_repeated[format_date] = {
+                str(vuln['UUID']): str(state.get('state', ''))
+            }
+            if state.get('approval_status') != 'PENDING':
+                vuln_casted.append(vuln_without_repeated)
+            else:
+                # don't append pending's state to tracking
+                pass
+    return vuln_casted
 
 
 def send_finding_delete_mail(
@@ -350,3 +509,18 @@ def send_new_draft_mail(
         target=mailer.send_mail_new_draft,
         args=(recipients, email_context))
     email_send_thread.start()
+
+
+def should_send_mail(
+        finding: Dict[str, FindingType],
+        updated_values: Dict[str, str]):
+    if updated_values['treatment'] == 'ACCEPTED':
+        send_accepted_email(
+            finding, str(updated_values.get('justification', ''))
+        )
+    if updated_values['treatment'] == 'ACCEPTED_UNDEFINED':
+        send_accepted_email(
+            finding,
+            ('Treatment state approval is pending '
+             f'for finding {finding.get("finding", "")}')
+        )

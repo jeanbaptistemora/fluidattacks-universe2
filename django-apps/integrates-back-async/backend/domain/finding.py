@@ -1,5 +1,4 @@
-import asyncio  # pylint:disable=too-many-lines
-import io
+import asyncio
 import re
 import random
 from datetime import datetime, timedelta
@@ -12,7 +11,6 @@ import pytz
 import aioboto3
 from asgiref.sync import async_to_sync, sync_to_async
 from django.conf import settings
-from django.core.files.base import ContentFile
 from magic import Magic
 
 from backend.domain import (
@@ -31,7 +29,6 @@ from backend.exceptions import (
     InvalidCommentParent,
     InvalidDraftTitle,
     InvalidFileSize,
-    InvalidFileStructure,
     InvalidFileType,
     NotSubmitted,
 )
@@ -53,90 +50,6 @@ from backend.typing import (
     Finding as FindingType,
     User as UserType
 )
-
-
-def remove_repeated(vulnerabilities: List[Dict[str, FindingType]]) -> \
-        List[Dict[str, Dict[str, str]]]:
-    """Remove vulnerabilities that changes in the same day."""
-    vuln_casted = []
-    for vuln in vulnerabilities:
-        for state in cast(List[Dict[str, str]], vuln['historic_state']):
-            vuln_without_repeated = {}
-            format_date = str(state.get('date', '')).split(' ')[0]
-            vuln_without_repeated[format_date] = {
-                str(vuln['UUID']): str(state.get('state', ''))
-            }
-            if state.get('approval_status') != 'PENDING':
-                vuln_casted.append(vuln_without_repeated)
-            else:
-                # don't append pending's state to tracking
-                pass
-    return vuln_casted
-
-
-def get_unique_dict(list_dict: List[Dict[str, Dict[str, str]]]) -> \
-        Dict[str, Dict[str, str]]:
-    """Get unique dict."""
-    unique_dict: Dict[str, Dict[str, str]] = {}
-    for entry in list_dict:
-        date = next(iter(entry))
-        if not unique_dict.get(date):
-            unique_dict[date] = {}
-        vuln = next(iter(entry[date]))
-        unique_dict[date][vuln] = entry[date][vuln]
-    return unique_dict
-
-
-def get_tracking_dict(unique_dict: Dict[str, Dict[str, str]]) -> \
-        Dict[str, Dict[str, str]]:
-    """Get tracking dictionary."""
-    sorted_dates = sorted(unique_dict.keys())
-    tracking_dict = {}
-    if sorted_dates:
-        tracking_dict[sorted_dates[0]] = unique_dict[sorted_dates[0]]
-        for date in range(1, len(sorted_dates)):
-            prev_date = sorted_dates[date - 1]
-            tracking_dict[sorted_dates[date]] = tracking_dict[prev_date].copy()
-            actual_date_dict = list(unique_dict[sorted_dates[date]].items())
-            for vuln, state in actual_date_dict:
-                tracking_dict[sorted_dates[date]][vuln] = state
-    return tracking_dict
-
-
-def group_by_state(tracking_dict: Dict[str, Dict[str, str]]) -> \
-        Dict[str, Dict[str, int]]:
-    """Group vulnerabilities by state."""
-    tracking: Dict[str, Dict[str, int]] = {}
-    for tracking_date, status in list(tracking_dict.items()):
-        for vuln_state in list(status.values()):
-            status_dict = tracking.setdefault(
-                tracking_date,
-                {'open': 0, 'closed': 0}
-            )
-            status_dict[vuln_state] += 1
-    return tracking
-
-
-def cast_tracking(tracking) -> List[Dict[str, int]]:
-    """Cast tracking in accordance to schema."""
-    cycle = 0
-    tracking_casted = []
-    for date, value in tracking:
-        effectiveness = int(
-            round(
-                int(value['closed']) / float(value['open'] + value['closed'])
-            ) * 100
-        )
-        closing_cicle = {
-            'cycle': cycle,
-            'open': value['open'],
-            'closed': value['closed'],
-            'effectiveness': effectiveness,
-            'date': date,
-        }
-        cycle += 1
-        tracking_casted.append(closing_cicle)
-    return tracking_casted
 
 
 async def add_comment(
@@ -208,12 +121,12 @@ async def get_tracking_vulnerabilities(
         for vuln in vulns_filtered
         if filter_deleted_status.pop(0)
     ]
-    vuln_casted = remove_repeated(vulns_filtered)
-    unique_dict = get_unique_dict(vuln_casted)
-    tracking = get_tracking_dict(unique_dict)
-    tracking_grouped = group_by_state(tracking)
+    vuln_casted = finding_utils.remove_repeated(vulns_filtered)
+    unique_dict = finding_utils.get_unique_dict(vuln_casted)
+    tracking = finding_utils.get_tracking_dict(unique_dict)
+    tracking_grouped = finding_utils.group_by_state(tracking)
     order_tracking = sorted(tracking_grouped.items())
-    tracking_casted = cast_tracking(order_tracking)
+    tracking_casted = finding_utils.cast_tracking(order_tracking)
     return tracking_casted
 
 
@@ -286,7 +199,7 @@ async def update_treatment_in_vuln(
     })
     if new_values['treatment'] == 'NEW':
         new_values['treatment_manager'] = None
-    vulns = await sync_to_async(get_vulnerabilities)(finding_id)
+    vulns = await sync_to_async(finding_utils.get_vulnerabilities)(finding_id)
     for vuln in vulns:
         if not any('treatment_manager' in dicts
                    for dicts in [new_values, vuln]):
@@ -391,7 +304,7 @@ def update_treatment(
     result_update_vuln = async_to_sync(update_treatment_in_vuln)(
         finding_id, historic_treatment[-1])
     if result_update_finding and result_update_vuln:
-        should_send_mail(finding, updated_values)
+        finding_utils.should_send_mail(finding, updated_values)
         success = True
     return success
 
@@ -419,93 +332,11 @@ def compare_historic_treatments(
     return sorted(last_values) != sorted(new_values) or date_change
 
 
-def should_send_mail(
-        finding: Dict[str, FindingType],
-        updated_values: Dict[str, str]):
-    if updated_values['treatment'] == 'ACCEPTED':
-        finding_utils.send_accepted_email(
-            finding, str(updated_values.get('justification', ''))
-        )
-    if updated_values['treatment'] == 'ACCEPTED_UNDEFINED':
-        finding_utils.send_accepted_email(
-            finding,
-            ('Treatment state approval is pending '
-             f'for finding {finding.get("finding", "")}')
-        )
-
-
 def save_severity(finding: Dict[str, FindingType]) -> bool:
     """Organize severity metrics to save in dynamo."""
     cvss_version: str = str(finding.get('cvssVersion', ''))
     cvss_parameters = finding_utils.CVSS_PARAMETERS[cvss_version]
-    if cvss_version == '3.1':
-        severity_fields = [
-            'attackVector', 'attackComplexity',
-            'privilegesRequired', 'userInteraction',
-            'severityScope', 'confidentialityImpact',
-            'integrityImpact', 'availabilityImpact',
-            'exploitability', 'remediationLevel',
-            'reportConfidence', 'confidentialityRequirement',
-            'integrityRequirement', 'availabilityRequirement',
-            'modifiedAttackVector', 'modifiedAttackComplexity',
-            'modifiedPrivilegesRequired', 'modifiedUserInteraction',
-            'modifiedSeverityScope', 'modifiedConfidentialityImpact',
-            'modifiedIntegrityImpact', 'modifiedAvailabilityImpact'
-        ]
-        severity: Dict[str, FindingType] = {
-            util.camelcase_to_snakecase(k): Decimal(str(finding.get(k)))
-            for k in severity_fields
-        }
-        unformatted_severity = {
-            k: float(str(finding.get(k)))
-            for k in severity_fields
-        }
-        privileges = cvss.calculate_privileges(
-            unformatted_severity['privilegesRequired'],
-            unformatted_severity['severityScope']
-        )
-        unformatted_severity['privilegesRequired'] = privileges
-        severity['privileges_required'] = Decimal(
-            privileges
-        ).quantize(Decimal('0.01'))
-        modified_priviles = cvss.calculate_privileges(
-            unformatted_severity['modifiedPrivilegesRequired'],
-            unformatted_severity['modifiedSeverityScope']
-        )
-        unformatted_severity['modifiedPrivilegesRequired'] = modified_priviles
-        severity['modified_privileges_required'] = Decimal(
-            modified_priviles
-        ).quantize(Decimal('0.01'))
-    else:
-        severity_fields = [
-            'accessVector', 'accessComplexity',
-            'authentication', 'exploitability',
-            'confidentialityImpact', 'integrityImpact',
-            'availabilityImpact', 'resolutionLevel',
-            'confidenceLevel', 'collateralDamagePotential',
-            'findingDistribution', 'confidentialityRequirement',
-            'integrityRequirement', 'availabilityRequirement'
-        ]
-        severity = {
-            util.camelcase_to_snakecase(k): Decimal(str(finding.get(k)))
-            for k in severity_fields
-        }
-        unformatted_severity = {
-            k: float(str(finding.get(k)))
-            for k in severity_fields
-        }
-    severity['cvss_basescore'] = cvss.calculate_cvss_basescore(
-        unformatted_severity, cvss_parameters, cvss_version
-    )
-    severity['cvss_temporal'] = cvss.calculate_cvss_temporal(
-        unformatted_severity,
-        float(cast(Decimal, severity['cvss_basescore'])),
-        cvss_version
-    )
-    severity['cvss_env'] = cvss.calculate_cvss_environment(
-        unformatted_severity, cvss_parameters, cvss_version
-    )
-    severity['cvss_version'] = cvss_version
+    severity = cvss.calculate_severity(cvss_version, finding, cvss_parameters)
     response = finding_dal.update(str(finding.get('id', '')), severity)
     return response
 
@@ -642,12 +473,10 @@ def get_finding(finding_id: str) -> Dict[str, FindingType]:
     return finding_utils.format_data(finding)
 
 
-def get_vulnerabilities(finding_id: str) -> List[Dict[str, FindingType]]:
-    return vuln_dal.get_vulnerabilities(finding_id)
-
-
 async def get_project(finding_id: str) -> str:
-    attribute = await get_attributes(finding_id, ['project_name'])
+    attribute = await finding_utils.get_attributes(
+        finding_id, ['project_name']
+    )
 
     return str(attribute.get('project_name'))
 
@@ -668,40 +497,6 @@ async def get_findings_async(
     return findings
 
 
-def append_records_to_file(records: List[Dict[str, str]], new_file):
-    header = records[0].keys()
-    values = [
-        list(v)
-        for v in [
-            record.values()
-            for record in records
-        ]
-    ]
-    new_file_records = new_file.read()
-    new_file_header = new_file_records.decode('utf-8').split('\n')[0]
-    new_file_records = r'\n'.join(
-        new_file_records.decode('utf-8').split('\n')[1:]
-    )
-    records_str = ''
-    for record in values:
-        records_str += repr(str(','.join(record)) + '\n').replace('\'', '')
-    aux = records_str
-    records_str = (
-        str(','.join(header)) +
-        r'\n' + aux +
-        str(new_file_records).replace('\'', '')
-    )
-    if new_file_header != str(','.join(header)):
-        raise InvalidFileStructure()
-
-    buff = io.BytesIO(
-        records_str.encode('utf-8').decode('unicode_escape').encode('utf-8')
-    )
-    content_file = ContentFile(buff.read())
-    content_file.close()
-    return content_file
-
-
 def update_evidence(finding_id: str, evidence_type: str, file) -> bool:
     finding = get_finding(finding_id)
     files = cast(List[Dict[str, str]], finding.get('files', []))
@@ -720,7 +515,7 @@ def update_evidence(finding_id: str, evidence_type: str, file) -> bool:
             old_records = finding_utils.get_records_from_file(
                 project_name, finding_id, old_file_name)
             if old_records:
-                file = append_records_to_file(cast(
+                file = finding_utils.append_records_to_file(cast(
                     List[Dict[str, str]],
                     old_records
                 ), file)
@@ -963,26 +758,6 @@ def submit_draft(finding_id: str, analyst_email: str) -> bool:
     return success
 
 
-def mask_treatment(
-        finding_id: str,
-        historic_treatment: List[Dict[str, str]]) -> bool:
-    historic = [
-        {**treatment, 'user': 'Masked', 'justification': 'Masked'}
-        for treatment in historic_treatment
-    ]
-    return finding_dal.update(finding_id, {'historic_treatment': historic})
-
-
-def mask_verification(
-        finding_id: str,
-        historic_verification: List[Dict[str, str]]) -> bool:
-    historic = [
-        {**treatment, 'user': 'Masked'}
-        for treatment in historic_verification
-    ]
-    return finding_dal.update(finding_id, {'historic_verification': historic})
-
-
 def mask_finding(finding_id: str) -> bool:
     finding = finding_dal.get_finding(finding_id)
     finding = finding_utils.format_data(finding)
@@ -1005,8 +780,8 @@ def mask_finding(finding_id: str) -> bool:
             attr: 'Masked'
             for attr in attrs_to_mask
         }) and
-        mask_treatment(finding_id, historic_treatment) and
-        mask_verification(finding_id, historic_verification)
+        finding_utils.mask_treatment(finding_id, historic_treatment) and
+        finding_utils.mask_verification(finding_id, historic_verification)
     )
 
     evidence_prefix = f'{finding["projectName"]}/{finding_id}'
@@ -1150,17 +925,6 @@ def cast_new_vulnerabilities(
         pass
     finding['where'] = where
     return finding
-
-
-async def get_attributes(
-        finding_id: str,
-        attributes: List[str]) -> Dict[str, FindingType]:
-    if 'finding_id' not in attributes:
-        attributes = [*attributes, 'finding_id']
-    response = await finding_dal.get_attributes(finding_id, attributes)
-    if not response:
-        raise FindingNotFound()
-    return response
 
 
 async def get(
