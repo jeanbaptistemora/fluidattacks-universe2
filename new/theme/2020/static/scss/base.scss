@@ -459,10 +459,11 @@ $codeyellow: rgba(230, 219, 116, 1);
   }
 
   a {
+    font-weight: 800;
     text-decoration: none;
-    color: $fluid-gray;
+    color: $fluid-black;
     &:hover {
-      color: $fluid-black;
+      color: $fluid-red;
     }
   }
 
