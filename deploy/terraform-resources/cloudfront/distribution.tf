@@ -96,7 +96,7 @@ resource "aws_cloudfront_distribution" "fi_resources_cloudfront" {
 
   viewer_certificate {
     cloudfront_default_certificate = true
-    minimum_protocol_version       = "TLSv1"
+    minimum_protocol_version       = "TLSv1.2_2018"
   }
 
   tags = {
