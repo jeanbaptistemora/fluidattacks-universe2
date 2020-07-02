@@ -13,9 +13,8 @@ from backend.utils import reports as reports_utils
 
 # pylint: disable=too-many-locals
 def generate(
-    projects: List[str],
-    user_email: str,
-) -> str:
+        projects: List[str],
+        user_email: str) -> str:
     book = load_workbook('/usr/src/app/app/techdoc/templates/COMPLETE.xlsx')
     sheet = book.active
 
@@ -30,7 +29,8 @@ def generate(
     row_index = row_offset
     for project in projects:
         findings = project_domain.get_released_findings(
-            project, 'finding_id, finding, historic_treatment')
+            project, 'finding_id, finding, historic_treatment'
+        )
         for finding in findings:
             vulns = vuln_domain.get_vulnerabilities(str(finding['finding_id']))
             for vuln in vulns:
@@ -38,14 +38,26 @@ def generate(
                 sheet.cell(row_index, vuln_specific_col, vuln['specific'])
 
                 sheet.cell(row_index, project_col, project.upper())
-                sheet.cell(row_index, finding_col, '{name!s} (#{id!s})'.format(
-                           name=str(finding['finding']).encode('utf-8'),
-                           id=str(finding['finding_id'])))
+                sheet.cell(
+                    row_index,
+                    finding_col,
+                    (f'{str(finding["finding"]).encode("utf-8")!s} '
+                     f'(#{str(finding["finding_id"])})')
+                )
                 historic_treatment = finding.get('historic_treatment', [{}])
-                sheet.cell(row_index, treatment_col,
-                           cast(HistoricType, historic_treatment)[-1].get('treatment', ''))
-                sheet.cell(row_index, treatment_mgr_col,
-                           vuln.get('treatment_manager', 'Unassigned'))
+                sheet.cell(
+                    row_index,
+                    treatment_col,
+                    cast(
+                        HistoricType,
+                        historic_treatment
+                    )[-1].get('treatment', '')
+                )
+                sheet.cell(
+                    row_index,
+                    treatment_mgr_col,
+                    vuln.get('treatment_manager', 'Unassigned')
+                )
 
                 row_index += 1
 
