@@ -66,6 +66,9 @@ def generate(
     report_filepath = f'/tmp/{username}-{report_filename}'
     book.save(cast(str, report_filepath))
     uploaded_file_name = reports_utils.upload_report(report_filepath)
-    uploaded_file_url = reports_utils.sign_url(uploaded_file_name)
+    uploaded_file_url = reports_utils.sign_url(
+        uploaded_file_name,
+        minutes=1.0 / 6
+    )
 
     return uploaded_file_url
