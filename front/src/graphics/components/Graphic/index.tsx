@@ -6,10 +6,20 @@ import { IGraphicProps } from "../../types";
 import React from "react";
 import _ from "lodash";
 import styles from "./index.css";
-import { Glyphicon, Panel } from "react-bootstrap";
+import {
+  Button,
+  ButtonGroup,
+  Glyphicon,
+  Grid,
+  Panel,
+  Row,
+} from "react-bootstrap";
 import useComponentSize, { ComponentSize } from "@rehooks/component-size";
 
 const glyphPadding: number = 15;
+const minSizeToShowButtons: number = 320;
+const bigGraphicHeight: number = 500;
+const bigGraphicWidth: number = 1000;
 
 export const Graphic: React.FC<IGraphicProps> = (
   props: Readonly<IGraphicProps>
@@ -37,6 +47,7 @@ export const Graphic: React.FC<IGraphicProps> = (
     null
   );
 
+  const fullSize: ComponentSize = useComponentSize(fullRef);
   const headSize: ComponentSize = useComponentSize(headRef);
   const bodySize: ComponentSize = useComponentSize(bodyRef);
 
@@ -52,17 +63,26 @@ export const Graphic: React.FC<IGraphicProps> = (
   function frameOnLoad(): void {
     setIframeState("ready");
   }
+  function frameOnRefresh(): void {
+    if (bodyRef.current?.contentWindow !== null) {
+      setIframeState("loading");
+      bodyRef.current?.contentWindow.location.reload();
+    }
+  }
+  function buildUrl(width: number, height: number): string {
+    const url: URL = new URL("/integrates/graphic", window.location.origin);
 
-  const url: URL = new URL("/integrates/graphic", window.location.origin);
+    url.searchParams.set("documentName", documentName);
+    url.searchParams.set("documentType", documentType);
+    url.searchParams.set("entity", entity);
+    url.searchParams.set("generatorName", generatorName);
+    url.searchParams.set("generatorType", generatorType);
+    url.searchParams.set("height", height.toString());
+    url.searchParams.set("subject", subject);
+    url.searchParams.set("width", width.toString());
 
-  url.searchParams.set("documentName", documentName);
-  url.searchParams.set("documentType", documentType);
-  url.searchParams.set("entity", entity);
-  url.searchParams.set("generatorName", generatorName);
-  url.searchParams.set("generatorType", generatorType);
-  url.searchParams.set("height", bodySize.height.toString());
-  url.searchParams.set("subject", subject);
-  url.searchParams.set("width", bodySize.width.toString());
+    return url.toString();
+  }
 
   if (
     iframeState === "ready" &&
@@ -87,13 +107,29 @@ export const Graphic: React.FC<IGraphicProps> = (
           <div ref={headRef}>
             <Panel.Heading className={styles.panelTitle}>
               <Panel.Title>
-                <a
-                  href={url.toString()}
-                  rel={"noopener noreferrer"}
-                  target={"_blank"}
-                >
-                  {title}
-                </a>
+                <div className={styles.titleBar}>
+                  <Grid fluid={true}>
+                    <Row>
+                      {title}
+                      {expanded && fullSize.width > minSizeToShowButtons ? (
+                        <div className={styles.buttonGroup}>
+                          <ButtonGroup bsSize={"small"}>
+                            <Button
+                              href={buildUrl(bigGraphicWidth, bigGraphicHeight)}
+                              rel={"noopener noreferrer"}
+                              target={"_blank"}
+                            >
+                              <Glyphicon glyph={"fullscreen"} />
+                            </Button>
+                            <Button onClick={frameOnRefresh}>
+                              <Glyphicon glyph={"refresh"} />
+                            </Button>
+                          </ButtonGroup>
+                        </div>
+                      ) : undefined}
+                    </Row>
+                  </Grid>
+                </div>
               </Panel.Title>
             </Panel.Heading>
             <hr className={styles.tinyLine} />
@@ -106,7 +142,7 @@ export const Graphic: React.FC<IGraphicProps> = (
                 onLoad={frameOnLoad}
                 ref={bodyRef}
                 scrolling={"no"}
-                src={url.toString()}
+                src={buildUrl(bodySize.width, bodySize.height)}
                 style={{
                   /*
                    * The element must be rendered for C3 legends to work,
