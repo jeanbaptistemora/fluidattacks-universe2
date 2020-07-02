@@ -259,7 +259,7 @@ def policy_statement_privilege(graph: DiGraph, statement: int, effect: str,
     writes: List[bool] = []
     effects = has_values(graph, statement, 'Effect', effect, 5)
     for eff in effects:
-        father = graph.predecessors(eff)
+        father = list(graph.predecessors(eff))
         resource = helper.get_index(
             get_resources(graph, father, 'Resource'), 0)
         action_node = helper.get_index(
@@ -277,23 +277,25 @@ def policy_actions_has_privilege(graph: DiGraph, action: int,
     success = False
 
     action_node = graph.nodes[action]
-    if action_node['value'] == '*':
-        success = True
-    if 'value' not in action_node:
-        nodes = dfs_preorder_nodes(graph, action_node)
+    if 'value' in action_node:
+        if action_node['value'] == '*':
+            success = True
+        else:
+            actions = []
+            serv, act = action_node['value'].split(':')
+            if act.startswith('*'):
+                actions.append(True)
+            else:
+                act = act[:act.index('*')] if act.endswith('*') else act
+                actions.append(act in write_actions.get(
+                    serv, {}).get(privilege, []))
+            success = any(actions)
+
+    else:
+        nodes = list(dfs_preorder_nodes(graph, action))
         success = any(
             policy_actions_has_privilege(graph, node, privilege)
-            for node in nodes)
-    else:
-        actions = []
-        serv, act = action_node['value'].split(':')
-        if act.startswith('*'):
-            actions.append(True)
-        else:
-            act = act[:act.index('*')] if act.endswith('*') else act
-            actions.append(act in write_actions.get(serv, {})[privilege])
-
-        success = any(actions)
+            for node in nodes[1:])
     return success
 
 

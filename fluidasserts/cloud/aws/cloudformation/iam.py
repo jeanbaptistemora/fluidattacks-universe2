@@ -9,7 +9,6 @@ stelligent/cfn_nag/blob/master/LICENSE.md>`_
 # Standard imports
 import re
 from typing import List, Optional, Pattern, Dict, Tuple
-from contextlib import suppress
 
 from networkx import DiGraph
 
@@ -27,6 +26,7 @@ from fluidasserts.cloud.aws.cloudformation import get_resources
 from fluidasserts.cloud.aws.cloudformation import has_values
 from fluidasserts.cloud.aws.cloudformation import get_type
 from fluidasserts.cloud.aws.cloudformation import get_value
+import fluidasserts.cloud.aws.cloudformation as main
 
 
 @api(risk=MEDIUM, kind=SAST)  # noqa: MC0001
@@ -480,50 +480,38 @@ def has_wildcard_resource_on_write_action(
               - ``CLOSED`` otherwise.
     :rtype: :class:`fluidasserts.Result`
     """
-    vulnerabilities: list = []
+    vulnerabilities: List[Vulnerability] = []
+    graph: DiGraph = get_graph(path, exclude)
+    templates: List[Tuple[int, Dict]] = get_templates(graph, path, exclude)
+    documents: List[int] = get_resources(
+        graph,
+        map(lambda x: x[0], templates),
+        {'AWS', 'IAM', 'ManagedPolicy', 'Role'},
+        info=True,
+        num_labels=3)
+    for doc, resource, template in documents:
+        type_: str = "AWS::IAM::" + get_type(graph, doc,
+                                             {'ManagedPolicy', 'Role'})
+        vulnerable_lines: List[str] = []
+        policy_documents: int = get_resources(
+            graph, doc, 'PolicyDocument', depth=8)
+        if not policy_documents:
+            continue
+        for policy in policy_documents:
+            statement = get_resources(graph, policy, 'Statement')[0]
+            if main.policy_statement_privilege(graph, statement, 'Allow',
+                                               'write'):
+                vulnerable_lines.append(graph.nodes[statement]['line'])
 
-    for yaml_path, res_name, res_props in helper.iterate_rsrcs_in_cfn_template(
-            starting_path=path,
-            resource_types=[
-                'AWS::IAM::Role',
-                'AWS::IAM::ManagedPolicy',
-            ],
-            exclude=exclude):
-        vulnerable_entities: List[str] = []
-        type_ = res_props['../Type']
-
-        if res_props.get('PolicyDocument', []):
-            policy = res_props['PolicyDocument']
-            if helper.policy_statement_privilege(policy['Statement'], 'Allow',
-                                                 'write'):
-                type_name = res_props['../Type'].split('::')[-1]
-                try:
-                    name = res_props[f'{type_name}Name']
-                    entity = name if isinstance(name, str) else res_name
-                except KeyError:
-                    entity = res_name
-                reason = 'allows write actions on a wildcard resource.'
-                vulnerable_entities.append((entity, reason))
-
-        if res_props.get('Policies', []):
-            for policy in res_props['Policies']:
-                with suppress(KeyError):
-                    if helper.policy_statement_privilege(
-                            policy['PolicyDocument']['Statement'], 'Allow',
-                            'write'):
-                        name = policy['PolicyName']
-                        entity = name if isinstance(name, str) else res_name
-                        reason = 'allows write actions on a wildcard resource.'
-                        vulnerable_entities.append((entity, reason))
-
-        if vulnerable_entities:
+        if vulnerable_lines:
             vulnerabilities.extend(
                 Vulnerability(
-                    path=yaml_path,
-                    entity=f'{type_}/{entity}',
-                    identifier=res_name,
-                    line=helper.get_line(res_props),
-                    reason=reason) for entity, reason in vulnerable_entities)
+                    path=template['path'],
+                    entity=f'{type_}/PolicyDocument',
+                    identifier=resource['name'],
+                    line=line,
+                    reason='allows write actions on a wildcard resource.')
+                for line in vulnerable_lines)
 
     return _get_result_as_tuple(
         vulnerabilities=vulnerabilities,
