@@ -706,7 +706,7 @@ function job_lint_back {
   &&  prospector -F -s veryhigh analytics/ \
   &&  prospector -F -s high -u django -i node_modules app \
   &&  prospector -F -s veryhigh -u django -i node_modules django-apps/integrates-back-async/backend/api \
-  &&  prospector -F -s high -u django -i node_modules -i django-apps/integrates-back-async/backend/api django-apps/integrates-back-async/backend/ \
+  &&  prospector -F -s veryhigh -u django -i node_modules -i django-apps/integrates-back-async/backend/api django-apps/integrates-back-async/backend/ \
   &&  prospector -F -s veryhigh -u django -i node_modules fluidintegrates \
   &&  prospector -F -s veryhigh lambda \
   &&  prospector -F -s veryhigh -u django -i node_modules deploy/permissions-matrix \
