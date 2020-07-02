@@ -1,6 +1,6 @@
 :slug: rules/229/
 :category: authentication
-:description: This document contains the details of the security requirements related to the definition and management of access credentials in the organization. This requirement establishes the importance of requesting access credentials in order to validate the authentication process.
+:description: This requirement establishes the importance of requesting access credentials in order to validate the authentication process.
 :keywords: Authentication, Credentials, HIPAA, ASVS, NIST, CWE
 :rules: yes
 
@@ -9,7 +9,7 @@
 == Requirement
 
 The system must request at least one username and password
-to every actor that tries to authenticate.
+from every actor that tries to authenticate.
 
 == Description
 

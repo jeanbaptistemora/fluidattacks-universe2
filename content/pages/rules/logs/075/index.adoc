@@ -104,3 +104,17 @@ failures and input validation failures.
 V7.1 Log Content Requirements.(7.1.4)]
 Verify that each log event includes necessary information that would allow for
 a detailed investigation of the timeline when an event happens.
+
+. [[r7]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V7.2 Log Processing Requirements.(7.2.1)]
+Verify that all authentication decisions are logged,
+without storing sensitive session identifiers or passwords.
+This should include requests with relevant metadata needed for security
+investigations.
+
+. [[r8]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V7.2 Log Processing Requirements.(7.2.2)]
+Verify that all access control decisions can be logged and all failed decisions
+are logged.
+This should include requests with relevant metadata needed for security
+investigations.

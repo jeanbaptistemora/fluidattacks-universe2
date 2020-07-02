@@ -41,7 +41,7 @@ he might be able to compromise other systems using the sensitive information.
 
 == References
 
-. [[r1]] link:https://cwe.mitre.org/data/definitions/532.html[CWE-532: Insertion of Sensitive Information into Log File]
+. [[r1]] link:https://cwe.mitre.org/data/definitions/532.html[CWE-532: Insertion of Sensitive Information into Log File].
 Information written to log files can be of a sensitive nature and give valuable
 guidance to an attacker or expose sensitive user information.
 
@@ -65,3 +65,10 @@ Session tokens should only be stored in logs in an irreversible, hashed form.
 V7.1 Log Content Requirements.(7.1.2)]
 Verify that the application does not log other sensitive data as defined under
 local privacy laws or relevant security policy.
+
+. [[r6]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V7.2 Log Processing Requirements.(7.2.1)]
+Verify that all authentication decisions are logged,
+without storing sensitive session identifiers or passwords.
+This should include requests with relevant metadata needed for security
+investigations.
