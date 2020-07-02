@@ -29,3 +29,12 @@ TREATMENT = _SCALE(
     agressive='#fcca46',
     more_agressive='#fe7f2d',
 )
+
+# https://coolors.co/abb8b6-839794-6f8683-657e7b-5b7572
+OTHER = _SCALE(
+    more_passive='#abb8b6',
+    passive='#839794',
+    neutral='#6f8683',
+    agressive='#657e7b',
+    more_agressive='#5b7572',
+)

@@ -30,6 +30,9 @@ const enTranslations: Dictionary = {
       },
     },
     pieChart: {
+      resources: {
+        title: "Active resources distribution",
+      },
       status: {
         footer: {
           intro: "Ratio of open to closed vulnerabilities, ignoring treatments.",

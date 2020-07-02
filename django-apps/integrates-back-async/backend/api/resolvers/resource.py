@@ -27,8 +27,7 @@ from ariadne import convert_kwargs_to_snake_case, convert_camel_case_to_snake
 
 
 @get_entity_cache_async
-@sync_to_async
-def _get_project_name(_, project_name: str) -> str:
+async def _get_project_name(_, project_name: str) -> str:
     """Get project_name."""
     return project_name
 

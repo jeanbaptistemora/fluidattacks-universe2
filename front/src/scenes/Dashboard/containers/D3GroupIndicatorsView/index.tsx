@@ -128,7 +128,7 @@ const d3GroupIndicatorsView: React.FC<ID3GroupIndicatorsProps> = (props: ID3Grou
           </Col>
         </Row>
         <Row>
-          <Col md={12}>
+          <Col md={6}>
             <Graphic
               bsClass={styles.height160}
               documentName="severity"
@@ -138,6 +138,18 @@ const d3GroupIndicatorsView: React.FC<ID3GroupIndicatorsProps> = (props: ID3Grou
               generatorType="c3"
               subject={groupName}
               title={translate.t("analytics.gauge.severity.title")}
+            />
+          </Col>
+          <Col md={6}>
+            <Graphic
+              bsClass={styles.height160}
+              documentName="resources"
+              documentType="pieChart"
+              entity="group"
+              generatorName="generic"
+              generatorType="c3"
+              subject={groupName}
+              title={translate.t("analytics.pieChart.resources.title")}
             />
           </Col>
         </Row>
