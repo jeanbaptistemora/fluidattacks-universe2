@@ -69,6 +69,9 @@ const enTranslations: Dictionary = {
       forcesAutomatizedVulns: {
         title: "Automatized Vulnerabilities",
       },
+      forcesRepositoriesAndBranches: {
+        title: "Repositories and branches",
+      },
       totalFindings: {
         title: "Total findings",
       },
