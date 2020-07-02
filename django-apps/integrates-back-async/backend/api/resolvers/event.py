@@ -244,7 +244,7 @@ async def _do_create_event(_, info, project_name: str, image=None, file=None,
                            **kwa) -> SimplePayloadType:
     """Resolve create_event mutation."""
     analyst_email = util.get_jwt_content(info.context)['user_email']
-    success = await sync_to_async(event_domain.create_event)(
+    success = await event_domain.create_event(
         analyst_email, project_name.lower(), file, image, **kwa)
     if success:
         util.cloudwatch_log(

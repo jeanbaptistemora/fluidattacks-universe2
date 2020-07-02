@@ -190,8 +190,12 @@ def _send_new_event_mail(
     email_send_thread.start()
 
 
-def create_event(analyst_email: str, project_name: str, file=None,
-                 image=None, **kwargs) -> bool:
+async def create_event(
+        analyst_email: str,
+        project_name: str,
+        file=None,
+        image=None,
+        **kwargs) -> bool:
     validations.validate_fields([kwargs['detail']])
     validations.validate_field_length(kwargs['detail'], 300)
     event_id = str(random.randint(10000000, 170000000))
@@ -245,11 +249,12 @@ def create_event(analyst_email: str, project_name: str, file=None,
         elif image:
             valid = validate_evidence('evidence', image)
 
-        if valid and event_dal.create(event_id, project_name, event_attrs):
+        if (valid and
+                await event_dal.create(event_id, project_name, event_attrs)):
             if file:
-                update_evidence(event_id, 'evidence_file', file)
+                await update_evidence(event_id, 'evidence_file', file)
             if image:
-                update_evidence(event_id, 'evidence', image)
+                await update_evidence(event_id, 'evidence', image)
             success = True
             _send_new_event_mail(
                 analyst_email, event_id, project_name, subscription,
@@ -257,7 +262,7 @@ def create_event(analyst_email: str, project_name: str, file=None,
             )
 
     else:
-        success = event_dal.create(event_id, project_name, event_attrs)
+        success = await event_dal.create(event_id, project_name, event_attrs)
         _send_new_event_mail(
             analyst_email, event_id, project_name, subscription,
             event_attrs['event_type']

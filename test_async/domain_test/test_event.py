@@ -27,7 +27,7 @@ async def test_get_event():
         await event_domain.get_event('000001111')
 
 @pytest.mark.changes_db
-def test_create_event():
+async def test_create_event():
     attrs = {
         'action_after_blocking': 'TRAINING',
         'action_before_blocking': 'DOCUMENT_PROJECT',
@@ -39,10 +39,10 @@ def test_create_event():
         'event_type': 'CLIENT_DETECTS_ATTACK',
         'project_name': 'unittesting'
     }
-    assert event_domain.create_event(**attrs)
+    assert await event_domain.create_event(**attrs)
 
 @pytest.mark.changes_db
-def test_create_event_file_image():
+async def test_create_event_file_image():
     attrs = {
         'action_after_blocking': 'TRAINING',
         'action_before_blocking': 'DOCUMENT_PROJECT',
@@ -66,7 +66,11 @@ def test_create_event_file_image():
         uploaded_image = SimpleUploadedFile(name=image_test.name,
                                             content=image_test.read(),
                                             content_type='image/gif')
-    test_data = event_domain.create_event(**attrs, file=uploaded_file, image=uploaded_image)
+    test_data = await event_domain.create_event(
+        **attrs,
+        file=uploaded_file,
+        image=uploaded_image
+    )
     expected_output = True
     assert isinstance(test_data, bool)
     assert test_data == expected_output

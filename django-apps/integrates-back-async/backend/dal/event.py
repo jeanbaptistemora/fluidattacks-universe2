@@ -16,16 +16,17 @@ TABLE = DYNAMODB_RESOURCE.Table('fi_events')
 TABLE_NAME = 'fi_events'
 
 
-def create(event_id: str, project_name: str, event_attributes: EventType) -> \
-        bool:
+async def create(
+        event_id: str,
+        project_name: str,
+        event_attributes: EventType) -> bool:
     success = False
     try:
         event_attributes.update({
             'event_id': event_id,
             'project_name': project_name
         })
-        response = TABLE.put_item(Item=event_attributes)
-        success = response['ResponseMetadata']['HTTPStatusCode'] == 200
+        success = await dynamodb.async_put_item(TABLE_NAME, event_attributes)
     except ClientError as ex:
         rollbar.report_message(
             'Error: Couldn\'nt create event',
