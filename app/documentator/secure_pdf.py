@@ -48,7 +48,7 @@ class SecurePDF():
         self.secure_pdf_usermail = usermail
         self.secure_pdf_username = usermail.split('@')[0]
         project_info = project_dal.get(project.lower())
-        if project_info and project_info[0].get('type') == 'continuous':
+        if project_info and project_info.get('type') == 'continuous':
             self.secure_pdf_filename = self.lock(basic_pdf_name)
         else:
             water_pdf_name = self.overlays(basic_pdf_name)

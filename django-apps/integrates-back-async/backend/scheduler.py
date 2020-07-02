@@ -87,7 +87,7 @@ async def send_unsolved_events_email(project: str):
     project_info = await sync_to_async(project_domain.get_project_info)(
         project
     )
-    historic_configuration = project_info[0].get(
+    historic_configuration = project_info.get(
         'historic_configuration', [{}]
     )
     if (project_info and

@@ -127,7 +127,7 @@ def remove_file(file_name: str, project_name: str) -> bool:
     project_name = project_name.lower()
     file_list = cast(
         List[Dict[str, str]],
-        project_dal.get(project_name)[0]['files']
+        project_dal.get(project_name)['files']
     )
     index = -1
     cont = 0
@@ -285,14 +285,14 @@ def update_resource(
     if res_type == 'repository':
         res_list = cast(
             List[project_dal.ProjectType],
-            project_dal.get(project_name)[0]['repositories']
+            project_dal.get(project_name)['repositories']
         )
         res_id = 'urlRepo'
         res_name = 'repositories'
     elif res_type == 'environment':
         res_list = cast(
             List[project_dal.ProjectType],
-            project_dal.get(project_name)[0]['environments']
+            project_dal.get(project_name)['environments']
         )
         res_id = 'urlEnv'
         res_name = 'environments'

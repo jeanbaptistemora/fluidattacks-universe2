@@ -930,7 +930,7 @@ async def get_users_to_notify(
     ]
 
 
-def get_project_info(project: str) -> List[ProjectType]:
+def get_project_info(project: str) -> ProjectType:
     return project_dal.get(project)
 
 

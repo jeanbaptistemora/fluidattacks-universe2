@@ -59,7 +59,7 @@ def create(res_data: Union[List[ResourceType], ResourceType],
             )
             resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
         else:
-            if attr_name not in item[0]:
+            if attr_name not in item:
                 table.update_item(
                     Key={
                         primary_name_key: primary_key,
@@ -124,7 +124,7 @@ def update(res_data: List[ResourceType],
     item = project_dal.get(project_name)
     resp = False
     try:
-        if attr_name not in item[0]:
+        if attr_name not in item:
             table.update_item(
                 Key={
                     primary_keys[0]: primary_keys[1]

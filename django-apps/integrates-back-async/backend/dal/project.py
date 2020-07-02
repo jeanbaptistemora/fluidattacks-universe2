@@ -635,7 +635,7 @@ def delete_comment(group_name: str, user_id: str) -> bool:
     return resp
 
 
-def get(project: str) -> List[ProjectType]:
+def get(project: str) -> ProjectType:
     """Get a project info."""
     filter_value = project.lower()
     filter_key = 'project_name'
@@ -649,7 +649,10 @@ def get(project: str) -> List[ProjectType]:
             ExclusiveStartKey=response['LastEvaluatedKey']
         )
         items += response['Items']
-    return items
+    project_info = {}
+    if items:
+        project_info = items[0]
+    return project_info
 
 
 def get_all(filtering_exp: object = '', data_attr: str = '') -> \
