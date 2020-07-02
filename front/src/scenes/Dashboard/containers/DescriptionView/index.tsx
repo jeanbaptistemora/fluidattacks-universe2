@@ -129,9 +129,11 @@ const descriptionView: React.FC = (): JSX.Element => {
 
   // GraphQL operations
   const { data, refetch } = useQuery<IFindingDescriptionData, IFindingDescriptionVars>(GET_FINDING_DESCRIPTION, {
-    onError: (error: ApolloError): void => {
-      msgError(translate.t("group_alerts.error_textsad"));
-      rollbar.error("An error occurred loading finding description", error);
+    onError: ({ graphQLErrors }: ApolloError): void => {
+      graphQLErrors.forEach((error: GraphQLError): void => {
+        msgError(translate.t("group_alerts.error_textsad"));
+        rollbar.error("An error occurred loading finding description", error);
+      });
     },
     variables: {
       canRetrieveAnalyst: permissions.can("backend_api_resolvers_finding__get_analyst"),

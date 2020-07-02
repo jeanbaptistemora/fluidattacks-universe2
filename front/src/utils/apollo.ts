@@ -204,6 +204,7 @@ const errorLink: ((history: History) => ApolloLink) = (
         graphQLErrors.forEach(async (error: GraphQLError): Promise<void> => {
           switch (error.message) {
             case "Login required":
+            case "Exception - User token has expired":
               if (response !== undefined) {
                 response.data = undefined;
                 response.errors = [];

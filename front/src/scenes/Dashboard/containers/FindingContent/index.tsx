@@ -56,9 +56,11 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
   // GraphQL operations
   const { data: headerData, refetch: headerRefetch }: QueryResult<IHeaderQueryResult> = useQuery(
     GET_FINDING_HEADER, {
-    onError: (error: ApolloError): void => {
-      msgError(translate.t("group_alerts.error_textsad"));
-      rollbar.error("An error occurred loading finding header", error);
+    onError: ({ graphQLErrors }: ApolloError): void => {
+      graphQLErrors.forEach((error: GraphQLError): void => {
+        msgError(translate.t("group_alerts.error_textsad"));
+        rollbar.error("An error occurred loading finding header", error);
+      });
     },
     variables: {
       canGetHistoricState: permissions.can("backend_api_resolvers_finding__get_historic_state"),
