@@ -1,10 +1,14 @@
 # Standard library
+import contextlib
 from glob import glob
 import os
 import time
-from PIL import Image
+from typing import (
+    Iterator,
+)
 
 # Third party libraries
+from PIL import Image
 from selenium import webdriver
 from selenium.webdriver.firefox.options import Options
 from selenium.common.exceptions import (
@@ -22,6 +26,23 @@ GECKO = os.environ['pkgGeckoDriver']
 FIREFOX = os.environ['pkgFirefox']
 
 
+@contextlib.contextmanager
+def selenium_web_driver() -> Iterator[webdriver.Firefox]:
+    options = Options()
+    options.add_argument('--width=1360')
+    options.add_argument('--height=768')
+    options.binary_location = FIREFOX
+    options.headless = True
+
+    driver: webdriver.Firefox = webdriver.Firefox(
+        executable_path=f'{GECKO}/bin/geckodriver',
+        firefox_binary=f'{FIREFOX}/bin/firefox',
+        options=options,
+    )
+
+    yield driver
+
+
 @retry_on_exceptions(
     default_value=None,
     exceptions=(
@@ -30,19 +51,12 @@ FIREFOX = os.environ['pkgFirefox']
     ),
     retry_times=5,
 )
-def take_snapshot(url: str, width: int, height: int, save_to: str) -> None:
-    options = Options()
-    options.add_argument('--width=1360')
-    options.add_argument('--height=768')
-    options.binary_location = FIREFOX
-    options.headless = True
-
-    driver = webdriver.Firefox(
-        executable_path=f'{GECKO}/bin/geckodriver',
-        firefox_binary=f'{FIREFOX}/bin/firefox',
-        options=options,
-    )
-
+def take_snapshot(
+    driver: webdriver.Firefox,
+    url: str,
+    width: int, height: int,
+    save_to: str,
+) -> None:
     driver.get(url)
     time.sleep(1.0)
 
@@ -54,14 +68,23 @@ def take_snapshot(url: str, width: int, height: int, save_to: str) -> None:
 
 
 def main():
-    for html in sorted(glob('analytics/collector/**/*.html', recursive=True)):
-        print(f'[INFO] Processing: {html}')
+    htmls = sorted(glob('analytics/collector/**/*.html', recursive=True))
 
-        path = os.path.abspath(html)
-        name, _ = os.path.splitext(os.path.basename(path))
-        width, height = name.split('x')
+    with selenium_web_driver() as driver:
+        for html in htmls:
+            print(f'[INFO] Processing: {html}')
 
-        take_snapshot(f'file://{path}', int(width), int(height), f'{html}.png')
+            path = os.path.abspath(html)
+            name, _ = os.path.splitext(os.path.basename(path))
+            width, height = name.split('x')
+
+            take_snapshot(
+                driver=driver,
+                url=f'file://{path}',
+                width=int(width),
+                height=int(height),
+                save_to=f'{html}.png',
+            )
 
 
 if __name__ == '__main__':
