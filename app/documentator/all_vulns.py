@@ -125,7 +125,7 @@ def fill_sheet(sheet, finding_row: Dict[str, str], vuln_row: Dict[str, str], row
 
 
 def generate_all_vulns_xlsx(user_email: str) -> str:
-    projects = project_dal.get_all()
+    projects = project_dal.get_all(data_attr='project_name')
     book = Workbook()
     sheet = book.active
     sheet.append(COLUMNS_FINS + COLUMNS_VULNS)

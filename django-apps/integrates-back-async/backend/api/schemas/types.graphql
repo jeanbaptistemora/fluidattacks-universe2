@@ -431,6 +431,7 @@ enum EventEvidenceType {
 }
 
 enum ReportType {
+    ALL_VULNS
     COMPLETE
     DATA
     PDF

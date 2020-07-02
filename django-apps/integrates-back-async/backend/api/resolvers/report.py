@@ -8,7 +8,9 @@ from backend.domain import (
     finding as finding_domain, project as project_domain,
     user as user_domain, vulnerability as vuln_domain
 )
-from backend.exceptions import RequestedReportError
+from backend.exceptions import (
+    PermissionDenied, RequestedReportError,
+)
 from backend.reports import (
     complete as complete_report,
     data as data_report,
@@ -19,7 +21,7 @@ from backend.typing import (
     Report as ReportType,
     SimplePayload as SimplePayloadType
 )
-from backend import util
+from backend import authz, util
 
 from ariadne import convert_kwargs_to_snake_case, convert_camel_case_to_snake
 
@@ -66,7 +68,7 @@ async def resolve(info, report_type: str, **parameters) -> ReportType:
 
 async def _get_url(info, report_type: str, **parameters) -> str:
     url = ''
-    user_email = parameters.get('user_email')
+    user_email = parameters.get('user_email', '')
     if report_type == 'COMPLETE':
         projects = await user_domain.get_projects(user_email)
         url = \
@@ -75,6 +77,22 @@ async def _get_url(info, report_type: str, **parameters) -> str:
         util.cloudwatch_log(
             info.context,
             f'Security: Complete report succesfully requested by {user_email}')
+    if report_type == 'ALL_VULNS':
+        if authz.get_user_level_role(user_email) == 'admin':
+            url = report.generate_all_vulns_report(user_email)
+            msg = (
+                f'Security: All vulnerabilities report successfully requested '
+                f'by {user_email}'
+            )
+            util.cloudwatch_log(info.context, msg)
+        else:
+            url = f'{user_email} is not allowed to perform this operation'
+            msg = (
+                f'Error: {user_email} is not allowed to request an all'
+                f'vulnerabilites report'
+            )
+            rollbar.report_message(msg, 'error')
+            raise PermissionDenied()
     elif report_type in ['PDF', 'XLS', 'DATA']:
         project_name = parameters.get('project_name')
         project_findings = \
@@ -88,7 +106,7 @@ async def _get_url(info, report_type: str, **parameters) -> str:
         try:
             url = await report.generate_group_report(
                 report_type,
-                str(user_email),
+                user_email,
                 **params
             )
             msg = (
