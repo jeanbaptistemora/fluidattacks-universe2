@@ -55,7 +55,7 @@ async def _get_name(_, organization_id: str) -> str:
 async def _get_max_acceptance_days(
     _,
     organization_id: str
-) -> Optional[Decimal]:
+) -> Decimal:
     return await org_domain.get_max_acceptance_days(organization_id)
 
 

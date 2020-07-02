@@ -27,7 +27,7 @@ async def test_get_max_acceptance_days():
 
     org_without_data = 'ORG#c2ee2d15-04ab-4f39-9795-fbe30cdeee86'
     days = await org_domain.get_max_acceptance_days(org_without_data)
-    assert days is None
+    assert days == Decimal('180')
 
 
 async def test_get_max_acceptance_severity():
@@ -81,8 +81,9 @@ async def test_validate_severity_range():
     with pytest.raises(InvalidAcceptanceSeverity):
         org_domain.validate_min_acceptance_severity(Decimal('10.1'))
 
+    values = {
+        'min_acceptance_severity': Decimal('8.0'),
+        'max_acceptance_severity': Decimal('5.0')
+    }
     with pytest.raises(InvalidAcceptanceSeverityRange):
-        org_domain.validate_acceptance_severity_range(
-            Decimal('8.0'),
-            Decimal('5.0')
-        )
+        await org_domain.validate_acceptance_severity_range("", values)

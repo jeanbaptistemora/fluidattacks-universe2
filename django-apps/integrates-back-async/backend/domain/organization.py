@@ -23,6 +23,11 @@ from backend.typing import (
 )
 
 
+DEFAULT_MAX_ACCEPTANCE_DAYS = Decimal('180')
+DEFAULT_MAX_SEVERITY = Decimal('10.0')
+DEFAULT_MIN_SEVERITY = Decimal('0.0')
+
+
 async def get_id_by_name(organization_name: str) -> str:
     org_id: str = ''
     result: OrganizationType = await org_dal.get_by_name(
@@ -49,12 +54,12 @@ async def get_id_for_group(group_name: str) -> str:
     return await org_dal.get_id_for_group(group_name)
 
 
-async def get_max_acceptance_days(organization_id: str) -> Optional[Decimal]:
+async def get_max_acceptance_days(organization_id: str) -> Decimal:
     result = cast(
         Dict[str, Decimal],
         await org_dal.get_by_id(organization_id, ['max_acceptance_days'])
     )
-    return result.get('max_acceptance_days', None)
+    return result.get('max_acceptance_days', DEFAULT_MAX_ACCEPTANCE_DAYS)
 
 
 async def get_max_acceptance_severity(organization_id: str) -> Decimal:
@@ -62,7 +67,7 @@ async def get_max_acceptance_severity(organization_id: str) -> Decimal:
         Dict[str, Decimal],
         await org_dal.get_by_id(organization_id, ['max_acceptance_severity'])
     )
-    return result.get('max_acceptance_severity', Decimal('10.0'))
+    return result.get('max_acceptance_severity', DEFAULT_MAX_SEVERITY)
 
 
 async def get_max_number_acceptations(organization_id: str) -> \
@@ -79,7 +84,7 @@ async def get_min_acceptance_severity(organization_id: str) -> Decimal:
         Dict[str, Decimal],
         await org_dal.get_by_id(organization_id, ['min_acceptance_severity'])
     )
-    return result.get('min_acceptance_severity', Decimal('0.0'))
+    return result.get('min_acceptance_severity', DEFAULT_MIN_SEVERITY)
 
 
 async def update_settings(
@@ -93,33 +98,26 @@ async def update_settings(
     success: bool = False
     valid: List[bool] = []
 
-    values['max_acceptance_severity'] = Decimal(
-        cast(
-            float,
-            values['max_acceptance_severity']
-        )
-    ).quantize(Decimal('0.1'))
-    values['min_acceptance_severity'] = Decimal(
-        cast(
-            float,
-            values['min_acceptance_severity']
-        )
-    ).quantize(Decimal('0.1'))
-
     try:
-        valid.append(
-            validate_acceptance_severity_range(
-                cast(Decimal, values['min_acceptance_severity']),
-                cast(Decimal, values['max_acceptance_severity'])
-            )
-        )
         for attr, value in values.items():
             if value is not None:
+                value = (
+                    Decimal(value).quantize(Decimal('0.1'))
+                    if isinstance(value, float)
+                    else Decimal(value)
+                )
+                values[attr] = value
                 validator_func = getattr(
                     sys.modules[__name__],
                     f'validate_{attr}'
                 )
                 valid.append(validator_func(value))
+        valid.append(
+            await validate_acceptance_severity_range(
+                organization_id,
+                values
+            )
+        )
     except (
         InvalidAcceptanceDays,
         InvalidAcceptanceSeverity,
@@ -143,11 +141,21 @@ async def update_settings(
     return success
 
 
-def validate_acceptance_severity_range(
-    min_value: Decimal,
-    max_value: Decimal
+async def validate_acceptance_severity_range(
+    organization_id,
+    values: OrganizationType
 ) -> bool:
     success: bool = True
+    min_value: Decimal = (
+        cast(Decimal, values['min_acceptance_severity'])
+        if values.get('min_acceptance_severity', None) is not None
+        else await get_min_acceptance_severity(organization_id)
+    )
+    max_value: Decimal = (
+        cast(Decimal, values['max_acceptance_severity'])
+        if values.get('max_acceptance_severity', None) is not None
+        else await get_max_acceptance_severity(organization_id)
+    )
     if min_value >= max_value:
         raise InvalidAcceptanceSeverityRange()
     return success
@@ -155,14 +163,14 @@ def validate_acceptance_severity_range(
 
 def validate_max_acceptance_days(value: int) -> bool:
     success: bool = True
-    if not 0 <= value <= 180:
+    if not Decimal('0') <= value <= DEFAULT_MAX_ACCEPTANCE_DAYS:
         raise InvalidAcceptanceDays()
     return success
 
 
 def validate_max_acceptance_severity(value: Decimal) -> bool:
     success: bool = True
-    if not Decimal('0.0') <= value <= Decimal('10.0'):
+    if not DEFAULT_MIN_SEVERITY <= value <= DEFAULT_MAX_SEVERITY:
         raise InvalidAcceptanceSeverity()
     return success
 
@@ -176,6 +184,6 @@ def validate_max_number_acceptations(value: int) -> bool:
 
 def validate_min_acceptance_severity(value: Decimal) -> bool:
     success: bool = True
-    if not Decimal('0.0') <= value <= Decimal('10.0'):
+    if not DEFAULT_MIN_SEVERITY <= value <= DEFAULT_MAX_SEVERITY:
         raise InvalidAcceptanceSeverity()
     return success

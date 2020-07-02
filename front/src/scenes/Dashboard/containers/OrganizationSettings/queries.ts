@@ -23,9 +23,9 @@ export const GET_ORGANIZATION_SETTINGS: DocumentNode = gql`
 export const UPDATE_ORGANIZATION_SETTINGS: DocumentNode = gql`
   mutation UpdateOrganizationSettings(
     $maxAcceptanceDays: Int,
-    $maxAcceptanceSeverity: Float!,
+    $maxAcceptanceSeverity: Float,
     $maxNumberAcceptations: Int,
-    $minAcceptanceSeverity: Float!
+    $minAcceptanceSeverity: Float
     $organizationId: String!
     $organizationName: String!
   ) {
