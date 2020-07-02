@@ -7,6 +7,7 @@ import { useQuery } from "@apollo/react-hooks";
 import { PureAbility } from "@casl/ability";
 import { useAbility } from "@casl/react";
 import { ApolloError } from "apollo-client";
+import { GraphQLError } from "graphql";
 import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React from "react";
@@ -93,11 +94,15 @@ const homeView: React.FC<IHomeViewProps> = (props: IHomeViewProps): JSX.Element 
 
   // GraphQL operations
   const { data } = useQuery(PROJECTS_QUERY, {
-    onError: (error: ApolloError): void => {
-      msgError(translate.t("group_alerts.error_textsad"));
-      rollbar.error("An error occurred loading projects", error);
+    onError: ({ graphQLErrors }: ApolloError): void => {
+      graphQLErrors.forEach((error: GraphQLError): void => {
+        msgError(translate.t("group_alerts.error_textsad"));
+        rollbar.error("An error occurred loading projects", error);
+      });
     },
-    variables: { tagsField: permissions.can("backend_api_resolvers_me__get_tags") },
+    variables: {
+      tagsField: permissions.can("backend_api_resolvers_me__get_tags"),
+    },
   });
 
   const displayOrganization: ((choosedOrganization: string) => void) = (choosedOrganization: string): void => {

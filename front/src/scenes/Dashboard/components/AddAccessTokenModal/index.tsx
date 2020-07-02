@@ -5,6 +5,7 @@
 import { MutationFunction, MutationResult, QueryResult } from "@apollo/react-common";
 import { Mutation, Query } from "@apollo/react-components";
 import { ApolloError } from "apollo-client";
+import { GraphQLError } from "graphql";
 import _ from "lodash";
 import React, { useState } from "react";
 import { ButtonToolbar, Col, ControlLabel, FormGroup, Row } from "react-bootstrap";
@@ -13,9 +14,9 @@ import { Button } from "../../../../components/Button/index";
 import { Modal } from "../../../../components/Modal/index";
 import store from "../../../../store/index";
 import { default as globalStyle } from "../../../../styles/global.css";
-import { handleGraphQLErrors } from "../../../../utils/formatHelpers";
 import { dateField, textAreaField } from "../../../../utils/forms/fields";
 import { msgError, msgSuccess } from "../../../../utils/notifications";
+import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
 import { isLowerDate, isValidDateAccessToken, required } from "../../../../utils/validations";
 import { GenericForm } from "../GenericForm/index";
@@ -48,12 +49,20 @@ const renderAccessTokenForm: ((props: IAddAccessTokenModalProps) => JSX.Element)
         }
       };
 
-      const handleMtUpdateTokenErr: ((mtError: ApolloError) => void) =
-      (mtResult: ApolloError): void => {
-        if (!_.isUndefined(mtResult)) {
-          handleGraphQLErrors("An error occurred adding access token", mtResult);
-          store.dispatch(reset("updateAccessToken"));
-        }
+      const handleMtUpdateTokenErr: ((mtError: ApolloError) => void) = (
+        { graphQLErrors }: ApolloError,
+      ): void => {
+        graphQLErrors.forEach((error: GraphQLError): void => {
+          switch (error.message) {
+            case "Exception - Invalid Expiration Time":
+              msgError(translate.t("update_access_token.invalid_exp_time"));
+              break;
+            default:
+              rollbar.error("An error occurred adding access token", error);
+              msgError(translate.t("group_alerts.error_textsad"));
+          }
+        });
+        store.dispatch(reset("updateAccessToken"));
       };
 
       return (
@@ -103,6 +112,15 @@ const renderAccessTokenForm: ((props: IAddAccessTokenModalProps) => JSX.Element)
               }
             };
 
+            const handleQueryErrors: ((error: ApolloError) => void) = (
+              { graphQLErrors }: ApolloError,
+            ): void => {
+              graphQLErrors.forEach((error: GraphQLError): void => {
+                rollbar.error("An error occurred getting access token", error);
+                msgError(translate.t("group_alerts.error_textsad"));
+              });
+            };
+
             return (
               <GenericForm name="updateAccessToken" onSubmit={handleUpdateAccessToken} >
                  {({ submitSucceeded }: InjectedFormProps): JSX.Element => (
@@ -149,15 +167,14 @@ const renderAccessTokenForm: ((props: IAddAccessTokenModalProps) => JSX.Element)
                       </Col>
                     </Row>
                     : undefined }
-                    <Query query={GET_ACCESS_TOKEN} fetchPolicy="network-only" onCompleted={handleQryResult}>
-                      {({ data, error }: QueryResult<IGetAccessTokenAttr>): JSX.Element => {
+                    <Query
+                      query={GET_ACCESS_TOKEN}
+                      fetchPolicy="network-only"
+                      onCompleted={handleQryResult}
+                      onError={handleQueryErrors}
+                    >
+                      {({ data }: QueryResult<IGetAccessTokenAttr>): JSX.Element => {
                         if (_.isUndefined(data) || _.isEmpty(data)) { return <React.Fragment />; }
-
-                        if (!_.isUndefined(error)) {
-                          handleGraphQLErrors("An error occurred getting access token", error);
-
-                          return <React.Fragment/>;
-                        }
 
                         const handleMtInvalidateTokenRes: ((mtResult: IInvalidateAccessTokenAttr) => void) =
                           (mtResult: IInvalidateAccessTokenAttr): void => {
@@ -177,20 +194,24 @@ const renderAccessTokenForm: ((props: IAddAccessTokenModalProps) => JSX.Element)
                             setDateSelectorVisibility(true);
                           };
 
+                        const handleMtInvalidateErrors: ((mtError: ApolloError) => void) = (
+                          { graphQLErrors }: ApolloError,
+                        ): void => {
+                          graphQLErrors.forEach((error: GraphQLError): void => {
+                            rollbar.error("An error occurred invalidating access token", error);
+                            msgError(translate.t("group_alerts.error_textsad"));
+                          });
+                          store.dispatch(reset("updateAccessToken"));
+                        };
+
                         return (
                             <Mutation
                               mutation={INVALIDATE_ACCESS_TOKEN_MUTATION}
                               onCompleted={handleMtInvalidateTokenRes}
+                              onError={handleMtInvalidateErrors}
                             >
                             { (invalidateAccessToken: MutationFunction<IInvalidateAccessTokenAttr, {}>,
-                               mutationResult: MutationResult): JSX.Element => {
-
-                                if (!_.isUndefined(mutationResult.error)) {
-                                  handleGraphQLErrors("An error occurred invalidating access token",
-                                                      mutationResult.error);
-
-                                  return <React.Fragment/>;
-                                }
+                               ): JSX.Element => {
 
                                 const handleInvalidateAccessToken: (() => void) = (): void => {
                                     invalidateAccessToken()

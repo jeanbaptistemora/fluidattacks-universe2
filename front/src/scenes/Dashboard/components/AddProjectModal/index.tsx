@@ -8,6 +8,7 @@ import { PureAbility } from "@casl/ability";
 import { useAbility } from "@casl/react";
 import { ApolloError } from "apollo-client";
 import BootstrapSwitchButton from "bootstrap-switch-button-react";
+import { GraphQLError } from "graphql";
 import _ from "lodash";
 import React from "react";
 import { ButtonToolbar, Col, ControlLabel, FormGroup, Row } from "react-bootstrap";
@@ -18,7 +19,8 @@ import { Modal } from "../../../../components/Modal/index";
 import { authzPermissionsContext } from "../../../../utils/authz/config";
 import { handleGraphQLErrors } from "../../../../utils/formatHelpers";
 import { dropdownField, textField } from "../../../../utils/forms/fields";
-import { msgSuccess } from "../../../../utils/notifications";
+import { msgError, msgSuccess } from "../../../../utils/notifications";
+import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
 import { alphaNumeric, maxLength, required, validTextField } from "../../../../utils/validations";
 import { GenericForm } from "../../components/GenericForm";
@@ -49,9 +51,20 @@ const addProjectModal: ((props: IAddProjectModal) => JSX.Element) = (props: IAdd
   const [subscriptionType, setSubscriptionType] = React.useState("CONTINUOUS");
 
   const closeNewProjectModal: (() => void) = (): void => { props.onClose(); };
-  const handleProjectNameError: ((error: ApolloError) => void) = (error: ApolloError): void => {
+  const handleProjectNameError: ((error: ApolloError) => void) = (
+    { graphQLErrors }: ApolloError,
+  ): void => {
     closeNewProjectModal();
-    handleGraphQLErrors("An error occurred getting project name", error);
+    graphQLErrors.forEach((error: GraphQLError): void => {
+      switch (error.message) {
+        case "Exception - There are no group names available at the moment":
+          msgError(translate.t("home.newGroup.noGroupName"));
+          break;
+        default:
+          msgError(translate.t("group_alerts.error_textsad"));
+          rollbar.error("An error occurred adding access token", error);
+      }
+    });
   };
 
   const isContinuousType: ((subsType: string) => boolean) =

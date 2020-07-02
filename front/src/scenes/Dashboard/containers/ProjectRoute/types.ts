@@ -1,6 +1,11 @@
 export interface IProjectData {
+  alert: {
+    message: string;
+    status: number;
+  };
   project: {
     deletionDate: string;
+    serviceAttributes: string[];
     userDeletion: string;
   };
 }

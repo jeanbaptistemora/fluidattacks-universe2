@@ -7,30 +7,13 @@ import { act } from "react-dom/test-utils";
 import { MemoryRouter, Route } from "react-router-dom";
 import { authzPermissionsContext } from "../../../../utils/authz/config";
 import { ProjectRoute } from "./index";
-import { GET_PROJECT_ALERT, GET_PROJECT_DATA } from "./queries";
+import { GET_GROUP_DATA } from "./queries";
 
 describe("ProjectRoute", () => {
 
-  const projectMock: Readonly<MockedResponse> = {
+  const groupMock: Readonly<MockedResponse> = {
     request: {
-      query: GET_PROJECT_DATA,
-      variables: {
-        projectName: "TEST",
-      },
-    },
-    result: {
-      data: {
-        project: {
-          deletionDate: "",
-          userDeletion: "",
-        },
-      },
-    },
-  };
-
-  const alertMock: Readonly<MockedResponse> = {
-    request: {
-      query: GET_PROJECT_ALERT,
+      query: GET_GROUP_DATA,
       variables: {
         organization: "Fluid",
         projectName: "TEST",
@@ -41,6 +24,11 @@ describe("ProjectRoute", () => {
         alert: {
           message: "Hello world",
           status: 1,
+        },
+        project: {
+          deletionDate: "",
+          serviceAttributes: ["has_integrates"],
+          userDeletion: "",
         },
       },
     },
@@ -54,7 +42,7 @@ describe("ProjectRoute", () => {
   it("should render a component", async () => {
     const setUserRoleCallback: jest.Mock = jest.fn();
     const wrapper: ShallowWrapper = shallow(
-      <MockedProvider mocks={[projectMock]} addTypename={false}>
+      <MockedProvider mocks={[groupMock]} addTypename={false}>
         <ProjectRoute setUserRole={setUserRoleCallback}/>
       </MockedProvider>,
     );
@@ -70,7 +58,7 @@ describe("ProjectRoute", () => {
     (window as typeof window & Dictionary<string>).userOrganization = "Fluid";
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/project/TEST/indicators"]}>
-        <MockedProvider mocks={[projectMock, alertMock]} addTypename={false}>
+        <MockedProvider mocks={[groupMock]} addTypename={false}>
           <Route path="/project/:projectName">
             <authzPermissionsContext.Provider value={mockedPermissions}>
               <ProjectRoute setUserRole={setUserRoleCallback}/>

@@ -5,6 +5,7 @@
 import { useMutation, useQuery } from "@apollo/react-hooks";
 import { PureAbility } from "@casl/ability";
 import { ApolloError } from "apollo-client";
+import { GraphQLError } from "graphql";
 import _ from "lodash";
 import LogRocket from "logrocket";
 import React from "react";
@@ -14,7 +15,6 @@ import { Redirect, Route, Switch, useHistory, useParams, useRouteMatch } from "r
 import { Button } from "../../../../components/Button";
 import { Modal } from "../../../../components/Modal";
 import { authzGroupContext, authzPermissionsContext } from "../../../../utils/authz/config";
-import { handleGraphQLErrors } from "../../../../utils/formatHelpers";
 import { msgError, msgSuccess } from "../../../../utils/notifications";
 import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
@@ -25,9 +25,7 @@ import { FindingContent } from "../FindingContent";
 import { ProjectContent } from "../ProjectContent";
 import { default as style } from "./index.css";
 import {
-  GET_GROUP_SERVICE_ATTRIBUTES,
-  GET_PROJECT_ALERT,
-  GET_PROJECT_DATA,
+  GET_GROUP_DATA,
   REJECT_REMOVE_PROJECT_MUTATION,
 } from "./queries";
 import { IProjectData, IProjectRoute, IRejectRemoveProject } from "./types";
@@ -74,31 +72,22 @@ const projectRoute: React.FC<IProjectRoute> = (props: IProjectRoute): JSX.Elemen
     variables: { projectName },
   });
 
-  useQuery(GET_GROUP_SERVICE_ATTRIBUTES, {
-    onCompleted: (permData: { project: { serviceAttributes: string[] } } | undefined): void => {
-      if (!_.isUndefined(permData)) {
-        attributes.update(permData.project.serviceAttributes.map((attribute: string) => ({ action: attribute })));
-      }
+  const { data, error } = useQuery<IProjectData>(GET_GROUP_DATA, {
+    onCompleted: ({ project }: IProjectData) => {
+      attributes.update(project.serviceAttributes.map((attribute: string) => ({
+        action: attribute,
+      })));
     },
-    variables: { projectName },
-  });
-
-  const { data: alertData } = useQuery(GET_PROJECT_ALERT, {
-    onError: (alertError: ApolloError): void => {
-      msgError(translate.t("group_alerts.error_textsad"));
-      rollbar.error("An error occurred loading alerts", alertError);
+    onError: ({ graphQLErrors }: ApolloError): void => {
+      graphQLErrors.forEach((groupError: GraphQLError): void => {
+        msgError(translate.t("group_alerts.error_textsad"));
+        rollbar.error("An error occurred group data", groupError);
+      });
     },
     variables: { projectName, organization: userOrganization },
   });
-
-  const { data, error } = useQuery<IProjectData>(GET_PROJECT_DATA, {
-    onError: (alertError: ApolloError): void => {
-      msgError(translate.t("group_alerts.error_textsad"));
-      rollbar.error("An error occurred loading deletion date", alertError);
-    },
-    variables: { projectName },
-  });
-  const [rejectRemoveProject, { loading: submitting }] = useMutation(REJECT_REMOVE_PROJECT_MUTATION, {
+  const [rejectRemoveProject, { loading: submitting }] = useMutation(
+    REJECT_REMOVE_PROJECT_MUTATION, {
     onCompleted: (result: IRejectRemoveProject): void => {
       if (result.rejectRemoveProject.success) {
         closeRejectProjectModal();
@@ -108,9 +97,12 @@ const projectRoute: React.FC<IProjectRoute> = (props: IProjectRoute): JSX.Elemen
         );
       }
     },
-    onError: (rejectError: ApolloError): void => {
+    onError: ({ graphQLErrors }: ApolloError): void => {
       closeRejectProjectModal();
-      handleGraphQLErrors("An error occurred rejecting project deletion", rejectError);
+      graphQLErrors.forEach((rejectError: GraphQLError): void => {
+        msgError(translate.t("group_alerts.error_textsad"));
+        rollbar.error("An error occurred rejecting project deletion", rejectError);
+      });
     },
   });
 
@@ -166,7 +158,7 @@ const projectRoute: React.FC<IProjectRoute> = (props: IProjectRoute): JSX.Elemen
         </Row>
       ) :
         <React.Fragment>
-          {alertData?.alert.status === 1 ? <AlertBox message={alertData.alert.message} /> : undefined}
+          {data.alert.status === 1 ? <AlertBox message={data.alert.message} /> : undefined}
           <Switch>
             <Route path={`${path}/events/:eventId(\\d+)`} component={EventContent} />
             <Route path={`${path}/:type(findings|drafts)/:findingId(\\d+)`} component={FindingContent} />
