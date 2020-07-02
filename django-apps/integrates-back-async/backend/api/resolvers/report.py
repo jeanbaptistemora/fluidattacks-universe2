@@ -79,7 +79,8 @@ async def _get_url(info, report_type: str, **parameters) -> str:
             f'Security: Complete report succesfully requested by {user_email}')
     if report_type == 'ALL_VULNS':
         if authz.get_user_level_role(user_email) == 'admin':
-            url = report.generate_all_vulns_report(user_email)
+            url = report.generate_all_vulns_report(
+                user_email, project_name=parameters.get('project_name', ''))
             msg = (
                 f'Security: All vulnerabilities report successfully requested '
                 f'by {user_email}'

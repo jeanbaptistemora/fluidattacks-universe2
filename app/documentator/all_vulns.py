@@ -3,6 +3,7 @@
 
 
 import hashlib
+import uuid
 from typing import Dict, List, cast
 from openpyxl import Workbook
 
@@ -146,7 +147,7 @@ def generate_all_vulns_xlsx(user_email: str, project_name: str = '') -> str:
                 fill_sheet(sheet, finding_row, vuln_row, row_index)
                 row_index += 1
 
-    username = user_email.split('@')[0].encode('utf8', 'ignore')
-    filepath = '/tmp/{username}-all_vulns.xlsx'.format(username=username)  # type: ignore
+    username = user_email.split('@')[0]
+    filepath = f'/tmp/{username}-{str(uuid.uuid4())}-allvulns.xlsx'
     book.save(filepath)
     return filepath

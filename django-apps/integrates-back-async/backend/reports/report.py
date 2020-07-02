@@ -74,5 +74,5 @@ async def generate_group_report(
     return url
 
 
-def generate_all_vulns_report(user_email: str) -> str:
-    return all_vulns_report.generate(user_email)
+def generate_all_vulns_report(user_email: str, project_name: str = '') -> str:
+    return all_vulns_report.generate(user_email, project_name)
