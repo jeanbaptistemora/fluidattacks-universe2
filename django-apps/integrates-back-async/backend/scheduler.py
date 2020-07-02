@@ -741,7 +741,7 @@ async def reset_expired_accepted_findings():
     ])
     project_findings = await asyncio.gather(*[
         asyncio.create_task(
-            sync_to_async(finding_domain.get_findings)(
+            finding_domain.get_findings_async(
                 findings
             )
         )
