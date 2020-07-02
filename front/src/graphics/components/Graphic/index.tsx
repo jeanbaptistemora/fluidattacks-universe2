@@ -69,6 +69,9 @@ export const Graphic: React.FC<IGraphicProps> = (
       bodyRef.current?.contentWindow.location.reload();
     }
   }
+  function buildFileName(): string {
+    return `${subject}-${title}-${bodySize.width}x${bodySize.height}.html`;
+  }
   function buildUrl(width: number, height: number): string {
     const url: URL = new URL("/integrates/graphic", window.location.origin);
 
@@ -114,6 +117,14 @@ export const Graphic: React.FC<IGraphicProps> = (
                       {expanded && fullSize.width > minSizeToShowButtons ? (
                         <div className={styles.buttonGroup}>
                           <ButtonGroup bsSize={"small"}>
+                            <Button
+                              download={buildFileName()}
+                              href={buildUrl(bigGraphicWidth, bigGraphicHeight)}
+                              rel={"noopener noreferrer"}
+                              target={"_blank"}
+                            >
+                              <Glyphicon glyph={"download"} />
+                            </Button>
                             <Button
                               href={buildUrl(bigGraphicWidth, bigGraphicHeight)}
                               rel={"noopener noreferrer"}

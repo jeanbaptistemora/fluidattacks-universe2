@@ -1,7 +1,7 @@
 :local .buttonGroup {
   float: right;
   position: relative;
-  width: 70px;
+  width: 100px;
 }
 
 :local .frame {
