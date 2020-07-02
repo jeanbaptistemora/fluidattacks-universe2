@@ -60,13 +60,16 @@ collapser.addEventListener("click", (event: Event) => {
 // Activate the list when the category is referenced through the url
 
 $(() => {
-    let anchor: string; anchor = window.location.hash;
-    if (anchor !== "") {
-      let span: HTMLElement;
-      span = document.getElementById(anchor.replace("#", "")) as HTMLElement;
-      let category: HTMLElement;
-      category = span.parentNode as HTMLElement;
-      category.children[1].classList.toggle("rotate-90");
-      const list: HTMLElement = category.nextElementSibling as HTMLElement;
-    }
+  let anchor: string; anchor = window.location.hash;
+  if (anchor !== "") {
+    let span: HTMLElement;
+    span = document.getElementById(anchor.replace("#", "")) as HTMLElement;
+    let category: HTMLElement;
+    category = span.parentNode as HTMLElement;
+    const img: HTMLElement = category.nextElementSibling as HTMLElement;
+    img.classList.toggle("rotate-90");
+    let div: HTMLElement = category.parentNode as HTMLElement;
+    div = div.nextElementSibling as HTMLElement;
+    div.classList.toggle("dn");
+  }
 });
