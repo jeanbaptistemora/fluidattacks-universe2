@@ -97,7 +97,7 @@
                         "N": "60"
                     },
                     "max_number_acceptations": {
-                        "N": "2"
+                        "N": "1"
                     },
                     "max_acceptance_severity": {
                         "N": "6.9"

@@ -10,6 +10,7 @@ import aioboto3
 import pytz
 from asgiref.sync import async_to_sync, sync_to_async
 from django.conf import settings
+from graphql import GraphQLError
 from magic import Magic
 from pytz.tzinfo import DstTzInfo
 
@@ -48,6 +49,7 @@ from backend.dal import (
 from backend.typing import (
     Comment as CommentType,
     Finding as FindingType,
+    Historic as HistoricType,
     User as UserType
 )
 
@@ -236,29 +238,46 @@ async def update_treatment_in_vuln(
     return resp
 
 
-def update_client_description(  # pylint: disable=too-many-arguments
+def update_client_description(
     finding_id: str,
     updated_values: Dict[str, str],
     organization: str,
-    severity: float,
-    user_mail: str,
-    update
+    info_to_check: Dict[str, Union[float, HistoricType, str]],
+    user_mail: str
 ) -> bool:
-    validations.validate_fields(list(updated_values.values()))
-    valid_treatment: bool = (
-        finding_utils.validate_acceptance_date(updated_values) and
-        finding_utils.validate_acceptance_days(
-            updated_values,
-            organization
-        ) and
-        async_to_sync(finding_utils.validate_acceptance_severity)(
-            updated_values,
-            severity,
-            organization
-        )
+    """
+    Check that the new treatment values to upload are valid and update them
+    """
+    last_state = {
+        key: value
+        for key, value in cast(
+            List[Dict[str, str]],
+            info_to_check['historic_treatment']
+        )[-1].items()
+        if key not in ['date', 'user']
+    }
+    new_state = {
+        key: value
+        for key, value in updated_values.items()
+        if key not in ['acceptance_status', 'bts_url']
+    }
+
+    bts_changed: bool = bool(
+        updated_values.get('bts_url') and
+        updated_values.get('bts_url') != info_to_check.get('bts_url')
     )
+    treatment_changed: bool = compare_historic_treatments(
+        last_state,
+        new_state
+    )
+    if not any([bts_changed, treatment_changed]):
+        raise GraphQLError(
+            'Finding treatment cannot be updated with the same values'
+        )
+
+    validations.validate_fields(list(updated_values.values()))
     success_treatment, success_external_bts = True, True
-    if update.bts_changed:
+    if bts_changed:
         validations.validate_url(updated_values['bts_url'])
         validations.validate_field_length(updated_values['bts_url'], 80)
         success_external_bts = finding_dal.update(
@@ -267,11 +286,30 @@ def update_client_description(  # pylint: disable=too-many-arguments
                 'external_bts': updated_values.get('bts_url', None)
             }
         )
-    if update.treatment_changed and valid_treatment:
+    if treatment_changed:
         updated_values.pop('bts_url', None)
-        success_treatment = update_treatment(
-            finding_id, updated_values, user_mail
+        valid_treatment: bool = (
+            finding_utils.validate_acceptance_date(updated_values) and
+            async_to_sync(finding_utils.validate_acceptance_days)(
+                updated_values,
+                organization
+            ) and
+            async_to_sync(finding_utils.validate_acceptance_severity)(
+                updated_values,
+                info_to_check['severity'],
+                organization
+            ) and
+            async_to_sync(finding_utils.validate_number_acceptations)(
+                updated_values,
+                info_to_check['historic_treatment'],
+                organization
+            )
         )
+
+        if valid_treatment:
+            success_treatment = update_treatment(
+                finding_id, updated_values, user_mail
+            )
     return success_treatment and success_external_bts
 
 

@@ -83,8 +83,16 @@ class InvalidAcceptanceSeverityRange(Exception):
 
 
 class InvalidNumberAcceptations(Exception):
-    def __init__(self):
-        msg = 'Exception - Number of acceptations should be zero or positive'
+    def __init__(self, expr=''):
+        if expr:
+            msg = (
+                'Exception - Finding has been accepted the maximum number of '
+                'times allowed by the organization'
+            )
+        else:
+            msg = (
+                'Exception - Number of acceptations should be zero or positive'
+            )
         super(InvalidNumberAcceptations, self).__init__(msg)
 
 

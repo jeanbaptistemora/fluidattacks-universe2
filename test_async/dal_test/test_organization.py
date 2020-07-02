@@ -167,12 +167,12 @@ async def test_update():
     new_values = {
         'max_acceptance_days': None,
         'max_acceptance_severity': Decimal('8.0'),
-        'max_number_acceptations': 1,
+        'max_number_acceptations': 5,
         'min_acceptance_severity': Decimal('2.5')
     }
     await org_dal.update(org_id, org_name, new_values)
     org_details = await org_dal.get_by_id(org_id)
     assert 'max_acceptance_days' not in org_details
     assert org_details['max_acceptance_severity'] == Decimal('8.0')
-    assert org_details['max_number_acceptations'] == 1
+    assert org_details['max_number_acceptations'] == 5
     assert org_details['min_acceptance_severity'] == Decimal('2.5')

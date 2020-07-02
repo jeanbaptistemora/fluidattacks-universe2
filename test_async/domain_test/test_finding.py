@@ -25,7 +25,8 @@ from backend.exceptions import (
     InvalidAcceptanceSeverity,
     InvalidDateFormat,
     InvalidDate,
-    InvalidFileType
+    InvalidFileType,
+    InvalidNumberAcceptations
 )
 
 pytestmark = [
@@ -71,14 +72,19 @@ class FindingTests(TestCase):
 
     @pytest.mark.changes_db
     def test_update_client_description(self):
-        Status = namedtuple('Status', 'bts_changed treatment_changed')
-        update = Status(bts_changed=True, treatment_changed=True)
         finding_id = '463461507'
         org_id = 'ORG#708f518a-d2c3-4441-b367-eec85e53d134'
-        severity = 5.0
+        info_to_check = {
+            'historic_treatment': [{
+                    'date': '2020-01-01 12:00:00',
+                    'treatment': 'NEW',
+                    'user': 'unittest@fluidattacks.com'
+                }],
+            'severity': 5
+        }
         acceptance_date = (
             datetime.now() + timedelta(days=10)
-        ).strftime('%Y-%m-%d %H:%M:%D')
+        ).strftime('%Y-%m-%d %H:%M:%S')
         values_accepted = {
             'justification': 'This is a test treatment justification',
             'bts_url': '',
@@ -89,9 +95,8 @@ class FindingTests(TestCase):
             finding_id,
             values_accepted,
             org_id,
-            severity,
+            info_to_check,
             'unittesting@fluidattacks.com',
-            update
         )
         assert test_accepted is True
 
@@ -99,7 +104,7 @@ class FindingTests(TestCase):
         assert max_acceptance_days == 60
         acceptance_date = (
             datetime.now() + timedelta(days=65)
-        ).strftime('%Y-%m-%d %H:%M:%D')
+        ).strftime('%Y-%m-%d %H:%M:%S')
         values_accepted_date_error = {
             'justification': 'This is a test treatment justification',
             'bts_url': '',
@@ -111,14 +116,13 @@ class FindingTests(TestCase):
                 finding_id,
                 values_accepted_date_error,
                 org_id,
-                severity,
-                'unittesting@fluidattacks.com',
-                update
+                info_to_check,
+                'unittesting@fluidattacks.com'
             )
 
         acceptance_date = (
             datetime.now() + timedelta(days=10)
-        ).strftime('%Y/%m/%d %H:%M:%D')
+        ).strftime('%Y/%m/%d %H:%M:%S')
         values_accepted_format_error = {
             'justification': 'This is a test treatment justification',
             'bts_url': '',
@@ -130,9 +134,8 @@ class FindingTests(TestCase):
                 finding_id,
                 values_accepted_format_error,
                 org_id,
-                severity,
-                'unittesting@fluidattacks.com',
-                update
+                info_to_check,
+                'unittesting@fluidattacks.com'
             )
 
     @pytest.mark.changes_db
@@ -231,16 +234,20 @@ class FindingTests(TestCase):
             validate_evidence(evidence_id, uploaded_file)
         self.assertTrue('Exception - Invalid File Type' in str(context.exception))
 
-
     def test_validate_acceptance_severity(self):
-        Status = namedtuple('Status', 'bts_changed treatment_changed')
-        update = Status(bts_changed=False, treatment_changed=True)
         finding_id = '463461507'
-        severity = 8.5
         org_id = 'ORG#708f518a-d2c3-4441-b367-eec85e53d134'
+        info_to_check = {
+            'historic_treatment': [{
+                    'date': '2020-02-01 12:00:00',
+                    'treatment': 'NEW',
+                    'user': 'unittest@fluidattacks.com'
+                }],
+            'severity': 8.5
+        }
         acceptance_date = (
             datetime.now() + timedelta(days=10)
-        ).strftime('%Y-%m-%d %H:%M:%D')
+        ).strftime('%Y-%m-%d %H:%M:%S')
         values_accepted = {
             'justification': 'This is a test treatment justification',
             'bts_url': '',
@@ -252,11 +259,47 @@ class FindingTests(TestCase):
                 finding_id,
                 values_accepted,
                 org_id,
-                severity,
-                'unittesting@fluidattacks.com',
-                update
+                info_to_check,
+                'unittesting@fluidattacks.com'
             )
 
+    def test_validate_number_acceptations(self):
+        finding_id = '463461507'
+        org_id = 'ORG#708f518a-d2c3-4441-b367-eec85e53d134'
+        info_to_check = {
+            'historic_treatment': [
+                {
+                    'acceptance_date': '2020-02-01 12:00:00',
+                    'date': '2020-01-01 12:00:00',
+                    'justification': 'Justification to accept the finding',
+                    'treatment': 'ACCEPTED',
+                    'user': 'unittest@fluidattacks.com'
+                },
+                {
+                    'date': '2020-02-01 12:00:00',
+                    'treatment': 'NEW',
+                    'user': 'unittest@fluidattacks.com'
+                }
+            ],
+            'severity': 5
+        }
+        acceptance_date = (
+            datetime.now() + timedelta(days=10)
+        ).strftime('%Y-%m-%d %H:%M:%S')
+        values_accepted = {
+            'justification': 'This is a test treatment justification',
+            'bts_url': '',
+            'treatment': 'ACCEPTED',
+            'acceptance_date': acceptance_date
+        }
+        with pytest.raises(InvalidNumberAcceptations):
+            assert update_client_description(
+                finding_id,
+                values_accepted,
+                org_id,
+                info_to_check,
+                'unittesting@fluidattacks.com'
+            )
 
     @pytest.mark.changes_db
     def test_approve_draft(self):

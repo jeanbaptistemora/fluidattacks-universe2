@@ -95,6 +95,9 @@ const treatmentView: React.FC<ITreatmentViewProps> = (props: ITreatmentViewProps
           case "Exception - Finding cannot be accepted, severity outside of range set by the organization":
             msgError(translate.t("group_alerts.organization_settings.severity_out_of_range"));
             break;
+          case "Exception - Finding has been accepted the maximum number of times allowed by the organization":
+            msgError(translate.t("group_alerts.organization_settings.maxium_number_of_acceptations"));
+            break;
           default:
             msgError(translate.t("group_alerts.error_textsad"));
             rollbar.error("An error occurred updating treatment", updateError);
