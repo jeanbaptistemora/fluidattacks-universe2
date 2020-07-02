@@ -1,3 +1,7 @@
+:local .tooltip {
+  z-index: 1100 !important;
+}
+
 :local .tooltip [class$="inner"] {
   background-color: #272727;
   border: 1px solid #272727;

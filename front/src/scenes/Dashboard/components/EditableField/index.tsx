@@ -12,7 +12,6 @@ type EditableFieldProps = BaseFieldProps & TextareaHTMLAttributes<HTMLTextAreaEl
   label: string;
   renderAsEditable: boolean;
   tooltip?: string;
-  tooltipPlacement?: "left" | "right" | "top";
   type?: string;
   visibleWhileEditing?: boolean;
 };
@@ -55,18 +54,33 @@ const renderHorizontalWide: ((props: EditableFieldProps) => JSX.Element) =
 
 const renderVertical: ((props: EditableFieldProps) => JSX.Element) =
   (props: EditableFieldProps): JSX.Element => {
-    const { label, currentValue, renderAsEditable, tooltip, tooltipPlacement, ...fieldProps } = props;
+    const { label, currentValue, renderAsEditable, tooltip, ...fieldProps } = props;
 
     return (
       <FormGroup>
-        <ControlLabel><b>{label}</b></ControlLabel><br />
-        { tooltip === undefined ? (
-          renderAsEditable ? <Field {...fieldProps} /> : renderCurrentValue(currentValue)
-          ) : (
-          <TooltipWrapper message={tooltip} placement={tooltipPlacement}>
+        { _.isUndefined(tooltip) ? (
+          <React.Fragment>
+            <ControlLabel><b>{label}</b></ControlLabel><br />
             {renderAsEditable ? <Field {...fieldProps} /> : renderCurrentValue(currentValue)}
-          </TooltipWrapper>)
-        }
+          </React.Fragment>
+        ) : (
+          renderAsEditable ? (
+            <React.Fragment>
+              <ControlLabel><b>{label}</b></ControlLabel><br />
+              <TooltipWrapper message={tooltip}>
+                <Field {...fieldProps} />
+              </TooltipWrapper>
+            </React.Fragment>
+          ) : (
+            <React.Fragment>
+              <TooltipWrapper message={tooltip} placement="top">
+                <ControlLabel><b>{label}</b></ControlLabel>
+              </TooltipWrapper>
+              <br />
+              {renderCurrentValue(currentValue)}
+            </React.Fragment>
+          )
+        )}
       </FormGroup>
     );
   };

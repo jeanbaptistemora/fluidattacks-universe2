@@ -347,7 +347,6 @@ const descriptionView: React.FC = (): JSX.Element => {
                       name="attackVectorDesc"
                       renderAsEditable={isEditing}
                       tooltip={translate.t("search_findings.tab_description.attack_vectors.tooltip")}
-                      tooltipPlacement="right"
                       type="text"
                       validate={[required, validTextField, maxImpactsLength]}
                       visibleWhileEditing={canEdit}
@@ -384,7 +383,6 @@ const descriptionView: React.FC = (): JSX.Element => {
                       name="threat"
                       renderAsEditable={isEditing}
                       tooltip={translate.t("search_findings.tab_description.threat.tooltip")}
-                      tooltipPlacement="right"
                       type="text"
                       validate={[required, validTextField, maxThreatLength]}
                       visibleWhileEditing={canEdit}
@@ -440,7 +438,6 @@ const descriptionView: React.FC = (): JSX.Element => {
                       name="compromisedAttributes"
                       renderAsEditable={isEditing}
                       tooltip={translate.t("search_findings.tab_description.compromised_attrs.tooltip")}
-                      tooltipPlacement="right"
                       type="text"
                       validate={[validTextField, maxCompromisedAttributesLength]}
                       visibleWhileEditing={canEdit}
