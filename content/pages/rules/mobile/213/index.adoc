@@ -1,7 +1,7 @@
 :slug: rules/213/
 :category: mobile
-:description: This document details security guidelines or requirements, for companies and organizations, related to mobile devices. This requirement specifically states that such mobile devices must allow their geographical location remotely in the event of loss.
-:keywords: Mobile Device, Location, Remote, Geographic, Loss, Requirement
+:description: This requirement explicitly states that mobile devices must allow their remote geographical location in case of loss.
+:keywords: Mobile Device, Location, Remote, Geographic, Loss, Requirement, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R213. Allow geographic location

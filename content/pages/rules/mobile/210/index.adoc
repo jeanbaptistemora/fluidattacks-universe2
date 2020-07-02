@@ -1,7 +1,7 @@
 :slug: rules/210/
 :category: mobile
-:description: This document details security guidelines or requirements, for companies and organizations, related to mobile devices. This requirement states that information from mobile devices must be deleted after 10 failed attempts in the authentication process.
-:keywords: Mobile Device, Attempts, Password, Information, Authentication, Failed
+:description: This requirement states that information from mobile devices must be deleted after 10 failed attempts in the authentication process.
+:keywords: Mobile Device, Attempts, Password, Information, Authentication, Failed, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R210. Delete information from mobile devices

@@ -1,7 +1,7 @@
 :slug: rules/224/
 :category: cryptography
 :description: This requirement establishes the importance of using secure cryptographic mechanisms to generate the random numbers used in data encryption.
-:keywords: Cryptographic, Mechanism, Random Number, CWE, NIST, ASVS
+:keywords: Cryptographic, Mechanism, Random Number, CWE, NIST, ASVS, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R224. Use secure cryptographic mechanisms
@@ -9,9 +9,9 @@
 == Requirement
 
 The system must use the most secure cryptographic mechanism
-provided by the platform (e.g **java.security.SecureRandom**)
+provided by the platform (e.g., **java.security.SecureRandom**)
 for random number generation used in critical processes
-(e.g ID generation, code mapping, cryptographic keys).
+(e.g., ID generation, code mapping, cryptographic keys).
 
 == Descriptions
 

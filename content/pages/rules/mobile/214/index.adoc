@@ -1,7 +1,7 @@
 :slug: rules/214/
 :category: mobile
-:description: This document contains the details of the security requirements related to the definition and management of mobile devices in the organization. This requirement establishes the importance of managing remote data destruction on mobile devices containing sensitive information.
-:keywords: Requirement, Security, Sensitive Information, Management, Mobile Device, Loss
+:description: This requirement establishes the importance of managing remote data destruction on mobile devices containing sensitive information.
+:keywords: Requirement, Security, Sensitive Information, Management, Mobile Device, Loss, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R214. Allow data destruction

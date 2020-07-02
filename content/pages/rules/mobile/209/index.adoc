@@ -1,7 +1,7 @@
 :slug: rules/209/
 :category: mobile
-:description: This document details security guidelines or requirements, for companies and organizations, related to mobile devices. This requirement, in terms of password management, states that applications that authenticate offline must only store one password in the authentication cache.
-:keywords: Mobile Device, Application, Password, Cache, Authentication, Requirement
+:description: This requirement establishes that applications that authenticate offline must only store one password in the authentication cache.
+:keywords: Mobile Device, Application, Password, Cache, Authentication, Requirement, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R209. Manage passwords in cache

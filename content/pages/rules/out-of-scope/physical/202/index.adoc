@@ -1,7 +1,7 @@
 :slug: rules/202/
 :category: physical
-:description: This document contains the details of the security requirements related to the definition and management of physical devices in the organization. This requirement establishes the importance of defining the sensitive information treatment in different scenarios and events.
-:keywords: Requirement, Security, Sensitive, Information, Management, Device
+:description: This requirement establishes the importance of defining sensitive information treatment in different scenarios and events.
+:keywords: Requirement, Security, Sensitive, Information, Management, Device, Rules, Ethical Hacking, Pentesting
 :rules: yes
 :extended: yes
 

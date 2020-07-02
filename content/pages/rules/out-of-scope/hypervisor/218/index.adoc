@@ -1,7 +1,7 @@
 :slug: rules/218/
 :category: hypervisor
-:description: This document contains the details of the security requirements related to the definition and management of hypervisors and virtual machines. This requirement establishes the importance of controlling access to virtual machines using a security support virtual machine.
-:keywords: CPU, Security, Hypervisor, Virtual Machine, Memory, Registers
+:description: This requirement establishes the importance of controlling access to virtual machines using a unique virtual machine of security support.
+:keywords: CPU, Security, Hypervisor, Virtual Machine, Memory, Registers, Rules, Ethical Hacking, Pentesting
 :rules: yes
 :extended: yes
 
