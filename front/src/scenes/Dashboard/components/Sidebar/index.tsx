@@ -54,7 +54,7 @@ const sidebar: React.FC<ISidebarProps> = (props: ISidebarProps): JSX.Element => 
       </ul>
       <div className={style.bottomBar}>
         <div className={style.version}><small>{userEmail}</small></div>
-        {userRole === undefined ? (
+        {_.isUndefined(userRole) || _.isEmpty(userRole) ? (
           undefined
         ) :
           <div className={style.version}><small>{translate.t(`search_findings.tab_users.${userRole}`)}</small></div>
