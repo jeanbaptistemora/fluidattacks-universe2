@@ -111,7 +111,7 @@ Blog | {{ SITENAME }}
           {% if article.has_summary %}
             {{ article.summary }}
           {% elif article.summary %}
-            {{ article.summary|striptags|truncate(100) }}
+            {{ article.description|striptags|truncate(100) }}
           {% endif %}
         </p>
         <br><br>
