@@ -1,7 +1,7 @@
 :slug: rules/261/
 :category: social
-:description: This document details the security requirements related to the proper use of social networks by the staff of a given organization or company. In this case, it is recommended that corporate information not be exposed on publicly accessible web pages and application sections.
-:keywords: Corporate, Personal, Security, Sensitive, CWE, GDPR
+:description: This requirement establishes the importance of not exposing corporate information on publicly accessible web pages and application sections.
+:keywords: Corporate, Personal, Security, Sensitive, CWE, GDPR, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R261. Avoid exposing sensitive information
@@ -26,7 +26,7 @@ social network accounts either.
 
 == References
 
-. [[r1]] link:https://cwe.mitre.org/data/definitions/200.html[CWE-200: Exposure of Sensitive Information to an Unauthorized Actor]
+. [[r1]] link:https://cwe.mitre.org/data/definitions/200.html[CWE-200: Exposure of Sensitive Information to an Unauthorized Actor].
 The product exposes sensitive information to an actor that is not explicitly
 authorized to have access to that information.
 

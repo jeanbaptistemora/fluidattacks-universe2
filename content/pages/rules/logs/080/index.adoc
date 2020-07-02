@@ -1,7 +1,7 @@
 :slug: rules/080/
 :category: logs
 :description: This requirement establishes the importance of preventing log modifications or alterations in order to keep permanent records of all system activity.
-:keywords: Requirement, Security, Logs, Events, Modification, Alteration, Rules, Ethical Hacking, Pentesting
+:keywords: Logs, Events, Modification, Alteration, ASVS, CWE, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R080. Prevent log modification
@@ -10,12 +10,26 @@
 
 System logs must not allow modifications or alterations.
 
+== Description
+
+Logs are used to analyze a system's behavior.
+They help detect errors and suspicious activity,
+and often hold very sensitive information.
+Therefore, they should be protected so that no unauthorized actor can modify
+them,
+since this could prevent a vulnerability or a breach from being noticed timely.
+
 == References
 
-. [[r1]] link:https://www.owasp.org/index.php/ASVS_V8_Error_Handling[+OWASP-ASVS v3.1-8.6+]
-Verify that security logs are protected
-from unauthorized access and modification.
+. [[r1]] link:https://cwe.mitre.org/data/definitions/200.html[CWE-200: Exposure of Sensitive Information to an Unauthorized Actor].
+The product exposes sensitive information to an actor that is not explicitly
+authorized to have access to that information.
 
-. [[r2]] link:https://www.owasp.org/index.php/ASVS_V8_Error_Handling[+OWASP-ASVS v3.1-8.11+]
-Verify that security logs have some form of integrity checking
-or controls to prevent unauthorized modification.
+. [[r3]] link:https://cwe.mitre.org/data/definitions/285.html[CWE-285: Improper Authorization].
+The software does not perform or incorrectly performs an authorization check
+when an actor attempts to access a resource or perform an action.
+
+. [[r4]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V7.3 Log Protection Requirements.(7.3.3)]
+Verify that security logs are protected from unauthorized access and
+modification.

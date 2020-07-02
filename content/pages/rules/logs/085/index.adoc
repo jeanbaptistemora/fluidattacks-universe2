@@ -1,7 +1,7 @@
 :slug: rules/085/
 :category: logs
 :description: This requirement establishes the importance of allowing authorized users to query and inspect their session history.
-:keywords: Requirement, Security, Logs, Session, GDPR, History Queries, Rules, Ethical Hacking, Pentesting
+:keywords: Logs, Session, Query, ASVS, GDPR, History Queries, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R085. Allow session history queries
