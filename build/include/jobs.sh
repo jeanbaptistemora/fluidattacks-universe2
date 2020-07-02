@@ -456,9 +456,10 @@ function job_renew_certificates {
 function job_reset {
   local files_to_delete=(
     'app/assets/dashboard/'
-    'app/documentator/images/*'
-    'app/documentator/tpls/*'
-    'app/documentator/results/*'
+    'app/backend/reports/images/*'
+    'django-apps/integrates-back-async/backend/reports/tpls/*'
+    'django-apps/integrates-back-async/backend/reports/results_pdf/*'
+    'django-apps/integrates-back-async/backend/reports/results_excel/*'
     'build/coverage'
     'django-apps/*/*.egg-info'
     'front/coverage'

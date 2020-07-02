@@ -11,10 +11,10 @@ from backend.domain import (
 from backend.exceptions import (
     PermissionDenied, RequestedReportError,
 )
-from backend.reports import (
+from backend.reports import report
+from backend.reports.reports import (
     complete as complete_report,
     data as data_report,
-    report,
     technical as technical_report,
 )
 from backend.typing import (

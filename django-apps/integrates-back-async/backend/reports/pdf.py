@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 """ Class to export the findings A PDF. """
 # pylint: disable=wrong-import-position
-import os
 import time
 import sys
 import subprocess
@@ -25,8 +24,8 @@ class CreatorPDF():
     tpl_dir = '/tpls/'
     font_dir = '/resources/fonts'
     images_dir = '/images/'
-    result_dir = '/results/'
-    proj_tpl = 'templates/executive.adoc'
+    result_dir = '/results_pdf/'
+    proj_tpl = 'templates/pdf/executive.adoc'
     style = 'fluid'
     lang = 'en'
     doctype = 'executive'
@@ -37,7 +36,9 @@ class CreatorPDF():
 
     def __init__(self, lang, doctype):
         """Class constructor."""
-        self.path = os.path.dirname(os.path.abspath(__file__))
+        self.path = (
+            '/usr/src/app/django-apps/integrates-back-async/backend/reports'
+        )
         self.result_dir = self.path + self.result_dir
         self.font_dir = self.path + self.font_dir
         self.tpl_dir = self.path + self.tpl_dir
@@ -46,7 +47,7 @@ class CreatorPDF():
         self.doctype = doctype
         self.style_dir = self.path + self.style_dir
         if self.doctype == 'tech':
-            self.proj_tpl = 'templates/tech.adoc'
+            self.proj_tpl = 'templates/pdf/tech.adoc'
         importlib.reload(sys)
         try:
             sys.setdefaultencoding('utf-8')
@@ -144,8 +145,10 @@ class CreatorPDF():
         self.out_name = str(uuid.uuid4()) + '.pdf'
         searchpath = self.path
         template_loader = jinja2.FileSystemLoader(searchpath=searchpath)
-        template_env = jinja2.Environment(loader=template_loader,
-                                          autoescape=jinja2.select_autoescape(['html', 'xml']))
+        template_env = jinja2.Environment(
+            loader=template_loader,
+            autoescape=jinja2.select_autoescape(['html', 'xml'])
+        )
         template = template_env.get_template(self.proj_tpl)
         tpl_name = self.tpl_dir + ':id_IT.tpl'.replace(':id', project)
         render_text = template.render(self.context)
@@ -194,8 +197,8 @@ class CreatorPDF():
 
     def make_content(self, words):
         """ Create context with the titles of the document. """
-        base_img = 'image::../templates/{name}_{lang}.png[]'
-        base_adoc = 'include::../templates/{name}_{lang}.adoc[]'
+        base_img = 'image::../templates/pdf/{name}_{lang}.png[]'
+        base_adoc = 'include::../templates/pdf/{name}_{lang}.adoc[]'
         return {
             'content_title': words['content_title'],
             'content_list': words['content_list'],
@@ -203,7 +206,8 @@ class CreatorPDF():
             'goals_img': base_img.format(name='goals', lang=self.lang),
             'severity_img': base_img.format(name='severity', lang=self.lang),
             'metodology_title': words['metodology_title'],
-            'metodology_img': base_img.format(name='metodology', lang=self.lang),
+            'metodology_img': base_img.format(
+                name='metodology', lang=self.lang),
             'footer_adoc': base_adoc.format(name='footer', lang=self.lang)
         }
 

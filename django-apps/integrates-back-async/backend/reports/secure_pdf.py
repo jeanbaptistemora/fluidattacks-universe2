@@ -16,7 +16,8 @@ class PDF(FPDF):
         self.set_y(-15)
         self.set_font('Times', '', 12)
         self.cell(0, 10, 'Only for %s' % self.user, 0, 0, align='L')
-        self.cell(0, 10, 'Page %s' % str(int(self.page_no()) - 1), 0, 0, align='R')
+        self.cell(0, 10, 'Page %s' % str(
+            int(self.page_no()) - 1), 0, 0, align='R')
 
 
 class SecurePDF():
@@ -33,17 +34,25 @@ class SecurePDF():
 
     def __init__(self, passphrase: str):
         """Class constructor."""
-        self.base = os.path.dirname(os.path.abspath(__file__))
+        self.base = (
+            '/usr/src/app/django-apps/integrates-back-async/backend/reports'
+        )
+
         self.watermark_tpl = os.path.join(
             self.base,
             'resources/themes/watermark_integrates_en.pdf')
         self.footer_tpl = os.path.join(
             self.base,
             'resources/themes/overlay_footer.pdf')
-        self.result_dir = os.path.join(self.base, 'results/')
+        self.result_dir = os.path.join(self.base, 'results_pdf/')
         self.passphrase = passphrase
 
-    def create_full(self, usermail: str, basic_pdf_name: str, project: str) -> str:
+    def create_full(
+        self,
+        usermail: str,
+        basic_pdf_name: str,
+        project: str
+    ) -> str:
         """ Execute the security process in a PDF. """
         self.secure_pdf_usermail = usermail
         self.secure_pdf_username = usermail.split('@')[0]

@@ -17,12 +17,12 @@ from backend.dal import (
 from backend.domain import (
     notifications as notifications_domain
 )
+from backend.reports.it_report import ITReport
+from backend.reports.pdf import CreatorPDF
+from backend.reports.secure_pdf import SecurePDF
 from backend.typing import Finding as FindingType
 from backend.utils import reports as reports_utils
 from backend.utils.passphrase import get_passphrase
-from app.documentator.pdf import CreatorPDF
-from app.documentator.secure_pdf import SecurePDF
-from app.techdoc.it_report import ITReport
 
 
 def generate_pdf_file(
@@ -119,10 +119,19 @@ def generate_xls(
 
 
 def download_evidences_for_pdf(findings: List[Dict[str, FindingType]]):
+    images_path = (
+        '/usr/src/app/django-apps/integrates-back-async/backend/reports/images'
+    )
     path: str = (
-        '/usr/src/app/app/documentator/images'
-        if os.path.exists('/usr/src/app/app/documentator/images')
-        else os.path.join(os.getcwd(), 'app', 'documentator', 'images')
+        images_path
+        if os.path.exists(images_path)
+        else os.path.join(
+            os.getcwd(),
+            'django-apps',
+            'integrates-back-async',
+            'backend',
+            'reports',
+            'images')
     )
 
     for finding in findings:

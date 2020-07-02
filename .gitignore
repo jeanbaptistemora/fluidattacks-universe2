@@ -2,9 +2,10 @@ analytics/**/*.jpg
 analytics/**/*.json
 analytics/**/*.html
 analytics/**/*.png
-app/documentator/results/*.pdf
-app/documentator/tpls/*.tpl
-app/documentator/images/*.png
+django-apps/integrates-back-async/backend/reports/results_pdf/*.pdf
+django-apps/integrates-back-async/backend/reports/results_pdf/*.xlsx
+django-apps/integrates-back-async/backend/reports/tpls/*.tpl
+django-apps/integrates-back-async/backend/reports/images/*.png
 app/autodoc/results/*.xlsx
 app/autodoc/results/*.pptx
 app/techdoc/results/*.xlsx

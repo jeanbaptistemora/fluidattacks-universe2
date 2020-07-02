@@ -16,11 +16,14 @@ class ITReport():
     lang = None
     row = 3
     result_filename = ''
-    base = os.path.dirname(os.path.abspath(__file__))
-    result_path = os.path.join(base, 'results')
+    base = (
+        '/usr/src/app/django-apps/integrates-back-async/backend/reports'
+    )
+    result_path = os.path.join(base, 'results_excel')
     templates = {
         'es': {
-            'TECHNICAL': os.path.join(base, 'templates', 'TECHNICAL.xlsx'),
+            'TECHNICAL': os.path.join(
+                base, 'templates/excel', 'TECHNICAL.xlsx'),
         },
         'en': {}}
     sheet_names = {
@@ -88,7 +91,8 @@ class ITReport():
 
     def set_cell_number(self, col, value, inc=0):
         """Assign a numeric value to a cell with findings index."""
-        self.current_sheet.cell(row=self.row + inc, column=col).value = float(value)
+        self.current_sheet.cell(
+            row=self.row + inc, column=col).value = float(value)
 
     def __get_req(self, req_vect): # noqa
         """Get all the identifiers with the REQ.XXXX format."""
@@ -181,18 +185,22 @@ class ITReport():
             self.set_cell(self.finding['where_records'],
                           'Evidences/' + row['finding'] + '/records.csv')
         self.set_cell_number(self.finding['severityCvss'], row['severityCvss'])
-        self.set_cell_number(self.finding['cardinality'], row['openVulnerabilities'])
-        self.set_cell_number(self.finding['affected_records'], row.get('recordsNumber', '0'))
+        self.set_cell_number(
+            self.finding['cardinality'], row['openVulnerabilities'])
+        self.set_cell_number(
+            self.finding['affected_records'], row.get('recordsNumber', '0'))
         self.set_cell(self.finding['evidence'], 'Evidences/' + row['finding'])
         self.set_cell(self.finding['solution'], row['effectSolution'])
         self.set_cell(self.finding['requirements_id'],
                       self.__get_req(row['requirements']))
         self.set_cell(
             self.finding['measurements'],
-            self.__get_measure('attackVector', row['severity']['attackVector']))
+            self.__get_measure(
+                'attackVector', row['severity']['attackVector']))
         self.set_cell(
             self.finding['measurements'],
-            self.__get_measure('attackComplexity', row['severity']['attackComplexity']), 1)
+            self.__get_measure(
+                'attackComplexity', row['severity']['attackComplexity']), 1)
         self.set_cell(
             self.finding['measurements'],
             self.__get_measure(
@@ -200,18 +208,22 @@ class ITReport():
             2)
         self.set_cell(
             self.finding['measurements'],
-            self.__get_measure('userInteraction', row['severity']['userInteraction']), 3)
-        self.set_cell(
-            self.finding['measurements'],
-            self.__get_measure('severityScope', row['severity']['severityScope']), 4)
+            self.__get_measure(
+                'userInteraction', row['severity']['userInteraction']), 3)
         self.set_cell(
             self.finding['measurements'],
             self.__get_measure(
-                'confidentialityImpact', row['severity']['confidentialityImpact']),
+                'severityScope', row['severity']['severityScope']), 4)
+        self.set_cell(
+            self.finding['measurements'],
+            self.__get_measure(
+                'confidentialityImpact',
+                row['severity']['confidentialityImpact']),
             5)
         self.set_cell(
             self.finding['measurements'],
-            self.__get_measure('integrityImpact', row['severity']['integrityImpact']), 6)
+            self.__get_measure(
+                'integrityImpact', row['severity']['integrityImpact']), 6)
         self.set_cell(
             self.finding['measurements'],
             self.__get_measure(
@@ -219,13 +231,16 @@ class ITReport():
             7)
         self.set_cell(
             self.finding['measurements'],
-            self.__get_measure('exploitability', row['severity']['exploitability']), 8)
+            self.__get_measure(
+                'exploitability', row['severity']['exploitability']), 8)
         self.set_cell(
             self.finding['measurements'],
-            self.__get_measure('remediationLevel', row['severity']['remediationLevel']), 9)
+            self.__get_measure(
+                'remediationLevel', row['severity']['remediationLevel']), 9)
         self.set_cell(
             self.finding['measurements'],
-            self.__get_measure('reportConfidence', row['severity']['reportConfidence']), 10)
+            self.__get_measure(
+                'reportConfidence', row['severity']['reportConfidence']), 10)
 
     def __save(self):
         self.result_filename = str(uuid.uuid4()) + '.xlsx'

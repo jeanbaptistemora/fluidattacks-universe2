@@ -6,7 +6,7 @@ from backend.domain import (
     vulnerability as vuln_domain,
 )
 from backend.exceptions import RequestedReportError
-from backend.reports import (
+from backend.reports.reports import (
     data as data_report,
     technical as technical_report,
     all_vulns as all_vulns_report,

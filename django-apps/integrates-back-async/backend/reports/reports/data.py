@@ -17,7 +17,7 @@ from backend.dal.helpers.s3 import CLIENT as S3_CLIENT  # type: ignore
 from backend.domain import (
     notifications as notifications_domain
 )
-from backend.reports import technical
+from backend.reports.reports import technical as technical_report
 from backend.utils.passphrase import get_passphrase
 from backend.utils import (
     reports as reports_utils,
@@ -82,7 +82,7 @@ def _append_pdf_report(
     requester_email: str,
 ):
     # Generate the PDF report
-    report_filename = technical.generate_pdf_file(
+    report_filename = technical_report.generate_pdf_file(
         description=group_description,
         findings_ord=findings_ord,
         group_name=group,
@@ -100,7 +100,7 @@ def _append_xls_report(
     findings_ord: List[Dict[str, FindingType]],
     passphrase: str,
 ):
-    report_filename = technical.generate_xls_file(
+    report_filename = technical_report.generate_xls_file(
         findings_ord=findings_ord,
         passphrase=passphrase,
     )

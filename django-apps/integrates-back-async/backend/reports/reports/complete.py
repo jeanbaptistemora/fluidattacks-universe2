@@ -15,7 +15,11 @@ from backend.utils import reports as reports_utils
 def generate(
         projects: List[str],
         user_email: str) -> str:
-    book = load_workbook('/usr/src/app/app/techdoc/templates/COMPLETE.xlsx')
+    template_path = (
+        '/usr/src/app/django-apps/integrates-back-async/backend'
+        '/reports/templates/excel/COMPLETE.xlsx'
+    )
+    book = load_workbook(template_path)
     sheet = book.active
 
     project_col = 1

@@ -42,13 +42,13 @@ from backend.dal import (
     user as user_dal
 )
 from backend.exceptions import ConcurrentSession
+from backend.reports.all_vulns import generate_all_vulns_xlsx
 from backend.services import (
     has_access_to_finding, has_access_to_event
 )
 from __init__ import (
     FI_AWS_S3_ACCESS_KEY, FI_AWS_S3_SECRET_KEY, FI_AWS_S3_BUCKET, FI_ENVIRONMENT
 )
-from app.documentator.all_vulns import generate_all_vulns_xlsx
 
 # Constants
 CACHE_TTL = getattr(settings, 'CACHE_TTL', DEFAULT_TIMEOUT)
