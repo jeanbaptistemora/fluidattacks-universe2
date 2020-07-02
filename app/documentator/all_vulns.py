@@ -124,15 +124,18 @@ def fill_sheet(sheet, finding_row: Dict[str, str], vuln_row: Dict[str, str], row
         sheet.cell(row_index, col, vuln_row.get(col_name, ''))
 
 
-def generate_all_vulns_xlsx(user_email: str) -> str:
-    projects = project_dal.get_all(data_attr='project_name')
+def generate_all_vulns_xlsx(user_email: str, project_name: str = '') -> str:
+    if project_name:
+        projects = [{'project_name': project_name}]
+    else:
+        projects = project_dal.get_all(data_attr='project_name')
     book = Workbook()
     sheet = book.active
     sheet.append(COLUMNS_FINS + COLUMNS_VULNS)
     row_index = 2
     for project in projects:
         if project not in TEST_PROJECTS:
-            findings = project_dal.get_released_findings(project)
+            findings = project_dal.get_released_findings(project.get('project_name'))
         else:
             findings = []
         for finding in findings:
