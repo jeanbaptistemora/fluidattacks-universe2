@@ -13,7 +13,10 @@ from backend.reports import (
 from backend import util
 
 
-async def generate_group_report(report_type: str, user_email: str, **parameters) -> str:
+async def generate_group_report(
+        report_type: str,
+        user_email: str,
+        **parameters) -> str:
     context = parameters.get('context')
     project_findings = parameters.get('project_findings', [])
     project_name = parameters.get('project_name')
