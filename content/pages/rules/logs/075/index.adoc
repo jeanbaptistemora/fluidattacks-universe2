@@ -90,11 +90,17 @@ Audit Controls: Implement hardware, software, and/or procedural mechanisms
 that record and examine activity in information systems
 that contain or use electronic protected health information.
 
-. [[r3]] link:https://www.owasp.org/index.php/ASVS_V7_Cryptography[OWASP-ASVS v3.1-8.3]
-Verify security logging controls provide the ability
-to log success and particularly failure events
-that are identified as security-relevant
-
 . [[r4]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V1.7 Errors, Logging and Auditing Architectural Requirements.(1.7.1)]
 Verify that a common logging format and approach is used across the system.
+
+. [[r5]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V7.1 Log Content Requirements.(7.1.3)]
+Verify that the application logs security relevant events including successful
+and failed authentication events, access control failures, deserialization
+failures and input validation failures.
+
+. [[r6]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V7.1 Log Content Requirements.(7.1.4)]
+Verify that each log event includes necessary information that would allow for
+a detailed investigation of the timeline when an event happens.

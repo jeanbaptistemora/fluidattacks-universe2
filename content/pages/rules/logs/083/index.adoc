@@ -52,13 +52,16 @@ stored or transmitted against accidental or unlawful destruction,
 accidental loss or alteration,
 and unauthorized or unlawful storage, processing, access or disclosure.
 
-. [[r3]] link:https://www.owasp.org/index.php/ASVS_V8_Error_Handling[OWASP-ASVS v3.1-8.7]
-Verify that the application does not log sensitive data
-as defined under local privacy laws or regulations,
-organizational sensitive data as defined by a risk assessment,
-or sensitive authentication data that could assist an attacker,
-including user’s session identifiers, passwords, hashes, or *API* tokens.
-
-. [[r4]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r3]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V1.7 Errors, Logging and Auditing Architectural Requirements.(1.7.1)]
 Verify that a common logging format and approach is used across the system.
+
+. [[r4]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V7.1 Log Content Requirements.(7.1.1)]
+Verify that the application does not log credentials or payment details.
+Session tokens should only be stored in logs in an irreversible, hashed form.
+
+. [[r5]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V7.1 Log Content Requirements.(7.1.2)]
+Verify that the application does not log other sensitive data as defined under
+local privacy laws or relevant security policy.
