@@ -66,6 +66,9 @@ const enTranslations: Dictionary = {
       findingsBeingReattacked: {
         title: "Findings being re-attacked",
       },
+      forcesAutomatizedVulns: {
+        title: "Automatized Vulnerabilities",
+      },
       totalFindings: {
         title: "Total findings",
       },

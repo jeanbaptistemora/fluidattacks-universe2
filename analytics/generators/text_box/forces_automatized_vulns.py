@@ -11,7 +11,13 @@ async def generate_one(group: str):
     executions = await utils.get_last_week_forces_executions(group)
 
     return {
-        'text': f'{len(executions)} builds'
+        'text': sum(
+            vulns['num_of_vulnerabilities_in_exploits'] +
+            vulns['num_of_vulnerabilities_in_integrates_exploits'] +
+            vulns['num_of_vulnerabilities_in_accepted_exploits']
+            for execution in executions
+            for vulns in [execution['vulnerabilities']]
+        )
     }
 
 

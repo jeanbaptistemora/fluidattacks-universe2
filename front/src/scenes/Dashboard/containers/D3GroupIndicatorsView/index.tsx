@@ -197,6 +197,18 @@ const d3GroupIndicatorsView: React.FC<ID3GroupIndicatorsProps> = (props: ID3Grou
               title={translate.t("analytics.gauge.forcesUsage.title")}
             />
           </Col>
+          <Col md={3}>
+            <Graphic
+              bsClass={styles.height80}
+              documentName="forcesAutomatizedVulns"
+              documentType="textBox"
+              entity="group"
+              generatorName="raw"
+              generatorType="textBox"
+              subject={groupName}
+              title={translate.t("analytics.textBox.forcesAutomatizedVulns.title")}
+            />
+          </Col>
         </Row>
         <Row>
           <Col md={6}>
