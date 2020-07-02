@@ -1,7 +1,7 @@
 :slug: rules/158/
 :category: source
-:description: This requirement establishes the importance of implementing applications in a secure programming language, properly updated and free of known vulnerabilities.
-:keywords: Security, Source Code, Updates, Vulnerabilities, Programming, ASVS
+:description: This requirement establishes the importance of developing applications in an adequately updated and free of known vulnerabilities programming language.
+:keywords: Security, Source Code, Updates, Vulnerabilities, Programming, ASVS, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R158. Use a secure programming language

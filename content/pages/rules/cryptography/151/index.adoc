@@ -1,7 +1,7 @@
 :slug: rules/151/
 :category: cryptography
-:description: This document contains the details of the security requirements related to the definition and management of cryptographic systems. This requirement establishes the importance of using asymmetric cryptography with different keys for system encryption and signatures.
-:keywords: Security, Asymmetric, Encryption, Keys, Signatures, ASVS
+:description: This requirement establishes the importance of using asymmetric cryptography with different keys for encryption and signatures.
+:keywords: Security, Asymmetric, Encryption, Keys, Signatures, ASVS, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R151. Separate keys for encryption and signatures

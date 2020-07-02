@@ -1,7 +1,7 @@
 :slug: rules/154/
 :category: source
-:description: This document details the security requirements related to the source code that makes up the company's applications. This requirement establishes the importance of eliminating back doors and other functionalities that are not part of the system's functional specification.
-:keywords: Source Code, Functional Requirements, Rootkit, Back Doors, CWE, ASVS
+:description: This requirement establishes the importance of eliminating back doors and other functionalities that are not part of the system's functional specification.
+:keywords: Source Code, Functional Requirements, Rootkit, Back Doors, CWE, ASVS, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R154. Eliminate back doors

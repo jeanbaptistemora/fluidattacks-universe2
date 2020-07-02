@@ -1,14 +1,14 @@
 :slug: rules/157/
 :category: source
 :description: This requirement establishes the importance of compiling and interpreting the source code in strict mode.
-:keywords: Source Code, Strict, Mode, Compilation, ASVS, CWE
+:keywords: Source Code, Strict, Mode, Compilation, ASVS, CWE, Interpretation, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R157. Use the strict mode
 
 == Requirement
 
-The organization should set its parsers, linters, compilers and interpreters
+The organization should set its parsers, linters, compilers, and interpreters
 to run in strict mode.
 
 == Rereferences

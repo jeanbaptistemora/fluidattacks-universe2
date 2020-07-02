@@ -1,7 +1,7 @@
 :slug: rules/159/
 :category: source
-:description: This document contains the details of the security requirements related to the definition and management of application source code the organization. This requirement establishes the importance of obfuscating the application source code in production environments.
-:keywords: Requirement, Security, Source Code, Obfuscation, Protection, Production
+:description: This requirement establishes the importance of obfuscating the application source code in production environments.
+:keywords: Requirement, Security, Source Code, Obfuscation, Protection, Production, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R159. Obfuscate code

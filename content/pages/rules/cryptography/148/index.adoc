@@ -1,7 +1,7 @@
 :slug: rules/148/
 :category: cryptography
-:description: This document contains the details of the security requirements related to the definition and management of cryptographic systems. This requirement establishes the importance of setting asymmetric encryption of minimum size in the cryptographic functions of the system.
-:keywords: Cryptographic, Asymmetric, Encryption, Size, HIPAA, ASVS
+:description: This requirement establishes the importance of setting asymmetric encryption of minimum size in the cryptographic functions of the system.
+:keywords: Cryptographic, Asymmetric, Encryption, Size, HIPAA, ASVS, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R148. Set minimum size of asymmetric encryption

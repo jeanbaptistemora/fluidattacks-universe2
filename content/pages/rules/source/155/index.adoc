@@ -1,7 +1,7 @@
 :slug: rules/155/
 :category: source
-:description: This document details the security requirements related to the proper management of the source code that makes up a given application. This is because an application can import, or be composed of, sections of malicious code developed by third parties.
-:keywords: Requirement, Security, Source Code, Functional Requirements, Different, Back Doors
+:description: This requirement establishes the importance of having an application free of malicious code mainly developed by third parties.
+:keywords: Requirement, Security, Source Code, Functional Requirements, Different, Back Doors, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R155. Application free of malicious code

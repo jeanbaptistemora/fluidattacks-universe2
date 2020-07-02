@@ -1,7 +1,7 @@
 :slug: rules/156/
 :category: source
 :description: This requirement establishes the importance of excluding sensitive information from the source code.
-:keywords: Source Code, Sensitive information, Data, ASVS, CWE, GDPR
+:keywords: Source Code, Sensitive Information, Data, ASVS, CWE, GDPR, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R156. Source code without sensitive information

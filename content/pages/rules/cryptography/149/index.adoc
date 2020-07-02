@@ -1,7 +1,7 @@
 :slug: rules/149/
 :category: cryptography
-:description: This document contains the details of the security requirements related to the definition and management of cryptographic systems. This requirement establishes the importance of setting symmetric encryption of minimum size in the cryptographic functions of the system.
-:keywords: Symmetric, Encryption, Cryptographic, Size, HIPAA, ASVS
+:description: This requirement establishes the importance of setting symmetric encryption of minimum size in the cryptographic functions of the system.
+:keywords: Symmetric, Encryption, Cryptographic, Size, HIPAA, ASVS, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R149. Set minimum size of symmetric encryption

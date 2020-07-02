@@ -1,7 +1,7 @@
 :slug: rules/146/
 :category: cryptography
-:description: This document contains the details of the security requirements related to definition and management of cryptographic systems. This requirement establishes the importance of protecting system cryptographic keys by limiting the time they remain in system RAM.
-:keywords: Security, Requirement, Timeout, Cryptographic Keys, RAM, ASVS
+:description: This requirement establishes the importance of protecting cryptographic keys by limiting the time they remain in system RAM.
+:keywords: Security, Requirement, Timeout, Cryptographic Keys, RAM, ASVS, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R146. Set timeout to cryptographic keys

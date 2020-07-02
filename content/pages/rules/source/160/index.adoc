@@ -1,7 +1,7 @@
 :slug: rules/160/
 :category: source
-:description: This document contains the details of the security requirements related to the definition and management of application source code the organization. This requirement establishes the importance of encoding system outputs in the corresponding language by using escaping.
-:keywords: Encoding, Outputs, Escaping, BSIMM9, ASVS, CWE
+:description: This requirement establishes the importance of encoding system outputs in the corresponding language.
+:keywords: Encoding, Outputs, Escaping, BSIMM9, ASVS, CWE, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R160. Encode system outputs

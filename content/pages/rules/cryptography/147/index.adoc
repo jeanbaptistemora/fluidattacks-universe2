@@ -1,7 +1,7 @@
 :slug: rules/147/
 :category: cryptography
 :description: This requirement establishes the importance of using pre-existing and up-to-date cryptographic mechanisms.
-:keywords: Cryptographic, Encryption, Mechanisms, HIPAA, NIST, ASVS
+:keywords: Cryptographic, Encryption, Mechanisms, HIPAA, NIST, ASVS, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R147. Use pre-existent mechanisms
