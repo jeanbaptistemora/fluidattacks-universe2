@@ -7,8 +7,10 @@ stelligent/cfn_nag/blob/master/LICENSE.md>`_
 
 # Standard imports
 import re
-from typing import List, Optional, Pattern
+from typing import List, Optional, Pattern, Dict, Tuple
 from contextlib import suppress
+
+from networkx import DiGraph
 
 # Local imports
 from fluidasserts import SAST, MEDIUM
@@ -18,6 +20,11 @@ from fluidasserts.cloud.aws.cloudformation import (
     _get_result_as_tuple,
 )
 from fluidasserts.utils.decorators import api, unknown_if
+from fluidasserts.cloud.aws.cloudformation import get_templates
+from fluidasserts.cloud.aws.cloudformation import get_graph
+from fluidasserts.cloud.aws.cloudformation import get_resources
+from fluidasserts.cloud.aws.cloudformation import has_values
+from fluidasserts.cloud.aws.cloudformation import get_type
 
 
 @api(risk=MEDIUM, kind=SAST)  # noqa: MC0001
@@ -486,59 +493,43 @@ def has_full_access_to_ssm(
               - ``CLOSED`` otherwise.
     :rtype: :class:`fluidasserts.Result`
     """
-    vulnerabilities: list = []
-    safes: list = []
+    vulnerabilities: List[Vulnerability] = []
+    graph: DiGraph = get_graph(path, exclude)
+    templates: List[Tuple[int, Dict]] = get_templates(graph, path, exclude)
+    documents: List[int] = get_resources(
+        graph,
+        map(lambda x: x[0], templates), {
+            'AWS', 'IAM', 'ManagedPolicy', 'Policy', 'Role'},
+        info=True, num_labels=3)
+    for doc, resource, template in documents:
+        type_: str = "AWS::IAM::" + \
+            get_type(graph, doc, {'ManagedPolicy', 'Policy', 'Role'})
+        reason: str = 'allows full access to SSM.'
+        vulnerable_lines: List[int] = []
+        policy_document: int = helper.get_index(get_resources(
+            graph, doc, 'PolicyDocument', depth=8), 0)
+        if not policy_document:
+            continue
 
-    for yaml_path, res_name, res_props in helper.iterate_rsrcs_in_cfn_template(
-            starting_path=path,
-            resource_types=[
-                'AWS::IAM::ManagedPolicy',
-                'AWS::IAM::Policy',
-                'AWS::IAM::Role',
-            ],
-            exclude=exclude):
-        vulnerable_entities: List[str] = []
-        type_ = res_props['../Type']
-
-        reason = 'allows full access to SSM.'
-
-        if res_props.get('PolicyDocument', []):
-            policy = res_props['PolicyDocument']
-            for sts in helper.force_list(policy['Statement']):
-                vulnerable = sts['Effect'] == 'Allow' \
-                    and 'Action' in sts \
-                    and 'ssm:*' in helper.get_items(sts['Action'])
-                type_name = res_props['../Type'].split('::')[-1]
-                try:
-                    name = res_props[f'{type_name}Name']
-                    entity = name if isinstance(name, str) else res_name
-                except KeyError:
-                    entity = res_name
-                (vulnerable_entities if vulnerable else safes).append(
-                    (entity, reason))
-
-        if res_props.get('Policies', []):
-            for policy in helper.force_list(res_props['Policies']):
-                policy_document = policy['PolicyDocument']
-                with suppress(KeyError):
-                    for sts in helper.force_list(policy_document['Statement']):
-                        vulnerable = sts['Effect'] == 'Allow' \
-                            and 'Action' in sts \
-                            and 'ssm:*' in \
-                            helper.get_items(sts['Action'])
-                        name = policy['PolicyName']
-                        entity = name if isinstance(name, str) else res_name
-                        (vulnerable_entities if vulnerable else safes).append(
-                            (entity, reason))
-
-        if vulnerable_entities:
+        effects = has_values(graph, policy_document, 'Effect', 'Allow', 4)
+        for effect in effects:
+            vulnerable = False
+            father = graph.predecessors(effect)
+            action = helper.get_index(
+                get_resources(graph, father, 'Action'), 0)
+            if action:
+                vulnerable = [graph.nodes[node]['line'] for node in has_values(
+                    graph, action, 'Item', 'ssm:*', depth=4)]
+            if vulnerable:
+                vulnerable_lines.extend(vulnerable)
+        if vulnerable_lines:
             vulnerabilities.extend(
                 Vulnerability(
-                    path=yaml_path,
-                    entity=f'{type_}/{entity}',
-                    identifier=res_name,
-                    line=helper.get_line(res_props),
-                    reason=reason) for entity, reason in vulnerable_entities)
+                    path=template['path'],
+                    entity=f'{type_}/PolicyDocument',
+                    identifier=resource['name'],
+                    line=line,
+                    reason=reason) for line in vulnerable_lines)
 
     return _get_result_as_tuple(
         vulnerabilities=vulnerabilities,

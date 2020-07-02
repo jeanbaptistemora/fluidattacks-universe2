@@ -183,12 +183,12 @@ def get_resources(
     :param info: If the information is enabled a tuple is returned that
         continues (node_id, node, template).
     """
-    if not num_labels:
-        num_labels = len(labels)
     if isinstance(nodes, int):
         nodes = [nodes]
     if isinstance(labels, str):
         labels = {labels}
+    if not num_labels:
+        num_labels = len(labels)
     if info:
         return [
             (node, graph.nodes[node], graph.nodes[get_predecessor(
@@ -200,5 +200,47 @@ def get_resources(
         ]
     return [
         node for x in nodes for node in dfs_preorder_nodes(graph, x, depth)
-        if len(graph.nodes[node]['labels'].intersection(labels)) >= len(labels)
+        if len(graph.nodes[node]['labels'].intersection(labels)) >= num_labels
     ]
+
+
+def has_values(graph: DiGraph,
+               nodes: Union[List[int], int],
+               labels: Union[Set[str], str],
+               values: Union[List[Any], Any],
+               depth: int = 2,
+               full_match: bool = False) -> List[int]:
+    """
+    Validate if there are nodes whose value is within the indicated values.
+
+    :param graph: Templates converted into a graph.
+    :param nodes: Main nodes.
+    :param labels: Labels that the nodes to find must have.
+    :param values: Values that the nodes must have.
+    :param depth: Search depth.
+    :param full_match: The value of the nodes must match completely.
+    """
+    results: List[int] = []
+    if isinstance(nodes, int):
+        nodes = [nodes]
+    if isinstance(labels, str):
+        labels = {labels}
+    if not isinstance(values, List):
+        values = [values]
+    resources = get_resources(graph, nodes, labels, depth=depth)
+    references = nx.utils.flatten(
+        [get_ref_nodes(graph, resource) for resource in resources])
+    for ref in references:
+        success = False
+        if 'value' in graph.nodes[ref]:
+            node_value = graph.nodes[ref]['value']
+            if not full_match:
+                try:
+                    success = any(node_value in val for val in values)
+                except TypeError:
+                    success = any(val == node_value for val in values)
+            else:
+                success = any(val == node_value for val in values)
+        if success:
+            results.append(ref)
+    return results
