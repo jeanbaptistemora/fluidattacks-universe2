@@ -22,3 +22,8 @@
   /* Using important to override the global react-bootstrap style */
   background-color: #fbfbfb !important;
 }
+
+:local .tinyLine {
+  margin: 0;
+  padding: 0;
+}

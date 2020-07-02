@@ -9,6 +9,8 @@ import styles from "./index.css";
 import { Glyphicon, Panel } from "react-bootstrap";
 import useComponentSize, { ComponentSize } from "@rehooks/component-size";
 
+const glyphPadding: number = 15;
+
 export const Graphic: React.FC<IGraphicProps> = (
   props: Readonly<IGraphicProps>
 ): JSX.Element => {
@@ -25,11 +27,18 @@ export const Graphic: React.FC<IGraphicProps> = (
   } = props;
 
   // Hooks
-  const containerReference: React.MutableRefObject<null> = React.useRef(null);
-  const iframeReference: React.MutableRefObject<HTMLIFrameElement | null> = React.useRef(
+  const fullRef: React.MutableRefObject<HTMLDivElement | null> = React.useRef(
     null
   );
-  const size: ComponentSize = useComponentSize(containerReference);
+  const headRef: React.MutableRefObject<HTMLDivElement | null> = React.useRef(
+    null
+  );
+  const bodyRef: React.MutableRefObject<HTMLIFrameElement | null> = React.useRef(
+    null
+  );
+
+  const headSize: ComponentSize = useComponentSize(headRef);
+  const bodySize: ComponentSize = useComponentSize(bodyRef);
 
   const [expanded, setExpanded] = React.useState(false);
   const [iframeState, setIframeState] = React.useState("loading");
@@ -51,30 +60,31 @@ export const Graphic: React.FC<IGraphicProps> = (
   url.searchParams.set("entity", entity);
   url.searchParams.set("generatorName", generatorName);
   url.searchParams.set("generatorType", generatorType);
-  url.searchParams.set("height", size.height.toString());
+  url.searchParams.set("height", bodySize.height.toString());
   url.searchParams.set("subject", subject);
-  url.searchParams.set("width", size.width.toString());
+  url.searchParams.set("width", bodySize.width.toString());
 
   if (
     iframeState === "ready" &&
-    iframeReference.current !== null &&
-    iframeReference.current.contentDocument !== null &&
-    iframeReference.current.contentDocument.title
-      .toLowerCase()
-      .includes("error")
+    bodyRef.current !== null &&
+    bodyRef.current.contentDocument !== null &&
+    bodyRef.current.contentDocument.title.toLowerCase().includes("error")
   ) {
     setIframeState("error");
   }
 
+  const glyphSize: number = Math.min(bodySize.height, bodySize.width) / 2;
+  const glyphSizeTop: number = headSize.height + glyphPadding + glyphSize / 2;
+
   return (
     <React.StrictMode>
-      <div>
+      <div ref={fullRef}>
         <Panel
           expanded={expanded}
           onMouseEnter={panelOnMouseEnter}
           onMouseLeave={panelOnMouseLeave}
         >
-          {_.isUndefined(title) ? undefined : (
+          <div ref={headRef}>
             <Panel.Heading className={styles.panelTitle}>
               <Panel.Title>
                 <a
@@ -86,14 +96,15 @@ export const Graphic: React.FC<IGraphicProps> = (
                 </a>
               </Panel.Title>
             </Panel.Heading>
-          )}
+            <hr className={styles.tinyLine} />
+          </div>
           <Panel.Body>
-            <div className={bsClass} ref={containerReference}>
+            <div className={bsClass}>
               <iframe
                 className={styles.frame}
                 frameBorder={"no"}
                 onLoad={frameOnLoad}
-                ref={iframeReference}
+                ref={bodyRef}
                 scrolling={"no"}
                 src={url.toString()}
                 style={{
@@ -108,8 +119,8 @@ export const Graphic: React.FC<IGraphicProps> = (
                 <div
                   className={styles.loadingComponent}
                   style={{
-                    fontSize: _.min([size.height / 2, size.width / 2]),
-                    top: size.height / 2,
+                    fontSize: glyphSize,
+                    top: glyphSizeTop,
                   }}
                 >
                   <Glyphicon
