@@ -7,6 +7,7 @@ import { QueryResult } from "@apollo/react-common";
 import { Query } from "@apollo/react-components";
 import { useMutation } from "@apollo/react-hooks";
 import { ApolloError } from "apollo-client";
+import { GraphQLError } from "graphql";
 import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React from "react";
@@ -21,7 +22,7 @@ import { DataTableNext } from "../../../../components/DataTableNext/index";
 import { IHeader } from "../../../../components/DataTableNext/types";
 import { Modal } from "../../../../components/Modal/index";
 import { TooltipWrapper } from "../../../../components/TooltipWrapper/index";
-import { formatFindings, formatTreatment, handleGraphQLErrors } from "../../../../utils/formatHelpers";
+import { formatFindings, formatTreatment } from "../../../../utils/formatHelpers";
 import { useStoredState } from "../../../../utils/hooks";
 import { msgError, msgSuccess } from "../../../../utils/notifications";
 import rollbar from "../../../../utils/rollbar";
@@ -137,9 +138,13 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
       mixpanel.track("ProjectFindings", { Organization: userOrganization, User: userName });
     }
   };
-  const handleQryErrors: ((error: ApolloError) => void) = (error: ApolloError): void => {
-    msgError(translate.t("group_alerts.error_textsad"));
-    rollbar.error("An error occurred loading project data", error);
+  const handleQryErrors: ((error: ApolloError) => void) = (
+    { graphQLErrors }: ApolloError,
+  ): void => {
+    graphQLErrors.forEach((error: GraphQLError): void => {
+      msgError(translate.t("group_alerts.error_textsad"));
+      rollbar.error("An error occurred loading project data", error);
+    });
   };
   const onSortState: ((dataField: string, order: SortOrder) => void) =
     (dataField: string, order: SortOrder): void => {
@@ -265,11 +270,6 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
     <Query query={GET_FINDINGS} variables={{ projectName }} onCompleted={handleQryResult} onError={handleQryErrors}>
       {({ error, data }: QueryResult<IProjectFindingsAttr>): JSX.Element => {
         if (_.isUndefined(data) || _.isEmpty(data)) {
-
-          return <React.Fragment />;
-        }
-        if (!_.isUndefined(error)) {
-          handleGraphQLErrors("An error occurred getting project findings", error);
 
           return <React.Fragment />;
         }

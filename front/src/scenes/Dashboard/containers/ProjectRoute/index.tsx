@@ -63,11 +63,13 @@ const projectRoute: React.FC<IProjectRoute> = (props: IProjectRoute): JSX.Elemen
       }
       setUserRole(permData.me.role);
     },
-    onError: (permissionsError: ApolloError): void => {
-      rollbar.critical(
-        "Couldn't load group-level permissions",
-        { ...permissionsError },
-      );
+    onError: ({ graphQLErrors }: ApolloError): void => {
+      graphQLErrors.forEach((permissionsError: GraphQLError) => {
+        rollbar.critical(
+          "Couldn't load group-level permissions",
+          permissionsError,
+        );
+      });
     },
     variables: { projectName },
   });

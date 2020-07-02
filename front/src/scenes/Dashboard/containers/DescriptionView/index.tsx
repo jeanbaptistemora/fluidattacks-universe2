@@ -193,9 +193,7 @@ const descriptionView: React.FC = (): JSX.Element => {
     return <React.Fragment />;
   }
 
-  const dataset: IFinding = {
-    ...data.finding,
-  };
+  const dataset: IFinding = data.finding;
   const lastTreatment: IHistoricTreatment = getLastTreatment(dataset.historicTreatment);
 
   return (

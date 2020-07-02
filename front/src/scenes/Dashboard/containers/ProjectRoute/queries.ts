@@ -22,11 +22,3 @@ export const REJECT_REMOVE_PROJECT_MUTATION: DocumentNode = gql`
     }
   }
 `;
-
-export const GET_GROUP_SERVICE_ATTRIBUTES: DocumentNode = gql`
-  query GetGroupServiceAttributes($projectName: String!) {
-    project(projectName: $projectName) {
-      serviceAttributes
-    }
-  }
-`;

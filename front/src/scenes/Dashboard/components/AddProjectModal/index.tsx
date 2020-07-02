@@ -17,7 +17,6 @@ import { ConfigurableValidator } from "revalidate";
 import { Button } from "../../../../components/Button";
 import { Modal } from "../../../../components/Modal/index";
 import { authzPermissionsContext } from "../../../../utils/authz/config";
-import { handleGraphQLErrors } from "../../../../utils/formatHelpers";
 import { dropdownField, textField } from "../../../../utils/forms/fields";
 import { msgError, msgSuccess } from "../../../../utils/notifications";
 import rollbar from "../../../../utils/rollbar";
@@ -99,8 +98,21 @@ const addProjectModal: ((props: IAddProjectModal) => JSX.Element) = (props: IAdd
                 );
               }
             };
-            const handleCreateError: ((error: ApolloError) => void) = (error: ApolloError): void => {
-              handleGraphQLErrors("An error occurred adding a project", error);
+            const handleCreateError: ((error: ApolloError) => void) = (
+              { graphQLErrors }: ApolloError,
+            ): void => {
+              graphQLErrors.forEach((error: GraphQLError): void => {
+                switch (error.message) {
+                  case "Exception - There are no group names available at the moment":
+                    msgError(translate.t("home.newGroup.noGroupName"));
+                    break;
+                  case "Exception - Error invalid project name":
+                    msgError(translate.t("home.newGroup.invalidGroup"));
+                  default:
+                    msgError(translate.t("group_alerts.error_textsad"));
+                    rollbar.error("An error occurred adding a project", error);
+                }
+              });
             };
 
             const handleSubscriptionTypeChange: EventWithDataHandler<React.ChangeEvent<string>> = (

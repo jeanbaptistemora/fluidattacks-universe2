@@ -8,6 +8,7 @@ import { Mutation } from "@apollo/react-components";
 import { useQuery } from "@apollo/react-hooks";
 import { PureAbility } from "@casl/ability";
 import { ApolloError } from "apollo-client";
+import { GraphQLError } from "graphql";
 import _ from "lodash";
 import LogRocket from "logrocket";
 import React from "react";
@@ -20,8 +21,7 @@ import {
   groupAttributes,
   groupLevelPermissions,
 } from "../../utils/authz/config";
-import { handleGraphQLErrors } from "../../utils/formatHelpers";
-import { msgSuccess } from "../../utils/notifications";
+import { msgError, msgSuccess } from "../../utils/notifications";
 import rollbar from "../../utils/rollbar";
 import translate from "../../utils/translations/translate";
 import { updateAccessTokenModal as UpdateAccessTokenModal } from "./components/AddAccessTokenModal/index";
@@ -63,10 +63,13 @@ const dashboard: React.FC = (): JSX.Element => {
       }
     }
   };
-  const handleMtAddUserError: ((mtError: ApolloError) => void) = (mtResult: ApolloError): void => {
-    if (!_.isUndefined(mtResult)) {
-      handleGraphQLErrors("An error occurred adding user", mtResult);
-    }
+  const handleMtAddUserError: ((mtError: ApolloError) => void) = (
+    { graphQLErrors }: ApolloError,
+  ): void => {
+    graphQLErrors.forEach((error: GraphQLError): void => {
+      rollbar.error("An error occurred adding user", error);
+      msgError(translate.t("group_alerts.error_textsad"));
+    });
   };
 
   const permissions: PureAbility<string> = React.useContext(authzPermissionsContext);

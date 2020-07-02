@@ -23,7 +23,7 @@ import { Modal } from "../../../../components/Modal";
 import { TooltipWrapper } from "../../../../components/TooltipWrapper/index";
 import { default as globalStyle } from "../../../../styles/global.css";
 import { Can } from "../../../../utils/authz/Can";
-import { castEventType, formatEvents, handleGraphQLErrors } from "../../../../utils/formatHelpers";
+import { castEventType, formatEvents } from "../../../../utils/formatHelpers";
 import {
   checkboxField, dateTimeField, dropdownField, fileInputField, textAreaField, textField,
 } from "../../../../utils/forms/fields";
@@ -144,9 +144,13 @@ const projectEventsView: React.FunctionComponent<EventsViewProps> = (props: Even
       });
     }
   };
-  const handleQryErrors: ((error: ApolloError) => void) = (error: ApolloError): void => {
-    msgError(translate.t("group_alerts.error_textsad"));
-    rollbar.error("An error occurred loading project data", error);
+  const handleQryErrors: ((error: ApolloError) => void) = (
+    { graphQLErrors }: ApolloError,
+  ): void => {
+    graphQLErrors.forEach((error: GraphQLError): void => {
+      rollbar.error("An error occurred loading project data", error);
+      msgError(translate.t("group_alerts.error_textsad"));
+    });
   };
 
   const goToEvent: ((event: React.FormEvent<HTMLButtonElement>, rowInfo: { id: string }) => void) = (
@@ -182,18 +186,13 @@ const projectEventsView: React.FunctionComponent<EventsViewProps> = (props: Even
       onError={handleQryErrors}
     >
       {
-        ({ data, error, refetch }: QueryResult): JSX.Element => {
+        ({ data, refetch }: QueryResult): JSX.Element => {
           if (_.isUndefined(data) || _.isEmpty(data)) {
 
             return <React.Fragment />;
           }
-          if (!_.isUndefined(error)) {
-            handleGraphQLErrors("An error occurred getting eventualities", error);
 
-            return <React.Fragment />;
-          }
-          if (!_.isUndefined(data)) {
-            const handleCreationResult: ((result: { createEvent: { success: boolean } }) => void) = (
+          const handleCreationResult: ((result: { createEvent: { success: boolean } }) => void) = (
               result: { createEvent: { success: boolean } },
             ): void => {
               if (result.createEvent.success) {
@@ -207,7 +206,7 @@ const projectEventsView: React.FunctionComponent<EventsViewProps> = (props: Even
               }
             };
 
-            const handleCreationError: ((creationError: ApolloError) => void) = (creationError: ApolloError): void => {
+          const handleCreationError: ((creationError: ApolloError) => void) = (creationError: ApolloError): void => {
               creationError.graphQLErrors.forEach(({ message }: GraphQLError): void => {
                 switch (message) {
                   case "Exception - Invalid File Size":
@@ -226,7 +225,7 @@ const projectEventsView: React.FunctionComponent<EventsViewProps> = (props: Even
               });
             };
 
-            return (
+          return (
               <React.StrictMode>
                 <Row>
                   <Col md={2} mdOffset={5}>
@@ -575,7 +574,6 @@ const projectEventsView: React.FunctionComponent<EventsViewProps> = (props: Even
                 />
               </React.StrictMode>
             );
-          } else { return <React.Fragment />; }
         }}
     </Query>
   );
