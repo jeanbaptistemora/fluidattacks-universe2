@@ -202,6 +202,9 @@ def get_jwt_content(context) -> Dict[str, str]:
             )
         )
         token = header_token.split()[1] if header_token else cookie_token
+        if not token:
+            raise InvalidAuthorization()
+
         payload = jwt.get_unverified_claims(token)
         if is_api_token(payload):
             content = jwt.decode(
