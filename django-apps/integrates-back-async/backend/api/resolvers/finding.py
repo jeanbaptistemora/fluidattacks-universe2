@@ -768,6 +768,7 @@ async def _do_update_client_description(
     finding = await finding_loader.load(finding_id)
     project_name = finding['project_name']
     organization = await org_domain.get_id_for_group(project_name)
+    severity = finding['severity_score']
     user_mail = util.get_jwt_content(info.context)['user_email']
 
     last_state = {
@@ -780,19 +781,16 @@ async def _do_update_client_description(
         for key, value in parameters.items()
         if key not in ['acceptance_status', 'bts_url']
     }
-    treatment_changed = await sync_to_async(
-        finding_domain.compare_historic_treatments
-    )(last_state, new_state)
-
-    bts_changed = bool(
-        parameters.get('bts_url') and
-        parameters.get('bts_url') != finding.get('bts_url')
-    )
 
     Status = namedtuple('Status', 'bts_changed treatment_changed')
     update = Status(
-        bts_changed=bts_changed,
-        treatment_changed=treatment_changed
+        bts_changed=bool(
+            parameters.get('bts_url') and
+            parameters.get('bts_url') != finding.get('bts_url')
+        ),
+        treatment_changed=await sync_to_async(
+            finding_domain.compare_historic_treatments
+        )(last_state, new_state)
     )
     if not any(list(update)):
         raise GraphQLError(
@@ -803,6 +801,7 @@ async def _do_update_client_description(
             finding_id,
             parameters,
             organization,
+            severity,
             user_mail,
             update
         )

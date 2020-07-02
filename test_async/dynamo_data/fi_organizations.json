@@ -98,6 +98,12 @@
                     },
                     "max_number_acceptations": {
                         "N": "2"
+                    },
+                    "max_acceptance_severity": {
+                        "N": "6.9"
+                    },
+                    "min_acceptance_severity": {
+                        "N": "3.4"
                     }
                 }
             }

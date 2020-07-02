@@ -22,6 +22,7 @@ from backend.dal import finding as finding_dal
 from backend.dal.vulnerability import get_vulnerabilities
 from backend.exceptions import (
     InvalidAcceptanceDays,
+    InvalidAcceptanceSeverity,
     InvalidDateFormat,
     InvalidDate,
     InvalidFileType
@@ -74,6 +75,7 @@ class FindingTests(TestCase):
         update = Status(bts_changed=True, treatment_changed=True)
         finding_id = '463461507'
         org_id = 'ORG#708f518a-d2c3-4441-b367-eec85e53d134'
+        severity = 5.0
         acceptance_date = (
             datetime.now() + timedelta(days=10)
         ).strftime('%Y-%m-%d %H:%M:%D')
@@ -87,6 +89,7 @@ class FindingTests(TestCase):
             finding_id,
             values_accepted,
             org_id,
+            severity,
             'unittesting@fluidattacks.com',
             update
         )
@@ -108,6 +111,7 @@ class FindingTests(TestCase):
                 finding_id,
                 values_accepted_date_error,
                 org_id,
+                severity,
                 'unittesting@fluidattacks.com',
                 update
             )
@@ -126,6 +130,7 @@ class FindingTests(TestCase):
                 finding_id,
                 values_accepted_format_error,
                 org_id,
+                severity,
                 'unittesting@fluidattacks.com',
                 update
             )
@@ -225,6 +230,33 @@ class FindingTests(TestCase):
         with self.assertRaises(InvalidFileType) as context:
             validate_evidence(evidence_id, uploaded_file)
         self.assertTrue('Exception - Invalid File Type' in str(context.exception))
+
+
+    def test_validate_acceptance_severity(self):
+        Status = namedtuple('Status', 'bts_changed treatment_changed')
+        update = Status(bts_changed=False, treatment_changed=True)
+        finding_id = '463461507'
+        severity = 8.5
+        org_id = 'ORG#708f518a-d2c3-4441-b367-eec85e53d134'
+        acceptance_date = (
+            datetime.now() + timedelta(days=10)
+        ).strftime('%Y-%m-%d %H:%M:%D')
+        values_accepted = {
+            'justification': 'This is a test treatment justification',
+            'bts_url': '',
+            'treatment': 'ACCEPTED',
+            'acceptance_date': acceptance_date
+        }
+        with pytest.raises(InvalidAcceptanceSeverity):
+            assert update_client_description(
+                finding_id,
+                values_accepted,
+                org_id,
+                severity,
+                'unittesting@fluidattacks.com',
+                update
+            )
+
 
     @pytest.mark.changes_db
     def test_approve_draft(self):

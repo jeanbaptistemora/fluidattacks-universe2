@@ -376,6 +376,7 @@ const enTranslations: Dictionary = {
     organization_settings: {
       exceeds_acceptance_date: "Chosen date is either in the past or exceeds the maximum number of days allowed " +
         "by the organization",
+      severity_out_of_range: "Finding severity outside of the acceptance range set by the organization",
     },
     path_value: "Path value should not use backslash.",
     port_value: "Port value should be between 0 and 65535.",

@@ -59,11 +59,17 @@ class InvalidAcceptanceDays(Exception):
 
 
 class InvalidAcceptanceSeverity(Exception):
-    def __init__(self):
-        msg = (
-            'Exception - Severity value should be a positive '
-            'floating number between 0.0 a 10.0'
-        )
+    def __init__(self, expr=''):
+        if expr:
+            msg = (
+                'Exception - Finding cannot be accepted, severity outside of '
+                'range set by the organization'
+            )
+        else:
+            msg = (
+                'Exception - Severity value should be a positive '
+                'floating number between 0.0 a 10.0'
+            )
         super(InvalidAcceptanceSeverity, self).__init__(msg)
 
 

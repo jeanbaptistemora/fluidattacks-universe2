@@ -26,9 +26,7 @@ from backend.exceptions import (
     EvidenceNotFound,
     FindingNotFound,
     IncompleteDraft,
-    InvalidAcceptanceDays,
     InvalidCommentParent,
-    InvalidDateFormat,
     InvalidDraftTitle,
     InvalidFileSize,
     InvalidFileType,
@@ -47,7 +45,6 @@ from backend.dal import (
     finding as finding_dal,
     vulnerability as vuln_dal
 )
-from backend.domain import organization as org_domain
 from backend.typing import (
     Comment as CommentType,
     Finding as FindingType,
@@ -239,17 +236,26 @@ async def update_treatment_in_vuln(
     return resp
 
 
-def update_client_description(
+def update_client_description(  # pylint: disable=too-many-arguments
     finding_id: str,
     updated_values: Dict[str, str],
     organization: str,
+    severity: float,
     user_mail: str,
     update
 ) -> bool:
     validations.validate_fields(list(updated_values.values()))
     valid_treatment: bool = (
-        validate_acceptance_date(updated_values) and
-        validate_acceptance_days(updated_values, organization)
+        finding_utils.validate_acceptance_date(updated_values) and
+        finding_utils.validate_acceptance_days(
+            updated_values,
+            organization
+        ) and
+        async_to_sync(finding_utils.validate_acceptance_severity)(
+            updated_values,
+            severity,
+            organization
+        )
     )
     success_treatment, success_external_bts = True, True
     if update.bts_changed:
@@ -869,54 +875,6 @@ def validate_finding(
         finding.get('historic_state', [{}])
     )
     return historic_state[-1].get('state', '') != 'DELETED'
-
-
-def validate_acceptance_date(values: Dict[str, str]) -> bool:
-    """
-    Check that the date set to temporarily accept a finding is logical
-    """
-    valid: bool = True
-    if values['treatment'] == 'ACCEPTED':
-        if values.get("acceptance_date"):
-            tzn: DstTzInfo = pytz.timezone(settings.TIME_ZONE)
-            today = datetime.now(tz=tzn).strftime('%Y-%m-%d %H:%M:%S')
-            values['acceptance_date'] = (
-                f'{values["acceptance_date"].split()[0]} {today.split()[1]}'
-            )
-            if not util.is_valid_format(values['acceptance_date']):
-                raise InvalidDateFormat()
-        else:
-            raise InvalidDateFormat()
-    return valid
-
-
-def validate_acceptance_days(
-    values: Dict[str, str],
-    organization: str
-) -> bool:
-    """
-    Check that the date during which the finding will be temporarily accepted
-    complies with organization settings
-    """
-    valid: bool = True
-    if values.get('treatment') == 'ACCEPTED':
-        tzn: DstTzInfo = pytz.timezone(settings.TIME_ZONE)
-        today = datetime.now(tz=tzn)
-        acceptance_date = datetime.strptime(
-            values['acceptance_date'],
-            '%Y-%m-%d %H:%M:%S'
-        ).replace(tzinfo=tzn)
-        acceptance_days = (acceptance_date - today).days
-        max_acceptance_days: int = async_to_sync(
-            org_domain.get_max_acceptance_days
-        )(organization)
-        if (max_acceptance_days and acceptance_days > max_acceptance_days) or \
-                acceptance_days < 0:
-            raise InvalidAcceptanceDays(
-                'Chosen date is either in the past or exceeds '
-                'the maximum number of days allowed by the organization'
-            )
-    return valid
 
 
 def cast_new_vulnerabilities(

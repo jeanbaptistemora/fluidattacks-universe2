@@ -1,31 +1,42 @@
+import asyncio
 import io
 import itertools
 import threading
 from datetime import datetime
+from decimal import Decimal
 from typing import Dict, List, cast
-from django.core.files.base import ContentFile
 
+import pytz
 import rollbar
 from asgiref.sync import async_to_sync
 from backports import csv  # type: ignore
+from django.conf import settings
+from django.core.files.base import ContentFile
 from magic import Magic
+from pytz.tzinfo import DstTzInfo
 
 from backend import mailer, util
-from backend.exceptions import (
-    FindingNotFound,
-    InvalidFileStructure,
-)
-from backend.utils import (
-    cvss,
-    forms as forms_utils
-)
 from backend.dal import (
     finding as finding_dal,
     project as project_dal,
     vulnerability as vuln_dal
 )
-from backend.domain import project as project_domain
+from backend.domain import (
+    organization as org_domain,
+    project as project_domain
+)
+from backend.exceptions import (
+    FindingNotFound,
+    InvalidAcceptanceDays,
+    InvalidDateFormat,
+    InvalidAcceptanceSeverity,
+    InvalidFileStructure
+)
 from backend.typing import Finding as FindingType
+from backend.utils import (
+    cvss,
+    forms as forms_utils
+)
 from __init__ import (
     BASE_URL,
     FI_MAIL_CONTINUOUS,
@@ -524,3 +535,78 @@ def should_send_mail(
             ('Treatment state approval is pending '
              f'for finding {finding.get("finding", "")}')
         )
+
+
+def validate_acceptance_date(values: Dict[str, str]) -> bool:
+    """
+    Check that the date set to temporarily accept a finding is logical
+    """
+    valid: bool = True
+    if values['treatment'] == 'ACCEPTED':
+        if values.get("acceptance_date"):
+            tzn: DstTzInfo = pytz.timezone(settings.TIME_ZONE)
+            today = datetime.now(tz=tzn).strftime('%Y-%m-%d %H:%M:%S')
+            values['acceptance_date'] = (
+                f'{values["acceptance_date"].split()[0]} {today.split()[1]}'
+            )
+            if not util.is_valid_format(values['acceptance_date']):
+                raise InvalidDateFormat()
+        else:
+            raise InvalidDateFormat()
+    return valid
+
+
+def validate_acceptance_days(
+    values: Dict[str, str],
+    organization: str
+) -> bool:
+    """
+    Check that the date during which the finding will be temporarily accepted
+    complies with organization settings
+    """
+    valid: bool = True
+    if values.get('treatment') == 'ACCEPTED':
+        tzn: DstTzInfo = pytz.timezone(settings.TIME_ZONE)
+        today = datetime.now(tz=tzn)
+        acceptance_date = datetime.strptime(
+            values['acceptance_date'],
+            '%Y-%m-%d %H:%M:%S'
+        ).replace(tzinfo=tzn)
+        acceptance_days = (acceptance_date - today).days
+        max_acceptance_days: int = async_to_sync(
+            org_domain.get_max_acceptance_days
+        )(organization)
+        if (max_acceptance_days and acceptance_days > max_acceptance_days) or \
+                acceptance_days < 0:
+            raise InvalidAcceptanceDays(
+                'Chosen date is either in the past or exceeds '
+                'the maximum number of days allowed by the organization'
+            )
+    return valid
+
+
+async def validate_acceptance_severity(
+    values: Dict[str, str],
+    severity: float,
+    organization_id: str
+) -> bool:
+    """
+    Check that the severity of the finding to temporaryly accept is inside
+    the range set by the organization
+    """
+    valid: bool = True
+    if values.get('treatment') == 'ACCEPTED':
+        current_limits: List[Decimal] = await asyncio.gather(*[
+            asyncio.create_task(
+                func(organization_id)
+            )
+            for func in [
+                org_domain.get_min_acceptance_severity,
+                org_domain.get_max_acceptance_severity
+            ]
+        ])
+        if not (current_limits[0] <=
+                Decimal(severity).quantize(Decimal('0.1')) <=
+                current_limits[1]):
+            raise InvalidAcceptanceSeverity(str(severity))
+    return valid
