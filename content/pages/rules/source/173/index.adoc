@@ -1,7 +1,7 @@
 :slug: rules/173/
 :category: source
-:description: This requirement establishes the importance of validating the application inputs and discarding harmful information to avoid common injection attacks.
-:keywords: Inputs, Application, Validation, Discard, ASVS, CWE
+:description: This requirement establishes the importance of validating the application inputs and discarding harmful information to avoid frequent injection attacks.
+:keywords: Inputs, Application, Validation, Discard, ASVS, CWE, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R173. Discard unsafe inputs

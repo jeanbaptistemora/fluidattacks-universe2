@@ -1,7 +1,7 @@
 :slug: rules/185/
 :category: data
-:description: This document contains the details of the security requirements related to the definition and management of data access in the organization. This requirement establishes the importance of protecting sensitive data using safe cryptographic mechanisms in order to avoid information leakages.
-:keywords: GDPR, Sensitive, Information, Encrypt, ASVS, CWE
+:description: This requirement establishes the importance of protecting sensitive data using secure cryptographic mechanisms to avoid information leakages.
+:keywords: GDPR, Sensitive, Information, Encrypt, ASVS, CWE, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R185. Encrypt sensitive information

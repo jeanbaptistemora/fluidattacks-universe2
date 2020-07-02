@@ -1,7 +1,7 @@
 :slug: rules/178/
 :category: data
 :description: This requirement establishes the importance of using digital signatures to guarantee the authenticity of the information.
-:keywords: Data, Digital Signatures, Authenticity, Information, ASVS, CWE
+:keywords: Data, Digital Signatures, Authenticity, Information, ASVS, CWE, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R178. Use digital signatures

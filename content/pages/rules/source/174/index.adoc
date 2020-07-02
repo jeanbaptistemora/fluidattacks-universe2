@@ -1,7 +1,7 @@
 :slug: rules/174/
 :category: source
-:description: This document contains the details of the security requirements related to the definition and management of source code in the organization. This requirement establishes the importance of avoiding distinguishable patterns in requests that execute transactions.
-:keywords: Transactions, Request, Pattern, Application, ASVS, CWE
+:description: This requirement establishes the importance of avoiding distinguishable patterns in requests that execute transactions.
+:keywords: Transactions, Request, Pattern, Application, ASVS, CWE, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R174. Transactions without a distinguishable pattern

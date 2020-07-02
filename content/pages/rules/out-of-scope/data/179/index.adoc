@@ -1,7 +1,7 @@
 :slug: rules/179/
 :category: data
-:description: This document contains the details of the security requirements related to data management in the organization. This requirement establishes the importance of defining the frequency period for the backup process of the information stored on every system.
-:keywords: Requirement, Security, Information, Backup, Documentation, Frequency
+:description: This requirement establishes the importance of defining the frequency period for the backup process of the information stored on every system.
+:keywords: Requirement, Security, Information, Backup, Documentation, Frequency, Ethical Hacking, Pentesting
 :rules: yes
 :extended: yes
 

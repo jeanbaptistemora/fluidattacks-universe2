@@ -1,7 +1,7 @@
 :slug: rules/183/
 :category: data
-:description: This document contains the details of the security requirements related to definition and management of sensitive data in the organization. This requirement establishes the importance of removing sensitive data securely when they are no longer required to avoid information leakages.
-:keywords: Security, Data, Removal, Information, ASVS, GDPR
+:description: This requirement establishes the importance of securely removing sensitive data when it is no longer required in order to avoid information leakages.
+:keywords: Security, Data, Removal, Information, ASVS, GDPR, Ethical Hacking, Pentesting
 :rules: yes
 
 = R183. Delete sensitive data securely

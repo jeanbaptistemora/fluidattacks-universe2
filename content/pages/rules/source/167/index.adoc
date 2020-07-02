@@ -1,7 +1,7 @@
 :slug: rules/167/
 :category: source
-:description: This document contains the details of the security requirements related to the definition and management of source code in the organization. This requirement establishes the importance of closing unused resources to avoid security issues and improve the maintainability of the application.
-:keywords: Requirement, Source, Code, Resources, Unused, CWE
+:description: This requirement establishes the importance of closing unused resources to avoid security issues and improve the application's maintainability.
+:keywords: Requirement, Source, Code, Resources, Unused, CWE, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R167. Close unused resources

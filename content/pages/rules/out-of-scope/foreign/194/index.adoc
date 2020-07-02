@@ -1,7 +1,7 @@
 :slug: rules/194/
 :category: foreign
-:description: This document contains the details of the security requirements related to the definition and management of foreign devices in the organization. This requirement establishes the importance of authorizing the access of foreign devices to inner resources in the facilities.
-:keywords: Requirement, Security, Foreign, Devices, Permission, Authorization
+:description: This requirement establishes the importance of authorizing the access of foreign devices to inner resources in the facilities.
+:keywords: Requirement, Security, Foreign, Devices, Permission, Authorization, Rules, Ethical Hacking, Pentesting
 :rules: yes
 :extended: yes
 

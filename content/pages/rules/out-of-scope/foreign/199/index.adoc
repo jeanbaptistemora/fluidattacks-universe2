@@ -1,7 +1,7 @@
 :slug: rules/199/
 :category: foreign
-:description: This document contains the details of the security requirements related to the definition and management of foreign devices in the organization. This requirement establishes the importance of defining the accepted circumstances to use foreign devices in the facilities.
-:keywords: Requirement, Security, Foreign Devices, Services, Time, Personnel
+:description: This requirement establishes the importance of defining the accepted circumstances to use foreign devices in the facilities.
+:keywords: Requirement, Security, Foreign Devices, Services, Time, Personnel, Rules, Ethical Hacking, Pentesting
 :rules: yes
 :extended: yes
 
@@ -11,7 +11,7 @@
 
 The organization must determine
 services, time and personnel
-allowed to access to inner resources using foreign devices
+allowed to access to inner resources using foreign devices.
 
 == References
 

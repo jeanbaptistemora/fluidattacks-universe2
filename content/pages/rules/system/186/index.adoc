@@ -1,7 +1,7 @@
 :slug: rules/186/
 :category: system
-:description: This document contains the details of the security requirements related to the definition and management of systems in the organization. This requirement establishes the importance of applying the principle of least privilege when accessing systems and assigning permissions.
-:keywords: Principle, Least, Privilege, NIST, ASVS, CWE
+:description: This requirement establishes the importance of applying the principle of least privilege when accessing systems and assigning permissions.
+:keywords: Principle, Least, Privilege, NIST, ASVS, CWE, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R186. Use the principle of least privilege
@@ -9,7 +9,7 @@
 == Requirement
 
 The principle of least privilege must be applied when creating new objects and
-roles, setting access permissions and accessing other systems.
+roles, setting access permissions, and accessing other systems.
 
 == Description
 

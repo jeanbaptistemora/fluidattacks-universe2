@@ -1,7 +1,7 @@
 :slug: rules/176/
 :category: data
-:description: This document details the security guidelines and requirements related to the organization's sensitive data. The purpose of this security requirement is to establish the importance of restricting access to sensitive information to authorized users only.
-:keywords: Data, Authorization, Restriction, GDPR, ASVS, CWE
+:description: This requirement establishes the importance of restricting access to sensitive information to authorized users only.
+:keywords: Data, Authorization, Restriction, GDPR, ASVS, CWE, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R176. Restrict system objects

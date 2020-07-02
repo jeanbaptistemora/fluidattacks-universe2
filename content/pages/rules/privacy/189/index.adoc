@@ -1,7 +1,7 @@
 :slug: rules/189/
 :category: privacy
-:description: This document contains the details of the security requirements related to the definition and management of data access in the organization. This requirement establishes the importance of specifying the purpose of personal data collection in order to fulfill all legal requirements
-:keywords: Data, Collection, Personal, Information, System, GDPR
+:description: This requirement establishes the importance of specifying the purpose of the collection of personal data in order to comply with all legal obligations.
+:keywords: Data, Collection, Personal, Information, System, GDPR, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R189. Specify the purpose of data collection

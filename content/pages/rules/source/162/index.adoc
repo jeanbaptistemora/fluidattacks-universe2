@@ -1,7 +1,7 @@
 :slug: rules/162/
 :category: source
-:description: This document contains the details of the security requirements related to the definition and management of source code in the organization. This requirement establishes the importance of avoiding the inclusion of duplicate code in the application source code.
-:keywords: Duplicate, Code, Source, Method, Class, CWE
+:description: This requirement establishes the importance of avoiding the inclusion of duplicate code in the application source code.
+:keywords: Duplicate, Code, Source, Method, Class, CWE, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R162. Avoid duplicate code

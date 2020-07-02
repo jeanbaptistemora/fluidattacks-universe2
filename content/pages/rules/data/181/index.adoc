@@ -1,7 +1,7 @@
 :slug: rules/181/
 :category: data
-:description: This document contains the details of the security requirements related to the definition and management of data transmission in the organization. This requirement establishes the importance of using safe protocols to perform sensitive information transmission.
-:keywords: Transmission, Data, Protocols, Information, ASVS, CWE
+:description: This requirement establishes the importance of using secure protocols to perform sensitive information transmission.
+:keywords: Transmission, Data, Protocols, Information, ASVS, CWE, Ethical Hacking, Pentesting
 :rules: yes
 
 = R181. Transmit data using secure protocols

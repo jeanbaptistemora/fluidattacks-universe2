@@ -1,7 +1,7 @@
 :slug: rules/169/
 :category: source
-:description: This document contains the details of the security requirements related to the definition and management of source code in the organization. This requirement establishes the importance of using parameterized sentences in order to avoid injection attacks such as SQLi.
-:keywords: Parameterized, Sentences, SQLi, Injection, ASVS, CWE
+:description: This requirement establishes the importance of using parameterized queries in order to avoid injection attacks such as SQLi.
+:keywords: Parameterized, Queries, SQLi, Injection, ASVS, CWE, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R169. Use parameterized queries
@@ -9,7 +9,7 @@
 == Requirement
 
 The system must use parameterized queries or stored procedures
-to create dynamic sentences (e.g *java.sql.PreparedStatement*).
+to create dynamic sentences (e.g., *java.sql.PreparedStatement*).
 
 == Findings
 

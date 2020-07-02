@@ -1,7 +1,7 @@
 :slug: rules/161/
 :category: source
-:description: This requirement establishes the importance of defining secure default options in order to avoid unexpected behaviors in the application.
-:keywords: Default, Source Code, Conditional, Programming, ASVS, CWE
+:description: This requirement establishes the importance of defining secure default options to avoid unexpected behaviors in the application.
+:keywords: Default, Source Code, Conditional, Programming, ASVS, CWE, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R161. Define secure default options
