@@ -28,8 +28,10 @@ import boto3
 import botocore
 import cfn_tools
 import hcl
-from lark import LarkError
 import yaml
+from lark import LarkError
+from networkx import DiGraph
+from networkx.algorithms import dfs_preorder_nodes
 
 # local imports
 from fluidasserts.cloud.aws.terraform import TerraformError
@@ -436,6 +438,50 @@ def service_is_present_action(action: str, service: str) -> bool:
     return success
 
 
+def service_is_present_action_(graph:
+                               DiGraph, action: int,
+                               service: str) -> bool:
+    """Check if a service is present in an action."""
+    success = False
+    action_node = graph.nodes[action]
+    if 'value' in action_node:
+        if action_node['value'] == '*':
+            success = True
+        else:
+            success = action_node['value'].split(':')[0] == service
+    else:
+        services = []
+        actions = dfs_preorder_nodes(graph, action)
+        for act in actions:
+            node = graph.nodes[act]
+            if 'value' in node:
+                services.append(node['value'].split(':')[0])
+        success = service in services
+    return success
+
+
+def service_is_present_statement_(graph: DiGraph, statement: int, effect: str,
+                                  service: str):
+    """Check if a service is present in a statement."""
+    effect_nodes = [
+        node for node in dfs_preorder_nodes(graph, statement)
+        if 'Effect' in graph.nodes[node]['labels']
+    ]
+    vulns = []
+    for eff in effect_nodes:
+        father = list(graph.predecessors(eff))[0]
+        action_node = get_index([
+            node for node in dfs_preorder_nodes(graph, father)
+            if 'Action' in graph.nodes[node]['labels']
+        ], 0)
+        eff_node = graph.nodes[eff]
+        if action_node:
+            vulns.append(
+                eff_node['value'] == effect
+                and service_is_present_action_(graph, action_node, service))
+    return any(vulns)
+
+
 def service_is_present_statement(statement: str, effect: str, service: str):
     """Check if a service is present in a statement."""
     return any([
@@ -458,6 +504,17 @@ def resource_all(resource):
         success = any([resource_all(i) for i in dict(resource).values()])
 
     return success
+
+
+def resource_all_(graph: DiGraph, resource: int):
+    """Check if an action is permitted for any resource."""
+    nodes = dfs_preorder_nodes(graph, resource)
+    for node in nodes:
+        node_data = graph.nodes[node]
+        if 'value' in node_data:
+            if node_data['value'] == '*':
+                return True
+    return False
 
 
 def force_list(obj: Any) -> List[Any]:

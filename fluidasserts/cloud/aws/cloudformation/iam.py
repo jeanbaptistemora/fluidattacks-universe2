@@ -426,48 +426,38 @@ def has_privileges_over_iam(path: str,
               - ``CLOSED`` otherwise.
     :rtype: :class:`fluidasserts.Result`
     """
-    vulnerabilities: list = []
-    for yaml_path, res_name, res_props in helper.iterate_rsrcs_in_cfn_template(
-            starting_path=path,
-            resource_types=[
-                'AWS::IAM::Role',
-                'AWS::IAM::ManagedPolicy',
-            ],
-            exclude=exclude):
-        type_ = res_props['../Type']
-        vulnerable_entities: List[str] = []
-        if res_props.get('PolicyDocument', []):
-            policy = res_props['PolicyDocument']
-            if helper.service_is_present_statement(policy['Statement'],
-                                                   'Allow', 'iam'):
-                type_name = res_props['../Type'].split('::')[-1]
-                try:
-                    name = res_props[f'{type_name}Name']
-                    entity = name if isinstance(name, str) else res_name
-                except KeyError:
-                    entity = res_name
-                reason = 'has privileges over iam.'
-                vulnerable_entities.append((entity, reason))
+    vulnerabilities: List[Vulnerability] = []
+    graph: DiGraph = get_graph(path, exclude)
+    templates: List[Tuple[int, Dict]] = get_templates(graph, path, exclude)
+    documents: List[int] = get_resources(
+        graph,
+        map(lambda x: x[0], templates),
+        {'AWS', 'IAM', 'ManagedPolicy', 'Role'},
+        info=True,
+        num_labels=3)
+    for doc, resource, template in documents:
+        type_: str = "AWS::IAM::" + get_type(graph, doc,
+                                             {'ManagedPolicy', 'Role'})
+        vulnerable_lines: List[str] = []
+        policy_documents: int = get_resources(
+            graph, doc, 'PolicyDocument', depth=8)
+        if not policy_documents:
+            continue
+        for policy in policy_documents:
+            statement = get_resources(graph, policy, 'Statement')[0]
+            if helper.service_is_present_statement_(graph, statement, 'Allow',
+                                                    'iam'):
+                vulnerable_lines.append(graph.nodes[statement]['line'])
 
-        if res_props.get('Policies', []):
-            for policy in res_props['Policies']:
-                with suppress(KeyError):
-                    if helper.service_is_present_statement(
-                            policy['PolicyDocument']['Statement'], 'Allow',
-                            'iam'):
-                        name = policy['PolicyName']
-                        entity = name if isinstance(name, str) else res_name
-                        reason = 'has privileges over iam.'
-                        vulnerable_entities.append((entity, reason))
-
-        if vulnerable_entities:
+        if vulnerable_lines:
             vulnerabilities.extend(
                 Vulnerability(
-                    path=yaml_path,
-                    entity=f'{type_}/{entity}',
-                    identifier=res_name,
-                    line=helper.get_line(res_props),
-                    reason=reason) for entity, reason in vulnerable_entities)
+                    path=template['path'],
+                    entity=f'{type_}/PolicyDocument',
+                    identifier=resource['name'],
+                    line=line,
+                    reason='has privileges over iam.')
+                for line in vulnerable_lines)
 
     return _get_result_as_tuple(
         vulnerabilities=vulnerabilities,
