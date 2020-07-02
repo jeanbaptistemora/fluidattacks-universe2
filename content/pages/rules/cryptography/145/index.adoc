@@ -1,6 +1,6 @@
 :slug: rules/145/
 :category: cryptography
-:description: This document contains the details of the security requirements related to definition and management of cryptographic systems. This requirement establishes the importance of protecting system cryptographic keys in order to prevent leakages of encrypted sensitive information.
+:description: This requirement establishes the importance of protecting system cryptographic keys.
 :keywords: Asymmetric, Symmetric, Cryptography, Keys, ASVS, CWE
 :rules: yes
 
@@ -79,3 +79,13 @@ Verify that cryptographic keys used in verification are stored securely
 and protected against disclosure,
 such as using a *TPM* or *HSM*, or an *OS* service that can use this secure
 storage.
+
+. [[r11]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V6.4 Secret Management.(6.4.1)]
+Verify that a secrets management solution such as a key vault is used to
+securely create, store, control access to and destroy secrets.
+
+. [[r12]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V6.4 Secret Management.(6.4.2)]
+Verify that key material is not exposed to the application but instead uses an
+isolated security module like a vault for cryptographic operations.
