@@ -1,13 +1,16 @@
+import { ApolloProvider as BaseApolloProvider } from "@apollo/react-hooks";
 import { InMemoryCache, NormalizedCacheObject } from "apollo-cache-inmemory";
 import { ApolloClient, ApolloError } from "apollo-client";
-import { ApolloLink, Operation } from "apollo-link";
-import { ErrorResponse, onError } from "apollo-link-error";
+import { ApolloLink, FetchResult, NextLink, Observable, Operation } from "apollo-link";
+import { ErrorHandler, ErrorResponse } from "apollo-link-error";
 import { WebSocketLink } from "apollo-link-ws";
 import { createUploadLink } from "apollo-upload-client";
 import { getMainDefinition } from "apollo-utilities";
 import { FragmentDefinitionNode, GraphQLError, OperationDefinitionNode } from "graphql";
 import _ from "lodash";
+import React from "react";
 import { createNetworkStatusNotifier } from "react-apollo-network-status";
+import { useHistory } from "react-router";
 import { getEnvironment } from "./environment";
 import { msgError } from "./notifications";
 import rollbar from "./rollbar";
@@ -81,27 +84,9 @@ const xhrWrapper: WindowOrWorkerGlobalScope["fetch"] = async (
 
 const extendedFetch: WindowOrWorkerGlobalScope["fetch"] = async (
   uri: string, options: IExtendedFetchOptions,
-): Promise<Response> => {
-
-  const fetchFunction: Promise<Response> = options.notifyUploadProgress
+): Promise<Response> => options.notifyUploadProgress
     ? xhrWrapper(uri, options)
     : fetch(uri, options);
-
-  return fetchFunction.then(async (response: Response) => {
-    if (response.status !== 200) {
-
-      return Promise.reject(new ApolloError({
-        extraInfo: {
-          bodyText: await response.text(),
-          statusCode: response.status,
-        },
-        networkError: new Error("NetworkError"),
-      }));
-    }
-
-    return response;
-  });
-};
 
 const httpLink: ApolloLink = createUploadLink({
   credentials: "same-origin",
@@ -135,60 +120,138 @@ const apiLink: ApolloLink = ApolloLink.split(
   networkStatusNotifier.link.concat(httpLink),
 );
 
+/**
+ * Custom error link implementation to prevent propagation
+ * of handled network errors
+ * @see https://github.com/apollographql/react-apollo/issues/1548
+ * @see https://github.com/apollographql/apollo-link/issues/855
+ */
+const onError: ((errorHandler: ErrorHandler) => ApolloLink) = (
+  errorHandler: ErrorHandler,
+): ApolloLink =>
+  new ApolloLink((
+    operation: Operation,
+    forward: NextLink,
+  ): Observable<FetchResult> =>
+    new Observable((
+      observer: ZenObservable.SubscriptionObserver<FetchResult>,
+    ): (() => void) => {
+      let subscription: ZenObservable.Subscription | undefined;
+
+      try {
+        const operationObserver: Observable<FetchResult> = forward(operation);
+
+        subscription = operationObserver.subscribe({
+          complete: observer.complete.bind(observer),
+          error: (networkError: ErrorResponse["networkError"]): void => {
+            errorHandler({
+              forward,
+              networkError,
+              operation,
+            });
+          },
+          next: (result: FetchResult): void => {
+            if (result.errors !== undefined) {
+              errorHandler({
+                forward,
+                graphQLErrors: result.errors,
+                operation,
+                response: result,
+              });
+            }
+            observer.next(result);
+          },
+        });
+      } catch (exception) {
+        errorHandler({
+          forward,
+          networkError: exception as Error,
+          operation,
+        });
+      }
+
+      return (): void => {
+        if (subscription !== undefined) {
+          subscription.unsubscribe();
+        }
+      };
+    }),
+  );
+
+type History = ReturnType<typeof useHistory>;
 // Top-level error handling
-const errorLink: ApolloLink =
+const errorLink: ((history: History) => ApolloLink) = (
+  history: History,
+): ApolloLink =>
   onError(({ graphQLErrors, networkError, response }: ErrorResponse): void => {
     if (networkError !== undefined) {
-      const errorDetails: Dictionary | undefined = _.get(networkError, "extraInfo");
+      const { statusCode } = networkError as { statusCode?: number };
 
-      if (_.isUndefined(errorDetails) || _.isUndefined(errorDetails.statusCode)) {
-        msgError(translate.t("group_alerts.error_network"), "Offline");
-      } else {
-        const { statusCode } = errorDetails;
-
-        switch (statusCode) {
-          case 403:
-            // Django CSRF expired
-            location.reload();
-            break;
-          default:
-            msgError(translate.t("group_alerts.error_textsad"));
-            rollbar.error("A network error occurred", networkError);
-        }
+      switch (statusCode) {
+        case undefined:
+          msgError(translate.t("group_alerts.error_network"), "Offline");
+          break;
+        case 403:
+          // Django CSRF expired
+          location.reload();
+          break;
+        default:
+          msgError(translate.t("group_alerts.error_textsad"));
+          rollbar.error("A network error occurred", { ...networkError });
       }
-    } else if (graphQLErrors !== undefined) {
-      graphQLErrors.forEach(({ message }: GraphQLError) => {
-        if (_.includes(["Login required", "Exception - Invalid Authorization"], message)) {
-          if (response !== undefined) {
-            response.data = {};
-            response.errors = [];
+    } else {
+      if (graphQLErrors !== undefined) {
+        graphQLErrors.forEach(async (error: GraphQLError): Promise<void> => {
+          switch (error.message) {
+            case "Login required":
+              if (response !== undefined) {
+                response.data = undefined;
+                response.errors = [];
+              }
+              location.assign("/integrates/logout");
+              break;
+            case "Access denied":
+            case "Exception - Event not found":
+            case "Exception - Finding not found":
+            case "Exception - Project does not exist":
+              if (response !== undefined) {
+                response.data = undefined;
+                response.errors = [];
+              }
+              msgError(translate.t("group_alerts.access_denied"));
+              history.replace("/home");
+              break;
+            default:
+            // Propagate
           }
-          location.assign("/integrates/logout");
-        } else if ([
-          "Access denied",
-          "Exception - Event not found",
-          "Exception - Finding not found",
-          "Exception - Project does not exist",
-        ].includes(message)) {
-          if (response !== undefined) {
-            response.data = {};
-            response.errors = [];
-          }
-          msgError(translate.t("group_alerts.access_denied"));
-          // Let alert to be shown
-          setTimeout((): void => { location.assign("/integrates/home"); }, 100);
-        }
-      });
+        });
+      }
     }
-});
+  });
 
-export const client: ApolloClient<NormalizedCacheObject> = new ApolloClient({
-  cache: new InMemoryCache(),
-  connectToDevTools: getEnvironment() !== "production",
-  defaultOptions: {
-    watchQuery: {
-      fetchPolicy: "cache-and-network",
-    },
-  },
-  link: errorLink.concat(apiLink),
-});
+type ProviderProps = Omit<
+  React.ComponentProps<typeof BaseApolloProvider>,
+  "client"
+>;
+const apolloProvider: React.FC<ProviderProps> = (
+  props: ProviderProps,
+): JSX.Element => {
+  const history: History = useHistory();
+  const client: ApolloClient<NormalizedCacheObject> = React.useMemo(
+    () => new ApolloClient({
+      cache: new InMemoryCache(),
+      connectToDevTools: getEnvironment() !== "production",
+      defaultOptions: {
+        watchQuery: {
+          fetchPolicy: "cache-and-network",
+        },
+      },
+      link: errorLink(history)
+        .concat(apiLink),
+    }),
+    []);
+
+  return React.createElement(BaseApolloProvider, { client, ...props });
+};
+
+export { apolloProvider as ApolloProvider };

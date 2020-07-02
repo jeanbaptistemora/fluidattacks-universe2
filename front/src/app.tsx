@@ -1,4 +1,3 @@
-import { ApolloProvider } from "@apollo/react-hooks";
 import { Dashboard } from "./scenes/Dashboard";
 import LogRocket from "logrocket";
 import { NetworkStatus } from "react-apollo-network-status";
@@ -11,12 +10,12 @@ import { ToastContainer } from "react-toastify";
 import { getEnvironment } from "./utils/environment";
 import mixpanel from "mixpanel-browser";
 import store from "./store/index";
+import { ApolloProvider, networkStatusNotifier } from "./utils/apollo";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import {
   authzPermissionsContext,
   userLevelPermissions,
 } from "./utils/authz/config";
-import { client, networkStatusNotifier } from "./utils/apollo";
 import "react-toastify/dist/ReactToastify.min.css";
 
 const App: React.FC = (): JSX.Element => {
@@ -27,7 +26,7 @@ const App: React.FC = (): JSX.Element => {
   return (
     <React.StrictMode>
       <BrowserRouter basename={"/integrates"}>
-        <ApolloProvider client={client}>
+        <ApolloProvider>
           <ReduxProvider store={store}>
             <authzPermissionsContext.Provider value={userLevelPermissions}>
               <Switch>

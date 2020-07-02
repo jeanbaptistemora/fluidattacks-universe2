@@ -11,7 +11,7 @@ import { ApolloError } from "apollo-client";
 import _ from "lodash";
 import LogRocket from "logrocket";
 import React from "react";
-import { BrowserRouter, Redirect, Route, Switch, useLocation } from "react-router-dom";
+import { Redirect, Route, Switch, useLocation } from "react-router-dom";
 import { ConfirmDialog, IConfirmFn } from "../../components/ConfirmDialog";
 import { ScrollUpButton } from "../../components/ScrollUpButton";
 import {
@@ -93,7 +93,6 @@ const dashboard: React.FC = (): JSX.Element => {
 
   return (
     <React.StrictMode>
-      <BrowserRouter basename="/integrates">
         <React.Fragment>
           <ConfirmDialog title="Logout">
             {(confirm: IConfirmFn): React.ReactNode => {
@@ -139,7 +138,6 @@ const dashboard: React.FC = (): JSX.Element => {
             </div>
           </div>
         </React.Fragment>
-      </BrowserRouter>
       <ScrollUpButton visibleAt={400} />
       <UpdateAccessTokenModal open={isTokenModalOpen} onClose={closeTokenModal} />
       <Mutation mutation={ADD_USER_MUTATION} onCompleted={handleMtAddUserRes} onError={handleMtAddUserError}>
