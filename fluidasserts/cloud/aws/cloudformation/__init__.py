@@ -295,3 +295,13 @@ def policy_actions_has_privilege(graph: DiGraph, action: int,
 
         success = any(actions)
     return success
+
+
+def get_value(graph: DiGraph,
+              node: int):
+    """Returns value of graph node"""
+    if 'value' in graph.nodes.get(node):
+        value = graph.nodes.get(node)['value']
+    else:
+        value = None
+    return value

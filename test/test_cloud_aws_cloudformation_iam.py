@@ -15,7 +15,7 @@ def test_is_role_over_privileged():
     """test iam.is_role_over_privileged."""
     result = iam.is_role_over_privileged(VULN)
     assert result.is_open()
-    assert result.get_vulns_number() == 2 * 10
+    assert result.get_vulns_number() == 2 * 12
     assert iam.is_role_over_privileged(SAFE).is_closed()
     assert iam.is_role_over_privileged(NOT_EXISTS).is_unknown()
 
