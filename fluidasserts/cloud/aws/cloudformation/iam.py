@@ -426,37 +426,45 @@ def missing_role_based_security(
               - ``CLOSED`` otherwise.
     :rtype: :class:`fluidasserts.Result`
     """
-    vulnerabilities: list = []
-    for yaml_path, res_name, res_props in helper.iterate_rsrcs_in_cfn_template(
-            starting_path=path,
-            resource_types=[
-                'AWS::IAM::User',
-            ],
-            exclude=exclude):
-        vulnerable_entities: List[str] = []
+    reason = ('do not attach inline policies'
+              '; use role-based access control')
 
-        # F10: IAM user should not have any inline policies.
-        #   Should be centralized Policy object on group (Role)
-        for policy in res_props.get('Policies', []):
-            policy_name = policy.get('PolicyName')
+    vulnerabilities: List[Vulnerability] = []
+    graph: DiGraph = get_graph(path, exclude)
+    templates: List[Tuple[int, Dict]] = get_templates(graph, path, exclude)
+    users: List[int] = get_resources(
+        graph,
+        map(lambda x: x[0], templates), {'AWS', 'IAM', 'User'},
+        info=True)
+    for user, resource, template in users:
+        vulnerable_entities = []
+        policies: int = get_resources(graph, user, 'Policies', depth=2)
+        items = get_resources(graph, policies, 'Item')
+        for policy in items:
+            line = graph.nodes[policy]['line']
+            policy_name_value: str = 'any'
+            policy_name: int = helper.get_index(
+                get_resources(graph, policy, 'PolicyName', depth=4), 0)
             if not policy_name:
-                policy_name = policy.get('Ref')
-            if not policy_name:
-                policy_name = 'any'
-            entity = f'Policies: {policy_name}'
-            reason = ('do not attach inline policies'
-                      '; use role-based access control')
-            vulnerable_entities.append((entity, reason))
+                policy_name = helper.get_index(
+                    get_resources(graph, policy, 'Ref', depth=4), 0)
+            if policy_name:
+                line = graph.nodes[policy_name]['line']
+                policy_name_value = graph.nodes[policy_name].get(
+                    'value', 'any')
+
+            entity = f'Policies: {policy_name_value}'
+            vulnerable_entities.append((entity, line))
 
         if vulnerable_entities:
             vulnerabilities.extend(
                 Vulnerability(
-                    path=yaml_path,
+                    path=template['path'],
                     entity=f'AWS::IAM::User/{entity}',
-                    identifier=res_name,
-                    line=helper.get_line(res_props),
+                    identifier=resource['name'],
+                    line=line,
                     reason=reason)
-                for entity, reason in set(vulnerable_entities))
+                for entity, line in set(vulnerable_entities))
 
     return _get_result_as_tuple(
         vulnerabilities=vulnerabilities,
