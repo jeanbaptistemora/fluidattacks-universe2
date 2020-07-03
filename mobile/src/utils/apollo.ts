@@ -1,7 +1,13 @@
 import { ApolloProvider as BaseApolloProvider } from "@apollo/react-hooks";
-import { InMemoryCache } from "apollo-cache-inmemory";
+import { InMemoryCache, NormalizedCacheObject } from "apollo-cache-inmemory";
 import { ApolloClient } from "apollo-client";
-import { ApolloLink, FetchResult, NextLink, Observable, Operation } from "apollo-link";
+import {
+  ApolloLink,
+  FetchResult,
+  NextLink,
+  Observable,
+  Operation,
+} from "apollo-link";
 import { setContext } from "apollo-link-context";
 import { ErrorHandler, ErrorResponse } from "apollo-link-error";
 import { createHttpLink } from "apollo-link-http";
@@ -22,17 +28,26 @@ type History = ReturnType<typeof useHistory>;
 const apiHost: string = getEnvironment().url;
 
 /**
- * Custom error link implementation to prevent propagation of handled network errors
+ * Custom error link implementation to prevent propagation
+ * of handled network errors
  * @see https://github.com/apollographql/react-apollo/issues/1548
  * @see https://github.com/apollographql/apollo-link/issues/855
  */
-const onError: ((errorHandler: ErrorHandler) => ApolloLink) = (errorHandler: ErrorHandler): ApolloLink =>
-  new ApolloLink((operation: Operation, forward: NextLink): Observable<FetchResult> =>
-    new Observable((observer: ZenObservable.SubscriptionObserver<FetchResult>): (() => void) => {
+const onError: ((errorHandler: ErrorHandler) => ApolloLink) = (
+  errorHandler: ErrorHandler,
+): ApolloLink =>
+  new ApolloLink((
+    operation: Operation,
+    forward: NextLink,
+  ): Observable<FetchResult> =>
+    new Observable((
+      observer: ZenObservable.SubscriptionObserver<FetchResult>,
+    ): (() => void) => {
       let subscription: ZenObservable.Subscription | undefined;
 
       try {
         const operationObserver: Observable<FetchResult> = forward(operation);
+
         subscription = operationObserver.subscribe({
           complete: observer.complete.bind(observer),
           error: (networkError: ErrorResponse["networkError"]): void => {
@@ -67,13 +82,16 @@ const onError: ((errorHandler: ErrorHandler) => ApolloLink) = (errorHandler: Err
           subscription.unsubscribe();
         }
       };
-    }));
+    }),
+  );
 
 // Top-level error handling
-const errorLink: ((history: History) => ApolloLink) = (history: History): ApolloLink =>
+const errorLink: ((history: History) => ApolloLink) = (
+  history: History,
+): ApolloLink =>
   onError(({ graphQLErrors, networkError, response }: ErrorResponse): void => {
     if (networkError !== undefined) {
-      const { statusCode } = networkError as { statusCode: number | undefined };
+      const { statusCode } = networkError as { statusCode?: number };
 
       switch (statusCode) {
         case undefined:
@@ -126,18 +144,23 @@ const httpLink: ApolloLink = createHttpLink({
   uri: `${apiHost}/integrates/api`,
 });
 
-type ProviderProps = Omit<React.ComponentProps<typeof BaseApolloProvider>, "client">;
-const apolloProvider: React.FC<ProviderProps> = (props: ProviderProps): JSX.Element => {
+type ProviderProps = Omit<
+  React.ComponentProps<typeof BaseApolloProvider>,
+  "client"
+>;
+const apolloProvider: React.FC<ProviderProps> = (
+  props: ProviderProps,
+): JSX.Element => {
   const history: History = useHistory();
-
-  return React.createElement(BaseApolloProvider, {
-    client: new ApolloClient({
+  const client: ApolloClient<NormalizedCacheObject> = React.useMemo(
+    (): ApolloClient<NormalizedCacheObject> => new ApolloClient({
       cache: new InMemoryCache(),
       link: errorLink(history)
         .concat(authLink.concat(httpLink)),
     }),
-    ...props,
-  });
+    []);
+
+  return React.createElement(BaseApolloProvider, { client, ...props });
 };
 
 export { apolloProvider as ApolloProvider };

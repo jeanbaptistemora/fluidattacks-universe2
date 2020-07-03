@@ -1,12 +1,22 @@
 import { ApolloProvider as BaseApolloProvider } from "@apollo/react-hooks";
 import { InMemoryCache, NormalizedCacheObject } from "apollo-cache-inmemory";
 import { ApolloClient } from "apollo-client";
-import { ApolloLink, FetchResult, NextLink, Observable, Operation } from "apollo-link";
+import {
+  ApolloLink,
+  FetchResult,
+  NextLink,
+  Observable,
+  Operation,
+} from "apollo-link";
 import { ErrorHandler, ErrorResponse } from "apollo-link-error";
 import { WebSocketLink } from "apollo-link-ws";
 import { createUploadLink } from "apollo-upload-client";
 import { getMainDefinition } from "apollo-utilities";
-import { FragmentDefinitionNode, GraphQLError, OperationDefinitionNode } from "graphql";
+import {
+  FragmentDefinitionNode,
+  GraphQLError,
+  OperationDefinitionNode,
+} from "graphql";
 import _ from "lodash";
 import React from "react";
 import { createNetworkStatusNotifier } from "react-apollo-network-status";
@@ -106,10 +116,13 @@ const wsLink: ApolloLink = new WebSocketLink({
   uri: `wss://${window.location.host}/integrates/api`,
 });
 
-export const networkStatusNotifier: ReturnType<typeof createNetworkStatusNotifier> = createNetworkStatusNotifier();
+export const networkStatusNotifier: ReturnType<
+  typeof createNetworkStatusNotifier
+> = createNetworkStatusNotifier();
 const apiLink: ApolloLink = ApolloLink.split(
   ({ query }: Operation): boolean => {
-    const definition: OperationDefinitionNode | FragmentDefinitionNode = getMainDefinition(query);
+    const definition: OperationDefinitionNode | FragmentDefinitionNode =
+      getMainDefinition(query);
 
     return (
       definition.kind === "OperationDefinition" &&
@@ -239,7 +252,7 @@ const apolloProvider: React.FC<ProviderProps> = (
 ): JSX.Element => {
   const history: History = useHistory();
   const client: ApolloClient<NormalizedCacheObject> = React.useMemo(
-    () => new ApolloClient({
+    (): ApolloClient<NormalizedCacheObject> => new ApolloClient({
       cache: new InMemoryCache(),
       connectToDevTools: getEnvironment() !== "production",
       defaultOptions: {
