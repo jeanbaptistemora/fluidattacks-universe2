@@ -270,21 +270,27 @@ const renderTable: ((toolkitProps: ToolkitProviderProps, props: ITableProps, dat
   };
 
 const renderToolKitProvider: ((props: ITableProps, dataset: Array<{}>) => JSX.Element) =
-  (props: ITableProps, dataset: Array<{}>): JSX.Element => (
-    <div>
-    {_.isEmpty(props.title) ? undefined : <h3 className={globalStyle.title}>{props.title}</h3>}
-    <ToolkitProvider
-      keyField={!_.isEmpty(dataset) && dataset.length > 0 ? "uniqueId" : "_"}
-      data={dataset}
-      columns={renderHeaders(props)}
-      columnToggle={props.columnToggle}
-      search={props.search}
-      exportCSV={props.exportCsv}
-    >
-      {(toolkitProps: ToolkitProviderProps): JSX.Element => renderTable(toolkitProps, props, dataset)}
-    </ToolkitProvider>
-    </div>
-  );
+  (props: ITableProps, dataset: Array<{}>): JSX.Element => {
+    const { columnToggle, csvFilename = "spreadsheet.csv", search, title } = props;
+
+    return (
+      <div>
+      {_.isEmpty(title) ? undefined : <h3 className={globalStyle.title}>{title}</h3>}
+      <ToolkitProvider
+        keyField={!_.isEmpty(dataset) && dataset.length > 0 ? "uniqueId" : "_"}
+        data={dataset}
+        columns={renderHeaders(props)}
+        columnToggle={columnToggle}
+        search={search}
+        exportCSV={{
+          fileName: csvFilename,
+        }}
+      >
+        {(toolkitProps: ToolkitProviderProps): JSX.Element => renderTable(toolkitProps, props, dataset)}
+      </ToolkitProvider>
+      </div>
+    );
+  };
 
 export const dataTableNext: React.FunctionComponent<ITableProps> = (props: ITableProps): JSX.Element => {
   let dataset: Array<{}>;

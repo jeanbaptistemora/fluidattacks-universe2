@@ -32,6 +32,13 @@ import { GET_FINDINGS, REQUEST_PROJECT_REPORT } from "./queries";
 import { IFindingAttr, IProjectFindingsAttr, IProjectFindingsProps } from "./types";
 
 const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFindingsProps): JSX.Element => {
+  const now: Date = new Date();
+  const timeSoFar: number = Date.now();
+  const tzoffset: number = now.getTimezoneOffset() * 60000;
+  const localIsoTime: Date = new Date(timeSoFar - tzoffset);
+  const formattingDate: string = localIsoTime.toISOString();
+  const currentDate: string = formattingDate.slice(0, 19);
+
   const { projectName } = props.match.params;
   const { userName, userOrganization } = window as typeof window & Dictionary<string>;
   const { push } = useHistory();
@@ -322,6 +329,7 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
             <DataTableNext
               bordered={true}
               columnToggle={true}
+              csvFilename={`${projectName}-findings-${currentDate}.csv`}
               dataset={formatFindings(data.project.findings)}
               defaultSorted={JSON.parse(_.get(sessionStorage, "findingSort", "{}"))}
               exportCsv={true}

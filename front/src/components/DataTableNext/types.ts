@@ -9,6 +9,7 @@ export interface ITableProps {
   bodyContainer?: string;
   bordered: boolean;
   columnToggle?: boolean;
+  csvFilename?: string;
   dataset: any[];
   defaultSorted?: Sorted;
   exportCsv: boolean;
