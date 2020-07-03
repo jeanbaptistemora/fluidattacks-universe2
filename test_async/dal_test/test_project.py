@@ -27,9 +27,9 @@ def test_get_current_month_information():
     assert get_current_month_information(
         project_name, query_commits) is not None
 
-def test_get_pending_verification_findings():
+async def test_get_pending_verification_findings():
     project_name = 'unittesting'
-    findings = get_pending_verification_findings(project_name)
+    findings = await get_pending_verification_findings(project_name)
     assert len(findings) >= 1
     assert 'finding' in findings[0]
     assert 'finding_id' in findings[0]

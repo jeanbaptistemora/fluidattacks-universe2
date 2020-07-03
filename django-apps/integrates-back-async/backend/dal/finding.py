@@ -11,6 +11,7 @@ from botocore.exceptions import ClientError
 from backend.typing import Finding as FindingType
 from backend.dal.helpers import s3, dynamodb
 from backend.dal.vulnerability import get_vulnerabilities
+from backend.utils import aio
 from __init__ import FI_AWS_S3_BUCKET
 
 DYNAMODB_RESOURCE = dynamodb.DYNAMODB_RESOURCE  # type: ignore
@@ -181,8 +182,8 @@ async def download_evidence(file_name: str, file_path: str):
     )
 
 
-def is_pending_verification(finding_id: str) -> bool:
-    finding = async_to_sync(get_attributes)(
+async def is_pending_verification(finding_id: str) -> bool:
+    finding = await get_attributes(
         finding_id,
         [
             'finding_id',
@@ -203,7 +204,7 @@ def is_pending_verification(finding_id: str) -> bool:
         not last_verification.get('vulns')
     )
     if not resp:
-        vulns = get_vulnerabilities(finding_id)
+        vulns = await aio.ensure_io_bound(get_vulnerabilities, finding_id)
         open_vulns = [
             vuln
             for vuln in vulns

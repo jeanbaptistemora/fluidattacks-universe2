@@ -1,5 +1,6 @@
 """DAL functions for projects."""
 
+import asyncio
 from datetime import datetime
 from typing import (
     cast,
@@ -517,7 +518,7 @@ def add_comment(project_name: str, email: str, comment_data: CommentType) -> \
     return resp
 
 
-def get_pending_verification_findings(project_name: str) -> \
+async def get_pending_verification_findings(project_name: str) -> \
         List[Dict[str, FindingType]]:
     """Gets findings pending for verification"""
     key_expression = Key('project_name').eq(project_name.lower())
@@ -534,18 +535,28 @@ def get_pending_verification_findings(project_name: str) -> \
         response = FINDINGS_TABLE.query(**query_attrs)
         findings += response['Items']
     findings = [finding.get('finding_id') for finding in findings]
+    are_pending_verifications = await asyncio.gather(*[
+        asyncio.create_task(
+            is_pending_verification(
+                finding
+            )
+        )
+        for finding in findings
+    ])
     pending_to_verify = [
         finding
         for finding in findings
-        if is_pending_verification(finding)
+        if are_pending_verifications.pop(0)
     ]
-    pending_to_verify = [
-        async_to_sync(get_finding_attributes)(
-            finding,
-            ['finding', 'finding_id', 'project_name']
+    pending_to_verify = await asyncio.gather(*[
+        asyncio.create_task(
+            get_finding_attributes(
+                finding,
+                ['finding', 'finding_id', 'project_name']
+            )
         )
         for finding in pending_to_verify
-    ]
+    ])
     return pending_to_verify
 
 

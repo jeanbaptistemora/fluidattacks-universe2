@@ -488,10 +488,10 @@ async def total_vulnerabilities(finding_id: str) -> Dict[str, int]:
     return finding
 
 
-def get_pending_closing_check(project: str) -> int:
+async def get_pending_closing_check(project: str) -> int:
     """Check for pending closing checks."""
     pending_closing = len(
-        project_dal.get_pending_verification_findings(project))
+        await project_dal.get_pending_verification_findings(project))
     return pending_closing
 
 

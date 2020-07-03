@@ -182,7 +182,7 @@ async def _get_pending_closing_check(_, project_name: str,
                                      **__) -> int:
     """Get pending_closing_check."""
     pending_closing_check = await \
-        sync_to_async(project_domain.get_pending_closing_check)(project_name)
+        project_domain.get_pending_closing_check(project_name)
     return pending_closing_check
 
 

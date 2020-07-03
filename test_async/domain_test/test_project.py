@@ -68,8 +68,8 @@ class ProjectTest(TestCase):
         assert is_alive('unittesting')
         assert not is_alive('unexisting_project')
 
-    def test_get_pending_closing_checks(self):
-        test_data = get_pending_closing_check('unittesting')
+    async def test_get_pending_closing_checks(self):
+        test_data = await get_pending_closing_check('unittesting')
         expected_output = 2
         assert test_data == expected_output
 
