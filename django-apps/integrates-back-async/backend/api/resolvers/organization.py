@@ -1,6 +1,9 @@
 import sys
 from decimal import Decimal
-from typing import Optional
+from typing import (
+    Dict,
+    Optional
+)
 
 from ariadne import (
     convert_camel_case_to_snake,
@@ -10,6 +13,7 @@ from graphql.language.ast import SelectionSetNode
 
 from backend import util
 from backend.decorators import (
+    enforce_group_level_auth_async,
     rename_kwargs,
     require_login,
     require_organization_access
@@ -21,6 +25,41 @@ from backend.typing import (
 )
 
 
+@enforce_group_level_auth_async
+async def _do_move_group_organization(
+    _,
+    info,
+    group_name: str,
+    organization_name: str,
+    new_organization_name: str,
+) -> SimplePayloadType:
+    """
+    Change the organization a group belongs to
+    """
+    user_data: Dict[str, str] = util.get_jwt_content(info.context)
+    user_email: str = user_data['user_email']
+
+    success = await org_domain.move_group(
+        group_name,
+        organization_name,
+        new_organization_name,
+        user_email
+    )
+    if success:
+        util.cloudwatch_log(
+            info.context,
+            f'Security: User {user_email} moved group {group_name} to '
+            f'organization {new_organization_name} from {organization_name}'
+        )
+    else:
+        util.cloudwatch_log(
+            info.context,
+            f'Security: User {user_email} attempted to move group '
+            f'{group_name} to organization {new_organization_name}'
+        )
+    return SimplePayloadType(success=success)
+
+
 async def _do_update_organization_policies(
     _,
     info,
@@ -28,6 +67,8 @@ async def _do_update_organization_policies(
     organization_name: str,
     **parameters
 ) -> SimplePayloadType:
+    user_data = util.get_jwt_content(info.context)
+    user_email = user_data['user_email']
     success: bool = await org_domain.update_policies(
         organization_id,
         organization_name,
@@ -36,8 +77,8 @@ async def _do_update_organization_policies(
     if success:
         util.cloudwatch_log(
             info.context,
-            f'Security: Updated policies for organization {organization_name} '
-            f'with ID {organization_id}'
+            f'Security: User {user_email} updated policies for organization '
+            f'{organization_name} with ID {organization_id}'
         )
     return SimplePayloadType(success=success)
 

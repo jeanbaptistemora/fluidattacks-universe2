@@ -1,3 +1,4 @@
+import asyncio
 import sys
 from decimal import Decimal
 from typing import (
@@ -12,15 +13,20 @@ from asgiref.sync import sync_to_async
 from graphql import GraphQLError
 
 from backend.dal import organization as org_dal
+from backend.domain import project as group_domain
 from backend.exceptions import (
+    GroupNotInOrganization,
     InvalidAcceptanceDays,
     InvalidAcceptanceSeverity,
     InvalidAcceptanceSeverityRange,
-    InvalidNumberAcceptations
+    InvalidNumberAcceptations,
+    InvalidOrganization,
+    UserNotInOrganization
 )
 from backend.typing import (
     Organization as OrganizationType
 )
+from backend.utils import aio
 
 
 DEFAULT_MAX_ACCEPTANCE_DAYS = Decimal('180')
@@ -29,25 +35,23 @@ DEFAULT_MIN_SEVERITY = Decimal('0.0')
 
 
 async def get_id_by_name(organization_name: str) -> str:
-    org_id: str = ''
     result: OrganizationType = await org_dal.get_by_name(
         organization_name.lower(),
         ['id']
     )
-    if result:
-        org_id = str(result['id'])
-    return org_id
+    if not result:
+        raise InvalidOrganization()
+    return str(result['id'])
 
 
 async def get_name_by_id(organization_id: str) -> str:
-    org_name: str = ''
     result: OrganizationType = await org_dal.get_by_id(
         organization_id,
         ['name']
     )
-    if result:
-        org_name = str(result['name'])
-    return org_name
+    if not result:
+        raise InvalidOrganization()
+    return str(result['name'])
 
 
 async def get_id_for_group(group_name: str) -> str:
@@ -87,8 +91,49 @@ async def get_min_acceptance_severity(organization_id: str) -> Decimal:
     return result.get('min_acceptance_severity', DEFAULT_MIN_SEVERITY)
 
 
+async def has_group(group_name: str, organization_id: str) -> bool:
+    return await org_dal.has_group(group_name, organization_id)
+
+
 async def has_user_access(email: str, organization_id: str) -> bool:
     return await org_dal.has_user_access(email, organization_id)
+
+
+async def move_group(
+    group_name: str,
+    old_organization_name: str,
+    new_organization_name: str,
+    email: str
+) -> bool:
+    """
+    Verify that a request to move a group to another organization is valid
+    and process it
+    """
+    [old_organization_id, new_organization_id] = (
+        await asyncio.gather(*[
+            asyncio.create_task(get_id_by_name(name))
+            for name in [old_organization_name, new_organization_name]
+        ])
+    )
+
+    if not await has_group(group_name, old_organization_id):
+        raise GroupNotInOrganization()
+    if not await has_user_access(email, new_organization_id):
+        raise UserNotInOrganization(new_organization_name)
+
+    update_attrs: Dict[str, str] = {
+        'organization': new_organization_id
+    }
+    success: bool = (
+        await aio.ensure_io_bound(
+            group_domain.update,
+            group_name,
+            update_attrs
+        ) and
+        await org_dal.add_group(new_organization_id, group_name) and
+        await org_dal.remove_group(old_organization_id, group_name)
+    )
+    return success
 
 
 async def update_policies(

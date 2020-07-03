@@ -29,8 +29,9 @@ from backend.services import (
 )
 from backend import authz, util
 from backend.exceptions import (
+    FindingNotFound,
     InvalidAuthorization,
-    FindingNotFound
+    UserNotInOrganization
 )
 from backend.utils import (
     aio,
@@ -248,7 +249,8 @@ def require_organization_access(
         context = args[1].context
         organization_identifier = str(
             kwargs.get('identifier') or
-            kwargs.get('organization_id')
+            kwargs.get('organization_id') or
+            kwargs.get('organization_name')
         )
 
         user_data = util.get_jwt_content(context)
@@ -266,7 +268,7 @@ def require_organization_access(
                 f'Security: User {user_email} attempted to access '
                 f'organization {organization_identifier} without permission'
             )
-            raise GraphQLError('Access denied')
+            raise UserNotInOrganization()
         return await func(*args, **kwargs)
     return verify_and_call
 

@@ -15,6 +15,7 @@ from botocore.exceptions import ClientError
 
 # local imports
 from backend.dal.helpers.dynamodb import (
+    async_delete_item as dynamo_async_delete_item,
     async_query as dynamo_async_query,
     async_put_item as dynamo_async_put_item,
     async_update_item as dynamo_async_update_item
@@ -92,13 +93,14 @@ def _map_attributes_to_dal(attrs: List[str]) -> List[str]:
     return mapped_attrs
 
 
-async def add_group(organization_id: str, group: str) -> None:
+async def add_group(organization_id: str, group: str) -> bool:
+    success: bool = False
     new_item = {
         'pk': organization_id,
         'sk': f'GROUP#{group}'
     }
     try:
-        await dynamo_async_put_item(TABLE_NAME, new_item)
+        success = await dynamo_async_put_item(TABLE_NAME, new_item)
     except ClientError as ex:
         await sync_to_async(rollbar.report_message)(
             'Error adding group to organization',
@@ -106,6 +108,7 @@ async def add_group(organization_id: str, group: str) -> None:
             extra_data=ex,
             payload_data=locals()
         )
+    return success
 
 
 async def add_user(organization_id: str, email: str) -> None:
@@ -149,6 +152,29 @@ async def create(organization_name: str) -> OrganizationType:
             payload_data=locals()
         )
     return _map_keys_to_domain(new_item)
+
+
+async def remove_group(organization_id: str, group_name: str) -> bool:
+    """
+    Delete a group from an organization
+    """
+    success: bool = False
+    group_item: Dict[str, OrganizationType] = {
+        'Key': {
+            'pk': organization_id,
+            'sk': f'GROUP#{group_name}'
+        }
+    }
+    try:
+        success = await dynamo_async_delete_item(TABLE_NAME, group_item)
+    except ClientError as ex:
+        await sync_to_async(rollbar.report_message)(
+            'Error removing group from organization',
+            'error',
+            extra_data=ex,
+            payload_data=locals()
+        )
+    return success
 
 
 async def exists(org_name: str) -> bool:
@@ -364,6 +390,20 @@ async def get_users(organization_id: str) -> List[str]:
             payload_data=locals()
         )
     return users
+
+
+async def has_group(group_name: str, organization_id: str) -> bool:
+    group_in_org: bool = False
+    query_attrs: DynamoQueryType = {
+        'KeyConditionExpression': (
+            Key('pk').eq(organization_id) &
+            Key('sk').eq(f'GROUP#{group_name}')
+        )
+    }
+    response_items = await dynamo_async_query(TABLE_NAME, query_attrs)
+    if response_items:
+        group_in_org = True
+    return group_in_org
 
 
 async def has_user_access(email: str, organization_id: str) -> bool:

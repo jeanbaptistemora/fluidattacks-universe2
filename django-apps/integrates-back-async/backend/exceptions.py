@@ -391,6 +391,27 @@ class UserNotFound(Exception):
         super(UserNotFound, self).__init__(msg)
 
 
+class UserNotInOrganization(Exception):
+    """
+    Exception to control user access to organizations
+    """
+    def __init__(self, expr=''):
+        if expr:
+            msg = 'Exception - User is not a member of the target organization'
+        else:
+            msg = 'Access denied'
+        super(UserNotInOrganization, self).__init__(msg)
+
+
+class GroupNotInOrganization(Exception):
+    """
+    Exception to control that a group belongs to an organization
+    """
+    def __init__(self):
+        msg = 'Exception - Group does not belong to the organization specified'
+        super(GroupNotInOrganization, self).__init__(msg)
+
+
 class InvalidSeverity(Exception):
     """Exception to control severity value"""
 

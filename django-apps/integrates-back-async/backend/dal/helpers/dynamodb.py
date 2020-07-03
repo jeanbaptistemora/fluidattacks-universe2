@@ -51,6 +51,15 @@ DYNAMODB_RESOURCE = boto3.resource(**RESOURCE_OPTIONS)
 TABLE_NAME: str = 'integrates'
 
 
+async def async_delete_item(table: str, delete_attrs: Dict[str, Any]) -> bool:
+    success: bool = False
+    async with aioboto3.resource(**RESOURCE_OPTIONS) as dynamodb_resource:
+        dynamo_table = await dynamodb_resource.Table(table)
+        response = await dynamo_table.delete_item(**delete_attrs)
+        success = response['ResponseMetadata']['HTTPStatusCode'] == 200
+    return success
+
+
 async def async_put_item(table: str, item: Dict[str, Any]) -> bool:
     success: bool = False
     async with aioboto3.resource(**RESOURCE_OPTIONS) as dynamodb_resource:
