@@ -6,12 +6,11 @@ import mixpanel from "mixpanel-browser";
 import React from "react";
 import { ButtonToolbar } from "react-bootstrap";
 import { useSelector } from "react-redux";
-import { useLocation, useParams } from "react-router";
+import { useParams } from "react-router";
 import { Field, formValueSelector, InjectedFormProps } from "redux-form";
 import { Button } from "../../../../components/Button/index";
 import { DataTableNext } from "../../../../components/DataTableNext/index";
 import { IHeader } from "../../../../components/DataTableNext/types";
-import { handleGraphQLErrors } from "../../../../utils/formatHelpers";
 import { textField } from "../../../../utils/forms/fields";
 import { msgError, msgSuccess } from "../../../../utils/notifications";
 import rollbar from "../../../../utils/rollbar";
@@ -30,15 +29,28 @@ const organizationSettings: React.FC = (): JSX.Element => {
 
   // GraphQL Operations
   const { data: basicData } = useQuery(GET_ORGANIZATION_ID, {
-    onError: (error: ApolloError): void => {
-      handleGraphQLErrors("An error occurred fetching organization ID", error);
+    onError: ({ graphQLErrors }: ApolloError): void => {
+      graphQLErrors.forEach((error: GraphQLError): void => {
+        msgError(translate.t("group_alerts.error_textsad"));
+        rollbar.error("An error occurred fetching organization ID", error);
+      });
     },
     variables: { organizationName },
   });
 
-  const { data, loading: loadingSettings, refetch: refetchSettings } = useQuery(GET_ORGANIZATION_SETTINGS, {
-    onError: (error: ApolloError): void => {
-      handleGraphQLErrors("An error occurred fetching organization settings", error);
+  const {
+    data,
+    loading: loadingSettings,
+    refetch: refetchSettings,
+  } = useQuery(GET_ORGANIZATION_SETTINGS, {
+    onError: ({ graphQLErrors }: ApolloError): void => {
+      graphQLErrors.forEach((error: GraphQLError): void => {
+        msgError(translate.t("group_alerts.error_textsad"));
+        rollbar.error(
+          "An error occurred fetching organization settings",
+          error,
+        );
+      });
     },
     skip: !basicData,
     variables: {

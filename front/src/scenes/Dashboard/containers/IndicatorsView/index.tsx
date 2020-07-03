@@ -6,12 +6,16 @@
 import { QueryResult } from "@apollo/react-common";
 import { Query } from "@apollo/react-components";
 import { Datum } from "@nivo/line";
+import { ApolloError } from "apollo-client";
+import { GraphQLError } from "graphql";
 import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React from "react";
 import { Col, Row } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
-import { handleGraphQLErrors, statusGraph, treatmentGraph } from "../../../../utils/formatHelpers";
+import { statusGraph, treatmentGraph } from "../../../../utils/formatHelpers";
+import { msgError } from "../../../../utils/notifications";
+import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
 import { IndicatorBox } from "../../components/IndicatorBox/index";
 import { IndicatorChart } from "../../components/IndicatorChart";
@@ -123,19 +127,29 @@ const indicatorsView: React.FC<IIndicatorsViewBaseProps> = (props: IIndicatorsVi
       });
   };
 
+  const handleQryError: ((error: ApolloError) => void) = (
+    { graphQLErrors }: ApolloError,
+  ): void => {
+    graphQLErrors.forEach((error: GraphQLError): void => {
+      msgError(translate.t("group_alerts.error_textsad"));
+      rollbar.error("An error occurred getting indicators", error);
+    });
+  };
+
   return (
-    <Query query={GET_INDICATORS} variables={{ projectName }} onCompleted={handleQryResult}>
+    <Query
+      query={GET_INDICATORS}
+      variables={{ projectName }}
+      onCompleted={handleQryResult}
+      onError={handleQryError}
+    >
       {
-        ({ error, data, refetch }: QueryResult<IIndicatorsProps>): JSX.Element => {
+        ({ data }: QueryResult<IIndicatorsProps>): JSX.Element => {
           if (_.isUndefined(data) || _.isEmpty(data)) {
 
             return <React.Fragment />;
           }
-          if (!_.isUndefined(error)) {
-            handleGraphQLErrors("An error occurred getting indicators", error);
 
-            return <React.Fragment />;
-          }
           if (!_.isUndefined(data)) {
             const totalVulnerabilities: number =
               _.sum([data.project.openVulnerabilities, data.project.closedVulnerabilities]);

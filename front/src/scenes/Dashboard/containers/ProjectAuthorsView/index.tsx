@@ -12,6 +12,7 @@ import { Col, Row } from "react-bootstrap";
 import { RouteComponentProps } from "react-router";
 
 // Local imports
+import { GraphQLError } from "graphql";
 import { DataTableNext } from "../../../../components/DataTableNext/index";
 import { IHeader } from "../../../../components/DataTableNext/types";
 import { msgError } from "../../../../utils/notifications";
@@ -90,9 +91,11 @@ const projectAuthorsView: React.FunctionComponent<ForcesViewProps> = (props: For
   const { projectName } = props.match.params;
 
   const { data } = useQuery(GET_BILL, {
-    onError: (error: ApolloError): void => {
-      msgError(translate.t("group_alerts.error_textsad"));
-      rollbar.error("An error occurred getting bill data", error);
+    onError: ({ graphQLErrors }: ApolloError): void => {
+      graphQLErrors.forEach((error: GraphQLError): void => {
+        msgError(translate.t("group_alerts.error_textsad"));
+        rollbar.error("An error occurred getting bill data", error);
+      });
     },
     variables: { date: billDate, projectName },
   });

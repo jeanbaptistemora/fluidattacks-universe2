@@ -275,7 +275,7 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
 
   return (
     <Query query={GET_FINDINGS} variables={{ projectName }} onCompleted={handleQryResult} onError={handleQryErrors}>
-      {({ error, data }: QueryResult<IProjectFindingsAttr>): JSX.Element => {
+      {({ data }: QueryResult<IProjectFindingsAttr>): JSX.Element => {
         if (_.isUndefined(data) || _.isEmpty(data)) {
 
           return <React.Fragment />;

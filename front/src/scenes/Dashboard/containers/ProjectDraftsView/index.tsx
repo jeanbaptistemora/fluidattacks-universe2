@@ -5,6 +5,8 @@
  */
 import { MutationFunction, MutationResult, QueryResult } from "@apollo/react-common";
 import { Mutation, Query } from "@apollo/react-components";
+import { ApolloError } from "apollo-client";
+import { GraphQLError } from "graphql";
 import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React from "react";
@@ -18,9 +20,10 @@ import { DataTableNext } from "../../../../components/DataTableNext/index";
 import { IHeader } from "../../../../components/DataTableNext/types";
 import { Modal } from "../../../../components/Modal";
 import { TooltipWrapper } from "../../../../components/TooltipWrapper/index";
-import { formatDrafts, handleGraphQLErrors } from "../../../../utils/formatHelpers";
+import { formatDrafts } from "../../../../utils/formatHelpers";
 import { autocompleteTextField } from "../../../../utils/forms/fields";
-import { msgSuccess } from "../../../../utils/notifications";
+import { msgError, msgSuccess } from "../../../../utils/notifications";
+import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
 import { required, validDraftTitle } from "../../../../utils/validations";
 import { GenericForm } from "../../components/GenericForm";
@@ -140,21 +143,30 @@ const projectDraftsView: React.FC<IProjectDraftsBaseProps> = (props: IProjectDra
   };
   React.useEffect(onMount, []);
 
+  const handleQryError: ((error: ApolloError) => void) = (
+    { graphQLErrors }: ApolloError,
+  ): void => {
+    graphQLErrors.forEach((error: GraphQLError): void => {
+      msgError(translate.t("group_alerts.error_textsad"));
+      rollbar.error("An error occurred getting project drafts", error);
+    });
+  };
+
   return (
-    <Query query={GET_DRAFTS} variables={{ projectName }} onCompleted={handleQryResult}>
+    <Query
+      query={GET_DRAFTS}
+      variables={{ projectName }}
+      onCompleted={handleQryResult}
+      onError={handleQryError}
+    >
       {
-        ({ data, error, refetch }: QueryResult<IProjectDraftsAttr>): JSX.Element => {
+        ({ data, refetch }: QueryResult<IProjectDraftsAttr>): JSX.Element => {
           if (_.isUndefined(data) || _.isEmpty(data)) {
 
             return <React.Fragment />;
           }
-          if (!_.isUndefined(error)) {
-            handleGraphQLErrors("An error occurred getting project drafts", error);
 
-            return <React.Fragment />;
-          }
-          if (!_.isUndefined(data)) {
-            const handleMutationResult: ((result: { createDraft: { success: boolean } }) => void) = (
+          const handleMutationResult: ((result: { createDraft: { success: boolean } }) => void) = (
               result: { createDraft: { success: boolean } },
             ): void => {
               if (result.createDraft.success) {
@@ -168,7 +180,25 @@ const projectDraftsView: React.FC<IProjectDraftsBaseProps> = (props: IProjectDra
               }
             };
 
-            return (
+          const handleMutationError: ((error: ApolloError) => void) = (
+            { graphQLErrors }: ApolloError,
+          ): void => {
+            graphQLErrors.forEach((error: GraphQLError): void => {
+              switch (error.message) {
+                case "Exception - The inserted title is invalid":
+                  msgError(translate.t("validations.draftTitle"));
+                  break;
+                default:
+                  msgError(translate.t("group_alerts.error_textsad"));
+                  rollbar.error(
+                    "An error occurred getting project drafts",
+                    error,
+                  );
+              }
+            });
+          };
+
+          return (
               <React.StrictMode>
                 <Row>
                   <Col md={2} mdOffset={5}>
@@ -186,7 +216,11 @@ const projectDraftsView: React.FC<IProjectDraftsBaseProps> = (props: IProjectDra
                   headerTitle={translate.t("group.drafts.new")}
                   open={isDraftModalOpen}
                 >
-                  <Mutation mutation={CREATE_DRAFT_MUTATION} onCompleted={handleMutationResult}>
+                  <Mutation
+                    mutation={CREATE_DRAFT_MUTATION}
+                    onCompleted={handleMutationResult}
+                    onError={handleMutationError}
+                  >
                     {(createDraft: MutationFunction, { loading: submitting }: MutationResult): JSX.Element => {
                       const handleSubmit: ((values: { title: string }) => void) = (values: { title: string }): void => {
                         const matchingSuggestion: ISuggestion = suggestions.filter((
@@ -244,7 +278,6 @@ const projectDraftsView: React.FC<IProjectDraftsBaseProps> = (props: IProjectDra
                 />
               </React.StrictMode>
             );
-          } else { return <React.Fragment />; }
         }}
     </Query>
   );
