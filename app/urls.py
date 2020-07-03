@@ -42,27 +42,27 @@ def api_dispatcher(request):
 urlpatterns = [
     url(r'^$', views.index, name='index'),
     # Principal process.
-    url(r'^/?graphic/?', views.graphic, name='graphic'),
-    url(r'^/?index/?$', views.index, name='index'),
-    url(r'^/?error500/?$', views.error500, name='error500'),
-    url(r'^/?error401/?$', views.error401, name='error401'),
-    url(r'^/?login/?$', services.login, name='login'),
-    url(r'^/?logout/?$', views.logout, name='logout'),
-    url(r'^/?dashboard/?$', views.app, name='dashboard'),
-    url(r'^/?registration/?$', views.app, name='registration'),
-    url(r'^/?oauth/', include('social_django.urls', namespace='social')),
-    url(r'^/?api/?\.*$', api_dispatcher),
-    # Use of Formstack services.
-    url(r'^/?project/(?P<project>[A-Za-z0-9]+)/(?P<evidence_type>[A-Za-z0-9]+)/'
+    url(r'^graphic/?$', views.graphic, name='graphic'),
+    url(r'^index/?$', views.index, name='index'),
+    url(r'^error500/?$', views.error500, name='error500'),
+    url(r'^error401/?$', views.error401, name='error401'),
+    url(r'^login/?$', services.login, name='login'),
+    url(r'^logout/?$', views.logout, name='logout'),
+    url(r'^dashboard/?$', views.app, name='dashboard'),
+    url(r'^registration/?$', views.app, name='registration'),
+    url(r'^oauth/', include('social_django.urls', namespace='social')),
+    url(r'^api/?\.*$', api_dispatcher),
+    # Evidences
+    url(r'^project/(?P<project>[A-Za-z0-9]+)/(?P<evidence_type>[A-Za-z0-9]+)/'
         r'(?P<findingid>[0-9]+)/([A-Za-z.=]+)/(?P<fileid>[\w\.-]+)?$',
         views.get_evidence),
     # intentionally duplicate to give support to old evidence url
-    url(r'^/?groups/(?P<project>[A-Za-z0-9]+)/(?P<evidence_type>[A-Za-z0-9]+)/'
+    url(r'^groups/(?P<project>[A-Za-z0-9]+)/(?P<evidence_type>[A-Za-z0-9]+)/'
         r'(?P<findingid>[0-9]+)/([A-Za-z.=]+)/(?P<fileid>[\w\.-]+)?$',
         views.get_evidence),
     # Documentation.
-    url(r'^/?export_all_vulnerabilities/?$', views.export_all_vulnerabilities),
-    url(r'^/?export_users/?$', views.export_users),
+    url(r'^export_all_vulnerabilities/?$', views.export_all_vulnerabilities),
+    url(r'^export_users/?$', views.export_users),
     # catch all others because of the no longer use hash location
     url(r'', views.app),
 ]
