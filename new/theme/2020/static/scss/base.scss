@@ -188,6 +188,7 @@ $codeyellow: rgba(230, 219, 116, 1);
   box-shadow: 0px 20px 20px $darkshadow; } }
 .mh-100 { max-height: 100%;}
 .ph-10 {padding-right: 10%; padding-left: 10%; }
+.w-search-icon { width: 1.25rem;}
 
 // Tachyons custom responsive classes
 
@@ -609,6 +610,150 @@ video {
     color: white;
     &:hover {
       color: white;;
+    }
+  }
+}
+
+@mixin foot-box {
+  color: $fluid-black;
+  margin-right: 7px;
+  text-align: center;
+  &:hover {
+    color: $fluid-red;
+  }
+}
+
+#tipue_search_input,
+#tipue_search_foot_boxes {
+  font: 400 18px/1 'Roboto', sans-serif;
+  padding-left: 10px;
+}
+
+#tipue_search_results_count,
+#tipue_search_warning,
+.tipue_search_content_url,
+.tipue_search_content_debug,
+.tipue_search_related_text {
+  font: 400 18px/1.7 'Roboto', sans-serif;
+}
+
+.tipue_search_content_bold,
+.tipue_search_related_bold {
+  font-weight: 400;
+}
+
+#tipue_search_content {
+  text-align: left;
+}
+
+#tipue_search_results_count {
+  color: $black;
+  text-align: center;
+}
+
+#tipue_search_warning {
+  color: $black;
+  margin: 7px 0;
+
+  a {
+    color: $fluid-black;
+    text-decoration: none;
+
+    &:hover {
+      color: $fluid-red;
+    }
+  }
+}
+
+.tipue_search_content_title {
+  background-color: white;
+  border: solid 1px #ccc;
+  border-bottom: none;
+  color: $fluid-black;
+  font-size: 24px;
+  padding: 2rem 2rem 0rem;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 30px;
+  max-width: 56.25rem;
+
+  a {
+    color: $fluid-black;
+    font-weight: 800;
+    text-decoration: none;
+
+    &:hover {
+      color: $fluid-red;
+    }
+  }
+}
+
+.tipue_search_content_url {
+  display: none;
+}
+
+.tipue_search_content_text {
+  background-color: white;
+  border: solid 1px #ccc;
+  border-top: none;
+  color: $fluid-black;
+  font-size: 18px;
+  hyphens: auto;
+  padding: 1rem 2rem 2rem;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 56.25rem;
+  text-align: left;
+  word-wrap: break-word;
+}
+
+.tipue_search_content_bold {
+  color: $black;
+}
+
+.tipue_search_content_debug {
+  color: $black;
+  margin: 5px 0;
+}
+
+.tipue_search_related_title {
+  color: $fluid-black;
+  font-size: 24px;
+  margin: 26px 0 7px;
+}
+
+.tipue_search_related_cols {
+  columns: 230px 2;
+}
+
+#tipue_search_foot {
+  margin: 50px 0 20px;
+}
+
+#tipue_search_foot_boxes {
+  cursor: pointer;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+
+  a {
+    @include foot-box;
+    text-decoration: none;
+
+    &:hover {
+      color: $fluid-red;
+    }
+  }
+
+  li {
+    display: inline-flex;
+    list-style: none;
+    margin: 1rem;
+    padding-bottom: 1rem;
+    &.current {
+      @include foot-box;
+      margin: 1rem;
+      color: $fluid-red;
     }
   }
 }

@@ -1,0 +1,59 @@
+{% extends "index.html" %}
+
+{% block meta %}
+  <meta name="description"
+        content="This page shows the results of the requested search. It lists links to
+        all the pages that contain the string searched. If the string was not
+        found, no articles will be listed, try browsing using the menu or the
+        footer.">
+  <meta name="keywords"
+        content="Results, Search, Pages, String, Links, Request">
+{% endblock meta %}
+
+{% block title %} Search | {{ SITENAME }}{% endblock %}
+
+{% block canonical %}
+  <link rel="canonical"
+        href="{{ SITEURL }}/search.html">
+{% endblock canonical %}
+
+{% block breadcrumb%}
+  <!-- navcontent-container -->
+<div class="pv0">
+  <!-- navcontent-info -->
+  <div class="df ma-auto bg-fluid-black">
+    <div class="roboto f6-l f7 tl mw9 ml-auto mr-auto">
+      <ul class="dib list w-auto mh5-l pl0-l pl3 ml1">
+        <li class="dib mt0">
+          <a class="c-fluid-gray hover-white no-underline"
+             href="{{ SITEURL }}/">
+            Home
+          </a>
+          <span class="c-fluid-gray v-mid b"> / </span>
+        </li>
+        <li class="dib mt0">
+          <a class="white hover-white no-underline"
+              href=".">Search</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+{% endblock breadcrumb %}
+
+{% block content %}
+  <script src="tipuesearch_content.js"></script>
+  <div class="divpage roboto bg-graylight">
+    <article class="ma-auto tl mw8">
+      <div id="tipue_search_content"></div>
+    </article>
+  </div>
+  <script>
+    $(document).ready(function() {
+      $('#tipue_search_input').tipuesearch({
+        'show': 5,
+        'descriptiveWords': '50',
+      });
+    });
+  </script>
+{% endblock %}

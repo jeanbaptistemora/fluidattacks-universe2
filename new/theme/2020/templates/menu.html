@@ -19,6 +19,28 @@
           CONTACT
         </a>
       </li>
+        <!-- Searching features -->
+      <div class="relative fr mt-menu mr4 mv4-l pb3-l pv-4-m db-l dn">
+        <form action="{{ SITEURL }}/search.html">
+          <div class="search pt2 dib-l roboto v-top">
+            <input type="text"
+                  name="q"
+                  id="tipue_search_input"
+                  pattern="[a-zA-Z0-9 ]*"
+                  title="Only alphanumeric characters"
+                  class="bn br1 h-search bg-graylight outline-transparent f5"
+                  placeholder="Enter your search...">
+              <label for="tipue_search_input"
+                    class="search-box-label">
+                <span>
+                  <img class="relative w-search-icon z-2 pointer ph2-l nb2"
+                      src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/search.svg"
+                      alt="Magnifying glass">
+                </span>
+              </label>
+          </div>
+        </form>
+      </div>
       <li class="fr">
         <input type="checkbox" id="op" class="dn" />
         <div class="lower w1 absolute right-small mr5-l">

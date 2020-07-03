@@ -39,17 +39,28 @@ function helper_deploy_install_plugins_new {
   local asciidoc='asciidoc_reader'
   local asciidoc_version='ad6d407'
 
-  local others='assets neighbors representative_image sitemap tag_cloud'
+  local tipuesearch='assets/tipuesearch/tipuesearch.min.js assets/tipuesearch/tipuesearch_set.js'
+  local tipuesearch_version='d4b5df7'
+
+  local others='assets neighbors representative_image sitemap tag_cloud tipue_search'
   local others_version='666716e'
 
   local pelican_plugins_path='pelican-plugins'
   local url_pelican_plugins='https://github.com/getpelican/pelican-plugins.git'
+
+  local js_plugins_path='theme/2020/static/js'
+  local url_tipuesearch_plugin='https://github.com/jekylltools/jekyll-tipue-search.git'
 
       helper_git_sparse_checkout \
         "${asciidoc}" \
         "${asciidoc_version}" \
         "${pelican_plugins_path}" \
         "${url_pelican_plugins}" \
+  &&  helper_git_sparse_checkout \
+        "${tipuesearch}" \
+        "${tipuesearch_version}" \
+        "${js_plugins_path}" \
+        "${url_tipuesearch_plugin}" \
   &&  helper_git_sparse_checkout \
         "${others}" \
         "${others_version}" \
@@ -166,7 +177,9 @@ function helper_deploy_pages {
   &&  sed -i "s|services/continuous-hacking|use-cases/continuous-hacking|g" new/content/blog/*/index.adoc \
   &&  sed -i "s|services/one-shot-hacking|use-cases/one-shot-hacking|g" new/content/blog/*/index.adoc \
   &&  sed -i "s|services/continuous-hacking|use-cases/continuous-hacking|g" new/content/pages/*/index.adoc \
-  &&  rsync -av --progress content/pages/products/rules new/content/pages/products/
+  &&  rsync -av --progress content/pages/products/rules new/content/pages/products/ \
+  &&  cp theme/2014/static/scss/tipuesearch.scss new/theme/2020/static/scss/ \
+  &&  sed -i "s|Source Sans Pro, sans-serif|'Roboto', sans-serif|g" new/theme/2020/static/scss/tipuesearch.scss
 }
 
 function helper_deploy_compile_old {

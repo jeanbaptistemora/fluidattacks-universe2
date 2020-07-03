@@ -39,10 +39,18 @@ PLUGINS = [
     'neighbors',
     'representative_image',
     'sitemap',
-    'tag_cloud'
+    'tag_cloud',
+    'tipue_search'
 ]
 RELATED_POSTS_MAX = 3
-DIRECT_TEMPLATES = ['index', 'landing', 'authors', 'categories', 'tags']
+DIRECT_TEMPLATES = [
+    'index',
+    'landing',
+    'authors',
+    'categories',
+    'tags',
+    'search'
+]
 SITEMAP = {
     'format': 'xml',
     'priorities': {
