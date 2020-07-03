@@ -1,5 +1,6 @@
 # Standard library
 from typing import cast, List
+import uuid
 from openpyxl import load_workbook
 
 # Local libraries
@@ -68,7 +69,7 @@ def generate(
 
     username = user_email.split('@')[0]
     report_filename = 'complete_report.xlsx'
-    report_filepath = f'/tmp/{username}-{report_filename}'
+    report_filepath = f'/tmp/{username}-{uuid.uuid4()}-{report_filename}'
     book.save(cast(str, report_filepath))
     uploaded_file_name = reports_utils.upload_report(report_filepath)
     uploaded_file_url = reports_utils.sign_url(
