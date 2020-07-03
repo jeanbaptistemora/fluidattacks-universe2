@@ -178,6 +178,7 @@ const severityView: React.FC<SeverityViewProps> = (props: SeverityViewProps): JS
                                       label={field.title}
                                       name={field.name}
                                       renderAsEditable={isEditing}
+                                      tooltip={field.tooltip}
                                       validate={required}
                                     >
                                       <option value="" />

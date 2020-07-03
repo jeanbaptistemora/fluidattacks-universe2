@@ -67,4 +67,5 @@ export interface ISeverityField {
   name: string;
   options: {[value: string]: string};
   title: string;
+  tooltip?: string;
 }

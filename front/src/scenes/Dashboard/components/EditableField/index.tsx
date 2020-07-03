@@ -26,11 +26,18 @@ const renderCurrentValue: ((value: string) => JSX.Element) = (value: string): JS
 
 const renderHorizontal: ((props: EditableFieldProps) => JSX.Element) =
   (props: EditableFieldProps): JSX.Element => {
-    const { label, currentValue, renderAsEditable, ...fieldProps } = props;
+    const { label, currentValue, renderAsEditable, tooltip, ...fieldProps } = props;
 
     return (
       <FormGroup>
-        <Col md={3} xs={12} sm={12} className={style.title}><ControlLabel><b>{label}</b></ControlLabel></Col>
+        <Col md={3} xs={12} sm={12} className={style.title}>
+          {_.isUndefined(tooltip) || _.isEmpty(tooltip) ? <ControlLabel><b>{label}</b></ControlLabel>
+          : (
+            <TooltipWrapper message={tooltip} placement="top">
+              <ControlLabel><b>{label}</b></ControlLabel>
+            </TooltipWrapper>
+          )}
+        </Col>
         <Col md={9} xs={12} sm={12}>
           {renderAsEditable ? <Field {...fieldProps} /> : renderCurrentValue(currentValue)}
         </Col>

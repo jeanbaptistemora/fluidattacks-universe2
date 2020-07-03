@@ -937,12 +937,18 @@ const enTranslations: Dictionary = {
         "<br /> Deleted groups cannot be restored.",
     },
     tab_severity: {
-      attack_complexity: "Attack Complexity",
+      attack_complexity: {
+        text: "Attack Complexity",
+        tooltip: "Conditions beyond the attacker’s control that must exist in order to exploit the vulnerability",
+      },
       attack_complexity_options: {
         high: "High",
         low: "Low",
       },
-      attack_vector: "Attack Vector",
+      attack_vector: {
+        text: "Attack Vector",
+        tooltip: "Context by which vulnerability exploitation is possible",
+      },
       attack_vector_options: {
         adjacent: "Adjacent network",
         local: "Local",
@@ -956,7 +962,10 @@ const enTranslations: Dictionary = {
         single_auth: "Single: Single authentication point",
       },
       availability: "Availability Impact",
-      availability_impact: "Availability Impact",
+      availability_impact: {
+        text: "Availability Impact",
+        tooltip: "Availability refers to the accessibility of information resources",
+      },
       availability_impact_options: {
         high: "High",
         low: "Low",
@@ -986,7 +995,11 @@ const enTranslations: Dictionary = {
         not_corrob: "Not corroborated: Vulnerability is recognized by unofficial sources",
       },
       confidentiality: "Confidentiality Impact",
-      confidentiality_impact: "Confidentiality Impact",
+      confidentiality_impact: {
+        text: "Confidentiality Impact",
+        tooltip: "Confidentiality refers to limiting information access and disclosure to only authorized users, " +
+          "as well as preventing access by, or disclosure to, unauthorized ones",
+      },
       confidentiality_impact_options: {
         high: "High",
         low: "Low",
@@ -1005,7 +1018,10 @@ const enTranslations: Dictionary = {
       },
       cvss_version: "CVSS Version",
       editable: "Edit",
-      exploitability: "Exploitability",
+      exploitability: {
+        text: "Exploitability",
+        tooltip: "Likelihood of the vulnerability being attacked",
+      },
       exploitability_options: {
         conceptual: "Conceptual: There are laboratory tests",
         functional: "Functional: There is an exploit",
@@ -1015,7 +1031,10 @@ const enTranslations: Dictionary = {
         unproven: "Unproven",
       },
       integrity: "Integrity Impact",
-      integrity_impact: "Integrity Impact",
+      integrity_impact: {
+        text: "Integrity Impact",
+        tooltip: "Integrity refers to the trustworthiness and veracity of information",
+      },
       integrity_impact_options: {
         high: "High",
         low: "Low",
@@ -1040,20 +1059,30 @@ const enTranslations: Dictionary = {
       modified_privileges_required: "Modified Privileges Required",
       modified_severity_scope: "Modified Scope",
       modified_user_interaction: "Modified User Interaction",
-      privileges_required: "Privileges Required",
+      privileges_required: {
+        text: "Privileges Required",
+        tooltip: "Level of privileges an attacker must possess before successfully exploiting the vulnerability",
+      },
       privileges_required_options: {
         high: "High",
         low: "Low",
         none: "None",
       },
-      remediation_level: "Remediation Level",
+      remediation_level: {
+        text: "Remediation Level",
+        tooltip: "State of art of the current vulnerability",
+      },
       remediation_level_options: {
         official_fix: "Official Fix",
         temporary_fix: "Temporary Fix",
         unavailable: "Unavailable",
         workaround: "Workaround",
       },
-      report_confidence: "Report Confidence",
+      report_confidence: {
+        text: "Report Confidence",
+        tooltip: "Degree of confidence in the existence of the vulnerability " +
+          "and the credibility of the known technical details",
+      },
       report_confidence_options: {
         confirmed: "Confirmed",
         reasonable: "Reasonable",
@@ -1066,7 +1095,10 @@ const enTranslations: Dictionary = {
         palliative: "Palliative: There is a patch that was not published by the manufacturer",
         temporal: "Temporal: There are temporary solutions",
       },
-      severity_scope: "Scope",
+      severity_scope: {
+        text: "Scope",
+        tooltip: "Impacts to the resources beyond the security scope",
+      },
       severity_scope_options: {
         changed: "Changed",
         unchanged: "Unchanged",
@@ -1075,7 +1107,11 @@ const enTranslations: Dictionary = {
       tab_title: "Severity",
       tooltip: "Assigned scoring according to CVSS 3.1 metrics",
       update: "Update",
-      user_interaction: "User Interaction",
+      user_interaction: {
+        text: "User Interaction",
+        tooltip: "Requirement for a human user, other than the attacker, to participate in the successful compromise " +
+          "of the vulnerable component",
+      },
       user_interaction_options: {
         none: "None",
         required: "Required",
