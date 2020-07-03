@@ -16,15 +16,15 @@ import { msgError, msgSuccess } from "../../../../utils/notifications";
 import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
 import { GenericForm } from "../../components/GenericForm";
-import { GET_ORGANIZATION_ID, GET_ORGANIZATION_SETTINGS, UPDATE_ORGANIZATION_SETTINGS } from "./queries";
-import { ISettingsFormData } from "./types";
+import { GET_ORGANIZATION_ID, GET_ORGANIZATION_POLICIES, UPDATE_ORGANIZATION_POLICIES } from "./queries";
+import { IPoliciesFormData } from "./types";
 
-const organizationSettings: React.FC = (): JSX.Element => {
+const organizationPolicies: React.FC = (): JSX.Element => {
 
   // State management
   const { organizationName } = useParams();
-  const selector: (state: {}, ...fields: string[]) => ISettingsFormData = formValueSelector("orgSettings");
-  const formValues: ISettingsFormData = useSelector((state: {}) =>
+  const selector: (state: {}, ...fields: string[]) => IPoliciesFormData = formValueSelector("orgPolicies");
+  const formValues: IPoliciesFormData = useSelector((state: {}) =>
     selector(state, "maxAcceptanceDays", "maxAcceptanceSeverity", "maxNumberAcceptations", "minAcceptanceSeverity"));
 
   // GraphQL Operations
@@ -42,14 +42,14 @@ const organizationSettings: React.FC = (): JSX.Element => {
 
   const {
     data,
-    loading: loadingSettings,
-    refetch: refetchSettings,
-  } = useQuery(GET_ORGANIZATION_SETTINGS, {
+    loading: loadingPolicies,
+    refetch: refetchPolicies,
+  } = useQuery(GET_ORGANIZATION_POLICIES, {
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
         msgError(translate.t("group_alerts.error_textsad"));
         rollbar.error(
-          "An error occurred fetching organization settings",
+          "An error occurred fetching organization policies",
           error,
         );
       });
@@ -60,15 +60,15 @@ const organizationSettings: React.FC = (): JSX.Element => {
     },
   });
 
-  const [saveSettings, { loading: savingSettings }] = useMutation(UPDATE_ORGANIZATION_SETTINGS, {
+  const [savePolicies, { loading: savingPolicies }] = useMutation(UPDATE_ORGANIZATION_POLICIES, {
     onCompleted: (): void => {
-      mixpanel.track("UpdateOrganizationSettings", formValues);
+      mixpanel.track("UpdateOrganizationPolicies", formValues);
       msgSuccess(
-        translate.t("organization.tabs.settings.success"),
-        translate.t("organization.tabs.settings.success_title"),
+        translate.t("organization.tabs.policies.success"),
+        translate.t("organization.tabs.policies.success_title"),
       );
 
-      refetchSettings();
+      refetchPolicies();
     },
     onError: (error: ApolloError): void => {
       error.graphQLErrors.forEach(({ message }: GraphQLError): void => {
@@ -76,20 +76,20 @@ const organizationSettings: React.FC = (): JSX.Element => {
 
         switch (message) {
           case "Exception - Acceptance days should be a positive integer between 0 and 180":
-            msg = "organization.tabs.settings.errors.maxAcceptanceDays";
+            msg = "organization.tabs.policies.errors.maxAcceptanceDays";
             break;
           case "Exception - Severity value should be a positive floating number between 0.0 a 10.0":
-            msg = "organization.tabs.settings.errors.acceptanceSeverity";
+            msg = "organization.tabs.policies.errors.acceptanceSeverity";
             break;
           case "Exception - Min acceptance severity value should not be higher than the max value":
-            msg = "organization.tabs.settings.errors.acceptanceSeverityRange";
+            msg = "organization.tabs.policies.errors.acceptanceSeverityRange";
             break;
           case "Exception - Number of acceptations should be zero or positive":
-            msg = "organization.tabs.settings.errors.maxNumberAcceptations";
+            msg = "organization.tabs.policies.errors.maxNumberAcceptations";
             break;
           default:
             msg = "group_alerts.error_textsad";
-            rollbar.error("An error occurred updating the organization settings", error);
+            rollbar.error("An error occurred updating the organization policies", error);
         }
         msgError(translate.t(msg));
       });
@@ -106,23 +106,23 @@ const organizationSettings: React.FC = (): JSX.Element => {
 
   const tableHeaders: IHeader[] = [
     {
-      dataField: "rule",
-      header: translate.t("organization.tabs.settings.rule"),
+      dataField: "policy",
+      header: translate.t("organization.tabs.policies.policy"),
       width: "75%",
       wrapped: true,
     },
     {
       dataField: "value",
-      header: translate.t("organization.tabs.settings.value"),
+      header: translate.t("organization.tabs.policies.value"),
       width: "25%",
       wrapped: true,
     },
   ];
 
-  const settingsDataSet: Array<Record<string, JSX.Element>> = [
+  const policiesDataSet: Array<Record<string, JSX.Element>> = [
     {
-      rule: (
-      <p>{translate.t("organization.tabs.settings.rules.maxAcceptanceDays")}</p>
+      policy: (
+      <p>{translate.t("organization.tabs.policies.policies.maxAcceptanceDays")}</p>
       ),
       value: (
         <Field
@@ -133,8 +133,8 @@ const organizationSettings: React.FC = (): JSX.Element => {
       ),
     },
     {
-      rule: (
-      <p>{translate.t("organization.tabs.settings.rules.acceptanceSeverityRange")}</p>
+      policy: (
+      <p>{translate.t("organization.tabs.policies.policies.acceptanceSeverityRange")}</p>
       ),
       value: (
         <React.Fragment>
@@ -153,8 +153,8 @@ const organizationSettings: React.FC = (): JSX.Element => {
       ),
     },
     {
-      rule: (
-      <p>{translate.t("organization.tabs.settings.rules.maxNumberAcceptations")}</p>
+      policy: (
+      <p>{translate.t("organization.tabs.policies.policies.maxNumberAcceptations")}</p>
       ),
       value: (
         <Field
@@ -167,7 +167,7 @@ const organizationSettings: React.FC = (): JSX.Element => {
   ];
 
   const handleFormSubmit: (() => void) = (): void => {
-    saveSettings();
+    savePolicies();
   };
 
   if (_.isUndefined(data) || _.isEmpty(data)) {
@@ -177,7 +177,7 @@ const organizationSettings: React.FC = (): JSX.Element => {
   return(
     <React.StrictMode>
       <GenericForm
-        name="orgSettings"
+        name="orgPolicies"
         onSubmit={handleFormSubmit}
         initialValues={{
           maxAcceptanceDays: _.isNull(data.organization.maxAcceptanceDays)
@@ -194,19 +194,19 @@ const organizationSettings: React.FC = (): JSX.Element => {
           <React.Fragment>
             <DataTableNext
               bordered={true}
-              dataset={settingsDataSet}
+              dataset={policiesDataSet}
               exportCsv={false}
               headers={tableHeaders}
-              id="settingsTbl"
+              id="policiesTbl"
               pageSize={5}
               remote={false}
               search={false}
               striped={true}
             />
-            {pristine || loadingSettings || savingSettings ? undefined : (
+            {pristine || loadingPolicies || savingPolicies ? undefined : (
               <ButtonToolbar className="pull-right">
                 <Button bsStyle="success" onClick={handleSubmit}>
-                  {translate.t("organization.tabs.settings.save")}
+                  {translate.t("organization.tabs.policies.save")}
                 </Button>
               </ButtonToolbar>
             )}
@@ -217,4 +217,4 @@ const organizationSettings: React.FC = (): JSX.Element => {
   );
 };
 
-export { organizationSettings as OrganizationSettings };
+export { organizationPolicies as OrganizationPolicies };

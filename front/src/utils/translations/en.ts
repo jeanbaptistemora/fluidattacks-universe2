@@ -379,7 +379,7 @@ const enTranslations: Dictionary = {
     no_file_update: "Failed to update the file",
     no_found: "Vulnerabilities in the request not found",
     no_verification_requested: "No verification requested",
-    organization_settings: {
+    organization_policies: {
       exceeds_acceptance_date: "Chosen date is either in the past or exceeds the maximum number of days allowed " +
         "by the organization",
       maxium_number_of_acceptations: "Finding has been accepted the maximum number of times allowed " +
@@ -463,23 +463,23 @@ const enTranslations: Dictionary = {
   },
   organization: {
     tabs: {
-      settings: {
+      policies: {
         errors: {
           acceptanceSeverity: "Acceptance severity score should be a positive floating number between 0.0 and 10.0",
           acceptanceSeverityRange: "Minimum acceptance score should be lower than the maximum value",
           maxAcceptanceDays: "Maximum acceptance days should be a positive integer between 0 and 180",
           maxNumberAcceptations: "Maximum number of acceptations should be a positive integer",
         },
-        rule: "Rule",
-        rules: {
+        policies: {
           acceptanceSeverityRange: "CVSS score range between which a finding can be accepted",
           maxAcceptanceDays: "Maximum number of days a finding can be temporally accepted",
           maxNumberAcceptations: "Maximum number of times a finding can be temporally accepted",
         },
+        policy: "Policy",
         save: "Save",
-        success: "Organization settings updated successfully",
+        success: "Organization policies updated successfully",
         success_title: "Success",
-        text: "Settings",
+        text: "Policies",
         tooltip: "Define common rules across all the groups of the organization",
         value: "Value",
       },

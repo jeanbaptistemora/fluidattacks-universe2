@@ -91,7 +91,7 @@ async def has_user_access(email: str, organization_id: str) -> bool:
     return await org_dal.has_user_access(email, organization_id)
 
 
-async def update_settings(
+async def update_policies(
     organization_id: str,
     organization_name: str,
     values: OrganizationType
@@ -129,7 +129,7 @@ async def update_settings(
         InvalidNumberAcceptations
     ) as exe:
         await sync_to_async(rollbar.report_message)(
-            'Invalid values when updating the settings of an organization',
+            'Invalid values when updating the policies of an organization',
             'error',
             extra_data=exe,
             payload_data=locals()

@@ -90,13 +90,13 @@ const treatmentView: React.FC<ITreatmentViewProps> = (props: ITreatmentViewProps
             break;
           case "Exception - Chosen date is either in the past or exceeds the maximum number of days " +
               "allowed by the organization":
-            msgError(translate.t("group_alerts.organization_settings.exceeds_acceptance_date"));
+            msgError(translate.t("group_alerts.organization_policies.exceeds_acceptance_date"));
             break;
           case "Exception - Finding cannot be accepted, severity outside of range set by the organization":
-            msgError(translate.t("group_alerts.organization_settings.severity_out_of_range"));
+            msgError(translate.t("group_alerts.organization_policies.severity_out_of_range"));
             break;
           case "Exception - Finding has been accepted the maximum number of times allowed by the organization":
-            msgError(translate.t("group_alerts.organization_settings.maxium_number_of_acceptations"));
+            msgError(translate.t("group_alerts.organization_policies.maxium_number_of_acceptations"));
             break;
           default:
             msgError(translate.t("group_alerts.error_textsad"));

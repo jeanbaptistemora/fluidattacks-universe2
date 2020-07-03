@@ -21,14 +21,14 @@ from backend.typing import (
 )
 
 
-async def _do_update_organization_settings(
+async def _do_update_organization_policies(
     _,
     info,
     organization_id: str,
     organization_name: str,
     **parameters
 ) -> SimplePayloadType:
-    success: bool = await org_domain.update_settings(
+    success: bool = await org_domain.update_policies(
         organization_id,
         organization_name,
         parameters
@@ -36,7 +36,7 @@ async def _do_update_organization_settings(
     if success:
         util.cloudwatch_log(
             info.context,
-            f'Security: Updated settings for organization {organization_name} '
+            f'Security: Updated policies for organization {organization_name} '
             f'with ID {organization_id}'
         )
     return SimplePayloadType(success=success)

@@ -9,8 +9,8 @@ query GetOrganizationId ($organizationName: String!) {
 }
 `;
 
-export const GET_ORGANIZATION_SETTINGS: DocumentNode = gql`
-  query GetOrganizationSettings ($organizationId: String!) {
+export const GET_ORGANIZATION_POLICIES: DocumentNode = gql`
+  query GetOrganizationPolicies ($organizationId: String!) {
     organization(organizationId: $organizationId) {
       maxAcceptanceDays
       maxAcceptanceSeverity
@@ -20,8 +20,8 @@ export const GET_ORGANIZATION_SETTINGS: DocumentNode = gql`
   }
   `;
 
-export const UPDATE_ORGANIZATION_SETTINGS: DocumentNode = gql`
-  mutation UpdateOrganizationSettings(
+export const UPDATE_ORGANIZATION_POLICIES: DocumentNode = gql`
+  mutation UpdateOrganizationPolicies(
     $maxAcceptanceDays: Int,
     $maxAcceptanceSeverity: Float,
     $maxNumberAcceptations: Int,
@@ -29,7 +29,7 @@ export const UPDATE_ORGANIZATION_SETTINGS: DocumentNode = gql`
     $organizationId: String!
     $organizationName: String!
   ) {
-    updateOrganizationSettings(
+    updateOrganizationPolicies(
       maxAcceptanceDays: $maxAcceptanceDays,
       maxAcceptanceSeverity: $maxAcceptanceSeverity,
       maxNumberAcceptations: $maxNumberAcceptations,

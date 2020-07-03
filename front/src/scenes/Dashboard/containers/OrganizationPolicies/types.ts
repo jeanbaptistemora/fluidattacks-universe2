@@ -1,4 +1,4 @@
-export interface ISettingsFormData {
+export interface IPoliciesFormData {
   maxAcceptanceDays: string;
   maxAcceptanceSeverity: string;
   maxNumberAcceptations: string;

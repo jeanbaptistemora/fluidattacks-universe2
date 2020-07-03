@@ -4,7 +4,7 @@ import { Route, Switch, useRouteMatch } from "react-router-dom";
 import { default as globalStyle } from "../../../../styles/global.css";
 import translate from "../../../../utils/translations/translate";
 import { ContentTab } from "../../components/ContentTab";
-import { OrganizationSettings } from "../OrganizationSettings/index";
+import { OrganizationPolicies } from "../OrganizationPolicies/index";
 
 const organizationContent: React.FC = (): JSX.Element => {
   const { path, url } = useRouteMatch();
@@ -18,17 +18,17 @@ const organizationContent: React.FC = (): JSX.Element => {
               <ul className={globalStyle.tabsContainer}>
                 <ContentTab
                   icon="icon pe-7s-box1"
-                  id="settingsTab"
-                  link={`${url}/settings`}
-                  title={translate.t("organization.tabs.settings.text")}
-                  tooltip={translate.t("organization.tabs.settings.tooltip")}
+                  id="policiesTab"
+                  link={`${url}/policies`}
+                  title={translate.t("organization.tabs.policies.text")}
+                  tooltip={translate.t("organization.tabs.policies.tooltip")}
                 />
               </ul>
             </div>
 
             <div className={globalStyle.tabContent}>
               <Switch>
-                <Route path={`${path}/settings`} component={OrganizationSettings} exact={true} />
+                <Route path={`${path}/policies`} component={OrganizationPolicies} exact={true} />
               </Switch>
             </div>
           </Col>

@@ -28,7 +28,7 @@ type Mutation {
         projectName: String!,
         state: ResourceState!
     ): SimplePayload!
-    updateOrganizationSettings(
+    updateOrganizationPolicies(
         maxAcceptanceDays: Int
         maxAcceptanceSeverity: Float
         maxNumberAcceptations: Int
