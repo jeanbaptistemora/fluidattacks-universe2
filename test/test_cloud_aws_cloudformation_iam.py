@@ -24,7 +24,7 @@ def test_is_policy_miss_configured():
     """test iam.is_policy_miss_configured."""
     result = iam.is_policy_miss_configured(VULN)
     assert result.is_open()
-    assert result.get_vulns_number() == 2 * 5
+    assert result.get_vulns_number() == 2 * 7
     assert iam.is_policy_miss_configured(SAFE).is_closed()
     assert iam.is_policy_miss_configured(NOT_EXISTS).is_unknown()
 
@@ -33,7 +33,7 @@ def test_is_managed_policy_miss_configured():
     """test iam.is_managed_policy_miss_configured."""
     result = iam.is_managed_policy_miss_configured(VULN)
     assert result.is_open()
-    assert result.get_vulns_number() == 2 * 5
+    assert result.get_vulns_number() == 2 * 7
     assert iam.is_managed_policy_miss_configured(SAFE).is_closed()
     assert iam.is_managed_policy_miss_configured(NOT_EXISTS).is_unknown()
 

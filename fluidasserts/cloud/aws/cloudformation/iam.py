@@ -274,76 +274,99 @@ def is_role_over_privileged(
 def _is_generic_policy_miss_configured(  # noqa: MC0001
         path: str, exclude: Optional[List[str]], resource: str) -> tuple:
     """Policy and ManagedPolicy are equal in its PolicyDocument, reuse code."""
-    vulnerabilities: list = []
+    vulnerabilities: List[Vulnerability] = []
     wildcard_action: Pattern = re.compile(r'^(\*)|(\w+:\*)$')
     wildcard_resource: Pattern = re.compile(r'^(\*)$')
-    for yaml_path, res_name, res_props in helper.iterate_rsrcs_in_cfn_template(
-            starting_path=path,
-            resource_types=[
-                f'AWS::IAM::{resource}',
-            ],
-            exclude=exclude):
-        vulnerable_entities: List[str] = []
 
-        policy_document = res_props.get('PolicyDocument', {})
-        for statement in helper.force_list(
-                policy_document.get('Statement', [])):
-            if statement.get('Effect') != 'Allow':
-                continue
+    graph: DiGraph = get_graph(path, exclude)
+    templates: List[Tuple[int, Dict]] = get_templates(graph, path, exclude)
+    resources: List[int] = get_resources(
+        graph,
+        map(lambda x: x[0], templates), {'AWS', 'IAM', resource},
+        info=True)
+    for res, res_node, template in resources:
+        vulnerable_entities = []
+        policy_document: int = get_resources(
+            graph, res, 'PolicyDocument', depth=8)
+        if not policy_document:
+            continue
 
+        effects = has_values(graph, policy_document, 'Effect', 'Allow', 4)
+        for effect in effects:
+            father = list(graph.predecessors(effect))[0]
             # W16: IAM policy should not allow Allow+NotAction
             # W17: IAM managed policy should not allow Allow+NotAction
-            if 'NotAction' in statement:
+            no_action = helper.get_index(
+                get_resources(graph, father, 'NotAction', depth=3), 0)
+            if no_action:
                 entity = f'{resource}/PolicyDocument/Statement/NotAction'
                 reason = 'avoid security through black listing'
-                vulnerable_entities.append((entity, reason))
+                vulnerable_entities.append((entity, reason,
+                                            graph.nodes[no_action]['line']))
             # W22: IAM policy should not allow Allow+NotResource
             # W23: IAM managed policy should not allow Allow+NotResource
-            if 'NotResource' in statement:
+            no_resource = helper.get_index(
+                get_resources(graph, father, 'NotResource', depth=3), 0)
+            if no_resource:
                 entity = f'{resource}/PolicyDocument/Statement/NotResource'
                 reason = 'avoid security through black listing'
-                vulnerable_entities.append((entity, reason))
-            for action in map(str, helper.force_list(
-                    statement.get('Action', []))):
+                vulnerable_entities.append((entity, reason,
+                                            graph.nodes[no_resource]['line']))
+
+            action_node = helper.get_index(
+                get_resources(graph, father, 'Action'), 0)
+            for _action in main.get_ref_nodes(
+                    graph, action_node, condition=wildcard_action.match,
+                    depth=6) + [action_node] if action_node else []:
                 # F4: IAM policy should not allow * action
                 # F5: IAM managed policy should not allow * action
-                if wildcard_action.match(action):
-                    entity = (f'{resource}/PolicyDocument'
-                              f'/Statement/Action: {action}')
-                    reason = 'grants wildcard privileges'
-                    vulnerable_entities.append((entity, reason))
-            for _resource in map(str, helper.force_list(
-                    statement.get('Resource', []))):
+                _action_node = graph.nodes[_action]
+                if 'value' not in _action_node:
+                    continue
+                entity = (f'{resource}/PolicyDocument'
+                          f'/Statement/Action: {_action_node["value"]}')
+                reason = 'grants wildcard privileges'
+                vulnerable_entities.append((entity, reason,
+                                            _action_node['line']))
+
+            _resources_node = helper.get_index(
+                get_resources(graph, father, 'Resource'), 0)
+            for _resource in main.get_ref_nodes(
+                    graph, _resources_node, condition=wildcard_resource.match,
+                    depth=6) + [_resources_node] if _resources_node else []:
                 # W12: IAM policy should not allow * resource
                 # W13: IAM managed policy should not allow * resource
                 # F39: IAM policy should not allow * resource with
                 #   PassRole action
                 # F40: IAM managed policy should not allow a * resource with
                 #   PassRole action
-                if wildcard_resource.match(_resource):
-                    entity = (f'{resource}/PolicyDocument'
-                              f'/Statement/Resource: {_resource}')
-                    reason = 'grants wildcard privileges'
-                    vulnerable_entities.append((entity, reason))
+                _resource_node = graph.nodes[_resource]
+                if 'value' not in _resource_node:
+                    continue
+                entity = (f'{resource}/PolicyDocument'
+                          f'/Statement/Resource: {_resource_node["value"]}')
+                reason = 'grants wildcard privileges'
+                vulnerable_entities.append((entity, reason,
+                                            _resource_node['line']))
 
-        for user in res_props.get('Users', []):
-            # F11: IAM policy should not apply directly to users.
-            #   Should be on group
-            # F12: IAM managed policy should not apply directly to users.
-            #   Should be on group
-            entity = f'{resource}/Users: {user}'
+        users: int = helper.get_index(
+            get_resources(graph, res, 'Users', depth=3), 0)
+        for user in main.get_ref_nodes(
+                graph, users, lambda x: isinstance(x, str)) if users else []:
+            user_node = graph.nodes[user]
+            entity = f'{resource}/Users: {user_node["value"]}'
             reason = f'{resource} applied to user, apply to role instead'
-            vulnerable_entities.append((entity, reason))
+            vulnerable_entities.append((entity, reason, user_node['line']))
 
         if vulnerable_entities:
             vulnerabilities.extend(
                 Vulnerability(
-                    path=yaml_path,
+                    path=template['path'],
                     entity=f'AWS::IAM::{resource}/{entity}',
-                    identifier=res_name,
-                    line=helper.get_line(res_props),
+                    identifier=res_node["name"],
+                    line=line,
                     reason=reason)
-                for entity, reason in set(vulnerable_entities))
+                for entity, reason, line in set(vulnerable_entities))
 
     return _get_result_as_tuple(
         vulnerabilities=vulnerabilities,

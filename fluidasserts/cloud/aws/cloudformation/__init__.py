@@ -71,7 +71,7 @@ def templates_as_graph(path: str, exclude: List[str] = None) -> DiGraph:
 
 
 def get_ref_nodes(graph: DiGraph, node: int,
-                  condition: Callable = None) -> List[int]:
+                  condition: Callable = None, depth: int = 3) -> List[int]:
     """
     Returns the value of a node the value of its reference.
 
@@ -88,7 +88,7 @@ def get_ref_nodes(graph: DiGraph, node: int,
             value): return True  # noqa pylint: disable=unused-argument,multiple-statements
     nodes: List[int] = [node] if 'value' in graph.nodes[node] and condition(
         graph.nodes[node]['value']) else [
-            ref for ref in dfs_preorder_nodes(graph, node, 3)
+            ref for ref in dfs_preorder_nodes(graph, node, depth)
             if 'value' in graph.nodes[ref]
             and condition(graph.nodes[ref]['value'])]
     return nx.utils.flatten(nodes)
