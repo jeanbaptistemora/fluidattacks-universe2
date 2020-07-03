@@ -1,5 +1,5 @@
 :slug: use-cases/one-shot-hacking/environments/
-:description: In this page we present our One Shot Hacking service, which aims to detect and report all vulnerabilities and security issues within your application. The rigorous inspection of our team allow us to detect all existing security findings with no false positives.
+:description: In this page we present our One Shot Hacking service, which aims to detect and report all vulnerabilities and security issues within your application.
 :keywords: Fluid Attacks, Services, Continuous Hacking, Ethical Hacking, Pentesting, Security.
 :nextpage: use-cases/one-shot-hacking/vuln-manage/
 :category: one-shot-hacking
@@ -8,8 +8,10 @@
 
 = Severity and Testing Environments
 
-You can decide through link:../../../rules/[*Rules*] which security requirements will be tested.
-You can know the exact severity of each hacking
-(for inspected and uninspected profiled requirements).
-Basic service allows you to choose a single production, testing, or integration
-environment. You can also add another one for validation at an extra charge.
+For every hacking process, you can be aware of its severity.
+Besides, you can choose all the security requirements to be tested
+that you consider necessary.
+Each requirement can be found and understood using link:../../../rules/[*Rules*].
+Likewise, the basic hacking service
+involves selecting an environment in which we would work.
+If you want to test another one, that will mean an additional cost.
