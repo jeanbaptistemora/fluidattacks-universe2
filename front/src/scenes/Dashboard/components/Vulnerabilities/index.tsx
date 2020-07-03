@@ -797,7 +797,7 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                     width: "12%",
                   });
                   pendingsHeader.push({
-                    align: "center",
+                    align: "left",
                     dataField: "id",
                     deleteFunction: handleRejectVulnerability,
                     formatter: deleteFormatter,

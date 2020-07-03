@@ -8,6 +8,7 @@ import React from "react";
 import { ButtonToolbar, Glyphicon, Row } from "react-bootstrap";
 import { Button } from "../../../../../components/Button";
 import { FluidIcon } from "../../../../../components/FluidIcon";
+import { TooltipWrapper } from "../../../../../components/TooltipWrapper";
 import { Can } from "../../../../../utils/authz/Can";
 import translate from "../../../../../utils/translations/translate";
 import { IHistoricTreatment } from "../types";
@@ -55,23 +56,30 @@ const actionButtons: React.FC<IActionButtonsProps> = (props: IActionButtonsProps
       <ButtonToolbar className="pull-right">
         <Can do="backend_api_resolvers_vulnerability__do_verify_request_vuln">
           {shouldRenderVerifyBtn ? (
-            <Button onClick={onVerify}>
-              <FluidIcon icon="verified" />&nbsp;
-              {props.isVerifying
-                ? translate.t("search_findings.tab_description.cancel_verified")
-                : translate.t("search_findings.tab_description.mark_verified")}
-            </Button>
+            <TooltipWrapper
+              message={translate.t("search_findings.tab_description.mark_verified.tooltip")}
+              placement="top"
+            >
+              <Button onClick={onVerify}>
+                <FluidIcon icon="verified" />&nbsp;
+                {props.isVerifying
+                  ? translate.t("search_findings.tab_description.cancel_verified")
+                  : translate.t("search_findings.tab_description.mark_verified.text")}
+              </Button>
+            </TooltipWrapper>
           ) : undefined}
         </Can>
         <Can do="backend_api_resolvers_vulnerability__do_request_verification_vuln">
           <br />
           {shouldRenderRequestVerifyBtn ? (
-            <Button onClick={onRequestVerify} disabled={props.isRemediated}>
-              <FluidIcon icon="verified" />&nbsp;
-              {props.isRequestingVerify
-                ? translate.t("search_findings.tab_description.cancel_verify")
-                : translate.t("search_findings.tab_description.request_verify")}
-            </Button>
+            <TooltipWrapper message={translate.t("search_findings.tab_description.request_verify.tooltip")}>
+              <Button onClick={onRequestVerify} disabled={props.isRemediated}>
+                <FluidIcon icon="verified" />&nbsp;
+                {props.isRequestingVerify
+                  ? translate.t("search_findings.tab_description.cancel_verify")
+                  : translate.t("search_findings.tab_description.request_verify.text")}
+              </Button>
+            </TooltipWrapper>
           ) : undefined}
         </Can>
         <Can do="backend_api_resolvers_finding__do_handle_acceptation">
@@ -88,22 +96,31 @@ const actionButtons: React.FC<IActionButtonsProps> = (props: IActionButtonsProps
           ) : undefined}
         </Can>
         {props.isEditing ? (
-          <Button onClick={onUpdate} disabled={props.isPristine}>
-            <FluidIcon icon="loading" />&nbsp;
-            {translate.t("search_findings.tab_description.save")}
-          </Button>
+          <TooltipWrapper message={translate.t("search_findings.tab_description.save.tooltip")}>
+            <Button onClick={onUpdate} disabled={props.isPristine}>
+              <FluidIcon icon="loading" />&nbsp;
+              {translate.t("search_findings.tab_description.save.text")}
+            </Button>
+          </TooltipWrapper>
         ) : undefined}
-        <Button onClick={onEdit}>
-          {props.isEditing ? (
-            <React.Fragment>
-              <Glyphicon glyph="remove" />&nbsp;{translate.t("search_findings.tab_description.editable.cancel")}
-            </React.Fragment>
-          ) : (
-            <React.Fragment>
-              <FluidIcon icon="edit" />&nbsp;{translate.t("search_findings.tab_description.editable.text")}
-            </React.Fragment>
-          )}
-        </Button>
+        <TooltipWrapper
+          message={props.isEditing
+            ? translate.t("search_findings.tab_description.editable.cancel_tooltip")
+            : translate.t("search_findings.tab_description.editable.editable_tooltip")
+          }
+        >
+          <Button onClick={onEdit}>
+            {props.isEditing ? (
+              <React.Fragment>
+                <Glyphicon glyph="remove" />&nbsp;{translate.t("search_findings.tab_description.editable.cancel")}
+              </React.Fragment>
+            ) : (
+              <React.Fragment>
+                <FluidIcon icon="edit" />&nbsp;{translate.t("search_findings.tab_description.editable.text")}
+              </React.Fragment>
+            )}
+          </Button>
+        </TooltipWrapper>
       </ButtonToolbar>
     </Row>
   );

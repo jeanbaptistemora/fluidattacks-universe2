@@ -60,9 +60,11 @@ const sidebar: React.FC<ISidebarProps> = (props: ISidebarProps): JSX.Element => 
           <div className={style.version}><small>{translate.t(`search_findings.tab_users.${userRole}`)}</small></div>
         }
         <div className={style.version}><small>integrates_version</small></div>
-        <ul>
-          <li onClick={onLogoutClick}><a><span className="icon pe-7s-power" /></a></li>
-        </ul>
+        <TooltipWrapper message="Log out of Integrates" placement="right">
+          <ul>
+            <li onClick={onLogoutClick}><a><span className="icon pe-7s-power" /></a></li>
+          </ul>
+        </TooltipWrapper>
       </div>
     </BurgerMenu>
   );

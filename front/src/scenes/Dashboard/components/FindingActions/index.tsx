@@ -9,6 +9,7 @@ import { ButtonToolbar } from "react-bootstrap";
 import { Button } from "../../../../components/Button";
 import { ConfirmDialog, IConfirmFn } from "../../../../components/ConfirmDialog";
 import { FluidIcon } from "../../../../components/FluidIcon";
+import { TooltipWrapper } from "../../../../components/TooltipWrapper";
 import { Can } from "../../../../utils/authz/Can";
 import translate from "../../../../utils/translations/translate";
 
@@ -34,33 +35,39 @@ const findingActions: React.FC<IFindingActionsProps> = (props: IFindingActionsPr
         <React.Fragment>
           <Can do="backend_api_resolvers_finding__do_submit_draft">
             {props.hasSubmission ? undefined : (
-              <Button disabled={props.loading} onClick={onSubmit}>
-                Submit
-              </Button>
+              <TooltipWrapper message={translate.t("group.drafts.submit.tooltip")}>
+                <Button disabled={props.loading} onClick={onSubmit}>
+                  {translate.t("group.drafts.submit.text")}
+                </Button>
+              </TooltipWrapper>
             )}
           </Can>
           <Can do="backend_api_resolvers_finding__do_approve_draft">
-            <ConfirmDialog title={translate.t("group.drafts.approve")}>
+            <ConfirmDialog title={translate.t("group.drafts.approve.title")}>
               {(confirm: IConfirmFn): React.ReactNode => {
                 const handleClick: (() => void) = (): void => { confirm(() => { onApprove(); }); };
 
                 return (
-                  <Button onClick={handleClick} disabled={!canApprove || props.loading}>
-                    <FluidIcon icon="verified" />&nbsp;Approve
-                  </Button>
+                  <TooltipWrapper message={translate.t("group.drafts.approve.tooltip")}>
+                    <Button onClick={handleClick} disabled={!canApprove || props.loading}>
+                      <FluidIcon icon="verified" />&nbsp;{translate.t("group.drafts.approve.text")}
+                    </Button>
+                  </TooltipWrapper>
                 );
               }}
             </ConfirmDialog>
           </Can>
           <Can do="backend_api_resolvers_finding__do_reject_draft">
-            <ConfirmDialog title={translate.t("group.drafts.reject")}>
+            <ConfirmDialog title={translate.t("group.drafts.reject.title")}>
               {(confirm: IConfirmFn): React.ReactNode => {
                 const handleClick: (() => void) = (): void => { confirm(() => { onReject(); }); };
 
                 return (
-                  <Button onClick={handleClick} disabled={!props.hasSubmission || props.loading}>
-                    Reject
-                  </Button>
+                  <TooltipWrapper message={translate.t("group.drafts.reject.tooltip")}>
+                    <Button onClick={handleClick} disabled={!props.hasSubmission || props.loading}>
+                      {translate.t("group.drafts.reject.text")}
+                    </Button>
+                  </TooltipWrapper>
                 );
               }}
             </ConfirmDialog>
@@ -68,9 +75,11 @@ const findingActions: React.FC<IFindingActionsProps> = (props: IFindingActionsPr
         </React.Fragment>
       ) : undefined}
       <Can do="backend_api_resolvers_finding__do_delete_finding">
-        <Button onClick={onDelete}>
-          <FluidIcon icon="delete" />&nbsp;Delete
-        </Button>
+        <TooltipWrapper message={translate.t("search_findings.delete.btn.tooltip")}>
+          <Button onClick={onDelete}>
+            <FluidIcon icon="delete" />&nbsp;{translate.t("search_findings.delete.btn.text")}
+          </Button>
+        </TooltipWrapper>
       </Can>
     </ButtonToolbar>
   );

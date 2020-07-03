@@ -123,14 +123,26 @@ const enTranslations: Dictionary = {
       + "to your group in the selected month, and one example commit",
     },
     drafts: {
-      approve: "Approve draft",
+      approve: {
+        text: "Approve",
+        title: "Approve draft",
+        tooltip: "Accept the finding",
+      },
       btn: {
         text: "New",
         tooltip: "Create a new finding",
       },
       error_submit: "Please provide {{missingFields}} before submitting",
       new: "New Finding",
-      reject: "Reject Draft",
+      reject: {
+        text: "Reject",
+        title: "Reject Draft",
+        tooltip: "Cancel the request for review the finding",
+      },
+      submit: {
+        text: "Submit",
+        tooltip: "Submit the finding for review",
+      },
       success_create: "Draft created successfully",
       success_submit: "Draft successfully submitted for review",
       title: "Title",
@@ -507,6 +519,10 @@ const enTranslations: Dictionary = {
     },
     critical_severity: "Critical",
     delete: {
+      btn: {
+        text: "Delete",
+        tooltip: "Delete all about this finding",
+      },
       justif: {
         duplicated: "It is duplicated",
         false_positive: "It is a false positive",
@@ -658,6 +674,8 @@ const enTranslations: Dictionary = {
       editVuln: "Edit vulnerabilites",
       editable: {
         cancel: "Cancel",
+        cancel_tooltip: "Cancel changes",
+        editable_tooltip: "Modify the fields of the finding",
         text: "Edit",
       },
       errorFileVuln: "Vulnerabilities file has errors",
@@ -666,7 +684,10 @@ const enTranslations: Dictionary = {
       is_new: "New",
       line: "Line",
       line_plural: "Lines",
-      mark_verified: "Verify vulnerabilities",
+      mark_verified: {
+        text: "Verify vulnerabilities",
+        tooltip: "Assess whether the vulnerability was fixed or not in the current cycle",
+      },
       mark_verified_finding: "Verify finding",
       new: "New",
       old: "Old",
@@ -684,13 +705,19 @@ const enTranslations: Dictionary = {
         title_observations: "Observations",
         title_request: "Justification",
       },
-      request_verify: "Reattack",
+      request_verify: {
+        text: "Reattack",
+        tooltip: "Request a new reattack cycle when the vulnerability is solved",
+      },
       requirements: {
         text: "Requirements",
         tooltip: "Rules that are broken and lead to the existence of the vulnerability",
       },
       risk: "Risk",
-      save: "Save",
+      save: {
+        text: "Save",
+        tooltip: "Save changes",
+      },
       scenario: {
         anon_inter: "Anonymous from Internet",
         anon_intra: "Anonymous from Intranet",
