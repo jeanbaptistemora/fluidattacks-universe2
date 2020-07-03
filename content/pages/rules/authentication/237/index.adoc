@@ -1,7 +1,7 @@
 :slug: rules/237/
 :category: authentication
-:description: This document details the security requirements and guidelines related to secure user authentication management in the organization. In this case, it is recommended that the system guarantee that all user actions are executed by a human and not by robots performing automated tasks.
-:keywords: Authentication Attempt, Human Interaction, User, Limit, CWE, ASVS
+:description: This requirement states that the system must guarantee that all user actions are executed by a human and not by robots performing automated tasks.
+:keywords: Authentication Attempt, Human Interaction, User, Limit, CWE, ASVS, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R237. Ascertain human interaction
@@ -9,7 +9,7 @@
 == Requirement
 
 The system must guarantee that the registration,
-authentication and password recovery actions are performed by a human.
+authentication, and password recovery actions are performed by a human.
 This can be achieved using *CAPTCHA* or incremental delays.
 
 == Description

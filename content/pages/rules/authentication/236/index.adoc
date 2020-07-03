@@ -1,7 +1,7 @@
 :slug: rules/236/
 :category: authentication
-:description: This document details the security requirements and guidelines related to secure user authentication management in the organization. In this case, it is recommended that any application establish a reasonable maximum time for the authentication process of its users.
-:keywords: Authentication, Time, Seconds, Users, Limit, ASVS
+:description: This requirement establishes the importance of any application setting a reasonable maximum time for its users' authentication process.
+:keywords: Authentication, Time, Seconds, Users, Limit, ASVS, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R236. Establish authentication time

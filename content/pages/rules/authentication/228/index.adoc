@@ -1,7 +1,7 @@
 :slug: rules/228/
 :category: authentication
-:description: This document details the security requirements and guidelines related to secure user authentication management in the organization. In this case, it is recommended that the unified authentication process be carried out employing some standard protocols.
-:keywords: Protocol, Standard, User Account, Authentication, SSO, SAML
+:description: This requirement states that the unified authentication process must be carried out employing some standard protocols.
+:keywords: Protocol, Standard, User Account, Authentication, SSO, SAML, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R228. Authenticate using standard protocols

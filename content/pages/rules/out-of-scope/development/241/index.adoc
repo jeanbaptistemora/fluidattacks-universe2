@@ -1,7 +1,7 @@
 :slug: rules/241/
 :category: development
-:description: This document contains the details of the security requirements related to the definition and management of development process of the application. This requirement establishes the importance of defining requirements that will be checked according to the security criteria of the organization.
-:keywords: Requirement, Security, Criteria, Requirements, Development, Process
+:description: This requirement establishes the importance of defining requirements that will be checked according to the organization's security criteria.
+:keywords: Requirement, Security, Criteria, Requirements, Development, Process, Rules, Ethical Hacking, Pentesting
 :rules: yes
 :extended: yes
 

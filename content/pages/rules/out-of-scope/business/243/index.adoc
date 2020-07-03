@@ -1,7 +1,7 @@
 :slug: rules/243/
 :category: business
-:description: This document contains the details of the security requirements related to the definition and management of business process in the organization. This requirement establishes the importance of managing security events by defining a procedure to protect health information in case of emergency.
-:keywords: Requirement, Security, Events, Record, Emergency, Documentation
+:description: This requirement establishes the importance of managing security events by defining a procedure to protect the information in case of an emergency.
+:keywords: Requirement, Security, Events, Record, Emergency, Documentation, Rules, Ethical Hacking, Pentesting
 :rules: yes
 :extended: yes
 

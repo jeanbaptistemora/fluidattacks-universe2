@@ -1,7 +1,7 @@
 :slug: rules/231/
 :category: authentication
-:description: This document contains the details of the security requirements related to the definition and management of access credentials in the organization. This requirement establishes the importance of defining mechanisms and components for biometric verification during authentication process.
-:keywords: Authentication, Biometric, Verification, ASVS, GDPR, NIST
+:description: This requirement establishes the importance of defining mechanisms and components for biometric verification during the authentication process.
+:keywords: Authentication, Biometric, Verification, ASVS, GDPR, NIST, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R231. Define a biometric verification component

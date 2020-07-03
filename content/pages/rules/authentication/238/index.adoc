@@ -1,7 +1,7 @@
 :slug: rules/238/
 :category: authentication
-:description: This document details the security requirements and guidelines related to secure user authentication management in the organization. In this case, it is recommended that the system guarantees that the owner of the account is the one who resets and recovers the password.
-:keywords: Password, Recovery, Change, Authenticity, ASVS, CWE
+:description: This requirement states that the system must guarantee that the owner of the account is the one who resets and recovers the password.
+:keywords: Password, Recovery, Change, Authenticity, ASVS, CWE, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R238. Establish safe recovery

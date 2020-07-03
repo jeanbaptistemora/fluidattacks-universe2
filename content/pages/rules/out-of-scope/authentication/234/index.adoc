@@ -1,7 +1,7 @@
 :slug: rules/234/
 :category: authentication
-:description: This document contains the details of the security requirements related to the definition and management of authentication process in the organization. This requirement establishes the importance of protecting credentials with critical business information under custody of two users.
-:keywords: Requirement, Security, Credential, Business, Information, Users
+:description: This requirement establishes the importance of protecting credentials with critical business information under the custody of two users.
+:keywords: Requirement, Security, Credential, Business, Information, Users, Rules, Ethical Hacking, Pentesting
 :rules: yes
 :extended: yes
 

@@ -1,7 +1,7 @@
 :slug: rules/229/
 :category: authentication
-:description: This requirement establishes the importance of requesting access credentials in order to validate the authentication process.
-:keywords: Authentication, Credentials, HIPAA, ASVS, NIST, CWE
+:description: This requirement establishes the importance of requesting access credentials to validate the authentication process.
+:keywords: Authentication, Credentials, HIPAA, ASVS, NIST, CWE, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R229. Request access credentials

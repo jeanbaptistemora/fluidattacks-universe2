@@ -1,7 +1,7 @@
 :slug: rules/242/
 :category: development
-:description: This document contains the details of the security requirements related to the definition and management of development process of the application. This requirement establishes the importance of performing support to applications in different environments other than production.
-:keywords: Requirement, Security, Support, Production, Development, Process
+:description: This requirement establishes the importance of supporting applications only in environments other than production.
+:keywords: Requirement, Security, Support, Production, Development, Process, Rules, Ethical Hacking, Pentesting
 :rules: yes
 :extended: yes
 
@@ -11,7 +11,7 @@
 
 Support to applications or systems must be performed
 only in environments other than of production
-(development, testing, QA, UAT)
+(development, testing, QA, UAT).
 
 == References
 
