@@ -13,7 +13,6 @@ from backend.exceptions import (
 )
 from backend.reports import report
 from backend.reports.reports import (
-    complete as complete_report,
     data as data_report,
     technical as technical_report,
 )
@@ -73,14 +72,16 @@ async def _get_url(info, report_type: str, **parameters) -> str:
         projects = await user_domain.get_projects(user_email)
         url = \
             await sync_to_async(
-                complete_report.generate)(projects, user_email)
+                report.generate_complete_report)(user_email, projects)
         util.cloudwatch_log(
             info.context,
             f'Security: Complete report succesfully requested by {user_email}')
     if report_type == 'ALL_VULNS':
         if authz.get_user_level_role(user_email) == 'admin':
-            url = report.generate_all_vulns_report(
-                user_email, project_name=parameters.get('project_name', ''))
+            url = \
+                await sync_to_async(
+                    report.generate_all_vulns_report)(
+                        user_email, parameters.get('project_name', ''))
             msg = (
                 f'Security: All vulnerabilities report successfully requested '
                 f'by {user_email}'

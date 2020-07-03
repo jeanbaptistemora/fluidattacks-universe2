@@ -1,4 +1,5 @@
 import asyncio
+from typing import List
 from asgiref.sync import sync_to_async
 from backend.domain import (
     finding as finding_domain,
@@ -7,6 +8,7 @@ from backend.domain import (
 )
 from backend.exceptions import RequestedReportError
 from backend.reports.reports import (
+    complete as complete_report,
     data as data_report,
     technical as technical_report,
     all_vulns as all_vulns_report,
@@ -72,6 +74,10 @@ async def generate_group_report(
         raise RequestedReportError()
 
     return url
+
+
+def generate_complete_report(user_email: str, projects: List[str]) -> str:
+    return complete_report.generate(user_email, projects)
 
 
 def generate_all_vulns_report(user_email: str, project_name: str = '') -> str:

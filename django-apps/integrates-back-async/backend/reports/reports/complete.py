@@ -13,8 +13,9 @@ from backend.utils import reports as reports_utils
 
 # pylint: disable=too-many-locals
 def generate(
-        projects: List[str],
-        user_email: str) -> str:
+    user_email: str,
+    projects: List[str]
+) -> str:
     template_path = (
         '/usr/src/app/django-apps/integrates-back-async/backend'
         '/reports/templates/excel/COMPLETE.xlsx'
