@@ -6,8 +6,9 @@ import logging
 import logging.config
 from collections import OrderedDict, defaultdict
 from datetime import datetime, timedelta
-
 from typing import Dict, List, Tuple, Union, cast
+
+from more_itertools import chunked
 import rollbar
 from botocore.exceptions import ClientError
 from asgiref.sync import async_to_sync, sync_to_async
@@ -685,6 +686,36 @@ async def get_project_indicators(project: str) -> Dict[str, object]:
     return indicators
 
 
+async def update_group_indicators(group_name: str) -> None:
+    rollbar.report_message(
+        f'Info: Updating indicators in {group_name}',
+        'info'
+    )
+    indicators = await get_project_indicators(group_name)
+    try:
+        response = await sync_to_async(project_dal.update)(
+            group_name, indicators
+        )
+        if response:
+            util.invalidate_cache(group_name)
+            rollbar.report_message(
+                f'Info: Updated indicators in {group_name}',
+                'info'
+            )
+        else:
+            rollbar.report_message(
+                ('Error: An error ocurred updating indicators of '
+                 f'the group {group_name} in the database'),
+                'error'
+            )
+    except ClientError:
+        rollbar.report_message(
+            ('Error: An error ocurred updating '
+             f'indicators of the group {group_name}'),
+            'error'
+        )
+
+
 @async_to_sync
 async def update_indicators():
     """Update in dynamo indicators."""
@@ -692,33 +723,16 @@ async def update_indicators():
         'Warning: Function to update indicators in DynamoDB is running',
         'warning'
     )
-    projects = await sync_to_async(project_domain.get_active_projects)()
-    project_indicators = await asyncio.gather(*[
-        asyncio.create_task(
-            get_project_indicators(project)
-        )
-        for project in projects
-    ])
-    for project in projects:
-        indicators = project_indicators.pop(0)
-        try:
-            response = await sync_to_async(project_dal.update)(
-                project, indicators
+    groups = await sync_to_async(project_domain.get_active_projects)()
+    # number of groups that can be updated at a time
+    groups_chunks = chunked(groups, 40)
+    for grps_chunk in groups_chunks:
+        await asyncio.gather(*[
+            asyncio.create_task(
+                update_group_indicators(group_name)
             )
-            if response:
-                util.invalidate_cache(project)
-            else:
-                rollbar.report_message(
-                    ('Error: An error ocurred updating indicators of '
-                     f'the project {project} in dynamo'),
-                    'error'
-                )
-        except ClientError:
-            rollbar.report_message(
-                ('Error: An error ocurred updating '
-                 f'indicators of the project {project}'),
-                'error'
-            )
+            for group_name in grps_chunk
+        ])
 
 
 @async_to_sync

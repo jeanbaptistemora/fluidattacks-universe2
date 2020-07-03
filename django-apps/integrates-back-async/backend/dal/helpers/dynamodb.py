@@ -22,7 +22,7 @@ from __init__ import (
 
 
 CLIENT_CONFIG = botocore.config.Config(
-    max_pool_connections=30,
+    max_pool_connections=50,
 )
 RESOURCE_OPTIONS: Dict[str, Optional[str]] = {}
 
