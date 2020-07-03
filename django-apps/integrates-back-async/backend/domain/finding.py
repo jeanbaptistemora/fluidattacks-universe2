@@ -124,11 +124,16 @@ async def get_tracking_vulnerabilities(
         if filter_deleted_status.pop(0)
     ]
     vuln_casted = finding_utils.remove_repeated(vulns_filtered)
+    open_verification_dates = finding_utils.get_open_verification_dates(
+        vulns_filtered
+    )
     unique_dict = finding_utils.get_unique_dict(vuln_casted)
     tracking = finding_utils.get_tracking_dict(unique_dict)
     tracking_grouped = finding_utils.group_by_state(tracking)
-    order_tracking = sorted(tracking_grouped.items())
-    tracking_casted = finding_utils.cast_tracking(order_tracking)
+    open_verification_tracking = finding_utils.add_open_verification_dates(
+        tracking_grouped, open_verification_dates
+    )
+    tracking_casted = finding_utils.cast_tracking(open_verification_tracking)
     return tracking_casted
 
 

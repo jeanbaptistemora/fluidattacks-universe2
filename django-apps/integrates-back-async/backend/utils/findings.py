@@ -1,4 +1,5 @@
 import asyncio
+import bisect
 import io
 import itertools
 import threading
@@ -135,7 +136,7 @@ def cast_tracking(tracking) -> List[Dict[str, int]]:
     tracking_casted = []
     for date, value in tracking:
         effectiveness = int(
-            round(
+            (
                 int(value['closed']) / float(value['open'] + value['closed'])
             ) * 100
         )
@@ -201,6 +202,64 @@ def get_exploit_from_file(
         file_content = exploit_file.read()
 
     return file_content
+
+
+def get_open_verification_dates(
+        vulnerabilities: List[Dict[str, FindingType]]) -> List[str]:
+    """Get dates when open vulns were verified."""
+    verified_open_dates = set()
+    historic_open_verified = []
+    for vuln in vulnerabilities:
+        historic_state = cast(
+            List[Dict[str, str]],
+            vuln.get('historic_state', [])
+        )
+        historic_verification = cast(
+            List[Dict[str, str]],
+            vuln.get('historic_verification', [])
+        )
+        historic = historic_state + historic_verification
+        sorted_historic = sorted(historic, key=lambda i: i['date'])
+        for index in range(1, len(sorted_historic)):
+            prev_milestone = sorted_historic[index - 1]
+            milestone = sorted_historic[index]
+            if 'state' not in milestone:
+                milestone['state'] = prev_milestone['state']
+        historic_open_verified = list(
+            filter(
+                lambda i: i.get('state', '') == 'open'
+                and i.get('status', '') == 'VERIFIED',
+                sorted_historic
+            )
+        )
+        verified_open_dates.update([
+            str(milestone.get('date', '')).split(' ')[0]
+            for milestone in historic_open_verified
+        ])
+    return list(verified_open_dates)
+
+
+def add_open_verification_dates(
+        tracking_grouped,
+        open_verification_dates) -> List[Dict[str, int]]:
+    """Add dates to tracking when open vulns were verified."""
+    open_verification_tracking = sorted(tracking_grouped.items())
+    tracking_dates = [
+        date
+        for date, _ in open_verification_tracking
+    ]
+    new_dates = [
+        date
+        for date in open_verification_dates
+        if date not in tracking_dates
+    ]
+    for new_date in new_dates:
+        index = bisect.bisect(tracking_dates, new_date)
+        _, value = open_verification_tracking[index - 1]
+        new_item = (new_date, value)
+        tracking_dates.insert(index, new_date)
+        open_verification_tracking.insert(index, new_item)
+    return open_verification_tracking
 
 
 def get_tracking_dict(unique_dict: Dict[str, Dict[str, str]]) -> \
