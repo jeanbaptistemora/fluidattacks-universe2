@@ -16,7 +16,7 @@ const d3GroupIndicatorsView: React.FC<ID3GroupIndicatorsProps> = (props: ID3Grou
         <Row>
           <Col md={12}>
             <Graphic
-              bsClass={styles.height320}
+              bsHeight={320}
               documentName="riskOverTime"
               documentType="stackedBarChart"
               entity="group"
@@ -40,7 +40,7 @@ const d3GroupIndicatorsView: React.FC<ID3GroupIndicatorsProps> = (props: ID3Grou
         <Row>
           <Col md={6}>
             <Graphic
-              bsClass={styles.height160}
+              bsHeight={160}
               documentName="status"
               documentType="pieChart"
               entity="group"
@@ -55,7 +55,7 @@ const d3GroupIndicatorsView: React.FC<ID3GroupIndicatorsProps> = (props: ID3Grou
           </Col>
           <Col md={6}>
             <Graphic
-              bsClass={styles.height160}
+              bsHeight={160}
               documentName="treatment"
               documentType="pieChart"
               entity="group"
@@ -80,7 +80,7 @@ const d3GroupIndicatorsView: React.FC<ID3GroupIndicatorsProps> = (props: ID3Grou
         <Row>
           <Col md={3}>
             <Graphic
-              bsClass={styles.height80}
+              bsHeight={80}
               documentName="totalFindings"
               documentType="textBox"
               entity="group"
@@ -92,7 +92,7 @@ const d3GroupIndicatorsView: React.FC<ID3GroupIndicatorsProps> = (props: ID3Grou
           </Col>
           <Col md={3}>
             <Graphic
-              bsClass={styles.height80}
+              bsHeight={80}
               documentName="totalVulnerabilities"
               documentType="textBox"
               entity="group"
@@ -104,7 +104,7 @@ const d3GroupIndicatorsView: React.FC<ID3GroupIndicatorsProps> = (props: ID3Grou
           </Col>
           <Col md={3}>
             <Graphic
-              bsClass={styles.height80}
+              bsHeight={80}
               documentName="findingsBeingReattacked"
               documentType="textBox"
               entity="group"
@@ -116,7 +116,7 @@ const d3GroupIndicatorsView: React.FC<ID3GroupIndicatorsProps> = (props: ID3Grou
           </Col>
           <Col md={3}>
             <Graphic
-              bsClass={styles.height80}
+              bsHeight={80}
               documentName="daysSinceLastRemediation"
               documentType="textBox"
               entity="group"
@@ -130,7 +130,7 @@ const d3GroupIndicatorsView: React.FC<ID3GroupIndicatorsProps> = (props: ID3Grou
         <Row>
           <Col md={6}>
             <Graphic
-              bsClass={styles.height160}
+              bsHeight={160}
               documentName="severity"
               documentType="gauge"
               entity="group"
@@ -142,7 +142,7 @@ const d3GroupIndicatorsView: React.FC<ID3GroupIndicatorsProps> = (props: ID3Grou
           </Col>
           <Col md={6}>
             <Graphic
-              bsClass={styles.height160}
+              bsHeight={160}
               documentName="resources"
               documentType="pieChart"
               entity="group"
@@ -156,7 +156,7 @@ const d3GroupIndicatorsView: React.FC<ID3GroupIndicatorsProps> = (props: ID3Grou
         <Row>
           <Col md={12}>
             <Graphic
-              bsClass={styles.height320}
+              bsHeight={320}
               documentName="whereToFindings"
               documentType="disjointForceDirectedGraph"
               entity="group"
@@ -191,7 +191,7 @@ const d3GroupIndicatorsView: React.FC<ID3GroupIndicatorsProps> = (props: ID3Grou
         <Row>
           <Col md={3}>
             <Graphic
-              bsClass={styles.height80}
+              bsHeight={80}
               documentName="forcesStatus"
               documentType="textBox"
               entity="group"
@@ -203,7 +203,7 @@ const d3GroupIndicatorsView: React.FC<ID3GroupIndicatorsProps> = (props: ID3Grou
           </Col>
           <Col md={3}>
             <Graphic
-              bsClass={styles.height80}
+              bsHeight={80}
               documentName="forcesUsage"
               documentType="textBox"
               entity="group"
@@ -215,7 +215,7 @@ const d3GroupIndicatorsView: React.FC<ID3GroupIndicatorsProps> = (props: ID3Grou
           </Col>
           <Col md={3}>
             <Graphic
-              bsClass={styles.height80}
+              bsHeight={80}
               documentName="forcesAutomatizedVulns"
               documentType="textBox"
               entity="group"
@@ -227,7 +227,7 @@ const d3GroupIndicatorsView: React.FC<ID3GroupIndicatorsProps> = (props: ID3Grou
           </Col>
           <Col md={3}>
             <Graphic
-              bsClass={styles.height80}
+              bsHeight={80}
               documentName="forcesRepositoriesAndBranches"
               documentType="textBox"
               entity="group"
@@ -241,7 +241,7 @@ const d3GroupIndicatorsView: React.FC<ID3GroupIndicatorsProps> = (props: ID3Grou
         <Row>
           <Col md={6}>
             <Graphic
-              bsClass={styles.height160}
+              bsHeight={160}
               documentName="forcesSecurityCommitment"
               documentType="gauge"
               entity="group"
@@ -253,7 +253,7 @@ const d3GroupIndicatorsView: React.FC<ID3GroupIndicatorsProps> = (props: ID3Grou
           </Col>
           <Col md={6}>
             <Graphic
-              bsClass={styles.height160}
+              bsHeight={160}
               documentName="forcesBuildsRisk"
               documentType="gauge"
               entity="group"

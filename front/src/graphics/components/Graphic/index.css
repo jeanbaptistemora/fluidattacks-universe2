@@ -19,6 +19,20 @@
   transform: translate(-50%);
 }
 
+:local .modalDialog {
+  /* 210px is the fixed-sized of the left burger panel */
+  --burger-panel-size: 210px;
+
+  display: inline-block;
+  left: var(--burger-panel-size);
+  max-width: none!important;
+  margin: 0px!important;
+  position: absolute;
+  text-align: left;
+  vertical-align: middle;
+  width: calc(100% - var(--burger-panel-size));
+}
+
 :local .panelTitle {
   /* Using important to override the global react-bootstrap style */
   background-color: #fbfbfb !important;
@@ -27,6 +41,7 @@
 :local .panelFooter {
   /* Using important to override the global react-bootstrap style */
   background-color: #fbfbfb !important;
+  text-align: left;
 }
 
 :local .tinyLine {
@@ -35,6 +50,8 @@
 }
 
 :local .titleBar {
+  font-weight: normal;
   height: 30px;
   line-height: 30px;
+  text-align: left;
 }

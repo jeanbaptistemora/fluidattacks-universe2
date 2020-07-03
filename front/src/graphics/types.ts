@@ -1,5 +1,5 @@
 export interface IGraphicProps {
-  bsClass?: string;
+  bsHeight: number;
   documentName: string;
   documentType: string;
   entity: string;
