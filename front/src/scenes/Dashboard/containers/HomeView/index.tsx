@@ -261,7 +261,7 @@ const homeView: React.FC<IHomeViewProps> = (props: IHomeViewProps): JSX.Element 
                             <React.Fragment>
                               <DataTableNext
                                 bordered={true}
-                                dataset={data.me.organizations.name}
+                                dataset={data.me.organizations}
                                 exportCsv={false}
                                 headers={tableHeadersOrganizations}
                                 id="tblProjects"
