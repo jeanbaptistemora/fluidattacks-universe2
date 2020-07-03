@@ -179,8 +179,12 @@ const d3GroupIndicatorsView: React.FC<ID3GroupIndicatorsProps> = (props: ID3Grou
       <Grid fluid={true}>
         <Row>
           <Col md={12}>
-            <h2 className={styles.centerTitle}>Forces Indicators</h2>
-            <h4 className={styles.centerTitle}>Last 7 days</h4>
+            <h1 className={styles.centerTitle}>
+              {translate.t("analytics.headers.forces.title")}
+            </h1>
+            <h5 className={styles.centerTitle}>
+              {translate.t("analytics.headers.forces.subtitle")}
+            </h5>
           </Col>
         </Row>
         <div className={styles.separatorTitleFromCharts} />

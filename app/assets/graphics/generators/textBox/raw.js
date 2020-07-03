@@ -1,10 +1,11 @@
 /* global d3 */
 
-const sizeRatio = 0.5;
+const half = 0.5;
 
 function render(dataDocument, height, width) {
-  const fontSize = sizeRatio * Math.min(height, width);
-  const fontOffset = fontSize * Math.pow(sizeRatio, 2);
+  const fontSize = dataDocument.fontSizeRatio * Math.min(height, width);
+  // https://www.youtube.com/watch?v=fWBxLiW9v14
+  const fontOffset = fontSize * half * half;
 
   const svg = d3
     .select('div')

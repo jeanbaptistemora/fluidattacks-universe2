@@ -22,18 +22,15 @@ from backend.domain import (
     project as group_domain,
     forces as forces_domain,
 )
-from backend import (
-    util,
-)
 from frozendict import frozendict
 
 
-async def get_last_week_forces_executions(
+async def get_all_time_forces_executions(
     group: str,
 ) -> List[Dict[str, Union[str, int]]]:
     executions: List[Dict[str, Union[str, int]]]
     executions = await forces_domain.get_executions(
-        from_date=util.get_current_time_minus_delta(weeks=1),
+        from_date=datetime.utcfromtimestamp(1),
         group_name=group,
         to_date=datetime.utcnow(),
     )

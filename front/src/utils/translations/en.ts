@@ -29,6 +29,12 @@ const enTranslations: Dictionary = {
         title: "Severity",
       },
     },
+    headers: {
+      forces: {
+        subtitle: "All time",
+        title: "Forces",
+      },
+    },
     pieChart: {
       resources: {
         title: "Active resources distribution",

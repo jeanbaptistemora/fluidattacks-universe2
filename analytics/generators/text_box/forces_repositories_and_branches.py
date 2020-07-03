@@ -8,9 +8,10 @@ from analytics import (
 
 
 async def generate_one(group: str):
-    executions = await utils.get_last_week_forces_executions(group)
+    executions = await utils.get_all_time_forces_executions(group)
 
     return {
+        'fontSizeRatio': 0.5,
         'text': len(set(
             execution['git_repo'] + execution['git_branch']
             for execution in executions

@@ -12,7 +12,7 @@ from analytics.colors import (
 
 
 async def generate_one(group: str):
-    executions = await utils.get_last_week_forces_executions(group)
+    executions = await utils.get_all_time_forces_executions(group)
 
     executions_in_strict_mode = tuple(
         execution

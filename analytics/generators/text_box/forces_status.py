@@ -19,6 +19,7 @@ async def generate_one(group: str):
         group_data['attrs']['historic_configuration'][-1]['has_forces']
 
     return {
+        'fontSizeRatio': 0.5,
         'text': 'Active' if has_forces else 'Inactive',
     }
 

@@ -17,6 +17,7 @@ from analytics import (
 
 async def generate_one(group: str):
     return {
+        'fontSizeRatio': 0.5,
         'text': await aio.ensure_io_bound(
             group_domain.get_pending_closing_check, group,
         ),

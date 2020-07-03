@@ -16,6 +16,7 @@ async def generate_one(group: str):
     group_data = (await GroupLoader().load(group))
 
     return {
+        'fontSizeRatio': 0.5,
         'text': group_data['attrs'].get('open_vulnerabilities', 0)
     }
 

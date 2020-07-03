@@ -28,6 +28,7 @@ async def generate_one(group: str):
     )
 
     return {
+        'fontSizeRatio': 0.5,
         'text': non_deleted_findings_count
     }
 
