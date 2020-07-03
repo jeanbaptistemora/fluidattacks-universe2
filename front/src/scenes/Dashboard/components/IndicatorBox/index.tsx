@@ -72,7 +72,7 @@ const renderIndicatorBox: ((props: IBoxProps) => JSX.Element) =
           { _.isUndefined(props.description)
             ? <React.Fragment />
             : <React.Fragment>
-                <text className={style.widgetdescription}>{props.description}</text>
+                <p className={style.widgetdescription}>{props.description}</p>
             </React.Fragment>
           }
           </div>

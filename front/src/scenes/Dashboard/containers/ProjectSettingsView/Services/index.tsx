@@ -17,7 +17,6 @@ import { Button } from "../../../../../components/Button/index";
 import { DataTableNext } from "../../../../../components/DataTableNext";
 import { IHeader } from "../../../../../components/DataTableNext/types";
 import { Modal } from "../../../../../components/Modal/index";
-import { handleGraphQLErrors } from "../../../../../utils/formatHelpers";
 import { dropdownField, switchButton, textAreaField, textField } from "../../../../../utils/forms/fields";
 import { msgError, msgSuccess } from "../../../../../utils/notifications";
 import rollbar from "../../../../../utils/rollbar";

@@ -1,15 +1,15 @@
 import { useLazyQuery } from "@apollo/react-hooks";
 import { ApolloError } from "apollo-client";
+import { GraphQLError } from "graphql";
 import React from "react";
 import { Button, Col, Row } from "react-bootstrap";
-import { RouteComponentProps } from "react-router";
 import { msgError } from "../../../../utils/notifications";
 import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
 import { default as style } from "./index.css";
 import { GET_COMPLETE_REPORT } from "./queries";
 
-const reportsView: React.FC<RouteComponentProps> = (props: RouteComponentProps): JSX.Element => {
+const reportsView: React.FC = (): JSX.Element => {
   const { userEmail } = window as typeof window & Dictionary<string>;
   const [getCompleteReport, { data: completeReportData }] = useLazyQuery(GET_COMPLETE_REPORT, {
     fetchPolicy: "network-only",
@@ -17,12 +17,14 @@ const reportsView: React.FC<RouteComponentProps> = (props: RouteComponentProps):
       const newTab: Window | null = window.open(completeReportData.report.url);
       (newTab as Window).opener = undefined;
     },
-    onError: (downloadError: ApolloError): void => {
-      msgError(translate.t("group_alerts.error_textsad"));
-      rollbar.error(
-        "An error occurred downloading the complete report",
-        downloadError,
-      );
+    onError: ({ graphQLErrors }: ApolloError): void => {
+      graphQLErrors.forEach((error: GraphQLError): void => {
+        msgError(translate.t("group_alerts.error_textsad"));
+        rollbar.error(
+          "An error occurred downloading the complete report",
+          error,
+        );
+      });
     },
   });
 

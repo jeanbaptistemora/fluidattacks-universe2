@@ -6,6 +6,7 @@
 import { QueryResult } from "@apollo/react-common";
 import { Query } from "@apollo/react-components";
 import { ApolloError } from "apollo-client";
+import { GraphQLError } from "graphql";
 import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React from "react";
@@ -39,9 +40,13 @@ const trackingView: React.FC<TrackingViewProps> = (props: TrackingViewProps): JS
   };
   React.useEffect(onMount, []);
 
-  const handleErrors: ((error: ApolloError) => void) = (error: ApolloError): void => {
-    msgError(translate.t("group_alerts.error_textsad"));
-    rollbar.error("An error occurred loading finding tracking", error);
+  const handleErrors: ((error: ApolloError) => void) = (
+    { graphQLErrors }: ApolloError,
+  ): void => {
+    graphQLErrors.forEach((error: GraphQLError): void => {
+      msgError(translate.t("group_alerts.error_textsad"));
+      rollbar.error("An error occurred loading finding tracking", error);
+    });
   };
 
   return (

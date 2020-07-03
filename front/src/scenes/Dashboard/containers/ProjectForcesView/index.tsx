@@ -16,12 +16,15 @@ import SyntaxHighlighter from "react-syntax-highlighter/dist/esm/light";
 import { default as monokaiSublime } from "react-syntax-highlighter/dist/esm/styles/hljs/monokai-sublime";
 
 // Local imports
+import { ApolloError } from "apollo-client";
+import { GraphQLError } from "graphql";
 import { Button } from "../../../../components/Button";
 import { statusFormatter } from "../../../../components/DataTableNext/formatters";
 import { DataTableNext } from "../../../../components/DataTableNext/index";
 import { IHeader } from "../../../../components/DataTableNext/types";
 import { Modal } from "../../../../components/Modal";
-import { handleGraphQLErrors } from "../../../../utils/formatHelpers";
+import { msgError } from "../../../../utils/notifications";
+import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
 import styles from "./index.css";
 import { GET_FORCES_EXECUTIONS } from "./queries";
@@ -157,7 +160,7 @@ const projectForcesView: React.FunctionComponent<ForcesViewProps> = (props: Forc
   };
 
   const formatText: ((text: string) => ReactElement<Text>) = (text: string): ReactElement<Text> =>
-    <text className={styles.wrapped}>{text}</text>;
+    <p className={styles.wrapped}>{text}</p>;
 
   const headersExecutionTable: IHeader[] = [
     {
@@ -231,23 +234,28 @@ const projectForcesView: React.FunctionComponent<ForcesViewProps> = (props: Forc
     setExecutionDetailsModalOpen(false);
   };
 
+  const handleQryErrors: ((error: ApolloError) => void) = (
+    { graphQLErrors }: ApolloError,
+  ): void => {
+    graphQLErrors.forEach((error: GraphQLError): void => {
+      msgError(translate.t("group_alerts.error_textsad"));
+      rollbar.error("An error occurred getting executions", error);
+    });
+  };
+
   return (
     <Query
       query={GET_FORCES_EXECUTIONS}
       variables={{ projectName }}
+      onError={handleQryErrors}
     >
       {
-        ({ data, error }: QueryResult): JSX.Element => {
+        ({ data }: QueryResult): JSX.Element => {
           if (_.isUndefined(data) || _.isEmpty(data)) {
             return <React.Fragment />;
           }
-          if (!_.isUndefined(error)) {
-            handleGraphQLErrors("An error occurred getting executions", error);
 
-            return <React.Fragment />;
-          }
-          if (!_.isUndefined(data)) {
-            const executions: IExecution[] = data.forcesExecutions.executions.map((execution: IExecution) => {
+          const executions: IExecution[] = data.forcesExecutions.executions.map((execution: IExecution) => {
               const date: string = formatDate(execution.date);
               const kind: string = toTitleCase(translate.t(
                 execution.kind === "static" ? "group.forces.kind.static" : "group.forces.kind.dynamic"));
@@ -270,9 +278,9 @@ const projectForcesView: React.FunctionComponent<ForcesViewProps> = (props: Forc
               return { ...execution, date, foundVulnerabilities, kind, status, strictness };
             });
 
-            const initialSort: string = JSON.stringify({ dataField: "date", order: "desc" });
+          const initialSort: string = JSON.stringify({ dataField: "date", order: "desc" });
 
-            return (
+          return (
               <React.StrictMode>
                 <p>{translate.t("group.forces.table_advice")}</p>
                 <DataTableNext
@@ -323,13 +331,13 @@ const projectForcesView: React.FunctionComponent<ForcesViewProps> = (props: Forc
                   <Row>
                     <Col md={4}><p><b>{translate.t("group.forces.found_vulnerabilities.title")}</b></p></Col>
                     <Col md={8}>
-                      <text className={styles.wrapped}>
+                      <p className={styles.wrapped}>
                         {getVulnerabilitySummary(
                           currentRow.foundVulnerabilities.exploitable,
                           currentRow.foundVulnerabilities.accepted,
                           currentRow.foundVulnerabilities.notExploitable,
                           currentRow.foundVulnerabilities.total)}
-                      </text>
+                      </p>
                     </Col>
                   </Row>
                   <br />
@@ -356,9 +364,6 @@ const projectForcesView: React.FunctionComponent<ForcesViewProps> = (props: Forc
               </Modal>
               </React.StrictMode>
             );
-          } else {
-            return <React.Fragment />;
-          }
         }}
     </Query>
   );

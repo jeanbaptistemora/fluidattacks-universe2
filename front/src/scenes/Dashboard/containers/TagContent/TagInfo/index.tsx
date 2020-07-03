@@ -10,6 +10,7 @@ import { ChartData, ChartDataSets, ChartOptions } from "chart.js";
  * as a plugin to chart
  */
 import "chartjs-plugin-doughnutlabel";
+import { GraphQLError } from "graphql";
 import _ from "lodash";
 import React from "react";
 import { Col, Glyphicon, Row } from "react-bootstrap";
@@ -87,9 +88,11 @@ const maxNumberOfDisplayedProjects: number = 6;
 const tagsInfo: React.FC<TagsProps> = (props: TagsProps): JSX.Element => {
   const { tagName } = props.match.params;
   const { data } = useQuery<ITag>(TAG_QUERY, {
-    onError: (error: ApolloError): void => {
-      msgError(translate.t("group_alerts.error_textsad"));
-      rollbar.error("An error occurred loading tag info", error);
+    onError: ({ graphQLErrors }: ApolloError): void => {
+      graphQLErrors.forEach((error: GraphQLError): void => {
+        msgError(translate.t("group_alerts.error_textsad"));
+        rollbar.error("An error occurred loading tag info", error);
+      });
     },
     variables: { tag: tagName },
   });

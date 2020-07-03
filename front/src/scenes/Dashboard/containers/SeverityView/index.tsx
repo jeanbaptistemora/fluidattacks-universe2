@@ -8,6 +8,7 @@ import { Mutation, Query } from "@apollo/react-components";
 import { PureAbility } from "@casl/ability";
 import { useAbility } from "@casl/react";
 import { ApolloError } from "apollo-client";
+import { GraphQLError } from "graphql";
 import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React from "react";
@@ -51,9 +52,13 @@ const severityView: React.FC<SeverityViewProps> = (props: SeverityViewProps): JS
   const formValues: Dictionary<string> = useSelector((state: {}) => selector(
     state, "cvssVersion", "severityScope", "modifiedSeverityScope"));
 
-  const handleErrors: ((error: ApolloError) => void) = (error: ApolloError): void => {
-    msgError(translate.t("group_alerts.error_textsad"));
-    rollbar.error("An error occurred loading finding severity", error);
+  const handleErrors: ((error: ApolloError) => void) = (
+    { graphQLErrors }: ApolloError,
+  ): void => {
+    graphQLErrors.forEach((error: GraphQLError): void => {
+      msgError(translate.t("group_alerts.error_textsad"));
+      rollbar.error("An error occurred loading finding severity", error);
+    });
   };
 
   return (
@@ -83,6 +88,15 @@ const severityView: React.FC<SeverityViewProps> = (props: SeverityViewProps): JS
                   }
                 };
 
+              const handleMtError: ((error: ApolloError) => void) = (
+                { graphQLErrors }: ApolloError,
+              ): void => {
+                graphQLErrors.forEach((error: GraphQLError): void => {
+                  msgError(translate.t("group_alerts.error_textsad"));
+                  rollbar.error("An error occurred updating severity", error);
+                });
+              };
+
               return (
                 <React.Fragment>
                   <Can do="backend_api_resolvers_finding__do_update_severity">
@@ -98,6 +112,7 @@ const severityView: React.FC<SeverityViewProps> = (props: SeverityViewProps): JS
                   <Mutation
                     mutation={UPDATE_SEVERITY_MUTATION}
                     onCompleted={handleMtUpdateSeverityRes}
+                    onError={handleMtError}
                     refetchQueries={[
                       {
                         query: GET_FINDING_HEADER,

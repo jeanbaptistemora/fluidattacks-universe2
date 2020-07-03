@@ -1,14 +1,10 @@
-import { ApolloError } from "apollo-client";
 import { ChartData } from "chart.js";
-import { GraphQLError } from "graphql";
 import _ from "lodash";
 import { IHistoricTreatment } from "../scenes/Dashboard/containers/DescriptionView/types";
 import { IProjectDraftsAttr } from "../scenes/Dashboard/containers/ProjectDraftsView/types";
 import { IProjectFindingsAttr } from "../scenes/Dashboard/containers/ProjectFindingsView/types";
 import { IUsersAttr } from "../scenes/Dashboard/containers/ProjectUsersView/types";
 import { ISeverityAttr, ISeverityField } from "../scenes/Dashboard/containers/SeverityView/types";
-import { msgError } from "./notifications";
-import rollbar from "./rollbar";
 import translate from "./translations/translate";
 
 type IUserList = IUsersAttr["project"]["users"];
@@ -420,39 +416,6 @@ export const formatDrafts: ((dataset: IDraftsDataset) => IDraftsDataset) =
 
     return { ...draft, reportDate, type, isExploitable, currentState };
   });
-
-export const handleErrors: ((errorText: string, errors: readonly GraphQLError[]) => void) =
-  (errorText: string, errors: readonly GraphQLError[]): void => {
-    errors.map((err: GraphQLError) => {
-      if (_.includes("Error in file", err.message)) {
-        msgError(translate.t("search_findings.tab_description.errorFileVuln"));
-      } else if (_.includes("Exception - Email is not valid", err.message)) {
-        msgError(translate.t("validations.email"));
-      } else if (_.includes("Exception - Parameter is not valid", err.message)) {
-        msgError(translate.t("validations.invalidValueInField"));
-      } else if (_.includes("Exception - Invalid Expiration Time", err.message)) {
-        msgError(translate.t("update_access_token.invalid_exp_time"));
-      } else if (_.includes(err.message, "Exception - This draft has missing fields")) {
-        msgError(translate.t("group.drafts.error_submit", {
-          missingFields: err.message.split("fields: ")[1],
-        }));
-      } else if (_.includes(err.message, "Exception - There are no group names available at the moment")) {
-        msgError(translate.t("home.newGroup.noGroupName"));
-      } else if (_.includes(err.message, "Exception - Error invalid project name")) {
-        msgError(translate.t("home.newGroup.invalidGroup"));
-      } else if (_.includes(err.message, "Exception - Error permission denied")) {
-        msgError(translate.t("search_findings.tab_resources.cannotRemove"));
-      } else {
-        msgError(translate.t("group_alerts.error_textsad"));
-        rollbar.error(errorText, err);
-      }
-    });
-  };
-
-export const handleGraphQLErrors: ((errorText: string, error: ApolloError) => void) =
-  (errorText: string, error: ApolloError): void => {
-    handleErrors(errorText, error.graphQLErrors);
-  };
 
 type IEventsDataset = Array<{ eventStatus: string; eventType: string }>;
 export const formatEvents: ((dataset: IEventsDataset) => IEventsDataset) =

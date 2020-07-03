@@ -36,10 +36,10 @@ const projectAuthorsView: React.FunctionComponent<ForcesViewProps> = (props: For
   const [billDate, setBillDate] = React.useState(dateRange[0].toISOString());
 
   const formatText: ((value: string) => ReactElement<Text>) =
-    (value: string): ReactElement<Text> => <text className={styles.wrapped}>{value}</text>;
+    (value: string): ReactElement<Text> => <p className={styles.wrapped}>{value}</p>;
 
   const formatCommit: ((value: string) => ReactElement<Text>) =
-    (value: string): ReactElement<Text> => <text className={styles.wrapped}>{value.slice(0, 8)}</text>;
+    (value: string): ReactElement<Text> => <p className={styles.wrapped}>{value.slice(0, 8)}</p>;
 
   const formatDate: ((date: Date) => string) = (date: Date): string => {
     const month: number = date.getMonth() + 1;

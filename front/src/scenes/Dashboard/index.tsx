@@ -84,11 +84,11 @@ const dashboard: React.FC = (): JSX.Element => {
         });
       }
     },
-    onError: (permissionsError: ApolloError): void => {
-      rollbar.critical(
-        "Couldn't load user-level permissions",
-        { ...permissionsError },
-      );
+    onError: ({ graphQLErrors }: ApolloError): void => {
+      graphQLErrors.forEach((error: GraphQLError): void => {
+        msgError(translate.t("group_alerts.error_textsad"));
+        rollbar.critical("Couldn't load user-level permissions", error);
+      });
     },
   });
 
