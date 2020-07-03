@@ -512,33 +512,39 @@ def rename_kwargs(mapping: Dict[str, str]) -> Callable[..., Any]:
     return wrapped
 
 
-def cache_idempotent(function: Callable) -> Callable:
+def cache_idempotent(*, ttl: int) -> Callable:
 
-    @apm.trace(overridden_function=cache_idempotent)
-    @functools.wraps(function)
-    async def wrapper(*args, **kwargs) -> Callable[..., Any]:
-        signature = inspect.signature(function).bind(*args, **kwargs)
+    def decorator(function: Callable) -> Callable:
 
-        cache_key = (
-            f'{function.__module__}.{function.__qualname__}:' +
-            ''.join(f'{arg}_{val}' for arg, val in signature.arguments.items())
-        )
+        @apm.trace(overridden_function=cache_idempotent)
+        @functools.wraps(function)
+        async def wrapper(*args, **kwargs) -> Callable[..., Any]:
+            signature = inspect.signature(function).bind(*args, **kwargs)
 
-        try:
-            ret = await aio.ensure_io_bound(cache.get, cache_key)
+            cache_key_from_args = ''.join(
+                f'{arg}_{value}' for arg, value in signature.arguments.items()
+            )
+            cache_key_from_func = \
+                f'{function.__module__}.{function.__qualname__}'
+            cache_key = f'{cache_key_from_func}:{cache_key_from_args}'
 
-            if ret is None:
-                ret = await function(*args, **kwargs)
+            try:
+                ret = await aio.ensure_io_bound(cache.get, cache_key)
 
-                await aio.ensure_io_bound(
-                    cache.set, cache_key, ret, timeout=CACHE_TTL,
-                )
-            return ret
-        except RedisClusterException:
-            rollbar.report_exc_info()
-            return await function(*args, **kwargs)
+                if ret is None:
+                    ret = await function(*args, **kwargs)
 
-    return wrapper
+                    await aio.ensure_io_bound(
+                        cache.set, cache_key, ret, timeout=ttl,
+                    )
+                return ret
+            except RedisClusterException:
+                rollbar.report_exc_info()
+                return await function(*args, **kwargs)
+
+        return wrapper
+
+    return decorator
 
 
 def turn_args_into_kwargs(function: Callable):
