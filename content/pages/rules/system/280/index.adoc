@@ -1,7 +1,7 @@
 :slug: rules/280/
 :category: system
-:description: This document contains the details of the security requirements related to the definition and management of resources and processes in the organization. This requirement establishes the importance of restricting the access in the root directory only to the necessary files.
-:keywords: Process, Configuration, SO, Directory, Root, Files
+:description: This requirement establishes the importance of restricting access in the root directory only to the necessary files.
+:keywords: Process, Configuration, SO, Directory, Root, Files, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R280. Restrict service root directory

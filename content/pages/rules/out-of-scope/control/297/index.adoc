@@ -1,7 +1,7 @@
 :slug: rules/297/
 :category: control
-:description: This document contains the details of the security requirements related to the definition and management of physical control in the organization. This requirement establishes the importance of monitoring the integrity of physical and/or digital information assets using sensors.
-:keywords: Requirement, Security, Assets, Information, Sensor, Monitoring
+:description: This requirement establishes the importance of monitoring the integrity of physical and digital information assets using sensors.
+:keywords: Requirement, Security, Assets, Information, Sensor, Monitoring, Rules, Ethical Hacking, Pentesting
 :rules: yes
 :extended: yes
 

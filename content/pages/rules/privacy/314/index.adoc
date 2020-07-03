@@ -1,7 +1,7 @@
 :slug: rules/314/
 :category: privacy
-:description: This document contains the details of the security requirements related to the management and protection of data privacy in the organization. This requirement establishes the importance of providing confirmation to the users of whether or not their personal data is being processed.
-:keywords: Requirement, Security, Data, GDPR, Confirmation, Personal
+:description: This requirement establishes the importance of confirming the users of whether or not their data is being processed.
+:keywords: Requirement, Security, Data, GDPR, Confirmation, Personal, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R314. Provide processing confirmation

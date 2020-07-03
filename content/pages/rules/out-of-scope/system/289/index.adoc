@@ -1,7 +1,7 @@
 :slug: rules/289/
 :category: system
-:description: This document contains the details of the security requirements related to the definition and management of removable devices in the organization. This requirement establishes the importance of safely storing system media and images used to restore and configure the workstations.
-:keywords: Security, Images, Media, Operative System, Location, Organization.
+:description: This requirement establishes the importance of safely storing system media and images used to restore and configure the workstations.
+:keywords: Security, Images, Media, Operative System, Location, Organization, Rules, Ethical Hacking, Pentesting
 :rules: yes
 :extended: yes
 

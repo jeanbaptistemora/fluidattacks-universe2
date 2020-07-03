@@ -1,7 +1,7 @@
 :slug: rules/301/
 :category: data
-:description: This document contains the details of the security requirements related to the definition and management of sensitive data in the organization. This requirement establishes the importance of notifying the users when there are modifications in authentication mechanisms or security settings.
-:keywords: Requirement, Security, Settings, Notification, Users, Configuration
+:description: This requirement establishes the importance of notifying users when there are modifications in authentication mechanisms or security settings.
+:keywords: Requirement, Security, Settings, Notification, Users, Configuration, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R301. Notify configuration changes

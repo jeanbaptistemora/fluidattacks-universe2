@@ -1,7 +1,7 @@
 :slug: rules/312/
 :category: privacy
-:description: This document contains the details of the security requirements related to the management and protection of data privacy in the organization. This requirement establishes the importance of allowing the user to revoke their consent regarding the collection of their information.
-:keywords: Requirement, Security, Data, GDPR, Consent Revocation, Regulation
+:description: This requirement establishes the importance of allowing the user to revoke their consent regarding the collection of their information.
+:keywords: Requirement, Security, Data, GDPR, Consent Revocation, Regulation, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R312. Allow user consent revocation

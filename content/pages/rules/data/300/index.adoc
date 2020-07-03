@@ -1,7 +1,7 @@
 :slug: rules/300/
 :category: data
-:description: This document contains the details of the security requirements related to the definition and management of data access in the organization. This requirement establishes the importance of masking sensitive personal and business data to avoid information leakages.
-:keywords: Requirement, Security, Data, Information, Business, Mask
+:description: This requirement establishes the importance of masking sensitive personal and business data to avoid information leakages.
+:keywords: Requirement, Security, Data, Information, Business, Mask, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R300. Mask sensitive data

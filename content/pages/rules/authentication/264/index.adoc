@@ -1,7 +1,7 @@
 :slug: rules/264/
 :category: authentication
-:description: This document details the security requirements and guidelines related to secure user authentication management in the organization. In this case, it is recommended that the system require authentication for all resources not explicitly classified as public.
-:keywords: Private Resources, Authentication, Public Resources, Access, ASVS, CWE
+:description: This requirement states that the system must request authentication for all resources not explicitly classified as public.
+:keywords: Private Resources, Authentication, Public Resources, Access, ASVS, CWE, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R264. Request authentication
@@ -9,8 +9,8 @@
 == Requirement
 
 The system must require authentication for all resources,
-except for the consultation or visualization of those specifically classified
-as public.
+except for the consultation or visualization
+of those specifically classified as public.
 
 == Description
 

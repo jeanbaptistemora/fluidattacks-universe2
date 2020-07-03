@@ -1,7 +1,7 @@
 :slug: rules/273/
 :category: system
-:description: This document contains the details of the security requirements related to the definition and management of systems in the organization. This requirement establishes the importance of installing a fixed and unalterable security suite in all production workstations.
-:keywords: CWE, ASVS, Suite, Workstation, Antivirus, Firewall.
+:description: This requirement establishes the importance of installing a fixed and unalterable security suite in all production workstations.
+:keywords: CWE, ASVS, Suite, Workstation, Antivirus, Firewall, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R273. Define fixed security suite

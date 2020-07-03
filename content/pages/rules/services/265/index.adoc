@@ -1,7 +1,7 @@
 :slug: rules/265/
 :category: services
-:description: This document contains the details of the security requirements related to the definition and management of resources and services in the organization. This requirement establishes the importance of restricting access to critical business processes, allowing only authorized users.
-:keywords: Users, Autorization, Critical Process, NIST, ASVS, CWE
+:description: This requirement establishes the importance of restricting access to critical business processes, allowing only authorized users.
+:keywords: Users, Autorization, Critical Process, NIST, ASVS, CWE, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R265. Restrict access to critical processes

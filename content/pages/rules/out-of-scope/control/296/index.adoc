@@ -1,7 +1,7 @@
 :slug: rules/296/
 :category: control
-:description: This document contains the details of the security requirements related to the definition and management of physical control in the organization. This requirement establishes the importance of installing physical intrusion alarms in order to detect unauthorized accesses in the facilities.
-:keywords: Requirement, Security, Information Assets, Facilities, Alarms, Intrusion.
+:description: This requirement establishes the importance of installing physical intrusion alarms to detect unauthorized access in the facilities.
+:keywords: Requirement, Security, Information Assets, Facilities, Alarms, Intrusion, Rules, Ethical Hacking, Pentesting
 :rules: yes
 :extended: yes
 

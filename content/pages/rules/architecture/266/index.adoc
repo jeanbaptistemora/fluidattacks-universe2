@@ -1,7 +1,7 @@
 :slug: rules/266/
 :category: architecture
-:description: This requirement establishes the importance of disabling or controlling system functions that could be harmful for the application.
-:keywords: Insecure, Functionality, System, Hardening, ASVS, CWE
+:description: This requirement establishes the importance of disabling or controlling system functions that could be harmful to the application.
+:keywords: Insecure, Functionality, System, Hardening, ASVS, CWE, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R266. Disable insecure functionalities
