@@ -7,26 +7,15 @@
 === Fluid Attacks is growing every day!
 
 Since *2001*, `Fluid Attacks` has been developing technology
-focused on cybersecurity, offering ethical hacking and pentesting services
+focused on cybersecurity.
+It has offered ethical hacking and pentesting services
 to companies in the banking, financial, technology, healthcare, insurance,
 manufacturing, and airline industries, among others.
-`Fluid Attacks` implements more than *200* projects a year
-and helps clients manage their cybersecurity risks
-and certify that their systems, which are critical to their operations,
+It implements more than *200* projects a year
+and helps its clients manage their cybersecurity risks.
+It also helps them certify that their systems,
+which are critical to their operations,
 are safe for their users.
-
-`Fluid Attacks's` team of *70* security experts
-specializes in continuous hacking on applications,
-infrastructure, and source code, covering all software development stages.
-We ensure that vulnerabilities in organizations' systems are recognized,
-with no false positives or negatives.
-With `Fluid Attacks's` products,
-the clients can obtain high remediation vulnerability rates,
-all this at high speed.
-Besides, `Fluid Attacks` has its technology
-to support the work of the hacking team,
-combining effective automation and human intelligence
-during the attack processes.
-Through link:../products/integrates/[Integrates] platform,
-`Fluid Attacks's` clients can manage their projects
-and control the remediation processes in any of the phases.
+`Fluid Attacks'` security experts specialize in continuous hacking
+on apps, infrastructure, and source code,
+covering all software development stages.
