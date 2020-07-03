@@ -1,7 +1,7 @@
 :slug: rules/259/
 :category: networks
-:description: This document contains the details of the security requirements related to the definition and management of logical networks in the organization. This requirement establishes the importance of separating logical networks by segmenting them for different functional areas.
-:keywords: Requirement, Security, Logical, Network, Segment, Areas
+:description: This requirement establishes the importance of separating logical networks by segmenting them for different functional areas.
+:keywords: Requirement, Security, Logical, Network, Segment, Areas, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R259. Segment organization network

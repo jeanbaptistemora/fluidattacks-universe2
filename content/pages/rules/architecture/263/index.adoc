@@ -1,15 +1,15 @@
 :slug: rules/263/
 :category: architecture
-:description: This document details the security guidelines and requirements related to logical architecture management within the organization. This requirement establishes the importance of implementing protection mechanisms that shield the system against automated and robot attacks.
-:keywords: Protection, Mechanism, Robot, Attack, CWE, ASVS
+:description: This requirement establishes the importance of implementing protection mechanisms that shield the system against automated and robot attacks.
+:keywords: Protection, Mechanism, Robot, Attack, CWE, ASVS, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R263. Establish mechanisms against robot attacks
 
 == Requirement
 
-The system must implement protection mechanisms against robots that index
-information, landings or resources.
+The system must implement protection mechanisms against robots
+that index information, landings or resources.
 
 == Description
 

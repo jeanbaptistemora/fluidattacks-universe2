@@ -1,15 +1,15 @@
 :slug: rules/262/
 :category: services
-:description: This document contains the details of the security requirements related to the definition and management of third-party services in the organization. This requirement establishes the importance of verifying that third-party components are always up to date in a stable and tested version.
-:keywords: Third-party, Dependency, Up-to-date, Stable, ASVS, OWASP
+:description: This requirement establishes the importance of verifying that third-party components are always up to date in a stable and tested version.
+:keywords: Third-party, Dependency, Up-to-date, Stable, ASVS, OWASP, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R262. Verify third-party components
 
 == Requirement
 
-The system must use stable, tested and up-to-date versions of third-party
-components.
+The system must use stable, tested,
+and up-to-date versions of third-party components.
 
 == Description
 

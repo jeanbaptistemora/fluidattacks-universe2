@@ -8,8 +8,8 @@
 
 == Requirement
 
-The application must not expose sensitive information on sections that
-are publicly accessible.
+The application must not expose sensitive information on sections
+that are publicly accessible.
 
 == Description
 

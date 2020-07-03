@@ -1,11 +1,11 @@
 :slug: rules/251/
 :category: networks
-:description: This document details the security guidelines and requirements related to the secure management of wireless networks in any organization or company. In this case, it is strongly recommended to avoid leaving access points with the factory-set IP address.
-:keywords: Network, IP, Access Point, Wireless, Address, Requirement
+:description: This requirement establishes the importance of avoiding leaving the access points with the factory-set IP address.
+:keywords: Network, IP, Access Point, Wireless, Address, Requirement, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R251. Change access point IP
 
 == Requirement
 
-Access points must not use the factory-set IP address.
+Access points must not use the factory-set `IP` address.
