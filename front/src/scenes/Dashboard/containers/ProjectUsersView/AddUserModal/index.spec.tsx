@@ -56,6 +56,7 @@ describe("Add user modal", () => {
         data: {
           user: {
             __typename: "User",
+            email: "user@test.com",
             organization: "Test",
             phoneNumber: "+573123456791",
             responsibility: "tester",
@@ -76,6 +77,7 @@ describe("Add user modal", () => {
         data: {
           user: {
             __typename: "User",
+            email: "unittest@test.com",
             organization: "unittesting",
             phoneNumber: "+573123210123",
             responsibility: "edited",

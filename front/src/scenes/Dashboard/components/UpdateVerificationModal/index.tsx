@@ -130,7 +130,7 @@ const updateVerificationModal: React.FC<IUpdateVerificationModal> = (props: IUpd
             vulnerabilities: vulnerabilitiesId,
           },
         })
-          .catch();
+          .catch(() => undefined);
       } else {
         const openVulnsId: string[] = vulnerabilitiesList.reduce(
           (acc: string[], vuln: IVulnData) => (vuln.currentState === "open" ? [...acc, vuln.id] : acc), []);
@@ -142,7 +142,7 @@ const updateVerificationModal: React.FC<IUpdateVerificationModal> = (props: IUpd
             openVulns: openVulnsId,
           },
         })
-          .catch();
+          .catch(() => undefined);
       }
       closeRemediationModal();
     };

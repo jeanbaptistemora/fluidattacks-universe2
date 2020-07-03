@@ -76,6 +76,8 @@ const treatmentView: React.FC<ITreatmentViewProps> = (props: ITreatmentViewProps
     onError: (updateError: ApolloError): void => {
       updateError.graphQLErrors.forEach(({ message }: GraphQLError): void => {
         switch (message) {
+          case "Finding treatment cannot be updated with the same values":
+            break;
           case "Invalid treatment manager":
             msgError(translate.t("group_alerts.invalid_treatment_mgr"));
             break;

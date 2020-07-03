@@ -15,7 +15,6 @@ type IUserList = IUsersAttr["project"]["users"];
 
 export const formatUserlist:
 ((userList: IUserList) => IUserList) = (userList: IUserList): IUserList => userList.map((user: IUserList[0]) => {
-  const role: string = translate.t(`search_findings.tab_users.${user.role}`);
   const lastLoginDate: number[] = JSON.parse(user.lastLogin);
   let DAYS_IN_MONTH: number;
   DAYS_IN_MONTH = 30;
@@ -44,7 +43,7 @@ export const formatUserlist:
     : translate.t("search_findings.tab_users.minutes_ago", {count: ROUNDED_MINUTES});
   }
 
-  return { ...user, role, lastLogin, firstLogin };
+  return { ...user, lastLogin, firstLogin };
 });
 
 export const castPrivileges: ((scope: string) => Dictionary<string>) = (scope: string): Dictionary<string> => {

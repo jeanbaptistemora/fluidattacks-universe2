@@ -46,9 +46,11 @@ const files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
 
   // GraphQL operations
   const { data, refetch } = useQuery(GET_FILES, {
-    onError: (error: ApolloError): void => {
-      msgError(translate.t("group_alerts.error_textsad"));
-      rollbar.error("An error occurred loading project files", error);
+    onError: ({ graphQLErrors }: ApolloError): void => {
+      graphQLErrors.forEach((error: GraphQLError): void => {
+        msgError(translate.t("group_alerts.error_textsad"));
+        rollbar.error("An error occurred loading project files", error);
+      });
     },
     variables: { projectName: props.projectName },
   });
@@ -57,6 +59,12 @@ const files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
     onCompleted: (downloadData: { downloadFile: { url: string } }): void => {
       const newTab: Window | null = window.open(downloadData.downloadFile.url);
       (newTab as Window).opener = undefined;
+    },
+    onError: ({ graphQLErrors }: ApolloError): void => {
+      graphQLErrors.forEach((error: GraphQLError): void => {
+        msgError(translate.t("group_alerts.error_textsad"));
+        rollbar.error("An error occurred downloading project files", error);
+      });
     },
     variables: {
       filesData: JSON.stringify(currentRow.fileName),
@@ -73,6 +81,12 @@ const files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
         translate.t("search_findings.tab_resources.success_remove"),
         translate.t("search_findings.tab_users.title_success"),
       );
+    },
+    onError: ({ graphQLErrors }: ApolloError): void => {
+      graphQLErrors.forEach((error: GraphQLError): void => {
+        msgError(translate.t("group_alerts.error_textsad"));
+        rollbar.error("An error occurred removing project files", error);
+      });
     },
   });
   const handleRemoveFile: (() => void) = (): void => {

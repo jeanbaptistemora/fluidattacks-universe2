@@ -7,7 +7,7 @@ export interface IUserDataAttr {
 }
 
 export interface IAddUserModalProps {
-  initialValues: {};
+  initialValues: Record<string, string>;
   open: boolean;
   projectName?: string;
   type: "add" | "edit";

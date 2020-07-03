@@ -3,20 +3,19 @@
  * NO-MULTILINE-JS: Disabling this rule is necessary for the sake of
   * readability of the code that defines the headers of the table
  */
-import { useApolloClient } from "@apollo/react-hooks";
-import ApolloClient, { ApolloError, ApolloQueryResult } from "apollo-client";
+import { useLazyQuery } from "@apollo/react-hooks";
+import { ApolloError } from "apollo-client";
 import { GraphQLError } from "graphql";
 import _ from "lodash";
 import React from "react";
 import { ButtonToolbar, Col, ControlLabel, FormGroup, Row } from "react-bootstrap";
-import { useSelector } from "react-redux";
-import { Field, formValueSelector, InjectedFormProps } from "redux-form";
+import { Field } from "redux-form";
 import { Button } from "../../../../../components/Button/index";
 import { Modal } from "../../../../../components/Modal/index";
 import { Can } from "../../../../../utils/authz/Can";
-import { handleErrors } from "../../../../../utils/formatHelpers";
 import { dropdownField, phoneNumberField, textField } from "../../../../../utils/forms/fields";
 import { msgError } from "../../../../../utils/notifications";
+import rollbar from "../../../../../utils/rollbar";
 import translate from "../../../../../utils/translations/translate";
 import { required, validAlphanumericSpace, validEmail, validTextField } from "../../../../../utils/validations";
 import { GenericForm } from "../../../components/GenericForm/index";
@@ -46,47 +45,48 @@ export const addUserModal: React.FC<IAddUserModalProps> = (props: IAddUserModalP
     ? translate.t("search_findings.tab_users.title")
     : translate.t("search_findings.tab_users.edit_user_title");
   title = props.projectName === undefined ? translate.t("sidebar.user.text") : title;
-  const selector: (state: {}, ...field: string[]) => string = formValueSelector("addUser");
-  const userEmail: string = useSelector((state: {}) => selector(state, "email"));
 
-  const client: ApolloClient<object> = useApolloClient();
+  const [getUser, { data }] = useLazyQuery<IUserDataAttr>(GET_USER, {
+    onError: ({ graphQLErrors }: ApolloError): void => {
+      graphQLErrors.forEach((error: GraphQLError): void => {
+        msgError(translate.t("group_alerts.error_textsad"));
+        rollbar.error(
+          "An error occurred getting user information for autofill",
+          error,
+        );
+      });
+    },
+  });
+
+  const userData: Record<string, string> =
+    _.isEmpty(data) || _.isUndefined(data) ? {} : data.user;
+
+  const loadAutofillData: ((event: React.FocusEvent<HTMLInputElement>) => void) = (
+    event: React.FocusEvent<HTMLInputElement>,
+  ): void => {
+    const userEmail: string = event.target.value;
+    if (!_.isEmpty(userEmail)) {
+      getUser({
+        variables: {
+          projectName: _.get(props, "projectName", "-"),
+          userEmail,
+        },
+      });
+    }
+  };
+
+  const initialValues: Record<string, string> = props.type === "edit"
+    ? { ...props.initialValues, role: props.initialValues.role.toUpperCase() }
+    : {};
 
   return (
     <React.StrictMode>
       <Modal open={props.open} headerTitle={title} footer={<div />}>
-        <GenericForm name="addUser" initialValues={props.initialValues} onSubmit={onSubmit}>
-          {({ change }: InjectedFormProps): React.ReactNode => {
-            const loadAutofillData: (() => void) = (): void => {
-              if (!_.isEmpty(userEmail)) {
-                client.query({
-                  query: GET_USER,
-                  variables: {
-                    projectName: _.get(props, "projectName", "-"),
-                    userEmail,
-                  },
-                })
-                  .then(({ data, errors }: ApolloQueryResult<IUserDataAttr>) => {
-
-                    if (!_.isUndefined(errors)) {
-                      handleErrors("An error occurred getting user information for autofill", errors);
-                    }
-                    if (!_.isUndefined(data)) {
-                      change("organization", data.user.organization);
-                      change("phoneNumber", data.user.phoneNumber);
-                      change("responsibility", data.user.responsibility);
-                    }
-                  })
-                  .catch((errors: ApolloError) => {
-                    errors.graphQLErrors.forEach(({ message }: GraphQLError): void => {
-                      if (message !== "Exception - User not Found") {
-                        msgError("An error occurred getting user information for autofill");
-                      }
-                    });
-                  });
-              }
-            };
-
-            return (
+        <GenericForm
+          name="addUser"
+          initialValues={{...initialValues, ...userData }}
+          onSubmit={onSubmit}
+        >
               <Row>
                 <Col md={12} sm={12}>
                   <FormGroup>
@@ -160,8 +160,6 @@ export const addUserModal: React.FC<IAddUserModalProps> = (props: IAddUserModalP
                   </ButtonToolbar>
                 </Col>
               </Row>
-            );
-          }}
         </GenericForm>
       </Modal>
     </React.StrictMode>

@@ -358,11 +358,11 @@ describe("Repositories", () => {
         variables: {
           projectName: "TEST",
           repo: {
-            branch: "develop",
-            protocol: "HTTPS",
-            urlRepo: "pruebarepo%2Fgit",
+            branch: "master",
+            protocol: "SSH",
+            urlRepo: "pruebarepo%2Fgit2",
           },
-          state: "ACTIVE",
+          state: "INACTIVE",
         },
       },
       result: { errors: [

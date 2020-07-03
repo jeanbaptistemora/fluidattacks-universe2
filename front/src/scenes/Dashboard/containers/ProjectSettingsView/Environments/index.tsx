@@ -38,9 +38,11 @@ const environments: React.FC<IEnvironmentsProps> = (props: IEnvironmentsProps): 
 
   // GraphQL operations
   const { data, refetch } = useQuery(GET_ENVIRONMENTS, {
-    onError: (error: ApolloError): void => {
-      msgError(translate.t("group_alerts.error_textsad"));
-      rollbar.error("An error occurred loading project envs", error);
+    onError: ({ graphQLErrors }: ApolloError): void => {
+      graphQLErrors.forEach((error: GraphQLError): void => {
+        msgError(translate.t("group_alerts.error_textsad"));
+        rollbar.error("An error occurred loading project envs", error);
+      });
     },
     variables: { projectName: props.projectName },
   });
@@ -75,9 +77,11 @@ const environments: React.FC<IEnvironmentsProps> = (props: IEnvironmentsProps): 
         translate.t("search_findings.tab_users.title_success"),
       );
     },
-    onError: (error: ApolloError): void => {
-      msgError(translate.t("group_alerts.error_textsad"));
-      rollbar.error("An error occurred updating environment state", error);
+    onError: ({ graphQLErrors }: ApolloError): void => {
+      graphQLErrors.forEach((error: GraphQLError): void => {
+        msgError(translate.t("group_alerts.error_textsad"));
+        rollbar.error("An error occurred updating environment state", error);
+      });
     },
   });
 
