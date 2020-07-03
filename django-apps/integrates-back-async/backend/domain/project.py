@@ -389,7 +389,7 @@ def remove_project(project_name: str) -> NamedTuple:
         ])
         events = list_events(project_name)
         are_events_masked = all([
-            event_domain.mask(event_id)
+            async_to_sync(event_domain.mask)(event_id)
             for event_id in events
         ])
         is_group_masked = mask(project_name)

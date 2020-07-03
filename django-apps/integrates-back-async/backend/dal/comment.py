@@ -6,10 +6,12 @@ from boto3.dynamodb.conditions import Attr, Key
 from botocore.exceptions import ClientError
 
 from backend.dal.helpers import dynamodb
-from backend.typing import Comment as CommentType
+from backend.typing import (
+    Comment as CommentType,
+    DynamoDelete as DynamoDeleteType
+)
+from backend.utils import aio
 
-DYNAMODB_RESOURCE = dynamodb.DYNAMODB_RESOURCE  # type: ignore
-TABLE = DYNAMODB_RESOURCE.Table('FI_comments')
 TABLE_NAME: str = 'FI_comments'
 
 
@@ -30,19 +32,26 @@ async def create(comment_id: int, comment_attributes: CommentType) -> bool:
     return success
 
 
-def delete(finding_id, user_id) -> bool:
-    resp = False
+async def delete(finding_id: int, user_id: int) -> bool:
+    success = False
     try:
-        response = TABLE.delete_item(
+        delete_attrs = DynamoDeleteType(
             Key={
                 'finding_id': finding_id,
                 'user_id': user_id
             }
         )
-        resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
-    except ClientError:
-        rollbar.report_exc_info()
-    return resp
+        success = await dynamodb.async_delete_item(TABLE_NAME, delete_attrs)
+    except ClientError as ex:
+        await aio.ensure_io_bound(
+            rollbar.report_message,
+            'Error: Couldn\'nt delete comment',
+            'error',
+            extra_data=ex,
+            payload_data=locals()
+        )
+
+    return success
 
 
 async def get_comments(

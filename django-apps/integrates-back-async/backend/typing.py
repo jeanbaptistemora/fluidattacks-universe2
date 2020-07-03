@@ -4,7 +4,7 @@
 
 from datetime import datetime
 from decimal import Decimal
-from typing import List, Dict, Union, Set, NamedTuple
+from typing import Any, List, Dict, Union, Set, NamedTuple
 
 from boto3.dynamodb.conditions import Key
 
@@ -137,3 +137,7 @@ UpdateAccessTokenPayload = NamedTuple('UpdateAccessTokenPayload', [
 ])
 Dynamo = Union[Organization, str]
 DynamoQuery = Dict[str, Union[Key, str]]
+DynamoDelete = NamedTuple(
+    'DynamoDelete',
+    [('Key', Dict[str, Any])]
+)

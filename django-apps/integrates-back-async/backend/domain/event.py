@@ -6,7 +6,6 @@ import threading
 from datetime import datetime
 
 import pytz
-from asgiref.sync import async_to_sync, sync_to_async
 from django.conf import settings
 from magic import Magic
 
@@ -33,6 +32,7 @@ from backend.typing import (
     User as UserType
 )
 from backend.utils import (
+    aio,
     events as event_utils,
     validations
 )
@@ -313,7 +313,8 @@ async def add_comment(
     success = await comment_domain.create(event_id, comment_data, user_info)
     del comment_data['user_id']
     if success:
-        await sync_to_async(mailer.send_comment_mail)(
+        await aio.ensure_io_bound(
+            mailer.send_comment_mail,
             comment_data,
             'event',
             str(user_info['user_email']),
@@ -343,32 +344,39 @@ async def remove_evidence(evidence_type: str, event_id: str) -> bool:
     return success
 
 
-def mask(event_id: str) -> bool:
-    event = async_to_sync(event_dal.get_event)(event_id)
-
+async def mask(event_id: str) -> bool:
+    event = await event_dal.get_event(event_id)
     attrs_to_mask = ['client', 'detail', 'evidence', 'evidence_file']
-    event_result = async_to_sync(event_dal.update)(
-        event_id,
-        {attr: 'Masked' for attr in attrs_to_mask}
+    mask_events_tasks = []
+
+    event_task = asyncio.create_task(
+        event_dal.update(
+            event_id,
+            {attr: 'Masked' for attr in attrs_to_mask}
+        )
     )
+    mask_events_tasks.append(event_task)
 
     project_name = str(event.get('project_name', ''))
     evidence_prefix = f'{project_name}/{event_id}'
-    evidence_result = all([
-        async_to_sync(event_dal.remove_evidence)(file_name)
-        for file_name in async_to_sync(event_dal.search_evidence)(
-            evidence_prefix)
-    ])
-
-    comments_result = all([
-        comment_dal.delete(comment['finding_id'], comment['user_id'])
-        for comment in async_to_sync(comment_dal.get_comments)(
-            'event',
-            int(event_id)
+    list_evidences = await event_dal.search_evidence(evidence_prefix)
+    evidence_task = [
+        asyncio.create_task(
+            event_dal.remove_evidence(file_name)
         )
-    ])
+        for file_name in list_evidences
+    ]
+    mask_events_tasks.extend(evidence_task)
 
-    success = all([event_result, evidence_result, comments_result])
-    util.invalidate_cache(event_id)
+    list_comments = await comment_dal.get_comments('event', int(event_id))
+    comments_task = [
+        asyncio.create_task(
+            comment_dal.delete(int(event_id), cast(int, comment['user_id']))
+        )
+        for comment in list_comments
+    ]
+    mask_events_tasks.extend(comments_task)
+
+    success = all(await asyncio.gather(*mask_events_tasks))
 
     return success

@@ -856,9 +856,11 @@ def mask_finding(finding_id: str) -> bool:
             'observation', int(finding_id))
     )
     comments_result = all([
-        comment_dal.delete(comment['finding_id'], comment['user_id'])
-        for comment in comments_and_observations
-    ])
+        async_to_sync(comment_dal.delete)(
+            int(finding_id),
+            cast(int, comment['user_id'])
+        )
+        for comment in comments_and_observations])
 
     vulns_result = all([
         vuln_domain.mask_vuln(finding_id, str(vuln['UUID']))

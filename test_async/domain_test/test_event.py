@@ -7,7 +7,10 @@ from asgiref.sync import async_to_sync, sync_to_async
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.test import TestCase
 from backend.domain import event as event_domain
-from backend.dal import comment as comment_dal
+from backend.dal import (
+    comment as comment_dal,
+    event as event_dal
+)
 from backend.exceptions import (
     EventAlreadyClosed, EventNotFound, InvalidCommentParent,
     InvalidFileType, InvalidFileSize
@@ -196,14 +199,33 @@ async def test_mask_event():
             'first_name': 'Unit',
             'last_name': 'test'
         })
+    evidence_type = 'records'
+    filename = os.path.dirname(os.path.abspath(__file__))
+    filename = os.path.join(filename, '../mock/test-file-records.csv')
+    with open(filename, 'rb') as test_file:
+        uploaded_file = SimpleUploadedFile(
+            name=test_file.name,
+            content=test_file.read(),
+            content_type='text/csv'
+        )
+    await event_domain.update_evidence(
+        event_id,
+        evidence_type,
+        uploaded_file
+    )
+    evidence_prefix = f'unittesting/{event_id}'
+
     assert success
     assert len(await comment_dal.get_comments('event', int(event_id))) >= 1
+    assert len(await event_dal.search_evidence(evidence_prefix)) >=1
 
-    test_data = await sync_to_async(event_domain.mask)(event_id)
+    test_data = await event_domain.mask(event_id)
     expected_output = True
+
     assert isinstance(test_data, bool)
     assert test_data == expected_output
     assert len(await comment_dal.get_comments('event', int(event_id))) == 0
+    assert len(await event_dal.search_evidence(evidence_prefix)) == 0
 
     event = await event_domain.get_event(event_id)
     assert event.get('detail') == 'Masked'

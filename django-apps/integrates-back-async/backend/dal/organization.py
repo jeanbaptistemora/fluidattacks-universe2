@@ -23,6 +23,7 @@ from backend.dal.helpers.dynamodb import (
 from backend.exceptions import InvalidOrganization
 from backend.typing import (
     Dynamo as DynamoType,
+    DynamoDelete as DynamoDeleteType,
     DynamoQuery as DynamoQueryType,
     Organization as OrganizationType
 )
@@ -159,12 +160,12 @@ async def remove_group(organization_id: str, group_name: str) -> bool:
     Delete a group from an organization
     """
     success: bool = False
-    group_item: Dict[str, OrganizationType] = {
-        'Key': {
+    group_item = DynamoDeleteType(
+        Key={
             'pk': organization_id,
             'sk': f'GROUP#{group_name}'
         }
-    }
+    )
     try:
         success = await dynamo_async_delete_item(TABLE_NAME, group_item)
     except ClientError as ex:

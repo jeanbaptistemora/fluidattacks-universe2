@@ -11,6 +11,7 @@ import boto3
 import botocore
 
 from backend.typing import (
+    DynamoDelete as DynamoDeleteType,
     DynamoQuery as DynamoQueryType
 )
 from __init__ import (
@@ -51,11 +52,13 @@ DYNAMODB_RESOURCE = boto3.resource(**RESOURCE_OPTIONS)
 TABLE_NAME: str = 'integrates'
 
 
-async def async_delete_item(table: str, delete_attrs: Dict[str, Any]) -> bool:
+async def async_delete_item(
+        table: str,
+        delete_attrs: DynamoDeleteType) -> bool:
     success: bool = False
     async with aioboto3.resource(**RESOURCE_OPTIONS) as dynamodb_resource:
         dynamo_table = await dynamodb_resource.Table(table)
-        response = await dynamo_table.delete_item(**delete_attrs)
+        response = await dynamo_table.delete_item(**delete_attrs._asdict())
         success = response['ResponseMetadata']['HTTPStatusCode'] == 200
     return success
 
