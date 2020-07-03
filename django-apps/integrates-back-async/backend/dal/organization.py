@@ -366,6 +366,20 @@ async def get_users(organization_id: str) -> List[str]:
     return users
 
 
+async def has_user_access(email: str, organization_id: str) -> bool:
+    has_access: bool = False
+    query_attrs: DynamoQueryType = {
+        'KeyConditionExpression': (
+            Key('pk').eq(organization_id) &
+            Key('sk').eq(f'USER#{email}')
+        )
+    }
+    response_items = await dynamo_async_query(TABLE_NAME, query_attrs)
+    if response_items:
+        has_access = True
+    return has_access
+
+
 async def update(
     organization_id: str,
     organization_name: str,

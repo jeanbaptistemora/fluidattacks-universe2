@@ -11,7 +11,8 @@ from graphql.language.ast import SelectionSetNode
 from backend import util
 from backend.decorators import (
     rename_kwargs,
-    require_login
+    require_login,
+    require_organization_access
 )
 from backend.domain import organization as org_domain
 from backend.typing import (
@@ -120,8 +121,10 @@ async def resolve(
     'organization_name': 'identifier'
 })
 @require_login
+@require_organization_access
 async def resolve_organization(
-    _, info,
+    _,
+    info,
     identifier: str
 ) -> OrganizationType:
     """Resolve Organization query """
@@ -130,6 +133,7 @@ async def resolve_organization(
 
 @convert_kwargs_to_snake_case
 @require_login
+@require_organization_access
 async def resolve_organization_mutation(obj, info, **parameters):
     """Resolve Organization mutation """
     field = util.camelcase_to_snakecase(info.field_name)

@@ -35,7 +35,9 @@ const organizationSettings: React.FC = (): JSX.Element => {
         rollbar.error("An error occurred fetching organization ID", error);
       });
     },
-    variables: { organizationName },
+    variables: {
+      organizationName: organizationName.toLowerCase(),
+    },
   });
 
   const {
@@ -98,7 +100,7 @@ const organizationSettings: React.FC = (): JSX.Element => {
       maxNumberAcceptations: parseInt(formValues.maxNumberAcceptations, 10),
       minAcceptanceSeverity: parseFloat(formValues.minAcceptanceSeverity),
       organizationId: basicData && basicData.organizationId.id,
-      organizationName,
+      organizationName: organizationName.toLowerCase(),
     },
   });
 

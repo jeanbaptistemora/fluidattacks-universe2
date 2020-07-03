@@ -31,7 +31,7 @@ DEFAULT_MIN_SEVERITY = Decimal('0.0')
 async def get_id_by_name(organization_name: str) -> str:
     org_id: str = ''
     result: OrganizationType = await org_dal.get_by_name(
-        organization_name,
+        organization_name.lower(),
         ['id']
     )
     if result:
@@ -85,6 +85,10 @@ async def get_min_acceptance_severity(organization_id: str) -> Decimal:
         await org_dal.get_by_id(organization_id, ['min_acceptance_severity'])
     )
     return result.get('min_acceptance_severity', DEFAULT_MIN_SEVERITY)
+
+
+async def has_user_access(email: str, organization_id: str) -> bool:
+    return await org_dal.has_user_access(email, organization_id)
 
 
 async def update_settings(

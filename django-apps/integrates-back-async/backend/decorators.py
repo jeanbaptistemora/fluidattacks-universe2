@@ -21,7 +21,8 @@ from rediscluster.nodemanager import RedisClusterException
 from backend.domain import (
     user as user_domain,
     event as event_domain,
-    finding as finding_domain
+    finding as finding_domain,
+    organization as org_domain
 )
 from backend.services import (
     has_valid_access_token
@@ -232,6 +233,42 @@ def require_attribute(attribute: str):
 
 def require_integrates(function: Callable) -> Callable:
     return require_attribute('has_integrates')(function)
+
+
+def require_organization_access(
+    func: Callable[..., Any]
+) -> Callable[..., Any]:
+    """
+    Decorator
+    Verifies that the user trying to fetch information belongs to the
+    organization
+    """
+    @functools.wraps(func)
+    async def verify_and_call(*args, **kwargs) -> Callable[..., Any]:
+        context = args[1].context
+        organization_identifier = str(
+            kwargs.get('identifier') or
+            kwargs.get('organization_id')
+        )
+
+        user_data = util.get_jwt_content(context)
+        user_email = user_data['user_email']
+
+        organization_id = (
+            organization_identifier
+            if organization_identifier.startswith('ORG#')
+            else await org_domain.get_id_by_name(organization_identifier)
+        )
+
+        if not await org_domain.has_user_access(user_email, organization_id):
+            util.cloudwatch_log(
+                context,
+                f'Security: User {user_email} attempted to access '
+                f'organization {organization_identifier} without permission'
+            )
+            raise GraphQLError('Access denied')
+        return await func(*args, **kwargs)
+    return verify_and_call
 
 
 def require_project_access(func: Callable[..., Any]) -> Callable[..., Any]:

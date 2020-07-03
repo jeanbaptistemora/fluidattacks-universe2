@@ -377,7 +377,7 @@ const enTranslations: Dictionary = {
       exceeds_acceptance_date: "Chosen date is either in the past or exceeds the maximum number of days allowed " +
         "by the organization",
       maxium_number_of_acceptations: "Finding has been accepted the maximum number of times allowed " +
-        "by the organizaiton",
+        "by the organization",
       severity_out_of_range: "Finding severity outside of the acceptance range set by the organization",
     },
     path_value: "Path value should not use backslash.",
