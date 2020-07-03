@@ -153,21 +153,32 @@ async def get(
     return response.get('Item', {})
 
 
-def save_evidence(file_object: object, file_name: str) -> bool:
-    return s3.upload_memory_file(  # type: ignore
-        FI_AWS_S3_BUCKET, file_object, file_name)
+@async_to_sync
+async def save_evidence(file_object: object, file_name: str) -> bool:
+    return await s3.upload_memory_file(  # type: ignore
+        FI_AWS_S3_BUCKET,
+        file_object,
+        file_name
+    )
 
 
-def search_evidence(file_name: str) -> List[str]:
-    return s3.list_files(FI_AWS_S3_BUCKET, file_name)  # type: ignore
+@async_to_sync
+async def search_evidence(file_name: str) -> List[str]:
+    return await s3.list_files(FI_AWS_S3_BUCKET, file_name)  # type: ignore
 
 
-def remove_evidence(file_name: str) -> bool:
-    return s3.remove_file(FI_AWS_S3_BUCKET, file_name)  # type: ignore
+@async_to_sync
+async def remove_evidence(file_name: str) -> bool:
+    return await s3.remove_file(FI_AWS_S3_BUCKET, file_name)  # type: ignore
 
 
-def download_evidence(file_name: str, file_path: str):
-    s3.download_file(FI_AWS_S3_BUCKET, file_name, file_path)  # type: ignore
+@async_to_sync
+async def download_evidence(file_name: str, file_path: str):
+    await s3.download_file(  # type: ignore
+        FI_AWS_S3_BUCKET,
+        file_name,
+        file_path
+    )
 
 
 def is_pending_verification(finding_id: str) -> bool:

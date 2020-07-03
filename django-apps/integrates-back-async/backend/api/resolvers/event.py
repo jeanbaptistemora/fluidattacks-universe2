@@ -341,8 +341,7 @@ async def _do_download_event_file(_, info, event_id: str,
                                   file_name: str) -> DownloadFilePayloadType:
     """Resolve download_event_file mutation."""
     success = False
-    signed_url = await \
-        sync_to_async(event_domain.get_evidence_link)(event_id, file_name)
+    signed_url = await event_domain.get_evidence_link(event_id, file_name)
     if signed_url:
         util.cloudwatch_log(
             info.context,

@@ -109,7 +109,7 @@ async def update_evidence(event_id: str, evidence_type: str, file) -> bool:
     evidence_id = f'{project_name}-{event_id}-{evidence_type}{extension}'
     full_name = f'{project_name}/{event_id}/{evidence_id}'
 
-    if event_dal.save_evidence(file, full_name):
+    if await event_dal.save_evidence(file, full_name):
         success = await event_dal.update(
             event_id, {evidence_type: evidence_id})
 
@@ -323,11 +323,12 @@ async def add_comment(
     return success
 
 
-def get_evidence_link(event_id: str, file_name: str) -> str:
-    project_name = async_to_sync(get_event)(event_id).get('project_name', '')
+async def get_evidence_link(event_id: str, file_name: str) -> str:
+    event = await get_event(event_id)
+    project_name = event['project_name']
     file_url = f'{project_name}/{event_id}/{file_name}'
 
-    return event_dal.sign_url(file_url)
+    return await event_dal.sign_url(file_url)
 
 
 async def remove_evidence(evidence_type: str, event_id: str) -> bool:
@@ -336,7 +337,7 @@ async def remove_evidence(evidence_type: str, event_id: str) -> bool:
     success = False
 
     full_name = f'{project_name}/{event_id}/{event[evidence_type]}'
-    if event_dal.remove_evidence(full_name):
+    if await event_dal.remove_evidence(full_name):
         success = await event_dal.update(event_id, {evidence_type: None})
 
     return success
@@ -354,8 +355,9 @@ def mask(event_id: str) -> bool:
     project_name = str(event.get('project_name', ''))
     evidence_prefix = f'{project_name}/{event_id}'
     evidence_result = all([
-        event_dal.remove_evidence(file_name)
-        for file_name in event_dal.search_evidence(evidence_prefix)
+        async_to_sync(event_dal.remove_evidence)(file_name)
+        for file_name in async_to_sync(event_dal.search_evidence)(
+            evidence_prefix)
     ])
 
     comments_result = all([

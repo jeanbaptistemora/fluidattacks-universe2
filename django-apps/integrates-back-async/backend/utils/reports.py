@@ -1,4 +1,5 @@
 # Third party libraries
+from asgiref.sync import async_to_sync
 from django.core.files.base import ContentFile
 
 # Local libraries
@@ -24,11 +25,12 @@ def upload_report(file_name: str) -> str:
         )
 
 
-def upload_report_from_file_descriptor(report) -> str:
+@async_to_sync
+async def upload_report_from_file_descriptor(report) -> str:
     file_path = report.name
     file_name = file_path.split('_')[-1]
 
-    if not s3.upload_memory_file(  # type: ignore
+    if not await s3.upload_memory_file(  # type: ignore
             FI_AWS_S3_REPORTS_BUCKET, report, file_name):
         raise ErrorUploadingFileS3()
 

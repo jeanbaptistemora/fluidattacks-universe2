@@ -1,5 +1,6 @@
 
 from typing import List, Union
+from asgiref.sync import async_to_sync
 from botocore.exceptions import ClientError
 import rollbar
 from backend.dal.helpers import cloudfront, dynamodb, s3
@@ -15,24 +16,36 @@ DYNAMODB_RESOURCE = dynamodb.DYNAMODB_RESOURCE  # type: ignore
 TABLE = DYNAMODB_RESOURCE.Table('FI_projects')
 
 
-def search_file(file_name: str) -> List[str]:
-    return s3.list_files(FI_AWS_S3_RESOURCES_BUCKET, file_name)  # type: ignore
+@async_to_sync
+async def search_file(file_name: str) -> List[str]:
+    return await s3.list_files(  # type: ignore
+        FI_AWS_S3_RESOURCES_BUCKET,
+        file_name
+    )
 
 
-def save_file(file_object: object, file_name: str) -> bool:
-    success = s3.upload_memory_file(  # type: ignore
-        FI_AWS_S3_RESOURCES_BUCKET, file_object, file_name)
+@async_to_sync
+async def save_file(file_object: object, file_name: str) -> bool:
+    success = await s3.upload_memory_file(  # type: ignore
+        FI_AWS_S3_RESOURCES_BUCKET,
+        file_object,
+        file_name
+    )
 
     return success
 
 
-def remove_file(file_name: str) -> bool:
-    return s3.remove_file(  # type: ignore
-        FI_AWS_S3_RESOURCES_BUCKET, file_name)
+@async_to_sync
+async def remove_file(file_name: str) -> bool:
+    return await s3.remove_file(  # type: ignore
+        FI_AWS_S3_RESOURCES_BUCKET,
+        file_name
+    )
 
 
-def download_file(file_info: str, project_name: str) -> str:
-    return cloudfront.download_file(
+@async_to_sync
+async def download_file(file_info: str, project_name: str) -> str:
+    return await cloudfront.download_file(
         file_info,
         project_name,
         FI_CLOUDFRONT_RESOURCES_DOMAIN,

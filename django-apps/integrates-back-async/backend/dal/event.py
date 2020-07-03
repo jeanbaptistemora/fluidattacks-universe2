@@ -5,6 +5,7 @@ from boto3.dynamodb.conditions import Key
 from botocore.exceptions import ClientError
 from backend.dal.helpers import cloudfront, dynamodb, s3
 from backend.typing import Event as EventType
+from backend.utils import aio
 
 from __init__ import (
     FI_AWS_S3_BUCKET,
@@ -89,25 +90,26 @@ async def get_event(event_id: str) -> EventType:
     return response
 
 
-def save_evidence(file_object: object, file_name: str) -> bool:
-    return s3.upload_memory_file(  # type: ignore
+async def save_evidence(file_object: object, file_name: str) -> bool:
+    return await s3.upload_memory_file(  # type: ignore
         FI_AWS_S3_BUCKET,
         file_object,
         file_name
     )
 
 
-def remove_evidence(file_name: str) -> bool:
-    return s3.remove_file(FI_AWS_S3_BUCKET, file_name)  # type: ignore
+async def remove_evidence(file_name: str) -> bool:
+    return await s3.remove_file(FI_AWS_S3_BUCKET, file_name)  # type: ignore
 
 
-def sign_url(file_url: str) -> str:
-    return cloudfront.sign_url(
+async def sign_url(file_url: str) -> str:
+    return await aio.ensure_cpu_bound(
+        cloudfront.sign_url,
         FI_CLOUDFRONT_RESOURCES_DOMAIN,
         file_url,
         1.0 / 6
     )
 
 
-def search_evidence(file_name: str) -> List[str]:
-    return s3.list_files(FI_AWS_S3_BUCKET, file_name)  # type: ignore
+async def search_evidence(file_name: str) -> List[str]:
+    return await s3.list_files(FI_AWS_S3_BUCKET, file_name)  # type: ignore
