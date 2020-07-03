@@ -33,22 +33,26 @@ to other users.
 The product does not validate or incorrectly validates input that can affect
 the control flow or data flow of a program.
 
-. [[r4]] link:https://cwe.mitre.org/data/definitions/176.html[CWE-176: Improper Handling of Unicode Encoding].
+. [[r4]] link:https://cwe.mitre.org/data/definitions/117.html[CWE-117: Improper Output Neutralization for Logs].
+The software does not neutralize or incorrectly neutralizes output that is
+written to logs.
+
+. [[r5]] link:https://cwe.mitre.org/data/definitions/176.html[CWE-176: Improper Handling of Unicode Encoding].
 The product does not validate or incorrectly validates input that can affect
 the control flow or data flow of a program.
 
-. [[r5]] link:https://www.bsimm.com/framework/deployment/software-environment.html[BSIMM9 SE3.2 Use code protection].
+. [[r6]] link:https://www.bsimm.com/framework/deployment/software-environment.html[BSIMM9 SE3.2 UThe software does not neutralize or incorrectly neutralizes output that is written to logs. se code protection].
 
-. [[r6]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r7]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V1.5 Input and Output Architectural Requirements.(1.5.3)]
 Verify that input validation is enforced on a trusted service layer.
 
-. [[r7]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r8]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V1.5 Input and Output Architectural Requirements.(1.5.4)]
 Verify that output encoding occurs close to or by the interpreter for which it
 is intended.
 
-. [[r8]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r9]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V5.3 Output encoding and Injection Prevention Requirements.(5.3.1)]
 Verify that output encoding is relevant for the interpreter and context
 required.
@@ -57,32 +61,42 @@ JavaScript, URL Parameters, *HTTP* headers, *SMTP*, and others as the context
 requires, especially from untrusted inputs
 (e.g. names with Unicode or apostrophes, such as ねこ or O'Hara).
 
-. [[r9]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r10]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V5.3 Output encoding and Injection Prevention Requirements.(5.3.2)]
 Verify that output encoding preserves the user's chosen character set and
 locale,
 such that any Unicode character point is valid and safely handled.
 
-. [[r10]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r11]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V5.3 Output encoding and Injection Prevention Requirements.(5.3.3)]
 Verify that context-aware, preferably automated - or at worst, manual - output
 escaping protects against reflected, stored, and *DOM* based *XSS*.
 
-. [[r11]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r12]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V5.3 Output encoding and Injection Prevention Requirements.(5.3.5)]
 Verify that where parameterized or safer mechanisms are not present,
 context-specific output encoding is used to protect against injection attacks,
 such as the use of *SQL* escaping to protect against *SQL* injection.
 
-. [[r12]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r13]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V5.3 Output encoding and Injection Prevention Requirements.(5.3.6)]
 Verify that the application projects against JavaScript or *JSON* injection
 attacks,
 including for eval attacks, remote JavaScript includes, *CSP* bypasses,
 **DOM XSS**, and JavaScript expression evaluation.
 
-. [[r2]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r14]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V5.3 Output encoding and Injection Prevention Requirements.(5.3.8)]
 Verify that the application protects against *OS* command injection and that
 operating system calls use parameterized *OS* queries or use contextual command
 line output encoding.
+
+. [[r15]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V7.3 Log Protection Requirements.(7.3.1)]
+Verify that the application appropriately encodes user-supplied data to prevent
+log injection.
+
+. [[r16]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V7.3 Log Protection Requirements.(7.3.2)]
+Verify that all events are protected from injection when viewed in log viewing
+software.
