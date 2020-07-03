@@ -1,19 +1,44 @@
 :slug: rules/077/
 :category: logs
 :description: This requirement establishes the importance of preventing data leakages by avoiding sensitive information disclosure in the application.
-:keywords: Information, Disclosure, SQL, Database, Security, Requirement, Rules, Ethical Hacking, Pentesting
+:keywords: Information, Disclosure, ASVS, CWE, Security, Requirement, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R077. Avoid disclosing technical information
 
 == Requirement
 
-The application must not disclosure internal system information
-such as **stack traces**, **SQL** sentences fragments,
+The application must not disclose internal system information
+such as **stack traces**, *SQL* sentence fragments,
 database names or table names.
+
+== Description
+
+Applications should fail safely whenever an unexpected event occurs.
+Error message presentation is part of this safe management.
+Therefore, specific technical information should not be presented to
+unauthorized users,
+as this could be leveraged by attackers to further exploit other
+vulnerabilities.
 
 == Findings
 
 * [inner]#link:/web/findings/037/[F037. Technical information leak]#
 
 * [inner]#link:/web/findings/058/[F058. Debugging enabled in production]#
+
+== References
+
+. [[r1]] link:https://cwe.mitre.org/data/definitions/209.html[CWE-209: Generation of Error Message Containing Sensitive Information].
+The software generates an error message that includes sensitive information
+about its environment, users, or associated data.
+
+. [[r2]] link:https://cwe.mitre.org/data/definitions/210.html[CWE-210: Self-generated Error Message Containing Sensitive Information].
+The software identifies an error condition and creates its own diagnostic or
+error messages that contain sensitive information.
+
+. [[r3]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V7.4 Error Handling.(7.4.1)]
+Verify that a generic message is shown when an unexpected or security sensitive
+error occurs,
+potentially with a unique ID which support personnel can use to investigate.
