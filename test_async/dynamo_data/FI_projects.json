@@ -699,7 +699,7 @@
                                           "S" : "2019-11-27 13:40"
                                        },
                                        "state" : {
-                                          "S" : "INACTIVE"
+                                          "S" : "ACTIVE"
                                        },
                                        "user" : {
                                           "S" : "unittest@fluidattacks.com"

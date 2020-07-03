@@ -15,7 +15,11 @@ from backend.dal import (
     resources as resources_dal
 )
 from backend.typing import Resource as ResourceType
-from backend.exceptions import InvalidFileSize, RepeatedValues
+from backend.exceptions import (
+    InvalidFileSize,
+    RepeatedValues,
+    InvalidResource
+)
 from backend.utils import validations
 
 from __init__ import BASE_URL, FI_MAIL_RESOURCERS
@@ -297,6 +301,7 @@ def update_resource(
         res_id = 'urlEnv'
         res_name = 'environments'
 
+    resource_exists = False
     for resource in res_list:
         if res_type == 'repository':
             matches = (
@@ -308,6 +313,7 @@ def update_resource(
             matches = resource['urlEnv'] == res_data['urlEnv']
 
         if res_id in resource and matches:
+            resource_exists = True
             new_state = {
                 'user': user_email,
                 'date': util.format_comment_date(
@@ -327,6 +333,10 @@ def update_resource(
                 historic_state = [new_state]
             resource['historic_state'] = historic_state
             break
+
+    if not resource_exists:
+        raise InvalidResource()
+
     return resources_dal.update(res_list, project_name, res_name)
 
 
