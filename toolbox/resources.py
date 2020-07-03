@@ -13,7 +13,7 @@ import urllib.parse
 from multiprocessing import cpu_count
 from multiprocessing.pool import ThreadPool
 from subprocess import Popen, PIPE, check_output
-from typing import Dict
+from typing import Dict, List, Tuple
 
 # Third parties imports
 from progress.bar import ChargingBar
@@ -348,54 +348,61 @@ def get_fingerprint(subs: str) -> bool:
 
 def get_active_missing_repos(subs):
     """ Get inactive and missing repositories in the config file """
-    path = f"groups/{subs}"
-    repos: tuple = (None, None)
-    config_file = f'groups/{subs}/config/config.yml'
+    path: str = f"groups/{subs}"
+    repos: Tuple = (None, None)
+    config_file: str = f'groups/{subs}/config/config.yml'
     if not os.path.exists(path):
         logger.error(f"There is no project with the name: {subs}")
-        return (None, None)
+        return repos
+
     with open(config_file) as config_handle:
         config = yaml.safe_load(config_handle.read())
-        if not config.get('code'):
-            return (None, None)
-    repositories = utils.integrates.get_project_repos(subs)
-    integrates_active: list = []
+        if 'code' not in config:
+            return repos
+
+    repositories: List[Dict] = utils.integrates.get_project_repos(subs)
+    integrates_active: List[str] = []
     # Filter active repositories
     for repo in repositories:
-        repo_full_url = repo['urlRepo']
-        repo_branch = repo['branch']
+        repo_full_url = repo.get('urlRepo', None)
+        repo_branch = repo.get('branch', None)
+        if not repo_full_url or not repo_branch:
+            continue
         if 'historic_state' not in repo \
                 or repo['historic_state'][-1:][0]['state'] == 'ACTIVE':
             integrates_active.append(f'{repo_full_url}/{repo_branch}')
+
     if not os.path.isfile(config_file):
         logger.error("No config file in the current directory")
-    else:
-        with open(config_file) as config_handle:
-            config = yaml.safe_load(config_handle.read())
-            repos_config = config.get('code')
-            repo_names: list = []
-            for repo in repos_config:
-                if repo['branches']:
-                    repo_names.extend(
-                        ''.join(i.split('/')[-2]) for i in repo['branches'])
-            inactive_repos: list = []
-            missing_repos: list = []
-            for repo in repo_names:
-                is_inactive = next((
-                    False
-                    for active in integrates_active
-                    if repo in active), True)
-                if is_inactive:
-                    inactive_repos.append(repo)
-            for active in integrates_active:
-                is_missing = next((
-                    False
-                    for repo in repo_names
-                    if repo in active), True)
-                if is_missing:
-                    missing_repos.append(active)
-            if missing_repos or inactive_repos:
-                repos = (inactive_repos, missing_repos)
+        return repos
+
+    with open(config_file) as config_handle:
+        config = yaml.safe_load(config_handle.read())
+        repos_config: List[Dict] = config.get('code', [])
+        repo_names: List[str] = []
+        for repo in repos_config:
+            repo_names.extend(
+                ''.join(
+                    i.split('/')[-2])
+                for i in repo.get('branches') or [])
+        inactive_repos: List[str] = []
+        missing_repos: List[str] = []
+        for repo in repo_names:
+            is_inactive = next((
+                False
+                for active in integrates_active
+                if repo in active), True)
+            if is_inactive:
+                inactive_repos.append(repo)
+        for active in integrates_active:
+            is_missing = next((
+                False
+                for repo in repo_names
+                if repo in active), True)
+            if is_missing:
+                missing_repos.append(active)
+        if missing_repos or inactive_repos:
+            repos = (inactive_repos, missing_repos)
     return repos
 
 
@@ -411,7 +418,7 @@ def print_inactive_missing_repos(group, inactive_repos,
     }))
 
 
-def check_repositories(subs)-> bool:
+def check_repositories(subs) -> bool:
     projects = os.listdir('groups')
     if subs != 'all':
         projects = [subs]
