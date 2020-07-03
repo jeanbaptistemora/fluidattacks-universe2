@@ -1,7 +1,7 @@
 :slug: vulnserver-kstet-alternative/
 :date: 2020-07-02
 :category: attacks
-:subtitle: Exploiting in stages
+:subtitle: Sideloading exploiting
 :tags: osce, vulnserver, training, exploit
 :image: cover.png
 :alt: Photo by Philipp Katzenberger on Unsplash
@@ -30,10 +30,8 @@ For example, in the exploitation of the `GTER`,
 command, we have space restrictions too and we used an
 link:../vulnserver-gter/[Egghunter] and
 link:../vulnserver-gter-no-egghunter/[reused part of the WinSock stack]
-to create a custom reverse shellcode.
-
-In the `KSTET` command article, we used a technique called
-link:../vulnserver-kstet/[socket reusing].
+to create a custom reverse shellcode. In the `KSTET` command article, we
+used a technique called link:../vulnserver-kstet/[socket reusing].
 
 In this post we will squeeze our space restriction a little more and use a
 different exploitation technique.
@@ -316,24 +314,28 @@ victim application will execute the code you injected that can be a simple
 `MessageBox` or anything complex like a `TCP` shell.
 
 That payload, or shellcode, can only use calls to the OS API that the
-victim application has already loaded in memory. The OS API is distributed on
-reusable files that can be linked to any application. In Windows
-they are known as *Dynamic-Link Library* or `DLL`.
-Commonly, an application will load executable dependencies at run-time using
-the OS dynamic linker.
+victim application has already loaded in memory.
+
+The OS API is distributed on reusable files that can be linked to any
+application. In Windows they are known as *Dynamic-Link Library* or `DLL`
+files. Commonly, an application will load executable dependencies at
+run-time using the OS dynamic linker.
 
 We can see the `DLL` files loaded using several ways. On Vulnserver,
 we will use our debugger again:
 
 image::modules1.png[Executable modules]
 
-That means that Vulnserver can execute any function included on any of those
-modules.
+That means that Vulnserver (and therefore, our shellcode) can execute any
+function included on any of those modules.
 
 However, there is a way for an application to include new libraries when it's
 already running: *Dynamic Linking*. On Windows, it can be done with any of the
 *LibraryLoad* functions family. Those functions are located on `KERNEL32.DLL`,
 which is a module that virtually any Windows application loads at run-time.
+
+As the injected shellcode is also part of the application, we can
+dyncamically link any available `DLL` too.
 
 With that simplified introduction to dynamic linking, it's time to write
 some Assembler!
@@ -470,13 +472,13 @@ image::loadlib1.gif[LoadLibrary]
 
 Great! The `LoadLibraryA` function is now ready.
 
-== Finishing exploiting
+== Show time
 
-Now we everything set, we must now create a shellcode on a `DLL` file
-and share it on a `SMB` server.
+Now that we have everything set, we must now create a shellcode on a
+`DLL` file and share it on a `SMB` server.
 
-Luckily for us, `msfvenom` can create shellcodes and export them to `DLL`
-files. Let's do that:
+Luckily for us, `msfvenom` can create shellcodes in `DLL` format. Let's do
+that:
 
 [source,console]
 ----
@@ -487,7 +489,7 @@ Final size of dll file: 5120 bytes
 Saved as: pwn.dll
 ----
 
-And must server that `pwn.dll` on a `SMB` share called `X`. We can use
+We also must serve that `pwn.dll` file on a `SMB` share called `X`. We can use
 Impacket's `smbserver.py` to do that:
 
 [source,console]
@@ -503,11 +505,11 @@ Impacket v0.9.21 - Copyright 2020 SecureAuth Corporation
 [*] Config file parsed
 ----
 This will create a new anonymous `SMB` server, will share the current
-directory `.`, using a share name `X`. The `-smb2support` parameter is
+directory `.`, using a share called `X`. The `-smb2support` parameter is
 needed because Windows 10 will refuse to connect to `SMB` servers using
 the `SMBv1` protocol.
 
-Now we are ready. We can check our exploit:
+We are now ready. We can check our exploit:
 
 image::success.gif[Success]
 
