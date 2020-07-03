@@ -6,6 +6,7 @@
 import { QueryResult } from "@apollo/react-common";
 import { Query } from "@apollo/react-components";
 import { ApolloError } from "apollo-client";
+import { GraphQLError } from "graphql";
 import _ from "lodash";
 import React from "react";
 import { Col, Row } from "react-bootstrap";
@@ -26,9 +27,13 @@ type EventContentProps = RouteComponentProps<{ eventId: string }>;
 const eventContent: React.FC<EventContentProps> = (props: EventContentProps): JSX.Element => {
   const { eventId } = props.match.params;
 
-  const handleErrors: ((error: ApolloError) => void) = (error: ApolloError): void => {
-    msgError(translate.t("group_alerts.error_textsad"));
-    rollbar.error("An error occurred loading event header", error);
+  const handleErrors: ((error: ApolloError) => void) = (
+    { graphQLErrors }: ApolloError,
+  ): void => {
+    graphQLErrors.forEach((error: GraphQLError): void => {
+      msgError(translate.t("group_alerts.error_textsad"));
+      rollbar.error("An error occurred loading event header", error);
+    });
   };
 
   return (

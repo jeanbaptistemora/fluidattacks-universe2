@@ -1,6 +1,6 @@
 import { ApolloProvider as BaseApolloProvider } from "@apollo/react-hooks";
 import { InMemoryCache, NormalizedCacheObject } from "apollo-cache-inmemory";
-import { ApolloClient, ApolloError } from "apollo-client";
+import { ApolloClient } from "apollo-client";
 import { ApolloLink, FetchResult, NextLink, Observable, Operation } from "apollo-link";
 import { ErrorHandler, ErrorResponse } from "apollo-link-error";
 import { WebSocketLink } from "apollo-link-ws";
@@ -201,7 +201,7 @@ const errorLink: ((history: History) => ApolloLink) = (
       }
     } else {
       if (graphQLErrors !== undefined) {
-        graphQLErrors.forEach(async (error: GraphQLError): Promise<void> => {
+        graphQLErrors.forEach((error: GraphQLError): void => {
           switch (error.message) {
             case "Login required":
             case "Exception - User token has expired":

@@ -21,9 +21,13 @@ type EventCommentsProps = RouteComponentProps<{ eventId: string }>;
 const eventCommentsView: React.FC<EventCommentsProps> = (props: EventCommentsProps): JSX.Element => {
   const { eventId } = props.match.params;
 
-  const handleErrors: ((error: ApolloError) => void) = (error: ApolloError): void => {
-    msgError(translate.t("group_alerts.error_textsad"));
-    rollbar.error("An error occurred loading event comments", error);
+  const handleErrors: ((error: ApolloError) => void) = (
+    { graphQLErrors }: ApolloError,
+  ): void => {
+    graphQLErrors.forEach((error: GraphQLError): void => {
+      msgError(translate.t("group_alerts.error_textsad"));
+      rollbar.error("An error occurred loading event comments", error);
+    });
   };
 
   return (

@@ -126,9 +126,11 @@ const treatmentView: React.FC<ITreatmentViewProps> = (props: ITreatmentViewProps
         await refetch();
       }
     },
-    onError: (acceptationError: ApolloError): void => {
-      msgError(translate.t("group_alerts.error_textsad"));
-      rollbar.error("An error occurred approving acceptation", acceptationError);
+    onError: ({ graphQLErrors }: ApolloError): void => {
+      graphQLErrors.forEach((error: GraphQLError): void => {
+        msgError(translate.t("group_alerts.error_textsad"));
+        rollbar.error("An error occurred approving acceptation", error);
+      });
     },
   });
 

@@ -48,9 +48,11 @@ const eventEvidenceView: React.FC<EventEvidenceProps> = (props: EventEvidencePro
   // GraphQL operations
   const { data, networkStatus, refetch } = useQuery(GET_EVENT_EVIDENCES, {
     notifyOnNetworkStatusChange: true,
-    onError: (error: ApolloError): void => {
-      msgError(translate.t("group_alerts.error_textsad"));
-      rollbar.error("An error occurred loading event evidences", error);
+    onError: ({ graphQLErrors }: ApolloError): void => {
+      graphQLErrors.forEach((error: GraphQLError): void => {
+        msgError(translate.t("group_alerts.error_textsad"));
+        rollbar.error("An error occurred loading event evidences", error);
+      });
     },
     variables: { eventId },
   });
@@ -61,16 +63,20 @@ const eventEvidenceView: React.FC<EventEvidenceProps> = (props: EventEvidencePro
       const newTab: Window | null = window.open(downloadData.downloadEventFile.url);
       (newTab as Window).opener = undefined;
     },
-    onError: (downloadError: ApolloError): void => {
-      msgError(translate.t("group_alerts.error_textsad"));
-      rollbar.error("An error occurred downloading event file", downloadError);
+    onError: ({ graphQLErrors }: ApolloError): void => {
+      graphQLErrors.forEach((error: GraphQLError): void => {
+        msgError(translate.t("group_alerts.error_textsad"));
+        rollbar.error("An error occurred downloading event file", error);
+      });
     },
   });
   const [removeEvidence] = useMutation(REMOVE_EVIDENCE_MUTATION, {
     onCompleted: refetch,
-    onError: (removeError: ApolloError): void => {
-      msgError(translate.t("group_alerts.error_textsad"));
-      rollbar.error("An error occurred removing event evidence", removeError);
+    onError: ({ graphQLErrors }: ApolloError): void => {
+      graphQLErrors.forEach((error: GraphQLError): void => {
+        msgError(translate.t("group_alerts.error_textsad"));
+        rollbar.error("An error occurred removing event evidence", error);
+      });
     },
   });
   const [updateEvidence] = useMutation(UPDATE_EVIDENCE_MUTATION, {

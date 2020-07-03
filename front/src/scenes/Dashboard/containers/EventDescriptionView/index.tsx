@@ -46,9 +46,13 @@ const eventDescriptionView: React.FC<EventDescriptionProps> = (props: EventDescr
     setSolvingModalOpen(false);
   };
 
-  const handleErrors: ((error: ApolloError) => void) = (error: ApolloError): void => {
-    msgError(translate.t("group_alerts.error_textsad"));
-    rollbar.error("An error occurred loading event description", error);
+  const handleErrors: ((error: ApolloError) => void) = (
+    { graphQLErrors }: ApolloError,
+  ): void => {
+    graphQLErrors.forEach((error: GraphQLError): void => {
+      msgError(translate.t("group_alerts.error_textsad"));
+      rollbar.error("An error occurred loading event description", error);
+    });
   };
 
   const handleDescriptionSubmit: (() => void) = (): void => undefined;

@@ -136,8 +136,13 @@ const updateTreatmentModal: ((props: IUpdateTreatmentModal) => JSX.Element) = (
             store.dispatch(submit("editTreatmentVulnerability"));
           };
 
-          const handleDeleteError: ((updateError: ApolloError) => void) = (updateError: ApolloError): void => {
-            msgError(translate.t("group_alerts.error_textsad"));
+          const handleDeleteError: ((updateError: ApolloError) => void) = (
+            { graphQLErrors }: ApolloError,
+          ): void => {
+            graphQLErrors.forEach((error: GraphQLError): void => {
+              msgError(translate.t("group_alerts.error_textsad"));
+              rollbar.error("An error occurred deleting vulnerabilities", error);
+            });
           };
           const handleDeleteResult: ((mtResult: IDeleteTagResult) => void) =
           (mtResult: IDeleteTagResult): void => {

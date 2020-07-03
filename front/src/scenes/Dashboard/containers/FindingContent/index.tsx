@@ -185,9 +185,11 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
         replace(`/groups/${projectName}/findings`);
       }
     },
-    onError: (rejectError: ApolloError): void => {
-      msgError(translate.t("group_alerts.error_textsad"));
-      rollbar.error("An error occurred deleting finding", rejectError);
+    onError: ({ graphQLErrors }: ApolloError): void => {
+      graphQLErrors.forEach((error: GraphQLError): void => {
+        msgError(translate.t("group_alerts.error_textsad"));
+        rollbar.error("An error occurred deleting finding", error);
+      });
     },
   });
 

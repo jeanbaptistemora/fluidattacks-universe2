@@ -29,9 +29,13 @@ const commentsView: React.FC<ICommentsViewProps> = (props: ICommentsViewProps): 
   };
   React.useEffect(onMount, []);
 
-  const handleErrors: ((error: ApolloError) => void) = (error: ApolloError): void => {
-    msgError(translate.t("group_alerts.error_textsad"));
-    rollbar.error(`An error occurred loading finding ${type}`, error);
+  const handleErrors: ((error: ApolloError) => void) = (
+    { graphQLErrors }: ApolloError,
+  ): void => {
+    graphQLErrors.forEach((error: GraphQLError): void => {
+      msgError(translate.t("group_alerts.error_textsad"));
+      rollbar.error(`An error occurred loading finding ${type}`, error);
+    });
   };
 
   return (

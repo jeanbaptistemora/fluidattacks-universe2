@@ -50,15 +50,25 @@ const evidenceView: React.FC<EventEvidenceProps> = (props: EventEvidenceProps): 
   // GraphQL operations
   const { data, networkStatus, refetch } = useQuery(GET_FINDING_EVIDENCES, {
     notifyOnNetworkStatusChange: true,
-    onError: (error: ApolloError): void => {
-      msgError(translate.t("group_alerts.error_textsad"));
-      rollbar.error("An error occurred loading finding evidences", error);
+    onError: ({ graphQLErrors }: ApolloError): void => {
+      graphQLErrors.forEach((error: GraphQLError): void => {
+        msgError(translate.t("group_alerts.error_textsad"));
+        rollbar.error("An error occurred loading finding evidences", error);
+      });
     },
     variables: { findingId },
   });
   const isRefetching: boolean = networkStatus === NetworkStatus.refetch;
 
-  const [removeEvidence] = useMutation(REMOVE_EVIDENCE_MUTATION, { onCompleted: refetch });
+  const [removeEvidence] = useMutation(REMOVE_EVIDENCE_MUTATION, {
+    onCompleted: refetch,
+    onError: ({ graphQLErrors }: ApolloError): void => {
+      graphQLErrors.forEach((error: GraphQLError): void => {
+        msgError(translate.t("group_alerts.error_textsad"));
+        rollbar.error("An error occurred removing finding evidences", error);
+      });
+    },
+  });
   const [updateDescription] = useMutation(UPDATE_DESCRIPTION_MUTATION, {
     onError: (updateError: ApolloError): void => {
       updateError.graphQLErrors.forEach(({ message }: GraphQLError): void => {

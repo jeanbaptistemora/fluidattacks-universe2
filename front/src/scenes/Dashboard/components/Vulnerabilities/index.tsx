@@ -7,6 +7,8 @@ import { MutationFunction, MutationResult, QueryResult } from "@apollo/react-com
 import { Mutation, Query } from "@apollo/react-components";
 import { PureAbility } from "@casl/ability";
 import { useAbility } from "@casl/react";
+import { ApolloError } from "apollo-client";
+import { GraphQLError } from "graphql";
 import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React, { useState } from "react";
@@ -20,8 +22,8 @@ import { IHeader } from "../../../../components/DataTableNext/types";
 import { FluidIcon } from "../../../../components/FluidIcon";
 import { Can } from "../../../../utils/authz/Can";
 import { authzPermissionsContext } from "../../../../utils/authz/config";
-import { handleGraphQLErrors } from "../../../../utils/formatHelpers";
 import { msgError, msgSuccess } from "../../../../utils/notifications";
+import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
 import { deleteVulnerabilityModal as DeleteVulnerabilityModal } from "../DeleteVulnerability/index";
 import { IDeleteVulnAttr } from "../DeleteVulnerability/types";
@@ -256,22 +258,27 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
       setArraySelectedRows([]);
     };
 
+    const handleQueryError: ((error: ApolloError) => void) = (
+      { graphQLErrors }: ApolloError,
+    ): void => {
+      graphQLErrors.forEach((error: GraphQLError): void => {
+        msgError(translate.t("group_alerts.error_textsad"));
+        rollbar.error("An error occurred getting vulnerabilities", error);
+      });
+    };
+
     return(
     <Query
       query={GET_VULNERABILITIES}
       variables={{ analystField: canGetAnalyst, identifier: props.findingId }}
+      onError={handleQueryError}
     >
-      {
-        ({ error, data, refetch }: QueryResult<IVulnsAttr>): JSX.Element => {
+      {({ data, refetch }: QueryResult<IVulnsAttr>): JSX.Element => {
           if (_.isUndefined(data) || _.isEmpty(data)) {
 
             return <React.Fragment/>;
           }
-          if (!_.isUndefined(error)) {
-            handleGraphQLErrors("An error occurred getting vulnerabilities", error);
 
-            return <React.Fragment/>;
-          }
           if (!_.isUndefined(data)) {
 
             const dataInputs: IVulnsAttr["finding"]["inputsVulns"] = newVulnerabilities(filterState(
@@ -694,16 +701,24 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                   _.includes(rows.map((row: IVulnRow) => row.id), vuln.id) ? [...acc, indexReduce] : acc,
                 []));
 
-            return (
-              <Mutation mutation={APPROVE_VULN_MUTATION} onCompleted={handleMtPendingVulnRes}>
-              { (approveVulnerability: MutationFunction<IApproveVulnAttr, {
-                approvalStatus: boolean; findingId: string; uuid?: string; }>,
-                 mutationResult: MutationResult): JSX.Element => {
-                if (!_.isUndefined(mutationResult.error)) {
-                  handleGraphQLErrors("An error occurred approving vulnerabilities", mutationResult.error);
+            const handleMtPendingError: ((error: ApolloError) => void) = (
+              { graphQLErrors }: ApolloError,
+            ): void => {
+              graphQLErrors.forEach((error: GraphQLError): void => {
+                msgError(translate.t("group_alerts.error_textsad"));
+                rollbar.error("An error occurred approving vulnerabilities", error);
+              });
+            };
 
-                  return <React.Fragment/>;
-                }
+            return (
+              <Mutation
+                mutation={APPROVE_VULN_MUTATION}
+                onCompleted={handleMtPendingVulnRes}
+                onError={handleMtPendingError}
+              >
+                {(approveVulnerability: MutationFunction<IApproveVulnAttr, {
+                approvalStatus: boolean; findingId: string; uuid?: string; }>,
+                 ): JSX.Element => {
 
                 const handleApproveVulnerability: ((vulnInfo: { [key: string]: string } | undefined) =>
                 void) =

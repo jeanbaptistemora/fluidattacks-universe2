@@ -49,7 +49,8 @@ const updateVerificationModal: React.FC<IUpdateVerificationModal> = (props: IUpd
   const closeRemediationModal: (() => void) = (): void => { props.handleCloseModal(); };
 
   // GraphQL operations
-  const [requestVerification, { loading: submittingRequest }] = useMutation(REQUEST_VERIFICATION_VULN, {
+  const [requestVerification, { loading: submittingRequest }] = useMutation(
+    REQUEST_VERIFICATION_VULN, {
     onCompleted: (data: IRequestVerificationVulnResult): void => {
       if (data.requestVerificationVuln.success) {
         msgSuccess(
@@ -61,9 +62,9 @@ const updateVerificationModal: React.FC<IUpdateVerificationModal> = (props: IUpd
         props.setRequestState();
       }
     },
-    onError: (error: ApolloError): void => {
-      error.graphQLErrors.forEach(({ message }: GraphQLError): void => {
-        switch (message) {
+    onError: ({ graphQLErrors }: ApolloError): void => {
+      graphQLErrors.forEach((error: GraphQLError): void => {
+        switch (error.message) {
           case "Exception - Request verification already requested":
             msgError(translate.t("group_alerts.verification_already_requested"));
             break;
@@ -84,7 +85,8 @@ const updateVerificationModal: React.FC<IUpdateVerificationModal> = (props: IUpd
     ],
   });
 
-  const [verifyRequest, { loading: submittingVerify }] = useMutation(VERIFY_VULNERABILITIES, {
+  const [verifyRequest, { loading: submittingVerify }] = useMutation(
+    VERIFY_VULNERABILITIES, {
     onCompleted: (data: IVerifyRequestVulnResult): void => {
       if (data.verifyRequestVuln.success) {
         msgSuccess(
@@ -96,9 +98,9 @@ const updateVerificationModal: React.FC<IUpdateVerificationModal> = (props: IUpd
         props.setVerifyState();
       }
     },
-    onError: (error: ApolloError): void => {
-      error.graphQLErrors.forEach(({ message }: GraphQLError): void => {
-        switch (message) {
+    onError: ({ graphQLErrors }: ApolloError): void => {
+      graphQLErrors.forEach((error: GraphQLError): void => {
+        switch (error.message) {
           case "Exception - Error verification not requested":
             msgError(translate.t("group_alerts.no_verification_requested"));
             break;
