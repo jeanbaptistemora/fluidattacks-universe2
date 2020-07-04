@@ -19,8 +19,15 @@ import useComponentSize, { ComponentSize } from "@rehooks/component-size";
 
 const glyphPadding: number = 15;
 const minWidthToShowButtons: number = 320;
-const bigGraphicHeight: number = 400;
-const bigGraphicWidth: number = 1000;
+const bigGraphicSize: ComponentSize = {
+  height: 400,
+  width: 1000,
+};
+
+interface IComponentSizeProps {
+  readonly height: number;
+  readonly width: number;
+}
 
 export const Graphic: React.FC<IGraphicProps> = (
   props: Readonly<IGraphicProps>
@@ -89,10 +96,10 @@ export const Graphic: React.FC<IGraphicProps> = (
       modalBodyRef.current?.contentWindow.location.reload();
     }
   }
-  function buildFileName(width: number, height: number): string {
-    return `${subject}-${title}-${width}x${height}.html`;
+  function buildFileName(size: IComponentSizeProps): string {
+    return `${subject}-${title}-${size.width}x${size.height}.html`;
   }
-  function buildUrl(width: number, height: number): string {
+  function buildUrl(size: IComponentSizeProps): string {
     const url: URL = new URL("/integrates/graphic", window.location.origin);
 
     url.searchParams.set("documentName", documentName);
@@ -100,9 +107,9 @@ export const Graphic: React.FC<IGraphicProps> = (
     url.searchParams.set("entity", entity);
     url.searchParams.set("generatorName", generatorName);
     url.searchParams.set("generatorType", generatorType);
-    url.searchParams.set("height", height.toString());
+    url.searchParams.set("height", size.height.toString());
     url.searchParams.set("subject", subject);
-    url.searchParams.set("width", width.toString());
+    url.searchParams.set("width", size.width.toString());
 
     return url.toString();
   }
@@ -138,11 +145,8 @@ export const Graphic: React.FC<IGraphicProps> = (
                   <div className={styles.buttonGroup}>
                     <ButtonGroup bsSize={"small"}>
                       <Button
-                        download={buildFileName(
-                          modalSize.width,
-                          modalSize.height
-                        )}
-                        href={buildUrl(modalSize.width, modalSize.height)}
+                        download={buildFileName(modalSize)}
+                        href={buildUrl(modalSize)}
                         rel={"noopener noreferrer"}
                         target={"_blank"}
                       >
@@ -162,13 +166,13 @@ export const Graphic: React.FC<IGraphicProps> = (
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <div ref={modalRef} style={{ height: bigGraphicHeight }}>
+          <div ref={modalRef} style={{ height: bigGraphicSize.height }}>
             <iframe
               className={styles.frame}
               frameBorder={"no"}
               ref={modalBodyRef}
               scrolling={"no"}
-              src={buildUrl(modalSize.width, modalSize.height)}
+              src={buildUrl(modalSize)}
             />
           </div>
         </Modal.Body>
@@ -195,11 +199,8 @@ export const Graphic: React.FC<IGraphicProps> = (
                         <div className={styles.buttonGroup}>
                           <ButtonGroup bsSize={"small"}>
                             <Button
-                              download={buildFileName(
-                                bigGraphicWidth,
-                                bigGraphicHeight
-                              )}
-                              href={buildUrl(bigGraphicWidth, bigGraphicHeight)}
+                              download={buildFileName(bigGraphicSize)}
+                              href={buildUrl(bigGraphicSize)}
                               rel={"noopener noreferrer"}
                               target={"_blank"}
                             >
@@ -229,7 +230,7 @@ export const Graphic: React.FC<IGraphicProps> = (
                 onLoad={frameOnLoad}
                 ref={bodyRef}
                 scrolling={"no"}
-                src={buildUrl(bodySize.width, bodySize.height)}
+                src={buildUrl(bodySize)}
                 style={{
                   /*
                    * The element must be rendered for C3 legends to work,

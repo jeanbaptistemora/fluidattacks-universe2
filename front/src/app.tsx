@@ -16,6 +16,7 @@ import {
   authzPermissionsContext,
   userLevelPermissions,
 } from "./utils/authz/config";
+import { secureStore, secureStoreContext } from "./utils/secureStore/index";
 import "react-toastify/dist/ReactToastify.min.css";
 
 const App: React.FC = (): JSX.Element => {
@@ -29,10 +30,12 @@ const App: React.FC = (): JSX.Element => {
         <ApolloProvider>
           <ReduxProvider store={store}>
             <authzPermissionsContext.Provider value={userLevelPermissions}>
-              <Switch>
-                <Route component={Registration} path={"/registration"} />
-                <Route component={Dashboard} path={"/"} />
-              </Switch>
+              <secureStoreContext.Provider value={secureStore}>
+                <Switch>
+                  <Route component={Registration} path={"/registration"} />
+                  <Route component={Dashboard} path={"/"} />
+                </Switch>
+              </secureStoreContext.Provider>
               {isLoading ? <Preloader /> : undefined}
             </authzPermissionsContext.Provider>
           </ReduxProvider>
