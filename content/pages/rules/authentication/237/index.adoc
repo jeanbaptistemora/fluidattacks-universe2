@@ -28,21 +28,21 @@ which it is interacting is a human being.
 
 == References
 
-. [[r1]] link:https://cwe.mitre.org/data/definitions/287.html[CWE-287: Improper Authentication]
+. [[r1]] link:https://cwe.mitre.org/data/definitions/287.html[CWE-287: Improper Authentication].
 When an actor claims to have a given identity,
 the software does not prove or insufficiently proves that the claim is correct.
 
-. [[r2]] link:https://cwe.mitre.org/data/definitions/307.html[CWE-307: Improper Restriction of Excessive Authentication Attempts]
+. [[r2]] link:https://cwe.mitre.org/data/definitions/307.html[CWE-307: Improper Restriction of Excessive Authentication Attempts].
 The software does not implement sufficient measures to prevent multiple failed
 authentication attempts within in a short time frame,
 making it more susceptible to brute force attacks.
 
-. [[r3]] link:https://cwe.mitre.org/data/definitions/799.html[CWE-799: Improper Control of Interaction Frequency]
+. [[r3]] link:https://cwe.mitre.org/data/definitions/799.html[CWE-799: Improper Control of Interaction Frequency].
 The software does not properly limit the number or frequency of interactions
 that it has with an actor,
 such as the number of incoming requests.
 
-. [[r4]] link:https://cwe.mitre.org/data/definitions/804.html[CWE-804: Guessable CAPTCHA]
+. [[r4]] link:https://cwe.mitre.org/data/definitions/804.html[CWE-804: Guessable CAPTCHA].
 The software uses a CAPTCHA challenge,
 but the challenge can be guessed or automatically recognized by a non-human
 actor.
@@ -64,3 +64,9 @@ or risk-based restrictions such as location, first login on a device,
 recent attempts to unlock the account, or similar.
 Verify that no more than 100 failed attempts per hour is possible on a single
 account.
+
+. [[r7]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V8.1 General Data Protection.(8.1.4)]
+Verify the application can detect and alert on abnormal numbers of requests,
+such as by IP, user, total per hour or day, or whatever makes sense for the
+application.

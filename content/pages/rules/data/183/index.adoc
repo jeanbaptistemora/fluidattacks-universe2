@@ -26,30 +26,44 @@ from being recovered.
 
 == References
 
-. [[r1]] link:https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:02002L0058-20091219[Directive 2002/58/EC (amended by E-privacy Directive 2009/136/EC).
+. [[r1]] link:https://cwe.mitre.org/data/definitions/226.html[CWE-226: Sensitive Information Uncleared in Resource Before Release for Reuse].
+The software generates an error message that includes sensitive information
+about its environment, users, or associated data.
+
+. [[r2]] link:https://cwe.mitre.org/data/definitions/459.html[CWE-459: Incomplete Cleanup].
+The software does not properly "clean up" and remove temporary or supporting
+resources after they have been used.
+
+. [[r3]] link:https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:02002L0058-20091219[Directive 2002/58/EC (amended by E-privacy Directive 2009/136/EC).
 Art. 4: Security of processing.(1a)]
 The measures referred to in paragraph 1 shall at least protect personal data
 stored or transmitted against accidental or unlawful destruction,
 accidental loss or alteration,
 and unauthorized or unlawful storage, processing, access or disclosure.
 
-. [[r2]] link:https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:02002L0058-20091219[Directive 2002/58/EC (amended by E-privacy Directive 2009/136/EC).
+. [[r4]] link:https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:02002L0058-20091219[Directive 2002/58/EC (amended by E-privacy Directive 2009/136/EC).
 Art. 6: Traffic data.(1)]
 Traffic data relating to subscribers and users processed and stored by the
 provider of a public communications network or publicly available electronic
 communications service must be erased or made anonymous when it is no longer
 needed for the purpose of the trans­mission of a communication.
 
-. [[r3]] link:https://gdpr-info.eu/art-5-gdpr/[GDPR. Art. 5: Principles relating to processing of personal data.(1)(e).]
+. [[r5]] link:https://gdpr-info.eu/art-5-gdpr/[GDPR. Art. 5: Principles relating to processing of personal data.(1)(e).]
 Personal data shall be kept in a form which permits identification of data
 subjects for no longer than is necessary for the purposes for which the
 personal data are processed.
 
-. [[r4]] link:https://www.owasp.org/index.php/ASVS_V9_Data_Protection[OWASP-ASVS v3.1-9.6]
+. [[r6]] link:https://www.owasp.org/index.php/ASVS_V9_Data_Protection[OWASP-ASVS v3.1-9.6]
 Verify that there is a method to remove each type of sensitive data
 from the application at the end of the required retention policy.
 
-. [[r5]] link:https://www.owasp.org/index.php/ASVS_V9_Data_Protection[OWASP-ASVS v3.1-9.11]
+. [[r7]] link:https://www.owasp.org/index.php/ASVS_V9_Data_Protection[OWASP-ASVS v3.1-9.11]
 Verify that sensitive information maintained in memory
 is overwritten with zeros as soon as it is no longer required,
 to mitigate memory dumping attacks.
+
+. [[r8]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V8.1 General Data Protection.(8.1.2)]
+Verify that all cached or temporary copies of sensitive data stored on the
+server are protected from unauthorized access or purged/invalidated after the
+authorized user accesses the sensitive data.
