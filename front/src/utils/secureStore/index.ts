@@ -18,6 +18,9 @@ const generateSecrets: () => void = (): void => {
 generateSecrets();
 setInterval(generateSecrets, secretsLifespanInMiliseconds);
 
+// Type aliases
+declare type iFrameReferenceType = React.MutableRefObject<HTMLIFrameElement | null>;
+
 // Implementation
 const decrypt: (ciphertext: string) => string = (ciphertext: string): string => (
   sjcl.decrypt(secretKey, JSON.parse(ciphertext))
@@ -31,11 +34,10 @@ const hash: (input: string) => string = (input: string) => (
   sjcl.codec.hex.fromBits(sjcl.hash.sha256.hash(input))
 );
 
-const storeBlob: (identifier: string, contents: string, mime: string) => boolean =
-  (identifier: string, contents: string, mime: string): boolean => {
-    let success: boolean;
-
+const storeBlob: (identifier: string, contents: string, mime: string) => string =
+  (identifier: string, contents: string, mime: string): string => {
     const blob: Blob = new Blob([contents], { type: mime });
+    const itemName: string = hash(identifier);
     const url: string = URL
       .createObjectURL(blob)
       .toString();
@@ -49,37 +51,49 @@ const storeBlob: (identifier: string, contents: string, mime: string) => boolean
     setTimeout(revokeUrl, secretsLifespanInMiliseconds);
 
     try {
-      sessionStorage.setItem(hash(identifier), encrypt(url));
-      success = true;
+      sessionStorage.setItem(itemName, encrypt(url));
     } catch {
-      success = false;
+      revokeUrl();
     }
 
-    return success;
+    return url;
   };
 
-const retrieveBlob: (identifier: string) => string | undefined =
-  (identifier: string): string | undefined => {
-    let result: string | undefined;
-    const item: string = hash(identifier);
+const retrieveBlob: (identifier: string) => string = (identifier: string): string => {
+  let url: string | null = identifier;
+  const itemName: string = hash(identifier);
 
-    try {
-      const url: string | null = sessionStorage.getItem(item);
-      result = url === null ? undefined : decrypt(url);
-    } catch {
-      result = undefined;
-      sessionStorage.removeItem(item);
+  try {
+    const itemValue: string | null = sessionStorage.getItem(itemName);
+    url = itemValue === null ? identifier : decrypt(itemValue);
+  } catch {
+    sessionStorage.removeItem(itemName);
+  }
+
+  return url;
+};
+
+const storeIframeContent: (reference: iFrameReferenceType) => void =
+  (reference: iFrameReferenceType): void => {
+    const contents: string | undefined = (
+      reference.current?.contentDocument?.documentElement.outerHTML
+    );
+    const identifier: string | undefined = (
+      reference.current?.contentWindow?.location.href
+    );
+
+    if (contents !== undefined && identifier !== undefined) {
+      storeBlob(identifier, contents, "text/html");
     }
-
-    return result;
   };
 
 export interface ISecureStore {
   decrypt(ciphertext: string): string;
   encrypt(plaintext: string): string;
   hash(input: string): string;
-  retrieveBlob(identifier: string): string | undefined;
-  storeBlob(identifier: string, contents: string, mime: string): boolean;
+  retrieveBlob(identifier: string): string;
+  storeBlob(identifier: string, contents: string, mime: string): string;
+  storeIframeContent(reference: iFrameReferenceType): void;
 }
 
 export const secureStore: ISecureStore = {
@@ -88,6 +102,7 @@ export const secureStore: ISecureStore = {
   hash,
   retrieveBlob,
   storeBlob,
+  storeIframeContent,
 };
 
 export const secureStoreContext: React.Context<ISecureStore> = React.createContext(secureStore);

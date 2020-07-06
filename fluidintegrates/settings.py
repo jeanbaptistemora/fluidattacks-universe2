@@ -246,6 +246,7 @@ CORS_CONFIGURATION = {
     'CORSRules': [{
         'AllowedHeaders': ['*'],
         'AllowedMethods': ['GET', 'PUT', 'POST', 'HEAD'],
+        # Public assets, public CORS
         'AllowedOrigins': ['*'],
         'ExposeHeaders': ['GET', 'PUT', 'POST', 'HEAD'],
         'MaxAgeSeconds': 3000

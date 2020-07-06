@@ -50,7 +50,7 @@ function render(dataDocument, height, width) {
   }
 
   const svg = d3
-    .select('div')
+    .select('div#root')
     .append('svg')
     .attr('viewBox', `${ -width / 2 } ${ -height / 2 } ${ width } ${ height }`);
 
@@ -109,6 +109,12 @@ function render(dataDocument, height, width) {
       .attr('cx', (datum) => datum.x)
       .attr('cy', (datum) => datum.y);
   });
+
+  const element = document.getElementById('root');
+
+  if (element) {
+    element.removeAttribute('id');
+  }
 }
 
 function load() {

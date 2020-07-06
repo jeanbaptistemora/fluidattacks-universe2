@@ -15,6 +15,10 @@ import {
   Panel,
   Row,
 } from "react-bootstrap";
+import {
+  ISecureStore,
+  secureStoreContext,
+} from "../../../utils/secureStore/index";
 import useComponentSize, { ComponentSize } from "@rehooks/component-size";
 
 const glyphPadding: number = 15;
@@ -64,11 +68,13 @@ export const Graphic: React.FC<IGraphicProps> = (
   const fullSize: ComponentSize = useComponentSize(fullRef);
   const headSize: ComponentSize = useComponentSize(headRef);
   const bodySize: ComponentSize = useComponentSize(bodyRef);
-  const modalSize: ComponentSize = useComponentSize(modalRef);
+  const modalSize: ComponentSize = useComponentSize(modalBodyRef);
 
   const [expanded, setExpanded] = React.useState(false);
   const [fullScreen, setFullScreen] = React.useState(false);
   const [iframeState, setIframeState] = React.useState("loading");
+
+  const secureStore: ISecureStore = React.useContext(secureStoreContext);
 
   function panelOnMouseEnter(): void {
     setExpanded(true);
@@ -78,6 +84,7 @@ export const Graphic: React.FC<IGraphicProps> = (
   }
   function frameOnLoad(): void {
     setIframeState("ready");
+    secureStore.storeIframeContent(bodyRef);
   }
   function frameOnFullScreen(): void {
     setFullScreen(true);
@@ -90,6 +97,9 @@ export const Graphic: React.FC<IGraphicProps> = (
       setIframeState("loading");
       bodyRef.current?.contentWindow.location.reload();
     }
+  }
+  function modalFrameOnLoad(): void {
+    secureStore.storeIframeContent(modalBodyRef);
   }
   function modalFrameOnRefresh(): void {
     if (modalBodyRef.current?.contentWindow !== null) {
@@ -170,9 +180,10 @@ export const Graphic: React.FC<IGraphicProps> = (
             <iframe
               className={styles.frame}
               frameBorder={"no"}
+              onLoad={modalFrameOnLoad}
               ref={modalBodyRef}
               scrolling={"no"}
-              src={buildUrl(modalSize)}
+              src={secureStore.retrieveBlob(buildUrl(modalSize))}
             />
           </div>
         </Modal.Body>
@@ -230,7 +241,7 @@ export const Graphic: React.FC<IGraphicProps> = (
                 onLoad={frameOnLoad}
                 ref={bodyRef}
                 scrolling={"no"}
-                src={buildUrl(bodySize)}
+                src={secureStore.retrieveBlob(buildUrl(bodySize))}
                 style={{
                   /*
                    * The element must be rendered for C3 legends to work,
