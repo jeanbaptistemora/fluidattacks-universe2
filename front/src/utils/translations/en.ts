@@ -26,6 +26,10 @@ const enTranslations: Dictionary = {
         title: "Service usage",
       },
       severity: {
+        footer: "Security vulnerabilities are ranked based on C.V.S.S. v3.1. "
+          + "The higher the score, "
+          + "the more damage an attack can make to your system, "
+          + "and the easier it is to carry it on",
         title: "Severity",
       },
     },
@@ -37,6 +41,14 @@ const enTranslations: Dictionary = {
     },
     pieChart: {
       resources: {
+        footer: {
+          environments: "Environment: A URL or IP pointing to an instance of your system.",
+          final: "The maximum benefit is reached when every environment has"
+            + " its full source-code available for us to test it.",
+          intro: "Resources can be of two types: Repository and Environment.",
+          repositories: "Repository: The associated source-code of the environment "
+            + "and (ideally) its infrastructure.",
+        },
         title: "Active resources distribution",
       },
       status: {
@@ -70,9 +82,14 @@ const enTranslations: Dictionary = {
     },
     textBox: {
       daysSinceLastRemediation: {
+        footer: "Days since a finding was effectively closed.",
         title: "Days since last remediation",
       },
       findingsBeingReattacked: {
+        footer: "Once your team has solved a vulnerability you can request a re-attack. "
+          + "In the re-attack process a hacker will replay the attack vector and confirm that "
+          + "the proposed solution actually shields your system. "
+          + "In case it does not, your team will be notified and the finding kept open.",
         title: "Findings being re-attacked",
       },
       forcesAutomatizedVulns: {
@@ -82,9 +99,13 @@ const enTranslations: Dictionary = {
         title: "Repositories and branches",
       },
       totalFindings: {
+        footer: "A finding is a group of vulnerabilities on your system "
+          + "related to the same attack vector.",
         title: "Total findings",
       },
       totalVulnerabilities: {
+        footer: "Vulnerabilities are the minimum units of risk. "
+          + "They are tied to a system, and a specific location within that system.",
         title: "Total vulnerabilities",
       },
     },

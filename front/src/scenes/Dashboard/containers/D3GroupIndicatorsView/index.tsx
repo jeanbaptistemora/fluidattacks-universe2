@@ -84,6 +84,9 @@ const d3GroupIndicatorsView: React.FC<ID3GroupIndicatorsProps> = (props: ID3Grou
               documentName="totalFindings"
               documentType="textBox"
               entity="group"
+              footer={
+                <p>{translate.t("analytics.textBox.totalFindings.footer")}</p>
+              }
               generatorName="raw"
               generatorType="textBox"
               subject={groupName}
@@ -96,6 +99,9 @@ const d3GroupIndicatorsView: React.FC<ID3GroupIndicatorsProps> = (props: ID3Grou
               documentName="totalVulnerabilities"
               documentType="textBox"
               entity="group"
+              footer={
+                <p>{translate.t("analytics.textBox.totalVulnerabilities.footer")}</p>
+              }
               generatorName="raw"
               generatorType="textBox"
               subject={groupName}
@@ -108,6 +114,9 @@ const d3GroupIndicatorsView: React.FC<ID3GroupIndicatorsProps> = (props: ID3Grou
               documentName="findingsBeingReattacked"
               documentType="textBox"
               entity="group"
+              footer={
+                <p>{translate.t("analytics.textBox.findingsBeingReattacked.footer")}</p>
+              }
               generatorName="raw"
               generatorType="textBox"
               subject={groupName}
@@ -120,6 +129,9 @@ const d3GroupIndicatorsView: React.FC<ID3GroupIndicatorsProps> = (props: ID3Grou
               documentName="daysSinceLastRemediation"
               documentType="textBox"
               entity="group"
+              footer={
+                <p>{translate.t("analytics.textBox.daysSinceLastRemediation.footer")}</p>
+              }
               generatorName="raw"
               generatorType="textBox"
               subject={groupName}
@@ -134,6 +146,9 @@ const d3GroupIndicatorsView: React.FC<ID3GroupIndicatorsProps> = (props: ID3Grou
               documentName="severity"
               documentType="gauge"
               entity="group"
+              footer={
+                <p>{translate.t("analytics.gauge.severity.footer")}</p>
+              }
               generatorName="generic"
               generatorType="c3"
               subject={groupName}
@@ -146,6 +161,16 @@ const d3GroupIndicatorsView: React.FC<ID3GroupIndicatorsProps> = (props: ID3Grou
               documentName="resources"
               documentType="pieChart"
               entity="group"
+              footer={
+                <React.Fragment>
+                  <p>{translate.t("analytics.pieChart.resources.footer.intro")}</p>
+                  <ul>
+                    <li>{translate.t("analytics.pieChart.resources.footer.environments")}</li>
+                    <li>{translate.t("analytics.pieChart.resources.footer.repositories")}</li>
+                  </ul>
+                  <p>{translate.t("analytics.pieChart.resources.footer.final")}</p>
+                </React.Fragment>
+              }
               generatorName="generic"
               generatorType="c3"
               subject={groupName}
