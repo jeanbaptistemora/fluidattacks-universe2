@@ -183,11 +183,15 @@ const organizationPolicies: React.FC = (): JSX.Element => {
           maxAcceptanceDays: _.isNull(data.organization.maxAcceptanceDays)
                               ? ""
                               : data.organization.maxAcceptanceDays.toString(),
-          maxAcceptanceSeverity: data.organization.maxAcceptanceSeverity.toString(),
+          maxAcceptanceSeverity: parseFloat(data.organization.maxAcceptanceSeverity)
+                                  .toFixed(1)
+                                  .toString(),
           maxNumberAcceptations: _.isNull(data.organization.maxNumberAcceptations)
                                   ? ""
                                   : data.organization.maxNumberAcceptations.toString(),
-          minAcceptanceSeverity: data.organization.minAcceptanceSeverity.toString(),
+          minAcceptanceSeverity: parseFloat(data.organization.minAcceptanceSeverity)
+                                  .toFixed(1)
+                                  .toString(),
         }}
       >
         {({ handleSubmit, pristine, valid }: InjectedFormProps): JSX.Element => (
