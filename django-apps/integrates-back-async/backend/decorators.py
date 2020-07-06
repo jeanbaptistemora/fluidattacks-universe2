@@ -12,7 +12,8 @@ from asgiref.sync import sync_to_async
 from django.conf import settings
 from django.core.cache import cache
 from django.core.cache.backends.base import DEFAULT_TIMEOUT
-from django.http import HttpRequest, HttpResponse
+from django.http import HttpRequest
+from django.shortcuts import render
 from django.views.decorators.csrf import csrf_protect
 from graphql import GraphQLError
 from graphql.type import GraphQLResolveInfo
@@ -53,13 +54,8 @@ def authenticate(func: Callable[..., Any]) -> Callable[..., Any]:
         request = args[0]
         if "username" not in request.session or \
                 request.session["username"] is None:
-            return HttpResponse(
-                'Unauthorized '
-                '<script>var getUrl=window.location.href'
-                '.split(`${window.location.host}/integrates`); '
-                'localStorage.setItem("start_url",getUrl[getUrl.length - 1]); '
-                'location = "/integrates/index"; </script>'
-            )
+            parameters: Dict[str, str] = dict()
+            return render(request, 'unauthorized.html', parameters)
         return func(*args, **kwargs)
     return authenticate_and_call
 
