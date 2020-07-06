@@ -577,6 +577,22 @@ async def _get_users(info, project_name: str,
     ])
 
 
+def _get_requested_fields(info, as_field: bool, as_list: bool):
+    if as_field and as_list:
+        to_extend = util.get_requested_fields(
+            'projects',
+            info.field_nodes[0].selection_set
+        )
+    elif as_field:
+        to_extend = util.get_requested_fields(
+            'project',
+            info.field_nodes[0].selection_set
+        )
+    else:
+        to_extend = info.field_nodes[0].selection_set.selections
+    return to_extend
+
+
 async def resolve(
         info, project_name: str, as_field: bool = False, as_list: bool = True,
         selection_set: SelectionSetNode = None) -> ProjectType:
@@ -585,14 +601,7 @@ async def resolve(
     result: ProjectType = dict()
     req_fields: List[Union[FieldNode, ObjectFieldNode]] = []
 
-    if as_field and as_list:
-        req_fields.extend(util.get_requested_fields(
-            'projects', info.field_nodes[0].selection_set))
-    elif as_field:
-        req_fields.extend(util.get_requested_fields(
-            'project', info.field_nodes[0].selection_set))
-    else:
-        req_fields.extend(info.field_nodes[0].selection_set.selections)
+    req_fields.extend(_get_requested_fields(info, as_field, as_list))
     if selection_set:
         req_fields.extend(selection_set.selections)
 
@@ -757,6 +766,24 @@ async def _do_add_project_comment(_, info,
     return ret
 
 
+def _update_tags(project_name, project_tags, info, tags):
+    if not project_tags['tag']:
+        project_tags = {'tag': set(tags)}
+    else:
+        cast(Set[str], project_tags.get('tag')).update(tags)
+    tags_added = project_domain.update(project_name, project_tags)
+    if tags_added:
+        success = True
+    else:
+        rollbar.report_message(
+            'Error: An error occurred adding tags',
+            'error',
+            info.context
+        )
+        success = False
+    return success
+
+
 @require_login
 @enforce_group_level_auth_async
 @require_integrates
@@ -766,26 +793,19 @@ async def _do_add_tags(_, info, project_name: str,
     """Resolve add_tags mutation."""
     success = False
     project_name = project_name.lower()
-    if await sync_to_async(project_domain.is_alive)(project_name):
-        if await sync_to_async(project_domain.validate_tags)(
-                project_name, tags):
+    if await aio.ensure_io_bound(project_domain.is_alive, project_name):
+        if await aio.ensure_io_bound(
+                project_domain.validate_tags,
+                project_name,
+                tags):
             project_loader = info.context.loaders['project']
             project_attrs = await project_loader.load(project_name)
             project_attrs = project_attrs['attrs']
             project_tags = cast(ProjectType, project_attrs.get('tag', {}))
             project_tags = {'tag': project_tags}
-            if not project_tags['tag']:
-                project_tags = {'tag': set(tags)}
-            else:
-                cast(Set[str], project_tags.get('tag')).update(tags)
-            tags_added = \
-                await sync_to_async(project_domain.update)(
-                    project_name, project_tags)
-            if tags_added:
-                success = True
-            else:
-                await sync_to_async(rollbar.report_message)('Error: \
-An error occurred adding tags', 'error', info.context)
+            success = await aio.ensure_io_bound(
+                _update_tags, project_name, project_tags, info, tags
+            )
         else:
             util.cloudwatch_log(
                 info.context, 'Security: \
