@@ -34,20 +34,41 @@ interface IComponentSizeProps {
   readonly width: number;
 }
 
+interface IReadonlyGraphicProps {
+  readonly documentName: string;
+  readonly documentType: string;
+  readonly entity: string;
+  readonly generatorName: string;
+  readonly generatorType: string;
+  readonly subject: string;
+}
+
+function buildUrl(
+  props: IReadonlyGraphicProps,
+  size: IComponentSizeProps
+): string {
+  const roundedHeight: number =
+    pixelsSensitivity * Math.floor(size.height / pixelsSensitivity);
+  const roundedWidth: number =
+    pixelsSensitivity * Math.floor(size.width / pixelsSensitivity);
+
+  const url: URL = new URL("/integrates/graphic", window.location.origin);
+  url.searchParams.set("documentName", props.documentName);
+  url.searchParams.set("documentType", props.documentType);
+  url.searchParams.set("entity", props.entity);
+  url.searchParams.set("generatorName", props.generatorName);
+  url.searchParams.set("generatorType", props.generatorType);
+  url.searchParams.set("height", roundedHeight.toString());
+  url.searchParams.set("subject", props.subject);
+  url.searchParams.set("width", roundedWidth.toString());
+
+  return url.toString();
+}
+
 export const Graphic: React.FC<IGraphicProps> = (
   props: Readonly<IGraphicProps>
 ): JSX.Element => {
-  const {
-    bsHeight,
-    documentName,
-    documentType,
-    entity,
-    footer,
-    generatorName,
-    generatorType,
-    subject,
-    title,
-  } = props;
+  const { bsHeight, footer, subject, title } = props;
 
   // Hooks
   const fullRef: React.MutableRefObject<HTMLDivElement | null> = React.useRef(
@@ -66,6 +87,7 @@ export const Graphic: React.FC<IGraphicProps> = (
     null
   );
 
+  // More hooks
   const fullSize: ComponentSize = useComponentSize(fullRef);
   const headSize: ComponentSize = useComponentSize(headRef);
   const bodySize: ComponentSize = useComponentSize(bodyRef);
@@ -76,6 +98,16 @@ export const Graphic: React.FC<IGraphicProps> = (
   const [iframeState, setIframeState] = React.useState("loading");
 
   const secureStore: ISecureStore = React.useContext(secureStoreContext);
+
+  // Yet more hooks
+  const iframeSrc: string = React.useMemo(
+    (): string => secureStore.retrieveBlob(buildUrl(props, bodySize)),
+    [bodySize, props, secureStore]
+  );
+  const modalIframeSrc: string = React.useMemo(
+    (): string => secureStore.retrieveBlob(buildUrl(props, modalSize)),
+    [modalSize, props, secureStore]
+  );
 
   function panelOnMouseEnter(): void {
     setExpanded(true);
@@ -110,24 +142,6 @@ export const Graphic: React.FC<IGraphicProps> = (
   function buildFileName(size: IComponentSizeProps): string {
     return `${subject}-${title}-${size.width}x${size.height}.html`;
   }
-  function buildUrl(size: IComponentSizeProps): string {
-    const url: URL = new URL("/integrates/graphic", window.location.origin);
-    const roundedHeight: number =
-      pixelsSensitivity * Math.floor(size.height / pixelsSensitivity);
-    const roundedWidth: number =
-      pixelsSensitivity * Math.floor(size.width / pixelsSensitivity);
-
-    url.searchParams.set("documentName", documentName);
-    url.searchParams.set("documentType", documentType);
-    url.searchParams.set("entity", entity);
-    url.searchParams.set("generatorName", generatorName);
-    url.searchParams.set("generatorType", generatorType);
-    url.searchParams.set("height", roundedHeight.toString());
-    url.searchParams.set("subject", subject);
-    url.searchParams.set("width", roundedWidth.toString());
-
-    return url.toString();
-  }
 
   if (
     iframeState === "ready" &&
@@ -161,7 +175,7 @@ export const Graphic: React.FC<IGraphicProps> = (
                     <ButtonGroup bsSize={"small"}>
                       <Button
                         download={buildFileName(modalSize)}
-                        href={buildUrl(modalSize)}
+                        href={buildUrl(props, modalSize)}
                         rel={"noopener noreferrer"}
                         target={"_blank"}
                       >
@@ -188,7 +202,7 @@ export const Graphic: React.FC<IGraphicProps> = (
               onLoad={modalFrameOnLoad}
               ref={modalBodyRef}
               scrolling={"no"}
-              src={secureStore.retrieveBlob(buildUrl(modalSize))}
+              src={modalIframeSrc}
             />
           </div>
         </Modal.Body>
@@ -216,7 +230,7 @@ export const Graphic: React.FC<IGraphicProps> = (
                           <ButtonGroup bsSize={"small"}>
                             <Button
                               download={buildFileName(bigGraphicSize)}
-                              href={buildUrl(bigGraphicSize)}
+                              href={buildUrl(props, bigGraphicSize)}
                               rel={"noopener noreferrer"}
                               target={"_blank"}
                             >
@@ -246,7 +260,7 @@ export const Graphic: React.FC<IGraphicProps> = (
                 onLoad={frameOnLoad}
                 ref={bodyRef}
                 scrolling={"no"}
-                src={secureStore.retrieveBlob(buildUrl(bodySize))}
+                src={iframeSrc}
                 style={{
                   /*
                    * The element must be rendered for C3 legends to work,

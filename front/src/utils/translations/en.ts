@@ -106,10 +106,10 @@ const enTranslations: Dictionary = {
             + "to test changes for security vulnerabilities:",
           smart: "Forces is fast and automatic, yet made by the same hackers intelligence "
             + "that already know in deep your system, and thus is able to verify attack vectors that no "
-            + "other tool can",
+            + "other tool can.",
           stats: "The statistics of more than a hundred different systems show that Forces increases "
             + "the remediation ratio, hence helping you build a safer system, and being more cost-effective "
-            + "throughout your Software Security Development Life Cycle",
+            + "throughout your Software Security Development Life Cycle.",
         },
         title: "Service status",
       },
