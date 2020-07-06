@@ -431,6 +431,7 @@ enum EventEvidenceType {
 }
 
 enum ReportType {
+    ALL_USERS
     ALL_VULNS
     COMPLETE
     DATA

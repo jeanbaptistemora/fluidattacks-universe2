@@ -50,7 +50,6 @@ type Query {
     "Report entity"
     report(
         reportType: ReportType!,
-        userEmail: String!,
         findingId: String,
         projectName: String,
         lang: ReportLang

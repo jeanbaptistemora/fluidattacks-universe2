@@ -11,15 +11,17 @@ from backend.reports.reports import (
     complete as complete_report,
     data as data_report,
     technical as technical_report,
+    all_users as all_users_report,
     all_vulns as all_vulns_report,
 )
 from backend import util
 
 
 async def generate_group_report(
-        report_type: str,
-        user_email: str,
-        **parameters) -> str:
+    report_type: str,
+    user_email: str,
+    **parameters
+) -> str:
     context = parameters.get('context')
     project_findings = parameters.get('project_findings', [])
     project_name = parameters.get('project_name')
@@ -82,3 +84,7 @@ def generate_complete_report(user_email: str, projects: List[str]) -> str:
 
 def generate_all_vulns_report(user_email: str, project_name: str = '') -> str:
     return all_vulns_report.generate(user_email, project_name)
+
+
+def generate_all_users_report(user_email: str) -> str:
+    return all_users_report.generate(user_email)

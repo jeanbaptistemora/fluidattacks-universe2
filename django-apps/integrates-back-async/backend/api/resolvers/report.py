@@ -66,7 +66,7 @@ async def resolve(info, report_type: str, **parameters) -> ReportType:
     return result
 
 
-async def _get_url_complete(user_email, info):
+async def _get_url_complete(info, user_email: str) -> str:
     projects = await user_domain.get_projects(user_email)
     url = await aio.ensure_io_bound(
         report.generate_complete_report, user_email, projects
@@ -78,12 +78,12 @@ async def _get_url_complete(user_email, info):
     return url
 
 
-async def _get_url_all_vulns(user_email, parameters, info):
+async def _get_url_all_vulns(info, user_email: str, project_name: str) -> str:
     if authz.get_user_level_role(user_email) == 'admin':
         url = await aio.ensure_io_bound(
             report.generate_all_vulns_report,
             user_email,
-            parameters.get('project_name', '')
+            project_name
         )
         msg = (
             'Security: All vulnerabilities report '
@@ -101,16 +101,20 @@ async def _get_url_all_vulns(user_email, parameters, info):
     return url
 
 
-async def _get_url_group_report(user_email, parameters, info, report_type):
-    project_name = parameters.get('project_name')
-    project_findings = \
-        await info.context.loaders['project'].load(project_name)
+async def _get_url_group_report(
+    info,
+    report_type: str,
+    user_email: str,
+    project_name: str,
+    lang: str
+) -> str:
+    project_findings = await info.context.loaders['project'].load(project_name)
     project_findings = project_findings['findings']
     params = {
         'project_findings': project_findings,
         'context': info.context,
         'project_name': project_name,
-        'lang': parameters.get('lang', 'en')
+        'lang': lang
     }
     try:
         url = await report.generate_group_report(
@@ -132,16 +136,46 @@ async def _get_url_group_report(user_email, parameters, info, report_type):
     return url
 
 
+async def _get_url_all_users(info, user_email: str) -> str:
+    if authz.get_user_level_role(user_email) == 'admin':
+        url = await sync_to_async(
+            report.generate_all_users_report)(
+                user_email
+        )
+        msg = (
+            f'Security: All users report successfully requested '
+            f'by {user_email}'
+        )
+        util.cloudwatch_log(info.context, msg)
+    else:
+        url = f'{user_email} is not allowed to perform this operation'
+        msg = (
+            f'Error: {user_email} is not allowed to request an all'
+            f'users report'
+        )
+        rollbar.report_message(msg, 'error')
+        raise PermissionDenied()
+    return url
+
+
 async def _get_url(info, report_type: str, **parameters) -> str:
     url = ''
-    user_email = parameters.get('user_email', '')
+    user_info = util.get_jwt_content(info.context)
+    user_email = user_info['user_email']
+    project_name = parameters.get('project_name', '')
     if report_type == 'COMPLETE':
-        url = await _get_url_complete(user_email, info)
+        url = await _get_url_complete(info, user_email)
+    if report_type == 'ALL_USERS':
+        url = await _get_url_all_users(info, user_email)
     if report_type == 'ALL_VULNS':
-        url = await _get_url_all_vulns(user_email, parameters, info)
+        url = await _get_url_all_vulns(info, user_email, project_name)
     elif report_type in ['PDF', 'XLS', 'DATA']:
         url = await _get_url_group_report(
-            user_email, parameters, info, report_type
+            info,
+            report_type,
+            user_email,
+            project_name,
+            parameters.get('lang', 'en')
         )
     else:
         msg = f'Error: An error occurred getting the specified {report_type}'
