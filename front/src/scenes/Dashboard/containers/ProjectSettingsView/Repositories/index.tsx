@@ -15,6 +15,7 @@ import { ConfirmDialog, IConfirmFn } from "../../../../../components/ConfirmDial
 import { DataTableNext } from "../../../../../components/DataTableNext";
 import { changeFormatter, statusFormatter } from "../../../../../components/DataTableNext/formatters";
 import { IHeader } from "../../../../../components/DataTableNext/types";
+import { TooltipWrapper } from "../../../../../components/TooltipWrapper";
 import { Can } from "../../../../../utils/authz/Can";
 import { fixedEncodeURIComponent } from "../../../../../utils/formatHelpers";
 import { msgError, msgSuccess } from "../../../../../utils/notifications";
@@ -129,15 +130,20 @@ const repositories: React.FC<IRepositoriesProps> = (props: IRepositoriesProps): 
     <React.StrictMode>
       <Row>
         <Col lg={8} md={10} xs={7}>
-          <h3>{translate.t("search_findings.tab_resources.repositories_title")}</h3>
+          <h3>{translate.t("search_findings.tab_resources.repositories.title")}</h3>
         </Col>
         <Can do="backend_api_resolvers_resource__do_add_repositories">
           <Col lg={4} md={2} xs={5}>
             <ButtonToolbar className="pull-right">
-              <Button onClick={openAddModal}>
-                <Glyphicon glyph="plus" />&nbsp;
-              {translate.t("search_findings.tab_resources.add_repository")}
-              </Button>
+              <TooltipWrapper
+                message={translate.t("search_findings.tab_resources.repositories.add_tooltip")}
+                placement="top"
+              >
+                <Button onClick={openAddModal}>
+                  <Glyphicon glyph="plus" />&nbsp;
+                {translate.t("search_findings.tab_resources.add_repository")}
+                </Button>
+              </TooltipWrapper>
             </ButtonToolbar>
           </Col>
         </Can>

@@ -12,6 +12,7 @@ import { ButtonToolbar, Col, Glyphicon, Row } from "react-bootstrap";
 import { Button } from "../../../../../components/Button";
 import { DataTableNext } from "../../../../../components/DataTableNext";
 import { IHeader } from "../../../../../components/DataTableNext/types";
+import { TooltipWrapper } from "../../../../../components/TooltipWrapper";
 import { Can } from "../../../../../utils/authz/Can";
 import { msgError, msgSuccess } from "../../../../../utils/notifications";
 import rollbar from "../../../../../utils/rollbar";
@@ -134,7 +135,7 @@ const portfolio: React.FC<IPortfolioProps> = (props: IPortfolioProps): JSX.Eleme
   const tableHeaders: IHeader[] = [
     {
       dataField: "tagName",
-      header: translate.t("search_findings.tab_resources.tags_title"),
+      header: translate.t("search_findings.tab_resources.tags.title"),
       onSort: sortState,
     },
   ];
@@ -143,21 +144,31 @@ const portfolio: React.FC<IPortfolioProps> = (props: IPortfolioProps): JSX.Eleme
     <React.StrictMode>
       <Row>
         <Col lg={8} md={10} xs={7}>
-          <h3>{translate.t("search_findings.tab_resources.tags_title")}</h3>
+          <h3>{translate.t("search_findings.tab_resources.tags.title")}</h3>
         </Col>
         <Col lg={4} md={2} xs={5}>
           <ButtonToolbar className="pull-right">
             <Can do="backend_api_resolvers_project__do_add_tags">
-              <Button onClick={openAddModal}>
-                <Glyphicon glyph="plus" />&nbsp;
-              {translate.t("search_findings.tab_resources.add_repository")}
-              </Button>
+              <TooltipWrapper
+                message={translate.t("search_findings.tab_resources.tags.add_tooltip")}
+                placement="top"
+              >
+                <Button onClick={openAddModal}>
+                  <Glyphicon glyph="plus" />&nbsp;
+                {translate.t("search_findings.tab_resources.add_repository")}
+                </Button>
+              </TooltipWrapper>
             </Can>
             <Can do="backend_api_resolvers_project__do_remove_tag">
-              <Button onClick={handleRemoveTag} disabled={_.isEmpty(currentRow) || removing}>
-                <Glyphicon glyph="minus" />&nbsp;
-              {translate.t("search_findings.tab_resources.remove_repository")}
-              </Button>
+              <TooltipWrapper
+                message={translate.t("search_findings.tab_resources.tags.remove_tooltip")}
+                placement="top"
+              >
+                <Button onClick={handleRemoveTag} disabled={_.isEmpty(currentRow) || removing}>
+                  <Glyphicon glyph="minus" />&nbsp;
+                {translate.t("search_findings.tab_resources.remove_repository")}
+                </Button>
+              </TooltipWrapper>
             </Can>
           </ButtonToolbar>
         </Col>

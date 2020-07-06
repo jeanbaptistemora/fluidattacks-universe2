@@ -11,6 +11,7 @@ import { ButtonToolbar, Col, Glyphicon, Row } from "react-bootstrap";
 import { Button } from "../../../../../components/Button";
 import { DataTableNext } from "../../../../../components/DataTableNext";
 import { IHeader } from "../../../../../components/DataTableNext/types";
+import { TooltipWrapper } from "../../../../../components/TooltipWrapper";
 import { Can } from "../../../../../utils/authz/Can";
 import { msgError, msgSuccess } from "../../../../../utils/notifications";
 import rollbar from "../../../../../utils/rollbar";
@@ -207,15 +208,20 @@ const files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
     <React.StrictMode>
       <Row>
         <Col lg={8} md={10} xs={7}>
-          <h3>{translate.t("search_findings.tab_resources.files_title")}</h3>
+          <h3>{translate.t("search_findings.tab_resources.files.title")}</h3>
         </Col>
         <Can do="backend_api_resolvers_resource__do_add_files">
           <Col lg={4} md={2} xs={5}>
             <ButtonToolbar className="pull-right">
-              <Button onClick={openAddModal}>
-                <Glyphicon glyph="plus" />&nbsp;
-                {translate.t("search_findings.tab_resources.add_repository")}
-              </Button>
+              <TooltipWrapper
+                message={translate.t("search_findings.tab_resources.files.btn_tooltip")}
+                placement="top"
+              >
+                <Button onClick={openAddModal}>
+                  <Glyphicon glyph="plus" />&nbsp;
+                  {translate.t("search_findings.tab_resources.add_repository")}
+                </Button>
+              </TooltipWrapper>
             </ButtonToolbar>
           </Col>
         </Can>

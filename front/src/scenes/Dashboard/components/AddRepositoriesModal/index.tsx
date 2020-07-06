@@ -9,6 +9,7 @@ import { Field, FieldArray, InjectedFormProps, WrappedFieldArrayProps } from "re
 import { ConfigurableValidator } from "revalidate";
 import { Button } from "../../../../components/Button/index";
 import { Modal } from "../../../../components/Modal/index";
+import { TooltipWrapper } from "../../../../components/TooltipWrapper";
 import { dropdownField, textField } from "../../../../utils/forms/fields";
 import translate from "../../../../utils/translations/translate";
 import { maxLength, required, validField } from "../../../../utils/validations";
@@ -38,10 +39,15 @@ const renderReposFields: React.FC<WrappedFieldArrayProps> = (props: WrappedField
             {index > 0 ? <React.Fragment><br /><hr /></React.Fragment> : undefined}
             <Row>
               <Col md={3}>
-                <label>
-                  <label style={{ color: "#f22" }}>* </label>
-                  {translate.t("search_findings.tab_resources.protocol")}
-                </label>
+                <TooltipWrapper
+                  message={translate.t("search_findings.tab_resources.protocol.tooltip")}
+                  placement="top"
+                >
+                  <label>
+                    <label style={{ color: "#f22" }}>* </label>
+                    {translate.t("search_findings.tab_resources.protocol.label")}
+                  </label>
+                </TooltipWrapper>
                 <Field name={`${fieldName}.protocol`} component={dropdownField} validate={[required]} >
                   <option value="" selected={true} />
                   <option value="HTTPS">{translate.t("search_findings.tab_resources.https")}</option>
@@ -49,10 +55,15 @@ const renderReposFields: React.FC<WrappedFieldArrayProps> = (props: WrappedField
                 </Field>
               </Col>
               <Col md={7}>
-                <label>
-                  <label style={{ color: "#f22" }}>* </label>
-                  {translate.t("search_findings.tab_resources.repository")}
-                </label>
+                <TooltipWrapper
+                  message={translate.t("search_findings.tab_resources.repository.tooltip")}
+                  placement="top"
+                >
+                  <label>
+                    <label style={{ color: "#f22" }}>* </label>
+                    {translate.t("search_findings.tab_resources.repository.label")}
+                  </label>
+                </TooltipWrapper>
                 <Field
                   name={`${fieldName}.urlRepo`}
                   component={textField}
@@ -64,10 +75,15 @@ const renderReposFields: React.FC<WrappedFieldArrayProps> = (props: WrappedField
             </Row>
             <Row>
               <Col md={5}>
-                <label>
-                  <label style={{ color: "#f22" }}>* </label>
-                  {translate.t("search_findings.tab_resources.branch")}
-                </label>
+                <TooltipWrapper
+                  message={translate.t("search_findings.tab_resources.branch.tooltip")}
+                  placement="top"
+                >
+                  <label>
+                    <label style={{ color: "#f22" }}>* </label>
+                    {translate.t("search_findings.tab_resources.branch.label")}
+                  </label>
+                </TooltipWrapper>
                 <Field
                   name={`${fieldName}.branch`}
                   component={textField}
@@ -78,9 +94,14 @@ const renderReposFields: React.FC<WrappedFieldArrayProps> = (props: WrappedField
               </Col>
               {index > 0 ? (
                 <Col mdOffset={5} md={2} className={style.removeBtn}>
-                  <Button bsStyle="primary" onClick={removeItem}>
-                    <Glyphicon glyph="trash" />
-                  </Button>
+                  <TooltipWrapper
+                    message={translate.t("search_findings.tab_resources.modal_trash_btn.tooltip")}
+                    placement="top"
+                  >
+                    <Button bsStyle="primary" onClick={removeItem}>
+                      <Glyphicon glyph="trash" />
+                    </Button>
+                  </TooltipWrapper>
                 </Col>
               ) : undefined}
             </Row>
@@ -88,9 +109,14 @@ const renderReposFields: React.FC<WrappedFieldArrayProps> = (props: WrappedField
         );
       })}
       <br />
-      <Button onClick={addItem}>
-        <Glyphicon glyph="plus" />
-      </Button>
+      <TooltipWrapper
+        message={translate.t("search_findings.tab_resources.modal_plus_btn.tooltip")}
+        placement="top"
+      >
+        <Button onClick={addItem}>
+          <Glyphicon glyph="plus" />
+        </Button>
+      </TooltipWrapper>
     </React.Fragment>
   );
 };

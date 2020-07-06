@@ -36,7 +36,7 @@ const renderEnvsFields: React.FC<WrappedFieldArrayProps> = (props: WrappedFieldA
             <Col md={10}>
               <label>
                 <label style={{ color: "#f22" }}>* </label>
-                {translate.t("search_findings.tab_resources.environment")}
+                {translate.t("search_findings.tab_resources.environment.text")}
               </label>
               <Field
                 component={textAreaField}
