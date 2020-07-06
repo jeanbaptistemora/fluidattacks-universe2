@@ -52,6 +52,7 @@ from backend.typing import (
     Historic as HistoricType,
     User as UserType
 )
+from backend.utils import aio
 
 
 async def add_comment(
@@ -137,7 +138,7 @@ async def get_tracking_vulnerabilities(
     return tracking_casted
 
 
-def handle_acceptation(
+async def handle_acceptation(
         finding_id: str,
         observations: str,
         user_mail: str,
@@ -151,20 +152,24 @@ def handle_acceptation(
         'user': user_mail,
         'date': today
     }
+    findind_attr = await finding_utils.get_attributes(
+        finding_id,
+        ['historic_treatment']
+    )
     historic_treatment = cast(
         List[Dict[str, str]],
-        get_finding(finding_id).get('historicTreatment')
+        findind_attr.get('historic_treatment', [])
     )
     historic_treatment.append(new_state)
     if response == 'REJECTED':
         historic_treatment.append({'treatment': 'NEW', 'date': today})
-    return finding_dal.update(
+    return await finding_dal.update(
         finding_id,
         {'historic_treatment': historic_treatment}
     )
 
 
-def update_description(
+async def update_description(
         finding_id: str, updated_values: Dict[str, FindingType]) -> bool:
     validations.validate_fields(
         list(cast(Dict[str, str], updated_values.values()))
@@ -192,7 +197,7 @@ def update_description(
 
     if re.search(r'^[A-Z]+\.(H\.|S\.|SH\.)??[0-9]+\. .+',
                  str(updated_values.get('finding', ''))):
-        return finding_dal.update(finding_id, updated_values)
+        return await finding_dal.update(finding_id, updated_values)
 
     raise InvalidDraftTitle()
 
@@ -243,7 +248,7 @@ async def update_treatment_in_vuln(
     return resp
 
 
-def update_client_description(
+async def update_client_description(
     finding_id: str,
     updated_values: Dict[str, str],
     organization: str,
@@ -285,7 +290,7 @@ def update_client_description(
     if bts_changed:
         validations.validate_url(updated_values['bts_url'])
         validations.validate_field_length(updated_values['bts_url'], 80)
-        success_external_bts = finding_dal.update(
+        success_external_bts = await finding_dal.update(
             finding_id,
             {
                 'external_bts': updated_values.get('bts_url', None)
@@ -293,32 +298,17 @@ def update_client_description(
         )
     if treatment_changed:
         updated_values.pop('bts_url', None)
-        valid_treatment: bool = (
-            finding_utils.validate_acceptance_date(updated_values) and
-            async_to_sync(finding_utils.validate_acceptance_days)(
-                updated_values,
-                organization
-            ) and
-            async_to_sync(finding_utils.validate_acceptance_severity)(
-                updated_values,
-                info_to_check['severity'],
-                organization
-            ) and
-            async_to_sync(finding_utils.validate_number_acceptations)(
-                updated_values,
-                info_to_check['historic_treatment'],
-                organization
-            )
+        valid_treatment: bool = await finding_utils.validate_treatment_change(
+            info_to_check, organization, updated_values
         )
-
         if valid_treatment:
-            success_treatment = update_treatment(
+            success_treatment = await update_treatment(
                 finding_id, updated_values, user_mail
             )
     return success_treatment and success_external_bts
 
 
-def update_treatment(
+async def update_treatment(
         finding_id: str,
         updated_values: Dict[str, str],
         user_mail: str) -> bool:
@@ -351,14 +341,18 @@ def update_treatment(
         historic_treatment.append(new_state)
     else:
         historic_treatment = [new_state]
-    result_update_finding = finding_dal.update(
+    result_update_finding = await finding_dal.update(
         finding_id,
         {'historic_treatment': historic_treatment}
     )
-    result_update_vuln = async_to_sync(update_treatment_in_vuln)(
+    result_update_vuln = await update_treatment_in_vuln(
         finding_id, historic_treatment[-1])
     if result_update_finding and result_update_vuln:
-        finding_utils.should_send_mail(finding, updated_values)
+        await aio.ensure_io_bound(
+            finding_utils.should_send_mail,
+            finding,
+            updated_values
+        )
         success = True
     return success
 
@@ -386,12 +380,12 @@ def compare_historic_treatments(
     return sorted(last_values) != sorted(new_values) or date_change
 
 
-def save_severity(finding: Dict[str, FindingType]) -> bool:
+async def save_severity(finding: Dict[str, FindingType]) -> bool:
     """Organize severity metrics to save in dynamo."""
     cvss_version: str = str(finding.get('cvssVersion', ''))
     cvss_parameters = finding_utils.CVSS_PARAMETERS[cvss_version]
     severity = cvss.calculate_severity(cvss_version, finding, cvss_parameters)
-    response = finding_dal.update(str(finding.get('id', '')), severity)
+    response = await finding_dal.update(str(finding.get('id', '')), severity)
     return response
 
 
@@ -415,7 +409,7 @@ def reject_draft(draft_id: str, reviewer_email: str) -> bool:
                 'state': 'REJECTED'
             })
 
-            success = finding_dal.update(draft_id, {
+            success = async_to_sync(finding_dal.update)(draft_id, {
                 'release_date': None,
                 'historic_state': history
             })
@@ -457,7 +451,7 @@ def delete_finding(
             'justification': justification,
             'analyst': util.get_jwt_content(context)['user_email'],
         })
-        success = finding_dal.update(finding_id, {
+        success = async_to_sync(finding_dal.update)(finding_id, {
             'historic_state': submission_history
         })
 
@@ -505,7 +499,7 @@ def approve_draft(draft_id: str, reviewer_email: str) -> Tuple[bool, datetime]:
                     'state': 'APPROVED'
                 })
 
-                success = finding_dal.update(draft_id, {
+                success = async_to_sync(finding_dal.update)(draft_id, {
                     'lastVulnerability': release_date,
                     'releaseDate': release_date,
                     'treatment': 'NEW',
@@ -611,7 +605,7 @@ def update_evidence(finding_id: str, evidence_type: str, file) -> bool:
                         file_url=files[index].get('file_url', '')
                     )
                 )
-            success = finding_dal.update(
+            success = async_to_sync(finding_dal.update)(
                 finding_id,
                 {f'files[{index}].file_url': evidence_id}
             )
@@ -646,7 +640,7 @@ def update_evidence_description(
     )
     if evidence:
         index = files.index(cast(Dict[str, str], evidence))
-        success = finding_dal.update(
+        success = async_to_sync(finding_dal.update)(
             finding_id,
             {f'files[{index}].description': description}
         )
@@ -681,7 +675,8 @@ def remove_evidence(evidence_name: str, finding_id: str) -> bool:
     if finding_dal.remove_evidence(full_name):
         index = files.index(evidence)
         del files[index]
-        success = finding_dal.update(finding_id, {'files': files})
+        success = async_to_sync(finding_dal.update)(
+            finding_id, {'files': files})
 
     return success
 
@@ -782,7 +777,7 @@ def submit_draft(finding_id: str, analyst_email: str) -> bool:
                     'state': 'SUBMITTED'
                 })
 
-                success = finding_dal.update(finding_id, {
+                success = async_to_sync(finding_dal.update)(finding_id, {
                     'report_date': report_date,
                     'historic_state': history
                 })
@@ -830,7 +825,7 @@ def mask_finding(finding_id: str) -> bool:
         'treatment_manager', 'vulnerability'
     ]
     finding_result = (
-        finding_dal.update(finding_id, {
+        async_to_sync(finding_dal.update)(finding_id, {
             attr: 'Masked'
             for attr in attrs_to_mask
         }) and
@@ -843,7 +838,7 @@ def mask_finding(finding_id: str) -> bool:
         finding_dal.remove_evidence(file_name)
         for file_name in finding_dal.search_evidence(evidence_prefix)
     ])
-    finding_dal.update(finding_id, {
+    async_to_sync(finding_dal.update)(finding_id, {
         'files': [
             {'file_url': 'Masked', 'name': 'Masked', 'description': 'Masked'}
             for _ in cast(List[Dict[str, str]], finding['evidence'])

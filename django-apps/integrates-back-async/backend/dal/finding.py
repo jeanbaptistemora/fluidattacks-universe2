@@ -48,42 +48,36 @@ def create(finding_id: str, project_name: str,
     return success
 
 
-def update(finding_id: str, data: Dict[str, FindingType]) -> bool:
+async def update(finding_id: str, data: Dict[str, FindingType]) -> bool:
     success = False
-    primary_keys = {'finding_id': finding_id}
+    set_expression = ''
+    remove_expression = ''
+    expression_values = {}
+    for attr, value in data.items():
+        if value is None:
+            remove_expression += f'{attr}, '
+        else:
+            set_expression += f'{attr} = :{_escape_alnum(attr)}, '
+            expression_values.update({f':{_escape_alnum(attr)}': value})
+
+    if set_expression:
+        set_expression = f'SET {set_expression.strip(", ")}'
+    if remove_expression:
+        remove_expression = f'REMOVE {remove_expression.strip(", ")}'
+
+    update_attrs = {
+        'Key': {
+            'finding_id': finding_id
+        },
+        'UpdateExpression': f'{set_expression} {remove_expression}'.strip(),
+    }
+    if expression_values:
+        update_attrs.update({'ExpressionAttributeValues': expression_values})
     try:
-        attrs_to_remove = [
-            attr
-            for attr in data
-            if data[attr] is None
-        ]
-        for attr in attrs_to_remove:
-            response = TABLE.update_item(
-                Key=primary_keys,
-                UpdateExpression='REMOVE #attr',
-                ExpressionAttributeNames={'#attr': attr}
-            )
-            success = response['ResponseMetadata']['HTTPStatusCode'] == 200
-            del data[attr]
-
-        if data:
-            attributes = [
-                f'{attr} = :{_escape_alnum(attr)}'
-                for attr in data
-            ]
-            values = {
-                f':{_escape_alnum(attr)}': data[attr]
-                for attr in data
-            }
-
-            response = TABLE.update_item(
-                Key=primary_keys,
-                UpdateExpression='SET ' + ','.join(attributes),
-                ExpressionAttributeValues=values
-            )
-            success = response['ResponseMetadata']['HTTPStatusCode'] == 200
+        success = await dynamodb.async_update_item(TABLE_NAME, update_attrs)
     except ClientError as ex:
-        rollbar.report_message(
+        await aio.ensure_io_bound(
+            rollbar.report_message,
             'Error: Couldn\'nt update finding',
             'error',
             extra_data=ex,

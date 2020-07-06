@@ -784,7 +784,7 @@ async def reset_expired_accepted_findings():
             if is_accepted_expired or is_undefined_accepted_expired:
                 updated_values = {'treatment': 'NEW'}
                 task = asyncio.create_task(
-                    sync_to_async(finding_domain.update_treatment)(
+                    finding_domain.update_treatment(
                         finding_id, updated_values, ''
                     )
                 )

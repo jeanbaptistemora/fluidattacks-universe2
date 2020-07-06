@@ -617,7 +617,7 @@ async def _do_update_severity(_, info,
     finding_data = await finding_loader.load(finding_id)
     project = finding_data['project_name']
     success = False
-    success = await sync_to_async(finding_domain.save_severity)(data)
+    success = await finding_domain.save_severity(data)
     if success:
         finding_loader.clear(finding_id)
         util.invalidate_cache(finding_id)
@@ -727,10 +727,9 @@ async def _do_handle_acceptation(_, info, **parameters) -> SimplePayloadType:
 async def _do_update_description(_, info, finding_id: str,
                                  **parameters) -> SimpleFindingPayloadType:
     """Perform update_description mutation."""
-    success = await \
-        sync_to_async(finding_domain.update_description)(
-            finding_id, parameters
-        )
+    success = await finding_domain.update_description(
+        finding_id, parameters
+    )
     if success:
         finding_loader = info.context.loaders['finding']
         finding_data = await finding_loader.load(finding_id)
@@ -774,14 +773,13 @@ async def _do_update_client_description(
         'severity': finding['severity_score']
     }
 
-    success = await \
-        sync_to_async(finding_domain.update_client_description)(
-            finding_id,
-            parameters,
-            organization,
-            finding_info_to_check,
-            user_mail
-        )
+    success = await finding_domain.update_client_description(
+        finding_id,
+        parameters,
+        organization,
+        finding_info_to_check,
+        user_mail
+    )
     if success:
         finding_loader.clear(finding_id)
         util.invalidate_cache(finding_id)

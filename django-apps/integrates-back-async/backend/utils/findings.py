@@ -5,7 +5,7 @@ import itertools
 import threading
 from datetime import datetime
 from decimal import Decimal
-from typing import Dict, List, cast
+from typing import Dict, List, Union, cast
 
 import pytz
 import rollbar
@@ -39,6 +39,7 @@ from backend.typing import (
     Historic as HistoricType
 )
 from backend.utils import (
+    aio,
     cvss,
     forms as forms_utils
 )
@@ -392,24 +393,32 @@ def format_data(finding: Dict[str, FindingType]) -> Dict[str, FindingType]:
     return finding
 
 
-def mask_treatment(
+@async_to_sync
+async def mask_treatment(
         finding_id: str,
         historic_treatment: List[Dict[str, str]]) -> bool:
     historic = [
         {**treatment, 'user': 'Masked', 'justification': 'Masked'}
         for treatment in historic_treatment
     ]
-    return finding_dal.update(finding_id, {'historic_treatment': historic})
+    return await finding_dal.update(
+        finding_id,
+        {'historic_treatment': historic}
+    )
 
 
-def mask_verification(
+@async_to_sync
+async def mask_verification(
         finding_id: str,
         historic_verification: List[Dict[str, str]]) -> bool:
     historic = [
         {**treatment, 'user': 'Masked'}
         for treatment in historic_verification
     ]
-    return finding_dal.update(finding_id, {'historic_verification': historic})
+    return await finding_dal.update(
+        finding_id,
+        {'historic_verification': historic}
+    )
 
 
 def send_finding_verified_email(
@@ -628,7 +637,11 @@ async def validate_acceptance_days(
     complies with organization settings
     """
     valid: bool = True
-    if values.get('treatment') == 'ACCEPTED':
+    is_valid_acceptance_date = await aio.ensure_io_bound(
+        validate_acceptance_date,
+        values
+    )
+    if values.get('treatment') == 'ACCEPTED' and is_valid_acceptance_date:
         tzn: DstTzInfo = pytz.timezone(settings.TIME_ZONE)
         today = datetime.now(tz=tzn)
         acceptance_date = datetime.strptime(
@@ -695,3 +708,34 @@ async def validate_number_acceptations(
         if max_acceptations and current_acceptations + 1 > max_acceptations:
             raise InvalidNumberAcceptations(current_acceptations)
     return valid
+
+
+async def validate_treatment_change(
+    info_to_check: Dict[str, Union[float, HistoricType, str]],
+    organization: str,
+    values: Dict[str, str],
+) -> bool:
+    validate_acceptance_days_task = asyncio.create_task(
+        validate_acceptance_days(values, organization)
+    )
+    validate_acceptance_severity_task = asyncio.create_task(
+        validate_acceptance_severity(
+            values,
+            cast(float, info_to_check['severity']),
+            organization
+        )
+    )
+    validate_number_acceptations_task = asyncio.create_task(
+        validate_number_acceptations(
+            values,
+            cast(HistoricType, info_to_check['historic_treatment']),
+            organization
+        )
+    )
+    return all(
+        await asyncio.gather(*[
+            validate_acceptance_days_task,
+            validate_acceptance_severity_task,
+            validate_number_acceptations_task
+        ])
+    )

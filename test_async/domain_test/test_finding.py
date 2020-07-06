@@ -53,25 +53,29 @@ class FindingTests(TestCase):
         assert test_data[0] == expected_output
 
     @pytest.mark.changes_db
-    def test_update_treatment(self):
+    async def test_update_treatment(self):
         finding_id = '463461507'
         date = datetime.now() + timedelta(days=181)
         date = date.strftime('%Y-%m-%d %H:%M:%S')
         values_in_progress = {'justification': 'This is a test treatment justification',
                               'treatment': 'IN PROGRESS', 'acceptance_date': date}
-        test_in_progress = update_treatment(finding_id, values_in_progress, 'integratesuser@gmail.com')
+        test_in_progress = await update_treatment(
+            finding_id,
+            values_in_progress,
+            'integratesuser@gmail.com'
+        )
         assert test_in_progress is True
         vulns = get_vulnerabilities(finding_id)
         assert 'treatment_manager' in vulns[0]
         values_new = {'treatment': 'NEW'}
-        test_new = update_treatment(finding_id, values_new, '')
+        test_new = await update_treatment(finding_id, values_new, '')
         assert test_new is True
         vulns = get_vulnerabilities(finding_id)
         assert 'treatment_manager' not in vulns[0]
         assert 'treatment_manager' not in vulns[1]
 
     @pytest.mark.changes_db
-    def test_update_client_description(self):
+    async def test_update_client_description(self):
         finding_id = '463461507'
         org_id = 'ORG#708f518a-d2c3-4441-b367-eec85e53d134'
         info_to_check = {
@@ -91,7 +95,7 @@ class FindingTests(TestCase):
             'treatment': 'ACCEPTED',
             'acceptance_date': acceptance_date
         }
-        test_accepted = update_client_description(
+        test_accepted = await update_client_description(
             finding_id,
             values_accepted,
             org_id,
@@ -100,7 +104,7 @@ class FindingTests(TestCase):
         )
         assert test_accepted is True
 
-        max_acceptance_days = async_to_sync(get_max_acceptance_days)(org_id)
+        max_acceptance_days = await get_max_acceptance_days(org_id)
         assert max_acceptance_days == 60
         acceptance_date = (
             datetime.now() + timedelta(days=65)
@@ -112,7 +116,7 @@ class FindingTests(TestCase):
             'acceptance_date': acceptance_date
         }
         with pytest.raises(InvalidAcceptanceDays):
-            assert update_client_description(
+            assert await update_client_description(
                 finding_id,
                 values_accepted_date_error,
                 org_id,
@@ -130,7 +134,7 @@ class FindingTests(TestCase):
             'acceptance_date': acceptance_date
         }
         with pytest.raises(InvalidDateFormat):
-            assert update_client_description(
+            assert await update_client_description(
                 finding_id,
                 values_accepted_format_error,
                 org_id,
@@ -163,12 +167,17 @@ class FindingTests(TestCase):
             'unittest@fluidattacks.com', comment_data, finding_id, False)
 
     @pytest.mark.changes_db
-    def test_handle_acceptation(self):
+    async def test_handle_acceptation(self):
         finding_id = '463461507'
         observations = 'Test observations'
         user_mail = 'unittest@fluidattacks.com'
         response = 'REJECTED'
-        test_data = handle_acceptation(finding_id, observations, user_mail, response)
+        test_data = await handle_acceptation(
+            finding_id,
+            observations,
+            user_mail,
+            response
+        )
         expected_output = True
         assert isinstance(test_data, bool)
         assert test_data == expected_output
@@ -234,7 +243,7 @@ class FindingTests(TestCase):
             validate_evidence(evidence_id, uploaded_file)
         self.assertTrue('Exception - Invalid File Type' in str(context.exception))
 
-    def test_validate_acceptance_severity(self):
+    async def test_validate_acceptance_severity(self):
         finding_id = '463461507'
         org_id = 'ORG#708f518a-d2c3-4441-b367-eec85e53d134'
         info_to_check = {
@@ -255,7 +264,7 @@ class FindingTests(TestCase):
             'acceptance_date': acceptance_date
         }
         with pytest.raises(InvalidAcceptanceSeverity):
-            assert update_client_description(
+            assert await update_client_description(
                 finding_id,
                 values_accepted,
                 org_id,
@@ -263,7 +272,7 @@ class FindingTests(TestCase):
                 'unittesting@fluidattacks.com'
             )
 
-    def test_validate_number_acceptations(self):
+    async def test_validate_number_acceptations(self):
         finding_id = '463461507'
         org_id = 'ORG#708f518a-d2c3-4441-b367-eec85e53d134'
         info_to_check = {
@@ -293,7 +302,7 @@ class FindingTests(TestCase):
             'acceptance_date': acceptance_date
         }
         with pytest.raises(InvalidNumberAcceptations):
-            assert update_client_description(
+            assert await update_client_description(
                 finding_id,
                 values_accepted,
                 org_id,
