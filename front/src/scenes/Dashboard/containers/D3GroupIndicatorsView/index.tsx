@@ -1,6 +1,6 @@
 import _ from "lodash";
 import React from "react";
-import { Col, Grid, Row } from "react-bootstrap";
+import { Col, Grid, Panel, Row } from "react-bootstrap";
 import { useParams } from "react-router";
 import { Graphic } from "../../../../graphics/components/Graphic";
 import translate from "../../../../utils/translations/translate";
@@ -9,6 +9,16 @@ import { ID3GroupIndicatorsProps } from "./types";
 
 const d3GroupIndicatorsView: React.FC<ID3GroupIndicatorsProps> = (props: ID3GroupIndicatorsProps): JSX.Element => {
   const { projectName: groupName } = useParams();
+
+  const [isForcesDescriptionExpanded, setIsForcesDescriptionExpanded] = React.useState(false);
+
+  const forcesPanelOnEnter: () => void = (): void => {
+    setIsForcesDescriptionExpanded(true);
+  };
+
+  const forcesPanelOnLeave: () => void = (): void => {
+    setIsForcesDescriptionExpanded(false);
+  };
 
   return (
     <React.StrictMode>
@@ -203,13 +213,33 @@ const d3GroupIndicatorsView: React.FC<ID3GroupIndicatorsProps> = (props: ID3Grou
       <hr />
       <Grid fluid={true}>
         <Row>
-          <Col md={12}>
-            <h1 className={styles.centerTitle}>
-              {translate.t("analytics.headers.forces.title")}
-            </h1>
-            <h5 className={styles.centerTitle}>
-              {translate.t("analytics.headers.forces.subtitle")}
-            </h5>
+          <Col
+            md={12}
+            onMouseEnter={forcesPanelOnEnter}
+            onMouseLeave={forcesPanelOnLeave}
+          >
+            <Panel expanded={isForcesDescriptionExpanded}>
+              <Panel.Heading>
+                <Panel.Title>
+                  <h1 className={styles.centerTitle}>
+                    {translate.t("analytics.headers.forces.title")}
+                  </h1>
+                  <h5 className={styles.centerTitle}>
+                    {translate.t("analytics.headers.forces.subtitle")}
+                  </h5>
+                </Panel.Title>
+              </Panel.Heading>
+              <Panel.Collapse>
+                <Panel.Body>
+                  <p>{translate.t("analytics.textBox.forcesStatus.footer.intro")}</p>
+                  <ul>
+                    <li>{translate.t("analytics.textBox.forcesStatus.footer.smart")}</li>
+                    <li>{translate.t("analytics.textBox.forcesStatus.footer.breaks")}</li>
+                    <li>{translate.t("analytics.textBox.forcesStatus.footer.stats")}</li>
+                  </ul>
+                </Panel.Body>
+              </Panel.Collapse>
+            </Panel>
           </Col>
         </Row>
         <div className={styles.separatorTitleFromCharts} />
@@ -223,7 +253,7 @@ const d3GroupIndicatorsView: React.FC<ID3GroupIndicatorsProps> = (props: ID3Grou
               generatorName="raw"
               generatorType="textBox"
               subject={groupName}
-              title={translate.t("analytics.gauge.forcesStatus.title")}
+              title={translate.t("analytics.textBox.forcesStatus.title")}
             />
           </Col>
           <Col md={3}>

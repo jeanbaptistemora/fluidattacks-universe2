@@ -19,9 +19,6 @@ const enTranslations: Dictionary = {
       forcesSecurityCommitment: {
         title: "Your commitment towards security",
       },
-      forcesStatus: {
-        title: "Service status",
-      },
       forcesUsage: {
         title: "Service usage",
       },
@@ -97,6 +94,24 @@ const enTranslations: Dictionary = {
       },
       forcesRepositoriesAndBranches: {
         title: "Repositories and branches",
+      },
+      forcesStatus: {
+        footer: {
+          breaks: "In case Forces finds one vulnerability to be open, "
+            + "we can (optionally) mark the build as failed so you never introduce known vulnerabilities "
+            + "into the production environment.",
+          intro: "By enabling Forces you get access to a Docker container built to specifically verify the status "
+            + "of security findings found in your system. "
+            + "You can embed this container in your Continuous Integration system in order "
+            + "to test changes for security vulnerabilities:",
+          smart: "Forces is fast and automatic, yet made by the same hackers intelligence "
+            + "that already know in deep your system, and thus is able to verify attack vectors that no "
+            + "other tool can",
+          stats: "The statistics of more than a hundred different systems show that Forces increases "
+            + "the remediation ratio, hence helping you build a safer system, and being more cost-effective "
+            + "throughout your Software Security Development Life Cycle",
+        },
+        title: "Service status",
       },
       totalFindings: {
         footer: "A finding is a group of vulnerabilities on your system "

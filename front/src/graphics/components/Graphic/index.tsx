@@ -22,6 +22,7 @@ import {
 import useComponentSize, { ComponentSize } from "@rehooks/component-size";
 
 const glyphPadding: number = 15;
+const pixelsSensitivity: number = 5;
 const minWidthToShowButtons: number = 320;
 const bigGraphicSize: ComponentSize = {
   height: 400,
@@ -111,15 +112,19 @@ export const Graphic: React.FC<IGraphicProps> = (
   }
   function buildUrl(size: IComponentSizeProps): string {
     const url: URL = new URL("/integrates/graphic", window.location.origin);
+    const roundedHeight: number =
+      pixelsSensitivity * Math.floor(size.height / pixelsSensitivity);
+    const roundedWidth: number =
+      pixelsSensitivity * Math.floor(size.width / pixelsSensitivity);
 
     url.searchParams.set("documentName", documentName);
     url.searchParams.set("documentType", documentType);
     url.searchParams.set("entity", entity);
     url.searchParams.set("generatorName", generatorName);
     url.searchParams.set("generatorType", generatorType);
-    url.searchParams.set("height", size.height.toString());
+    url.searchParams.set("height", roundedHeight.toString());
     url.searchParams.set("subject", subject);
-    url.searchParams.set("width", size.width.toString());
+    url.searchParams.set("width", roundedWidth.toString());
 
     return url.toString();
   }
