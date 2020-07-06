@@ -19,7 +19,7 @@ class ITReport():
     base = (
         '/usr/src/app/django-apps/integrates-back-async/backend/reports'
     )
-    result_path = os.path.join(base, 'results_excel')
+    result_path = os.path.join(base, 'results/results_excel')
     templates = {
         'es': {
             'TECHNICAL': os.path.join(

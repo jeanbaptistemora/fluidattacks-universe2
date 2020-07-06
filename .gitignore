@@ -2,8 +2,8 @@ analytics/**/*.jpg
 analytics/**/*.json
 analytics/**/*.html
 analytics/**/*.png
-django-apps/integrates-back-async/backend/reports/results_pdf/*.pdf
-django-apps/integrates-back-async/backend/reports/results_pdf/*.xlsx
+django-apps/integrates-back-async/backend/reports/results/results_pdf/*.pdf
+django-apps/integrates-back-async/backend/reports/results/results_excel/*.xlsx
 django-apps/integrates-back-async/backend/reports/tpls/*.tpl
 django-apps/integrates-back-async/backend/reports/images/*.png
 app/autodoc/results/*.xlsx

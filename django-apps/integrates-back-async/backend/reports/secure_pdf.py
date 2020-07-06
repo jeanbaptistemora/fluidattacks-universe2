@@ -44,7 +44,7 @@ class SecurePDF():
         self.footer_tpl = os.path.join(
             self.base,
             'resources/themes/overlay_footer.pdf')
-        self.result_dir = os.path.join(self.base, 'results_pdf/')
+        self.result_dir = os.path.join(self.base, 'results/results_pdf/')
         self.passphrase = passphrase
 
     def create_full(

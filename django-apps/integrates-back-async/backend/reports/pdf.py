@@ -24,7 +24,7 @@ class CreatorPDF():
     tpl_dir = '/tpls/'
     font_dir = '/resources/fonts'
     images_dir = '/images/'
-    result_dir = '/results_pdf/'
+    result_dir = '/results/results_pdf/'
     proj_tpl = 'templates/pdf/executive.adoc'
     style = 'fluid'
     lang = 'en'
