@@ -16,7 +16,7 @@ class IntegratesStaticFilesStorage(S3Boto3Storage):
     def get_object_parameters(self, name: str) -> Dict[str, str]:
         partial_object_parameters: Dict[str, Dict[str, str]] = {
             # Don't cache the front-end bundles
-            'integrates/assets/dashboard': {
+            'integrates/static/dashboard': {
                 'CacheControl': 'max-age=0',
             }
         }

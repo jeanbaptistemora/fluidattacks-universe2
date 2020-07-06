@@ -20,10 +20,10 @@ shared-local-instance.db
 .bundle
 Gemfile.lock
 vendor
-app/assets/admin/
-app/assets/external/
-app/assets/node_modules
-app/assets/package-lock.json
+app/static/admin/
+app/static/external/
+app/static/node_modules
+app/static/package-lock.json
 deploy/.terraform
 deploy/terraform.tfstate
 *.envrc
@@ -37,8 +37,8 @@ front/src/**/*.js
 front/src/**/*.jsx
 front/src/**/*.css.d.ts
 front/package-lock.json
-app/assets/login/*.js
-app/assets/dashboard/*
+app/static/login/*.js
+app/static/dashboard/*
 env-dev.vars
 local-test.sh
 local-linting.sh

@@ -232,7 +232,7 @@ MEDIA_URL = ''
 AWS_AUTO_CREATE_BUCKET = True
 STATIC_BUCKET_NAME = 'fluidintegrates-static'
 AWS_STORAGE_BUCKET_NAME = f'{STATIC_BUCKET_NAME}-{CI_COMMIT_REF_NAME}'
-AWS_LOCATION = 'integrates/assets'
+AWS_LOCATION = 'integrates/static'
 AWS_QUERYSTRING_AUTH = False
 if FI_ENVIRONMENT == 'production':
     AWS_S3_CUSTOM_DOMAIN = 'd1l3f50ot7vyg9.cloudfront.net'
@@ -266,12 +266,12 @@ STATICFILES_FINDERS = (
 )
 
 STATICFILES_DIRS = [
-    ('app', os.path.join(BASE_DIR, 'app', 'assets', 'app')),
-    ('dashboard', os.path.join(BASE_DIR, 'app', 'assets', 'dashboard')),
-    ('external', os.path.join(BASE_DIR, 'app', 'assets', 'external')),
-    ('graphics', os.path.join(BASE_DIR, 'app', 'assets', 'graphics')),
-    ('img', os.path.join(BASE_DIR, 'app', 'assets', 'img')),
-    ('styles', os.path.join(BASE_DIR, 'app', 'assets', 'styles')),
+    ('app', os.path.join(BASE_DIR, 'app', 'static', 'app')),
+    ('dashboard', os.path.join(BASE_DIR, 'app', 'static', 'dashboard')),
+    ('external', os.path.join(BASE_DIR, 'app', 'static', 'external')),
+    ('graphics', os.path.join(BASE_DIR, 'app', 'static', 'graphics')),
+    ('img', os.path.join(BASE_DIR, 'app', 'static', 'img')),
+    ('styles', os.path.join(BASE_DIR, 'app', 'static', 'styles')),
 ]
 
 CRONJOBS = [

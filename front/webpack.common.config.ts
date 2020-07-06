@@ -51,7 +51,7 @@ export const commonConfig: webpack.Configuration = {
   output: {
     filename: "[name]-bundle.min.js",
     futureEmitAssets: true,
-    path: path.resolve(__dirname, "../app/assets/dashboard/"),
+    path: path.resolve(__dirname, "../app/static/dashboard/"),
   },
   plugins: [
     new MiniCssExtractPlugin({

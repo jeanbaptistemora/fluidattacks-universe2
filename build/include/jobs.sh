@@ -14,7 +14,7 @@ function job_build_front {
   &&  popd \
   &&  sed --in-place \
         "s/integrates_version/v. ${FI_VERSION}/g" \
-        'app/assets/dashboard/app-bundle.min.js'
+        'app/static/dashboard/app-bundle.min.js'
 }
 
 function job_build_mobile_android {
@@ -259,7 +259,7 @@ function job_build_container_app {
 
 function job_deploy_front {
       env_prepare_python_packages \
-  &&  env_prepare_django_assets_external \
+  &&  env_prepare_django_static_external \
   &&  aws_login "${ENVIRONMENT_NAME}" \
   &&  sops_vars "${ENVIRONMENT_NAME}" \
   &&  ./manage.py collectstatic --no-input
@@ -455,7 +455,7 @@ function job_renew_certificates {
 
 function job_reset {
   local files_to_delete=(
-    'app/assets/dashboard/'
+    'app/static/dashboard/'
     'app/backend/reports/images/*'
     'django-apps/integrates-back-async/backend/reports/tpls/*'
     'django-apps/integrates-back-async/backend/reports/results/results_pdf/*'
@@ -742,7 +742,7 @@ function job_lint_front {
 
 function job_lint_graphics {
       env_prepare_node_modules \
-  &&  pushd app/assets/graphics \
+  &&  pushd app/static/graphics \
         &&  eslint --config .eslintrc --fix . \
   &&  popd \
   ||  return 1

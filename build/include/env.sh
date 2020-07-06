@@ -107,10 +107,10 @@ function env_prepare_dynamodb_local {
   ||  return 1
 }
 
-function env_prepare_django_assets_external {
+function env_prepare_django_static_external {
       echo '[INFO] Unzipping C3 local' \
-  &&  mkdir -p 'app/assets/external/C3' \
-  &&  pushd 'app/assets/external/C3' \
+  &&  mkdir -p 'app/static/external/C3' \
+  &&  pushd 'app/static/external/C3' \
     &&  unzip -ou "${srcExternalC3}" \
   && popd \
   ||  return 1

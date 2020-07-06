@@ -130,7 +130,7 @@ build_front:
   artifacts:
     expire_in: 1 day
     paths:
-      - app/assets/
+      - app/static/
     when: on_success
 
 build_mobile_android:
