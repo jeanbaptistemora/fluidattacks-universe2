@@ -38,6 +38,7 @@ export const statusFormatter: (value: string) => React.ReactElement<Label> = (
   value: string
 ): React.ReactElement<Label> => {
   const bgColor: string = getBgColor(value);
+
   return (
     // Need it to override default styles from react-bootstrap
     // eslint-disable-next-line react/forbid-component-props

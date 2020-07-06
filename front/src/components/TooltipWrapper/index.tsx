@@ -12,6 +12,7 @@ export const TooltipWrapper: React.FC<ITooltipWrapperProps> = (
   props: Readonly<ITooltipWrapperProps>
 ): JSX.Element => {
   const { children, message, placement = "bottom" } = props;
+
   return (
     <OverlayTrigger
       delayHide={150}

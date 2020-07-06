@@ -18,6 +18,7 @@ export const changeFormatter: (
       key.changeFunction(row);
     }
   }
+
   return (
     <BootstrapSwitchButton
       checked={!("state" in row) || row.state !== "Inactive"}

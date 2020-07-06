@@ -38,6 +38,10 @@
     "no-duplicate-imports": "error",
     "no-useless-rename": "error",
     "one-var": ["error", "never"],
+    "padding-line-between-statements": [
+      "error",
+      { "blankLine": "always", "prev": "*", "next": "return" }
+    ],
     "require-unicode-regexp": "error",
     "sort-keys": "error",
     "sort-imports": [

@@ -18,6 +18,7 @@ export const approveFormatter: (
       key.approveFunction(row);
     }
   }
+
   return (
     <a onClick={handleApproveFormatter}>
       <FluidIcon height={"20px"} icon={"verified"} width={"20px"} />

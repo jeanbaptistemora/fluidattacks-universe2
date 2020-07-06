@@ -15,6 +15,7 @@ export const limitFormatter: (value: string) => JSX.Element = (
     .split(",")
     .map((element: string): string => element.trim());
   const newValue: string = valueArray.slice(0, linesLimit).join(", ");
+
   return (
     <Row className={style.limitFormatter}>
       <Col className={style.limitFormatter} sm={12}>

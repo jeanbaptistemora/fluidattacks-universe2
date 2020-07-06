@@ -16,6 +16,7 @@ export const ScrollUpButton: React.FC<IScrollUPButtonProps> = (
   props: Readonly<IScrollUPButtonProps>
 ): JSX.Element => {
   const { visibleAt } = props;
+
   return (
     <ScrollUp duration={400} showUnder={visibleAt}>
       <span className={style.container} id={"scroll-up"} />

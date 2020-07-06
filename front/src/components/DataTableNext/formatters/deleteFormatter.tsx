@@ -18,6 +18,7 @@ export const deleteFormatter: (
       key.deleteFunction(row);
     }
   }
+
   return (
     <a onClick={handleDeleteFormatter}>
       <FluidIcon height={"20px"} icon={"delete"} width={"20px"} />

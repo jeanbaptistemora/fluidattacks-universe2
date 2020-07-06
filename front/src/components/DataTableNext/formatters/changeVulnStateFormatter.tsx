@@ -18,6 +18,7 @@ export const changeVulnStateFormatter: (
       key.changeFunction(row);
     }
   }
+
   return (
     <BootstrapSwitchButton
       checked={!("currentState" in row) || row.currentState !== "closed"}

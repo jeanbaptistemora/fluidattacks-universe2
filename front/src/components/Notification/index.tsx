@@ -10,6 +10,7 @@ export const Notification: React.FC<INotificationProps> = (
   props: Readonly<INotificationProps>
 ): JSX.Element => {
   const { title, text } = props;
+
   return (
     <div className={style.container}>
       <p>
