@@ -232,9 +232,6 @@ MEDIA_URL = ''
 AWS_AUTO_CREATE_BUCKET = True
 STATIC_BUCKET_NAME = 'fluidintegrates-static'
 AWS_STORAGE_BUCKET_NAME = f'{STATIC_BUCKET_NAME}-{CI_COMMIT_REF_NAME}'
-AWS_S3_OBJECT_PARAMETERS = {
-    'CacheControl': 'max-age=0',
-}
 AWS_LOCATION = 'integrates/assets'
 AWS_QUERYSTRING_AUTH = False
 if FI_ENVIRONMENT == 'production':
@@ -249,7 +246,7 @@ CORS_CONFIGURATION = {
     'CORSRules': [{
         'AllowedHeaders': ['*'],
         'AllowedMethods': ['GET', 'PUT', 'POST', 'HEAD'],
-        'AllowedOrigins': ['https://*fluidattacks.com'],
+        'AllowedOrigins': ['*'],
         'ExposeHeaders': ['GET', 'PUT', 'POST', 'HEAD'],
         'MaxAgeSeconds': 3000
     }]
