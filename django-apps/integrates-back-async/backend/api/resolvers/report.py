@@ -105,6 +105,7 @@ async def _get_url(info, report_type: str, **parameters) -> str:
             'project_findings': project_findings,
             'context': info.context,
             'project_name': project_name,
+            'lang': parameters.get('lang', 'en')
         }
         try:
             url = await report.generate_group_report(

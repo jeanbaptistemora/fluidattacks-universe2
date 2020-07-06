@@ -52,7 +52,8 @@ type Query {
         reportType: ReportType!,
         userEmail: String!,
         findingId: String,
-        projectName: String
+        projectName: String,
+        lang: ReportLang
     ): Report
 
     "List of alive projects"
