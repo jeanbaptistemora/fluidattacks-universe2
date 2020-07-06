@@ -246,7 +246,7 @@ const enTranslations: Dictionary = {
       },
       exportCsv: {
         text: "Export",
-        tooltip: "Export to comma-separated values file",
+        tooltip: "Export to a comma-separated values file",
       },
       help_label: "Click on a finding to see more details",
       records: {
@@ -259,7 +259,7 @@ const enTranslations: Dictionary = {
       report: {
         btn: {
           text: "Reports",
-          tooltip: "Generate a findings report and send it to your email",
+          tooltip: "Generate a report of findings and send it to your email",
         },
         data: "  DATA",
         modal_close: "Close",
@@ -275,7 +275,7 @@ const enTranslations: Dictionary = {
       tableSet: {
         btn: {
           text: "Columns",
-          tooltip: "Pick out the fields you would like to display",
+          tooltip: "Choose the fields you want to display",
         },
         modal_title: "Columns Filter",
       },
@@ -335,7 +335,7 @@ const enTranslations: Dictionary = {
       },
       drafts: {
         text: "Drafts",
-        tooltip: "Add new findings and review ones yet to be approved",
+        tooltip: "Add new findings and review those yet to be approved",
       },
       events: {
         text: "Events",
@@ -351,16 +351,16 @@ const enTranslations: Dictionary = {
       },
       indicators: {
         text: "Indicators",
-        tooltip: "Summary of the Group status",
+        tooltip: "Summary of the group status",
       },
       resources: {
         text: "Settings",
-        tooltip: "Configure the resources needed by the security tests and the services that will be hired," +
+        tooltip: "Configure the resources needed by the security tests and the services to be purchased," +
         " if applicable",
       },
       users: {
         text: "Users",
-        tooltip: "Add, edit and remove users from this group",
+        tooltip: "Add, edit, and remove users from this group",
       },
     },
   },
@@ -741,7 +741,7 @@ const enTranslations: Dictionary = {
         text: "Title",
         tooltip: "Finding number and name",
       },
-      tooltip: "Overall information about the finding: explanation, location, impacts, threats",
+      tooltip: "Overall information about the finding: explanation, location, impacts, and threats",
       treatment: {
         accepted: "Temporarily accepted",
         accepted_undefined: "Eternally accepted",
@@ -812,8 +812,7 @@ const enTranslations: Dictionary = {
       evidence_exploit: "Exploitation evidence",
       remove: "Delete",
       tab_title: "Evidence",
-      tooltip: "Images or animation about the exploitation process to support the existence" +
-        " of the finding",
+      tooltip: "Images or animation representing the exploitation process to support the existence of the finding",
       update: "Update",
     },
     tab_exploit: {
@@ -1132,7 +1131,7 @@ const enTranslations: Dictionary = {
       },
       solve: "Mark as solved",
       tab_title: "Severity",
-      tooltip: "Assigned scoring according to CVSS 3.1 metrics",
+      tooltip: "Assigned score according to CVSS 3.1 metrics",
       update: "Update",
       user_interaction: {
         text: "User Interaction",
@@ -1158,13 +1157,13 @@ const enTranslations: Dictionary = {
       open: "Open",
       pending: "Pending",
       tab_title: "Tracking",
-      tooltip: "Finding evolution over time: Historic records, Open/Closed vulnerabilities," +
-        " Solution effectiveness on Reattacks",
+      tooltip: "Evolution of the finding over time: historical records, open/closed vulnerabilities, " +
+        "and effectiveness of the solution in reattacks",
     },
     tab_users: {
       add_button: {
         text: "Add",
-        tooltip: "Add an user to this group",
+        tooltip: "Add a user to this group",
       },
       admin: "Admin",
       analyst: "Analyst",
@@ -1175,7 +1174,7 @@ const enTranslations: Dictionary = {
       days_ago_plural: "{{count}} days ago",
       edit_button: {
         text: "Edit",
-        tooltip: "Select an user and edit their information",
+        tooltip: "Select a user and edit their information",
       },
       edit_user_title: "Edit user information",
       email: "someone@domain.com",
@@ -1228,7 +1227,7 @@ const enTranslations: Dictionary = {
     },
     user: {
       text: "Add User",
-      tooltip: "Add a site user",
+      tooltip: "Add a user",
     },
     userModal: {
       success: "{{email}} was added successfully",
