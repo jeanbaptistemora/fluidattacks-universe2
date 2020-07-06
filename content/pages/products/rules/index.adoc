@@ -1,6 +1,6 @@
 :slug: products/rules/
 :category: products
-:description: The purpose of this page is to present the products offered by Fluid Attacks. Rules is a recompilation of several security criteria developed by Fluid Attacks. based on different international standards in order to assure information security in different areas of the company.
+:description: Rules is a compilation of several security criteria, developed by Fluid Attacks, based on different international standards to ensure the security of systems.
 :keywords: Fluid Attacks, Products, Rules, Criteria, Security, Applications.
 
 = Rules
@@ -23,34 +23,36 @@ In our hacking services, we determine if these are met or not.
 
 |====
 
-You can access the product [button]#link:../../rules/[here]#
+You can access the product [button]#link:../../rules/[here]#.
 
 == Standards
 
 Rules is based on several standards
-related to information security, including:
+related to information security, including the following:
 
-. [inner]#link:../../search.html?q=ASVS[ASVS]#
+. [inner]#link:../../search.html?q=ASVS[ASVS]#.
 link:https://www.owasp.org/index.php/Category:OWASP_Application_Security_Verification_Standard_Project[`OWASP` Application Security Verification Standard].
 
-. [inner]#link:../../search.html?q=bssim9[BSSIM9]#
+. [inner]#link:../../search.html?q=pci[PCI]#.
+link:https://www.pcisecuritystandards.org/[`PCI` Security Standards Council].
+
+. [inner]#link:../../search.html?q=bsimm9[BSIMM9]#.
 link:https://www.bsimm.com/download.html[Building Security In Maturity Model].
 
-. [inner]#link:../../search.html?q=CWE[CWE]#
+. [inner]#link:../../search.html?q=CWE[CWE]#.
 link:https://cwe.mitre.org/[Common Weakness Enumeration].
 
-. [inner]#link:../../search.html?q=directive[EPR]#
+. [inner]#link:../../search.html?q=directive[EPR]#.
 link:https://edps.europa.eu/data-protection/our-work/subjects/eprivacy-directive_en[E-privacy Directive].
 
-. [inner]#link:../../search.html?q=GDPR[GDPR]#
+. [inner]#link:../../search.html?q=GDPR[GDPR]#.
 link:https://gdpr-info.eu/[General Data Protection Regulation].
 
-. [inner]#link:../../search.html?q=HIPAA[HIPAA]#
-link:https://www.hhs.gov/hipaa/for-professionals/security/laws-regulations/index.html[Health Insurance Portability and Accountability Act.]
+. [inner]#link:../../search.html?q=HIPAA[HIPAA]#.
+link:https://www.hhs.gov/hipaa/for-professionals/security/laws-regulations/index.html[Health Insurance Portability and Accountability Act].
 
-. [inner]#link:../../search.html?q=NIST+800-53[NIST]#
+. [inner]#link:../../search.html?q=NIST+800-53[NIST]#.
 link:https://nvd.nist.gov/800-53/Rev4[`NIST` Special Publication 800-53 (Rev. 4)].
 
 Want to know more about our products?
-Do not hesitate to
-[inner]#link:../../contact-us/[contact us]#.
+Do not hesitate to [inner]#link:../../contact-us/[contact us]#.
