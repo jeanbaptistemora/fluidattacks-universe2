@@ -241,7 +241,7 @@ else:
     STATIC_URL = f'https://{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com/'
 
 AWS_DEFAULT_ACL = 'public-read'
-STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+STATICFILES_STORAGE = 'fluidintegrates.static.IntegratesStaticFilesStorage'
 CORS_CONFIGURATION = {
     'CORSRules': [{
         'AllowedHeaders': ['*'],
