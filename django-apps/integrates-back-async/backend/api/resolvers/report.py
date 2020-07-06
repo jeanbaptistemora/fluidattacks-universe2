@@ -21,6 +21,7 @@ from backend.typing import (
     SimplePayload as SimplePayloadType
 )
 from backend import authz, util
+from backend.utils import aio
 
 from ariadne import convert_kwargs_to_snake_case, convert_camel_case_to_snake
 
@@ -65,65 +66,83 @@ async def resolve(info, report_type: str, **parameters) -> ReportType:
     return result
 
 
+async def _get_url_complete(user_email, info):
+    projects = await user_domain.get_projects(user_email)
+    url = await aio.ensure_io_bound(
+        report.generate_complete_report, user_email, projects
+    )
+    util.cloudwatch_log(
+        info.context,
+        f'Security: Complete report succesfully requested by {user_email}'
+    )
+    return url
+
+
+async def _get_url_all_vulns(user_email, parameters, info):
+    if authz.get_user_level_role(user_email) == 'admin':
+        url = await aio.ensure_io_bound(
+            report.generate_all_vulns_report,
+            user_email,
+            parameters.get('project_name', '')
+        )
+        msg = (
+            'Security: All vulnerabilities report '
+            f'successfully requested by {user_email}'
+        )
+        util.cloudwatch_log(info.context, msg)
+    else:
+        url = f'{user_email} is not allowed to perform this operation'
+        msg = (
+            f'Error: {user_email} is not allowed to '
+            'request an all vulnerabilites report'
+        )
+        rollbar.report_message(msg, 'error')
+        raise PermissionDenied()
+    return url
+
+
+async def _get_url_group_report(user_email, parameters, info, report_type):
+    project_name = parameters.get('project_name')
+    project_findings = \
+        await info.context.loaders['project'].load(project_name)
+    project_findings = project_findings['findings']
+    params = {
+        'project_findings': project_findings,
+        'context': info.context,
+        'project_name': project_name,
+        'lang': parameters.get('lang', 'en')
+    }
+    try:
+        url = await report.generate_group_report(
+            report_type,
+            user_email,
+            **params
+        )
+        msg = (
+            f'Security: {report_type} report successfully requested '
+            f'by {user_email} in project {project_name}'
+        )
+        util.cloudwatch_log(info.context, msg)
+    except RequestedReportError:
+        msg = (
+            f'Error: An error occurred getting the specified'
+            f'{report_type} for proyect {project_name} by {user_email}'
+        )
+        rollbar.report_message(msg, 'error')
+    return url
+
+
 async def _get_url(info, report_type: str, **parameters) -> str:
     url = ''
     user_email = parameters.get('user_email', '')
     if report_type == 'COMPLETE':
-        projects = await user_domain.get_projects(user_email)
-        url = await sync_to_async(
-            report.generate_complete_report)(
-                user_email, projects
-        )
-        util.cloudwatch_log(
-            info.context,
-            f'Security: Complete report succesfully requested by {user_email}')
+        url = await _get_url_complete(user_email, info)
     if report_type == 'ALL_VULNS':
-        if authz.get_user_level_role(user_email) == 'admin':
-            url = await sync_to_async(
-                report.generate_all_vulns_report)(
-                    user_email, parameters.get('project_name', '')
-            )
-            msg = (
-                f'Security: All vulnerabilities report successfully requested '
-                f'by {user_email}'
-            )
-            util.cloudwatch_log(info.context, msg)
-        else:
-            url = f'{user_email} is not allowed to perform this operation'
-            msg = (
-                f'Error: {user_email} is not allowed to request an all'
-                f'vulnerabilites report'
-            )
-            rollbar.report_message(msg, 'error')
-            raise PermissionDenied()
+        url = await _get_url_all_vulns(user_email, parameters, info)
     elif report_type in ['PDF', 'XLS', 'DATA']:
-        project_name = parameters.get('project_name')
-        project_findings = \
-            await info.context.loaders['project'].load(project_name)
-        project_findings = project_findings['findings']
-        params = {
-            'project_findings': project_findings,
-            'context': info.context,
-            'project_name': project_name,
-            'lang': parameters.get('lang', 'en')
-        }
-        try:
-            url = await report.generate_group_report(
-                report_type,
-                user_email,
-                **params
-            )
-            msg = (
-                f'Security: {report_type} report successfully requested '
-                f'by {user_email} in project {project_name}'
-            )
-            util.cloudwatch_log(info.context, msg)
-        except RequestedReportError:
-            msg = (
-                f'Error: An error occurred getting the specified'
-                f'{report_type} for proyect {project_name} by {user_email}'
-            )
-            rollbar.report_message(msg, 'error')
+        url = await _get_url_group_report(
+            user_email, parameters, info, report_type
+        )
     else:
         msg = f'Error: An error occurred getting the specified {report_type}'
         rollbar.report_message(msg, 'error')
