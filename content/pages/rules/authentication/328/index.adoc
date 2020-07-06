@@ -1,7 +1,7 @@
 :slug: rules/328/
 :category: authentication
-:description: This document details the security requirements and guidelines related to secure user authentication management in the organization. In this case, it is recommended multi-factor authentication (MFA) be enabled and required to access critical systems.
-:keywords: MFA, Authentication, Multi, Factor, ASVS, CWE
+:description: This requirement states that multi-factor authentication (MFA) must be enabled and required to access critical systems.
+:keywords: MFA, Authentication, Multi, Factor, ASVS, CWE, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R328. Request MFA for critical systems

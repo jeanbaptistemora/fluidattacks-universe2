@@ -1,15 +1,15 @@
 :slug: rules/336/
 :category: cryptography
-:description: This document contains the details of the security requirements related to the definition and management of cryptographic mechanisms in the organization. This requirement establishes the importance of disabling out-of-date or insecure versions of TLS and SSL protocols.
-:keywords: SSL, Version, Protocol, TLS, CWE, ASVS
+:description: This requirement establishes the importance of disabling out-of-date or insecure versions of TLS and SSL protocols.
+:keywords: SSL, Version, Protocol, TLS, CWE, ASVS, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R336. Disable insecure TLS versions
 
 == Requirement
 
-The system must disable out-of-date or insecure versions of *SSL* and *TLS*
-protocols, algorithms and ciphers.
+The system must disable out-of-date or insecure versions
+of *SSL* and *TLS* protocols, algorithms, and ciphers.
 
 == Descriptions
 

@@ -1,15 +1,15 @@
 :slug: rules/326/
 :category: mobile
-:description: This document contains the details of the security requirements related to the definition and management of mobile devices in the organization. This requirement establishes the importance of checking whether a device on which mobile applications will run has been rooted.
-:keywords: Detection, Root, Device, Rooting, Mobile Device, CWE
+:description: This requirement establishes the importance of checking whether a device on which mobile applications will run has been rooted.
+:keywords: Detection, Root, Device, Rooting, Mobile Device, CWE, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R326. Detect rooted devices
 
 == Requirement
 
-Mobile applications must check whether the device on which they will run is
-rooted.
+Mobile applications must check
+whether the device on which they will run is rooted.
 
 == Description
 

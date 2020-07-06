@@ -1,7 +1,7 @@
 :slug: rules/317/
 :category: privacy
-:description: This document contains the details of the security requirements related to the management and protection of data privacy in the organization. This requirement establishes the importance of allowing the users to request erasure of data belonging to them.
-:keywords: Requirement, Security, Data, GDPR, Erasure, Personal
+:description: This requirement establishes the importance of allowing users to request the erasure of data belonging to them.
+:keywords: Requirement, Security, Data, GDPR, Erasure, Personal, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R317. Allow erasure requests

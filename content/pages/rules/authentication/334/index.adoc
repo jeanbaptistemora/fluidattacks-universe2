@@ -1,7 +1,7 @@
 :slug: rules/334/
 :category: authentication
-:description: This document details the security requirements and guidelines related to secure user authentication management in the organization. In this case, it is recommended that password hints and knowledge-based authentication mechanisms not be present in the system.
-:keywords: Knowledge, Based, Authentication, ASVS, CWE, NIST
+:description: This requirement states that password hints and knowledge-based authentication mechanisms must not be present in the system.
+:keywords: Knowledge, Based, Authentication, ASVS, CWE, NIST, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R334. Avoid knowledge-based authentication

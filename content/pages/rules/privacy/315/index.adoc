@@ -1,7 +1,7 @@
 :slug: rules/315/
 :category: privacy
-:description: This document contains the details of the security requirements related to the management and protection of data privacy in the organization. This requirement establishes the importance of informing the users about what personal information is being processed.
-:keywords: Requirement, Security, Data, GDPR, Information, Personal
+:description: This requirement establishes the importance of informing users about what personal information is being processed.
+:keywords: Requirement, Security, Data, GDPR, Information, Personal, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R315. Provide processed data information

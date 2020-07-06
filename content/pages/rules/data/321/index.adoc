@@ -1,15 +1,15 @@
 :slug: rules/321/
 :category: data
 :description: This requirement establishes the importance of properly validating untrusted data before applying deserialization.
-:keywords: Deserizlization, Untrusted, Object, Injection, ASVS, CWE
+:keywords: Deserialization, Untrusted, Object, Injection, ASVS, CWE, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R321. Avoid deserializing untrusted data
 
 == Requirement
 
-The system must not deserialize untrusted data before applying the appropriate
-integrity checks.
+The system must not deserialize untrusted data
+before applying the appropriate integrity checks.
 
 == Description
 

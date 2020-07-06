@@ -1,15 +1,15 @@
 :slug: rules/318/
 :category: privacy
-:description: This document contains the details of the security requirements related to the management and protection of data privacy in the organization. This requirement establishes the importance of notifying third parties whenever data rectification or erasure occurs.
-:keywords: Requirement, Security, Data, GDPR, Notification, Third Party
+:description: This requirement establishes the importance of notifying third parties whenever data rectification or erasure occurs.
+:keywords: Requirement, Security, Data, GDPR, Notification, Third Party, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R318. Notify third parties of changes
 
 == Requirement
 
-The system must notify third parties when it rectifies or erases shared
-personal information.
+The system must notify third parties
+when it rectifies or erases shared personal information.
 
 == Description
 

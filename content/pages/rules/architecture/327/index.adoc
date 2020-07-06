@@ -1,6 +1,6 @@
 :slug: rules/327/
 :category: architecture
-:description: This requirement establishes the importance of establishing a rate limit to control interaction frequency.
+:description: This requirement establishes the importance of setting a rate limit to control interaction frequency.
 :keywords: Rate, Limit, Interaction, Frequency, ASVS, CWE, Rules, Ethical Hacking, Pentesting
 :rules: yes
 

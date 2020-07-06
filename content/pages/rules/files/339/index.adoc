@@ -1,14 +1,14 @@
 :slug: rules/339/
 :category: files
-:description: This document details the security guidelines and requirements related to files management within the organization or company. In this case, it is strongly recommended that the system not store user-uploaded files or files containing sensitive information in the web root.
-:keywords: Web, Root, File, Directory, ASVS, CWE
+:description: This requirement states that the system must not store user-uploaded files or files containing sensitive information in the web root.
+:keywords: Web, Root, File, Directory, ASVS, CWE, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R339. Avoid storing sensitive files in the web root
 
 == Requirement
 
-The system should store newither user-uploaded files nor files containing
+The system should store neither user-uploaded files nor files containing
 sensitive information in the **web root**.
 
 == Description

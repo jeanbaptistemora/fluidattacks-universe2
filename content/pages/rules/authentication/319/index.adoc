@@ -1,7 +1,7 @@
 :slug: rules/319/
 :category: authentication
-:description: This document details the security requirements and guidelines related to secure user authentication management in the organization. In this case, it is recommended that all of the system's authentication options have the same security control strength.
-:keywords: Control Strength, Identity, Authentication, Access, ASVS, CWE
+:description: This requirement states that all system authentication options must have the same security control strength.
+:keywords: Control Strength, Identity, Authentication, Access, ASVS, CWE, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R319. Make authentication options equally secure

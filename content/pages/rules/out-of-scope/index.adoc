@@ -1,6 +1,6 @@
 :slug: rules/out-of-scope/
-:description: Rules is a recompilation of several security criteria developed by Fluid Attacks, based on different international standards in order to assure the information security of the company. On this extended criteria you can find business related and non-technical security rules.
-:keywords: Fluid Attacks, Products, Rules, Criteria, Security, Applications.
+:description: Out of Scope Security Rules is an additional set where you can find business-related and non-technical rules to verify only by documental and process audits.
+:keywords: Fluid Attacks, Products, Rules, Criteria, Security, Applications, Ethical Hacking, Pentesting
 :rulesindex: yes
 :template: extended
 
