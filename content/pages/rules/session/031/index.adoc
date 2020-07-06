@@ -55,3 +55,8 @@ Verify that logout and expiration invalidate the session token,
 such that the back button or a downstream relying party does not resume an
 authenticated session,
 including across relying parties.
+
+. [[r7]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V8.2 Client-side Data Protection.(8.2.3)]
+Verify that authenticated data is cleared from client storage,
+such as the browser *DOM*, after the client or session is terminated.
