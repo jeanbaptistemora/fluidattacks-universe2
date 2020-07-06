@@ -5,8 +5,8 @@
 :tags: security, vulnerability
 :image: cover.png
 :alt: greek statue with small angels.
-:description:  After reading this post, you'll know about asymmetric attacks and denial of service attacks. You'll know how a slow http attack works, how to inspect http requests and responses, and you'll see how to perform an asymmetric denial of service against bWAPP with slowhttptest!
-:keywords: DoS, Vulnerability, Slowhttptest, Slow Body, HTTP, Asymmetric attacks.
+:description: Here you'll learn how a slow HTTP attack works, how to inspect HTTP requests and responses, and you'll see how to perform an asymmetric denial of service.
+:keywords: DoS, Vulnerability, Slowhttptest, Slow Body, HTTP, Asymmetric Attacks, Ethical Hacking, Pentesting
 :author: Kevin Amado
 :writer: kamadoatfluid
 :name: Kevin Amado
@@ -14,7 +14,7 @@
 :about2: "An algorithm must be seen to be believed" Donald Knuth
 :source: https://unsplash.com/photos/Wf2tCunxqQU
 
-= Asymmetric DoS, slow HTTP attack
+= Asymmetric DoS, Slow HTTP Attack
 
 Have you ever heard the story of David and Goliath?
 David, a young boy, goes out to confront a giant, named Goliath.

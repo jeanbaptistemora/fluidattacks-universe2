@@ -5,8 +5,8 @@
 :tags: machine learning, cybersecurity, security, interview, risk, software
 :image: cover.png
 :alt: Photo by Liam Tucker on Unsplash
-:description: We had the pleasure to chat with Daniel Correa, a Security Expert at a Latin American financial group. He shared his view about current threats, the human factors in cybersecurity and technology. Machine learning, human factors, malware and more, is what you’ll find in this post.
-:keywords: Machine Learning, Cybersecurity, Security, Interview, Risk, Software
+:description: We had the pleasure of chatting with Daniel Correa, a Security Expert who shared his views on current threats, human factors in cybersecurity, and technology.
+:keywords: Machine Learning, Cybersecurity, Security, Interview, Risk, Software, Ethical Hacking, Pentesting
 :author: Julian Arango
 :writer: jarango
 :name: Julian Arango

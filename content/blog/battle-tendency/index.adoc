@@ -5,8 +5,8 @@
 :tags: technology, investment, trends
 :image: cover.png
 :alt: Mobile showing statistics. Photo by Austin Distel on Unsplash: https://unsplash.com/photos/EMPZ7yRZoGw
-:description: In this article, we discuss our research into the most relevant investments and budgets related to information technology in 2019 and upcoming years, as well as the most demanding areas in IT for investment and innovation by companies to stay competitive in the market.
-:keywords: Technology, Innovation, Trends, IT, Investment, Budget
+:description: In this article, we discuss our research into the most relevant investments and budgets related to information technology in 2019 and upcoming years.
+:keywords: Technology, Innovation, Trends, IT, Investment, Budget, Ethical Hacking, Pentesting
 :author: Oscar Prado
 :writer: oprado
 :name: Oscar Prado

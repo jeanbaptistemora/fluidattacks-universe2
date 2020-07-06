@@ -5,8 +5,8 @@
 :tags: challenge, business, ethical hacking, pentesting, security
 :image: cover.png
 :alt: handshake
-:description: In cybersecurity, there’s plenty of opportunities for Conflicts of Interest to emerge. We discuss understanding, consequences, and ways to deal with them within organizations. Also, some questions arise related to auditing operations in cybersecurity.
-:keywords: Conflict of interest, Hacking, Pentesting, Cybersecurity, Auditing, Business
+:description: In cybersecurity, there's plenty of opportunities for Conflicts of Interest to emerge. Here we discuss understanding, consequences, and ways to deal with them.
+:keywords: Conflict of Interest, Hacking, Pentesting, Cybersecurity, Auditing, Business, Ethical Hacking
 :author: Julian Arango
 :writer: jarango
 :name: Julian Arango

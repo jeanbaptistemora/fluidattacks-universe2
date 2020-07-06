@@ -5,8 +5,8 @@
 :tags: machine learning, vulnerability, discovery
 :image: cover.png
 :alt: Depiction of a deep neural network. Credits: https://unsplash.com/photos/R84Oy89aNKs
-:description: In this article, we describe the first systematic framework for using deep learning to detect vulnerabilities in source code by cutting the program into slices which capture semantic and syntactic information about it. They were able to find 15 new vulnerabilities not in NVD.
-:keywords: Machine learning, Vulnerability, Deep learning, Discovery, Static detection, Security
+:description: Here we describe the first systematic framework for using deep learning to detect vulnerabilities in source code by cutting the program into slices.
+:keywords: Machine Learning, Vulnerability, Deep Learning, Discovery, Static Detection, Security, Ethical Hacking, Pentesting
 :author: Rafael Ballestas
 :writer: raballestasr
 :name: Rafael Ballestas

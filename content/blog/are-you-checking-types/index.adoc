@@ -5,8 +5,8 @@
 :tags: application, functional, python, mypy
 :image: cover.png
 :alt: Snake checking a code
-:description: What are the potential problems of untyped objects in Python. How you can type variables in Python. An analysis of the importance of checking types before running the code. How mypy can help you to debugging your app. Why you should use mypy in your CI in pro of a healthy deployment.
-:keywords: Functional paradigm, Object-oriented, Stateless, Type checking, Python, Duck typing.
+:description: What are the potential problems of untyped objects in Python? Here we work on the importance of checking types before running the code and how mypy can help.
+:keywords: Functional paradigm, Object-oriented, Stateless, Type Checking, Python, Duck Typing, Mypy, Ethical Hacking, Pentesting
 :author: Oswaldo Parada
 :writer: oparada
 :name: Oswaldo José Parada Cuadros
@@ -14,7 +14,7 @@
 :about2: Family, friends and little details. There is the answer.
 :source: https://unsplash.com/photos/ieic5Tq8YMk
 
-= Are you checking types?
+= Are You Checking Types?
 
 The dominoes game is simple,
 there are 28 tiles (in the standard version of this game),

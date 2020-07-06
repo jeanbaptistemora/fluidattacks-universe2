@@ -5,8 +5,8 @@
 :tags: security, risk, vulnerability, business, policies, economics
 :image: cover.png
 :alt: Photo by Jp Valery on Unsplash
-:description: In a previous blog post [Evolution of Cybercrime Costs (I)], we discussed some of the findings of a paper presented at WEIS 2019. Here we conclude our review of that paper by focusing, among other things, on ad fraud, which appears to be a bit underrated.
-:keywords: Security, Risk, Vulnerability, Business, Policies, Economics
+:description: Here we conclude our review of 'Measuring the cost of cybercrime' by focusing, among other things, on ad fraud, which appears to be a bit underrated.
+:keywords: Security, Risk, Vulnerability, Business, Policies, Economics, Ethical Hacking, Pentesting, WEIS
 :author: Julian Arango
 :writer: jarango
 :name: Julian Arango

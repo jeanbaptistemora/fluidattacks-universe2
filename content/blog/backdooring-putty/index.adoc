@@ -5,8 +5,8 @@
 :tags: osce, backdoor, training, exploit
 :image: cover.png
 :alt: Photo by Dil on Unsplash
-:description: This article will show a way of creating a backdoor that will be injected to PuTTY, a widely used software for accessing remote computers using several protocols. However, this method can be applied to any other PE32 file with minimal changes. Enjoy.
-:keywords: Information, Security, Protection, Hacking, Exploit, Backdoor, OSCE
+:description: This article will show a way of creating a backdoor that will be injected into PuTTY, a widely used software for accessing remote computers.
+:keywords: Information, Security, Protection, Hacking, Exploit, Backdoor, OSCE, PuTTY, Ethical Hacking, Pentesting
 :author: Andres Roldan
 :writer: aroldan
 :name: Andres Roldan

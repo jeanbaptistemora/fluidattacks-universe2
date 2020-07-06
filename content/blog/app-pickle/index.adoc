@@ -5,8 +5,8 @@
 :tags: documentation, vector, software
 :image: cover.png
 :alt: Cucumber slices
-:description: How to use Gherkin to document attack vectors in vulnerable applications. Gherkin is a language that can be used for documentation and automated testing, but here we focus on how we can use it to show how a given website can be attacked and give a tutorial on the basics of Gherkin.
-:keywords: Gherkin, Attack vector, Documentation, Report, Injection, Vulnerability.
+:description: Gherkin can be used for documentation and automated testing. Here we focus on its basics and how we can use it to show how a given website can be attacked.
+:keywords: Gherkin, Language, Attack Vector, Documentation, Report, Injection, Vulnerability, Pentesting, Ethical Hacking
 :author: Rafael Ballestas
 :writer: raballestasr
 :name: Rafael Ballestas
@@ -14,7 +14,7 @@
 :about2: with an itch for CS
 :source: https://unsplash.com/photos/uMNjdMtx1qU
 
-= Is your app in a pickle?
+= Is Your App in a Pickle?
 
 `link:https://github.com/cucumber/cucumber/wiki/Gherkin[Gherkin]`
 is a simple language that

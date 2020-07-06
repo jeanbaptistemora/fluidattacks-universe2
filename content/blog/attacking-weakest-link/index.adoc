@@ -5,8 +5,8 @@
 :tags: social, password, information, social engineering
 :image: cover.png
 :alt: People manipulation
-:description: Humans are and always will be the weakest link in security. Learn how to deal with these kinds of holes and how to patch them. Secure your information by adding an extra layer of security to your own people, giving them everything they need to securely achieve their work goal.
-:keywords: Information, Security, Protection, Hacking, Bussiness, Social Engineering
+:description: Humans are and always will be the weakest link in security. Learn how to deal with these kinds of holes and how to patch them.
+:keywords: Information, Security, Protection, Hacking, Bussiness, Social Engineering, Ethical Hacking, Pentesting
 :author: Mateo Gutiérrez Gómez
 :writer: mgutierrez
 :name: Mateo Gutiérrez Gómez

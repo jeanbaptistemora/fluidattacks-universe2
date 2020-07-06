@@ -5,8 +5,8 @@
 :tags: business, security, company
 :image: cover.png
 :alt: Broken blue ceramic plate on Unsplash: https://unsplash.com/photos/WdJkXFQ4VHY
-:description: Corporations depend on software more than ever. Software quality management, including security weaknesses, has become of strategic relevance. In this article, we discuss a recent article calling for CEOs’ attention to bugs. We go further by adding a few more ideas.
-:keywords: Bussiness, CEO, Security, Bugs, Software, Information
+:description: Software quality management, including security weaknesses, has become of strategic relevance. Here we discuss an article calling for CEOs' attention to bugs.
+:keywords: Bussiness, CEO, Security, Bugs, Software, Information, Ethical Hacking, Pentesting
 :author: Julian Arango
 :writer: jarango
 :name: Julian Arango
@@ -14,7 +14,7 @@
 :about2: Data scientist in training.
 :source: https://unsplash.com/photos/WdJkXFQ4VHY
 
-= Debug like a Boss
+= Debug Like a Boss
 
 You wake up, and probably check your smartphone immediately.
 Chances are you already have smart devices at home;

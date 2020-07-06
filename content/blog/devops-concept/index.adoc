@@ -5,8 +5,8 @@
 :tags: devops, software, information, web, cloud, business
 :image: cover.png
 :alt: Photo by Michael Fenton on Unsplash
-:description: In this post, we present an introduction about DevOps, a term with multiple definitions, a working methodology whose principles are communication and collaboration between developers and operators, automation, continuous release of new software versions, and quick reaction to feedback.
-:keywords: Devops, Software, Information, Web, Cloud, Business
+:description: Here we introduce DevOps, a working methodology whose principles are communication, collaboration, automation, continuous release, and quick reaction.
+:keywords: DevOps, Software, Information, Web, Cloud, Business, Ethical Hacking, Pentesting
 :author: Felipe Ruiz
 :writer: fruiz
 :name: Felipe Ruiz

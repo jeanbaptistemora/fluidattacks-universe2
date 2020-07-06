@@ -5,8 +5,8 @@
 :tags: machine learning, security, code
 :image: cover.png
 :alt: Book in two languages
-:description: Code2seq, a newer model from the authors of code2vec, which differs in adapting neural machine translation techniques to the task of mapping a snippet of code to a sequence of words. This could have applications to code summarization, captioning, and specific vulnerability prediction.
-:keywords: Machine learning, Neural Network, Encoding, Parsing, Classifier, Vulnerability
+:description: Here we talk about Code2seq, which differs in adapting neural machine translation techniques to the task of mapping a snippet of code to a sequence of words.
+:keywords: Machine Learning, Neural Network, Encoding, Parsing, Classifier, Vulnerability, Code2seq, Ethical Hacking, Pentesting
 :author: Rafael Ballestas
 :writer: raballestasr
 :name: Rafael Ballestas
@@ -14,7 +14,7 @@
 :about2: with an itch for CS
 :source: https://unsplash.com/photos/r8H8K3w9AzA
 
-= Can code be translated?
+= Can Code Be translated?
 
 Now that we have a better undestanding of
 how natural language and code embeddings work,

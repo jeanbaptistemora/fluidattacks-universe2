@@ -5,8 +5,8 @@
 :tags: machine learning, security, application
 :image: cover.png
 :alt: Robot playing the piano
-:description: A summary of machine learning and data mining algorithms and techniques which are relevant for our studies in automated vulnerability discovery in source code. We give a high level view of each of the most important ML algorithms that have relevant applications in information security.
-:keywords: Machine learning, Clustering, Anomaly detection, Neural Network, Deep learning, Security
+:description: In this article, we give a high-level view of each of the most important ML algorithms that have a relevant application in information security.
+:keywords: Machine Learning, Clustering, Anomaly Detection, Neural Network, Deep learning, Security, Ethical Hacking, Pentesting
 :author: Rafael Ballestas
 :writer: raballestasr
 :name: Rafael Ballestas
@@ -15,7 +15,7 @@
 :source: https://unsplash.com/photos/U3sOwViXhkY
 
 
-= Crash course in machine learning
+= Crash Course in Machine Learning
 
 In this article we clarify
 some of the undefined terms in our

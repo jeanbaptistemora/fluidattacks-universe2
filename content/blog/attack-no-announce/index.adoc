@@ -5,8 +5,8 @@
 :tags: protect, information, business, red team, blue team, policies
 :image: cover.png
 :alt: Executive leaking business information
-:description: Here we want to guide you about some management policies we suggest that you could take in advance to be able to answer with high precision how secure your information is, how effective your defense measurements are; also what could happen if you don’t apply these policies.
-:keywords: Bussiness, Information, Security, Protection, Hacking, Best Practices
+:description: We want to guide you about some management policies we suggest that you could take to answer with high precision how secure your information is.
+:keywords: Bussiness, Information, Security, Policy, Protection, Hacking, Best Practices,Ethical Hacking, Pentesting
 :author: Jonathan Armas
 :writer: johna
 :name: Jonathan Armas

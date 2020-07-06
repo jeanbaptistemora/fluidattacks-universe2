@@ -5,8 +5,8 @@
 :tags: security, risk, vulnerability, business, policies, economics
 :image: cover.png
 :alt: Photo by Andre Benz on Unsplash
-:description: In 2012, a study called ‘Measuring the cost of cybercrime’ was presented at the Workshop on the Economics of Information Security (WEIS). Last year, an update paper was discussed at the same workshop, showcasing what has changed since. We highlight some findings.
-:keywords: Security, Risk, Vulnerability, Business, Policies, Economics
+:description: In 2012, the study ‘Measuring the cost of cybercrime’ was presented at the WEIS. Here we highlight the findings of that updated paper discussed last year.
+:keywords: Security, Risk, Vulnerability, Business, Policies, Economics, Ethical Hacking, Pentesting, WEIS
 :author: Julian Arango
 :writer: jarango
 :name: Julian Arango

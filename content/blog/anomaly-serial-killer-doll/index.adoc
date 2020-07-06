@@ -5,8 +5,8 @@
 :tags: machine learning, vulnerability, discovery
 :image: cover.png
 :alt: The actual serial killer doll
-:description: In this article, we describe the system, Chucky, which applies basic machine learning and natural language processing techniques in order to find missing-check related security vulnerabilities. The system is able to find 12 zero-day vulnerabilities in open source software.
-:keywords: Machine learning, Vulnerability, Anomaly detection, Nearest Neighbors, Missing Check, Security
+:description: Here we describe the system Chucky, which applies machine learning and natural language processing techniques to find missing-check related vulnerabilities.
+:keywords: Machine learning, Natural Language Processing, Vulnerability, Anomaly detection, Nearest Neighbors, Missing Check, Security, Ethical Hacking, Pentesting
 :author: Rafael Ballestas
 :writer: raballestasr
 :name: Rafael Ballestas
@@ -14,7 +14,7 @@
 :about2: with an itch for CS
 :source: https://unsplash.com/photos/6TWKpVmg-jQ
 
-= The anomaly serial killer doll
+= The Anomaly Serial Killer Doll
 
 In our [inner]#link:../exploit-code-graph/[previous article]#
 we focused on _taint-style_ vulnerabilites, i.e.,
