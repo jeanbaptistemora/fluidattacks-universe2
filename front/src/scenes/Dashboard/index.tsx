@@ -25,12 +25,12 @@ import { msgError, msgSuccess } from "../../utils/notifications";
 import rollbar from "../../utils/rollbar";
 import translate from "../../utils/translations/translate";
 import { updateAccessTokenModal as UpdateAccessTokenModal } from "./components/AddAccessTokenModal/index";
+import { addUserModal as AddUserModal } from "./components/AddUserModal/index";
 import { Navbar } from "./components/Navbar/index";
 import { Sidebar } from "./components/Sidebar";
 import { HomeView } from "./containers/HomeView";
 import { OrganizationContent } from "./containers/OrganizationContent/index";
 import { ProjectRoute } from "./containers/ProjectRoute/index";
-import { addUserModal as AddUserModal } from "./containers/ProjectUsersView/AddUserModal/index";
 import { IUserDataAttr } from "./containers/ProjectUsersView/types";
 import { ReportsView } from "./containers/ReportsView";
 import { TagContent } from "./containers/TagContent/index";
@@ -57,7 +57,7 @@ const dashboard: React.FC = (): JSX.Element => {
       if (mtResult.addUser.success) {
         closeUserModal();
         msgSuccess(
-          translate.t("sidebar.userModal.success", { email: mtResult.addUser.email }),
+          translate.t("userModal.success", { email: mtResult.addUser.email }),
           translate.t("search_findings.tab_users.title_success"),
         );
       }
@@ -152,9 +152,12 @@ const dashboard: React.FC = (): JSX.Element => {
 
           return (
             <AddUserModal
+              action="add"
+              editTitle=""
               onSubmit={handleSubmit}
               open={isUserModalOpen}
-              type="add"
+              title={translate.t("sidebar.user.text")}
+              type="user"
               onClose={closeUserModal}
               initialValues={{}}
             />

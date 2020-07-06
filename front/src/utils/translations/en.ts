@@ -516,6 +516,10 @@ const enTranslations: Dictionary = {
         tooltip: "Set common policies across all the groups of the organization",
         value: "Value",
       },
+      users: {
+        text: "Users",
+        tooltip: "Add and remove users from the organization",
+      },
     },
   },
   registration: {
@@ -1186,11 +1190,6 @@ const enTranslations: Dictionary = {
         text: "Add",
         tooltip: "Add a user to this group",
       },
-      admin: "Admin",
-      analyst: "Analyst",
-      closer: "Closer",
-      customer: "User",
-      customeradmin: "User Manager",
       days_ago: "{{count}} day ago",
       days_ago_plural: "{{count}} days ago",
       edit_button: {
@@ -1198,27 +1197,17 @@ const enTranslations: Dictionary = {
         tooltip: "Select a user and edit their information",
       },
       edit_user_title: "Edit user information",
-      email: "someone@domain.com",
-      executive: "Executive",
-      group_manager: "Group Manager",
       hours_ago: "{{count}} hour ago",
       hours_ago_plural: "{{count}} hours ago",
-      internal_manager: "Manager",
       minutes_ago: "{{count}} minute ago",
       minutes_ago_plural: "{{count}} minutes ago",
       months_ago: "{{count}} month ago",
       months_ago_plural: "{{count}} months ago",
       no_selection: "You must select an email from the table.",
-      phone_number: "Phone Number",
       remove_user_button: {
         text: "Remove",
         tooltip: "Remove an user from the group, first select one",
       },
-      resourcer: "Resourcer",
-      responsibility_placeholder: "Product Owner, Group Manager, " +
-        "Tester, ...",
-      reviewer: "Reviewer",
-      role: "Role",
       success: " now has access to this group.",
       success_admin: "User information updated.",
       success_delete: " was removed from this group.",
@@ -1226,8 +1215,6 @@ const enTranslations: Dictionary = {
         "an Office 365 or Google email",
       title: "Add user to this group",
       title_success: "Congratulations",
-      user_organization: "Organization",
-      user_responsibility: "Responsibility",
     },
     users_table: {
       firstlogin: "First login",
@@ -1249,9 +1236,6 @@ const enTranslations: Dictionary = {
     user: {
       text: "Add User",
       tooltip: "Add a user",
-    },
-    userModal: {
-      success: "{{email}} was added successfully",
     },
   },
   tag_indicator: {
@@ -1291,6 +1275,30 @@ const enTranslations: Dictionary = {
     successfully: "Token updated successfully",
     title: "Update access token",
     token_created: "Token created at: ",
+  },
+  userModal: {
+    emailPlaceholder: "someone@domain.com",
+    emailText: "Enter the email of the person you wish to add, it must be " +
+    "an Office 365 or Google email",
+    organization: "Organization",
+    phoneNumber: "Phone Number",
+    responsibility: "Responsibility",
+    responsibilityPlaceholder: "Product Owner, Group Manager, " +
+      "Tester, ...",
+    role: "Role",
+    roles: {
+      admin: "Admin",
+      analyst: "Analyst",
+      closer: "Closer",
+      customer: "User",
+      customeradmin: "User Manager",
+      executive: "Executive",
+      group_manager: "Group Manager",
+      internal_manager: "Manager",
+      resourcer: "Resourcer",
+      reviewer: "Reviewer",
+    },
+    success: "{{email}} was added successfully",
   },
   validations: {
     alphanumeric: "Only alphanumeric characters",

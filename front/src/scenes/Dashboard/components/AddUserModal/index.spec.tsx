@@ -7,15 +7,15 @@ import React from "react";
 import { act } from "react-dom/test-utils";
 import { Provider } from "react-redux";
 import wait from "waait";
-import store from "../../../../../store";
-import { authzPermissionsContext } from "../../../../../utils/authz/config";
-import { msgError } from "../../../../../utils/notifications";
+import store from "../../../../store";
+import { authzPermissionsContext } from "../../../../utils/authz/config";
+import { msgError } from "../../../../utils/notifications";
 import { addUserModal as AddUserModal } from "./index";
 import { GET_USER } from "./queries";
 import { IAddUserModalProps } from "./types";
 
-jest.mock("../../../../../utils/notifications", () => {
-  const mockedNotifications: Dictionary = jest.requireActual("../../../../../utils/notifications");
+jest.mock("../../../../utils/notifications", () => {
+  const mockedNotifications: Dictionary = jest.requireActual("../../../../utils/notifications");
   mockedNotifications.msgError = jest.fn();
   mockedNotifications.msgSuccess = jest.fn();
 
@@ -26,21 +26,27 @@ const functionMock: (() => void) = (): void => undefined;
 describe("Add user modal", () => {
 
   const mockPropsAdd: IAddUserModalProps = {
+    action: "add",
+    editTitle: "",
     initialValues: {},
     onClose: functionMock,
     onSubmit: functionMock,
     open: true,
     projectName: "TEST",
-    type: "add",
+    title: "",
+    type: "user",
   };
 
   const mockPropsEdit: IAddUserModalProps = {
+    action: "edit",
+    editTitle: "",
     initialValues: {},
     onClose: functionMock,
     onSubmit: functionMock,
     open: true,
     projectName: "TEST",
-    type: "edit",
+    title: "",
+    type: "user",
   };
 
   const mocks: ReadonlyArray<MockedResponse> = [

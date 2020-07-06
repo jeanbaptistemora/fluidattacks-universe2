@@ -7,10 +7,14 @@ export interface IUserDataAttr {
 }
 
 export interface IAddUserModalProps {
+  action: "add" | "edit";
+  editTitle: string;
   initialValues: Record<string, string>;
   open: boolean;
+  organizationName?: string;
   projectName?: string;
-  type: "add" | "edit";
+  title: string;
+  type: "organization" | "user";
   onClose(): void;
   onSubmit(values: {}): void;
 }

@@ -23,7 +23,7 @@ import { formatUserlist } from "../../../../utils/formatHelpers";
 import { msgError, msgSuccess } from "../../../../utils/notifications";
 import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
-import { addUserModal as AddUserModal } from "./AddUserModal/index";
+import { addUserModal as AddUserModal } from "../../components/AddUserModal/index";
 import { ADD_USER_MUTATION, EDIT_USER_MUTATION, GET_USERS, REMOVE_USER_MUTATION } from "./queries";
 import {
   IAddUserAttr, IEditUserAttr, IProjectUsersViewProps, IRemoveUserAttr, IUserDataAttr, IUsersAttr,
@@ -38,7 +38,7 @@ const tableHeaders: IHeader[] = [
   {
     dataField: "role",
     formatter: (value: string) => translate.t(
-      `search_findings.tab_users.${value}`,
+      `userModal.roles.${value}`,
       { defaultValue: "-" },
     ),
     header: translate.t("search_findings.users_table.userRole"),
@@ -85,13 +85,13 @@ const projectUsersView: React.FC<IProjectUsersViewProps> = (props: IProjectUsers
   // State management
   const [currentRow, setCurrentRow] = React.useState<Dictionary<string>>({});
   const [isUserModalOpen, setUserModalOpen] = React.useState(false);
-  const [userModalType, setUserModalType] = React.useState<"add" | "edit">("add");
+  const [userModalAction, setuserModalAction] = React.useState<"add" | "edit">("add");
   const openAddUserModal: (() => void) = (): void => {
-    setUserModalType("add");
+    setuserModalAction("add");
     setUserModalOpen(true);
   };
   const openEditUserModal: (() => void) = (): void => {
-    setUserModalType("edit");
+    setuserModalAction("edit");
     setUserModalOpen(true);
   };
   const closeUserModal: (() => void) = (): void => {
@@ -214,7 +214,7 @@ const projectUsersView: React.FC<IProjectUsersViewProps> = (props: IProjectUsers
 
   const handleSubmit: ((values: IUserDataAttr) => void) = (values: IUserDataAttr): void => {
     closeUserModal();
-    if (userModalType === "add") {
+    if (userModalAction === "add") {
       grantUserAccess({ variables: {...values, projectName } })
         .catch();
     } else {
@@ -227,6 +227,7 @@ const projectUsersView: React.FC<IProjectUsersViewProps> = (props: IProjectUsers
     removeUserAccess({ variables: { projectName, userEmail: currentRow.email } })
       .catch();
     setCurrentRow({});
+    setuserModalAction("add");
   };
 
   if (_.isUndefined(data) || _.isEmpty(data)) {
@@ -308,12 +309,15 @@ const projectUsersView: React.FC<IProjectUsersViewProps> = (props: IProjectUsers
           </Col>
         </Row>
         <AddUserModal
+          action={userModalAction}
+          editTitle={translate.t("search_findings.tab_users.edit_user_title")}
+          initialValues={userModalAction === "edit" ? currentRow : {}}
           onSubmit={handleSubmit}
           open={isUserModalOpen}
-          type={userModalType}
           onClose={closeUserModal}
           projectName={projectName}
-          initialValues={userModalType === "edit" ? currentRow : {}}
+          title={translate.t("search_findings.tab_users.title")}
+          type="user"
         />
       </div>
     </React.StrictMode>

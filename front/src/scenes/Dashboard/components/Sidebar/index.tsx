@@ -57,7 +57,7 @@ const sidebar: React.FC<ISidebarProps> = (props: ISidebarProps): JSX.Element => 
         {_.isUndefined(userRole) || _.isEmpty(userRole) ? (
           undefined
         ) :
-          <div className={style.version}><small>{translate.t(`search_findings.tab_users.${userRole}`)}</small></div>
+          <div className={style.version}><small>{translate.t(`userModal.roles.${userRole}`)}</small></div>
         }
         <div className={style.version}><small>integrates_version</small></div>
         <TooltipWrapper message="Log out of Integrates" placement="right">
