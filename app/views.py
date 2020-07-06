@@ -42,7 +42,6 @@ from backend.dal import (
     user as user_dal
 )
 from backend.exceptions import ConcurrentSession
-from backend.reports.all_vulns import generate_all_vulns_xlsx
 from backend.services import (
     has_access_to_finding, has_access_to_event
 )
@@ -274,28 +273,6 @@ def retrieve_image(request, img_file):
 def list_s3_evidences(prefix) -> List[str]:
     """return keys that begin with prefix from the evidences folder."""
     return list(util.iterate_s3_keys(CLIENT_S3, BUCKET_S3, prefix))
-
-
-@cache_content
-@never_cache
-def export_all_vulnerabilities(request):
-    allowed_roles = ['admin']
-
-    error = enforce_user_level_role(request, *allowed_roles)
-
-    if error is not None:
-        return error
-
-    user_data = util.get_jwt_content(request)
-    filepath = generate_all_vulns_xlsx(user_data['user_email'])
-    filename = os.path.basename(filepath)
-    with open(filepath, 'rb') as document:
-        response = HttpResponse(document.read())
-        response['Content-Type'] = 'application/vnd.openxmlformats\
-                        -officedocument.spreadsheetml.sheet'
-        response['Content-Disposition'] = 'inline;filename={filename}'.format(
-            filename=filename)
-    return response
 
 
 @cache_content
