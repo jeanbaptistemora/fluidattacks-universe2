@@ -30,6 +30,7 @@ from backend import util
 from backend import authz
 from django.conf import settings
 from jose import jwt
+from mixpanel import Mixpanel
 from social_core.exceptions import AuthException
 from social_django.utils import load_strategy
 from social_django.utils import load_backend
@@ -195,10 +196,11 @@ async def _do_sign_in(
         auth_backend = load_backend(
             strategy=strategy, name=provider, redirect_uri=None)
         user = await sync_to_async(auth_backend.do_auth)(auth_token)
+        organization = user_domain.get_data(user.email, 'company')
         session_jwt = jwt.encode(
             {
                 'user_email': user.email,
-                'company': user_domain.get_data(user.email, 'company'),
+                'company': organization,
                 'first_name': getattr(user, 'first_name'),
                 'last_name': getattr(user, 'last_name'),
                 'exp': datetime.utcnow() +
@@ -208,6 +210,12 @@ async def _do_sign_in(
             algorithm='HS512',
             key=settings.JWT_SECRET,
         )
+        mp_obj = Mixpanel(settings.MIXPANEL_API_TOKEN)
+        await sync_to_async(mp_obj.track)(user.email, 'MobileAuth', {
+            'email': user.email,
+            'organization': organization,
+            'provider': provider
+        })
         success = True
     except AuthException as ex:
         rollbar.report_message(
