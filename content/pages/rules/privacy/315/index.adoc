@@ -29,7 +29,7 @@ regarding the personal information that they process:
 party.
 
 Furthermore, the data should be presented in a clear manner,
-in a structured format and using an easy to understand language.
+in a structured format and using an easy-to-understand language.
 
 == Exceptions
 
@@ -104,3 +104,9 @@ Where personal data are processed for archiving purposes in the public
 interest,
 Union or Member State law may provide for derogations from the rights referred
 to in Articles 15, 16, 18, 19, 20 and 21.
+
+. [[r8]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V8.3 Sensitive Private Data.(8.3.4)]
+Verify that all sensitive data created and processed by the application has
+been identified,
+and ensure that a policy is in place on how to deal with sensitive data.

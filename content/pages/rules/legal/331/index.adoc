@@ -38,3 +38,9 @@ information, or data assessed likely to be subject to EU's GDPR.
 V7.1 Log Content Requirements.(1.7.2)]
 Verify that the application does not log other sensitive data as defined under
 local privacy laws or relevant security policy.
+
+. [[r5]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V8.3 Sensitive Private Data.(8.3.4)]
+Verify that all sensitive data created and processed by the application has
+been identified,
+and ensure that a policy is in place on how to deal with sensitive data.

@@ -52,3 +52,9 @@ providing the value added service.
 Where processing is based on consent, the controller shall be able to
 demonstrate that the data subject has consented to processing of his or her
 personal data.
+
+. [[r4]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V8.3 Sensitive Private Data.(8.3.3)]
+Verify that users are provided clear language regarding collection and use of
+supplied personal information and that users have provided opt-in consent for
+the use of that data before it is used in any way.
