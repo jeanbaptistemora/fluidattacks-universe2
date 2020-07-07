@@ -5,7 +5,6 @@ Some rules were taken from `CFN_NAG <https://github.com/
 stelligent/cfn_nag/blob/master/LICENSE.md>`_
 """
 
-# pylint: disable=too-many-branches,too-many-nested-blocks,too-many-statements
 # Standard imports
 import re
 from typing import List, Optional, Pattern, Dict, Tuple
@@ -29,7 +28,11 @@ from fluidasserts.cloud.aws.cloudformation import get_value
 import fluidasserts.cloud.aws.cloudformation as main
 
 
-@api(risk=MEDIUM, kind=SAST)  # noqa: MC0001
+WILDCARD_ACTION: Pattern = re.compile(r'^(\*)|(\w+:\*)$')
+WILDCARD_RESOURCE: Pattern = re.compile(r'^(\*)$')
+
+
+@api(risk=MEDIUM, kind=SAST)
 @unknown_if(FileNotFoundError)
 def is_role_over_privileged(
         path: str, exclude: Optional[List[str]] = None) -> tuple:
@@ -59,8 +62,6 @@ def is_role_over_privileged(
     vulnerabilities: list = []
     graph: DiGraph = get_graph(path, exclude)
     templates: List[Tuple[int, Dict]] = get_templates(graph, path, exclude)
-    wildcard_action: Pattern = re.compile(r'^(\*)|(\w+:\*)$')
-    wildcard_resource: Pattern = re.compile(r'^(\*)$')
     roles: List[int] = get_resources(graph, map(lambda x: x[0], templates),
                                      {'AWS', 'IAM', 'Role'}, info=True)
 
@@ -70,191 +71,22 @@ def is_role_over_privileged(
         _managed_policies: List[int] = helper.get_index(
             get_resources(graph, role, 'ManagedPolicyArns', depth=3), 0)
         vulnerable_entities: List[str] = []
-        if _managed_policies:
-            managed_policies = get_resources(graph,
-                                             _managed_policies,
-                                             'Item',
-                                             depth=4)
-            for man_pol in managed_policies:
-                # W43: IAM role should not have AdministratorAccess policy
-                policy_arn = graph.nodes.get(man_pol)['value']
-                if 'AdministratorAccess' in policy_arn:
-                    entity = f'ManagedPolicyArns: {policy_arn}'
-                    reason = 'grants excessive privileges'
-                    line = graph.nodes.get(man_pol)['line']
-                    vulnerable_entities.append((entity, reason, line))
+
+        vulnerable_entities += _has_admin_access(_managed_policies, graph)
 
         _policies: List[int] = helper.get_index(
             get_resources(graph, role, 'Policies', depth=3), 0)
-        if _policies:
-            _policy_documents = get_resources(graph,
-                                              _policies,
-                                              'PolicyDocument',
-                                              depth=4)
-            for pol_doc in _policy_documents:
-                _statements = get_resources(graph,
-                                            pol_doc,
-                                            'Statement',
-                                            depth=5)
-                statements = get_resources(graph,
-                                           _statements,
-                                           'Item',
-                                           depth=6)
-                for statement in statements:
-                    effect = helper.get_index(get_resources(graph,
-                                                            statement,
-                                                            'Effect',
-                                                            depth=7), 0)
-                    res = helper.get_index(get_resources(graph,
-                                                         statement,
-                                                         'Resource',
-                                                         depth=7), 0)
-                    not_res = helper.get_index(get_resources(graph,
-                                                             statement,
-                                                             'NotResource',
-                                                             depth=7), 0)
-                    _actions = helper.get_index(get_resources(graph,
-                                                              statement,
-                                                              'Action',
-                                                              depth=7), 0)
-                    if _actions:
-                        actions = get_resources(graph,
-                                                _actions,
-                                                'Item',
-                                                depth=7)
-                    else:
-                        actions = []
-                    _not_actions = helper.get_index(get_resources(graph,
-                                                                  statement,
-                                                                  'NotAction',
-                                                                  depth=7), 0)
-
-                    if effect:
-                        effect_val = get_value(graph, effect)
-                        if effect_val != 'Allow':
-                            continue
-
-                    if _not_actions:
-                        # W15: IAM role should not allow Allow+NotAction
-                        entity = 'Policies/PolicyDocument/Statement/NotAction'
-                        reason = 'avoid security through black listing'
-                        line = graph.nodes.get(_not_actions)['line']
-                        vulnerable_entities.append((entity, reason, line))
-                    # W21: IAM role should not allow Allow+NotResource
-                    if not_res:
-                        entity = ('Policies/PolicyDocument/'
-                                  'Statement/NotResource')
-                        reason = 'avoid security through black listing'
-                        line = graph.nodes.get(not_res)['line']
-                        vulnerable_entities.append((entity, reason, line))
-
-                    for action in actions:
-                        act_val = get_value(graph, action)
-                        # F3: IAM role should not allow * action on its
-                        #   permissions policy
-                        if wildcard_action.match(act_val):
-                            entity = (f'Policies/PolicyDocument'
-                                      f'/Statement/Action: {act_val}')
-                            reason = 'grants wildcard privileges'
-                            line = graph.nodes.get(action)['line']
-                            vulnerable_entities.append((entity, reason, line))
-
-                    # W11: IAM role should not allow * resource on its
-                    #   permissions policy
-                    # F38: IAM role should not allow * resource with
-                    #   PassRole action on its permissions policy
-                    if res:
-                        res_val = get_value(graph, res)
-                        if res_val:  # Resources may be a value or a list
-                            if wildcard_resource.match(get_value(graph, res)):
-                                entity = (f'Policies/PolicyDocument'
-                                          f'/Statement/Resource: {res_val}')
-                                reason = 'grants wildcard privileges'
-                                line = graph.nodes.get(res)['line']
-                                vulnerable_entities.append((entity,
-                                                            reason,
-                                                            line))
-                        else:
-                            res_list = get_resources(graph,
-                                                     res,
-                                                     'Item',
-                                                     depth=7)
-                            for rsrc in res_list:
-                                res_val = get_value(graph, rsrc)
-                                if wildcard_resource.match(res_val):
-                                    entity = (f'Policies/PolicyDocument'
-                                              f'/Statement/Resource:{res_val}')
-                                    reason = 'grants wildcard privileges'
-                                    line = graph.nodes.get(rsrc)['line']
-                                    vulnerable_entities.append((entity,
-                                                                reason,
-                                                                line))
+        _policy_documents = get_resources(graph,
+                                          _policies,
+                                          'PolicyDocument',
+                                          depth=4)
+        vulnerable_entities += \
+            _check_policy_documents(_policy_documents, graph)
 
         _assume_role_policy: List[int] = helper.get_index(
             get_resources(graph, role, 'AssumeRolePolicyDocument', depth=3), 0)
-        if _assume_role_policy:
-            _statements = get_resources(graph,
-                                        _assume_role_policy,
-                                        'Statement',
-                                        depth=4)
-            statements = get_resources(graph,
-                                       _statements,
-                                       'Item',
-                                       depth=5)
-            for statement in statements:
-                effect = helper.get_index(get_resources(graph,
-                                                        statement,
-                                                        'Effect',
-                                                        depth=6), 0)
-                not_princ = helper.get_index(get_resources(graph,
-                                                           statement,
-                                                           'NotPrincipal',
-                                                           depth=6), 0)
-                _actions = helper.get_index(get_resources(graph,
-                                                          statement,
-                                                          'Action',
-                                                          depth=6), 0)
-                if _actions:
-                    actions = get_resources(graph,
-                                            _actions,
-                                            'Item',
-                                            depth=6)
-                else:
-                    actions = []
-                _not_actions = helper.get_index(get_resources(graph,
-                                                              statement,
-                                                              'NotAction',
-                                                              depth=7), 0)
-
-                if effect:
-                    effect_val = get_value(graph, effect)
-                    if effect_val != 'Allow':
-                        continue
-
-                if _not_actions:
-                    # W15: IAM role should not allow Allow+NotAction
-                    entity = 'AssumeRolePolicyDocument/Statement/NotAction'
-                    reason = 'avoid security through black listing'
-                    line = graph.nodes.get(_not_actions)['line']
-                    vulnerable_entities.append((entity, reason, line))
-                # W21: IAM role should not allow Allow+NotResource
-                if not_princ:
-                    entity = ('AssumeRolePolicyDocument/'
-                              'Statement/NotPrincipal')
-                    reason = 'avoid security through black listing'
-                    line = graph.nodes.get(not_princ)['line']
-                    vulnerable_entities.append((entity, reason, line))
-
-                for action in actions:
-                    act_val = get_value(graph, action)
-                    # F3: IAM role should not allow * action on its
-                    #   permissions policy
-                    if wildcard_action.match(act_val):
-                        entity = (f'AssumeRolePolicyDocument'
-                                  f'/Statement/Action: {act_val}')
-                        reason = 'grants wildcard privileges'
-                        line = graph.nodes.get(action)['line']
-                        vulnerable_entities.append((entity, reason, line))
+        vulnerable_entities += _check_assume_role_policies(_assume_role_policy,
+                                                           graph)
         if vulnerable_entities:
             for entity, reason, line in set(vulnerable_entities):
                 vulnerabilities.append(
@@ -269,6 +101,225 @@ def is_role_over_privileged(
         vulnerabilities=vulnerabilities,
         msg_open='IAM Role grants unnecessary privileges',
         msg_closed='IAM Role grants granular privileges')
+
+
+def _check_assume_role_policies(_assume_role_policy, graph):
+    vulnerable_entities: List[str] = []
+    if _assume_role_policy:
+        _statements = get_resources(graph,
+                                    _assume_role_policy,
+                                    'Statement',
+                                    depth=4)
+        statements = get_resources(graph,
+                                   _statements,
+                                   'Item',
+                                   depth=5)
+        for statement in statements:
+            effect = helper.get_index(get_resources(graph,
+                                                    statement,
+                                                    'Effect',
+                                                    depth=6), 0)
+            not_princ = helper.get_index(get_resources(graph,
+                                                       statement,
+                                                       'NotPrincipal',
+                                                       depth=6), 0)
+            _actions = helper.get_index(get_resources(graph,
+                                                      statement,
+                                                      'Action',
+                                                      depth=6), 0)
+            if _actions:
+                actions = get_resources(graph,
+                                        _actions,
+                                        'Item',
+                                        depth=6)
+            else:
+                actions = []
+            _not_actions = helper.get_index(get_resources(graph,
+                                                          statement,
+                                                          'NotAction',
+                                                          depth=7), 0)
+
+            if _is_effect_allow(graph, effect):
+                continue
+
+            vulnerable_entities += _has_not_action(graph, _not_actions,
+                                                   _assume_role_policy)
+
+            vulnerable_entities += _has_not_principal(graph, not_princ,
+                                                      _assume_role_policy)
+            vulnerable_entities += _has_wildcard_action(graph, actions,
+                                                        _assume_role_policy)
+    return vulnerable_entities
+
+
+def _check_policy_documents(_policy_documents, graph):
+    vulnerable_entities: List[str] = []
+    for pol_doc in _policy_documents:
+        _statements = get_resources(graph,
+                                    pol_doc,
+                                    'Statement',
+                                    depth=5)
+        statements = get_resources(graph,
+                                   _statements,
+                                   'Item',
+                                   depth=6)
+        for statement in statements:
+            effect = helper.get_index(get_resources(graph,
+                                                    statement,
+                                                    'Effect',
+                                                    depth=7), 0)
+            res = helper.get_index(get_resources(graph,
+                                                 statement,
+                                                 'Resource',
+                                                 depth=7), 0)
+            not_res = helper.get_index(get_resources(graph,
+                                                     statement,
+                                                     'NotResource',
+                                                     depth=7), 0)
+            _actions = helper.get_index(get_resources(graph,
+                                                      statement,
+                                                      'Action',
+                                                      depth=7), 0)
+            if _actions:
+                actions = get_resources(graph,
+                                        _actions,
+                                        'Item',
+                                        depth=7)
+            else:
+                actions = []
+            _not_actions = helper.get_index(get_resources(graph,
+                                                          statement,
+                                                          'NotAction',
+                                                          depth=7), 0)
+
+            if _is_effect_allow(graph, effect):
+                continue
+
+            vulnerable_entities += _has_not_action(graph, _not_actions,
+                                                   pol_doc)
+            vulnerable_entities += _has_not_resource(graph, not_res,
+                                                     pol_doc)
+
+            vulnerable_entities += _has_wildcard_action(graph, actions,
+                                                        pol_doc)
+
+            vulnerable_entities += _has_wildcard_resource(graph, res,
+                                                          pol_doc)
+    return vulnerable_entities
+
+
+def _has_not_principal(graph, not_princ, parent):
+    # W21: IAM role should not allow Allow+NotResource
+    vulnerable_entities: List = []
+    name: str = graph.nodes.get(parent)['name']
+    if not_princ:
+        entity = f'{name}/Statement/NotPrincipal'
+        reason = 'avoid security through black listing'
+        line = graph.nodes.get(not_princ)['line']
+        vulnerable_entities.append((entity, reason, line))
+    return vulnerable_entities
+
+
+def _has_wildcard_resource(graph, res, parent):
+    """ W11: IAM role should not allow * resource on its
+          permissions policy.
+        F38: IAM role should not allow * resource with
+          PassRole action on its permissions policy."""
+    vulnerable_entities: List = []
+    name: str = graph.nodes.get(parent)['name']
+    res_list: List = _get_resource_list(graph, res)
+    for res_val, line in res_list:
+        if WILDCARD_RESOURCE.match(res_val):
+            entity = (f'{name}/Statement/Resource:{res_val}')
+            reason = 'grants wildcard privileges'
+            line = graph.nodes.get(res)['line']
+            vulnerable_entities.append((entity,
+                                        reason,
+                                        line))
+    return vulnerable_entities
+
+
+def _get_resource_list(graph, res):
+    """Returns a list with the statement resources."""
+    ret: List = []
+    if res:
+        res_val = get_value(graph, res)
+        line = graph.nodes.get(res)['line']
+        if res_val:
+            ret = [(res_val, line)]
+        else:
+            res_list = get_resources(graph,
+                                     res,
+                                     'Item',
+                                     depth=7)
+            ret = [(get_value(graph, rsrc), graph.nodes.get(rsrc)['line'])
+                   for rsrc in res_list]
+    return ret
+
+
+def _has_wildcard_action(graph, actions, parent):
+    vulnerable_entities: List = []
+    name: str = graph.nodes.get(parent)['name']
+    for action in actions:
+        act_val = get_value(graph, action)
+        # F3: IAM role should not allow * action on its
+        #   permissions policy
+        if WILDCARD_ACTION.match(act_val):
+            entity = (f'{name}/Statement/Action: {act_val}')
+            reason = 'grants wildcard privileges'
+            line = graph.nodes.get(action)['line']
+            vulnerable_entities.append((entity, reason, line))
+    return vulnerable_entities
+
+
+def _has_not_resource(graph, not_res, parent):
+    # W21: IAM role should not allow Allow+NotResource
+    vulnerable_entities: List = []
+    name: str = graph.nodes.get(parent)['name']
+    if not_res:
+        entity = f'{name}/Statement/NotResource'
+        reason = 'avoid security through black listing'
+        line = graph.nodes.get(not_res)['line']
+        vulnerable_entities.append((entity, reason, line))
+    return vulnerable_entities
+
+
+def _has_not_action(graph, not_action, parent):
+    vulnerable_entities: List = []
+    name: str = graph.nodes.get(parent)['name']
+    if not_action:
+        # W15: IAM role should not allow Allow+NotAction
+        entity = f'{name}/Statement/NotAction'
+        reason = 'avoid security through black listing'
+        line = graph.nodes.get(not_action)['line']
+        vulnerable_entities.append((entity, reason, line))
+    return vulnerable_entities
+
+
+def _is_effect_allow(graph, effect):
+    if effect:
+        effect_val = get_value(graph, effect)
+        if effect_val != 'Allow':
+            return True
+    return False
+
+
+def _has_admin_access(_managed_policies, graph):
+    vulnerable_entities: List[str] = []
+    if _managed_policies:
+        managed_policies = get_resources(graph,
+                                         _managed_policies,
+                                         'Item',
+                                         depth=4)
+        for man_pol in managed_policies:
+            # W43: IAM role should not have AdministratorAccess policy
+            policy_arn = graph.nodes.get(man_pol)['value']
+            if 'AdministratorAccess' in policy_arn:
+                entity = f'ManagedPolicyArns: {policy_arn}'
+                reason = 'grants excessive privileges'
+                line = graph.nodes.get(man_pol)['line']
+                vulnerable_entities.append((entity, reason, line))
+    return vulnerable_entities
 
 
 def _is_generic_policy_miss_configured(  # noqa: MC0001
