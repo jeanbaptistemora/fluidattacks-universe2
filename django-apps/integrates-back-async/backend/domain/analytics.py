@@ -50,7 +50,7 @@ GRAPHIC_PARAMETERS = NamedTuple('GraphicParameters', [
 
 
 @apm.trace()
-@cache_idempotent(ttl=300)
+@cache_idempotent(ttl=3600)
 async def get_document(
     *,
     document_name: str,

@@ -175,11 +175,7 @@ def app(request):
     return response
 
 
-@cache_control(
-    immutable=True,
-    private=True,
-    stale_while_revalidate=300,
-)
+@never_cache
 @csrf_exempt
 @require_login
 @require_http_methods(['GET'])
