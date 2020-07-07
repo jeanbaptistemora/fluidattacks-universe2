@@ -115,3 +115,9 @@ Verify that all random numbers, random file names, random **GUID**s, and random
 strings are generated using the cryptographic module's approved
 cryptographically secure random number generator when these random values are
 intended to be not guessable by an attacker.
+
+. [[r18]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V8.3 Sensitive Private Data.(8.3.7)]
+Verify that sensitive or private information that is required to be encrypted,
+is encrypted using approved algorithms that provide both confidentiality and
+integrity.

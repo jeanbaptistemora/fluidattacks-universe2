@@ -1,7 +1,7 @@
 :slug: rules/214/
 :category: mobile
 :description: This requirement establishes the importance of managing remote data destruction on mobile devices containing sensitive information.
-:keywords: Requirement, Security, Sensitive Information, Management, Mobile Device, Loss, Rules, Ethical Hacking, Pentesting
+:keywords: Sensitive Information, Management, Mobile Device, Loss, ASVS, HIPAA, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R214. Allow data destruction
@@ -12,18 +12,19 @@ The mobile device must allow remote data destruction in case of loss.
 
 == References
 
-. [[r1]] link:https://www.law.cornell.edu/cfr/text/45/164.310[+HIPAA Security Rules+ 164.310(d)(2)(i):]
+. [[r1]] link:https://www.law.cornell.edu/cfr/text/45/164.310[HIPAA Security Rules 164.310(d)(2)(i):]
 Disposal: Implement policies and procedures
 to address the final disposition of electronic protected health information
 and/or the hardware or electronic media on which it is stored.
 
-. [[r2]] link:https://www.law.cornell.edu/cfr/text/45/164.312[+HIPAA Security Rules+ 164.312(e)(2)(i):]
+. [[r2]] link:https://www.law.cornell.edu/cfr/text/45/164.312[HIPAA Security Rules 164.312(e)(2)(i):]
 Integrity Controls: Implement security measures
 to ensure that electronically transmitted
 electronic protected health information
 is not improperly modified without detection until disposed of.
 
-. [[r3]] link:https://www.owasp.org/index.php/ASVS_V9_Data_Protection[+OWASP-ASVS v3.1-9.11+]
-Verify that sensitive information maintained in memory
-is overwritten with zeros as soon as it no longer required,
-to mitigate memory dumping attacks.
+. [[r3]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V8.3 Sensitive Private Data.(8.3.6)]
+Verify that sensitive information contained in memory is overwritten as soon as
+it is no longer required to mitigate memory dumping attacks,
+using zeros or random data.

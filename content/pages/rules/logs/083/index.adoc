@@ -72,3 +72,10 @@ Verify that all authentication decisions are logged,
 without storing sensitive session identifiers or passwords.
 This should include requests with relevant metadata needed for security
 investigations.
+
+. [[r7]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V8.3 Sensitive Private Data.(8.3.5)]
+Verify accessing sensitive data is audited
+(without logging the sensitive data itself),
+if the data is collected under relevant data protection directives or where
+logging of access is required.
