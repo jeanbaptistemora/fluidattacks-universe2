@@ -11,6 +11,10 @@ from backend.utils.findings import (
 from backend.dal.finding import get_finding
 
 
+pytestmark = [
+    pytest.mark.asyncio,
+]
+
 class FindingsTests(TestCase):
 
     def test_get_evidence(self):
@@ -75,32 +79,30 @@ class FindingsTests(TestCase):
         expected_output = 'print "It works!"\n'
         assert test_data == expected_output
 
-    def test_format_data(self):
+    async def test_format_data(self):
         finding_id = '422286126'
-        finding_to_test = get_finding(finding_id)
+        finding_to_test = await get_finding(finding_id)
         test_data = list(format_data(finding_to_test).keys())
         expected_keys = [
             'context', 'modifiedSeverityScope', 'availabilityRequirement',
             'evidence', 'releaseDate', 'availabilityImpact','exploit',
-            'modifiedPrivilegesRequired', 'verificationRequestDate',
+            'modifiedPrivilegesRequired', 'historicTreatment',
             'modifiedAttackVector', 'testType', 'id', 'affectedSystems',
             'attackVectorDesc', 'requirements', 'severity', 'cvssBasescore',
             'userInteraction', 'actor', 'cvssEnv', 'privilegesRequired',
-            'interested', 'treatmentJustification', 'treatment', 'projectName',
+            'interested', 'projectName',
             'finding', 'confidentialityImpact', 'integrityRequirement',
             'remediationLevel', 'cwe', 'leader', 'modifiedConfidentialityImpact',
             'files', 'modifiedUserInteraction', 'attackComplexity',
             'attackVector', 'reportConfidence', 'cvssTemporal', 'remediated',
             'clientProject', 'compromisedAttrs', 'findingType', 'exploitable',
             'confidentialityRequirement', 'records', 'recordsNumber',
-            'modifiedAttackComplexity', 'treatmentManager', 'severityScope',
+            'modifiedAttackComplexity', 'severityScope',
             'cvssVersion', 'analyst', 'subscription', 'reportDate',
-            'effectSolution', 'reportLevel', 'verificationDate', 'scenario',
+            'effectSolution', 'reportLevel', 'scenario',
             'severityCvss', 'modifiedAvailabilityImpact', 'age', 'vulnerability',
             'findingId', 'threat', 'lastVulnerability', 'integrityImpact',
             'modifiedIntegrityImpact','relatedFindings',
             'exploitability']
 
-        assert True
-        # Must be enabled later
-        # assert test_data == expected_keys
+        assert sorted(test_data) == sorted(expected_keys)

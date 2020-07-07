@@ -439,7 +439,7 @@ class FindingTests(TestCase):
         assert 'success' in result['data']['deleteFinding']
         assert result['data']['deleteFinding']['success']
         with pytest.raises(FindingNotFound):
-            assert get_finding('560175507')
+            assert await get_finding('560175507')
 
     @pytest.mark.changes_db
     async def test_approve_draft(self):

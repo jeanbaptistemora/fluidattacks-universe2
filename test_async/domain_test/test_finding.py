@@ -190,7 +190,7 @@ class FindingTests(TestCase):
         assert isinstance(test_data, bool)
         assert test_data == expected_output
 
-        finding = finding_dal.get_finding(finding_id)
+        finding = async_to_sync(finding_dal.get_finding)(finding_id)
         assert finding.get('historic_treatment', [{}])[-1].get('user') == 'Masked'
 
     def test_validate_evidence_exploit(self):

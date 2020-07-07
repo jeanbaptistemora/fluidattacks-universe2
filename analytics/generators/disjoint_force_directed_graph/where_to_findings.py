@@ -22,7 +22,7 @@ async def generate_one(group: str):
     }
 
     for finding_id in group_domain.list_findings(group):
-        finding = finding_domain.get_finding(finding_id)
+        finding = await finding_domain.get_finding(finding_id)
         finding_title = finding['finding']
         finding_cvss = finding['severityCvss']
 

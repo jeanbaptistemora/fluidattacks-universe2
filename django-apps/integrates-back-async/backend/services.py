@@ -30,7 +30,7 @@ def has_access_to_project(email: str, group: str) -> bool:
 
 def has_access_to_finding(email: str, finding_id: str) -> bool:
     """ Verify if the user has access to a finding submission. """
-    finding = finding_domain.get_finding(finding_id)
+    finding = async_to_sync(finding_domain.get_finding)(finding_id)
     group = cast(str, finding.get('projectName', ''))
     return has_access_to_project(email, group)
 

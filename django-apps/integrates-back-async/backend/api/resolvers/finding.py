@@ -585,9 +585,8 @@ async def _do_update_evidence_description(
     """Resolve update_evidence_description mutation."""
     success = False
     try:
-        success = await \
-            sync_to_async(finding_domain.update_evidence_description)(
-                finding_id, evidence_id, description)
+        success = await finding_domain.update_evidence_description(
+            finding_id, evidence_id, description)
         if success:
             util.invalidate_cache(finding_id)
             util.cloudwatch_log(
@@ -803,8 +802,7 @@ async def _do_update_client_description(
 async def _do_reject_draft(_, info, finding_id: str) -> SimplePayloadType:
     """Resolve reject_draft mutation."""
     reviewer_email = util.get_jwt_content(info.context)['user_email']
-    success = await \
-        sync_to_async(finding_domain.reject_draft)(finding_id, reviewer_email)
+    success = await finding_domain.reject_draft(finding_id, reviewer_email)
     if success:
         finding_loader = info.context.loaders['finding']
         finding_data = await finding_loader.load(finding_id)
@@ -835,9 +833,8 @@ async def _do_delete_finding(_, info, finding_id: str,
     finding_data = await finding_loader.load(finding_id)
     project_name = finding_data['project_name']
 
-    success = await \
-        sync_to_async(finding_domain.delete_finding)(
-            finding_id, project_name, justification, info.context)
+    success = await finding_domain.delete_finding(
+        finding_id, project_name, justification, info.context)
     if success:
         finding_loader.clear(finding_id)
         util.invalidate_cache(finding_id)
@@ -910,8 +907,7 @@ async def _do_create_draft(_, info, project_name: str, title: str,
 async def _do_submit_draft(_, info, finding_id: str) -> SimplePayloadType:
     """Resolve submit_draft mutation."""
     analyst_email = util.get_jwt_content(info.context)['user_email']
-    success = await \
-        sync_to_async(finding_domain.submit_draft)(finding_id, analyst_email)
+    success = await finding_domain.submit_draft(finding_id, analyst_email)
 
     if success:
         util.invalidate_cache(finding_id)

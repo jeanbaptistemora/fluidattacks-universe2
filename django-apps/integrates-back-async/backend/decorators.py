@@ -353,7 +353,7 @@ def require_finding_access(func: Callable[..., Any]) -> Callable[..., Any]:
 
         enforcer = authz.get_group_access_enforcer()
 
-        if not finding_domain.validate_finding(finding_id):
+        if not await finding_domain.validate_finding(finding_id):
             raise FindingNotFound()
 
         if not await enforcer(user_data, finding_project):

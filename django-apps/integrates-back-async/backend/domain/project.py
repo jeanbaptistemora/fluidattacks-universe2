@@ -465,7 +465,7 @@ def is_alive(project: str) -> bool:
 async def total_vulnerabilities(finding_id: str) -> Dict[str, int]:
     """Get total vulnerabilities in new format."""
     finding = {'openVulnerabilities': 0, 'closedVulnerabilities': 0}
-    if await sync_to_async(finding_domain.validate_finding)(finding_id):
+    if await finding_domain.validate_finding(finding_id):
         vulnerabilities = await sync_to_async(vuln_dal.get_vulnerabilities)(
             finding_id
         )
@@ -507,7 +507,7 @@ async def get_last_closing_vuln_info(
 
     validate_findings = await asyncio.gather(*[
         asyncio.create_task(
-            sync_to_async(finding_domain.validate_finding)(
+            finding_domain.validate_finding(
                 str(finding['finding_id']))
         )
         for finding in findings
@@ -648,7 +648,7 @@ async def get_mean_remediate(findings: List[Dict[str, FindingType]]) -> \
     tzn = pytz.timezone('America/Bogota')
     validate_findings = await asyncio.gather(*[
         asyncio.create_task(
-            sync_to_async(finding_domain.validate_finding)(
+            finding_domain.validate_finding(
                 str(finding['finding_id']))
         )
         for finding in findings
@@ -780,7 +780,7 @@ async def get_total_treatment(
     undefined_treatment: int = 0
     validate_findings = await asyncio.gather(*[
         asyncio.create_task(
-            sync_to_async(finding_domain.validate_finding)(
+            finding_domain.validate_finding(
                 str(finding['finding_id'])
             )
         )

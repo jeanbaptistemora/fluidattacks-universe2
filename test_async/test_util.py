@@ -28,6 +28,10 @@ from backend.util import (
 from backend.dal.finding import get_finding
 from test_async.utils import create_dummy_simple_session
 
+pytestmark = [
+    pytest.mark.asyncio,
+]
+
 
 class UtilTests(TestCase):
 
@@ -68,15 +72,15 @@ class UtilTests(TestCase):
         assert has_release(test_dict)
         assert not has_release(test_dict_with_no_release_date)
 
-    def test_get_last_vuln(self):
-        finding = get_finding('422286126')
+    async def test_get_last_vuln(self):
+        finding = await get_finding('422286126')
         test_data = get_last_vuln(finding)
         expected_output = datetime(2018, 7, 9).date()
         assert test_data == expected_output
 
-    def test_validate_release_date(self):
-        finding = get_finding('422286126')
-        unreleased_finding = get_finding('560175507')
+    async def test_validate_release_date(self):
+        finding = await get_finding('422286126')
+        unreleased_finding = await get_finding('560175507')
         assert validate_release_date(finding)
         assert not validate_release_date(unreleased_finding)
 

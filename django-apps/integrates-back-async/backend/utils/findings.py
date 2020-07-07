@@ -733,9 +733,9 @@ async def validate_treatment_change(
         )
     )
     return all(
-        await asyncio.gather(*[
+        await asyncio.gather(
             validate_acceptance_days_task,
             validate_acceptance_severity_task,
             validate_number_acceptations_task
-        ])
+        )
     )

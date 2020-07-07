@@ -73,12 +73,13 @@ async def add_comment(
     comment_data['modified'] = current_time
 
     if not is_remediation_comment:
-        await sync_to_async(mailer.send_comment_mail)(
+        await aio.ensure_io_bound(
+            mailer.send_comment_mail,
             comment_data,
             'finding',
             user_email,
             str(comment_data.get('comment_type')),
-            get_finding(finding_id)
+            await get_finding(finding_id)
         )
     user_data = user_domain.get(user_email)
     user_data['user_email'] = user_data.pop('email')
@@ -215,7 +216,7 @@ async def update_treatment_in_vuln(
     for vuln in vulns:
         if not any('treatment_manager' in dicts
                    for dicts in [new_values, vuln]):
-            finding = await sync_to_async(finding_dal.get_finding)(finding_id)
+            finding = await finding_dal.get_finding(finding_id)
             group: str = cast(str, finding.get('project_name', ''))
             email: str = updated_values.get('user', '')
             treatment: str = cast(str, new_values.get('treatment', ''))
@@ -315,7 +316,7 @@ async def update_treatment(
     success = False
     tzn: DstTzInfo = pytz.timezone(settings.TIME_ZONE)
     today = datetime.now(tz=tzn).strftime('%Y-%m-%d %H:%M:%S')
-    finding = get_finding(finding_id)
+    finding = await get_finding(finding_id)
     historic_treatment = cast(
         List[Dict[str, str]],
         finding.get('historicTreatment', [])
@@ -389,8 +390,8 @@ async def save_severity(finding: Dict[str, FindingType]) -> bool:
     return response
 
 
-def reject_draft(draft_id: str, reviewer_email: str) -> bool:
-    draft_data = get_finding(draft_id)
+async def reject_draft(draft_id: str, reviewer_email: str) -> bool:
+    draft_data = await get_finding(draft_id)
     history = cast(
         List[Dict[str, str]],
         draft_data.get('historicState', [{}])
@@ -409,12 +410,13 @@ def reject_draft(draft_id: str, reviewer_email: str) -> bool:
                 'state': 'REJECTED'
             })
 
-            success = async_to_sync(finding_dal.update)(draft_id, {
+            success = await finding_dal.update(draft_id, {
                 'release_date': None,
                 'historic_state': history
             })
             if success:
-                finding_utils.send_draft_reject_mail(
+                await aio.ensure_io_bound(
+                    finding_utils.send_draft_reject_mail,
                     draft_id,
                     str(draft_data.get('projectName', '')),
                     str(draft_data.get('analyst', '')),
@@ -429,12 +431,12 @@ def reject_draft(draft_id: str, reviewer_email: str) -> bool:
     return success
 
 
-def delete_finding(
+async def delete_finding(
         finding_id: str,
         project_name: str,
         justification: str,
         context) -> bool:
-    finding_data = get_finding(finding_id)
+    finding_data = await get_finding(finding_id)
     submission_history = cast(
         List[Dict[str, str]],
         finding_data.get('historicState', [{}])
@@ -451,7 +453,7 @@ def delete_finding(
             'justification': justification,
             'analyst': util.get_jwt_content(context)['user_email'],
         })
-        success = async_to_sync(finding_dal.update)(finding_id, {
+        success = await finding_dal.update(finding_id, {
             'historic_state': submission_history
         })
 
@@ -461,7 +463,8 @@ def delete_finding(
                 'FALSE_POSITIVE': 'It is a false positive',
                 'NOT_REQUIRED': 'Finding not required',
             }
-            finding_utils.send_finding_delete_mail(
+            await aio.ensure_io_bound(
+                finding_utils.send_finding_delete_mail,
                 finding_id,
                 str(finding_data.get('finding', '')),
                 project_name,
@@ -473,7 +476,7 @@ def delete_finding(
 
 
 def approve_draft(draft_id: str, reviewer_email: str) -> Tuple[bool, datetime]:
-    draft_data = get_finding(draft_id)
+    draft_data = async_to_sync(get_finding)(draft_id)
     submission_history = cast(
         List[Dict[str, str]],
         draft_data.get('historicState')
@@ -512,10 +515,10 @@ def approve_draft(draft_id: str, reviewer_email: str) -> Tuple[bool, datetime]:
     return success, cast(datetime, release_date)
 
 
-def get_finding(finding_id: str) -> Dict[str, FindingType]:
+async def get_finding(finding_id: str) -> Dict[str, FindingType]:
     """Retrieves and formats finding attributes"""
-    finding = finding_dal.get_finding(finding_id)
-    if not finding or not validate_finding(finding=finding):
+    finding = await finding_dal.get_finding(finding_id)
+    if not finding or not await validate_finding(finding=finding):
         raise FindingNotFound()
 
     return finding_utils.format_data(finding)
@@ -546,7 +549,7 @@ async def get_findings_async(
 
 
 def update_evidence(finding_id: str, evidence_type: str, file) -> bool:
-    finding = get_finding(finding_id)
+    finding = async_to_sync(get_finding)(finding_id)
     files = cast(List[Dict[str, str]], finding.get('files', []))
     project_name = str(finding.get('projectName', ''))
     success = False
@@ -619,12 +622,12 @@ def update_evidence(finding_id: str, evidence_type: str, file) -> bool:
     return success
 
 
-def update_evidence_description(
+async def update_evidence_description(
         finding_id: str,
         evidence_type: str,
         description: str) -> bool:
     validations.validate_fields(cast(List[str], [description]))
-    finding = get_finding(finding_id)
+    finding = await get_finding(finding_id)
     files = cast(
         List[Dict[str, str]],
         finding.get('files', [])
@@ -640,7 +643,7 @@ def update_evidence_description(
     )
     if evidence:
         index = files.index(cast(Dict[str, str], evidence))
-        success = async_to_sync(finding_dal.update)(
+        success = await finding_dal.update(
             finding_id,
             {f'files[{index}].description': description}
         )
@@ -651,7 +654,7 @@ def update_evidence_description(
 
 
 def remove_evidence(evidence_name: str, finding_id: str) -> bool:
-    finding = get_finding(finding_id)
+    finding = async_to_sync(get_finding)(finding_id)
     project_name = finding['projectName']
     files = cast(
         List[Dict[str, str]],
@@ -732,9 +735,9 @@ def create_draft(info, project_name: str, title: str, **kwargs) -> bool:
     raise InvalidDraftTitle()
 
 
-def submit_draft(finding_id: str, analyst_email: str) -> bool:
+async def submit_draft(finding_id: str, analyst_email: str) -> bool:
     success = False
-    finding = get_finding(finding_id)
+    finding = await get_finding(finding_id)
     submission_history = cast(
         List[Dict[str, str]],
         finding.get('historicState')
@@ -760,7 +763,9 @@ def submit_draft(finding_id: str, analyst_email: str) -> bool:
                 for evidence in evidence_list
             ])
             has_severity = float(str(finding['severityCvss'])) > Decimal(0)
-            has_vulns = vuln_domain.list_vulnerabilities([finding_id])
+            has_vulns = await vuln_domain.list_vulnerabilities_async(
+                [finding_id]
+            )
 
             if all([has_evidence, has_severity, has_vulns]):
                 today = datetime.now(
@@ -777,12 +782,13 @@ def submit_draft(finding_id: str, analyst_email: str) -> bool:
                     'state': 'SUBMITTED'
                 })
 
-                success = async_to_sync(finding_dal.update)(finding_id, {
+                success = await finding_dal.update(finding_id, {
                     'report_date': report_date,
                     'historic_state': history
                 })
                 if success:
-                    finding_utils.send_new_draft_mail(
+                    await aio.ensure_io_bound(
+                        finding_utils.send_new_draft_mail,
                         analyst_email,
                         finding_id,
                         str(finding.get('finding', '')),
@@ -808,7 +814,7 @@ def submit_draft(finding_id: str, analyst_email: str) -> bool:
 
 
 def mask_finding(finding_id: str) -> bool:
-    finding = finding_dal.get_finding(finding_id)
+    finding = async_to_sync(finding_dal.get_finding)(finding_id)
     finding = finding_utils.format_data(finding)
     historic_treatment = cast(
         List[Dict[str, str]],
@@ -904,12 +910,12 @@ def validate_evidence(evidence_id: str, file) -> bool:
     return success
 
 
-def validate_finding(
+async def validate_finding(
         finding_id: Union[str, int] = 0,
         finding: Dict[str, FindingType] = None) -> bool:
     """Validate if a finding is not deleted."""
     if not finding:
-        finding = finding_dal.get_finding(str(finding_id))
+        finding = await finding_dal.get_finding(str(finding_id))
     historic_state = cast(
         List[Dict[str, str]],
         finding.get('historic_state', [{}])
@@ -982,7 +988,7 @@ async def get(
         finding_id: str,
         table: aioboto3.session.Session.client) -> Dict[str, FindingType]:
     finding = await finding_dal.get(finding_id, table)
-    if not finding or not validate_finding(finding=finding):
+    if not finding or not await validate_finding(finding=finding):
         raise FindingNotFound()
 
     return finding_utils.format_data(finding)

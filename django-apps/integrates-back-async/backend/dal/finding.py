@@ -134,11 +134,18 @@ async def get_attributes(
     return finding_attrs
 
 
-def get_finding(finding_id: str) -> Dict[str, FindingType]:
+async def get_finding(finding_id: str) -> Dict[str, FindingType]:
     """ Retrieve all attributes from a finding """
-    response = TABLE.get_item(Key={'finding_id': finding_id})
+    response = {}
+    query_attrs = {
+        'KeyConditionExpression': Key('finding_id').eq(finding_id),
+        'Limit': 1
+    }
+    response_items = await dynamodb.async_query(TABLE_NAME, query_attrs)
+    if response_items:
+        response = response_items[0]
 
-    return response.get('Item', {})
+    return response
 
 
 async def get(

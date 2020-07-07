@@ -582,7 +582,7 @@ def get_released_findings(project_name: str, attrs: str = '') -> \
         response = FINDINGS_TABLE.query(**query_attrs)
         findings += response.get('Items', [])
     findings = [
-        get_finding(finding.get('finding_id'))
+        async_to_sync(get_finding)(finding.get('finding_id'))
         for finding in findings
     ]
     findings_released = [

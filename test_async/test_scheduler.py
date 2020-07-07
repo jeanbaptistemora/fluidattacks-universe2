@@ -24,6 +24,10 @@ from backend.scheduler import (
     get_project_indicators
 )
 
+pytestmark = [
+    pytest.mark.asyncio,
+]
+
 
 class SchedulerTests(TestCase):
 
@@ -122,8 +126,8 @@ class SchedulerTests(TestCase):
         expected_output = 4
         assert test_data == expected_output
 
-    def test_get_by_time_range(self):
-        finding = get_finding('422286126')
+    async def test_get_by_time_range(self):
+        finding = await get_finding('422286126')
         first_day = '2019-01-01 12:00:00'
         last_day = '2019-06-30 23:59:59'
         vuln = get_vulnerabilities('422286126')[0]
@@ -178,8 +182,8 @@ class SchedulerTests(TestCase):
         expected_output = '2019-01-07 16:01:26'
         assert test_data == expected_output
 
-    def test_format_vulnerabilities(self):
-        act_finding = get_finding('422286126')
+    async def test_format_vulnerabilities(self):
+        act_finding = await get_finding('422286126')
         positive_delta = 1
         neutral_delta = 0
         negative_delta = -1
@@ -196,9 +200,9 @@ class SchedulerTests(TestCase):
         expected_output = 'FIN.S.0051. Weak passwords reversed (-1)'
         assert test_data == expected_output
 
-    def test_create_msj_finding_pending(self):
-        not_new_treatment_finding = get_finding('422286126')
-        new_treatment_finding = get_finding('436992569')
+    async def test_create_msj_finding_pending(self):
+        not_new_treatment_finding = await get_finding('422286126')
+        new_treatment_finding = await get_finding('436992569')
 
         test_data = create_msj_finding_pending(not_new_treatment_finding)
         expected_output = ''
