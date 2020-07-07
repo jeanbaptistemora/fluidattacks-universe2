@@ -367,34 +367,6 @@ terraform_states_bucket:
   <<: *in_master_branch
   stage: terraform-backend
 
-commitlint:
-  image: starefossen/ruby-node:2-10
-  tags: [autoscaling]
-  stage: build-and-test
-  before_script:
-    - npm install --unsafe-perm
-  script:
-    - ./ci-scripts/commitlint-checks.sh
-  except:
-    - master
-    - schedules
-
-danger:
-  image: fluidattacks/danger-ruby
-  tags: [autoscaling]
-  stage: mr-check
-  only:
-    - merge_requests
-  variables:
-    DANGER_GITLAB_API_TOKEN: $DANGER_TOKEN
-  before_script:
-    - export CI_MERGE_REQUEST_ID=$(git ls-remote -q origin merge-requests\*\head
-      | grep ${CI_COMMIT_SHA}
-      | sed 's/.*refs\/merge-requests\/\([0-9]*\)\/head/\1/g')
-    - npm install --unsafe-perm
-  script:
-    - danger --verbose --fail-on-errors=true
-
 fluidasserts_post:
   tags: [autoscaling]
   stage: postdeploy
@@ -465,3 +437,26 @@ apply_infra_secret_management:
   <<: *with_nix_2
   <<: *in_master_branch
   stage: deploy
+
+test_commit_msg:
+  <<: *with_nix_2
+  <<: *in_dev_branch
+  stage: build-and-test
+
+danger:
+  image: fluidattacks/danger-ruby
+  tags: [autoscaling]
+  stage: mr-check
+  only:
+    - merge_requests
+  variables:
+    DANGER_GITLAB_API_TOKEN: $DANGER_TOKEN
+  before_script:
+    - curl -LOJ https://gitlab.com/fluidattacks/public/-/raw/master/commitlint-configs/others/commitlint.config.js
+    - curl -LOJ https://gitlab.com/fluidattacks/public/-/raw/master/commitlint-configs/others/parser-preset.js
+    - export CI_MERGE_REQUEST_ID=$(git ls-remote -q origin merge-requests\*\head
+      | grep ${CI_COMMIT_SHA}
+      | sed 's/.*refs\/merge-requests\/\([0-9]*\)\/head/\1/g')
+    - npm install @commitlint/{config-conventional,cli}
+  script:
+    - danger --verbose --fail-on-errors=true

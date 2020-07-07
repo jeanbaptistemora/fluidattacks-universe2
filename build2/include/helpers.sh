@@ -182,25 +182,24 @@ function helper_terraform_apply {
 function helper_test_commit_msg_commitlint {
   local commit_diff
   local commit_hashes
-  local parser_url='https://gitlab.com/autonomicmind/default/-/raw/master/commitlint-configs/challenges/parser-preset.js'
-  local rules_url='https://gitlab.com/autonomicmind/default/-/raw/master/commitlint-configs/challenges/commitlint.config.js'
+  local parser_url='https://gitlab.com/fluidattacks/public/-/raw/master/commitlint-configs/others/parser-preset.js'
+  local rules_url='https://gitlab.com/fluidattacks/public/-/raw/master/commitlint-configs/others/commitlint.config.js'
 
       helper_use_pristine_workdir \
   &&  curl -LOJ "${parser_url}" \
   &&  curl -LOJ "${rules_url}" \
-  &&  npm install @commitlint/{config-conventional,cli} \
   &&  git fetch --prune > /dev/null \
   &&  if [ "${IS_LOCAL_BUILD}" = "${TRUE}" ]
       then
-            commit_diff="origin/master..${CI_COMMIT_REF_NAME}"
+        commit_diff="origin/master..${CI_COMMIT_REF_NAME}"
       else
-            commit_diff="origin/master..origin/${CI_COMMIT_REF_NAME}"
+        commit_diff="origin/master..origin/${CI_COMMIT_REF_NAME}"
       fi \
   &&  commit_hashes="$(git log --pretty=%h "${commit_diff}")" \
   &&  for commit_hash in ${commit_hashes}
       do
             echo  '[INFO] Running Commitlint' \
-        &&  git log -1 --pretty=%B "${commit_hash}" | npx commitlint \
+        &&  git log -1 --pretty=%B "${commit_hash}" | commitlint \
         ||  return 1
       done
 }

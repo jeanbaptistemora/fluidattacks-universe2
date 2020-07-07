@@ -104,3 +104,9 @@ function job_apply_infra_secret_management {
   &&  helper_terraform_apply \
         "${target}"
 }
+
+function job_test_commit_msg {
+      helper_use_pristine_workdir \
+  &&  env_prepare_node_modules \
+  &&  helper_test_commit_msg_commitlint
+}
