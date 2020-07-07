@@ -544,16 +544,19 @@ def modify_user_information(context: object,
     else:
         successes.append(False)
 
-    if responsibility and len(responsibility) <= 50:
-        result = project_domain.add_access(
-            email, project_name, 'responsibility', responsibility)
-        successes.append(result)
-    else:
-        util.cloudwatch_log(
-            context,
-            f'Security: {email} Attempted to add responsibility to project \
-                {project_name} bypassing validation')  # pragma: no cover
-        successes.append(False)
+    if responsibility:
+        if len(responsibility) <= 50:
+            result = project_domain.add_access(
+                email, project_name, 'responsibility', responsibility
+            )
+            successes.append(result)
+        else:
+            util.cloudwatch_log(
+                context,
+                f'Security: {email} Attempted to add responsibility to '
+                f'project{project_name} bypassing validation'
+            )
+            successes.append(False)
 
     if phone and validate_phone_field(phone):
         result = user_domain.add_phone_to_user(email, phone)
@@ -561,8 +564,9 @@ def modify_user_information(context: object,
     else:
         util.cloudwatch_log(
             context,
-            f'Security: {email} Attempted to edit user phone bypassing \
-                validation')  # pragma: no cover
+            f'Security: {email} Attempted to edit user phone bypassing '
+            f'validation'
+        )
         successes.append(False)
 
     return all(successes)

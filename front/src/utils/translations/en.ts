@@ -556,6 +556,7 @@ const enTranslations: Dictionary = {
           tooltip: "Add new user to the organization",
         },
         editButton: {
+          success: "was successfully edited",
           text: "Edit",
           tooltip: "Edit user information",
         },

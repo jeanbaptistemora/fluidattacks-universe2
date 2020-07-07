@@ -39,6 +39,8 @@ MUTATION.set_field('downloadFile', resource.resolve_resources_mutation)
 MUTATION.set_field('removeFiles', resource.resolve_resources_mutation)
 MUTATION.set_field('updateRepository', resource.resolve_resources_mutation)
 MUTATION.set_field('updateEnvironment', resource.resolve_resources_mutation)
+MUTATION.set_field('editUserOrganization',
+                   organization.resolve_organization_mutation)
 MUTATION.set_field('grantUserOrganizationAccess',
                    organization.resolve_organization_mutation)
 MUTATION.set_field('moveGroupOrganization',

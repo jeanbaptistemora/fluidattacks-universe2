@@ -17,8 +17,61 @@ import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
 import { addUserModal as AddUserModal } from "../../components/AddUserModal/index";
 import { GET_ORGANIZATION_ID } from "../OrganizationPoliciesView/queries";
-import { ADD_USER_MUTATION, GET_ORGANIZATION_USERS, REMOVE_USER_MUTATION } from "./queries";
-import { IAddUserAttrs, IRemoveUserAttrs, IUserAttrs } from "./types";
+import { ADD_USER_MUTATION, EDIT_USER_MUTATION, GET_ORGANIZATION_USERS, REMOVE_USER_MUTATION } from "./queries";
+import { IAddUserAttrs, IEditUserAttrs, IRemoveUserAttrs, IUserAttrs } from "./types";
+
+const tableHeaders: IHeader[] = [
+  {
+    dataField: "email",
+    header: translate.t("search_findings.users_table.usermail"),
+    width: "27%",
+  },
+  {
+    dataField: "phoneNumber",
+    header: translate.t("search_findings.users_table.phoneNumber"),
+    width: "13%",
+  },
+  {
+    dataField: "organization",
+    header: translate.t("search_findings.users_table.userOrganization"),
+    width: "12%",
+  },
+  {
+    dataField: "firstLogin",
+    header: translate.t("search_findings.users_table.firstlogin"),
+    width: "12%",
+  },
+  {
+    dataField: "lastLogin",
+    header: translate.t("search_findings.users_table.lastlogin"),
+    width: "12%",
+  },
+];
+
+const handleMtError: (mtError: ApolloError) => void = (mtError: ApolloError): void => {
+  mtError.graphQLErrors.forEach(({ message }: GraphQLError): void => {
+    switch (message) {
+      case "Exception - Email is not valid":
+        msgError(translate.t("validations.email"));
+        break;
+      case "Exception - Invalid field in form":
+        msgError(translate.t("validations.invalidValueInField"));
+        break;
+      case "Exception - Invalid characters":
+        msgError(translate.t("validations.invalid_char"));
+        break;
+      case "Exception - Invalid phone number in form":
+        msgError(translate.t("validations.invalidPhoneNumberInField"));
+        break;
+      case "Exception - Invalid email address in form":
+        msgError(translate.t("validations.invalidEmailInField"));
+        break;
+      default:
+        msgError(translate.t("group_alerts.error_textsad"));
+        rollbar.error("An error occurred adding user to organization", Error);
+    }
+  });
+};
 
 const organizationUsers: React.FC = (): JSX.Element => {
   const { organizationName } = useParams<{ organizationName: string }>();
@@ -83,30 +136,23 @@ const organizationUsers: React.FC = (): JSX.Element => {
         );
       }
     },
-    onError: (grantError: ApolloError): void => {
-      grantError.graphQLErrors.forEach(({ message }: GraphQLError): void => {
-        switch (message) {
-          case "Exception - Email is not valid":
-            msgError(translate.t("validations.email"));
-            break;
-          case "Exception - Invalid field in form":
-            msgError(translate.t("validations.invalidValueInField"));
-            break;
-          case "Exception - Invalid characters":
-            msgError(translate.t("validations.invalid_char"));
-            break;
-          case "Exception - Invalid phone number in form":
-            msgError(translate.t("validations.invalidPhoneNumberInField"));
-            break;
-          case "Exception - Invalid email address in form":
-            msgError(translate.t("validations.invalidEmailInField"));
-            break;
-          default:
-            msgError(translate.t("group_alerts.error_textsad"));
-            rollbar.error("An error occurred adding user to organization", grantError);
-        }
-      });
+    onError: handleMtError,
+  });
+
+  const [editUser] = useMutation(EDIT_USER_MUTATION, {
+    onCompleted: (mtResult: IEditUserAttrs): void => {
+      if (mtResult.editUserOrganization.success) {
+        refetchUsers()
+          .catch();
+        mixpanel.track("EditUserOrganizationAccess", { Organization: organizationName, User: userName });
+        const { email } = mtResult.editUserOrganization.modifiedUser;
+        msgSuccess(
+          `${email} ${translate.t("organization.tabs.users.editButton.success")}`,
+          translate.t("organization.tabs.users.successTitle"),
+        );
+      }
     },
+    onError: handleMtError,
   });
 
   const [removeUserAccess, { loading: removing }] = useMutation(REMOVE_USER_MUTATION, {
@@ -129,38 +175,16 @@ const organizationUsers: React.FC = (): JSX.Element => {
   });
 
   // Auxiliary elements
-  const tableHeaders: IHeader[] = [
-    {
-      dataField: "email",
-      header: translate.t("search_findings.users_table.usermail"),
-      width: "27%",
-    },
-    {
-      dataField: "phoneNumber",
-      header: translate.t("search_findings.users_table.phoneNumber"),
-      width: "13%",
-    },
-    {
-      dataField: "organization",
-      header: translate.t("search_findings.users_table.userOrganization"),
-      width: "12%",
-    },
-    {
-      dataField: "firstLogin",
-      header: translate.t("search_findings.users_table.firstlogin"),
-      width: "12%",
-    },
-    {
-      dataField: "lastLogin",
-      header: translate.t("search_findings.users_table.lastlogin"),
-      width: "12%",
-    },
-  ];
-
   const handleSubmit: ((values: IUserAttrs) => void) = (values: IUserAttrs): void => {
     closeUserModal();
     if (userModalAction === "add") {
       grantUserAccess({ variables: {
+        ...values,
+        organizationId: basicData && basicData.organizationId.id,
+      } })
+        .catch();
+    } else {
+      editUser({ variables: {
         ...values,
         organizationId: basicData && basicData.organizationId.id,
       } })

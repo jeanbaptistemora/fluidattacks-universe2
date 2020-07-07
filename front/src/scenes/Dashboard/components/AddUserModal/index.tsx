@@ -83,7 +83,11 @@ export const addUserModal: React.FC<IAddUserModalProps> = (props: IAddUserModalP
   };
 
   const initialValues: Record<string, string> = props.action === "edit"
-    ? { ...props.initialValues, role: props.initialValues.role.toUpperCase() }
+    ? {
+        ...props.initialValues,
+        role: _.get(props.initialValues, "role", "")
+                .toUpperCase(),
+      }
     : {};
 
   const groupModal: boolean = props.projectName !== undefined;

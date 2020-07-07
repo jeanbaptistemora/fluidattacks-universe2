@@ -143,6 +143,13 @@ type Mutation {
         role: UserRole!,
         phoneNumber: String!
     ): EditUserPayload!
+    editUserOrganization(
+        organization: String!,
+        organizationId: String!,
+        phoneNumber: String,
+        role: OrganizationRole!,
+        userEmail: String!
+    ): EditUserPayload!
     addUser(
         email: String!,
         organization: String!,

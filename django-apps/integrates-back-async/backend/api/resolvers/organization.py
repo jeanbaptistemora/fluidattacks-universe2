@@ -26,12 +26,62 @@ from backend.domain import (
     user as user_domain
 )
 from backend.typing import (
+    EditUserPayload as EditUserPayloadType,
     GrantUserAccessPayload as GrantUserAccessPayloadType,
     Organization as OrganizationType,
     SimplePayload as SimplePayloadType,
     User as UserType
 )
 from backend.utils import aio
+
+
+async def _do_edit_user_organization(
+    _,
+    info,
+    **parameters
+) -> EditUserPayloadType:
+    success: bool = False
+
+    organization_id: str = str(parameters.get('organization_id'))
+    organization_name: str = await org_domain.get_name_by_id(organization_id)
+    requester_data = util.get_jwt_content(info.context)
+    requester_email = requester_data['user_email']
+
+    user_email: str = str(parameters.get('user_email'))
+    new_organization: str = str(parameters.get('organization'))
+    new_phone_number: str = str(parameters.get('phone_number'))
+
+    success = await user_loader.modify_user_information(
+        info.context,
+        {
+            'email': user_email,
+            'phone_number': new_phone_number,
+            'responsibility': '',
+            'organization': new_organization
+        },
+        ''
+    )
+
+    if success:
+        util.invalidate_cache(user_email)
+        util.cloudwatch_log(
+            info.context,
+            f'Security: User {requester_email} modified information from the '
+            f'user {user_email} in the organization {organization_name}'
+        )
+    else:
+        util.cloudwatch_log(
+            info.context,
+            f'Security: User {requester_email} attempted to modify '
+            f'information from user {user_email} in organization '
+            f'{organization_name}'
+        )
+    return EditUserPayloadType(
+        success=success,
+        modified_user=dict(
+            email=user_email
+        )
+    )
 
 
 async def _do_grant_user_organization_access(

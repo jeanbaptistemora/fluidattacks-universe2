@@ -12,6 +12,15 @@ export interface IAddUserAttrs {
   };
 }
 
+export interface IEditUserAttrs {
+  editUserOrganization: {
+    modifiedUser: {
+      email: string;
+    };
+    success: boolean;
+  };
+ }
+
 export interface IRemoveUserAttrs {
   removeUserOrganizationAccess: {
     success: boolean;

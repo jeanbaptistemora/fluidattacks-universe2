@@ -38,6 +38,29 @@ export const ADD_USER_MUTATION: DocumentNode = gql`
   }
   `;
 
+export const EDIT_USER_MUTATION: DocumentNode = gql`
+  mutation EditUserOrganizationMutation(
+    $email: String!,
+    $organization: String!,
+    $organizationId: String!,
+    $phoneNumber: String,
+    $role: OrganizationRole!
+  ) {
+    editUserOrganization (
+      organization: $organization,
+      organizationId: $organizationId,
+      phoneNumber: $phoneNumber,
+      role: $role
+      userEmail: $email
+    ) {
+      success
+      modifiedUser {
+        email
+      }
+    }
+  }
+  `;
+
 export const REMOVE_USER_MUTATION: DocumentNode = gql`
   mutation RemoveUserOrganizationAccessMutation(
     $organizationId: String!,
