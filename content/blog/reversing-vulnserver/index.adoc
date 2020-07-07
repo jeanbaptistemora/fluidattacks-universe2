@@ -142,7 +142,7 @@ For the sake of this exercise, I will be reversing only the `KSTET` and
 == Reversing KSTET command
 
 On the main loop, `vulnserver` checks if the received buffer contains
-`KSTET ` and if it does, it will divert the loop and will enter the `KSTET`
+`KSTET` and if it does, it will divert the loop and will enter the `KSTET`
 flow:
 
 image::kstet1.png[KSTET 1]
@@ -156,7 +156,7 @@ image::kstet2.png[KSTET 2]
 . Then `strncpy()` will copy up to 100 bytes from the `ReceivedBuffer`
 to `KstetBuffer`. It `ReceivedBuffer` is more than 100 bytes long,
 `strncpy()` will discard the remaining bytes.
-. Then the `0x1000` or 4096 bytes of `ReceivedBuffer` is set to 0 using
+. Then the `0x1000` or 4096 bytes of `ReceivedBuffer` is set to `0` using
 `memset()`.
 . Then a pointer to `KstetBuffer` is put at `ESP` as a parameter for
 `Function2`.
@@ -169,7 +169,7 @@ image::kstet3.png[KSTET 3]
 . After the function prologue, it will allocate `0x58` or 88 bytes to the
 stack.
 . The `*dest` variable will be at `ebp-0x48`.
-. The argument on the ESP, which is a pointer to `KstetBuffer`, will be used
+. The argument on `ESP`, which is a pointer to `KstetBuffer`, will be used
 as `*src` variable.
 . Now `strcpy(dest, src)` is executed.
 
@@ -177,12 +177,12 @@ That means that, as `*dest` is located at `ebp-0x48`, if we want to overflow
 the `KSTET` command, we must inject `72 - len('KSTET ') = 66` or more bytes
 to start overflowing the stack:
 
-.Reversed Function3 stack frame
+.Reversed Function2 stack frame
 [source,text]
 ----
 ._________________________________.__________________.__________________.
-           *dest                        Saved EBP         Saved EIP
-     epb-0x48 (72 bytes)             ebp+0 (4 bytes)   ebp+0x4 (4 bytes)
+             *dest                      Saved EBP         Saved EIP
+       epb-0x48 (72 bytes)           ebp+0 (4 bytes)   ebp+0x4 (4 bytes)
 ----
 
 Let's check it:
@@ -209,8 +209,8 @@ The first thing it does is to allocate 3000 bytes of dynamic memory using
 
 image::trun2.png[TRUN memory alloc]
 
-Also, at the end, a new variable `var_480h` is set to value 5. I will rename
-it to `LoopCounter`. It is set to 5 because at that place is where the
+Also, at the end, a new variable `var_480h` is set to value `5`. I will rename
+it to `LoopCounter`. It is set to `5` because at that place is where the
 buffer after `TRUN<space>` will start:
 
 [source,console]
@@ -252,7 +252,7 @@ Then the pointer to `ReceivedPayloadPtr` is set to `ESP+4` to refer to the
 
 image::strcpy1.png[strcpy on TRUN]
 
-All that means that, to overflow the `TRUN` parameter we must:
+All that means is, to overflow the `TRUN` parameter, we must:
 
 . Inject a dot somewhere on the payload to trigger the `strcpy()` call.
 . As `*dest` is located at `ebp-0x7d8`, we must inject
@@ -303,8 +303,8 @@ That means that we started to overwrite the `saved EBP` which is next to the
 [source,text]
 ----
 ._________________________________.__________________.__________________.
-           *dest                        Saved EBP         Saved EIP
-    epb-0x7d8 (2008 bytes)           ebp+0 (4 bytes)   ebp+0x4 (4 bytes)
+             *dest                      Saved EBP         Saved EIP
+      epb-0x7d8 (2008 bytes)         ebp+0 (4 bytes)   ebp+0x4 (4 bytes)
 ----
 
 So, if we inject 2016 bytes:
