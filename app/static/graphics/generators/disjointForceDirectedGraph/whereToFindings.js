@@ -49,48 +49,55 @@ function render(dataDocument, height, width) {
     datum.fy = null;
   }
 
-  const svg = d3
-    .select('div#root')
-    .append('svg')
-    .attr('viewBox', `${ -width / 2 } ${ -height / 2 } ${ width } ${ height }`);
+  const selection = d3
+    .select('div#root');
 
-  const link = svg
-    .append('g')
-    .attr('stroke', '#999')
-    .attr('stroke-opacity', lineStrokeOpacity)
-    .selectAll('line')
-    .data(links)
-    .join('line')
-    .attr('stroke-width', 1);
+  const renderingFirstTime = Boolean(document.getElementById('root-svg'));
 
-  const node = svg
-    .append('g')
-    .attr('stroke', '#fff')
-    .attr('stroke-width', circleStrokeWidth)
-    .selectAll('circle')
-    .data(nodes)
-    .join('circle')
-    .attr('r', (datum) => (
-      datum.group === 'source' ? circleSourceRadius : scaleCvss(datum.score) * circleCvssBaseRadius
-    ))
-    .attr('fill', (datum) => {
-      let color = '#cccccc';
+  const svg =
+    (renderingFirstTime ? selection.select('svg') : selection.append('svg'))
+      .attr('viewBox', `${ -width / 2 } ${ -height / 2 } ${ width } ${ height }`)
+      .attr('id', 'root-svg');
 
-      if (datum.group === 'source') {
-        color = '#cccccc';
-      } else if (datum.isOpen) {
-        color = d3.interpolateReds(scaleCvss(datum.score));
-      } else {
-        color = d3.interpolateGreens(scaleCvss(datum.score));
-      }
+  const link =
+    (renderingFirstTime ? svg.select('g#root-svg-link') : svg.append('g'))
+      .attr('id', 'root-svg-link')
+      .attr('stroke', '#999')
+      .attr('stroke-opacity', lineStrokeOpacity)
+      .selectAll('line')
+      .data(links)
+      .join('line')
+      .attr('stroke-width', 1);
 
-      return color;
-    })
-    .call(d3
-      .drag()
-      .on('start', dragStart)
-      .on('drag', dragDrag)
-      .on('end', dragEnd));
+  const node =
+    (renderingFirstTime ? svg.select('g#root-svg-node') : svg.append('g'))
+      .attr('id', 'root-svg-node')
+      .attr('stroke', '#fff')
+      .attr('stroke-width', circleStrokeWidth)
+      .selectAll('circle')
+      .data(nodes)
+      .join('circle')
+      .attr('r', (datum) => (
+        datum.group === 'source' ? circleSourceRadius : scaleCvss(datum.score) * circleCvssBaseRadius
+      ))
+      .attr('fill', (datum) => {
+        let color = '#cccccc';
+
+        if (datum.group === 'source') {
+          color = '#cccccc';
+        } else if (datum.isOpen) {
+          color = d3.interpolateReds(scaleCvss(datum.score));
+        } else {
+          color = d3.interpolateGreens(scaleCvss(datum.score));
+        }
+
+        return color;
+      })
+      .call(d3
+        .drag()
+        .on('start', dragStart)
+        .on('drag', dragDrag)
+        .on('end', dragEnd));
 
   node
     .append('title')
@@ -109,12 +116,6 @@ function render(dataDocument, height, width) {
       .attr('cx', (datum) => datum.x)
       .attr('cy', (datum) => datum.y);
   });
-
-  const element = document.getElementById('root');
-
-  if (element) {
-    element.removeAttribute('id');
-  }
 }
 
 function load() {
