@@ -26,14 +26,14 @@ export const GET_FINDINGS: DocumentNode = gql`
   }`;
 
 export const REQUEST_PROJECT_REPORT: DocumentNode = gql`
-  mutation RequestProjectReport(
-    $projectName: String!,
+  query RequestProjectReport(
     $reportType: ReportType!,
+    $projectName: String!,
     $lang: ReportLang) {
-      requestProjectReport(
-        projectName: $projectName,
+      report(
         reportType: $reportType,
+        projectName: $projectName,
         lang: $lang) {
-        success
+        url
       }
   }`;

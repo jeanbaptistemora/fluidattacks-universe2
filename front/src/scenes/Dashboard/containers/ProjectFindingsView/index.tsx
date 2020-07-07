@@ -5,7 +5,7 @@
  */
 import { QueryResult } from "@apollo/react-common";
 import { Query } from "@apollo/react-components";
-import { useMutation } from "@apollo/react-hooks";
+import { useLazyQuery } from "@apollo/react-hooks";
 import { ApolloError } from "apollo-client";
 import { GraphQLError } from "graphql";
 import _ from "lodash";
@@ -48,7 +48,7 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
   const openReportsModal: (() => void) = (): void => { setReportsModalOpen(true); };
   const closeReportsModal: (() => void) = (): void => { setReportsModalOpen(false); };
 
-  const [requestProjectReport] = useMutation(REQUEST_PROJECT_REPORT, {
+  const [requestProjectReport] = useLazyQuery(REQUEST_PROJECT_REPORT, {
     onCompleted: (): void => {
       msgSuccess(
         translate.t("group_alerts.report_requested"),
@@ -308,8 +308,7 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
 
             requestProjectReport({variables: {
               projectName, reportType,
-            }})
-            .catch();
+            }});
             setReportsModalOpen(false);
           }
         };
