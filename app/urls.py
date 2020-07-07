@@ -60,8 +60,6 @@ urlpatterns = [
     url(r'^groups/(?P<project>[A-Za-z0-9]+)/(?P<evidence_type>[A-Za-z0-9]+)/'
         r'(?P<findingid>[0-9]+)/([A-Za-z.=]+)/(?P<fileid>[\w\.-]+)?$',
         views.get_evidence),
-    # Documentation.
-    url(r'^export_users/?$', views.export_users),
     # catch all others because of the no longer use hash location
     url(r'', views.app),
 ]
