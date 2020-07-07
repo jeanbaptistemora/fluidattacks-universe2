@@ -644,7 +644,7 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                           onClick={handleClick}
                           disabled={!(arraySelectedRows.length > 0)}
                         >
-                          <FluidIcon icon="verified" /> {translate.t("search_findings.tab_description.request_verify")}
+                          <FluidIcon icon="verified" /> {translate.t("search_findings.tab_description.request_verify.text")}
                         </Button>
                       </Col><br/>
                     </Row>
@@ -671,7 +671,7 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                           onClick={handleClick}
                           disabled={!(arraySelectedRows.length > 0)}
                         >
-                          <FluidIcon icon="verified" /> {translate.t("search_findings.tab_description.mark_verified")}
+                          <FluidIcon icon="verified" /> {translate.t("search_findings.tab_description.mark_verified.text")}
                         </Button>
                       </Col><br/>
                     </Row>
