@@ -42,9 +42,9 @@ async def generate_one(group: str):
         },
         'data': {
             'columns': [
-                ['Builds with vulnerabilities that did not reach production',
+                ['Vulnerable builds prevented',
                  len(executions_in_strict_mode_with_vulns)],
-                ['Builds with security issues',
+                ['Vulnerable builds',
                  len(executions_in_any_mode_with_vulns)],
             ],
             'type': 'gauge',
@@ -61,6 +61,7 @@ async def generate_one(group: str):
         'legend': {
             'position': 'bottom',
         },
+        'paddingRatioTop': 0,
     }
 
 

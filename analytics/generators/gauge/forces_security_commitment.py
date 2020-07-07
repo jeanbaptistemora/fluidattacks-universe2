@@ -52,6 +52,7 @@ async def generate_one(group: str):
         'legend': {
             'position': 'bottom',
         },
+        'paddingRatioTop': 0,
     }
 
 

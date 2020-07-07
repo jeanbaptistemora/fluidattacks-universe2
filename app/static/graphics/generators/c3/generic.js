@@ -1,6 +1,6 @@
 /* global c3 */
 
-const paddingRatio = 0.05;
+const defaultPaddingRatio = 0.05;
 
 function render(dataDocument, height, width) {
   if (dataDocument.gaugeClearFormat) {
@@ -11,10 +11,10 @@ function render(dataDocument, height, width) {
     ...dataDocument,
     bindto: 'div',
     padding: {
-      bottom: paddingRatio * height,
-      left: paddingRatio * width,
-      right: paddingRatio * width,
-      top: paddingRatio * height,
+      bottom: (dataDocument.paddingRatioBottom ? dataDocument.paddingRatioBottom : defaultPaddingRatio) * height,
+      left: (dataDocument.paddingRatioLeft ? dataDocument.paddingRatioLeft : defaultPaddingRatio) * width,
+      right: (dataDocument.paddingRatioRight ? dataDocument.paddingRatioRight : defaultPaddingRatio) * width,
+      top: (dataDocument.paddingRatioTop ? dataDocument.paddingRatioTop : defaultPaddingRatio) * height,
     },
     size: {
       height,
