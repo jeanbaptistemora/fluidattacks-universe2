@@ -67,9 +67,9 @@ which, as it is understood, applies to the analysis of software,
 link:https://www.mitre.org/sites/default/files/publications/pr-15-2630-reverse-engineering-cognition.pdf[the discovery of its general properties],
 and the identification of its components, functions and relationships.
 This is often done in the absence of its source code or relevant documentation,
-link:https://www.researchgate.net/publication/259563782_An_introduction_to_software_reverse_engineering[claiming its repair or improvement].
+link:https://link.springer.com/chapter/10.1007/978-3-642-04117-4_31[claiming its repair or improvement].
 This process emerged from software maintenance and support,
-link:https://www.researchgate.net/publication/323273386_Reverse_Engineering_of_Code[largely from malware analysis].
+link:https://link.springer.com/chapter/10.1007/978-3-319-74950-1_6[largely from malware analysis].
 
 We can separate `SRE` link:https://www.foo.be/cours/dess-20122013/b/Eldad_Eilam-Reversing__Secrets_of_Reverse_Engineering-Wiley(2005).pdf[into two phases]:
 The first one can be seen as a large scale observation
@@ -117,7 +117,7 @@ Now, in relation to the tools,
 one of the main ones in `SRE` is the *disassembler*,
 which develops a process contrary to an assembler,
 and which will be different
-link:https://www.researchgate.net/publication/323273386_Reverse_Engineering_of_Code[depending on the platform on which it is used].
+link:https://link.springer.com/chapter/10.1007/978-3-319-74950-1_6[depending on the platform on which it is used].
 The *disassembler* translates machine language (input)
 to assembly language (output),
 link:https://www.foo.be/cours/dess-20122013/b/Eldad_Eilam-Reversing__Secrets_of_Reverse_Engineering-Wiley(2005).pdf[for the entire program or parts of it].
@@ -134,14 +134,14 @@ That is, unlike the *disassembler*,
 the *debugger* does not work in static program code,
 but allows us to observe the behavior of the program as it runs.
 And to a flow suitable for human perception,
-with link:https://www.researchgate.net/publication/323273386_Reverse_Engineering_of_Code[pauses in execution as required].
+with link:https://link.springer.com/chapter/10.1007/978-3-319-74950-1_6[pauses in execution as required].
 
 Thus, after the action of the *disassembler*,
 it is expected to translate the assembly language into a high-level language,
 easier to read and understand.
 This would be more appropriate
 for subsequent modification of the program in question.
-However, link:https://www.researchgate.net/publication/259563782_An_introduction_to_software_reverse_engineering[this task is complex].
+However, link:https://link.springer.com/chapter/10.1007/978-3-642-04117-4_31[this task is complex].
 
 Lastly, let us address the *decompiler*, which is the opposite of a compiler.
 This tool tries to recreate the original source code, in high-level language,
@@ -154,11 +154,11 @@ And comments and variable names may have been completely lost
 
 Still, the *decompiler* is valuable and useful
 because it reveals all the basic information
-link:https://www.researchgate.net/publication/323273386_Reverse_Engineering_of_Code[about the operation of the program].
+link:https://link.springer.com/chapter/10.1007/978-3-319-74950-1_6[about the operation of the program].
 The *decompiler* retrieves high-level language of the program
 from the machine code,
 while the *disassembler* stays
-in the link:https://www.researchgate.net/publication/279533007_Exploring_the_two_faces_of_Software_Reverse_Engineering[assembly language instructions reconstruction].
+in the assembly language instructions reconstruction.
 
 For more information on the tools and exhibition of the most used,
 visit link:https://medium.com/@vignesh4303/reverse-engineering-resources-beginners-to-intermediate-guide-links-f64c207505ed[Medium] and link:https://www.apriorit.com/dev-blog/366-software-reverse-engineering-tools[Apriorit].
@@ -167,7 +167,7 @@ visit link:https://medium.com/@vignesh4303/reverse-engineering-resources-beginne
 
 `SRE` can be useful for modifying software structures, altering code,
 adding or removing commands and changing functions,
-thus link:https://www.researchgate.net/publication/279533007_Exploring_the_two_faces_of_Software_Reverse_Engineering[affecting their logical flow].
+thus affecting their logical flow.
 From the security area, the `SRE` provides techniques for hacking,
 whether it is malicious or ethical.
 In other words, it is useful to do damage

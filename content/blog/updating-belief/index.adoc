@@ -247,4 +247,4 @@ _How to measure anything in cibersecurity risk_.
 link:https://www.howtomeasureanything.com/[Wiley].
 
 . [[r3]] D. Lindley (2006). _Understanding Uncertainty_.
-link:http://www.al-edu.com/wp-content/uploads/2014/05/Lindley-D.V.-Understanding-uncertainty-2006.pdf[PDF via Wiley].
+link:https://onlinelibrary.wiley.com/doi/book/10.1002/0470055480[Wiley].

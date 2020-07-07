@@ -115,7 +115,7 @@ See our [inner]#link:../anomaly-serial-killer-doll[article on Chucky]# for detai
 
 // also joern
 A year later,
-link:https://www.sec.cs.tu-bs.de/pubs/2014-ieee.pdf[Yamaguchi et al. (2014)]
+link:https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=6956589[Yamaguchi et al. (2014)]
 reuse this idea of
 [inner]#link:../exploit-code-graph/[exploiting graph representations of code]#
 in order to find vulnerable code patterns.
@@ -198,7 +198,7 @@ link:https://en.wikipedia.org/wiki/Similarity_learning[distance functions].
 // others
 Other approaches in this category are
 link:https://core.ac.uk/download/pdf/34611720.pdf[Scandariato et al. (2014)] and
-link:https://www.researchgate.net/publication/300414677_Predicting_Vulnerable_Software_Components_through_N-Gram_Analysis_and_Statistical_Feature_Selection[Pang et al. (2015)],
+link:https://ieeexplore.ieee.org/document/7424372[Pang et al. (2015)],
 who attempted to use techniques such as
 link:https://en.wikipedia.org/wiki/N-gram[n-gram] analysis using bag-of-words,
 but with limited results,

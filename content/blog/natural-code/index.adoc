@@ -206,7 +206,7 @@ of NLP in the least expected places.
 
 . [[r1]] S. Wang, D. Chollak, D. Movshovitz-Attias, and L. Tan.
 _Bugram: Bug detection with N-gram Language Models_.
-link:https://ece.uwaterloo.ca/~lintan/publications/bugram-ase16.pdf[ASE 2016].
+link:https://ece.uwaterloo.ca/~s446wang/paper/ase-16-1.pdf[ASE 2016].
 
 . [[r2]] M. Allamanis, E. Barr, C. Bird, C. Sutton.
 _Learning Natural Coding Conventions_.

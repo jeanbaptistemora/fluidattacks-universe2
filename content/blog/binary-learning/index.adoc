@@ -183,7 +183,7 @@ vulnerabilities in binaries at the operating sytem scale.
 == References
 
 . [[r1]] G. Grieco, G. Grinblat, L. Uzal, S. Rawat, J. Feist, L. Mounier (2015).
-_Toward large-scale vulnerability discovery using machine learning_.
-link:http://www.vdiscover.org/report.pdf[Technical Report].
-The Free International Center of Information Sciences and Systems (`CIFASIS`),
+link:https://dl.acm.org/doi/10.1145/2857705.2857720[_Toward large-scale vulnerability discovery using machine learning_].
+Technical Report. The Free International Center
+of Information Sciences and Systems (`CIFASIS`),
 National Council for Science and Technology of Argentina (`CONICET`).

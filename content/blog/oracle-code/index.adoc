@@ -246,10 +246,9 @@ whichever development model your team has chosen,
 
 This is what interests us most.
 `Semmle` maintains a public queries link:https://github.com/lgtmhq/lgtm-queries[repository] and
-a website with general link:https://help.semmle.com/wiki/display/SD/Semmle`standard`rules['rules'] that should be
+a link:https://help.semmle.com/wiki/[website] with general rules that should be
 followed for some of the supported languages,
-namely, `Java`, `C`, `Python` and some of their derivatives
-(see link:https://help.semmle.com/wiki/pages/viewpage.action?pageId=6848559[`Semmle FAQ`] for details).
+namely, `Java`, `C`, `Python` and some of their derivatives.
 Included are some security guidelines,
 with their corresponding `CWE`.
 For example,
@@ -356,5 +355,5 @@ of the code-as-data approach will bring.
 . [[r1]] link:https://www2.eecs.berkeley.edu/Pubs/TechRpts/1983/CSD-83-164.pdf[Mark Linton (1983). 'Queries and views of programs
 using a relational database system'. PhD thesis, UC Berkeley.]
 
-. [[r2]] link:https://semmle.com/wp-content/uploads/2007/01/scam07.pdf[Oege de Moor et al. (2007). 'QL for source code analysis'.
+. [[r2]] link:https://ieeexplore.ieee.org/document/4362893[Oege de Moor et al. (2007). 'QL for source code analysis'.
 Keynote address. Source Code Analysis and Manipulation.]

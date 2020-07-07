@@ -177,7 +177,7 @@ At `Fluid Attacks`, we use its ninth iteration.
 
 . link:https://gdpr-info.eu/[`GDPR`]
 +
-General Data Protection Regulation is link:https://www.researchgate.net/publication/333560686_GDPR_Overview[a set of rules]
+General Data Protection Regulation is a set of rules
 within the European Union (`EU`) and the European Economic Area (`EEA`)
 link:https://en.wikipedia.org/wiki/General_Data_Protection_Regulation[about data protection and privacy].
 These rules also address the collection, storage, and transfer of data
@@ -186,7 +186,7 @@ The `GDPR` enables the unification of international regulations
 for organizations processing personal data of European citizens.
 It also aims to give individuals more control
 over their personal information and its treatment.
-link:https://www.researchgate.net/publication/333560686_GDPR_Overview[Companies are required to] apply data protection principles
+Companies are required to apply data protection principles
 (using those strictly necessary)
 in processing activities and business practices from the initial stages.
 

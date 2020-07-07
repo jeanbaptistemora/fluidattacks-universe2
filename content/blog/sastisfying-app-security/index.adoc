@@ -97,7 +97,7 @@ finding reports are created and delivered to project leaders
 responsible for communicating with developers,
 who then mitigate or patch the vulnerabilities.
 
-.Report of finding in manually test via link:https://www.mitre.org/sites/default/files/publications/secure-code-review-report-sample.pdf:[Mitre.org]
+.Report of finding in manually test via link:https://www.mitre.org/sites/default/files/publications/secure-code-review-report-sample.pdf[Mitre.org]
 image::report.png[Report of finding in manually test via Mitre.org]
 
 *Automated tools:*

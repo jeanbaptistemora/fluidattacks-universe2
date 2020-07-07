@@ -426,7 +426,7 @@ your proprietary rights to that code.
  *What external tools does Fluid Attacks use to perform pentesting?*::
  We use link:https://portswigger.net/burp[Burp Suite] for web testing,
  link:https://www.immunityinc.com/products/canvas/[CANVAS] and
- link:https://www.secureauth.com/products/penetration-testing/core-impact[Core Impact]
+ link:https://www.coresecurity.com/products/core-impact[Core Impact]
  for infrastructure testing with additional exploits.
 
 *How will our data be transmitted?*::
