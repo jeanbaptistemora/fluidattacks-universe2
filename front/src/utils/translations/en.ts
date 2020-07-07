@@ -14,13 +14,25 @@ const enTranslations: Dictionary = {
     },
     gauge: {
       forcesBuildsRisk: {
+        footer: {
+          intro: "Risk is proportional to the number of vulnerable changes introduced into your system:",
+          preventedVulnerableBuilds: "Forces in strict mode stops those security issues from "
+            + "being delivered to your end users.",
+          vulnerableBuilds: "A build is considered vulnerable if it contains security issues.",
+        },
         title: "Builds risk",
       },
       forcesSecurityCommitment: {
+        footer: {
+          acceptedRisk: "However, accepted vulnerabilities on Integrates are ignored by the strict mode, "
+            + "and Forces will (by decision of your team) allow them to be built or deployed.",
+          conclusion: "The maximum benefit is reached when the accepted risk is low, and the strict mode high.",
+          intro: "Forces objective is to help your team overcome security vulnerabilities. "
+            + "For this to work, we put two things in your hands:",
+          strictMode: "The strict mode (which is enabled by default) helps you stop builds or deployments "
+            + "if there are open vulnerabilities, and thus protects your system from vulnerable code introduction.",
+        },
         title: "Your commitment towards security",
-      },
-      forcesUsage: {
-        title: "Service usage",
       },
       severity: {
         footer: "Security vulnerabilities are ranked based on C.V.S.S. v3.1. "
@@ -32,7 +44,6 @@ const enTranslations: Dictionary = {
     },
     headers: {
       forces: {
-        subtitle: "All time",
         title: "Forces",
       },
     },
@@ -90,9 +101,12 @@ const enTranslations: Dictionary = {
         title: "Findings being re-attacked",
       },
       forcesAutomatizedVulns: {
+        footer: "Forces performs security testing of your source-code, deployed environment and infrastructure. "
+          + "Single units of security problems found are displayed here.",
         title: "Automatized Vulnerabilities",
       },
       forcesRepositoriesAndBranches: {
+        footer: "You can run Forces in any of your repositories at any of its versions (commits or branches).",
         title: "Repositories and branches",
       },
       forcesStatus: {
@@ -112,6 +126,10 @@ const enTranslations: Dictionary = {
             + "throughout your Software Security Development Life Cycle.",
         },
         title: "Service status",
+      },
+      forcesUsage: {
+        footer: "Number of times your team used Forces to check for vulnerabilities.",
+        title: "Service usage",
       },
       totalFindings: {
         footer: "A finding is a group of vulnerabilities on your system "

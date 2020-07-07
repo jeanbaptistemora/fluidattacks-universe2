@@ -224,9 +224,6 @@ const d3GroupIndicatorsView: React.FC<ID3GroupIndicatorsProps> = (props: ID3Grou
                   <h1 className={styles.centerTitle}>
                     {translate.t("analytics.headers.forces.title")}
                   </h1>
-                  <h5 className={styles.centerTitle}>
-                    {translate.t("analytics.headers.forces.subtitle")}
-                  </h5>
                 </Panel.Title>
               </Panel.Heading>
               <Panel.Collapse>
@@ -262,10 +259,13 @@ const d3GroupIndicatorsView: React.FC<ID3GroupIndicatorsProps> = (props: ID3Grou
               documentName="forcesUsage"
               documentType="textBox"
               entity="group"
+              footer={
+                <p>{translate.t("analytics.textBox.forcesUsage.footer")}</p>
+              }
               generatorName="raw"
               generatorType="textBox"
               subject={groupName}
-              title={translate.t("analytics.gauge.forcesUsage.title")}
+              title={translate.t("analytics.textBox.forcesUsage.title")}
             />
           </Col>
           <Col md={3}>
@@ -274,6 +274,9 @@ const d3GroupIndicatorsView: React.FC<ID3GroupIndicatorsProps> = (props: ID3Grou
               documentName="forcesAutomatizedVulns"
               documentType="textBox"
               entity="group"
+              footer={
+                <p>{translate.t("analytics.textBox.forcesAutomatizedVulns.footer")}</p>
+              }
               generatorName="raw"
               generatorType="textBox"
               subject={groupName}
@@ -286,6 +289,9 @@ const d3GroupIndicatorsView: React.FC<ID3GroupIndicatorsProps> = (props: ID3Grou
               documentName="forcesRepositoriesAndBranches"
               documentType="textBox"
               entity="group"
+              footer={
+                <p>{translate.t("analytics.textBox.forcesRepositoriesAndBranches.footer")}</p>
+              }
               generatorName="raw"
               generatorType="textBox"
               subject={groupName}
@@ -300,6 +306,16 @@ const d3GroupIndicatorsView: React.FC<ID3GroupIndicatorsProps> = (props: ID3Grou
               documentName="forcesSecurityCommitment"
               documentType="gauge"
               entity="group"
+              footer={
+                <React.Fragment>
+                  <p>{translate.t("analytics.gauge.forcesSecurityCommitment.footer.intro")}</p>
+                  <ul>
+                    <li>{translate.t("analytics.gauge.forcesSecurityCommitment.footer.strictMode")}</li>
+                    <li>{translate.t("analytics.gauge.forcesSecurityCommitment.footer.acceptedRisk")}</li>
+                  </ul>
+                  <p>{translate.t("analytics.gauge.forcesSecurityCommitment.footer.conclusion")}</p>
+                </React.Fragment>
+              }
               generatorName="generic"
               generatorType="c3"
               subject={groupName}
@@ -312,6 +328,15 @@ const d3GroupIndicatorsView: React.FC<ID3GroupIndicatorsProps> = (props: ID3Grou
               documentName="forcesBuildsRisk"
               documentType="gauge"
               entity="group"
+              footer={
+                <React.Fragment>
+                  <p>{translate.t("analytics.gauge.forcesBuildsRisk.footer.intro")}</p>
+                  <ul>
+                    <li>{translate.t("analytics.gauge.forcesBuildsRisk.footer.vulnerableBuilds")}</li>
+                    <li>{translate.t("analytics.gauge.forcesBuildsRisk.footer.preventedVulnerableBuilds")}</li>
+                  </ul>
+                </React.Fragment>
+              }
               generatorName="generic"
               generatorType="c3"
               subject={groupName}
