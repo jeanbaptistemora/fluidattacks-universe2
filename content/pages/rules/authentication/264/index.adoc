@@ -58,5 +58,5 @@ and has sufficient logging and monitoring to detect account abuse or breaches.
 . [[r5]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V3.7 Defenses Against Session Management Exploits.(3.7.1)]
 Verify the application ensures a valid login session or requires
-re- authentication or secondary verification before allowing any sensitive
+re-authentication or secondary verification before allowing any sensitive
 transactions or account modifications.

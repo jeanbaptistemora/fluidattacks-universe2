@@ -39,7 +39,7 @@ while they are in transit from the client to the server.
 . [[r4]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V2.7 Out of Band Verifier Requirements.(2.7.1)]
 Verify that clear text out of band (NIST "restricted") authenticators,
-such as SMS or PSTN, are not offered by default,
+such as *SMS* or *PSTN*, are not offered by default,
 and stronger alternatives such as push notifications are offered first.
 
 . [[r5]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1

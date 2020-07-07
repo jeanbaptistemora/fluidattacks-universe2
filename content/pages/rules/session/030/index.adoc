@@ -119,7 +119,7 @@ typically immediately following authentication.
 
 . [[r9]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V2.2 General Authenticator Requirements.(2.2.6)]
-Verify replay resistance through the mandated use of OTP devices,
+Verify replay resistance through the mandated use of *OTP* devices,
 cryptographic authenticators, or lookup codes.
 
 . [[r10]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
