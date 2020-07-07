@@ -82,6 +82,13 @@ const dashboardView: React.FunctionComponent = (): JSX.Element => {
     ? []
     : data.me.groups.filter(hasIntegrates);
 
+  const onGroupsLoad: (() => void) = (): void => {
+    if (groups.length === 0) {
+      rollbar.debug("Empty projects", { ...data });
+    }
+  };
+  React.useEffect(onGroupsLoad, [groups]);
+
   const closedVulns: number = groups.reduce(
     (previousValue: number, group: IGroup): number =>
       previousValue
