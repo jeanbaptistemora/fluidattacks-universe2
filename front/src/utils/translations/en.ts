@@ -532,6 +532,23 @@ const enTranslations: Dictionary = {
         value: "Value",
       },
       users: {
+        addButton: {
+          success: "was successfully added to the organization",
+          text: "Add",
+          tooltip: "Add new user to the organization",
+        },
+        editButton: {
+          text: "Edit",
+          tooltip: "Edit user information",
+        },
+        modalAddTitle: "Add a new user to this organization",
+        modalEditTitle: "Edit user information",
+        removeButton: {
+          success: "was successfully removed from the organization",
+          text: "Remove",
+          tooltip: "Remove user from the organization",
+        },
+        successTitle: "Success",
         text: "Users",
         tooltip: "Add and remove users from the organization",
       },

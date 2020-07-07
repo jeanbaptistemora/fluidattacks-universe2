@@ -242,7 +242,10 @@ def require_organization_access(
     """
     @functools.wraps(func)
     async def verify_and_call(*args, **kwargs) -> Callable[..., Any]:
-        context = args[1].context
+        if hasattr(args[0], 'context'):
+            context = args[0].context
+        elif hasattr(args[1], 'context'):
+            context = args[1].context
         organization_identifier = str(
             kwargs.get('identifier') or
             kwargs.get('organization_id') or

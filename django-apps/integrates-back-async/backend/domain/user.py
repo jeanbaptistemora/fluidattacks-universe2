@@ -1,8 +1,12 @@
 from datetime import datetime
 from typing import Dict, List, Union, cast
+
 import pytz
+from asgiref.sync import async_to_sync
 from django.conf import settings
+
 from backend.dal import (
+    organization as org_dal,
     project as project_dal,
     user as user_dal
 )
@@ -162,6 +166,8 @@ def create_without_project(
         new_user_data['registered'] = True
         if organization:
             new_user_data['company'] = organization
+            org_id = async_to_sync(org_dal.get_or_create)(organization)
+            new_user_data['organization'] = org_id
         if phone_number:
             new_user_data['phone'] = phone_number
 

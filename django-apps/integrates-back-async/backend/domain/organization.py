@@ -34,6 +34,10 @@ DEFAULT_MAX_SEVERITY = Decimal('10.0')
 DEFAULT_MIN_SEVERITY = Decimal('0.0')
 
 
+async def add_user(organization_id: str, email: str) -> bool:
+    return await org_dal.add_user(organization_id, email)
+
+
 async def get_id_by_name(organization_name: str) -> str:
     result: OrganizationType = await org_dal.get_by_name(
         organization_name.lower(),
@@ -138,6 +142,13 @@ async def move_group(
         await org_dal.remove_group(old_organization_id, group_name)
     )
     return success
+
+
+async def remove_user(organization_id: str, email: str) -> bool:
+    if not has_user_access(email, organization_id):
+        raise UserNotInOrganization()
+
+    return await org_dal.remove_user(organization_id, email)
 
 
 async def update_policies(

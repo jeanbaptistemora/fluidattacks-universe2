@@ -11,7 +11,7 @@ export interface IAddUserModalProps {
   editTitle: string;
   initialValues: Record<string, string>;
   open: boolean;
-  organizationName?: string;
+  organizationId?: string;
   projectName?: string;
   title: string;
   type: "organization" | "user";

@@ -449,6 +449,11 @@ enum ReportLang {
     EN
 }
 
+enum OrganizationRole {
+    CUSTOMER
+    CUSTOMERADMIN
+}
+
 enum UserRole {
     ADMIN
     ANALYST

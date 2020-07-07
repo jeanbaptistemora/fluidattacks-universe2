@@ -14,19 +14,76 @@ from ariadne import (
 from graphql.language.ast import SelectionSetNode
 
 from backend import util
+from backend.api.resolvers import user as user_loader
 from backend.decorators import (
     enforce_group_level_auth_async,
     rename_kwargs,
     require_login,
     require_organization_access
 )
-from backend.domain import organization as org_domain
-from backend.api.resolvers import user as user_loader
+from backend.domain import (
+    organization as org_domain,
+    user as user_domain
+)
 from backend.typing import (
+    GrantUserAccessPayload as GrantUserAccessPayloadType,
     Organization as OrganizationType,
     SimplePayload as SimplePayloadType,
     User as UserType
 )
+from backend.utils import aio
+
+
+async def _do_grant_user_organization_access(
+    _,
+    info,
+    **parameters
+) -> GrantUserAccessPayloadType:
+    success: bool = False
+
+    organization_id = str(parameters.get('organization_id'))
+    organization_name = await org_domain.get_name_by_id(organization_id)
+
+    requester_data = util.get_jwt_content(info.context)
+    requester_email = requester_data['user_email']
+
+    user_email = str(parameters.get('user_email'))
+    user_organization = str(parameters.get('user_organization'))
+    user_phone_number = str(parameters.get('phone_number'))
+
+    user_created = False
+    user_exists = bool(user_domain.get_data(user_email, 'email'))
+    if not user_exists:
+        user_created = await aio.ensure_io_bound(
+            user_domain.create_without_project,
+            user_email,
+            user_organization,
+            'customer',
+            user_phone_number
+        )
+    user_added = await org_domain.add_user(organization_id, user_email)
+    success = user_added and any([user_created, user_exists])
+
+    if success:
+        util.invalidate_cache(user_email)
+        util.cloudwatch_log(
+            info.context,
+            f'Security: User {user_email} was granted access to organization '
+            f'{organization_name} by user {requester_email}'
+        )
+    else:
+        util.cloudwatch_log(
+            info.context,
+            f'Security: User {requester_email} attempted to grant user '
+            f'{user_email} access to organization {organization_name}'
+        )
+
+    return GrantUserAccessPayloadType(
+        success=success,
+        granted_user=dict(
+            email=user_email
+        )
+    )
 
 
 @enforce_group_level_auth_async
@@ -61,6 +118,35 @@ async def _do_move_group_organization(
             f'Security: User {user_email} attempted to move group '
             f'{group_name} to organization {new_organization_name}'
         )
+    return SimplePayloadType(success=success)
+
+
+async def _do_remove_user_organization_access(
+    _,
+    info,
+    organization_id: str,
+    user_email: str
+) -> SimplePayloadType:
+    user_data = util.get_jwt_content(info.context)
+    requester_email = user_data['user_email']
+    organization_name = await org_domain.get_name_by_id(organization_id)
+
+    success: bool = await org_domain.remove_user(
+        organization_id, user_email.lower()
+    )
+    if success:
+        util.cloudwatch_log(
+            info.context,
+            f'Security: User {requester_email} removed user {user_email} '
+            f'from organization {organization_name}'
+        )
+    else:
+        util.cloudwatch_log(
+            info.context,
+            f'Security: User {requester_email} attempted to remove user '
+            f'{user_email} from organization {organization_name}'
+        )
+
     return SimplePayloadType(success=success)
 
 

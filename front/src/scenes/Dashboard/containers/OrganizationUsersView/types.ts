@@ -1,3 +1,23 @@
+export interface IAddUserAttrs {
+  grantUserOrganizationAccess: {
+    grantedUser: {
+      email: string;
+      firstLogin: string;
+      lastLogin: string;
+      phoneNumber: string;
+      role: string;
+      userOrganization: string;
+    };
+    success: boolean;
+  };
+}
+
+export interface IRemoveUserAttrs {
+  removeUserOrganizationAccess: {
+    success: boolean;
+  };
+}
+
 export interface IUserAttrs {
   email: string;
   firstLogin: string;

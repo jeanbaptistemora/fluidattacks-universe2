@@ -119,10 +119,22 @@ type Mutation {
         role: UserRole!,
         phoneNumber: String
     ): GrantUserAccessPayload!
+    grantUserOrganizationAccess(
+        organizationId: String!,
+        phoneNumber: String,
+        role: OrganizationRole!,
+        userEmail: String!,
+        userOrganization: String!
+    ): GrantUserAccessPayload!
+
     removeUserAccess(
         projectName: String!,
         userEmail: String!
     ): RemoveUserAccessPayload!
+    removeUserOrganizationAccess(
+        organizationId: String!,
+        userEmail: String!
+    ): SimplePayload!
     editUser(
         projectName: String!,
         email: String!,

@@ -14,7 +14,9 @@ from asgiref.sync import sync_to_async
 from backend.api.resolvers import project as project_resolver
 from backend.decorators import (
     require_integrates,
-    require_login, require_project_access,
+    require_login,
+    require_organization_access,
+    require_project_access,
     enforce_group_level_auth_async,
     enforce_user_level_auth_async,
 )
@@ -252,6 +254,7 @@ async def resolve(  # pylint: disable=too-many-arguments
 
 
 @enforce_group_level_auth_async
+@require_integrates
 @require_project_access
 async def resolve_for_group(  # pylint: disable=too-many-arguments
     info,
@@ -274,6 +277,7 @@ async def resolve_for_group(  # pylint: disable=too-many-arguments
     )
 
 
+@require_organization_access
 async def resolve_for_organization(  # pylint: disable=too-many-arguments
     info,
     entity: str,
@@ -290,7 +294,6 @@ async def resolve_for_organization(  # pylint: disable=too-many-arguments
 
 @convert_kwargs_to_snake_case
 @require_login
-@require_integrates
 async def resolve_user(
     _,
     info,

@@ -54,6 +54,8 @@ describe("Add user modal", () => {
       request: {
         query: GET_USER,
         variables: {
+          entity: "PROJECT",
+          organizationId: "-",
           projectName: "TEST",
           userEmail: "user@test.com",
         },
@@ -75,6 +77,8 @@ describe("Add user modal", () => {
       request: {
         query: GET_USER,
         variables: {
+          entity: "PROJECT",
+          organizationId: "-",
           projectName: "TEST",
           userEmail: "unittest@test.com",
         },
@@ -98,6 +102,8 @@ describe("Add user modal", () => {
       request: {
         query: GET_USER,
         variables: {
+          entity: "PROJECT",
+          organizationId: "-",
           projectName: "TEST",
           userEmail: "user@test.com",
         },
@@ -110,6 +116,8 @@ describe("Add user modal", () => {
       request: {
         query: GET_USER,
         variables: {
+          entity: "PROJECT",
+          organizationId: "-",
           projectName: "TEST",
           userEmail: "unittest@test.com",
         },

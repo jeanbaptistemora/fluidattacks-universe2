@@ -112,13 +112,14 @@ async def add_group(organization_id: str, group: str) -> bool:
     return success
 
 
-async def add_user(organization_id: str, email: str) -> None:
+async def add_user(organization_id: str, email: str) -> bool:
+    success: bool = False
     new_item = {
         'pk': organization_id,
         'sk': f'USER#{email}'
     }
     try:
-        await dynamo_async_put_item(TABLE_NAME, new_item)
+        success = await dynamo_async_put_item(TABLE_NAME, new_item)
     except ClientError as ex:
         await sync_to_async(rollbar.report_message)(
             'Error adding user to organization',
@@ -126,6 +127,7 @@ async def add_user(organization_id: str, email: str) -> None:
             extra_data=ex,
             payload_data=locals()
         )
+    return success
 
 
 async def create(organization_name: str) -> OrganizationType:
@@ -171,6 +173,29 @@ async def remove_group(organization_id: str, group_name: str) -> bool:
     except ClientError as ex:
         await sync_to_async(rollbar.report_message)(
             'Error removing group from organization',
+            'error',
+            extra_data=ex,
+            payload_data=locals()
+        )
+    return success
+
+
+async def remove_user(organization_id: str, email: str) -> bool:
+    """
+    Remove a user from an organization
+    """
+    success: bool = False
+    user_item = DynamoDeleteType(
+        Key={
+            'pk': organization_id,
+            'sk': f'USER#{email}'
+        }
+    )
+    try:
+        success = await dynamo_async_delete_item(TABLE_NAME, user_item)
+    except ClientError as ex:
+        await sync_to_async(rollbar.report_message)(
+            'Error removing a user from an organization',
             'error',
             extra_data=ex,
             payload_data=locals()

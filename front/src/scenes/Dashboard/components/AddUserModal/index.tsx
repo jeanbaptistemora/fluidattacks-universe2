@@ -71,6 +71,10 @@ export const addUserModal: React.FC<IAddUserModalProps> = (props: IAddUserModalP
     if (!_.isEmpty(userEmail)) {
       getUser({
         variables: {
+          entity: organizationModal
+                  ? "ORGANIZATION"
+                  : "PROJECT",
+          organizationId: _.get(props, "organizationId", "-"),
           projectName: _.get(props, "projectName", "-"),
           userEmail,
         },
@@ -82,7 +86,9 @@ export const addUserModal: React.FC<IAddUserModalProps> = (props: IAddUserModalP
     ? { ...props.initialValues, role: props.initialValues.role.toUpperCase() }
     : {};
 
+  const groupModal: boolean = props.projectName !== undefined;
   const organizationModal: boolean = props.type === "organization";
+  const sidebarModal: boolean = props.type === "user" && props.projectName === undefined;
 
   return (
     <React.StrictMode>
@@ -122,14 +128,14 @@ export const addUserModal: React.FC<IAddUserModalProps> = (props: IAddUserModalP
                 <ControlLabel>{requiredIndicator}{translate.t("userModal.role")}</ControlLabel>
                 <Field name="role" component={dropdownField} validate={[required]}>
                   <option value="" />
-                  {(props.projectName !== undefined ? groupLevelRoles : []).map((role: string) => (
+                  {(groupModal ? groupLevelRoles : []).map((role: string) => (
                     <Can do={`grant_group_level_role:${role}`} key={role}>
                       <option value={role.toUpperCase()}>
                         {translate.t(`userModal.roles.${role}`)}
                       </option>
                     </Can>
                   ))}
-                  {(props.projectName !== undefined ? [] : userLevelRoles).map((role: string) => (
+                  {(sidebarModal ? userLevelRoles : []).map((role: string) => (
                     <Can do={`grant_user_level_role:${role}`} key={role}>
                       <option value={role.toUpperCase()}>
                         {translate.t(`userModal.roles.${role}`)}
@@ -143,7 +149,7 @@ export const addUserModal: React.FC<IAddUserModalProps> = (props: IAddUserModalP
                   ))}
                 </Field>
               </FormGroup>
-              {props.projectName !== undefined || organizationModal ? (
+              {props.projectName !== undefined ? (
                 <FormGroup>
                   <ControlLabel>
                     {requiredIndicator}
