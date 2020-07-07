@@ -527,6 +527,25 @@ async def _do_edit_user(_, info, **modified_user_data) -> EditUserPayloadType:
     )
 
 
+def _add_acess(
+        responsibility: str,
+        email: str,
+        project_name: str,
+        context: object) -> bool:
+    result = False
+    if len(responsibility) <= 50:
+        result = project_domain.add_access(
+            email, project_name, 'responsibility', responsibility
+        )
+    else:
+        util.cloudwatch_log(
+            context,
+            (f'Security: {email} Attempted to add responsibility to '
+             f'project{project_name} bypassing validation')
+        )
+    return result
+
+
 @sync_to_async
 def modify_user_information(context: object,
                             modified_user_data: Dict[str, str],
@@ -545,18 +564,12 @@ def modify_user_information(context: object,
         successes.append(False)
 
     if responsibility:
-        if len(responsibility) <= 50:
-            result = project_domain.add_access(
-                email, project_name, 'responsibility', responsibility
-            )
-            successes.append(result)
-        else:
-            util.cloudwatch_log(
-                context,
-                f'Security: {email} Attempted to add responsibility to '
-                f'project{project_name} bypassing validation'
-            )
-            successes.append(False)
+        successes.append(_add_acess(
+            responsibility,
+            email,
+            project_name,
+            context
+        ))
 
     if phone and validate_phone_field(phone):
         result = user_domain.add_phone_to_user(email, phone)
