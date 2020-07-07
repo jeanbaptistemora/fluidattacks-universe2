@@ -1,7 +1,7 @@
 :slug: rules/118/
 :category: emails
 :description: This requirement establishes that email attachments must be inspected employing anti-malware software to avoid virus propagation.
-:keywords: Files, Email, Attachment, Malware, Analyze, Tool, Rules, Ethical Hacking, Pentesting
+:keywords: Files, Email, Attachment, Malware, Analyze, ASVS, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R118. Inspect attachments
@@ -13,3 +13,11 @@ An anti-malware tool must scan files that are attached to an email.
 == Findings
 
 * [inner]#link:/web/findings/114/[F114. Phishing]#
+
+== References
+
+. [[r1]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V10.1 Code Integrity Controls.(10.1.1)]
+Verify that a code analysis tool is in use that can detect potentially
+malicious code, such as time functions, unsafe file operations and network
+connections.
