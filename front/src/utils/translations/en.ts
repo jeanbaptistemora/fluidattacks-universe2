@@ -131,6 +131,10 @@ const enTranslations: Dictionary = {
         footer: "Number of times your team used Forces to check for vulnerabilities.",
         title: "Service usage",
       },
+      meanTimeToRemediate: {
+        footer: "Amount of time (in days) it takes to your team to fix a security vulnerability.",
+        title: "Mean time to remediate",
+      },
       totalFindings: {
         footer: "A finding is a group of vulnerabilities on your system "
           + "related to the same attack vector.",
@@ -140,6 +144,10 @@ const enTranslations: Dictionary = {
         footer: "Vulnerabilities are the minimum units of risk. "
           + "They are tied to a system, and a specific location within that system.",
         title: "Total vulnerabilities",
+      },
+      vulnsWithUndefinedTreatment: {
+        footer: "Number of vulnerabilities without a remediation plan specified by one of your managers.",
+        title: "Vulnerabilities with not-defined treatment",
       },
     },
   },

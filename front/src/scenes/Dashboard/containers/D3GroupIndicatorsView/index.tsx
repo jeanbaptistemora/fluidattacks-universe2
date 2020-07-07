@@ -88,7 +88,7 @@ const d3GroupIndicatorsView: React.FC<ID3GroupIndicatorsProps> = (props: ID3Grou
           </Col>
         </Row>
         <Row>
-          <Col md={3}>
+          <Col md={4}>
             <Graphic
               bsHeight={80}
               documentName="totalFindings"
@@ -103,7 +103,7 @@ const d3GroupIndicatorsView: React.FC<ID3GroupIndicatorsProps> = (props: ID3Grou
               title={translate.t("analytics.textBox.totalFindings.title")}
             />
           </Col>
-          <Col md={3}>
+          <Col md={4}>
             <Graphic
               bsHeight={80}
               documentName="totalVulnerabilities"
@@ -118,7 +118,24 @@ const d3GroupIndicatorsView: React.FC<ID3GroupIndicatorsProps> = (props: ID3Grou
               title={translate.t("analytics.textBox.totalVulnerabilities.title")}
             />
           </Col>
-          <Col md={3}>
+          <Col md={4}>
+            <Graphic
+              bsHeight={80}
+              documentName="vulnsWithUndefinedTreatment"
+              documentType="textBox"
+              entity="group"
+              footer={
+                <p>{translate.t("analytics.textBox.vulnsWithUndefinedTreatment.footer")}</p>
+              }
+              generatorName="raw"
+              generatorType="textBox"
+              subject={groupName}
+              title={translate.t("analytics.textBox.vulnsWithUndefinedTreatment.title")}
+            />
+          </Col>
+        </Row>
+        <Row>
+          <Col md={4}>
             <Graphic
               bsHeight={80}
               documentName="findingsBeingReattacked"
@@ -133,7 +150,7 @@ const d3GroupIndicatorsView: React.FC<ID3GroupIndicatorsProps> = (props: ID3Grou
               title={translate.t("analytics.textBox.findingsBeingReattacked.title")}
             />
           </Col>
-          <Col md={3}>
+          <Col md={4}>
             <Graphic
               bsHeight={80}
               documentName="daysSinceLastRemediation"
@@ -146,6 +163,21 @@ const d3GroupIndicatorsView: React.FC<ID3GroupIndicatorsProps> = (props: ID3Grou
               generatorType="textBox"
               subject={groupName}
               title={translate.t("analytics.textBox.daysSinceLastRemediation.title")}
+            />
+          </Col>
+          <Col md={4}>
+            <Graphic
+              bsHeight={80}
+              documentName="meanTimeToRemediate"
+              documentType="textBox"
+              entity="group"
+              footer={
+                <p>{translate.t("analytics.textBox.meanTimeToRemediate.footer")}</p>
+              }
+              generatorName="raw"
+              generatorType="textBox"
+              subject={groupName}
+              title={translate.t("analytics.textBox.meanTimeToRemediate.title")}
             />
           </Col>
         </Row>
