@@ -156,17 +156,6 @@ function helper_terraform_init {
   || return 1
 }
 
-function helper_terraform_lint {
-  local target_dir="${1}"
-
-      helper_terraform_init "${target_dir}" \
-  &&  pushd "${1}" \
-    &&  echo '[INFO] Running terraform linter' \
-    &&  tflint --deep --module \
-  &&  popd \
-  || return 1
-}
-
 function helper_terraform_plan {
   local target_dir="${1}"
 
@@ -174,6 +163,7 @@ function helper_terraform_plan {
   &&  pushd "${target_dir}" \
     &&  echo '[INFO] Running terraform plan' \
     &&  terraform plan -refresh=true \
+    &&  tflint --deep --module \
   &&  popd \
   || return 1
 }

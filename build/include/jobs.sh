@@ -499,18 +499,6 @@ function job_lint_code {
   && prospector --profile .prospector.yml .
 }
 
-function job_infra_analytics_test {
-      helper_terraform_init \
-        services/analytics/terraform \
-  &&  helper_terraform_plan \
-        services/analytics/terraform
-}
-
-function job_infra_analytics_deploy {
-      helper_terraform_apply \
-        services/analytics/terraform
-}
-
 function job_infra_autoscaling_ci_deploy_config {
   local bastion_ip='192.168.3.11'
   local bastion_user='ubuntu'
@@ -557,18 +545,6 @@ function job_infra_autoscaling_ci_deploy_config {
         'sudo killall -SIGHUP gitlab-runner'
 }
 
-function job_infra_aws_sso_test {
-      helper_terraform_init \
-        services/aws-sso/terraform \
-  &&  helper_terraform_plan \
-        services/aws-sso/terraform
-}
-
-function job_infra_aws_sso_deploy {
-      helper_terraform_apply \
-        services/aws-sso/terraform
-}
-
 function job_infra_eks_setup {
       echo '[INFO] This is a work in progress! this may fail' \
   &&  . services/eks-cluster/kubectl-setup/kubectl-setup.sh \
@@ -589,18 +565,6 @@ function job_infra_eks_deploy {
       echo '[INFO] This is a work in progress! this may fail' \
   &&  helper_terraform_apply \
         services/eks/terraform
-}
-
-function job_infra_fluid_vpc_test {
-      helper_terraform_init \
-        services/fluid-vpc/terraform \
-  &&  helper_terraform_plan \
-        services/fluid-vpc/terraform
-}
-
-function job_infra_fluid_vpc_deploy {
-      helper_terraform_apply \
-        services/fluid-vpc/terraform
 }
 
 function _job_infra_monolith {
@@ -700,18 +664,6 @@ function job_infra_monolith_test {
 
 function job_infra_monolith_deploy {
   _job_infra_monolith 'deploy'
-}
-
-function job_infra_sops_test {
-      helper_terraform_init \
-        services/sops/terraform \
-  &&  helper_terraform_plan \
-        services/sops/terraform
-}
-
-function job_infra_sops_deploy {
-      helper_terraform_apply \
-        services/sops/terraform
 }
 
 function job_send_new_version_email {

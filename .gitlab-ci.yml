@@ -183,27 +183,7 @@ deploy_docker_image_vpn:
   <<: *in_dev_and_master_branch
   stage: build-and-test
 
-infra_analytics_test:
-  <<: *with_nix
-  <<: *in_dev_branch
-  stage: build-and-test
-
-infra_analytics_deploy:
-  <<: *with_nix
-  <<: *in_master_branch
-  stage: deploy
-
 infra_autoscaling_ci_deploy_config:
-  <<: *with_nix
-  <<: *in_master_branch
-  stage: deploy
-
-infra_aws_sso_test:
-  <<: *with_nix
-  <<: *in_dev_branch
-  stage: build-and-test
-
-infra_aws_sso_deploy:
   <<: *with_nix
   <<: *in_master_branch
   stage: deploy
@@ -223,32 +203,12 @@ infra_aws_sso_deploy:
   <<: *in_master_branch
   stage: eks-initial-setup
 
-infra_fluid_vpc_test:
-  <<: *with_nix
-  <<: *in_dev_branch
-  stage: build-and-test
-
-infra_fluid_vpc_deploy:
-  <<: *with_nix
-  <<: *in_master_branch
-  stage: deploy
-
 infra_monolith_test:
   <<: *with_nix
   <<: *in_dev_branch
   stage: build-and-test
 
 infra_monolith_deploy:
-  <<: *with_nix
-  <<: *in_master_branch
-  stage: deploy
-
-infra_sops_test:
-  <<: *with_nix
-  <<: *in_dev_branch
-  stage: build-and-test
-
-infra_sops_deploy:
   <<: *with_nix
   <<: *in_master_branch
   stage: deploy
@@ -456,12 +416,52 @@ fluidasserts_post:
     - ./build2.sh "${CI_JOB_NAME% *}"
   interruptible: true
 
-test_autoscaling_ci:
+test_infra_autoscaling_ci:
   <<: *with_nix_2
   <<: *in_dev_branch
   stage: build-and-test
 
-deploy_autoscaling_ci:
+apply_infra_autoscaling_ci:
+  <<: *with_nix_2
+  <<: *in_master_branch
+  stage: deploy
+
+test_infra_analytics:
+  <<: *with_nix_2
+  <<: *in_dev_branch
+  stage: build-and-test
+
+apply_infra_analytics:
+  <<: *with_nix_2
+  <<: *in_master_branch
+  stage: deploy
+
+test_infra_aws_sso:
+  <<: *with_nix_2
+  <<: *in_dev_branch
+  stage: build-and-test
+
+apply_infra_aws_sso:
+  <<: *with_nix_2
+  <<: *in_master_branch
+  stage: deploy
+
+test_infra_fluid_vpc:
+  <<: *with_nix_2
+  <<: *in_dev_branch
+  stage: build-and-test
+
+apply_infra_fluid_vpc:
+  <<: *with_nix_2
+  <<: *in_master_branch
+  stage: deploy
+
+test_infra_secret_management:
+  <<: *with_nix_2
+  <<: *in_dev_branch
+  stage: build-and-test
+
+apply_infra_secret_management:
   <<: *with_nix_2
   <<: *in_master_branch
   stage: deploy
