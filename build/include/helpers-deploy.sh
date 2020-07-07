@@ -179,7 +179,8 @@ function helper_deploy_pages {
   &&  sed -i "s|services/continuous-hacking|use-cases/continuous-hacking|g" new/content/pages/*/index.adoc \
   &&  rsync -av --progress content/pages/products/rules new/content/pages/products/ \
   &&  cp theme/2014/static/scss/tipuesearch.scss new/theme/2020/static/scss/ \
-  &&  sed -i "s|Source Sans Pro, sans-serif|'Roboto', sans-serif|g" new/theme/2020/static/scss/tipuesearch.scss
+  &&  sed -i "s|Source Sans Pro, sans-serif|'Roboto', sans-serif|g" new/theme/2020/static/scss/tipuesearch.scss \
+  &&  sed -i "s|:category: products|:category: resources|g" new/content/pages/products/rules/index.adoc
 }
 
 function helper_deploy_compile_old {
