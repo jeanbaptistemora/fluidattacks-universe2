@@ -5,8 +5,8 @@
 :tags: machine learning, vulnerability, code
 :image: cover.png
 :alt: Photo by Andres Urena on Unsplash. Credits: https://unsplash.com/photos/k1osF_h2fzA
-:description: Natural Language Processing has transcended the scope of natural language. It now has several applications in other realms such as static code analysis. In this blog, we present its applications in bug finding and coding conventions linting, both based upon the n-gram model.
-:keywords: Machine learning, Vulnerability, Natural Language Processing, N-gram, Predict, Bug
+:description: In this blog post, we present the use of Natural Language Processing in bug finding and coding conventions, both based upon the n-gram model.
+:keywords: Machine Learning, Vulnerability, Natural Language Processing, N-gram, Predict, Bug, Pentesting, Ethical Hacking
 :author: Rafael Ballestas
 :writer: raballestasr
 :name: Rafael Ballestas

@@ -5,8 +5,8 @@
 :tags: business, security, risk
 :image: cover.png
 :alt: Baseball hit. Photo by Chris Chow on Unsplash: https://unsplash.com/photos/BhwRQr08PcM
-:description: What is a beta distribution and how it can help us estimate the probability of suffering an attack given very sparse information, and why it is just like determining batting averages at the beginning of the season. We have more data than we think we need and use it to update our simulation results.
-:keywords: Risk, Probability, Impact, Measure, Quantify, Security
+:description: Here we work based on: What is a beta distribution, and how can it help us estimate the probability of suffering an attack given the scarce information?
+:keywords: Risk, Probability, Impact, Measure, Quantify, Security, Pentesting, Ethical Hacking
 :author: Rafael Ballestas
 :writer: raballestasr
 :name: Rafael Ballestas
@@ -14,7 +14,7 @@
 :about2: with an itch for CS
 :source: https://unsplash.com/photos/BhwRQr08PcM
 
-= Hit or miss
+= Hit or Miss
 
 One of the main obstacles against adopting
 a quantitative approach to risk management

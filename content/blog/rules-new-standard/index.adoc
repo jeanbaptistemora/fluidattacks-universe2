@@ -5,8 +5,8 @@
 :tags: security, cybersecurity, information, documentation, standard, ethical hacking
 :image: cover.png
 :alt: Photo by Bradley Feller on Unsplash
-:description: At Fluid Attacks, we maintain a set of security requirements called Rules. This set has been very useful for our hackers and clients, and here we briefly outline it, along with the world-renowned standards that have served as a reference for us —including the recently adapted GDPR.
-:keywords: Security, Cybersecurity, Information, Documentation, Standard, Ethical Hacking
+:description: Here we briefly outline Rules, Fluid Attacks's set of security requirements, along with the world-renowned standards that have served as a reference for us.
+:keywords: Security, Cybersecurity, Information, Documentation, Standard, Rules, Ethical Hacking, Pentesting
 :author: Felipe Ruiz
 :writer: fruiz
 :name: Felipe Ruiz

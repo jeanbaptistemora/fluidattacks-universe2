@@ -5,8 +5,8 @@
 :tags: revert, software, engineering, security, vulnerability, hacking
 :image: cover.png
 :alt: Photo by Erda Estremera on Unsplash
-:description: Reverse engineering has application in a wide variety of areas of human practice. It is incumbent upon us here to review some of its basic concepts within information technology and through what tools it can be used for both ethical and malicious hacking.
-:keywords: Revert, Software, Engineering, Security, Vulnerability, Hacking
+:description: Here we review some basic concepts of reverse engineering within information technology and through what tools it can be used for ethical and malicious hacking.
+:keywords: Revert, Software, Reverse Engineering, Security, Vulnerability, Hacking, Ethical Hacking, Pentesting
 :author: Felipe Ruiz
 :writer: fruiz
 :name: Felipe Ruiz

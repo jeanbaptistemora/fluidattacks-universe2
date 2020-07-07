@@ -5,8 +5,8 @@
 :tags: machine learning, vulnerability, discovery
 :image: cover.png
 :alt: Can machines learn to hack?
-:description: A bird's eye view of machine learning techniques applied to vulnerability discovery in source code, reviewing papers from 2011 to 2018. Approaches are broadly grouped as anomaly detection, meta-code analysis and code pattern recognition, which will be the most interesting for our purposes.
-:keywords: Machine learning, Vulnerability, Anomaly detection, Pattern recognition, Deep learning, Security
+:description: This post is a bird's eye view of machine learning techniques applied to vulnerability discovery in source code, reviewing papers from 2011 to 2018.
+:keywords: Machine Learning, Vulnerability, Anomaly Detection, Pattern Recognition, Deep Learning, Security, Ethical Hacking, Pentesting
 :author: Rafael Ballestas
 :writer: raballestasr
 :name: Rafael Ballestas
@@ -15,7 +15,7 @@
 :source: https://unsplash.com/photos/iar-afB0QQw
 
 
-= Machine-learning to hack
+= Machine-Learning to Hack
 
 To date the
 [inner]#link:../libssh-bypass-cve/[most]#

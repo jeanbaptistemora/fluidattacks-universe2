@@ -5,8 +5,8 @@
 :tags: business, security, risk
 :image: cover.png
 :alt: Finance simulation. Photo by M. B. M. on Unsplash: https://unsplash.com/photos/ZzOa5G8hSPI
-:description: How to implement the previously discussed risk management tools and concepts such as the loss exceedance curve and value-at-risk in Python using the numerical and data analysis ecosystem consisting of Numpy, Pandas, Matplotlib and the Jupyter notebook.
-:keywords: Risk, Probability, Impact, Measure, Quantify, Security
+:description: Learn how to implement risk management tools and ideas like the loss exceedance curve and value-at-risk in Python using numerical and data analysis ecosystem.
+:keywords: Risk, Probability, Impact, Measure, Quantify, Security, Ethical Hacking, Pentesting
 :author: Rafael Ballestas
 :writer: raballestasr
 :name: Rafael Ballestas

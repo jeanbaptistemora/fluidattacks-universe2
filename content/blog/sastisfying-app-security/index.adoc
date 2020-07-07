@@ -5,8 +5,8 @@
 :tags: security, testing
 :image: cover.png
 :alt: Photo by NESA by Makers on Unsplash
-:description: This blog is an introduction to the static application security test (SAST). It will provide the reader with a general concept of what SAST is, how it works, the types of static application security testing, along with some of its history and a few of the benefits of implementing SAST in projects.
-:keywords: SAST, SDLC, Code, Automated test, Manual test, Vulnerabilities
+:description: This blog post is an introduction to SAST. We share the concept, how SAST works, its types, history, and some of the benefits of implementing it in projects.
+:keywords: SAST, SDLC, Code, Automated Test, Manual Test, Vulnerabilities, Ethical Hacking, Pentesting
 :author: Kevin Cardona
 :writer: kzccardona
 :name: Kevin Cardona

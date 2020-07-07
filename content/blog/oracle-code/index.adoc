@@ -5,8 +5,8 @@
 :tags: testing, application, detect
 :image: cover.png
 :alt: Code on a screen
-:description: A description of the code-as-data approach to source code analysis. The method consists of making a database out of the application code, and using a special query language in order to detect vulnerabilities and bugs in the code. Security applications are discussed, as is Semmle's offering.
-:keywords: Testing, Database, Code, Query Language, Semmle, Data
+:description: This blog post is a description of the code-as-data approach to source code analysis.
+:keywords: Testing, Database, Code, Query Language, Semmle, Data, Ethical Hacking, Pentesting
 :author: Rafael Ballestas
 :writer: raballestasr
 :name: Rafael Ballestas

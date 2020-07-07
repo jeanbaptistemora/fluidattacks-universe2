@@ -5,8 +5,8 @@
 :tags: cybersecurity, trends, mistake, technology, economics, information
 :image: cover.png
 :alt: Photo by Oleg Laptev on Unsplash
-:description: Most people are lured to predictions of experts. But science has shown how bad we are at making predictions. In this post, we review some cybersecurity trends published online. We discuss why it is a good idea to be wary of many of these predictions.
-:keywords: Cybersecurity, Trends, Mistake, Technology, Economics, Information
+:description: In this post, we review some cybersecurity trends published online. We discuss why it is a good idea to be wary of many of these predictions.
+:keywords: Cybersecurity, Trends, Mistake, Technology, Economics, Information, Ethical Hacking, Pentesting
 :author: Julian Arango
 :writer: jarango
 :name: Julian Arango

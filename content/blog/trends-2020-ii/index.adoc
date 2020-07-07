@@ -5,8 +5,8 @@
 :tags: cybersecurity, trends, mistake, technology, economics, information
 :image: cover.png
 :alt: Photo by Matthew Henry on Unsplash
-:description: In a previous post, we criticized some 'trends' in cybersecurity. In the current piece, we do the opposite. In essence, we discuss why other cybersecurity predictions for 2020 seem plausible, and some undeniably real —we wrap-up by mentioning other trends beyond 2021.
-:keywords: Cybersecurity, Trends, Mistake, Technology, Economics, Information
+:description: Earlier, we criticized some 'trends' in cybersecurity. Now, we discuss why some cybersecurity predictions for 2020 seem plausible and others undeniably real.
+:keywords: Cybersecurity, Trends, Mistake, Technology, Economics, Information, Ethical Hacking, Pentesting
 :author: Julian Arango
 :writer: jarango
 :name: Julian Arango
