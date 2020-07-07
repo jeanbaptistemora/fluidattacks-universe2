@@ -24,6 +24,29 @@
         </script>
       <!-- End Google Analytics -->
 
+            <!-- Compress and Minify CSS files and bundle from SASS files -->
+      {% assets filters="scss, cssmin", output="static/css/theme.min.css", "scss/base.scss", "../node_modules/intl-tel-input/src/css/intlTelInput.scss" %}
+        <link rel="preload"
+              as="style"
+              onload="this.rel = 'stylesheet'"
+              href="{{ SITEURL }}/{{ ASSET_URL }}">
+      {% endassets %}
+            <!-- Compress and Minify CSS files and bundle from SASS files -->
+      {% assets filters="scss, cssmin", output="static/css/theme.min.css", "scss/base.scss", "../node_modules/intl-tel-input/src/css/intlTelInput.scss" %}
+        <link rel="stylesheet"
+              type="text/css"
+              href="{{ SITEURL }}/{{ ASSET_URL }}">
+      {% endassets %}
+
+      <!-- Tachyons stylesheet -->
+        <link rel="preload"
+        as="style"
+        onload="this.rel = 'stylesheet'"
+        href="https://unpkg.com/tachyons@4.10.0/css/tachyons.min.css"/>
+
+        <link
+        rel="stylesheet"
+        href="https://unpkg.com/tachyons@4.10.0/css/tachyons.min.css"/>
       <!-- Highlight.js syntax highlighter -->
       <link rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/foundation.min.css">
@@ -108,12 +131,6 @@
                 title="{{ SITENAME }} Tags RSS Feed" />
         {% endif %}
       {% endfor %}
-      <!-- Compress and Minify CSS files and bundle from SASS files -->
-        {% assets filters="scss, cssmin", output="static/css/theme.min.css", "scss/base.scss", "../node_modules/intl-tel-input/src/css/intlTelInput.scss" %}
-          <link rel="stylesheet"
-                type="text/css"
-                href="{{ SITEURL }}/{{ ASSET_URL }}">
-        {% endassets %}
       <!-- Custom Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Montserrat:300,700|Source+Sans+Pro:300|Overpass+Mono"
               rel="stylesheet">
@@ -171,7 +188,9 @@
               src="{{ SITEURL }}/{{ ASSET_URL }}"></script>
     {% endassets %}
     <!-- Navigation -->
-      {% include "menu.html" %}
+      <div class="skeleton">
+        {% include "menu.html" %}
+      </div>
       <div>
         {% block breadcrumb %}{% endblock breadcrumb%}
         {% block header %}
