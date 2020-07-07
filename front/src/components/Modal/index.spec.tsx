@@ -21,6 +21,7 @@ describe("Generic modal", (): void => {
 
   it("should render modal title", (): void => {
     expect.hasAssertions();
+
     const wrapper: ShallowWrapper = shallow(
       <Modal
         footer={<div />}
@@ -29,6 +30,7 @@ describe("Generic modal", (): void => {
         open={true}
       />
     );
+
     expect(
       wrapper.contains(
         <ModalHeader
@@ -47,6 +49,7 @@ describe("Generic modal", (): void => {
 
   it("should render modal body", (): void => {
     expect.hasAssertions();
+
     const wrapper: ShallowWrapper = shallow(
       <Modal
         content={<p>{"Unit modal content"}</p>}
@@ -56,6 +59,7 @@ describe("Generic modal", (): void => {
         open={true}
       />
     );
+
     expect(
       wrapper.contains(
         <ModalBody componentClass={"div"}>
@@ -67,6 +71,7 @@ describe("Generic modal", (): void => {
 
   it("should render modal footer", (): void => {
     expect.hasAssertions();
+
     const wrapper: ShallowWrapper = shallow(
       <Modal
         content={<p>{"Unit modal content"}</p>}
@@ -76,6 +81,7 @@ describe("Generic modal", (): void => {
         open={true}
       />
     );
+
     expect(
       wrapper.contains(
         <ModalFooter componentClass={"div"}>
@@ -95,6 +101,7 @@ describe("Generic modal", (): void => {
 
   it("should render a modal", (): void => {
     expect.hasAssertions();
+
     const wrapper: ShallowWrapper = shallow(
       <Modal
         content={<p>{"Unit modal content"}</p>}
@@ -104,6 +111,7 @@ describe("Generic modal", (): void => {
         open={true}
       />
     );
+
     expect(wrapper).toHaveLength(1);
   });
 });

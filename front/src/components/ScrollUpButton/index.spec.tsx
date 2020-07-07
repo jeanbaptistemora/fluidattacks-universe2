@@ -10,7 +10,9 @@ describe("ScrollUpButton", (): void => {
 
   it("should render a scroll up button", (): void => {
     expect.hasAssertions();
+
     const wrapper: ShallowWrapper = shallow(<ScrollUpButton visibleAt={400} />);
+
     expect(wrapper).toHaveLength(1);
   });
 });

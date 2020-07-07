@@ -17,6 +17,7 @@ describe("Data table next", (): void => {
 
   it("should render an empty table", (): void => {
     expect.hasAssertions();
+
     const selectionMode: SelectRowOptions = {
       clickToSelect: true,
       mode: "checkbox",
@@ -44,11 +45,13 @@ describe("Data table next", (): void => {
         title={"Unit test table"}
       />
     );
+
     expect(wrapper).toHaveLength(1);
   });
 
   it("should render dynamic headers", (): void => {
     expect.hasAssertions();
+
     const data: Record<string, unknown>[] = [
       {
         test_header: "value 1",
@@ -81,11 +84,13 @@ describe("Data table next", (): void => {
         title={"Unit test table"}
       />
     );
+
     expect(wrapper).toHaveLength(1);
   });
 
   it("should render a title", (): void => {
     expect.hasAssertions();
+
     const data: Record<string, unknown>[] = [
       {
         test_header: "Submitted",
@@ -153,6 +158,7 @@ describe("Data table next", (): void => {
         title={"Unit test table"}
       />
     ).find("h3");
+
     expect(wrapper).toContainEqual(
       <h3 className={"title"}>{"Unit test table"}</h3>
     );
@@ -160,6 +166,7 @@ describe("Data table next", (): void => {
 
   it("should render a table with id", (): void => {
     expect.hasAssertions();
+
     const data: Record<string, unknown>[] = [
       {
         test_header: "value 1",
@@ -202,11 +209,13 @@ describe("Data table next", (): void => {
         title={"Unit test table"}
       />
     );
+
     expect(wrapper.find("#testTable")).toHaveLength(1);
   });
 
   it("should render a table", (): void => {
     expect.hasAssertions();
+
     const handleApprove: jest.Mock = jest.fn();
     const handleChange: jest.Mock = jest.fn();
     const handleDelete: jest.Mock = jest.fn();

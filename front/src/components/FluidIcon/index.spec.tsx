@@ -10,9 +10,11 @@ describe("FluidIcon", (): void => {
 
   it("should render an icon", (): void => {
     expect.hasAssertions();
+
     const wrapper: ShallowWrapper = shallow(
       <FluidIcon height={"20px"} icon={"authors"} width={"20px"} />
     );
+
     expect(wrapper).toHaveLength(1);
   });
 });

@@ -39,14 +39,14 @@ const devServer: WebpackDevServer = new WebpackDevServer(
   compiler,
   serverConfig
 );
-devServer.listen(PORT, HOST, (err?: Error): void => {
-  if (err !== undefined) {
-    console.log(err);
+devServer.listen(PORT, HOST, (serverError?: Error): void => {
+  if (serverError !== undefined) {
+    console.log(serverError);
   }
 
   console.log("Starting the development server...\n");
-  open(`https://${HOST}:8080/integrates`).catch((err?: Error): void => {
-    console.error(err);
+  open(`https://${HOST}:8080/integrates`).catch((error?: Error): void => {
+    console.error(error);
   });
 });
 

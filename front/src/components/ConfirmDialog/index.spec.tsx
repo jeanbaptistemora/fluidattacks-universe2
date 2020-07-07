@@ -11,6 +11,7 @@ describe("ConfirmDialog", (): void => {
 
   it("should handle cancel", (): void => {
     expect.hasAssertions();
+
     const confirmCallback: jest.Mock = jest.fn();
     const cancelCallback: jest.Mock = jest.fn();
     const wrapper: ReactWrapper = mount(
