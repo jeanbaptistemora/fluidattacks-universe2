@@ -383,6 +383,9 @@ cloudfront_distribution = troposphere.cloudfront.Distribution(
 s3_bucket = troposphere.s3.Bucket(
     title='s3Bucket',
     AccessControl='Private',
+    LoggingConfiguration=troposphere.s3.LoggingConfiguration(
+        LogFilePrefix="log"
+    )
 )
 elb_entity = troposphere.elasticloadbalancing.LoadBalancer(
     title='elasticLoadBalancer',

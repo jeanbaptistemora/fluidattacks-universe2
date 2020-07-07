@@ -66,7 +66,6 @@ def is_role_over_privileged(
                                      {'AWS', 'IAM', 'Role'}, info=True)
 
     for role, resource, template in roles:
-        line: int = resource['line']
         role_name: str = resource['name']
         _managed_policies: List[int] = helper.get_index(
             get_resources(graph, role, 'ManagedPolicyArns', depth=3), 0)

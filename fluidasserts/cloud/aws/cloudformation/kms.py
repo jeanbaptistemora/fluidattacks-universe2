@@ -100,7 +100,6 @@ def has_master_keys_exposed_to_everyone(
     keys: List[int] = get_resources(graph, map(lambda x: x[0], templates),
                                     {'AWS', 'KMS', 'Key'}, info=True)
     for key, resource, template in keys:
-        line: int = resource['line']
         key_policy_node: int = helper.get_index(
             get_resources(graph, key, 'KeyPolicy', depth=3), 0)
         statements: List[int] = get_resources(

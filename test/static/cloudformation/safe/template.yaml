@@ -227,6 +227,8 @@ Resources:
   s3Bucket:
     Properties:
       AccessControl: Private
+      LoggingConfiguration:
+        LogFilePrefix: log
     Type: AWS::S3::Bucket
   secret1:
     Properties:
