@@ -476,12 +476,28 @@ const enTranslations: Dictionary = {
   },
   home: {
     newGroup: {
-      company: "Company",
-      description: "Description",
-      drills: "Include Drills Service?",
+      company: {
+        text: "Company",
+        tooltip: "Name of the company that is associated with this group",
+      },
+      description: {
+        text: "Description",
+        tooltip: "Brief description to identify the group",
+      },
+      drills: {
+        text: "Include Drills Service?",
+        tooltip: "Drills finds deep and zero-day vulnerabilities during software development",
+      },
       extra_charges_may_apply: "Extra charges may apply",
-      forces: "Include Forces Service?",
-      integrates: "Include Integrates?",
+      forces: {
+        text: "Include Forces Service?",
+        tooltip: "Changes to the target of evaluation can be continuously tested against the closing of confirmed " +
+          "vulnerabilities. Forces can be included in CI/CD",
+      },
+      integrates: {
+        text: "Include Integrates?",
+        tooltip: "Communication platform where all group stakeholders can interact",
+      },
       invalidGroup: "Invalid group name",
       name: "Group Name",
       new: {
@@ -500,6 +516,7 @@ const enTranslations: Dictionary = {
         continuous: "Continuous Hacking",
         one_shot: "One-Shot Hacking",
         title: "Group Type",
+        tooltip: "Type of subscription",
       },
     },
     organizations: "My Organizations",

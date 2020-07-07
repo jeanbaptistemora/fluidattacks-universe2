@@ -16,6 +16,7 @@ import { EventWithDataHandler, Field, InjectedFormProps } from "redux-form";
 import { ConfigurableValidator } from "revalidate";
 import { Button } from "../../../../components/Button";
 import { Modal } from "../../../../components/Modal/index";
+import { TooltipWrapper } from "../../../../components/TooltipWrapper";
 import { authzPermissionsContext } from "../../../../utils/authz/config";
 import { dropdownField, textField } from "../../../../utils/forms/fields";
 import { msgError, msgSuccess } from "../../../../utils/notifications";
@@ -182,13 +183,20 @@ const addProjectModal: ((props: IAddProjectModal) => JSX.Element) = (props: IAdd
                           <Row>
                             <Col md={12} sm={12}>
                               <FormGroup>
-                                <ControlLabel>{translate.t("home.newGroup.company")}</ControlLabel>
-                                <Field
-                                  component={textField}
-                                  name="company"
-                                  type="text"
-                                  validate={[required, maxCompanyLength, validTextField]}
-                                />
+                                <ControlLabel>{translate.t("home.newGroup.company.text")}</ControlLabel>
+                                <TooltipWrapper
+                                  message={translate.t("home.newGroup.company.tooltip")}
+                                  placement="top"
+                                >
+                                  <FormGroup>
+                                    <Field
+                                      component={textField}
+                                      name="company"
+                                      type="text"
+                                      validate={[required, maxCompanyLength, validTextField]}
+                                    />
+                                  </FormGroup>
+                                </TooltipWrapper>
                               </FormGroup>
                               <FormGroup>
                                 <ControlLabel>{translate.t("home.newGroup.name")}</ControlLabel>
@@ -201,71 +209,94 @@ const addProjectModal: ((props: IAddProjectModal) => JSX.Element) = (props: IAdd
                                 />
                               </FormGroup>
                               <FormGroup>
-                                <ControlLabel>{translate.t("home.newGroup.description")}</ControlLabel>
-                                <Field
-                                  component={textField}
-                                  name="description"
-                                  type="text"
-                                  validate={[required, maxDescriptionLength, validTextField]}
-                                />
+                                <ControlLabel>{translate.t("home.newGroup.description.text")}</ControlLabel>
+                                <TooltipWrapper
+                                  message={translate.t("home.newGroup.description.tooltip")}
+                                  placement="top"
+                                >
+                                  <FormGroup>
+                                    <Field
+                                      component={textField}
+                                      name="description"
+                                      type="text"
+                                      validate={[required, maxDescriptionLength, validTextField]}
+                                    />
+                                  </FormGroup>
+                                </TooltipWrapper>
                               </FormGroup>
                               <FormGroup>
                                 <ControlLabel>{translate.t("home.newGroup.type.title")}</ControlLabel>
-                                <Field
-                                  component={dropdownField}
-                                  name="type"
-                                  onChange={handleSubscriptionTypeChange}
+                                <TooltipWrapper
+                                  message={translate.t("home.newGroup.type.tooltip")}
+                                  placement="top"
                                 >
-                                  <option value="CONTINUOUS">{translate.t("home.newGroup.type.continuous")}</option>
-                                  <option value="ONESHOT">{translate.t("home.newGroup.type.one_shot")}</option>
-                                </Field>
+                                  <FormGroup>
+                                    <Field
+                                      component={dropdownField}
+                                      name="type"
+                                      onChange={handleSubscriptionTypeChange}
+                                    >
+                                      <option value="CONTINUOUS">{translate.t("home.newGroup.type.continuous")}</option>
+                                      <option value="ONESHOT">{translate.t("home.newGroup.type.one_shot")}</option>
+                                    </Field>
+                                  </FormGroup>
+                                </TooltipWrapper>
                               </FormGroup>
                             </Col>
                           </Row>
                           <Row>
                             <Col md={5} sm={5}>
-                              <FormGroup>
-                                <ControlLabel>{translate.t("home.newGroup.integrates")} *</ControlLabel>
-                                <BootstrapSwitchButton
-                                  checked={true}
-                                  disabled={true}
-                                  offlabel={translate.t("home.newGroup.switch.no")}
-                                  onlabel={translate.t("home.newGroup.switch.yes")}
-                                  onstyle="danger"
-                                  style="btn-block"
-                                />
-                              </FormGroup>
-                            </Col>
-                          </Row>
-                          <Row>
-                            <Col md={5} sm={5}>
-                              <FormGroup>
-                                <ControlLabel>{translate.t("home.newGroup.drills")} *</ControlLabel>
-                                <BootstrapSwitchButton
-                                  checked={hasDrills}
-                                  offlabel={translate.t("home.newGroup.switch.no")}
-                                  onChange={handleDrillsBtnChange}
-                                  onlabel={translate.t("home.newGroup.switch.yes")}
-                                  onstyle="danger"
-                                  style="btn-block"
-                                />
-                              </FormGroup>
-                            </Col>
-                          </Row>
-                          {canHaveForces ? (
-                            <Row>
-                              <Col md={5} sm={5}>
+                              <TooltipWrapper message={translate.t("home.newGroup.integrates.tooltip")} placement="top">
                                 <FormGroup>
-                                  <ControlLabel>{translate.t("home.newGroup.forces")} *</ControlLabel>
+                                  <ControlLabel>{translate.t("home.newGroup.integrates.text")} *</ControlLabel>
                                   <BootstrapSwitchButton
-                                    checked={hasForces}
+                                    checked={true}
+                                    disabled={true}
                                     offlabel={translate.t("home.newGroup.switch.no")}
-                                    onChange={handleForcesBtnChange}
                                     onlabel={translate.t("home.newGroup.switch.yes")}
                                     onstyle="danger"
                                     style="btn-block"
                                   />
                                 </FormGroup>
+                              </TooltipWrapper>
+                            </Col>
+                          </Row>
+                          <Row>
+                            <Col md={5} sm={5}>
+                              <TooltipWrapper message={translate.t("home.newGroup.drills.tooltip")} placement="top">
+                                <FormGroup>
+                                  <ControlLabel>{translate.t("home.newGroup.drills.text")} *</ControlLabel>
+                                  <BootstrapSwitchButton
+                                    checked={hasDrills}
+                                    offlabel={translate.t("home.newGroup.switch.no")}
+                                    onChange={handleDrillsBtnChange}
+                                    onlabel={translate.t("home.newGroup.switch.yes")}
+                                    onstyle="danger"
+                                    style="btn-block"
+                                  />
+                                </FormGroup>
+                              </TooltipWrapper>
+                            </Col>
+                          </Row>
+                          {canHaveForces ? (
+                            <Row>
+                              <Col md={5} sm={5}>
+                                <TooltipWrapper
+                                  message={translate.t("home.newGroup.forces.tooltip")}
+                                  placement="top"
+                                >
+                                  <FormGroup>
+                                    <ControlLabel>{translate.t("home.newGroup.forces.text")} *</ControlLabel>
+                                    <BootstrapSwitchButton
+                                      checked={hasForces}
+                                      offlabel={translate.t("home.newGroup.switch.no")}
+                                      onChange={handleForcesBtnChange}
+                                      onlabel={translate.t("home.newGroup.switch.yes")}
+                                      onstyle="danger"
+                                      style="btn-block"
+                                    />
+                                  </FormGroup>
+                                </TooltipWrapper>
                               </Col>
                             </Row>
                           ) : undefined}
