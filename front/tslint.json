@@ -9,7 +9,8 @@
       "src/store/**",
       "src/graphics/**",
       "src/components/+(Button|ConfirmDialog|FluidIcon|Modal|Notification|Preloader|ScrollUpButton|TooltipWrapper)/**",
-      "src/components/DataTableNext/formatters/**"
+      "src/components/DataTableNext/formatters/**",
+      "src/components/DataTableNext/index.spec.tsx"
     ]
   },
   "rules": {

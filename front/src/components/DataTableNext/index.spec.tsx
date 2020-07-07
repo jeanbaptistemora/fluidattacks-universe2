@@ -1,78 +1,92 @@
-import { mount, ReactWrapper, shallow, ShallowWrapper } from "enzyme";
-import * as React from "react";
-import { approveFormatter, changeFormatter, deleteFormatter, statusFormatter } from "./formatters";
 import { DataTableNext } from "./index";
 import { IHeader } from "./types";
+import * as React from "react";
+import { ReactWrapper, ShallowWrapper, mount, shallow } from "enzyme";
+import {
+  approveFormatter,
+  changeFormatter,
+  deleteFormatter,
+  statusFormatter,
+} from "./formatters";
 
-const selectionMode: SelectRowOptions = {
-    clickToSelect: true,
-    mode: "checkbox",
-};
-const remote: RemoteProps = {
-  cellEdit: false,
-  filter: false,
-  pagination: false,
-  sort: false,
-};
-
-describe("Data table next", () => {
-
-  it("should return a function", () => {
-    expect(typeof (DataTableNext))
-      .toEqual("function");
+describe("Data table next", (): void => {
+  it("should return a function", (): void => {
+    expect.hasAssertions();
+    expect(typeof DataTableNext).toStrictEqual("function");
   });
 
-  it("should render an empty table", () => {
-    const data: object[] = [];
+  it("should render an empty table", (): void => {
+    expect.hasAssertions();
+    const selectionMode: SelectRowOptions = {
+      clickToSelect: true,
+      mode: "checkbox",
+    };
+    const remote: RemoteProps = {
+      cellEdit: false,
+      filter: false,
+      pagination: false,
+      sort: false,
+    };
+    const data: Record<string, unknown>[] = [];
     const testHeaders: IHeader[] = [];
     const wrapper: ShallowWrapper = shallow(
       <DataTableNext
-        id="testTable"
         bordered={false}
         dataset={data}
         exportCsv={false}
-        remote={remote}
-        search={false}
         headers={testHeaders}
+        id={"testTable"}
         onClickRow={undefined}
         pageSize={25}
-        title="Unit test table"
+        remote={remote}
+        search={false}
         selectionMode={selectionMode}
-      />,
+        title={"Unit test table"}
+      />
     );
-    expect(wrapper)
-      .toHaveLength(1);
+    expect(wrapper).toHaveLength(1);
   });
 
-  it("should render dynamic headers", () => {
-    const data: object[] = [
+  it("should render dynamic headers", (): void => {
+    expect.hasAssertions();
+    const data: Record<string, unknown>[] = [
       {
         test_header: "value 1",
         test_header2: "value 2",
       },
     ];
+    const selectionMode: SelectRowOptions = {
+      clickToSelect: true,
+      mode: "checkbox",
+    };
+    const remote: RemoteProps = {
+      cellEdit: false,
+      filter: false,
+      pagination: false,
+      sort: false,
+    };
     const testHeaders: IHeader[] = [];
     const wrapper: ShallowWrapper = shallow(
       <DataTableNext
-        id="testTable"
         bordered={false}
         dataset={data}
         exportCsv={false}
-        remote={remote}
-        search={false}
         headers={testHeaders}
+        id={"testTable"}
         onClickRow={undefined}
         pageSize={25}
-        title="Unit test table"
+        remote={remote}
+        search={false}
         selectionMode={selectionMode}
-      />,
+        title={"Unit test table"}
+      />
     );
-    expect(wrapper)
-      .toHaveLength(1);
+    expect(wrapper).toHaveLength(1);
   });
 
-  it("should render a title", () => {
-    const data: object[] = [
+  it("should render a title", (): void => {
+    expect.hasAssertions();
+    const data: Record<string, unknown>[] = [
       {
         test_header: "Submitted",
         test_header2: "Rejected",
@@ -80,6 +94,16 @@ describe("Data table next", () => {
         test_header4: "Active",
       },
     ];
+    const selectionMode: SelectRowOptions = {
+      clickToSelect: true,
+      mode: "checkbox",
+    };
+    const remote: RemoteProps = {
+      cellEdit: false,
+      filter: false,
+      pagination: false,
+      sort: false,
+    };
     const testHeaders: IHeader[] = [
       {
         align: "center",
@@ -116,35 +140,38 @@ describe("Data table next", () => {
     ];
     const wrapper: ReactWrapper = mount(
       <DataTableNext
-        id="testTable"
         bordered={false}
         dataset={data}
         exportCsv={false}
-        remote={remote}
-        search={false}
         headers={testHeaders}
+        id={"testTable"}
         onClickRow={undefined}
         pageSize={25}
-        title="Unit test table"
+        remote={remote}
+        search={false}
         selectionMode={selectionMode}
-      />,
-    )
-      .find("h3");
-    expect(wrapper)
-      .toContainEqual(
-        <h3 className="title">
-            Unit test table
-        </h3>,
-      );
+        title={"Unit test table"}
+      />
+    ).find("h3");
+    expect(wrapper).toContainEqual(
+      <h3 className={"title"}>{"Unit test table"}</h3>
+    );
   });
 
-  it("should render a table with id", () => {
-    const data: object[] = [
+  it("should render a table with id", (): void => {
+    expect.hasAssertions();
+    const data: Record<string, unknown>[] = [
       {
         test_header: "value 1",
         test_header2: "value 2",
       },
     ];
+    const remote: RemoteProps = {
+      cellEdit: false,
+      filter: false,
+      pagination: false,
+      sort: false,
+    };
     const testHeaders: IHeader[] = [
       {
         align: "center",
@@ -163,23 +190,23 @@ describe("Data table next", () => {
     ];
     const wrapper: ShallowWrapper = shallow(
       <DataTableNext
-        id="testTable"
         bordered={false}
         dataset={data}
         exportCsv={false}
-        remote={remote}
-        search={false}
         headers={testHeaders}
+        id={"testTable"}
         onClickRow={undefined}
         pageSize={25}
-        title="Unit test table"
-      />,
+        remote={remote}
+        search={false}
+        title={"Unit test table"}
+      />
     );
-    expect(wrapper.find("#testTable"))
-      .toHaveLength(1);
+    expect(wrapper.find("#testTable")).toHaveLength(1);
   });
 
-  it("should render a table", () => {
+  it("should render a table", (): void => {
+    expect.hasAssertions();
     const handleApprove: jest.Mock = jest.fn();
     const handleChange: jest.Mock = jest.fn();
     const handleDelete: jest.Mock = jest.fn();
@@ -216,7 +243,7 @@ describe("Data table next", () => {
         width: "25%",
       },
     ];
-    const data: object[] = [
+    const data: Record<string, unknown>[] = [
       {
         approveHeader: "",
         changeHeader: "Inactive",
@@ -230,23 +257,32 @@ describe("Data table next", () => {
         statusHeader: "value",
       },
     ];
-
+    const selectionMode: SelectRowOptions = {
+      clickToSelect: true,
+      mode: "checkbox",
+    };
+    const remote: RemoteProps = {
+      cellEdit: false,
+      filter: false,
+      pagination: false,
+      sort: false,
+    };
     const wrapper: ReactWrapper = mount(
       <DataTableNext
-        id="testTable"
         bordered={false}
         dataset={data}
         exportCsv={true}
-        remote={remote}
-        search={true}
         headers={testHeaders}
+        id={"testTable"}
         onTableChange={jest.fn()}
         pageSize={1}
-        title="Unit test table"
+        remote={remote}
+        search={true}
+        selectionMode={selectionMode}
         tableBody={undefined}
         tableHeader={undefined}
-        selectionMode={selectionMode}
-      />,
+        title={"Unit test table"}
+      />
     );
 
     const proceedApproveFunction: ReactWrapper = wrapper
@@ -256,11 +292,12 @@ describe("Data table next", () => {
       .at(1)
       .find("a");
     proceedApproveFunction.simulate("click");
+    const position: number = 3;
     const proceedChangeFunction: ReactWrapper = wrapper
       .find("BootstrapTable")
       .find("RowPureContent")
       .find("Cell")
-      .at(3)
+      .at(position)
       .find("div")
       .at(0);
     proceedChangeFunction.simulate("click");
@@ -272,22 +309,15 @@ describe("Data table next", () => {
       .find("a");
     proceedDeleteFunction.simulate("click");
 
-    expect(wrapper)
-      .toHaveLength(1);
-    expect(wrapper.find("BootstrapTable")
-                  .find("HeaderCell"))
-      .toHaveLength(testHeaders.length);
-    expect(wrapper.find("ExportCSVButton"))
-      .toHaveLength(1);
-    expect(wrapper.find("SearchBar"))
-      .toHaveLength(1);
-    expect(wrapper.find("DropdownButton"))
-      .toHaveLength(1);
-    expect(handleApprove.mock.calls.length)
-      .toEqual(1);
-    expect(handleChange.mock.calls.length)
-      .toEqual(1);
-    expect(handleDelete.mock.calls.length)
-      .toEqual(1);
+    expect(wrapper).toHaveLength(1);
+    expect(wrapper.find("BootstrapTable").find("HeaderCell")).toHaveLength(
+      testHeaders.length
+    );
+    expect(wrapper.find("ExportCSVButton")).toHaveLength(1);
+    expect(wrapper.find("SearchBar")).toHaveLength(1);
+    expect(wrapper.find("DropdownButton")).toHaveLength(1);
+    expect(handleApprove.mock.calls).toHaveLength(1);
+    expect(handleChange.mock.calls).toHaveLength(1);
+    expect(handleDelete.mock.calls).toHaveLength(1);
   });
 });
