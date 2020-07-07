@@ -1,4 +1,4 @@
-"""Domain functions for projects."""
+"""Domain functions for projects."""  # pylint:disable=cyclic-import
 
 import asyncio
 from typing import Dict, List, NamedTuple, Tuple, Union, cast

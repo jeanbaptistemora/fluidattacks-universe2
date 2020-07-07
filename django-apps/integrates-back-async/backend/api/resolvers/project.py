@@ -1,4 +1,4 @@
-# Standard library
+# Standard library  # pylint:disable=cyclic-import
 import asyncio
 from datetime import datetime
 import sys

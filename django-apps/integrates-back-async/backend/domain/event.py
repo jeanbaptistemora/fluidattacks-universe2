@@ -1,4 +1,4 @@
-"""Domain functions for events."""
+"""Domain functions for events."""  # pylint:disable=cyclic-import
 from typing import Dict, List, Tuple, Union, cast
 import asyncio
 import random

@@ -1,3 +1,4 @@
+# pylint:disable=cyclic-import
 # Local imports
 from .boundary import (
     get_group_level_actions,
