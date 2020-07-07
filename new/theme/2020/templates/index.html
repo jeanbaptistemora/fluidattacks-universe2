@@ -139,10 +139,10 @@ Blog | {{ SITENAME }}
               <a href='{{ SITEURL }}/blog/index.html'
                 class="{{ 'current b' if page_num + 1 == articles_page.number else '' }} c-fluid-bk roboto hv-fluid-dkred pr3 pl3">{{ page_num + 1 }}</a>
             {% elif "tags" in articles_page.url %}
-              <a href='{{ SITEURL }}/blog/tags/{{ tag }}/index.html'
+              <a href='{{ SITEURL }}/blog/tags/{{ tag|replace(" ", "-")|lower }}/index.html'
                 class="{{ 'current b' if page_num + 1 == articles_page.number else '' }} c-fluid-bk roboto hv-fluid-dkred pr3 pl3">{{ page_num + 1 }}</a>
             {% elif "categories" in articles_page.url %}
-              <a href='{{ SITEURL }}/blog/categories/{{ category }}/index.html'
+              <a href='{{ SITEURL }}/blog/categories/{{ category|replace(" ", "-")|lower }}/index.html'
                 class="{{ 'current b' if page_num + 1 == articles_page.number else '' }} c-fluid-bk roboto hv-fluid-dkred pr3 pl3">{{ page_num + 1 }}</a>
             {% elif "authors" in articles_page.url %}
               <a href='{{ SITEURL }}/blog/authors/{{ author|replace(" ", "-")|lower }}/index.html'
@@ -153,10 +153,10 @@ Blog | {{ SITENAME }}
               <a href='{{ SITEURL }}/blog/index{{ page_num + 1 }}.html'
                 class="{{ 'current b' if page_num + 1 == articles_page.number else '' }} c-fluid-bk roboto hv-fluid-dkred pr3 pl3">{{ page_num + 1 }}</a>
             {% elif "tags" in articles_page.url %}
-              <a href='{{ SITEURL }}/blog/tags/{{ tag }}/index{{ page_num + 1 }}.html'
+              <a href='{{ SITEURL }}/blog/tags/{{ tag|replace(" ", "-")|lower }}/index{{ page_num + 1 }}.html'
                 class="{{ 'current b' if page_num + 1 == articles_page.number else '' }} c-fluid-bk roboto hv-fluid-dkred pr3 pl3">{{ page_num + 1 }}</a>
             {% elif "categories" in articles_page.url %}
-              <a href='{{ SITEURL }}/blog/categories/{{ category }}/index{{ page_num + 1 }}.html'
+              <a href='{{ SITEURL }}/blog/categories/{{ category|replace(" ", "-")|lower }}/index{{ page_num + 1 }}.html'
                 class="{{ 'current b' if page_num + 1 == articles_page.number else '' }} c-fluid-bk roboto hv-fluid-dkred pr3 pl3">{{ page_num + 1 }}</a>
             {% elif "authors" in articles_page.url %}
               <a href='{{ SITEURL }}/blog/authors/{{ author|replace(" ", "-")|lower }}/index{{ page_num + 1 }}.html'
