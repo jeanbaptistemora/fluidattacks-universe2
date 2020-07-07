@@ -42,13 +42,22 @@ and does not fall back to insecure or unencrypted protocols.
 
 . [[r4]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V9.1 Communications Security Requirements.(9.1.2)]
-Verify using online or up to date TLS testing tools that only strong
+Verify using online or up to date *TLS* testing tools that only strong
 algorithms, ciphers, and protocols are enabled,
 with the strongest algorithms and ciphers set as preferred.
 
-. [[r5]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r7]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V9.1 Communications Security Requirements.(9.1.3)]
-Verify that old versions of SSL and TLS protocols, algorithms, ciphers, and
+Verify that old versions of *SSL* and *TLS* protocols, algorithms, ciphers, and
 configuration are disabled,
-such as SSLv2, SSLv3, or TLS 1.0 and TLS 1.1.
-The latest version of TLS should be the preferred cipher suite.
+such as *SSLv2*, *SSLv3*, or *TLS* 1.0 and *TLS* 1.1.
+The latest version of *TLS* should be the preferred cipher suite.
+
+. [[r8]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V9.2 Server Communications Security Requirements.(9.2.2)]
+Verify that encrypted communications such as *TLS* is used for all inbound and
+outbound connections,
+including for management ports, monitoring, authentication, *API*,
+or web service calls, database, cloud, serverless, mainframe, external,
+and partner connections.
+The server must not fall back to insecure or unencrypted protocols.

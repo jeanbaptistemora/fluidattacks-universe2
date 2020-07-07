@@ -60,3 +60,8 @@ V3.7 Defenses Against Session Management Exploits.(3.7.1)]
 Verify the application ensures a valid login session or requires
 re-authentication or secondary verification before allowing any sensitive
 transactions or account modifications.
+
+. [[r6]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V9.2 Server Communications Security Requirements.(9.2.3)]
+Verify that all encrypted connections to external systems that involve
+sensitive information or functions are authenticated.

@@ -74,54 +74,63 @@ can prove to be very difficult or impossible.
 
 == References
 
-. [[r1]] link:https://cwe.mitre.org/data/definitions/778.html[CWE-778: Insufficient Logging].
+. [[r1]] link:https://cwe.mitre.org/data/definitions/544.html[CWE-544: Missing Standardized Error Handling Mechanism].
+The software does not use a standardized method for handling errors throughout
+the code,
+which might introduce inconsistent error handling and resultant weaknesses.
+
+. [[r2]] link:https://cwe.mitre.org/data/definitions/778.html[CWE-778: Insufficient Logging].
 When a security-critical event occurs,
 the software either does not record the event or omits important details about
 the event when logging it.
 
-. [[r2]] link:https://gdpr-info.eu/art-33-gdpr/[GDPR. Art. 33: Notification of a personal data breach
+. [[r3]] link:https://gdpr-info.eu/art-33-gdpr/[GDPR. Art. 33: Notification of a personal data breach
 to the supervisory authority.(5)]
 The controller shall document any personal data breaches,
 comprising the facts relating to the personal data breach,
 its effects and the remedial action taken.
 
-. [[r3]] link:https://www.law.cornell.edu/cfr/text/45/164.312[HIPAA Security Rules 164.312(b):]
+. [[r4]] link:https://www.law.cornell.edu/cfr/text/45/164.312[HIPAA Security Rules 164.312(b):]
 Audit Controls: Implement hardware, software, and/or procedural mechanisms
 that record and examine activity in information systems
 that contain or use electronic protected health information.
 
-. [[r4]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r5]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V1.7 Errors, Logging and Auditing Architectural Requirements.(1.7.1)]
 Verify that a common logging format and approach is used across the system.
 
-. [[r5]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r6]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V7.1 Log Content Requirements.(7.1.3)]
 Verify that the application logs security relevant events including successful
 and failed authentication events, access control failures, deserialization
 failures and input validation failures.
 
-. [[r6]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r7]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V7.1 Log Content Requirements.(7.1.4)]
 Verify that each log event includes necessary information that would allow for
 a detailed investigation of the timeline when an event happens.
 
-. [[r7]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r8]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V7.2 Log Processing Requirements.(7.2.1)]
 Verify that all authentication decisions are logged,
 without storing sensitive session identifiers or passwords.
 This should include requests with relevant metadata needed for security
 investigations.
 
-. [[r8]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r9]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V7.2 Log Processing Requirements.(7.2.2)]
 Verify that all access control decisions can be logged and all failed decisions
 are logged.
 This should include requests with relevant metadata needed for security
 investigations.
 
-. [[r9]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r10]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V8.3 Sensitive Private Data.(8.3.5)]
 Verify accessing sensitive data is audited
 (without logging the sensitive data itself),
 if the data is collected under relevant data protection directives or where
 logging of access is required.
+
+. [[r11]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V9.2 Server Communications Security Requirements.(9.2.5)]
+Verify that backend *TLS* connection failures are logged.

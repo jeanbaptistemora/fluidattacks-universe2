@@ -127,4 +127,18 @@ V9.1 Communications Security Requirements.(9.1.1)]
 Verify that secured TLS is used for all client connectivity,
 and does not fall back to insecure or unencrypted protocols.
 
-. [[r13]] link:https://pcinetwork.org/forum/index.php?threads/pci-dss-3-0-6-5-4-insecure-communications.660/[PCI 6.5.4 Insecure communications/transport layer protection]
+. [[r13]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V9.2 Server Communications Security Requirements.(9.2.2)]
+Verify that encrypted communications such as *TLS* is used for all inbound and
+outbound connections,
+including for management ports, monitoring, authentication, *API*,
+or web service calls, database, cloud, serverless, mainframe, external,
+and partner connections.
+The server must not fall back to insecure or unencrypted protocols.
+
+. [[r14]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V9.2 Server Communications Security Requirements.(9.2.3)]
+Verify that all encrypted connections to external systems that involve
+sensitive information or functions are authenticated.
+
+. [[r15]] link:https://pcinetwork.org/forum/index.php?threads/pci-dss-3-0-6-5-4-insecure-communications.660/[PCI 6.5.4 Insecure communications/transport layer protection]
