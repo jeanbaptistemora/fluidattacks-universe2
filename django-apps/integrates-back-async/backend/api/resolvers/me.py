@@ -196,10 +196,11 @@ async def _do_sign_in(
         auth_backend = load_backend(
             strategy=strategy, name=provider, redirect_uri=None)
         user = await sync_to_async(auth_backend.do_auth)(auth_token)
-        organization = user_domain.get_data(user.email, 'company')
+        email = user.email.lower()
+        organization = user_domain.get_data(email, 'company')
         session_jwt = jwt.encode(
             {
-                'user_email': user.email,
+                'user_email': email,
                 'company': organization,
                 'first_name': getattr(user, 'first_name'),
                 'last_name': getattr(user, 'last_name'),
@@ -211,8 +212,8 @@ async def _do_sign_in(
             key=settings.JWT_SECRET,
         )
         mp_obj = Mixpanel(settings.MIXPANEL_API_TOKEN)
-        await sync_to_async(mp_obj.track)(user.email, 'MobileAuth', {
-            'email': user.email,
+        await sync_to_async(mp_obj.track)(email, 'MobileAuth', {
+            'email': email,
             'organization': organization,
             'provider': provider
         })
