@@ -362,11 +362,6 @@ user_provision_web_prod_rotate_keys:
   <<: *in_schedule_user_provision_rotate_keys
   stage: rotation
 
-terraform_states_bucket:
-  <<: *with_nix
-  <<: *in_master_branch
-  stage: terraform-backend
-
 fluidasserts_post:
   tags: [autoscaling]
   stage: postdeploy

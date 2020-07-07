@@ -6,7 +6,7 @@ RUN apk add --no-cache \
 
 ARG PROVISIONER
 
-COPY build/ /code/build/
+COPY build2/ /code/build2/
 
 RUN   nix-shell --run ':' "/code/build/provisioners/${PROVISIONER}.nix" \
   &&  nix-store --optimise
