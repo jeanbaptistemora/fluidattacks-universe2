@@ -17,7 +17,10 @@ async def generate_one(group: str):
 
     return {
         'fontSizeRatio': 0.5,
-        'text': group_data['attrs'].get('open_vulnerabilities', 0)
+        'text': (
+            group_data['attrs'].get('closed_vulnerabilities', 0) +
+            group_data['attrs'].get('open_vulnerabilities', 0)
+        ),
     }
 
 

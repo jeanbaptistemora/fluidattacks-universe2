@@ -647,7 +647,11 @@ function _job_analytics_all {
         | while read -r generator
           do
                 echo "[INFO] Running: ${generator}" \
-            &&  _job_analytics "${generator}" \
+            &&  {
+                  _job_analytics "${generator}" \
+              ||  _job_analytics "${generator}" \
+              ||  _job_analytics "${generator}"
+            } \
             ||  return 1
           done \
   &&  echo '[INFO] Uploading documents' \
