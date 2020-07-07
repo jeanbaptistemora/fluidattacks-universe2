@@ -35,6 +35,7 @@ from backend.services import (
     has_access_to_project
 )
 from backend import authz, mailer
+from backend.utils import aio
 from backend.utils.validations import (
     validate_fluidattacks_staff_on_group,
     validate_email_address, validate_alphanumeric_field, validate_phone_field
@@ -48,6 +49,37 @@ from ariadne import convert_kwargs_to_snake_case, convert_camel_case_to_snake
 from __init__ import BASE_URL
 
 
+def _give_user_access(
+        email: str,
+        group: str,
+        responsibility: str,
+        phone_number: str) -> bool:
+    success = False
+    project_domain.add_access(email, group, 'responsibility', responsibility)
+
+    if phone_number and phone_number[1:].isdigit():
+        user_domain.add_phone_to_user(email, phone_number)
+
+    if group and user_domain.update_project_access(email, group, True):
+        description = project_domain.get_description(group.lower())
+        project_url = f'{BASE_URL}/groups/{group.lower()}/indicators'
+        mail_to = [email]
+        context = {
+            'admin': email,
+            'project': group,
+            'project_description': description,
+            'project_url': project_url,
+        }
+        email_send_thread = threading.Thread(
+            name='Access granted email thread',
+            target=mailer.send_mail_access_granted,
+            args=(mail_to, context,)
+        )
+        email_send_thread.start()
+        success = True
+    return success
+
+
 async def _create_new_user(  # pylint: disable=too-many-arguments
     context: object,
     email: str,
@@ -57,58 +89,48 @@ async def _create_new_user(  # pylint: disable=too-many-arguments
     phone_number: str,
     group: str,
 ) -> bool:
-    valid = validate_alphanumeric_field(organization) \
-        and validate_alphanumeric_field(responsibility) \
-        and validate_phone_field(phone_number) \
-        and validate_email_address(email) \
-        and await validate_fluidattacks_staff_on_group(group, email, role)
+    valid = (
+        validate_alphanumeric_field(organization) and
+        validate_alphanumeric_field(responsibility) and
+        validate_phone_field(phone_number) and
+        validate_email_address(email) and
+        await validate_fluidattacks_staff_on_group(group, email, role)
+    )
+    success = False
 
-    if not valid:
-        return False
+    if valid:
+        success = authz.grant_group_level_role(email, group, role)
 
-    success = authz.grant_group_level_role(email, group, role)
+        if not user_domain.get_data(email, 'email'):
+            await aio.ensure_io_bound(
+                user_domain.create,
+                email.lower(),
+                {
+                    'company': organization.lower(),
+                    'phone': phone_number
+                }
+            )
 
-    if not user_domain.get_data(email, 'email'):
-        await sync_to_async(user_domain.create)(email.lower(), {
-            'company': organization.lower(),
-            'phone': phone_number
-        })
+        if not user_domain.is_registered(email):
+            user_domain.register(email)
+            authz.grant_user_level_role(email, 'customer')
+            user_domain.update(email, organization.lower(), 'company')
 
-    if not user_domain.is_registered(email):
-        user_domain.register(email)
-        authz.grant_user_level_role(email, 'customer')
-        user_domain.update(email, organization.lower(), 'company')
-
-    if group and responsibility and len(responsibility) <= 50:
-        project_domain.add_access(
-            email, group, 'responsibility', responsibility)
-    else:
-        util.cloudwatch_log(
-            context,
-            f'Security: {email} Attempted to add responsibility to project '
-            '{group} without validation')  # pragma: no cover
-        return False
-
-    if phone_number and phone_number[1:].isdigit():
-        user_domain.add_phone_to_user(email, phone_number)
-
-    if group and user_domain.update_project_access(email, group, True):
-        description = project_domain.get_description(group.lower())
-        project_url = \
-            f'{BASE_URL}/groups/{group.lower()}/indicators'
-        mail_to = [email]
-        context = {
-            'admin': email,
-            'project': group,
-            'project_description': description,
-            'project_url': project_url,
-        }
-        email_send_thread = \
-            threading.Thread(name='Access granted email thread',
-                             target=mailer.send_mail_access_granted,
-                             args=(mail_to, context,))
-        email_send_thread.start()
-        success = True
+        if group and responsibility and len(responsibility) <= 50:
+            success = await aio.ensure_io_bound(
+                _give_user_access,
+                email,
+                group,
+                responsibility,
+                phone_number
+            )
+        else:
+            util.cloudwatch_log(
+                context,
+                (f'Security: {email} Attempted to add responsibility '
+                 f'to project {group} without validation')  # pragma: no cover
+            )
+            success = False
     return success
 
 
