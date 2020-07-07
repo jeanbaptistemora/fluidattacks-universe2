@@ -20,6 +20,7 @@ from backend.utils import (
 from .model import (
     USER_LEVEL_ROLES,
     GROUP_LEVEL_ROLES,
+    ORGANIZATION_LEVEL_ROLES
 )
 
 
@@ -132,6 +133,37 @@ def grant_group_level_role(email: str, group: str, role: str) -> bool:
     if not get_user_level_role(email):
         user_level_role: str = \
             role if role in USER_LEVEL_ROLES else 'customer'
+        success = success and grant_user_level_role(email, user_level_role)
+
+    return success \
+        and user_dal.put_subject_policy(policy) \
+        and revoke_cached_subject_policies(email)
+
+
+def grant_organization_level_role(
+    email: str,
+    organization: str,
+    role: str
+) -> bool:
+    if role not in ORGANIZATION_LEVEL_ROLES:
+        raise ValueError(f'Invalid role value: {role}')
+
+    policy = user_dal.SUBJECT_POLICY(
+        level='organization',
+        subject=email,
+        object=organization,
+        role=role,
+    )
+
+    success: bool = True
+
+    # If there is no user-level role for this user add one
+    if not get_user_level_role(email):
+        user_level_role: str = (
+            role
+            if role in USER_LEVEL_ROLES
+            else 'customer'
+        )
         success = success and grant_user_level_role(email, user_level_role)
 
     return success \

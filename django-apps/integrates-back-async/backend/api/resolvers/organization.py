@@ -13,7 +13,10 @@ from ariadne import (
 )
 from graphql.language.ast import SelectionSetNode
 
-from backend import util
+from backend import (
+    authz,
+    util
+)
 from backend.api.resolvers import user as user_loader
 from backend.decorators import (
     enforce_group_level_auth_async,
@@ -50,17 +53,24 @@ async def _do_edit_user_organization(
     user_email: str = str(parameters.get('user_email'))
     new_organization: str = str(parameters.get('organization'))
     new_phone_number: str = str(parameters.get('phone_number'))
+    new_role: str = str(parameters.get('role')).lower()
 
-    success = await user_loader.modify_user_information(
-        info.context,
-        {
-            'email': user_email,
-            'phone_number': new_phone_number,
-            'responsibility': '',
-            'organization': new_organization
-        },
-        ''
-    )
+    if await aio.ensure_io_bound(
+        authz.grant_organization_level_role,
+        user_email,
+        organization_id,
+        new_role
+    ):
+        success = await user_loader.modify_user_information(
+            info.context,
+            {
+                'email': user_email,
+                'phone_number': new_phone_number,
+                'responsibility': '',
+                'organization': new_organization
+            },
+            ''
+        )
 
     if success:
         util.invalidate_cache(user_email)
@@ -100,6 +110,7 @@ async def _do_grant_user_organization_access(
     user_email = str(parameters.get('user_email'))
     user_organization = str(parameters.get('user_organization'))
     user_phone_number = str(parameters.get('phone_number'))
+    user_role = str(parameters.get('role')).lower()
 
     user_created = False
     user_exists = bool(user_domain.get_data(user_email, 'email'))
@@ -112,20 +123,28 @@ async def _do_grant_user_organization_access(
             user_phone_number
         )
     user_added = await org_domain.add_user(organization_id, user_email)
-    success = user_added and any([user_created, user_exists])
+    role_added = await aio.ensure_io_bound(
+        authz.grant_organization_level_role,
+        user_email,
+        organization_id,
+        user_role
+    )
+    success = user_added and any([user_created, user_exists]) and role_added
 
     if success:
         util.invalidate_cache(user_email)
         util.cloudwatch_log(
             info.context,
             f'Security: User {user_email} was granted access to organization '
-            f'{organization_name} by user {requester_email}'
+            f'{organization_name} with role {user_role} by user '
+            f'{requester_email}'
         )
     else:
         util.cloudwatch_log(
             info.context,
             f'Security: User {requester_email} attempted to grant user '
-            f'{user_email} access to organization {organization_name}'
+            f'{user_email} {user_role} access to organization '
+            f'{organization_name}'
         )
 
     return GrantUserAccessPayloadType(

@@ -3,15 +3,10 @@ import contextlib
 from typing import Dict, List, NamedTuple
 
 # Third party libraries
-from asgiref.sync import async_to_sync
 import rollbar
 from boto3.dynamodb.conditions import Attr, Key, Not
 from botocore.exceptions import ClientError
 from backend.dal.helpers import dynamodb
-from backend.dal.organization import (
-    add_user as add_organization_user,
-    get_or_create as get_or_create_org
-)
 from backend.typing import User as UserType
 from backend.utils import (
     apm,
@@ -237,16 +232,10 @@ def remove_attribute(email: str, name_attribute: str) -> bool:
 def create(email: str, data: UserType) -> bool:
     resp = False
 
-    org_name: str = str(data.get('company', ''))
-    org_dict = async_to_sync(get_or_create_org)(org_name)
-    data['organization'] = org_dict['id']
-
     try:
         data.update({'email': email})
         response = USERS_TABLE.put_item(Item=data)
         resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
-        if resp:
-            async_to_sync(add_organization_user)(org_dict['id'], email)
     except ClientError:
         rollbar.report_exc_info()
     return resp

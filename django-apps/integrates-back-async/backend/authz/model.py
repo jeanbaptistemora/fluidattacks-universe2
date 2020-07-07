@@ -433,6 +433,23 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
 )
 
 
+ORGANIZATION_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
+    customer=dict(
+        actions={
+            ''
+        },
+        tags=set()
+    ),
+    customeradmin=dict(
+        action={
+            'grant_organization_level_role:customer',
+            'grant_organization_level_role:customeradmin'
+        },
+        tags=set()
+    )
+)
+
+
 # Map(role_name -> Map(actions|tags -> definition))
 USER_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
     admin=dict(

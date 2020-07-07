@@ -137,7 +137,16 @@ def update_multiple_user_attributes(email: str, data_dict: UserType) -> bool:
 
 
 def create(email: str, data: UserType) -> bool:
-    return user_dal.create(email, data)
+    result: bool = False
+    org_name: str = str(data.get('company', ''))
+    org_dict = async_to_sync(org_dal.get_or_create)(org_name)
+    data['organization'] = org_dict['id']
+
+    result = user_dal.create(email, data)
+    if result:
+        authz.grant_organization_level_role(email, org_dict['id'], 'customer')
+        async_to_sync(org_dal.add_user)(org_dict['id'], email)
+    return result
 
 
 def update(email: str, data_attr: str, name_attr: str) -> bool:
@@ -166,8 +175,9 @@ def create_without_project(
         new_user_data['registered'] = True
         if organization:
             new_user_data['company'] = organization
-            org_id = async_to_sync(org_dal.get_or_create)(organization)
-            new_user_data['organization'] = org_id
+            org = async_to_sync(org_dal.get_or_create)(organization)
+            new_user_data['organization'] = org['id']
+            authz.grant_organization_level_role(email, org['id'], 'customer')
         if phone_number:
             new_user_data['phone'] = phone_number
 

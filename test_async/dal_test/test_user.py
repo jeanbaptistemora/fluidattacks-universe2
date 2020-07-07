@@ -2,7 +2,6 @@ import pytest
 
 from boto3.dynamodb.conditions import Attr, Key, Not
 from django.test import TestCase
-from backend.dal.organization import get_by_name as get_org
 from asgiref.sync import async_to_sync
 from backend.dal.user import (
     delete, get, create, update
@@ -26,23 +25,18 @@ def test_create():
     assert get('unittest4') == {}
 
     create('unittest4', {'company': 'unittest.org'})
-    company = async_to_sync(get_org)('unittest.org')
     assert get('unittest4') == \
-        {'organization':company['id'],
-          'email': 'unittest4', 'company': 'unittest.org'}
+        {'email': 'unittest4', 'company': 'unittest.org'}
 
 @pytest.mark.changes_db
 def test_update():
     assert get('unittest5') == {}
 
     create('unittest5', {'company': 'unittest.org'})
-    company = async_to_sync(get_org)('unittest.org')
     update('unittest5', {})
     assert get('unittest5') == \
-        {'organization':company['id'],
-          'email': 'unittest5', 'company': 'unittest.org'}
+        {'email': 'unittest5', 'company': 'unittest.org'}
 
     update('unittest5', {'last_name':'testing'})
     assert get('unittest5') == \
-        {'organization':company['id'], 'last_name':'testing',
-          'email': 'unittest5', 'company': 'unittest.org'}
+        {'last_name':'testing', 'email': 'unittest5', 'company': 'unittest.org'}
