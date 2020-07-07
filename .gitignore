@@ -86,6 +86,7 @@ django-apps/**/dist
 /geckodriver.log
 /lambda/.venv.*
 /TEMP_FD
+/test
 /test_async/dynamo_data/bb_executions.json.now
 /version.txt
 /.coverage*

@@ -7,8 +7,7 @@ import { Can } from "../../../../utils/authz/Can";
 import { Have } from "../../../../utils/authz/Have";
 import translate from "../../../../utils/translations/translate";
 import { ContentTab } from "../../components/ContentTab";
-import { D3GroupIndicatorsView } from "../D3GroupIndicatorsView";
-import { ProjectIndicatorsView } from "../IndicatorsView/index";
+import { GroupChartsView } from "../GroupChartsView";
 import { ProjectAuthorsView } from "../ProjectAuthorsView";
 import { ProjectCommentsView } from "../ProjectCommentsView/index";
 import { ProjectDraftsView } from "../ProjectDraftsView";
@@ -20,10 +19,7 @@ import { ProjectUsersView } from "../ProjectUsersView/index";
 
 type IProjectContentProps = RouteComponentProps<{ projectName: string }>;
 
-const projectContent: React.FC<IProjectContentProps> = (props: IProjectContentProps): JSX.Element => {
-  const { userEmail } = (window as typeof window & { userEmail: string });
-
-  return (
+const projectContent: React.FC<IProjectContentProps> = (props: IProjectContentProps): JSX.Element => (
   <React.StrictMode>
     <React.Fragment>
       <React.Fragment>
@@ -34,20 +30,11 @@ const projectContent: React.FC<IProjectContentProps> = (props: IProjectContentPr
                 <ul className={globalStyle.tabsContainer}>
                   <ContentTab
                     icon="icon pe-7s-graph3"
-                    id="indicatorsTab"
-                    link={`${props.match.url}/indicators`}
-                    title={translate.t("group.tabs.indicators.text")}
+                    id="chartsTab"
+                    link={`${props.match.url}/charts`}
+                    title={translate.t("group.tabs.charts.text")}
                     tooltip={translate.t("group.tabs.indicators.tooltip")}
                   />
-                  {userEmail.endsWith("@fluidattacks.com") ? (
-                    <ContentTab
-                      icon="icon pe-7s-graph3"
-                      id="chartsTab"
-                      link={`${props.match.url}/charts`}
-                      title={translate.t("group.tabs.charts.text")}
-                      tooltip={translate.t("group.tabs.indicators.tooltip")}
-                    />
-                  ) : undefined}
                   <ContentTab
                     icon="icon pe-7s-light"
                     id="findingsTab"
@@ -118,8 +105,7 @@ const projectContent: React.FC<IProjectContentProps> = (props: IProjectContentPr
               <div className={globalStyle.tabContent}>
                 <Switch>
                   <Route path={`${props.match.path}/authors`} component={ProjectAuthorsView} exact={true} />
-                  <Route path={`${props.match.path}/charts`} component={D3GroupIndicatorsView} exact={true} />
-                  <Route path={`${props.match.path}/indicators`} component={ProjectIndicatorsView} exact={true} />
+                  <Route path={`${props.match.path}/charts`} component={GroupChartsView} exact={true} />
                   <Route path={`${props.match.path}/findings`} component={ProjectFindingsView} exact={true} />
                   <Route path={`${props.match.path}/drafts`} component={ProjectDraftsView} exact={true} />
                   <Route path={`${props.match.path}/forces`} component={ProjectForcesView} exact={true} />
@@ -129,7 +115,7 @@ const projectContent: React.FC<IProjectContentProps> = (props: IProjectContentPr
                   <Route path={`${props.match.path}/comments`} component={ProjectCommentsView} exact={true} />
                   {/* Necessary to support old resources URLs */}
                   <Redirect path={`${props.match.path}/resources`} to={`${props.match.path}/settings`} />
-                  <Redirect to={`${props.match.path}/indicators`} />
+                  <Redirect to={`${props.match.path}/charts`} />
                 </Switch>
               </div>
             </React.Fragment>
@@ -138,7 +124,6 @@ const projectContent: React.FC<IProjectContentProps> = (props: IProjectContentPr
       </React.Fragment>
     </React.Fragment>
   </React.StrictMode>
-  );
-};
+);
 
 export { projectContent as ProjectContent };

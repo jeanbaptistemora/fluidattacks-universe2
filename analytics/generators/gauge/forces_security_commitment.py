@@ -50,7 +50,7 @@ async def generate_one(group: str):
         },
         'gaugeClearFormat': True,
         'legend': {
-            'position': 'bottom',
+            'position': 'right',
         },
         'paddingRatioTop': 0,
     }

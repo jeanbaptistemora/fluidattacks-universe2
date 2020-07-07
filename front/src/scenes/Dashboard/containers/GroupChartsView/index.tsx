@@ -5,9 +5,9 @@ import { useParams } from "react-router";
 import { Graphic } from "../../../../graphics/components/Graphic";
 import translate from "../../../../utils/translations/translate";
 import styles from "./index.css";
-import { ID3GroupIndicatorsProps } from "./types";
+import { IGroupChartsProps } from "./types";
 
-const d3GroupIndicatorsView: React.FC<ID3GroupIndicatorsProps> = (props: ID3GroupIndicatorsProps): JSX.Element => {
+const groupChartsView: React.FC<IGroupChartsProps> = (props: IGroupChartsProps): JSX.Element => {
   const { projectName: groupName } = useParams();
 
   const [isForcesDescriptionExpanded, setIsForcesDescriptionExpanded] = React.useState(false);
@@ -381,4 +381,4 @@ const d3GroupIndicatorsView: React.FC<ID3GroupIndicatorsProps> = (props: ID3Grou
   );
 };
 
-export { d3GroupIndicatorsView as D3GroupIndicatorsView };
+export { groupChartsView as GroupChartsView };

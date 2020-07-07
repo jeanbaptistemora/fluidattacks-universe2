@@ -1,4 +1,6 @@
 :local .box_size {
-  composes: box_size from '../../IndicatorsView/index.css';
+  max-height: 370px !important;
+  max-width: 370px !important;
+  margin: 0 auto;
   margin-top: 5px;
 }
