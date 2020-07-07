@@ -8,7 +8,8 @@ in
 
           buildInputs = [
             pkgs.git
-            pkgs.docker
+            pkgs.awscli
+            pkgs.terraform
           ];
         })
   )

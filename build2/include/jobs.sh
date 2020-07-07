@@ -24,3 +24,17 @@ function job_build_nix_caches {
         ||  return 1
       done
 }
+
+function job_test_autoscaling_ci {
+      helper_use_pristine_workdir \
+  &&  helper_terraform_plan \
+        services/autoscaling-ci/terraform \
+  &&  helper_terraform_lint \
+        services/autoscaling-ci/terraform
+}
+
+function job_apply_autoscaling_ci {
+      helper_use_pristine_workdir \
+  &&  helper_terraform_apply \
+        services/autoscaling-ci/terraform
+}

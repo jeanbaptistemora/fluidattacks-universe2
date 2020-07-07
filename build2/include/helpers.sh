@@ -84,36 +84,6 @@ function helper_list_declared_jobs {
     | sort
 }
 
-function helper_display_array {
-  local elem
-  local array
-
-  for elem in "$@";
-  do
-    echo "${elem}"
-  done
-}
-
-function helper_is_elem_in_array {
-  local elem
-  local array
-  local string
-
-  elem="${1}"
-  shift 1
-  array=("$@")
-
-  for string in "${array[@]}";
-  do
-    if test "${string}" == "${elem}"
-    then
-      return 0
-    fi
-  done
-
-  return 1
-}
-
 function helper_list_touched_files {
   local path
 
@@ -157,6 +127,66 @@ function helper_build_nix_caches_parallel {
   &&  upper_limit=$((
         upper_limit > n_provisioners-1 ? n_provisioners-1 : upper_limit
       ))
+}
+
+function helper_aws_login {
+      echo '[INFO] Logging into AWS' \
+  &&  aws configure set aws_access_key_id "${AWS_ACCESS_KEY_ID}" \
+  &&  aws configure set aws_secret_access_key "${AWS_SECRET_ACCESS_KEY}"
+}
+
+function helper_terraform_login {
+  export TF_VAR_aws_access_key
+  export TF_VAR_aws_secret_key
+
+      helper_aws_login \
+  &&  echo '[INFO] Logging into Terraform' \
+  &&  TF_VAR_aws_access_key="${AWS_ACCESS_KEY_ID}" \
+  &&  TF_VAR_aws_secret_key="${AWS_SECRET_ACCESS_KEY}"
+}
+
+function helper_terraform_init {
+  local target_dir="${1}"
+
+      helper_terraform_login \
+  &&  pushd "${target_dir}" \
+    &&  echo '[INFO] Running terraform init' \
+    &&  terraform init \
+  &&  popd \
+  || return 1
+}
+
+function helper_terraform_lint {
+  local target_dir="${1}"
+
+      helper_terraform_init "${target_dir}" \
+  &&  pushd "${1}" \
+    &&  echo '[INFO] Running terraform linter' \
+    &&  tflint --deep --module \
+  &&  popd \
+  || return 1
+}
+
+function helper_terraform_plan {
+  local target_dir="${1}"
+
+      helper_terraform_init "${target_dir}" \
+  &&  pushd "${target_dir}" \
+    &&  echo '[INFO] Running terraform plan' \
+    &&  terraform plan -refresh=true \
+  &&  popd \
+  || return 1
+}
+
+function helper_terraform_apply {
+  local target_dir="${1}"
+
+      helper_terraform_init "${target_dir}" \
+  &&  pushd "${target_dir}" \
+    &&  echo '[INFO] Running terraform apply' \
+    &&  terraform apply -auto-approve -refresh=true \
+  &&  popd \
+  || return 1
 }
 
 function helper_test_commit_msg_commitlint {

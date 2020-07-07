@@ -511,18 +511,6 @@ function job_infra_analytics_deploy {
         services/analytics/terraform
 }
 
-function job_infra_autoscaling_ci_test {
-      helper_terraform_init \
-        services/autoscaling-ci/terraform \
-  &&  helper_terraform_plan \
-        services/autoscaling-ci/terraform
-}
-
-function job_infra_autoscaling_ci_deploy {
-      helper_terraform_apply \
-        services/autoscaling-ci/terraform
-}
-
 function job_infra_autoscaling_ci_deploy_config {
   local bastion_ip='192.168.3.11'
   local bastion_user='ubuntu'

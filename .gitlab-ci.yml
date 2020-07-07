@@ -193,16 +193,6 @@ infra_analytics_deploy:
   <<: *in_master_branch
   stage: deploy
 
-infra_autoscaling_ci_test:
-  <<: *with_nix
-  <<: *in_dev_branch
-  stage: build-and-test
-
-infra_autoscaling_ci_deploy:
-  <<: *with_nix
-  <<: *in_master_branch
-  stage: deploy
-
 infra_autoscaling_ci_deploy_config:
   <<: *with_nix
   <<: *in_master_branch
@@ -455,3 +445,23 @@ fluidasserts_post:
     - master
   except:
     - schedules
+
+# Build 2
+
+.with_nix_2: &with_nix_2
+  tags: [autoscaling]
+  image: "${CI_REGISTRY_IMAGE}/nix:${CI_JOB_NAME}"
+  needs: []
+  script:
+    - ./build2.sh "${CI_JOB_NAME% *}"
+  interruptible: true
+
+test_autoscaling_ci:
+  <<: *with_nix_2
+  <<: *in_dev_branch
+  stage: build-and-test
+
+deploy_autoscaling_ci:
+  <<: *with_nix_2
+  <<: *in_master_branch
+  stage: deploy

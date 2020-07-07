@@ -1,6 +1,6 @@
 #! /usr/bin/env bash
 
-source ./build/include/generic/shell-options.sh
+source ./build2/include/generic/shell-options.sh
 source ./.envrc.public
 
 function check_nix_version {
@@ -19,10 +19,10 @@ function decide_and_call_provisioner {
   local provisioner
 
   # shellcheck disable=2016
-      provisioner="./build/provisioners/${job}.nix" \
+      provisioner="./build2/provisioners/${job}.nix" \
   &&  if [ ! -f "${provisioner}" ]
       then
-        provisioner='./build/provisioners/build_nix_caches.nix'
+        provisioner='./build2/provisioners/build_nix_caches.nix'
       fi \
   &&  echo "[INFO] Running with provisioner: ${provisioner}" \
   &&  nix-shell \
@@ -38,7 +38,8 @@ function decide_and_call_provisioner {
         --keep CI_NODE_TOTAL \
         --keep CI_REGISTRY_PASSWORD \
         --keep CI_REGISTRY_USER \
-        --keep SITE_TRIGGER_TOKEN \
+        --keep AWS_ACCESS_KEY_ID \
+        --keep AWS_SECRET_ACCESS_KEY \
         --max-jobs auto \
         --option restrict-eval false \
         --option sandbox false \
