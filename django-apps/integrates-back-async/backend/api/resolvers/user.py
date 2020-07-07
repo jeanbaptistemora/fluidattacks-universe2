@@ -135,50 +135,52 @@ async def _create_new_user(  # pylint: disable=too-many-arguments
 
 
 @sync_to_async
-def _get_email(_, email: str, **__) -> str:
+def _get_email(_, email: str, *__) -> str:
     """Get email."""
     return email.lower()
 
 
 @sync_to_async
-def _get_role(_, email: str, project_name: str, **__) -> str:
+def _get_role(_, email: str, entity: str, identifier: str) -> str:
     """Get role."""
-    if project_name:
+    if entity == 'PROJECT' and identifier:
+        project_name = identifier
         return authz.get_group_level_role(email, project_name)
 
     return authz.get_user_level_role(email)
 
 
 @sync_to_async
-def _get_phone_number(_, email: str, **__) -> str:
+def _get_phone_number(_, email: str, *__) -> str:
     """Get phone number."""
     return has_phone_number(email)
 
 
 @sync_to_async
-def _get_responsibility(_, email: str, project_name: str, **__) -> str:
+def _get_responsibility(_, email: str, entity: str, identifier: str) -> str:
     """Get responsibility."""
-    result = has_responsibility(
-        project_name, email
-    ) if project_name else ''
+    result = ''
+    if entity == 'PROJECT':
+        project_name = identifier
+        result = has_responsibility(project_name, email)
     return result
 
 
 @sync_to_async
-def _get_organization(_, email: str, **__) -> str:
+def _get_organization(_, email: str, *__) -> str:
     """Get organization."""
     org = cast(str, user_domain.get_data(email, 'company'))
     return org.title()
 
 
 @sync_to_async
-def _get_first_login(_, email: str, **__) -> str:
+def _get_first_login(_, email: str, *__) -> str:
     """Get first login."""
     return cast(str, user_domain.get_data(email, 'date_joined'))
 
 
 @sync_to_async
-def _get_last_login(_, email: str, **__) -> str:
+def _get_last_login(_, email: str, *__) -> str:
     """Get last_login."""
     last_login_response = cast(str, user_domain.get_data(email, 'last_login'))
     if last_login_response == '1111-1-1 11:11:11' or not last_login_response:
@@ -192,8 +194,13 @@ def _get_last_login(_, email: str, **__) -> str:
     return str(last_login)
 
 
-async def _get_projects(info, email: str,
-                        project_as_field: bool, **__) -> List[ProjectType]:
+async def _get_projects(
+    info,
+    email: str,
+    *_,
+    project_as_field: bool = True,
+    **__
+) -> List[ProjectType]:
     """Get list projects."""
     list_projects = list()
     active_task = asyncio.create_task(user_domain.get_projects(email))
@@ -210,51 +217,99 @@ async def _get_projects(info, email: str,
     return list_projects
 
 
-async def resolve(info, email: str, project_name: str, as_field: bool = False,
-                  selection_set: object = None) -> UserType:
+async def resolve(  # pylint: disable=too-many-arguments
+    info,
+    entity: str,
+    email: str,
+    identifier: str,
+    as_field: bool,
+    selection_set: object,
+) -> UserType:
     """Async resolve of fields."""
-    email_task = asyncio.create_task(_get_email(info, email))
-    role_task = asyncio.create_task(_get_role(info, email,
-                                              project_name=project_name))
-    email, role = tuple(await asyncio.gather(email_task, role_task))
-
-    if project_name and role:
-        if not user_domain.get_data(email, 'email') or \
-                not has_access_to_project(email, project_name):
-            raise UserNotFound()
-
     result = dict()
-    requested_fields = \
-        util.get_requested_fields('users', selection_set) \
-        if as_field else info.field_nodes[0].selection_set.selections
+    requested_fields = (
+        util.get_requested_fields('users', selection_set)
+        if as_field
+        else info.field_nodes[0].selection_set.selections
+    )
 
     for requested_field in requested_fields:
         if util.is_skippable(info, requested_field):
             continue
-        requested_field = \
-            convert_camel_case_to_snake(requested_field.name.value)
+        requested_field = convert_camel_case_to_snake(
+            requested_field.name.value
+        )
         if requested_field.startswith('_'):
             continue
         resolver_func = getattr(
             sys.modules[__name__],
             f'_get_{requested_field}'
         )
-        result[requested_field] = \
-            resolver_func(info, email,
-                          project_name=project_name,
-                          project_as_field=True)
+        result[requested_field] = await resolver_func(
+            info, email, entity, identifier,
+        )
     return result
+
+
+@enforce_group_level_auth_async
+@require_project_access
+async def resolve_for_group(  # pylint: disable=too-many-arguments
+    info,
+    entity: str,
+    user_email: str,
+    project_name: str = '',
+    as_field: bool = False,
+    selection_set: object = None
+) -> UserType:
+    email = user_email.lower()
+    role = await _get_role(info, email, entity, project_name)
+
+    if project_name and role:
+        if (not user_domain.get_data(email, 'email') or
+                not has_access_to_project(email, project_name)):
+            raise UserNotFound()
+
+    return await resolve(
+        info, entity, email, project_name, as_field, selection_set
+    )
+
+
+async def resolve_for_organization(  # pylint: disable=too-many-arguments
+    info,
+    entity: str,
+    user_email: str,
+    organization_id: str = '',
+    as_field: bool = False,
+    selection_set: object = None
+) -> UserType:
+    email = user_email.lower()
+    return await resolve(
+        info, entity, email, organization_id, as_field, selection_set
+    )
 
 
 @convert_kwargs_to_snake_case
 @require_login
-@enforce_group_level_auth_async
 @require_integrates
-@require_project_access
 async def resolve_user(
-        _, info, project_name: str, user_email: str) -> UserType:
+    _,
+    info,
+    entity: str,
+    user_email: str,
+    **parameters
+) -> UserType:
     """Resolve user query."""
-    return await resolve(info, user_email, project_name)
+    if entity == 'PROJECT':
+        project_name = cast(str, parameters.get('project_name'))
+        result = await resolve_for_group(
+            info, entity, user_email, project_name=project_name
+        )
+    elif entity == 'ORGANIZATION':
+        organization_id = cast(str, parameters.get('organization_id'))
+        result = await resolve_for_organization(
+            info, entity, user_email, organization_id=organization_id
+        )
+    return result
 
 
 @convert_kwargs_to_snake_case

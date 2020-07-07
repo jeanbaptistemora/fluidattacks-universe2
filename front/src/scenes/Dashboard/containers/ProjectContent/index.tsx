@@ -85,7 +85,7 @@ const projectContent: React.FC<IProjectContentProps> = (props: IProjectContentPr
                     title={translate.t("group.tabs.comments.text")}
                     tooltip={translate.t("group.tabs.comments.tooltip")}
                   />
-                  <Can do="backend_api_resolvers_project__get_users">
+                  <Can do="backend_api_resolvers_user_resolve_for_group">
                     <ContentTab
                       icon="icon pe-7s-users"
                       id="usersTab"

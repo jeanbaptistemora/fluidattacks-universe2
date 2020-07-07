@@ -569,8 +569,13 @@ async def _get_users(info, project_name: str,
     # Load users concurrently
     return await asyncio.gather(*[
         asyncio.create_task(
-            user_loader.resolve(
-                info, user_email, project_name, as_field, selection_set,
+            user_loader.resolve_for_group(
+                info,
+                'PROJECT',
+                user_email,
+                project_name=project_name,
+                as_field=as_field,
+                selection_set=selection_set
             )
         )
         for user_email in filtered_group_user_emails

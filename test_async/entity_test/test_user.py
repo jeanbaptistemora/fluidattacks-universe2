@@ -21,7 +21,8 @@ class UserTests(TestCase):
         """Check for user."""
         query = '''
             query {
-                user(projectName: "unittesting",
+                user(entity: PROJECT,
+                     projectName: "unittesting",
                      userEmail: "continuoushacking@gmail.com") {
                     email
                     role

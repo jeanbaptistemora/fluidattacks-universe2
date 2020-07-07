@@ -1,7 +1,9 @@
+import asyncio
 import sys
 from decimal import Decimal
 from typing import (
     Dict,
+    List,
     Optional
 )
 
@@ -19,9 +21,11 @@ from backend.decorators import (
     require_organization_access
 )
 from backend.domain import organization as org_domain
+from backend.api.resolvers import user as user_loader
 from backend.typing import (
     Organization as OrganizationType,
-    SimplePayload as SimplePayloadType
+    SimplePayload as SimplePayloadType,
+    User as UserType
 )
 
 
@@ -84,39 +88,77 @@ async def _do_update_organization_policies(
 
 
 @rename_kwargs({'identifier': 'organization_name'})
-async def _get_id(_, organization_name: str) -> str:
+async def _get_id(_, organization_name: str, **__) -> str:
     return await org_domain.get_id_by_name(organization_name)
 
 
 @rename_kwargs({'identifier': 'organization_id'})
-async def _get_name(_, organization_id: str) -> str:
+async def _get_name(_, organization_id: str, **__) -> str:
     return await org_domain.get_name_by_id(organization_id)
 
 
 @rename_kwargs({'identifier': 'organization_id'})
 async def _get_max_acceptance_days(
     _,
-    organization_id: str
+    organization_id: str,
+    **__
 ) -> Decimal:
     return await org_domain.get_max_acceptance_days(organization_id)
 
 
 @rename_kwargs({'identifier': 'organization_id'})
-async def _get_max_acceptance_severity(_, organization_id: str) -> Decimal:
+async def _get_max_acceptance_severity(
+    _,
+    organization_id: str,
+    **__
+) -> Decimal:
     return await org_domain.get_max_acceptance_severity(organization_id)
 
 
 @rename_kwargs({'identifier': 'organization_id'})
 async def _get_max_number_acceptations(
     _,
-    organization_id: str
+    organization_id: str,
+    **__
 )-> Optional[Decimal]:
     return await org_domain.get_max_number_acceptations(organization_id)
 
 
 @rename_kwargs({'identifier': 'organization_id'})
-async def _get_min_acceptance_severity(_, organization_id: str) -> Decimal:
+async def _get_min_acceptance_severity(
+    _,
+    organization_id: str,
+    **__
+) -> Decimal:
     return await org_domain.get_min_acceptance_severity(organization_id)
+
+
+@rename_kwargs({'identifier': 'organization_id'})
+async def _get_users(
+    info,
+    organization_id: str,
+    requested_fields: list
+) -> List[UserType]:
+    """Get users."""
+    organization_users = await org_domain.get_users(organization_id)
+
+    as_field = True
+    selection_set = SelectionSetNode()
+    selection_set.selections = requested_fields
+
+    return await asyncio.gather(*[
+        asyncio.create_task(
+            user_loader.resolve_for_organization(
+                info,
+                'ORGANIZATION',
+                user_email,
+                organization_id=organization_id,
+                as_field=as_field,
+                selection_set=selection_set,
+            )
+        )
+        for user_email in organization_users
+    ])
 
 
 async def resolve(
@@ -137,7 +179,10 @@ async def resolve(
         if util.is_skippable(info, requested_field):
             continue
 
-        params = {'identifier': identifier}
+        params = {
+            'identifier': identifier,
+            'requested_fields': requested_fields
+        }
         field_params = util.get_field_parameters(requested_field)
         if field_params:
             params.update(field_params)

@@ -100,6 +100,7 @@ type Organization {
     maxNumberAcceptations: Int
     minAcceptanceSeverity: Float!
     name: String!
+    users: [User]
 }
 
 "Resource type definition"
@@ -301,6 +302,11 @@ input RepositoryInput {
 enum CallerOrigin {
     API
     FRONT
+}
+
+enum Entity {
+    ORGANIZATION
+    PROJECT
 }
 
 enum ResourceState {

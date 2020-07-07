@@ -91,6 +91,10 @@ async def get_min_acceptance_severity(organization_id: str) -> Decimal:
     return result.get('min_acceptance_severity', DEFAULT_MIN_SEVERITY)
 
 
+async def get_users(organization_id: str) -> List[str]:
+    return await org_dal.get_users(organization_id)
+
+
 async def has_group(group_name: str, organization_id: str) -> bool:
     return await org_dal.has_group(group_name, organization_id)
 

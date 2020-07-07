@@ -22,7 +22,12 @@ type Query {
     resources(projectName: String!): Resource
 
     "Get user info from project"
-    user(projectName: String!, userEmail: String!): User
+    user(
+        entity: Entity!,
+        organizationId: String,
+        projectName: String,
+        userEmail: String!
+    ): User
 
     "List projects a user is subscribed to"
     userListProjects(userEmail: String!): [Project]

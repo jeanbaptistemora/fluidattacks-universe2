@@ -279,7 +279,10 @@ def require_project_access(func: Callable[..., Any]) -> Callable[..., Any]:
     @apm.trace(overridden_function=require_project_access)
     @functools.wraps(func)
     async def verify_and_call(*args, **kwargs) -> Callable[..., Any]:
-        context = args[1].context
+        if hasattr(args[0], 'context'):
+            context = args[0].context
+        elif hasattr(args[1], 'context'):
+            context = args[1].context
         project_name = kwargs.get('project_name') or kwargs.get('group_name')
 
         user_data = util.get_jwt_content(context)
