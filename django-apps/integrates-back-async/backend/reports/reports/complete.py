@@ -68,7 +68,7 @@ def generate(
                 row_index += 1
 
     username = user_email.split('@')[0]
-    report_filename = 'complete_report.xlsx'
+    report_filename = 'complete.xlsx'
     report_filepath = f'/tmp/{username}-{uuid.uuid4()}-{report_filename}'
     book.save(cast(str, report_filepath))
     uploaded_file_name = reports_utils.upload_report(report_filepath)
