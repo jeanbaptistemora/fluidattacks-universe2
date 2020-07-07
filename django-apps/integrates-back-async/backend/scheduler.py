@@ -735,6 +735,47 @@ async def update_indicators():
         ])
 
 
+async def reset_group_expired_accepted_findings(
+        group_name: str, today: str) -> None:
+    rollbar.report_message(
+        f'Info: Resetting expired accepted findings in {group_name}',
+        'info'
+    )
+    list_findings = await sync_to_async(project_domain.list_findings)(
+        group_name
+    )
+    findings = await finding_domain.get_findings_async(
+        list_findings
+    )
+    for finding in findings:
+        finding_id = cast(str, finding.get('findingId'))
+        historic_treatment = cast(
+            List[Dict[str, str]],
+            finding.get('historicTreatment', [{}])
+        )
+        is_accepted_expired = (
+            historic_treatment[-1].get('acceptance_date', today) < today
+        )
+        is_undefined_accepted_expired = (
+            (historic_treatment[-1].get('treatment') ==
+                'ACCEPTED_UNDEFINED') and
+            (historic_treatment[-1].get('acceptance_status') ==
+                'SUBMITTED') and
+            (
+                datetime.strptime(
+                    historic_treatment[-1].get('date', '0001-01-01 00:00:00'),
+                    "%Y-%m-%d %H:%M:%S"
+                ) + timedelta(days=5)
+            ) <= datetime.strptime(today, "%Y-%m-%d %H:%M:%S")
+        )
+        if is_accepted_expired or is_undefined_accepted_expired:
+            updated_values = {'treatment': 'NEW'}
+            await finding_domain.update_treatment(
+                finding_id, updated_values, ''
+            )
+            util.invalidate_cache(finding_id)
+
+
 @async_to_sync
 async def reset_expired_accepted_findings():
     """ Update treatment if acceptance date expires """
@@ -744,53 +785,16 @@ async def reset_expired_accepted_findings():
         'warning'
     )
     today = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-    projects = await sync_to_async(project_domain.get_active_projects)()
-    list_findings = await asyncio.gather(*[
-        asyncio.create_task(
-            sync_to_async(project_domain.list_findings)(
-                project
+    groups = await sync_to_async(project_domain.get_active_projects)()
+    # number of groups that can be updated at a time
+    groups_chunks = chunked(groups, 40)
+    for grps_chunk in groups_chunks:
+        await asyncio.gather(*[
+            asyncio.create_task(
+                reset_group_expired_accepted_findings(group_name, today)
             )
-        )
-        for project in projects
-    ])
-    project_findings = await asyncio.gather(*[
-        asyncio.create_task(
-            finding_domain.get_findings_async(
-                findings
-            )
-        )
-        for findings in list_findings
-    ])
-    update_treatment_tasks = []
-    for findings in project_findings:
-        for finding in findings:
-            finding_id = finding.get('findingId')
-            historic_treatment = finding.get('historicTreatment', [{}])
-            is_accepted_expired = (
-                historic_treatment[-1].get('acceptance_date', today) < today
-            )
-            is_undefined_accepted_expired = (
-                (historic_treatment[-1].get('treatment') ==
-                 'ACCEPTED_UNDEFINED') and
-                (historic_treatment[-1].get('acceptance_status') ==
-                 'SUBMITTED') and
-                (
-                    datetime.strptime(
-                        historic_treatment[-1].get('date'),
-                        "%Y-%m-%d %H:%M:%S"
-                    ) + timedelta(days=5)
-                ) <= datetime.strptime(today, "%Y-%m-%d %H:%M:%S")
-            )
-            if is_accepted_expired or is_undefined_accepted_expired:
-                updated_values = {'treatment': 'NEW'}
-                task = asyncio.create_task(
-                    finding_domain.update_treatment(
-                        finding_id, updated_values, ''
-                    )
-                )
-                update_treatment_tasks.append(task)
-                util.invalidate_cache(finding_id)
-    await asyncio.gather(*update_treatment_tasks)
+            for group_name in grps_chunk
+        ])
 
 
 @async_to_sync
