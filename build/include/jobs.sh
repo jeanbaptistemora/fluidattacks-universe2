@@ -659,10 +659,9 @@ function _job_analytics_all {
         'analytics/generators' "s3://${remote_bucket}/${CI_COMMIT_REF_NAME}/documents" \
   &&  if test "${CI_COMMIT_REF_NAME}" = 'master'
       then
-            echo '[INFO] Collecting snapshots' \
-        &&  python3 analytics/collector/download_htmls.py \
-        &&  python3 analytics/collector/take_snapshots.py \
-        &&  echo '[INFO] Uploading snapshots' \
+            echo '[INFO] Collecting static results' \
+        &&  python3 analytics/collector/generate_reports.py \
+        &&  echo '[INFO] Uploading static results' \
         &&  aws s3 sync --delete \
               'analytics/collector' "s3://${remote_bucket}/${CI_COMMIT_REF_NAME}/snapshots" \
 

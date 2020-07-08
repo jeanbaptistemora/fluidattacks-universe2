@@ -12,10 +12,14 @@ from concurrent.futures import (
 import functools
 from multiprocessing import cpu_count
 from typing import (
+    Any,
+    Awaitable,
+    cast,
     Coroutine,
     Callable,
     List,
     NamedTuple,
+    TypeVar,
     Union,
 )
 
@@ -35,6 +39,10 @@ class PyCallable(NamedTuple):  # pylint:disable=too-few-public-methods
     instance: Callable
     args: tuple = tuple()
     kwargs: frozendict = frozendict()
+
+
+# Typing
+TypeT = TypeVar('TypeT')
 
 
 @apm.trace()
@@ -128,3 +136,14 @@ async def materialize(obj: object) -> object:
         raise ValueError(f'Not implemented for type: {type(obj)}')
 
     return materialized_obj
+
+
+def to_async(
+    function: Callable[..., TypeT],
+) -> Callable[..., Awaitable[TypeT]]:
+
+    @functools.wraps(function)
+    async def wrapper(*args: str, **kwargs: Any) -> Any:
+        return await ensure_io_bound(function, *args, **kwargs)
+
+    return cast(Callable[..., Awaitable[TypeT]], wrapper)

@@ -1,4 +1,5 @@
 # Standard library
+import asyncio
 import contextlib
 from datetime import datetime
 from decimal import Decimal
@@ -75,7 +76,7 @@ def get_vulnerability_source(vulnerability: Dict[str, str]) -> str:
 
 
 def iterate_groups() -> Iterable[str]:
-    for group in sorted(group_domain.get_alive_projects()):
+    for group in sorted(group_domain.get_alive_projects(), reverse=True):
         log_info(f'Working on {group}')
         yield group
 
@@ -124,13 +125,22 @@ def retry_on_exceptions(
 
     def decorator(function: Callable[..., Any]) -> Callable[..., Any]:
 
-        @functools.wraps(function)
-        def wrapper(*args: Any, **kwargs: Any) -> Any:
-            for _ in range(retry_times):
-                with contextlib.suppress(*exceptions):
-                    return function(*args, **kwargs)
+        if asyncio.iscoroutinefunction(function):
+            @functools.wraps(function)
+            async def wrapper(*args: Any, **kwargs: Any) -> Any:
+                for _ in range(retry_times):
+                    with contextlib.suppress(*exceptions):
+                        return await function(*args, **kwargs)
 
-            return default_value
+                return default_value
+        else:
+            @functools.wraps(function)
+            def wrapper(*args: Any, **kwargs: Any) -> Any:
+                for _ in range(retry_times):
+                    with contextlib.suppress(*exceptions):
+                        return function(*args, **kwargs)
+
+                return default_value
 
         return wrapper
 

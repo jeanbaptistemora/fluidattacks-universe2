@@ -149,7 +149,7 @@ def handle_graphic_request_parameters(
         generator_name=generator_name,
         generator_type=generator_type,
         height=height,
-        subject=subject,
+        subject=subject.lower(),
         width=width,
     )
 
@@ -167,7 +167,7 @@ def handle_graphics_for_group_request_parameters(
             raise ValueError(f'Expected [a-zA-Z] in parameter: {param_name}')
 
     return GraphicsForGroupParameters(
-        group=group,
+        group=group.lower(),
     )
 
 

@@ -71,9 +71,9 @@ async def generate_one(group: str):
                 'Closed + Open': RISK.more_agressive,
             },
             types={
-                'Closed': 'spline',
-                'Closed + Open with accepted treatment': 'spline',
-                'Closed + Open': 'spline',
+                'Closed': 'line',
+                'Closed + Open with accepted treatment': 'line',
+                'Closed + Open': 'line',
             },
         ),
         axis=dict(
