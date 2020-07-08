@@ -179,6 +179,134 @@ function helper_terraform_apply {
   || return 1
 }
 
+function helper_terraform_taint {
+  local target_dir="${1}"
+  local marked_value="${2}"
+
+      helper_terraform_init "${target_dir}" \
+  &&  pushd "${target_dir}" \
+    &&  terraform refresh \
+    &&  echo "[INFO] Running terraform taint: ${marked_value}" \
+    &&  terraform taint "${marked_value}" \
+  &&  popd \
+  || return 1
+}
+
+function helper_terraform_output {
+  local target_dir="${1}"
+  local output_name="${2}"
+
+      helper_terraform_init "${target_dir}" 1>&2 \
+  &&  pushd "${target_dir}" 1>&2 \
+    &&  echo "[INFO] Running terraform output: ${output_name}" 1>&2 \
+    &&  terraform output "${output_name}" \
+  &&  popd 1>&2 \
+  || return 1
+}
+
+function helper_get_resource_to_taint_number {
+
+  # Made specifically for nightly rotations.
+  # It prints 1 if day is even and 2 if day is odd.
+
+  local date
+  local timestamp
+  local days
+
+      date="$(date +%y-%m-%d)" \
+  &&  timestamp="$(date +%s --date="${date}")" \
+  &&  days=$((timestamp / 60 / 60 / 24)) \
+  &&  if [ $((days % 2)) == '0' ]
+      then
+        echo "1"
+      else
+        echo "2"
+      fi
+}
+
+function helper_check_last_job_succeeded {
+  export GITLAB_API_TOKEN
+  local gitlab_repo_id="${1}"
+  local job_name="${2}"
+  local job_status=''
+  local job_url=''
+  local page='0'
+  local job_data=''
+
+      echo '[INFO] Iterating GitLab jobs' \
+  &&  for page in $(seq 0 100)
+      do
+            echo "[INFO] Checking page ${page} for job: ${job_name}" \
+        &&  if job_data=$( \
+                  curl \
+                      --globoff \
+                      --silent \
+                      --header "private-token: ${GITLAB_API_TOKEN}" \
+                      "https://gitlab.com/api/v4/projects/${gitlab_repo_id}/jobs?page=${page}" \
+                    | jq -er ".[] | select(.name == \"${job_name}\")")
+            then
+                  job_url=$(echo "${job_data}" | jq -er '.web_url') \
+              &&  echo "[INFO] Got the job: ${job_url}" \
+              &&  break
+            else
+              continue
+            fi
+      done \
+  &&  if test -z "${job_data}"
+      then
+            echo '[INFO] Job was not found, was it renamed?' \
+        &&  return 1
+      fi \
+  &&  job_status=$(echo "${job_data}" | jq -er '.status') \
+  &&  if test "${job_status}" = "success"
+      then
+            echo "[INFO] Job status is: ${job_status}, continuing" \
+        &&  return 0
+      else
+            echo "[INFO] Job status is different that succeeded: ${job_status}, continuing" \
+        &&  return 1
+      fi
+}
+
+function helper_user_provision_rotate_keys {
+  local terraform_dir="${1}"
+  local resource_to_taint="${2}"
+  local output_key_id_name="${3}"
+  local output_key_id_value
+  local output_secret_key_name="${4}"
+  local output_secret_key_value
+  local gitlab_repo_id="${5}"
+  local gitlab_key_id_name="${6}"
+  local gitlab_secret_key_name="${7}"
+  local gitlab_masked="${8}"
+  local gitlab_protected="${9}"
+  local resource_to_taint_number
+
+      resource_to_taint_number="$( \
+        helper_get_resource_to_taint_number)" \
+  &&  helper_terraform_taint \
+        "${terraform_dir}" \
+        "${resource_to_taint}-${resource_to_taint_number}" \
+  &&  helper_terraform_apply \
+        "${terraform_dir}" \
+  &&  output_key_id_value=$( \
+        helper_terraform_output \
+          "${terraform_dir}" \
+          "${output_key_id_name}-${resource_to_taint_number}") \
+  &&  output_secret_key_value=$( \
+        helper_terraform_output \
+          "${terraform_dir}" \
+          "${output_secret_key_name}-${resource_to_taint_number}")  \
+  &&  set_project_variable \
+        "${GITLAB_API_TOKEN}" "${gitlab_repo_id}" \
+        "${gitlab_key_id_name}" "${output_key_id_value}" \
+        "${gitlab_protected}" "${gitlab_masked}" \
+  &&  set_project_variable \
+        "${GITLAB_API_TOKEN}" "${gitlab_repo_id}" \
+        "${gitlab_secret_key_name}" "${output_secret_key_value}" \
+        "${gitlab_protected}" "${gitlab_masked}"
+}
+
 function helper_test_commit_msg_commitlint {
   local commit_diff
   local commit_hashes
