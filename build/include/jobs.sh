@@ -695,18 +695,6 @@ function job_send_new_version_email {
   &&  python "${source_file}"
 }
 
-function job_user_provision_asserts_dev_test {
-      helper_terraform_init \
-        services/user-provision/asserts/dev/terraform \
-  &&  helper_terraform_plan \
-        services/user-provision/asserts/dev/terraform
-}
-
-function job_user_provision_asserts_dev_deploy {
-      helper_terraform_apply \
-        services/user-provision/asserts/dev/terraform
-}
-
 function job_user_provision_asserts_dev_rotate_keys {
   local terraform_dir='services/user-provision/asserts/dev/terraform'
   local resource_to_taint='aws_iam_access_key.asserts-dev-key'
@@ -728,18 +716,6 @@ function job_user_provision_asserts_dev_rotate_keys {
         "${gitlab_secret_key_name}" \
         "${gitlab_masked}" \
         "${gitlab_protected}"
-}
-
-function job_user_provision_asserts_prod_test {
-      helper_terraform_init \
-        services/user-provision/asserts/prod/terraform \
-  &&  helper_terraform_plan \
-        services/user-provision/asserts/prod/terraform
-}
-
-function job_user_provision_asserts_prod_deploy {
-      helper_terraform_apply \
-        services/user-provision/asserts/prod/terraform
 }
 
 function job_user_provision_asserts_prod_rotate_keys {
@@ -765,18 +741,6 @@ function job_user_provision_asserts_prod_rotate_keys {
         "${gitlab_protected}"
 }
 
-function job_user_provision_services_dev_test {
-      helper_terraform_init \
-        services/user-provision/services/dev/terraform \
-  &&  helper_terraform_plan \
-        services/user-provision/services/dev/terraform
-}
-
-function job_user_provision_services_dev_deploy {
-      helper_terraform_apply \
-        services/user-provision/services/dev/terraform
-}
-
 function job_user_provision_services_dev_rotate_keys {
   local terraform_dir='services/user-provision/services/dev/terraform'
   local resource_to_taint='aws_iam_access_key.continuous-dev-key'
@@ -798,18 +762,6 @@ function job_user_provision_services_dev_rotate_keys {
         "${gitlab_secret_key_name}" \
         "${gitlab_masked}" \
         "${gitlab_protected}"
-}
-
-function job_user_provision_services_prod_test {
-      helper_terraform_init \
-        services/user-provision/services/prod/terraform \
-  &&  helper_terraform_plan \
-        services/user-provision/services/prod/terraform
-}
-
-function job_user_provision_services_prod_deploy {
-      helper_terraform_apply \
-        services/user-provision/services/prod/terraform
 }
 
 function job_user_provision_services_prod_rotate_keys {
@@ -835,18 +787,6 @@ function job_user_provision_services_prod_rotate_keys {
         "${gitlab_protected}"
 }
 
-function job_user_provision_integrates_dev_test {
-      helper_terraform_init \
-        services/user-provision/integrates/dev/terraform \
-  &&  helper_terraform_plan \
-        services/user-provision/integrates/dev/terraform
-}
-
-function job_user_provision_integrates_dev_deploy {
-      helper_terraform_apply \
-        services/user-provision/integrates/dev/terraform
-}
-
 function job_user_provision_integrates_dev_rotate_keys {
   local terraform_dir='services/user-provision/integrates/dev/terraform'
   local resource_to_taint='aws_iam_access_key.integrates-dev-key'
@@ -868,18 +808,6 @@ function job_user_provision_integrates_dev_rotate_keys {
         "${gitlab_secret_key_name}" \
         "${gitlab_masked}" \
         "${gitlab_protected}"
-}
-
-function job_user_provision_integrates_prod_test {
-      helper_terraform_init \
-        services/user-provision/integrates/prod/terraform \
-  &&  helper_terraform_plan \
-        services/user-provision/integrates/prod/terraform
-}
-
-function job_user_provision_integrates_prod_deploy {
-      helper_terraform_apply \
-        services/user-provision/integrates/prod/terraform
 }
 
 function job_user_provision_integrates_prod_rotate_keys {
@@ -909,18 +837,6 @@ function job_user_provision_integrates_prod_rotate_keys {
   &&  helper_deploy_integrates
 }
 
-function job_user_provision_web_dev_test {
-      helper_terraform_init \
-        services/user-provision/web/dev/terraform \
-  &&  helper_terraform_plan \
-        services/user-provision/web/dev/terraform
-}
-
-function job_user_provision_web_dev_deploy {
-      helper_terraform_apply \
-        services/user-provision/web/dev/terraform
-}
-
 function job_user_provision_web_dev_rotate_keys {
   local terraform_dir='services/user-provision/web/dev/terraform'
   local resource_to_taint='aws_iam_access_key.web-dev-key'
@@ -942,18 +858,6 @@ function job_user_provision_web_dev_rotate_keys {
         "${gitlab_secret_key_name}" \
         "${gitlab_masked}" \
         "${gitlab_protected}"
-}
-
-function job_user_provision_web_prod_test {
-      helper_terraform_init \
-        services/user-provision/web/prod/terraform \
-  &&  helper_terraform_plan \
-        services/user-provision/web/prod/terraform
-}
-
-function job_user_provision_web_prod_deploy {
-      helper_terraform_apply \
-        services/user-provision/web/prod/terraform
 }
 
 function job_user_provision_web_prod_rotate_keys {

@@ -105,6 +105,134 @@ function job_apply_infra_secret_management {
         "${target}"
 }
 
+function job_test_user_provision_asserts_dev {
+  local target='services/user-provision/asserts/dev/terraform'
+
+      helper_use_pristine_workdir \
+  &&  helper_terraform_plan \
+        "${target}"
+}
+
+function job_apply_user_provision_asserts_dev {
+  local target='services/user-provision/asserts/dev/terraform'
+
+      helper_use_pristine_workdir \
+  &&  helper_terraform_apply \
+        "${target}"
+}
+
+function job_test_user_provision_asserts_prod {
+  local target='services/user-provision/asserts/prod/terraform'
+
+      helper_use_pristine_workdir \
+  &&  helper_terraform_plan \
+        "${target}"
+}
+
+function job_apply_user_provision_asserts_prod {
+  local target='services/user-provision/asserts/prod/terraform'
+
+      helper_use_pristine_workdir \
+  &&  helper_terraform_apply \
+        "${target}"
+}
+
+function job_test_user_provision_services_dev {
+  local target='services/user-provision/services/dev/terraform'
+
+      helper_use_pristine_workdir \
+  &&  helper_terraform_plan \
+        "${target}"
+}
+
+function job_apply_user_provision_services_dev {
+  local target='services/user-provision/services/dev/terraform'
+
+      helper_use_pristine_workdir \
+  &&  helper_terraform_apply \
+        "${target}"
+}
+
+function job_test_user_provision_services_prod {
+  local target='services/user-provision/services/prod/terraform'
+
+      helper_use_pristine_workdir \
+  &&  helper_terraform_plan \
+        "${target}"
+}
+
+function job_apply_user_provision_services_prod {
+  local target='services/user-provision/services/prod/terraform'
+
+      helper_use_pristine_workdir \
+  &&  helper_terraform_apply \
+        "${target}"
+}
+
+function job_test_user_provision_integrates_dev {
+  local target='services/user-provision/integrates/dev/terraform'
+
+      helper_use_pristine_workdir \
+  &&  helper_terraform_plan \
+        "${target}"
+}
+
+function job_apply_user_provision_integrates_dev {
+  local target='services/user-provision/integrates/dev/terraform'
+
+      helper_use_pristine_workdir \
+  &&  helper_terraform_apply \
+        "${target}"
+}
+
+function job_test_user_provision_integrates_prod {
+  local target='services/user-provision/integrates/prod/terraform'
+
+      helper_use_pristine_workdir \
+  &&  helper_terraform_plan \
+        "${target}"
+}
+
+function job_apply_user_provision_integrates_prod {
+  local target='services/user-provision/integrates/prod/terraform'
+
+      helper_use_pristine_workdir \
+  &&  helper_terraform_apply \
+        "${target}"
+}
+
+function job_test_user_provision_web_dev {
+  local target='services/user-provision/web/dev/terraform'
+
+      helper_use_pristine_workdir \
+  &&  helper_terraform_plan \
+        "${target}"
+}
+
+function job_apply_user_provision_web_dev {
+  local target='services/user-provision/web/dev/terraform'
+
+      helper_use_pristine_workdir \
+  &&  helper_terraform_apply \
+        "${target}"
+}
+
+function job_test_user_provision_web_prod {
+  local target='services/user-provision/web/prod/terraform'
+
+      helper_use_pristine_workdir \
+  &&  helper_terraform_plan \
+        "${target}"
+}
+
+function job_apply_user_provision_web_prod {
+  local target='services/user-provision/web/prod/terraform'
+
+      helper_use_pristine_workdir \
+  &&  helper_terraform_apply \
+        "${target}"
+}
+
 function job_test_commit_msg {
       helper_use_pristine_workdir \
   &&  env_prepare_node_modules \
