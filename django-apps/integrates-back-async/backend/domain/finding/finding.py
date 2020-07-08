@@ -1,3 +1,4 @@
+# pylint:disable=too-many-branches
 import asyncio
 import re
 import random
