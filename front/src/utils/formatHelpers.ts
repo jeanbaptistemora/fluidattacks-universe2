@@ -44,14 +44,14 @@ export const formatUserlist:
 
 export const castPrivileges: ((scope: string) => Dictionary<string>) = (scope: string): Dictionary<string> => {
   const privilegesRequiredScope: {[value: string]: string} = {
-    0.85: "search_findings.tab_severity.privileges_required_options.none",
-    0.68: "search_findings.tab_severity.privileges_required_options.low",
-    0.5: "search_findings.tab_severity.privileges_required_options.high",
+    0.85: "search_findings.tab_severity.privileges_required_options.none.text",
+    0.68: "search_findings.tab_severity.privileges_required_options.low.text",
+    0.5: "search_findings.tab_severity.privileges_required_options.high.text",
   };
   const privilegesRequiredNoScope: {[value: string]: string} = {
-    0.85: "search_findings.tab_severity.privileges_required_options.none",
-    0.62: "search_findings.tab_severity.privileges_required_options.low",
-    0.27: "search_findings.tab_severity.privileges_required_options.high",
+    0.85: "search_findings.tab_severity.privileges_required_options.none.text",
+    0.62: "search_findings.tab_severity.privileges_required_options.low.text",
+    0.27: "search_findings.tab_severity.privileges_required_options.high.text",
   };
   const privilegesOptions: {[value: string]: string} = (parseInt(scope, 10) === 1)
     ? privilegesRequiredScope
@@ -71,63 +71,63 @@ export const castFieldsCVSS3: ((
 ): ISeverityField[] => {
 
   const attackVector: {[value: string]: string} = {
-    0.85: "search_findings.tab_severity.attack_vector_options.network",
-    0.62: "search_findings.tab_severity.attack_vector_options.adjacent",
-    0.55: "search_findings.tab_severity.attack_vector_options.local",
-    0.2: "search_findings.tab_severity.attack_vector_options.physical",
+    0.85: "search_findings.tab_severity.attack_vector_options.network.text",
+    0.62: "search_findings.tab_severity.attack_vector_options.adjacent.text",
+    0.55: "search_findings.tab_severity.attack_vector_options.local.text",
+    0.2: "search_findings.tab_severity.attack_vector_options.physical.text",
   };
 
   const attackComplexity: {[value: string]: string} = {
-    0.77: "search_findings.tab_severity.attack_complexity_options.low",
-    0.44: "search_findings.tab_severity.attack_complexity_options.high",
+    0.77: "search_findings.tab_severity.attack_complexity_options.low.text",
+    0.44: "search_findings.tab_severity.attack_complexity_options.high.text",
   };
 
   const userInteraction: {[value: string]: string} = {
-    0.85: "search_findings.tab_severity.user_interaction_options.none",
-    0.62: "search_findings.tab_severity.user_interaction_options.required",
+    0.85: "search_findings.tab_severity.user_interaction_options.none.text",
+    0.62: "search_findings.tab_severity.user_interaction_options.required.text",
   };
 
   const severityScope: {[value: string]: string} = {
-    0: "search_findings.tab_severity.severity_scope_options.unchanged",
-    1: "search_findings.tab_severity.severity_scope_options.changed",
+    0: "search_findings.tab_severity.severity_scope_options.unchanged.text",
+    1: "search_findings.tab_severity.severity_scope_options.changed.text",
   };
 
   const confidentialityImpact: {[value: string]: string} = {
-    0: "search_findings.tab_severity.confidentiality_impact_options.none",
-    0.22: "search_findings.tab_severity.confidentiality_impact_options.low",
-    0.56: "search_findings.tab_severity.confidentiality_impact_options.high",
+    0: "search_findings.tab_severity.confidentiality_impact_options.none.text",
+    0.22: "search_findings.tab_severity.confidentiality_impact_options.low.text",
+    0.56: "search_findings.tab_severity.confidentiality_impact_options.high.text",
   };
 
   const integrityImpact: {[value: string]: string} = {
-    0: "search_findings.tab_severity.integrity_impact_options.none",
-    0.22: "search_findings.tab_severity.integrity_impact_options.low",
-    0.56: "search_findings.tab_severity.integrity_impact_options.high",
+    0: "search_findings.tab_severity.integrity_impact_options.none.text",
+    0.22: "search_findings.tab_severity.integrity_impact_options.low.text",
+    0.56: "search_findings.tab_severity.integrity_impact_options.high.text",
   };
 
   const availabilityImpact: {[value: string]: string} = {
-    0: "search_findings.tab_severity.availability_impact_options.none",
-    0.22: "search_findings.tab_severity.availability_impact_options.low",
-    0.56: "search_findings.tab_severity.availability_impact_options.high",
+    0: "search_findings.tab_severity.availability_impact_options.none.text",
+    0.22: "search_findings.tab_severity.availability_impact_options.low.text",
+    0.56: "search_findings.tab_severity.availability_impact_options.high.text",
   };
 
   const exploitability: {[value: string]: string} = {
-    1: "search_findings.tab_severity.exploitability_options.high",
-    0.97: "search_findings.tab_severity.exploitability_options.functional",
-    0.94: "search_findings.tab_severity.exploitability_options.proof_of_concept",
-    0.91: "search_findings.tab_severity.exploitability_options.unproven",
+    1: "search_findings.tab_severity.exploitability_options.high.text",
+    0.97: "search_findings.tab_severity.exploitability_options.functional.text",
+    0.94: "search_findings.tab_severity.exploitability_options.proof_of_concept.text",
+    0.91: "search_findings.tab_severity.exploitability_options.unproven.text",
   };
 
   const remediationLevel: {[value: string]: string} = {
-    1: "search_findings.tab_severity.remediation_level_options.unavailable",
-    0.97: "search_findings.tab_severity.remediation_level_options.workaround",
-    0.96: "search_findings.tab_severity.remediation_level_options.temporary_fix",
-    0.95: "search_findings.tab_severity.remediation_level_options.official_fix",
+    1: "search_findings.tab_severity.remediation_level_options.unavailable.text",
+    0.97: "search_findings.tab_severity.remediation_level_options.workaround.text",
+    0.96: "search_findings.tab_severity.remediation_level_options.temporary_fix.text",
+    0.95: "search_findings.tab_severity.remediation_level_options.official_fix.text",
   };
 
   const reportConfidence: {[value: string]: string} = {
-    1: "search_findings.tab_severity.report_confidence_options.confirmed",
-    0.96: "search_findings.tab_severity.report_confidence_options.reasonable",
-    0.92: "search_findings.tab_severity.report_confidence_options.unknown",
+    1: "search_findings.tab_severity.report_confidence_options.confirmed.text",
+    0.96: "search_findings.tab_severity.report_confidence_options.reasonable.text",
+    0.92: "search_findings.tab_severity.report_confidence_options.unknown.text",
   };
 
   let fields: ISeverityField[] = [
@@ -200,21 +200,21 @@ export const castFieldsCVSS3: ((
   ];
 
   const confidentialityRequirement: {[value: string]: string} = {
-    1.5: "search_findings.tab_severity.confidentiality_requirement_options.high",
-    1: "search_findings.tab_severity.confidentiality_requirement_options.medium",
-    0.5: "search_findings.tab_severity.confidentiality_requirement_options.low",
+    1.5: "search_findings.tab_severity.confidentiality_requirement_options.high.text",
+    1: "search_findings.tab_severity.confidentiality_requirement_options.medium.text",
+    0.5: "search_findings.tab_severity.confidentiality_requirement_options.low.text",
   };
 
   const integrityRequirement: {[value: string]: string} = {
-    1.5: "search_findings.tab_severity.integrity_requirement_options.high",
-    1: "search_findings.tab_severity.integrity_requirement_options.medium",
-    0.5: "search_findings.tab_severity.integrity_requirement_options.low",
+    1.5: "search_findings.tab_severity.integrity_requirement_options.high.text",
+    1: "search_findings.tab_severity.integrity_requirement_options.medium.text",
+    0.5: "search_findings.tab_severity.integrity_requirement_options.low.text",
   };
 
   const availabilityRequirement: {[value: string]: string} = {
-    1.5: "search_findings.tab_severity.availability_requirement_options.high",
-    1: "search_findings.tab_severity.availability_requirement_options.medium",
-    0.5: "search_findings.tab_severity.availability_requirement_options.low",
+    1.5: "search_findings.tab_severity.availability_requirement_options.high.text",
+    1: "search_findings.tab_severity.availability_requirement_options.medium.text",
+    0.5: "search_findings.tab_severity.availability_requirement_options.low.text",
   };
 
   const environmentFields: ISeverityField[] = [

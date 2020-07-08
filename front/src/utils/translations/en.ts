@@ -1179,9 +1179,15 @@ const enTranslations: Dictionary = {
       },
       availability_requirement: "Availability Requirement",
       availability_requirement_options: {
-        high: "High",
-        low: "Low",
-        medium: "Medium",
+        high: {
+          text: "High",
+        },
+        low: {
+          text: "Low",
+        },
+        medium: {
+          text: "Medium",
+        },
       },
       complexity: "Access Complexity",
       complexity_options: {
@@ -1219,9 +1225,15 @@ const enTranslations: Dictionary = {
       },
       confidentiality_requirement: "Confidentiality Requirement",
       confidentiality_requirement_options: {
-        high: "High",
-        low: "Low",
-        medium: "Medium",
+        high: {
+          text: "High",
+        },
+        low: {
+          text: "Low",
+        },
+        medium: {
+          text: "Medium",
+        },
       },
       cvss_version: "CVSS Version",
       editable: "Edit",
@@ -1272,9 +1284,15 @@ const enTranslations: Dictionary = {
       },
       integrity_requirement: "Integrity Requirement",
       integrity_requirement_options: {
-        high: "High",
-        low: "Low",
-        medium: "Medium",
+        high: {
+          text: "High",
+        },
+        low: {
+          text: "Low",
+        },
+        medium: {
+          text: "Medium",
+        },
       },
       modified_attack_complexity: "Modified Attack Complexity",
       modified_attack_vector: "Modified Attack Vector",
