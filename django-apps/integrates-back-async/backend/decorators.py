@@ -175,6 +175,54 @@ def enforce_group_level_auth_async(func: Callable[..., Any]) -> \
     return verify_and_call
 
 
+def enforce_organization_level_auth_async(func: Callable[..., Any]) -> \
+        Callable[..., Any]:
+    """Enforce authorization using the organization-level role."""
+
+    @functools.wraps(func)
+    async def verify_and_call(*args, **kwargs) -> Callable[..., Any]:
+        if hasattr(args[0], 'context'):
+            context = args[0].context
+        elif hasattr(args[1], 'context'):
+            context = args[1].context
+        else:
+            GraphQLError('Could not get context from request.')
+
+        organization_identifier = str(
+            kwargs.get('identifier') or
+            kwargs.get('organization_id') or
+            kwargs.get('organization_name')
+        )
+        organization_id = (
+            organization_identifier
+            if organization_identifier.startswith('ORG#')
+            else await org_domain.get_id_by_name(organization_identifier)
+        )
+        user_data = util.get_jwt_content(context)
+
+        subject = user_data['user_email']
+        object_ = organization_id.lower()
+        action = f'{func.__module__}.{func.__qualname__}'.replace('.', '_')
+
+        if not object_:
+            rollbar.report_message(
+                'Unable to identify organization to check permissions',
+                level='critical',
+                extra_data={
+                    'subject': subject,
+                    'action': action,
+                }
+            )
+
+        enforcer = authz.get_organization_level_enforcer(subject)
+
+        if not await enforcer(subject, object_, action):
+            util.cloudwatch_log(context, UNAUTHORIZED_ROLE_MSG)
+            raise GraphQLError('Access denied')
+        return await func(*args, **kwargs)
+    return verify_and_call
+
+
 def enforce_user_level_auth_async(func: Callable[..., Any]) -> \
         Callable[..., Any]:
     """Enforce authorization using the user-level role."""

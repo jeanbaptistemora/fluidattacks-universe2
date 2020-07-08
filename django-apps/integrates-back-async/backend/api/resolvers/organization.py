@@ -20,6 +20,7 @@ from backend import (
 from backend.api.resolvers import user as user_loader
 from backend.decorators import (
     enforce_group_level_auth_async,
+    enforce_organization_level_auth_async,
     rename_kwargs,
     require_login,
     require_organization_access
@@ -38,6 +39,7 @@ from backend.typing import (
 from backend.utils import aio
 
 
+@enforce_organization_level_auth_async
 async def _do_edit_user_organization(
     _,
     info,
@@ -94,6 +96,7 @@ async def _do_edit_user_organization(
     )
 
 
+@enforce_organization_level_auth_async
 async def _do_grant_user_organization_access(
     _,
     info,
@@ -190,6 +193,7 @@ async def _do_move_group_organization(
     return SimplePayloadType(success=success)
 
 
+@enforce_organization_level_auth_async
 async def _do_remove_user_organization_access(
     _,
     info,
@@ -219,15 +223,17 @@ async def _do_remove_user_organization_access(
     return SimplePayloadType(success=success)
 
 
+@enforce_organization_level_auth_async
 async def _do_update_organization_policies(
     _,
     info,
-    organization_id: str,
-    organization_name: str,
     **parameters
 ) -> SimplePayloadType:
     user_data = util.get_jwt_content(info.context)
     user_email = user_data['user_email']
+
+    organization_id = parameters.pop('organization_id')
+    organization_name = parameters.pop('organization_name')
     success: bool = await org_domain.update_policies(
         organization_id,
         organization_name,
