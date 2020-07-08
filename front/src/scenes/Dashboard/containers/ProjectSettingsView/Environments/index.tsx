@@ -172,7 +172,7 @@ const environments: React.FC<IEnvironmentsProps> = (props: IEnvironmentsProps): 
           };
 
           const filterState: {} = selectFilter({
-            defaultValue: _.get(sessionStorage, "envStateFilter"),
+            defaultValue: _.get(sessionStorage, "envStateFilter", "Active"),
             onFilter: (filterVal: string): void => {
               sessionStorage.setItem("envStateFilter", filterVal);
             },

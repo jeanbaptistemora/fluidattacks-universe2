@@ -249,6 +249,9 @@ describe("Repositories", () => {
       </Provider>,
     );
     await act(async () => { await wait(0); wrapper.update(); });
+    const stateSelect: ReactWrapper = wrapper
+      .find({id: "select-filter-column-state"});
+    stateSelect.simulate("change", { target: { value: "" } });
     const stateSwitch: ReactWrapper = wrapper
       .find(".switch")
       .at(0);
@@ -276,7 +279,7 @@ describe("Repositories", () => {
       .find("RowPureContent")
       .at(0);
     expect(firstRowInfo.text())
-      .toEqual("HTTPSpruebarepo/gitdevelopInactive");
+      .toEqual("SSHpruebarepo/git2masterActive");
     const repositoryHeader: ReactWrapper = wrapper
       .find({"aria-label": "Protocol sortable"});
     repositoryHeader.simulate("click");

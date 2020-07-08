@@ -177,7 +177,7 @@ const repositories: React.FC<IRepositoriesProps> = (props: IRepositoriesProps): 
           };
 
           const filterState: {} = selectFilter({
-            defaultValue: _.get(sessionStorage, "repoStateFilter"),
+            defaultValue: _.get(sessionStorage, "repoStateFilter", "Active"),
             onFilter: (filterVal: string): void => {
               sessionStorage.setItem("repoStateFilter", filterVal);
             },

@@ -207,6 +207,9 @@ describe("Environments", () => {
       </Provider>,
     );
     await act(async () => { await wait(0); wrapper.update(); });
+    const stateSelect: ReactWrapper = wrapper
+      .find({id: "select-filter-column-state"});
+    stateSelect.simulate("change", { target: { value: "" } });
     const stateSwitch: ReactWrapper = wrapper
       .find(".switch")
       .at(0);
@@ -234,7 +237,7 @@ describe("Environments", () => {
       .find("RowPureContent")
       .at(0);
     expect(firstRowInfo.text())
-      .toEqual("https://test/testInactive");
+      .toEqual("Docker image found at: https://test/testActive");
     const tagHeader: ReactWrapper = wrapper
       .find({"aria-label": "Environment sortable"});
     tagHeader.simulate("click");
@@ -258,7 +261,7 @@ describe("Environments", () => {
     let environmentRows: ReactWrapper = wrapper
       .find("SimpleRow");
     expect(environmentRows)
-      .toHaveLength(2);
+      .toHaveLength(1);
     const stateSelect: ReactWrapper = wrapper
       .find({id: "select-filter-column-state"});
     stateSelect.simulate("change", { target: { value: "Inactive" } });
