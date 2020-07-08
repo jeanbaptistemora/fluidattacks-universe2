@@ -8,6 +8,7 @@ from datetime import datetime, timedelta
 from decimal import Decimal
 from asgiref.sync import sync_to_async, async_to_sync
 import pytz
+import rollbar
 
 from django.conf import settings
 
@@ -371,6 +372,11 @@ def mask(group_name: str) -> bool:
 
 def remove_project(project_name: str) -> NamedTuple:
     """Delete project information."""
+    rollbar.report_message(
+        f'Warning: Removing {project_name} project',
+        'warning',
+        payload_data=locals()
+    )
     Status: NamedTuple = namedtuple(
         'Status',
         'are_findings_masked are_users_removed is_group_masked '
