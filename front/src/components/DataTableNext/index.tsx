@@ -30,8 +30,66 @@ import { FluidIcon } from "../FluidIcon";
 import { Modal } from "../Modal";
 import { TooltipWrapper } from "../TooltipWrapper/index";
 import { default as style } from "./index.css";
-import { ICustomToggle, ITableProps } from "./types";
-import { customizeColumns } from "./utils";
+import { ICustomToggle, IHeader, ITableProps } from "./types";
+
+const handleFormatter: ((value: string, row: { [key: string]: string }, rowIndex: number, key: IHeader)
+=> string | ReactElement | undefined) =
+(value: string, row: { [key: string]: string }, rowIndex: number, key: IHeader): string | ReactElement | undefined => {
+  if (key.formatter !== undefined) {
+    return key.formatter(value, row, rowIndex, key);
+  }
+};
+
+const renderGivenHeaders: ((arg1: IHeader[], isFilterEnabled: boolean) => Column[]) =
+  (headers: IHeader[], isFilterEnabled: boolean): Column[] => (headers.map((key: IHeader) => {
+    const isFormatter: boolean = key.formatter !== undefined;
+    const handleSort: ((dataField: string, order: SortOrder) => void) =
+    (dataField: string, order: SortOrder): void => {
+      if (key.onSort !== undefined) {
+        key.onSort(dataField, order);
+      }
+    };
+
+    return {
+      align: key.align,
+      dataField: key.dataField,
+      filter: isFilterEnabled ? key.filter : undefined,
+      formatExtraData: key,
+      formatter: isFormatter ? handleFormatter : undefined,
+      headerStyle: (): {} => ({
+        whiteSpace: key.wrapped === undefined ? "nowrap" : key.wrapped ? "unset" : "nowrap",
+        width: key.width,
+      }),
+      hidden: (key.visible) === undefined ? key.visible : !key.visible,
+      onSort: handleSort,
+      sort: true,
+      style: (): {} => ({
+        whiteSpace: key.wrapped === undefined ? "nowrap" : key.wrapped ? "unset" : "nowrap",
+      }),
+      text: key.header,
+    };
+  })
+);
+
+const renderDynamicHeaders: ((arg1: string[]) => Column[]) =
+  (dataFields: string[]): Column[] => (
+    dataFields.map((key: string, index: number) =>
+      ({
+          dataField: key,
+          headerStyle: (): {} => ({ width: dataFields.length > 10 ? "150px" : undefined }),
+          hidden: key === "uniqueId" ? true : false,
+          sort: true,
+          text: key,
+      }
+    ))
+  );
+
+const renderHeaders: ((arg1: ITableProps) => Column[]) =
+  (props: ITableProps): Column[] => (
+    props.headers.length > 0 ?
+    renderGivenHeaders(props.headers, !_.isUndefined(props.isFilterEnabled) ? props.isFilterEnabled : true) :
+    renderDynamicHeaders(Object.keys(props.dataset[0]))
+  );
 
 const renderExportCsvButton: ((toolkitProps: ToolkitProviderProps) => JSX.Element) =
 (toolkitProps: ToolkitProviderProps): JSX.Element => {
@@ -221,7 +279,7 @@ const renderToolKitProvider: ((props: ITableProps, dataset: Array<{}>) => JSX.El
       <ToolkitProvider
         keyField={!_.isEmpty(dataset) && dataset.length > 0 ? "uniqueId" : "_"}
         data={dataset}
-        columns={customizeColumns(props.headers, Object.keys(props.dataset[0]), props.isFilterEnabled)}
+        columns={renderHeaders(props)}
         columnToggle={columnToggle}
         search={search}
         exportCSV={{
