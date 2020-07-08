@@ -84,3 +84,9 @@ V4.1 General Access Control Design.(4.1.4)]
 Verify that the principle of deny by default exists whereby new users/roles
 start with minimal or no permissions and users/roles do not receive access to
 new features until access is explicitly assigned.
+
+. [[r12]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V10.2 Malicious Code Search.(10.2.2)]
+Verify that the application does not ask for unnecessary or excessive
+permissions to privacy related features or sensors, such as contacts, cameras,
+microphones, or location.

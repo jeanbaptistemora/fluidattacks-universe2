@@ -52,7 +52,7 @@ that may pose a risk to the organization.
 
 . An attacker obtains technical information about a specific product.
 If the service/software is out of date,
-there could be public exploits <<r2, ^[1]^>>
+there could be public exploits
 designed to attack known vulnerabilities
 present in the in-use version of the product.
 
@@ -78,4 +78,11 @@ Verify the application does not use unsupported, insecure, or deprecated
 client-side technologies such as NSAPI plugins, Flash, Shockwave, ActiveX,
 Silverlight, NACL, or client-side Java applets.
 
-. [[r2]] link:https://www.owasp.org/index.php/Top_10_2013-A9-Using_Components_with_Known_Vulnerabilities[Top 10 2013-A9-Using Components with Known Vulnerabilities].
+. [[r2]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V10.2 Malicious Code Search.(10.2.1)]
+Verify that the application source code and third party libraries do not
+contain unauthorized phone home or data collection capabilities.
+Where such functionality exists, obtain the user's permission for it to operate
+before collecting any data.
+
+. [[r3]] link:https://www.owasp.org/index.php/Top_10_2013-A9-Using_Components_with_Known_Vulnerabilities[Top 10 2013-A9-Using Components with Known Vulnerabilities].

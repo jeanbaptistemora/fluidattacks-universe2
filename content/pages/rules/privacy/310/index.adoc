@@ -1,7 +1,7 @@
 :slug: rules/310/
 :category: privacy
 :description: This requirement establishes the importance of requesting the user's consent whenever their data is to be collected.
-:keywords: Requirement, Security, Data, GDPR, Consent Request, Regulation, Rules, Ethical Hacking, Pentesting
+:keywords: Security, Data, ASVS, GDPR, Consent Request, Regulation, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R310. Request user consent
@@ -58,3 +58,10 @@ V8.3 Sensitive Private Data.(8.3.3)]
 Verify that users are provided clear language regarding collection and use of
 supplied personal information and that users have provided opt-in consent for
 the use of that data before it is used in any way.
+
+. [[r5]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V10.2 Malicious Code Search.(10.2.1)]
+Verify that the application source code and third party libraries do not
+contain unauthorized phone home or data collection capabilities.
+Where such functionality exists, obtain the user's permission for it to operate
+before collecting any data.

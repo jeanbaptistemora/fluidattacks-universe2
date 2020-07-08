@@ -1,6 +1,6 @@
 :slug: rules/341/
 :category: authorization
-:description: This document contains the details of the security requirements related to the definition and management of access control in the organization. This requirement establishes the importance of using the principle of deny by default when creating new users/roles or when adding new features.
+:description: This requirement establishes the importance of using the principle of deny by default when creating new users/roles or when adding new features.
 :keywords: Principle, Deny, Default, Permission, ASVS, CWE
 :rules: yes
 
@@ -36,3 +36,9 @@ V4.1 General Access Control Design.(4.1.4)]
 Verify that the principle of deny by default exists whereby new users/roles
 start with minimal or no permissions and users/roles do not receive access to
 new features until access is explicitly assigned.
+
+. [[r4]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V10.2 Malicious Code Search.(10.2.2)]
+Verify that the application does not ask for unnecessary or excessive
+permissions to privacy related features or sensors, such as contacts, cameras,
+microphones, or location.

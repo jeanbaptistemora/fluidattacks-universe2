@@ -65,24 +65,24 @@ the transmitted information.
 
 == References
 
-. [[r1]] link:https://cwe.mitre.org/data/definitions/200.html[CWE-200: Exposure of Sensitive Information to an Unauthorized Actor]
+. [[r1]] link:https://cwe.mitre.org/data/definitions/200.html[CWE-200: Exposure of Sensitive Information to an Unauthorized Actor].
 The product exposes sensitive information to an actor that is not explicitly
 authorized to have access to that information.
 
-. [[r2]] link:https://cwe.mitre.org/data/definitions/311.html[CWE-311: Missing Encryption of Sensitive Data]
+. [[r2]] link:https://cwe.mitre.org/data/definitions/311.html[CWE-311: Missing Encryption of Sensitive Data].
 The software does not encrypt sensitive or critical information before storage
 or transmission.
 
-. [[r3]] link:https://cwe.mitre.org/data/definitions/319.html[CWE-319: Cleartext Transmission of Sensitive Information]
+. [[r3]] link:https://cwe.mitre.org/data/definitions/319.html[CWE-319: Cleartext Transmission of Sensitive Information].
 The software transmits sensitive or security-critical data in cleartext in a
 communication channel that can be sniffed by unauthorized actors.
 
-. [[r4]] link:https://cwe.mitre.org/data/definitions/326.html[CWE-326: Inadequate Encryption Strength]
+. [[r4]] link:https://cwe.mitre.org/data/definitions/326.html[CWE-326: Inadequate Encryption Strength].
 The software stores or transmits sensitive data using an encryption scheme that
 is theoretically sound,
 but is not strong enough for the level of protection required.
 
-. [[r5]] link:https://cwe.mitre.org/data/definitions/598.html[CWE-598: Use of GET Request Method With Sensitive Query Strings]
+. [[r5]] link:https://cwe.mitre.org/data/definitions/598.html[CWE-598: Use of GET Request Method With Sensitive Query Strings].
 The web application uses the HTTP GET method to process a request and includes
 sensitive information in the query string of that request.
 
