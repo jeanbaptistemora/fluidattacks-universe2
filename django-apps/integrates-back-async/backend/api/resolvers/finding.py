@@ -1,6 +1,6 @@
 from time import time
 import sys
-from typing import Any, Dict, List, cast
+from typing import Dict, List
 
 import rollbar
 
@@ -860,14 +860,7 @@ async def _do_approve_draft(_, info, draft_id: str) -> ApproveDraftPayloadType:
     reviewer_email = util.get_jwt_content(info.context)['user_email']
     project_name = await finding_domain.get_project(draft_id)
 
-    has_vulns = [
-        vuln for vuln in
-        await vuln_domain.list_vulnerabilities_async([draft_id])
-        if cast(List[Dict[str, Any]],
-                vuln['historic_state'])[-1].get('state') != 'DELETED']
-    if not has_vulns:
-        raise GraphQLError('CANT_APPROVE_FINDING_WITHOUT_VULNS')
-    success, release_date = await sync_to_async(finding_domain.approve_draft)(
+    success, release_date = await finding_domain.approve_draft(
         draft_id, reviewer_email)
     if success:
         util.invalidate_cache(draft_id)

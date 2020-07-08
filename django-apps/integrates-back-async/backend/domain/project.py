@@ -43,7 +43,10 @@ from backend.exceptions import (
     PermissionDenied,
     RepeatedValues
 )
-from backend.utils import validations
+from backend.utils import (
+    findings as finding_utils,
+    validations
+)
 from backend import authz, mailer, util
 
 
@@ -390,7 +393,7 @@ def remove_project(project_name: str) -> NamedTuple:
             list_drafts(project_name, should_list_deleted=True)
         )
         are_findings_masked = all([
-            finding_domain.mask_finding(finding_id)
+            finding_utils.mask_finding(finding_id)
             for finding_id in findings_and_drafts
         ])
         events = list_events(project_name)

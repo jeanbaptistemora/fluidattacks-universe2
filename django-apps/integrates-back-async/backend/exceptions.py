@@ -311,6 +311,15 @@ class AlreadyApproved(Exception):
         super(AlreadyApproved, self).__init__(msg)
 
 
+class DraftWithoutVulns(Exception):
+    """Exception to control draft approvation process"""
+
+    def __init__(self):
+        """ Constructor """
+        msg = 'CANT_APPROVE_FINDING_WITHOUT_VULNS'
+        super(DraftWithoutVulns, self).__init__(msg)
+
+
 class AlreadySubmitted(Exception):
     """Exception to control submitted drafts"""
 

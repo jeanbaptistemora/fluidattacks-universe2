@@ -4,7 +4,7 @@ import random
 from datetime import datetime
 from decimal import Decimal
 from contextlib import AsyncExitStack
-from typing import Dict, List, Optional, Tuple, Union, cast
+from typing import Dict, List, Tuple, Union, cast
 
 import aioboto3
 import pytz
@@ -24,6 +24,7 @@ from backend import authz, mailer, util
 from backend.exceptions import (
     AlreadyApproved,
     AlreadySubmitted,
+    DraftWithoutVulns,
     EvidenceNotFound,
     FindingNotFound,
     IncompleteDraft,
@@ -475,18 +476,24 @@ async def delete_finding(
     return success
 
 
-def approve_draft(draft_id: str, reviewer_email: str) -> Tuple[bool, datetime]:
-    draft_data = async_to_sync(get_finding)(draft_id)
+async def approve_draft(
+        draft_id: str,
+        reviewer_email: str) -> Tuple[bool, str]:
+    draft_data = await get_finding(draft_id)
     submission_history = cast(
         List[Dict[str, str]],
         draft_data.get('historicState')
     )
-    release_date: Union[str, Optional[datetime]] = None
+    release_date: str = ''
     success = False
 
     if ('releaseDate' not in draft_data and
             submission_history[-1].get('state') != 'DELETED'):
-        has_vulns = vuln_domain.list_vulnerabilities([draft_id])
+        vulns = await vuln_domain.list_vulnerabilities_async([draft_id])
+        has_vulns = [
+            vuln for vuln in vulns
+            if vuln_domain.filter_deleted_status(vuln)
+        ]
         if has_vulns:
             if 'reportDate' in draft_data:
                 tzn = pytz.timezone(settings.TIME_ZONE)  # type: ignore
@@ -501,8 +508,7 @@ def approve_draft(draft_id: str, reviewer_email: str) -> Tuple[bool, datetime]:
                     'analyst': reviewer_email,
                     'state': 'APPROVED'
                 })
-
-                success = async_to_sync(finding_dal.update)(draft_id, {
+                success = await finding_dal.update(draft_id, {
                     'lastVulnerability': release_date,
                     'releaseDate': release_date,
                     'treatment': 'NEW',
@@ -510,9 +516,12 @@ def approve_draft(draft_id: str, reviewer_email: str) -> Tuple[bool, datetime]:
                 })
             else:
                 raise NotSubmitted()
+        else:
+            raise DraftWithoutVulns()
     else:
         raise AlreadyApproved()
-    return success, cast(datetime, release_date)
+
+    return success, release_date
 
 
 async def get_finding(finding_id: str) -> Dict[str, FindingType]:
@@ -613,7 +622,7 @@ def update_evidence(finding_id: str, evidence_type: str, file) -> bool:
                 {f'files[{index}].file_url': evidence_id}
             )
         else:
-            success = finding_dal.list_append(
+            success = async_to_sync(finding_dal.list_append)(
                 finding_id,
                 'files',
                 [{'name': evidence_type, 'file_url': evidence_id}]
@@ -684,7 +693,7 @@ def remove_evidence(evidence_name: str, finding_id: str) -> bool:
     return success
 
 
-def create_draft(info, project_name: str, title: str, **kwargs) -> bool:
+async def create_draft(info, project_name: str, title: str, **kwargs) -> bool:
     last_fs_id = 550000000
     finding_id = str(random.randint(last_fs_id, 1000000000))
     tzn = pytz.timezone(settings.TIME_ZONE)  # type: ignore
@@ -731,7 +740,8 @@ def create_draft(info, project_name: str, title: str, **kwargs) -> bool:
 
     if re.search(r'^[A-Z]+\.(H\.|S\.|SH\.)??[0-9]+\. .+', title):
 
-        return finding_dal.create(finding_id, project_name, finding_attrs)
+        return await finding_dal.create(
+            finding_id, project_name, finding_attrs)
     raise InvalidDraftTitle()
 
 
@@ -809,72 +819,6 @@ async def submit_draft(finding_id: str, analyst_email: str) -> bool:
             raise AlreadySubmitted()
     else:
         raise AlreadyApproved()
-
-    return success
-
-
-def mask_finding(finding_id: str) -> bool:
-    finding = async_to_sync(finding_dal.get_finding)(finding_id)
-    finding = finding_utils.format_data(finding)
-    historic_treatment = cast(
-        List[Dict[str, str]],
-        finding.get('historicTreatment', [])
-    )
-    historic_verification = cast(
-        List[Dict[str, str]],
-        finding.get('historicVerification', [])
-    )
-
-    attrs_to_mask = [
-        'affected_systems', 'attack_vector_desc', 'effect_solution',
-        'related_findings', 'risk', 'threat', 'treatment',
-        'treatment_manager', 'vulnerability'
-    ]
-    finding_result = (
-        async_to_sync(finding_dal.update)(finding_id, {
-            attr: 'Masked'
-            for attr in attrs_to_mask
-        }) and
-        finding_utils.mask_treatment(finding_id, historic_treatment) and
-        finding_utils.mask_verification(finding_id, historic_verification)
-    )
-
-    evidence_prefix = f'{finding["projectName"]}/{finding_id}'
-    evidence_result = all([
-        finding_dal.remove_evidence(file_name)
-        for file_name in finding_dal.search_evidence(evidence_prefix)
-    ])
-    async_to_sync(finding_dal.update)(finding_id, {
-        'files': [
-            {'file_url': 'Masked', 'name': 'Masked', 'description': 'Masked'}
-            for _ in cast(List[Dict[str, str]], finding['evidence'])
-        ]
-    })
-
-    comments_and_observations = (
-        async_to_sync(comment_dal.get_comments)('comment', int(finding_id)) +
-        async_to_sync(comment_dal.get_comments)(
-            'observation', int(finding_id))
-    )
-    comments_result = all([
-        async_to_sync(comment_dal.delete)(
-            int(finding_id),
-            cast(int, comment['user_id'])
-        )
-        for comment in comments_and_observations])
-
-    vulns_result = all([
-        vuln_domain.mask_vuln(finding_id, str(vuln['UUID']))
-        for vuln in vuln_dal.get_vulnerabilities(finding_id)
-    ])
-
-    success = all([
-        finding_result,
-        evidence_result,
-        comments_result,
-        vulns_result
-    ])
-    util.invalidate_cache(finding_id)
 
     return success
 

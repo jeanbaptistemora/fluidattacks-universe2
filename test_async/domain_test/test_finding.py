@@ -14,7 +14,7 @@ from backend import mailer
 from backend.domain.finding import (
     add_comment, get_age_finding, update_client_description,
     get_tracking_vulnerabilities, update_treatment,
-    handle_acceptation, mask_finding, validate_evidence,
+    handle_acceptation, validate_evidence,
     approve_draft, compare_historic_treatments
 )
 from backend.domain.organization import get_max_acceptance_days
@@ -28,6 +28,7 @@ from backend.exceptions import (
     InvalidFileType,
     InvalidNumberAcceptations
 )
+from backend.utils.findings import mask_finding
 
 pytestmark = [
     pytest.mark.asyncio,
@@ -311,10 +312,11 @@ class FindingTests(TestCase):
             )
 
     @pytest.mark.changes_db
-    def test_approve_draft(self):
+    async def test_approve_draft(self):
         finding_id = '475041513'
         reviewer_email = 'unittest@fluidattacks.com'
-        test_success, test_date = approve_draft(finding_id, reviewer_email)
+        test_success, test_date = await approve_draft(
+            finding_id, reviewer_email)
         tzn = pytz.timezone(settings.TIME_ZONE)
         today = datetime.now(tz=tzn).today()
         date = str(today.strftime('%Y-%m-%d %H:%M'))

@@ -28,18 +28,20 @@ def _escape_alnum(string: str) -> str:
     ])
 
 
-def create(finding_id: str, project_name: str,
-           finding_attrs: Dict[str, FindingType]) -> bool:
+async def create(
+        finding_id: str,
+        project_name: str,
+        finding_attrs: Dict[str, FindingType]) -> bool:
     success = False
     try:
         finding_attrs.update({
             'finding_id': finding_id,
             'project_name': project_name
         })
-        response = TABLE.put_item(Item=finding_attrs)
-        success = response['ResponseMetadata']['HTTPStatusCode'] == 200
+        success = await dynamodb.async_put_item(TABLE_NAME, finding_attrs)
     except ClientError as ex:
-        rollbar.report_message(
+        await aio.ensure_io_bound(
+            rollbar.report_message,
             'Error: Couldn\'nt create draft',
             'error',
             extra_data=ex,
@@ -87,7 +89,10 @@ async def update(finding_id: str, data: Dict[str, FindingType]) -> bool:
     return success
 
 
-def list_append(finding_id: str, attr: str, data: List[FindingType]) -> bool:
+async def list_append(
+        finding_id: str,
+        attr: str,
+        data: List[FindingType]) -> bool:
     """
     Adds elements to the end of a list attribute
 
@@ -96,16 +101,18 @@ def list_append(finding_id: str, attr: str, data: List[FindingType]) -> bool:
     :param data: list with the elements to append
     """
     success = False
-    primary_keys = {'finding_id': finding_id}
     try:
-        response = TABLE.update_item(
-            Key=primary_keys,
-            UpdateExpression=f'SET {attr} = list_append({attr}, :data)',
-            ExpressionAttributeValues={':data': data}
-        )
-        success = response['ResponseMetadata']['HTTPStatusCode'] == 200
+        update_attrs = {
+            'Key': {
+                'finding_id': finding_id
+            },
+            'UpdateExpression': f'SET {attr} = list_append({attr}, :data)',
+            'ExpressionAttributeValues': {':data': data}
+        }
+        success = await dynamodb.async_update_item(TABLE_NAME, update_attrs)
     except ClientError as ex:
-        rollbar.report_message(
+        await aio.ensure_io_bound(
+            rollbar.report_message,
             'Error: Couldn\'nt update finding',
             'error',
             extra_data=ex,

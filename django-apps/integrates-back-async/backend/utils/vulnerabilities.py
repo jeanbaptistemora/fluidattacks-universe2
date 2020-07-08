@@ -3,6 +3,7 @@ import html
 import itertools
 from operator import itemgetter
 import rollbar
+from backend.dal import vulnerability as vuln_dal
 from backend.exceptions import InvalidRange
 from backend.typing import Finding as FindingType
 
@@ -185,3 +186,11 @@ def format_where(where: str, vulnerabilities: List[Dict[str, str]]) -> str:
     for vuln in vulnerabilities:
         where = f'{where}{vuln.get("where")} ({vuln.get("specific")})\n'
     return where
+
+
+def mask_vuln(finding_id: str, vuln_id: str) -> bool:
+    success = vuln_dal.update(finding_id, vuln_id, {
+        'specific': 'Masked',
+        'where': 'Masked'
+    })
+    return success
