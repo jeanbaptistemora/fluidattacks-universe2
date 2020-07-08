@@ -157,7 +157,8 @@ def enforce_group_level_auth_async(func: Callable[..., Any]) -> \
         action = f'{func.__module__}.{func.__qualname__}'.replace('.', '_')
 
         if not object_:
-            rollbar.report_message(
+            await aio.ensure_io_bound(
+                rollbar.report_message,
                 'Unable to identify project name',
                 level='critical',
                 extra_data={
@@ -166,7 +167,10 @@ def enforce_group_level_auth_async(func: Callable[..., Any]) -> \
                 }
             )
 
-        enforcer = authz.get_group_level_enforcer(subject)
+        enforcer = await aio.ensure_io_bound(
+            authz.get_group_level_enforcer,
+            subject
+        )
 
         if not await enforcer(subject, object_, action):
             util.cloudwatch_log(context, UNAUTHORIZED_ROLE_MSG)
@@ -205,7 +209,8 @@ def enforce_organization_level_auth_async(func: Callable[..., Any]) -> \
         action = f'{func.__module__}.{func.__qualname__}'.replace('.', '_')
 
         if not object_:
-            rollbar.report_message(
+            await aio.ensure_io_bound(
+                rollbar.report_message,
                 'Unable to identify organization to check permissions',
                 level='critical',
                 extra_data={
@@ -214,7 +219,10 @@ def enforce_organization_level_auth_async(func: Callable[..., Any]) -> \
                 }
             )
 
-        enforcer = authz.get_organization_level_enforcer(subject)
+        enforcer = await  aio.ensure_io_bound(
+            authz.get_organization_level_enforcer,
+            subject
+        )
 
         if not await enforcer(subject, object_, action):
             util.cloudwatch_log(context, UNAUTHORIZED_ROLE_MSG)
@@ -241,7 +249,10 @@ def enforce_user_level_auth_async(func: Callable[..., Any]) -> \
         object_ = 'self'
         action = f'{func.__module__}.{func.__qualname__}'.replace('.', '_')
 
-        enforcer = authz.get_user_level_enforcer(subject)
+        enforcer = await aio.ensure_io_bound(
+            authz.get_user_level_enforcer,
+            subject
+        )
 
         if not await enforcer(subject, object_, action):
             util.cloudwatch_log(context, UNAUTHORIZED_ROLE_MSG)
@@ -355,7 +366,9 @@ def require_project_access(func: Callable[..., Any]) -> Callable[..., Any]:
                 'Error: Empty fields in project', 'error', context)
             raise GraphQLError('Access denied')
 
-        enforcer = authz.get_group_access_enforcer()
+        enforcer = await aio.ensure_io_bound(
+            authz.get_group_access_enforcer
+        )
 
         if not await enforcer(user_data, project_name):
             util.cloudwatch_log(
@@ -405,7 +418,9 @@ def require_finding_access(func: Callable[..., Any]) -> Callable[..., Any]:
             )
             raise GraphQLError('Invalid finding id format')
 
-        enforcer = authz.get_group_access_enforcer()
+        enforcer = await aio.ensure_io_bound(
+            authz.get_group_access_enforcer
+        )
 
         if not await finding_domain.validate_finding(finding_id):
             raise FindingNotFound()
@@ -458,7 +473,9 @@ def require_event_access(func: Callable[..., Any]) -> Callable[..., Any]:
                 'Error: Invalid event id format', 'error', context)
             raise GraphQLError('Invalid event id format')
 
-        enforcer = authz.get_group_access_enforcer()
+        enforcer = await aio.ensure_io_bound(
+            authz.get_group_access_enforcer
+        )
 
         if not await enforcer(user_data, project_name):
             util.cloudwatch_log(
