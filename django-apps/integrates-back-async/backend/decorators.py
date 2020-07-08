@@ -219,7 +219,7 @@ def enforce_organization_level_auth_async(func: Callable[..., Any]) -> \
                 }
             )
 
-        enforcer = await  aio.ensure_io_bound(
+        enforcer = await aio.ensure_io_bound(
             authz.get_organization_level_enforcer,
             subject
         )

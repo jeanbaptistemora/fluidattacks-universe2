@@ -98,7 +98,7 @@ async def add_group(organization_id: str, group: str) -> bool:
     success: bool = False
     new_item = {
         'pk': organization_id,
-        'sk': f'GROUP#{group}'
+        'sk': f'GROUP#{group.lower().strip()}'
     }
     try:
         success = await dynamo_async_put_item(TABLE_NAME, new_item)
@@ -116,7 +116,7 @@ async def add_user(organization_id: str, email: str) -> bool:
     success: bool = False
     new_item = {
         'pk': organization_id,
-        'sk': f'USER#{email}'
+        'sk': f'USER#{email.lower().strip()}'
     }
     try:
         success = await dynamo_async_put_item(TABLE_NAME, new_item)
@@ -134,15 +134,14 @@ async def create(organization_name: str) -> OrganizationType:
     """
     Create an organization and returns its key
     """
-    org_name = organization_name.lower()
-    org_exists = await exists(org_name)
+    org_exists = await exists(organization_name)
     if org_exists:
         raise InvalidOrganization()
 
     org_id = str(uuid.uuid4())
     new_item: OrganizationType = {
         'pk': f'ORG#{org_id}',
-        'sk': f'INFO#{org_name}'
+        'sk': f'INFO#{organization_name.lower().strip()}'
     }
 
     try:
@@ -165,7 +164,7 @@ async def remove_group(organization_id: str, group_name: str) -> bool:
     group_item = DynamoDeleteType(
         Key={
             'pk': organization_id,
-            'sk': f'GROUP#{group_name}'
+            'sk': f'GROUP#{group_name.lower().strip()}'
         }
     )
     try:
@@ -188,7 +187,7 @@ async def remove_user(organization_id: str, email: str) -> bool:
     user_item = DynamoDeleteType(
         Key={
             'pk': organization_id,
-            'sk': f'USER#{email}'
+            'sk': f'USER#{email.lower().strip()}'
         }
     )
     try:
@@ -262,7 +261,7 @@ async def get_by_name(
     organization: OrganizationType = {}
     query_attrs = {
         'KeyConditionExpression': (
-            Key('sk').eq(f'INFO#{org_name}') &
+            Key('sk').eq(f'INFO#{org_name.lower().strip()}') &
             Key('pk').begins_with('ORG#')
         ),
         'IndexName': 'gsi-1',
@@ -310,7 +309,9 @@ async def get_id_for_group(group_name: str) -> str:
     """
     organization_id: str = ''
     query_attrs: DynamoQueryType = {
-        'KeyConditionExpression': Key('sk').eq(f'GROUP#{group_name}'),
+        'KeyConditionExpression': (
+            Key('sk').eq(f'GROUP#{group_name.lower().strip()}')
+        ),
         'IndexName': 'gsi-1',
         'ProjectionExpression': 'pk'
     }
@@ -334,7 +335,9 @@ async def get_ids_for_user(email: str) -> List[str]:
     """
     organization_ids: List[str] = []
     query_attrs = {
-        'KeyConditionExpression': Key('sk').eq(f'USER#{email}'),
+        'KeyConditionExpression': (
+            Key('sk').eq(f'USER#{email.lower().strip()}')
+        ),
         'IndexName': 'gsi-1',
         'ProjectionExpression': 'pk'
     }
@@ -357,10 +360,9 @@ async def get_or_create(organization_name: str) -> OrganizationType:
     Return an organization, even if it does not exists,
     in which case it will be created
     """
-    org_name = organization_name.lower()
-    org = await get_by_name(org_name, ['id', 'name'])
+    org = await get_by_name(organization_name, ['id', 'name'])
     if not org:
-        org = await create(org_name)
+        org = await create(organization_name)
     return org
 
 
@@ -371,8 +373,10 @@ async def get_groups(organization_id: str) -> List[str]:
     """
     groups: List[str] = []
     query_attrs = {
-        'KeyConditionExpression': Key('pk').eq(organization_id) &
-        Key('sk').begins_with('GROUP#')
+        'KeyConditionExpression': (
+            Key('pk').eq(organization_id) &
+            Key('sk').begins_with('GROUP#')
+        )
     }
     try:
         response_items = await dynamo_async_query(TABLE_NAME, query_attrs)
@@ -398,8 +402,10 @@ async def get_users(organization_id: str) -> List[str]:
     """
     users: List[str] = []
     query_attrs = {
-        'KeyConditionExpression': Key('pk').eq(organization_id) &
-        Key('sk').begins_with('USER#')
+        'KeyConditionExpression': (
+            Key('pk').eq(organization_id) &
+            Key('sk').begins_with('USER#')
+        )
     }
     try:
         response_items = await dynamo_async_query(TABLE_NAME, query_attrs)
@@ -423,7 +429,7 @@ async def has_group(group_name: str, organization_id: str) -> bool:
     query_attrs: DynamoQueryType = {
         'KeyConditionExpression': (
             Key('pk').eq(organization_id) &
-            Key('sk').eq(f'GROUP#{group_name}')
+            Key('sk').eq(f'GROUP#{group_name.lower().strip()}')
         )
     }
     response_items = await dynamo_async_query(TABLE_NAME, query_attrs)
@@ -437,7 +443,7 @@ async def has_user_access(email: str, organization_id: str) -> bool:
     query_attrs: DynamoQueryType = {
         'KeyConditionExpression': (
             Key('pk').eq(organization_id) &
-            Key('sk').eq(f'USER#{email}')
+            Key('sk').eq(f'USER#{email.lower().strip()}')
         )
     }
     response_items = await dynamo_async_query(TABLE_NAME, query_attrs)
@@ -475,7 +481,7 @@ async def update(
         update_attrs: Dict[str, DynamoType] = {
             'Key': {
                 'pk': organization_id,
-                'sk': f'INFO#{organization_name}'
+                'sk': f'INFO#{organization_name.lower().strip()}'
             },
             'UpdateExpression': (
                 f'{set_expression} {remove_expression}'.strip()
