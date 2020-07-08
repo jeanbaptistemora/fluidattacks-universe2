@@ -33,7 +33,7 @@ and exposed sensitive information.
 
 == References
 
-. [[r1]] link:https://cwe.mitre.org/data/definitions/779.html[CWE-510: Trapdoor.]
+. [[r1]] link:https://cwe.mitre.org/data/definitions/510.html[CWE-510: Trapdoor].
 A trapdoor is a hidden piece of code that responds to a special input,
 allowing its user access to resources without passing through the normal
 security enforcement mechanism.

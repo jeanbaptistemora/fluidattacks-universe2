@@ -1,7 +1,7 @@
 :slug: rules/155/
 :category: source
 :description: This requirement establishes the importance of having an application free of malicious code mainly developed by third parties.
-:keywords: Requirement, Security, Source Code, Functional Requirements, Different, Back Doors, Rules, Ethical Hacking, Pentesting
+:keywords: Source Code, Functional Requirements, ASVS, CWE, Different, Back Doors, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R155. Application free of malicious code
@@ -10,11 +10,61 @@
 
 The application code must be free of malicious code.
 
+== Description
+
+There are several ways in which malicious code may be included in an
+application.
+It can be imported as part of third party libraries,
+which may be intentionally malicious or have exploitable vulnerabilities,
+or it can come as a backdoor left by one of the developers.
+Therefore, the source code should be audited to guarantee it does not have any
+back doors, rootkits, time bombs, logic bombs, etc.
+
 == References
 
-. [[r1]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r1]] link:https://cwe.mitre.org/data/definitions/507.html[CWE-507: Trojan Horse].
+The software appears to contain benign or useful functionality,
+but it also contains code that is hidden from normal operation that violates
+the intended security policy of the user or the system administrator.
+
+. [[r2]] link:https://cwe.mitre.org/data/definitions/510.html[CWE-510: Trapdoor].
+A trapdoor is a hidden piece of code that responds to a special input,
+allowing its user access to resources without passing through the normal
+security enforcement mechanism.
+
+. [[r3]] link:https://cwe.mitre.org/data/definitions/511.html[CWE-511: Logic/Time Bomb].
+The software contains code that is designed to disrupt the legitimate operation
+of the software (or its environment) when a certain time passes,
+or when a certain logical condition is met.
+
+. [[r4]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V10.2 Malicious Code Search.(10.2.1)]
 Verify that the application source code and third party libraries do not
 contain unauthorized phone home or data collection capabilities.
 Where such functionality exists, obtain the user's permission for it to operate
 before collecting any data.
+
+. [[r5]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V10.2 Malicious Code Search.(10.2.3)]
+Verify that the application source code and third party libraries do not contain
+back doors,
+such as hard-coded or additional undocumented accounts or keys,
+code obfuscation, undocumented binary blobs, rootkits,
+or anti-debugging, insecure debugging features,
+or otherwise out of date, insecure, or hidden functionality that could be used
+maliciously if discovered.
+
+. [[r6]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V10.2 Malicious Code Search.(10.2.4)]
+Verify that the application source code and third party libraries do not
+contain time bombs by searching for date and time related functions.
+
+. [[r7]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V10.2 Malicious Code Search.(10.2.5)]
+Verify that the application source code and third party libraries do not
+contain malicious code, such as salami attacks, logic bypasses, or logic bombs.
+
+. [[r8]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V10.2 Malicious Code Search.(10.2.6)]
+Verify that the application source code and third party libraries do not
+contain Easter eggs or any other potentially unwanted functionality.
