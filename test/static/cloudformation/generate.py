@@ -385,6 +385,17 @@ s3_bucket = troposphere.s3.Bucket(
     AccessControl='Private',
     LoggingConfiguration=troposphere.s3.LoggingConfiguration(
         LogFilePrefix="log"
+    ),
+    BucketEncryption=troposphere.s3.BucketEncryption(
+        ServerSideEncryptionConfiguration=[
+            troposphere.s3.ServerSideEncryptionRule(
+                ServerSideEncryptionByDefault=
+                troposphere.s3.ServerSideEncryptionByDefault(
+                    KMSMasterKeyID='master_key',
+                    SSEAlgorithm='aws:kms'
+                )
+            )
+        ]
     )
 )
 elb_entity = troposphere.elasticloadbalancing.LoadBalancer(

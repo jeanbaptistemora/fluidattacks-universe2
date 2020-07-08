@@ -362,6 +362,16 @@
     "s3Bucket": {
       "Properties": {
         "AccessControl": "Private",
+        "BucketEncryption": {
+          "ServerSideEncryptionConfiguration": [
+            {
+              "ServerSideEncryptionByDefault": {
+                "KMSMasterKeyID": "master_key",
+                "SSEAlgorithm": "aws:kms"
+              }
+            }
+          ]
+        },
         "LoggingConfiguration": {
           "LogFilePrefix": "log"
         }
