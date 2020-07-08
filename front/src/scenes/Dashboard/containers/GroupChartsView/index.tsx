@@ -11,18 +11,19 @@ const groupChartsView: React.FC<IGroupChartsProps> = (props: IGroupChartsProps):
   const params: { projectName: string } = useParams();
   const searchParams: URLSearchParams = new URLSearchParams(useLocation().search);
 
+  const reportMode: boolean = searchParams.get("reportMode") === "true";
   const groupNameFromSearchParams: string | null = searchParams.get("group");
 
   const groupName: string = _.isNull(groupNameFromSearchParams) ? params.projectName : groupNameFromSearchParams;
 
-  const [isForcesDescriptionExpanded, setIsForcesDescriptionExpanded] = React.useState(false);
+  const [isForcesDescriptionExpanded, setIsForcesDescriptionExpanded] = React.useState(reportMode);
 
   const forcesPanelOnEnter: () => void = (): void => {
     setIsForcesDescriptionExpanded(true);
   };
 
   const forcesPanelOnLeave: () => void = (): void => {
-    setIsForcesDescriptionExpanded(false);
+    setIsForcesDescriptionExpanded(reportMode);
   };
 
   return (
@@ -47,6 +48,7 @@ const groupChartsView: React.FC<IGroupChartsProps> = (props: IGroupChartsProps):
               }
               generatorName="generic"
               generatorType="c3"
+              reportMode={reportMode}
               subject={groupName}
               title={translate.t("analytics.stackedBarChart.riskOverTime.title")}
             />
@@ -64,6 +66,7 @@ const groupChartsView: React.FC<IGroupChartsProps> = (props: IGroupChartsProps):
               }
               generatorName="generic"
               generatorType="c3"
+              reportMode={reportMode}
               subject={groupName}
               title={translate.t("analytics.pieChart.status.title")}
             />
@@ -87,6 +90,7 @@ const groupChartsView: React.FC<IGroupChartsProps> = (props: IGroupChartsProps):
               }
               generatorName="generic"
               generatorType="c3"
+              reportMode={reportMode}
               subject={groupName}
               title={translate.t("analytics.pieChart.treatment.title")}
             />
@@ -104,6 +108,7 @@ const groupChartsView: React.FC<IGroupChartsProps> = (props: IGroupChartsProps):
               }
               generatorName="raw"
               generatorType="textBox"
+              reportMode={reportMode}
               subject={groupName}
               title={translate.t("analytics.textBox.totalFindings.title")}
             />
@@ -119,6 +124,7 @@ const groupChartsView: React.FC<IGroupChartsProps> = (props: IGroupChartsProps):
               }
               generatorName="raw"
               generatorType="textBox"
+              reportMode={reportMode}
               subject={groupName}
               title={translate.t("analytics.textBox.totalVulnerabilities.title")}
             />
@@ -134,6 +140,7 @@ const groupChartsView: React.FC<IGroupChartsProps> = (props: IGroupChartsProps):
               }
               generatorName="raw"
               generatorType="textBox"
+              reportMode={reportMode}
               subject={groupName}
               title={translate.t("analytics.textBox.vulnsWithUndefinedTreatment.title")}
             />
@@ -151,6 +158,7 @@ const groupChartsView: React.FC<IGroupChartsProps> = (props: IGroupChartsProps):
               }
               generatorName="raw"
               generatorType="textBox"
+              reportMode={reportMode}
               subject={groupName}
               title={translate.t("analytics.textBox.findingsBeingReattacked.title")}
             />
@@ -166,6 +174,7 @@ const groupChartsView: React.FC<IGroupChartsProps> = (props: IGroupChartsProps):
               }
               generatorName="raw"
               generatorType="textBox"
+              reportMode={reportMode}
               subject={groupName}
               title={translate.t("analytics.textBox.daysSinceLastRemediation.title")}
             />
@@ -181,6 +190,7 @@ const groupChartsView: React.FC<IGroupChartsProps> = (props: IGroupChartsProps):
               }
               generatorName="raw"
               generatorType="textBox"
+              reportMode={reportMode}
               subject={groupName}
               title={translate.t("analytics.textBox.meanTimeToRemediate.title")}
             />
@@ -198,6 +208,7 @@ const groupChartsView: React.FC<IGroupChartsProps> = (props: IGroupChartsProps):
               }
               generatorName="generic"
               generatorType="c3"
+              reportMode={reportMode}
               subject={groupName}
               title={translate.t("analytics.gauge.severity.title")}
             />
@@ -220,6 +231,7 @@ const groupChartsView: React.FC<IGroupChartsProps> = (props: IGroupChartsProps):
               }
               generatorName="generic"
               generatorType="c3"
+              reportMode={reportMode}
               subject={groupName}
               title={translate.t("analytics.pieChart.resources.title")}
             />
@@ -241,6 +253,7 @@ const groupChartsView: React.FC<IGroupChartsProps> = (props: IGroupChartsProps):
               }
               generatorName="whereToFindings"
               generatorType="disjointForceDirectedGraph"
+              reportMode={reportMode}
               subject={groupName}
               title={translate.t("analytics.disjointForceDirectedGraph.whereToFindings.title")}
             />
@@ -286,6 +299,7 @@ const groupChartsView: React.FC<IGroupChartsProps> = (props: IGroupChartsProps):
               entity="group"
               generatorName="raw"
               generatorType="textBox"
+              reportMode={reportMode}
               subject={groupName}
               title={translate.t("analytics.textBox.forcesStatus.title")}
             />
@@ -301,6 +315,7 @@ const groupChartsView: React.FC<IGroupChartsProps> = (props: IGroupChartsProps):
               }
               generatorName="raw"
               generatorType="textBox"
+              reportMode={reportMode}
               subject={groupName}
               title={translate.t("analytics.textBox.forcesUsage.title")}
             />
@@ -316,6 +331,7 @@ const groupChartsView: React.FC<IGroupChartsProps> = (props: IGroupChartsProps):
               }
               generatorName="raw"
               generatorType="textBox"
+              reportMode={reportMode}
               subject={groupName}
               title={translate.t("analytics.textBox.forcesAutomatizedVulns.title")}
             />
@@ -331,6 +347,7 @@ const groupChartsView: React.FC<IGroupChartsProps> = (props: IGroupChartsProps):
               }
               generatorName="raw"
               generatorType="textBox"
+              reportMode={reportMode}
               subject={groupName}
               title={translate.t("analytics.textBox.forcesRepositoriesAndBranches.title")}
             />
@@ -355,6 +372,7 @@ const groupChartsView: React.FC<IGroupChartsProps> = (props: IGroupChartsProps):
               }
               generatorName="generic"
               generatorType="c3"
+              reportMode={reportMode}
               subject={groupName}
               title={translate.t("analytics.gauge.forcesSecurityCommitment.title")}
             />
@@ -376,6 +394,7 @@ const groupChartsView: React.FC<IGroupChartsProps> = (props: IGroupChartsProps):
               }
               generatorName="generic"
               generatorType="c3"
+              reportMode={reportMode}
               subject={groupName}
               title={translate.t("analytics.gauge.forcesBuildsRisk.title")}
             />

@@ -68,7 +68,7 @@ function buildUrl(
 export const Graphic: React.FC<IGraphicProps> = (
   props: Readonly<IGraphicProps>
 ): JSX.Element => {
-  const { bsHeight, footer, subject, title } = props;
+  const { bsHeight, footer, reportMode, subject, title } = props;
 
   // Hooks
   const fullRef: React.MutableRefObject<HTMLDivElement | null> = React.useRef(
@@ -93,7 +93,7 @@ export const Graphic: React.FC<IGraphicProps> = (
   const bodySize: ComponentSize = useComponentSize(bodyRef);
   const modalSize: ComponentSize = useComponentSize(modalBodyRef);
 
-  const [expanded, setExpanded] = React.useState(false);
+  const [expanded, setExpanded] = React.useState(reportMode);
   const [fullScreen, setFullScreen] = React.useState(false);
   const [iframeState, setIframeState] = React.useState("loading");
 
@@ -113,7 +113,7 @@ export const Graphic: React.FC<IGraphicProps> = (
     setExpanded(true);
   }
   function panelOnMouseLeave(): void {
-    setExpanded(false);
+    setExpanded(reportMode);
   }
   function frameOnLoad(): void {
     setIframeState("ready");
@@ -225,7 +225,9 @@ export const Graphic: React.FC<IGraphicProps> = (
                   <Grid fluid={true}>
                     <Row>
                       {title}
-                      {expanded && fullSize.width > minWidthToShowButtons ? (
+                      {expanded &&
+                      !reportMode &&
+                      fullSize.width > minWidthToShowButtons ? (
                         <div className={styles.buttonGroup}>
                           <ButtonGroup bsSize={"small"}>
                             <Button
