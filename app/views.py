@@ -103,6 +103,53 @@ def enforce_group_level_role(request, group, *allowed_roles):
     return None
 
 
+def create_session_token(
+    *,
+    company: str,
+    email: str,
+    first_name: str,
+    last_name: str,
+) -> str:
+    jti = util.calculate_hash_token()['jti']
+
+    token = jwt.encode(
+        dict(
+            user_email=email,
+            company=company,
+            first_name=first_name,
+            last_name=last_name,
+            exp=(
+                datetime.utcnow() +
+                timedelta(seconds=settings.SESSION_COOKIE_AGE)
+            ),
+            sub='django_session',
+            jti=jti,
+        ),
+        algorithm='HS512',
+        key=settings.JWT_SECRET,
+    )
+
+    # Save the JTI so future requests can check for concurrency
+    util.save_token(f'fi_jwt:{jti}', token, settings.SESSION_COOKIE_AGE)
+
+    return token
+
+
+def set_session_cookie_in_response(
+    *,
+    response: HttpResponse,
+    token: str,
+) -> None:
+    response.set_cookie(
+        key=settings.JWT_COOKIE_NAME,
+        samesite=settings.JWT_COOKIE_SAMESITE,
+        value=token,
+        secure=True,
+        httponly=True,
+        max_age=settings.SESSION_COOKIE_AGE
+    )
+
+
 @never_cache
 def index(request):
     """Login view for unauthenticated users"""
@@ -130,37 +177,23 @@ def app(request):
     try:
         if FI_ENVIRONMENT == 'production':
             util.check_concurrent_sessions(
-                request.session['username'], request.session.session_key)
-        parameters = {
+                request.session['username'],
+                request.session.session_key,
+            )
+
+        response = render(request, 'app.html', {
             'debug': settings.DEBUG,
             'username': request.session['username']
-        }
-        response = render(request, 'app.html', parameters)
-        payload = {
-            'user_email': request.session['username'],
-            'company': request.session['company'],
-            'first_name': request.session['first_name'],
-            'last_name': request.session['last_name'],
-            'exp': datetime.utcnow() +
-            timedelta(seconds=settings.SESSION_COOKIE_AGE),
-            'sub': 'django_session',
-            'jti': util.calculate_hash_token()['jti'],
-        }
-        token = jwt.encode(
-            payload,
-            algorithm='HS512',
-            key=settings.JWT_SECRET,
-        )
-        jti = payload['jti']
-        util.save_token(f'fi_jwt:{jti}', token, settings.SESSION_COOKIE_AGE)
-        response.set_cookie(
-            key=settings.JWT_COOKIE_NAME,
-            samesite=settings.JWT_COOKIE_SAMESITE,
-            value=token,
-            secure=True,
-            # Temporary while ariadne migration is finished
-            httponly=not settings.DEBUG,
-            max_age=settings.SESSION_COOKIE_AGE
+        })
+
+        set_session_cookie_in_response(
+            response=response,
+            token=create_session_token(
+                company=request.session['company'],
+                email=request.session['username'],
+                first_name=request.session['first_name'],
+                last_name=request.session['last_name'],
+            ),
         )
     except KeyError:
         rollbar.report_exc_info(sys.exc_info(), request)
