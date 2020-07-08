@@ -1,12 +1,12 @@
 :slug: symbolic-execution-mortals/
 :date: 2017-05-04
 :category: attacks
-:subtitle: What is it and how it works
+:subtitle: What it is and how it works
 :tags: security, test, software
 :image: cover.png
 :alt: Person using a magnifying glass in keyboard
-:description: In this article we aim to explain a first approach to symbolic execution. This type of execution is very useful when comes to software assessment because it allows to test our application with multiple types of input, and find errors caused by invalid input data.
-:keywords: Symbolic, Execution, Security, Software, Test, Assestment
+:description: In this article, we intend to explain an approach to symbolic execution, which is very useful when dealing with software assessment.
+:keywords: Symbolic, Execution, Security, Software, Test, Assestment, Ethical Hacking, Pentesting
 :author: Juan Aguirre
 :writer: juanes
 :name: Juan Esteban Aguirre González
@@ -14,9 +14,9 @@
 :about2: Netflix and hack.
 :source: https://unsplash.com/photos/d9ILr-dbEdg
 
-= Symbolic execution for mortals
+= Symbolic Execution for Mortals
 
-In 2003 the Defense Advanced Research Projects Agency, DARPA,
+In 2003 the Defense Advanced Research Projects Agency, `DARPA`,
 announced the Cyber Grand Challenge,
 a two-year competition seeking to create automatic systems
 for vulnerability detection, exploitation, and patching

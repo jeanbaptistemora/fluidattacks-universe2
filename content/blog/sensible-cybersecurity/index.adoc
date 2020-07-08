@@ -5,8 +5,8 @@
 :tags: interview, risk, company
 :image: cover.png
 :alt: Nicolás Acosta, CISO at Corona
-:description: We interviewed Nicolás Acosta, CISO of Corona, a multinational company in the home improvement and construction industry. On this second part of the interview, Nicolás shared with us his point of view about risk management, main setbacks, truths and falsehoods regarding cybersecurity.
-:keywords: CISO, Cybersecurity, Expected Loss, Hacking, Risk Management, Strategy
+:description: In the second part of our interview with Nicolás Acosta, he shared his perspective on risk management, setbacks, and truths and falsehoods about cybersecurity.
+:keywords: CISO, Cybersecurity, Expected Loss, Hacking, Risk Management, Strategy, Ethical Hacking, Pentesting
 :author: Julian Arango
 :writer: jarango
 :name: Julian Arango
@@ -15,7 +15,7 @@
 :source: https://unsplash.com/photos/uh5TTKr5e_w
 
 
-= Sensible about cybersecurity
+= Sensible About Cybersecurity
 
 In this post, we share the second part of our conversation
 with Nicolás Acosta, Chief Information Security Officer (CISO) of

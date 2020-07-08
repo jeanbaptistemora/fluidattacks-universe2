@@ -5,8 +5,8 @@
 :tags: security, devops, software, information, web, cloud
 :image: cover.png
 :alt: Photo by Ingo Stiller on Unsplash
-:description: Security champions can be quite useful for a company with a SecDevOps approach. This blog post will allow you to learn about them. But first, it will give you another five recommendations if you're considering the implementation of security in your software development and deployment processes.
-:keywords: Security, Devops, Software, Information, Web, Cloud
+:description: Here you'll learn about Security champions. But first, we give you five recommendations if you're considering the implementation of security in your business.
+:keywords: Security, Champions, DevOps, SecDevOps, Software, Information, Web, Cloud, Ethical Hacking, Pentesting, DevSecOps
 :author: Felipe Ruiz
 :writer: fruiz
 :name: Felipe Ruiz

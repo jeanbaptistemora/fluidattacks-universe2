@@ -5,8 +5,8 @@
 :tags: password, credential, security
 :image: cover.png
 :alt: Rusty lock
-:description: A comparison between having weak or complicated passwords that expire periodically versus having a single strong passphrase, possibly used in conjunction with password managers. We also discuss the memorability of complicated passwords vs randomly generated passphrases with diceware.
-:keywords: Passphrase, Password, Security, Cracking, Policy, Diceware
+:description: In this blog post, we mainly make a comparison between having weak or complicated passwords versus having a single strong passphrase.
+:keywords: Passphrase, Password, Security, Cracking, Policy, Diceware, Ethical Hacking, Pentesting
 :author: Rafael Ballestas
 :writer: raballestasr
 :name: Rafael Ballestas

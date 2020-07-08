@@ -5,8 +5,8 @@
 :tags: security, windows, vulnerability, credential
 :image: cover.png
 :alt: Red wooden mailbox near green leaf plan. Photo by Bundo Kim on Unsplash.
-:description: Windows hosts use LLMNR and NBT-NS to perform name resolution on the local network. These protocols do not verify addresses on the network so an attacker could poison these requests in order to capture credentials. This blog post will detail how we can exploit this and obtain user hashes.
-:keywords: Windows, Security, Vulnerability, Hacking, Network, Cracking.
+:description: Windows hosts use LLMNR and NBT-NS for name resolution on the local network. These protocols do not verify addresses, and here we detail how to exploit this.
+:keywords: Windows, LLMNR, NBT-NS, Security, Vulnerability, Hacking, Network, Cracking, Ethical Hacking, Pentesting
 :author: Jonathan Armas
 :writer: johna
 :name: Jonathan Armas

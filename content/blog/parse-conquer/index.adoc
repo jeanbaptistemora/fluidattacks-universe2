@@ -5,8 +5,8 @@
 :tags: software, security, code
 :image: cover.png
 :alt: Parsing code. Photo by Markus Spiske on Unsplash: https://unsplash.com/photos/hvSr_CVecVI
-:description: Why does Asserts use parser combinators as its main static code analysis tool? Asserts is our vulnerability closure checker engine, which tests whether vulnerabilities found manually are still open. Many of those functions test for poor programming practices with the aid of parser combinators.
-:keywords: Parsing, Asserts, Combinators, Regex, Vulnerability, Pyparsing
+:description: For this blog post, we rely on the following question: Why does Asserts use parser combinators as its main static code analysis tool?
+:keywords: Parsing, Asserts, Combinators, Regex, Vulnerability, Pyparsing, Ethical Hacking, Pentesting
 :author: Rafael Ballestas
 :writer: raballestasr
 :name: Rafael Ballestas

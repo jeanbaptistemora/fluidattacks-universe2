@@ -5,13 +5,12 @@
 :tags: social engineering, information, web, software, cybersecurity, business
 :image: cover.png
 :alt: Photo by Glen Hooper on Unsplash
-:description: The title of this blog post refers to a new mindset suggested to many organizations—in their business security—in the face of the challenges that different forms of phishing attacks mean to them. Here we give some general ideas about phishing hoping to contribute to its prevention.
-:keywords: Social Engineering, Information, Web, Software, Cybersecurity, Business
+:description: In this post, we give some general ideas about phishing, hoping to contribute to its prevention.
+:keywords: Phishing, Social Engineering, Information, Web, Software, Cybersecurity, Business, Ethical Hacking, Pentesting
 :author: Felipe Ruiz
 :writer: fruiz
 :name: Felipe Ruiz
 :about1: Technical writer
-:about2: Behavioral scientist.
 :source: https://unsplash.com/photos/iK1G8rt2UAw
 
 = Trust Nothing, Verify Everything

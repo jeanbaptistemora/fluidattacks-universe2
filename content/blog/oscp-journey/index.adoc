@@ -5,8 +5,8 @@
 :tags: challenge, ethical hacking, pentesting, security, training, exploit
 :image: cover.png
 :alt: Man sitting facing laptop. Photo by Clint Patterson on Unsplash: https://unsplash.com/photos/dYEuFB8KQJk
-:description: The OSCP exam is one of the hardest certifications out there for pentesters. Many people take this exam to test their pentesting abilities, but most of them don’t pass it on the first attempt. Here I will show you how I prepared for the OSCP exam and how you can prepare to do your best on it, too.
-:keywords: Bussiness, Information, Security, Protection, Hacking, Best Practices
+:description: The OSCP exam is one of the hardest certifications out there for pentesters. Here we show you how you can prepare yourself to do your best on it.
+:keywords: OSCP, Bussiness, Information, Security, Protection, Hacking, Best Practices, Ethical Hacking, Pentesting
 :author: Jonathan Armas
 :writer: johna
 :name: Jonathan Armas

@@ -5,8 +5,8 @@
 :tags: security, htb, pwn, web, windows
 :image: cover.png
 :alt: New York City Skyline
-:description: Querier is a Windows HackTheBox machine with several insecure configurations. This article explains how to use these configurations to gain system access as a user without privileges, and how to escalate to administrator privileges using penetration testing tools.
-:keywords: HTB, Security, Web, Writeup, Bounty, Windows
+:description: Here we explain how to use Querier's insecure configurations to gain system access, and how to escalate to administrator privileges with pentesting tools.
+:keywords: HTB, Querier, Security, Web, Writeup, Bounty, Windows, Ethical Hacking, Pentesting
 :author: Andrés Tirado
 :writer: atirado
 :name: Andrés Tirado

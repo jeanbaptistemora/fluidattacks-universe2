@@ -5,8 +5,8 @@
 :tags: security, company, business, protect, information, healthcare
 :image: cover.png
 :alt: Photo by Charles Deluvio on Unsplash
-:description: We believe that we have a great developed capacity, evidenced in this crisis, to work 100% remotely and safely. In this post, we give an overview of what our technological architecture and our way of operation are, that allow us to have that capacity, and we briefly explain our security controls.
-:keywords: Security, Company, Business, Protect, Information, Healthcare
+:description: Here is an overview of what our technological architecture and our way of operation are, which allow us to have the capacity to work 100% remotely and safely.
+:keywords: Remote Work, Security, Company, Business, Protect, Information, Healthcare, Ethical Hacking, Pentesting
 :author: Rafael Alvarez
 :writer: ralvarez
 :name: Rafael Alvarez

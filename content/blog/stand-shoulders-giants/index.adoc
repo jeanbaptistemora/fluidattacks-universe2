@@ -5,8 +5,8 @@
 :tags: testing, dependency, vulnerability
 :image: cover.png
 :alt: Man standing in mountain
-:description: A discussion of OWASP top 10 - A9: Using components with known vulnerabilities, in particular free and open software libraries. Comparison with the marketing buzzword Software Composition Analysis. A survey of free tools to do it yourself. Also an apology of free software in component analysis.
-:keywords: Software composition, Analysis, Dependency, Vulnerability, Linux, Foss.
+:description: Here we mainly develop a discussion on 'A9' of the OWASP Top 10: Using components with known vulnerabilities, in particular free and open software libraries.
+:keywords: Software Composition, Analysis, Dependency, Vulnerability, OWASP, Linux, Foss, Ethical Hacking, Pentesting
 :author: Rafael Ballestas
 :writer: raballestasr
 :name: Rafael Ballestas
@@ -14,7 +14,7 @@
 :about2: with an itch for CS
 :source: https://unsplash.com/photos/exKQ01AmzNA
 
-= Stand on the shoulders of giants
+= Stand on the Shoulders of Giants
 
 In our [inner]#link:../infinite-monkey-fuzzer/[last post]#,
 we reproduced the discovery of
@@ -58,7 +58,7 @@ it could happen to your organisation.
 In fact, this problem is so common that
 it is part of the 2017 `OWASP` Top 10:
 they call it
-``A9: Using components with known vulnerabilities''.
+"`A9`: Using components with known vulnerabilities."
 
 Given the rapid adoption of Free and Open Source Software (`FOSS`)
 by large companies,

@@ -5,8 +5,8 @@
 :tags: security, web, vulnerability, ethical hacking
 :image: cover.png
 :alt: Photo by Kuma Kum on Unsplash
-:description: When SQL injection is present, it can be one of the most dangerous vulnerabilities. Not only because it can go unnoticed for a long time, but also because it can lead to remote code execution. Here we will see how to bypass certain controls that developers put in their code.
-:keywords: Web, Security, Vulnerability, Hacking, SQLi, Input Validation.
+:description: SQL injection can be one of the most dangerous vulnerabilities. Here we will see how to bypass certain controls that developers put in their code.
+:keywords: Web, Security, Vulnerability, Hacking, SQLi, Input Validation, Ethical Hacking, Pentesting
 :author: Jonathan Armas
 :writer: johna
 :name: Jonathan Armas

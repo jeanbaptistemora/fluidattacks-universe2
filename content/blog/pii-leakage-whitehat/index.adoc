@@ -5,13 +5,12 @@
 :tags: vulnerability, application, software, information, cybersecurity, business
 :image: cover.png
 :alt: Photo by Tyler Nix on Unsplash
-:description: Here we present this blog post based on the information given on February 13th by Eduardo Cervantes, Manager of Mobile Application Security Testing at WhiteHat, in his webinar: Mobile Security App-titude: Best Practices for Secure App Design and Data Privacy. The moderator was Shweta Khare.
-:keywords: Vulnerability, Application, Software, Information, Cybersecurity, Business
+:description: This blog post is based on the webinar 'Mobile Security App-titude: Best Practices for Secure App Design and Data Privacy' by Eduardo Cervantes from WhiteHat.
+:keywords: Vulnerability, Mobile, Application, Software, Information, Cybersecurity, Business, Ethical Hacking, Pentesting
 :author: Felipe Ruiz
 :writer: fruiz
 :name: Felipe Ruiz
 :about1: Technical writer
-:about2: Behavioral scientist.
 :source: https://unsplash.com/photos/yKalliZTaQU
 
 = Have You Noticed the PII Leakage?

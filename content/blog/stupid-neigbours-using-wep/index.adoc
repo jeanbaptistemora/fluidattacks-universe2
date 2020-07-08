@@ -1,12 +1,12 @@
-:slug: stupid-neigbours-using-wep/
+:slug: stupid-neighbors-using-wep/
 :date: 2017-04-24
 :category: attacks
 :subtitle: Solving Yashira WEP Security challenge
 :tags: wep, wifi, encryption, challenge
 :image: cover.png
 :alt: Free wifi sign
-:description: The Wired Equivalent Privacy (WEP) is a now deprecated security algorithm which was intended to secure Wifi networks. However it is well known this algorithm had plenty security issues that could be exploited. In this article we explain how to crack a WEP algorithm by analyzing its traffic.
-:keywords: Security, WEP, Wifi, Password, Encription, Network.
+:description: In this article, we explain how to crack a Wired Equivalent Privacy (WEP) algorithm by analyzing its traffic.
+:keywords: Security, WEP, Wifi, Password, Encription, Network, Ethical Hacking, Pentesting
 :author: Juan Aguirre
 :writer: juanes
 :name: Juan Esteban Aguirre González
@@ -14,7 +14,7 @@
 :about2: Netflix and hack.
 :source: https://unsplash.com/photos/X0EtNWqMnq8
 
-= Stupid neighbours using WEP
+= Stupid Neighbors Using WEP
 
 Wi-Fi security has not always been the best. The first attempt at securing
 Wi-Fi access points was termed Wired Equivalent Privacy (WEP). WEP is a

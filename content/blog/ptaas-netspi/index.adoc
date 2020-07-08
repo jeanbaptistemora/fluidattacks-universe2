@@ -5,13 +5,12 @@
 :tags: security testing, vulnerability, hacking, software, company, business
 :image: cover.png
 :alt: Photo by Terry Vlisidis on Unsplash
-:description: Here I present this blog post based on the information given on February 7th by Reynolds, from NetSPI, in his webinar: Scaling Your Security Program with Penetration Testing as a Service. You can also learn how we at Fluid Attacks can help you with Penetration Testing as a Service (PTaaS).
-:keywords: Security Testing, Vulnerability, Hacking, Software, Company, Business
+:description: This blog post is based on the webinar 'Scaling Your Security Program with Penetration Testing as a Service' by Jake Reynolds from NetSPI.
+:keywords: Security Testing, PTaaS, Vulnerability, Hacking, Software, Company, Business, Ethical Hacking, Pentesting
 :author: Felipe Ruiz
 :writer: fruiz
 :name: Felipe Ruiz
 :about1: Technical writer
-:about2: Behavioral scientist.
 :source: https://unsplash.com/photos/SFEvfN01-ao
 
 = Penetration Testing as a Service
@@ -128,7 +127,7 @@ define their treatment, and maintain a constant check
 of their status and remediation progress.
 
 But, well, closing with what we could get from the webinar
-(which you can find link:https://www.netspi.com/webinars/scaling-your-security-program-with-penetration-testing-as-a-service/?utm_source=www.netspi.com&utm_medium=Social%20Advertising&utm_campaign=PTaaS%20Webinar%20Invite[here]).
+(which you can find link:https://www.netspi.com/webinars/scaling-your-security-program-with-penetration-testing-as-a-service-on-demand/[here]).
 As an essential and summarizing idea,
 the author highlighted the necessity
 *to make pentesting processes more transparent*,

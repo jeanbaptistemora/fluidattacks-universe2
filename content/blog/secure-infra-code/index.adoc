@@ -5,8 +5,8 @@
 :tags: protect, information, business, cloud, security, flaw
 :image: cover.png
 :alt: Lock on a fence
-:description: Infrastructure as code is one of the easiest and scalable ways to take advantage of cloud computing. Here we want to help you to secure your deployments and avoid some common mistakes that we see on each day, with examples and simple solutions that will take your infrastructure to the next level.
-:keywords: Cloud, Information, Security, Protection, Hacking, Best Practices
+:description: Here we want to help you secure your deployments and avoid common mistakes. Infrastructure as code is one of the easiest ways to leverage cloud computing.
+:keywords: Cloud, Information, Security, Protection, Hacking, Best Practices, Ethical Hacking, Pentesting
 :author: Jonathan Armas
 :writer: johna
 :name: Jonathan Armas

@@ -5,8 +5,8 @@
 :tags: business, security, risk
 :image: cover.png
 :alt: Fire extinguisher. Photo by Tommaso Pecchioli on Unsplash: https://unsplash.com/photos/XG_wi3W4-m8
-:description: Value at Risk (VaR) is a measure of the risk of loss in the context of uncertainty, v.g., for investment. It is the upper bound for loss in a period of time with a certain degree of confidence, usually 99%, so we know that in that percent of the scenarios, loss will not exceed the VaR.
-:keywords: Risk, Probability, Impact, Measure, Quantify, Security
+:description: This blog post is focused on Value at Risk (VaR), a measure of the risk of loss in the context of uncertainty, v.g., for investment.
+:keywords: Risk, VaR, Probability, Impact, Measure, Quantify, Security, Ethical Hacking, Pentesting
 :author: Rafael Ballestas
 :writer: raballestasr
 :name: Rafael Ballestas
@@ -14,7 +14,7 @@
 :about2: with an itch for CS
 :source: https://unsplash.com/photos/XG_wi3W4-m8
 
-= Para bellum
+= Para Bellum
 
 "_Si vis pacem, para bellum_", goes the old adage.
 If you want peace, prepare for war.

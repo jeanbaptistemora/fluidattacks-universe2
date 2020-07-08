@@ -5,8 +5,8 @@
 :tags: software, security, vulnerability, hacking, mistake
 :image: cover.png
 :alt: Photo by Sharon McCutcheon on Unsplash
-:description: Attacks by ransomware have affected from simple individual users to small, medium and large companies, universities, and even government entities. All this in both developing and developed countries. Affecting mainly Windows systems but also Mac and Linux. In short, everyone could be a target!
-:keywords: Software, Security, Vulnerability, Hacking, Mistake, Information
+:description: Everyone could be a target for ransomware attacks. Here we give an introduction to this topic and tips that could help you prevent being a victim.
+:keywords: Ransomware, Software, Security, Vulnerability, Hacking, Mistake, Information, Ethical Hacking, Pentesting
 :author: Felipe Ruiz
 :writer: fruiz
 :name: Felipe Ruiz

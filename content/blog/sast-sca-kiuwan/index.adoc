@@ -5,13 +5,12 @@
 :tags: cybersecurity, application, software, security testing, cloud, ethical hacking
 :image: cover.png
 :alt: Photo by Geran de Klerk on Unsplash
-:description: Here we present this blog post based on the information given on February 20th by Sebastian Revuelta, Customer Manager at Kiuwan, in his webinar: Audit your App with Kiuwan Local Analyzer. We conclude with a contrast with the Fluid Attacks processes, mostly from information shared by Kevin Amado.
-:keywords: Cybersecurity, Application, Software, Security testing, Cloud, Ethical hacking
+:description: This blog post is based on the webinar 'Audit your App with Kiuwan Local Analyzer' by Sebastian Revuelta, Customer Manager at Kiuwan.
+:keywords: Cybersecurity, Application, Software, Security Testing, Cloud, Ethical Hacking, Pentesting
 :author: Felipe Ruiz
 :writer: fruiz
 :name: Felipe Ruiz
 :about1: Technical writer
-:about2: Behavioral scientist.
 :source: https://unsplash.com/photos/ADUiP4nJwds
 
 = Are SAST and SCA Enough for You?

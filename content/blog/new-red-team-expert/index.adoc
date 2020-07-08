@@ -5,8 +5,8 @@
 :tags: interview, red team, windows, software, cybersecurity, security
 :image: cover.png
 :alt: Photo by Gary Bendig on Unsplash
-:description: Recently our colleague Daniel Yepes achieved his certificate as a Red Team Expert. We had a chat with him, and he shared his experience, the challenges he faced, and the knowledge he acquired and employed. In the end, he gave us some tips for those interested in obtaining this certificate.
-:keywords: Interview, Red Team, Windows, Software, Cybersecurity, Security
+:description: We talked to Daniel Yepes, a colleague who recently achieved his certificate as a Red Team Expert. He shared his experience and tips to obtain that certificate.
+:keywords: Interview, Red Team, CRTE, Windows, Software, Cybersecurity, Security, Pentesting, Ethical Hacking
 :author: Felipe Ruiz
 :writer: fruiz
 :name: Felipe Ruiz
