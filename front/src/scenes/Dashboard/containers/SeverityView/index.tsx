@@ -189,7 +189,7 @@ const severityView: React.FC<SeverityViewProps> = (props: SeverityViewProps): JS
                                       alignField="horizontal"
                                       component={dropdownField}
                                       currentValue={
-                                        `${field.currentValue} | ${translate.t(field.options[field.currentValue])}`}
+                                        `${field.currentValue} | ${translate.t(`${field.options[field.currentValue]}.text`)}`}
                                       label={field.title}
                                       name={field.name}
                                       renderAsEditable={isEditing}
@@ -198,7 +198,7 @@ const severityView: React.FC<SeverityViewProps> = (props: SeverityViewProps): JS
                                     >
                                       <option value="" />
                                       {_.map(field.options, (text: string, value: string) => (
-                                        <option key={text} value={value}>{translate.t(text)}</option>
+                                        <option key={text} value={value}>{translate.t(`${text}.text`)}</option>
                                       ))}
                                     </EditableField>
                                   </Row>

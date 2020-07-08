@@ -1097,18 +1097,58 @@ const enTranslations: Dictionary = {
         tooltip: "Conditions beyond the attacker’s control that must exist in order to exploit the vulnerability",
       },
       attack_complexity_options: {
-        high: "High",
-        low: "Low",
+        high: {
+          text: "High",
+          tooltip: "<strong>Bad:</strong> A successful attack depends on conditions beyond the attacker's control. " +
+            "That is, a successful attack cannot be accomplished at will, but requires the attacker to invest in " +
+            "some measurable amount of effort in preparation or execution against the vulnerable component before a " +
+            "successful attack can be expected.",
+        },
+        low: {
+          text: "Low",
+          tooltip: "<strong>Worst:</strong> Specialized access conditions or extenuating circumstances do not exist. " +
+            "An attacker can expect repeatable success when attacking the vulnerable component.",
+        },
       },
       attack_vector: {
         text: "Attack Vector",
         tooltip: "Context by which vulnerability exploitation is possible",
       },
       attack_vector_options: {
-        adjacent: "Adjacent network",
-        local: "Local",
-        network: "Network",
-        physical: "Physical",
+        adjacent: {
+          text: "Adjacent network",
+          tooltip: "<strong>Worse: </strong>The vulnerable component is bound to the network stack, but the attack is" +
+            " limited at the protocol level to a logically adjacent topology. This can mean an attack must be " +
+            "launched from the same shared physical (e.g., Bluetooth or IEEE 802.11) or logical (e.g., local IP " +
+            "subnet) network, or from within a secure or otherwise limited administrative domain (e.g., MPLS, secure " +
+            "VPN to an administrative network zone). One example of an Adjacent attack would be an ARP (IPv4) or " +
+            "neighbor discovery (IPv6) flood leading to a denial of service on the local LAN segment.",
+        },
+        local: {
+          text: "Local",
+          tooltip: "<strong>Bad:</strong> The vulnerable component is not bound to the network stack and the " +
+            "attacker’s path is via read/write/execute capabilities. Either: the attacker exploits the vulnerability " +
+            "by accessing the target system locally (e.g., keyboard, console), or remotely (e.g., SSH); or " +
+            "the attacker relies on User Interaction by another person to perform actions required to exploit the " +
+            "vulnerability (e.g., using social engineering techniques to trick a legitimate user into opening a " +
+            "malicious document).",
+        },
+        network: {
+          text: "Network",
+          tooltip: "<strong>Worst:</strong> The vulnerable component is bound to the network stack and the set of " +
+            "possible attackers extends beyond the other options listed below, up to and including the entire " +
+            "internet. Such a vulnerability is often termed \"remotely exploitable\" and can be thought of as an " +
+            "attack being exploitable at the protocol level one or more network hops away (e.g., across one or more " +
+            "routers).",
+        },
+        physical: {
+          text: "Physical",
+          tooltip: "<strong>Bad:</strong> The attack requires the attacker to physically touch or manipulate the " +
+            "vulnerable component. Physical interaction may be brief (e.g., evil maid attack) or persistent. " +
+            "An example of such an attack is a cold boot attack in which an attacker gains access to disk encryption " +
+            "keys after physically accessing the target system. Other examples include peripheral attacks via " +
+            "FireWire/USB Direct Memory Access (DMA).",
+        },
       },
       authentication: "Authentication",
       authentication_options: {
@@ -1122,9 +1162,15 @@ const enTranslations: Dictionary = {
         tooltip: "Availability refers to the accessibility of information resources",
       },
       availability_impact_options: {
-        high: "High",
-        low: "Low",
-        none: "None",
+        high: {
+          text: "High",
+        },
+        low: {
+          text: "Low",
+        },
+        none: {
+          text: "None",
+        },
       },
       availability_options: {
         complete: "Complete: There is a completely down target",
@@ -1156,9 +1202,15 @@ const enTranslations: Dictionary = {
           "as well as preventing access by, or disclosure to, unauthorized ones",
       },
       confidentiality_impact_options: {
-        high: "High",
-        low: "Low",
-        none: "None",
+        high: {
+          text: "High",
+        },
+        low: {
+          text: "Low",
+        },
+        none: {
+          text: "None",
+        },
       },
       confidentiality_options: {
         complete: "Complete: Total control over information related with the target",
@@ -1178,12 +1230,24 @@ const enTranslations: Dictionary = {
         tooltip: "Likelihood of the vulnerability being attacked",
       },
       exploitability_options: {
-        conceptual: "Conceptual: There are laboratory tests",
-        functional: "Functional: There is an exploit",
-        high: "High: Exploit is not required or it can be automated",
-        improbable: "Improbable: There is no exploit",
-        proof_of_concept: "Proof of Concept",
-        unproven: "Unproven",
+        conceptual: {
+          text: "Conceptual: There are laboratory tests",
+        },
+        functional: {
+          text: "Functional: There is an exploit",
+        },
+        high: {
+          text: "High: Exploit is not required or it can be automated",
+        },
+        improbable: {
+          text: "Improbable: There is no exploit",
+        },
+        proof_of_concept: {
+          text: "Proof of Concept",
+        },
+        unproven: {
+          text: "Unproven",
+        },
       },
       integrity: "Integrity Impact",
       integrity_impact: {
@@ -1191,9 +1255,15 @@ const enTranslations: Dictionary = {
         tooltip: "Integrity refers to the trustworthiness and veracity of information",
       },
       integrity_impact_options: {
-        high: "High",
-        low: "Low",
-        none: "None",
+        high: {
+          text: "High",
+        },
+        low: {
+          text: "Low",
+        },
+        none: {
+          text: "None",
+        },
       },
       integrity_options: {
         complete: "Complete: Posibility to modify all target information",
@@ -1219,19 +1289,33 @@ const enTranslations: Dictionary = {
         tooltip: "Level of privileges an attacker must possess before successfully exploiting the vulnerability",
       },
       privileges_required_options: {
-        high: "High",
-        low: "Low",
-        none: "None",
+        high: {
+          text: "High",
+        },
+        low: {
+          text: "Low",
+        },
+        none: {
+          text: "None",
+        },
       },
       remediation_level: {
         text: "Remediation Level",
         tooltip: "State of art of the current vulnerability",
       },
       remediation_level_options: {
-        official_fix: "Official Fix",
-        temporary_fix: "Temporary Fix",
-        unavailable: "Unavailable",
-        workaround: "Workaround",
+        official_fix: {
+          text: "Official Fix",
+        },
+        temporary_fix: {
+          text: "Temporary Fix",
+        },
+        unavailable: {
+          text: "Unavailable",
+        },
+        workaround: {
+          text: "Workaround",
+        },
       },
       report_confidence: {
         text: "Report Confidence",
@@ -1239,9 +1323,15 @@ const enTranslations: Dictionary = {
           "and the credibility of the known technical details",
       },
       report_confidence_options: {
-        confirmed: "Confirmed",
-        reasonable: "Reasonable",
-        unknown: "Unknown",
+        confirmed: {
+          text: "Confirmed",
+        },
+        reasonable: {
+          text: "Reasonable",
+        },
+        unknown: {
+          text: "Unknown",
+        },
       },
       resolution: "Resolution Level",
       resolution_options: {
@@ -1255,8 +1345,12 @@ const enTranslations: Dictionary = {
         tooltip: "Impacts to the resources beyond the security scope",
       },
       severity_scope_options: {
-        changed: "Changed",
-        unchanged: "Unchanged",
+        changed: {
+          text: "Changed",
+        },
+        unchanged: {
+          text: "Unchanged",
+        },
       },
       solve: "Mark as solved",
       tab_title: "Severity",
@@ -1268,8 +1362,12 @@ const enTranslations: Dictionary = {
           "of the vulnerable component",
       },
       user_interaction_options: {
-        none: "None",
-        required: "Required",
+        none: {
+          text: "None",
+        },
+        required: {
+          text: "Required",
+        },
       },
       vector: "Access Vector",
       vector_options: {

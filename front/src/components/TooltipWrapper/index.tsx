@@ -1,4 +1,5 @@
 import React from "react";
+import { Trans } from "react-i18next";
 import { default as style } from "./index.css";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
 
@@ -22,7 +23,7 @@ export const TooltipWrapper: React.FC<ITooltipWrapperProps> = (
         // We need className to override default styles from react-bootstrap
         // eslint-disable-next-line react/forbid-component-props
         <Tooltip className={style.tooltip} id={`tooltip-${placement}`}>
-          {message}
+          <Trans>{message}</Trans>
         </Tooltip>
       }
       placement={placement}
