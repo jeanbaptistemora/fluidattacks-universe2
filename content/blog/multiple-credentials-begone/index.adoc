@@ -5,8 +5,8 @@
 :tags: security, credential, saml, standard
 :image: cover.png
 :alt: Multiple icon accounts
-:description: Single Sign On (SSO) services provides an identity and access management to avoid multiple credentials issues. Security Assertion Mark-up Language (SAML)is a popular SSO implementation standard for logging users into applications based on their sessions. Here we explain how to use SAML.
-:keywords: Security, SAML, Credentials, SSO, XML, Risks.
+:description: Here we explain how to use SAML, a popular SSO implementation standard for logging users into applications based on their sessions.
+:keywords: Security, SAML, Credentials, SSO, XML, Risks, Ethical Hacking, Pentesting
 :author: Juan Aguirre
 :writer: juanes
 :name: Juan Esteban Aguirre González
@@ -15,7 +15,7 @@
 :figure-caption: Figure
 :source: https://unsplash.com/photos/2kH-6T6x_0I
 
-= Multiple credentials begone!
+= Multiple Credentials Begone!
 
 The evolution of information technology brings with it many challenges, one of
 the biggest ones being Identity and Access Management. To take care of the

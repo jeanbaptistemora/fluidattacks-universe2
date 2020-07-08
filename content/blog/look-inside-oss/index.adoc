@@ -5,8 +5,8 @@
 :tags: security, cybersecurity, code, software, company, business
 :image: cover.png
 :alt: Photo by Vinayak Varma on Unsplash
-:description: More and more companies are benefiting from the use of Open Source Software. Security can be significantly enhanced when codes are presented publicly. Besides, collaboration and transparency stand out among the values of many organizations working with open source methodology.
-:keywords: Security, Cybersecurity, Code, Software, Company, Business
+:description: Security can be significantly enhanced when codes are presented publicly. In this post, we talk about OSS and its advantages for companies using it nowadays.
+:keywords: Security, Cybersecurity, OSS, Code, Software, Company, Business, Ethical Hacking, Pentesting
 :author: Felipe Ruiz
 :writer: fruiz
 :name: Felipe Ruiz

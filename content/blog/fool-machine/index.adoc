@@ -5,8 +5,8 @@
 :tags: machine learning, vulnerability, code
 :image: cover.png
 :alt: Photo by KP Bodenstein on Unsplash: https://unsplash.com/photos/ElQI4kGSbiw
-:description: While neural networks are great at artificial intelligence tasks, they still have flaws. In this article, we show you how to create images that fool classifiers into believing they are seeing the wrong object while maintaining visual similarity with a correctly classified image.
-:keywords: Machine learning, Vulnerability, Classification, Adversarial Example, Image, Artificial Intelligence
+:description: You'll see how to create images that fool classifiers into thinking they see the wrong object while maintaining visual similarity to a rightly classified image.
+:keywords: Machine Learning, Vulnerability, Classification, Adversarial Example, Image, Artificial Intelligence, Ethical Hacking, Pentesting
 :author: Rafael Ballestas
 :writer: raballestasr
 :name: Rafael Ballestas

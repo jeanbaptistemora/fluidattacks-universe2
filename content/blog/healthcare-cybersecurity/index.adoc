@@ -5,8 +5,8 @@
 :tags: business, security, healthcare, operations
 :image: cover.png
 :alt: Digital heart beat monitor on Unsplash https://unsplash.com/photos/0lrJo37r6Nk
-:description:  In this blog post, we explore how simple yet incredibly effective healthcare practices could inform better cybersecurity operations. From the groundbreaking work of Atul Gawande, we highlight how Fluid Attacks could help organizations improving cybersecurity, specifically HealthTech companies.
-:keywords: Healthcare, HealthTech, Cybersecurity, Practices, Operations, Risks
+:description: In this blog post, we explore how simple yet incredibly effective healthcare practices could inform better cybersecurity operations.
+:keywords: Healthcare, HealthTech, Cybersecurity, Practices, Operations, Risks, Ethical Hacking, Pentesting
 :author: Julian Arango
 :writer: jarango
 :name: Julian Arango

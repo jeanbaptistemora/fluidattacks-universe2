@@ -5,8 +5,8 @@
 :tags: business, ethical hacking, risk
 :image: cover.png
 :alt: Numbers notes on Unsplash: https://unsplash.com/photos/aG-pvyMsbis
-:description: How to use calibrated estimates to run a Monte Carlo simulation to obtain the expected losses and the loss exceedance curve for a particular risk or the whole organization in a particular time frame, from a high level, i.e. without the technical details.
-:keywords: Risk, Probability, Impact, Measure, Quantify, Security
+:description: Here we work using calibrated estimates to run a Monte Carlo simulation to obtain the expected losses and the loss exceedance curve for different scenarios.
+:keywords: Risk, Probability, Impact, Measure, Quantify, Security, Ethical Hacking, Pentesting
 :author: Rafael Ballestas
 :writer: raballestasr
 :name: Rafael Ballestas
@@ -14,7 +14,7 @@
 :about2: with an itch for CS
 :source: https://unsplash.com/photos/aG-pvyMsbis
 
-= Monetizing vulnerabilities
+= Monetizing Vulnerabilities
 
 In our previous article,
 we merely scratched the surface of the problem

@@ -5,8 +5,8 @@
 :tags: security, devops, software, information, web, cloud
 :image: cover.png
 :alt: Photo by Sebastian Pena Lambarri on Unsplash
-:description: DevSecOps is the evolution of a renowned software engineering approach that is here to stay. Through this blog post, you will know what DevSecOps is, how it applies, and why it is recommended for IT companies. Maybe even when you finish reading it, you won't refer to this term in the same way again.
-:keywords: Security, Devops, Software, Information, Web, Cloud
+:description: Through this blog post, you will know what DevSecOps is, how it applies, and why it is recommended for IT companies.
+:keywords: Security, DevOps, DevSecOps, SecDevOps, Software, Information, Web, Cloud, Ethical Hacking, Pentesting
 :author: Felipe Ruiz
 :writer: fruiz
 :name: Felipe Ruiz

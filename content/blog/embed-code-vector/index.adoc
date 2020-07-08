@@ -5,8 +5,8 @@
 :tags: machine learning, security, code
 :image: cover.png
 :alt: Arrows vector field
-:description: Code2vec is a neural network based method to predict function names from the abstract syntax tree of the function body. We discuss its relation to word2vec and to autoencoders, in order to better grasp how feasible it is to represent code as vectors, which is our main interest.
-:keywords: Machine learning, Neural Network, Encoding, Parsing, Classifier, Vulnerability
+:description: Here we discuss code2vec relation with word2vec and autoencoders to grasp better how feasible it is to represent code as vectors, which is our main interest.
+:keywords: Machine Learning, Neural Network, Encoding, Code2vec, Word2vec, Parsing, Classifier, Vulnerability, Ethical Hacking, Pentesting
 :author: Rafael Ballestas
 :writer: raballestasr
 :name: Rafael Ballestas
@@ -15,7 +15,7 @@
 :source: https://unsplash.com/photos/N4gn-eLEIwI
 
 
-= Embedding code into vectors
+= Embedding Code Into Vectors
 
 As we have stated over and over in the past,
 the most critical step in our ongoing project of

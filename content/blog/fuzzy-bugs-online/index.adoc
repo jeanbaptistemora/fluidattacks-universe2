@@ -5,8 +5,8 @@
 :tags: sql, fuzzing, injection
 :image: cover.png
 :alt: Fuzzy caterpillar
-:description: How to perform basic fuzz attacks on web applications. Especifically we fuzz over SQL injections on a vulnerable DB search site from bWAPP, using OWASP ZAProxy, obtaining mixed results. Only the most trivial injections succeded. We also show an example of an injection not feasible via fuzzing.
-:keywords: SQLi, Fuzzing, Attack, Vulnerability, Security, Application.
+:description: How to make basic fuzz attacks on web apps? We fuzz over SQL injections on a vulnerable DB search site from bWAPP, using OWASP ZAProxy, obtaining mixed results.
+:keywords: SQLi, Fuzzing, Attack, Vulnerability, Security, Application, Pentesting, Ethical Hacking
 :author: Rafael Ballestas
 :writer: raballestasr
 :name: Rafael Ballestas
@@ -14,7 +14,7 @@
 :about2: with an itch for CS
 :source: https://unsplash.com/photos/Tv5AK37PVlA
 
-= Fuzzy bugs online
+= Fuzzy Bugs Online
 
 In general, fuzzing means to try many inputs,
 well-formed or otherwise,

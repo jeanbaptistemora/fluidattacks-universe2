@@ -5,8 +5,8 @@
 :tags: cloud, protect, health
 :image: cover.png
 :alt: several balloons floating in the air
-:description: Technology advances nowadays allow us to exchange accurate, near real time information using the cloud. This advantage can benefit many enterprises and Healthcare institutions are no exception, however cloud-based systems may carry security issues that must be considered. Here we explain them.
-:keywords: Health care, Cloud, Information, Risks, Security, Protect.
+:description: Cloud-based systems can be of great benefit to healthcare institutions, but they can also lead to security issues that must be handled and that we explain here.
+:keywords: Health Care, Cloud, Information, Risks, Security, Protect, Pentesting, Ethical Hacking
 :author: Juan Aguirre
 :writer: juanes
 :name: Juan Esteban Aguirre González
@@ -14,7 +14,7 @@
 :about2: Netflix and hack.
 :source: https://unsplash.com/photos/DuBNA1QMpPA
 
-= Healthcare in the clouds
+= Healthcare in the Clouds
 
 
 The healthcare nowadays is in the clouds, and not just the prices.

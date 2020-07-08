@@ -5,8 +5,8 @@
 :tags: business, security, risk
 :image: cover.png
 :alt: Chess strategy. Photo by Inactive. on Unsplash: https://unsplash.com/photos/nAjil1z3eLk
-:description: A review of a paper from the adversarial risk analysis field applied to cybersecurity. The model is complex and rich and with interesting underlying ideas. We take advantage of their usage of those concepts to introduce influence diagrams and the expected value of a probabilty distribution.
-:keywords: Risk, Probability, Impact, Measure, Quantify, Security
+:description: This blog post is a review of a paper from the adversarial risk analysis field applied to cybersecurity.
+:keywords: Risk, Probability, Impact, Measure, Quantify, Security, Pentesting, Ethical Hacking
 :author: Rafael Ballestas
 :writer: raballestasr
 :name: Rafael Ballestas

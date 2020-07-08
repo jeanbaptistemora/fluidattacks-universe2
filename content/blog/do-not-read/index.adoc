@@ -5,8 +5,8 @@
 :tags: social engineering, hacking, security, business
 :image: cover.png
 :alt: Yellow police line tape on Unsplash: https://unsplash.com/photos/jM6Y2nhsAtk
-:description: Social engineering is often a risk to consider since it relies on a vital yet unpredictable link of the value chain of every organization, the human factor. On this post we'll look into the behavior trends of developers when including security in their codes, and how it can affect your company.
-:keywords: Social Engineering, Malware, Behavior, Security, Developer, Coding
+:description: In this post, we'll look into the behavior trends of developers when including security in their codes, and how it can affect your company.
+:keywords: Social Engineering, Malware, Behavior, Security, Developer, Coding, Ethical Hacking, Pentesting
 :author: Julian Arango
 :writer: jarango
 :name: Julian Arango
@@ -14,7 +14,7 @@
 :about2: Data scientist in training.
 :source: https://unsplash.com/photos/jM6Y2nhsAtk
 
-= Do not read this post
+= Do Not Read This Post
 
 Why the f*ck did you click to this post? Seriously, why?
 

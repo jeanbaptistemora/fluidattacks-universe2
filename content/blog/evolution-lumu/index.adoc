@@ -5,13 +5,12 @@
 :tags: cybersecurity, security testing, pentesting, vulnerability, hacking, business
 :image: cover.png
 :alt: Photo by Johannes Plenio on Unsplash
-:description: Here I present this blog post based on the information given on February 7th by Sylvester, from Lumu, in his webinar: Cybersecurity Testing Limitations & How to Overcome Them. That webinar is associated with the document presented by Cuervo, entitled It's Time to Evolve Security Testing.
-:keywords: Cybersecurity, Security Testing, Pentesting, Vulnerability, Hacking, Business
+:description: This post is based on the information given on February 7th by Sylvester, from Lumu, in his webinar 'Cybersecurity Testing Limitations & How to Overcome Them.'
+:keywords: Cybersecurity, Security Testing, Pentesting, Vulnerability, Hacking, Business, Ethical Hacking, Pentesting
 :author: Felipe Ruiz
 :writer: fruiz
 :name: Felipe Ruiz
 :about1: Technical writer
-:about2: Behavioral scientist.
 :source: https://unsplash.com/photos/aWDgqexSxA0
 
 = Evolution of Cybersecurity Testing

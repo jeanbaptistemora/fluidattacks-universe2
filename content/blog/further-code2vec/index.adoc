@@ -5,8 +5,8 @@
 :tags: machine learning, security, code
 :image: cover.png
 :alt: Target and darts
-:description: A tutorial on the usage of code2vec for the purposes of predicting method names, determining the accuracy of the model, and exporting the vector embeddings of the tokens and the method names, which is our main interest. This follows up on our earlier, more general article on code2vec.
-:keywords: Machine learning, Neural Network, Encoding, Parsing, Classifier, Vulnerability
+:description: Here is a tutorial on the usage of code2vec to predict method names, determine the accuracy of the model, and exporting the corresponding vector embeddings.
+:keywords: Machine Learning, Code2vec, Neural Network, Encoding, Parsing, Classifier, Vulnerability, Pentesting, Ethical Hacking
 :author: Rafael Ballestas
 :writer: raballestasr
 :name: Rafael Ballestas
@@ -15,7 +15,7 @@
 :source: https://unsplash.com/photos/FoiZoPtxSyA
 
 
-= Further down code2vec
+= Further Down Code2vec
 
 Let us continue with our series on representing
 objects as vectors:

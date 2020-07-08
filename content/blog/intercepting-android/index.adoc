@@ -5,8 +5,8 @@
 :tags: security, android, application, pentesting
 :image: cover.png
 :alt: Turned on Android smartphone. Photo by Pathum Danthanarayana on Unsplash: https://unsplash.com/photos/t8TOMKe6xZU
-:description: In terms of market share, Android is the king of kings, having more than 80% of the total smartphone owner share. Hence, it is also the most suitable target for hackers. Here we are going to show how to intercept Android applications' web traffic by installing a self-signed certificate.
-:keywords: Android, Security, Intercept, Hacking, Proxy, Application.
+:description: Android is one of the most suitable targets for hackers. Here we show how to intercept Android apps' web traffic by installing a self-signed certificate.
+:keywords: Android, Security, Intercept, Hacking, Proxy, Application, Ethical Hacking, Pentesting
 :author: Jonathan Armas
 :writer: johna
 :name: Jonathan Armas

@@ -5,8 +5,8 @@
 :tags: application, functional, javascript, eslint
 :image: cover.png
 :alt: Cup with message in front of screen with code
-:description: What are the new trends in the JavaScript world. First steps in functional JavaScript. Recommendations for the migration from any paradigm to functional. How to use eslint and its plugin for checking functional code. Functional JavaScript: fleeting fashion or imminent future?
-:keywords: Functional paradigm, Object-oriented, Linter, Multiparadigm application, Eslint, Programming future.
+:description: Here we talk about some first steps in functional JavaScript and recommendations for migration. Functional JavaScript: fleeting fashion or imminent future?
+:keywords: Functional Paradigm, JavaScript, Object-oriented, Linter, Multiparadigm Application, Eslint, Programming Future, Ethical Hacking, Pentesting
 :author: Oswaldo Parada
 :writer: oparada
 :name: Oswaldo José Parada Cuadros

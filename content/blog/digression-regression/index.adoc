@@ -5,8 +5,8 @@
 :tags: machine learning, python, code
 :image: cover.png
 :alt: Computer showing a graph
-:description: In this blog, we begin to tackle the question of why vectors are the most appropriate representation for data as input to machine learning algorithms. We also present the scikit-learn API by means of simple linear regression, i.e., finding the line that best fits the data.
-:keywords: Machine learning, Linear Regression, Python, Algorithm, Prediction, Regression
+:description: In this post, we begin to tackle why vectors are the most appropriate representation for data as input to machine learning algorithms.
+:keywords: Machine Learning, Linear Regression, Python, Algorithm, Prediction, Regression, Ethical Hacking, Pentesting
 :author: Rafael Ballestas
 :writer: raballestasr
 :name: Rafael Ballestas

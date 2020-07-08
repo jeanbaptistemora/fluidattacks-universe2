@@ -5,8 +5,8 @@
 :tags: interview, machine learning
 :image: cover.png
 :alt: Nicolás Acosta, CISO at Corona
-:description: We interviewed Nicolás Acosta, CISO of Corona, a multinational company in the home improvement and construction industry. Nicolás shared his perspective on some topics like artificial intelligence, machine learning, innovation, setbacks as CISO, among others.
-:keywords: Artificial Intelligence, Machine Learning, Innovation, Cybersecurity, Cyberintelligence, Hacking
+:description: Nicolás Acosta, CISO of Corona, shared his perspective on topics like artificial intelligence, machine learning, innovation, setbacks as CISO, among others.
+:keywords: Artificial Intelligence, Machine Learning, Innovation, Cybersecurity, Cyberintelligence, Hacking, Ethical Hacking, Pentesting
 :author: Julian Arango
 :writer: jarango
 :name: Julian Arango
@@ -15,7 +15,7 @@
 :source: https://unsplash.com/photos/rDxP1tF3CmA
 
 
-= Innovation more understandable
+= Innovation More Understandable
 
 == Our guest
 

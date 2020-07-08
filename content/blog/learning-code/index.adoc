@@ -1,12 +1,12 @@
 :slug: learning-code/
 :date: 2019-08-16
-:subtitle: A chat with Ricardo Yepes. Part 2.
+:subtitle: A chat with Ricardo Yepes. Part 2
 :category: interview
 :tags: devops, training, security
 :image: cover.png
 :alt: Bookshelf with some books
-:description: This is the second part of our interview with Ricardo Yepes, here we will address topics such as cybersecurity, academic research, a learning platform, and more; Ricardo works as a DevOps engineer at an Australian consultancy company and was a former member of Fluid Attacks.
-:keywords: Interview, DevOps, Security, Best Practices, Philosophy, Training
+:description: In this post, the second part of our interview with Ricardo Yepes, we address topics such as cybersecurity, academic research, a learning platform, and more.
+:keywords: Interview, DevOps, Security, Best Practices, Philosophy, Training, Ethical Hacking, Pentesting
 :author: Julian Arango
 :writer: jarango
 :name: Julian Arango
@@ -14,7 +14,7 @@
 :about2: Data scientist in training.
 :source: https://unsplash.com/photos/pMnw5BSZYsA
 
-= Learning how to code
+= Learning How to Code
 
 We continue our conversation with Ricardo.
 We threw him a question that was the source

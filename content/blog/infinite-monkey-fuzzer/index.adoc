@@ -5,8 +5,8 @@
 :tags: fuzzing, application, hacking
 :image: cover.png
 :alt: Monkey staring
-:description: How to perform basic fuzz attacks on desktop linux C applications using American Fuzzy Lop. We discuss pros and cons of C fuzzing, reproduce the discovery of a libpng bug wherein optipng crashes if given with a low bit depth png file with high palette number.
-:keywords: Fuzzing, Attack, Vulnerability, Security, Application, Hacking
+:description: In this blog post, we are focused on how to perform basic fuzz attacks on desktop Linux C applications using American Fuzzy Lop.
+:keywords: Fuzzing, Attack, AFL, Vulnerability, Security, Application, Hacking, Ethical Hacking, Pentesting
 :author: Rafael Ballestas
 :writer: raballestasr
 :name: Rafael Ballestas
@@ -14,7 +14,7 @@
 :about2: with an itch for CS
 :source: https://unsplash.com/photos/xSM7msizIQI
 
-= The infinite monkey fuzzer
+= The Infinite Monkey Fuzzer
 
 In our [inner]#link:../fuzzy-bugs-online/[last entry]#,
 we argued that fuzzing is both ``dumb'' and surprising.

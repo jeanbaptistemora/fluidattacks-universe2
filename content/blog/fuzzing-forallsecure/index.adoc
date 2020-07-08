@@ -5,13 +5,12 @@
 :tags: fuzzing, cybersecurity, security testing, hacking, vulnerability, business
 :image: cover.png
 :alt: Photo by David Kovalenko on Unsplash
-:description: Here we present this blog post based on the information given on February 11th by David Brumley (ForAllSecure) in his webinar: Continuous Fuzzing: The Trending Security Technique. Besides, we took some notes from a document, in association with that webinar, called: What is Next-Generation Fuzzing.
-:keywords: Fuzzing, Cybersecurity, Security Testing, Hacking, Vulnerability, Business
+:description: This post is based on the information given on February 11th by Brumley (ForAllSecure) in his webinar 'Continuous Fuzzing: The Trending Security Technique.'
+:keywords: Fuzzing, Cybersecurity, Security Testing, Hacking, Vulnerability, Business, Pentesting, Ethical Hacking
 :author: Felipe Ruiz
 :writer: fruiz
 :name: Felipe Ruiz
 :about1: Technical writer
-:about2: Behavioral scientist.
 :source: https://unsplash.com/photos/G85VuTpw6jg
 
 = Continuous Search for the Unknown
