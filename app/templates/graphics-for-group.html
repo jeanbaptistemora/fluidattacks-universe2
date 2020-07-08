@@ -1,0 +1,28 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Graphics for group</title>
+
+    <!-- Local Styles -->
+    {% if 'localhost' in request.get_host and debug %}
+      <link rel="stylesheet" href="https://localhost:3000/dashboard/graphicsForGroup-style.min.css" type="text/css">
+    {% else %}
+      <link rel="stylesheet" href="{% static 'dashboard/graphicsForGroup-style.min.css' %}" type="text/css">
+    {% endif %}
+
+    <!-- Third party styles -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  </head>
+  <body>
+    <div id="root"></div>
+
+    <!-- Scripts -->
+    {% if 'localhost' in request.get_host and debug %}
+      <script src="https://localhost:3000/dashboard/graphicsForGroup-bundle.min.js" type="text/javascript"></script>
+    {% else %}
+      <script src="{% static 'dashboard/graphicsForGroup-bundle.min.js' %}" type="text/javascript"></script>
+    {% endif %}
+  </body>
+</html>

@@ -5,6 +5,7 @@ import webpack from "webpack";
 export const commonConfig: webpack.Configuration = {
   entry: {
     app: "./src/app.tsx",
+    graphicsForGroup: "./src/graphics/views/group.tsx",
     login: "./src/scenes/Login/index.tsx",
   },
   module: {

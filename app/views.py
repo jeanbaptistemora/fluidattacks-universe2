@@ -217,6 +217,31 @@ async def graphic(request: HttpRequest) -> HttpResponse:
     return await analytics_domain.handle_graphic_request(request)
 
 
+@never_cache
+@csrf_exempt
+@require_login
+@require_http_methods(['GET'])
+@async_to_sync
+async def graphics_for_group(request: HttpRequest) -> HttpResponse:
+    request_data = util.get_jwt_content(request)
+
+    response = await analytics_domain.handle_graphics_for_group_request(
+        request,
+    )
+
+    set_session_cookie_in_response(
+        response=response,
+        token=create_session_token(
+            company=request_data['company'],
+            email=request_data['user_email'],
+            first_name=request_data['first_name'],
+            last_name=request_data['last_name'],
+        ),
+    )
+
+    return response
+
+
 @csrf_exempt
 @authenticate
 def logout(request):

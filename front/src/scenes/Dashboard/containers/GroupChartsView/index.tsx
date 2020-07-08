@@ -1,14 +1,19 @@
 import _ from "lodash";
 import React from "react";
 import { Col, Grid, Panel, Row } from "react-bootstrap";
-import { useParams } from "react-router";
+import { useLocation, useParams } from "react-router";
 import { Graphic } from "../../../../graphics/components/Graphic";
 import translate from "../../../../utils/translations/translate";
 import styles from "./index.css";
 import { IGroupChartsProps } from "./types";
 
 const groupChartsView: React.FC<IGroupChartsProps> = (props: IGroupChartsProps): JSX.Element => {
-  const { projectName: groupName } = useParams();
+  const params: { projectName: string } = useParams();
+  const searchParams: URLSearchParams = new URLSearchParams(useLocation().search);
+
+  const groupNameFromSearchParams: string | null = searchParams.get("group");
+
+  const groupName: string = _.isNull(groupNameFromSearchParams) ? params.projectName : groupNameFromSearchParams;
 
   const [isForcesDescriptionExpanded, setIsForcesDescriptionExpanded] = React.useState(false);
 

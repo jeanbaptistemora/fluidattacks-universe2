@@ -50,6 +50,12 @@ GraphicParameters = NamedTuple(
         ('width', int)
     ]
 )
+GraphicsForGroupParameters = NamedTuple(
+    'GraphicsForGroupParameters',
+    [
+        ('group', str),
+    ]
+)
 
 
 @apm.trace()
@@ -99,7 +105,20 @@ async def get_document_from_graphic_request(
     return document
 
 
-async def handle_graphic_request_parameters(
+async def handle_graphics_for_group_authz(
+    *,
+    params: GraphicsForGroupParameters,
+    request: HttpRequest,
+) -> None:
+    email = util.get_jwt_content(request)['user_email']
+
+    if not await aio.ensure_io_bound(
+        has_access_to_group, email, params.group,
+    ):
+        raise PermissionError('Access denied')
+
+
+def handle_graphic_request_parameters(
     *,
     request: HttpRequest,
 ) -> GraphicParameters:
@@ -135,10 +154,27 @@ async def handle_graphic_request_parameters(
     )
 
 
+def handle_graphics_for_group_request_parameters(
+    *,
+    request: HttpRequest,
+) -> GraphicsForGroupParameters:
+    group: str = request.GET['group']
+
+    for param_name, param_value in [
+        ('group', group),
+    ]:
+        if not param_value.isalnum():
+            raise ValueError(f'Expected [a-zA-Z] in parameter: {param_name}')
+
+    return GraphicsForGroupParameters(
+        group=group,
+    )
+
+
 async def handle_graphic_request(request: HttpRequest) -> HttpResponse:
     try:
         params: GraphicParameters = \
-            await handle_graphic_request_parameters(request=request)
+            handle_graphic_request_parameters(request=request)
 
         document: object = await get_document_from_graphic_request(
             params=params,
@@ -172,5 +208,35 @@ async def handle_graphic_request(request: HttpRequest) -> HttpResponse:
 
     # Allow the frame to render if and only if we are on the same origin
     response['x-frame-options'] = 'SAMEORIGIN'
+
+    return response
+
+
+async def handle_graphics_for_group_request(
+    request: HttpRequest,
+) -> HttpResponse:
+    try:
+        params: GraphicsForGroupParameters = \
+            handle_graphics_for_group_request_parameters(request=request)
+
+        await handle_graphics_for_group_authz(
+            params=params,
+            request=request,
+        )
+    except (
+        botocore.exceptions.ClientError,
+        KeyError,
+        PermissionError,
+        ValueError,
+    ) as exception:
+        rollbar.report_exc_info()
+        response = render(request, 'graphic-error.html', dict(
+            debug=settings.DEBUG,
+            exception=exception,
+        ))
+    else:
+        response = render(request, 'graphics-for-group.html', dict(
+            debug=settings.DEBUG,
+        ))
 
     return response
