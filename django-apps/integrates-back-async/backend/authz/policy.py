@@ -120,7 +120,7 @@ def grant_group_level_role(email: str, group: str, role: str) -> bool:
     if role not in GROUP_LEVEL_ROLES:
         raise ValueError(f'Invalid role value: {role}')
 
-    policy = user_dal.SUBJECT_POLICY(
+    policy = user_dal.SubjectPolicy(
         level='group',
         subject=email,
         object=group,
@@ -148,7 +148,7 @@ def grant_organization_level_role(
     if role not in ORGANIZATION_LEVEL_ROLES:
         raise ValueError(f'Invalid role value: {role}')
 
-    policy = user_dal.SUBJECT_POLICY(
+    policy = user_dal.SubjectPolicy(
         level='organization',
         subject=email,
         object=organization,
@@ -175,7 +175,7 @@ def grant_user_level_role(email: str, role: str) -> bool:
     if role not in USER_LEVEL_ROLES:
         raise ValueError(f'Invalid role value: {role}')
 
-    policy = user_dal.SUBJECT_POLICY(
+    policy = user_dal.SubjectPolicy(
         level='user',
         subject=email,
         object='self',

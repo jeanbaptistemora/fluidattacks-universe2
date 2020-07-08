@@ -44,15 +44,15 @@ TABLE_COMMENTS = DYNAMODB_RESOURCE.Table('fi_project_comments')
 TABLE_ACCESS = DYNAMODB_RESOURCE.Table('FI_project_access')
 TABLE_WEEKLY_REPORT = DYNAMODB_RESOURCE.Table('FI_weekly_report')
 
-SERVICE_POLICY = NamedTuple(
-    'SERVICE_POLICY',
+ServicePolicy = NamedTuple(
+    'ServicePolicy',
     [('group', str), ('service', str)]
 )
 
 
-def get_service_policies(group: str) -> List[SERVICE_POLICY]:
+def get_service_policies(group: str) -> List[ServicePolicy]:
     """Return a list of policies for the given group."""
-    policies: List[SERVICE_POLICY] = []
+    policies: List[ServicePolicy] = []
 
     group_attributes: dict = TABLE.get_item(
         AttributesToGet=[
@@ -83,27 +83,27 @@ def get_service_policies(group: str) -> List[SERVICE_POLICY]:
 
         if has_integrates:
             policies.append(
-                SERVICE_POLICY(group=group, service='integrates')
+                ServicePolicy(group=group, service='integrates')
             )
 
             if has_drills:
                 policies.append(
-                    SERVICE_POLICY(group=group, service='drills_white')
+                    ServicePolicy(group=group, service='drills_white')
                 )
 
                 if has_forces:
                     policies.append(
-                        SERVICE_POLICY(group=group, service='forces')
+                        ServicePolicy(group=group, service='forces')
                     )
 
     elif type_ == 'oneshot':
 
         if has_integrates:
             policies.append(
-                SERVICE_POLICY(group=group, service='integrates')
+                ServicePolicy(group=group, service='integrates')
             )
             policies.append(
-                SERVICE_POLICY(group=group, service='drills_black')
+                ServicePolicy(group=group, service='drills_black')
             )
 
     else:

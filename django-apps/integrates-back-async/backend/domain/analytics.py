@@ -37,16 +37,19 @@ from backend.utils import (
 from backend import util
 
 # Containers
-GRAPHIC_PARAMETERS = NamedTuple('GraphicParameters', [
-    ('document_name', str),
-    ('document_type', str),
-    ('entity', str),
-    ('generator_name', str),
-    ('generator_type', str),
-    ('height', int),
-    ('subject', str),
-    ('width', int),
-])
+GraphicParameters = NamedTuple(
+    'GraphicParameters',
+    [
+        ('document_name', str),
+        ('document_type', str),
+        ('entity', str),
+        ('generator_name', str),
+        ('generator_type', str),
+        ('height', int),
+        ('subject', str),
+        ('width', int)
+    ]
+)
 
 
 @apm.trace()
@@ -71,7 +74,7 @@ async def get_document(
 
 async def get_document_from_graphic_request(
     *,
-    params: GRAPHIC_PARAMETERS,
+    params: GraphicParameters,
     request: HttpRequest,
 ) -> object:
     # Get the requester email from the session or from its API token
@@ -99,7 +102,7 @@ async def get_document_from_graphic_request(
 async def handle_graphic_request_parameters(
     *,
     request: HttpRequest,
-) -> GRAPHIC_PARAMETERS:
+) -> GraphicParameters:
     document_name: str = request.GET['documentName']
     document_type: str = request.GET['documentType']
     generator_name: str = request.GET['generatorName']
@@ -120,7 +123,7 @@ async def handle_graphic_request_parameters(
         if not param_value.isalnum():
             raise ValueError(f'Expected [a-zA-Z] in parameter: {param_name}')
 
-    return GRAPHIC_PARAMETERS(
+    return GraphicParameters(
         document_name=document_name,
         document_type=document_type,
         entity=entity,
@@ -134,7 +137,7 @@ async def handle_graphic_request_parameters(
 
 async def handle_graphic_request(request: HttpRequest) -> HttpResponse:
     try:
-        params: GRAPHIC_PARAMETERS = \
+        params: GraphicParameters = \
             await handle_graphic_request_parameters(request=request)
 
         document: object = await get_document_from_graphic_request(

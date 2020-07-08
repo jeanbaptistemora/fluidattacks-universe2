@@ -22,8 +22,8 @@ AUTHZ_TABLE = DYNAMODB_RESOURCE.Table('fi_authz')
 USERS_TABLE = DYNAMODB_RESOURCE.Table('FI_users')
 
 # Typing
-SUBJECT_POLICY = NamedTuple(
-    'SUBJECT_POLICY',
+SubjectPolicy = NamedTuple(
+    'SubjectPolicy',
     [
         # interface for a row in fi_authz
         ('level', str),
@@ -34,7 +34,7 @@ SUBJECT_POLICY = NamedTuple(
 )
 
 
-def cast_subject_policy_into_dict(policy: SUBJECT_POLICY) -> dict:
+def cast_subject_policy_into_dict(policy: SubjectPolicy) -> dict:
     """Cast a subject policy into a dict, valid to be put in dynamo."""
     # pylint: disable=protected-access
     return {
@@ -47,16 +47,16 @@ def cast_subject_policy_into_dict(policy: SUBJECT_POLICY) -> dict:
     }
 
 
-def cast_dict_into_subject_policy(item: dict) -> SUBJECT_POLICY:
+def cast_dict_into_subject_policy(item: dict) -> SubjectPolicy:
     # pylint: disable=protected-access
-    field_types: dict = SUBJECT_POLICY._field_types
+    field_types: dict = SubjectPolicy._field_types
 
     # Every string as lowercase
     for field, _ in field_types.items():
         if isinstance(item.get(field), str):
             item[field] = item[field].lower()
 
-    return SUBJECT_POLICY(**{
+    return SubjectPolicy(**{
         field: (
             item[field]
             if field in item and isinstance(item[field], typing)
@@ -66,7 +66,7 @@ def cast_dict_into_subject_policy(item: dict) -> SUBJECT_POLICY:
     })
 
 
-def get_subject_policy(subject: str, object_: str) -> SUBJECT_POLICY:
+def get_subject_policy(subject: str, object_: str) -> SubjectPolicy:
     """Return a policy for the given subject over the given object."""
     response = AUTHZ_TABLE.get_item(
         ConsistentRead=True,
@@ -79,9 +79,9 @@ def get_subject_policy(subject: str, object_: str) -> SUBJECT_POLICY:
     return cast_dict_into_subject_policy(response.get('Item', {}))
 
 
-def get_subject_policies(subject: str) -> List[SUBJECT_POLICY]:
+def get_subject_policies(subject: str) -> List[SubjectPolicy]:
     """Return a list of policies for the given subject."""
-    policies: List[SUBJECT_POLICY] = []
+    policies: List[SubjectPolicy] = []
     query_params = {
         'ConsistentRead': True,
         'KeyConditionExpression': Key('subject').eq(subject.lower()),
@@ -99,7 +99,7 @@ def get_subject_policies(subject: str) -> List[SUBJECT_POLICY]:
     return policies
 
 
-def put_subject_policy(policy: SUBJECT_POLICY) -> bool:
+def put_subject_policy(policy: SubjectPolicy) -> bool:
     item = cast_subject_policy_into_dict(policy)
 
     with contextlib.suppress(ClientError):
