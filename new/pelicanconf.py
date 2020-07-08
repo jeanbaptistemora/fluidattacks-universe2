@@ -44,6 +44,7 @@ PLUGINS = [
 ]
 RELATED_POSTS_MAX = 3
 DIRECT_TEMPLATES = [
+    'error',
     'index',
     'landing',
     'authors',
