@@ -7,3 +7,11 @@
 
 # Back approvers
 /django-apps/integrates-back-async/backend/authz/ @jrestrepoatfluid @mnorenaatfluid @acuberosatfluid
+
+# Linter approvers
+/build/include/linter-jobs.sh @mnorenaatfluid @kamadoatfluid
+/app/static/graphics/.eslintrc @mnorenaatfluid @kamadoatfluid
+/front/.eslintignore @mnorenaatfluid @kamadoatfluid
+/front/.eslintrc.json @mnorenaatfluid @kamadoatfluid
+/front/tslint.json @mnorenaatfluid @kamadoatfluid
+/mobile/tslint.json @mnorenaatfluid @kamadoatfluid

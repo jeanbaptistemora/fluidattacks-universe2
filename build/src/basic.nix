@@ -5,4 +5,5 @@ rec {
   srcIncludeGenericDirStructure = ../include/generic/dir-structure.sh;
   srcIncludeHelpers = ../include/helpers.sh;
   srcIncludeJobs = ../include/jobs.sh;
+  srcIncludeLinterJobs = ../include/linter-jobs.sh;
 }

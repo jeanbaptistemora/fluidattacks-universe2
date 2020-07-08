@@ -3,6 +3,7 @@
 source "${srcEnv}"
 source "${srcIncludeHelpers}"
 source "${srcIncludeJobs}"
+source "${srcIncludeLinterJobs}"
 
 function cli {
   local function_to_call
