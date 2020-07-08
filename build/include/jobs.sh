@@ -580,6 +580,24 @@ function job_serve_back_dev {
   helper_serve_back dev
 }
 
+function job_cron_show {
+  export DJANGO_SETTINGS_MODULE='fluidintegrates.settings'
+
+      env_prepare_python_packages \
+  &&  helper_set_dev_secrets \
+  &&  python3 manage.py crontab add \
+  &&  python3 manage.py crontab show
+}
+
+function job_cron_run {
+  export DJANGO_SETTINGS_MODULE='fluidintegrates.settings'
+  local cron_job="${1}"
+
+      env_prepare_python_packages \
+  &&  helper_set_dev_secrets \
+  &&  python3 manage.py crontab run "${cron_job}"
+}
+
 function job_serve_back_prod {
   helper_serve_back prod
 }
