@@ -95,6 +95,22 @@ def get_paths(path: str,
     return tuple(paths)
 
 
+def get_paths_tree(path: str,
+                   exclude: tuple = tuple(),
+                   endswith: tuple = tuple()):
+    """Return a directory tree."""
+    paths = []
+    for root, dirs, files in os.walk(path):
+        if exclude:
+            files = [file for file in files if not any(
+                e in f'{root}/{file}' for e in exclude)]
+        if endswith:
+            files = [file for file in files if any(
+                f'{root}/{file}'.endswith(e) for e in endswith)]
+        paths.append((root, dirs, files))
+    return paths
+
+
 @lru_cache(maxsize=None, typed=True)
 def get_dir_paths(path: str,
                   exclude: tuple = tuple()) -> tuple:
