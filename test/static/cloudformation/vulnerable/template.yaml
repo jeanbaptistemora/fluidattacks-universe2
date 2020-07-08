@@ -266,6 +266,23 @@ Resources:
     Properties:
       AccessControl: PublicReadWrite
     Type: AWS::S3::Bucket
+  s3BucketPolicy:
+    Properties:
+      Bucket: s3Bucket
+      PolicyDocument:
+        Statement:
+          - Action: '*'
+            Effect: Allow
+            Principal: '*'
+          - Action: '*'
+            Effect: Allow
+            Principal:
+              - AWS: '*'
+          - Action: '*'
+            Effect: Allow
+            Principal:
+              - '*'
+    Type: AWS::S3::BucketPolicy
   secret1:
     Properties:
       GenerateSecretString:

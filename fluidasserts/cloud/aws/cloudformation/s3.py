@@ -16,8 +16,10 @@ from fluidasserts.cloud.aws.cloudformation import (
 from fluidasserts.utils.decorators import api, unknown_if
 from fluidasserts.cloud.aws.cloudformation import get_templates
 from fluidasserts.cloud.aws.cloudformation import get_graph
+from fluidasserts.cloud.aws.cloudformation import get_list_node_items
 from fluidasserts.cloud.aws.cloudformation import get_resources
 from fluidasserts.cloud.aws.cloudformation import get_ref_nodes
+from fluidasserts.cloud.aws.cloudformation import has_values
 
 #: A set of available S3 Access Controls
 ACCESS_CONTROLS = {
@@ -160,8 +162,8 @@ def has_encryption_disabled(path: str,
 
     :param path: Location of CloudFormation's template file.
     :param exclude: Paths that contains any string from this list are ignored.
-    :returns: - ``OPEN`` if **AccessLoggingPolicy/Enabled** attribute is not
-                set or set to **false**.
+    :returns: - ``OPEN`` if **BucketEncryption** attribute is not
+                set.
               - ``UNKNOWN`` on errors.
               - ``CLOSED`` otherwise.
     :rtype: :class:`fluidasserts.Result`
@@ -193,3 +195,48 @@ def has_encryption_disabled(path: str,
         vulnerabilities=vulnerabilities,
         msg_open='S3 buckets have encryption disabled',
         msg_closed='S3 Buckets have encryption enabled')
+
+
+@api(risk=MEDIUM, kind=SAST)
+@unknown_if(FileNotFoundError)
+def allows_unauthorized_public_access(path: str,
+                                      exclude: Optional[List[str]] =
+                                      None) -> tuple:
+    """
+    Check if S3 buckets allow unauthorized public access via bucket policies.
+
+    :param path: Location of CloudFormation's template file.
+    :param exclude: Paths that contains any string from this list are ignored.
+    :returns: - ``OPEN`` if policies allow unauthorized public access.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+    :rtype: :class:`fluidasserts.Result`
+    """
+    vulnerabilities: List[Vulnerability] = []
+    graph: DiGraph = get_graph(path, exclude)
+    templates: List[int] = get_templates(graph, path, exclude)
+    bucket_policies: List[int] = get_resources(
+        graph,
+        map(lambda x: x[0], templates),
+        {'AWS', 'S3', 'BucketPolicy'},
+        num_labels=3,
+        info=True)
+    for bucket_policy, resource, template in bucket_policies:
+        stmts = get_list_node_items(graph, bucket_policy, 'Statement', depth=8)
+        for stmt in stmts:
+            vulnerable: List = has_values(graph, stmt, 'Principal', ['*'],
+                                          depth=12)
+            if has_values(graph, stmt, 'Effect', 'Allow'):
+                vulnerabilities.extend(
+                    Vulnerability(
+                        path=template['path'],
+                        entity=(f'AWS::S3::BucketPolicy/'
+                                f'PolicyDocument/Statement/Principal'),
+                        identifier=resource['name'],
+                        line=graph.nodes.get(vuln)['line'],
+                        reason='allows public access.') for vuln in vulnerable)
+
+    return _get_result_as_tuple(
+        vulnerabilities=vulnerabilities,
+        msg_open='S3 bucket policy allows public access',
+        msg_closed='S3 bucket policy allows public access')

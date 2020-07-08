@@ -248,6 +248,24 @@ def has_values(graph: DiGraph,
     return results
 
 
+def get_list_node_items(graph: DiGraph, node: int, label: str, depth: int):
+    """Returns a list with the values, or value, of a value/list type node."""
+    _items = helper.get_index(get_resources(graph,
+                                            node,
+                                            label,
+                                            depth=depth), 0)
+    value = get_value(graph, _items)
+    items: List = []
+    if value:
+        items = [value]
+    else:
+        items = get_resources(graph,
+                              _items,
+                              'Item',
+                              depth=depth)
+    return items
+
+
 def policy_statement_privilege(graph: DiGraph, statement: int, effect: str,
                                action: str):
     """Check if a statement of a policy allow an action in all resources.

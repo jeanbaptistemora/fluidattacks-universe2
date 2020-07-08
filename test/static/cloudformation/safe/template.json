@@ -378,6 +378,20 @@
       },
       "Type": "AWS::S3::Bucket"
     },
+    "s3BucketPolicy": {
+      "Properties": {
+        "Bucket": "s3Bucket",
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Principal": "account"
+            }
+          ]
+        }
+      },
+      "Type": "AWS::S3::BucketPolicy"
+    },
     "secret1": {
       "Properties": {
         "GenerateSecretString": {

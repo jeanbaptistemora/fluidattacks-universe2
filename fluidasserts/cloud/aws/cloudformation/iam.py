@@ -114,10 +114,6 @@ def _check_assume_role_policies(_assume_role_policy, graph):
                                    'Item',
                                    depth=5)
         for statement in statements:
-            effect = helper.get_index(get_resources(graph,
-                                                    statement,
-                                                    'Effect',
-                                                    depth=6), 0)
             not_princ = helper.get_index(get_resources(graph,
                                                        statement,
                                                        'NotPrincipal',
@@ -138,7 +134,7 @@ def _check_assume_role_policies(_assume_role_policy, graph):
                                                           'NotAction',
                                                           depth=7), 0)
 
-            if _is_effect_allow(graph, effect):
+            if not has_values(graph, statement, 'Effect', 'Allow'):
                 continue
 
             vulnerable_entities += _has_not_action(graph, _not_actions,

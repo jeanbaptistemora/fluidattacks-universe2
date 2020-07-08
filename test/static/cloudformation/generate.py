@@ -398,6 +398,18 @@ s3_bucket = troposphere.s3.Bucket(
         ]
     )
 )
+s3_bucket_policy = troposphere.s3.BucketPolicy(
+    title='s3BucketPolicy',
+    Bucket='s3Bucket',
+    PolicyDocument={
+        'Statement': [
+            {
+                'Effect': 'Allow',
+                'Principal': 'account'
+            },
+        ],
+    },
+)
 elb_entity = troposphere.elasticloadbalancing.LoadBalancer(
     title='elasticLoadBalancer',
     AccessLoggingPolicy=troposphere.elasticloadbalancing.AccessLoggingPolicy(
@@ -465,6 +477,7 @@ template.add_resource(elb2_listener)
 template.add_resource(fsx_filesystem)
 template.add_resource(cloudfront_distribution)
 template.add_resource(s3_bucket)
+template.add_resource(s3_bucket_policy)
 template.add_resource(elb_entity)
 template.add_resource(elb2_entity)
 write_template(template)
@@ -910,6 +923,29 @@ s3_bucket = troposphere.s3.Bucket(
     title='s3Bucket',
     AccessControl='PublicReadWrite',
 )
+s3_bucket_policy = troposphere.s3.BucketPolicy(
+    title='s3BucketPolicy',
+    Bucket='s3Bucket',
+    PolicyDocument={
+        'Statement': [
+            {
+                'Effect': 'Allow',
+                'Action': '*',
+                'Principal': '*'
+            },
+            {
+                'Effect': 'Allow',
+                'Action': '*',
+                'Principal': [{"AWS": "*"}]
+            },
+            {
+                'Effect': 'Allow',
+                'Action': '*',
+                'Principal': ["*"]
+            },
+        ],
+    },
+)
 elb_entity = troposphere.elasticloadbalancing.LoadBalancer(
     title='elasticLoadBalancer',
     AccessLoggingPolicy=troposphere.elasticloadbalancing.AccessLoggingPolicy(
@@ -981,6 +1017,7 @@ template.add_resource(ebl2_target_group)
 template.add_resource(fsx_filesystem)
 template.add_resource(cloudfront_distribution)
 template.add_resource(s3_bucket)
+template.add_resource(s3_bucket_policy)
 template.add_resource(elb_entity)
 template.add_resource(elb2_entity)
 template.add_resource(elb2_listener)
