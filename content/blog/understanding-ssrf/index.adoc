@@ -5,8 +5,8 @@
 :tags: security, web, vulnerability, ethical hacking
 :image: cover.png
 :alt: Blacksmith. Photo by Hannah Gibbs on Unsplash: https://unsplash.com/photos/BINLgyrG_fI
-:description: Server Side Request Forgery is a vulnerability that lets the hacker perform requests outside the scope of the application. Here we will see why this happens, how it works, how we can exploit it, and what the best ways to protect against this attack are.
-:keywords: Web, Security, Vulnerability, Hacking, SSRF, Input Validation.
+:description: Here we will see what a Server Side Request Forgery is, how hackers can exploit it, and what are the best ways to protect against this attack.
+:keywords: Web, Security, Vulnerability, Hacking, SSRF, Input Validation, Ethical Hacking, Pentesting
 :author: Jonathan Armas
 :writer: johna
 :name: Jonathan Armas

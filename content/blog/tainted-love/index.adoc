@@ -5,8 +5,8 @@
 :tags: vulnerability, code, discovery
 :image: cover.png
 :alt: Person using a Syringe filled with bad stuff
-:description: This blog provides a brief description of static and dynamic taint analysis or taint checking. Essentially, you can't let unsanitized user input from a source arrive at a security-critical sink without passing through sanitization. Taint checkers make sure that happens.
-:keywords: Taint analysis, Security, Injection, Bug, Vulnerability, Flow
+:description: This blog post provides a brief description of static and dynamic taint analysis or taint checking.
+:keywords: Taint Analysis, Security, Injection, Bug, Vulnerability, Flow, Ethical Hacking, Pentesting
 :author: Rafael Ballestas
 :writer: raballestasr
 :name: Rafael Ballestas
@@ -15,7 +15,7 @@
 :source: https://unsplash.com/photos/55HNtDVObk8
 
 
-= Tainted love
+= Tainted Love
 
 In several past articles,
 we have briefly touched on the concept of taint analysis.

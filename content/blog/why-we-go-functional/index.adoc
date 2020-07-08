@@ -5,8 +5,8 @@
 :tags: application, functional, imperative, stateless
 :image: cover.png
 :alt: Piece of code with a function
-:description: An analysis of why it is necessary to go functional even with non-functional languages. Benefits of functional programming. A comparison between the imperative and the functional. How Fluid Attacks migrate from object-oriented to functional in a non-traumatic way.
-:keywords: Functional paradigm, Object-oriented, Stateless, Multiparadigm application, Laziness, Programming revolution.
+:description: In this blog post, we show an analysis of why it is necessary to go functional even with non-functional languages.
+:keywords: Functional Paradigm, Object-Oriented, Stateless, Multiparadigm Application, Laziness, Programming Revolution, Ethical Hacking, Pentesting
 :author: Oswaldo Parada
 :writer: oparada
 :name: Oswaldo José Parada Cuadros

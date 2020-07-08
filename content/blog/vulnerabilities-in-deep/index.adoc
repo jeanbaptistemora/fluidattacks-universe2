@@ -5,8 +5,8 @@
 :tags: machine learning, detect, software
 :image: cover.png
 :alt: Data Has A Better Idea. Photo by Stefan Steinbauer on Unsplash: https://unsplash.com/photos/1K6IQsQbizI
-:description: This blog discusses an article from Boston University presenting new applications of Artificial Intelligence in the security field. We will discuss their approach for discovering vulnerabilities in source code, and finally, future work that is being developed in the security field.
-:keywords: Machine Learning, Deep Learning, Detection, Vulnerability, Code, AI
+:description: In this blog post, we discuss an article from Boston University that presents new applications of Artificial Intelligence in the security field.
+:keywords: Machine Learning, Deep Learning, Detection, Vulnerability, Code, AI, Ethical Hacking, Pentesting
 :author: Oscar Uribe
 :writer: oscardjuribe
 :name: Oscar Uribe

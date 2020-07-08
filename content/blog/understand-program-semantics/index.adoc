@@ -5,8 +5,8 @@
 :tags: machine learning, security, code
 :image: cover.png
 :alt: Rubber duckies
-:description: A reflection on the need to represent code before actually feeding it into neural network based encoders, such as the ones we have reviewed thus far: code2vec, word2vec and code2seq. Syntax only is not enough: the semantics can and should be captured too, using symbolic execution.
-:keywords: Machine learning, Neural Network, Encoding, Parsing, Classifier, Vulnerability
+:description: Here's a reflection on the need to represent code before actually feeding it into neural network based encoders, such as code2vec, word2vec, and code2seq.
+:keywords: Machine Learning, Neural Network, Encoding, Parsing, Classifier, Vulnerability, Ethical Hacking, Pentesting
 :author: Rafael Ballestas
 :writer: raballestasr
 :name: Rafael Ballestas

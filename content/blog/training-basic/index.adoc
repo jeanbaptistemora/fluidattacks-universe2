@@ -5,8 +5,8 @@
 :tags: devops, training, security
 :image: cover.png
 :alt: Bookshelf with some books
-:description: Cybersecurity, academic research, a learning platform, and more; these are some of the endeavors Ricardo Yepes, a DevOps engineer has been into. We spoke to him recently, and he shared his current vision of cybersecurity. Here is the first part of our conversation.
-:keywords: Interview, DevOps, Security, Machine Learning, Philosophy, Training
+:description: We spoke to the DevOps engineer Ricardo Yepes recently, and he shared his current vision of cybersecurity. Here is the first part of our conversation.
+:keywords: Interview, DevOps, Security, Machine Learning, Philosophy, Training, Ethical Hacking, Pentesting
 :author: Julian Arango
 :writer: jarango
 :name: Julian Arango

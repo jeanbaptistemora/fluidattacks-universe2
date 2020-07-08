@@ -5,8 +5,8 @@
 :tags: cybersecurity, vulnerability, standard, information, software, application
 :image: cover.png
 :alt: Photo by Jeremy Thomas on Unsplash
-:description: This blog post is based on the information given on March 12th by Jeff Michael, Senior Product Manager, and Chris Fearon, Director Research Engineering at Synopsys in their webinar: Effective Vulnerability Remediation Requires More than One Data Point.
-:keywords: Cybersecurity, Vulnerability, Standard, Information, Software, Application
+:description: This post is based on the webinar 'Effective Vulnerability Remediation Requires More than One Data Point' by Jeff Michael and Chris Fearon from Synopsys.
+:keywords: Cybersecurity, Vulnerability, Triage, Standard, Information, Software, Application, Ethical Hacking, Pentesting
 :author: Felipe Ruiz
 :writer: fruiz
 :name: Felipe Ruiz

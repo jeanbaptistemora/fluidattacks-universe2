@@ -6,7 +6,7 @@
 :image: cover.png
 :alt: Photo by Kevin Ku on Unsplash
 :description: This post will show how to exploit the Vulnserver LTER command on where we will need to bypass bad chars restrictions.
-:keywords: Bussiness, Information, Security, Protection, Hacking, Exploit, OSCE
+:keywords: Bussiness, Information, Security, Protection, Hacking, Exploit, OSCE, Ethical Hacking, Pentesting
 :author: Andres Roldan
 :writer: aroldan
 :name: Andres Roldan

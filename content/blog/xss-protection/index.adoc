@@ -5,8 +5,8 @@
 :tags: xss, web, protect, challenge
 :image: cover.png
 :alt: Computer with four padlocks, one unlocked
-:description: Web security nowadays is a matter of concern. Web applications can be attacked by injecting malicious code within the user input so it is important to take measures to avoid this kind of attacks. In this article we explain how to avoid one of the most common attacks: Cross Site Scripting (XSS).
-:keywords: Security, Input, Cross Site Scripting, XSS, Web, Risks.
+:description: Web security nowadays is a matter of concern. In this article, we explain how to avoid one of the most common attacks: Cross Site Scripting (XSS).
+:keywords: Security, Input, Cross Site Scripting, XSS, Web, Risks, Ethical Hacking, Pentesting
 :author: Juan Aguirre
 :writer: juanes
 :name: Juan Esteban Aguirre González
@@ -14,7 +14,7 @@
 :about2: Netflix and hack.
 :source: https://unsplash.com/photos/kYlYwQze5vI
 
-= Dude, where's my XSS protection?
+= Dude, Where's My XSS Protection?
 
 Web application security is a major concern nowadays. You have to make sure
 your application is secure, especially if you have a lot of users. There are

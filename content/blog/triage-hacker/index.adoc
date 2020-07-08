@@ -5,8 +5,8 @@
 :tags: machine learning, security, code
 :image: cover.png
 :alt: Photo by camilo jimenez on Unsplash: https://unsplash.com/photos/vGu08RYjO-s
-:description: This blog is a high-level review of our previous discussion concerning machine learning techniques applied to vulnerability discovery and exploitation. Our focus will be on aiding, not replacing, manual code auditing, and hopefully, making this process quicker and more precise.
-:keywords: Machine learning, Neural Network, Encoding, Parsing, Classifier, Vulnerability
+:description: This post is a high-level review of our previous discussion concerning machine learning techniques applied to vulnerability discovery and exploitation.
+:keywords: Machine Learning, Neural Network, Encoding, Parsing, Classifier, Vulnerability, Ethical Hacking, Pentesting
 :author: Rafael Ballestas
 :writer: raballestasr
 :name: Rafael Ballestas

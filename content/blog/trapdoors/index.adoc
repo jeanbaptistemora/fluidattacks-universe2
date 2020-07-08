@@ -5,8 +5,8 @@
 :tags: encryption, math, security
 :image: cover.png
 :alt: Cats in a forest
-:description: A general overview on the mathematical concept of trapdoors and how they are the foundation of security of information; this article shows the basic concept behind symmetric and asymmetric encryption of shared information and briefly explains the two main algorithms used.
-:keywords: AES, Asymmetric, Encryption, Math, Symmetric, RSA
+:description: This blog post is an overview of the mathematical concept 'Trapdoor,' the basis of information security.
+:keywords: Trapdoor, AES, Asymmetric, Encryption, Math, Symmetric, RSA, Ethical Hacking, Pentesting
 :author: Sebastian Villalobos
 :writer: sevilla
 :name: Sebastian Villalobos
@@ -14,7 +14,7 @@
 :about2: Programming, Electronics, Math
 :source: https://unsplash.com/photos/LMnk4WPwo-w
 
-= Don't let the cat out!
+= Don't Let the Cat Out!
 
 Functions! I'm sure you have heard this concept in many ways:
 math, programming, economics,  etc.
