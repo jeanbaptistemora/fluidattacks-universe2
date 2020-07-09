@@ -629,81 +629,89 @@ function job_make_migration_prod_test {
   _job_make_migration 'prod' 'test' "${migration_file}"
 }
 
-function _job_analytics {
+function _execute_analytics_generator {
   local generator="${1}"
   local results_dir="${generator//.py/}"
 
       mkdir -p "${results_dir}" \
-  &&  RESULTS_DIR="${results_dir}" \
-      python3 "${generator}" \
+  &&  echo "[INFO] Running: ${generator}" \
+  &&  {
+            RESULTS_DIR="${results_dir}" python3 "${generator}" \
+        ||  RESULTS_DIR="${results_dir}" python3 "${generator}" \
+        ||  RESULTS_DIR="${results_dir}" python3 "${generator}"
+      } \
 
 }
 
-function job_analytics_dev {
-  local generator="${1}"
+function _job_analytics_make_documents {
+  export CI_COMMIT_REF_NAME
+  export CI_NODE_INDEX
+  export CI_NODE_TOTAL
+  export DJANGO_SETTINGS_MODULE='fluidintegrates.settings' \
+  export PYTHONPATH="${PWD}:${PWD}/analytics:${PYTHONPATH}" \
+  export TEMP_FILE1
+  local remote_bucket='fluidintegrates.analytics'
+  local num_of_generators
 
-      env_prepare_python_packages \
-  &&  helper_set_dev_secrets \
-  &&  _job_analytics "${generator}"
+      find 'analytics/generators' -wholename '*.py' \
+        | LC_ALL=C sort > "${TEMP_FILE1}" \
+  &&  num_of_generators=$(wc -l < "${TEMP_FILE1}") \
+  &&  echo "Found ${num_of_generators} generators to execute" \
+  &&  echo "Processing batch: ${CI_NODE_INDEX} of ${CI_NODE_TOTAL}" \
+  &&  split --number="l/${CI_NODE_INDEX}/${CI_NODE_TOTAL}" "${TEMP_FILE1}" \
+        | while read -r generator
+          do
+                _execute_analytics_generator "${generator}" \
+            ||  return 1
+          done \
+  &&  echo '[INFO] Uploading documents' \
+  &&  aws s3 sync \
+        'analytics/generators' "s3://${remote_bucket}/${CI_COMMIT_REF_NAME}/documents" \
+
 }
 
-function job_analytics_prod {
-  local generator="${1}"
-
-      env_prepare_python_packages \
-  &&  helper_set_prod_secrets \
-  &&  _job_analytics "${generator}"
-}
-
-function _job_analytics_all {
+function _job_analytics_make_snapshots {
   export CI_COMMIT_REF_NAME
   export DJANGO_SETTINGS_MODULE='fluidintegrates.settings' \
   export PYTHONPATH="${PWD}:${PWD}/analytics:${PYTHONPATH}" \
   local remote_bucket='fluidintegrates.analytics'
 
-      find 'analytics/generators' -wholename '*.py' \
-        | while read -r generator
-          do
-                echo "[INFO] Running: ${generator}" \
-            &&  {
-                  _job_analytics "${generator}" \
-              ||  _job_analytics "${generator}" \
-              ||  _job_analytics "${generator}"
-            } \
-            ||  return 1
-          done \
-  &&  echo '[INFO] Uploading documents' \
-  &&  aws s3 sync --delete \
-        'analytics/generators' "s3://${remote_bucket}/${CI_COMMIT_REF_NAME}/documents" \
-  &&  if test "${CI_COMMIT_REF_NAME}" = 'master'
-      then
-            echo '[INFO] Collecting static results' \
-        &&  python3 analytics/collector/generate_reports.py \
-        &&  echo '[INFO] Uploading static results' \
-        &&  aws s3 sync --delete \
-              'analytics/collector' "s3://${remote_bucket}/${CI_COMMIT_REF_NAME}/snapshots" \
+      echo '[INFO] Collecting static results' \
+  &&  python3 analytics/collector/generate_reports.py \
+  &&  echo '[INFO] Uploading static results' \
+  &&  aws s3 sync \
+        'analytics/collector' "s3://${remote_bucket}/${CI_COMMIT_REF_NAME}/snapshots" \
 
-      fi
 }
 
-function job_analytics_dev_all {
+function job_analytics_make_documents_dev {
       env_prepare_python_packages \
   &&  helper_set_dev_secrets \
   &&  if test "${IS_LOCAL_BUILD}" = "${FALSE}"
       then
         helper_set_local_dynamo_and_redis
       fi \
-  &&  _job_analytics_all
+  &&  _job_analytics_make_documents
 }
 
-function job_analytics_prod_all {
+function job_analytics_make_documents_prod {
       env_prepare_python_packages \
   &&  helper_set_prod_secrets \
-  &&  _job_analytics_all
+  &&  _job_analytics_make_documents
 }
 
-function job_analytics_prod_all_schedule {
-  job_analytics_prod_all
+function job_analytics_make_documents_prod_schedule {
+  job_analytics_make_documents_prod
+}
+
+function job_analytics_make_snapshots_prod {
+      env_prepare_python_packages \
+  &&  helper_set_prod_secrets \
+  &&  _job_analytics_make_snapshots
+}
+
+function job_analytics_make_snapshots_prod_schedule {
+  job_analytics_make_snapshots_prod
 }
 
 function job_make_migration_dev_apply {

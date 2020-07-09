@@ -111,7 +111,7 @@ const homeView: React.FC<IHomeViewProps> = (props: IHomeViewProps): JSX.Element 
       organization.name === choosedOrganization.toLowerCase()
     ))[0].id;
 
-    push(`/organizations/${choosedOrganization.toLowerCase()}/policies`);
+    push(`/organizations/${choosedOrganization.toLowerCase()}`);
   };
 
   const displayTag: ((choosedTag: string) => void) = (choosedTag: string): void => {
