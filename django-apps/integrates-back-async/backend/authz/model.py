@@ -444,7 +444,7 @@ ORGANIZATION_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
         actions={
             'backend_api_resolvers_organization__do_edit_user_organization',
             ('backend_api_resolvers_organization__do_'
-                'grant_user_organizatin_access'),
+                'grant_user_organization_access'),
             ('backend_api_resolvers_organization__'
                 'do_remove_user_organization_access'),
             ('backend_api_resolvers_organization__do_'

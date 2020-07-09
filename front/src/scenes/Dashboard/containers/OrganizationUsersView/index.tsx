@@ -27,6 +27,15 @@ const tableHeaders: IHeader[] = [
     width: "27%",
   },
   {
+    dataField: "role",
+    formatter: (value: string) => translate.t(
+      `userModal.roles.${value}`,
+      { defaultValue: "-" },
+    ),
+    header: translate.t("search_findings.users_table.userRole"),
+    width: "12%",
+  },
+  {
     dataField: "phoneNumber",
     header: translate.t("search_findings.users_table.phoneNumber"),
     width: "13%",

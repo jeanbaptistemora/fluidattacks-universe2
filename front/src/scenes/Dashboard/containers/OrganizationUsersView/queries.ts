@@ -6,10 +6,11 @@ export const GET_ORGANIZATION_USERS: DocumentNode = gql`
     organization(organizationId: $organizationId) {
       users {
         email
-        phoneNumber
-        organization
         firstLogin
         lastLogin
+        organization
+        phoneNumber
+        role
       }
     }
   }

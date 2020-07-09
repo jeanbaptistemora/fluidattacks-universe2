@@ -159,6 +159,26 @@
           "role": {"S": "customeradmin"}
         }
       }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "level": {"S": "organization"},
+          "subject": {"S": "integratesmanager@gmail.com"},
+          "object": {"S": "org#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"},
+          "role": {"S": "customeradmin"}
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "level": {"S": "organization"},
+          "subject": {"S": "integratesmanager@gmail.com"},
+          "object": {"S": "org#c2ee2d15-04ab-4f39-9795-fbe30cdeee86"},
+          "role": {"S": "customer"}
+        }
+      }
     }
   ]
 }
