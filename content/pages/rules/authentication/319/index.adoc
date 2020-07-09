@@ -50,3 +50,8 @@ V2.5 Credential Recovery Requirements.(2.5.7)]
 Verify that if *OTP* or multi-factor authentication factors are lost,
 evidence of identity proofing is performed at the same level as during
 enrollment.
+
+. [[5]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V11.1 Business Logic Security Requirements.(11.1.1)]
+Verify the application will only process business logic flows for the same user
+in sequential step order and without skipping steps.

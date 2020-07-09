@@ -59,19 +59,30 @@ Verify that no more than 100 failed attempts per hour is possible on a single
 account.
 
 . [[r4]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V8.1 General Data Protection.(8.1.4)]
+Verify the application can detect and alert on abnormal numbers of requests,
+such as by IP, user, total per hour or day, or whatever makes sense for the
+application.
+
+. [[r5]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V11.1 Business Logic Security Requirements.(11.1.2)]
 Verify the application will only process business logic flows with all steps
 being processed in realistic human time,
 i.e. transactions are not submitted too quickly.
 
-. [[r5]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r6]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V11.1 Business Logic Security Requirements.(11.1.3)]
+Verify the application has appropriate limits for specific business actions or
+transactions which are correctly enforced on a per user basis.
+
+. [[r7]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V11.1 Business Logic Security Requirements.(11.1.4)]
 Verify the application has sufficient anti-automation controls to detect and
 protect against data exfiltration, excessive business logic requests, excessive
 file uploads or denial of service attacks.
 
-. [[r6]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
-V8.1 General Data Protection.(8.1.4)]
-Verify the application can detect and alert on abnormal numbers of requests,
-such as by IP, user, total per hour or day, or whatever makes sense for the
-application.
+. [[r8]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V11.1 Business Logic Security Requirements.(11.1.5)]
+Verify the application has business logic limits or validation to protect
+against likely business risks or threats, identified using threat modelling or
+similar methodologies.

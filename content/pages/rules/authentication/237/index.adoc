@@ -70,3 +70,9 @@ V8.1 General Data Protection.(8.1.4)]
 Verify the application can detect and alert on abnormal numbers of requests,
 such as by IP, user, total per hour or day, or whatever makes sense for the
 application.
+
+. [[r8]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V11.1 Business Logic Security Requirements.(11.1.2)]
+Verify the application will only process business logic flows with all steps
+being processed in realistic human time,
+i.e. transactions are not submitted too quickly.
