@@ -50,6 +50,9 @@ def edit_group(
     *,
     comments: str,
     group_name: str,
+    had_drills: bool,
+    had_forces: bool,
+    had_integrates: bool,
     has_drills: bool,
     has_forces: bool,
     has_integrates: bool,
@@ -73,9 +76,15 @@ def edit_group(
             Here are the details of the group:
             - Name: {group_name}
             - Type: {translations.get(subscription, subscription)}
-            - Integrates: {translations[has_integrates]}
-            - Drills: {translations[has_drills]}
-            - Forces: {translations[has_forces]}
+            - Integrates:
+                from: {translations[had_integrates]}
+                to: {translations[has_integrates]}
+            - Drills:
+                from: {translations[had_drills]}
+                to: {translations[has_drills]}
+            - Forces:
+                from: {translations[had_forces]}
+                to: {translations[has_forces]}
             - Comments: {html.escape(comments, quote=True)}
             - Reason: {reason}
 

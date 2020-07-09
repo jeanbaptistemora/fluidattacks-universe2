@@ -1,4 +1,5 @@
-"""Domain functions for projects."""  # pylint:disable=cyclic-import
+# pylint:disable=cyclic-import,too-many-lines
+"""Domain functions for projects."""
 
 import asyncio
 from typing import Dict, List, NamedTuple, Tuple, Union, cast
@@ -250,6 +251,15 @@ def edit(
         notifications_domain.edit_group(
             comments=comments,
             group_name=group_name,
+            had_drills=(
+                item['historic_configuration'][-1]['has_drills']
+                if item['historic_configuration'] else False
+            ),
+            had_forces=(
+                item['historic_configuration'][-1]['has_forces']
+                if item['historic_configuration'] else False
+            ),
+            had_integrates=True,
             has_drills=has_drills,
             has_forces=has_forces,
             has_integrates=has_integrates,
