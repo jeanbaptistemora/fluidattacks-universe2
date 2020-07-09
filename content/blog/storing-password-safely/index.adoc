@@ -5,8 +5,8 @@
 :tags: password, security, challenge
 :image: cover.png
 :alt: Code with hashed data on the side
-:description: Hash algorithms are often used to secure sensible data. Despite this measure can add extra layers of protection, hash algorithms can be cracked by using huge databases with hashed common words, so it's important to know how to properly secure your data before storing.
-:keywords: Hash, Security, Password, SHA , MD5, HMAC.
+:description: Hash algorithms can be cracked using huge databases with hashed common words. It's essential to know how to properly secure your data before storing it.
+:keywords: Hash, Security, Password, SHA , MD5, HMAC, Ethical Hacking, Pentesting
 :author: Jonathan Armas
 :writer: johna
 :name: Jonathan Armas
@@ -14,7 +14,7 @@
 :about2: "Be formless, shapeless like water" Bruce Lee
 :source: https://unsplash.com/photos/zvHhKiVuR9M
 
-= Storing passwords safely
+= Storing Passwords Safely
 
 By the end of the year, we witnessed a huge increase in the amount of attacks
 that extracted large quantities of personal information, emails and passwords.

@@ -5,8 +5,8 @@
 :tags: business, security, risk, experiment
 :image: cover.png
 :alt: multicolor abstract paint on Unsplash: https://unsplash.com/photos/YQrUzrsRNes
-:description: Antifragility is a new concept. In this article, we explore how this concept can inform design decisions and change the mindset of cybersecurity teams (in fact, of any collective organized effort). We also discuss how this philosophy can affect your business.
-:keywords: Security, Fragile, Robust, Antifragile, Risk, Chaos
+:description: In this article, we examine how the Antifragility concept can inform design decisions, change the mindset of cybersecurity teams, and affect your business.
+:keywords: Security, Fragile, Robust, Antifragile, Risk, Chaos, Ethical Hacking, Pentesting
 :author: Julian Arango
 :writer: jarango
 :name: Julian Arango
@@ -14,7 +14,7 @@
 :about2: Data scientist in training.
 :source: https://unsplash.com/photos/YQrUzrsRNes
 
-= Seek for chaos and dive into it
+= Seek for Chaos and Dive Into It
 
 Imagine a medium-sized sealed carton box,
 with two or three glasses inside.

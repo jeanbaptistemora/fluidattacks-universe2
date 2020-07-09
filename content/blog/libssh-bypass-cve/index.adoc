@@ -5,8 +5,8 @@
 :tags: security, bug, libssh, pentesting
 :image: cover.png
 :alt: Painting a red and blue wall
-:description: Libssh is a library to implement SSHv2 protocol on the client and server side. Recently a security analyst discovered a vulnerability that allows a remote attacker to bypass authentication by sending a user-authenticated packet to the server. Here, we are going to explain this vulnerability.
-:keywords: Libssh, Security, CVE, Vulnerability, Pentesting, PoC.
+:description: Here, we will explain a vulnerability that allows a remote attacker to bypass authentication by sending a user-authenticated packet to the server.
+:keywords: Libssh, Security, CVE, Vulnerability, Pentesting, PoC, Ethical Hacking, Pentesting
 :author: Jonathan Armas
 :writer: johna
 :name: Jonathan Armas
@@ -14,7 +14,7 @@
 :about2: "Be formless, shapeless like water" Bruce Lee
 :source: https://unsplash.com/photos/d6YyP28-Ycw
 
-= LibSSH new Vulnerability
+= LibSSH New Vulnerability
 
 The new vulnerability in `LibSSH`,
 tracked as link:https://www.libssh.org/security/advisories/CVE-2018-10933.txt[CVE-2018-10933],

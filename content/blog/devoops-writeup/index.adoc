@@ -5,8 +5,8 @@
 :tags: security, htb, pwn, web
 :image: cover.png
 :alt: Developers programming in an office
-:description: DevOops is a Linux Hack the Box machine that has several vulnerabilities where an attacker can gain remote code executionand finally system access as root. In this article we present how to exploit the vulnerabilities of that machine and how to gain access as root and obtain the root flag.
-:keywords: HTB, Security, Hack the Box, Web, Writeup, DevOops.
+:description: In this article, we present how to exploit the vulnerabilities of DevOops, a Linux Hack the Box machine, and how to gain access and obtain the root flag.
+:keywords: HTB, Security, Hack the Box, Web, Writeup, DevOops, Pentesting, Ethical Hacking
 :author: Jonathan Armas
 :writer: johna
 :name: Jonathan Armas

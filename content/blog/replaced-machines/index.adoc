@@ -5,8 +5,8 @@
 :tags: application, detect, vulnerability, scanner
 :image: cover.png
 :alt: Data has a better idea sign
-:description: Vulnerability detection at the hands of an automated tool is not enough to conclude that an app is secure. The knowledge and experience of a person are still necessary to complement the analysis and achieve an effective and detailed evaluation of such application's security.
-:keywords: Vulnerability Detection, Manual Detection, Automatic Detection, Security, Web Application, Automated Tools.
+:description: Vulnerability detection by an automated tool is not enough to conclude that an app is secure. The knowledge and experience of a person are still necessary.
+:keywords: Vulnerability Detection, Manual Detection, Automatic Detection, Security, Web Application, Automated Tools, Ethical Hacking, Pentesting
 :author: Andres Cuberos
 :writer: cuberos
 :name: Andrés Cuberos Lopera
@@ -14,7 +14,7 @@
 :about2: Enjoy the small things in life like a good beer, music and sleep
 :source: https://unsplash.com/photos/1K6IQsQbizI
 
-= Will machines replace us?
+= Will Machines Replace Us?
 
 More than 20 years have passed
 since Garry Kasparov, the chess world champion,

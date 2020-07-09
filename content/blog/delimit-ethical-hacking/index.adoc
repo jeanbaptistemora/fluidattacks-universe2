@@ -5,8 +5,8 @@
 :tags: ethical hacking, pentesting, security testing
 :image: cover.png
 :alt: Person working on the computer while looking at cellphone
-:description: When security flaws are found through an ethical hacking it is important to delimit the scope of the objectives. An ethical hacking can be centered on three aspects: Application, Infrastructure and Source Code. Knowing this, it is possible to establish the target of evaluation for the hacking.
-:keywords: Security, Hacking, Pentesting, Application, Infrastructure, Code.
+:description: When security flaws are found through ethical hacking, it is important to delimit the objectives' scope. Here we will talk about it.
+:keywords: Security, Hacking, Pentesting, Application, Infrastructure, Code, Ethical Hacking
 :author: Felipe Gómez
 :writer: fgomez
 :name: Felipe Gómez Arango

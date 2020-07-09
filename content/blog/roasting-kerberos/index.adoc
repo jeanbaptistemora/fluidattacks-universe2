@@ -5,8 +5,8 @@
 :tags: security, windows, vulnerability, credential
 :image: cover.png
 :alt: Toasting Marshmallow. Photo by hcmorr on Unsplash: https://unsplash.com/photos/qlHRuDvaxL8
-:description: Windows Active Directory is the most popular domain service out there. Companies worldwide use it for their authentication and authorization services. Windows AD works using the Kerberos protocol, and this blog will detail how we can exploit its functionality to obtain user hashes.
-:keywords: Windows, Security, Vulnerability, Hacking, Kerberos, Cracking.
+:description: Windows Active Directory works using the Kerberos protocol, and in this blog post, we detail how we can exploit its functionality to obtain user hashes.
+:keywords: Windows, Security, Vulnerability, Hacking, Kerberos, Cracking, Ethical Hacking, Pentesting
 :author: Jonathan Armas
 :writer: johna
 :name: Jonathan Armas

@@ -5,8 +5,8 @@
 :tags: security, htb, pwn, web
 :image: cover.png
 :alt: Hand holding a pirate toy
-:description: Bounty is a Windows Hack the Box (HTB) machine that has several vulnerabilities where an attacker can upload malicious files and get system access. In this article we present how to exploit the vulnerabilities of that machine and how to gain access as Administrator and obtain the root flag.
-:keywords: HTB, Security, Hack the Box, Web, Writeup, Bounty.
+:description: In this article, we present how to exploit a Bounty machine's vulnerabilities and how to gain access as an Administrator and obtain the root flag.
+:keywords: HTB, Security, Hack the Box, Web, Writeup, Bounty, Vulnerabilities, Hacker, Ethical Hacking, Pentesting
 :author: Jonathan Armas
 :writer: johna
 :name: Jonathan Armas

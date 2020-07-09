@@ -5,8 +5,8 @@
 :tags: tls, cbc, vulnerability
 :image: cover.png
 :alt: Release the beast
-:description: How does a theorized attack becomes practical after more than 10 years? Blockwise-Adaptive Chosen Plaintext Attack made by IV injection on CBC mode on symmetric encryption tied with a MITM + XSS attack to steal cookies and supersede the targeted user.
-:keywords: TLS, CBC, Injection, Vulnerabilty, BACPA, CPA
+:description: How does a theorized attack become practical after more than 10 years? Find out here.
+:keywords: TLS, CBC, Injection, Vulnerabilty, BACPA, CPA, Ethical Hacking, Pentesting
 :author: Daniel Yepes
 :writer: cestmoi
 :name: Daniel Yepes

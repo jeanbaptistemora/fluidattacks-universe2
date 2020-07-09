@@ -5,8 +5,8 @@
 :tags: security, testing
 :image: cover.png
 :alt: Multicolored hallway. Photo by Efe Kurnaz on Unsplash: https://unsplash.com/photos/RnCPiXixooY
-:description: In this blog, we will discuss the basics of Purple Teams. We will cover topics such as what Purple Teams are, when they are needed, what an organization should not do regarding Purple Teams. We will also discuss possible ways to successfully implement Purple Teams in an organization.
-:keywords: Purpleteam, Pentesting, Communication, Cooperation, Hacking, Organization.
+:description: In this blog, we discuss the fundamentals of Purple Teams and possible ways to implement them in an organization successfully.
+:keywords: Purpleteam, Pentesting, Communication, Cooperation, Hacking, Organization, Ethical Hacking, Pentesting
 :author: Alejandro Herrera
 :writer: alejandrohg7
 :name: Alejandro Herrera
@@ -14,7 +14,7 @@
 :about2: Passionate about programming
 :source: https://unsplash.com/photos/RnCPiXixooY
 
-= Do we need a Purple Team?
+= Do We Need a Purple Team?
 
 A good way to think of Purple Teams
 is that they are a mixture of Red or sword,

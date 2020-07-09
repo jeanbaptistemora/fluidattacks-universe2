@@ -4,14 +4,15 @@
 :subtitle: Fluid Attacks, a top cybersecurity company
 :image: cover.png
 :alt: Fluid Attacks, Among the Top Global Leaders 2018
-:description: In an era where information technology companies and business services are diverse, realizing which companies have the best performance on service delivery and business impact is crucial when buying services from companies that guarantee their expertise.
+:description: Fluid Attacks was recognized as a global leader in the Cybersecurity category by Clutch, as one of the most relevant companies in this industry.
 :tags: information, ethical, web
-:keywords: Global Leaders 2018, Cybersecurity, Fluid Attacks, Clutch, IT Companies, Business
+:keywords: Global Leaders 2018, Cybersecurity, Fluid Attacks, Clutch, IT Companies, Business, Pentesting, Ethical Hacking
 :author: Mauricio Gómez
 :writer: mgomez
 :name: Mauricio Gómez
 :about1: Co-founder at Fluid Attacks
 :about2: Chemical Engineer
+:source: https://unsplash.com/photos/TamMbr4okv4
 
 = Among the Top Global Leaders 2018
 

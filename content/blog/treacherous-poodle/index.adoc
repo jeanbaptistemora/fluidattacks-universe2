@@ -5,8 +5,8 @@
 :tags: ssl, flaw, cbc
 :image: cover.png
 :alt: Unknown person below lights
-:description: Exploiting an SSL/TLS flaw that creates a fallback on TLS usage to SSL 3.0, taking an advantage on missused CBC-MAC algorithm while padding the variable-length messages, allowing an attacker to perform a Man-in-The-Middle Attack to steal the user cookies.
-:keywords: SSL, CBC, MAC, Padding, Flaw, Exploit
+:description: Here we discuss the exploitation of an SSL/TLS flaw that creates a fallback on TLS usage to SSL 3.0.
+:keywords: SSL, CBC, MAC, Padding, Flaw, Exploit, Ethical Hacking, Pentesting
 :author: Daniel Yepes
 :writer: cestmoi
 :name: Daniel Yepes

@@ -5,8 +5,8 @@
 :tags: web, security, information
 :image: cover.png
 :alt: Chess piece different from the others
-:description: In this article we present a secured way to exchange information between different web services using the realms of the Web Service Federation (WSF). WSF provides several mechanisms to ensure a secure message exchange such as WS Trust encapsulation mechanism to define a trusty token.
-:keywords: Web Service, Security, Information, Message exchange, Application, WS Federation.
+:description: In this article, we present a secure way to exchange information between different web services using the realms of the Web Service Federation (WSF).
+:keywords: Web Service, Security, Information, Message Exchange, Application, WS Federation, Ethical Hacking, Pentesting
 :author: Juan Aguirre
 :writer: juanes
 :name: Juan Esteban Aguirre González
@@ -14,7 +14,7 @@
 :about2: Netflix and hack.
 :source: https://unsplash.com/photos/G1yhU1Ej-9A
 
-= Conserving your identity
+= Conserving Your Identity
 
 In the digital era everything is or has a web application. Web apps are no
 longer just about content delivery, they have evolved to solve complex business

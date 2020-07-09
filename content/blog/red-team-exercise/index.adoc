@@ -5,8 +5,8 @@
 :tags: security, testing
 :image: cover.png
 :alt: Foosball red vs blue. Photo by Stefan Steinbauer on Unsplash: https://unsplash.com/photos/va-B5dBbpr4
-:description: This blog will provide information on a Red Team exercise. It will give the reader a general context about what a Red Team does and the main strategy used during a Red Team exercise. It will also detail the benefits of a Red Team exercise for the customer.
-:keywords: Redteam, Pentesting, Attack, KillChain, Hacking, Bussiness.
+:description: Here we give the reader a general context about what a Red Team does and the main strategy used during a Red Team exercise and its benefits for customers.
+:keywords: Redteam, Red, Team, Pentesting, Attack, KillChain, Hacking, Bussiness, Ethical Hacking, Pentesting
 :author: Anderson Taguada
 :writer: anders2d
 :name: Anderson Taguada
@@ -14,7 +14,7 @@
 :about2: "Test" -Anonymous Tester
 :source: https://unsplash.com/photos/va-B5dBbpr4
 
-= Red Team exercise
+= Red Team Exercise
 
 Red Team refers to a team of professional hackers
 that attempts to access a system through simulating a cyberattack.
