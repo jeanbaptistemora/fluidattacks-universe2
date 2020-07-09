@@ -100,7 +100,7 @@ async def get_document_from_graphic_request(
             subject=params.subject,
         )
     else:
-        raise ValueError(f'Ivalid entity: {params.entity}')
+        raise ValueError(f'Invalid entity: {params.entity}')
 
     return document
 
