@@ -12,7 +12,7 @@ function job_build_nix_caches {
   local dockerfile='build/Dockerfile'
 
       helper_use_pristine_workdir \
-  &&  provisioners=(./build/provisioners/*) \
+  &&  provisioners=(./build2/provisioners/*) \
   &&  helper_build_nix_caches_parallel \
   &&  for (( i="${lower_limit}";i<="${upper_limit}";i++ ))
       do
