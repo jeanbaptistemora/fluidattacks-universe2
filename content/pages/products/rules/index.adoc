@@ -54,5 +54,62 @@ link:https://www.hhs.gov/hipaa/for-professionals/security/laws-regulations/index
 . [inner]#link:../../search.html?q=NIST+800-53[NIST]#.
 link:https://nvd.nist.gov/800-53/Rev4[`NIST` Special Publication 800-53 (Rev. 4)].
 
+== Categories
+
+. [inner]#link:../../rules#credentials[Credentials]#: Rules regarding the creation and management of passwords and
+other tokens used in authentication and authorization processes.
+
+. [inner]#link:../../rules#authentication[Authentication]#: Rules regarding authentication and identity verification
+mechanisms.
+
+. [inner]#link:../../rules#authorization[Authorization]#: Rules regarding access control mechanisms and account
+management.
+
+. [inner]#link:../../rules#session[Session]#: Rules regarding the management of session and session information.
+
+. [inner]#link:../../rules#legal[Legal]#: Rules regarding the compliance with legal requirements.
+
+. [inner]#link:../../rules#privacy[Privacy]#: Rules regarding the management of sensitive personally
+identifiable information (*PII*).
+
+. [inner]#link:../../rules#data[Data]#: Rules regarding the protection and management of business
+information.
+
+. [inner]#link:../../rules#source[Source]#: Rules regarding the protection, management and content of source
+code.
+
+. [inner]#link:../../rules#system[System]#: Rules regarding the management of corporate systems.
+
+. [inner]#link:../../rules#files[Files]#: Rules regarding the management of files in systems and applications.
+
+. [inner]#link:../../rules#logs[Logs]#: Rules regarding the protection, management and content of logs.
+
+. [inner]#link:../../rules#emails[Emails]#: Rules regarding the protection and management of email accounts and
+services.
+
+. [inner]#link:../../rules#services[Services]#: Rules regarding the management of corporate services and the
+usage of third-party services.
+
+. [inner]#link:../../rules#certificates[Certificates]#: Rules regarding the management and content of digital
+certificates.
+
+. [inner]#link:../../rules#cryptography[Cryptography]#: Rules regarding the management of cryptographic keys and the
+usage of cryptographic algorithms and protocols.
+
+. [inner]#link:../../rules#architecture[Architecture]#: Rules regarding configurations and mechanisms for system
+architecture hardening.
+
+. [inner]#link:../../rules#network[Network]#: Rules regarding the protection, management and configuration of
+computer networks.
+
+. [inner]#link:../../rules#virtualization[Virtualization]#: Rules regarding the configuration and management of virtual
+environments.
+
+. [inner]#link:../../rules#mobile[Mobile]#: Rules regarding the configuration and protection of mobile devices
+and applications.
+
+. [inner]#link:../../rules#social[Social]#: Rules regarding the usage of social networks and publicly
+accessible websites.
+
 Want to know more about our products?
 Do not hesitate to [inner]#link:../../contact-us/[contact us]#.
