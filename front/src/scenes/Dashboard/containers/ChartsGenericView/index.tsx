@@ -1,20 +1,13 @@
 import _ from "lodash";
 import React from "react";
 import { Col, Grid, Panel, Row } from "react-bootstrap";
-import { useLocation, useParams } from "react-router";
 import { Graphic } from "../../../../graphics/components/Graphic";
 import translate from "../../../../utils/translations/translate";
 import styles from "./index.css";
-import { IGroupChartsProps } from "./types";
+import { IChartsGenericViewProps } from "./types";
 
-const groupChartsView: React.FC<IGroupChartsProps> = (props: IGroupChartsProps): JSX.Element => {
-  const params: { projectName: string } = useParams();
-  const searchParams: URLSearchParams = new URLSearchParams(useLocation().search);
-
-  const reportMode: boolean = searchParams.get("reportMode") === "true";
-  const groupNameFromSearchParams: string | null = searchParams.get("group");
-
-  const groupName: string = _.isNull(groupNameFromSearchParams) ? params.projectName : groupNameFromSearchParams;
+const chartsGenericView: React.FC<IChartsGenericViewProps> = (props: IChartsGenericViewProps): JSX.Element => {
+  const { entity, reportMode, subject } = props;
 
   const [isForcesDescriptionExpanded, setIsForcesDescriptionExpanded] = React.useState(reportMode);
 
@@ -35,7 +28,7 @@ const groupChartsView: React.FC<IGroupChartsProps> = (props: IGroupChartsProps):
               bsHeight={320}
               documentName="riskOverTime"
               documentType="stackedBarChart"
-              entity="group"
+              entity={entity}
               footer={
                 <React.Fragment>
                   <p>{translate.t("analytics.stackedBarChart.riskOverTime.footer.intro")}</p>
@@ -49,7 +42,7 @@ const groupChartsView: React.FC<IGroupChartsProps> = (props: IGroupChartsProps):
               generatorName="generic"
               generatorType="c3"
               reportMode={reportMode}
-              subject={groupName}
+              subject={subject}
               title={translate.t("analytics.stackedBarChart.riskOverTime.title")}
             />
           </Col>
@@ -60,14 +53,14 @@ const groupChartsView: React.FC<IGroupChartsProps> = (props: IGroupChartsProps):
               bsHeight={160}
               documentName="status"
               documentType="pieChart"
-              entity="group"
+              entity={entity}
               footer={
                 <p>{translate.t("analytics.pieChart.status.footer.intro")}</p>
               }
               generatorName="generic"
               generatorType="c3"
               reportMode={reportMode}
-              subject={groupName}
+              subject={subject}
               title={translate.t("analytics.pieChart.status.title")}
             />
           </Col>
@@ -76,7 +69,7 @@ const groupChartsView: React.FC<IGroupChartsProps> = (props: IGroupChartsProps):
               bsHeight={160}
               documentName="treatment"
               documentType="pieChart"
-              entity="group"
+              entity={entity}
               footer={
                 <React.Fragment>
                   <p>{translate.t("analytics.pieChart.treatment.footer.intro")}</p>
@@ -91,7 +84,7 @@ const groupChartsView: React.FC<IGroupChartsProps> = (props: IGroupChartsProps):
               generatorName="generic"
               generatorType="c3"
               reportMode={reportMode}
-              subject={groupName}
+              subject={subject}
               title={translate.t("analytics.pieChart.treatment.title")}
             />
           </Col>
@@ -102,14 +95,14 @@ const groupChartsView: React.FC<IGroupChartsProps> = (props: IGroupChartsProps):
               bsHeight={80}
               documentName="totalFindings"
               documentType="textBox"
-              entity="group"
+              entity={entity}
               footer={
                 <p>{translate.t("analytics.textBox.totalFindings.footer")}</p>
               }
               generatorName="raw"
               generatorType="textBox"
               reportMode={reportMode}
-              subject={groupName}
+              subject={subject}
               title={translate.t("analytics.textBox.totalFindings.title")}
             />
           </Col>
@@ -118,14 +111,14 @@ const groupChartsView: React.FC<IGroupChartsProps> = (props: IGroupChartsProps):
               bsHeight={80}
               documentName="totalVulnerabilities"
               documentType="textBox"
-              entity="group"
+              entity={entity}
               footer={
                 <p>{translate.t("analytics.textBox.totalVulnerabilities.footer")}</p>
               }
               generatorName="raw"
               generatorType="textBox"
               reportMode={reportMode}
-              subject={groupName}
+              subject={subject}
               title={translate.t("analytics.textBox.totalVulnerabilities.title")}
             />
           </Col>
@@ -134,14 +127,14 @@ const groupChartsView: React.FC<IGroupChartsProps> = (props: IGroupChartsProps):
               bsHeight={80}
               documentName="vulnsWithUndefinedTreatment"
               documentType="textBox"
-              entity="group"
+              entity={entity}
               footer={
                 <p>{translate.t("analytics.textBox.vulnsWithUndefinedTreatment.footer")}</p>
               }
               generatorName="raw"
               generatorType="textBox"
               reportMode={reportMode}
-              subject={groupName}
+              subject={subject}
               title={translate.t("analytics.textBox.vulnsWithUndefinedTreatment.title")}
             />
           </Col>
@@ -152,14 +145,14 @@ const groupChartsView: React.FC<IGroupChartsProps> = (props: IGroupChartsProps):
               bsHeight={80}
               documentName="findingsBeingReattacked"
               documentType="textBox"
-              entity="group"
+              entity={entity}
               footer={
                 <p>{translate.t("analytics.textBox.findingsBeingReattacked.footer")}</p>
               }
               generatorName="raw"
               generatorType="textBox"
               reportMode={reportMode}
-              subject={groupName}
+              subject={subject}
               title={translate.t("analytics.textBox.findingsBeingReattacked.title")}
             />
           </Col>
@@ -168,14 +161,14 @@ const groupChartsView: React.FC<IGroupChartsProps> = (props: IGroupChartsProps):
               bsHeight={80}
               documentName="daysSinceLastRemediation"
               documentType="textBox"
-              entity="group"
+              entity={entity}
               footer={
                 <p>{translate.t("analytics.textBox.daysSinceLastRemediation.footer")}</p>
               }
               generatorName="raw"
               generatorType="textBox"
               reportMode={reportMode}
-              subject={groupName}
+              subject={subject}
               title={translate.t("analytics.textBox.daysSinceLastRemediation.title")}
             />
           </Col>
@@ -184,14 +177,14 @@ const groupChartsView: React.FC<IGroupChartsProps> = (props: IGroupChartsProps):
               bsHeight={80}
               documentName="meanTimeToRemediate"
               documentType="textBox"
-              entity="group"
+              entity={entity}
               footer={
                 <p>{translate.t("analytics.textBox.meanTimeToRemediate.footer")}</p>
               }
               generatorName="raw"
               generatorType="textBox"
               reportMode={reportMode}
-              subject={groupName}
+              subject={subject}
               title={translate.t("analytics.textBox.meanTimeToRemediate.title")}
             />
           </Col>
@@ -202,14 +195,14 @@ const groupChartsView: React.FC<IGroupChartsProps> = (props: IGroupChartsProps):
               bsHeight={160}
               documentName="severity"
               documentType="gauge"
-              entity="group"
+              entity={entity}
               footer={
                 <p>{translate.t("analytics.gauge.severity.footer")}</p>
               }
               generatorName="generic"
               generatorType="c3"
               reportMode={reportMode}
-              subject={groupName}
+              subject={subject}
               title={translate.t("analytics.gauge.severity.title")}
             />
           </Col>
@@ -218,7 +211,7 @@ const groupChartsView: React.FC<IGroupChartsProps> = (props: IGroupChartsProps):
               bsHeight={160}
               documentName="resources"
               documentType="pieChart"
-              entity="group"
+              entity={entity}
               footer={
                 <React.Fragment>
                   <p>{translate.t("analytics.pieChart.resources.footer.intro")}</p>
@@ -232,7 +225,7 @@ const groupChartsView: React.FC<IGroupChartsProps> = (props: IGroupChartsProps):
               generatorName="generic"
               generatorType="c3"
               reportMode={reportMode}
-              subject={groupName}
+              subject={subject}
               title={translate.t("analytics.pieChart.resources.title")}
             />
           </Col>
@@ -243,7 +236,7 @@ const groupChartsView: React.FC<IGroupChartsProps> = (props: IGroupChartsProps):
               bsHeight={320}
               documentName="whereToFindings"
               documentType="disjointForceDirectedGraph"
-              entity="group"
+              entity={entity}
               footer={
                 <ul>
                   <li>{translate.t("analytics.disjointForceDirectedGraph.whereToFindings.footer.grey")}</li>
@@ -254,7 +247,7 @@ const groupChartsView: React.FC<IGroupChartsProps> = (props: IGroupChartsProps):
               generatorName="whereToFindings"
               generatorType="disjointForceDirectedGraph"
               reportMode={reportMode}
-              subject={groupName}
+              subject={subject}
               title={translate.t("analytics.disjointForceDirectedGraph.whereToFindings.title")}
             />
           </Col>
@@ -296,11 +289,11 @@ const groupChartsView: React.FC<IGroupChartsProps> = (props: IGroupChartsProps):
               bsHeight={80}
               documentName="forcesStatus"
               documentType="textBox"
-              entity="group"
+              entity={entity}
               generatorName="raw"
               generatorType="textBox"
               reportMode={reportMode}
-              subject={groupName}
+              subject={subject}
               title={translate.t("analytics.textBox.forcesStatus.title")}
             />
           </Col>
@@ -309,14 +302,14 @@ const groupChartsView: React.FC<IGroupChartsProps> = (props: IGroupChartsProps):
               bsHeight={80}
               documentName="forcesUsage"
               documentType="textBox"
-              entity="group"
+              entity={entity}
               footer={
                 <p>{translate.t("analytics.textBox.forcesUsage.footer")}</p>
               }
               generatorName="raw"
               generatorType="textBox"
               reportMode={reportMode}
-              subject={groupName}
+              subject={subject}
               title={translate.t("analytics.textBox.forcesUsage.title")}
             />
           </Col>
@@ -325,14 +318,14 @@ const groupChartsView: React.FC<IGroupChartsProps> = (props: IGroupChartsProps):
               bsHeight={80}
               documentName="forcesAutomatizedVulns"
               documentType="textBox"
-              entity="group"
+              entity={entity}
               footer={
                 <p>{translate.t("analytics.textBox.forcesAutomatizedVulns.footer")}</p>
               }
               generatorName="raw"
               generatorType="textBox"
               reportMode={reportMode}
-              subject={groupName}
+              subject={subject}
               title={translate.t("analytics.textBox.forcesAutomatizedVulns.title")}
             />
           </Col>
@@ -341,14 +334,14 @@ const groupChartsView: React.FC<IGroupChartsProps> = (props: IGroupChartsProps):
               bsHeight={80}
               documentName="forcesRepositoriesAndBranches"
               documentType="textBox"
-              entity="group"
+              entity={entity}
               footer={
                 <p>{translate.t("analytics.textBox.forcesRepositoriesAndBranches.footer")}</p>
               }
               generatorName="raw"
               generatorType="textBox"
               reportMode={reportMode}
-              subject={groupName}
+              subject={subject}
               title={translate.t("analytics.textBox.forcesRepositoriesAndBranches.title")}
             />
           </Col>
@@ -359,7 +352,7 @@ const groupChartsView: React.FC<IGroupChartsProps> = (props: IGroupChartsProps):
               bsHeight={160}
               documentName="forcesSecurityCommitment"
               documentType="gauge"
-              entity="group"
+              entity={entity}
               footer={
                 <React.Fragment>
                   <p>{translate.t("analytics.gauge.forcesSecurityCommitment.footer.intro")}</p>
@@ -373,7 +366,7 @@ const groupChartsView: React.FC<IGroupChartsProps> = (props: IGroupChartsProps):
               generatorName="generic"
               generatorType="c3"
               reportMode={reportMode}
-              subject={groupName}
+              subject={subject}
               title={translate.t("analytics.gauge.forcesSecurityCommitment.title")}
             />
           </Col>
@@ -382,7 +375,7 @@ const groupChartsView: React.FC<IGroupChartsProps> = (props: IGroupChartsProps):
               bsHeight={160}
               documentName="forcesBuildsRisk"
               documentType="gauge"
-              entity="group"
+              entity={entity}
               footer={
                 <React.Fragment>
                   <p>{translate.t("analytics.gauge.forcesBuildsRisk.footer.intro")}</p>
@@ -395,7 +388,7 @@ const groupChartsView: React.FC<IGroupChartsProps> = (props: IGroupChartsProps):
               generatorName="generic"
               generatorType="c3"
               reportMode={reportMode}
-              subject={groupName}
+              subject={subject}
               title={translate.t("analytics.gauge.forcesBuildsRisk.title")}
             />
           </Col>
@@ -405,4 +398,4 @@ const groupChartsView: React.FC<IGroupChartsProps> = (props: IGroupChartsProps):
   );
 };
 
-export { groupChartsView as GroupChartsView };
+export { chartsGenericView as ChartsGenericView };

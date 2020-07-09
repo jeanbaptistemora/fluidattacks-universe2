@@ -1,4 +1,4 @@
-import { GroupChartsView } from "../../scenes/Dashboard/containers/GroupChartsView";
+import { ChartsForGroupView } from "../../scenes/Dashboard/containers/ChartsForGroupView";
 import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
@@ -9,7 +9,7 @@ const App: React.FC = (): JSX.Element => (
     <BrowserRouter basename={"/integrates/graphics-for-group"}>
       <secureStoreContext.Provider value={secureStore}>
         <Switch>
-          <Route component={GroupChartsView} path={"/"} />
+          <Route component={ChartsForGroupView} path={"/"} />
         </Switch>
       </secureStoreContext.Provider>
     </BrowserRouter>

@@ -7,7 +7,7 @@ import { Can } from "../../../../utils/authz/Can";
 import { Have } from "../../../../utils/authz/Have";
 import translate from "../../../../utils/translations/translate";
 import { ContentTab } from "../../components/ContentTab";
-import { GroupChartsView } from "../GroupChartsView";
+import { ChartsForGroupView } from "../ChartsForGroupView";
 import { ProjectAuthorsView } from "../ProjectAuthorsView";
 import { ProjectCommentsView } from "../ProjectCommentsView/index";
 import { ProjectDraftsView } from "../ProjectDraftsView";
@@ -105,7 +105,7 @@ const projectContent: React.FC<IProjectContentProps> = (props: IProjectContentPr
               <div className={globalStyle.tabContent}>
                 <Switch>
                   <Route path={`${props.match.path}/authors`} component={ProjectAuthorsView} exact={true} />
-                  <Route path={`${props.match.path}/charts`} component={GroupChartsView} exact={true} />
+                  <Route path={`${props.match.path}/charts`} component={ChartsForGroupView} exact={true} />
                   <Route path={`${props.match.path}/findings`} component={ProjectFindingsView} exact={true} />
                   <Route path={`${props.match.path}/drafts`} component={ProjectDraftsView} exact={true} />
                   <Route path={`${props.match.path}/forces`} component={ProjectForcesView} exact={true} />
