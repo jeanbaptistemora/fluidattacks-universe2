@@ -1,7 +1,6 @@
 import {
   AppOwnership, default as Constants, NativeConstants,
 } from "expo-constants";
-import * as LocalAuthentication from "expo-local-authentication";
 import * as SecureStore from "expo-secure-store";
 import * as Updates from "expo-updates";
 import _ from "lodash";
@@ -39,43 +38,15 @@ const loginView: React.FunctionComponent = (): JSX.Element => {
   const [isLoading, setLoading] = React.useState(true);
   const [isOutdated, setOutdated] = React.useState(false);
 
-  // Side effects
-  const promptBiometricAuth: (() => void) = async (): Promise<void> => {
-    const token: string | null =
-      await SecureStore.getItemAsync("integrates_session");
-    const authState: string | null =
-      await SecureStore.getItemAsync("authState");
-
-    if (_.isNil(token) || _.isNil(authState)) {
-      setLoading(false);
-    } else {
-      const { success } = await LocalAuthentication.authenticateAsync();
-
-      if (success) {
-        history.replace("/Dashboard", JSON.parse(authState));
-      } else {
-        setLoading(false);
-      }
-    }
-  };
-
   const checkVersion: (() => void) = async (): Promise<void> => {
     const shouldSkipCheck: boolean =
       Platform.OS === "ios"
       || Constants.appOwnership === AppOwnership.Expo;
 
-    if (shouldSkipCheck) {
-      setLoading(false);
-      promptBiometricAuth();
-    } else {
-      const outdated: boolean = await checkPlayStoreVersion();
-
-      if (outdated) {
-        setOutdated(true);
-      } else {
-        promptBiometricAuth();
-      }
+    if (!shouldSkipCheck) {
+      setOutdated(await checkPlayStoreVersion());
     }
+    setLoading(false);
   };
 
   const onMount: (() => void) = (): void => {

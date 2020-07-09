@@ -117,7 +117,7 @@ const errorLink: ((history: History) => ApolloLink) = (
             Alert.alert(
               i18next.t("common.sessionExpired.title"),
               i18next.t("common.sessionExpired.msg"));
-            history.replace("/");
+            history.replace("/Login");
           }
         });
       }

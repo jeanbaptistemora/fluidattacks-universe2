@@ -109,7 +109,7 @@ const dashboardView: React.FunctionComponent = (): JSX.Element => {
     await logout();
     client.stop();
     await client.clearStore();
-    history.replace("/");
+    history.replace("/Login");
   };
 
   return (

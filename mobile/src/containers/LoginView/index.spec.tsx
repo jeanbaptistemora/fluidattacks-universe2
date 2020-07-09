@@ -304,7 +304,7 @@ describe("LoginView", (): void => {
       .toHaveBeenCalledTimes(2);
   });
 
-  it("should prompt for biometric unlock", async (): Promise<void> => {
+  it.skip("should prompt for biometric unlock", async (): Promise<void> => {
     (checkPlayStoreVersion as jest.Mock).mockImplementation((): Promise<boolean> => Promise.resolve(false));
     (SecureStore.getItemAsync as jest.Mock)
       .mockResolvedValueOnce("some.session.token")
@@ -332,7 +332,7 @@ describe("LoginView", (): void => {
       .toHaveBeenCalledWith("/Dashboard", {});
   });
 
-  it("should handle unsuccessful biometric unlock", async (): Promise<void> => {
+  it.skip("should handle unsuccessful biometric unlock", async (): Promise<void> => {
     (checkPlayStoreVersion as jest.Mock).mockImplementation((): Promise<boolean> => Promise.resolve(false));
     (SecureStore.getItemAsync as jest.Mock)
       .mockResolvedValueOnce("some.session.token")

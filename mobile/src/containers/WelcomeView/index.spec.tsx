@@ -144,7 +144,7 @@ describe("WelcomeView", (): void => {
     expect(wrapper)
       .toHaveLength(1);
     expect(mockHistoryReplace)
-      .toHaveBeenCalledWith("/");
+      .toHaveBeenCalledWith("/Login");
   });
 
   it("should handle unsuccesful api auth", async (): Promise<void> => {
@@ -182,6 +182,6 @@ describe("WelcomeView", (): void => {
     expect(wrapper)
       .toHaveLength(1);
     expect(mockHistoryReplace)
-      .toHaveBeenCalledWith("/");
+      .toHaveBeenCalledWith("/Login");
   });
 });

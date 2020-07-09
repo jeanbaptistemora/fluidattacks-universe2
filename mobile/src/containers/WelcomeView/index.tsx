@@ -27,7 +27,7 @@ const welcomeView: React.FunctionComponent = (): JSX.Element => {
 
   const handleLogout: (() => void) = async (): Promise<void> => {
     await logout();
-    history.replace("/");
+    history.replace("/Login");
   };
 
   // GraphQL operations
