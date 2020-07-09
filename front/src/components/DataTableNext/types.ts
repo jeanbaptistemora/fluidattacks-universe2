@@ -44,8 +44,9 @@ export interface IHeader {
   approveFunction?(arg1: { [key: string]: string } | undefined): void;
   changeFunction?(arg1: { [key: string]: string } | undefined): void;
   deleteFunction?(arg1: { [key: string]: string } | undefined): void;
-  formatter?(value: string, row: any, rowIndex: number, formatExtraData: any): string | ReactElement;
+  formatter?(value: any, row: any, rowIndex: number, formatExtraData: any): string | ReactElement;
   onSort?(dataField: string, order: SortOrder): void;
+  sortFunc?(a: any, b: any, order: "asc" | "desc", rowA: any, rowB: any): number;
 }
 
 export interface ICustomToggle {

@@ -54,6 +54,7 @@ const addGivenHeaders: (
         hidden: _.isUndefined(key.visible) ? key.visible : !key.visible,
         onSort: handleSort,
         sort: true,
+        sortFunc: key.sortFunc,
         style: (): CSSProperties => ({
           whiteSpace: _.isUndefined(key.wrapped)
             ? "nowrap"

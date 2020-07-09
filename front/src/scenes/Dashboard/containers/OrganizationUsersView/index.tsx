@@ -12,9 +12,10 @@ import { IHeader } from "../../../../components/DataTableNext/types";
 import { FluidIcon } from "../../../../components/FluidIcon/index";
 import { TooltipWrapper } from "../../../../components/TooltipWrapper/index";
 import { Can } from "../../../../utils/authz/Can";
-import { formatUserlist } from "../../../../utils/formatHelpers";
+import { formatLastLogin, formatUserlist } from "../../../../utils/formatHelpers";
 import { msgError, msgSuccess } from "../../../../utils/notifications";
 import rollbar from "../../../../utils/rollbar";
+import { sortLastLogin } from "../../../../utils/sortHelpers";
 import translate from "../../../../utils/translations/translate";
 import { addUserModal as AddUserModal } from "../../components/AddUserModal/index";
 import { ADD_USER_MUTATION, EDIT_USER_MUTATION, GET_ORGANIZATION_USERS, REMOVE_USER_MUTATION } from "./queries";
@@ -52,7 +53,9 @@ const tableHeaders: IHeader[] = [
   },
   {
     dataField: "lastLogin",
+    formatter: formatLastLogin,
     header: translate.t("search_findings.users_table.lastlogin"),
+    sortFunc: sortLastLogin,
     width: "12%",
   },
 ];

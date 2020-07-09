@@ -31,10 +31,15 @@ export interface IRemoveUserAttrs {
   };
 }
 
+export interface ILastLogin {
+  label: string;
+  value: number[];
+}
+
 export interface IUserAttrs {
   email: string;
   firstLogin: string;
-  lastLogin: string;
+  lastLogin: ILastLogin;
   organization: string;
   phoneNumber: string;
   responsibility: string;

@@ -1,11 +1,16 @@
 import { RouteComponentProps } from "react-router";
 
+export interface ILastLogin {
+  label: string;
+  value: number[];
+}
+
 export interface IUsersAttr {
   project: {
     users: Array<{
       email: string;
       firstLogin: string;
-      lastLogin: string;
+      lastLogin: ILastLogin;
       organization: string;
       phoneNumber: string;
       responsibility: string;

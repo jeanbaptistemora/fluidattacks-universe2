@@ -3,44 +3,50 @@ import _ from "lodash";
 import { IHistoricTreatment } from "../scenes/Dashboard/containers/DescriptionView/types";
 import { IProjectDraftsAttr } from "../scenes/Dashboard/containers/ProjectDraftsView/types";
 import { IProjectFindingsAttr } from "../scenes/Dashboard/containers/ProjectFindingsView/types";
-import { IUsersAttr } from "../scenes/Dashboard/containers/ProjectUsersView/types";
+import { ILastLogin, IUserDataAttr, IUsersAttr } from "../scenes/Dashboard/containers/ProjectUsersView/types";
 import { ISeverityAttr, ISeverityField } from "../scenes/Dashboard/containers/SeverityView/types";
 import translate from "./translations/translate";
 
 type IUserList = IUsersAttr["project"]["users"];
 
-export const formatUserlist:
-((userList: IUserList) => IUserList) = (userList: IUserList): IUserList => userList.map((user: IUserList[0]) => {
-  const lastLoginDate: number[] = JSON.parse(user.lastLogin);
-  let DAYS_IN_MONTH: number;
-  DAYS_IN_MONTH = 30;
-  let lastLogin: string; lastLogin = "";
-  let firstLogin: string; firstLogin = "";
-  if (!_.isUndefined(user.firstLogin)) {
-    firstLogin = user.firstLogin.split(" ")[0];
-  }
-  if (lastLoginDate[0] >= DAYS_IN_MONTH) {
-    const ROUNDED_MONTH: number = Math.round(lastLoginDate[0] / DAYS_IN_MONTH);
-    lastLogin = translate.t("search_findings.tab_users.months_ago", {count: ROUNDED_MONTH});
-  } else if (lastLoginDate[0] > 0 && lastLoginDate[0] < DAYS_IN_MONTH) {
-    lastLogin = translate.t("search_findings.tab_users.days_ago", {count: lastLoginDate[0]});
-  } else if (lastLoginDate[0] === -1) {
-    lastLogin = "-";
-    firstLogin = "-";
-  } else {
-    let SECONDS_IN_HOUR: number;
-    SECONDS_IN_HOUR = 3600;
-    const ROUNDED_HOUR: number = Math.round(lastLoginDate[1] / SECONDS_IN_HOUR);
-    let SECONDS_IN_MINUTES: number;
-    SECONDS_IN_MINUTES = 60;
-    const ROUNDED_MINUTES: number = Math.round(lastLoginDate[1] / SECONDS_IN_MINUTES);
-    lastLogin = ROUNDED_HOUR >= 1 && ROUNDED_MINUTES >= SECONDS_IN_MINUTES
-    ? translate.t("search_findings.tab_users.hours_ago", {count: ROUNDED_HOUR})
-    : translate.t("search_findings.tab_users.minutes_ago", {count: ROUNDED_MINUTES});
-  }
+export const formatUserlist: ((userList: IUserDataAttr[]) => IUserList) =
+  (userList: IUserDataAttr[]): IUserList => userList.map((user: IUserDataAttr) => {
+    const lastLoginDate: number[] = JSON.parse(user.lastLogin);
+    let DAYS_IN_MONTH: number;
+    DAYS_IN_MONTH = 30;
+    const lastLogin: ILastLogin = {
+      label: "",
+      value: lastLoginDate,
+    };
+    let firstLogin: string; firstLogin = "";
+    if (!_.isUndefined(user.firstLogin)) {
+      firstLogin = user.firstLogin.split(" ")[0];
+    }
+    if (lastLoginDate[0] >= DAYS_IN_MONTH) {
+      const ROUNDED_MONTH: number = Math.round(lastLoginDate[0] / DAYS_IN_MONTH);
+      lastLogin.label = translate.t("search_findings.tab_users.months_ago", { count: ROUNDED_MONTH });
+    } else if (lastLoginDate[0] > 0 && lastLoginDate[0] < DAYS_IN_MONTH) {
+      lastLogin.label = translate.t("search_findings.tab_users.days_ago", { count: lastLoginDate[0] });
+    } else if (lastLoginDate[0] === -1) {
+      lastLogin.label = "-";
+      firstLogin = "-";
+    } else {
+      let SECONDS_IN_HOUR: number;
+      SECONDS_IN_HOUR = 3600;
+      const ROUNDED_HOUR: number = Math.round(lastLoginDate[1] / SECONDS_IN_HOUR);
+      let SECONDS_IN_MINUTES: number;
+      SECONDS_IN_MINUTES = 60;
+      const ROUNDED_MINUTES: number = Math.round(lastLoginDate[1] / SECONDS_IN_MINUTES);
+      lastLogin.label = ROUNDED_HOUR >= 1 && ROUNDED_MINUTES >= SECONDS_IN_MINUTES
+        ? translate.t("search_findings.tab_users.hours_ago", { count: ROUNDED_HOUR })
+        : translate.t("search_findings.tab_users.minutes_ago", { count: ROUNDED_MINUTES });
+    }
 
-  return { ...user, lastLogin, firstLogin };
-});
+    return { ...user, lastLogin, firstLogin };
+  });
+
+export const formatLastLogin: (value: ILastLogin) => string =
+  (value: ILastLogin): string => (value.label);
 
 export const castPrivileges: ((scope: string) => Dictionary<string>) = (scope: string): Dictionary<string> => {
   const privilegesRequiredScope: {[value: string]: string} = {

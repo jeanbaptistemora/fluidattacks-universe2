@@ -354,7 +354,10 @@ describe("Project users view", () => {
         variables: {
           email: "user@gmail.com",
           firstLogin: "2017-09-05",
-          lastLogin: "3 days ago",
+          lastLogin: {
+            label: "3 days ago",
+            value: [3, 81411],
+          },
           organization: "unittesting",
           phoneNumber: "+573123210123",
           projectName: "TEST",
@@ -556,7 +559,10 @@ describe("Project users view", () => {
         variables: {
           email: "user@gmail.com",
           firstLogin: "2017-09-05",
-          lastLogin: "3 days ago",
+          lastLogin: {
+            label: "3 days ago",
+            value: [3, 81411],
+          },
           organization: "unittesting",
           phoneNumber: "+573123210123",
           projectName: "TEST",
