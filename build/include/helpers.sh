@@ -313,6 +313,7 @@ function helper_functional_tests {
         --verbose \
         --exitfirst \
         --basetemp='build/test' \
+        --reruns 10 \
         --test-group-count "${CI_NODE_TOTAL}" \
         --test-group "${CI_NODE_INDEX}" \
         ephemeral_tests.py

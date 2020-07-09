@@ -17,7 +17,10 @@ from typing import (
     Type,
     Union,
 )
-from urllib.parse import urlparse
+from urllib.parse import (
+    quote_plus,
+    urlparse,
+)
 
 # Third party libraries
 from backend.domain import (
@@ -88,18 +91,27 @@ async def iterate_organizations_and_groups() -> AsyncIterator[
 ]:
     """Yield (org_id, org_name, org_groups) non-concurrently generated."""
     async for org_id, org_name, org_groups in (
-        org_domain.iterate_organizations()
+        org_domain.iterate_organizations_and_groups()
     ):
         log_info(f'Working on organization: {org_id} ({org_name})')
 
         yield org_id, org_name, org_groups
 
 
-def json_dump(name: str, data: object) -> None:
-    result_path = get_result_path(name)
-
-    with open(result_path, 'w') as file:
-        json.dump(data, file, default=json_encoder, indent=2)
+def json_dump(
+    *,
+    document: object,
+    entity: str,
+    subject: str,
+) -> None:
+    for result_path in map(get_result_path, [
+        # Backwards compatibility
+        f'{entity}-{subject}.json',
+        # New format
+        f'{quote_plus(entity)}:{quote_plus(subject)}.json',
+    ]):
+        with open(result_path, 'w') as file:
+            json.dump(document, file, default=json_encoder, indent=2)
 
 
 # Using Any because this is a generic-input function

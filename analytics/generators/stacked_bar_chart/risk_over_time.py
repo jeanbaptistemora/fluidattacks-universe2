@@ -1,8 +1,16 @@
 # Standard library
 import asyncio
+from typing import (
+    Dict,
+    List,
+)
 
 # Third party libraries
+from async_lru import alru_cache
 from backend.api.dataloaders.project import ProjectLoader
+from backend.utils import (
+    aio,
+)
 
 # Local libraries
 from analytics import (
@@ -13,8 +21,9 @@ from analytics.colors import (
 )
 
 
-async def generate_one(group: str):
-    data: list = []
+@alru_cache(maxsize=None, typed=True)
+async def get_group_document(group: str) -> Dict[str, Dict[str, float]]:
+    data: List[list] = []
 
     group_loader = ProjectLoader()
     group_data = await group_loader.load(group)
@@ -38,32 +47,71 @@ async def generate_one(group: str):
                 accepted=accepted['y'],
                 closed=closed['y'],
                 opened=found['y'] - closed['y'] - accepted['y'],
-                name=found['x'],
+                date=found['x'],
                 total=found['y'],
             ))
     else:
         print(f'[WARNING] {group} has no remediated_over_time attribute')
 
+    return {
+        'date': {
+            datum['date']: 0
+            for datum in data
+        },
+        'Closed': {
+            datum['date']: datum['closed']
+            for datum in data
+        },
+        'Closed + Open with accepted treatment': {
+            datum['date']: datum['closed'] + datum['accepted']
+            for datum in data
+        },
+        'Closed + Open': {
+            datum['date']: (
+                datum['closed'] + datum['accepted'] + datum['opened']
+            )
+            for datum in data
+        },
+    }
+
+
+async def get_many_groups_document(
+    groups: str,
+) -> Dict[str, Dict[str, float]]:
+    group_documents = await aio.materialize(map(get_group_document, groups))
+
+    document_of_oldest_group = {
+        'date': {},
+        'Closed': {},
+        'Closed + Open with accepted treatment': {},
+        'Closed + Open': {},
+    }
+    for group_document in group_documents:
+        if len(document_of_oldest_group['date']) < len(group_document['date']):
+            document_of_oldest_group = group_document
+
+    return {
+        name: {
+            date: sum(
+                group_document[name].get(date, 0)
+                for group_document in group_documents
+            )
+            for date in document_of_oldest_group['date']
+        }
+        for name in document_of_oldest_group
+    }
+
+
+def format_document(document: object) -> dict:
     return dict(
         data=dict(
             x='date',
             columns=[
-                ['date'] + [
-                    datum['name']
-                    for datum in data
-                ],
-                ['Closed'] + [
-                    datum['closed']
-                    for datum in data
-                ],
-                ['Closed + Open with accepted treatment'] + [
-                    datum['closed'] + datum['accepted']
-                    for datum in data
-                ],
-                ['Closed + Open'] + [
-                    datum['closed'] + datum['accepted'] + datum['opened']
-                    for datum in data
-                ],
+                [name] + [
+                    date if name == 'date' else document[name][date]
+                    for date in document['date']
+                ]
+                for name in document
             ],
             colors={
                 'Closed': RISK.more_passive,
@@ -110,8 +158,24 @@ async def generate_one(group: str):
 
 async def generate_all():
     for group in utils.iterate_groups():
-        data = await generate_one(group)
-        utils.json_dump(f'group-{group}.json', data)
+        utils.json_dump(
+            document=format_document(
+                document=await get_group_document(group),
+            ),
+            entity='group',
+            subject=group,
+        )
+
+    async for _, org_name, org_groups in (
+        utils.iterate_organizations_and_groups()
+    ):
+        utils.json_dump(
+            document=format_document(
+                document=await get_many_groups_document(org_groups),
+            ),
+            entity='organization',
+            subject=org_name,
+        )
 
 
 if __name__ == '__main__':

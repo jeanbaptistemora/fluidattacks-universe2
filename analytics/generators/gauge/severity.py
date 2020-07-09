@@ -62,8 +62,11 @@ async def generate_one(group: str):
 
 async def generate_all():
     for group in utils.iterate_groups():
-        data = await generate_one(group)
-        utils.json_dump(f'group-{group}.json', data)
+        utils.json_dump(
+            document=await generate_one(group),
+            entity='group',
+            subject=group,
+        )
 
 
 if __name__ == '__main__':

@@ -5,6 +5,7 @@ from asyncio import (
     gather,
     get_running_loop,
 )
+import collections.abc
 from concurrent.futures import (
     ProcessPoolExecutor,
     ThreadPoolExecutor,
@@ -126,10 +127,17 @@ async def materialize(obj: object) -> object:
     """
     materialized_obj: object
 
-    if isinstance(obj, (dict, frozendict)):
+    # Please use abstract base classes:
+    #   https://docs.python.org/3/glossary.html#term-abstract-base-class
+    #
+    # Pick them up here according to the needed interface:
+    #   https://docs.python.org/3/library/collections.abc.html
+    #
+
+    if isinstance(obj, collections.abc.Mapping):
         materialized_obj = \
             dict(zip(obj, await materialize(tuple(obj.values()))))
-    elif isinstance(obj, (list, tuple)):
+    elif isinstance(obj, collections.abc.Iterable):
         materialized_obj = \
             await gather(*tuple(map(create_task, obj)))
     else:
