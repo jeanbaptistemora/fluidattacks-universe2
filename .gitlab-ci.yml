@@ -392,7 +392,7 @@ apply_rotate_keys_user_provision_asserts_prod:
   <<: *in_schedule_user_provision_rotate_keys
   stage: rotation
 
-apply_rotate_keys_user_provision_services_dev_:
+apply_rotate_keys_user_provision_services_dev:
   <<: *with_nix_2
   <<: *in_schedule_user_provision_rotate_keys
   stage: rotation

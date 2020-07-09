@@ -13,6 +13,7 @@ in
             pkgs.terraform
             pkgs.curl
             pkgs.cacert
+            pkgs.jq
           ];
         })
   )
