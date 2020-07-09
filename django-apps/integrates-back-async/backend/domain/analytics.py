@@ -1,6 +1,7 @@
 # Standard library
 import json
 import os
+import string
 from typing import (
     NamedTuple,
 )
@@ -27,12 +28,18 @@ from backend.dal import (
 from backend.decorators import (
     cache_idempotent,
 )
+from backend.domain import (
+    organization as organization_domain,
+)
 from backend.services import (
     has_access_to_project as has_access_to_group,
 )
 from backend.utils import (
     aio,
     apm,
+)
+from backend.utils.encodings import (
+    safe_encode,
 )
 from backend import util
 
@@ -57,6 +64,9 @@ GraphicsForGroupParameters = NamedTuple(
     ]
 )
 
+# Constants
+ALLOWED_CHARS_IN_PARAMS: str = string.ascii_letters + string.digits + '-'
+
 
 @apm.trace()
 @cache_idempotent(ttl=3600)
@@ -71,7 +81,7 @@ async def get_document(
         os.path.join(
             convert_camel_case_to_snake(document_type),
             convert_camel_case_to_snake(document_name),
-            f'{level}-{subject}.json',
+            f'{level}:{safe_encode(subject.lower())}.json',
         )
     )
 
@@ -92,17 +102,21 @@ async def get_document_from_graphic_request(
             has_access_to_group, email, params.subject,
         ):
             raise PermissionError('Access denied')
-
-        document = await get_document(
-            document_name=params.document_name,
-            document_type=params.document_type,
-            level=params.entity,
-            subject=params.subject,
-        )
+    elif params.entity == 'organization':
+        if not await organization_domain.has_user_access(
+            email=email,
+            organization_id=params.subject,
+        ):
+            raise PermissionError('Access denied')
     else:
         raise ValueError(f'Invalid entity: {params.entity}')
 
-    return document
+    return await get_document(
+        document_name=params.document_name,
+        document_type=params.document_type,
+        level=params.entity,
+        subject=params.subject,
+    )
 
 
 async def handle_graphics_for_group_authz(
@@ -139,8 +153,11 @@ def handle_graphic_request_parameters(
         ('generatorType', generator_type),
         ('subject', subject),
     ]:
-        if not param_value.isalnum():
-            raise ValueError(f'Expected [a-zA-Z] in parameter: {param_name}')
+        if set(param_value).issuperset(set(ALLOWED_CHARS_IN_PARAMS)):
+            raise ValueError(
+                f'Expected [{ALLOWED_CHARS_IN_PARAMS}] '
+                f'in parameter: {param_name}',
+            )
 
     return GraphicParameters(
         document_name=document_name,
@@ -149,7 +166,7 @@ def handle_graphic_request_parameters(
         generator_name=generator_name,
         generator_type=generator_type,
         height=height,
-        subject=subject.lower(),
+        subject=subject,
         width=width,
     )
 
@@ -164,7 +181,9 @@ def handle_graphics_for_group_request_parameters(
         ('group', group),
     ]:
         if not param_value.isalnum():
-            raise ValueError(f'Expected [a-zA-Z] in parameter: {param_name}')
+            raise ValueError(
+                f'Expected [a-zA-Z0-9] in parameter: {param_name}',
+            )
 
     return GraphicsForGroupParameters(
         group=group.lower(),

@@ -18,7 +18,6 @@ from typing import (
     Union,
 )
 from urllib.parse import (
-    quote_plus,
     urlparse,
 )
 
@@ -27,6 +26,9 @@ from backend.domain import (
     organization as org_domain,
     project as group_domain,
     forces as forces_domain,
+)
+from backend.utils.encodings import (
+    safe_encode,
 )
 from frozendict import frozendict
 
@@ -108,7 +110,7 @@ def json_dump(
         # Backwards compatibility
         f'{entity}-{subject}.json',
         # New format
-        f'{quote_plus(entity)}:{quote_plus(subject)}.json',
+        f'{entity}:{safe_encode(subject.lower())}.json',
     ]):
         with open(result_path, 'w') as file:
             json.dump(document, file, default=json_encoder, indent=2)

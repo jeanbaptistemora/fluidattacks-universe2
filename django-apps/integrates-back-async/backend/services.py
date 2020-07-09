@@ -25,7 +25,7 @@ def login(request) -> JsonResponse:
 
 def has_access_to_project(email: str, group: str) -> bool:
     """ Verify if the user has access to a project. """
-    return bool(authz.get_group_level_role(email, group))
+    return bool(authz.get_group_level_role(email, group.lower()))
 
 
 def has_access_to_finding(email: str, finding_id: str) -> bool:

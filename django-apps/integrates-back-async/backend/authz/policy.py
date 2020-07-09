@@ -17,6 +17,9 @@ from backend.dal import (
 from backend.utils import (
     apm,
 )
+from backend.utils.encodings import (
+    safe_encode,
+)
 from .model import (
     USER_LEVEL_ROLES,
     GROUP_LEVEL_ROLES,
@@ -25,11 +28,11 @@ from .model import (
 
 
 def get_group_cache_key(group: str) -> str:
-    return f'authorization.group.{group.lower().encode().hex()}'
+    return f'authorization.group.{safe_encode(group.lower())}'
 
 
 def get_subject_cache_key(subject: str) -> str:
-    return f'authorization.subject.{subject.lower().encode().hex()}'
+    return f'authorization.subject.{safe_encode(subject.lower())}'
 
 
 def get_cached_group_service_attributes_policies(
