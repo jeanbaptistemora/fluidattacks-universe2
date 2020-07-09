@@ -1,6 +1,6 @@
 """Data Access Layer to the Forces tables."""
 
-from typing import AsyncGenerator
+from typing import AsyncIterator
 
 # Standard library
 from datetime import datetime
@@ -19,7 +19,7 @@ TABLE = dynamodb.DYNAMODB_RESOURCE.Table('bb_executions')  # type: ignore
 async def yield_executions(
         project_name: str,
         from_date: datetime,
-        to_date: datetime) -> AsyncGenerator:
+        to_date: datetime) -> AsyncIterator:
     """ Lazy iterator over the executions of a project """
     key_condition_expresion = \
         Key('subscription').eq(project_name)

@@ -8,9 +8,10 @@ import json
 import os
 from typing import (
     Any,
+    AsyncIterator,
     Callable,
     Dict,
-    Iterable,
+    Iterator,
     List,
     Tuple,
     Type,
@@ -20,6 +21,7 @@ from urllib.parse import urlparse
 
 # Third party libraries
 from backend.domain import (
+    organization as org_domain,
     project as group_domain,
     forces as forces_domain,
 )
@@ -75,10 +77,22 @@ def get_vulnerability_source(vulnerability: Dict[str, str]) -> str:
     return root
 
 
-def iterate_groups() -> Iterable[str]:
+def iterate_groups() -> Iterator[str]:
     for group in sorted(group_domain.get_alive_projects(), reverse=True):
-        log_info(f'Working on {group}')
+        log_info(f'Working on group: {group}')
         yield group
+
+
+async def iterate_organizations_and_groups() -> AsyncIterator[
+    Tuple[str, str, Tuple[str, ...]],
+]:
+    """Yield (org_id, org_name, org_groups) non-concurrently generated."""
+    async for org_id, org_name, org_groups in (
+        org_domain.iterate_organizations()
+    ):
+        log_info(f'Working on organization: {org_id} ({org_name})')
+
+        yield org_id, org_name, org_groups
 
 
 def json_dump(name: str, data: object) -> None:

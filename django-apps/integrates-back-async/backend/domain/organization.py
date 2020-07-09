@@ -2,10 +2,12 @@ import asyncio
 import sys
 from decimal import Decimal
 from typing import (
+    AsyncIterator,
     cast,
     Dict,
     List,
-    Optional
+    Optional,
+    Tuple,
 )
 
 import rollbar
@@ -36,6 +38,11 @@ DEFAULT_MIN_SEVERITY = Decimal('0.0')
 
 async def add_user(organization_id: str, email: str) -> bool:
     return await org_dal.add_user(organization_id, email)
+
+
+async def get_groups(organization_id: str) -> Tuple[str, ...]:
+    """Return a tuple of group names for the provided organization."""
+    return tuple(await org_dal.get_groups(organization_id))
 
 
 async def get_id_by_name(organization_name: str) -> str:
@@ -251,3 +258,17 @@ def validate_min_acceptance_severity(value: Decimal) -> bool:
     if not DEFAULT_MIN_SEVERITY <= value <= DEFAULT_MAX_SEVERITY:
         raise InvalidAcceptanceSeverity()
     return success
+
+
+async def iterate_organizations() -> AsyncIterator[Tuple[str, str]]:
+    """Yield pairs of (organization_id, organization_name)."""
+    async for org_id, org_name in org_dal.iterate_organizations():
+        yield org_id, org_name
+
+
+async def iterate_organizations_and_groups() -> AsyncIterator[
+    Tuple[str, str, Tuple[str, ...]]
+]:
+    """Yield (org_id, org_name, org_groups) non-concurrently generated."""
+    async for org_id, org_name in org_dal.iterate_organizations():
+        yield org_id, org_name, await get_groups(org_id)

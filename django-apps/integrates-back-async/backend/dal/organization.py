@@ -2,9 +2,11 @@
 import asyncio
 import uuid
 from typing import (
+    AsyncIterator,
     cast,
     Dict,
-    List
+    List,
+    Tuple,
 )
 
 # third-party imports
@@ -18,7 +20,8 @@ from backend.dal.helpers.dynamodb import (
     async_delete_item as dynamo_async_delete_item,
     async_query as dynamo_async_query,
     async_put_item as dynamo_async_put_item,
-    async_update_item as dynamo_async_update_item
+    async_update_item as dynamo_async_update_item,
+    client as dynamodb_client,
 )
 from backend.exceptions import InvalidOrganization
 from backend.typing import (
@@ -497,3 +500,24 @@ async def update(
             payload_data=locals()
         )
     return success
+
+
+async def iterate_organizations() -> AsyncIterator[Tuple[str, str]]:
+    """Yield (org_id, org_name) non-concurrently generated. """
+    async with dynamodb_client() as client:
+        async for response in client.get_paginator('scan').paginate(
+            ExpressionAttributeNames={
+                '#pk': 'pk',
+                '#sk': 'sk',
+            },
+            ExpressionAttributeValues={
+                ':pk': {'S': 'ORG#'},
+                ':sk': {'S': 'INFO#'},
+            },
+            FilterExpression=(
+                'begins_with(#pk, :pk) and begins_with(#sk, :sk)'
+            ),
+            TableName=TABLE_NAME,
+        ):
+            for item in response['Items']:
+                yield item['pk']['S'], item['sk']['S'].lstrip('INFO#')

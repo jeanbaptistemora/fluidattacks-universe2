@@ -52,6 +52,12 @@ DYNAMODB_RESOURCE = boto3.resource(**RESOURCE_OPTIONS)
 TABLE_NAME: str = 'integrates'
 
 
+@asynccontextmanager
+async def client() -> aioboto3.session.Session.client:
+    async with aioboto3.client(**RESOURCE_OPTIONS) as dynamodb_client:
+        yield dynamodb_client
+
+
 async def async_delete_item(
         table: str,
         delete_attrs: DynamoDeleteType) -> bool:
