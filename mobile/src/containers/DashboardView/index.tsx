@@ -1,4 +1,5 @@
 import { useQuery } from "@apollo/react-hooks";
+import { wait } from "@apollo/react-testing";
 import { ApolloError, NetworkStatus } from "apollo-client";
 import * as Updates from "expo-updates";
 import { GraphQLError } from "graphql";
@@ -56,11 +57,35 @@ const dashboardView: React.FunctionComponent = (): JSX.Element => {
   });
 
   // Side effects
+  let lockTimerId: number | undefined;
+  let locked: boolean = false;
+
   const handleAppStateChange: (state: AppStateStatus) => void = async (
     state: AppStateStatus,
   ): Promise<void> => {
     if (state === "active") {
-      await refetch();
+      await wait(1);
+      /**
+       * This apparently redundant flag is necessary as a workaround since
+       * Android allows the timer to run in background but the callback will be
+       * executed as soon as the app is foregrounded again
+       *
+       * @see https://git.io/JJYeb
+       */
+      if (lockTimerId !== undefined && !locked) {
+        clearTimeout(lockTimerId);
+        locked = false;
+        await refetch();
+      }
+    } else if (state === "background") {
+      const minutesToLock: number = 5;
+      const minutesInSec: number = 60;
+      const secondsInMs: number = 1000;
+
+      lockTimerId = setTimeout(
+        (): void => { locked = true; history.replace("/"); },
+        minutesToLock * minutesInSec * secondsInMs,
+      );
     }
   };
 

@@ -1,3 +1,4 @@
+import { registerRootComponent } from "expo";
 import * as SecureStore from "expo-secure-store";
 import _ from "lodash";
 import React from "react";
@@ -65,7 +66,7 @@ export const App: React.FunctionComponent = (): JSX.Element => {
   const rootView: JSX.Element = isLoggedIn === undefined
     ? <View style={{ backgroundColor: theme.colors.background, flex: 1 }} />
     : isLoggedIn
-      ? <LockView />
+      ? <Redirect to="/Lock" />
       : <Redirect to="/Login" />;
 
   return (
@@ -84,6 +85,7 @@ export const App: React.FunctionComponent = (): JSX.Element => {
               <BackButton>
                 <Switch>
                   <Route path="/" exact={true}>{rootView}</Route>
+                  <Route path="/Lock" component={LockView} exact={true} />
                   <Route path="/Login" component={LoginView} exact={true} />
                   <Route path="/Welcome" component={WelcomeView} exact={true} />
                   <Route
@@ -100,3 +102,5 @@ export const App: React.FunctionComponent = (): JSX.Element => {
     </React.StrictMode>
   );
 };
+
+registerRootComponent(App);
