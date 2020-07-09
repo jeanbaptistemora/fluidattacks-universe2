@@ -213,12 +213,6 @@ run_break_build_dynamic:
   <<: *in_master_branch
   stage: postdeploy
 
-send_new_version_email:
-  <<: *with_nix
-  <<: *in_master_branch
-  when: always
-  stage: postdeploy
-
 services_repositories_cache:
   <<: *with_nix
   tags: [autoscaling-large]
@@ -429,6 +423,11 @@ danger:
     - npm install @commitlint/{config-conventional,cli}
   script:
     - danger --verbose --fail-on-errors=true
+
+send_new_release_email:
+  <<: *with_nix_2
+  <<: *in_master_branch
+  stage: postdeploy
 
 fluidasserts_post:
   tags: [autoscaling]

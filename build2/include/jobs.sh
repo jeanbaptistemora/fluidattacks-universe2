@@ -428,3 +428,24 @@ function job_test_commit_msg {
   &&  env_prepare_node_modules \
   &&  helper_test_commit_msg_commitlint
 }
+
+function job_send_new_release_email {
+  local temp
+
+      helper_use_pristine_workdir \
+  &&  env_prepare_python_packages \
+  &&  temp="$(mktemp)" \
+  &&  trap 'rm -rf ${temp}' 'EXIT' \
+  &&  helper_aws_login \
+  &&  sops_env secrets-prod.yaml default \
+        MANDRILL_APIKEY \
+        MANDRILL_EMAIL_TO \
+  &&  curl -Lo \
+        "${temp}" \
+        'https://static-objects.gitlab.net/fluidattacks/public/raw/master/shared-scripts/mail.py' \
+  &&  echo "send_mail('new_version', MANDRILL_EMAIL_TO,
+        context={'project': PROJECT, 'project_url': '${CI_PROJECT_URL}',
+          'version': _get_version_date(), 'message': _get_message()},
+        tags=['general'])" >> "${temp}" \
+  &&  python3 "${temp}"
+}
