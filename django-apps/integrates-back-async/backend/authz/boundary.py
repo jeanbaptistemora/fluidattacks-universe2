@@ -8,10 +8,12 @@ from typing import (
 from .enforcer import (
     get_group_level_enforcer,
     get_group_service_attributes_enforcer,
+    get_organization_level_enforcer,
     get_user_level_enforcer,
 )
 from .model import (
     GROUP_LEVEL_ROLES,
+    ORGANIZATION_LEVEL_ROLES,
     SERVICE_ATTRIBUTES,
     USER_LEVEL_ROLES,
 )
@@ -55,6 +57,19 @@ async def get_group_level_actions(subject: str, group: str) -> Set[str]:
         for role_definition in GROUP_LEVEL_ROLES.values()
         for action in role_definition['actions']
         if await enforcer(subject, group.lower(), action)
+    ]))
+
+
+async def get_organization_level_actions(
+        subject: str,
+        organization_id: str) -> Set[str]:
+    enforcer = get_organization_level_enforcer(subject)
+
+    return set(tuple([
+        action
+        for role_definition in ORGANIZATION_LEVEL_ROLES.values()
+        for action in role_definition['actions']
+        if await enforcer(subject, organization_id.lower(), action)
     ]))
 
 

@@ -11,14 +11,14 @@ import { DataTableNext } from "../../../../components/DataTableNext/index";
 import { IHeader } from "../../../../components/DataTableNext/types";
 import { FluidIcon } from "../../../../components/FluidIcon/index";
 import { TooltipWrapper } from "../../../../components/TooltipWrapper/index";
+import { Can } from "../../../../utils/authz/Can";
 import { formatUserlist } from "../../../../utils/formatHelpers";
 import { msgError, msgSuccess } from "../../../../utils/notifications";
 import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
 import { addUserModal as AddUserModal } from "../../components/AddUserModal/index";
-import { GET_ORGANIZATION_ID } from "../OrganizationPoliciesView/queries";
 import { ADD_USER_MUTATION, EDIT_USER_MUTATION, GET_ORGANIZATION_USERS, REMOVE_USER_MUTATION } from "./queries";
-import { IAddUserAttrs, IEditUserAttrs, IRemoveUserAttrs, IUserAttrs } from "./types";
+import { IAddUserAttrs, IEditUserAttrs, IOrganizationUsers, IRemoveUserAttrs, IUserAttrs } from "./types";
 
 const tableHeaders: IHeader[] = [
   {
@@ -82,7 +82,8 @@ const handleMtError: (mtError: ApolloError) => void = (mtError: ApolloError): vo
   });
 };
 
-const organizationUsers: React.FC = (): JSX.Element => {
+const organizationUsers: React.FC<IOrganizationUsers> = (props: IOrganizationUsers): JSX.Element => {
+  const { organizationId } = props;
   const { organizationName } = useParams<{ organizationName: string }>();
   const { userName } = window as typeof window & Dictionary<string>;
 
@@ -104,18 +105,6 @@ const organizationUsers: React.FC = (): JSX.Element => {
   };
 
   // GraphQL Operations
-  const { data: basicData } = useQuery(GET_ORGANIZATION_ID, {
-    onError: ({ graphQLErrors }: ApolloError): void => {
-      graphQLErrors.forEach((error: GraphQLError): void => {
-        msgError(translate.t("group_alerts.error_textsad"));
-        rollbar.error("An error occurred fetching organization ID", error);
-      });
-    },
-    variables: {
-      organizationName: organizationName.toLowerCase(),
-    },
-  });
-
   const { data, refetch: refetchUsers } = useQuery(GET_ORGANIZATION_USERS, {
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
@@ -126,10 +115,7 @@ const organizationUsers: React.FC = (): JSX.Element => {
         );
       });
     },
-    skip: !basicData,
-    variables: {
-      organizationId: basicData && basicData.organizationId.id,
-    },
+    variables: { organizationId },
   });
 
   const [grantUserAccess] = useMutation(ADD_USER_MUTATION, {
@@ -189,13 +175,13 @@ const organizationUsers: React.FC = (): JSX.Element => {
     if (userModalAction === "add") {
       grantUserAccess({ variables: {
         ...values,
-        organizationId: basicData && basicData.organizationId.id,
+        organizationId,
       } })
         .catch();
     } else {
       editUser({ variables: {
         ...values,
-        organizationId: basicData && basicData.organizationId.id,
+        organizationId,
       } })
         .catch();
     }
@@ -203,7 +189,7 @@ const organizationUsers: React.FC = (): JSX.Element => {
 
   const handleRemoveUser: (() => void) = (): void => {
     removeUserAccess({ variables: {
-      organizationId: basicData && basicData.organizationId.id,
+      organizationId,
       userEmail: currentRow.email,
     } })
       .catch();
@@ -222,36 +208,38 @@ const organizationUsers: React.FC = (): JSX.Element => {
           <Col md={12} sm={12} xs={12}>
             <Row>
               <Col md={12} sm={12}>
-                <ButtonToolbar className="pull-right md-12 sm-12">
-                    <TooltipWrapper
-                      message={translate.t("organization.tabs.users.addButton.tooltip")}
-                    >
-                      <Button id="addUser" onClick={openAddUserModal}>
-                        <Glyphicon glyph="plus" />
-                        &nbsp;{translate.t("organization.tabs.users.addButton.text")}
-                      </Button>
-                    </TooltipWrapper>
-                    <TooltipWrapper
-                      message={translate.t("organization.tabs.users.editButton.tooltip")}
-                    >
-                      <Button id="editUser" onClick={openEditUserModal} disabled={_.isEmpty(currentRow)}>
-                        <FluidIcon icon="edit" />
-                        &nbsp;{translate.t("organization.tabs.users.editButton.text")}
-                      </Button>
-                    </TooltipWrapper>
-                    <TooltipWrapper
-                      message={translate.t("organization.tabs.users.removeButton.tooltip")}
-                    >
-                      <Button
-                        id="removeUser"
-                        onClick={handleRemoveUser}
-                        disabled={_.isEmpty(currentRow) || removing}
+                <Can do="backend_api_resolvers_organization__do_grant_user_organization_access">
+                  <ButtonToolbar className="pull-right md-12 sm-12">
+                      <TooltipWrapper
+                        message={translate.t("organization.tabs.users.addButton.tooltip")}
                       >
-                        <Glyphicon glyph="minus" />
-                        &nbsp;{translate.t("organization.tabs.users.removeButton.text")}
-                      </Button>
-                    </TooltipWrapper>
-                </ButtonToolbar>
+                        <Button id="addUser" onClick={openAddUserModal}>
+                          <Glyphicon glyph="plus" />
+                          &nbsp;{translate.t("organization.tabs.users.addButton.text")}
+                        </Button>
+                      </TooltipWrapper>
+                      <TooltipWrapper
+                        message={translate.t("organization.tabs.users.editButton.tooltip")}
+                      >
+                        <Button id="editUser" onClick={openEditUserModal} disabled={_.isEmpty(currentRow)}>
+                          <FluidIcon icon="edit" />
+                          &nbsp;{translate.t("organization.tabs.users.editButton.text")}
+                        </Button>
+                      </TooltipWrapper>
+                      <TooltipWrapper
+                        message={translate.t("organization.tabs.users.removeButton.tooltip")}
+                      >
+                        <Button
+                          id="removeUser"
+                          onClick={handleRemoveUser}
+                          disabled={_.isEmpty(currentRow) || removing}
+                        >
+                          <Glyphicon glyph="minus" />
+                          &nbsp;{translate.t("organization.tabs.users.removeButton.text")}
+                        </Button>
+                      </TooltipWrapper>
+                  </ButtonToolbar>
+                </Can>
               </Col>
             </Row>
             <br />
@@ -285,7 +273,7 @@ const organizationUsers: React.FC = (): JSX.Element => {
           onSubmit={handleSubmit}
           open={isUserModalOpen}
           onClose={closeUserModal}
-          organizationId={basicData && basicData.organizationId.id}
+          organizationId={organizationId}
           title={translate.t("organization.tabs.users.modalAddTitle")}
           type="organization"
         />

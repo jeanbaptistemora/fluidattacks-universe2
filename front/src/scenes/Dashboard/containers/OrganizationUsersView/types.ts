@@ -21,6 +21,10 @@ export interface IEditUserAttrs {
   };
  }
 
+export interface IOrganizationUsers {
+  organizationId: string;
+}
+
 export interface IRemoveUserAttrs {
   removeUserOrganizationAccess: {
     success: boolean;

@@ -5,6 +5,7 @@ from .boundary import (
     get_group_level_roles_with_tag,
     get_group_level_roles_a_user_can_grant,
     get_group_service_attributes,
+    get_organization_level_actions,
     get_user_level_actions,
     get_user_level_roles_a_user_can_grant,
 )
@@ -41,6 +42,7 @@ __all__ = [
     'get_group_level_roles_with_tag',
     'get_group_level_roles_a_user_can_grant',
     'get_group_service_attributes',
+    'get_organization_level_actions',
     'get_organization_level_enforcer',
     'get_user_level_actions',
     'get_user_level_roles_a_user_can_grant',

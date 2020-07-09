@@ -20,6 +20,7 @@ import {
   authzPermissionsContext,
   groupAttributes,
   groupLevelPermissions,
+  organizationLevelPermissions,
 } from "../../utils/authz/config";
 import { msgError, msgSuccess } from "../../utils/notifications";
 import rollbar from "../../utils/rollbar";
@@ -90,6 +91,9 @@ const dashboard: React.FC = (): JSX.Element => {
         rollbar.critical("Couldn't load user-level permissions", error);
       });
     },
+    variables: {
+      entity: "USER",
+    },
   });
 
   const { userEmail } = window as typeof window & Dictionary<string>;
@@ -129,7 +133,11 @@ const dashboard: React.FC = (): JSX.Element => {
                     </authzPermissionsContext.Provider>
                   </authzGroupContext.Provider>
                 </Route>
-                <Route path="/organizations/:organizationName" component={OrganizationContent} />
+                <Route path="/organizations/:organizationName">
+                  <authzPermissionsContext.Provider value={organizationLevelPermissions}>
+                    <OrganizationContent setUserRole={setUserRole} />
+                  </authzPermissionsContext.Provider>
+                </Route>
                 <Route path="/portfolios/:tagName" component={TagContent} />
                 {/* Necessary to support hashrouter URLs */}
                 <Redirect path="/dashboard" to={hash.replace("#!", "")} />

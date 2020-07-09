@@ -36,16 +36,25 @@ from social_django.utils import load_strategy
 from social_django.utils import load_backend
 
 
-async def _get_role(_, user_email: str,
-                    project_name: str = '') -> str:
+async def _get_role(
+        _,
+        user_email: str,
+        entity: str = 'USER',
+        identifier: str = '',
+        project_name: str = '') -> str:
     """Get role."""
-    if project_name:
-        role = await \
-            sync_to_async(authz.get_group_level_role)(
-                user_email, project_name)
+    if project_name or (entity == 'PROJECT' and identifier):
+        group_name = project_name or identifier
+        role = await sync_to_async(authz.get_group_level_role)(
+            user_email, group_name
+        )
+    elif entity == 'ORGANIZATION' and identifier:
+        organization_id = identifier
+        role = await sync_to_async(authz.get_organization_level_role)(
+            user_email, organization_id
+        )
     else:
-        role = await \
-            sync_to_async(authz.get_user_level_role)(user_email)
+        role = await sync_to_async(authz.get_user_level_role)(user_email)
     return role
 
 
@@ -87,13 +96,26 @@ async def _get_remember(_, user_email: str) -> bool:
 
 
 async def _get_permissions(
-        _, user_email: str,
+        _,
+        user_email: str,
+        entity: str = 'USER',
+        identifier: str = '',
         project_name: str = '') -> Set[str]:
     """Get the actions the user is allowed to perform."""
-    if project_name:
-        return await authz.get_group_level_actions(user_email, project_name)
+    if project_name or (entity == 'PROJECT' and identifier):
+        group_name = project_name or identifier
+        permissions = await authz.get_group_level_actions(
+            user_email, group_name
+        )
+    elif entity == 'ORGANIZATION' and identifier:
+        organization_id = identifier
+        permissions = await authz.get_organization_level_actions(
+            user_email, organization_id
+        )
+    else:
+        permissions = await authz.get_user_level_actions(user_email)
 
-    return await authz.get_user_level_actions(user_email)
+    return permissions
 
 
 @enforce_user_level_auth_async

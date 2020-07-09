@@ -34,8 +34,8 @@ class MeTests(TestCase):
                     }
                 }
                 remember
-                role
-                permissions
+                role(entity: USER)
+                permissions(entity: USER)
                 callerOrigin
                 __typename
             }

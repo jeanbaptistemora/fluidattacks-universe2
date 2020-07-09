@@ -21,10 +21,10 @@ export const ADD_USER_MUTATION: DocumentNode = gql`
 `;
 
 export const GET_USER_PERMISSIONS: DocumentNode = gql`
-  query GetPermissions($projectName: String) {
+  query GetPermissions($entity: Entity!, $identifier: String) {
     me(callerOrigin: "FRONT") {
-      permissions(projectName: $projectName)
-      role(projectName: $projectName)
+      permissions(entity: $entity, identifier: $identifier)
+      role(entity: $entity, identifier: $identifier)
     }
   }
 `;

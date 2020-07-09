@@ -71,7 +71,9 @@ const projectRoute: React.FC<IProjectRoute> = (props: IProjectRoute): JSX.Elemen
         );
       });
     },
-    variables: { projectName },
+    variables: {
+      entity: "PROJECT",
+      identifier: projectName.toLowerCase() },
   });
 
   const { data, error } = useQuery<IProjectData>(GET_GROUP_DATA, {

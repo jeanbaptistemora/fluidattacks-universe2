@@ -11,35 +11,25 @@ import { Field, formValueSelector, InjectedFormProps } from "redux-form";
 import { Button } from "../../../../components/Button/index";
 import { DataTableNext } from "../../../../components/DataTableNext/index";
 import { IHeader } from "../../../../components/DataTableNext/types";
+import { Can } from "../../../../utils/authz/Can";
 import { textField } from "../../../../utils/forms/fields";
 import { msgError, msgSuccess } from "../../../../utils/notifications";
 import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
 import { GenericForm } from "../../components/GenericForm";
-import { GET_ORGANIZATION_ID, GET_ORGANIZATION_POLICIES, UPDATE_ORGANIZATION_POLICIES } from "./queries";
-import { IPoliciesFormData } from "./types";
+import { GET_ORGANIZATION_POLICIES, UPDATE_ORGANIZATION_POLICIES } from "./queries";
+import { IOrganizationPolicies, IPoliciesFormData } from "./types";
 
-const organizationPolicies: React.FC = (): JSX.Element => {
+const organizationPolicies: React.FC<IOrganizationPolicies> = (props: IOrganizationPolicies): JSX.Element => {
 
   // State management
+  const { organizationId } = props;
   const { organizationName } = useParams();
   const selector: (state: {}, ...fields: string[]) => IPoliciesFormData = formValueSelector("orgPolicies");
   const formValues: IPoliciesFormData = useSelector((state: {}) =>
     selector(state, "maxAcceptanceDays", "maxAcceptanceSeverity", "maxNumberAcceptations", "minAcceptanceSeverity"));
 
   // GraphQL Operations
-  const { data: basicData } = useQuery(GET_ORGANIZATION_ID, {
-    onError: ({ graphQLErrors }: ApolloError): void => {
-      graphQLErrors.forEach((error: GraphQLError): void => {
-        msgError(translate.t("group_alerts.error_textsad"));
-        rollbar.error("An error occurred fetching organization ID", error);
-      });
-    },
-    variables: {
-      organizationName: organizationName.toLowerCase(),
-    },
-  });
-
   const {
     data,
     loading: loadingPolicies,
@@ -54,10 +44,7 @@ const organizationPolicies: React.FC = (): JSX.Element => {
         );
       });
     },
-    skip: !basicData,
-    variables: {
-      organizationId: basicData && basicData.organizationId.id,
-    },
+    variables: { organizationId },
   });
 
   const [savePolicies, { loading: savingPolicies }] = useMutation(UPDATE_ORGANIZATION_POLICIES, {
@@ -99,7 +86,7 @@ const organizationPolicies: React.FC = (): JSX.Element => {
       maxAcceptanceSeverity: parseFloat(formValues.maxAcceptanceSeverity),
       maxNumberAcceptations: parseInt(formValues.maxNumberAcceptations, 10),
       minAcceptanceSeverity: parseFloat(formValues.minAcceptanceSeverity),
-      organizationId: basicData && basicData.organizationId.id,
+      organizationId,
       organizationName: organizationName.toLowerCase(),
     },
   });
@@ -207,13 +194,16 @@ const organizationPolicies: React.FC = (): JSX.Element => {
               search={false}
               striped={true}
             />
-            {pristine || loadingPolicies || savingPolicies ? undefined : (
-              <ButtonToolbar className="pull-right">
-                <Button bsStyle="success" onClick={handleSubmit}>
-                  {translate.t("organization.tabs.policies.save")}
-                </Button>
-              </ButtonToolbar>
-            )}
+            <Can do="backend_api_resolvers_organization__do_update_organization_policies">
+              {pristine || loadingPolicies || savingPolicies ? undefined : (
+                <ButtonToolbar className="pull-right">
+                  <Button bsStyle="success" onClick={handleSubmit}>
+                    {translate.t("organization.tabs.policies.save")}
+                  </Button>
+                </ButtonToolbar>
+
+              )}
+            </Can>
           </React.Fragment>
         )}
       </GenericForm>

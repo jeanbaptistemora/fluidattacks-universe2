@@ -191,9 +191,9 @@ type Me {
     organizations: [Organization!]
     projects: [Project]
     remember: Boolean
-    role(projectName: String): String
+    role(entity: Entity, identifier: String, projectName: String): String
     tags: [Tag!]
-    permissions(projectName: String): [String]
+    permissions(entity: Entity, identifier: String, projectName: String): [String]
     callerOrigin: CallerOrigin
 }
 
@@ -307,6 +307,7 @@ enum CallerOrigin {
 enum Entity {
     ORGANIZATION
     PROJECT
+    USER
 }
 
 enum ResourceState {

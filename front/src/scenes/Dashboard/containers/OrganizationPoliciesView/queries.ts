@@ -1,14 +1,6 @@
 import { DocumentNode } from "graphql";
 import gql from "graphql-tag";
 
-export const GET_ORGANIZATION_ID: DocumentNode = gql`
-query GetOrganizationId ($organizationName: String!) {
-  organizationId(organizationName: $organizationName) {
-    id
-  }
-}
-`;
-
 export const GET_ORGANIZATION_POLICIES: DocumentNode = gql`
   query GetOrganizationPolicies ($organizationId: String!) {
     organization(organizationId: $organizationId) {

@@ -145,15 +145,13 @@ def _get_email(_, email: str, *__) -> str:
 @sync_to_async
 def _get_role(_, email: str, entity: str, identifier: str) -> str:
     """Get role."""
-    role = ''
     if entity == 'PROJECT' and identifier:
         project_name = identifier
         role = authz.get_group_level_role(email, project_name)
     elif entity == 'ORGANIZATION' and identifier:
         organization_id = identifier
         role = authz.get_organization_level_role(email, organization_id)
-
-    if not role:
+    else:
         role = authz.get_user_level_role(email)
 
     return role
