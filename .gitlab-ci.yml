@@ -242,46 +242,6 @@ services_repositories_cache:
     refs: [schedules]
     variables: [$SCHEDULE_SERVICES_REPOSITORIES_CACHE]
 
-user_provision_asserts_dev_rotate_keys:
-  <<: *with_nix
-  <<: *in_schedule_user_provision_rotate_keys
-  stage: rotation
-
-user_provision_services_prod_rotate_keys:
-  <<: *with_nix
-  <<: *in_schedule_user_provision_rotate_keys
-  stage: rotation
-
-user_provision_services_dev_rotate_keys:
-  <<: *with_nix
-  <<: *in_schedule_user_provision_rotate_keys
-  stage: rotation
-
-user_provision_services_prod_rotate_keys:
-  <<: *with_nix
-  <<: *in_schedule_user_provision_rotate_keys
-  stage: rotation
-
-user_provision_integrates_dev_rotate_keys:
-  <<: *with_nix
-  <<: *in_schedule_user_provision_rotate_keys
-  stage: rotation
-
-user_provision_integrates_prod_rotate_keys:
-  <<: *with_nix
-  <<: *in_schedule_user_provision_rotate_keys
-  stage: rotation
-
-user_provision_web_dev_rotate_keys:
-  <<: *with_nix
-  <<: *in_schedule_user_provision_rotate_keys
-  stage: rotation
-
-user_provision_web_prod_rotate_keys:
-  <<: *with_nix
-  <<: *in_schedule_user_provision_rotate_keys
-  stage: rotation
-
 # Build 2
 
 .with_nix_2: &with_nix_2
@@ -421,6 +381,46 @@ apply_user_provision_web_prod:
   <<: *with_nix_2
   <<: *in_master_branch
   stage: deploy
+
+apply_rotate_keys_user_provision_asserts_dev:
+  <<: *with_nix_2
+  <<: *in_schedule_user_provision_rotate_keys
+  stage: rotation
+
+apply_rotate_keys_user_provision_asserts_prod:
+  <<: *with_nix_2
+  <<: *in_schedule_user_provision_rotate_keys
+  stage: rotation
+
+apply_rotate_keys_user_provision_services_dev_:
+  <<: *with_nix_2
+  <<: *in_schedule_user_provision_rotate_keys
+  stage: rotation
+
+apply_rotate_keys_user_provision_services_prod:
+  <<: *with_nix_2
+  <<: *in_schedule_user_provision_rotate_keys
+  stage: rotation
+
+apply_rotate_keys_user_provision_integrates_dev:
+  <<: *with_nix_2
+  <<: *in_schedule_user_provision_rotate_keys
+  stage: rotation
+
+apply_rotate_keys_user_provision_integrates_prod:
+  <<: *with_nix_2
+  <<: *in_schedule_user_provision_rotate_keys
+  stage: rotation
+
+apply_rotate_keys_user_provision_web_dev:
+  <<: *with_nix_2
+  <<: *in_schedule_user_provision_rotate_keys
+  stage: rotation
+
+apply_rotate_keys_user_provision_web_prod:
+  <<: *with_nix_2
+  <<: *in_schedule_user_provision_rotate_keys
+  stage: rotation
 
 test_commit_msg:
   <<: *with_nix_2
