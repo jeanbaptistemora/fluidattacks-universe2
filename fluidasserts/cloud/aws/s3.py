@@ -438,14 +438,14 @@ def has_disabled_server_side_encryption(key_id: str,
 @unknown_if(BotoCoreError, RequestException)
 def bucket_objects_can_be_listed(bucket_names: List[str]):
     """
-    Check if a S3 bucket objects can be listed by everyon.
+    Check if a S3 bucket objects can be listed by everyone.
 
     This check works without aws access keys.
 
     :param bucket_name: name of the s3 bucket.
     """
-    msg_open: str = 'Bucket objects can be listed by eveyon.'
-    msg_closed: str = 'Bucket objects can not be listed by eveyon.'
+    msg_open: str = 'Bucket objects can be listed by everyone.'
+    msg_closed: str = 'Bucket objects can not be listed by everyone.'
 
     vulns, safes = [], []
     s3_client = boto3.client('s3', config=Config(signature_version=UNSIGNED))

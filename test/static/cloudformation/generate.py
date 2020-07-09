@@ -935,6 +935,9 @@ s3_bucket_policy = troposphere.s3.BucketPolicy(
                 "Condition": {
                     "Bool": {
                         "aws:SecureTransport": "false"
+                    },
+                    "Null": {
+                        "s3:x-amz-server-side-encryption": "false"
                     }
                 },
             },

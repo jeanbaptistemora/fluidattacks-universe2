@@ -191,6 +191,7 @@ def get_resources(
         labels = {labels}
     if not num_labels:
         num_labels = len(labels)
+    labels = {label.replace('-', '_') for label in labels}
     if info:
         return [
             (node, graph.nodes[node], graph.nodes[get_predecessor(
