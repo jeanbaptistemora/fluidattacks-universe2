@@ -931,7 +931,12 @@ s3_bucket_policy = troposphere.s3.BucketPolicy(
             {
                 'Effect': 'Allow',
                 'Action': '*',
-                'Principal': '*'
+                'Principal': '*',
+                "Condition": {
+                    "Bool": {
+                        "aws:SecureTransport": "false"
+                    }
+                },
             },
             {
                 'Effect': 'Allow',

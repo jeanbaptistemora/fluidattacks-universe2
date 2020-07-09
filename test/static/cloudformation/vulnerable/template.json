@@ -436,6 +436,11 @@
           "Statement": [
             {
               "Action": "*",
+              "Condition": {
+                "Bool": {
+                  "aws:SecureTransport": "false"
+                }
+              },
               "Effect": "Allow",
               "Principal": "*"
             },
