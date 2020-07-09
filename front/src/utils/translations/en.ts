@@ -554,6 +554,10 @@ const enTranslations: Dictionary = {
   },
   organization: {
     tabs: {
+      charts: {
+        text: "Charts",
+        tooltip: "Organization status at a glance",
+      },
       policies: {
         errors: {
           acceptanceSeverity: "Acceptance severity score should be a positive floating number between 0.0 and 10.0",

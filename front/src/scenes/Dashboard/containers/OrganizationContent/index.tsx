@@ -5,7 +5,7 @@ import { GraphQLError } from "graphql";
 import _ from "lodash";
 import React, { useContext } from "react";
 import { Col, Row } from "react-bootstrap";
-import { Route, Switch, useParams, useRouteMatch } from "react-router-dom";
+import { Redirect, Route, Switch, useParams, useRouteMatch } from "react-router-dom";
 import { default as globalStyle } from "../../../../styles/global.css";
 import { authzPermissionsContext } from "../../../../utils/authz/config";
 import { msgError } from "../../../../utils/notifications";
@@ -13,6 +13,7 @@ import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
 import { ContentTab } from "../../components/ContentTab";
 import { GET_USER_PERMISSIONS } from "../../queries";
+import { ChartsForOrganizationView } from "../ChartsForOrganizationView";
 import { OrganizationPolicies } from "../OrganizationPoliciesView/index";
 import { OrganizationUsers } from "../OrganizationUsersView/index";
 import { GET_ORGANIZATION_ID } from "./queries";
@@ -78,6 +79,13 @@ const organizationContent: React.FC<IOrganizationContent> = (props: IOrganizatio
             <div className={globalStyle.stickyContainer}>
               <ul className={globalStyle.tabsContainer}>
                 <ContentTab
+                  icon="icon pe-7s-graph3"
+                  id="chartsTab"
+                  link={`${url}/charts`}
+                  title={translate.t("organization.tabs.charts.text")}
+                  tooltip={translate.t("organization.tabs.charts.tooltip")}
+                />
+                <ContentTab
                   icon="icon pe-7s-box1"
                   id="policiesTab"
                   link={`${url}/policies`}
@@ -95,12 +103,16 @@ const organizationContent: React.FC<IOrganizationContent> = (props: IOrganizatio
             </div>
             <div className={globalStyle.tabContent}>
               <Switch>
+                <Route path={`${path}/charts`} exact={true}>
+                  <ChartsForOrganizationView organizationId={basicData.organizationId.id} />
+                </Route>
                 <Route path={`${path}/policies`} exact={true}>
                   <OrganizationPolicies organizationId={basicData.organizationId.id} />
                 </Route>
                 <Route path={`${path}/users`} exact={true}>
                   <OrganizationUsers organizationId={basicData.organizationId.id} />
                 </Route>
+                <Redirect to={`${path}/charts`} />
               </Switch>
             </div>
           </Col>
