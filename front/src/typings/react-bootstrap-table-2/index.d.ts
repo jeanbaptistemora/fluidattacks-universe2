@@ -285,7 +285,7 @@ declare module "react-bootstrap-table2-toolkit" {
         columns: Column[];
         contextual?: string;
         onColumnToggle(dataField: string): void;
-        toggles: Dictionary<string, boolean>;
+        toggles: Dictionary<boolean>;
     }
     export interface ToolkitProviderProps {
         baseProps: BaseProps;

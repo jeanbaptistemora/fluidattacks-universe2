@@ -7,8 +7,8 @@
  */
 import _ from "lodash";
 import React from "react";
-import { ButtonToolbar, Checkbox, Col, DropdownButton, Glyphicon, MenuItem, Row } from "react-bootstrap";
-import BootstrapTable, { Column } from "react-bootstrap-table-next";
+import { Col, DropdownButton, Glyphicon, MenuItem, Row } from "react-bootstrap";
+import BootstrapTable from "react-bootstrap-table-next";
 /* tslint:disable-next-line:no-import-side-effect no-submodule-imports
 * Disabling this two rules is necessary for
 * allowing the import of default styles that ReactTable needs
@@ -19,89 +19,18 @@ import filterFactory from "react-bootstrap-table2-filter";
 import paginationFactory from "react-bootstrap-table2-paginator";
 // tslint:disable-next-line:no-import-side-effect no-submodule-imports
 import "react-bootstrap-table2-paginator/dist/react-bootstrap-table2-paginator.min.css";
-import ToolkitProvider, { ColumnToggle, Search,
-  ToolkitProviderProps } from "react-bootstrap-table2-toolkit";
+import ToolkitProvider, { Search, ToolkitProviderProps } from "react-bootstrap-table2-toolkit";
 // tslint:disable-next-line:no-import-side-effect no-submodule-imports
 import "react-bootstrap-table2-toolkit/dist/react-bootstrap-table2-toolkit.min.css";
 import { default as globalStyle } from "../../styles/global.css";
 import translate from "../../utils/translations/translate";
 import { Button } from "../Button";
-import { Modal } from "../Modal";
 import { TooltipWrapper } from "../TooltipWrapper/index";
+import { CustomToggleList } from "./customToggleList";
 import { ExportCSVButtonWrapper } from "./exportCSVButton";
 import { default as style } from "./index.css";
-import { ICustomToggle, ITableProps } from "./types";
+import { ITableProps } from "./types";
 import { customizeColumns } from "./utils";
-
-const CustomToggleList: ((props: ICustomToggle) => JSX.Element) =
-(props: ICustomToggle): JSX.Element => {
-  const [hidden, setHidden] = React.useState(false);
-  const {propsTable, propsToggle} = props;
-  const handleOpenTableSetClick: () => void = (): void => {
-    setHidden(true);
-  };
-  const handleCloseTableSetClick: () => void = (): void => {
-    setHidden(false);
-  };
-  const tableModalFooter: JSX.Element = (
-    <ButtonToolbar className="pull-right">
-      <Button onClick={handleCloseTableSetClick}>{translate.t("group.findings.report.modal_close")}</Button>
-    </ButtonToolbar>
-  );
-
-  const RenderToggle: (() => JSX.Element) = (): JSX.Element => (
-    <div
-      className="btn-group btn-group-toggle btn-group-vertical"
-      data-toggle="buttons"
-    >
-      {propsToggle.columns
-        .map((column: Column) => ({
-          ...column,
-          toggle: propsToggle.toggles[column.dataField],
-        }))
-        .map((column: ColumnToggle) => {
-          const handleClick: (() => void) = (): void => {
-            propsToggle.onColumnToggle(column.dataField);
-            if (propsTable.onColumnToggle !== undefined) {
-              propsTable.onColumnToggle(column.dataField);
-            }
-          };
-
-          return (
-            <Checkbox
-              key={column.dataField}
-              name={column.dataField}
-              checked={column.toggle}
-              onChange={handleClick}
-            >
-              {column.text}
-            </Checkbox>
-          );
-        })
-      }
-    </div>
-    );
-
-  return (
-    <div>
-      <TooltipWrapper message={translate.t("group.findings.tableSet.btn.tooltip")}>
-        <Button onClick={handleOpenTableSetClick}>
-          <Glyphicon glyph="glyphicon glyphicon-cog" />&nbsp;
-          {translate.t("group.findings.tableSet.btn.text")}
-        </Button>
-      </TooltipWrapper>
-      <Modal
-        open={hidden}
-        footer={tableModalFooter}
-        headerTitle={translate.t("group.findings.tableSet.modal_title")}
-      >
-        <Col mdOffset={5}>
-          <RenderToggle />
-        </Col>
-      </Modal>
-    </div>
-  );
-};
 
 const renderTable: ((toolkitProps: ToolkitProviderProps, props: ITableProps, dataset: Array<{}>) => JSX.Element) =
   (toolkitProps: ToolkitProviderProps, props: ITableProps, dataset: Array<{}>): JSX.Element => {

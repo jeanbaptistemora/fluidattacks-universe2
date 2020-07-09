@@ -12,6 +12,7 @@
       "src/components/DataTableNext/formatters/**",
       "src/components/DataTableNext/utils/**",
       "src/components/DataTableNext/exportCSVButton.tsx",
+      "src/components/DataTableNext/customToggleList.tsx",
       "src/components/DataTableNext/index.spec.tsx"
     ]
   },
