@@ -27,6 +27,16 @@ function job_build_nix_caches {
       done
 }
 
+function job_test_infra_monolith {
+      helper_use_pristine_workdir \
+  &&  helper_infra_monolith 'test'
+}
+
+function job_apply_infra_monolith {
+      helper_use_pristine_workdir \
+  &&  helper_infra_monolith 'deploy'
+}
+
 function job_test_infra_autoscaling_ci {
   local target='services/autoscaling-ci/terraform'
 

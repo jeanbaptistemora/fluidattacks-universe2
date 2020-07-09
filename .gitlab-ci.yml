@@ -183,16 +183,6 @@ infra_autoscaling_ci_deploy_config:
   <<: *in_master_branch
   stage: deploy
 
-infra_monolith_test:
-  <<: *with_nix
-  <<: *in_dev_branch
-  stage: build-and-test
-
-infra_monolith_deploy:
-  <<: *with_nix
-  <<: *in_master_branch
-  stage: deploy
-
 run_break_build_static:
   <<: *with_nix
   <<: *in_dev_branch
@@ -220,6 +210,16 @@ services_repositories_cache:
   script:
     - ./build2.sh "${CI_JOB_NAME% *}"
   interruptible: true
+
+test_infra_monolith:
+  <<: *with_nix_2
+  <<: *in_dev_branch
+  stage: build-and-test
+
+apply_infra_monolith:
+  <<: *with_nix_2
+  <<: *in_master_branch
+  stage: deploy
 
 test_infra_autoscaling_ci:
   <<: *with_nix_2
