@@ -34,7 +34,7 @@ function job_lint_build_system {
 function job_lint_front {
       pushd front \
     &&  npm install \
-    &&  npm run audit \
+    &&  npm audit \
     &&  npm run lint:tslint \
     &&  npm run lint:eslint \
   &&  popd \

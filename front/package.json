@@ -62,7 +62,7 @@
     "jquery": "3.5.1",
     "jquery-comments_brainkit": "1.2.8",
     "jsdom": "16.2.2",
-    "lodash": "4.17.15",
+    "lodash": "4.17.19",
     "logrocket": "1.0.9",
     "mixpanel-browser": "2.38.0",
     "moment": "2.27.0",
@@ -152,7 +152,6 @@
     "webpack-dev-server": "3.11.0"
   },
   "scripts": {
-    "audit": "npm audit --audit-level=moderate",
     "build": "npm run css && webpack --config webpack.prod.config.ts",
     "css": "tcm src/ --silent",
     "lint:tslint": "npm run css && tsc -p tsconfig.json && tslint -p tsconfig.json -t codeFrame",
