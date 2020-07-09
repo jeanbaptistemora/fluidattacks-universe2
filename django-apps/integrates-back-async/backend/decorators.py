@@ -320,7 +320,13 @@ def require_organization_access(
             else await org_domain.get_id_by_name(organization_identifier)
         )
 
-        if not await org_domain.has_user_access(user_email, organization_id):
+        role = await sync_to_async(authz.get_organization_level_role)(
+            user_email, organization_id)
+        has_access = await org_domain.has_user_access(
+            user_email, organization_id
+        )
+
+        if role != 'admin' and not has_access:
             util.cloudwatch_log(
                 context,
                 f'Security: User {user_email} attempted to access '
