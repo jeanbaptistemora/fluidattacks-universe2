@@ -3,7 +3,6 @@
 from typing import cast, Dict, List
 
 import aioboto3
-from asgiref.sync import async_to_sync
 from boto3.dynamodb.conditions import Key
 import rollbar
 from botocore.exceptions import ClientError
@@ -162,7 +161,6 @@ async def get(
     return response.get('Item', {})
 
 
-@async_to_sync
 async def save_evidence(file_object: object, file_name: str) -> bool:
     return await s3.upload_memory_file(  # type: ignore
         FI_AWS_S3_BUCKET,
@@ -171,17 +169,14 @@ async def save_evidence(file_object: object, file_name: str) -> bool:
     )
 
 
-@async_to_sync
 async def search_evidence(file_name: str) -> List[str]:
     return await s3.list_files(FI_AWS_S3_BUCKET, file_name)  # type: ignore
 
 
-@async_to_sync
 async def remove_evidence(file_name: str) -> bool:
     return await s3.remove_file(FI_AWS_S3_BUCKET, file_name)  # type: ignore
 
 
-@async_to_sync
 async def download_evidence(file_name: str, file_path: str):
     await s3.download_file(  # type: ignore
         FI_AWS_S3_BUCKET,

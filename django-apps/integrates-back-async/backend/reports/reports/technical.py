@@ -7,6 +7,7 @@ from typing import (
 )
 
 # Third party libraries
+from asgiref.sync import async_to_sync
 from botocore.exceptions import ClientError
 import rollbar
 
@@ -154,7 +155,7 @@ def download_evidences_for_pdf(findings: List[Dict[str, FindingType]]):
             for evidence in evidence_set:
                 evidence_id_2 = str(evidence['id']).split('/')[2]
                 try:
-                    finding_dal.download_evidence(
+                    async_to_sync(finding_dal.download_evidence)(
                         evidence['id'],
                         f'{path}/{evidence_id_2}',
                     )

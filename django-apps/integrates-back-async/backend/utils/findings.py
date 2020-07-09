@@ -9,7 +9,7 @@ from typing import Dict, List, Union, cast
 
 import pytz
 import rollbar
-from asgiref.sync import async_to_sync
+from asgiref.sync import async_to_sync, sync_to_async
 from backports import csv  # type: ignore
 from django.conf import settings
 from django.core.files.base import ContentFile
@@ -82,19 +82,19 @@ def _get_evidence(name: str, items: List[Dict[str, str]]) -> Dict[str, str]:
     return evidence[0] if evidence else {'url': '', 'description': ''}
 
 
-def _download_evidence_file(
+async def _download_evidence_file(
         project_name: str,
         finding_id: str,
         file_name: str) -> str:
     file_id = '/'.join([project_name.lower(), finding_id, file_name])
-    file_exists = finding_dal.search_evidence(file_id)
+    file_exists = await finding_dal.search_evidence(file_id)
 
     if file_exists:
         start = file_id.find(finding_id) + len(finding_id)
         localfile = '/tmp' + file_id[start:]
         ext = {'.py': '.tmp'}
         tmp_filepath = util.replace_all(localfile, ext)
-        finding_dal.download_evidence(file_id, tmp_filepath)
+        await finding_dal.download_evidence(file_id, tmp_filepath)
         return tmp_filepath
     raise Exception('Evidence not found')
 
@@ -166,11 +166,15 @@ async def get_attributes(
     return response
 
 
-def get_records_from_file(
+async def get_records_from_file(
         project_name: str,
         finding_id: str,
         file_name: str) -> List[Dict[object, object]]:
-    file_path = _download_evidence_file(project_name, finding_id, file_name)
+    file_path = await _download_evidence_file(
+        project_name,
+        finding_id,
+        file_name
+    )
     file_content = []
     encoding = Magic(mime_encoding=True).from_file(file_path)
 
@@ -194,11 +198,15 @@ def get_records_from_file(
     return file_content
 
 
-def get_exploit_from_file(
+async def get_exploit_from_file(
         project_name: str,
         finding_id: str,
         file_name: str) -> str:
-    file_path = _download_evidence_file(project_name, finding_id, file_name)
+    file_path = await _download_evidence_file(
+        project_name,
+        finding_id,
+        file_name
+    )
     file_content = ''
 
     with open(file_path, 'r') as exploit_file:
@@ -395,7 +403,6 @@ def format_data(finding: Dict[str, FindingType]) -> Dict[str, FindingType]:
     return finding
 
 
-@async_to_sync
 async def mask_treatment(
         finding_id: str,
         historic_treatment: List[Dict[str, str]]) -> bool:
@@ -409,7 +416,6 @@ async def mask_treatment(
     )
 
 
-@async_to_sync
 async def mask_verification(
         finding_id: str,
         historic_verification: List[Dict[str, str]]) -> bool:
@@ -743,8 +749,9 @@ async def validate_treatment_change(
     )
 
 
-def mask_finding(finding_id: str) -> bool:
-    finding = async_to_sync(finding_dal.get_finding)(finding_id)
+@async_to_sync
+async def mask_finding(finding_id: str) -> bool:
+    finding = await finding_dal.get_finding(finding_id)
     finding = format_data(finding)
     historic_treatment = cast(
         List[Dict[str, str]],
@@ -760,50 +767,76 @@ def mask_finding(finding_id: str) -> bool:
         'related_findings', 'risk', 'threat', 'treatment',
         'treatment_manager', 'vulnerability'
     ]
-    finding_result = (
-        async_to_sync(finding_dal.update)(finding_id, {
-            attr: 'Masked'
-            for attr in attrs_to_mask
-        }) and
-        mask_treatment(finding_id, historic_treatment) and
-        mask_verification(finding_id, historic_verification)
+    mask_finding_tasks = []
+    mask_finding_tasks.append(
+        asyncio.create_task(
+            finding_dal.update(finding_id, {
+                attr: 'Masked'
+                for attr in attrs_to_mask
+            })
+        )
     )
 
-    evidence_prefix = f'{finding["projectName"]}/{finding_id}'
-    evidence_result = all([
-        finding_dal.remove_evidence(file_name)
-        for file_name in finding_dal.search_evidence(evidence_prefix)
-    ])
-    async_to_sync(finding_dal.update)(finding_id, {
-        'files': [
-            {'file_url': 'Masked', 'name': 'Masked', 'description': 'Masked'}
-            for _ in cast(List[Dict[str, str]], finding['evidence'])
-        ]
-    })
+    mask_finding_tasks.append(
+        asyncio.create_task(
+            mask_treatment(finding_id, historic_treatment)
+        )
+    )
+
+    mask_finding_tasks.append(
+        asyncio.create_task(
+            mask_verification(finding_id, historic_verification)
+        )
+    )
+
+    list_evidences_files = await finding_dal.search_evidence(
+        f'{finding["projectName"]}/{finding_id}'
+    )
+    evidence_s3_task = [
+        asyncio.create_task(
+            finding_dal.remove_evidence(file_name)
+        )
+        for file_name in list_evidences_files
+    ]
+    mask_finding_tasks.extend(evidence_s3_task)
+
+    evidence_dynamodb_task = asyncio.create_task(
+        finding_dal.update(finding_id, {
+            'files': [
+                {
+                    'file_url': 'Masked',
+                    'name': 'Masked',
+                    'description': 'Masked'
+                }
+                for _ in cast(List[Dict[str, str]], finding['evidence'])
+            ]
+        })
+    )
+    mask_finding_tasks.append(evidence_dynamodb_task)
 
     comments_and_observations = (
-        async_to_sync(comment_dal.get_comments)('comment', int(finding_id)) +
-        async_to_sync(comment_dal.get_comments)(
-            'observation', int(finding_id))
+        await comment_dal.get_comments('comment', int(finding_id)) +
+        await comment_dal.get_comments('observation', int(finding_id))
     )
-    comments_result = all([
-        async_to_sync(comment_dal.delete)(
-            int(finding_id),
-            cast(int, comment['user_id'])
+    comments_task = [
+        asyncio.create_task(
+            comment_dal.delete(int(finding_id), cast(int, comment['user_id']))
         )
-        for comment in comments_and_observations])
+        for comment in comments_and_observations
+    ]
+    mask_finding_tasks.extend(comments_task)
 
-    vulns_result = all([
-        vuln_utils.mask_vuln(finding_id, str(vuln['UUID']))
-        for vuln in vuln_dal.get_vulnerabilities(finding_id)
-    ])
+    list_vulns = await sync_to_async(vuln_dal.get_vulnerabilities)(finding_id)
+    mask_vulns_task = [
+        asyncio.create_task(
+            sync_to_async(vuln_utils.mask_vuln)(
+                finding_id, str(vuln['UUID']))
+        )
+        for vuln in list_vulns
+    ]
+    mask_finding_tasks.extend(mask_vulns_task)
 
-    success = all([
-        finding_result,
-        evidence_result,
-        comments_result,
-        vulns_result
-    ])
+    success = all(await asyncio.gather(*mask_finding_tasks))
     util.invalidate_cache(finding_id)
 
     return success

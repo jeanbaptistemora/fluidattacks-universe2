@@ -34,11 +34,11 @@ class FindingsTests(TestCase):
         expected_output = {'url': '', 'description': ''}
         assert test_data == expected_output
 
-    def test_download_evidence_file(self):
+    async def test_download_evidence_file(self):
         project_name = 'unittesting'
         finding_id = '422286126'
         file_name = 'unittesting-422286126-38307222-a.png'
-        test_data = _download_evidence_file(
+        test_data = await _download_evidence_file(
             project_name, finding_id, file_name
         )
         expected_output = os.path.abspath(
@@ -46,11 +46,11 @@ class FindingsTests(TestCase):
         )
         assert test_data == expected_output
 
-    def test_get_records_from_file(self):
+    async def test_get_records_from_file(self):
         project_name = 'unittesting'
         finding_id = '422286126'
         file_name = 'unittesting-422286126-49412246-Untitled 1.csv'
-        test_data = get_records_from_file(project_name, finding_id, file_name)
+        test_data = await get_records_from_file(project_name, finding_id, file_name)
         expected_output = [
             OrderedDict(
                 [('song', 'a million little pieces'),
@@ -71,11 +71,11 @@ class FindingsTests(TestCase):
 
         assert test_data == expected_output
 
-    def test_get_exploit_from_file(self):
+    async def test_get_exploit_from_file(self):
         project_name = 'unittesting'
         finding_id = '422286126'
         file_name = 'unittesting-422286126-38307199-exploit.py'
-        test_data = get_exploit_from_file(project_name, finding_id, file_name)
+        test_data = await get_exploit_from_file(project_name, finding_id, file_name)
         expected_output = 'print "It works!"\n'
         assert test_data == expected_output
 

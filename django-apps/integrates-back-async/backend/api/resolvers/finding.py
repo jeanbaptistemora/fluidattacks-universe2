@@ -175,7 +175,7 @@ async def _get_records(info, identifier: str) -> List[Dict[object, object]]:
     """Get records."""
     finding = await info.context.loaders['finding'].load(identifier)
     if finding['records']['url']:
-        records = await sync_to_async(finding_utils.get_records_from_file)(
+        records = await finding_utils.get_records_from_file(
             finding['project_name'], finding['id'], finding['records']['url'])
     else:
         records = []
@@ -201,11 +201,11 @@ async def _get_exploit(info, identifier: str) -> str:
     """Get exploit."""
     finding = await info.context.loaders['finding'].load(identifier)
     if finding['exploit']['url']:
-        exploit = \
-            await \
-            sync_to_async(finding_utils.get_exploit_from_file)(
-                finding['project_name'], finding['id'],
-                finding['exploit']['url'])
+        exploit = await finding_utils.get_exploit_from_file(
+            finding['project_name'],
+            finding['id'],
+            finding['exploit']['url']
+        )
     else:
         exploit = ''
     return exploit
@@ -529,8 +529,7 @@ async def resolve_finding(_, info, identifier: str) -> Dict[str, FindingType]:
 async def _do_remove_evidence(_, info, evidence_id: str,
                               finding_id: str) -> SimpleFindingPayloadType:
     """Resolve remove_evidence mutation."""
-    success = await \
-        sync_to_async(finding_domain.remove_evidence)(evidence_id, finding_id)
+    success = await finding_domain.remove_evidence(evidence_id, finding_id)
 
     if success:
         util.cloudwatch_log(
@@ -559,7 +558,7 @@ async def _do_update_evidence(_, info, evidence_id: str, finding_id: str,
 
     if await \
             sync_to_async(finding_domain.validate_evidence)(evidence_id, file):
-        success = await sync_to_async(finding_domain.update_evidence)(
+        success = await finding_domain.update_evidence(
             finding_id, evidence_id, file)
     if success:
         util.invalidate_cache(finding_id)
@@ -703,11 +702,12 @@ async def _do_handle_acceptation(_, info, **parameters) -> SimplePayloadType:
             'It cant be approved/rejected a finding' +
             'definite assumption without being requested')
 
-    success = await \
-        sync_to_async(finding_domain.handle_acceptation)(
-            finding_id, parameters.get('observations'), user_mail,
-            parameters.get('response')
-        )
+    success = await finding_domain.handle_acceptation(
+        finding_id,
+        str(parameters.get('observations')),
+        user_mail,
+        str(parameters.get('response'))
+    )
     if success:
         finding_loader.clear(finding_id)
         util.invalidate_cache(finding_id)

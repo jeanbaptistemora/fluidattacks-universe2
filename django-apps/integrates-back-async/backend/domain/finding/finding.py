@@ -7,7 +7,7 @@ from typing import Dict, List, Union, cast
 
 import aioboto3
 import pytz
-from asgiref.sync import async_to_sync, sync_to_async
+from asgiref.sync import sync_to_async
 from django.conf import settings
 from graphql import GraphQLError
 from magic import Magic
@@ -461,8 +461,8 @@ async def get_findings_async(
     return findings
 
 
-def update_evidence(finding_id: str, evidence_type: str, file) -> bool:
-    finding = async_to_sync(get_finding)(finding_id)
+async def update_evidence(finding_id: str, evidence_type: str, file) -> bool:
+    finding = await get_finding(finding_id)
     files = cast(List[Dict[str, str]], finding.get('files', []))
     project_name = str(finding.get('projectName', ''))
     success = False
@@ -476,7 +476,7 @@ def update_evidence(finding_id: str, evidence_type: str, file) -> bool:
             ), ''
         )
         if old_file_name != '':
-            old_records = finding_utils.get_records_from_file(
+            old_records = await finding_utils.get_records_from_file(
                 project_name, finding_id, old_file_name)
             if old_records:
                 file = finding_utils.append_records_to_file(cast(
@@ -501,7 +501,7 @@ def update_evidence(finding_id: str, evidence_type: str, file) -> bool:
     evidence_id = f'{project_name}-{finding_id}-{evidence_type}{extension}'
     full_name = f'{project_name}/{finding_id}/{evidence_id}'
 
-    if finding_dal.save_evidence(file, full_name):
+    if await finding_dal.save_evidence(file, full_name):
         evidence: Union[Dict[str, str], list] = next(
             (
                 item
@@ -514,19 +514,19 @@ def update_evidence(finding_id: str, evidence_type: str, file) -> bool:
             if files[index].get('file_url', evidence_id) != evidence_id:
                 # old evidence that does not comply the
                 # namestyle will not be replaced and be orphan
-                finding_dal.remove_evidence(
+                await finding_dal.remove_evidence(
                     '{group_name}/{finding_id}/{file_url}'.format(
                         group_name=project_name,
                         finding_id=finding_id,
                         file_url=files[index].get('file_url', '')
                     )
                 )
-            success = async_to_sync(finding_dal.update)(
+            success = await finding_dal.update(
                 finding_id,
                 {f'files[{index}].file_url': evidence_id}
             )
         else:
-            success = async_to_sync(finding_dal.list_append)(
+            success = await finding_dal.list_append(
                 finding_id,
                 'files',
                 [{'name': evidence_type, 'file_url': evidence_id}]
@@ -566,8 +566,8 @@ async def update_evidence_description(
     return success
 
 
-def remove_evidence(evidence_name: str, finding_id: str) -> bool:
-    finding = async_to_sync(get_finding)(finding_id)
+async def remove_evidence(evidence_name: str, finding_id: str) -> bool:
+    finding = await get_finding(finding_id)
     project_name = finding['projectName']
     files = cast(
         List[Dict[str, str]],
@@ -588,10 +588,10 @@ def remove_evidence(evidence_name: str, finding_id: str) -> bool:
     evidence_id = str(evidence.get('file_url', ''))
     full_name = f'{project_name}/{finding_id}/{evidence_id}'
 
-    if finding_dal.remove_evidence(full_name):
+    if await finding_dal.remove_evidence(full_name):
         index = files.index(evidence)
         del files[index]
-        success = async_to_sync(finding_dal.update)(
+        success = await finding_dal.update(
             finding_id, {'files': files})
 
     return success
