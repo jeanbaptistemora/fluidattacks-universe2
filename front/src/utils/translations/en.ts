@@ -1092,10 +1092,7 @@ const enTranslations: Dictionary = {
         "<br /> Deleted groups cannot be restored.",
     },
     tab_severity: {
-      attack_complexity: {
-        text: "Attack Complexity",
-        tooltip: "Conditions beyond the attacker’s control that must exist in order to exploit the vulnerability",
-      },
+      attack_complexity: "Attack Complexity",
       attack_complexity_options: {
         high: {
           text: "High",
@@ -1112,10 +1109,7 @@ const enTranslations: Dictionary = {
             + "An attacker can expect repeatable success when attacking the vulnerable component.",
         },
       },
-      attack_vector: {
-        text: "Attack Vector",
-        tooltip: "Context by which vulnerability exploitation is possible",
-      },
+      attack_vector: "Attack Vector",
       attack_vector_options: {
         adjacent: {
           text: "Adjacent network",
@@ -1164,10 +1158,7 @@ const enTranslations: Dictionary = {
         single_auth: "Single: Single authentication point",
       },
       availability: "Availability Impact",
-      availability_impact: {
-        text: "Availability Impact",
-        tooltip: "Availability refers to the accessibility of information resources",
-      },
+      availability_impact: "Availability Impact",
       availability_impact_options: {
         high: {
           text: "High",
@@ -1229,11 +1220,7 @@ const enTranslations: Dictionary = {
         not_corrob: "Not corroborated: Vulnerability is recognized by unofficial sources",
       },
       confidentiality: "Confidentiality Impact",
-      confidentiality_impact: {
-        text: "Confidentiality Impact",
-        tooltip: "Confidentiality refers to limiting information access and disclosure to only authorized users, " +
-          "as well as preventing access by, or disclosure to, unauthorized ones",
-      },
+      confidentiality_impact: "Confidentiality Impact",
       confidentiality_impact_options: {
         high: {
           text: "High",
@@ -1277,22 +1264,21 @@ const enTranslations: Dictionary = {
       },
       cvss_version: "CVSS Version",
       editable: "Edit",
-      exploitability: {
-        text: "Exploitability",
-        tooltip: "Likelihood of the vulnerability being attacked",
-      },
+      exploitability: "Exploitability",
       exploitability_options: {
         conceptual: {
           text: "Conceptual: There are laboratory tests",
         },
         functional: {
           text: "Functional: There is an exploit",
-          tooltip: "Functional exploit code is available. "
+          tooltip: "<strong>Worse:</strong> "
+            + "Functional exploit code is available. "
             + "The code works in most situations where the vulnerability exists.",
         },
         high: {
           text: "High: Exploit is not required or it can be automated",
-          tooltip: "Functional autonomous code exists, "
+          tooltip: "<strong>Worst:</strong> "
+            + "Functional autonomous code exists, "
             + "or no exploit is required (manual trigger) and details are widely available. "
             + "Exploit code works in every situation, "
             + "or is actively being delivered via an autonomous agent (such as a worm or virus). "
@@ -1305,21 +1291,20 @@ const enTranslations: Dictionary = {
         },
         proof_of_concept: {
           text: "Proof of Concept",
-          tooltip: "Proof-of-concept exploit code is available, "
+          tooltip: "<strong>Bad:</strong> "
+            + "Proof-of-concept exploit code is available, "
             + "or an attack demonstration is not practical for most systems. "
             + "The code or technique is not functional in all situations and "
             + "may require substantial modification by a skilled attacker.",
         },
         unproven: {
           text: "Unproven",
-          tooltip: "No exploit code is available, or an exploit is theoretical.",
+          tooltip: "<strong>Good:</strong> "
+            + "No exploit code is available, or an exploit is theoretical.",
         },
       },
       integrity: "Integrity Impact",
-      integrity_impact: {
-        text: "Integrity Impact",
-        tooltip: "Integrity refers to the trustworthiness and veracity of information",
-      },
+      integrity_impact: "Integrity Impact",
       integrity_impact_options: {
         high: {
           text: "High",
@@ -1368,10 +1353,7 @@ const enTranslations: Dictionary = {
       modified_privileges_required: "Modified Privileges Required",
       modified_severity_scope: "Modified Scope",
       modified_user_interaction: "Modified User Interaction",
-      privileges_required: {
-        text: "Privileges Required",
-        tooltip: "Level of privileges an attacker must possess before successfully exploiting the vulnerability",
-      },
+      privileges_required: "Privileges Required",
       privileges_required_options: {
         high: {
           text: "High",
@@ -1393,48 +1375,47 @@ const enTranslations: Dictionary = {
             + "or files of the the vulnerable system to carry out an attack.",
         },
       },
-      remediation_level: {
-        text: "Remediation Level",
-        tooltip: "State of art of the current vulnerability",
-      },
+      remediation_level: "Remediation Level",
       remediation_level_options: {
         official_fix: {
           text: "Official Fix",
-          tooltip: "A complete vendor solution is available. "
+          tooltip: "<strong>Good:</strong> "
+            + "A complete vendor solution is available. "
             + "Either the vendor has issued an official patch, or an upgrade is available.",
         },
         temporary_fix: {
           text: "Temporary Fix",
-          tooltip: "There is an official but temporary fix available. "
+          tooltip: "<strong>Bad:</strong> "
+            + "There is an official but temporary fix available. "
             + "This includes instances where the vendor issues a temporary hotfix, tool, or workaround.",
         },
         unavailable: {
           text: "Unavailable",
-          tooltip: "There is either no solution available or it is impossible to apply.",
+          tooltip: "<strong>Worst:</strong> "
+            + "There is either no solution available or it is impossible to apply.",
         },
         workaround: {
           text: "Workaround",
-          tooltip: "There is an unofficial, non-vendor solution available. "
+          tooltip: "<strong>Bad:</strong> "
+            + "There is an unofficial, non-vendor solution available. "
             + "In some cases, users of the affected technology will create a patch of their own or "
             + "provide steps to work around or otherwise mitigate the vulnerability.",
         },
       },
-      report_confidence: {
-        text: "Report Confidence",
-        tooltip: "Degree of confidence in the existence of the vulnerability " +
-          "and the credibility of the known technical details",
-      },
+      report_confidence: "Report Confidence",
       report_confidence_options: {
         confirmed: {
           text: "Confirmed",
-          tooltip: "Detailed reports exist, "
+          tooltip: "<strong>Worst:</strong> "
+            + "Detailed reports exist, "
             + "or functional reproduction is possible (functional exploits may provide this). "
             + "Source code is available to independently verify the assertions of the research, "
             + "or the author or vendor of the affected code has confirmed the presence of the vulnerability.",
         },
         reasonable: {
           text: "Reasonable",
-          tooltip: "Significant details are published, "
+          tooltip: "<strong>Bad:</strong> "
+            + "Significant details are published, "
             + "but researchers either do not have full confidence in the root cause, or "
             + "do not have access to source code to fully confirm all of the interactions that may lead to the result. "
             + "Reasonable confidence exists, however, that the bug is reproducible and "
@@ -1445,7 +1426,8 @@ const enTranslations: Dictionary = {
         },
         unknown: {
           text: "Unknown",
-          tooltip: "There are reports of impacts that indicate a vulnerability is present. "
+          tooltip: "<strong>Bad:</strong> "
+            + "There are reports of impacts that indicate a vulnerability is present. "
             + "The reports indicate that the cause of the vulnerability is unknown, "
             + "or reports may differ on the cause or impacts of the vulnerability. "
             + "Reporters are uncertain of the true nature of the vulnerability, "
@@ -1463,10 +1445,7 @@ const enTranslations: Dictionary = {
         palliative: "Palliative: There is a patch that was not published by the manufacturer",
         temporal: "Temporal: There are temporary solutions",
       },
-      severity_scope: {
-        text: "Scope",
-        tooltip: "Impacts to the resources beyond the security scope",
-      },
+      severity_scope: "Scope",
       severity_scope_options: {
         changed: {
           text: "Changed",
@@ -1488,11 +1467,7 @@ const enTranslations: Dictionary = {
       tab_title: "Severity",
       tooltip: "Assigned score according to CVSS 3.1 metrics",
       update: "Update",
-      user_interaction: {
-        text: "User Interaction",
-        tooltip: "Requirement for a human user, other than the attacker, to participate in the successful compromise " +
-          "of the vulnerable component",
-      },
+      user_interaction: "User Interaction",
       user_interaction_options: {
         none: {
           text: "None",

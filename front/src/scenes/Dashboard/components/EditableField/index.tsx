@@ -31,15 +31,17 @@ const renderHorizontal: ((props: EditableFieldProps) => JSX.Element) =
     return (
       <FormGroup>
         <Col md={3} xs={12} sm={12} className={style.title}>
-          {_.isUndefined(tooltip) || _.isEmpty(tooltip) ? <ControlLabel><b>{label}</b></ControlLabel>
-          : (
-            <TooltipWrapper message={tooltip} placement="top">
-              <ControlLabel><b>{label}</b></ControlLabel>
-            </TooltipWrapper>
-          )}
+          <ControlLabel><b>{label}</b></ControlLabel>
         </Col>
         <Col md={9} xs={12} sm={12}>
-          {renderAsEditable ? <Field {...fieldProps} /> : renderCurrentValue(currentValue)}
+          {renderAsEditable
+            ? <Field {...fieldProps} />
+            : _.isUndefined(tooltip) || _.isEmpty(tooltip)
+              ? renderCurrentValue(currentValue)
+              : <TooltipWrapper message={tooltip} placement="right">
+                  {renderCurrentValue(currentValue)}
+                </TooltipWrapper>
+          }
         </Col>
       </FormGroup>
     );

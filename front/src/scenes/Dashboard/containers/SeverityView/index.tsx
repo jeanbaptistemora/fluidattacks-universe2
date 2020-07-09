@@ -183,26 +183,31 @@ const severityView: React.FC<SeverityViewProps> = (props: SeverityViewProps): JS
                                 </React.Fragment>
                               ) : undefined}
                               {castFieldsCVSS3(data.finding.severity, isEditing, formValues)
-                                .map((field: ISeverityField, index: number) => (
-                                  <Row className={style.row} key={index}>
-                                    <EditableField
-                                      alignField="horizontal"
-                                      component={dropdownField}
-                                      currentValue={
-                                        `${field.currentValue} | ${translate.t(field.options[field.currentValue])}`}
-                                      label={field.title}
-                                      name={field.name}
-                                      renderAsEditable={isEditing}
-                                      tooltip={field.tooltip}
-                                      validate={required}
-                                    >
-                                      <option value="" />
-                                      {_.map(field.options, (text: string, value: string) => (
-                                        <option key={text} value={value}>{translate.t(text)}</option>
-                                      ))}
-                                    </EditableField>
-                                  </Row>
-                                ))}
+                                .map((field: ISeverityField, index: number) => {
+                                  const currentOption: string = field.options[field.currentValue];
+
+                                  return (
+                                    <Row className={style.row} key={index}>
+                                      <EditableField
+                                        alignField="horizontal"
+                                        component={dropdownField}
+                                        currentValue={
+                                          `${field.currentValue} | ${translate.t(currentOption)}`}
+                                        label={field.title}
+                                        name={field.name}
+                                        renderAsEditable={isEditing}
+                                        tooltip={_.isEmpty(currentOption)
+                                          ? undefined : translate.t(currentOption.replace(/text/, "tooltip"))}
+                                        validate={required}
+                                      >
+                                        <option value="" />
+                                        {_.map(field.options, (text: string, value: string) => (
+                                          <option key={text} value={value}>{translate.t(text)}</option>
+                                        ))}
+                                      </EditableField>
+                                    </Row>
+                                  );
+                                })}
                             </React.Fragment>
                           )}
                         </GenericForm>
