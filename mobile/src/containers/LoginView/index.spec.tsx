@@ -1,10 +1,6 @@
-// tslint:disable: no-magic-numbers
-import { wait } from "@apollo/react-testing";
 import { mount, ReactWrapper } from "enzyme";
 import * as AppAuth from "expo-app-auth";
 import * as Google from "expo-google-app-auth";
-import * as LocalAuthentication from "expo-local-authentication";
-import * as SecureStore from "expo-secure-store";
 import { FetchMockStatic } from "fetch-mock";
 import React from "react";
 // tslint:disable-next-line: no-submodule-imports
@@ -302,60 +298,5 @@ describe("LoginView", (): void => {
 
     expect(Alert.alert)
       .toHaveBeenCalledTimes(2);
-  });
-
-  it.skip("should prompt for biometric unlock", async (): Promise<void> => {
-    (checkPlayStoreVersion as jest.Mock).mockImplementation((): Promise<boolean> => Promise.resolve(false));
-    (SecureStore.getItemAsync as jest.Mock)
-      .mockResolvedValueOnce("some.session.token")
-      .mockResolvedValueOnce(JSON.stringify({}));
-    (LocalAuthentication.authenticateAsync as jest.Mock).mockResolvedValue({ success: true });
-
-    const wrapper: ReactWrapper = mount(
-      <PaperProvider>
-        <I18nextProvider i18n={i18next}>
-          <NativeRouter initialEntries={["/"]}>
-            <LoginView />
-          </NativeRouter>
-        </I18nextProvider>
-      </PaperProvider>,
-    );
-
-    await wait(0);
-
-    expect(wrapper)
-      .toHaveLength(1);
-
-    expect(LocalAuthentication.authenticateAsync)
-      .toHaveBeenCalled();
-    expect(mockHistoryReplace)
-      .toHaveBeenCalledWith("/Dashboard", {});
-  });
-
-  it.skip("should handle unsuccessful biometric unlock", async (): Promise<void> => {
-    (checkPlayStoreVersion as jest.Mock).mockImplementation((): Promise<boolean> => Promise.resolve(false));
-    (SecureStore.getItemAsync as jest.Mock)
-      .mockResolvedValueOnce("some.session.token")
-      .mockResolvedValueOnce(JSON.stringify({}));
-    (LocalAuthentication.authenticateAsync as jest.Mock).mockResolvedValue({ success: false });
-
-    const wrapper: ReactWrapper = mount(
-      <PaperProvider>
-        <I18nextProvider i18n={i18next}>
-          <NativeRouter initialEntries={["/"]}>
-            <LoginView />
-          </NativeRouter>
-        </I18nextProvider>
-      </PaperProvider>,
-    );
-
-    await act(async (): Promise<void> => { await wait(0); wrapper.update(); });
-
-    expect(wrapper)
-      .toHaveLength(1);
-    expect(wrapper
-      .find("preloader")
-      .prop("visible"))
-      .toEqual(false);
   });
 });
