@@ -115,6 +115,12 @@
         "variableDeclaration": true
       }
     ],
+    /*
+     * In the functional react world, you likely will never have a function that
+     * actually cares about the this context. Refer to:
+     * https://github.com/typescript-eslint/typescript-eslint/issues/2245#issuecomment-648712540
+     */
+    "@typescript-eslint/unbound-method": "off",
     "fp/no-mutation": [
       "error",
       {
@@ -156,6 +162,7 @@
     "react/jsx-boolean-value": ["error", "always"],
     "react/jsx-curly-brace-presence": ["error", "always"],
     "react/jsx-max-depth": "off",
+    "react/jsx-no-literals": ["error", { "allowedStrings": ["&nbsp;"] }],
     "react/function-component-definition": [
       "error",
       {

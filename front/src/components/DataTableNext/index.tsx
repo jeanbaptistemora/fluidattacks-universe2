@@ -19,35 +19,19 @@ import filterFactory from "react-bootstrap-table2-filter";
 import paginationFactory from "react-bootstrap-table2-paginator";
 // tslint:disable-next-line:no-import-side-effect no-submodule-imports
 import "react-bootstrap-table2-paginator/dist/react-bootstrap-table2-paginator.min.css";
-import ToolkitProvider, { ColumnToggle, CSVExport, Search,
+import ToolkitProvider, { ColumnToggle, Search,
   ToolkitProviderProps } from "react-bootstrap-table2-toolkit";
 // tslint:disable-next-line:no-import-side-effect no-submodule-imports
 import "react-bootstrap-table2-toolkit/dist/react-bootstrap-table2-toolkit.min.css";
 import { default as globalStyle } from "../../styles/global.css";
 import translate from "../../utils/translations/translate";
 import { Button } from "../Button";
-import { FluidIcon } from "../FluidIcon";
 import { Modal } from "../Modal";
 import { TooltipWrapper } from "../TooltipWrapper/index";
+import { ExportCSVButtonWrapper } from "./exportCSVButton";
 import { default as style } from "./index.css";
 import { ICustomToggle, ITableProps } from "./types";
 import { customizeColumns } from "./utils";
-
-const renderExportCsvButton: ((toolkitProps: ToolkitProviderProps) => JSX.Element) =
-(toolkitProps: ToolkitProviderProps): JSX.Element => {
-  const { ExportCSVButton } = CSVExport;
-
-  return (
-    <TooltipWrapper message={translate.t("group.findings.exportCsv.tooltip")}>
-      <div className={style.buttonWrapper}>
-        <ExportCSVButton {...toolkitProps.csvProps} className={style.exportCsv}>
-          <FluidIcon icon="export" />
-          &nbsp;{translate.t("group.findings.exportCsv.text")}
-        </ExportCSVButton>
-      </div>
-    </TooltipWrapper>
-  );
-};
 
 const CustomToggleList: ((props: ICustomToggle) => JSX.Element) =
 (props: ICustomToggle): JSX.Element => {
@@ -178,7 +162,7 @@ const renderTable: ((toolkitProps: ToolkitProviderProps, props: ITableProps, dat
       <div>
         <Row className={style.tableOptions}>
           <Col lg={3} md={3} sm={6} xs={12}>
-          {props.exportCsv ? renderExportCsvButton(toolkitProps) : undefined}
+          {props.exportCsv ? <ExportCSVButtonWrapper {...toolkitProps}/> : undefined}
           </Col>
           <Col lg={3} md={3} sm={6} xs={12}>
             {columnToggle ? <CustomToggleList propsToggle={toolkitProps.columnToggleProps} propsTable={props} />
