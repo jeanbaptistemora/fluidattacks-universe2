@@ -41,7 +41,10 @@ def file(graph: DiGraph, name: str):
     return _create_node(graph, **args)
 
 
-def namespace_block(graph: DiGraph, name: str, full_name: str, file_name: str):
+def namespace_block(graph: DiGraph,
+                    name: str,
+                    file_name: str,
+                    full_name: str = None):
     """
     A reference to a namespace.
 
@@ -55,4 +58,39 @@ def namespace_block(graph: DiGraph, name: str, full_name: str, file_name: str):
     args = locals()
     args.pop('graph')
     args['type'] = 'NAMESPACE_BLOCK'
+    return _create_node(graph, **args)
+
+
+def type_decl(graph: DiGraph,
+              name: str,
+              full_name: str,
+              ast_parent_type: str,
+              ast_parent_full_name: str,
+              line_number: int,
+              column_number: int,
+              line_number_end: int,
+              column_number_end: int,
+              file_name: str,
+              order: int = None,
+              ):
+    """
+    A type declaration
+    :param name: Name of represented type.
+    :param full_name: Full name of type, must include package name directory.
+    :param ast_parent_type: The type of the AST parent. Since this is
+      only used in some parts of the graph.
+    :param ast_parent_full_name: The FULL_NAME of a the AST parent of an
+      entity.
+    :param line_number: Line where the code starts.
+    :param column_number: Column where the code starts.
+    :param line_number_end: Line where the code ends.
+    :param column_number_end: Column where the code ends.
+    :param order: The ordering has no technical meaning, but is used for
+      pretty printing and OUGHT TO reflect order in the source code.
+    :param file_name: Full path of file that contained this node, will be
+      linked into corresponding FILE nodes.
+    """
+    args = locals()
+    args.pop('graph')
+    args['type'] = 'TYPE_DECL'
     return _create_node(graph, **args)

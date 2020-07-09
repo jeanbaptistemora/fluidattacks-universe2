@@ -6,12 +6,16 @@ from typing import Tuple
 from networkx import DiGraph
 
 # Local import
-from fluidasserts.utils.parsers import python3
+from fluidasserts.lang import python3_cpg
+from fluidasserts.lang import node_creator as creator
+from fluidasserts.lang import GRAPHS
 
 
 def load_cpg(path: str, language: str, exclude: Tuple[str] = None):
     """Convert the files inside the path into a properties graph."""
-    graph: DiGraph = DiGraph()
+    graph: DiGraph = GRAPHS.get()
+
+    creator.meta_data(graph, language=language)
     if language == 'python':
-        python3.create_cpg(graph, path, exclude)
+        python3_cpg.create_cpg(path, exclude)
     return graph
