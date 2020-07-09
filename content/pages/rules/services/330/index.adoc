@@ -1,6 +1,6 @@
 :slug: rules/330/
 :category: services
-:description: This document contains the details of the security requirements related to the definition and management of resources and services in the organization. This requirement establishes the importance of using Subresource Integrity to validate the integrity of externally hosted resources.
+:description: This requirement establishes the importance of using Subresource Integrity to validate the integrity of externally hosted resources.
 :keywords: Subresource, Integrity, External, Hosting, ASVS, CWE
 :rules: yes
 
@@ -35,6 +35,21 @@ executes the code without sufficiently verifying the origin and integrity of
 the code.
 
 . [[r3]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V10.3 Deployed Application Integrity Controls.(10.3.1)]
+Verify that if the application has a client or server auto-update feature,
+updates should be obtained over secure channels and digitally signed.
+The update code must validate the digital signature of the update before
+installing or executing the update.
+
+. [[r4]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V10.3 Deployed Application Integrity Controls.(10.3.2)]
+Verify that the application employs integrity protections,
+such as code signing or **sub-resource integrity**.
+The application must not load or execute code from untrusted sources,
+such as loading includes, modules, plugins, code, or libraries from untrusted
+sources or the Internet.
+
+. [[r5]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V14.2 Dependency.(14.2.3)]
 Verify that if application assets, such as *JavaScript* libraries, *CSS*
 stylesheets or web fonts, are hosted externally on a content delivery

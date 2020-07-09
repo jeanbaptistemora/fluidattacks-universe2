@@ -72,17 +72,47 @@ present in the in-use version of the product.
 
 == References
 
-. [[r1]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r1]] link:https://cwe.mitre.org/data/definitions/507.html[CWE-507: Trojan Horse].
+The software appears to contain benign or useful functionality,
+but it also contains code that is hidden from normal operation that violates
+the intended security policy of the user or the system administrator.
+
+. [[r2]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V1.14 Configuration Architectural Requirements.(1.14.1)]
 Verify the application does not use unsupported, insecure, or deprecated
 client-side technologies such as NSAPI plugins, Flash, Shockwave, ActiveX,
 Silverlight, NACL, or client-side Java applets.
 
-. [[r2]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r3]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V10.2 Malicious Code Search.(10.2.1)]
 Verify that the application source code and third party libraries do not
 contain unauthorized phone home or data collection capabilities.
 Where such functionality exists, obtain the user's permission for it to operate
 before collecting any data.
 
-. [[r3]] link:https://www.owasp.org/index.php/Top_10_2013-A9-Using_Components_with_Known_Vulnerabilities[Top 10 2013-A9-Using Components with Known Vulnerabilities].
+. [[r4]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V10.2 Malicious Code Search.(10.2.3)]
+Verify that the application source code and third party libraries do not contain
+back doors,
+such as hard-coded or additional undocumented accounts or keys,
+code obfuscation, undocumented binary blobs, rootkits,
+or anti-debugging, insecure debugging features,
+or otherwise out of date, insecure, or hidden functionality that could be used
+maliciously if discovered.
+
+. [[r5]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V10.2 Malicious Code Search.(10.2.4)]
+Verify that the application source code and third party libraries do not
+contain time bombs by searching for date and time related functions.
+
+. [[r6]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V10.2 Malicious Code Search.(10.2.5)]
+Verify that the application source code and third party libraries do not
+contain malicious code, such as salami attacks, logic bypasses, or logic bombs.
+
+. [[r7]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V10.2 Malicious Code Search.(10.2.6)]
+Verify that the application source code and third party libraries do not
+contain Easter eggs or any other potentially unwanted functionality.
+
+. [[r8]] link:https://www.owasp.org/index.php/Top_10_2013-A9-Using_Components_with_Known_Vulnerabilities[Top 10 2013-A9-Using Components with Known Vulnerabilities].

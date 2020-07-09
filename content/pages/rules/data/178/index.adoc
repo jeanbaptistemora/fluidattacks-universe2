@@ -67,3 +67,11 @@ Verify that if the application has a client or server auto-update feature,
 updates should be obtained over secure channels and digitally signed.
 The update code must validate the digital signature of the update before
 installing or executing the update.
+
+. [[r9]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V10.3 Deployed Application Integrity Controls.(10.3.2)]
+Verify that the application employs integrity protections,
+such as code signing or sub-resource integrity.
+The application must not load or execute code from untrusted sources,
+such as loading includes, modules, plugins, code, or libraries from untrusted
+sources or the Internet.

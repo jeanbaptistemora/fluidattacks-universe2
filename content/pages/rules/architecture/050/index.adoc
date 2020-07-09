@@ -1,7 +1,7 @@
 :slug: rules/050/
 :category: architecture
 :description: This requirement establishes the importance of controlling the calls to interpreted code in order to avoid malicious code injections.
-:keywords: Code, System, Security, Requirement, Interpreted, JavaScript, Rules, Ethical Hacking, Pentesting
+:keywords: Code, System, ASVS, CWE, Interpreted, JavaScript, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R050. Control calls to interpreted code
@@ -33,3 +33,16 @@ Verify that the application projects against *JavaScript* or *JSON* injection
 attacks,
 including for eval attacks, remote *JavaScript* includes, *CSP* bypasses,
 **DOM XSS**, and *JavaScript* expression evaluation.
+
+. [[r3]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V10.3 Deployed Application Integrity Controls.(10.3.2)]
+Verify that the application employs integrity protections,
+such as code signing or sub-resource integrity.
+The application must not load or execute code from untrusted sources,
+such as loading includes, modules, plugins, code, or libraries from untrusted
+sources or the Internet.
+
+. [[r4]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V10.3 Deployed Application Integrity Controls.(10.3.3)]
+Verify that the application has protection from sub-domain takeovers if the
+application relies upon *DNS* entries or *DNS* sub-domains.

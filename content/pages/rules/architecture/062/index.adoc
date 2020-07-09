@@ -59,3 +59,11 @@ modes, and libraries are used, instead of custom coded cryptography.
 V6.2 Algorithms.(6.2.3)]
 Verify that encryption initialization vector, cipher configuration,
 and block modes are configured securely using the latest advice.
+
+. [[r5]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V10.3 Deployed Application Integrity Controls.(10.3.2)]
+Verify that the application employs integrity protections,
+such as code signing or sub-resource integrity.
+The application must not load or execute code from untrusted sources,
+such as loading includes, modules, plugins, code, or libraries from untrusted
+sources or the Internet.
