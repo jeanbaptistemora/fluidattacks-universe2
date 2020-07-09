@@ -13,7 +13,7 @@ function job_analytics_services_toe {
         analytics_auth_redshift \
   &&  echo '[INFO] Generating secret files' \
   &&  echo "${analytics_auth_redshift}" > "${TEMP_FILE2}" \
-  &&  pushd analytics/services \
+  &&  pushd analytics/services || return 1 \
     &&  echo '[INFO] Cloning services repository' \
     &&  git clone --depth 1 --single-branch \
           "https://${analytics_gitlab_user}:${analytics_gitlab_token}@gitlab.com/fluidattacks/services.git" \
@@ -30,7 +30,7 @@ function job_analytics_services_toe {
           --drop-schema \
           --schema-name 'continuous_toe' \
           < .singer \
-  && popd
+  && popd || return 1
 }
 
 function job_analytics_dynamodb {
@@ -483,7 +483,7 @@ function job_lint_code {
               "${path}" \
           || return 1
         done \
-  && pushd analytics/singer \
+  && pushd analytics/singer || return 1 \
     && find "${PWD}" -mindepth 1 -maxdepth 1 -type d \
       | while read -r path
         do
@@ -495,7 +495,7 @@ function job_lint_code {
               "${path_basename}" \
           || return 1
         done \
-  && popd \
+  && popd || return 1 \
   && prospector --profile .prospector.yml .
 }
 
@@ -545,28 +545,6 @@ function job_infra_autoscaling_ci_deploy_config {
         'sudo killall -SIGHUP gitlab-runner'
 }
 
-function job_infra_eks_setup {
-      echo '[INFO] This is a work in progress! this may fail' \
-  &&  . services/eks-cluster/kubectl-setup/kubectl-setup.sh \
-  &&  . services/eks-cluster/helm/installation/deploy-helm.sh \
-  &&  kubectl_setup \
-  &&  deploy_helm
-}
-
-function job_infra_eks_test {
-      echo '[INFO] This is a work in progress! this may fail' \
-  &&  helper_terraform_init \
-        services/eks/terraform \
-  &&  helper_terraform_plan \
-        services/eks/terraform
-}
-
-function job_infra_eks_deploy {
-      echo '[INFO] This is a work in progress! this may fail' \
-  &&  helper_terraform_apply \
-        services/eks/terraform
-}
-
 function _job_infra_monolith {
   export TF_VAR_elbDns
   export TF_VAR_elbZone
@@ -600,7 +578,7 @@ function _job_infra_monolith {
         ONELOGIN_SSO \
         TILLER_CERT \
         TILLER_KEY \
-  &&  pushd infrastructure/ \
+  &&  pushd infrastructure/ || return 1 \
     &&  echo "${ONELOGIN_SSO}" | base64 -d > SSO.xml \
     &&  echo "${ONELOGIN_FINANCE_SSO}" | base64 -d > SSOFinance.xml \
     &&  terraform init \
@@ -618,7 +596,7 @@ function _job_infra_monolith {
           &&  base64 -d > "${helm_home}/ca.pem"   <<< "${HELM_CA}" \
           &&  eks/manifests/deploy.sh
         fi \
-    &&  pushd dns/ \
+    &&  pushd dns/ || return 1 \
       &&  elbs_info="$(mktemp)" \
       &&  jq_query='.TagDescriptions[0].Tags[] | select(.Key == "kubernetes.io/cluster/FluidServes")' \
       &&  aws elb --region 'us-east-1' describe-load-balancers \
@@ -653,8 +631,8 @@ function _job_infra_monolith {
       &&  if [ "${first_argument}" == "deploy" ]; then
                 terraform apply -auto-approve "${terraform_state}"
           fi \
-   &&  popd \
-  &&  popd \
+   &&  popd || return 1 \
+  &&  popd || return 1 \
   || return 1
 }
 

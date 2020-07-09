@@ -188,21 +188,6 @@ infra_autoscaling_ci_deploy_config:
   <<: *in_master_branch
   stage: deploy
 
-.infra_fluid_eks_test:
-  <<: *with_nix
-  <<: *in_dev_branch
-  stage: build-and-test
-
-.infra_fluid_eks_deploy:
-  <<: *with_nix
-  <<: *in_master_branch
-  stage: deploy
-
-.infra_fluid_eks_setup:
-  <<: *with_nix
-  <<: *in_master_branch
-  stage: eks-initial-setup
-
 infra_monolith_test:
   <<: *with_nix
   <<: *in_dev_branch
