@@ -151,9 +151,9 @@ function job_test_generic {
 function job_test_blog {
   local all_blog_adoc_files
   local touched_blog_adoc_files
-  local min_words='100'
-  local max_words='2200'
-  local max_lix='70'
+  local min_words='800'
+  local max_words='1200'
+  local max_lix='50'
 
       all_blog_adoc_files="$(find content/blog/ -type f -name '*.adoc')" \
   &&  touched_blog_adoc_files="$(helper_list_touched_files | grep 'content/blog/' | grep '.adoc')" || true \
