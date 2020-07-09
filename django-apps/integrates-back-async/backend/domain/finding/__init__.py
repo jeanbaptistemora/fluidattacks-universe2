@@ -1,5 +1,12 @@
 # pylint:disable=cyclic-import
 # Local imports
+from .draft import (
+    approve_draft,
+    create_draft,
+    reject_draft,
+    submit_draft,
+)
+
 from .finding import (
     add_comment,
     get_age_finding,
@@ -11,17 +18,13 @@ from .finding import (
     update_treatment,
     compare_historic_treatments,
     save_severity,
-    reject_draft,
     delete_finding,
-    approve_draft,
     get_finding,
     get_project,
     get_findings_async,
     update_evidence,
     update_evidence_description,
     remove_evidence,
-    create_draft,
-    submit_draft,
     validate_evidence,
     validate_finding,
     cast_new_vulnerabilities,
@@ -39,19 +42,21 @@ __all__ = [
     'update_treatment',
     'compare_historic_treatments',
     'save_severity',
-    'reject_draft',
     'delete_finding',
-    'approve_draft',
     'get_finding',
     'get_project',
     'get_findings_async',
     'update_evidence',
     'update_evidence_description',
     'remove_evidence',
-    'create_draft',
-    'submit_draft',
     'validate_evidence',
     'validate_finding',
     'cast_new_vulnerabilities',
-    'get'
+    'get',
+
+    # drafts
+    'approve_draft',
+    'create_draft',
+    'reject_draft',
+    'submit_draft',
 ]
