@@ -423,6 +423,15 @@ function job_apply_rotate_keys_user_provision_web_prod {
         "${gitlab_protected}"
 }
 
+function job_test_lint_code {
+
+      helper_use_pristine_workdir \
+  &&  env_prepare_python_packages \
+  &&  helper_test_lint_code_nix . \
+  &&  helper_test_lint_code_shell . \
+  &&  helper_test_lint_code_python
+}
+
 function job_test_commit_msg {
       helper_use_pristine_workdir \
   &&  env_prepare_node_modules \

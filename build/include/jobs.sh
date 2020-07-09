@@ -441,48 +441,6 @@ function job_run_break_build_static {
   helper_run_break_build 'static'
 }
 
-function job_lint_code {
-  local path
-  local path_basename
-
-  # SC1090: Can't follow non-constant source. Use a directive to specify location.
-  # SC2016: Expressions don't expand in single quotes, use double quotes for that.
-  # SC2153: Possible misspelling: TEMP_FILE2 may not be assigned, but TEMP_FILE1 is.
-  # SC2154: var is referenced but not assigned.
-
-      nix-linter --recursive . \
-  && echo '[OK] Nix code is compliant'
-      shellcheck --external-sources build.sh \
-  && find '.' -name '*.sh' -exec \
-      shellcheck --external-sources --exclude=SC1090,SC2016,SC2153,SC2154 {} + \
-  && echo '[OK] Shell code is compliant' \
-  && find . -type f -name '*.py' \
-      | (grep -vP './analytics/singer' || cat) \
-      | while read -r path
-        do
-          echo "[INFO] linting python file: ${path}" \
-          && mypy \
-                --ignore-missing-imports \
-                --no-incremental \
-              "${path}" \
-          || return 1
-        done \
-  && pushd analytics/singer || return 1 \
-    && find "${PWD}" -mindepth 1 -maxdepth 1 -type d \
-      | while read -r path
-        do
-          echo "[INFO] linting python package: ${path}" \
-          && path_basename=$(basename "${path}") \
-          && mypy \
-                --ignore-missing-imports \
-                --no-incremental \
-              "${path_basename}" \
-          || return 1
-        done \
-  && popd || return 1 \
-  && prospector --profile .prospector.yml .
-}
-
 function job_infra_autoscaling_ci_deploy_config {
   local bastion_ip='192.168.3.11'
   local bastion_user='ubuntu'

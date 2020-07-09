@@ -331,3 +331,44 @@ function helper_test_commit_msg_commitlint {
         ||  return 1
       done
 }
+
+function helper_test_lint_code_nix {
+  local path="${1}"
+
+  nix-linter --recursive "${path}"
+}
+
+function helper_test_lint_code_shell {
+  local path="${1}"
+
+  find "${path}" -name '*.sh' -exec \
+    shellcheck --external-sources --exclude=SC1090,SC2016,SC2153,SC2154 {} +
+}
+
+function helper_test_lint_code_python {
+      find . -type f -name '*.py' \
+        | (grep -vP './analytics/singer' || cat) \
+        | while read -r path
+          do
+                echo "[INFO] linting python file: ${path}" \
+            &&  mypy \
+                  --ignore-missing-imports \
+                  --no-incremental \
+                  "${path}" \
+            || return 1
+          done \
+  &&  pushd analytics/singer || return 1 \
+  &&  find "${PWD}" -mindepth 1 -maxdepth 1 -type d \
+        | while read -r path
+          do
+                echo "[INFO] linting python package: ${path}" \
+            &&  path_basename=$(basename "${path}") \
+            &&  mypy \
+                  --ignore-missing-imports \
+                  --no-incremental \
+                  "${path_basename}" \
+            || return 1
+          done \
+  &&  popd || return 1 \
+  &&  prospector --profile .prospector.yml .
+}

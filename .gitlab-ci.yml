@@ -193,11 +193,6 @@ infra_monolith_deploy:
   <<: *in_master_branch
   stage: deploy
 
-lint_code:
-  <<: *with_nix
-  <<: *in_dev_branch
-  stage: build-and-test
-
 run_break_build_static:
   <<: *with_nix
   <<: *in_dev_branch
@@ -395,6 +390,11 @@ apply_rotate_keys_user_provision_web_prod:
   <<: *with_nix_2
   <<: *in_schedule_user_provision_rotate_keys
   stage: rotation
+
+test_lint_code:
+  <<: *with_nix_2
+  <<: *in_dev_branch
+  stage: build-and-test
 
 test_commit_msg:
   <<: *with_nix_2
