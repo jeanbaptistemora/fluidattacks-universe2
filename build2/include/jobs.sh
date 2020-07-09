@@ -448,13 +448,20 @@ function job_test_commit_msg {
   &&  helper_test_commit_msg_commitlint
 }
 
+function job_test_forces_dynamic {
+  helper_test_forces 'dynamic'
+}
+
+function job_test_forces_static {
+  helper_test_forces 'static'
+}
+
 function job_send_new_release_email {
   local temp
 
       helper_use_pristine_workdir \
   &&  env_prepare_python_packages \
   &&  temp="$(mktemp)" \
-  &&  trap 'rm -rf ${temp}' 'EXIT' \
   &&  helper_aws_login \
   &&  sops_env secrets-prod.yaml default \
         MANDRILL_APIKEY \

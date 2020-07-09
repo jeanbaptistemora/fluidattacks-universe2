@@ -433,14 +433,6 @@ function job_deploy_docker_image_nix {
     "${dockerfile}"
 }
 
-function job_run_break_build_dynamic {
-  helper_run_break_build 'dynamic'
-}
-
-function job_run_break_build_static {
-  helper_run_break_build 'static'
-}
-
 function job_infra_autoscaling_ci_deploy_config {
   local bastion_ip='192.168.3.11'
   local bastion_user='ubuntu'

@@ -41,6 +41,11 @@ function decide_and_call_provisioner {
         --keep AWS_ACCESS_KEY_ID \
         --keep AWS_SECRET_ACCESS_KEY \
         --keep GITLAB_API_TOKEN \
+        --keep BREAK_BUILD_ID \
+        --keep BREAK_BUILD_SECRET \
+        --keep CI_JOB_ID \
+        --keep CI_PROJECT_DIR \
+        --keep GITLAB_CI_PROJECT_DIR \
         --max-jobs auto \
         --option restrict-eval false \
         --option sandbox false \

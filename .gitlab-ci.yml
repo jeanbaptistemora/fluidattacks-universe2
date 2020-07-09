@@ -183,16 +183,6 @@ infra_autoscaling_ci_deploy_config:
   <<: *in_master_branch
   stage: deploy
 
-run_break_build_static:
-  <<: *with_nix
-  <<: *in_dev_branch
-  stage: build-and-test
-
-run_break_build_dynamic:
-  <<: *with_nix
-  <<: *in_master_branch
-  stage: postdeploy
-
 services_repositories_cache:
   <<: *with_nix
   tags: [autoscaling-large]
@@ -418,6 +408,16 @@ danger:
     - npm install @commitlint/{config-conventional,cli}
   script:
     - danger --verbose --fail-on-errors=true
+
+test_forces_static:
+  <<: *with_nix_2
+  <<: *in_dev_branch
+  stage: build-and-test
+
+test_forces_dynamic:
+  <<: *with_nix_2
+  <<: *in_master_branch
+  stage: postdeploy
 
 send_new_release_email:
   <<: *with_nix_2
