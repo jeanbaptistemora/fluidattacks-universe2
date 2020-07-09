@@ -28,11 +28,6 @@ type Mutation {
         projectName: String!,
         state: ResourceState!
     ): SimplePayload!
-    moveGroupOrganization(
-        groupName: String!,
-        newOrganizationName: String!,
-        organizationName: String!
-    ): SimplePayload!
     updateOrganizationPolicies(
         maxAcceptanceDays: Int
         maxAcceptanceSeverity: Float
@@ -192,11 +187,12 @@ type Mutation {
     editGroup(
         comments: String!,
         groupName: String!,
-        reason: EditGroupReason!,
-        subscription: SubscriptionType!,
         hasDrills: Boolean!,
         hasForces: Boolean!,
         hasIntegrates: Boolean!,
+        organization: String!,
+        reason: EditGroupReason!,
+        subscription: SubscriptionType!,
     ): SimplePayload!
     addFindingComment(
         content: String!,

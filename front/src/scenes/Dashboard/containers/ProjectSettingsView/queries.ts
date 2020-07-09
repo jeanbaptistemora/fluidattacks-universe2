@@ -6,6 +6,9 @@ export const GET_GROUP_DATA: DocumentNode = gql`
     project(projectName: $groupName) {
       hasDrills
       hasForces
+      organization {
+        name
+      }
       subscription
     }
   }
@@ -18,6 +21,7 @@ export const EDIT_GROUP_DATA: DocumentNode = gql`
     $hasDrills: Boolean!
     $hasForces: Boolean!
     $hasIntegrates: Boolean!
+    $organization: String!
     $reason: EditGroupReason!
     $subscription: SubscriptionType!
   ) {
@@ -27,6 +31,7 @@ export const EDIT_GROUP_DATA: DocumentNode = gql`
       hasDrills: $hasDrills
       hasForces: $hasForces
       hasIntegrates: $hasIntegrates
+      organization: $organization
       reason: $reason
       subscription: $subscription
     ) {

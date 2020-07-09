@@ -32,8 +32,15 @@ const serviceDiff: ((msg: string, old: string, now: string) => string) =
     const to: string = translate.t("search_findings.services_table.modal.diff.to");
 
     const msgString: string = translate.t(`search_findings.services_table.${msg}`);
-    const nowString: string = translate.t(`search_findings.services_table.${now}`);
-    const oldString: string = translate.t(`search_findings.services_table.${old}`);
+    let nowString: string;
+    let oldString: string;
+    if (msg === "organization") {
+      nowString = `${now}`;
+      oldString = `${old}`;
+    } else {
+      nowString = translate.t(`search_findings.services_table.${now}`);
+      oldString = translate.t(`search_findings.services_table.${old}`);
+    }
 
     return now === old
       ? `${keep} ${msgString} ${as} ${nowString}`
@@ -42,6 +49,8 @@ const serviceDiff: ((msg: string, old: string, now: string) => string) =
 
 export const computeConfirmationMessage: ((data: IGroupData, form: IFormData) => string[]) =
   (data: IGroupData, form: IFormData): string[] => ([
+      serviceDiff(
+        "organization", serviceStateToString(data.project.organization.name), serviceStateToString(form.organization)),
       serviceDiff("type", serviceStateToString(data.project.subscription), serviceStateToString(form.type)),
       serviceDiff("group", serviceStateToString(true), serviceStateToString(form.integrates ? true : "deleted_soon")),
       serviceDiff("integrates", serviceStateToString(true), serviceStateToString(form.integrates)),

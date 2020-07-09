@@ -686,6 +686,7 @@ async def _do_edit_group(  # pylint: disable=too-many-arguments
     has_drills: bool,
     has_forces: bool,
     has_integrates: bool,
+    organization: str,
     reason: str,
     subscription: str,
 ) -> SimplePayloadType:
@@ -698,6 +699,7 @@ async def _do_edit_group(  # pylint: disable=too-many-arguments
         has_drills=has_drills,
         has_forces=has_forces,
         has_integrates=has_integrates,
+        organization=organization,
         reason=reason,
         requester_email=requester_email,
         subscription=subscription,

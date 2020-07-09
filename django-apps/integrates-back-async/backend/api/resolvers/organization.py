@@ -2,7 +2,6 @@ import asyncio
 import sys
 from decimal import Decimal
 from typing import (
-    Dict,
     List,
     Optional
 )
@@ -19,7 +18,6 @@ from backend import (
 )
 from backend.api.resolvers import user as user_loader
 from backend.decorators import (
-    enforce_group_level_auth_async,
     enforce_organization_level_auth_async,
     rename_kwargs,
     require_login,
@@ -125,14 +123,10 @@ async def _do_grant_user_organization_access(
             'customer',
             user_phone_number
         )
-    user_added = await org_domain.add_user(organization_id, user_email)
-    role_added = await aio.ensure_io_bound(
-        authz.grant_organization_level_role,
-        user_email,
-        organization_id,
-        user_role
+    user_added = await org_domain.add_user(
+        organization_id, user_email, user_role
     )
-    success = user_added and any([user_created, user_exists]) and role_added
+    success = user_added and any([user_created, user_exists])
 
     if success:
         util.invalidate_cache(user_email)
@@ -156,41 +150,6 @@ async def _do_grant_user_organization_access(
             email=user_email
         )
     )
-
-
-@enforce_group_level_auth_async
-async def _do_move_group_organization(
-    _,
-    info,
-    group_name: str,
-    organization_name: str,
-    new_organization_name: str,
-) -> SimplePayloadType:
-    """
-    Change the organization a group belongs to
-    """
-    user_data: Dict[str, str] = util.get_jwt_content(info.context)
-    user_email: str = user_data['user_email']
-
-    success = await org_domain.move_group(
-        group_name,
-        organization_name,
-        new_organization_name,
-        user_email
-    )
-    if success:
-        util.cloudwatch_log(
-            info.context,
-            f'Security: User {user_email} moved group {group_name} to '
-            f'organization {new_organization_name} from {organization_name}'
-        )
-    else:
-        util.cloudwatch_log(
-            info.context,
-            f'Security: User {user_email} attempted to move group '
-            f'{group_name} to organization {new_organization_name}'
-        )
-    return SimplePayloadType(success=success)
 
 
 @enforce_organization_level_auth_async

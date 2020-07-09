@@ -43,8 +43,6 @@ MUTATION.set_field('editUserOrganization',
                    organization.resolve_organization_mutation)
 MUTATION.set_field('grantUserOrganizationAccess',
                    organization.resolve_organization_mutation)
-MUTATION.set_field('moveGroupOrganization',
-                   organization.resolve_organization_mutation)
 MUTATION.set_field('removeUserOrganizationAccess',
                    organization.resolve_organization_mutation)
 MUTATION.set_field('updateOrganizationPolicies',

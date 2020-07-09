@@ -31,6 +31,7 @@ from backend.domain import (
     user as user_domain,
     notifications as notifications_domain,
     event as event_domain,
+    organization as org_domain,
     vulnerability as vuln_domain,
     available_group as available_group_domain
 )
@@ -202,6 +203,7 @@ def edit(
     has_drills: bool,
     has_forces: bool,
     has_integrates: bool,
+    organization: str,
     reason: str,
     requester_email: str,
     subscription: str,
@@ -234,12 +236,20 @@ def edit(
                 'date': util.get_current_time_as_iso_str(),
                 'has_drills': has_drills,
                 'has_forces': has_forces,
+                'organization': organization,
                 'reason': reason,
                 'requester': requester_email,
                 'type': subscription,
             }],
         },
         project_name=group_name,
+    )
+
+    success = (
+        success and
+        async_to_sync(org_domain.move_group)(
+            group_name, organization, requester_email
+        )
     )
     if not has_integrates:
         success = success and request_deletion(
@@ -263,6 +273,7 @@ def edit(
             has_drills=has_drills,
             has_forces=has_forces,
             has_integrates=has_integrates,
+            organization=organization,
             reason=reason,
             requester_email=requester_email,
             subscription=subscription,

@@ -231,6 +231,11 @@ def revoke_group_level_role(email: str, group: str) -> bool:
         and revoke_cached_subject_policies(email)
 
 
+def revoke_organization_level_role(email: str, organization_id: str) -> bool:
+    return user_dal.delete_subject_policy(email, organization_id) \
+        and revoke_cached_subject_policies(email)
+
+
 def revoke_user_level_role(email: str) -> bool:
     return user_dal.delete_subject_policy(email, 'self') \
         and revoke_cached_subject_policies(email)

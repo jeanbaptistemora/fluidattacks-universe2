@@ -10,6 +10,7 @@ from backend.dal import (
     project as project_dal,
     user as user_dal
 )
+from backend.domain import organization as org_domain
 from backend.typing import User as UserType
 from backend.utils.validations import (
     validate_email_address,
@@ -144,8 +145,7 @@ def create(email: str, data: UserType) -> bool:
 
     result = user_dal.create(email, data)
     if result:
-        authz.grant_organization_level_role(email, org_dict['id'], 'customer')
-        async_to_sync(org_dal.add_user)(org_dict['id'], email)
+        async_to_sync(org_domain.add_user)(org_dict['id'], email, 'customer')
     return result
 
 
@@ -177,7 +177,11 @@ def create_without_project(
             new_user_data['company'] = organization
             org = async_to_sync(org_dal.get_or_create)(organization)
             new_user_data['organization'] = org['id']
-            authz.grant_organization_level_role(email, org['id'], 'customer')
+            async_to_sync(org_domain.add_user)(
+                org['id'],
+                email,
+                'customer'
+            )
         if phone_number:
             new_user_data['phone'] = phone_number
 

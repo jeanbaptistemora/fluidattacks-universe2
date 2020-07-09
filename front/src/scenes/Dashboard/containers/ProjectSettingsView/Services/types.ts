@@ -4,6 +4,7 @@ export interface IFormData {
   drills: boolean;
   forces: boolean;
   integrates: boolean;
+  organization: string;
   reason: string;
   type: string;
 }
@@ -12,6 +13,9 @@ export interface IGroupData {
   project: {
     hasDrills: boolean;
     hasForces: boolean;
+    organization: {
+      name: string;
+    };
     subscription: string;
   };
 }

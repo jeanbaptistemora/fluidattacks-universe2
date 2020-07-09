@@ -14,6 +14,7 @@ import rollbar
 from asgiref.sync import sync_to_async
 from graphql import GraphQLError
 
+from backend import authz
 from backend.dal import organization as org_dal
 from backend.domain import project as group_domain
 from backend.exceptions import (
@@ -36,8 +37,15 @@ DEFAULT_MAX_SEVERITY = Decimal('10.0')
 DEFAULT_MIN_SEVERITY = Decimal('0.0')
 
 
-async def add_user(organization_id: str, email: str) -> bool:
-    return await org_dal.add_user(organization_id, email)
+async def add_user(organization_id: str, email: str, role: str) -> bool:
+    user_added = await org_dal.add_user(organization_id, email)
+    role_added = await aio.ensure_io_bound(
+        authz.grant_organization_level_role,
+        email,
+        organization_id,
+        role
+    )
+    return user_added and role_added
 
 
 async def get_groups(organization_id: str) -> Tuple[str, ...]:
@@ -116,46 +124,63 @@ async def has_user_access(email: str, organization_id: str) -> bool:
 
 async def move_group(
     group_name: str,
-    old_organization_name: str,
-    new_organization_name: str,
+    organization_name: str,
     email: str
 ) -> bool:
     """
     Verify that a request to move a group to another organization is valid
     and process it
     """
-    [old_organization_id, new_organization_id] = (
-        await asyncio.gather(*[
-            asyncio.create_task(get_id_by_name(name))
-            for name in [old_organization_name, new_organization_name]
-        ])
+    success: bool = False
+    old_organization_id = await get_id_for_group(group_name)
+    new_organization_id = await get_id_by_name(
+        organization_name.lower().strip()
     )
 
-    if not await has_group(group_name, old_organization_id):
-        raise GroupNotInOrganization()
-    if not await has_user_access(email, new_organization_id):
-        raise UserNotInOrganization(new_organization_name)
+    if old_organization_id == new_organization_id:
+        success = True
+    else:
+        group_name = group_name.lower()
+        if not await has_group(group_name, old_organization_id):
+            raise GroupNotInOrganization()
+        if not await has_user_access(email, new_organization_id):
+            raise UserNotInOrganization(organization_name)
 
-    update_attrs: Dict[str, str] = {
-        'organization': new_organization_id
-    }
-    success: bool = (
-        await aio.ensure_io_bound(
-            group_domain.update,
-            group_name,
-            update_attrs
-        ) and
-        await org_dal.add_group(new_organization_id, group_name) and
-        await org_dal.remove_group(old_organization_id, group_name)
+        success = (
+            await org_dal.add_group(new_organization_id, group_name) and
+            await org_dal.remove_group(old_organization_id, group_name) and
+            await move_users(group_name, new_organization_id)
+        )
+    return success
+
+
+async def move_users(group_name: str, organization_id: str) -> bool:
+    success: bool = False
+    group_users = await aio.ensure_io_bound(
+        group_domain.get_users,
+        group_name,
+        True
+    )
+    success = all(
+        await asyncio.gather(*[
+            asyncio.create_task(add_user(organization_id, user, 'customer'))
+            for user in group_users
+        ])
     )
     return success
 
 
 async def remove_user(organization_id: str, email: str) -> bool:
-    if not has_user_access(email, organization_id):
+    if not await has_user_access(email, organization_id):
         raise UserNotInOrganization()
 
-    return await org_dal.remove_user(organization_id, email)
+    user_removed = await org_dal.remove_user(organization_id, email)
+    role_removed = await aio.ensure_io_bound(
+        authz.revoke_organization_level_role,
+        email,
+        organization_id
+    )
+    return user_removed and role_removed
 
 
 async def update_policies(

@@ -37,6 +37,9 @@ describe("Services", () => {
           project: {
             hasDrills: true,
             hasForces: true,
+            organization: {
+              name: "testorg",
+            },
             subscription: "CoNtInUoUs",
           },
         },
@@ -54,6 +57,9 @@ describe("Services", () => {
           project: {
             hasDrills: true,
             hasForces: true,
+            organization: {
+              name: "testorg",
+            },
             subscription: "CoNtInUoUs",
           },
         },
@@ -71,6 +77,9 @@ describe("Services", () => {
           project: {
             hasDrills: false,
             hasForces: false,
+            organization: {
+              name: "testorg",
+            },
             subscription: "OnEsHoT",
           },
         },
@@ -83,6 +92,9 @@ describe("Services", () => {
           groupName: "unittesting",
           hasDrills: false,
           hasForces: false,
+          organization: {
+            name: "testorg",
+          },
           subscription: "CONTINUOUS",
         },
       },
@@ -106,8 +118,8 @@ describe("Services", () => {
   });
 
   [
-    { group: "unittesting", rows: 4 },
-    { group: "oneshottest", rows: 3 },
+    { group: "unittesting", rows: 5 },
+    { group: "oneshottest", rows: 4 },
     { group: "not-exists", rows: 0},
   ].forEach((test: { group: string; rows: number}) => {
     it(`should render services for: ${test.group}`, async () => {
@@ -158,19 +170,26 @@ describe("Services", () => {
       tableBody()
         .find("tr");
 
-    const typeRow: (() => ReactWrapper) = (): ReactWrapper =>
+    const organizationRow: (() => ReactWrapper) = (): ReactWrapper =>
       rows()
         .at(0);
-    const integratesRow: (() => ReactWrapper) = (): ReactWrapper =>
+    const typeRow: (() => ReactWrapper) = (): ReactWrapper =>
       rows()
         .at(1);
-    const drillsRow: (() => ReactWrapper) = (): ReactWrapper =>
+    const integratesRow: (() => ReactWrapper) = (): ReactWrapper =>
       rows()
         .at(2);
-    const forcesRow: (() => ReactWrapper) = (): ReactWrapper =>
+    const drillsRow: (() => ReactWrapper) = (): ReactWrapper =>
       rows()
         .at(3);
+    const forcesRow: (() => ReactWrapper) = (): ReactWrapper =>
+      rows()
+        .at(4);
 
+    const organizationRowLeft: (() => ReactWrapper) = (): ReactWrapper =>
+      organizationRow()
+        .find("td")
+        .first();
     const typeRowLeft: (() => ReactWrapper) = (): ReactWrapper =>
       typeRow()
         .find("td")
@@ -189,7 +208,11 @@ describe("Services", () => {
         .first();
 
     expect(rows())
-      .toHaveLength(4);
+      .toHaveLength(5);
+    expect(
+      organizationRowLeft()
+        .text())
+          .toEqual("Organization");
     expect(
       typeRowLeft()
         .text())
@@ -236,6 +259,7 @@ describe("Services", () => {
         drills: true,
         forces: true,
         integrates: true,
+        organization: "testorg",
         reason: "NONE",
         type: "CONTINUOUS",
       });
@@ -250,6 +274,7 @@ describe("Services", () => {
         drills: false,
         forces: false,
         integrates: false,
+        organization: "testorg",
         reason: "NONE",
         type: "CONTINUOUS",
       });
@@ -264,6 +289,7 @@ describe("Services", () => {
         drills: true,
         forces: false,
         integrates: true,
+        organization: "testorg",
         reason: "NONE",
         type: "CONTINUOUS",
       });
@@ -278,6 +304,7 @@ describe("Services", () => {
         drills: false,
         forces: false,
         integrates: true,
+        organization: "testorg",
         reason: "NONE",
         type: "CONTINUOUS",
       });
@@ -309,6 +336,7 @@ describe("Services", () => {
         drills: true,
         forces: true,
         integrates: true,
+        organization: "testorg",
         reason: "NONE",
         type: "CONTINUOUS",
       });
@@ -323,6 +351,7 @@ describe("Services", () => {
         drills: false,
         forces: false,
         integrates: true,
+        organization: "testorg",
         reason: "NONE",
         type: "CONTINUOUS",
       });
@@ -337,6 +366,7 @@ describe("Services", () => {
         drills: true,
         forces: true,
         integrates: true,
+        organization: "testorg",
         reason: "NONE",
         type: "CONTINUOUS",
       });

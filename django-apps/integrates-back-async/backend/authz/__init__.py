@@ -33,6 +33,7 @@ from .policy import (
     revoke_cached_group_service_attributes_policies,
     revoke_cached_subject_policies,
     revoke_group_level_role,
+    revoke_organization_level_role,
     revoke_user_level_role,
 )
 
@@ -70,5 +71,6 @@ __all__ = [
     'revoke_cached_group_service_attributes_policies',
     'revoke_cached_subject_policies',
     'revoke_group_level_role',
+    'revoke_organization_level_role',
     'revoke_user_level_role',
 ]
