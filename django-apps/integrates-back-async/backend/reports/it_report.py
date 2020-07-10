@@ -3,8 +3,18 @@
 import os
 import re
 import uuid
+from typing import cast
 
+from datetime import datetime
+from asgiref.sync import async_to_sync
 from openpyxl import load_workbook
+from openpyxl.styles import Alignment
+from backend.domain import vulnerability as vuln_domain
+from backend.domain.finding import get_finding
+from backend.typing import (
+    Historic as HistoricType,
+    Vulnerability as VulnType
+)
 
 
 class ITReport():
@@ -14,7 +24,7 @@ class ITReport():
     current_sheet = None
     data = None
     lang = None
-    row = 3
+    row = 2
     result_filename = ''
     base = (
         '/usr/src/app/django-apps/integrates-back-async/backend/reports'
@@ -23,7 +33,7 @@ class ITReport():
     templates = {
         'es': {
             'TECHNICAL': os.path.join(
-                base, 'templates/excel', 'TECHNICAL.xlsx'),
+                base, 'templates/excel', 'TECHNICAL_VULNS.xlsx'),
         },
         'en': {}}
     sheet_names = {
@@ -42,20 +52,25 @@ class ITReport():
         'affected_records': 10,
         'evidence': 11,
         'solution': 12,
-        'requirements_id': 13}
-    matriz = {
-        'type': 5,
-        'component': 6,
-        'requirements_id': 8,
-        'requirements': 9,
-        'scenario': 13,
-        'ambit': 17,
-        'category': 18,
-        'threat': 19,
-        'cssv3_value': 24,
-        'probability': 26,
-        'severity': 27,
-        'risk': 30}
+        'requirements_id': 13
+    }
+    vulnerability = {
+        'finding': 3,
+        'specific': 2,
+        'severity': 5,
+        'status': 4,
+        'cvss_vector': 6,
+        'reattack': 7,
+        'exploitable': 8,
+        'report_date': 9,
+        'age': 11,
+        'close_date': 10,
+        'treatment': 12,
+        'treatment_date': 13,
+        'treatment_justification': 14,
+        'treatment_exp_date': 15,
+        'treatment_manager': 16
+    }
 
     def __init__(self, data, lang='es'):
         """Initialize variables."""
@@ -73,10 +88,12 @@ class ITReport():
             self.current_sheet.row_dimensions[row].hidden = True
 
     def generate(self, data):
-        for finding in data:
-            self.__write(finding)
-            self.row += 12
-        self.hide_cell(data)
+        vulns = async_to_sync(vuln_domain.list_vulnerabilities_async)(
+            [finding.get('findingId') for finding in data])
+
+        for vuln in vulns:
+            self.__write_vuln_row(vuln)
+            self.row += 1
         self.__save()
 
     def __select_finding_sheet(self):
@@ -87,6 +104,9 @@ class ITReport():
 
     def set_cell(self, col, value, inc=0):
         """Assign a value to a cell with findings index."""
+        alignment = Alignment(horizontal='center', vertical='center')
+        self.current_sheet.cell(
+            row=self.row + inc, column=col).alignment = alignment
         self.current_sheet.cell(row=self.row + inc, column=col).value = value
 
     def set_cell_number(self, col, value, inc=0):
@@ -135,7 +155,7 @@ class ITReport():
                 },
                 'confidentialityImpact': {
                     '0.56': 'High',
-                    '0.22': 'low',
+                    '0.22': 'Low',
                     '0.0': 'None',
                 },
                 'integrityImpact': {
@@ -174,6 +194,105 @@ class ITReport():
             return description
         except ValueError:
             return ''
+
+    def set_cvss_metrics_cell(self, row):
+        measures = {
+            'AV': 'attackVector',
+            'AC': 'attackComplexity',
+            'PR': 'privilegesRequired',
+            'UI': 'userInteraction',
+            'S': 'severityScope',
+            'C': 'confidentialityImpact',
+            'I': 'integrityImpact',
+            'A': 'availabilityImpact',
+            'E': 'exploitability',
+            'RL': 'remediationLevel',
+            'RC': 'reportConfidence',
+        }
+        metric_vector = []
+        for indicator, measure in measures.items():
+            value = self.__get_measure(measure, row['severity'][measure])[0]
+            metric_vector.append(f'{indicator}:{value}')
+
+        self.set_cell(
+            self.vulnerability['cvss_vector'], '/'.join(metric_vector))
+
+    def __write_vuln_row(self, row: VulnType):
+        finding = async_to_sync(get_finding)(row.get('finding_id'))
+        specific = str(row.get('specific', ''))
+        if row.get('vuln_type') == 'lines':
+            specific = str(int(specific))
+        where_specific = f'{row.get("where")}:{specific}'
+        vuln_historic_state = cast(HistoricType, row.get('historic_state'))
+        vuln_date = datetime.strptime(
+            vuln_historic_state[0]['date'], '%Y-%m-%d %H:%M:%S')
+        vuln_closed = vuln_historic_state[-1]['state'] == 'closed'
+        limit_date = datetime.today()
+        if vuln_closed:
+            limit_date = datetime.strptime(
+                vuln_historic_state[-1]['date'], '%Y-%m-%d %H:%M:%S'
+            )
+        vuln_age_days = int((limit_date - vuln_date).days)
+        vuln_age = f'{vuln_age_days} '
+        reattack_requested = \
+            finding.get('historic_verification')[-1]['status'] == 'REQUESTED' \
+            if 'historic_verification' in finding else False
+        is_exploitable = 'Yes' if finding.get('exploitable') else 'No'
+
+        self.__select_finding_sheet()
+        self.set_cell(1, self.row - 1)
+        self.set_cell(self.vulnerability['finding'], finding.get('finding'))
+        self.set_cell(self.vulnerability['specific'], where_specific)
+        self.set_cell(
+            self.vulnerability['severity'],
+            finding.get('severityCvss', '-')
+        )
+
+        self.set_cvss_metrics_cell(finding)
+
+        self.set_cell(
+            self.vulnerability['status'],
+            vuln_historic_state[-1]['state']
+        )
+        self.set_cell(
+            self.vulnerability['reattack'],
+            'Yes' if reattack_requested else 'No'
+        )
+        self.set_cell(self.vulnerability['exploitable'], is_exploitable)
+
+        self.set_cell(self.vulnerability['report_date'], vuln_date)
+        self.set_cell(self.vulnerability['age'], vuln_age)
+        self.set_cell(
+            self.vulnerability['close_date'],
+            datetime.strptime(
+                vuln_historic_state[-1]['date'], '%Y-%m-%d %H:%M:%S')
+            if vuln_closed else '-'
+        )
+
+        self.set_cell(
+            self.vulnerability['treatment'],
+            str(row.get('treatment', 'NEW')).capitalize()
+        )
+        self.set_cell(
+            self.vulnerability['treatment_date'],
+            datetime.strptime(
+                finding.get('historicState')[-1]['date'], '%Y-%m-%d %H:%M:%S')
+            if 'historicState' in finding else '-'
+        )
+        self.set_cell(
+            self.vulnerability['treatment_justification'],
+            row.get('treatment_justification', '-')
+        )
+        self.set_cell(
+            self.vulnerability['treatment_exp_date'],
+            datetime.strptime(
+                str(row.get('acceptance_date')), '%Y-%m-%d %H:%M:%S')
+            if 'acceptance_date' in row else '-'
+        )
+        self.set_cell(
+            self.vulnerability['treatment_manager'],
+            row.get('treatment_manager', '-')
+        )
 
     def __write(self, row):
         """Write Formstack finding in a row on the Findings sheet."""
