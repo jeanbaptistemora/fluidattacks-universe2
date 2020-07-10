@@ -3,11 +3,11 @@
 from collections import defaultdict
 from typing import cast, Dict, List
 
+from aiodataloader import DataLoader
+
 from backend.domain import finding as finding_domain
 
 from backend.typing import Finding as FindingType
-
-from aiodataloader import DataLoader
 
 
 async def _batch_load_fn(

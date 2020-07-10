@@ -2,13 +2,6 @@
 from typing import cast
 
 import newrelic
-
-from asgiref.sync import async_to_sync
-from backend.api.dataloaders.event import EventLoader
-from backend.api.dataloaders.finding import FindingLoader
-from backend.api.dataloaders.project import ProjectLoader
-from backend.api.dataloaders.vulnerability import VulnerabilityLoader
-
 from django.conf import settings
 from django.http import HttpRequest
 from graphql import GraphQLSchema
@@ -16,6 +9,12 @@ from ariadne.contrib.django.views import GraphQLView
 from ariadne.format_error import format_error
 from ariadne.types import GraphQLResult
 from ariadne import graphql
+
+from asgiref.sync import async_to_sync
+from backend.api.dataloaders.event import EventLoader
+from backend.api.dataloaders.finding import FindingLoader
+from backend.api.dataloaders.project import ProjectLoader
+from backend.api.dataloaders.vulnerability import VulnerabilityLoader
 
 
 async def _context_value(context):

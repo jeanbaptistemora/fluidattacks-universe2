@@ -1,3 +1,5 @@
+from ariadne import MutationType
+
 from backend.api.resolvers import (
     alert,
     cache,
@@ -12,7 +14,6 @@ from backend.api.resolvers import (
     vulnerability
 )
 
-from ariadne import MutationType
 
 MUTATION = MutationType()
 

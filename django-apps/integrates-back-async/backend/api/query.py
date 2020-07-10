@@ -1,3 +1,5 @@
+from ariadne import QueryType
+
 from backend.api.resolvers import (
     analytics,
     alert,
@@ -14,7 +16,6 @@ from backend.api.resolvers import (
     user
 )
 
-from ariadne import QueryType
 
 QUERY = QueryType()
 

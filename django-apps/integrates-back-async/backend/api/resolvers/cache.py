@@ -1,11 +1,11 @@
 import re
 
+from ariadne import convert_kwargs_to_snake_case
 from asgiref.sync import sync_to_async
+
 from backend.decorators import require_login, enforce_user_level_auth_async
 from backend.typing import SimplePayload as SimplePayloadType
 from backend import util
-
-from ariadne import convert_kwargs_to_snake_case
 
 
 @require_login

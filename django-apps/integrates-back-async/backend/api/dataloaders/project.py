@@ -3,8 +3,8 @@
 import asyncio
 from typing import Dict, List
 from asgiref.sync import sync_to_async
-from backend.domain import project as project_domain
 from aiodataloader import DataLoader
+from backend.domain import project as project_domain
 
 
 async def _batch_load_fn(projects: List[str]):

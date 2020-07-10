@@ -1,16 +1,18 @@
 # pylint: disable=too-many-locals
+import asyncio
 from datetime import datetime
 from typing import (
     cast,
     Dict,
     List,
 )
-
-import asyncio
 import sys
 import threading
 
+import rollbar
+from ariadne import convert_kwargs_to_snake_case, convert_camel_case_to_snake
 from asgiref.sync import sync_to_async
+
 from backend.api.resolvers import project as project_resolver
 from backend.decorators import (
     require_integrates,
@@ -47,10 +49,6 @@ from backend.utils.validations import (
     validate_email_address, validate_alphanumeric_field, validate_phone_field
 )
 from backend import util
-
-import rollbar
-
-from ariadne import convert_kwargs_to_snake_case, convert_camel_case_to_snake
 
 from __init__ import BASE_URL
 

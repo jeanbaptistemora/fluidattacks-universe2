@@ -3,9 +3,9 @@
 from collections import defaultdict
 
 from typing import Dict, List, cast
+from aiodataloader import DataLoader
 from backend.domain import event as event_domain
 from backend.typing import Event as EventType, Historic
-from aiodataloader import DataLoader
 
 
 async def _batch_load_fn(event_ids: List[str]) -> List[EventType]:

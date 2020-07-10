@@ -2,8 +2,9 @@ import tempfile
 import cloudmersive_virus_api_client
 import rollbar
 from cloudmersive_virus_api_client.rest import ApiException
-from backend.exceptions import FileInfected
 from django.core.files.uploadedfile import InMemoryUploadedFile
+
+from backend.exceptions import FileInfected
 from __init__ import (
     FI_CLOUDMERSIVE_API_KEY,
     FI_ENVIRONMENT

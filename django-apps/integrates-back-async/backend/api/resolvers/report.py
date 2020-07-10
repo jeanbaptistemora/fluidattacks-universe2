@@ -1,8 +1,11 @@
 
 import asyncio
 import sys
+
 import rollbar
+from ariadne import convert_kwargs_to_snake_case, convert_camel_case_to_snake
 from asgiref.sync import sync_to_async
+
 from backend.decorators import require_login, require_project_access
 from backend.domain import (
     finding as finding_domain, project as project_domain,
@@ -22,8 +25,6 @@ from backend.typing import (
 )
 from backend import authz, util
 from backend.utils import aio
-
-from ariadne import convert_kwargs_to_snake_case, convert_camel_case_to_snake
 
 
 @convert_kwargs_to_snake_case

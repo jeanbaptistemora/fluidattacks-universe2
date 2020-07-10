@@ -8,6 +8,13 @@ from typing import Dict, List, Set
 import rollbar
 from ariadne import convert_kwargs_to_snake_case, convert_camel_case_to_snake
 from asgiref.sync import sync_to_async
+from django.conf import settings
+from jose import jwt
+from mixpanel import Mixpanel
+from social_core.exceptions import AuthException
+from social_django.utils import load_strategy
+from social_django.utils import load_backend
+
 from backend.api.resolvers import project as project_resolver
 from backend.dal.organization import (
     get_ids_for_user as get_user_organizations,
@@ -28,12 +35,6 @@ from backend.typing import (
 )
 from backend import util
 from backend import authz
-from django.conf import settings
-from jose import jwt
-from mixpanel import Mixpanel
-from social_core.exceptions import AuthException
-from social_django.utils import load_strategy
-from social_django.utils import load_backend
 
 
 async def _get_role(

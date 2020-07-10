@@ -4,6 +4,7 @@ from typing import Dict, List
 
 import rollbar
 
+from ariadne import convert_camel_case_to_snake, convert_kwargs_to_snake_case
 from asgiref.sync import sync_to_async
 from graphql.language.ast import SelectionSetNode
 from graphql import GraphQLError
@@ -30,8 +31,6 @@ from backend.typing import (
 )
 from backend.utils import findings as finding_utils, virus_scan
 from backend import authz, util
-
-from ariadne import convert_camel_case_to_snake, convert_kwargs_to_snake_case
 
 
 @get_entity_cache_async

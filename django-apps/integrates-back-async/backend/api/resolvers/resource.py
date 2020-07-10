@@ -3,6 +3,7 @@ import re
 import sys
 
 import rollbar
+from ariadne import convert_kwargs_to_snake_case, convert_camel_case_to_snake
 from asgiref.sync import sync_to_async
 from django.conf import settings
 from mixpanel import Mixpanel
@@ -22,8 +23,6 @@ from backend.typing import (
 from backend.exceptions import InvalidProject
 from backend.utils import virus_scan
 from backend import util
-
-from ariadne import convert_kwargs_to_snake_case, convert_camel_case_to_snake
 
 
 @get_entity_cache_async

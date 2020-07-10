@@ -1,8 +1,11 @@
 import asyncio
 import sys
 from typing import List
+
+from ariadne import convert_kwargs_to_snake_case, convert_camel_case_to_snake
 from asgiref.sync import sync_to_async
 from graphql import GraphQLError
+
 from backend.api.resolvers import project as project_loader
 from backend.decorators import (
     enforce_user_level_auth_async, get_entity_cache_async, require_login
@@ -13,8 +16,6 @@ from backend.domain import (
 )
 from backend.typing import Project as ProjectType, Tag as TagType
 from backend import util
-
-from ariadne import convert_kwargs_to_snake_case, convert_camel_case_to_snake
 
 
 async def resolve(info, tag: str) -> TagType:

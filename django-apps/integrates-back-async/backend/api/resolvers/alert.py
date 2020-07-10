@@ -1,4 +1,6 @@
+from ariadne import convert_kwargs_to_snake_case
 from asgiref.sync import sync_to_async
+
 from backend.decorators import (
     enforce_group_level_auth_async, require_login,
     require_integrates,
@@ -10,8 +12,6 @@ from backend.typing import (
     SimplePayload as SimplePayloadType,
 )
 from backend import util
-
-from ariadne import convert_kwargs_to_snake_case
 
 
 @get_entity_cache_async

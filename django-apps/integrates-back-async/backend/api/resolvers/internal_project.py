@@ -1,11 +1,11 @@
+from ariadne import convert_kwargs_to_snake_case
+
 from backend.decorators import (
     enforce_user_level_auth_async,
     require_login,
 )
 from backend.domain import available_group as available_group_domain
 from backend.typing import InternalProject as InternalProjectType
-
-from ariadne import convert_kwargs_to_snake_case
 
 
 async def _resolve_fields() -> InternalProjectType:
