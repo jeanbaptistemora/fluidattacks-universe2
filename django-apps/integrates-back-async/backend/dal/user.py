@@ -134,16 +134,6 @@ def delete_subject_policy(subject: str, object_: str) -> bool:
     return False
 
 
-def get_all_companies() -> List[str]:
-    filter_exp = Attr('company').exists()
-    users = get_all(filter_exp)
-    companies = [
-        user.get('company', '').strip().upper()
-        for user in users
-    ]
-    return list(set(companies))
-
-
 def get_all_users(company_name: str) -> int:
     filter_exp = (
         Attr('company').exists() &
@@ -153,28 +143,6 @@ def get_all_users(company_name: str) -> int:
     )
     users = get_all(filter_exp)
     return len(users)
-
-
-def get_all_users_report(company_name: str, finish_date: str) -> int:
-    company_name = company_name.lower()
-    project_access = get_platform_users()
-    project_users = {
-        user.get('user_email')
-        for user in project_access
-    }
-    filter_exp = (
-        Attr('date_joined').lte(finish_date) &
-        Attr('registered').eq(True) &
-        Attr('company').ne(company_name)
-    )
-    attribute = 'email'
-    users = get_all(filter_exp, data_attr=attribute)
-    users_mails = [
-        user.get('email', '')
-        for user in users
-    ]
-    users_filtered = project_users.intersection(users_mails)
-    return len(users_filtered)
 
 
 def get_all(filter_exp: object, data_attr: str = '') -> List[Dict[str, str]]:
@@ -208,21 +176,6 @@ def get_attributes(email: str, attributes: List[str]) -> UserType:
             payload_data=locals()
         )
     return items
-
-
-def logging_users_report(company_name: str,
-                         init_date: str, finish_date: str) -> int:
-    filter_exp = (
-        Attr('last_login').exists() &
-        Attr('last_login').lte(finish_date) &
-        Attr('last_login').gte(init_date) &
-        Attr('registered').exists() &
-        Attr('registered').eq(True) &
-        Attr('company').exists() &
-        Attr('company').ne(company_name.lower())
-    )
-    users = get_all(filter_exp)
-    return len(users)
 
 
 def remove_attribute(email: str, name_attribute: str) -> bool:

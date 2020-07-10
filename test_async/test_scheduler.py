@@ -20,7 +20,7 @@ from backend.scheduler import (
     get_status_vulns_by_time_range, create_weekly_date, get_accepted_vulns,
     get_by_time_range, create_register_by_week, create_data_format_chart,
     get_all_vulns_by_project, get_first_week_dates, get_date_last_vulns,
-    create_msj_finding_pending, all_users_formatted, format_vulnerabilities,
+    create_msj_finding_pending, format_vulnerabilities,
     get_project_indicators
 )
 
@@ -211,12 +211,6 @@ class SchedulerTests(TestCase):
         test_data = create_msj_finding_pending(new_treatment_finding)
         expected_output = u'FIN.S.0038. Fuga de información de negocio'
         assert expected_output in test_data
-
-    def test_all_user_formatted(self):
-        company = '_test_'
-        test_data = async_to_sync(all_users_formatted)(company)
-        expected_output = {company: 0}
-        assert test_data == expected_output
 
     def test_get_project_indicators(self):
         project_name = 'unittesting'

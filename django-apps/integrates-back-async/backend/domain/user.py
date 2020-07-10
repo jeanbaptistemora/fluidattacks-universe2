@@ -28,16 +28,8 @@ def add_phone_to_user(email: str, phone: str) -> bool:
     return user_dal.update(email, {'phone': phone})
 
 
-def get_all_companies() -> List[str]:
-    return user_dal.get_all_companies()
-
-
 def get_all_users(company_name: str) -> int:
     return user_dal.get_all_users(company_name.lower())
-
-
-def get_all_users_report(company_name: str, finish_date: str) -> int:
-    return user_dal.get_all_users_report(company_name.lower(), finish_date)
 
 
 def get_current_date() -> str:
@@ -91,13 +83,6 @@ def get_attributes(email: str, data: List[str]) -> UserType:
 
 def is_registered(email: str) -> bool:
     return bool(get_data(email, 'registered'))
-
-
-def logging_users_report(
-        company_name: str,
-        init_date: str,
-        finish_date: str) -> int:
-    return user_dal.logging_users_report(company_name, init_date, finish_date)
 
 
 def register(email: str) -> bool:

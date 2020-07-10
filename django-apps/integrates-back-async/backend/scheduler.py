@@ -23,7 +23,6 @@ from backend.dal import (
 from backend.domain import (
     finding as finding_domain,
     project as project_domain,
-    user as user_domain,
     vulnerability as vuln_domain,
     event as event_domain,
     tag as tag_domain
@@ -508,48 +507,6 @@ async def get_remediated_findings():
             )
     else:
         LOGGER.info('There are no findings to verificate')
-
-
-@async_to_sync
-async def weekly_report():
-    """Save weekly report in dynamo."""
-    rollbar.report_message(
-        'Warning: Function to do weekly report in DynamoDB is running',
-        'warning'
-    )
-    init_date = (datetime.today() - timedelta(days=7)).date().strftime(
-        '%Y-%m-%d'
-    )
-    final_date = (datetime.today() - timedelta(days=1)).date().strftime(
-        '%Y-%m-%d'
-    )
-    all_companies = await sync_to_async(user_domain.get_all_companies)()
-    all_users = await asyncio.gather(*[
-        asyncio.create_task(
-            all_users_formatted(x)
-        )
-        for x in all_companies
-    ])
-    registered_users = await sync_to_async(user_domain.get_all_users_report)(
-        'FLUID', final_date
-    )
-    logged_users = await sync_to_async(user_domain.logging_users_report)(
-        'FLUID', init_date, final_date
-    )
-    await sync_to_async(project_dal.get_weekly_report)(
-        init_date,
-        final_date,
-        registered_users,
-        logged_users,
-        all_users
-    )
-
-
-async def all_users_formatted(company: str) -> Dict[str, int]:
-    """Format total users by company."""
-    total_users = await sync_to_async(user_domain.get_all_users)(company)
-    all_users_by_company = {company: total_users}
-    return all_users_by_company
 
 
 @async_to_sync

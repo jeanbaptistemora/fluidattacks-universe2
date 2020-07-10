@@ -718,27 +718,3 @@ def update_access(user_email: str, project_name: str,
     except ClientError:
         rollbar.report_exc_info()
         return False
-
-
-def get_weekly_report(init_date: str, finish_date: str,
-                      registered_users: List[str],
-                      logged_users: List[str], companies: List[str]) -> bool:
-    """
-    Save the number of registered and logged users
-    weekly (scheduler used function).
-    """
-    resp = False
-    try:
-        response = TABLE_WEEKLY_REPORT.put_item(
-            Item={
-                'init_date': init_date,
-                'finish_date': finish_date,
-                'registered_users': registered_users,
-                'logged_users': logged_users,
-                'companies': companies,
-            }
-        )
-        resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
-    except ClientError:
-        rollbar.report_exc_info()
-    return resp
