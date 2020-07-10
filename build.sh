@@ -1,44 +1,64 @@
 #! /usr/bin/env bash
 
 source ./build/include/generic/shell-options.sh
+source ./.envrc.public
 
-# Check that Nix is installed
-if ! nix --version
-then
-  echo 'Please install nix: https://nixos.org/nix/download.html'
-  echo '  on most systems this is:'
-  echo '    $ curl https://nixos.org/nix/install | sh'
-  return 1
-fi
-
-# Ensure that a required policy is set
-if ! test -e '/etc/containers/policy.json'
-then
-  echo '[INFO] Creating /etc/containers/policy.json'
-  if test -x "$(command -v sudo)"
+function check_nix_version {
+  # Check that Nix is installed
+  if ! nix --version
   then
-    echo '[INFO] Please allow sudo privileges here'
-    sudo mkdir -p /etc/containers
-    sudo cp -f {./build,}/etc/containers/policy.json
-  else
-    mkdir -p /etc/containers
-    cp -f {./build,}/etc/containers/policy.json
+    echo 'Please install nix: https://nixos.org/nix/download.html'
+    echo '  on most systems this is:'
+    echo '    $ curl https://nixos.org/nix/install | sh'
+    return 1
   fi
-fi
+}
 
-# Ensure that a required directory is set
-if ! test -e '/git'
-then
-  echo '[INFO] Creating /git'
-  if test -x "$(command -v sudo)"
-  then
-    echo '[INFO] Please allow sudo privileges here'
-    sudo mkdir -p /git
-    sudo chown -R "${USER}:${USER}" /git
-  else
-    mkdir -p /git
-  fi
-fi
+function decide_and_call_provisioner {
+  local job="${1:-}"
+  local provisioner
 
-# Call the nix-shell executor
-./build/shell.sh "${@}"
+  # shellcheck disable=2016
+      provisioner="./build/provisioners/${job}.nix" \
+  &&  if [ ! -f "${provisioner}" ]
+      then
+        provisioner='./build/provisioners/build_nix_caches.nix'
+      fi \
+  &&  echo "[INFO] Running with provisioner: ${provisioner}" \
+  &&  nix-shell \
+        --cores 0 \
+        --keep NIX_PATH \
+        --keep NIX_PROFILES \
+        --keep NIX_SSL_CERT_FILE \
+        --keep CI \
+        --keep CI_COMMIT_REF_NAME \
+        --keep CI_MERGE_REQUEST_DESCRIPTION \
+        --keep CI_MERGE_REQUEST_TITLE \
+        --keep CI_NODE_INDEX \
+        --keep CI_NODE_TOTAL \
+        --keep CI_REGISTRY_PASSWORD \
+        --keep CI_REGISTRY_USER \
+        --keep AWS_ACCESS_KEY_ID \
+        --keep AWS_SECRET_ACCESS_KEY \
+        --keep GITLAB_API_TOKEN \
+        --keep BREAK_BUILD_ID \
+        --keep BREAK_BUILD_SECRET \
+        --keep CI_JOB_ID \
+        --keep CI_PROJECT_DIR \
+        --keep GITLAB_CI_PROJECT_DIR \
+        --max-jobs auto \
+        --option restrict-eval false \
+        --option sandbox false \
+        --pure \
+        --run '
+          source "${srcIncludeGenericShellOptions}"
+          source "${srcIncludeCli}"
+        '"
+          cli ${job}
+        " \
+        --show-trace \
+        "${provisioner}"
+}
+
+check_nix_version
+decide_and_call_provisioner "${@}"

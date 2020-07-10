@@ -4,8 +4,9 @@ RUN apk add --no-cache \
       bash=5.0.0-r0 \
       git
 
-COPY . /code
+ARG PROVISIONER
 
-# Fetch all dependencies to the /nix/store
-RUN     nix-shell --run ':' /code/build/shell.nix \
-    &&  nix-store --optimise
+COPY build/ /code/build/
+
+RUN   nix-shell --run ':' "/code/build/provisioners/${PROVISIONER}.nix" \
+  &&  nix-store --optimise

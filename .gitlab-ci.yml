@@ -57,27 +57,27 @@ stages:
     variables:
       - $SCHEDULE_USER_PROVISION_ROTATE_KEYS
 
-.with_nix_2: &with_nix_2
+.with_nix: &with_nix
   tags: [autoscaling]
   image: "${CI_REGISTRY_IMAGE}/nix:${CI_JOB_NAME}"
   needs: []
   script:
-    - ./build2.sh "${CI_JOB_NAME% *}"
+    - ./build.sh "${CI_JOB_NAME% *}"
   interruptible: true
 
 build_nix_caches:
-  <<: *with_nix_2
+  <<: *with_nix
   <<: *in_schedule_deploy_nix_docker_images
   tags: [autoscaling-large]
   image: nixos/nix:2.3
   stage: build
   before_script:
     - apk add --no-cache bash
-  parallel: 27
+  parallel: 30
   interruptible: false
 
 analytics_formstack:
-  <<: *with_nix_2
+  <<: *with_nix
   tags: [autoscaling-analytics]
   stage: analytics
   only:
@@ -85,7 +85,7 @@ analytics_formstack:
     variables: [$SCHEDULE_ANALYTICS_FORMSTACK]
 
 analytics_dynamodb:
-  <<: *with_nix_2
+  <<: *with_nix
   tags: [autoscaling-analytics]
   stage: analytics
   only:
@@ -93,7 +93,7 @@ analytics_dynamodb:
     variables: [$SCHEDULE_ANALYTICS_DYNAMODB]
 
 analytics_services_toe:
-  <<: *with_nix_2
+  <<: *with_nix
   tags: [autoscaling-analytics]
   stage: analytics
   only:
@@ -101,7 +101,7 @@ analytics_services_toe:
     variables: [$SCHEDULE_ANALYTICS_CONTINUOUS_TOE]
 
 analytics_infrastructure:
-  <<: *with_nix_2
+  <<: *with_nix
   tags: [autoscaling-analytics]
   stage: analytics
   only:
@@ -109,7 +109,7 @@ analytics_infrastructure:
     variables: [$SCHEDULE_ANALYTICS_INFRASTRUCTURE]
 
 analytics_intercom:
-  <<: *with_nix_2
+  <<: *with_nix
   tags: [autoscaling-analytics]
   stage: analytics
   only:
@@ -117,7 +117,7 @@ analytics_intercom:
     variables: [$SCHEDULE_ANALYTICS_INTERCOM]
 
 analytics_mandrill:
-  <<: *with_nix_2
+  <<: *with_nix
   tags: [autoscaling-analytics]
   stage: analytics
   only:
@@ -125,7 +125,7 @@ analytics_mandrill:
     variables: [$SCHEDULE_ANALYTICS_MANDRILL]
 
 analytics_gitlab:
-  <<: *with_nix_2
+  <<: *with_nix
   tags: [autoscaling-analytics]
   stage: analytics
   only:
@@ -133,7 +133,7 @@ analytics_gitlab:
     variables: [$SCHEDULE_ANALYTICS_GITLAB]
 
 analytics_timedoctor:
-  <<: *with_nix_2
+  <<: *with_nix
   tags: [autoscaling-analytics]
   stage: analytics
   only:
@@ -141,7 +141,7 @@ analytics_timedoctor:
     variables: [$SCHEDULE_ANALYTICS_TIMEDOCTOR]
 
 analytics_zoho:
-  <<: *with_nix_2
+  <<: *with_nix
   tags: [autoscaling-analytics]
   stage: analytics
   only:
@@ -149,7 +149,7 @@ analytics_zoho:
     variables: [$SCHEDULE_ANALYTICS_ZOHO]
 
 analytics_git_process:
-  <<: *with_nix_2
+  <<: *with_nix
   tags: [autoscaling-analytics]
   stage: analytics
   artifacts:
@@ -163,7 +163,7 @@ analytics_git_process:
     variables: [$SCHEDULE_ANALYTICS_GIT_PARALLEL]
 
 analytics_git_upload:
-  <<: *with_nix_2
+  <<: *with_nix
   needs: [analytics_git_process]
   tags: [autoscaling-analytics]
   stage: analytics-upload
@@ -177,7 +177,7 @@ analytics_git_upload:
     variables: [$SCHEDULE_ANALYTICS_GIT_PARALLEL]
 
 analytics_timedoctor_refresh_token:
-  <<: *with_nix_2
+  <<: *with_nix
   tags: [autoscaling-analytics]
   stage: analytics
   only:
@@ -185,7 +185,7 @@ analytics_timedoctor_refresh_token:
     variables: [$SCHEDULE_ANALYTICS_TIMEDOCTOR_REFRESH_TOKEN]
 
 analytics_timedoctor_backup:
-  <<: *with_nix_2
+  <<: *with_nix
   tags: [autoscaling-analytics]
   stage: analytics
   only:
@@ -193,7 +193,7 @@ analytics_timedoctor_backup:
     variables: [$SCHEDULE_BACKUP_ANALYTICS_TIMEDOCTOR]
 
 analytics_services_repositories_cache:
-  <<: *with_nix_2
+  <<: *with_nix
   tags: [autoscaling-analytics]
   stage: analytics
   only:
@@ -201,197 +201,197 @@ analytics_services_repositories_cache:
     variables: [$SCHEDULE_SERVICES_REPOSITORIES_CACHE]
 
 test_infra_monolith:
-  <<: *with_nix_2
+  <<: *with_nix
   <<: *in_dev_branch
   stage: build-and-test
 
 apply_infra_monolith:
-  <<: *with_nix_2
+  <<: *with_nix
   <<: *in_master_branch
   stage: deploy
 
 test_infra_autoscaling_ci:
-  <<: *with_nix_2
+  <<: *with_nix
   <<: *in_dev_branch
   stage: build-and-test
 
 apply_infra_autoscaling_ci:
-  <<: *with_nix_2
+  <<: *with_nix
   <<: *in_master_branch
   stage: deploy
 
 apply_config_autoscaling_ci:
-  <<: *with_nix_2
+  <<: *with_nix
   <<: *in_master_branch
   stage: deploy
 
 test_infra_analytics:
-  <<: *with_nix_2
+  <<: *with_nix
   <<: *in_dev_branch
   stage: build-and-test
 
 apply_infra_analytics:
-  <<: *with_nix_2
+  <<: *with_nix
   <<: *in_master_branch
   stage: deploy
 
 test_infra_aws_sso:
-  <<: *with_nix_2
+  <<: *with_nix
   <<: *in_dev_branch
   stage: build-and-test
 
 apply_infra_aws_sso:
-  <<: *with_nix_2
+  <<: *with_nix
   <<: *in_master_branch
   stage: deploy
 
 test_infra_fluid_vpc:
-  <<: *with_nix_2
+  <<: *with_nix
   <<: *in_dev_branch
   stage: build-and-test
 
 apply_infra_fluid_vpc:
-  <<: *with_nix_2
+  <<: *with_nix
   <<: *in_master_branch
   stage: deploy
 
 test_infra_secret_management:
-  <<: *with_nix_2
+  <<: *with_nix
   <<: *in_dev_branch
   stage: build-and-test
 
 apply_infra_secret_management:
-  <<: *with_nix_2
+  <<: *with_nix
   <<: *in_master_branch
   stage: deploy
 
 test_user_provision_asserts_dev:
-  <<: *with_nix_2
+  <<: *with_nix
   <<: *in_dev_branch
   stage: build-and-test
 
 apply_user_provision_asserts_dev:
-  <<: *with_nix_2
+  <<: *with_nix
   <<: *in_master_branch
   stage: deploy
 
 test_user_provision_asserts_prod:
-  <<: *with_nix_2
+  <<: *with_nix
   <<: *in_dev_branch
   stage: build-and-test
 
 apply_user_provision_asserts_prod:
-  <<: *with_nix_2
+  <<: *with_nix
   <<: *in_master_branch
   stage: deploy
 
 test_user_provision_services_dev:
-  <<: *with_nix_2
+  <<: *with_nix
   <<: *in_dev_branch
   stage: build-and-test
 
 apply_user_provision_services_dev:
-  <<: *with_nix_2
+  <<: *with_nix
   <<: *in_master_branch
   stage: deploy
 
 test_user_provision_services_prod:
-  <<: *with_nix_2
+  <<: *with_nix
   <<: *in_dev_branch
   stage: build-and-test
 
 apply_user_provision_services_prod:
-  <<: *with_nix_2
+  <<: *with_nix
   <<: *in_master_branch
   stage: deploy
 
 test_user_provision_integrates_dev:
-  <<: *with_nix_2
+  <<: *with_nix
   <<: *in_dev_branch
   stage: build-and-test
 
 apply_user_provision_integrates_dev:
-  <<: *with_nix_2
+  <<: *with_nix
   <<: *in_master_branch
   stage: deploy
 
 test_user_provision_integrates_prod:
-  <<: *with_nix_2
+  <<: *with_nix
   <<: *in_dev_branch
   stage: build-and-test
 
 apply_user_provision_integrates_prod:
-  <<: *with_nix_2
+  <<: *with_nix
   <<: *in_master_branch
   stage: deploy
 
 test_user_provision_web_dev:
-  <<: *with_nix_2
+  <<: *with_nix
   <<: *in_dev_branch
   stage: build-and-test
 
 apply_user_provision_web_dev:
-  <<: *with_nix_2
+  <<: *with_nix
   <<: *in_master_branch
   stage: deploy
 
 test_user_provision_web_prod:
-  <<: *with_nix_2
+  <<: *with_nix
   <<: *in_dev_branch
   stage: build-and-test
 
 apply_user_provision_web_prod:
-  <<: *with_nix_2
+  <<: *with_nix
   <<: *in_master_branch
   stage: deploy
 
 apply_rotate_keys_user_provision_asserts_dev:
-  <<: *with_nix_2
+  <<: *with_nix
   <<: *in_schedule_user_provision_rotate_keys
   stage: rotation
 
 apply_rotate_keys_user_provision_asserts_prod:
-  <<: *with_nix_2
+  <<: *with_nix
   <<: *in_schedule_user_provision_rotate_keys
   stage: rotation
 
 apply_rotate_keys_user_provision_services_dev:
-  <<: *with_nix_2
+  <<: *with_nix
   <<: *in_schedule_user_provision_rotate_keys
   stage: rotation
 
 apply_rotate_keys_user_provision_services_prod:
-  <<: *with_nix_2
+  <<: *with_nix
   <<: *in_schedule_user_provision_rotate_keys
   stage: rotation
 
 apply_rotate_keys_user_provision_integrates_dev:
-  <<: *with_nix_2
+  <<: *with_nix
   <<: *in_schedule_user_provision_rotate_keys
   stage: rotation
 
 apply_rotate_keys_user_provision_integrates_prod:
-  <<: *with_nix_2
+  <<: *with_nix
   <<: *in_schedule_user_provision_rotate_keys
   stage: rotation
 
 apply_rotate_keys_user_provision_web_dev:
-  <<: *with_nix_2
+  <<: *with_nix
   <<: *in_schedule_user_provision_rotate_keys
   stage: rotation
 
 apply_rotate_keys_user_provision_web_prod:
-  <<: *with_nix_2
+  <<: *with_nix
   <<: *in_schedule_user_provision_rotate_keys
   stage: rotation
 
 test_lint_code:
-  <<: *with_nix_2
+  <<: *with_nix
   <<: *in_dev_branch
   stage: build-and-test
 
 test_commit_msg:
-  <<: *with_nix_2
+  <<: *with_nix
   <<: *in_dev_branch
   stage: build-and-test
 
@@ -414,17 +414,17 @@ danger:
     - danger --verbose --fail-on-errors=true
 
 test_forces_static:
-  <<: *with_nix_2
+  <<: *with_nix
   <<: *in_dev_branch
   stage: build-and-test
 
 test_forces_dynamic:
-  <<: *with_nix_2
+  <<: *with_nix
   <<: *in_master_branch
   stage: postdeploy
 
 send_new_release_email:
-  <<: *with_nix_2
+  <<: *with_nix
   <<: *in_master_branch
   stage: postdeploy
 

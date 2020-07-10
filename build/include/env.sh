@@ -1,69 +1,100 @@
 # shellcheck shell=bash
 
-source "${srcIncludeHelpers}"
+function list_vars_with_regex {
+  local regex="${1}"
+  printenv | grep -oP "${regex}" | sort
+}
 
-function prepare_environment_variables {
+function env_prepare_environment_variables {
   export IS_LOCAL_BUILD
+  export ENVIRONMENT_NAME
+  export STARTDIR="${PWD}"
+  export REPO_NAME
+  export REPO_PATH
+  export WORKDIR
 
       echo '[INFO] Sourcing .envrc.public' \
   &&  source './.envrc.public' \
-  &&  if test -n "${GITLAB_CI:-}"
+  &&  REPO_NAME="$(basename "${STARTDIR}")" \
+  &&  REPO_PATH="$(dirname "${STARTDIR}")" \
+  &&  WORKDIR="${REPO_PATH}/.ephemeral/${REPO_NAME}" \
+  &&  if test -n "${CI:-}"
       then
             echo '[INFO] In remote build system' \
         && IS_LOCAL_BUILD="${FALSE}"
       else
             echo '[INFO] In local build system' \
         && IS_LOCAL_BUILD="${TRUE}"
+      fi \
+  &&  if test "${CI_COMMIT_REF_NAME}" = 'master'
+      then
+            echo '[INFO] In productive environment' \
+        &&  ENVIRONMENT_NAME='prod'
+      else
+            echo '[INFO] In development environment' \
+        &&  ENVIRONMENT_NAME='dev'
       fi
 }
 
-function prepare_ephemeral_vars {
+function env_prepare_ephemeral_vars {
   export MYPY_CACHE_DIR
   export TEMP_FD
   export TEMP_FILE1
   export TEMP_FILE2
-  export TEMP_FILE3
 
   MYPY_CACHE_DIR=$(mktemp)
   exec {TEMP_FD}>TEMP_FD
   TEMP_FILE1=$(mktemp)
   TEMP_FILE2=$(mktemp)
-  TEMP_FILE3=$(mktemp)
 }
 
-function prepare_python_packages {
+function env_prepare_python_packages {
   export PATH
-  export PYTHONPATH="${PWD}"
+  export PYTHONPATH
   local pkg
 
   echo '[INFO] Preparing python packages'
 
-  helper_list_vars_with_regex 'pyPkg[a-zA-Z0-9]+' > "${TEMP_FILE1}"
+  list_vars_with_regex 'pyPkg[a-zA-Z0-9]+' > "${TEMP_FILE1}"
 
   while read -r pkg
   do
     echo "  [${pkg}] ${!pkg}"
     PATH="${PATH}:${!pkg}/site-packages/bin"
-    PYTHONPATH="${PYTHONPATH}:${!pkg}/site-packages"
+    PYTHONPATH="${!pkg}/site-packages:${PYTHONPATH:-}"
   done < "${TEMP_FILE1}"
 }
 
-function prepare_workdir {
-  export WORKDIR="${PWD}.ephemeral"
-  export STARTDIR="${PWD}"
+function env_prepare_ruby_modules {
+  export PATH
+  export GEM_PATH=''
+  local gem
 
-      echo '[INFO] Creating a pristine workdir' \
-  &&  rm -rf "${WORKDIR}" \
-  &&  mkdir -p "${WORKDIR}" \
-  &&  echo '[INFO] Copying files to workdir' \
-  &&  cp -r "${STARTDIR}/." "${WORKDIR}" \
-  &&  echo '[INFO] Entering the workdir' \
-  &&  pushd "${WORKDIR}" \
-  &&  trap 'teardown_workdir' 'EXIT' \
-  ||  return 1
+  echo '[INFO] Preparing ruby gems'
+
+  list_vars_with_regex 'rubyGem[a-zA-Z0-9]+' > "${TEMP_FILE1}"
+
+  while read -r gem
+  do
+    echo "  [${gem}] ${!gem}"
+    PATH="${PATH}:${!gem}/bin"
+    GEM_PATH="${GEM_PATH}:${!gem}/"
+  done < "${TEMP_FILE1}"
 }
 
-function teardown_workdir {
-      echo "[INFO] Deleting: ${WORKDIR}" \
-  &&  rm -rf "${WORKDIR}"
+function env_prepare_node_modules {
+  export PATH
+  export NODE_PATH
+  local module
+
+  echo '[INFO] Preparing node modules'
+
+  list_vars_with_regex 'nodeJsModule[a-zA-Z0-9]+' > "${TEMP_FILE1}"
+
+  while read -r module
+  do
+    echo "  [${module}] ${!module}"
+    PATH="${PATH}:${!module}/node_modules/.bin"
+    NODE_PATH="${NODE_PATH}:${!module}/node_modules"
+  done < "${TEMP_FILE1}"
 }

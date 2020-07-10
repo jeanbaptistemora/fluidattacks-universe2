@@ -12,9 +12,5 @@ mkdir root/python
 mkdir root/python/cache-dir
 mkdir root/python/site-packages
 
-# where NodeJS modules will be stored
+# where npm modules will be stored
 mkdir root/nodejs
-mkdir root/nodejs/node_modules
-
-# where Go packages will be stored
-mkdir root/go

@@ -21,49 +21,22 @@ function cli {
     return 0
   fi
 
-  echo
-  prepare_environment_variables
-  prepare_ephemeral_vars
-  case "${function_to_call}" in
-    'analytics_git__'*)
-      ;;
-    'services_repositories_cache')
-      ;;
-    *)
-      prepare_workdir
-      ;;
-  esac
-  prepare_python_packages
+  echo '---'
+  env_prepare_environment_variables
+  env_prepare_ephemeral_vars
 
-  if test "${function_to_call}" = 'all'
+  echo "[INFO] Executing function: job_${function_to_call}"
+  if "job_${function_to_call}"
   then
-        job_lint_code \
-    &&  job_infra_autoscaling_ci_test \
-    &&  job_infra_aws_sso_test \
-    &&  job_infra_monolith_test \
-    &&  job_run_break_build_static \
-    &&  job_run_break_build_dynamic \
-    &&  job_user_provision_services_prod_test \
-    &&  job_user_provision_services_dev_test \
-    &&  job_user_provision_integrates_prod_test \
-    &&  job_user_provision_integrates_dev_test \
-    &&  job_user_provision_web_prod_test \
-    && job_user_provision_web_dev_test \
-
+    echo
+    echo "Successfully executed: ${function_to_call}"
+    echo '  Congratulations!'
+    return 0
   else
-    echo "[INFO] Executing function: job_${function_to_call}"
-    if "job_${function_to_call}"
-    then
-      echo
-      echo "Successfully executed: ${function_to_call}"
-      echo '  Congratulations!'
-      return 0
-    else
-      echo
-      echo 'We have found some problems with your commit'
-      echo '  You can replicate this output locally with:'
-      echo "    serves $ ./build.sh ${function_to_call}"
-      return 1
-    fi
+    echo
+    echo 'We have found some problems :('
+    echo '  You can replicate this by running:'
+    echo "    serves $ ./build.sh ${function_to_call}"
+    return 1
   fi
 }
