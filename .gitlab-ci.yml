@@ -206,6 +206,14 @@ analytics_mandrill:
     refs: [schedules]
     variables: [$SCHEDULE_ANALYTICS_MANDRILL]
 
+analytics_gitlab:
+  <<: *with_nix_2
+  tags: [autoscaling-analytics]
+  stage: analytics
+  only:
+    refs: [schedules]
+    variables: [$SCHEDULE_ANALYTICS_GITLAB]
+
 test_infra_monolith:
   <<: *with_nix_2
   <<: *in_dev_branch
