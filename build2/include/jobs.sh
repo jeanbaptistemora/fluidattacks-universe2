@@ -52,6 +52,24 @@ function job_analytics_infrastructure {
   &&  helper_analytics_infrastructure
 }
 
+function job_analytics_intercom {
+      helper_use_pristine_workdir \
+  &&  env_prepare_python_packages \
+  &&  helper_analytics_intercom
+}
+
+function job_analytics_mandrill {
+      helper_use_pristine_workdir \
+  &&  env_prepare_python_packages \
+  &&  helper_analytics_mandrill
+}
+
+function job_analytics_gitlab {
+      helper_use_pristine_workdir \
+  &&  env_prepare_python_packages \
+  &&  helper_analytics_gitlab
+}
+
 function job_test_infra_monolith {
       helper_use_pristine_workdir \
   &&  helper_infra_monolith 'test'

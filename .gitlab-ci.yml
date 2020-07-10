@@ -67,13 +67,6 @@ stages:
   <<: *with_nix_serial
   needs: []
 
-analytics_intercom:
-  <<: *with_nix
-  stage: analytics
-  only:
-    refs: [schedules]
-    variables: [$SCHEDULE_ANALYTICS_INTERCOM]
-
 analytics_git__process:
   <<: *with_nix_serial
   tags: [autoscaling-large]
@@ -107,13 +100,6 @@ analytics_mandrill:
   only:
     refs: [schedules]
     variables: [$SCHEDULE_ANALYTICS_MANDRILL]
-
-analytics_gitlab:
-  <<: *with_nix
-  stage: analytics
-  only:
-    refs: [schedules]
-    variables: [$SCHEDULE_ANALYTICS_GITLAB]
 
 analytics_timedoctor:
   <<: *with_nix
@@ -169,7 +155,7 @@ build_nix_caches:
   stage: build
   before_script:
     - apk add --no-cache bash
-  parallel: 22
+  parallel: 27
   interruptible: false
 
 analytics_formstack:
@@ -203,6 +189,22 @@ analytics_infrastructure:
   only:
     refs: [schedules]
     variables: [$SCHEDULE_ANALYTICS_INFRASTRUCTURE]
+
+analytics_intercom:
+  <<: *with_nix_2
+  tags: [autoscaling-analytics]
+  stage: analytics
+  only:
+    refs: [schedules]
+    variables: [$SCHEDULE_ANALYTICS_INTERCOM]
+
+analytics_mandrill:
+  <<: *with_nix_2
+  tags: [autoscaling-analytics]
+  stage: analytics
+  only:
+    refs: [schedules]
+    variables: [$SCHEDULE_ANALYTICS_MANDRILL]
 
 test_infra_monolith:
   <<: *with_nix_2

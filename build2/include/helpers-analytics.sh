@@ -103,3 +103,94 @@ function helper_analytics_infrastructure {
         --schema-name 'infrastructure' \
         < .singer
 }
+
+function helper_analytics_intercom {
+      helper_aws_login \
+  &&  sops_env secrets-prod.yaml default \
+        analytics_auth_intercom \
+        analytics_auth_redshift \
+  &&  echo '[INFO] Generating secret files' \
+  &&  echo "${analytics_auth_intercom}" > "${TEMP_FILE1}" \
+  &&  echo "${analytics_auth_redshift}" > "${TEMP_FILE2}" \
+  &&  echo '[INFO] Running streamer' \
+  &&  streamer-intercom \
+        --auth "${TEMP_FILE1}" \
+        > .jsonstream \
+  &&  echo '[INFO] Running tap' \
+  &&  tap-json \
+        --enable-timestamps \
+        > .singer \
+        < .jsonstream \
+  &&  echo '[INFO] Running target' \
+  &&  target-redshift \
+        --auth "${TEMP_FILE2}" \
+        --drop-schema \
+        --schema-name 'intercom' \
+        < .singer
+}
+
+function helper_analytics_mandrill {
+      helper_aws_login \
+  &&  sops_env secrets-prod.yaml default \
+        analytics_auth_mandrill \
+        analytics_auth_redshift \
+  &&  echo '[INFO] Generating secret files' \
+  &&  echo "${analytics_auth_mandrill}" > "${TEMP_FILE1}" \
+  &&  echo "${analytics_auth_redshift}" > "${TEMP_FILE2}" \
+  &&  echo '[INFO] Running streamer' \
+  &&  streamer-mandrill \
+        --auth "${TEMP_FILE1}" \
+        > .jsonstream \
+  &&  echo '[INFO] Running tap' \
+  &&  tap-json  \
+        --date-formats '%Y-%m-%d %H:%M:%S,%Y-%m-%d %H:%M:%S.%f' \
+        > .singer \
+        < .jsonstream \
+  &&  echo '[INFO] Running target' \
+  &&  target-redshift \
+        --auth "${TEMP_FILE2}" \
+        --drop-schema \
+        --schema-name 'mandrill' \
+        < .singer
+}
+
+function helper_analytics_gitlab {
+  export GITLAB_PASS
+  local project
+  local projects=(
+    'autonomicmind/default'
+    'autonomicmind/challenges'
+    'fluidattacks/services'
+    'fluidattacks/asserts'
+    'fluidattacks/integrates'
+    'fluidattacks/private'
+    'fluidattacks/public'
+    'fluidattacks/serves'
+    'fluidattacks/web'
+    'fluidattacks/writeups'
+  )
+
+      helper_aws_login \
+  &&  sops_env secrets-prod.yaml default \
+        analytics_gitlab_token \
+        analytics_auth_redshift \
+  &&  echo '[INFO] Generating secret files' \
+  &&  echo "${analytics_auth_redshift}" > "${TEMP_FILE2}" \
+  &&  echo '[INFO] Running streamer' \
+  &&  for project in "${projects[@]}"
+      do
+        GITLAB_PASS="${analytics_gitlab_token}" \
+        ./analytics/singer/streamer_gitlab.py "${project}" >> .jsonstream \
+            || return 1
+      done \
+  &&  echo '[INFO] Running tap' \
+  &&  tap-json  \
+        > .singer \
+        < .jsonstream \
+  &&  echo '[INFO] Running target' \
+  &&  target-redshift \
+        --auth "${TEMP_FILE2}" \
+        --drop-schema \
+        --schema-name 'gitlab-ci' \
+        < .singer
+}
