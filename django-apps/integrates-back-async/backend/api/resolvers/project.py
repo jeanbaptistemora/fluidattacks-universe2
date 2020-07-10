@@ -388,30 +388,6 @@ async def _get_total_treatment(info, project_name: str, **__) -> str:
 
 @require_integrates
 @get_entity_cache_async
-async def _get_current_month_authors(_, project_name: str,
-                                     **__) -> Dict[str, int]:
-    """Get current_month_authors."""
-    current_month_authors = await \
-        sync_to_async(project_domain.get_current_month_authors)(
-            project_name
-        )
-    return current_month_authors
-
-
-@require_integrates
-@get_entity_cache_async
-async def _get_current_month_commits(_, project_name: str,
-                                     **__) -> Dict[str, int]:
-    """Get current_month_commits."""
-    current_month_commits = await \
-        sync_to_async(project_domain.get_current_month_commits)(
-            project_name
-        )
-    return current_month_commits
-
-
-@require_integrates
-@get_entity_cache_async
 async def _get_subscription(info, project_name: str, **__) -> Dict[str, str]:
     """Get subscription."""
     project_attrs = await info.context.loaders['project'].load(project_name)

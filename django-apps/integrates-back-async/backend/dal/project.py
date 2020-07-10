@@ -30,7 +30,6 @@ from backend.dal.finding import (
     is_pending_verification,
     TABLE as FINDINGS_TABLE
 )
-from backend.dal.helpers.analytics import query
 from backend.dal.user import get_attributes as get_user_attributes
 
 
@@ -110,56 +109,6 @@ def get_service_policies(group: str) -> List[ServicePolicy]:
         )
 
     return policies
-
-
-def get_current_month_information(project_name: str, query_db: str) -> str:
-    """Get information of the current month."""
-    project = project_name.lower()
-    init_date = datetime.today().replace(
-        day=1,
-        hour=0,
-        minute=0,
-        second=0,
-        microsecond=0
-    )
-    today_date = datetime.today()
-    params = (project, init_date, today_date)
-    with query() as (curr, conn):
-        curr.execute(query_db, params)
-        response = curr.fetchone()
-        conn.commit()
-        if response:
-            response = response[0]
-        else:
-            response = 0
-        return response
-
-
-def get_current_month_authors(project_name: str) -> str:
-    """Get the authors of the current month."""
-    query_authors = (
-        'SELECT COUNT(DISTINCT('
-        'Commits.author_name || \'_\' || Commits.author_email'
-        ')) '
-        'FROM git.commits AS "Commits" '
-        'WHERE (Commits.subscription = %s AND ('
-        'Commits.integration_authored_at BETWEEN %s AND %s'
-        '));'
-    )
-    return get_current_month_information(project_name, query_authors)
-
-
-def get_current_month_commits(project_name: str) -> str:
-    """Get the commits of the current month."""
-    query_commits = (
-        'SELECT COUNT(Commits.sha1) '
-        'FROM git.commits AS "Commits" '
-        'WHERE (Commits.subscription = %s AND ('
-        'Commits.authored_at BETWEEN %s AND %s'
-        ')) '
-        'LIMIT 100000;'
-    )
-    return get_current_month_information(project_name, query_commits)
 
 
 def get_active_projects() -> List[str]:

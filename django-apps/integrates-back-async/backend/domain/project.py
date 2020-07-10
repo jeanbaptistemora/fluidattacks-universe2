@@ -882,14 +882,6 @@ async def get_open_findings(
     return len(open_findings)
 
 
-def get_current_month_authors(project_name: str) -> str:
-    return project_dal.get_current_month_authors(project_name)
-
-
-def get_current_month_commits(project_name: str) -> str:
-    return project_dal.get_current_month_commits(project_name)
-
-
 def update(project_name: str, data: ProjectType) -> bool:
     return project_dal.update(project_name, data)
 

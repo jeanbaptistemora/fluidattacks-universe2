@@ -19,7 +19,7 @@ from backend.domain.project import (
     list_drafts, list_comments, get_active_projects, get_managers, list_events,
     get_alive_projects, list_findings, get_pending_to_delete,
     get_mean_remediate_severity, remove_access, validate_project_services_config,
-    get_current_month_authors, create_project, total_vulnerabilities,
+    create_project, total_vulnerabilities,
     get_open_vulnerabilities, get_closed_vulnerabilities, get_open_finding,
     remove_project
 )
@@ -353,12 +353,6 @@ class ProjectTest(TestCase):
             project_name, min_severity, max_severity)
         expected_output = 287
         assert mean_remediate_medium_severity == expected_output
-
-    def test_get_current_month_authors(self):
-        project_name = 'unittesting'
-        test_data = get_current_month_authors(project_name)
-        expected_output = 0
-        assert  test_data == expected_output
 
     @pytest.mark.changes_db
     def test_create_project_not_user_admin(self):
