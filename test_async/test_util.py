@@ -2,9 +2,18 @@ from __future__ import absolute_import
 import os
 import time
 import pytest
+import inspect
 from datetime import datetime, timedelta
 
 from boto3 import client
+from graphql.language.ast import (
+    FieldNode,
+    ObjectFieldNode,
+    VariableNode,
+    NameNode,
+    ValueNode,
+    ArgumentNode
+)
 from django.http import JsonResponse
 from django.test import TestCase
 from django.test import RequestFactory
@@ -22,7 +31,8 @@ from backend.util import (
     assert_file_mime, has_release, get_last_vuln, validate_release_date,
     get_jwt_content, iterate_s3_keys, replace_all,
     list_to_dict, camelcase_to_snakecase, is_valid_format,
-    calculate_hash_token, remove_token, save_token
+    calculate_hash_token, remove_token, save_token,
+    get_field_parameters, get_requested_fields
 )
 
 from backend.dal.finding import get_finding
@@ -189,7 +199,7 @@ class UtilTests(TestCase):
             assert get_jwt_content(request)
 
     def test_revoked_token(self):
-        request = create_dummy_simple_session()        
+        request = create_dummy_simple_session()
         payload = {
             'user_email': 'unittest',
             'company': 'unittest',
@@ -254,3 +264,123 @@ class UtilTests(TestCase):
         invalid_date = '2019/03/30 00:00:00'
         assert is_valid_format(date)
         assert not is_valid_format(invalid_date)
+
+def test_get_field_parameters__with_arguments__regression():
+    field_node = FieldNode(
+        kind='Field',
+        name=NameNode(
+            kind='Name',
+            value='Test'
+        ),
+        arguments=[
+            ArgumentNode(
+                kind='Argument',
+                name=NameNode(
+                    kind='Name',
+                    value='id'
+                ),
+                value=NameNode(
+                    kind='StringValue',
+                    value='user-1'
+                )
+            ),
+            ArgumentNode(
+                kind='Argument',
+                name=NameNode(
+                    kind='Name',
+                    value='currentTestingUniverse'
+                ),
+                value=NameNode(
+                    kind='StringValue',
+                    value='C-137'
+                )
+            )
+        ]
+    )
+
+    assert ({'id':'user-1', 'current_testing_universe':'C-137'} ==
+            get_field_parameters(field_node))
+
+@pytest.mark.xfail(reason='from commit 1b77937f on it\'s returning {}')
+def test_get_field_parameters__without_arguments__regression():
+    field_node = FieldNode(
+        kind='Field',
+        name=NameNode(
+            kind='Name',
+            value='Test'
+        ),
+        arguments=[]
+    )
+
+    assert None == get_field_parameters(field_node)
+
+def test_get_field_parameters__with_an_argument_without_value__regression():
+    field_node = FieldNode(
+        kind='Field',
+        name=NameNode(
+            kind='Name',
+            value='Test'
+        ),
+        arguments=[
+            ArgumentNode(
+                kind='Argument',
+                name=NameNode(
+                    kind='Name',
+                    value='id'
+                ),
+                value=NameNode(
+                    kind='StringValue',
+                    value='user-1'
+                )
+            ),
+            ArgumentNode(
+                kind='Argument',
+                name=NameNode(
+                    kind='Name',
+                    value='currentTestingUniverse'
+                ),
+                value=VariableNode(
+                    name=NameNode(
+                        kind='StringValue',
+                        value='universe'
+                    )
+                )
+            )
+        ]
+    )
+
+    assert ({'id':'user-1', 'current_testing_universe':None} ==
+            get_field_parameters(field_node))
+    assert ({'id':'user-1', 'current_testing_universe':'unkwon'} ==
+            get_field_parameters(field_node, {'universe':'unkwon'}))
+
+@pytest.mark.xfail(
+    reason='from commit 01669ab2 on it\'s returning {\'id\': ValueNode}'
+)
+def test_get_field_parameters__argument_with_fieldnode_as_value__regression():
+    field_node = FieldNode(
+        kind='Field',
+        name=NameNode(
+            kind='Name',
+            value='Test'
+        ),
+        arguments=[
+            ArgumentNode(
+                kind='Argument',
+                name=NameNode(
+                    kind='Name',
+                    value='id'
+                ),
+                value=ObjectFieldNode(
+                    kind='StringValue',
+                    name=NameNode(
+                        kind='Name',
+                        value='id'
+                    ),
+                    value=ValueNode()
+                )
+            )
+        ]
+    )
+
+    assert {} == get_field_parameters(field_node)
