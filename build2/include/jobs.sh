@@ -70,6 +70,18 @@ function job_analytics_gitlab {
   &&  helper_analytics_gitlab
 }
 
+function job_analytics_timedoctor {
+      helper_use_pristine_workdir \
+  &&  env_prepare_python_packages \
+  &&  helper_analytics_timedoctor
+}
+
+function job_analytics_zoho {
+      helper_use_pristine_workdir \
+  &&  env_prepare_python_packages \
+  &&  helper_analytics_zoho
+}
+
 function job_test_infra_monolith {
       helper_use_pristine_workdir \
   &&  helper_infra_monolith 'test'

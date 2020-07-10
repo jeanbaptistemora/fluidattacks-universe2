@@ -194,3 +194,84 @@ function helper_analytics_gitlab {
         --schema-name 'gitlab-ci' \
         < .singer
 }
+
+function helper_analytics_timedoctor {
+  export analytics_auth_timedoctor
+
+      helper_aws_login \
+  &&  mkdir ./logs \
+  &&  sops_env secrets-prod.yaml default \
+        analytics_auth_redshift \
+        analytics_gitlab_token \
+        analytics_s3_cache_timedoctor \
+  &&  analytics_auth_timedoctor=$( \
+        helper_get_gitlab_var \
+          'analytics_auth_timedoctor' \
+          "${analytics_gitlab_token}") \
+  &&  echo '[INFO] Generating secret files' \
+  &&  echo "${analytics_s3_cache_timedoctor}" > ./s3_files.json \
+  &&  echo "${analytics_auth_timedoctor}" > "${TEMP_FILE1}" \
+  &&  echo "${analytics_auth_redshift}" > "${TEMP_FILE2}" \
+  &&  echo '[INFO] Downloading backups from S3' \
+  &&  bucket="$(< s3_files.json jq -r '.bucket_name')" \
+  &&  cont_folder=$(< s3_files.json jq -r '.folder_name') \
+  &&  new_folder=$(< s3_files.json jq -r '.save_as') \
+  &&  aws s3 cp --recursive "s3://${bucket}/${cont_folder}/" "${new_folder}/" \
+  &&  cat "${new_folder}"/* \
+        > .singer \
+  &&  echo '[INFO] Running tap' \
+  &&  tap-timedoctor \
+        --auth "${TEMP_FILE1}" \
+        --start-date "$(date +"%Y-%m-01")" \
+        --end-date "$(date +"%Y-%m-%d")" \
+        --work-logs \
+        --computer-activity \
+        >> .singer \
+  &&  echo '[INFO] Running target' \
+  &&  target-redshift \
+        --auth "${TEMP_FILE2}" \
+        --drop-schema \
+        --schema-name 'timedoctor' \
+        < .singer
+}
+
+function helper_analytics_zoho {
+  local analytics_zoho_tables=(
+    Candidates
+    Periods
+  )
+
+      helper_aws_login \
+  &&  sops_env secrets-prod.yaml default \
+        analytics_zoho_email \
+        analytics_zoho_token \
+        analytics_zoho_space \
+        analytics_auth_redshift \
+  &&  echo '[INFO] Generating secret files' \
+  &&  echo "${analytics_auth_redshift}" > "${TEMP_FILE2}" \
+  &&  echo '[INFO] Running converter and streamer' \
+  &&  for table in "${analytics_zoho_tables[@]}"
+      do
+            echo "  [INFO] Table: ${table}" \
+        &&  ./analytics/singer/converter_zoho_csv.py \
+              --email "${analytics_zoho_email}" \
+              --token "${analytics_zoho_token}" \
+              --space "${analytics_zoho_space}" \
+              --table "${table}" \
+              --target "${table}" \
+        &&  ./analytics/singer/streamer_csv.py "${table}" \
+              >> .jsonstream \
+        || return 1
+      done \
+  &&  echo '[INFO] Running tap' \
+  &&  tap-json  \
+        --date-formats '%Y-%m-%d %H:%M:%S' \
+        > .singer \
+        < .jsonstream \
+  &&  echo '[INFO] Running target' \
+  &&  target-redshift \
+        --auth "${TEMP_FILE2}" \
+        --drop-schema \
+        --schema-name 'zoho' \
+        < .singer
+}

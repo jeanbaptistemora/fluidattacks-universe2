@@ -94,33 +94,12 @@ analytics_git__upload:
     refs: [schedules]
     variables: [$SCHEDULE_ANALYTICS_GIT_PARALLEL]
 
-analytics_mandrill:
-  <<: *with_nix
-  stage: analytics
-  only:
-    refs: [schedules]
-    variables: [$SCHEDULE_ANALYTICS_MANDRILL]
-
-analytics_timedoctor:
-  <<: *with_nix
-  stage: analytics
-  only:
-    refs: [schedules]
-    variables: [$SCHEDULE_ANALYTICS_TIMEDOCTOR]
-
 analytics_timedoctor_refresh_token:
   <<: *with_nix
   stage: analytics
   only:
     refs: [schedules]
     variables: [$SCHEDULE_ANALYTICS_TIMEDOCTOR_REFRESH_TOKEN]
-
-analytics_zoho:
-  <<: *with_nix
-  stage: analytics
-  only:
-    refs: [schedules]
-    variables: [$SCHEDULE_ANALYTICS_ZOHO]
 
 backup_analytics_timedoctor:
   <<: *with_nix
@@ -213,6 +192,22 @@ analytics_gitlab:
   only:
     refs: [schedules]
     variables: [$SCHEDULE_ANALYTICS_GITLAB]
+
+analytics_timedoctor:
+  <<: *with_nix_2
+  tags: [autoscaling-analytics]
+  stage: analytics
+  only:
+    refs: [schedules]
+    variables: [$SCHEDULE_ANALYTICS_TIMEDOCTOR]
+
+analytics_zoho:
+  <<: *with_nix_2
+  tags: [autoscaling-analytics]
+  stage: analytics
+  only:
+    refs: [schedules]
+    variables: [$SCHEDULE_ANALYTICS_ZOHO]
 
 test_infra_monolith:
   <<: *with_nix_2
