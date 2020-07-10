@@ -54,7 +54,6 @@ const homeView: React.FC<IHomeViewProps> = (props: IHomeViewProps): JSX.Element 
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
   const { push } = useHistory();
   const { userEmail } = (window as typeof window & { userEmail: string });
-  const fluidUser: boolean = userEmail.endsWith("@fluidattacks.com");
 
   const goToProject: ((projectName: string) => void) = (projectName: string): void => {
     push(`/groups/${projectName.toLowerCase()}/indicators`);
@@ -242,7 +241,7 @@ const homeView: React.FC<IHomeViewProps> = (props: IHomeViewProps): JSX.Element 
                       </Row>
                     </React.Fragment>
                   )}
-                  {!_.isUndefined(data.me.organizations) && fluidUser ? (
+                  {!_.isUndefined(data.me.organizations) ? (
                     <React.Fragment>
                       <h2>{translate.t("home.organizations")}</h2>
                       <Row className={style.content}>
