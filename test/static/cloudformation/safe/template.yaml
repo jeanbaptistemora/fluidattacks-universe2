@@ -272,6 +272,12 @@ Resources:
           IpProtocol: tcp
           ToPort: 8000
     Type: AWS::EC2::SecurityGroup
+  trail1:
+    Properties:
+      IsLogging: 'true'
+      IsMultiRegionTrail: 'true'
+      S3BucketName: bucketsito
+    Type: AWS::CloudTrail::Trail
   user1:
     Properties:
       Groups:

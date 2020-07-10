@@ -20,6 +20,7 @@ import troposphere.cloudfront
 import troposphere.elasticloadbalancing
 import troposphere.elasticloadbalancingv2
 import troposphere.secretsmanager
+import troposphere.cloudtrail
 
 
 def write_template(template: troposphere.Template) -> bool:
@@ -140,6 +141,12 @@ role = troposphere.iam.Role(
             },
         ),
     ],
+)
+trail = troposphere.cloudtrail.Trail(
+    title='trail1',
+    IsLogging=True,
+    S3BucketName='bucketsito',
+    IsMultiRegionTrail=True
 )
 secret = troposphere.secretsmanager.Secret(
     title='secret1',
@@ -490,6 +497,7 @@ template.add_resource(s3_bucket)
 template.add_resource(s3_bucket_policy)
 template.add_resource(elb_entity)
 template.add_resource(elb2_entity)
+template.add_resource(trail)
 write_template(template)
 
 #
@@ -618,6 +626,12 @@ secret = troposphere.secretsmanager.Secret(
     ),
 )
 secret2 = troposphere.secretsmanager.Secret(title='secret2', )
+trail = troposphere.cloudtrail.Trail(
+    title='trail1',
+    IsLogging=True,
+    S3BucketName='bucketsito',
+    IsMultiRegionTrail=False
+)
 rds_cluster = troposphere.rds.DBCluster(
     title='cluster1',
     Engine='postgres',
@@ -1039,6 +1053,7 @@ template.add_resource(s3_bucket_policy)
 template.add_resource(elb_entity)
 template.add_resource(elb2_entity)
 template.add_resource(elb2_listener)
+template.add_resource(trail)
 write_template(template)
 
 #

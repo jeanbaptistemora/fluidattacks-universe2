@@ -560,6 +560,14 @@
       },
       "Type": "AWS::EC2::SecurityGroupIngress"
     },
+    "trail1": {
+      "Properties": {
+        "IsLogging": "true",
+        "IsMultiRegionTrail": "false",
+        "S3BucketName": "bucketsito"
+      },
+      "Type": "AWS::CloudTrail::Trail"
+    },
     "user1": {
       "Properties": {
         "Policies": [
