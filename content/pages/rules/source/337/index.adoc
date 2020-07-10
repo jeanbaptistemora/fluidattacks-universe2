@@ -51,6 +51,6 @@ including authentication, session management and access control,
 are thread safe and resistant to time-of-check and time-of-use race conditions.
 
 . [[r5]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
-V1.11 Business Logic Architectural Requirements.(1.11.6)]
+V11.1 Business Logic Security Requirements.(11.1.6)]
 Verify the application does not suffer from "time of check to time of use"
 (*TOCTOU*) issues or other race conditions for sensitive operations.

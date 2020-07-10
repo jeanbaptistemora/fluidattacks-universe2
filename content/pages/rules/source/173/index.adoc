@@ -338,3 +338,8 @@ as resolving external entities are disabled to prevent *XXE*.
 V7.3 Log Protection Requirements.(7.3.1)]
 Verify that the application appropriately encodes user-supplied data to prevent
 log injection.
+
+. [[r41]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V12.1 File Upload Requirements.(12.1.2)]
+Verify that compressed files are checked for "zip bombs" - small input files
+that will decompress into huge files thus exhausting file storage limits.

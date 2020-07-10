@@ -8,7 +8,7 @@
 
 == Requirement
 
-All system files dynamically generated
+All system files generated dynamically
 must have a Character set explicitly defined.
 
 == References
