@@ -66,6 +66,13 @@ GraphicsForEntityParameters = NamedTuple(
         ('subject', str),
     ]
 )
+ReportParameters = NamedTuple(
+    'ReportParameters',
+    [
+        ('entity', str),
+        ('subject', str),
+    ]
+)
 
 # Constants
 ALLOWED_CHARS_IN_PARAMS: str = string.ascii_letters + string.digits + '#-'
@@ -93,7 +100,7 @@ async def get_document(
 
 @apm.trace()
 @cache_idempotent(ttl=3600)
-async def get_report(
+async def get_graphics_report(
     *,
     entity: str,
     subject: str,
@@ -105,26 +112,12 @@ async def get_report(
     return document
 
 
-async def get_document_from_graphic_request(
-    *,
-    params: GraphicParameters,
-    request: HttpRequest,
-) -> object:
-    await handle_graphics_for_entity_authz(params=params, request=request)
-
-    return await get_document(
-        document_name=params.document_name,
-        document_type=params.document_type,
-        entity=params.entity,
-        subject=params.subject,
-    )
-
-
-async def handle_graphics_for_entity_authz(
+async def handle_authz_claims(
     *,
     params: Union[
         GraphicParameters,
         GraphicsForEntityParameters,
+        ReportParameters,
     ],
     request: HttpRequest,
 ) -> None:
@@ -211,14 +204,46 @@ def handle_graphics_for_entity_request_parameters(
     )
 
 
+def handle_graphics_report_request_parameters(
+    *,
+    request: HttpRequest,
+) -> ReportParameters:
+    entity: str = request.GET['entity']
+
+    if entity not in ['group', 'organization']:
+        raise ValueError(
+            'Invalid entity, only "group" and "organization" are valid',
+        )
+
+    subject: str = request.GET[entity]
+
+    for param_name, param_value in [
+        ('subject', subject),
+    ]:
+        if set(param_value).issuperset(set(ALLOWED_CHARS_IN_PARAMS)):
+            raise ValueError(
+                f'Expected [{ALLOWED_CHARS_IN_PARAMS}] '
+                f'in parameter: {param_name}',
+            )
+
+    return ReportParameters(
+        entity=entity,
+        subject=subject,
+    )
+
+
 async def handle_graphic_request(request: HttpRequest) -> HttpResponse:
     try:
         params: GraphicParameters = \
             handle_graphic_request_parameters(request=request)
 
-        document: object = await get_document_from_graphic_request(
-            params=params,
-            request=request,
+        await handle_authz_claims(params=params, request=request)
+
+        document: object = await get_document(
+            document_name=params.document_name,
+            document_type=params.document_type,
+            entity=params.entity,
+            subject=params.subject,
         )
     except (
         botocore.exceptions.ClientError,
@@ -257,7 +282,7 @@ async def handle_graphics_for_entity_request(
     request: HttpRequest,
 ) -> HttpResponse:
     try:
-        await handle_graphics_for_entity_authz(
+        await handle_authz_claims(
             params=handle_graphics_for_entity_request_parameters(
                 entity=entity,
                 request=request,
@@ -280,5 +305,39 @@ async def handle_graphics_for_entity_request(
             debug=settings.DEBUG,
             entity=entity.title(),
         ))
+
+    return response
+
+
+async def handle_graphics_report_request(
+    request: HttpRequest,
+) -> HttpResponse:
+    try:
+        params: ReportParameters = handle_graphics_report_request_parameters(
+            request=request,
+        )
+
+        await handle_authz_claims(
+            params=params,
+            request=request,
+        )
+
+        report: bytes = await get_graphics_report(
+            entity=params.entity,
+            subject=params.subject,
+        )
+    except (
+        botocore.exceptions.ClientError,
+        KeyError,
+        PermissionError,
+        ValueError,
+    ):
+        rollbar.report_exc_info()
+        response = render(request, 'graphic-error.html', dict(
+            debug=settings.DEBUG,
+            traceback=traceback.format_exc(),
+        ))
+    else:
+        response = HttpResponse(report, content_type='image/png')
 
     return response

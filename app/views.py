@@ -259,6 +259,15 @@ async def _graphics_for_entity(
     return response
 
 
+@never_cache
+@csrf_exempt
+@require_login
+@require_http_methods(['GET'])
+@async_to_sync
+async def graphics_report(request: HttpRequest) -> HttpResponse:
+    return await analytics_domain.handle_graphics_report_request(request)
+
+
 @csrf_exempt
 @authenticate
 def logout(request):
