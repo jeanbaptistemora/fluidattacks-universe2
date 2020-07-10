@@ -1,11 +1,10 @@
 stages:
   - build
-  - build-and-test
+  - test
   - analytics
   - analytics-upload
   - mr-check
   - deploy
-  - eks-initial-setup
   - postdeploy
   - rotation
 
@@ -203,7 +202,7 @@ analytics_services_repositories_cache:
 test_infra_monolith:
   <<: *with_nix
   <<: *in_dev_branch
-  stage: build-and-test
+  stage: test
 
 apply_infra_monolith:
   <<: *with_nix
@@ -213,7 +212,7 @@ apply_infra_monolith:
 test_infra_autoscaling_ci:
   <<: *with_nix
   <<: *in_dev_branch
-  stage: build-and-test
+  stage: test
 
 apply_infra_autoscaling_ci:
   <<: *with_nix
@@ -228,7 +227,7 @@ apply_config_autoscaling_ci:
 test_infra_analytics:
   <<: *with_nix
   <<: *in_dev_branch
-  stage: build-and-test
+  stage: test
 
 apply_infra_analytics:
   <<: *with_nix
@@ -238,7 +237,7 @@ apply_infra_analytics:
 test_infra_aws_sso:
   <<: *with_nix
   <<: *in_dev_branch
-  stage: build-and-test
+  stage: test
 
 apply_infra_aws_sso:
   <<: *with_nix
@@ -248,7 +247,7 @@ apply_infra_aws_sso:
 test_infra_fluid_vpc:
   <<: *with_nix
   <<: *in_dev_branch
-  stage: build-and-test
+  stage: test
 
 apply_infra_fluid_vpc:
   <<: *with_nix
@@ -258,7 +257,7 @@ apply_infra_fluid_vpc:
 test_infra_secret_management:
   <<: *with_nix
   <<: *in_dev_branch
-  stage: build-and-test
+  stage: test
 
 apply_infra_secret_management:
   <<: *with_nix
@@ -268,7 +267,7 @@ apply_infra_secret_management:
 test_user_provision_asserts_dev:
   <<: *with_nix
   <<: *in_dev_branch
-  stage: build-and-test
+  stage: test
 
 apply_user_provision_asserts_dev:
   <<: *with_nix
@@ -278,7 +277,7 @@ apply_user_provision_asserts_dev:
 test_user_provision_asserts_prod:
   <<: *with_nix
   <<: *in_dev_branch
-  stage: build-and-test
+  stage: test
 
 apply_user_provision_asserts_prod:
   <<: *with_nix
@@ -288,7 +287,7 @@ apply_user_provision_asserts_prod:
 test_user_provision_services_dev:
   <<: *with_nix
   <<: *in_dev_branch
-  stage: build-and-test
+  stage: test
 
 apply_user_provision_services_dev:
   <<: *with_nix
@@ -298,7 +297,7 @@ apply_user_provision_services_dev:
 test_user_provision_services_prod:
   <<: *with_nix
   <<: *in_dev_branch
-  stage: build-and-test
+  stage: test
 
 apply_user_provision_services_prod:
   <<: *with_nix
@@ -308,7 +307,7 @@ apply_user_provision_services_prod:
 test_user_provision_integrates_dev:
   <<: *with_nix
   <<: *in_dev_branch
-  stage: build-and-test
+  stage: test
 
 apply_user_provision_integrates_dev:
   <<: *with_nix
@@ -318,7 +317,7 @@ apply_user_provision_integrates_dev:
 test_user_provision_integrates_prod:
   <<: *with_nix
   <<: *in_dev_branch
-  stage: build-and-test
+  stage: test
 
 apply_user_provision_integrates_prod:
   <<: *with_nix
@@ -328,7 +327,7 @@ apply_user_provision_integrates_prod:
 test_user_provision_web_dev:
   <<: *with_nix
   <<: *in_dev_branch
-  stage: build-and-test
+  stage: test
 
 apply_user_provision_web_dev:
   <<: *with_nix
@@ -338,7 +337,7 @@ apply_user_provision_web_dev:
 test_user_provision_web_prod:
   <<: *with_nix
   <<: *in_dev_branch
-  stage: build-and-test
+  stage: test
 
 apply_user_provision_web_prod:
   <<: *with_nix
@@ -388,12 +387,12 @@ apply_rotate_keys_user_provision_web_prod:
 test_lint_code:
   <<: *with_nix
   <<: *in_dev_branch
-  stage: build-and-test
+  stage: test
 
 test_commit_msg:
   <<: *with_nix
   <<: *in_dev_branch
-  stage: build-and-test
+  stage: test
 
 danger:
   image: fluidattacks/danger-ruby
@@ -416,7 +415,7 @@ danger:
 test_forces_static:
   <<: *with_nix
   <<: *in_dev_branch
-  stage: build-and-test
+  stage: test
 
 test_forces_dynamic:
   <<: *with_nix
