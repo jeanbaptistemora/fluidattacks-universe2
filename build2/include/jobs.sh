@@ -94,6 +94,24 @@ function job_analytics_git_upload {
   &&  helper_analytics_git_upload
 }
 
+function job_analytics_timedoctor_refresh_token {
+      helper_use_pristine_workdir \
+  &&  env_prepare_python_packages \
+  &&  helper_analytics_timedoctor_refresh_token
+}
+
+function job_analytics_timedoctor_backup {
+      helper_use_pristine_workdir \
+  &&  env_prepare_python_packages \
+  &&  helper_analytics_timedoctor_backup
+}
+
+function job_analytics_timedoctor_manually_create_token {
+      helper_use_pristine_workdir \
+  &&  env_prepare_python_packages \
+  &&  helper_analytics_timedoctor_manually_create_token
+}
+
 function job_test_infra_monolith {
       helper_use_pristine_workdir \
   &&  helper_infra_monolith 'test'

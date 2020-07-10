@@ -67,20 +67,6 @@ stages:
   <<: *with_nix_serial
   needs: []
 
-analytics_timedoctor_refresh_token:
-  <<: *with_nix
-  stage: analytics
-  only:
-    refs: [schedules]
-    variables: [$SCHEDULE_ANALYTICS_TIMEDOCTOR_REFRESH_TOKEN]
-
-backup_analytics_timedoctor:
-  <<: *with_nix
-  stage: analytics
-  only:
-    refs: [schedules]
-    variables: [$SCHEDULE_BACKUP_ANALYTICS_TIMEDOCTOR]
-
 services_repositories_cache:
   <<: *with_nix
   tags: [autoscaling-analytics]
@@ -209,6 +195,22 @@ analytics_git_upload:
   only:
     refs: [schedules]
     variables: [$SCHEDULE_ANALYTICS_GIT_PARALLEL]
+
+analytics_timedoctor_refresh_token:
+  <<: *with_nix_2
+  tags: [autoscaling-analytics]
+  stage: analytics
+  only:
+    refs: [schedules]
+    variables: [$SCHEDULE_ANALYTICS_TIMEDOCTOR_REFRESH_TOKEN]
+
+analytics_timedoctor_backup:
+  <<: *with_nix_2
+  tags: [autoscaling-analytics]
+  stage: analytics
+  only:
+    refs: [schedules]
+    variables: [$SCHEDULE_BACKUP_ANALYTICS_TIMEDOCTOR]
 
 test_infra_monolith:
   <<: *with_nix_2
