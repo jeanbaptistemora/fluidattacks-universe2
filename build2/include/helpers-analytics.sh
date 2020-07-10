@@ -390,3 +390,27 @@ function helper_analytics_timedoctor_manually_create_token {
   &&  ./analytics/auth_helper.py --timedoctor-start \
   &&  echo '[INFO] Done! Token created at GitLab/serves env vars'
 }
+
+function helper_analytics_services_repositories_cache {
+  local mock_integrates_api_token='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.e30.xxx'
+
+      helper_aws_login \
+  &&  helper_move_artifacts_to_git \
+  &&  sops_env secrets-prod.yaml default \
+        analytics_gitlab_user \
+        analytics_gitlab_token \
+  &&  echo '[INFO] Cloning our own repositories' \
+  &&  python3 analytics/git/clone_us.py \
+  &&  echo '[INFO] Cloning customer repositories' \
+  &&  \
+      CI=true \
+      CI_COMMIT_REF_NAME='master' \
+      INTEGRATES_API_TOKEN="${mock_integrates_api_token}" \
+      PROD_AWS_ACCESS_KEY_ID="${AWS_ACCESS_KEY_ID}" \
+      PROD_AWS_SECRET_ACCESS_KEY="${AWS_SECRET_ACCESS_KEY}" \
+      python3 analytics/git/clone_them.py \
+  &&  helper_move_services_fusion_to_master_git \
+  &&  echo '[INFO] Generating stats' \
+  &&  { python3 analytics/git/generate_stats.py || true; } \
+  &&  helper_move_git_to_artifacts
+}
