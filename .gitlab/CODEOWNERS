@@ -1,12 +1,12 @@
 # Default approvers
-* @mnorenaatfluid @aroldanatfluid @dacevedoatfluid @acuberosatfluid @jrestrepoatfluid @ralvarezatfluid
+* @mnorenaatfluid @aroldanatfluid @dacevedoatfluid @acuberosatfluid @jrestrepoatfluid @ralvarezatfluid @kamadoatfluid
 
 # Front approvers
-/front/ @dacevedoatfluid @mnorenaatfluid @acuberosatfluid @jrestrepoatfluid
-/mobile/ @dacevedoatfluid @mnorenaatfluid @acuberosatfluid @jrestrepoatfluid
+/front/ @dacevedoatfluid @mnorenaatfluid @acuberosatfluid @jrestrepoatfluid @kamadoatfluid
+/mobile/ @dacevedoatfluid @mnorenaatfluid @acuberosatfluid @jrestrepoatfluid @kamadoatfluid
 
 # Back approvers
-/django-apps/integrates-back-async/backend/authz/ @jrestrepoatfluid @mnorenaatfluid @acuberosatfluid
+/django-apps/integrates-back-async/backend/authz/ @jrestrepoatfluid @mnorenaatfluid @acuberosatfluid @kamadoatfluid
 
 # Linter approvers
 /build/include/linter-jobs.sh @mnorenaatfluid @kamadoatfluid
