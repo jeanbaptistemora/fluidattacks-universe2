@@ -3,7 +3,7 @@
  * array may contain different types since this is a generic component
  */
 import { ReactElement } from "react";
-import { ColumnToggleProps } from "react-bootstrap-table2-toolkit";
+import { ColumnToggleProps, ToolkitProviderProps } from "react-bootstrap-table2-toolkit";
 
 export interface ITableProps {
   bodyContainer?: string;
@@ -52,4 +52,10 @@ export interface IHeader {
 export interface ICustomToggle {
   propsTable: ITableProps;
   propsToggle: ColumnToggleProps;
+}
+
+export interface ITableWrapperProps {
+  dataset: Array<Record<string, unknown>>;
+  tableProps: ITableProps;
+  toolkitProps: ToolkitProviderProps;
 }

@@ -13,6 +13,8 @@
       "src/components/DataTableNext/utils/**",
       "src/components/DataTableNext/exportCSVButton.tsx",
       "src/components/DataTableNext/customToggleList.tsx",
+      "src/components/DataTableNext/table.tsx",
+      "src/components/DataTableNext/sizePerPageRenderer.tsx",
       "src/components/DataTableNext/index.spec.tsx"
     ]
   },
