@@ -172,11 +172,6 @@ backup_analytics_timedoctor:
     refs: [schedules]
     variables: [$SCHEDULE_BACKUP_ANALYTICS_TIMEDOCTOR]
 
-infra_autoscaling_ci_deploy_config:
-  <<: *with_nix
-  <<: *in_master_branch
-  stage: deploy
-
 services_repositories_cache:
   <<: *with_nix
   tags: [autoscaling-large]
@@ -222,6 +217,11 @@ test_infra_autoscaling_ci:
   stage: build-and-test
 
 apply_infra_autoscaling_ci:
+  <<: *with_nix_2
+  <<: *in_master_branch
+  stage: deploy
+
+apply_config_autoscaling_ci:
   <<: *with_nix_2
   <<: *in_master_branch
   stage: deploy
