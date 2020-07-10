@@ -304,6 +304,16 @@
         "project_name": "string",
         "user_id": "string"
       }
+    },
+    "fi_organizations": {
+      "primary-keys":[
+        "pk",
+        "sk"
+      ],
+      "schema": {
+        "pk": "string",
+        "sk": "string"
+      }
     }
   }
 }
