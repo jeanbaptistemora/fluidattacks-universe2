@@ -45,7 +45,7 @@ async def _get_group_document(
     return await analytics_domain.get_document(
         document_name=document_name,
         document_type=document_type,
-        level='group',
+        entity='group',
         subject=group_name,
     )
 

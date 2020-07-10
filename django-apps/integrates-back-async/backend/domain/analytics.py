@@ -77,18 +77,32 @@ async def get_document(
     *,
     document_name: str,
     document_type: str,
-    level: str,
+    entity: str,
     subject: str,
 ) -> object:
     document: str = await analytics_dal.get_document(
         os.path.join(
             convert_camel_case_to_snake(document_type),
             convert_camel_case_to_snake(document_name),
-            f'{level}:{safe_encode(subject.lower())}.json',
+            f'{entity}:{safe_encode(subject.lower())}.json',
         )
     )
 
     return json.loads(document)
+
+
+@apm.trace()
+@cache_idempotent(ttl=3600)
+async def get_report(
+    *,
+    entity: str,
+    subject: str,
+) -> bytes:
+    document: bytes = await analytics_dal.get_snapshot(
+        f'reports/{entity}:{safe_encode(subject.lower())}.png',
+    )
+
+    return document
 
 
 async def get_document_from_graphic_request(
@@ -101,7 +115,7 @@ async def get_document_from_graphic_request(
     return await get_document(
         document_name=params.document_name,
         document_type=params.document_type,
-        level=params.entity,
+        entity=params.entity,
         subject=params.subject,
     )
 

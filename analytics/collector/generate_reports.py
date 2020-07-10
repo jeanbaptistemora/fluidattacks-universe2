@@ -148,7 +148,7 @@ async def main():
             await take_snapshot(
                 driver=driver,
                 save_as=utils.get_result_path(
-                    name=f'organization:{safe_encode(org_id)}.png',
+                    name=f'organization:{safe_encode(org_id.lower())}.png',
                 ),
                 session=session,
                 url=f'{base}&organization={percent_encode(org_id)}',
@@ -161,7 +161,7 @@ async def main():
             await take_snapshot(
                 driver=driver,
                 save_as=utils.get_result_path(
-                    name=f'group:{safe_encode(group)}.png',
+                    name=f'group:{safe_encode(group.lower())}.png',
                 ),
                 session=session,
                 url=f'{base}&group={percent_encode(group)}',
