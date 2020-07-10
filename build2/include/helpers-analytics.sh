@@ -79,3 +79,27 @@ function helper_analytics_services_toe {
           < .singer \
   && popd || return 1
 }
+
+function helper_analytics_infrastructure {
+      helper_aws_login \
+  &&  sops_env secrets-prod.yaml default \
+        analytics_auth_infra \
+        analytics_auth_redshift \
+  &&  echo '[INFO] Generating secret files' \
+  &&  echo "${analytics_auth_infra}" > "${TEMP_FILE1}" \
+  &&  echo "${analytics_auth_redshift}" > "${TEMP_FILE2}" \
+  &&  echo '[INFO] Running streamer' \
+  &&  streamer-infrastructure \
+        --auth "${TEMP_FILE1}" \
+        > .jsonstream \
+  &&  echo '[INFO] Running tap' \
+  &&  tap-json \
+        > .singer \
+        < .jsonstream \
+  &&  echo '[INFO] Running target' \
+  &&  target-redshift \
+        --auth "${TEMP_FILE2}" \
+        --drop-schema \
+        --schema-name 'infrastructure' \
+        < .singer
+}

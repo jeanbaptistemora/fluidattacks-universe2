@@ -67,13 +67,6 @@ stages:
   <<: *with_nix_serial
   needs: []
 
-analytics_infrastructure:
-  <<: *with_nix
-  stage: analytics
-  only:
-    refs: [schedules]
-    variables: [$SCHEDULE_ANALYTICS_INFRASTRUCTURE]
-
 analytics_intercom:
   <<: *with_nix
   stage: analytics
@@ -202,6 +195,14 @@ analytics_services_toe:
   only:
     refs: [schedules]
     variables: [$SCHEDULE_ANALYTICS_CONTINUOUS_TOE]
+
+analytics_infrastructure:
+  <<: *with_nix_2
+  tags: [autoscaling-analytics]
+  stage: analytics
+  only:
+    refs: [schedules]
+    variables: [$SCHEDULE_ANALYTICS_INFRASTRUCTURE]
 
 test_infra_monolith:
   <<: *with_nix_2

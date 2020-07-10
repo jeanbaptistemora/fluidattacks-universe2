@@ -46,6 +46,12 @@ function job_analytics_services_toe {
   &&  helper_analytics_services_toe
 }
 
+function job_analytics_infrastructure {
+      helper_use_pristine_workdir \
+  &&  env_prepare_python_packages \
+  &&  helper_analytics_infrastructure
+}
+
 function job_test_infra_monolith {
       helper_use_pristine_workdir \
   &&  helper_infra_monolith 'test'
