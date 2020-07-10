@@ -20,7 +20,11 @@ from backend.decorators import (
     enforce_group_level_auth_async,
     enforce_user_level_auth_async,
 )
-from backend.domain import project as project_domain, user as user_domain
+from backend.domain import (
+    organization as org_domain,
+    project as project_domain,
+    user as user_domain
+)
 from backend.exceptions import (
     UserNotFound,
 )
@@ -113,10 +117,21 @@ async def _create_new_user(  # pylint: disable=too-many-arguments
                 }
             )
 
+        group_organization = await aio.ensure_io_bound(
+            project_domain.get_attributes,
+            group,
+            ['organization']
+        )
+        organization_id = group_organization['organization']
+        if not await org_domain.has_user_access(email, organization_id):
+            await org_domain.add_user(organization_id, email, 'customer')
+
+
         if not user_domain.is_registered(email):
             user_domain.register(email)
             authz.grant_user_level_role(email, 'customer')
             user_domain.update(email, organization.lower(), 'company')
+
 
         if group and responsibility and len(responsibility) <= 50:
             success = await aio.ensure_io_bound(

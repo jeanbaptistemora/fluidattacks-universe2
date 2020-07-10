@@ -161,11 +161,15 @@ async def move_users(group_name: str, organization_id: str) -> bool:
         group_name,
         True
     )
+    have_users_access = await aio.materialize(
+        has_user_access(user, organization_id) for user in group_users
+    )
+
     success = all(
-        await asyncio.gather(*[
-            asyncio.create_task(add_user(organization_id, user, 'customer'))
-            for user in group_users
-        ])
+        await aio.materialize(
+            add_user(organization_id, user, 'customer')
+            for user in group_users if not have_users_access.pop(0)
+        )
     )
     return success
 
