@@ -2,8 +2,10 @@
 import json
 import os
 import string
+import traceback
 from typing import (
     NamedTuple,
+    Union,
 )
 
 # Third party libraries
@@ -57,15 +59,16 @@ GraphicParameters = NamedTuple(
         ('width', int)
     ]
 )
-GraphicsForGroupParameters = NamedTuple(
-    'GraphicsForGroupParameters',
+GraphicsForEntityParameters = NamedTuple(
+    'GraphicsForEntityParameters',
     [
-        ('group', str),
+        ('entity', str),
+        ('subject', str),
     ]
 )
 
 # Constants
-ALLOWED_CHARS_IN_PARAMS: str = string.ascii_letters + string.digits + '-'
+ALLOWED_CHARS_IN_PARAMS: str = string.ascii_letters + string.digits + '#-'
 
 
 @apm.trace()
@@ -93,13 +96,29 @@ async def get_document_from_graphic_request(
     params: GraphicParameters,
     request: HttpRequest,
 ) -> object:
-    # Get the requester email from the session or from its API token
-    email = request.session.get('username') \
-        or util.get_jwt_content(request)['user_email']
+    await handle_graphics_for_entity_authz(params=params, request=request)
+
+    return await get_document(
+        document_name=params.document_name,
+        document_type=params.document_type,
+        level=params.entity,
+        subject=params.subject,
+    )
+
+
+async def handle_graphics_for_entity_authz(
+    *,
+    params: Union[
+        GraphicParameters,
+        GraphicsForEntityParameters,
+    ],
+    request: HttpRequest,
+) -> None:
+    email = util.get_jwt_content(request)['user_email']
 
     if params.entity == 'group':
         if not await aio.ensure_io_bound(
-            has_access_to_group, email, params.subject,
+            has_access_to_group, email, params.subject.lower(),
         ):
             raise PermissionError('Access denied')
     elif params.entity == 'organization':
@@ -110,26 +129,6 @@ async def get_document_from_graphic_request(
             raise PermissionError('Access denied')
     else:
         raise ValueError(f'Invalid entity: {params.entity}')
-
-    return await get_document(
-        document_name=params.document_name,
-        document_type=params.document_type,
-        level=params.entity,
-        subject=params.subject,
-    )
-
-
-async def handle_graphics_for_group_authz(
-    *,
-    params: GraphicsForGroupParameters,
-    request: HttpRequest,
-) -> None:
-    email = util.get_jwt_content(request)['user_email']
-
-    if not await aio.ensure_io_bound(
-        has_access_to_group, email, params.group,
-    ):
-        raise PermissionError('Access denied')
 
 
 def handle_graphic_request_parameters(
@@ -171,22 +170,30 @@ def handle_graphic_request_parameters(
     )
 
 
-def handle_graphics_for_group_request_parameters(
+def handle_graphics_for_entity_request_parameters(
     *,
+    entity: str,
     request: HttpRequest,
-) -> GraphicsForGroupParameters:
-    group: str = request.GET['group']
+) -> GraphicsForEntityParameters:
+    if entity not in ['group', 'organization']:
+        raise ValueError(
+            'Invalid entity, only "group" and "organization" are valid',
+        )
+
+    subject: str = request.GET[entity]
 
     for param_name, param_value in [
-        ('group', group),
+        ('subject', subject),
     ]:
-        if not param_value.isalnum():
+        if set(param_value).issuperset(set(ALLOWED_CHARS_IN_PARAMS)):
             raise ValueError(
-                f'Expected [a-zA-Z0-9] in parameter: {param_name}',
+                f'Expected [{ALLOWED_CHARS_IN_PARAMS}] '
+                f'in parameter: {param_name}',
             )
 
-    return GraphicsForGroupParameters(
-        group=group.lower(),
+    return GraphicsForEntityParameters(
+        entity=entity,
+        subject=subject,
     )
 
 
@@ -204,11 +211,11 @@ async def handle_graphic_request(request: HttpRequest) -> HttpResponse:
         KeyError,
         PermissionError,
         ValueError,
-    ) as exception:
+    ):
         rollbar.report_exc_info()
         response = render(request, 'graphic-error.html', dict(
             debug=settings.DEBUG,
-            exception=exception,
+            traceback=traceback.format_exc(),
         ))
     else:
         response = render(request, 'graphic.html', dict(
@@ -231,15 +238,16 @@ async def handle_graphic_request(request: HttpRequest) -> HttpResponse:
     return response
 
 
-async def handle_graphics_for_group_request(
+async def handle_graphics_for_entity_request(
+    entity: str,
     request: HttpRequest,
 ) -> HttpResponse:
     try:
-        params: GraphicsForGroupParameters = \
-            handle_graphics_for_group_request_parameters(request=request)
-
-        await handle_graphics_for_group_authz(
-            params=params,
+        await handle_graphics_for_entity_authz(
+            params=handle_graphics_for_entity_request_parameters(
+                entity=entity,
+                request=request,
+            ),
             request=request,
         )
     except (
@@ -247,15 +255,16 @@ async def handle_graphics_for_group_request(
         KeyError,
         PermissionError,
         ValueError,
-    ) as exception:
+    ):
         rollbar.report_exc_info()
         response = render(request, 'graphic-error.html', dict(
             debug=settings.DEBUG,
-            exception=exception,
+            traceback=traceback.format_exc(),
         ))
     else:
-        response = render(request, 'graphics-for-group.html', dict(
+        response = render(request, f'graphics-for-entity.html', dict(
             debug=settings.DEBUG,
+            entity=entity.title(),
         ))
 
     return response

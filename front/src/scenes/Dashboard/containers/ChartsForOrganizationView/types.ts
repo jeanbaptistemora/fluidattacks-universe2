@@ -1,3 +1,3 @@
 export interface IChartsForOrganizationViewProps {
-  organizationId: string;
+  organizationId?: string;
 }

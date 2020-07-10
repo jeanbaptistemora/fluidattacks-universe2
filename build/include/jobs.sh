@@ -704,14 +704,10 @@ function job_analytics_make_documents_prod_schedule {
   job_analytics_make_documents_prod
 }
 
-function job_analytics_make_snapshots_prod {
+function job_analytics_make_snapshots_prod_schedule {
       env_prepare_python_packages \
   &&  helper_set_prod_secrets \
   &&  _job_analytics_make_snapshots
-}
-
-function job_analytics_make_snapshots_prod_schedule {
-  job_analytics_make_snapshots_prod
 }
 
 function job_make_migration_dev_apply {

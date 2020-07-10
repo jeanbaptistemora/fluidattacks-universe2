@@ -15,6 +15,11 @@ const devConfig: webpack.Configuration = {
       "webpack/hot/only-dev-server",
       "./src/graphics/views/group.tsx",
     ],
+    graphicsForOrganization: [
+      "webpack-dev-server/client?https://localhost:3000",
+      "webpack/hot/only-dev-server",
+      "./src/graphics/views/organization.tsx",
+    ],
     login: [
       "webpack-dev-server/client?https://localhost:3000",
       "webpack/hot/only-dev-server",

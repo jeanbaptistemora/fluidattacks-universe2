@@ -128,15 +128,8 @@ analytics_make_documents_prod_schedule:
     variables: [$analytics]
   parallel: 6
 
-analytics_make_snapshots_prod:
-  <<: *analytics_template
-  <<: *in_master_branch
-  image: "${CI_REGISTRY_IMAGE}/nix:analytics_make_snapshots_prod"
-  interruptible: false
-
 analytics_make_snapshots_prod_schedule:
   <<: *analytics_template
-  image: "${CI_REGISTRY_IMAGE}/nix:analytics_make_snapshots_prod_schedule"
   interruptible: false
   only:
     refs: [schedules]

@@ -223,10 +223,27 @@ async def graphic(request: HttpRequest) -> HttpResponse:
 @require_http_methods(['GET'])
 @async_to_sync
 async def graphics_for_group(request: HttpRequest) -> HttpResponse:
+    return await _graphics_for_entity('group', request)
+
+
+@never_cache
+@csrf_exempt
+@require_login
+@require_http_methods(['GET'])
+@async_to_sync
+async def graphics_for_organization(request: HttpRequest) -> HttpResponse:
+    return await _graphics_for_entity('organization', request)
+
+
+async def _graphics_for_entity(
+    entity: str,
+    request: HttpRequest,
+) -> HttpResponse:
     request_data = util.get_jwt_content(request)
 
-    response = await analytics_domain.handle_graphics_for_group_request(
-        request,
+    response = await analytics_domain.handle_graphics_for_entity_request(
+        entity=entity,
+        request=request,
     )
 
     set_session_cookie_in_response(
