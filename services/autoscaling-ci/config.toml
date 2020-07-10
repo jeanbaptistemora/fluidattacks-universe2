@@ -126,7 +126,7 @@ check_interval = 20
     OffPeakIdleTime = 1800
 
 [[runners]]
-  name = "autoscaling-repositories-cache"
+  name = "autoscaling-analytics"
   limit = 10
   url = "https://gitlab.com/"
   token = "__autoscaling_token_3__"
@@ -159,7 +159,7 @@ check_interval = 20
     IdleTime = 0
     MaxBuilds = 1
     MachineDriver = "amazonec2"
-    MachineName = "autoscaling-repositories-cache-ci-%s"
+    MachineName = "autoscaling-analytics-ci-%s"
     MachineOptions = [
       "amazonec2-request-spot-instance=true",
       "amazonec2-spot-price=",

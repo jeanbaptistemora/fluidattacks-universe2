@@ -67,14 +67,6 @@ stages:
   <<: *with_nix_serial
   needs: []
 
-analytics_formstack:
-  <<: *with_nix
-  tags: [autoscaling-large]
-  stage: analytics
-  only:
-    refs: [schedules]
-    variables: [$SCHEDULE_ANALYTICS_FORMSTACK]
-
 analytics_dynamodb:
   <<: *with_nix
   stage: analytics
@@ -174,7 +166,7 @@ backup_analytics_timedoctor:
 
 services_repositories_cache:
   <<: *with_nix
-  tags: [autoscaling-repositories-cache]
+  tags: [autoscaling-analytics]
   stage: analytics
   only:
     refs: [schedules]
@@ -200,6 +192,14 @@ build_nix_caches:
     - apk add --no-cache bash
   parallel: 22
   interruptible: false
+
+analytics_formstack:
+  <<: *with_nix_2
+  tags: [autoscaling-analytics]
+  stage: analytics
+  only:
+    refs: [schedules]
+    variables: [$SCHEDULE_ANALYTICS_FORMSTACK]
 
 test_infra_monolith:
   <<: *with_nix_2

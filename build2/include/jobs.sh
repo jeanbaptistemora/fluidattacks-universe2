@@ -1,6 +1,7 @@
 # shellcheck shell=bash
 
 source "${srcIncludeHelpers}"
+source "${srcIncludeHelpersAnalytics}"
 source "${srcExternalSops}"
 source "${srcExternalGitlabVariables}"
 source "${srcEnv}"
@@ -25,6 +26,12 @@ function job_build_nix_caches {
               'PROVISIONER' "${provisioner}" \
         ||  return 1
       done
+}
+
+function job_analytics_formstack {
+      helper_use_pristine_workdir \
+  &&  env_prepare_python_packages \
+  &&  helper_analytics_formstack
 }
 
 function job_test_infra_monolith {
