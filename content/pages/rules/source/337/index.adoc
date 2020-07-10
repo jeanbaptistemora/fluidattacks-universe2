@@ -36,7 +36,7 @@ The software checks the state of a resource before using that resource,
 but the resource's state can change between the check and the use in a way that
 invalidates the results of the check.
 This can cause the software to perform invalid actions when the resource is in
-an unexpected state. 
+an unexpected state.
 
 . [[r3]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V1.11 Business Logic Architectural Requirements.(1.11.2)]
@@ -49,3 +49,8 @@ V1.11 Business Logic Architectural Requirements.(1.11.3)]
 Verify that all high-value business logic flows,
 including authentication, session management and access control,
 are thread safe and resistant to time-of-check and time-of-use race conditions.
+
+. [[r5]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V1.11 Business Logic Architectural Requirements.(1.11.6)]
+Verify the application does not suffer from "time of check to time of use"
+(*TOCTOU*) issues or other race conditions for sensitive operations.
