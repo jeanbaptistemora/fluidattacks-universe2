@@ -2,7 +2,6 @@ import {
   AppOwnership, default as Constants, NativeConstants,
 } from "expo-constants";
 import * as SecureStore from "expo-secure-store";
-import * as Updates from "expo-updates";
 import _ from "lodash";
 import React from "react";
 import { useTranslation } from "react-i18next";
@@ -12,6 +11,7 @@ import {
 } from "react-native-paper";
 import { useHistory } from "react-router-native";
 
+import { About } from "../../components/About";
 import { Logo } from "../../components/Logo";
 import { Preloader } from "../../components/Preloader";
 import { rollbar } from "../../utils/rollbar";
@@ -102,9 +102,7 @@ const loginView: React.FunctionComponent = (): JSX.Element => {
         <Preloader visible={isLoading} />
         <View style={styles.bottom}>
           <Text accessibilityStates="">{t("common.slogan")}</Text>
-          <Text accessibilityStates="">
-            v. {(Updates.manifest as Updates.Manifest).version}
-          </Text>
+          <About />
         </View>
         <Portal>
           <Dialog dismissable={false} visible={isOutdated}>

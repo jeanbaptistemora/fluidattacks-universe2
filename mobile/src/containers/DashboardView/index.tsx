@@ -1,7 +1,6 @@
 import { useQuery } from "@apollo/react-hooks";
 import { wait } from "@apollo/react-testing";
 import { ApolloError, NetworkStatus } from "apollo-client";
-import * as Updates from "expo-updates";
 import { GraphQLError } from "graphql";
 /* tslint:disable: no-import-side-effect no-submodule-imports
  * Necessary polyfill due to a bug in RN for android
@@ -21,6 +20,7 @@ import { useHistory } from "react-router-native";
 
 // tslint:disable-next-line: no-default-import
 import { default as Border } from "../../../assets/percentBorder.svg";
+import { About } from "../../components/About";
 import { Logo } from "../../components/Logo";
 import { Preloader } from "../../components/Preloader";
 import { rollbar } from "../../utils/rollbar";
@@ -171,9 +171,7 @@ const dashboardView: React.FunctionComponent = (): JSX.Element => {
         />
         <View style={styles.bottom}>
           <Logo width={180} height={40} fill={colors.text} />
-          <Text accessibilityStates="" style={styles.text}>
-            v. {(Updates.manifest as Updates.Manifest).version}
-          </Text>
+          <About />
         </View>
       </View>
     </React.StrictMode>
