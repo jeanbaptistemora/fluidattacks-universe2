@@ -374,7 +374,11 @@
         },
         "LoggingConfiguration": {
           "LogFilePrefix": "log"
-        }
+        },
+        "ObjectLockConfiguration": {
+          "ObjectLockEnabled": "Enabled"
+        },
+        "ObjectLockEnabled": "true"
       },
       "Type": "AWS::S3::Bucket"
     },

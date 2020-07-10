@@ -309,9 +309,6 @@ def has_server_side_encryption_disabled(path: str,
     :param path: Location of CloudFormation's template file.
     :param exclude: Paths that contains any string from this list are ignored.
     :returns: - ``OPEN`` if policies disable server-side encryption.
-              - ``UNKNOWN`` on errors.
-              - ``CLOSED`` otherwise.
-    :rtype: :class:`fluidasserts.Result`
     """
     vulnerabilities: List[Vulnerability] = []
     graph: DiGraph = get_graph(path, exclude)
@@ -348,3 +345,46 @@ def has_server_side_encryption_disabled(path: str,
         vulnerabilities=vulnerabilities,
         msg_open='S3 bucket policy allows unencrypted objects',
         msg_closed='S3 bucket policy does not allow unencrypted objects')
+
+
+@api(risk=LOW, kind=SAST)
+@unknown_if(FileNotFoundError)
+def has_object_lock_disabled(path: str,
+                             exclude: Optional[List[str]] = None) -> tuple:
+    """
+    Check if any ``S3 Bucket`` has **Object Lock** disabled.
+
+    :param path: Location of CloudFormation's template file.
+    :param exclude: Paths that contains any string from this list are ignored.
+    :returns: - ``OPEN`` if **ObjectLockConfiguration** attribute is not set or
+    set to false.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+    :rtype: :class:`fluidasserts.Result`
+    """
+    vulnerabilities: List[Vulnerability] = []
+    graph: DiGraph = get_graph(path, exclude)
+    templates: List[int] = get_templates(graph, path, exclude)
+    buckets: List[int] = get_resources(
+        graph,
+        map(lambda x: x[0], templates),
+        {'AWS', 'S3', 'Bucket'},
+        num_labels=3,
+        info=True)
+    for bucket, resource, template in buckets:
+        if not has_values(graph, bucket,
+                          'ObjectLockEnabled', ['true', 'True',
+                                                True, '1', 1], depth=5):
+            vulnerabilities.append(
+                Vulnerability(
+                    path=template['path'],
+                    entity=(f'AWS::S3::Bucket/'
+                            f'ObjectLockEnabled/'),
+                    identifier=resource['name'],
+                    line=resource['line'],
+                    reason='has object lock disabled.'))
+
+    return _get_result_as_tuple(
+        vulnerabilities=vulnerabilities,
+        msg_open='S3 buckets have object lock disabled',
+        msg_closed='S3 Buckets have object lock enabled')

@@ -396,7 +396,11 @@ s3_bucket = troposphere.s3.Bucket(
                 )
             )
         ]
-    )
+    ),
+    ObjectLockConfiguration=troposphere.s3.ObjectLockConfiguration(
+        ObjectLockEnabled='Enabled',
+    ),
+    ObjectLockEnabled=True
 )
 s3_bucket_policy = troposphere.s3.BucketPolicy(
     title='s3BucketPolicy',

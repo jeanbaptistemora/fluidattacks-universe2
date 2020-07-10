@@ -234,6 +234,9 @@ Resources:
               SSEAlgorithm: aws:kms
       LoggingConfiguration:
         LogFilePrefix: log
+      ObjectLockConfiguration:
+        ObjectLockEnabled: Enabled
+      ObjectLockEnabled: 'true'
     Type: AWS::S3::Bucket
   s3BucketPolicy:
     Properties:
