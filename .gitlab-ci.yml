@@ -67,20 +67,6 @@ stages:
   <<: *with_nix_serial
   needs: []
 
-analytics_dynamodb:
-  <<: *with_nix
-  stage: analytics
-  only:
-    refs: [schedules]
-    variables: [$SCHEDULE_ANALYTICS_DYNAMODB]
-
-analytics_services_toe:
-  <<: *with_nix
-  stage: analytics
-  only:
-    refs: [schedules]
-    variables: [$SCHEDULE_ANALYTICS_CONTINUOUS_TOE]
-
 analytics_infrastructure:
   <<: *with_nix
   stage: analytics
@@ -200,6 +186,22 @@ analytics_formstack:
   only:
     refs: [schedules]
     variables: [$SCHEDULE_ANALYTICS_FORMSTACK]
+
+analytics_dynamodb:
+  <<: *with_nix_2
+  tags: [autoscaling-analytics]
+  stage: analytics
+  only:
+    refs: [schedules]
+    variables: [$SCHEDULE_ANALYTICS_DYNAMODB]
+
+analytics_services_toe:
+  <<: *with_nix_2
+  tags: [autoscaling-analytics]
+  stage: analytics
+  only:
+    refs: [schedules]
+    variables: [$SCHEDULE_ANALYTICS_CONTINUOUS_TOE]
 
 test_infra_monolith:
   <<: *with_nix_2

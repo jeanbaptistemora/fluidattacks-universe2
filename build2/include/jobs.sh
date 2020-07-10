@@ -34,6 +34,18 @@ function job_analytics_formstack {
   &&  helper_analytics_formstack
 }
 
+function job_analytics_dynamodb {
+      helper_use_pristine_workdir \
+  &&  env_prepare_python_packages \
+  &&  helper_analytics_dynamodb
+}
+
+function job_analytics_services_toe {
+      helper_use_pristine_workdir \
+  &&  env_prepare_python_packages \
+  &&  helper_analytics_services_toe
+}
+
 function job_test_infra_monolith {
       helper_use_pristine_workdir \
   &&  helper_infra_monolith 'test'
