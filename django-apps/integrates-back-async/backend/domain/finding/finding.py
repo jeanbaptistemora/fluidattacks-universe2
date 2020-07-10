@@ -202,7 +202,7 @@ async def update_treatment_in_vuln(
     })
     if new_values['treatment'] == 'NEW':
         new_values['treatment_manager'] = None
-    vulns = await sync_to_async(finding_utils.get_vulnerabilities)(finding_id)
+    vulns = await vuln_domain.list_vulnerabilities_async([finding_id])
     for vuln in vulns:
         if not any('treatment_manager' in dicts
                    for dicts in [new_values, vuln]):

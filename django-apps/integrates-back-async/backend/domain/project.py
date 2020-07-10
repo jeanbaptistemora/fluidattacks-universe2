@@ -47,6 +47,7 @@ from backend.exceptions import (
     RepeatedValues
 )
 from backend.utils import (
+    aio,
     findings as finding_utils,
     validations
 )
@@ -1001,10 +1002,11 @@ async def get_open_vulnerabilities(project_name: str) -> int:
 
 async def get_closed_vulnerabilities(project_name: str) -> int:
     findings = await sync_to_async(list_findings)(project_name)
-    vulns = await sync_to_async(vuln_domain.list_vulnerabilities)(findings)
-    last_approved_status = await asyncio.gather(*[
-        sync_to_async(vuln_domain.get_last_approved_status)(
-            vuln
+    vulns = await vuln_domain.list_vulnerabilities_async(findings)
+    last_approved_status = await aio.ensure_many_cpu_bound([
+        aio.PyCallable(
+            instance=vuln_domain.get_last_approved_status,
+            args=(vuln,),
         )
         for vuln in vulns
     ])

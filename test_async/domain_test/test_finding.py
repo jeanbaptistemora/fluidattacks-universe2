@@ -17,9 +17,9 @@ from backend.domain.finding import (
     handle_acceptation, validate_evidence,
     approve_draft, compare_historic_treatments
 )
+from backend.domain.vulnerability import list_vulnerabilities_async
 from backend.domain.organization import get_max_acceptance_days
 from backend.dal import finding as finding_dal
-from backend.dal.vulnerability import get_vulnerabilities
 from backend.exceptions import (
     InvalidAcceptanceDays,
     InvalidAcceptanceSeverity,
@@ -45,10 +45,10 @@ class FindingTests(TestCase):
         assert isinstance(test_data, list)
         assert isinstance(test_data[0], str)
 
-    def test_get_tracking_vulnerabilities(self):
+    async def test_get_tracking_vulnerabilities(self):
         finding_id = '436992569'
-        vulnerabilities = get_vulnerabilities(finding_id)
-        test_data = async_to_sync(get_tracking_vulnerabilities)(vulnerabilities)
+        vulnerabilities = await list_vulnerabilities_async([finding_id])
+        test_data = await get_tracking_vulnerabilities(vulnerabilities)
         expected_output = {'date': '2019-08-30', 'effectiveness': 0,
                            'open': 1, 'closed': 0, 'cycle': 0}
         assert test_data[0] == expected_output
@@ -66,12 +66,12 @@ class FindingTests(TestCase):
             'integratesuser@gmail.com'
         )
         assert test_in_progress is True
-        vulns = get_vulnerabilities(finding_id)
+        vulns = await list_vulnerabilities_async([finding_id])
         assert 'treatment_manager' in vulns[0]
         values_new = {'treatment': 'NEW'}
         test_new = await update_treatment(finding_id, values_new, '')
         assert test_new is True
-        vulns = get_vulnerabilities(finding_id)
+        vulns = await list_vulnerabilities_async([finding_id])
         assert 'treatment_manager' not in vulns[0]
         assert 'treatment_manager' not in vulns[1]
 

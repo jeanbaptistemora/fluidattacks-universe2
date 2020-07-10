@@ -316,10 +316,6 @@ def group_by_state(tracking_dict: Dict[str, Dict[str, str]]) -> \
     return tracking
 
 
-def get_vulnerabilities(finding_id: str) -> List[Dict[str, FindingType]]:
-    return vuln_dal.get_vulnerabilities(finding_id)
-
-
 # pylint: disable=simplifiable-if-expression
 def format_data(finding: Dict[str, FindingType]) -> Dict[str, FindingType]:
     finding = {

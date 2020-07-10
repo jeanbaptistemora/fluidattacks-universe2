@@ -32,8 +32,8 @@ async def generate_group_report(
     findings = await finding_domain.get_findings_async(project_findings)
     findings = [
         await sync_to_async(finding_domain.cast_new_vulnerabilities)
-        (await sync_to_async(vuln_domain.get_open_vuln_by_type)
-         (finding['findingId'], context), finding)
+        (await vuln_domain.get_open_vuln_by_type(
+            str(finding['findingId']), context), finding)
         for finding in findings]
     description = \
         await sync_to_async(
