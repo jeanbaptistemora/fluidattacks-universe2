@@ -358,17 +358,6 @@ async def get_ids_for_user(email: str) -> List[str]:
     return organization_ids
 
 
-async def get_or_create(organization_name: str) -> OrganizationType:
-    """
-    Return an organization, even if it does not exists,
-    in which case it will be created
-    """
-    org = await get_by_name(organization_name, ['id', 'name'])
-    if not org:
-        org = await create(organization_name)
-    return org
-
-
 async def get_groups(organization_id: str) -> List[str]:
     """
     Return a list of the names of all the groups that belong to an

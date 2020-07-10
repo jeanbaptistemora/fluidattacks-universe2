@@ -126,12 +126,10 @@ async def _create_new_user(  # pylint: disable=too-many-arguments
         if not await org_domain.has_user_access(email, organization_id):
             await org_domain.add_user(organization_id, email, 'customer')
 
-
         if not user_domain.is_registered(email):
             user_domain.register(email)
             authz.grant_user_level_role(email, 'customer')
             user_domain.update(email, organization.lower(), 'company')
-
 
         if group and responsibility and len(responsibility) <= 50:
             success = await aio.ensure_io_bound(

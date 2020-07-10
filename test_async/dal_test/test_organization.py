@@ -141,20 +141,6 @@ async def test_get_users():
 
 
 @pytest.mark.changes_db
-async def test_get_or_create():
-    ex_org_name = 'testorg'
-    not_ex_org_name = 'new-org'
-    existing_org = await org_dal.get_or_create(ex_org_name)
-    assert isinstance(existing_org, dict)
-    assert existing_org['id'] == 'ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3'
-    assert existing_org['name'] == ex_org_name
-
-    not_existent_org = await org_dal.get_or_create(not_ex_org_name)
-    assert isinstance(not_existent_org, dict)
-    assert 'id' in not_existent_org
-    assert not_existent_org['name'] == f'INFO#{not_ex_org_name}'
-
-@pytest.mark.changes_db
 async def test_update():
     org_id = 'ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3'
     org_name = 'testorg'

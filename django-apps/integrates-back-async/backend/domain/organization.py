@@ -1,4 +1,3 @@
-import asyncio
 import sys
 from decimal import Decimal
 from typing import (
@@ -108,6 +107,28 @@ async def get_min_acceptance_severity(organization_id: str) -> Decimal:
         await org_dal.get_by_id(organization_id, ['min_acceptance_severity'])
     )
     return result.get('min_acceptance_severity', DEFAULT_MIN_SEVERITY)
+
+
+async def get_or_create(organization_name: str, email: str) -> str:
+    """
+    Return an organization, even if it does not exists,
+    in which case it will be created
+    """
+    org_created: bool = False
+    org_role: str = 'customer'
+    organization_name = organization_name.lower().strip()
+
+    org = await org_dal.get_by_name(organization_name, ['id', 'name'])
+    if org:
+        has_access = await has_user_access(email, str(org['id']))
+    else:
+        org = await org_dal.create(organization_name)
+        org_created = True
+        org_role = 'customeradmin'
+
+    if org_created or not has_access:
+        await add_user(str(org['id']), email, org_role)
+    return str(org['id'])
 
 
 async def get_users(organization_id: str) -> List[str]:

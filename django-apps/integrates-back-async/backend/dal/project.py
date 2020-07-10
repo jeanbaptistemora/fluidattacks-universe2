@@ -32,10 +32,6 @@ from backend.dal.finding import (
 )
 from backend.dal.helpers.analytics import query
 from backend.dal.user import get_attributes as get_user_attributes
-from backend.dal.organization import (
-    add_group as add_organization_group,
-    get_or_create as get_or_create_org
-)
 
 
 DYNAMODB_RESOURCE = dynamodb.DYNAMODB_RESOURCE  # type: ignore
@@ -482,18 +478,10 @@ def update(project_name: str, data: ProjectType) -> bool:
 
 def create(project: ProjectType) -> bool:
     """Add project to dynamo."""
-    org_name = cast(List[str], project.get('companies'))[0]
-    org_dict = async_to_sync(get_or_create_org)(org_name)
-    project['organization'] = org_dict['id']
-
     resp = False
     try:
         response = TABLE.put_item(Item=project)
         resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
-        if resp:
-            async_to_sync(add_organization_group)(
-                org_dict['id'], project['project_name']
-            )
     except ClientError:
         rollbar.report_exc_info()
     return resp

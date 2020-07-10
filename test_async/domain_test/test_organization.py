@@ -60,6 +60,20 @@ async def test_get_min_acceptance_severity():
     assert min_severity == Decimal('0.0')
 
 
+@pytest.mark.changes_db
+async def test_get_or_create():
+    ex_org_name = 'testorg'
+    email = 'unittest@fluidattacks.com'
+    not_ex_org_name = 'new-org'
+    existing_org = await org_domain.get_or_create(ex_org_name, email)
+    assert isinstance(existing_org, str)
+    assert existing_org == 'ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3'
+
+    not_existent_org = await org_domain.get_or_create(not_ex_org_name, email)
+    assert isinstance(not_existent_org, str)
+    assert not_existent_org
+
+
 async def test_validate_negative_values():
     with pytest.raises(InvalidAcceptanceSeverity):
         org_domain.validate_max_acceptance_severity(Decimal('-1'))

@@ -6,7 +6,6 @@ from asgiref.sync import async_to_sync
 from django.conf import settings
 
 from backend.dal import (
-    organization as org_dal,
     project as project_dal,
     user as user_dal
 )
@@ -140,12 +139,10 @@ def update_multiple_user_attributes(email: str, data_dict: UserType) -> bool:
 def create(email: str, data: UserType) -> bool:
     result: bool = False
     org_name: str = str(data.get('company', ''))
-    org_dict = async_to_sync(org_dal.get_or_create)(org_name)
-    data['organization'] = org_dict['id']
+    org_id = async_to_sync(org_domain.get_or_create)(org_name, email)
+    data['organization'] = org_id
 
     result = user_dal.create(email, data)
-    if result:
-        async_to_sync(org_domain.add_user)(org_dict['id'], email, 'customer')
     return result
 
 
@@ -175,13 +172,10 @@ def create_without_project(
         new_user_data['registered'] = True
         if organization:
             new_user_data['company'] = organization
-            org = async_to_sync(org_dal.get_or_create)(organization)
-            new_user_data['organization'] = org['id']
-            async_to_sync(org_domain.add_user)(
-                org['id'],
-                email,
-                'customer'
+            org_id = async_to_sync(org_domain.get_or_create)(
+                organization, email
             )
+            new_user_data['organization'] = org_id
         if phone_number:
             new_user_data['phone'] = phone_number
 

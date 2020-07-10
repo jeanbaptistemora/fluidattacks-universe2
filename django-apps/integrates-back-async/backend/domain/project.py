@@ -15,6 +15,7 @@ from django.conf import settings
 
 from backend.authz.policy import get_group_level_role
 from backend.dal import (
+    organization as org_dal,
     project as project_dal,
     vulnerability as vuln_dal
 )
@@ -157,8 +158,16 @@ def create_project(
                 'project_status': 'ACTIVE',
             }
 
+            org_id = async_to_sync(org_domain.get_or_create)(
+                companies[0], user_email
+            )
+            project.update({'organization': org_id})
+
             success = project_dal.create(project)
             if success:
+                async_to_sync(org_dal.add_group)(
+                    org_id, project['project_name']
+                )
                 async_to_sync(
                     available_group_domain.remove)(project_name)
                 # Admins are not granted access to the project
