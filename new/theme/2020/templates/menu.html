@@ -7,40 +7,6 @@
             src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/logo-menu-new.svg" alt="Young hacker smiling">
         </a>
       </li>
-      <li class="relative fr mr6-l mt-menu mr5-m mr4 pr2 mv4-l mv3 pv3-l pv-4-m">
-        <a class="db tc pa1 no-underline c-fluid-bk f5-ns f6 fw4 menu-txt-trans roboto hv-fluid-rd nt-menu"
-           href="https://fluidattacks.com/integrates">
-          LOGIN
-        </a>
-      </li>
-      <li class="relative fr mt-menu mr4 mv4-l pv3-l pv-4-m">
-        <a class="db-l dn tc pa1 no-underline c-fluid-bk f5 fw4 menu-txt-trans roboto hv-fluid-rd nt-menu"
-           href="{{ SITEURL }}/contact-us/">
-          CONTACT
-        </a>
-      </li>
-        <!-- Searching features -->
-      <div class="relative fr mt-menu mr4 mv4-l pv-bt db-l dn">
-        <form action="{{ SITEURL }}/search.html">
-          <div class="search dib-l roboto">
-            <input type="text"
-                  name="q"
-                  id="tipue_search_input"
-                  pattern="[a-zA-Z0-9 ]*"
-                  title="Only alphanumeric characters"
-                  class="bn br1 h-search bg-graylight outline-transparent f5"
-                  placeholder="Enter your search...">
-              <label for="tipue_search_input"
-                    class="search-box-label">
-                <span>
-                  <img class="relative w-search-icon z-2 pointer ph2-l"
-                      src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/search.svg"
-                      alt="Magnifying glass">
-                </span>
-              </label>
-          </div>
-        </form>
-      </div>
       <li class="fr">
         <input type="checkbox" id="op" class="dn" />
         <div class="lower w1 absolute right-small mr5-l">
@@ -214,20 +180,24 @@
               <li>
                 <!-- social media -->
                 <div class="divsocial tl flex pt4 pb3">
-                  <a class="pr3" href="https://twitter.com/fluidattacks">
-                    <img loading="lazy" class="grow-large hv-fluid-rd w2 grayscale" src="{{ SITEURL }}/theme/images/social-media/twitter.png"
-                      alt="Twitter logo">
+                  <a class="pr3 no-underline" href="https://www.instagram.com/fluidattacks/">
+                    <img loading="lazy" src="{{ SITEURL }}/theme/images/social-media/social-instagram.png"
+                      alt="Instagram logo">
                   </a>
-                  <a class="pr3" href="https://www.facebook.com/Fluid-Attacks-267692397253577/">
-                    <img loading="lazy" class="grow-large hv-fluid-rd w2 grayscale" src="{{ SITEURL }}/theme/images/social-media/facebook.png"
+                  <a class="pr3 no-underline" href="https://www.facebook.com/Fluid-Attacks-267692397253577/">
+                    <img loading="lazy" src="{{ SITEURL }}/theme/images/social-media/social-facebook.png"
                       alt="Facebook logo">
                   </a>
-                  <a class="pr3" href="https://www.linkedin.com/company/fluidattacks/">
-                    <img loading="lazy" class="grow-large hv-fluid-rd w2 grayscale" src="{{ SITEURL }}/theme/images/social-media/linkedin.png"
+                  <a class="pr3 no-underline" href="https://www.linkedin.com/company/fluidattacks/">
+                    <img loading="lazy" src="{{ SITEURL }}/theme/images/social-media/social-linkedin.png"
                       alt="Linkedin logo">
                   </a>
-                  <a class="pr3" href="https://www.youtube.com/c/fluidattacks/">
-                    <img loading="lazy" class="grow-large hv-fluid-rd w2 grayscale" src="{{ SITEURL }}/theme/images/social-media/youtube.png"
+                  <a class="pr3 no-underline" href="https://twitter.com/fluidattacks">
+                    <img loading="lazy" src="{{ SITEURL }}/theme/images/social-media/social-twitter.png"
+                      alt="Twitter logo">
+                  </a>
+                  <a class="pr3 no-underline" href="https://www.youtube.com/c/fluidattacks/">
+                    <img loading="lazy" src="{{ SITEURL }}/theme/images/social-media/social-youtube.png"
                       alt="Youtube logo">
                   </a>
                 </div>
@@ -236,6 +206,66 @@
           </nav>
         </div>
       </li>
+      <!-- Searching features -->
+      <li class="relative fr mv4-l mv3 mr6-l mr5 pv3-l pv-4-m">
+        <label for="tipue_search_input"
+          class="search-box-label">
+          <span>
+            <img class="search-icon relative w-search-icon z-2 pointer ph2-l h-search-icon"
+                src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/search.svg"
+                alt="Magnifying glass">
+          </span>
+        </label>
+      </li>
+      <li class="relative fr mt-menu mr3 mv4-l pv3-l pv-4-m db-l dn">
+        <a class="tc no-underline c-fluid-bk f6 fw4 menu-txt-trans roboto hv-fluid-rd nt-menu"
+            href="{{ SITEURL }}/contact-us/">
+          <button class="br2 ph2 pv1 bg-white bc-fluid-red ba hv-fluid-rd hv-fluid-bd bt-trans c-dkred pointer">CONTACT</button>
+        </a>
+      </li>
+      <li class="db-ns dn relative fr mt-menu mr3 pr2 mv4-l mv3 pv3-l pv-4-m">
+        <a class="tc no-underline c-fluid-bk f6 fw4 menu-txt-trans roboto hv-fluid-rd nt-menu"
+            href="https://fluidattacks.com/integrates">
+          <button class="bn ph0 pv1 hv-fluid-rd bg-transparent pointer">LOGIN</button>
+        </a>
+      </li>
+      <li class="db-xl display-none relative fr mt-menu mr3 pr2 mv4-l mv3 pv3-l pv-4-m">
+        <a class="tc no-underline c-fluid-bk f6 fw4 menu-txt-trans roboto hv-fluid-rd nt-menu"
+            href="{{ SITEURL }}/blog/">
+          <button class="bn ph0 pv1 hv-fluid-rd bg-transparent pointer">BLOG</button>
+        </a>
+      </li>
+      <li class="db-xl display-none relative fr mt-menu mr3 pr2 mv4-l mv3 pv3-l pv-4-m">
+        <a class="tc no-underline c-fluid-bk f6 fw4 menu-txt-trans roboto hv-fluid-rd nt-menu"
+            href="{{ SITEURL }}/resources/">
+          <button class="bn ph0 pv1 hv-fluid-rd bg-transparent pointer">RESOURCES</button>
+        </a>
+      </li>
+      <li class="db-xl display-none relative fr mt-menu mr3 pr2 mv4-l mv3 pv3-l pv-4-m">
+        <a class="tc no-underline c-fluid-bk f6 fw4 menu-txt-trans roboto hv-fluid-rd nt-menu"
+            href="{{ SITEURL }}/products/">
+          <button class="bn ph0 pv1 hv-fluid-rd bg-transparent pointer">PRODUCTS</button>
+        </a>
+      </li>
+      <li class="db-l dn relative fr mt-menu mr3 pr2 mv4-l mv3 pv3-l pv-4-m">
+        <a class="tc no-underline c-fluid-bk f6 fw4 menu-txt-trans roboto hv-fluid-rd nt-menu"
+            href="{{ SITEURL }}/use-cases/continuous-hacking/">
+          <button class="bn ph0 pv1 hv-fluid-rd bg-transparent pointer">USE CASES</button>
+        </a>
+      </li>
     </ul>
   </div>
+</div>
+<div class="mw9 ml-auto mr-auto">
+  <form action="{{ SITEURL }}/search.html">
+    <div class="search-div search roboto h2 w-100 bg-graylight tr dn h3">
+      <input type="text"
+            name="q"
+            id="tipue_search_input"
+            pattern="[a-zA-Z0-9 ]*"
+            title="Only alphanumeric characters"
+            class="search-input dn h3 bn br1 h-search bg-graylight outline-transparent f5 mr0"
+            placeholder="Enter your search...">
+    </div>
+  </form>
 </div>

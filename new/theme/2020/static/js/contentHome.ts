@@ -32,6 +32,13 @@ const contentHome: (() => void) = (): void => {
       animationById("#aboutus-title", "checked", ".aboutus-list", ".products-list, .usecases-list",
                     "dn fadein active", "dn", "fadein");
     });
+    $(".search-icon")
+      .on("click", () => {
+        $(".search-input")
+          .animate({height: "toggle"});
+        $(".search-div")
+          .animate({height: "toggle"});
+      });
   });
 };
 

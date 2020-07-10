@@ -189,10 +189,11 @@ $codeyellow: rgba(230, 219, 116, 1);
   box-shadow: 0px 20px 20px $darkshadow; } }
 .mh-100 { max-height: 100%; }
 .ph-10 {padding-right: 10%; padding-left: 10%; }
-.w-search-icon { width: 1.25rem; }
+.w-search-icon { width: 1rem; }
 .minw-menu { min-width: 14rem; }
 .f-error { font-size: 10rem; }
 .mw-14 { max-width: 14rem; }
+.display-none { display: none; }
 
 // Tachyons custom responsive classes
 @media screen and (min-width: 960px) and (max-width: 1200px) {
@@ -209,6 +210,7 @@ $codeyellow: rgba(230, 219, 116, 1);
   .df-l { display: flex; }
   .text-right-l { text-align: right; }
   .ml0-footer { margin-left: 0; }
+  .db-xl { display: block; }
 }
 
 // Small screens
@@ -233,6 +235,7 @@ $codeyellow: rgba(230, 219, 116, 1);
   .w-products { width: 20rem; }
   .f-title-s { font-size: 2rem; }
   .banner-height { height: 12.5rem; }
+  .h-search-icon { height: 1.2rem; }
 }
 //medium resolutions
 @media screen and (min-width: 30em) and (max-width: 60em) {
@@ -270,6 +273,7 @@ $codeyellow: rgba(230, 219, 116, 1);
   .mv-menu { margin-top: 1.875rem; margin-bottom: 1.875rem; }
   .w36-l{ width: 36rem; }
   .f-error { font-size: 17rem; }
+  .w-search-icon { width: 1.25rem; }
 }
 
 //Very large screens
