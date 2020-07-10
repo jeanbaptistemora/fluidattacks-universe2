@@ -7,12 +7,17 @@ import socket
 from typing import (
     Iterator,
 )
-from urllib.parse import quote_plus
+from urllib.parse import (
+    quote_plus as percent_encode,
+)
 
 # Third party libraries
 import aiohttp
 from backend.utils import (
     aio,
+)
+from backend.utils.encodings import (
+    safe_encode,
 )
 from selenium import webdriver
 from selenium.webdriver.firefox.options import Options
@@ -34,6 +39,7 @@ FIREFOX = os.environ['pkgFirefox']
 DEBUGGING: bool = False
 
 # Constants
+TARGET_URL: str = 'https://fluidattacks.com/integrates'
 INTEGRATES_API_TOKEN: str = os.environ['INTEGRATES_API_TOKEN']
 PROXY = 'http://127.0.0.1:9000' if DEBUGGING else None
 WIDTH: int = 1000
@@ -120,26 +126,45 @@ def take_snapshot(
     ),
     retry_times=5,
 )
-async def insert_cookies(session: aiohttp.ClientSession) -> None:
+async def insert_cookies(entity: str, session: aiohttp.ClientSession) -> None:
     await session.get(
         headers={
             'Authorization': f'Bearer {INTEGRATES_API_TOKEN}'
         },
         proxy=PROXY,
-        url='https://fluidattacks.com/integrates/graphics-for-group',
+        url=f'{TARGET_URL}/graphics-for-{entity}',
     )
 
 
 async def main():
+    base: str
+
     async with http_session() as session, selenium_web_driver() as driver:
-        base: str = 'https://fluidattacks.com/integrates/graphics-for-group'
-        for group in map(quote_plus, utils.iterate_groups()):
-            await insert_cookies(session)
+
+        # Organization reports
+        base = f'{TARGET_URL}/graphics-for-organization?reportMode=true'
+        async for org_id, _, _ in utils.iterate_organizations_and_groups():
+            await insert_cookies('organization', session)
             await take_snapshot(
                 driver=driver,
-                save_as=f'analytics/collector/graphics-for-group/{group}.png',
+                save_as=utils.get_result_path(
+                    name=f'organization:{safe_encode(org_id)}.png',
+                ),
                 session=session,
-                url=f'{base}?group={group}&reportMode=true',
+                url=f'{base}&organization={percent_encode(org_id)}',
+            )
+
+        # Group reports
+        base = f'{TARGET_URL}/graphics-for-group?reportMode=true'
+        for group in utils.iterate_groups():
+            await insert_cookies('group', session)
+            await take_snapshot(
+                driver=driver,
+                save_as=utils.get_result_path(
+                    name=f'group:{safe_encode(group)}.png',
+                ),
+                session=session,
+                url=f'{base}&group={percent_encode(group)}',
             )
 
 

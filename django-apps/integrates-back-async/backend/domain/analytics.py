@@ -262,7 +262,7 @@ async def handle_graphics_for_entity_request(
             traceback=traceback.format_exc(),
         ))
     else:
-        response = render(request, f'graphics-for-entity.html', dict(
+        response = render(request, 'graphics-for-entity.html', dict(
             debug=settings.DEBUG,
             entity=entity.title(),
         ))

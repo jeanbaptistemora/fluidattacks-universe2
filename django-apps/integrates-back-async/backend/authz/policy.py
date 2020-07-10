@@ -97,10 +97,11 @@ def get_group_level_role(email: str, group: str) -> str:
     return group_role
 
 
-def get_organization_level_role(email: str, organization: str) -> str:
-    # Admins are granted access to all organization
+@apm.trace()
+def get_organization_level_role(email: str, organization_id: str) -> str:
+    # Admins are granted access to all organizations
     organization_role = user_dal.get_subject_policy(
-        email, organization.lower()
+        email, organization_id.lower()
     ).role
     if get_user_level_role(email) == 'admin' and not organization_role:
         return 'admin'

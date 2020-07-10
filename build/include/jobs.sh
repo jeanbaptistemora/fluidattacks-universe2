@@ -677,7 +677,8 @@ function _job_analytics_make_snapshots {
   local remote_bucket='fluidintegrates.analytics'
 
       echo '[INFO] Collecting static results' \
-  &&  python3 analytics/collector/generate_reports.py \
+  &&  RESULTS_DIR='analytics/collector/reports' \
+      python3 analytics/collector/generate_reports.py \
   &&  echo '[INFO] Uploading static results' \
   &&  aws s3 sync \
         'analytics/collector' "s3://${remote_bucket}/${CI_COMMIT_REF_NAME}/snapshots" \

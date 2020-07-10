@@ -10,6 +10,10 @@ const chartsForOrganizationView: React.FC<IChartsForOrganizationViewProps> = (
   const searchParams: URLSearchParams = new URLSearchParams(useLocation().search);
 
   const maybeOrganizationId: string | null = searchParams.get("organization");
+
+  /* Attempt to read the organization ID from passed Components properties,
+   *   or from URL search query, whatever is available first
+   */
   const organizationId: string = _.isUndefined(props.organizationId)
     ? (_.isNull(maybeOrganizationId) ? "" : maybeOrganizationId)
     : props.organizationId;
