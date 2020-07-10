@@ -224,6 +224,12 @@ Resources:
             Version: '2012-10-17'
           PolicyName: policy1
     Type: AWS::IAM::Role
+  rotation1:
+    Properties:
+      RotationLambdaARN: lambd
+      SecretId:
+        Ref: secret1
+    Type: AWS::SecretsManager::RotationSchedule
   s3Bucket:
     Properties:
       AccessControl: Private

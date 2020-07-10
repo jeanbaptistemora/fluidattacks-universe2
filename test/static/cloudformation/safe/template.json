@@ -359,6 +359,15 @@
       },
       "Type": "AWS::IAM::Role"
     },
+    "rotation1": {
+      "Properties": {
+        "RotationLambdaARN": "lambd",
+        "SecretId": {
+          "Ref": "secret1"
+        }
+      },
+      "Type": "AWS::SecretsManager::RotationSchedule"
+    },
     "s3Bucket": {
       "Properties": {
         "AccessControl": "Private",

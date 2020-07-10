@@ -8,7 +8,7 @@ from typing import List, Optional
 from networkx import DiGraph
 
 # Local imports
-from fluidasserts import SAST, HIGH
+from fluidasserts import SAST, HIGH, MEDIUM
 from fluidasserts.helper import aws as helper
 from fluidasserts.helper.aws import CloudFormationInvalidTypeError
 from fluidasserts.cloud.aws.cloudformation import (
@@ -20,6 +20,7 @@ from fluidasserts.cloud.aws.cloudformation import get_templates
 from fluidasserts.cloud.aws.cloudformation import get_graph
 from fluidasserts.cloud.aws.cloudformation import get_ref_nodes
 from fluidasserts.cloud.aws.cloudformation import get_resources
+from fluidasserts.cloud.aws.cloudformation import get_ref_inverse
 
 # ASCII Constants
 NUMERICS: set = set('01234567890')
@@ -184,3 +185,46 @@ def insecure_generate_secret_string(path: str,
         vulnerabilities=vulnerabilities,
         msg_open='GenerateSecretString is miss-configured',
         msg_closed='GenerateSecretString is properly configured')
+
+
+@api(risk=MEDIUM, kind=SAST)
+@unknown_if(FileNotFoundError)
+def has_automatic_rotation_disabled(path: str,
+                                    exclude: Optional[List[str]]
+                                    = None) -> tuple:
+    """
+    Check if automatic rotation is enabled for AWS Secrets Manager secrets.
+
+    :param path: Location of CloudFormation's template file.
+    :param exclude: Paths that contains any string from this list are ignored.
+    :returns: - ``OPEN`` if **Secret** has no **RotationSchedule** attached.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+    :rtype: :class:`fluidasserts.Result`
+    """
+    vulnerabilities: List[Vulnerability] = []
+    graph: DiGraph = get_graph(path, exclude)
+    templates: List[int] = get_templates(graph, path, exclude)
+    buckets: List[int] = get_resources(
+        graph,
+        map(lambda x: x[0], templates),
+        {'AWS', 'SecretsManager', 'Secret'},
+        num_labels=3,
+        info=True)
+
+    for secret, resource, template in buckets:
+        rotation = get_ref_inverse(graph, secret,
+                                   'RotationSchedule', depth=5)
+        if not rotation:
+            vulnerabilities.append(
+                Vulnerability(
+                    path=template['path'],
+                    entity=f'AWS::SecretsManager::Secret',
+                    identifier=resource['name'],
+                    line=resource['line'],
+                    reason='does not have a RotationSchedule attached.'))
+
+    return _get_result_as_tuple(
+        vulnerabilities=vulnerabilities,
+        msg_open='Secrets have no rotation schedules',
+        msg_closed='Secrets have rotation schedules')

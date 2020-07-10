@@ -94,6 +94,15 @@ def get_ref_nodes(graph: DiGraph, node: int,
     return nx.utils.flatten(nodes)
 
 
+def get_ref_inverse(graph: DiGraph, node: int, labels: Union[Set[str], str],
+                    depth: int = 3):
+    """Returns nodes that reference target node."""
+    root: int = get_predecessor(graph, node, 'Resources')
+    refs = has_values(graph, root, 'Ref', [graph.nodes.get(node)['name']],
+                      depth=depth + 1)
+    return [get_predecessor(graph, ref, labels) for ref in refs]
+
+
 def get_type(graph: DiGraph, node: int, allowed_types: Set[str]) -> str:
     """
     Returns the predecessor that are within the allowed types.

@@ -154,6 +154,11 @@ secret = troposphere.secretsmanager.Secret(
         RequireEachIncludedType='true',
     ),
 )
+rotation = troposphere.secretsmanager.RotationSchedule(
+    title='rotation1',
+    SecretId=troposphere.Ref(secret),
+    RotationLambdaARN='lambd'
+)
 rds_db_subnet_group = troposphere.rds.DBSubnetGroup(
     title='DbSubnetGroup',
     DBSubnetGroupDescription='DbSubnetGroupDescription',
@@ -464,6 +469,7 @@ ebl2_target_group = troposphere.elasticloadbalancingv2.TargetGroup(
 )
 template.add_resource(role)
 template.add_resource(secret)
+template.add_resource(rotation)
 template.add_resource(rds_cluster)
 template.add_resource(rds_instance)
 template.add_resource(policy)
