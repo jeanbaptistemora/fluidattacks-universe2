@@ -67,33 +67,6 @@ stages:
   <<: *with_nix_serial
   needs: []
 
-analytics_git__process:
-  <<: *with_nix_serial
-  tags: [autoscaling-large]
-  stage: analytics
-  artifacts:
-    paths:
-      - artifacts/
-    when: always
-    expire_in: 1 day
-  parallel: 50
-  only:
-    refs: [schedules]
-    variables: [$SCHEDULE_ANALYTICS_GIT_PARALLEL]
-
-analytics_git__upload:
-  <<: *with_nix_serial
-  tags: [autoscaling-large]
-  stage: analytics-upload
-  artifacts:
-    paths:
-      - artifacts/
-    when: always
-    expire_in: 1 day
-  only:
-    refs: [schedules]
-    variables: [$SCHEDULE_ANALYTICS_GIT_PARALLEL]
-
 analytics_timedoctor_refresh_token:
   <<: *with_nix
   stage: analytics
@@ -208,6 +181,34 @@ analytics_zoho:
   only:
     refs: [schedules]
     variables: [$SCHEDULE_ANALYTICS_ZOHO]
+
+analytics_git_process:
+  <<: *with_nix_2
+  tags: [autoscaling-analytics]
+  stage: analytics
+  artifacts:
+    paths:
+      - artifacts/
+    when: always
+    expire_in: 1 day
+  parallel: 50
+  only:
+    refs: [schedules]
+    variables: [$SCHEDULE_ANALYTICS_GIT_PARALLEL]
+
+analytics_git_upload:
+  <<: *with_nix_2
+  needs: [analytics_git_process]
+  tags: [autoscaling-analytics]
+  stage: analytics-upload
+  artifacts:
+    paths:
+      - artifacts/
+    when: always
+    expire_in: 1 day
+  only:
+    refs: [schedules]
+    variables: [$SCHEDULE_ANALYTICS_GIT_PARALLEL]
 
 test_infra_monolith:
   <<: *with_nix_2

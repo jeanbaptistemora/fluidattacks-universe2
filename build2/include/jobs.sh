@@ -82,6 +82,18 @@ function job_analytics_zoho {
   &&  helper_analytics_zoho
 }
 
+function job_analytics_git_process {
+      helper_use_pristine_workdir \
+  &&  env_prepare_python_packages \
+  &&  helper_analytics_git_process
+}
+
+function job_analytics_git_upload {
+      helper_use_pristine_workdir \
+  &&  env_prepare_python_packages \
+  &&  helper_analytics_git_upload
+}
+
 function job_test_infra_monolith {
       helper_use_pristine_workdir \
   &&  helper_infra_monolith 'test'
