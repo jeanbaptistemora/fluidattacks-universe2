@@ -1,6 +1,7 @@
 import { MockedProvider, MockedResponse, wait } from "@apollo/react-testing";
 import { mount, ReactWrapper } from "enzyme";
 import { GraphQLError } from "graphql";
+import moment from "moment";
 import React from "react";
 // tslint:disable-next-line: no-submodule-imports
 import { act } from "react-dom/test-utils";
@@ -13,6 +14,10 @@ import { IGetAccessTokenDictAttr, IUpdateAccessTokenAttr } from "./types";
 
 describe("Update access token modal", () => {
   const handleOnClose: jest.Mock = jest.fn();
+  const expirationTime: string = moment()
+    .add(30, "days")
+    .toISOString()
+    .substring(0, 10);
 
   it("should return a function", () => {
     expect(typeof UpdateAccessTokenModal)
@@ -143,8 +148,6 @@ describe("Update access token modal", () => {
   });
 
   it("should render a new access token", async (): Promise<void> => {
-    const expirationTime: string = "2020-07-11";
-
     const updatedAccessToken: IUpdateAccessTokenAttr = {
       updateAccessToken: {
         sessionJwt: "dummyJwt",
@@ -208,8 +211,6 @@ describe("Update access token modal", () => {
   });
 
   it("should reset the GenericForm component", async (): Promise<void> => {
-    const expirationTime: string = "2020-07-11";
-
     const mockMutationError: ReadonlyArray<MockedResponse> = [
       {
         request: {
