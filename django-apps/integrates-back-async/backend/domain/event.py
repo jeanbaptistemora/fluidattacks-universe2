@@ -15,10 +15,7 @@ from backend.dal import (
     event as event_dal,
     project as project_dal
 )
-from backend.domain import (
-    comment as comment_domain,
-    user as user_domain
-)
+from backend.domain import comment as comment_domain
 from backend.exceptions import (
     EventAlreadyClosed,
     EventNotFound,
@@ -176,8 +173,7 @@ def _send_new_event_mail(
         if authz.get_group_level_role(recipient, project) != 'customeradmin'
     ]
     email_context_customers = email_context.copy()
-    company = str(user_domain.get_data(analyst, 'company')).capitalize()
-    email_context_customers['analyst_email'] = f'Hacker at {company}'
+    email_context_customers['analyst_email'] = f'Hacker at FluidIntegrates'
 
     email_send_thread = threading.Thread(
         name='New event email thread',

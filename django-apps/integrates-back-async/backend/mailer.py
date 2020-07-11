@@ -226,8 +226,7 @@ def send_comment_mail(
     email_context_customers = email_context.copy()
     if authz.get_group_level_role(
             user_mail, project_name) not in ['customer', 'customeradmin']:
-        company = str(user_domain.get_data(user_mail, 'company')).capitalize()
-        email_context_customers['user_email'] = f'Hacker at {company}'
+        email_context_customers['user_email'] = f'Hacker at FluidIntegrates'
     email_send_thread = threading.Thread(
         name='New {} email thread'.format(entity_name),
         target=send_mail_comment,

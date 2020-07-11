@@ -24,8 +24,7 @@ from backend.domain import (
     finding as finding_domain,
     project as project_domain,
     vulnerability as vuln_domain,
-    event as event_domain,
-    tag as tag_domain
+    event as event_domain
 )
 from backend.typing import (
     Event as EventType,
@@ -781,38 +780,3 @@ async def delete_pending_projects():
             remove_project_tasks.append(task)
             util.invalidate_cache(project.get('project_name'))
     await asyncio.gather(*remove_project_tasks)
-
-
-@async_to_sync
-async def update_tags_indicators():
-    """Update tag indicators in dynamo."""
-    rollbar.report_message(
-        ('Warning: Function to update tag'
-         'indicators in DynamoDB is running'),
-        'warning'
-    )
-    projects = await sync_to_async(project_domain.get_active_projects)()
-    projects = await asyncio.gather(*[
-        asyncio.create_task(
-            sync_to_async(project_domain.get_attributes)(
-                project, ['companies', 'project_name', 'tag']
-            )
-        )
-        for project in projects
-    ])
-    all_organization = {
-        organization.lower()
-        for project in projects
-        for organization in project.get('companies', [])
-    }
-    for organization in all_organization:
-        try:
-            await tag_domain.update_organization_indicators(
-                organization, projects
-            )
-        except ClientError:
-            rollbar.report_message(
-                ('Error: An error ocurred updating tag '
-                 f'indicators of organizaion {organization}'),
-                'error'
-            )

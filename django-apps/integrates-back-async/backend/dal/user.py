@@ -134,17 +134,6 @@ def delete_subject_policy(subject: str, object_: str) -> bool:
     return False
 
 
-def get_all_users(company_name: str) -> int:
-    filter_exp = (
-        Attr('company').exists() &
-        Attr('company').eq(company_name) &
-        Attr('registered').exists() &
-        Attr('registered').eq(True)
-    )
-    users = get_all(filter_exp)
-    return len(users)
-
-
 def get_all(filter_exp: object, data_attr: str = '') -> List[Dict[str, str]]:
     scan_attrs = {}
     scan_attrs['FilterExpression'] = filter_exp

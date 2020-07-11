@@ -28,10 +28,6 @@ def add_phone_to_user(email: str, phone: str) -> bool:
     return user_dal.update(email, {'phone': phone})
 
 
-def get_all_users(company_name: str) -> int:
-    return user_dal.get_all_users(company_name.lower())
-
-
 def get_current_date() -> str:
     tzn = pytz.timezone(settings.TIME_ZONE)  # type: ignore
     today = datetime.now(tz=tzn).today().strftime('%Y-%m-%d %H:%M:%S')

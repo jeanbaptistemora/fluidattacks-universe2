@@ -161,7 +161,7 @@ def cloudwatch_log(request, msg: str) -> None:
 
 def cloudwatch_log_sync(request, msg: str) -> None:
     user_data = get_jwt_content(request)
-    info = [str(user_data["user_email"]), str(user_data["company"])]
+    info = [str(user_data["user_email"])]
     for parameter in ["project", "findingid"]:
         if parameter in request.POST.dict():
             info.append(request.POST.dict()[parameter])
@@ -174,7 +174,7 @@ def cloudwatch_log_sync(request, msg: str) -> None:
 
 async def cloudwatch_log_queue(request, msg: str) -> None:
     user_data = get_jwt_content(request)
-    info = [str(user_data["user_email"]), str(user_data["company"])]
+    info = [str(user_data["user_email"])]
     for parameter in ["project", "findingid"]:
         if parameter in request.POST.dict():
             info.append(request.POST.dict()[parameter])
