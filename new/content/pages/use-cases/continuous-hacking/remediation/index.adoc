@@ -1,6 +1,6 @@
 :slug: use-cases/continuous-hacking/remediation/
-:description: In this page we describe our Continuous Hacking service, which aims to detect and report all the vulnerabilities in your application as soon as possible. Our participation in the development life cycle allow us to continuously detect security findings in a development environment.
-:keywords: Fluid Attacks, Services, Continuous Hacking, Ethical Hacking, Pentesting, Security.
+:description: Fluid Attacks always allows you to check whether all vulnerabilities found in your project have been closed or remediated.
+:keywords: Fluid Attacks, Services, Continuous Hacking, Ethical Hacking, Pentesting, Findings, Security, Vulnerability, Remediation
 :nextpage: use-cases/continuous-hacking/critical-info/
 :category: continuous-hacking
 :section: Continuous Hacking

@@ -1,6 +1,6 @@
 :slug: use-cases/continuous-hacking/healthcheck/
-:description: In this page we describe our Continuous Hacking service, which aims to detect and report all the vulnerabilities in your application as soon as possible. Our participation in the development life cycle allow us to continuously detect security findings in a development environment.
-:keywords: Fluid Attacks, Services, Continuous Hacking, Ethical Hacking, Pentesting, Security.
+:description: Fluid Attacks' Continuous Hacking Healthcheck intends to catch up with your development team to identify failures before continuing the development process.
+:keywords: Fluid Attacks, Continuous Hacking, Healthcheck, Development Process, Development Team, Pentesting, Ethical Hacking
 :nextpage: use-cases/continuous-hacking/environments/
 :category: continuous-hacking
 :section: Continuous Hacking

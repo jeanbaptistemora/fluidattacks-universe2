@@ -1,6 +1,6 @@
 :slug: use-cases/one-shot-hacking/infection/
-:description: In this page we present our One Shot Hacking service, which aims to detect and report all vulnerabilities and security issues within your application. The rigorous inspection of our team allow us to detect all existing security findings with no false positives.
-:keywords: Fluid Attacks, Services, Continuous Hacking, Ethical Hacking, Pentesting, Security.
+:description: Fluid Attacks infects the infrastructure to obtain additional data and verify network controls with the customer's previous authorization.
+:keywords: Fluid Attacks, Services, Ethical Hacking, Pentesting, Security, Infection, Cyber-weapons
 :nextpage: use-cases/one-shot-hacking/reports/
 :category: one-shot-hacking
 :section: One-Shot Hacking

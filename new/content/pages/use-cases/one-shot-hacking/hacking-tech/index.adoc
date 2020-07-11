@@ -1,6 +1,6 @@
 :slug: use-cases/one-shot-hacking/hacking-tech/
-:description: In this page we present our One Shot Hacking service, which aims to detect and report all vulnerabilities and security issues within your application. The rigorous inspection of our team allow us to detect all existing security findings with no false positives.
-:keywords: Fluid Attacks, Services, Continuous Hacking, Ethical Hacking, Pentesting, Security.
+:description: The ethical hacking by Fluid Attacks comprises automatic and manual testing of applications, infrastructure, and source code.
+:keywords: Fluid Attacks, Services, Ethical Hacking, Security, Vulnerabilities, Pentesting
 :nextpage: use-cases/one-shot-hacking/environments/
 :category: one-shot-hacking
 :section: One-Shot Hacking

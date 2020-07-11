@@ -1,6 +1,6 @@
 :slug: use-cases/one-shot-hacking/reports/
-:description: In this page we present our One Shot Hacking service, which aims to detect and report all vulnerabilities and security issues within your application. The rigorous inspection of our team allow us to detect all existing security findings with no false positives.
-:keywords: Fluid Attacks, Services, Continuous Hacking, Ethical Hacking, Pentesting, Security.
+:description: Fluid Attacks provides technical and executive reports for each client company in the ethical hacking projects.
+:keywords: Fluid Attacks, Services, Ethical Hacking, Pentesting, Security, Reports, Information
 :nextpage: use-cases/one-shot-hacking/critical-info/
 :category: one-shot-hacking
 :section: One-Shot Hacking
