@@ -175,7 +175,7 @@ check_interval = 20
       "amazonec2-ami=ami-075b5fce6712726ed",
       "amazonec2-instance-type=t2.medium",
       "amazonec2-volume-type=gp2",
-      "amazonec2-root-size=50"
+      "amazonec2-root-size=100"
     ]
 
 [[runners]]
