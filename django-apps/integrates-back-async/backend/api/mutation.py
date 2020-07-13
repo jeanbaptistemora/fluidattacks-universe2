@@ -1,7 +1,6 @@
 from ariadne import MutationType
 
 from backend.api.resolvers import (
-    alert,
     cache,
     event,
     finding,
@@ -17,7 +16,6 @@ from backend.api.resolvers import (
 
 MUTATION = MutationType()
 
-MUTATION.set_field('setAlert', alert.resolve_set_alert)
 MUTATION.set_field('invalidateCache', cache.resolve_invalidate_cache)
 MUTATION.set_field('createEvent', event.resolve_event_mutation)
 MUTATION.set_field('solveEvent', event.resolve_event_mutation)

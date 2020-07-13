@@ -8,10 +8,8 @@ from backend.decorators import (
 )
 from backend.domain import alert as alert_domain
 from backend.typing import (
-    Alert as AlertType,
-    SimplePayload as SimplePayloadType,
+    Alert as AlertType
 )
-from backend import util
 
 
 @get_entity_cache_async
@@ -40,19 +38,3 @@ def _get_alert_fields(project_name: str, organization: str) -> AlertType:
 async def resolve_alert(*_, project_name: str, organization: str) -> AlertType:
     """Resolve alert query."""
     return await _get_alert_fields(project_name, organization)
-
-
-@convert_kwargs_to_snake_case
-@require_login
-@enforce_group_level_auth_async
-@require_integrates
-async def resolve_set_alert(_, info, company: str, message: str,
-                            project_name: str) -> SimplePayloadType:
-    """Resolve set_alert mutation."""
-    success = await sync_to_async(alert_domain.set_company_alert)(
-        company, message, project_name)
-    if success:
-        util.cloudwatch_log(
-            info.context,
-            f'Security: Set alert of {company}')  # pragma: no cover
-    return SimplePayloadType(success=success)

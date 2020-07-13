@@ -31,19 +31,3 @@ class AlertTests(TestCase):
             message = result['data']['alert']['message']
             assert message == 'unittest'
         assert 'alert' in result['data']
-
-    @pytest.mark.changes_db
-    async def test_set_alert(self):
-        """Check for set_alert mutation."""
-        query = '''
-            mutation {
-                setAlert(company: "fluid", message: "Test", projectName: "unittesting") {
-                    success
-                }
-            }
-        '''
-        data = {'query': query}
-        request = create_dummy_session('unittest', 'fluid')
-        _, result = await graphql(SCHEMA, data, context_value=request)
-        assert 'errors' not in result
-        assert 'success' in result['data']['setAlert']
