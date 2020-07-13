@@ -236,6 +236,7 @@ $codeyellow: rgba(230, 219, 116, 1);
   .f-title-s { font-size: 2rem; }
   .banner-height { height: 12.5rem; }
   .h-search-icon { height: 1.125rem; }
+  .w-menu-bt { width: 18px; }
 }
 //medium resolutions
 @media screen and (min-width: 30em) and (max-width: 60em) {
@@ -249,6 +250,7 @@ $codeyellow: rgba(230, 219, 116, 1);
   .w-logo { width: 10rem; }
   .coverm { background-size: cover; }
   .w-products { width: 20rem; }
+  .w-menu-bt { width: 18px; }
 }
 
 //Large screens
@@ -274,6 +276,7 @@ $codeyellow: rgba(230, 219, 116, 1);
   .w36-l{ width: 36rem; }
   .f-error { font-size: 17rem; }
   .w-search-icon { width: 1.125rem; }
+  .nt-menu-btn { margin-top: -1px;}
 }
 
 //Very large screens
