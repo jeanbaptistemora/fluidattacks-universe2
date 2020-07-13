@@ -126,7 +126,7 @@ postdeploy_release_email:
   needs: [deploy_production]
   except: [schedules]
 
-danger:
+.danger:
   tags: [autoscaling]
   stage: mr-check
   image: fluidattacks/danger-ruby
