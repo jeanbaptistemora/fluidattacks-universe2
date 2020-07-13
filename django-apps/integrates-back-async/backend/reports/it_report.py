@@ -201,8 +201,15 @@ class ITReport():
             value = self.__get_measure(measure, row['severity'][measure])[0]
             metric_vector.append(f'{indicator}:{value}')
 
+        cvss_metric_vector = '/'.join(metric_vector)
+        cvss_calculator_url = (
+            f'https://www.first.org/cvss/calculator/3.1#CVSS:3.1'
+            f'/{cvss_metric_vector}'
+        )
+        cell_content = \
+            f'=HYPERLINK("{cvss_calculator_url}", "{cvss_metric_vector}")'
         self.set_cell(
-            self.vulnerability['cvss_vector'], '/'.join(metric_vector))
+            self.vulnerability['cvss_vector'], cell_content)
 
     def __write_vuln_row(self, row: VulnType):
         finding = async_to_sync(get_finding)(row.get('finding_id'))
