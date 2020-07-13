@@ -198,8 +198,9 @@ class ITReport():
         }
         metric_vector = []
         for indicator, measure in measures.items():
-            value = self.__get_measure(measure, row['severity'][measure])[0]
-            metric_vector.append(f'{indicator}:{value}')
+            value = self.__get_measure(measure, row['severity'][measure])
+            if value:
+                metric_vector.append(f'{indicator}:{value[0]}')
 
         cvss_metric_vector = '/'.join(metric_vector)
         cvss_calculator_url = (
@@ -271,7 +272,8 @@ class ITReport():
             self.vulnerability['treatment_date'],
             datetime.strptime(
                 finding.get('historicState')[-1]['date'], '%Y-%m-%d %H:%M:%S')
-            if 'historicState' in finding else '-'
+            if 'historicState' in finding and
+            'date' in finding.get('historicState')[-1] else '-'
         )
         self.set_cell(
             self.vulnerability['treatment_justification'],
