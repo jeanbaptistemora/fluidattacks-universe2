@@ -14,7 +14,7 @@ const about: React.FC = (): JSX.Element => {
   const displayDialog: (() => void) = (): void => {
     Alert.alert(
       "Integrates",
-      `v.${Constants.manifest.version}`
+      `v.${Constants.nativeAppVersion}`
       + `\nOTA v.${(Updates.manifest as Updates.Manifest).version}`,
     );
   };
