@@ -25,4 +25,12 @@ to verify the status of vulnerabilities on your system.
 
 == link:https://report2020.fluidattacks.com/[Annual Report 2020]
 
-== link:https://usa.fluidattacks.com/ebook/[eBook: Don't Crash Going Too Fast (2020)]
+== eBook: link:https://usa.fluidattacks.com/ebook/[Don't Crash Going Too Fast (2020)]
+
+== link:https://www.youtube.com/watch?v=tGNbQelMrFA[How to Develop Products With Speed Without Sacrificing Security?] (Spanish)
+
+== link:https://www.youtube.com/watch?v=zUJ_kU79j7E[When Is a Security Test Successful?] (Spanish)
+
+== link:https://www.youtube.com/watch?v=N6nVIOsnaOA&t=10s[Stop the Launch! Security for Users or Time-To-Market?] (Spanish)
+
+== link:https://www.youtube.com/watch?v=VWwqhA2LFHg&t=366s[What Data Tells Us About Continuous Hacking?]
