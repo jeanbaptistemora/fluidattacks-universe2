@@ -221,6 +221,10 @@ LOGGING = {
             'handlers': ['console', 'watchtower'],
             'level': 'INFO'
         },
+        'log': {
+            'handlers': ['console'],
+            'level': 'INFO'
+        },
     }
 }
 

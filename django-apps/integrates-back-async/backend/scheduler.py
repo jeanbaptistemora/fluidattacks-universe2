@@ -30,6 +30,10 @@ from backend.typing import (
     Event as EventType,
     Finding as FindingType
 )
+from backend.utils import (
+    aio,
+    logging as logging_utils
+)
 from __init__ import (
     BASE_URL,
     FI_TEST_PROJECTS,
@@ -314,95 +318,104 @@ def get_date_last_vulns(vulns: List[Dict[str, FindingType]]) -> str:
     return first_day
 
 
+async def get_group_new_vulnerabilities(group_name: str) -> None:
+    msg = 'Info: Getting new vulnerabilities'
+    await logging_utils.log(msg, 'info', locals())
+    fin_attrs = 'finding_id, historic_treatment, project_name, finding'
+    context: Dict[str, Union[str, List[Dict[str, str]]]] = {
+        'updated_findings': list(),
+        'no_treatment_findings': list()
+    }
+    try:
+        finding_requests = await aio.ensure_io_bound(
+            project_domain.get_released_findings,
+            group_name,
+            fin_attrs
+        )
+        for act_finding in finding_requests:
+            finding_url = get_finding_url(act_finding)
+            msj_finding_pending = await aio.ensure_io_bound(
+                create_msj_finding_pending,
+                act_finding
+            )
+            delta = await calculate_vulnerabilities(
+                act_finding
+            )
+            finding_text = format_vulnerabilities(delta, act_finding)
+            if msj_finding_pending:
+                cast(
+                    List[Dict[str, str]],
+                    context['no_treatment_findings']
+                ).append({
+                    'finding_name': msj_finding_pending,
+                    'finding_url': finding_url
+                })
+            if finding_text:
+                cast(
+                    List[Dict[str, str]],
+                    context['updated_findings']
+                ).append({
+                    'finding_name': finding_text,
+                    'finding_url': finding_url
+                })
+            context['project'] = str.upper(str(
+                act_finding['project_name']
+            ))
+            context['project_url'] = (
+                f'{BASE_URL}/groups/'
+                f'{act_finding["project_name"]}/indicators'
+            )
+    except (TypeError, KeyError) as ex:
+        msg = ('Error: An error ocurred getting new vulnerabilities '
+               'notification email')
+        payload_data = {
+            "group_name": group_name
+        }
+        extra_data = {
+            "error": str(ex)
+        }
+        await logging_utils.log(msg, 'error', payload_data, extra_data)
+        raise
+    if context['updated_findings']:
+        mail_to = await project_domain.get_users_to_notify(group_name)
+        await aio.ensure_io_bound(
+            mailer.send_mail_new_vulnerabilities,
+            mail_to,
+            context
+        )
+
+
 @async_to_sync
 async def get_new_vulnerabilities():
     """Summary mail send with the findings of a project."""
-    rollbar.report_message(
-        'Warning: Function to get new vulnerabilities is running',
-        'warning'
+    msg = 'Warning: Function to get new vulnerabilities is running'
+    await logging_utils.log(msg, 'warning', locals())
+    groups = await aio.ensure_io_bound(
+        project_domain.get_active_projects
     )
-    projects = await sync_to_async(project_domain.get_active_projects)()
-    fin_attrs = 'finding_id, historic_treatment, project_name, finding'
-    released_findings = await asyncio.gather(*[
-        asyncio.create_task(
-            sync_to_async(project_domain.get_released_findings)(
-                project, fin_attrs
-            )
-        )
-        for project in projects
-    ])
-    finding_urls = await asyncio.gather(*[
-        asyncio.create_task(
-            sync_to_async(get_finding_url)(
-                act_finding
-            )
-        )
-        for finding_requests in released_findings
-        for act_finding in finding_requests
-    ])
-    msj_finding_pendings = await asyncio.gather(*[
-        asyncio.create_task(
-            sync_to_async(create_msj_finding_pending)(
-                act_finding
-            )
-        )
-        for finding_requests in released_findings
-        for act_finding in finding_requests
-    ])
-    deltas = await asyncio.gather(*[
-        asyncio.create_task(
-            calculate_vulnerabilities(
-                act_finding
-            )
-        )
-        for finding_requests in released_findings
-        for act_finding in finding_requests
-    ])
-    for project in projects:
-        context = {'updated_findings': list(), 'no_treatment_findings': list()}
-        try:
-            finding_requests = released_findings.pop(0)
-            for act_finding in finding_requests:
-                finding_url = finding_urls.pop(0)
-                msj_finding_pending = msj_finding_pendings.pop(0)
-                delta = deltas.pop(0)
-                finding_text = format_vulnerabilities(delta, act_finding)
-                if msj_finding_pending:
-                    context['no_treatment_findings'].append({
-                        'finding_name': msj_finding_pending,
-                        'finding_url': finding_url
-                    })
-                if finding_text:
-                    context['updated_findings'].append({
-                        'finding_name': finding_text,
-                        'finding_url': finding_url
-                    })
-                context['project'] = str.upper(str(
-                    act_finding['project_name']
-                ))
-                context['project_url'] = (
-                    f'{BASE_URL}/groups/'
-                    f'{act_finding["project_name"]}/indicators'
-                )
-        except (TypeError, KeyError):
-            rollbar.report_message(
-                ('Error: An error ocurred getting new vulnerabilities '
-                 'notification email'),
-                'error', payload_data=locals())
-            raise
-        if context['updated_findings']:
-            mail_to = await project_domain.get_users_to_notify(project)
-            await sync_to_async(mailer.send_mail_new_vulnerabilities)(
-                mail_to, context
-            )
+    # number of groups that can be executed at a time
+    groups_chunks = chunked(groups, 40)
+    for grps_chunk in groups_chunks:
+        await aio.materialize(map(get_group_new_vulnerabilities, grps_chunk))
 
 
 async def calculate_vulnerabilities(act_finding: Dict[str, str]) -> int:
-    vulns = await sync_to_async(vuln_dal.get_vulnerabilities)(
+    vulns = await aio.ensure_io_bound(
+        vuln_dal.get_vulnerabilities,
         act_finding['finding_id']
     )
     all_tracking = await finding_domain.get_tracking_vulnerabilities(vulns)
     delta_total = 0
+    # Remove last duplicate cycles who are added by approving an open vuln
+    if len(all_tracking) > 1:
+        last_cycle_open = all_tracking[-1]['open']
+        last_cycle_close = all_tracking[-1]['closed']
+        for cycle in all_tracking[::-1][1:]:
+            if (last_cycle_open == cycle['open']
+                    and last_cycle_close == cycle['closed']):
+                all_tracking.pop()
+                continue
+            break
     if len(all_tracking) > 1:
         if ((datetime.strptime(str(all_tracking[-1]['date']), "%Y-%m-%d")) >
                 (datetime.now() - timedelta(days=8))):
