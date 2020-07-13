@@ -9,7 +9,6 @@ from botocore.exceptions import ClientError
 
 from backend.typing import Finding as FindingType
 from backend.dal.helpers import s3, dynamodb
-from backend.dal.vulnerability import get_vulnerabilities
 from backend.utils import aio
 from __init__ import FI_AWS_S3_BUCKET
 
@@ -183,46 +182,3 @@ async def download_evidence(file_name: str, file_path: str):
         file_name,
         file_path
     )
-
-
-async def is_pending_verification(finding_id: str) -> bool:
-    finding = await get_attributes(
-        finding_id,
-        [
-            'finding_id',
-            'historic_state',
-            'historic_verification'
-        ]
-    )
-    last_verification = cast(
-        List[Dict[str, str]],
-        finding.get('historic_verification', [{}])
-    )[-1]
-    last_state = cast(
-        List[Dict[str, str]],
-        finding.get('historic_state', [{}])
-    )[-1]
-    resp = (
-        last_verification.get('status') == 'REQUESTED' and
-        not last_verification.get('vulns')
-    )
-    if not resp:
-        vulns = await aio.ensure_io_bound(get_vulnerabilities, finding_id)
-        open_vulns = [
-            vuln
-            for vuln in vulns
-            if cast(
-                List[Dict[str, str]],
-                vuln.get('historic_state', [{}])
-            )[-1].get('state') == 'open'
-        ]
-        remediated_vulns = [
-            vuln
-            for vuln in open_vulns
-            if cast(
-                List[Dict[str, str]],
-                vuln.get('historic_verification', [{}])
-            )[-1].get('status') == 'REQUESTED'
-        ]
-        resp = len(remediated_vulns) != 0
-    return resp and last_state.get('state') != 'DELETED'

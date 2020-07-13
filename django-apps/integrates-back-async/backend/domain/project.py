@@ -526,10 +526,35 @@ async def total_vulnerabilities(finding_id: str) -> Dict[str, int]:
     return finding
 
 
+async def get_pending_verification_findings(
+        project_name: str) -> List[Dict[str, FindingType]]:
+    """Gets findings pending for verification"""
+    findings_ids = await sync_to_async(list_findings)(project_name)
+    are_pending_verifications = await aio.materialize(
+        map(finding_domain.is_pending_verification, findings_ids)
+    )
+    pending_to_verify = [
+        finding_id
+        for finding_id, are_pending_verification in zip(
+            findings_ids,
+            are_pending_verifications
+        )
+        if are_pending_verification
+    ]
+    pending_to_verify = await aio.materialize(
+        finding_utils.get_attributes(
+            finding_id,
+            ['finding', 'finding_id', 'project_name']
+        ) for finding_id in pending_to_verify
+    )
+
+    return pending_to_verify
+
+
 async def get_pending_closing_check(project: str) -> int:
     """Check for pending closing checks."""
     pending_closing = len(
-        await project_dal.get_pending_verification_findings(project))
+        await get_pending_verification_findings(project))
     return pending_closing
 
 

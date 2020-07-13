@@ -15,7 +15,7 @@ from backend.domain.project import (
     get_pending_closing_check, get_last_closing_vuln_info, get_last_closing_date,
     is_vulnerability_closed, get_max_open_severity,
     get_open_vulnerability_date, get_mean_remediate, get_total_treatment,
-    get_users, get_description,
+    get_users, get_description, get_pending_verification_findings,
     list_drafts, list_comments, get_active_projects, get_managers, list_events,
     get_alive_projects, list_findings, get_pending_to_delete,
     get_mean_remediate_severity, remove_access, validate_project_services_config,
@@ -413,3 +413,11 @@ def test_edit(
         reason='',
         requester_email='test@test.test'
     )
+
+async def test_get_pending_verification_findings():
+    project_name = 'unittesting'
+    findings = await get_pending_verification_findings(project_name)
+    assert len(findings) >= 1
+    assert 'finding' in findings[0]
+    assert 'finding_id' in findings[0]
+    assert 'project_name' in findings[0]

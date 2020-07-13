@@ -484,7 +484,7 @@ async def get_remediated_findings():
     findings = []
     pending_verification_findings = await asyncio.gather(*[
         asyncio.create_task(
-            project_dal.get_pending_verification_findings(
+            project_domain.get_pending_verification_findings(
                 project
             )
         )

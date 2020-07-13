@@ -539,3 +539,25 @@ async def get(
         raise FindingNotFound()
 
     return finding_utils.format_data(finding)
+
+
+async def is_pending_verification(finding_id: str) -> bool:
+    vulns = await vuln_domain.list_vulnerabilities_async([finding_id])
+    open_vulns = [
+        vuln
+        for vuln in vulns
+        if cast(
+            List[Dict[str, str]],
+            vuln.get('historic_state', [{}])
+        )[-1].get('state') == 'open'
+    ]
+    reattack_requested = [
+        vuln
+        for vuln in open_vulns
+        if cast(
+            List[Dict[str, str]],
+            vuln.get('historic_verification', [{}])
+        )[-1].get('status') == 'REQUESTED'
+    ]
+
+    return len(reattack_requested) > 0 and await validate_finding(finding_id)
