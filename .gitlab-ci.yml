@@ -394,7 +394,7 @@ test_commit_msg:
   <<: *in_dev_branch
   stage: test
 
-danger:
+.danger:
   image: fluidattacks/danger-ruby
   tags: [autoscaling]
   stage: mr-check

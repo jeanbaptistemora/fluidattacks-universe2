@@ -6,6 +6,7 @@ RUN apk add --no-cache \
 
 ARG PROVISIONER
 
+COPY analytics/ /code/analytics/
 COPY build/ /code/build/
 
 RUN   nix-shell --run ':' "/code/build/provisioners/${PROVISIONER}.nix" \
