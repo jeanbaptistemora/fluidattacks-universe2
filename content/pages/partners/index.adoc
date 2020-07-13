@@ -119,29 +119,6 @@ systems integration, data analytics, testing, and support.
 
 a|image::logo-proximiteam.png[alt="Logo SBA",link="https://www.proximiteam.com/"]
 
-a|image::logo-teraport.png[alt="Logo Teraport",link="http://teraport.de"]
-
-a|== Teraport
-
-{germany} Teraport is a German company specializing in software development,
-and in services in virtual product development.
-Experts in the automotive, aerospace, and manufacturing industries.
-It offers specific solutions and standardized products in development,
-simulation, and quality assurance,
-as well as services and consulting in product development engineering.
-
-a|== The Missing Link
-
-{australia} The Missing Link is an Australian company
-providing information technology solutions,
-infrastructure services, security, backup, disaster recovery,
-communications, and cloud services.
-It is recognized as an accredited industry leader
-at the highest levels of design and delivery
-of cutting-edge technological support.
-
-a|image::logo-tml.png[alt="Logo The Missing Link",link="https://www.themissinglink.com.au/"]
-
 |====
 
 If you agree with the [inner]#link:terms/[terms]#
