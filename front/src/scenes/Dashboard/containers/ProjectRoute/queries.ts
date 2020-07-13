@@ -2,11 +2,7 @@ import { DocumentNode } from "graphql";
 import gql from "graphql-tag";
 
 export const GET_GROUP_DATA: DocumentNode = gql`
-  query GetProjectDataQuery($projectName: String!, $organization: String!) {
-    alert(projectName: $projectName, organization: $organization) {
-      message
-      status
-    }
+  query GetProjectDataQuery($projectName: String!) {
     project(projectName: $projectName){
       deletionDate
       serviceAttributes

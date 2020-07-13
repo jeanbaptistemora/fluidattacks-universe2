@@ -50,25 +50,4 @@ describe("ProjectRoute", () => {
     expect(wrapper)
       .toHaveLength(1);
   });
-
-  it("should render alert", async () => {
-    const setUserRoleCallback: jest.Mock = jest.fn();
-    const mockedPermissions: PureAbility<string> = new PureAbility();
-    (window as typeof window & Dictionary<string>).userEmail = "test";
-    (window as typeof window & Dictionary<string>).userOrganization = "Fluid";
-    const wrapper: ReactWrapper = mount(
-      <MemoryRouter initialEntries={["/project/TEST/indicators"]}>
-        <MockedProvider mocks={[groupMock]} addTypename={false}>
-          <Route path="/project/:projectName">
-            <authzPermissionsContext.Provider value={mockedPermissions}>
-              <ProjectRoute setUserRole={setUserRoleCallback}/>
-            </authzPermissionsContext.Provider>
-          </Route>
-        </MockedProvider>
-      </MemoryRouter>,
-    );
-    await act(async () => { await wait(0); wrapper.update(); });
-    expect(wrapper.text())
-      .toContain("Hello world");
-  });
 });

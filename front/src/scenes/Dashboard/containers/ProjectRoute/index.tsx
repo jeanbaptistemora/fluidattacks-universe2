@@ -18,7 +18,6 @@ import { authzGroupContext, authzPermissionsContext } from "../../../../utils/au
 import { msgError, msgSuccess } from "../../../../utils/notifications";
 import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
-import { AlertBox } from "../../components/AlertBox";
 import { GET_USER_PERMISSIONS } from "../../queries";
 import { EventContent } from "../EventContent";
 import { FindingContent } from "../FindingContent";
@@ -35,7 +34,6 @@ const projectRoute: React.FC<IProjectRoute> = (props: IProjectRoute): JSX.Elemen
   const { push } = useHistory();
   const { projectName } = useParams<{ projectName: string }>();
   const { path } = useRouteMatch();
-  const { userOrganization } = window as typeof window & Dictionary<string>;
 
   const closeRejectProjectModal: (() => void) = (): void => {
     push("/home");
@@ -88,7 +86,7 @@ const projectRoute: React.FC<IProjectRoute> = (props: IProjectRoute): JSX.Elemen
         rollbar.error("An error occurred group data", groupError);
       });
     },
-    variables: { projectName, organization: userOrganization },
+    variables: { projectName },
   });
   const [rejectRemoveProject, { loading: submitting }] = useMutation(
     REJECT_REMOVE_PROJECT_MUTATION, {
@@ -162,7 +160,6 @@ const projectRoute: React.FC<IProjectRoute> = (props: IProjectRoute): JSX.Elemen
         </Row>
       ) :
         <React.Fragment>
-          {data.alert.status === 1 ? <AlertBox message={data.alert.message} /> : undefined}
           <Switch>
             <Route path={`${path}/events/:eventId(\\d+)`} component={EventContent} />
             <Route path={`${path}/:type(findings|drafts)/:findingId(\\d+)`} component={FindingContent} />
