@@ -498,7 +498,7 @@ lint_commit_msg:
   <<: *in_dev_and_master_branch
   stage: lint-code
 
-.danger:
+danger:
   <<: *in_mrs
   tags: [autoscaling]
   needs: []

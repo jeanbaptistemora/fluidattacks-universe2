@@ -3,6 +3,7 @@ import React from "react";
 import { Col, Grid, Panel, Row } from "react-bootstrap";
 import { Graphic } from "../../../../graphics/components/Graphic";
 import translate from "../../../../utils/translations/translate";
+import { ChartsGenericViewExtras } from "./components/Extras";
 import styles from "./index.css";
 import { EntityType, IChartsGenericViewProps } from "./types";
 
@@ -278,7 +279,7 @@ const chartsGenericView: React.FC<IChartsGenericViewProps> = (props: IChartsGene
                   <Panel.Heading>
                     <Panel.Title>
                       <h1 className={styles.centerTitle}>
-                        {translate.t("analytics.headers.forces.title")}
+                        {translate.t("analytics.sections.forces.title")}
                       </h1>
                     </Panel.Title>
                   </Panel.Heading>
@@ -409,6 +410,9 @@ const chartsGenericView: React.FC<IChartsGenericViewProps> = (props: IChartsGene
           </Grid>
         </React.Fragment>
       ) : undefined}
+      {reportMode ? undefined : (
+        <ChartsGenericViewExtras {...props} />
+      )}
     </React.StrictMode>
   );
 };

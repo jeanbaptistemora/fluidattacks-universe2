@@ -42,11 +42,6 @@ const enTranslations: Dictionary = {
         title: "Severity",
       },
     },
-    headers: {
-      forces: {
-        title: "Forces",
-      },
-    },
     pieChart: {
       resources: {
         footer: {
@@ -74,6 +69,15 @@ const enTranslations: Dictionary = {
           notDefined: "Not defined: New vulnerabilities goes here until one of your managers generate an action plan.",
         },
         title: "Vulnerabilities treatment",
+      },
+    },
+    sections: {
+      extras: {
+        download: "Download",
+        title: "Extras",
+      },
+      forces: {
+        title: "Forces",
       },
     },
     stackedBarChart: {
