@@ -30,6 +30,15 @@ which might make it accessible to untrusted parties.
 The product makes files or directories accessible to unauthorized actors,
 even though they should not be.
 
-. [[r3]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r3]] link:https://cwe.mitre.org/data/definitions/922.html[CWE-922: Insecure Storage of Sensitive Information].
+The software stores sensitive information without properly limiting read or
+write access by unauthorized actors.
+
+. [[r4]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V1.12 Secure File Upload Architectural Requirements.(1.12.1)]
-Verify that user-uploaded files are stored outside of the web root.
+Verify that user-uploaded files are stored outside of the **web root**.
+
+. [[r5]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V12.4 File Storage Requirements.(12.4.1)]
+Verify that files obtained from untrusted sources are stored outside the
+**web root**, with limited permissions, preferably with strong validation.

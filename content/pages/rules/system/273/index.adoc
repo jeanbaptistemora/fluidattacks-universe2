@@ -4,7 +4,7 @@
 :keywords: CWE, ASVS, Suite, Workstation, Antivirus, Firewall, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
-= R273. Define fixed security suite
+= R273. Define a fixed security suite
 
 == Requirement
 
@@ -35,3 +35,8 @@ V1.14 Configuration Architectural Requirements.(1.14.1)]
 Verify the segregation of components of differing trust levels through
 well-defined security controls, firewall rules, API gateways, reverse proxies,
 cloud-based security groups, or similar mechanisms.
+
+. [[r3]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V12.4 File Storage Requirements.(12.4.2)]
+Verify that files obtained from untrusted sources are scanned by antivirus
+scanners to prevent upload of known malicious content.

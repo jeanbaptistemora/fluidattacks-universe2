@@ -17,14 +17,24 @@ the content of the files transferred to it is free of malicious code.
 
 == References
 
-. [[r1]] link:https://cwe.mitre.org/data/definitions/749.html[CWE-749: Exposed Dangerous Method or Function].
+. [[r1]] link:https://cwe.mitre.org/data/definitions/509.html[CWE-509: Replicating Malicious Code (Virus or Worm)].
+Replicating malicious code, including viruses and worms, will attempt to attack
+other systems once it has successfully compromised the target system or
+software.
+
+. [[r2]] link:https://cwe.mitre.org/data/definitions/749.html[CWE-749: Exposed Dangerous Method or Function].
 The software provides an Applications Programming Interface (*API*) or similar
 interface for interaction with external actors,
 but the interface includes a dangerous method or function that is not properly
 restricted.
 
-. [[r2]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r3]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V10.1 Code Integrity Controls.(10.1.1)]
 Verify that a code analysis tool is in use that can detect potentially
 malicious code, such as time functions, unsafe file operations and network
 connections.
+
+. [[r4]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V12.4 File Storage Requirements.(12.4.2)]
+Verify that files obtained from untrusted sources are scanned by antivirus
+scanners to prevent upload of known malicious content.
