@@ -19,6 +19,7 @@ from backend import (
 from backend.api.resolvers import user as user_loader
 from backend.decorators import (
     enforce_organization_level_auth_async,
+    get_entity_cache_async,
     rename_kwargs,
     require_login,
     require_organization_access
@@ -74,6 +75,7 @@ async def _do_edit_user_organization(
 
     if success:
         util.invalidate_cache(user_email)
+        util.invalidate_cache(organization_id)
         util.cloudwatch_log(
             info.context,
             f'Security: User {requester_email} modified information from the '
@@ -130,6 +132,7 @@ async def _do_grant_user_organization_access(
 
     if success:
         util.invalidate_cache(user_email)
+        util.invalidate_cache(organization_id)
         util.cloudwatch_log(
             info.context,
             f'Security: User {user_email} was granted access to organization '
@@ -167,6 +170,7 @@ async def _do_remove_user_organization_access(
         organization_id, user_email.lower()
     )
     if success:
+        util.invalidate_cache(organization_id)
         util.cloudwatch_log(
             info.context,
             f'Security: User {requester_email} removed user {user_email} '
@@ -254,6 +258,7 @@ async def _get_min_acceptance_severity(
 
 
 @rename_kwargs({'identifier': 'organization_id'})
+@get_entity_cache_async
 async def _get_users(
     info,
     organization_id: str,
