@@ -7,14 +7,6 @@ type Analytics {
     ): GenericScalar
 }
 
-"Alert type definition"
-type Alert {
-    message: String
-    project: String
-    organization: String
-    status: Int
-}
-
 "Event type definition"
 type Event {
     id: String

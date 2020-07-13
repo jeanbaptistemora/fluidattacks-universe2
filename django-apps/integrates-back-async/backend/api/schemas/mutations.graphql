@@ -301,11 +301,6 @@ type Mutation {
         tags: JSONString
     ): SimpleProjectPayload!
 
-    setAlert(
-        company: String!,
-        message: String!,
-        projectName: String!
-    ): SimplePayload!
     signIn(
         authToken: String!,
         provider: AuthProvider!

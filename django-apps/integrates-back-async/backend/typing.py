@@ -48,9 +48,6 @@ User = Dict[str, Union[
     Dict[str, object],
     None
 ]]
-Alert = Dict[str, Union[
-    int, str
-]]
 Resources = Dict[str, Union[
     str,
     List[Resource]
