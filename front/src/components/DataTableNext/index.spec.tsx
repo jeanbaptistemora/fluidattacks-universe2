@@ -42,7 +42,6 @@ describe("Data table next", (): void => {
         remote={remote}
         search={false}
         selectionMode={selectionMode}
-        title={"Unit test table"}
       />
     );
 
@@ -81,81 +80,6 @@ describe("Data table next", (): void => {
         remote={remote}
         search={false}
         selectionMode={selectionMode}
-        title={"Unit test table"}
-      />
-    );
-
-    expect(wrapper).toHaveLength(1);
-  });
-
-  it("should render a title", (): void => {
-    expect.hasAssertions();
-
-    const data: Record<string, unknown>[] = [
-      {
-        test_header: "Submitted",
-        test_header2: "Rejected",
-        test_header3: "Inactive",
-        test_header4: "Active",
-      },
-    ];
-    const selectionMode: SelectRowOptions = {
-      clickToSelect: true,
-      mode: "checkbox",
-    };
-    const remote: RemoteProps = {
-      cellEdit: false,
-      filter: false,
-      pagination: false,
-      sort: false,
-    };
-    const testHeaders: IHeader[] = [
-      {
-        align: "center",
-        dataField: "test_header",
-        formatter: statusFormatter,
-        header: "Prueba 1",
-        width: "5%",
-        wrapped: false,
-      },
-      {
-        align: "center",
-        dataField: "test_header2",
-        formatter: statusFormatter,
-        header: "Prueba 2",
-        width: "5%",
-        wrapped: false,
-      },
-      {
-        align: "center",
-        dataField: "test_header3",
-        formatter: statusFormatter,
-        header: "Prueba 3",
-        width: "5%",
-        wrapped: false,
-      },
-      {
-        align: "center",
-        dataField: "test_header4",
-        formatter: statusFormatter,
-        header: "Prueba 4",
-        width: "5%",
-        wrapped: false,
-      },
-    ];
-    const wrapper: ReactWrapper = mount(
-      <DataTableNext
-        bordered={false}
-        dataset={data}
-        exportCsv={false}
-        headers={testHeaders}
-        id={"testTable"}
-        onClickRow={undefined}
-        pageSize={25}
-        remote={remote}
-        search={false}
-        selectionMode={selectionMode}
-        title={"Unit test table"}
       />
     );
 
@@ -204,7 +128,6 @@ describe("Data table next", (): void => {
         pageSize={25}
         remote={remote}
         search={false}
-        title={"Unit test table"}
       />
     );
 
@@ -288,7 +211,6 @@ describe("Data table next", (): void => {
         selectionMode={selectionMode}
         tableBody={undefined}
         tableHeader={undefined}
-        title={"Unit test table"}
       />
     );
 

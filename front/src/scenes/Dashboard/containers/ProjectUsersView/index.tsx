@@ -297,7 +297,6 @@ const projectUsersView: React.FC<IProjectUsersViewProps> = (props: IProjectUsers
                   remote={false}
                   search={true}
                   striped={true}
-                  title=""
                   selectionMode={{
                     clickToSelect: true,
                     hideSelectColumn:

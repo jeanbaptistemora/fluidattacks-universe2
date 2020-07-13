@@ -133,7 +133,6 @@ const projectAuthorsView: React.FunctionComponent<ForcesViewProps> = (props: For
         remote={false}
         search={true}
         striped={true}
-        title=""
       />
     </React.StrictMode>
   );

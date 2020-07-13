@@ -294,7 +294,6 @@ const projectForcesView: React.FunctionComponent<ForcesViewProps> = (props: Forc
                   pageSize={100}
                   remote={false}
                   rowEvents={{ onClick: openSeeExecutionDetailsModal }}
-                  title=""
                 />
               <Modal
                   bsSize="large"

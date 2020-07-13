@@ -570,7 +570,6 @@ const projectEventsView: React.FunctionComponent<EventsViewProps> = (props: Even
                   pageSize={15}
                   remote={false}
                   rowEvents={{ onClick: goToEvent }}
-                  title=""
                 />
               </React.StrictMode>
             );

@@ -340,7 +340,6 @@ const treatmentView: React.FC<ITreatmentViewProps> = (props: ITreatmentViewProps
                           search={false}
                           tableHeader={style.tableHeader}
                           tableBody={style.tableBody}
-                          title=""
                         />
                       </React.Fragment>
                     ) :

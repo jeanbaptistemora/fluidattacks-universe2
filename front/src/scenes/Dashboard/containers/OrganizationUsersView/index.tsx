@@ -258,7 +258,6 @@ const organizationUsers: React.FC<IOrganizationUsers> = (props: IOrganizationUse
                   remote={false}
                   search={true}
                   striped={true}
-                  title=""
                   selectionMode={{
                     clickToSelect: true,
                     mode: "radio",

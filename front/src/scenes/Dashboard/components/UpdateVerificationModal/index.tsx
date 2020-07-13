@@ -175,7 +175,6 @@ const updateVerificationModal: React.FC<IUpdateVerificationModal> = (props: IUpd
         pageSize={10}
         remote={false}
         search={false}
-        title=""
         tableBody={style.tableBody}
         tableHeader={style.tableHeader}
       />
