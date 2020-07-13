@@ -39,6 +39,27 @@ resource "aws_dynamodb_table" "authz" {
   }
 }
 
+resource "aws_dynamodb_table" "subscriptions" {
+  name          = "fi_subscriptions"
+  billing_mode  = "PAY_PER_REQUEST"
+  hash_key      = "pk"
+  range_key     = "sk"
+
+  attribute {
+    name = "pk"
+    type = "S"
+  }
+
+  attribute {
+    name = "sk"
+    type = "S"
+  }
+
+  point_in_time_recovery {
+    enabled = true
+  }
+}
+
 resource "aws_dynamodb_table" "comments" {
   name           = "FI_comments"
   read_capacity  = 10
