@@ -1,0 +1,89 @@
+# Standard library
+from decimal import Decimal
+from collections.abc import Mapping
+from typing import (
+    List,
+    Union,
+)
+
+# Third party libraries
+from boto3.dynamodb.conditions import Key
+
+# Local libraries
+from backend.dal.helpers import dynamodb
+from backend.utils.encodings import key_to_mapping, mapping_to_key
+
+# Constants
+SUBSCRIPTIONS_TABLE = 'fi_subscriptions'
+
+
+async def get_user_subscriptions(
+    *,
+    user_email: str,
+) -> List[Mapping]:
+    results = await dynamodb.async_query(
+        query_attrs=dict(
+            KeyConditionExpression=Key('pk').eq(mapping_to_key({
+                'meta': 'user',
+                'email': user_email,
+            })),
+        ),
+        table=SUBSCRIPTIONS_TABLE,
+    )
+
+    return _unpack_items(results)
+
+
+async def get_subscriptions_to_entity_report(
+    *,
+    audience: str,
+) -> List[Mapping]:
+    results = await dynamodb.async_query(
+        query_attrs=dict(
+            IndexName='pk_meta',
+            KeyConditionExpression=(
+                Key('pk_meta').eq(audience)
+                & Key('sk_meta').eq('entity_report')
+            ),
+        ),
+        table=SUBSCRIPTIONS_TABLE,
+    )
+
+    return _unpack_items(results)
+
+
+async def subscribe_user_to_entity_report(
+    *,
+    period: Union[float, int, Decimal],
+    report_entity: str,
+    report_subject: str,
+    user_email: str,
+) -> bool:
+    return await dynamodb.async_put_item(
+        item=dict(
+            pk=mapping_to_key({
+                'meta': 'user',
+                'email': user_email,
+            }),
+            sk=mapping_to_key({
+                'meta': 'entity_report',
+                'entity': report_entity,
+                'subject': report_subject,
+            }),
+            period=Decimal(period),
+            pk_meta='user',
+            sk_meta='entity_report',
+        ),
+        table=SUBSCRIPTIONS_TABLE,
+    )
+
+
+def _unpack_items(items: List[Mapping]) -> List[Mapping]:
+    return [
+        {
+            **item,
+            'pk': key_to_mapping(item['pk']),
+            'sk': key_to_mapping(item['sk']),
+        }
+        for item in items
+    ]
