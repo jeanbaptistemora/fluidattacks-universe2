@@ -34,6 +34,10 @@ from backend.dal import (
 
 DYNAMODB_RESOURCE = dynamodb.DYNAMODB_RESOURCE  # type: ignore
 
+pytestmark = [
+    pytest.mark.asyncio,
+]
+
 
 class ProjectTest(TestCase):
 
@@ -158,20 +162,20 @@ class ProjectTest(TestCase):
         assert test_data[0] == Decimal(4.3).quantize(Decimal('0.1'))
         assert test_data[1]['finding_id'] == "463558592"
 
-    def test_get_open_vulnerabilities(self):
+    async def test_get_open_vulnerabilities(self):
         project_name = 'unittesting'
         expected_output = 31
-        assert async_to_sync(get_open_vulnerabilities)(project_name) == expected_output
+        assert await get_open_vulnerabilities(project_name) == expected_output
 
-    def test_get_closed_vulnerabilities(self):
+    async def test_get_closed_vulnerabilities(self):
         project_name = 'unittesting'
         expected_output = 8
-        assert async_to_sync(get_closed_vulnerabilities)(project_name) == expected_output
+        assert await get_closed_vulnerabilities(project_name) == expected_output
 
-    def test_get_open_finding(self):
+    async def test_get_open_finding(self):
         project_name = 'unittesting'
         expected_output = 5
-        assert async_to_sync(get_open_finding)(project_name) == expected_output
+        assert await get_open_finding(project_name) == expected_output
 
     def test_get_open_vulnerability_date(self):
         closed_vulnerability = {

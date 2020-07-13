@@ -2,16 +2,15 @@
 from typing import Dict, List, Tuple, Union, cast
 from datetime import datetime
 
-from asgiref.sync import sync_to_async
 import pytz
 from django.conf import settings
 
 from backend import authz, util
 from backend.dal import (
     comment as comment_dal,
-    finding as finding_dal,
-    vulnerability as vuln_dal
+    finding as finding_dal
 )
+from backend.domain import vulnerability as vuln_domain
 from backend.typing import (
     Comment as CommentType,
     User as UserType
@@ -62,7 +61,7 @@ async def get_comments(
         if cast(List[str], verification.get('vulns', []))
     ]
     if verified:
-        vulns = await sync_to_async(vuln_dal.get_vulnerabilities)(finding_id)
+        vulns = await vuln_domain.list_vulnerabilities_async([finding_id])
         comments = [
             fill_vuln_info(
                 cast(Dict[str, str], comment),

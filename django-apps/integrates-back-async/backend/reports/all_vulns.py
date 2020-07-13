@@ -7,7 +7,10 @@ import uuid
 from typing import Dict, List, cast
 from openpyxl import Workbook
 
-from backend.dal import finding as finding_dal, project as project_dal
+from asgiref.sync import async_to_sync
+
+from backend.dal import project as project_dal
+from backend.domain import vulnerability as vuln_domain
 from backend.typing import Finding as FindingType
 
 from __init__ import FI_TEST_PROJECTS
@@ -154,7 +157,9 @@ def generate_all_vulns_xlsx(user_email: str, project_name: str = '') -> str:
         else:
             findings = []
         for finding in findings:
-            vulns = finding_dal.get_vulnerabilities(str(finding['finding_id']))
+            vulns = async_to_sync(vuln_domain.list_vulnerabilities_async)(
+                [str(finding['finding_id'])]
+            )
             finding_row = cast(Dict[str, FindingType], _mask_finding(finding))
             for vuln in vulns:
                 vuln_row = cast(

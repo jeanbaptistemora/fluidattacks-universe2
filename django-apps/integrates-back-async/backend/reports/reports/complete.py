@@ -3,6 +3,8 @@ from typing import cast, List
 import uuid
 from openpyxl import load_workbook
 
+from asgiref.sync import async_to_sync
+
 # Local libraries
 from backend.domain import (
     project as project_domain,
@@ -38,7 +40,9 @@ def generate(
             project, 'finding_id, finding, historic_treatment'
         )
         for finding in findings:
-            vulns = vuln_domain.get_vulnerabilities(str(finding['finding_id']))
+            vulns = async_to_sync(vuln_domain.list_vulnerabilities_async)(
+                [str(finding['finding_id'])]
+            )
             for vuln in vulns:
                 sheet.cell(row_index, vuln_where_col, vuln['where'])
                 sheet.cell(row_index, vuln_specific_col, vuln['specific'])
