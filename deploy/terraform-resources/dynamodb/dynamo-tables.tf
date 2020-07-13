@@ -55,6 +55,30 @@ resource "aws_dynamodb_table" "subscriptions" {
     type = "S"
   }
 
+  attribute {
+    name = "pk_meta"
+    type = "S"
+  }
+
+  attribute {
+    name = "sk_meta"
+    type = "S"
+  }
+
+  global_secondary_index {
+    name               = "pk_meta"
+    hash_key           = "pk_meta"
+    range_key          = "sk_meta"
+    projection_type    = "ALL"
+  }
+
+  global_secondary_index {
+    name               = "sk_meta"
+    hash_key           = "sk_meta"
+    range_key          = "pk_meta"
+    projection_type    = "ALL"
+  }
+
   point_in_time_recovery {
     enabled = true
   }

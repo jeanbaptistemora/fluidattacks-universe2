@@ -19,6 +19,56 @@ aws dynamodb create-table \
     }]' \
   --table-name 'fi_authz' \
 
+aws dynamodb create-table \
+  --attribute-definitions '[{
+      "AttributeName": "pk",
+      "AttributeType": "S"
+    },{
+      "AttributeName": "sk",
+      "AttributeType": "S"
+    },{
+      "AttributeName": "pk_meta",
+      "AttributeType": "S"
+    },{
+      "AttributeName": "sk_meta",
+      "AttributeType": "S"
+    }]' \
+  --billing-mode 'PAY_PER_REQUEST' \
+  --endpoint-url http://localhost:8022 \
+  --global-secondary-indexes '[{
+      "IndexName": "pk_meta",
+      "KeySchema": [{
+        "AttributeName": "pk_meta",
+        "KeyType": "HASH"
+      },{
+        "AttributeName": "sk_meta",
+        "KeyType": "RANGE"
+      }],
+      "Projection": {
+        "ProjectionType": "ALL"
+      }
+    },{
+      "IndexName": "sk_meta",
+      "KeySchema": [{
+        "AttributeName": "sk_meta",
+        "KeyType": "HASH"
+      },{
+        "AttributeName": "pk_meta",
+        "KeyType": "RANGE"
+      }],
+      "Projection": {
+        "ProjectionType": "ALL"
+      }
+    }]' \
+  --key-schema '[{
+      "AttributeName": "pk",
+      "KeyType": "HASH"
+    },{
+      "AttributeName": "sk",
+      "KeyType": "RANGE"
+    }]' \
+  --table-name 'fi_subscriptions' \
+
 aws dynamodb create-table --endpoint-url http://localhost:8022 \
 --table-name FI_findings \
 --attribute-definitions \
