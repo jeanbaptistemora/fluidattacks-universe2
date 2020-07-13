@@ -14,6 +14,7 @@ in
             pkgs.curl
             pkgs.cacert
             pkgs.jq
+            pkgs.sops
           ];
         })
   )
