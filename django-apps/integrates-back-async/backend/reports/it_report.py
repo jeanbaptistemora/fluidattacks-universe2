@@ -41,19 +41,6 @@ class ITReport():
             'finding': 'Findings',
         },
         'en': {}}
-    finding = {
-        'name': 2,
-        'description': 3,
-        'where': 4,
-        'where_records': 5,
-        'measurements': 7,
-        'severityCvss': 8,
-        'cardinality': 9,
-        'affected_records': 10,
-        'evidence': 11,
-        'solution': 12,
-        'requirements_id': 13
-    }
     vulnerability = {
         'finding': 3,
         'specific': 2,
@@ -293,73 +280,6 @@ class ITReport():
             self.vulnerability['treatment_manager'],
             row.get('treatment_manager', '-')
         )
-
-    def __write(self, row):
-        """Write Formstack finding in a row on the Findings sheet."""
-        self.__select_finding_sheet()
-        self.set_cell(self.finding['name'], row['finding'])
-        self.set_cell(self.finding['description'], row['vulnerability'])
-        self.set_cell(self.finding['where'], row.get('where', ''))
-        if int(row.get('recordsNumber', 0)) > 0:
-            self.set_cell(self.finding['where_records'],
-                          'Evidences/' + row['finding'] + '/records.csv')
-        self.set_cell_number(self.finding['severityCvss'], row['severityCvss'])
-        self.set_cell_number(
-            self.finding['cardinality'], row['openVulnerabilities'])
-        self.set_cell_number(
-            self.finding['affected_records'], row.get('recordsNumber', '0'))
-        self.set_cell(self.finding['evidence'], 'Evidences/' + row['finding'])
-        self.set_cell(self.finding['solution'], row['effectSolution'])
-        self.set_cell(self.finding['requirements_id'],
-                      self.__get_req(row['requirements']))
-        self.set_cell(
-            self.finding['measurements'],
-            self.__get_measure(
-                'attackVector', row['severity']['attackVector']))
-        self.set_cell(
-            self.finding['measurements'],
-            self.__get_measure(
-                'attackComplexity', row['severity']['attackComplexity']), 1)
-        self.set_cell(
-            self.finding['measurements'],
-            self.__get_measure(
-                'privilegesRequired', row['severity']['privilegesRequired']),
-            2)
-        self.set_cell(
-            self.finding['measurements'],
-            self.__get_measure(
-                'userInteraction', row['severity']['userInteraction']), 3)
-        self.set_cell(
-            self.finding['measurements'],
-            self.__get_measure(
-                'severityScope', row['severity']['severityScope']), 4)
-        self.set_cell(
-            self.finding['measurements'],
-            self.__get_measure(
-                'confidentialityImpact',
-                row['severity']['confidentialityImpact']),
-            5)
-        self.set_cell(
-            self.finding['measurements'],
-            self.__get_measure(
-                'integrityImpact', row['severity']['integrityImpact']), 6)
-        self.set_cell(
-            self.finding['measurements'],
-            self.__get_measure(
-                'availabilityImpact', row['severity']['availabilityImpact']),
-            7)
-        self.set_cell(
-            self.finding['measurements'],
-            self.__get_measure(
-                'exploitability', row['severity']['exploitability']), 8)
-        self.set_cell(
-            self.finding['measurements'],
-            self.__get_measure(
-                'remediationLevel', row['severity']['remediationLevel']), 9)
-        self.set_cell(
-            self.finding['measurements'],
-            self.__get_measure(
-                'reportConfidence', row['severity']['reportConfidence']), 10)
 
     def __save(self):
         self.result_filename = str(uuid.uuid4()) + '.xlsx'
