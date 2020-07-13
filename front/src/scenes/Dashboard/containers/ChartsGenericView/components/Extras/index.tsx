@@ -8,9 +8,9 @@ import { IChartsGenericViewProps } from "../../types";
 const chartsGenericViewExtras: React.FC<IChartsGenericViewProps> = (props: IChartsGenericViewProps): JSX.Element => {
   const { entity, subject } = props;
 
-  const downloadPngUrl: URL = new URL(`/integrates/graphics-for-${entity}`, window.location.origin);
+  const downloadPngUrl: URL = new URL("/integrates/graphics-report", window.location.origin);
+  downloadPngUrl.searchParams.set("entity", entity);
   downloadPngUrl.searchParams.set(entity, subject);
-  downloadPngUrl.searchParams.set("reportMode", "true");
 
   return (
     <React.StrictMode>
