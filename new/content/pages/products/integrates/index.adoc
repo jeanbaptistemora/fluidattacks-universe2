@@ -22,9 +22,9 @@ been remediated.
 [role="fw1 f-key-features lh-key-features"]
 Through Integrates you will have access to the visualization
 of all vulnerabilities found as well as information about their
-current status, location, type and severity of the threat
-(according to CVSS), identification/reporting date,
-evolution, and recommendations on how to eliminate them.
+current status, location, type and severity of the threat,
+identification/reporting date, evolution, and
+recommendations on how to eliminate them.
 Access real-time indicators and automated reports.
 
 [role="w-25-ns w-90 dib tl v-top pa3"]
