@@ -40,7 +40,7 @@ class ITReport():
         'en': {}}
     sheet_names = {
         'es': {
-            'finding': 'Findings',
+            'data': 'Data',
         },
         'en': {}}
     vulnerability = {
@@ -89,7 +89,7 @@ class ITReport():
     def __select_finding_sheet(self):
         """Select finding sheet."""
         self.current_sheet = self.workbook[
-            self.sheet_names[self.lang]['finding']
+            self.sheet_names[self.lang]['data']
         ]
 
     def set_cell(self, col, value, inc=0):
