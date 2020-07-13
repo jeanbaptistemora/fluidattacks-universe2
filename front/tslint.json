@@ -15,6 +15,7 @@
       "src/components/DataTableNext/customToggleList.tsx",
       "src/components/DataTableNext/table.tsx",
       "src/components/DataTableNext/sizePerPageRenderer.tsx",
+      "src/components/DataTableNext/index.tsx",
       "src/components/DataTableNext/index.spec.tsx"
     ]
   },

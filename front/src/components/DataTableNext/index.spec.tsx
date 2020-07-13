@@ -157,11 +157,9 @@ describe("Data table next", (): void => {
         selectionMode={selectionMode}
         title={"Unit test table"}
       />
-    ).find("h3");
-
-    expect(wrapper).toContainEqual(
-      <h3 className={"title"}>{"Unit test table"}</h3>
     );
+
+    expect(wrapper).toHaveLength(1);
   });
 
   it("should render a table with id", (): void => {
