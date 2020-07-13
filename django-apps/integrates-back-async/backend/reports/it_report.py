@@ -2,11 +2,12 @@
 """ Class for generate an xlsx file with findings information. """
 import os
 import re
-import uuid
 from typing import cast
 
 from datetime import datetime
+from django.conf import settings
 from asgiref.sync import async_to_sync
+import pytz
 from openpyxl import load_workbook
 from openpyxl.styles import Alignment
 from backend.domain import vulnerability as vuln_domain
@@ -26,6 +27,7 @@ class ITReport():
     lang = None
     row = 2
     result_filename = ''
+    project_name = ''
     base = (
         '/usr/src/app/django-apps/integrates-back-async/backend/reports'
     )
@@ -75,6 +77,7 @@ class ITReport():
             self.current_sheet.row_dimensions[row].hidden = True
 
     def generate(self, data):
+        self.project_name = data[0].get('projectName')
         vulns = async_to_sync(vuln_domain.list_vulnerabilities_async)(
             [finding.get('findingId') for finding in data])
 
@@ -291,7 +294,11 @@ class ITReport():
         )
 
     def __save(self):
-        self.result_filename = str(uuid.uuid4()) + '.xlsx'
+        tzn = pytz.timezone(settings.TIME_ZONE)  # type: ignore
+        today_date = datetime.now(tz=tzn).today().strftime('%Y-%m-%dT%H-%M-%S')
+        self.result_filename = (
+            f'{self.project_name}-vulnerabilities-{today_date}.xlsx'
+        )
         self.workbook.save(self.result_filename)
 
 
