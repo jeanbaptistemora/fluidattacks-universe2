@@ -6,15 +6,12 @@
 = Drills
 
 [role="w-25-ns w-90 dib tl v-top pa3"]
-== Severity and Testing Environments
+== Severity of Tested Requirements
 
 [role="fw1 f-key-features lh-key-features"]
 You are able to decide which security requirements will be tested on each
 ethical hacking (profiling). You will know the exact severity for each hacking
-(for inspected and uninspected profiled requirements). Basic service allows you
-to choose a single environment from production, testing or integration. You can
-also add additional testing environments
-for validation at an additional charge.
+(for inspected and uninspected profiled requirements).
 
 [role="w-25-ns w-90 dib tl v-top pa3"]
 == Vulnerabilities Management Platform
