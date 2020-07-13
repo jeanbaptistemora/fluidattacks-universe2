@@ -76,8 +76,8 @@ function job_lint_secrets {
 function job_lint_commit_msg {
   local commit_diff
   local commit_hashes
-  local parser_url='https://static-objects.gitlab.net/fluidattacks/public/raw/master/commitlint-configs/others/parser-preset.js'
-  local rules_url='https://static-objects.gitlab.net/fluidattacks/public/raw/master/commitlint-configs/others/commitlint.config.js'
+  local parser_url='https://static-objects.gitlab.net/fluidattacks/public/raw/master/commitlint-configs/integrates/parser-preset.js'
+  local rules_url='https://static-objects.gitlab.net/fluidattacks/public/raw/master/commitlint-configs/integrates/commitlint.config.js'
 
       helper_use_pristine_workdir \
   &&  curl -LOJ "${parser_url}" \

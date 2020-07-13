@@ -1,6 +1,6 @@
 repo = 'fluidattacks/public'
 branch = 'master'
-path = 'dangerfiles/Dangerfile.others'
+path = 'dangerfiles/Dangerfile.integrates'
 danger.import_dangerfile(github: repo, branch: branch, path: path)
 
 if git.modified_files.select { |path| path.include? "mobile/" }.length > 0
