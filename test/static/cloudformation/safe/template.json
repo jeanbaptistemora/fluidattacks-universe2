@@ -435,6 +435,7 @@
     },
     "trail1": {
       "Properties": {
+        "EnableLogFileValidation": "true",
         "IsLogging": "true",
         "IsMultiRegionTrail": "true",
         "S3BucketName": "bucketsito"

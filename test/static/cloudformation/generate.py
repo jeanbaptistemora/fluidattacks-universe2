@@ -146,7 +146,8 @@ trail = troposphere.cloudtrail.Trail(
     title='trail1',
     IsLogging=True,
     S3BucketName='bucketsito',
-    IsMultiRegionTrail=True
+    IsMultiRegionTrail=True,
+    EnableLogFileValidation=True
 )
 secret = troposphere.secretsmanager.Secret(
     title='secret1',

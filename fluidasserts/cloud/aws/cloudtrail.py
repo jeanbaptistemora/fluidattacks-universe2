@@ -61,7 +61,7 @@ def files_not_validated(key_id: str,
                         session_token: str = None,
                         retry: bool = True) -> tuple:
     """
-    Check if trails are multiregion.
+    Check if trails have log file validation enabled.
 
     :param key_id: AWS Key Id
     :param secret: AWS Key Secret

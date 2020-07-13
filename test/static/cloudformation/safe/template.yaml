@@ -274,6 +274,7 @@ Resources:
     Type: AWS::EC2::SecurityGroup
   trail1:
     Properties:
+      EnableLogFileValidation: 'true'
       IsLogging: 'true'
       IsMultiRegionTrail: 'true'
       S3BucketName: bucketsito
