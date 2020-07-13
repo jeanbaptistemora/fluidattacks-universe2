@@ -127,15 +127,11 @@ The number of attendants is set according to the limits of the workspace.
 The conference has been given in groups of `20` people
 and in auditoriums with over `80` people
 
-== 8. Requirements
-
-[button]#link:../#requirements[Requirements]#
-
-== 9. Speaker
+== 8. Speaker
 
 [button]#link:../../people/ralvarez/[Rafael Alvarez]#
 
-== 10. Videos
+== 9. Videos
 
 ++++
 <iframe width="560" height="315" src="https://www.youtube.com/embed/qKsz-nvgMrU" frameborder="0" allowfullscreen></iframe>

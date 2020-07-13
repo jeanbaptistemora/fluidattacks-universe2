@@ -84,10 +84,6 @@ The event duration is `1` hour.
 This conference is suitable for people with basic or low technical knowledge.
 The audience limit are `30` assistants.
 
-== 7. Requirements
-
-[button]#link:../#requirements[Requirements]#
-
-== 8. Speakers
+== 7. Speakers
 
 * [button]#link:../../people/jarmas[Jonathan Armas]#

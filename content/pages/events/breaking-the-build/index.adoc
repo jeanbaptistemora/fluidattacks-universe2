@@ -217,11 +217,7 @@ The *workshop* is designed for an audience
 between *12 and 14* persons on the customer side,
 besides `4` additional assistants on `Fluid Attacks` side.
 
-== 9. Requirements
-
-[button]#link:../#requirements[Requirements]#
-
-== 10. Speakers
+== 9. Speakers
 
 * [button]#link:../../people/jrestrepo/[Juan Restrepo]#
 * [button]#link:../../people/ralvarez/[Rafael Álvarez]#

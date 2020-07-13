@@ -52,11 +52,7 @@ The conference is suitable for people
 with basic or low technical knowledge, ideally smartphone users.
 The maximum number of assistants is `30`.
 
-== 8. Requirements
-
-[button]#link:../#requirements[Requirements]#
-
-== 9. Speaker
+== 8. Speaker
 
 Licenciate in Education, with `15` years of experience.
 `Fluid Attacks` Co-founder.
