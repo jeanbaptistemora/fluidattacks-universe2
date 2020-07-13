@@ -4,7 +4,10 @@
 
 = About Us
 
-=== Fluid Attacks is growing every day!
+`Fluid Attacks` specializes in red team operations and technology development
+that supports the hacking of its clients' systems.
+`Fluid Attacks` provides speed, precision, and scalability to hacking projects
+that identify all vulnerabilities in systems.
 
 Since *2001*, `Fluid Attacks` has been developing technology
 focused on cybersecurity.
