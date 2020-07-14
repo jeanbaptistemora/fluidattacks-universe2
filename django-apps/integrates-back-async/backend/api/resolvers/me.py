@@ -21,8 +21,11 @@ from backend.dal.organization import (
     get_many_by_id as get_organizations
 )
 from backend.decorators import require_login, enforce_user_level_auth_async
-from backend.domain import user as user_domain
-from backend.domain import tag as tag_domain
+from backend.domain import (
+    subscriptions as subscriptions_domain,
+    tag as tag_domain,
+    user as user_domain,
+)
 from backend.exceptions import InvalidExpirationTime
 from backend.typing import (
     Me as MeType,
@@ -34,6 +37,7 @@ from backend.typing import (
     UpdateAccessTokenPayload as UpdateAccessTokenPayloadType,
 )
 from backend import util
+from backend.utils.logging import log
 from backend import authz
 
 
@@ -206,6 +210,50 @@ async def resolve_me_mutation(obj, info, **parameters):
     field = util.camelcase_to_snakecase(info.field_name)
     resolver_func = getattr(sys.modules[__name__], f'_do_{field}')
     return await resolver_func(obj, info, **parameters)
+
+
+async def _do_subscribe_to_entity_report(
+    _, info,
+    frequency: str,
+    report_entity: str,
+    report_subject: str,
+) -> SimplePayloadType:
+    success: bool = False
+    user_info = util.get_jwt_content(info.context)
+    user_email = user_info['user_email']
+
+    if await subscriptions_domain.can_subscribe_user_to_entity_report(
+        report_entity=report_entity,
+        report_subject=report_subject,
+        user_email=user_email,
+    ):
+        success = await subscriptions_domain.subscribe_user_to_entity_report(
+            period=subscriptions_domain.frequency_to_period(
+                frequency=frequency,
+            ),
+            report_entity=report_entity,
+            report_subject=report_subject,
+            user_email=user_email,
+        )
+
+        if success:
+            util.cloudwatch_log(
+                info.context,
+                f'user: {user_email} subscribed to '
+                f'entity_report: {report_entity}/{report_subject}',
+            )
+        else:
+            log('backend.api.resolvers.me._do_subscribe_to_entity_report',
+                level='error', extra_data=locals())
+    else:
+        util.cloudwatch_log(
+            info.context,
+            f'user: {user_email} attempted to subscribe to '
+            f'entity_report: {report_entity}/{report_subject} '
+            f'without permission',
+        )
+
+    return SimplePayloadType(success=success)
 
 
 async def _do_sign_in(

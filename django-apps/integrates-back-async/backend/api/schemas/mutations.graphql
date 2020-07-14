@@ -306,6 +306,12 @@ type Mutation {
         provider: AuthProvider!
     ): SignInPayload!
 
+    subscribeToEntityReport(
+        frequency: Frequency!,
+        report_entity: SubscriptionReportEntity!
+        report_subject: String!
+    ): SimplePayload!
+
     invalidateCache(pattern: String!): SimplePayload!
 
     requestProjectReport(

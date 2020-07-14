@@ -301,6 +301,18 @@ enum Entity {
     USER
 }
 
+enum Frequency {
+    DAILY
+    HOURLY
+    MONTHLY
+    WEEKLY
+}
+
+enum SubscriptionReportEntity {
+    GROUP
+    ORGANIZATION
+}
+
 enum ResourceState {
     ACTIVE
     INACTIVE

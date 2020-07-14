@@ -3,6 +3,7 @@ from collections.abc import Mapping
 from datetime import datetime
 from decimal import Decimal
 from typing import (
+    Dict,
     List,
     Optional,
 )
@@ -14,6 +15,26 @@ from backend.dal import (
 from backend.dal.subscriptions import (
     NumericType,
 )
+from backend.domain import (
+    organization as org_domain,
+)
+from backend.utils import (
+    aio,
+)
+from backend.services import (
+    has_access_to_project as has_access_to_group,
+)
+
+
+def frequency_to_period(*, frequency: str) -> int:
+    mapping: Dict[str, int] = {
+        'HOURLY': 3600,
+        'DAILY': 86400,
+        'WEEKLY': 604800,
+        'MONTHLY': 2419200,
+    }
+
+    return mapping[frequency]
 
 
 def is_subscription_active_right_now(
@@ -54,6 +75,31 @@ async def get_subscriptions_to_entity_report(
     return await subscriptions_dal.get_subscriptions_to_entity_report(
         audience=audience,
     )
+
+
+async def can_subscribe_user_to_entity_report(
+    *,
+    report_entity: str,
+    report_subject: str,
+    user_email: str,
+) -> bool:
+    success: bool = False
+
+    if report_entity.lower() == 'group':
+        success = await aio.ensure_io_bound(
+            has_access_to_group,
+            user_email,
+            report_subject.lower(),
+        )
+    elif report_entity.lower() == 'organization':
+        success = await org_domain.has_user_access(
+            email=user_email,
+            organization_id=report_subject,
+        )
+    else:
+        raise ValueError('Invalid report_entity')
+
+    return success
 
 
 async def subscribe_user_to_entity_report(
