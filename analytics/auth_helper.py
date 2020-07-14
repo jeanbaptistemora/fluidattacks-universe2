@@ -84,7 +84,7 @@ def timedoctor_start() -> bool:
     """Scrip to refresh the timedoctor token."""
     project_id = os.environ['CI_PROJECT_ID']
     timedoctor = json.loads(os.environ['analytics_auth_timedoctor'])
-    analytics_gitlab_token = os.environ['analytics_gitlab_token']
+    analytics_gitlab_token = os.environ['GITLAB_API_TOKEN']
 
     print(timedoctor_initial_url_1(
         client_id=timedoctor['client_id'],
@@ -126,7 +126,7 @@ def timedoctor_refresh() -> bool:
     # Get the current values
     project_id = os.environ['CI_PROJECT_ID']
     timedoctor = json.loads(os.environ['analytics_auth_timedoctor'])
-    analytics_gitlab_token = os.environ['analytics_gitlab_token']
+    analytics_gitlab_token = os.environ['GITLAB_API_TOKEN']
 
     # Get the new token
     new_timedoctor = json.loads(get_from_url(

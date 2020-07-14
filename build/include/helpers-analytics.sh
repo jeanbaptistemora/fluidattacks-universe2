@@ -55,15 +55,13 @@ function helper_analytics_dynamodb {
 function helper_analytics_services_toe {
       helper_aws_login \
   &&  sops_env secrets-prod.yaml default \
-        analytics_gitlab_user \
-        analytics_gitlab_token \
         analytics_auth_redshift \
   &&  echo '[INFO] Generating secret files' \
   &&  echo "${analytics_auth_redshift}" > "${TEMP_FILE2}" \
   &&  pushd analytics/services || return 1 \
     &&  echo '[INFO] Cloning services repository' \
     &&  git clone --depth 1 --single-branch \
-          "https://${analytics_gitlab_user}:${analytics_gitlab_token}@gitlab.com/fluidattacks/services.git" \
+          "https://${GITLAB_API_USER}:${GITLAB_API_TOKEN}@gitlab.com/fluidattacks/services.git" \
     &&  echo '[INFO] Running streamer' \
     &&  ./streamer_toe.py \
           > .jsonstream \
@@ -155,7 +153,7 @@ function helper_analytics_mandrill {
 }
 
 function helper_analytics_gitlab {
-  export GITLAB_PASS
+  export GITLAB_API_TOKEN
   local project
   local projects=(
     'autonomicmind/default'
@@ -172,14 +170,12 @@ function helper_analytics_gitlab {
 
       helper_aws_login \
   &&  sops_env secrets-prod.yaml default \
-        analytics_gitlab_token \
         analytics_auth_redshift \
   &&  echo '[INFO] Generating secret files' \
   &&  echo "${analytics_auth_redshift}" > "${TEMP_FILE2}" \
   &&  echo '[INFO] Running streamer' \
   &&  for project in "${projects[@]}"
       do
-        GITLAB_PASS="${analytics_gitlab_token}" \
         ./analytics/singer/streamer_gitlab.py "${project}" >> .jsonstream \
             || return 1
       done \
@@ -202,12 +198,11 @@ function helper_analytics_timedoctor {
   &&  mkdir ./logs \
   &&  sops_env secrets-prod.yaml default \
         analytics_auth_redshift \
-        analytics_gitlab_token \
         analytics_s3_cache_timedoctor \
   &&  analytics_auth_timedoctor=$( \
         helper_get_gitlab_var \
           'analytics_auth_timedoctor' \
-          "${analytics_gitlab_token}") \
+          "${GITLAB_API_TOKEN}") \
   &&  echo '[INFO] Generating secret files' \
   &&  echo "${analytics_s3_cache_timedoctor}" > ./s3_files.json \
   &&  echo "${analytics_auth_timedoctor}" > "${TEMP_FILE1}" \
@@ -284,10 +279,6 @@ function helper_analytics_git_process {
   export CI_NODE_TOTAL
 
       helper_aws_login \
-  &&  echo '[INFO] Exporting secrets' \
-  &&  sops_env secrets-prod.yaml default \
-        analytics_gitlab_user \
-        analytics_gitlab_token \
   &&  echo '[INFO] Cloning our own repositories' \
   &&  python3 analytics/git/clone_us.py \
   &&  echo "[INFO] Generating config: ${CI_NODE_INDEX} / ${CI_NODE_TOTAL}" \
@@ -332,12 +323,10 @@ function helper_analytics_timedoctor_refresh_token {
   export analytics_auth_timedoctor
 
       helper_aws_login \
-  &&  sops_env secrets-prod.yaml default \
-        analytics_gitlab_token \
   &&  analytics_auth_timedoctor=$( \
         helper_get_gitlab_var \
           'analytics_auth_timedoctor' \
-          "${analytics_gitlab_token}") \
+          "${GITLAB_API_TOKEN}") \
   &&  echo '[INFO] Updating token...' \
   &&  ./analytics/auth_helper.py --timedoctor-refresh \
   &&  echo '[INFO] Done! Token created at GitLab/serves env vars'
@@ -349,12 +338,11 @@ function helper_analytics_timedoctor_backup {
       helper_aws_login \
   &&  mkdir ./logs \
   &&  sops_env secrets-prod.yaml default \
-        analytics_gitlab_token \
         analytics_s3_cache_timedoctor \
   &&  analytics_auth_timedoctor=$( \
         helper_get_gitlab_var \
           'analytics_auth_timedoctor' \
-          "${analytics_gitlab_token}") \
+          "${GITLAB_API_TOKEN}") \
   &&  echo '[INFO] Generating secret files' \
   &&  echo "${analytics_s3_cache_timedoctor}" > ./s3_files.json \
   &&  echo "${analytics_auth_timedoctor}" > "${TEMP_FILE2}" \
@@ -385,7 +373,6 @@ function helper_analytics_timedoctor_manually_create_token {
       helper_aws_login \
   &&  sops_env secrets-prod.yaml default \
         analytics_auth_timedoctor \
-        analytics_gitlab_token \
   &&  echo '[INFO] Executing creator, follow the steps' \
   &&  ./analytics/auth_helper.py --timedoctor-start \
   &&  echo '[INFO] Done! Token created at GitLab/serves env vars'
@@ -396,9 +383,6 @@ function helper_analytics_services_repositories_cache {
 
       helper_aws_login \
   &&  helper_move_artifacts_to_git \
-  &&  sops_env secrets-prod.yaml default \
-        analytics_gitlab_user \
-        analytics_gitlab_token \
   &&  echo '[INFO] Cloning our own repositories' \
   &&  python3 analytics/git/clone_us.py \
   &&  echo '[INFO] Cloning customer repositories' \

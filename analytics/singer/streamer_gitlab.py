@@ -73,9 +73,9 @@ class API():
 def main():
     """Usual entrypoint."""
     try:
-        token: str = os.environ['GITLAB_PASS']
+        token: str = os.environ['GITLAB_API_TOKEN']
     except KeyError:
-        log(f'Please set GITLAB_PASS as an environment variable.')
+        log(f'Please set GITLAB_API_TOKEN as an environment variable.')
     else:
         api = API(token)
         project = urllib.parse.quote(sys.argv[1], safe='')
