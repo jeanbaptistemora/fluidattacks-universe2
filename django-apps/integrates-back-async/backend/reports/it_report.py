@@ -2,17 +2,18 @@
 """ Class for generate an xlsx file with findings information. """
 import os
 import re
-from typing import cast
+from typing import cast, Dict, List, Optional, Union
 
 from datetime import datetime
 from django.conf import settings
 from asgiref.sync import async_to_sync
 import pytz
 from openpyxl import load_workbook
-from openpyxl.styles import Alignment
+from openpyxl.styles import Alignment, stylesheet
 from backend.domain import vulnerability as vuln_domain
 from backend.domain.finding import get_finding
 from backend.typing import (
+    Finding as FindingType,
     Historic as HistoricType,
     Vulnerability as VulnType
 )
@@ -22,7 +23,7 @@ class ITReport():
     """Class to generate IT reports."""
 
     workbook = None
-    current_sheet = None
+    current_sheet: stylesheet.Stylesheet = None
     data = None
     lang = None
     row = 2
@@ -32,7 +33,7 @@ class ITReport():
         '/usr/src/app/django-apps/integrates-back-async/backend/reports'
     )
     result_path = os.path.join(base, 'results/results_excel')
-    templates = {
+    templates: Dict[str, Dict[str, str]] = {
         'es': {
             'TECHNICAL': os.path.join(
                 base, 'templates/excel', 'TECHNICAL_VULNS.xlsx'),
@@ -75,7 +76,7 @@ class ITReport():
         'cvss_vector': 29,
     }
 
-    def __init__(self, data, lang='es'):
+    def __init__(self, data: List[Dict[str, FindingType]], lang: str = 'es'):
         """Initialize variables."""
         self.lang = lang
         self.workbook = load_workbook(
@@ -83,15 +84,15 @@ class ITReport():
         )
         self.generate(data)
 
-    def hide_cell(self, data):
+    def hide_cell(self, data: List[FindingType]):
         init_row = 3 + 12 * len(data)
         end_row = 3 + 12 * 70
         self.__select_finding_sheet()
         for row in range(init_row, end_row):
             self.current_sheet.row_dimensions[row].hidden = True
 
-    def generate(self, data):
-        self.project_name = data[0].get('projectName')
+    def generate(self, data: List[Dict[str, FindingType]]):
+        self.project_name = str(data[0].get('projectName'))
         vulns = async_to_sync(vuln_domain.list_vulnerabilities_async)(
             [finding.get('findingId') for finding in data])
 
@@ -106,7 +107,13 @@ class ITReport():
             self.sheet_names[self.lang]['data']
         ]
 
-    def set_cell(self, col, value, inc=0, align='center'):
+    def set_cell(
+        self,
+        col: int,
+        value: Union[str, int, datetime],
+        inc: int = 0,
+        align: str = 'center'
+    ):
         """Assign a value to a cell with findings index."""
         alignment = Alignment(
             horizontal=align,
@@ -117,12 +124,7 @@ class ITReport():
             row=self.row + inc, column=col).alignment = alignment
         self.current_sheet.cell(row=self.row + inc, column=col).value = value
 
-    def set_cell_number(self, col, value, inc=0):
-        """Assign a numeric value to a cell with findings index."""
-        self.current_sheet.cell(
-            row=self.row + inc, column=col).value = float(value)
-
-    def __get_req(self, req_vect): # noqa
+    def __get_req(self, req_vect: str): # noqa
         """Get all the identifiers with the REQ.XXXX format."""
         try:
             reqs = re.findall('REQ\\.\\d{3,4}', req_vect) # noqa
@@ -132,7 +134,12 @@ class ITReport():
         except ValueError:
             return ''
 
-    def __get_measure(self, metric, metric_value): # noqa
+    @classmethod
+    def __get_measure(
+        cls,
+        metric: str,
+        metric_value: str
+    ) -> Optional[str]: # noqa
         """Extract number of CSSV metrics."""
         try:
             metrics = {
@@ -203,7 +210,7 @@ class ITReport():
         except ValueError:
             return ''
 
-    def set_cvss_metrics_cell(self, row):
+    def set_cvss_metrics_cell(self, row: VulnType):
         measures = {
             'AV': 'attackVector',
             'AC': 'attackComplexity',
@@ -219,7 +226,10 @@ class ITReport():
         }
         metric_vector = []
         for index, (indicator, measure) in enumerate(measures.items()):
-            value = self.__get_measure(measure, row['severity'][measure])
+            value = self.__get_measure(
+                measure,
+                cast(Dict[str, str], row['severity'])[measure]
+            )
             if value:
                 metric_vector.append(f'{indicator}:{value[0]}')
                 self.set_cell(
@@ -254,7 +264,10 @@ class ITReport():
             self.vulnerability['finding_id'],
             finding.get('findingId', '-')
         )
-        self.set_cell(self.vulnerability['vuln_uuid'], row.get('UUID', '-'))
+        self.set_cell(
+            self.vulnerability['vuln_uuid'],
+            str(row.get('UUID', '-'))
+        )
         self.set_cell(self.vulnerability['specific'], where_specific)
 
         self.write_finding_data(finding, row)
@@ -263,9 +276,13 @@ class ITReport():
         self.write_reattack_data(finding)
         self.set_cvss_metrics_cell(finding)
 
-    def write_finding_data(self, finding, vuln):
-        compromised_attributes = finding.get('compromisedAttrs') or '-'
-        n_compromised_attributes = 0
+    def write_finding_data(
+        self,
+        finding: Dict[str, FindingType],
+        vuln: VulnType
+    ):
+        compromised_attributes = str(finding.get('compromisedAttrs')) or '-'
+        n_compromised_attributes = None
         if compromised_attributes != '-':
             n_compromised_attributes = \
                 str(len(compromised_attributes.split('\n')))
@@ -273,40 +290,40 @@ class ITReport():
 
         self.set_cell(
             self.vulnerability['description'],
-            finding.get('vulnerability', '-'),
+            str(finding.get('vulnerability', '-')),
             align='left'
         )
         self.set_cell(
             self.vulnerability['status'],
-            vuln.get('historic_state')[-1]['state']
+            cast(HistoricType, vuln.get('historic_state'))[-1]['state']
         )
         self.set_cell(
             self.vulnerability['severity'],
-            finding.get('severityCvss', '-')
+            str(finding.get('severityCvss', '-'))
         )
         self.set_cell(
             self.vulnerability['requirements'],
-            finding.get('requirements', '-'),
+            str(finding.get('requirements', '-')),
             align='left'
         )
         self.set_cell(
             self.vulnerability['impact'],
-            finding.get('attackVectorDesc', '-'),
+            str(finding.get('attackVectorDesc', '-')),
             align='left'
         )
         self.set_cell(
             self.vulnerability['affected_systems'],
-            finding.get('affectedSystems', '-'),
+            str(finding.get('affectedSystems', '-')),
             align='left'
         )
         self.set_cell(
             self.vulnerability['threat'],
-            finding.get('threat', '-'),
+            str(finding.get('threat', '-')),
             align='left'
         )
         self.set_cell(
             self.vulnerability['recommendation'],
-            finding.get('effectSolution', '-'),
+            str(finding.get('effectSolution', '-')),
             align='left'
         )
         self.set_cell(
@@ -324,7 +341,7 @@ class ITReport():
             n_compromised_attributes or '0'
         )
 
-    def write_vuln_temporal_data(self, vuln):
+    def write_vuln_temporal_data(self, vuln: VulnType):
         vuln_historic_state = cast(HistoricType, vuln.get('historic_state'))
         vuln_date = datetime.strptime(
             vuln_historic_state[0]['date'], '%Y-%m-%d %H:%M:%S')
@@ -346,8 +363,13 @@ class ITReport():
             if vuln_closed else '-'
         )
 
-    def write_treatment_data(self, finding, vuln):
-        treatment = vuln.get('treatment', 'NEW').capitalize().replace('_', ' ')
+    def write_treatment_data(
+        self,
+        finding: Dict[str, FindingType],
+        vuln: VulnType
+    ):
+        treatment = \
+            str(vuln.get('treatment', 'NEW')).capitalize().replace('_', ' ')
         if treatment == 'Accepted undefined':
             treatment = 'Eternally accepted'
         elif treatment == 'Accepted':
@@ -359,13 +381,16 @@ class ITReport():
         self.set_cell(
             self.vulnerability['treatment_date'],
             datetime.strptime(
-                finding.get('historicState')[-1]['date'], '%Y-%m-%d %H:%M:%S')
+                cast(HistoricType, finding.get('historicState'))[-1]['date'],
+                '%Y-%m-%d %H:%M:%S'
+            )
             if 'historicState' in finding and
-            'date' in finding.get('historicState')[-1] else '-'
+            'date' in cast(HistoricType, finding.get('historicState'))[-1]
+            else '-'
         )
         self.set_cell(
             self.vulnerability['treatment_justification'],
-            vuln.get('treatment_justification', '-'),
+            str(vuln.get('treatment_justification', '-')),
             align='left'
         )
         self.set_cell(
@@ -376,11 +401,12 @@ class ITReport():
         )
         self.set_cell(
             self.vulnerability['treatment_manager'],
-            vuln.get('treatment_manager', '-')
+            str(vuln.get('treatment_manager', '-'))
         )
 
-    def write_reattack_data(self, finding):
-        historic_verification = finding.get('historicVerification')
+    def write_reattack_data(self, finding: Dict[str, FindingType]):
+        historic_verification = \
+            cast(HistoricType, finding.get('historicVerification'))
         reattack_requested = None
         reattack_date = None
         reattack_requester = None
@@ -424,7 +450,7 @@ class ITReport():
         self.workbook.save(self.result_filename)
 
 
-def translate_parameter(param):
+def translate_parameter(param: str) -> str:
     translation_values = {
         'CONTINUOUS': 'Continua',
         'ANALYSIS': 'Análisis',
@@ -443,4 +469,4 @@ def translate_parameter(param):
         'APPLICATIONS': 'Aplicaciones',
         'DATABASES': 'Bases de Datos'
     }
-    return translation_values.get(param)
+    return str(translation_values.get(param))
