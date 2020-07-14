@@ -20,6 +20,8 @@ from backend.typing import (
     Finding as FindingType,
     Project as ProjectType
 )
+from backend.utils import aio
+from backend.utils.logging import log
 
 from __init__ import (
     BASE_URL,
@@ -263,6 +265,19 @@ def send_mail_new_draft(
         email_to: List[str],
         context: Dict[str, Union[str, int]]):
     _send_mail('new-draft', email_to, context=context, tags=GENERAL_TAG)
+
+
+async def send_mail_charts(*email_to: str, **context: str) -> None:
+    await log(f'send_mail_charts(email_to={email_to}, context={context})',
+              level='info')
+
+    await aio.ensure_io_bound(
+        function=_send_mail,
+        template_name='charts-report',
+        email_to=email_to,
+        context=context,
+        tags=GENERAL_TAG,
+    )
 
 
 def send_mail_new_vulnerabilities(

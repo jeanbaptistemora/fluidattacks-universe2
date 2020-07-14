@@ -647,8 +647,8 @@ function _job_analytics_make_documents {
   export CI_COMMIT_REF_NAME
   export CI_NODE_INDEX
   export CI_NODE_TOTAL
-  export DJANGO_SETTINGS_MODULE='fluidintegrates.settings' \
-  export PYTHONPATH="${PWD}:${PWD}/analytics:${PYTHONPATH}" \
+  export DJANGO_SETTINGS_MODULE='fluidintegrates.settings'
+  export PYTHONPATH="${PWD}:${PWD}/analytics:${PYTHONPATH}"
   export TEMP_FILE1
   local remote_bucket='fluidintegrates.analytics'
   local num_of_generators
@@ -672,8 +672,8 @@ function _job_analytics_make_documents {
 
 function _job_analytics_make_snapshots {
   export CI_COMMIT_REF_NAME
-  export DJANGO_SETTINGS_MODULE='fluidintegrates.settings' \
-  export PYTHONPATH="${PWD}:${PWD}/analytics:${PYTHONPATH}" \
+  export DJANGO_SETTINGS_MODULE='fluidintegrates.settings'
+  export PYTHONPATH="${PWD}:${PWD}/analytics:${PYTHONPATH}"
   local remote_bucket='fluidintegrates.analytics'
 
       echo '[INFO] Collecting static results' \
@@ -722,6 +722,35 @@ function job_make_migration_prod_apply {
   local migration_file="${1}"
 
   _job_make_migration 'prod' 'apply' "${migration_file}"
+}
+
+function _job_subscriptions_trigger_user_to_entity_report {
+  export DJANGO_SETTINGS_MODULE='fluidintegrates.settings'
+  export PYTHONPATH="${PWD}:${PWD}/analytics:${PYTHONPATH}"
+
+      echo '[INFO] Waking up: trigger_user_to_entity_report' \
+  &&  python3 \
+        'django-apps/integrates-back-async/cli/subscriptions.py' \
+        'backend.domain.subscriptions.trigger_user_to_entity_report' \
+
+}
+
+function job_subscriptions_trigger_user_to_entity_report_dev {
+      env_prepare_python_packages \
+  &&  helper_set_dev_secrets \
+  &&  if test "${IS_LOCAL_BUILD}" = "${FALSE}"
+      then
+        helper_set_local_dynamo_and_redis
+      fi \
+  &&  _job_subscriptions_trigger_user_to_entity_report \
+
+}
+
+function job_subscriptions_trigger_user_to_entity_report_prod_schedule {
+      env_prepare_python_packages \
+  &&  helper_set_prod_secrets \
+  &&  _job_subscriptions_trigger_user_to_entity_report \
+
 }
 
 function job_infra_backup_deploy {

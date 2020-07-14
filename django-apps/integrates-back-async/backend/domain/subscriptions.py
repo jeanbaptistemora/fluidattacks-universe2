@@ -9,6 +9,9 @@ from typing import (
 )
 
 # Local libraries
+from backend import (
+    mailer,
+)
 from backend.dal import (
     subscriptions as subscriptions_dal,
 )
@@ -115,3 +118,38 @@ async def subscribe_user_to_entity_report(
         report_subject=report_subject,
         user_email=user_email,
     )
+
+
+async def trigger_user_to_entity_report():
+    coroutines = []
+
+    for subscription in await get_subscriptions_to_entity_report(
+        audience='user',
+    ):
+        user_email: str = subscription['pk']['email']
+        report_entity: str = subscription['sk']['entity']
+        report_subject: str = subscription['sk']['subject']
+
+        if all((
+            # This is expected to run every hour
+            is_subscription_active_right_now(
+                bot_period=3600,
+                event_period=subscription['period']
+            ),
+            # A user may be subscribed but now he does not have access to the
+            #   group or organization, so let's ignore them!
+            await can_subscribe_user_to_entity_report(
+                report_entity=report_entity,
+                report_subject=report_subject,
+                user_email=user_email,
+            ),
+        )):
+            # We should trigger the event!!
+            coroutines.append(
+                mailer.send_mail_charts(
+                    email_to=[user_email],
+                    context={}
+                ),
+            )
+
+    await aio.materialize(coroutines)

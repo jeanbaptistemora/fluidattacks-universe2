@@ -9,6 +9,7 @@ stages:
   - deploy-app
   - post-deploy
   - analytics
+  - subscriptions
   - external
 
 .in_everywhere_except_periodic_jobs: &in_everywhere_except_periodic_jobs
@@ -134,6 +135,18 @@ analytics_make_snapshots_prod_schedule:
   only:
     refs: [schedules]
     variables: [$analytics]
+
+subscriptions_trigger_user_to_entity_report_dev:
+  <<: *with_nix
+  <<: *in_dev_branch
+  stage: subscriptions
+
+subscriptions_trigger_user_to_entity_report_prod_schedule:
+  <<: *with_nix
+  stage: subscriptions
+  only:
+    refs: [schedules]
+    variables: [$subscriptions]
 
 build_front:
   <<: *with_nix
