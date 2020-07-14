@@ -22,8 +22,8 @@ They are the security demands that you agree to follow and comply with.
 In our hacking services, we determine if these are met or not.
 
 |====
-
-You can access the product [button]#link:../../rules/[here]#.
+[role="tc"]
+[button]#link:../../rules/[Access Rules, role="button-rules"]#
 
 == Standards
 

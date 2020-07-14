@@ -494,6 +494,23 @@ $codeyellow: rgba(230, 219, 116, 1);
     }
   }
 
+  .button-rules {
+    background-color: $button-red;
+    border-radius: .25rem ;
+    color: white;
+    cursor: pointer;
+    font-weight: 800;
+    padding-bottom: .5rem;
+    padding-left: 2rem;
+    padding-top: .5rem;
+    padding-right: 2rem;
+    transition: all .3s ease;
+    &:hover {
+      background-color: $button-hover;
+      color: white;
+    }
+  }
+
   p {
     font-size: 1.125rem;
     font-weight: 400;
