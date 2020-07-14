@@ -1,5 +1,5 @@
 import { Column } from "react-bootstrap-table-next";
-import { IHeader } from "../types";
+import { IHeaderConfig } from "../types";
 import _ from "lodash";
 import { CSSProperties, ReactElement } from "react";
 
@@ -7,12 +7,12 @@ const handleFormatter: (
   value: string,
   row: Readonly<{ [key: string]: string }>,
   rowIndex: number,
-  key: Readonly<IHeader>
+  key: Readonly<IHeaderConfig>
 ) => string | ReactElement | undefined = (
   value: string,
   row: Readonly<{ [key: string]: string }>,
   rowIndex: number,
-  key: Readonly<IHeader>
+  key: Readonly<IHeaderConfig>
 ): string | ReactElement | undefined => {
   if (!_.isUndefined(key.formatter)) {
     return key.formatter(value, row, rowIndex, key);
@@ -20,14 +20,14 @@ const handleFormatter: (
 };
 
 const addGivenHeaders: (
-  headers: readonly Readonly<IHeader>[],
+  headers: readonly Readonly<IHeaderConfig>[],
   isFilterEnabled?: boolean
 ) => Column[] = (
-  headers: readonly Readonly<IHeader>[],
+  headers: readonly Readonly<IHeaderConfig>[],
   isFilterEnabled: boolean = true
 ): Column[] =>
   headers.map(
-    (key: Readonly<IHeader>): Column => {
+    (key: Readonly<IHeaderConfig>): Column => {
       const handleSort: (dataField: string, order: SortOrder) => void = (
         dataField: string,
         order: SortOrder
@@ -87,11 +87,11 @@ const addDynamicHeaders: (dataFields: readonly string[]) => Column[] = (
 };
 
 export const customizeColumns: (
-  headers: readonly Readonly<IHeader>[],
+  headers: readonly Readonly<IHeaderConfig>[],
   dataset: readonly Readonly<Record<string, unknown>>[],
   isFilterEnabled?: boolean
 ) => Column[] = (
-  headers: readonly Readonly<IHeader>[],
+  headers: readonly Readonly<IHeaderConfig>[],
   dataset: readonly Readonly<Record<string, unknown>>[],
   isFilterEnabled?: boolean
 ): Column[] =>

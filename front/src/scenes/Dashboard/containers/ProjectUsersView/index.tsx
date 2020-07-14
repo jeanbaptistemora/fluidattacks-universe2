@@ -14,7 +14,7 @@ import React from "react";
 import { ButtonToolbar, Col, Glyphicon, Row } from "react-bootstrap";
 import { Button } from "../../../../components/Button/index";
 import { DataTableNext } from "../../../../components/DataTableNext/index";
-import { IHeader } from "../../../../components/DataTableNext/types";
+import { IHeaderConfig } from "../../../../components/DataTableNext/types";
 import { FluidIcon } from "../../../../components/FluidIcon";
 import { TooltipWrapper } from "../../../../components/TooltipWrapper/index";
 import { Can } from "../../../../utils/authz/Can";
@@ -30,7 +30,7 @@ import {
   IAddUserAttr, IEditUserAttr, IProjectUsersViewProps, IRemoveUserAttr, IUserDataAttr, IUsersAttr,
 } from "./types";
 
-const tableHeaders: IHeader[] = [
+const tableHeaders: IHeaderConfig[] = [
   {
     dataField: "email",
     header: translate.t("search_findings.users_table.usermail"),

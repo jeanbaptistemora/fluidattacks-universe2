@@ -18,7 +18,7 @@ export interface ITableProps {
   defaultSorted?: Sorted;
   exportCsv: boolean;
   headerContainer?: string;
-  headers: IHeader[];
+  headers: IHeaderConfig[];
   id: string;
   isFilterEnabled?: boolean;
   pageSize: number;
@@ -33,9 +33,7 @@ export interface ITableProps {
   onUpdateEnableFilter?: () => void;
 }
 
-// This will be rename to IHeaderConfig
-// eslint-disable-next-line @typescript-eslint/naming-convention
-export interface IHeader {
+export interface IHeaderConfig {
   align?: string;
   dataField: string;
   filter?: unknown;

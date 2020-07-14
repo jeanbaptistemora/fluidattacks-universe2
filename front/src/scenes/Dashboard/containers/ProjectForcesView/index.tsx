@@ -21,7 +21,7 @@ import { GraphQLError } from "graphql";
 import { Button } from "../../../../components/Button";
 import { statusFormatter } from "../../../../components/DataTableNext/formatters";
 import { DataTableNext } from "../../../../components/DataTableNext/index";
-import { IHeader } from "../../../../components/DataTableNext/types";
+import { IHeaderConfig } from "../../../../components/DataTableNext/types";
 import { Modal } from "../../../../components/Modal";
 import { msgError } from "../../../../utils/notifications";
 import rollbar from "../../../../utils/rollbar";
@@ -162,7 +162,7 @@ const projectForcesView: React.FunctionComponent<ForcesViewProps> = (props: Forc
   const formatText: ((text: string) => ReactElement<Text>) = (text: string): ReactElement<Text> =>
     <p className={styles.wrapped}>{text}</p>;
 
-  const headersExecutionTable: IHeader[] = [
+  const headersExecutionTable: IHeaderConfig[] = [
     {
       align: "center", dataField: "date", header: translate.t("group.forces.date"),
       onSort: onSortState, width: "13%", wrapped: true,
@@ -193,7 +193,7 @@ const projectForcesView: React.FunctionComponent<ForcesViewProps> = (props: Forc
       onSort: onSortState, width: "13%", wrapped: true,
     },
   ];
-  const headersCompromisedToeTable: IHeader[] = [
+  const headersCompromisedToeTable: IHeaderConfig[] = [
     {
       dataField: "riskState",
       formatter: formatText,

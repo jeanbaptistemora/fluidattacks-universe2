@@ -17,7 +17,7 @@ import { Field, InjectedFormProps } from "redux-form";
 import { Button } from "../../../../components/Button";
 import { statusFormatter } from "../../../../components/DataTableNext/formatters";
 import { DataTableNext } from "../../../../components/DataTableNext/index";
-import { IHeader } from "../../../../components/DataTableNext/types";
+import { IHeaderConfig } from "../../../../components/DataTableNext/types";
 import { Modal } from "../../../../components/Modal";
 import { TooltipWrapper } from "../../../../components/TooltipWrapper/index";
 import { formatDrafts } from "../../../../utils/formatHelpers";
@@ -73,7 +73,7 @@ const projectDraftsView: React.FC<IProjectDraftsBaseProps> = (props: IProjectDra
     sessionStorage.setItem("draftStatusFilter", filterVal);
   };
 
-  const tableHeaders: IHeader[] = [
+  const tableHeaders: IHeaderConfig[] = [
     { align: "center", dataField: "reportDate", header: "Date", onSort: onSortState, width: "10%" },
     { align: "center", dataField: "type", header: "Type", onSort: onSortState, width: "8%" },
     { align: "center", dataField: "title", header: "Title", onSort: onSortState, wrapped: true, width: "18%" },

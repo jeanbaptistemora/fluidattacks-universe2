@@ -10,7 +10,7 @@ import React from "react";
 import { ButtonToolbar, Col, Glyphicon, Row } from "react-bootstrap";
 import { Button } from "../../../../../components/Button";
 import { DataTableNext } from "../../../../../components/DataTableNext";
-import { IHeader } from "../../../../../components/DataTableNext/types";
+import { IHeaderConfig } from "../../../../../components/DataTableNext/types";
 import { TooltipWrapper } from "../../../../../components/TooltipWrapper";
 import { Can } from "../../../../../utils/authz/Can";
 import { msgError, msgSuccess } from "../../../../../utils/notifications";
@@ -180,7 +180,7 @@ const files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
     sessionStorage.setItem("fileSort", JSON.stringify(newSorted));
   };
 
-  const tableHeaders: IHeader[] = [
+  const tableHeaders: IHeaderConfig[] = [
     {
       dataField: "fileName",
       header: translate.t("search_findings.files_table.file"),

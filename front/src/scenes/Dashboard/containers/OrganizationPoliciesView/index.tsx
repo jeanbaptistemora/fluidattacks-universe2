@@ -10,7 +10,7 @@ import { useParams } from "react-router";
 import { Field, formValueSelector, InjectedFormProps } from "redux-form";
 import { Button } from "../../../../components/Button/index";
 import { DataTableNext } from "../../../../components/DataTableNext/index";
-import { IHeader } from "../../../../components/DataTableNext/types";
+import { IHeaderConfig } from "../../../../components/DataTableNext/types";
 import { Can } from "../../../../utils/authz/Can";
 import { textField } from "../../../../utils/forms/fields";
 import { msgError, msgSuccess } from "../../../../utils/notifications";
@@ -91,7 +91,7 @@ const organizationPolicies: React.FC<IOrganizationPolicies> = (props: IOrganizat
     },
   });
 
-  const tableHeaders: IHeader[] = [
+  const tableHeaders: IHeaderConfig[] = [
     {
       dataField: "policy",
       header: translate.t("organization.tabs.policies.policy"),

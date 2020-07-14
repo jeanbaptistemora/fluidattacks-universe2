@@ -1,17 +1,17 @@
 import BootstrapSwitchButton from "bootstrap-switch-button-react";
-import { IHeader } from "../types";
+import { IHeaderConfig } from "../types";
 import React from "react";
 
 export const changeFormatter: (
   value: string,
   row: Readonly<{ [key: string]: string }>,
   rowIndex: number,
-  key: Readonly<IHeader>
+  key: Readonly<IHeaderConfig>
 ) => JSX.Element = (
   _value: string,
   row: Readonly<{ [key: string]: string }>,
   _rowIndex: number,
-  key: Readonly<IHeader>
+  key: Readonly<IHeaderConfig>
 ): JSX.Element => {
   function handleOnChange(): void {
     if (key.changeFunction !== undefined) {

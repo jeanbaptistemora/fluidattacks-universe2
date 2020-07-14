@@ -15,7 +15,7 @@ import { Dispatch } from "redux";
 import { change, EventWithDataHandler, Field, formValueSelector, InjectedFormProps, Validator } from "redux-form";
 import { Button } from "../../../../../components/Button/index";
 import { DataTableNext } from "../../../../../components/DataTableNext";
-import { IHeader } from "../../../../../components/DataTableNext/types";
+import { IHeaderConfig } from "../../../../../components/DataTableNext/types";
 import { Modal } from "../../../../../components/Modal/index";
 import { dropdownField, switchButton, textAreaField, textField } from "../../../../../utils/forms/fields";
 import { msgError, msgSuccess } from "../../../../../utils/notifications";
@@ -161,7 +161,7 @@ const services: React.FC<IServicesProps> = (props: IServicesProps): JSX.Element 
   };
 
   // Rendered elements
-  const tableHeaders: IHeader[] = [
+  const tableHeaders: IHeaderConfig[] = [
     {
       dataField: "service",
       header: translate.t("search_findings.services_table.service"),

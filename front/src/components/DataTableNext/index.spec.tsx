@@ -1,5 +1,5 @@
 import { DataTableNext } from "./index";
-import { IHeader } from "./types";
+import { IHeaderConfig } from "./types";
 import * as React from "react";
 import { ReactWrapper, ShallowWrapper, mount, shallow } from "enzyme";
 import {
@@ -29,7 +29,7 @@ describe("Data table next", (): void => {
       sort: false,
     };
     const data: Record<string, unknown>[] = [];
-    const testHeaders: IHeader[] = [];
+    const testHeaders: IHeaderConfig[] = [];
     const wrapper: ShallowWrapper = shallow(
       <DataTableNext
         bordered={false}
@@ -66,7 +66,7 @@ describe("Data table next", (): void => {
       pagination: false,
       sort: false,
     };
-    const testHeaders: IHeader[] = [];
+    const testHeaders: IHeaderConfig[] = [];
     const wrapper: ShallowWrapper = shallow(
       <DataTableNext
         bordered={false}
@@ -99,7 +99,7 @@ describe("Data table next", (): void => {
       pagination: false,
       sort: false,
     };
-    const testHeaders: IHeader[] = [
+    const testHeaders: IHeaderConfig[] = [
       {
         align: "center",
         dataField: "test_header",
@@ -137,7 +137,7 @@ describe("Data table next", (): void => {
     const handleApprove: jest.Mock = jest.fn();
     const handleChange: jest.Mock = jest.fn();
     const handleDelete: jest.Mock = jest.fn();
-    const testHeaders: IHeader[] = [
+    const testHeaders: IHeaderConfig[] = [
       {
         align: "center",
         dataField: "statusHeader",

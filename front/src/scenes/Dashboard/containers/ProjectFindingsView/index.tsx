@@ -19,7 +19,7 @@ import { useHistory } from "react-router-dom";
 import { Button } from "../../../../components/Button";
 import { limitFormatter, statusFormatter } from "../../../../components/DataTableNext/formatters";
 import { DataTableNext } from "../../../../components/DataTableNext/index";
-import { IHeader } from "../../../../components/DataTableNext/types";
+import { IHeaderConfig } from "../../../../components/DataTableNext/types";
 import { Modal } from "../../../../components/Modal/index";
 import { TooltipWrapper } from "../../../../components/TooltipWrapper/index";
 import { formatFindings, formatTreatment } from "../../../../utils/formatHelpers";
@@ -190,7 +190,7 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
         row.severityScore >= restrictions[0] && row.severityScore <= restrictions[1]));
     };
 
-  const tableHeaders: IHeader[] = [
+  const tableHeaders: IHeaderConfig[] = [
     {
       align: "center", dataField: "age", header: "Age (days)", onSort: onSortState,
       visible: checkedItems.age, width: "5%",

@@ -16,7 +16,7 @@ import React from "react";
 import { Col, Glyphicon, Row } from "react-bootstrap";
 import { RouteComponentProps, useHistory } from "react-router-dom";
 import { DataTableNext } from "../../../../../components/DataTableNext";
-import { IHeader } from "../../../../../components/DataTableNext/types";
+import { IHeaderConfig } from "../../../../../components/DataTableNext/types";
 import { default as globalStyle } from "../../../../../styles/global.css";
 import {
   calcPercent, IStatusGraph, ITreatmentGraph, statusGraph, treatmentGraph,
@@ -98,7 +98,7 @@ const tagsInfo: React.FC<TagsProps> = (props: TagsProps): JSX.Element => {
   });
   const { push } = useHistory();
 
-  const tableHeaders: IHeader[] = [
+  const tableHeaders: IHeaderConfig[] = [
     { dataField: "name", header: "Project Name" },
     { dataField: "description", header: "Description" },
   ];

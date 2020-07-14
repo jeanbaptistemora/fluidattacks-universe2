@@ -18,7 +18,7 @@ import { ConfigurableValidator } from "revalidate";
 import { Button } from "../../../../components/Button";
 import { statusFormatter } from "../../../../components/DataTableNext/formatters";
 import { DataTableNext } from "../../../../components/DataTableNext/index";
-import { IHeader } from "../../../../components/DataTableNext/types";
+import { IHeaderConfig } from "../../../../components/DataTableNext/types";
 import { Modal } from "../../../../components/Modal";
 import { TooltipWrapper } from "../../../../components/TooltipWrapper/index";
 import { default as globalStyle } from "../../../../styles/global.css";
@@ -91,7 +91,7 @@ const projectEventsView: React.FunctionComponent<EventsViewProps> = (props: Even
     sessionStorage.setItem("eventTypeFilter", filterVal);
   };
 
-  const tableHeaders: IHeader[] = [
+  const tableHeaders: IHeaderConfig[] = [
     {
       align: "center", dataField: "id", header: translate.t("search_findings.tab_events.id"), onSort: onSortState,
       width: "8%", wrapped: true,

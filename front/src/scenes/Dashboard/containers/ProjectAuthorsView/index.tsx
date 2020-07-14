@@ -14,7 +14,7 @@ import { RouteComponentProps } from "react-router";
 // Local imports
 import { GraphQLError } from "graphql";
 import { DataTableNext } from "../../../../components/DataTableNext/index";
-import { IHeader } from "../../../../components/DataTableNext/types";
+import { IHeaderConfig } from "../../../../components/DataTableNext/types";
 import { msgError } from "../../../../utils/notifications";
 import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
@@ -53,7 +53,7 @@ const projectAuthorsView: React.FunctionComponent<ForcesViewProps> = (props: For
       setBillDate(event.target.value);
     };
 
-  const headersAuthorsTable: IHeader[] = [
+  const headersAuthorsTable: IHeaderConfig[] = [
     {
       align: "center",
       dataField: "actor",

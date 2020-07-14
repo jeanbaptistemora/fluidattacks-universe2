@@ -17,7 +17,7 @@ import {
 import { useHistory } from "react-router-dom";
 import { Button } from "../../../../components/Button";
 import { DataTableNext } from "../../../../components/DataTableNext/index";
-import { IHeader } from "../../../../components/DataTableNext/types";
+import { IHeaderConfig } from "../../../../components/DataTableNext/types";
 import { TooltipWrapper } from "../../../../components/TooltipWrapper/index";
 import { Can } from "../../../../utils/authz/Can";
 import { authzPermissionsContext } from "../../../../utils/authz/config";
@@ -35,16 +35,16 @@ interface ITagDataTable {
   projects: string;
 }
 
-const tableHeaders: IHeader[] = [
+const tableHeaders: IHeaderConfig[] = [
   { dataField: "name", header: "Project Name" },
   { dataField: "description", header: "Description" },
 ];
 
-const tableHeadersOrganizations: IHeader[] = [
+const tableHeadersOrganizations: IHeaderConfig[] = [
   { dataField: "name", header: "Organization Name" },
 ];
 
-const tableHeadersTags: IHeader[] = [
+const tableHeadersTags: IHeaderConfig[] = [
   { dataField: "name", header: "Tag" },
   { dataField: "projects", header: "Projects" },
 ];

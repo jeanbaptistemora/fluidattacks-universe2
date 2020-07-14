@@ -14,7 +14,7 @@ import { Button } from "../../../../../components/Button";
 import { ConfirmDialog, IConfirmFn } from "../../../../../components/ConfirmDialog";
 import { DataTableNext } from "../../../../../components/DataTableNext";
 import { changeFormatter, statusFormatter } from "../../../../../components/DataTableNext/formatters";
-import { IHeader } from "../../../../../components/DataTableNext/types";
+import { IHeaderConfig } from "../../../../../components/DataTableNext/types";
 import { TooltipWrapper } from "../../../../../components/TooltipWrapper";
 import { Can } from "../../../../../utils/authz/Can";
 import { fixedEncodeURIComponent } from "../../../../../utils/formatHelpers";
@@ -187,7 +187,7 @@ const repositories: React.FC<IRepositoriesProps> = (props: IRepositoriesProps): 
             ],
           });
 
-          const tableHeaders: IHeader[] = [
+          const tableHeaders: IHeaderConfig[] = [
             {
               dataField: "protocol",
               header: translate.t("search_findings.repositories_table.protocol"),

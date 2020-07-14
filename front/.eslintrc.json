@@ -89,7 +89,7 @@
          *
          * Attr: GraphQL query or mutation attributes.
          * Config: Object use for configuration purposes.
-         * Fn: Functional type.
+         * Fn: Function type.
          * Props: React functional component props.
          */
         "suffix": ["Attr", "Config", "Fn", "Props"]

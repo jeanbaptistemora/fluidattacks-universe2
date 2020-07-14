@@ -18,7 +18,7 @@ import { Button } from "../../../../components/Button/index";
 import { ConfirmDialog, IConfirmFn } from "../../../../components/ConfirmDialog/index";
 import { DataTableNext } from "../../../../components/DataTableNext";
 import { approveFormatter, deleteFormatter, statusFormatter } from "../../../../components/DataTableNext/formatters";
-import { IHeader } from "../../../../components/DataTableNext/types";
+import { IHeaderConfig } from "../../../../components/DataTableNext/types";
 import { FluidIcon } from "../../../../components/FluidIcon";
 import { Can } from "../../../../utils/authz/Can";
 import { authzPermissionsContext } from "../../../../utils/authz/config";
@@ -364,7 +364,7 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
               comparator: Comparator.LIKE,
               delay: 1000,
             };
-            const inputsHeader: IHeader[] = [
+            const inputsHeader: IHeaderConfig[] = [
             {
               align: "left",
               dataField: "where",
@@ -386,7 +386,7 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
               width: "20%",
               wrapped: true,
             }];
-            const linesHeader: IHeader[] = [
+            const linesHeader: IHeaderConfig[] = [
               {
                 align: "left",
                 dataField: "where",
@@ -408,7 +408,7 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                 width: "20%",
                 wrapped: true,
               }];
-            const portsHeader: IHeader[] = [
+            const portsHeader: IHeaderConfig[] = [
               {
                 align: "left",
                 dataField: "where",
@@ -747,7 +747,7 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                   .catch();
                 };
 
-                const pendingsHeader: IHeader[] = [
+                const pendingsHeader: IHeaderConfig[] = [
                   {
                     align: "left",
                     dataField: "where",

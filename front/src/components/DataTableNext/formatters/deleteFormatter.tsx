@@ -1,17 +1,17 @@
 import { FluidIcon } from "../../FluidIcon";
-import { IHeader } from "../types";
+import { IHeaderConfig } from "../types";
 import React from "react";
 
 export const deleteFormatter: (
   value: string,
   row: Readonly<{ [key: string]: string }>,
   rowIndex: number,
-  key: Readonly<IHeader>
+  key: Readonly<IHeaderConfig>
 ) => JSX.Element = (
   _value: string,
   row: Readonly<{ [key: string]: string }>,
   _rowIndex: number,
-  key: Readonly<IHeader>
+  key: Readonly<IHeaderConfig>
 ): JSX.Element => {
   function handleDeleteFormatter(): void {
     if (key.deleteFunction !== undefined) {

@@ -8,7 +8,7 @@ import { ButtonToolbar, Col, Glyphicon, Row } from "react-bootstrap";
 import { useParams } from "react-router";
 import { Button } from "../../../../components/Button/index";
 import { DataTableNext } from "../../../../components/DataTableNext/index";
-import { IHeader } from "../../../../components/DataTableNext/types";
+import { IHeaderConfig } from "../../../../components/DataTableNext/types";
 import { FluidIcon } from "../../../../components/FluidIcon/index";
 import { TooltipWrapper } from "../../../../components/TooltipWrapper/index";
 import { Can } from "../../../../utils/authz/Can";
@@ -21,7 +21,7 @@ import { addUserModal as AddUserModal } from "../../components/AddUserModal/inde
 import { ADD_USER_MUTATION, EDIT_USER_MUTATION, GET_ORGANIZATION_USERS, REMOVE_USER_MUTATION } from "./queries";
 import { IAddUserAttrs, IEditUserAttrs, IOrganizationUsers, IRemoveUserAttrs, IUserAttrs } from "./types";
 
-const tableHeaders: IHeader[] = [
+const tableHeaders: IHeaderConfig[] = [
   {
     dataField: "email",
     header: translate.t("search_findings.users_table.usermail"),

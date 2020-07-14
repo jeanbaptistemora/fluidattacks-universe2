@@ -14,7 +14,7 @@ import { Button } from "../../../../../components/Button";
 import { ConfirmDialog, IConfirmFn } from "../../../../../components/ConfirmDialog";
 import { DataTableNext } from "../../../../../components/DataTableNext";
 import { changeFormatter, statusFormatter } from "../../../../../components/DataTableNext/formatters";
-import { IHeader } from "../../../../../components/DataTableNext/types";
+import { IHeaderConfig } from "../../../../../components/DataTableNext/types";
 import { TooltipWrapper } from "../../../../../components/TooltipWrapper";
 import { Can } from "../../../../../utils/authz/Can";
 import { fixedEncodeURIComponent } from "../../../../../utils/formatHelpers";
@@ -182,7 +182,7 @@ const environments: React.FC<IEnvironmentsProps> = (props: IEnvironmentsProps): 
             ],
           });
 
-          const tableHeaders: IHeader[] = [
+          const tableHeaders: IHeaderConfig[] = [
             {
               dataField: "urlEnv",
               header: translate.t("search_findings.environment_table.environment"),

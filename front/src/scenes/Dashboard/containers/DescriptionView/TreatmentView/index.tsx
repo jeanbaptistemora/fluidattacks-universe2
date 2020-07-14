@@ -15,7 +15,7 @@ import { formValueSelector } from "redux-form";
 import { ConfigurableValidator } from "revalidate";
 import { ConfirmDialog, IConfirmFn } from "../../../../../components/ConfirmDialog";
 import { DataTableNext } from "../../../../../components/DataTableNext";
-import { IHeader } from "../../../../../components/DataTableNext/types";
+import { IHeaderConfig } from "../../../../../components/DataTableNext/types";
 import { FluidIcon } from "../../../../../components/FluidIcon";
 import { Can } from "../../../../../utils/authz/Can";
 import { formatDropdownField, getLastTreatment, getPreviousTreatment } from "../../../../../utils/formatHelpers";
@@ -162,7 +162,7 @@ const treatmentView: React.FC<ITreatmentViewProps> = (props: ITreatmentViewProps
 
   const lastTreatment: IHistoricTreatment = getLastTreatment(data.finding.historicTreatment);
   const historicTreatment: IHistoricTreatment[] = getPreviousTreatment(data.finding.historicTreatment);
-  const historicTreatmentHeaders: IHeader[] = [
+  const historicTreatmentHeaders: IHeaderConfig[] = [
     {
       align: "center",
       dataField: "date",

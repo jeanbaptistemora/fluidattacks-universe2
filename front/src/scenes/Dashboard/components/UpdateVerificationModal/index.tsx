@@ -10,7 +10,7 @@ import _ from "lodash";
 import React from "react";
 import { DataTableNext } from "../../../../components/DataTableNext";
 import { changeVulnStateFormatter } from "../../../../components/DataTableNext/formatters";
-import { IHeader } from "../../../../components/DataTableNext/types";
+import { IHeaderConfig } from "../../../../components/DataTableNext/types";
 import { authzPermissionsContext } from "../../../../utils/authz/config";
 import { msgError, msgSuccess } from "../../../../utils/notifications";
 import rollbar from "../../../../utils/rollbar";
@@ -156,7 +156,7 @@ const updateVerificationModal: React.FC<IUpdateVerificationModal> = (props: IUpd
           { ...vuln, currentState: vuln.currentState === "open" ? "closed" : "open" });
       setVulnerabilities([...newVulnList]);
     };
-    const vulnsHeader: IHeader[] = [
+    const vulnsHeader: IHeaderConfig[] = [
       { align: "left", dataField: "where", header: "Where", width: "55%", wrapped: true },
       { align: "left", dataField: "specific", header: "Specific", width: "25%", wrapped: true },
       {
