@@ -70,3 +70,8 @@ file uploads or denial of service attacks.
 V11.1 Business Logic Security Requirements.(11.1.8)]
 Verify the application has configurable alerting when automated attacks or
 unusual activity is detected.
+
+. [[r7]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V13.2 RESTful Web Service Verification Requirements.(13.2.4)]
+Verify that REST services have anti-automation controls to protect against
+excessive calls, especially if the API is unauthenticated.

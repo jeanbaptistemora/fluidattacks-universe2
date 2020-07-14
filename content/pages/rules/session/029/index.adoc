@@ -176,4 +176,11 @@ to protect authenticated functionality,
 and effective anti-automation or anti-CSRF protects unauthenticated
 functionality.
 
-. [[r14]] link:https://pcinetwork.org/forum/index.php?threads/pci-dss-3-0-6-5-10-broken-authentication-and-session-management.667/[[PCI DSS 3.0\] 6.5.10 Broken authentication and session management].
+. [[r14]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V13.2 RESTful Web Service Verification Requirements.(13.2.3)]
+Verify that *RESTful* web services that utilize cookies are protected from
+Cross-Site Request Forgery via the use of at least one or more of the
+following: triple or double submit cookie pattern, *CSRF* nonces, or *ORIGIN*
+request header checks.
+
+. [[r15]] link:https://pcinetwork.org/forum/index.php?threads/pci-dss-3-0-6-5-10-broken-authentication-and-session-management.667/[[PCI DSS 3.0\] 6.5.10 Broken authentication and session management].

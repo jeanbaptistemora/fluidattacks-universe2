@@ -103,3 +103,10 @@ Verify that sensitive data and APIs are protected against direct object attacks
 targeting creation, reading, updating and deletion of records,
 such as creating or updating someone else's record, viewing everyone's records,
 or deleting all records.
+
+. [[r12]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V13.2 RESTful Web Service Verification Requirements.(13.2.1)]
+Verify that enabled **RESTful HTTP** methods are a valid choice for the user or
+action,
+such as preventing normal users using *DELETE* or *PUT* on protected *API* or
+resources.

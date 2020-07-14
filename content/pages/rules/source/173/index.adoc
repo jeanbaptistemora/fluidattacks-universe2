@@ -350,3 +350,8 @@ Verify that requests containing unexpected or missing content types are
 rejected with appropriate headers
 (*HTTP* response status **406 Unacceptable** or
 **415 Unsupported Media Type**).
+
+. [[r43]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V13.2 RESTful Web Service Verification Requirements.(13.2.2)]
+Verify that *JSON* schema validation is in place and verified before accepting
+input.
