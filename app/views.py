@@ -10,10 +10,6 @@ import sys
 from datetime import datetime, timedelta
 from typing import (
     List,
-    Dict,
-    Sequence,
-    Any,
-    cast
 )
 
 # Third party libraries
@@ -42,46 +38,37 @@ from backend.decorators import (
 )
 from backend.exceptions import ConcurrentSession
 from backend.services import (
-    has_access_to_finding,
-    has_access_to_event
+    has_access_to_finding, has_access_to_event
 )
 from __init__ import (
-    FI_AWS_S3_ACCESS_KEY,
-    FI_AWS_S3_SECRET_KEY,
-    FI_AWS_S3_BUCKET,
-    FI_ENVIRONMENT
+    FI_AWS_S3_ACCESS_KEY, FI_AWS_S3_SECRET_KEY, FI_AWS_S3_BUCKET, FI_ENVIRONMENT
 )
 
 # Constants
 CACHE_TTL = getattr(settings, 'CACHE_TTL', DEFAULT_TIMEOUT)
 
-CLIENT_S3 = boto3.client(
-    's3',
-    aws_access_key_id=FI_AWS_S3_ACCESS_KEY,
-    aws_secret_access_key=FI_AWS_S3_SECRET_KEY,
-    aws_session_token=os.environ.get('AWS_SESSION_TOKEN')
-)
+CLIENT_S3 = boto3.client('s3',
+                         aws_access_key_id=FI_AWS_S3_ACCESS_KEY,
+                         aws_secret_access_key=FI_AWS_S3_SECRET_KEY,
+                         aws_session_token=os.environ.get('AWS_SESSION_TOKEN'))
 
 BUCKET_S3 = FI_AWS_S3_BUCKET
 
 
-def enforce_user_level_role(
-        request: HttpRequest,
-        *allowed_roles: Sequence[str]) -> HttpResponse:
+def enforce_user_level_role(request, *allowed_roles):
     # Verify role if the user is logged in
     email = request.session.get('username')
     registered = request.session.get('registered')
 
     if not email or not registered:
         # The user is not even authenticated. Redirect to login
-        return HttpResponse(
-            '<script> '
-            'var getUrl=window.location.href.split('
-            '`${window.location.host}/integrates`); '
-            'localStorage.setItem("start_url",getUrl[getUrl.length - 1]); '
-            'location = "/integrates/index"; '
-            '</script>'
-        )
+        return HttpResponse("""
+            <script>
+                var getUrl=window.location.href.split(`${window.location.host}/integrates`);
+                localStorage.setItem("start_url",getUrl[getUrl.length - 1]);
+                location = "/integrates/index";
+            </script>
+            """)
 
     requester_role = authz.get_user_level_role(email)
     if requester_role not in allowed_roles:
@@ -92,24 +79,20 @@ def enforce_user_level_role(
     return None
 
 
-def enforce_group_level_role(
-        request: HttpRequest,
-        group: str,
-        *allowed_roles: Sequence[str]) -> HttpResponse:
+def enforce_group_level_role(request, group, *allowed_roles):
     # Verify role if the user is logged in
     email = request.session.get('username')
     registered = request.session.get('registered')
 
     if not email or not registered:
         # The user is not even authenticated. Redirect to login
-        return HttpResponse(
-            '<script> '
-            'var getUrl=window.location.href.split('
-            '`${window.location.host}/integrates`); '
-            'localStorage.setItem("start_url",getUrl[getUrl.length - 1]); '
-            'location = "/integrates/index"; '
-            '</script>'
-        )
+        return HttpResponse("""
+            <script>
+                var getUrl=window.location.href.split(`${window.location.host}/integrates`);
+                localStorage.setItem("start_url",getUrl[getUrl.length - 1]);
+                location = "/integrates/index";
+            </script>
+            """)
 
     requester_role = authz.get_group_level_role(email, group)
     if requester_role not in allowed_roles:
@@ -147,7 +130,7 @@ def create_session_token(
     # Save the JTI so future requests can check for concurrency
     util.save_token(f'fi_jwt:{jti}', token, settings.SESSION_COOKIE_AGE)
 
-    return cast(str, token)
+    return token
 
 
 def set_session_cookie_in_response(
@@ -165,29 +148,29 @@ def set_session_cookie_in_response(
     )
 
 
-@never_cache  # type: ignore
-def index(request: HttpRequest) -> HttpResponse:
+@never_cache
+def index(request):
     """Login view for unauthenticated users"""
     parameters = {'debug': settings.DEBUG}
     return render(request, 'index.html', parameters)
 
 
-def error500(request: HttpRequest) -> HttpResponse:
+def error500(request):
     """Internal server error view"""
-    parameters: Dict[str, Any] = {}
+    parameters = {}
     return render(request, 'HTTP500.html', parameters)
 
 
-def error401(request: HttpRequest) -> HttpResponse:
+def error401(request, _):
     """Unauthorized error view"""
-    parameters: Dict[str, Any] = {}
+    parameters = {}
     return render(request, 'HTTP401.html', parameters)
 
 
-@csrf_exempt  # type: ignore
-@cache_control(private=True, max_age=3600)  # type: ignore
-@authenticate  # type: ignore
-def app(request: HttpRequest) -> HttpResponse:
+@csrf_exempt
+@cache_control(private=True, max_age=3600)
+@authenticate
+def app(request):
     """App view for authenticated users."""
     try:
         if FI_ENVIRONMENT == 'production':
@@ -213,38 +196,38 @@ def app(request: HttpRequest) -> HttpResponse:
         rollbar.report_exc_info(sys.exc_info(), request)
         return redirect('/integrates/error500')
     except ConcurrentSession:
-        return HttpResponse(
-            '<script> '
-            'localStorage.setItem("concurrentSession","1"); '
-            'location.assign("/integrates/registration"); '
-            '</script>'
-        )
+        return HttpResponse("""
+            <script>
+                localStorage.setItem("concurrentSession","1");
+                location.assign("/integrates/registration");
+            </script>
+            """)
     return response
 
 
-@never_cache  # type: ignore
-@csrf_exempt  # type: ignore
-@require_login  # type: ignore
-@require_http_methods(['GET'])  # type: ignore
-@async_to_sync  # type: ignore
+@never_cache
+@csrf_exempt
+@require_login
+@require_http_methods(['GET'])
+@async_to_sync
 async def graphic(request: HttpRequest) -> HttpResponse:
     return await analytics_domain.handle_graphic_request(request)
 
 
-@never_cache  # type: ignore
-@csrf_exempt  # type: ignore
-@require_login  # type: ignore
-@require_http_methods(['GET'])  # type: ignore
-@async_to_sync  # type: ignore
+@never_cache
+@csrf_exempt
+@require_login
+@require_http_methods(['GET'])
+@async_to_sync
 async def graphics_for_group(request: HttpRequest) -> HttpResponse:
     return await _graphics_for_entity('group', request)
 
 
-@never_cache  # type: ignore
-@csrf_exempt  # type: ignore
-@require_login  # type: ignore
-@require_http_methods(['GET'])  # type: ignore
-@async_to_sync  # type: ignore
+@never_cache
+@csrf_exempt
+@require_login
+@require_http_methods(['GET'])
+@async_to_sync
 async def graphics_for_organization(request: HttpRequest) -> HttpResponse:
     return await _graphics_for_entity('organization', request)
 
@@ -272,25 +255,23 @@ async def _graphics_for_entity(
     return response
 
 
-@never_cache  # type: ignore
-@csrf_exempt  # type: ignore
-@require_login  # type: ignore
-@require_http_methods(['GET'])  # type: ignore
-@async_to_sync  # type: ignore
+@never_cache
+@csrf_exempt
+@require_login
+@require_http_methods(['GET'])
+@async_to_sync
 async def graphics_report(request: HttpRequest) -> HttpResponse:
     return await analytics_domain.handle_graphics_report_request(request)
 
 
-@csrf_exempt  # type: ignore
-@authenticate  # type: ignore
-def logout(request: HttpRequest) -> HttpResponse:
+@csrf_exempt
+@authenticate
+def logout(request):
     """Close a user's active session"""
     try:
-        cookie_content = jwt.decode(
-            token=request.COOKIES.get(settings.JWT_COOKIE_NAME),
-            key=settings.JWT_SECRET,
-            algorithms='HS512'
-        )
+        cookie_content = jwt.decode(token=request.COOKIES.get(settings.JWT_COOKIE_NAME),
+                                    key=settings.JWT_SECRET,
+                                    algorithms='HS512')
         jti = cookie_content.get('jti')
         if jti:
             util.remove_token(f'fi_jwt:{jti}')
