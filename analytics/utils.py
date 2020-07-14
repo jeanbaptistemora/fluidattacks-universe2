@@ -95,7 +95,7 @@ async def iterate_organizations_and_groups() -> AsyncIterator[
     async for org_id, org_name, org_groups in (
         org_domain.iterate_organizations_and_groups()
     ):
-        log_info(f'Working on organization: {org_id} ({org_name})')
+        log_info(f'Working on org: {org_id} ({org_name}) {org_groups}')
 
         yield org_id, org_name, org_groups
 
