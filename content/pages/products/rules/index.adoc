@@ -27,6 +27,11 @@ You can access the product [button]#link:../../rules/[here]#.
 
 == Standards
 
+image::logos01.png[Certifications 1, role="tc"]
+image::logos02.png[Certifications 2, role="tc"]
+image::logos03.png[Certifications 3, role="tc"]
+image::logos04.png[Certifications 4, role="tc"]
+
 Rules is based on several standards
 related to information security, including the following:
 
