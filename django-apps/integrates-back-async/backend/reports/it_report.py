@@ -44,21 +44,35 @@ class ITReport():
         },
         'en': {}}
     vulnerability = {
-        'finding': 3,
-        'specific': 2,
-        'severity': 5,
-        'status': 4,
-        'cvss_vector': 6,
-        'reattack': 7,
-        'exploitable': 8,
-        'report_date': 9,
-        'age': 11,
-        'close_date': 10,
-        'treatment': 12,
-        'treatment_date': 13,
-        'treatment_justification': 14,
-        'treatment_exp_date': 15,
-        'treatment_manager': 16
+        'number': 1,
+        'finding': 2,
+        'finding_id': 3,
+        'specific': 4,
+        'vuln_uuid': 5,
+        'description': 6,
+        'status': 7,
+        'severity': 8,
+        'requirements': 9,
+        'impact': 10,
+        'affected_systems': 11,
+        'threat': 12,
+        'recommendation': 13,
+        'external_bts': 14,
+        'compromised_attributes': 15,
+        'n_compromised_attributes': 16,
+        'vuln_report_date': 17,
+        'vuln_close_date': 18,
+        'vuln_age': 19,
+        'treatment': 20,
+        'treatment_date': 21,
+        'treatment_justification': 22,
+        'treatment_exp_date': 23,
+        'treatment_manager': 24,
+        'reattack': 25,
+        'n_requested_reattacks': 26,
+        'last_reattack_date': 27,
+        'last_reattack_requester': 28,
+        'cvss_vector': 29,
     }
 
     def __init__(self, data, lang='es'):
@@ -92,9 +106,13 @@ class ITReport():
             self.sheet_names[self.lang]['data']
         ]
 
-    def set_cell(self, col, value, inc=0):
+    def set_cell(self, col, value, inc=0, align='center'):
         """Assign a value to a cell with findings index."""
-        alignment = Alignment(horizontal='center', vertical='center')
+        alignment = Alignment(
+            horizontal=align,
+            vertical='center',
+            wrap_text=True
+        )
         self.current_sheet.cell(
             row=self.row + inc, column=col).alignment = alignment
         self.current_sheet.cell(row=self.row + inc, column=col).value = value
@@ -200,10 +218,12 @@ class ITReport():
             'RC': 'reportConfidence',
         }
         metric_vector = []
-        for indicator, measure in measures.items():
+        for index, (indicator, measure) in enumerate(measures.items()):
             value = self.__get_measure(measure, row['severity'][measure])
             if value:
                 metric_vector.append(f'{indicator}:{value[0]}')
+                self.set_cell(
+                    self.vulnerability['cvss_vector'] + index + 1, value)
 
         cvss_metric_vector = '/'.join(metric_vector)
         cvss_calculator_url = (
@@ -221,7 +241,91 @@ class ITReport():
         if row.get('vuln_type') == 'lines':
             specific = str(int(specific))
         where_specific = f'{row.get("where")}:{specific}'
-        vuln_historic_state = cast(HistoricType, row.get('historic_state'))
+
+        self.__select_finding_sheet()
+
+        self.set_cell(self.vulnerability['number'], self.row - 1)
+        self.set_cell(
+            self.vulnerability['finding'],
+            finding.get('finding'),
+            align='left'
+        )
+        self.set_cell(
+            self.vulnerability['finding_id'],
+            finding.get('findingId', '-')
+        )
+        self.set_cell(self.vulnerability['vuln_uuid'], row.get('UUID', '-'))
+        self.set_cell(self.vulnerability['specific'], where_specific)
+
+        self.write_finding_data(finding, row)
+        self.write_vuln_temporal_data(row)
+        self.write_treatment_data(finding, row)
+        self.write_reattack_data(finding)
+        self.set_cvss_metrics_cell(finding)
+
+    def write_finding_data(self, finding, vuln):
+        compromised_attributes = finding.get('compromisedAttrs') or '-'
+        n_compromised_attributes = 0
+        if compromised_attributes != '-':
+            n_compromised_attributes = \
+                str(len(compromised_attributes.split('\n')))
+        external_bts = finding.get('externalBts', '-')
+
+        self.set_cell(
+            self.vulnerability['description'],
+            finding.get('vulnerability', '-'),
+            align='left'
+        )
+        self.set_cell(
+            self.vulnerability['status'],
+            vuln.get('historic_state')[-1]['state']
+        )
+        self.set_cell(
+            self.vulnerability['severity'],
+            finding.get('severityCvss', '-')
+        )
+        self.set_cell(
+            self.vulnerability['requirements'],
+            finding.get('requirements', '-'),
+            align='left'
+        )
+        self.set_cell(
+            self.vulnerability['impact'],
+            finding.get('attackVectorDesc', '-'),
+            align='left'
+        )
+        self.set_cell(
+            self.vulnerability['affected_systems'],
+            finding.get('affectedSystems', '-'),
+            align='left'
+        )
+        self.set_cell(
+            self.vulnerability['threat'],
+            finding.get('threat', '-'),
+            align='left'
+        )
+        self.set_cell(
+            self.vulnerability['recommendation'],
+            finding.get('effectSolution', '-'),
+            align='left'
+        )
+        self.set_cell(
+            self.vulnerability['external_bts'],
+            f'=HYPERLINK("{external_bts}", "{external_bts}")',
+            align='left'
+        )
+        self.set_cell(
+            self.vulnerability['compromised_attributes'],
+            compromised_attributes,
+            align='left'
+        )
+        self.set_cell(
+            self.vulnerability['n_compromised_attributes'],
+            n_compromised_attributes or '0'
+        )
+
+    def write_vuln_temporal_data(self, vuln):
+        vuln_historic_state = cast(HistoricType, vuln.get('historic_state'))
         vuln_date = datetime.strptime(
             vuln_historic_state[0]['date'], '%Y-%m-%d %H:%M:%S')
         vuln_closed = vuln_historic_state[-1]['state'] == 'closed'
@@ -232,44 +336,25 @@ class ITReport():
             )
         vuln_age_days = int((limit_date - vuln_date).days)
         vuln_age = f'{vuln_age_days} '
-        reattack_requested = \
-            finding.get('historic_verification')[-1]['status'] == 'REQUESTED' \
-            if 'historic_verification' in finding else False
-        is_exploitable = 'Yes' if finding.get('exploitable') else 'No'
 
-        self.__select_finding_sheet()
-        self.set_cell(1, self.row - 1)
-        self.set_cell(self.vulnerability['finding'], finding.get('finding'))
-        self.set_cell(self.vulnerability['specific'], where_specific)
+        self.set_cell(self.vulnerability['vuln_report_date'], vuln_date)
+        self.set_cell(self.vulnerability['vuln_age'], vuln_age)
         self.set_cell(
-            self.vulnerability['severity'],
-            finding.get('severityCvss', '-')
-        )
-
-        self.set_cvss_metrics_cell(finding)
-
-        self.set_cell(
-            self.vulnerability['status'],
-            vuln_historic_state[-1]['state']
-        )
-        self.set_cell(
-            self.vulnerability['reattack'],
-            'Yes' if reattack_requested else 'No'
-        )
-        self.set_cell(self.vulnerability['exploitable'], is_exploitable)
-
-        self.set_cell(self.vulnerability['report_date'], vuln_date)
-        self.set_cell(self.vulnerability['age'], vuln_age)
-        self.set_cell(
-            self.vulnerability['close_date'],
+            self.vulnerability['vuln_close_date'],
             datetime.strptime(
                 vuln_historic_state[-1]['date'], '%Y-%m-%d %H:%M:%S')
             if vuln_closed else '-'
         )
 
+    def write_treatment_data(self, finding, vuln):
+        treatment = vuln.get('treatment', 'NEW').capitalize().replace('_', ' ')
+        if treatment == 'Accepted undefined':
+            treatment = 'Eternally accepted'
+        elif treatment == 'Accepted':
+            treatment = 'Temporarily accepted'
         self.set_cell(
             self.vulnerability['treatment'],
-            str(row.get('treatment', 'NEW')).capitalize()
+            treatment
         )
         self.set_cell(
             self.vulnerability['treatment_date'],
@@ -280,17 +365,54 @@ class ITReport():
         )
         self.set_cell(
             self.vulnerability['treatment_justification'],
-            row.get('treatment_justification', '-')
+            vuln.get('treatment_justification', '-'),
+            align='left'
         )
         self.set_cell(
             self.vulnerability['treatment_exp_date'],
             datetime.strptime(
-                str(row.get('acceptance_date')), '%Y-%m-%d %H:%M:%S')
-            if 'acceptance_date' in row else '-'
+                str(vuln.get('acceptance_date')), '%Y-%m-%d %H:%M:%S')
+            if 'acceptance_date' in vuln else '-'
         )
         self.set_cell(
             self.vulnerability['treatment_manager'],
-            row.get('treatment_manager', '-')
+            vuln.get('treatment_manager', '-')
+        )
+
+    def write_reattack_data(self, finding):
+        historic_verification = finding.get('historicVerification')
+        reattack_requested = None
+        reattack_date = None
+        reattack_requester = None
+        n_requested_reattacks = None
+        if historic_verification:
+            reattack_requested = \
+                historic_verification[-1]['status'] == 'REQUESTED'
+            n_requested_reattacks = \
+                len([
+                    state for state in historic_verification
+                    if state['status'] == 'REQUESTED'
+                ])
+            if reattack_requested:
+                reattack_date = datetime.strptime(
+                    historic_verification[-1]['date'], '%Y-%m-%d %H:%M:%S')
+                reattack_requester = historic_verification[-1]['user']
+
+        self.set_cell(
+            self.vulnerability['reattack'],
+            'Yes' if reattack_requested else 'No'
+        )
+        self.set_cell(
+            self.vulnerability['n_requested_reattacks'],
+            n_requested_reattacks or '0'
+        )
+        self.set_cell(
+            self.vulnerability['last_reattack_date'],
+            reattack_date or '-'
+        )
+        self.set_cell(
+            self.vulnerability['last_reattack_requester'],
+            reattack_requester or '-'
         )
 
     def __save(self):
