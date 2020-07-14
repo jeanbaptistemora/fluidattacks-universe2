@@ -40,6 +40,7 @@ function decide_and_call_provisioner {
         --keep CI_REGISTRY_USER \
         --keep AWS_ACCESS_KEY_ID \
         --keep AWS_SECRET_ACCESS_KEY \
+        --keep GITLAB_API_USER \
         --keep GITLAB_API_TOKEN \
         --keep BREAK_BUILD_ID \
         --keep BREAK_BUILD_SECRET \
