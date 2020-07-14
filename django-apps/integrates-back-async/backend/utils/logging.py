@@ -1,5 +1,4 @@
 import logging
-from typing import Dict
 
 import rollbar
 from django.conf import settings
@@ -11,11 +10,21 @@ logging.config.dictConfig(settings.LOGGING)
 LOGGER = logging.getLogger("log")
 
 
-async def log(message: str, level: str, payload_data: Dict[str, str] = None,
-              extra_data: Dict[str, str] = None) -> None:
-    payload_data = payload_data or {}
-    extra_data = extra_data or {}
+async def log(message: str, level: str, **kwargs) -> None:
+    request = kwargs.get('request')
+    payload_data = kwargs.get('payload_data', {})
+    extra_data = kwargs.get('extra_data', {})
     if settings.DEBUG:
-        getattr(LOGGER, level, 'info')(message)
-    await aio.ensure_io_bound(rollbar.report_message, message, level,
-                              payload_data=payload_data, extra_data=extra_data)
+        getattr(LOGGER, level, 'info')(
+            f'{message}: payload_data: {payload_data}: '
+            f'extra_data: {extra_data}'
+        )
+    else:
+        await aio.ensure_io_bound(
+            rollbar.report_message,
+            message,
+            level,
+            request=request,
+            payload_data=payload_data,
+            extra_data=extra_data
+        )
