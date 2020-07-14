@@ -43,7 +43,8 @@ from backend.exceptions import (
     InvalidProjectServicesConfig,
     NotPendingDeletion,
     PermissionDenied,
-    RepeatedValues
+    RepeatedValues,
+    UserNotInOrganization
 )
 from backend.utils import (
     aio,
@@ -105,22 +106,16 @@ def create_project(
         user_role: str,
         **kwargs: Dict[str, Union[bool, str, List[str]]]) -> bool:
     project_name = str(kwargs.get('project_name', '')).lower()
+    organization = str(kwargs.get('company'))
     description = str(kwargs.get('description', ''))
     validations.validate_project_name(project_name)
     validations.validate_fields([description])
     validations.validate_field_length(project_name, 20)
     validations.validate_field_length(description, 200)
-    is_user_admin = user_role == 'admin'
-    if is_user_admin or cast(List[str], kwargs.get('companies', [])):
-        companies = [
-            company.lower()
-            for company in kwargs.get('companies', [])
-        ]
-    else:
-        companies = [str(user_domain.get_data(user_email, 'company'))]
-    validations.validate_fields(companies)
     has_drills = cast(bool, kwargs.get('has_drills', False))
     has_forces = cast(bool, kwargs.get('has_forces', False))
+    is_user_admin = user_role == 'admin'
+
     if kwargs.get('subscription'):
         subscription = str(kwargs.get('subscription'))
     else:
@@ -130,9 +125,7 @@ def create_project(
 
     success: bool = False
 
-    if not (not description.strip() or not project_name.strip() or
-       not all([company.strip() for company in companies]) or
-       not companies):
+    if description.strip() and project_name.strip():
 
         validate_project_services_config(
             is_continuous_type,
@@ -143,25 +136,24 @@ def create_project(
         is_group_avail = async_to_sync(
             available_group_domain.exists)(project_name)
 
+        org_id = async_to_sync(org_domain.get_id_by_name)(organization)
+        if not async_to_sync(org_domain.has_user_access)(user_email, org_id):
+            raise UserNotInOrganization(org_id)
+
         if is_group_avail and not project_dal.exists(project_name):
             project: ProjectType = {
                 'project_name': project_name,
                 'description': description,
-                'companies': companies,
                 'historic_configuration': [{
                     'date': util.get_current_time_as_iso_str(),
                     'has_drills': has_drills,
                     'has_forces': has_forces,
+                    'organization': org_id,
                     'requester': user_email,
                     'type': subscription,
                 }],
                 'project_status': 'ACTIVE',
             }
-
-            org_id = async_to_sync(org_domain.get_or_create)(
-                companies[0], user_email
-            )
-            project.update({'organization': org_id})
 
             success = project_dal.create(project)
             if success:
@@ -217,6 +209,7 @@ def edit(
     requester_email: str,
     subscription: str,
 ) -> bool:
+    success: bool = False
     is_continuous_type: bool = subscription == 'continuous'
 
     validations.validate_fields([comments])
@@ -233,33 +226,34 @@ def edit(
             project_name=group_name,
             attributes=[
                 'historic_configuration',
+                'project_name'
             ]
         )
     )
     item.setdefault('historic_configuration', [])
 
-    success: bool = project_dal.update(
-        data={
-            'historic_configuration': item['historic_configuration'] + [{
-                'comments': comments,
-                'date': util.get_current_time_as_iso_str(),
-                'has_drills': has_drills,
-                'has_forces': has_forces,
-                'organization': organization,
-                'reason': reason,
-                'requester': requester_email,
-                'type': subscription,
-            }],
-        },
-        project_name=group_name,
-    )
-
-    success = (
-        success and
-        async_to_sync(org_domain.move_group)(
+    if item.get('project_name'):
+        success = async_to_sync(org_domain.move_group)(
             group_name, organization, requester_email
         )
-    )
+
+        org_id = async_to_sync(org_domain.get_id_by_name)(organization)
+        success = success and project_dal.update(
+            data={
+                'historic_configuration': item['historic_configuration'] + [{
+                    'comments': comments,
+                    'date': util.get_current_time_as_iso_str(),
+                    'has_drills': has_drills,
+                    'has_forces': has_forces,
+                    'organization': org_id,
+                    'reason': reason,
+                    'requester': requester_email,
+                    'type': subscription,
+                }],
+            },
+            project_name=group_name,
+        )
+
     if not has_integrates:
         success = success and request_deletion(
             project_name=group_name,

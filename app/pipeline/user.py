@@ -44,7 +44,6 @@ def autoenroll_user(strategy: BaseStrategy, email: str) -> bool:
         # Create the user into the community organization
         is_registered = user_domain.create_without_project(
             email=email,
-            organization='Integrates Community',
             role=new_user_user_level_role,
         )
 

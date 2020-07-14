@@ -109,6 +109,13 @@ const addProjectModal: ((props: IAddProjectModal) => JSX.Element) = (props: IAdd
                     break;
                   case "Exception - Error invalid project name":
                     msgError(translate.t("home.newGroup.invalidGroup"));
+                    break;
+                  case "Exception - Organization name is invalid":
+                    msgError(translate.t("home.newGroup.invalidOrganizationName"));
+                    break;
+                  case "Exception - User is not a member of the target organization":
+                    msgError(translate.t("home.newGroup.userNotInOrganization"));
+                    break;
                   default:
                     msgError(translate.t("group_alerts.error_textsad"));
                     rollbar.error("An error occurred adding a project", error);
@@ -157,11 +164,10 @@ const addProjectModal: ((props: IAddProjectModal) => JSX.Element) = (props: IAdd
                     (values: { company: string; description: string; name: string; type: string }) => void) = (
                     values: { company: string; description: string; name: string; type: string },
                   ): void => {
-                    const companies: string[] = values.company.split(",");
 
                     createProject({
                       variables: {
-                        companies,
+                        company: values.company,
                         description: values.description,
                         hasDrills,
                         hasForces,

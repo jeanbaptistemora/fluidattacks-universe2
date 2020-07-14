@@ -177,7 +177,7 @@ type Mutation {
         projectName: String!
     ): AddCommentPayload!
     createProject(
-        companies: [String]!,
+        company: String!,
         description: String!,
         projectName: String!,
         subscription: SubscriptionType,

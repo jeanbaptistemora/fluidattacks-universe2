@@ -24,19 +24,19 @@ def test_delete():
 def test_create():
     assert get('unittest4') == {}
 
-    create('unittest4', {'company': 'unittest.org'})
+    create('unittest4', {'phone_number': '11111111'})
     assert get('unittest4') == \
-        {'email': 'unittest4', 'company': 'unittest.org'}
+        {'email': 'unittest4', 'phone_number': '11111111'}
 
 @pytest.mark.changes_db
 def test_update():
     assert get('unittest5') == {}
 
-    create('unittest5', {'company': 'unittest.org'})
+    create('unittest5', {'phone_number': '22222222'})
     update('unittest5', {})
     assert get('unittest5') == \
-        {'email': 'unittest5', 'company': 'unittest.org'}
+        {'email': 'unittest5', 'phone_number': '22222222'}
 
     update('unittest5', {'last_name':'testing'})
     assert get('unittest5') == \
-        {'last_name':'testing', 'email': 'unittest5', 'company': 'unittest.org'}
+        {'last_name':'testing', 'email': 'unittest5', 'phone_number': '22222222'}

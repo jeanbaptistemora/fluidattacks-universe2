@@ -13,7 +13,10 @@ import rollbar
 from asgiref.sync import sync_to_async
 from graphql import GraphQLError
 
-from backend import authz
+from backend import (
+    authz,
+    util
+)
 from backend.dal import organization as org_dal
 from backend.domain import project as group_domain
 from backend.exceptions import (
@@ -44,6 +47,7 @@ async def add_user(organization_id: str, email: str, role: str) -> bool:
         organization_id,
         role
     )
+    util.invalidate_cache(organization_id.lower())
     return user_added and role_added
 
 

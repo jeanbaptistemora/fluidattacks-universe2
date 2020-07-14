@@ -87,14 +87,12 @@ def _give_user_access(
 async def _create_new_user(  # pylint: disable=too-many-arguments
     context: object,
     email: str,
-    organization: str,
     responsibility: str,
     role: str,
     phone_number: str,
     group: str,
 ) -> bool:
     valid = (
-        validate_alphanumeric_field(organization) and
         validate_alphanumeric_field(responsibility) and
         validate_phone_field(phone_number) and
         validate_email_address(email) and
@@ -110,24 +108,17 @@ async def _create_new_user(  # pylint: disable=too-many-arguments
                 user_domain.create,
                 email.lower(),
                 {
-                    'company': organization.lower(),
                     'phone': phone_number
                 }
             )
 
-        group_organization = await aio.ensure_io_bound(
-            project_domain.get_attributes,
-            group,
-            ['organization']
-        )
-        organization_id = group_organization['organization']
+        organization_id = await org_domain.get_id_for_group(group)
         if not await org_domain.has_user_access(email, organization_id):
             await org_domain.add_user(organization_id, email, 'customer')
 
         if not user_domain.is_registered(email):
             user_domain.register(email)
             authz.grant_user_level_role(email, 'customer')
-            user_domain.update(email, organization.lower(), 'company')
 
         if group and responsibility and len(responsibility) <= 50:
             success = await aio.ensure_io_bound(
@@ -345,9 +336,9 @@ async def _do_add_user(
     _,
     info,
     email: str,
-    organization: str,
     role: str,
-    phone_number: str = ''
+    phone_number: str = '',
+    **__
 ) -> AddUserPayloadType:
     """Resolve add_user mutation."""
     success: bool = False
@@ -362,7 +353,6 @@ async def _do_add_user(
     if role in allowed_roles_to_grant:
         new_user = await sync_to_async(user_domain.create_without_project)(
             email=email,
-            organization=organization,
             role=role,
             phone_number=phone_number,
         )
@@ -415,7 +405,6 @@ async def _do_grant_user_access(
         if await _create_new_user(
                 context=info.context,
                 email=new_user_email,
-                organization=query_args.get('organization', ''),
                 responsibility=query_args.get('responsibility', '-'),
                 role=query_args.get('role', ''),
                 phone_number=query_args.get('phone_number', ''),
@@ -570,14 +559,7 @@ def modify_user_information(context: object,
     email = modified_user_data['email']
     responsibility = modified_user_data['responsibility']
     phone = modified_user_data['phone_number']
-    organization = modified_user_data['organization']
     successes = []
-
-    if organization and validate_alphanumeric_field(organization):
-        result = user_domain.update(email, organization.lower(), 'company')
-        successes.append(result)
-    else:
-        successes.append(False)
 
     if responsibility:
         successes.append(_add_acess(

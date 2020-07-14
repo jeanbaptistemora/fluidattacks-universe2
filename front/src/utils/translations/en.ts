@@ -503,6 +503,7 @@ const enTranslations: Dictionary = {
         tooltip: "Communication platform where all group stakeholders can interact",
       },
       invalidGroup: "Invalid group name",
+      invalidOrganizationName: "Organization name is invalid",
       name: "Group Name",
       new: {
         group: "New Group",
@@ -522,6 +523,7 @@ const enTranslations: Dictionary = {
         title: "Group Type",
         tooltip: "Type of subscription",
       },
+      userNotInOrganization: "User cannot create a group in an organization they are not a member of",
     },
     organizations: "My Organizations",
     tagOther: "others",

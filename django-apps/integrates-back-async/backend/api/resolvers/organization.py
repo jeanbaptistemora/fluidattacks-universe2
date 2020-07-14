@@ -76,7 +76,7 @@ async def _do_edit_user_organization(
 
     if success:
         util.invalidate_cache(user_email)
-        util.invalidate_cache(organization_id)
+        util.invalidate_cache(organization_id.lower())
         util.cloudwatch_log(
             info.context,
             f'Security: User {requester_email} modified information from the '
@@ -112,7 +112,6 @@ async def _do_grant_user_organization_access(
     requester_email = requester_data['user_email']
 
     user_email = str(parameters.get('user_email'))
-    user_organization = str(parameters.get('user_organization'))
     user_phone_number = str(parameters.get('phone_number'))
     user_role = str(parameters.get('role')).lower()
 
@@ -122,7 +121,6 @@ async def _do_grant_user_organization_access(
         user_created = await aio.ensure_io_bound(
             user_domain.create_without_project,
             user_email,
-            user_organization,
             'customer',
             user_phone_number
         )
@@ -133,7 +131,7 @@ async def _do_grant_user_organization_access(
 
     if success:
         util.invalidate_cache(user_email)
-        util.invalidate_cache(organization_id)
+        util.invalidate_cache(organization_id.lower())
         util.cloudwatch_log(
             info.context,
             f'Security: User {user_email} was granted access to organization '
@@ -171,7 +169,7 @@ async def _do_remove_user_organization_access(
         organization_id, user_email.lower()
     )
     if success:
-        util.invalidate_cache(organization_id)
+        util.invalidate_cache(organization_id.lower())
         util.cloudwatch_log(
             info.context,
             f'Security: User {requester_email} removed user {user_email} '

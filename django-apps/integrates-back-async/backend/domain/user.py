@@ -13,7 +13,6 @@ from backend.domain import organization as org_domain
 from backend.typing import User as UserType
 from backend.utils.validations import (
     validate_email_address,
-    validate_alphanumeric_field,
     validate_phone_field
 )
 from backend.utils import (
@@ -118,13 +117,7 @@ def update_multiple_user_attributes(email: str, data_dict: UserType) -> bool:
 
 
 def create(email: str, data: UserType) -> bool:
-    result: bool = False
-    org_name: str = str(data.get('company', ''))
-    org_id = async_to_sync(org_domain.get_or_create)(org_name, email)
-    data['organization'] = org_id
-
-    result = user_dal.create(email, data)
-    return result
+    return user_dal.create(email, data)
 
 
 def update(email: str, data_attr: str, name_attr: str) -> bool:
@@ -137,30 +130,26 @@ def get(email: str) -> UserType:
 
 def create_without_project(
     email: str,
-    organization: str,
     role: str,
     phone_number: str = ''
 ) -> bool:
     success = False
 
-    if (validate_alphanumeric_field(organization) and
-            validate_phone_field(phone_number) and
+    if (validate_phone_field(phone_number) and
             validate_email_address(email)):
 
         new_user_data: UserType = {}
         new_user_data['email'] = email
         new_user_data['authorized'] = True
         new_user_data['registered'] = True
-        if organization:
-            new_user_data['company'] = organization
-            org_id = async_to_sync(org_domain.get_or_create)(
-                organization, email
-            )
-            new_user_data['organization'] = org_id
         if phone_number:
             new_user_data['phone'] = phone_number
 
         success = authz.grant_user_level_role(email, role)
         success = success and create(email, new_user_data)
+
+        org_id = async_to_sync(org_domain.get_or_create)('acme', email)
+        if not async_to_sync(org_domain.has_user_access)(email, org_id):
+            async_to_sync(org_domain.add_user)(org_id, email, 'customer')
 
     return success
