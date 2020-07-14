@@ -15,10 +15,12 @@ from social_core.exceptions import AuthException
 from social_django.utils import load_strategy
 from social_django.utils import load_backend
 
-from backend.api.resolvers import project as project_resolver
+from backend.api.resolvers import (
+    organization as organization_resolver,
+    project as project_resolver,
+)
 from backend.dal.organization import (
     get_ids_for_user as get_user_organizations,
-    get_many_by_id as get_organizations
 )
 from backend.decorators import require_login, enforce_user_level_auth_async
 from backend.domain import (
@@ -36,6 +38,7 @@ from backend.typing import (
     SimplePayload as SimplePayloadType,
     UpdateAccessTokenPayload as UpdateAccessTokenPayloadType,
 )
+from backend.utils import aio
 from backend import util
 from backend.utils.logging import log
 from backend import authz
@@ -63,9 +66,13 @@ async def _get_role(
     return role
 
 
-async def _get_organizations(_, user_email: str) -> List[OrganizationType]:
+async def _get_organizations(info, user_email: str) -> List[OrganizationType]:
     organization_ids = await get_user_organizations(user_email)
-    organizations = await get_organizations(organization_ids, ['id', 'name'])
+    organizations = await aio.materialize(
+        organization_resolver.resolve(
+            info, organization_id, as_field=True)
+        for organization_id in organization_ids
+    )
     return organizations
 
 

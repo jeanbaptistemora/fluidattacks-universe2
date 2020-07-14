@@ -68,10 +68,10 @@ async def _get_organization(
     Get organization settings
     """
     org_id: str = await org_domain.get_id_for_group(project_name)
-    as_field = True
     selection_set = SelectionSetNode()
     selection_set.selections = requested_fields
-    return await org_loader.resolve(info, org_id, as_field, selection_set)
+
+    return await org_loader.resolve(info, org_id, as_field=True, as_list=False)
 
 
 @require_integrates

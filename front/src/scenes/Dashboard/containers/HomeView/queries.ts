@@ -6,7 +6,6 @@ export const PROJECTS_QUERY: DocumentNode = gql`
     me(callerOrigin: "FRONT") {
       organizations {
         name
-        id
       }
       projects {
         name

@@ -3,14 +3,15 @@ import sys
 from decimal import Decimal
 from typing import (
     List,
-    Optional
+    Optional,
+    Union
 )
 
 from ariadne import (
     convert_camel_case_to_snake,
     convert_kwargs_to_snake_case
 )
-from graphql.language.ast import SelectionSetNode
+from graphql.language.ast import FieldNode, SelectionSetNode, ObjectFieldNode
 
 from backend import (
     authz,
@@ -211,9 +212,11 @@ async def _do_update_organization_policies(
     return SimplePayloadType(success=success)
 
 
-@rename_kwargs({'identifier': 'organization_name'})
-async def _get_id(_, organization_name: str, **__) -> str:
-    return await org_domain.get_id_by_name(organization_name)
+@rename_kwargs({'identifier': 'organization_id'})
+async def _get_id(_, organization_id: str, **kwargs) -> str:
+    if kwargs.get('organization_name'):
+        return await org_domain.get_id_by_name(kwargs['organization_name'])
+    return organization_id
 
 
 @rename_kwargs({'identifier': 'organization_id'})
@@ -262,7 +265,8 @@ async def _get_min_acceptance_severity(
 async def _get_users(
     info,
     organization_id: str,
-    requested_fields: list
+    requested_fields: list,
+    **__
 ) -> List[UserType]:
     """Get users."""
     organization_users = await org_domain.get_users(organization_id)
@@ -286,27 +290,44 @@ async def _get_users(
     ])
 
 
+def _get_requested_fields(info, as_field: bool, as_list: bool):
+    if as_field and as_list:
+        to_extend = util.get_requested_fields(
+            'organizations',
+            info.field_nodes[0].selection_set
+        )
+    elif as_field:
+        to_extend = util.get_requested_fields(
+            'organization',
+            info.field_nodes[0].selection_set
+        )
+    else:
+        to_extend = info.field_nodes[0].selection_set.selections
+    return to_extend
+
+
 async def resolve(
         info,
         identifier: str,
         as_field: bool = False,
-        selection_set: SelectionSetNode = SelectionSetNode()
-) -> OrganizationType:
+        as_list: bool = True,
+        **kwargs) -> OrganizationType:
     """Async resolve fields."""
     result = dict()
-    requested_fields = (
-        util.get_requested_fields('organization', selection_set)
-        if as_field
-        else info.field_nodes[0].selection_set.selections
-    )
+    req_fields: List[Union[FieldNode, ObjectFieldNode]] = []
 
-    for requested_field in requested_fields:
+    req_fields.extend(_get_requested_fields(info, as_field, as_list))
+    if kwargs.get('selection_set'):
+        req_fields.extend(kwargs['selection_set'].selections)
+
+    for requested_field in req_fields:
         if util.is_skippable(info, requested_field):
             continue
 
         params = {
             'identifier': identifier,
-            'requested_fields': requested_fields
+            'organization_name': kwargs.get('organization_name'),
+            'requested_fields': req_fields
         }
         field_params = util.get_field_parameters(requested_field)
         if field_params:
@@ -329,17 +350,17 @@ async def resolve(
 @convert_kwargs_to_snake_case
 @rename_kwargs({
     'organization_id': 'identifier',
-    'organization_name': 'identifier'
 })
 @require_login
 @require_organization_access
 async def resolve_organization(
     _,
     info,
-    identifier: str
+    identifier: str = '',
+    organization_name: str = None
 ) -> OrganizationType:
     """Resolve Organization query """
-    return await resolve(info, identifier)
+    return await resolve(info, identifier, organization_name=organization_name)
 
 
 @convert_kwargs_to_snake_case
