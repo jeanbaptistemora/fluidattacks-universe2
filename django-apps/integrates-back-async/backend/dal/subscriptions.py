@@ -15,6 +15,7 @@ from backend.utils.encodings import key_to_mapping, mapping_to_key
 
 # Constants
 SUBSCRIPTIONS_TABLE = 'fi_subscriptions'
+NumericType = Union[Decimal, float, int]
 
 
 async def get_user_subscriptions(
@@ -54,7 +55,7 @@ async def get_subscriptions_to_entity_report(
 
 async def subscribe_user_to_entity_report(
     *,
-    period: Union[float, int, Decimal],
+    period: NumericType,
     report_entity: str,
     report_subject: str,
     user_email: str,
