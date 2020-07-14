@@ -85,6 +85,7 @@ type InternalProject {
     projectName: String
 }
 
+"Organization type definition"
 type Organization {
     id: String!
     maxAcceptanceDays: Int
@@ -92,6 +93,8 @@ type Organization {
     maxNumberAcceptations: Int
     minAcceptanceSeverity: Float!
     name: String!
+    remediatedVulnerabilities: GenericScalar
+    totalGroups: Int
     users: [User]
 }
 

@@ -1,7 +1,10 @@
 import asyncio
 import sys
 from decimal import Decimal
+from functools import reduce
 from typing import (
+    cast,
+    Dict,
     List,
     Optional,
     Union
@@ -33,6 +36,7 @@ from backend.typing import (
     EditUserPayload as EditUserPayloadType,
     GrantUserAccessPayload as GrantUserAccessPayloadType,
     Organization as OrganizationType,
+    Project as ProjectType,
     SimplePayload as SimplePayloadType,
     User as UserType
 )
@@ -256,6 +260,47 @@ async def _get_min_acceptance_severity(
     **__
 ) -> Decimal:
     return await org_domain.get_min_acceptance_severity(organization_id)
+
+
+@rename_kwargs({'identifier': 'organization_id'})
+async def _get_remediated_vulnerabilities(
+        info, organization_id: str, **__) -> Dict[str, Dict[str, int]]:
+    org_groups = await org_domain.get_groups(organization_id)
+    group_attrs = await info.context.loaders['project'].load_many(org_groups)
+
+    def filter_last_week(group: ProjectType, index: int):
+        attrs = cast(Dict[str, List[List[Dict[str, int]]]], group['attrs'])
+        remediated_over_time = attrs.get('remediated_over_time', [[{}], [{}]])
+
+        return remediated_over_time[index][-1].get('y', 0)
+
+    found_last_week: int = reduce(
+        lambda acc, group: acc + filter_last_week(group, 0), group_attrs, 0)
+    closed_last_week: int = reduce(
+        lambda acc, group: acc + filter_last_week(group, 1), group_attrs, 0)
+
+    open_vulns: int = reduce(lambda acc, group: acc + group['attrs'].get(
+        'open_vulnerabilities', 0), group_attrs, 0)
+    closed_vulns: int = reduce(lambda acc, group: acc + group['attrs'].get(
+        'closed_vulnerabilities', 0), group_attrs, 0)
+
+    return {
+        'lastWeek': {
+            'closed': closed_last_week,
+            'open': found_last_week - closed_last_week,
+        },
+        'today': {
+            'closed': closed_vulns,
+            'open': open_vulns,
+        },
+    }
+
+
+@rename_kwargs({'identifier': 'organization_id'})
+async def _get_total_groups(_, organization_id: str, **__) -> int:
+    org_groups = await org_domain.get_groups(organization_id)
+
+    return len(org_groups)
 
 
 @rename_kwargs({'identifier': 'organization_id'})
