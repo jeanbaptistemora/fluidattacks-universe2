@@ -42,7 +42,7 @@ function helper_deploy_install_plugins_new {
   local tipuesearch='assets/tipuesearch/tipuesearch.min.js assets/tipuesearch/tipuesearch_set.js'
   local tipuesearch_version='d4b5df7'
 
-  local others='assets neighbors representative_image sitemap tag_cloud tipue_search'
+  local others='assets neighbors share_post representative_image sitemap tag_cloud tipue_search'
   local others_version='666716e'
 
   local pelican_plugins_path='pelican-plugins'

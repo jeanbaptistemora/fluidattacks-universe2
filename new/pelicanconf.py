@@ -38,6 +38,7 @@ PLUGINS = [
     'assets',
     'neighbors',
     'representative_image',
+    'share_post',
     'sitemap',
     'tag_cloud',
     'tipue_search'

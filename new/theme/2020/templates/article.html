@@ -91,41 +91,45 @@
     <div class="lh-2">
       {{ article.content }}
     </div>
-    <div class="w-100 tl-l tc pt6-l pt5 mw6-m ml-auto mr-auto">
+    <div class="w-100 tl pt6-l pt5 mw6-m ml-auto mr-auto">
       <img loading="lazy" class="w4 br-100 dib-l"
-      src="{{ SITEURL }}/images/authors/{{ article.writer }}.png"
-      alt="Author picture">
-      <div class="dib-l tl v-top ph3">
-        <!-- Author -->
-        <p class="c-fluid-bk fw4 f-key-features mv0 pv1">Author:
-          {% for author in article.authors %}
-            <a class="c-fluid-gray hover-black no-underline"
-                href="{{ SITEURL }}/{{ author.url }}">
-                {{ author }}
-            </a><br/>
-          {% endfor %}
+            src="{{ SITEURL }}/images/authors/{{ article.writer }}.png"
+            alt="Author picture">
+      <div class="dib-l tl v-top ph3-l pv4-l">
+          <!-- Author -->
+          <p class="c-fluid-bk fw4 f-key-features dib-l v-mid mr4-l pv0-l pv3">By
+            {% for author in article.authors %}
+              <a class="c-fluid-bk no-underline"
+                  href="{{ SITEURL }}/{{ author.url }}">
+                  {{ author }}
+              </a><br/>
+            {% endfor %}
           </p>
-          <!-- Category -->
-          <p class="c-fluid-bk fw4 f-key-features mv0 pv1">Category:
-            <a class="c-fluid-gray hover-black no-underline"
-              href="{{ SITEURL }}/{{ article.category.url }}">
-              {{ article.category|replace("-", " ") }}
-            </a><br/>
+          <!-- Share -->
+          <p class="c-fluid-bk fw4 f-key-features dib-l v-mid mh4-l pv0-l pv3">Share:
+            <a class="mh2" href="{{article.share_post['twitter']}}" target="_blank" title="Share on Twitter">
+              <img loading="lazy" class="w-social" src="{{ SITEURL }}/theme/images/social-media/social-twitter.png"
+                   alt="Twitter logo">
+            </a>
+            <a class="mh2" href="{{article.share_post['facebook']}}" target="_blank" title="Share on Facebook">
+              <img loading="lazy" class="w1" src="{{ SITEURL }}/theme/images/social-media/social-facebook.png"
+                   alt="Facebook logo">
+            </a>
+            <a class="mh2" href="{{article.share_post['linkedin']}}" target="_blank" title="Share on LinkedIn">
+              <img loading="lazy" class="w-social" src="{{ SITEURL }}/theme/images/social-media/social-linkedin.png"
+                   alt="Linkedin logo">
+            </a>
           </p>
           <!-- Tags -->
-          <p class="c-fluid-bk fw4 f-key-features mv0 pv1">Tags:
-          {% for tag in article.tags %}
-            {% if loop.last %}
-              <a class="c-fluid-gray hover-black no-underline"
-                  href="{{ SITEURL }}/{{ tag.url }}">{{ tag }}</a><br/>
-            {% else %}
-              <a class="c-fluid-gray hover-black no-underline"
-                  href="{{ SITEURL }}/{{ tag.url }}">{{ tag }},&nbsp;</a>
-            {% endif %}
-          {% endfor %}
-          </p>
-          <p class="c-fluid-bk fw4 f-key-features mv0 pv1">Date:
-            <span class="c-fluid-gray">{{ article.locale_date }}</span>
+          <p class="c-fluid-bk fw4 f-key-features dib-l v-mid mh4-l pt0-l pt4">
+            <a class="sub-btn f3"
+               href="{{ SITEURL }}/subscription/">
+              Subscribe Now
+              <img
+                class="w1"
+                src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/arrow-btn.svg"
+                alt="Young hacker smiling">
+            </a>
           </p>
       </div>
     </div>
