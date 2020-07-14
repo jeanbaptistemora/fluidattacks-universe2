@@ -25,11 +25,8 @@ export const DataTableNext: React.FC<ITableProps> = (
     search,
   } = props;
 
-  const itHasIdProperty: boolean = _.has(dataset, "[0].id");
   const datasetWithUniqueKeys: Record<string, unknown>[] = !_.isEmpty(dataset)
-    ? itHasIdProperty
-      ? dataset
-      : addUniqueKeys(dataset)
+    ? addUniqueKeys(dataset)
     : dataset;
 
   return (
@@ -42,7 +39,7 @@ export const DataTableNext: React.FC<ITableProps> = (
           exportCSV={{
             fileName: csvFilename,
           }}
-          keyField={itHasIdProperty ? "id" : "uniqueId"}
+          keyField={"uniqueId"}
           search={search}
         >
           {(
