@@ -26,6 +26,7 @@ functionalities.
 
 [role="w-25-ns w-90 dib tl v-top pa3"]
 == Remediation
+{nbsp} +
 
 [role="fw1 f-key-features lh-key-features"]
 Multiple finding validation cycles are performed
@@ -40,6 +41,8 @@ by directly contacting Fluid Attacks' hackers also through Integrates.
 
 [role="w-25-ns w-90 dib tl v-top pa3"]
 == Healthcheck
+{nbsp} +
+{nbsp} +
 
 [role="fw1 f-key-features lh-key-features"]
 All versions of existing code should be attacked up to the subscription start

@@ -18,6 +18,7 @@ been remediated.
 
 [role="w-25-ns w-90 dib tl v-top pa3"]
 == Vulnerability Description
+{nbsp} +
 
 [role="fw1 f-key-features lh-key-features"]
 Through Integrates you will have access to the visualization
