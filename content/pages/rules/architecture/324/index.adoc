@@ -76,3 +76,9 @@ Verify that the application protects against *SSRF* attacks,
 by validating or sanitizing untrusted data or *HTTP* file metadata,
 such as filenames and URL input fields,
 or using whitelisting of protocols, domains, paths and ports.
+
+. [[r10]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V12.6 SSRF Protection Requirements.(12.6.1)]
+Verify that the web or application server is configured with a whitelist of
+resources or systems to which the server can send requests or load data/files
+from.

@@ -42,3 +42,8 @@ from the application - are served by either octet stream downloads,
 or from an unrelated domain, such as a cloud file storage bucket.
 Implement a suitable content security policy to reduce the risk from XSS
 vectors or other attacks from the uploaded file.
+
+. [[r4]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V12.5 File Download Requirements.(12.5.2)]
+Verify that direct requests to uploaded files will never be executed as
+**HTML**/**JavaScript** content.
