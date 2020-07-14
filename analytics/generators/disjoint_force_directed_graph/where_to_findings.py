@@ -26,9 +26,11 @@ async def generate_one(group: str):
         finding_title = finding['finding']
         finding_cvss = finding['severityCvss']
 
-        for vulnerability in vulnerability_domain.list_vulnerabilities([
-            finding_id
-        ]):
+        for vulnerability in (
+            await vulnerability_domain.list_vulnerabilities_async([
+                finding_id
+            ])
+        ):
             source = utils.get_vulnerability_source(vulnerability)
             target = f'{finding_title} {source}'
 

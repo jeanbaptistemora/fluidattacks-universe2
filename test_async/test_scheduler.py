@@ -11,15 +11,16 @@ from django.contrib.sessions.middleware import SessionMiddleware
 from jose import jwt
 
 from backend.dal.finding import get_finding
+from backend.dal.vulnerability import get as get_vuln
 from backend.domain.project import get_released_findings
-from backend.dal.vulnerability import get_vulnerabilities
+from backend.domain.vulnerability import list_vulnerabilities_async
 from backend.scheduler import (
     is_not_a_fluidattacks_email, remove_fluid_from_recipients,
     is_a_unsolved_event, get_unsolved_events,
     extract_info_from_event_dict, get_finding_url,
     get_status_vulns_by_time_range, create_weekly_date, get_accepted_vulns,
     get_by_time_range, create_register_by_week, create_data_format_chart,
-    get_all_vulns_by_project, get_first_week_dates, get_date_last_vulns,
+    get_first_week_dates, get_date_last_vulns,
     create_msj_finding_pending, format_vulnerabilities,
     get_project_indicators
 )
@@ -100,7 +101,9 @@ class SchedulerTests(TestCase):
         released_findings = get_released_findings('UNITTESTING')
         first_day = '2019-01-01 12:00:00'
         last_day = '2019-06-30 23:59:59'
-        vulns = get_all_vulns_by_project(released_findings)
+        vulns = async_to_sync(list_vulnerabilities_async)(
+            [str(finding['finding_id']) for finding in released_findings]
+        )
         test_data = get_status_vulns_by_time_range(
             vulns, first_day, last_day, released_findings
         )
@@ -117,7 +120,9 @@ class SchedulerTests(TestCase):
         released_findings = get_released_findings('UNITTESTING')
         first_day = '2019-01-01 12:00:00'
         last_day = '2019-06-30 23:59:59'
-        vulns = get_all_vulns_by_project(released_findings)
+        vulns = async_to_sync(list_vulnerabilities_async)(
+            [str(finding['finding_id']) for finding in released_findings]
+        )
         test_data = get_accepted_vulns(
             released_findings, vulns, first_day, last_day
         )
@@ -128,9 +133,9 @@ class SchedulerTests(TestCase):
         finding = await get_finding('422286126')
         first_day = '2019-01-01 12:00:00'
         last_day = '2019-06-30 23:59:59'
-        vuln = get_vulnerabilities('422286126')[0]
+        vuln = get_vuln('422286126', uuid='80d6a69f-a376-46be-98cd-2fdedcffdcc0')
         test_data = get_by_time_range(
-            finding, vuln, first_day, last_day
+            finding, vuln[0], first_day, last_day
         )
         expected_output = 1
         assert test_data == expected_output
@@ -160,22 +165,14 @@ class SchedulerTests(TestCase):
         ]
         assert test_data == expected_output
 
-    def test_get_all_vulns_by_project(self):
-        all_registers = get_released_findings('UNITTESTING')
-        test_data = get_all_vulns_by_project(all_registers)
-        assert isinstance(test_data, list)
-        for item in test_data:
-            assert isinstance(item, dict)
-        assert test_data[0]['finding_id']
-
-    def test_get_first_week_dates(self):
-        vulns = get_vulnerabilities('422286126')
+    async def test_get_first_week_dates(self):
+        vulns = await list_vulnerabilities_async(['422286126'])
         test_data = get_first_week_dates(vulns)
         expected_output = ('2018-09-24 00:00:00', '2018-09-30 23:59:59')
         assert test_data == expected_output
 
-    def test_get_date_last_vulns(self):
-        vulns = get_vulnerabilities('422286126')
+    async def test_get_date_last_vulns(self):
+        vulns = await list_vulnerabilities_async(['422286126'])
         test_data = get_date_last_vulns(vulns)
         expected_output = '2019-01-07 16:01:26'
         assert test_data == expected_output
@@ -202,11 +199,11 @@ class SchedulerTests(TestCase):
         not_new_treatment_finding = await get_finding('422286126')
         new_treatment_finding = await get_finding('436992569')
 
-        test_data = create_msj_finding_pending(not_new_treatment_finding)
+        test_data = await create_msj_finding_pending(not_new_treatment_finding)
         expected_output = ''
         assert test_data == expected_output
 
-        test_data = create_msj_finding_pending(new_treatment_finding)
+        test_data = await create_msj_finding_pending(new_treatment_finding)
         expected_output = u'FIN.S.0038. Fuga de información de negocio'
         assert expected_output in test_data
 

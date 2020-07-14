@@ -17,8 +17,7 @@ from django.conf import settings
 from backend import mailer, util
 from backend.dal import (
     finding as finding_dal,
-    project as project_dal,
-    vulnerability as vuln_dal
+    project as project_dal
 )
 from backend.domain import (
     finding as finding_domain,
@@ -213,7 +212,9 @@ def create_register_by_week(project: str) -> \
     found = 0
     all_registers = OrderedDict()
     findings_released = project_domain.get_released_findings(project)
-    vulns = get_all_vulns_by_project(findings_released)
+    vulns = async_to_sync(vuln_domain.list_vulnerabilities_async)(
+        [str(finding['finding_id']) for finding in findings_released]
+    )
     if vulns:
         first_day, last_day = get_first_week_dates(vulns)
         first_day_last_week = get_date_last_vulns(vulns)
@@ -263,18 +264,6 @@ def create_data_format_chart(
     for status in plot_points:
         result_data.append(plot_points[status])
     return result_data
-
-
-def get_all_vulns_by_project(
-        findings_released: List[Dict[str, FindingType]]) -> \
-        List[Dict[str, FindingType]]:
-    """Get all vulnerabilities by project"""
-    vulns: List[Dict[str, FindingType]] = []
-    for finding in findings_released:
-        vulns += vuln_dal.get_vulnerabilities(str(
-            finding.get('finding_id', '')
-        ))
-    return vulns
 
 
 def get_first_week_dates(vulns: List[Dict[str, FindingType]]) -> \
@@ -334,8 +323,7 @@ async def get_group_new_vulnerabilities(group_name: str) -> None:
         )
         for act_finding in finding_requests:
             finding_url = get_finding_url(act_finding)
-            msj_finding_pending = await aio.ensure_io_bound(
-                create_msj_finding_pending,
+            msj_finding_pending = await create_msj_finding_pending(
                 act_finding
             )
             delta = await calculate_vulnerabilities(
@@ -400,9 +388,8 @@ async def get_new_vulnerabilities():
 
 
 async def calculate_vulnerabilities(act_finding: Dict[str, str]) -> int:
-    vulns = await aio.ensure_io_bound(
-        vuln_dal.get_vulnerabilities,
-        act_finding['finding_id']
+    vulns = await vuln_domain.list_vulnerabilities_async(
+        [act_finding['finding_id']]
     )
     all_tracking = await finding_domain.get_tracking_vulnerabilities(vulns)
     delta_total = 0
@@ -451,7 +438,8 @@ def format_vulnerabilities(delta: int, act_finding: Dict[str, str]) -> str:
     return finding_text
 
 
-def create_msj_finding_pending(act_finding: Dict[str, FindingType]) -> str:
+async def create_msj_finding_pending(
+        act_finding: Dict[str, FindingType]) -> str:
     """Validate if a finding has treatment."""
     historic_treatment = cast(
         List[Dict[str, str]],
@@ -459,8 +447,8 @@ def create_msj_finding_pending(act_finding: Dict[str, FindingType]) -> str:
     )
     open_vulns = [
         vuln
-        for vuln in vuln_domain.get_vulnerabilities(
-            str(act_finding['finding_id'])
+        for vuln in await vuln_domain.list_vulnerabilities_async(
+            [str(act_finding['finding_id'])]
         )
         if vuln['current_state'] == 'open'
     ]

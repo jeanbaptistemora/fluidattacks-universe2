@@ -19,7 +19,6 @@ from backend.api.dataloaders.vulnerability import VulnerabilityLoader
 from backend.api.schema import SCHEMA
 from backend.domain.finding import get_finding
 from backend.domain.project import get_open_vulnerabilities, list_findings
-from backend.domain.vulnerability import list_vulnerabilities
 from backend.exceptions import FindingNotFound, NotVerificationRequested
 from test_async.utils import create_dummy_session
 
