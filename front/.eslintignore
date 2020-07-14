@@ -6,4 +6,3 @@ src/styles/
 src/typings/
 src/utils/
 src/**/*.css.d.ts
-src/components/DataTableNext/types.ts

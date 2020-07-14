@@ -38,7 +38,6 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
     bordered,
     defaultSorted,
     onUpdateEnableFilter,
-    onTableChange,
     isFilterEnabled,
     pageSize,
     columnToggle = false,
@@ -59,14 +58,6 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
   }
   function handleNoData(): string {
     return translate.t("dataTableNext.noDataIndication");
-  }
-  function handleTableChange(
-    type: TableChangeType,
-    newState: Readonly<TableChangeNewState>
-  ): void {
-    if (!_.isUndefined(onTableChange)) {
-      onTableChange(type, newState);
-    }
   }
 
   const isPaginationEnable: boolean =
@@ -137,7 +128,6 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
         }
         hover={true}
         noDataIndication={handleNoData}
-        onTableChange={handleTableChange}
         pagination={
           isPaginationEnable ? paginationFactory(paginationOptions) : undefined
         }

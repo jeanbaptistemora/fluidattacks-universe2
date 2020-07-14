@@ -84,7 +84,15 @@
         "selector": "interface",
         "format": ["PascalCase"],
         "prefix": ["I"],
-        "suffix": ["Props", "Fn"]
+        /*
+         * [suffix]: "Shape for..."
+         *
+         * Attr: GraphQL query or mutation attributes.
+         * Config: Object use for configuration purposes.
+         * Fn: Functional type.
+         * Props: React functional component props.
+         */
+        "suffix": ["Attr", "Config", "Fn", "Props"]
       }
     ],
     /*

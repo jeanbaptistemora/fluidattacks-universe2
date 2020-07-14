@@ -1,9 +1,13 @@
-/* tslint:disable no-any
- * NO-ANY: Disabling this rule is necessary because the dataset
- * array may contain different types since this is a generic component
- */
+/* eslint-disable @typescript-eslint/no-explicit-any
+  --------
+  Disabling this rule is necessary, because the dataset array may contain
+  different types since this is a generic component.
+*/
 import { ReactElement } from "react";
-import { ColumnToggleProps, ToolkitProviderProps } from "react-bootstrap-table2-toolkit";
+import {
+  ColumnToggleProps,
+  ToolkitProviderProps,
+} from "react-bootstrap-table2-toolkit";
 
 export interface ITableProps {
   bodyContainer?: string;
@@ -19,43 +23,52 @@ export interface ITableProps {
   isFilterEnabled?: boolean;
   pageSize: number;
   remote: RemoteProps | boolean;
-  rowEvents?: {};
+  rowEvents?: Record<string, unknown>;
   search: boolean;
   selectionMode?: SelectRowOptions;
   striped?: boolean;
   tableBody?: string;
   tableHeader?: string;
-  title?: string;
-  onClickRow?(arg1: string | {} | undefined): void;
-  onColumnToggle?(arg1: string): void;
-  onTableChange?(type: TableChangeType, newState: TableChangeNewState): void;
-  onUpdateEnableFilter?(): void;
+  onColumnToggle?: (arg1: string) => void;
+  onUpdateEnableFilter?: () => void;
 }
 
+// This will be rename to IHeaderConfig
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export interface IHeader {
   align?: string;
   dataField: string;
-  filter?: any;
+  filter?: unknown;
   header: string;
   visible?: boolean;
   width?: string;
   wrapped?: boolean;
-
-  approveFunction?(arg1: { [key: string]: string } | undefined): void;
-  changeFunction?(arg1: { [key: string]: string } | undefined): void;
-  deleteFunction?(arg1: { [key: string]: string } | undefined): void;
-  formatter?(value: any, row: any, rowIndex: number, formatExtraData: any): string | ReactElement;
-  onSort?(dataField: string, order: SortOrder): void;
-  sortFunc?(a: any, b: any, order: "asc" | "desc", rowA: any, rowB: any): number;
+  approveFunction?: (arg1?: Record<string, string>) => void;
+  changeFunction?: (arg1: Readonly<Record<string, string>>) => void;
+  deleteFunction?: (arg1?: Record<string, string>) => void;
+  formatter?: (
+    cell: any,
+    row: any,
+    rowIndex: number,
+    formatExtraData: any
+  ) => string | ReactElement;
+  onSort?: (dataField: string, order: SortOrder) => void;
+  sortFunc?: (
+    a: any,
+    b: any,
+    order: "asc" | "desc",
+    rowA: any,
+    rowB: any
+  ) => number;
 }
 
-export interface ICustomToggle {
+export interface ICustomToggleProps {
   propsTable: ITableProps;
   propsToggle: ColumnToggleProps;
 }
 
 export interface ITableWrapperProps {
-  dataset: Array<Record<string, unknown>>;
+  dataset: Record<string, unknown>[];
   tableProps: ITableProps;
   toolkitProps: ToolkitProviderProps;
 }

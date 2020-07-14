@@ -171,7 +171,6 @@ const updateVerificationModal: React.FC<IUpdateVerificationModal> = (props: IUpd
         dataset={vulnerabilitiesList}
         exportCsv={false}
         headers={vulnsHeader}
-        onClickRow={undefined}
         pageSize={10}
         remote={false}
         search={false}

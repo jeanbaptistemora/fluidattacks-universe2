@@ -1,7 +1,7 @@
 import { Button } from "../Button";
 import { Column } from "react-bootstrap-table-next";
 import { ColumnToggle } from "react-bootstrap-table2-toolkit";
-import { ICustomToggle } from "./types";
+import { ICustomToggleProps } from "./types";
 import { Modal } from "../Modal";
 import React from "react";
 import { TooltipWrapper } from "../TooltipWrapper";
@@ -9,10 +9,10 @@ import _ from "lodash";
 import translate from "../../utils/translations/translate";
 import { ButtonToolbar, Checkbox, Col, Glyphicon } from "react-bootstrap";
 
-export const CustomToggleList: React.FC<ICustomToggle> = (
+export const CustomToggleList: React.FC<ICustomToggleProps> = (
   // Readonly utility type doesn't work on deeply nested types
   // eslint-disable-next-line @typescript-eslint/prefer-readonly-parameter-types
-  props: Readonly<ICustomToggle>
+  props: Readonly<ICustomToggleProps>
 ): JSX.Element => {
   const {
     propsTable: { onColumnToggle: sideEffects },

@@ -334,7 +334,6 @@ const treatmentView: React.FC<ITreatmentViewProps> = (props: ITreatmentViewProps
                           dataset={historicTreatment}
                           exportCsv={false}
                           headers={historicTreatmentHeaders}
-                          onClickRow={undefined}
                           pageSize={5}
                           remote={false}
                           search={false}
