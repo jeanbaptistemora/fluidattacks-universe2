@@ -13,7 +13,7 @@ The system output must be encoded in the corresponding language (*escaping*).
 == Description
 
 System components use structured messages to communicate with other components.
-When this messages include input from untrusted sources and this input is not
+When these messages include input from untrusted sources and this input is not
 properly escaped,
 they become prone to the insertion of malicious commands.
 For this reason, enconding or escaping must occur before sending the messages.

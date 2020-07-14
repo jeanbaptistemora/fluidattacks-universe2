@@ -4,7 +4,7 @@
 :keywords: Rate, Limit, Interaction, Frequency, ASVS, CWE, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
-= R327. Set rate limit
+= R327. Set a rate limit
 
 == Requirement
 
