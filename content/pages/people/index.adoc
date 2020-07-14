@@ -5,11 +5,25 @@
 
 = People
 
-We are a dedicated and enthusiastic team focused on software hacking,
-finding vulnerabilities, and passionate about our work.
-Technology and security is part of our DNA;
-we are always attacking, testing, and developing new applications.
-Meet some of our team:
+We are a dedicated and enthusiastic company.
+We are focused on software hacking,
+finding vulnerabilities in a wide range of information systems
+comprehensively and passionately, and ASAP for all our clients.
+Technology and cybersecurity are part of our DNA;
+we are always attacking, testing, and developing new applications;
+we are continuously evolving.
+Our highly certified experts make up a robust red team
+that can be divided into some sub-teams depending on their specialties
+that can cover everything from attacks and re-attacks to escapes and releases.
+These experts are responsible for helping our clients
+discover their cybersecurity risks
+and providing them with sufficient guidance to remediate vulnerabilities
+so that they can offer their users genuinely secure systems.
+Besides, these experts work alongside
+other marketing and management professionals who,
+with their extensive knowledge and commitment,
+end up giving sufficient support to the organization
+we proudly built and called `Fluid Attacks`.
 
 [role= "tb-ppl tc"]
 [cols=3]
