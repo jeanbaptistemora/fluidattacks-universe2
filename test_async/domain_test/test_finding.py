@@ -14,7 +14,7 @@ from backend import mailer
 from backend.domain.finding import (
     add_comment, get_age_finding, update_client_description,
     get_tracking_vulnerabilities, update_treatment,
-    handle_acceptation, validate_evidence,
+    handle_acceptation, validate_evidence, mask_finding,
     approve_draft, compare_historic_treatments
 )
 from backend.domain.vulnerability import list_vulnerabilities_async
@@ -28,7 +28,6 @@ from backend.exceptions import (
     InvalidFileType,
     InvalidNumberAcceptations
 )
-from backend.utils.findings import mask_finding
 
 pytestmark = [
     pytest.mark.asyncio,

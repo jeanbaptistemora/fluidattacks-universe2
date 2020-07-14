@@ -9,7 +9,7 @@ from typing import Dict, List, Union, cast
 
 import pytz
 import rollbar
-from asgiref.sync import async_to_sync, sync_to_async
+from asgiref.sync import async_to_sync
 from backports import csv  # type: ignore
 from django.conf import settings
 from django.core.files.base import ContentFile
@@ -18,10 +18,8 @@ from pytz.tzinfo import DstTzInfo
 
 from backend import mailer, util
 from backend.dal import (
-    comment as comment_dal,
     finding as finding_dal,
-    project as project_dal,
-    vulnerability as vuln_dal
+    project as project_dal
 )
 from backend.domain import (
     organization as org_domain,
@@ -42,8 +40,7 @@ from backend.typing import (
 from backend.utils import (
     aio,
     cvss,
-    forms as forms_utils,
-    vulnerabilities as vuln_utils
+    forms as forms_utils
 )
 from __init__ import (
     BASE_URL,
@@ -743,96 +740,3 @@ async def validate_treatment_change(
             validate_number_acceptations_task
         )
     )
-
-
-@async_to_sync
-async def mask_finding(finding_id: str) -> bool:
-    finding = await finding_dal.get_finding(finding_id)
-    finding = format_data(finding)
-    historic_treatment = cast(
-        List[Dict[str, str]],
-        finding.get('historicTreatment', [])
-    )
-    historic_verification = cast(
-        List[Dict[str, str]],
-        finding.get('historicVerification', [])
-    )
-
-    attrs_to_mask = [
-        'affected_systems', 'attack_vector_desc', 'effect_solution',
-        'related_findings', 'risk', 'threat', 'treatment',
-        'treatment_manager', 'vulnerability'
-    ]
-    mask_finding_tasks = []
-    mask_finding_tasks.append(
-        asyncio.create_task(
-            finding_dal.update(finding_id, {
-                attr: 'Masked'
-                for attr in attrs_to_mask
-            })
-        )
-    )
-
-    mask_finding_tasks.append(
-        asyncio.create_task(
-            mask_treatment(finding_id, historic_treatment)
-        )
-    )
-
-    mask_finding_tasks.append(
-        asyncio.create_task(
-            mask_verification(finding_id, historic_verification)
-        )
-    )
-
-    list_evidences_files = await finding_dal.search_evidence(
-        f'{finding["projectName"]}/{finding_id}'
-    )
-    evidence_s3_task = [
-        asyncio.create_task(
-            finding_dal.remove_evidence(file_name)
-        )
-        for file_name in list_evidences_files
-    ]
-    mask_finding_tasks.extend(evidence_s3_task)
-
-    evidence_dynamodb_task = asyncio.create_task(
-        finding_dal.update(finding_id, {
-            'files': [
-                {
-                    'file_url': 'Masked',
-                    'name': 'Masked',
-                    'description': 'Masked'
-                }
-                for _ in cast(List[Dict[str, str]], finding['evidence'])
-            ]
-        })
-    )
-    mask_finding_tasks.append(evidence_dynamodb_task)
-
-    comments_and_observations = (
-        await comment_dal.get_comments('comment', int(finding_id)) +
-        await comment_dal.get_comments('observation', int(finding_id))
-    )
-    comments_task = [
-        asyncio.create_task(
-            comment_dal.delete(int(finding_id), cast(int, comment['user_id']))
-        )
-        for comment in comments_and_observations
-    ]
-    mask_finding_tasks.extend(comments_task)
-
-    list_vulns = await sync_to_async(vuln_dal.get_vulnerabilities)(finding_id)
-    mask_vulns_task = [
-        asyncio.create_task(
-            sync_to_async(vuln_utils.mask_vuln)(
-                finding_id, str(vuln['UUID']))
-        )
-        for vuln in list_vulns
-    ]
-    mask_finding_tasks.extend(mask_vulns_task)
-
-    success = all(await asyncio.gather(*mask_finding_tasks))
-    util.invalidate_cache(finding_id)
-
-    return success
