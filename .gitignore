@@ -81,12 +81,14 @@ django-apps/**/dist
 
 # Build system
 /build/coverage
+/build/provisioners/test.nix
 /coverage.xml
 /dump.rdb
 /geckodriver.log
 /lambda/.venv.*
 /TEMP_FD
 /test
+/test.py
 /test_async/dynamo_data/bb_executions.json.now
 /version.txt
 /.coverage*
