@@ -162,7 +162,7 @@ def format_document(document: object) -> dict:
                     date.strftime(DATE_FMT)
                     if name == 'date'
                     else document[name][date]
-                    for date in document['date']
+                    for date in tuple(document['date'])[-12:]
                 ]
                 for name in document
             ],
