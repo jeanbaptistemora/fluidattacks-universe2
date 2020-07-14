@@ -139,7 +139,6 @@ const projectEventsView: React.FunctionComponent<EventsViewProps> = (props: Even
         (option: optionSelectFilterProps) => (_.includes(eventOptions, option.value)));
       setOptionType(filterOptions);
       mixpanel.track("ProjectEvents", {
-        Organization: (window as typeof window & { userOrganization: string }).userOrganization,
         User: (window as typeof window & { userName: string }).userName,
       });
     }
@@ -157,7 +156,6 @@ const projectEventsView: React.FunctionComponent<EventsViewProps> = (props: Even
     _0: React.FormEvent<HTMLButtonElement>, rowInfo: { id: string },
   ): void => {
     mixpanel.track("ReadEvent", {
-      Organization: (window as typeof window & { userOrganization: string }).userOrganization,
       User: (window as typeof window & { userName: string }).userName,
     });
     push(`/groups/${projectName}/events/${rowInfo.id}/description`);

@@ -68,7 +68,6 @@ const homeView: React.FC<IHomeViewProps> = (props: IHomeViewProps): JSX.Element 
   // Side effects
   const onMount: (() => void) = (): void => {
     mixpanel.track("ProjectHome", {
-      Organization: (window as typeof window & { userOrganization: string }).userOrganization,
       User: (window as typeof window & { userName: string }).userName,
     });
   };

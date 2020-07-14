@@ -29,7 +29,7 @@ class FindingTests(TestCase):
 
     async def _get_result(self, data, user='integratesmanager@gmail.com'):
         """Get result."""
-        request = create_dummy_session(username=user, company='fluid')
+        request = create_dummy_session(username=user)
         request.loaders = {
             'finding': FindingLoader(),
             'project': ProjectLoader(),

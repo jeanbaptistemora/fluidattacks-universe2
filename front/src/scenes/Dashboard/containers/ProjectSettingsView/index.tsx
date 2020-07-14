@@ -16,11 +16,11 @@ import { ISettingsViewProps } from "./types";
 
 const projectSettingsView: React.FC<ISettingsViewProps> = (props: ISettingsViewProps): JSX.Element => {
   const { projectName } = props.match.params;
-  const { userName, userOrganization } = window as typeof window & Dictionary<string>;
+  const { userName } = window as typeof window & Dictionary<string>;
 
   // Side effects
   const onMount: (() => void) = (): void => {
-    mixpanel.track("ProjectResources", { Organization: userOrganization, User: userName });
+    mixpanel.track("ProjectResources", { User: userName });
   };
   React.useEffect(onMount, []);
 

@@ -18,9 +18,6 @@ if(!userEmail.includes('fluidattacks.com')) {
 	delighted.survey({
       email: userEmail,
       name: userName,
-      properties: {
-        company: userOrganization
-      },
       recurringPeriod: 2592000,
       initialDelay: 45,
     });

@@ -98,7 +98,6 @@ class UtilTests(TestCase):
         request = create_dummy_simple_session()
         payload = {
             'user_email': 'unittest',
-            'company': 'unittest',
             'exp': datetime.utcnow() +
             timedelta(seconds=settings.SESSION_COOKIE_AGE),
             'sub': 'django_session',
@@ -113,7 +112,6 @@ class UtilTests(TestCase):
         save_token(f'fi_jwt:{payload["jti"]}', token, settings.SESSION_COOKIE_AGE)
         test_data = get_jwt_content(request)
         expected_output = {
-            u'company': u'unittest',
             u'user_email': u'unittest',
             u'exp': payload['exp'],
             u'sub': u'django_session',
@@ -125,7 +123,6 @@ class UtilTests(TestCase):
         request = create_dummy_simple_session()
         payload = {
             'user_email': 'unittest',
-            'company': 'unittest',
             'exp': datetime.utcnow() +
             timedelta(seconds=settings.SESSION_COOKIE_AGE),
             'sub': 'session_token',
@@ -140,7 +137,6 @@ class UtilTests(TestCase):
         save_token(f'fi_jwt:{payload["jti"]}', token, settings.SESSION_COOKIE_AGE)
         test_data = get_jwt_content(request)
         expected_output = {
-            u'company': u'unittest',
             u'user_email': u'unittest',
             u'exp': payload['exp'],
             u'sub': u'session_token',
@@ -152,7 +148,6 @@ class UtilTests(TestCase):
         request = create_dummy_simple_session()
         payload = {
             'user_email': 'unittest',
-            'company': 'unittest',
             'exp': datetime.utcnow() +
             timedelta(seconds=settings.SESSION_COOKIE_AGE),
             'iat': datetime.utcnow().timestamp(),
@@ -168,7 +163,6 @@ class UtilTests(TestCase):
         save_token(f'fi_jwt:{payload["jti"]}', token, settings.SESSION_COOKIE_AGE)
         test_data = get_jwt_content(request)
         expected_output = {
-            u'company': u'unittest',
             u'user_email': u'unittest',
             u'exp': payload['exp'],
             u'iat': payload['iat'],
@@ -181,7 +175,6 @@ class UtilTests(TestCase):
         request = create_dummy_simple_session()
         payload = {
             'user_email': 'unittest',
-            'company': 'unittest',
             'exp': datetime.utcnow() +
             timedelta(seconds=settings.SESSION_COOKIE_AGE),
             'sub': 'django_session',
@@ -202,7 +195,6 @@ class UtilTests(TestCase):
         request = create_dummy_simple_session()
         payload = {
             'user_email': 'unittest',
-            'company': 'unittest',
             'exp': datetime.utcnow() +
             timedelta(seconds=settings.SESSION_COOKIE_AGE),
             'sub': 'django_session',

@@ -34,7 +34,6 @@
     var userName = "{{ request.session.first_name }}";
     var fullName = "{{ request.session.first_name }} " + "{{ request.session.last_name }}"
     var userEmail = "{{ request.session.username }}";
-    var userOrganization = "{{ request.session.company }}";
     if (location.toString().indexOf("localhost:8000") == -1){
       mixpanel.track(
         "Logged In", {

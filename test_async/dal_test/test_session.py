@@ -24,8 +24,8 @@ def _test_get_all_logged_users():
         invalidate_session(session[1])
     assert not bool(get_all_logged_users())
 
-    create_dummy_simple_session('unittest', 'unittest')
-    create_dummy_simple_session('unittest2', 'unittest2')
+    create_dummy_simple_session('unittest')
+    create_dummy_simple_session('unittest2')
     users, _ = zip(*unpack_sessions(get_all_logged_users()))
     assert sorted(users) == ['unittest', 'unittest2']
 
@@ -42,7 +42,7 @@ def _test_get_previous_session():
 
     test_1 = [
         create_dummy_simple_session(
-            f'unittest{i}', f'unittest{i}').session.session_key
+            f'unittest{i}').session.session_key
         for i in range(5)]
     assert len(get_all_logged_users()) == len(test_1)
 
@@ -53,7 +53,7 @@ def _test_get_previous_session():
         get_previous_session(
             'unittest4',
             create_dummy_simple_session(
-                'unittest4', 'unittest4').session.session_key)
+                'unittest4').session.session_key)
 
 def _test_invalidate_session():
     def unpack_sessions(active_users):
@@ -68,7 +68,7 @@ def _test_invalidate_session():
 
     all_active_sessions = sorted(
         [create_dummy_simple_session(
-            f'unittest{i}', f'unittest{i}').session.session_key
+            f'unittest{i}').session.session_key
         for i in range(20)]
     )
     all_active_sessions = [f'fi_session:{s}' for s in all_active_sessions]

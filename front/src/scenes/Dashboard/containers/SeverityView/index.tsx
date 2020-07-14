@@ -38,11 +38,11 @@ type SeverityViewProps = RouteComponentProps<{ findingId: string }>;
 
 const severityView: React.FC<SeverityViewProps> = (props: SeverityViewProps): JSX.Element => {
   const { findingId } = props.match.params;
-  const { userName, userOrganization } = window as typeof window & Dictionary<string>;
+  const { userName } = window as typeof window & Dictionary<string>;
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
 
   const onMount: (() => void) = (): void => {
-    mixpanel.track("FindingSeverity", { Organization: userOrganization, User: userName });
+    mixpanel.track("FindingSeverity", { User: userName });
   };
   React.useEffect(onMount, []);
 
@@ -83,7 +83,7 @@ const severityView: React.FC<SeverityViewProps> = (props: SeverityViewProps): JS
                       refetch()
                         .catch();
                       msgSuccess(translate.t("group_alerts.updated"), translate.t("group_alerts.updated_title"));
-                      mixpanel.track("UpdateSeverity", { Organization: userOrganization, User: userName });
+                      mixpanel.track("UpdateSeverity", { User: userName });
                     }
                   }
                 };

@@ -47,7 +47,7 @@ const maxBtsLength: ConfigurableValidator = maxLength(80);
 const maxTreatmentJustificationLength: ConfigurableValidator = maxLength(200);
 const treatmentView: React.FC<ITreatmentViewProps> = (props: ITreatmentViewProps): JSX.Element => {
   const { onCloseApproval } = props;
-  const { userName, userOrganization } = window as typeof window & Dictionary<string>;
+  const { userName } = window as typeof window & Dictionary<string>;
 
   // State management
   const formValues: Dictionary<string> = useSelector((state: {}) =>
@@ -124,7 +124,7 @@ const treatmentView: React.FC<ITreatmentViewProps> = (props: ITreatmentViewProps
   const [handleAcceptation, { loading: approving }] = useMutation(HANDLE_ACCEPTATION, {
     onCompleted: async (result: { handleAcceptation: { success: boolean } }): Promise<void> => {
       if (result.handleAcceptation.success) {
-        mixpanel.track("HandleAcceptation", { Organization: userOrganization, User: userName });
+        mixpanel.track("HandleAcceptation", { User: userName });
         await refetch();
       }
     },

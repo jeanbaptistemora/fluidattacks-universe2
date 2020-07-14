@@ -23,7 +23,6 @@ const projectCommentsView: React.FC<IProjectCommentsViewProps> = (props: IProjec
   const { projectName } = props.match.params;
   const onMount: (() => void) = (): void => {
     mixpanel.track("ProjectComments", {
-      Organization: (window as typeof window & { userOrganization: string }).userOrganization,
       User: (window as typeof window & { userName: string }).userName,
     });
   };

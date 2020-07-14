@@ -31,11 +31,11 @@ type EventEvidenceProps = RouteComponentProps<{ eventId: string }>;
 
 const eventEvidenceView: React.FC<EventEvidenceProps> = (props: EventEvidenceProps): JSX.Element => {
   const { eventId } = props.match.params;
-  const { userName, userOrganization } = window as typeof window & Dictionary<string>;
+  const { userName } = window as typeof window & Dictionary<string>;
 
   // Side effects
   const onMount: (() => void) = (): void => {
-    mixpanel.track("EventEvidence", { Organization: userOrganization, User: userName });
+    mixpanel.track("EventEvidence", { User: userName });
   };
   React.useEffect(onMount, []);
 

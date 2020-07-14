@@ -300,7 +300,6 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                   mixpanel.track(
                     "DeleteVulnerability",
                     {
-                      Organization: (window as typeof window & { userOrganization: string }).userOrganization,
                       User: (window as typeof window & { userName: string }).userName,
                     });
                   msgSuccess(
@@ -324,7 +323,6 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                   mixpanel.track(
                     "ApproveVulnerability",
                     {
-                      Organization: (window as typeof window & { userOrganization: string }).userOrganization,
                       User: (window as typeof window & { userName: string }).userName,
                     });
                   msgSuccess(

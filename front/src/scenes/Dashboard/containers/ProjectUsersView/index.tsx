@@ -76,12 +76,12 @@ const tableHeaders: IHeader[] = [
 
 const projectUsersView: React.FC<IProjectUsersViewProps> = (props: IProjectUsersViewProps): JSX.Element => {
   const { projectName } = props.match.params;
-  const { userName, userOrganization } = window as typeof window & Dictionary<string>;
+  const { userName } = window as typeof window & Dictionary<string>;
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
 
   // Side effects
   const onMount: (() => void) = (): void => {
-    mixpanel.track("ProjectUsers", { Organization: userOrganization, User: userName });
+    mixpanel.track("ProjectUsers", { User: userName });
   };
   React.useEffect(onMount, []);
 
@@ -114,7 +114,7 @@ const projectUsersView: React.FC<IProjectUsersViewProps> = (props: IProjectUsers
       if (mtResult.grantUserAccess.success) {
         refetch()
           .catch();
-        mixpanel.track("AddUserAccess", { Organization: userOrganization, User: userName });
+        mixpanel.track("AddUserAccess", { User: userName });
         const { email } = mtResult.grantUserAccess.grantedUser;
         msgSuccess(
           `${email} ${translate.t("search_findings.tab_users.success")}`,
@@ -161,7 +161,7 @@ const projectUsersView: React.FC<IProjectUsersViewProps> = (props: IProjectUsers
       if (mtResult.editUser.success) {
         refetch()
           .catch();
-        mixpanel.track("EditUserAccess", { Organization: userOrganization, User: userName });
+        mixpanel.track("EditUserAccess", { User: userName });
         msgSuccess(
           translate.t("search_findings.tab_users.success_admin"),
           translate.t("search_findings.tab_users.title_success"),
@@ -201,7 +201,7 @@ const projectUsersView: React.FC<IProjectUsersViewProps> = (props: IProjectUsers
       if (mtResult.removeUserAccess.success) {
         refetch()
           .catch();
-        mixpanel.track("RemoveUserAccess", { Organization: userOrganization, User: userName });
+        mixpanel.track("RemoveUserAccess", { User: userName });
         const { removedEmail } = mtResult.removeUserAccess;
         msgSuccess(
           `${removedEmail} ${translate.t("search_findings.tab_users.success_delete")}`,

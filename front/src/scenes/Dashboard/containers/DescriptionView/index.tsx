@@ -50,12 +50,12 @@ const maxCompromisedAttributesLength: ConfigurableValidator = maxLength(200);
 
 const descriptionView: React.FC = (): JSX.Element => {
   const { findingId, projectName } = useParams<{ findingId: string; projectName: string }>();
-  const { userName, userOrganization } = window as typeof window & Dictionary<string>;
+  const { userName } = window as typeof window & Dictionary<string>;
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
 
   // Side effects
   const onMount: (() => void) = (): void => {
-    mixpanel.track("FindingDescription", { Organization: userOrganization, User: userName });
+    mixpanel.track("FindingDescription", { User: userName });
   };
   React.useEffect(onMount, []);
 

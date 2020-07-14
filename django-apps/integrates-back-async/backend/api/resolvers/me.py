@@ -220,11 +220,9 @@ async def _do_sign_in(
             strategy=strategy, name=provider, redirect_uri=None)
         user = await sync_to_async(auth_backend.do_auth)(auth_token)
         email = user.email.lower()
-        organization = user_domain.get_data(email, 'company')
         session_jwt = jwt.encode(
             {
                 'user_email': email,
-                'company': organization,
                 'first_name': getattr(user, 'first_name'),
                 'last_name': getattr(user, 'last_name'),
                 'exp': datetime.utcnow() +
@@ -237,7 +235,6 @@ async def _do_sign_in(
         mp_obj = Mixpanel(settings.MIXPANEL_API_TOKEN)
         await sync_to_async(mp_obj.track)(email, 'MobileAuth', {
             'email': email,
-            'organization': organization,
             'provider': provider
         })
         success = True
@@ -268,8 +265,6 @@ async def _do_update_access_token(
         session_jwt = jwt.encode(
             {
                 'user_email': email,
-                'company': user_domain.get_data(
-                    email, 'company'),
                 'first_name': user_info['first_name'],
                 'last_name': user_info['last_name'],
                 'jti': token_data['jti'],

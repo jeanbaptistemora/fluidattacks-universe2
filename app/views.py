@@ -105,7 +105,6 @@ def enforce_group_level_role(request, group, *allowed_roles):
 
 def create_session_token(
     *,
-    company: str,
     email: str,
     first_name: str,
     last_name: str,
@@ -115,7 +114,6 @@ def create_session_token(
     token = jwt.encode(
         dict(
             user_email=email,
-            company=company,
             first_name=first_name,
             last_name=last_name,
             exp=(
@@ -189,7 +187,6 @@ def app(request):
         set_session_cookie_in_response(
             response=response,
             token=create_session_token(
-                company=request.session['company'],
                 email=request.session['username'],
                 first_name=request.session['first_name'],
                 last_name=request.session['last_name'],
@@ -249,7 +246,6 @@ async def _graphics_for_entity(
     set_session_cookie_in_response(
         response=response,
         token=create_session_token(
-            company=request_data['company'],
             email=request_data['user_email'],
             first_name=request_data['first_name'],
             last_name=request_data['last_name'],

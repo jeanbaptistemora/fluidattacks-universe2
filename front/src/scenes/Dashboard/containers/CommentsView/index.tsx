@@ -23,7 +23,6 @@ const commentsView: React.FC<ICommentsViewProps> = (props: ICommentsViewProps): 
   const { findingId, type } = props.match.params;
   const onMount: (() => void) = (): void => {
     mixpanel.track(type === "comments" ? "FindingComments" : "FindingObservations", {
-      Organization: (window as typeof window & { userOrganization: string }).userOrganization,
       User: (window as typeof window & { userName: string }).userName,
     });
   };

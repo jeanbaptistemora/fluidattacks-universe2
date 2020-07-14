@@ -25,7 +25,7 @@ export interface IPortfolioProps {
 }
 
 const portfolio: React.FC<IPortfolioProps> = (props: IPortfolioProps): JSX.Element => {
-  const { userName, userOrganization } = window as typeof window & Dictionary<string>;
+  const { userName } = window as typeof window & Dictionary<string>;
 
   // State management
   const [isAddModalOpen, setAddModalOpen] = React.useState(false);
@@ -48,7 +48,7 @@ const portfolio: React.FC<IPortfolioProps> = (props: IPortfolioProps): JSX.Eleme
     onCompleted: (): void => {
       refetch()
         .catch();
-      mixpanel.track("AddProjectTags", { Organization: userOrganization, User: userName });
+      mixpanel.track("AddProjectTags", { User: userName });
       msgSuccess(
         translate.t("search_findings.tab_resources.success"),
         translate.t("search_findings.tab_users.title_success"),
@@ -72,7 +72,7 @@ const portfolio: React.FC<IPortfolioProps> = (props: IPortfolioProps): JSX.Eleme
     onCompleted: (): void => {
       refetch()
         .catch();
-      mixpanel.track("RemoveProjectEnv", { Organization: userOrganization, User: userName });
+      mixpanel.track("RemoveProjectEnv", { User: userName });
       msgSuccess(
         translate.t("search_findings.tab_resources.success_remove"),
         translate.t("search_findings.tab_users.title_success"),

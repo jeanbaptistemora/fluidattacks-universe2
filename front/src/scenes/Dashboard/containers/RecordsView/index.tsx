@@ -31,10 +31,10 @@ type IRecordsViewProps = RouteComponentProps<{ findingId: string }>;
 
 const recordsView: React.FC<IRecordsViewProps> = (props: IRecordsViewProps): JSX.Element => {
   const { findingId } = props.match.params;
-  const { userName, userOrganization } = window as typeof window & Dictionary<string>;
+  const { userName } = window as typeof window & Dictionary<string>;
 
   const onMount: (() => void) = (): void => {
-    mixpanel.track("FindingRecords", { Organization: userOrganization, User: userName });
+    mixpanel.track("FindingRecords", { User: userName });
   };
   React.useEffect(onMount, []);
 
@@ -140,7 +140,7 @@ const recordsView: React.FC<IRecordsViewProps> = (props: IRecordsViewProps): JSX
                 <Mutation mutation={REMOVE_EVIDENCE_MUTATION} onCompleted={handleUpdateResult}>
                   {(removeRecords: MutationFunction, removeRes: MutationResult): JSX.Element => {
                     const handleRemoveClick: (() => void) = (): void => {
-                      mixpanel.track("RemoveRecords", { Organization: userOrganization, User: userName });
+                      mixpanel.track("RemoveRecords", { User: userName });
                       setEditing(false);
                       removeRecords({ variables: { evidenceId: "RECORDS", findingId } })
                         .catch();

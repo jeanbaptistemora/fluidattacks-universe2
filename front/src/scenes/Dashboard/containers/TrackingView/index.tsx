@@ -33,10 +33,10 @@ export interface IClosing {
 
 const trackingView: React.FC<TrackingViewProps> = (props: TrackingViewProps): JSX.Element => {
   const { findingId } = props.match.params;
-  const { userName, userOrganization } = window as typeof window & Dictionary<string>;
+  const { userName } = window as typeof window & Dictionary<string>;
 
   const onMount: (() => void) = (): void => {
-    mixpanel.track("FindingTracking", { Organization: userOrganization, User: userName });
+    mixpanel.track("FindingTracking", { User: userName });
   };
   React.useEffect(onMount, []);
 

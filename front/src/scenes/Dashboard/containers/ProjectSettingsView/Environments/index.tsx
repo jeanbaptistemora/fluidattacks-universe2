@@ -30,7 +30,7 @@ export interface IEnvironmentsProps {
 }
 
 const environments: React.FC<IEnvironmentsProps> = (props: IEnvironmentsProps): JSX.Element => {
-  const { userName, userOrganization } = window as typeof window & Dictionary<string>;
+  const { userName } = window as typeof window & Dictionary<string>;
 
   // State management
   const [isAddModalOpen, setAddModalOpen] = React.useState(false);
@@ -72,7 +72,7 @@ const environments: React.FC<IEnvironmentsProps> = (props: IEnvironmentsProps): 
     onCompleted: (): void => {
       refetch()
         .catch();
-      mixpanel.track("RemoveProjectEnv", { Organization: userOrganization, User: userName });
+      mixpanel.track("RemoveProjectEnv", { User: userName });
       msgSuccess(
         translate.t("search_findings.tab_resources.success_change"),
         translate.t("search_findings.tab_users.title_success"),

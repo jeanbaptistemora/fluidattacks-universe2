@@ -38,7 +38,6 @@ const projectDraftsView: React.FC<IProjectDraftsBaseProps> = (props: IProjectDra
     _0: React.FormEvent<HTMLButtonElement>, rowInfo: { id: string },
   ): void => {
     mixpanel.track("ReadDraft", {
-      Organization: (window as typeof window & { userOrganization: string }).userOrganization,
       User: (window as typeof window & { userName: string }).userName,
     });
     push(`/groups/${projectName}/drafts/${rowInfo.id}/description`);
@@ -46,7 +45,6 @@ const projectDraftsView: React.FC<IProjectDraftsBaseProps> = (props: IProjectDra
 
   const handleQryResult: ((qrResult: IProjectDraftsAttr) => void) = (): void => {
     mixpanel.track("ProjectDrafts", {
-      Organization: (window as typeof window & { userOrganization: string }).userOrganization,
       User: (window as typeof window & { userName: string }).userName,
     });
   };

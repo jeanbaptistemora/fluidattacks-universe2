@@ -503,7 +503,6 @@ def cache_content(func: Callable[..., Any]) -> Callable[..., Any]:
         assert isinstance(req, HttpRequest)
         keys = [
             'username',
-            'company',
             'findingid',
             'project',
             'documentName',

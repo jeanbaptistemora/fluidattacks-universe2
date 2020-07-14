@@ -25,7 +25,7 @@ export interface IFilesProps {
 }
 
 const files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
-  const { userName, userOrganization } = window as typeof window & Dictionary<string>;
+  const { userName } = window as typeof window & Dictionary<string>;
 
   // State management
   const [isAddModalOpen, setAddModalOpen] = React.useState(false);
@@ -77,7 +77,7 @@ const files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
     onCompleted: (): void => {
       refetch()
         .catch();
-      mixpanel.track("RemoveProjectFiles", { Organization: userOrganization, User: userName });
+      mixpanel.track("RemoveProjectFiles", { User: userName });
       msgSuccess(
         translate.t("search_findings.tab_resources.success_remove"),
         translate.t("search_findings.tab_users.title_success"),
@@ -112,7 +112,7 @@ const files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
     onCompleted: (): void => {
       refetch()
         .catch();
-      mixpanel.track("AddProjectFiles", { Organization: userOrganization, User: userName });
+      mixpanel.track("AddProjectFiles", { User: userName });
       msgSuccess(
         translate.t("search_findings.tab_resources.success"),
         translate.t("search_findings.tab_users.title_success"),

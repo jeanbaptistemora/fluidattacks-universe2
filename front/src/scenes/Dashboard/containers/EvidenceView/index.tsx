@@ -33,11 +33,11 @@ type EventEvidenceProps = RouteComponentProps<{ findingId: string }>;
 
 const evidenceView: React.FC<EventEvidenceProps> = (props: EventEvidenceProps): JSX.Element => {
   const { findingId } = props.match.params;
-  const { userName, userOrganization } = window as typeof window & Dictionary<string>;
+  const { userName } = window as typeof window & Dictionary<string>;
 
   // Side effects
   const onMount: (() => void) = (): void => {
-    mixpanel.track("FindingEvidence", { Organization: userOrganization, User: userName });
+    mixpanel.track("FindingEvidence", { User: userName });
   };
   React.useEffect(onMount, []);
 
@@ -195,7 +195,7 @@ const evidenceView: React.FC<EventEvidenceProps> = (props: EventEvidenceProps): 
                     const evidence: IEvidenceItem = evidenceImages[name];
 
                     const handleRemove: (() => void) = (): void => {
-                      mixpanel.track("RemoveEvidence", { Organization: userOrganization, User: userName });
+                      mixpanel.track("RemoveEvidence", { User: userName });
                       setEditing(false);
                       removeEvidence({ variables: { evidenceId: name.toUpperCase(), findingId } })
                         .catch();

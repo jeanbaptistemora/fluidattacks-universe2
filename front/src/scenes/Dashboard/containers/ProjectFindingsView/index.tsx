@@ -40,7 +40,7 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
   const currentDate: string = formattingDate.slice(0, 19);
 
   const { projectName } = props.match.params;
-  const { userName, userOrganization } = window as typeof window & Dictionary<string>;
+  const { userName } = window as typeof window & Dictionary<string>;
   const { push } = useHistory();
 
   // State management
@@ -130,7 +130,7 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
 
   const goToFinding: ((event: React.FormEvent<HTMLButtonElement>, rowInfo: { id: string }) => void) =
     (event: React.FormEvent<HTMLButtonElement>, rowInfo: { id: string }): void => {
-      mixpanel.track("ReadFinding", { Organization: userOrganization, User: userName });
+      mixpanel.track("ReadFinding", { User: userName });
       push(`/groups/${projectName}/findings/${rowInfo.id}/description`);
     };
 
@@ -142,7 +142,7 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
       const filterOptions: optionSelectFilterProps[] = selectOptionsTreatment.filter(
         (option: optionSelectFilterProps) => (_.includes(findingOptions, option.value)));
       setOptionTreatment(filterOptions);
-      mixpanel.track("ProjectFindings", { Organization: userOrganization, User: userName });
+      mixpanel.track("ProjectFindings", { User: userName });
     }
   };
   const handleQryErrors: ((error: ApolloError) => void) = (

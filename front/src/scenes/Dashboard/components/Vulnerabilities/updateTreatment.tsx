@@ -73,7 +73,6 @@ const updateTreatmentModal: ((props: IUpdateTreatmentModal) => JSX.Element) = (
       if (mtResult.updateTreatmentVuln.success) {
         mixpanel.track(
           "UpdatedTreatmentVulnerabilities", {
-            Organization: (window as typeof window & { userOrganization: string }).userOrganization,
             User: (window as typeof window & { userName: string }).userName,
           });
         msgSuccess(

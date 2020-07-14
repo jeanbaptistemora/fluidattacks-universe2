@@ -8,27 +8,23 @@ from backend import util
 
 
 def create_dummy_simple_session(
-    username: str = 'unittest',
-    company: str = 'unittest',
+    username: str = 'unittest'
 ) -> HttpResponseBase:
     request: HttpResponseBase = RequestFactory().get('/')
     middleware = SessionMiddleware()
     middleware.process_request(request)
     middleware.process_request(request)
     request.session['username'] = username
-    request.session['company'] = company
     request.session.save()
     return request
 
 
 def create_dummy_session(
-    username: str = 'unittest',
-    company: str = 'unittest'
+    username: str = 'unittest'
 ) -> HttpResponseBase:
-    request = create_dummy_simple_session(username, company)
+    request = create_dummy_simple_session(username)
     payload = {
         'user_email': username,
-        'company': company,
         'first_name': 'unit',
         'last_name': 'test',
         'exp': datetime.utcnow() +

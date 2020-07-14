@@ -30,7 +30,7 @@ export interface IRepositoriesProps {
 }
 
 const repositories: React.FC<IRepositoriesProps> = (props: IRepositoriesProps): JSX.Element => {
-  const { userName, userOrganization } = window as typeof window & Dictionary<string>;
+  const { userName } = window as typeof window & Dictionary<string>;
 
   // State management
   const [isAddModalOpen, setAddModalOpen] = React.useState(false);
@@ -72,7 +72,7 @@ const repositories: React.FC<IRepositoriesProps> = (props: IRepositoriesProps): 
     onCompleted: (): void => {
       refetch()
         .catch();
-      mixpanel.track("RemoveProjectRepo", { Organization: userOrganization, User: userName });
+      mixpanel.track("RemoveProjectRepo", { User: userName });
       msgSuccess(
         translate.t("search_findings.tab_resources.success_change"),
         translate.t("search_findings.tab_users.title_success"),

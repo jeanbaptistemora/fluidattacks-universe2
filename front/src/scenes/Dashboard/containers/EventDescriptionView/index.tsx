@@ -29,11 +29,11 @@ type EventDescriptionProps = RouteComponentProps<{ eventId: string }>;
 
 const eventDescriptionView: React.FC<EventDescriptionProps> = (props: EventDescriptionProps): JSX.Element => {
   const { eventId } = props.match.params;
-  const { userName, userOrganization } = window as typeof window & Dictionary<string>;
+  const { userName } = window as typeof window & Dictionary<string>;
 
   // Side effects
   const onMount: (() => void) = (): void => {
-    mixpanel.track("EventDescription", { Organization: userOrganization, User: userName });
+    mixpanel.track("EventDescription", { User: userName });
   };
   React.useEffect(onMount, []);
 
