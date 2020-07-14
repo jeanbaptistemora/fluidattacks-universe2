@@ -304,13 +304,20 @@ def logout(request: HttpRequest) -> HttpResponse:
     return response
 
 
-@cache_content
-@cache_control(private=True, max_age=31536000)
-@csrf_exempt
-def get_evidence(request, project, evidence_type, findingid, fileid):
+@cache_content  # type: ignore
+@cache_control(private=True, max_age=31536000)  # type: ignore
+@csrf_exempt  # type: ignore
+def get_evidence(
+        request: HttpRequest,
+        project: str,
+        evidence_type: str,
+        findingid: str,
+        fileid: str) -> HttpResponse:
     allowed_roles = [
-        'admin', 'analyst', 'closer', 'customer', 'customeradmin', 'executive',
-        'group_manager', 'internal_manager', 'resourcer', 'reviewer'
+        'admin', 'analyst', 'closer',
+        'customer', 'customeradmin', 'executive',
+        'group_manager', 'internal_manager', 'resourcer',
+        'reviewer'
     ]
 
     error = enforce_group_level_role(request, project, *allowed_roles)
@@ -319,15 +326,20 @@ def get_evidence(request, project, evidence_type, findingid, fileid):
         return error
 
     username = request.session['username']
-    if (evidence_type in ['drafts', 'findings']
-        and has_access_to_finding(username, findingid)) \
-            or (evidence_type == 'events'
-                and has_access_to_event(username, findingid)):
+    if ((evidence_type in ['drafts', 'findings'] and
+         has_access_to_finding(username, findingid)) or
+        (evidence_type == 'events' and
+         has_access_to_event(username, findingid))):
         if fileid is None:
-            rollbar.report_message('Error: Missing evidence image ID',
-                                   'error', request)
-            return HttpResponse('Error - Unsent image ID',
-                                content_type='text/html')
+            rollbar.report_message(
+                'Error: Missing evidence image ID',
+                'error',
+                request
+            )
+            return HttpResponse(
+                'Error - Unsent image ID',
+                content_type='text/html'
+            )
         key_list = list_s3_evidences(f'{project.lower()}/{findingid}/{fileid}')
         if key_list:
             for k in key_list:
@@ -338,28 +350,37 @@ def get_evidence(request, project, evidence_type, findingid, fileid):
                 CLIENT_S3.download_file(BUCKET_S3, k, localtmp)
                 return retrieve_image(request, localtmp)
         else:
-            return util.response([], 'Access denied or evidence not found', True)
+            return util.response(
+                [], 'Access denied or evidence not found', True
+            )
     else:
         util.cloudwatch_log(
             request,
-            'Security: Attempted to retrieve evidence without permission')
+            'Security: Attempted to retrieve evidence without permission'
+        )
         return util.response([], 'Access denied or evidence not found', True)
 
 
-def retrieve_image(request, img_file):
-    if util.assert_file_mime(img_file, ['image/png', 'image/jpeg',
-                                        'image/gif']):
+def retrieve_image(request: HttpRequest, img_file: str) -> HttpResponse:
+    if util.assert_file_mime(
+            img_file,
+            ['image/png', 'image/jpeg', 'image/gif']):
         with open(img_file, 'rb') as file_obj:
             mime = Magic(mime=True)
             mime_type = mime.from_file(img_file)
             return HttpResponse(file_obj.read(), content_type=mime_type)
     else:
-        rollbar.report_message('Error: Invalid evidence image format',
-                               'error', request)
-        return HttpResponse('Error: Invalid evidence image format',
-                            content_type='text/html')
+        rollbar.report_message(
+            'Error: Invalid evidence image format',
+            'error',
+            request
+        )
+        return HttpResponse(
+            'Error: Invalid evidence image format',
+            content_type='text/html'
+        )
 
 
-def list_s3_evidences(prefix) -> List[str]:
+def list_s3_evidences(prefix: str) -> List[str]:
     """return keys that begin with prefix from the evidences folder."""
     return list(util.iterate_s3_keys(CLIENT_S3, BUCKET_S3, prefix))
