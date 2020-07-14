@@ -68,6 +68,7 @@ The software uses a primary channel for administration or restricted
 functionality,
 but it does not properly protect the channel.
 
-. [[r2]] link:https://www.owasp.org/index.php/ASVS_V2_Authentication[OWASP-ASVS v3.1-2.32]
-Verify that access to administrative interfaces
-is strictly controlled and not allowed for untrusted parties.
+. [[r2]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V13.1 Generic Web Service Security Verification Requirements.(13.1.2)]
+Verify that access to administration and management functions is limited to
+authorized administrators.

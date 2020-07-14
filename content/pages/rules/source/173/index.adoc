@@ -343,3 +343,10 @@ log injection.
 V12.1 File Upload Requirements.(12.1.2)]
 Verify that compressed files are checked for "zip bombs" - small input files
 that will decompress into huge files thus exhausting file storage limits.
+
+. [[r42]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V13.1 Generic Web Service Security Verification Requirements.(13.1.5)]
+Verify that requests containing unexpected or missing content types are
+rejected with appropriate headers
+(*HTTP* response status **406 Unacceptable** or
+**415 Unsupported Media Type**).

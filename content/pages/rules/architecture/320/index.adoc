@@ -91,3 +91,9 @@ Verify that sensitive data and APIs are protected against direct object attacks
 targeting creation, reading, updating and deletion of records,
 such as creating or updating someone else's record, viewing everyone's records,
 or deleting all records.
+
+. [[r11]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V13.1 Generic Web Service Security Verification Requirements.(13.1.4)]
+Verify that authorization decisions are made at both the URI,
+enforced by programmatic or declarative security at the controller or router,
+and at the resource level, enforced by model-based permissions.
