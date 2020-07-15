@@ -1,0 +1,104 @@
+:slug: products/forces/forces-ci/
+:description: Forces makes use of human skills for the creation of exploits to break your build and force remediation of vulnerabilities.
+:keywords: Fluid Attacks, Products, Forces, Ethical Hacking, Pentesting, Security
+:forcespage: yes
+
+= Use Forces Within Your CI (Continuous Integration) Pipeline
+
+You can integrate Forces into your `CI/CD` pipeline to ensure that your software
+is built and shipped with `no open vulnerabilities`. We will provide a custom
+`Docker` container with the specific tests you need and maintain the
+build-breaker exploit.
+
+To achieve this, follow these steps:
+
+1. Add the provided `ID` and `SECRET` variables to the CI environment.
+** `ID`: an identifier that works like your username
+** `SECRET`: another identifier that works like your password
+2. Make sure your execution environment has the required dependencies:
+** Bash
+** Up-to-date Docker
+3. Please note that using *sh* instead of *bash* is not supported.
+4. Add a job to run Forces. For example,
+
+in `GitLab`, +
+add these three lines to your ``.gitlab-ci.yml`:
+
+[source,yaml]
+----
+forces:
+  script:
+    - docker pull fluidattacks/break-build
+    - bash <(docker run fluidattacks/break-build --static --id ${ID} --secret ${SECRET})
+----
+
+in `Azure DevOps (VSTS)`, +
+add a *Command Line* task with the following script:
+
+[source,bash]
+----
+docker pull fluidattacks/break-build
+bash <(docker run fluidattacks/break-build --static --id ${ID} --secret ${SECRET})
+----
+
+in `Jenkins`,
+the configuration file should look like this:
+
+[source,json]
+----
+pipeline {
+  agent {
+    label 'label'
+  }
+  environment {
+    ID = "test"
+    SECRET = "test"
+  }
+  stages {
+    stage('Break Build Static') {
+      steps {
+        script {
+          sh """
+            docker pull fluidattacks/break-build
+            docker run fluidattacks/break-build --static --id $ {ID} --secret $ {SECRET} | bash
+          """
+        }
+      }
+    }
+    stage('Break Build Dynamic') {
+      steps {
+        script {
+          sh """
+            docker pull fluidattacks/break-build
+            docker run fluidattacks/break-build --dynamic --id $ {ID} --secret $ {SECRET} | bash
+          """
+        }
+      }
+    }
+  }
+}
+----
+
+Please note that while *sh* is the pipeline executor, break build commands are
+piped to *bash*, so *bash* is the actual executor.
+Now your pipeline will break if any vulnerability is found to be open. In case
+you decide not to break the build but still run the tests, add the `--no-strict`
+flag on the command.
+
+Command options: +
+
+* `--id ID`: Use this flag to set your user ID.
+* `--secret SECRET`: Use this flag to set your user Secret.
+* `--static`: Run the static container.
+* `--dynamic`: Run the dynamic container.
+* `--no-strict`: Do not Break the Build if any vulnerability is found to be
+open.
+* `--cpus N`: Add this flag to allow execution in N host CPUs (defaults to 1).
+Using –cpus 0 will use all CPUs in the host.
+* `--no-image-rm`: Use this flag to indicate that you do not want to delete
+images after execution.
+* `--no-container-rm`: Use this flag to indicate that you do not want to delete
+containers after execution (for security reasons, containers should always be
+removed).
+* `--color`: Colorize the execution output (in some environments colorizing the
+output makes the output unreadable).

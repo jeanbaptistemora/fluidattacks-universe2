@@ -99,6 +99,22 @@
           <span class="c-fluid-gray v-mid b"> / </span>
         </li>
       {% endif %}
+      {% if page.forcespage %}
+      <li class="dib mt0" >
+        <a class="c-fluid-gray hover-white no-underline"
+          href="{{ SITEURL }}/products/">
+            Products
+        </a>
+        <span class="c-fluid-gray v-mid b"> / </span>
+      </li>
+      <li class="dib mt0" >
+        <a class="c-fluid-gray hover-white no-underline"
+          href="{{ SITEURL }}/products/forces/">
+            Forces
+        </a>
+        <span class="c-fluid-gray v-mid b"> / </span>
+      </li>
+      {% endif %}
       {% if page.usecasespage %}
       <li class="dib mt0" >
         <a class="c-fluid-gray hover-white no-underline"
