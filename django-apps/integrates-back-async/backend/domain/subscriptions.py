@@ -8,6 +8,9 @@ from typing import (
     Optional,
 )
 
+# Third party libraries
+import botocore.exceptions
+
 # Local libraries
 from backend import (
     mailer,
@@ -19,10 +22,13 @@ from backend.dal.subscriptions import (
     NumericType,
 )
 from backend.domain import (
+    analytics as analytics_domain,
     organization as org_domain,
 )
 from backend.utils import (
     aio,
+    logging,
+    reports,
 )
 from backend.services import (
     has_access_to_project as has_access_to_group,
@@ -38,6 +44,17 @@ def frequency_to_period(*, frequency: str) -> int:
     }
 
     return mapping[frequency]
+
+
+def period_to_frequency(*, period: NumericType) -> str:
+    mapping: Dict[int, str] = {
+        3600: 'HOURLY',
+        86400: 'DAILY',
+        604800: 'WEEKLY',
+        2419200: 'MONTHLY',
+    }
+
+    return mapping[int(period)]
 
 
 def is_subscription_active_right_now(
@@ -126,6 +143,8 @@ async def trigger_user_to_entity_report():
     for subscription in await get_subscriptions_to_entity_report(
         audience='user',
     ):
+        event_period: Decimal = subscription['period']
+        event_frequency: str = period_to_frequency(period=event_period)
         user_email: str = subscription['pk']['email']
         report_entity: str = subscription['sk']['entity']
         report_subject: str = subscription['sk']['subject']
@@ -134,7 +153,7 @@ async def trigger_user_to_entity_report():
             # This is expected to run every hour
             is_subscription_active_right_now(
                 bot_period=3600,
-                event_period=subscription['period']
+                event_period=event_period,
             ),
             # A user may be subscribed but now he does not have access to the
             #   group or organization, so let's ignore them!
@@ -144,12 +163,39 @@ async def trigger_user_to_entity_report():
                 user_email=user_email,
             ),
         )):
-            # We should trigger the event!!
-            coroutines.append(
-                mailer.send_mail_charts(
-                    email_to=[user_email],
-                    context={}
-                ),
-            )
+            try:
+                image_url: str = await reports.expose_bytes_as_url(
+                    content=await analytics_domain.get_graphics_report(
+                        entity=report_entity.lower(),
+                        subject=report_subject,
+                    ),
+                    ext='png',
+                    ttl=3600,
+                )
+            except botocore.exceptions.ClientError:
+                await logging.log(
+                    level='error',
+                    message='Report not available',
+                    payload_data=dict(
+                        report_entity=report_entity,
+                        report_subject=report_subject,
+                    ),
+                )
+            else:
+                # We should trigger the event!!
+                coroutines.append(
+                    mailer.send_mail_charts(
+                        user_email,
+                        frequency_title=event_frequency.title(),
+                        frequency_lower=event_frequency.lower(),
+                        image_src=image_url,
+                        report_entity=report_entity.lower(),
+                        report_subject=(
+                            await org_domain.get_name_by_id(report_subject)
+                            if report_entity.lower() == 'organization'
+                            else report_subject
+                        )
+                    ),
+                )
 
     await aio.materialize(coroutines)

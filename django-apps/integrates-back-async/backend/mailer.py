@@ -151,7 +151,7 @@ def _send_mail(
             )
         except (botocore.vendored.requests.exceptions.ConnectionError,
                 botocore.exceptions.ClientError) as exc:
-            rollbar.report_message(exc.message)
+            rollbar.report_message(exc)
     else:
         # Mail should not be sent if is a test project
         pass
