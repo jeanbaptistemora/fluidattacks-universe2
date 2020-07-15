@@ -88,6 +88,12 @@
     <!-- Article subtitle -->
       <span class="db tc c-fluid-bk b f3 mt0">{{ article.subtitle }}</span>
     {% endif %}
+    <div class="pv3">
+      <p class="f5">
+        By {% for author in article.authors %}<a href="{{ SITEURL }}/{{ author.url }}">
+          {{ author }}</a>{% endfor %} | {{ article.date|strftime('%B %d, %Y') }}
+      </p>
+    </div>
     <div class="lh-2">
       {{ article.content }}
     </div>
