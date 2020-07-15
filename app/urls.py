@@ -1,9 +1,14 @@
 """File for linking routes between http queries and django views."""
 
 from django.conf.urls import (
-    url, include, handler400, handler403, handler404, handler500
+    url,
+    include,
+    handler400,
+    handler403,
+    handler404,
+    handler500
 )
-from django.http import HttpResponse
+from django.http import HttpRequest, HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 
 from backend import services
@@ -24,8 +29,8 @@ handler404 = 'app.views.error401'
 handler500 = 'app.views.error500'
 
 
-@csrf_exempt
-def api_dispatcher(request):
+@csrf_exempt  # type: ignore
+def api_dispatcher(request: HttpRequest) -> HttpResponse:
     # Answer preflight requests properly
     #   see: https://gitlab.com/fluidattacks/integrates/-/issues/1958
     if request.method == 'OPTIONS':
@@ -43,12 +48,16 @@ urlpatterns = [
     url(r'^$', views.index, name='index'),
     # Principal process.
     url(r'^graphic/?$', views.graphic, name='graphic'),
-    url(r'^graphics-for-group/?$',
+    url(
+        r'^graphics-for-group/?$',
         views.graphics_for_group,
-        name='graphics_for_group'),
-    url(r'^graphics-for-organization/?$',
+        name='graphics_for_group'
+    ),
+    url(
+        r'^graphics-for-organization/?$',
         views.graphics_for_organization,
-        name='graphics_for_organization'),
+        name='graphics_for_organization'
+    ),
     url(r'^graphics-report/?$', views.graphics_report, name='graphics_report'),
     url(r'^index/?$', views.index, name='index'),
     url(r'^error500/?$', views.error500, name='error500'),
@@ -60,13 +69,17 @@ urlpatterns = [
     url(r'^oauth/', include('social_django.urls', namespace='social')),
     url(r'^api/?\.*$', api_dispatcher),
     # Evidences
-    url(r'^project/(?P<project>[A-Za-z0-9]+)/(?P<evidence_type>[A-Za-z0-9]+)/'
-        r'(?P<findingid>[0-9]+)/([A-Za-z.=]+)/(?P<fileid>[\w\.-]+)?$',
-        views.get_evidence),
+    url(
+        (r'^project/(?P<project>[A-Za-z0-9]+)/(?P<evidence_type>[A-Za-z0-9]+)/'
+         r'(?P<findingid>[0-9]+)/([A-Za-z.=]+)/(?P<fileid>[\w\.-]+)?$'),
+        views.get_evidence
+    ),
     # intentionally duplicate to give support to old evidence url
-    url(r'^groups/(?P<project>[A-Za-z0-9]+)/(?P<evidence_type>[A-Za-z0-9]+)/'
-        r'(?P<findingid>[0-9]+)/([A-Za-z.=]+)/(?P<fileid>[\w\.-]+)?$',
-        views.get_evidence),
+    url(
+        (r'^groups/(?P<project>[A-Za-z0-9]+)/(?P<evidence_type>[A-Za-z0-9]+)/'
+         r'(?P<findingid>[0-9]+)/([A-Za-z.=]+)/(?P<fileid>[\w\.-]+)?$'),
+        views.get_evidence
+    ),
     # catch all others because of the no longer use hash location
     url(r'', views.app),
 ]
