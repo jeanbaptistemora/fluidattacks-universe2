@@ -57,7 +57,6 @@ async def _do_edit_user_organization(
     requester_email = requester_data['user_email']
 
     user_email: str = str(parameters.get('user_email'))
-    new_organization: str = str(parameters.get('organization'))
     new_phone_number: str = str(parameters.get('phone_number'))
     new_role: str = str(parameters.get('role')).lower()
 
@@ -72,8 +71,7 @@ async def _do_edit_user_organization(
             {
                 'email': user_email,
                 'phone_number': new_phone_number,
-                'responsibility': '',
-                'organization': new_organization
+                'responsibility': ''
             },
             ''
         )

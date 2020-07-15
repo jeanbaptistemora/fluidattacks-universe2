@@ -112,7 +112,6 @@ type User {
     role: String
     responsibility: String
     phoneNumber: String
-    organization: String
     firstLogin: String
     lastLogin: String
     projects: [Project]

@@ -28,7 +28,6 @@ class UserTests(TestCase):
                     role
                     responsibility
                     phoneNumber
-                    organization
                     firstLogin
                     lastLogin
                     projects {
@@ -43,7 +42,6 @@ class UserTests(TestCase):
         _, result = await graphql(SCHEMA, data, context_value=request)
         assert 'errors' not in result
         assert 'user' in result['data']
-        assert 'organization' in result['data']['user']
         assert 'responsibility' in result['data']['user']
         assert 'phoneNumber' in result['data']['user']
 
@@ -68,7 +66,6 @@ class UserTests(TestCase):
         query = '''
             mutation {
                 addUser(email: "test@test.com",
-                        organization: "CustomerInc",
                         role: CUSTOMER,
                         phoneNumber: "3331112233") {
                     success
@@ -91,7 +88,6 @@ class UserTests(TestCase):
             mutation {
                 grantUserAccess (
                 email: "test@test.test",
-                organization: "test",
                 phoneNumber: "3453453453"
                 projectName: "unittesting",
                 responsibility: "test",
@@ -102,7 +98,6 @@ class UserTests(TestCase):
                     role
                     responsibility
                     phoneNumber
-                    organization
                     firstLogin
                     lastLogin
                 }
@@ -124,7 +119,6 @@ class UserTests(TestCase):
             mutation {
                 grantUserAccess (
                 email: "test@test.test",
-                organization: "test",
                 phoneNumber: "3453453453"
                 projectName: "unittesting",
                 responsibility: "test",
@@ -135,7 +129,6 @@ class UserTests(TestCase):
                         role
                         responsibility
                         phoneNumber
-                        organization
                         firstLogin
                         lastLogin
                     }
@@ -158,7 +151,6 @@ class UserTests(TestCase):
             mutation {
                 grantUserAccess (
                 email: "test@fluidattacks.com",
-                organization: "test",
                 phoneNumber: "3453453453"
                 projectName: "unittesting",
                 responsibility: "test",
@@ -169,7 +161,6 @@ class UserTests(TestCase):
                         role
                         responsibility
                         phoneNumber
-                        organization
                         firstLogin
                         lastLogin
                     }
@@ -213,7 +204,6 @@ class UserTests(TestCase):
             mutation {
               editUser (
                 email: "test@test.testedited",
-                organization: "edited",
                 phoneNumber: "17364735",
                 projectName: "unittesting",
                 responsibility: "edited",

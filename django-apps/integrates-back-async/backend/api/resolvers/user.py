@@ -176,13 +176,6 @@ def _get_responsibility(_, email: str, entity: str, identifier: str) -> str:
 
 
 @sync_to_async
-def _get_organization(_, email: str, *__) -> str:
-    """Get organization."""
-    org = cast(str, user_domain.get_data(email, 'company'))
-    return org.title()
-
-
-@sync_to_async
 def _get_first_login(_, email: str, *__) -> str:
     """Get first login."""
     return cast(str, user_domain.get_data(email, 'date_joined'))
@@ -337,8 +330,7 @@ async def _do_add_user(
     info,
     email: str,
     role: str,
-    phone_number: str = '',
-    **__
+    phone_number: str = ''
 ) -> AddUserPayloadType:
     """Resolve add_user mutation."""
     success: bool = False

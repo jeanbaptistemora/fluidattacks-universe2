@@ -364,8 +364,8 @@ class ProjectTest(TestCase):
         user_email = 'integratesuser@gmail.com'
         user_role = 'customeradmin'
         project_data = {
-            'company': 'testorg',
             'description': 'This is a new project',
+            'organization': 'testorg',
             'project_name': 'PRAGA',
             'subscription': 'continuous',
             'has_drills': True,
