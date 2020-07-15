@@ -34,8 +34,7 @@ image::product-forces.png[link="../products/forces/"]
 
 [role="mb-products"]
 *Forces* is a precise and very fast robot
-built to exploit what is found in exact locations within the systems.
-*Forces* automates attacks with the goal of verifying the status
+built to verify what is found in exact locations within the systems.
+*Forces* is integrated with CI with the goal of verifying the status
 (open or closed) of vulnerabilities, and breaks the build to force
 the remediation of open vulnerabilities.
-Fluid Attacks creates personalized exploits that perform these attacks.
