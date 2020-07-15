@@ -46,28 +46,33 @@ stages:
     - if: *integrates_commit_pattern
 
 
-.in_dev_and_master_branch: &in_dev_and_master_branch
-  except:
-    refs:
-      - schedules
-      - triggers
+.in_dev_and_master_branch_integrates: &in_dev_and_master_branch_integrates
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "schedule"'
+      when: never
+    - if: '$CI_PIPELINE_SOURCE == "trigger"'
+      when: never
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+      when: never
+    - if: *integrates_commit_pattern
 
-.in_master_branch: &in_master_branch
-  only:
-    refs:
-      - master
-  except:
-    refs:
-      - schedules
-      - triggers
+.in_master_branch_integrates: &in_master_branch_integrates
+  rules:
+    - if: '$CI_COMMIT_BRANCH != "master"'
+      when: never
+    - if: '$CI_PIPELINE_SOURCE == "schedule"'
+      when: never
+    - if: '$CI_PIPELINE_SOURCE == "trigger"'
+      when: never
+    - if: *integrates_commit_pattern
 
-.in_master_branch_and_schedules: &in_master_branch_and_schedules
-  only:
-    refs:
-      - master
-  except:
-    refs:
-      - triggers
+.in_master_branch_and_schedules_integrates: &in_master_branch_and_schedules_integrates
+  rules:
+    - if: '$CI_COMMIT_BRANCH != "master"'
+      when: never
+    - if: '$CI_PIPELINE_SOURCE == "trigger"'
+      when: never
+    - if: *integrates_commit_pattern
 
 .in_mrs_and_master_branch: &in_mrs_and_master_branch
   only:
@@ -122,7 +127,7 @@ analytics_make_documents_dev:
 
 analytics_make_documents_prod:
   <<: *analytics_template
-  <<: *in_master_branch
+  <<: *in_master_branch_integrates
   image: "${CI_REGISTRY_IMAGE}/nix:analytics_make_documents_prod"
   interruptible: false
   parallel: 6
@@ -168,7 +173,7 @@ build_front:
 
 build_mobile_android:
   <<: *with_nix
-  <<: *in_master_branch
+  <<: *in_master_branch_integrates
   stage: build
   tags: [autoscaling-large]
   artifacts:
@@ -179,7 +184,7 @@ build_mobile_android:
 
 build_lambdas:
   <<: *with_nix
-  <<: *in_dev_and_master_branch
+  <<: *in_dev_and_master_branch_integrates
   stage: build
   artifacts:
     expire_in: 1 day
@@ -189,13 +194,20 @@ build_lambdas:
 
 coverage_report:
   <<: *with_nix
-  <<: *in_dev_and_master_branch
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "schedule"'
+      when: never
+    - if: '$CI_PIPELINE_SOURCE == "trigger"'
+      when: never
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+      when: never
+    - if: *integrates_commit_pattern
+      when: always
   needs:
     - test_back
     - test_front
     - test_mobile
   stage: external
-  when: always
   retry: 1
 
 clean_registries:
@@ -255,7 +267,7 @@ deploy_mobile_ota:
 
 deploy_mobile_playstore:
   <<: *with_nix
-  <<: *in_master_branch
+  <<: *in_master_branch_integrates
   stage: deploy-app
   needs: [build_mobile_android]
   dependencies:
@@ -263,7 +275,7 @@ deploy_mobile_playstore:
 
 deploy_permissions_matrix:
   <<: *with_nix
-  <<: *in_dev_and_master_branch
+  <<: *in_dev_and_master_branch_integrates
   stage: deploy-app
   artifacts:
     expire_in: 1 day
@@ -321,7 +333,7 @@ functional_tests_dev:
 
 functional_tests_prod:
   <<: *with_nix
-  <<: *in_master_branch
+  <<: *in_master_branch_integrates
   image: "${CI_REGISTRY_IMAGE}/nix:functional_tests_prod"
   needs:
     - deploy_k8s_back
@@ -336,96 +348,96 @@ functional_tests_prod:
 
 infra_backup_deploy:
   <<: *with_nix
-  <<: *in_master_branch
+  <<: *in_master_branch_integrates
   stage: deploy-infra
 
 infra_backup_test:
   <<: *with_nix
-  <<: *in_dev_and_master_branch
+  <<: *in_dev_and_master_branch_integrates
   stage: test-infra
 
 infra_database_deploy:
   <<: *with_nix
-  <<: *in_master_branch
+  <<: *in_master_branch_integrates
   stage: deploy-infra
 
 infra_database_test:
   <<: *with_nix
-  <<: *in_dev_and_master_branch
+  <<: *in_dev_and_master_branch_integrates
   stage: test-infra
 
 infra_cache_db_deploy:
   <<: *with_nix
-  <<: *in_master_branch
+  <<: *in_master_branch_integrates
   stage: deploy-infra
 
 infra_cache_db_test:
   <<: *with_nix
-  <<: *in_dev_and_master_branch
+  <<: *in_dev_and_master_branch_integrates
   stage: test-infra
 
 infra_django_db_deploy:
   <<: *with_nix
-  <<: *in_master_branch
+  <<: *in_master_branch_integrates
   stage: deploy-infra
 
 infra_django_db_test:
   <<: *with_nix
-  <<: *in_dev_and_master_branch
+  <<: *in_dev_and_master_branch_integrates
   stage: test-infra
 
 infra_resources_deploy:
   <<: *with_nix
-  <<: *in_master_branch
+  <<: *in_master_branch_integrates
   needs:
     - build_lambdas
   stage: deploy-infra
 
 infra_resources_test:
   <<: *with_nix
-  <<: *in_dev_and_master_branch
+  <<: *in_dev_and_master_branch_integrates
   needs:
     - build_lambdas
   stage: test-infra
 
 infra_secret_management_deploy:
   <<: *with_nix
-  <<: *in_master_branch
+  <<: *in_master_branch_integrates
   stage: deploy-infra
 
 infra_secret_management_test:
   <<: *with_nix
-  <<: *in_dev_and_master_branch
+  <<: *in_dev_and_master_branch_integrates
   stage: test-infra
 
 lint_back:
   <<: *with_nix
-  <<: *in_dev_and_master_branch
+  <<: *in_dev_and_master_branch_integrates
   stage: lint-code
 
 lint_front:
   <<: *with_nix
-  <<: *in_dev_and_master_branch
+  <<: *in_dev_and_master_branch_integrates
   stage: lint-code
 
 lint_graphics:
   <<: *with_nix
-  <<: *in_dev_and_master_branch
+  <<: *in_dev_and_master_branch_integrates
   stage: lint-code
 
 lint_build_system:
   <<: *with_nix
-  <<: *in_dev_and_master_branch
+  <<: *in_dev_and_master_branch_integrates
   stage: lint-code
 
 lint_mobile:
   <<: *with_nix
-  <<: *in_dev_and_master_branch
+  <<: *in_dev_and_master_branch_integrates
   stage: lint-code
 
 lint_secrets:
   <<: *with_nix
-  <<: *in_dev_and_master_branch
+  <<: *in_dev_and_master_branch_integrates
   stage: lint-code
 
 renew_certificates:
@@ -443,14 +455,14 @@ rotate_jwt_token:
 
 send_new_release_email:
   <<: *with_nix
-  <<: *in_master_branch
+  <<: *in_master_branch_integrates
   stage: post-deploy
   needs:
     - deploy_k8s_back
 
 test_back:
   <<: *with_nix
-  <<: *in_dev_and_master_branch
+  <<: *in_dev_and_master_branch_integrates
   stage: test-code
   retry: 1
   artifacts:
@@ -461,7 +473,7 @@ test_back:
 
 test_front:
   <<: *with_nix
-  <<: *in_dev_and_master_branch
+  <<: *in_dev_and_master_branch_integrates
   stage: test-code
   artifacts:
     name: "coverage_lcov_${CI_COMMIT_REF_NAME}_${CI_COMMIT_SHA:0:8}"
@@ -471,7 +483,7 @@ test_front:
 
 test_mobile:
   <<: *with_nix
-  <<: *in_dev_and_master_branch
+  <<: *in_dev_and_master_branch_integrates
   stage: test-code
   artifacts:
     name: "coverage_lcov_${CI_COMMIT_REF_NAME}_${CI_COMMIT_SHA:0:8}"
@@ -496,7 +508,7 @@ forces_static:
               --gitlab-docker-socket-binding
              )
   interruptible: true
-  <<: *in_dev_and_master_branch
+  <<: *in_dev_and_master_branch_integrates
 
 forces_dynamic:
   stage: post-deploy
@@ -516,7 +528,7 @@ forces_dynamic:
              )
   interruptible: true
   allow_failure: true
-  <<: *in_master_branch
+  <<: *in_master_branch_integrates
 
 lint_commit_msg:
   <<: *with_nix
