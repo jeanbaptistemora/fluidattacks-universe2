@@ -64,6 +64,12 @@ stages:
     - ./build.sh "${CI_JOB_NAME% *}"
   interruptible: true
 
+.with_nix_serial: &with_nix_serial
+  image: "${CI_REGISTRY_IMAGE}/nix:${CI_JOB_NAME}"
+  tags: [autoscaling]
+  script:
+    - ./build.sh "${CI_JOB_NAME% *}"
+
 build_nix_caches:
   <<: *with_nix
   <<: *in_schedule_deploy_nix_docker_images
@@ -82,6 +88,7 @@ analytics_formstack:
   only:
     refs: [schedules]
     variables: [$SCHEDULE_ANALYTICS_FORMSTACK]
+  interruptible: false
 
 analytics_dynamodb:
   <<: *with_nix
@@ -90,6 +97,7 @@ analytics_dynamodb:
   only:
     refs: [schedules]
     variables: [$SCHEDULE_ANALYTICS_DYNAMODB]
+  interruptible: false
 
 analytics_services_toe:
   <<: *with_nix
@@ -98,6 +106,7 @@ analytics_services_toe:
   only:
     refs: [schedules]
     variables: [$SCHEDULE_ANALYTICS_CONTINUOUS_TOE]
+  interruptible: false
 
 analytics_infrastructure:
   <<: *with_nix
@@ -106,6 +115,7 @@ analytics_infrastructure:
   only:
     refs: [schedules]
     variables: [$SCHEDULE_ANALYTICS_INFRASTRUCTURE]
+  interruptible: false
 
 analytics_intercom:
   <<: *with_nix
@@ -114,6 +124,7 @@ analytics_intercom:
   only:
     refs: [schedules]
     variables: [$SCHEDULE_ANALYTICS_INTERCOM]
+  interruptible: false
 
 analytics_mandrill:
   <<: *with_nix
@@ -122,6 +133,7 @@ analytics_mandrill:
   only:
     refs: [schedules]
     variables: [$SCHEDULE_ANALYTICS_MANDRILL]
+  interruptible: false
 
 analytics_gitlab:
   <<: *with_nix
@@ -130,6 +142,7 @@ analytics_gitlab:
   only:
     refs: [schedules]
     variables: [$SCHEDULE_ANALYTICS_GITLAB]
+  interruptible: false
 
 analytics_timedoctor:
   <<: *with_nix
@@ -138,6 +151,7 @@ analytics_timedoctor:
   only:
     refs: [schedules]
     variables: [$SCHEDULE_ANALYTICS_TIMEDOCTOR]
+  interruptible: false
 
 analytics_zoho:
   <<: *with_nix
@@ -146,9 +160,11 @@ analytics_zoho:
   only:
     refs: [schedules]
     variables: [$SCHEDULE_ANALYTICS_ZOHO]
+  interruptible: false
 
 analytics_git_process:
-  <<: *with_nix
+  <<: *with_nix_serial
+  image: "${CI_REGISTRY_IMAGE}/nix:analytics_git_process"
   tags: [autoscaling-analytics]
   stage: analytics
   artifacts:
@@ -160,10 +176,10 @@ analytics_git_process:
   only:
     refs: [schedules]
     variables: [$SCHEDULE_ANALYTICS_GIT_PARALLEL]
+  interruptible: false
 
 analytics_git_upload:
-  <<: *with_nix
-  needs: [analytics_git_process]
+  <<: *with_nix_serial
   tags: [autoscaling-analytics]
   stage: analytics-upload
   artifacts:
@@ -174,6 +190,7 @@ analytics_git_upload:
   only:
     refs: [schedules]
     variables: [$SCHEDULE_ANALYTICS_GIT_PARALLEL]
+  interruptible: false
 
 analytics_timedoctor_refresh_token:
   <<: *with_nix
@@ -182,6 +199,7 @@ analytics_timedoctor_refresh_token:
   only:
     refs: [schedules]
     variables: [$SCHEDULE_ANALYTICS_TIMEDOCTOR_REFRESH_TOKEN]
+  interruptible: false
 
 analytics_timedoctor_backup:
   <<: *with_nix
@@ -190,6 +208,7 @@ analytics_timedoctor_backup:
   only:
     refs: [schedules]
     variables: [$SCHEDULE_BACKUP_ANALYTICS_TIMEDOCTOR]
+  interruptible: false
 
 analytics_services_repositories_cache:
   <<: *with_nix
@@ -198,6 +217,7 @@ analytics_services_repositories_cache:
   only:
     refs: [schedules]
     variables: [$SCHEDULE_SERVICES_REPOSITORIES_CACHE]
+  interruptible: false
 
 test_infra_monolith:
   <<: *with_nix
