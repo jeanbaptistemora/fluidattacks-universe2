@@ -75,3 +75,18 @@ such as code signing or sub-resource integrity.
 The application must not load or execute code from untrusted sources,
 such as loading includes, modules, plugins, code, or libraries from untrusted
 sources or the Internet.
+
+. [[r15]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V13.2 RESTful Web Service Verification Requirements.(13.2.5)]
+Verify that the message headers and payload are trustworthy and not modified
+in transit.
+Requiring strong encryption for transport (*TLS* only) may be sufficient in
+many cases as it provides both confidentiality and integrity protection.
+Per-message digital signatures can provide additional assurance on top of the
+transport protections for high-security applications but bring with them
+additional complexity and risks to weigh against the benefits.
+
+. [[r16]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V13.3 SOAP Web Service Verification Requirements.(13.3.2)]
+Verify that the message payload is signed using *WS-Security* to ensure
+reliable transport between client and service.

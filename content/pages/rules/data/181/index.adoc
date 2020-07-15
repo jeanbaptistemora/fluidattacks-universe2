@@ -141,4 +141,11 @@ V9.2 Server Communications Security Requirements.(9.2.3)]
 Verify that all encrypted connections to external systems that involve
 sensitive information or functions are authenticated.
 
-. [[r15]] link:https://pcinetwork.org/forum/index.php?threads/pci-dss-3-0-6-5-4-insecure-communications.660/[PCI 6.5.4 Insecure communications/transport layer protection]
+. [[r15]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V13.2 RESTful Web Service Verification Requirements.(13.2.5)]
+Verify that the message headers and payload are trustworthy and not modified
+in transit.
+Requiring strong encryption for transport (*TLS* only) may be sufficient in
+many cases as it provides both confidentiality and integrity protection.
+
+. [[r16]] link:https://pcinetwork.org/forum/index.php?threads/pci-dss-3-0-6-5-4-insecure-communications.660/[PCI 6.5.4 Insecure communications/transport layer protection]

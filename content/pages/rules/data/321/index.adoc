@@ -67,3 +67,15 @@ V5.5 Deserialization Prevention Requirements.(5.5.4)]
 Verify that when parsing *JSON* in browsers or JavaScript-based backends,
 **JSON.parse** is used to parse the *JSON* document.
 Do not use **eval()** to parse *JSON*.
+
+. [[r7]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V13.2 RESTful Web Service Verification Requirements.(13.2.2)]
+Verify that *JSON* schema validation is in place and verified before accepting
+input.
+
+. [[r8]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V13.3 SOAP Web Service Verification Requirements.(13.3.1)]
+Verify that *XSD* schema validation takes place to ensure a properly formed
+*XML* document,
+followed by validation of each input field before any processing of that data
+takes place.
