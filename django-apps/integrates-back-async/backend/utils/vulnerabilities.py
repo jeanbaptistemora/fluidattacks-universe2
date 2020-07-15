@@ -188,8 +188,8 @@ def format_where(where: str, vulnerabilities: List[Dict[str, str]]) -> str:
     return where
 
 
-def mask_vuln(finding_id: str, vuln_id: str) -> bool:
-    success = vuln_dal.update(finding_id, vuln_id, {
+async def mask_vuln(finding_id: str, vuln_id: str) -> bool:
+    success = await vuln_dal.update(finding_id, vuln_id, {
         'specific': 'Masked',
         'where': 'Masked'
     })

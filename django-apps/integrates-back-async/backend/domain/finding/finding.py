@@ -227,7 +227,7 @@ async def update_treatment_in_vuln(
 
     update_treatment_result = await asyncio.gather(*[
         asyncio.create_task(
-            sync_to_async(vuln_dal.update)(
+            vuln_dal.update(
                 finding_id,
                 str(vuln.get('UUID', '')),
                 new_values.copy()
@@ -643,7 +643,7 @@ async def mask_finding(finding_id: str) -> bool:
     list_vulns = await vuln_domain.list_vulnerabilities_async([finding_id])
     mask_vulns_task = [
         asyncio.create_task(
-            sync_to_async(vuln_utils.mask_vuln)(
+            vuln_utils.mask_vuln(
                 finding_id, str(vuln['UUID']))
         )
         for vuln in list_vulns
