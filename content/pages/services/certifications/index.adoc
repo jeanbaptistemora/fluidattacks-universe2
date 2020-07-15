@@ -102,14 +102,4 @@ It means to go beyond simple terminology and ideas
 to include practical applications.
 It is to get skills for `IT` systems' hands-on roles involving security tasks.
 
-a|== Information Technology Infrastructure Library Certification (ITIL)
-
-`ITIL` is linked to a set of practices for `IT` service management (`ITSM`)
-that focuses on aligning `IT` services with the needs of businesses.
-`ITIL` gives detailed descriptions of a large set of management procedures
-designed to help organizations
-achieve quality and efficiency in `IT` operations.
-
-a|image::logo-itil.png[logo itil]
-
 |====
