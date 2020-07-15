@@ -40,11 +40,11 @@ Thereby, we could reach, in the last six months, an average of:
 [frame="none",cols=2,caption=""]
 |====
 a|[caption=""]
-.Average of all systems 2018/01/01 - 2019/04/24
+.Average of all systems, 2020/01/01 - 2020/07/15
 image::global-average.png[Average of deployments to production in all systems]
 a|[caption=""]
-.Systems with higher average 2018/01/01 - 2019/04/24
-image::max-average.png[Systems with higher deploys to production]
+.Highest average in a system, 2020/01/01 - 2020/07/15
+image::max-average.png[The highest average in a system]
 |====
 
 == 2. Content
