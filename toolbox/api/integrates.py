@@ -161,7 +161,7 @@ class Queries:
             query {
                 me {
                     accessToken
-                    role
+                    role (entity: USER)
                     projects {
                         name
                     }
