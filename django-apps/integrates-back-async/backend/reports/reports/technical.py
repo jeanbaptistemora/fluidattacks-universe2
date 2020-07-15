@@ -15,6 +15,7 @@ import rollbar
 from backend.dal import (
     finding as finding_dal,
 )
+from backend.decorators import shield
 from backend.domain import (
     notifications as notifications_domain
 )
@@ -47,13 +48,15 @@ def generate_pdf_file(
     return report_filename
 
 
+@shield
 def generate_pdf(
-        *,
-        description: str,
-        findings_ord: List[Dict[str, FindingType]],
-        group_name: str,
-        lang: str,
-        user_email: str):
+    *,
+    description: str,
+    findings_ord: List[Dict[str, FindingType]],
+    group_name: str,
+    lang: str,
+    user_email: str
+):
     passphrase = get_passphrase(4)
 
     report_filename = generate_pdf_file(
@@ -70,7 +73,8 @@ def generate_pdf(
     notifications_domain.new_password_protected_report(
         user_email,
         group_name,
-        passphrase, 'PDF',
+        passphrase,
+        'PDF',
         reports_utils.sign_url(uploaded_file_name),
     )
 
@@ -96,6 +100,7 @@ def generate_xls_file(
     return filepath
 
 
+@shield
 def generate_xls(
     findings_ord: List[Dict[str, FindingType]],
     group_name: str,

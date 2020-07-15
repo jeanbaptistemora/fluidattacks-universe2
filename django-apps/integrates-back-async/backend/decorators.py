@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 """ Decorators for FluidIntegrates. """
 
+import asyncio
 from datetime import datetime
 import functools
 import inspect
@@ -680,3 +681,39 @@ def turn_args_into_kwargs(function: Callable):
         return await function(*args[0:2], **args_as_kwargs, **kwargs)
 
     return new_function
+
+
+def shield(function: Callable):
+    """Catches any general Exception raised in decorated function
+    and reports data to rollbar
+    """
+    def report(exception: Exception):
+        rollbar_msg = (
+            f'Error: Shielded function raised a generic Exception'
+        )
+        rollbar.report_message(
+            rollbar_msg,
+            'error',
+            extra_data={
+                'function': function.__name__,
+                'exception': exception
+            }
+        )
+
+    if asyncio.iscoroutinefunction(function):
+        @functools.wraps(function)
+        async def shielded_function(*args, **kwargs):
+            try:
+                return await function(*args, **kwargs)
+            except Exception as exception:  # pylint: disable=broad-except
+                report(exception)
+
+    else:
+        @functools.wraps(function)
+        def shielded_function(*args, **kwargs):
+            try:
+                return function(*args, **kwargs)
+            except Exception as exception:  # pylint: disable=broad-except
+                report(exception)
+
+    return shielded_function
