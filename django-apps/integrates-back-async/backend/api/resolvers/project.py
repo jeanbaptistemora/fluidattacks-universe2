@@ -18,6 +18,7 @@ import rollbar
 # Local libraries
 from backend import authz
 from backend.api.resolvers import (
+    analytics as analytics_loader,
     finding as finding_loader,
     organization as org_loader,
     user as user_loader
@@ -52,6 +53,24 @@ from backend.utils import (
 )
 
 from __init__ import FI_COMMUNITY_PROJECTS
+
+
+@enforce_group_level_auth_async
+@require_integrates
+async def _get_analytics(
+    info,
+    document_name: str,
+    document_type: str,
+    project_name: str,
+    **__
+) -> Dict[str, object]:
+    """Get analytics document."""
+    return await analytics_loader.resolve(
+        info,
+        document_name=document_name,
+        document_type=document_type,
+        entity='group',
+        subject=project_name)
 
 
 async def _get_name(_, project_name: str, **__) -> str:

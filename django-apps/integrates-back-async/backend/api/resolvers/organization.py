@@ -20,7 +20,10 @@ from backend import (
     authz,
     util
 )
-from backend.api.resolvers import user as user_loader
+from backend.api.resolvers import (
+    analytics as analytics_loader,
+    user as user_loader,
+)
 from backend.decorators import (
     enforce_organization_level_auth_async,
     get_entity_cache_async,
@@ -214,6 +217,24 @@ async def _do_update_organization_policies(
 
 
 @rename_kwargs({'identifier': 'organization_id'})
+@enforce_organization_level_auth_async
+async def _get_analytics(
+        info,
+        document_name: str,
+        document_type: str,
+        organization_id: str,
+        **__
+) -> Dict[str, object]:
+    """Get analytics document."""
+    return await analytics_loader.resolve(
+        info,
+        document_name=document_name,
+        document_type=document_type,
+        entity='organization',
+        subject=organization_id)
+
+
+@rename_kwargs({'identifier': 'organization_id'})
 async def _get_id(_, organization_id: str, **kwargs) -> str:
     if kwargs.get('organization_name'):
         return await org_domain.get_id_by_name(kwargs['organization_name'])
@@ -248,7 +269,7 @@ async def _get_max_number_acceptations(
     _,
     organization_id: str,
     **__
-)-> Optional[Decimal]:
+) -> Optional[Decimal]:
     return await org_domain.get_max_number_acceptations(organization_id)
 
 

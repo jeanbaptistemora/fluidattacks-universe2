@@ -9,7 +9,6 @@ from typing import (
 GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
     admin=dict(
         actions={
-            'backend_api_resolvers_analytics__get_group_document',
             'backend_api_resolvers_event__do_add_event_comment',
             'backend_api_resolvers_event__do_create_event',
             'backend_api_resolvers_event__do_download_event_file',
@@ -41,6 +40,7 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             'backend_api_resolvers_project__do_edit_group',
             'backend_api_resolvers_project__do_reject_remove_project',
             'backend_api_resolvers_project__do_remove_tag',
+            'backend_api_resolvers_project__get_analytics',
             'backend_api_resolvers_project__get_bill',
             'backend_api_resolvers_project__get_comments',
             'backend_api_resolvers_project__get_drafts',
@@ -85,7 +85,6 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
     ),
     analyst=dict(
         actions={
-            'backend_api_resolvers_analytics__get_group_document',
             'backend_api_resolvers_event__do_add_event_comment',
             'backend_api_resolvers_event__do_create_event',
             'backend_api_resolvers_event__do_download_event_file',
@@ -111,6 +110,7 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             'backend_api_resolvers_finding_resolve_finding',
             'backend_api_resolvers_forces_resolve_forces_executions',
             'backend_api_resolvers_project__do_add_project_comment',
+            'backend_api_resolvers_project__get_analytics',
             'backend_api_resolvers_project__get_comments',
             'backend_api_resolvers_project__get_drafts',
             'backend_api_resolvers_project__get_events',
@@ -136,7 +136,6 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
     ),
     closer=dict(
         actions={
-            'backend_api_resolvers_analytics__get_group_document',
             'backend_api_resolvers_event__do_add_event_comment',
             'backend_api_resolvers_event__do_create_event',
             'backend_api_resolvers_event__do_download_event_file',
@@ -151,6 +150,7 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             'backend_api_resolvers_finding__get_pending_vulns',
             'backend_api_resolvers_finding_resolve_finding',
             'backend_api_resolvers_forces_resolve_forces_executions',
+            'backend_api_resolvers_project__get_analytics',
             'backend_api_resolvers_project__get_comments',
             'backend_api_resolvers_project__get_events',
             'backend_api_resolvers_project__get_service_attributes',
@@ -173,7 +173,6 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
     ),
     customer=dict(
         actions={
-            'backend_api_resolvers_analytics__get_group_document',
             'backend_api_resolvers_event__do_add_event_comment',
             'backend_api_resolvers_event__do_download_event_file',
             'backend_api_resolvers_event_resolve_event',
@@ -186,6 +185,7 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             'backend_api_resolvers_project__do_add_project_comment',
             'backend_api_resolvers_project__do_add_tags',
             'backend_api_resolvers_project__do_remove_tag',
+            'backend_api_resolvers_project__get_analytics',
             'backend_api_resolvers_project__get_bill',
             'backend_api_resolvers_project__get_comments',
             'backend_api_resolvers_project__get_events',
@@ -209,7 +209,6 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
     ),
     customeradmin=dict(
         actions={
-            'backend_api_resolvers_analytics__get_group_document',
             'backend_api_resolvers_event__do_add_event_comment',
             'backend_api_resolvers_event__do_download_event_file',
             'backend_api_resolvers_event_resolve_event',
@@ -226,6 +225,7 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             'backend_api_resolvers_project__do_edit_group',
             'backend_api_resolvers_project__do_reject_remove_project',
             'backend_api_resolvers_project__do_remove_tag',
+            'backend_api_resolvers_project__get_analytics',
             'backend_api_resolvers_project__get_bill',
             'backend_api_resolvers_project__get_comments',
             'backend_api_resolvers_project__get_events',
@@ -258,7 +258,6 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
     ),
     executive=dict(
         actions={
-            'backend_api_resolvers_analytics__get_group_document',
             'backend_api_resolvers_event__do_add_event_comment',
             'backend_api_resolvers_event__do_download_event_file',
             'backend_api_resolvers_event_resolve_event',
@@ -271,6 +270,7 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             'backend_api_resolvers_project__do_add_project_comment',
             'backend_api_resolvers_project__do_add_tags',
             'backend_api_resolvers_project__do_remove_tag',
+            'backend_api_resolvers_project__get_analytics',
             'backend_api_resolvers_project__get_comments',
             'backend_api_resolvers_project__get_events',
             'backend_api_resolvers_project__get_service_attributes',
@@ -293,7 +293,6 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
     ),
     group_manager=dict(
         actions={
-            'backend_api_resolvers_analytics__get_group_document',
             'backend_api_resolvers_event__do_add_event_comment',
             'backend_api_resolvers_event__do_create_event',
             'backend_api_resolvers_event__do_download_event_file',
@@ -314,6 +313,7 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             'backend_api_resolvers_project__do_edit_group',
             'backend_api_resolvers_project__do_reject_remove_project',
             'backend_api_resolvers_project__do_remove_tag',
+            'backend_api_resolvers_project__get_analytics',
             'backend_api_resolvers_project__get_bill',
             'backend_api_resolvers_project__get_comments',
             'backend_api_resolvers_project__get_drafts',
@@ -356,7 +356,6 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
     ),
     resourcer=dict(
         actions={
-            'backend_api_resolvers_analytics__get_group_document',
             'backend_api_resolvers_event__do_add_event_comment',
             'backend_api_resolvers_event__do_create_event',
             'backend_api_resolvers_event__do_download_event_file',
@@ -365,6 +364,7 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             'backend_api_resolvers_event__do_solve_event',
             'backend_api_resolvers_finding_resolve_finding',
             'backend_api_resolvers_forces_resolve_forces_executions',
+            'backend_api_resolvers_project__get_analytics',
             'backend_api_resolvers_project__get_comments',
             'backend_api_resolvers_project__get_events',
             'backend_api_resolvers_project__get_service_attributes',
@@ -380,7 +380,6 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
     ),
     reviewer=dict(
         actions={
-            'backend_api_resolvers_analytics__get_group_document',
             'backend_api_resolvers_event__do_add_event_comment',
             'backend_api_resolvers_event__do_download_event_file',
             'backend_api_resolvers_event_resolve_event',
@@ -399,6 +398,7 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             'backend_api_resolvers_finding_resolve_finding',
             'backend_api_resolvers_forces_resolve_forces_executions',
             'backend_api_resolvers_project__do_add_project_comment',
+            'backend_api_resolvers_project__get_analytics',
             'backend_api_resolvers_project__get_comments',
             'backend_api_resolvers_project__get_drafts',
             'backend_api_resolvers_project__get_events',
@@ -432,6 +432,7 @@ ORGANIZATION_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
                 'do_remove_user_organization_access'),
             ('backend_api_resolvers_organization__do_'
                 'update_organization_policies'),
+            'backend_api_resolvers_organization__get_analytics',
             'grant_organization_level_role:customer',
             'grant_organization_level_role:customeradmin'
         },
@@ -439,7 +440,7 @@ ORGANIZATION_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
     ),
     customer=dict(
         actions={
-            ''
+            'backend_api_resolvers_organization__get_analytics',
         },
         tags=set()
     ),
@@ -452,6 +453,7 @@ ORGANIZATION_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
                 'do_remove_user_organization_access'),
             ('backend_api_resolvers_organization__do_'
                 'update_organization_policies'),
+            'backend_api_resolvers_organization__get_analytics',
             'grant_organization_level_role:customer',
             'grant_organization_level_role:customeradmin'
         },

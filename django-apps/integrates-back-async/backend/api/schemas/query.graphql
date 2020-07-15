@@ -1,8 +1,5 @@
 "Main Query object"
 type Query {
-    "Get analytics data for an entity"
-    analytics: Analytics
-
     "Get event"
     event(identifier: String!): Event
 
