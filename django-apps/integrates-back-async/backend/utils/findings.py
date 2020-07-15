@@ -707,7 +707,7 @@ async def validate_number_acceptations(
             1 for item in historic_treatment if item['treatment'] == 'ACCEPTED'
         )
         if max_acceptations and current_acceptations + 1 > max_acceptations:
-            raise InvalidNumberAcceptations(current_acceptations)
+            raise InvalidNumberAcceptations(cast(str, current_acceptations))
     return valid
 
 
