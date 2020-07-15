@@ -10,7 +10,8 @@
 
 Ethical hacking can be done to achieve specific, full or variable coverage.
 Specific coverage refers to a system where its overall size can be assessed
-(application fields, lines of code, open ports) and you choose to cover only a
-specific percentage. When you choose to cover the entire system, that's full
-coverage. Variable coverage, otherwise, refers to a system where its overall
-size cannot be assessed and a specific scope is predefined.
+(application fields, lines of code, open ports)
+and you choose to cover only a specific percentage.
+When you choose to cover the entire system, that is full coverage.
+Variable coverage refers to a system
+where its overall size cannot be assessed and a specific scope is predefined.

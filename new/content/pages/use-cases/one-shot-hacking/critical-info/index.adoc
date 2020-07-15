@@ -7,7 +7,7 @@
 
 = Critical Information Extraction and Information Removal
 
-Information extraction is done to maximize the impacts of the finding.
+Information extraction is done to maximize the impacts of the findings.
 The data gathered during a project remains on link:../../../products/integrates/[*Integrates*].
 Your project's admin is allowed to delete it.
 The data is removed *30* days after the admin's decision.

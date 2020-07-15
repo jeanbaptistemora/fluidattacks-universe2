@@ -8,10 +8,11 @@
 
 = Hacking Techniques, Team, Duration and Cycles
 
-Continuous hacking means automatic and manual testing.
-It is done through the ethical hacking of the apps, the infrastructure,
-and the source code.
+Continuous hacking means automatic and manual testing with speed.
+It is done through the ethical hacking of the apps,
+the infrastructure, and the source code.
 *Fluid Attacks* makes Zero-Day findings and does not report false positives.
-The testing needs access to the *GIT* repository and the
-integration environment. The selected system is attacked again and again
-to test all the versions created before.
+The testing needs access to the *GIT* repository
+and the integration environment.
+The selected system is attacked repeatedly to test all existing versions
+and uses various techniques like *SAST*, *DAST*, *IAST* and *SCA*.

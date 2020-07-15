@@ -20,14 +20,14 @@ offensive information security certification.
 It requires the professionals to prove
 that they have a clear understanding
 of the penetration testing process and life cycle
-through an arduous `24` hours of the exam.
+through an arduous 24hour exam.
 
 a|== Offensive Security Wireless Professional (OSWP)
 
 `OSWP` is the only professional certification
 in practical wireless attacks in the security field today.
 In a hands-on exam, an `OSWP` must prove they have the skills
-to do `802.11` wireless audits using open source tools.
+to do 802.11 wireless audits using open source tools.
 
 a|image::logo-oswp.png[logo oswp]
 
@@ -84,7 +84,7 @@ and enhance existing or establish new controls in a business.
 
 a|== CompTIA Security+
 
-This one is an internationally recognized certification
+This is an internationally recognized certification
 by the Computing Technology Industry Association, a non-profit trade union.
 It certifies a professional has the core knowledge and skills necessary
 for practical security problem-solving.
@@ -98,8 +98,9 @@ a|== GIAC Information Security Professional (GISP)
 
 `GISP` is a certification for security professionals
 who want to expand their knowledge.
-It means to go beyond simple terminology and ideas
+It requires them to go beyond simple terminology and ideas
 to include practical applications.
-It is to get skills for `IT` systems' hands-on roles involving security tasks.
+It is designed to provide skills
+to professionals in `IT` systems' hands-on roles involving security tasks.
 
 |====

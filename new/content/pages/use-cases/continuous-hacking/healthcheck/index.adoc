@@ -6,9 +6,9 @@
 :section: Continuous Hacking
 :template: use-cases/feature
 
-= Healthcheck
+= Health Check
 
-All versions of existing code should be attacked up to the subscription start
-point, in addition to the monthly test limit. A healthcheck is intended to catch
-up with the development team within the first *3* months of subscription.
-Then the continuous hacking advances simultaneously with the development.
+All versions of existing code should be attacked up
+to the subscription start point, in addition to the monthly test limit.
+A health check is scheduled in order to catch up with the development team.
+Then, the continuous hacking advances simultaneously with the development.

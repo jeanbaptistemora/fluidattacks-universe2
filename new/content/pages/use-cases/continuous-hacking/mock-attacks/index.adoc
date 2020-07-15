@@ -1,15 +1,15 @@
-:slug: use-cases/continuous-hacking/mock-attacks/
-:description: In this page we describe our Continuous Hacking service, which aims to detect and report all the vulnerabilities in your application as soon as possible. Our participation in the development life cycle allow us to continuously detect security findings in a development environment.
-:keywords: Fluid Attacks, Services, Continuous Hacking, Ethical Hacking, Pentesting, Security.
+:slug: use-cases/continuous-hacking/break-build/
+:description: Forces is designed to break the build in your Continuous Integration pipeline, forcing developers to fix the open vulnerabilities before going into production.
+:keywords: Fluid Attacks, Services, Continuous Hacking, Ethical Hacking, Pentesting, Security, Break the Build, Vulnerabilities
 :nextpage: use-cases/continuous-hacking/remediation/
 :category: continuous-hacking
 :section: Continuous Hacking
 :template: use-cases/feature
 
-= Mock Attacks Reproduction
+= Break the Build in Your CI
 
-*Fluid Attacks* can play mock attacks with link:../../../products/forces/[*Forces*].
-link:../../../products/forces/[*Forces*] breaks the build
-and calls for the remediation of the known deep,
-the re-opened, and the new peripheral vulnerabilities.
-That call to action is for the development team.
+link:../../../products/forces/[*Forces*] breaks the build in your CI,
+obliging developers to fix the open vulnerabilities in order to deploy.
+With just one click in link:../../../products/integrates/[*Integrates*],
+managers can decide which vulnerabilities are crucial
+and must break the build in their CI if they are still open.
