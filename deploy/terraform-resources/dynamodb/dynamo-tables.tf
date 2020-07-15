@@ -1,24 +1,3 @@
-resource "aws_dynamodb_table" "alerts_by_company" {
-  name           = "FI_alerts_by_company"
-  billing_mode   = "PAY_PER_REQUEST"
-  hash_key       = "company_name"
-  range_key      = "project_name"
-
-  attribute {
-    name = "company_name"
-    type = "S"
-  }
-
-  attribute {
-    name = "project_name"
-    type = "S"
-  }
-
-  point_in_time_recovery {
-    enabled = true
-  }
-}
-
 resource "aws_dynamodb_table" "authz" {
   name          = "fi_authz"
   billing_mode  = "PAY_PER_REQUEST"
@@ -167,21 +146,6 @@ resource "aws_dynamodb_table" "toe" {
 
   attribute {
     name = "project"
-    type = "S"
-  }
-
-  point_in_time_recovery {
-    enabled = true
-  }
-}
-
-resource "aws_dynamodb_table" "weekly_report" {
-  name           = "FI_weekly_report"
-  billing_mode   = "PAY_PER_REQUEST"
-  hash_key       = "init_date"
-
-  attribute {
-    name = "init_date"
     type = "S"
   }
 

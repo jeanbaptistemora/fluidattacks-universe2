@@ -90,16 +90,6 @@ ProvisionedThroughput="{ReadCapacityUnits=10,WriteCapacityUnits=10}" \
 --provisioned-throughput ReadCapacityUnits=1,WriteCapacityUnits=1
 
 aws dynamodb create-table --endpoint-url http://localhost:8022 \
---table-name FI_alerts_by_company \
---attribute-definitions \
-    AttributeName=company_name,AttributeType=S \
-    AttributeName=project_name,AttributeType=S \
---key-schema \
-    AttributeName=company_name,KeyType=HASH \
-    AttributeName=project_name,KeyType=RANGE \
---provisioned-throughput ReadCapacityUnits=1,WriteCapacityUnits=1
-
-aws dynamodb create-table --endpoint-url http://localhost:8022 \
 --table-name FI_comments \
 --attribute-definitions \
     AttributeName=finding_id,AttributeType=N \

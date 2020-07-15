@@ -34,7 +34,6 @@ DYNAMODB_RESOURCE = dynamodb.DYNAMODB_RESOURCE  # type: ignore
 TABLE = DYNAMODB_RESOURCE.Table('FI_projects')
 TABLE_COMMENTS = DYNAMODB_RESOURCE.Table('fi_project_comments')
 TABLE_ACCESS = DYNAMODB_RESOURCE.Table('FI_project_access')
-TABLE_WEEKLY_REPORT = DYNAMODB_RESOURCE.Table('FI_weekly_report')
 
 ServicePolicy = NamedTuple(
     'ServicePolicy',

@@ -119,6 +119,10 @@ async def _do_grant_user_organization_access(
     user_phone_number = str(parameters.get('phone_number'))
     user_role = str(parameters.get('role')).lower()
 
+    user_added = await org_domain.add_user(
+        organization_id, user_email, user_role
+    )
+
     user_created = False
     user_exists = bool(user_domain.get_data(user_email, 'email'))
     if not user_exists:
@@ -128,9 +132,6 @@ async def _do_grant_user_organization_access(
             'customer',
             user_phone_number
         )
-    user_added = await org_domain.add_user(
-        organization_id, user_email, user_role
-    )
     success = user_added and any([user_created, user_exists])
 
     if success:
