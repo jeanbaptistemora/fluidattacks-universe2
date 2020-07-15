@@ -1,7 +1,7 @@
 :slug: rules/046/
 :category: files
 :description: This requirement establishes that the system must manage through logs the integrity of critical files.
-:keywords: System, Log, File, Integrity, Security, Requirement, Rules, Ethical Hacking, Pentesting
+:keywords: System, Log, File, Integrity, Security, ASVS, CWE, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R046. Manage integrity of critical files
@@ -10,3 +10,15 @@
 
 The system must verify
 and log changes in the integrity of critical system files.
+
+== References
+
+. [[r1]] link:https://cwe.mitre.org/data/definitions/778.html[CWE-778: Insufficient Logging].
+When a security-critical event occurs,
+the software either does not record the event or omits important details about
+the event when logging it.
+
+. [[r2]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V14.1 Build.(14.1.5)]
+Verify that authorized administrators can verify the integrity of all
+security-relevant configurations to detect tampering.

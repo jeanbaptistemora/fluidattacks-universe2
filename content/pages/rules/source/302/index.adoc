@@ -1,7 +1,7 @@
 :slug: rules/302/
 :category: source
 :description: This requirement establishes the importance of explicitly declaring all the dependencies used in the source code.
-:keywords: Security, Files, Dependencies, Source Code, Libraries, CWE, Rules, Ethical Hacking, Pentesting
+:keywords: Security, Files, Dependencies, Source Code, Libraries, ASVS, CWE, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R302. Declare dependencies explicitly
@@ -11,6 +11,18 @@
 All dependencies (third-party software/libraries) must be explicitly declared
 (name and version) in a file inside the source code repository.
 Their source code must not be directly included in the repository.
+
+== Description
+
+The usage of third-party software and libraries is very common in modern
+applications as it greatly reduces the effort required to develop them.
+Unfortunately, this software may introduce vulnerabilities into the
+application,
+which causes it to require frequent updates.
+In order to ease the constant update process,
+instead of directly including third-party software source code in application
+repositories,
+it should merely be referenced and managed using a package manager.
 
 == Findings
 
@@ -22,3 +34,10 @@ Their source code must not be directly included in the repository.
 The software imports, requires, or includes executable functionality
 (such as a library) from a source that is outside of the intended control
 sphere.
+
+. [[r4]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V14.1 Build.(14.1.2)]
+Verify that the application, configuration, and all dependencies can be
+re-deployed using automated deployment scripts,
+built from a documented and tested runbook in a reasonable time,
+or restored from backups in a timely fashion.

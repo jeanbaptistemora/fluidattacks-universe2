@@ -148,4 +148,9 @@ in transit.
 Requiring strong encryption for transport (*TLS* only) may be sufficient in
 many cases as it provides both confidentiality and integrity protection.
 
-. [[r16]] link:https://pcinetwork.org/forum/index.php?threads/pci-dss-3-0-6-5-4-insecure-communications.660/[PCI 6.5.4 Insecure communications/transport layer protection]
+. [[r16]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V13.3 SOAP Web Service Verification Requirements.(13.3.2)]
+Verify that the message payload is signed using *WS-Security* to ensure
+reliable transport between client and service.
+
+. [[r17]] link:https://pcinetwork.org/forum/index.php?threads/pci-dss-3-0-6-5-4-insecure-communications.660/[PCI 6.5.4 Insecure communications/transport layer protection]

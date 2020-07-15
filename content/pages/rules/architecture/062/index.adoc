@@ -93,3 +93,8 @@ overflow protections and warnings,
 including stack randomization, data execution prevention,
 and to break the build if an unsafe pointer, memory, format string, integer,
 or string operations are found.
+
+. [[r9]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V14.1 Build.(14.1.3)]
+Verify that server configuration is hardened as per the recommendations of the
+application server and frameworks in use.

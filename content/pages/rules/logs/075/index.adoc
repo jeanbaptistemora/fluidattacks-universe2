@@ -142,5 +142,6 @@ Verify that backend *TLS* connection failures are logged.
 . [[r13]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V11.1 Business Logic Security Requirements.(11.1.7)]
 Verify the application monitors for unusual events or activity from a business
-logic perspective. For example, attempts to perform actions out of order or
-actions which a normal user would never attempt.
+logic perspective.
+For example, attempts to perform actions out of order or actions which a normal
+user would never attempt.
