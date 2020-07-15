@@ -303,8 +303,8 @@ type Mutation {
 
     subscribeToEntityReport(
         frequency: Frequency!,
-        report_entity: SubscriptionReportEntity!
-        report_subject: String!
+        reportEntity: SubscriptionReportEntity!
+        reportSubject: String!
     ): SimplePayload!
 
     invalidateCache(pattern: String!): SimplePayload!

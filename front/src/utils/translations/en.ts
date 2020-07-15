@@ -93,6 +93,22 @@ export const enTranslations: ResourceKey = {
     sections: {
       extras: {
         download: "Download",
+        frequencies: {
+          action: {
+            daily: "Subscribe daily",
+            hourly: "Subscribe hourly",
+            monthly: "Subscribe monthly",
+            never: "Unsubscribe me",
+            weekly: "Subscribe weekly",
+          },
+          statement: {
+            daily: "Subscribed daily",
+            hourly: "Subscribed hourly",
+            monthly: "Subscribed monthly",
+            never: "Unsubscribed",
+            weekly: "Subscribed weekly",
+          },
+        },
       },
       forces: {
         title: "Forces",

@@ -7,10 +7,24 @@ import React from "react";
 import { default as style } from "./index.css";
 import { DropdownButton, MenuItem } from "react-bootstrap";
 
-const dropdownButton: React.FC<DropdownButton.DropdownButtonProps> = (
-  props: Readonly<DropdownButton.DropdownButtonProps>
+/*
+ * They have a bug in this onSelect type
+ *   https://react-bootstrap-v3.netlify.app/components/dropdowns/
+ *
+ * Below is the one declared in the docs and the one they actually implement
+ */
+interface IDropdownButtonProps
+  extends Omit<DropdownButton.DropdownButtonProps, "onSelect"> {
+  onSelect?: (eventKey: string) => void;
+}
+
+const dropdownButton: React.FC<IDropdownButtonProps> = (
+  props: Readonly<IDropdownButtonProps>
 ): JSX.Element => (
-  <DropdownButton className={style.dropdownButton} {...props} />
+  <DropdownButton
+    className={style.dropdownButton}
+    {...(props as DropdownButton.DropdownButtonProps)}
+  />
 );
 
 export { dropdownButton as DropdownButton, MenuItem };

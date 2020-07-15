@@ -1,3 +1,4 @@
+import { MockedProvider } from "@apollo/react-testing";
 import { mount, ReactWrapper } from "enzyme";
 import * as React from "react";
 import { Provider } from "react-redux";
@@ -41,7 +42,9 @@ describe("ProjectContent", () => {
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/project/TEST/indicators"]}>
         <Provider store={store}>
-          <ProjectContent {...mockProps} />
+          <MockedProvider mocks={[]} addTypename={false}>
+            <ProjectContent {...mockProps} />
+          </MockedProvider>
         </Provider>
       </MemoryRouter>,
     );
@@ -55,7 +58,9 @@ describe("ProjectContent", () => {
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/project/TEST/indicators"]}>
         <Provider store={store}>
-          <ProjectContent {...mockProps} />
+          <MockedProvider mocks={[]} addTypename={false}>
+            <ProjectContent {...mockProps} />
+          </MockedProvider>
         </Provider>
       </MemoryRouter>,
     );
