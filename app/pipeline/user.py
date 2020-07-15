@@ -1,5 +1,9 @@
+from typing import Dict, Sequence, Any, Union
 from backend import authz, mailer
 from backend.domain import user as user_domain
+from social_core.strategy import BaseStrategy
+from social_core.backends.oauth import OAuthAuth
+from django.contrib.auth.models import User
 
 from __init__ import (
     FI_COMMUNITY_PROJECTS,
@@ -8,7 +12,12 @@ from __init__ import (
 )
 
 
-def get_upn(strategy, details, backend, *args, **kwargs):
+def get_upn(
+        strategy: BaseStrategy,
+        details: Dict[str, str],
+        backend: OAuthAuth,
+        *args: Sequence[Any],
+        **kwargs: Dict[str, Any]) -> None:
     # When using a personal Microsoft account,
     # upn does not exist in response
     del strategy
@@ -16,10 +25,12 @@ def get_upn(strategy, details, backend, *args, **kwargs):
     del args
     if (getattr(backend, 'name', None) == 'azuread-tenant-oauth2' and
             not kwargs['response'].get('upn')):
-        kwargs['response']['upn'] = kwargs.get('response')['email']
+        kwargs['response']['upn'] = kwargs.get(  # type: ignore
+            'response'
+        )['email']
 
 
-def autoenroll_user(strategy, email: str) -> bool:
+def autoenroll_user(strategy: BaseStrategy, email: str) -> bool:
     # New users must have access to the community projects
     was_granted_access: bool = True
 
@@ -42,18 +53,27 @@ def autoenroll_user(strategy, email: str) -> bool:
 
         # Add the user into the community projects
         for group in FI_COMMUNITY_PROJECTS.split(','):
-            was_granted_access = \
-                was_granted_access \
-                and user_domain.update_project_access(
-                    email, group, access=True) \
-                and authz.grant_group_level_role(
-                    email, group, new_user_group_level_role)
+            was_granted_access = (
+                was_granted_access and
+                user_domain.update_project_access(
+                    email, group, access=True
+                ) and
+                authz.grant_group_level_role(
+                    email, group, new_user_group_level_role
+                )
+            )
 
     return is_registered and was_granted_access
 
 
 # pylint: disable=keyword-arg-before-vararg
-def create_user(strategy, details, backend, user=None, *args, **kwargs):
+def create_user(
+        strategy: BaseStrategy,
+        details: Dict[str, str],
+        backend: OAuthAuth,
+        user: Union[User, None] = None,
+        *args: Sequence[Any],
+        **kwargs: Dict[str, Any]) -> None:
     del args
     del kwargs
     del backend
@@ -82,7 +102,7 @@ def create_user(strategy, details, backend, user=None, *args, **kwargs):
             user_domain.update_multiple_user_attributes(str(user), data_dict)
     else:
         mail_to = [FI_MAIL_CONTINUOUS, FI_MAIL_PROJECTS]
-        name = first_name + ' ' + last_name
+        name = f'{first_name} {last_name}'
         context = {
             'name_user': name,
             'mail_user': email,
@@ -91,7 +111,12 @@ def create_user(strategy, details, backend, user=None, *args, **kwargs):
         user_domain.update_multiple_user_attributes(email, data_dict)
 
 
-def check_registered(strategy, details, backend, *args, **kwargs):
+def check_registered(
+        strategy: BaseStrategy,
+        details: Dict[str, str],
+        backend: OAuthAuth,
+        *args: Sequence[Any],
+        **kwargs: Dict[str, Any]) -> None:
     del args
     del kwargs
     del backend
