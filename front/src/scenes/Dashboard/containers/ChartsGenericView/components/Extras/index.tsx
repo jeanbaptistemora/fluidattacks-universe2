@@ -1,6 +1,14 @@
 import _ from "lodash";
 import React from "react";
-import { Button, ButtonGroup, Col, Glyphicon, Grid, Panel, Row } from "react-bootstrap";
+import {
+  ButtonToolbar,
+  Col,
+  Glyphicon,
+  Grid,
+  Panel,
+  Row,
+} from "react-bootstrap";
+import { Button } from "../../../../../../components/Button";
 import translate from "../../../../../../utils/translations/translate";
 import styles from "../../index.css";
 import { IChartsGenericViewProps } from "../../types";
@@ -18,23 +26,22 @@ const chartsGenericViewExtras: React.FC<IChartsGenericViewProps> = (props: IChar
         <Row>
           <Col md={12}>
             <Panel>
-              <Panel.Heading>
-                <Panel.Title>
-                  <h1 className={styles.centerTitle}>
-                    {translate.t("analytics.sections.extras.title")}
-                  </h1>
-                </Panel.Title>
-              </Panel.Heading>
               <Panel.Body>
-                <ButtonGroup>
-                  <Button
-                    bsSize="large"
-                    download={`charts-${entity}-${subject}.png`}
-                    href={downloadPngUrl.toString()}
-                  >
-                    <Glyphicon glyph="save" /> {translate.t("analytics.sections.extras.download")}
-                  </Button>
-                </ButtonGroup>
+                <Grid fluid={true}>
+                  <Row>
+                    <Col mdOffset={0} md={3}>
+                      <ButtonToolbar justified={true}>
+                        <Button
+                          bsSize="large"
+                          download={`charts-${entity}-${subject}.png`}
+                          href={downloadPngUrl.toString()}
+                        >
+                          <Glyphicon glyph="save" /> {translate.t("analytics.sections.extras.download")}
+                        </Button>
+                      </ButtonToolbar>
+                    </Col>
+                  </Row>
+                </Grid>
               </Panel.Body>
             </Panel>
           </Col>

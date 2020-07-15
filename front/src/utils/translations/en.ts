@@ -93,7 +93,6 @@ export const enTranslations: ResourceKey = {
     sections: {
       extras: {
         download: "Download",
-        title: "Extras",
       },
       forces: {
         title: "Forces",
