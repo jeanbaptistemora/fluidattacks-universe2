@@ -121,6 +121,15 @@ async def _get_remember(_: GraphQLResolveInfo, user_email: str) -> bool:
     return bool(remember)
 
 
+async def _get_subscriptions_to_entity_report(
+    _: GraphQLResolveInfo,
+    user_email: str,
+) -> List[Dict[str, str]]:
+    return await subscriptions_domain.get_user_subscriptions_to_entity_report(
+        user_email=user_email,
+    )
+
+
 async def _get_permissions(
         _: GraphQLResolveInfo,
         user_email: str,

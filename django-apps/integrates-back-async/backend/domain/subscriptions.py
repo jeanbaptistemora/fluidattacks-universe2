@@ -88,6 +88,25 @@ async def get_user_subscriptions(
     )
 
 
+async def get_user_subscriptions_to_entity_report(
+    *,
+    user_email: str,
+) -> List[Dict[str, str]]:
+    return [
+        {
+            'entity': subscription['sk']['entity'],
+            'frequency': period_to_frequency(period=subscription['period']),
+            'subject': subscription['sk']['subject'],
+        }
+        for subscription in (
+            await subscriptions_dal.get_user_subscriptions(
+                user_email=user_email,
+            )
+        )
+        if subscription['sk']['meta'] == 'entity_report'
+    ]
+
+
 async def get_subscriptions_to_entity_report(
     *,
     audience: str,

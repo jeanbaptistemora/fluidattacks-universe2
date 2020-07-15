@@ -749,6 +749,10 @@ function job_subscriptions_trigger_user_to_entity_report_dev {
 function job_subscriptions_trigger_user_to_entity_report_prod_schedule {
       env_prepare_python_packages \
   &&  helper_set_prod_secrets \
+  &&  if test "${IS_LOCAL_BUILD}" = "${FALSE}"
+      then
+        helper_set_local_dynamo_and_redis
+      fi \
   &&  _job_subscriptions_trigger_user_to_entity_report \
 
 }
