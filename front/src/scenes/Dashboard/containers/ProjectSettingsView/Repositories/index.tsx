@@ -232,7 +232,6 @@ const repositories: React.FC<IRepositoriesProps> = (props: IRepositoriesProps): 
               headers={tableHeaders}
               id="tblRepositories"
               pageSize={15}
-              remote={false}
               striped={true}
             />
           );

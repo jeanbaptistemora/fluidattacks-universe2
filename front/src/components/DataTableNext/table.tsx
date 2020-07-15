@@ -44,7 +44,6 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
     exportCsv,
     search,
     tableHeader,
-    remote,
     rowEvents,
     tableBody,
     selectionMode,
@@ -131,7 +130,6 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
         pagination={
           isPaginationEnable ? paginationFactory(paginationOptions) : undefined
         }
-        remote={remote}
         rowClasses={_.isUndefined(tableBody) ? style.tableBody : tableBody}
         rowEvents={rowEvents}
         selectRow={selectionMode}

@@ -269,7 +269,6 @@ const projectDraftsView: React.FC<IProjectDraftsBaseProps> = (props: IProjectDra
                   headers={tableHeaders}
                   id="tblDrafts"
                   pageSize={15}
-                  remote={false}
                   rowEvents={{ onClick: goToFinding }}
                   search={true}
                   striped={true}

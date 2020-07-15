@@ -292,7 +292,6 @@ const projectForcesView: React.FunctionComponent<ForcesViewProps> = (props: Forc
                   headers={headersExecutionTable}
                   id="tblForcesExecutions"
                   pageSize={100}
-                  remote={false}
                   rowEvents={{ onClick: openSeeExecutionDetailsModal }}
                 />
               <Modal
@@ -348,7 +347,6 @@ const projectForcesView: React.FunctionComponent<ForcesViewProps> = (props: Forc
                     headers={headersCompromisedToeTable}
                     id="tblCompromisedToe"
                     pageSize={100}
-                    remote={false}
                   />
                   <hr />
                   <SyntaxHighlighter style={monokaiSublime} language="yaml" wrapLines={true}>

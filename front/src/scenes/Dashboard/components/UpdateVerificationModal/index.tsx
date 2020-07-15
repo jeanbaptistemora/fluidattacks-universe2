@@ -172,7 +172,6 @@ const updateVerificationModal: React.FC<IUpdateVerificationModal> = (props: IUpd
         exportCsv={false}
         headers={vulnsHeader}
         pageSize={10}
-        remote={false}
         search={false}
         tableBody={style.tableBody}
         tableHeader={style.tableHeader}

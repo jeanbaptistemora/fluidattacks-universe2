@@ -294,7 +294,6 @@ const projectUsersView: React.FC<IProjectUsersViewProps> = (props: IProjectUsers
                   exportCsv={true}
                   headers={tableHeaders}
                   pageSize={15}
-                  remote={false}
                   search={true}
                   striped={true}
                   selectionMode={{

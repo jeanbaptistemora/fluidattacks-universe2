@@ -296,7 +296,6 @@ const services: React.FC<IServicesProps> = (props: IServicesProps): JSX.Element 
                 headers={tableHeaders}
                 id="tblServices"
                 pageSize={5}
-                remote={false}
                 striped={true}
               />
               {/* Intentionally hidden while loading/submitting to offer a better UX

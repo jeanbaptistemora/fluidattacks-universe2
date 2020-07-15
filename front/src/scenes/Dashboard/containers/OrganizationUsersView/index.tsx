@@ -255,7 +255,6 @@ const organizationUsers: React.FC<IOrganizationUsers> = (props: IOrganizationUse
                   exportCsv={true}
                   headers={tableHeaders}
                   pageSize={15}
-                  remote={false}
                   search={true}
                   striped={true}
                   selectionMode={{

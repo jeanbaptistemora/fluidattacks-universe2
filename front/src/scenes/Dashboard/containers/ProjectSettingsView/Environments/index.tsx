@@ -212,7 +212,6 @@ const environments: React.FC<IEnvironmentsProps> = (props: IEnvironmentsProps): 
               headers={tableHeaders}
               id="tblEnvironments"
               pageSize={15}
-              remote={false}
               striped={true}
             />
           );

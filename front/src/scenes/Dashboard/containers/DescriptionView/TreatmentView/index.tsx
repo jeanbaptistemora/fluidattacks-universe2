@@ -335,7 +335,6 @@ const treatmentView: React.FC<ITreatmentViewProps> = (props: ITreatmentViewProps
                           exportCsv={false}
                           headers={historicTreatmentHeaders}
                           pageSize={5}
-                          remote={false}
                           search={false}
                           tableHeader={style.tableHeader}
                           tableBody={style.tableBody}

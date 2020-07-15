@@ -945,12 +945,6 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                   onSelectAll: handleOnSelectAllPorts,
                   selected: selectRowsPorts,
                 };
-                const remote: RemoteProps = {
-                  cellEdit: false,
-                  filter: false,
-                  pagination: false,
-                  sort: false,
-                };
 
                 return (
                     <React.StrictMode>
@@ -966,7 +960,6 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                               defaultSorted={JSON.parse(_.get(sessionStorage, "vulnInputsSort", "{}"))}
                               exportCsv={false}
                               headers={inputsHeader}
-                              remote={remote}
                               pageSize={10}
                               search={false}
                               selectionMode={selectionModeInputs}
@@ -988,7 +981,6 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                               defaultSorted={JSON.parse(_.get(sessionStorage, "vulnLinesSort", "{}"))}
                               exportCsv={false}
                               headers={linesHeader}
-                              remote={remote}
                               pageSize={10}
                               search={false}
                               selectionMode={selectionModeLines}
@@ -1010,7 +1002,6 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                               defaultSorted={JSON.parse(_.get(sessionStorage, "vulnPortsSort", "{}"))}
                               exportCsv={false}
                               headers={portsHeader}
-                              remote={remote}
                               pageSize={10}
                               search={false}
                               selectionMode={selectionModePorts}
@@ -1028,7 +1019,6 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                           dataset={formattedDataPendingVulns}
                           exportCsv={false}
                           headers={pendingsHeader}
-                          remote={remote}
                           pageSize={10}
                           search={false}
                           tableBody={style.tableBody}

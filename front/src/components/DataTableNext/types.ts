@@ -22,7 +22,6 @@ export interface ITableProps {
   id: string;
   isFilterEnabled?: boolean;
   pageSize: number;
-  remote: RemoteProps | boolean;
   rowEvents?: Record<string, unknown>;
   search: boolean;
   selectionMode?: SelectRowOptions;

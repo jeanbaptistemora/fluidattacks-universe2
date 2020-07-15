@@ -235,7 +235,6 @@ const files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
         headers={tableHeaders}
         id="tblFiles"
         pageSize={15}
-        remote={false}
         rowEvents={{ onClick: handleRowClick }}
         striped={true}
       />

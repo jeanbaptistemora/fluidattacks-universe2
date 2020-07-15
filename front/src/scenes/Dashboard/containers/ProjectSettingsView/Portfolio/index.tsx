@@ -184,7 +184,6 @@ const portfolio: React.FC<IPortfolioProps> = (props: IPortfolioProps): JSX.Eleme
             headers={tableHeaders}
             id="tblTags"
             pageSize={15}
-            remote={false}
             striped={true}
             selectionMode={{
               clickToSelect: canDelete,

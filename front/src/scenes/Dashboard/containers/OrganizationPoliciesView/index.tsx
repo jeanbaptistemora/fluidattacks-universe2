@@ -190,7 +190,6 @@ const organizationPolicies: React.FC<IOrganizationPolicies> = (props: IOrganizat
               headers={tableHeaders}
               id="policiesTbl"
               pageSize={5}
-              remote={false}
               search={false}
               striped={true}
             />

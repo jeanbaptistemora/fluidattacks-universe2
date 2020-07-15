@@ -566,7 +566,6 @@ const projectEventsView: React.FunctionComponent<EventsViewProps> = (props: Even
                   headers={tableHeaders}
                   id="tblEvents"
                   pageSize={15}
-                  remote={false}
                   rowEvents={{ onClick: goToEvent }}
                 />
               </React.StrictMode>

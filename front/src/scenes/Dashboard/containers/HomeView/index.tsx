@@ -202,7 +202,6 @@ const homeView: React.FC<IHomeViewProps> = (props: IHomeViewProps): JSX.Element 
                           headers={tableHeaders}
                           id="tblProjects"
                           pageSize={15}
-                          remote={false}
                           rowEvents={{ onClick: handleRowClick }}
                           search={true}
                         />
@@ -231,7 +230,6 @@ const homeView: React.FC<IHomeViewProps> = (props: IHomeViewProps): JSX.Element 
                                 headers={tableHeadersTags}
                                 id="tblProjects"
                                 pageSize={15}
-                                remote={false}
                                 rowEvents={{ onClick: handleRowTagClick }}
                                 search={true}
                               />
@@ -264,7 +262,6 @@ const homeView: React.FC<IHomeViewProps> = (props: IHomeViewProps): JSX.Element 
                                 headers={tableHeadersOrganizations}
                                 id="tblProjects"
                                 pageSize={15}
-                                remote={false}
                                 rowEvents={{ onClick: handleRowOrganizationClick }}
                                 search={true}
                               />

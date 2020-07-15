@@ -130,7 +130,6 @@ const projectAuthorsView: React.FunctionComponent<ForcesViewProps> = (props: For
         headers={headersAuthorsTable}
         id="tblAuthorsList"
         pageSize={100}
-        remote={false}
         search={true}
         striped={true}
       />

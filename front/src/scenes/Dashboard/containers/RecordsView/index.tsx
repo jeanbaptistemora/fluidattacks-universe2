@@ -173,7 +173,6 @@ const recordsView: React.FC<IRecordsViewProps> = (props: IRecordsViewProps): JSX
                       headers={[]}
                       id="tblRecords"
                       pageSize={15}
-                      remote={false}
                       search={false}
                     />
                   )}

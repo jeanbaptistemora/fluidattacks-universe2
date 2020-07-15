@@ -22,12 +22,6 @@ describe("Data table next", (): void => {
       clickToSelect: true,
       mode: "checkbox",
     };
-    const remote: RemoteProps = {
-      cellEdit: false,
-      filter: false,
-      pagination: false,
-      sort: false,
-    };
     const data: Record<string, unknown>[] = [];
     const testHeaders: IHeaderConfig[] = [];
     const wrapper: ShallowWrapper = shallow(
@@ -38,7 +32,6 @@ describe("Data table next", (): void => {
         headers={testHeaders}
         id={"testTable"}
         pageSize={25}
-        remote={remote}
         search={false}
         selectionMode={selectionMode}
       />
@@ -60,12 +53,6 @@ describe("Data table next", (): void => {
       clickToSelect: true,
       mode: "checkbox",
     };
-    const remote: RemoteProps = {
-      cellEdit: false,
-      filter: false,
-      pagination: false,
-      sort: false,
-    };
     const testHeaders: IHeaderConfig[] = [];
     const wrapper: ShallowWrapper = shallow(
       <DataTableNext
@@ -75,7 +62,6 @@ describe("Data table next", (): void => {
         headers={testHeaders}
         id={"testTable"}
         pageSize={25}
-        remote={remote}
         search={false}
         selectionMode={selectionMode}
       />
@@ -93,12 +79,6 @@ describe("Data table next", (): void => {
         test_header2: "value 2",
       },
     ];
-    const remote: RemoteProps = {
-      cellEdit: false,
-      filter: false,
-      pagination: false,
-      sort: false,
-    };
     const testHeaders: IHeaderConfig[] = [
       {
         align: "center",
@@ -123,7 +103,6 @@ describe("Data table next", (): void => {
         headers={testHeaders}
         id={"testTable"}
         pageSize={25}
-        remote={remote}
         search={false}
       />
     );
@@ -202,12 +181,6 @@ describe("Data table next", (): void => {
       onSelect: handleOnSelect,
       onSelectAll: jest.fn(),
     };
-    const remote: RemoteProps = {
-      cellEdit: false,
-      filter: false,
-      pagination: false,
-      sort: false,
-    };
     const wrapper: ReactWrapper = mount(
       <DataTableNext
         bordered={false}
@@ -216,7 +189,6 @@ describe("Data table next", (): void => {
         headers={testHeaders}
         id={"testTable"}
         pageSize={1}
-        remote={remote}
         search={true}
         selectionMode={selectionMode}
         tableBody={undefined}

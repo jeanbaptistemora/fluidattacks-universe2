@@ -338,7 +338,6 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
               pageSize={15}
               onColumnToggle={handleChange}
               onUpdateEnableFilter={handleUpdateFilter}
-              remote={false}
               rowEvents={{ onClick: goToFinding }}
               search={true}
               striped={true}

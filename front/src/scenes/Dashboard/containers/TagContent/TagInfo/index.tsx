@@ -584,7 +584,6 @@ const tagsInfo: React.FC<TagsProps> = (props: TagsProps): JSX.Element => {
           headers={tableHeaders}
           id="tblProjectsTag"
           pageSize={10}
-          remote={false}
           rowEvents={{ onClick: handleRowTagClick }}
           search={true}
         />
