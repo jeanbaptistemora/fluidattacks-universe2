@@ -17,5 +17,8 @@ export interface IHeaderQueryResult {
     severityScore: number;
     state: "open" | "closed" | "default";
     title: string;
+    tracking: Array<{
+      closed: number; cycle: number; date: string; effectiveness: number; open: number;
+    }>;
   };
 }

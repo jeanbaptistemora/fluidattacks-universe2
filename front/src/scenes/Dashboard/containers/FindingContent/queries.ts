@@ -13,6 +13,7 @@ export const GET_FINDING_HEADER: DocumentNode = gql`
       severityScore
       state
       title
+      tracking
       historicState @include(if: $canGetHistoricState)
     }
   }
