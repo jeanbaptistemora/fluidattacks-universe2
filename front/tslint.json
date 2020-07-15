@@ -8,7 +8,7 @@
       "src/app.tsx",
       "src/store/**",
       "src/graphics/**",
-      "src/utils/translations/**",
+      "src/utils/+(translations|authz)/**",
       "src/components/**"
     ]
   },
