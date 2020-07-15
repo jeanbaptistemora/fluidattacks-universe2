@@ -1,7 +1,7 @@
-import i18next, { TOptions } from "i18next";
+import { enTranslations } from "./en";
 import { initReactI18next } from "react-i18next";
 import rollbar from "../rollbar";
-import enTranslations from "./en";
+import i18next, { TOptions } from "i18next";
 
 i18next
   .use(initReactI18next)
@@ -19,10 +19,13 @@ i18next
     rollbar.error("There was an error initializing translations", reason);
   });
 
-type translationFn = (key: string | string[], options?: TOptions) => string;
+interface ITranslationFn {
+  (key: string | string[], options?: TOptions): string;
+}
 
-const translate: { t: translationFn } = {
-  t: (key: string | string[], options?: TOptions): string => i18next.t(key, options),
+const translate: { t: ITranslationFn } = {
+  t: (key: string | string[], options?: TOptions): string =>
+    i18next.t(key, options),
 };
 
-export = translate;
+export default translate;

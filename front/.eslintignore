@@ -2,7 +2,11 @@
 
 src/resources/
 src/scenes/
-src/styles/
-src/typings/
-src/utils/
+src/utils/authz
+src/utils/forms
+src/utils/hooks
+src/utils/secureStore
+src/utils/*.ts
+src/utils/*.tsx
 src/**/*.css.d.ts
+src/**/*.d.ts
