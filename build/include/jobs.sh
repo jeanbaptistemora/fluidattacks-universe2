@@ -725,24 +725,49 @@ function job_make_migration_prod_apply {
 }
 
 function _job_subscriptions_trigger_user_to_entity_report {
-  export DJANGO_SETTINGS_MODULE='fluidintegrates.settings'
-  export PYTHONPATH="${PWD}:${PWD}/analytics:${PYTHONPATH}"
-
-      echo '[INFO] Waking up: trigger_user_to_entity_report' \
-  &&  python3 \
-        'django-apps/integrates-back-async/cli/subscriptions.py' \
-        'backend.domain.subscriptions.trigger_user_to_entity_report' \
+  helper_invoke_py backend.domain.subscriptions.trigger_user_to_entity_report
 
 }
 
 function job_subscriptions_trigger_user_to_entity_report_dev {
+      helper_bootstrap_dev_ci \
+  &&  _job_subscriptions_trigger_user_to_entity_report \
+
+}
+
+function job_subscriptions_trigger_user_to_entity_report_prod_schedule {
       env_prepare_python_packages \
+  &&  helper_set_prod_secrets \
+  &&  _job_subscriptions_trigger_user_to_entity_report \
+
+}
+
+function job_scheduler_dev {
+  local module="backend.scheduler.${1}"
+      helper_bootstrap_dev_ci \
+  &&  helper_invoke_py "${module}" \
+
+}
+
+function helper_bootstrap_dev_ci {
+  env_prepare_python_packages \
   &&  helper_set_dev_secrets \
   &&  if test "${IS_LOCAL_BUILD}" = "${FALSE}"
       then
         helper_set_local_dynamo_and_redis
       fi \
-  &&  _job_subscriptions_trigger_user_to_entity_report \
+
+}
+
+function helper_invoke_py {
+  local module="${1}"
+  export DJANGO_SETTINGS_MODULE='fluidintegrates.settings'
+  export PYTHONPATH="${PWD}:${PWD}/analytics:${PYTHONPATH}"
+
+      echo "[INFO] Waking up: ${module}" \
+  &&  python3 \
+        'django-apps/integrates-back-async/cli/invoker.py' \
+        "${module}" \
 
 }
 
