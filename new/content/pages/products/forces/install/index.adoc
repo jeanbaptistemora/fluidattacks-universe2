@@ -1,14 +1,16 @@
-:slug: products/forces/forces-ci/
+:slug: products/forces/install/
 :description: Forces makes use of human skills for the creation of exploits to break your build and force remediation of vulnerabilities.
 :keywords: Fluid Attacks, Products, Forces, Ethical Hacking, Pentesting, Security
 :forcespage: yes
 
-= Use Forces Within Your CI (Continuous Integration) Pipeline
+= Forces Install
 
 You can integrate Forces into your `CI/CD` pipeline to ensure that your software
 is built and shipped with `no open vulnerabilities`. We will provide a custom
 `Docker` container with the specific tests you need and maintain the
 build-breaker exploit.
+
+== Installation
 
 To achieve this, follow these steps:
 
@@ -19,7 +21,8 @@ To achieve this, follow these steps:
 ** Bash
 ** Up-to-date Docker
 3. Please note that using *sh* instead of *bash* is not supported.
-4. Add a job to run Forces. For example,
+
+== Examples
 
 in `GitLab`, +
 add these three lines to your ``.gitlab-ci.yml`:
@@ -85,7 +88,7 @@ Now your pipeline will break if any vulnerability is found to be open. In case
 you decide not to break the build but still run the tests, add the `--no-strict`
 flag on the command.
 
-Command options: +
+== Options
 
 * `--id ID`: Use this flag to set your user ID.
 * `--secret SECRET`: Use this flag to set your user Secret.

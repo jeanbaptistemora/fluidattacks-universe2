@@ -201,10 +201,17 @@
               href=".">{{ page.title }}</a>
         </li>
       {% elif not page.rulesindex %}
-        <li class="dib mt0" >
-          <a class="white hover-white no-underline"
-              href=".">{{ page.title }}</a>
-        </li>
+        {% if not page.forcespage %}
+          <li class="dib mt0" >
+            <a class="white hover-white no-underline"
+                href=".">{{ page.title }}</a>
+          </li>
+        {% else %}
+          <li class="dib mt0" >
+            <a class="white hover-white no-underline"
+                href=".">Install</a>
+          </li>
+        {% endif %}
       {% endif %}
       </ul>
     </div>
