@@ -137,6 +137,15 @@ describe("Data table next", (): void => {
     const handleApprove: jest.Mock = jest.fn();
     const handleChange: jest.Mock = jest.fn();
     const handleDelete: jest.Mock = jest.fn();
+    const handleOnSelect: jest.Mock = jest.fn(
+      (
+        row: Readonly<{ uniqueId: number }>,
+        _isSelect: boolean,
+        rowIndex: number
+      ): boolean => {
+        return row.uniqueId === rowIndex;
+      }
+    );
     const testHeaders: IHeaderConfig[] = [
       {
         align: "center",
@@ -175,18 +184,23 @@ describe("Data table next", (): void => {
         approveHeader: "",
         changeHeader: "Inactive",
         deleteHeader: "",
+        id: "139431",
         statusHeader: "Created",
       },
       {
         approveHeader: "",
         changeHeader: "Inactive",
         deleteHeader: "",
+        id: "4323491",
         statusHeader: "value",
       },
     ];
     const selectionMode: SelectRowOptions = {
-      clickToSelect: true,
+      clickToSelect: false,
+      hideSelectColumn: false,
       mode: "checkbox",
+      onSelect: handleOnSelect,
+      onSelectAll: jest.fn(),
     };
     const remote: RemoteProps = {
       cellEdit: false,
@@ -233,6 +247,8 @@ describe("Data table next", (): void => {
       .at(2)
       .find("a");
     proceedDeleteFunction.simulate("click");
+    const checkboxInput: ReactWrapper = wrapper.find("SelectionCell");
+    checkboxInput.simulate("click");
 
     expect(wrapper).toHaveLength(1);
     expect(wrapper.find("BootstrapTable").find("HeaderCell")).toHaveLength(
@@ -244,5 +260,6 @@ describe("Data table next", (): void => {
     expect(handleApprove.mock.calls).toHaveLength(1);
     expect(handleChange.mock.calls).toHaveLength(1);
     expect(handleDelete.mock.calls).toHaveLength(1);
+    expect(handleOnSelect.mock.results[0].value).toBe(true);
   });
 });
