@@ -106,7 +106,7 @@ def create_project(
         user_role: str,
         **kwargs: Dict[str, Union[bool, str, List[str]]]) -> bool:
     project_name = str(kwargs.get('project_name', '')).lower()
-    organization = str(kwargs.get('company'))
+    organization = str(kwargs.get('organization') or kwargs.get('company'))
     description = str(kwargs.get('description', ''))
     validations.validate_project_name(project_name)
     validations.validate_fields([description])

@@ -116,18 +116,6 @@ export const addUserModal: React.FC<IAddUserModalProps> = (props: IAddUserModalP
                 />
               </FormGroup>
               <FormGroup>
-                <ControlLabel>
-                  {requiredIndicator}
-                  {translate.t("userModal.organization")}
-                </ControlLabel>
-                <Field
-                  name="organization"
-                  component={textField}
-                  type="text"
-                  validate={[required, validAlphanumericSpace, validTextField]}
-                />
-              </FormGroup>
-              <FormGroup>
                 <ControlLabel>{requiredIndicator}{translate.t("userModal.role")}</ControlLabel>
                 <Field name="role" component={dropdownField} validate={[required]}>
                   <option value="" />

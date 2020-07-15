@@ -185,9 +185,9 @@ type Me {
     organizations: [Organization!]
     projects: [Project]
     remember: Boolean
-    role(entity: Entity, identifier: String, projectName: String): String
+    role(entity: Entity!, identifier: String): String
     tags: [Tag!]
-    permissions(entity: Entity, identifier: String, projectName: String): [String]
+    permissions(entity: Entity!, identifier: String): [String]
     callerOrigin: CallerOrigin
 }
 

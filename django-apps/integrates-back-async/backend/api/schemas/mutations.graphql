@@ -109,7 +109,7 @@ type Mutation {
     grantUserAccess(
         projectName: String,
         email: String!,
-        organization: String!,
+        organization: String,
         responsibility: String,
         role: UserRole!,
         phoneNumber: String
@@ -119,7 +119,7 @@ type Mutation {
         phoneNumber: String,
         role: OrganizationRole!,
         userEmail: String!,
-        userOrganization: String!
+        userOrganization: String
     ): GrantUserAccessPayload!
 
     removeUserAccess(
@@ -133,13 +133,13 @@ type Mutation {
     editUser(
         projectName: String!,
         email: String!,
-        organization: String!,
+        organization: String,
         responsibility: String!,
         role: UserRole!,
         phoneNumber: String!
     ): EditUserPayload!
     editUserOrganization(
-        organization: String!,
+        organization: String,
         organizationId: String!,
         phoneNumber: String,
         role: OrganizationRole!,
@@ -147,7 +147,7 @@ type Mutation {
     ): EditUserPayload!
     addUser(
         email: String!,
-        organization: String!,
+        organization: String,
         role: UserRole!,
         phoneNumber: String
     ): AddUserPayload!
@@ -177,8 +177,9 @@ type Mutation {
         projectName: String!
     ): AddCommentPayload!
     createProject(
-        company: String!,
+        company: String,
         description: String!,
+        organization: String,
         projectName: String!,
         subscription: SubscriptionType,
         hasDrills: Boolean,

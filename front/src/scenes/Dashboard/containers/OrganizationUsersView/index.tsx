@@ -42,11 +42,6 @@ const tableHeaders: IHeaderConfig[] = [
     width: "13%",
   },
   {
-    dataField: "organization",
-    header: translate.t("search_findings.users_table.userOrganization"),
-    width: "12%",
-  },
-  {
     dataField: "firstLogin",
     header: translate.t("search_findings.users_table.firstlogin"),
     width: "12%",

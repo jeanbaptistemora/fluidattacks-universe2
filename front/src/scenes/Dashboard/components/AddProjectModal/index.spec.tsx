@@ -56,8 +56,8 @@ describe("AddProjectModal component", () => {
       </Provider>,
     );
 
-    const companyField: ReactWrapper = wrapper
-      .find({ name: "company" })
+    const organizationField: ReactWrapper = wrapper
+      .find({ name: "organization" })
       .find("input");
 
     const projectNameField: ReactWrapper = wrapper
@@ -80,7 +80,7 @@ describe("AddProjectModal component", () => {
     .findWhere((element: ReactWrapper) => element.contains("Proceed"))
     .at(0);
 
-    expect(companyField)
+    expect(organizationField)
       .toHaveLength(1);
     expect(projectNameField)
       .toHaveLength(1);

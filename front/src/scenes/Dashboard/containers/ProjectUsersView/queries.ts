@@ -9,7 +9,6 @@ export const GET_USERS: DocumentNode = gql`
         role
         responsibility
         phoneNumber
-        organization
         firstLogin
         lastLogin
       }
@@ -32,7 +31,6 @@ export const REMOVE_USER_MUTATION: DocumentNode = gql`
 export const ADD_USER_MUTATION: DocumentNode = gql`
   mutation GrantUserMutation(
     $email: String!,
-    $organization: String!,
     $phoneNumber: String,
     $projectName: String,
     $responsibility: String,
@@ -40,7 +38,6 @@ export const ADD_USER_MUTATION: DocumentNode = gql`
     ) {
     grantUserAccess (
       email: $email,
-      organization: $organization,
       phoneNumber: $phoneNumber,
       projectName: $projectName,
       responsibility: $responsibility,
@@ -51,7 +48,6 @@ export const ADD_USER_MUTATION: DocumentNode = gql`
         role
         responsibility
         phoneNumber
-        organization
         firstLogin
         lastLogin
       }
@@ -62,7 +58,6 @@ export const ADD_USER_MUTATION: DocumentNode = gql`
 export const EDIT_USER_MUTATION: DocumentNode = gql`
   mutation EditUserMutation(
     $email: String!,
-    $organization: String!,
     $phoneNumber: String!,
     $projectName: String!,
     $responsibility: String!,
@@ -70,7 +65,6 @@ export const EDIT_USER_MUTATION: DocumentNode = gql`
     ) {
     editUser (
       email: $email,
-      organization: $organization,
       phoneNumber: $phoneNumber,
       projectName: $projectName,
       responsibility: $responsibility,

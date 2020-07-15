@@ -65,7 +65,6 @@ describe("Project users view", () => {
               email: "user@gmail.com",
               firstLogin: "2017-09-05 15:00:00",
               lastLogin: "[3, 81411]",
-              organization: "TEST",
               phoneNumber: "-",
               responsibility: "-",
               role: "customer",
@@ -89,7 +88,6 @@ describe("Project users view", () => {
                 email: "user@gmail.com",
                 firstLogin: "2017-09-05 15:00:00",
                 lastLogin: "[3, 81411]",
-                organization: "TEST",
                 phoneNumber: "-",
                 responsibility: "-",
                 role: "customer",
@@ -98,7 +96,6 @@ describe("Project users view", () => {
                 email: "unittest@test.com",
                 firstLogin: "2017-09-05 15:00:00",
                 lastLogin: "[3, 81411]",
-                organization: "TEST",
                 phoneNumber: "+573123210123",
                 responsibility: "Project Manager",
                 role: "analyst",
@@ -240,7 +237,6 @@ describe("Project users view", () => {
         query: ADD_USER_MUTATION,
         variables: {
           email: "unittest@test.com",
-          organization: "unittesting",
           phoneNumber: "+573123210123",
           projectName: "TEST",
           responsibility: "Project Manager",
@@ -277,11 +273,6 @@ describe("Project users view", () => {
       .at(0)
       .find("input");
     emailInput.simulate("change", { target: { value: "unittest@test.com" } });
-    const organizationInput: ReactWrapper = addUserModal
-      .find({name: "organization", type: "text"})
-      .at(0)
-      .find("input");
-    organizationInput.simulate("change", { target: { value: "unittesting" } });
     const phoneNumberInput: ReactWrapper = addUserModal
       .find({name: "phoneNumber", type: "text"})
       .at(0)
@@ -358,7 +349,6 @@ describe("Project users view", () => {
             label: "3 days ago",
             value: [3, 81411],
           },
-          organization: "unittesting",
           phoneNumber: "+573123210123",
           projectName: "TEST",
           responsibility: "Project Manager",
@@ -395,11 +385,6 @@ describe("Project users view", () => {
       .find({open: true, headerTitle: "Edit user information"});
     expect(editUserModal)
       .toHaveLength(1);
-    const organizationInput: ReactWrapper = editUserModal
-      .find({name: "organization", type: "text"})
-      .at(0)
-      .find("input");
-    organizationInput.simulate("change", { target: { value: "unittesting" } });
     const phoneNumberInput: ReactWrapper = editUserModal
       .find({name: "phoneNumber", type: "text"})
       .at(0)
@@ -434,7 +419,6 @@ describe("Project users view", () => {
         query: ADD_USER_MUTATION,
         variables: {
           email: "unittest@test.com",
-          organization: "unittesting",
           phoneNumber: "+573123210123",
           projectName: "TEST",
           responsibility: "Project Manager",
@@ -482,11 +466,6 @@ describe("Project users view", () => {
       .at(0)
       .find("input");
     emailInput.simulate("change", { target: { value: "unittest@test.com" } });
-    const organizationInput: ReactWrapper = addUserModal
-      .find({name: "organization", type: "text"})
-      .at(0)
-      .find("input");
-    organizationInput.simulate("change", { target: { value: "unittesting" } });
     const phoneNumberInput: ReactWrapper = addUserModal
       .find({name: "phoneNumber", type: "text"})
       .at(0)
@@ -563,7 +542,6 @@ describe("Project users view", () => {
             label: "3 days ago",
             value: [3, 81411],
           },
-          organization: "unittesting",
           phoneNumber: "+573123210123",
           projectName: "TEST",
           responsibility: "Project Manager",
@@ -609,11 +587,6 @@ describe("Project users view", () => {
       .find({open: true, headerTitle: "Edit user information"});
     expect(editUserModal)
       .toHaveLength(1);
-    const organizationInput: ReactWrapper = editUserModal
-      .find({name: "organization", type: "text"})
-      .at(0)
-      .find("input");
-    organizationInput.simulate("change", { target: { value: "unittesting" } });
     const phoneNumberInput: ReactWrapper = editUserModal
       .find({name: "phoneNumber", type: "text"})
       .at(0)

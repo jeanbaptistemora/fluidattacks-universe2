@@ -8,7 +8,6 @@ export const GET_ORGANIZATION_USERS: DocumentNode = gql`
         email
         firstLogin
         lastLogin
-        organization
         phoneNumber
         role
       }
@@ -19,7 +18,6 @@ export const GET_ORGANIZATION_USERS: DocumentNode = gql`
 export const ADD_USER_MUTATION: DocumentNode = gql`
   mutation GrantUserOrganizationAccessMutation(
     $email: String!,
-    $organization: String!,
     $organizationId: String!,
     $phoneNumber: String,
     $role: OrganizationRole!
@@ -29,7 +27,6 @@ export const ADD_USER_MUTATION: DocumentNode = gql`
       phoneNumber: $phoneNumber,
       role: $role,
       userEmail: $email,
-      userOrganization: $organization
     ) {
       success
       grantedUser {
@@ -42,13 +39,11 @@ export const ADD_USER_MUTATION: DocumentNode = gql`
 export const EDIT_USER_MUTATION: DocumentNode = gql`
   mutation EditUserOrganizationMutation(
     $email: String!,
-    $organization: String!,
     $organizationId: String!,
     $phoneNumber: String,
     $role: OrganizationRole!
   ) {
     editUserOrganization (
-      organization: $organization,
       organizationId: $organizationId,
       phoneNumber: $phoneNumber,
       role: $role

@@ -40,7 +40,7 @@ import { IAddProjectModal, IProjectName } from "./types";
 
 const maxDescriptionLength: ConfigurableValidator = maxLength(200);
 const maxProjectNameLength: ConfigurableValidator = maxLength(20);
-const maxCompanyLength: ConfigurableValidator = maxLength(50);
+const maxOrganizationLength: ConfigurableValidator = maxLength(50);
 const addProjectModal: ((props: IAddProjectModal) => JSX.Element) = (props: IAddProjectModal): JSX.Element => {
   // State management
   const [hasDrills, setHasDrills] = React.useState(true);
@@ -161,16 +161,16 @@ const addProjectModal: ((props: IAddProjectModal) => JSX.Element) = (props: IAdd
                 {(createProject: MutationFunction, { loading: submitting }: MutationResult): JSX.Element => {
 
                   const handleSubmit: (
-                    (values: { company: string; description: string; name: string; type: string }) => void) = (
-                    values: { company: string; description: string; name: string; type: string },
+                    (values: { description: string; name: string; organization: string;  type: string }) => void) = (
+                    values: { description: string; name: string; organization: string; type: string },
                   ): void => {
 
                     createProject({
                       variables: {
-                        company: values.company,
                         description: values.description,
                         hasDrills,
                         hasForces,
+                        organization: values.organization,
                         projectName: values.name,
                         subscription: values.type,
                       },
@@ -189,17 +189,17 @@ const addProjectModal: ((props: IAddProjectModal) => JSX.Element) = (props: IAdd
                           <Row>
                             <Col md={12} sm={12}>
                               <FormGroup>
-                                <ControlLabel>{translate.t("home.newGroup.company.text")}</ControlLabel>
+                                <ControlLabel>{translate.t("home.newGroup.organization.text")}</ControlLabel>
                                 <TooltipWrapper
-                                  message={translate.t("home.newGroup.company.tooltip")}
+                                  message={translate.t("home.newGroup.organization.tooltip")}
                                   placement="top"
                                 >
                                   <FormGroup>
                                     <Field
                                       component={textField}
-                                      name="company"
+                                      name="organization"
                                       type="text"
-                                      validate={[required, maxCompanyLength, validTextField]}
+                                      validate={[required, maxOrganizationLength, validTextField]}
                                     />
                                   </FormGroup>
                                 </TooltipWrapper>

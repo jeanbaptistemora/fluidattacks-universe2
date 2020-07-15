@@ -480,10 +480,6 @@ const enTranslations: Dictionary = {
   },
   home: {
     newGroup: {
-      company: {
-        text: "Company",
-        tooltip: "Name of the company that is associated with this group",
-      },
       description: {
         text: "Description",
         tooltip: "Brief description to identify the group",
@@ -511,6 +507,10 @@ const enTranslations: Dictionary = {
         tooltip: "Create a new group",
       },
       noGroupName: "There are no group names available at the moment",
+      organization: {
+        text: "Organization",
+        tooltip: "Name of the organization that is associated with this group",
+      },
       success: "Group created successfully",
       switch: {
         no: "No",

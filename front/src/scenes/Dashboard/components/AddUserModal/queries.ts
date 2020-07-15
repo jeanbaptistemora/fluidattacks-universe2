@@ -15,7 +15,6 @@ export const GET_USER: DocumentNode = gql`
       userEmail: $userEmail
     ) {
       email
-      organization
       responsibility
       phoneNumber
     }
