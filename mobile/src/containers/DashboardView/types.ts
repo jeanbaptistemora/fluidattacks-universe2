@@ -1,14 +1,4 @@
 /**
- * Group attributes
- */
-export interface IGroup {
-  closedVulnerabilities: number;
-  isCommunity: boolean;
-  openVulnerabilities: number;
-  serviceAttributes?: string[];
-}
-
-/**
  * Organization attributes
  */
 export interface IOrganization {
@@ -26,7 +16,6 @@ export interface IOrganization {
  */
 export interface IOrgsResult {
   me: {
-    groups: IGroup[];
     organizations: IOrganization[];
   };
 }

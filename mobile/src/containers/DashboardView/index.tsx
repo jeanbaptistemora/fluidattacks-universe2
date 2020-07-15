@@ -45,8 +45,6 @@ const dashboardView: React.FunctionComponent = (): JSX.Element => {
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
         switch (error.message) {
-          case "Access denied":
-          // Ignore groups without integrates service
           case "Exception - Document not found":
             // Ignore orgs without analytics
             break;
