@@ -48,32 +48,36 @@ class ITReport():
         'number': 1,
         'finding': 2,
         'finding_id': 3,
-        'specific': 4,
-        'vuln_uuid': 5,
-        'description': 6,
-        'status': 7,
-        'severity': 8,
-        'requirements': 9,
-        'impact': 10,
-        'affected_systems': 11,
-        'threat': 12,
-        'recommendation': 13,
-        'external_bts': 14,
-        'compromised_attributes': 15,
-        'n_compromised_attributes': 16,
-        'vuln_report_date': 17,
-        'vuln_close_date': 18,
-        'vuln_age': 19,
-        'treatment': 20,
-        'treatment_date': 21,
-        'treatment_justification': 22,
-        'treatment_exp_date': 23,
-        'treatment_manager': 24,
-        'reattack': 25,
-        'n_requested_reattacks': 26,
-        'last_reattack_date': 27,
-        'last_reattack_requester': 28,
-        'cvss_vector': 29,
+        'vuln_uuid': 4,
+        'where': 5,
+        'specific': 6,
+        'description': 7,
+        'status': 8,
+        'severity': 9,
+        'requirements': 10,
+        'impact': 11,
+        'affected_systems': 12,
+        'threat': 13,
+        'recommendation': 14,
+        'external_bts': 15,
+        'compromised_attributes': 16,
+        'n_compromised_attributes': 17,
+        'tags': 18,
+        'business_critically': 19,
+        'vuln_report_date': 20,
+        'vuln_close_date': 21,
+        'vuln_age': 22,
+        'treatment': 23,
+        'treatment_date': 24,
+        'treatment_justification': 25,
+        'treatment_exp_date': 26,
+        'treatment_manager': 27,
+        'reattack': 28,
+        'n_requested_reattacks': 29,
+        'remediation_effectiveness': 30,
+        'last_reattack_date': 31,
+        'last_reattack_requester': 32,
+        'cvss_vector': 33,
     }
 
     def __init__(self, data: List[Dict[str, FindingType]], lang: str = 'es'):
@@ -250,7 +254,9 @@ class ITReport():
         specific = str(row.get('specific', ''))
         if row.get('vuln_type') == 'lines':
             specific = str(int(specific))
-        where_specific = f'{row.get("where")}:{specific}'
+        tags = '-'
+        if 'tag' in row:
+            tags = ', '.join(str(row.get('tag')))
 
         self.__select_finding_sheet()
 
@@ -268,12 +274,18 @@ class ITReport():
             self.vulnerability['vuln_uuid'],
             str(row.get('UUID', '-'))
         )
-        self.set_cell(self.vulnerability['specific'], where_specific)
+        self.set_cell(self.vulnerability['where'], str(row.get("where")))
+        self.set_cell(self.vulnerability['specific'], specific)
+        self.set_cell(self.vulnerability['tags'], tags, align='left')
+        self.set_cell(
+            self.vulnerability['business_critically'],
+            str(row.get('severity', '-'))
+        )
 
         self.write_finding_data(finding, row)
         self.write_vuln_temporal_data(row)
         self.write_treatment_data(finding, row)
-        self.write_reattack_data(finding)
+        self.write_reattack_data(finding, row)
         self.set_cvss_metrics_cell(finding)
 
     def write_finding_data(
@@ -404,13 +416,20 @@ class ITReport():
             str(vuln.get('treatment_manager', '-'))
         )
 
-    def write_reattack_data(self, finding: Dict[str, FindingType]):
+    def write_reattack_data(
+        self,
+        finding: Dict[str, FindingType],
+        vuln: VulnType
+    ):
         historic_verification = \
             cast(HistoricType, finding.get('historicVerification'))
+        vuln_closed = cast(
+            HistoricType, vuln.get('historic_state'))[-1]['state'] == 'closed'
         reattack_requested = None
         reattack_date = None
         reattack_requester = None
         n_requested_reattacks = None
+        remediation_effectiveness = '-'
         if historic_verification:
             reattack_requested = \
                 historic_verification[-1]['status'] == 'REQUESTED'
@@ -419,6 +438,8 @@ class ITReport():
                     state for state in historic_verification
                     if state['status'] == 'REQUESTED'
                 ])
+            if vuln_closed:
+                remediation_effectiveness = f'{100 / n_requested_reattacks}%'
             if reattack_requested:
                 reattack_date = datetime.strptime(
                     historic_verification[-1]['date'], '%Y-%m-%d %H:%M:%S')
@@ -439,6 +460,10 @@ class ITReport():
         self.set_cell(
             self.vulnerability['last_reattack_requester'],
             reattack_requester or '-'
+        )
+        self.set_cell(
+            self.vulnerability['remediation_effectiveness'],
+            remediation_effectiveness
         )
 
     def __save(self):
