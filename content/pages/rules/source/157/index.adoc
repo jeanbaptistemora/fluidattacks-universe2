@@ -13,13 +13,26 @@ to run in strict mode.
 
 == Rereferences
 
-. [[r1]] link:https://cwe.mitre.org/data/definitions/611.html[CWE-611: Improper Restriction of XML External Entity Reference].
+. [[r1]] link:https://cwe.mitre.org/data/definitions/120.html[CWE-120: Classic Buffer Overflow].
+The program copies an input buffer to an output buffer without verifying that
+the size of the input buffer is less than the size of the output buffer,
+leading to a buffer overflow.
+
+. [[r2]] link:https://cwe.mitre.org/data/definitions/611.html[CWE-611: Improper Restriction of XML External Entity Reference].
 The software processes an *XML* document that can contain *XML* entities with
 **URI**s that resolve to documents outside of the intended sphere of control,
 causing the product to embed incorrect documents into its output.
 
-. [[r2]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r3]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V5.5 Deserialization Prevention Requirements.(5.5.2)]
 Verify that the application correctly restricts *XML* parsers to only use the
 most restrictive configuration possible and to ensure that unsafe features such
 as resolving external entities are disabled to prevent *XXE*.
+
+. [[r4]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V14.1 Build.(14.1.2)]
+Verify that compiler flags are configured to enable all available buffer
+overflow protections and warnings,
+including stack randomization, data execution prevention,
+and to break the build if an unsafe pointer, memory, format string, integer,
+or string operations are found.

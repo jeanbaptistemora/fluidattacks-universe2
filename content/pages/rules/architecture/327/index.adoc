@@ -95,5 +95,12 @@ or excessively large files.
 
 . [[r10]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V13.2 RESTful Web Service Verification Requirements.(13.2.4)]
-Verify that REST services have anti-automation controls to protect against
-excessive calls, especially if the API is unauthenticated.
+Verify that *REST* services have anti-automation controls to protect against
+excessive calls, especially if the *API* is unauthenticated.
+
+. [[r11]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V13.4 GraphQL and other Web Service Data Layer Security Requirements.(13.4.1)]
+Verify that query whitelisting or a combination of depth limiting and amount
+limiting should be used to prevent *GraphQL* or data layer expression denial of
+service (*DoS*) as a result of expensive, nested queries.
+For more advanced scenarios, query cost analysis should be used.

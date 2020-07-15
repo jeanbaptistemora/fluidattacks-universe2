@@ -79,3 +79,17 @@ Verify that *XSD* schema validation takes place to ensure a properly formed
 *XML* document,
 followed by validation of each input field before any processing of that data
 takes place.
+
+. [[r8]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V14.1 Build.(14.1.1)]
+Verify that the application build and deployment processes are performed in a
+secure and repeatable way, such as *CI* / *CD* automation,
+automated configuration management, and automated deployment scripts.
+
+. [[r9]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V14.1 Build.(14.1.2)]
+Verify that compiler flags are configured to enable all available buffer
+overflow protections and warnings,
+including stack randomization, data execution prevention,
+and to break the build if an unsafe pointer, memory, format string, integer,
+or string operations are found.
