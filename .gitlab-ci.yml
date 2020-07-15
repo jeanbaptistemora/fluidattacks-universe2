@@ -23,30 +23,28 @@ stages:
       when: never
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
       when: never
-    - if: '$analytics != null'
+    - if: *integrates_commit_pattern
+
+.in_master_except_periodic_jobs_integrates: &in_master_except_periodic_jobs_integrates
+  rules:
+    - if: '$CI_COMMIT_BRANCH != "master"'
       when: never
-    - if: '$build_nix_caches != null'
+    - if: '$CI_PIPELINE_SOURCE == "schedule"'
       when: never
     - if: *integrates_commit_pattern
 
-.in_master_except_periodic_jobs: &in_master_except_periodic_jobs
-  only:
-    refs:
-      - master
-  except:
-    refs:
-      - schedules
-    variables:
-      - $analytics
-      - $build_nix_caches
+.in_dev_branch_integrates: &in_dev_branch_integrates
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "master"'
+      when: never
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+      when: never
+    - if: '$CI_PIPELINE_SOURCE == "schedule"'
+      when: never
+    - if: '$CI_PIPELINE_SOURCE == "trigger"'
+      when: never
+    - if: *integrates_commit_pattern
 
-.in_dev_branch: &in_dev_branch
-  except:
-    refs:
-      - master
-      - merge_requests
-      - schedules
-      - triggers
 
 .in_dev_and_master_branch: &in_dev_and_master_branch
   except:
@@ -118,7 +116,7 @@ stages:
 
 analytics_make_documents_dev:
   <<: *analytics_template
-  <<: *in_dev_branch
+  <<: *in_dev_branch_integrates
   image: "${CI_REGISTRY_IMAGE}/nix:analytics_make_documents_dev"
   parallel: 3
 
@@ -147,7 +145,7 @@ analytics_make_snapshots_prod_schedule:
 
 subscriptions_trigger_user_to_entity_report_dev:
   <<: *with_nix
-  <<: *in_dev_branch
+  <<: *in_dev_branch_integrates
   stage: subscriptions
 
 subscriptions_trigger_user_to_entity_report_prod_schedule:
@@ -207,7 +205,7 @@ clean_registries:
 
 deploy_k8s_back_ephemeral:
   <<: *with_nix
-  <<: *in_dev_branch
+  <<: *in_dev_branch_integrates
   stage: deploy-app
   needs: [build_container_app]
   retry: 1
@@ -226,7 +224,7 @@ deploy_k8s_back_ephemeral:
 #   https://gitlab.com/fluidattacks/serves/-/blob/0cb7556d236a3668bdcae64027941565e92131ad/build/include/helpers.sh#L180
 deploy_k8s_back:
   <<: *with_nix
-  <<: *in_master_except_periodic_jobs
+  <<: *in_master_except_periodic_jobs_integrates
   stage: deploy-app
   needs: [build_container_app]
   retry: 1
@@ -236,10 +234,15 @@ deploy_k8s_back:
 
 deploy_k8s_stop_ephemeral:
   <<: *with_nix
-  <<: *in_dev_branch
   stage: deploy-app
   retry: 1
   when: manual
+  except:
+    refs:
+      - master
+      - merge_requests
+      - schedules
+      - triggers
   environment:
     name: "review/$CI_COMMIT_REF_SLUG"
     action: stop
@@ -302,7 +305,7 @@ deploy_front:
 
 functional_tests_dev:
   <<: *with_nix
-  <<: *in_dev_branch
+  <<: *in_dev_branch_integrates
   image: "${CI_REGISTRY_IMAGE}/nix:functional_tests_dev"
   needs:
     - deploy_k8s_back_ephemeral
