@@ -242,7 +242,7 @@ def create_repositories(
     for res in res_data_enc:
         url_repo = res.get('urlRepo', '')
         branch = res.get('branch', '')
-        validations.validate_field_length(url_repo, 150)
+        validations.validate_field_length(url_repo, 300)
         validations.validate_field_length(branch, 30)
         res_object: resources_dal.ResourceType = {
             'urlRepo': url_repo,

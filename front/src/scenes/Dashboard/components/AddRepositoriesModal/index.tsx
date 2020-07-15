@@ -22,7 +22,7 @@ export interface IAddRepositoriesModalProps {
   onSubmit(values: {}): void;
 }
 
-const maxRepoUrlLength: ConfigurableValidator = maxLength(150);
+const maxRepoUrlLength: ConfigurableValidator = maxLength(300);
 const maxRepoBranchLength: ConfigurableValidator = maxLength(30);
 const renderReposFields: React.FC<WrappedFieldArrayProps> = (props: WrappedFieldArrayProps): JSX.Element => {
   const addItem: (() => void) = (): void => {
