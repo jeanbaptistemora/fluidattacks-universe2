@@ -26,9 +26,14 @@ async def generate_one(groups: List[str]):
 
     def filter_last_week(group: ProjectType, index: int):
         attrs = cast(Dict[str, List[List[Dict[str, int]]]], group['attrs'])
-        remediated_over_time = attrs.get('remediated_over_time', [[{}], [{}]])
+        remediated_over_time = attrs.get('remediated_over_time', [])
+        total = 0
 
-        return int(remediated_over_time[index][-1].get('y', 0))
+        if remediated_over_time:
+            item = remediated_over_time[index]
+            total = int(item[-1].get('y', 0)) if item else 0
+
+        return total
 
     found_last_week: int = reduce(
         lambda acc, group: acc + filter_last_week(group, 0), group_data, 0)
