@@ -94,7 +94,7 @@ class ProjectTest(TestCase):
         assert test_data[1]['UUID'] == '6f023c26-5b10-4ded-aa27-bb563c2206ab'
         assert test_data[1]['finding_id'] == "463558592"
 
-    def test_get_last_closing_date(self):
+    async def test_get_last_closing_date(self):
         closed_vulnerability = {
             'specific': 'phone',
             'finding_id': '422286126',
@@ -110,21 +110,21 @@ class ProjectTest(TestCase):
             'analyst': 'testanalyst@test.com'
         }
 
-        open_vulnerability = vuln_dal.get(
+        open_vulnerability = await vuln_dal.get(
             finding_id='422286126',
             vuln_type='inputs',
             where='https://example.com',
             uuid='80d6a69f-a376-46be-98cd-2fdedcffdcc0'
-        )[0]
+        )
 
         test_data = get_last_closing_date(closed_vulnerability)
         closing_date = datetime(2019, 1, 8).date()
         assert test_data == closing_date
 
-        test_data = get_last_closing_date(open_vulnerability)
+        test_data = get_last_closing_date(open_vulnerability[0])
         assert test_data is None
 
-    def test_is_vulnerability_closed(self):
+    async def test_is_vulnerability_closed(self):
         closed_vulnerability = {
             'specific': 'phone',
             'finding_id': '422286126',
@@ -140,15 +140,15 @@ class ProjectTest(TestCase):
             'analyst': 'testanalyst@test.com'
         }
 
-        open_vulnerability = vuln_dal.get(
+        open_vulnerability = await vuln_dal.get(
             finding_id='422286126',
             vuln_type='inputs',
             where='https://example.com',
             uuid='80d6a69f-a376-46be-98cd-2fdedcffdcc0'
-        )[0]
+        )
 
         assert is_vulnerability_closed(closed_vulnerability)
-        assert not is_vulnerability_closed(open_vulnerability)
+        assert not is_vulnerability_closed(open_vulnerability[0])
 
     def test_get_max_open_severity(self):
         findings_to_get = ['463558592', '422286126']
@@ -177,7 +177,7 @@ class ProjectTest(TestCase):
         expected_output = 5
         assert await get_open_finding(project_name) == expected_output
 
-    def test_get_open_vulnerability_date(self):
+    async def test_get_open_vulnerability_date(self):
         closed_vulnerability = {
             'specific': 'phone',
             'finding_id': '422286126',
@@ -193,14 +193,14 @@ class ProjectTest(TestCase):
             'analyst': 'testanalyst@test.com'
         }
 
-        open_vulnerability = vuln_dal.get(
+        open_vulnerability = await vuln_dal.get(
             finding_id='422286126',
             vuln_type='inputs',
             where='https://example.com',
             uuid='80d6a69f-a376-46be-98cd-2fdedcffdcc0'
-        )[0]
+        )
 
-        test_data = get_open_vulnerability_date(open_vulnerability)
+        test_data = get_open_vulnerability_date(open_vulnerability[0])
         expected_output = datetime(2018, 9, 28).date()
         assert test_data == expected_output
 
