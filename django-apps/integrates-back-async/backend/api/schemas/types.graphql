@@ -313,6 +313,7 @@ enum Frequency {
     DAILY
     HOURLY
     MONTHLY
+    NEVER
     WEEKLY
 }
 

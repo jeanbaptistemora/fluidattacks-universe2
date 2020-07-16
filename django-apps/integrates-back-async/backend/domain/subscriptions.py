@@ -143,13 +143,39 @@ async def can_subscribe_user_to_entity_report(
 
 async def subscribe_user_to_entity_report(
     *,
-    period: NumericType,
+    frequency: str,
     report_entity: str,
     report_subject: str,
     user_email: str,
 ) -> bool:
-    return await subscriptions_dal.subscribe_user_to_entity_report(
-        period=period,
+    success: bool
+
+    if frequency.lower() == 'never':
+        success = await unsubscribe_user_to_entity_report(
+            report_entity=report_entity,
+            report_subject=report_subject,
+            user_email=user_email,
+        )
+    else:
+        success = await subscriptions_dal.subscribe_user_to_entity_report(
+            period=frequency_to_period(
+                frequency=frequency,
+            ),
+            report_entity=report_entity,
+            report_subject=report_subject,
+            user_email=user_email,
+        )
+
+    return success
+
+
+async def unsubscribe_user_to_entity_report(
+    *,
+    report_entity: str,
+    report_subject: str,
+    user_email: str,
+) -> bool:
+    return await subscriptions_dal.unsubscribe_user_to_entity_report(
         report_entity=report_entity,
         report_subject=report_subject,
         user_email=user_email,

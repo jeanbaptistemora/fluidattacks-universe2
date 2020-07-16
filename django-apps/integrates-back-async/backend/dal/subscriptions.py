@@ -11,6 +11,9 @@ from boto3.dynamodb.conditions import Key
 
 # Local libraries
 from backend.dal.helpers import dynamodb
+from backend.typing import (
+    DynamoDelete,
+)
 from backend.utils.encodings import key_to_mapping, mapping_to_key
 
 # Constants
@@ -75,6 +78,28 @@ async def subscribe_user_to_entity_report(
             pk_meta='user',
             sk_meta='entity_report',
         ),
+        table=SUBSCRIPTIONS_TABLE,
+    )
+
+
+async def unsubscribe_user_to_entity_report(
+    *,
+    report_entity: str,
+    report_subject: str,
+    user_email: str,
+) -> bool:
+    return await dynamodb.async_delete_item(
+        delete_attrs=DynamoDelete(Key=dict(
+            pk=mapping_to_key({
+                'meta': 'user',
+                'email': user_email,
+            }),
+            sk=mapping_to_key({
+                'meta': 'entity_report',
+                'entity': report_entity,
+                'subject': report_subject,
+            }),
+        )),
         table=SUBSCRIPTIONS_TABLE,
     )
 

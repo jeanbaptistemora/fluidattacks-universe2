@@ -281,9 +281,7 @@ async def _do_subscribe_to_entity_report(
         user_email=user_email,
     ):
         success = await subscriptions_domain.subscribe_user_to_entity_report(
-            period=subscriptions_domain.frequency_to_period(
-                frequency=frequency,
-            ),
+            frequency=frequency,
             report_entity=report_entity,
             report_subject=report_subject,
             user_email=user_email,
@@ -292,17 +290,21 @@ async def _do_subscribe_to_entity_report(
         if success:
             util.cloudwatch_log(
                 info.context,
-                f'user: {user_email} subscribed to '
-                f'entity_report: {report_entity}/{report_subject}',
+                f'user: {user_email} edited subscription to '
+                f'entity_report: {report_entity}/{report_subject} '
+                f'frequency: {frequency}',
             )
         else:
-            log('backend.api.resolvers.me._do_subscribe_to_entity_report',
-                level='error', extra_data=locals())
+            await log(
+                'backend.api.resolvers.me._do_subscribe_to_entity_report',
+                level='error', extra_data=locals(),
+            )
     else:
         util.cloudwatch_log(
             info.context,
-            f'user: {user_email} attempted to subscribe to '
+            f'user: {user_email} attempted to edit subscription to '
             f'entity_report: {report_entity}/{report_subject} '
+            f'frequency: {frequency} '
             f'without permission',
         )
 

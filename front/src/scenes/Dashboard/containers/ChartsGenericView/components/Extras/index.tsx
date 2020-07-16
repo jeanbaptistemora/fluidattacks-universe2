@@ -32,6 +32,7 @@ const frequencies: string[] = [
   "daily",
   "weekly",
   "monthly",
+  "never",
 ];
 
 const translateFrequency: (freq: string, kind: "action" | "statement") => string =
