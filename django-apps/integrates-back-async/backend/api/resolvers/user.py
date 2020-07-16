@@ -365,9 +365,20 @@ async def _do_add_user(
             rollbar.report_message(
                 'Error: Couldn\'t grant user access', 'error', info.context)
     else:
+        payload_data = {
+            'email': email,
+            'requester_email': user_email,
+            'role': role
+        }
+        msg = (
+            'Error: Invalid role provided when adding user through the sidebar'
+        )
         rollbar.report_message(
-            f'Error: Invalid role provided: {role}',
-            f'error', info.context)
+            msg,
+            'error',
+            info.context,
+            payload_data=payload_data
+        )
 
     return AddUserPayloadType(success=success, email=email)
 
@@ -406,9 +417,18 @@ async def _do_grant_user_access(
             rollbar.report_message('Error: Couldn\'t grant access to project',
                                    'error', info.context)
     else:
+        payload_data = {
+            'new_user_role': new_user_role,
+            'project_name': project_name,
+            'requester_email': user_email
+        }
+        msg = 'Error: Invalid role provided when adding user to group'
         rollbar.report_message(
-            f'Error: Invalid role provided: {new_user_role}',
-            f'error', info.context)
+            msg,
+            'error',
+            info.context,
+            payload_data=payload_data
+        )
 
     if success:
         util.invalidate_cache(project_name)
@@ -499,9 +519,18 @@ async def _do_edit_user(_, info, **modified_user_data) -> EditUserPayloadType:
             await sync_to_async(rollbar.report_message)(
                 'Error: Couldn\'t update user role', 'error', info.context)
     else:
+        payload_data = {
+            'modified_user_role': modified_role,
+            'project_name': project_name,
+            'requester_email': user_email
+        }
+        msg = 'Error: Invalid role provided when editing user'
         await sync_to_async(rollbar.report_message)(
-            'Error: Invalid role provided: ' + modified_user_data['role'],
-            'error', info.context)
+            msg,
+            'error',
+            info.context,
+            payload_data=payload_data
+        )
 
     if success:
         util.invalidate_cache(project_name)

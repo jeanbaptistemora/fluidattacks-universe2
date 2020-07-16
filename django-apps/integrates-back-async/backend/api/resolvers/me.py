@@ -350,7 +350,7 @@ async def _do_sign_in(
         success = True
     except AuthException as ex:
         rollbar.report_message(
-            f'Couldn\'t perform social auth with {provider}',
+            'Couldn\'t perform social auth',
             level='error',
             extra_data=ex,
             payload_data=locals()
