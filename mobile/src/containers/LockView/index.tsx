@@ -37,7 +37,7 @@ const lockView: React.FC = (): JSX.Element => {
     <View style={[styles.container, { backgroundColor: colors.background }]}>
       <Image source={FluidIcon} style={styles.icon} />
       <Headline>{t("lock.title")}</Headline>
-      <Button accessibilityStates="" mode="text" onPress={promptBiometricAuth}>
+      <Button mode="text" onPress={promptBiometricAuth}>
         {t("lock.btn")}
       </Button>
     </View>

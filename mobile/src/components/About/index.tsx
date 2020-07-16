@@ -22,7 +22,7 @@ const about: React.FC = (): JSX.Element => {
   return (
     <View style={styles.container}>
       <MaterialIcons name="info-outline" size={14} color="#808080" />
-      <Text style={styles.text} accessibilityStates="" onPress={displayDialog}>
+      <Text style={styles.text} onPress={displayDialog}>
         {t("common.about")}
       </Text>
     </View>

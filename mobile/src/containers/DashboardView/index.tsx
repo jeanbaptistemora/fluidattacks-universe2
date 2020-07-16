@@ -147,7 +147,7 @@ const dashboardView: React.FunctionComponent = (): JSX.Element => {
       <View style={[styles.container, { backgroundColor: colors.background }]}>
         <View style={styles.percentageContainer}>
           <SvgCss xml={Border} width={220} height={220} />
-          <Text accessibilityStates="" style={styles.percentageText}>
+          <Text style={styles.percentageText}>
             {isNaN(remediatedPercentage)
               ? 0
               : parseFloat(remediatedPercentage.toFixed(1))}%
@@ -157,7 +157,7 @@ const dashboardView: React.FunctionComponent = (): JSX.Element => {
           <Headline style={styles.remediatedText}>
             {t("dashboard.remediated")}
           </Headline>
-          <Text accessibilityStates="">
+          <Text>
             <Trans i18nKey="dashboard.vulnsFound" count={totalGroups}>
               <Title>{{ totalVulns: totalVulns.toLocaleString() }}</Title>
             </Trans>

@@ -4,8 +4,18 @@ import _ from "lodash";
 import React from "react";
 import { I18nextProvider } from "react-i18next";
 import { ColorSchemeName, StatusBar, useColorScheme, View } from "react-native";
-import { DarkTheme, DefaultTheme, Provider as PaperProvider, Theme } from "react-native-paper";
-import { BackButton, NativeRouter, Redirect, Route, Switch } from "react-router-native";
+import {
+  DarkTheme,
+  DefaultTheme,
+  Provider as PaperProvider,
+} from "react-native-paper";
+import {
+  BackButton,
+  NativeRouter,
+  Redirect,
+  Route,
+  Switch,
+} from "react-router-native";
 
 import { DashboardView } from "./containers/DashboardView";
 import { LockView } from "./containers/LockView";
@@ -14,7 +24,7 @@ import { WelcomeView } from "./containers/WelcomeView";
 import { ApolloProvider } from "./utils/apollo";
 import { i18next } from "./utils/translations/translate";
 
-const lightTheme: Theme = {
+const lightTheme: ReactNativePaper.Theme = {
   ...DefaultTheme,
   colors: {
     ...DefaultTheme.colors,
@@ -24,7 +34,7 @@ const lightTheme: Theme = {
   },
 };
 
-const darkTheme: Theme = {
+const darkTheme: ReactNativePaper.Theme = {
   ...DarkTheme,
   colors: {
     ...DarkTheme.colors,
@@ -62,7 +72,9 @@ export const App: React.FunctionComponent = (): JSX.Element => {
 
   React.useEffect(onMount, []);
 
-  const theme: Theme = colorScheme === "dark" ? darkTheme : lightTheme;
+  const theme: ReactNativePaper.Theme = colorScheme === "dark"
+    ? darkTheme
+    : lightTheme;
   const rootView: JSX.Element = isLoggedIn === undefined
     ? <View style={{ backgroundColor: theme.colors.background, flex: 1 }} />
     : isLoggedIn

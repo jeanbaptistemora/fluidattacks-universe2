@@ -101,19 +101,19 @@ const loginView: React.FunctionComponent = (): JSX.Element => {
         </View>
         <Preloader visible={isLoading} />
         <View style={styles.bottom}>
-          <Text accessibilityStates="">{t("common.slogan")}</Text>
+          <Text>{t("common.slogan")}</Text>
           <About />
         </View>
         <Portal>
           <Dialog dismissable={false} visible={isOutdated}>
-            <Dialog.Title accessibilityStates="">
+            <Dialog.Title>
               {t("login.newVersion.title")}
             </Dialog.Title>
             <Dialog.Content>
               <Paragraph>{t("login.newVersion.content")}</Paragraph>
             </Dialog.Content>
             <Dialog.Actions>
-              <Button accessibilityStates="" onPress={handleUpdateButtonClick}>
+              <Button onPress={handleUpdateButtonClick}>
                 {t("login.newVersion.btn")}
               </Button>
             </Dialog.Actions>

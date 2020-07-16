@@ -70,7 +70,7 @@ const welcomeView: React.FunctionComponent = (): JSX.Element => {
             size={100} userName={user.fullName}
           />
         </View>
-        <Text accessibilityStates="" style={styles.greeting} >
+        <Text style={styles.greeting} >
           {t("welcome.greetingText")} {user.firstName}!
            </Text>
         <Preloader visible={loading} />

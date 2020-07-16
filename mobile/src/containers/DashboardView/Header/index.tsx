@@ -30,15 +30,11 @@ const header: React.FC<IHeaderProps> = (props: IHeaderProps): JSX.Element => {
             userName={props.userName}
           />
         </View>
-        <Text accessibilityStates="" style={styles.greeting}>
+        <Text style={styles.greeting}>
           {t("dashboard.greetingText")} {props.userName.split(" ")[0]}
         </Text>
         <View style={styles.actions}>
-          <Text
-            accessibilityStates=""
-            style={styles.logout}
-            onPress={onLogout}
-          >
+          <Text style={styles.logout} onPress={onLogout}>
             {t("common.logout")}
           </Text>
         </View>
