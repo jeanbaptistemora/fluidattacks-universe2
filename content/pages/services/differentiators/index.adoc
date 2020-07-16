@@ -97,7 +97,7 @@ a|* Web applications.
 
 a|==== Techniques
 a|{yes} 1 service, all the techniques
-link:../../use-cases/continuous-hacking/mock-attacks/[^6^]
+link:../../use-cases/continuous-hacking/break-build/[^6^]
 link:../../use-cases/continuous-hacking/critical-info/[^7^]
 link:../../use-cases/one-shot-hacking/infection/[^8^]
 link:../../use-cases/one-shot-hacking/critical-info/[^9^]:
@@ -235,7 +235,7 @@ a|==== False Positives
 
 a|==== Exploitation
 a|{yes} Yes, as long as we have
-link:../../use-cases/continuous-hacking/mock-attacks/[^21^]
+link:../../use-cases/continuous-hacking/break-build/[^21^]
 link:../../use-cases/one-shot-hacking/infection/[^22^]:
 
 * An available environment.
