@@ -108,36 +108,34 @@ const chartsGenericViewExtras: React.FC<IChartsGenericViewProps> = (props: IChar
           <Col md={12}>
             <Panel>
               <Panel.Body>
-                <Grid fluid={true}>
-                  <Row>
-                    <Col mdOffset={4} md={6}>
-                      <ButtonToolbar justified={true}>
-                        <Button
-                          bsSize="large"
-                          download={`charts-${entity}-${subject}.png`}
-                          href={downloadPngUrl.toString()}
-                        >
-                          <Glyphicon glyph="save" /> {translate.t("analytics.sections.extras.download")}
-                        </Button>
-                        <DropdownButton
-                          bsSize="large"
-                          id="subscribe-dropdown"
-                          onSelect={subscribeDropdownOnSelect}
-                          title={translateFrequency(subscriptionFrequency, "statement")}
-                        >
-                          {frequencies.map((freq: string): JSX.Element => (
-                            <MenuItem
-                              eventKey={freq.toUpperCase()}
-                              key={freq}
-                            >
-                              {translateFrequency(freq, "action")}
-                            </MenuItem>
-                          ))}
-                        </DropdownButton>
-                      </ButtonToolbar>
-                    </Col>
-                  </Row>
-                </Grid>
+                <div className={styles.toolbarWrapper}>
+                  <div className={styles.toolbarCentered}>
+                    <ButtonToolbar block={true} justified={true}>
+                      <Button
+                        bsSize="large"
+                        download={`charts-${entity}-${subject}.png`}
+                        href={downloadPngUrl.toString()}
+                      >
+                        <Glyphicon glyph="save" /> {translate.t("analytics.sections.extras.download")}
+                      </Button>
+                      <DropdownButton
+                        bsSize="large"
+                        id="subscribe-dropdown"
+                        onSelect={subscribeDropdownOnSelect}
+                        title={translateFrequency(subscriptionFrequency, "statement")}
+                      >
+                        {frequencies.map((freq: string): JSX.Element => (
+                          <MenuItem
+                            eventKey={freq.toUpperCase()}
+                            key={freq}
+                          >
+                            {translateFrequency(freq, "action")}
+                          </MenuItem>
+                        ))}
+                      </DropdownButton>
+                    </ButtonToolbar>
+                  </div>
+                </div>
               </Panel.Body>
             </Panel>
           </Col>

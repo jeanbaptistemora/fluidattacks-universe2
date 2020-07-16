@@ -5,3 +5,16 @@
 :local .separatorTitleFromCharts {
   padding-top: 35px;
 }
+
+:local .toolbarWrapper {
+  height: 50px;
+  position: relative;
+}
+
+:local .toolbarCentered {
+  left: 50%;
+  margin-right: -50%;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
