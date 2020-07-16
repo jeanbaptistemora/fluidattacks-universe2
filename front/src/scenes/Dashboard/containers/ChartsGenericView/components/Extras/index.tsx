@@ -1,6 +1,6 @@
 import { useMutation, useQuery } from "@apollo/react-hooks";
 import { ApolloError } from "apollo-client";
-import { GraphQLError } from "graphql";
+import { ExecutionResult, GraphQLError } from "graphql";
 import _ from "lodash";
 import React from "react";
 import {
@@ -63,16 +63,7 @@ const chartsGenericViewExtras: React.FC<IChartsGenericViewProps> = (props: IChar
       },
     });
 
-  const [subscribe] = useMutation(SUBSCRIBE_TO_ENTITY_REPORT, {
-    onCompleted: async (result: { subscribeToEntityReport: { success: boolean } }): Promise<void> => {
-      if (result.subscribeToEntityReport.success) {
-        msgSuccess(
-          translate.t("group_alerts.updated"),
-          translate.t("group_alerts.updated_title"),
-        );
-        await refetchSubscriptions();
-      }
-    },
+  const [subscribe, { loading: loadingSubscribe }] = useMutation(SUBSCRIBE_TO_ENTITY_REPORT, {
     onError: (updateError: ApolloError): void => {
       updateError.graphQLErrors.forEach(({ message }: GraphQLError): void => {
         msgError(translate.t("group_alerts.error_textsad"));
@@ -101,6 +92,26 @@ const chartsGenericViewExtras: React.FC<IChartsGenericViewProps> = (props: IChar
           reportEntity: entity.toUpperCase(),
           reportSubject: subject,
         },
+      })
+      .then(async (value: ExecutionResult<{ subscribeToEntityReport: { success: boolean } }>) => {
+        if (
+          value.data !== null
+          && value.data !== undefined
+          && value.data.subscribeToEntityReport.success
+        ) {
+          if (key.toLowerCase() === "never") {
+            msgSuccess(
+              translate.t("analytics.sections.extras.unsubscribedSuccessfully.msg"),
+              translate.t("analytics.sections.extras.unsubscribedSuccessfully.title"),
+            );
+          } else {
+            msgSuccess(
+              translate.t("analytics.sections.extras.subscribedSuccessfully.msg"),
+              translate.t("analytics.sections.extras.subscribedSuccessfully.title"),
+            );
+          }
+          await refetchSubscriptions();
+        }
       });
     };
 
@@ -128,7 +139,14 @@ const chartsGenericViewExtras: React.FC<IChartsGenericViewProps> = (props: IChar
                         bsSize="large"
                         id="subscribe-dropdown"
                         onSelect={subscribeDropdownOnSelect}
-                        title={translateFrequency(subscriptionFrequency, "statement")}
+                        title={
+                          <React.Fragment>
+                            {loadingSubscribe
+                              ? <Glyphicon glyph="hourglass" />
+                              : <Glyphicon glyph="stats" />}
+                            {`   ${translateFrequency(subscriptionFrequency, "statement")}`}
+                          </React.Fragment>
+                        }
                       >
                         {frequencies.map((freq: string): JSX.Element => (
                           <MenuItem

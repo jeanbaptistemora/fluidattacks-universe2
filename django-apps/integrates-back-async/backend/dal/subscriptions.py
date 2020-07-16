@@ -58,7 +58,7 @@ async def get_subscriptions_to_entity_report(
 
 async def subscribe_user_to_entity_report(
     *,
-    period: NumericType,
+    event_period: NumericType,
     report_entity: str,
     report_subject: str,
     user_email: str,
@@ -74,7 +74,7 @@ async def subscribe_user_to_entity_report(
                 'entity': report_entity,
                 'subject': report_subject,
             }),
-            period=Decimal(period),
+            period=Decimal(event_period),
             pk_meta='user',
             sk_meta='entity_report',
         ),

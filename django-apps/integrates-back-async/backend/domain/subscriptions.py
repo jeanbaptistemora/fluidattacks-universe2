@@ -7,6 +7,7 @@ from typing import (
     List,
     Optional,
 )
+from urllib.parse import quote_plus
 
 # Third party libraries
 import botocore.exceptions
@@ -178,28 +179,37 @@ async def can_subscribe_user_to_entity_report(
 
 async def subscribe_user_to_entity_report(
     *,
-    frequency: str,
+    event_frequency: str,
     report_entity: str,
     report_subject: str,
     user_email: str,
 ) -> bool:
     success: bool
 
-    if frequency.lower() == 'never':
+    if event_frequency.lower() == 'never':
         success = await unsubscribe_user_to_entity_report(
             report_entity=report_entity,
             report_subject=report_subject,
             user_email=user_email,
         )
     else:
+        event_period: int = frequency_to_period(frequency=event_frequency)
+
         success = await subscriptions_dal.subscribe_user_to_entity_report(
-            period=frequency_to_period(
-                frequency=frequency,
-            ),
+            event_period=event_period,
             report_entity=report_entity,
             report_subject=report_subject,
             user_email=user_email,
         )
+
+        if success:
+            await send_user_to_entity_report(
+                event_frequency=event_frequency,
+                event_period=event_period,
+                report_entity=report_entity,
+                report_subject=report_subject,
+                user_email=user_email,
+            )
 
     return success
 
@@ -217,9 +227,7 @@ async def unsubscribe_user_to_entity_report(
     )
 
 
-async def trigger_user_to_entity_report():
-    coroutines = []
-
+async def trigger_user_to_entity_report() -> None:
     for subscription in await get_subscriptions_to_entity_report(
         audience='user',
     ):
@@ -229,52 +237,73 @@ async def trigger_user_to_entity_report():
         report_entity: str = subscription['sk']['entity']
         report_subject: str = subscription['sk']['subject']
 
-        if all((
-            # This is expected to run every hour
-            should_process_event(
-                event_frequency=event_frequency,
-            ),
-            # A user may be subscribed but now he does not have access to the
-            #   group or organization, so let's ignore them!
-            await can_subscribe_user_to_entity_report(
+        # A user may be subscribed but now he does not have access to the
+        #   group or organization, so let's handle this case
+        if await can_subscribe_user_to_entity_report(
+            report_entity=report_entity,
+            report_subject=report_subject,
+            user_email=user_email,
+        ):
+            # The processor is expected to run every hour
+            if should_process_event(event_frequency=event_frequency):
+                await send_user_to_entity_report(
+                    event_frequency=event_frequency,
+                    event_period=event_period,
+                    report_entity=report_entity,
+                    report_subject=report_subject,
+                    user_email=user_email,
+                )
+        else:
+            # Unsubscribe this user, he won't even notice as he no longer
+            #   has access to the requested resource
+            await unsubscribe_user_to_entity_report(
                 report_entity=report_entity,
                 report_subject=report_subject,
                 user_email=user_email,
-            ),
-        )):
-            try:
-                image_url: str = await reports.expose_bytes_as_url(
-                    content=await analytics_domain.get_graphics_report(
-                        entity=report_entity.lower(),
-                        subject=report_subject,
-                    ),
-                    ext='png',
-                    ttl=float(event_period),
-                )
-            except botocore.exceptions.ClientError:
-                await logging.log(
-                    level='error',
-                    message='Report not available',
-                    payload_data=dict(
-                        report_entity=report_entity,
-                        report_subject=report_subject,
-                    ),
-                )
-            else:
-                # We should trigger the event!!
-                coroutines.append(
-                    mailer.send_mail_analytics(
-                        user_email,
-                        frequency_title=event_frequency.title(),
-                        frequency_lower=event_frequency.lower(),
-                        image_src=image_url,
-                        report_entity=report_entity.lower(),
-                        report_subject=(
-                            await org_domain.get_name_by_id(report_subject)
-                            if report_entity.lower() == 'organization'
-                            else report_subject
-                        )
-                    ),
-                )
+            )
 
-    await aio.materialize(coroutines)
+
+async def send_user_to_entity_report(
+    *,
+    event_frequency: str,
+    event_period: NumericType,
+    report_entity: str,
+    report_subject: str,
+    user_email: str,
+) -> None:
+    try:
+        image_url: str = await reports.expose_bytes_as_url(
+            content=await analytics_domain.get_graphics_report(
+                entity=report_entity.lower(),
+                subject=report_subject,
+            ),
+            ext='png',
+            ttl=float(event_period),
+        )
+    except botocore.exceptions.ClientError:
+        await logging.log(
+            level='error',
+            message='Report not available',
+            payload_data=dict(
+                report_entity=report_entity,
+                report_subject=report_subject,
+            ),
+        )
+    else:
+        report_entity = report_entity.lower()
+        report_subject = (
+            await org_domain.get_name_by_id(report_subject)
+            if report_entity.lower() == 'organization'
+            else report_subject
+        )
+
+        await mailer.send_mail_analytics(
+            user_email,
+            frequency_title=event_frequency.title(),
+            frequency_lower=event_frequency.lower(),
+            image_src=image_url,
+            report_entity=report_entity,
+            report_subject=report_subject,
+            report_entity_percent=quote_plus(report_entity),
+            report_subject_percent=quote_plus(report_subject),
+        )

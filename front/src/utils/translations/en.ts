@@ -116,6 +116,14 @@ export const enTranslations: ResourceKey = {
           never: "You won't receive reports",
           weekly: "Mondays at 6:00 AM (America/EST)",
         },
+        subscribedSuccessfully: {
+          msg: "You'll receive an e-mail shortly",
+          title: "You've been successfully subscribed!",
+        },
+        unsubscribedSuccessfully: {
+          msg: "No more e-mails will be sent",
+          title: "You've been successfully unsubscribed!",
+        },
       },
       forces: {
         title: "Forces",

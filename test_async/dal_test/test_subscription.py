@@ -21,13 +21,13 @@ pytestmark = [
 @pytest.mark.changes_db
 async def test_update():
     await subscribe_user_to_entity_report(
-        period=86400,
+        event_period=86400,
         report_entity='test_report_entity',
         report_subject='test_report_subject',
         user_email='test_user_email',
     )
     await subscribe_user_to_entity_report(
-        period=3600.0,
+        event_period=3600.0,
         report_entity='test_report_entity',
         report_subject='test_report_subject2',
         user_email='test_user_email2',

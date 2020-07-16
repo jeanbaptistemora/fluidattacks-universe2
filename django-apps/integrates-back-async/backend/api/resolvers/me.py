@@ -281,7 +281,7 @@ async def _do_subscribe_to_entity_report(
         user_email=user_email,
     ):
         success = await subscriptions_domain.subscribe_user_to_entity_report(
-            frequency=frequency,
+            event_frequency=frequency,
             report_entity=report_entity,
             report_subject=report_subject,
             user_email=user_email,
