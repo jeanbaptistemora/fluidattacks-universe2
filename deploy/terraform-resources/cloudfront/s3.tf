@@ -61,7 +61,8 @@ resource "aws_s3_bucket" "fi_reports_bucket" {
     id      = "reports"
     enabled = true
     expiration {
-      days = 1
+      # 1 month + some timezone skews
+      days = 32
     }
   }
 
