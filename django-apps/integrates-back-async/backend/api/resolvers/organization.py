@@ -6,6 +6,7 @@ from typing import (
     cast,
     Dict,
     List,
+    Any,
     Optional,
     Union
 )
@@ -15,6 +16,7 @@ from ariadne import (
     convert_kwargs_to_snake_case
 )
 from graphql.language.ast import FieldNode, SelectionSetNode, ObjectFieldNode
+from graphql.type.definition import GraphQLResolveInfo
 
 from backend import (
     authz,
@@ -48,9 +50,9 @@ from backend.utils import aio
 
 @enforce_organization_level_auth_async
 async def _do_edit_user_organization(
-    _,
-    info,
-    **parameters
+    _: Any,
+    info: GraphQLResolveInfo,
+    **parameters: Any
 ) -> EditUserPayloadType:
     success: bool = False
 
@@ -104,9 +106,9 @@ async def _do_edit_user_organization(
 
 @enforce_organization_level_auth_async
 async def _do_grant_user_organization_access(
-    _,
-    info,
-    **parameters
+    _: Any,
+    info: GraphQLResolveInfo,
+    **parameters: Any
 ) -> GrantUserAccessPayloadType:
     success: bool = False
 
@@ -162,8 +164,8 @@ async def _do_grant_user_organization_access(
 
 @enforce_organization_level_auth_async
 async def _do_remove_user_organization_access(
-    _,
-    info,
+    _: Any,
+    info: GraphQLResolveInfo,
     organization_id: str,
     user_email: str
 ) -> SimplePayloadType:
@@ -193,9 +195,9 @@ async def _do_remove_user_organization_access(
 
 @enforce_organization_level_auth_async
 async def _do_update_organization_policies(
-    _,
-    info,
-    **parameters
+    _: Any,
+    info: GraphQLResolveInfo,
+    **parameters: Any
 ) -> SimplePayloadType:
     user_data = util.get_jwt_content(info.context)
     user_email = user_data['user_email']
@@ -219,90 +221,122 @@ async def _do_update_organization_policies(
 @rename_kwargs({'identifier': 'organization_id'})
 @enforce_organization_level_auth_async
 async def _get_analytics(
-        info,
+        info: GraphQLResolveInfo,
         document_name: str,
         document_type: str,
         organization_id: str,
-        **__
+        **__: Any
 ) -> Dict[str, object]:
     """Get analytics document."""
-    return await analytics_loader.resolve(
-        info,
-        document_name=document_name,
-        document_type=document_type,
-        entity='organization',
-        subject=organization_id)
+    return cast(
+        Dict[str, object],
+        await analytics_loader.resolve(
+            info,
+            document_name=document_name,
+            document_type=document_type,
+            entity='organization',
+            subject=organization_id
+        )
+    )
 
 
 @rename_kwargs({'identifier': 'organization_id'})
-async def _get_id(_, organization_id: str, **kwargs) -> str:
+async def _get_id(
+        _: GraphQLResolveInfo,
+        organization_id: str,
+        **kwargs: Any) -> str:
     if kwargs.get('organization_name'):
         return await org_domain.get_id_by_name(kwargs['organization_name'])
     return organization_id
 
 
 @rename_kwargs({'identifier': 'organization_id'})
-async def _get_name(_, organization_id: str, **__) -> str:
+async def _get_name(
+        _: GraphQLResolveInfo,
+        organization_id: str,
+        **__: Any) -> str:
     return await org_domain.get_name_by_id(organization_id)
 
 
 @rename_kwargs({'identifier': 'organization_id'})
 async def _get_max_acceptance_days(
-    _,
+    _: GraphQLResolveInfo,
     organization_id: str,
-    **__
+    **__: Any
 ) -> Decimal:
     return await org_domain.get_max_acceptance_days(organization_id)
 
 
 @rename_kwargs({'identifier': 'organization_id'})
 async def _get_max_acceptance_severity(
-    _,
+    _: GraphQLResolveInfo,
     organization_id: str,
-    **__
+    **__: Any
 ) -> Decimal:
     return await org_domain.get_max_acceptance_severity(organization_id)
 
 
 @rename_kwargs({'identifier': 'organization_id'})
 async def _get_max_number_acceptations(
-    _,
+    _: GraphQLResolveInfo,
     organization_id: str,
-    **__
+    **__: Any
 ) -> Optional[Decimal]:
     return await org_domain.get_max_number_acceptations(organization_id)
 
 
 @rename_kwargs({'identifier': 'organization_id'})
 async def _get_min_acceptance_severity(
-    _,
+    _: GraphQLResolveInfo,
     organization_id: str,
-    **__
+    **__: Any
 ) -> Decimal:
     return await org_domain.get_min_acceptance_severity(organization_id)
 
 
 @rename_kwargs({'identifier': 'organization_id'})
 async def _get_remediated_vulnerabilities(
-        info, organization_id: str, **__) -> Dict[str, Dict[str, int]]:
+        info: GraphQLResolveInfo,
+        organization_id: str,
+        **__: Any) -> Dict[str, Dict[str, int]]:
     org_groups = await org_domain.get_groups(organization_id)
     group_attrs = await info.context.loaders['project'].load_many(org_groups)
 
-    def filter_last_week(group: ProjectType, index: int):
+    def filter_last_week(group: ProjectType, index: int) -> int:
         attrs = cast(Dict[str, List[List[Dict[str, int]]]], group['attrs'])
         remediated_over_time = attrs.get('remediated_over_time', [[{}], [{}]])
 
         return remediated_over_time[index][-1].get('y', 0)
 
     found_last_week: int = reduce(
-        lambda acc, group: acc + filter_last_week(group, 0), group_attrs, 0)
+        lambda acc, group: acc + filter_last_week(group, 0),
+        group_attrs,
+        0
+    )
     closed_last_week: int = reduce(
-        lambda acc, group: acc + filter_last_week(group, 1), group_attrs, 0)
+        lambda acc, group: acc + filter_last_week(group, 1),
+        group_attrs,
+        0
+    )
 
-    open_vulns: int = reduce(lambda acc, group: acc + group['attrs'].get(
-        'open_vulnerabilities', 0), group_attrs, 0)
-    closed_vulns: int = reduce(lambda acc, group: acc + group['attrs'].get(
-        'closed_vulnerabilities', 0), group_attrs, 0)
+    open_vulns: int = reduce(
+        lambda acc, group: cast(
+            int,
+            acc + group['attrs'].get('open_vulnerabilities', 0)
+        ),
+        group_attrs,
+        0
+    )
+    closed_vulns: int = reduce(
+        lambda acc, group: cast(
+            int,
+            acc + group['attrs'].get(
+                'closed_vulnerabilities', 0
+            )
+        ),
+        group_attrs,
+        0
+    )
 
     return {
         'lastWeek': {
@@ -317,7 +351,10 @@ async def _get_remediated_vulnerabilities(
 
 
 @rename_kwargs({'identifier': 'organization_id'})
-async def _get_total_groups(_, organization_id: str, **__) -> int:
+async def _get_total_groups(
+        _: GraphQLResolveInfo,
+        organization_id: str,
+        **__: Any) -> int:
     org_groups = await org_domain.get_groups(organization_id)
 
     return len(org_groups)
@@ -326,10 +363,10 @@ async def _get_total_groups(_, organization_id: str, **__) -> int:
 @rename_kwargs({'identifier': 'organization_id'})
 @get_entity_cache_async
 async def _get_users(
-    info,
+    info: GraphQLResolveInfo,
     organization_id: str,
-    requested_fields: list,
-    **__
+    requested_fields: List[FieldNode],
+    **__: Any
 ) -> List[UserType]:
     """Get users."""
     organization_users = await org_domain.get_users(organization_id)
@@ -338,22 +375,28 @@ async def _get_users(
     selection_set = SelectionSetNode()
     selection_set.selections = requested_fields
 
-    return await asyncio.gather(*[
-        asyncio.create_task(
-            user_loader.resolve_for_organization(
-                info,
-                'ORGANIZATION',
-                user_email,
-                organization_id=organization_id,
-                as_field=as_field,
-                selection_set=selection_set,
+    return cast(
+        List[UserType],
+        await asyncio.gather(*[
+            asyncio.create_task(
+                user_loader.resolve_for_organization(
+                    info,
+                    'ORGANIZATION',
+                    user_email,
+                    organization_id=organization_id,
+                    as_field=as_field,
+                    selection_set=selection_set,
+                )
             )
-        )
-        for user_email in organization_users
-    ])
+            for user_email in organization_users
+        ])
+    )
 
 
-def _get_requested_fields(info, as_field: bool, as_list: bool):
+def _get_requested_fields(
+        info: GraphQLResolveInfo,
+        as_field: bool,
+        as_list: bool) -> List[FieldNode]:
     if as_field and as_list:
         to_extend = util.get_requested_fields(
             'organizations',
@@ -370,11 +413,11 @@ def _get_requested_fields(info, as_field: bool, as_list: bool):
 
 
 async def resolve(
-        info,
+        info: GraphQLResolveInfo,
         identifier: str,
         as_field: bool = False,
         as_list: bool = True,
-        **kwargs) -> OrganizationType:
+        **kwargs: Any) -> OrganizationType:
     """Async resolve fields."""
     result = dict()
     req_fields: List[Union[FieldNode, ObjectFieldNode]] = []
@@ -410,26 +453,29 @@ async def resolve(
     return result
 
 
-@convert_kwargs_to_snake_case
+@convert_kwargs_to_snake_case  # type: ignore
 @rename_kwargs({
     'organization_id': 'identifier',
 })
 @require_login
 @require_organization_access
 async def resolve_organization(
-    _,
-    info,
+    _: Any,
+    info: GraphQLResolveInfo,
     identifier: str = '',
-    organization_name: str = None
+    organization_name: str = ''
 ) -> OrganizationType:
     """Resolve Organization query """
     return await resolve(info, identifier, organization_name=organization_name)
 
 
-@convert_kwargs_to_snake_case
+@convert_kwargs_to_snake_case  # type: ignore
 @require_login
 @require_organization_access
-async def resolve_organization_mutation(obj, info, **parameters):
+async def resolve_organization_mutation(
+        obj: Any,
+        info: GraphQLResolveInfo,
+        **parameters: Any) -> Any:
     """Resolve Organization mutation """
     field = util.camelcase_to_snakecase(info.field_name)
     resolver_func = getattr(sys.modules[__name__], f'_do_{field}')
