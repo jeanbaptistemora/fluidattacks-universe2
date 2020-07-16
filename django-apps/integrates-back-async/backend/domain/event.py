@@ -15,7 +15,10 @@ from backend.dal import (
     event as event_dal,
     project as project_dal
 )
-from backend.domain import comment as comment_domain
+from backend.domain import (
+    comment as comment_domain,
+    organization as org_domain
+)
 from backend.exceptions import (
     EventAlreadyClosed,
     EventNotFound,
@@ -199,8 +202,10 @@ async def create_event(
     tzn = pytz.timezone(settings.TIME_ZONE)  # type: ignore
     today = datetime.now(tz=tzn).today()
 
-    project = project_dal.get_attributes(project_name, ['companies', 'type'])
+    project = project_dal.get_attributes(project_name, ['type'])
     subscription = str(project.get('type'))
+
+    org_id = await org_domain.get_id_for_group(project_name)
 
     event_attrs = kwargs.copy()
     event_date = (
@@ -215,7 +220,7 @@ async def create_event(
     event_attrs.update({
         'accessibility': ' '.join(list(set(event_attrs['accessibility']))),
         'analyst': analyst_email,
-        'client': project.get('companies', [''])[0],
+        'client': org_id,
         'historic_state': [
             {
                 'analyst': analyst_email,

@@ -31,6 +31,7 @@ from backend.decorators import (
     enforce_user_level_auth_async
 )
 from backend.domain import (
+    organization as org_domain,
     subscriptions as subscriptions_domain,
     tag as tag_domain,
     user as user_domain,
@@ -164,7 +165,11 @@ async def _get_tags(
     organization: str = '-'
     if projects:
         project_attrs = await info.context.loaders['project'].load(projects[0])
-        organization = project_attrs['attrs'].get('companies', ['-'])[0]
+        project_attrs = project_attrs['attrs']
+        org_id = await org_domain.get_id_for_group(
+            project_attrs['project_name']
+        )
+        organization = await org_domain.get_name_by_id(org_id)
     projects_filtered: List[str] = []
     for project in projects:
         project_attrs = await info.context.loaders['project'].load(project)

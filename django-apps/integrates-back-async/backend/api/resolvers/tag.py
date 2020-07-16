@@ -17,6 +17,7 @@ from backend.decorators import (
     require_login
 )
 from backend.domain import (
+    organization as org_domain,
     tag as tag_domain,
     user as user_domain
 )
@@ -37,7 +38,10 @@ async def resolve(info: GraphQLResolveInfo, tag: str) -> TagType:
     if projects:
         project_attrs = await info.context.loaders['project'].load(projects[0])
         project_attrs = project_attrs['attrs']
-        organization = project_attrs.get('companies', ['-'])[0]
+        org_id = await org_domain.get_id_for_group(
+            project_attrs['project_name']
+        )
+        organization = await org_domain.get_name_by_id(org_id)
     allowed_tags = await tag_domain.filter_allowed_tags(
         organization, projects)
     if tag not in allowed_tags:
