@@ -11,6 +11,7 @@ from typing import (
 # Local imports
 from toolbox import api
 from toolbox.constants import API_TOKEN, SAST, DAST
+from toolbox import logger
 
 
 def get_integrates_url(group: str, finding_id: str) -> str:
@@ -41,9 +42,12 @@ def is_finding_accepted(finding_id: str) -> bool:
     """Return True if a finding has an 'ACCEPTED' treatment."""
     response = api.integrates.Queries.finding(API_TOKEN, finding_id)
     treatment: str = 'NEW'
-    his_treatment: list = response.data['finding'].get('historicTreatment')
-    if his_treatment:
-        treatment = his_treatment[-1]['treatment']
+    if response.ok:
+        his_treatment: list = response.data['finding']['historicTreatment']
+        if his_treatment:
+            treatment = his_treatment[-1]['treatment']
+    else:
+        logger.error(response.errors)
     return treatment in ('ACCEPTED', 'ACCEPTED_UNDEFINED')
 
 
@@ -67,7 +71,11 @@ def is_finding_open(finding_id: str, finding_types: tuple) -> bool:
     response = api.integrates.Queries.finding(API_TOKEN,
                                               finding_id,
                                               with_vulns=True)
-    vulnerabilities = response.data['finding']['vulnerabilities']
+    vulnerabilities = []
+    if response.ok:
+        vulnerabilities = response.data['finding']['vulnerabilities']
+    else:
+        logger.error(response.errors)
 
     for vuln in vulnerabilities:
         if vuln['vulnType'] not in finding_types:
@@ -133,20 +141,23 @@ def get_finding_wheres(
     response = api.integrates.Queries.finding(API_TOKEN,
                                               finding_id,
                                               with_vulns=True)
-    vulnerabilities = response.data['finding']['vulnerabilities']
-
-    type_where_state = tuple(
-        (
-            vuln['vulnType'],
-            vuln['where'],
-            vuln['specific'],
-            current_state['state'] == 'open',
+    type_where_state: Tuple = tuple()
+    if response.ok:
+        vulnerabilities = response.data['finding']['vulnerabilities']
+        type_where_state = tuple(
+            (
+                vuln['vulnType'],
+                vuln['where'],
+                vuln['specific'],
+                current_state['state'] == 'open',
+            )
+            for vuln in vulnerabilities
+            for current_state in (vuln['historicState'][-1],)
+            if current_state.get('approval_status', 'APPROVED') == 'APPROVED'
+            and current_state.get('state') != 'DELETED'
         )
-        for vuln in vulnerabilities
-        for current_state in (vuln['historicState'][-1],)
-        if current_state.get('approval_status', 'APPROVED') == 'APPROVED'
-        and current_state.get('state') != 'DELETED'
-    )
+    else:
+        logger.error(response.errors)
     return type_where_state
 
 
@@ -254,12 +265,14 @@ def get_project_findings(project: str) -> Tuple[Tuple[str, str], ...]:
         project_name=project,
         with_findings=True)
 
-    findings = response.data['project']['findings']
-
-    result: Tuple[Tuple[str, str], ...] = tuple(
-        (finding['id'], finding['title'])
-        for finding in findings)
-
+    result: Tuple[Tuple[str, str], ...] = tuple()
+    if response.ok:
+        findings = response.data['project']['findings']
+        result = tuple(
+            (finding['id'], finding['title'])
+            for finding in findings)
+    else:
+        logger.error(response.errors)
     return result
 
 
@@ -280,6 +293,8 @@ def get_project_repos(project: str) -> List:
         project_name=project)
     if response.ok:
         repositories = json.loads(response.data['resources']['repositories'])
+    else:
+        logger.error(response.errors)
 
     return repositories
 
