@@ -67,17 +67,22 @@ class ITReport():
         'vuln_report_date': 20,
         'vuln_close_date': 21,
         'vuln_age': 22,
-        'treatment': 23,
-        'treatment_date': 24,
-        'treatment_justification': 25,
-        'treatment_exp_date': 26,
-        'treatment_manager': 27,
-        'reattack': 28,
-        'n_requested_reattacks': 29,
-        'remediation_effectiveness': 30,
-        'last_reattack_date': 31,
-        'last_reattack_requester': 32,
-        'cvss_vector': 33,
+        'first_treatment': 23,
+        'first_treatment_date': 24,
+        'first_treatment_justification': 25,
+        'first_treatment_exp_date': 26,
+        'first_treatment_manager': 27,
+        'treatment': 28,
+        'treatment_date': 29,
+        'treatment_justification': 30,
+        'treatment_exp_date': 31,
+        'treatment_manager': 32,
+        'reattack': 33,
+        'n_requested_reattacks': 34,
+        'remediation_effectiveness': 35,
+        'last_reattack_date': 36,
+        'last_reattack_requester': 37,
+        'cvss_vector': 38,
     }
 
     def __init__(self, data: List[Dict[str, FindingType]], lang: str = 'es'):
@@ -256,7 +261,7 @@ class ITReport():
             specific = str(int(specific))
         tags = '-'
         if 'tag' in row:
-            tags = ', '.join(str(row.get('tag')))
+            tags = str(', '.join(cast(List[str], row.get('tag'))))
 
         self.__select_finding_sheet()
 
@@ -274,7 +279,7 @@ class ITReport():
             self.vulnerability['vuln_uuid'],
             str(row.get('UUID', '-'))
         )
-        self.set_cell(self.vulnerability['where'], str(row.get("where")))
+        self.set_cell(self.vulnerability['where'], str(row.get('where')))
         self.set_cell(self.vulnerability['specific'], specific)
         self.set_cell(self.vulnerability['tags'], tags, align='left')
         self.set_cell(
@@ -375,46 +380,82 @@ class ITReport():
             if vuln_closed else '-'
         )
 
-    def write_treatment_data(
+    def write_treatment_data(  # pylint: disable=too-many-locals
         self,
         finding: Dict[str, FindingType],
         vuln: VulnType
     ):
-        treatment = \
-            str(vuln.get('treatment', 'NEW')).capitalize().replace('_', ' ')
-        if treatment == 'Accepted undefined':
-            treatment = 'Eternally accepted'
-        elif treatment == 'Accepted':
-            treatment = 'Temporarily accepted'
-        self.set_cell(
-            self.vulnerability['treatment'],
-            treatment
-        )
-        self.set_cell(
-            self.vulnerability['treatment_date'],
-            datetime.strptime(
-                cast(HistoricType, finding.get('historicState'))[-1]['date'],
+        def format_treatment(treatment: str) -> str:
+            treatment = treatment.capitalize().replace('_', ' ')
+            if treatment == 'Accepted undefined':
+                treatment = 'Eternally accepted'
+            elif treatment == 'Accepted':
+                treatment = 'Temporarily accepted'
+            return treatment
+
+        historic_state = finding.get('historicState')
+        finding_historic_treatment = \
+            cast(HistoricType, finding.get('historicTreatment'))
+        current_treatment_date: Union[str, datetime] = '-'
+        current_treatment_exp_date: Union[str, datetime] = '-'
+        first_treatment_exp_date: Union[str, datetime] = '-'
+        if historic_state and 'date' in cast(HistoricType, historic_state)[-1]:
+            current_treatment_date = datetime.strptime(
+                str(cast(HistoricType, historic_state)[-1]['date']),
                 '%Y-%m-%d %H:%M:%S'
             )
-            if 'historicState' in finding and
-            'date' in cast(HistoricType, finding.get('historicState'))[-1]
-            else '-'
-        )
-        self.set_cell(
-            self.vulnerability['treatment_justification'],
-            str(vuln.get('treatment_justification', '-')),
-            align='left'
-        )
-        self.set_cell(
-            self.vulnerability['treatment_exp_date'],
-            datetime.strptime(
-                str(vuln.get('acceptance_date')), '%Y-%m-%d %H:%M:%S')
-            if 'acceptance_date' in vuln else '-'
-        )
-        self.set_cell(
-            self.vulnerability['treatment_manager'],
-            str(vuln.get('treatment_manager', '-'))
-        )
+        if 'acceptance_date' in vuln:
+            current_treatment_exp_date = datetime.strptime(
+                str(vuln.get('acceptance_date')),
+                '%Y-%m-%d %H:%M:%S'
+            )
+        first_treatment_state = \
+            cast(Dict[str, str], finding_historic_treatment[0])
+        if len(str(finding.get('releaseDate')).split(' ')) == 2:
+            first_treatment_date_format = '%Y-%m-%d %H:%M:%S'
+        else:
+            first_treatment_date_format = '%Y-%m-%d'
+        if len(finding_historic_treatment) > 1:
+            first_treatment_exp_date = \
+                finding_historic_treatment[1].get('date', '-')
+            if first_treatment_exp_date != '-':
+                first_treatment_exp_date = datetime.strptime(
+                    str(first_treatment_exp_date),
+                    '%Y-%m-%d %H:%M:%S'
+                )
+
+        current_treatment_data: Dict[str, Union[str, int, datetime]] = {
+            'treatment': format_treatment(str(vuln.get('treatment', 'NEW'))),
+            'treatment_date': current_treatment_date,
+            'treatment_justification': str(
+                vuln.get('treatment_justification', '-')),
+            'treatment_exp_date': current_treatment_exp_date,
+            'treatment_manager': str(vuln.get('treatment_manager', '-')),
+        }
+        first_treatment_data: Dict[str, Union[str, int, datetime]] = {
+            'first_treatment': str(format_treatment(
+                first_treatment_state.get('treatment', 'NEW'))),
+            'first_treatment_date': datetime.strptime(
+                str(finding.get('releaseDate')), first_treatment_date_format),
+            'first_treatment_justification': str(
+                first_treatment_state.get('justification', '-')),
+            'first_treatment_exp_date': first_treatment_exp_date,
+            'first_treatment_manager': str(
+                first_treatment_state.get('user', '-')),
+        }
+
+        for key, value in current_treatment_data.items():
+            align = 'center' if 'justification' not in key else 'left'
+            self.set_cell(
+                self.vulnerability[key],
+                value,
+                align=align
+            )
+            self.set_cell(
+                self.vulnerability[f'first_{key}'],
+                first_treatment_data[f'first_{key}'],
+                align=align
+            )
 
     def write_reattack_data(
         self,
