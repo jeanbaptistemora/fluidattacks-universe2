@@ -74,32 +74,25 @@ stages:
       when: never
     - if: *integrates_commit_pattern
 
-.in_mrs_and_master_branch: &in_mrs_and_master_branch
-  only:
-    refs:
-      - master
-      - merge_requests
-  except:
-    refs:
-      - triggers
-      - schedules
+.in_mrs_and_master_branch_integrates: &in_mrs_and_master_branch_integrates
+  rules:
+    - if: '$CI_PIPELINE_SOURCE != "merge_request_event" && $CI_COMMIT_BRANCH != "master"'
+      when: never
+    - if: *integrates_commit_pattern
 
 .in_mrs: &in_mrs
-  only:
-    refs:
-      - merge_requests
-  except:
-    refs:
-      - branches
-      - triggers
-      - schedules
+  rules:
+    - if: '$CI_PIPELINE_SOURCE != "merge_request_event"'
+      when: never
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
 
-.in_schedule_nightly_build: &in_schedule_nightly_build
-  only:
-    refs:
-      - schedules
-    variables:
-      - $NIGHTLY_BUILD
+.in_schedule_nightly_build_integrates: &in_schedule_nightly_build_integrates
+  rules:
+    - if: '$CI_PIPELINE_SOURCE != "schedule"'
+      when: never
+    - if:  '$NIGHTLY_BUILD == null'
+      when: never
+    - if: *integrates_commit_pattern
 
 .with_nix: &with_nix
   tags: [autoscaling]
@@ -212,7 +205,7 @@ coverage_report:
 
 clean_registries:
   <<: *with_nix
-  <<: *in_schedule_nightly_build
+  <<: *in_schedule_nightly_build_integrates
   stage: post-deploy
 
 deploy_k8s_back_ephemeral:
@@ -442,7 +435,7 @@ lint_secrets:
 
 renew_certificates:
   <<: *with_nix
-  <<: *in_schedule_nightly_build
+  <<: *in_schedule_nightly_build_integrates
   stage: post-deploy
   environment:
     name: "review/renew-review-cert"
@@ -450,7 +443,7 @@ renew_certificates:
 
 rotate_jwt_token:
   <<: *with_nix
-  <<: *in_schedule_nightly_build
+  <<: *in_schedule_nightly_build_integrates
   stage: rotation
 
 send_new_release_email:
