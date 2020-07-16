@@ -22,6 +22,11 @@ def scan_file(
         user_email: str,
         project_name: str):
     if FI_ENVIRONMENT == 'production':
+        payload_data = {
+            'project_name': project_name,
+            'user_email': user_email,
+            'target_file_name': target_file.name
+        }
         try:
             file_object = target_file.file
             tmp_file = tempfile.NamedTemporaryFile()
@@ -36,14 +41,20 @@ def scan_file(
             tmp_file.close()
             file_object.seek(0)
             if not api_response.clean_result:
-                rollbar.report_message(
-                    f'Report: Cloudmersive VirusScan file infected for user '
-                    f'{user_email} in project {project_name}: '
-                    f'{target_file.name}\n{str(api_response)}'
+                extra_data = {
+                    'api_response': str(api_response)
+                }
+                msg = (
+                    'Report: Cloudmersive VirusScan file infected for user '
+                    'in project'
                 )
+                rollbar.report_message(
+                    msg, payload_data=payload_data, extra_data=extra_data)
                 raise FileInfected()
         except ApiException as api_error:
+            extra_data = {
+                'error': str(api_error)
+            }
+            msg = 'Error: Cloudmersive VirusScan API error for user in project'
             rollbar.report_message(
-                f'Error: Cloudmersive VirusScan API error for user '
-                f'{user_email} in project {project_name}: {api_error}'
-            )
+                msg, payload_data=payload_data, extra_data=extra_data)

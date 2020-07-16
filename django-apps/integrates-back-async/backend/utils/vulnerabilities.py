@@ -174,11 +174,14 @@ def format_vulnerabilities(vulnerabilities: List[Dict[str, FindingType]]) -> \
                 'state': str(current_state)
             })
         else:
-            error_msg = (
-                f'Error: Vulnerability {vuln.get("UUID")} of finding '
-                f'{vuln.get("finding_id")} does not have the right type'
+            payload_data = {
+                'vuln_uuid': vuln.get("UUID"),
+                'finding_id': vuln.get("finding_id")
+            }
+            msg = (
+                'Error: Vulnerability of finding  does not have the right type'
             )
-            rollbar.report_message(error_msg, 'error')
+            rollbar.report_message(msg, 'error', payload_data=payload_data)
     return finding
 
 

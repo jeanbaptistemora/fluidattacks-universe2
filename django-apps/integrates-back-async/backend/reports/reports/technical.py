@@ -165,14 +165,23 @@ def download_evidences_for_pdf(findings: List[Dict[str, FindingType]]):
                         f'{path}/{evidence_id_2}',
                     )
                 except ClientError as download_evidence_error:
+                    payload_data = {
+                        'evidence_id': evidence["id"],
+                        'project_name': finding["projectName"]
+                    }
+                    extra_data = {
+                        'error': str(download_evidence_error)
+                    }
                     msg = (
-                        f'Error: Missing evidences in group'
-                        f'{finding["projectName"]}'
-                        f'for evidence with id {evidence["id"]}'
-                        f'while generating report.\n'
-                        f'{download_evidence_error}'
+                        'Error: Missing evidences in group while '
+                        'generating report.\n'
                     )
-                    rollbar.report_message(msg, 'error')
+                    rollbar.report_message(
+                        msg,
+                        'error',
+                        payload_data=payload_data,
+                        extra_data=extra_data
+                    )
                 evidence['name'] = (
                     f'image::../images/{evidence_id_2}'
                     '[align="center"]'

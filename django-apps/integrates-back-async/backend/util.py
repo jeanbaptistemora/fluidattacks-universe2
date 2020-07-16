@@ -235,13 +235,27 @@ def get_jwt_content(context) -> Dict[str, str]:
         raise InvalidAuthorization()
     except jwt.JWTClaimsError as ex:
         LOGGER.info('Security: Invalid token claims')
+        extra_data = {
+            'error': str(ex)
+        }
         rollbar.report_message(
-            f'Error: Invalid token claims: {ex}', 'error', context)
+            'Error: Invalid token claims',
+            'error',
+            context,
+            extra_data=extra_data
+        )
         raise InvalidAuthorization()
     except JWTError as ex:
         LOGGER.info('Security: Invalid token signature')
+        extra_data = {
+            'error': str(ex)
+        }
         rollbar.report_message(
-            f'Error: Invalid token signature: {ex}', 'error', context)
+            'Error: Invalid token signature',
+            'error',
+            context,
+            extra_data=extra_data
+        )
         raise InvalidAuthorization()
 
 
