@@ -19,6 +19,9 @@ from backend.typing import (
 )
 
 
+EMPTY = '-'
+
+
 class ITReport():
     """Class to generate IT reports."""
 
@@ -259,7 +262,7 @@ class ITReport():
         specific = str(row.get('specific', ''))
         if row.get('vuln_type') == 'lines':
             specific = str(int(specific))
-        tags = '-'
+        tags = EMPTY
         if 'tag' in row:
             tags = str(', '.join(cast(List[str], row.get('tag'))))
 
@@ -273,18 +276,18 @@ class ITReport():
         )
         self.set_cell(
             self.vulnerability['finding_id'],
-            finding.get('findingId', '-')
+            finding.get('findingId', EMPTY)
         )
         self.set_cell(
             self.vulnerability['vuln_uuid'],
-            str(row.get('UUID', '-'))
+            str(row.get('UUID', EMPTY))
         )
         self.set_cell(self.vulnerability['where'], str(row.get('where')))
         self.set_cell(self.vulnerability['specific'], specific)
         self.set_cell(self.vulnerability['tags'], tags, align='left')
         self.set_cell(
             self.vulnerability['business_critically'],
-            str(row.get('severity', '-'))
+            str(row.get('severity', EMPTY))
         )
 
         self.write_finding_data(finding, row)
@@ -298,16 +301,16 @@ class ITReport():
         finding: Dict[str, FindingType],
         vuln: VulnType
     ):
-        compromised_attributes = str(finding.get('compromisedAttrs')) or '-'
+        compromised_attributes = str(finding.get('compromisedAttrs')) or EMPTY
         n_compromised_attributes = None
-        if compromised_attributes != '-':
+        if compromised_attributes != EMPTY:
             n_compromised_attributes = \
                 str(len(compromised_attributes.split('\n')))
-        external_bts = finding.get('externalBts', '-')
+        external_bts = finding.get('externalBts', EMPTY)
 
         self.set_cell(
             self.vulnerability['description'],
-            str(finding.get('vulnerability', '-')),
+            str(finding.get('vulnerability', EMPTY)),
             align='left'
         )
         self.set_cell(
@@ -316,31 +319,31 @@ class ITReport():
         )
         self.set_cell(
             self.vulnerability['severity'],
-            str(finding.get('severityCvss', '-'))
+            str(finding.get('severityCvss', EMPTY))
         )
         self.set_cell(
             self.vulnerability['requirements'],
-            str(finding.get('requirements', '-')),
+            str(finding.get('requirements', EMPTY)),
             align='left'
         )
         self.set_cell(
             self.vulnerability['impact'],
-            str(finding.get('attackVectorDesc', '-')),
+            str(finding.get('attackVectorDesc', EMPTY)),
             align='left'
         )
         self.set_cell(
             self.vulnerability['affected_systems'],
-            str(finding.get('affectedSystems', '-')),
+            str(finding.get('affectedSystems', EMPTY)),
             align='left'
         )
         self.set_cell(
             self.vulnerability['threat'],
-            str(finding.get('threat', '-')),
+            str(finding.get('threat', EMPTY)),
             align='left'
         )
         self.set_cell(
             self.vulnerability['recommendation'],
-            str(finding.get('effectSolution', '-')),
+            str(finding.get('effectSolution', EMPTY)),
             align='left'
         )
         self.set_cell(
@@ -377,7 +380,7 @@ class ITReport():
             self.vulnerability['vuln_close_date'],
             datetime.strptime(
                 vuln_historic_state[-1]['date'], '%Y-%m-%d %H:%M:%S')
-            if vuln_closed else '-'
+            if vuln_closed else EMPTY
         )
 
     def write_treatment_data(  # pylint: disable=too-many-locals
@@ -396,9 +399,9 @@ class ITReport():
         historic_state = finding.get('historicState')
         finding_historic_treatment = \
             cast(HistoricType, finding.get('historicTreatment'))
-        current_treatment_date: Union[str, datetime] = '-'
-        current_treatment_exp_date: Union[str, datetime] = '-'
-        first_treatment_exp_date: Union[str, datetime] = '-'
+        current_treatment_date: Union[str, datetime] = EMPTY
+        current_treatment_exp_date: Union[str, datetime] = EMPTY
+        first_treatment_exp_date: Union[str, datetime] = EMPTY
         if historic_state and 'date' in cast(HistoricType, historic_state)[-1]:
             current_treatment_date = datetime.strptime(
                 str(cast(HistoricType, historic_state)[-1]['date']),
@@ -417,8 +420,8 @@ class ITReport():
             first_treatment_date_format = '%Y-%m-%d'
         if len(finding_historic_treatment) > 1:
             first_treatment_exp_date = \
-                finding_historic_treatment[1].get('date', '-')
-            if first_treatment_exp_date != '-':
+                finding_historic_treatment[1].get('date', EMPTY)
+            if first_treatment_exp_date != EMPTY:
                 first_treatment_exp_date = datetime.strptime(
                     str(first_treatment_exp_date),
                     '%Y-%m-%d %H:%M:%S'
@@ -428,9 +431,9 @@ class ITReport():
             'treatment': format_treatment(str(vuln.get('treatment', 'NEW'))),
             'treatment_date': current_treatment_date,
             'treatment_justification': str(
-                vuln.get('treatment_justification', '-')),
+                vuln.get('treatment_justification', EMPTY)),
             'treatment_exp_date': current_treatment_exp_date,
-            'treatment_manager': str(vuln.get('treatment_manager', '-')),
+            'treatment_manager': str(vuln.get('treatment_manager', EMPTY)),
         }
         first_treatment_data: Dict[str, Union[str, int, datetime]] = {
             'first_treatment': str(format_treatment(
@@ -438,10 +441,10 @@ class ITReport():
             'first_treatment_date': datetime.strptime(
                 str(finding.get('releaseDate')), first_treatment_date_format),
             'first_treatment_justification': str(
-                first_treatment_state.get('justification', '-')),
+                first_treatment_state.get('justification', EMPTY)),
             'first_treatment_exp_date': first_treatment_exp_date,
             'first_treatment_manager': str(
-                first_treatment_state.get('user', '-')),
+                first_treatment_state.get('user', EMPTY)),
         }
 
         for key, value in current_treatment_data.items():
@@ -470,7 +473,7 @@ class ITReport():
         reattack_date = None
         reattack_requester = None
         n_requested_reattacks = None
-        remediation_effectiveness = '-'
+        remediation_effectiveness = EMPTY
         if historic_verification:
             reattack_requested = \
                 historic_verification[-1]['status'] == 'REQUESTED'
@@ -496,11 +499,11 @@ class ITReport():
         )
         self.set_cell(
             self.vulnerability['last_reattack_date'],
-            reattack_date or '-'
+            reattack_date or EMPTY
         )
         self.set_cell(
             self.vulnerability['last_reattack_requester'],
-            reattack_requester or '-'
+            reattack_requester or EMPTY
         )
         self.set_cell(
             self.vulnerability['remediation_effectiveness'],
