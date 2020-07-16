@@ -255,7 +255,7 @@ async def resolve_me(
 
 @convert_kwargs_to_snake_case  # type: ignore
 async def resolve_me_mutation(
-        obj,
+        obj: Any,
         info: GraphQLResolveInfo,
         **parameters: Dict[str, str]) -> Any:
     """Wrap me mutations."""

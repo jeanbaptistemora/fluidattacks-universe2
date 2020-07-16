@@ -1,6 +1,7 @@
 # Standard library
 from typing import (
     Dict,
+    Any
 )
 
 # Third party libraries
@@ -20,7 +21,7 @@ from backend.utils import (
 @apm.trace()
 @convert_kwargs_to_snake_case
 async def resolve(
-    *_,
+    *_: Any,
     document_name: str,
     document_type: str,
     entity: str,
