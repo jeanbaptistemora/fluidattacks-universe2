@@ -1,7 +1,7 @@
 :slug: rules/341/
 :category: authorization
 :description: This requirement establishes the importance of using the principle of deny by default when creating new users/roles or when adding new features.
-:keywords: Principle, Deny, Default, Permission, ASVS, CWE
+:keywords: Principle, Deny, Default, Permission, ASVS, CWE, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R341. Use the principle of deny by default
@@ -42,3 +42,8 @@ V10.2 Malicious Code Search.(10.2.2)]
 Verify that the application does not ask for unnecessary or excessive
 permissions to privacy related features or sensors, such as contacts, cameras,
 microphones, or location.
+
+. [[r5]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V14.2 Dependency.(14.2.6)]
+Verify that the attack surface is reduced by sandboxing or encapsulating third
+party libraries to expose only the required behavior into the application.

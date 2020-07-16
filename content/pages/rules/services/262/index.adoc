@@ -120,4 +120,9 @@ V14.2 Dependency.(14.2.1)]
 Verify that all components are up to date, preferably using a dependency
 checker during build or compile time.
 
-. [[r9]] link:https://www.owasp.org/index.php/Top_10_2013-A9-Using_Components_with_Known_Vulnerabilities[Top 10 2013-A9-Using Components with Known Vulnerabilities].
+. [[r9]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V14.2 Dependency.(14.2.4)]
+Verify that third party components come from pre-defined, trusted and
+continually maintained repositories.
+
+. [[r10]] link:https://www.owasp.org/index.php/Top_10_2013-A9-Using_Components_with_Known_Vulnerabilities[Top 10 2013-A9-Using Components with Known Vulnerabilities].

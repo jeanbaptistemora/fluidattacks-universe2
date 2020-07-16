@@ -36,7 +36,7 @@ The software imports, requires, or includes executable functionality
 sphere.
 
 . [[r2]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
-V14.1 Build.(14.1.2)]
+V14.1 Build.(14.1.4)]
 Verify that the application, configuration, and all dependencies can be
 re-deployed using automated deployment scripts,
 built from a documented and tested runbook in a reasonable time,
@@ -46,3 +46,8 @@ or restored from backups in a timely fashion.
 V14.2 Dependency.(14.2.1)]
 Verify that all components are up to date, preferably using a dependency
 checker during build or compile time.
+
+. [[r4]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V14.2 Dependency.(14.2.5)]
+Verify that an inventory catalog is maintained of all third party libraries in
+use.
