@@ -1,0 +1,25 @@
+{
+  "fi_subscriptions": [
+    {
+      "PutRequest": {
+        "Item": {
+          "sk": {
+            "S": "meta:656e746974795f7265706f7274/entity:47524f5550/subject:756e697474657374696e67"
+          },
+          "period": {
+            "N": "3600"
+          },
+          "pk": {
+            "S": "meta:75736572/email:696e74656772617465736d616e6167657240676d61696c2e636f6d"
+          },
+          "sk_meta": {
+            "S": "entity_report"
+          },
+          "pk_meta": {
+            "S": "user"
+          }
+        }
+      }
+    }
+  ]
+}

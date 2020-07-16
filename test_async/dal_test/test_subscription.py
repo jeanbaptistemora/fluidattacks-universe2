@@ -37,6 +37,20 @@ async def test_update():
         audience='user',
     ) == [
         {
+            'period': Decimal('3600'),
+            'pk': {
+                'email': 'integratesmanager@gmail.com',
+                'meta': 'user',
+            },
+            'pk_meta': 'user',
+            'sk': {
+                'entity': 'GROUP',
+                'meta': 'entity_report',
+                'subject': 'unittesting',
+            },
+            'sk_meta': 'entity_report',
+        },
+        {
             'period': Decimal('86400'),
             'pk': {'email': 'test_user_email', 'meta': 'user'},
             'pk_meta': 'user',
@@ -82,6 +96,22 @@ async def test_update():
             'entity': 'test_report_entity',
             'meta': 'entity_report',
             'subject': 'test_report_subject2',
+        },
+        'sk_meta': 'entity_report',
+    }]
+    assert await get_user_subscriptions(
+        user_email='integratesmanager@gmail.com',
+    ) == [{
+        'period': Decimal('3600'),
+        'pk': {
+            'email': 'integratesmanager@gmail.com',
+            'meta': 'user',
+        },
+        'pk_meta': 'user',
+        'sk': {
+            'entity': 'GROUP',
+            'meta': 'entity_report',
+            'subject': 'unittesting',
         },
         'sk_meta': 'entity_report',
     }]

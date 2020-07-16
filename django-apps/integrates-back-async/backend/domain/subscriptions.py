@@ -249,7 +249,7 @@ async def trigger_user_to_entity_report():
                         subject=report_subject,
                     ),
                     ext='png',
-                    ttl=event_period,
+                    ttl=float(event_period),
                 )
             except botocore.exceptions.ClientError:
                 await logging.log(
