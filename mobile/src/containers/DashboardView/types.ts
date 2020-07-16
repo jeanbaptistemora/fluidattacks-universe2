@@ -7,6 +7,10 @@ export interface IOrganization {
       closed: number;
       open: number;
     };
+    previous: {
+      closed: number;
+      open: number;
+    };
   };
   totalGroups: number;
 }

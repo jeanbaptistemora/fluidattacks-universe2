@@ -8,6 +8,7 @@ export const styles: Dictionary = StyleSheet.create({
     marginBottom: 15,
   },
   container: {
+    alignItems: "center",
     flex: 1,
     flexDirection: "column",
     paddingHorizontal: 10,
@@ -23,9 +24,10 @@ export const styles: Dictionary = StyleSheet.create({
   },
   remediatedText: {
     fontWeight: "bold",
+    marginTop: 20,
   },
   remediationContainer: {
     alignItems: "center",
-    marginTop: 20,
+    marginTop: 15,
   },
 });

@@ -14,7 +14,7 @@ import _ from "lodash";
 import React from "react";
 import { Trans, useTranslation } from "react-i18next";
 import { Alert, AppState, AppStateStatus, View } from "react-native";
-import { Headline, Text, Title, useTheme } from "react-native-paper";
+import { Headline, Subheading, Text, Title, useTheme } from "react-native-paper";
 import { SvgCss } from "react-native-svg";
 import { useHistory } from "react-router-native";
 
@@ -30,6 +30,48 @@ import { Header } from "./Header";
 import { ORGS_QUERY } from "./queries";
 import { styles } from "./styles";
 import { IOrganization, IOrgsResult } from "./types";
+
+const hasAnalytics: ((organization: IOrganization) => boolean) = (
+  organization: IOrganization,
+): boolean => !_.isNil(organization.analytics);
+
+/** Indicators data structure */
+interface IIndicators {
+  closed: number;
+  percentage: number;
+  total: number;
+}
+
+type CalcIndicatorsFn = ((
+  orgs: IOrganization[],
+  kind: keyof IOrganization["analytics"],
+) => IIndicators);
+
+const calcIndicators: CalcIndicatorsFn = (
+  orgs: IOrganization[],
+  kind: keyof IOrganization["analytics"],
+): IIndicators => {
+  const closedVulns: number = orgs.reduce(
+    (previousValue: number, organization: IOrganization): number =>
+      previousValue
+      + organization.analytics[kind].closed,
+    0);
+
+  const totalVulns: number = orgs.reduce(
+    (previousValue: number, organization: IOrganization): number =>
+      previousValue
+      + organization.analytics[kind].open
+      + organization.analytics[kind].closed,
+    0);
+
+  const remediationPercentage: number = (closedVulns / totalVulns * 100);
+
+  return {
+    closed: closedVulns,
+    percentage: isNaN(remediationPercentage) ? 0 : remediationPercentage,
+    total: totalVulns,
+  };
+};
 
 const dashboardView: React.FunctionComponent = (): JSX.Element => {
   const history: ReturnType<typeof useHistory> = useHistory();
@@ -98,34 +140,20 @@ const dashboardView: React.FunctionComponent = (): JSX.Element => {
   };
   React.useEffect(onMount, []);
 
-  const hasAnalytics: ((organization: IOrganization) => boolean) = (
-    organization: IOrganization,
-  ): boolean => !_.isNil(organization.analytics);
-
-  const orgs: IOrganization[] = _.isNil(data) || _.isEmpty(data)
+  const orgs: IOrganization[] = _.isUndefined(data) || _.isEmpty(data)
     ? []
     : data.me.organizations.filter(hasAnalytics);
 
-  const closedVulns: number = orgs.reduce(
-    (previousValue: number, organization: IOrganization): number =>
-      previousValue
-      + organization.analytics.current.closed,
-    0);
-
-  const totalVulns: number = orgs.reduce(
-    (previousValue: number, organization: IOrganization): number =>
-      previousValue
-      + organization.analytics.current.open
-      + organization.analytics.current.closed,
-    0);
+  const current: IIndicators = calcIndicators(orgs, "current");
+  const previous: IIndicators = calcIndicators(orgs, "previous");
+  const percentageDiff: number =
+    parseFloat((current.percentage - previous.percentage).toFixed(1));
 
   const totalGroups: number = orgs.reduce(
     (previousValue: number, organization: IOrganization): number =>
       previousValue
       + organization.totalGroups,
     0);
-
-  const remediatedPercentage: number = (closedVulns / totalVulns * 100);
 
   // Event handlers
   const handleLogout: (() => void) = async (): Promise<void> => {
@@ -146,20 +174,22 @@ const dashboardView: React.FunctionComponent = (): JSX.Element => {
         <View style={styles.percentageContainer}>
           <SvgCss xml={Border} width={220} height={220} />
           <Text style={styles.percentageText}>
-            {isNaN(remediatedPercentage)
-              ? 0
-              : parseFloat(remediatedPercentage.toFixed(1))}%
+            {parseFloat(current.percentage.toFixed(1))}%
           </Text>
         </View>
         <View style={styles.remediationContainer}>
+          <Title>
+            {percentageDiff > 0 ? "+" : undefined}{percentageDiff}%
+          </Title>
+          <Text>{t("dashboard.diff")}</Text>
           <Headline style={styles.remediatedText}>
             {t("dashboard.remediated")}
           </Headline>
-          <Text>
+          <Subheading>
             <Trans i18nKey="dashboard.vulnsFound" count={totalGroups}>
-              <Title>{{ totalVulns: totalVulns.toLocaleString() }}</Title>
+              <Title>{{ totalVulns: current.total.toLocaleString() }}</Title>
             </Trans>
-          </Text>
+          </Subheading>
         </View>
         <Preloader
           visible={[

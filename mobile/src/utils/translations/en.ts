@@ -19,6 +19,7 @@ export const enTranslations: ResourceLanguage = {
     slogan: "We hack your software",
   },
   dashboard: {
+    diff: "Compared to last week",
     greetingText: "Welcome",
     remediated: "Remediated vulnerabilities",
     vulnsFound: "of <0>{{totalVulns}}</0> found in <0>{{count}}</0> system",

@@ -56,6 +56,10 @@ describe("DashboardView", (): void => {
                     closed: 7,
                     open: 5,
                   },
+                  previous: {
+                    closed: 0,
+                    open: 0,
+                  },
                 },
                 totalGroups: 1,
               },
@@ -172,6 +176,10 @@ describe("DashboardView", (): void => {
                     closed: 7,
                     open: 5,
                   },
+                  previous: {
+                    closed: 0,
+                    open: 0,
+                  },
                 },
                 totalGroups: 1,
               },
@@ -251,6 +259,10 @@ describe("DashboardView", (): void => {
                     closed: 7,
                     open: 5,
                   },
+                  previous: {
+                    closed: 0,
+                    open: 0,
+                  },
                 },
                 totalGroups: 1,
               },
@@ -274,6 +286,10 @@ describe("DashboardView", (): void => {
                     closed: 12,
                     open: 0,
                   },
+                  previous: {
+                    closed: 0,
+                    open: 0,
+                  },
                 },
                 totalGroups: 1,
               },
@@ -281,6 +297,10 @@ describe("DashboardView", (): void => {
                 analytics: {
                   current: {
                     closed: 8,
+                    open: 0,
+                  },
+                  previous: {
+                    closed: 0,
                     open: 0,
                   },
                 },
