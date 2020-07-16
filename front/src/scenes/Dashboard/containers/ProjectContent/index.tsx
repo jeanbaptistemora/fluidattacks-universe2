@@ -30,9 +30,9 @@ const projectContent: React.FC<IProjectContentProps> = (props: IProjectContentPr
                 <ul className={globalStyle.tabsContainer}>
                   <ContentTab
                     icon="icon pe-7s-graph3"
-                    id="chartsTab"
-                    link={`${props.match.url}/charts`}
-                    title={translate.t("group.tabs.charts.text")}
+                    id="analyticsTab"
+                    link={`${props.match.url}/analytics`}
+                    title={translate.t("group.tabs.analytics.text")}
                     tooltip={translate.t("group.tabs.indicators.tooltip")}
                   />
                   <ContentTab
@@ -105,7 +105,7 @@ const projectContent: React.FC<IProjectContentProps> = (props: IProjectContentPr
               <div className={globalStyle.tabContent}>
                 <Switch>
                   <Route path={`${props.match.path}/authors`} component={ProjectAuthorsView} exact={true} />
-                  <Route path={`${props.match.path}/charts`} component={ChartsForGroupView} exact={true} />
+                  <Route path={`${props.match.path}/analytics`} component={ChartsForGroupView} exact={true} />
                   <Route path={`${props.match.path}/findings`} component={ProjectFindingsView} exact={true} />
                   <Route path={`${props.match.path}/drafts`} component={ProjectDraftsView} exact={true} />
                   <Route path={`${props.match.path}/forces`} component={ProjectForcesView} exact={true} />
@@ -115,7 +115,7 @@ const projectContent: React.FC<IProjectContentProps> = (props: IProjectContentPr
                   <Route path={`${props.match.path}/comments`} component={ProjectCommentsView} exact={true} />
                   {/* Necessary to support old resources URLs */}
                   <Redirect path={`${props.match.path}/resources`} to={`${props.match.path}/settings`} />
-                  <Redirect to={`${props.match.path}/charts`} />
+                  <Redirect to={`${props.match.path}/analytics`} />
                 </Switch>
               </div>
             </React.Fragment>

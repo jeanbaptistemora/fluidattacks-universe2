@@ -80,10 +80,10 @@ const organizationContent: React.FC<IOrganizationContent> = (props: IOrganizatio
               <ul className={globalStyle.tabsContainer}>
                 <ContentTab
                   icon="icon pe-7s-graph3"
-                  id="chartsTab"
-                  link={`${url}/charts`}
-                  title={translate.t("organization.tabs.charts.text")}
-                  tooltip={translate.t("organization.tabs.charts.tooltip")}
+                  id="analyticsTab"
+                  link={`${url}/analytics`}
+                  title={translate.t("organization.tabs.analytics.text")}
+                  tooltip={translate.t("organization.tabs.analytics.tooltip")}
                 />
                 <ContentTab
                   icon="icon pe-7s-box1"
@@ -103,7 +103,7 @@ const organizationContent: React.FC<IOrganizationContent> = (props: IOrganizatio
             </div>
             <div className={globalStyle.tabContent}>
               <Switch>
-                <Route path={`${path}/charts`} exact={true}>
+                <Route path={`${path}/analytics`} exact={true}>
                   <ChartsForOrganizationView organizationId={basicData.organizationId.id} />
                 </Route>
                 <Route path={`${path}/policies`} exact={true}>
@@ -112,7 +112,7 @@ const organizationContent: React.FC<IOrganizationContent> = (props: IOrganizatio
                 <Route path={`${path}/users`} exact={true}>
                   <OrganizationUsers organizationId={basicData.organizationId.id} />
                 </Route>
-                <Redirect to={`${path}/charts`} />
+                <Redirect to={`${path}/analytics`} />
               </Switch>
             </div>
           </Col>

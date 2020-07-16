@@ -447,13 +447,13 @@ export const enTranslations: ResourceKey = {
       table_advice: "Click on an execution to see more details",
     },
     tabs: {
+      analytics: {
+        text: "Analytics",
+        tooltip: "Group status at a glance",
+      },
       authors: {
         text: "Authors",
         tooltip: "People that have contributed to your group",
-      },
-      charts: {
-        text: "Charts",
-        tooltip: "Group status at a glance",
       },
       comments: {
         text: "Comments",
@@ -635,8 +635,8 @@ export const enTranslations: ResourceKey = {
   },
   organization: {
     tabs: {
-      charts: {
-        text: "Charts",
+      analytics: {
+        text: "Analytics",
         tooltip: "Organization status at a glance",
       },
       policies: {

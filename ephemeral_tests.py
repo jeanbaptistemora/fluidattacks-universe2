@@ -149,14 +149,14 @@ class ViewTestCase(unittest.TestCase):
         assert 'My Portfolios' in selenium.page_source
         assert 'Integrates unit test project' in selenium.page_source
 
-    def test_03_charts(self):
+    def test_03_analytics(self):
         selenium = self.__login()
         self.__access_project_by_description('Integrates unit test project')
         WebDriverWait(selenium, self.delay).until(
             expected.presence_of_element_located(
                (By.XPATH,
                 "//*[contains(text(), 'Vulnerabilities over time')]")))
-        selenium.save_screenshot(SCR_PATH + '03-01-charts.png')
+        selenium.save_screenshot(SCR_PATH + '03-01-analytics.png')
         assert 'Vulnerabilities over time' in selenium.page_source
 
     def test_04_findings(self):

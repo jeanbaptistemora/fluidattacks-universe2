@@ -263,7 +263,7 @@ async def trigger_user_to_entity_report():
             else:
                 # We should trigger the event!!
                 coroutines.append(
-                    mailer.send_mail_charts(
+                    mailer.send_mail_analytics(
                         user_email,
                         frequency_title=event_frequency.title(),
                         frequency_lower=event_frequency.lower(),

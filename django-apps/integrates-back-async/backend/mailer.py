@@ -267,8 +267,8 @@ def send_mail_new_draft(
     _send_mail('new-draft', email_to, context=context, tags=GENERAL_TAG)
 
 
-async def send_mail_charts(*email_to: str, **context: str) -> None:
-    await log(f'send_mail_charts(email_to={email_to}, context={context})',
+async def send_mail_analytics(*email_to: str, **context: str) -> None:
+    await log(f'send_mail_analytics(email_to={email_to}, context={context})',
               level='info')
 
     await aio.ensure_io_bound(
