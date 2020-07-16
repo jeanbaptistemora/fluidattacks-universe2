@@ -127,7 +127,7 @@ check_interval = 20
 
 [[runners]]
   name = "autoscaling-analytics"
-  limit = 10
+  limit = 100
   url = "https://gitlab.com/"
   token = "__autoscaling_token_3__"
   executor = "docker+machine"
