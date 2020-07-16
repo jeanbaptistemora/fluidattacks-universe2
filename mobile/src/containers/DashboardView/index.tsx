@@ -1,5 +1,6 @@
 import { useQuery } from "@apollo/react-hooks";
 import { wait } from "@apollo/react-testing";
+import { MaterialIcons } from "@expo/vector-icons";
 import { ApolloError, NetworkStatus } from "apollo-client";
 import { GraphQLError } from "graphql";
 /* tslint:disable: no-import-side-effect no-submodule-imports
@@ -163,6 +164,9 @@ const dashboardView: React.FunctionComponent = (): JSX.Element => {
     history.replace("/Login");
   };
 
+  const positiveColor: string = "#0F9D58";
+  const negativeColor: string = "#DB4437";
+
   return (
     <React.StrictMode>
       <Header
@@ -178,9 +182,30 @@ const dashboardView: React.FunctionComponent = (): JSX.Element => {
           </Text>
         </View>
         <View style={styles.remediationContainer}>
-          <Title>
-            {percentageDiff > 0 ? "+" : undefined}{percentageDiff}%
-          </Title>
+          <View style={{ alignItems: "center", flexDirection: "row" }}>
+            {percentageDiff >= 0
+              ? (
+                <MaterialIcons
+                  name="arrow-upward"
+                  size={24}
+                  color={positiveColor}
+                />
+              )
+              : (
+                <MaterialIcons
+                  name="arrow-downward"
+                  size={24}
+                  color={negativeColor}
+                />
+              )}
+            <Title
+              style={{
+                color: percentageDiff >= 0 ? positiveColor : negativeColor,
+              }}
+            >
+              {percentageDiff > 0 ? "+" : undefined}{percentageDiff}%
+            </Title>
+          </View>
           <Text>{t("dashboard.diff")}</Text>
           <Headline style={styles.remediatedText}>
             {t("dashboard.remediated")}

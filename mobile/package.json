@@ -41,7 +41,7 @@
     "lodash": "4.17.19",
     "react": "16.11.0",
     "react-i18next": "11.7.0",
-    "react-native": "https://github.com/expo/react-native/archive/sdk-38.0.0.tar.gz",
+    "react-native": "https://github.com/expo/react-native/archive/sdk-38.0.2.tar.gz",
     "react-native-paper": "4.0.0",
     "react-native-svg": "12.1.0",
     "react-router-native": "5.2.0",

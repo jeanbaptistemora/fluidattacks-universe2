@@ -260,8 +260,8 @@ describe("DashboardView", (): void => {
                     open: 5,
                   },
                   previous: {
-                    closed: 0,
-                    open: 0,
+                    closed: 8,
+                    open: 4,
                   },
                 },
                 totalGroups: 1,
@@ -287,8 +287,8 @@ describe("DashboardView", (): void => {
                     open: 0,
                   },
                   previous: {
-                    closed: 0,
-                    open: 0,
+                    closed: 8,
+                    open: 4,
                   },
                 },
                 totalGroups: 1,
@@ -300,8 +300,8 @@ describe("DashboardView", (): void => {
                     open: 0,
                   },
                   previous: {
-                    closed: 0,
-                    open: 0,
+                    closed: 5,
+                    open: 3,
                   },
                 },
                 totalGroups: 1,
@@ -340,6 +340,8 @@ describe("DashboardView", (): void => {
     expect(wrapper.text())
       .toContain("58.3%");
     expect(wrapper.text())
+      .toContain("-8.3%Compared to last week");
+    expect(wrapper.text())
       .toContain("of 12 found in 1 system");
 
     await stateListener("background");
@@ -348,6 +350,8 @@ describe("DashboardView", (): void => {
 
     expect(wrapper.text())
       .toContain("100%");
+    expect(wrapper.text())
+      .toContain("+35%Compared to last week");
     expect(wrapper.text())
       .toContain("of 20 found in 2 systems");
 
