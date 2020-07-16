@@ -1,36 +1,6 @@
 :slug: resources/
 :description: Here are Fluid Attacks' Resources. These are documents like annual reports, ebooks, webinars, and other content that can help you learn about cybersecurity.
 :keywords: Fluid Attacks, Resources, Documentation, Security, Information, Annual Reports, Rules, Asserts, Pentesting, Ethical Hacking
+:template: resources/resources
 
 = Resources
-
-== link:../products/rules/[Rules]
-
-*Rules* is a set of security requirements
-that allows you to parameterize a pentest
-according to your organization's risk appetite.
-
-== link:../asserts/[Asserts]
-
-*Asserts* is an open-source tool
-that looks for deterministic and peripheral vulnerabilities,
-and that automates attacks
-to verify the status of vulnerabilities on your system.
-
-== link:https://fluidattacks.docsend.com/view/dwz4jbxryn54k4mc[Drills Datasheet]
-
-== link:https://fluidattacks.docsend.com/view/utsh7u7hdef453fw[Forces Datasheet]
-
-== link:https://fluidattacks.docsend.com/view/ymup7742z3wkkzex[Integrates Datasheet]
-
-== link:https://report2020.fluidattacks.com/[Annual Report 2020]
-
-== eBook: link:https://usa.fluidattacks.com/ebook/[Don't Crash Going Too Fast (2020)]
-
-== link:https://www.youtube.com/watch?v=tGNbQelMrFA[How to Develop Products With Speed Without Sacrificing Security?] (Spanish)
-
-== link:https://www.youtube.com/watch?v=zUJ_kU79j7E[When Is a Security Test Successful?] (Spanish)
-
-== link:https://www.youtube.com/watch?v=N6nVIOsnaOA&t=10s[Stop the Launch! Security for Users or Time-To-Market?] (Spanish)
-
-== link:https://www.youtube.com/watch?v=VWwqhA2LFHg&t=366s[What Data Tells Us About Continuous Hacking?]
