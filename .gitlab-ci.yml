@@ -11,6 +11,7 @@ stages:
   - analytics
   - subscriptions
   - external
+  - scheduler
 
 .commit_stages:
   - &integrates_commit_pattern '$CI_COMMIT_TITLE =~ /^integrates/ || $CI_COMMIT_TITLE =~ /^all/'
@@ -152,6 +153,50 @@ subscriptions_trigger_user_to_entity_report_prod_schedule:
   only:
     refs: [schedules]
     variables: [$subscriptions]
+
+.scheduler_prod_template: &scheduler_prod_template
+  <<: *with_nix
+  stage: scheduler
+  image: "${CI_REGISTRY_IMAGE}/nix:scheduler_prod"
+  tags: [autoscaling]
+  script:
+    - ./build.sh scheduler_prod "${CI_JOB_NAME/scheduler_/}"
+
+scheduler_delete_pending_projects:
+  <<: *scheduler_prod_template
+  only:
+    refs: [schedules]
+    variables: [$scheduler_delete_pending_projects]
+
+scheduler_reset_expired_accepted_findings:
+  <<: *scheduler_prod_template
+  only:
+    refs: [schedules]
+    variables: [$scheduler_reset_expired_accepted_findings]
+
+scheduler_update_indicators:
+  <<: *scheduler_prod_template
+  only:
+    refs: [schedules]
+    variables: [$scheduler_update_indicators]
+
+scheduler_get_new_releases:
+  <<: *scheduler_prod_template
+  only:
+    refs: [schedules]
+    variables: [$scheduler_get_new_releases]
+
+scheduler_get_remediated_findings:
+  <<: *scheduler_prod_template
+  only:
+    refs: [schedules]
+    variables: [$scheduler_get_remediated_findings]
+
+scheduler_get_new_vulnerabilities:
+  <<: *scheduler_prod_template
+  only:
+    refs: [schedules]
+    variables: [$scheduler_get_new_vulnerabilities]
 
 build_front:
   <<: *with_nix

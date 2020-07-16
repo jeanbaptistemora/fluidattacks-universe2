@@ -736,8 +736,7 @@ function job_subscriptions_trigger_user_to_entity_report_dev {
 }
 
 function job_subscriptions_trigger_user_to_entity_report_prod_schedule {
-      env_prepare_python_packages \
-  &&  helper_set_prod_secrets \
+      helper_bootstrap_prod_ci \
   &&  _job_subscriptions_trigger_user_to_entity_report \
 
 }
@@ -749,25 +748,10 @@ function job_scheduler_dev {
 
 }
 
-function helper_bootstrap_dev_ci {
-  env_prepare_python_packages \
-  &&  helper_set_dev_secrets \
-  &&  if test "${IS_LOCAL_BUILD}" = "${FALSE}"
-      then
-        helper_set_local_dynamo_and_redis
-      fi \
-
-}
-
-function helper_invoke_py {
-  local module="${1}"
-  export DJANGO_SETTINGS_MODULE='fluidintegrates.settings'
-  export PYTHONPATH="${PWD}:${PWD}/analytics:${PYTHONPATH}"
-
-      echo "[INFO] Waking up: ${module}" \
-  &&  python3 \
-        'django-apps/integrates-back-async/cli/invoker.py' \
-        "${module}" \
+function job_scheduler_prod {
+  local module="backend.scheduler.${1}"
+      helper_bootstrap_prod_ci \
+  &&  helper_invoke_py "${module}" \
 
 }
 
