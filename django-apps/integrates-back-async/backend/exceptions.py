@@ -547,3 +547,12 @@ class InvalidResource(Exception):
         """ Constructor """
         msg = 'Exception - Resource does not exist'
         super(InvalidResource, self).__init__(msg)
+
+
+class DocumentNotFound(Exception):
+    """Exception to control analytics data availability"""
+
+    def __init__(self) -> None:
+        """ Constructor """
+        msg = 'Exception - Document not found'
+        super(DocumentNotFound, self).__init__(msg)

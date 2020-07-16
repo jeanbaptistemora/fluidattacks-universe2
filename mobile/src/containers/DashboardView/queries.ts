@@ -10,3 +10,15 @@ export const GROUPS_QUERY: DocumentNode = gql`{
     }
   }
 }`;
+
+export const ORGS_QUERY: DocumentNode = gql`{
+  me {
+    organizations {
+      analytics(
+        documentName: "remediation"
+        documentType: "singleValueIndicator"
+      )
+      totalGroups
+    }
+  }
+}`;

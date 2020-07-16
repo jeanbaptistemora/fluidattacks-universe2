@@ -12,7 +12,7 @@ import { MemoryRouter } from "react-router-native";
 import { i18next } from "../../utils/translations/translate";
 
 import { DashboardView } from "./index";
-import { GROUPS_QUERY } from "./queries";
+import { ORGS_QUERY } from "./queries";
 
 const mockHistoryReplace: jest.Mock = jest.fn();
 
@@ -44,16 +44,20 @@ describe("DashboardView", (): void => {
 
     const projectMock: Readonly<MockedResponse> = {
       request: {
-        query: GROUPS_QUERY,
+        query: ORGS_QUERY,
       },
       result: {
         data: {
           me: {
-            groups: [
+            organizations: [
               {
-                closedVulnerabilities: 7,
-                openVulnerabilities: 5,
-                serviceAttributes: ["has_integrates"],
+                analytics: {
+                  current: {
+                    closed: 7,
+                    open: 5,
+                  },
+                },
+                totalGroups: 1,
               },
             ],
           },
@@ -86,12 +90,12 @@ describe("DashboardView", (): void => {
 
     const emptyMock: Readonly<MockedResponse> = {
       request: {
-        query: GROUPS_QUERY,
+        query: ORGS_QUERY,
       },
       result: {
         data: {
           me: {
-            groups: [],
+            organizations: [],
           },
         },
       },
@@ -123,7 +127,7 @@ describe("DashboardView", (): void => {
 
     const errorMock: Readonly<MockedResponse> = {
       request: {
-        query: GROUPS_QUERY,
+        query: ORGS_QUERY,
       },
       result: {
         errors: [
@@ -151,40 +155,36 @@ describe("DashboardView", (): void => {
       .toHaveBeenCalled();
   });
 
-  it("should ignore projects without service", async (): Promise<void> => {
+  it("should exclude orgs without analytics", async (): Promise<void> => {
     jest.mock("react-native/Libraries/Alert/Alert");
 
     const errorMock: Readonly<MockedResponse> = {
       request: {
-        query: GROUPS_QUERY,
+        query: ORGS_QUERY,
       },
       result: {
         data: {
           me: {
-            groups: [
+            organizations: [
               {
-                closedVulnerabilities: 7,
-                openVulnerabilities: 5,
-                serviceAttributes: ["has_integrates"],
+                analytics: {
+                  current: {
+                    closed: 7,
+                    open: 5,
+                  },
+                },
+                totalGroups: 1,
               },
               {
                 // tslint:disable-next-line: no-null-keyword
-                closedVulnerabilities: null,
-                // tslint:disable-next-line: no-null-keyword
-                openVulnerabilities: null,
-                serviceAttributes: [],
-              },
-              {
-                closedVulnerabilities: 0,
-                openVulnerabilities: 0,
-                // tslint:disable-next-line: no-null-keyword
-                serviceAttributes: null,
+                analytics: null,
+                totalGroups: 1,
               },
             ],
           },
         },
         errors: [
-          new GraphQLError("Access denied"),
+          new GraphQLError("Exception - Document not found"),
         ],
       },
     };
@@ -239,16 +239,20 @@ describe("DashboardView", (): void => {
 
     const projectMock: Readonly<MockedResponse> = {
       request: {
-        query: GROUPS_QUERY,
+        query: ORGS_QUERY,
       },
       result: {
         data: {
           me: {
-            groups: [
+            organizations: [
               {
-                closedVulnerabilities: 7,
-                openVulnerabilities: 5,
-                serviceAttributes: ["has_integrates"],
+                analytics: {
+                  current: {
+                    closed: 7,
+                    open: 5,
+                  },
+                },
+                totalGroups: 1,
               },
             ],
           },
@@ -258,21 +262,29 @@ describe("DashboardView", (): void => {
 
     const newProjectMock: Readonly<MockedResponse> = {
       request: {
-        query: GROUPS_QUERY,
+        query: ORGS_QUERY,
       },
       result: {
         data: {
           me: {
-            groups: [
+            organizations: [
               {
-                closedVulnerabilities: 12,
-                openVulnerabilities: 0,
-                serviceAttributes: ["has_integrates"],
+                analytics: {
+                  current: {
+                    closed: 12,
+                    open: 0,
+                  },
+                },
+                totalGroups: 1,
               },
               {
-                closedVulnerabilities: 8,
-                openVulnerabilities: 0,
-                serviceAttributes: ["has_integrates"],
+                analytics: {
+                  current: {
+                    closed: 8,
+                    open: 0,
+                  },
+                },
+                totalGroups: 1,
               },
             ],
           },

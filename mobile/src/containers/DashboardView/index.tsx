@@ -27,9 +27,9 @@ import { rollbar } from "../../utils/rollbar";
 import { IAuthState, logout } from "../../utils/socialAuth";
 
 import { Header } from "./Header";
-import { GROUPS_QUERY } from "./queries";
+import { ORGS_QUERY } from "./queries";
 import { styles } from "./styles";
-import { IGroup, IGroupsResult } from "./types";
+import { IOrganization, IOrgsResult } from "./types";
 
 const dashboardView: React.FunctionComponent = (): JSX.Element => {
   const history: ReturnType<typeof useHistory> = useHistory();
@@ -38,18 +38,20 @@ const dashboardView: React.FunctionComponent = (): JSX.Element => {
   const { t } = useTranslation();
 
   // GraphQL operations
-  const { client, data, networkStatus, refetch } = useQuery<IGroupsResult>(
-    GROUPS_QUERY, {
+  const { client, data, networkStatus, refetch } = useQuery<IOrgsResult>(
+    ORGS_QUERY, {
     errorPolicy: "all",
     notifyOnNetworkStatusChange: true,
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
         switch (error.message) {
           case "Access denied":
-            // Ignore groups without integrates service
+          // Ignore groups without integrates service
+          case "Exception - Document not found":
+            // Ignore orgs without analytics
             break;
           default:
-            rollbar.error("An error occurred loading groups", error);
+            rollbar.error("An error occurred loading dashboard data", error);
             Alert.alert(t("common.error.title"), t("common.error.msg"));
         }
       });
@@ -98,33 +100,31 @@ const dashboardView: React.FunctionComponent = (): JSX.Element => {
   };
   React.useEffect(onMount, []);
 
-  const hasIntegrates: ((group: IGroup) => boolean) =
-    (group: IGroup): boolean =>
-      !_.isNil(group.serviceAttributes)
-      && group.serviceAttributes.includes("has_integrates");
+  const hasAnalytics: ((organization: IOrganization) => boolean) = (
+    organization: IOrganization,
+  ): boolean => !_.isNil(organization.analytics);
 
-  const groups: IGroup[] = _.isUndefined(data) || _.isEmpty(data)
+  const orgs: IOrganization[] = _.isNil(data) || _.isEmpty(data)
     ? []
-    : data.me.groups.filter(hasIntegrates);
+    : data.me.organizations.filter(hasAnalytics);
 
-  const onGroupsLoad: (() => void) = (): void => {
-    if (groups.length === 0) {
-      rollbar.debug("Empty projects", { ...data });
-    }
-  };
-  React.useEffect(onGroupsLoad, [groups]);
-
-  const closedVulns: number = groups.reduce(
-    (previousValue: number, group: IGroup): number =>
+  const closedVulns: number = orgs.reduce(
+    (previousValue: number, organization: IOrganization): number =>
       previousValue
-      + group.closedVulnerabilities,
+      + organization.analytics.current.closed,
     0);
 
-  const totalVulns: number = groups.reduce(
-    (previousValue: number, group: IGroup): number =>
+  const totalVulns: number = orgs.reduce(
+    (previousValue: number, organization: IOrganization): number =>
       previousValue
-      + group.openVulnerabilities
-      + group.closedVulnerabilities,
+      + organization.analytics.current.open
+      + organization.analytics.current.closed,
+    0);
+
+  const totalGroups: number = orgs.reduce(
+    (previousValue: number, organization: IOrganization): number =>
+      previousValue
+      + organization.totalGroups,
     0);
 
   const remediatedPercentage: number = (closedVulns / totalVulns * 100);
@@ -158,7 +158,7 @@ const dashboardView: React.FunctionComponent = (): JSX.Element => {
             {t("dashboard.remediated")}
           </Headline>
           <Text accessibilityStates="">
-            <Trans i18nKey="dashboard.vulnsFound" count={groups.length}>
+            <Trans i18nKey="dashboard.vulnsFound" count={totalGroups}>
               <Title>{{ totalVulns: totalVulns.toLocaleString() }}</Title>
             </Trans>
           </Text>
