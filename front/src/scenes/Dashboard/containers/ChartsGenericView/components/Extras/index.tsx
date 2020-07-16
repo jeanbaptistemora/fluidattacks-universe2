@@ -14,6 +14,7 @@ import {
 } from "react-bootstrap";
 import { Button } from "../../../../../../components/Button";
 import { DropdownButton } from "../../../../../../components/DropdownButton";
+import { TooltipWrapper } from "../../../../../../components/TooltipWrapper";
 import { msgError, msgSuccess } from "../../../../../../utils/notifications";
 import rollbar from "../../../../../../utils/rollbar";
 import translate from "../../../../../../utils/translations/translate";
@@ -38,6 +39,11 @@ const frequencies: string[] = [
 const translateFrequency: (freq: string, kind: "action" | "statement") => string =
 (freq: string, kind: "action" | "statement"): string => (
   translate.t(`analytics.sections.extras.frequencies.${kind}.${freq}`)
+);
+
+const translateFrequencyArrivalTime: (freq: string) => string =
+(freq: string): string => (
+  translate.t(`analytics.sections.extras.frequenciesArrivalTime.${freq}`)
 );
 
 const chartsGenericViewExtras: React.FC<IChartsGenericViewProps> = (props: IChartsGenericViewProps): JSX.Element => {
@@ -129,7 +135,14 @@ const chartsGenericViewExtras: React.FC<IChartsGenericViewProps> = (props: IChar
                             eventKey={freq.toUpperCase()}
                             key={freq}
                           >
-                            {translateFrequency(freq, "action")}
+                            <TooltipWrapper
+                              message={translateFrequencyArrivalTime(freq)}
+                              placement="right"
+                            >
+                              <span>
+                                {translateFrequency(freq, "action")}
+                              </span>
+                            </TooltipWrapper>
                           </MenuItem>
                         ))}
                       </DropdownButton>

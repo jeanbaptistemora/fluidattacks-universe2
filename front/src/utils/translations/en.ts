@@ -109,6 +109,13 @@ export const enTranslations: ResourceKey = {
             weekly: "Subscribed weekly",
           },
         },
+        frequenciesArrivalTime: {
+          daily: "Every day at 6:00 AM (America/EST)",
+          hourly: "Every hour",
+          monthly: "First day of each month at 6:00 AM (America/EST)",
+          never: "You won't receive reports",
+          weekly: "Mondays at 6:00 AM (America/EST)",
+        },
       },
       forces: {
         title: "Forces",
