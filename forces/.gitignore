@@ -1,0 +1,9 @@
+# Sort order is:
+#  *
+#  .
+#  [a-zA-Z] (caseless)
+
+/**/*.egg-info
+/**/.coverage
+/poetry.lock
+/dist

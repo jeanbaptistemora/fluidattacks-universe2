@@ -58,7 +58,7 @@ stages:
       when: never
     - if: *integrates_commit_pattern
 
-.in_dev_and_master_branch_forces: &in_dev_and_master_branch_forces
+.forces_in_dev_and_master_branch: &forces_in_dev_and_master_branch
   rules:
     - if: '$CI_PIPELINE_SOURCE == "schedule"'
       when: never
@@ -533,11 +533,6 @@ lint_secrets:
   <<: *in_dev_and_master_branch_integrates
   stage: lint-code
 
-.lint_forces:
-  <<: *with_nix
-  <<: *in_dev_and_master_branch_forces
-  stage: lint-code
-
 renew_certificates:
   <<: *with_nix
   <<: *in_schedule_nightly_build_integrates
@@ -668,3 +663,8 @@ skims_test:
   <<: *with_nix
   <<: *skims_in_dev_and_master_branch
   stage: test-code
+
+.forces_lint:
+  <<: *with_nix
+  <<: *forces_in_dev_and_master_branch
+  stage: lint-code
