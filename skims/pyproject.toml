@@ -1,0 +1,28 @@
+[tool.poetry]
+authors = [
+  "Product Team <development@fluidattacks.com>"
+]
+description = "Deterministic vulnerability life-cycle reporting and closing tool"
+license = "MPL-2.0"
+name = "skims"
+packages = [
+  { include = "skims", from = "src" },
+]
+readme = "./README.md"
+repository = "https://gitlab.com/fluidattacks/integrates/-/tree/master/skims"
+version = "1.0.0"
+
+[tool.poetry.dependencies]
+aiogqlc = "1.0.5"
+more-itertools = "8.4.0"
+python = "^3.10"
+
+[tool.poetry.dev-dependencies]
+prospector = "1.2.0"
+mypy = "0.770"
+
+[build-system]
+requires = [
+  "poetry=1.0.9"
+]
+build-backend = "poetry.masonry.api"
