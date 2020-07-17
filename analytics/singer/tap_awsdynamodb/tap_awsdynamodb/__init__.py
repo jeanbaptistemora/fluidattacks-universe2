@@ -203,9 +203,14 @@ def write_queries(db_resource: DB_RSRC, table_name: str) -> None:
 
     # Table object
     table: Any = db_resource.Table(table_name)
+    response: JSON = dict()
+    try:
+        response = table.scan(Limit=1)
+        dump_to_file(response["Items"])
+    except (botocore.exceptions.ClientError,
+            botocore.exceptions.BotoCoreError) as exc:
+        log(f'[ERROR] An error ocurred in {table_name}: {exc}')
 
-    response: JSON = table.scan(Limit=1)
-    dump_to_file(response["Items"])
     while "LastEvaluatedKey" in response:
         try:
             response_aux = table.scan(

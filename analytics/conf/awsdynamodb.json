@@ -261,34 +261,6 @@
         "registered_users": "number"
       }
     },
-    "fi_events": {
-      "primary-keys": [
-        "event_id"
-      ],
-      "schema": {
-        "accessibility": "string",
-        "action_after_blocking": "string",
-        "action_before_blocking": "string",
-        "affectation": "number",
-        "affected_components": "string",
-        "analyst": "string",
-        "blocking_hours": "number",
-        "client": "string",
-        "client_project": "string",
-        "client_responsible": "string",
-        "closer": "string",
-        "context": "string",
-        "detail": "string",
-        "event_id": "string",
-        "event_type": "string",
-        "evidence": "string",
-        "evidence_file": "string",
-        "historic_state": "list<dict>",
-        "hours_before_blocking": "number",
-        "project_name": "string",
-        "subscription": "string"
-      }
-    },
     "fi_project_comments": {
       "primary-keys": [
         "project_name",
