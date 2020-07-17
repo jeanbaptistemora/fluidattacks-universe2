@@ -8,8 +8,40 @@ GLOBAL_PKGS=(
   src/apis
   src/cli
   src/core
+)
+
+GLOBAL_TEST_PKGS=(
   test/
 )
+
+function job_skims_deploy {
+  # Propagated from Gitlab env vars
+  export SKIMS_PYPI_TOKEN
+  local version
+
+  function restore_version {
+    sed --in-place 's|^version.*$|version = "1.0.0"|g' "skims/pyproject.toml"
+  }
+
+      helper_skims_install_dependencies \
+  &&  pushd skims/ \
+    &&  version=$(helper_skims_compute_version) \
+    &&  echo "[INFO] Skims: ${version}" \
+    &&  trap 'restore_version' EXIT \
+    &&  sed --in-place \
+          "s|^version = .*$|version = \"${version}\"|g" \
+          'pyproject.toml' \
+    &&  poetry publish \
+          --build \
+          --password "${SKIMS_PYPI_TOKEN}" \
+          --username '__token__' \
+  &&  popd \
+  ||  return 1
+}
+
+function job_skims_install {
+  helper_skims_force_install
+}
 
 function job_skims_lint {
   args_mypy=(
@@ -22,7 +54,7 @@ function job_skims_lint {
 
       helper_skims_install_dependencies \
   &&  pushd skims/ \
-    &&  for pkg in "${GLOBAL_PKGS[@]}"
+    &&  for pkg in "${GLOBAL_PKGS[@]}" "${GLOBAL_TEST_PKGS[@]}"
         do
               echo "[INFO] Static type checking: ${pkg}" \
           &&  poetry run mypy "${args_mypy[@]}" "${pkg}" \
@@ -40,6 +72,7 @@ function job_skims_lint {
 
 function job_skims_test {
   args_pytest=(
+    --cov-branch
     --disable-pytest-warnings
   )
 
@@ -52,8 +85,4 @@ function job_skims_test {
     &&  poetry run pytest "${args_pytest[@]}" \
   &&  popd \
   ||  return 1
-}
-
-function job_skims_install {
-  helper_skims_force_install
 }
