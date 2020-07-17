@@ -159,6 +159,29 @@ async def create(organization_name: str) -> OrganizationType:
     return _map_keys_to_domain(new_item)
 
 
+async def delete(organization_id: str, organization_name: str) -> bool:
+    """
+    Delete an organization
+    """
+    success: bool = False
+    item = DynamoDeleteType(
+        Key={
+            'pk': organization_id,
+            'sk': f'INFO#{organization_name}'
+        }
+    )
+    try:
+        success = await dynamo_async_delete_item(TABLE_NAME, item)
+    except ClientError as ex:
+        await sync_to_async(rollbar.report_message)(
+            'Error deleting organization',
+            'error',
+            extra_data=ex,
+            payload_data=locals()
+        )
+    return success
+
+
 async def remove_group(organization_id: str, group_name: str) -> bool:
     """
     Delete a group from an organization

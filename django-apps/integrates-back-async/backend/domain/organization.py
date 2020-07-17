@@ -51,6 +51,23 @@ async def add_user(organization_id: str, email: str, role: str) -> bool:
     return user_added and role_added
 
 
+async def delete_organization(organization_id: str) -> bool:
+    users = await get_users(organization_id)
+    users_removed = await aio.materialize(
+        remove_user(organization_id, user)
+        for user in users
+    )
+    success = all(users_removed) if users else True
+
+    organization_name = await get_name_by_id(organization_id)
+    success = (
+        success and
+        await org_dal.delete(organization_id, organization_name)
+    )
+
+    return success
+
+
 async def get_groups(organization_id: str) -> Tuple[str, ...]:
     """Return a tuple of group names for the provided organization."""
     return tuple(await org_dal.get_groups(organization_id))
