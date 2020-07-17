@@ -20,13 +20,27 @@ from botocore.exceptions import ClientError
 
 import rollbar
 
-from __init__ import BASE_URL, FI_DJANGO_SECRET_KEY, FI_DB_USER, FI_DB_PASSWD,\
-    FI_DB_HOST, FI_AWS_CLOUDWATCH_ACCESS_KEY, FI_AWS_CLOUDWATCH_SECRET_KEY, \
-    FI_MIXPANEL_API_TOKEN, \
-    FI_GOOGLE_OAUTH2_KEY, FI_DEBUG, \
-    FI_GOOGLE_OAUTH2_SECRET, FI_AZUREAD_OAUTH2_KEY, FI_AZUREAD_OAUTH2_SECRET, \
-    FI_ROLLBAR_ACCESS_TOKEN, FI_ENVIRONMENT, FI_JWT_SECRET, \
-    FI_JWT_SECRET_API, FI_REDIS_SERVER
+from __init__ import (
+    BASE_URL,
+    FI_AWS_CLOUDWATCH_ACCESS_KEY,
+    FI_AWS_CLOUDWATCH_SECRET_KEY,
+    FI_AZUREAD_OAUTH2_KEY,
+    FI_AZUREAD_OAUTH2_SECRET,
+    FI_BUGSNAG_ACCESS_TOKEN,
+    FI_DB_HOST,
+    FI_DB_PASSWD,
+    FI_DB_USER,
+    FI_DEBUG,
+    FI_DJANGO_SECRET_KEY,
+    FI_ENVIRONMENT,
+    FI_GOOGLE_OAUTH2_KEY,
+    FI_GOOGLE_OAUTH2_SECRET,
+    FI_JWT_SECRET,
+    FI_JWT_SECRET_API,
+    FI_MIXPANEL_API_TOKEN,
+    FI_REDIS_SERVER,
+    FI_ROLLBAR_ACCESS_TOKEN,
+)
 
 
 def get_installed_packages():
@@ -79,6 +93,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'bugsnag.django.middleware.BugsnagMiddleware',
     'django.middleware.gzip.GZipMiddleware',
     'debreach.middleware.RandomCommentMiddleware',
     'django.middleware.security.SecurityMiddleware',
@@ -138,7 +153,14 @@ DATABASES = {
     }
 }
 
-# Rollbar configuration
+# Error tracking configuration
+BUGSNAG = {
+    'api_key': FI_BUGSNAG_ACCESS_TOKEN,
+    'auto_capture_sessions': True,
+    'project_root': BASE_DIR,
+    'release_stage': FI_ENVIRONMENT,
+}
+
 ROLLBAR = {
     'access_token': FI_ROLLBAR_ACCESS_TOKEN,
     'environment': FI_ENVIRONMENT,
