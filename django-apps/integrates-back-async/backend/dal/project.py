@@ -8,6 +8,7 @@ from typing import (
     NamedTuple,
     Union,
 )
+import aioboto3
 import rollbar
 from asgiref.sync import async_to_sync
 from botocore.exceptions import ClientError
@@ -34,6 +35,7 @@ DYNAMODB_RESOURCE = dynamodb.DYNAMODB_RESOURCE  # type: ignore
 TABLE = DYNAMODB_RESOURCE.Table('FI_projects')
 TABLE_COMMENTS = DYNAMODB_RESOURCE.Table('fi_project_comments')
 TABLE_ACCESS = DYNAMODB_RESOURCE.Table('FI_project_access')
+TABLE_NAME = 'FI_projects'
 
 ServicePolicy = NamedTuple(
     'ServicePolicy',
@@ -133,27 +135,35 @@ def get_alive_projects() -> List[str]:
     )
 
 
-def list_drafts(project_name: str, should_list_deleted: bool = False) -> \
-        List[str]:
+async def get_group(
+        group_name: str,
+        table: aioboto3.session.Session.client) -> ProjectType:
+    response = await table.get_item(Key={'project_name': group_name})
+    return response.get('Item', {})
+
+
+async def list_drafts(
+        project_name: str,
+        table: aioboto3.session.Session.client,
+        should_list_deleted: bool = False) -> List[str]:
     key_exp = Key('project_name').eq(project_name)
     tzn = pytz.timezone(settings.TIME_ZONE)  # type: ignore
     today = datetime.now(tz=tzn).today().strftime('%Y-%m-%d %H:%M:%S')
     filter_exp = Attr('releaseDate').not_exists() \
         | Attr('releaseDate').gt(today)
-    response = FINDINGS_TABLE.query(
-        FilterExpression=filter_exp,
-        IndexName='project_findings',
-        KeyConditionExpression=key_exp,
-        ProjectionExpression='finding_id, historic_state')
+    query_attrs = {
+        'KeyConditionExpression': key_exp,
+        'FilterExpression': filter_exp,
+        'IndexName': 'project_findings',
+        'ProjectionExpression': 'finding_id, historic_state'
+    }
+    response = await table.query(**query_attrs)
     drafts = response.get('Items', [])
-
     while response.get('LastEvaluatedKey'):
-        response = FINDINGS_TABLE.query(
-            ExclusiveStartKey=response['LastEvaluatedKey'],
-            FilterExpression=filter_exp,
-            IndexName='project_findings',
-            KeyConditionExpression=key_exp,
-            ProjectionExpression='finding_id')
+        query_attrs.update(
+            {'ExclusiveStartKey': response.get('LastEvaluatedKey')}
+        )
+        response = await table.query(**query_attrs)
         drafts += response.get('Items', [])
 
     return [
@@ -163,8 +173,10 @@ def list_drafts(project_name: str, should_list_deleted: bool = False) -> \
     ]
 
 
-def list_findings(project_name: str, should_list_deleted: bool = False) -> \
-        List[str]:
+async def list_findings(
+        project_name: str,
+        table: aioboto3.session.Session.client,
+        should_list_deleted: bool = False) -> List[str]:
     key_exp = Key('project_name').eq(project_name)
     tzn = pytz.timezone(settings.TIME_ZONE)  # type: ignore
     today = datetime.now(tz=tzn).today().strftime('%Y-%m-%d %H:%M:%S')
@@ -172,22 +184,19 @@ def list_findings(project_name: str, should_list_deleted: bool = False) -> \
         Attr('releaseDate').exists() &
         Attr('releaseDate').lte(today)
     )
-    response = FINDINGS_TABLE.query(
-        FilterExpression=filter_exp,
-        IndexName='project_findings',
-        KeyConditionExpression=key_exp,
-        ProjectionExpression='finding_id, historic_state'
-    )
+    query_attrs = {
+        'KeyConditionExpression': key_exp,
+        'FilterExpression': filter_exp,
+        'IndexName': 'project_findings',
+        'ProjectionExpression': 'finding_id, historic_state'
+    }
+    response = await table.query(**query_attrs)
     findings = response.get('Items', [])
-
     while response.get('LastEvaluatedKey'):
-        response = FINDINGS_TABLE.query(
-            ExclusiveStartKey=response['LastEvaluatedKey'],
-            FilterExpression=filter_exp,
-            IndexName='project_findings',
-            KeyConditionExpression=key_exp,
-            ProjectionExpression='finding_id'
+        query_attrs.update(
+            {'ExclusiveStartKey': response.get('LastEvaluatedKey')}
         )
+        response = await table.query(**query_attrs)
         findings += response.get('Items', [])
 
     return [

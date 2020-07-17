@@ -2,7 +2,6 @@
 
 import asyncio
 from typing import Dict, List
-from asgiref.sync import sync_to_async
 from aiodataloader import DataLoader
 from backend.domain import project as project_domain
 
@@ -10,33 +9,21 @@ from backend.domain import project as project_domain
 async def _batch_load_fn(projects: List[str]):
     """Batch the data load requests within the same execution fragment."""
     projects_data: Dict = dict()
-    list_findings_tasks = [
-        asyncio.create_task(
-            sync_to_async(project_domain.list_findings)(project.lower())
-        )
-        for project in projects
-    ]
-    list_drafts_tasks = [
-        asyncio.create_task(
-            sync_to_async(project_domain.list_drafts)(project.lower())
-        )
-        for project in projects
-    ]
-    get_attributes_tasks = [
-        asyncio.create_task(
-            sync_to_async(project_domain.get_attributes)(project.lower(), [])
-        )
-        for project in projects
-    ]
-    findings = await asyncio.gather(*list_findings_tasks)
-    drafts = await asyncio.gather(*list_drafts_tasks)
-    attrs = await asyncio.gather(*get_attributes_tasks)
 
-    for project in projects:
-        projects_data[project] = dict(
-            findings=findings.pop(0),
-            drafts=drafts.pop(0),
-            attrs=attrs.pop(0)
+    finding_task = asyncio.create_task(project_domain.list_findings(projects))
+    draft_task = asyncio.create_task(project_domain.list_drafts(projects))
+    group_task = asyncio.create_task(project_domain.get_many_groups(projects))
+    list_groups, list_findings, list_drafts = await asyncio.gather(
+        group_task, finding_task, draft_task
+    )
+
+    for group_name, group_info, findings, drafts in zip(
+        projects, list_groups, list_findings, list_drafts
+    ):
+        projects_data[group_name] = dict(
+            findings=findings,
+            drafts=drafts,
+            attrs=group_info
         )
 
     return [projects_data.get(project, dict()) for project in projects]

@@ -2,6 +2,7 @@
 """Domain functions for projects."""
 
 import asyncio
+from contextlib import AsyncExitStack
 from typing import Dict, List, NamedTuple, Tuple, Union, cast
 from collections import namedtuple, defaultdict
 import re
@@ -14,7 +15,9 @@ import rollbar
 from django.conf import settings
 
 from backend.authz.policy import get_group_level_role
+from backend.dal.helpers.dynamodb import start_context
 from backend.dal import (
+    finding as finding_dal,
     organization as org_dal,
     project as project_dal
 )
@@ -413,8 +416,10 @@ def remove_project(project_name: str) -> NamedTuple:
     if data.get('project_status') == 'PENDING_DELETION':
         are_users_removed = remove_all_users_access(project_name)
         findings_and_drafts = (
-            list_findings(project_name, should_list_deleted=True) +
-            list_drafts(project_name, should_list_deleted=True)
+            async_to_sync(list_findings)(
+                [project_name], should_list_deleted=True)[0] +
+            async_to_sync(list_drafts)(
+                project_name, should_list_deleted=True)[0]
         )
         are_findings_masked = all([
             finding_domain.mask_finding(finding_id)
@@ -523,14 +528,14 @@ async def total_vulnerabilities(finding_id: str) -> Dict[str, int]:
 async def get_pending_verification_findings(
         project_name: str) -> List[Dict[str, FindingType]]:
     """Gets findings pending for verification"""
-    findings_ids = await sync_to_async(list_findings)(project_name)
+    findings_ids = await list_findings([project_name])
     are_pending_verifications = await aio.materialize(
-        map(finding_domain.is_pending_verification, findings_ids)
+        map(finding_domain.is_pending_verification, findings_ids[0])
     )
-    pending_to_verify = [
+    pending_to_verify_ids = [
         finding_id
         for finding_id, are_pending_verification in zip(
-            findings_ids,
+            findings_ids[0],
             are_pending_verifications
         )
         if are_pending_verification
@@ -539,7 +544,7 @@ async def get_pending_verification_findings(
         finding_utils.get_attributes(
             finding_id,
             ['finding', 'finding_id', 'project_name']
-        ) for finding_id in pending_to_verify
+        ) for finding_id in pending_to_verify_ids
     )
 
     return pending_to_verify
@@ -759,10 +764,10 @@ async def get_mean_remediate_severity(
     """Get mean time to remediate."""
     total_days = 0
     tzn = pytz.timezone('America/Bogota')
-    finding_ids = await sync_to_async(list_findings)(project_name.lower())
+    finding_ids = await list_findings([project_name.lower()])
     vulns = await vuln_domain.list_vulnerabilities_async([
         str(finding['findingId'])
-        for finding in await finding_domain.get_findings_async(finding_ids)
+        for finding in await finding_domain.get_findings_async(finding_ids[0])
         if (
             min_severity <=
             cast(float, finding.get('severityCvss', 0)) <=
@@ -882,10 +887,18 @@ def update(project_name: str, data: ProjectType) -> bool:
     return project_dal.update(project_name, data)
 
 
-def list_drafts(
-        project_name: str,
-        should_list_deleted: bool = False) -> List[str]:
-    return project_dal.list_drafts(project_name, should_list_deleted)
+async def list_drafts(
+        groups_name: List[str],
+        should_list_deleted: bool = False) -> List[List[str]]:
+    """Returns a list the list of finding ids associated with the groups"""
+    async with AsyncExitStack() as stack:
+        resource = await stack.enter_async_context(start_context())
+        table = await resource.Table(finding_dal.TABLE_NAME)
+        drafts = await aio.materialize(
+            project_dal.list_drafts(group_name, table, should_list_deleted)
+            for group_name in groups_name
+        )
+    return drafts
 
 
 async def list_comments(
@@ -915,11 +928,18 @@ def get_alive_projects() -> List[str]:
     return projects
 
 
-def list_findings(
-        project_name: str,
-        should_list_deleted: bool = False) -> List[str]:
-    """ Returns the list of finding ids associated with the project"""
-    return project_dal.list_findings(project_name, should_list_deleted)
+async def list_findings(
+        groups_name: List[str],
+        should_list_deleted: bool = False) -> List[List[str]]:
+    """Returns a list of the list of finding ids associated with the groups"""
+    async with AsyncExitStack() as stack:
+        resource = await stack.enter_async_context(start_context())
+        table = await resource.Table(finding_dal.TABLE_NAME)
+        findings = await aio.materialize(
+            project_dal.list_findings(group_name, table, should_list_deleted)
+            for group_name in groups_name
+        )
+    return findings
 
 
 def list_events(project_name: str) -> List[str]:
@@ -939,6 +959,18 @@ def get_description(project_name: str) -> str:
 
 def get_users(project_name: str, active: bool = True) -> List[str]:
     return project_dal.get_users(project_name, active)
+
+
+async def get_many_groups(
+        groups_name: List[str]) -> List[ProjectType]:
+    async with AsyncExitStack() as stack:
+        resource = await stack.enter_async_context(start_context())
+        table = await resource.Table(project_dal.TABLE_NAME)
+        groups = await aio.materialize(
+            project_dal.get_group(group_name, table)
+            for group_name in groups_name
+        )
+    return groups
 
 
 async def get_users_to_notify(
@@ -973,8 +1005,8 @@ def get_managers(project_name: str) -> List[str]:
 
 
 async def get_open_vulnerabilities(project_name: str) -> int:
-    findings = await sync_to_async(list_findings)(project_name)
-    vulns = await vuln_domain.list_vulnerabilities_async(findings)
+    findings = await list_findings([project_name])
+    vulns = await vuln_domain.list_vulnerabilities_async(findings[0])
     last_approved_status = await aio.ensure_many_cpu_bound([
         aio.PyCallable(
             instance=vuln_domain.get_last_approved_status,
@@ -990,8 +1022,8 @@ async def get_open_vulnerabilities(project_name: str) -> int:
 
 
 async def get_closed_vulnerabilities(project_name: str) -> int:
-    findings = await sync_to_async(list_findings)(project_name)
-    vulns = await vuln_domain.list_vulnerabilities_async(findings)
+    findings = await list_findings([project_name])
+    vulns = await vuln_domain.list_vulnerabilities_async(findings[0])
     last_approved_status = await aio.ensure_many_cpu_bound([
         aio.PyCallable(
             instance=vuln_domain.get_last_approved_status,
@@ -1007,8 +1039,8 @@ async def get_closed_vulnerabilities(project_name: str) -> int:
 
 
 async def get_open_finding(project_name: str) -> int:
-    findings = await sync_to_async(list_findings)(project_name)
-    vulns = await vuln_domain.list_vulnerabilities_async(findings)
+    findings = await list_findings([project_name])
+    vulns = await vuln_domain.list_vulnerabilities_async(findings[0])
     finding_vulns_dict = defaultdict(list)
     for vuln in vulns:
         finding_vulns_dict[vuln['finding_id']].append(vuln)

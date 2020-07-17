@@ -20,8 +20,8 @@ async def generate_one(group: str):
         'nodes': set(),
         'links': set(),
     }
-
-    for finding_id in group_domain.list_findings(group):
+    findings = await group_domain.list_findings([group])
+    for finding_id in findings[0]:
         finding = await finding_domain.get_finding(finding_id)
         finding_title = finding['finding']
         finding_cvss = finding['severityCvss']

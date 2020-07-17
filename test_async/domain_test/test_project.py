@@ -246,11 +246,11 @@ class ProjectTest(TestCase):
             {'inProgress': 1, 'accepted': 4, 'acceptedUndefined': 0, 'undefined': 0}
         assert test_data == expected_output
 
-    def test_list_drafts(self):
+    async def test_list_drafts(self):
         project_name = 'unittesting'
-        test_data = list_drafts(project_name)
+        test_data = await list_drafts([project_name])
         expected_output = ['560175507']
-        assert test_data == expected_output
+        assert expected_output == test_data[0]
 
     def test_list_comments(self):
         project_name = 'unittesting'
@@ -296,22 +296,22 @@ class ProjectTest(TestCase):
         expected_output = ['suspendedtest', 'oneshottest', 'unittesting', 'continuoustesting']
         assert sorted(test_data) == sorted(expected_output)
 
-    def test_list_findings(self):
+    async def test_list_findings(self):
         project_name = 'unittesting'
-        test_data = list_findings(project_name)
+        test_data = await list_findings([project_name])
         expected_output = [
             '988493279', '422286126', '436992569', '463461507', '463558592', '457497316'
         ]
-        assert expected_output == test_data
+        assert expected_output == test_data[0]
 
-    def test_list_drafts_deleted(self):
-        project_name = 'continuoustesting'
-        test_data = list_drafts(project_name)
+    async def test_list_drafts_deleted(self):
+        projects_name = ['continuoustesting']
+        test_data = await list_drafts(projects_name)
         expected_output = ['818828206', '836530833', '475041524']
-        assert sorted(expected_output) == sorted(test_data)
-        test_data = list_drafts(project_name, should_list_deleted=True)
+        assert sorted(expected_output) == sorted(test_data[0])
+        test_data = await list_drafts(projects_name, should_list_deleted=True)
         expected_output = ['818828206', '836530833', '475041524', '991607942']
-        assert sorted(expected_output) == sorted(test_data)
+        assert sorted(expected_output) == sorted(test_data[0])
 
     def test_list_events(self):
         project_name = 'unittesting'

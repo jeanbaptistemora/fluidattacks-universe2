@@ -521,15 +521,12 @@ async def get_new_releases():
     projects = await sync_to_async(project_domain.get_active_projects)()
     email_context = defaultdict(list)
     cont = 0
-    list_drafts = await asyncio.gather(*[
-        asyncio.create_task(
-            sync_to_async(project_domain.list_drafts)(
-                project
-            )
-        )
+    projects = [
+        project
         for project in projects
         if project not in test_projects
-    ])
+    ]
+    list_drafts = await project_domain.list_drafts(projects)
     project_drafts = await asyncio.gather(*[
         asyncio.create_task(
             finding_domain.get_findings_async(
@@ -698,11 +695,11 @@ async def reset_group_expired_accepted_findings(
         group_name: str, today: str) -> None:
     msg = 'Info: Resetting expired accepted findings'
     await logging_utils.log(msg, 'info', payload_data=locals())
-    list_findings = await sync_to_async(project_domain.list_findings)(
-        group_name
+    list_findings = await project_domain.list_findings(
+        [group_name]
     )
     findings = await finding_domain.get_findings_async(
-        list_findings
+        list_findings[0]
     )
     for finding in findings:
         finding_id = cast(str, finding.get('findingId'))
