@@ -57,6 +57,16 @@ stages:
       when: never
     - if: *integrates_commit_pattern
 
+.in_dev_and_master_branch_forces: &in_dev_and_master_branch_forces
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "schedule"'
+      when: never
+    - if: '$CI_PIPELINE_SOURCE == "trigger"'
+      when: never
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+      when: never
+    - if: *forces_commit_pattern
+
 .in_master_branch_integrates: &in_master_branch_integrates
   rules:
     - if: '$CI_COMMIT_BRANCH != "master"'
@@ -486,6 +496,11 @@ lint_mobile:
 lint_secrets:
   <<: *with_nix
   <<: *in_dev_and_master_branch_integrates
+  stage: lint-code
+
+.lint_forces:
+  <<: *with_nix
+  <<: *in_dev_and_master_branch_forces
   stage: lint-code
 
 renew_certificates:

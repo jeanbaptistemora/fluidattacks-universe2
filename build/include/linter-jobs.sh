@@ -17,6 +17,12 @@ function job_lint_back {
         django-apps/integrates-back-async/backend/api/schemas/*
 }
 
+function job_lint_forces {
+  env_prepare_python_packages \
+  && mypy --strict --ignore-missing-imports forces/ \
+  && prospector --strictness verihigh forces/client/
+}
+
 function job_lint_build_system {
   # SC1090: Can't follow non-constant source. Use a directive to specify location.
   # SC2016: Expressions don't expand in single quotes, use double quotes for that.
