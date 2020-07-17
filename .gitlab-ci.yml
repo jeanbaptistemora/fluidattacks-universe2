@@ -644,3 +644,8 @@ skims_lint:
   <<: *with_nix
   <<: *skims_in_dev_and_master_branch
   stage: lint-code
+
+skims_test:
+  <<: *with_nix
+  <<: *skims_in_dev_and_master_branch
+  stage: test-code

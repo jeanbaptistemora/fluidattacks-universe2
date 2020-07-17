@@ -1,7 +1,7 @@
 # shellcheck shell=bash
 
 source "${srcEnv}"
-source "${srcIncludeHelpers}"
+source "${srcIncludeHelpersCommon}"
 source "${srcIncludeForcesJobs}"
 source "${srcIncludeIntegratesJobs}"
 source "${srcIncludeIntegratesLintersJobs}"

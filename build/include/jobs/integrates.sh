@@ -1,7 +1,7 @@
 # shellcheck shell=bash
 
 source "${srcEnv}"
-source "${srcIncludeHelpers}"
+source "${srcIncludeHelpersCommon}"
 source "${srcExternalGitlabVariables}"
 source "${srcExternalSops}"
 

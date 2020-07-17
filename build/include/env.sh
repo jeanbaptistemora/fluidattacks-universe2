@@ -1,6 +1,6 @@
 # shellcheck shell=bash
 
-source "${srcIncludeHelpers}"
+source "${srcIncludeHelpersCommon}"
 
 function env_prepare_environment_variables {
   export CI_JOB_NAME="${1}"

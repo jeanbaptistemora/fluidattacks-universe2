@@ -16,12 +16,15 @@ version = "1.0.0"
 
 [tool.poetry.dependencies]
 aiogqlc = "1.0.5"
+click = "7.1.2"
 more-itertools = "8.4.0"
 python = "^3.8"
 
 [tool.poetry.dev-dependencies]
-prospector = "1.2.0"
 mypy = "0.770"
+prospector = "1.2.0"
+pytest = "5.4.3"
+pytest-cov = "2.10.0"
 
 [tool.poetry.scripts]
 skims = 'cli:main'

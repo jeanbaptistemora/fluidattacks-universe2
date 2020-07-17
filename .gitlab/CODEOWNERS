@@ -16,6 +16,6 @@
 /front/tslint.json @mnorenaatfluid @kamadoatfluid @jrestrepoatfluid
 /mobile/tslint.json @mnorenaatfluid @kamadoatfluid @jrestrepoatfluid
 
-/forces @drestrepoatfluid @jrestrepoatfluid @kamadoatfluid
-/skims @jrestrepoatfluid @kamadoatfluid
-/sorts @jrestrepoatfluid @kamadoatfluid @acuberosatfluid
+/forces/ @drestrepoatfluid @jrestrepoatfluid @kamadoatfluid
+/skims/ @jrestrepoatfluid @kamadoatfluid
+/sorts/ @jrestrepoatfluid @kamadoatfluid @acuberosatfluid
