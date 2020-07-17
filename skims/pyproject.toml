@@ -6,7 +6,9 @@ description = "Deterministic vulnerability life-cycle reporting and closing tool
 license = "MPL-2.0"
 name = "skims"
 packages = [
-  { include = "skims", from = "src" },
+  { include = "apis", from = "src" },
+  { include = "cli", from = "src" },
+  { include = "core", from = "src" },
 ]
 readme = "./README.md"
 repository = "https://gitlab.com/fluidattacks/integrates/-/tree/master/skims"
@@ -20,6 +22,9 @@ python = "^3.8"
 [tool.poetry.dev-dependencies]
 prospector = "1.2.0"
 mypy = "0.770"
+
+[tool.poetry.scripts]
+skims = 'cli:main'
 
 [build-system]
 requires = [
