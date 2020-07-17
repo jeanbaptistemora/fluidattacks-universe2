@@ -3,7 +3,6 @@
 
 import os
 import sys
-from multiprocessing import cpu_count
 from multiprocessing.pool import Pool
 
 USER = os.environ['GITLAB_API_USER']
@@ -29,14 +28,13 @@ def clone(repo) -> None:
 
 def main():
     """Usual entrypoint."""
-    with Pool(processes=cpu_count()) as workers:
+    with Pool(processes=1) as workers:
         workers.map(clone, [
             'autonomicmind/default',
             'autonomicmind/challenges',
             'fluidattacks/web',
             'fluidattacks/public',
             'fluidattacks/asserts',
-            'fluidattacks/writeups',
             'fluidattacks/integrates',
             'fluidattacks/bwapp',
             'fluidattacks/serves',
