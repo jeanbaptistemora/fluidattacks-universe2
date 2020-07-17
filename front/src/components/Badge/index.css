@@ -1,0 +1,27 @@
+:local .badge {
+  position: absolute;
+  background-color: #ff3435;
+  margin-left: 0.5rem;
+}
+
+:local .sm {
+    font-size: 0.9rem;
+}
+
+:local .md {
+    font-size: 1.1rem;
+}
+
+@media (min-width: 768px) {
+  :local .position {
+    top: 0;
+    right: 0;
+    margin-left: 0;
+  }
+}
+
+@media (min-width: 1180px) {
+  :local .position {
+    right: 10%;
+  }
+}

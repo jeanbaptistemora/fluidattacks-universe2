@@ -3,6 +3,7 @@ import React from "react";
 import { slide as BurgerMenu } from "react-burger-menu";
 import Media from "react-media";
 import { useHistory } from "react-router-dom";
+import { Badge } from "../../../../components/Badge";
 import { TooltipWrapper } from "../../../../components/TooltipWrapper/index";
 import { default as logo } from "../../../../resources/integrates.svg";
 import { Can } from "../../../../utils/authz/Can";
@@ -48,6 +49,7 @@ const sidebar: React.FC<ISidebarProps> = (props: ISidebarProps): JSX.Element => 
           <TooltipWrapper message={translate.t("sidebar.token.tooltip")} placement="right">
             <div className={style.item}><i className="icon pe-7s-user" />
               <span className={style.label}>{translate.t("sidebar.token.text")}</span>
+              <Badge size="md">PLUS+</Badge>
             </div>
           </TooltipWrapper>
         </li>

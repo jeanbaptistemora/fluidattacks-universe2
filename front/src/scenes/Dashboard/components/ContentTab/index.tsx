@@ -1,5 +1,7 @@
+import _ from "lodash";
 import React from "react";
 import { NavLink } from "react-router-dom";
+import { Badge, IBadgeProps } from "../../../../components/Badge";
 import { TooltipWrapper } from "../../../../components/TooltipWrapper/index";
 import { default as style } from "./index.css";
 
@@ -7,21 +9,32 @@ interface IContentTabProps {
   icon: string;
   id: string;
   link: string;
+  plus?: {
+    config?: IBadgeProps;
+    visible: boolean;
+  };
   title: string;
   tooltip: string;
 }
 
-const contentTab: React.FC<IContentTabProps> = (props: IContentTabProps): JSX.Element => (
-  <React.StrictMode>
-    <TooltipWrapper message={props.tooltip}>
-      <li id={props.id} className={style.tab}>
+const contentTab: React.FC<IContentTabProps> = (
+  props: IContentTabProps,
+): JSX.Element => {
+  const { tooltip, id, icon, title, plus } = props;
+
+  return (
+    <TooltipWrapper message={tooltip}>
+      <li id={id} className={style.tab}>
         <NavLink activeClassName={style.active} to={props.link}>
-          <i className={props.icon} />
-          &nbsp;{props.title}
+          <i className={icon} />
+          &nbsp;{title}
+          {!_.isUndefined(plus) && plus.visible ? (
+            <Badge {...plus.config}>PLUS+</Badge>
+          ) : undefined}
         </NavLink>
       </li>
     </TooltipWrapper>
-  </React.StrictMode>
-);
+  );
+};
 
 export { contentTab as ContentTab };

@@ -32,6 +32,7 @@ const projectContent: React.FC<IProjectContentProps> = (props: IProjectContentPr
                     icon="icon pe-7s-graph3"
                     id="analyticsTab"
                     link={`${props.match.url}/analytics`}
+                    plus={{ visible: true, config: { responsive: true } }}
                     title={translate.t("group.tabs.analytics.text")}
                     tooltip={translate.t("group.tabs.indicators.tooltip")}
                   />

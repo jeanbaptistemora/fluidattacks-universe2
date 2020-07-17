@@ -89,6 +89,7 @@ const organizationContent: React.FC<IOrganizationContent> = (props: IOrganizatio
                   icon="icon pe-7s-box1"
                   id="policiesTab"
                   link={`${url}/policies`}
+                  plus={{ visible: true }}
                   title={translate.t("organization.tabs.policies.text")}
                   tooltip={translate.t("organization.tabs.policies.tooltip")}
                 />

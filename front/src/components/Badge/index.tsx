@@ -1,0 +1,25 @@
+import { Badge as BootstrapBadge } from "react-bootstrap";
+import React from "react";
+import { default as style } from "./index.css";
+
+export interface IBadgeProps {
+  responsive?: boolean;
+  size?: "sm" | "md";
+  children?: string;
+}
+
+export const Badge: React.FC<IBadgeProps> = (
+  props: Readonly<IBadgeProps>
+): JSX.Element => {
+  const { children, responsive = false, size = "sm" } = props;
+
+  return (
+    <BootstrapBadge
+      bsClass={`badge ${style.badge} ${responsive ? style.position : ""} ${
+        style[size]
+      }`}
+    >
+      {children}
+    </BootstrapBadge>
+  );
+};
