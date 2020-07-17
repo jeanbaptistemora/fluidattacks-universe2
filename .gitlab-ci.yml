@@ -180,6 +180,7 @@ subscriptions_trigger_user_to_entity_report_dev:
 
 subscriptions_trigger_user_to_entity_report_prod_schedule:
   <<: *with_nix
+  interruptible: false
   stage: subscriptions
   only:
     refs: [schedules]
@@ -187,6 +188,7 @@ subscriptions_trigger_user_to_entity_report_prod_schedule:
 
 .scheduler_prod_template: &scheduler_prod_template
   <<: *with_nix
+  interruptible: false
   stage: scheduler
   image: "${CI_REGISTRY_IMAGE}/nix:scheduler_prod"
   tags: [autoscaling]
