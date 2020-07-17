@@ -17,7 +17,6 @@ import { changeFormatter, statusFormatter } from "../../../../../components/Data
 import { IHeaderConfig } from "../../../../../components/DataTableNext/types";
 import { TooltipWrapper } from "../../../../../components/TooltipWrapper";
 import { Can } from "../../../../../utils/authz/Can";
-import { fixedEncodeURIComponent } from "../../../../../utils/formatHelpers";
 import { msgError, msgSuccess } from "../../../../../utils/notifications";
 import rollbar from "../../../../../utils/rollbar";
 import translate from "../../../../../utils/translations/translate";
@@ -158,9 +157,9 @@ const repositories: React.FC<IRepositoriesProps> = (props: IRepositoriesProps): 
                 variables: {
                   projectName: props.projectName,
                   repo: {
-                    branch: fixedEncodeURIComponent(repo.branch),
+                    branch: repo.branch,
                     protocol: _.isNil(repo.protocol) ? "" : repo.protocol,
-                    urlRepo: fixedEncodeURIComponent(repo.urlRepo),
+                    urlRepo: repo.urlRepo,
                   },
                   state: repo.state === "Active" ? "INACTIVE" : "ACTIVE",
                 },

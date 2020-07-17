@@ -17,7 +17,6 @@ import { changeFormatter, statusFormatter } from "../../../../../components/Data
 import { IHeaderConfig } from "../../../../../components/DataTableNext/types";
 import { TooltipWrapper } from "../../../../../components/TooltipWrapper";
 import { Can } from "../../../../../utils/authz/Can";
-import { fixedEncodeURIComponent } from "../../../../../utils/formatHelpers";
 import { msgError, msgSuccess } from "../../../../../utils/notifications";
 import rollbar from "../../../../../utils/rollbar";
 import translate from "../../../../../utils/translations/translate";
@@ -155,7 +154,7 @@ const environments: React.FC<IEnvironmentsProps> = (props: IEnvironmentsProps): 
             confirm(() => {
               updateEnvironment({
                 variables: {
-                  env: { urlEnv: fixedEncodeURIComponent(env.urlEnv) },
+                  env: { urlEnv: env.urlEnv },
                   projectName: props.projectName,
                   state: env.state === "Active" ? "INACTIVE" : "ACTIVE",
                 },

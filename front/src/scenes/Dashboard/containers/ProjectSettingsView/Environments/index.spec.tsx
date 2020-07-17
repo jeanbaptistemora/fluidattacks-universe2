@@ -186,7 +186,7 @@ describe("Environments", () => {
         query: UPDATE_ENVIRONMENT_MUTATION,
         variables: {
           env : {
-            urlEnv: "https%3A%2F%2Ftest%2Ftest",
+            urlEnv: "https://test/test",
           },
           projectName: "TEST",
           state: "ACTIVE",

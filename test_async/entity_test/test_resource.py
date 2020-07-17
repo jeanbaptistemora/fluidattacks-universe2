@@ -194,7 +194,7 @@ class ResourceTests(TestCase):
         """Check for updateRepository mutation."""
         query = '''mutation {
           updateRepository(projectName: "unittesting", state: INACTIVE, repo: {
-            urlRepo: "https%3A%2F%2Fgitlab.com%2Ffluidsignal%2Funittest",
+            urlRepo: "https://gitlab.com/fluidsignal/unittest",
             branch: "master",
             protocol: HTTPS
           }) {
@@ -212,7 +212,7 @@ class ResourceTests(TestCase):
         """Check for updateEnvironment mutation."""
         query = '''mutation {
           updateEnvironment(projectName: "unittesting", state: INACTIVE, env: {
-            urlEnv: "https%3A%2F%2Funittesting.fluidattacks.com%2F"
+            urlEnv: "https://unittesting.fluidattacks.com/"
           }) {
             success
           }

@@ -534,18 +534,3 @@ export const treatmentGraph: ((props: ITreatmentGraph) => ChartData) = (props: I
 
 export const minToSec: ((min: number) => number) = (min: number): number => min * 60;
 export const secToMs: ((min: number) => number) = (min: number): number => min * 1000;
-
-/*
-By default encodeURIComponent does not decode !, ', (, ), and *
-which decodeURIComponent identifies and decode properly
-*/
-export const fixedEncodeURIComponent: ((str: string) => string) =  (
-  str: string,
-): string =>
-  (encodeURIComponent(str)
-    .replace(
-      /[!'()*]/g,
-      (c: string) => `%${c.charCodeAt(0)
-        .toString(16)}`,
-    )
-  );

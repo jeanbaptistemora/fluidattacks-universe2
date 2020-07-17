@@ -3,7 +3,7 @@
 
 from collections import namedtuple
 from datetime import datetime
-from urllib.parse import quote
+from urllib.parse import quote, unquote
 from typing import Dict, List, NamedTuple, cast
 import threading
 import rollbar
@@ -304,13 +304,16 @@ def update_resource(
     resource_exists = False
     for resource in res_list:
         if res_type == 'repository':
+            src_branch = unquote(cast(str, resource['branch']))
+            src_url_repo = unquote(cast(str, resource['urlRepo']))
             matches = (
-                resource['branch'],
+                src_branch,
                 resource.get('protocol', ''),
-                resource['urlRepo']
+                src_url_repo
             ) == tuple(res_data.values())
         elif res_type == 'environment':
-            matches = resource['urlEnv'] == res_data['urlEnv']
+            src_url_env = unquote(cast(str, resource['urlEnv']))
+            matches = src_url_env == res_data['urlEnv']
 
         if res_id in resource and matches:
             resource_exists = True
