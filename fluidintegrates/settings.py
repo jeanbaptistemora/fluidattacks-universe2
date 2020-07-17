@@ -157,6 +157,7 @@ DATABASES = {
 BUGSNAG = {
     'api_key': FI_BUGSNAG_ACCESS_TOKEN,
     'auto_capture_sessions': True,
+    'notify_release_stages': ['production'],
     'project_root': BASE_DIR,
     'release_stage': FI_ENVIRONMENT,
 }

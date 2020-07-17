@@ -6,7 +6,6 @@
 
 # Standard library
 import os
-import sys
 from datetime import datetime, timedelta
 from typing import (
     List,
@@ -18,7 +17,7 @@ from typing import (
 
 # Third party libraries
 import boto3
-import rollbar
+import bugsnag
 from asgiref.sync import async_to_sync
 from django.conf import settings
 from django.core.cache.backends.base import DEFAULT_TIMEOUT
@@ -209,8 +208,8 @@ def app(request: HttpRequest) -> HttpResponse:
                 last_name=request.session['last_name'],
             ),
         )
-    except KeyError:
-        rollbar.report_exc_info(sys.exc_info(), request)
+    except KeyError as ex:
+        bugsnag.notify(ex)
         return redirect('/integrates/error500')
     except ConcurrentSession:
         return HttpResponse(
@@ -296,8 +295,8 @@ def logout(request: HttpRequest) -> HttpResponse:
             util.remove_token(f'fi_jwt:{jti}')
 
         request.session.flush()
-    except KeyError:
-        rollbar.report_exc_info(sys.exc_info(), request)
+    except KeyError as ex:
+        bugsnag.notify(ex)
 
     response = redirect('/integrates/index')
     response.delete_cookie(settings.JWT_COOKIE_NAME)
@@ -331,11 +330,8 @@ def get_evidence(
         (evidence_type == 'events' and
          has_access_to_event(username, findingid))):
         if fileid is None:
-            rollbar.report_message(
-                'Error: Missing evidence image ID',
-                'error',
-                request
-            )
+            bugsnag.notify(Exception('Missing evidence image ID'))
+
             return HttpResponse(
                 'Error - Unsent image ID',
                 content_type='text/html'
@@ -370,11 +366,8 @@ def retrieve_image(request: HttpRequest, img_file: str) -> HttpResponse:
             mime_type = mime.from_file(img_file)
             return HttpResponse(file_obj.read(), content_type=mime_type)
     else:
-        rollbar.report_message(
-            'Error: Invalid evidence image format',
-            'error',
-            request
-        )
+        bugsnag.notify(Exception('Invalid evidence image format'))
+
         return HttpResponse(
             'Error: Invalid evidence image format',
             content_type='text/html'
