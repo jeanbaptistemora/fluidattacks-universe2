@@ -1,7 +1,7 @@
 :slug: rules/175/
 :category: source
 :description: This requirement establishes the importance of protecting pages against clickjacking attacks by defining the respective security measures in the source code.
-:keywords: Requirement, Security, Web, Clickjacking, Source Code, Protection, Rules, Ethical Hacking, Pentesting
+:keywords: Web, Clickjacking, Source Code, Protection, ASVS, CWE, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R175. Protect pages from clickjacking
@@ -11,6 +11,34 @@
 Web pages must be protected from being embedded
 in malicious sites (*clickjacking*).
 
+== Description
+
+*Clickjacking* is a malicious technique often used in phishing attacks.
+By using it, attackers may deceive users and make them perform actions other
+than the ones they perceive,
+which may cause them to reveal confidential information.
+Web servers can protect pages they host to a great extent
+by including headers in their responses that prevent the pages from being
+embedded in malicious sites (e.g. "**X-Frame-Options**").
+
 == Findings
 
 * [inner]#link:/web/findings/043/[F043. Improperly set HTTP headers]#
+
+== References
+
+. [[r1]] link:https://cwe.mitre.org/data/definitions/346.html[CWE-346: Origin Validation Error].
+The software does not properly verify that the source of data or communication
+is valid.
+
+. [[r2]] link:https://cwe.mitre.org/data/definitions/451.html[CWE-451: User Interface (UI) Misrepresentation of Critical Information].
+The user interface (*UI*) does not properly represent critical information to
+the user,
+allowing the information - or its source - to be obscured or spoofed.
+This is often a component in phishing attacks.
+
+. [[r3]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V14.4 HTTP Security Headers Requirements.(14.4.7)]
+Verify that a suitable *X-Frame-Options* or
+**Content-Security-Policy: frame-ancestors** header is in use for sites where
+content should not be embedded in a third-party site.
