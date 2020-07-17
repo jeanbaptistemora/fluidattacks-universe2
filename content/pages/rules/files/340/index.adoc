@@ -47,3 +47,9 @@ vectors or other attacks from the uploaded file.
 V12.5 File Download Requirements.(12.5.2)]
 Verify that direct requests to uploaded files will never be executed as
 **HTML**/**JavaScript** content.
+
+. [[r5]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V14.4 HTTP Security Headers Requirements.(14.4.3)]
+Verify that a content security policy (*CSPv2*) is in place that helps mitigate
+impact for *XSS* attacks like *HTML*, *DOM*, *JSON*, and *JavaScript* injection
+vulnerabilities.

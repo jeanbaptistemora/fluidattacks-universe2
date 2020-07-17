@@ -24,8 +24,20 @@ about its environment, users, or associated data.
 The software identifies an error condition and creates its own diagnostic or
 error messages that contain sensitive information.
 
-. [[r3]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r3]] link:https://cwe.mitre.org/data/definitions/497.html[CWE-497: Exposure of Sensitive System Information to an
+Unauthorized Control Sphere].
+The application does not properly prevent sensitive system-level information
+from being accessed by unauthorized actors who do not have the same level of
+access to the underlying system as the application does.
+
+. [[r4]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V7.4 Error Handling.(7.4.1)]
 Verify that a generic message is shown when an unexpected or security sensitive
 error occurs,
 potentially with a unique ID which support personnel can use to investigate.
+
+. [[r5]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V14.3 Unintended Security Disclosure Requirements.(14.3.2)]
+Verify that web or application server and application framework debug modes
+are disabled in production to eliminate debug features, developer consoles,
+and unintended security disclosures.

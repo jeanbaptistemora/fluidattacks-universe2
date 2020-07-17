@@ -58,3 +58,14 @@ rejected with appropriate headers
 V13.2 RESTful Web Service Verification Requirements.(13.2.5)]
 Verify that *REST* services explicitly check the incoming **Content-Type** to
 be the expected one, such as *application/xml* or *application/JSON*.
+
+. [[r8]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V14.4 HTTP Security Headers Requirements.(14.4.1)]
+Verify that every *HTTP* response contains a content type header specifying a
+safe character set (e.g., *UTF-8*, **ISO 8859-1**).
+
+. [[r9]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V14.4 HTTP Security Headers Requirements.(14.4.2)]
+Verify that all *API* responses contain
+**Content-Disposition: attachment; filename="api.json"**
+(or other appropriate filename for the content type).
