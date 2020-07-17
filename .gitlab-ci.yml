@@ -198,6 +198,12 @@ scheduler_get_new_vulnerabilities:
     refs: [schedules]
     variables: [$scheduler_get_new_vulnerabilities]
 
+scheduler_send_unsolved_to_all:
+  <<: *scheduler_prod_template
+  only:
+    refs: [schedules]
+    variables: [$scheduler_send_unsolved_to_all]
+
 build_front:
   <<: *with_nix
   <<: *in_everywhere_except_periodic_jobs_and_mrs_integrates
