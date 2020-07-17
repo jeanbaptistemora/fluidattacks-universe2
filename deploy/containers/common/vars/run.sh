@@ -5,7 +5,7 @@ set -e
 
 # Import functions
 . <(curl -sL https://static-objects.gitlab.net/fluidattacks/public/raw/master/shared-scripts/sops.sh)
-. build/include/helpers.sh
+. build/include/helpers/common.sh
 . $(get_sops_env)
 
 aws configure set aws_access_key_id "$AWS_ACCESS_KEY_ID"
