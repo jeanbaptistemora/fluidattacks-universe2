@@ -308,58 +308,25 @@ class ITReport():
                 str(len(compromised_attributes.split('\n')))
         external_bts = finding.get('externalBts', EMPTY)
 
-        self.set_cell(
-            self.vulnerability['description'],
-            str(finding.get('vulnerability', EMPTY)),
-            align='left'
-        )
-        self.set_cell(
-            self.vulnerability['status'],
-            cast(HistoricType, vuln.get('historic_state'))[-1]['state']
-        )
-        self.set_cell(
-            self.vulnerability['severity'],
-            str(finding.get('severityCvss', EMPTY))
-        )
-        self.set_cell(
-            self.vulnerability['requirements'],
-            str(finding.get('requirements', EMPTY)),
-            align='left'
-        )
-        self.set_cell(
-            self.vulnerability['impact'],
-            str(finding.get('attackVectorDesc', EMPTY)),
-            align='left'
-        )
-        self.set_cell(
-            self.vulnerability['affected_systems'],
-            str(finding.get('affectedSystems', EMPTY)),
-            align='left'
-        )
-        self.set_cell(
-            self.vulnerability['threat'],
-            str(finding.get('threat', EMPTY)),
-            align='left'
-        )
-        self.set_cell(
-            self.vulnerability['recommendation'],
-            str(finding.get('effectSolution', EMPTY)),
-            align='left'
-        )
-        self.set_cell(
-            self.vulnerability['external_bts'],
-            f'=HYPERLINK("{external_bts}", "{external_bts}")',
-            align='left'
-        )
-        self.set_cell(
-            self.vulnerability['compromised_attributes'],
-            compromised_attributes,
-            align='left'
-        )
-        self.set_cell(
-            self.vulnerability['n_compromised_attributes'],
-            n_compromised_attributes or '0'
-        )
+        finding_data = {
+            'description': str(finding.get('vulnerability', EMPTY)),
+            'status': cast(
+                HistoricType, vuln.get('historic_state'))[-1]['state'],
+            'severity': str(finding.get('severityCvss', EMPTY)),
+            'requirements': str(finding.get('requirements', EMPTY)),
+            'impact': str(finding.get('attackVectorDesc', EMPTY)),
+            'affected_systems': str(finding.get('affectedSystems', EMPTY)),
+            'threat': str(finding.get('threat', EMPTY)),
+            'recommendation': str(finding.get('effectSolution', EMPTY)),
+            'external_bts': f'=HYPERLINK("{external_bts}", "{external_bts}")',
+            'compromised_attributes': compromised_attributes,
+            'n_compromised_attributes': n_compromised_attributes or '0',
+        }
+        centered_fields = ['status', 'severity', 'n_compromised_attributes']
+
+        for key, value in finding_data.items():
+            align = 'center' if key in centered_fields else 'left'
+            self.set_cell(self.vulnerability[key], value, align=align)
 
     def write_vuln_temporal_data(self, vuln: VulnType):
         vuln_historic_state = cast(HistoricType, vuln.get('historic_state'))
@@ -367,21 +334,24 @@ class ITReport():
             vuln_historic_state[0]['date'], '%Y-%m-%d %H:%M:%S')
         vuln_closed = vuln_historic_state[-1]['state'] == 'closed'
         limit_date = datetime.today()
+        vuln_close_date: Union[str, datetime] = EMPTY
         if vuln_closed:
             limit_date = datetime.strptime(
+                vuln_historic_state[-1]['date'], '%Y-%m-%d %H:%M:%S'
+            )
+            vuln_close_date = datetime.strptime(
                 vuln_historic_state[-1]['date'], '%Y-%m-%d %H:%M:%S'
             )
         vuln_age_days = int((limit_date - vuln_date).days)
         vuln_age = f'{vuln_age_days} '
 
-        self.set_cell(self.vulnerability['vuln_report_date'], vuln_date)
-        self.set_cell(self.vulnerability['vuln_age'], vuln_age)
-        self.set_cell(
-            self.vulnerability['vuln_close_date'],
-            datetime.strptime(
-                vuln_historic_state[-1]['date'], '%Y-%m-%d %H:%M:%S')
-            if vuln_closed else EMPTY
-        )
+        vuln_temporal_data: Dict[str, Union[str, int, datetime]] = {
+            'vuln_report_date': vuln_date,
+            'vuln_age': vuln_age,
+            'vuln_close_date': vuln_close_date
+        }
+        for key, value in vuln_temporal_data.items():
+            self.set_cell(self.vulnerability[key], value)
 
     def write_treatment_data(  # pylint: disable=too-many-locals
         self,
@@ -488,27 +458,15 @@ class ITReport():
                 reattack_date = datetime.strptime(
                     historic_verification[-1]['date'], '%Y-%m-%d %H:%M:%S')
                 reattack_requester = historic_verification[-1]['user']
-
-        self.set_cell(
-            self.vulnerability['reattack'],
-            'Yes' if reattack_requested else 'No'
-        )
-        self.set_cell(
-            self.vulnerability['n_requested_reattacks'],
-            n_requested_reattacks or '0'
-        )
-        self.set_cell(
-            self.vulnerability['last_reattack_date'],
-            reattack_date or EMPTY
-        )
-        self.set_cell(
-            self.vulnerability['last_reattack_requester'],
-            reattack_requester or EMPTY
-        )
-        self.set_cell(
-            self.vulnerability['remediation_effectiveness'],
-            remediation_effectiveness
-        )
+        reattack_data = {
+            'reattack': 'Yes' if reattack_requested else 'No',
+            'n_requested_reattacks': n_requested_reattacks or '0',
+            'last_reattack_date': reattack_date or EMPTY,
+            'last_reattack_requester': reattack_requester or EMPTY,
+            'remediation_effectiveness': remediation_effectiveness
+        }
+        for key, value in reattack_data.items():
+            self.set_cell(self.vulnerability[key], value)
 
     def __save(self):
         tzn = pytz.timezone(settings.TIME_ZONE)  # type: ignore
