@@ -2,8 +2,10 @@
 
 source "${srcEnv}"
 source "${srcIncludeHelpers}"
-source "${srcIncludeJobs}"
-source "${srcIncludeLinterJobs}"
+source "${srcIncludeForcesJobs}"
+source "${srcIncludeIntegratesJobs}"
+source "${srcIncludeIntegratesLintersJobs}"
+source "${srcIncludeSkimsJobs}"
 
 function cli {
   local function_to_call
