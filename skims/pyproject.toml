@@ -9,6 +9,7 @@ packages = [
   { include = "apis", from = "src" },
   { include = "cli", from = "src" },
   { include = "core", from = "src" },
+  { include = "utils", from = "src" },
 ]
 readme = "./README.md"
 repository = "https://gitlab.com/fluidattacks/integrates/-/tree/master/skims"
@@ -24,6 +25,7 @@ python = "^3.8"
 mypy = "0.770"
 prospector = "1.2.0"
 pytest = "5.4.3"
+pytest-asyncio = "0.14.0"
 pytest-cov = "2.10.0"
 
 [tool.poetry.scripts]
