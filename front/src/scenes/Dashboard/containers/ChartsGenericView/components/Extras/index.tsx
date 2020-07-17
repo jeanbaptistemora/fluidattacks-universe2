@@ -12,6 +12,7 @@ import {
   Panel,
   Row,
 } from "react-bootstrap";
+import { Badge } from "../../../../../../components/Badge";
 import { Button } from "../../../../../../components/Button";
 import { DropdownButton } from "../../../../../../components/DropdownButton";
 import { TooltipWrapper } from "../../../../../../components/TooltipWrapper";
@@ -145,6 +146,7 @@ const chartsGenericViewExtras: React.FC<IChartsGenericViewProps> = (props: IChar
                               ? <Glyphicon glyph="hourglass" />
                               : <Glyphicon glyph="stats" />}
                             {`   ${translateFrequency(subscriptionFrequency, "statement")}`}
+                            <Badge size="md">PLUS+</Badge>
                           </React.Fragment>
                         }
                       >
