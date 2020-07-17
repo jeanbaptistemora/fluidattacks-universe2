@@ -2,7 +2,6 @@ import { ResourceLanguage } from "i18next";
 
 export const enTranslations: ResourceLanguage = {
   common: {
-    about: "About",
     error: {
       msg: "There is an error :(",
       title: "Oops!",

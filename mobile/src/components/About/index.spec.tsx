@@ -1,7 +1,7 @@
+import { MaterialIcons } from "@expo/vector-icons";
 import { mount, ReactWrapper } from "enzyme";
 import React from "react";
 import { Alert } from "react-native";
-import { Text } from "react-native-paper";
 
 import { About } from "./index";
 
@@ -20,8 +20,9 @@ describe("About", (): void => {
     expect(wrapper)
       .toHaveLength(1);
 
-    const aboutBtn: ReactWrapper<React.ComponentProps<typeof Text>> = wrapper
-      .find(Text);
+    const aboutBtn: ReactWrapper<
+      React.ComponentProps<typeof MaterialIcons>
+    > = wrapper.find(MaterialIcons);
 
     (aboutBtn.invoke("onPress") as () => void)();
     expect(Alert.alert)

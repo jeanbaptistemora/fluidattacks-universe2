@@ -2,15 +2,11 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { default as Constants } from "expo-constants";
 import * as Updates from "expo-updates";
 import React from "react";
-import { useTranslation } from "react-i18next";
 import { Alert, View } from "react-native";
-import { Text } from "react-native-paper";
 
 import { styles } from "./styles";
 
 const about: React.FC = (): JSX.Element => {
-  const { t } = useTranslation();
-
   const displayDialog: (() => void) = (): void => {
     Alert.alert(
       "Integrates",
@@ -21,10 +17,12 @@ const about: React.FC = (): JSX.Element => {
 
   return (
     <View style={styles.container}>
-      <MaterialIcons name="info-outline" size={14} color="#808080" />
-      <Text style={styles.text} onPress={displayDialog}>
-        {t("common.about")}
-      </Text>
+      <MaterialIcons
+        color="#808080"
+        name="info-outline"
+        onPress={displayDialog}
+        size={15}
+      />
     </View>
   );
 };
