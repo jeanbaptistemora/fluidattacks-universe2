@@ -356,6 +356,32 @@ $codeyellow: rgba(230, 219, 116, 1);
   transition: .25s;
 }
 
+@mixin menu-font {
+  color: $fluid-black;
+  padding-bottom: .2rem;
+  transition: .25s;
+}
+
+#op7:checked~.all-tag {
+  @include menu-font;
+}
+
+#op8:checked~.ebook-tag {
+  @include menu-font;
+}
+
+#op9:checked~.report-tag {
+  @include menu-font;
+}
+
+#op10:checked~.webinar-tag {
+  @include menu-font;
+}
+
+#op11:checked~.datasheet-tag {
+  @include menu-font;
+}
+
 // New menu component
 
 .lower~.overlay-hugeinc {

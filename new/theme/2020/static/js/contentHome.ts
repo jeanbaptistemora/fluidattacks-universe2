@@ -1,6 +1,6 @@
 import { default as $ } from "jquery";
 
-import { animationById } from "./jqueryFunctions";
+import { animationById, toggleClasses } from "./jqueryFunctions";
 
 const contentHome: (() => void) = (): void => {
   $(() => {
@@ -31,6 +31,51 @@ const contentHome: (() => void) = (): void => {
                     "dn fadein active", "dn", "fadein");
       animationById("#aboutus-title", "checked", ".aboutus-list", ".products-list, .usecases-list",
                     "dn fadein active", "dn", "fadein");
+    });
+    $('input:radio[name="menu4"]')
+    .on("change", () => {
+      if ($("#op7")
+        .prop("checked")) {
+          $(".report, .webinar, .datasheet, .ebook")
+            .removeClass("dn")
+            .addClass("dt-ns");
+        }
+      if ($("#op8")
+        .prop("checked")) {
+          $(".report, .webinar, .datasheet")
+            .removeClass("dt-ns")
+            .addClass("dn");
+          $(".ebook")
+            .removeClass("dn")
+            .addClass("dt-ns");
+        }
+      if ($("#op9")
+        .prop("checked")) {
+          $(".webinar, .datasheet, .ebook")
+            .removeClass("dt-ns")
+            .addClass("dn");
+          $(".report")
+            .removeClass("dn")
+            .addClass("dt-ns");
+        }
+      if ($("#op10")
+        .prop("checked")) {
+          $(".report, .datasheet, .ebook")
+            .removeClass("dt-ns")
+            .addClass("dn");
+          $(".webinar")
+            .removeClass("dn")
+            .addClass("dt-ns");
+        }
+      if ($("#op11")
+        .prop("checked")) {
+          $(".report, .webinar, .ebook")
+            .removeClass("dt-ns")
+            .addClass("dn");
+          $(".datasheet")
+            .removeClass("dn")
+            .addClass("dt-ns");
+        }
     });
     $(".search-icon")
       .on("click", () => {
