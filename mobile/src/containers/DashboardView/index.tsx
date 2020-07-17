@@ -164,8 +164,11 @@ const dashboardView: React.FunctionComponent = (): JSX.Element => {
     history.replace("/Login");
   };
 
-  const positiveColor: string = "#0F9D58";
-  const negativeColor: string = "#DB4437";
+  const color: string = percentageDiff === 0
+    ? colors.text
+    : percentageDiff > 0
+      ? "#0F9D58"
+      : "#DB4437";
 
   return (
     <React.StrictMode>
@@ -183,26 +186,17 @@ const dashboardView: React.FunctionComponent = (): JSX.Element => {
         </View>
         <View style={styles.remediationContainer}>
           <View style={{ alignItems: "center", flexDirection: "row" }}>
-            {percentageDiff >= 0
-              ? (
-                <MaterialIcons
-                  name="arrow-upward"
-                  size={24}
-                  color={positiveColor}
-                />
-              )
-              : (
-                <MaterialIcons
+            {percentageDiff === 0
+              ? <MaterialIcons name="remove" size={24} color={color} />
+              : percentageDiff > 0
+                ? <MaterialIcons name="arrow-upward" size={24} color={color} />
+                : <MaterialIcons
                   name="arrow-downward"
                   size={24}
-                  color={negativeColor}
+                  color={color}
                 />
-              )}
-            <Title
-              style={{
-                color: percentageDiff >= 0 ? positiveColor : negativeColor,
-              }}
-            >
+            }
+            <Title style={{ color }}>
               {percentageDiff > 0 ? "+" : undefined}{percentageDiff}%
             </Title>
           </View>

@@ -57,8 +57,8 @@ describe("DashboardView", (): void => {
                     open: 5,
                   },
                   previous: {
-                    closed: 0,
-                    open: 0,
+                    closed: 7,
+                    open: 5,
                   },
                 },
                 totalGroups: 1,
@@ -86,6 +86,8 @@ describe("DashboardView", (): void => {
       .toHaveLength(1);
     expect(wrapper.text())
       .toContain("58.3%");
+    expect(wrapper.text())
+      .toContain("0%Compared to last week");
     expect(wrapper.text())
       .toContain("of 12 found in 1 system");
   });
