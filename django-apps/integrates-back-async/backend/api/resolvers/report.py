@@ -1,5 +1,4 @@
 
-import asyncio
 import sys
 
 from typing import Any, cast
@@ -11,24 +10,16 @@ from ariadne import (
 from asgiref.sync import sync_to_async
 from graphql.type.definition import GraphQLResolveInfo
 
-from backend.decorators import require_login, require_project_access
+from backend.decorators import require_login
 from backend.domain import (
-    finding as finding_domain,
-    project as project_domain,
     user as user_domain,
-    vulnerability as vuln_domain
 )
 from backend.exceptions import (
     PermissionDenied, RequestedReportError,
 )
 from backend.reports import report
-from backend.reports.reports import (
-    data as data_report,
-    technical as technical_report,
-)
 from backend.typing import (
     Report as ReportType,
-    SimplePayload as SimplePayloadType
 )
 from backend import authz, util
 from backend.utils import aio
@@ -42,17 +33,6 @@ async def resolve_report(
         **parameters: str) -> ReportType:
     """Resolve report query."""
     return await resolve(info, **parameters)
-
-
-@convert_kwargs_to_snake_case  # type: ignore
-@require_login
-@require_project_access
-async def resolve_report_mutation(
-        _: Any,
-        info: GraphQLResolveInfo,
-        **parameters: str) -> SimplePayloadType:
-    """Resolve reports mutation."""
-    return await _do_request_project_report(info, **parameters)
 
 
 async def resolve(
@@ -220,75 +200,3 @@ async def _get_url(
         msg = 'Error: report type not in expected values'
         rollbar.report_message(msg, 'error', payload_data=payload_data)
     return url
-
-
-async def _do_request_project_report(
-        info: GraphQLResolveInfo,
-        **parameters: str) -> SimplePayloadType:
-    success = False
-    project_name = parameters.get('project_name', '')
-    project_name = project_name.lower()
-    report_type = parameters.get('report_type')
-    user_info = util.get_jwt_content(info.context)
-    user_email = user_info['user_email']
-    project_findings = await info.context.loaders['project'].load(project_name)
-    project_findings = project_findings['findings']
-    findings = await finding_domain.get_findings_async(project_findings)
-    findings = [
-        await sync_to_async(finding_domain.cast_new_vulnerabilities)(
-            await vuln_domain.get_open_vuln_by_type(
-                str(finding['findingId']), info.context
-            ),
-            finding
-        )
-        for finding in findings
-    ]
-    description = await sync_to_async(project_domain.get_description)(
-        project_name.lower()
-    )
-
-    findings_ord = util.ord_asc_by_criticality(findings)
-    if report_type == 'PDF':
-        asyncio.create_task(
-            sync_to_async(technical_report.generate_pdf)(
-                description=description,
-                findings_ord=findings_ord,
-                group_name=project_name,
-                lang=parameters.get('lang', 'en'),
-                user_email=user_email,
-            )
-        )
-        success = True
-        util.cloudwatch_log(
-            info.context,
-            'Security: PDF report successfully requested'
-        )
-    elif report_type == 'XLS':
-        asyncio.create_task(
-            sync_to_async(technical_report.generate_xls)(
-                findings_ord=findings_ord,
-                group_name=project_name,
-                user_email=user_email,
-            )
-        )
-        success = True
-        util.cloudwatch_log(
-            info.context,
-            'Security: XLS report successfully requested'
-        )
-    elif report_type == 'DATA':
-        asyncio.create_task(
-            sync_to_async(data_report.generate)(
-                findings_ord=findings_ord,
-                group=project_name,
-                group_description=description,
-                requester_email=user_email,
-            )
-        )
-        success = True
-        util.cloudwatch_log(
-            info.context,
-            'Security: DATA report successfully requested'
-        )
-
-    return SimplePayloadType(success=success)

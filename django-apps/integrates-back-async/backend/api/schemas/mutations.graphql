@@ -308,10 +308,4 @@ type Mutation {
     ): SimplePayload!
 
     invalidateCache(pattern: String!): SimplePayload!
-
-    requestProjectReport(
-        projectName: String!,
-        reportType: ReportType!,
-        lang: ReportLang,
-    ): SimplePayload!
 }

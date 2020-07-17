@@ -7,7 +7,6 @@ from backend.api.resolvers import (
     me,
     organization,
     project,
-    report,
     resource,
     user,
     vulnerability
@@ -88,5 +87,3 @@ MUTATION.set_field('uploadFile',
                    vulnerability.resolve_vulnerability_mutation)
 MUTATION.set_field('downloadVulnFile',
                    vulnerability.resolve_vulnerability_mutation)
-MUTATION.set_field('requestProjectReport',
-                   report.resolve_report_mutation)
