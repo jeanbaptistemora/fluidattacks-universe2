@@ -65,3 +65,8 @@ transactions or account modifications.
 V9.2 Server Communications Security Requirements.(9.2.3)]
 Verify that all encrypted connections to external systems that involve
 sensitive information or functions are authenticated.
+
+. [[r7]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V14.5 Validate HTTP Request Header Requirements.(14.5.4)]
+Verify that *HTTP* headers added by a trusted proxy or *SSO* devices,
+such as a bearer token, are authenticated by the application.

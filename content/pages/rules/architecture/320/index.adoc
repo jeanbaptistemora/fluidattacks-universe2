@@ -106,3 +106,9 @@ and at the resource level, enforced by model-based permissions.
 V13.4 GraphQL and other Web Service Data Layer Security Requirements.(13.4.2)]
 Verify that *GraphQL* or other data layer authorization logic should be
 implemented at the business logic layer instead of the *GraphQL* layer.
+
+. [[r14]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V14.5 Validate HTTP Request Header Requirements.(14.5.2)]
+Verify that the supplied *Origin* header is not used for authentication or
+access control decisions,
+as the *Origin* header can easily be changed by an attacker.

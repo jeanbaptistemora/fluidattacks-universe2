@@ -55,3 +55,8 @@ enrollment.
 V11.1 Business Logic Security Requirements.(11.1.1)]
 Verify the application will only process business logic flows for the same user
 in sequential step order and without skipping steps.
+
+. [[r7]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V14.5 Validate HTTP Request Header Requirements.(14.5.4)]
+Verify that *HTTP* headers added by a trusted proxy or *SSO* devices,
+such as a bearer token, are authenticated by the application.
