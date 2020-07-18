@@ -15,6 +15,8 @@ in
         pkgs.jq
       ];
 
-      pyPkgCodecov = builders.pythonPackage "codecov==2.1.0";
+      pyPkgCodecov = builders.pythonPackage {
+        requirement = "codecov==2.1.0";
+      };
     })
   )

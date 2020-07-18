@@ -25,7 +25,7 @@ in
         pkgs.sops
         pkgs.jq
         (builders.rubyGem pkgs).propagatedBuildInputs
-        (builders.pythonPackage pkgs).propagatedBuildInputs
+        (builders.pythonPackage {}).propagatedBuildInputs
         (builders.pythonRequirements pkgs).propagatedBuildInputs
       ];
 

@@ -13,6 +13,8 @@ in
         pkgs.python37
       ];
 
-      pyPkgYamllint = builders.pythonPackage "yamllint==1.23.0";
+      pyPkgYamllint = builders.pythonPackage {
+        requirement = "yamllint==1.23.0";
+      };
     })
   )

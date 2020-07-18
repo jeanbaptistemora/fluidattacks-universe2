@@ -3,7 +3,9 @@ pkgs:
 let
   stringToDerivationName = import ../../lambdas/string-to-derivation-name pkgs;
 in
-  requirement:
+  { requirement ? "",
+    dependencies ? [],
+  }:
     pkgs.stdenv.mkDerivation rec {
       name = stringToDerivationName requirement;
       inherit requirement;
@@ -13,6 +15,7 @@ in
 
       builder = ./builder.sh;
       propagatedBuildInputs = [
+        dependencies
         (pkgs.python37.withPackages (ps: with ps; [
           wheel
           setuptools

@@ -33,6 +33,6 @@ skims = 'cli:main'
 
 [build-system]
 requires = [
-  "poetry=1.0.9"
+  "poetry==1.0.9"
 ]
 build-backend = "poetry.masonry.api"

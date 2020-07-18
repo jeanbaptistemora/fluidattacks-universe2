@@ -19,6 +19,9 @@ export CI_REPOSITORY_URL="https://${CI_REGISTRY_USER}:${CI_REGISTRY_PASSWORD}@gi
 export CI_COMMIT_REF_SLUG
 export FALSE=''
 export GITLAB_API_URL="https://gitlab.com/api/v4/projects/${CI_PROJECT_ID}/variables"
+export POETRY_VIRTUALENVS_CREATE='true'
+export POETRY_VIRTUALENVS_IN_PROJECT='true'
+export POETRY_VIRTUALENVS_PATH=""
 export TRUE='true'
 
 test -n "${CI:-}" \

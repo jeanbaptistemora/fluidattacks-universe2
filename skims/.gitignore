@@ -5,6 +5,7 @@
 
 /**/*.egg-info
 /**/.coverage
+/**/.venv
 /coverage*
 /dist
 /poetry.lock

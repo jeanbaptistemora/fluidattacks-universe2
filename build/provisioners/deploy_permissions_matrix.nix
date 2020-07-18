@@ -12,11 +12,12 @@ in
         pkgs.git
         pkgs.sops
         pkgs.jq
-        (builders.pythonPackage pkgs).propagatedBuildInputs
+        (builders.pythonPackage {}).propagatedBuildInputs
       ];
 
-      pyPkgCryptography =
-        builders.pythonPackage "cryptography";
+      pyPkgCryptography = builders.pythonPackage {
+        requirement = "cryptography";
+      };
 
       pyPkgMagic = pkgs.python37Packages.magic;
       pyPkgPandas = pkgs.python37Packages.pandas;
