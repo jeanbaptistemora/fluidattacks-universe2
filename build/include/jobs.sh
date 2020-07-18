@@ -83,14 +83,12 @@ function job_analytics_zoho {
 }
 
 function job_analytics_git_process {
-      helper_use_pristine_workdir \
-  &&  env_prepare_python_packages \
+      env_prepare_python_packages \
   &&  helper_analytics_git_process
 }
 
 function job_analytics_git_upload {
-      helper_use_pristine_workdir \
-  &&  env_prepare_python_packages \
+      env_prepare_python_packages \
   &&  helper_analytics_git_upload
 }
 
