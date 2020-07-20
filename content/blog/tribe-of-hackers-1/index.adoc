@@ -20,7 +20,8 @@ _Tribal Knowledge from the Best in Offensive Cybersecurity_
 by Marcus J. Carey and Jennifer Jin (2019)
 belongs to the _Tribe of Hackers_ cybersecurity book series.
 It was recently shared with me here at `Fluid Attacks`,
-and now I would like to share some of the first highlights with you.
+and now I would like to share with you some of the highlights
+that I selected for this post.
 Maybe there's something that will pique your curiosity.
 
 link:https://www.linkedin.com/in/marcuscarey/[Marcus J. Carey] is an American hacker
@@ -55,12 +56,12 @@ which means we are continually testing or attacking
 infrastructures, applications, and source code to find vulnerabilities
 that can pose risks for both owners and users of those systems.
 On the other hand, a _blue team_ is responsible for defending the systems
-for ensuring "that the confidentiality, integrity, and availability
+to ensure "that the confidentiality, integrity, and availability
 of all assets are not affected," Marcus says.
 In other words, the red team, with its cannon,
 verifies how effective the blue team's work has been in establishing the wall.
 Then, when we refer to the combination of both sides,
-implemented in some organizations, the link:../purple-team/[purple team] emerges.
+implemented in some organizations, we talk about a link:../purple-team/[purple team].
 
 - - - - - - - - - - - - - - - - - - - - - -
 
@@ -68,7 +69,7 @@ Specifically, Marcus and Jennifer (his collaborator)
 asked the same *21* questions to *47* experts in red teaming
 to shape this book.
 Of course, the first to answer them is Marcus himself.
-It's about some of his opinions that we're going to talk about in this post;
+We are going to focus on some of his opinions in this post;
 possibly the first one of a series focused on _Tribe of Hackers Red Team_.
 
 .Marcus's photo taken from link:https://www.linkedin.com/pulse/im-unemployed-i-am-hiring-marcus-carey?articleId=6202227092038365184#comments-6202227092038365184&trk=public_profile_article_view[LinkedIn]
@@ -91,7 +92,7 @@ Of course, to avoid problems with the law,
 keep in mind that it's prudent to exploit only systems that are either your own
 or have explicit permission for this type of activity.
 
-From an organization standpoint, one Marcus's phrase is quite remarkable:
+From an organization standpoint, one of Marcus's phrase is quite remarkable:
 "I believe that everyone in information technology and software engineering
 should know how to build, secure and hack anything they are in charge of."
 Although it may certainly sound excessive,
@@ -101,20 +102,21 @@ by allowing the formation of purple teams.
 However, on the other side are the companies
 that have opened their doors to pentesting
 only for compliance and have kept it quite limited.
-That should concern them!
+That should be concerning for them!
 
 For one of the questions referring to the most important control
 to prevent a system from being compromised, Marcus chose
 "restricting administrative privileges for end users" as an answer.
 He mentions this as something easy to implement and scale in any organization.
-It is something simple but with significant results.
-As happens with "two-factor/two-step authentication,
+It is something simple but it yields significant results.
+This is also the case for "two-factor/two-step authentication,
 password length, and automatic updates."
 All this is linked to his other suggestion
 on the general defense of systems against attacks:
 put policies in place and follow them.
 By the way, have you heard about our link:../../products/rules/[Rules],
 `Fluid Attacks'` compilation of security requirements?
+Check them out to get an idea of how we do this!
 
 As Marcus's suggestion regarding teamwork,
 communication should be highlighted as the most significant element.
@@ -157,7 +159,7 @@ as an essential factor of an excellent red teamer.
 This person would be someone motivated to study, to learn how things work.
 They would be willing to improve some skills and always ready to help others.
 Precisely, Marcus and the other red teamers interviewed
-for the book we referenced here are helping us.
+in his book are helping us.
 They're sharing their knowledge with us.
 And if it turns out that we already knew all this,
 well, it doesn't hurt to remember it.
