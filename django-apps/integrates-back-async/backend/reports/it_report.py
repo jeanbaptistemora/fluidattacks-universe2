@@ -8,8 +8,10 @@ from datetime import datetime
 from django.conf import settings
 from asgiref.sync import async_to_sync
 import pytz
-from openpyxl import load_workbook
-from openpyxl.styles import Alignment, stylesheet
+from openpyxl import load_workbook, Workbook
+from openpyxl.cell import WriteOnlyCell
+from openpyxl.styles import Alignment, Font, PatternFill, stylesheet
+from openpyxl.utils import get_column_letter
 from backend.domain import vulnerability as vuln_domain
 from backend.domain.finding import get_finding
 from backend.typing import (
@@ -20,16 +22,22 @@ from backend.typing import (
 
 
 EMPTY = '-'
+HEADER_HEIGHT = 20
+ROW_HEIGHT = 45
+RED = 'FF3435'
+WHITE = '00FFFFFF'
+BLACK = '00000000'
 
 
 class ITReport():
     """Class to generate IT reports."""
 
     workbook = None
+    template = None
     current_sheet: stylesheet.Stylesheet = None
     data = None
     lang = None
-    row = 2
+    row = 1
     result_filename = ''
     project_name = ''
     base = (
@@ -86,15 +94,66 @@ class ITReport():
         'last_reattack_date': 36,
         'last_reattack_requester': 37,
         'cvss_vector': 38,
+        'AV': 39, 'AC': 40, 'PR': 41, 'UI': 42,
+        'SS': 43, 'CI': 44, 'II': 45, 'AI': 46,
+        'E': 47, 'RL': 48, 'RC': 49,
+        '': 50
     }
+    align_left = [2, 7, 10, 11, 12, 13, 14, 15, 16, 18, 25, 30]
+    row_values: List[Union[str, int, datetime]] = \
+        [EMPTY for field in vulnerability]
 
     def __init__(self, data: List[Dict[str, FindingType]], lang: str = 'es'):
         """Initialize variables."""
         self.lang = lang
-        self.workbook = load_workbook(
+        self.template = load_workbook(
             filename=self.templates[self.lang]['TECHNICAL']
         )
+        self.parse_template()
         self.generate(data)
+
+    def parse_template(self):
+        self.workbook = Workbook(write_only=True)
+        self.current_sheet = self.workbook.create_sheet()
+        self.set_row_height(row_height=HEADER_HEIGHT)
+        template_sheet = self.template[
+            self.sheet_names[self.lang]['data']
+        ]
+        header = []
+        for column in range(1, template_sheet.max_column + 1):
+            curr_column = get_column_letter(column)
+            self.current_sheet.column_dimensions[curr_column].width = \
+                template_sheet.column_dimensions[curr_column].width / 2.5
+            self.current_sheet.column_dimensions[curr_column].auto_size = True
+            cell = WriteOnlyCell(
+                self.current_sheet,
+                value=template_sheet.cell(row=1, column=column).value
+            )
+            cell.fill = PatternFill(  # pylint: disable=assigning-non-slot
+                end_color=RED,
+                start_color=RED,
+                fill_type='solid'
+            )
+            self.set_cell_font(cell, color=WHITE)
+            cell.alignment = Alignment(  # pylint: disable=assigning-non-slot
+                horizontal='center',
+                vertical='center'
+            )
+            header.append(cell)
+        self.current_sheet.append(header)
+        self.row += 1
+
+    def set_row_height(self, row_height: int = ROW_HEIGHT):
+        self.current_sheet.row_dimensions[self.row].height = row_height
+
+    @classmethod
+    def set_cell_font(cls, cell, color: str = BLACK):
+        cell.font = Font(
+            name='Times New Roman',
+            size=10,
+            bold=False,
+            color=color
+        )
 
     def hide_cell(self, data: List[FindingType]):
         init_row = 3 + 12 * len(data)
@@ -107,7 +166,6 @@ class ITReport():
         self.project_name = str(data[0].get('projectName'))
         vulns = async_to_sync(vuln_domain.list_vulnerabilities_async)(
             [finding.get('findingId') for finding in data])
-
         for vuln in vulns:
             self.__write_vuln_row(vuln)
             self.row += 1
@@ -244,8 +302,8 @@ class ITReport():
             )
             if value:
                 metric_vector.append(f'{indicator}:{value[0]}')
-                self.set_cell(
-                    self.vulnerability['cvss_vector'] + index + 1, value)
+                self.row_values[
+                    self.vulnerability['cvss_vector'] + index + 1] = value
 
         cvss_metric_vector = '/'.join(metric_vector)
         cvss_calculator_url = (
@@ -254,8 +312,7 @@ class ITReport():
         )
         cell_content = \
             f'=HYPERLINK("{cvss_calculator_url}", "{cvss_metric_vector}")'
-        self.set_cell(
-            self.vulnerability['cvss_vector'], cell_content)
+        self.row_values[self.vulnerability['cvss_vector']] = cell_content
 
     def __write_vuln_row(self, row: VulnType):
         finding = async_to_sync(get_finding)(row.get('finding_id'))
@@ -266,35 +323,39 @@ class ITReport():
         if 'tag' in row:
             tags = str(', '.join(cast(List[str], row.get('tag'))))
 
-        self.__select_finding_sheet()
+        self.set_row_height()
 
-        self.set_cell(self.vulnerability['number'], self.row - 1)
-        self.set_cell(
-            self.vulnerability['finding'],
-            finding.get('finding'),
-            align='left'
-        )
-        self.set_cell(
-            self.vulnerability['finding_id'],
+        self.row_values[self.vulnerability['number']] = self.row - 1
+        self.row_values[self.vulnerability['finding']] = finding.get('finding')
+        self.row_values[self.vulnerability['finding_id']] = \
             finding.get('findingId', EMPTY)
-        )
-        self.set_cell(
-            self.vulnerability['vuln_uuid'],
+        self.row_values[self.vulnerability['vuln_uuid']] = \
             str(row.get('UUID', EMPTY))
-        )
-        self.set_cell(self.vulnerability['where'], str(row.get('where')))
-        self.set_cell(self.vulnerability['specific'], specific)
-        self.set_cell(self.vulnerability['tags'], tags, align='left')
-        self.set_cell(
-            self.vulnerability['business_critically'],
-            str(row.get('severity', EMPTY))
-        )
+        self.row_values[self.vulnerability['where']] = str(row.get('where'))
+        self.row_values[self.vulnerability['specific']] = specific
+        self.row_values[self.vulnerability['tags']] = tags
 
         self.write_finding_data(finding, row)
         self.write_vuln_temporal_data(row)
         self.write_treatment_data(finding, row)
         self.write_reattack_data(finding, row)
         self.set_cvss_metrics_cell(finding)
+
+        vuln_row = []
+        for index, value in enumerate(self.row_values):
+            cell = WriteOnlyCell(
+                self.current_sheet,
+                value=value
+            )
+            cell.alignment = Alignment(  # pylint: disable=assigning-non-slot
+                horizontal='left' if index in self.align_left else 'center',
+                vertical='center',
+                wrap_text=True
+            )
+            self.set_cell_font(cell)
+            vuln_row.append(cell)
+
+        self.current_sheet.append(vuln_row[1:])
 
     def write_finding_data(
         self,
@@ -322,11 +383,8 @@ class ITReport():
             'compromised_attributes': compromised_attributes,
             'n_compromised_attributes': n_compromised_attributes or '0',
         }
-        centered_fields = ['status', 'severity', 'n_compromised_attributes']
-
         for key, value in finding_data.items():
-            align = 'center' if key in centered_fields else 'left'
-            self.set_cell(self.vulnerability[key], value, align=align)
+            self.row_values[self.vulnerability[key]] = value
 
     def write_vuln_temporal_data(self, vuln: VulnType):
         vuln_historic_state = cast(HistoricType, vuln.get('historic_state'))
@@ -351,7 +409,7 @@ class ITReport():
             'vuln_close_date': vuln_close_date
         }
         for key, value in vuln_temporal_data.items():
-            self.set_cell(self.vulnerability[key], value)
+            self.row_values[self.vulnerability[key]] = value
 
     def write_treatment_data(  # pylint: disable=too-many-locals
         self,
@@ -418,17 +476,9 @@ class ITReport():
         }
 
         for key, value in current_treatment_data.items():
-            align = 'center' if 'justification' not in key else 'left'
-            self.set_cell(
-                self.vulnerability[key],
-                value,
-                align=align
-            )
-            self.set_cell(
-                self.vulnerability[f'first_{key}'],
-                first_treatment_data[f'first_{key}'],
-                align=align
-            )
+            self.row_values[self.vulnerability[key]] = value
+            self.row_values[self.vulnerability[f'first_{key}']] = \
+                first_treatment_data[f'first_{key}']
 
     def write_reattack_data(
         self,
@@ -466,7 +516,7 @@ class ITReport():
             'remediation_effectiveness': remediation_effectiveness
         }
         for key, value in reattack_data.items():
-            self.set_cell(self.vulnerability[key], value)
+            self.row_values[self.vulnerability[key]] = value
 
     def __save(self):
         tzn = pytz.timezone(settings.TIME_ZONE)  # type: ignore
