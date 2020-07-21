@@ -1,8 +1,12 @@
 # Standard library
 import asyncio
 import collections.abc
+import functools
 from typing import (
     Any,
+    cast,
+    Callable,
+    Tuple,
     TypeVar,
 )
 
@@ -38,3 +42,35 @@ async def materialize(obj: Any) -> Any:
         raise ValueError(f'Not implemented for type: {type(obj)}')
 
     return materialized_obj
+
+
+async def unblock(
+    function: Callable[..., TVar],
+    *args: Any,
+    **kwargs: Any,
+) -> TVar:
+    return await asyncio.get_running_loop().run_in_executor(
+        None, functools.partial(function, *args, **kwargs),
+    )
+
+
+async def unblock_many(
+    functions: Tuple[Callable[[], TVar], ...],
+) -> Tuple[TVar, ...]:
+    loop = asyncio.get_running_loop()
+
+    results: Tuple[TVar, ...] = await materialize((
+        loop.run_in_executor(None, function) for function in functions
+    ))
+
+    return results
+
+
+async def unblock_decorator(function: TVar) -> TVar:
+    _function: Callable[..., TVar] = cast(Callable[..., TVar], function)
+
+    @functools.wraps(_function)
+    async def _wrapper(*args: Any, **kwargs: Any) -> TVar:
+        return await unblock(_function, *args, **kwargs)
+
+    return cast(TVar, _wrapper)

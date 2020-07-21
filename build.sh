@@ -17,7 +17,6 @@ function decide_and_call_provisioner {
   local job="${1:-}"
   local arg1="${2:-}"
   local provisioner
-  export __PATH="${PATH}"
 
   # shellcheck disable=2016
       provisioner="./build/provisioners/${job}.nix" \
@@ -57,7 +56,6 @@ function decide_and_call_provisioner {
         --keep PROD_AWS_ACCESS_KEY_ID \
         --keep PROD_AWS_SECRET_ACCESS_KEY \
         --keep SKIMS_PYPI_TOKEN \
-        --keep __PATH \
         --max-jobs auto \
         --option restrict-eval false \
         --option sandbox false \

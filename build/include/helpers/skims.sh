@@ -13,16 +13,6 @@ function helper_skims_compute_version {
   '
 }
 
-function helper_skims_install_asserts {
-  export PATH="${__PATH}:${PATH}"
-  export BIN_ASSERTS="${PWD}/bin/asserts"
-
-      pushd skims/ \
-    &&  { test -e poetry.lock || "${BIN_ASSERTS}" --help; } \
-  &&  popd \
-  ||  return 1
-}
-
 function helper_skims_install_base_dependencies {
       pushd skims/ \
     &&  { test -e poetry.lock || poetry install; } \

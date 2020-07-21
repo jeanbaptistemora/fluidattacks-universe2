@@ -4,6 +4,11 @@ from typing import (
     Any,
 )
 
+# Local libraries
+from utils.aio import (
+    unblock,
+)
+
 # Private constants
 _LOGGER_FORMAT: str = '[%(levelname)s] %(message)s'
 
@@ -25,3 +30,7 @@ def set_level_blocking(level: int = logging.INFO) -> None:
 
 def log_blocking(level: str, msg: str, *args: Any) -> None:
     getattr(_LOGGER, level)(msg, *args)
+
+
+async def log(level: str, msg: str, *args: Any) -> None:
+    await unblock(getattr(_LOGGER, level), msg, *args)

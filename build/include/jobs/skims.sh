@@ -75,15 +75,14 @@ function job_skims_test {
 
   args_pytest=(
     --cov-branch
-    --cov-fail-under '90'
+    --cov-fail-under '70'
     --cov-report 'term'
     --cov-report "html:${PWD}/skims/coverage/"
     --cov-report "xml:${PWD}/skims/coverage.xml"
     --disable-pytest-warnings
   )
 
-      helper_skims_install_asserts \
-  &&  helper_skims_install_base_dependencies \
+      helper_skims_install_base_dependencies \
   &&  pushd skims/ \
     &&  for pkg in "${GLOBAL_PKGS[@]}" "${GLOBAL_TEST_PKGS[@]}"
         do
