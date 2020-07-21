@@ -68,6 +68,16 @@ resource "kubernetes_config_map" "aws_auth" {
     - system:bootstrappers
     - system:nodes
 YAML
+    mapUsers = <<YAML
+- userarn: arn:aws:iam::205810638802:user/user-provision/integrates-prod
+  username: integrates-prod
+  groups:
+    - system:masters
+- userarn: arn:aws:iam::205810638802:user/user-provision/integrates-dev
+  username: integrates-dev
+  groups:
+    - system:masters
+YAML
   }
 
   provisioner "local-exec" {

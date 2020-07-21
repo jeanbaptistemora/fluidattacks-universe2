@@ -158,7 +158,7 @@ cd eks/manifests/
 
 
 # Set working namespace to serves to avoid including the flag in every command
-create_kubernetes_namespace serves operations integrates web runners
+create_kubernetes_namespace serves operations integrates runners
 kubectl config set-context "$(kubectl config current-context)" \
   --namespace serves
 
@@ -204,7 +204,6 @@ if ! kubectl get secret gitlab-reg; then
 fi
 
 # Prepare environments for Review Apps
-sed 's/$PROJECT/web/g' review-apps/env-template.yaml | kubectl apply -f -
 sed 's/$PROJECT/integrates/g' review-apps/env-template.yaml | kubectl apply -f -
 
 # Install Calico to enforce Network Policies between Pods
