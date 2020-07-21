@@ -36,7 +36,6 @@ from backend.decorators import (
     turn_args_into_kwargs,
     require_attribute,
     require_integrates,
-    require_project_access,
     enforce_user_level_auth_async
 )
 from backend.domain import (
@@ -688,7 +687,6 @@ async def resolve(
 @convert_kwargs_to_snake_case
 @require_login
 @enforce_group_level_auth_async
-@require_project_access
 async def resolve_project(_, info, project_name: str) -> ProjectType:
     """Resolve project query."""
     return await resolve(info, project_name)
@@ -729,7 +727,6 @@ async def _do_create_project(_, info, **kwargs) -> SimplePayloadType:
 @turn_args_into_kwargs
 @enforce_group_level_auth_async
 @require_integrates
-@require_project_access
 async def _do_edit_group(  # pylint: disable=too-many-arguments
     _, info,
     comments: str,
@@ -770,7 +767,6 @@ async def _do_edit_group(  # pylint: disable=too-many-arguments
 @require_login
 @enforce_group_level_auth_async
 # Intentionally not @require_integrates
-@require_project_access
 async def _do_reject_remove_project(_, info,
                                     project_name: str) -> SimplePayloadType:
     """Resolve reject_remove_project mutation."""
@@ -791,7 +787,6 @@ async def _do_reject_remove_project(_, info,
 @require_login
 @enforce_group_level_auth_async
 @require_integrates
-@require_project_access
 async def _do_add_project_comment(_, info,
                                   **parameters) -> AddCommentPayloadType:
     """Resolve add_project_comment mutation."""
@@ -845,7 +840,6 @@ def _update_tags(project_name, project_tags, info, tags):
 @require_login
 @enforce_group_level_auth_async
 @require_integrates
-@require_project_access
 async def _do_add_tags(_, info, project_name: str,
                        tags: List[str]) -> SimpleProjectPayloadType:
     """Resolve add_tags mutation."""
@@ -882,7 +876,6 @@ Attempted to upload tags without the allowed validations')  # pragma: no cover
 @require_login
 @enforce_group_level_auth_async
 @require_integrates
-@require_project_access
 async def _do_remove_tag(_, info, project_name: str,
                          tag: str) -> SimpleProjectPayloadType:
     """Resolve remove_tag mutation."""

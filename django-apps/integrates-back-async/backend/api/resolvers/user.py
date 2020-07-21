@@ -18,7 +18,6 @@ from backend.decorators import (
     require_integrates,
     require_login,
     require_organization_access,
-    require_project_access,
     enforce_group_level_auth_async,
     enforce_user_level_auth_async,
 )
@@ -255,7 +254,6 @@ async def resolve(  # pylint: disable=too-many-arguments
 
 @enforce_group_level_auth_async
 @require_integrates
-@require_project_access
 async def resolve_for_group(  # pylint: disable=too-many-arguments
     info,
     entity: str,
@@ -386,7 +384,6 @@ async def _do_add_user(
 @require_login
 @enforce_group_level_auth_async
 @require_integrates
-@require_project_access
 async def _do_grant_user_access(
         _, info, **query_args) -> GrantUserAccessPayloadType:
     """Resolve grant_user_access mutation."""
@@ -454,7 +451,6 @@ async def _do_grant_user_access(
 @require_login
 @enforce_group_level_auth_async
 @require_integrates
-@require_project_access
 async def _do_remove_user_access(
         _, info,
         project_name: str, user_email: str) -> RemoveUserAccessPayloadType:
@@ -489,7 +485,6 @@ async def _do_remove_user_access(
 @require_login
 @enforce_group_level_auth_async
 @require_integrates
-@require_project_access
 async def _do_edit_user(_, info, **modified_user_data) -> EditUserPayloadType:
     """Resolve edit_user mutation."""
     project_name = modified_user_data['project_name'].lower()

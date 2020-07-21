@@ -12,7 +12,7 @@ from graphql import GraphQLError
 from backend.decorators import (
     enforce_group_level_auth_async, get_entity_cache_async, rename_kwargs,
     require_integrates,
-    require_login, require_finding_access, require_project_access
+    require_login, require_finding_access
 )
 from backend.domain import (
     comment as comment_domain,
@@ -878,7 +878,6 @@ async def _do_approve_draft(_, info, draft_id: str) -> ApproveDraftPayloadType:
 @require_login
 @enforce_group_level_auth_async
 @require_integrates
-@require_project_access
 async def _do_create_draft(_, info, project_name: str, title: str,
                            **kwargs) -> SimplePayloadType:
     """Resolve create_draft mutation."""

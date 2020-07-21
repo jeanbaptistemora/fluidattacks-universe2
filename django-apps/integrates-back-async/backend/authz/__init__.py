@@ -10,7 +10,6 @@ from .boundary import (
     get_user_level_roles_a_user_can_grant,
 )
 from .enforcer import (
-    get_group_access_enforcer,
     get_group_level_enforcer,
     get_group_service_attributes_enforcer,
     get_organization_level_enforcer,
@@ -49,7 +48,6 @@ __all__ = [
     'get_user_level_roles_a_user_can_grant',
 
     # enforcer
-    'get_group_access_enforcer',
     'get_group_level_enforcer',
     'get_group_service_attributes_enforcer',
     'get_user_level_enforcer',

@@ -37,21 +37,6 @@ def get_user_level_enforcer(subject: str) -> \
     return enforcer
 
 
-def get_group_access_enforcer() -> Callable[[dict, str], Coroutine]:
-
-    # If you are going to create a new enforcer do not follow this pattern
-    #   use a policy based enforcer
-    # see: get_user_level_enforcer or get_group_level_enforcer for examples
-    async def enforcer(r_data: dict, r_object: str) -> bool:
-        should_grant_access: bool = \
-            r_data['role'] == 'admin' \
-            or r_object.lower() in r_data['subscribed_projects']
-
-        return should_grant_access
-
-    return enforcer
-
-
 def get_group_level_enforcer(subject: str) -> \
         Callable[[str, str, str], Coroutine]:
     """Return a filtered group-level authorization for the provided subject."""

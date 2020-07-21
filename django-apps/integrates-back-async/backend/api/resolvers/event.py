@@ -8,9 +8,9 @@ from asgiref.sync import sync_to_async
 
 from backend.api.dataloaders.event import EventLoader
 from backend.decorators import (
-    get_entity_cache_async, require_login, require_event_access, rename_kwargs,
+    get_entity_cache_async, require_login, rename_kwargs,
     require_integrates,
-    require_project_access, enforce_group_level_auth_async
+    enforce_group_level_auth_async
 )
 from backend.domain import comment as comment_domain
 from backend.domain import event as event_domain
@@ -207,7 +207,6 @@ async def resolve(info, identifier: str = '',
 @rename_kwargs({'identifier': 'event_id'})
 @enforce_group_level_auth_async
 @require_integrates
-@require_event_access
 @rename_kwargs({'event_id': 'identifier'})
 @convert_kwargs_to_snake_case
 async def resolve_event(_, info, identifier: str = '') -> EventType:
@@ -225,7 +224,6 @@ async def _resolve_events_async(event_ids: List[str]) -> List[EventType]:
 @require_login
 @enforce_group_level_auth_async
 @require_integrates
-@require_project_access
 async def resolve_events(_, info, project_name: str) -> List[EventType]:
     """Resolve events query."""
     util.cloudwatch_log(
@@ -238,7 +236,6 @@ async def resolve_events(_, info, project_name: str) -> List[EventType]:
 @require_login
 @enforce_group_level_auth_async
 @require_integrates
-@require_project_access
 async def _do_create_event(_, info, project_name: str, image=None, file=None,
                            **kwa) -> SimplePayloadType:
     """Resolve create_event mutation."""
@@ -256,7 +253,6 @@ async def _do_create_event(_, info, project_name: str, image=None, file=None,
 @require_login
 @enforce_group_level_auth_async
 @require_integrates
-@require_event_access
 async def _do_solve_event(_, info, event_id: str, affectation: str,
                           date: datetime) -> SimplePayloadType:
     """Resolve solve_event mutation."""
@@ -283,7 +279,6 @@ async def _do_solve_event(_, info, event_id: str, affectation: str,
 @require_login
 @enforce_group_level_auth_async
 @require_integrates
-@require_event_access
 async def _do_add_event_comment(_, info, content: str, event_id: str,
                                 parent: str) -> AddCommentPayloadType:
     """Resolve add_event_comment mutation."""
@@ -309,7 +304,6 @@ async def _do_add_event_comment(_, info, content: str, event_id: str,
 @require_login
 @enforce_group_level_auth_async
 @require_integrates
-@require_event_access
 async def _do_update_event_evidence(_, info, event_id: str, evidence_type: str,
                                     file) -> SimplePayloadType:
     """Resolve update_event_evidence mutation."""
@@ -335,7 +329,6 @@ async def _do_update_event_evidence(_, info, event_id: str, evidence_type: str,
 @require_login
 @enforce_group_level_auth_async
 @require_integrates
-@require_event_access
 async def _do_download_event_file(_, info, event_id: str,
                                   file_name: str) -> DownloadFilePayloadType:
     """Resolve download_event_file mutation."""
@@ -358,7 +351,6 @@ async def _do_download_event_file(_, info, event_id: str,
 @require_login
 @enforce_group_level_auth_async
 @require_integrates
-@require_event_access
 async def _do_remove_event_evidence(_, info, event_id: str,
                                     evidence_type: str) -> SimplePayloadType:
     """Resolve remove_event_evidence mutation."""

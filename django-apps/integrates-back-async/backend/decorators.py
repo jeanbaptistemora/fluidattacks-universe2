@@ -6,7 +6,7 @@ from datetime import datetime
 import functools
 import inspect
 import re
-from typing import Any, Callable, Dict, cast
+from typing import Any, Callable, Dict
 
 import rollbar
 from asgiref.sync import sync_to_async
@@ -21,7 +21,6 @@ from graphql.type import GraphQLResolveInfo
 from rediscluster.nodemanager import RedisClusterException
 
 from backend.domain import (
-    user as user_domain,
     event as event_domain,
     finding as finding_domain,
     organization as org_domain
@@ -338,57 +337,6 @@ def require_organization_access(
     return verify_and_call
 
 
-def require_project_access(func: Callable[..., Any]) -> Callable[..., Any]:
-    """
-    Require_project_access decorator
-
-    Verifies that the current user has access to a given project
-    """
-
-    @apm.trace(overridden_function=require_project_access)
-    @functools.wraps(func)
-    async def verify_and_call(*args, **kwargs) -> Callable[..., Any]:
-        if hasattr(args[0], 'context'):
-            context = args[0].context
-        elif hasattr(args[1], 'context'):
-            context = args[1].context
-        project_name = kwargs.get('project_name') or kwargs.get('group_name')
-
-        user_data = util.get_jwt_content(context)
-        user_email = user_data['user_email']
-
-        user_data['subscribed_projects'] = cast(
-            str,
-            await user_domain.get_projects(user_email)
-        )
-        user_data['subscribed_projects'] += cast(
-            str,
-            await user_domain.get_projects(user_email, active=False)
-        )
-        user_data['role'] = await sync_to_async(authz.get_group_level_role)(
-            user_email, project_name)
-
-        if not project_name:
-            await sync_to_async(rollbar.report_message)(
-                'Error: Empty fields in project', 'error', context)
-            raise GraphQLError('Access denied')
-
-        enforcer = await aio.ensure_io_bound(
-            authz.get_group_access_enforcer
-        )
-
-        if not await enforcer(user_data, project_name):
-            util.cloudwatch_log(
-                context,
-                'Security: Attempted to retrieve '
-                f'{kwargs.get("project_name")} project info '
-                'without permission'
-            )
-            raise GraphQLError('Access denied')
-        return await func(*args, **kwargs)
-    return verify_and_call
-
-
 def require_finding_access(func: Callable[..., Any]) -> Callable[..., Any]:
     """
     Require_finding_access decorator.
@@ -403,19 +351,6 @@ def require_finding_access(func: Callable[..., Any]) -> Callable[..., Any]:
             if kwargs.get('identifier') is None
             else kwargs.get('identifier')
         )
-        user_data = util.get_jwt_content(context)
-        user_email = user_data['user_email']
-        user_data['subscribed_projects'] = cast(
-            str,
-            await user_domain.get_projects(user_email)
-        )
-        user_data['subscribed_projects'] += cast(
-            str,
-            await user_domain.get_projects(user_email, active=False)
-        )
-        finding_project = await finding_domain.get_project(finding_id)
-        user_data['role'] = await sync_to_async(
-            authz.get_group_level_role)(user_email, finding_project)
 
         if not re.match('^[0-9]*$', finding_id):
             await sync_to_async(rollbar.report_message)(
@@ -425,72 +360,9 @@ def require_finding_access(func: Callable[..., Any]) -> Callable[..., Any]:
             )
             raise GraphQLError('Invalid finding id format')
 
-        enforcer = await aio.ensure_io_bound(
-            authz.get_group_access_enforcer
-        )
-
         if not await finding_domain.validate_finding(finding_id):
             raise FindingNotFound()
 
-        if not await enforcer(user_data, finding_project):
-            util.cloudwatch_log(
-                context,
-                'Security:  Attempted to retrieve '
-                'finding-related info without permission'
-            )
-            raise GraphQLError('Access denied')
-        return await func(*args, **kwargs)
-    return verify_and_call
-
-
-def require_event_access(func: Callable[..., Any]) -> Callable[..., Any]:
-    """
-    Require_event_access decorator
-
-    Verifies that the current user has access to a given event
-    """
-    @functools.wraps(func)
-    async def verify_and_call(*args, **kwargs) -> Callable[..., Any]:
-        context = args[1].context
-        event_id = (
-            kwargs.get('event_id', '')
-            if kwargs.get('identifier') is None
-            else kwargs.get('identifier')
-        )
-        user_data = util.get_jwt_content(context)
-        user_email = user_data['user_email']
-        user_data['subscribed_projects'] = cast(
-            str,
-            await user_domain.get_projects(user_email)
-        )
-        user_data['subscribed_projects'] += cast(
-            str,
-            await user_domain.get_projects(
-                user_data['user_email'],
-                active=False
-            )
-        )
-        event_project = await event_domain.get_event(event_id)
-        project_name = str(event_project.get('project_name', ''))
-        user_data['role'] = await sync_to_async(authz.get_group_level_role)(
-            user_email, project_name)
-
-        if not re.match('^[0-9]*$', event_id):
-            await sync_to_async(rollbar.report_message)(
-                'Error: Invalid event id format', 'error', context)
-            raise GraphQLError('Invalid event id format')
-
-        enforcer = await aio.ensure_io_bound(
-            authz.get_group_access_enforcer
-        )
-
-        if not await enforcer(user_data, project_name):
-            util.cloudwatch_log(
-                context,
-                'Security: Attempted to retrieve '
-                'event-related info without permission'
-            )
-            raise GraphQLError('Access denied')
         return await func(*args, **kwargs)
     return verify_and_call
 
