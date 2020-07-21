@@ -42,84 +42,97 @@ Blog | {{ SITENAME }}
 </div>
 {% endblock breadcrumb %}
 
+{% block header %}
+<div
+  class="blog-bg bg-banner-sz coverm cover-s banner-height justify-center items-center flex bg-center">
+  <div class="w-100 center">
+    <h1 class="white fw4 f1 neue tc f-5-l ma0">
+      Blog
+    </h1>
+  </div>
+</div>
+{% endblock header %}
+
 {% block content %}
  <!-- Div Index -->
- <div class="roboto flex-ns flex-wrap-ns justify-between-m pt5 pb3 ph2 bg-graylight">
-  <!-- Blog Posts -->
-  {% for article in articles_page.object_list %}
-    <div
-      class="br3 shadowbox-blog hover-card mb5 relative dt-ns mt0-ns w-100 w-75-m w-30-l ma-auto bg-white">
-      {% if  article.featured_image %}
-        <img loading="lazy" src="{{ SITEURL }}/blog/{{ article.slug }}{{ article.featured_image }}"
-             alt="{{ article.alt }}"
-             class="br3 br--top">
-      {% endif %}
-      <!-- Article Preview: Title, Description, Author, Tags ... -->
-      <div class="h-34em-l h-27-vl ph4">
-        <a href="{{ SITEURL }}/{{ article.url }}"
-           rel="bookmark"
-           title="Permalink to {{ article.title|striptags }}"
-           class="no-underline">
-          <!-- Title -->
-          <h1 class="post-title c-fluid-bk mb0 tc hv-fluid-rd lh-solid">
-            {{ article.title }}
-          </h1>
-        </a>
-        {% if article.subtitle %}
-          <!-- Subtitle -->
-          <h4 class="c-fluid-bk tc b mb0">
-            {{ article.subtitle }}
-          </h4>
-        {% endif %}<br/>
-        <div class='post-info tl pl2'>
-          <!-- Author -->
-          <p class="c-fluid-bk fw4 f-key-features mv0">Author:
-          {% for author in article.authors %}
-            <a class="c-fluid-gray hover-black no-underline"
-               href="{{ SITEURL }}/{{ author.url }}">
-               {{ author }}
-            </a><br/>
-          {% endfor %}
-          </p>
-          <!-- Category -->
-          <p class="c-fluid-bk fw4 f-key-features mv0">Category:
-            <a class="c-fluid-gray hover-black no-underline"
-              href="{{ SITEURL }}/{{ article.category.url }}">
-              {{ article.category|replace("-", " ") }}
-            </a><br/>
-          </p>
-          <!-- Tags -->
-          <p class="c-fluid-bk fw4 f-key-features mv0">Tags:
-          {% for tag in article.tags %}
-            {% if loop.last %}
-              <a class="c-fluid-gray hover-black no-underline"
-                 href="{{ SITEURL }}/{{ tag.url }}">{{ tag }}</a><br/>
-            {% else %}
-              <a class="c-fluid-gray hover-black no-underline"
-                 href="{{ SITEURL }}/{{ tag.url }}">{{ tag }},&nbsp;</a>
-            {% endif %}
-          {% endfor %}
-          </p>
-        </div>
-        <!-- Summary -->
-        <p class="article-summary f5 pl2 mt0 pt1 mt2 mb0 overflow-hidden ">
-          {% if article.has_summary %}
-            {{ article.summary }}
-          {% elif article.summary %}
-            {{ article.description|striptags|truncate(100) }}
-          {% endif %}
-        </p>
-        <br><br>
-        <!-- Read More Button -->
-        <div class="divread bottom-2 pb3 absolute-l tc right-0 left-0 pb4">
-          <a href="{{ SITEURL }}/{{ article.url }}">
-            <button class="bannerbt hv-bt-fluid-rd pointer white pv2 ph4 roboto fw7 f5 mt3 dib bt-trans br2 bc-fluid-red ba">Read More</button>
+ <div class="bg-graylight">
+   <div class="roboto flex-ns flex-wrap-ns justify-between-m mw-1200 pv4-l pv3 bg-graylight ml-auto mr-auto">
+    <!-- Blog Posts -->
+    {% for article in articles_page.object_list %}
+      <div
+        class="br3 shadowbox-blog hover-card mb5 relative dt-ns mt0-ns ma-auto bg-white w-card">
+        {% if  article.featured_image %}
+          <img loading="lazy" src="{{ SITEURL }}/blog/{{ article.slug }}{{ article.featured_image }}"
+               alt="{{ article.alt }}"
+               class="br3 br--top">
+        {% endif %}
+        <!-- Article Preview: Title, Description, Author, Tags ... -->
+        <div class="h30-em ph4">
+          <a href="{{ SITEURL }}/{{ article.url }}"
+             rel="bookmark"
+             title="Permalink to {{ article.title|striptags }}"
+             class="no-underline">
+            <!-- Title -->
+            <h1 class="post-title c-fluid-bk mb0 tc hv-fluid-rd lh-solid">
+              {{ article.title }}
+            </h1>
           </a>
+          {% if article.subtitle %}
+            <!-- Subtitle -->
+            <h4 class="c-fluid-bk tc b mb0">
+              {{ article.subtitle }}
+            </h4>
+          {% endif %}<br/>
+          <div class='post-info tl pl2'>
+            <!-- Author -->
+            <p class="c-fluid-bk fw4 f-key-features mv0">Author:
+            {% for author in article.authors %}
+              <a class="c-fluid-gray hover-black no-underline"
+                 href="{{ SITEURL }}/{{ author.url }}">
+                 {{ author }}
+              </a><br/>
+            {% endfor %}
+            </p>
+            <!-- Category -->
+            <p class="c-fluid-bk fw4 f-key-features mv0">Category:
+              <a class="c-fluid-gray hover-black no-underline"
+                href="{{ SITEURL }}/{{ article.category.url }}">
+                {{ article.category|replace("-", " ") }}
+              </a><br/>
+            </p>
+            <!-- Tags -->
+            <p class="c-fluid-bk fw4 f-key-features mv0">Tags:
+            {% for tag in article.tags %}
+              {% if loop.last %}
+                <a class="c-fluid-gray hover-black no-underline"
+                   href="{{ SITEURL }}/{{ tag.url }}">{{ tag }}</a><br/>
+              {% else %}
+                <a class="c-fluid-gray hover-black no-underline"
+                   href="{{ SITEURL }}/{{ tag.url }}">{{ tag }},&nbsp;</a>
+              {% endif %}
+            {% endfor %}
+            </p>
+          </div>
+          <!-- Summary -->
+          <p class="article-summary f5 pl2 mt0 pt1 mt2 mb0 overflow-hidden ">
+            {% if article.has_summary %}
+              {{ article.summary }}
+            {% elif article.summary %}
+              {{ article.description|striptags|truncate(100) }}
+            {% endif %}
+          </p>
+          <br><br>
+          <!-- Read More Button -->
+          <div class="absolute bottom-2 right-0 left-0 tc">
+            <a href="{{ SITEURL }}/{{ article.url }}">
+              <button class="outline-transparent bannerbt hv-bt-fluid-rd pointer white pv2 ph4 roboto fw7 f5 dib bt-trans br2 bc-fluid-red ba">Read More</button>
+            </a>
+          </div>
         </div>
       </div>
-    </div>
-  {% endfor %}
-</div>
+    {% endfor %}
+  </div>
+ </div>
 {% if DEFAULT_PAGINATION and articles_paginator.num_pages > 1 %}
   <!-- Pager -->
     <ul class="pager mt0 pb3 ml-auto mr-auto bg-graylight tc">

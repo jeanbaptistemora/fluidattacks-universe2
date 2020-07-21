@@ -130,6 +130,7 @@ $codeyellow: rgba(230, 219, 116, 1);
 .careers-main-bg { background-image: url('../../images/careers/hero-main-1.png'); }
 .resources-bg { background-image: url('../../images/resources/resources-main.png'); }
 .error-bg { background-image: url('../../images/bg-error.png');}
+.blog-bg { background-image: url('../../images/blog-banner.png');}
 .b-max { font-weight: 999; }
 .nb-6 { margin-bottom: -6rem;}
 .lower-img { &:hover { transform: scale(1.1);
@@ -197,6 +198,7 @@ $codeyellow: rgba(230, 219, 116, 1);
 .display-none { display: none; }
 .w-card { width: 350px; }
 .mw-1200 { max-width: 1200px; }
+.h30-em { height: 30em; }
 
 // Tachyons custom responsive classes
 @media screen and (min-width: 960px) and (max-width: 1200px) {
