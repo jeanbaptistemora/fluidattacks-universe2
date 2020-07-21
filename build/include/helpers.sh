@@ -236,7 +236,7 @@ function helper_terraform_plan {
       helper_terraform_init "${target_dir}" \
   &&  pushd "${target_dir}" \
     &&  echo '[INFO] Running terraform plan' \
-    &&  terraform plan -refresh=true \
+    &&  terraform plan -lock=false -refresh=true \
     &&  tflint --deep --module \
   &&  popd \
   || return 1
