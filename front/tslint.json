@@ -9,6 +9,8 @@
       "src/store/**",
       "src/graphics/**",
       "src/utils/+(translations|authz)/**",
+      "src/utils/forms/events.ts",
+      "src/utils/forms/fields/*/*.tsx",
       "src/components/**"
     ]
   },

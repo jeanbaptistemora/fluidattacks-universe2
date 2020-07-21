@@ -2,7 +2,8 @@
 
 src/resources/
 src/scenes/
-src/utils/forms
+src/utils/forms/fields/index.tsx
+src/utils/forms/index.spec.tsx
 src/utils/hooks
 src/utils/secureStore
 src/utils/*.ts

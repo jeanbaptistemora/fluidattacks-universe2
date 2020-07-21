@@ -18,9 +18,9 @@ import PhoneInput, { PhoneInputProps } from "react-phone-input-2";
 import "react-phone-input-2/lib/bootstrap.css";
 import { Tag, WithContext as ReactTags } from "react-tag-input";
 import { WrappedFieldProps } from "redux-form";
-import { validTextField } from "../../utils/validations";
-import translate from "./../translations/translate";
-import { default as style } from "./index.css";
+import { validTextField } from "../../../utils/validations";
+import { default as style } from "../index.css";
+import translate from "./../../translations/translate";
 
 type CustomFieldProps = WrappedFieldProps & FormControlProps;
 
@@ -31,46 +31,6 @@ const renderError: ((arg1: string) => JSX.Element) = (msg: string): JSX.Element 
 const renderCharacterCount: ((text: string) => JSX.Element) = (text: string): JSX.Element => (
   <Badge pullRight={true} className={style.badge}>{text.length}</Badge>
 );
-
-type autocompleteFieldProps = CustomFieldProps & { suggestions: string[] };
-export const autocompleteTextField: React.FC<autocompleteFieldProps> = (
-  fieldProps: autocompleteFieldProps,
-): JSX.Element => {
-  const filteredSuggestions: string[] = _.isEmpty(fieldProps.input.value.trim())
-    ? []
-    : fieldProps.suggestions.filter((suggestion: string): boolean =>
-      suggestion
-        .toLowerCase()
-        .includes(fieldProps.input.value.toLowerCase()));
-
-  const renderSuggestion: ((suggestion: string) => JSX.Element) = (suggestion: string): JSX.Element => {
-    const handleSuggestionClick: (() => void) = (): void => {
-      fieldProps.input.onChange(suggestion);
-    };
-
-    return (
-      <li onClick={handleSuggestionClick}><span>{suggestion}</span></li>
-    );
-  };
-
-  const shouldRender: boolean = filteredSuggestions.length > 0 && filteredSuggestions[0] !== fieldProps.input.value;
-
-  return (
-    <div>
-      <FormControl
-        autoComplete="off"
-        className={style.formControl}
-        disabled={fieldProps.disabled}
-        id={fieldProps.id}
-        placeholder={fieldProps.placeholder}
-        type={fieldProps.type}
-        {...fieldProps.input}
-      />
-      {shouldRender ? <ul className={style.suggestionList}>{filteredSuggestions.map(renderSuggestion)}</ul> : undefined}
-      {fieldProps.meta.touched && fieldProps.meta.error ? renderError(fieldProps.meta.error as string) : undefined}
-    </div>
-  );
-};
 
 export const textField: React.FC<CustomFieldProps> =
   (fieldProps: CustomFieldProps): JSX.Element => (
@@ -310,3 +270,5 @@ export const switchButton: React.FC<ISwitchButtonProps> = (props: ISwitchButtonP
     />
   );
 };
+
+export { AutoCompleteText } from "./AutoCompleteText";

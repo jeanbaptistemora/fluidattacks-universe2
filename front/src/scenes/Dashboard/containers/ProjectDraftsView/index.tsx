@@ -21,7 +21,7 @@ import { IHeaderConfig } from "../../../../components/DataTableNext/types";
 import { Modal } from "../../../../components/Modal";
 import { TooltipWrapper } from "../../../../components/TooltipWrapper/index";
 import { formatDrafts } from "../../../../utils/formatHelpers";
-import { autocompleteTextField } from "../../../../utils/forms/fields";
+import { AutoCompleteText } from "../../../../utils/forms/fields";
 import { msgError, msgSuccess } from "../../../../utils/notifications";
 import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
@@ -236,7 +236,7 @@ const projectDraftsView: React.FC<IProjectDraftsBaseProps> = (props: IProjectDra
                                 <Col md={12}>
                                   <label>{translate.t("group.drafts.title")}</label>
                                   <Field
-                                    component={autocompleteTextField}
+                                    component={AutoCompleteText}
                                     name="title"
                                     suggestions={titleSuggestions}
                                     type="text"

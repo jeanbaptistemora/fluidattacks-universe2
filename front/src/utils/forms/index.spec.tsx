@@ -6,16 +6,11 @@ import { GenericForm } from "../../scenes/Dashboard/components/GenericForm";
 import store from "../../store";
 import { required } from "../validations";
 import {
-  autocompleteTextField, dateField, dropdownField, fileInputField, phoneNumberField, tagInputField, textAreaField,
+  AutoCompleteText, dateField, dropdownField, fileInputField, phoneNumberField, tagInputField, textAreaField,
   textField,
 } from "./fields";
 
 describe("Form fields", () => {
-
-  it("should return a autocompleteTextField function", () => {
-    expect(typeof (autocompleteTextField))
-      .toEqual("function");
-  });
 
   it("should return a dateField function", () => {
     expect(typeof (dateField))
@@ -116,28 +111,6 @@ describe("Form fields", () => {
       />,
     );
     expect(wrapper.find("textAreaTest"))
-      .toBeTruthy();
-  });
-
-  it("should render autocompleteTextField component", () => {
-    const titleSuggestions: string[] = [""];
-    const wrapper: ReactWrapper = mount(
-      <Provider store={store}>
-        <GenericForm
-          name=""
-          onSubmit={jest.fn()}
-        >
-          <Field
-            component={autocompleteTextField}
-            name="autocompleteTest"
-            suggestions={titleSuggestions}
-            type="text"
-            validate={[required]}
-          />
-        </GenericForm>
-      </Provider>,
-    );
-    expect(wrapper.find("autocompleteTest"))
       .toBeTruthy();
   });
 
