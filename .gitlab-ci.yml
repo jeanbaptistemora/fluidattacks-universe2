@@ -194,7 +194,6 @@ analytics_git_upload:
 
 analytics_timedoctor_refresh_token:
   <<: *with_nix
-  tags: [autoscaling-analytics]
   stage: analytics
   only:
     refs: [schedules]
