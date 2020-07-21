@@ -8,6 +8,7 @@ GLOBAL_PKGS=(
   src/apis
   src/cli
   src/core
+  src/utils
 )
 
 GLOBAL_TEST_PKGS=(
@@ -23,7 +24,7 @@ function job_skims_deploy {
     sed --in-place 's|^version.*$|version = "1.0.0"|g' "skims/pyproject.toml"
   }
 
-      helper_skims_install_dependencies \
+      helper_skims_install_base_dependencies \
   &&  pushd skims/ \
     &&  version=$(helper_skims_compute_version) \
     &&  echo "[INFO] Skims: ${version}" \
@@ -52,7 +53,7 @@ function job_skims_lint {
     --strictness veryhigh
   )
 
-      helper_skims_install_dependencies \
+      helper_skims_install_base_dependencies \
   &&  pushd skims/ \
     &&  for pkg in "${GLOBAL_PKGS[@]}" "${GLOBAL_TEST_PKGS[@]}"
         do
@@ -71,6 +72,7 @@ function job_skims_lint {
 }
 
 function job_skims_test {
+
   args_pytest=(
     --cov-branch
     --cov-fail-under '90'
@@ -80,7 +82,8 @@ function job_skims_test {
     --disable-pytest-warnings
   )
 
-      helper_skims_install_dependencies \
+      helper_skims_install_asserts \
+  &&  helper_skims_install_base_dependencies \
   &&  pushd skims/ \
     &&  for pkg in "${GLOBAL_PKGS[@]}" "${GLOBAL_TEST_PKGS[@]}"
         do
