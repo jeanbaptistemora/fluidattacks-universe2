@@ -46,7 +46,7 @@ Ok, it's fuzz time.
 == Fuzzing GTER
 
 As we did before with the `TRUN` command,
-we now know the syntax needed for the `GTER` command.
+we discovered the syntax needed for the `GTER` command.
 And again, we'll be using link:https://github.com/guilhermeferreira/spikepp[Spike]
 to help us with our fuzzing.
 
@@ -279,7 +279,7 @@ we can see that the buffer of `A` starts at `00CBF931`:
 
 image::jmp2.png[Start of buffer]
 
-So we need to do a relative jump backward. Using the debugger, we can
+So we need to do a relative reverse jump. Using the debugger, we can
 easily calculate the offset:
 
 image::jmp3.gif[Relative backward jump]
@@ -323,11 +323,11 @@ However, there's a trick we can use that will have to do with eggs.
 
 An `egghunter` is a little shellcode (commonly around 32 bytes)
 that can be injected on our payload.
-It's a special shellcode because it will not execute just anything
-but will search the entire memory for the location of the desired code,
+It's a special shellcode because its only mission is to search the entire
+process memory for the location of the desired code,
 and once it finds it, it will execute it.
 
-But how will it know what to execute? It will look for a tag that
+But how will it know what to execute? Well, it will look for a tag that
 will be prepended to our shellcode, also called the `egg`, and once
 it finds that `egg`, it will execute any code that follows.
 
@@ -385,12 +385,12 @@ What will happen is the following:
 
 . Our buffer will be injected.
 . The `JMP ESP` will be executed.
-. The backward jump will be executed
+. The reverse jump will be executed
 and land directly to our egghunter.
 . The egghunter will iterate through all the memory
 looking for the egg `w00tw00t`.
 . When the egghunter finds the egg,
-it will execute anything that follows.
+it will execute anything that follows, in our case, a bind shellcode.
 
 So, the only thing that's missing is our shellcode. We will create one
 that will bind a shell on port `4444`:
@@ -446,8 +446,8 @@ but we only have 140 bytes as much to work.
 
 We have to think out of the box: `Vulnserver` is a server (really!), and it
 will surely multiplex connections. Well, we can create a different connection
-to send the shellcode over! This will store it on memory where our
-egghunter will be able to find it.
+to send the shellcode over! That will store it the shellcode on the process
+memory where our egghunter will be able to find it.
 
 We can now finish our exploit. Remember to prepend the `w00tw00t`
 egg to the shellcode, or the egghunter won't be able to find it!
