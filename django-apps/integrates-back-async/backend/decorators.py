@@ -8,8 +8,7 @@ import inspect
 import re
 from typing import Any, Callable, Dict
 
-import rollbar
-from asgiref.sync import sync_to_async
+from asgiref.sync import async_to_sync, sync_to_async
 from django.conf import settings
 from django.core.cache import cache
 from django.core.cache.backends.base import DEFAULT_TIMEOUT
@@ -37,6 +36,7 @@ from backend.exceptions import (
 from backend.utils import (
     aio,
     apm,
+    logging as logging_utils,
 )
 
 # Constants
@@ -157,15 +157,13 @@ def enforce_group_level_auth_async(func: Callable[..., Any]) -> \
         action = f'{func.__module__}.{func.__qualname__}'.replace('.', '_')
 
         if not object_:
-            await aio.ensure_io_bound(
-                rollbar.report_message,
+            await logging_utils.log(
                 'Unable to identify project name',
-                level='critical',
-                extra_data={
-                    'subject': subject,
+                level='error',
+                extra={
                     'action': action,
-                }
-            )
+                    'subject': subject,
+                })
 
         enforcer = await aio.ensure_io_bound(
             authz.get_group_level_enforcer,
@@ -209,15 +207,13 @@ def enforce_organization_level_auth_async(func: Callable[..., Any]) -> \
         action = f'{func.__module__}.{func.__qualname__}'.replace('.', '_')
 
         if not object_:
-            await aio.ensure_io_bound(
-                rollbar.report_message,
+            await logging_utils.log(
                 'Unable to identify organization to check permissions',
-                level='critical',
-                extra_data={
-                    'subject': subject,
+                level='error',
+                extra={
                     'action': action,
-                }
-            )
+                    'subject': subject,
+                })
 
         enforcer = await aio.ensure_io_bound(
             authz.get_organization_level_enforcer,
@@ -353,11 +349,13 @@ def require_finding_access(func: Callable[..., Any]) -> Callable[..., Any]:
         )
 
         if not re.match('^[0-9]*$', finding_id):
-            await sync_to_async(rollbar.report_message)(
-                'Error: Invalid finding id format',
+            await logging_utils.log(
+                'Invalid finding id format',
                 'error',
-                context
-            )
+                extra={
+                    'context': context,
+                })
+
             raise GraphQLError('Invalid finding id format')
 
         if not await finding_domain.validate_finding(finding_id):
@@ -423,8 +421,8 @@ def cache_content(func: Callable[..., Any]) -> Callable[..., Any]:
             ret = func(*args, **kwargs)
             cache.set(key_name, ret, timeout=CACHE_TTL)
             return ret
-        except RedisClusterException:
-            rollbar.report_exc_info()
+        except RedisClusterException as ex:
+            async_to_sync(logging_utils.log)(ex, 'error')
             return func(*args, **kwargs)
     return decorated
 
@@ -468,8 +466,8 @@ def get_entity_cache_async(func: Callable[..., Any]) -> Callable[..., Any]:
                     cache.set, key_name, ret, timeout=CACHE_TTL,
                 )
             return ret
-        except RedisClusterException:
-            rollbar.report_exc_info()
+        except RedisClusterException as ex:
+            await logging_utils.log(ex, 'error')
             return await func(*args, **kwargs)
 
     return decorated
@@ -522,8 +520,8 @@ def cache_idempotent(*, ttl: int) -> Callable:
                         cache.set, cache_key, ret, timeout=ttl,
                     )
                 return ret
-            except RedisClusterException:
-                rollbar.report_exc_info()
+            except RedisClusterException as ex:
+                await logging_utils.log(ex, 'error')
                 return await function(*args, **kwargs)
 
         return wrapper
@@ -556,21 +554,15 @@ def turn_args_into_kwargs(function: Callable):
 
 
 def shield(function: Callable):
-    """Catches any general Exception raised in decorated function
-    and reports data to rollbar
-    """
-    def report(exception: Exception):
-        rollbar_msg = (
-            f'Error: Shielded function raised a generic Exception'
-        )
-        rollbar.report_message(
-            rollbar_msg,
+    """Catches and reports general Exceptions raised in decorated function"""
+    async def report(exception: Exception):
+        await logging_utils.log(
+            exception,
             'error',
-            extra_data={
+            extra={
+                'exception': exception,
                 'function': function.__name__,
-                'exception': exception
-            }
-        )
+            })
 
     if asyncio.iscoroutinefunction(function):
         @functools.wraps(function)
@@ -586,6 +578,6 @@ def shield(function: Callable):
             try:
                 return function(*args, **kwargs)
             except Exception as exception:  # pylint: disable=broad-except
-                report(exception)
+                async_to_sync(report)(exception)
 
     return shielded_function
