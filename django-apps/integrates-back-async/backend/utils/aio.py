@@ -139,7 +139,7 @@ async def materialize(obj: object) -> object:
             dict(zip(obj, await materialize(tuple(obj.values()))))
     elif isinstance(obj, collections.abc.Iterable):
         materialized_obj = \
-            await gather(*tuple(map(create_task, obj)))
+            await gather(*map(create_task, obj))
     else:
         raise ValueError(f'Not implemented for type: {type(obj)}')
 

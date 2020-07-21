@@ -10,11 +10,18 @@ from typing import (
 import click
 
 # Local libraries
-from core.skimers.path import (
-    skim as skim_path,
+from core import (
+    skim_paths,
+)
+from core.model import (
+    SkimResult,
 )
 from utils.logs import (
+    log,
     set_level_blocking,
+)
+from utils.aio import (
+    materialize,
 )
 
 
@@ -52,11 +59,13 @@ def dispatch(
 
 
 async def run(*, paths: Tuple[str, ...]) -> bool:
-    return all(
-        await asyncio.gather(
-            *tuple(map(skim_path, paths)),
-        )
-    )
+    results: Tuple[SkimResult, ...] = tuple(*(await materialize((
+        skim_paths(paths),
+    ))))
+
+    await materialize(log('info', result) for result in results)
+
+    return True
 
 
 if __name__ == '__main__':

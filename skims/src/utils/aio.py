@@ -10,11 +10,14 @@ from typing import (
     TypeVar,
 )
 
+# Third party libraries
+from more_itertools import chunked
+
 # Constants
 TVar = TypeVar('TVar')
 
 
-async def materialize(obj: Any) -> Any:
+async def materialize(obj: Any, batch_size: int = 128) -> Any:
     materialized_obj: Any
 
     # Please use abstract base classes:
@@ -31,11 +34,15 @@ async def materialize(obj: Any) -> Any:
         ))
     elif isinstance(obj, collections.abc.Iterable):
         materialized_obj = [
-            await awaitable for awaitable in [
-                elem
-                if isinstance(elem, asyncio.Future)
-                else asyncio.create_task(elem)
-                for elem in obj
+            await awaitable
+            for awaitables in chunked(obj, batch_size)
+            for awaitable in [
+                (
+                    elem
+                    if isinstance(elem, asyncio.Future)
+                    else asyncio.create_task(elem)
+                )
+                for elem in awaitables
             ]
         ]
     else:
@@ -59,9 +66,9 @@ async def unblock_many(
 ) -> Tuple[TVar, ...]:
     loop = asyncio.get_running_loop()
 
-    results: Tuple[TVar, ...] = await materialize((
+    results: Tuple[TVar, ...] = await materialize(
         loop.run_in_executor(None, function) for function in functions
-    ))
+    )
 
     return results
 
