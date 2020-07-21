@@ -6,7 +6,6 @@ from typing import Dict, List, Union, cast
 
 import boto3
 import botocore
-import rollbar
 from asgiref.sync import async_to_sync
 
 from backend import authz
@@ -134,24 +133,30 @@ def _send_mail(
                 'message': message,
                 'api_key': API_KEY
             }
-            rollbar.report_message(
-                (f'sending mail: {json.dumps(sqs_message["message"])}'
-                 f'MessageGroupId={template_name}'),
-                'debug'
+            async_to_sync(log)(
+                'sending mail to sqs',
+                'info',
+                extra={
+                    'message': json.dumps(sqs_message["message"]),
+                    'MessageGroupId': template_name,
+                }
             )
             sqs.send_message(
                 QueueUrl=QUEUE_URL,
                 MessageBody=json.dumps(sqs_message),
                 MessageGroupId=template_name
             )
-            rollbar.report_message(
-                (f'mail sent: {json.dumps(sqs_message["message"])}'
-                 f'MessageGroupId={template_name}'),
-                'debug'
+            async_to_sync(log)(
+                'mail sent',
+                'info',
+                extra={
+                    'message': json.dumps(sqs_message["message"]),
+                    'MessageGroupId': template_name,
+                }
             )
         except (botocore.vendored.requests.exceptions.ConnectionError,
                 botocore.exceptions.ClientError) as exc:
-            rollbar.report_message(exc)
+            async_to_sync(log)(exc, 'info')
     else:
         # Mail should not be sent if is a test project
         pass

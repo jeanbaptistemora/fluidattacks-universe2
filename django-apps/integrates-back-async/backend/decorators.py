@@ -557,7 +557,7 @@ def shield(function: Callable):
     """Catches and reports general Exceptions raised in decorated function"""
     async def report(exception: Exception):
         await logging_utils.log(
-            exception,
+            'Shielded function raised a generic Exception',
             'error',
             extra={
                 'exception': exception,

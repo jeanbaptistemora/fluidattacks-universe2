@@ -9,7 +9,6 @@ from datetime import datetime, timedelta
 from typing import Dict, List, Tuple, Union, cast
 
 from more_itertools import chunked
-import rollbar
 from botocore.exceptions import ClientError
 from asgiref.sync import async_to_sync, sync_to_async
 from django.conf import settings
@@ -456,9 +455,9 @@ async def create_msj_finding_pending(
 @async_to_sync
 async def get_remediated_findings():
     """Summary mail send with findings that have not been verified yet."""
-    rollbar.report_message(
-        'Warning: Function to get remediated findings is running',
-        'warning'
+    await logging_utils.log(
+        '[scheduler]: get_remediated_findings is running',
+        'warning',
     )
     active_projects = await sync_to_async(project_domain.get_active_projects)()
     findings = []
@@ -491,12 +490,7 @@ async def get_remediated_findings():
                 mail_to, context
             )
         except (TypeError, KeyError) as ex:
-            rollbar.report_message(
-                'Warning: An error ocurred getting data for remediated email',
-                'warning',
-                extra_data=ex,
-                payload_data=locals()
-            )
+            await logging_utils.log(ex, 'warning', extra=locals())
     else:
         LOGGER.info('There are no findings to verificate')
 
@@ -504,9 +498,9 @@ async def get_remediated_findings():
 @async_to_sync
 async def get_new_releases():
     """Summary mail send with findings that have not been released yet."""
-    rollbar.report_message(
-        'Warning: Function to get new releases is running',
-        'warning'
+    await logging_utils.log(
+        '[scheduler]: get_new_releases is running',
+        'warning',
     )
     test_projects = FI_TEST_PROJECTS.split(',')
     projects = await sync_to_async(project_domain.get_active_projects)()
@@ -548,12 +542,8 @@ async def get_new_releases():
                             'project': project.upper()
                         })
                         cont += 1
-            except (TypeError, KeyError):
-                rollbar.report_message(
-                    ('Warning: An error ocurred getting '
-                     'data for new drafts email'),
-                    'warning'
-                )
+            except (TypeError, KeyError) as ex:
+                await logging_utils.log(ex, 'warning', extra=locals())
         else:
             # ignore test projects
             pass
@@ -567,18 +557,18 @@ async def get_new_releases():
             mail_to, email_context
         )
     else:
-        rollbar.report_message(
-            'Warning: There are no new drafts',
-            'warning'
+        await logging_utils.log(
+            '[scheduler]: There are no new drafts',
+            'warning',
         )
 
 
 @async_to_sync
 async def send_unsolved_to_all() -> List[bool]:
     """Send email with unsolved events to all projects """
-    rollbar.report_message(
-        'Warning: Function to send email with unsolved events is running',
-        'warning'
+    await logging_utils.log(
+        '[scheduler]: send_unsolved_to_all is running',
+        'warning',
     )
     projects = await sync_to_async(project_domain.get_active_projects)()
     return await asyncio.gather(*[
@@ -663,9 +653,9 @@ async def update_group_indicators(group_name: str) -> None:
 @async_to_sync
 async def update_indicators():
     """Update in dynamo indicators."""
-    rollbar.report_message(
-        'Warning: Function to update indicators in DynamoDB is running',
-        'warning'
+    await logging_utils.log(
+        '[scheduler]: update_indicators is running',
+        'warning',
     )
     groups = await sync_to_async(project_domain.get_active_projects)()
     # number of groups that can be updated at a time
@@ -721,10 +711,9 @@ async def reset_group_expired_accepted_findings(
 @async_to_sync
 async def reset_expired_accepted_findings():
     """ Update treatment if acceptance date expires """
-    rollbar.report_message(
-        ('Warning: Function to update treatment if'
-         'acceptance date expires is running'),
-        'warning'
+    await logging_utils.log(
+        '[scheduler]: reset_expired_accepted_findings is running',
+        'warning',
     )
     today = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     groups = await sync_to_async(project_domain.get_active_projects)()
@@ -742,10 +731,9 @@ async def reset_expired_accepted_findings():
 @async_to_sync
 async def delete_pending_projects():
     """ Delete pending to delete projects """
-    rollbar.report_message(
-        ('Warning: Function to delete projects if '
-         'deletion_date expires is running'),
-        'warning'
+    await logging_utils.log(
+        '[scheduler]: delete_pending_projects is running',
+        'warning',
     )
     today = datetime.now()
     projects = await sync_to_async(project_domain.get_pending_to_delete)()
