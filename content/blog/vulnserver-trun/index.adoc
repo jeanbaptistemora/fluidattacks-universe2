@@ -58,7 +58,7 @@ For that, we'll be using link:https://github.com/guilhermeferreira/spikepp/[Spik
 a protocol fuzzer.
 More info on `Spike` can be found link:https://resources.infosecinstitute.com/intro-to-fuzzing/[here].
 
-As we determined before, `TRUN` takes a single parameter. With that knowledge,
+As we determined before, `TRUN` takes a single parameter. Having noted that,
 we can create the `Spike` script as simple as:
 
 .trun.spk
@@ -110,7 +110,7 @@ So, let's run the initial exploit and see what happens:
 
 image::trun4.gif[Exploit: take 1]
 
-Great! We can replicate the crash of `Vulnserver` and see what happened.
+Great! We were able to replicate the crash of `Vulnserver`.
 
 image::trun5.png[Controlling EIP]
 
@@ -162,7 +162,7 @@ image::trun6.gif[Exploit: take 2]
 image::trun7.png[Cyclic pattern on EIP]
 
 As you can see, the `EIP` register now holds the value `386F4337`.
-We can check the exact offset of that string on our unique cyclic pattern.
+We need to check the exact offset of that string on our unique cyclic pattern.
 To do that, we can use `pattern_offset.rb` from `Metasploit`:
 
 image::pattern2.png[Pattern offset]
@@ -196,7 +196,7 @@ hold the value of `42424242` which are the four bytes of our `B` buffer:
 
 image::trun8.gif[Correct offset to EIP]
 
-Awesome! We now know the exact structure of the vulnerability,
+Awesome! Now, we know the exact structure of the vulnerability,
 and we can proceed to exploit it.
 
 == Exploiting
@@ -205,8 +205,8 @@ Let's look at the value of the registers at the time of the crash.
 
 image::trun9.png[Registers]
 
-As you can see, three registers point to our injected buffer:
-`EAX`, `EBP`, and `ESP`.
+As you can see, two registers point to our injected buffer:
+`EAX`, and `ESP`.
 `EAX` points at the exact beginning of our injected buffer but includes the
 chars `TRUN /.:/`. Those may be translated to harmless `ASM` instructions but
 we must not risk our exploitation. However, we have the other register `ESP`
@@ -225,7 +225,7 @@ image::mona1.png[Mona output]
 
 Note that we have 984 bytes after `ESP` available for us to run anything
 we'd want. First, we must search on `vulnserver.exe` and its runtime
-dependencies, an instruction that can lead us to execute code starting on
+modules, an instruction that can lead us to execute code starting on
 the memory region pointed by `ESP`.
 
 First, let's find the `Vulnserver` runtime dependencies:
@@ -250,7 +250,7 @@ modules, by running:
 image::esp1.png[JMP ESP instructions]
 
 As you can see, there are several `JMP ESP` instructions we can pick.
-We are going to pick the one on `62501205`.
+We are going to pick the one at `62501205`.
 Let's update the exploit and replace the four `B` with that address:
 
 .exploit.py
@@ -275,7 +275,7 @@ with socket.create_connection((HOST, PORT)) as fd:
 ----
 
 If everything comes as expected, we will hit that `JMP ESP` instruction that
-will lead us to our `C` buffer. Let's put a breakpoint at the
+will lead us to execute code on our `C` buffer. Let's put a breakpoint at the
 `JMP ESP` instruction and run the exploit:
 
 image::trun10.gif[Performing the JMP ESP]
@@ -290,7 +290,9 @@ image::msfvenom1.png[Generating reverse shell]
 
 As a rule of thumb, get used to generate shellcodes without bad chars that
 may break the execution flow of our attack, such as null bytes (`0x0`),
-line feed (`\r or 0xa`), and carriage return (`\n or 0xd`).
+line feed (`\r or 0xa`), and carriage return (`\n or 0xd`). You can see a
+detailed way of checking for bad chars on link:../vulnserver-lter-seh/[LTER]
+article.
 
 Also, note that our `JMP ESP` led us to our `C` but not exactly at the
 beginning, so we must pad the exploit with some `C` chars to make the
