@@ -53,6 +53,7 @@ from backend.typing import (
     AddCommentPayload as AddCommentPayloadType,
     SimplePayload as SimplePayloadType,
     SimpleProjectPayload as SimpleProjectPayloadType,
+    Historic as HistoricType
 )
 from backend import util
 from backend.utils import (
@@ -508,23 +509,32 @@ async def _get_subscription(
 
 # Intentionally not @require_integrates
 @get_entity_cache_async
-async def _get_deletion_date(_, project_name: str, **__) -> Dict[str, str]:
+async def _get_deletion_date(
+        _: GraphQLResolveInfo,
+        project_name: str,
+        **__: Any) -> str:
     """Get deletion_date."""
-    historic_deletion = await \
-        sync_to_async(project_domain.get_historic_deletion)(project_name)
-    deletion_date = \
-        historic_deletion[-1].get('deletion_date', '') \
+    historic_deletion = await sync_to_async(
+        project_domain.get_historic_deletion
+    )(project_name)
+    deletion_date = (
+        historic_deletion[-1].get('deletion_date', '')
         if historic_deletion else ''
-    return deletion_date
+    )
+    return cast(str, deletion_date)
 
 
 # Intentionally not @require_integrates
 @get_entity_cache_async
-async def _get_user_deletion(_, project_name: str, **__) -> str:
+async def _get_user_deletion(
+        _: GraphQLResolveInfo,
+        project_name: str,
+        **__: Any) -> str:
     """Get user_deletion."""
     user_deletion = ''
-    historic_deletion = await \
-        sync_to_async(project_domain.get_historic_deletion)(project_name)
+    historic_deletion = await sync_to_async(
+        project_domain.get_historic_deletion
+    )(project_name)
     if historic_deletion and historic_deletion[-1].get('deletion_date'):
         user_deletion = historic_deletion[-1].get('user', '')
     return user_deletion
@@ -532,28 +542,34 @@ async def _get_user_deletion(_, project_name: str, **__) -> str:
 
 @require_integrates
 @get_entity_cache_async
-async def _get_tags(info, project_name: str, **__) -> Dict[str, List[str]]:
+async def _get_tags(
+        info: GraphQLResolveInfo,
+        project_name: str,
+        **__: Any) -> Set[str]:
     """Get tags."""
-    project_attrs = \
-        await info.context.loaders['project'].load(project_name)
+    project_attrs = await info.context.loaders['project'].load(project_name)
     project_attrs = project_attrs['attrs']
-    return project_attrs.get('tag', [])
+    return cast(Set[str], project_attrs.get('tag', []))
 
 
 # Intentionally not @require_integrates
 @get_entity_cache_async
-async def _get_description(info, project_name: str, **__) -> Dict[str, str]:
+async def _get_description(
+        info: GraphQLResolveInfo,
+        project_name: str,
+        **__: Any) -> str:
     """Get description."""
-    project_attrs = \
-        await info.context.loaders['project'].load(project_name)
+    project_attrs = await info.context.loaders['project'].load(project_name)
     project_attrs = project_attrs['attrs']
-    return project_attrs.get('description', '')
+    return cast(str, project_attrs.get('description', ''))
 
 
 @enforce_group_level_auth_async
 @require_integrates
 async def _get_comments(
-        info, project_name: str, **__) -> List[CommentType]:
+        info: GraphQLResolveInfo,
+        project_name: str,
+        **__: Any) -> List[CommentType]:
     """Get comments."""
     user_data = util.get_jwt_content(info.context)
     user_email = user_data['user_email']
@@ -564,8 +580,12 @@ async def _get_comments(
 
 @apm.trace()
 @enforce_group_level_auth_async
-@require_attribute('has_drills_white')
-async def _get_bill(_, project_name: str, date: datetime = None, **__):
+@require_attribute('has_drills_white')  # type: ignore
+async def _get_bill(
+        _: GraphQLResolveInfo,
+        project_name: str,
+        date: Union[datetime, None] = None,
+        **__: Any) -> Dict[str, HistoricType]:
     date = date or datetime.utcnow()
 
     return {
@@ -579,57 +599,67 @@ async def _get_bill(_, project_name: str, date: datetime = None, **__):
 @enforce_group_level_auth_async
 @require_integrates
 async def _get_drafts(
-        info, project_name: str, **__) -> \
-        List[Dict[str, FindingType]]:
+        info: GraphQLResolveInfo,
+        project_name: str,
+        **__: Any) -> List[Dict[str, FindingType]]:
     """Get drafts."""
     util.cloudwatch_log(
         info.context,
         f'Security: Access to {project_name} drafts')  # pragma: no cover
-    project_drafts = \
-        await info.context.loaders['project'].load(project_name)
+    project_drafts = await info.context.loaders['project'].load(project_name)
     project_drafts = project_drafts['drafts']
-    findings = \
-        await info.context.loaders['finding'].load_many(project_drafts)
+    findings = await info.context.loaders['finding'].load_many(project_drafts)
 
-    drafts = [draft for draft in findings
-              if 'current_state' in draft and
-              draft['current_state'] != 'DELETED']
+    drafts = [
+        draft for draft in findings
+        if ('current_state' in draft and
+            draft['current_state'] != 'DELETED')
+    ]
     return drafts
 
 
 @enforce_group_level_auth_async
 @require_integrates
-async def _get_events(info,
-                      project_name: str, **__) -> Dict[str, List[EventType]]:
+async def _get_events(
+        info: GraphQLResolveInfo,
+        project_name: str,
+        **__: Any) -> List[EventType]:
     """Get events."""
     util.cloudwatch_log(
         info.context,
         f'Security: Access to {project_name} events')  # pragma: no cover
-    event_ids = await \
-        sync_to_async(project_domain.list_events)(project_name)
-    events = \
-        await info.context.loaders['event'].load_many(event_ids)
-    return events
+    event_ids = await sync_to_async(project_domain.list_events)(project_name)
+    events = await info.context.loaders['event'].load_many(event_ids)
+    return cast(List[EventType], events)
 
 
-async def _get_is_community(_, project_name: str, **__) -> bool:
+async def _get_is_community(
+        _: GraphQLResolveInfo,
+        project_name: str,
+        **__: Any) -> bool:
     return project_name.lower() in FI_COMMUNITY_PROJECTS.split(',')
 
 
 @enforce_group_level_auth_async
-async def _get_service_attributes(_, project_name: str, **__) -> Set[str]:
+async def _get_service_attributes(
+        _: GraphQLResolveInfo,
+        project_name: str,
+        **__: Any) -> Set[str]:
     return await authz.get_group_service_attributes(project_name)
 
 
 @enforce_group_level_auth_async
 @require_integrates
-async def _get_users(info, project_name: str,
-                     requested_fields: list) -> List[UserType]:
+async def _get_users(
+        info: GraphQLResolveInfo,
+        project_name: str,
+        requested_fields: List[FieldNode]) -> List[UserType]:
     """Get users."""
     requester_email = util.get_jwt_content(info.context)['user_email']
 
-    group_user_emails = await \
-        sync_to_async(project_domain.get_users)(project_name)
+    group_user_emails = await sync_to_async(project_domain.get_users)(
+        project_name
+    )
 
     as_field = True
     selection_set = SelectionSetNode()
@@ -654,22 +684,28 @@ async def _get_users(info, project_name: str,
         ]
 
     # Load users concurrently
-    return await asyncio.gather(*[
-        asyncio.create_task(
-            user_loader.resolve_for_group(
-                info,
-                'PROJECT',
-                user_email,
-                project_name=project_name,
-                as_field=as_field,
-                selection_set=selection_set
+    return cast(
+        List[UserType],
+        await asyncio.gather(*[
+            asyncio.create_task(
+                user_loader.resolve_for_group(
+                    info,
+                    'PROJECT',
+                    user_email,
+                    project_name=project_name,
+                    as_field=as_field,
+                    selection_set=selection_set
+                )
             )
-        )
-        for user_email in filtered_group_user_emails
-    ])
+            for user_email in filtered_group_user_emails
+        ])
+    )
 
 
-def _get_requested_fields(info, as_field: bool, as_list: bool):
+def _get_requested_fields(
+        info: GraphQLResolveInfo,
+        as_field: bool,
+        as_list: bool) -> List[FieldNode]:
     if as_field and as_list:
         to_extend = util.get_requested_fields(
             'projects',
@@ -686,8 +722,11 @@ def _get_requested_fields(info, as_field: bool, as_list: bool):
 
 
 async def resolve(
-        info, project_name: str, as_field: bool = False, as_list: bool = True,
-        selection_set: SelectionSetNode = None) -> ProjectType:
+        info: GraphQLResolveInfo,
+        project_name: str,
+        as_field: bool = False,
+        as_list: bool = True,
+        selection_set: Union[SelectionSetNode, None] = None) -> ProjectType:
     """Async resolve fields."""
     project_name = project_name.lower()
     result: ProjectType = dict()
@@ -704,13 +743,15 @@ async def resolve(
             'project_name': project_name,
             'requested_fields': req_fields
         }
-        field_params = \
-            util.get_field_parameters(requested_field, info.variable_values)
+        field_params = util.get_field_parameters(
+            requested_field, info.variable_values
+        )
 
         if field_params:
             params.update(field_params)
-        requested_field = \
-            convert_camel_case_to_snake(requested_field.name.value)
+        requested_field = convert_camel_case_to_snake(
+            requested_field.name.value
+        )
         if requested_field.startswith('_'):
             continue
         resolver_func = getattr(
@@ -721,16 +762,22 @@ async def resolve(
     return result
 
 
-@convert_kwargs_to_snake_case
+@convert_kwargs_to_snake_case  # type: ignore
 @require_login
 @enforce_group_level_auth_async
-async def resolve_project(_, info, project_name: str) -> ProjectType:
+async def resolve_project(
+        _: Any,
+        info: GraphQLResolveInfo,
+        project_name: str) -> ProjectType:
     """Resolve project query."""
     return await resolve(info, project_name)
 
 
-@convert_kwargs_to_snake_case
-async def resolve_project_mutation(obj, info, **parameters):
+@convert_kwargs_to_snake_case  # type: ignore
+async def resolve_project_mutation(
+        obj: Any,
+        info: GraphQLResolveInfo,
+        **parameters: Any) -> Any:
     """Wrap project mutations."""
     field = util.camelcase_to_snakecase(info.field_name)
     resolver_func = getattr(sys.modules[__name__], f'_do_{field}')
@@ -739,14 +786,18 @@ async def resolve_project_mutation(obj, info, **parameters):
 
 @require_login
 @enforce_user_level_auth_async
-async def _do_create_project(_, info, **kwargs) -> SimplePayloadType:
+async def _do_create_project(
+        _: Any,
+        info: GraphQLResolveInfo,
+        **kwargs: Any) -> SimplePayloadType:
     """Resolve create_project mutation."""
     user_data = util.get_jwt_content(info.context)
     user_email = user_data['user_email']
     user_role = await sync_to_async(authz.get_user_level_role)(user_email)
 
     success = await sync_to_async(project_domain.create_project)(
-        user_email, user_role, **kwargs)
+        user_email, user_role, **kwargs
+    )
 
     if success:
         project_name: str = kwargs.get('project_name', '').lower()
