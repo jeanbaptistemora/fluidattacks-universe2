@@ -126,6 +126,24 @@ function job_apply_infra_monolith {
   &&  helper_infra_monolith 'deploy'
 }
 
+function job_test_infra_dns {
+  local target='services/dns/terraform'
+
+      helper_use_pristine_workdir \
+  &&  helper_infra_dns_get_load_balancer \
+  &&  helper_terraform_plan \
+        "${target}"
+}
+
+function job_apply_infra_dns {
+  local target='services/dns/terraform'
+
+      helper_use_pristine_workdir \
+  &&  helper_infra_dns_get_load_balancer \
+  &&  helper_terraform_apply \
+        "${target}"
+}
+
 function job_test_infra_autoscaling_ci {
   local target='services/autoscaling-ci/terraform'
 

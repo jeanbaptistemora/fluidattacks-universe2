@@ -278,16 +278,44 @@ function helper_terraform_output {
   || return 1
 }
 
-function helper_infra_monolith {
+function helper_infra_dns_get_load_balancer {
   export TF_VAR_elbDns
   export TF_VAR_elbZone
-  export VAULT_KMS_KEY
   local elbs_info
   local elbs_names
-  local helm_home
-  local jq_query
-  local name
   local tags
+  local jq_query='.TagDescriptions[0].Tags[] | select(.Key == "kubernetes.io/cluster/FluidServes")'
+
+      helper_aws_login \
+  &&  elbs_info="$(mktemp)" \
+  &&  aws elb --region 'us-east-1' describe-load-balancers \
+        > "${elbs_info}" \
+  &&  elbs_names=$( \
+        jq -r '.LoadBalancerDescriptions[].LoadBalancerName' "${elbs_info}") \
+  &&  {
+        for name in ${elbs_names}; do
+              tags="$(mktemp)" \
+          &&  aws elb --region 'us-east-1' describe-tags \
+                --load-balancer-names "${name}" > "${tags}" \
+          &&  if jq -e "${jq_query}" "${tags}"; then
+                    TF_VAR_elbDns=$( \
+                      jq -r ".LoadBalancerDescriptions[] \
+                        | select(.LoadBalancerName == \"${name}\") \
+                          | .DNSName" "${elbs_info}") \
+                &&  TF_VAR_elbZone=$( \
+                      jq -r ".LoadBalancerDescriptions[] \
+                        | select(.LoadBalancerName == \"${name}\") \
+                          | .CanonicalHostedZoneNameID" "${elbs_info}")
+              fi
+        done || (
+          echo "[ERROR] No nginx production load balancer was found"
+          return 1
+        )
+      }
+}
+
+function helper_infra_monolith {
+  local helm_home
   local first_argument="${1}"
 
       helper_aws_login \
@@ -323,38 +351,6 @@ function helper_infra_monolith {
           &&  base64 -d > "${helm_home}/ca.pem"   <<< "${HELM_CA}" \
           &&  eks/manifests/deploy.sh
         fi \
-    &&  pushd dns/ || return 1 \
-      &&  elbs_info="$(mktemp)" \
-      &&  jq_query='.TagDescriptions[0].Tags[] | select(.Key == "kubernetes.io/cluster/FluidServes")' \
-      &&  aws elb --region 'us-east-1' describe-load-balancers \
-            > "${elbs_info}" \
-      &&  elbs_names=$( \
-            jq -r '.LoadBalancerDescriptions[].LoadBalancerName' "${elbs_info}") \
-      &&  {
-            for name in ${elbs_names}; do
-                  tags="$(mktemp)" \
-              &&  aws elb --region 'us-east-1' describe-tags \
-                    --load-balancer-names "${name}" > "${tags}" \
-              &&  if jq -e "${jq_query}" "${tags}"; then
-                        TF_VAR_elbDns=$( \
-                          jq -r ".LoadBalancerDescriptions[] \
-                            | select(.LoadBalancerName == \"${name}\") \
-                              | .DNSName" "${elbs_info}") \
-                    &&  TF_VAR_elbZone=$( \
-                          jq -r ".LoadBalancerDescriptions[] \
-                            | select(.LoadBalancerName == \"${name}\") \
-                              | .CanonicalHostedZoneNameID" "${elbs_info}")
-                  fi
-            done || (
-              echo "[ERROR] No nginx production load balancer was found"
-              return 1
-            )
-          } \
-      &&  helper_terraform_plan . \
-      &&  if [ "${first_argument}" == "deploy" ]; then
-                helper_terraform_apply .
-          fi \
-   &&  popd || return 1 \
   &&  popd || return 1 \
   || return 1
 }
