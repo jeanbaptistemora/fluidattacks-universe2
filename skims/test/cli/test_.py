@@ -6,7 +6,7 @@ from click.testing import (
 
 # Local libraries
 from cli import (
-    main,
+    dispatch,
 )
 
 # Third parties libraries
@@ -17,10 +17,19 @@ from click.testing import CliRunner
 def _cli(*args: str) -> Result:
     runner = CliRunner()
 
-    return runner.invoke(main, args)
+    return runner.invoke(dispatch, args)
 
 
 def test_main() -> None:
     result = _cli('--help')
+
+    assert result.exit_code == 0
+
+    result = _cli('--path', '#')
+
+    assert result.exit_code != 0
+    assert "Path '#' does not exist." in result.stdout
+
+    result = _cli('--path', '.')
 
     assert result.exit_code == 0
