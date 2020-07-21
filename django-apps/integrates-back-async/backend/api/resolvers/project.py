@@ -1,16 +1,22 @@
 # Standard library  # pylint:disable=cyclic-import
+# pylint:disable=too-many-lines
 import asyncio
 from datetime import datetime
 import sys
 import time
-from typing import Dict, List, Set, cast, Union
+from typing import Dict, List, Set, Any, cast, Union
 
 # Third party libraries
 from ariadne import (
     convert_camel_case_to_snake,
     convert_kwargs_to_snake_case,
 )
-from graphql.language.ast import FieldNode, SelectionSetNode, ObjectFieldNode
+from graphql.language.ast import (
+    FieldNode,
+    SelectionSetNode,
+    ObjectFieldNode
+)
+from graphql.type.definition import GraphQLResolveInfo
 import simplejson as json
 from asgiref.sync import sync_to_async
 import rollbar
@@ -24,11 +30,14 @@ from backend.api.resolvers import (
     user as user_loader
 )
 from backend.decorators import (
-    enforce_group_level_auth_async, get_entity_cache_async, require_login,
+    enforce_group_level_auth_async,
+    get_entity_cache_async,
+    require_login,
     turn_args_into_kwargs,
     require_attribute,
     require_integrates,
-    require_project_access, enforce_user_level_auth_async
+    require_project_access,
+    enforce_user_level_auth_async
 )
 from backend.domain import (
     bill as bill_domain,
@@ -58,30 +67,37 @@ from __init__ import FI_COMMUNITY_PROJECTS
 @enforce_group_level_auth_async
 @require_integrates
 async def _get_analytics(
-    info,
+    info: GraphQLResolveInfo,
     document_name: str,
     document_type: str,
     project_name: str,
-    **__
+    **__: Any
 ) -> Dict[str, object]:
     """Get analytics document."""
-    return await analytics_loader.resolve(
-        info,
-        document_name=document_name,
-        document_type=document_type,
-        entity='group',
-        subject=project_name)
+    return cast(
+        Dict[str, object],
+        await analytics_loader.resolve(
+            info,
+            document_name=document_name,
+            document_type=document_type,
+            entity='group',
+            subject=project_name
+        )
+    )
 
 
-async def _get_name(_, project_name: str, **__) -> str:
+async def _get_name(
+        _: GraphQLResolveInfo,
+        project_name: str,
+        **__: Any) -> str:
     """Get name."""
     return project_name
 
 
 async def _get_organization(
-    info,
+    info: GraphQLResolveInfo,
     project_name: str,
-    requested_fields: list
+    requested_fields: List[FieldNode]
 ) -> OrganizationType:
     """
     Get organization settings
@@ -95,42 +111,63 @@ async def _get_organization(
 
 @require_integrates
 @get_entity_cache_async
-async def _get_remediated_over_time(info, project_name: str,
-                                    **__) -> str:
+async def _get_remediated_over_time(
+        info: GraphQLResolveInfo,
+        project_name: str,
+        **__: Any) -> str:
     """Get remediated_over_time."""
     project_attrs = \
         await info.context.loaders['project'].load(project_name)
     project_attrs = project_attrs['attrs']
     remediate_over_time_decimal = project_attrs.get('remediated_over_time', {})
-    remediated_twelve_weeks = \
-        [lst_rem[-12:] for lst_rem in remediate_over_time_decimal]
+    remediated_twelve_weeks = [
+        lst_rem[-12:]
+        for lst_rem in remediate_over_time_decimal
+    ]
     remediated_over_time = json.dumps(
-        remediated_twelve_weeks, use_decimal=True)
+        remediated_twelve_weeks,
+        use_decimal=True
+    )
     return remediated_over_time
 
 
 @require_integrates
 @get_entity_cache_async
-async def _get_has_drills(info, project_name: str, **__) -> Dict[str, bool]:
+async def _get_has_drills(
+        info: GraphQLResolveInfo,
+        project_name: str,
+        **__: Any) -> bool:
     """Get has_drills."""
     project_attrs = await info.context.loaders['project'].load(project_name)
 
-    return project_attrs['attrs']['historic_configuration'][-1]['has_drills']
+    return cast(
+        bool,
+        project_attrs['attrs']['historic_configuration'][-1]['has_drills']
+    )
 
 
 @require_integrates
 @get_entity_cache_async
-async def _get_has_forces(info, project_name: str, **__) -> Dict[str, bool]:
+async def _get_has_forces(
+        info: GraphQLResolveInfo,
+        project_name: str,
+        **__: Any) -> bool:
     """Get has_forces."""
     project_attrs = await info.context.loaders['project'].load(project_name)
 
-    return project_attrs['attrs']['historic_configuration'][-1]['has_forces']
+    return cast(
+        bool,
+        project_attrs['attrs']['historic_configuration'][-1]['has_forces']
+    )
 
 
 @require_integrates
 async def _get_findings(
-        info, project_name: str, requested_fields: list,
-        filters=None) -> Dict[str, List[Dict[str, FindingType]]]:
+    info: GraphQLResolveInfo,
+    project_name: str,
+    requested_fields: List[FieldNode],
+    filters: Union[None, List[Union[None, ObjectFieldNode]]] = None
+) -> List[Dict[str, FindingType]]:
     """Resolve findings attribute."""
 
     req_fields: List[Union[FieldNode, ObjectFieldNode]] = []
@@ -142,78 +179,97 @@ async def _get_findings(
     selection_set.selections = req_fields
     util.cloudwatch_log(
         info.context,
-        f'Security: Access to {project_name} findings')  # pragma: no cover
-    project_findings = \
-        await info.context.loaders['project'].load(project_name)
+        f'Security: Access to {project_name} findings'  # pragma: no cover
+    )
+    project_findings = await info.context.loaders['project'].load(project_name)
     project_findings = project_findings['findings']
-    findings = \
-        await info.context.loaders['finding'].load_many(project_findings)
+    findings = await info.context.loaders['finding'].load_many(
+        project_findings
+    )
     findings = [
         finding for finding in findings
         if 'current_state' in finding and finding['current_state'] != 'DELETED'
     ]
     findings = await asyncio.gather(*[
         asyncio.create_task(
-            finding_loader.resolve(info, finding['id'], as_field=True,
-                                   selection_set=selection_set)
+            finding_loader.resolve(
+                info,
+                finding['id'],
+                as_field=True,
+                selection_set=selection_set
+            )
         )
         for finding in findings
     ])
-    return await util.get_filtered_elements(findings, filters)
+    return cast(
+        List[Dict[str, FindingType]],
+        await util.get_filtered_elements(findings, filters)
+    )
 
 
 @require_integrates
 @get_entity_cache_async
-async def _get_open_vulnerabilities(info, project_name: str,
-                                    **__) -> int:
+async def _get_open_vulnerabilities(
+        info: GraphQLResolveInfo,
+        project_name: str,
+        **__: Any) -> int:
     """Get open_vulnerabilities."""
     project_attrs = await info.context.loaders['project'].load(project_name)
     project_attrs = project_attrs['attrs']
     open_vulnerabilities = project_attrs.get('open_vulnerabilities', 0)
-    return open_vulnerabilities
+    return cast(int, open_vulnerabilities)
 
 
 @require_integrates
 @get_entity_cache_async
-async def _get_open_findings(info,
-                             project_name: str, **__) -> int:
+async def _get_open_findings(
+        info: GraphQLResolveInfo,
+        project_name: str,
+        **__: Any) -> int:
     """Get open_findings."""
     project_attrs = await info.context.loaders['project'].load(project_name)
     project_attrs = project_attrs['attrs']
     open_findings = project_attrs.get('open_findings', 0)
-    return open_findings
+    return cast(int, open_findings)
 
 
 @require_integrates
 @get_entity_cache_async
 async def _get_closed_vulnerabilities(
-        info, project_name: str, **__) -> int:
+        info: GraphQLResolveInfo,
+        project_name: str,
+        **__: Any) -> int:
     """Get closed_vulnerabilities."""
     project_attrs = await info.context.loaders['project'].load(project_name)
     project_attrs = project_attrs['attrs']
     closed_vulnerabilities = project_attrs.get('closed_vulnerabilities', 0)
-    return closed_vulnerabilities
+    return cast(int, closed_vulnerabilities)
 
 
 @require_integrates
 @get_entity_cache_async
-async def _get_pending_closing_check(_, project_name: str,
-                                     **__) -> int:
+async def _get_pending_closing_check(
+        _: GraphQLResolveInfo,
+        project_name: str,
+        **__: Any) -> int:
     """Get pending_closing_check."""
-    pending_closing_check = await \
-        project_domain.get_pending_closing_check(project_name)
+    pending_closing_check = await project_domain.get_pending_closing_check(
+        project_name
+    )
     return pending_closing_check
 
 
 @require_integrates
 @get_entity_cache_async
-async def _get_last_closing_vuln(info, project_name: str, **__) -> int:
+async def _get_last_closing_vuln(
+        info: GraphQLResolveInfo,
+        project_name: str,
+        **__: Any) -> int:
     """Get last_closing_vuln."""
-    project_attrs = \
-        await info.context.loaders['project'].load(project_name)
+    project_attrs = await info.context.loaders['project'].load(project_name)
     project_attrs = project_attrs['attrs']
     last_closing_vuln = project_attrs.get('last_closing_date', 0)
-    return last_closing_vuln
+    return cast(int, last_closing_vuln)
 
 
 @require_integrates
