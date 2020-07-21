@@ -1,6 +1,6 @@
 # Standar Imports
-from typing import Any, Dict, List, Tuple
-
+"""Fluid Forces integrates api module."""
+from typing import Any, Dict, List, Union
 
 # 3dr Imports
 from gql import gql, Client
@@ -32,7 +32,8 @@ async def get_findings(client: Client, project: str) -> List[str]:
 
 
 async def get_vulnerabilities(
-        client: Client, finding: str) -> Tuple[str, List[Dict[str, str]]]:
+        client: Client,
+        finding: str) -> List[Dict[str, Union[str, List[Dict[str, str]]]]]:
     """
     Returns the vulnerabilities of a finding.
 
@@ -43,12 +44,34 @@ async def get_vulnerabilities(
         query GetFindingVulnerabilities($finding_id: String!){
           finding(identifier: $finding_id) {
             vulnerabilities {
-              id,
+              findingId,
               historicState
+              vulnType
+              where
             }
           }
         }
         """)
     params = {'finding_id': finding}
     result = await client.execute(query, variable_values=params)
-    return (finding, result['finding']['vulnerabilities'])
+    return result['finding']['vulnerabilities']  # type: ignore
+
+
+async def get_finding(client: Client, finding: str) -> Dict[str, str]:
+    """
+    Returns a finding.
+
+    :param finding: Finding identifier.
+    """
+    query = gql("""
+        query GetFinding($finding_id: String!) {
+          finding(identifier: $finding_id) {
+            id
+            title
+            state
+          }
+        }
+        """)
+    params = {'finding_id': finding}
+    result = await client.execute(query, variable_values=params)
+    return result['finding']  # type: ignore

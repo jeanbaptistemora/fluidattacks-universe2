@@ -13,6 +13,7 @@ version = "0.1.0"
 [tool.poetry.dependencies]
 aiohttp = "3.6.2"
 gql = "3.0.0a1"
+oyaml = "0.9"
 python-jose = "3.1.0"
 python = "^3.8"
 
