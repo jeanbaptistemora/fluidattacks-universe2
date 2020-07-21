@@ -664,7 +664,7 @@ skims_test:
   <<: *skims_in_dev_and_master_branch
   stage: test-code
 
-.forces_lint:
+forces_lint:
   <<: *with_nix
   <<: *forces_in_dev_and_master_branch
   stage: lint-code

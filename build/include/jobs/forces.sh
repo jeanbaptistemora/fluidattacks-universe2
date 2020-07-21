@@ -12,19 +12,12 @@ function job_forces_lint {
     --strictness veryhigh
   )
 
-      pushd forces/ \
-    &&  { test -e poetry.lock || poetry install; } \
-    &&  for pkg in \
-          src/apis \
-          src/cli \
-          src/core \
-
-        do
-              echo "[INFO] Linting: ${pkg}" \
-          &&  poetry run mypy "${args_mypy[@]}" "${pkg}" \
-          &&  poetry run prospector "${args_prospector[@]}" "${pkg}" \
-          ||  return 1
-        done \
+  pushd forces/ \
+  &&  { test -e forces/poetry.lock || poetry install; } \
+  &&  echo "[INFO] Linting: Forces" \
+  &&  poetry run mypy "${args_mypy[@]}"  "forces" \
+  &&  poetry run prospector "${args_prospector[@]}" "forces" \
+  ||  return 1 \
   &&  popd \
   ||  return 1
 }
