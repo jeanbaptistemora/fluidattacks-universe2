@@ -309,7 +309,7 @@ def get_date_last_vulns(vulns: List[Dict[str, FindingType]]) -> str:
 
 async def get_group_new_vulnerabilities(group_name: str) -> None:
     msg = 'Info: Getting new vulnerabilities'
-    await logging_utils.log(msg, 'info', payload_data=locals())
+    await logging_utils.log(msg, 'info', extra=locals())
     fin_attrs = 'finding_id, historic_treatment, project_name, finding'
     context: Dict[str, Union[str, List[Dict[str, str]]]] = {
         'updated_findings': list(),
@@ -354,16 +354,7 @@ async def get_group_new_vulnerabilities(group_name: str) -> None:
                 f'{act_finding["project_name"]}/indicators'
             )
     except (TypeError, KeyError) as ex:
-        msg = ('Error: An error ocurred getting new vulnerabilities '
-               'notification email')
-        payload_data = {
-            "group_name": group_name
-        }
-        extra_data = {
-            "error": str(ex)
-        }
-        await logging_utils.log(msg, 'error', payload_data=payload_data,
-                                extra_data=extra_data)
+        await logging_utils.log(ex, 'error', extra={'group_name': group_name})
         raise
     if context['updated_findings']:
         mail_to = await project_domain.get_users_to_notify(group_name)
@@ -650,7 +641,7 @@ async def update_group_indicators(group_name: str) -> None:
         'group_name': group_name
     }
     msg = 'Info: Updating indicators'
-    await logging_utils.log(msg, 'info', payload_data=payload_data)
+    await logging_utils.log(msg, 'info', extra=payload_data)
     indicators = await get_project_indicators(group_name)
     try:
         response = await aio.ensure_io_bound(
@@ -661,15 +652,12 @@ async def update_group_indicators(group_name: str) -> None:
         if response:
             util.invalidate_cache(group_name)
             msg = 'Info: Updated indicators'
-            await logging_utils.log(
-                msg, 'info', payload_data=payload_data)
+            await logging_utils.log(msg, 'info', extra=payload_data)
         else:
             msg = 'Error: An error ocurred updating indicators in the database'
-            await logging_utils.log(
-                msg, 'error', payload_data=payload_data)
-    except ClientError:
-        msg = 'Error: An error ocurred updating indicators'
-        await logging_utils.log(msg, 'error', payload_data=payload_data)
+            await logging_utils.log(msg, 'error', extra=payload_data)
+    except ClientError as ex:
+        await logging_utils.log(ex, 'error', extra=payload_data)
 
 
 @async_to_sync
@@ -694,7 +682,7 @@ async def update_indicators():
 async def reset_group_expired_accepted_findings(
         group_name: str, today: str) -> None:
     msg = 'Info: Resetting expired accepted findings'
-    await logging_utils.log(msg, 'info', payload_data=locals())
+    await logging_utils.log(msg, 'info', extra=locals())
     list_findings = await project_domain.list_findings(
         [group_name]
     )
