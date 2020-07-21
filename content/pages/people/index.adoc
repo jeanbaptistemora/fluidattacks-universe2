@@ -2,6 +2,8 @@
 :category: about-us
 :description: We're a pentesting company with a team of ethical hackers focused on the detection of vulnerabilities on web applications with 20 years of experience.
 :keywords: Fluid Attacks, Team, People, Profiles, Experience, Members, Ethical Hackers, Pentesting, Web Application
+:banner: people-bg
+:subtitle: Fluid Attacks Team
 
 = People
 
@@ -25,77 +27,19 @@ with their extensive knowledge and commitment,
 end up giving sufficient support to the organization
 we proudly built and called `Fluid Attacks`.
 
-[role= "tb-ppl tc"]
-[cols=3]
-|===
+++++
+<div class="tb-ppl tc flex-ns flex-wrap-ns db">
+    <img src="people-1.png" alt="People 1" class="w-33-ns w-100 db">
+    <img src="people-2.png" alt="People 2" class="w-33-ns w-100 db">
+    <img src="people-3.png" alt="People 3" class="w-33-ns w-100 db">
+    <img src="people-4.png" alt="People 4" class="w-33-ns w-100 db">
+    <img src="people-5.png" alt="People 5" class="w-33-ns w-100 db">
+    <img src="people-6.png" alt="People 6" class="w-33-ns w-100 db">
+    <img src="people-7.png" alt="People 7" class="w-33-ns w-100 db">
+    <img src="people-8.png" alt="People 8" class="w-33-ns w-100 db">
+    <img src="people-9.png" alt="People 9" class="w-33-ns w-100 db">
+</div>
+++++
 
-a|=== link:ralvarez/[Rafael Alvarez]
-image::ralvarez.png[alt="Rafael Álvarez", width=100 ]
-Management Team +
-link:https://www.linkedin.com/in/rafael-alvarez-7b04a2177/[LinkedIn]
-
-a|=== Vladimir Villa
-image::vvilla.png[alt="Vladimir Villa", width=100]
-Management Team +
-link:https://www.linkedin.com/in/vladimir-villa-g%C3%B3mez-31a23b5/[LinkedIn]
-
-a|=== Mauricio Gómez
-image::mgomez.png[alt="Mauricio Gómez", width=100 ]
-Management Team +
-link:https://www.linkedin.com/in/mgomezarango/[LinkedIn]
-
-a|=== Elkin Echeverri
-image::eecheverri.png[alt="Elkin Echeverri", width=100 ]
-Board Team +
-link:https://www.linkedin.com/in/elkin-echeverri-garcia-bb81505/[LinkedIn]
-
-a|=== Felipe Gómez
-image::fgomez.png[alt="Felipe Gómez", width=100 ]
-Sales Team +
-link:https://www.linkedin.com/in/felipegomezarango[LinkedIn]
-
-a|=== link:jarmas/[Jonathan Armas]
-image::jarmas.png[alt="Jonathan Armas", width=100 ]
-Hacking Team +
-link:https://www.linkedin.com/in/jonathan-armas[LinkedIn]
-
-a|=== link:aroldan/[Andrés Roldán]
-image::aroldan.png[alt="Andrés Roldan", width=100 ]
-Hacking Team +
-link:https://www.linkedin.com/in/andr%C3%A9s-rold%C3%A1n-0602702/[LinkedIn]
-
-a|=== Juan Restrepo
-image::jrestrepo.png[alt="Juan Carlos Restrepo", width=100 ]
-Product Team +
-link:https://www.linkedin.com/in/juancrestrepo[LinkedIn]
-
-a|=== link:ccarrasco/[Carolina Carrasco]
-image::ccarrasco.png[alt="Carolina Carrasco", width=100 ]
-Service Team +
-link:https://www.linkedin.com/in/carolina-carrasco-01612767/[LinkedIn]
-
-a|=== Diana Naspirán
-image::dnaspiran.png[alt="Diana Naspirán", width=100 ]
-Projects Team +
-link:https://www.linkedin.com/in/dianacarolinanaspiran/[LinkedIn]
-
-a|=== David Cardona
-image::dcardona.png[alt="David Cardona", width=100 ]
-Finance Team +
-link:https://www.linkedin.com/in/david-145843146/[LinkedIn]
-
-a|=== Paula Vélez
-image::pvelez.png[alt="Paula Vélez", width=100 ]
-Marketing Team +
-link:https://www.linkedin.com/in/pauveelez/[LinkedIn]
-
-a|=== Juan Echeverri
-image::jecheverri.png[alt="Juan Carlos Echeverri", width=100 ]
-Board Team +
-link:https://www.linkedin.com/in/juan-carlos-echeverri-cia-ccsa-29a6829a/[LinkedIn]
-
-a|=== John Gómez
-Board Team +
-link:https://www.linkedin.com/in/john-g%C3%B3mez-594a3727/[LinkedIn]
-
-|===
+[role="tc"]
+[button]#link:../../contact-us/[Join Our Team, role="button-rules"]#

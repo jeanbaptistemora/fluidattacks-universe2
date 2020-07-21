@@ -131,6 +131,7 @@ $codeyellow: rgba(230, 219, 116, 1);
 .resources-bg { background-image: url('../../images/resources/resources-main.png'); }
 .error-bg { background-image: url('../../images/bg-error.png');}
 .blog-bg { background-image: url('../../images/blog-banner.png');}
+.people-bg { background-image: url('../../images/people/people-cover.png'); }
 .b-max { font-weight: 999; }
 .nb-6 { margin-bottom: -6rem;}
 .lower-img { &:hover { transform: scale(1.1);
@@ -466,11 +467,8 @@ $codeyellow: rgba(230, 219, 116, 1);
 
 
 .tb-ppl {
-  margin-left: auto;
-  margin-right: auto;
-  white-space: nowrap;
-  tbody tr {
-    text-align: center;
+  img {
+    padding: 0;
   }
 }
 
