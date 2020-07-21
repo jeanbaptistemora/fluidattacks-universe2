@@ -1,0 +1,14 @@
+#! /usr/bin/env nix-shell
+#!   nix-shell -i bash
+#!   nix-shell --option restrict-eval false
+#!   nix-shell --option sandbox false
+#!   nix-shell --show-trace
+#!   nix-shell provisioner.nix
+#  shellcheck shell=bash
+
+export PYTHONPATH="${pyPkgSkims}/site-packages/:${PYTHONPATH}"
+
+export PATH="${pyPkgFluidasserts}/site-packages/bin/:${PATH}"
+export PATH="${pyPkgSkims}/site-packages/bin/:${PATH}"
+
+"${pyPkgSkims}/site-packages/bin/skims" "$@"
