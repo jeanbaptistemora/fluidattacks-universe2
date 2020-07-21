@@ -37,7 +37,7 @@ variable "eksAmiId" {
   default = "ami-0abcb9f9190e867ab"
 }
 variable "nodeStorageSize" {
-  default = "200"
+  default = "50"
 }
 variable "rtbId" {
   default = "rtb-a74ad5c3"

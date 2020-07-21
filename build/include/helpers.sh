@@ -326,21 +326,15 @@ function helper_infra_monolith {
   &&  sops_env secrets-prod.yaml default \
         AUTONOMIC_TLS_CERT \
         AUTONOMIC_TLS_KEY \
-        FA_RUNNER_TOKEN \
         FLUIDATTACKS_TLS_CERT \
         FLUID_TLS_KEY \
-        FS_RUNNER_TOKEN \
         HELM_CA \
         HELM_CERT \
         HELM_KEY \
         NRIA_LICENSE_KEY \
-        ONELOGIN_FINANCE_SSO \
-        ONELOGIN_SSO \
         TILLER_CERT \
         TILLER_KEY \
   &&  pushd infrastructure/ || return 1 \
-    &&  echo "${ONELOGIN_SSO}" | base64 -d > SSO.xml \
-    &&  echo "${ONELOGIN_FINANCE_SSO}" | base64 -d > SSOFinance.xml \
     &&  helper_terraform_plan . \
     &&  if [ "${first_argument}" == "deploy" ]; then
               helper_terraform_apply . \
