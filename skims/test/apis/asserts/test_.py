@@ -10,7 +10,7 @@ from apis.asserts import (
 
 def test_create_exploit_blocking():
     with create_exploit_blocking('content') as file:
-        assert file.read().decode() == 'content'
+        assert b'content' in file.read()
 
 
 @pytest.mark.asyncio

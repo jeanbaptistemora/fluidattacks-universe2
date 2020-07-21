@@ -18,7 +18,7 @@ async def call(
     stderr: int = asyncio.subprocess.PIPE,
     **kwargs: Any,
 ) -> asyncio.subprocess.Process:
-    return await asyncio.create_subprocess_exec(
+    process = await asyncio.create_subprocess_exec(
         binary,
         *binary_args,
         cwd=cwd,
@@ -31,3 +31,7 @@ async def call(
         stdout=stdout,
         **kwargs,
     )
+
+    await process.wait()
+
+    return process

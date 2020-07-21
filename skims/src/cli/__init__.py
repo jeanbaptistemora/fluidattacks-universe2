@@ -1,5 +1,6 @@
 # Local libraries
 import asyncio
+import logging
 import sys
 from typing import (
     Tuple,
@@ -12,9 +13,17 @@ import click
 from core.skimers.path import (
     skim as skim_path,
 )
+from utils.logs import (
+    set_level_blocking,
+)
 
 
 @click.command()
+@click.option(
+    '--debug',
+    help='Run in debug mode.',
+    is_flag=True,
+)
 @click.option(
     '--path',
     help=' '.join([
@@ -32,7 +41,13 @@ from core.skimers.path import (
         resolve_path=True,
     ),
 )
-def dispatch(path: Tuple[str, ...]) -> None:
+def dispatch(
+    debug: bool,
+    path: Tuple[str, ...],
+) -> None:
+    if debug:
+        set_level_blocking(logging.DEBUG)
+
     sys.exit(0 if asyncio.run(run(paths=path)) else 1)
 
 
