@@ -274,49 +274,60 @@ async def _get_last_closing_vuln(
 @require_integrates
 @get_entity_cache_async
 async def _get_last_closing_vuln_finding(
-        info, project_name: str, requested_fields: list) -> \
-        Dict[str, FindingType]:
+        info: GraphQLResolveInfo,
+        project_name: str,
+        requested_fields: List[FieldNode]) -> Dict[str, FindingType]:
     """Resolve finding attribute."""
     req_fields: List[Union[FieldNode, ObjectFieldNode]] = []
     selection_set = SelectionSetNode()
     selection_set.selections = requested_fields
     req_fields.extend(
-        util.get_requested_fields('lastClosingVulnFinding', selection_set))
+        util.get_requested_fields('lastClosingVulnFinding', selection_set)
+    )
     selection_set.selections = req_fields
-    project_attrs = \
-        await info.context.loaders['project'].load(project_name)
+    project_attrs = await info.context.loaders['project'].load(project_name)
     project_attrs = project_attrs['attrs']
-    last_closing_vuln_finding = \
-        project_attrs.get('last_closing_vuln_finding', '')
+    last_closing_vuln_finding = project_attrs.get(
+        'last_closing_vuln_finding', ''
+    )
     finding = await finding_loader.resolve(
-        info, last_closing_vuln_finding,
-        as_field=True, selection_set=selection_set)
+        info,
+        last_closing_vuln_finding,
+        as_field=True,
+        selection_set=selection_set
+    )
 
-    return await aio.materialize(finding)
+    return cast(Dict[str, FindingType], await aio.materialize(finding))
 
 
 @require_integrates
 @get_entity_cache_async
-async def _get_max_severity(info, project_name: str, **__) -> float:
+async def _get_max_severity(
+        info: GraphQLResolveInfo,
+        project_name: str,
+        **__: Any) -> float:
     """Get max_severity."""
-    project_findings = \
-        await info.context.loaders['project'].load(project_name)
+    project_findings = await info.context.loaders['project'].load(project_name)
     project_findings = project_findings['findings']
-    findings = \
-        await info.context.loaders['finding'].load_many(project_findings)
+    findings = await info.context.loaders['finding'].load_many(
+        project_findings
+    )
 
-    max_severity = max(
-        [finding['severity_score'] for finding in findings
-         if 'current_state' in finding and
-         finding['current_state'] != 'DELETED']) if findings else 0
-    return max_severity
+    max_severity = max([
+        finding['severity_score']
+        for finding in findings
+        if ('current_state' in finding and
+            finding['current_state'] != 'DELETED')
+    ]) if findings else 0
+    return cast(float, max_severity)
 
 
 @require_integrates
 @get_entity_cache_async
 async def _get_max_severity_finding(
-        info, project_name: str, requested_fields: list) -> \
-        Dict[str, FindingType]:
+        info: GraphQLResolveInfo,
+        project_name: str,
+        requested_fields: List[FieldNode]) -> Dict[str, FindingType]:
     """Resolve finding attribute."""
     req_fields: List[Union[FieldNode, ObjectFieldNode]] = []
     selection_set = SelectionSetNode()
@@ -324,11 +335,11 @@ async def _get_max_severity_finding(
     req_fields.extend(
         util.get_requested_fields('maxSeverityFinding', selection_set))
     selection_set.selections = req_fields
-    project_findings = \
-        await info.context.loaders['project'].load(project_name)
+    project_findings = await info.context.loaders['project'].load(project_name)
     project_findings = project_findings['findings']
-    findings = \
-        await info.context.loaders['finding'].load_many(project_findings)
+    findings = await info.context.loaders['finding'].load_many(
+        project_findings
+    )
     _, max_severity_finding = max([
         (finding['severity_score'], finding['id'])
         for finding in findings
@@ -339,134 +350,160 @@ async def _get_max_severity_finding(
         info, max_severity_finding,
         as_field=True, selection_set=selection_set)
 
-    return await aio.materialize(finding)
+    return cast(Dict[str, FindingType], await aio.materialize(finding))
 
 
 @require_integrates
 @get_entity_cache_async
-async def _get_max_open_severity(info, project_name: str,
-                                 **__) -> float:
+async def _get_max_open_severity(
+        info: GraphQLResolveInfo,
+        project_name: str,
+        **__: Any) -> int:
     """Resolve maximum severity in open vulnerability attribute."""
-    project_attrs = \
-        await info.context.loaders['project'].load(project_name)
+    project_attrs = await info.context.loaders['project'].load(project_name)
     project_attrs = project_attrs['attrs']
-    return project_attrs.get('max_open_severity', 0)
+    return cast(int, project_attrs.get('max_open_severity', 0))
 
 
 @require_integrates
 @get_entity_cache_async
 async def _get_max_open_severity_finding(
-        info, project_name: str, requested_fields: list) -> \
-        Dict[str, FindingType]:
+        info: GraphQLResolveInfo,
+        project_name: str,
+        requested_fields: List[FieldNode]) -> Dict[str, FindingType]:
     """Resolve finding attribute."""
     req_fields: List[Union[FieldNode, ObjectFieldNode]] = []
     selection_set = SelectionSetNode()
     selection_set.selections = requested_fields
     req_fields.extend(
-        util.get_requested_fields('maxOpenSeverityFinding', selection_set))
+        util.get_requested_fields('maxOpenSeverityFinding', selection_set)
+    )
     selection_set.selections = req_fields
-    project_attrs = \
-        await info.context.loaders['project'].load(project_name)
+    project_attrs = await info.context.loaders['project'].load(project_name)
     project_attrs = project_attrs['attrs']
-    max_open_severity_finding = \
-        project_attrs.get('max_open_severity_finding', '')
+    max_open_severity_finding = project_attrs.get(
+        'max_open_severity_finding', ''
+    )
     finding = await finding_loader.resolve(
-        info, max_open_severity_finding,
-        as_field=True, selection_set=selection_set)
+        info,
+        max_open_severity_finding,
+        as_field=True,
+        selection_set=selection_set
+    )
 
-    return await aio.materialize(finding)
+    return cast(Dict[str, FindingType], await aio.materialize(finding))
 
 
 @require_integrates
 @get_entity_cache_async
-async def _get_mean_remediate(info, project_name: str, **__) -> Dict[str, int]:
+async def _get_mean_remediate(
+        info: GraphQLResolveInfo,
+        project_name: str,
+        **__: Any) -> int:
     """Get mean_remediate."""
-    project_attrs = \
-        await info.context.loaders['project'].load(project_name)
+    project_attrs = await info.context.loaders['project'].load(project_name)
     project_attrs = project_attrs['attrs']
-    return project_attrs.get('mean_remediate', 0)
+    return cast(int, project_attrs.get('mean_remediate', 0))
 
 
 @require_integrates
 @get_entity_cache_async
 async def _get_mean_remediate_low_severity(
-        info, project_name: str, **__) -> int:
+        info: GraphQLResolveInfo,
+        project_name: str,
+        **__: Any) -> int:
     """Get mean_remediate_low_severity."""
-    project_attrs = \
-        await info.context.loaders['project'].load(project_name)
+    project_attrs = await info.context.loaders['project'].load(project_name)
     project_attrs = project_attrs['attrs']
-    return project_attrs.get('mean_remediate_low_severity', 0)
+    return cast(int, project_attrs.get('mean_remediate_low_severity', 0))
 
 
 @require_integrates
 @get_entity_cache_async
 async def _get_mean_remediate_medium_severity(
-        info, project_name: str, **__) -> int:
+        info: GraphQLResolveInfo,
+        project_name: str,
+        **__: Any) -> int:
     """Get mean_remediate_medium_severity."""
-    project_attrs = \
-        await info.context.loaders['project'].load(project_name)
+    project_attrs = await info.context.loaders['project'].load(project_name)
     project_attrs = project_attrs['attrs']
-    return project_attrs.get('mean_remediate_medium_severity', 0)
+    return cast(int, project_attrs.get('mean_remediate_medium_severity', 0))
 
 
 @require_integrates
 @get_entity_cache_async
 async def _get_mean_remediate_high_severity(
-        info, project_name: str, **__) -> int:
+        info: GraphQLResolveInfo,
+        project_name: str,
+        **__: Any) -> int:
     """Get mean_remediate_high_severity."""
-    project_attrs = \
-        await info.context.loaders['project'].load(project_name)
+    project_attrs = await info.context.loaders['project'].load(project_name)
     project_attrs = project_attrs['attrs']
-    return project_attrs.get('mean_remediate_high_severity', 0)
+    return cast(int, project_attrs.get('mean_remediate_high_severity', 0))
 
 
 @require_integrates
 @get_entity_cache_async
 async def _get_mean_remediate_critical_severity(
-        info, project_name: str, **__) -> int:
+        info: GraphQLResolveInfo,
+        project_name: str,
+        **__: Any) -> int:
     """Get mean_remediate_critical_severity."""
-    project_attrs = \
-        await info.context.loaders['project'].load(project_name)
+    project_attrs = await info.context.loaders['project'].load(project_name)
     project_attrs = project_attrs['attrs']
-    return project_attrs.get('mean_remediate_critical_severity', 0)
+    return cast(int, project_attrs.get('mean_remediate_critical_severity', 0))
 
 
 @require_integrates
 @get_entity_cache_async
-async def _get_total_findings(info, project_name: str, **__) -> int:
+async def _get_total_findings(
+        info: GraphQLResolveInfo,
+        project_name: str,
+        **__: Any) -> int:
     """Get total_findings."""
-    project_findings = \
-        await info.context.loaders['project'].load(project_name)
+    project_findings = await info.context.loaders['project'].load(project_name)
     project_findings = project_findings['findings']
-    findings = \
-        await info.context.loaders['finding'].load_many(project_findings)
+    findings = await info.context.loaders['finding'].load_many(
+        project_findings
+    )
 
-    total_findings = sum(1 for finding in findings
-                         if 'current_state' in finding and
-                         finding['current_state'] != 'DELETED')
+    total_findings = sum(
+        1 for finding in findings
+        if ('current_state' in finding and
+            finding['current_state'] != 'DELETED')
+    )
     return total_findings
 
 
 @require_integrates
 @get_entity_cache_async
-async def _get_total_treatment(info, project_name: str, **__) -> str:
+async def _get_total_treatment(
+        info: GraphQLResolveInfo,
+        project_name: str,
+        **__: Any) -> str:
     """Get total_treatment."""
-    project_attrs = \
-        await info.context.loaders['project'].load(project_name)
+    project_attrs = await info.context.loaders['project'].load(project_name)
     project_attrs = project_attrs['attrs']
     total_treatment_decimal = project_attrs.get('total_treatment', {})
     total_treatment = json.dumps(
-        total_treatment_decimal, use_decimal=True)
+        total_treatment_decimal, use_decimal=True
+    )
     return total_treatment
 
 
 @require_integrates
 @get_entity_cache_async
-async def _get_subscription(info, project_name: str, **__) -> Dict[str, str]:
+async def _get_subscription(
+        info: GraphQLResolveInfo,
+        project_name: str,
+        **__: Any) -> str:
     """Get subscription."""
     project_attrs = await info.context.loaders['project'].load(project_name)
 
-    return project_attrs['attrs']['historic_configuration'][-1]['type']
+    return cast(
+        str,
+        project_attrs['attrs']['historic_configuration'][-1]['type']
+    )
 
 
 # Intentionally not @require_integrates
