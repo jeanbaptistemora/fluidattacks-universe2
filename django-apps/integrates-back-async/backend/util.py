@@ -13,10 +13,9 @@ import secrets
 from typing import Any, Dict, Iterator, List, Union, cast
 import httpx
 import pytz
-import rollbar
 
 
-from asgiref.sync import sync_to_async
+from asgiref.sync import async_to_sync, sync_to_async
 from cryptography.hazmat.primitives.kdf.scrypt import Scrypt
 from cryptography.hazmat.backends import default_backend
 from cryptography.exceptions import InvalidKey
@@ -53,6 +52,7 @@ from backend.typing import (
 )
 from backend.utils import (
     apm,
+    logging as logging_utils,
 )
 from __init__ import (
     FI_ENVIRONMENT,
@@ -219,43 +219,23 @@ def get_jwt_content(context) -> Dict[str, str]:
             jti = content.get('jti')
             if (content.get('sub') == 'django_session' and
                     not token_exists(f'fi_jwt:{jti}')):
-                rollbar.report_message(
-                    'Error: Expired token', 'error', context
-                )
+                # Session expired (user logged out)
                 raise ExpiredToken()
 
         return content
-    except AttributeError:
-        rollbar.report_message(
-            'Error: Attribute error', 'error', context)
+    except jwt.ExpiredSignatureError:
+        # Session expired
         raise InvalidAuthorization()
-    except IndexError:
-        rollbar.report_message(
-            'Error: Malformed auth header', 'error', context)
+    except (AttributeError, IndexError) as ex:
+        async_to_sync(logging_utils.log)(ex, 'error', extra=context)
         raise InvalidAuthorization()
     except jwt.JWTClaimsError as ex:
         LOGGER.info('Security: Invalid token claims')
-        extra_data = {
-            'error': str(ex)
-        }
-        rollbar.report_message(
-            'Error: Invalid token claims',
-            'error',
-            context,
-            extra_data=extra_data
-        )
+        async_to_sync(logging_utils.log)(ex, 'error', extra=context)
         raise InvalidAuthorization()
     except JWTError as ex:
-        LOGGER.info('Security: Invalid token signature')
-        extra_data = {
-            'error': str(ex)
-        }
-        rollbar.report_message(
-            'Error: Invalid token signature',
-            'error',
-            context,
-            extra_data=extra_data
-        )
+        LOGGER.info('Security: Invalid token')
+        async_to_sync(logging_utils.log)(ex, 'error', extra=context)
         raise InvalidAuthorization()
 
 
@@ -385,8 +365,8 @@ def verificate_hash_token(access_token: Dict[str, str], jti_token: str) -> \
             binascii.unhexlify(jti_token),
             binascii.unhexlify(access_token['jti']))
         resp = True
-    except InvalidKey:
-        rollbar.report_message('Error: Access token does not match', 'error')
+    except InvalidKey as ex:
+        async_to_sync(logging_utils.log)(ex, 'error')
 
     return resp
 
@@ -437,31 +417,8 @@ def forces_trigger_deployment(project_name: str) -> bool:
             task = asyncio.create_task(req_coro)
             task.add_done_callback(functools.partial(callback, client))
 
-    except (  # pylint: disable=protected-access
-        httpx._exceptions.ConnectTimeout,
-        httpx._exceptions.ConnectionClosed,
-        httpx._exceptions.CookieConflict,
-        httpx._exceptions.DecodingError,
-        httpx._exceptions.HTTPError,
-        httpx._exceptions.InvalidURL,
-        httpx._exceptions.NetworkError,
-        httpx._exceptions.NotRedirectResponse,
-        httpx._exceptions.PoolTimeout,
-        httpx._exceptions.ProtocolError,
-        httpx._exceptions.ProxyError,
-        httpx._exceptions.ReadTimeout,
-        httpx._exceptions.RedirectError,
-        httpx._exceptions.RequestBodyUnavailable,
-        httpx._exceptions.RequestNotRead,
-        httpx._exceptions.ResponseClosed,
-        httpx._exceptions.ResponseNotRead,
-        httpx._exceptions.StreamConsumed,
-        httpx._exceptions.StreamError,
-        httpx._exceptions.TimeoutException,
-        httpx._exceptions.TooManyRedirects,
-        httpx._exceptions.WriteTimeout,
-    ):
-        rollbar.report_exc_info()
+    except httpx.HTTPError as ex:
+        async_to_sync(logging_utils.log)(ex, 'error')
     else:
         success = True
     return success

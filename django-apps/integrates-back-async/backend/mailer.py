@@ -134,7 +134,7 @@ def _send_mail(
                 'api_key': API_KEY
             }
             async_to_sync(log)(
-                'sending mail to sqs',
+                '[mailer]: sending to SQS',
                 'info',
                 extra={
                     'message': json.dumps(sqs_message["message"]),
@@ -147,7 +147,7 @@ def _send_mail(
                 MessageGroupId=template_name
             )
             async_to_sync(log)(
-                'mail sent',
+                '[mailer]: mail sent',
                 'info',
                 extra={
                     'message': json.dumps(sqs_message["message"]),
@@ -273,8 +273,13 @@ def send_mail_new_draft(
 
 
 async def send_mail_analytics(*email_to: str, **context: str) -> None:
-    await log(f'send_mail_analytics(email_to={email_to}, context={context})',
-              level='info')
+    await log(
+        '[mailer]: send_mail_analytics',
+        level='info',
+        extra={
+            'context': context,
+            'to': email_to,
+        })
 
     await aio.ensure_io_bound(
         function=_send_mail,
