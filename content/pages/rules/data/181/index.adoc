@@ -94,40 +94,50 @@ accidental loss or alteration,
 and unauthorized or unlawful storage, processing, access or disclosure.
 
 . [[r7]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+Appendix C: Internet of Things Verification Requirements.(C.7)]
+Verify that the firmware apps protect data-in-transit using transport layer
+security.
+
+. [[r8]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+Appendix C: Internet of Things Verification Requirements.(C.8)]
+Verify that the firmware apps validate the digital signature of server
+connections.
+
+. [[r9]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V1.9 Client-side Data Protection.(1.9.1)]
 Verify the application encrypts communications between components,
 particularly when these components are in different containers, systems, sites,
 or cloud providers.
 
-. [[r8]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r10]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V2.2 General Authenticator Requirements.(2.2.5)]
 Verify that where a credential service provider (CSP) and the application
 verifying authentication are separated,
 mutually authenticated TLS is in place between the two endpoints.
 
-. [[r9]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r11]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V2.5 Credential Recovery Requirements.(2.5.1)]
 Verify that a system generated initial activation or recovery secret is not
 sent in clear text to the user.
 
-. [[r10]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r12]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V3.1 Client-side Data Protection.(3.1.1)]
 Verify the application never reveals session tokens in URL parameters or error
 messages.
 
-. [[r11]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r13]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V8.3 Sensitive Private Data.(8.3.1)]
 Verify that sensitive data is sent to the server in the HTTP message body or
 headers,
 and that query string parameters from any HTTP verb do not contain sensitive
 data.
 
-. [[r12]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r14]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V9.1 Communications Security Requirements.(9.1.1)]
 Verify that secured TLS is used for all client connectivity,
 and does not fall back to insecure or unencrypted protocols.
 
-. [[r13]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r15]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V9.2 Server Communications Security Requirements.(9.2.2)]
 Verify that encrypted communications such as *TLS* is used for all inbound and
 outbound connections,
@@ -136,21 +146,21 @@ or web service calls, database, cloud, serverless, mainframe, external,
 and partner connections.
 The server must not fall back to insecure or unencrypted protocols.
 
-. [[r14]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r16]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V9.2 Server Communications Security Requirements.(9.2.3)]
 Verify that all encrypted connections to external systems that involve
 sensitive information or functions are authenticated.
 
-. [[r15]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r17]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V13.2 RESTful Web Service Verification Requirements.(13.2.5)]
 Verify that the message headers and payload are trustworthy and not modified
 in transit.
 Requiring strong encryption for transport (*TLS* only) may be sufficient in
 many cases as it provides both confidentiality and integrity protection.
 
-. [[r16]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r18]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V13.3 SOAP Web Service Verification Requirements.(13.3.2)]
 Verify that the message payload is signed using *WS-Security* to ensure
 reliable transport between client and service.
 
-. [[r17]] link:https://pcinetwork.org/forum/index.php?threads/pci-dss-3-0-6-5-4-insecure-communications.660/[PCI 6.5.4 Insecure communications/transport layer protection]
+. [[r19]] link:https://pcinetwork.org/forum/index.php?threads/pci-dss-3-0-6-5-4-insecure-communications.660/[PCI 6.5.4 Insecure communications/transport layer protection]
