@@ -102,9 +102,9 @@ stages:
   rules:
     - if: '$CI_PIPELINE_SOURCE != "schedule"'
       when: never
-    - if:  '$NIGHTLY_BUILD == null'
+    - if:  '$integrates_nightly_build == null'
       when: never
-    - if: *integrates_commit_pattern
+    - when: always
 
 .with_nix: &with_nix
   tags: [autoscaling]
