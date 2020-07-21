@@ -336,7 +336,11 @@ functions used by the application:
 image::unsafe2.png[Unsafe functions]
 
 We can work backwards from there, searching by cross references (X refs)
-to that functions:
+to that functions. For instance, if we'd wanted to know the places on where
+the `strcpy()` function is used, we can look for the cross-references of
+that function on `Vulnserver`. Once we find those references, we can start
+walking in reverse to see if non validated user input reaches the call of
+`strcpy()`:
 
 image::xrefs1.gif[Cross references]
 
@@ -349,6 +353,9 @@ Vulnerabilities can be found using static, dynamic and interactive ways.
 Fuzzing is a dynamic approach to find vulnerabilities, but it is prone to
 overlook details of vulnerabilities. Using reverse engineering, we use
 an interactive approach that, as you see, gives a full detailed view
-of the vulnerable software. We use all
-link:../../products/drills/[those approaches] on Fluid Attacks to find
-vulnerabilities!
+of the vulnerable software. If you take a look at the
+link:../vulnserver-kstet/[KSTET] and the link:../vulnserver-trun/[TRUN]
+articles, you can see that the analysis performed using reverse engineering
+matched the one using fuzzing, with some additional details. And remember
+that we use all link:../../products/drills/[those approaches] on
+Fluid Attacks to find vulnerabilities!
