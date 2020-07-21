@@ -17,7 +17,7 @@ import { Button } from "../../../../../components/Button/index";
 import { DataTableNext } from "../../../../../components/DataTableNext";
 import { IHeaderConfig } from "../../../../../components/DataTableNext/types";
 import { Modal } from "../../../../../components/Modal/index";
-import { dropdownField, switchButton, textAreaField, textField } from "../../../../../utils/forms/fields";
+import { dropdownField, switchButton, Text, textAreaField } from "../../../../../utils/forms/fields";
 import { msgError, msgSuccess } from "../../../../../utils/notifications";
 import rollbar from "../../../../../utils/rollbar";
 import translate from "../../../../../utils/translations/translate";
@@ -200,7 +200,7 @@ const services: React.FC<IServicesProps> = (props: IServicesProps): JSX.Element 
       ),
       status: (
         <Field
-          component={textField}
+          component={Text}
           name="organization"
           type="text"
         />
@@ -367,7 +367,7 @@ const services: React.FC<IServicesProps> = (props: IServicesProps): JSX.Element 
                   <ControlLabel>{translate.t("search_findings.services_table.modal.type_group_name")}</ControlLabel>
                   <Field
                     name="confirmation"
-                    component={textField}
+                    component={Text}
                     placeholder={groupName.toLowerCase()}
                     type="text"
                     validate={required}

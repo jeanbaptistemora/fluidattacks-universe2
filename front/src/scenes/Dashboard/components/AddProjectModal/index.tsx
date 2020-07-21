@@ -18,7 +18,7 @@ import { Button } from "../../../../components/Button";
 import { Modal } from "../../../../components/Modal/index";
 import { TooltipWrapper } from "../../../../components/TooltipWrapper";
 import { authzPermissionsContext } from "../../../../utils/authz/config";
-import { dropdownField, textField } from "../../../../utils/forms/fields";
+import { dropdownField, Text } from "../../../../utils/forms/fields";
 import { msgError, msgSuccess } from "../../../../utils/notifications";
 import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
@@ -196,7 +196,7 @@ const addProjectModal: ((props: IAddProjectModal) => JSX.Element) = (props: IAdd
                                 >
                                   <FormGroup>
                                     <Field
-                                      component={textField}
+                                      component={Text}
                                       name="organization"
                                       type="text"
                                       validate={[required, maxOrganizationLength, validTextField]}
@@ -207,7 +207,7 @@ const addProjectModal: ((props: IAddProjectModal) => JSX.Element) = (props: IAdd
                               <FormGroup>
                                 <ControlLabel>{translate.t("home.newGroup.name")}</ControlLabel>
                                 <Field
-                                  component={textField}
+                                  component={Text}
                                   disabled={true}
                                   name="name"
                                   type="text"
@@ -222,7 +222,7 @@ const addProjectModal: ((props: IAddProjectModal) => JSX.Element) = (props: IAdd
                                 >
                                   <FormGroup>
                                     <Field
-                                      component={textField}
+                                      component={Text}
                                       name="description"
                                       type="text"
                                       validate={[required, maxDescriptionLength, validTextField]}

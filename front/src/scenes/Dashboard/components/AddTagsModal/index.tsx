@@ -8,7 +8,7 @@ import { ButtonToolbar, Col, Glyphicon, Row } from "react-bootstrap";
 import { Field, FieldArray, InjectedFormProps, WrappedFieldArrayProps } from "redux-form";
 import { Button } from "../../../../components/Button/index";
 import { Modal } from "../../../../components/Modal/index";
-import { textField } from "../../../../utils/forms/fields";
+import { Text } from "../../../../utils/forms/fields";
 import translate from "../../../../utils/translations/translate";
 import { required, validTag } from "../../../../utils/validations";
 import { GenericForm } from "../GenericForm";
@@ -37,7 +37,7 @@ const renderTagsFields: React.FC<WrappedFieldArrayProps> = (props: WrappedFieldA
               <label style={{ color: "#f22" }}>* </label>
               Tag
             </label>
-            <Field name={fieldName} component={textField} type="text" validate={[required, validTag]} />
+            <Field name={fieldName} component={Text} type="text" validate={[required, validTag]} />
           </Col>
           {index > 0 ? (
             <Col md={2} className={style.removeBtn}>

@@ -6,7 +6,7 @@ import { Link, useHistory } from "react-router-dom";
 import { Field } from "redux-form";
 import { Button } from "../../../../components/Button/index";
 import { FluidIcon } from "../../../../components/FluidIcon";
-import { textField } from "../../../../utils/forms/fields";
+import { Text } from "../../../../utils/forms/fields";
 import translate from "../../../../utils/translations/translate";
 import { alphaNumeric } from "../../../../utils/validations";
 import { GenericForm } from "../GenericForm";
@@ -49,7 +49,7 @@ export const navbarComponent: React.FC<RouteComponentProps> = (props: RouteCompo
             <InputGroup>
               <Field
                 name="projectName"
-                component={textField}
+                component={Text}
                 placeholder={translate.t("navbar.searchPlaceholder")}
                 validate={[alphaNumeric]}
               />

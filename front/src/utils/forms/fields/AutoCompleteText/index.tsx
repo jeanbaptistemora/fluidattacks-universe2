@@ -31,7 +31,7 @@ export const AutoCompleteText: React.FC<IAutoCompleteTextProps> = (
     filteredSuggestions.length > 0 && filteredSuggestions[0] !== value;
 
   return (
-    <div>
+    <React.Fragment>
       <FormControl
         autoComplete={"off"}
         className={style.formControl}
@@ -65,6 +65,6 @@ export const AutoCompleteText: React.FC<IAutoCompleteTextProps> = (
           {meta.error as string}
         </HelpBlock>
       )}
-    </div>
+    </React.Fragment>
   );
 };

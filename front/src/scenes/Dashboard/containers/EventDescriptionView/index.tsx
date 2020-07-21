@@ -15,7 +15,7 @@ import { Button } from "../../../../components/Button";
 import { FluidIcon } from "../../../../components/FluidIcon";
 import { Modal } from "../../../../components/Modal";
 import { Can } from "../../../../utils/authz/Can";
-import { dateTimeField, textField } from "../../../../utils/forms/fields";
+import { dateTimeField, Text } from "../../../../utils/forms/fields";
 import { msgError } from "../../../../utils/notifications";
 import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
@@ -122,7 +122,7 @@ const eventDescriptionView: React.FC<EventDescriptionProps> = (props: EventDescr
                                     {translate.t("group.events.description.solved.affectation")}
                                   </ControlLabel>
                                   <Field
-                                    component={textField}
+                                    component={Text}
                                     name="affectation"
                                     type="number"
                                     validate={[required, numeric]}
@@ -162,7 +162,7 @@ const eventDescriptionView: React.FC<EventDescriptionProps> = (props: EventDescr
                             <Col md={6}>
                               <EditableField
                                 alignField="horizontalWide"
-                                component={textField}
+                                component={Text}
                                 currentValue={data.event.detail}
                                 label={translate.t("search_findings.tab_events.description")}
                                 name="detail"
@@ -173,7 +173,7 @@ const eventDescriptionView: React.FC<EventDescriptionProps> = (props: EventDescr
                             <Col md={6}>
                               <EditableField
                                 alignField="horizontalWide"
-                                component={textField}
+                                component={Text}
                                 currentValue={data.event.client}
                                 label={translate.t("search_findings.tab_events.client")}
                                 name="client"
@@ -186,7 +186,7 @@ const eventDescriptionView: React.FC<EventDescriptionProps> = (props: EventDescr
                             <Col md={6}>
                               <EditableField
                                 alignField="horizontalWide"
-                                component={textField}
+                                component={Text}
                                 currentValue={data.event.analyst}
                                 label={translate.t("search_findings.tab_events.analyst")}
                                 name="analyst"
@@ -197,7 +197,7 @@ const eventDescriptionView: React.FC<EventDescriptionProps> = (props: EventDescr
                             <Col md={6}>
                               <EditableField
                                 alignField="horizontalWide"
-                                component={textField}
+                                component={Text}
                                 currentValue={_.isEmpty(data.event.affectation) ? "-" : data.event.affectation}
                                 label={translate.t("search_findings.tab_events.affectation")}
                                 name="affectation"
@@ -211,7 +211,7 @@ const eventDescriptionView: React.FC<EventDescriptionProps> = (props: EventDescr
                               <Col md={6}>
                                 <EditableField
                                   alignField="horizontalWide"
-                                  component={textField}
+                                  component={Text}
                                   currentValue={data.event.affectedComponents}
                                   label={translate.t("search_findings.tab_events.affected_components")}
                                   name="affectedComponents"
@@ -223,7 +223,7 @@ const eventDescriptionView: React.FC<EventDescriptionProps> = (props: EventDescr
                             <Col md={6}>
                               <EditableField
                                 alignField="horizontalWide"
-                                component={textField}
+                                component={Text}
                                 currentValue={data.event.accessibility}
                                 label={translate.t("search_findings.tab_events.event_in")}
                                 name="accessibility"

@@ -6,19 +6,13 @@ import { GenericForm } from "../../scenes/Dashboard/components/GenericForm";
 import store from "../../store";
 import { required } from "../validations";
 import {
-  AutoCompleteText, dateField, dropdownField, fileInputField, phoneNumberField, tagInputField, textAreaField,
-  textField,
+  dateField, dropdownField, fileInputField, phoneNumberField, tagInputField, textAreaField,
 } from "./fields";
 
 describe("Form fields", () => {
 
   it("should return a dateField function", () => {
     expect(typeof (dateField))
-      .toEqual("function");
-  });
-
-  it("should return a textField function", () => {
-    expect(typeof (textField))
       .toEqual("function");
   });
 
@@ -45,19 +39,6 @@ describe("Form fields", () => {
   it("should return a tagInputField function", () => {
     expect(typeof (tagInputField))
       .toEqual("function");
-  });
-
-  it("should render textField component", () => {
-    const wrapper: ShallowWrapper = shallow(
-      <Field
-        name="textTest"
-        component={textField}
-        type="text"
-        validate={[required]}
-      />,
-    );
-    expect(wrapper.find("textTest"))
-      .toBeTruthy();
   });
 
   it("should render phoneNumberField component", () => {

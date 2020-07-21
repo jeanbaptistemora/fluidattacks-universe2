@@ -13,7 +13,7 @@ import { Field } from "redux-form";
 import { Button } from "../../../../components/Button/index";
 import { Modal } from "../../../../components/Modal/index";
 import { Can } from "../../../../utils/authz/Can";
-import { dropdownField, phoneNumberField, textField } from "../../../../utils/forms/fields";
+import { dropdownField, phoneNumberField, Text } from "../../../../utils/forms/fields";
 import { msgError } from "../../../../utils/notifications";
 import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
@@ -107,7 +107,7 @@ export const addUserModal: React.FC<IAddUserModalProps> = (props: IAddUserModalP
                 <ControlLabel>{requiredIndicator}{translate.t("userModal.emailText")}</ControlLabel>
                 <Field
                   name="email"
-                  component={textField}
+                  component={Text}
                   type="text"
                   placeholder={translate.t("userModal.emailPlaceholder")}
                   validate={[required, validEmail]}
@@ -148,7 +148,7 @@ export const addUserModal: React.FC<IAddUserModalProps> = (props: IAddUserModalP
                   </ControlLabel>
                   <Field
                     name="responsibility"
-                    component={textField}
+                    component={Text}
                     type="text"
                     placeholder={translate.t("userModal.responsibilityPlaceholder")}
                     validate={[required, validTextField]}

@@ -24,7 +24,7 @@ import { authzPermissionsContext } from "../../../../utils/authz/config";
 import {
   formatCompromisedRecords, formatCweUrl, formatFindingType, getLastTreatment,
 } from "../../../../utils/formatHelpers";
-import { dropdownField, textAreaField, textField } from "../../../../utils/forms/fields";
+import { dropdownField, Text, textAreaField } from "../../../../utils/forms/fields";
 import { msgError, msgSuccess } from "../../../../utils/notifications";
 import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
@@ -265,7 +265,7 @@ const descriptionView: React.FC = (): JSX.Element => {
                         </ControlLabel>
                         <br />
                         <Field
-                          component={textField}
+                          component={Text}
                           name="title"
                           type="text"
                           validate={[required, validDraftTitle, validTextField, maxTitleLength]}

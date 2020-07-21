@@ -25,7 +25,7 @@ import { default as globalStyle } from "../../../../styles/global.css";
 import { Can } from "../../../../utils/authz/Can";
 import { castEventType, formatEvents } from "../../../../utils/formatHelpers";
 import {
-  checkboxField, dateTimeField, dropdownField, fileInputField, textAreaField, textField,
+  checkboxField, dateTimeField, dropdownField, fileInputField, Text, textAreaField,
 } from "../../../../utils/forms/fields";
 import { msgError, msgSuccess } from "../../../../utils/notifications";
 import rollbar from "../../../../utils/rollbar";
@@ -371,7 +371,7 @@ const projectEventsView: React.FunctionComponent<EventsViewProps> = (props: Even
                                     <FormGroup>
                                       <ControlLabel>{translate.t("group.events.form.blocking_hours")}</ControlLabel>
                                       <Field
-                                        component={textField}
+                                        component={Text}
                                         name="blockingHours"
                                         type="number"
                                         validate={[numeric, required]}

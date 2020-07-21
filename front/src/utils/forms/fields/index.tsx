@@ -32,25 +32,6 @@ const renderCharacterCount: ((text: string) => JSX.Element) = (text: string): JS
   <Badge pullRight={true} className={style.badge}>{text.length}</Badge>
 );
 
-export const textField: React.FC<CustomFieldProps> =
-  (fieldProps: CustomFieldProps): JSX.Element => (
-    <div>
-      <FormControl
-        className={style.formControl}
-        id={fieldProps.id}
-        type={fieldProps.type}
-        placeholder={fieldProps.placeholder}
-        min={fieldProps.min}
-        max={fieldProps.max}
-        value={fieldProps.input.value}
-        onChange={fieldProps.input.onChange}
-        onBlur={fieldProps.input.onBlur}
-        disabled={fieldProps.disabled}
-      />
-      {fieldProps.meta.touched && fieldProps.meta.error ? renderError(fieldProps.meta.error as string) : undefined}
-    </div>
-  );
-
 type tagFieldProps = CustomFieldProps & { onDeletion(tag: string): void };
 export const tagInputField: React.FC<tagFieldProps> =
   (fieldProps: tagFieldProps): JSX.Element => {
@@ -272,3 +253,4 @@ export const switchButton: React.FC<ISwitchButtonProps> = (props: ISwitchButtonP
 };
 
 export { AutoCompleteText } from "./AutoCompleteText";
+export { Text } from "./Text";

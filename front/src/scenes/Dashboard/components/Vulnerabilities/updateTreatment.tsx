@@ -19,7 +19,7 @@ import { Modal } from "../../../../components/Modal";
 import store from "../../../../store";
 import { authzPermissionsContext } from "../../../../utils/authz/config";
 import { formatDropdownField } from "../../../../utils/formatHelpers";
-import { dropdownField, tagInputField, textField } from "../../../../utils/forms/fields";
+import { dropdownField, tagInputField, Text } from "../../../../utils/forms/fields";
 import { msgError, msgSuccess } from "../../../../utils/notifications";
 import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
@@ -280,7 +280,7 @@ const updateTreatmentModal: ((props: IUpdateTreatmentModal) => JSX.Element) = (
                               <b>{translate.t("search_findings.tab_description.business_criticality")}</b>
                             </ControlLabel>
                             <Field
-                              component={textField}
+                              component={Text}
                               name="severity"
                               type="number"
                               validate={[isValidVulnSeverity, numeric]}

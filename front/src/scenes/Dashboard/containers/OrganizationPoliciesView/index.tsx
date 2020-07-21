@@ -12,7 +12,7 @@ import { Button } from "../../../../components/Button/index";
 import { DataTableNext } from "../../../../components/DataTableNext/index";
 import { IHeaderConfig } from "../../../../components/DataTableNext/types";
 import { Can } from "../../../../utils/authz/Can";
-import { textField } from "../../../../utils/forms/fields";
+import { Text } from "../../../../utils/forms/fields";
 import { msgError, msgSuccess } from "../../../../utils/notifications";
 import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
@@ -113,7 +113,7 @@ const organizationPolicies: React.FC<IOrganizationPolicies> = (props: IOrganizat
       ),
       value: (
         <Field
-          component={textField}
+          component={Text}
           name="maxAcceptanceDays"
           type="text"
         />
@@ -126,13 +126,13 @@ const organizationPolicies: React.FC<IOrganizationPolicies> = (props: IOrganizat
       value: (
         <React.Fragment>
           <Field
-            component={textField}
+            component={Text}
             name="minAcceptanceSeverity"
             type="text"
           />
           <p> - </p>
           <Field
-            component={textField}
+            component={Text}
             name="maxAcceptanceSeverity"
             type="text"
           />
@@ -145,7 +145,7 @@ const organizationPolicies: React.FC<IOrganizationPolicies> = (props: IOrganizat
       ),
       value: (
         <Field
-          component={textField}
+          component={Text}
           name="maxNumberAcceptations"
           type="text"
         />

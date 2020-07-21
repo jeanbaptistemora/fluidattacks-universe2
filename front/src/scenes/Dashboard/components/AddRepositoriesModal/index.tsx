@@ -10,7 +10,7 @@ import { ConfigurableValidator } from "revalidate";
 import { Button } from "../../../../components/Button/index";
 import { Modal } from "../../../../components/Modal/index";
 import { TooltipWrapper } from "../../../../components/TooltipWrapper";
-import { dropdownField, textField } from "../../../../utils/forms/fields";
+import { dropdownField, Text } from "../../../../utils/forms/fields";
 import translate from "../../../../utils/translations/translate";
 import { maxLength, required, validField } from "../../../../utils/validations";
 import { GenericForm } from "../GenericForm";
@@ -66,7 +66,7 @@ const renderReposFields: React.FC<WrappedFieldArrayProps> = (props: WrappedField
                 </TooltipWrapper>
                 <Field
                   name={`${fieldName}.urlRepo`}
-                  component={textField}
+                  component={Text}
                   placeholder={translate.t("search_findings.tab_resources.base_url_placeholder")}
                   type="text"
                   validate={[required, validField, maxRepoUrlLength]}
@@ -86,7 +86,7 @@ const renderReposFields: React.FC<WrappedFieldArrayProps> = (props: WrappedField
                 </TooltipWrapper>
                 <Field
                   name={`${fieldName}.branch`}
-                  component={textField}
+                  component={Text}
                   placeholder={translate.t("search_findings.tab_resources.branch_placeholder")}
                   type="text"
                   validate={[required, validField, maxRepoBranchLength]}
