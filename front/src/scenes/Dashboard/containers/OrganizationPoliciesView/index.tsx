@@ -4,7 +4,7 @@ import { GraphQLError } from "graphql";
 import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React from "react";
-import { ButtonToolbar } from "react-bootstrap";
+import { ButtonToolbar, Col, Grid, Row } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router";
 import { Field, formValueSelector, InjectedFormProps } from "redux-form";
@@ -17,6 +17,7 @@ import { msgError, msgSuccess } from "../../../../utils/notifications";
 import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
 import { GenericForm } from "../../components/GenericForm";
+import { default as style } from "./index.css";
 import { GET_ORGANIZATION_POLICIES, UPDATE_ORGANIZATION_POLICIES } from "./queries";
 import { IOrganizationPolicies, IPoliciesFormData } from "./types";
 
@@ -125,17 +126,27 @@ const organizationPolicies: React.FC<IOrganizationPolicies> = (props: IOrganizat
       ),
       value: (
         <React.Fragment>
-          <Field
-            component={Text}
-            name="minAcceptanceSeverity"
-            type="text"
-          />
-          <p> - </p>
-          <Field
-            component={Text}
-            name="maxAcceptanceSeverity"
-            type="text"
-          />
+          <Grid className={style.severityGrid} fluid={true}>
+            <Row className={style.severityRow}>
+              <Col md={5} lg={5}>
+                <Field
+                  component={Text}
+                  name="minAcceptanceSeverity"
+                  type="text"
+                />
+              </Col>
+              <Col md={2} lg={2}>
+                <p>-</p>
+              </Col>
+              <Col md={5} lg={5}>
+                <Field
+                  component={Text}
+                  name="maxAcceptanceSeverity"
+                  type="text"
+                />
+              </Col>
+            </Row>
+          </Grid>
         </React.Fragment>
       ),
     },

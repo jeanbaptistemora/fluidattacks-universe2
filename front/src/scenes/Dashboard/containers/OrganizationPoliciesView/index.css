@@ -1,0 +1,14 @@
+:local .severityGrid {
+    padding: 0 !important;
+}
+
+:local .severityRow {
+    text-align: center !important;
+}
+
+@media(min-width: 768px) {
+    .severityRow {
+        align-items: center !important;
+        display: flex !important;
+    }
+}
