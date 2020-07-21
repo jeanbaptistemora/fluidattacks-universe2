@@ -132,7 +132,7 @@ async def insert_cookies(entity: str, session: aiohttp.ClientSession) -> None:
             'Authorization': f'Bearer {INTEGRATES_API_TOKEN}'
         },
         proxy=PROXY,
-        url=f'{TARGET_URL}/graphics-for-{entity}',
+        url=f'{TARGET_URL}/graphics-for-{entity}?{entity}=*',
     )
 
 
