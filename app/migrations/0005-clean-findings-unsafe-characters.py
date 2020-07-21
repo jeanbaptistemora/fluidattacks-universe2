@@ -20,16 +20,13 @@ from typing import (
     Optional,
 )
 
-import rollbar
-
-
 # Setup Django environment to import functions
 PROJECT_PATH: str = '/usr/src/app'
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'fluidintegrates.settings')
 sys.path.append(PROJECT_PATH)
 os.chdir(PROJECT_PATH)
 
-
+import bugsnag
 from backend import util
 from backend.dal.finding import (
     TABLE as FINDINGS_TABLE
@@ -88,7 +85,7 @@ def clean_unsafe_characters(finding: Dict[str, str], dry_run: bool) -> None:
             print('Changes in finding {}\n\t{}'.format(finding_id, info_to_update))
         else:
             update_finding(finding_id, info_to_update)
-            rollbar_log(
+            log(
                 'Migration 0005: fields {} were updated in finding {}'.format(
                     ', '.join(list(info_to_update.keys())), finding_id
                 ),
@@ -141,7 +138,7 @@ def persist_changes(finding: Dict[str, str], dry_run: bool) -> None:
     else:
         update_finding(finding_id, info_to_update)
         util.invalidate_cache(finding_id)
-        rollbar_log(
+        log(
             'Migration 0005: changes were applied to finding {}'.format(finding_id),
             dry_run
         )
@@ -157,9 +154,9 @@ def replace_unsafe_strings(original_string: str, field: str) -> str:
     return safe_string
 
 
-def rollbar_log(message: str, dry_run: bool) -> None:
+def log(message: str, dry_run: bool) -> None:
     if not dry_run:
-        rollbar.report_message(message, level='debug')
+        bugsnag.notify(Exception(message), severity='info')
 
 
 def update_finding(finding_id: str, data: Dict[str, Optional[str]]) -> bool:
@@ -196,7 +193,7 @@ if __name__ == '__main__':
     dry_run: bool = args['dry_run']
     execute: bool = args['execute']
 
-    rollbar_log(
+    log(
         'Starting migration 0005 to clean unsafe characters from '
         'autocompleted fields.',
         dry_run

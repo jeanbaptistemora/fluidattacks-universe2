@@ -10,7 +10,6 @@ Finalization Time:  2020-05-27 18:30 UTC-5
 
 import argparse
 import os
-import rollbar
 import sys
 from typing import (
     Dict,
@@ -22,6 +21,7 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'fluidintegrates.settings')
 sys.path.append(PROJECT_PATH)
 os.chdir(PROJECT_PATH)
 
+import bugsnag
 from backend.dal.internal_project import (
     get_all_project_names
 )
@@ -47,15 +47,15 @@ def migrate_all_names(dry_run: bool) -> None:
                         Item={
                             'pk': 'AVAILABLE_GROUP',
                             'sk': group_name.upper()})
-        rollbar_log(
+        log(
             'Migration 0004: Available groups succesfully migrated',
             dry_run
         )
 
 
-def rollbar_log(message: str, dry_run: bool) -> None:
+def log(message: str, dry_run: bool) -> None:
     if not dry_run:
-        rollbar.report_message(message, level='debug')
+        bugsnag.notify(Exception(message), severity='info')
 
 
 if __name__ == '__main__':
@@ -65,7 +65,7 @@ if __name__ == '__main__':
     args: Dict[str, bool] = vars(ap.parse_args())
     dry_run: bool = args['dry_run']
 
-    rollbar_log(
+    log(
         'Starting migration 0004 to add all group names'
         'to integrates table',
         dry_run

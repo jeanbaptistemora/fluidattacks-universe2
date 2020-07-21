@@ -15,7 +15,7 @@ from typing import (
 )
 
 import aioboto3
-import rollbar
+import bugsnag
 from asgiref.sync import sync_to_async
 from boto3.dynamodb.conditions import Attr, Not
 
@@ -87,7 +87,7 @@ async def get_users_without_organization() -> List[str]:
 async def log(message: str) -> None:
     print(message)
     if STAGE != 'test':
-        await sync_to_async(rollbar.report_message)(message, 'debug')
+        await sync_to_async(bugsnag.notify)(Exception(message), 'info')
 
 
 async def main() -> None:

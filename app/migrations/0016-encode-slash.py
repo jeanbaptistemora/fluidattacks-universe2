@@ -14,7 +14,8 @@ Finalization Time:  2020-07-01 12:16 UTC-5
 
 import os
 import uuid
-import rollbar
+
+import bugsnag
 import django
 
 django.setup()
@@ -27,7 +28,7 @@ STAGE: str = os.environ['STAGE']
 def log(message: str) -> None:
     print(message)
     if STAGE != 'test':
-        rollbar.report_message(message, level='debug')
+        bugsnag.notify(Exception(message), severity='info')
 
 
 def encode_slash(res: str) -> str:

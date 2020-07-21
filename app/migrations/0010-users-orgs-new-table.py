@@ -13,7 +13,8 @@ user creation is in production, so all possible users have an organization
 
 import os
 import uuid
-import rollbar
+
+import bugsnag
 import django
 
 django.setup()
@@ -30,7 +31,7 @@ STAGE: str = os.environ['STAGE']
 def log(message: str) -> None:
     print(message)
     if STAGE != 'test':
-        rollbar.report_message(message, level='debug')
+        bugsnag.notify(Exception(message), severity='info')
 
 
 def main() -> None:

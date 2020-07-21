@@ -6,7 +6,7 @@ Execution Time:     2020-05-13 17:13 UTC-5
 Finalization Time:  2020-05-13 17:14 UTC-5
 """
 
-import rollbar
+import bugsnag
 from typing import (
     cast,
     Dict,
@@ -45,9 +45,10 @@ def remove_duplicated_repos() -> None:
     for project in projects:
         try:
             if has_repeated_repos(cast(str, project['project_name']), []):
-                rollbar.report_message(
-                    'Migration 0001: Processing project {}...'.format(project['project_name']),
-                    level='debug')
+                bugsnag.notify(
+                    Exception('Migration 0001: Processing project '
+                              '{}...'.format(project['project_name'])),
+                    severity='info')
                 repos: List[ResourceType] = get_unique_repos(
                     cast(List[ResourceType], project['repositories']))
                 response = PROJECT_TABLE.update_item(
@@ -57,20 +58,26 @@ def remove_duplicated_repos() -> None:
                     ExpressionAttributeValues={':val1': repos}
                 )
                 if response['ResponseMetadata']['HTTPStatusCode'] == 200:
-                    rollbar.report_message(
-                        'Migration 0001: Duplicate repositories successfully erased from project {}'.format(project['project_name']),
-                        level='debug')
+                    bugsnag.notify(
+                        Exception('Migration 0001: Duplicate repositories '
+                                  'successfully erased from '
+                                  'project {}'.format(project['project_name'])),
+                        severity='info')
                 else:
-                    rollbar.report_message(
-                        'Migration 0001: There was an error erasing duplicates from project {}'.format(project['project_name']),
-                        level='debug')
+                    bugsnag.notify(
+                        Exception('Migration 0001: There was an error erasing '
+                                  'duplicates from '
+                                  'project {}'.format(project['project_name'])),
+                        severity='info')
         except KeyError:
-            rollbar.report_message(
-                'Migration 0001: Project {} errored during analysis of duplicates'.format(project['project_name']),
-                level='debug')
+            bugsnag.notify(
+                Exception('Migration 0001: Project {} errored during analysis '
+                          'of duplicates'.format(project['project_name'])),
+                severity='info')
 
 
 if  __name__ == '__main__':
-    rollbar.report_message(
-        'Starting migration 0001 to delete duplicated repositories', level='debug')
+    bugsnag.notify(
+        Exception('Starting migration 0001 to delete duplicated repositories'),
+        severity='info')
     remove_duplicated_repos()

@@ -14,8 +14,7 @@ from typing import (
     List
 )
 
-import rollbar
-
+import bugsnag
 from backend.dal import organization as org_dal
 from backend.domain import (
     organization as org_domain,
@@ -32,7 +31,7 @@ STAGE: str = os.environ['STAGE']
 async def log(message: str) -> None:
     print(message)
     if STAGE != 'test':
-        await aio.ensure_io_bound(rollbar.report_message, message, 'debug')
+        await aio.ensure_io_bound(bugsnag.notify, Exception(message), 'info')
 
 
 async def main() -> None:

@@ -10,7 +10,7 @@ Finalization Time: 2020-07-16 10:53:00 UTC-5
 import asyncio
 import os
 
-import rollbar
+import bugsnag
 from boto3.dynamodb.conditions import Attr
 from more_itertools import chunked
 
@@ -72,9 +72,9 @@ async def log(message: str) -> None:
     print(message)
     if STAGE != 'test':
         await aio.ensure_io_bound(
-            rollbar.report_message,
-            message,
-            level='debug'
+            bugsnag.notify,
+            Exception(message),
+            severity='info'
         )
 
 

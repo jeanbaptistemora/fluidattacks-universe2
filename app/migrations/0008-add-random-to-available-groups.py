@@ -16,13 +16,13 @@ Finalization Time: 2020-06-04 13:35 UTC-5
 
 import os
 import uuid
-
-from boto3.dynamodb.conditions import Key
-import rollbar
-import django
 from typing import (
     List,
 )
+
+import bugsnag
+import django
+from boto3.dynamodb.conditions import Key
 
 django.setup()
 
@@ -35,7 +35,7 @@ STAGE: str = os.environ['STAGE']
 
 def log(message: str) -> None:
     print(message)
-    rollbar.report_message(message, level='debug')
+    bugsnag.notify(Exception(message), severity='info')
 
 
 def get_availabe_without_uuid() -> List[str]:

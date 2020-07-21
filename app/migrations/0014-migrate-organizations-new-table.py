@@ -18,7 +18,7 @@ from typing import (
 )
 
 import aioboto3
-import rollbar
+import bugsnag
 from asgiref.sync import sync_to_async
 from boto3.dynamodb.conditions import Attr, Not
 from botocore.exceptions import ClientError
@@ -94,9 +94,9 @@ async def get_organiation_users(org_id: str) -> List[str]:
 async def log(message: str) -> None:
     print(message)
     if STAGE != 'test':
-        await sync_to_async(rollbar.report_message)(
-            message,
-            level='debug'
+        await sync_to_async(bugsnag.notify)(
+            Exception(message),
+            severity='info'
         )
 
 

@@ -16,7 +16,6 @@ import argparse
 import hashlib
 import json
 import os
-import rollbar
 import sys
 from typing import (
     cast,
@@ -32,7 +31,7 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'fluidintegrates.settings')
 sys.path.append(PROJECT_PATH)
 os.chdir(PROJECT_PATH)
 
-
+import bugsnag
 from backend.dal.project import (
     get_all as get_all_projects, TABLE as PROJECT_TABLE
 )
@@ -116,7 +115,7 @@ def add_protocol_to_repos(project: ProjectType, default_protocol: str,
                 }
             )
         if response['ResponseMetadata']['HTTPStatusCode'] == 200:
-            rollbar_log(
+            log(
                 'Migration 0002: Repositories successfully migrated for '
                 'project {}'.format(project_name),
                 dry_run
@@ -145,16 +144,16 @@ def add_protocol_to_repos(project: ProjectType, default_protocol: str,
                 }
             )
             if response['ResponseMetadata']['HTTPStatusCode'] == 200:
-                rollbar_log(
+                log(
                     'Migration 0002: Protocol successfully added to repos of '
                     'project {}'.format(project_name),
                     dry_run
                 )
 
 
-def rollbar_log(message: str, dry_run: bool) -> None:
+def log(message: str, dry_run: bool) -> None:
     if not dry_run:
-        rollbar.report_message(message, level='debug')
+        bugsnag.notify(Exception(message), severity='info')
 
 
 if __name__ == '__main__':
@@ -166,7 +165,7 @@ if __name__ == '__main__':
     dry_run: bool = args['dry_run']
     execute: bool = args['execute']
 
-    rollbar_log(
+    log(
         'Starting migration 0002 to ensure all repositories '
         'have protocol field',
         dry_run
@@ -176,7 +175,7 @@ if __name__ == '__main__':
         if has_repos_without_protocol(project):
             default_protocol: str = get_default_protocol(project)
 
-            rollbar_log(
+            log(
                 'Migration 0002: processing project {} with default protocol '
                 '{}'.format(project['project_name'], default_protocol),
                 dry_run

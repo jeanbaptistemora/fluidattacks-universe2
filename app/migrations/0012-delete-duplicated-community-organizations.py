@@ -16,7 +16,7 @@ from typing import (
 )
 
 import aioboto3
-import rollbar
+import bugsnag
 from boto3.dynamodb.conditions import Attr, Key
 
 from backend.dal.helpers import dynamodb
@@ -103,7 +103,7 @@ async def get_users_by_organizations(org_ids: List[str]) -> OrgsUsersType:
 async def log(msg: str) -> None:
     print(msg)
     if STAGE != 'test':
-        await aio.ensure_io_bound(rollbar.report_message, msg, 'debug')
+        await aio.ensure_io_bound(bugsnag.notify, Exception(msg), 'info')
 
 
 async def main() -> None:

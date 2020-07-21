@@ -12,10 +12,10 @@ once everything is well placed.
 
 import json
 import os
-import rollbar
 import sys
 from datetime import datetime
 
+import bugsnag
 from backend import util
 from backend.dal import (
     project as project_dal,
@@ -30,7 +30,7 @@ STAGE: str = os.environ['STAGE']
 
 def log(message: str) -> None:
     print(message)
-    rollbar.report_message(message, level='debug')
+    bugsnag.notify(Exception(message), severity='info')
 
 
 def guess_owner(group: str) -> str:

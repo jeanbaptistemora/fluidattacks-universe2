@@ -13,9 +13,10 @@ Finalization Time:  2020-07-01 13:16 UTC-5
 """
 
 import os
-from urllib.parse import quote, unquote
 import uuid
-import rollbar
+from urllib.parse import quote, unquote
+
+import bugsnag
 import django
 
 django.setup()
@@ -28,7 +29,7 @@ STAGE: str = os.environ['STAGE']
 def log(message: str) -> None:
     print(message)
     if STAGE != 'test':
-        rollbar.report_message(message, level='debug')
+        bugsnag.notify(Exception(message), severity='info')
 
 
 def main() -> None:
