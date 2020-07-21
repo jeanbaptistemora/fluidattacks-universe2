@@ -53,8 +53,7 @@ class InvalidAcceptanceDays(Exception):
             msg = f'Exception - {expr}'
         else:
             msg = (
-                'Exception - Acceptance days should be a positive integer '
-                'between 0 and 180'
+                'Exception - Acceptance days should be a positive integer'
             )
         super(InvalidAcceptanceDays, self).__init__(msg)
 

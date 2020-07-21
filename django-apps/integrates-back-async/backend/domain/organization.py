@@ -34,7 +34,6 @@ from backend.typing import (
 from backend.utils import aio
 
 
-DEFAULT_MAX_ACCEPTANCE_DAYS = Decimal('180')
 DEFAULT_MAX_SEVERITY = Decimal('10.0')
 DEFAULT_MIN_SEVERITY = Decimal('0.0')
 
@@ -97,12 +96,12 @@ async def get_id_for_group(group_name: str) -> str:
     return await org_dal.get_id_for_group(group_name)
 
 
-async def get_max_acceptance_days(organization_id: str) -> Decimal:
+async def get_max_acceptance_days(organization_id: str) -> Optional[Decimal]:
     result = cast(
         Dict[str, Decimal],
         await org_dal.get_by_id(organization_id, ['max_acceptance_days'])
     )
-    return result.get('max_acceptance_days', DEFAULT_MAX_ACCEPTANCE_DAYS)
+    return result.get('max_acceptance_days', None)
 
 
 async def get_max_acceptance_severity(organization_id: str) -> Decimal:
@@ -306,7 +305,7 @@ async def validate_acceptance_severity_range(
 
 def validate_max_acceptance_days(value: int) -> bool:
     success: bool = True
-    if not Decimal('0') <= value <= DEFAULT_MAX_ACCEPTANCE_DAYS:
+    if value < 0:
         raise InvalidAcceptanceDays()
     return success
 

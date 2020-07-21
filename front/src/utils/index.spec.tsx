@@ -1,6 +1,6 @@
 import { ConfigurableValidator } from "revalidate";
 import {
-  alphaNumeric, isLowerDate, isValidDate, isValidFileName, isValidFileSize,
+  alphaNumeric, isLowerDate, isValidFileName, isValidFileSize,
   maxLength, minLength, numberBetween, numeric, required, validEmail,
   validEvidenceImage, validExploitFile, validRecordsFile, validTag, validTextField,
   validUrlField,
@@ -391,20 +391,6 @@ describe("Validations", () => {
   it("should't be a valid date", () => {
     let today: Date; today = new Date(); today = new Date(today.setMonth(today.getMonth() - 1));
     const date: string | undefined = isLowerDate(today.toDateString());
-    expect(date)
-      .toBeDefined();
-  });
-
-  it("should be a maximum valid date", () => {
-    let today: Date; today = new Date(); today = new Date(today.setMonth(today.getMonth() + 5));
-    const date: string | undefined = isValidDate(today.toDateString());
-    expect(date)
-      .toBeUndefined();
-  });
-
-  it("shouldn't be a maximum valid date", () => {
-    let today: Date; today = new Date(); today = new Date(today.setMonth(today.getMonth() + 7));
-    const date: string | undefined = isValidDate(today.toDateString());
     expect(date)
       .toBeDefined();
   });

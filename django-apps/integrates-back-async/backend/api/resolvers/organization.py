@@ -261,7 +261,7 @@ async def _get_max_acceptance_days(
     _: GraphQLResolveInfo,
     organization_id: str,
     **__: Any
-) -> Decimal:
+) -> Optional[Decimal]:
     return await org_domain.get_max_acceptance_days(organization_id)
 
 

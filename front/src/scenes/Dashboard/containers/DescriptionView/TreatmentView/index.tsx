@@ -24,7 +24,7 @@ import { msgError, msgSuccess } from "../../../../../utils/notifications";
 import rollbar from "../../../../../utils/rollbar";
 import translate from "../../../../../utils/translations/translate";
 import {
-  isLowerDate, isValidDate, maxLength, required, validTextField, validUrlField,
+  isLowerDate, maxLength, required, validTextField, validUrlField,
 } from "../../../../../utils/validations";
 import { EditableField } from "../../../components/EditableField";
 import { GenericForm } from "../../../components/GenericForm";
@@ -311,7 +311,7 @@ const treatmentView: React.FC<ITreatmentViewProps> = (props: ITreatmentViewProps
                           name="date"
                           renderAsEditable={props.isEditing}
                           type="date"
-                          validate={[required, isValidDate, isLowerDate]}
+                          validate={[required, isLowerDate]}
                           visibleWhileEditing={canEdit}
                         />
                       )}

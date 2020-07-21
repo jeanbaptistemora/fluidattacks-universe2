@@ -268,17 +268,6 @@ export const isValidFileSize: ((maxSize: number) => Validator) = (maxSize: numbe
     return _.isEmpty(file) || file[0].size < MIB * maxSize
       ? undefined
       : translate.t("validations.file_size", { count: maxSize });
-  };
-
-export const isValidDate: ((arg1: string) => string | undefined) = (value: string): string | undefined => {
-  let date: Date; date = new Date(value);
-  let today: Date; today = new Date(); today = new Date(today.setMonth(today.getMonth() + 6));
-
-  if (date > today) {
-    return translate.t("validations.valid_date");
-  } else {
-    return undefined;
-  }
 };
 
 export const isValidDateAccessToken: Validator = (value: string): string | undefined => {

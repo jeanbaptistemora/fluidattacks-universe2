@@ -62,7 +62,7 @@ const organizationPolicies: React.FC<IOrganizationPolicies> = (props: IOrganizat
         let msg: string;
 
         switch (message) {
-          case "Exception - Acceptance days should be a positive integer between 0 and 180":
+          case "Exception - Acceptance days should be a positive integer":
             msg = "organization.tabs.policies.errors.maxAcceptanceDays";
             break;
           case "Exception - Severity value should be a positive floating number between 0.0 a 10.0":

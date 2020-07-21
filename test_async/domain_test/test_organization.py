@@ -27,7 +27,7 @@ async def test_get_max_acceptance_days():
 
     org_without_data = 'ORG#c2ee2d15-04ab-4f39-9795-fbe30cdeee86'
     days = await org_domain.get_max_acceptance_days(org_without_data)
-    assert days == Decimal('180')
+    assert days is None
 
 
 async def test_get_max_acceptance_severity():
