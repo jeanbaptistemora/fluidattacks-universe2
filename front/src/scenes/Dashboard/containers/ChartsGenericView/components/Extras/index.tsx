@@ -146,7 +146,7 @@ const chartsGenericViewExtras: React.FC<IChartsGenericViewProps> = (props: IChar
                               ? <Glyphicon glyph="hourglass" />
                               : <Glyphicon glyph="stats" />}
                             {`   ${translateFrequency(subscriptionFrequency, "statement")}`}
-                            <Badge size="md">PLUS+</Badge>
+                            <Badge>PLUS+</Badge>
                           </React.Fragment>
                         }
                       >
