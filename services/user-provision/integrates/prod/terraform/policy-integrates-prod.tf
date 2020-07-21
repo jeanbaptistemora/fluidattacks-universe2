@@ -275,6 +275,17 @@ data "aws_iam_policy_document" "integrates-prod-policy-data" {
       var.terraform_state_lock_arn,
     ]
   }
+
+  # EKS describe cluster
+  statement {
+    effect = "Allow"
+    actions = [
+      "eks:DescribeCluster",
+    ]
+    resources = [
+      "arn:aws:eks:${var.region}:${data.aws_caller_identity.current.account_id}:cluster/FluidServes",
+    ]
+  }
 }
 
 resource "aws_iam_policy" "integrates-prod-policy" {

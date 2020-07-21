@@ -158,7 +158,7 @@ cd eks/manifests/
 
 
 # Set working namespace to serves to avoid including the flag in every command
-create_kubernetes_namespace serves operations integrates runners
+create_kubernetes_namespace serves operations integrates
 kubectl config set-context "$(kubectl config current-context)" \
   --namespace serves
 
