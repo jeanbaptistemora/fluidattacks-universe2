@@ -10,6 +10,7 @@ in
       buildInputs = [
         pkgs.git
         pkgs.kubectl
+        pkgs.awscli
       ];
     })
   )
