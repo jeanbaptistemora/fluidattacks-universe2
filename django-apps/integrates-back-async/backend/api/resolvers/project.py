@@ -816,7 +816,8 @@ async def _do_create_project(
 @enforce_group_level_auth_async
 @require_integrates
 async def _do_edit_group(  # pylint: disable=too-many-arguments
-    _, info,
+    _: Any,
+    info: GraphQLResolveInfo,
     comments: str,
     group_name: str,
     has_drills: bool,
@@ -855,28 +856,33 @@ async def _do_edit_group(  # pylint: disable=too-many-arguments
 @require_login
 @enforce_group_level_auth_async
 # Intentionally not @require_integrates
-async def _do_reject_remove_project(_, info,
-                                    project_name: str) -> SimplePayloadType:
+async def _do_reject_remove_project(
+        _: Any,
+        info: GraphQLResolveInfo,
+        project_name: str) -> SimplePayloadType:
     """Resolve reject_remove_project mutation."""
     user_info = util.get_jwt_content(info.context)
-    success = \
-        await sync_to_async(project_domain.reject_deletion)(
-            project_name, user_info['user_email'])
+    success = await sync_to_async(project_domain.reject_deletion)(
+        project_name, user_info['user_email']
+    )
     if success:
         project = project_name.lower()
         util.invalidate_cache(project)
         util.cloudwatch_log(
             info.context,
             'Security: Reject project '
-            f'{project} deletion successfully')  # pragma: no cover
+            f'{project} deletion successfully'  # pragma: no cover
+        )
     return SimplePayloadType(success=success)
 
 
 @require_login
 @enforce_group_level_auth_async
 @require_integrates
-async def _do_add_project_comment(_, info,
-                                  **parameters) -> AddCommentPayloadType:
+async def _do_add_project_comment(
+        _: Any,
+        info: GraphQLResolveInfo,
+        **parameters: Any) -> AddCommentPayloadType:
     """Resolve add_project_comment mutation."""
     project_name = parameters.get('project_name', '').lower()
     user_info = util.get_jwt_content(info.context)
@@ -886,9 +892,10 @@ async def _do_add_project_comment(_, info,
         'user_id': comment_id,
         'content': parameters.get('content'),
         'created': current_time,
-        'fullname':
-            str.join(' ', [user_info['first_name'],
-                           user_info['last_name']]),
+        'fullname': str.join(
+            ' ',
+            [user_info['first_name'], user_info['last_name']]
+        ),
         'modified': current_time,
         'parent': parameters.get('parent')
     }
@@ -898,16 +905,22 @@ async def _do_add_project_comment(_, info,
         util.invalidate_cache(project_name)
         util.cloudwatch_log(
             info.context, 'Security: Added comment to '
-            f'{project_name} project successfully')  # pragma: no cover
+            f'{project_name} project successfully'  # pragma: no cover
+        )
     else:
         util.cloudwatch_log(
             info.context, 'Security: Attempted to add '
-            f'comment in {project_name} project')  # pragma: no cover
+            f'comment in {project_name} project'  # pragma: no cover
+        )
     ret = AddCommentPayloadType(success=success, comment_id=str(comment_id))
     return ret
 
 
-def _update_tags(project_name, project_tags, info, tags):
+def _update_tags(
+        project_name: str,
+        project_tags: ProjectType,
+        info: GraphQLResolveInfo,
+        tags: List[str]) -> bool:
     if not project_tags['tag']:
         project_tags = {'tag': set(tags)}
     else:
@@ -928,8 +941,11 @@ def _update_tags(project_name, project_tags, info, tags):
 @require_login
 @enforce_group_level_auth_async
 @require_integrates
-async def _do_add_tags(_, info, project_name: str,
-                       tags: List[str]) -> SimpleProjectPayloadType:
+async def _do_add_tags(
+        _: Any,
+        info: GraphQLResolveInfo,
+        project_name: str,
+        tags: List[str]) -> SimpleProjectPayloadType:
     """Resolve add_tags mutation."""
     success = False
     project_name = project_name.lower()
@@ -948,12 +964,16 @@ async def _do_add_tags(_, info, project_name: str,
             )
         else:
             util.cloudwatch_log(
-                info.context, 'Security: \
-Attempted to upload tags without the allowed structure')  # pragma: no cover
+                info.context,
+                ('Security: Attempted to upload '
+                 'tags without the allowed structure')  # pragma: no cover
+            )
     else:
         util.cloudwatch_log(
-            info.context, 'Security: \
-Attempted to upload tags without the allowed validations')  # pragma: no cover
+            info.context,
+            ('Security: Attempted to upload tags '
+             'without the allowed validations')  # pragma: no cover
+        )
     if success:
         project_loader.clear(project_name)
         util.invalidate_cache(project_name)
@@ -964,8 +984,11 @@ Attempted to upload tags without the allowed validations')  # pragma: no cover
 @require_login
 @enforce_group_level_auth_async
 @require_integrates
-async def _do_remove_tag(_, info, project_name: str,
-                         tag: str) -> SimpleProjectPayloadType:
+async def _do_remove_tag(
+        _: Any,
+        info: GraphQLResolveInfo,
+        project_name: str,
+        tag: str) -> SimpleProjectPayloadType:
     """Resolve remove_tag mutation."""
     success = False
     project_name = project_name.lower()
@@ -978,44 +1001,57 @@ async def _do_remove_tag(_, info, project_name: str,
         cast(Set[str], project_tags.get('tag')).remove(tag)
         if project_tags.get('tag') == set():
             project_tags['tag'] = None
-        tag_deleted = \
-            await sync_to_async(
-                project_domain.update)(project_name, project_tags)
+        tag_deleted = await sync_to_async(project_domain.update)(
+            project_name, project_tags
+        )
         if tag_deleted:
             success = True
         else:
-            await sync_to_async(rollbar.report_message)('Error: \
-An error occurred removing a tag', 'error', info.context)
+            await sync_to_async(rollbar.report_message)(
+                'Error: An error occurred removing a tag',
+                'error',
+                info.context
+            )
     if success:
         project_loader.clear(project_name)
         util.invalidate_cache(project_name)
         util.cloudwatch_log(
-            info.context, 'Security: Removed tag from '
-            f'{project_name} project successfully')  # pragma: no cover
+            info.context,
+            ('Security: Removed tag from '
+             f'{project_name} project successfully')  # pragma: no cover
+        )
     else:
         util.cloudwatch_log(
-            info.context, 'Security: Attempted to remove '
-            f'tag in {project_name} project')  # pragma: no cover
+            info.context,
+            ('Security: Attempted to remove '
+             f'tag in {project_name} project')  # pragma: no cover
+        )
     project = await resolve(info, project_name, True, False)
     return SimpleProjectPayloadType(success=success, project=project)
 
 
-@convert_kwargs_to_snake_case
+@convert_kwargs_to_snake_case  # type: ignore
 @require_login
 @enforce_user_level_auth_async
-async def resolve_alive_projects(_, info, filters=None) -> List[ProjectType]:
+async def resolve_alive_projects(
+        _: Any,
+        info: GraphQLResolveInfo,
+        filters: Union[None, Dict[str, Any]] = None) -> List[ProjectType]:
     """Resolve for ACTIVE and SUSPENDED projects."""
     return await _get_alive_projects(info, filters)
 
 
-async def _get_alive_projects(info, filters) -> List[ProjectType]:
+async def _get_alive_projects(
+        info: GraphQLResolveInfo,
+        filters: Union[None, Dict[str, Any]]) -> List[ProjectType]:
     """Resolve for ACTIVE and SUSPENDED projects."""
     alive_projects = await sync_to_async(project_domain.get_alive_projects)()
     req_fields: List[Union[FieldNode, ObjectFieldNode]] = []
     selection_set = SelectionSetNode()
+    filters_ofn: List[Union[None, ObjectFieldNode]] = []
     if filters:
-        filters = util.dict_to_object_field_node(filters)
-        req_fields.extend(filters)
+        filters_ofn = util.dict_to_object_field_node(filters)
+        req_fields.extend(filters_ofn)
     selection_set.selections = req_fields
 
     projects = await asyncio.gather(*[
@@ -1025,4 +1061,4 @@ async def _get_alive_projects(info, filters) -> List[ProjectType]:
         for project in alive_projects
     ])
 
-    return await util.get_filtered_elements(projects, filters)
+    return await util.get_filtered_elements(projects, filters_ofn)
