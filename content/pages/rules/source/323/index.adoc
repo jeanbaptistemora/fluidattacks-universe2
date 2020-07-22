@@ -20,7 +20,7 @@ Changes done to them are often hard to track for versioning tools
 or make no sense for a reviewer.
 Furthermore, security audits on binary files are more complicated or simply
 not performed,
-and these could contain serious vulnerabilities such as back doors, rootkits
+and these could contain serious vulnerabilities such as backdoors, rootkits
 and exposed sensitive information.
 
 == Exceptions
@@ -41,7 +41,7 @@ security enforcement mechanism.
 . [[r2]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V10.2 Malicious Code Search.(10.2.3)]
 Verify that the application source code and third party libraries do not contain
-back doors,
+backdoors,
 such as hard-coded or additional undocumented accounts or keys,
 code obfuscation, undocumented binary blobs, rootkits,
 or anti-debugging, insecure debugging features,

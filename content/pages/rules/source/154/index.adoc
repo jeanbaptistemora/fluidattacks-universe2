@@ -1,21 +1,21 @@
 :slug: rules/154/
 :category: source
-:description: This requirement establishes the importance of eliminating back doors and other functionalities that are not part of the system's functional specification.
-:keywords: Source Code, Functional Requirements, Rootkit, Back Doors, CWE, ASVS, Rules, Ethical Hacking, Pentesting
+:description: This requirement establishes the importance of eliminating backdoors and other functionalities that are not part of the system's functional specification.
+:keywords: Source Code, Functional Requirements, Rootkit, Backdoors, CWE, ASVS, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
-= R154. Eliminate back doors
+= R154. Eliminate backdoors
 
 == Requirement
 
 The source code of a system must not perform functions
-other than those specified in the functional requirements (back doors).
+other than those specified in the functional requirements (backdoors).
 
 == Description
 
 Sometimes, functionalities other than the ones for which a system was designed
 are included, during development, to aid the development and testing processes.
-These functions often represent back doors because they leave exposed ports
+These functions often represent backdoors because they leave exposed ports
 or help in bypassing the authentication and/or authorization mechanisms.
 Therefore, they should not be part of the production environment,
 as they could become serious security threats.
@@ -28,9 +28,14 @@ allowing its user access to resources without passing through the normal
 security enforcement mechanism.
 
 . [[r2]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+Appendix C: Internet of Things Verification Requirements.(C.13)]
+Verify all code including third-party binaries, libraries, frameworks are
+reviewed for hardcoded credentials (*backdoors*).
+
+. [[r3]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V10.2 Malicious Code Search.(10.2.3)]
 Verify that the application source code and third party libraries do not contain
-back doors,
+backdoors,
 such as hard-coded or additional undocumented accounts or keys,
 code obfuscation, undocumented binary blobs, rootkits,
 or anti-debugging, insecure debugging features,

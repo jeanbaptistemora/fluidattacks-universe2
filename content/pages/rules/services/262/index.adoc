@@ -78,51 +78,56 @@ but it also contains code that is hidden from normal operation that violates
 the intended security policy of the user or the system administrator.
 
 . [[r2]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
-V1.14 Configuration Architectural Requirements.(1.14.1)]
-Verify the application does not use unsupported, insecure, or deprecated
-client-side technologies such as NSAPI plugins, Flash, Shockwave, ActiveX,
-Silverlight, NACL, or client-side Java applets.
+Appendix C: Internet of Things Verification Requirements.(C.13)]
+Verify all code including third-party binaries, libraries, frameworks are
+reviewed for hardcoded credentials (*backdoors*).
 
 . [[r3]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V1.14 Configuration Architectural Requirements.(1.14.1)]
+Verify the application does not use unsupported, insecure, or deprecated
+client-side technologies such as *NSAPI* plugins, *Flash*, *Shockwave*,
+*ActiveX*, *Silverlight*, *NACL*, or client-side *Java* applets.
+
+. [[r4]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V10.2 Malicious Code Search.(10.2.1)]
 Verify that the application source code and third party libraries do not
 contain unauthorized phone home or data collection capabilities.
 Where such functionality exists, obtain the user's permission for it to operate
 before collecting any data.
 
-. [[r4]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r5]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V10.2 Malicious Code Search.(10.2.3)]
 Verify that the application source code and third party libraries do not contain
-back doors,
+backdoors,
 such as hard-coded or additional undocumented accounts or keys,
 code obfuscation, undocumented binary blobs, rootkits,
 or anti-debugging, insecure debugging features,
 or otherwise out of date, insecure, or hidden functionality that could be used
 maliciously if discovered.
 
-. [[r5]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r6]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V10.2 Malicious Code Search.(10.2.4)]
 Verify that the application source code and third party libraries do not
 contain time bombs by searching for date and time related functions.
 
-. [[r6]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r7]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V10.2 Malicious Code Search.(10.2.5)]
 Verify that the application source code and third party libraries do not
 contain malicious code, such as salami attacks, logic bypasses, or logic bombs.
 
-. [[r7]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r8]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V10.2 Malicious Code Search.(10.2.6)]
 Verify that the application source code and third party libraries do not
 contain Easter eggs or any other potentially unwanted functionality.
 
-. [[r8]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r9]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V14.2 Dependency.(14.2.1)]
 Verify that all components are up to date, preferably using a dependency
 checker during build or compile time.
 
-. [[r9]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r10]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V14.2 Dependency.(14.2.4)]
 Verify that third party components come from pre-defined, trusted and
 continually maintained repositories.
 
-. [[r10]] link:https://www.owasp.org/index.php/Top_10_2013-A9-Using_Components_with_Known_Vulnerabilities[Top 10 2013-A9-Using Components with Known Vulnerabilities].
+. [[r11]] link:https://www.owasp.org/index.php/Top_10_2013-A9-Using_Components_with_Known_Vulnerabilities[Top 10 2013-A9-Using Components with Known Vulnerabilities].

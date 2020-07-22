@@ -32,9 +32,9 @@ endpoint.
 
 . [[r2]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V1.14 Configuration Architectural Requirements.(1.14.1)]
-Verify the segregation of components of differing trust levels through
-well-defined security controls, firewall rules, API gateways, reverse proxies,
-cloud-based security groups, or similar mechanisms.
+Verify the application does not use unsupported, insecure, or deprecated
+client-side technologies such as *NSAPI* plugins, *Flash*, *Shockwave*,
+*ActiveX*, *Silverlight*, *NACL*, or client-side *Java* applets.
 
 . [[r3]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V12.4 File Storage Requirements.(12.4.2)]
