@@ -61,7 +61,7 @@ function job_skims_lint {
           &&  poetry run mypy "${args_mypy[@]}" "${pkg}" \
           ||  return 1
         done \
-    &&  for pkg in "${GLOBAL_PKGS[@]}"
+    &&  for pkg in "${GLOBAL_PKGS[@]}" "${GLOBAL_TEST_PKGS[@]}"
         do
               echo "[INFO] Linting: ${pkg}" \
           &&  poetry run prospector "${args_prospector[@]}" "${pkg}" \

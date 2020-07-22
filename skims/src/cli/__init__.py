@@ -25,11 +25,22 @@ from utils.aio import (
 )
 
 
-@click.command()
+@click.group()
 @click.option(
     '--debug',
-    help='Run in debug mode.',
+    help='Enable debug mode.',
     is_flag=True,
+)
+def dispatch(
+    debug: bool,
+) -> None:
+    if debug:
+        set_level_blocking(logging.DEBUG)
+
+
+@dispatch.command(
+    'run',
+    help='Find deterministic vulnerabilities and prints a state to stdout.',
 )
 @click.option(
     '--path',
@@ -48,22 +59,55 @@ from utils.aio import (
         resolve_path=True,
     ),
 )
-def dispatch(
-    debug: bool,
+def dispatch_run(
     path: Tuple[str, ...],
 ) -> None:
-    if debug:
-        set_level_blocking(logging.DEBUG)
-
     sys.exit(0 if asyncio.run(run(paths=path)) else 1)
 
 
+@dispatch.command(
+    'sync',
+    help='Read the state from stdin and ensure it is mirrored to Integrates.',
+)
+@click.option(
+    '--group',
+    help='Integrates group where Skims will operate.',
+)
+@click.option(
+    '--token',
+    envvar='INTEGRATES_API_TOKEN',
+    help='Integrates API token.',
+    show_envvar=True,
+)
+def dispatch_sync(
+    group: str,
+    token: str,
+) -> None:
+    for argument in [
+        'token',
+        'group',
+    ]:
+        if not locals()[argument]:
+            click.echo(f'Option: --{argument} is mandatory.')
+            sys.exit(1)
+
+    sys.exit(0 if asyncio.run(sync(group=group, token=token)) else 1)
+
+
 async def run(*, paths: Tuple[str, ...]) -> bool:
+    await log('debug', 'run(paths=%s)', paths)
+
     results: Tuple[SkimResult, ...] = tuple(*(await materialize((
         skim_paths(paths),
     ))))
 
     await materialize(log('info', result) for result in results)
+
+    return True
+
+
+async def sync(*, group: str, token: str) -> bool:
+    await log('debug', 'sync(group=%s,token=%s)', group, token)
 
     return True
 
