@@ -25,7 +25,7 @@ import { default as globalStyle } from "../../../../styles/global.css";
 import { Can } from "../../../../utils/authz/Can";
 import { castEventType, formatEvents } from "../../../../utils/formatHelpers";
 import {
-  checkboxField, dateTimeField, Dropdown, fileInputField, Text, TextArea,
+  checkboxField, dateTimeField, Dropdown, FileInput, Text, TextArea,
 } from "../../../../utils/forms/fields";
 import { msgError, msgSuccess } from "../../../../utils/notifications";
 import rollbar from "../../../../utils/rollbar";
@@ -521,7 +521,7 @@ const projectEventsView: React.FunctionComponent<EventsViewProps> = (props: Even
                                     <ControlLabel>{translate.t("group.events.form.evidence")}</ControlLabel>
                                     <Field
                                       accept="image/gif,image/png"
-                                      component={fileInputField}
+                                      component={FileInput}
                                       id="image"
                                       name="image"
                                       validate={[validEvidenceImage, maxFileSize]}
@@ -533,7 +533,7 @@ const projectEventsView: React.FunctionComponent<EventsViewProps> = (props: Even
                                     <ControlLabel>{translate.t("group.events.form.evidence_file")}</ControlLabel>
                                     <Field
                                       accept="application/pdf,application/zip,text/csv,text/plain"
-                                      component={fileInputField}
+                                      component={FileInput}
                                       id="file"
                                       name="file"
                                       validate={[validEventFile, maxFileSize]}

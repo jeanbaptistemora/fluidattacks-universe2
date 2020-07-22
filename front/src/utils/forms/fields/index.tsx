@@ -1,9 +1,7 @@
 import BootstrapSwitchButton from "bootstrap-switch-button-react";
 import _ from "lodash";
 import React from "react";
-import {
-  Badge, Checkbox, ControlLabel, FormControl, FormControlProps, FormGroup, Glyphicon, HelpBlock, InputGroup,
-} from "react-bootstrap";
+import { Checkbox, FormControlProps,  HelpBlock } from "react-bootstrap";
 import { default as Datetime } from "react-datetime";
 /* tslint:disable-next-line:no-import-side-effect no-submodule-imports
  * Disabling this two rules is necessary for
@@ -99,38 +97,6 @@ export const tagInputField: React.FC<tagFieldProps> =
     );
   };
 
-export const fileInputField: React.FC<CustomFieldProps> = (fieldProps: CustomFieldProps): JSX.Element => {
-  const handleFileChange: React.FormEventHandler<FormControl> = (event: React.FormEvent<FormControl>): void => {
-    const files: FileList | null = (event.target as HTMLInputElement).files;
-    fieldProps.input.onChange(_.isEmpty(files) ? [] : (files as FileList));
-  };
-
-  const selectedFile: FileList = fieldProps.input.value;
-
-  return (
-    <FormGroup controlId={fieldProps.id}>
-      <InputGroup>
-        <FormControl
-          target={fieldProps.target}
-          className={`${style.inputfile} ${style.inputfile_evidence}`}
-          type="file"
-          accept={fieldProps.accept}
-          name={fieldProps.name}
-          onChange={handleFileChange}
-          onClick={fieldProps.onClick}
-        />
-        <ControlLabel>
-          <span>{_.isEmpty(selectedFile) ? "" : selectedFile[0].name}</span>
-          <strong>
-            <Glyphicon glyph="search" /> Explore&hellip;
-          </strong>
-        </ControlLabel>
-      </InputGroup>
-      {fieldProps.meta.touched && fieldProps.meta.error ? renderError(fieldProps.meta.error as string) : undefined}
-    </FormGroup>
-  );
-};
-
 export const dateTimeField: React.FC<CustomFieldProps> = (fieldProps: CustomFieldProps): JSX.Element => (
   <React.Fragment>
     <Datetime inputProps={{ className: style.formControl }} utc={false} {...fieldProps.input} />
@@ -182,3 +148,4 @@ export { PhoneNumber } from "./PhoneNumber";
 export { Dropdown } from "./Dropdown";
 export { TextArea } from "./TextArea";
 export { Date } from "./Date";
+export { FileInput } from "./FileInput";

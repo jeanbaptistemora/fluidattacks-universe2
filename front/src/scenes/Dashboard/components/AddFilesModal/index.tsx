@@ -8,7 +8,7 @@ import { Field, InjectedFormProps, Validator } from "redux-form";
 import { ConfigurableValidator } from "revalidate";
 import { Button } from "../../../../components/Button/index";
 import { Modal } from "../../../../components/Modal/index";
-import { fileInputField, TextArea } from "../../../../utils/forms/fields";
+import { FileInput, TextArea } from "../../../../utils/forms/fields";
 import translate from "../../../../utils/translations/translate";
 import {
   isValidFileName, isValidFileSize, maxLength, required, validField, validTextField,
@@ -58,7 +58,7 @@ const addFilesModal: React.FC<IAddFilesModalProps> = (props: IAddFilesModalProps
                     {translate.t("validations.file_size", { count: 100 })}
                   </label>
                   <Field
-                    component={fileInputField}
+                    component={FileInput}
                     id="file"
                     name="file"
                     validate={[required, isValidFileName, maxFileSize]}

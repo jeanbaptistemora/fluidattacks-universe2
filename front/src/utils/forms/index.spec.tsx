@@ -1,34 +1,16 @@
-import { mount, ReactWrapper, shallow, ShallowWrapper } from "enzyme";
+import { mount, ReactWrapper } from "enzyme";
 import React from "react";
 import { Provider } from "react-redux";
 import { Field } from "redux-form";
 import { GenericForm } from "../../scenes/Dashboard/components/GenericForm";
 import store from "../../store";
-import { required } from "../validations";
-import { fileInputField, tagInputField } from "./fields";
+import { tagInputField } from "./fields";
 
 describe("Form fields", () => {
-
-  it("should return a fileInputField function", () => {
-    expect(typeof (fileInputField))
-      .toEqual("function");
-  });
 
   it("should return a tagInputField function", () => {
     expect(typeof (tagInputField))
       .toEqual("function");
-  });
-
-  it("should render fileInputField component", () => {
-    const wrapper: ShallowWrapper = shallow(
-      <Field
-        name="fileInputTest"
-        component={fileInputField}
-        validate={[required]}
-      />,
-    );
-    expect(wrapper.find("fileInputTest"))
-      .toBeTruthy();
   });
 
   it("should render tagInputField component", () => {

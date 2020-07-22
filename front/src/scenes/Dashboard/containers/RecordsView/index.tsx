@@ -18,7 +18,7 @@ import { DataTableNext } from "../../../../components/DataTableNext/index";
 import { FluidIcon } from "../../../../components/FluidIcon";
 import { default as globalStyle } from "../../../../styles/global.css";
 import { Can } from "../../../../utils/authz/Can";
-import { fileInputField } from "../../../../utils/forms/fields";
+import { FileInput } from "../../../../utils/forms/fields";
 import { msgError } from "../../../../utils/notifications";
 import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
@@ -115,7 +115,7 @@ const recordsView: React.FC<IRecordsViewProps> = (props: IRecordsViewProps): JSX
                                 <FormGroup>
                                   <Field
                                     accept=".csv"
-                                    component={fileInputField}
+                                    component={FileInput}
                                     id="recordsFile"
                                     name="filename"
                                     validate={[required, validRecordsFile]}
