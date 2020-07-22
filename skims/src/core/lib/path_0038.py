@@ -8,6 +8,8 @@ from typing import (
 
 # Local libraries
 from core.model import (
+    FindingEnum,
+    KindEnum,
     SkimResult,
 )
 from utils.fs import (
@@ -23,9 +25,10 @@ def javascript_insecure_randoms(
     #   reporting, closing, etc
     results: Tuple[SkimResult, ...] = tuple(
         SkimResult(
+            finding=FindingEnum.F0034,
             what=file,
             where=f'{line_number}',
-            kind='path',
+            kind=KindEnum.LINES,
         )
         for line_number, line_content in lines
         if 'Math.random(' in line_content

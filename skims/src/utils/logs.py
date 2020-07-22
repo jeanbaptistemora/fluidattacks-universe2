@@ -1,5 +1,6 @@
 # Standard library
 import logging
+import sys
 from typing import (
     Any,
 )
@@ -10,11 +11,11 @@ from utils.aio import (
 )
 
 # Private constants
-_LOGGER_FORMAT: str = '[%(levelname)s] %(message)s'
+_FORMAT: str = '[%(levelname)s] %(message)s'
 
-_LOGGER_FORMATTER: logging.Formatter = logging.Formatter(_LOGGER_FORMAT)
+_LOGGER_FORMATTER: logging.Formatter = logging.Formatter(_FORMAT)
 
-_LOGGER_HANDLER: logging.Handler = logging.StreamHandler()
+_LOGGER_HANDLER: logging.Handler = logging.StreamHandler(sys.stderr)
 _LOGGER_HANDLER.setLevel(logging.INFO)
 _LOGGER_HANDLER.setFormatter(_LOGGER_FORMATTER)
 
@@ -23,7 +24,7 @@ _LOGGER.setLevel(logging.INFO)
 _LOGGER.addHandler(_LOGGER_HANDLER)
 
 
-def set_level(level: int = logging.INFO) -> None:
+def set_level(level: int) -> None:
     _LOGGER.setLevel(level)
     _LOGGER_HANDLER.setLevel(level)
 

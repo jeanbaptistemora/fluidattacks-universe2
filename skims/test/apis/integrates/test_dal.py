@@ -34,6 +34,6 @@ async def test_dal(
                 ports:
                     -   host: 127.0.0.1
                         port: '80'
-                        state: closed
+                        state: open
             """,
         )
