@@ -23,7 +23,7 @@ in which you can practice Windows exploit development.
 In our previous posts, we have successfully exploited link:../vulnserver-trun/[TRUN],
 and link:../vulnserver-gter-no-egghunter/[GTER] commands.
 Both of them had something in common: direct `EIP` overwrite, in which
-our buffer directly overwrote the `return address` on the stack frame
+our buffer directly overwrote the `saved return address` on the stack frame
 of the affected function with a `JMP` instruction to execute the code
 on our controlled buffer.
 
@@ -74,7 +74,7 @@ typedef struct _EXCEPTION_REGISTRATION_RECORD
 ----
 
 Here the `Next` parameter is a pointer to the next exception handler, also
-called `nSEH` and the `Handler` parameter is a pointer to the handler itself.
+called `nSEH`, and the `Handler` parameter is a pointer to the handler itself.
 We can see the exception handler's chain on a debugger:
 
 image::seh1.png[SEH chain]
@@ -170,7 +170,7 @@ Immunity Debugger, it's done with `Shift+F9`) this will happen:
 image::eip1.gif[EIP control]
 
 We control `EIP!` That means that
-we have control over the execution flow again.
+we have control over the process execution flow again.
 
 We can now exploit this.
 
@@ -276,8 +276,10 @@ to redirect the execution flow to our buffer.
 
 The x86 stack is a `LIFO` (Last In First Out) structure
 where the last item pushed into the stack is the first to be popped back.
-Each `PUSH` instruction will push exactly 4 bytes into the stack,
-and every `POP` instruction will pop exactly 4 bytes off of the stack.
+Each `PUSH` instruction will push exactly 4 bytes into the stack, decreasing
+the stack pointer (`ESP = ESP - 4`) and every `POP` instruction will pop
+exactly 4 bytes off of the stack, increasing the stack pointer
+(`ESP = ESP + 4`).
 
 With that in mind, and knowing that we need to remove 8 bytes of the
 stack to then return to our controlled buffer, we need to find an
@@ -348,7 +350,7 @@ Remember the `_EXCEPTION_REGISTRATION_RECORD` structure?
 It has 2 members: the `SEH` handler,
 which we are overwriting with the `POP/POP/RET` address,
 and the pointer to the next exception handler, also called `nSEH`.
-So, we landed at `nSEH`.
+Well, we landed at `nSEH`.
 
 However, just after the injected address there's a good 43 bytes buffer,
 and before `nSEH` we had our 3500+ bytes buffer of `A`.
@@ -360,8 +362,8 @@ So, what's next? That's right! We must jump around again!
 We only have 4 bytes to perform our first jump. Fortunately for us, short
 jumps are only link:https://thestarman.pcministry.com/asm/2bytejumps.htm[2 bytes long].
 
-So, we must perform a short jump of at least 8 bytes to pass *over* our
-injected address and land on our `C` buffer.
+We must perform a short jump of at least 8 bytes to pass *over* our
+injected `POP/POP/RET` address and land on our `C` buffer.
 We can get the needed opcodes using `nasm_shell.rb`:
 
 [source,console]
@@ -373,9 +375,9 @@ nasm > jmp short +0xa
 
 *Fun fact:* Note that we told to perform a 10 byte (`0xa`) jump, and the
 returned opcode was `EB08`. It's because the `JMP` will calculate the offset
-including the length of the `JMP` instruction alone, which is 2 bytes.
+including the length of the `JMP` instruction, which is 2 bytes.
 
-Ok, with our short jump opcode we can update our exploit:
+OK, with our short jump opcode we can update our exploit:
 
 [source,python]
 ----
@@ -577,5 +579,9 @@ You can download the final exploit link:exploit.py[here]
 == Conclusion
 
 Exploiting applications using `SEH` overwriting is just a little different
-than the simple `EIP` overwrite. However, you must take care of the little
-details all the way down to get a successful exploitation.
+than the vanilla `EIP` overwrite. However, you must take care of the little
+details all the way down to get a successful exploitation. You can check
+different `SEH`-based exploits at the
+link:../vulnserver-lter-seh/[Vulnserver LTER], the
+link:../quickzip-exploit/[QuickZIP exploiting] and
+the link:../netscan-exploit/[Netscanner exploiting] articles.

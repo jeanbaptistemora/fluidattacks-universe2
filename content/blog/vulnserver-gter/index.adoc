@@ -446,7 +446,7 @@ but we only have 140 bytes as much to work.
 
 We have to think out of the box: `Vulnserver` is a server (really!), and it
 will surely multiplex connections. Well, we can create a different connection
-to send the shellcode over! That will store it the shellcode on the process
+to send the shellcode over! That will store the shellcode on the process
 memory where our egghunter will be able to find it.
 
 We can now finish our exploit. Remember to prepend the `w00tw00t`
