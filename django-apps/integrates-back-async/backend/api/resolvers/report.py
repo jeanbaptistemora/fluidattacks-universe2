@@ -2,7 +2,6 @@
 import sys
 
 from typing import Any, cast
-import rollbar
 from ariadne import (
     convert_kwargs_to_snake_case,
     convert_camel_case_to_snake
@@ -22,7 +21,10 @@ from backend.typing import (
     Report as ReportType,
 )
 from backend import authz, util
-from backend.utils import aio
+from backend.utils import (
+    aio,
+    logging as logging_utils,
+)
 
 
 @convert_kwargs_to_snake_case  # type: ignore
@@ -93,15 +95,11 @@ async def _get_url_all_vulns(
         )
         util.cloudwatch_log(info.context, msg)
     else:
-        url = f'{user_email} is not allowed to perform this operation'
-        payload_data = {
-            'user_email': user_email
-        }
         msg = (
-            'Error: user is not allowed to '
+            f'Security: {user_email} is not allowed to '
             'request an all vulnerabilites report'
         )
-        rollbar.report_message(msg, 'error', payload_data=payload_data)
+        util.cloudwatch_log(info.context, msg)
         raise PermissionDenied()
     return cast(str, url)
 
@@ -132,16 +130,13 @@ async def _get_url_group_report(
             f'by {user_email} in project {project_name}'
         )
         util.cloudwatch_log(info.context, msg)
-    except RequestedReportError:
-        msg = (
-            'Error: An error occurred getting the specified report for project'
-        )
+    except RequestedReportError as ex:
         payload_data = {
             'report_type': report_type,
             'project_name': project_name,
             'user_email': user_email
         }
-        rollbar.report_message(msg, 'error', payload_data=payload_data)
+        logging_utils.log(ex, 'error', extra=payload_data)
     return url
 
 
@@ -159,12 +154,11 @@ async def _get_url_all_users(
         )
         util.cloudwatch_log(info.context, msg)
     else:
-        url = f'{user_email} is not allowed to perform this operation'
-        payload_data = {
-            'user_email': user_email
-        }
-        msg = 'Error: user is not allowed to request an all users report'
-        rollbar.report_message(msg, 'error', payload_data=payload_data)
+        msg = (
+            f'Security: {user_email} is not allowed to request an '
+            'all users report'
+        )
+        util.cloudwatch_log(info.context, msg)
         raise PermissionDenied()
     return cast(str, url)
 
@@ -197,6 +191,6 @@ async def _get_url(
             'report_type': report_type,
             'user_email': user_email
         }
-        msg = 'Error: report type not in expected values'
-        rollbar.report_message(msg, 'error', payload_data=payload_data)
+        await logging_utils.log(
+            'Report type not in expected values', 'error', extra=payload_data)
     return url

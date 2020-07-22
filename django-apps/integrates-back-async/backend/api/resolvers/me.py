@@ -5,7 +5,6 @@ from datetime import datetime, timedelta
 from collections import defaultdict
 from typing import Dict, List, Set, Any, cast
 
-import rollbar
 from ariadne import (
     convert_kwargs_to_snake_case,
     convert_camel_case_to_snake
@@ -349,12 +348,7 @@ async def _do_sign_in(
         )
         success = True
     except AuthException as ex:
-        rollbar.report_message(
-            'Couldn\'t perform social auth',
-            level='error',
-            extra_data=ex,
-            payload_data=locals()
-        )
+        await log(ex, 'error', extra=locals())
 
     return SignInPayloadType(
         session_jwt=session_jwt,

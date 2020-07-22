@@ -2,7 +2,6 @@ from typing import Any, Dict, List, cast
 import re
 import sys
 
-import rollbar
 from ariadne import convert_kwargs_to_snake_case, convert_camel_case_to_snake
 from asgiref.sync import sync_to_async
 from django.conf import settings
@@ -21,7 +20,10 @@ from backend.typing import (
     SimplePayload as SimplePayloadType,
 )
 from backend.exceptions import InvalidProject
-from backend.utils import virus_scan
+from backend.utils import (
+    logging as logging_utils,
+    virus_scan,
+)
 from backend import util
 
 
@@ -138,10 +140,8 @@ async def _do_add_repositories(_, info, repos: List[Dict[str, str]],
         await sync_to_async(resources.send_mail)(
             project_name, user_email, new_repos, 'added', 'repository')
     else:
-        await sync_to_async(rollbar.report_message)(
-            'An error occurred adding repositories',
-            level='error',
-            payload_data=locals())
+        await logging_utils.log(
+            'Couldn\'t add repositories', 'error', extra=locals())
         util.cloudwatch_log(
             info.context,
             'Security: Attempted to add '
@@ -169,10 +169,8 @@ async def _do_add_environments(_, info, envs: List[Dict[str, str]],
         await sync_to_async(resources.send_mail)(
             project_name, user_email, new_envs, 'added', 'environment')
     else:
-        await sync_to_async(rollbar.report_message)(
-            'An error occurred adding environments',
-            level='error',
-            payload_data=locals())
+        await logging_utils.log(
+            'Couldn\'t add environments', 'error', extra=locals())
         util.cloudwatch_log(
             info.context,
             'Security: Attempted to add '
@@ -204,8 +202,8 @@ async def _do_add_files(_, info, **parameters) -> SimplePayloadType:
 
         success = True
     else:
-        await sync_to_async(rollbar.report_message)('Error: \
-An error occurred uploading file', 'error', info.context)
+        await logging_utils.log(
+            'Couldn\'t upload file', 'error', extra=parameters)
     if success:
         util.invalidate_cache(project_name)
         util.cloudwatch_log(
@@ -237,8 +235,13 @@ async def _do_remove_files(_, info, files_data: Dict[str, Any],
             project_name, user_email, [files_data], 'removed', 'file')
         success = True
     else:
-        await sync_to_async(rollbar.report_message)('Error: \
-An error occurred removing file', 'error', info.context)
+        await logging_utils.log(
+            'Couldn\'t remove file',
+            'error',
+            extra={
+                'file_name': file_name,
+                'project_name': project_name,
+            })
     if success:
         util.invalidate_cache(project_name)
         util.cloudwatch_log(
@@ -282,8 +285,8 @@ project {project} successfully'\
 in project {project}'.format(
                 project=project_name,
                 file_name=parameters['files_data']))  # pragma: no cover
-        await sync_to_async(rollbar.report_message)('Error: \
-An error occurred generating signed URL', 'error', info.context)
+        await logging_utils.log(
+            'Couldn\'t generate signed URL', 'error', extra=parameters)
     return DownloadFilePayloadType(success=success, url=str(signed_url))
 
 
@@ -311,10 +314,8 @@ async def _do_update_environment(_, info, project_name: str,
         await sync_to_async(resources.send_mail)(
             project_name, user_email, [env], action, 'environment')
     else:
-        await sync_to_async(rollbar.report_message)(
-            'An error occurred updating environment state',
-            level='error',
-            payload_data=locals())
+        await logging_utils.log(
+            'Couldn\'t update environment state', 'error', extra=locals())
         util.cloudwatch_log(
             info.context,
             'Security: Attempted to update environment state in '
@@ -346,10 +347,8 @@ async def _do_update_repository(_, info, project_name: str,
         await sync_to_async(resources.send_mail)(
             project_name, user_email, [repo], action, 'repository')
     else:
-        await sync_to_async(rollbar.report_message)(
-            'An error occurred updating repository state',
-            level='error',
-            payload_data=locals())
+        await logging_utils.log(
+            'Couldn\'t update repository state', 'error', extra=locals())
         util.cloudwatch_log(
             info.context,
             'Security: Attempted to update repository state in '

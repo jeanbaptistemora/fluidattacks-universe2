@@ -2,8 +2,6 @@ from time import time
 import sys
 from typing import Dict, List
 
-import rollbar
-
 from ariadne import convert_camel_case_to_snake, convert_kwargs_to_snake_case
 from asgiref.sync import sync_to_async
 from graphql.language.ast import SelectionSetNode
@@ -29,7 +27,11 @@ from backend.typing import (
     AddCommentPayload as AddCommentPayloadType,
     Vulnerability as VulnerabilityType,
 )
-from backend.utils import findings as finding_utils, virus_scan
+from backend.utils import (
+    findings as finding_utils,
+    logging as logging_utils,
+    virus_scan,
+)
 from backend import authz, util
 
 
@@ -594,9 +596,8 @@ successfully updated in finding {finding_id}')  # pragma: no cover
             util.cloudwatch_log(
                 info.context, f'Security: Attempted to update \
                 evidence description in {finding_id}')  # pragma: no cover
-    except KeyError:
-        await sync_to_async(rollbar.report_message)('Error: \
-An error occurred updating evidence description', 'error', info.context)
+    except KeyError as ex:
+        await logging_utils.log(ex, 'error', extra=locals())
     return SimplePayloadType(success=success)
 
 

@@ -9,7 +9,6 @@ from ariadne import (
     convert_kwargs_to_snake_case,
 )
 import botocore.exceptions
-import rollbar
 
 # Local libraries
 from backend.domain import (
@@ -18,6 +17,7 @@ from backend.domain import (
 from backend.exceptions import DocumentNotFound
 from backend.utils import (
     apm,
+    logging as logging_utils,
 )
 
 
@@ -37,6 +37,6 @@ async def resolve(
             entity=entity,
             subject=subject,
         )
-    except botocore.exceptions.ClientError:
-        rollbar.report_exc_info()
+    except botocore.exceptions.ClientError as ex:
+        await logging_utils.log(ex, 'error', extra=locals())
         raise DocumentNotFound()
