@@ -5,6 +5,7 @@ from typing import (
     cast,
     Dict,
     List,
+    Union,
     Any
 )
 import sys
@@ -88,7 +89,7 @@ def _give_user_access(
 
 
 async def _create_new_user(  # pylint: disable=too-many-arguments
-    context: object,
+    context: Any,
     email: str,
     responsibility: str,
     role: str,
@@ -163,7 +164,7 @@ def _get_role(
     else:
         role = authz.get_user_level_role(email)
 
-    return role
+    return cast(str, role)
 
 
 @sync_to_async  # type: ignore
@@ -233,7 +234,7 @@ async def _get_projects(
 
 
 async def resolve(  # pylint: disable=too-many-arguments
-    info,
+    info: GraphQLResolveInfo,
     entity: str,
     email: str,
     identifier: str,
@@ -269,7 +270,7 @@ async def resolve(  # pylint: disable=too-many-arguments
 @enforce_group_level_auth_async
 @require_integrates
 async def resolve_for_group(  # pylint: disable=too-many-arguments
-    info,
+    info: GraphQLResolveInfo,
     entity: str,
     user_email: str,
     project_name: str = '',
@@ -291,7 +292,7 @@ async def resolve_for_group(  # pylint: disable=too-many-arguments
 
 @require_organization_access
 async def resolve_for_organization(  # pylint: disable=too-many-arguments
-    info,
+    info: GraphQLResolveInfo,
     entity: str,
     user_email: str,
     organization_id: str = '',
@@ -304,14 +305,14 @@ async def resolve_for_organization(  # pylint: disable=too-many-arguments
     )
 
 
-@convert_kwargs_to_snake_case
+@convert_kwargs_to_snake_case  # type: ignore
 @require_login
 async def resolve_user(
-    _,
-    info,
+    _: Any,
+    info: GraphQLResolveInfo,
     entity: str,
     user_email: str,
-    **parameters
+    **parameters: Any
 ) -> UserType:
     """Resolve user query."""
     if entity == 'PROJECT':
@@ -324,22 +325,39 @@ async def resolve_user(
         result = await resolve_for_organization(
             info, entity, user_email, organization_id=organization_id
         )
-    return result
+    return cast(UserType, result)
 
 
-@convert_kwargs_to_snake_case
-async def resolve_user_mutation(obj, info, **parameters):
+@convert_kwargs_to_snake_case  # type: ignore
+async def resolve_user_mutation(
+    obj: Any,
+    info: GraphQLResolveInfo,
+    **parameters: Any
+) -> Union[
+    AddUserPayloadType,
+    GrantUserAccessPayloadType,
+    RemoveUserAccessPayloadType,
+    EditUserPayloadType
+]:
     """Wrap user mutations."""
     field = util.camelcase_to_snakecase(info.field_name)
     resolver_func = getattr(sys.modules[__name__], f'_do_{field}')
-    return await resolver_func(obj, info, **parameters)
+    return cast(
+        Union[
+            AddUserPayloadType,
+            GrantUserAccessPayloadType,
+            RemoveUserAccessPayloadType,
+            EditUserPayloadType
+        ],
+        await resolver_func(obj, info, **parameters)
+    )
 
 
 @require_login
 @enforce_user_level_auth_async
 async def _do_add_user(
-    _,
-    info,
+    _: Any,
+    info: GraphQLResolveInfo,
     email: str,
     role: str,
     phone_number: str = ''
@@ -375,7 +393,10 @@ async def _do_add_user(
             success = True
         else:
             rollbar.report_message(
-                'Error: Couldn\'t grant user access', 'error', info.context)
+                'Error: Couldn\'t grant user access',
+                'error',
+                info.context
+            )
     else:
         payload_data = {
             'email': email,
@@ -399,7 +420,9 @@ async def _do_add_user(
 @enforce_group_level_auth_async
 @require_integrates
 async def _do_grant_user_access(
-        _, info, **query_args) -> GrantUserAccessPayloadType:
+        _: Any,
+        info: GraphQLResolveInfo,
+        **query_args: str) -> GrantUserAccessPayloadType:
     """Resolve grant_user_access mutation."""
     project_name = query_args.get('project_name', '').lower()
     success = False
@@ -425,8 +448,11 @@ async def _do_grant_user_access(
                 group=project_name):
             success = True
         else:
-            rollbar.report_message('Error: Couldn\'t grant access to project',
-                                   'error', info.context)
+            rollbar.report_message(
+                'Error: Couldn\'t grant access to project',
+                'error',
+                info.context
+            )
     else:
         payload_data = {
             'new_user_role': new_user_role,
@@ -447,18 +473,21 @@ async def _do_grant_user_access(
         util.cloudwatch_log(
             info.context,
             (f'Security: Given grant access to {new_user_email} '
-             f'in {project_name} project'))  # pragma: no cover
+             f'in {project_name} project')  # pragma: no cover
+        )
     else:
         util.cloudwatch_log(
             info.context,
             (f'Security: Attempted to grant access to {new_user_email} '
-             f'in {project_name} project'))  # pragma: no cover
+             f'in {project_name} project')  # pragma: no cover
+        )
 
     return GrantUserAccessPayloadType(
         success=success,
         granted_user=dict(
             project_name=project_name,
-            email=new_user_email)
+            email=new_user_email
+        )
     )
 
 
@@ -466,8 +495,10 @@ async def _do_grant_user_access(
 @enforce_group_level_auth_async
 @require_integrates
 async def _do_remove_user_access(
-        _, info,
-        project_name: str, user_email: str) -> RemoveUserAccessPayloadType:
+        _: Any,
+        info: GraphQLResolveInfo,
+        project_name: str,
+        user_email: str) -> RemoveUserAccessPayloadType:
     """Resolve remove_user_access mutation."""
     success = False
 
@@ -475,21 +506,24 @@ async def _do_remove_user_access(
         sync_to_async(project_domain.remove_user_access)(
             project_name, user_email)
     )
-    success = \
-        await sync_to_async(project_domain.remove_access)(
-            user_email, project_name)
+    success = await sync_to_async(project_domain.remove_access)(
+        user_email, project_name
+    )
     removed_email = user_email if success else ''
     if success:
         util.invalidate_cache(project_name)
         util.invalidate_cache(user_email)
         util.cloudwatch_log(
             info.context,
-            f'Security: Removed user: {user_email} from {project_name} '
-            'project successfully')  # pragma: no cover
+            (f'Security: Removed user: {user_email} from {project_name} '
+             'project successfully')  # pragma: no cover
+        )
     else:
         util.cloudwatch_log(
-            info.context, f'Security: Attempted to remove user: {user_email} '
-            f'from {project_name} project')  # pragma: no cover
+            info.context,
+            (f'Security: Attempted to remove user: {user_email} '
+             f'from {project_name} project')  # pragma: no cover
+        )
     return RemoveUserAccessPayloadType(
         success=success,
         removed_email=removed_email
@@ -499,7 +533,10 @@ async def _do_remove_user_access(
 @require_login
 @enforce_group_level_auth_async
 @require_integrates
-async def _do_edit_user(_, info, **modified_user_data) -> EditUserPayloadType:
+async def _do_edit_user(
+        _: Any,
+        info: GraphQLResolveInfo,
+        **modified_user_data: str) -> EditUserPayloadType:
     """Resolve edit_user mutation."""
     project_name = modified_user_data['project_name'].lower()
     modified_role = modified_user_data['role']
@@ -516,17 +553,21 @@ async def _do_edit_user(_, info, **modified_user_data) -> EditUserPayloadType:
         )
 
     await validate_fluidattacks_staff_on_group(
-        project_name, modified_email, modified_role)
+        project_name, modified_email, modified_role
+    )
 
     if modified_role in allowed_roles_to_grant:
         if await sync_to_async(authz.grant_group_level_role)(
                 modified_email, project_name, modified_role):
-            success = \
-                await modify_user_information(
-                    info.context, modified_user_data, project_name)
+            success = await modify_user_information(
+                info.context, modified_user_data, project_name
+            )
         else:
             await sync_to_async(rollbar.report_message)(
-                'Error: Couldn\'t update user role', 'error', info.context)
+                'Error: Couldn\'t update user role',
+                'error',
+                info.context
+            )
     else:
         payload_data = {
             'modified_user_role': modified_role,
@@ -546,19 +587,23 @@ async def _do_edit_user(_, info, **modified_user_data) -> EditUserPayloadType:
         util.invalidate_cache(modified_email)
         util.cloudwatch_log(
             info.context,
-            f'Security: Modified user data:{modified_email} '
-            'in {project_name} project successfully')  # pragma: no cover
+            (f'Security: Modified user data:{modified_email} '
+             'in {project_name} project successfully')  # pragma: no cover
+        )
     else:
         util.cloudwatch_log(
             info.context,
-            'Security: Attempted to modify user '
-            f'data:{modified_email} in '
-            f'{project_name} project')  # pragma: no cover
+            ('Security: Attempted to modify user '
+             f'data:{modified_email} in '
+             f'{project_name} project')  # pragma: no cover
+        )
 
     return EditUserPayloadType(
         success=success,
-        modified_user=dict(project_name=project_name,
-                           email=modified_user_data['email'])
+        modified_user=dict(
+            project_name=project_name,
+            email=modified_user_data['email']
+        )
     )
 
 
@@ -581,10 +626,11 @@ def _add_acess(
     return result
 
 
-@sync_to_async
-def modify_user_information(context: object,
-                            modified_user_data: Dict[str, str],
-                            project_name: str) -> bool:
+@sync_to_async  # type: ignore
+def modify_user_information(
+        context: Any,
+        modified_user_data: Dict[str, str],
+        project_name: str) -> bool:
     """Modify user information."""
     email = modified_user_data['email']
     responsibility = modified_user_data['responsibility']
@@ -605,15 +651,15 @@ def modify_user_information(context: object,
     else:
         util.cloudwatch_log(
             context,
-            f'Security: {email} Attempted to edit user phone bypassing '
-            f'validation'
+            (f'Security: {email} Attempted to edit user '
+             'phone bypassing validation')
         )
         successes.append(False)
 
     return all(successes)
 
 
-@convert_kwargs_to_snake_case
+@convert_kwargs_to_snake_case  # type: ignore
 @require_login
 @enforce_user_level_auth_async
 async def resolve_user_list_projects(
