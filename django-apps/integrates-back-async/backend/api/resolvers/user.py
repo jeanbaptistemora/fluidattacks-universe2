@@ -5,6 +5,7 @@ from typing import (
     cast,
     Dict,
     List,
+    Any
 )
 import sys
 import threading
@@ -13,6 +14,7 @@ import rollbar
 from ariadne import convert_kwargs_to_snake_case, convert_camel_case_to_snake
 from asgiref.sync import async_to_sync, sync_to_async
 
+from graphql.type.definition import GraphQLResolveInfo
 from backend.api.resolvers import project as project_resolver
 from backend.decorators import (
     require_integrates,
@@ -139,14 +141,18 @@ async def _create_new_user(  # pylint: disable=too-many-arguments
     return success
 
 
-@sync_to_async
-def _get_email(_, email: str, *__) -> str:
+@sync_to_async  # type: ignore
+def _get_email(_: GraphQLResolveInfo, email: str, *__: str) -> str:
     """Get email."""
     return email.lower()
 
 
-@sync_to_async
-def _get_role(_, email: str, entity: str, identifier: str) -> str:
+@sync_to_async  # type: ignore
+def _get_role(
+        _: GraphQLResolveInfo,
+        email: str,
+        entity: str,
+        identifier: str) -> str:
     """Get role."""
     if entity == 'PROJECT' and identifier:
         project_name = identifier
@@ -160,14 +166,18 @@ def _get_role(_, email: str, entity: str, identifier: str) -> str:
     return role
 
 
-@sync_to_async
-def _get_phone_number(_, email: str, *__) -> str:
+@sync_to_async  # type: ignore
+def _get_phone_number(_: GraphQLResolveInfo, email: str, *__: str) -> str:
     """Get phone number."""
     return has_phone_number(email)
 
 
-@sync_to_async
-def _get_responsibility(_, email: str, entity: str, identifier: str) -> str:
+@sync_to_async  # type: ignore
+def _get_responsibility(
+        _: GraphQLResolveInfo,
+        email: str,
+        entity: str,
+        identifier: str) -> str:
     """Get responsibility."""
     result = ''
     if entity == 'PROJECT':
@@ -176,39 +186,41 @@ def _get_responsibility(_, email: str, entity: str, identifier: str) -> str:
     return result
 
 
-@sync_to_async
-def _get_first_login(_, email: str, *__) -> str:
+@sync_to_async  # type: ignore
+def _get_first_login(_: GraphQLResolveInfo, email: str, *__: str) -> str:
     """Get first login."""
     return cast(str, user_domain.get_data(email, 'date_joined'))
 
 
-@sync_to_async
-def _get_last_login(_, email: str, *__) -> str:
+@sync_to_async  # type: ignore
+def _get_last_login(_: GraphQLResolveInfo, email: str, *__: str) -> str:
     """Get last_login."""
     last_login_response = cast(str, user_domain.get_data(email, 'last_login'))
     if last_login_response == '1111-1-1 11:11:11' or not last_login_response:
         last_login = [-1, -1]
     else:
-        dates_difference = \
-            datetime.now() - datetime.strptime(last_login_response,
-                                               '%Y-%m-%d %H:%M:%S')
+        dates_difference = (
+            datetime.now() -
+            datetime.strptime(last_login_response, '%Y-%m-%d %H:%M:%S')
+        )
         diff_last_login = [dates_difference.days, dates_difference.seconds]
         last_login = diff_last_login
     return str(last_login)
 
 
 async def _get_projects(
-    info,
+    info: GraphQLResolveInfo,
     email: str,
-    *_,
+    *_: str,
     project_as_field: bool = True,
-    **__
+    **__: Any
 ) -> List[ProjectType]:
     """Get list projects."""
     list_projects = list()
     active_task = asyncio.create_task(user_domain.get_projects(email))
-    inactive_task = asyncio.create_task(user_domain.get_projects(email,
-                                                                 active=False))
+    inactive_task = asyncio.create_task(
+        user_domain.get_projects(email, active=False)
+    )
     active, inactive = tuple(await asyncio.gather(active_task, inactive_task))
     user_projects = active + inactive
     list_projects = await asyncio.gather(*[
@@ -605,7 +617,9 @@ def modify_user_information(context: object,
 @require_login
 @enforce_user_level_auth_async
 async def resolve_user_list_projects(
-        _, info, user_email: str) -> List[ProjectType]:
+        _: Any,
+        info: GraphQLResolveInfo,
+        user_email: str) -> List[ProjectType]:
     """Resolve user_list_projects query."""
     email: str = await _get_email(info, user_email)
 
