@@ -285,14 +285,16 @@ async def graphics_report(request: HttpRequest) -> HttpResponse:
 def logout(request: HttpRequest) -> HttpResponse:
     """Close a user's active session"""
     try:
-        cookie_content = jwt.decode(
-            token=request.COOKIES.get(settings.JWT_COOKIE_NAME),
-            key=settings.JWT_SECRET,
-            algorithms='HS512'
-        )
-        jti = cookie_content.get('jti')
-        if jti:
-            util.remove_token(f'fi_jwt:{jti}')
+        jwt_cookie = request.COOKIES.get(settings.JWT_COOKIE_NAME)
+        if jwt_cookie:
+            cookie_content = jwt.decode(
+                token=jwt_cookie,
+                key=settings.JWT_SECRET,
+                algorithms='HS512'
+            )
+            jti = cookie_content.get('jti')
+            if jti:
+                util.remove_token(f'fi_jwt:{jti}')
 
         request.session.flush()
     except KeyError as ex:
