@@ -668,3 +668,8 @@ forces_lint:
   <<: *with_nix
   <<: *forces_in_dev_and_master_branch
   stage: lint-code
+
+forces_test:
+  <<: *with_nix
+  <<: *forces_in_dev_and_master_branch
+  stage: test-code
