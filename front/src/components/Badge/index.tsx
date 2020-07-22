@@ -11,7 +11,7 @@ export interface IBadgeProps {
 export const Badge: React.FC<IBadgeProps> = (
   props: Readonly<IBadgeProps>
 ): JSX.Element => {
-  const { children, responsive = false, size = "sm" } = props;
+  const { children, responsive = false, size = "xs" } = props;
 
   return (
     <BootstrapBadge

@@ -3,14 +3,20 @@
   background-color: #ff3435 !important;
   margin-left: 0.5rem;
   margin-right: 0.1rem;
+  padding: 0.2rem 0.5rem;
+  line-height:  0.9;
+}
+
+:local .xs {
+  font-size: 0.7rem !important;
 }
 
 :local .sm {
-    font-size: 0.8rem !important;
+  font-size: 0.8rem !important;
 }
 
 :local .md {
-    font-size: 1.1rem !important;
+  font-size: 1.1rem !important;
 }
 
 @media (min-width: 768px) {

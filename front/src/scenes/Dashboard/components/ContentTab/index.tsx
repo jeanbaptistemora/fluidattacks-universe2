@@ -29,7 +29,7 @@ const contentTab: React.FC<IContentTabProps> = (
           <i className={icon} />
           &nbsp;{title}
           {!_.isUndefined(plus) && plus.visible ? (
-            <Badge {...plus.config}>PLUS+</Badge>
+            <Badge {...plus.config}>pro</Badge>
           ) : undefined}
         </NavLink>
       </li>

@@ -49,7 +49,7 @@ const sidebar: React.FC<ISidebarProps> = (props: ISidebarProps): JSX.Element => 
           <TooltipWrapper message={translate.t("sidebar.token.tooltip")} placement="right">
             <div className={style.item}><i className="icon pe-7s-user" />
               <span className={style.label}>{translate.t("sidebar.token.text")}</span>
-              <Badge>PLUS+</Badge>
+              <Badge>pro</Badge>
             </div>
           </TooltipWrapper>
         </li>
