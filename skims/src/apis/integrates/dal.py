@@ -1,12 +1,9 @@
 # Standard library
 from typing import (
+    Any,
+    Dict,
     NamedTuple,
     Tuple,
-)
-
-# Third party libraries
-from gql import (
-    gql,
 )
 
 # Local libraries
@@ -18,13 +15,21 @@ from utils.function import (
 )
 
 
+async def _execute(*, query: str, variables: Dict[str, Any]) -> Dict[str, Any]:
+    response = await SESSION.get().execute(query=query, variables=variables)
+
+    result: Dict[str, Any] = await response.json()
+
+    return result
+
+
 @retry()
 async def get_group_level_role(
     *,
     group: str,
 ) -> str:
-    result = await SESSION.get().execute(
-        document=gql("""
+    result = await _execute(
+        query="""
             query GetGroupLevelRole(
                 $group: String!
             ) {
@@ -35,13 +40,15 @@ async def get_group_level_role(
                     )
                 }
             }
-        """),
-        variable_values=dict(
+        """,
+        variables=dict(
             group=group,
         )
     )
 
-    return result['me']['role']
+    role: str = result['data']['me']['role']
+
+    return role
 
 
 class ResultGetGroupFindings(NamedTuple):
@@ -54,8 +61,8 @@ async def get_group_findings(
     *,
     group: str,
 ) -> Tuple[ResultGetGroupFindings, ...]:
-    result = await SESSION.get().execute(
-        document=gql("""
+    result = await _execute(
+        query="""
             query GetGroupFindings(
                 $group: String!
             ) {
@@ -66,8 +73,8 @@ async def get_group_findings(
                     }
                 }
             }
-        """),
-        variable_values=dict(
+        """,
+        variables=dict(
             group=group,
         )
     )
@@ -77,5 +84,5 @@ async def get_group_findings(
             identifier=finding['id'],
             title=finding['title'],
         )
-        for finding in result['project']['findings']
+        for finding in result['data']['project']['findings']
     )

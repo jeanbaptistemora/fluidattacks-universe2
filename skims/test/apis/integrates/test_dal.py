@@ -2,19 +2,18 @@
 import pytest
 
 # Local libraries
-from apis.integrates.api import (
+from apis.integrates.dal import (
     get_group_findings,
     get_group_level_role,
     ResultGetGroupFindings,
 )
 from apis.integrates.graphql import (
     session,
-    SESSION,
 )
 
 
 @pytest.mark.asyncio  # type: ignore
-async def test_get_group_level_role(
+async def test_dal(
     test_group: str,
     test_token: str,
 ) -> None:

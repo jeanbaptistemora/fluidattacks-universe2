@@ -11,4 +11,6 @@ import pytest
 async def test_call() -> None:
     process = await call('echo', 'test')
 
-    assert await process.stdout.read() == 'test\n'.encode(), process
+    stdout: bytes = await process.stdout.read() if process.stdout else bytes()
+
+    assert stdout == 'test\n'.encode(), process

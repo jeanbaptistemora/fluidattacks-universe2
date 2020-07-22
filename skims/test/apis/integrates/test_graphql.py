@@ -14,4 +14,4 @@ async def test_session() -> None:
         api_token='fake',
         endpoint_url='fake',
     ):
-        assert SESSION.get().transport.url == 'fake'
+        assert SESSION.get().endpoint == 'fake'

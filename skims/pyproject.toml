@@ -17,8 +17,8 @@ version = "1.0.0"
 
 [tool.poetry.dependencies]
 aiofiles = "0.5.0"
+aiogqlc = "1.0.5"
 click = "7.1.2"
-gql = "3.0.0a1"
 more-itertools = "8.4.0"
 python = "^3.7"
 

@@ -13,7 +13,7 @@ import click
 from apis.integrates.graphql import (
     session,
 )
-from core import (
+from core.run import (
     skim_paths,
 )
 from core.model import (
@@ -104,7 +104,7 @@ async def run(*, paths: Tuple[str, ...]) -> bool:
         skim_paths(paths),
     ))))
 
-    await materialize(log('info', result) for result in results)
+    await materialize(log('info', '%s', result) for result in results)
 
     return True
 
