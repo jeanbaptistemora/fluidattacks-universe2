@@ -78,7 +78,7 @@ build_nix_caches:
   stage: build
   before_script:
     - apk add --no-cache bash
-  parallel: 30
+  parallel: 31
   interruptible: false
 
 analytics_formstack:
