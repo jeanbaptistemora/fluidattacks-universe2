@@ -23,7 +23,7 @@ const dynClasses: (() => void) = (): void => {
     if ($("div")
         .hasClass("contact-page")) {
       $(".footer-component")
-        .addClass("db-l dn");
+        .addClass("dn-s");
     }
 
     addClasses(".feature-content a", "fw8 c-fluid-bk hv-fluid-rd no-underline");
