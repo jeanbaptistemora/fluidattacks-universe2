@@ -32,8 +32,8 @@ async def get_findings(client: Client, project: str) -> List[str]:
 
 
 async def get_vulnerabilities(
-        client: Client,
-        finding: str) -> List[Dict[str, Union[str, List[Dict[str, str]]]]]:
+        client: Client, finding: str
+) -> List[Dict[str, Union[str, List[Dict[str, Dict[str, Any]]]]]]:
     """
     Returns the vulnerabilities of a finding.
 
@@ -45,7 +45,7 @@ async def get_vulnerabilities(
           finding(identifier: $finding_id) {
             vulnerabilities {
               findingId,
-              historicState
+              currentState
               vulnType
               where
             }

@@ -1,23 +1,23 @@
+"""Fluid Forces report module"""
 # Standard imports
 import asyncio
-from typing import Dict, Iterator, List, Union
+from typing import AsyncGenerator, Any, Dict, List, Union
 from timeit import default_timer as timer
 
 # 3d Impors
 from gql import AIOHTTPTransport, Client
-import oyaml as yaml
 
 # Local imports
 from forces import get_api_token
 from forces import INTEGRATES_API_URL
+from forces import get_verbose_level
 from forces.apis.integrates import get_finding
 from forces.apis.integrates import get_findings
 from forces.apis.integrates import get_vulnerabilities
 
 
-async def vulns_generator(
-        client: Client, project: str
-) -> Iterator[Union[str, Dict[str, Union[str, List[str]]]]]:
+async def vulns_generator(client: Client, project: str) -> AsyncGenerator[Dict[
+        str, Union[str, List[Dict[str, Dict[str, Any]]]]], None]:
     """
     Returns a generator with all the vulnerabilities of a project.
 
@@ -31,59 +31,75 @@ async def vulns_generator(
             yield vuln
 
 
-async def generate_report(client: Client, project: str):
+async def generate_report(client: Client, project: str) -> Dict[str, Any]:
     """
     Generate a project vulnerability report.
 
     :param client: gql Client.
     :param finding: Finding identifier.
     """
-    start_time = timer()
+    _start_time = timer()
     _summary_dict = {'open': 0, 'closed': 0, 'accepted': 0}
-    raw_report = {'findings': list()}
-    findings_dict = dict()
+    raw_report: Dict[str, List[Any]] = {'findings': list()}
+    findings_dict: Dict[str, Dict[str, Any]] = dict()
 
-    findings = await get_findings(client, project)
-    finding_tasks = [get_finding(client, fin) for fin in findings]
-    for find in asyncio.as_completed(finding_tasks):
-        find = await find
+    finding_tasks = [
+        get_finding(client, fin)
+        for fin in await get_findings(client, project)
+    ]
+    for _find in asyncio.as_completed(finding_tasks):
+        find: Dict[str, str] = await _find
         findings_dict[find['id']] = find
-        findings_dict[find['id']]['vulnerabilities'] = list()
+        findings_dict[find['id']].update({
+            'open': 0,
+            'closed': 0,
+            'accepted': 0
+        })
+
+        if get_verbose_level() > 1:
+            findings_dict[find['id']]['vulnerabilities'] = list()
 
     async for vuln in vulns_generator(client, project):
-        state = vuln['historicState'][-1]['state']
+        find_id: str = vuln['findingId']  # type: ignore
+        state = vuln['currentState']
         if state == 'closed':
             _summary_dict['closed'] += 1
+            findings_dict[find_id]['closed'] += 1
         elif state == 'accepted':
             _summary_dict['accepted'] += 1
+            findings_dict[find_id]['accepted'] += 1
         elif state == 'open':
             _summary_dict['open'] += 1
+            findings_dict[find_id]['open'] += 1
+        if get_verbose_level() == 1:
+            continue
         vulnerability = {
             'type': 'SAST' if vuln['vulnType'] == 'lines' else 'DAST',
             'where': vuln['where'],
-            'date': vuln['historicState'][-1]['date'],
-            'state': vuln['historicState'][-1]['state']
+            'state': vuln['currentState']
         }
-        findings_dict[vuln['findingId']]['vulnerabilities'].append(
-            vulnerability)
+
+        if get_verbose_level() == 2 and vulnerability['state'] in ('accepted',
+                                                                   'closed'):
+            continue
+        findings_dict[find_id]['vulnerabilities'].append(vulnerability)
 
     for find in findings_dict.values():
         raw_report['findings'].append(find)
 
-    elapsed_time = timer() - start_time
     summary = {
         'summary': {
             'total': _summary_dict['open'] + _summary_dict['closed'] +
             _summary_dict['accepted'],
             **_summary_dict,
-            'time': '%.4f seconds' % elapsed_time
+            'time': '%.4f seconds' % (timer() - _start_time)
         }
     }
-    raw_report.update(summary)
+    raw_report.update(summary)  # type: ignore
     return raw_report
 
 
-async def _proccess(project: str):
+async def _proccess(project: str) -> Dict[str, Any]:
     transport = AIOHTTPTransport(
         url=INTEGRATES_API_URL,
         headers={
@@ -94,10 +110,9 @@ async def _proccess(project: str):
             fetch_schema_from_transport=True,
     ) as client:
         report = await generate_report(client, project)
-        yaml_report = yaml.dump(report)
-        with open('result.yml', 'w') as writer:
-            writer.write(yaml_report)
+        return report
 
 
-def process(project: str) -> None:
-    asyncio.run(_proccess(project))
+def process(project: str) -> Dict[str, Any]:
+    """Process a report."""
+    return asyncio.run(_proccess(project))
