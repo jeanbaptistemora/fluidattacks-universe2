@@ -1,5 +1,5 @@
 :slug: rules/209/
-:category: mobile
+:category: devices
 :description: This requirement establishes that applications that authenticate offline must only store one password in the authentication cache.
 :keywords: Mobile Device, Application, Password, Cache, Authentication, Requirement, Rules, Ethical Hacking, Pentesting
 :rules: yes

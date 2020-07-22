@@ -110,7 +110,7 @@ computer networks.
 . [inner]#link:../../rules#virtualization[Virtualization]#: Rules regarding the configuration and management of virtual
 environments.
 
-. [inner]#link:../../rules#mobile[Mobile]#: Rules regarding the configuration and protection of mobile devices
+. [inner]#link:../../rules#devices[Devices]#: Rules regarding the configuration and protection of mobile and *IoT* devices
 and applications.
 
 . [inner]#link:../../rules#social[Social]#: Rules regarding the usage of social networks and publicly

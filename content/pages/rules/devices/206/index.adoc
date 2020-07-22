@@ -1,5 +1,5 @@
 :slug: rules/206/
-:category: mobile
+:category: devices
 :description: This requirement establishes that communication protocols must remain hidden, configured with credentials, or turned off.
 :keywords: Mobile Device, Protocol, Exchange, Data, Bluetooth, NFC, Rules, Ethical Hacking, Pentesting
 :rules: yes

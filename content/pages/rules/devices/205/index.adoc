@@ -1,5 +1,5 @@
 :slug: rules/205/
-:category: mobile
+:category: devices
 :description: This requirement establishes that devices must have a personal identification number or PIN configured on the SIM card.
 :keywords: Device, Cellular Network, Requirement, PIN, SIM Card, Security, Rules, Ethical Hacking, Pentesting
 :rules: yes

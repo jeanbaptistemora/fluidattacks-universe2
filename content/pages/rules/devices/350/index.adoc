@@ -1,0 +1,18 @@
+:slug: rules/350/
+:category: devices
+:description: This requirement establishes the importance of enabling memory protection mechanisms.
+:keywords: Memory, Protection, Mechanism, Device, IoT, ASVS, Rules, Ethical Hacking, Pentesting
+:rules: yes
+
+= R350. Enable memory protection mechanisms
+
+== Requirement
+
+The system should enable memory protection mechanisms such as *ASLR* and *DEP*.
+
+== References
+
+. [[r1]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+Appendix C: Internet of Things Verification Requirements.(C.3)]
+Verify that memory protection controls such as *ASLR* and *DEP* are enabled by
+the embedded/**IoT** operating system, if applicable.
