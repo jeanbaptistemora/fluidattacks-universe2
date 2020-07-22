@@ -76,8 +76,8 @@ async def get_unsolved_events(project: str) -> List[EventType]:
 
 def extract_info_from_event_dict(event_dict: EventType) -> EventType:
     event_dict = {
-        'type': event_dict['event_type'],
-        'details': event_dict['detail']
+        'type': event_dict.get('event_type', ''),
+        'details': event_dict.get('detail', '')
     }
     return event_dict
 

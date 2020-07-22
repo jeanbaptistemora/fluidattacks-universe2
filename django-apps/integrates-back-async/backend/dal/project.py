@@ -497,15 +497,15 @@ def get_released_findings(project_name: str, attrs: str = '') -> \
     if not attrs:
         query_attrs['ProjectionExpression'] = 'finding_id'
     response = FINDINGS_TABLE.query(**query_attrs)
-    findings = response.get('Items', [])
+    items = response.get('Items', [])
 
     while response.get('LastEvaluatedKey'):
         query_attrs['ExclusiveStartKey'] = response['LastEvaluatedKey']
         response = FINDINGS_TABLE.query(**query_attrs)
-        findings += response.get('Items', [])
+        items += response.get('Items', [])
     findings = [
         async_to_sync(get_finding)(finding.get('finding_id'))
-        for finding in findings
+        for finding in items
     ]
     findings_released = [
         finding
