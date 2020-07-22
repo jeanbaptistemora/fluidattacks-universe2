@@ -6,6 +6,7 @@ from datetime import datetime
 from urllib.parse import quote, unquote
 from typing import Dict, List, NamedTuple, cast
 import threading
+from asgiref.sync import async_to_sync
 import rollbar
 
 from backend import mailer
@@ -106,7 +107,7 @@ def create_file(files_data: List[Dict[str, str]], uploaded_file,
         validate_file_size(uploaded_file, file_size)
     except InvalidFileSize:
         rollbar.report_message('Error: File exceeds size limit', 'error')
-    files = project_dal.get_attributes(project_name, ['files'])
+    files = async_to_sync(project_dal.get_attributes)(project_name, ['files'])
     project_files = cast(List[Dict[str, str]], files.get('files'))
     if project_files:
         contains_repeated = [
@@ -162,7 +163,7 @@ def has_repeated_envs(project_name: str, envs: List[Dict[str, str]]) -> bool:
 
     existing_envs = cast(
         List[Dict[str, str]],
-        project_dal.get_attributes(
+        async_to_sync(project_dal.get_attributes)(
             project_name.lower(),
             ['environments']
         ).get('environments', [])
@@ -187,7 +188,7 @@ def has_repeated_repos(
 
     existing_repos = cast(
         List[Dict[str, str]],
-        project_dal.get_attributes(
+        async_to_sync(project_dal.get_attributes)(
             project_name.lower(),
             ['repositories']
         ).get('repositories', []))
@@ -345,7 +346,7 @@ def update_resource(
 
 def mask(project_name: str) -> NamedTuple:
     project_name = project_name.lower()
-    project = project_dal.get_attributes(
+    project = async_to_sync(project_dal.get_attributes)(
         project_name,
         ['environments', 'files', 'repositories']
     )

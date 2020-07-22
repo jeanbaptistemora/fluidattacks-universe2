@@ -35,9 +35,9 @@ async def generate_group_report(
         (await vuln_domain.get_open_vuln_by_type(
             str(finding['findingId']), context), finding)
         for finding in findings]
-    description = \
-        await sync_to_async(
-            project_domain.get_description)(str(project_name).lower())
+    description = await project_domain.get_description(
+        str(project_name).lower()
+    )
     findings_ord = util.ord_asc_by_criticality(findings)
 
     if report_type == 'PDF':

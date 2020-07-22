@@ -514,9 +514,9 @@ async def _get_deletion_date(
         project_name: str,
         **__: Any) -> str:
     """Get deletion_date."""
-    historic_deletion = await sync_to_async(
-        project_domain.get_historic_deletion
-    )(project_name)
+    historic_deletion = await project_domain.get_historic_deletion(
+        project_name
+    )
     deletion_date = (
         historic_deletion[-1].get('deletion_date', '')
         if historic_deletion else ''
@@ -532,9 +532,9 @@ async def _get_user_deletion(
         **__: Any) -> str:
     """Get user_deletion."""
     user_deletion = ''
-    historic_deletion = await sync_to_async(
-        project_domain.get_historic_deletion
-    )(project_name)
+    historic_deletion = await project_domain.get_historic_deletion(
+        project_name
+    )
     if historic_deletion and historic_deletion[-1].get('deletion_date'):
         user_deletion = historic_deletion[-1].get('user', '')
     return user_deletion

@@ -24,6 +24,7 @@ from backend.dal import (
 from backend.typing import (
     Comment as CommentType,
     Finding as FindingType,
+    Historic as HistoricType,
     Project as ProjectType,
     Vulnerability as VulnerabilityType
 )
@@ -143,7 +144,8 @@ def create_project(
         if not async_to_sync(org_domain.has_user_access)(user_email, org_id):
             raise UserNotInOrganization(org_id)
 
-        if is_group_avail and not project_dal.exists(project_name):
+        if (is_group_avail and
+                not async_to_sync(project_dal.exists)(project_name)):
             project: ProjectType = {
                 'project_name': project_name,
                 'description': description,
@@ -225,7 +227,7 @@ def edit(
 
     item = cast(
         Dict[str, List[dict]],
-        project_dal.get_attributes(
+        async_to_sync(project_dal.get_attributes)(
             project_name=group_name,
             attributes=[
                 'historic_configuration',
@@ -302,10 +304,10 @@ def get_pending_to_delete() -> List[Dict[str, ProjectType]]:
     return project_dal.get_pending_to_delete()
 
 
-def get_historic_deletion(project_name: str) -> Union[str, List[str]]:
-    historic_deletion = project_dal.get_attributes(
+async def get_historic_deletion(project_name: str) -> HistoricType:
+    historic_deletion = await project_dal.get_attributes(
         project_name.lower(), ['historic_deletion'])
-    return historic_deletion.get('historic_deletion', [])
+    return cast(HistoricType, historic_deletion.get('historic_deletion', []))
 
 
 def request_deletion(project_name: str, user_email: str) -> bool:
@@ -313,7 +315,7 @@ def request_deletion(project_name: str, user_email: str) -> bool:
     response = False
     if (user_domain.get_group_access(user_email, project) and
             project_name == project):
-        data = project_dal.get_attributes(
+        data = async_to_sync(project_dal.get_attributes)(
             project,
             ['project_status', 'historic_deletion']
         )
@@ -354,7 +356,7 @@ def reject_deletion(project_name: str, user_email: str) -> bool:
     response = False
     project = project_name.lower()
     if project_name == project:
-        data = project_dal.get_attributes(
+        data = async_to_sync(project_dal.get_attributes)(
             project,
             ['project_status', 'historic_deletion']
         )
@@ -412,7 +414,8 @@ def remove_project(project_name: str) -> NamedTuple:
         'are_findings_masked are_users_removed is_group_masked '
         'are_events_masked are_resources_removed'
     )
-    data = project_dal.get_attributes(project_name, ['project_status'])
+    data = async_to_sync(project_dal.get_attributes)(
+        project_name, ['project_status'])
     if data.get('project_status') == 'PENDING_DELETION':
         are_users_removed = remove_all_users_access(project_name)
         findings_and_drafts = (
@@ -472,7 +475,7 @@ def remove_user_access(group: str, email: str) -> bool:
 def _has_repeated_tags(project_name: str, tags: List[str]) -> bool:
     has_repeated_inputs = len(tags) != len(set(tags))
 
-    existing_tags = get_attributes(
+    existing_tags = async_to_sync(get_attributes)(
         project_name.lower(), ['tag']).get('tag', [])
     all_tags = list(existing_tags) + tags
     has_repeated_tags = len(all_tags) != len(set(all_tags))
@@ -496,8 +499,8 @@ def validate_tags(project_name: str, tags: List[str]) -> List[str]:
     return tags_validated
 
 
-def is_alive(project: str) -> bool:
-    return project_dal.is_alive(project)
+async def is_alive(project: str) -> bool:
+    return await project_dal.is_alive(project)
 
 
 async def total_vulnerabilities(finding_id: str) -> Dict[str, int]:
@@ -947,14 +950,14 @@ def list_events(project_name: str) -> List[str]:
     return project_dal.list_events(project_name)
 
 
-def get_attributes(
+async def get_attributes(
         project_name: str,
         attributes: List[str]) -> Dict[str, Union[str, List[str]]]:
-    return project_dal.get_attributes(project_name, attributes)
+    return await project_dal.get_attributes(project_name, attributes)
 
 
-def get_description(project_name: str) -> str:
-    return project_dal.get_description(project_name)
+async def get_description(project_name: str) -> str:
+    return await project_dal.get_description(project_name)
 
 
 def get_users(project_name: str, active: bool = True) -> List[str]:

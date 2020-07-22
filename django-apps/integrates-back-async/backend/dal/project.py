@@ -240,9 +240,9 @@ def list_internal_managers(project_name: str) -> List[str]:
     return internal_managers
 
 
-def get_description(project: str) -> str:
+async def get_description(project: str) -> str:
     """ Get the description of a project. """
-    description = get_attributes(project, ['description'])
+    description = await get_attributes(project, ['description'])
     project_description = ''
     if description:
         project_description = str(description.get('description', ''))
@@ -288,11 +288,13 @@ def get_users(project: str, active: bool = True) -> List[str]:
     return users_filtered
 
 
-def exists(project_name: str, pre_computed_project_data: dict = None) -> bool:
+async def exists(
+        project_name: str,
+        pre_computed_project_data: dict = None) -> bool:
     project = project_name.lower()
     project_data = (
         pre_computed_project_data or
-        get_attributes(project, ['project_name'])
+        await get_attributes(project, ['project_name'])
     )
 
     return bool(project_data)
@@ -310,16 +312,30 @@ def list_project_managers(group: str) -> List[str]:
     return managers
 
 
-def get_attributes(
-        project_name: str, attributes: List[str] = None) -> \
-        Dict[str, Union[str, List[str]]]:
-    item_attrs: Dict[str, Union[List[str], Dict[str, str]]] = {
-        'Key': {'project_name': project_name},
+async def get_attributes(
+    project_name: str,
+    attributes: List[str] = None,
+    table: aioboto3.session.Session.client = None
+) -> Dict[str, Union[str, List[str]]]:
+    response = {}
+    query_attrs = {
+        'KeyConditionExpression': Key('project_name').eq(project_name),
+        'Limit': 1
     }
     if attributes:
-        item_attrs['AttributesToGet'] = attributes
-    response = TABLE.get_item(**item_attrs)
-    return response.get('Item', {})
+        projection = ','.join(attributes)
+        query_attrs.update({'ProjectionExpression': projection})
+
+    if not table:
+        response_items = await dynamodb.async_query(TABLE_NAME, query_attrs)
+    else:
+        response_item = await table.query(**query_attrs)
+        response_items = response_item.get('Items', [])
+
+    if response_items:
+        response = response_items[0]
+
+    return response
 
 
 def get_filtered_list(
@@ -340,14 +356,16 @@ def get_filtered_list(
     return projects
 
 
-def is_alive(project: str, pre_computed_project_data: dict = None) -> bool:
+async def is_alive(
+        project: str,
+        pre_computed_project_data: dict = None) -> bool:
     """Validate if a project exist and is not deleted."""
     project_name = project.lower()
     is_valid_project = True
-    if exists(project_name, pre_computed_project_data):
+    if await exists(project_name, pre_computed_project_data):
         project_data = (
             pre_computed_project_data or
-            get_attributes(
+            await get_attributes(
                 project_name.lower(),
                 ['deletion_date', 'project_status']
             )
@@ -361,21 +379,25 @@ def is_alive(project: str, pre_computed_project_data: dict = None) -> bool:
     return is_valid_project
 
 
-def can_user_access_pending_deletion(
-        project: str, role: str, should_access_pending: bool = True) -> bool:
-    project_data = get_attributes(
+async def can_user_access_pending_deletion(
+        project: str,
+        role: str,
+        should_access_pending: bool = True,
+        table: aioboto3.session.Session.client = None) -> bool:
+    project_data = await get_attributes(
         project.lower(),
         [
             'deletion_date',
             'historic_deletion',
             'project_name',
             'project_status',
-        ]
+        ],
+        table
     )
 
     allow_roles = ['admin', 'customeradmin']
     is_user_allowed = False
-    if not is_alive(project, project_data):
+    if not await is_alive(project, project_data):
         if project_data.get('project_status') == 'PENDING_DELETION':
             is_user_allowed = role in allow_roles and should_access_pending
     else:

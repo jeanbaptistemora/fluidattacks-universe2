@@ -16,7 +16,7 @@ from analytics.colors import (
 
 
 async def generate_one(group: str):
-    item = group_domain.get_attributes(group, [
+    item = await group_domain.get_attributes(group, [
         'open_vulnerabilities',
         'closed_vulnerabilities',
     ])

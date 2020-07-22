@@ -16,7 +16,7 @@ from analytics.colors import (
 
 
 async def generate_one(group: str):
-    item = group_domain.get_attributes(group, ['total_treatment'])
+    item = await group_domain.get_attributes(group, ['total_treatment'])
 
     treatment = item.get('total_treatment', {})
 

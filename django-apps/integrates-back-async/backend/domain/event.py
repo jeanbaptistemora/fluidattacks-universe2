@@ -17,7 +17,8 @@ from backend.dal import (
 )
 from backend.domain import (
     comment as comment_domain,
-    organization as org_domain
+    organization as org_domain,
+    project as project_domain
 )
 from backend.exceptions import (
     EventAlreadyClosed,
@@ -29,6 +30,7 @@ from backend.exceptions import (
 )
 from backend.typing import (
     Event as EventType,
+    Historic as HistoryType,
     User as UserType
 )
 from backend.utils import (
@@ -202,8 +204,12 @@ async def create_event(
     tzn = pytz.timezone(settings.TIME_ZONE)  # type: ignore
     today = datetime.now(tz=tzn).today()
 
-    project = project_dal.get_attributes(project_name, ['type'])
-    subscription = str(project.get('type'))
+    project_info = await project_domain.get_attributes(
+        project_name, ['historic_configuration']
+    )
+    subscription = cast(
+        HistoryType, project_info.get('historic_configuration', [{}])
+    )[-1].get('type', '')
 
     org_id = await org_domain.get_id_for_group(project_name)
 

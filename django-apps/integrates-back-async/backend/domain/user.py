@@ -3,8 +3,9 @@ from typing import Dict, List, Union, cast
 
 import pytz
 from asgiref.sync import async_to_sync
+import aioboto3
 from django.conf import settings
-
+from backend.dal.helpers import dynamodb
 from backend.dal import (
     project as project_dal,
     user as user_dal
@@ -51,13 +52,13 @@ async def get_projects(user_email: str, active: bool = True,
         authz.get_group_level_roles, user_email, projects,
     )
 
-    can_access_list = await aio.ensure_many_io_bound([
-        aio.PyCallable(
-            instance=project_dal.can_user_access_pending_deletion,
-            args=(project, role, access_pending_projects),
+    async with aioboto3.resource(**dynamodb.RESOURCE_OPTIONS) as resource:
+        dynamo_table = await resource.Table(project_dal.TABLE_NAME)
+        can_access_list = await aio.materialize(
+            project_dal.can_user_access_pending_deletion(
+                project, role, access_pending_projects, dynamo_table)
+            for role, project in zip(group_level_roles.values(), projects)
         )
-        for role, project in zip(group_level_roles.values(), projects)
-    ])
 
     return [
         project

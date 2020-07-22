@@ -68,9 +68,9 @@ class ProjectTest(TestCase):
         with pytest.raises(RepeatedValues):
             assert validate_tags('unittesting', ['test-projects'])
 
-    def test_is_alive(self):
-        assert is_alive('unittesting')
-        assert not is_alive('unexisting_project')
+    async def test_is_alive(self):
+        assert await is_alive('unittesting')
+        assert not await is_alive('unexisting_project')
 
     async def test_get_pending_closing_checks(self):
         test_data = await get_pending_closing_check('unittesting')
@@ -323,10 +323,10 @@ class ProjectTest(TestCase):
         expected_output = ['integratesuser@gmail.com', 'continuoushacking@gmail.com']
         assert expected_output == get_managers(project_name)
 
-    def test_get_description(self):
+    async def test_get_description(self):
         project_name = 'unittesting'
         expected_output = 'Integrates unit test project'
-        assert expected_output == get_description(project_name)
+        assert expected_output == await get_description(project_name)
 
     def test_get_users(self):
         project_name = 'unittesting'

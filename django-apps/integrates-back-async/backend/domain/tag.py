@@ -30,7 +30,7 @@ def is_tag_allowed(user_projects: List[Dict[str, Union[str, List[str]]]],
 async def filter_allowed_tags(organization: str, user_projects: List[str]) -> \
         List[str]:
     projects = await asyncio.gather(*[
-        sync_to_async(project_domain.get_attributes)(
+        project_domain.get_attributes(
             project, ['tag', 'project_name']
         )
         for project in user_projects

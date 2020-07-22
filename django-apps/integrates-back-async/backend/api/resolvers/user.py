@@ -11,7 +11,7 @@ import threading
 
 import rollbar
 from ariadne import convert_kwargs_to_snake_case, convert_camel_case_to_snake
-from asgiref.sync import sync_to_async
+from asgiref.sync import async_to_sync, sync_to_async
 
 from backend.api.resolvers import project as project_resolver
 from backend.decorators import (
@@ -64,7 +64,9 @@ def _give_user_access(
         user_domain.add_phone_to_user(email, phone_number)
 
     if group and user_domain.update_project_access(email, group, True):
-        description = project_domain.get_description(group.lower())
+        description = async_to_sync(project_domain.get_description)(
+            group.lower()
+        )
         project_url = f'{BASE_URL}/groups/{group.lower()}/indicators'
         mail_to = [email]
         context = {
