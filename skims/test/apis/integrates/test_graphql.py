@@ -1,13 +1,16 @@
 # Local libraries
 from apis.integrates.graphql import (
-    blocking_get_client,
+    client,
 )
 
+# Third party libraries
+import pytest
 
-def test_blocking_get_client() -> None:
-    client = blocking_get_client(
+
+@pytest.mark.asyncio  # type: ignore
+async def test_client() -> None:
+    async with client(
         api_token='fake',
-        endpoint_url='test'
-    )
-
-    assert client.endpoint == 'test'
+        endpoint_url='fake',
+    ) as graphql:
+        assert graphql.client.transport.url == 'fake'

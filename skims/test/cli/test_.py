@@ -30,6 +30,6 @@ def test_main() -> None:
     assert result.exit_code != 0
     assert "Path '#' does not exist." in result.stdout
 
-    result = _cli('--path', '.')
+    result = _cli('--path', 'test')
 
     assert result.exit_code == 0
