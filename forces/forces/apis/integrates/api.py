@@ -1,12 +1,17 @@
 # Standar Imports
-"""Fluid Forces integrates api module."""
-from typing import Any, Dict, List, Union
-
+from typing import (
+    Any,
+    Dict,
+    List,
+    Union)
 # 3dr Imports
-from gql import gql, Client
+from gql import gql
+
+# Local Library
+from forces.apis.integrates.client import session
 
 
-async def get_findings(client: Client, project: str) -> List[str]:
+async def get_findings(project: str) -> List[str]:
     """
     Returns the findings of a group.
 
@@ -22,17 +27,18 @@ async def get_findings(client: Client, project: str) -> List[str]:
           }
         }
         """)
-    params = {'project_name': project}
-    result: Dict[str, Dict[str, Any]] = await client.execute(
-        query, variable_values=params)
-    findings: List[str] = [
-        group['id'] for group in result['project']['findings']
-    ]
-    return findings
+    async with session() as client:
+        params = {'project_name': project}
+        result: Dict[str, Dict[str, Any]] = await client.execute(
+            query, variable_values=params)
+        findings: List[str] = [
+            group['id'] for group in result['project']['findings']
+        ]
+        return findings
 
 
 async def get_vulnerabilities(
-        client: Client, finding: str
+        finding: str, **kwargs: Dict[str, str]
 ) -> List[Dict[str, Union[str, List[Dict[str, Dict[str, Any]]]]]]:
     """
     Returns the vulnerabilities of a finding.
@@ -52,12 +58,14 @@ async def get_vulnerabilities(
           }
         }
         """)
-    params = {'finding_id': finding}
-    result = await client.execute(query, variable_values=params)
-    return result['finding']['vulnerabilities']  # type: ignore
+    async with session(**kwargs) as client:
+        params = {'finding_id': finding}
+        result = await client.execute(query, variable_values=params)
+        return result['finding']['vulnerabilities']  # type: ignore
 
 
-async def get_finding(client: Client, finding: str) -> Dict[str, str]:
+async def get_finding(finding: str,
+                      **kwargs: Dict[str, str]) -> Dict[str, str]:
     """
     Returns a finding.
 
@@ -72,6 +80,7 @@ async def get_finding(client: Client, finding: str) -> Dict[str, str]:
           }
         }
         """)
-    params = {'finding_id': finding}
-    result = await client.execute(query, variable_values=params)
-    return result['finding']  # type: ignore
+    async with session(**kwargs) as client:
+        params = {'finding_id': finding}
+        result = await client.execute(query, variable_values=params)
+        return result['finding']  # type: ignore

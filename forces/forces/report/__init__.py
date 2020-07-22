@@ -5,18 +5,17 @@ from typing import AsyncGenerator, Any, Dict, List, Union
 from timeit import default_timer as timer
 
 # 3d Impors
-from gql import AIOHTTPTransport, Client
 
 # Local imports
-from forces import get_api_token
-from forces import INTEGRATES_API_URL
 from forces import get_verbose_level
-from forces.apis.integrates import get_finding
-from forces.apis.integrates import get_findings
-from forces.apis.integrates import get_vulnerabilities
+from forces.apis.integrates.api import (
+    get_finding,
+    get_findings,
+    get_vulnerabilities,
+)
 
 
-async def vulns_generator(client: Client, project: str) -> AsyncGenerator[Dict[
+async def vulns_generator(project: str) -> AsyncGenerator[Dict[
         str, Union[str, List[Dict[str, Dict[str, Any]]]]], None]:
     """
     Returns a generator with all the vulnerabilities of a project.
@@ -24,14 +23,14 @@ async def vulns_generator(client: Client, project: str) -> AsyncGenerator[Dict[
     :param client: gql Client.
     :param finding: Finding identifier.
     """
-    findings = await get_findings(client, project)
-    vulns_tasks = [get_vulnerabilities(client, fin) for fin in findings]
+    findings = await get_findings(project)
+    vulns_tasks = [get_vulnerabilities(fin) for fin in findings]
     for vulnerabilities in asyncio.as_completed(vulns_tasks):
         for vuln in await vulnerabilities:
             yield vuln
 
 
-async def generate_report(client: Client, project: str) -> Dict[str, Any]:
+async def generate_report(project: str) -> Dict[str, Any]:
     """
     Generate a project vulnerability report.
 
@@ -44,8 +43,8 @@ async def generate_report(client: Client, project: str) -> Dict[str, Any]:
     findings_dict: Dict[str, Dict[str, Any]] = dict()
 
     finding_tasks = [
-        get_finding(client, fin)
-        for fin in await get_findings(client, project)
+        get_finding(fin)
+        for fin in await get_findings(project)
     ]
     for _find in asyncio.as_completed(finding_tasks):
         find: Dict[str, str] = await _find
@@ -59,7 +58,7 @@ async def generate_report(client: Client, project: str) -> Dict[str, Any]:
         if get_verbose_level() > 1:
             findings_dict[find['id']]['vulnerabilities'] = list()
 
-    async for vuln in vulns_generator(client, project):
+    async for vuln in vulns_generator(project):
         find_id: str = vuln['findingId']  # type: ignore
         state = vuln['currentState']
         if state == 'closed':
@@ -100,17 +99,8 @@ async def generate_report(client: Client, project: str) -> Dict[str, Any]:
 
 
 async def _proccess(project: str) -> Dict[str, Any]:
-    transport = AIOHTTPTransport(
-        url=INTEGRATES_API_URL,
-        headers={
-            'Authorization': f'Bearer {get_api_token()}'
-        })
-    async with Client(
-            transport=transport,
-            fetch_schema_from_transport=True,
-    ) as client:
-        report = await generate_report(client, project)
-        return report
+    report = await generate_report(project)
+    return report
 
 
 def process(project: str) -> Dict[str, Any]:
