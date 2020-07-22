@@ -3,7 +3,9 @@ import pytest
 
 # Local libraries
 from apis.integrates.api import (
+    get_group_findings,
     get_group_level_role,
+    ResultGetGroupFindings,
 )
 from apis.integrates.graphql import (
     session,
@@ -18,3 +20,8 @@ async def test_get_group_level_role(
 ) -> None:
     async with session(api_token=test_token):
         assert await get_group_level_role(group=test_group) == 'admin'
+
+        assert ResultGetGroupFindings(
+            identifier='974751758',
+            title='FIN.S.0034. Insecure random numbers generation',
+        ) in await get_group_findings(group=test_group)
