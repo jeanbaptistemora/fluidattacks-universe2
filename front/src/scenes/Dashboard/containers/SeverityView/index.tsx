@@ -22,7 +22,7 @@ import { Can } from "../../../../utils/authz/Can";
 import { authzPermissionsContext } from "../../../../utils/authz/config";
 import { calcCVSSv3 } from "../../../../utils/cvss";
 import { castFieldsCVSS3 } from "../../../../utils/formatHelpers";
-import { dropdownField } from "../../../../utils/forms/fields";
+import { Dropdown } from "../../../../utils/forms/fields";
 import { msgError, msgSuccess } from "../../../../utils/notifications";
 import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
@@ -170,7 +170,7 @@ const severityView: React.FC<SeverityViewProps> = (props: SeverityViewProps): JS
                                       </Col>
                                       <Col md={9}>
                                         <Field
-                                          component={dropdownField}
+                                          component={Dropdown}
                                           name="cvssVersion"
                                           validate={required}
                                         >
@@ -190,7 +190,7 @@ const severityView: React.FC<SeverityViewProps> = (props: SeverityViewProps): JS
                                     <Row className={style.row} key={index}>
                                       <EditableField
                                         alignField="horizontal"
-                                        component={dropdownField}
+                                        component={Dropdown}
                                         currentValue={
                                           `${field.currentValue} | ${translate.t(currentOption)}`}
                                         label={field.title}

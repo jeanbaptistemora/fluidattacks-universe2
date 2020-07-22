@@ -13,7 +13,7 @@ import { Field } from "redux-form";
 import { Button } from "../../../../components/Button/index";
 import { Modal } from "../../../../components/Modal/index";
 import { Can } from "../../../../utils/authz/Can";
-import { dropdownField, PhoneNumber, Text } from "../../../../utils/forms/fields";
+import { Dropdown, PhoneNumber, Text } from "../../../../utils/forms/fields";
 import { msgError } from "../../../../utils/notifications";
 import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
@@ -117,7 +117,7 @@ export const addUserModal: React.FC<IAddUserModalProps> = (props: IAddUserModalP
               </FormGroup>
               <FormGroup>
                 <ControlLabel>{requiredIndicator}{translate.t("userModal.role")}</ControlLabel>
-                <Field name="role" component={dropdownField} validate={[required]}>
+                <Field name="role" component={Dropdown} validate={[required]}>
                   <option value="" />
                   {(groupModal ? groupLevelRoles : []).map((role: string) => (
                     <Can do={`grant_group_level_role:${role}`} key={role}>

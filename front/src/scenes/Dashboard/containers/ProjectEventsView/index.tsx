@@ -25,7 +25,7 @@ import { default as globalStyle } from "../../../../styles/global.css";
 import { Can } from "../../../../utils/authz/Can";
 import { castEventType, formatEvents } from "../../../../utils/formatHelpers";
 import {
-  checkboxField, dateTimeField, dropdownField, fileInputField, Text, textAreaField,
+  checkboxField, dateTimeField, Dropdown, fileInputField, Text, textAreaField,
 } from "../../../../utils/forms/fields";
 import { msgError, msgSuccess } from "../../../../utils/notifications";
 import rollbar from "../../../../utils/rollbar";
@@ -298,7 +298,7 @@ const projectEventsView: React.FunctionComponent<EventsViewProps> = (props: Even
                                 <Col md={7}>
                                   <FormGroup>
                                     <ControlLabel>{translate.t("group.events.form.type.title")}</ControlLabel>
-                                    <Field component={dropdownField} name="eventType" validate={required}>
+                                    <Field component={Dropdown} name="eventType" validate={required}>
                                       <option value="" selected={true} />
                                       <option value="AUTHORIZATION_SPECIAL_ATTACK">
                                         {translate.t("group.events.form.type.special_attack")}
@@ -329,7 +329,7 @@ const projectEventsView: React.FunctionComponent<EventsViewProps> = (props: Even
                                 <Col md={6}>
                                   <FormGroup>
                                     <ControlLabel>{translate.t("group.events.form.context.title")}</ControlLabel>
-                                    <Field component={dropdownField} name="context" validate={required}>
+                                    <Field component={Dropdown} name="context" validate={required}>
                                       <option value="" selected={true} />
                                       <option value="CLIENT">
                                         {translate.t("group.events.form.context.client")}
@@ -474,7 +474,7 @@ const projectEventsView: React.FunctionComponent<EventsViewProps> = (props: Even
                                     <ControlLabel>
                                       {translate.t("group.events.form.action_before.title")}
                                     </ControlLabel>
-                                    <Field component={dropdownField} name="actionBeforeBlocking" validate={required}>
+                                    <Field component={Dropdown} name="actionBeforeBlocking" validate={required}>
                                       <option value="" selected={true} />
                                       <option value="DOCUMENT_PROJECT">
                                         {translate.t("group.events.form.action_before.document")}
@@ -494,7 +494,7 @@ const projectEventsView: React.FunctionComponent<EventsViewProps> = (props: Even
                                 <Col md={7}>
                                   <FormGroup>
                                     <ControlLabel>{translate.t("group.events.form.action_after.title")}</ControlLabel>
-                                    <Field component={dropdownField} name="actionAfterBlocking" validate={required}>
+                                    <Field component={Dropdown} name="actionAfterBlocking" validate={required}>
                                       <option value="" selected={true} />
                                       <option value="EXECUTE_OTHER_PROJECT_SAME_CLIENT">
                                         {translate.t("group.events.form.action_after.other_same")}

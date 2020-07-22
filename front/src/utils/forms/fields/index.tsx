@@ -103,25 +103,6 @@ export const tagInputField: React.FC<tagFieldProps> =
     );
   };
 
-export const dropdownField: React.FC<CustomFieldProps> = (fieldProps: CustomFieldProps): JSX.Element => {
-  const handleDropdownChange: React.FormEventHandler<FormControl> = (event: React.FormEvent<FormControl>): void => {
-    fieldProps.input.onChange((event.target as HTMLInputElement).value);
-  };
-
-  return (
-    <div>
-      <FormControl
-        className={style.formControl}
-        componentClass="select"
-        children={fieldProps.children}
-        defaultValue={fieldProps.meta.initial}
-        onChange={handleDropdownChange}
-      />
-      {fieldProps.meta.touched && fieldProps.meta.error ? renderError(fieldProps.meta.error as string) : undefined}
-    </div>
-  );
-};
-
 export const fileInputField: React.FC<CustomFieldProps> = (fieldProps: CustomFieldProps): JSX.Element => {
   const handleFileChange: React.FormEventHandler<FormControl> = (event: React.FormEvent<FormControl>): void => {
     const files: FileList | null = (event.target as HTMLInputElement).files;
@@ -234,3 +215,4 @@ export const switchButton: React.FC<ISwitchButtonProps> = (props: ISwitchButtonP
 export { AutoCompleteText } from "./AutoCompleteText";
 export { Text } from "./Text";
 export { PhoneNumber } from "./PhoneNumber";
+export { Dropdown } from "./Dropdown";

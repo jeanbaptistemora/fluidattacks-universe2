@@ -10,7 +10,7 @@ import { ConfigurableValidator } from "revalidate";
 import { Button } from "../../../../components/Button/index";
 import { Modal } from "../../../../components/Modal/index";
 import { TooltipWrapper } from "../../../../components/TooltipWrapper";
-import { dropdownField, Text } from "../../../../utils/forms/fields";
+import { Dropdown, Text } from "../../../../utils/forms/fields";
 import translate from "../../../../utils/translations/translate";
 import { maxLength, required, validField } from "../../../../utils/validations";
 import { GenericForm } from "../GenericForm";
@@ -48,7 +48,7 @@ const renderReposFields: React.FC<WrappedFieldArrayProps> = (props: WrappedField
                     {translate.t("search_findings.tab_resources.protocol.label")}
                   </label>
                 </TooltipWrapper>
-                <Field name={`${fieldName}.protocol`} component={dropdownField} validate={[required]} >
+                <Field name={`${fieldName}.protocol`} component={Dropdown} validate={[required]} >
                   <option value="" selected={true} />
                   <option value="HTTPS">{translate.t("search_findings.tab_resources.https")}</option>
                   <option value="SSH">{translate.t("search_findings.tab_resources.ssh")}</option>

@@ -24,7 +24,7 @@ import { authzPermissionsContext } from "../../../../utils/authz/config";
 import {
   formatCompromisedRecords, formatCweUrl, formatFindingType, getLastTreatment,
 } from "../../../../utils/formatHelpers";
-import { dropdownField, Text, textAreaField } from "../../../../utils/forms/fields";
+import { Dropdown, Text, textAreaField } from "../../../../utils/forms/fields";
 import { msgError, msgSuccess } from "../../../../utils/notifications";
 import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
@@ -226,7 +226,7 @@ const descriptionView: React.FC = (): JSX.Element => {
                 <Can do="backend_api_resolvers_finding__do_update_description" passThrough={true}>
                   {(canEdit: boolean): JSX.Element => (
                     <EditableField
-                      component={dropdownField}
+                      component={Dropdown}
                       currentValue={formatFindingType(dataset.type)}
                       label={translate.t("search_findings.tab_description.type.title")}
                       name="type"

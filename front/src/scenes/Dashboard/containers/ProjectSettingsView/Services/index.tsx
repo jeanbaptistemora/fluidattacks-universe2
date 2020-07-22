@@ -17,7 +17,7 @@ import { Button } from "../../../../../components/Button/index";
 import { DataTableNext } from "../../../../../components/DataTableNext";
 import { IHeaderConfig } from "../../../../../components/DataTableNext/types";
 import { Modal } from "../../../../../components/Modal/index";
-import { dropdownField, switchButton, Text, textAreaField } from "../../../../../utils/forms/fields";
+import { Dropdown, switchButton, Text, textAreaField } from "../../../../../utils/forms/fields";
 import { msgError, msgSuccess } from "../../../../../utils/notifications";
 import rollbar from "../../../../../utils/rollbar";
 import translate from "../../../../../utils/translations/translate";
@@ -212,7 +212,7 @@ const services: React.FC<IServicesProps> = (props: IServicesProps): JSX.Element 
       ),
       status: (
         <Field
-          component={dropdownField}
+          component={Dropdown}
           name="type"
           onChange={handleSubscriptionTypeChange}
         >
@@ -344,7 +344,7 @@ const services: React.FC<IServicesProps> = (props: IServicesProps): JSX.Element 
                     <ControlLabel>{translate.t("search_findings.services_table.modal.downgrading")}</ControlLabel>
                     <Field
                       name="reason"
-                      component={dropdownField}
+                      component={Dropdown}
                       type="text"
                     >
                       {downgradeReasons.map((reason: string) => (

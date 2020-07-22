@@ -19,7 +19,7 @@ import { Modal } from "../../../../components/Modal";
 import store from "../../../../store";
 import { authzPermissionsContext } from "../../../../utils/authz/config";
 import { formatDropdownField } from "../../../../utils/formatHelpers";
-import { dropdownField, tagInputField, Text } from "../../../../utils/forms/fields";
+import { Dropdown, tagInputField, Text } from "../../../../utils/forms/fields";
 import { msgError, msgSuccess } from "../../../../utils/notifications";
 import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
@@ -242,7 +242,7 @@ const updateTreatmentModal: ((props: IUpdateTreatmentModal) => JSX.Element) = (
                               <b>{translate.t("search_findings.tab_description.treatment_mgr")}</b>
                             </ControlLabel>
                             <Field
-                              component={dropdownField}
+                              component={Dropdown}
                               name="treatmentManager"
                               type="text"
                               validate={lastTreatment.treatment === "IN PROGRESS" ? required : undefined}

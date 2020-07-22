@@ -20,7 +20,7 @@ import { Button } from "../../../../components/Button";
 import { Modal } from "../../../../components/Modal";
 import { Can } from "../../../../utils/authz/Can";
 import { authzPermissionsContext } from "../../../../utils/authz/config";
-import { dropdownField } from "../../../../utils/forms/fields";
+import { Dropdown } from "../../../../utils/forms/fields";
 import { msgError, msgSuccess } from "../../../../utils/notifications";
 import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
@@ -331,7 +331,7 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
         <GenericForm name="deleteFinding" onSubmit={handleDelete}>
           <FormGroup>
             <ControlLabel>{translate.t("search_findings.delete.justif.label")}</ControlLabel>
-            <Field name="justification" component={dropdownField} validate={[required]}>
+            <Field name="justification" component={Dropdown} validate={[required]}>
               <option value="" />
               <option value="DUPLICATED">{translate.t("search_findings.delete.justif.duplicated")}</option>
               <option value="FALSE_POSITIVE">{translate.t("search_findings.delete.justif.false_positive")}</option>

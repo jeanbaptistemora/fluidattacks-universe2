@@ -18,7 +18,7 @@ import { Button } from "../../../../components/Button";
 import { Modal } from "../../../../components/Modal/index";
 import { TooltipWrapper } from "../../../../components/TooltipWrapper";
 import { authzPermissionsContext } from "../../../../utils/authz/config";
-import { dropdownField, Text } from "../../../../utils/forms/fields";
+import { Dropdown, Text } from "../../../../utils/forms/fields";
 import { msgError, msgSuccess } from "../../../../utils/notifications";
 import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
@@ -238,7 +238,7 @@ const addProjectModal: ((props: IAddProjectModal) => JSX.Element) = (props: IAdd
                                 >
                                   <FormGroup>
                                     <Field
-                                      component={dropdownField}
+                                      component={Dropdown}
                                       name="type"
                                       onChange={handleSubscriptionTypeChange}
                                     >

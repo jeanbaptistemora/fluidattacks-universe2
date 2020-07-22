@@ -6,18 +6,13 @@ import { GenericForm } from "../../scenes/Dashboard/components/GenericForm";
 import store from "../../store";
 import { required } from "../validations";
 import {
-  dateField, dropdownField, fileInputField, tagInputField, textAreaField,
+  dateField, fileInputField, tagInputField, textAreaField,
 } from "./fields";
 
 describe("Form fields", () => {
 
   it("should return a dateField function", () => {
     expect(typeof (dateField))
-      .toEqual("function");
-  });
-
-  it("should return a dropdownField function", () => {
-    expect(typeof (dropdownField))
       .toEqual("function");
   });
 
@@ -34,22 +29,6 @@ describe("Form fields", () => {
   it("should return a tagInputField function", () => {
     expect(typeof (tagInputField))
       .toEqual("function");
-  });
-
-  it("should render dropdownField component", () => {
-    const wrapper: ShallowWrapper = shallow(
-      <Field
-        name="dropdownTest"
-        component={dropdownField}
-        type="text"
-        validate={[required]}
-      >
-        <option value="" />
-        <option value="test">Test</option>
-      </Field>,
-    );
-    expect(wrapper.find("dropdownTest"))
-      .toBeTruthy();
   });
 
   it("should render fileInputField component", () => {

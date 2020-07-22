@@ -19,7 +19,7 @@ import { IHeaderConfig } from "../../../../../components/DataTableNext/types";
 import { FluidIcon } from "../../../../../components/FluidIcon";
 import { Can } from "../../../../../utils/authz/Can";
 import { formatDropdownField, getLastTreatment, getPreviousTreatment } from "../../../../../utils/formatHelpers";
-import { dateField, dropdownField, Text, textAreaField } from "../../../../../utils/forms/fields";
+import { dateField, Dropdown, Text, textAreaField } from "../../../../../utils/forms/fields";
 import { msgError, msgSuccess } from "../../../../../utils/notifications";
 import rollbar from "../../../../../utils/rollbar";
 import translate from "../../../../../utils/translations/translate";
@@ -247,7 +247,7 @@ const treatmentView: React.FC<ITreatmentViewProps> = (props: ITreatmentViewProps
                   <Can do="backend_api_resolvers_finding__do_update_client_description" passThrough={true}>
                     {(canEdit: boolean): JSX.Element => (
                       <EditableField
-                        component={dropdownField}
+                        component={Dropdown}
                         currentValue={treatmentLabel}
                         label={translate.t("search_findings.tab_description.treatment.title")}
                         name="treatment"
