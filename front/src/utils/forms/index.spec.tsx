@@ -5,14 +5,9 @@ import { Field } from "redux-form";
 import { GenericForm } from "../../scenes/Dashboard/components/GenericForm";
 import store from "../../store";
 import { required } from "../validations";
-import { dateField, fileInputField, tagInputField } from "./fields";
+import { fileInputField, tagInputField } from "./fields";
 
 describe("Form fields", () => {
-
-  it("should return a dateField function", () => {
-    expect(typeof (dateField))
-      .toEqual("function");
-  });
 
   it("should return a fileInputField function", () => {
     expect(typeof (fileInputField))
@@ -33,25 +28,6 @@ describe("Form fields", () => {
       />,
     );
     expect(wrapper.find("fileInputTest"))
-      .toBeTruthy();
-  });
-
-  it("should render dateField component", () => {
-    const wrapper: ReactWrapper = mount(
-      <Provider store={store}>
-        <GenericForm
-          name=""
-          onSubmit={jest.fn()}
-        >
-          <Field
-            name="dateTest"
-            component={dateField}
-            validate={[required]}
-          />
-        </GenericForm>
-      </Provider>,
-    );
-    expect(wrapper.find("dateTest"))
       .toBeTruthy();
   });
 

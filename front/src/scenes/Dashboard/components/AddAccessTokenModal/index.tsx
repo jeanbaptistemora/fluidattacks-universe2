@@ -14,7 +14,7 @@ import { Button } from "../../../../components/Button/index";
 import { Modal } from "../../../../components/Modal/index";
 import store from "../../../../store/index";
 import { default as globalStyle } from "../../../../styles/global.css";
-import { dateField, TextArea } from "../../../../utils/forms/fields";
+import { Date as DateField, TextArea } from "../../../../utils/forms/fields";
 import { msgError, msgSuccess } from "../../../../utils/notifications";
 import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
@@ -134,7 +134,7 @@ const renderAccessTokenForm: ((props: IAddAccessTokenModalProps) => JSX.Element)
                             </ControlLabel>
                             <br />
                             <Field
-                              component={dateField}
+                              component={DateField}
                               name="expirationTime"
                               type="date"
                               validate={[isLowerDate, isValidDateAccessToken, required]}

@@ -1,6 +1,6 @@
 /* eslint-disable react/forbid-component-props
   -------
-  We need it to override default styles from react-bootstrap
+  We need it to override default styles from react-bootstrap.
 */
 import React from "react";
 import _ from "lodash";

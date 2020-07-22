@@ -23,10 +23,6 @@ const renderError: ((arg1: string) => JSX.Element) = (msg: string): JSX.Element 
   <HelpBlock id="validationError" className={style.validationError}>{msg}</HelpBlock>
 );
 
-const renderCharacterCount: ((text: string) => JSX.Element) = (text: string): JSX.Element => (
-  <Badge pullRight={true} className={style.badge}>{text.length}</Badge>
-);
-
 type tagFieldProps = CustomFieldProps & { onDeletion(tag: string): void };
 export const tagInputField: React.FC<tagFieldProps> =
   (fieldProps: tagFieldProps): JSX.Element => {
@@ -135,23 +131,6 @@ export const fileInputField: React.FC<CustomFieldProps> = (fieldProps: CustomFie
   );
 };
 
-export const dateField: React.FC<CustomFieldProps> =
-  (fieldProps: CustomFieldProps): JSX.Element => (
-    <div>
-      <FormControl
-        className={style.formControl}
-        id={fieldProps.id}
-        type={"date"}
-        selected={fieldProps.input.value}
-        onChange={fieldProps.input.onChange}
-        onBlur={fieldProps.input.onBlur}
-        disabled={fieldProps.disabled}
-        value={fieldProps.input.value.split(" ")[0]}
-      />
-      {fieldProps.meta.touched && fieldProps.meta.error ? renderError(fieldProps.meta.error as string) : undefined}
-    </div>
-  );
-
 export const dateTimeField: React.FC<CustomFieldProps> = (fieldProps: CustomFieldProps): JSX.Element => (
   <React.Fragment>
     <Datetime inputProps={{ className: style.formControl }} utc={false} {...fieldProps.input} />
@@ -202,3 +181,4 @@ export { Text } from "./Text";
 export { PhoneNumber } from "./PhoneNumber";
 export { Dropdown } from "./Dropdown";
 export { TextArea } from "./TextArea";
+export { Date } from "./Date";

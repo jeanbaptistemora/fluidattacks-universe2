@@ -29,7 +29,7 @@ export const TextArea: React.FC<ITextAreaProps> = (
   const { value } = input;
 
   return (
-    <div>
+    <React.Fragment>
       <FormControl
         componentClass={"textarea"}
         {...props}
@@ -49,6 +49,6 @@ export const TextArea: React.FC<ITextAreaProps> = (
           {error as string}
         </HelpBlock>
       )}
-    </div>
+    </React.Fragment>
   );
 };
