@@ -28,9 +28,5 @@ def set_level(level: int = logging.INFO) -> None:
     _LOGGER_HANDLER.setLevel(level)
 
 
-def log_blocking(level: str, msg: str, *args: Any) -> None:
-    getattr(_LOGGER, level)(msg, *args)
-
-
 async def log(level: str, msg: str, *args: Any) -> None:
     await unblock(getattr(_LOGGER, level), msg, *args)

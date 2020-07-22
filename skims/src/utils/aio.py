@@ -4,7 +4,6 @@ import collections.abc
 import functools
 from typing import (
     Any,
-    cast,
     Callable,
     Tuple,
     TypeVar,
@@ -71,13 +70,3 @@ async def unblock_many(
     )
 
     return results
-
-
-async def unblock_decorator(function: TVar) -> TVar:
-    _function: Callable[..., TVar] = cast(Callable[..., TVar], function)
-
-    @functools.wraps(_function)
-    async def _wrapper(*args: Any, **kwargs: Any) -> TVar:
-        return await unblock(_function, *args, **kwargs)
-
-    return cast(TVar, _wrapper)
