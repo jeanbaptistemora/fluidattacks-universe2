@@ -11,11 +11,6 @@ import { default as Datetime } from "react-datetime";
  * to display properly even if some of them are overridden later
  */
 import "react-datetime/css/react-datetime.css";
-import PhoneInput, { PhoneInputProps } from "react-phone-input-2";
-/* tslint:disable-next-line:no-import-side-effect no-submodule-imports
- * Necessary to import react-phone-input-2 default styles
- */
-import "react-phone-input-2/lib/bootstrap.css";
 import { Tag, WithContext as ReactTags } from "react-tag-input";
 import { WrappedFieldProps } from "redux-form";
 import { validTextField } from "../../../utils/validations";
@@ -107,22 +102,6 @@ export const tagInputField: React.FC<tagFieldProps> =
       </div>
     );
   };
-
-export const phoneNumberField: React.FC<CustomFieldProps> = (fieldProps: CustomFieldProps): JSX.Element => {
-  const handlePhoneChange: PhoneInputProps["onChange"] = (value: string): void => {
-    fieldProps.input.onChange(`+${value}`);
-  };
-
-  return (
-    <PhoneInput
-      country="co"
-      masks={{ co: "(...) ... ...." }}
-      inputClass={style.formControl}
-      onChange={handlePhoneChange}
-      value={fieldProps.input.value}
-    />
-  );
-};
 
 export const dropdownField: React.FC<CustomFieldProps> = (fieldProps: CustomFieldProps): JSX.Element => {
   const handleDropdownChange: React.FormEventHandler<FormControl> = (event: React.FormEvent<FormControl>): void => {
@@ -254,3 +233,4 @@ export const switchButton: React.FC<ISwitchButtonProps> = (props: ISwitchButtonP
 
 export { AutoCompleteText } from "./AutoCompleteText";
 export { Text } from "./Text";
+export { PhoneNumber } from "./PhoneNumber";

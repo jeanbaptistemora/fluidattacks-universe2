@@ -13,7 +13,7 @@ import { Field } from "redux-form";
 import { Button } from "../../../../components/Button/index";
 import { Modal } from "../../../../components/Modal/index";
 import { Can } from "../../../../utils/authz/Can";
-import { dropdownField, phoneNumberField, Text } from "../../../../utils/forms/fields";
+import { dropdownField, PhoneNumber, Text } from "../../../../utils/forms/fields";
 import { msgError } from "../../../../utils/notifications";
 import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
@@ -157,7 +157,7 @@ export const addUserModal: React.FC<IAddUserModalProps> = (props: IAddUserModalP
               ) : undefined}
               <FormGroup>
                 <ControlLabel>{translate.t("userModal.phoneNumber")}</ControlLabel>
-                <Field name="phoneNumber" component={phoneNumberField} type="text" />
+                <Field name="phoneNumber" component={PhoneNumber} type="text" />
               </FormGroup>
             </Col>
             <Col md={12} sm={12}>
