@@ -1,6 +1,7 @@
 # Local libraries
 from apis.integrates.graphql import (
-    client,
+    session,
+    SESSION,
 )
 
 # Third party libraries
@@ -8,9 +9,9 @@ import pytest
 
 
 @pytest.mark.asyncio  # type: ignore
-async def test_client() -> None:
-    async with client(
+async def test_session() -> None:
+    async with session(
         api_token='fake',
         endpoint_url='fake',
-    ) as graphql:
-        assert graphql.client.transport.url == 'fake'
+    ):
+        assert SESSION.get().transport.url == 'fake'

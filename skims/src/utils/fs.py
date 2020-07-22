@@ -13,23 +13,23 @@ from utils.aio import (
 )
 
 
-def recurse_blocking(path: str) -> Tuple[str, ...]:
-    if os.path.isfile(path):
-        return (path,)
-
-    tree: Tuple[str, ...] = tuple(
-        os.path.relpath(file)
-        for entry in os.scandir(path)
-        for file in (
-            recurse_blocking(entry.path) if entry.is_dir() else [entry.path]
-        )
-    )
-
-    return tree
-
-
 async def recurse(path: str) -> Tuple[str, ...]:
-    results: Tuple[str, ...] = await unblock(recurse_blocking, path)
+
+    def _recurse(_path: str) -> Tuple[str, ...]:
+        if os.path.isfile(_path):
+            return (_path,)
+
+        tree: Tuple[str, ...] = tuple(
+            os.path.relpath(file)
+            for entry in os.scandir(_path)
+            for file in (
+                _recurse(entry.path) if entry.is_dir() else [entry.path]
+            )
+        )
+
+        return tree
+
+    results: Tuple[str, ...] = await unblock(_recurse, path)
 
     return results
 

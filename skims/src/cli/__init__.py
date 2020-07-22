@@ -10,6 +10,9 @@ from typing import (
 import click
 
 # Local libraries
+from apis.integrates.graphql import (
+    session,
+)
 from core import (
     skim_paths,
 )
@@ -18,7 +21,7 @@ from core.model import (
 )
 from utils.logs import (
     log,
-    set_level_blocking,
+    set_level,
 )
 from utils.aio import (
     materialize,
@@ -35,7 +38,7 @@ def dispatch(
     debug: bool,
 ) -> None:
     if debug:
-        set_level_blocking(logging.DEBUG)
+        set_level(logging.DEBUG)
 
 
 @dispatch.command(
@@ -108,6 +111,11 @@ async def run(*, paths: Tuple[str, ...]) -> bool:
 
 async def sync(*, group: str, token: str) -> bool:
     await log('debug', 'sync(group=%s,token=%s)', group, token)
+
+    async with session(
+        api_token=token,
+    ):
+        pass
 
     return True
 

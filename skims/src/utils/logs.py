@@ -23,7 +23,7 @@ _LOGGER.setLevel(logging.INFO)
 _LOGGER.addHandler(_LOGGER_HANDLER)
 
 
-def set_level_blocking(level: int = logging.INFO) -> None:
+def set_level(level: int = logging.INFO) -> None:
     _LOGGER.setLevel(level)
     _LOGGER_HANDLER.setLevel(level)
 
