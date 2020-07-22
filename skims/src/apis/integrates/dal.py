@@ -13,6 +13,9 @@ from apis.integrates.graphql import (
 from utils.function import (
     retry,
 )
+from utils.string import (
+    to_in_memory_file,
+)
 
 
 async def _execute(*, query: str, variables: Dict[str, Any]) -> Dict[str, Any]:
@@ -86,3 +89,34 @@ async def get_group_findings(
         )
         for finding in result['data']['project']['findings']
     )
+
+
+@retry()
+async def do_upload_vulnerabilities(
+    *,
+    finding_id: str,
+    stream: str,
+) -> bool:
+    result = await _execute(
+        query="""
+            mutation UploadFile(
+                $file_handle: Upload!
+                $finding_id: String!
+            ) {
+                uploadFile(
+                    findingId: $finding_id
+                    file: $file_handle
+                ) {
+                    success
+                }
+            }
+        """,
+        variables=dict(
+            file_handle=await to_in_memory_file(stream),
+            finding_id=finding_id,
+        )
+    )
+
+    success: bool = result['data']['uploadFile']['success']
+
+    return success
