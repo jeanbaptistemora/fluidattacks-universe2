@@ -1220,8 +1220,7 @@ def exec_module(module: List[str], args: List[str]):
     except AttributeError:
         print(f'Function {check} not found on {package}')
         exit_asserts('config-error')
-    args_list = args.split('#')
-    args_list = ','.join(args_list)
+    args_list = args.replace('#', "', '")
     template = textwrap.dedent(f"""\
         from {package} import {check}
 
