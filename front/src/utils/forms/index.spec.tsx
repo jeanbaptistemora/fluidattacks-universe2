@@ -5,9 +5,7 @@ import { Field } from "redux-form";
 import { GenericForm } from "../../scenes/Dashboard/components/GenericForm";
 import store from "../../store";
 import { required } from "../validations";
-import {
-  dateField, fileInputField, tagInputField, textAreaField,
-} from "./fields";
+import { dateField, fileInputField, tagInputField } from "./fields";
 
 describe("Form fields", () => {
 
@@ -18,11 +16,6 @@ describe("Form fields", () => {
 
   it("should return a fileInputField function", () => {
     expect(typeof (fileInputField))
-      .toEqual("function");
-  });
-
-  it("should return a textAreaField function", () => {
-    expect(typeof (textAreaField))
       .toEqual("function");
   });
 
@@ -40,19 +33,6 @@ describe("Form fields", () => {
       />,
     );
     expect(wrapper.find("fileInputTest"))
-      .toBeTruthy();
-  });
-
-  it("should render textAreaField component", () => {
-    const wrapper: ShallowWrapper = shallow(
-      <Field
-        name="textAreaTest"
-        withCount={false}
-        component={textAreaField}
-        validate={[required]}
-      />,
-    );
-    expect(wrapper.find("textAreaTest"))
       .toBeTruthy();
   });
 

@@ -17,7 +17,7 @@ import { Button } from "../../../../../components/Button/index";
 import { DataTableNext } from "../../../../../components/DataTableNext";
 import { IHeaderConfig } from "../../../../../components/DataTableNext/types";
 import { Modal } from "../../../../../components/Modal/index";
-import { Dropdown, switchButton, Text, textAreaField } from "../../../../../utils/forms/fields";
+import { Dropdown, switchButton, Text, TextArea } from "../../../../../utils/forms/fields";
 import { msgError, msgSuccess } from "../../../../../utils/notifications";
 import rollbar from "../../../../../utils/rollbar";
 import translate from "../../../../../utils/translations/translate";
@@ -333,7 +333,7 @@ const services: React.FC<IServicesProps> = (props: IServicesProps): JSX.Element 
                   <ControlLabel>{translate.t("search_findings.services_table.modal.observations")}</ControlLabel>
                   <Field
                     name="comments"
-                    component={textAreaField}
+                    component={TextArea}
                     placeholder={translate.t("search_findings.services_table.modal.observations_placeholder")}
                     type="text"
                     validate={[validTextField, maxLength250]}

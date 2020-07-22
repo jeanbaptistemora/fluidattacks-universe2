@@ -10,7 +10,7 @@ import { ConfigurableValidator } from "revalidate";
 import { Button } from "../../../../components/Button/index";
 import { Modal } from "../../../../components/Modal/index";
 import { default as globalStyle } from "../../../../styles/global.css";
-import { textAreaField } from "../../../../utils/forms/fields";
+import { TextArea } from "../../../../utils/forms/fields";
 import translate from "../../../../utils/translations/translate";
 import { minLength, required } from "../../../../utils/validations";
 import { GenericForm } from "../GenericForm";
@@ -50,7 +50,7 @@ const remediationModal: React.FC<IAddRemediationProps> = (props: IAddRemediation
                   name="treatmentJustification"
                   type="text"
                   className={globalStyle.noResize}
-                  component={textAreaField}
+                  component={TextArea}
                   validate={[required, minJustificationLength]}
                   withCount={true}
                   rows="6"

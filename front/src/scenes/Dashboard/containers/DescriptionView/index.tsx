@@ -24,7 +24,7 @@ import { authzPermissionsContext } from "../../../../utils/authz/config";
 import {
   formatCompromisedRecords, formatCweUrl, formatFindingType, getLastTreatment,
 } from "../../../../utils/formatHelpers";
-import { Dropdown, Text, textAreaField } from "../../../../utils/forms/fields";
+import { Dropdown, Text, TextArea } from "../../../../utils/forms/fields";
 import { msgError, msgSuccess } from "../../../../utils/notifications";
 import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
@@ -281,7 +281,7 @@ const descriptionView: React.FC = (): JSX.Element => {
                 <Can do="backend_api_resolvers_finding__do_update_description" passThrough={true}>
                   {(canEdit: boolean): JSX.Element => (
                     <EditableField
-                      component={textAreaField}
+                      component={TextArea}
                       currentValue={dataset.description}
                       label={translate.t("search_findings.tab_description.description.text")}
                       name="description"
@@ -300,7 +300,7 @@ const descriptionView: React.FC = (): JSX.Element => {
                 <Can do="backend_api_resolvers_finding__do_update_description" passThrough={true}>
                   {(canEdit: boolean): JSX.Element => (
                     <EditableField
-                      component={textAreaField}
+                      component={TextArea}
                       currentValue={dataset.requirements}
                       label={translate.t("search_findings.tab_description.requirements.text")}
                       name="requirements"
@@ -341,7 +341,7 @@ const descriptionView: React.FC = (): JSX.Element => {
                 <Can do="backend_api_resolvers_finding__do_update_description" passThrough={true}>
                   {(canEdit: boolean): JSX.Element => (
                     <EditableField
-                      component={textAreaField}
+                      component={TextArea}
                       currentValue={dataset.attackVectorDesc}
                       label={translate.t("search_findings.tab_description.attack_vectors.text")}
                       name="attackVectorDesc"
@@ -358,7 +358,7 @@ const descriptionView: React.FC = (): JSX.Element => {
                 <Can do="backend_api_resolvers_finding__do_update_description" passThrough={true}>
                   {(canEdit: boolean): JSX.Element => (
                     <EditableField
-                      component={textAreaField}
+                      component={TextArea}
                       currentValue={dataset.affectedSystems}
                       label={translate.t("search_findings.tab_description.affected_systems.text")}
                       name="affectedSystems"
@@ -377,7 +377,7 @@ const descriptionView: React.FC = (): JSX.Element => {
                 <Can do="backend_api_resolvers_finding__do_update_description" passThrough={true}>
                   {(canEdit: boolean): JSX.Element => (
                     <EditableField
-                      component={textAreaField}
+                      component={TextArea}
                       currentValue={dataset.threat}
                       label={translate.t("search_findings.tab_description.threat.text")}
                       name="threat"
@@ -394,7 +394,7 @@ const descriptionView: React.FC = (): JSX.Element => {
                 <Can do="backend_api_resolvers_finding__do_update_description" passThrough={true}>
                   {(canEdit: boolean): JSX.Element => (
                     <EditableField
-                      component={textAreaField}
+                      component={TextArea}
                       currentValue={formatCweUrl(dataset.cweUrl)}
                       label={translate.t("search_findings.tab_description.weakness.text")}
                       name="cweUrl"
@@ -413,7 +413,7 @@ const descriptionView: React.FC = (): JSX.Element => {
                 <Can do="backend_api_resolvers_finding__do_update_description" passThrough={true}>
                   {(canEdit: boolean): JSX.Element => (
                     <EditableField
-                      component={textAreaField}
+                      component={TextArea}
                       currentValue={dataset.recommendation}
                       label={translate.t("search_findings.tab_description.recommendation.text")}
                       name="recommendation"
@@ -432,7 +432,7 @@ const descriptionView: React.FC = (): JSX.Element => {
                 <Can do="backend_api_resolvers_finding__do_update_description" passThrough={true}>
                   {(canEdit: boolean): JSX.Element => (
                     <EditableField
-                      component={textAreaField}
+                      component={TextArea}
                       currentValue={dataset.compromisedAttributes}
                       label={translate.t("search_findings.tab_description.compromised_attrs.text")}
                       name="compromisedAttributes"
@@ -449,7 +449,7 @@ const descriptionView: React.FC = (): JSX.Element => {
                 <Can do="backend_api_resolvers_finding__do_update_description" passThrough={true}>
                   {(canEdit: boolean): JSX.Element => (
                     <EditableField
-                      component={textAreaField}
+                      component={TextArea}
                       currentValue={formatCompromisedRecords(dataset.compromisedRecords)}
                       label={translate.t("search_findings.tab_description.compromised_records.text")}
                       name="compromisedRecords"

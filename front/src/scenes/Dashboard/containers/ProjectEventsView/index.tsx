@@ -25,7 +25,7 @@ import { default as globalStyle } from "../../../../styles/global.css";
 import { Can } from "../../../../utils/authz/Can";
 import { castEventType, formatEvents } from "../../../../utils/formatHelpers";
 import {
-  checkboxField, dateTimeField, Dropdown, fileInputField, Text, textAreaField,
+  checkboxField, dateTimeField, Dropdown, fileInputField, Text, TextArea,
 } from "../../../../utils/forms/fields";
 import { msgError, msgSuccess } from "../../../../utils/notifications";
 import rollbar from "../../../../utils/rollbar";
@@ -461,7 +461,7 @@ const projectEventsView: React.FunctionComponent<EventsViewProps> = (props: Even
                                     <ControlLabel>{translate.t("group.events.form.details")}</ControlLabel>
                                     <Field
                                       className={globalStyle.noResize}
-                                      component={textAreaField}
+                                      component={TextArea}
                                       name="detail"
                                       validate={[required, validTextField, maxEventDetailsLength]}
                                     />

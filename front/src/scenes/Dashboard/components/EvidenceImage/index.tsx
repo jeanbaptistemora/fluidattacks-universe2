@@ -7,7 +7,7 @@ import { Col, Row } from "react-bootstrap";
 import { Field, FormSection, Validator } from "redux-form";
 import { Button } from "../../../../components/Button/index";
 import { FluidIcon } from "../../../../components/FluidIcon";
-import { fileInputField, textAreaField } from "../../../../utils/forms/fields";
+import { fileInputField, TextArea } from "../../../../utils/forms/fields";
 import translate from "../../../../utils/translations/translate";
 import { validEvidenceDescription, validTextField } from "../../../../utils/validations";
 import { default as style } from "./index.css";
@@ -41,7 +41,7 @@ const renderForm: ((props: IEvidenceImageProps) => JSX.Element) = (props: IEvide
         ?
           <Field
             name="description"
-            component={textAreaField}
+            component={TextArea}
             validate={[validEvidenceDescription, validTextField]}
           />
         : <p>{props.description}</p>}

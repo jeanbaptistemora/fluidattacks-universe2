@@ -39,7 +39,7 @@ export const AutoCompleteText: React.FC<IAutoCompleteTextProps> = (
         id={id}
         placeholder={placeholder}
         type={type}
-        // Best way to pass down
+        // Best way to pass down props
         // eslint-disable-next-line react/jsx-props-no-spreading
         {...input}
       />

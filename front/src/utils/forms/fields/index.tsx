@@ -135,21 +135,6 @@ export const fileInputField: React.FC<CustomFieldProps> = (fieldProps: CustomFie
   );
 };
 
-export const textAreaField: React.FC<CustomFieldProps & { withCount?: boolean }> =
-  (fieldProps: CustomFieldProps & { withCount?: boolean }): JSX.Element => (
-    <div>
-      <FormControl
-        componentClass="textarea"
-        {...fieldProps}
-        {...fieldProps.input}
-        className={`${style.formControl} ${fieldProps.className}`}
-      />
-      {fieldProps.withCount === true ? renderCharacterCount(fieldProps.input.value as string) : undefined}
-      {(fieldProps.withCount === true && fieldProps.meta.error) ? <br /> : undefined}
-      {fieldProps.meta.touched && fieldProps.meta.error ? renderError(fieldProps.meta.error as string) : undefined}
-    </div>
-  );
-
 export const dateField: React.FC<CustomFieldProps> =
   (fieldProps: CustomFieldProps): JSX.Element => (
     <div>
@@ -216,3 +201,4 @@ export { AutoCompleteText } from "./AutoCompleteText";
 export { Text } from "./Text";
 export { PhoneNumber } from "./PhoneNumber";
 export { Dropdown } from "./Dropdown";
+export { TextArea } from "./TextArea";

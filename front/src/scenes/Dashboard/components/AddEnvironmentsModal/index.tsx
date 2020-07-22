@@ -9,7 +9,7 @@ import { Field, FieldArray, InjectedFormProps, WrappedFieldArrayProps } from "re
 import { ConfigurableValidator } from "revalidate";
 import { Button } from "../../../../components/Button/index";
 import { Modal } from "../../../../components/Modal/index";
-import { textAreaField } from "../../../../utils/forms/fields";
+import { TextArea } from "../../../../utils/forms/fields";
 import translate from "../../../../utils/translations/translate";
 import { maxLength, required, validField } from "../../../../utils/validations";
 import { GenericForm } from "../GenericForm";
@@ -39,7 +39,7 @@ const renderEnvsFields: React.FC<WrappedFieldArrayProps> = (props: WrappedFieldA
                 {translate.t("search_findings.tab_resources.environment.text")}
               </label>
               <Field
-                component={textAreaField}
+                component={TextArea}
                 name={`${fieldName}.urlEnv`}
                 type="text"
                 validate={[required, validField, maxEnvUrlLength]}
