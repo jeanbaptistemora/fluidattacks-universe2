@@ -28,6 +28,10 @@ authenticator output
 claimant for which the public key is known to the verifier).
 
 . [[r3]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+Appendix C: Internet of Things Verification Requirements.(C.9)]
+Verify that wireless communications are mutually authenticated.
+
+. [[r4]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V2.2 General Authenticator Requirements.(2.2.4)]
 Verify impersonation resistance against phishing,
 such as the use of multi-factor authentication, cryptographic devices with
