@@ -14,6 +14,7 @@ comprehensively and passionately, and ASAP for all our clients.
 Technology and cybersecurity are part of our DNA;
 we are always attacking, testing, and developing new applications;
 we are continuously evolving.
+
 Our highly certified experts make up a robust red team
 that can be divided into some sub-teams depending on their specialties
 that can cover everything from attacks and re-attacks to escapes and releases.
@@ -21,6 +22,7 @@ These experts are responsible for helping our clients
 discover their cybersecurity risks
 and providing them with sufficient guidance to remediate vulnerabilities
 so that they can offer their users genuinely secure systems.
+
 Besides, these experts work alongside
 other marketing and management professionals who,
 with their extensive knowledge and commitment,
