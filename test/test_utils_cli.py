@@ -4,16 +4,19 @@
 
 # standard imports
 import os
-import pytest
 import sys
+
 from unittest.mock import patch
+import pytest
 
 # 3rd party imports
-import pytest
-pytestmark = pytest.mark.asserts_module('utils')
+# None
 
 # local imports
 from fluidasserts.utils import cli
+
+# pylint: disable=invalid-name
+pytestmark = pytest.mark.asserts_module('utils')
 
 # Constants
 OPEN_EXP = 'test/static/example/test_open.py'
@@ -269,7 +272,8 @@ def test_exec_wrapper_success():
     with pytest.raises(BaseException):
         # The method should not propagate any exploit errors and handle them
         assert not cli.exec_wrapper(
-            cli.get_exploit_content(OPEN_EXP))
+            exploit_name='test',
+            exploit_content=cli.get_exploit_content(OPEN_EXP))
 
 
 def test_exec_wrapper_failure():
@@ -277,7 +281,8 @@ def test_exec_wrapper_failure():
     with pytest.raises(BaseException):
         # The method should not propagate any exploit errors and handle them
         assert not cli.exec_wrapper(
-            cli.get_exploit_content(ERROR_EXP))
+            exploit_name='test',
+            exploit_content=cli.get_exploit_content(ERROR_EXP))
 
 
 def test_exit_codes_strict():
@@ -384,3 +389,51 @@ def test_rich_exit_codes_non_strict():
         with pytest.raises(SystemExit) as exc:
             cli.main()
         assert exc.value.code == 0
+
+
+def test_cli_module():
+    """Run CLI module option."""
+    os.environ['FA_STRICT'] = 'true'
+    os.environ['FA_NOTRACK'] = 'true'
+    testargs = ['asserts', '-eec', '-mod', 'proto.ssl.has_heartbleed',
+                '--args', '127.0.0.1']
+    with patch.object(sys, 'argv', testargs):
+        with pytest.raises(SystemExit) as exc:
+            cli.main()
+        assert exc.value.code in (
+            cli.RICH_EXIT_CODES[x] for x in ('open', 'closed', 'unknown'))
+
+
+def test_cli_module_not_args():
+    """Run CLI module option."""
+    os.environ['FA_STRICT'] = 'true'
+    os.environ['FA_NOTRACK'] = 'true'
+    testargs = ['asserts', '-eec', '-mod', 'proto.ssl.has_heartbleed']
+    with patch.object(sys, 'argv', testargs):
+        with pytest.raises(SystemExit) as exc:
+            cli.main()
+        assert exc.value.code == cli.RICH_EXIT_CODES['config-error']
+
+
+def test_cli_module_bad_func():
+    """Run CLI module option."""
+    os.environ['FA_STRICT'] = 'true'
+    os.environ['FA_NOTRACK'] = 'true'
+    testargs = ['asserts', '-eec', '-mod', 'proto.ssl.not_exists',
+                '--args', '127.0.0.1']
+    with patch.object(sys, 'argv', testargs):
+        with pytest.raises(SystemExit) as exc:
+            cli.main()
+        assert exc.value.code == cli.RICH_EXIT_CODES['config-error']
+
+
+def test_cli_module_bad_mod():
+    """Run CLI module option."""
+    os.environ['FA_STRICT'] = 'true'
+    os.environ['FA_NOTRACK'] = 'true'
+    testargs = ['asserts', '-eec', '-mod', 'proto.not_exists.has_heartbleed',
+                '--args', '127.0.0.1']
+    with patch.object(sys, 'argv', testargs):
+        with pytest.raises(SystemExit) as exc:
+            cli.main()
+        assert exc.value.code == cli.RICH_EXIT_CODES['config-error']

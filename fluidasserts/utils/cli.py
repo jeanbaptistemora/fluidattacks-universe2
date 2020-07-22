@@ -10,6 +10,7 @@ import re
 import sys
 import textwrap
 import argparse
+import importlib
 import itertools
 import contextlib
 from io import StringIO
@@ -837,16 +838,16 @@ def exec_azure_package(credentials, enable_multiprocessing: bool):
     }
     exploits = [
         (
-            module[1],
+            mod[1],
             template.format(
-                title=module[1],
-                module=module[0],
+                title=mod[1],
+                module=mod[0],
                 methods='\n'.join(
-                    [(f"{module[0]}.{x}('{cred.split(':')[1]}',"  # noqa
+                    [(f"{mod[0]}.{x}('{cred.split(':')[1]}',"  # noqa
                       f"'{cred.split(':')[2]}','{cred.split(':')[3]}',"
                       f"'{cred.split(':')[0]}')") for x in methods]),
                 # module.method(client_id,secret,tenant,subscription_id)
-            )) for cred in credentials for module, methods in source.items()
+            )) for cred in credentials for mod, methods in source.items()
     ]
 
     return exec_exploits(
@@ -1199,6 +1200,36 @@ def exec_lang_package(paths: List[str], enable_multiprocessing: bool):
                          enable_multiprocessing=enable_multiprocessing)
 
 
+def exec_module(module: List[str], args: List[str]):
+    """Execute specific module."""
+    module = module[0]
+    args = args[0]
+    try:
+        package, check = module.rsplit('.', maxsplit=1)
+    except ValueError:
+        print('Module must in the form package.check. Ejm: ssl.has_heartbleed')
+        exit_asserts('config-error')
+    try:
+        package = 'fluidasserts.' + package
+        asserts_module = importlib.import_module(package)
+    except ModuleNotFoundError:
+        print(f'Module {package} not found')
+        exit_asserts('config-error')
+    try:
+        getattr(asserts_module, check)
+    except AttributeError:
+        print(f'Function {check} not found on {package}')
+        exit_asserts('config-error')
+    args_list = args.split('#')
+    args_list = ','.join(args_list)
+    template = textwrap.dedent(f"""\
+        from {package} import {check}
+
+        {check}('__args__')
+        """).replace('__args__', args_list)
+    return exec_wrapper(f'execution of {package}.{check}', template)
+
+
 def get_exploit_content(exploit_path: str) -> Tuple[str, str]:
     """Read the exploit as a string."""
     with open(exploit_path) as exploit:
@@ -1249,6 +1280,8 @@ def get_content(args):  # noqa: MC0001
         content += exec_azure_package(args.azure, args.multiprocessing)
     if args.mssql:
         content += exec_mssql_package(args.mssql, args.multiprocessing)
+    if args.module:
+        content += exec_module(args.module, args.args)
     if args.exploits:
         content += exec_exploits(exploit_paths=args.exploits,
                                  enable_multiprocessing=args.multiprocessing)
@@ -1270,6 +1303,15 @@ def get_argparser():
     argparser = argparse.ArgumentParser()
     argparser.add_argument('-q', '--quiet', help='do not show checks output',
                            action='store_true')
+    argparser.add_argument('-mod', '--module', nargs=1,
+                           metavar='package.check',
+                           help=('module to execute. '
+                                 'Ex: proto.ssl.has_heartbleed'))
+    argparser.add_argument('--args', nargs=1,
+                           metavar='arg1#arg2#argN',
+                           help=('args for the check. '
+                                 'Separate args with #. '
+                                 'Ex: example.com#443'))
     argparser.add_argument('-k', '--kiss',
                            help=('keep it simple, shows only who and where '
                                  'has been found to be vulnerable'),
@@ -1292,7 +1334,7 @@ def get_argparser():
                            action='store_true')
     argparser.add_argument('-mp', '--multiprocessing',
                            help=('enable multiprocessing over '
-                                 'the provided list of exploits.'
+                                 'the provided list of exploits. '
                                  'The number of used cpu cores defaults to '
                                  'the local cpu count provided by the OS.'),
                            action='store_true')
@@ -1338,23 +1380,10 @@ def get_argparser():
 
     argparser.add_argument('exploits', nargs='*', help='exploits to execute')
 
-    return argparser
-
-
-def main():  # noqa: MC0001
-    """Run CLI."""
-    # On Windows this will filter ANSI escape sequences out of any text sent
-    #   to stdout or stderr, and replace them with equivalent Win32 calls.
-    init()
-
-    argparser = get_argparser()
     args = argparser.parse_args()
 
-    # Print the Fluid Asserts banner
-    show_banner(args)
-    warn_python_version()
-
-    if not any((args.apk,
+    if not any((args.module,
+                args.apk,
                 args.aws,
                 args.cloudformation,
                 args.terraform,
@@ -1367,6 +1396,25 @@ def main():  # noqa: MC0001
                 args.mssql)):
         argparser.print_help()
         exit_asserts('config-error')
+
+    if args.module and not args.args:
+        print('`args` parameter is required.')
+        exit_asserts('config-error')
+
+    return args
+
+
+def main():  # noqa: MC0001
+    """Run CLI."""
+    # On Windows this will filter ANSI escape sequences out of any text sent
+    #   to stdout or stderr, and replace them with equivalent Win32 calls.
+    init()
+
+    args = get_argparser()
+
+    # Print the Fluid Asserts banner
+    show_banner(args)
+    warn_python_version()
 
     # Set the exit codes
     global EXIT_CODES
