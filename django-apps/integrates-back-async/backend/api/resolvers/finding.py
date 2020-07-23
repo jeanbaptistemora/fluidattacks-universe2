@@ -40,57 +40,80 @@ from django.core.files.uploadedfile import InMemoryUploadedFile
 
 
 @get_entity_cache_async
-async def _get_vulnerabilities(info, identifier: str,
-                               state: str = '') -> List[VulnerabilityType]:
+async def _get_vulnerabilities(
+        info: GraphQLResolveInfo,
+        identifier: str,
+        state: str = '') -> List[VulnerabilityType]:
     """Get vulnerabilities."""
-    vuln_filtered = \
-        await info.context.loaders['vulnerability'].load(identifier)
+    vuln_filtered = await info.context.loaders['vulnerability'].load(
+        identifier
+    )
     if state:
-        vuln_filtered = \
-            [vuln for vuln in vuln_filtered
-             if vuln['current_state'] == state and
-             (vuln['current_approval_status'] != 'PENDING' or
-              vuln['last_approved_status'])]
-    return vuln_filtered
+        vuln_filtered = [
+            vuln
+            for vuln in vuln_filtered
+            if (vuln['current_state'] == state and
+                (vuln['current_approval_status'] != 'PENDING' or
+                 vuln['last_approved_status']))
+        ]
+    return cast(List[VulnerabilityType], vuln_filtered)
 
 
 @get_entity_cache_async
-async def _get_ports_vulns(info, identifier: str) -> List[VulnerabilityType]:
+async def _get_ports_vulns(
+        info: GraphQLResolveInfo,
+        identifier: str) -> List[VulnerabilityType]:
     """Get ports vulnerabilities."""
-    vuln_filtered = \
-        await info.context.loaders['vulnerability'].load(identifier)
+    vuln_filtered = await info.context.loaders['vulnerability'].load(
+        identifier
+    )
 
-    vuln_filtered = \
-        [vuln for vuln in vuln_filtered if vuln['vuln_type'] == 'ports'
-            and (vuln['current_approval_status'] != 'PENDING' or
-                 vuln['last_approved_status'])]
-    return vuln_filtered
+    vuln_filtered = [
+        vuln
+        for vuln in vuln_filtered
+        if (vuln['vuln_type'] == 'ports' and
+            (vuln['current_approval_status'] != 'PENDING' or
+             vuln['last_approved_status']))
+    ]
+    return cast(List[VulnerabilityType], vuln_filtered)
 
 
 @get_entity_cache_async
-async def _get_inputs_vulns(info, identifier: str) -> List[VulnerabilityType]:
+async def _get_inputs_vulns(
+        info: GraphQLResolveInfo,
+        identifier: str) -> List[VulnerabilityType]:
     """Get inputs vulnerabilities."""
-    vuln_filtered = \
-        await info.context.loaders['vulnerability'].load(identifier)
+    vuln_filtered = await info.context.loaders['vulnerability'].load(
+        identifier
+    )
 
-    vuln_filtered = \
-        [vuln for vuln in vuln_filtered if vuln['vuln_type'] == 'inputs'
-            and (vuln['current_approval_status'] != 'PENDING' or
-                 vuln['last_approved_status'])]
-    return vuln_filtered
+    vuln_filtered = [
+        vuln
+        for vuln in vuln_filtered
+        if (vuln['vuln_type'] == 'inputs' and
+            (vuln['current_approval_status'] != 'PENDING' or
+             vuln['last_approved_status']))
+    ]
+    return cast(List[VulnerabilityType], vuln_filtered)
 
 
 @get_entity_cache_async
-async def _get_lines_vulns(info, identifier: str) -> List[VulnerabilityType]:
+async def _get_lines_vulns(
+        info: GraphQLResolveInfo,
+        identifier: str) -> List[VulnerabilityType]:
     """Get lines vulnerabilities."""
-    vuln_filtered = \
-        await info.context.loaders['vulnerability'].load(identifier)
+    vuln_filtered = await info.context.loaders['vulnerability'].load(
+        identifier
+    )
 
-    vuln_filtered = \
-        [vuln for vuln in vuln_filtered if vuln['vuln_type'] == 'lines'
-            and (vuln['current_approval_status'] != 'PENDING' or
-                 vuln['last_approved_status'])]
-    return vuln_filtered
+    vuln_filtered = [
+        vuln
+        for vuln in vuln_filtered
+        if (vuln['vuln_type'] == 'lines' and
+            (vuln['current_approval_status'] != 'PENDING' or
+             vuln['last_approved_status']))
+    ]
+    return cast(List[VulnerabilityType], vuln_filtered)
 
 
 @rename_kwargs({'identifier': 'finding_id'})
@@ -98,72 +121,83 @@ async def _get_lines_vulns(info, identifier: str) -> List[VulnerabilityType]:
 @require_integrates
 @rename_kwargs({'finding_id': 'identifier'})
 @get_entity_cache_async
-async def _get_pending_vulns(info, identifier: str) -> List[VulnerabilityType]:
+async def _get_pending_vulns(
+        info: GraphQLResolveInfo,
+        identifier: str) -> List[VulnerabilityType]:
     """Get pending vulnerabilities."""
-    vuln_filtered = \
-        await info.context.loaders['vulnerability'].load(identifier)
-    vuln_filtered = \
-        [vuln for vuln in vuln_filtered
-            if vuln['current_approval_status'] == 'PENDING']
-    return vuln_filtered
+    vuln_filtered = await info.context.loaders['vulnerability'].load(
+        identifier
+    )
+    vuln_filtered = [
+        vuln
+        for vuln in vuln_filtered
+        if vuln['current_approval_status'] == 'PENDING'
+    ]
+    return cast(List[VulnerabilityType], vuln_filtered)
 
 
-@sync_to_async
-def _get_id(_, identifier: str) -> str:
+@sync_to_async  # type: ignore
+def _get_id(_: GraphQLResolveInfo, identifier: str) -> str:
     """Get id."""
     return identifier
 
 
 @get_entity_cache_async
-async def _get_project_name(info, identifier: str) -> str:
+async def _get_project_name(info: GraphQLResolveInfo, identifier: str) -> str:
     """Get project_name."""
     finding = await info.context.loaders['finding'].load(identifier)
-    return finding['project_name']
+    return cast(str, finding['project_name'])
 
 
 @get_entity_cache_async
-async def _get_open_vulnerabilities(info, identifier: str) -> int:
+async def _get_open_vulnerabilities(
+        info: GraphQLResolveInfo,
+        identifier: str) -> int:
     """Get open_vulnerabilities."""
     vulns = await info.context.loaders['vulnerability'].load(identifier)
 
-    open_vulnerabilities = \
-        len(vuln_domain.filter_open_vulnerabilities(vulns))
+    open_vulnerabilities = len(vuln_domain.filter_open_vulnerabilities(vulns))
 
     return open_vulnerabilities
 
 
 @get_entity_cache_async
-async def _get_closed_vulnerabilities(info, identifier: str) -> int:
+async def _get_closed_vulnerabilities(
+        info: GraphQLResolveInfo,
+        identifier: str) -> int:
     """Get closed_vulnerabilities."""
     vulns = await info.context.loaders['vulnerability'].load(identifier)
 
     closed_vulnerabilities = len([
-        vuln for vuln in vulns
-        if vuln['current_state'] == 'closed'
-        and
-        (vuln['current_approval_status'] != 'PENDING' or
-            vuln['last_approved_status'])])
+        vuln
+        for vuln in vulns
+        if (vuln['current_state'] == 'closed' and
+            (vuln['current_approval_status'] != 'PENDING' or
+             vuln['last_approved_status']))
+    ])
     return closed_vulnerabilities
 
 
 @get_entity_cache_async
-async def _get_release_date(info, identifier: str) -> str:
+async def _get_release_date(info: GraphQLResolveInfo, identifier: str) -> str:
     """Get release date."""
     allowed_roles = ['admin', 'analyst', 'group_manager', 'reviewer']
     finding = await info.context.loaders['finding'].load(identifier)
     release_date = finding['release_date']
     user_data = util.get_jwt_content(info.context)
     user_email = user_data['user_email']
-    curr_user_role = await \
-        sync_to_async(authz.get_group_level_role)(
-            user_email, finding['project_name'])
+    curr_user_role = await sync_to_async(authz.get_group_level_role)(
+        user_email, finding['project_name']
+    )
     if not release_date and curr_user_role not in allowed_roles:
         raise GraphQLError('Access denied')
-    return release_date
+    return cast(str, release_date)
 
 
 @get_entity_cache_async
-async def _get_tracking(info, identifier: str) -> List[Dict[str, int]]:
+async def _get_tracking(
+        info: GraphQLResolveInfo,
+        identifier: str) -> List[Dict[str, int]]:
     """Get tracking."""
     finding = await info.context.loaders['finding'].load(identifier)
     release_date = finding['release_date']
@@ -176,7 +210,9 @@ async def _get_tracking(info, identifier: str) -> List[Dict[str, int]]:
 
 
 @get_entity_cache_async
-async def _get_records(info, identifier: str) -> List[Dict[object, object]]:
+async def _get_records(
+        info: GraphQLResolveInfo,
+        identifier: str) -> List[Dict[object, object]]:
     """Get records."""
     finding = await info.context.loaders['finding'].load(identifier)
     if finding['records']['url']:
@@ -188,17 +224,19 @@ async def _get_records(info, identifier: str) -> List[Dict[object, object]]:
 
 
 @get_entity_cache_async
-async def _get_severity(info, identifier: str) -> Dict[str, str]:
+async def _get_severity(
+        info: GraphQLResolveInfo,
+        identifier: str) -> Dict[str, str]:
     """Get severity."""
     finding = await info.context.loaders['finding'].load(identifier)
-    return finding['severity']
+    return cast(Dict[str, str], finding['severity'])
 
 
 @get_entity_cache_async
-async def _get_cvss_version(info, identifier: str) -> str:
+async def _get_cvss_version(info: GraphQLResolveInfo, identifier: str) -> str:
     """Get cvss_version."""
     finding = await info.context.loaders['finding'].load(identifier)
-    return finding['cvss_version']
+    return cast(str, finding['cvss_version'])
 
 
 @get_entity_cache_async
