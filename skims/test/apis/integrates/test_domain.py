@@ -16,7 +16,8 @@ from model import (
     FindingEnum,
     IntegratesVulnerabilitiesLines,
     KindEnum,
-    SkimResult,
+    Vulnerability,
+    VulnerabilityStateEnum,
 )
 
 
@@ -41,11 +42,12 @@ async def test_domain(
 async def test_build_vulnerabilities_stream() -> None:
     assert await build_vulnerabilities_stream(
         results=(
-            SkimResult(
+            Vulnerability(
                 finding=FindingEnum.F0034,
                 kind=KindEnum.LINES,
                 what='what',
                 where='123',
+                state=VulnerabilityStateEnum.OPEN,
             ),
         )
     ) == dedent("""

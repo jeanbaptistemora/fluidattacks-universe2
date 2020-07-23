@@ -10,6 +10,12 @@ from typing import (
 from apis.integrates.graphql import (
     SESSION,
 )
+from model import (
+    FindingEnum,
+    KindEnum,
+    Vulnerability,
+    VulnerabilityStateEnum,
+)
 from utils.function import (
     retry,
 )
@@ -88,6 +94,44 @@ async def get_group_findings(
             title=finding['title'],
         )
         for finding in result['data']['project']['findings']
+    )
+
+
+@retry()
+async def get_finding_vulnerabilities(
+    *,
+    finding: FindingEnum,
+    finding_id: str,
+) -> Tuple[Vulnerability, ...]:
+    result = await _execute(
+        query="""
+            query GetFindingVulnerabilities(
+                $finding_id: String!
+            ) {
+                finding(identifier: $finding_id) {
+                    vulnerabilities {
+                        currentState
+                        specific
+                        vulnType
+                        where
+                    }
+                }
+            }
+        """,
+        variables=dict(
+            finding_id=finding_id,
+        )
+    )
+
+    return tuple(
+        Vulnerability(
+            finding=finding,
+            kind=KindEnum(vulnerability['vulnType']),
+            state=VulnerabilityStateEnum(vulnerability['currentState']),
+            what=vulnerability['where'],
+            where=vulnerability['specific'],
+        )
+        for vulnerability in result['data']['finding']['vulnerabilities']
     )
 
 

@@ -3,6 +3,7 @@ import pytest
 
 # Local libraries
 from apis.integrates.dal import (
+    get_finding_vulnerabilities,
     get_group_findings,
     get_group_level_role,
     do_upload_vulnerabilities,
@@ -10,6 +11,12 @@ from apis.integrates.dal import (
 )
 from apis.integrates.graphql import (
     session,
+)
+from model import (
+    FindingEnum,
+    KindEnum,
+    Vulnerability,
+    VulnerabilityStateEnum,
 )
 
 
@@ -36,4 +43,15 @@ async def test_dal(
                         port: '80'
                         state: open
             """,
+        )
+
+        assert Vulnerability(
+            finding=FindingEnum.F0034,
+            kind=KindEnum.PORTS,
+            state=VulnerabilityStateEnum.OPEN,
+            what='127.0.0.1',
+            where='80',
+        ) in await get_finding_vulnerabilities(
+            finding=FindingEnum.F0034,
+            finding_id='974751758',
         )

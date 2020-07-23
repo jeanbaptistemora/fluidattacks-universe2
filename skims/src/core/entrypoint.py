@@ -13,7 +13,7 @@ from core.lib import (
     path_0038,
 )
 from model import (
-    SkimResult,
+    Vulnerability,
 )
 from utils.aio import (
     materialize,
@@ -27,12 +27,12 @@ from utils.logs import (
 )
 
 
-async def skim_paths(paths: Tuple[str, ...]) -> Tuple[SkimResult, ...]:
+async def skim_paths(paths: Tuple[str, ...]) -> Tuple[Vulnerability, ...]:
     files: Tuple[str, ...] = tuple(set(*(
         await materialize(map(recurse, paths))
     )))
 
-    results: Tuple[SkimResult, ...] = tuple(chain(*(
+    results: Tuple[Vulnerability, ...] = tuple(chain(*(
         await materialize(
             getattr(module, 'run')(file=file)
             for module in (
@@ -68,7 +68,7 @@ async def main(
 
     success: bool = True
 
-    results: Tuple[SkimResult, ...] = tuple(*(await materialize((
+    results: Tuple[Vulnerability, ...] = tuple(*(await materialize((
         skim_paths(paths),
         # skimmers for other sources (--url, etc) go here
     ))))

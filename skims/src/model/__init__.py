@@ -26,8 +26,9 @@ class IntegratesVulnerabilitiesLines(NamedTuple):
     state: VulnerabilityStateEnum
 
 
-class SkimResult(NamedTuple):
+class Vulnerability(NamedTuple):
     finding: FindingEnum
     what: str
     where: str
     kind: KindEnum
+    state: VulnerabilityStateEnum

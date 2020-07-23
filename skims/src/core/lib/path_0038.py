@@ -10,7 +10,8 @@ from typing import (
 from model import (
     FindingEnum,
     KindEnum,
-    SkimResult,
+    Vulnerability,
+    VulnerabilityStateEnum,
 )
 from utils.fs import (
     file_as_lines,
@@ -20,15 +21,16 @@ from utils.fs import (
 def javascript_insecure_randoms(
     file: str,
     lines: Tuple[Tuple[int, str], ...],
-) -> Tuple[SkimResult, ...]:
+) -> Tuple[Vulnerability, ...]:
     # Minimalistic proof of concept so we can focus on the heavy lifting:
     #   reporting, closing, etc
-    results: Tuple[SkimResult, ...] = tuple(
-        SkimResult(
+    results: Tuple[Vulnerability, ...] = tuple(
+        Vulnerability(
             finding=FindingEnum.F0034,
+            kind=KindEnum.LINES,
             what=file,
             where=f'{line_number}',
-            kind=KindEnum.LINES,
+            state=VulnerabilityStateEnum.OPEN,
         )
         for line_number, line_content in lines
         if 'Math.random(' in line_content
@@ -37,10 +39,10 @@ def javascript_insecure_randoms(
     return results
 
 
-async def run(file: str) -> Tuple[SkimResult, ...]:
+async def run(file: str) -> Tuple[Vulnerability, ...]:
     lines: Tuple[Tuple[int, str], ...] = await file_as_lines(file)
 
-    results: Tuple[SkimResult, ...] = tuple(chain(
+    results: Tuple[Vulnerability, ...] = tuple(chain(
         javascript_insecure_randoms(file, lines),
     ))
 

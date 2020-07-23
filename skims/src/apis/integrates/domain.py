@@ -13,8 +13,7 @@ from apis.integrates.dal import (
 from model import (
     IntegratesVulnerabilitiesLines,
     KindEnum,
-    SkimResult,
-    VulnerabilityStateEnum,
+    Vulnerability,
 )
 from utils.aio import (
     unblock,
@@ -29,7 +28,7 @@ from utils.string import (
 
 async def build_vulnerabilities_stream(
     *,
-    results: Tuple[SkimResult, ...],
+    results: Tuple[Vulnerability, ...],
 ) -> str:
 
     data_type = Dict[
@@ -43,7 +42,7 @@ async def build_vulnerabilities_stream(
                 IntegratesVulnerabilitiesLines(
                     line=result.where,
                     path=result.what,
-                    state=VulnerabilityStateEnum.OPEN,
+                    state=result.state,
                 )
                 for result in results
                 if result.kind == KindEnum.LINES
