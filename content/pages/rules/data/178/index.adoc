@@ -62,30 +62,35 @@ Appendix C: Internet of Things Verification Requirements.(C.19)]
 Verify the device validates the boot image signature before loading.
 
 . [[r9]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+Appendix C: Internet of Things Verification Requirements.(C.21)]
+Verify the device uses code signing and validates firmware upgrade files before
+installing.
+
+. [[r10]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V1.14 Configuration Architectural Requirements.(1.14.2)]
 Verify that deploying binaries to untrusted devices makes use of binary
 signatures, trusted connections, and verified endpoints.
 
-. [[r10]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r11]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V3.5 Token-based Session Management.(3.5.3)]
 Verify that stateless session tokens use digital signatures, encryption, and
 other countermeasures to protect against tampering, enveloping, replay,
 null cipher, and key substitution attacks.
 
-. [[r11]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r12]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V6.2 Algorithms.(6.2.7)]
 Verify that encrypted data is authenticated via signatures, authenticated
 cipher modes, or *HMAC* to ensure that ciphertext is not altered by an
 unauthorized party.
 
-. [[r12]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r13]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V10.3 Deployed Application Integrity Controls.(10.3.1)]
 Verify that if the application has a client or server auto-update feature,
 updates should be obtained over secure channels and digitally signed.
 The update code must validate the digital signature of the update before
 installing or executing the update.
 
-. [[r13]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r14]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V10.3 Deployed Application Integrity Controls.(10.3.2)]
 Verify that the application employs integrity protections,
 such as code signing or sub-resource integrity.
@@ -93,7 +98,7 @@ The application must not load or execute code from untrusted sources,
 such as loading includes, modules, plugins, code, or libraries from untrusted
 sources or the Internet.
 
-. [[r14]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r15]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V13.2 RESTful Web Service Verification Requirements.(13.2.5)]
 Verify that the message headers and payload are trustworthy and not modified
 in transit.
@@ -103,7 +108,7 @@ Per-message digital signatures can provide additional assurance on top of the
 transport protections for high-security applications but bring with them
 additional complexity and risks to weigh against the benefits.
 
-. [[r15]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r16]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V13.3 SOAP Web Service Verification Requirements.(13.3.2)]
 Verify that the message payload is signed using *WS-Security* to ensure
 reliable transport between client and service.

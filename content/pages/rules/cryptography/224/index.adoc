@@ -76,32 +76,37 @@ of applicable federal laws, Executive Orders, directives, policies,
 regulations, standards, and guidance for such authentication.
 
 . [[r11]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+Appendix C: Internet of Things Verification Requirements.(C.23)]
+Verify usage of cryptographically secure pseudo-random number generator on
+embedded device (e.g., using chip-provided random number generators).
+
+. [[r12]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V1.6 Cryptographic Architectural Requirements.(1.6.1)]
 Verify that there is an explicit policy for management of cryptographic keys
 and that a cryptographic key lifecycle follows a key management standard such
 as **NIST SP 800-57**.
 
-. [[r12]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r13]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V2.8 Single or Multi Factor One Time Verifier Requirements.(2.8.3)]
 Verify that approved cryptographic algorithms are used in the generation,
 seeding, and verification.
 
-. [[r13]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r14]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V2.9 Cryptographic Software and Devices Verifier Requirements.(2.9.3)]
 Verify that approved cryptographic algorithms are used in the generation,
 seeding, and verification.
 
-. [[r14]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r15]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V3.2 Session Binding Requirements.(3.2.4)]
 Verify that session token are generated using approved cryptographic
 algorithms.
 
-. [[r15]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r16]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V6.2 Algorithms.(6.2.3)]
 Verify that encryption initialization vector, cipher configuration,
 and block modes are configured securely using the latest advice.
 
-. [[r16]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r17]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V6.2 Algorithms.(6.2.5)]
 Verify that known insecure block modes (i.e. *ECB*, etc.), padding modes
 (i.e. **PKCS#1** v1.5, etc.), ciphers with small block sizes
@@ -109,20 +114,20 @@ Verify that known insecure block modes (i.e. *ECB*, etc.), padding modes
 (i.e. *MD5*, *SHA1*, etc.) are not used unless required for backwards
 compatibility.
 
-. [[r17]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r18]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V6.3 Random Values.(6.3.1)]
 Verify that all random numbers, random file names, random **GUID**s, and random
 strings are generated using the cryptographic module's approved
 cryptographically secure random number generator when these random values are
 intended to be not guessable by an attacker.
 
-. [[r18]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r19]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V8.3 Sensitive Private Data.(8.3.7)]
 Verify that sensitive or private information that is required to be encrypted,
 is encrypted using approved algorithms that provide both confidentiality and
 integrity.
 
-. [[r19]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r20]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V9.1 Communications Security Requirements.(9.1.2)]
 Verify using online or up to date *TLS* testing tools that only strong
 algorithms, ciphers, and protocols are enabled,
