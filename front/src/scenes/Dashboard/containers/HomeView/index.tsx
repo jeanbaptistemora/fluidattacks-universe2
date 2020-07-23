@@ -15,6 +15,7 @@ import {
   ButtonToolbar, Col, Glyphicon, Row, ToggleButton, ToggleButtonGroup,
 } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
+import { Badge } from "../../../../components/Badge";
 import { DataTableNext } from "../../../../components/DataTableNext/index";
 import { IHeaderConfig } from "../../../../components/DataTableNext/types";
 import { authzPermissionsContext } from "../../../../utils/authz/config";
@@ -182,7 +183,10 @@ const homeView: React.FC<IHomeViewProps> = (props: IHomeViewProps): JSX.Element 
                   </Row>
                   {_.isUndefined(data.me.tags) ? undefined : (
                     <React.Fragment>
-                      <h2>{translate.t("home.tags")}</h2>
+                      <h2>
+                        {translate.t("home.tags")}
+                        <Badge>pro</Badge>
+                      </h2>
                       <Row className={style.content}>
                         {display === "grid"
                           ? data.me.tags.map((tagMap: IUserAttr["me"]["tags"][0], index: number): JSX.Element => (
