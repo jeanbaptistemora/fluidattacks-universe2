@@ -185,7 +185,6 @@ type Mutation {
         hasDrills: Boolean!,
         hasForces: Boolean!,
         hasIntegrates: Boolean!,
-        organization: String,
         reason: EditGroupReason!,
         subscription: SubscriptionType!,
     ): SimplePayload!

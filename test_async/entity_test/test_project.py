@@ -342,10 +342,10 @@ class ProjectTests(TestCase):
 
 @pytest.mark.changes_db
 @pytest.mark.parametrize(
-    ['group_name', 'subscription', 'has_drills', 'has_forces', 'has_integrates', 'organization', 'expected'],
+    ['group_name', 'subscription', 'has_drills', 'has_forces', 'has_integrates', 'expected'],
     [
-        ['UNITTESTING', 'CONTINUOUS', 'true', 'true', 'true', 'testorg', True],
-        ['ONESHOTTEST', 'ONESHOT', 'false', 'false', 'true', 'testorg', True],
+        ['UNITTESTING', 'CONTINUOUS', 'true', 'true', 'true', True],
+        ['ONESHOTTEST', 'ONESHOT', 'false', 'false', 'true', True],
     ]
 )
 async def test_edit_group_good(
@@ -354,7 +354,6 @@ async def test_edit_group_good(
     has_drills,
     has_forces,
     has_integrates,
-    organization,
     expected,
 ):
     query = f"""
@@ -366,7 +365,6 @@ async def test_edit_group_good(
                 hasDrills: {has_drills},
                 hasForces: {has_forces},
                 hasIntegrates: {has_integrates},
-                organization: "{organization}",
                 reason: NONE,
             ) {{
                 success
@@ -391,31 +389,30 @@ async def test_edit_group_good(
         'has_drills',
         'has_forces',
         'has_integrates',
-        'organization',
         'reason',
         'expected',
     ],
     [
         # Configuration error, Drills requires Integrates
-        ['', 'ONESHOTTEST', 'CONTINUOUS', 'true', 'false', 'false', 'testorg', 'NONE',
+        ['', 'ONESHOTTEST', 'CONTINUOUS', 'true', 'false', 'false', 'NONE',
          'Exception - Drills is only available when Integrates is too'],
         # Configuration error, Forces requires Integrates
-        ['', 'ONESHOTTEST', 'CONTINUOUS', 'false', 'true', 'false', 'testorg', 'NONE',
+        ['', 'ONESHOTTEST', 'CONTINUOUS', 'false', 'true', 'false', 'NONE',
          'Exception - Forces is only available when Integrates is too'],
         # Configuration error, Forces requires Drills
-        ['', 'ONESHOTTEST', 'CONTINUOUS', 'false', 'true', 'true', 'testorg', 'NONE',
+        ['', 'ONESHOTTEST', 'CONTINUOUS', 'false', 'true', 'true', 'NONE',
          'Exception - Forces is only available when Drills is too'],
         # Configuration error, Forces requires CONTINUOUS
-        ['', 'ONESHOTTEST', 'ONESHOT', 'false', 'true', 'true', 'testorg', 'NONE',
+        ['', 'ONESHOTTEST', 'ONESHOT', 'false', 'true', 'true', 'NONE',
          'Exception - Forces is only available in projects of type Continuous'],
         # Input validation error, weird chars
-        ['\xFF', 'UNITTESTING', 'CONTINUOUS', 'true', 'true', 'true', 'testorg', 'NONE',
+        ['\xFF', 'UNITTESTING', 'CONTINUOUS', 'true', 'true', 'true', 'NONE',
          'Exception - Invalid characters'],
         # Input validation error, too long string
-        [' ' * 251, 'UNITTESTING', 'CONTINUOUS', 'true', 'true', 'true', 'testorg', 'NONE',
+        [' ' * 251, 'UNITTESTING', 'CONTINUOUS', 'true', 'true', 'true', 'NONE',
          'Exception - Invalid field length in form'],
         # Invalid reason
-        [' ', 'UNITTESTING', 'CONTINUOUS', 'true', 'true', 'true', 'testorg', 'ASDF',
+        [' ', 'UNITTESTING', 'CONTINUOUS', 'true', 'true', 'true', 'ASDF',
          'Expected type EditGroupReason, found ASDF.'],
 
     ]
@@ -427,7 +424,6 @@ async def test_edit_group_bad(
     has_drills,
     has_forces,
     has_integrates,
-    organization,
     reason,
     expected,
 ):
@@ -439,7 +435,6 @@ async def test_edit_group_bad(
                 hasDrills: {has_drills},
                 hasForces: {has_forces},
                 hasIntegrates: {has_integrates},
-                organization: "{organization}",
                 reason: {reason},
                 subscription: {subscription},
             ) {{

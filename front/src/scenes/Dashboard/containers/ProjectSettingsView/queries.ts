@@ -18,7 +18,6 @@ export const EDIT_GROUP_DATA: DocumentNode = gql`
     $hasDrills: Boolean!
     $hasForces: Boolean!
     $hasIntegrates: Boolean!
-    $organization: String
     $reason: EditGroupReason!
     $subscription: SubscriptionType!
   ) {
@@ -28,7 +27,6 @@ export const EDIT_GROUP_DATA: DocumentNode = gql`
       hasDrills: $hasDrills
       hasForces: $hasForces
       hasIntegrates: $hasIntegrates
-      organization: $organization
       reason: $reason
       subscription: $subscription
     ) {

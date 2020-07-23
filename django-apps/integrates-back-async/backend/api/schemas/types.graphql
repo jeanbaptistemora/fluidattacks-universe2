@@ -143,7 +143,6 @@ type Project {
     meanRemediateMediumSeverity: Int
     meanRemediate: Int
     openFindings: Int
-    organization: Organization
     serviceAttributes: [String]
     totalFindings: Int
     users: [User!]

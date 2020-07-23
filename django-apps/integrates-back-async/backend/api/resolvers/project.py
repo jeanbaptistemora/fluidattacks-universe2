@@ -835,8 +835,7 @@ async def _do_edit_group(  # pylint: disable=too-many-arguments
     has_forces: bool,
     has_integrates: bool,
     reason: str,
-    subscription: str,
-    **__: Any,
+    subscription: str
 ) -> SimplePayloadType:
     group_name = group_name.lower()
     requester_email = util.get_jwt_content(info.context)['user_email']
