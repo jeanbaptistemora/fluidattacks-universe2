@@ -1,7 +1,8 @@
 # Standard library
 from typing import (
     Dict,
-    Any
+    Any,
+    cast
 )
 
 # Third party libraries
@@ -22,20 +23,23 @@ from backend.utils import (
 
 
 @apm.trace()
-@convert_kwargs_to_snake_case
+@convert_kwargs_to_snake_case  # type: ignore
 async def resolve(
     *_: Any,
     document_name: str,
     document_type: str,
     entity: str,
     subject: str
-) -> Dict[str, object]:
+) -> Dict[str, Any]:
     try:
-        return await analytics_domain.get_document(
-            document_name=document_name,
-            document_type=document_type,
-            entity=entity,
-            subject=subject,
+        return cast(
+            Dict[str, Any],
+            await analytics_domain.get_document(
+                document_name=document_name,
+                document_type=document_type,
+                entity=entity,
+                subject=subject,
+            )
         )
     except botocore.exceptions.ClientError as ex:
         await logging_utils.log(ex, 'error', extra=locals())

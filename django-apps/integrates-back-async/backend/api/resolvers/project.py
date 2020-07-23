@@ -521,7 +521,7 @@ async def _get_deletion_date(
         historic_deletion[-1].get('deletion_date', '')
         if historic_deletion else ''
     )
-    return cast(str, deletion_date)
+    return deletion_date
 
 
 # Intentionally not @require_integrates

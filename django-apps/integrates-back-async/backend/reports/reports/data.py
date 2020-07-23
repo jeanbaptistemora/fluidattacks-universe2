@@ -33,7 +33,7 @@ def generate(
     group: str,
     group_description: str,
     requester_email: str,
-):
+) -> None:
     passphrase = get_passphrase(4)
 
     with tempfile.TemporaryDirectory() as directory:
@@ -80,7 +80,7 @@ def _append_pdf_report(
     group_description: str,
     passphrase: str,
     requester_email: str,
-):
+) -> None:
     # Generate the PDF report
     report_filename = technical_report.generate_pdf_file(
         description=group_description,
@@ -99,7 +99,7 @@ def _append_xls_report(
     directory: str,
     findings_ord: List[Dict[str, FindingType]],
     passphrase: str,
-):
+) -> None:
     report_filename = technical_report.generate_xls_file(
         findings_ord=findings_ord,
         passphrase=passphrase,
@@ -113,7 +113,7 @@ def _append_evidences(
     *,
     directory: str,
     group: str,
-):
+) -> None:
     target_folders: Dict[str, str] = {
         '.exp': 'exploits',
         '.gif': 'evidences',
@@ -175,11 +175,12 @@ def _encrypted_zip_file(
         os.unlink(target)
 
 
-def _get_directory_contents(directory):
+def _get_directory_contents(directory: str) -> List[str]:
     return [
         absolute
         for relative in os.listdir(directory)
         for absolute in [os.path.join(directory, relative)]
-        if os.path.isfile(absolute)
-        or os.path.isdir(absolute) and os.listdir(absolute)
+        if (os.path.isfile(absolute) or
+            os.path.isdir(absolute) and
+            os.listdir(absolute))
     ]
