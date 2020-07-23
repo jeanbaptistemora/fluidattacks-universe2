@@ -9,9 +9,6 @@ from apis.integrates.domain import (
     build_vulnerabilities_stream,
     get_closest_finding_id,
 )
-from apis.integrates.graphql import (
-    session,
-)
 from model import (
     FindingEnum,
     IntegratesVulnerabilitiesLines,
@@ -26,16 +23,15 @@ async def test_domain(
     test_group: str,
     test_token: str,
 ) -> None:
-    async with session(api_token=test_token):
-        assert await get_closest_finding_id(
-            group=test_group,
-            title='Insecure random numbers generation',
-        ) == '974751758'
+    assert await get_closest_finding_id(
+        group=test_group,
+        title='Insecure random numbers generation',
+    ) == '974751758'
 
-        assert await get_closest_finding_id(
-            group=test_group,
-            title='XXX',
-        ) == ''
+    assert await get_closest_finding_id(
+        group=test_group,
+        title='XXX',
+    ) == ''
 
 
 @pytest.mark.asyncio  # type: ignore

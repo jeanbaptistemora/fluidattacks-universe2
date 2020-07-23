@@ -8,7 +8,7 @@ from typing import (
 
 # Local libraries
 from apis.integrates.graphql import (
-    SESSION,
+    Session,
 )
 from model import (
     FindingEnum,
@@ -19,15 +19,21 @@ from model import (
 from utils.function import (
     retry,
 )
+from utils.logs import (
+    log,
+)
 from utils.string import (
     to_in_memory_file,
 )
 
 
 async def _execute(*, query: str, variables: Dict[str, Any]) -> Dict[str, Any]:
-    response = await SESSION.get().execute(query=query, variables=variables)
+    response = await Session.value.execute(query=query, variables=variables)
 
     result: Dict[str, Any] = await response.json()
+
+    if 'errors' in result:
+        await log('error', '%s', result)
 
     return result
 
@@ -143,7 +149,7 @@ async def do_upload_vulnerabilities(
 ) -> bool:
     result = await _execute(
         query="""
-            mutation UploadFile(
+            mutation DoUploadFile(
                 $file_handle: Upload!
                 $finding_id: String!
             ) {

@@ -6,7 +6,7 @@ from typing import (
 
 # Local libraries
 from apis.integrates.graphql import (
-    session,
+    create_session,
 )
 from apis.integrates.dal import (
     get_finding_vulnerabilities,
@@ -112,22 +112,23 @@ async def persist(
     results: Tuple[Vulnerability, ...],
     token: str,
 ) -> bool:
-    async with session(api_token=token):
-        persisted_findings: Dict[FindingEnum, bool] = await materialize({
-            finding: persist_finding(
-                finding=finding,
-                group=group,
-                results=results,
-            )
-            for finding in FindingEnum
-            for finding_results in [tuple(
-                result
-                for result in results
-                if result.finding == finding
-            )]
-            if finding_results
-        })
+    create_session(api_token=token)
 
-        success: bool = all(persisted_findings.values())
+    persisted_findings: Dict[FindingEnum, bool] = await materialize({
+        finding: persist_finding(
+            finding=finding,
+            group=group,
+            results=results,
+        )
+        for finding in FindingEnum
+        for finding_results in [tuple(
+            result
+            for result in results
+            if result.finding == finding
+        )]
+        if finding_results
+    })
+
+    success: bool = all(persisted_findings.values())
 
     return success
