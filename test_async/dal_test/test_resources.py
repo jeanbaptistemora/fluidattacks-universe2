@@ -6,6 +6,8 @@ from backend.dal.resources import (
     create, update, remove
 )
 
+pytestmark = pytest.mark.asyncio
+
 
 @pytest.mark.changes_db
 def test_create():
@@ -86,7 +88,7 @@ def test_update():
 
 
 @pytest.mark.changes_db
-def test_remove():
+async def test_remove():
     assert get('unittesting_project_3') == {}
 
     create(
@@ -111,7 +113,7 @@ def test_remove():
         ]
     }
 
-    remove('unittesting_project_3', 'files', '0')
+    await remove('unittesting_project_3', 'files', '0')
     assert get('unittesting_project_3') == {
         'project_name':'unittesting_project_3',
         'files':[
@@ -122,7 +124,7 @@ def test_remove():
         ]
     }
 
-    remove('unittesting_project_3', 'files', '0')
+    await remove('unittesting_project_3', 'files', '0')
     assert get('unittesting_project_3') == {
         'project_name':'unittesting_project_3',
         'files':[],
@@ -131,7 +133,7 @@ def test_remove():
         ]
     }
 
-    remove('unittesting_project_3', 'files', '2')
+    await remove('unittesting_project_3', 'files', '2')
     assert get('unittesting_project_3') == {
         'project_name':'unittesting_project_3',
         'files':[],

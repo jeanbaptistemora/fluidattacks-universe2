@@ -21,7 +21,7 @@ from backend.exceptions import (
     RepeatedValues,
     InvalidResource
 )
-from backend.utils import validations
+from backend.utils import validations, aio
 
 from __init__ import BASE_URL, FI_MAIL_RESOURCERS
 
@@ -128,7 +128,8 @@ def create_file(files_data: List[Dict[str, str]], uploaded_file,
     return False
 
 
-def remove_file(file_name: str, project_name: str) -> bool:
+async def remove_file(file_name: str, project_name: str) -> bool:
+    success = False
     project_name = project_name.lower()
     file_list = cast(
         List[Dict[str, str]],
@@ -144,11 +145,11 @@ def remove_file(file_name: str, project_name: str) -> bool:
         cont += 1
     if index >= 0:
         file_url = f'{project_name.lower()}/{file_name}'
-        return (
-            resources_dal.remove_file(file_url) and
+        success = all(await aio.materialize([
+            resources_dal.remove_file(file_url),
             resources_dal.remove(project_name, 'files', index)
-        )
-    return False
+        ]))
+    return success
 
 
 def download_file(file_info: str, project_name: str) -> str:
@@ -356,10 +357,10 @@ def mask(project_name: str) -> NamedTuple:
          'environments_result repositories_result')
     )
     are_files_removed = all([
-        resources_dal.remove_file(file_name)
+        async_to_sync(resources_dal.remove_file)(file_name)
         for file_name in resources_dal.search_file(f'{project_name}/')
     ])
-    files_result = project_dal.update(project_name, {
+    files_result = async_to_sync(project_dal.update)(project_name, {
         'files': [
             {
                 'fileName': 'Masked',
@@ -369,13 +370,13 @@ def mask(project_name: str) -> NamedTuple:
             for _ in project.get('files', [])
         ]
     })
-    environments_result = project_dal.update(project_name, {
+    environments_result = async_to_sync(project_dal.update)(project_name, {
         'environments': [
             {'urlEnv': 'Masked'}
             for _ in project.get('environments', [])
         ]
     })
-    repositories_result = project_dal.update(project_name, {
+    repositories_result = async_to_sync(project_dal.update)(project_name, {
         'repositories': [
             {'protocol': 'Masked', 'urlRepo': 'Masked'}
             for _ in project.get('repositories', [])

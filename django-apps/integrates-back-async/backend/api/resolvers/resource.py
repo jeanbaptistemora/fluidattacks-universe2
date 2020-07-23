@@ -228,8 +228,7 @@ async def _do_remove_files(_, info, files_data: Dict[str, Any],
                   for k, v in files_data.items()}
     file_name = files_data.get('fileName')
     user_email = util.get_jwt_content(info.context)['user_email']
-    remove_file = await \
-        sync_to_async(resources.remove_file)(file_name, project_name)
+    remove_file = await resources.remove_file(str(file_name), project_name)
     if remove_file:
         await sync_to_async(resources.send_mail)(
             project_name, user_email, [files_data], 'removed', 'file')

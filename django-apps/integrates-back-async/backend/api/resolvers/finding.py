@@ -1028,7 +1028,7 @@ async def _do_create_draft(
         title: str,
         **kwargs: Any) -> SimplePayloadType:
     """Resolve create_draft mutation."""
-    success = await sync_to_async(finding_domain.create_draft)(
+    success = await finding_domain.create_draft(
         info, project_name, title, **kwargs
     )
     if success:

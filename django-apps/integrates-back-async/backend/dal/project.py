@@ -404,50 +404,37 @@ async def can_user_access_pending_deletion(
     return is_user_allowed
 
 
-def update(project_name: str, data: ProjectType) -> bool:
+async def update(project_name: str, data: ProjectType) -> bool:
     success = False
-    primary_keys = {'project_name': project_name}
+    set_expression = ''
+    remove_expression = ''
+    expression_values = {}
+    for attr, value in data.items():
+        if value is None:
+            remove_expression += f'{attr}, '
+        else:
+            set_expression += f'{attr} = :{attr}, '
+            expression_values.update({f':{attr}': value})
+
+    if set_expression:
+        set_expression = f'SET {set_expression.strip(", ")}'
+    if remove_expression:
+        remove_expression = f'REMOVE {remove_expression.strip(", ")}'
+
+    update_attrs = {
+        'Key': {'project_name': project_name.lower()},
+        'UpdateExpression': f'{set_expression} {remove_expression}'.strip(),
+        # By default updates on non-existent items create a new item
+        # This condition disables that effect
+        'ConditionExpression': Attr('project_name').exists(),
+    }
+    if expression_values:
+        update_attrs.update({'ExpressionAttributeValues': expression_values})
     try:
-        attrs_to_remove = [
-            attr
-            for attr in data
-            if data[attr] is None
-        ]
-        for attr in attrs_to_remove:
-            response = TABLE.update_item(
-                Key=primary_keys,
-                UpdateExpression='REMOVE #attr',
-                ExpressionAttributeNames={'#attr': attr}
-            )
-            success = response['ResponseMetadata']['HTTPStatusCode'] == 200
-            del data[attr]
+        success = await dynamodb.async_update_item(TABLE_NAME, update_attrs)
+    except ClientError as ex:
+        logging.log(ex, 'error', extra=locals())
 
-        if data:
-            attributes = [
-                f'#{attr} = :{attr}'
-                for attr in data
-            ]
-            names = {
-                f'#{attr}': attr
-                for attr in data
-            }
-            values = {
-                f':{attr}': data[attr]
-                for attr in data
-            }
-
-            response = TABLE.update_item(
-                Key=primary_keys,
-                UpdateExpression='SET ' + ','.join(attributes),
-                # By default updates on non-existent items create a new item
-                # This condition disables that effect
-                ConditionExpression=Attr('project_name').exists(),
-                ExpressionAttributeNames=names,
-                ExpressionAttributeValues=values,
-            )
-            success = response['ResponseMetadata']['HTTPStatusCode'] == 200
-    except ClientError:
-        rollbar.report_message('Error: Couldn\'nt update project', 'error')
     return success
 
 

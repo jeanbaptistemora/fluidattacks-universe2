@@ -6,6 +6,7 @@ import rollbar
 from backend.dal.helpers import cloudfront, dynamodb, s3
 from backend.typing import Resource as ResourceType
 from backend.dal import project as project_dal
+from backend.utils import logging
 
 from __init__ import (
     FI_AWS_S3_RESOURCES_BUCKET,
@@ -35,7 +36,6 @@ async def save_file(file_object: object, file_name: str) -> bool:
     return success
 
 
-@async_to_sync
 async def remove_file(file_name: str) -> bool:
     return await s3.remove_file(  # type: ignore
         FI_AWS_S3_RESOURCES_BUCKET,
@@ -105,26 +105,22 @@ def create(res_data: Union[List[ResourceType], ResourceType],
     return resp
 
 
-def remove(project_name: str, res_type: str, index: int) -> bool:
-    table_name = 'FI_projects'
-    primary_name_key = 'project_name'
-    primary_key = project_name
-    attr_name = res_type
-    table = DYNAMODB_RESOURCE.Table(table_name)
+async def remove(project_name: str, res_type: str, index: int) -> bool:
     resp = False
     try:
-        response = table.update_item(
-            Key={
-                primary_name_key: primary_key.lower(),
-            },
-            UpdateExpression='REMOVE #attrName[' + str(index) + ']',
-            ExpressionAttributeNames={
-                '#attrName': attr_name
+        update_attrs = {
+            'Key': {'project_name': project_name.lower()},
+            'UpdateExpression': 'REMOVE #attrName[' + str(index) + ']',
+            'ExpressionAttributeNames': {
+                '#attrName': res_type
             }
+        }
+        resp = await dynamodb.async_update_item(
+            project_dal.TABLE_NAME,
+            update_attrs
         )
-        resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
-    except ClientError:
-        rollbar.report_exc_info()
+    except ClientError as ex:
+        logging.log(ex, 'error', extra=locals())
     return resp
 
 

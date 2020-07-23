@@ -834,7 +834,7 @@ async def _do_edit_group(  # pylint: disable=too-many-arguments
     group_name = group_name.lower()
     requester_email = util.get_jwt_content(info.context)['user_email']
 
-    success = await sync_to_async(project_domain.edit)(
+    success = await project_domain.edit(
         comments=comments,
         group_name=group_name,
         has_drills=has_drills,
@@ -865,7 +865,7 @@ async def _do_reject_remove_project(
         project_name: str) -> SimplePayloadType:
     """Resolve reject_remove_project mutation."""
     user_info = util.get_jwt_content(info.context)
-    success = await sync_to_async(project_domain.reject_deletion)(
+    success = await project_domain.reject_deletion(
         project_name, user_info['user_email']
     )
     if success:
@@ -919,7 +919,7 @@ async def _do_add_project_comment(
     return ret
 
 
-def _update_tags(
+async def _update_tags(
         project_name: str,
         project_tags: ProjectType,
         tags: List[str]) -> bool:
@@ -927,7 +927,7 @@ def _update_tags(
         project_tags = {'tag': set(tags)}
     else:
         cast(Set[str], project_tags.get('tag')).update(tags)
-    tags_added = project_domain.update(project_name, project_tags)
+    tags_added = await project_domain.update(project_name, project_tags)
     if tags_added:
         success = True
     else:
@@ -958,8 +958,8 @@ async def _do_add_tags(
             project_attrs = project_attrs['attrs']
             project_tags = cast(ProjectType, project_attrs.get('tag', {}))
             project_tags = {'tag': project_tags}
-            success = await aio.ensure_io_bound(
-                _update_tags, project_name, project_tags, tags
+            success = await _update_tags(
+                project_name, project_tags, tags
             )
         else:
             util.cloudwatch_log(
@@ -1000,7 +1000,7 @@ async def _do_remove_tag(
         cast(Set[str], project_tags.get('tag')).remove(tag)
         if project_tags.get('tag') == set():
             project_tags['tag'] = None
-        tag_deleted = await sync_to_async(project_domain.update)(
+        tag_deleted = await project_domain.update(
             project_name, project_tags
         )
         if tag_deleted:

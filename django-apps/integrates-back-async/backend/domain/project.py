@@ -205,7 +205,7 @@ async def create_project(  # pylint: disable=too-many-arguments
     return success
 
 
-def edit(
+async def edit(
     *,
     comments: str,
     group_name: str,
@@ -229,7 +229,7 @@ def edit(
 
     item = cast(
         Dict[str, List[dict]],
-        async_to_sync(project_dal.get_attributes)(
+        await project_dal.get_attributes(
             project_name=group_name,
             attributes=[
                 'historic_configuration',
@@ -240,7 +240,7 @@ def edit(
     item.setdefault('historic_configuration', [])
 
     if item.get('project_name'):
-        success = project_dal.update(
+        success = await project_dal.update(
             data={
                 'historic_configuration': item['historic_configuration'] + [{
                     'comments': comments,
@@ -256,13 +256,13 @@ def edit(
         )
 
     if not has_integrates:
-        success = success and request_deletion(
+        success = success and await request_deletion(
             project_name=group_name,
             user_email=requester_email,
         )
 
     if success:
-        notifications_domain.edit_group(
+        await notifications_domain.edit_group(
             comments=comments,
             group_name=group_name,
             had_drills=(
@@ -305,12 +305,12 @@ async def get_historic_deletion(project_name: str) -> HistoricType:
     return cast(HistoricType, historic_deletion.get('historic_deletion', []))
 
 
-def request_deletion(project_name: str, user_email: str) -> bool:
+async def request_deletion(project_name: str, user_email: str) -> bool:
     project = project_name.lower()
     response = False
     if (user_domain.get_group_access(user_email, project) and
             project_name == project):
-        data = async_to_sync(project_dal.get_attributes)(
+        data = await project_dal.get_attributes(
             project,
             ['project_status', 'historic_deletion']
         )
@@ -335,23 +335,26 @@ def request_deletion(project_name: str, user_email: str) -> bool:
                 'historic_deletion': historic_deletion,
                 'project_status': 'PENDING_DELETION'
             }
-            response = project_dal.update(project, new_data)
+            response = await project_dal.update(project, new_data)
         else:
             raise AlreadyPendingDeletion()
     else:
         raise PermissionDenied()
 
     if response:
-        authz.revoke_cached_group_service_attributes_policies(project_name)
+        await aio.ensure_io_bound(
+            authz.revoke_cached_group_service_attributes_policies,
+            project_name
+        )
 
     return response
 
 
-def reject_deletion(project_name: str, user_email: str) -> bool:
+async def reject_deletion(project_name: str, user_email: str) -> bool:
     response = False
     project = project_name.lower()
     if project_name == project:
-        data = async_to_sync(project_dal.get_attributes)(
+        data = await project_dal.get_attributes(
             project,
             ['project_status', 'historic_deletion']
         )
@@ -372,14 +375,17 @@ def reject_deletion(project_name: str, user_email: str) -> bool:
                 'project_status': 'ACTIVE',
                 'historic_deletion': historic_deletion
             }
-            response = project_dal.update(project, new_data)
+            response = await project_dal.update(project, new_data)
         else:
             raise NotPendingDeletion()
     else:
         raise PermissionDenied()
 
     if response:
-        authz.revoke_cached_group_service_attributes_policies(project_name)
+        await aio.ensure_io_bound(
+            authz.revoke_cached_group_service_attributes_policies,
+            project_name
+        )
 
     return response
 
@@ -397,7 +403,9 @@ def mask(group_name: str) -> bool:
         'project_status': 'FINISHED',
         'deletion_date': today
     }
-    is_group_finished = project_dal.update(group_name, update_data)
+    is_group_finished = async_to_sync(project_dal.update)(
+        group_name, update_data
+    )
     return comments_result and is_group_finished
 
 
@@ -885,8 +893,8 @@ async def get_open_findings(
     return len(open_findings)
 
 
-def update(project_name: str, data: ProjectType) -> bool:
-    return project_dal.update(project_name, data)
+async def update(project_name: str, data: ProjectType) -> bool:
+    return await project_dal.update(project_name, data)
 
 
 async def list_drafts(

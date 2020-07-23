@@ -394,7 +394,7 @@ class ProjectTest(TestCase):
         ['not-exists', 'continuous', False, False, False, False],
     ]
 )
-def test_edit(
+async def test_edit(
     group_name: str,
     subscription: str,
     has_drills: bool,
@@ -402,7 +402,7 @@ def test_edit(
     has_integrates: bool,
     expected: bool,
 ):
-    assert expected == edit(
+    assert expected == await edit(
         comments='',
         group_name=group_name,
         subscription=subscription,

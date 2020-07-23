@@ -48,7 +48,7 @@ async def new_group(
     )
 
 
-def edit_group(
+async def edit_group(
     *,
     comments: str,
     group_name: str,
@@ -69,7 +69,8 @@ def edit_group(
         False: 'Inactive',
     }
 
-    return notifications_dal.create_ticket(
+    return await aio.ensure_io_bound(
+        notifications_dal.create_ticket,
         subject=f'[Integrates] Group edited: {group_name}',
         description=f"""
             You are receiving this email because you have edited a group
