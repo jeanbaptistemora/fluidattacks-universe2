@@ -1,10 +1,12 @@
+# pylint:disable=too-many-lines
 from time import time
 import sys
-from typing import Dict, List
+from typing import Dict, List, Any
 
 from ariadne import convert_camel_case_to_snake, convert_kwargs_to_snake_case
 from asgiref.sync import sync_to_async
 from graphql.language.ast import SelectionSetNode
+from graphql.type.definition import GraphQLResolveInfo
 from graphql import GraphQLError
 
 from backend.decorators import (
@@ -723,8 +725,11 @@ async def _do_handle_acceptation(_, info, **parameters) -> SimplePayloadType:
 @enforce_group_level_auth_async
 @require_integrates
 @require_finding_access
-async def _do_update_description(_, info, finding_id: str,
-                                 **parameters) -> SimpleFindingPayloadType:
+async def _do_update_description(
+        _: Any,
+        info: GraphQLResolveInfo,
+        finding_id: str,
+        **parameters: Any) -> SimpleFindingPayloadType:
     """Perform update_description mutation."""
     success = await finding_domain.update_description(
         finding_id, parameters
@@ -738,12 +743,16 @@ async def _do_update_description(_, info, finding_id: str,
         util.invalidate_cache(project_name)
         util.forces_trigger_deployment(project_name)
         util.cloudwatch_log(
-            info.context, f'Security: Updated description in \
-finding {finding_id} successfully')  # pragma: no cover
+            info.context,
+            ('Security: Updated description in '
+             'finding {finding_id} successfully')  # pragma: no cover
+        )
     else:
         util.cloudwatch_log(
-            info.context, f'Security: Attempted to update \
-            description in finding {finding_id}')  # pragma: no cover
+            info.context,
+            ('Security: Attempted to update '
+             f'description in finding {finding_id}')  # pragma: no cover
+        )
     finding = await info.context.loaders['finding'].load(finding_id)
     return SimpleFindingPayloadType(finding=finding, success=success)
 
@@ -753,10 +762,10 @@ finding {finding_id} successfully')  # pragma: no cover
 @require_integrates
 @require_finding_access
 async def _do_update_client_description(
-    _,
-    info,
+    _: Any,
+    info: GraphQLResolveInfo,
     finding_id: str,
-    **parameters
+    **parameters: Any
 ) -> SimpleFindingPayloadType:
     """
     Perform update_client_description mutation.
@@ -785,12 +794,16 @@ async def _do_update_client_description(
         util.invalidate_cache(project_name)
         util.forces_trigger_deployment(project_name)
         util.cloudwatch_log(
-            info.context, 'Security: Updated treatment in '
-            f'finding {finding_id} successfully')  # pragma: no cover
+            info.context,
+            ('Security: Updated treatment in '
+             f'finding {finding_id} successfully')  # pragma: no cover
+        )
     else:
         util.cloudwatch_log(
-            info.context, 'Security: Attempted to update '
-            f'treatment in finding {finding_id}')  # pragma: no cover
+            info.context,
+            ('Security: Attempted to update '
+             f'treatment in finding {finding_id}')  # pragma: no cover
+        )
     finding = await info.context.loaders['finding'].load(finding_id)
     return SimpleFindingPayloadType(finding=finding, success=success)
 
@@ -799,7 +812,10 @@ async def _do_update_client_description(
 @enforce_group_level_auth_async
 @require_integrates
 @require_finding_access
-async def _do_reject_draft(_, info, finding_id: str) -> SimplePayloadType:
+async def _do_reject_draft(
+        _: Any,
+        info: GraphQLResolveInfo,
+        finding_id: str) -> SimplePayloadType:
     """Resolve reject_draft mutation."""
     reviewer_email = util.get_jwt_content(info.context)['user_email']
     success = await finding_domain.reject_draft(finding_id, reviewer_email)
@@ -812,13 +828,15 @@ async def _do_reject_draft(_, info, finding_id: str) -> SimplePayloadType:
         util.invalidate_cache(project_name)
         util.cloudwatch_log(
             info.context,
-            f'Security: Draft {finding_id} \
-rejected successfully')  # pragma: no cover
+            (f'Security: Draft {finding_id}'
+             'rejected successfully')  # pragma: no cover
+        )
     else:
         util.cloudwatch_log(
             info.context,
-            f'Security: Attempted to reject \
-draft {finding_id}')  # pragma: no cover
+            ('Security: Attempted to reject '
+             f'draft {finding_id}')  # pragma: no cover
+        )
     return SimplePayloadType(success=success)
 
 
@@ -826,15 +844,19 @@ draft {finding_id}')  # pragma: no cover
 @enforce_group_level_auth_async
 @require_integrates
 @require_finding_access
-async def _do_delete_finding(_, info, finding_id: str,
-                             justification: str) -> SimplePayloadType:
+async def _do_delete_finding(
+        _: Any,
+        info: GraphQLResolveInfo,
+        finding_id: str,
+        justification: str) -> SimplePayloadType:
     """Resolve delete_finding mutation."""
     finding_loader = info.context.loaders['finding']
     finding_data = await finding_loader.load(finding_id)
     project_name = finding_data['project_name']
 
     success = await finding_domain.delete_finding(
-        finding_id, project_name, justification, info.context)
+        finding_id, project_name, justification, info.context
+    )
     if success:
         finding_loader.clear(finding_id)
         util.invalidate_cache(finding_id)
@@ -842,53 +864,69 @@ async def _do_delete_finding(_, info, finding_id: str,
         util.forces_trigger_deployment(project_name)
         util.cloudwatch_log(
             info.context,
-            f'Security: Deleted finding: \
-{finding_id} successfully')  # pragma: no cover
+            ('Security: Deleted finding: '
+             f'{finding_id} successfully')  # pragma: no cover
+        )
     else:
         util.cloudwatch_log(
             info.context,
-            f'Security: Attempted to delete \
-finding: {finding_id}')  # pragma: no cover
+            ('Security: Attempted to delete '
+             f'finding: {finding_id}')  # pragma: no cover
+        )
     return SimplePayloadType(success=success)
 
 
 @require_login
 @enforce_group_level_auth_async
 @require_integrates
-async def _do_approve_draft(_, info, draft_id: str) -> ApproveDraftPayloadType:
+async def _do_approve_draft(
+        _: Any,
+        info: GraphQLResolveInfo,
+        draft_id: str) -> ApproveDraftPayloadType:
     """Resolve approve_draft mutation."""
     reviewer_email = util.get_jwt_content(info.context)['user_email']
     project_name = await finding_domain.get_project(draft_id)
 
     success, release_date = await finding_domain.approve_draft(
-        draft_id, reviewer_email)
+        draft_id, reviewer_email
+    )
     if success:
         util.invalidate_cache(draft_id)
         util.invalidate_cache(project_name)
         util.forces_trigger_deployment(project_name)
         util.cloudwatch_log(
-            info.context, f'Security: Approved draft in \
-            {project_name} project successfully')  # pragma: no cover
+            info.context,
+            ('Security: Approved draft in '
+             f'{project_name} project successfully')  # pragma: no cover
+        )
     else:
         util.cloudwatch_log(
-            info.context, f'Security: Attempted to approve \
-            draft in {project_name} project')  # pragma: no cover
+            info.context,
+            ('Security: Attempted to approve '
+             f'draft in {project_name} project')  # pragma: no cover
+        )
     return ApproveDraftPayloadType(release_date=release_date, success=success)
 
 
 @require_login
 @enforce_group_level_auth_async
 @require_integrates
-async def _do_create_draft(_, info, project_name: str, title: str,
-                           **kwargs) -> SimplePayloadType:
+async def _do_create_draft(
+        _: Any,
+        info: GraphQLResolveInfo,
+        project_name: str,
+        title: str,
+        **kwargs: Any) -> SimplePayloadType:
     """Resolve create_draft mutation."""
-    success = await \
-        sync_to_async(finding_domain.create_draft)(
-            info, project_name, title, **kwargs)
+    success = await sync_to_async(finding_domain.create_draft)(
+        info, project_name, title, **kwargs
+    )
     if success:
         util.cloudwatch_log(
-            info.context, 'Security: Created draft in '
-            f'{project_name} project successfully')  # pragma: no cover
+            info.context,
+            ('Security: Created draft in '
+             f'{project_name} project successfully')  # pragma: no cover
+        )
     return SimplePayloadType(success=success)
 
 
@@ -896,7 +934,10 @@ async def _do_create_draft(_, info, project_name: str, title: str,
 @enforce_group_level_auth_async
 @require_integrates
 @require_finding_access
-async def _do_submit_draft(_, info, finding_id: str) -> SimplePayloadType:
+async def _do_submit_draft(
+        _: Any,
+        info: GraphQLResolveInfo,
+        finding_id: str) -> SimplePayloadType:
     """Resolve submit_draft mutation."""
     analyst_email = util.get_jwt_content(info.context)['user_email']
     success = await finding_domain.submit_draft(finding_id, analyst_email)
@@ -904,6 +945,8 @@ async def _do_submit_draft(_, info, finding_id: str) -> SimplePayloadType:
     if success:
         util.invalidate_cache(finding_id)
         util.cloudwatch_log(
-            info.context, 'Security: Submitted draft '
-            f'{finding_id} successfully')  # pragma: no cover
+            info.context,
+            ('Security: Submitted draft '
+             f'{finding_id} successfully')  # pragma: no cover
+        )
     return SimplePayloadType(success=success)
