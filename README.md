@@ -14,4 +14,4 @@
 [![Status](https://img.shields.io/pypi/status/skims)](https://pypi.org/project/skims)
 [![Downloads](https://img.shields.io/pypi/dm/skims)](https://pypi.org/project/skims)
 [![License](https://img.shields.io/pypi/l/skims)](../LICENSE)
-[![Docs](https://img.shields.io/badge/Docs-lightgrey)](./skims/README.md)
+[![Docs](https://img.shields.io/badge/Docs-grey)](./skims/README.md)

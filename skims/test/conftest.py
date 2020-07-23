@@ -18,7 +18,6 @@ from apis.integrates.domain import (
 )
 
 
-
 @pytest.fixture(scope='session', autouse=True)  # type: ignore
 def event_loop() -> Iterator[asyncio.AbstractEventLoop]:
     loop = asyncio.get_event_loop()
