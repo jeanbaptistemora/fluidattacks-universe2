@@ -7,6 +7,7 @@ from typing import (
 
 # Local libraries
 from apis.integrates.dal import (
+    do_upload_vulnerabilities,
     get_group_findings,
     ResultGetGroupFindings,
 )
@@ -64,3 +65,16 @@ async def get_closest_finding_id(*, group: str, title: str) -> str:
             return finding.identifier
 
     return ''
+
+
+async def do_build_and_upload_vulnerabilities(
+    *,
+    finding_id: str,
+    results: Tuple[Vulnerability, ...],
+) -> bool:
+    return await do_upload_vulnerabilities(
+        finding_id=finding_id,
+        stream=await build_vulnerabilities_stream(
+            results=results,
+        ),
+    )

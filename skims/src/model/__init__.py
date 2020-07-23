@@ -28,7 +28,7 @@ class IntegratesVulnerabilitiesLines(NamedTuple):
 
 class Vulnerability(NamedTuple):
     finding: FindingEnum
-    what: str
-    where: str
     kind: KindEnum
     state: VulnerabilityStateEnum
+    what: str
+    where: str
