@@ -25,6 +25,7 @@ import {
   SUBSCRIPTIONS_TO_ENTITY_REPORT,
 } from "../../queries";
 import {
+  EntityType,
   IChartsGenericViewProps,
   ISubscriptionsToEntityReport,
   ISubscriptionToEntityReport,
@@ -50,9 +51,10 @@ const translateFrequencyArrivalTime: (freq: string) => string =
 const chartsGenericViewExtras: React.FC<IChartsGenericViewProps> = (props: IChartsGenericViewProps): JSX.Element => {
   const { entity, subject } = props;
 
+  const entityName: EntityType = entity;
   const downloadPngUrl: URL = new URL("/integrates/graphics-report", window.location.origin);
   downloadPngUrl.searchParams.set("entity", entity);
-  downloadPngUrl.searchParams.set(entity, subject);
+  downloadPngUrl.searchParams.set(entityName, subject);
 
   const { data: dataSubscriptions, refetch: refetchSubscriptions } =
     useQuery<ISubscriptionsToEntityReport>(SUBSCRIPTIONS_TO_ENTITY_REPORT, {
