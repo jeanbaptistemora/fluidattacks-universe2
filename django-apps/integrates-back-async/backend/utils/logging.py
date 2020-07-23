@@ -5,8 +5,17 @@ import bugsnag
 from django.conf import settings
 
 
-logging.config.dictConfig(settings.LOGGING)
-LOGGER = logging.getLogger("log")
+LOGGER = logging.getLogger(__name__)
+
+
+# pylint: disable=too-few-public-methods
+class SpecificLevelFilter(logging.Filter):
+    def __init__(self, level):
+        self.level = level
+        super(SpecificLevelFilter, self).__init__()
+
+    def filter(self, record):
+        return record.levelno == self.level
 
 
 def log(message: Union[str, Exception], level: str, **kwargs) -> None:

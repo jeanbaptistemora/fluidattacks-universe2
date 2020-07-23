@@ -201,30 +201,28 @@ LOGGING = {
     'filters': {
         'require_debug_false': {
             '()': 'django.utils.log.RequireDebugFalse'
+        },
+        'transactional_logs': {
+            '()': 'backend.utils.logging.SpecificLevelFilter',
+            'level': 'INFO',
         }
     },
     'handlers': {
+        'bugsnag': {
+            'class': 'bugsnag.handlers.BugsnagHandler',
+            'level': 'WARNING',
+        },
         'console': {
-            'level': 'ERROR',
-            'class': 'logging.StreamHandler'
+            'class': 'logging.StreamHandler',
+            'level': 'INFO',
         },
         'watchtower': {
-            'level': 'INFO',
+            'boto3_session': BOTO3_SESSION,
             'class': 'watchtower.CloudWatchLogHandler',
-                     'boto3_session': BOTO3_SESSION,
+            'level': 'INFO',
                      'log_group': 'FLUID',
+            'filters': ['require_debug_false', 'transactional_logs'],
                      'stream_name': 'FLUIDIntegrates',
-            'formatter': 'aws',
-        },
-    },
-    'formatters': {
-        'simple': {
-            'format': "%(asctime)s [%(levelname)-8s] %(message)s",
-            'datefmt': "%Y-%m-%d %H:%M:%S"
-        },
-        'aws': {
-            'format': "%(asctime)s [%(levelname)-8s] %(message)s",
-            'datefmt': "%Y-%m-%d %H:%M:%S"
         },
     },
     'loggers': {
@@ -234,19 +232,15 @@ LOGGING = {
             'propagate': True,
         },
         'django_crontab.crontab': {
-            'handlers': ['console'],
+            'handlers': ['bugsnag', 'console'],
             'level': 'INFO'
         },
         'app': {
-            'handlers': ['console', 'watchtower'],
+            'handlers': ['bugsnag', 'console', 'watchtower'],
             'level': 'INFO'
         },
         'backend': {
-            'handlers': ['console', 'watchtower'],
-            'level': 'INFO'
-        },
-        'log': {
-            'handlers': ['console'],
+            'handlers': ['bugsnag', 'console', 'watchtower'],
             'level': 'INFO'
         },
     }
