@@ -3,7 +3,7 @@ import { ButtonToolbar } from "react-bootstrap";
 import { Field } from "redux-form";
 import { Button } from "../../../../components/Button/index";
 import { Modal } from "../../../../components/Modal/index";
-import { checkboxField } from "../../../../utils/forms/fields";
+import { Checkbox } from "../../../../utils/forms/fields";
 import translate from "../../../../utils/translations/translate";
 import { GenericForm } from "../../../Dashboard/components/GenericForm";
 
@@ -31,7 +31,7 @@ const compulsoryNotice: React.FC<ICompulsoryNoticeProps> = (props: ICompulsoryNo
         <GenericForm name="acceptLegal" initialValues={{ remember: false }} onSubmit={handleSubmit}>
           <React.Fragment>
             <p>{props.content}</p>
-            <Field title={translate.t("legalNotice.rememberCbo.tooltip")} component={checkboxField} name="remember">
+            <Field title={translate.t("legalNotice.rememberCbo.tooltip")} component={Checkbox} name="remember">
               {translate.t("legalNotice.rememberCbo.text")}
             </Field>
             <ButtonToolbar className="pull-right">

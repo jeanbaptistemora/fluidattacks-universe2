@@ -1,14 +1,7 @@
 import BootstrapSwitchButton from "bootstrap-switch-button-react";
 import _ from "lodash";
 import React from "react";
-import { Checkbox, FormControlProps,  HelpBlock } from "react-bootstrap";
-import { default as Datetime } from "react-datetime";
-/* tslint:disable-next-line:no-import-side-effect no-submodule-imports
- * Disabling this two rules is necessary for
- * allowing the import of default styles that react-datetime needs
- * to display properly even if some of them are overridden later
- */
-import "react-datetime/css/react-datetime.css";
+import { FormControlProps,  HelpBlock } from "react-bootstrap";
 import { Tag, WithContext as ReactTags } from "react-tag-input";
 import { WrappedFieldProps } from "redux-form";
 import { validTextField } from "../../../utils/validations";
@@ -97,20 +90,6 @@ export const tagInputField: React.FC<tagFieldProps> =
     );
   };
 
-export const dateTimeField: React.FC<CustomFieldProps> = (fieldProps: CustomFieldProps): JSX.Element => (
-  <React.Fragment>
-    <Datetime inputProps={{ className: style.formControl }} utc={false} {...fieldProps.input} />
-    {fieldProps.meta.touched && fieldProps.meta.error ? renderError(fieldProps.meta.error as string) : undefined}
-  </React.Fragment>
-);
-
-export const checkboxField: React.FC<CustomFieldProps> = (fieldProps: CustomFieldProps): JSX.Element => (
-  <React.Fragment>
-    <Checkbox checked={fieldProps.input.value} children={fieldProps.children} {...fieldProps.input} />
-    {fieldProps.meta.touched && fieldProps.meta.error ? renderError(fieldProps.meta.error as string) : undefined}
-  </React.Fragment>
-);
-
 export interface ISwitchButtonProps extends React.ComponentProps<typeof BootstrapSwitchButton> {
   input: {
     // Redux-form managed value
@@ -149,3 +128,5 @@ export { Dropdown } from "./Dropdown";
 export { TextArea } from "./TextArea";
 export { Date } from "./Date";
 export { FileInput } from "./FileInput";
+export { DateTime } from "./DateTime";
+export { Checkbox } from "./Checkbox";

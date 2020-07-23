@@ -15,7 +15,7 @@ import { Button } from "../../../../components/Button";
 import { FluidIcon } from "../../../../components/FluidIcon";
 import { Modal } from "../../../../components/Modal";
 import { Can } from "../../../../utils/authz/Can";
-import { dateTimeField, Text } from "../../../../utils/forms/fields";
+import { DateTime, Text } from "../../../../utils/forms/fields";
 import { msgError } from "../../../../utils/notifications";
 import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
@@ -110,7 +110,7 @@ const eventDescriptionView: React.FC<EventDescriptionProps> = (props: EventDescr
                                 <FormGroup>
                                   <ControlLabel>{translate.t("group.events.description.solved.date")}</ControlLabel>
                                   <Field
-                                    component={dateTimeField}
+                                    component={DateTime}
                                     name="date"
                                     validate={[required, validDatetime, dateTimeBeforeToday]}
                                   />
