@@ -129,8 +129,8 @@ def has_public_buckets(key_id: str,
 @unknown_if(BotoCoreError, RequestException)
 def bucket_has_authenticated_access(key_id: str,
                                     secret: str,
+                                    bucket_name: str,
                                     session_token: str = None,
-                                    bucket_name: str = None,
                                     retry: bool = True) -> tuple:
     """
     Check if S3 buckets read access for any authenticated AWS user.
