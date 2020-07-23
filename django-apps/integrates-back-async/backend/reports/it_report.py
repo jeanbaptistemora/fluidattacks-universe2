@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 """ Class for generate an xlsx file with findings information. """
 import os
-import re
 from typing import cast, Dict, List, Optional, Union
 
 from datetime import datetime
@@ -155,57 +154,17 @@ class ITReport():
             color=color
         )
 
-    def hide_cell(self, data: List[FindingType]):
-        init_row = 3 + 12 * len(data)
-        end_row = 3 + 12 * 70
-        self.__select_finding_sheet()
-        for row in range(init_row, end_row):
-            self.current_sheet.row_dimensions[row].hidden = True
-
     def generate(self, data: List[Dict[str, FindingType]]):
         self.project_name = str(data[0].get('projectName'))
         vulns = async_to_sync(vuln_domain.list_vulnerabilities_async)(
             [finding.get('findingId') for finding in data])
         for vuln in vulns:
-            self.__write_vuln_row(vuln)
+            self.write_vuln_row(vuln)
             self.row += 1
-        self.__save()
-
-    def __select_finding_sheet(self):
-        """Select finding sheet."""
-        self.current_sheet = self.workbook[
-            self.sheet_names[self.lang]['data']
-        ]
-
-    def set_cell(
-        self,
-        col: int,
-        value: Union[str, int, datetime],
-        inc: int = 0,
-        align: str = 'center'
-    ):
-        """Assign a value to a cell with findings index."""
-        alignment = Alignment(
-            horizontal=align,
-            vertical='center',
-            wrap_text=True
-        )
-        self.current_sheet.cell(
-            row=self.row + inc, column=col).alignment = alignment
-        self.current_sheet.cell(row=self.row + inc, column=col).value = value
-
-    def __get_req(self, req_vect: str): # noqa
-        """Get all the identifiers with the REQ.XXXX format."""
-        try:
-            reqs = re.findall('REQ\\.\\d{3,4}', req_vect) # noqa
-            reqs = [x.replace('REQ.', '') for x in reqs]
-            reqs_list = '|'.join(reqs)
-            return '.*(' + reqs_list + ')'
-        except ValueError:
-            return ''
+        self.save()
 
     @classmethod
-    def __get_measure(
+    def get_measure(
         cls,
         metric: str,
         metric_value: str
@@ -296,7 +255,7 @@ class ITReport():
         }
         metric_vector = []
         for index, (indicator, measure) in enumerate(measures.items()):
-            value = self.__get_measure(
+            value = self.get_measure(
                 measure,
                 cast(Dict[str, str], row['severity'])[measure]
             )
@@ -314,7 +273,7 @@ class ITReport():
             f'=HYPERLINK("{cvss_calculator_url}", "{cvss_metric_vector}")'
         self.row_values[self.vulnerability['cvss_vector']] = cell_content
 
-    def __write_vuln_row(self, row: VulnType):
+    def write_vuln_row(self, row: VulnType):
         finding = async_to_sync(get_finding)(row.get('finding_id'))
         specific = str(row.get('specific', ''))
         if row.get('vuln_type') == 'lines':
@@ -518,32 +477,10 @@ class ITReport():
         for key, value in reattack_data.items():
             self.row_values[self.vulnerability[key]] = value
 
-    def __save(self):
+    def save(self):
         tzn = pytz.timezone(settings.TIME_ZONE)  # type: ignore
         today_date = datetime.now(tz=tzn).today().strftime('%Y-%m-%dT%H-%M-%S')
         self.result_filename = (
             f'{self.project_name}-vulnerabilities-{today_date}.xlsx'
         )
         self.workbook.save(self.result_filename)
-
-
-def translate_parameter(param: str) -> str:
-    translation_values = {
-        'CONTINUOUS': 'Continua',
-        'ANALYSIS': 'Análisis',
-        'APP': 'Aplicación',
-        'BINARY': 'Binario',
-        'SOURCE_CODE': 'Código fuente',
-        'INFRASTRUCTURE': 'Infraestructura',
-        'ANONYMOUS_INTERNET': 'Anónimo desde internet',
-        'ANONYMOUS_INTRANET': 'Anónimo desde intranet',
-        'AUTHORIZED_USER_EXTRANET': 'Extranet usuario autorizado',
-        'UNAUTHORIZED_USER_EXTRANET': 'Extranet usuario no autorizado',
-        'AUTHORIZED_USER_INTERNET': 'Internet usuario autorizado',
-        'UNAUTHORIZED_USER_INTERNET': 'Internet usuario no autorizado',
-        'AUTHORIZED_USER_INTRANET': 'Intranet usuario autorizado',
-        'UNAUTHORIZED_USER_INTRANET': 'Intranet usuario no autorizado',
-        'APPLICATIONS': 'Aplicaciones',
-        'DATABASES': 'Bases de Datos'
-    }
-    return str(translation_values.get(param))
