@@ -5,7 +5,8 @@ import pytest
 from forces.apis.integrates.api import (
     get_finding,
     get_findings,
-    get_vulnerabilities
+    get_vulnerabilities,
+    vulns_generator
 )
 
 
@@ -34,3 +35,9 @@ async def test_get_vulnerabilities(test_token: str, test_finding: str) -> None:
     assert len(result) == 5
     for vuln in result:
         assert 'forces' in vuln['where']
+
+
+@pytest.mark.asyncio  # type: ignore
+async def test_vulns_generator(test_token: str, test_group: str) -> None:
+    vulns = [vuln async for vuln in vulns_generator(test_group, api_token=test_token)]
+    assert len(vulns) == 5
