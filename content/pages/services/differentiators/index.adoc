@@ -58,6 +58,7 @@ a|==== Team
 a|{yes} Our hackers are certified in practical hacking in real scenarios
 link:../certifications/[^3^]:
 
+* `OSCE`.
 * `OSCP`.
 * `OSWP`.
 * `CRTE`.
