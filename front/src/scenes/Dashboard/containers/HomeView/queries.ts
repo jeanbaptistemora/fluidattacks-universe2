@@ -10,6 +10,7 @@ export const PROJECTS_QUERY: DocumentNode = gql`
       projects {
         name
         description
+        organization
       }
       tags @include(if: $tagsField) {
         name

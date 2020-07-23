@@ -25,7 +25,6 @@ from backend import authz
 from backend.api.resolvers import (
     analytics as analytics_loader,
     finding as finding_loader,
-    organization as org_loader,
     user as user_loader
 )
 from backend.decorators import (
@@ -46,7 +45,6 @@ from backend.typing import (
     Comment as CommentType,
     Event as EventType,
     Finding as FindingType,
-    Organization as OrganizationType,
     Project as ProjectType,
     User as UserType,
     AddCommentPayload as AddCommentPayloadType,
@@ -95,18 +93,14 @@ async def _get_name(
 
 
 async def _get_organization(
-    info: GraphQLResolveInfo,
-    project_name: str,
-    requested_fields: List[FieldNode]
-) -> OrganizationType:
+        _: GraphQLResolveInfo,
+        project_name: str,
+        **__: Any) -> str:
     """
     Get organization settings
     """
     org_id: str = await org_domain.get_id_for_group(project_name)
-    selection_set = SelectionSetNode()
-    selection_set.selections = requested_fields
-
-    return await org_loader.resolve(info, org_id, as_field=True, as_list=False)
+    return await org_domain.get_name_by_id(org_id)
 
 
 @require_integrates

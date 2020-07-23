@@ -31,6 +31,7 @@ import { Navbar } from "./components/Navbar/index";
 import { Sidebar } from "./components/Sidebar";
 import { HomeView } from "./containers/HomeView";
 import { OrganizationContent } from "./containers/OrganizationContent/index";
+import { ProjectRedirect } from "./containers/ProjectRedirectView";
 import { ProjectRoute } from "./containers/ProjectRoute/index";
 import { IUserDataAttr } from "./containers/ProjectUsersView/types";
 import { ReportsView } from "./containers/ReportsView";
@@ -126,7 +127,7 @@ const dashboard: React.FC = (): JSX.Element => {
                   <HomeView setUserRole={setUserRole} />
                 </Route>
                 <Route path="/reports" component={ReportsView} />
-                <Route path="/groups/:projectName">
+                <Route path="/organizations/:organizationName/groups/:projectName">
                   <authzGroupContext.Provider value={groupAttributes}>
                     <authzPermissionsContext.Provider value={groupLevelPermissions}>
                       <ProjectRoute setUserRole={setUserRole} />
@@ -139,6 +140,8 @@ const dashboard: React.FC = (): JSX.Element => {
                   </authzPermissionsContext.Provider>
                 </Route>
                 <Route path="/portfolios/:tagName" component={TagContent} />
+                {/* Necessary to support old group URLs */}
+                <Route path="/groups/:projectName" component={ProjectRedirect} />
                 {/* Necessary to support hashrouter URLs */}
                 <Redirect path="/dashboard" to={hash.replace("#!", "")} />
                 {/* Necessary to support old URLs with entities in singular */}

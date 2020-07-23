@@ -56,7 +56,12 @@ const homeView: React.FC<IHomeViewProps> = (props: IHomeViewProps): JSX.Element 
   const { userEmail } = (window as typeof window & { userEmail: string });
 
   const goToProject: ((projectName: string) => void) = (projectName: string): void => {
-    push(`/groups/${projectName.toLowerCase()}/indicators`);
+    const chosenProject: Array<{ description: string; name: string; organization: string }> =
+      data.me.projects.filter(
+        (project: { description: string; name: string; organization: string }) =>
+        project.name === projectName.toLowerCase(),
+      );
+    push(`/organizations/${chosenProject[0].organization}/groups/${projectName.toLowerCase()}/analytics`);
   };
 
   const handleRowClick: ((event: React.FormEvent<HTMLButtonElement>, rowInfo: { name: string }) => void) = (

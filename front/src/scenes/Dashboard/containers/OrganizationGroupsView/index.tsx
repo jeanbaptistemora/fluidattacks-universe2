@@ -6,6 +6,7 @@ import React from "react";
 import {
   ButtonToolbar, Col, Glyphicon, Row, ToggleButton, ToggleButtonGroup,
 } from "react-bootstrap";
+import { useHistory, useRouteMatch } from "react-router-dom";
 import { DataTableNext } from "../../../../components/DataTableNext/index";
 import { IHeaderConfig } from "../../../../components/DataTableNext/types";
 import { useStoredState } from "../../../../utils/hooks";
@@ -24,6 +25,8 @@ const tableHeaders: IHeaderConfig[] = [
 
 const organizationGroups: React.FC<IOrganizationGroupsProps> = (props: IOrganizationGroupsProps): JSX.Element => {
   const { organizationId } = props;
+  const { url } = useRouteMatch();
+  const { push } = useHistory();
 
   // State management
   const [display, setDisplay] = useStoredState("groupsDisplay", { mode: "grid" });
@@ -44,7 +47,15 @@ const organizationGroups: React.FC<IOrganizationGroupsProps> = (props: IOrganiza
     },
   });
 
-  const goToGroup: ((groupName: string) => void) = (groupName: string): void => undefined;
+  const goToGroup: ((groupName: string) => void) = (groupName: string): void => {
+    push(`${url}/${groupName.toLowerCase()}/analytics`);
+  };
+
+  const handleRowClick: ((event: React.FormEvent<HTMLButtonElement>, rowInfo: { name: string }) => void) = (
+    _0: React.FormEvent<HTMLButtonElement>, rowInfo: { name: string },
+  ): void => {
+    goToGroup(rowInfo.name);
+  };
 
   return (
     <React.StrictMode>
@@ -90,6 +101,7 @@ const organizationGroups: React.FC<IOrganizationGroupsProps> = (props: IOrganiza
                         headers={tableHeaders}
                         id="tblGroups"
                         pageSize={15}
+                        rowEvents={{ onClick: handleRowClick }}
                         search={true}
                       />
                     )
