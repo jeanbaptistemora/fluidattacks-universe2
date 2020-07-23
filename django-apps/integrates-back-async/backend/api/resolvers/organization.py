@@ -23,6 +23,7 @@ from backend import (
 )
 from backend.api.resolvers import (
     analytics as analytics_loader,
+    project as group_loader,
     user as user_loader,
 )
 from backend.decorators import (
@@ -40,6 +41,7 @@ from backend.typing import (
     EditUserPayload as EditUserPayloadType,
     GrantUserAccessPayload as GrantUserAccessPayloadType,
     Organization as OrganizationType,
+    Project as ProjectType,
     SimplePayload as SimplePayloadType,
     User as UserType
 )
@@ -290,6 +292,29 @@ async def _get_min_acceptance_severity(
     **__: Any
 ) -> Decimal:
     return await org_domain.get_min_acceptance_severity(organization_id)
+
+
+@rename_kwargs({'identifier': 'organization_id'})
+async def _get_projects(
+        info: GraphQLResolveInfo,
+        organization_id: str,
+        **__: Any) -> List[ProjectType]:
+    user_email = util.get_jwt_content(info.context)['user_email']
+    user_groups = await user_domain.get_projects(
+        user_email, organization_id=organization_id
+    )
+
+    return cast(
+        List[ProjectType],
+        await aio.materialize(
+            group_loader.resolve(
+                info,
+                group,
+                as_field=True
+            )
+            for group in user_groups
+        )
+    )
 
 
 @rename_kwargs({'identifier': 'organization_id'})

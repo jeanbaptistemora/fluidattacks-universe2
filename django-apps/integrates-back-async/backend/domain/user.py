@@ -42,8 +42,12 @@ def get_data(email: str, attr: str) -> Union[str, UserType]:
 
 
 @apm.trace()
-async def get_projects(user_email: str, active: bool = True,
-                       access_pending_projects: bool = True) -> List[str]:
+async def get_projects(
+        user_email: str,
+        active: bool = True,
+        access_pending_projects: bool = True,
+        organization_id: str = '') -> List[str]:
+    user_projects: List[str] = []
     projects = await aio.ensure_io_bound(
         user_dal.get_projects, user_email, active,
     )
@@ -60,11 +64,20 @@ async def get_projects(user_email: str, active: bool = True,
             for role, project in zip(group_level_roles.values(), projects)
         )
 
-    return [
+    user_projects = [
         project
         for can_access, project in zip(can_access_list, projects)
         if can_access
     ]
+    if organization_id:
+        org_groups = await org_domain.get_groups(organization_id)
+        user_projects = [
+            project
+            for project in user_projects
+            if project in org_groups
+        ]
+
+    return user_projects
 
 
 def get_group_access(email: str, group: str) -> bool:

@@ -14,6 +14,7 @@ import translate from "../../../../utils/translations/translate";
 import { ContentTab } from "../../components/ContentTab";
 import { GET_USER_PERMISSIONS } from "../../queries";
 import { ChartsForOrganizationView } from "../ChartsForOrganizationView";
+import { OrganizationGroups } from "../OrganizationGroupsView";
 import { OrganizationPolicies } from "../OrganizationPoliciesView/index";
 import { OrganizationUsers } from "../OrganizationUsersView/index";
 import { GET_ORGANIZATION_ID } from "./queries";
@@ -86,6 +87,13 @@ const organizationContent: React.FC<IOrganizationContent> = (props: IOrganizatio
                   tooltip={translate.t("organization.tabs.analytics.tooltip")}
                 />
                 <ContentTab
+                  icon="icon pe-7s-folder"
+                  id="groupsTab"
+                  link={`${url}/groups`}
+                  title={translate.t("organization.tabs.groups.text")}
+                  tooltip={translate.t("organization.tabs.groups.tooltip")}
+                />
+                <ContentTab
                   icon="icon pe-7s-box1"
                   id="policiesTab"
                   link={`${url}/policies`}
@@ -106,6 +114,9 @@ const organizationContent: React.FC<IOrganizationContent> = (props: IOrganizatio
               <Switch>
                 <Route path={`${path}/analytics`} exact={true}>
                   <ChartsForOrganizationView organizationId={basicData.organizationId.id} />
+                </Route>
+                <Route path={`${path}/groups`} exact={true}>
+                  <OrganizationGroups organizationId={basicData.organizationId.id} />
                 </Route>
                 <Route path={`${path}/policies`} exact={true}>
                   <OrganizationPolicies organizationId={basicData.organizationId.id} />

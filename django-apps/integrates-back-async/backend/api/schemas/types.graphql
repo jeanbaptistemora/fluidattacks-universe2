@@ -82,6 +82,7 @@ type Organization {
         documentName: String!
         documentType: String!
     ): GenericScalar
+    projects: [Project]
     id: String!
     maxAcceptanceDays: Int
     maxAcceptanceSeverity: Float!

@@ -28,9 +28,7 @@ from backend.exceptions import (
     InvalidOrganization,
     UserNotInOrganization
 )
-from backend.typing import (
-    Organization as OrganizationType
-)
+from backend.typing import Organization as OrganizationType
 from backend.utils import aio
 
 

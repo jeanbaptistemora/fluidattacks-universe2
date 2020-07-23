@@ -647,6 +647,10 @@ export const enTranslations: ResourceKey = {
         text: "Analytics",
         tooltip: "Organization status at a glance",
       },
+      groups: {
+        text: "Groups",
+        tooltip: "Groups that belong to the organization",
+      },
       policies: {
         errors: {
           acceptanceSeverity:
