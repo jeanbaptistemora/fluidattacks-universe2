@@ -126,7 +126,7 @@ export const enTranslations: ResourceKey = {
         },
       },
       forces: {
-        title: "Forces",
+        title: "SecDevOps",
       },
     },
     stackedBarChart: {
@@ -482,7 +482,7 @@ export const enTranslations: ResourceKey = {
         tooltip: "Keep track of the status of all the approved findings",
       },
       forces: {
-        text: "Forces",
+        text: "SecDevOps",
         tooltip: "Check the state of the Forces jobs in your CI/CD",
       },
       indicators: {
