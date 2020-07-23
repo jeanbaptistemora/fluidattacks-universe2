@@ -572,7 +572,9 @@ async def send_unsolved_to_all() -> List[bool]:
     )
     projects = await sync_to_async(project_domain.get_active_projects)()
     return await asyncio.gather(*[
-        send_unsolved_events_email(project)
+        asyncio.create_task(
+            send_unsolved_events_email(project)
+        )
         for project in projects
     ])
 
