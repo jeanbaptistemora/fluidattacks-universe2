@@ -48,7 +48,7 @@ function decide_and_call_provisioner {
         --keep NIX_SSL_CERT_FILE \
         --keep PROD_AWS_ACCESS_KEY_ID \
         --keep PROD_AWS_SECRET_ACCESS_KEY \
-        --keep SKIMS_PYPI_TOKEN \
+        --keep PYPI_TOKEN \
         --max-jobs auto \
         --option restrict-eval false \
         --option sandbox false \

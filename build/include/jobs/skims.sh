@@ -35,7 +35,7 @@ function job_skims_deploy {
           'pyproject.toml' \
     &&  poetry publish \
           --build \
-          --password "${SKIMS_PYPI_TOKEN}" \
+          --password "${PYPI_TOKEN}" \
           --username '__token__' \
   &&  popd \
   ||  return 1

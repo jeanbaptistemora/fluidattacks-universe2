@@ -23,7 +23,6 @@ function job_forces_lint {
   ||  return 1
 }
 
-
 function job_forces_test {
   args_pytest=(
     --cov-branch
@@ -38,6 +37,31 @@ function job_forces_test {
   &&  pushd forces/ \
     &&  args_pytest+=( "--cov=forces/" ) \
     &&  poetry run pytest "${args_pytest[@]}" \
+  &&  popd \
+  ||  return 1
+}
+
+function job_forces_deploy {
+  # Propagated from Gitlab env vars
+  export PYPI_TOKEN
+  local version
+
+  function restore_version {
+    sed --in-place 's|^version.*$|version = "1.0.0"|g' "forces/pyproject.toml"
+  }
+
+      helper_forces_install_base_dependencies \
+  &&  pushd forces/ \
+    &&  version=$(helper_forces_compute_version) \
+    &&  echo "[INFO] Forces: ${version}" \
+    &&  trap 'restore_version' EXIT \
+    &&  sed --in-place \
+          "s|^version = .*$|version = \"${version}\"|g" \
+          'pyproject.toml' \
+    &&  poetry publish \
+          --build \
+          --password "${PYPI_TOKEN}" \
+          --username '__token__' \
   &&  popd \
   ||  return 1
 }

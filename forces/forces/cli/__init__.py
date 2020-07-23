@@ -58,7 +58,7 @@ class IntegratesToken(click.ParamType):
     '--output',
     '-O',
     metavar='FILE',
-    type=click.File('w'),
+    type=click.File('w', encoding="utf-8"),
     help='save output in FILE',
     required=False)
 @click.option('--strict/--lax')
@@ -68,7 +68,7 @@ def main(token: str, group: str, verbose: int, strict: bool,
     set_api_token(token)
 
     report = process(group, verbose)
-    yaml_report = yaml.dump(report)
+    yaml_report = yaml.dump(report, allow_unicode=True)
 
     if output:
         output.write(yaml_report)

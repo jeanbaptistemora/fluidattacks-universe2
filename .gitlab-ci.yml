@@ -68,6 +68,18 @@ stages:
       when: never
     - if: *forces_commit_pattern
 
+.forces_in_master_branch: &forces_in_master_branch
+  rules:
+    - if: '$CI_COMMIT_BRANCH != "master"'
+      when: never
+    - if: '$CI_PIPELINE_SOURCE == "schedule"'
+      when: never
+    - if: '$CI_PIPELINE_SOURCE == "trigger"'
+      when: never
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+      when: never
+    - if: *forces_commit_pattern
+
 .in_master_branch_integrates: &in_master_branch_integrates
   rules:
     - if: '$CI_COMMIT_BRANCH != "master"'
@@ -673,3 +685,8 @@ forces_test:
   <<: *with_nix
   <<: *forces_in_dev_and_master_branch
   stage: test-code
+
+forces_deploy:
+  <<: *with_nix
+  <<: *forces_in_master_branch
+  stage: deploy-app
