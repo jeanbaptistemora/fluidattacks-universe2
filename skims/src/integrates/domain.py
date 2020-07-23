@@ -6,7 +6,7 @@ from typing import (
 )
 
 # Local libraries
-from apis.integrates.dal import (
+from integrates.dal import (
     do_create_draft,
     do_delete_finding,
     do_upload_vulnerabilities,

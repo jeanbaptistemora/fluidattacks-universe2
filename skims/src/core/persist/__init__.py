@@ -5,18 +5,18 @@ from typing import (
 )
 
 # Local libraries
-from apis.integrates.graphql import (
-    create_session,
-)
-from apis.integrates.dal import (
-    get_finding_vulnerabilities,
-)
-from apis.integrates.domain import (
-    do_build_and_upload_vulnerabilities,
-    get_closest_finding_id,
-)
 from core.constants import (
     SKIMS_MANAGED_TAG,
+)
+from integrates.graphql import (
+    create_session,
+)
+from integrates.dal import (
+    get_finding_vulnerabilities,
+)
+from integrates.domain import (
+    do_build_and_upload_vulnerabilities,
+    get_closest_finding_id,
 )
 from model import (
     FindingEnum,

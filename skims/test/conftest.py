@@ -10,10 +10,10 @@ from typing import (
 import pytest
 
 # Local libraries
-from apis.integrates.graphql import (
+from integrates.graphql import (
     create_session,
 )
-from apis.integrates.domain import (
+from integrates.domain import (
     delete_closest_findings,
 )
 

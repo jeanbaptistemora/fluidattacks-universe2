@@ -5,9 +5,9 @@ source "${srcIncludeHelpersCommon}"
 source "${srcIncludeHelpersSkims}"
 
 GLOBAL_PKGS=(
-  src/apis
   src/cli
   src/core
+  src/integrates
   src/model
   src/utils
 )

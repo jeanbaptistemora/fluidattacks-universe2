@@ -12,9 +12,9 @@ description = "Deterministic vulnerability life-cycle reporting and closing tool
 license = "MPL-2.0"
 name = "skims"
 packages = [
-  { include = "apis", from = "src" },
   { include = "cli", from = "src" },
   { include = "core", from = "src" },
+  { include = "integrates", from = "src" },
   { include = "model", from = "src" },
   { include = "utils", from = "src" },
 ]

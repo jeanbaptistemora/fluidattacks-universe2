@@ -7,7 +7,7 @@ from typing import (
 )
 
 # Local libraries
-from apis.integrates.graphql import (
+from integrates.graphql import (
     Session,
 )
 from model import (

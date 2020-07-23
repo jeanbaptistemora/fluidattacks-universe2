@@ -5,10 +5,10 @@ from textwrap import dedent
 import pytest
 
 # Local libraries
-from apis.integrates.graphql import (
+from integrates.graphql import (
     Session,
 )
-from apis.integrates.dal import (
+from integrates.dal import (
     do_create_draft,
     do_upload_vulnerabilities,
     get_finding_vulnerabilities,
@@ -16,7 +16,7 @@ from apis.integrates.dal import (
     get_group_level_role,
     ResultGetGroupFindings,
 )
-from apis.integrates.domain import (
+from integrates.domain import (
     build_vulnerabilities_stream,
     get_closest_finding_id,
 )
