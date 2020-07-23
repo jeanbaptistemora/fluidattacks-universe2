@@ -1,7 +1,7 @@
 # pylint:disable=too-many-lines
 from time import time
 import sys
-from typing import Dict, List, Any
+from typing import Dict, List, Any, Union, cast
 
 from ariadne import convert_camel_case_to_snake, convert_kwargs_to_snake_case
 from asgiref.sync import sync_to_async
@@ -35,6 +35,8 @@ from backend.utils import (
     virus_scan,
 )
 from backend import authz, util
+
+from django.core.files.uploadedfile import InMemoryUploadedFile
 
 
 @get_entity_cache_async
@@ -505,22 +507,42 @@ async def resolve(
     return result
 
 
-@convert_kwargs_to_snake_case
-def resolve_finding_mutation(obj, info, **parameters):
+@convert_kwargs_to_snake_case  # type: ignore
+def resolve_finding_mutation(
+        obj: Any,
+        info: GraphQLResolveInfo,
+        **parameters: Any
+) -> Union[
+    SimpleFindingPayloadType,
+    SimplePayloadType,
+    AddCommentPayloadType,
+    ApproveDraftPayloadType
+]:
     """Resolve findings mutation."""
     field = util.camelcase_to_snakecase(info.field_name)
     resolver_func = getattr(sys.modules[__name__], f'_do_{field}')
-    return resolver_func(obj, info, **parameters)
+    return cast(
+        Union[
+            SimpleFindingPayloadType,
+            SimplePayloadType,
+            AddCommentPayloadType,
+            ApproveDraftPayloadType
+        ],
+        resolver_func(obj, info, **parameters)
+    )
 
 
-@convert_kwargs_to_snake_case
+@convert_kwargs_to_snake_case  # type: ignore
 @require_login
 @rename_kwargs({'identifier': 'finding_id'})
 @enforce_group_level_auth_async
 @require_integrates
 @require_finding_access
 @rename_kwargs({'finding_id': 'identifier'})
-async def resolve_finding(_, info, identifier: str) -> Dict[str, FindingType]:
+async def resolve_finding(
+        _: Any,
+        info: GraphQLResolveInfo,
+        identifier: str) -> Dict[str, FindingType]:
     """Resolve finding query."""
     return await resolve(info, identifier)
 
@@ -529,16 +551,20 @@ async def resolve_finding(_, info, identifier: str) -> Dict[str, FindingType]:
 @enforce_group_level_auth_async
 @require_integrates
 @require_finding_access
-async def _do_remove_evidence(_, info, evidence_id: str,
-                              finding_id: str) -> SimpleFindingPayloadType:
+async def _do_remove_evidence(
+        _: Any,
+        info: GraphQLResolveInfo,
+        evidence_id: str,
+        finding_id: str) -> SimpleFindingPayloadType:
     """Resolve remove_evidence mutation."""
     success = await finding_domain.remove_evidence(evidence_id, finding_id)
 
     if success:
         util.cloudwatch_log(
             info.context,
-            f'Security: \
-Removed evidence in finding {finding_id}')  # pragma: no cover
+            ('Security: Removed evidence '
+             f'in finding {finding_id}')  # pragma: no cover
+        )
         util.invalidate_cache(finding_id)
     finding = await info.context.loaders['finding'].load(finding_id)
     return SimpleFindingPayloadType(finding=finding, success=success)
@@ -548,8 +574,12 @@ Removed evidence in finding {finding_id}')  # pragma: no cover
 @enforce_group_level_auth_async
 @require_integrates
 @require_finding_access
-async def _do_update_evidence(_, info, evidence_id: str, finding_id: str,
-                              file) -> SimplePayloadType:
+async def _do_update_evidence(
+        _: Any,
+        info: GraphQLResolveInfo,
+        evidence_id: str,
+        finding_id: str,
+        file: InMemoryUploadedFile) -> SimplePayloadType:
     """Resolve update_evidence mutation."""
     success = False
     user_email = util.get_jwt_content(info.context)['user_email']
@@ -559,21 +589,25 @@ async def _do_update_evidence(_, info, evidence_id: str, finding_id: str,
 
     virus_scan.scan_file(file, user_email, project_name)
 
-    if await \
-            sync_to_async(finding_domain.validate_evidence)(evidence_id, file):
+    if await sync_to_async(finding_domain.validate_evidence)(
+        evidence_id, file
+    ):
         success = await finding_domain.update_evidence(
-            finding_id, evidence_id, file)
+            finding_id, evidence_id, file
+        )
     if success:
         util.invalidate_cache(finding_id)
         util.cloudwatch_log(
             info.context,
-            'Security: Updated evidence in finding '
-            f'{finding_id} successfully')  # pragma: no cover
+            ('Security: Updated evidence in finding '
+             f'{finding_id} successfully')  # pragma: no cover
+        )
     else:
         util.cloudwatch_log(
             info.context,
-            'Security: Attempted to update evidence in '
-            f'finding {finding_id}')  # pragma: no cover
+            ('Security: Attempted to update evidence in '
+             f'finding {finding_id}')  # pragma: no cover
+        )
     return SimplePayloadType(success=success)
 
 
@@ -582,22 +616,31 @@ async def _do_update_evidence(_, info, evidence_id: str, finding_id: str,
 @require_integrates
 @require_finding_access
 async def _do_update_evidence_description(
-        _, info, finding_id: str, evidence_id: str,
+        _: Any,
+        info: GraphQLResolveInfo,
+        finding_id: str,
+        evidence_id: str,
         description: str) -> SimplePayloadType:
     """Resolve update_evidence_description mutation."""
     success = False
     try:
         success = await finding_domain.update_evidence_description(
-            finding_id, evidence_id, description)
+            finding_id, evidence_id, description
+        )
         if success:
             util.invalidate_cache(finding_id)
             util.cloudwatch_log(
-                info.context, f'Security: Evidence description \
-successfully updated in finding {finding_id}')  # pragma: no cover
+                info.context,
+                ('Security: Evidence description '
+                 'successfully updated in finding '
+                 f'{finding_id}')  # pragma: no cover
+            )
         else:
             util.cloudwatch_log(
-                info.context, f'Security: Attempted to update \
-                evidence description in {finding_id}')  # pragma: no cover
+                info.context,
+                ('Security: Attempted to update '
+                 f'evidence description in {finding_id}')  # pragma: no cover
+            )
     except KeyError as ex:
         logging_utils.log(ex, 'error', extra=locals())
     return SimplePayloadType(success=success)
@@ -607,8 +650,10 @@ successfully updated in finding {finding_id}')  # pragma: no cover
 @enforce_group_level_auth_async
 @require_integrates
 @require_finding_access
-async def _do_update_severity(_, info,
-                              **parameters) -> SimpleFindingPayloadType:
+async def _do_update_severity(
+        _: Any,
+        info: GraphQLResolveInfo,
+        **parameters: Any) -> SimpleFindingPayloadType:
     """Perform update_severity mutation."""
     data = parameters.get('data', dict())
     data = {util.snakecase_to_camelcase(k): data[k] for k in data}
@@ -623,12 +668,16 @@ async def _do_update_severity(_, info,
         util.invalidate_cache(finding_id)
         util.invalidate_cache(project)
         util.cloudwatch_log(
-            info.context, f'Security: Updated severity in \
-            finding {finding_id} successfully')  # pragma: no cover
+            info.context,
+            ('Security: Updated severity in '
+             f'finding {finding_id} successfully')  # pragma: no cover
+        )
     else:
         util.cloudwatch_log(
-            info.context, f'Security: Attempted to update \
-            severity in finding {finding_id}')  # pragma: no cover
+            info.context,
+            ('Security: Attempted to update '
+             f'severity in finding {finding_id}')  # pragma: no cover
+        )
     finding = await info.context.loaders['finding'].load(finding_id)
     return SimpleFindingPayloadType(finding=finding, success=success)
 
@@ -637,8 +686,10 @@ async def _do_update_severity(_, info,
 @enforce_group_level_auth_async
 @require_integrates
 @require_finding_access
-async def _do_add_finding_comment(_, info,
-                                  **parameters) -> AddCommentPayloadType:
+async def _do_add_finding_comment(
+        _: Any,
+        info: GraphQLResolveInfo,
+        **parameters: Any) -> AddCommentPayloadType:
     """Perform add_finding_comment mutation."""
     param_type = parameters.get('type', '').lower()
     if param_type in ['comment', 'observation']:
@@ -648,12 +699,14 @@ async def _do_add_finding_comment(_, info,
         finding_loader = info.context.loaders['finding']
         finding = await finding_loader.load(finding_id)
         group = finding.get('project_name')
-        role = \
-            authz.get_group_level_role(user_email, group)
-        if param_type == 'observation' and \
-                role not in ['analyst', 'admin', 'group_manager', 'reviewer']:
-            util.cloudwatch_log(info.context, 'Security: \
-Unauthorized role attempted to add observation')  # pragma: no cover
+        role = authz.get_group_level_role(user_email, group)
+        if (param_type == 'observation' and
+                role not in ['analyst', 'admin', 'group_manager', 'reviewer']):
+            util.cloudwatch_log(
+                info.context,
+                ('Security: Unauthorized role '
+                 'attempted to add observation')  # pragma: no cover
+            )
             raise GraphQLError('Access denied')
 
         user_email = user_data['user_email']
@@ -662,8 +715,10 @@ Unauthorized role attempted to add observation')  # pragma: no cover
             'user_id': comment_id,
             'comment_type': param_type,
             'content': parameters.get('content'),
-            'fullname': str.join(' ', [user_data['first_name'],
-                                       user_data['last_name']]),
+            'fullname': str.join(
+                ' ',
+                [user_data['first_name'], user_data['last_name']]
+            ),
             'parent': parameters.get('parent'),
         }
         success = await finding_domain.add_comment(
@@ -677,12 +732,17 @@ Unauthorized role attempted to add observation')  # pragma: no cover
     if success:
         finding_loader.clear(finding_id)
         util.invalidate_cache(parameters.get('finding_id', ''))
-        util.cloudwatch_log(info.context, f'Security: Added comment in\
-            finding {finding_id} successfully')  # pragma: no cover
+        util.cloudwatch_log(
+            info.context,
+            ('Security: Added comment in '
+             f'finding {finding_id} successfully')  # pragma: no cover
+        )
     else:
         util.cloudwatch_log(
-            info.context, f'Security: Attempted to add \
-comment in finding {finding_id}')  # pragma: no cover
+            info.context,
+            ('Security: Attempted to add '
+             f'comment in finding {finding_id}')  # pragma: no cover
+        )
     ret = AddCommentPayloadType(success=success, comment_id=str(comment_id))
     return ret
 
@@ -691,7 +751,10 @@ comment in finding {finding_id}')  # pragma: no cover
 @enforce_group_level_auth_async
 @require_integrates
 @require_finding_access
-async def _do_handle_acceptation(_, info, **parameters) -> SimplePayloadType:
+async def _do_handle_acceptation(
+        _: Any,
+        info: GraphQLResolveInfo,
+        **parameters: Any) -> SimplePayloadType:
     """Resolve handle_acceptation mutation."""
     user_info = util.get_jwt_content(info.context)
     user_mail = user_info['user_email']
@@ -701,8 +764,9 @@ async def _do_handle_acceptation(_, info, **parameters) -> SimplePayloadType:
     historic_treatment = finding_data.get('historic_treatment', [{}])
     if historic_treatment[-1]['acceptance_status'] != 'SUBMITTED':
         raise GraphQLError(
-            'It cant be approved/rejected a finding' +
-            'definite assumption without being requested')
+            'It cant be approved/rejected a finding'
+            'definite assumption without being requested'
+        )
 
     success = await finding_domain.handle_acceptation(
         finding_id,
@@ -716,8 +780,10 @@ async def _do_handle_acceptation(_, info, **parameters) -> SimplePayloadType:
         util.invalidate_cache(parameters.get('project_name', ''))
         util.forces_trigger_deployment(parameters.get('project_name', ''))
         util.cloudwatch_log(
-            info.context, 'Security: Verified a request '
-            f'in finding_id: {finding_id}')  # pragma: no cover
+            info.context,
+            ('Security: Verified a request '
+             f'in finding_id: {finding_id}')  # pragma: no cover
+        )
     return SimplePayloadType(success=success)
 
 
