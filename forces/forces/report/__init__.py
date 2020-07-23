@@ -21,6 +21,7 @@ from forces.apis.integrates.api import (
 async def create_findings_dict(project: str,
                                verbose_level: int,
                                **kwargs: str) -> Dict[str, Dict[str, Any]]:
+    """Returns a dictionary containing as key the findings of a project."""
     findings_dict: Dict[str, Dict[str, Any]] = dict()
     findings_futures = [
         get_finding(fin) for fin in await get_findings(project, **kwargs)
@@ -56,6 +57,9 @@ async def generate_report(project: str,
     async for vuln in vulns_generator(project):
         find_id: str = vuln['findingId']  # type: ignore
         state = vuln['currentState']
+        if state == 'open' and findings_dict[find_id]['state'] == 'accepted':
+            state = 'accepted'
+
         if state == 'closed':
             _summary_dict['closed'] += 1
             findings_dict[find_id]['closed'] += 1
@@ -70,6 +74,8 @@ async def generate_report(project: str,
         vulnerability = {
             'type': 'SAST' if vuln['vulnType'] == 'lines' else 'DAST',
             'where': vuln['where'],
+            'specific': ('https://fluidattacks.com/integrates/groups/'
+                         f'{project}/findings/{vuln["findingId"]}'),
             'state': vuln['currentState']
         }
 

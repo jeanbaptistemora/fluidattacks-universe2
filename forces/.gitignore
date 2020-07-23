@@ -4,6 +4,9 @@
 #  [a-zA-Z] (caseless)
 
 /**/*.egg-info
-/**/.coverage
+/coverage*
 /poetry.lock
 /dist
+test.yml
+.mypy_cache/
+.venv/

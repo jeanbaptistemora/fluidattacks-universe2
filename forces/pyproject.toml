@@ -1,6 +1,6 @@
 [tool.poetry]
 authors = ["Product Team <development@fluidattacks.com>"]
-description = "Validated that the vulnerabilities in integrates are closed or accepted"
+description = "Forces is simple and powerful, it allows validating the status of vulnerabilities within integrates."
 license = "MPL-2.0"
 name = "forces"
 packages = [
@@ -8,10 +8,11 @@ packages = [
 ]
 readme = "./README.md"
 repository = "https://gitlab.com/fluidattacks/integrates/-/tree/master/forces"
-version = "0.1.0"
+version = "1.0.0"
 
 [tool.poetry.dependencies]
 aiohttp = "3.6.2"
+click = "7.1.2"
 gql = "3.0.0a1"
 oyaml = "0.9"
 python-jose = "3.1.0"
