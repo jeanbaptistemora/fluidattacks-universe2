@@ -49,7 +49,7 @@ const services: React.FC<IServicesProps> = (props: IServicesProps): JSX.Element 
   const dispatch: Dispatch = useDispatch();
   const selector: (state: {}, ...fields: string[]) => IFormData = formValueSelector("editGroup");
   const formValues: IFormData = useSelector((state: {}) =>
-    selector(state, "comments", "confirmation", "drills", "forces", "integrates", "organization", "reason", "type"));
+    selector(state, "comments", "confirmation", "drills", "forces", "integrates", "reason", "type"));
   const [isModalOpen, setIsModalOpen] = React.useState(false);
 
   // Business Logic handlers
@@ -121,10 +121,6 @@ const services: React.FC<IServicesProps> = (props: IServicesProps): JSX.Element 
           case "Exception - Forces is only available in projects of type Continuous":
             msg = "search_findings.services_table.errors.forces_only_if_continuous";
             break;
-          case "Exception - Organization name is invalid":
-            msg = "search_findings.services_table.errors.organization_not_exists";
-          case "Exception - User is not a member of the target organization":
-            msg = "search_findings.services_table.errors.user_not_in_organization";
           default:
             msg = "group_alerts.error_textsad";
             rollbar.error("An error occurred editing group services", error);
@@ -139,7 +135,6 @@ const services: React.FC<IServicesProps> = (props: IServicesProps): JSX.Element 
       hasDrills: formValues.drills,
       hasForces: formValues.forces,
       hasIntegrates: formValues.integrates,
-      organization: formValues.organization,
       reason: formValues.reason,
       subscription: formValues.type,
     },
@@ -194,18 +189,6 @@ const services: React.FC<IServicesProps> = (props: IServicesProps): JSX.Element 
   ].filter((element: IServicesDataSet): boolean => element.canHave);
 
   const servicesDataSet: Array<{ [key: string]: JSX.Element }> = [
-    {
-      service: (
-        <p>{translate.t("search_findings.services_table.organization")}</p>
-      ),
-      status: (
-        <Field
-          component={Text}
-          name="organization"
-          type="text"
-        />
-      ),
-    },
     {
       service: (
         <p>{translate.t("search_findings.services_table.type")}</p>
@@ -280,7 +263,6 @@ const services: React.FC<IServicesProps> = (props: IServicesProps): JSX.Element 
             drills: data.project.hasDrills,
             forces: data.project.hasForces,
             integrates: true,
-            organization: data.project.organization.name,
             reason: "NONE",
             type: data.project.subscription.toUpperCase(),
           }}

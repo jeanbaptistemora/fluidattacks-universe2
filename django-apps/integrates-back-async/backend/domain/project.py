@@ -209,7 +209,6 @@ def edit(
     has_drills: bool,
     has_forces: bool,
     has_integrates: bool,
-    organization: str,
     reason: str,
     requester_email: str,
     subscription: str,
@@ -238,19 +237,13 @@ def edit(
     item.setdefault('historic_configuration', [])
 
     if item.get('project_name'):
-        success = async_to_sync(org_domain.move_group)(
-            group_name, organization, requester_email
-        )
-
-        org_id = async_to_sync(org_domain.get_id_by_name)(organization)
-        success = success and project_dal.update(
+        success = project_dal.update(
             data={
                 'historic_configuration': item['historic_configuration'] + [{
                     'comments': comments,
                     'date': util.get_current_time_as_iso_str(),
                     'has_drills': has_drills,
                     'has_forces': has_forces,
-                    'organization': org_id,
                     'reason': reason,
                     'requester': requester_email,
                     'type': subscription,
@@ -281,7 +274,6 @@ def edit(
             has_drills=has_drills,
             has_forces=has_forces,
             has_integrates=has_integrates,
-            organization=organization,
             reason=reason,
             requester_email=requester_email,
             subscription=subscription,

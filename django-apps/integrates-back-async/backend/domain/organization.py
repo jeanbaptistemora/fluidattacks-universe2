@@ -18,9 +18,7 @@ from backend import (
     util
 )
 from backend.dal import organization as org_dal
-from backend.domain import project as group_domain
 from backend.exceptions import (
-    GroupNotInOrganization,
     InvalidAcceptanceDays,
     InvalidAcceptanceSeverity,
     InvalidAcceptanceSeverityRange,
@@ -160,58 +158,6 @@ async def has_group(group_name: str, organization_id: str) -> bool:
 async def has_user_access(email: str, organization_id: str) -> bool:
     return await org_dal.has_user_access(email, organization_id) \
         or authz.get_organization_level_role(email, organization_id) == 'admin'
-
-
-async def move_group(
-    group_name: str,
-    organization_name: str,
-    email: str
-) -> bool:
-    """
-    Verify that a request to move a group to another organization is valid
-    and process it
-    """
-    success: bool = False
-    old_organization_id = await get_id_for_group(group_name)
-    new_organization_id = await get_id_by_name(
-        organization_name.lower().strip()
-    )
-
-    if old_organization_id == new_organization_id:
-        success = True
-    else:
-        group_name = group_name.lower()
-        if not await has_group(group_name, old_organization_id):
-            raise GroupNotInOrganization()
-        if not await has_user_access(email, new_organization_id):
-            raise UserNotInOrganization(organization_name)
-
-        success = (
-            await org_dal.add_group(new_organization_id, group_name) and
-            await org_dal.remove_group(old_organization_id, group_name) and
-            await move_users(group_name, new_organization_id)
-        )
-    return success
-
-
-async def move_users(group_name: str, organization_id: str) -> bool:
-    success: bool = False
-    group_users = await aio.ensure_io_bound(
-        group_domain.get_users,
-        group_name,
-        True
-    )
-    have_users_access = await aio.materialize(
-        has_user_access(user, organization_id) for user in group_users
-    )
-
-    success = all(
-        await aio.materialize(
-            add_user(organization_id, user, 'customer')
-            for user in group_users if not have_users_access.pop(0)
-        )
-    )
-    return success
 
 
 async def remove_user(organization_id: str, email: str) -> bool:

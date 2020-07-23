@@ -385,12 +385,12 @@ class ProjectTest(TestCase):
 
 @pytest.mark.changes_db
 @pytest.mark.parametrize(
-    ['group_name', 'subscription', 'has_drills', 'has_forces', 'has_integrates', 'organization', 'expected'],
+    ['group_name', 'subscription', 'has_drills', 'has_forces', 'has_integrates', 'expected'],
     [
-        ['unittesting', 'continuous', True, True, True, 'testorg', True],
-        ['oneshottest', 'oneshot', False, False, True, 'testorg', True],
-        ['not-exists', 'continuous', True, True, True, '', False],
-        ['not-exists', 'continuous', False, False, False, '', False],
+        ['unittesting', 'continuous', True, True, True, True],
+        ['oneshottest', 'oneshot', False, False, True, True],
+        ['not-exists', 'continuous', True, True, True, False],
+        ['not-exists', 'continuous', False, False, False, False],
     ]
 )
 def test_edit(
@@ -399,7 +399,6 @@ def test_edit(
     has_drills: bool,
     has_forces: bool,
     has_integrates: bool,
-    organization: str,
     expected: bool,
 ):
     assert expected == edit(
@@ -409,7 +408,6 @@ def test_edit(
         has_drills=has_drills,
         has_forces=has_forces,
         has_integrates=has_integrates,
-        organization=organization,
         reason='',
         requester_email='test@test.test'
     )

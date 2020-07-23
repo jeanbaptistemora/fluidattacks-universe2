@@ -818,7 +818,6 @@ export const enTranslations: ResourceKey = {
       },
       one_shot: "One-Shot Hacking",
       oneshot: "One-Shot Hacking",
-      organization: "Organization",
       service: "Service",
       services: "Services",
       status: "Status",
