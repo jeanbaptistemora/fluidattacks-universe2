@@ -8,9 +8,10 @@ from backend import mailer
 from backend.dal import (
     notifications as notifications_dal,
 )
+from backend.utils import aio
 
 
-def new_group(
+async def new_group(
     *,
     description: str,
     group_name: str,
@@ -26,7 +27,8 @@ def new_group(
         False: 'Inactive',
     }
 
-    return notifications_dal.create_ticket(
+    return await aio.ensure_io_bound(
+        notifications_dal.create_ticket,
         subject=f'[Integrates] Group created: {group_name}',
         description=f"""
             You are receiving this email because you have created a group

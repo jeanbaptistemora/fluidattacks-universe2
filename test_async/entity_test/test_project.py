@@ -17,6 +17,7 @@ from backend.api.dataloaders.finding import FindingLoader
 from backend.api.dataloaders.project import ProjectLoader
 from backend.api.dataloaders.vulnerability import VulnerabilityLoader
 from backend.api.schema import SCHEMA
+from backend.domain.available_group import get_name
 from backend.exceptions import AlreadyPendingDeletion, NotPendingDeletion, PermissionDenied
 
 from test_async.utils import create_dummy_session
@@ -196,7 +197,7 @@ class ProjectTests(TestCase):
         query = '''
         mutation {
             createProject(
-                companies: ["fluid"],
+                organization: "testorg",
                 description: "This is a new project from pytest",
                 projectName: "%(project_name)s",
                 subscription: CONTINUOUS,
@@ -206,15 +207,12 @@ class ProjectTests(TestCase):
             success
            }
         }'''
-        query = query % {'project_name': random_project_name()}
+        query = query % {'project_name': await get_name()}
         data = {'query': query}
-        result = await self._get_result_async(data, user='unittest@fluidattacks.com')
-        if 'errors' not in result:
-            assert 'errors' not in result
-            assert 'success' in result['data']['createProject']
-            assert result['data']['createProject']['success']
-        else:
-            pytest.skip("Expected error")
+        result = await self._get_result_async(data, user='integratesuser@gmail.com')
+        assert 'errors' not in result
+        assert 'success' in result['data']['createProject']
+        assert result['data']['createProject']['success']
 
     @pytest.mark.changes_db
     async def test_reject_request_remove_denied(self):

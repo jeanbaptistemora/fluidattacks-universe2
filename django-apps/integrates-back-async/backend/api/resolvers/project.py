@@ -786,26 +786,37 @@ async def resolve_project_mutation(
 
 @require_login
 @enforce_user_level_auth_async
-async def _do_create_project(
+async def _do_create_project(  # pylint: disable=too-many-arguments
         _: Any,
         info: GraphQLResolveInfo,
-        **kwargs: Any) -> SimplePayloadType:
+        description: str,
+        organization: str,
+        project_name: str,
+        subscription: str = 'continuous',
+        has_drills: bool = False,
+        has_forces: bool = False) -> SimplePayloadType:
     """Resolve create_project mutation."""
     user_data = util.get_jwt_content(info.context)
     user_email = user_data['user_email']
     user_role = await sync_to_async(authz.get_user_level_role)(user_email)
 
-    success = await sync_to_async(project_domain.create_project)(
-        user_email, user_role, **kwargs
+    success = await project_domain.create_project(
+        user_email,
+        user_role,
+        project_name.lower(),
+        organization,
+        description,
+        has_drills,
+        has_forces,
+        subscription
     )
 
     if success:
-        project_name: str = kwargs.get('project_name', '').lower()
 
         util.invalidate_cache(user_email)
         util.cloudwatch_log(
             info.context,
-            f'Security: Created project {project_name} successfully',
+            f'Security: Created project {project_name.lower()} successfully',
         )
 
     return SimplePayloadType(success=success)
@@ -944,7 +955,7 @@ async def _do_add_tags(
     """Resolve add_tags mutation."""
     success = False
     project_name = project_name.lower()
-    if await aio.ensure_io_bound(project_domain.is_alive, project_name):
+    if await project_domain.is_alive(project_name):
         if await aio.ensure_io_bound(
                 project_domain.validate_tags,
                 project_name,
@@ -987,7 +998,7 @@ async def _do_remove_tag(
     """Resolve remove_tag mutation."""
     success = False
     project_name = project_name.lower()
-    if await sync_to_async(project_domain.is_alive)(project_name):
+    if await project_domain.is_alive(project_name):
         project_loader = info.context.loaders['project']
         project_attrs = await project_loader.load(project_name)
         project_attrs = project_attrs['attrs']

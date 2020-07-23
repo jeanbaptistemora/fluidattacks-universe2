@@ -29,6 +29,7 @@ from backend.dal.finding import (
     TABLE as FINDINGS_TABLE
 )
 from backend.dal.user import get_attributes as get_user_attributes
+from backend.utils import logging
 
 
 DYNAMODB_RESOURCE = dynamodb.DYNAMODB_RESOURCE  # type: ignore
@@ -450,14 +451,14 @@ def update(project_name: str, data: ProjectType) -> bool:
     return success
 
 
-def create(project: ProjectType) -> bool:
+async def create(project: ProjectType) -> bool:
     """Add project to dynamo."""
     resp = False
     try:
-        response = TABLE.put_item(Item=project)
-        resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
-    except ClientError:
-        rollbar.report_exc_info()
+        resp = await dynamodb.async_put_item(TABLE_NAME, project)
+    except ClientError as ex:
+        await logging.log(ex, 'error', extra=locals())
+
     return resp
 
 

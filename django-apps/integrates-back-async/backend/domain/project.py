@@ -105,25 +105,21 @@ def validate_project_services_config(
                 'Forces is only available in projects of type Continuous')
 
 
-def create_project(
-        user_email: str,
-        user_role: str,
-        **kwargs: Dict[str, Union[bool, str, List[str]]]) -> bool:
-    project_name = str(kwargs.get('project_name', '')).lower()
-    organization = str(kwargs.get('organization'))
-    description = str(kwargs.get('description', ''))
+async def create_project(  # pylint: disable=too-many-arguments
+    user_email: str,
+    user_role: str,
+    project_name: str,
+    organization: str,
+    description: str,
+    has_drills: bool = False,
+    has_forces: bool = False,
+    subscription: str = 'continuous'
+) -> bool:
     validations.validate_project_name(project_name)
     validations.validate_fields([description])
     validations.validate_field_length(project_name, 20)
     validations.validate_field_length(description, 200)
-    has_drills = cast(bool, kwargs.get('has_drills', False))
-    has_forces = cast(bool, kwargs.get('has_forces', False))
     is_user_admin = user_role == 'admin'
-
-    if kwargs.get('subscription'):
-        subscription = str(kwargs.get('subscription'))
-    else:
-        subscription = 'continuous'
 
     is_continuous_type = subscription == 'continuous'
 
@@ -137,15 +133,16 @@ def create_project(
             has_forces,
             has_integrates=True)
 
-        is_group_avail = async_to_sync(
-            available_group_domain.exists)(project_name)
+        is_group_avail, group_exists = await asyncio.gather(
+            available_group_domain.exists(project_name),
+            project_dal.exists(project_name)
+        )
 
-        org_id = async_to_sync(org_domain.get_id_by_name)(organization)
-        if not async_to_sync(org_domain.has_user_access)(user_email, org_id):
+        org_id = await org_domain.get_id_by_name(organization)
+        if not await org_domain.has_user_access(user_email, org_id):
             raise UserNotInOrganization(org_id)
 
-        if (is_group_avail and
-                not async_to_sync(project_dal.exists)(project_name)):
+        if is_group_avail and not group_exists:
             project: ProjectType = {
                 'project_name': project_name,
                 'description': description,
@@ -160,13 +157,12 @@ def create_project(
                 'project_status': 'ACTIVE',
             }
 
-            success = project_dal.create(project)
+            success = await project_dal.create(project)
             if success:
-                async_to_sync(org_dal.add_group)(
-                    org_id, project['project_name']
+                await asyncio.gather(
+                    org_dal.add_group(org_id, project_name),
+                    available_group_domain.remove(project_name)
                 )
-                async_to_sync(
-                    available_group_domain.remove)(project_name)
                 # Admins are not granted access to the project
                 # they are omnipresent
                 if not is_user_admin:
@@ -176,12 +172,19 @@ def create_project(
                         # Other roles are turned into customeradmins
                     }.get(user_role, 'customeradmin')
 
-                    success = success and all([
-                        user_domain.update_project_access(
-                            user_email, project_name, True),
-                        authz.grant_group_level_role(
-                            user_email, project_name, user_role),
-                    ])
+                    success = success and all(await asyncio.gather(
+                        aio.ensure_io_bound(
+                            user_domain.update_project_access,
+                            user_email,
+                            project_name,
+                            True
+                        ),
+                        aio.ensure_io_bound(
+                            authz.grant_group_level_role,
+                            user_email, project_name,
+                            user_role
+                        ))
+                    )
 
         else:
             raise InvalidProjectName()
@@ -190,7 +193,7 @@ def create_project(
 
     # Notify us in case the user wants any Fluid Service
     if success and (has_drills or has_forces):
-        notifications_domain.new_group(
+        await notifications_domain.new_group(
             description=description,
             group_name=project_name,
             has_drills=has_drills,

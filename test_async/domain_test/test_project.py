@@ -359,21 +359,22 @@ class ProjectTest(TestCase):
         assert mean_remediate_medium_severity == expected_output
 
     @pytest.mark.changes_db
-    def test_create_project_not_user_admin(self):
-        available_group_dal.create('PRAGA')
+    async def test_create_project_not_user_admin(self):
+        await available_group_dal.create('NEWAVAILABLENAME')
         user_email = 'integratesuser@gmail.com'
         user_role = 'customeradmin'
-        project_data = {
-            'description': 'This is a new project',
-            'organization': 'testorg',
-            'project_name': 'PRAGA',
-            'subscription': 'continuous',
-            'has_drills': True,
-            'has_forces': True
-        }
-        test_data = create_project(user_email, user_role, **project_data)
+        test_data = await create_project(
+            user_email=user_email,
+            user_role=user_role,
+            project_name='NEWAVAILABLENAME',
+            organization='testorg',
+            description='This is a new project',
+            has_drills=True,
+            has_forces=True,
+            subscription='continuous'
+        )
         expected_output = True
-        assert  test_data == expected_output
+        assert test_data == expected_output
 
     @pytest.mark.changes_db
     def test_remove_group(self):
