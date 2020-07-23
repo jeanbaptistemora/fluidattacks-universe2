@@ -14,9 +14,15 @@ def test_group() -> Iterator[str]:
 
 
 @pytest.fixture(scope='session')  # type: ignore
+def test_finding() -> Iterator[str]:
+    yield '940350540'
+
+
+@pytest.fixture(scope='session')  # type: ignore
 def test_token() -> Iterator[str]:
     yield os.environ['INTEGRATES_API_TOKEN']
 
-@pytest.fixture(scope='session')
+
+@pytest.fixture(scope='session')  #type: ignore
 def test_endpoint() -> Iterator[str]:
     yield 'https://fluidattacks.com/integrates/api'

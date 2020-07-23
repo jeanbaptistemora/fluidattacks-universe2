@@ -16,14 +16,17 @@ from gql import (
     Client,
 )
 from gql.client import (
-    AsyncClientSession, )
+    AsyncClientSession,
+)
 
 # Local libraries
 from forces.utils.aio import (
-    unblock, )
+    unblock,
+)
 
 from forces.apis.integrates import (
-    get_api_token, )
+    get_api_token,
+)
 
 # Context
 SESSION: ContextVar[AsyncClientSession] = ContextVar('SESSION')
@@ -33,6 +36,7 @@ async def get_transport(
         *,
         api_token: str,
         endpoint_url: str,
+        **kwargs: Any
 ) -> AIOHTTPTransport:
     """Returns an AIOHTTPTransport."""
 
@@ -40,6 +44,7 @@ async def get_transport(
         return AIOHTTPTransport(
             headers={'authorization': f'Bearer {api_token}'},
             url=endpoint_url,
+            **kwargs
         )
 
     return await unblock(_get_transport)
@@ -49,11 +54,13 @@ async def get_transport(
 async def session(
         api_token: str = get_api_token(),
         endpoint_url: str = 'https://fluidattacks.com/integrates/api',
+        **kwargs: str,
 ) -> AsyncIterator[Client]:
     """Returns an Async GraphQL Client."""
     transport: AIOHTTPTransport = await get_transport(
         api_token=api_token,
         endpoint_url=endpoint_url,
+        **kwargs
     )
     async with Client(
             execute_timeout=None,

@@ -27,7 +27,7 @@ function job_forces_lint {
 function job_forces_test {
   args_pytest=(
     --cov-branch
-    --cov-fail-under '10'
+    --cov-fail-under '30'
     --cov-report 'term'
     --cov-report "html:${PWD}/skims/coverage/"
     --cov-report "xml:${PWD}/skims/coverage.xml"

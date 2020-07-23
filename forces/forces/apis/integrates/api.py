@@ -1,17 +1,23 @@
+"""Fluid Forces integrates api module."""
 # Standar Imports
 from typing import (
     Any,
     Dict,
     List,
-    Union)
+    Union
+)
 # 3dr Imports
-from gql import gql
+from gql import (
+    gql,
+)
 
 # Local Library
-from forces.apis.integrates.client import session
+from forces.apis.integrates.client import (
+    session,
+)
 
 
-async def get_findings(project: str) -> List[str]:
+async def get_findings(project: str, **kwargs: str) -> List[str]:
     """
     Returns the findings of a group.
 
@@ -27,7 +33,7 @@ async def get_findings(project: str) -> List[str]:
           }
         }
         """)
-    async with session() as client:
+    async with session(**kwargs) as client:
         params = {'project_name': project}
         result: Dict[str, Dict[str, Any]] = await client.execute(
             query, variable_values=params)
@@ -38,7 +44,7 @@ async def get_findings(project: str) -> List[str]:
 
 
 async def get_vulnerabilities(
-        finding: str, **kwargs: Dict[str, str]
+        finding: str, **kwargs: str
 ) -> List[Dict[str, Union[str, List[Dict[str, Dict[str, Any]]]]]]:
     """
     Returns the vulnerabilities of a finding.
@@ -64,8 +70,7 @@ async def get_vulnerabilities(
         return result['finding']['vulnerabilities']  # type: ignore
 
 
-async def get_finding(finding: str,
-                      **kwargs: Dict[str, str]) -> Dict[str, str]:
+async def get_finding(finding: str, **kwargs: str) -> Dict[str, str]:
     """
     Returns a finding.
 
