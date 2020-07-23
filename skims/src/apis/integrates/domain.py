@@ -7,6 +7,7 @@ from typing import (
 
 # Local libraries
 from apis.integrates.dal import (
+    do_create_draft,
     do_delete_finding,
     do_upload_vulnerabilities,
     get_group_findings,
@@ -57,7 +58,12 @@ async def build_vulnerabilities_stream(
     return await yaml_dumps(await unblock(_get_data))
 
 
-async def get_closest_finding_id(*, group: str, title: str) -> str:
+async def get_closest_finding_id(
+    *,
+    create_if_missing: bool = False,
+    group: str,
+    title: str,
+) -> str:
     findings: Tuple[ResultGetGroupFindings, ...] = \
         await get_group_findings(group=group)
 
@@ -65,7 +71,24 @@ async def get_closest_finding_id(*, group: str, title: str) -> str:
         if are_similar(title, finding.title):
             return finding.identifier
 
-    return ''
+    # No similar finding has been found at this point
+
+    if create_if_missing:
+        if await do_create_draft(
+            group=group,
+            title=title,
+        ):
+            finding_id: str = await get_closest_finding_id(
+                create_if_missing=False,
+                group=group,
+                title=title,
+            )
+        else:
+            finding_id = ''
+    else:
+        finding_id = ''
+
+    return finding_id
 
 
 async def delete_closest_findings(*, group: str, title: str) -> bool:

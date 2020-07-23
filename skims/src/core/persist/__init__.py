@@ -71,37 +71,34 @@ async def persist_finding(
     await log('info', 'persisting: %s, %s results', finding.name, len(results))
 
     finding_id: str = await get_closest_finding_id(
+        create_if_missing=True,
         group=group,
         title=finding.value,
     )
 
-    success: bool
-    if not finding_id:
-        # The finding will be created in a near future ;)
-        await log('warn', 'no close finding for: %s', finding)
-        success = False
-        # Let's return for now
-        return success
+    if finding_id:
+        await log('debug', 'closest finding for: %s = %s', finding, finding_id)
 
-    await log('debug', 'closest finding for: %s is %s', finding, finding_id)
+        merged_results: Tuple[Vulnerability, ...] = await merge_results(
+            skims_results=results,
+            integrates_results=await get_finding_vulnerabilities(
+                finding=finding,
+                finding_id=finding_id,
+            ),
+        )
 
-    merged_results: Tuple[Vulnerability, ...] = await merge_results(
-        skims_results=results,
-        integrates_results=await get_finding_vulnerabilities(
-            finding=finding,
+        success: bool = await do_build_and_upload_vulnerabilities(
             finding_id=finding_id,
-        ),
-    )
+            results=merged_results,
+        )
 
-    success = await do_build_and_upload_vulnerabilities(
-        finding_id=finding_id,
-        results=merged_results,
-    )
-
-    await log(
-        'info', 'persisted: %s, %s results, success: %s',
-        finding.name, len(results), success,
-    )
+        await log(
+            'info', 'persisted: %s, %s results, success: %s',
+            finding.name, len(results), success,
+        )
+    else:
+        await log('critical', 'could not find or create finding: %s', finding)
+        success = False
 
     return success
 
