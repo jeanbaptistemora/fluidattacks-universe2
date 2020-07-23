@@ -52,11 +52,12 @@ async def get_transport(
 
 @contextlib.asynccontextmanager
 async def session(
-        api_token: str = get_api_token(),
+        api_token: str = '',
         endpoint_url: str = 'https://fluidattacks.com/integrates/api',
         **kwargs: str,
 ) -> AsyncIterator[Client]:
     """Returns an Async GraphQL Client."""
+    api_token = api_token or get_api_token()
     transport: AIOHTTPTransport = await get_transport(
         api_token=api_token,
         endpoint_url=endpoint_url,

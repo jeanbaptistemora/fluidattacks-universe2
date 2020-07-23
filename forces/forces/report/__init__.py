@@ -1,52 +1,31 @@
 """Fluid Forces report module"""
 # Standard imports
 import asyncio
-from typing import AsyncGenerator, Any, Dict, List, Union
+from typing import (
+    Any,
+    Dict,
+    List,
+)
 from timeit import default_timer as timer
 
 # 3d Impors
 
 # Local imports
-from forces import get_verbose_level
 from forces.apis.integrates.api import (
     get_finding,
     get_findings,
-    get_vulnerabilities,
+    vulns_generator,
 )
 
 
-async def vulns_generator(project: str) -> AsyncGenerator[Dict[
-        str, Union[str, List[Dict[str, Dict[str, Any]]]]], None]:
-    """
-    Returns a generator with all the vulnerabilities of a project.
-
-    :param client: gql Client.
-    :param finding: Finding identifier.
-    """
-    findings = await get_findings(project)
-    vulns_tasks = [get_vulnerabilities(fin) for fin in findings]
-    for vulnerabilities in asyncio.as_completed(vulns_tasks):
-        for vuln in await vulnerabilities:
-            yield vuln
-
-
-async def generate_report(project: str) -> Dict[str, Any]:
-    """
-    Generate a project vulnerability report.
-
-    :param client: gql Client.
-    :param finding: Finding identifier.
-    """
-    _start_time = timer()
-    _summary_dict = {'open': 0, 'closed': 0, 'accepted': 0}
-    raw_report: Dict[str, List[Any]] = {'findings': list()}
+async def create_findings_dict(project: str,
+                               verbose_level: int,
+                               **kwargs: str) -> Dict[str, Dict[str, Any]]:
     findings_dict: Dict[str, Dict[str, Any]] = dict()
-
-    finding_tasks = [
-        get_finding(fin)
-        for fin in await get_findings(project)
+    findings_futures = [
+        get_finding(fin) for fin in await get_findings(project, **kwargs)
     ]
-    for _find in asyncio.as_completed(finding_tasks):
+    for _find in asyncio.as_completed(findings_futures):
         find: Dict[str, str] = await _find
         findings_dict[find['id']] = find
         findings_dict[find['id']].update({
@@ -54,9 +33,25 @@ async def generate_report(project: str) -> Dict[str, Any]:
             'closed': 0,
             'accepted': 0
         })
-
-        if get_verbose_level() > 1:
+        if verbose_level > 1:
             findings_dict[find['id']]['vulnerabilities'] = list()
+    return findings_dict
+
+
+async def generate_report(project: str,
+                          verbose_level: int,
+                          **kwargs: str) -> Dict[str, Any]:
+    """
+    Generate a project vulnerability report.
+
+    :param project: Project Name.
+    :param verbose_level: Level of detail of the report.
+    """
+    _start_time = timer()
+    _summary_dict = {'open': 0, 'closed': 0, 'accepted': 0}
+    raw_report: Dict[str, List[Any]] = {'findings': list()}
+    findings_dict = await create_findings_dict(
+        project, verbose_level, **kwargs)
 
     async for vuln in vulns_generator(project):
         find_id: str = vuln['findingId']  # type: ignore
@@ -70,7 +65,7 @@ async def generate_report(project: str) -> Dict[str, Any]:
         elif state == 'open':
             _summary_dict['open'] += 1
             findings_dict[find_id]['open'] += 1
-        if get_verbose_level() == 1:
+        if verbose_level == 1:
             continue
         vulnerability = {
             'type': 'SAST' if vuln['vulnType'] == 'lines' else 'DAST',
@@ -78,8 +73,8 @@ async def generate_report(project: str) -> Dict[str, Any]:
             'state': vuln['currentState']
         }
 
-        if get_verbose_level() == 2 and vulnerability['state'] in ('accepted',
-                                                                   'closed'):
+        if verbose_level == 2 and vulnerability['state'] in ('accepted',
+                                                             'closed'):
             continue
         findings_dict[find_id]['vulnerabilities'].append(vulnerability)
 
@@ -98,11 +93,8 @@ async def generate_report(project: str) -> Dict[str, Any]:
     return raw_report
 
 
-async def _proccess(project: str) -> Dict[str, Any]:
-    report = await generate_report(project)
-    return report
-
-
-def process(project: str) -> Dict[str, Any]:
+def process(project: str, verbose_level: int) -> Dict[str, Any]:
     """Process a report."""
-    return asyncio.run(_proccess(project))
+    async def _proccess() -> Dict[str, Any]:
+        return await generate_report(project, verbose_level)
+    return asyncio.run(_proccess())

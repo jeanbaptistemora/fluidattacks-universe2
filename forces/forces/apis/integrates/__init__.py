@@ -1,9 +1,8 @@
+"""Fluid Forces Integrates api package."""
 # Standar Library
 from contextvars import ContextVar
-import os
 
-INTEGRATES_API_TOKEN: ContextVar[str] = ContextVar(
-    'integrates_api_token', default=os.environ['INTEGRATES_API_TOKEN'])
+INTEGRATES_API_TOKEN: ContextVar[str] = ContextVar('integrates_api_token')
 
 
 def set_api_token(token: str) -> None:

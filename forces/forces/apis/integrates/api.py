@@ -1,7 +1,9 @@
 """Fluid Forces integrates api module."""
 # Standar Imports
+import asyncio
 from typing import (
     Any,
+    AsyncGenerator,
     Dict,
     List,
     Union
@@ -89,3 +91,17 @@ async def get_finding(finding: str, **kwargs: str) -> Dict[str, str]:
         params = {'finding_id': finding}
         result = await client.execute(query, variable_values=params)
         return result['finding']  # type: ignore
+
+
+async def vulns_generator(project: str, **kwargs: str) -> AsyncGenerator[Dict[
+        str, Union[str, List[Dict[str, Dict[str, Any]]]]], None]:
+    """
+    Returns a generator with all the vulnerabilities of a project.
+
+    :param project: Project Name.
+    """
+    findings = await get_findings(project, **kwargs)
+    vulns_futures = [get_vulnerabilities(fin, **kwargs) for fin in findings]
+    for vulnerabilities in asyncio.as_completed(vulns_futures):
+        for vuln in await vulnerabilities:
+            yield vuln
