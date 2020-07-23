@@ -39,18 +39,23 @@ This can cause the software to perform invalid actions when the resource is in
 an unexpected state.
 
 . [[r3]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+Appendix C: Internet of Things Verification Requirements.(C.20)]
+Verify that the firmware update process is not vulnerable to time-of-check vs
+time-of-use attacks.
+
+. [[r4]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V1.11 Business Logic Architectural Requirements.(1.11.2)]
 Verify that all high-value business logic flows,
 including authentication, session management and access control,
 do not share unsynchronized state.
 
-. [[r4]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r5]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V1.11 Business Logic Architectural Requirements.(1.11.3)]
 Verify that all high-value business logic flows,
 including authentication, session management and access control,
 are thread safe and resistant to time-of-check and time-of-use race conditions.
 
-. [[r5]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r6]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V11.1 Business Logic Security Requirements.(11.1.6)]
 Verify the application does not suffer from "time of check to time of use"
 (*TOCTOU*) issues or other race conditions for sensitive operations.

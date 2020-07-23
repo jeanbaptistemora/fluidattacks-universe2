@@ -45,22 +45,27 @@ including the ability to ensure the ongoing confidentiality, integrity,
 availability and resilience of processing systems and services.
 
 . [[r2]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+Appendix C: Internet of Things Verification Requirements.(C.17)]
+Verify that any available Intellectual Property protection technologies
+provided by the chip manufacturer are enabled.
+
+. [[r3]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V5.5 Deserialization Prevention Requirements.(5.5.2)]
 Verify that the application correctly restricts *XML* parsers to only use the
 most restrictive configuration possible and to ensure that unsafe features such
 as resolving external entities are disabled to prevent *XXE*.
 
-. [[r3]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r4]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V6.2 Algorithms.(6.2.2)]
 Verify that industry proven or government approved cryptographic algorithms,
 modes, and libraries are used, instead of custom coded cryptography.
 
-. [[r4]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r5]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V6.2 Algorithms.(6.2.3)]
 Verify that encryption initialization vector, cipher configuration,
 and block modes are configured securely using the latest advice.
 
-. [[r5]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r6]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V10.3 Deployed Application Integrity Controls.(10.3.2)]
 Verify that the application employs integrity protections,
 such as code signing or sub-resource integrity.
@@ -68,25 +73,25 @@ The application must not load or execute code from untrusted sources,
 such as loading includes, modules, plugins, code, or libraries from untrusted
 sources or the Internet.
 
-. [[r6]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r7]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V13.2 RESTful Web Service Verification Requirements.(13.2.2)]
 Verify that *JSON* schema validation is in place and verified before accepting
 input.
 
-. [[r7]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r8]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V13.3 SOAP Web Service Verification Requirements.(13.3.1)]
 Verify that *XSD* schema validation takes place to ensure a properly formed
 *XML* document,
 followed by validation of each input field before any processing of that data
 takes place.
 
-. [[r8]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r9]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V14.1 Build.(14.1.1)]
 Verify that the application build and deployment processes are performed in a
 secure and repeatable way, such as *CI* / *CD* automation,
 automated configuration management, and automated deployment scripts.
 
-. [[r9]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r10]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V14.1 Build.(14.1.2)]
 Verify that compiler flags are configured to enable all available buffer
 overflow protections and warnings,
@@ -94,7 +99,7 @@ including stack randomization, data execution prevention,
 and to break the build if an unsafe pointer, memory, format string, integer,
 or string operations are found.
 
-. [[r9]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r11]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V14.1 Build.(14.1.3)]
 Verify that server configuration is hardened as per the recommendations of the
 application server and frameworks in use.
