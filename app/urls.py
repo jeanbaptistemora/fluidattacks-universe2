@@ -80,6 +80,13 @@ urlpatterns = [
          r'(?P<findingid>[0-9]+)/([A-Za-z.=]+)/(?P<fileid>[\w\.-]+)?$'),
         views.get_evidence
     ),
+    # New group URL format including organization
+    url(
+        r'^organizations/[a-zA-Z]+/groups/(?P<project>[A-Za-z0-9]+)/'
+        r'(?P<evidence_type>[A-Za-z0-9]+)/(?P<findingid>[0-9]+)/([A-Za-z.=]+)/'
+        r'(?P<fileid>[\w\.-]+)?$',
+        views.get_evidence
+    ),
     # catch all others because of the no longer use hash location
     url(r'', views.app),
 ]
