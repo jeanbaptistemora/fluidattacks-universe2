@@ -6,6 +6,7 @@
 :yes: image:../../images/icons/yes.png[yes]
 :no: image:../../images/icons/no.png[no]
 :info: image:../../images/icons/info.png[info]
+:banner: comparative-bg
 
 = Comparative
 

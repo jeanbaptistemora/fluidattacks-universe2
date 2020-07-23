@@ -131,7 +131,16 @@ $codeyellow: rgba(230, 219, 116, 1);
 .resources-bg { background-image: url('../../images/resources/resources-main.png'); }
 .error-bg { background-image: url('../../images/bg-error.png');}
 .blog-bg { background-image: url('../../images/blog-banner.png');}
-.people-bg { background-image: url('../../images/people/people-cover.png'); }
+.people-bg { background-image: url('../../images/about-us/people/cover-people.png'); }
+.about-us-bg { background-image: url('../../images/about-us/cover-about-us.png'); }
+.certifications-bg { background-image: url('../../images/about-us/certifications/cover-certifications.png'); }
+.differentiators-bg { background-image: url('../../images/about-us/differentiators/cover-differentiators.png'); }
+.values-bg { background-image: url('../../images/about-us/values/cover-values.png'); }
+.reviews-bg { background-image: url('../../images/about-us/reviews/cover-reviews.png'); }
+.events-bg { background-image: url('../../images/about-us/events/cover-events.png'); }
+.partners-bg { background-image: url('../../images/about-us/partners/cover-partners.png'); }
+.security-bg { background-image: url('../../images/security/cover-security.png'); }
+.comparative-bg { background-image: url('../../images/use-cases/comparative/cover-comparative.png'); }
 .b-max { font-weight: 999; }
 .nb-6 { margin-bottom: -6rem;}
 .lower-img { &:hover { transform: scale(1.1);

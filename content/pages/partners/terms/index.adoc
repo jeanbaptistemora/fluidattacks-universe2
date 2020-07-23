@@ -3,6 +3,7 @@
 :description: If you're interested in becoming one of Fluid Attacks Partners, find here the terms of our general partner agreement.
 :keywords: Fluid Attacks, Partners, Pentesting, Terms, Agreement, Information Security, Security Testing, Partners Terms, Ethical Hacking
 :partnerspage: yes
+:banner: partners-bg
 
 = Partners Terms
 

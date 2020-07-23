@@ -2,6 +2,7 @@
 :description: These are the best practices and technology implemented by Fluid Attacks to keep internal products and customer data secure.
 :keywords: Fluid Attacks, Security, Data, Policy, Breach, Best Practices, Pentesting, Ethical Hacking
 :subtitle: How we keep things secure
+:banner: security-bg
 
 = Security
 

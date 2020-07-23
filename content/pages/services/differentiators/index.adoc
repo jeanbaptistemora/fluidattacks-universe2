@@ -4,6 +4,7 @@
 :keywords: Fluid Attacks, Ethical Hacking, Pentesting, Differentiators, Cybersecurity
 :yes: image:../../images/icons/yes.png[yes]
 :no: image:../../images/icons/no.png[no]
+:banner: differentiators-bg
 
 = Differentiators
 
