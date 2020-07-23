@@ -557,56 +557,6 @@ export const enTranslations: ResourceKey = {
     vuln_closed: "Vulnerability has already been closed",
   },
   home: {
-    newGroup: {
-      description: {
-        text: "Description",
-        tooltip: "Brief description to identify the group",
-      },
-      drills: {
-        text: "Include Drills Service?",
-        tooltip:
-          "Drills finds deep and zero-day vulnerabilities during software development",
-      },
-      extra_charges_may_apply: "Extra charges may apply",
-      forces: {
-        text: "Include Forces Service?",
-        tooltip:
-          "Changes to the target of evaluation can be continuously tested against the closing of confirmed " +
-          "vulnerabilities. Forces can be included in CI/CD",
-      },
-      integrates: {
-        text: "Include Integrates?",
-        tooltip:
-          "Communication platform where all group stakeholders can interact",
-      },
-      invalidGroup: "Invalid group name",
-      invalidOrganizationName: "Organization name is invalid",
-      name: "Group Name",
-      new: {
-        group: "New Group",
-        text: "New",
-        tooltip: "Create a new group",
-      },
-      noGroupName: "There are no group names available at the moment",
-      organization: {
-        text: "Organization",
-        tooltip: "Name of the organization that is associated with this group",
-      },
-      success: "Group created successfully",
-      switch: {
-        no: "No",
-        yes: "Yes",
-      },
-      titleSuccess: "Success",
-      type: {
-        continuous: "Continuous Hacking",
-        one_shot: "One-Shot Hacking",
-        title: "Group Type",
-        tooltip: "Type of subscription",
-      },
-      userNotInOrganization:
-        "User cannot create a group in an organization they are not a member of",
-    },
     organizations: "My Organizations",
     tagOther: "others",
     tagResume: " and {{remaining}} more",
@@ -648,6 +598,53 @@ export const enTranslations: ResourceKey = {
         tooltip: "Organization status at a glance",
       },
       groups: {
+        newGroup: {
+          description: {
+            text: "Description",
+            tooltip: "Brief description to identify the group",
+          },
+          drills: {
+            text: "Include Drills Service?",
+            tooltip:
+              "Drills finds deep and zero-day vulnerabilities during software development",
+          },
+          extra_charges_may_apply: "Extra charges may apply",
+          forces: {
+            text: "Include Forces Service?",
+            tooltip:
+              "Changes to the target of evaluation can be continuously tested against the closing of confirmed " +
+              "vulnerabilities. Forces can be included in CI/CD",
+          },
+          integrates: {
+            text: "Include Integrates?",
+            tooltip:
+              "Communication platform where all group stakeholders can interact",
+          },
+          name: "Group Name",
+          new: {
+            group: "New Group",
+            text: "New",
+            tooltip: "Create a new group",
+          },
+          noGroupName: "There are no group names available at the moment",
+          organization: {
+            text: "Organization",
+            tooltip:
+              "Name of the organization that is associated with this group",
+          },
+          success: "Group created successfully",
+          switch: {
+            no: "No",
+            yes: "Yes",
+          },
+          titleSuccess: "Success",
+          type: {
+            continuous: "Continuous Hacking",
+            one_shot: "One-Shot Hacking",
+            title: "Group Type",
+            tooltip: "Type of subscription",
+          },
+        },
         text: "Groups",
         tooltip: "Groups that belong to the organization",
       },

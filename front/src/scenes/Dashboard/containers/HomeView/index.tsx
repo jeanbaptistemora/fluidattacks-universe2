@@ -15,16 +15,12 @@ import {
   ButtonToolbar, Col, Glyphicon, Row, ToggleButton, ToggleButtonGroup,
 } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
-import { Button } from "../../../../components/Button";
 import { DataTableNext } from "../../../../components/DataTableNext/index";
 import { IHeaderConfig } from "../../../../components/DataTableNext/types";
-import { TooltipWrapper } from "../../../../components/TooltipWrapper/index";
-import { Can } from "../../../../utils/authz/Can";
 import { authzPermissionsContext } from "../../../../utils/authz/config";
 import { msgError } from "../../../../utils/notifications";
 import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
-import { AddProjectModal } from "../../components/AddProjectModal";
 import { ProjectBox } from "../../components/ProjectBox";
 import { default as style } from "./index.css";
 import { PROJECTS_QUERY } from "./queries";
@@ -83,15 +79,6 @@ const homeView: React.FC<IHomeViewProps> = (props: IHomeViewProps): JSX.Element 
   const handleDisplayChange: ((value: string) => void) = (value: string): void => {
     setDisplay(value);
     localStorage.setItem("projectsDisplay", value);
-  };
-
-  const [isProjectModalOpen, setProjectModalOpen] = React.useState(false);
-
-  const openNewProjectModal: (() => void) = (): void => {
-    setProjectModalOpen(true);
-  };
-  const closeNewProjectModal: (() => void) = (): void => {
-    setProjectModalOpen(false);
   };
 
   // GraphQL operations
@@ -164,19 +151,6 @@ const homeView: React.FC<IHomeViewProps> = (props: IHomeViewProps): JSX.Element 
             </ButtonToolbar>
           </Col>
         </Row>
-        <Can do="backend_api_resolvers_project__do_create_project">
-          <Row>
-            <Col md={2} mdOffset={5}>
-              <ButtonToolbar>
-                <TooltipWrapper message={translate.t("home.newGroup.new.tooltip")}>
-                  <Button onClick={openNewProjectModal}>
-                    <Glyphicon glyph="plus" />&nbsp;{translate.t("home.newGroup.new.text")}
-                  </Button>
-                </TooltipWrapper>
-              </ButtonToolbar>
-            </Col>
-          </Row>
-        </Can>
         {(_.isUndefined(data) || _.isEmpty(data)) ? <React.Fragment /> : (
           <React.Fragment>
             <React.Fragment>
@@ -270,7 +244,6 @@ const homeView: React.FC<IHomeViewProps> = (props: IHomeViewProps): JSX.Element 
                     </React.Fragment>
                   ) : undefined}
                 </Col>
-                <AddProjectModal isOpen={isProjectModalOpen} onClose={closeNewProjectModal} />
               </Row>
             </React.Fragment>
           </React.Fragment>

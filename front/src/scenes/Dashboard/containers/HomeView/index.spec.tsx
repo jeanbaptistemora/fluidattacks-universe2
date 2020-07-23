@@ -75,30 +75,4 @@ describe("HomeView", () => {
     expect(wrapper)
       .toHaveLength(1);
   });
-  it("should render new project button", () => {
-    const mockedPermissions: PureAbility<string> = new PureAbility([
-      { action: "backend_api_resolvers_project__do_create_project" },
-    ]);
-    const wrapper: ReactWrapper = mount(
-      <MemoryRouter initialEntries={["/home"]}>
-        <Provider store={store}>
-          <MockedProvider mocks={mocks} addTypename={true}>
-            <authzPermissionsContext.Provider value={mockedPermissions}>
-              <HomeView setUserRole={setUserRoleCallback}/>
-            </authzPermissionsContext.Provider>
-          </MockedProvider>
-        </Provider>
-      </MemoryRouter>,
-    );
-    const displayList: ReactWrapper = wrapper.find("input[value=\"list\"]");
-    displayList.simulate("change", { target: { checked: true } });
-    const projectButton: ReactWrapper = wrapper
-      .find("Button")
-      .filterWhere((element: ReactWrapper) => element.contains("New"));
-    projectButton.simulate("click");
-    expect(projectButton)
-      .toHaveLength(1);
-    expect(wrapper)
-      .toHaveLength(1);
-  });
 });

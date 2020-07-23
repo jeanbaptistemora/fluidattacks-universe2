@@ -150,7 +150,6 @@ async def create_project(  # pylint: disable=too-many-arguments
                     'date': util.get_current_time_as_iso_str(),
                     'has_drills': has_drills,
                     'has_forces': has_forces,
-                    'organization': org_id,
                     'requester': user_email,
                     'type': subscription,
                 }],

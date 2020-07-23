@@ -58,7 +58,7 @@ const addProjectModal: ((props: IAddProjectModal) => JSX.Element) = (props: IAdd
     graphQLErrors.forEach((error: GraphQLError): void => {
       switch (error.message) {
         case "Exception - There are no group names available at the moment":
-          msgError(translate.t("home.newGroup.noGroupName"));
+          msgError(translate.t("organization.tabs.groups.newGroup.noGroupName"));
           break;
         default:
           msgError(translate.t("group_alerts.error_textsad"));
@@ -74,7 +74,7 @@ const addProjectModal: ((props: IAddProjectModal) => JSX.Element) = (props: IAdd
     <React.StrictMode>
       <Modal
         footer={<div />}
-        headerTitle={translate.t("home.newGroup.new.group")}
+        headerTitle={translate.t("organization.tabs.groups.newGroup.new.group")}
         onClose={closeNewProjectModal}
         open={props.isOpen}
       >
@@ -94,8 +94,8 @@ const addProjectModal: ((props: IAddProjectModal) => JSX.Element) = (props: IAdd
               if (result.createProject.success) {
                 closeNewProjectModal();
                 msgSuccess(
-                  translate.t("home.newGroup.success"),
-                  translate.t("home.newGroup.titleSuccess"),
+                  translate.t("organization.tabs.groups.newGroup.success"),
+                  translate.t("organization.tabs.groups.newGroup.titleSuccess"),
                 );
               }
             };
@@ -105,16 +105,10 @@ const addProjectModal: ((props: IAddProjectModal) => JSX.Element) = (props: IAdd
               graphQLErrors.forEach((error: GraphQLError): void => {
                 switch (error.message) {
                   case "Exception - There are no group names available at the moment":
-                    msgError(translate.t("home.newGroup.noGroupName"));
-                    break;
-                  case "Exception - Error invalid project name":
-                    msgError(translate.t("home.newGroup.invalidGroup"));
-                    break;
-                  case "Exception - Organization name is invalid":
-                    msgError(translate.t("home.newGroup.invalidOrganizationName"));
+                    msgError(translate.t("organization.tabs.groups.newGroup.noGroupName"));
                     break;
                   case "Exception - User is not a member of the target organization":
-                    msgError(translate.t("home.newGroup.userNotInOrganization"));
+                    msgError(translate.t("organization.tabs.groups.newGroup.userNotInOrganization"));
                     break;
                   default:
                     msgError(translate.t("group_alerts.error_textsad"));
@@ -181,7 +175,10 @@ const addProjectModal: ((props: IAddProjectModal) => JSX.Element) = (props: IAdd
                   return (
                     <GenericForm
                       name="newGroup"
-                      initialValues={{ name: projectName.toUpperCase() }}
+                      initialValues={{
+                        name: projectName.toUpperCase(),
+                        organization: props.organization.toUpperCase(),
+                      }}
                       onSubmit={handleSubmit}
                     >
                       {({ pristine }: InjectedFormProps): JSX.Element => (
@@ -189,14 +186,17 @@ const addProjectModal: ((props: IAddProjectModal) => JSX.Element) = (props: IAdd
                           <Row>
                             <Col md={12} sm={12}>
                               <FormGroup>
-                                <ControlLabel>{translate.t("home.newGroup.organization.text")}</ControlLabel>
+                                <ControlLabel>
+                                  {translate.t("organization.tabs.groups.newGroup.organization.text")}
+                                </ControlLabel>
                                 <TooltipWrapper
-                                  message={translate.t("home.newGroup.organization.tooltip")}
+                                  message={translate.t("organization.tabs.groups.newGroup.organization.tooltip")}
                                   placement="top"
                                 >
                                   <FormGroup>
                                     <Field
                                       component={Text}
+                                      disabled={true}
                                       name="organization"
                                       type="text"
                                       validate={[required, maxOrganizationLength, validTextField]}
@@ -205,7 +205,9 @@ const addProjectModal: ((props: IAddProjectModal) => JSX.Element) = (props: IAdd
                                 </TooltipWrapper>
                               </FormGroup>
                               <FormGroup>
-                                <ControlLabel>{translate.t("home.newGroup.name")}</ControlLabel>
+                                <ControlLabel>
+                                  {translate.t("organization.tabs.groups.newGroup.name")}
+                                </ControlLabel>
                                 <Field
                                   component={Text}
                                   disabled={true}
@@ -215,9 +217,11 @@ const addProjectModal: ((props: IAddProjectModal) => JSX.Element) = (props: IAdd
                                 />
                               </FormGroup>
                               <FormGroup>
-                                <ControlLabel>{translate.t("home.newGroup.description.text")}</ControlLabel>
+                                <ControlLabel>
+                                  {translate.t("organization.tabs.groups.newGroup.description.text")}
+                                </ControlLabel>
                                 <TooltipWrapper
-                                  message={translate.t("home.newGroup.description.tooltip")}
+                                  message={translate.t("organization.tabs.groups.newGroup.description.tooltip")}
                                   placement="top"
                                 >
                                   <FormGroup>
@@ -231,9 +235,11 @@ const addProjectModal: ((props: IAddProjectModal) => JSX.Element) = (props: IAdd
                                 </TooltipWrapper>
                               </FormGroup>
                               <FormGroup>
-                                <ControlLabel>{translate.t("home.newGroup.type.title")}</ControlLabel>
+                                <ControlLabel>
+                                  {translate.t("organization.tabs.groups.newGroup.type.title")}
+                                </ControlLabel>
                                 <TooltipWrapper
-                                  message={translate.t("home.newGroup.type.tooltip")}
+                                  message={translate.t("organization.tabs.groups.newGroup.type.tooltip")}
                                   placement="top"
                                 >
                                   <FormGroup>
@@ -242,8 +248,12 @@ const addProjectModal: ((props: IAddProjectModal) => JSX.Element) = (props: IAdd
                                       name="type"
                                       onChange={handleSubscriptionTypeChange}
                                     >
-                                      <option value="CONTINUOUS">{translate.t("home.newGroup.type.continuous")}</option>
-                                      <option value="ONESHOT">{translate.t("home.newGroup.type.one_shot")}</option>
+                                      <option value="CONTINUOUS">
+                                        {translate.t("organization.tabs.groups.newGroup.type.continuous")}
+                                      </option>
+                                      <option value="ONESHOT">
+                                        {translate.t("organization.tabs.groups.newGroup.type.one_shot")}
+                                      </option>
                                     </Field>
                                   </FormGroup>
                                 </TooltipWrapper>
@@ -252,14 +262,19 @@ const addProjectModal: ((props: IAddProjectModal) => JSX.Element) = (props: IAdd
                           </Row>
                           <Row>
                             <Col md={5} sm={5}>
-                              <TooltipWrapper message={translate.t("home.newGroup.integrates.tooltip")} placement="top">
+                              <TooltipWrapper
+                                message={translate.t("organization.tabs.groups.newGroup.integrates.tooltip")}
+                                placement="top"
+                              >
                                 <FormGroup>
-                                  <ControlLabel>{translate.t("home.newGroup.integrates.text")} *</ControlLabel>
+                                  <ControlLabel>
+                                    {translate.t("organization.tabs.groups.newGroup.integrates.text")} *
+                                  </ControlLabel>
                                   <BootstrapSwitchButton
                                     checked={true}
                                     disabled={true}
-                                    offlabel={translate.t("home.newGroup.switch.no")}
-                                    onlabel={translate.t("home.newGroup.switch.yes")}
+                                    offlabel={translate.t("organization.tabs.groups.newGroup.switch.no")}
+                                    onlabel={translate.t("organization.tabs.groups.newGroup.switch.yes")}
                                     onstyle="danger"
                                     style="btn-block"
                                   />
@@ -269,14 +284,19 @@ const addProjectModal: ((props: IAddProjectModal) => JSX.Element) = (props: IAdd
                           </Row>
                           <Row>
                             <Col md={5} sm={5}>
-                              <TooltipWrapper message={translate.t("home.newGroup.drills.tooltip")} placement="top">
+                              <TooltipWrapper
+                                message={translate.t("organization.tabs.groups.newGroup.drills.tooltip")}
+                                placement="top"
+                              >
                                 <FormGroup>
-                                  <ControlLabel>{translate.t("home.newGroup.drills.text")} *</ControlLabel>
+                                  <ControlLabel>
+                                    {translate.t("organization.tabs.groups.newGroup.drills.text")} *
+                                  </ControlLabel>
                                   <BootstrapSwitchButton
                                     checked={hasDrills}
-                                    offlabel={translate.t("home.newGroup.switch.no")}
+                                    offlabel={translate.t("organization.tabs.groups.newGroup.switch.no")}
                                     onChange={handleDrillsBtnChange}
-                                    onlabel={translate.t("home.newGroup.switch.yes")}
+                                    onlabel={translate.t("organization.tabs.groups.newGroup.switch.yes")}
                                     onstyle="danger"
                                     style="btn-block"
                                   />
@@ -288,16 +308,18 @@ const addProjectModal: ((props: IAddProjectModal) => JSX.Element) = (props: IAdd
                             <Row>
                               <Col md={5} sm={5}>
                                 <TooltipWrapper
-                                  message={translate.t("home.newGroup.forces.tooltip")}
+                                  message={translate.t("organization.tabs.groups.newGroup.forces.tooltip")}
                                   placement="top"
                                 >
                                   <FormGroup>
-                                    <ControlLabel>{translate.t("home.newGroup.forces.text")} *</ControlLabel>
+                                    <ControlLabel>
+                                      {translate.t("organization.tabs.groups.newGroup.forces.text")} *
+                                    </ControlLabel>
                                     <BootstrapSwitchButton
                                       checked={hasForces}
-                                      offlabel={translate.t("home.newGroup.switch.no")}
+                                      offlabel={translate.t("organization.tabs.groups.newGroup.switch.no")}
                                       onChange={handleForcesBtnChange}
-                                      onlabel={translate.t("home.newGroup.switch.yes")}
+                                      onlabel={translate.t("organization.tabs.groups.newGroup.switch.yes")}
                                       onstyle="danger"
                                       style="btn-block"
                                     />
@@ -306,7 +328,7 @@ const addProjectModal: ((props: IAddProjectModal) => JSX.Element) = (props: IAdd
                               </Col>
                             </Row>
                           ) : undefined}
-                          * {translate.t("home.newGroup.extra_charges_may_apply")}
+                          * {translate.t("organization.tabs.groups.newGroup.extra_charges_may_apply")}
                           <br />
                           <ButtonToolbar className="pull-right">
                             <Button bsStyle="success" onClick={closeNewProjectModal}>
