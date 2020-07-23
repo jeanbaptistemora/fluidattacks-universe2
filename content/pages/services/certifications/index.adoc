@@ -9,7 +9,17 @@
 [cols=2, frame="none"]
 |====
 
-a|image::logo-oscp.png[logo oscp]
+a|image::logo-osce.png[logo osce]
+
+a|== Offensive Security Certified Expert (OSCE)
+
+`OSCE` is a certification focused on advanced penetration testing skills,
+created by `Offensive Security`.
+Performing an intense 48hour exam,
+the professionals have to prove they can develop exploits,
+execute attacks, and obtain administrative access.
+`OSCEs` can think outside the box
+and perform with persistence, even under pressure.
 
 a|== Offensive Security Certified Professional (OSCP)
 
@@ -22,16 +32,16 @@ that they have a clear understanding
 of the penetration testing process and life cycle
 through an arduous 24hour exam.
 
+a|image::logo-oscp.png[logo oscp]
+
+a|image::logo-oswp.png[logo oswp]
+
 a|== Offensive Security Wireless Professional (OSWP)
 
 `OSWP` is the only professional certification
 in practical wireless attacks in the security field today.
 In a hands-on exam, an `OSWP` must prove they have the skills
 to do 802.11 wireless audits using open source tools.
-
-a|image::logo-oswp.png[logo oswp]
-
-a|image::logo-crte.png[logo crte]
 
 a|== Certified Red Teaming Expert (CRTE)
 
@@ -40,6 +50,10 @@ is an entirely hands-on certification awarded by the Pentester Academy.
 This certification guarantees a person with the expertise
 to assess the security of an unknown Windows infrastructure
 and recognize misconfigurations and abuses.
+
+a|image::logo-crte.png[logo crte]
+
+a|image::logo-ceh.png[logo ceh]
 
 a|== Certified Ethical Hacker (CEH)
 
@@ -50,10 +64,6 @@ in the security discipline of ethical hacking.
 It is unaffiliated with any commercial entity
 and is considered independent and impartial.
 
-a|image::logo-ceh.png[logo ceh]
-
-a|image::logo-cissp.png[logo cissp]
-
 a|== Certified Information Systems Security Professional (CISSP)
 
 `CISSP` is a professional advanced certification awarded by the
@@ -63,16 +73,16 @@ who obtain information security expertise.
 `CISSP` is required for the `ISSEP` program
 of the `US` National Security Agency (`NSA`).
 
+a|image::logo-cissp.png[logo cissp]
+
+a|image::logo-cism.png[logo cism]
+
 a|== Certified Information Security Manager (CISM)
 
 `CISM` is a certification focused on management,
 promoting global security standard practices.
 `CISM` accredits management professionals who lead, design, and assess
 the security of the information of a company.
-
-a|image::logo-cism.png[logo cism]
-
-a|image::logo-cisa.png[logo cisa]
 
 a|== Certified Information Systems Auditor (CISA)
 
@@ -82,6 +92,10 @@ Information Systems audit control, assurance, and security professionals.
 to assess vulnerabilities, report on compliance,
 and enhance existing or establish new controls in a business.
 
+a|image::logo-cisa.png[logo cisa]
+
+a|image::logo-comptia.png[logo comptia]
+
 a|== CompTIA Security+
 
 This is an internationally recognized certification
@@ -89,10 +103,6 @@ by the Computing Technology Industry Association, a non-profit trade union.
 It certifies a professional has the core knowledge and skills necessary
 for practical security problem-solving.
 Typically, the point of origin for a career in `IT` security.
-
-a|image::logo-comptia.png[logo comptia]
-
-a|image::logo-gisp.png[logo gisp]
 
 a|== GIAC Information Security Professional (GISP)
 
@@ -102,5 +112,7 @@ It requires them to go beyond simple terminology and ideas
 to include practical applications.
 It is designed to provide skills
 to professionals in `IT` systems' hands-on roles involving security tasks.
+
+a|image::logo-gisp.png[logo gisp]
 
 |====
