@@ -7,6 +7,7 @@ from typing import (
 
 # Local libraries
 from apis.integrates.dal import (
+    do_delete_finding,
     do_upload_vulnerabilities,
     get_group_findings,
     ResultGetGroupFindings,
@@ -65,6 +66,26 @@ async def get_closest_finding_id(*, group: str, title: str) -> str:
             return finding.identifier
 
     return ''
+
+
+async def delete_closest_findings(*, group: str, title: str) -> bool:
+    success: bool = True
+
+    while True:
+        finding_id: str = await get_closest_finding_id(
+            group=group,
+            title=title,
+        )
+
+        if finding_id:
+            success = success and await do_delete_finding(
+                finding_id=finding_id,
+            )
+        else:
+            # All findings have been deleted
+            break
+
+    return success
 
 
 async def do_build_and_upload_vulnerabilities(

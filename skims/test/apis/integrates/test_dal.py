@@ -3,6 +3,7 @@ import pytest
 
 # Local libraries
 from apis.integrates.dal import (
+    do_create_draft,
     do_upload_vulnerabilities,
     get_finding_vulnerabilities,
     get_group_findings,
@@ -19,9 +20,15 @@ from model import (
 
 @pytest.mark.asyncio  # type: ignore
 async def test_dal(
+    test_finding_title: str,
     test_group: str,
     test_token: str,
 ) -> None:
+    assert await do_create_draft(
+        group=test_group,
+        title=test_finding_title,
+    )
+
     assert await get_group_level_role(group=test_group) == 'admin'
 
     assert ResultGetGroupFindings(

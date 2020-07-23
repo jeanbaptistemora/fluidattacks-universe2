@@ -82,6 +82,10 @@ async def get_group_findings(
                 $group: String!
             ) {
                 project(projectName: $group) {
+                    drafts {
+                        id
+                        title
+                    }
                     findings {
                         id
                         title
@@ -99,7 +103,10 @@ async def get_group_findings(
             identifier=finding['id'],
             title=finding['title'],
         )
-        for finding in result['data']['project']['findings']
+        for finding in (
+            result['data']['project']['drafts'] +
+            result['data']['project']['findings']
+        )
     )
 
 
@@ -139,6 +146,69 @@ async def get_finding_vulnerabilities(
         )
         for vulnerability in result['data']['finding']['vulnerabilities']
     )
+
+
+@retry()
+async def do_create_draft(
+    *,
+    group: str,
+    title: str,
+) -> bool:
+    result = await _execute(
+        query="""
+            mutation DoCreateDraft(
+                $group: String!
+                $title: String!
+            ) {
+                createDraft(
+                    projectName: $group,
+                    title: $title,
+                ) {
+                    success
+                }
+            }
+        """,
+        variables=dict(
+            group=group,
+            title=title,
+        )
+    )
+
+    success: bool = result['data']['createDraft']['success']
+
+    return success
+
+
+@retry()
+async def do_delete_finding(
+    *,
+    finding_id: str,
+) -> bool:
+    await log('warn', 'Deleting finding: %s', finding_id)
+
+    result = await _execute(
+        query="""
+            mutation DoDeleteFinding(
+                $finding_id: String!
+            ) {
+                deleteFinding(
+                    findingId: $finding_id
+                    justification: NOT_REQUIRED
+                ) {
+                    success
+                }
+            }
+        """,
+        variables=dict(
+            finding_id=finding_id,
+        )
+    )
+
+    success: bool = result['data']['deleteFinding']['success']
+
+    await log('warn', 'Deleting finding: %s, success: %s', finding_id, success)
+
+    return success
 
 
 @retry()
