@@ -2,6 +2,12 @@
 authors = [
   "Product Team <development@fluidattacks.com>"
 ]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Environment :: Console",
+    "License :: OSI Approved :: Mozilla Public License 2.0 (MPL 2.0)",
+    "Topic :: Security",
+]
 description = "Deterministic vulnerability life-cycle reporting and closing tool"
 license = "MPL-2.0"
 name = "skims"
@@ -25,8 +31,8 @@ python = "^3.7"
 "ruamel.yaml" = "0.16.10"
 
 [tool.poetry.dev-dependencies]
-mypy = "0.770"
-prospector = "1.2.0"
+mypy = "0.782"
+prospector = "1.3.0"
 pytest = "5.4.3"
 pytest-asyncio = "0.14.0"
 pytest-cov = "2.10.0"

@@ -8,6 +8,10 @@
 [![Coverage](https://codecov.io/gl/fluidattacks/integrates/branch/master/graph/badge.svg)](https://codecov.io/gl/fluidattacks/integrates)
 [![Build](https://gitlab.com/fluidattacks/integrates/badges/master/pipeline.svg)](https://gitlab.com/fluidattacks/integrates/-/commits/master)
 
-## Products
+## Skims
 
-- [Skims](./skims/README.md)
+[![PyPI](https://img.shields.io/pypi/v/skims)](https://pypi.org/project/skims)
+[![Status](https://img.shields.io/pypi/status/skims)](https://pypi.org/project/skims)
+[![Downloads](https://img.shields.io/pypi/dm/skims)](https://pypi.org/project/skims)
+[![License](https://img.shields.io/pypi/l/skims)](../LICENSE)
+[![Docs](https://img.shields.io/badge/Docs-lightgrey)](./skims/README.md)
