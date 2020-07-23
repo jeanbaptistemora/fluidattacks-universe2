@@ -71,7 +71,7 @@ const organizationGroups: React.FC<IOrganizationGroupsProps> = (props: IOrganiza
               <Col md={12}>
                 <Row className={style.content}>
                   {display.mode === "grid"
-                    ? data.organization.groups.map(
+                    ? data.organization.projects.map(
                         (group: IOrganizationGroups["data"]["organization"]["projects"][0], index: number):
                         JSX.Element => (
                           <Col md={3} key={index}>
@@ -85,7 +85,7 @@ const organizationGroups: React.FC<IOrganizationGroupsProps> = (props: IOrganiza
                     : (
                       <DataTableNext
                         bordered={true}
-                        dataset={data.organization.groups}
+                        dataset={data.organization.projects}
                         exportCsv={false}
                         headers={tableHeaders}
                         id="tblGroups"
