@@ -11,7 +11,6 @@ Finalization Time:  2020-06-30 18:40 UTC-5
 """
 
 import os
-import uuid
 from urllib.parse import quote, unquote
 
 import bugsnag

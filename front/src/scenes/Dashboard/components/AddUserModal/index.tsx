@@ -17,7 +17,7 @@ import { Dropdown, PhoneNumber, Text } from "../../../../utils/forms/fields";
 import { msgError } from "../../../../utils/notifications";
 import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
-import { required, validAlphanumericSpace, validEmail, validTextField } from "../../../../utils/validations";
+import { required, validEmail, validTextField } from "../../../../utils/validations";
 import { GenericForm } from "../GenericForm/index";
 import { GET_USER } from "./queries";
 import { IAddUserModalProps, IUserDataAttr } from "./types";

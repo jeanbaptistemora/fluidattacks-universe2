@@ -100,7 +100,7 @@ class ITReport():
     }
     align_left = [2, 7, 10, 11, 12, 13, 14, 15, 16, 18, 25, 30]
     row_values: List[Union[str, int, datetime]] = \
-        [EMPTY for field in vulnerability]
+        [EMPTY for _ in vulnerability]
 
     def __init__(self, data: List[Dict[str, FindingType]], lang: str = 'es'):
         """Initialize variables."""

@@ -7,8 +7,6 @@ Finalization Time: 2020-06-02 19:12 UTC-5
 """
 import os
 from typing import (
-    cast,
-    Dict,
     List,
 )
 
@@ -56,7 +54,7 @@ def delete_duplicated_users_mysql() -> None:
                         log('Migration 0007: User {} was deleted from MySQL'.format(user.username))
                 elif user.email not in users_created_with_errors:
                     users_created_with_errors.append(user.email)
-        except:
+        except AttributeError:
             log('Migration 0007: Special case found with user {}'.format(user.email))
 
 

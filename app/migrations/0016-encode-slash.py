@@ -13,7 +13,6 @@ Finalization Time:  2020-07-01 12:16 UTC-5
 """
 
 import os
-import uuid
 
 import bugsnag
 import django

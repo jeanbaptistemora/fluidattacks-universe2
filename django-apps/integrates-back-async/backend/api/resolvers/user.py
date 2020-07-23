@@ -102,10 +102,10 @@ async def _create_new_user(  # pylint: disable=too-many-arguments
         validate_email_address(email) and
         await validate_fluidattacks_staff_on_group(group, email, role)
     )
-    success = False
-
+    success_granted = False
+    success_access_given = False
     if valid:
-        success = authz.grant_group_level_role(email, group, role)
+        success_granted = authz.grant_group_level_role(email, group, role)
 
         if not user_domain.get_data(email, 'email'):
             await aio.ensure_io_bound(
@@ -125,7 +125,7 @@ async def _create_new_user(  # pylint: disable=too-many-arguments
             authz.grant_user_level_role(email, 'customer')
 
         if group and responsibility and len(responsibility) <= 50:
-            success = await aio.ensure_io_bound(
+            success_access_given = await aio.ensure_io_bound(
                 _give_user_access,
                 email,
                 group,
@@ -138,8 +138,7 @@ async def _create_new_user(  # pylint: disable=too-many-arguments
                 (f'Security: {email} Attempted to add responsibility '
                  f'to project {group} without validation')  # pragma: no cover
             )
-            success = False
-    return success
+    return success_granted and success_access_given
 
 
 @sync_to_async  # type: ignore
@@ -217,7 +216,6 @@ async def _get_projects(
     **__: Any
 ) -> List[ProjectType]:
     """Get list projects."""
-    list_projects = list()
     active_task = asyncio.create_task(user_domain.get_projects(email))
     inactive_task = asyncio.create_task(
         user_domain.get_projects(email, active=False)

@@ -12,16 +12,12 @@ once everything is well placed.
 
 import json
 import os
-import sys
 from datetime import datetime
 
 import bugsnag
 from backend import util
 from backend.dal import (
     project as project_dal,
-)
-from backend.domain import (
-    user as user_domain,
 )
 from backend import authz
 

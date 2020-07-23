@@ -3,7 +3,7 @@
  * NO-MULTILINE-JS: Disabling this rule is necessary for the sake of
  * readability of the code that defines the headers of the table
 */
-import { MutationFunction, MutationResult, QueryResult } from "@apollo/react-common";
+import { MutationFunction, QueryResult } from "@apollo/react-common";
 import { Mutation, Query } from "@apollo/react-components";
 import { PureAbility } from "@casl/ability";
 import { useAbility } from "@casl/react";

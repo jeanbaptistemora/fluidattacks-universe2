@@ -9,7 +9,6 @@ Finalization Time:  2020-05-13 17:14 UTC-5
 import bugsnag
 from typing import (
     cast,
-    Dict,
     List,
 )
 

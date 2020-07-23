@@ -81,14 +81,12 @@ function render(dataDocument, height, width) {
         datum.group === 'source' ? circleSourceRadius : scaleCvss(datum.score) * circleCvssBaseRadius
       ))
       .attr('fill', (datum) => {
-        let color = '#cccccc';
+        let color = d3.interpolateGreens(scaleCvss(datum.score));
 
         if (datum.group === 'source') {
           color = '#cccccc';
         } else if (datum.isOpen) {
           color = d3.interpolateReds(scaleCvss(datum.score));
-        } else {
-          color = d3.interpolateGreens(scaleCvss(datum.score));
         }
 
         return color;

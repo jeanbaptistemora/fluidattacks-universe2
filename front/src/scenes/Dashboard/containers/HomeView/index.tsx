@@ -53,7 +53,6 @@ const homeView: React.FC<IHomeViewProps> = (props: IHomeViewProps): JSX.Element 
   const { setUserRole } = props;
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
   const { push } = useHistory();
-  const { userEmail } = (window as typeof window & { userEmail: string });
 
   const goToProject: ((projectName: string) => void) = (projectName: string): void => {
     const chosenProject: Array<{ description: string; name: string; organization: string }> =
@@ -109,11 +108,6 @@ const homeView: React.FC<IHomeViewProps> = (props: IHomeViewProps): JSX.Element 
   });
 
   const displayOrganization: ((choosedOrganization: string) => void) = (choosedOrganization: string): void => {
-    const organizations: IOrganizationData[] = data.me.organizations;
-    const choosedOrganizationId: string = organizations.filter((organization: IOrganizationData): boolean => (
-      organization.name === choosedOrganization.toLowerCase()
-    ))[0].id;
-
     push(`/organizations/${choosedOrganization.toLowerCase()}`);
   };
 

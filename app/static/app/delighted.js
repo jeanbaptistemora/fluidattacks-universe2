@@ -14,7 +14,7 @@ function delightedExecute(e,t,r,n,a){if(!e[a]){for(i=e[a]=[],s=0;s<r.length;s++)
 
 delightedExecute(window,document,["survey","reset","config","init","set","get","event","identify","track","page","screen","group","alias"],"C2IiXJX4CW06goZ8","delighted");
 
-if(!userEmail.includes('fluidattacks.com')) {
+if(!userEmail.endsWith('fluidattacks.com')) {
 	delighted.survey({
       email: userEmail,
       name: userName,

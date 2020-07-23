@@ -12,7 +12,7 @@ django.setup()
 NEW_RELIC_CONF_FILE = os.path.join(settings.BASE_DIR, 'newrelic.ini')
 newrelic.agent.initialize(NEW_RELIC_CONF_FILE)
 
-from django.urls import path, re_path  # noqa: E402
+from django.urls import re_path  # noqa: E402
 from uvicorn.workers import UvicornWorker  # noqa: E402
 
 from ariadne.asgi import GraphQL  # noqa: E402

@@ -106,7 +106,6 @@ def create(res_data: Union[List[ResourceType], ResourceType],
 
 
 def remove(project_name: str, res_type: str, index: int) -> bool:
-    table = TABLE
     table_name = 'FI_projects'
     primary_name_key = 'project_name'
     primary_key = project_name
