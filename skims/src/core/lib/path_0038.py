@@ -7,7 +7,7 @@ from typing import (
 )
 
 # Local libraries
-from core.model import (
+from model import (
     FindingEnum,
     KindEnum,
     SkimResult,

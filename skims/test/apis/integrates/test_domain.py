@@ -1,12 +1,22 @@
+# Standard library
+from textwrap import dedent
+
 # Third party libraries
 import pytest
 
 # Local libraries
 from apis.integrates.domain import (
+    build_vulnerabilities_stream,
     get_closest_finding_id,
 )
 from apis.integrates.graphql import (
     session,
+)
+from model import (
+    FindingEnum,
+    IntegratesVulnerabilitiesLines,
+    KindEnum,
+    SkimResult,
 )
 
 
@@ -25,3 +35,22 @@ async def test_domain(
             group=test_group,
             title='XXX',
         ) == ''
+
+
+@pytest.mark.asyncio  # type: ignore
+async def test_build_vulnerabilities_stream() -> None:
+    assert await build_vulnerabilities_stream(
+        results=(
+            SkimResult(
+                finding=FindingEnum.F0034,
+                kind=KindEnum.LINES,
+                what='what',
+                where='123',
+            ),
+        )
+    ) == dedent("""
+        lines:
+        - line: '123'
+          path: what
+          state: open
+    """)[1:]

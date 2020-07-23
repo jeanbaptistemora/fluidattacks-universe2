@@ -12,7 +12,7 @@ from apis.integrates.graphql import (
 from core.lib import (
     path_0038,
 )
-from core.model import (
+from model import (
     SkimResult,
 )
 from utils.aio import (
