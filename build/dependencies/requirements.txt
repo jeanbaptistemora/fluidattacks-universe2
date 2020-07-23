@@ -12,6 +12,7 @@ moto==1.3.14
 mypy==0.780
 mypy-extensions==0.4.3
 openpyxl==3.0.3
+lxml==4.5.2
 prospector[with_everything]==1.2.0
 pyotp==2.3.0
 # downgrade check https://gitlab.com/fluidattacks/integrates/-/issues/2168
