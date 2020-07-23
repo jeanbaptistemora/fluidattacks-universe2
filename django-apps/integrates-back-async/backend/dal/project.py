@@ -68,8 +68,7 @@ def get_service_policies(group: str) -> List[ServicePolicy]:
 
     has_drills: bool = historic_config[-1]['has_drills']
     has_forces: bool = historic_config[-1]['has_forces']
-    has_integrates: bool = \
-        group_attributes['project_status'] in ['ACTIVE', 'PENDING_DELETION']
+    has_integrates: bool = group_attributes['project_status'] == 'ACTIVE'
     type_: str = historic_config[-1]['type']
 
     if type_ == 'continuous':
@@ -370,8 +369,7 @@ async def is_alive(
                 ['deletion_date', 'project_status']
             )
         )
-        if project_data.get('project_status') in \
-           ['DELETED', 'PENDING_DELETION', 'FINISHED'] or \
+        if project_data.get('project_status') != 'ACTIVE' or \
            project_data.get('deletion_date'):
             is_valid_project = False
     else:
@@ -401,7 +399,7 @@ async def can_user_access_pending_deletion(
         if project_data.get('project_status') == 'PENDING_DELETION':
             is_user_allowed = role in allow_roles and should_access_pending
     else:
-        is_user_allowed = True
+        is_user_allowed = bool(role)
     return is_user_allowed
 
 

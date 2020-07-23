@@ -374,6 +374,10 @@ def reject_deletion(project_name: str, user_email: str) -> bool:
             raise NotPendingDeletion()
     else:
         raise PermissionDenied()
+
+    if response:
+        authz.revoke_cached_group_service_attributes_policies(project_name)
+
     return response
 
 

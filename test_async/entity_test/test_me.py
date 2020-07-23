@@ -11,6 +11,7 @@ from jose import jwt
 from backend import util
 from backend.api.dataloaders.project import ProjectLoader
 from backend.api.schema import SCHEMA
+from backend.dal.user import get_projects
 from test_async.utils import create_dummy_session
 
 pytestmark = pytest.mark.asyncio
@@ -41,11 +42,13 @@ class MeTests(TestCase):
             }
         }'''
         data = {'query': query}
-        request = create_dummy_session('integratesuser@gmail.com')
+        user_email = 'integratesuser@gmail.com'
+        request = create_dummy_session(user_email)
         request.loaders = {
             'project': ProjectLoader(),
         }
         _, result = await graphql(SCHEMA, data, context_value=request)
+        expected_groups = ['unittesting', 'oneshottest']
         assert 'me' in result['data']
         assert 'role' in result['data']['me']
         assert result['data']['me']['role'] == 'internal_manager'
@@ -56,12 +59,16 @@ class MeTests(TestCase):
             assert 'name' in tag
             assert 'projects' in tag
             if tag['name'] == 'test-projects':
-                expected_prjs = ['unittesting', 'oneshottest']
                 output = [proj['name'] for proj in tag['projects']]
-                assert sorted(output) == sorted(expected_prjs)
+                assert sorted(output) == sorted(expected_groups)
         for project in result['data']['me']['projects']:
             assert 'name' in project
             assert 'description' in project
+        groups = [prj['name'] for prj in result['data']['me']['projects']]
+        assert sorted(expected_groups) == sorted(groups)
+        all_user_groups = get_projects(user_email, True)
+        assert len(groups) < len(all_user_groups)
+        self.assertFalse(groups == all_user_groups)
 
     @pytest.mark.changes_db
     async def test_sign_in(self):
