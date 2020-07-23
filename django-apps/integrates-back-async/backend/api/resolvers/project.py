@@ -18,7 +18,7 @@ from graphql.language.ast import (
 )
 from graphql.type.definition import GraphQLResolveInfo
 import simplejson as json
-from asgiref.sync import async_to_sync, sync_to_async
+from asgiref.sync import sync_to_async
 
 # Local libraries
 from backend import authz
@@ -938,7 +938,7 @@ def _update_tags(
     if tags_added:
         success = True
     else:
-        async_to_sync(logging_utils.log)(
+        logging_utils.log(
             'Couldn\'t add tags', 'error', extra=locals())
         success = False
     return success
@@ -1013,7 +1013,7 @@ async def _do_remove_tag(
         if tag_deleted:
             success = True
         else:
-            await logging_utils.log(
+            logging_utils.log(
                 'Couldn\'t remove a tag', 'error', extra=locals())
     if success:
         project_loader.clear(project_name)

@@ -281,7 +281,7 @@ async def send_user_to_entity_report(
             ttl=float(event_period),
         )
     except botocore.exceptions.ClientError as ex:
-        await logging.log(
+        logging.log(
             extra=dict(
                 report_entity=report_entity,
                 report_subject=report_subject,

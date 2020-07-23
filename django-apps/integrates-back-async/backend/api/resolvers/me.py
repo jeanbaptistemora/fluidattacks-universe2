@@ -294,7 +294,7 @@ async def _do_subscribe_to_entity_report(
                 f'frequency: {frequency}',
             )
         else:
-            await log(
+            log(
                 'backend.api.resolvers.me._do_subscribe_to_entity_report',
                 level='error', extra_data=locals(),
             )
@@ -348,7 +348,7 @@ async def _do_sign_in(
         )
         success = True
     except AuthException as ex:
-        await log(ex, 'error', extra=locals())
+        log(ex, 'error', extra=locals())
 
     return SignInPayloadType(
         session_jwt=session_jwt,

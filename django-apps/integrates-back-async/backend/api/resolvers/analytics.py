@@ -42,5 +42,5 @@ async def resolve(
             )
         )
     except botocore.exceptions.ClientError as ex:
-        await logging_utils.log(ex, 'error', extra=locals())
+        logging_utils.log(ex, 'error', extra=locals())
         raise DocumentNotFound()

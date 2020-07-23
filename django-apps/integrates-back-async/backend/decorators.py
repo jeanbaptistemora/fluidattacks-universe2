@@ -157,7 +157,7 @@ def enforce_group_level_auth_async(func: Callable[..., Any]) -> \
         action = f'{func.__module__}.{func.__qualname__}'.replace('.', '_')
 
         if not object_:
-            await logging_utils.log(
+            logging_utils.log(
                 'Unable to identify project name',
                 level='error',
                 extra={
@@ -207,7 +207,7 @@ def enforce_organization_level_auth_async(func: Callable[..., Any]) -> \
         action = f'{func.__module__}.{func.__qualname__}'.replace('.', '_')
 
         if not object_:
-            await logging_utils.log(
+            logging_utils.log(
                 'Unable to identify organization to check permissions',
                 level='error',
                 extra={
@@ -349,7 +349,7 @@ def require_finding_access(func: Callable[..., Any]) -> Callable[..., Any]:
         )
 
         if not re.match('^[0-9]*$', finding_id):
-            await logging_utils.log(
+            logging_utils.log(
                 'Invalid finding id format',
                 'error',
                 extra={
@@ -422,7 +422,7 @@ def cache_content(func: Callable[..., Any]) -> Callable[..., Any]:
             cache.set(key_name, ret, timeout=CACHE_TTL)
             return ret
         except RedisClusterException as ex:
-            async_to_sync(logging_utils.log)(ex, 'error')
+            logging_utils.log(ex, 'error')
             return func(*args, **kwargs)
     return decorated
 
@@ -467,7 +467,7 @@ def get_entity_cache_async(func: Callable[..., Any]) -> Callable[..., Any]:
                 )
             return ret
         except RedisClusterException as ex:
-            await logging_utils.log(ex, 'error')
+            logging_utils.log(ex, 'error')
             return await func(*args, **kwargs)
 
     return decorated
@@ -521,7 +521,7 @@ def cache_idempotent(*, ttl: int) -> Callable:
                     )
                 return ret
             except RedisClusterException as ex:
-                await logging_utils.log(ex, 'error')
+                logging_utils.log(ex, 'error')
                 return await function(*args, **kwargs)
 
         return wrapper
@@ -556,7 +556,7 @@ def turn_args_into_kwargs(function: Callable):
 def shield(function: Callable):
     """Catches and reports general Exceptions raised in decorated function"""
     async def report(exception: Exception):
-        await logging_utils.log(
+        logging_utils.log(
             'Shielded function raised a generic Exception',
             'error',
             extra={

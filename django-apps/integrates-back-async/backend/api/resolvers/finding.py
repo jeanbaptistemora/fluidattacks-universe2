@@ -597,7 +597,7 @@ successfully updated in finding {finding_id}')  # pragma: no cover
                 info.context, f'Security: Attempted to update \
                 evidence description in {finding_id}')  # pragma: no cover
     except KeyError as ex:
-        await logging_utils.log(ex, 'error', extra=locals())
+        logging_utils.log(ex, 'error', extra=locals())
     return SimplePayloadType(success=success)
 
 
@@ -661,7 +661,7 @@ Unauthorized role attempted to add observation')  # pragma: no cover
             'comment_type': param_type,
             'content': parameters.get('content'),
             'fullname': str.join(' ', [user_data['first_name'],
-                                 user_data['last_name']]),
+                                       user_data['last_name']]),
             'parent': parameters.get('parent'),
         }
         success = await finding_domain.add_comment(

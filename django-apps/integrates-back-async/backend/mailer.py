@@ -133,7 +133,7 @@ def _send_mail(
                 'message': message,
                 'api_key': API_KEY
             }
-            async_to_sync(log)(
+            log(
                 '[mailer]: sending to SQS',
                 'info',
                 extra={
@@ -146,7 +146,7 @@ def _send_mail(
                 MessageBody=json.dumps(sqs_message),
                 MessageGroupId=template_name
             )
-            async_to_sync(log)(
+            log(
                 '[mailer]: mail sent',
                 'info',
                 extra={
@@ -156,7 +156,7 @@ def _send_mail(
             )
         except (botocore.vendored.requests.exceptions.ConnectionError,
                 botocore.exceptions.ClientError) as exc:
-            async_to_sync(log)(exc, 'info')
+            log(exc, 'info')
     else:
         # Mail should not be sent if is a test project
         pass
@@ -273,7 +273,7 @@ def send_mail_new_draft(
 
 
 async def send_mail_analytics(*email_to: str, **context: str) -> None:
-    await log(
+    log(
         '[mailer]: send_mail_analytics',
         level='info',
         extra={

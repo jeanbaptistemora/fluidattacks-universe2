@@ -156,6 +156,7 @@ DATABASES = {
 # Error tracking configuration
 BUGSNAG = {
     'api_key': FI_BUGSNAG_ACCESS_TOKEN,
+    'asynchronous': True,
     'auto_capture_sessions': True,
     'notify_release_stages': ['production'],
     'project_root': BASE_DIR,

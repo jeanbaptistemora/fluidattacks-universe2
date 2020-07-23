@@ -15,7 +15,7 @@ import httpx
 import pytz
 
 
-from asgiref.sync import async_to_sync, sync_to_async
+from asgiref.sync import sync_to_async
 from cryptography.hazmat.primitives.kdf.scrypt import Scrypt
 from cryptography.hazmat.backends import default_backend
 from cryptography.exceptions import InvalidKey
@@ -227,15 +227,15 @@ def get_jwt_content(context) -> Dict[str, str]:
         # Session expired
         raise InvalidAuthorization()
     except (AttributeError, IndexError) as ex:
-        async_to_sync(logging_utils.log)(ex, 'error', extra=context)
+        logging_utils.log(ex, 'error', extra=context)
         raise InvalidAuthorization()
     except jwt.JWTClaimsError as ex:
         LOGGER.info('Security: Invalid token claims')
-        async_to_sync(logging_utils.log)(ex, 'error', extra=context)
+        logging_utils.log(ex, 'error', extra=context)
         raise InvalidAuthorization()
     except JWTError as ex:
         LOGGER.info('Security: Invalid token')
-        async_to_sync(logging_utils.log)(ex, 'error', extra=context)
+        logging_utils.log(ex, 'error', extra=context)
         raise InvalidAuthorization()
 
 
@@ -366,7 +366,7 @@ def verificate_hash_token(access_token: Dict[str, str], jti_token: str) -> \
             binascii.unhexlify(access_token['jti']))
         resp = True
     except InvalidKey as ex:
-        async_to_sync(logging_utils.log)(ex, 'error')
+        logging_utils.log(ex, 'error')
 
     return resp
 
@@ -418,7 +418,7 @@ def forces_trigger_deployment(project_name: str) -> bool:
             task.add_done_callback(functools.partial(callback, client))
 
     except httpx.HTTPError as ex:
-        async_to_sync(logging_utils.log)(ex, 'error')
+        logging_utils.log(ex, 'error')
     else:
         success = True
     return success

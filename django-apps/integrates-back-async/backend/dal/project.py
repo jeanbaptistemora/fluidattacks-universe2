@@ -457,7 +457,7 @@ async def create(project: ProjectType) -> bool:
     try:
         resp = await dynamodb.async_put_item(TABLE_NAME, project)
     except ClientError as ex:
-        await logging.log(ex, 'error', extra=locals())
+        logging.log(ex, 'error', extra=locals())
 
     return resp
 

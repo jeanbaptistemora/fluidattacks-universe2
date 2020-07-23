@@ -308,7 +308,7 @@ def get_date_last_vulns(vulns: List[Dict[str, FindingType]]) -> str:
 
 async def get_group_new_vulnerabilities(group_name: str) -> None:
     msg = 'Info: Getting new vulnerabilities'
-    await logging_utils.log(msg, 'info', extra=locals())
+    logging_utils.log(msg, 'info', extra=locals())
     fin_attrs = 'finding_id, historic_treatment, project_name, finding'
     context: Dict[str, Union[str, List[Dict[str, str]]]] = {
         'updated_findings': list(),
@@ -353,7 +353,7 @@ async def get_group_new_vulnerabilities(group_name: str) -> None:
                 f'{act_finding["project_name"]}/indicators'
             )
     except (TypeError, KeyError) as ex:
-        await logging_utils.log(ex, 'error', extra={'group_name': group_name})
+        logging_utils.log(ex, 'error', extra={'group_name': group_name})
         raise
     if context['updated_findings']:
         mail_to = await project_domain.get_users_to_notify(group_name)
@@ -368,7 +368,7 @@ async def get_group_new_vulnerabilities(group_name: str) -> None:
 async def get_new_vulnerabilities():
     """Summary mail send with the findings of a project."""
     msg = 'Warning: Function to get new vulnerabilities is running'
-    await logging_utils.log(msg, 'info')
+    logging_utils.log(msg, 'info')
     groups = await aio.ensure_io_bound(
         project_domain.get_active_projects
     )
@@ -455,7 +455,7 @@ async def create_msj_finding_pending(
 @async_to_sync
 async def get_remediated_findings():
     """Summary mail send with findings that have not been verified yet."""
-    await logging_utils.log(
+    logging_utils.log(
         '[scheduler]: get_remediated_findings is running',
         'warning',
     )
@@ -490,7 +490,7 @@ async def get_remediated_findings():
                 mail_to, context
             )
         except (TypeError, KeyError) as ex:
-            await logging_utils.log(ex, 'warning', extra=locals())
+            logging_utils.log(ex, 'warning', extra=locals())
     else:
         LOGGER.info('There are no findings to verificate')
 
@@ -498,7 +498,7 @@ async def get_remediated_findings():
 @async_to_sync
 async def get_new_releases():
     """Summary mail send with findings that have not been released yet."""
-    await logging_utils.log(
+    logging_utils.log(
         '[scheduler]: get_new_releases is running',
         'warning',
     )
@@ -543,7 +543,7 @@ async def get_new_releases():
                         })
                         cont += 1
             except (TypeError, KeyError) as ex:
-                await logging_utils.log(ex, 'warning', extra=locals())
+                logging_utils.log(ex, 'warning', extra=locals())
         else:
             # ignore test projects
             pass
@@ -557,7 +557,7 @@ async def get_new_releases():
             mail_to, email_context
         )
     else:
-        await logging_utils.log(
+        logging_utils.log(
             '[scheduler]: There are no new drafts',
             'warning',
         )
@@ -566,7 +566,7 @@ async def get_new_releases():
 @async_to_sync
 async def send_unsolved_to_all() -> List[bool]:
     """Send email with unsolved events to all projects """
-    await logging_utils.log(
+    logging_utils.log(
         '[scheduler]: send_unsolved_to_all is running',
         'warning',
     )
@@ -633,7 +633,7 @@ async def update_group_indicators(group_name: str) -> None:
         'group_name': group_name
     }
     msg = 'Info: Updating indicators'
-    await logging_utils.log(msg, 'info', extra=payload_data)
+    logging_utils.log(msg, 'info', extra=payload_data)
     indicators = await get_project_indicators(group_name)
     try:
         response = await aio.ensure_io_bound(
@@ -644,18 +644,18 @@ async def update_group_indicators(group_name: str) -> None:
         if response:
             util.invalidate_cache(group_name)
             msg = 'Info: Updated indicators'
-            await logging_utils.log(msg, 'info', extra=payload_data)
+            logging_utils.log(msg, 'info', extra=payload_data)
         else:
             msg = 'Error: An error ocurred updating indicators in the database'
-            await logging_utils.log(msg, 'error', extra=payload_data)
+            logging_utils.log(msg, 'error', extra=payload_data)
     except ClientError as ex:
-        await logging_utils.log(ex, 'error', extra=payload_data)
+        logging_utils.log(ex, 'error', extra=payload_data)
 
 
 @async_to_sync
 async def update_indicators():
     """Update in dynamo indicators."""
-    await logging_utils.log(
+    logging_utils.log(
         '[scheduler]: update_indicators is running',
         'warning',
     )
@@ -674,7 +674,7 @@ async def update_indicators():
 async def reset_group_expired_accepted_findings(
         group_name: str, today: str) -> None:
     msg = 'Info: Resetting expired accepted findings'
-    await logging_utils.log(msg, 'info', extra=locals())
+    logging_utils.log(msg, 'info', extra=locals())
     list_findings = await project_domain.list_findings(
         [group_name]
     )
@@ -713,7 +713,7 @@ async def reset_group_expired_accepted_findings(
 @async_to_sync
 async def reset_expired_accepted_findings():
     """ Update treatment if acceptance date expires """
-    await logging_utils.log(
+    logging_utils.log(
         '[scheduler]: reset_expired_accepted_findings is running',
         'warning',
     )
@@ -733,7 +733,7 @@ async def reset_expired_accepted_findings():
 @async_to_sync
 async def delete_pending_projects():
     """ Delete pending to delete projects """
-    await logging_utils.log(
+    logging_utils.log(
         '[scheduler]: delete_pending_projects is running',
         'warning',
     )

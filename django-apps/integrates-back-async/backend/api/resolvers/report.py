@@ -191,6 +191,6 @@ async def _get_url(
             'report_type': report_type,
             'user_email': user_email
         }
-        await logging_utils.log(
+        logging_utils.log(
             'Report type not in expected values', 'error', extra=payload_data)
     return url

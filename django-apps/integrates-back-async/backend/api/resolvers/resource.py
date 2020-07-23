@@ -140,7 +140,7 @@ async def _do_add_repositories(_, info, repos: List[Dict[str, str]],
         await sync_to_async(resources.send_mail)(
             project_name, user_email, new_repos, 'added', 'repository')
     else:
-        await logging_utils.log(
+        logging_utils.log(
             'Couldn\'t add repositories', 'error', extra=locals())
         util.cloudwatch_log(
             info.context,
@@ -169,7 +169,7 @@ async def _do_add_environments(_, info, envs: List[Dict[str, str]],
         await sync_to_async(resources.send_mail)(
             project_name, user_email, new_envs, 'added', 'environment')
     else:
-        await logging_utils.log(
+        logging_utils.log(
             'Couldn\'t add environments', 'error', extra=locals())
         util.cloudwatch_log(
             info.context,
@@ -202,7 +202,7 @@ async def _do_add_files(_, info, **parameters) -> SimplePayloadType:
 
         success = True
     else:
-        await logging_utils.log(
+        logging_utils.log(
             'Couldn\'t upload file', 'error', extra=parameters)
     if success:
         util.invalidate_cache(project_name)
@@ -235,7 +235,7 @@ async def _do_remove_files(_, info, files_data: Dict[str, Any],
             project_name, user_email, [files_data], 'removed', 'file')
         success = True
     else:
-        await logging_utils.log(
+        logging_utils.log(
             'Couldn\'t remove file',
             'error',
             extra={
@@ -285,7 +285,7 @@ project {project} successfully'\
 in project {project}'.format(
                 project=project_name,
                 file_name=parameters['files_data']))  # pragma: no cover
-        await logging_utils.log(
+        logging_utils.log(
             'Couldn\'t generate signed URL', 'error', extra=parameters)
     return DownloadFilePayloadType(success=success, url=str(signed_url))
 
@@ -314,7 +314,7 @@ async def _do_update_environment(_, info, project_name: str,
         await sync_to_async(resources.send_mail)(
             project_name, user_email, [env], action, 'environment')
     else:
-        await logging_utils.log(
+        logging_utils.log(
             'Couldn\'t update environment state', 'error', extra=locals())
         util.cloudwatch_log(
             info.context,
@@ -347,7 +347,7 @@ async def _do_update_repository(_, info, project_name: str,
         await sync_to_async(resources.send_mail)(
             project_name, user_email, [repo], action, 'repository')
     else:
-        await logging_utils.log(
+        logging_utils.log(
             'Couldn\'t update repository state', 'error', extra=locals())
         util.cloudwatch_log(
             info.context,
