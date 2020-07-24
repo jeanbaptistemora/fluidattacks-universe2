@@ -89,7 +89,7 @@ async def create_file(
         user_email: str) -> bool:
     success = False
     project_name = project_name.lower()
-    json_data: List[resources_dal.ResourceType] = []
+    json_data: List[ResourceType] = []
     for file_info in files_data:
         description = file_info['description']
         validations.validate_fields(cast(List[str], [description]))
