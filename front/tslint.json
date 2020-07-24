@@ -8,9 +8,7 @@
       "src/app.tsx",
       "src/store/**",
       "src/graphics/**",
-      "src/utils/+(translations|authz)/**",
-      "src/utils/forms/events.ts",
-      "src/utils/forms/fields/*/*.tsx",
+      "src/utils/+(translations|authz|forms)/**",
       "src/components/**"
     ]
   },

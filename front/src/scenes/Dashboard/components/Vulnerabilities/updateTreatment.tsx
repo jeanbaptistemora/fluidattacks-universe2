@@ -19,7 +19,7 @@ import { Modal } from "../../../../components/Modal";
 import store from "../../../../store";
 import { authzPermissionsContext } from "../../../../utils/authz/config";
 import { formatDropdownField } from "../../../../utils/formatHelpers";
-import { Dropdown, tagInputField, Text } from "../../../../utils/forms/fields";
+import { Dropdown, TagInput, Text } from "../../../../utils/forms/fields";
 import { msgError, msgSuccess } from "../../../../utils/notifications";
 import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
@@ -271,7 +271,7 @@ const updateTreatmentModal: ((props: IUpdateTreatmentModal) => JSX.Element) = (
                             <ControlLabel>
                               <b>{translate.t("search_findings.tab_description.tag")}</b>
                             </ControlLabel>
-                            <Field component={tagInputField} name="tag" onDeletion={handleDeletion} type="text" />
+                            <Field component={TagInput} name="tag" onDeletion={handleDeletion} type="text" />
                           </FormGroup>
                         </Col>
                         <Col md={6}>
