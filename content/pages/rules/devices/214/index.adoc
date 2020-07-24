@@ -24,6 +24,16 @@ electronic protected health information
 is not improperly modified without detection until disposed of.
 
 . [[r3]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+Appendix C: Internet of Things Verification Requirements.(C.25)]
+Verify that the device wipes firmware and sensitive data upon detection of
+tampering or receipt of invalid message.
+
+. [[r4]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+Appendix C: Internet of Things Verification Requirements.(C.31)]
+Verify that sensitive information maintained in memory is overwritten with
+zeros as soon as it is no longer required.
+
+. [[r5]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V8.3 Sensitive Private Data.(8.3.6)]
 Verify that sensitive information contained in memory is overwritten as soon as
 it is no longer required to mitigate memory dumping attacks,

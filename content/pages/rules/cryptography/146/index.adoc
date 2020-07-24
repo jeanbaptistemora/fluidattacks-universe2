@@ -23,17 +23,22 @@ The software does not properly "clean up" and remove temporary or supporting
 resources after they have been used.
 
 . [[r3]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+Appendix C: Internet of Things Verification Requirements.(C.31)]
+Verify that sensitive information maintained in memory is overwritten with
+zeros as soon as it is no longer required.
+
+. [[r4]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V1.6 Cryptographic Architectural Requirements.(1.6.1)]
 Verify that there is an explicit policy for management of cryptographic keys
 and that a cryptographic key lifecycle follows a key management standard such
 as **NIST SP 800-57**.
 
-. [[r4]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r5]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V8.2 Client-side Data Protection.(8.2.3)]
 Verify that authenticated data is cleared from client storage,
 such as the browser *DOM*, after the client or session is terminated.
 
-. [[r5]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r6]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V8.3 Sensitive Private Data.(8.3.6)]
 Verify that sensitive information contained in memory is overwritten as soon as
 it is no longer required to mitigate memory dumping attacks,
