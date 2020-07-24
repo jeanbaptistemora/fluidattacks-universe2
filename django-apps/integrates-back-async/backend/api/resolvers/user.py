@@ -1,5 +1,8 @@
 # pylint: disable=too-many-locals
 import asyncio
+import logging
+import sys
+import threading
 from datetime import datetime
 from typing import (
     cast,
@@ -8,10 +11,7 @@ from typing import (
     Union,
     Any
 )
-import sys
-import threading
 
-import rollbar
 from ariadne import convert_kwargs_to_snake_case, convert_camel_case_to_snake
 from asgiref.sync import async_to_sync, sync_to_async
 
@@ -53,6 +53,10 @@ from backend.utils.validations import (
 from backend import util
 
 from __init__ import BASE_URL
+
+
+# Constants
+LOGGER = logging.getLogger(__name__)
 
 
 def _give_user_access(
@@ -390,26 +394,19 @@ async def _do_add_user(
             email_send_thread.start()
             success = True
         else:
-            rollbar.report_message(
+            LOGGER.error(
                 'Error: Couldn\'t grant user access',
-                'error',
-                info.context
-            )
+                extra={'extra': info.context})
     else:
-        payload_data = {
-            'email': email,
-            'requester_email': user_email,
-            'role': role
-        }
-        msg = (
-            'Error: Invalid role provided when adding user through the sidebar'
-        )
-        rollbar.report_message(
-            msg,
-            'error',
-            info.context,
-            payload_data=payload_data
-        )
+        LOGGER.error(
+            'Invalid role provided',
+            extra={
+                'extra': {
+                    'email': email,
+                    'requester_email': user_email,
+                    'role': role
+                }
+            })
 
     return AddUserPayloadType(success=success, email=email)
 
@@ -446,24 +443,19 @@ async def _do_grant_user_access(
                 group=project_name):
             success = True
         else:
-            rollbar.report_message(
-                'Error: Couldn\'t grant access to project',
-                'error',
-                info.context
-            )
+            LOGGER.error(
+                'Couldn\'t grant access to project',
+                extra={'extra': info.context})
     else:
-        payload_data = {
-            'new_user_role': new_user_role,
-            'project_name': project_name,
-            'requester_email': user_email
-        }
-        msg = 'Error: Invalid role provided when adding user to group'
-        rollbar.report_message(
-            msg,
-            'error',
-            info.context,
-            payload_data=payload_data
-        )
+        LOGGER.error(
+            'Invalid role provided',
+            extra={
+                'extra': {
+                    'new_user_role': new_user_role,
+                    'project_name': project_name,
+                    'requester_email': user_email
+                }
+            })
 
     if success:
         util.invalidate_cache(project_name)
@@ -561,24 +553,19 @@ async def _do_edit_user(
                 info.context, modified_user_data, project_name
             )
         else:
-            await sync_to_async(rollbar.report_message)(
-                'Error: Couldn\'t update user role',
-                'error',
-                info.context
-            )
+            LOGGER.error(
+                'Couldn\'t update user role',
+                extra={'extra': info.context})
     else:
-        payload_data = {
-            'modified_user_role': modified_role,
-            'project_name': project_name,
-            'requester_email': user_email
-        }
-        msg = 'Error: Invalid role provided when editing user'
-        await sync_to_async(rollbar.report_message)(
-            msg,
-            'error',
-            info.context,
-            payload_data=payload_data
-        )
+        LOGGER.error(
+            'Invalid role provided',
+            extra={
+                'extra': {
+                    'modified_user_role': modified_role,
+                    'project_name': project_name,
+                    'requester_email': user_email
+                }
+            })
 
     if success:
         util.invalidate_cache(project_name)

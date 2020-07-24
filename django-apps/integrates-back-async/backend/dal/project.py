@@ -433,7 +433,7 @@ async def update(project_name: str, data: ProjectType) -> bool:
     try:
         success = await dynamodb.async_update_item(TABLE_NAME, update_attrs)
     except ClientError as ex:
-        logging.log(ex, 'error', extra=locals())
+        LOGGER.exception(ex, extra={'extra': locals()})
 
     return success
 
@@ -444,7 +444,7 @@ async def create(project: ProjectType) -> bool:
     try:
         resp = await dynamodb.async_put_item(TABLE_NAME, project)
     except ClientError as ex:
-        logging.log(ex, 'error', extra=locals())
+        LOGGER.exception(ex, extra={'extra': locals()})
 
     return resp
 

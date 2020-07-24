@@ -61,6 +61,7 @@ from __init__ import (
 
 # Constants
 LOGGER = logging.getLogger(__name__)
+LOGGER_TRANSACTIONAL = logging.getLogger('transactional')
 NUMBER_OF_BYTES = 32  # length of the key
 SCRYPT_N = 2**14  # cpu/memory cost
 SCRYPT_R = 8  # block size
@@ -166,7 +167,7 @@ def cloudwatch_log_sync(request, msg: str) -> None:
             info.append(request.GET.dict()[parameter])
     info.append(FI_ENVIRONMENT)
     info.append(msg)
-    LOGGER.info(":".join(info))
+    LOGGER_TRANSACTIONAL.info(":".join(info))
 
 
 async def cloudwatch_log_queue(request, msg: str) -> None:
@@ -179,7 +180,8 @@ async def cloudwatch_log_queue(request, msg: str) -> None:
             info.append(request.GET.dict()[parameter])
     info.append(FI_ENVIRONMENT)
     info.append(msg)
-    asyncio.create_task(sync_to_async(LOGGER.info)(":".join(info)))
+    asyncio.create_task(
+        sync_to_async(LOGGER_TRANSACTIONAL.info)(":".join(info)))
 
 
 @apm.trace()

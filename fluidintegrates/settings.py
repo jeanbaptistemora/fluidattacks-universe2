@@ -10,7 +10,6 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.10/ref/settings/
 """
 
-import logging
 import os
 import subprocess
 import sys
@@ -203,16 +202,12 @@ LOGGING = {
         'require_debug_false': {
             '()': 'django.utils.log.RequireDebugFalse'
         },
-        'transactional_logs': {
-            '()': 'backend.utils.logging.SpecificLevelFilter',
-            'level': logging.INFO,
-        }
     },
     'handlers': {
         'bugsnag': {
             'extra_fields': {'extra': ['extra']},
             'class': 'bugsnag.handlers.BugsnagHandler',
-            'level': 'WARNING',
+            'level': 'INFO',
         },
         'console': {
             'class': 'logging.StreamHandler',
@@ -223,7 +218,7 @@ LOGGING = {
             'class': 'watchtower.CloudWatchLogHandler',
             'level': 'INFO',
             'log_group': 'FLUID',
-            'filters': ['require_debug_false', 'transactional_logs'],
+            'filters': ['require_debug_false'],
             'stream_name': 'FLUIDIntegrates',
         },
     },
@@ -238,13 +233,17 @@ LOGGING = {
             'level': 'INFO'
         },
         'app': {
-            'handlers': ['bugsnag', 'console', 'watchtower'],
+            'handlers': ['bugsnag', 'console'],
             'level': 'INFO'
         },
         'backend': {
-            'handlers': ['bugsnag', 'console', 'watchtower'],
+            'handlers': ['bugsnag', 'console'],
             'level': 'INFO'
         },
+        'transactional': {
+            'handlers': ['console', 'watchtower'],
+            'level': 'INFO'
+        }
     }
 }
 
