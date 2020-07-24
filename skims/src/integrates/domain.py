@@ -26,6 +26,7 @@ from utils.model import (
     SeverityEnum,
     Vulnerability,
     VulnerabilityKindEnum,
+    VulnerabilitySourceEnum,
 )
 from utils.string import (
     are_similar,
@@ -48,6 +49,12 @@ async def build_vulnerabilities_stream(
                 IntegratesVulnerabilitiesLines(
                     line=result.where,
                     path=result.what,
+                    source=(
+                        result.integrates_metadata.source
+                        if (result.integrates_metadata and
+                            result.integrates_metadata.source)
+                        else VulnerabilitySourceEnum.INTEGRATES
+                    ),
                     state=result.state,
                 )
                 for result in results

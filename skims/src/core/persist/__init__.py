@@ -1,7 +1,4 @@
 # Standard library
-from itertools import (
-    chain,
-)
 import sys
 from typing import (
     Dict,
@@ -29,6 +26,7 @@ from utils.logs import (
 )
 from utils.model import (
     FindingEnum,
+    IntegratesVulnerabilityMetadata,
     Vulnerability,
     VulnerabilitySourceEnum,
 )
@@ -40,16 +38,31 @@ async def merge_results(
 ) -> Tuple[Vulnerability, ...]:
 
     def _merge_results() -> Tuple[Vulnerability, ...]:
+        # Add Integrates results
         merged_results: Tuple[Vulnerability, ...] = tuple(
             result
-            for result in chain(
-                # Add Integrates results
-                integrates_results,
-                # Add the Skims results to replace the ones at Integrates
-                skims_results
-            )
+            for result in integrates_results
             # We only manage the ones who have been created by skims
-            if result.source == VulnerabilitySourceEnum.SKIMS
+            if (result.integrates_metadata and
+                result.integrates_metadata.source == (
+                    VulnerabilitySourceEnum.SKIMS
+                ))
+        )
+
+        # Add skims results
+        merged_results += tuple(
+            Vulnerability(
+                finding=result.finding,
+                integrates_metadata=IntegratesVulnerabilityMetadata(
+                    # Mark them as managed by skims
+                    source=VulnerabilitySourceEnum.SKIMS,
+                ),
+                kind=result.kind,
+                state=result.state,
+                what=result.what,
+                where=result.where,
+            )
+            for result in skims_results
         )
 
         return merged_results

@@ -24,8 +24,10 @@ from integrates.domain import (
 from utils.model import (
     FindingEnum,
     IntegratesVulnerabilitiesLines,
+    IntegratesVulnerabilityMetadata,
     SeverityEnum,
     Vulnerability,
+    VulnerabilityApprovalStatusEnum,
     VulnerabilityKindEnum,
     VulnerabilitySourceEnum,
     VulnerabilityStateEnum,
@@ -43,8 +45,10 @@ async def test_build_vulnerabilities_stream() -> None:
         results=(
             Vulnerability(
                 finding=FindingEnum.F0034,
+                integrates_metadata=IntegratesVulnerabilityMetadata(
+                    source=VulnerabilitySourceEnum.SKIMS,
+                ),
                 kind=VulnerabilityKindEnum.LINES,
-                source=VulnerabilitySourceEnum.SKIMS,
                 state=VulnerabilityStateEnum.OPEN,
                 what='what',
                 where='123',
@@ -54,6 +58,7 @@ async def test_build_vulnerabilities_stream() -> None:
         lines:
         - line: '123'
           path: what
+          source: skims
           state: open
     """)[1:]
 
@@ -96,25 +101,40 @@ async def test_statefull(
 
     assert await do_upload_vulnerabilities(
         finding_id=finding_id,
-        stream="""
-            inputs: []
-            lines: []
-            ports:
-                -   host: 127.0.0.1
-                    port: '80'
-                    source: skims
-                    state: open
-        """,
+        stream=await build_vulnerabilities_stream(
+            results=(
+                Vulnerability(
+                    finding=FindingEnum.F0034,
+                    integrates_metadata=IntegratesVulnerabilityMetadata(
+                        source=VulnerabilitySourceEnum.SKIMS,
+                    ),
+                    kind=VulnerabilityKindEnum.LINES,
+                    state=VulnerabilityStateEnum.OPEN,
+                    what='repo/file',
+                    where='123',
+                ),
+            ),
+        ),
     )
 
-    assert Vulnerability(
-        finding=FindingEnum.F0034,
-        kind=VulnerabilityKindEnum.PORTS,
-        source=VulnerabilitySourceEnum.SKIMS,
-        state=VulnerabilityStateEnum.OPEN,
-        what='127.0.0.1',
-        where='80',
-    ) in await get_finding_vulnerabilities(
-        finding=FindingEnum.F0034,
-        finding_id=finding_id,
+    assert any(
+        (
+            vulnerability.finding == FindingEnum.F0034
+            and vulnerability.integrates_metadata
+            and vulnerability.integrates_metadata.approval_status == (
+                VulnerabilityApprovalStatusEnum.PENDING
+            )
+            and vulnerability.integrates_metadata.source == (
+                VulnerabilitySourceEnum.SKIMS
+            )
+            and vulnerability.integrates_metadata.uuid
+            and vulnerability.kind == VulnerabilityKindEnum.LINES
+            and vulnerability.state == VulnerabilityStateEnum.OPEN
+            and vulnerability.what == 'repo/file'
+            and vulnerability.where == '123'
+        )
+        for vulnerability in await get_finding_vulnerabilities(
+            finding=FindingEnum.F0034,
+            finding_id=finding_id,
+        )
     )

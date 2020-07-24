@@ -3,6 +3,7 @@ from enum import Enum
 from typing import (
     Dict,
     NamedTuple,
+    Optional,
 )
 
 
@@ -37,6 +38,11 @@ class SeverityEnum(Enum):
     }
 
 
+class VulnerabilityApprovalStatusEnum(Enum):
+    APPROVED: str = 'APPROVED'
+    PENDING: str = 'PENDING'
+
+
 class VulnerabilityStateEnum(Enum):
     OPEN: str = 'open'
     CLOSED: str = 'closed'
@@ -53,16 +59,24 @@ class VulnerabilitySourceEnum(Enum):
     SKIMS: str = 'skims'
 
 
+class IntegratesVulnerabilityMetadata(NamedTuple):
+    approval_status: Optional[VulnerabilityApprovalStatusEnum] = None
+    source: Optional[VulnerabilitySourceEnum] = None
+    uuid: Optional[str] = None
+
+
 class IntegratesVulnerabilitiesLines(NamedTuple):
     line: str
     path: str
+    source: VulnerabilitySourceEnum
     state: VulnerabilityStateEnum
 
 
 class Vulnerability(NamedTuple):
     finding: FindingEnum
     kind: VulnerabilityKindEnum
-    source: VulnerabilitySourceEnum
     state: VulnerabilityStateEnum
     what: str
     where: str
+
+    integrates_metadata: Optional[IntegratesVulnerabilityMetadata] = None

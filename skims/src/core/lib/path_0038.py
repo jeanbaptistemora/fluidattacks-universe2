@@ -14,7 +14,6 @@ from utils.model import (
     FindingEnum,
     Vulnerability,
     VulnerabilityKindEnum,
-    VulnerabilitySourceEnum,
     VulnerabilityStateEnum,
 )
 
@@ -29,7 +28,6 @@ def javascript_insecure_randoms(
         Vulnerability(
             finding=FindingEnum.F0034,
             kind=VulnerabilityKindEnum.LINES,
-            source=VulnerabilitySourceEnum.SKIMS,
             state=VulnerabilityStateEnum.OPEN,
             what=file,
             where=f'{line_number}',

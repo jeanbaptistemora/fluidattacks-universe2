@@ -20,8 +20,10 @@ from utils.logs import (
 )
 from utils.model import (
     FindingEnum,
+    IntegratesVulnerabilityMetadata,
     SeverityEnum,
     Vulnerability,
+    VulnerabilityApprovalStatusEnum,
     VulnerabilityKindEnum,
     VulnerabilitySourceEnum,
     VulnerabilityStateEnum,
@@ -150,7 +152,9 @@ async def get_finding_vulnerabilities(
             ) {
                 finding(identifier: $finding_id) {
                     vulnerabilities {
+                        currentApprovalStatus
                         currentState
+                        id
                         source
                         specific
                         vulnType
@@ -167,8 +171,14 @@ async def get_finding_vulnerabilities(
     return tuple(
         Vulnerability(
             finding=finding,
+            integrates_metadata=IntegratesVulnerabilityMetadata(
+                approval_status=VulnerabilityApprovalStatusEnum(
+                    vulnerability['currentApprovalStatus'],
+                ),
+                source=VulnerabilitySourceEnum(vulnerability['source']),
+                uuid=vulnerability['id'],
+            ),
             kind=VulnerabilityKindEnum(vulnerability['vulnType']),
-            source=VulnerabilitySourceEnum(vulnerability['source']),
             state=VulnerabilityStateEnum(vulnerability['currentState']),
             what=vulnerability['where'],
             where=vulnerability['specific'],
