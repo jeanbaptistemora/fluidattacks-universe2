@@ -1,4 +1,4 @@
-from typing import Any, Dict, List, cast
+from typing import Any, Dict, List, cast, Union
 import re
 import sys
 
@@ -29,45 +29,47 @@ from backend import util
 
 
 @get_entity_cache_async
-async def _get_project_name(_, project_name: str) -> str:
+async def _get_project_name(_: GraphQLResolveInfo, project_name: str) -> str:
     """Get project_name."""
     return project_name
 
 
 @get_entity_cache_async
-async def _get_repositories(info, project_name: str) -> List[ResourceType]:
+async def _get_repositories(
+        info: GraphQLResolveInfo,
+        project_name: str) -> List[ResourceType]:
     """Get repositories."""
-    project_attrs = \
-        await info.context.loaders['project'].load(project_name)
+    project_attrs = await info.context.loaders['project'].load(project_name)
     project_attrs = project_attrs['attrs']
-    project_info = cast(Dict[str, List[ResourceType]],
-                        project_attrs)
+    project_info = cast(Dict[str, List[ResourceType]], project_attrs)
     return project_info.get('repositories', [])
 
 
 @get_entity_cache_async
-async def _get_environments(info, project_name: str) -> List[ResourceType]:
+async def _get_environments(
+        info: GraphQLResolveInfo,
+        project_name: str) -> List[ResourceType]:
     """Get environments."""
-    project_attrs = \
-        await info.context.loaders['project'].load(project_name)
+    project_attrs = await info.context.loaders['project'].load(project_name)
     project_attrs = project_attrs['attrs']
-    project_info = cast(Dict[str, List[ResourceType]],
-                        project_attrs)
+    project_info = cast(Dict[str, List[ResourceType]], project_attrs)
     return project_info.get('environments', [])
 
 
 @get_entity_cache_async
-async def _get_files(info, project_name: str) -> List[ResourceType]:
+async def _get_files(
+        info: GraphQLResolveInfo,
+        project_name: str) -> List[ResourceType]:
     """Get files."""
-    project_attrs = \
-        await info.context.loaders['project'].load(project_name)
+    project_attrs = await info.context.loaders['project'].load(project_name)
     project_attrs = project_attrs['attrs']
-    project_info = cast(Dict[str, List[ResourceType]],
-                        project_attrs)
+    project_info = cast(Dict[str, List[ResourceType]], project_attrs)
     return project_info.get('files', [])
 
 
-async def _resolve_fields(info, project_name: str) -> ResourcesType:
+async def _resolve_fields(
+        info: GraphQLResolveInfo,
+        project_name: str) -> ResourcesType:
     """Async resolve fields."""
     result: ResourcesType = dict(
         repositories=list(),
@@ -76,8 +78,7 @@ async def _resolve_fields(info, project_name: str) -> ResourcesType:
     )
     project_name = project_name.lower()
 
-    project_attrs = \
-        await info.context.loaders['project'].load(project_name)
+    project_attrs = await info.context.loaders['project'].load(project_name)
     project_attrs = project_attrs['attrs']
 
     project_exist = project_attrs.get('project_name', '')
@@ -92,8 +93,9 @@ async def _resolve_fields(info, project_name: str) -> ResourcesType:
         field_params = util.get_field_parameters(requested_field)
         if field_params:
             params.update(field_params)
-        requested_field = \
-            convert_camel_case_to_snake(requested_field.name.value)
+        requested_field = convert_camel_case_to_snake(
+            requested_field.name.value
+        )
         if requested_field.startswith('_'):
             continue
         resolver_func = getattr(
@@ -104,28 +106,41 @@ async def _resolve_fields(info, project_name: str) -> ResourcesType:
     return result
 
 
-@convert_kwargs_to_snake_case
+@convert_kwargs_to_snake_case  # type: ignore
 @require_login
 @enforce_group_level_auth_async
 @require_integrates
-async def resolve_resources(_, info, project_name: str) -> ResourcesType:
+async def resolve_resources(
+        _: Any,
+        info: GraphQLResolveInfo,
+        project_name: str) -> ResourcesType:
     """Resolve resources query."""
     return await _resolve_fields(info, project_name)
 
 
-@convert_kwargs_to_snake_case
-async def resolve_resources_mutation(obj, info, **parameters):
+@convert_kwargs_to_snake_case  # type: ignore
+async def resolve_resources_mutation(
+    obj: Any,
+    info: GraphQLResolveInfo,
+    **parameters: Any
+) -> Union[SimplePayloadType, DownloadFilePayloadType]:
     """Wrap resources mutations."""
     field = util.camelcase_to_snakecase(info.field_name)
     resolver_func = getattr(sys.modules[__name__], f'_do_{field}')
-    return await resolver_func(obj, info, **parameters)
+    return cast(
+        Union[SimplePayloadType, DownloadFilePayloadType],
+        await resolver_func(obj, info, **parameters)
+    )
 
 
 @require_login
 @enforce_group_level_auth_async
 @require_integrates
-async def _do_add_repositories(_, info, repos: List[Dict[str, str]],
-                               project_name: str) -> SimplePayloadType:
+async def _do_add_repositories(
+        _: Any,
+        info: GraphQLResolveInfo,
+        repos: List[Dict[str, str]],
+        project_name: str) -> SimplePayloadType:
     """Resolve add_repositories mutation."""
     user_email = util.get_jwt_content(info.context)['user_email']
     new_repos = util.camel_case_list_dict(repos)
@@ -137,25 +152,34 @@ async def _do_add_repositories(_, info, repos: List[Dict[str, str]],
         util.invalidate_cache(project_name)
         util.cloudwatch_log(
             info.context,
-            'Security: Added repos to '
-            f'{project_name} project successfully')  # pragma: no cover
+            ('Security: Added repos to '
+             f'{project_name} project successfully')  # pragma: no cover
+        )
         await sync_to_async(resources.send_mail)(
-            project_name, user_email, new_repos, 'added', 'repository')
+            project_name, user_email, new_repos, 'added', 'repository'
+        )
     else:
         logging_utils.log(
-            'Couldn\'t add repositories', 'error', extra=locals())
+            'Couldn\'t add repositories',
+            'error',
+            extra=locals()
+        )
         util.cloudwatch_log(
             info.context,
-            'Security: Attempted to add '
-            f'repos to {project_name} project')  # pragma: no cover
+            ('Security: Attempted to add '
+             f'repos to {project_name} project')  # pragma: no cover
+        )
     return SimplePayloadType(success=success)
 
 
 @require_login
 @enforce_group_level_auth_async
 @require_integrates
-async def _do_add_environments(_, info, envs: List[Dict[str, str]],
-                               project_name: str) -> SimplePayloadType:
+async def _do_add_environments(
+        _: Any,
+        info: GraphQLResolveInfo,
+        envs: List[Dict[str, str]],
+        project_name: str) -> SimplePayloadType:
     """Resolve add_environments mutation."""
     new_envs = util.camel_case_list_dict(envs)
     user_email = util.get_jwt_content(info.context)['user_email']
@@ -167,17 +191,23 @@ async def _do_add_environments(_, info, envs: List[Dict[str, str]],
         util.invalidate_cache(project_name)
         util.cloudwatch_log(
             info.context,
-            'Security: Added envs to '
-            f'{project_name} project successfully')  # pragma: no cover
+            ('Security: Added envs to '
+             f'{project_name} project successfully')  # pragma: no cover
+        )
         await sync_to_async(resources.send_mail)(
-            project_name, user_email, new_envs, 'added', 'environment')
+            project_name, user_email, new_envs, 'added', 'environment'
+        )
     else:
         logging_utils.log(
-            'Couldn\'t add environments', 'error', extra=locals())
+            'Couldn\'t add environments',
+            'error',
+            extra=locals()
+        )
         util.cloudwatch_log(
             info.context,
-            'Security: Attempted to add '
-            f'envs to {project_name} project')  # pragma: no cover
+            ('Security: Attempted to add '
+             f'envs to {project_name} project')  # pragma: no cover
+        )
     return SimplePayloadType(success=success)
 
 
