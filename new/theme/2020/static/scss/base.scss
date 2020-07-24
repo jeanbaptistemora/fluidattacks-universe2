@@ -703,6 +703,26 @@ video {
   }
 }
 
+.button-white {
+  background-color: white;
+  border: solid 1px;
+  border-color: $button-red;
+  border-radius: .25rem ;
+  color: $button-red;
+  cursor: pointer;
+  font-weight: 800;
+  padding-bottom: .5rem;
+  padding-left: 2rem;
+  padding-top: .5rem;
+  padding-right: 2rem;
+  text-decoration: none;
+  transition: all .3s ease;
+  &:hover {
+    border-color: $button-hover;
+    color: $button-hover;
+  }
+}
+
 @mixin foot-box {
   color: $fluid-black;
   margin-right: 7px;
