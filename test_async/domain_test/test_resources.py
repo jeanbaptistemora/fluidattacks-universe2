@@ -4,8 +4,13 @@ import pytest
 from django.test import TestCase
 from django.core.files.uploadedfile import SimpleUploadedFile
 
+from backend.dal import project as project_dal
 from backend.domain import resources as resources_domain
 from backend.exceptions import InvalidFileSize
+
+pytestmark = [
+    pytest.mark.asyncio,
+]
 
 
 class ResourcesTests(TestCase):
@@ -19,7 +24,11 @@ class ResourcesTests(TestCase):
             with pytest.raises(InvalidFileSize):
                 assert resources_domain.validate_file_size(file_to_test, 0)
 
-    def test_has_repeated_envs(self):
+    async def test_has_repeated_envs(self):
+        existing_envs = await project_dal.get_attributes(
+            'unittesting', ['environments']
+        )
+        existing_envs = existing_envs.get('environments', [])
         envs = [{'urlEnv': 'https://test.com/new'}]
         repeated_inputs = [
             {'urlEnv': 'https://test.com/repeated'},
@@ -29,12 +38,19 @@ class ResourcesTests(TestCase):
             'urlEnv': 'https%3A%2F%2Funittesting.fluidattacks.com%2F'
         }]
 
-        assert not resources_domain.has_repeated_envs('unittesting', envs)
+        assert not resources_domain.has_repeated_envs(existing_envs, envs)
         assert resources_domain.has_repeated_envs(
-            'unittesting', repeated_inputs)
-        assert resources_domain.has_repeated_envs('unittesting', repeated_envs)
+            existing_envs, repeated_inputs
+        )
+        assert resources_domain.has_repeated_envs(
+            existing_envs, repeated_envs
+        )
 
-    def test_has_repeated_repos(self):
+    async def test_has_repeated_repos(self):
+        existing_repos = await project_dal.get_attributes(
+            'unittesting', ['repositories']
+        )
+        existing_repos = existing_repos.get('repositories', [])
         repos = [
             {
                 'urlRepo': 'https://gitlab.com/test/new.git',
@@ -62,8 +78,10 @@ class ResourcesTests(TestCase):
             }
         ]
 
-        assert not resources_domain.has_repeated_repos('unittesting', repos)
+        assert not resources_domain.has_repeated_repos(existing_repos, repos)
         assert resources_domain.has_repeated_repos(
-            'unittesting', repeated_inputs)
+            existing_repos, repeated_inputs
+        )
         assert resources_domain.has_repeated_repos(
-            'unittesting', repeated_repos)
+            existing_repos, repeated_repos
+        )

@@ -25,7 +25,6 @@ async def search_file(file_name: str) -> List[str]:
     )
 
 
-@async_to_sync
 async def save_file(file_object: object, file_name: str) -> bool:
     success = await s3.upload_memory_file(  # type: ignore
         FI_AWS_S3_RESOURCES_BUCKET,

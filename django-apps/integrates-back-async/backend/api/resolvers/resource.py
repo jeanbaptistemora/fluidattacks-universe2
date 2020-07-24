@@ -129,8 +129,9 @@ async def _do_add_repositories(_, info, repos: List[Dict[str, str]],
     """Resolve add_repositories mutation."""
     user_email = util.get_jwt_content(info.context)['user_email']
     new_repos = util.camel_case_list_dict(repos)
-    success = await sync_to_async(resources.create_repositories)(
-        new_repos, project_name, user_email)
+    success = await resources.create_repositories(
+        new_repos, project_name, user_email
+    )
 
     if success:
         util.invalidate_cache(project_name)
@@ -158,8 +159,9 @@ async def _do_add_environments(_, info, envs: List[Dict[str, str]],
     """Resolve add_environments mutation."""
     new_envs = util.camel_case_list_dict(envs)
     user_email = util.get_jwt_content(info.context)['user_email']
-    success = await sync_to_async(resources.create_environments)(
-        new_envs, project_name, user_email)
+    success = await resources.create_environments(
+        new_envs, project_name, user_email
+    )
 
     if success:
         util.invalidate_cache(project_name)
@@ -196,8 +198,11 @@ async def _do_add_files(
 
     virus_scan.scan_file(uploaded_file, user_email, project_name)
 
-    add_file = await sync_to_async(resources.create_file)(
-        new_files_data, uploaded_file, project_name, user_email
+    add_file = await resources.create_file(
+        new_files_data,
+        uploaded_file,
+        project_name,
+        user_email
     )
     if add_file:
         await sync_to_async(resources.send_mail)(
@@ -336,8 +341,11 @@ async def _do_update_environment(
         re.sub(r'_([a-z])', lambda x: x.group(1).upper(), k): v
         for k, v in env.items()
     }
-    success = await sync_to_async(resources.update_resource)(
-        env, project_name, 'environment', user_email
+    success = await resources.update_resource(
+        cast(ResourceType, env),
+        project_name,
+        'environment',
+        user_email
     )
 
     if success:
@@ -381,8 +389,11 @@ async def _do_update_repository(
         re.sub(r'_([a-z])', lambda x: x.group(1).upper(), k): v
         for k, v in repo.items()
     }
-    success = await sync_to_async(resources.update_resource)(
-        repo, project_name, 'repository', user_email
+    success = await resources.update_resource(
+        cast(ResourceType, repo),
+        project_name,
+        'repository',
+        user_email
     )
 
     if success:
