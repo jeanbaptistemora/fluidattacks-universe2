@@ -18,8 +18,6 @@ from uuid import uuid4
 from boto3.session import Session
 from botocore.exceptions import ClientError
 
-import rollbar
-
 from __init__ import (
     BASE_URL,
     FI_AWS_CLOUDWATCH_ACCESS_KEY,
@@ -39,7 +37,6 @@ from __init__ import (
     FI_JWT_SECRET_API,
     FI_MIXPANEL_API_TOKEN,
     FI_REDIS_SERVER,
-    FI_ROLLBAR_ACCESS_TOKEN,
 )
 
 
@@ -103,7 +100,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'rollbar.contrib.django.middleware.RollbarNotifierMiddleware',
     'app.middleware.SocialAuthException'
 ]
 
@@ -158,20 +154,9 @@ BUGSNAG = {
     'api_key': FI_BUGSNAG_ACCESS_TOKEN,
     'asynchronous': True,
     'auto_capture_sessions': True,
-    'notify_release_stages': ['production'],
     'project_root': BASE_DIR,
     'release_stage': FI_ENVIRONMENT,
 }
-
-ROLLBAR = {
-    'access_token': FI_ROLLBAR_ACCESS_TOKEN,
-    'environment': FI_ENVIRONMENT,
-    'enabled': not DEBUG,
-    'root': BASE_DIR,
-    'capture_email': True,
-    'capture_username': True,
-}
-rollbar.init(**ROLLBAR)
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.10/topics/i18n/
