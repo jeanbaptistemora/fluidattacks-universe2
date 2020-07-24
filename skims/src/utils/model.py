@@ -42,10 +42,15 @@ class VulnerabilityStateEnum(Enum):
     CLOSED: str = 'closed'
 
 
-class KindEnum(Enum):
+class VulnerabilityKindEnum(Enum):
     INPUTS: str = 'inputs'
     LINES: str = 'lines'
     PORTS: str = 'ports'
+
+
+class VulnerabilitySourceEnum(Enum):
+    INTEGRATES: str = 'integrates'
+    SKIMS: str = 'skims'
 
 
 class IntegratesVulnerabilitiesLines(NamedTuple):
@@ -56,7 +61,8 @@ class IntegratesVulnerabilitiesLines(NamedTuple):
 
 class Vulnerability(NamedTuple):
     finding: FindingEnum
-    kind: KindEnum
+    kind: VulnerabilityKindEnum
+    source: VulnerabilitySourceEnum
     state: VulnerabilityStateEnum
     what: str
     where: str

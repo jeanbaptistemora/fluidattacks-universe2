@@ -1,4 +1,7 @@
 # Standard library
+from itertools import (
+    chain,
+)
 import sys
 from typing import (
     Dict,
@@ -6,9 +9,6 @@ from typing import (
 )
 
 # Local libraries
-from core.constants import (
-    SKIMS_MANAGED_TAG,
-)
 from integrates.graphql import (
     create_session,
 )
@@ -20,16 +20,17 @@ from integrates.domain import (
     do_build_and_upload_vulnerabilities,
     get_closest_finding_id,
 )
-from model import (
-    FindingEnum,
-    Vulnerability,
-)
 from utils.aio import (
     materialize,
     unblock,
 )
 from utils.logs import (
     log,
+)
+from utils.model import (
+    FindingEnum,
+    Vulnerability,
+    VulnerabilitySourceEnum,
 )
 
 
@@ -39,24 +40,16 @@ async def merge_results(
 ) -> Tuple[Vulnerability, ...]:
 
     def _merge_results() -> Tuple[Vulnerability, ...]:
-        # Add the Integrates results that are currently managed by Skims
         merged_results: Tuple[Vulnerability, ...] = tuple(
             result
-            for result in integrates_results
-            if result.what.endswith(SKIMS_MANAGED_TAG)
-        )
-
-        # Add the Skims results so they replace the current ones at Integrates
-        # Also add the Skims tag
-        merged_results += tuple(
-            Vulnerability(
-                finding=result.finding,
-                kind=result.kind,
-                state=result.state,
-                what=f'{result.what} {SKIMS_MANAGED_TAG}',
-                where=result.where,
+            for result in chain(
+                # Add Integrates results
+                integrates_results,
+                # Add the Skims results to replace the ones at Integrates
+                skims_results
             )
-            for result in skims_results
+            # We only manage the ones who have been created by skims
+            if result.source == VulnerabilitySourceEnum.SKIMS
         )
 
         return merged_results

@@ -8,14 +8,14 @@ from typing import (
 from core.lib import (
     path_0038,
 )
-from model import (
-    Vulnerability,
-)
 from utils.aio import (
     materialize,
 )
 from utils.fs import (
     recurse,
+)
+from utils.model import (
+    Vulnerability,
 )
 
 

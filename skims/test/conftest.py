@@ -16,7 +16,7 @@ from integrates.graphql import (
 from integrates.domain import (
     delete_closest_findings,
 )
-from model import (
+from utils.model import (
     FindingEnum,
 )
 

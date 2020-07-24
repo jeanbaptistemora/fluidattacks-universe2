@@ -21,12 +21,13 @@ from integrates.domain import (
     build_vulnerabilities_stream,
     get_closest_finding_id,
 )
-from model import (
+from utils.model import (
     FindingEnum,
     IntegratesVulnerabilitiesLines,
-    KindEnum,
     SeverityEnum,
     Vulnerability,
+    VulnerabilityKindEnum,
+    VulnerabilitySourceEnum,
     VulnerabilityStateEnum,
 )
 
@@ -42,10 +43,11 @@ async def test_build_vulnerabilities_stream() -> None:
         results=(
             Vulnerability(
                 finding=FindingEnum.F0034,
-                kind=KindEnum.LINES,
+                kind=VulnerabilityKindEnum.LINES,
+                source=VulnerabilitySourceEnum.SKIMS,
+                state=VulnerabilityStateEnum.OPEN,
                 what='what',
                 where='123',
-                state=VulnerabilityStateEnum.OPEN,
             ),
         )
     ) == dedent("""
@@ -100,13 +102,15 @@ async def test_statefull(
             ports:
                 -   host: 127.0.0.1
                     port: '80'
+                    source: skims
                     state: open
         """,
     )
 
     assert Vulnerability(
         finding=FindingEnum.F0034,
-        kind=KindEnum.PORTS,
+        kind=VulnerabilityKindEnum.PORTS,
+        source=VulnerabilitySourceEnum.SKIMS,
         state=VulnerabilityStateEnum.OPEN,
         what='127.0.0.1',
         where='80',

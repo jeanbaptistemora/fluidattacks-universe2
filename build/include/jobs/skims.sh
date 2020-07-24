@@ -8,7 +8,6 @@ GLOBAL_PKGS=(
   src/cli
   src/core
   src/integrates
-  src/model
   src/utils
 )
 

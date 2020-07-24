@@ -12,18 +12,19 @@ from typing import (
 from integrates.graphql import (
     Session,
 )
-from model import (
-    FindingEnum,
-    KindEnum,
-    SeverityEnum,
-    Vulnerability,
-    VulnerabilityStateEnum,
-)
 from utils.function import (
     retry,
 )
 from utils.logs import (
     log,
+)
+from utils.model import (
+    FindingEnum,
+    SeverityEnum,
+    Vulnerability,
+    VulnerabilityKindEnum,
+    VulnerabilitySourceEnum,
+    VulnerabilityStateEnum,
 )
 from utils.string import (
     to_in_memory_file,
@@ -150,6 +151,7 @@ async def get_finding_vulnerabilities(
                 finding(identifier: $finding_id) {
                     vulnerabilities {
                         currentState
+                        source
                         specific
                         vulnType
                         where
@@ -165,7 +167,8 @@ async def get_finding_vulnerabilities(
     return tuple(
         Vulnerability(
             finding=finding,
-            kind=KindEnum(vulnerability['vulnType']),
+            kind=VulnerabilityKindEnum(vulnerability['vulnType']),
+            source=VulnerabilitySourceEnum(vulnerability['source']),
             state=VulnerabilityStateEnum(vulnerability['currentState']),
             what=vulnerability['where'],
             where=vulnerability['specific'],

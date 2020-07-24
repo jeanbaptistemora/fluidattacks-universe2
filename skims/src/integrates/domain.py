@@ -14,18 +14,18 @@ from integrates.dal import (
     get_group_findings,
     ResultGetGroupFindings,
 )
-from model import (
-    FindingEnum,
-    IntegratesVulnerabilitiesLines,
-    KindEnum,
-    SeverityEnum,
-    Vulnerability,
-)
 from utils.aio import (
     unblock,
 )
 from utils.encodings import (
     yaml_dumps,
+)
+from utils.model import (
+    FindingEnum,
+    IntegratesVulnerabilitiesLines,
+    SeverityEnum,
+    Vulnerability,
+    VulnerabilityKindEnum,
 )
 from utils.string import (
     are_similar,
@@ -38,20 +38,20 @@ async def build_vulnerabilities_stream(
 ) -> str:
 
     data_type = Dict[
-        KindEnum,
+        VulnerabilityKindEnum,
         Tuple[Union[IntegratesVulnerabilitiesLines], ...]
     ]
 
     def _get_data() -> data_type:
         data: data_type = {
-            KindEnum.LINES: tuple(
+            VulnerabilityKindEnum.LINES: tuple(
                 IntegratesVulnerabilitiesLines(
                     line=result.where,
                     path=result.what,
                     state=result.state,
                 )
                 for result in results
-                if result.kind == KindEnum.LINES
+                if result.kind == VulnerabilityKindEnum.LINES
             ),
             # More bindings for PORTS and INPUTS go here ...
         }

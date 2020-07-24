@@ -11,15 +11,15 @@ from core.persist import (
 from core.skim import (
     skim_paths,
 )
-from model import (
-    Vulnerability,
-)
 from utils.aio import (
     materialize,
 )
 from utils.logs import (
     log,
     set_level,
+)
+from utils.model import (
+    Vulnerability,
 )
 
 

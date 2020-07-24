@@ -7,14 +7,15 @@ from typing import (
 )
 
 # Local libraries
-from model import (
-    FindingEnum,
-    KindEnum,
-    Vulnerability,
-    VulnerabilityStateEnum,
-)
 from utils.fs import (
     file_as_lines,
+)
+from utils.model import (
+    FindingEnum,
+    Vulnerability,
+    VulnerabilityKindEnum,
+    VulnerabilitySourceEnum,
+    VulnerabilityStateEnum,
 )
 
 
@@ -27,10 +28,11 @@ def javascript_insecure_randoms(
     results: Tuple[Vulnerability, ...] = tuple(
         Vulnerability(
             finding=FindingEnum.F0034,
-            kind=KindEnum.LINES,
+            kind=VulnerabilityKindEnum.LINES,
+            source=VulnerabilitySourceEnum.SKIMS,
+            state=VulnerabilityStateEnum.OPEN,
             what=file,
             where=f'{line_number}',
-            state=VulnerabilityStateEnum.OPEN,
         )
         for line_number, line_content in lines
         if 'Math.random(' in line_content
