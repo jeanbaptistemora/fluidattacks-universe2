@@ -1,0 +1,23 @@
+:slug: rules/352/
+:category: devices
+:description: This requirement establishes the importance of enabling trusted execution.
+:keywords: System, Protection, Trusted, Execution, IoT, ASVS, CWE, Rules, Ethical Hacking, Pentesting
+:rules: yes
+
+= R352. Enable trusted execution
+
+== Requirement
+
+Developers should implement and enable trusted execution if it is available on
+the device's System-on-Chip (*SoC*) or *CPU*.
+
+== References
+
+. [[r1]] link:https://cwe.mitre.org/data/definitions/1233.html[CWE-1233: Improper Hardware Lock Protection for Security Sensitive Controls].
+The product implements a register lock bit protection feature that permits
+security sensitive controls to modify the protected configuration.
+
+. [[r2]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+Appendix C: Internet of Things Verification Requirements.(C.5)]
+Verify that trusted execution is implemented and enabled, if available on the
+device SoC or CPU.
