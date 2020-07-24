@@ -8,9 +8,11 @@
 
 = Differentiators
 
-{description} To this end, we present the following comparative table:
+We're an Ethical Hacking and Pentesting company
+offering services to identify cybersecurity vulnerabilities.
+In the following table, we outline what differentiates us from our competitors:
 
-.Comparative table Pentesting Vs Vulnerability Analysis
+.Comparative table: Pentesting vs Vulnerability Analysis
 [role="tb-row"]
 [cols="15,45,40"]
 |====
@@ -26,7 +28,7 @@ because they do other things besides hacking.
 a|==== Independence
 | {yes} We don't install, maintain, operate or sell other security products.
 With no hidden agendas, you can have confidence
-in the independence and impartiality of our report
+in the independence and impartiality of our reports
 link:../../use-cases/continuous-hacking/remediation/[^1^]
 link:../../use-cases/one-shot-hacking/[^2^].
 | {no}  Since other providers develop, maintain, install or operate
@@ -40,12 +42,12 @@ a|{yes} We verify the basic security attributes:
 * Integrity.
 * Availability.
 
-Additionally we also verify extended attributes such as:
+Additionally, we also verify extended attributes such as:
 
 * Privacy.
 * Non-repudiation.
-* Traceability (logs and errors management).
-a|{no} They only verify:
+* Traceability (logs and error management).
+a|{no} Others only verify:
 
 * Confidentiality.
 * Integrity.
@@ -53,7 +55,7 @@ a|{no} They only verify:
 
 a|==== Method
 | {yes} Automated tools + hands-on expert review (Hybrid).
-| {no} Static (Automated tools only).
+| {no} Static (automated tools only).
 
 a|==== Team
 a|{yes} Our hackers are certified in practical hacking in real scenarios
@@ -64,13 +66,13 @@ link:../certifications/[^3^]:
 * `OSWP`.
 * `CRTE`.
 
-Additionally they are selected and trained through the most demanding
+Additionally, they are selected and trained through the most demanding
 [button]#link:../../careers/[process]# in the industry,
-guaranteeing  their ability to program their own tools
-and audit code in multiple languages, that is to say,
-they are *programmer-hackers*.
+guaranteeing their ability to program their own tools
+and audit code in multiple languages,
+effectively making them *programmer-hackers*.
 
-a|{no} They are certified in theoretical hacking
+a|{no} Others are only certified in theoretical hacking
 through questions and answers:
 
 * `CEH`.
@@ -79,7 +81,7 @@ a|==== Model
 | `Red Team`
 link:../../use-cases/continuous-hacking/hacking-tech/[^4^]
 link:../../use-cases/one-shot-hacking/hacking-tech/[^5^].
-| Vulnerability Analysis with selective exploitation.
+| Vulnerability analysis with selective exploitation.
 
 a|==== Targets
 a|* Web applications.
@@ -98,7 +100,7 @@ a|* Web applications.
 * Networks.
 
 a|==== Techniques
-a|{yes} 1 service, all the techniques
+a|{yes} 1 service, all techniques
 link:../../use-cases/continuous-hacking/break-build/[^6^]
 link:../../use-cases/continuous-hacking/critical-info/[^7^]
 link:../../use-cases/one-shot-hacking/infection/[^8^]
@@ -156,7 +158,7 @@ a|{yes} Integrable with any development method, such as:
 {sp} +
 and [button]#link:../../asserts/[Asserts]# +
 {sp} +
-fit perfect for the last 2 use cases.
+fit perfectly for the last 2 use cases.
 a|{no} Integrable with a single development method:
 
 * Waterfall.
@@ -165,7 +167,7 @@ a|==== Environments
 a|* Integration:
 [button]#link:../../use-cases/continuous-hacking/[Continuous Hacking]#
 and [button]#link:../../asserts/[Asserts]#
-fit perfectly in this use case
+fit perfectly for this use case
 link:../../use-cases/continuous-hacking/environments/[^12^]
 link:../../use-cases/one-shot-hacking/environments/[^13^].
 * Staging.
@@ -174,12 +176,11 @@ a|* Staging.
 * Production.
 
 a|==== Windows
-a|{yes} In the [button]#link:../../use-cases/continuous-hacking/[Continuous Hacking]#
-service environments:
+a|{yes} In the [button]#link:../../use-cases/continuous-hacking/[Continuous Hacking]# service,
+test windows are not required and environments:
 
-* Can constantly change.
+* Can change constantly.
 * Are not necessarily frozen.
-* Windows are not required for hacking.
 | {no} Frozen environments and test windows are required.
 
 a|==== Coverage
@@ -187,19 +188,19 @@ a|{yes} Known
 link:../../use-cases/continuous-hacking/environments/[^16^]
 link:../../use-cases/one-shot-hacking/environments/[^17^]:
 
-* In fixed scopes the exact part of the attack surface to be verified,
+* In fixed scopes, the exact part of the attack surface to be verified,
 and its proportion with respect to the total, is agreed upon in advance.
 
 * In variable scopes, the exact part of the attack surface
-that was verified and its proportion
-with respect to the total is reported at the end.
+that was verified, and its proportion
+with respect to the total, is reported at the end.
 | {no} Unknown, because they may not accurately report
 what was tested and what was not.
 
 a|==== Profiling
-| {yes} You decide the security requirements that we will check
-during the hacking service
-through our product [button]#link:../../rules/[Rules]#.
+| {yes} Our product, [button]#link:../../rules/[Rules]#,
+allows you to define the security requirements that will be checked
+during our hacking service.
 | {no} Non-parameterizable.
 
 a|==== Strictness
@@ -251,12 +252,12 @@ a|==== Custom Exploits
 
 a|==== link:../../blog/importance-pentesting/#diagram[Correlation]
 | {yes} By combining vulnerabilities `A` and `B` we are able to find
-a new vulnerability `C` of greater impact which may compromise more registers.
+a new vulnerability `C` of greater impact, which may compromise more registers.
 | {no} Only detects vulnerabilities `A` and `B`
-but it's not able to correlate them.
+but is not able to correlate them.
 
 a|==== Infection
-| {yes} In our [button]#link:../../use-cases/one-shot-hacking/infection/[One shot hacking]#
+| {yes} In our [button]#link:../../use-cases/one-shot-hacking/infection/[One-shot hacking]#
 service we infect stations and critical servers
 using cyberweapons.
 | {no} Don't infect or dispose of cyberweapons.
@@ -289,28 +290,27 @@ a|==== link:../../blog/replaced-machines/[Escapes]
 | {no} ~65% on the agreed link:#scope[scope].
 
 a|==== Remediation
-a|* During the project you can request clarifications
+a|{yes} During the project you can request clarifications
 directly from our hackers via
 [button]#link:../../products/integrates/[Integrates]#.
 link:../../use-cases/continuous-hacking/remediation/[^24^]
 link:../../use-cases/one-shot-hacking/[^25^].
-| {no} No support during remediation phase.
+| {no} No support during the remediation phase.
 
 a|==== Deliverables
 a|{yes} Real-time documentation web system
 [button]#link:../../products/integrates/[Integrates]#
-which allows our customers to auto generate and supervise
-every system since day 1 of the project
+which allows our customers to auto-generate and supervise
+every system from day 1 of the project
 link:../../use-cases/continuous-hacking/vuln-manage/[^26^]
 link:../../use-cases/one-shot-hacking/vuln-manage/[^27^]:
 
 * Executive report in `PDF`.
 * Technical report in `XLS`.
 * Technical report in `PDF`.
-* Graphics on the security of the system.
-* Metrics on the security of the system.
+* Graphics and metrics illustrating the system's security status.
 
-a|{no}  Available only at the end of the project
+a|{no} Available only at the end of the project
 because it is manually generated.
 
 * Word document.
@@ -323,7 +323,8 @@ link:../../use-cases/continuous-hacking/critical-info/[^28^]
 link:../../use-cases/one-shot-hacking/critical-info/[^29^]
 |{no} The service ends
 when a prior agreed upon time limit for the project runs out.
-Therefore, the scope and coverage was not defined and is unknown.
+Therefore, the scope and coverage
+are ultimately not defined and therefore unknown.
 
 a|==== Pricing
 | {yes} Fixed, according to the previously agreed upon scope.

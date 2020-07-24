@@ -26,7 +26,6 @@ of all vulnerabilities found as well as information about their
 current status, location, type and severity of the threat,
 identification/reporting date, evolution, and
 recommendations on how to eliminate them.
-Access real-time indicators and automated reports.
 
 [role="w-25-ns w-90 dib tl v-top pa3"]
 == Vulnerability Prioritization and Documentation
@@ -34,8 +33,8 @@ Access real-time indicators and automated reports.
 [role="fw1 f-key-features lh-key-features"]
 Integrates helps you determine which vulnerabilities
 require immediate attention based on parameters
-including: Age, Severity, Status (Open/Closed) and
-Resolution options (Accepted/New/In Progress/Indefinitely Accepted).
+including: age, severity, status (open/closed) and
+resolution options (accepted/new/in progress/indefinitely accepted).
 After a vulnerability has been remediated
 you can ask Fluid Attacks for documentation.
 

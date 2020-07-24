@@ -9,5 +9,5 @@
 = Severity of Tested Requirements
 
 You can decide through link:../../../rules/[*Rules*] which security requirements will be tested.
-You can know the exact severity of each hacking
+You can know the exact severity of each hacking project
 (for inspected and uninspected profiled requirements).

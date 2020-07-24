@@ -32,7 +32,7 @@ as well as other functionalities.
 Multiple finding validation cycles are performed.
 You can check if any findings have been successfully closed
 as many times as you require.
-In order to perform this remediation validation,
+In order to perform a remediation validation,
 you must define the treatment used
 and then proceed to request a finding validation.
 
