@@ -201,7 +201,7 @@ describe("Data table next", (): void => {
       .find("RowPureContent")
       .find("Cell")
       .at(1)
-      .find("a");
+      .find("button");
     proceedApproveFunction.simulate("click");
     const position: number = 3;
     const proceedChangeFunction: ReactWrapper = wrapper
@@ -217,7 +217,7 @@ describe("Data table next", (): void => {
       .find("RowPureContent")
       .find("Cell")
       .at(2)
-      .find("a");
+      .find("button");
     proceedDeleteFunction.simulate("click");
     const checkboxInput: ReactWrapper = wrapper.find("SelectionCell");
     checkboxInput.simulate("click");

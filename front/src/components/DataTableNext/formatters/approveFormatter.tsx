@@ -1,6 +1,7 @@
 import { FluidIcon } from "../../FluidIcon";
 import { IHeaderConfig } from "../types";
 import React from "react";
+import { default as style } from "../index.css";
 
 export const approveFormatter: (
   value: string,
@@ -20,8 +21,12 @@ export const approveFormatter: (
   }
 
   return (
-    <a onClick={handleApproveFormatter}>
+    <button
+      className={style.buttonFormatter}
+      onClick={handleApproveFormatter}
+      type={"button"}
+    >
       <FluidIcon height={"20px"} icon={"verified"} width={"20px"} />
-    </a>
+    </button>
   );
 };

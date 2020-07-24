@@ -43,7 +43,7 @@ export const AutoCompleteText: React.FC<IAutoCompleteTextProps> = (
         // eslint-disable-next-line react/jsx-props-no-spreading
         {...input}
       />
-      {shouldRender ? (
+      {shouldRender && (
         <ul className={style.suggestionList}>
           {filteredSuggestions.map(
             (suggestion: string): JSX.Element => {
@@ -52,14 +52,18 @@ export const AutoCompleteText: React.FC<IAutoCompleteTextProps> = (
               }
 
               return (
-                <li key={suggestion} onClick={handleSuggestionClick}>
-                  <span>{suggestion}</span>
-                </li>
+                <button
+                  key={suggestion}
+                  onClick={handleSuggestionClick}
+                  type={"button"}
+                >
+                  <li>{suggestion}</li>
+                </button>
               );
             }
           )}
         </ul>
-      ) : undefined}
+      )}
       {meta.touched && !_.isUndefined(meta.error) && (
         <HelpBlock className={style.validationError} id={"validationError"}>
           {meta.error as string}

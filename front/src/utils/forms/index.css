@@ -159,6 +159,14 @@
   color: #FFFFFF;
 }
 
+.suggestionList button {
+  padding: 0;
+  border: none;
+  background: transparent;
+  text-align: left;
+  width: 100%;
+}
+
 :local .inputTags {
   border: 1px solid #ddd;
   background: #eee;

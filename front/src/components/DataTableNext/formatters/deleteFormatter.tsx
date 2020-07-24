@@ -1,6 +1,7 @@
 import { FluidIcon } from "../../FluidIcon";
 import { IHeaderConfig } from "../types";
 import React from "react";
+import { default as style } from "../index.css";
 
 export const deleteFormatter: (
   value: string,
@@ -20,8 +21,12 @@ export const deleteFormatter: (
   }
 
   return (
-    <a onClick={handleDeleteFormatter}>
+    <button
+      className={style.buttonFormatter}
+      onClick={handleDeleteFormatter}
+      type={"button"}
+    >
       <FluidIcon height={"20px"} icon={"delete"} width={"20px"} />
-    </a>
+    </button>
   );
 };

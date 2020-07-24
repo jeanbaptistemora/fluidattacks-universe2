@@ -156,9 +156,8 @@ export const Graphic: React.FC<IGraphicProps> = (
   const glyphSizeTop: number = headSize.height + glyphPadding + glyphSize / 2;
 
   return (
-    <React.StrictMode>
+    <React.Fragment>
       <Modal
-        autoFocus={true}
         backdrop={true}
         bsSize={"large"}
         dialogClassName={styles.modalDialog}
@@ -203,10 +202,11 @@ export const Graphic: React.FC<IGraphicProps> = (
               ref={modalBodyRef}
               scrolling={"no"}
               src={modalIframeSrc}
+              title={title}
             />
           </div>
         </Modal.Body>
-        {_.isUndefined(footer) ? undefined : (
+        {!_.isUndefined(footer) && (
           <Modal.Footer>
             <div className={styles.panelFooter}>{footer}</div>
           </Modal.Footer>
@@ -226,27 +226,27 @@ export const Graphic: React.FC<IGraphicProps> = (
                     <Row>
                       {title}
                       {expanded &&
-                      !reportMode &&
-                      fullSize.width > minWidthToShowButtons ? (
-                        <div className={styles.buttonGroup}>
-                          <ButtonGroup bsSize={"small"}>
-                            <Button
-                              download={buildFileName(bigGraphicSize)}
-                              href={buildUrl(props, bigGraphicSize)}
-                              rel={"noopener noreferrer"}
-                              target={"_blank"}
-                            >
-                              <Glyphicon glyph={"save"} />
-                            </Button>
-                            <Button onClick={frameOnRefresh}>
-                              <Glyphicon glyph={"refresh"} />
-                            </Button>
-                            <Button onClick={frameOnFullScreen}>
-                              <Glyphicon glyph={"fullscreen"} />
-                            </Button>
-                          </ButtonGroup>
-                        </div>
-                      ) : undefined}
+                        !reportMode &&
+                        fullSize.width > minWidthToShowButtons && (
+                          <div className={styles.buttonGroup}>
+                            <ButtonGroup bsSize={"small"}>
+                              <Button
+                                download={buildFileName(bigGraphicSize)}
+                                href={buildUrl(props, bigGraphicSize)}
+                                rel={"noopener noreferrer"}
+                                target={"_blank"}
+                              >
+                                <Glyphicon glyph={"save"} />
+                              </Button>
+                              <Button onClick={frameOnRefresh}>
+                                <Glyphicon glyph={"refresh"} />
+                              </Button>
+                              <Button onClick={frameOnFullScreen}>
+                                <Glyphicon glyph={"fullscreen"} />
+                              </Button>
+                            </ButtonGroup>
+                          </div>
+                        )}
                     </Row>
                   </Grid>
                 </div>
@@ -270,8 +270,9 @@ export const Graphic: React.FC<IGraphicProps> = (
                    */
                   opacity: iframeState === "ready" ? 1 : 0,
                 }}
+                title={title}
               />
-              {iframeState === "ready" ? undefined : (
+              {iframeState !== "ready" && (
                 <div
                   className={styles.loadingComponent}
                   style={{
@@ -286,7 +287,7 @@ export const Graphic: React.FC<IGraphicProps> = (
               )}
             </div>
           </Panel.Body>
-          {_.isUndefined(footer) ? undefined : (
+          {!_.isUndefined(footer) && (
             <Panel.Collapse>
               <Panel.Footer className={styles.panelFooter}>
                 {footer}
@@ -295,6 +296,6 @@ export const Graphic: React.FC<IGraphicProps> = (
           )}
         </Panel>
       </div>
-    </React.StrictMode>
+    </React.Fragment>
   );
 };

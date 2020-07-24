@@ -19,7 +19,8 @@
     "fp",
     "prettier",
     "jest",
-    "jest-formatting"
+    "jest-formatting",
+    "jsx-a11y"
   ],
   "extends": [
     "eslint:recommended",
@@ -28,6 +29,7 @@
     "plugin:jest/all",
     "plugin:jest-formatting/strict",
     "plugin:fp/recommended",
+    "plugin:jsx-a11y/strict",
     "plugin:prettier/recommended",
     "prettier/@typescript-eslint",
     "prettier/react"
@@ -160,6 +162,11 @@
         "toBeFalsy": "Avoid `toBeFalsy`, use `toBe(false)` instead."
       }
     ],
+    /*
+     * This rule requires the type attribute to be a string literal, because of
+     * that it has a conflic with react/jsx-curly-brace-presence.
+     */
+    "react/button-has-type": "off",
     "react/jsx-filename-extension": [
       "error",
       {

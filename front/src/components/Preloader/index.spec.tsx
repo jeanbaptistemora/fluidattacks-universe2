@@ -16,7 +16,12 @@ describe("Preloader", (): void => {
     const wrapper: ShallowWrapper = shallow(<Preloader />);
     const element: JSX.Element = (
       <div className={style.loader} id={"full_loader"}>
-        <img height={"100"} src={loadingAnim} width={"100"} />
+        <img
+          alt={"Loading animation"}
+          height={"100"}
+          src={loadingAnim}
+          width={"100"}
+        />
       </div>
     );
 

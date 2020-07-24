@@ -2,7 +2,8 @@
   overflow-x: auto;
 }
 
-:local .tableHeader > th, .tableBody > td {
+:local .tableHeader > th,
+.tableBody > td {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -37,12 +38,12 @@
 }
 
 :local .searchBar {
-  composes: formControl from '../../utils/forms/index.css';
+  composes: formControl from "../../utils/forms/index.css";
   height: 30px;
 }
 
 :local .exportCsv {
-  composes: button from '../Button/index.css';
+  composes: button from "../Button/index.css";
 }
 
 :local .tableModalContainer {
@@ -61,4 +62,9 @@
 
 :local .tableOptions {
   margin-bottom: 5px;
+}
+
+:local .buttonFormatter {
+  border: none;
+  background: transparent;
 }
