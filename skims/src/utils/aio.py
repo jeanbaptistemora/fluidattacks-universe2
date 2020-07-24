@@ -5,7 +5,6 @@ import functools
 from typing import (
     Any,
     Callable,
-    Tuple,
     TypeVar,
 )
 
@@ -58,15 +57,3 @@ async def unblock(
     return await asyncio.get_running_loop().run_in_executor(
         None, functools.partial(function, *args, **kwargs),
     )
-
-
-async def unblock_many(
-    functions: Tuple[Callable[[], TVar], ...],
-) -> Tuple[TVar, ...]:
-    loop = asyncio.get_running_loop()
-
-    results: Tuple[TVar, ...] = await materialize(
-        loop.run_in_executor(None, function) for function in functions
-    )
-
-    return results
