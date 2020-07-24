@@ -197,6 +197,7 @@ declare module 'react-bootstrap-table-next' {
 
     export interface BootstrapTableProps extends PaginationProps {
         keyField: string;
+        wrapperClasses: string;
         columns: Column[];
         data: TODO[];
         headerClasses?: string;

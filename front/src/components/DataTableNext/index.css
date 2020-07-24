@@ -1,3 +1,7 @@
+:local .tableWrapper {
+  overflow-x: auto;
+}
+
 :local .tableHeader > th, .tableBody > td {
   overflow: hidden;
   text-overflow: ellipsis;
