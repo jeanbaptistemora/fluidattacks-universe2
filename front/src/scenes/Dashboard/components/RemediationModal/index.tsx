@@ -26,7 +26,7 @@ export interface IAddRemediationProps {
   onSubmit(values: {}): void;
 }
 
-const minJustificationLength: ConfigurableValidator = minLength(50);
+const minJustificationLength: ConfigurableValidator = minLength(10);
 const remediationModal: React.FC<IAddRemediationProps> = (props: IAddRemediationProps): JSX.Element => {
   const { onClose, onSubmit } = props;
 
