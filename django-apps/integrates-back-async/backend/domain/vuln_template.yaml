@@ -1,3 +1,16 @@
+schema;vulnerability_attributes:
+  type: map
+  mapping: &vulnerability_attributes
+    source:
+      # default in the backend: integrates
+      type: str
+      enum: ['integrates', 'skims']
+      required: false
+    state:
+      type: str
+      enum: ['open', 'closed']
+      required: true
+
 type: map
 mapping:
   inputs:
@@ -8,13 +21,10 @@ mapping:
           field:
             type: str
             required: true
-          state:
-            type: str
-            enum: ['open', 'closed']
-            required: true
           url:
             type: str
             required: true
+          <<: *vulnerability_attributes
   lines:
     type: seq
     sequence:
@@ -28,10 +38,7 @@ mapping:
             type: str
             pattern: ^(?!=)+([^/][^/]+/([^/]+/?)+)|([^\\]+\\([^\\]+\\?)+)|^([^/]+)$
             required: true
-          state:
-            type: str
-            enum: ['open', 'closed']
-            required: true
+          <<: *vulnerability_attributes
   ports:
     type: seq
     sequence:
@@ -44,7 +51,4 @@ mapping:
             type: str
             pattern: ^[0-9]+(?:-[0-9]+)?(,[0-9]+(?:-[0-9]+)?)*$
             required: true
-          state:
-            type: str
-            enum: ['open', 'closed']
-            required: true
+          <<: *vulnerability_attributes
