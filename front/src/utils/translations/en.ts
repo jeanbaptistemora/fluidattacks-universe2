@@ -486,7 +486,7 @@ export const enTranslations: ResourceKey = {
         tooltip: "Check the state of the Forces jobs in your CI/CD",
       },
       indicators: {
-        text: "Indicators",
+        text: "Analytics",
         tooltip: "Summary of the group status",
       },
       resources: {
@@ -1090,13 +1090,13 @@ export const enTranslations: ResourceKey = {
           },
         },
         sub_title: "Last 7 days",
-        title: "Forces Indicators",
+        title: "Forces Analytics",
       },
-      git_title: "Git Indicators",
+      git_title: "Git Analytics",
       groupIsRemoving:
         "This group is expected to be removed on <strong>{{deletionDate}}</strong>" +
         "<br />Requested by <strong>{{userEmail}}</strong>",
-      group_title: "Group Indicators",
+      group_title: "Group Analytics",
       last_closing_vuln: {
         text: "Days since last closed vulnerability",
         tooltip: "Last time you fixed a vulnerability",
