@@ -33,14 +33,22 @@ from utils.string import (
 )
 
 
+class ErrorMapping(NamedTuple):
+    exception_cls: Type[Exception]
+    exception_msg: str
+    messages: Tuple[str, ...]
+
+
 async def raise_errors(
     errors: Optional[Tuple[Dict[str, Any], ...]],
-    exception_cls: Type[Exception],
-    exception_msg: str,
-    messages: Tuple[str, ...],
+    error_mappings: Tuple[ErrorMapping, ...],
 ) -> None:
-    if errors and any(error.get('message') in messages for error in errors):
-        raise exception_cls(exception_msg)
+    for error in (errors or ()):
+        for error_mapping in error_mappings:
+            if error.get('message') in error_mapping.messages:
+                raise error_mapping.exception_cls(
+                    error_mapping.exception_msg,
+                )
 
     if errors:
         for error in errors:
@@ -57,10 +65,21 @@ async def _execute(*, query: str, variables: Dict[str, Any]) -> Dict[str, Any]:
 
     await raise_errors(
         errors=result.get('errors'),
-        exception_cls=PermissionError,
-        exception_msg='Invalid API token',
-        messages=(
-            'Login required',
+        error_mappings=(
+            ErrorMapping(
+                exception_cls=PermissionError,
+                exception_msg='Invalid API token',
+                messages=(
+                    'Login required',
+                ),
+            ),
+            ErrorMapping(
+                exception_cls=PermissionError,
+                exception_msg='Access denied',
+                messages=(
+                    'Access denied',
+                ),
+            ),
         ),
     )
 
@@ -172,9 +191,10 @@ async def get_finding_vulnerabilities(
         Vulnerability(
             finding=finding,
             integrates_metadata=IntegratesVulnerabilityMetadata(
-                approval_status=VulnerabilityApprovalStatusEnum(
-                    vulnerability['currentApprovalStatus'],
-                ),
+                approval_status=VulnerabilityApprovalStatusEnum((
+                    vulnerability['currentApprovalStatus'] or
+                    VulnerabilityApprovalStatusEnum.APPROVED
+                )),
                 source=VulnerabilitySourceEnum(vulnerability['source']),
                 uuid=vulnerability['id'],
             ),

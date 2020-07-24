@@ -11,6 +11,7 @@ from integrates.graphql import (
 )
 from integrates.dal import (
     get_finding_vulnerabilities,
+    get_group_findings,
     get_group_level_role,
 )
 from integrates.domain import (
@@ -146,6 +147,7 @@ async def verify_permissions(*, group: str) -> bool:
 
     try:
         role: str = await get_group_level_role(group=group)
+        await get_group_findings(group=group)
     except PermissionError as exc:
         await log('critical', '%s: %s', type(exc).__name__, str(exc))
         success = False
