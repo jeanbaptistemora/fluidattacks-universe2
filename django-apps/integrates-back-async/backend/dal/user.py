@@ -1,9 +1,9 @@
 # Standard library
+import logging
 import contextlib
 from typing import Dict, List, NamedTuple
 
 # Third party libraries
-import rollbar
 from boto3.dynamodb.conditions import Attr, Key, Not
 from botocore.exceptions import ClientError
 from backend.dal.helpers import dynamodb
@@ -14,6 +14,10 @@ from backend.utils import (
 
 # Local libraries
 from __init__ import FI_TEST_PROJECTS
+
+
+# Constants
+LOGGER = logging.getLogger(__name__)
 
 # Shared resources
 DYNAMODB_RESOURCE = dynamodb.DYNAMODB_RESOURCE  # type: ignore
@@ -106,10 +110,9 @@ def put_subject_policy(policy: SubjectPolicy) -> bool:
         response = AUTHZ_TABLE.put_item(Item=item)
         return response['ResponseMetadata']['HTTPStatusCode'] == 200
 
-    rollbar.report_message(
+    LOGGER.error(
         'Error in user_dal.put_subject_policy',
-        level='error',
-        payload_data=locals()
+        extra={'extra': locals()}
     )
 
     return False
@@ -125,10 +128,9 @@ def delete_subject_policy(subject: str, object_: str) -> bool:
         )
         return response['ResponseMetadata']['HTTPStatusCode'] == 200
 
-    rollbar.report_message(
+    LOGGER.error(
         'Error in user_dal.delete_subject_policy',
-        level='error',
-        payload_data=locals()
+        extra={'extra': locals()}
     )
 
     return False
@@ -158,12 +160,7 @@ def get_attributes(email: str, attributes: List[str]) -> UserType:
         )
         items = response.get('Item', {})
     except ClientError as ex:
-        rollbar.report_message(
-            'Error: Unable to get user attributes',
-            'error',
-            extra_data=ex,
-            payload_data=locals()
-        )
+        LOGGER.exception(ex, extra={'extra': locals()})
     return items
 
 
@@ -178,8 +175,8 @@ def create(email: str, data: UserType) -> bool:
         data.update({'email': email})
         response = USERS_TABLE.put_item(Item=data)
         resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
-    except ClientError:
-        rollbar.report_exc_info()
+    except ClientError as ex:
+        LOGGER.exception(ex, extra={'extra': locals()})
     return resp
 
 
@@ -217,12 +214,7 @@ def update(email: str, data: UserType) -> bool:
                 if not success:
                     break
     except ClientError as ex:
-        rollbar.report_message(
-            'Error: Unable to update user',
-            'error',
-            extra_data=ex,
-            payload_data=locals()
-        )
+        LOGGER.exception(ex, extra={'extra': locals()})
 
     return success
 
@@ -241,12 +233,7 @@ def delete(email: str) -> bool:
             response = USERS_TABLE.delete_item(Key=primary_keys)
             resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
     except ClientError as ex:
-        rollbar.report_message(
-            'Error: Unable to delete user',
-            'error',
-            extra_data=ex,
-            payload_data=locals()
-        )
+        LOGGER.exception(ex, extra={'extra': locals()})
     return resp
 
 
