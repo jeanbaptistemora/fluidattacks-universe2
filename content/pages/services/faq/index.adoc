@@ -36,19 +36,19 @@ Frequently asked questions about Continuous Hacking.
 
 *How does Fluid Attacks stay on top of new techniques and changes?*::
   We ensure to constantly research and keep updated
-  with the new techniques and changes related to cyber security and `IT`.
+  with the new techniques and changes related to cybersecurity and `IT`.
   Through link:../../blog[blog entries]
   we keep our team updated with the state of art.
 
 *What are the necessary inputs and requirements for Continuous Hacking?*::
-  The necessary inputs and requirements are
+  The necessary inputs and requirements are:
 
   . *Phase 1:* Access to the integration branch of the repository
-  for the, not-yet deployed, application’s source code.
+  for the not-yet-deployed application’s source code.
   Ethical Hacking focuses on the source code.
 
   . *Phase 2:* When the project has a deployed application
-  (Integration Environment) the hacking coverage expands
+  (Integration Environment), the hacking coverage expands
   to include application security testing.
 
   . *Phase 3:* This phase applies only if the infrastructure
@@ -56,16 +56,15 @@ Frequently asked questions about Continuous Hacking.
   in the integration branch of the repository referred to in Phase 1.
   This phase includes infrastructure hacking.
 
-*What are the technical conditions that I must meet to perform a continuous*::
-*hacking?*::
+*What are the technical conditions that I must meet for Continuous Hacking?*::
 
- Access to `Git` and monitored environment in the branch are required,
+ Access to `Git` and a monitored environment in the branch are required,
  through automated Linux.
- Environments that are not supported:
+ The following environments are not supported:
 
- . Access to environments through a `VPN` that only runs on `Windows`.
- . `VPN` in `Windows` that requires manual interaction as `OTP` token.
- . `VPN` Site to Site
+ . Access through a `VPN` that only runs on `Windows`.
+ . `VPN` in `Windows` that requires manual interaction such as an `OTP` token.
+ . `VPN` Site to Site.
 
 *What type of hacking is included in Continuous Hacking?*::
   Continuous Hacking includes source code analysis,
@@ -79,40 +78,40 @@ Frequently asked questions about Continuous Hacking.
 
 *What is an active author and how can I identify it?*::
  An active author is a user with access to the `Git` repository
- who made changes over the stored code in the repository during
+ who makes changes to the stored code in the repository during
  the analyzed month.
 
 *Does Continuous Hacking use a series of automated tools*::
 *or is it the result of a manual (by hand) process?*::
   Automated tools, by themselves,
   are not capable of extracting sensitive business information,
-  such as client or employee information .
-  Continuous Hacking uses a series of tools
-  acquired and developed by `Fluid Attacks` and a detailed review process
-  performed by our expert technical staff.
+  such as client or employee information.
+  In our Continuous Hacking service, we use a series of tools
+  which are acquired and developed by us at `Fluid Attacks`,
+  as well as a detailed review process performed by our expert technical staff.
   We go the extra mile because automated tools present the following problems:
 
-  . Vulnerabilities leakages (detection of a minimal percentage
+  . Vulnerability leakages (detection of a minimal percentage
   of existing security risk vulnerabilities).
 
   . Detected vulnerabilities are primarily false positives.
 
-  . Incapable of combining individual vulnerabilities
+  . Incapability of combining individual vulnerabilities
   in order to reveal additional vulnerabilities
   which may be an even greater security risk
   than the individual vulnerabilities alone.
 
-*If Continuous Hacking includes a manual review how does Fluid Attacks*::
+*If Continuous Hacking includes a manual review, how does Fluid Attacks*::
 *ensure that development cycles are not slowed down?*::
   Continuous Hacking is first performed on the source code.
-  This allows for parallel hacking and development simultaneously.
-  This minimizes the dependency on functional environments
-  and the need for coordination between hackers and developers.
+  This allows for hacking and development to occur simultaneously,
+  which in turn minimizes the dependency on functional environments,
+  as well as the need for coordination between hackers and developers.
   The client prioritizes detected vulnerabilities.
-  The decisions regarding what findings are prioritized for each sprint
+  The decisions regarding which findings are prioritized for each sprint
   rest solely with the client.
   Unless we are dealing with a company with daily `CI/CD`
-  (Continuous Integration/Continuous Deployment)
+  (Continuous Integration/Continuous Deployment),
   not all sprints generate code eligible for release and deployment,
   which improves the remediation (repair) time for detected vulnerabilities.
 

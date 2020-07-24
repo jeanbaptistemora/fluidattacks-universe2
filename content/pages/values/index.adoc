@@ -26,10 +26,10 @@ and the termination of all business relations with `Fluid Attacks`.
 
 `Fluid Attacks` is a Colombian company.
 We firmly believe in, and conduct business
-in accordance with our principles.
+in accordance with, our principles.
 Our principles, therefore, are not negotiable.
 
-`Fluid Attacks` principles are:
+Our principles are:
 
 . *HONESTY:* At `Fluid Attacks` honesty is paramount
 in all our business interactions.
@@ -43,7 +43,7 @@ We are a team. Therefore, we maintain, and expect,
 dignified and respectful treatment
 for all members of the `Fluid Attacks` team.
 
-. *DISCIPLINE:* `Fluid Attacks` will fulfill all our commitments,
+. *DISCIPLINE:* `Fluid Attacks` will fulfill all our commitments
 with dedication, perseverance and `100%` focus
 on excellence for all our customers.
 
@@ -56,9 +56,9 @@ operate in our business interactions with customers:
 No detected vulnerabilities are stored
 for future personal or organizational use.
 
-. *Attacks are only carried out with authorization from the client,
+. *Attacks are only carried out with authorization from the client
 and in personal test environments
-or environments created to be hacked (CTFs, challenge sites, etc.)*:
+or environments created to be hacked (CTFs, challenge sites, etc.)*.
 Attacks are not carried out as a test, outside of work hours,
 or outside of the organization
 to third parties (partners, other companies, friends, etc.).
@@ -68,13 +68,13 @@ Detected vulnerabilities are only revealed to the client
 and authorized people working directly on the project.
 Hackers do not reveal any information regarding vulnerabilities,
 nor their existence, to any unauthorized person
-inside `Fluid Attacks` or outside `Fluid Attacks`.
+inside or outside of `Fluid Attacks`.
 
 . *Any infection installed for an attack is uninstalled:*
 After finishing a client's project
-all the software installed to infect the system is completely removed
-or if this is not possible, the client is notified,
-regarding the details of this situation, in writing.
+all the software installed to infect the system is completely removed.
+If this is not possible, the client is notified in writing
+regarding the details of this situation.
 
 . *All detected security issues are reported:*
 If we know a security issue exists,
@@ -82,15 +82,15 @@ it is reported in writing to the client.
 
 . *Assume Responsibility:*
 If `Fluid Attacks` discovers any errors, or missteps,
-on our part, during work on your project, we will inform you,
-and take full responsibility for any impacts and repercussions,
+on our part during work on your project, we will inform you,
+take full responsibility for any impacts and repercussions,
 and do whatever is required to fix them.
 
 == 4. Ethics
 
 In our company the process is every bit as important as the result.
 This is why we adhere to the principles laid out
-under heading <<principles, 2: Principles >>
+in the <<principles, Principles >> section above
 and expect in-kind treatment for everyone involved in your project.
 
 Our business complies with all employer/employee regulations and laws,
@@ -99,8 +99,8 @@ equal employment opportunity, etc. as set forth by Colombian law.
 
 == 5. Safekeeping of Information
 
-We permanently monitor and manage
-the risks associated with our client's information.
+We permanently monitor and manage the risks
+associated with our clients' information.
 
 == 6. Problems and Complaints
 

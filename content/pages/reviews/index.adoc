@@ -6,7 +6,7 @@
 
 = Reviews
 
-`Fluid Attacks` does everything in its power
+At `Fluid Attacks`, we do everything in our power
 to make sure your business has the resources it needs
 to protect its digital assets and to run smoothly
 without having to worry about the possibility of a security breach.
@@ -14,8 +14,7 @@ With our experience in cybersecurity,
 we know how to prevent your valuable information
 from getting into the wrong hands.
 We are proud to have recently been recognized by Clutch
-as one of the link:https://clutch.co/it-services/cybersecurity[Top Cybersecurity Consulting Companies]
-in the world!.
+as one of the link:https://clutch.co/it-services/cybersecurity[Top Cybersecurity Consulting Companies] in the world!
 
 image::rank.png["Fluid Attacks Clutch Profile"]
 
@@ -25,18 +24,18 @@ They are renowned for their ability to facilitate the networking process
 between companies in different industries.
 Clutch helps companies efficiently find partners for business,
 marketing, technology, design, and related digital services projects.
-They provide the most accurate information
-on potential partners and coupled with verified client reviews,
+They provide the most accurate information on potential partners and,
+coupled with verified client reviews,
 match one business's needs with another business's expertise.
 
-At Fluid Attacks we value the personal relationships
+At `Fluid Attacks`, we value the personal relationships
 we build with our clients.
 We are willing to show you any part of our process
 you would like to see
 so that you may fully understand how `Fluid Attacks`
 keeps your company safe and secure.
 Read reviews on our company
-written by previous clients at Clutch's website.
+written by previous clients on Clutch's website.
 
 ++++
 <script type="text/javascript" src="https://static1.clutch.co/api/widget.js"></script>
