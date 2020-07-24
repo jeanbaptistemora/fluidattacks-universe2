@@ -183,6 +183,12 @@ def error401(request: HttpRequest, _: Any) -> HttpResponse:
     return render(request, 'HTTP401.html', parameters)
 
 
+def mobile(request: HttpRequest) -> HttpResponse:
+    """Small devices view"""
+    parameters: Dict[str, Any] = {}
+    return render(request, 'mobile.html', parameters)
+
+
 @csrf_exempt  # type: ignore
 @cache_control(private=True, max_age=3600)  # type: ignore
 @authenticate  # type: ignore
