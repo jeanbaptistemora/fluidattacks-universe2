@@ -367,7 +367,7 @@ class ProjectTest(TestCase):
             user_email=user_email,
             user_role=user_role,
             project_name='NEWAVAILABLENAME',
-            organization='testorg',
+            organization='imamura',
             description='This is a new project',
             has_drills=True,
             has_forces=True,

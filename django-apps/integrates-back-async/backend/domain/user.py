@@ -162,7 +162,7 @@ def create_without_project(
         success = authz.grant_user_level_role(email, role)
         success = success and create(email, new_user_data)
 
-        org_id = async_to_sync(org_domain.get_or_create)('acme', email)
+        org_id = async_to_sync(org_domain.get_or_create)('imamura', email)
         if not async_to_sync(org_domain.has_user_access)(email, org_id):
             async_to_sync(org_domain.add_user)(org_id, email, 'customer')
 

@@ -19,6 +19,11 @@
   color: #FF3435;
 }
 
+:local .container select {
+  background: unset !important;
+  border-style: none !important;
+}
+
 :local .container button:focus {
   background: unset;
 }
@@ -36,5 +41,10 @@
     position: sticky;
     top: 0px;
     z-index: 4;
+  }
+
+  :local .organizationForm {
+    margin-left: auto;
+    width: max-content;
   }
 }

@@ -7,7 +7,7 @@
                         "S": "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
                     },
                     "sk": {
-                        "S": "INFO#testorg"
+                        "S": "INFO#imamura"
                     },
                     "max_acceptance_days": {
                         "N": "60"
@@ -73,7 +73,7 @@
                         "S": "ORG#c2ee2d15-04ab-4f39-9795-fbe30cdeee86"
                     },
                     "sk": {
-                        "S": "INFO#testorg2"
+                        "S": "INFO#testorg"
                     },
                     "max_acceptance_severity": {
                         "N": "6.9"
@@ -115,7 +115,7 @@
                         "S": "ORG#708f518a-d2c3-4441-b367-eec85e53d134"
                     },
                     "sk": {
-                        "S": "INFO#testorg3"
+                        "S": "INFO#testorg2"
                     },
                     "max_acceptance_days": {
                         "N": "60"

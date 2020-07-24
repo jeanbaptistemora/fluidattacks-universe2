@@ -88,13 +88,13 @@ async def test_create():
         await org_dal.create(org_name)
 
 async def test_exists():
-    existing_group = await org_dal.exists('testorg')
+    existing_group = await org_dal.exists('imamura')
     assert existing_group
     non_existent_group = await org_dal.exists('no-exists')
     assert not non_existent_group
 
 async def test_get():
-    ex_org_name = 'testorg'
+    ex_org_name = 'imamura'
     not_ex_org_name = 'no-exists'
     existing_org = await org_dal.get_by_name(ex_org_name)
     assert isinstance(existing_org, dict)
@@ -118,8 +118,8 @@ async def test_organizations_by_id():
     ]
     orgs = await org_dal.get_many_by_id(org_ids)
     assert len(orgs) == 2
-    assert orgs[0]['name'] == 'testorg'
-    assert orgs[1]['name'] == 'testorg2'
+    assert orgs[0]['name'] == 'imamura'
+    assert orgs[1]['name'] == 'testorg'
 
 
 async def test_get_user_organization_ids():
@@ -143,7 +143,7 @@ async def test_get_users():
 @pytest.mark.changes_db
 async def test_update():
     org_id = 'ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3'
-    org_name = 'testorg'
+    org_name = 'imamura'
     org_details = await org_dal.get_by_id(org_id)
     assert org_details['max_acceptance_days'] == 60
     assert 'max_acceptance_severity' not in org_details

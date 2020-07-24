@@ -62,7 +62,7 @@ async def test_get_min_acceptance_severity():
 
 @pytest.mark.changes_db
 async def test_get_or_create():
-    ex_org_name = 'testorg'
+    ex_org_name = 'imamura'
     email = 'unittest@fluidattacks.com'
     not_ex_org_name = 'new-org'
     existing_org = await org_domain.get_or_create(ex_org_name, email)

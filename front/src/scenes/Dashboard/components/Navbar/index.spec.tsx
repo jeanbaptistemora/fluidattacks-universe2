@@ -1,12 +1,16 @@
+import { MockedProvider, MockedResponse, wait } from "@apollo/react-testing";
 import { mount, ReactWrapper } from "enzyme";
 import React from "react";
 import { BreadcrumbItem } from "react-bootstrap";
+// tslint:disable-next-line: no-submodule-imports
+import { act } from "react-dom/test-utils";
 import { Provider } from "react-redux";
 import { RouteComponentProps } from "react-router";
 import { Link, MemoryRouter } from "react-router-dom";
 import store from "../../../../store";
 import translate from "../../../../utils/translations/translate";
 import { navbarComponent as NavbarComponent } from "./index";
+import { GET_USER_ORGANIZATIONS } from "./queries";
 
 describe("Navbar", () => {
 
@@ -15,7 +19,7 @@ describe("Navbar", () => {
       .toEqual("function");
   });
 
-  it("should render", () => {
+  it("should render", async () => {
     const mockProps: RouteComponentProps = {
       history: {
         action: "PUSH",
@@ -52,11 +56,36 @@ describe("Navbar", () => {
         url: "",
       },
     };
+
+    const organizationsQuery: Readonly<MockedResponse> = {
+      request: {
+        query: GET_USER_ORGANIZATIONS,
+      },
+      result: {
+        data: {
+          me: {
+            __typename: "Me",
+            organizations: [
+              {
+                __typename: "Organization",
+                name: "imamura",
+              },
+            ],
+          },
+        },
+      },
+    };
+
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/home"]}>
-        <Provider store={store}><NavbarComponent {...mockProps}/></Provider>
+        <Provider store={store}>
+          <MockedProvider mocks={[organizationsQuery]} addTypename={true} >
+            <NavbarComponent {...mockProps}/>
+         </MockedProvider>
+        </Provider>
       </MemoryRouter>,
     );
+    await act(async () => { await wait(0); wrapper.update(); });
     expect(wrapper.contains(
       <BreadcrumbItem active={false}>
         <Link to="/home">

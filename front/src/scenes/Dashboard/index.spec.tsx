@@ -7,6 +7,7 @@ import { act } from "react-dom/test-utils";
 import { Provider } from "react-redux";
 import { MemoryRouter } from "react-router";
 import store from "../../store/index";
+import { GET_USER_ORGANIZATIONS } from "./components/Navbar/queries";
 import { Dashboard } from "./index";
 import { GET_USER_PERMISSIONS } from "./queries";
 import { IGetUserPermissionsAttr } from "./types";
@@ -44,6 +45,24 @@ describe("Dashboard", () => {
         },
         result: {
           data: permissionsResult,
+        },
+      },
+      {
+        request: {
+          query: GET_USER_ORGANIZATIONS,
+        },
+        result: {
+          data: {
+            me: {
+              __typename: "Me",
+              organizations: [
+                {
+                  __typename: "Organization",
+                  name: "imamura",
+                },
+              ],
+            },
+          },
         },
       },
     ];
