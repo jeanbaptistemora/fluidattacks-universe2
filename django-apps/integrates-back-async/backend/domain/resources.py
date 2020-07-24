@@ -1,13 +1,13 @@
 """Domain functions for resources."""
 
-
+import logging
+import threading
 from collections import namedtuple
 from datetime import datetime
-from urllib.parse import quote, unquote
 from typing import Dict, List, NamedTuple, cast
-import threading
+from urllib.parse import quote, unquote
+
 from asgiref.sync import async_to_sync
-import rollbar
 
 from backend import mailer
 from backend import util
@@ -24,6 +24,10 @@ from backend.exceptions import (
 from backend.utils import validations, aio
 
 from __init__ import BASE_URL, FI_MAIL_RESOURCERS
+
+
+# Constants
+LOGGER = logging.getLogger(__name__)
 
 
 def format_resource(resource_list: List[ResourceType], resource_type: str) -> \
@@ -109,8 +113,8 @@ async def create_file(
     try:
         file_size = 100
         validate_file_size(uploaded_file, file_size)
-    except InvalidFileSize:
-        rollbar.report_message('Error: File exceeds size limit', 'error')
+    except InvalidFileSize as ex:
+        LOGGER.exception(ex)
     files = await project_dal.get_attributes(project_name, ['files'])
     project_files = cast(List[ResourceType], files.get('files', []))
     if project_files:
@@ -120,7 +124,7 @@ async def create_file(
             if f.get('fileName') == uploaded_file.name
         ]
         if contains_repeated:
-            rollbar.report_message('Error: File already exists', 'error')
+            LOGGER.error('File already exists')
     else:
         # Project doesn't have files
         pass

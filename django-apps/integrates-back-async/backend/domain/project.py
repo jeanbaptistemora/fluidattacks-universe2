@@ -2,16 +2,16 @@
 """Domain functions for projects."""
 
 import asyncio
-from contextlib import AsyncExitStack
-from typing import Dict, List, NamedTuple, Tuple, Union, cast
-from collections import namedtuple, defaultdict
+import logging
 import re
+from collections import namedtuple, defaultdict
+from contextlib import AsyncExitStack
 from datetime import datetime, timedelta
 from decimal import Decimal
-from asgiref.sync import sync_to_async, async_to_sync
-import pytz
-import rollbar
+from typing import Dict, List, NamedTuple, Tuple, Union, cast
 
+import pytz
+from asgiref.sync import sync_to_async, async_to_sync
 from django.conf import settings
 
 from backend.authz.policy import get_group_level_role
@@ -56,6 +56,10 @@ from backend.utils import (
     validations
 )
 from backend import authz, mailer, util
+
+
+# Constants
+LOGGER = logging.getLogger(__name__)
 
 
 def add_comment(
@@ -410,11 +414,10 @@ def mask(group_name: str) -> bool:
 
 def remove_project(project_name: str) -> NamedTuple:
     """Delete project information."""
-    rollbar.report_message(
-        f'Warning: Removing {project_name} project',
-        'warning',
-        payload_data=locals()
-    )
+    LOGGER.warning(
+        'Removing %s project',
+        project_name,
+        extra={'extra': locals()})
     Status: NamedTuple = namedtuple(
         'Status',
         'are_findings_masked are_users_removed is_group_masked '

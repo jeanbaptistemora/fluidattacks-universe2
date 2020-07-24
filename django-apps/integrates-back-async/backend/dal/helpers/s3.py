@@ -1,14 +1,14 @@
 # disable MyPy due to error "boto module has no attribute client"
 #  type: ignore
 
+import asyncio
 import contextlib
+import logging
 import os
 from tempfile import _TemporaryFileWrapper as TemporaryFileWrapper
-import asyncio
 
 import aioboto3
 import boto3
-import rollbar
 from botocore.exceptions import ClientError
 from django.core.files.base import ContentFile
 from django.core.files.uploadedfile import (
@@ -16,14 +16,14 @@ from django.core.files.uploadedfile import (
 )
 
 # Local libraries
-from backend.utils import (
-    aio,
-    apm,
-)
+from backend.utils import apm
 from __init__ import (
     FI_AWS_S3_ACCESS_KEY, FI_AWS_S3_SECRET_KEY
 )
 
+
+# Constants
+LOGGER = logging.getLogger(__name__)
 OPTIONS = dict(
     aws_access_key_id=FI_AWS_S3_ACCESS_KEY,
     aws_secret_access_key=FI_AWS_S3_SECRET_KEY,
@@ -69,13 +69,7 @@ async def remove_file(bucket, name):
             resp_code = response['ResponseMetadata']['HTTPStatusCode']
             success = resp_code in [200, 204]
         except ClientError as ex:
-            await aio.ensure_io_bound(
-                rollbar.report_message,
-                'Error: Remove from s3 failed',
-                'error',
-                extra_data=ex,
-                payload_data=locals()
-            )
+            LOGGER.exception(ex, extra={'extra': locals()})
     return success
 
 
@@ -91,13 +85,7 @@ async def _send_to_s3(bucket, file_object, file_name):
             await client.upload_fileobj(file_object, bucket, file_name)
             success = True
         except ClientError as ex:
-            await aio.ensure_io_bound(
-                rollbar.report_message,
-                'Error: Upload to s3 failed',
-                'error',
-                extra_data=ex,
-                payload_data=locals()
-            )
+            LOGGER.exception(ex, extra={'extra': locals()})
 
     return success
 
@@ -115,11 +103,8 @@ async def upload_memory_file(bucket, file_object, file_name):
     if isinstance(file_object, valid_in_memory_files):
         success = await _send_to_s3(bucket, file_object.file, file_name)
     else:
-        await aio.ensure_io_bound(
-            rollbar.report_message,
-            'Error: Attempt to upload invalid memory file',
-            'error',
-            payload_data=locals()
-        )
+        LOGGER.error(
+            'Attempt to upload invalid memory file',
+            extra={'extra': locals()})
 
     return success

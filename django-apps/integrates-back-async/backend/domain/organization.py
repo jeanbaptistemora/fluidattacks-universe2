@@ -1,3 +1,4 @@
+import logging
 import sys
 from decimal import Decimal
 from typing import (
@@ -9,8 +10,6 @@ from typing import (
     Tuple,
 )
 
-import rollbar
-from asgiref.sync import sync_to_async
 from graphql import GraphQLError
 
 from backend import (
@@ -30,8 +29,10 @@ from backend.typing import Organization as OrganizationType
 from backend.utils import aio
 
 
+# Constants
 DEFAULT_MAX_SEVERITY = Decimal('10.0')
 DEFAULT_MIN_SEVERITY = Decimal('0.0')
+LOGGER = logging.getLogger(__name__)
 
 
 async def add_user(organization_id: str, email: str, role: str) -> bool:
@@ -210,12 +211,7 @@ async def update_policies(
         InvalidAcceptanceSeverityRange,
         InvalidNumberAcceptations
     ) as exe:
-        await sync_to_async(rollbar.report_message)(
-            'Invalid values when updating the policies of an organization',
-            'error',
-            extra_data=exe,
-            payload_data=locals()
-        )
+        LOGGER.exception(exe, extra={'extra': locals()})
         raise GraphQLError(str(exe))
 
     if all(valid):

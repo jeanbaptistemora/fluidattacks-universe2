@@ -2,13 +2,13 @@ import asyncio
 import bisect
 import io
 import itertools
+import logging
 import threading
 from datetime import datetime
 from decimal import Decimal
 from typing import Dict, List, Union, cast
 
 import pytz
-import rollbar
 from asgiref.sync import async_to_sync
 from backports import csv  # type: ignore
 from django.conf import settings
@@ -50,6 +50,7 @@ from __init__ import (
 )
 
 
+# Constants
 CVSS_PARAMETERS = {
     '2': {
         'bs_factor_1': 0.6, 'bs_factor_2': 0.4, 'bs_factor_3': 1.5,
@@ -66,6 +67,7 @@ CVSS_PARAMETERS = {
         'mod_impact_factor_7': 13, 'mod_impact_factor_8': 0.9731
     }
 }
+LOGGER = logging.getLogger(__name__)
 
 
 def _get_evidence(name: str, items: List[Dict[str, str]]) -> Dict[str, str]:
@@ -185,12 +187,7 @@ async def get_records_from_file(
                 for row in itertools.islice(csv_reader, max_rows)
             ]
     except (csv.Error, LookupError, UnicodeDecodeError) as ex:
-        rollbar.report_message(
-            'Error: Couldnt read records file',
-            'error',
-            extra_data=ex,
-            payload_data=locals()
-        )
+        LOGGER.exception(ex, extra={'extra': locals()})
 
     return file_content
 

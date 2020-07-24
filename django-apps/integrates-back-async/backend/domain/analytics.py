@@ -1,5 +1,6 @@
 # Standard library
 import json
+import logging
 import os
 import string
 import traceback
@@ -21,7 +22,6 @@ from django.http import (
 from django.shortcuts import (
     render,
 )
-import rollbar
 
 # Local libraries
 from backend.dal import (
@@ -75,6 +75,7 @@ ReportParameters = NamedTuple(
 )
 
 # Constants
+LOGGER = logging.getLogger(__name__)
 ALLOWED_CHARS_IN_PARAMS: str = string.ascii_letters + string.digits + '#-'
 
 
@@ -250,8 +251,8 @@ async def handle_graphic_request(request: HttpRequest) -> HttpResponse:
         KeyError,
         PermissionError,
         ValueError,
-    ):
-        rollbar.report_exc_info()
+    ) as ex:
+        LOGGER.exception(ex)
         response = render(request, 'graphic-error.html', dict(
             debug=settings.DEBUG,
             traceback=traceback.format_exc(),
@@ -294,8 +295,8 @@ async def handle_graphics_for_entity_request(
         KeyError,
         PermissionError,
         ValueError,
-    ):
-        rollbar.report_exc_info()
+    ) as ex:
+        LOGGER.exception(ex)
         response = render(request, 'graphic-error.html', dict(
             debug=settings.DEBUG,
             traceback=traceback.format_exc(),
@@ -331,8 +332,8 @@ async def handle_graphics_report_request(
         KeyError,
         PermissionError,
         ValueError,
-    ):
-        rollbar.report_exc_info()
+    ) as ex:
+        LOGGER.exception(ex)
         response = render(request, 'graphic-error.html', dict(
             debug=settings.DEBUG,
             traceback=traceback.format_exc(),
