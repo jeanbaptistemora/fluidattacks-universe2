@@ -44,4 +44,4 @@ we proudly built and called `Fluid Attacks`.
 ++++
 
 [role="tc"]
-[button]#link:../../contact-us/[Join Our Team, role="button-rules"]#
+[button]#link:../../careers/[Join Our Team, role="button-rules"]#
