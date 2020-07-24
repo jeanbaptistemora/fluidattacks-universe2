@@ -1,4 +1,5 @@
 # Standard library
+import logging
 from collections.abc import Mapping
 from datetime import datetime
 from decimal import Decimal
@@ -28,12 +29,15 @@ from backend.domain import (
 )
 from backend.utils import (
     aio,
-    logging,
     reports,
 )
 from backend.services import (
     has_access_to_project as has_access_to_group,
 )
+
+
+# Constants
+LOGGER = logging.getLogger(__name__)
 
 
 def frequency_to_period(*, frequency: str) -> int:
@@ -281,14 +285,14 @@ async def send_user_to_entity_report(
             ttl=float(event_period),
         )
     except botocore.exceptions.ClientError as ex:
-        logging.log(
-            extra=dict(
-                report_entity=report_entity,
-                report_subject=report_subject,
-            ),
-            level='error',
-            message=ex,
-        )
+        LOGGER.exception(
+            ex,
+            extra={
+                'extra': dict(
+                    report_entity=report_entity,
+                    report_subject=report_subject,
+                )
+            })
     else:
         report_entity = report_entity.lower()
         report_subject = (

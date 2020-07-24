@@ -1,5 +1,6 @@
 """DAL functions for projects."""
 
+import logging
 from datetime import datetime
 from typing import (
     cast,
@@ -8,8 +9,8 @@ from typing import (
     NamedTuple,
     Union,
 )
+
 import aioboto3
-import rollbar
 from asgiref.sync import async_to_sync
 from botocore.exceptions import ClientError
 import pytz
@@ -29,10 +30,11 @@ from backend.dal.finding import (
     TABLE as FINDINGS_TABLE
 )
 from backend.dal.user import get_attributes as get_user_attributes
-from backend.utils import logging
 
 
+# Constants
 DYNAMODB_RESOURCE = dynamodb.DYNAMODB_RESOURCE  # type: ignore
+LOGGER = logging.getLogger(__name__)
 TABLE = DYNAMODB_RESOURCE.Table('FI_projects')
 TABLE_COMMENTS = DYNAMODB_RESOURCE.Table('fi_project_comments')
 TABLE_ACCESS = DYNAMODB_RESOURCE.Table('FI_project_access')
@@ -100,11 +102,9 @@ def get_service_policies(group: str) -> List[ServicePolicy]:
             )
 
     else:
-        rollbar.report_message(
+        LOGGER.critical(
             'Group has invalid type attribute',
-            level='critical',
-            extra_data=dict(group=group)
-        )
+            extra={'extra': dict(group=group)})
 
     return policies
 
@@ -463,8 +463,8 @@ def add_comment(project_name: str, email: str, comment_data: CommentType) -> \
             Item=payload
         )
         resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
-    except ClientError:
-        rollbar.report_exc_info()
+    except ClientError as ex:
+        LOGGER.exception(ex)
     return resp
 
 
@@ -546,11 +546,7 @@ def delete_comment(group_name: str, user_id: str) -> bool:
         )
         resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
     except ClientError as ex:
-        rollbar.report_message(
-            'Error: Couldn\'nt delete group comment',
-            'error',
-            extra_data=ex
-        )
+        LOGGER.exception(ex)
     return resp
 
 
@@ -639,8 +635,8 @@ def add_access(user_email: str, project_name: str,
             )
             resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
             return resp
-        except ClientError:
-            rollbar.report_exc_info()
+        except ClientError as ex:
+            LOGGER.exception(ex)
             return False
     else:
         return update_access(
@@ -662,8 +658,8 @@ def remove_access(user_email: str, project_name: str) -> bool:
         )
         resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
         return resp
-    except ClientError:
-        rollbar.report_exc_info()
+    except ClientError as ex:
+        LOGGER.exception(ex)
         return False
 
 
@@ -686,6 +682,6 @@ def update_access(user_email: str, project_name: str,
         )
         resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
         return resp
-    except ClientError:
-        rollbar.report_exc_info()
+    except ClientError as ex:
+        LOGGER.exception(ex)
         return False

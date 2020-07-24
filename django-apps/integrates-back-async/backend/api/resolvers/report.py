@@ -1,4 +1,4 @@
-
+import logging
 import sys
 
 from typing import Any, cast
@@ -21,10 +21,11 @@ from backend.typing import (
     Report as ReportType,
 )
 from backend import authz, util
-from backend.utils import (
-    aio,
-    logging as logging_utils,
-)
+from backend.utils import aio
+
+
+# Constants
+LOGGER = logging.getLogger(__name__)
 
 
 @convert_kwargs_to_snake_case  # type: ignore
@@ -136,7 +137,7 @@ async def _get_url_group_report(
             'project_name': project_name,
             'user_email': user_email
         }
-        logging_utils.log(ex, 'error', extra=payload_data)
+        LOGGER.exception(ex, extra={'extra': payload_data})
     return url
 
 
@@ -191,6 +192,7 @@ async def _get_url(
             'report_type': report_type,
             'user_email': user_email
         }
-        logging_utils.log(
-            'Report type not in expected values', 'error', extra=payload_data)
+        LOGGER.error(
+            'Report type not in expected values',
+            extra={'extra': payload_data})
     return url

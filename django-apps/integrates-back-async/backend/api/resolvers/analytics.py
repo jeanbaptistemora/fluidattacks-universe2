@@ -1,4 +1,5 @@
 # Standard library
+import logging
 from typing import (
     Dict,
     Any,
@@ -16,10 +17,11 @@ from backend.domain import (
     analytics as analytics_domain,
 )
 from backend.exceptions import DocumentNotFound
-from backend.utils import (
-    apm,
-    logging as logging_utils,
-)
+from backend.utils import apm
+
+
+# Constants
+LOGGER = logging.getLogger(__name__)
 
 
 @apm.trace()
@@ -42,5 +44,5 @@ async def resolve(
             )
         )
     except botocore.exceptions.ClientError as ex:
-        logging_utils.log(ex, 'error', extra=locals())
+        LOGGER.exception(ex, extra={'extra': locals()})
         raise DocumentNotFound()

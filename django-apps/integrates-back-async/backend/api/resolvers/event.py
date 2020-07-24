@@ -5,6 +5,7 @@ from typing import List, Any, Union, cast
 
 from ariadne import convert_kwargs_to_snake_case, convert_camel_case_to_snake
 from asgiref.sync import sync_to_async
+from django.core.files.uploadedfile import InMemoryUploadedFile
 
 from graphql.type.definition import GraphQLResolveInfo
 from backend.api.dataloaders.event import EventLoader
@@ -25,8 +26,6 @@ from backend.typing import (
     DownloadFilePayload as DownloadFilePayloadType,
 )
 from backend import util
-
-from django.core.files.uploadedfile import InMemoryUploadedFile
 
 
 @get_entity_cache_async

@@ -1,17 +1,19 @@
-
+import logging
 from typing import List
 from asgiref.sync import async_to_sync
 from botocore.exceptions import ClientError
 from backend.dal.helpers import cloudfront, dynamodb, s3
 from backend.dal import project as project_dal
-from backend.utils import logging
 
 from __init__ import (
     FI_AWS_S3_RESOURCES_BUCKET,
     FI_CLOUDFRONT_RESOURCES_DOMAIN
 )
 
+
+# Constants
 DYNAMODB_RESOURCE = dynamodb.DYNAMODB_RESOURCE  # type: ignore
+LOGGER = logging.getLogger(__name__)
 TABLE = DYNAMODB_RESOURCE.Table('FI_projects')
 
 
@@ -65,5 +67,5 @@ async def remove(project_name: str, res_type: str, index: int) -> bool:
             update_attrs
         )
     except ClientError as ex:
-        logging.log(ex, 'error', extra=locals())
+        LOGGER.exception(ex, extra={'extra': locals()})
     return resp

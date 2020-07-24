@@ -1,10 +1,12 @@
 # pylint:disable=too-many-lines
-from time import time
+import logging
 import sys
+from time import time
 from typing import Dict, List, Any, Union, cast
 
 from ariadne import convert_camel_case_to_snake, convert_kwargs_to_snake_case
 from asgiref.sync import sync_to_async
+from django.core.files.uploadedfile import InMemoryUploadedFile
 from graphql.language.ast import SelectionSetNode
 from graphql.type.definition import GraphQLResolveInfo
 from graphql import GraphQLError
@@ -31,12 +33,13 @@ from backend.typing import (
 )
 from backend.utils import (
     findings as finding_utils,
-    logging as logging_utils,
     virus_scan,
 )
 from backend import authz, util
 
-from django.core.files.uploadedfile import InMemoryUploadedFile
+
+# Constants
+LOGGER = logging.getLogger(__name__)
 
 
 @get_entity_cache_async
@@ -725,7 +728,7 @@ async def _do_update_evidence_description(
                  f'evidence description in {finding_id}')  # pragma: no cover
             )
     except KeyError as ex:
-        logging_utils.log(ex, 'error', extra=locals())
+        LOGGER.exception(ex, extra={'extra': locals()})
     return SimplePayloadType(success=success)
 
 

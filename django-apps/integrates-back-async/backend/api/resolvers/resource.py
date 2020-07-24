@@ -1,6 +1,7 @@
-from typing import Any, Dict, List, cast, Union
+import logging
 import re
 import sys
+from typing import Any, Dict, List, cast, Union
 
 from ariadne import convert_kwargs_to_snake_case, convert_camel_case_to_snake
 from asgiref.sync import sync_to_async
@@ -21,11 +22,12 @@ from backend.typing import (
     SimplePayload as SimplePayloadType,
 )
 from backend.exceptions import InvalidProject
-from backend.utils import (
-    logging as logging_utils,
-    virus_scan,
-)
+from backend.utils import virus_scan
 from backend import util
+
+
+# Constants
+LOGGER = logging.getLogger(__name__)
 
 
 @get_entity_cache_async
@@ -159,11 +161,7 @@ async def _do_add_repositories(
             project_name, user_email, new_repos, 'added', 'repository'
         )
     else:
-        logging_utils.log(
-            'Couldn\'t add repositories',
-            'error',
-            extra=locals()
-        )
+        LOGGER.error('Couldn\'t add repositories', extra={'extra': locals()})
         util.cloudwatch_log(
             info.context,
             ('Security: Attempted to add '
@@ -198,11 +196,7 @@ async def _do_add_environments(
             project_name, user_email, new_envs, 'added', 'environment'
         )
     else:
-        logging_utils.log(
-            'Couldn\'t add environments',
-            'error',
-            extra=locals()
-        )
+        LOGGER.error('Couldn\'t add environments', extra={'extra': locals()})
         util.cloudwatch_log(
             info.context,
             ('Security: Attempted to add '
@@ -241,11 +235,7 @@ async def _do_add_files(
 
         success = True
     else:
-        logging_utils.log(
-            'Couldn\'t upload file',
-            'error',
-            extra=parameters
-        )
+        LOGGER.error('Couldn\'t upload file', extra={'extra': parameters})
     if success:
         util.invalidate_cache(project_name)
         util.cloudwatch_log(
@@ -285,14 +275,14 @@ async def _do_remove_files(
         )
         success = True
     else:
-        logging_utils.log(
+        LOGGER.error(
             'Couldn\'t remove file',
-            'error',
             extra={
-                'file_name': file_name,
-                'project_name': project_name,
-            }
-        )
+                'extra': {
+                    'file_name': file_name,
+                    'project_name': project_name,
+                }
+            })
     if success:
         util.invalidate_cache(project_name)
         util.cloudwatch_log(
@@ -348,11 +338,9 @@ async def _do_download_file(
              f'{parameters["files_data"]}'
              f' in project {project_name}')  # pragma: no cover
         )
-        logging_utils.log(
+        LOGGER.error(
             'Couldn\'t generate signed URL',
-            'error',
-            extra=parameters
-        )
+            extra={'extra': parameters})
     return DownloadFilePayloadType(success=success, url=str(signed_url))
 
 
@@ -391,11 +379,8 @@ async def _do_update_environment(
             project_name, user_email, [env], action, 'environment'
         )
     else:
-        logging_utils.log(
-            'Couldn\'t update environment state',
-            'error',
-            extra=locals()
-        )
+        LOGGER.error(
+            'Couldn\'t update environment state', extra={'extra': locals()})
         util.cloudwatch_log(
             info.context,
             ('Security: Attempted to update environment state in '
@@ -439,11 +424,8 @@ async def _do_update_repository(
             project_name, user_email, [repo], action, 'repository'
         )
     else:
-        logging_utils.log(
-            'Couldn\'t update repository state',
-            'error',
-            extra=locals()
-        )
+        LOGGER.error(
+            'Couldn\'t update repository state', extra={'extra': locals()})
         util.cloudwatch_log(
             info.context,
             ('Security: Attempted to update repository state in '

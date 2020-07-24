@@ -1,9 +1,10 @@
 # Standard library  # pylint:disable=cyclic-import
 # pylint:disable=too-many-lines
 import asyncio
-from datetime import datetime
+import logging
 import sys
 import time
+from datetime import datetime
 from typing import Dict, List, Set, Any, cast, Union
 
 # Third party libraries
@@ -56,10 +57,13 @@ from backend import util
 from backend.utils import (
     aio,
     apm,
-    logging as logging_utils,
 )
 
 from __init__ import FI_COMMUNITY_PROJECTS
+
+
+# Constants
+LOGGER = logging.getLogger(__name__)
 
 
 @enforce_group_level_auth_async
@@ -931,8 +935,7 @@ async def _update_tags(
     if tags_added:
         success = True
     else:
-        logging_utils.log(
-            'Couldn\'t add tags', 'error', extra=locals())
+        LOGGER.error('Couldn\'t add tags', extra={'extra': locals()})
         success = False
     return success
 
@@ -1006,8 +1009,7 @@ async def _do_remove_tag(
         if tag_deleted:
             success = True
         else:
-            logging_utils.log(
-                'Couldn\'t remove a tag', 'error', extra=locals())
+            LOGGER.error('Couldn\'t remove a tag', extra={'extra': locals()})
     if success:
         project_loader.clear(project_name)
         util.invalidate_cache(project_name)
