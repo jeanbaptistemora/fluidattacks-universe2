@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.10/ref/settings/
 """
 
+import logging
 import os
 import subprocess
 import sys
@@ -204,11 +205,12 @@ LOGGING = {
         },
         'transactional_logs': {
             '()': 'backend.utils.logging.SpecificLevelFilter',
-            'level': 'INFO',
+            'level': logging.INFO,
         }
     },
     'handlers': {
         'bugsnag': {
+            'extra_fields': {'extra': ['extra']},
             'class': 'bugsnag.handlers.BugsnagHandler',
             'level': 'WARNING',
         },
@@ -220,9 +222,9 @@ LOGGING = {
             'boto3_session': BOTO3_SESSION,
             'class': 'watchtower.CloudWatchLogHandler',
             'level': 'INFO',
-                     'log_group': 'FLUID',
+            'log_group': 'FLUID',
             'filters': ['require_debug_false', 'transactional_logs'],
-                     'stream_name': 'FLUIDIntegrates',
+            'stream_name': 'FLUIDIntegrates',
         },
     },
     'loggers': {

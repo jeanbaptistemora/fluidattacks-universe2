@@ -11,7 +11,6 @@ from typing import Dict, List, Tuple, Union, cast
 from more_itertools import chunked
 from botocore.exceptions import ClientError
 from asgiref.sync import async_to_sync, sync_to_async
-from django.conf import settings
 
 from backend import mailer, util
 from backend.dal import (
@@ -28,10 +27,7 @@ from backend.typing import (
     Event as EventType,
     Finding as FindingType
 )
-from backend.utils import (
-    aio,
-    logging as logging_utils
-)
+from backend.utils import aio
 from __init__ import (
     BASE_URL,
     FI_TEST_PROJECTS,
@@ -40,7 +36,7 @@ from __init__ import (
     FI_MAIL_REVIEWERS
 )
 
-logging.config.dictConfig(settings.LOGGING)  # type: ignore
+# Constants
 LOGGER = logging.getLogger(__name__)
 
 
@@ -308,7 +304,7 @@ def get_date_last_vulns(vulns: List[Dict[str, FindingType]]) -> str:
 
 async def get_group_new_vulnerabilities(group_name: str) -> None:
     msg = 'Info: Getting new vulnerabilities'
-    logging_utils.log(msg, 'info', extra=locals())
+    LOGGER.info(msg, extra={'extra': locals()})
     fin_attrs = 'finding_id, historic_treatment, project_name, finding'
     context: Dict[str, Union[str, List[Dict[str, str]]]] = {
         'updated_findings': list(),
@@ -353,7 +349,7 @@ async def get_group_new_vulnerabilities(group_name: str) -> None:
                 f'{act_finding["project_name"]}/indicators'
             )
     except (TypeError, KeyError) as ex:
-        logging_utils.log(ex, 'error', extra={'group_name': group_name})
+        LOGGER.exception(ex, extra={'extra': {'group_name': group_name}})
         raise
     if context['updated_findings']:
         mail_to = await project_domain.get_users_to_notify(group_name)
@@ -367,8 +363,7 @@ async def get_group_new_vulnerabilities(group_name: str) -> None:
 @async_to_sync
 async def get_new_vulnerabilities():
     """Summary mail send with the findings of a project."""
-    msg = 'Warning: Function to get new vulnerabilities is running'
-    logging_utils.log(msg, 'info')
+    LOGGER.warning('[scheduler]: get_new_vulnerabilities is running')
     groups = await aio.ensure_io_bound(
         project_domain.get_active_projects
     )
@@ -455,10 +450,7 @@ async def create_msj_finding_pending(
 @async_to_sync
 async def get_remediated_findings():
     """Summary mail send with findings that have not been verified yet."""
-    logging_utils.log(
-        '[scheduler]: get_remediated_findings is running',
-        'warning',
-    )
+    LOGGER.warning('[scheduler]: get_remediated_findings is running')
     active_projects = await sync_to_async(project_domain.get_active_projects)()
     findings = []
     pending_verification_findings = await asyncio.gather(*[
@@ -490,18 +482,15 @@ async def get_remediated_findings():
                 mail_to, context
             )
         except (TypeError, KeyError) as ex:
-            logging_utils.log(ex, 'warning', extra=locals())
+            LOGGER.exception(ex, extra={'extra': locals()})
     else:
-        LOGGER.info('There are no findings to verificate')
+        LOGGER.warning('[scheduler]: There are no findings to verify')
 
 
 @async_to_sync
 async def get_new_releases():
     """Summary mail send with findings that have not been released yet."""
-    logging_utils.log(
-        '[scheduler]: get_new_releases is running',
-        'warning',
-    )
+    LOGGER.warning('[scheduler]: get_new_releases is running')
     test_projects = FI_TEST_PROJECTS.split(',')
     projects = await sync_to_async(project_domain.get_active_projects)()
     email_context = defaultdict(list)
@@ -543,7 +532,7 @@ async def get_new_releases():
                         })
                         cont += 1
             except (TypeError, KeyError) as ex:
-                logging_utils.log(ex, 'warning', extra=locals())
+                LOGGER.exception(ex, extra={'extra': locals()})
         else:
             # ignore test projects
             pass
@@ -557,19 +546,13 @@ async def get_new_releases():
             mail_to, email_context
         )
     else:
-        logging_utils.log(
-            '[scheduler]: There are no new drafts',
-            'warning',
-        )
+        LOGGER.warning('[scheduler]: There are no new drafts')
 
 
 @async_to_sync
 async def send_unsolved_to_all() -> List[bool]:
     """Send email with unsolved events to all projects """
-    logging_utils.log(
-        '[scheduler]: send_unsolved_to_all is running',
-        'warning',
-    )
+    LOGGER.warning('[scheduler]: send_unsolved_to_all is running')
     projects = await sync_to_async(project_domain.get_active_projects)()
     return await asyncio.gather(*[
         asyncio.create_task(
@@ -633,7 +616,7 @@ async def update_group_indicators(group_name: str) -> None:
         'group_name': group_name
     }
     msg = 'Info: Updating indicators'
-    logging_utils.log(msg, 'info', extra=payload_data)
+    LOGGER.info(msg, extra={'extra': payload_data})
     indicators = await get_project_indicators(group_name)
     try:
         response = await aio.ensure_io_bound(
@@ -644,21 +627,18 @@ async def update_group_indicators(group_name: str) -> None:
         if response:
             util.invalidate_cache(group_name)
             msg = 'Info: Updated indicators'
-            logging_utils.log(msg, 'info', extra=payload_data)
+            LOGGER.info(msg, extra={'extra': payload_data})
         else:
             msg = 'Error: An error ocurred updating indicators in the database'
-            logging_utils.log(msg, 'error', extra=payload_data)
+            LOGGER.info(msg, extra={'extra': payload_data})
     except ClientError as ex:
-        logging_utils.log(ex, 'error', extra=payload_data)
+        LOGGER.exception(ex, extra={'extra': payload_data})
 
 
 @async_to_sync
 async def update_indicators():
     """Update in dynamo indicators."""
-    logging_utils.log(
-        '[scheduler]: update_indicators is running',
-        'warning',
-    )
+    LOGGER.warning('[scheduler]: update_indicators is running')
     groups = await sync_to_async(project_domain.get_active_projects)()
     # number of groups that can be updated at a time
     groups_chunks = chunked(groups, 40)
@@ -673,8 +653,9 @@ async def update_indicators():
 
 async def reset_group_expired_accepted_findings(
         group_name: str, today: str) -> None:
-    msg = 'Info: Resetting expired accepted findings'
-    logging_utils.log(msg, 'info', extra=locals())
+    LOGGER.info(
+        'Resetting expired accepted findings',
+        extra={'extra': locals()})
     list_findings = await project_domain.list_findings(
         [group_name]
     )
@@ -713,10 +694,7 @@ async def reset_group_expired_accepted_findings(
 @async_to_sync
 async def reset_expired_accepted_findings():
     """ Update treatment if acceptance date expires """
-    logging_utils.log(
-        '[scheduler]: reset_expired_accepted_findings is running',
-        'warning',
-    )
+    LOGGER.warning('[scheduler]: reset_expired_accepted_findings is running')
     today = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     groups = await sync_to_async(project_domain.get_active_projects)()
     # number of groups that can be updated at a time
@@ -733,10 +711,7 @@ async def reset_expired_accepted_findings():
 @async_to_sync
 async def delete_pending_projects():
     """ Delete pending to delete projects """
-    logging_utils.log(
-        '[scheduler]: delete_pending_projects is running',
-        'warning',
-    )
+    LOGGER.warning('[scheduler]: delete_pending_projects is running')
     today = datetime.now()
     projects = await sync_to_async(project_domain.get_pending_to_delete)()
     remove_project_tasks = []

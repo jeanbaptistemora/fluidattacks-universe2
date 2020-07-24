@@ -50,10 +50,7 @@ from backend.typing import (
     Finding as FindingType,
     User as UserType
 )
-from backend.utils import (
-    apm,
-    logging as logging_utils,
-)
+from backend.utils import apm
 from __init__ import (
     FI_ENVIRONMENT,
     FI_TEST_PROJECTS,
@@ -62,7 +59,7 @@ from __init__ import (
     FORCES_TRIGGER_TOKEN
 )
 
-logging.config.dictConfig(settings.LOGGING)  # type: ignore
+# Constants
 LOGGER = logging.getLogger(__name__)
 NUMBER_OF_BYTES = 32  # length of the key
 SCRYPT_N = 2**14  # cpu/memory cost
@@ -227,15 +224,15 @@ def get_jwt_content(context) -> Dict[str, str]:
         # Session expired
         raise InvalidAuthorization()
     except (AttributeError, IndexError) as ex:
-        logging_utils.log(ex, 'error', extra=context)
+        LOGGER.exception(ex, extra={'extra': context})
         raise InvalidAuthorization()
     except jwt.JWTClaimsError as ex:
         LOGGER.info('Security: Invalid token claims')
-        logging_utils.log(ex, 'error', extra=context)
+        LOGGER.exception(ex, extra={'extra': context})
         raise InvalidAuthorization()
     except JWTError as ex:
         LOGGER.info('Security: Invalid token')
-        logging_utils.log(ex, 'error', extra=context)
+        LOGGER.exception(ex, extra={'extra': context})
         raise InvalidAuthorization()
 
 
@@ -366,7 +363,7 @@ def verificate_hash_token(access_token: Dict[str, str], jti_token: str) -> \
             binascii.unhexlify(access_token['jti']))
         resp = True
     except InvalidKey as ex:
-        logging_utils.log(ex, 'error')
+        LOGGER.exception(ex)
 
     return resp
 
@@ -418,7 +415,7 @@ def forces_trigger_deployment(project_name: str) -> bool:
             task.add_done_callback(functools.partial(callback, client))
 
     except httpx.HTTPError as ex:
-        logging_utils.log(ex, 'error')
+        LOGGER.exception(ex)
     else:
         success = True
     return success

@@ -1,5 +1,6 @@
 import asyncio
 import json
+import logging
 import sys
 from datetime import datetime, timedelta
 from collections import defaultdict
@@ -47,8 +48,11 @@ from backend.typing import (
 )
 from backend.utils import aio
 from backend import util
-from backend.utils.logging import log
 from backend import authz
+
+
+# Constants
+LOGGER = logging.getLogger(__name__)
 
 
 async def _get_role(
@@ -294,10 +298,10 @@ async def _do_subscribe_to_entity_report(
                 f'frequency: {frequency}',
             )
         else:
-            log(
-                'backend.api.resolvers.me._do_subscribe_to_entity_report',
-                level='error', extra_data=locals(),
-            )
+            LOGGER.error(
+                'Couldn\'t subscribe to %s report',
+                report_entity,
+                extra={'extra': locals()})
     else:
         util.cloudwatch_log(
             info.context,
@@ -348,7 +352,7 @@ async def _do_sign_in(
         )
         success = True
     except AuthException as ex:
-        log(ex, 'error', extra=locals())
+        LOGGER.exception(ex, extra={'extra': locals()})
 
     return SignInPayloadType(
         session_jwt=session_jwt,

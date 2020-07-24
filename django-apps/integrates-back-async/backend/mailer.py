@@ -1,5 +1,6 @@
 import os
 import json
+import logging
 import threading
 from html import escape
 from typing import Dict, List, Union, cast
@@ -20,7 +21,6 @@ from backend.typing import (
     Project as ProjectType
 )
 from backend.utils import aio
-from backend.utils.logging import log
 
 from __init__ import (
     BASE_URL,
@@ -33,11 +33,13 @@ from __init__ import (
 )
 
 
+# Constants
 API_KEY = FI_MANDRILL_API_KEY
-VERIFY_TAG = ['verify']
 COMMENTS_TAG = ['comments']
-VULNERABILITIES_TAG = ['vulnerabilities']
 GENERAL_TAG = ['general']
+LOGGER = logging.getLogger(__name__)
+VERIFY_TAG = ['verify']
+VULNERABILITIES_TAG = ['vulnerabilities']
 QUEUE_URL = SQS_QUEUE_URL
 
 
@@ -133,30 +135,30 @@ def _send_mail(
                 'message': message,
                 'api_key': API_KEY
             }
-            log(
+            LOGGER.info(
                 '[mailer]: sending to SQS',
-                'info',
                 extra={
-                    'message': json.dumps(sqs_message["message"]),
-                    'MessageGroupId': template_name,
-                }
-            )
+                    'extra': {
+                        'message': json.dumps(sqs_message["message"]),
+                        'MessageGroupId': template_name,
+                    }
+                })
             sqs.send_message(
                 QueueUrl=QUEUE_URL,
                 MessageBody=json.dumps(sqs_message),
                 MessageGroupId=template_name
             )
-            log(
+            LOGGER.info(
                 '[mailer]: mail sent',
-                'info',
                 extra={
-                    'message': json.dumps(sqs_message["message"]),
-                    'MessageGroupId': template_name,
-                }
-            )
+                    'extra': {
+                        'message': json.dumps(sqs_message["message"]),
+                        'MessageGroupId': template_name,
+                    }
+                })
         except (botocore.vendored.requests.exceptions.ConnectionError,
                 botocore.exceptions.ClientError) as exc:
-            log(exc, 'info')
+            LOGGER.exception(exc)
     else:
         # Mail should not be sent if is a test project
         pass
@@ -273,12 +275,13 @@ def send_mail_new_draft(
 
 
 async def send_mail_analytics(*email_to: str, **context: str) -> None:
-    log(
+    LOGGER.info(
         '[mailer]: send_mail_analytics',
-        level='info',
         extra={
-            'context': context,
-            'to': email_to,
+            'extra': {
+                'context': context,
+                'to': email_to,
+            }
         })
 
     await aio.ensure_io_bound(

@@ -5,6 +5,7 @@ import asyncio
 from datetime import datetime
 import functools
 import inspect
+import logging
 import re
 from typing import Any, Callable, Dict
 
@@ -36,11 +37,11 @@ from backend.exceptions import (
 from backend.utils import (
     aio,
     apm,
-    logging as logging_utils,
 )
 
 # Constants
 CACHE_TTL = getattr(settings, 'CACHE_TTL', DEFAULT_TIMEOUT)
+LOGGER = logging.getLogger(__name__)
 
 UNAUTHORIZED_ROLE_MSG = (
     'Security: Unauthorized role '
@@ -157,12 +158,13 @@ def enforce_group_level_auth_async(func: Callable[..., Any]) -> \
         action = f'{func.__module__}.{func.__qualname__}'.replace('.', '_')
 
         if not object_:
-            logging_utils.log(
+            LOGGER.error(
                 'Unable to identify project name',
-                level='error',
                 extra={
-                    'action': action,
-                    'subject': subject,
+                    'extra': {
+                        'action': action,
+                        'subject': subject,
+                    }
                 })
 
         enforcer = await aio.ensure_io_bound(
@@ -207,9 +209,8 @@ def enforce_organization_level_auth_async(func: Callable[..., Any]) -> \
         action = f'{func.__module__}.{func.__qualname__}'.replace('.', '_')
 
         if not object_:
-            logging_utils.log(
+            LOGGER.error(
                 'Unable to identify organization to check permissions',
-                level='error',
                 extra={
                     'action': action,
                     'subject': subject,
@@ -349,12 +350,9 @@ def require_finding_access(func: Callable[..., Any]) -> Callable[..., Any]:
         )
 
         if not re.match('^[0-9]*$', finding_id):
-            logging_utils.log(
+            LOGGER.error(
                 'Invalid finding id format',
-                'error',
-                extra={
-                    'context': context,
-                })
+                extra={'extra': {'context': context}})
 
             raise GraphQLError('Invalid finding id format')
 
@@ -422,7 +420,7 @@ def cache_content(func: Callable[..., Any]) -> Callable[..., Any]:
             cache.set(key_name, ret, timeout=CACHE_TTL)
             return ret
         except RedisClusterException as ex:
-            logging_utils.log(ex, 'error')
+            LOGGER.exception(ex)
             return func(*args, **kwargs)
     return decorated
 
@@ -467,7 +465,7 @@ def get_entity_cache_async(func: Callable[..., Any]) -> Callable[..., Any]:
                 )
             return ret
         except RedisClusterException as ex:
-            logging_utils.log(ex, 'error')
+            LOGGER.exception(ex)
             return await func(*args, **kwargs)
 
     return decorated
@@ -521,7 +519,7 @@ def cache_idempotent(*, ttl: int) -> Callable:
                     )
                 return ret
             except RedisClusterException as ex:
-                logging_utils.log(ex, 'error')
+                LOGGER.exception(ex)
                 return await function(*args, **kwargs)
 
         return wrapper
@@ -556,12 +554,13 @@ def turn_args_into_kwargs(function: Callable):
 def shield(function: Callable):
     """Catches and reports general Exceptions raised in decorated function"""
     async def report(exception: Exception):
-        logging_utils.log(
+        LOGGER.error(
             'Shielded function raised a generic Exception',
-            'error',
             extra={
-                'exception': exception,
-                'function': function.__name__,
+                'extra': {
+                    'exception': exception,
+                    'function': function.__name__,
+                }
             })
 
     if asyncio.iscoroutinefunction(function):
