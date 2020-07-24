@@ -2,6 +2,7 @@
 :category: products
 :description: Rules is a compilation of several security criteria, developed by Fluid Attacks, based on different international standards to ensure the security of systems.
 :keywords: Fluid Attacks, Products, Rules, Criteria, Security, Applications.
+:banner: rules-bg
 
 = Rules
 
