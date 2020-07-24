@@ -1715,7 +1715,7 @@ export const enTranslations: ResourceKey = {
     forms: "Formstack",
     reports: "Reports",
     token: {
-      text: "Token",
+      text: "API",
       tooltip: "Get an Integrates API Token",
     },
     user: {
