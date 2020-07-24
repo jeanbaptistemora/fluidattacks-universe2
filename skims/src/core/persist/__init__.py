@@ -1,4 +1,5 @@
 # Standard library
+import sys
 from typing import (
     Dict,
     Tuple,
@@ -13,6 +14,7 @@ from integrates.graphql import (
 )
 from integrates.dal import (
     get_finding_vulnerabilities,
+    get_group_level_role,
 )
 from integrates.domain import (
     do_build_and_upload_vulnerabilities,
@@ -111,6 +113,8 @@ async def persist(
 ) -> bool:
     create_session(api_token=token)
 
+    await verify_permissions(group=group)
+
     persisted_findings: Dict[FindingEnum, bool] = await materialize({
         finding: persist_finding(
             finding=finding,
@@ -129,3 +133,37 @@ async def persist(
     success: bool = all(persisted_findings.values())
 
     return success
+
+
+async def verify_permissions(*, group: str) -> bool:
+    success: bool = False
+
+    try:
+        role: str = await get_group_level_role(group=group)
+    except PermissionError as exc:
+        await log('critical', '%s: %s', type(exc).__name__, str(exc))
+        success = False
+    else:
+        allowed_roles: Tuple[str, ...] = (
+            'admin',
+            'analyst',
+        )
+
+        if role in allowed_roles:
+            await log('info', 'Your role in group %s is: %s', group, role)
+            success = True
+        else:
+            msg: str = ' '.join((
+                'Your role in group %s is: "%s".',
+                'This role has not enough privileges',
+                'for persisting results to Integrates.',
+                'You need one of the following roles: %s'
+            ))
+            await log('critical', msg, group, role, ', '.join(allowed_roles))
+            success = False
+
+    if not success:
+        # Critical, exit
+        sys.exit(1)
+
+    return True

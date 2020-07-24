@@ -3,7 +3,9 @@ from typing import (
     Any,
     Dict,
     NamedTuple,
+    Optional,
     Tuple,
+    Type,
 )
 
 # Local libraries
@@ -27,13 +29,36 @@ from utils.string import (
 )
 
 
+async def raise_errors(
+    errors: Optional[Tuple[Dict[str, Any], ...]],
+    exception_cls: Type[Exception],
+    exception_msg: str,
+    messages: Tuple[str, ...],
+) -> None:
+    if errors and any(error.get('message') in messages for error in errors):
+        raise exception_cls(exception_msg)
+
+    if errors:
+        for error in errors:
+            await log('error', '%s', error)
+    else:
+        # no errors happened
+        pass
+
+
 async def _execute(*, query: str, variables: Dict[str, Any]) -> Dict[str, Any]:
     response = await Session.value.execute(query=query, variables=variables)
 
     result: Dict[str, Any] = await response.json()
 
-    if 'errors' in result:
-        await log('error', '%s', result)
+    await raise_errors(
+        errors=result.get('errors'),
+        exception_cls=PermissionError,
+        exception_msg='Invalid API token',
+        messages=(
+            'Login required',
+        ),
+    )
 
     return result
 
@@ -61,7 +86,7 @@ async def get_group_level_role(
         )
     )
 
-    role: str = result['data']['me']['role']
+    role: str = result['data']['me']['role'] or 'none'
 
     return role
 
