@@ -1,11 +1,11 @@
 # Standard library
-from datetime import datetime
 import io
+import logging
 import os
+from datetime import datetime
 
 # Third party libraries
 from botocore.exceptions import ClientError
-import rollbar
 
 # Local libraries
 from backend.dal.helpers.s3 import CLIENT as S3_CLIENT  # type: ignore
@@ -15,6 +15,10 @@ from backend.utils import (
 from __init__ import (
     SERVICES_AWS_S3_DATA_BUCKET as SERVICES_DATA_BUCKET,
 )
+
+
+# Constants
+LOGGER = logging.getLogger(__name__)
 
 
 @apm.trace()
@@ -28,8 +32,8 @@ def get_bill_buffer(*, date: datetime, group: str) -> io.BytesIO:
 
     try:
         S3_CLIENT.download_fileobj(SERVICES_DATA_BUCKET, key, buffer)
-    except ClientError:
-        rollbar.report_exc_info()
+    except ClientError as ex:
+        LOGGER.exception(ex)
     else:
         buffer.seek(0)
 

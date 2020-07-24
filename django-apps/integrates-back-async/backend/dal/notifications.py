@@ -1,8 +1,8 @@
 # Standard library
 import contextlib
+import logging
 
 # Third party imports
-import rollbar
 from zenpy import Zenpy
 from zenpy.lib.exception import ZenpyException
 from zenpy.lib.api_objects import Ticket, User
@@ -15,6 +15,10 @@ from __init__ import (
 )
 
 
+# Constants
+LOGGER = logging.getLogger(__name__)
+
+
 @contextlib.contextmanager
 def zendesk() -> Zenpy:
     try:
@@ -24,7 +28,7 @@ def zendesk() -> Zenpy:
             token=FI_ZENDESK_TOKEN,
         )
     except ZenpyException as exception:
-        rollbar.report_exc_info()
+        LOGGER.exception(exception)
         raise exception
 
 
@@ -48,18 +52,18 @@ def create_ticket(
                 ),
             ))
 
-    except ZenpyException:
-        rollbar.report_exc_info()
+    except ZenpyException as exception:
+        LOGGER.exception(exception)
     else:
         success = True
-        rollbar.report_message(
+        LOGGER.info(
             'Zendesk ticket created',
-            level='debug',
-            extra_data=dict(
-                subject=subject,
-                description=description,
-                requester_email=requester_email,
-            ),
-        )
+            extra={
+                'extra': dict(
+                    subject=subject,
+                    description=description,
+                    requester_email=requester_email,
+                )
+            })
 
     return success

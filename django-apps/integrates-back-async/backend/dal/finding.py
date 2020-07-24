@@ -1,18 +1,19 @@
 """DAL functions for findings."""
-
+import logging
 from typing import cast, Dict, List
 
 import aioboto3
 from boto3.dynamodb.conditions import Key
-import rollbar
 from botocore.exceptions import ClientError
 
 from backend.typing import Finding as FindingType
 from backend.dal.helpers import s3, dynamodb
-from backend.utils import aio
 from __init__ import FI_AWS_S3_BUCKET
 
+
+# Constants
 DYNAMODB_RESOURCE = dynamodb.DYNAMODB_RESOURCE  # type: ignore
+LOGGER = logging.getLogger(__name__)
 TABLE = DYNAMODB_RESOURCE.Table('FI_findings')
 TABLE_NAME: str = 'FI_findings'
 
@@ -38,13 +39,7 @@ async def create(
         })
         success = await dynamodb.async_put_item(TABLE_NAME, finding_attrs)
     except ClientError as ex:
-        await aio.ensure_io_bound(
-            rollbar.report_message,
-            'Error: Couldn\'nt create draft',
-            'error',
-            extra_data=ex,
-            payload_data=locals()
-        )
+        LOGGER.exception(ex, extra={'extra': locals()})
     return success
 
 
@@ -76,13 +71,7 @@ async def update(finding_id: str, data: Dict[str, FindingType]) -> bool:
     try:
         success = await dynamodb.async_update_item(TABLE_NAME, update_attrs)
     except ClientError as ex:
-        await aio.ensure_io_bound(
-            rollbar.report_message,
-            'Error: Couldn\'nt update finding',
-            'error',
-            extra_data=ex,
-            payload_data=locals()
-        )
+        LOGGER.exception(ex, extra={'extra': locals()})
 
     return success
 
@@ -109,13 +98,7 @@ async def list_append(
         }
         success = await dynamodb.async_update_item(TABLE_NAME, update_attrs)
     except ClientError as ex:
-        await aio.ensure_io_bound(
-            rollbar.report_message,
-            'Error: Couldn\'nt update finding',
-            'error',
-            extra_data=ex,
-            payload_data=locals()
-        )
+        LOGGER.exception(ex, extra={'extra': locals()})
 
     return success
 

@@ -1,9 +1,14 @@
-from typing import Dict, List, Union
+import logging
 from decimal import Decimal
-import rollbar
+from typing import Dict, List, Union
+
 from botocore.exceptions import ClientError
 from backend.dal.helpers import dynamodb
+
+
+# Constants
 DYNAMODB_RESOURCE = dynamodb.DYNAMODB_RESOURCE  # type: ignore
+LOGGER = logging.getLogger(__name__)
 TABLE = DYNAMODB_RESOURCE.Table('fi_portfolios')
 
 
@@ -44,8 +49,8 @@ def update(organization: str, tag: str,
                 UpdateExpression='SET ' + ','.join(attributes),
                 ExpressionAttributeValues=values)
             success = response['ResponseMetadata']['HTTPStatusCode'] == 200
-    except ClientError:
-        rollbar.report_message('Error: Couldn\'nt update tag', 'error')
+    except ClientError as ex:
+        LOGGER.exception(ex, extra={'extra': locals()})
     return success
 
 

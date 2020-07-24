@@ -1,6 +1,7 @@
 """DAL functions for events."""
+import logging
 from typing import List
-import rollbar
+
 from boto3.dynamodb.conditions import Key
 from botocore.exceptions import ClientError
 from backend.dal.helpers import cloudfront, dynamodb, s3
@@ -12,7 +13,10 @@ from __init__ import (
     FI_CLOUDFRONT_RESOURCES_DOMAIN
 )
 
+
+# Constants
 DYNAMODB_RESOURCE = dynamodb.DYNAMODB_RESOURCE  # type: ignore
+LOGGER = logging.getLogger(__name__)
 TABLE = DYNAMODB_RESOURCE.Table('fi_events')
 TABLE_NAME = 'fi_events'
 
@@ -29,12 +33,7 @@ async def create(
         })
         success = await dynamodb.async_put_item(TABLE_NAME, event_attributes)
     except ClientError as ex:
-        rollbar.report_message(
-            'Error: Couldn\'nt create event',
-            'error',
-            extra_data=ex,
-            payload_data=locals()
-        )
+        LOGGER.exception(ex, extra={'extra': locals()})
     return success
 
 
@@ -66,12 +65,7 @@ async def update(event_id: str, data: EventType) -> bool:
     try:
         success = await dynamodb.async_update_item(TABLE_NAME, update_attrs)
     except ClientError as ex:
-        rollbar.report_message(
-            'Error: Couldn\'nt update event',
-            'error',
-            extra_data=ex,
-            payload_data=locals()
-        )
+        LOGGER.exception(ex, extra={'extra': locals()})
 
     return success
 

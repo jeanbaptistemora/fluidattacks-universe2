@@ -1,7 +1,7 @@
 """DAL functions for comments."""
-
+import logging
 from typing import List
-import rollbar
+
 from boto3.dynamodb.conditions import Attr, Key
 from botocore.exceptions import ClientError
 
@@ -10,8 +10,10 @@ from backend.typing import (
     Comment as CommentType,
     DynamoDelete as DynamoDeleteType
 )
-from backend.utils import aio
 
+
+# Constants
+LOGGER = logging.getLogger(__name__)
 TABLE_NAME: str = 'FI_comments'
 
 
@@ -23,12 +25,7 @@ async def create(comment_id: int, comment_attributes: CommentType) -> bool:
             TABLE_NAME, comment_attributes
         )
     except ClientError as ex:
-        rollbar.report_message(
-            'Error: Couldn\'nt create comment',
-            'error',
-            extra_data=ex,
-            payload_data=locals()
-        )
+        LOGGER.exception(ex, extra={'extra': locals()})
     return success
 
 
@@ -43,13 +40,7 @@ async def delete(finding_id: int, user_id: int) -> bool:
         )
         success = await dynamodb.async_delete_item(TABLE_NAME, delete_attrs)
     except ClientError as ex:
-        await aio.ensure_io_bound(
-            rollbar.report_message,
-            'Error: Couldn\'nt delete comment',
-            'error',
-            extra_data=ex,
-            payload_data=locals()
-        )
+        LOGGER.exception(ex, extra={'extra': locals()})
 
     return success
 

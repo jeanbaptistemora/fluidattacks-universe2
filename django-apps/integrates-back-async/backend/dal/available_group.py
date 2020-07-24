@@ -1,17 +1,20 @@
 # standard imports
-from typing import List, Dict
+import logging
 import uuid
+from typing import List, Dict
 
 # third-party imports
 import aioboto3
 from boto3.dynamodb.conditions import Key
 from botocore.exceptions import ClientError
-import rollbar
 
 # local imports
 from backend.exceptions import EmptyPoolGroupName
 from backend.dal.helpers import dynamodb
 
+
+# Constants
+LOGGER = logging.getLogger(__name__)
 RESOURCE_OPTIONS: Dict[str, str] = dynamodb.RESOURCE_OPTIONS  # type: ignore
 TABLE_NAME: str = dynamodb.TABLE_NAME  # type: ignore
 
@@ -33,12 +36,7 @@ async def create(group_name: str) -> bool:
             response = await table.put_item(Item=new_item)
             resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
         except ClientError as ex:
-            rollbar.report_message(
-                'Error: Couldn\'nt create group name',
-                'error',
-                extra_data=ex,
-                payload_data=locals()
-            )
+            LOGGER.exception(ex, extra={'extra': locals()})
     return resp
 
 
@@ -55,12 +53,7 @@ async def remove(group_name: str) -> bool:
             response = await table.delete_item(Key=primary_keys)
             resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
         except ClientError as ex:
-            rollbar.report_message(
-                'Error: Couldn\'nt remove group name',
-                'error',
-                extra_data=ex,
-                payload_data=locals()
-            )
+            LOGGER.exception(ex, extra={'extra': locals()})
     return resp
 
 
