@@ -1260,7 +1260,7 @@ def users_with_multiple_access_keys(key_id: str,
         safes=safes)
 
 
-@api(risk=MEDIUM, kind=DAST)
+@api(risk=HIGH, kind=DAST)
 @unknown_if(BotoCoreError, RequestException)
 def has_full_access_to_ssm(key_id: str,
                            secret: str,
@@ -1315,6 +1315,71 @@ def has_full_access_to_ssm(key_id: str,
                 aws.resource_all(sts['Resource']) and 'ssm:*' in sts['Action']
             (vulns if vulnerable else safes).append(
                 (policy['Arn'], 'has full access over ssm agent'))
+    return _get_result_as_tuple(
+        service='IAM',
+        objects='Policies',
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        vulns=vulns,
+        safes=safes)
+
+
+@api(risk=HIGH, kind=DAST)
+@unknown_if(BotoCoreError, RequestException)
+def allows_priv_escalation_by_policies_versions(key_id: str,
+                                                secret: str,
+                                                session_token: str = None,
+                                                retry: bool = True,
+                                                **boto3_kwargs):
+    """
+    Check if there are policy documents that allow privilege escalation.
+
+    A policy document with both iam:CreatePolicyVersion and
+    iam:SetDefaultPolicyVersion allows grantees to get full administrative
+    access over the AWS tenant.
+
+    :param key_id: AWS Key Id.
+    :param secret: AWS Key Secret.
+
+    :returns: - ``OPEN`` if there are policy documents that allow full
+                access to ssm.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+
+    :rtype: :class:`fluidasserts.Result`
+    """
+    msg_open = 'Allows privilege escalation by policies versions.'
+    msg_closed = 'Avoids privilege escalation by policies versions.'
+    vulns, safes = [], []
+    policies = aws.run_boto3_func(
+        key_id=key_id,
+        secret=secret,
+        boto3_client_kwargs={
+            'aws_session_token': session_token, **boto3_kwargs},
+        service='iam',
+        func='list_policies',
+        Scope='Local',
+        OnlyAttached=True)['Policies']
+
+    for policy in policies:
+        policy_version = aws.run_boto3_func(
+            key_id=key_id,
+            secret=secret,
+            boto3_client_kwargs={
+                'aws_session_token': session_token, **boto3_kwargs},
+            service='iam',
+            func='get_policy_version',
+            param='PolicyVersion',
+            PolicyArn=policy['Arn'],
+            VersionId=policy['DefaultVersionId'],
+            retry=retry)
+
+        for stm in aws.force_list(policy_version['Document']['Statement']):
+            vulnerable = stm['Effect'] == 'Allow' and 'Resource' in stm and \
+                'iam:CreatePolicyVersion' in stm['Action'] and \
+                'iam:SetDefaultPolicyVersion' in stm['Action']
+            (vulns if vulnerable else safes).append(
+                (policy['Arn'], 'allows privilege escalation'))
     return _get_result_as_tuple(
         service='IAM',
         objects='Policies',

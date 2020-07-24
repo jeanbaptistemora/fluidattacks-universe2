@@ -8,10 +8,12 @@ from contextlib import contextmanager
 
 # 3rd party imports
 import pytest
-pytestmark = pytest.mark.asserts_module('cloud_aws_api')
 
 # local imports
 from fluidasserts.cloud.aws import iam
+
+# pylint: disable=invalid-name
+pytestmark = pytest.mark.asserts_module('cloud_aws_api')
 
 
 # Constants
@@ -100,7 +102,7 @@ def test_group_with_inline_policies_open():
         AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY).is_open()
 
 
-def test_mfa_disabled_for_users_with_console_password_open():
+def test_mfa_disabled_users_console_password_open():
     """Search IAM users with with console password and MFA disabled."""
     assert iam.mfa_disabled_for_users_with_console_password(
         AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY).is_open()
@@ -127,6 +129,12 @@ def test_users_with_multiple_access_keys_open():
 def test_has_full_access_to_ssm_open():
     """Search policies that allow full access to SSM."""
     assert iam.has_full_access_to_ssm(
+        AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY).is_open()
+
+
+def test_allows_privesc_by_policies_versions_open():
+    """Search policies that allow privilege escalation."""
+    assert iam.allows_priv_escalation_by_policies_versions(
         AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY).is_open()
 
 
