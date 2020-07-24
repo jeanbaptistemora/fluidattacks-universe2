@@ -66,8 +66,7 @@ type Mutation {
 
     uploadFile(
         file: Upload!,
-        findingId: String!,
-        origin: String
+        findingId: String!
     ): SimplePayload!
     downloadVulnFile(
         findingId: String!

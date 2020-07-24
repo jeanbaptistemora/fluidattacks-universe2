@@ -208,6 +208,7 @@ type Vulnerability {
     findingId: String
     vulnType: String
     where: String
+    source: String
     specific: String
     historicState: [GenericScalar]
     historicVerification: [Verification]
