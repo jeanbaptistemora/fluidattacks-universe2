@@ -1,4 +1,5 @@
 # Standard library
+import logging
 import os
 from typing import (
     cast,
@@ -9,7 +10,6 @@ from typing import (
 # Third party libraries
 from asgiref.sync import async_to_sync
 from botocore.exceptions import ClientError
-import rollbar
 
 # Local libraries
 from backend.dal import (
@@ -25,6 +25,10 @@ from backend.reports.secure_pdf import SecurePDF
 from backend.typing import Finding as FindingType
 from backend.utils import reports as reports_utils
 from backend.utils.passphrase import get_passphrase
+
+
+# Constants
+LOGGER = logging.getLogger(__name__)
 
 
 def generate_pdf_file(
@@ -164,24 +168,15 @@ def download_evidences_for_pdf(findings: List[Dict[str, FindingType]]):
                         evidence['id'],
                         f'{path}/{evidence_id_2}',
                     )
-                except ClientError as download_evidence_error:
-                    payload_data = {
-                        'evidence_id': evidence["id"],
-                        'project_name': finding["projectName"]
-                    }
-                    extra_data = {
-                        'error': str(download_evidence_error)
-                    }
-                    msg = (
-                        'Error: Missing evidences in group while '
-                        'generating report.\n'
-                    )
-                    rollbar.report_message(
-                        msg,
-                        'error',
-                        payload_data=payload_data,
-                        extra_data=extra_data
-                    )
+                except ClientError as ex:
+                    LOGGER.exception(
+                        ex,
+                        extra={
+                            'extra': {
+                                'evidence_id': evidence["id"],
+                                'project_name': finding["projectName"]
+                            }
+                        })
                 evidence['name'] = (
                     f'image::../images/{evidence_id_2}'
                     '[align="center"]'

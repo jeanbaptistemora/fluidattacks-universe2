@@ -1,11 +1,16 @@
-from typing import Iterable, List, Dict, Union, cast
 import html
 import itertools
+import logging
 from operator import itemgetter
-import rollbar
+from typing import Iterable, List, Dict, Union, cast
+
 from backend.dal import vulnerability as vuln_dal
 from backend.exceptions import InvalidRange
 from backend.typing import Finding as FindingType
+
+
+# Constants
+LOGGER = logging.getLogger(__name__)
 
 
 def format_data(vuln: Dict[str, FindingType]) -> Dict[str, FindingType]:
@@ -174,14 +179,14 @@ def format_vulnerabilities(vulnerabilities: List[Dict[str, FindingType]]) -> \
                 'state': str(current_state)
             })
         else:
-            payload_data = {
-                'vuln_uuid': vuln.get("UUID"),
-                'finding_id': vuln.get("finding_id")
-            }
-            msg = (
-                'Error: Vulnerability of finding  does not have the right type'
-            )
-            rollbar.report_message(msg, 'error', payload_data=payload_data)
+            LOGGER.error(
+                'Vulnerability does not have the right type',
+                extra={
+                    'extra': {
+                        'vuln_uuid': vuln.get("UUID"),
+                        'finding_id': vuln.get("finding_id")
+                    }
+                })
     return finding
 
 

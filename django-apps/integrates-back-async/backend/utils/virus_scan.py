@@ -1,6 +1,7 @@
+import logging
 import tempfile
+
 import cloudmersive_virus_api_client
-import rollbar
 from cloudmersive_virus_api_client.rest import ApiException
 from django.core.files.uploadedfile import InMemoryUploadedFile
 
@@ -11,10 +12,12 @@ from __init__ import (
 )
 
 
+# Constants
 API_CONFIGURATION = cloudmersive_virus_api_client.Configuration()
 API_CONFIGURATION.api_key['Apikey'] = FI_CLOUDMERSIVE_API_KEY
 API_CLIENT = cloudmersive_virus_api_client.ScanApi(
     cloudmersive_virus_api_client.ApiClient(API_CONFIGURATION))
+LOGGER = logging.getLogger(__name__)
 
 
 def scan_file(
@@ -41,20 +44,7 @@ def scan_file(
             tmp_file.close()
             file_object.seek(0)
             if not api_response.clean_result:
-                extra_data = {
-                    'api_response': str(api_response)
-                }
-                msg = (
-                    'Report: Cloudmersive VirusScan file infected for user '
-                    'in project'
-                )
-                rollbar.report_message(
-                    msg, payload_data=payload_data, extra_data=extra_data)
+                LOGGER.error('File infected', extra={'extra': payload_data})
                 raise FileInfected()
         except ApiException as api_error:
-            extra_data = {
-                'error': str(api_error)
-            }
-            msg = 'Error: Cloudmersive VirusScan API error for user in project'
-            rollbar.report_message(
-                msg, payload_data=payload_data, extra_data=extra_data)
+            LOGGER.exception(api_error, extra={'extra': payload_data})
