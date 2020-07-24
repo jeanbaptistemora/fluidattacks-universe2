@@ -715,6 +715,8 @@ def exec_aws_package(credentials: List[str], enable_multiprocessing: bool):
             iam.users_with_password_and_access_keys('{key}', '{secret}')
             iam.has_full_access_to_ssm('{key}', '{secret}')
             iam.users_with_multiple_access_keys('{key}', '{secret}')
+            iam.allows_priv_escalation_by_policies_versions('{key}','{secret}')
+            iam.allows_priv_escalation_by_attach_policy('{key}', '{secret}')
             """,
         ('kms', 'Key Management Service'): """
             kms.has_key_rotation_disabled('{key}', '{secret}')

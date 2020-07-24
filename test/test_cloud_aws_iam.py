@@ -340,3 +340,12 @@ def test_not_support_role_close():
     with no_connection():
         assert not iam.has_not_support_role(
             AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, retry=False)
+
+
+def test_not_privescal_by_attaching_pol_close():
+    """Search policies that allow privilege escalation."""
+    assert not iam.allows_priv_escalation_by_attach_policy(
+        AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY_BAD, retry=False)
+    with no_connection():
+        assert not iam.allows_priv_escalation_by_attach_policy(
+            AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, retry=False)
