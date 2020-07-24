@@ -112,7 +112,7 @@ async def create_file(
     except InvalidFileSize:
         rollbar.report_message('Error: File exceeds size limit', 'error')
     files = await project_dal.get_attributes(project_name, ['files'])
-    project_files = cast(List[ResourceType], files.get('files'))
+    project_files = cast(List[ResourceType], files.get('files', []))
     if project_files:
         contains_repeated = [
             f.get('fileName')
