@@ -27,6 +27,39 @@
   {% endif %}
 {% endblock title %}
 
+{% block breadcrumb%}
+  <!-- navcontent-container -->
+<div class="pv0">
+  <!-- navcontent-info -->
+  <div class="df ma-auto bg-fluid-black">
+    <div class="roboto f6-l f7 tl mw9 ml-auto mr-auto">
+      <ul class="dib list w-auto mh3-l pl0-l pl3 ml1">
+        <li class="dib mt0">
+          <a class="c-fluid-gray hover-white no-underline"
+             href="{{ SITEURL }}/">
+            Home
+          </a>
+          <span class="c-fluid-gray v-mid b"> / </span>
+        </li>
+        <li class="dib mt0">
+          <a class="c-fluid-gray hover-white no-underline"
+             href="{{ SITEURL }}/use-cases/continuous-hacking/">
+            Use Cases
+          </a>
+          <span class="c-fluid-gray v-mid b"> / </span>
+        </li>
+        <li class="dib mt0">
+          <a class="white hover-white no-underline"
+             href=".">
+            One Shot Hacking
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+{% endblock breadcrumb %}
+
 {% block header %}
 <div
   class="one-shot-bg bg-banner-sz coverm cover-s banner-height justify-center items-center flex bg-center">
