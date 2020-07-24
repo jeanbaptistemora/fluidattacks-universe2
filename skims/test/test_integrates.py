@@ -10,6 +10,7 @@ from integrates.graphql import (
 )
 from integrates.dal import (
     do_create_draft,
+    do_update_finding_severity,
     do_upload_vulnerabilities,
     get_finding_vulnerabilities,
     get_group_findings,
@@ -24,6 +25,7 @@ from model import (
     FindingEnum,
     IntegratesVulnerabilitiesLines,
     KindEnum,
+    SeverityEnum,
     Vulnerability,
     VulnerabilityStateEnum,
 )
@@ -63,26 +65,31 @@ async def test_get_group_level_role(
 
 @pytest.mark.asyncio  # type: ignore
 async def test_statefull(
-    test_finding_title: str,
+    test_finding: FindingEnum,
     test_group: str,
     test_token: str,
 ) -> None:
     finding_id: str = await get_closest_finding_id(
         create_if_missing=True,
+        finding=test_finding,
         group=test_group,
-        title=test_finding_title,
     )
 
     assert finding_id
     assert finding_id == await get_closest_finding_id(
         create_if_missing=False,
+        finding=test_finding,
         group=test_group,
-        title=test_finding_title,
+    )
+
+    assert await do_update_finding_severity(
+        finding_id=finding_id,
+        severity=SeverityEnum.F0034,
     )
 
     assert ResultGetGroupFindings(
         identifier=finding_id,
-        title=test_finding_title,
+        title=test_finding.value,
     ) in await get_group_findings(group=test_group)
 
     assert await do_upload_vulnerabilities(

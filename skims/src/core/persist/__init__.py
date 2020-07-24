@@ -74,8 +74,8 @@ async def persist_finding(
 
     finding_id: str = await get_closest_finding_id(
         create_if_missing=True,
+        finding=finding,
         group=group,
-        title=finding.value,
     )
 
     if finding_id:

@@ -16,6 +16,9 @@ from integrates.graphql import (
 from integrates.domain import (
     delete_closest_findings,
 )
+from model import (
+    FindingEnum,
+)
 
 
 @pytest.fixture(scope='session', autouse=True)  # type: ignore
@@ -26,18 +29,18 @@ def event_loop() -> Iterator[asyncio.AbstractEventLoop]:
 
 
 @pytest.fixture(scope='session', autouse=True)  # type: ignore
-async def test_finding_title(
+async def test_finding(
     test_group: str,
     test_integrates_session: None,
-) -> AsyncIterator[str]:
-    title: str = 'F.S.0. test finding, please delete'
+) -> AsyncIterator[FindingEnum]:
+    finding = FindingEnum.F0034
 
     await delete_closest_findings(
+        finding=finding,
         group=test_group,
-        title=title,
     )
 
-    yield title
+    yield finding
 
 
 @pytest.fixture(scope='session')  # type: ignore

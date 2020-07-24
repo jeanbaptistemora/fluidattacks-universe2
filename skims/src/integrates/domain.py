@@ -9,13 +9,16 @@ from typing import (
 from integrates.dal import (
     do_create_draft,
     do_delete_finding,
+    do_update_finding_severity,
     do_upload_vulnerabilities,
     get_group_findings,
     ResultGetGroupFindings,
 )
 from model import (
+    FindingEnum,
     IntegratesVulnerabilitiesLines,
     KindEnum,
+    SeverityEnum,
     Vulnerability,
 )
 from utils.aio import (
@@ -61,27 +64,31 @@ async def build_vulnerabilities_stream(
 async def get_closest_finding_id(
     *,
     create_if_missing: bool = False,
+    finding: FindingEnum,
     group: str,
-    title: str,
 ) -> str:
-    findings: Tuple[ResultGetGroupFindings, ...] = \
+    existing_findings: Tuple[ResultGetGroupFindings, ...] = \
         await get_group_findings(group=group)
 
-    for finding in findings:
-        if are_similar(title, finding.title):
-            return finding.identifier
+    for existing_finding in existing_findings:
+        if are_similar(finding.value, existing_finding.title):
+            return existing_finding.identifier
 
     # No similar finding has been found at this point
 
     if create_if_missing:
         if await do_create_draft(
+            finding=finding,
             group=group,
-            title=title,
         ):
             finding_id: str = await get_closest_finding_id(
                 create_if_missing=False,
+                finding=finding,
                 group=group,
-                title=title,
+            )
+            await do_update_finding_severity(
+                finding_id=finding_id,
+                severity=getattr(SeverityEnum, finding.name),
             )
         else:
             finding_id = ''
@@ -91,13 +98,13 @@ async def get_closest_finding_id(
     return finding_id
 
 
-async def delete_closest_findings(*, group: str, title: str) -> bool:
+async def delete_closest_findings(*, group: str, finding: FindingEnum) -> bool:
     success: bool = True
 
     while True:
         finding_id: str = await get_closest_finding_id(
+            finding=finding,
             group=group,
-            title=title,
         )
 
         if finding_id:

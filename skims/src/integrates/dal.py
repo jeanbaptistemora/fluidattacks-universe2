@@ -15,6 +15,7 @@ from integrates.graphql import (
 from model import (
     FindingEnum,
     KindEnum,
+    SeverityEnum,
     Vulnerability,
     VulnerabilityStateEnum,
 )
@@ -176,8 +177,8 @@ async def get_finding_vulnerabilities(
 @retry()
 async def do_create_draft(
     *,
+    finding: FindingEnum,
     group: str,
-    title: str,
 ) -> bool:
     result = await _execute(
         query="""
@@ -195,7 +196,7 @@ async def do_create_draft(
         """,
         variables=dict(
             group=group,
-            title=title,
+            title=finding.value,
         )
     )
 
@@ -232,6 +233,41 @@ async def do_delete_finding(
     success: bool = result['data']['deleteFinding']['success']
 
     await log('warn', 'Deleting finding: %s, success: %s', finding_id, success)
+
+    return success
+
+
+@retry()
+async def do_update_finding_severity(
+    *,
+    finding_id: str,
+    severity: SeverityEnum,
+) -> bool:
+    result = await _execute(
+        query="""
+            mutation DoUpdateSeverity(
+                $finding_id: String!
+                $data: GenericScalar!
+            ) {
+                updateSeverity(
+                    findingId: $finding_id
+                    data: $data
+                ) {
+                    success
+                }
+            }
+        """,
+        variables=dict(
+            finding_id=finding_id,
+            data=dict(
+                cvssVersion='3.1',
+                id=finding_id,
+                **severity.value,
+            ),
+        )
+    )
+
+    success: bool = result['data']['updateSeverity']['success']
 
     return success
 
