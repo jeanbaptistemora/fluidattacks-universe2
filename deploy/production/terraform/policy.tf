@@ -8,7 +8,6 @@ data "aws_iam_policy_document" "web-bucket-policy-data" {
     }
     actions = [
       "s3:GetObject",
-      "s3:ListBucket",
     ]
     resources = [
       "arn:aws:s3:::web.fluidattacks.com/*",
