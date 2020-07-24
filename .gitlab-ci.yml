@@ -689,4 +689,11 @@ forces_test:
 forces_deploy:
   <<: *with_nix
   <<: *forces_in_master_branch
+  stage: build
+
+forces_deploy_to_docker_hub:
+  <<: *with_nix
+  <<: *forces_in_master_branch
   stage: deploy-app
+  needs:
+    - forces_deploy

@@ -65,3 +65,23 @@ function job_forces_deploy {
   &&  popd \
   ||  return 1
 }
+
+
+function job_forces_deploy_to_docker_hub {
+  export DOCKER_HUB_USER
+  export DOCKER_HUB_PASS
+  local image_name="fluidattacks/forces"
+  echo "[INFO] Logging in to Docker Hub" \
+  &&  docker login "${DOCKER_HUB_URL}" \
+      --username "${DOCKER_HUB_USER}" \
+      --password-stdin \
+      <<< "${DOCKER_HUB_PASS}" \
+  && pushd forces \
+    && docker build  \
+          --tag "$image_name" \
+          -f "Dockerfile" \
+          . \
+    &&  docker push "${image_name}" \
+  && popd \
+  || return 1
+}
