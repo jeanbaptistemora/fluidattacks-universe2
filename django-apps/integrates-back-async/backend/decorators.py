@@ -7,7 +7,7 @@ import functools
 import inspect
 import logging
 import re
-from typing import Any, Callable, Dict
+from typing import Any, Callable, Dict, cast, TypeVar
 
 from asgiref.sync import async_to_sync, sync_to_async
 from django.conf import settings
@@ -42,6 +42,7 @@ from backend.utils import (
 # Constants
 CACHE_TTL = getattr(settings, 'CACHE_TTL', DEFAULT_TIMEOUT)
 LOGGER = logging.getLogger(__name__)
+TVar = TypeVar('TVar')
 
 UNAUTHORIZED_ROLE_MSG = (
     'Security: Unauthorized role '
@@ -49,46 +50,54 @@ UNAUTHORIZED_ROLE_MSG = (
 )
 
 
-def authenticate(func: Callable[..., Any]) -> Callable[..., Any]:
-    @functools.wraps(func)
-    def authenticate_and_call(*args, **kwargs) -> Callable[..., Any]:
+def authenticate(func: TVar) -> TVar:
+
+    _func = cast(Callable[..., Any], func)
+
+    @functools.wraps(_func)
+    def authenticate_and_call(*args: Any, **kwargs: Any) -> Any:
         request = args[0]
-        if "username" not in request.session or \
-                request.session["username"] is None:
+        if ("username" not in request.session or
+                request.session["username"] is None):
             parameters: Dict[str, str] = dict()
             return render(request, 'unauthorized.html', parameters)
-        return func(*args, **kwargs)
-    return authenticate_and_call
+        return _func(*args, **kwargs)
+    return cast(TVar, authenticate_and_call)
 
 
 # Access control decorators for GraphQL
-def verify_csrf(func: Callable[..., Any]) -> Callable[..., Any]:
+def verify_csrf(func: TVar) -> TVar:
     """
     Conditional CSRF decorator
 
     Enables django CSRF protection if using cookie-based authentication
     """
-    @functools.wraps(func)
-    def verify_and_call(*args, **kwargs) -> Callable[..., Any]:
+
+    _func = cast(Callable[..., Any], func)
+
+    @functools.wraps(_func)
+    def verify_and_call(*args: Any, **kwargs: Any) -> Any:
         request = args[0]
         if request.COOKIES.get(settings.JWT_COOKIE_NAME):
             ret = csrf_protect(func)(*args, **kwargs)
         else:
-            ret = func(*args, **kwargs)
+            ret = _func(*args, **kwargs)
         return ret
-    return verify_and_call
+    return cast(TVar, verify_and_call)
 
 
-def require_login(func: Callable[..., Any]) -> Callable[..., Any]:
+def require_login(func: TVar) -> TVar:
     """
     Require_login decorator
 
     Verifies that the user is logged in with a valid JWT
     """
 
+    _func = cast(Callable[..., Any], func)
+
     @apm.trace(overridden_function=require_login)
-    @functools.wraps(func)
-    def verify_and_call(*args, **kwargs) -> Callable[..., Any]:
+    @functools.wraps(_func)
+    def verify_and_call(*args: Any, **kwargs: Any) -> Any:
         # The underlying request object being served
         context = args[1].context if len(args) > 1 else args[0]
 
@@ -102,11 +111,11 @@ def require_login(func: Callable[..., Any]) -> Callable[..., Any]:
                 )
         except InvalidAuthorization:
             raise GraphQLError('Login required')
-        return func(*args, **kwargs)
+        return _func(*args, **kwargs)
     return verify_and_call
 
 
-async def resolve_project_name(args, kwargs) -> str:  # noqa: MC0001
+async def resolve_project_name(args: Any, kwargs: Any) -> str:  # noqa: MC0001
     """Get project name based on args passed."""
     if args and hasattr(args[0], 'name'):
         project_name = args[0].name
@@ -129,21 +138,22 @@ async def resolve_project_name(args, kwargs) -> str:  # noqa: MC0001
     elif settings.DEBUG:
         raise Exception('Unable to identify project')
     else:
-        project_name = None
+        project_name = ''
 
     if isinstance(project_name, str):
         project_name = project_name.lower()
 
-    return project_name
+    return cast(str, project_name)
 
 
-def enforce_group_level_auth_async(func: Callable[..., Any]) -> \
-        Callable[..., Any]:
+def enforce_group_level_auth_async(func: TVar) -> TVar:
     """Enforce authorization using the group-level role."""
 
+    _func = cast(Callable[..., Any], func)
+
     @apm.trace(overridden_function=enforce_group_level_auth_async)
-    @functools.wraps(func)
-    async def verify_and_call(*args, **kwargs) -> Callable[..., Any]:
+    @functools.wraps(_func)
+    async def verify_and_call(*args: Any, **kwargs: Any) -> Any:
         if hasattr(args[0], 'context'):
             context = args[0].context
         elif hasattr(args[1], 'context'):
@@ -155,7 +165,7 @@ def enforce_group_level_auth_async(func: Callable[..., Any]) -> \
 
         subject = user_data['user_email']
         object_ = await resolve_project_name(args, kwargs)
-        action = f'{func.__module__}.{func.__qualname__}'.replace('.', '_')
+        action = f'{_func.__module__}.{_func.__qualname__}'.replace('.', '_')
 
         if not object_:
             LOGGER.error(
@@ -175,16 +185,17 @@ def enforce_group_level_auth_async(func: Callable[..., Any]) -> \
         if not await enforcer(subject, object_, action):
             util.cloudwatch_log(context, UNAUTHORIZED_ROLE_MSG)
             raise GraphQLError('Access denied')
-        return await func(*args, **kwargs)
+        return await _func(*args, **kwargs)
     return verify_and_call
 
 
-def enforce_organization_level_auth_async(func: Callable[..., Any]) -> \
-        Callable[..., Any]:
+def enforce_organization_level_auth_async(func: TVar) -> TVar:
     """Enforce authorization using the organization-level role."""
 
-    @functools.wraps(func)
-    async def verify_and_call(*args, **kwargs) -> Callable[..., Any]:
+    _func = cast(Callable[..., Any], func)
+
+    @functools.wraps(_func)
+    async def verify_and_call(*args: Any, **kwargs: Any) -> Any:
         if hasattr(args[0], 'context'):
             context = args[0].context
         elif hasattr(args[1], 'context'):
@@ -206,7 +217,7 @@ def enforce_organization_level_auth_async(func: Callable[..., Any]) -> \
 
         subject = user_data['user_email']
         object_ = organization_id.lower()
-        action = f'{func.__module__}.{func.__qualname__}'.replace('.', '_')
+        action = f'{_func.__module__}.{_func.__qualname__}'.replace('.', '_')
 
         if not object_:
             LOGGER.error(
@@ -224,15 +235,17 @@ def enforce_organization_level_auth_async(func: Callable[..., Any]) -> \
         if not await enforcer(subject, object_, action):
             util.cloudwatch_log(context, UNAUTHORIZED_ROLE_MSG)
             raise GraphQLError('Access denied')
-        return await func(*args, **kwargs)
-    return verify_and_call
+        return await _func(*args, **kwargs)
+    return cast(TVar, verify_and_call)
 
 
-def enforce_user_level_auth_async(func: Callable[..., Any]) -> \
-        Callable[..., Any]:
+def enforce_user_level_auth_async(func: TVar) -> TVar:
     """Enforce authorization using the user-level role."""
-    @functools.wraps(func)
-    async def verify_and_call(*args, **kwargs) -> Callable[..., Any]:
+
+    _func = cast(Callable[..., Any], func)
+
+    @functools.wraps(_func)
+    async def verify_and_call(*args: Any, **kwargs: Any) -> Any:
         if hasattr(args[0], 'context'):
             context = args[0].context
         elif hasattr(args[1], 'context'):
@@ -244,7 +257,7 @@ def enforce_user_level_auth_async(func: Callable[..., Any]) -> \
 
         subject = user_data['user_email']
         object_ = 'self'
-        action = f'{func.__module__}.{func.__qualname__}'.replace('.', '_')
+        action = f'{_func.__module__}.{_func.__qualname__}'.replace('.', '_')
 
         enforcer = await aio.ensure_io_bound(
             authz.get_user_level_enforcer,
@@ -254,8 +267,8 @@ def enforce_user_level_auth_async(func: Callable[..., Any]) -> \
         if not await enforcer(subject, object_, action):
             util.cloudwatch_log(context, UNAUTHORIZED_ROLE_MSG)
             raise GraphQLError('Access denied')
-        return await func(*args, **kwargs)
-    return verify_and_call
+        return await _func(*args, **kwargs)
+    return cast(TVar, verify_and_call)
 
 
 def verify_jti(email: str, context: Dict[str, str], jti: str) -> None:
@@ -263,13 +276,15 @@ def verify_jti(email: str, context: Dict[str, str], jti: str) -> None:
         raise InvalidAuthorization()
 
 
-def require_attribute(attribute: str):
+def require_attribute(attribute: str) -> Callable[[TVar], TVar]:
 
-    def wrapper(function: Callable) -> Callable:
+    def wrapper(func: TVar) -> TVar:
+
+        _func = cast(Callable[..., Any], func)
 
         @apm.trace(overridden_function=require_attribute)
-        @functools.wraps(function)
-        async def resolve_and_call(*args, **kwargs):
+        @functools.wraps(_func)
+        async def resolve_and_call(*args: Any, **kwargs: Any) -> Any:
             group = await resolve_project_name(args, kwargs)
 
             enforcer = authz.get_group_service_attributes_enforcer(group)
@@ -277,27 +292,28 @@ def require_attribute(attribute: str):
             if not await enforcer(attribute):
                 raise GraphQLError('Access denied')
 
-            return await function(*args, **kwargs)
+            return await _func(*args, **kwargs)
 
         return resolve_and_call
 
     return wrapper
 
 
-def require_integrates(function: Callable) -> Callable:
-    return require_attribute('has_integrates')(function)
+def require_integrates(func: TVar) -> TVar:
+    return require_attribute('has_integrates')(func)
 
 
-def require_organization_access(
-    func: Callable[..., Any]
-) -> Callable[..., Any]:
+def require_organization_access(func: TVar) -> TVar:
     """
     Decorator
     Verifies that the user trying to fetch information belongs to the
     organization
     """
-    @functools.wraps(func)
-    async def verify_and_call(*args, **kwargs) -> Callable[..., Any]:
+
+    _func = cast(Callable[..., Any], func)
+
+    @functools.wraps(_func)
+    async def verify_and_call(*args: Any, **kwargs: Any) -> Any:
         if hasattr(args[0], 'context'):
             context = args[0].context
         elif hasattr(args[1], 'context'):
@@ -330,18 +346,21 @@ def require_organization_access(
                 f'organization {organization_identifier} without permission'
             )
             raise UserNotInOrganization()
-        return await func(*args, **kwargs)
-    return verify_and_call
+        return await _func(*args, **kwargs)
+    return cast(TVar, verify_and_call)
 
 
-def require_finding_access(func: Callable[..., Any]) -> Callable[..., Any]:
+def require_finding_access(func: TVar) -> TVar:
     """
     Require_finding_access decorator.
 
     Verifies that the current user has access to a given finding
     """
-    @functools.wraps(func)
-    async def verify_and_call(*args, **kwargs) -> Callable[..., Any]:
+
+    _func = cast(Callable[..., Any], func)
+
+    @functools.wraps(_func)
+    async def verify_and_call(*args: Any, **kwargs: Any) -> Any:
         context = args[1].context
         finding_id = (
             kwargs.get('finding_id', '')
@@ -359,14 +378,17 @@ def require_finding_access(func: Callable[..., Any]) -> Callable[..., Any]:
         if not await finding_domain.validate_finding(finding_id):
             raise FindingNotFound()
 
-        return await func(*args, **kwargs)
-    return verify_and_call
+        return await _func(*args, **kwargs)
+    return cast(TVar, verify_and_call)
 
 
-def cache_content(func: Callable[..., Any]) -> Callable[..., Any]:
+def cache_content(func: TVar) -> TVar:
     """Get cached content from a django view with a request object."""
-    @functools.wraps(func)
-    def decorated(*args, **kwargs) -> Callable[..., Any]:
+
+    _func = cast(Callable[..., Any], func)
+
+    @functools.wraps(_func)
+    def decorated(*args: Any, **kwargs: Any) -> Any:
         """Get cached content from a django view with a request object."""
         req = args[0]
         assert isinstance(req, HttpRequest)
@@ -409,28 +431,30 @@ def cache_content(func: Callable[..., Any]) -> Callable[..., Any]:
                 for x in kwargs
             ])
         key_name = (
-            f'{func.__module__.replace(".", "_")}_'
-            f'{func.__qualname__}_{uniq_id}'
+            f'{_func.__module__.replace(".", "_")}_'
+            f'{_func.__qualname__}_{uniq_id}'
         )
         try:
             ret = cache.get(key_name)
             if ret:
                 return ret
-            ret = func(*args, **kwargs)
+            ret = _func(*args, **kwargs)
             cache.set(key_name, ret, timeout=CACHE_TTL)
             return ret
         except RedisClusterException as ex:
             LOGGER.exception(ex)
-            return func(*args, **kwargs)
-    return decorated
+            return _func(*args, **kwargs)
+    return cast(TVar, decorated)
 
 
-def get_entity_cache_async(func: Callable[..., Any]) -> Callable[..., Any]:
+def get_entity_cache_async(func: TVar) -> TVar:
     """Get cached response of a GraphQL entity if it exists."""
 
+    _func = cast(Callable[..., Any], func)
+
     @apm.trace(overridden_function=get_entity_cache_async)
-    @functools.wraps(func)
-    async def decorated(*args, **kwargs) -> Callable[..., Any]:
+    @functools.wraps(_func)
+    async def decorated(*args: Any, **kwargs: Any) -> Any:
         """Get cached response from function if it exists."""
         gql_ent = args[0]
 
@@ -450,15 +474,15 @@ def get_entity_cache_async(func: Callable[..., Any]) -> Callable[..., Any]:
         ]) + '_'
         complement = (params if kwargs else '') + uniq_id
         key_name = (
-            f'{func.__module__.replace(".", "_")}_'
-            f'{func.__qualname__}_{complement}'
+            f'{_func.__module__.replace(".", "_")}_'
+            f'{_func.__qualname__}_{complement}'
         )
         key_name = key_name.lower()
         try:
             ret = await aio.ensure_io_bound(cache.get, key_name)
 
             if ret is None:
-                ret = await func(*args, **kwargs)
+                ret = await _func(*args, **kwargs)
 
                 await aio.ensure_io_bound(
                     cache.set, key_name, ret, timeout=CACHE_TTL,
@@ -466,53 +490,58 @@ def get_entity_cache_async(func: Callable[..., Any]) -> Callable[..., Any]:
             return ret
         except RedisClusterException as ex:
             LOGGER.exception(ex)
-            return await func(*args, **kwargs)
+            return await _func(*args, **kwargs)
 
     return decorated
 
 
-def rename_kwargs(mapping: Dict[str, str]) -> Callable[..., Any]:
+def rename_kwargs(mapping: Dict[str, str]) -> Callable[[TVar], TVar]:
     """Decorator to rename function's kwargs.
 
     Useful to perform breaking changes,
     with backwards compatibility.
     """
 
-    def wrapped(func: Callable[..., Any]) -> Callable[..., Any]:
-        @functools.wraps(func)
-        def decorated(*args, **kwargs) -> Callable[..., Any]:
+    def wrapped(func: TVar) -> TVar:
+
+        _func = cast(Callable[..., Any], func)
+
+        @functools.wraps(_func)
+        def decorated(*args: Any, **kwargs: Any) -> Any:
             kwargs = {
                 mapping.get(key, key): val
                 for key, val in kwargs.items()
             }
-            return func(*args, **kwargs)
+            return _func(*args, **kwargs)
 
-        return decorated
+        return cast(TVar, decorated)
 
     return wrapped
 
 
-def cache_idempotent(*, ttl: int) -> Callable:
+def cache_idempotent(*, ttl: int) -> Callable[[TVar], TVar]:
 
-    def decorator(function: Callable) -> Callable:
+    def decorator(func: TVar) -> TVar:
+
+        _func = cast(Callable[..., Any], func)
 
         @apm.trace(overridden_function=cache_idempotent)
-        @functools.wraps(function)
-        async def wrapper(*args, **kwargs) -> Callable[..., Any]:
-            signature = inspect.signature(function).bind(*args, **kwargs)
+        @functools.wraps(_func)
+        async def wrapper(*args: Any, **kwargs: Any) -> Any:
+            signature = inspect.signature(_func).bind(*args, **kwargs)
 
             cache_key_from_args = ''.join(
                 f'{arg}_{value}' for arg, value in signature.arguments.items()
             )
             cache_key_from_func = \
-                f'{function.__module__}.{function.__qualname__}'
+                f'{_func.__module__}.{_func.__qualname__}'
             cache_key = f'{cache_key_from_func}:{cache_key_from_args}'
 
             try:
                 ret = await aio.ensure_io_bound(cache.get, cache_key)
 
                 if ret is None:
-                    ret = await function(*args, **kwargs)
+                    ret = await _func(*args, **kwargs)
 
                     await aio.ensure_io_bound(
                         cache.set, cache_key, ret, timeout=ttl,
@@ -520,14 +549,14 @@ def cache_idempotent(*, ttl: int) -> Callable:
                 return ret
             except RedisClusterException as ex:
                 LOGGER.exception(ex)
-                return await function(*args, **kwargs)
+                return await _func(*args, **kwargs)
 
-        return wrapper
+        return cast(TVar, wrapper)
 
     return decorator
 
 
-def turn_args_into_kwargs(function: Callable):
+def turn_args_into_kwargs(func: TVar) -> TVar:
     """Turn function's positional-arguments into keyword-arguments.
 
     Very useful when you want to keep an strongly typed signature in your
@@ -537,46 +566,52 @@ def turn_args_into_kwargs(function: Callable):
     This avoids functions with a typeless **parameters, and then 50 lines
     unpacking the arguments and casting them to the expected types.
     """
-    @functools.wraps(function)
-    async def new_function(*args, **kwargs):
+
+    _func = cast(Callable[..., Any], func)
+
+    @functools.wraps(_func)
+    async def newfunc(*args: Any, **kwargs: Any) -> Any:
         # The first two arguments are django's self, and info references
         #   They can be safely left intact
 
         args_as_kwargs = dict(zip(
-            inspect.getfullargspec(function).args[2:], args[2:]
+            inspect.getfullargspec(_func).args[2:], args[2:]
         ))
 
-        return await function(*args[0:2], **args_as_kwargs, **kwargs)
+        return await _func(*args[0:2], **args_as_kwargs, **kwargs)
 
-    return new_function
+    return cast(TVar, newfunc)
 
 
-def shield(function: Callable):
+def shield(func: TVar) -> TVar:
     """Catches and reports general Exceptions raised in decorated function"""
-    async def report(exception: Exception):
+
+    _func = cast(Callable[..., Any], func)
+
+    async def report(exception: Exception) -> None:
         LOGGER.error(
             'Shielded function raised a generic Exception',
             extra={
                 'extra': {
                     'exception': exception,
-                    'function': function.__name__,
+                    'function': _func.__name__,
                 }
             })
 
-    if asyncio.iscoroutinefunction(function):
-        @functools.wraps(function)
-        async def shielded_function(*args, **kwargs):
+    if asyncio.iscoroutinefunction(_func):
+        @functools.wraps(_func)
+        async def shieldedfunc(*args: Any, **kwargs: Any) -> Any:
             try:
-                return await function(*args, **kwargs)
+                return await _func(*args, **kwargs)
             except Exception as exception:  # pylint: disable=broad-except
                 report(exception)
 
     else:
-        @functools.wraps(function)
-        def shielded_function(*args, **kwargs):
+        @functools.wraps(_func)
+        def shieldedfunc(*args: Any, **kwargs: Any) -> Any:
             try:
-                return function(*args, **kwargs)
+                return _func(*args, **kwargs)
             except Exception as exception:  # pylint: disable=broad-except
                 async_to_sync(report)(exception)
 
-    return shielded_function
+    return cast(TVar, shieldedfunc)
