@@ -1602,13 +1602,16 @@ def can_brute_force(url: str, ok_regex: str, user_field: str, pass_field: str,
     session = http.HTTPSession(url, *args, **kwargs)
 
     is_vulnerable: bool = False
+    specific = [user_field, pass_field]
     for _datas in dataset:
         kwargs[query_param] = _datas
 
         sess = http.HTTPSession(url, *args, **kwargs)
 
         if ok_regex in sess.response.text:
+            specific = [f'{x} = {y}' for x, y in _datas.items()]
             is_vulnerable = True
+            break
 
     session.set_messages(
         source='HTTP/Request/Limit',
@@ -1616,7 +1619,7 @@ def can_brute_force(url: str, ok_regex: str, user_field: str, pass_field: str,
         msg_closed='Brute forcing is not possible')
     session.add_unit(
         is_vulnerable=is_vulnerable,
-        specific=[user_field, pass_field])
+        specific=specific)
     return session.get_tuple_result()
 
 
