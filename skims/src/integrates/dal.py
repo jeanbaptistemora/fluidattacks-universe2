@@ -208,6 +208,38 @@ async def get_finding_vulnerabilities(
 
 
 @retry()
+async def do_release_vulnerability(
+    *,
+    finding_id: str,
+    vulnerability_uuid: str,
+) -> bool:
+    result = await _execute(
+        query="""
+            mutation DoReleaseVulnerability(
+                $finding_id: String!
+                $vulnerability_uuid: String!
+            ) {
+                approveVulnerability(
+                    approvalStatus: true
+                    findingId: $finding_id
+                    uuid: $vulnerability_uuid
+                ) {
+                    success
+                }
+            }
+        """,
+        variables=dict(
+            finding_id=finding_id,
+            vulnerability_uuid=vulnerability_uuid,
+        )
+    )
+
+    success: bool = result['data']['approveVulnerability']['success']
+
+    return success
+
+
+@retry()
 async def do_create_draft(
     *,
     finding: FindingEnum,

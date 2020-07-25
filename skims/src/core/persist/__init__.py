@@ -10,6 +10,7 @@ from integrates.graphql import (
     create_session,
 )
 from integrates.dal import (
+    do_release_vulnerability,
     get_finding_vulnerabilities,
     get_group_findings,
     get_group_level_role,
@@ -29,8 +30,36 @@ from utils.model import (
     FindingEnum,
     IntegratesVulnerabilityMetadata,
     Vulnerability,
+    VulnerabilityApprovalStatusEnum,
     VulnerabilitySourceEnum,
 )
+
+
+async def approve_skims_vulnerabilities(
+    *,
+    finding: FindingEnum,
+    finding_id: str,
+) -> bool:
+    return all(
+        await materialize(
+            do_release_vulnerability(
+                finding_id=finding_id,
+                vulnerability_uuid=vulnerability.integrates_metadata.uuid
+            )
+            for vulnerability in await get_finding_vulnerabilities(
+                finding=finding,
+                finding_id=finding_id,
+            )
+            if (vulnerability.integrates_metadata
+                and vulnerability.integrates_metadata.uuid
+                and vulnerability.integrates_metadata.approval_status == (
+                    VulnerabilityApprovalStatusEnum.PENDING
+                )
+                and vulnerability.integrates_metadata.source == (
+                    VulnerabilitySourceEnum.SKIMS
+                ))
+        )
+    )
 
 
 async def merge_results(
@@ -99,10 +128,13 @@ async def persist_finding(
         success: bool = await do_build_and_upload_vulnerabilities(
             finding_id=finding_id,
             results=merged_results,
+        ) and await approve_skims_vulnerabilities(
+            finding=finding,
+            finding_id=finding_id,
         )
 
         await log(
-            'info', 'persisted: %s, %s results, success: %s',
+            'info', 'persisted: %s, results: %s, success: %s',
             finding.name, len(results), success,
         )
     else:
