@@ -1,9 +1,6 @@
 # Standard library
 from textwrap import dedent
 
-# Third party libraries
-import pytest
-
 # Local libraries
 from integrates.graphql import (
     Session,

@@ -6,9 +6,6 @@ from utils.system import (
     call,
 )
 
-# Third party libraries
-import pytest
-
 
 @block_decorator
 async def test_call() -> None:
