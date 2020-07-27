@@ -5,6 +5,7 @@ stdenv.mkDerivation {
 
   repoBuild = ./build;
   repoSkims = ./skims;
+  repoReviews = ./reviews;
 
   src = ./bin;
 
@@ -15,5 +16,6 @@ stdenv.mkDerivation {
     install "$src/"* "$out/bin"
     cp -r "$repoBuild" "$out/build"
     cp -r "$repoSkims" "$out/skims"
+    cp -r "$repoReviews" "$out/reviews"
   '';
 }

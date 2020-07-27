@@ -3,7 +3,7 @@
 #!   nix-shell --option restrict-eval false
 #!   nix-shell --option sandbox false
 #!   nix-shell --show-trace
-#!   nix-shell provisioner.nix
+#!   nix-shell skims.nix
 #  shellcheck shell=bash
 
 export PYTHONPATH="${pyPkgSkims}/site-packages/:${PYTHONPATH}"
