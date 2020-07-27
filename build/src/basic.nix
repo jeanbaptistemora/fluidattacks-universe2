@@ -10,4 +10,5 @@ rec {
   srcIncludeIntegratesJobs = ../include/jobs/integrates.sh;
   srcIncludeIntegratesLintersJobs = ../include/jobs/integrates.linters.sh;
   srcIncludeSkimsJobs = ../include/jobs/skims.sh;
+  srcIncludeReviewsJobs = ../include/jobs/reviews.sh;
 }

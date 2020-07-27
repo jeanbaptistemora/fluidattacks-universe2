@@ -6,6 +6,7 @@ source "${srcIncludeForcesJobs}"
 source "${srcIncludeIntegratesJobs}"
 source "${srcIncludeIntegratesLintersJobs}"
 source "${srcIncludeSkimsJobs}"
+source "${srcIncludeReviewsJobs}"
 
 function cli {
   local function_to_call

@@ -4,7 +4,7 @@
 
 ## Installing
 
-Choose one of the methods presented bellow and then run Skims: `skims --help`
+Choose one of the methods presented bellow and then run Reviews: `reviews --help`
 
 ### Via git
 
