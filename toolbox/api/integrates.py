@@ -344,8 +344,7 @@ class Mutations:
         body: str = """
             mutation UploadFile($identifier: String!, $fileHandle: Upload!) {
                 uploadFile(findingId: $identifier,
-                           file: $fileHandle,
-                           origin: "toolbox") {
+                           file: $fileHandle) {
                     success
                 }
             }
