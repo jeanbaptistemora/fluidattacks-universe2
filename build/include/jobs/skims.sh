@@ -20,13 +20,14 @@ function job_skims_deploy {
   # Propagated from Gitlab env vars
   export SKIMS_PYPI_TOKEN
   local version
+  local path='skims'
 
   function restore_version {
     sed --in-place 's|^version.*$|version = "1.0.0"|g' "skims/pyproject.toml"
   }
 
-      helper_skims_install_base_dependencies \
-  &&  pushd skims/ \
+      helper_common_poetry_install_deps "${path}" \
+  &&  pushd "${path}" \
     &&  version=$(helper_skims_compute_version) \
     &&  echo "[INFO] Skims: ${version}" \
     &&  trap 'restore_version' EXIT \
@@ -42,7 +43,9 @@ function job_skims_deploy {
 }
 
 function job_skims_install {
-  helper_skims_force_install
+  local path='skims'
+
+  helper_common_poetry_install "${path}"
 }
 
 function job_skims_lint {
@@ -53,9 +56,10 @@ function job_skims_lint {
   local args_prospector=(
     --strictness veryhigh
   )
+  local path='skims'
 
-      helper_skims_install_base_dependencies \
-  &&  pushd skims/ \
+      helper_common_poetry_install_deps "${path}" \
+  &&  pushd "${path}" \
     &&  for pkg in "${GLOBAL_PKGS[@]}" "${GLOBAL_TEST_PKGS[@]}"
         do
               echo "[INFO] Static type checking: ${pkg}" \
@@ -85,9 +89,10 @@ function job_skims_structure {
     --
     "${GLOBAL_PKGS[cli]}"
   )
+  local path='skims'
 
-      helper_skims_install_base_dependencies \
-  &&  pushd skims/ \
+      helper_common_poetry_install_deps "${path}" \
+  &&  pushd "${path}" \
     &&  poetry run pydeps "${pydeps_args[@]}" \
   &&  popd \
   ||  return 1
@@ -103,9 +108,10 @@ function job_skims_test {
     --disable-pytest-warnings
     --exitfirst
   )
+  local path='skims'
 
-      helper_skims_install_base_dependencies \
-  &&  pushd skims/ \
+      helper_common_poetry_install_deps "${path}" \
+  &&  pushd "${path}" \
     &&  for pkg in "${GLOBAL_PKGS[@]}" "${GLOBAL_TEST_PKGS[@]}"
         do
           args_pytest+=( "--cov=${pkg}" )
