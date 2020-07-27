@@ -8,6 +8,7 @@ in
     name = "bin";
 
     buildInputs = [
+      pkgs.nodejs
     ];
 
     nodeJsModuleCommitlint =
