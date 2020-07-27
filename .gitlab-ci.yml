@@ -397,6 +397,7 @@ deploy_permissions_matrix:
     expire_in: 1 day
     paths:
       - deploy/permissions-matrix/group_level.html
+      - deploy/permissions-matrix/organization_level.html
       - deploy/permissions-matrix/user_level.html
     when: on_success
 

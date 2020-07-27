@@ -11,7 +11,6 @@ import { DataTableNext } from "../../../../components/DataTableNext/index";
 import { IHeaderConfig } from "../../../../components/DataTableNext/types";
 import { FluidIcon } from "../../../../components/FluidIcon/index";
 import { TooltipWrapper } from "../../../../components/TooltipWrapper/index";
-import { Can } from "../../../../utils/authz/Can";
 import { formatLastLogin, formatUserlist } from "../../../../utils/formatHelpers";
 import { msgError, msgSuccess } from "../../../../utils/notifications";
 import rollbar from "../../../../utils/rollbar";
@@ -206,38 +205,36 @@ const organizationUsers: React.FC<IOrganizationUsers> = (props: IOrganizationUse
           <Col md={12} sm={12} xs={12}>
             <Row>
               <Col md={12} sm={12}>
-                <Can do="backend_api_resolvers_organization__do_grant_user_organization_access">
-                  <ButtonToolbar className="pull-right md-12 sm-12">
-                      <TooltipWrapper
-                        message={translate.t("organization.tabs.users.addButton.tooltip")}
+                <ButtonToolbar className="pull-right md-12 sm-12">
+                    <TooltipWrapper
+                      message={translate.t("organization.tabs.users.addButton.tooltip")}
+                    >
+                      <Button id="addUser" onClick={openAddUserModal}>
+                        <Glyphicon glyph="plus" />
+                        &nbsp;{translate.t("organization.tabs.users.addButton.text")}
+                      </Button>
+                    </TooltipWrapper>
+                    <TooltipWrapper
+                      message={translate.t("organization.tabs.users.editButton.tooltip")}
+                    >
+                      <Button id="editUser" onClick={openEditUserModal} disabled={_.isEmpty(currentRow)}>
+                        <FluidIcon icon="edit" />
+                        &nbsp;{translate.t("organization.tabs.users.editButton.text")}
+                      </Button>
+                    </TooltipWrapper>
+                    <TooltipWrapper
+                      message={translate.t("organization.tabs.users.removeButton.tooltip")}
+                    >
+                      <Button
+                        id="removeUser"
+                        onClick={handleRemoveUser}
+                        disabled={_.isEmpty(currentRow) || removing}
                       >
-                        <Button id="addUser" onClick={openAddUserModal}>
-                          <Glyphicon glyph="plus" />
-                          &nbsp;{translate.t("organization.tabs.users.addButton.text")}
-                        </Button>
-                      </TooltipWrapper>
-                      <TooltipWrapper
-                        message={translate.t("organization.tabs.users.editButton.tooltip")}
-                      >
-                        <Button id="editUser" onClick={openEditUserModal} disabled={_.isEmpty(currentRow)}>
-                          <FluidIcon icon="edit" />
-                          &nbsp;{translate.t("organization.tabs.users.editButton.text")}
-                        </Button>
-                      </TooltipWrapper>
-                      <TooltipWrapper
-                        message={translate.t("organization.tabs.users.removeButton.tooltip")}
-                      >
-                        <Button
-                          id="removeUser"
-                          onClick={handleRemoveUser}
-                          disabled={_.isEmpty(currentRow) || removing}
-                        >
-                          <Glyphicon glyph="minus" />
-                          &nbsp;{translate.t("organization.tabs.users.removeButton.text")}
-                        </Button>
-                      </TooltipWrapper>
-                  </ButtonToolbar>
-                </Can>
+                        <Glyphicon glyph="minus" />
+                        &nbsp;{translate.t("organization.tabs.users.removeButton.text")}
+                      </Button>
+                    </TooltipWrapper>
+                </ButtonToolbar>
               </Col>
             </Row>
             <br />

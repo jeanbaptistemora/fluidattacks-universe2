@@ -328,6 +328,7 @@ async def _get_total_groups(
 
 
 @rename_kwargs({'identifier': 'organization_id'})
+@enforce_organization_level_auth_async
 @get_entity_cache_async
 async def _get_users(
     info: GraphQLResolveInfo,

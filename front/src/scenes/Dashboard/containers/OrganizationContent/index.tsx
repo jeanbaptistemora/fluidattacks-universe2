@@ -7,6 +7,7 @@ import React, { useContext } from "react";
 import { Col, Row } from "react-bootstrap";
 import { Redirect, Route, Switch, useParams, useRouteMatch } from "react-router-dom";
 import { default as globalStyle } from "../../../../styles/global.css";
+import { Can } from "../../../../utils/authz/Can";
 import { authzPermissionsContext } from "../../../../utils/authz/config";
 import { msgError } from "../../../../utils/notifications";
 import rollbar from "../../../../utils/rollbar";
@@ -101,13 +102,15 @@ const organizationContent: React.FC<IOrganizationContent> = (props: IOrganizatio
                   title={translate.t("organization.tabs.policies.text")}
                   tooltip={translate.t("organization.tabs.policies.tooltip")}
                 />
-                <ContentTab
-                  icon="icon pe-7s-users"
-                  id="usersTab"
-                  link={`${url}/users`}
-                  title={translate.t("organization.tabs.users.text")}
-                  tooltip={translate.t("organization.tabs.users.tooltip")}
-                />
+                <Can do="backend_api_resolvers_organization__get_users">
+                  <ContentTab
+                    icon="icon pe-7s-users"
+                    id="usersTab"
+                    link={`${url}/users`}
+                    title={translate.t("organization.tabs.users.text")}
+                    tooltip={translate.t("organization.tabs.users.tooltip")}
+                  />
+                </Can>
               </ul>
             </div>
             <div className={globalStyle.tabContent}>

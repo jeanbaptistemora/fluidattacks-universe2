@@ -17,6 +17,7 @@ from .enforcer import (
 )
 from .model import (
     GROUP_LEVEL_ROLES,
+    ORGANIZATION_LEVEL_ROLES,
     SERVICE_ATTRIBUTES,
     USER_LEVEL_ROLES,
 )
@@ -54,6 +55,7 @@ __all__ = [
 
     # model
     'GROUP_LEVEL_ROLES',
+    'ORGANIZATION_LEVEL_ROLES',
     'SERVICE_ATTRIBUTES',
     'USER_LEVEL_ROLES',
 

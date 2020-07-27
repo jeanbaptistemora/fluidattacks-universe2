@@ -439,6 +439,7 @@ ORGANIZATION_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             ('backend_api_resolvers_organization__do_'
                 'update_organization_policies'),
             'backend_api_resolvers_organization__get_analytics',
+            'backend_api_resolvers_organization__get_users',
             'backend_api_resolvers_project__do_create_project',
             'grant_organization_level_role:customer',
             'grant_organization_level_role:customeradmin'
@@ -462,6 +463,7 @@ ORGANIZATION_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             ('backend_api_resolvers_organization__do_'
                 'update_organization_policies'),
             'backend_api_resolvers_organization__get_analytics',
+            'backend_api_resolvers_organization__get_users',
             'backend_api_resolvers_project__do_create_project',
             'grant_organization_level_role:customer',
             'grant_organization_level_role:customeradmin'
