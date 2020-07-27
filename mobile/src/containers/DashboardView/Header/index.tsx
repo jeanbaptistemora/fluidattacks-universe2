@@ -2,21 +2,21 @@ import _ from "lodash";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { View } from "react-native";
-import { Text, useTheme } from "react-native-paper";
+import { Appbar, Text, useTheme } from "react-native-paper";
 
 import { Avatar } from "../../../components/Avatar";
+import { IUser } from "../../../utils/socialAuth";
 
 import { styles } from "./styles";
 
 /** App header */
 interface IHeaderProps {
-  photoUrl?: string;
-  userName: string;
+  user: IUser;
   onLogout(): void;
 }
 
 const header: React.FC<IHeaderProps> = (props: IHeaderProps): JSX.Element => {
-  const { onLogout } = props;
+  const { user, onLogout } = props;
   const { colors } = useTheme();
   const { t } = useTranslation();
 
@@ -25,14 +25,17 @@ const header: React.FC<IHeaderProps> = (props: IHeaderProps): JSX.Element => {
       <View style={[styles.container, { backgroundColor: colors.background }]}>
         <View style={styles.avatar}>
           <Avatar
-            photoUrl={props.photoUrl}
+            photoUrl={user.photoUrl}
             size={40}
-            userName={props.userName}
+            userName={user.fullName}
           />
         </View>
-        <Text style={styles.greeting}>
-          {t("dashboard.greetingText")} {props.userName.split(" ")[0]}
-        </Text>
+        <Appbar.Content
+          title={`${t("dashboard.greetingText")} ${user.firstName}`}
+          titleStyle={styles.name}
+          subtitle={user.email}
+          subtitleStyle={styles.email}
+        />
         <View style={styles.actions}>
           <Text style={styles.logout} onPress={onLogout}>
             {t("common.logout")}

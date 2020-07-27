@@ -16,8 +16,8 @@ export const styles: Dictionary = StyleSheet.create({
     paddingHorizontal: 20,
     paddingTop: Constants.statusBarHeight,
   },
-  greeting: {
-    fontWeight: "500",
+  email: {
+    fontSize: 11,
   },
   logout: {
     color: "lightgray",
@@ -25,5 +25,9 @@ export const styles: Dictionary = StyleSheet.create({
     padding: 15,
     paddingRight: 0,
     textAlign: "right",
+  },
+  name: {
+    fontSize: 17,
+    fontWeight: "500",
   },
 });

@@ -172,11 +172,7 @@ const dashboardView: React.FunctionComponent = (): JSX.Element => {
 
   return (
     <React.StrictMode>
-      <Header
-        photoUrl={user.photoUrl}
-        userName={user.fullName}
-        onLogout={handleLogout}
-      />
+      <Header user={user} onLogout={handleLogout} />
       <View style={[styles.container, { backgroundColor: colors.background }]}>
         <View style={styles.percentageContainer}>
           <SvgCss xml={Border} width={220} height={220} />

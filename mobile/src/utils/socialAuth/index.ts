@@ -44,7 +44,7 @@ const getStandardErrorCode: ((code: number) => number) = (
 }));
 
 /** Normalized user properties */
-interface IUser {
+export interface IUser {
   email: string;
   firstName: string;
   fullName: string;

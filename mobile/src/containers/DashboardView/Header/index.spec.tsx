@@ -18,8 +18,13 @@ describe("Header", (): void => {
     const wrapper: ReactWrapper = mount(
       <I18nextProvider i18n={i18next}>
         <Header
-          photoUrl="https://test.com/image.png"
-          userName="Test"
+          user={{
+            email: "jdoe@mail.com",
+            firstName: "John",
+            fullName: "John Doe",
+            id: "0",
+            photoUrl: "https://test.com/image.png",
+          }}
           onLogout={jest.fn()}
         />
       </I18nextProvider>,
@@ -30,7 +35,9 @@ describe("Header", (): void => {
     expect(wrapper.find("Image").length)
       .toBeGreaterThan(1);
     expect(wrapper.text())
-      .toContain("Welcome Test");
+      .toContain("Welcome John");
+    expect(wrapper.text())
+      .toContain("jdoe@mail.com");
   });
 
   it("should execute logout callback", (): void => {
@@ -38,8 +45,13 @@ describe("Header", (): void => {
     const wrapper: ReactWrapper = mount(
       <I18nextProvider i18n={i18next}>
         <Header
-          photoUrl="https://test.com/image.png"
-          userName="Test"
+          user={{
+            email: "jdoe@mail.com",
+            firstName: "John",
+            fullName: "John Doe",
+            id: "0",
+            photoUrl: "https://test.com/image.png",
+          }}
           onLogout={logoutMock}
         />
       </I18nextProvider>,
