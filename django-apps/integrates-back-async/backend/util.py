@@ -230,11 +230,11 @@ def get_jwt_content(context) -> Dict[str, str]:
         raise InvalidAuthorization()
     except jwt.JWTClaimsError as ex:
         LOGGER.info('Security: Invalid token claims')
-        LOGGER.exception(ex, extra={'extra': context})
+        LOGGER.warning(ex, extra={'extra': context})
         raise InvalidAuthorization()
     except JWTError as ex:
         LOGGER.info('Security: Invalid token')
-        LOGGER.exception(ex, extra={'extra': context})
+        LOGGER.warning(ex, extra={'extra': context})
         raise InvalidAuthorization()
 
 
