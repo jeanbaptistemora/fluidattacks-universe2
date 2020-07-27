@@ -1,13 +1,22 @@
 from datetime import datetime
 import sys
-from typing import List, Any, Union
+from typing import (
+    Any,
+    cast,
+    List,
+    Union
+)
 
 from ariadne import convert_kwargs_to_snake_case, convert_camel_case_to_snake
 from asgiref.sync import sync_to_async
+from graphql.type.definition import GraphQLResolveInfo
 
 from backend.decorators import (
-    enforce_group_level_auth_async, get_entity_cache_async, require_login,
-    require_integrates
+    enforce_group_level_auth_async,
+    get_entity_cache_async,
+    require_attribute,
+    require_integrates,
+    require_login,
 )
 from backend.domain import (
     forces as forces_domain,
@@ -15,9 +24,9 @@ from backend.domain import (
 from backend.typing import (
     ForcesExecution as ForcesExecutionType,
     ForcesExecutions as ForcesExecutionsType,
+    SimplePayload as SimplePayloadType,
 )
 from backend import util
-from graphql.type.definition import GraphQLResolveInfo
 
 
 @sync_to_async  # type: ignore
@@ -85,7 +94,43 @@ async def _resolve_fields(
     return result
 
 
+@enforce_group_level_auth_async
+async def _do_add_forces_execution(_: Any,
+                                   info: GraphQLResolveInfo,
+                                   project_name: str,
+                                   **parameters: Any) -> SimplePayloadType:
+    success = await forces_domain.add_forces_execution(
+        project_name=project_name, **parameters)
+    if success:
+        util.cloudwatch_log(
+            info.context,
+            ('Security: Created forces execution in '
+             f'{project_name} project successfully')  # pragma: no cover
+        )
+    return SimplePayloadType(success=success)
+
+
 @convert_kwargs_to_snake_case  # type: ignore
+@require_attribute('has_forces')
+async def resolve_forces_execution_mutation(
+    obj: Any,
+    info: GraphQLResolveInfo,
+    **parameters: Any
+) -> Union[
+    SimplePayloadType
+]:
+    """Wrap forces executions mutations."""
+    field = util.camelcase_to_snakecase(info.field_name)
+    resolver_func = getattr(sys.modules[__name__], f'_do_{field}')
+    return cast(
+        Union[
+            SimplePayloadType
+        ],
+        await resolver_func(obj, info, **parameters)
+    )
+
+
+@convert_kwargs_to_snake_case
 @require_login
 @enforce_group_level_auth_async
 @require_integrates

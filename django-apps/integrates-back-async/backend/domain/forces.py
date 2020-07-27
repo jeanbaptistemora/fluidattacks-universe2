@@ -56,3 +56,9 @@ async def get_executions(
             to_date=to_date
         )
     ]
+
+
+async def add_forces_execution(*, project_name: str,
+                               **execution_attributes) -> bool:
+    return await forces_dal.create_execution(
+        project_name=project_name, **execution_attributes)

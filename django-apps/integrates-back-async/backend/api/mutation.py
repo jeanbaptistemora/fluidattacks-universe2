@@ -4,6 +4,7 @@ from backend.api.resolvers import (
     cache,
     event,
     finding,
+    forces,
     me,
     organization,
     project,
@@ -87,3 +88,5 @@ MUTATION.set_field('uploadFile',
                    vulnerability.resolve_vulnerability_mutation)
 MUTATION.set_field('downloadVulnFile',
                    vulnerability.resolve_vulnerability_mutation)
+MUTATION.set_field('addForcesExecution',
+                   forces.resolve_forces_execution_mutation)

@@ -259,6 +259,21 @@ type ForcesExecution {
     vulnerabilities: ExecutionVulnerabilities
 }
 
+input ExecutionVulnerabilitiesInput {
+    "acepted exploits or acepted vulnerabilities"
+    acceptedExploits: [ExploitResultInput!]
+    "executed exploits or vulnerabilities"
+    exploits: [ExploitResultInput!]
+    "integrates exploits or mock exploits"
+    integratesExploits: [ExploitResultInput!]
+    "number of vulnerabilities accepted in exploits"
+    numOfVulnerabilitiesInAcceptedExploits: Int
+    "number of vulnerabilities in exploits"
+    numOfVulnerabilitiesInExploits: Int
+    "number of vulnerabilities in integrates exploits"
+    numOfVulnerabilitiesInIntegratesExploits: Int
+}
+
 type ExecutionVulnerabilities {
     exploits: [ExploitResult!]
     integratesExploits: [ExploitResult!]
@@ -266,6 +281,15 @@ type ExecutionVulnerabilities {
     numOfVulnerabilitiesInExploits: Int
     numOfVulnerabilitiesInIntegratesExploits: Int
     numOfVulnerabilitiesInAcceptedExploits: Int
+}
+
+input ExploitResultInput {
+    "Execution kind"
+    kind: String
+    "Vulnerability where"
+    where: String
+    "Execution specific"
+    who: String
 }
 
 type ExploitResult {

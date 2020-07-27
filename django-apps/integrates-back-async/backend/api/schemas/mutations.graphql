@@ -306,4 +306,19 @@ type Mutation {
     ): SimplePayload!
 
     invalidateCache(pattern: String!): SimplePayload!
+
+    addForcesExecution(
+        projectName: String,
+        execution_id: String,
+        date: DateTime,
+        exitCode: String,
+        gitBranch: String,
+        gitCommit: String,
+        gitOrigin: String,
+        gitRepo: String,
+        kind: String,
+        log: String,
+        strictness: String,
+        vulnerabilities: ExecutionVulnerabilitiesInput
+    ): SimplePayload!
 }
