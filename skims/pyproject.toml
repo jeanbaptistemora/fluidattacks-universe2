@@ -21,6 +21,7 @@ packages = [
   { include = "cli", from = "src" },
   { include = "core", from = "src" },
   { include = "integrates", from = "src" },
+  { include = "lib_path", from = "src" },
   { include = "utils", from = "src" },
 ]
 readme = "./README.md"

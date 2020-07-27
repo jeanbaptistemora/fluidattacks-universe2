@@ -8,6 +8,7 @@ declare -A GLOBAL_PKGS=(
   [cli]=src/cli
   [core]=src/core
   [integrates]=src/integrates
+  [lib_path]=src/lib_path
   [utils]=src/utils
 )
 

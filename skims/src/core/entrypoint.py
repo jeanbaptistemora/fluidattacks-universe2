@@ -8,8 +8,8 @@ from typing import (
 from core.persist import (
     persist,
 )
-from core.skim import (
-    skim_paths,
+from lib_path import (
+    analyze as analyze_paths,
 )
 from utils.aio import (
     materialize,
@@ -35,7 +35,7 @@ async def main(
     success: bool = True
 
     results: Tuple[Vulnerability, ...] = tuple(*(await materialize((
-        skim_paths(paths),
+        analyze_paths(paths),
         # skimmers for other sources (--url, etc) go here
     ))))
 

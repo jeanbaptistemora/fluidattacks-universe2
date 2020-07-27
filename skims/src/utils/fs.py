@@ -34,12 +34,12 @@ async def recurse(path: str) -> Tuple[str, ...]:
     return results
 
 
-async def file_as_lines(file: str) -> Tuple[Tuple[int, str], ...]:
+async def get_file_contents(path: str) -> str:
     async with aiofiles.open(
-        file,
+        path,
         mode='r',
         encoding='latin-1',
     ) as file_handle:
         file_contents: str = await file_handle.read()
 
-        return tuple(enumerate(file_contents.splitlines(), start=1))
+        return file_contents
