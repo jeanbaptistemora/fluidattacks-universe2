@@ -379,10 +379,10 @@ class ProjectTest(TestCase):
     @pytest.mark.changes_db
     def test_remove_group(self):
         group_name = 'pendingproject'
-        assert len(project_dal.get_comments(group_name)) >= 1
+        assert len(async_to_sync(project_dal.get_comments)(group_name)) >= 1
         test_data = remove_project(group_name)
         assert all(test_data)
-        assert len(project_dal.get_comments(group_name)) == 0
+        assert len(async_to_sync(project_dal.get_comments)(group_name)) == 0
 
 @pytest.mark.changes_db
 @pytest.mark.parametrize(

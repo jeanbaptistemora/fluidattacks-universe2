@@ -36,7 +36,7 @@ def generate(
 
     row_index = row_offset
     for project in projects:
-        findings = project_domain.get_released_findings(
+        findings = async_to_sync(project_domain.get_released_findings)(
             project, 'finding_id, finding, historic_treatment'
         )
         for finding in findings:

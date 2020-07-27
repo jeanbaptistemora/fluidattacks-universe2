@@ -906,8 +906,11 @@ async def _do_add_project_comment(
         'modified': current_time,
         'parent': parameters.get('parent')
     }
-    success = await sync_to_async(project_domain.add_comment)(
-        project_name, user_info['user_email'], comment_data)
+    success = await project_domain.add_comment(
+        project_name,
+        user_info['user_email'],
+        comment_data
+    )
     if success:
         util.invalidate_cache(project_name)
         util.cloudwatch_log(

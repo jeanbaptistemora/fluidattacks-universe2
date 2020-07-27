@@ -113,7 +113,7 @@ def get_external_recipients(project: str) -> List[str]:
     return remove_fluid_from_recipients(recipients)
 
 
-def get_finding_url(finding: Dict[str, str]) -> str:
+def get_finding_url(finding: Dict[str, FindingType]) -> str:
     url = (
         f'{BASE_URL}/groups/{finding["project_name"]}/'
         f'{finding["finding_id"]}/description'
@@ -201,15 +201,15 @@ def get_by_time_range(
     return count
 
 
-def create_register_by_week(project: str) -> \
-        List[List[Dict[str, Union[str, int]]]]:
+async def create_register_by_week(
+        project: str) -> List[List[Dict[str, Union[str, int]]]]:
     """Create weekly vulnerabilities registry by project"""
     accepted = 0
     closed = 0
     found = 0
     all_registers = OrderedDict()
-    findings_released = project_domain.get_released_findings(project)
-    vulns = async_to_sync(vuln_domain.list_vulnerabilities_async)(
+    findings_released = await project_domain.get_released_findings(project)
+    vulns = await vuln_domain.list_vulnerabilities_async(
         [str(finding['finding_id']) for finding in findings_released]
     )
     if vulns:
@@ -313,8 +313,7 @@ async def get_group_new_vulnerabilities(group_name: str) -> None:
         'no_treatment_findings': list()
     }
     try:
-        finding_requests = await aio.ensure_io_bound(
-            project_domain.get_released_findings,
+        finding_requests = await project_domain.get_released_findings(
             group_name,
             fin_attrs
         )
@@ -375,9 +374,10 @@ async def get_new_vulnerabilities():
         await aio.materialize(map(get_group_new_vulnerabilities, grps_chunk))
 
 
-async def calculate_vulnerabilities(act_finding: Dict[str, str]) -> int:
+async def calculate_vulnerabilities(
+        act_finding: Dict[str, FindingType]) -> int:
     vulns = await vuln_domain.list_vulnerabilities_async(
-        [act_finding['finding_id']]
+        [str(act_finding['finding_id'])]
     )
     all_tracking = await finding_domain.get_tracking_vulnerabilities(vulns)
     delta_total = 0
@@ -410,7 +410,8 @@ async def calculate_vulnerabilities(act_finding: Dict[str, str]) -> int:
     return delta_total
 
 
-def format_vulnerabilities(delta: int, act_finding: Dict[str, str]) -> str:
+def format_vulnerabilities(
+        delta: int, act_finding: Dict[str, FindingType]) -> str:
     """Format vulnerabities changes in findings."""
     if delta > 0:
         finding_text = f'{act_finding["finding"]} (+{delta})'
@@ -565,8 +566,7 @@ async def send_unsolved_to_all() -> List[bool]:
 
 
 async def get_project_indicators(project: str) -> Dict[str, object]:
-    findings = await aio.ensure_io_bound(
-        project_domain.get_released_findings,
+    findings = await project_domain.get_released_findings(
         project,
         'finding_id, historic_treatment, cvss_temporal'
     )
@@ -576,8 +576,7 @@ async def get_project_indicators(project: str) -> Dict[str, object]:
     max_open_severity, max_open_severity_finding = (
         await project_domain.get_max_open_severity(findings)
     )
-    remediated_over_time = await aio.ensure_io_bound(
-        create_register_by_week,
+    remediated_over_time = await create_register_by_week(
         project
     )
     indicators = {
@@ -621,8 +620,7 @@ async def update_group_indicators(group_name: str) -> None:
     LOGGER.info(msg, extra={'extra': payload_data})
     indicators = await get_project_indicators(group_name)
     try:
-        response = await aio.ensure_io_bound(
-            project_dal.update,
+        response = await project_dal.update(
             group_name,
             indicators
         )

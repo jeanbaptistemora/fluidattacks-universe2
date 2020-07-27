@@ -11,7 +11,6 @@ from typing import (
 )
 
 import aioboto3
-from asgiref.sync import async_to_sync
 from botocore.exceptions import ClientError
 import pytz
 from boto3.dynamodb.conditions import Attr, Key
@@ -22,23 +21,25 @@ from backend.dal.event import TABLE_NAME as EVENTS_TABLE_NAME
 from backend.dal.helpers import dynamodb
 from backend.typing import (
     Comment as CommentType,
+    DynamoDelete as DynamoDeleteType,
     Finding as FindingType,
     Project as ProjectType
 )
 from backend.dal.finding import (
     get_finding,
-    TABLE as FINDINGS_TABLE
+    TABLE_NAME as FINDINGS_TABLE_NAME
 )
 from backend.dal.user import get_attributes as get_user_attributes
+from backend.utils import aio
 
 
 # Constants
 DYNAMODB_RESOURCE = dynamodb.DYNAMODB_RESOURCE  # type: ignore
 LOGGER = logging.getLogger(__name__)
 TABLE = DYNAMODB_RESOURCE.Table('FI_projects')
-TABLE_COMMENTS = DYNAMODB_RESOURCE.Table('fi_project_comments')
 TABLE_ACCESS = DYNAMODB_RESOURCE.Table('FI_project_access')
 TABLE_NAME = 'FI_projects'
+TABLE_GROUP_COMMENTS = 'fi_project_comments'
 
 ServicePolicy = NamedTuple(
     'ServicePolicy',
@@ -440,8 +441,10 @@ async def create(project: ProjectType) -> bool:
     return resp
 
 
-def add_comment(project_name: str, email: str, comment_data: CommentType) -> \
-        bool:
+async def add_comment(
+        project_name: str,
+        email: str,
+        comment_data: CommentType) -> bool:
     """ Add a comment in a project. """
     resp = False
     try:
@@ -450,17 +453,15 @@ def add_comment(project_name: str, email: str, comment_data: CommentType) -> \
             'email': email
         }
         payload.update(cast(Dict[str, str], comment_data))
-        response = TABLE_COMMENTS.put_item(
-            Item=payload
-        )
-        resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
+        resp = await dynamodb.async_put_item(TABLE_GROUP_COMMENTS, payload)
     except ClientError as ex:
         LOGGER.exception(ex)
     return resp
 
 
-def get_released_findings(project_name: str, attrs: str = '') -> \
-        List[Dict[str, FindingType]]:
+async def get_released_findings(
+        project_name: str,
+        attrs: str = '') -> List[Dict[str, FindingType]]:
     """Get all the findings that has been released."""
     key_expression = Key('project_name').eq(project_name.lower())
     filtering_exp = Attr('releaseDate').exists()
@@ -473,17 +474,12 @@ def get_released_findings(project_name: str, attrs: str = '') -> \
         query_attrs['ProjectionExpression'] = attrs + ', releaseDate'
     if not attrs:
         query_attrs['ProjectionExpression'] = 'finding_id'
-    response = FINDINGS_TABLE.query(**query_attrs)
-    items = response.get('Items', [])
+    response = await dynamodb.async_query(FINDINGS_TABLE_NAME, query_attrs)
 
-    while response.get('LastEvaluatedKey'):
-        query_attrs['ExclusiveStartKey'] = response['LastEvaluatedKey']
-        response = FINDINGS_TABLE.query(**query_attrs)
-        items += response.get('Items', [])
-    findings = [
-        async_to_sync(get_finding)(finding.get('finding_id'))
-        for finding in items
-    ]
+    findings = await aio.materialize([
+        get_finding(finding.get('finding_id'))
+        for finding in response
+    ])
     findings_released = [
         finding
         for finding in findings
@@ -495,30 +491,24 @@ def get_released_findings(project_name: str, attrs: str = '') -> \
     return findings_released
 
 
-def get_comments(project_name: str) -> List[Dict[str, str]]:
+async def get_comments(project_name: str) -> List[Dict[str, str]]:
     """ Get comments of a project. """
     key_expression = Key('project_name').eq(project_name)
-    response = TABLE_COMMENTS.query(KeyConditionExpression=key_expression)
-    items = response['Items']
-
-    while response.get('LastEvaluatedKey'):
-        response = TABLE_COMMENTS.query(
-            KeyConditionExpression=key_expression,
-            ExclusiveStartKey=response['LastEvaluatedKey']
+    query_attrs = {
+        'KeyConditionExpression': key_expression
+    }
+    items = await dynamodb.async_query(TABLE_GROUP_COMMENTS, query_attrs)
+    comment_name_data = await aio.materialize({
+        mail: aio.ensure_io_bound(
+            get_user_attributes, mail, ['last_name', 'first_name']
         )
-        items += response['Items']
-    comment_fullnames = cast(
-        Dict[str, List[str]],
-        {
-            mail: list(
-                get_user_attributes(
-                    mail,
-                    ['last_name', 'first_name']
-                ).values()
-            )
-            for mail in set(item['email'] for item in items)
-        }
-    )
+        for mail in set(item['email'] for item in items)
+    })
+    comment_fullnames = {
+        mail: list(fullnames.values())
+        for mail, fullnames in comment_name_data.items()
+    }
+
     for item in items:
         item['fullname'] = ' '.join(
             filter(None, comment_fullnames[item['email']][::-1])
@@ -526,16 +516,18 @@ def get_comments(project_name: str) -> List[Dict[str, str]]:
     return items
 
 
-def delete_comment(group_name: str, user_id: str) -> bool:
+async def delete_comment(group_name: str, user_id: str) -> bool:
     resp = False
     try:
-        response = TABLE_COMMENTS.delete_item(
+        delete_attrs = DynamoDeleteType(
             Key={
                 'project_name': group_name,
                 'user_id': user_id
             }
         )
-        resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
+        resp = await dynamodb.async_delete_item(
+            TABLE_GROUP_COMMENTS, delete_attrs
+        )
     except ClientError as ex:
         LOGGER.exception(ex)
     return resp

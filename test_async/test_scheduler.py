@@ -97,11 +97,11 @@ class SchedulerTests(TestCase):
 /groups/test/test/description'
         assert test_data == expected_output
 
-    def test_get_status_vulns_by_time_range(self):
-        released_findings = get_released_findings('UNITTESTING')
+    async def test_get_status_vulns_by_time_range(self):
+        released_findings = await get_released_findings('UNITTESTING')
         first_day = '2019-01-01 12:00:00'
         last_day = '2019-06-30 23:59:59'
-        vulns = async_to_sync(list_vulnerabilities_async)(
+        vulns = await list_vulnerabilities_async(
             [str(finding['finding_id']) for finding in released_findings]
         )
         test_data = get_status_vulns_by_time_range(
@@ -116,11 +116,11 @@ class SchedulerTests(TestCase):
         expected_output = 'Sep 16 - 22, 2019'
         assert test_data == expected_output
 
-    def test_get_accepted_vulns(self):
-        released_findings = get_released_findings('UNITTESTING')
+    async def test_get_accepted_vulns(self):
+        released_findings = await get_released_findings('UNITTESTING')
         first_day = '2019-01-01 12:00:00'
         last_day = '2019-06-30 23:59:59'
-        vulns = async_to_sync(list_vulnerabilities_async)(
+        vulns = await list_vulnerabilities_async(
             [str(finding['finding_id']) for finding in released_findings]
         )
         test_data = get_accepted_vulns(
@@ -140,9 +140,9 @@ class SchedulerTests(TestCase):
         expected_output = 1
         assert test_data == expected_output
 
-    def test_create_register_by_week(self):
+    async def test_create_register_by_week(self):
         project_name = 'unittesting'
-        test_data = create_register_by_week(project_name)
+        test_data = await create_register_by_week(project_name)
         assert isinstance(test_data, list)
         for item in test_data:
             assert isinstance(item, list)

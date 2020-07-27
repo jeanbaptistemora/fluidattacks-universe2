@@ -152,7 +152,7 @@ def generate_all_vulns_xlsx(user_email: str, project_name: str = '') -> str:
     row_index = 2
     for project in projects:
         if project not in TEST_PROJECTS:
-            findings = project_dal.get_released_findings(
+            findings = async_to_sync(project_dal.get_released_findings)(
                 project.get('project_name', ''))
         else:
             findings = []

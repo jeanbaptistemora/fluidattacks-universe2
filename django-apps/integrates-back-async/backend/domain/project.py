@@ -62,25 +62,30 @@ from backend import authz, mailer, util
 LOGGER = logging.getLogger(__name__)
 
 
-def add_comment(
-        project_name: str, email: str, comment_data: CommentType) -> bool:
+async def add_comment(
+        project_name: str,
+        email: str,
+        comment_data: CommentType) -> bool:
     """Add comment in a project."""
     parent = str(comment_data.get('parent'))
     if parent != '0':
         project_comments = [
             str(comment.get('user_id'))
-            for comment in project_dal.get_comments(project_name)
+            for comment in await project_dal.get_comments(
+                project_name
+            )
         ]
         if parent not in project_comments:
             raise InvalidCommentParent()
-    mailer.send_comment_mail(
+    await aio.ensure_io_bound(
+        mailer.send_comment_mail,
         comment_data,
         'project',
         email,
         'project',
         project_name
     )
-    return project_dal.add_comment(project_name, email, comment_data)
+    return await project_dal.add_comment(project_name, email, comment_data)
 
 
 def validate_project_services_config(
@@ -393,20 +398,21 @@ async def reject_deletion(project_name: str, user_email: str) -> bool:
     return response
 
 
-def mask(group_name: str) -> bool:
+@async_to_sync
+async def mask(group_name: str) -> bool:
     tzn = pytz.timezone(settings.TIME_ZONE)  # type: ignore
     today = datetime.now(tz=tzn).today().strftime('%Y-%m-%d %H:%M:%S')
-    comments = project_dal.get_comments(group_name)
-    comments_result = all([
+    comments = await project_dal.get_comments(group_name)
+    comments_result = all(await aio.materialize([
         project_dal.delete_comment(comment['project_name'], comment['user_id'])
         for comment in comments
-    ])
+    ]))
 
     update_data: Dict[str, Union[str, List[str], object]] = {
         'project_status': 'FINISHED',
         'deletion_date': today
     }
-    is_group_finished = async_to_sync(project_dal.update)(
+    is_group_finished = await project_dal.update(
         group_name, update_data
     )
     return comments_result and is_group_finished
@@ -569,9 +575,10 @@ async def get_pending_closing_check(project: str) -> int:
     return pending_closing
 
 
-def get_released_findings(project_name: str, attrs: str = '') -> \
-        List[Dict[str, FindingType]]:
-    return project_dal.get_released_findings(project_name, attrs)
+async def get_released_findings(
+        project_name: str,
+        attrs: str = '') -> List[Dict[str, FindingType]]:
+    return await project_dal.get_released_findings(project_name, attrs)
 
 
 async def get_last_closing_vuln_info(
@@ -922,7 +929,7 @@ async def list_comments(
                 project_name, user_email, comment
             )
         )
-        for comment in project_dal.get_comments(project_name)
+        for comment in await project_dal.get_comments(project_name)
     ])
 
     return comments
