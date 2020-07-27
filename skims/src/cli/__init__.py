@@ -1,5 +1,4 @@
 # Local libraries
-import asyncio
 import sys
 from typing import (
     Tuple,
@@ -11,6 +10,9 @@ import click
 # Local libraries
 from core.entrypoint import (
     main,
+)
+from utils.aio import (
+    block,
 )
 
 
@@ -55,14 +57,12 @@ def dispatch(
     path: Tuple[str, ...],
     token: str,
 ) -> None:
-    success: bool = asyncio.run(
-        main(
-            debug=debug,
-            group=group,
-            paths=path,
-            token=token,
-        ),
+    success: bool = block(
+        main,
         debug=debug,
+        group=group,
+        paths=path,
+        token=token,
     )
 
     sys.exit(0 if success else 1)

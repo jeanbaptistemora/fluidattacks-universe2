@@ -12,6 +12,7 @@ from typing import (
 
 # Third party libraries
 from more_itertools import chunked
+import uvloop
 
 # Constants
 TVar = TypeVar('TVar')
@@ -66,6 +67,7 @@ def block(
     *args: Any,
     **kwargs: Any,
 ) -> TVar:
+    uvloop.install()
     return asyncio.run(function(*args, **kwargs))
 
 

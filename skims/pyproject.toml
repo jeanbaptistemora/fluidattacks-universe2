@@ -36,6 +36,7 @@ more-itertools = "8.4.0"
 pyparsing = "2.4.7"
 python = "^3.8"
 "ruamel.yaml" = "0.16.10"
+uvloop = "0.14.0"
 
 [tool.poetry.dev-dependencies]
 mypy = "0.782"
