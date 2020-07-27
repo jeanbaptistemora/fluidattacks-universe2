@@ -1,39 +1,28 @@
-import _ from "lodash";
 import React from "react";
+import _ from "lodash";
 
 // Wrapper for React.useState that persists using the Web Storage API
-type StoredStateHook = <T>(
+export function useStoredState<T>(
   key: string,
   defaultValue: T,
-  storageProvider?: Storage,
-) => [T, React.Dispatch<React.SetStateAction<T>>];
-
-export const useStoredState: StoredStateHook = <T>(
-  key: string,
-  defaultValue: T,
-  storageProvider: Storage = sessionStorage,
-): [T, React.Dispatch<React.SetStateAction<T>>] => {
-
-  const loadInitialState: (() => T) = (): T => {
+  storageProvider: Readonly<Storage> = sessionStorage
+): readonly [T, React.Dispatch<React.SetStateAction<T>>] {
+  const loadInitialState: () => T = (): T => {
     const storedState: string | null = storageProvider.getItem(key);
 
-    return storedState === null
+    return _.isNull(storedState)
       ? defaultValue
-      : _.isObject(defaultValue) || _.isBoolean(defaultValue)
-        ? JSON.parse(storedState)
-        : storedState;
+      : (JSON.parse(storedState) as T);
   };
 
   const [state, setState] = React.useState<T>(loadInitialState);
 
-  const setAndStore: React.Dispatch<React.SetStateAction<T>> = (value: React.SetStateAction<T>): void => {
-    const parsedValue: string = _.isString(value)
-      ? value
-      : JSON.stringify(value);
-
-    storageProvider.setItem(key, parsedValue);
+  const setAndStore: React.Dispatch<React.SetStateAction<T>> = (
+    value: React.SetStateAction<T>
+  ): void => {
+    storageProvider.setItem(key, JSON.stringify(value));
     setState(value);
   };
 
-  return [state, setAndStore];
-};
+  return [state, setAndStore] as const;
+}

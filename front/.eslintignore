@@ -2,7 +2,6 @@
 
 src/resources/
 src/scenes/
-src/utils/hooks
 src/utils/secureStore
 src/utils/*.ts
 src/utils/*.tsx
