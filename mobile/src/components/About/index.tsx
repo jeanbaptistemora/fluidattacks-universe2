@@ -10,7 +10,7 @@ const about: React.FC = (): JSX.Element => {
   const displayDialog: (() => void) = (): void => {
     Alert.alert(
       "Integrates",
-      `v.${Constants.nativeAppVersion}`
+      `BIN v.${Constants.nativeAppVersion}`
       + `\nOTA v.${(Updates.manifest as Updates.Manifest).version}`,
     );
   };
