@@ -38,7 +38,7 @@ from __init__ import (
 )
 
 # Constants
-LOGGER = logging.getLogger(__name__)
+LOGGER = logging.getLogger('pipeline')
 
 
 def is_not_a_fluidattacks_email(email: str) -> bool:
@@ -717,6 +717,7 @@ async def delete_pending_projects():
     today = datetime.now()
     projects = await sync_to_async(project_domain.get_pending_to_delete)()
     remove_project_tasks = []
+    LOGGER.info('- pending projects: %s', projects)
     for project in projects:
         historic_deletion = project.get('historic_deletion', [{}])
         last_state = historic_deletion[-1]
@@ -725,6 +726,7 @@ async def delete_pending_projects():
         )
         deletion_date = datetime.strptime(deletion_date, '%Y-%m-%d %H:%M:%S')
         if deletion_date < today:
+            LOGGER.info('- project: %s will be deleted', project)
             task = asyncio.create_task(
                 sync_to_async(project_domain.remove_project)(
                     project.get('project_name')
