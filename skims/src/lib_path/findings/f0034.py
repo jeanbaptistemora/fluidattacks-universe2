@@ -3,6 +3,7 @@ from itertools import (
     chain,
 )
 from typing import (
+    AsyncGenerator,
     Awaitable,
     List,
     Tuple,
@@ -14,7 +15,7 @@ from utils.aio import (
     unblock,
 )
 from utils.fs import (
-    get_file_contents,
+    get_file_content,
 )
 from utils.model import (
     FindingEnum,
@@ -25,8 +26,8 @@ from utils.model import (
 
 
 def javascript_insecure_randoms(
+    file_content: str,
     path: str,
-    path_lines: Tuple[Tuple[int, str], ...],
 ) -> Tuple[Vulnerability, ...]:
     # Minimalistic proof of concept so we can focus on the heavy lifting:
     #   reporting, closing, etc
@@ -38,7 +39,7 @@ def javascript_insecure_randoms(
             what=path,
             where=f'{line_number}',
         )
-        for line_number, line_content in path_lines
+        for line_number, line_content in enumerate(file_content.splitlines())
         if 'Math.random(' in line_content
     )
 
@@ -47,20 +48,16 @@ def javascript_insecure_randoms(
 
 async def analyze(
     extension: str,
+    file_content_generator: AsyncGenerator[str, None],
     path: str,
 ) -> Tuple[Vulnerability, ...]:
-    path_content: str = await get_file_contents(path)
-    path_lines: Tuple[Tuple[int, str], ...] = tuple(
-        enumerate(path_content.splitlines()),
-    )
-
     coroutines: List[Awaitable[Tuple[Vulnerability, ...]]] = []
 
     if extension in ['js', 'jsx', 'ts', 'tsx']:
         coroutines.append(unblock(
             javascript_insecure_randoms,
+            file_content=await file_content_generator.__anext__(),
             path=path,
-            path_lines=path_lines,
         ))
 
     results: Tuple[Vulnerability, ...] = tuple(chain(*(

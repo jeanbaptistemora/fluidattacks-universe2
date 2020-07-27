@@ -2,6 +2,7 @@
 import os
 from itertools import chain
 from typing import (
+    AsyncGenerator,
     Set,
     Tuple,
 )
@@ -14,11 +15,35 @@ from utils.aio import (
     materialize,
 )
 from utils.fs import (
+    generate_file_content,
     recurse,
 )
 from utils.model import (
     Vulnerability,
 )
+
+
+async def analyze_one_path(path: str) -> Tuple[Vulnerability, ...]:
+    file_content_generator: AsyncGenerator[str, None] = generate_file_content(
+        path,
+    )
+
+    results: Tuple[Vulnerability, ...] = tuple(chain(*(
+        await materialize(
+            getattr(module, 'analyze')(
+                extension=os.path.splitext(path)[1][1:],
+                file_content_generator=file_content_generator,
+                path=path,
+            )
+            for module in (
+                f0034,
+            )
+        )
+    )))
+
+    await file_content_generator.aclose()
+
+    return results
 
 
 async def analyze(paths: Tuple[str, ...]) -> Tuple[Vulnerability, ...]:
@@ -27,16 +52,7 @@ async def analyze(paths: Tuple[str, ...]) -> Tuple[Vulnerability, ...]:
     ))
 
     results: Tuple[Vulnerability, ...] = tuple(chain(*(
-        await materialize(
-            getattr(module, 'analyze')(
-                extension=os.path.splitext(path)[1][1:],
-                path=path,
-            )
-            for module in (
-                f0034,
-            )
-            for path in unique_paths
-        )
+        await materialize(map(analyze_one_path, unique_paths))
     )))
 
     return results

@@ -10,13 +10,5 @@ in
     buildInputs = [
     ];
 
-    pyPkgFluidasserts = builders.pythonPackage {
-      requirement = "fluidasserts==20.7.21401";
-      dependencies = [
-        pkgs.postgresql
-        pkgs.unixODBC
-      ];
-    };
-
     pyPkgSkims = builders.pythonPackageLocal ../skims;
   }

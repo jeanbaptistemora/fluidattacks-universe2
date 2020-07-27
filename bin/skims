@@ -8,7 +8,6 @@
 
 export PYTHONPATH="${pyPkgSkims}/site-packages/:${PYTHONPATH}"
 
-export PATH="${pyPkgFluidasserts}/site-packages/bin/:${PATH}"
 export PATH="${pyPkgSkims}/site-packages/bin/:${PATH}"
 
 "${pyPkgSkims}/site-packages/bin/skims" "$@"
