@@ -7,10 +7,13 @@ from datetime import datetime
 from django.conf import settings
 from asgiref.sync import async_to_sync
 import pytz
-from openpyxl import load_workbook, Workbook
-from openpyxl.cell import WriteOnlyCell
-from openpyxl.styles import Alignment, Font, PatternFill, stylesheet
-from openpyxl.utils import get_column_letter
+from openpyxl import load_workbook
+from pyexcelerate import (
+    Color,
+    Style,
+    Workbook,
+    Worksheet as WorksheetType
+)
 from backend.domain import vulnerability as vuln_domain
 from backend.domain.finding import get_finding
 from backend.typing import (
@@ -22,10 +25,9 @@ from backend.typing import (
 
 EMPTY = '-'
 HEADER_HEIGHT = 20
-ROW_HEIGHT = 45
-RED = 'FF3435'
-WHITE = '00FFFFFF'
-BLACK = '00000000'
+ROW_HEIGHT = 50
+RED = Color(255, 52, 53, 1)  # FF3435
+WHITE = Color(255, 255, 255, 1)
 
 
 class ITReport():
@@ -33,7 +35,7 @@ class ITReport():
 
     workbook = None
     template = None
-    current_sheet: stylesheet.Stylesheet = None
+    current_sheet: WorksheetType = None
     data = None
     lang = None
     row = 1
@@ -104,55 +106,52 @@ class ITReport():
 
     def __init__(self, data: List[Dict[str, FindingType]], lang: str = 'es'):
         """Initialize variables."""
+        self.project_name = str(data[0].get('projectName'))
         self.lang = lang
         self.template = load_workbook(
             filename=self.templates[self.lang]['TECHNICAL']
         )
+        self.workbook = Workbook()
+        self.current_sheet = self.workbook.new_sheet('Data')
+
         self.parse_template()
         self.generate(data)
+        self.style_sheet()
+
+        self.save()
+
+    def save(self):
+        tzn = pytz.timezone(settings.TIME_ZONE)  # type: ignore
+        today_date = datetime.now(tz=tzn).today().strftime('%Y-%m-%dT%H-%M-%S')
+        self.result_filename = (
+            f'{self.project_name}-vulnerabilities-{today_date}.xlsx'
+        )
+        self.workbook.save(self.result_filename)
+
+    def style_sheet(self):
+        header = self.current_sheet.range(*self.get_row_range(1))
+        header.style.fill.background = RED
+        header.style.font.color = WHITE
+        header.style.alignment.horizontal = 'center'
+        header.style.alignment.vertical = 'center'
+        header.style.alignment.wrap_text = True
+
+        for column in range(1, len(self.vulnerability.values())):
+            self.current_sheet.set_col_style(
+                column,
+                Style(size=-1)
+            )
+        self.current_sheet.set_row_style(2, Style(size=ROW_HEIGHT))
 
     def parse_template(self):
-        self.workbook = Workbook(write_only=True)
-        self.current_sheet = self.workbook.create_sheet()
-        self.set_row_height(row_height=HEADER_HEIGHT)
         template_sheet = self.template[
             self.sheet_names[self.lang]['data']
         ]
-        header = []
-        for column in range(1, template_sheet.max_column + 1):
-            curr_column = get_column_letter(column)
-            self.current_sheet.column_dimensions[curr_column].width = \
-                template_sheet.column_dimensions[curr_column].width / 2.5
-            self.current_sheet.column_dimensions[curr_column].auto_size = True
-            cell = WriteOnlyCell(
-                self.current_sheet,
-                value=template_sheet.cell(row=1, column=column).value
-            )
-            cell.fill = PatternFill(  # pylint: disable=assigning-non-slot
-                end_color=RED,
-                start_color=RED,
-                fill_type='solid'
-            )
-            self.set_cell_font(cell, color=WHITE)
-            cell.alignment = Alignment(  # pylint: disable=assigning-non-slot
-                horizontal='center',
-                vertical='center'
-            )
-            header.append(cell)
-        self.current_sheet.append(header)
+        self.current_sheet.range(*self.get_row_range(self.row)).value = [
+            [str(template_sheet.cell(row=self.row, column=column).value)
+             for column in range(1, len(self.vulnerability.values()))]
+        ]
         self.row += 1
-
-    def set_row_height(self, row_height: int = ROW_HEIGHT):
-        self.current_sheet.row_dimensions[self.row].height = row_height
-
-    @classmethod
-    def set_cell_font(cls, cell, color: str = BLACK):
-        cell.font = Font(
-            name='Times New Roman',
-            size=10,
-            bold=False,
-            color=color
-        )
 
     def generate(self, data: List[Dict[str, FindingType]]):
         self.project_name = str(data[0].get('projectName'))
@@ -161,7 +160,10 @@ class ITReport():
         for vuln in vulns:
             self.write_vuln_row(vuln)
             self.row += 1
-        self.save()
+
+    @classmethod
+    def get_row_range(cls, row: int) -> List[str]:
+        return [f'A{row}', f'AW{row}']
 
     @classmethod
     def get_measure(
@@ -282,8 +284,6 @@ class ITReport():
         if 'tag' in row:
             tags = str(', '.join(cast(List[str], row.get('tag'))))
 
-        self.set_row_height()
-
         self.row_values[self.vulnerability['number']] = self.row - 1
         self.row_values[self.vulnerability['finding']] = finding.get('finding')
         self.row_values[self.vulnerability['finding_id']] = \
@@ -300,21 +300,9 @@ class ITReport():
         self.write_reattack_data(finding, row)
         self.set_cvss_metrics_cell(finding)
 
-        vuln_row = []
-        for index, value in enumerate(self.row_values):
-            cell = WriteOnlyCell(
-                self.current_sheet,
-                value=value
-            )
-            cell.alignment = Alignment(  # pylint: disable=assigning-non-slot
-                horizontal='left' if index in self.align_left else 'center',
-                vertical='center',
-                wrap_text=True
-            )
-            self.set_cell_font(cell)
-            vuln_row.append(cell)
-
-        self.current_sheet.append(vuln_row[1:])
+        self.current_sheet.range(*self.get_row_range(self.row)).value = \
+            [self.row_values[1:]]
+        self.current_sheet.set_row_style(self.row, Style(size=ROW_HEIGHT))
 
     def write_finding_data(
         self,
@@ -476,11 +464,3 @@ class ITReport():
         }
         for key, value in reattack_data.items():
             self.row_values[self.vulnerability[key]] = value
-
-    def save(self):
-        tzn = pytz.timezone(settings.TIME_ZONE)  # type: ignore
-        today_date = datetime.now(tz=tzn).today().strftime('%Y-%m-%dT%H-%M-%S')
-        self.result_filename = (
-            f'{self.project_name}-vulnerabilities-{today_date}.xlsx'
-        )
-        self.workbook.save(self.result_filename)
