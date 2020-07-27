@@ -867,3 +867,18 @@ video {
     }
   }
 }
+
+#products-title:checked~.products-list {
+  animation: fadein .5s;
+  display: block;
+}
+
+#usecases-title:checked~.usecases-list {
+  animation: fadein .5s;
+  display: block;
+}
+
+#aboutus-title:checked~.aboutus-list {
+  animation: fadein .5s;
+  display: block;
+}
