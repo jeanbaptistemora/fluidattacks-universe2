@@ -1,5 +1,5 @@
 :slug: findings/069/
-:description: The purpose of this page is to present information about the set of findings reported by Fluid Attacks. In this case, the finding presents information about vulnerabilities arising from using weak CAPTCHA implementations, recommendations to avoid them and related security requirements.
+:description: This finding presents information about vulnerabilities arising from using weak CAPTCHA implementations.
 :keywords: Weak, Captcha, Human, Optical, Automated Tool, Robot
 :findings: yes
 :type: security
