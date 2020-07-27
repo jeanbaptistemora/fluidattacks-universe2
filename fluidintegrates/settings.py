@@ -16,8 +16,10 @@ import subprocess
 import sys
 from uuid import uuid4
 
+import bugsnag
 from boto3.session import Session
 from botocore.exceptions import ClientError
+from graphql import GraphQLError
 
 from __init__ import (
     BASE_URL,
@@ -158,6 +160,18 @@ BUGSNAG = {
     'project_root': BASE_DIR,
     'release_stage': FI_ENVIRONMENT,
 }
+
+
+def customize_bugsnag_error_reports(notification):
+    # Customize Login required error
+    if isinstance(notification.exception, GraphQLError) and \
+            str(notification.exception) == 'Login required':
+        notification.severity = 'warning'
+        notification.unhandled = False
+
+
+bugsnag.before_notify(customize_bugsnag_error_reports)
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.10/topics/i18n/
