@@ -141,9 +141,10 @@ async def create_file(
 async def remove_file(file_name: str, project_name: str) -> bool:
     success = False
     project_name = project_name.lower()
+    project = await project_dal.get_attributes(project_name, ['files'])
     file_list = cast(
         List[Dict[str, str]],
-        project_dal.get(project_name)['files']
+        project.get('files', [])
     )
     index = -1
     cont = 0
@@ -162,8 +163,8 @@ async def remove_file(file_name: str, project_name: str) -> bool:
     return success
 
 
-def download_file(file_info: str, project_name: str) -> str:
-    return resources_dal.download_file(file_info, project_name)
+async def download_file(file_info: str, project_name: str) -> str:
+    return await resources_dal.download_file(file_info, project_name)
 
 
 def has_repeated_envs(
@@ -370,9 +371,10 @@ async def update_resource(
     )
 
 
-def mask(project_name: str) -> NamedTuple:
+@async_to_sync
+async def mask(project_name: str) -> NamedTuple:
     project_name = project_name.lower()
-    project = async_to_sync(project_dal.get_attributes)(
+    project = await project_dal.get_attributes(
         project_name,
         ['environments', 'files', 'repositories']
     )
@@ -381,11 +383,13 @@ def mask(project_name: str) -> NamedTuple:
         ('are_files_removed files_result '
          'environments_result repositories_result')
     )
-    are_files_removed = all([
-        async_to_sync(resources_dal.remove_file)(file_name)
-        for file_name in resources_dal.search_file(f'{project_name}/')
-    ])
-    files_result = async_to_sync(project_dal.update)(project_name, {
+    list_resources_files = await resources_dal.search_file(f'{project_name}/')
+    are_files_removed = all(await aio.materialize([
+        resources_dal.remove_file(file_name)
+        for file_name in list_resources_files
+    ]))
+
+    files_result = await project_dal.update(project_name, {
         'files': [
             {
                 'fileName': 'Masked',
@@ -395,13 +399,13 @@ def mask(project_name: str) -> NamedTuple:
             for _ in project.get('files', [])
         ]
     })
-    environments_result = async_to_sync(project_dal.update)(project_name, {
+    environments_result = await project_dal.update(project_name, {
         'environments': [
             {'urlEnv': 'Masked'}
             for _ in project.get('environments', [])
         ]
     })
-    repositories_result = async_to_sync(project_dal.update)(project_name, {
+    repositories_result = await project_dal.update(project_name, {
         'repositories': [
             {'protocol': 'Masked', 'urlRepo': 'Masked'}
             for _ in project.get('repositories', [])

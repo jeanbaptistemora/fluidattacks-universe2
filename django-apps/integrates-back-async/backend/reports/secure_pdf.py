@@ -1,9 +1,12 @@
 # -*- coding: utf-8 -*-
 """ Class to secure a PDF of findings. """
+from typing import cast
 import os
+from asgiref.sync import async_to_sync
 from fpdf import FPDF
 from PyPDF4 import PdfFileWriter, PdfFileReader
 from backend.dal import project as project_dal
+from backend.typing import Historic
 
 
 class PDF(FPDF):
@@ -56,8 +59,14 @@ class SecurePDF():
         """ Execute the security process in a PDF. """
         self.secure_pdf_usermail = usermail
         self.secure_pdf_username = usermail.split('@')[0]
-        project_info = project_dal.get(project.lower())
-        if project_info and project_info.get('type') == 'continuous':
+        project_info = async_to_sync(project_dal.get_attributes)(
+            project.lower(), ['historic_configuration']
+        )
+        historic_configuration = cast(
+            Historic, project_info.get('historic_configuration', [{}])
+        )
+        if (project_info and
+                historic_configuration[-1].get('type') == 'continuous'):
             self.secure_pdf_filename = self.lock(basic_pdf_name)
         else:
             water_pdf_name = self.overlays(basic_pdf_name)

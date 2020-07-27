@@ -626,7 +626,7 @@ async def _get_events(
     util.cloudwatch_log(
         info.context,
         f'Security: Access to {project_name} events')  # pragma: no cover
-    event_ids = await sync_to_async(project_domain.list_events)(project_name)
+    event_ids = await project_domain.list_events(project_name)
     events = await info.context.loaders['event'].load_many(event_ids)
     return cast(List[EventType], events)
 

@@ -260,7 +260,7 @@ async def resolve_events(
         info.context,
         f'Security: Access to {project_name} events'  # pragma: no cover
     )
-    event_ids = project_domain.list_events(project_name)
+    event_ids = await project_domain.list_events(project_name)
     return cast(List[EventType], await _resolve_events_async(event_ids))
 
 

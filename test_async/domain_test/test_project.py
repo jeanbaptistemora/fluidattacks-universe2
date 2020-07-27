@@ -313,10 +313,10 @@ class ProjectTest(TestCase):
         expected_output = ['818828206', '836530833', '475041524', '991607942']
         assert sorted(expected_output) == sorted(test_data[0])
 
-    def test_list_events(self):
+    async def test_list_events(self):
         project_name = 'unittesting'
         expected_output = ['540462628', '538745942', '463578352', '484763304', '418900971']
-        assert expected_output == list_events(project_name)
+        assert expected_output == await list_events(project_name)
 
     def test_get_managers(self):
         project_name = 'unittesting'

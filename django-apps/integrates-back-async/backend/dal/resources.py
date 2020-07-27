@@ -1,6 +1,5 @@
 import logging
 from typing import List
-from asgiref.sync import async_to_sync
 from botocore.exceptions import ClientError
 from backend.dal.helpers import cloudfront, dynamodb, s3
 from backend.dal import project as project_dal
@@ -14,10 +13,8 @@ from __init__ import (
 # Constants
 DYNAMODB_RESOURCE = dynamodb.DYNAMODB_RESOURCE  # type: ignore
 LOGGER = logging.getLogger(__name__)
-TABLE = DYNAMODB_RESOURCE.Table('FI_projects')
 
 
-@async_to_sync
 async def search_file(file_name: str) -> List[str]:
     return await s3.list_files(  # type: ignore
         FI_AWS_S3_RESOURCES_BUCKET,
@@ -42,7 +39,6 @@ async def remove_file(file_name: str) -> bool:
     )
 
 
-@async_to_sync
 async def download_file(file_info: str, project_name: str) -> str:
     return await cloudfront.download_file(
         file_info,

@@ -311,7 +311,7 @@ async def _do_download_file(
     file_info = parameters['files_data']
     project_name = parameters['project_name'].lower()
     user_email = util.get_jwt_content(info.context)['user_email']
-    signed_url = await sync_to_async(resources.download_file)(
+    signed_url = await resources.download_file(
         file_info, project_name
     )
     if signed_url:

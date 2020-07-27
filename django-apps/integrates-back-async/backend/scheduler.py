@@ -25,7 +25,8 @@ from backend.domain import (
 )
 from backend.typing import (
     Event as EventType,
-    Finding as FindingType
+    Finding as FindingType,
+    Historic as HistoricType
 )
 from backend.utils import aio
 from __init__ import (
@@ -57,7 +58,7 @@ def is_a_unsolved_event(event: EventType) -> bool:
 
 
 async def get_unsolved_events(project: str) -> List[EventType]:
-    events = await sync_to_async(project_domain.list_events)(project)
+    events = await project_domain.list_events(project)
     event_list = await asyncio.gather(*[
         asyncio.create_task(
             event_domain.get_event(
@@ -81,11 +82,12 @@ def extract_info_from_event_dict(event_dict: EventType) -> EventType:
 async def send_unsolved_events_email(project: str):
     mail_to = []
     events_info_for_email = []
-    project_info = await sync_to_async(project_domain.get_project_info)(
-        project
+    project_info = await project_domain.get_attributes(
+        project, ['historic_configuration']
     )
-    historic_configuration = project_info.get(
-        'historic_configuration', [{}]
+    historic_configuration = cast(
+        HistoricType,
+        project_info.get('historic_configuration', [{}])
     )
     if (project_info and
             historic_configuration[-1].get('type', '') == 'continuous'):

@@ -17,7 +17,6 @@ from __init__ import (
 # Constants
 DYNAMODB_RESOURCE = dynamodb.DYNAMODB_RESOURCE  # type: ignore
 LOGGER = logging.getLogger(__name__)
-TABLE = DYNAMODB_RESOURCE.Table('fi_events')
 TABLE_NAME = 'fi_events'
 
 

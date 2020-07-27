@@ -18,7 +18,7 @@ from boto3.dynamodb.conditions import Attr, Key
 from django.conf import settings
 
 from backend import authz, util
-from backend.dal.event import TABLE as EVENTS_TABLE
+from backend.dal.event import TABLE_NAME as EVENTS_TABLE_NAME
 from backend.dal.helpers import dynamodb
 from backend.typing import (
     Comment as CommentType,
@@ -209,23 +209,14 @@ async def list_findings(
     ]
 
 
-def list_events(project_name: str) -> List[str]:
+async def list_events(project_name: str) -> List[str]:
     key_exp = Key('project_name').eq(project_name)
-    response = EVENTS_TABLE.query(
-        IndexName='project_events',
-        KeyConditionExpression=key_exp,
-        ProjectionExpression='event_id'
-    )
-    events = response.get('Items', [])
-
-    while response.get('LastEvaluatedKey'):
-        response = EVENTS_TABLE.query(
-            ExclusiveStartKey=response['LastEvaluatedKey'],
-            IndexName='project_events',
-            KeyConditionExpression=key_exp,
-            ProjectionExpression='event_id'
-        )
-        events += response.get('Items', [])
+    query_attrs = {
+        'KeyConditionExpression': key_exp,
+        'IndexName': 'project_events',
+        'ProjectionExpression': 'event_id'
+    }
+    events = await dynamodb.async_query(EVENTS_TABLE_NAME, query_attrs)
 
     return [event['event_id'] for event in events]
 
@@ -548,26 +539,6 @@ def delete_comment(group_name: str, user_id: str) -> bool:
     except ClientError as ex:
         LOGGER.exception(ex)
     return resp
-
-
-def get(project: str) -> ProjectType:
-    """Get a project info."""
-    filter_value = project.lower()
-    filter_key = 'project_name'
-    filtering_exp = Key(filter_key).eq(filter_value)
-    response = TABLE.query(KeyConditionExpression=filtering_exp)
-    items = response['Items']
-
-    while response.get('LastEvaluatedKey'):
-        response = TABLE.query(
-            KeyConditionExpression=filtering_exp,
-            ExclusiveStartKey=response['LastEvaluatedKey']
-        )
-        items += response['Items']
-    project_info = {}
-    if items:
-        project_info = items[0]
-    return project_info
 
 
 def get_all(filtering_exp: object = '', data_attr: str = '') -> \

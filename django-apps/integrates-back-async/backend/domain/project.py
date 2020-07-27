@@ -437,7 +437,7 @@ def remove_project(project_name: str) -> NamedTuple:
             finding_domain.mask_finding(finding_id)
             for finding_id in findings_and_drafts
         ])
-        events = list_events(project_name)
+        events = async_to_sync(list_events)(project_name)
         are_events_masked = all([
             async_to_sync(event_domain.mask)(event_id)
             for event_id in events
@@ -954,9 +954,9 @@ async def list_findings(
     return findings
 
 
-def list_events(project_name: str) -> List[str]:
+async def list_events(project_name: str) -> List[str]:
     """ Returns the list of event ids associated with the project"""
-    return project_dal.list_events(project_name)
+    return await project_dal.list_events(project_name)
 
 
 async def get_attributes(
@@ -1000,10 +1000,6 @@ async def get_users_to_notify(
         for user in users
         if user_roles.pop(0) != 'executive'
     ]
-
-
-def get_project_info(project: str) -> ProjectType:
-    return project_dal.get(project)
 
 
 def get_managers(project_name: str) -> List[str]:
