@@ -12,7 +12,7 @@ As a security company,
 - having honesty, teamwork, and discipline
   as immovable principles
   (our full manifest can be found
-  [inner]#link:../values/[here]#);
+  [inner]#link:../about-us/values/[here]#);
 - developing products
   that comply with the highest worldwide
   [inner]#link:../rules/[security standards]#;

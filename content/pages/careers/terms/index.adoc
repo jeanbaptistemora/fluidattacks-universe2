@@ -34,7 +34,7 @@ We do this to:
 ** Be objective, precise, and fair in the performance evaluation
 
 * At `Fluid Attacks`, we follow an ethics code
-which you can read by clicking [inner]#link:../../values/[here]#
+which you can read by clicking [inner]#link:../../about-us/values/[here]#
 
 == The Selection Process
 

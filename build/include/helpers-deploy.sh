@@ -180,7 +180,8 @@ function helper_deploy_pages {
   &&  rsync -av --progress content/pages/products/rules new/content/pages/products/ \
   &&  cp theme/2014/static/scss/tipuesearch.scss new/theme/2020/static/scss/ \
   &&  sed -i "s|Source Sans Pro, sans-serif|'Roboto', sans-serif|g" new/theme/2020/static/scss/tipuesearch.scss \
-  &&  sed -i "s|:category: products|:category: resources|g" new/content/pages/products/rules/index.adoc
+  &&  sed -i "s|:category: products|:category: resources|g" new/content/pages/products/rules/index.adoc \
+  &&  rm -rf new/content/pages/values
 }
 
 function helper_deploy_compile_old {
