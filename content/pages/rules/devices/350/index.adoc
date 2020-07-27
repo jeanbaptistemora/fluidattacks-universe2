@@ -12,11 +12,15 @@ The system should enable memory protection mechanisms such as *ASLR* and *DEP*.
 
 == References
 
-. [[r1]] link:https://cwe.mitre.org/data/definitions/1233.html[CWE-1233: Improper Hardware Lock Protection for Security Sensitive Controls].
+. [[r1]] link:https://cwe.mitre.org/data/definitions/693.html[CWE-693: Protection Mechanism Failure].
+The product does not use or incorrectly uses a protection mechanism that
+provides sufficient defense against directed attacks against the product.
+
+. [[r2]] link:https://cwe.mitre.org/data/definitions/1233.html[CWE-1233: Improper Hardware Lock Protection for Security Sensitive Controls].
 The product implements a register lock bit protection feature that permits
 security sensitive controls to modify the protected configuration.
 
-. [[r2]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r3]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 Appendix C: Internet of Things Verification Requirements.(C.3)]
 Verify that memory protection controls such as *ASLR* and *DEP* are enabled by
 the embedded/**IoT** operating system, if applicable.

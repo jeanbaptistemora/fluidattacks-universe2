@@ -35,30 +35,37 @@ The software stores or transmits sensitive data using an encryption scheme that
 is theoretically sound,
 but is not strong enough for the level of protection required.
 
-. [[r3]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r3]] link:https://cwe.mitre.org/data/definitions/757.html[CWE-757: Selection of Less-Secure Algorithm During Negotiation ('Algorithm Downgrade')].
+A protocol or its implementation supports interaction between multiple actors
+and allows those actors to negotiate which algorithm should be used as a
+protection mechanism such as encryption or authentication,
+but it does not select the strongest algorithm that is available to both
+parties.
+
+. [[r4]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 Appendix C: Internet of Things Verification Requirements.(C.22)]
 Verify that the device cannot be downgraded to old versions (anti-rollback) of
 valid firmware.
 
-. [[r4]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r5]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V9.1 Communications Security Requirements.(9.1.1)]
 Verify that secured TLS is used for all client connectivity,
 and does not fall back to insecure or unencrypted protocols.
 
-. [[r5]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r6]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V9.1 Communications Security Requirements.(9.1.2)]
 Verify using online or up to date *TLS* testing tools that only strong
 algorithms, ciphers, and protocols are enabled,
 with the strongest algorithms and ciphers set as preferred.
 
-. [[r6]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r7]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V9.1 Communications Security Requirements.(9.1.3)]
 Verify that old versions of *SSL* and *TLS* protocols, algorithms, ciphers, and
 configuration are disabled,
 such as *SSLv2*, *SSLv3*, or *TLS* 1.0 and *TLS* 1.1.
 The latest version of *TLS* should be the preferred cipher suite.
 
-. [[r7]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r8]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V9.2 Server Communications Security Requirements.(9.2.2)]
 Verify that encrypted communications such as *TLS* is used for all inbound and
 outbound connections,
