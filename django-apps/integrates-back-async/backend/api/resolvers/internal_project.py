@@ -1,3 +1,4 @@
+from typing import Any
 from ariadne import convert_kwargs_to_snake_case
 
 from backend.decorators import (
@@ -16,9 +17,9 @@ async def _resolve_fields() -> InternalProjectType:
     return result
 
 
-@convert_kwargs_to_snake_case
+@convert_kwargs_to_snake_case  # type: ignore
 @require_login
 @enforce_user_level_auth_async
-async def resolve_project_name(*_) -> InternalProjectType:
+async def resolve_project_name(*_: Any) -> InternalProjectType:
     """Resolve internalProjectNames query."""
     return await _resolve_fields()

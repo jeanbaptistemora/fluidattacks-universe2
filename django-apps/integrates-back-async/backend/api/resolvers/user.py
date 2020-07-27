@@ -327,7 +327,7 @@ async def resolve_user(
         result = await resolve_for_organization(
             info, entity, user_email, organization_id=organization_id
         )
-    return cast(UserType, result)
+    return result
 
 
 @convert_kwargs_to_snake_case  # type: ignore

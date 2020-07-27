@@ -60,7 +60,7 @@ def generate_pdf(
     group_name: str,
     lang: str,
     user_email: str
-):
+) -> None:
     passphrase = get_passphrase(4)
 
     report_filename = generate_pdf_file(
@@ -86,7 +86,7 @@ def generate_pdf(
 def generate_xls_file(
     findings_ord: List[Dict[str, FindingType]],
     passphrase: str,
-):
+) -> str:
     it_report = ITReport(data=findings_ord)
     filepath = it_report.result_filename
 
@@ -99,7 +99,7 @@ def generate_xls_file(
 
     os.system(cmd)
     os.unlink(filepath)
-    os.rename('{filepath}-pwd'.format(filepath=filepath), filepath)
+    os.rename(f'{filepath}-pwd', filepath)
 
     return filepath
 
@@ -109,7 +109,7 @@ def generate_xls(
     findings_ord: List[Dict[str, FindingType]],
     group_name: str,
     user_email: str,
-):
+) -> None:
     passphrase = get_passphrase(4)
 
     report_filename = generate_xls_file(
@@ -128,7 +128,7 @@ def generate_xls(
     )
 
 
-def download_evidences_for_pdf(findings: List[Dict[str, FindingType]]):
+def download_evidences_for_pdf(findings: List[Dict[str, FindingType]]) -> None:
     images_path = (
         '/usr/src/app/django-apps/integrates-back-async/backend/reports/images'
     )
@@ -145,10 +145,7 @@ def download_evidences_for_pdf(findings: List[Dict[str, FindingType]]):
     )
 
     for finding in findings:
-        folder_name = (
-            str(finding['projectName']) + '/' +
-            str(finding['findingId'])
-        )
+        folder_name = f'{finding["projectName"]}/{finding["findingId"]}'
         evidences = cast(Dict[str, Dict[str, str]], finding['evidence'])
         evidence_set: List[Dict[str, str]] = [
             {

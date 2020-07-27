@@ -578,7 +578,7 @@ async def _get_comments(
 
 @apm.trace()
 @enforce_group_level_auth_async
-@require_attribute('has_drills_white')  # type: ignore
+@require_attribute('has_drills_white')
 async def _get_bill(
         _: GraphQLResolveInfo,
         project_name: str,

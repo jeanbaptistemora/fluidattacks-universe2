@@ -112,7 +112,7 @@ def require_login(func: TVar) -> TVar:
         except InvalidAuthorization:
             raise GraphQLError('Login required')
         return _func(*args, **kwargs)
-    return verify_and_call
+    return cast(TVar, verify_and_call)
 
 
 async def resolve_project_name(args: Any, kwargs: Any) -> str:  # noqa: MC0001
@@ -186,7 +186,7 @@ def enforce_group_level_auth_async(func: TVar) -> TVar:
             util.cloudwatch_log(context, UNAUTHORIZED_ROLE_MSG)
             raise GraphQLError('Access denied')
         return await _func(*args, **kwargs)
-    return verify_and_call
+    return cast(TVar, verify_and_call)
 
 
 def enforce_organization_level_auth_async(func: TVar) -> TVar:
@@ -294,7 +294,7 @@ def require_attribute(attribute: str) -> Callable[[TVar], TVar]:
 
             return await _func(*args, **kwargs)
 
-        return resolve_and_call
+        return cast(TVar, resolve_and_call)
 
     return wrapper
 
@@ -492,7 +492,7 @@ def get_entity_cache_async(func: TVar) -> TVar:
             LOGGER.exception(ex)
             return await _func(*args, **kwargs)
 
-    return decorated
+    return cast(TVar, decorated)
 
 
 def rename_kwargs(mapping: Dict[str, str]) -> Callable[[TVar], TVar]:

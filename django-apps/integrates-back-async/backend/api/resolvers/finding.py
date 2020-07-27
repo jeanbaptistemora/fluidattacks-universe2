@@ -801,7 +801,7 @@ async def _do_add_finding_comment(
             'user_id': comment_id,
             'comment_type': param_type,
             'content': parameters.get('content'),
-            'fullname': ''.join(
+            'fullname': ' '.join(
                 [user_data['first_name'], user_data['last_name']]
             ),
             'parent': parameters.get('parent'),
