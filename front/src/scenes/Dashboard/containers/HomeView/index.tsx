@@ -25,7 +25,7 @@ import translate from "../../../../utils/translations/translate";
 import { ProjectBox } from "../../components/ProjectBox";
 import { default as style } from "./index.css";
 import { PROJECTS_QUERY } from "./queries";
-import { IHomeViewProps, IOrganizationData, ITagData, IUserAttr } from "./types";
+import { IHomeViewProps, ITagData, IUserAttr } from "./types";
 
 interface ITagDataTable {
   name: string;
