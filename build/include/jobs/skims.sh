@@ -101,7 +101,6 @@ function job_skims_test {
     --cov-report "xml:${PWD}/skims/coverage.xml"
     --disable-pytest-warnings
     --exitfirst
-    --failed-first
   )
 
       helper_skims_install_base_dependencies \

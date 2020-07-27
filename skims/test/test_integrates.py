@@ -19,7 +19,11 @@ from integrates.dal import (
 )
 from integrates.domain import (
     build_vulnerabilities_stream,
+    delete_closest_findings,
     get_closest_finding_id,
+)
+from utils.aio import (
+    block_decorator,
 )
 from utils.model import (
     FindingEnum,
@@ -34,12 +38,17 @@ from utils.model import (
 )
 
 
-@pytest.mark.asyncio  # type: ignore
-async def test_session() -> None:
+def test_session(
+    test_integrates_api_token: str,
+    test_integrates_session: None,
+) -> None:
     assert Session.value is not None
+    assert Session.value.headers == {
+        'authorization': f'Bearer {test_integrates_api_token}'
+    }
 
 
-@pytest.mark.asyncio  # type: ignore
+@block_decorator
 async def test_build_vulnerabilities_stream() -> None:
     assert await build_vulnerabilities_stream(
         results=(
@@ -63,29 +72,36 @@ async def test_build_vulnerabilities_stream() -> None:
     """)[1:]
 
 
-@pytest.mark.asyncio  # type: ignore
+@block_decorator
 async def test_get_group_level_role(
     test_group: str,
+    test_integrates_session: str,
 ) -> None:
     assert await get_group_level_role(group=test_group) == 'admin'
 
 
-@pytest.mark.asyncio  # type: ignore
+@block_decorator
 async def test_statefull(
-    test_finding: FindingEnum,
     test_group: str,
-    test_token: str,
+    test_integrates_session: None,
 ) -> None:
+    finding: FindingEnum = FindingEnum.F0034
+
+    assert await delete_closest_findings(
+        finding=finding,
+        group=test_group,
+    )
+
     finding_id: str = await get_closest_finding_id(
         create_if_missing=True,
-        finding=test_finding,
+        finding=finding,
         group=test_group,
     )
 
     assert finding_id
     assert finding_id == await get_closest_finding_id(
         create_if_missing=False,
-        finding=test_finding,
+        finding=finding,
         group=test_group,
     )
 
@@ -96,7 +112,7 @@ async def test_statefull(
 
     assert ResultGetGroupFindings(
         identifier=finding_id,
-        title=test_finding.value,
+        title=finding.value,
     ) in await get_group_findings(group=test_group)
 
     assert await do_upload_vulnerabilities(

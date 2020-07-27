@@ -5,7 +5,6 @@ from typing import (
     NamedTuple,
     Optional,
     Tuple,
-    Type,
 )
 
 # Local libraries
@@ -34,8 +33,7 @@ from utils.string import (
 
 
 class ErrorMapping(NamedTuple):
-    exception_cls: Type[Exception]
-    exception_msg: str
+    exception: Exception
     messages: Tuple[str, ...]
 
 
@@ -46,9 +44,7 @@ async def raise_errors(
     for error in (errors or ()):
         for error_mapping in error_mappings:
             if error.get('message') in error_mapping.messages:
-                raise error_mapping.exception_cls(
-                    error_mapping.exception_msg,
-                )
+                raise error_mapping.exception
 
     if errors:
         for error in errors:
@@ -67,15 +63,13 @@ async def _execute(*, query: str, variables: Dict[str, Any]) -> Dict[str, Any]:
         errors=result.get('errors'),
         error_mappings=(
             ErrorMapping(
-                exception_cls=PermissionError,
-                exception_msg='Invalid API token',
+                exception=PermissionError('Invalid API token'),
                 messages=(
                     'Login required',
                 ),
             ),
             ErrorMapping(
-                exception_cls=PermissionError,
-                exception_msg='Access denied',
+                exception=PermissionError('Access denied'),
                 messages=(
                     'Access denied',
                 ),

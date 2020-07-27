@@ -4,6 +4,8 @@ import collections.abc
 import functools
 from typing import (
     Any,
+    Awaitable,
+    cast,
     Callable,
     TypeVar,
 )
@@ -57,3 +59,21 @@ async def unblock(
     return await asyncio.get_running_loop().run_in_executor(
         None, functools.partial(function, *args, **kwargs),
     )
+
+
+def block(
+    function: Callable[..., Awaitable[TVar]],
+    *args: Any,
+    **kwargs: Any,
+) -> TVar:
+    return asyncio.run(function(*args, **kwargs))
+
+
+def block_decorator(function: TVar) -> TVar:
+    _function = cast(Callable[..., Any], function)
+
+    @functools.wraps(_function)
+    def wrapper(*args: Any, **kwargs: Any) -> Any:
+        return block(_function, *args, **kwargs)
+
+    return cast(TVar, wrapper)

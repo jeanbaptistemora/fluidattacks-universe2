@@ -1,4 +1,7 @@
 # Local libraries
+from utils.aio import (
+    block_decorator,
+)
 from utils.system import (
     call,
 )
@@ -7,7 +10,7 @@ from utils.system import (
 import pytest
 
 
-@pytest.mark.asyncio  # type: ignore
+@block_decorator
 async def test_call() -> None:
     process = await call('echo', 'test')
 
