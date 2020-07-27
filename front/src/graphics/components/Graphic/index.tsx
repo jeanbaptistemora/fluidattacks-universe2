@@ -16,7 +16,7 @@ import {
   Row,
 } from "react-bootstrap";
 import {
-  ISecureStore,
+  ISecureStoreConfig,
   secureStoreContext,
 } from "../../../utils/secureStore/index";
 import useComponentSize, { ComponentSize } from "@rehooks/component-size";
@@ -97,7 +97,7 @@ export const Graphic: React.FC<IGraphicProps> = (
   const [fullScreen, setFullScreen] = React.useState(false);
   const [iframeState, setIframeState] = React.useState("loading");
 
-  const secureStore: ISecureStore = React.useContext(secureStoreContext);
+  const secureStore: ISecureStoreConfig = React.useContext(secureStoreContext);
 
   // Yet more hooks
   const iframeSrc: string = React.useMemo(

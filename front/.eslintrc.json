@@ -119,6 +119,12 @@
      * consistency.
      */
     "@typescript-eslint/prefer-function-type": "off",
+    "@typescript-eslint/no-type-alias": [
+      "error",
+      {
+        "allowAliases": "always"
+      }
+    ],
     "@typescript-eslint/typedef": [
       "error",
       {
