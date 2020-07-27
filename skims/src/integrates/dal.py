@@ -1,11 +1,17 @@
 # Standard library
+import socket
 from typing import (
     Any,
+    Callable,
     Dict,
     NamedTuple,
     Optional,
     Tuple,
+    TypeVar,
 )
+
+# Third party libraries
+import aiohttp
 
 # Local libraries
 from integrates.graphql import (
@@ -32,6 +38,17 @@ from utils.string import (
 )
 
 
+# Constants
+TVar = TypeVar('TVar')
+RETRY: Callable[[TVar], TVar] = retry(
+    on_exceptions=(
+        aiohttp.ClientError,
+        IndexError,
+        socket.gaierror,
+    ),
+)
+
+
 class ErrorMapping(NamedTuple):
     exception: Exception
     messages: Tuple[str, ...]
@@ -55,7 +72,11 @@ async def raise_errors(
 
 
 async def _execute(*, query: str, variables: Dict[str, Any]) -> Dict[str, Any]:
-    response = await Session.value.execute(query=query, variables=variables)
+    response: aiohttp.ClientResponse = await Session.value.execute(
+        query=query,
+        variables=variables,
+    )
+    response.raise_for_status()
 
     result: Dict[str, Any] = await response.json()
 
@@ -80,7 +101,7 @@ async def _execute(*, query: str, variables: Dict[str, Any]) -> Dict[str, Any]:
     return result
 
 
-@retry()
+@RETRY
 async def get_group_level_role(
     *,
     group: str,
@@ -113,7 +134,7 @@ class ResultGetGroupFindings(NamedTuple):
     title: str
 
 
-@retry()
+@RETRY
 async def get_group_findings(
     *,
     group: str,
@@ -152,7 +173,7 @@ async def get_group_findings(
     )
 
 
-@retry()
+@RETRY
 async def get_finding_vulnerabilities(
     *,
     finding: FindingEnum,
@@ -201,7 +222,7 @@ async def get_finding_vulnerabilities(
     )
 
 
-@retry()
+@RETRY
 async def do_release_vulnerability(
     *,
     finding_id: str,
@@ -233,7 +254,7 @@ async def do_release_vulnerability(
     return success
 
 
-@retry()
+@RETRY
 async def do_create_draft(
     *,
     finding: FindingEnum,
@@ -264,7 +285,7 @@ async def do_create_draft(
     return success
 
 
-@retry()
+@RETRY
 async def do_delete_finding(
     *,
     finding_id: str,
@@ -296,7 +317,7 @@ async def do_delete_finding(
     return success
 
 
-@retry()
+@RETRY
 async def do_update_finding_severity(
     *,
     finding_id: str,
@@ -331,7 +352,7 @@ async def do_update_finding_severity(
     return success
 
 
-@retry()
+@RETRY
 async def do_upload_vulnerabilities(
     *,
     finding_id: str,

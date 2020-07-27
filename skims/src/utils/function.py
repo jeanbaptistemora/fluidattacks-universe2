@@ -17,9 +17,7 @@ TVar = TypeVar('TVar')
 def retry(
     *,
     attempts: int = 5,
-    on_exceptions: Tuple[Type[Exception], ...] = (
-        IndexError,
-    ),
+    on_exceptions: Tuple[Type[Exception], ...],
     on_error_return: Any = None,
 ) -> Callable[[TVar], TVar]:
 
