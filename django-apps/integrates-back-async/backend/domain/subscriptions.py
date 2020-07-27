@@ -37,7 +37,8 @@ from backend.services import (
 
 
 # Constants
-LOGGER = logging.getLogger(__name__)
+LOGGER_ERRORS = logging.getLogger(__name__)
+LOGGER_PIPELINE = logging.getLogger('pipeline')
 
 
 def frequency_to_period(*, frequency: str) -> int:
@@ -86,7 +87,7 @@ def is_subscription_active_right_now(
 
 def should_process_event(
     *,
-    bot_time: Optional[datetime] = None,
+    bot_time: datetime,
     event_frequency: str,
 ) -> bool:
     """Given a job that runs every hour, should it process a periodic event?.
@@ -94,29 +95,35 @@ def should_process_event(
     Such a bot should not run less or more often than the minimum event
     frequency to trigger.
     """
-    bot_time = bot_time or datetime.utcnow()
     bot_time = bot_time.replace(minute=0)
+    bot_time_hour: int = bot_time.hour
+    bot_time_day: int = bot_time.day
+    bot_time_weekday: int = bot_time.weekday()
 
     event_frequency = event_frequency.lower()
 
-    return (
+    success: bool = (
         # Firth of month @ 10 GMT
         event_frequency == 'monthly'
-        and bot_time.hour == 10
-        and bot_time.day == 1
+        and bot_time_hour == 10
+        and bot_time_day == 1
     ) or (
         # Mondays @ 10 GMT
         event_frequency == 'weekly'
-        and bot_time.hour == 10
-        and bot_time.weekday() == 0
+        and bot_time_hour == 10
+        and bot_time_weekday == 0
     ) or (
         # Any day @ 10 GMT
         event_frequency == 'daily'
-        and bot_time.hour == 10
+        and bot_time_hour == 10
     ) or (
         # @ any hour
         event_frequency == 'hourly'
     )
+
+    LOGGER_PIPELINE.info('%s', locals())
+
+    return success
 
 
 async def get_user_subscriptions(
@@ -232,6 +239,10 @@ async def unsubscribe_user_to_entity_report(
 
 
 async def trigger_user_to_entity_report() -> None:
+    bot_time: datetime = datetime.utcnow()
+
+    LOGGER_PIPELINE.info('UTC datetime: %s', bot_time)
+
     for subscription in await get_subscriptions_to_entity_report(
         audience='user',
     ):
@@ -241,6 +252,8 @@ async def trigger_user_to_entity_report() -> None:
         report_entity: str = subscription['sk']['entity']
         report_subject: str = subscription['sk']['subject']
 
+        LOGGER_PIPELINE.info('%s', locals())
+
         # A user may be subscribed but now he does not have access to the
         #   group or organization, so let's handle this case
         if await can_subscribe_user_to_entity_report(
@@ -248,8 +261,14 @@ async def trigger_user_to_entity_report() -> None:
             report_subject=report_subject,
             user_email=user_email,
         ):
+            LOGGER_PIPELINE.info('- can be subscribed')
+
             # The processor is expected to run every hour
-            if should_process_event(event_frequency=event_frequency):
+            if should_process_event(
+                bot_time=bot_time,
+                event_frequency=event_frequency,
+            ):
+                LOGGER_PIPELINE.info('- processing event')
                 await send_user_to_entity_report(
                     event_frequency=event_frequency,
                     event_period=event_period,
@@ -257,7 +276,10 @@ async def trigger_user_to_entity_report() -> None:
                     report_subject=report_subject,
                     user_email=user_email,
                 )
+            else:
+                LOGGER_PIPELINE.info('- not processing event')
         else:
+            LOGGER_PIPELINE.warning('- can not be subscribed, unsubscribing')
             # Unsubscribe this user, he won't even notice as he no longer
             #   has access to the requested resource
             await unsubscribe_user_to_entity_report(
@@ -284,8 +306,10 @@ async def send_user_to_entity_report(
             ext='png',
             ttl=float(event_period),
         )
+        LOGGER_PIPELINE.info('- image_url: %s', image_url)
     except botocore.exceptions.ClientError as ex:
-        LOGGER.exception(
+        LOGGER_PIPELINE.error('%s', ex)
+        LOGGER_ERRORS.exception(
             ex,
             extra={
                 'extra': dict(
@@ -300,6 +324,7 @@ async def send_user_to_entity_report(
             if report_entity.lower() == 'organization'
             else report_subject
         )
+        LOGGER_PIPELINE.info('- sending email')
 
         await mailer.send_mail_analytics(
             user_email,
@@ -311,3 +336,5 @@ async def send_user_to_entity_report(
             report_entity_percent=quote_plus(report_entity),
             report_subject_percent=quote_plus(report_subject),
         )
+
+        LOGGER_PIPELINE.info('- email sent')

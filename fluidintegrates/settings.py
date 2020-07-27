@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.10/ref/settings/
 """
 
+import logging
 import os
 import subprocess
 import sys
@@ -231,6 +232,12 @@ LOGGING = {
         }
     }
 }
+
+# Use only for pipeline actions or scheduler jobs
+# It's declared here because at the moment a CI job runs
+#   the django logging settings are not fully loaded and nothing gets printed
+logging.getLogger('pipeline').setLevel(logging.INFO)
+logging.getLogger('pipeline').addHandler(logging.StreamHandler())
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
