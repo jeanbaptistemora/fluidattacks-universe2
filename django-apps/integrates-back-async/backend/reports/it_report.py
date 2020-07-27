@@ -1,13 +1,11 @@
 # -*- coding: utf-8 -*-
 """ Class for generate an xlsx file with findings information. """
-import os
 from typing import cast, Dict, List, Optional, Union
 
 from datetime import datetime
 from django.conf import settings
 from asgiref.sync import async_to_sync
 import pytz
-from openpyxl import load_workbook
 from pyexcelerate import (
     Color,
     Style,
@@ -34,83 +32,84 @@ class ITReport():
     """Class to generate IT reports."""
 
     workbook = None
-    template = None
     current_sheet: WorksheetType = None
     data = None
     lang = None
     row = 1
     result_filename = ''
     project_name = ''
-    base = (
-        '/usr/src/app/django-apps/integrates-back-async/backend/reports'
-    )
-    result_path = os.path.join(base, 'results/results_excel')
-    templates: Dict[str, Dict[str, str]] = {
-        'es': {
-            'TECHNICAL': os.path.join(
-                base, 'templates/excel', 'TECHNICAL_VULNS.xlsx'),
-        },
-        'en': {}}
-    sheet_names = {
-        'es': {
-            'data': 'Data',
-        },
-        'en': {}}
     vulnerability = {
-        'number': 1,
-        'finding': 2,
-        'finding_id': 3,
-        'vuln_uuid': 4,
-        'where': 5,
-        'specific': 6,
-        'description': 7,
-        'status': 8,
-        'severity': 9,
-        'requirements': 10,
-        'impact': 11,
-        'affected_systems': 12,
-        'threat': 13,
-        'recommendation': 14,
-        'external_bts': 15,
-        'compromised_attributes': 16,
-        'n_compromised_attributes': 17,
-        'tags': 18,
-        'business_critically': 19,
-        'vuln_report_date': 20,
-        'vuln_close_date': 21,
-        'vuln_age': 22,
-        'first_treatment': 23,
-        'first_treatment_date': 24,
-        'first_treatment_justification': 25,
-        'first_treatment_exp_date': 26,
-        'first_treatment_manager': 27,
-        'treatment': 28,
-        'treatment_date': 29,
-        'treatment_justification': 30,
-        'treatment_exp_date': 31,
-        'treatment_manager': 32,
-        'reattack': 33,
-        'n_requested_reattacks': 34,
-        'remediation_effectiveness': 35,
-        'last_reattack_date': 36,
-        'last_reattack_requester': 37,
-        'cvss_vector': 38,
-        'AV': 39, 'AC': 40, 'PR': 41, 'UI': 42,
-        'SS': 43, 'CI': 44, 'II': 45, 'AI': 46,
-        'E': 47, 'RL': 48, 'RC': 49,
-        '': 50
+        '#': 1,
+        'Related Finding': 2,
+        'Finding Id': 3,
+        'Vulnerability Id': 4,
+        'Where': 5,
+        'Specific': 6,
+        'Description': 7,
+        'Status': 8,
+        'Severity': 9,
+        'Requirements': 10,
+        'Impact': 11,
+        'Affected System': 12,
+        'Threat': 13,
+        'Recommendation': 14,
+        'External BTS': 15,
+        'Compromised Attributes': 16,
+        '# Compromised records': 17,
+        'Tags': 18,
+        'Business Critically': 19,
+        'Report Moment': 20,
+        'Close Moment': 21,
+        'Age in days': 22,
+        'First Treatment': 23,
+        'First Treatment Moment': 24,
+        'First Treatment Justification': 25,
+        'First Treatment expiration Moment': 26,
+        'First Treatment manager': 27,
+        'Current Treatment': 28,
+        'Current Treatment Moment': 29,
+        'Current Treatment Justification': 30,
+        'Current Treatment expiration Moment': 31,
+        'Current Treatment manager': 32,
+        'Pending Reattack': 33,
+        '# Requested Reattacks': 34,
+        'Remediation Effectiveness': 35,
+        'Last requested reattack': 36,
+        'Last reattack Requester': 37,
+        'CVSSv3.1 string vector': 38,
+        'Attack Vector': 39,
+        'Attack Complexity': 40,
+        'Privileges Required': 41,
+        'User Interaction': 42,
+        'Severity Scope': 43,
+        'Confidentiality Impact': 44,
+        'Integrity Impact': 45,
+        'Availability Impact': 46,
+        'Exploitability': 47,
+        'Remediation Level': 48,
+        'Report Confidence': 49,
+    }
+    cvss_measures = {
+        'AV': 'attackVector',
+        'AC': 'attackComplexity',
+        'PR': 'privilegesRequired',
+        'UI': 'userInteraction',
+        'S': 'severityScope',
+        'C': 'confidentialityImpact',
+        'I': 'integrityImpact',
+        'A': 'availabilityImpact',
+        'E': 'exploitability',
+        'RL': 'remediationLevel',
+        'RC': 'reportConfidence',
     }
     align_left = [2, 7, 10, 11, 12, 13, 14, 15, 16, 18, 25, 30]
     row_values: List[Union[str, int, datetime]] = \
-        [EMPTY for _ in vulnerability]
+        [EMPTY for _ in range(len(vulnerability) + 1)]
 
     def __init__(self, data: List[Dict[str, FindingType]], lang: str = 'es'):
         """Initialize variables."""
         self.project_name = str(data[0].get('projectName'))
         self.lang = lang
-        self.template = load_workbook(
-            filename=self.templates[self.lang]['TECHNICAL']
-        )
         self.workbook = Workbook()
         self.current_sheet = self.workbook.new_sheet('Data')
 
@@ -136,7 +135,7 @@ class ITReport():
         header.style.alignment.vertical = 'center'
         header.style.alignment.wrap_text = True
 
-        for column in range(1, len(self.vulnerability.values())):
+        for column in range(1, len(self.row_values)):
             self.current_sheet.set_col_style(
                 column,
                 Style(size=-1)
@@ -144,13 +143,8 @@ class ITReport():
         self.current_sheet.set_row_style(2, Style(size=ROW_HEIGHT))
 
     def parse_template(self):
-        template_sheet = self.template[
-            self.sheet_names[self.lang]['data']
-        ]
-        self.current_sheet.range(*self.get_row_range(self.row)).value = [
-            [str(template_sheet.cell(row=self.row, column=column).value)
-             for column in range(1, len(self.vulnerability.values()))]
-        ]
+        self.current_sheet.range(*self.get_row_range(self.row)).value = \
+            [list(self.vulnerability.keys())]
         self.row += 1
 
     def generate(self, data: List[Dict[str, FindingType]]):
@@ -242,21 +236,9 @@ class ITReport():
             return ''
 
     def set_cvss_metrics_cell(self, row: VulnType):
-        measures = {
-            'AV': 'attackVector',
-            'AC': 'attackComplexity',
-            'PR': 'privilegesRequired',
-            'UI': 'userInteraction',
-            'S': 'severityScope',
-            'C': 'confidentialityImpact',
-            'I': 'integrityImpact',
-            'A': 'availabilityImpact',
-            'E': 'exploitability',
-            'RL': 'remediationLevel',
-            'RC': 'reportConfidence',
-        }
         metric_vector = []
-        for index, (indicator, measure) in enumerate(measures.items()):
+        cvss_key = 'CVSSv3.1 string vector'
+        for ind, (indicator, measure) in enumerate(self.cvss_measures.items()):
             value = self.get_measure(
                 measure,
                 cast(Dict[str, str], row['severity'])[measure]
@@ -264,7 +246,7 @@ class ITReport():
             if value:
                 metric_vector.append(f'{indicator}:{value[0]}')
                 self.row_values[
-                    self.vulnerability['cvss_vector'] + index + 1] = value
+                    self.vulnerability[cvss_key] + ind + 1] = value
 
         cvss_metric_vector = '/'.join(metric_vector)
         cvss_calculator_url = (
@@ -273,7 +255,7 @@ class ITReport():
         )
         cell_content = \
             f'=HYPERLINK("{cvss_calculator_url}", "{cvss_metric_vector}")'
-        self.row_values[self.vulnerability['cvss_vector']] = cell_content
+        self.row_values[self.vulnerability[cvss_key]] = cell_content
 
     def write_vuln_row(self, row: VulnType):
         finding = async_to_sync(get_finding)(row.get('finding_id'))
@@ -284,15 +266,16 @@ class ITReport():
         if 'tag' in row:
             tags = str(', '.join(cast(List[str], row.get('tag'))))
 
-        self.row_values[self.vulnerability['number']] = self.row - 1
-        self.row_values[self.vulnerability['finding']] = finding.get('finding')
-        self.row_values[self.vulnerability['finding_id']] = \
+        self.row_values[self.vulnerability['#']] = self.row - 1
+        self.row_values[self.vulnerability['Related Finding']] = \
+            finding.get('finding')
+        self.row_values[self.vulnerability['Finding Id']] = \
             finding.get('findingId', EMPTY)
-        self.row_values[self.vulnerability['vuln_uuid']] = \
+        self.row_values[self.vulnerability['Vulnerability Id']] = \
             str(row.get('UUID', EMPTY))
-        self.row_values[self.vulnerability['where']] = str(row.get('where'))
-        self.row_values[self.vulnerability['specific']] = specific
-        self.row_values[self.vulnerability['tags']] = tags
+        self.row_values[self.vulnerability['Where']] = str(row.get('where'))
+        self.row_values[self.vulnerability['Specific']] = specific
+        self.row_values[self.vulnerability['Tags']] = tags
 
         self.write_finding_data(finding, row)
         self.write_vuln_temporal_data(row)
@@ -317,18 +300,18 @@ class ITReport():
         external_bts = finding.get('externalBts', EMPTY)
 
         finding_data = {
-            'description': str(finding.get('vulnerability', EMPTY)),
-            'status': cast(
+            'Description': str(finding.get('vulnerability', EMPTY)),
+            'Status': cast(
                 HistoricType, vuln.get('historic_state'))[-1]['state'],
-            'severity': str(finding.get('severityCvss', EMPTY)),
-            'requirements': str(finding.get('requirements', EMPTY)),
-            'impact': str(finding.get('attackVectorDesc', EMPTY)),
-            'affected_systems': str(finding.get('affectedSystems', EMPTY)),
-            'threat': str(finding.get('threat', EMPTY)),
-            'recommendation': str(finding.get('effectSolution', EMPTY)),
-            'external_bts': f'=HYPERLINK("{external_bts}", "{external_bts}")',
-            'compromised_attributes': compromised_attributes,
-            'n_compromised_attributes': n_compromised_attributes or '0',
+            'Severity': str(finding.get('severityCvss', EMPTY)),
+            'Requirements': str(finding.get('requirements', EMPTY)),
+            'Impact': str(finding.get('attackVectorDesc', EMPTY)),
+            'Affected System': str(finding.get('affectedSystems', EMPTY)),
+            'Threat': str(finding.get('threat', EMPTY)),
+            'Recommendation': str(finding.get('effectSolution', EMPTY)),
+            'External BTS': f'=HYPERLINK("{external_bts}", "{external_bts}")',
+            'Compromised Attributes': compromised_attributes,
+            '# Compromised records': n_compromised_attributes or '0',
         }
         for key, value in finding_data.items():
             self.row_values[self.vulnerability[key]] = value
@@ -351,9 +334,9 @@ class ITReport():
         vuln_age = f'{vuln_age_days} '
 
         vuln_temporal_data: Dict[str, Union[str, int, datetime]] = {
-            'vuln_report_date': vuln_date,
-            'vuln_age': vuln_age,
-            'vuln_close_date': vuln_close_date
+            'Report Moment': vuln_date,
+            'Age in days': vuln_age,
+            'Close Moment': vuln_close_date
         }
         for key, value in vuln_temporal_data.items():
             self.row_values[self.vulnerability[key]] = value
@@ -403,29 +386,32 @@ class ITReport():
                 )
 
         current_treatment_data: Dict[str, Union[str, int, datetime]] = {
-            'treatment': format_treatment(str(vuln.get('treatment', 'NEW'))),
-            'treatment_date': current_treatment_date,
-            'treatment_justification': str(
+            'Current Treatment': format_treatment(
+                str(vuln.get('treatment', 'NEW'))),
+            'Current Treatment Moment': current_treatment_date,
+            'Current Treatment Justification': str(
                 vuln.get('treatment_justification', EMPTY)),
-            'treatment_exp_date': current_treatment_exp_date,
-            'treatment_manager': str(vuln.get('treatment_manager', EMPTY)),
+            'Current Treatment expiration Moment': current_treatment_exp_date,
+            'Current Treatment manager': str(
+                vuln.get('treatment_manager', EMPTY)),
         }
         first_treatment_data: Dict[str, Union[str, int, datetime]] = {
-            'first_treatment': str(format_treatment(
+            'First Treatment': str(format_treatment(
                 first_treatment_state.get('treatment', 'NEW'))),
-            'first_treatment_date': datetime.strptime(
+            'First Treatment Moment': datetime.strptime(
                 str(finding.get('releaseDate')), first_treatment_date_format),
-            'first_treatment_justification': str(
+            'First Treatment Justification': str(
                 first_treatment_state.get('justification', EMPTY)),
-            'first_treatment_exp_date': first_treatment_exp_date,
-            'first_treatment_manager': str(
+            'First Treatment expiration Moment': first_treatment_exp_date,
+            'First Treatment manager': str(
                 first_treatment_state.get('user', EMPTY)),
         }
 
         for key, value in current_treatment_data.items():
             self.row_values[self.vulnerability[key]] = value
-            self.row_values[self.vulnerability[f'first_{key}']] = \
-                first_treatment_data[f'first_{key}']
+            first_treatment_key = key.replace('Current', 'First')
+            self.row_values[self.vulnerability[first_treatment_key]] = \
+                first_treatment_data[first_treatment_key]
 
     def write_reattack_data(
         self,
@@ -456,11 +442,11 @@ class ITReport():
                     historic_verification[-1]['date'], '%Y-%m-%d %H:%M:%S')
                 reattack_requester = historic_verification[-1]['user']
         reattack_data = {
-            'reattack': 'Yes' if reattack_requested else 'No',
-            'n_requested_reattacks': n_requested_reattacks or '0',
-            'last_reattack_date': reattack_date or EMPTY,
-            'last_reattack_requester': reattack_requester or EMPTY,
-            'remediation_effectiveness': remediation_effectiveness
+            'Pending Reattack': 'Yes' if reattack_requested else 'No',
+            '# Requested Reattacks': n_requested_reattacks or '0',
+            'Last requested reattack': reattack_date or EMPTY,
+            'Last reattack Requester': reattack_requester or EMPTY,
+            'Remediation Effectiveness': remediation_effectiveness
         }
         for key, value in reattack_data.items():
             self.row_values[self.vulnerability[key]] = value
