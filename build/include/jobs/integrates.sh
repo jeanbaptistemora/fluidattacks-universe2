@@ -482,6 +482,8 @@ function job_reset {
     '*.coverage*'
     '*package-lock.json'
     '*__pycache__*'
+    '*.mypy_cache'
+    '*.pytest_cache'
     '*.terraform'
   )
 

@@ -671,6 +671,16 @@ skims_lint:
   <<: *skims_in_dev_and_master_branch
   stage: lint-code
 
+skims_structure:
+  <<: *with_nix
+  <<: *skims_in_dev_and_master_branch
+  artifacts:
+    expire_in: 1 week
+    paths:
+      - skims
+    when: on_success
+  stage: test-code
+
 skims_test:
   <<: *with_nix
   <<: *skims_in_dev_and_master_branch

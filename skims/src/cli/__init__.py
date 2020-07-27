@@ -66,9 +66,3 @@ def dispatch(
     )
 
     sys.exit(0 if success else 1)
-
-
-if __name__ == '__main__':  # pragma: no cover
-    # Disabling next line because @click modifies the function signature
-    #   yet pylint is not able to see this modification
-    dispatch()  # pylint: disable=no-value-for-parameter

@@ -4,15 +4,15 @@ source "${srcEnv}"
 source "${srcIncludeHelpersCommon}"
 source "${srcIncludeHelpersSkims}"
 
-GLOBAL_PKGS=(
-  src/cli
-  src/core
-  src/integrates
-  src/utils
+declare -A GLOBAL_PKGS=(
+  [cli]=src/cli
+  [core]=src/core
+  [integrates]=src/integrates
+  [utils]=src/utils
 )
 
-GLOBAL_TEST_PKGS=(
-  test/
+declare -A GLOBAL_TEST_PKGS=(
+  [test]=test/
 )
 
 function job_skims_deploy {
@@ -45,11 +45,11 @@ function job_skims_install {
 }
 
 function job_skims_lint {
-  args_mypy=(
+  local args_mypy=(
     --ignore-missing-imports
     --strict
   )
-  args_prospector=(
+  local args_prospector=(
     --strictness veryhigh
   )
 
@@ -71,9 +71,29 @@ function job_skims_lint {
   ||  return 1
 }
 
-function job_skims_test {
+function job_skims_structure {
+  local pydeps_args=(
+    --cluster
+    --keep-target-cluster
+    --max-bacon 0
+    --max-cluster-size 100
+    --noshow
+    --only "${!GLOBAL_PKGS[@]}"
+    --reverse
+    -x 'click'
+    --
+    "${GLOBAL_PKGS[cli]}"
+  )
 
-  args_pytest=(
+      helper_skims_install_base_dependencies \
+  &&  pushd skims/ \
+    &&  poetry run pydeps "${pydeps_args[@]}" \
+  &&  popd \
+  ||  return 1
+}
+
+function job_skims_test {
+  local args_pytest=(
     --cov-branch
     --cov-fail-under '90'
     --cov-report 'term'

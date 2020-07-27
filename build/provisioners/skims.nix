@@ -9,6 +9,7 @@ in
 
       buildInputs = [
         pkgs.git
+        pkgs.graphviz
         pkgs.python38
         pkgs.python38Packages.poetry
       ];
