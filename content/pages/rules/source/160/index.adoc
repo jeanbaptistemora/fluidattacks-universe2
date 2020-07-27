@@ -45,7 +45,7 @@ that is valid for the control sphere to which the input is being sent.
 The product does not validate or incorrectly validates input that can affect
 the control flow or data flow of a program.
 
-. [[r7]] link:https://www.bsimm.com/framework/deployment/software-environment.html[BSIMM9 SE3.2 UThe software does not neutralize or incorrectly neutralizes output that is written to logs. se code protection].
+. [[r7]] link:https://www.bsimm.com/framework/deployment/software-environment.html[BSIMM9 SE3.2 UThe software does not neutralize or incorrectly neutralizes output that is written to logs].
 
 . [[r8]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V1.5 Input and Output Architectural Requirements.(1.5.3)]

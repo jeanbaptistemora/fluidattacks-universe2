@@ -22,3 +22,8 @@ Source code must be obfuscated in production environments.
 Appendix C: Internet of Things Verification Requirements.(C.18)]
 Verify security controls are in place to hinder firmware reverse engineering
 (e.g., removal of verbose debugging symbols).
+
+. [[r3]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+Appendix C: Internet of Things Verification Requirements.(C.34)]
+Verify that micro controllers are configured with code protection
+(if applicable).
