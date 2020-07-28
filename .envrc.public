@@ -2,6 +2,7 @@ export CACHIX_CACHE_NAME='fluidattacks-asserts'
 export CI_REGISTRY_IMAGE='registry.gitlab.com/fluidattacks/asserts'
 export DOCKER_HUB_URL='https://index.docker.io/v1/'
 
+export CI_PROJECT_ID='4593516'
 export CI_PROJECT_NAME='asserts'
 export CI_PROJECT_NAMESPACE='fluidattacks'
 export CI_PROJECT_URL="https://gitlab.com/${CI_PROJECT_NAMESPACE}/${CI_PROJECT_NAME}"
@@ -20,6 +21,7 @@ export CI_COMMIT_BEFORE_SHA
 export CI_COMMIT_SHA
 export CI_NODE_INDEX
 export CI_NODE_TOTAL
+export MR_TEST_MAX_DELTAS
 
 test -n "${CI:-}" \
   || CI=''
@@ -33,3 +35,5 @@ test -n "${CI_NODE_INDEX:-}" \
   || CI_NODE_INDEX='1'
 test -n "${CI_NODE_TOTAL:-}" \
   || CI_NODE_TOTAL='1'
+test -n "${MR_TEST_MAX_DELTAS:-}" \
+  || MR_TEST_MAX_DELTAS='200'

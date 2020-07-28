@@ -33,13 +33,14 @@ function job_build_asserts {
 function job_lint_commit_message {
   local commit_diff
   local commit_hashes
-  local parser_url='https://static-objects.gitlab.net/fluidattacks/public/raw/master/commitlint-configs/others/parser-preset.js'
-  local rules_url='https://static-objects.gitlab.net/fluidattacks/public/raw/master/commitlint-configs/others/commitlint.config.js'
+  local public_url='https://static-objects.gitlab.net/fluidattacks/public/raw/master'
+  local parser_url="${public_url}/commitlint-configs/others/parser-preset.js"
+  local rules_url="${public_url}/commitlint-configs/others/commitlint.config.js"
 
       helper_use_pristine_workdir \
+  &&  env_prepare_node_modules \
   &&  curl -LOJ "${parser_url}" \
   &&  curl -LOJ "${rules_url}" \
-  &&  npm install @commitlint/{config-conventional,cli} \
   &&  git fetch --prune > /dev/null \
   &&  if [ "${IS_LOCAL_BUILD}" = "${TRUE}" ]
       then
@@ -50,7 +51,7 @@ function job_lint_commit_message {
   &&  commit_hashes="$(git log --pretty=%h "${commit_diff}")" \
   &&  for commit_hash in ${commit_hashes}
       do
-            git log -1 --pretty=%B "${commit_hash}" | npx commitlint \
+            git log -1 --pretty=%B "${commit_hash}" | commitlint \
         ||  return 1
       done
 }
@@ -61,7 +62,7 @@ function job_lint_shell {
       echo "Verifying shell code in: ${path_to_check}" \
   &&  find "${path_to_check}" -name '*.sh' \
         -exec shellcheck --exclude=SC1090,SC2154,SC2164,SC2064 -x {} + \
-  &&  shellcheck -x --exclude=SC2015,SC2064 ./build.sh
+  &&  shellcheck -x --exclude=SC2015,SC2064,SC2153 ./build.sh
 }
 
 function job_lint_nix {
@@ -556,4 +557,24 @@ function job_pages {
   &&  helper_pages_generate_credits \
   &&  helper_pages_generate_doc \
   &&  mv public/ "${STARTDIR}"
+}
+
+function job_reviews {
+  local public_url='https://static-objects.gitlab.net/fluidattacks/public/raw/master'
+  local parser_url="${public_url}/commitlint-configs/others/parser-preset.js"
+  local rules_url="${public_url}/commitlint-configs/others/commitlint.config.js"
+
+  function reviews {
+    export __NIX_PATH
+    export __NIX_SSL_CERT_FILE
+
+    NIX_PATH="${__NIX_PATH}" \
+    NIX_SSL_CERT_FILE="${__NIX_SSL_CERT_FILE}" \
+      "${srcProduct}/bin/reviews" "${@}"
+  }
+
+      helper_use_pristine_workdir \
+  &&  curl -LOJ "${parser_url}" \
+  &&  curl -LOJ "${rules_url}" \
+  &&  reviews flavor generic
 }

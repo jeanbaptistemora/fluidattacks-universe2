@@ -1,7 +1,7 @@
 stages:
   - build
   - test
-  - at-mr
+  - mr-test
   - deploy
   - release_to_pypi
   - release_to_docker
@@ -296,23 +296,10 @@ lint_commit_message:
   <<: *in_dev_branch
   stage: test
 
-danger:
-  image: fluidattacks/danger-ruby
-  stage: at-mr
-  tags: [autoscaling]
-  only:
-    - merge_requests
-  variables:
-    DANGER_GITLAB_API_TOKEN: $DANGER_TOKEN
-  before_script:
-    - curl -LOJ https://static-objects.gitlab.net/fluidattacks/public/raw/master/commitlint-configs/others/parser-preset.js
-    - curl -LOJ https://static-objects.gitlab.net/fluidattacks/public/raw/master/commitlint-configs/others/commitlint.config.js
-    - export CI_MERGE_REQUEST_ID=$(git ls-remote -q origin merge-requests\*\head
-      | grep ${CI_COMMIT_SHA}
-      | sed 's/.*refs\/merge-requests\/\([0-9]*\)\/head/\1/g')
-    - npm install @commitlint/{config-conventional,cli}
-  script:
-    - danger --verbose --fail-on-errors=true
+reviews:
+  <<: *with_nix
+  stage: mr-test
+  only: [merge_requests]
 
 deploy_infra_secret_management:
   <<: *with_nix

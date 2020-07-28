@@ -11,3 +11,6 @@ mkdir root/src/repo
 mkdir root/python
 mkdir root/python/cache-dir
 mkdir root/python/site-packages
+
+# where npm modules will be stored
+mkdir root/nodejs
