@@ -38,56 +38,59 @@ class ITReport():
     row = 1
     result_filename = ''
     project_name = ''
+    header_labels = [
+        '#',
+        'Related Finding',
+        'Finding Id',
+        'Vulnerability Id',
+        'Where',
+        'Specific',
+        'Description',
+        'Status',
+        'Severity',
+        'Requirements',
+        'Impact',
+        'Affected System',
+        'Threat',
+        'Recommendation',
+        'External BTS',
+        'Compromised Attributes',
+        '# Compromised records',
+        'Tags',
+        'Business Critically',
+        'Report Moment',
+        'Close Moment',
+        'Age in days',
+        'First Treatment',
+        'First Treatment Moment',
+        'First Treatment Justification',
+        'First Treatment expiration Moment',
+        'First Treatment manager',
+        'Current Treatment',
+        'Current Treatment Moment',
+        'Current Treatment Justification',
+        'Current Treatment expiration Moment',
+        'Current Treatment manager',
+        'Pending Reattack',
+        '# Requested Reattacks',
+        'Remediation Effectiveness',
+        'Last requested reattack',
+        'Last reattack Requester',
+        'CVSSv3.1 string vector',
+        'Attack Vector',
+        'Attack Complexity',
+        'Privileges Required',
+        'User Interaction',
+        'Severity Scope',
+        'Confidentiality Impact',
+        'Integrity Impact',
+        'Availability Impact',
+        'Exploitability',
+        'Remediation Level',
+        'Report Confidence',
+    ]
     vulnerability = {
-        '#': 1,
-        'Related Finding': 2,
-        'Finding Id': 3,
-        'Vulnerability Id': 4,
-        'Where': 5,
-        'Specific': 6,
-        'Description': 7,
-        'Status': 8,
-        'Severity': 9,
-        'Requirements': 10,
-        'Impact': 11,
-        'Affected System': 12,
-        'Threat': 13,
-        'Recommendation': 14,
-        'External BTS': 15,
-        'Compromised Attributes': 16,
-        '# Compromised records': 17,
-        'Tags': 18,
-        'Business Critically': 19,
-        'Report Moment': 20,
-        'Close Moment': 21,
-        'Age in days': 22,
-        'First Treatment': 23,
-        'First Treatment Moment': 24,
-        'First Treatment Justification': 25,
-        'First Treatment expiration Moment': 26,
-        'First Treatment manager': 27,
-        'Current Treatment': 28,
-        'Current Treatment Moment': 29,
-        'Current Treatment Justification': 30,
-        'Current Treatment expiration Moment': 31,
-        'Current Treatment manager': 32,
-        'Pending Reattack': 33,
-        '# Requested Reattacks': 34,
-        'Remediation Effectiveness': 35,
-        'Last requested reattack': 36,
-        'Last reattack Requester': 37,
-        'CVSSv3.1 string vector': 38,
-        'Attack Vector': 39,
-        'Attack Complexity': 40,
-        'Privileges Required': 41,
-        'User Interaction': 42,
-        'Severity Scope': 43,
-        'Confidentiality Impact': 44,
-        'Integrity Impact': 45,
-        'Availability Impact': 46,
-        'Exploitability': 47,
-        'Remediation Level': 48,
-        'Report Confidence': 49,
+        col_name: index + 1 for index, col_name in enumerate(header_labels)
     }
     cvss_measures = {
         'AV': 'attackVector',
@@ -102,7 +105,6 @@ class ITReport():
         'RL': 'remediationLevel',
         'RC': 'reportConfidence',
     }
-    align_left = [2, 7, 10, 11, 12, 13, 14, 15, 16, 18, 25, 30]
     row_values: List[Union[str, int, datetime]] = \
         [EMPTY for _ in range(len(vulnerability) + 1)]
 
@@ -166,74 +168,72 @@ class ITReport():
         metric_value: str
     ) -> Optional[str]: # noqa
         """Extract number of CSSV metrics."""
-        try:
-            metrics = {
-                'attackVector': {
-                    '0.85': 'Network',
-                    '0.62': 'Adjacent',
-                    '0.55': 'Local',
-                    '0.20': 'Physical',
-                },
-                'attackComplexity': {
-                    '0.77': 'Low',
-                    '0.44': 'High',
-                },
-                'privilegesRequired': {
-                    '0.85': 'None',
-                    '0.62': 'Low',
-                    '0.68': 'Low',
-                    '0.27': 'High',
-                    '0.50': 'High',
-                },
-                'userInteraction': {
-                    '0.85': 'None',
-                    '0.62': 'Required',
-                },
-                'severityScope': {
-                    '0.0': 'Unchanged',
-                    '1.0': 'Changed',
-                },
-                'confidentialityImpact': {
-                    '0.56': 'High',
-                    '0.22': 'Low',
-                    '0.0': 'None',
-                },
-                'integrityImpact': {
-                    '0.56': 'High',
-                    '0.22': 'Low',
-                    '0.0': 'None',
-                },
-                'availabilityImpact': {
-                    '0.56': 'High',
-                    '0.22': 'Low',
-                    '0.0': 'None',
-                },
-                'exploitability': {
-                    '0.91': 'Unproven',
-                    '0.94': 'Proof of concept',
-                    '0.97': 'Functional',
-                    '1.0': 'High',
-                },
-                'remediationLevel': {
-                    '0.95': 'Official Fix',
-                    '0.96': 'Temporary Fix',
-                    '0.97': 'Workaround',
-                    '1.0': 'Unavailable',
-                },
-                'reportConfidence': {
-                    '0.92': 'Unknown',
-                    '0.96': 'Reasonable',
-                    '1.0': 'Confirmed',
-                }
+        metrics = {
+            'attackVector': {
+                '0.85': 'Network',
+                '0.62': 'Adjacent',
+                '0.55': 'Local',
+                '0.20': 'Physical',
+            },
+            'attackComplexity': {
+                '0.77': 'Low',
+                '0.44': 'High',
+            },
+            'privilegesRequired': {
+                '0.85': 'None',
+                '0.62': 'Low',
+                '0.68': 'Low',
+                '0.27': 'High',
+                '0.50': 'High',
+            },
+            'userInteraction': {
+                '0.85': 'None',
+                '0.62': 'Required',
+            },
+            'severityScope': {
+                '0.0': 'Unchanged',
+                '1.0': 'Changed',
+            },
+            'confidentialityImpact': {
+                '0.56': 'High',
+                '0.22': 'Low',
+                '0.0': 'None',
+            },
+            'integrityImpact': {
+                '0.56': 'High',
+                '0.22': 'Low',
+                '0.0': 'None',
+            },
+            'availabilityImpact': {
+                '0.56': 'High',
+                '0.22': 'Low',
+                '0.0': 'None',
+            },
+            'exploitability': {
+                '0.91': 'Unproven',
+                '0.94': 'Proof of concept',
+                '0.97': 'Functional',
+                '1.0': 'High',
+            },
+            'remediationLevel': {
+                '0.95': 'Official Fix',
+                '0.96': 'Temporary Fix',
+                '0.97': 'Workaround',
+                '1.0': 'Unavailable',
+            },
+            'reportConfidence': {
+                '0.92': 'Unknown',
+                '0.96': 'Reasonable',
+                '1.0': 'Confirmed',
             }
-            metric_descriptions = metrics.get(metric)
-            if metric_descriptions:
-                description = metric_descriptions.get(str(metric_value))
-            else:
-                description = ''
-            return description
-        except ValueError:
-            return ''
+        }
+        metric_descriptions = metrics.get(metric, '')
+        description = cast(
+            Dict[str, str],
+            metric_descriptions
+        ).get(str(metric_value), EMPTY)
+
+        return description
 
     def set_cvss_metrics_cell(self, row: VulnType):
         metric_vector = []
