@@ -1,6 +1,6 @@
 :slug: rules/329/
 :category: data
-:description: This document contains the details of the security requirements related to the definition and management of sensitive data in the organization. This requirement establishes the importance of avoiding the storage of sensitive information in the localStorage.
+:description: This requirement establishes the importance of avoiding the storage of sensitive information in the client-side storage.
 :keywords: Local, Session, Storage, ASVS, GDPR, NIST
 :rules: yes
 
@@ -57,8 +57,17 @@ Secrets used for session binding SHOULD NOT be placed in insecure locations
 such as HTML5 Local Storage due to the potential exposure of local storage to
 cross-site scripting (XSS) attacks.
 
-. [[r6]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r6]] link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A3-Sensitive_Data_Exposure[OWASP Top 10 A3:2017-Sensitive Data Exposure].
+Many web applications and **API**s do not properly protect sensitive data,
+such as financial, healthcare, and *PII*.
+Attackers may steal or modify such weakly protected data to conduct credit card
+fraud, identity theft, or other crimes.
+Sensitive data may be compromised without extra protection,
+such as encryption at rest or in transit, and requires special precautions when
+exchanged with the browser.
+
+. [[r7]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V8.2 Client-side Data Protection.(8.2.2)]
-Verify that data stored in client side storage (such as HTML5 local storage,
-session storage, IndexedDB, regular cookies or Flash cookies) does not contain
-sensitive data or PII.
+Verify that data stored in client side storage (such as *HTML5* local storage,
+session storage, **IndexedDB**, regular cookies or *Flash* cookies) does not
+contain sensitive data or *PII*.
