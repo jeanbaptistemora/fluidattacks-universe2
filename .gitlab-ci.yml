@@ -87,7 +87,7 @@ test_defends:
   <<: *with_nix
   stage: test
 
-test_commitlint:
+test_commit_msg:
   <<: *with_nix
   stage: test
 

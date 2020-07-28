@@ -192,16 +192,17 @@ function job_test_defends {
       done
 }
 
-function job_test_commitlint {
+function job_test_commit_msg {
   local commit_diff
   local commit_hashes
-  local parser_url='https://static-objects.gitlab.net/fluidattacks/public/raw/master/commitlint-configs/others/parser-preset.js'
-  local rules_url='https://static-objects.gitlab.net/fluidattacks/public/raw/master/commitlint-configs/others/commitlint.config.js'
+  local public_url='https://static-objects.gitlab.net/fluidattacks/public/raw/master'
+  local parser_url="${public_url}/commitlint-configs/others/parser-preset.js"
+  local rules_url="${public_url}/commitlint-configs/others/commitlint.config.js"
 
       helper_use_pristine_workdir \
+  &&  env_prepare_node_modules \
   &&  curl -LOJ "${parser_url}" \
   &&  curl -LOJ "${rules_url}" \
-  &&  npm install @commitlint/{config-conventional,cli} \
   &&  git fetch --prune > /dev/null \
   &&  if [ "${IS_LOCAL_BUILD}" = "${TRUE}" ]
       then
@@ -212,7 +213,7 @@ function job_test_commitlint {
   &&  commit_hashes="$(git log --pretty=%h "${commit_diff}")" \
   &&  for commit_hash in ${commit_hashes}
       do
-            git log -1 --pretty=%B "${commit_hash}" | npx commitlint \
+            git log -1 --pretty=%B "${commit_hash}" | commitlint \
         ||  return 1
       done
 }

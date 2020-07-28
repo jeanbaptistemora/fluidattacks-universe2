@@ -56,3 +56,20 @@ function env_prepare_python_packages {
     PYTHONPATH="${!pkg}/site-packages:${PYTHONPATH:-}"
   done < "${TEMP_FILE1}"
 }
+
+function env_prepare_node_modules {
+  export PATH
+  export NODE_PATH
+  local module
+
+  echo '[INFO] Preparing node modules'
+
+  helper_list_vars_with_regex 'nodeJsModule[a-zA-Z0-9]+' > "${TEMP_FILE1}"
+
+  while read -r module
+  do
+    echo "  [${module}] ${!module}"
+    PATH="${PATH}:${!module}/node_modules/.bin"
+    NODE_PATH="${NODE_PATH}:${!module}/node_modules"
+  done < "${TEMP_FILE1}"
+}
