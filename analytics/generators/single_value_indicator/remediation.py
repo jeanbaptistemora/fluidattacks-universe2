@@ -24,21 +24,19 @@ from analytics import (
 async def generate_one(groups: List[str]):
     group_data = await GroupLoader().load_many(groups)
 
-    def filter_last_week(group: ProjectType, index: int):
-        attrs = cast(Dict[str, List[List[Dict[str, int]]]], group['attrs'])
-        remediated_over_time = attrs.get('remediated_over_time', [])
-        total = 0
+    def filter_last_week(group: ProjectType, key: str):
+        attrs = cast(Dict[str, List[Dict[str, int]]], group['attrs'])
+        items = attrs.get('remediated_daily', [])
+        if len(items) >= 8:
+            return items[-8].get(key, 0)
+        return 0
 
-        if remediated_over_time:
-            item = remediated_over_time[index]
-            total = int(item[-1].get('y', 0)) if item else 0
-
-        return total
-
-    found_last_week: int = reduce(
-        lambda acc, group: acc + filter_last_week(group, 0), group_data, 0)
+    open_last_week: int = reduce(
+        lambda acc, group:
+        acc + filter_last_week(group, 'open'), group_data, 0)
     closed_last_week: int = reduce(
-        lambda acc, group: acc + filter_last_week(group, 1), group_data, 0)
+        lambda acc, group:
+        acc + filter_last_week(group, 'closed'), group_data, 0)
 
     open_vulns: int = reduce(
         lambda acc, group:
@@ -52,7 +50,7 @@ async def generate_one(groups: List[str]):
     return {
         'previous': {
             'closed': closed_last_week,
-            'open': found_last_week - closed_last_week,
+            'open': open_last_week,
         },
         'current': {
             'closed': closed_vulns,
