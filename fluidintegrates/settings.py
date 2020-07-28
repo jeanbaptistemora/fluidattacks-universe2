@@ -40,6 +40,7 @@ from __init__ import (
     FI_JWT_SECRET_API,
     FI_MIXPANEL_API_TOKEN,
     FI_REDIS_SERVER,
+    FI_VERSION,
 )
 
 
@@ -155,6 +156,7 @@ DATABASES = {
 # Error tracking configuration
 BUGSNAG = {
     'api_key': FI_BUGSNAG_ACCESS_TOKEN,
+    'app_version': FI_VERSION,
     'asynchronous': True,
     'auto_capture_sessions': True,
     'project_root': BASE_DIR,
