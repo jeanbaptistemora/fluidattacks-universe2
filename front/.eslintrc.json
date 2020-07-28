@@ -119,6 +119,16 @@
      * consistency.
      */
     "@typescript-eslint/prefer-function-type": "off",
+    /*
+     * This is a good rule in theory, but in practice we found:
+     * 1. We tried to use a DeepReadonly utility type to solve types nesting
+     * problems; but it conflicts with wrapper components, since you cannot
+     * modify the types of the component being wrapped, if it is from a third
+     * party library.
+     * 2. We are using the fp eslint plugin that is already in charge of
+     * avoiding side effects as much as posible.
+     */
+    "@typescript-eslint/prefer-readonly-parameter-types": "off",
     "@typescript-eslint/no-type-alias": [
       "error",
       {

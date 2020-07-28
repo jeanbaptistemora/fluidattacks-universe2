@@ -1,23 +1,25 @@
 import _ from "lodash";
+import rollbar from "./rollbar";
 
-export const getEnvironment: (() => string) = (): string => {
-  let environment: string;
-
+export const getEnvironment: () => string = (): string => {
   if (_.isUndefined(window)) {
-    environment = "development";
+    return "development";
   } else {
     const currentUrl: string = window.location.hostname;
 
     if (currentUrl === "localhost") {
-      environment = "development";
+      return "development";
     } else if (_.includes(currentUrl, ".integrates.env")) {
-      environment = "review";
+      return "review";
     } else if (currentUrl === "fluidattacks.com") {
-      environment = "production";
+      return "production";
     } else {
-      throw new TypeError(`Couldn't identify environment for url: ${currentUrl}`);
+      rollbar.error(
+        "Couldn't identify environment for url",
+        new TypeError(`Couldn't identify environment for url: ${currentUrl}`)
+      );
+
+      return "production";
     }
   }
-
-  return environment;
 };

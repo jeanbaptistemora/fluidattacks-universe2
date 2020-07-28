@@ -9,6 +9,9 @@
       "src/store/**",
       "src/graphics/**",
       "src/utils/+(translations|authz|forms|hooks|secureStore)/**",
+      "src/utils/environment.ts",
+      "src/utils/rollbar.ts",
+      "src/utils/sortHelpers.ts",
       "src/components/**"
     ]
   },
