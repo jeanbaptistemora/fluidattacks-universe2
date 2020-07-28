@@ -23,6 +23,13 @@ class FindingEvidenceID(Enum):
     RECORDS: str = 'RECORDS'
 
 
+class FindingReleaseStatus(Enum):
+    APPROVED: str = 'APPROVED'
+    CREATED: str = 'CREATED'
+    REJECTED: str = 'REJECTED'
+    SUBMITTED: str = 'SUBMITTED'
+
+
 class SeverityEnum(Enum):
     F0034: Dict[str, float] = {
         'attackComplexity': 0.77,

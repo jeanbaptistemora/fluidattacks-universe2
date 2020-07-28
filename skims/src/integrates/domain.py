@@ -9,8 +9,10 @@ from typing import (
 from integrates.dal import (
     do_create_draft,
     do_delete_finding,
+    do_submit_draft,
     do_update_finding_severity,
     do_upload_vulnerabilities,
+    get_finding_current_release_status,
     get_group_findings,
     ResultGetGroupFindings,
 )
@@ -22,6 +24,7 @@ from utils.encodings import (
 )
 from utils.model import (
     FindingEnum,
+    FindingReleaseStatus,
     IntegratesVulnerabilitiesLines,
     SeverityEnum,
     Vulnerability,
@@ -136,3 +139,24 @@ async def do_build_and_upload_vulnerabilities(
             results=results,
         ),
     )
+
+
+async def do_release_finding(
+    *,
+    finding_id: str,
+) -> bool:
+    success: bool = False
+    release_status: FindingReleaseStatus = (
+        await get_finding_current_release_status(finding_id=finding_id)
+    )
+
+    if release_status in (
+        FindingReleaseStatus.SUBMITTED,
+        FindingReleaseStatus.APPROVED,
+    ):
+        # Already released
+        success = True
+    else:
+        success = await do_submit_draft(finding_id=finding_id)
+
+    return success

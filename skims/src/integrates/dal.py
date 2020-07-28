@@ -29,6 +29,7 @@ from utils.logs import (
 from utils.model import (
     FindingEnum,
     FindingEvidenceID,
+    FindingReleaseStatus,
     IntegratesVulnerabilityMetadata,
     SeverityEnum,
     Vulnerability,
@@ -178,6 +179,33 @@ async def get_group_findings(
 
 
 @RETRY
+async def get_finding_current_release_status(
+    *,
+    finding_id: str,
+) -> FindingReleaseStatus:
+    result = await _execute(
+        query="""
+            query GetFindingVulnerabilities(
+                $finding_id: String!
+            ) {
+                finding(identifier: $finding_id) {
+                    currentState
+                }
+            }
+        """,
+        variables=dict(
+            finding_id=finding_id,
+        )
+    )
+
+    return (
+        FindingReleaseStatus(result['data']['finding']['currentState'])
+        if result['data']['finding']['currentState']
+        else FindingReleaseStatus.APPROVED
+    )
+
+
+@RETRY
 async def get_finding_vulnerabilities(
     *,
     finding: FindingEnum,
@@ -317,6 +345,33 @@ async def do_delete_finding(
     success: bool = result['data']['deleteFinding']['success']
 
     await log('warn', 'Deleting finding: %s, success: %s', finding_id, success)
+
+    return success
+
+
+@RETRY
+async def do_submit_draft(
+    *,
+    finding_id: str,
+) -> bool:
+    result = await _execute(
+        query="""
+            mutation DoSubmitDraft(
+                $finding_id: String!
+            ) {
+                submitDraft(
+                    findingId: $finding_id
+                ) {
+                    success
+                }
+            }
+        """,
+        variables=dict(
+            finding_id=finding_id,
+        )
+    )
+
+    success: bool = result['data']['submitDraft']['success']
 
     return success
 

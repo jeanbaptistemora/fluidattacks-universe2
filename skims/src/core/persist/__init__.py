@@ -22,6 +22,7 @@ from integrates.dal import (
 )
 from integrates.domain import (
     do_build_and_upload_vulnerabilities,
+    do_release_finding,
     get_closest_finding_id,
 )
 from utils.aio import (
@@ -179,6 +180,8 @@ async def persist_finding(
             results=results,
         ) and await approve_skims_vulnerabilities(
             finding=finding,
+            finding_id=finding_id,
+        ) and await do_release_finding(
             finding_id=finding_id,
         )
 
