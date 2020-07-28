@@ -21,10 +21,9 @@ import { GET_USER_ORGANIZATIONS } from "./queries";
 
 export const navbarComponent: React.FC<RouteComponentProps> = (props: RouteComponentProps): JSX.Element => {
   const { push } = useHistory();
-  const [currentOrganization, setCurrentOrganization] = useStoredState("organization", { name: "" });
+  const [currentOrganization, setCurrentOrganization] = useStoredState("organization", { name: "" }, localStorage);
 
   const path: string = props.location.pathname;
-  const renderOrganizationBox: boolean = path.includes("organizations");
   const pathData: string[] = path.split("/")
     .slice(2);
 
@@ -53,17 +52,23 @@ export const navbarComponent: React.FC<RouteComponentProps> = (props: RouteCompo
   };
 
   // Render Elements
-  if (_.isEmpty(data) || _.isUndefined(data)) {
-    return <React.Fragment />;
-  }
-
-  const filteredOrganization: Array<{ name: string }> = data.me.organizations.filter(
+  const organizationList: Array<{ name: string }> = _.isEmpty(data) || _.isUndefined(data)
+    ? [{ name: "" }]
+    : data.me.organizations;
+  const filteredOrganizations: Array<{ name: string }> = organizationList.filter(
     (userOrganization: { name: string }) => path.includes(userOrganization.name),
   );
+  const filteredOrganization: string = filteredOrganizations.length === 0
+    ? organizationList[0].name
+    : filteredOrganizations[0].name;
 
-  if (renderOrganizationBox && !path.includes(currentOrganization.name)) {
-    setCurrentOrganization({ name: filteredOrganization[0].name });
-  }
+  const setOrganization: () => void = (): void => {
+    if (!_.isEmpty(filteredOrganization)) {
+      setCurrentOrganization({ name: filteredOrganization });
+    }
+  };
+
+  React.useEffect(setOrganization, [filteredOrganization]);
 
   const breadcrumbItems: JSX.Element[] = pathData.map((item: string, index: number) => {
     const baseLink: string = path.split("/")[1];
@@ -80,40 +85,37 @@ export const navbarComponent: React.FC<RouteComponentProps> = (props: RouteCompo
   return (
     <React.StrictMode>
       <Row id="navbar" className={style.container}>
-        <Col md={renderOrganizationBox ? 6 : 9} sm={12} xs={12}>
+        <Col md={6} sm={12} xs={12}>
           <Breadcrumb className={style.breadcrumb}>
             {breadcrumbItems}
           </Breadcrumb>
         </Col>
-        {renderOrganizationBox
-          ? (
-            <React.Fragment>
-              <Col md={3} sm={12} xs={12}>
-                <GenericForm
-                  initialValues={{
-                    organization: currentOrganization.name,
-                  }}
-                  name="organizationList"
-                  onSubmit={handleSubmit}>
-                  <div className={style.organizationForm}>
-                    <Field
-                      component={Dropdown}
-                      name="organization"
-                      onChange={handleOrganizationChange}
-                    >
-                      {data.me.organizations.map((organization: { name: string }, index: number) => (
-                        <option value={organization.name} key={index}>
-                          {organization.name.toUpperCase()}
-                        </option>
-                      ))}
-                    </Field>
-                  </div>
-                </GenericForm>
-              </Col>
-            </React.Fragment>
-          )
-          : undefined
-        }
+        <Col md={3} sm={12} xs={12}>
+          <GenericForm
+            name="organizationList"
+            onSubmit={handleSubmit}>
+            <div className={style.organizationForm}>
+              <Field
+                component={Dropdown}
+                name="organization"
+                onChange={handleOrganizationChange}
+              >
+                {organizationList.map((organization: { name: string }, index: number) => {
+                  const extraProps: Dictionary<boolean> = { selected: false };
+                  if (currentOrganization.name === organization.name) {
+                    extraProps.selected = true;
+                  }
+
+                  return (
+                    <option value={organization.name} key={index} {...extraProps}>
+                      {organization.name.toUpperCase()}
+                    </option>
+                  );
+                })}
+              </Field>
+            </div>
+          </GenericForm>
+        </Col>
         <Col md={3} sm={12} xs={12}>
           <GenericForm name="searchBar" onSubmit={handleSearchSubmit}>
             <InputGroup>

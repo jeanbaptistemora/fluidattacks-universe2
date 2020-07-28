@@ -11,7 +11,7 @@ import translate from "../../../../utils/translations/translate";
 import { GET_USER_ORGANIZATIONS } from "../../components/Navbar/queries";
 
 const homeView: React.FC = (): JSX.Element => {
-  const [lastOrganization, setLastOrganization] = useStoredState("organization", { name: "" });
+  const [lastOrganization, setLastOrganization] = useStoredState("organization", { name: "" }, localStorage);
 
   // GraphQL Operations
   const { data } = useQuery(GET_USER_ORGANIZATIONS, {

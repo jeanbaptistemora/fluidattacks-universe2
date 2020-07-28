@@ -227,6 +227,7 @@ const errorLink: ((history: History) => ApolloLink) = (
             case "Access denied":
             case "Exception - Event not found":
             case "Exception - Finding not found":
+            case "Exception - Organization name is invalid":
             case "Exception - Project does not exist":
               if (response !== undefined) {
                 response.data = undefined;
