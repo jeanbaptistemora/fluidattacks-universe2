@@ -107,6 +107,7 @@ function job_skims_test {
     --cov-report "xml:${PWD}/skims/coverage.xml"
     --disable-pytest-warnings
     --exitfirst
+    --verbose
   )
   local path='skims'
 

@@ -4,9 +4,13 @@ from io import (
     BytesIO,
 )
 from itertools import (
+    accumulate,
+)
+from itertools import (
     chain,
 )
 from typing import (
+    Dict,
     Tuple,
 )
 
@@ -20,6 +24,38 @@ from PIL import (
 from utils.aio import (
     unblock,
 )
+
+
+async def get_char_to_line_column_mapping(
+    *,
+    lines: Tuple[str, ...],
+) -> Dict[int, Tuple[int, int]]:
+
+    def _get_char_to_line_column_mapping() -> Dict[int, Tuple[int, int]]:
+        mapping: Dict[int, Tuple[int, int]] = {}
+
+        if not lines:
+            return mapping
+
+        # Add 1 to take into account for the new line
+        cumulated_lines_length: Tuple[int, ...] = tuple(
+            accumulate(len(line) + 1 for line in lines),
+        )
+
+        line: int = 0
+        column: int = 0
+        for char_number in range(1, cumulated_lines_length[-1] + 1):
+            mapping[char_number - 1] = (line + 1, column)
+
+            if char_number == cumulated_lines_length[line]:
+                line += 1
+                column = 0
+            else:
+                column += 1
+
+        return mapping
+
+    return await unblock(_get_char_to_line_column_mapping)
 
 
 def are_similar(string_a: str, string_b: str, threshold: float = 0.85) -> bool:
