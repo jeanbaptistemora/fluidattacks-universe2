@@ -101,7 +101,7 @@ function job_skims_structure {
 function job_skims_test {
   local args_pytest=(
     --cov-branch
-    --cov-fail-under '90'
+    --cov-fail-under '89'
     --cov-report 'term'
     --cov-report "html:${PWD}/skims/coverage/"
     --cov-report "xml:${PWD}/skims/coverage.xml"
