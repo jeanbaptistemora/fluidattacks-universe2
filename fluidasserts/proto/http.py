@@ -1154,6 +1154,20 @@ def has_lfi(url: str, expect: str, *args, **kwargs) -> tuple:
     return _generic_has_text(url, expect, *args, **kwargs)
 
 
+@api(risk=HIGH, kind=DAST)
+def has_ssrf(url: str, expect: str, *args, **kwargs) -> tuple:
+    r"""
+    Check server-side request forgery by checking a expected string.
+
+    :param url: URL to test.
+    :param expect: Text to search in potential vulnerability .
+    :param \*args: Optional arguments for :class:`.HTTPSession`.
+    :param \*\*kwargs: Optional arguments for :class:`.HTTPSession`.
+    :rtype: :class:`fluidasserts.Result`
+    """
+    return _generic_has_text(url, expect, *args, **kwargs)
+
+
 @api(risk=MEDIUM, kind=DAST)
 def has_hpp(url: str, expect: str, *args, **kwargs) -> tuple:
     r"""
