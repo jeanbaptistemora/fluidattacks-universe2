@@ -11,7 +11,8 @@ data "aws_iam_policy_document" "continuous-prod-policy-data" {
     resources = [
       "arn:aws:s3:::fluidattacks-terraform-states-prod",
       "arn:aws:s3:::fluidattacks-terraform-states-prod/continuous-secret-management.tfstate",
-      "arn:aws:s3:::fluidattacks-terraform-states-prod/break-build.tfstate"
+      "arn:aws:s3:::fluidattacks-terraform-states-prod/break-build.tfstate",
+      "arn:aws:s3:::fluidattacks-terraform-states-prod/services-*",
     ]
   }
 
@@ -78,7 +79,11 @@ data "aws_iam_policy_document" "continuous-prod-policy-data" {
       "arn:aws:iam::${data.aws_caller_identity.current.account_id}:policy/continuous-*",
       "arn:aws:iam::${data.aws_caller_identity.current.account_id}:policy/asserts/break-build-*",
       "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/asserts/break-build-*",
-      "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/break-build-*"
+      "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/break-build-*",
+      "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/break-build-*",
+      "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/user-provision/burp-*",
+      "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/burp-*",
+      "arn:aws:iam::${data.aws_caller_identity.current.account_id}:policy/burp-*",
     ]
   }
 
