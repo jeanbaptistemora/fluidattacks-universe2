@@ -366,10 +366,7 @@ async def get_new_vulnerabilities() -> None:
     groups = await aio.ensure_io_bound(
         project_domain.get_active_projects
     )
-    # number of groups that can be executed at a time
-    groups_chunks = chunked(groups, 40)
-    for grps_chunk in groups_chunks:
-        await aio.materialize(map(get_group_new_vulnerabilities, grps_chunk))
+    await util.run_task_by_chunks(get_group_new_vulnerabilities, groups)
 
 
 async def calculate_vulnerabilities(
@@ -652,15 +649,7 @@ async def update_indicators() -> None:
     """Update in dynamo indicators."""
     LOGGER.warning('[scheduler]: update_indicators is running')
     groups = await sync_to_async(project_domain.get_active_projects)()
-    # number of groups that can be updated at a time
-    groups_chunks = chunked(groups, 40)
-    for grps_chunk in groups_chunks:
-        await asyncio.gather(*[
-            asyncio.create_task(
-                update_group_indicators(group_name)
-            )
-            for group_name in grps_chunk
-        ])
+    await util.run_task_by_chunks(update_group_indicators, groups)
 
 
 async def reset_group_expired_accepted_findings(
@@ -748,7 +737,7 @@ async def delete_pending_projects() -> None:
     await asyncio.gather(*remove_project_tasks)
 
 
-async def update_remediated_vulns(group_name: str):
+async def update_remediated_vulns(group_name: str) -> None:
     today = datetime.now()
     group_attrs: dict = await project_domain.get_attributes(
         group_name,
@@ -768,16 +757,9 @@ async def update_remediated_vulns(group_name: str):
     })
 
 
-@async_to_sync
-async def update_remediated_historic():
+@async_to_sync  # type: ignore
+async def update_remediated_historic() -> None:
     """Stores open and closed vulns total to daily historic"""
     LOGGER.warning('[scheduler]: update_remediated_historic is running')
     groups = await sync_to_async(project_domain.get_active_projects)()
-    groups_chunks = chunked(groups, 40)
-    for chunk in groups_chunks:
-        await asyncio.gather(*[
-            asyncio.create_task(
-                update_remediated_vulns(group_name)
-            )
-            for group_name in chunk
-        ])
+    await util.run_task_by_chunks(update_remediated_vulns, groups)

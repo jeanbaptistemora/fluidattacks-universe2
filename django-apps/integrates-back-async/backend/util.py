@@ -10,15 +10,29 @@ import logging
 import logging.config
 import re
 import secrets
-from typing import Any, Dict, Iterator, List, Union, cast
+from typing import (
+    Any,
+    Callable,
+    cast,
+    Dict,
+    Iterator,
+    List,
+    Union,
+)
 import httpx
 import pytz
 
-
 from asgiref.sync import sync_to_async
-from cryptography.hazmat.primitives.kdf.scrypt import Scrypt
-from cryptography.hazmat.backends import default_backend
 from cryptography.exceptions import InvalidKey
+from cryptography.hazmat.backends import default_backend
+from cryptography.hazmat.primitives.kdf.scrypt import Scrypt
+from django.conf import settings
+from django.core.cache import cache
+from django.core.files.uploadedfile import (
+    InMemoryUploadedFile,
+    TemporaryUploadedFile,
+)
+from django.http import JsonResponse
 from graphql.language.ast import (
     BooleanValueNode,
     FieldNode,
@@ -29,15 +43,9 @@ from graphql.language.ast import (
     StringValueNode,
     VariableNode
 )
-from magic import Magic
-from django.conf import settings
-from django.http import JsonResponse
-from django.core.files.uploadedfile import (
-    TemporaryUploadedFile, InMemoryUploadedFile
-)
-from django.core.cache import cache
 from jose import jwt, JWTError
-
+from magic import Magic
+from more_itertools import chunked
 
 from backend.dal import session as session_dal
 from backend.exceptions import (
@@ -45,12 +53,14 @@ from backend.exceptions import (
     ExpiredToken,
     InvalidAuthorization
 )
-
 from backend.typing import (
     Finding as FindingType,
     User as UserType
 )
-from backend.utils import apm
+from backend.utils import (
+    aio,
+    apm,
+)
 from __init__ import (
     FI_ENVIRONMENT,
     FI_TEST_PROJECTS,
@@ -577,3 +587,14 @@ def remove_token(key: str):
 
 def token_exists(key: str) -> bool:
     return session_dal.element_exists(key)
+
+
+async def run_task_by_chunks(func: Callable[..., Any], groups: List[str]):
+    groups_per_chunk = 40
+    chunks = chunked(groups, groups_per_chunk)
+
+    for chunk in chunks:
+        await aio.materialize(
+            func(group_name)
+            for group_name in chunk
+        )
