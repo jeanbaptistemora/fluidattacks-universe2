@@ -59,10 +59,23 @@ class VulnerabilitySourceEnum(Enum):
     SKIMS: str = 'skims'
 
 
+class GrammarMatch(NamedTuple):
+    start_char: int
+    start_column: int
+    start_line: int
+    end_char: int
+    end_column: int
+    end_line: int
+
+
 class IntegratesVulnerabilityMetadata(NamedTuple):
     approval_status: Optional[VulnerabilityApprovalStatusEnum] = None
     source: Optional[VulnerabilitySourceEnum] = None
     uuid: Optional[str] = None
+
+
+class SkimsVulnerabilityMetadata(NamedTuple):
+    grammar_match: Optional[GrammarMatch] = None
 
 
 class IntegratesVulnerabilitiesLines(NamedTuple):
@@ -80,3 +93,4 @@ class Vulnerability(NamedTuple):
     where: str
 
     integrates_metadata: Optional[IntegratesVulnerabilityMetadata] = None
+    skims_metadata: Optional[SkimsVulnerabilityMetadata] = None

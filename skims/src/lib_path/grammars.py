@@ -15,6 +15,11 @@ from pyparsing import (
     QuotedString,
 )
 
+# Local libraries
+from utils.model import (
+    GrammarMatch,
+)
+
 # Reusable Components
 C_STYLE_COMMENT: ParserElement = cppStyleComment
 
@@ -22,18 +27,9 @@ SINGLE_QUOTED_STRING: QuotedString = QuotedString("'")
 DOUBLE_QUOTED_STRING: QuotedString = QuotedString('"')
 
 
-class GrammarMatch(NamedTuple):
-    start_char: int
-    start_column: int
-    start_line: int
-    end_char: int
-    end_column: int
-    end_line: int
-
-
 def blocking_get_matching_lines(
     content: str,
-    char_to_line_column_mapping: Dict[int, int],
+    char_to_yx_map: Dict[int, int],
     grammar: ParserElement,
 ) -> Tuple[GrammarMatch, ...]:
     # Pyparsing's scanString expands tabs to 'n' number of spaces
@@ -52,12 +48,8 @@ def blocking_get_matching_lines(
         )
 
         for _, start_char, end_char in grammar.scanString(content)
-        for start_line, start_column in [
-            char_to_line_column_mapping[start_char],
-        ]
-        for end_line, end_column in [
-            char_to_line_column_mapping[end_char],
-        ]
+        for start_line, start_column in [char_to_yx_map[start_char]]
+        for end_line, end_column in [char_to_yx_map[end_char]]
     )
 
     return matches

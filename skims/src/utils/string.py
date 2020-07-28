@@ -26,12 +26,12 @@ from utils.aio import (
 )
 
 
-async def get_char_to_line_column_mapping(
+async def get_char_to_yx_map(
     *,
     lines: Tuple[str, ...],
 ) -> Dict[int, Tuple[int, int]]:
 
-    def _get_char_to_line_column_mapping() -> Dict[int, Tuple[int, int]]:
+    def _get_char_to_yx_map() -> Dict[int, Tuple[int, int]]:
         mapping: Dict[int, Tuple[int, int]] = {}
 
         if not lines:
@@ -55,7 +55,7 @@ async def get_char_to_line_column_mapping(
 
         return mapping
 
-    return await unblock(_get_char_to_line_column_mapping)
+    return await unblock(_get_char_to_yx_map)
 
 
 def are_similar(string_a: str, string_b: str, threshold: float = 0.85) -> bool:

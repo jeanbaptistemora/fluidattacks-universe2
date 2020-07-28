@@ -5,11 +5,24 @@ from itertools import (
 from typing import (
     AsyncGenerator,
     Awaitable,
+    Dict,
     List,
     Tuple,
 )
 
+# Third party libraries
+from pyparsing import (
+    Keyword,
+    nestedExpr,
+)
+
 # Local libraries
+from lib_path.grammars import (
+    blocking_get_matching_lines,
+    C_STYLE_COMMENT,
+    DOUBLE_QUOTED_STRING,
+    SINGLE_QUOTED_STRING,
+)
 from utils.aio import (
     materialize,
     unblock,
@@ -19,6 +32,8 @@ from utils.fs import (
 )
 from utils.model import (
     FindingEnum,
+    GrammarMatch,
+    SkimsVulnerabilityMetadata,
     Vulnerability,
     VulnerabilityKindEnum,
     VulnerabilityStateEnum,
@@ -26,9 +41,15 @@ from utils.model import (
 
 
 def javascript_insecure_randoms(
+    char_to_yx_map: Dict[int, Tuple[int, int]],
     file_content: str,
     path: str,
 ) -> Tuple[Vulnerability, ...]:
+    grammar = Keyword('Math') + '.' + Keyword('random') + nestedExpr()
+    grammar.ignore(C_STYLE_COMMENT)
+    grammar.ignore(SINGLE_QUOTED_STRING)
+    grammar.ignore(DOUBLE_QUOTED_STRING)
+
     # Minimalistic proof of concept so we can focus on the heavy lifting:
     #   reporting, closing, etc
     results: Tuple[Vulnerability, ...] = tuple(
@@ -37,16 +58,23 @@ def javascript_insecure_randoms(
             kind=VulnerabilityKindEnum.LINES,
             state=VulnerabilityStateEnum.OPEN,
             what=path,
-            where=f'{line_number}',
+            where=f'{match.start_line}',
+            skims_metadata=SkimsVulnerabilityMetadata(
+                grammar_match=match,
+            )
         )
-        for line_number, line_content in enumerate(file_content.splitlines())
-        if 'Math.random(' in line_content
+        for match in blocking_get_matching_lines(
+            content=file_content,
+            char_to_yx_map=char_to_yx_map,
+            grammar=grammar,
+        )
     )
 
     return results
 
 
 async def analyze(
+    char_to_yx_map_generator: AsyncGenerator[Dict[int, Tuple[int, int]], None],
     extension: str,
     file_content_generator: AsyncGenerator[str, None],
     path: str,
@@ -56,6 +84,7 @@ async def analyze(
     if extension in ['js', 'jsx', 'ts', 'tsx']:
         coroutines.append(unblock(
             javascript_insecure_randoms,
+            char_to_yx_map=await char_to_yx_map_generator.__anext__(),
             file_content=await file_content_generator.__anext__(),
             path=path,
         ))

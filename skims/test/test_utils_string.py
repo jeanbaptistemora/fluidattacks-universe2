@@ -69,12 +69,12 @@ from utils.aio import (
     block_decorator,
 )
 from utils.string import (
-    get_char_to_line_column_mapping,
+    get_char_to_yx_map,
 )
 
 
 @block_decorator
-async def test_get_char_to_line_column_mapping() -> None:
+async def test_get_char_to_yx_map() -> None:
     content: str = dedent("""
         x
         xx
@@ -84,7 +84,7 @@ async def test_get_char_to_line_column_mapping() -> None:
     """)[1:-1]
     content_lines: Tuple[str, ...] = tuple(content.splitlines())
 
-    assert await get_char_to_line_column_mapping(lines=content_lines) == {
+    assert await get_char_to_yx_map(lines=content_lines) == {
         0: (1, 0),
         1: (1, 1),
         2: (2, 0),

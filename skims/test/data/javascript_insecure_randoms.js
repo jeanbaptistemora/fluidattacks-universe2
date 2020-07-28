@@ -1,1 +1,2 @@
-Math.random();
+
+    Math.random();
