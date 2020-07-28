@@ -12,6 +12,7 @@
       "src/utils/environment.ts",
       "src/utils/rollbar.ts",
       "src/utils/sortHelpers.ts",
+      "src/utils/apollo.ts",
       "src/components/**"
     ]
   },

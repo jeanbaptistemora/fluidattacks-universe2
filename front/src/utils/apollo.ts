@@ -1,6 +1,21 @@
-import { ApolloProvider as BaseApolloProvider } from "@apollo/react-hooks";
-import { InMemoryCache, NormalizedCacheObject } from "apollo-cache-inmemory";
+/* eslint-disable fp/no-mutation
+  -------
+  We need it in order to use methods from xhr and mutate some values from a
+  graphQL error response.
+*/
 import { ApolloClient } from "apollo-client";
+import { ApolloProvider as BaseApolloProvider } from "@apollo/react-hooks";
+import React from "react";
+import { WebSocketLink } from "apollo-link-ws";
+import _ from "lodash";
+import { createNetworkStatusNotifier } from "react-apollo-network-status";
+import { createUploadLink } from "apollo-upload-client";
+import { getEnvironment } from "./environment";
+import { getMainDefinition } from "apollo-utilities";
+import { msgError } from "./notifications";
+import rollbar from "./rollbar";
+import translate from "./translations/translate";
+import { useHistory } from "react-router";
 import {
   ApolloLink,
   FetchResult,
@@ -9,39 +24,27 @@ import {
   Operation,
 } from "apollo-link";
 import { ErrorHandler, ErrorResponse } from "apollo-link-error";
-import { WebSocketLink } from "apollo-link-ws";
-import { createUploadLink } from "apollo-upload-client";
-import { getMainDefinition } from "apollo-utilities";
 import {
   FragmentDefinitionNode,
   GraphQLError,
   OperationDefinitionNode,
 } from "graphql";
-import _ from "lodash";
-import React from "react";
-import { createNetworkStatusNotifier } from "react-apollo-network-status";
-import { useHistory } from "react-router";
-import { getEnvironment } from "./environment";
-import { msgError } from "./notifications";
-import rollbar from "./rollbar";
-import translate from "./translations/translate";
+import { InMemoryCache, NormalizedCacheObject } from "apollo-cache-inmemory";
 
 const getCookie: (name: string) => string = (name: string): string => {
-  let cookieValue: string;
-  cookieValue = "";
   if (document.cookie !== "") {
-    let cookie: string;
     const cookies: string[] = document.cookie.split(";");
-    for (cookie of cookies) {
-      cookie = cookie.trim();
-      if (cookie.substring(0, name.length + 1) === `${name}=`) {
-        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-        break;
-      }
+    const cookieValue:
+      | string
+      | undefined = cookies.find((cookie: string): boolean =>
+      cookie.trim().startsWith(`${name}=`)
+    );
+    if (!_.isUndefined(cookieValue)) {
+      return decodeURIComponent(cookieValue.trim().substring(name.length + 1));
     }
   }
 
-  return cookieValue;
+  return "";
 };
 
 /**
@@ -53,57 +56,60 @@ const getCookie: (name: string) => string = (name: string): string => {
  *
  * @see https://github.com/jaydenseric/apollo-upload-client/issues/88
  */
-interface IExtendedFetchOptions extends RequestInit {
+interface IExtendedFetchConfig extends RequestInit {
   notifyUploadProgress: boolean;
-  onUploadProgress(ev: ProgressEvent): void;
+  onUploadProgress: (ev: ProgressEvent) => void;
 }
 
 const xhrWrapper: WindowOrWorkerGlobalScope["fetch"] = async (
-  uri: string, options: IExtendedFetchOptions,
-): Promise<Response> => new Promise((
-  resolve: (value: Response) => void,
-  reject: (reason: Error) => void,
-): void => {
-  const xhr: XMLHttpRequest = new XMLHttpRequest();
+  uri: string,
+  options: IExtendedFetchConfig
+): Promise<Response> =>
+  new Promise(
+    (
+      resolve: (value: Response) => void,
+      reject: (reason: Error) => void
+    ): void => {
+      const xhr: XMLHttpRequest = new XMLHttpRequest();
 
-  xhr.onload = (): void => {
-    resolve(new Response(xhr.response, options));
-  };
+      xhr.onload = (): void => {
+        resolve(new Response(xhr.response, options));
+      };
 
-  xhr.onerror = (): void => {
-    reject(new Error(`Network request failed: ${xhr.responseText}`));
-  };
+      xhr.onerror = (): void => {
+        reject(new Error(`Network request failed: ${xhr.responseText}`));
+      };
 
-  xhr.ontimeout = (): void => {
-    reject(new Error("Network request timed out"));
-  };
+      xhr.ontimeout = (): void => {
+        reject(new Error("Network request timed out"));
+      };
 
-  xhr.open(_.get(options, "method", "POST"), uri, true);
+      xhr.open(_.get(options, "method", "POST"), uri, true);
 
-  if (options.headers !== undefined) {
-    Object.keys(options.headers)
-      .forEach((key: string): void => {
-        xhr.setRequestHeader(key, _.get(options.headers, key));
-      });
-  }
+      if (options.headers !== undefined) {
+        Object.keys(options.headers).forEach((key: string): void => {
+          xhr.setRequestHeader(key, _.get(options.headers, key));
+        });
+      }
 
-  xhr.upload.onprogress = options.onUploadProgress;
+      xhr.upload.onprogress = options.onUploadProgress;
 
-  xhr.send(options.body);
-});
+      xhr.send(options.body);
+    }
+  );
 
 const extendedFetch: WindowOrWorkerGlobalScope["fetch"] = async (
-  uri: string, options: IExtendedFetchOptions,
-): Promise<Response> => options.notifyUploadProgress
-    ? xhrWrapper(uri, options)
-    : fetch(uri, options);
+  uri: string,
+  options: IExtendedFetchConfig
+): Promise<Response> =>
+  options.notifyUploadProgress ? xhrWrapper(uri, options) : fetch(uri, options);
 
 const httpLink: ApolloLink = createUploadLink({
   credentials: "same-origin",
   fetch: extendedFetch,
   headers: {
     "X-CSRFToken": getCookie("csrftoken"),
-    "accept": "application/json",
+    accept: "application/json",
   },
   uri: `${window.location.origin}/integrates/api`,
 });
@@ -116,13 +122,12 @@ const wsLink: ApolloLink = new WebSocketLink({
   uri: `wss://${window.location.host}/integrates/api`,
 });
 
-export const networkStatusNotifier: ReturnType<
-  typeof createNetworkStatusNotifier
-> = createNetworkStatusNotifier();
+export const networkStatusNotifier: ReturnType<typeof createNetworkStatusNotifier> = createNetworkStatusNotifier();
 const apiLink: ApolloLink = ApolloLink.split(
   ({ query }: Operation): boolean => {
-    const definition: OperationDefinitionNode | FragmentDefinitionNode =
-      getMainDefinition(query);
+    const definition:
+      | OperationDefinitionNode
+      | FragmentDefinitionNode = getMainDefinition(query);
 
     return (
       definition.kind === "OperationDefinition" &&
@@ -130,7 +135,7 @@ const apiLink: ApolloLink = ApolloLink.split(
     );
   },
   wsLink,
-  networkStatusNotifier.link.concat(httpLink),
+  networkStatusNotifier.link.concat(httpLink)
 );
 
 /**
@@ -139,72 +144,77 @@ const apiLink: ApolloLink = ApolloLink.split(
  * @see https://github.com/apollographql/react-apollo/issues/1548
  * @see https://github.com/apollographql/apollo-link/issues/855
  */
-const onError: ((errorHandler: ErrorHandler) => ApolloLink) = (
-  errorHandler: ErrorHandler,
+const onError: (errorHandler: ErrorHandler) => ApolloLink = (
+  errorHandler: ErrorHandler
 ): ApolloLink =>
-  new ApolloLink((
-    operation: Operation,
-    forward: NextLink,
-  ): Observable<FetchResult> =>
-    new Observable((
-      observer: ZenObservable.SubscriptionObserver<FetchResult>,
-    ): (() => void) => {
-      let subscription: ZenObservable.Subscription | undefined;
+  new ApolloLink(
+    (operation: Operation, forward: NextLink): Observable<FetchResult> =>
+      new Observable(
+        (
+          observer: ZenObservable.SubscriptionObserver<FetchResult>
+        ): (() => void) => {
+          const subscription: ZenObservable.Subscription | undefined = (():
+            | ZenObservable.Subscription
+            | undefined => {
+            try {
+              const operationObserver: Observable<FetchResult> = forward(
+                operation
+              );
 
-      try {
-        const operationObserver: Observable<FetchResult> = forward(operation);
-
-        subscription = operationObserver.subscribe({
-          complete: observer.complete.bind(observer),
-          error: (networkError: ErrorResponse["networkError"]): void => {
-            errorHandler({
-              forward,
-              networkError,
-              operation,
-            });
-          },
-          next: (result: FetchResult): void => {
-            if (result.errors !== undefined) {
+              return operationObserver.subscribe({
+                complete: observer.complete.bind(observer),
+                error: (networkError: ErrorResponse["networkError"]): void => {
+                  errorHandler({
+                    forward,
+                    networkError,
+                    operation,
+                  });
+                },
+                next: (result: FetchResult): void => {
+                  if (result.errors !== undefined) {
+                    errorHandler({
+                      forward,
+                      graphQLErrors: result.errors,
+                      operation,
+                      response: result,
+                    });
+                  }
+                  observer.next(result);
+                },
+              });
+            } catch (exception) {
               errorHandler({
                 forward,
-                graphQLErrors: result.errors,
+                networkError: exception as Error,
                 operation,
-                response: result,
               });
             }
-            observer.next(result);
-          },
-        });
-      } catch (exception) {
-        errorHandler({
-          forward,
-          networkError: exception as Error,
-          operation,
-        });
-      }
+          })();
 
-      return (): void => {
-        if (subscription !== undefined) {
-          subscription.unsubscribe();
+          return (): void => {
+            if (subscription !== undefined) {
+              subscription.unsubscribe();
+            }
+          };
         }
-      };
-    }),
+      )
   );
 
 type History = ReturnType<typeof useHistory>;
 // Top-level error handling
-const errorLink: ((history: History) => ApolloLink) = (
-  history: History,
+const errorLink: (history: History) => ApolloLink = (
+  history: History
 ): ApolloLink =>
   onError(({ graphQLErrors, networkError, response }: ErrorResponse): void => {
     if (networkError !== undefined) {
       const { statusCode } = networkError as { statusCode?: number };
+      const forbidden: number = 403;
 
       switch (statusCode) {
         case undefined:
           msgError(translate.t("group_alerts.error_network"), "Offline");
           break;
-        case 403:
+        case forbidden:
           // Django CSRF expired
           location.reload();
           break;
@@ -248,25 +258,27 @@ type ProviderProps = Omit<
   React.ComponentProps<typeof BaseApolloProvider>,
   "client"
 >;
-const apolloProvider: React.FC<ProviderProps> = (
-  props: ProviderProps,
+export const ApolloProvider: React.FC<ProviderProps> = (
+  props: ProviderProps
 ): JSX.Element => {
   const history: History = useHistory();
+
   const client: ApolloClient<NormalizedCacheObject> = React.useMemo(
-    (): ApolloClient<NormalizedCacheObject> => new ApolloClient({
-      cache: new InMemoryCache(),
-      connectToDevTools: getEnvironment() !== "production",
-      defaultOptions: {
-        watchQuery: {
-          fetchPolicy: "cache-and-network",
+    (): ApolloClient<NormalizedCacheObject> =>
+      new ApolloClient({
+        cache: new InMemoryCache(),
+        connectToDevTools: getEnvironment() !== "production",
+        defaultOptions: {
+          watchQuery: {
+            fetchPolicy: "cache-and-network",
+          },
         },
-      },
-      link: errorLink(history)
-        .concat(apiLink),
-    }),
-    []);
+        link: errorLink(history).concat(apiLink),
+      }),
+    // This computed value will never change
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    []
+  );
 
   return React.createElement(BaseApolloProvider, { client, ...props });
 };
-
-export { apolloProvider as ApolloProvider };
