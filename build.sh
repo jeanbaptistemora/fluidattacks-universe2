@@ -17,6 +17,8 @@ function check_nix_version {
 function decide_and_call_provisioner {
   local job="${1:-}"
   local provisioner
+  export __NIX_PATH="${NIX_PATH}"
+  export __NIX_SSL_CERT_FILE="${NIX_SSL_CERT_FILE}"
 
   # shellcheck disable=2016
       provisioner="./build/provisioners/${job}.nix" \
@@ -30,6 +32,9 @@ function decide_and_call_provisioner {
         --keep NIX_PATH \
         --keep NIX_PROFILES \
         --keep NIX_SSL_CERT_FILE \
+        --keep NIXPKGS_ALLOW_UNFREE \
+        --keep __NIX_PATH \
+        --keep __NIX_SSL_CERT_FILE \
         --keep CI \
         --keep CI_COMMIT_REF_NAME \
         --keep CI_MERGE_REQUEST_DESCRIPTION \
@@ -38,15 +43,19 @@ function decide_and_call_provisioner {
         --keep CI_NODE_TOTAL \
         --keep CI_REGISTRY_PASSWORD \
         --keep CI_REGISTRY_USER \
+        --keep CI_MERGE_REQUEST_IID \
+        --keep CI_PIPELINE_ID \
+        --keep CI_JOB_ID \
+        --keep CI_PROJECT_DIR \
         --keep AWS_ACCESS_KEY_ID \
         --keep AWS_SECRET_ACCESS_KEY \
         --keep GITLAB_API_USER \
         --keep GITLAB_API_TOKEN \
         --keep BREAK_BUILD_ID \
         --keep BREAK_BUILD_SECRET \
-        --keep CI_JOB_ID \
-        --keep CI_PROJECT_DIR \
         --keep GITLAB_CI_PROJECT_DIR \
+        --keep MR_TEST_TOKEN \
+        --keep MR_TEST_MAX_DELTAS \
         --max-jobs auto \
         --option restrict-eval false \
         --option sandbox false \

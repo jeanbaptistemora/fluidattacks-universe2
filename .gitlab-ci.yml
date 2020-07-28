@@ -3,7 +3,7 @@ stages:
   - test
   - analytics
   - analytics-upload
-  - mr-check
+  - mr-test
   - deploy
   - postdeploy
   - rotation
@@ -423,23 +423,10 @@ test_commit_msg:
   <<: *in_dev_branch
   stage: test
 
-danger:
-  image: fluidattacks/danger-ruby
-  tags: [autoscaling]
-  stage: mr-check
-  only:
-    - merge_requests
-  variables:
-    DANGER_GITLAB_API_TOKEN: $DANGER_TOKEN
-  before_script:
-    - curl -LOJ https://gitlab.com/fluidattacks/public/-/raw/master/commitlint-configs/others/commitlint.config.js
-    - curl -LOJ https://gitlab.com/fluidattacks/public/-/raw/master/commitlint-configs/others/parser-preset.js
-    - export CI_MERGE_REQUEST_ID=$(git ls-remote -q origin merge-requests\*\head
-      | grep ${CI_COMMIT_SHA}
-      | sed 's/.*refs\/merge-requests\/\([0-9]*\)\/head/\1/g')
-    - npm install @commitlint/{config-conventional,cli}
-  script:
-    - danger --verbose --fail-on-errors=true
+reviews:
+  <<: *with_nix
+  stage: mr-test
+  only: [merge_requests]
 
 test_forces_static:
   <<: *with_nix

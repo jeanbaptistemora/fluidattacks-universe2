@@ -629,3 +629,23 @@ function job_send_new_release_email {
         tags=['general'])" >> "${temp}" \
   &&  python3 "${temp}"
 }
+
+function job_reviews {
+  local public_url='https://static-objects.gitlab.net/fluidattacks/public/raw/master'
+  local parser_url="${public_url}/commitlint-configs/others/parser-preset.js"
+  local rules_url="${public_url}/commitlint-configs/others/commitlint.config.js"
+
+  function reviews {
+    export __NIX_PATH
+    export __NIX_SSL_CERT_FILE
+
+    NIX_PATH="${__NIX_PATH}" \
+    NIX_SSL_CERT_FILE="${__NIX_SSL_CERT_FILE}" \
+      "${srcProduct}/bin/reviews" "${@}"
+  }
+
+      helper_use_pristine_workdir \
+  &&  curl -LOJ "${parser_url}" \
+  &&  curl -LOJ "${rules_url}" \
+  &&  reviews flavor generic
+}
