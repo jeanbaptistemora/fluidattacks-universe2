@@ -87,7 +87,7 @@ describe("DashboardView", (): void => {
     expect(wrapper.text())
       .toContain("58.3%");
     expect(wrapper.text())
-      .toContain("0%Compared to last week");
+      .toContain("0%Compared");
     expect(wrapper.text())
       .toContain("of 12 found in 1 system");
   });
@@ -342,7 +342,7 @@ describe("DashboardView", (): void => {
     expect(wrapper.text())
       .toContain("58.3%");
     expect(wrapper.text())
-      .toContain("-8.3%Compared to last week");
+      .toContain("-8.3%Compared");
     expect(wrapper.text())
       .toContain("of 12 found in 1 system");
 
@@ -353,7 +353,7 @@ describe("DashboardView", (): void => {
     expect(wrapper.text())
       .toContain("100%");
     expect(wrapper.text())
-      .toContain("+35%Compared to last week");
+      .toContain("+35%Compared");
     expect(wrapper.text())
       .toContain("of 20 found in 2 systems");
 
