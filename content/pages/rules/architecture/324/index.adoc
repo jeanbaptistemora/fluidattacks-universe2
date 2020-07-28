@@ -15,7 +15,7 @@ especially when they depend on external input.
 
 Systems must guarantee that all redirects lead to a controlled or trusted site.
 In general, redirects based on input data should be avoided as they could
-enable to *phishing* attacks.
+enable *phishing* attacks.
 If they are required, they should be controlled so that users are only
 redirected to trusted sites.
 
