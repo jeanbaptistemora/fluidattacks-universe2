@@ -1,16 +1,15 @@
 from typing import cast, Dict
 import uuid
 from asgiref.sync import async_to_sync
-from openpyxl import Workbook
+from pyexcelerate import Workbook
 from backend.dal import user as user_dal
 from backend.domain import user as user_domain
 from backend.utils import reports as reports_utils
 
 
 def generate(user_email: str) -> str:
-    book = Workbook()
-    sheet = book.active
-    sheet.append(['full_name', 'user_email'])
+    workbook = Workbook()
+    sheet_values = [['full_name', 'user_email']]
     row_index = 2
 
     unique_users = []
@@ -27,13 +26,13 @@ def generate(user_email: str) -> str:
             )
             full_name = ' '.join(list(name_attrs.values()))
 
-            sheet.cell(row_index, 1, full_name)
-            sheet.cell(row_index, 2, email)
+            sheet_values.append([full_name, email])
             row_index += 1
 
     username = user_email.split('@')[0]
     report_filepath = f'/tmp/{username}-{uuid.uuid4()}-allusers.xlsx'
-    book.save(report_filepath)
+    workbook.new_sheet('Users', data=sheet_values)
+    workbook.save(report_filepath)
 
     uploaded_file_name = reports_utils.upload_report(report_filepath)
     uploaded_file_url = reports_utils.sign_url(
