@@ -1,7 +1,8 @@
 # Standard library
-from typing import cast, List
+from enum import Enum
+from typing import cast, List, NamedTuple
 import uuid
-from openpyxl import load_workbook
+from pyexcelerate import Workbook
 
 from asgiref.sync import async_to_sync
 
@@ -14,27 +15,31 @@ from backend.typing import Historic as HistoricType
 from backend.utils import reports as reports_utils
 
 
+class ColumnConfig(NamedTuple):
+    label: str
+    width: int
+
+
+class CompleteReportHeader(Enum):
+    PROJECT: ColumnConfig = ColumnConfig(label='Project', width=30)
+    FINDING: ColumnConfig = ColumnConfig(label='Finding', width=30)
+    WHERE: ColumnConfig = ColumnConfig(label='Vulnerability (where)', width=30)
+    SPECIFIC: ColumnConfig = ColumnConfig(
+        label='Vulnerability (specific)', width=30)
+    TREATMENT: ColumnConfig = ColumnConfig(label='Treatment', width=30)
+    TREATMENT_MANAGER: ColumnConfig = ColumnConfig(
+        label='Treatment Manager', width=30)
+
+
 # pylint: disable=too-many-locals
 def generate(
     user_email: str,
     projects: List[str]
 ) -> str:
-    template_path = (
-        '/usr/src/app/django-apps/integrates-back-async/backend'
-        '/reports/templates/excel/COMPLETE.xlsx'
-    )
-    book = load_workbook(template_path)
-    sheet = book.active
+    header = [label.value.label for label in CompleteReportHeader]
+    workbook = Workbook()
+    sheet_values = [header]
 
-    project_col = 1
-    finding_col = 2
-    vuln_where_col = 3
-    vuln_specific_col = 4
-    treatment_col = 5
-    treatment_mgr_col = 6
-    row_offset = 2
-
-    row_index = row_offset
     for project in projects:
         findings = async_to_sync(project_domain.get_released_findings)(
             project, 'finding_id, finding, historic_treatment'
@@ -44,37 +49,24 @@ def generate(
                 [str(finding['finding_id'])]
             )
             for vuln in vulns:
-                sheet.cell(row_index, vuln_where_col, vuln['where'])
-                sheet.cell(row_index, vuln_specific_col, vuln['specific'])
-
-                sheet.cell(row_index, project_col, project.upper())
-                sheet.cell(
-                    row_index,
-                    finding_col,
-                    (f'{str(finding["finding"]).encode("utf-8")!s} '
-                     f'(#{str(finding["finding_id"])})')
-                )
                 historic_treatment = finding.get('historic_treatment', [{}])
-                sheet.cell(
-                    row_index,
-                    treatment_col,
+                sheet_values.append([
+                    vuln['where'],
+                    vuln['specific'],
+                    (f'{str(finding["finding"]).encode("utf-8")!s} '
+                     f'(#{str(finding["finding_id"])})'),
                     cast(
                         HistoricType,
                         historic_treatment
-                    )[-1].get('treatment', '')
-                )
-                sheet.cell(
-                    row_index,
-                    treatment_mgr_col,
+                    )[-1].get('treatment', ''),
                     vuln.get('treatment_manager', 'Unassigned')
-                )
-
-                row_index += 1
+                ])
 
     username = user_email.split('@')[0]
-    report_filename = 'complete.xlsx'
-    report_filepath = f'/tmp/{username}-{uuid.uuid4()}-{report_filename}'
-    book.save(cast(str, report_filepath))
+    report_filepath = f'/tmp/{username}-{uuid.uuid4()}-complete.xlsx'
+    workbook.new_sheet('Data', data=sheet_values)
+    workbook.save(cast(str, report_filepath))
+
     uploaded_file_name = reports_utils.upload_report(report_filepath)
     uploaded_file_url = reports_utils.sign_url(
         uploaded_file_name,
