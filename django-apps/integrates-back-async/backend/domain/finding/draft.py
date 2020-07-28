@@ -221,8 +221,7 @@ async def submit_draft(finding_id: str, analyst_email: str) -> bool:
                     'historic_state': history
                 })
                 if success:
-                    await aio.ensure_io_bound(
-                        finding_utils.send_new_draft_mail,
+                    await finding_utils.send_new_draft_mail(
                         analyst_email,
                         finding_id,
                         str(finding.get('finding', '')),

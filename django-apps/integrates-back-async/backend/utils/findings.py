@@ -568,12 +568,12 @@ def send_draft_reject_mail(
     email_send_thread.start()
 
 
-def send_new_draft_mail(
+async def send_new_draft_mail(
         analyst_email: str,
         finding_id: str, finding_title: str,
         project_name: str):
     recipients = FI_MAIL_REVIEWERS.split(',')
-    recipients += project_dal.list_internal_managers(project_name)
+    recipients += await project_dal.list_internal_managers(project_name)
 
     email_context = {
         'analyst_email': analyst_email,

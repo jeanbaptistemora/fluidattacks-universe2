@@ -157,8 +157,12 @@ async def _do_add_repositories(
             ('Security: Added repos to '
              f'{project_name} project successfully')  # pragma: no cover
         )
-        await sync_to_async(resources.send_mail)(
-            project_name, user_email, new_repos, 'added', 'repository'
+        await resources.send_mail(
+            project_name,
+            user_email,
+            new_repos,
+            'added',
+            'repository'
         )
     else:
         LOGGER.error('Couldn\'t add repositories', extra={'extra': locals()})
@@ -192,8 +196,12 @@ async def _do_add_environments(
             ('Security: Added envs to '
              f'{project_name} project successfully')  # pragma: no cover
         )
-        await sync_to_async(resources.send_mail)(
-            project_name, user_email, new_envs, 'added', 'environment'
+        await resources.send_mail(
+            project_name,
+            user_email,
+            new_envs,
+            'added',
+            'environment'
         )
     else:
         LOGGER.error('Couldn\'t add environments', extra={'extra': locals()})
@@ -229,8 +237,12 @@ async def _do_add_files(
         user_email
     )
     if add_file:
-        await sync_to_async(resources.send_mail)(
-            project_name, user_email, new_files_data, 'added', 'file'
+        await resources.send_mail(
+            project_name,
+            user_email,
+            new_files_data,
+            'added',
+            'file'
         )
 
         success = True
@@ -270,8 +282,12 @@ async def _do_remove_files(
     user_email = util.get_jwt_content(info.context)['user_email']
     remove_file = await resources.remove_file(str(file_name), project_name)
     if remove_file:
-        await sync_to_async(resources.send_mail)(
-            project_name, user_email, [files_data], 'removed', 'file'
+        await resources.send_mail(
+            project_name,
+            user_email,
+            [files_data],
+            'removed',
+            'file'
         )
         success = True
     else:
@@ -375,8 +391,12 @@ async def _do_update_environment(
         )
 
         action = 'activated' if state == 'ACTIVE' else 'deactivated'
-        await sync_to_async(resources.send_mail)(
-            project_name, user_email, [env], action, 'environment'
+        await resources.send_mail(
+            project_name,
+            user_email,
+            cast(List[ResourceType], [env]),
+            action,
+            'environment'
         )
     else:
         LOGGER.error(
@@ -420,8 +440,12 @@ async def _do_update_repository(
         )
 
         action = 'activated' if state == 'ACTIVE' else 'deactivated'
-        await sync_to_async(resources.send_mail)(
-            project_name, user_email, [repo], action, 'repository'
+        await resources.send_mail(
+            project_name,
+            user_email,
+            cast(List[ResourceType], [repo]),
+            action,
+            'repository'
         )
     else:
         LOGGER.error(
