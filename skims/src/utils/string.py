@@ -70,7 +70,7 @@ async def to_in_memory_file(string: str) -> BytesIO:
     return await unblock(_to_in_memory_file)
 
 
-async def to_snippet(
+def blocking_to_snippet(
     *,
     chars_per_line: int = 120,
     column: int,
@@ -78,37 +78,33 @@ async def to_snippet(
     context: int = 10,
     line: int,
 ) -> str:
+    lines: Tuple[str, ...] = tuple(content.splitlines())
+    number_of_lines: int = len(lines)
+    zeros_needed: int = max(len(str(number_of_lines)), 4)
 
-    def _to_snippet() -> str:
-        lines: Tuple[str, ...] = tuple(content.splitlines())
-        number_of_lines: int = len(lines)
-        zeros_needed: int = max(len(str(number_of_lines)), 4)
+    start_line: int = max(line - context - 1, 0)
+    end_line: int = min(line + context, number_of_lines)
 
-        start_line: int = max(line - context - 1, 0)
-        end_line: int = min(line + context, number_of_lines)
+    start_column: int = max(column - chars_per_line // 2, 0)
+    end_column: int = start_column + chars_per_line
 
-        start_column: int = max(column - chars_per_line // 2, 0)
-        end_column: int = start_column + chars_per_line
+    separator: str = f'¦ {"-" * zeros_needed} ¦ {"-" * chars_per_line} ¦'
+    snippet: str = '\n'.join(chain(
+        [f'¦ {"line":^{zeros_needed}s} ¦ {"Data":<{chars_per_line}s} ¦'],
+        [separator],
+        (
+            f'¦ {line_no!s:>{zeros_needed}s} ¦ '
+            f'{line_content[start_column:end_column]:<{chars_per_line}s} ¦'
+            for line_no, line_content in enumerate(
+                lines[start_line:end_line],
+                start=start_line + 1,
+            )
+        ),
+        [separator],
+        [f'  {"":^{zeros_needed}s} ^ Column {start_column}'],
+    ))
 
-        separator: str = f'¦ {"-" * zeros_needed} ¦ {"-" * chars_per_line} ¦'
-        snippet: str = '\n'.join(chain(
-            [f'¦ {"line":^{zeros_needed}s} ¦ {"Data":<{chars_per_line}s} ¦'],
-            [separator],
-            (
-                f'¦ {line_no!s:>{zeros_needed}s} ¦ '
-                f'{line_content[start_column:end_column]:<{chars_per_line}s} ¦'
-                for line_no, line_content in enumerate(
-                    lines[start_line:end_line],
-                    start=start_line + 1,
-                )
-            ),
-            [separator],
-            [f'  {"":^{zeros_needed}s} ^ Column {start_column}'],
-        ))
-
-        return snippet
-
-    return await unblock(_to_snippet)
+    return snippet
 
 
 async def to_png(

@@ -12,12 +12,11 @@ from utils.aio import (
 )
 from utils.string import (
     get_char_to_yx_map,
-    to_snippet,
+    blocking_to_snippet,
 )
 
 
-@block_decorator
-async def test_to_snippet() -> None:
+def test_to_snippet() -> None:
     content: str = dedent("""
         xxxxx
         xxxxxxxxxx
@@ -34,7 +33,7 @@ async def test_to_snippet() -> None:
         xxxxx
     """)
 
-    snippet: str = await to_snippet(
+    snippet: str = blocking_to_snippet(
         chars_per_line=43,
         content=content,
         context=4,

@@ -39,7 +39,7 @@ from utils.model import (
     VulnerabilityStateEnum,
 )
 from utils.string import (
-    to_snippet,
+    blocking_to_snippet,
 )
 
 
@@ -62,7 +62,7 @@ def javascript_insecure_randoms(
             where=f'{match.start_line}',
             skims_metadata=SkimsVulnerabilityMetadata(
                 grammar_match=match,
-                snippet=to_snippet(
+                snippet=blocking_to_snippet(
                     column=match.start_column,
                     content=file_content,
                     line=match.start_line,

@@ -1,7 +1,6 @@
 # Standard library
 from enum import Enum
 from typing import (
-    Awaitable,
     Dict,
     NamedTuple,
     Optional,
@@ -88,7 +87,7 @@ class IntegratesVulnerabilityMetadata(NamedTuple):
 
 
 class SkimsVulnerabilityMetadata(NamedTuple):
-    snippet: Awaitable[str]
+    snippet: str
 
     grammar_match: Optional[GrammarMatch] = None
 

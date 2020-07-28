@@ -39,7 +39,17 @@ async def main(
         # skimmers for other sources (--url, etc) go here
     ))))
 
-    await materialize(log('info', '%s', result) for result in results)
+    await materialize(
+        log(
+            'info', '%s: %s @ %s\n\n%s\n',
+            result.finding.value,
+            result.what,
+            result.where,
+            result.skims_metadata.snippet,
+        )
+        for result in results
+        if result.skims_metadata
+    )
 
     if all((group, token)):
         await log('info', 'Results will be synced to group: %s', group)

@@ -363,6 +363,8 @@ async def do_update_evidence(
     evidence_stream: BytesIO,
     finding_id: str,
 ) -> bool:
+    evidence_stream.seek(0)
+
     result = await _execute(
         query="""
             mutation DoUpdateEvidence(

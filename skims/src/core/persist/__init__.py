@@ -58,15 +58,12 @@ async def upload_evidences(
     )
     number_of_samples: int = min(len(results), len(evidence_ids))
 
-    snippets: Tuple[str, ...] = await materialize(
-        result.skims_metadata.snippet
+    evidence_streams: Tuple[BytesIO, ...] = await materialize(
+        to_png(string=result.skims_metadata.snippet)
         for result in (
             random.sample(results, k=number_of_samples)
         )
         if result.skims_metadata
-    )
-    evidence_streams: Tuple[BytesIO, ...] = await materialize(
-        to_png(string=snippet) for snippet in snippets
     )
 
     return all(
