@@ -8,13 +8,19 @@
 
 == Requirement
 
-The system must not allow successful authentication of users
+The system must not allow users to authenticate
 with expired, revoked or blocked credentials.
 
 == References
 
-. [[r1]] link:https://www.law.cornell.edu/cfr/text/45/164.310[+HIPAA Security Rules+ 164.310(a)(2)(iii):]
+. [[r1]] link:https://www.law.cornell.edu/cfr/text/45/164.310[HIPAA Security Rules 164.310(a)(2)(iii):]
 Access Control and Validation Procedures: Implement procedures
-to control and validate a person's access to facilities
-based on their role or function, including visitor control,
-and control of access to software programs for testing and revision.
+to control and validate a person's access based on their role or function,
+including control of access to software programs for testing and revision.
+
+. [[r2]] link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A2-Broken_Authentication[OWASP Top 10 A2:2017-Broken Authentication].
+Application functions related to authentication and session management are
+often implemented incorrectly,
+allowing attackers to compromise passwords, keys, or session tokens,
+or to exploit other implementation flaws to assume other users’ identities
+temporarily or permanently.

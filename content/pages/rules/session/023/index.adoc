@@ -66,9 +66,9 @@ Require security sign-off.
 According to WASC, "Insufficient Session Expiration is when a web site permits
 an attacker to reuse old session credentials or session IDs for authorization."
 
-. [[r3]] link:https://cwe.mitre.org/data/definitions/613.html[CWE-613: Insufficient Session Expiration]
-According to WASC, "Insufficient Session Expiration is when a web site permits
-an attacker to reuse old session credentials or session IDs for authorization."
+. [[r3]] link:https://cwe.mitre.org/data/definitions/613.html[CWE-613: Insufficient Session Expiration].
+Insufficient Session Expiration is when a web site permits
+an attacker to reuse old session credentials or session IDs for authorization.
 
 . [[r4]] link:https://www.law.cornell.edu/cfr/text/45/164.312[HIPAA Security Rules 164.312(a)(2)(iii):]
 Automatic Logoff: Implement electronic procedures

@@ -32,9 +32,9 @@ for a malicious user to sniff network traffic and bypass authentication by
 replaying it to the server in question to the same effect as the original
 message (or with minor changes).
 
-. [[r3]] link:https://cwe.mitre.org/data/definitions/613.html[CWE-613: Insufficient Session Expiration]
-According to WASC, "Insufficient Session Expiration is when a web site permits
-an attacker to reuse old session credentials or session IDs for authorization."
+. [[r3]] link:https://cwe.mitre.org/data/definitions/613.html[CWE-613: Insufficient Session Expiration].
+Insufficient Session Expiration is when a web site permits
+an attacker to reuse old session credentials or session IDs for authorization.
 
 . [[r4]] link:https://pages.nist.gov/800-63-3/sp800-63b.html[NIST 800-63B 5.1.3.2 Out-of-Band Verifiers]
 In all cases, the authentication SHALL be considered invalid if not completed
@@ -45,12 +45,19 @@ In order to provide replay resistance as described in Section 5.2.8,
 verifiers SHALL accept a given authentication secret only once during the
 validity period.
 
-. [[r6]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r6]] link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A2-Broken_Authentication[OWASP Top 10 A2:2017-Broken Authentication].
+Application functions related to authentication and session management are
+often implemented incorrectly,
+allowing attackers to compromise passwords, keys, or session tokens,
+or to exploit other implementation flaws to assume other users’ identities
+temporarily or permanently.
+
+. [[r7]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V2.7 Out of Band Verifier Requirements.(2.7.2)]
 Verify that the out of band verifier expires out of band authentication
 requests, codes, or tokens after 10 minutes.
 
-. [[r7]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r8]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V2.7 Out of Band Verifier Requirements.(2.7.3)]
 Verify that the out of band verifier authentication requests, codes, or tokens
 are only usable once,

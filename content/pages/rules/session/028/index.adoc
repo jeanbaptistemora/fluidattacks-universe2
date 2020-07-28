@@ -26,9 +26,9 @@ session.
 . [[r1]] link:https://www.bsimm.com/framework/governance/software-security-metrics-strategy.html[BSIMM9 SM2.6:]
 Require security sign-off.
 
-. [[r2]] link:https://cwe.mitre.org/data/definitions/613.html[CWE-613: Insufficient Session Expiration]
-According to WASC, "Insufficient Session Expiration is when a web site permits
-an attacker to reuse old session credentials or session IDs for authorization."
+. [[r2]] link:https://cwe.mitre.org/data/definitions/613.html[CWE-613: Insufficient Session Expiration].
+Insufficient Session Expiration is when a web site permits
+an attacker to reuse old session credentials or session IDs for authorization.
 
 . [[r3]] link:https://pages.nist.gov/800-63-3/sp800-63b.html[NIST 800-63B 7.1 Session Bindings]
 Secrets used for session binding SHALL be erased or invalidated by the session
