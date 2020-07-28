@@ -5,7 +5,7 @@
 import hashlib
 import uuid
 from typing import Dict, List, cast
-from openpyxl import Workbook
+from openpyxl import Workbook, worksheet
 
 from asgiref.sync import async_to_sync
 
@@ -127,11 +127,11 @@ def _format_vuln(
 
 
 def fill_sheet(
-    sheet,
+    sheet: worksheet,
     finding_row: Dict[str, FindingType],
     vuln_row: Dict[str, FindingType],
     row_index: int
-):
+) -> None:
     for col, col_name in enumerate(COLUMNS_FINS, 1):
         sheet.cell(row_index, col, finding_row.get(col_name, ''))
     for col, col_name in enumerate(COLUMNS_VULNS, len(COLUMNS_FINS) + 1):
@@ -160,12 +160,9 @@ def generate_all_vulns_xlsx(user_email: str, project_name: str = '') -> str:
             vulns = async_to_sync(vuln_domain.list_vulnerabilities_async)(
                 [str(finding['finding_id'])]
             )
-            finding_row = cast(Dict[str, FindingType], _mask_finding(finding))
+            finding_row = _mask_finding(finding)
             for vuln in vulns:
-                vuln_row = cast(
-                    Dict[str, FindingType],
-                    _format_vuln(vuln, finding_row)
-                )
+                vuln_row = _format_vuln(vuln, finding_row)
                 fill_sheet(sheet, finding_row, vuln_row, row_index)
                 row_index += 1
 
