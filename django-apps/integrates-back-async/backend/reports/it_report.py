@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """ Class for generate an xlsx file with findings information. """
-from typing import cast, Dict, List, Optional, Union
+from typing import cast, Dict, List, Union
 
 from datetime import datetime
 from django.conf import settings
@@ -31,7 +31,7 @@ WHITE = Color(255, 255, 255, 1)
 class ITReport():
     """Class to generate IT reports."""
 
-    workbook = None
+    workbook: Workbook
     current_sheet: WorksheetType = None
     data = None
     lang = None
@@ -105,10 +105,15 @@ class ITReport():
         'RL': 'remediationLevel',
         'RC': 'reportConfidence',
     }
-    row_values: List[Union[str, int, datetime]] = \
-        [EMPTY for _ in range(len(vulnerability) + 1)]
+    row_values: List[Union[str, int, datetime]] = [
+        EMPTY
+        for _ in range(len(vulnerability) + 1)
+    ]
 
-    def __init__(self, data: List[Dict[str, FindingType]], lang: str = 'es'):
+    def __init__(
+            self,
+            data: List[Dict[str, FindingType]],
+            lang: str = 'es') -> None:
         """Initialize variables."""
         self.project_name = str(data[0].get('projectName'))
         self.lang = lang
@@ -121,15 +126,15 @@ class ITReport():
 
         self.save()
 
-    def save(self):
-        tzn = pytz.timezone(settings.TIME_ZONE)  # type: ignore
+    def save(self) -> None:
+        tzn = pytz.timezone(settings.TIME_ZONE)
         today_date = datetime.now(tz=tzn).today().strftime('%Y-%m-%dT%H-%M-%S')
         self.result_filename = (
             f'{self.project_name}-vulnerabilities-{today_date}.xlsx'
         )
         self.workbook.save(self.result_filename)
 
-    def style_sheet(self):
+    def style_sheet(self) -> None:
         header = self.current_sheet.range(*self.get_row_range(1))
         header.style.fill.background = RED
         header.style.font.color = WHITE
@@ -144,15 +149,17 @@ class ITReport():
             )
         self.current_sheet.set_row_style(2, Style(size=ROW_HEIGHT))
 
-    def parse_template(self):
-        self.current_sheet.range(*self.get_row_range(self.row)).value = \
-            [list(self.vulnerability.keys())]
+    def parse_template(self) -> None:
+        self.current_sheet.range(*self.get_row_range(self.row)).value = [
+            list(self.vulnerability.keys())
+        ]
         self.row += 1
 
-    def generate(self, data: List[Dict[str, FindingType]]):
+    def generate(self, data: List[Dict[str, FindingType]]) -> None:
         self.project_name = str(data[0].get('projectName'))
         vulns = async_to_sync(vuln_domain.list_vulnerabilities_async)(
-            [finding.get('findingId') for finding in data])
+            [finding.get('findingId') for finding in data]
+        )
         for vuln in vulns:
             self.write_vuln_row(vuln)
             self.row += 1
@@ -161,12 +168,11 @@ class ITReport():
     def get_row_range(cls, row: int) -> List[str]:
         return [f'A{row}', f'AW{row}']
 
-    @classmethod
+    @staticmethod
     def get_measure(
-        cls,
         metric: str,
         metric_value: str
-    ) -> Optional[str]: # noqa
+    ) -> str:
         """Extract number of CSSV metrics."""
         metrics = {
             'attackVector': {
@@ -227,16 +233,14 @@ class ITReport():
                 '1.0': 'Confirmed',
             }
         }
-        metric_descriptions = metrics.get(metric, '')
-        description = cast(
-            Dict[str, str],
-            metric_descriptions
-        ).get(str(metric_value), EMPTY)
+        metric_descriptions = metrics.get(metric, dict())
+        description = metric_descriptions.get(str(metric_value), EMPTY)
 
         return description
 
-    def set_cvss_metrics_cell(self, row: VulnType):
+    def set_cvss_metrics_cell(self, row: VulnType) -> None:
         metric_vector = []
+        vuln = self.vulnerability
         cvss_key = 'CVSSv3.1 string vector'
         for ind, (indicator, measure) in enumerate(self.cvss_measures.items()):
             value = self.get_measure(
@@ -245,19 +249,20 @@ class ITReport():
             )
             if value:
                 metric_vector.append(f'{indicator}:{value[0]}')
-                self.row_values[
-                    self.vulnerability[cvss_key] + ind + 1] = value
+                self.row_values[vuln[cvss_key] + ind + 1] = value
 
         cvss_metric_vector = '/'.join(metric_vector)
         cvss_calculator_url = (
             f'https://www.first.org/cvss/calculator/3.1#CVSS:3.1'
             f'/{cvss_metric_vector}'
         )
-        cell_content = \
+        cell_content = (
             f'=HYPERLINK("{cvss_calculator_url}", "{cvss_metric_vector}")'
-        self.row_values[self.vulnerability[cvss_key]] = cell_content
+        )
+        self.row_values[vuln[cvss_key]] = cell_content
 
-    def write_vuln_row(self, row: VulnType):
+    def write_vuln_row(self, row: VulnType) -> None:
+        vuln = self.vulnerability
         finding = async_to_sync(get_finding)(row.get('finding_id'))
         specific = str(row.get('specific', ''))
         if row.get('vuln_type') == 'lines':
@@ -266,16 +271,13 @@ class ITReport():
         if 'tag' in row:
             tags = str(', '.join(cast(List[str], row.get('tag'))))
 
-        self.row_values[self.vulnerability['#']] = self.row - 1
-        self.row_values[self.vulnerability['Related Finding']] = \
-            finding.get('finding')
-        self.row_values[self.vulnerability['Finding Id']] = \
-            finding.get('findingId', EMPTY)
-        self.row_values[self.vulnerability['Vulnerability Id']] = \
-            str(row.get('UUID', EMPTY))
-        self.row_values[self.vulnerability['Where']] = str(row.get('where'))
-        self.row_values[self.vulnerability['Specific']] = specific
-        self.row_values[self.vulnerability['Tags']] = tags
+        self.row_values[vuln['#']] = self.row - 1
+        self.row_values[vuln['Related Finding']] = finding.get('finding')
+        self.row_values[vuln['Finding Id']] = finding.get('findingId', EMPTY)
+        self.row_values[vuln['Vulnerability Id']] = str(row.get('UUID', EMPTY))
+        self.row_values[vuln['Where']] = str(row.get('where'))
+        self.row_values[vuln['Specific']] = specific
+        self.row_values[vuln['Tags']] = tags
 
         self.write_finding_data(finding, row)
         self.write_vuln_temporal_data(row)
@@ -283,20 +285,21 @@ class ITReport():
         self.write_reattack_data(finding, row)
         self.set_cvss_metrics_cell(finding)
 
-        self.current_sheet.range(*self.get_row_range(self.row)).value = \
-            [self.row_values[1:]]
+        values = [self.row_values[1:]]
+        self.current_sheet.range(*self.get_row_range(self.row)).value = values
         self.current_sheet.set_row_style(self.row, Style(size=ROW_HEIGHT))
 
     def write_finding_data(
         self,
         finding: Dict[str, FindingType],
         vuln: VulnType
-    ):
+    ) -> None:
         compromised_attributes = str(finding.get('compromisedAttrs')) or EMPTY
         n_compromised_attributes = None
         if compromised_attributes != EMPTY:
-            n_compromised_attributes = \
-                str(len(compromised_attributes.split('\n')))
+            n_compromised_attributes = str(
+                len(compromised_attributes.split('\n'))
+            )
         external_bts = finding.get('externalBts', EMPTY)
 
         finding_data = {
@@ -316,10 +319,11 @@ class ITReport():
         for key, value in finding_data.items():
             self.row_values[self.vulnerability[key]] = value
 
-    def write_vuln_temporal_data(self, vuln: VulnType):
+    def write_vuln_temporal_data(self, vuln: VulnType) -> None:
         vuln_historic_state = cast(HistoricType, vuln.get('historic_state'))
         vuln_date = datetime.strptime(
-            vuln_historic_state[0]['date'], '%Y-%m-%d %H:%M:%S')
+            vuln_historic_state[0]['date'], '%Y-%m-%d %H:%M:%S'
+        )
         vuln_closed = vuln_historic_state[-1]['state'] == 'closed'
         limit_date = datetime.today()
         vuln_close_date: Union[str, datetime] = EMPTY
@@ -345,7 +349,7 @@ class ITReport():
         self,
         finding: Dict[str, FindingType],
         vuln: VulnType
-    ):
+    ) -> None:
         def format_treatment(treatment: str) -> str:
             treatment = treatment.capitalize().replace('_', ' ')
             if treatment == 'Accepted undefined':
@@ -355,8 +359,10 @@ class ITReport():
             return treatment
 
         historic_state = finding.get('historicState')
-        finding_historic_treatment = \
-            cast(HistoricType, finding.get('historicTreatment'))
+        finding_historic_treatment = cast(
+            HistoricType,
+            finding.get('historicTreatment')
+        )
         current_treatment_date: Union[str, datetime] = EMPTY
         current_treatment_exp_date: Union[str, datetime] = EMPTY
         first_treatment_exp_date: Union[str, datetime] = EMPTY
@@ -370,15 +376,15 @@ class ITReport():
                 str(vuln.get('acceptance_date')),
                 '%Y-%m-%d %H:%M:%S'
             )
-        first_treatment_state = \
-            cast(Dict[str, str], finding_historic_treatment[0])
+        first_treatment_state = finding_historic_treatment[0]
         if len(str(finding.get('releaseDate')).split(' ')) == 2:
             first_treatment_date_format = '%Y-%m-%d %H:%M:%S'
         else:
             first_treatment_date_format = '%Y-%m-%d'
         if len(finding_historic_treatment) > 1:
-            first_treatment_exp_date = \
-                finding_historic_treatment[1].get('date', EMPTY)
+            first_treatment_exp_date = finding_historic_treatment[1].get(
+                'date', EMPTY
+            )
             if first_treatment_exp_date != EMPTY:
                 first_treatment_exp_date = datetime.strptime(
                     str(first_treatment_exp_date),
@@ -387,39 +393,48 @@ class ITReport():
 
         current_treatment_data: Dict[str, Union[str, int, datetime]] = {
             'Current Treatment': format_treatment(
-                str(vuln.get('treatment', 'NEW'))),
+                str(vuln.get('treatment', 'NEW'))
+            ),
             'Current Treatment Moment': current_treatment_date,
             'Current Treatment Justification': str(
                 vuln.get('treatment_justification', EMPTY)),
             'Current Treatment expiration Moment': current_treatment_exp_date,
             'Current Treatment manager': str(
-                vuln.get('treatment_manager', EMPTY)),
+                vuln.get('treatment_manager', EMPTY)
+            ),
         }
         first_treatment_data: Dict[str, Union[str, int, datetime]] = {
-            'First Treatment': str(format_treatment(
-                first_treatment_state.get('treatment', 'NEW'))),
+            'First Treatment': str(
+                format_treatment(first_treatment_state.get('treatment', 'NEW'))
+            ),
             'First Treatment Moment': datetime.strptime(
-                str(finding.get('releaseDate')), first_treatment_date_format),
+                str(finding.get('releaseDate')),
+                first_treatment_date_format
+            ),
             'First Treatment Justification': str(
-                first_treatment_state.get('justification', EMPTY)),
+                first_treatment_state.get('justification', EMPTY)
+            ),
             'First Treatment expiration Moment': first_treatment_exp_date,
             'First Treatment manager': str(
-                first_treatment_state.get('user', EMPTY)),
+                first_treatment_state.get('user', EMPTY)
+            ),
         }
 
         for key, value in current_treatment_data.items():
             self.row_values[self.vulnerability[key]] = value
             first_treatment_key = key.replace('Current', 'First')
-            self.row_values[self.vulnerability[first_treatment_key]] = \
-                first_treatment_data[first_treatment_key]
+            kword = self.vulnerability[first_treatment_key]
+            self.row_values[kword] = first_treatment_data[first_treatment_key]
 
     def write_reattack_data(
         self,
         finding: Dict[str, FindingType],
         vuln: VulnType
-    ):
-        historic_verification = \
-            cast(HistoricType, finding.get('historicVerification'))
+    ) -> None:
+        historic_verification = cast(
+            HistoricType,
+            finding.get('historicVerification')
+        )
         vuln_closed = cast(
             HistoricType, vuln.get('historic_state'))[-1]['state'] == 'closed'
         reattack_requested = None
@@ -428,18 +443,20 @@ class ITReport():
         n_requested_reattacks = None
         remediation_effectiveness = EMPTY
         if historic_verification:
-            reattack_requested = \
+            reattack_requested = (
                 historic_verification[-1]['status'] == 'REQUESTED'
-            n_requested_reattacks = \
-                len([
-                    state for state in historic_verification
-                    if state['status'] == 'REQUESTED'
-                ])
+            )
+            n_requested_reattacks = len([
+                state
+                for state in historic_verification
+                if state['status'] == 'REQUESTED'
+            ])
             if vuln_closed:
                 remediation_effectiveness = f'{100 / n_requested_reattacks}%'
             if reattack_requested:
                 reattack_date = datetime.strptime(
-                    historic_verification[-1]['date'], '%Y-%m-%d %H:%M:%S')
+                    historic_verification[-1]['date'], '%Y-%m-%d %H:%M:%S'
+                )
                 reattack_requester = historic_verification[-1]['user']
         reattack_data = {
             'Pending Reattack': 'Yes' if reattack_requested else 'No',
