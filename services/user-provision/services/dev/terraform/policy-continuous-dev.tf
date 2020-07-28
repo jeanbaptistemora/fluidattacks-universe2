@@ -90,6 +90,8 @@ data "aws_iam_policy_document" "continuous-dev-policy-data" {
       "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/user-provision/burp-*",
       "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/burp-*",
       "arn:aws:iam::${data.aws_caller_identity.current.account_id}:policy/burp-*",
+      "arn:aws:iam::${data.aws_caller_identity.current.account_id}:policy/secure-notes*",
+      "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/secure-notes*",
     ]
   }
 
