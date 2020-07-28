@@ -9,5 +9,5 @@
 == Requirement
 
 Devices that connect to the mobile network
-must have a personal identification number (+PIN+)
-configured on the +SIM+ card.
+must have a personal identification number (**PIN**)
+configured on the *SIM* card.

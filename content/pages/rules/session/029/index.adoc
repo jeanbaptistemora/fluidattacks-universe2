@@ -141,31 +141,38 @@ paths.
 . [[r7]] link:https://pages.nist.gov/800-63-3/sp800-63b.html[NIST 800-63B 7.1.1 Browser Cookies]
 Cookies SHOULD be tagged to be inaccessible via JavaScript (HttpOnly).
 
-. [[r8]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r8]] link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A2-Broken_Authentication[OWASP Top 10 A2:2017-Broken Authentication].
+Application functions related to authentication and session management are
+often implemented incorrectly,
+allowing attackers to compromise passwords, keys, or session tokens,
+or to exploit other implementation flaws to assume other users’ identities
+temporarily or permanently.
+
+. [[r9]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V3.2 Session Binding Requirements.(3.2.3)]
 Verify the application only stores session tokens in the browser using secure
 methods such as appropriately secured cookies (see section 3.4) or HTML 5
 session storage.
 
-. [[r9]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r10]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V3.4 Cookie-based Session Management.(3.4.1)]
 Verify that cookie-based session tokens have the 'Secure' attribute set.
 
-. [[r10]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r11]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V3.4 Cookie-based Session Management.(3.4.2)]
 Verify that cookie-based session tokens have the 'HttpOnly' attribute set.
 
-. [[r11]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r12]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V3.4 Cookie-based Session Management.(3.4.3)]
 Verify that cookie-based session tokens utilize the 'SameSite' attribute to
 limit exposure to cross-site request forgery attacks.
 
-. [[r12]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r13]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V3.4 Cookie-based Session Management.(3.4.4)]
 Verify that cookie-based session tokens use "**__Host-**" prefix
 (see references) to provide session cookie confidentiality.
 
-. [[r13]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r14]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V3.4 Cookie-based Session Management.(3.4.5)]
 Verify that if the application is published under a domain name with other
 applications that set or use session cookies that might override or disclose
@@ -173,24 +180,24 @@ the session cookies,
 the path attribute in cookie-based session tokens is set using the most precise
 path possible.
 
-. [[r14]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r15]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V4.2 Operation Level Access Control.(4.2.2)]
 Verify that the application or framework enforces a strong anti-CSRF mechanism
 to protect authenticated functionality,
 and effective anti-automation or anti-CSRF protects unauthenticated
 functionality.
 
-. [[r15]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r16]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V13.2 RESTful Web Service Verification Requirements.(13.2.3)]
 Verify that *RESTful* web services that utilize cookies are protected from
 Cross-Site Request Forgery via the use of at least one or more of the
 following: triple or double submit cookie pattern, *CSRF* nonces, or *ORIGIN*
 request header checks.
 
-. [[r16]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r17]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V14.5 Validate HTTP Request Header Requirements.(14.5.3)]
 Verify that the cross-domain resource sharing (*CORS*)
 *Access-Control-Allow-Origin* header uses a strict white-list of trusted
 domains to match against and does not support the "**null**" origin.
 
-. [[r17]] link:https://pcinetwork.org/forum/index.php?threads/pci-dss-3-0-6-5-10-broken-authentication-and-session-management.667/[[PCI DSS 3.0\] 6.5.10 Broken authentication and session management].
+. [[r18]] link:https://pcinetwork.org/forum/index.php?threads/pci-dss-3-0-6-5-10-broken-authentication-and-session-management.667/[[PCI DSS 3.0\] 6.5.10 Broken authentication and session management].

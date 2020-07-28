@@ -49,14 +49,21 @@ Secrets used for session binding SHALL time out and not be accepted after the
 times specified in Sections 4.1.4, 4.2.4, and 4.3.4,
 as appropriate for the AAL.
 
-. [[r6]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r6]] link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A2-Broken_Authentication[OWASP Top 10 A2:2017-Broken Authentication].
+Application functions related to authentication and session management are
+often implemented incorrectly,
+allowing attackers to compromise passwords, keys, or session tokens,
+or to exploit other implementation flaws to assume other users’ identities
+temporarily or permanently.
+
+. [[r7]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V3.3 Session Logout and Timeout Requirements.(3.3.1)]
 Verify that logout and expiration invalidate the session token,
 such that the back button or a downstream relying party does not resume an
 authenticated session,
 including across relying parties.
 
-. [[r7]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r8]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V8.2 Client-side Data Protection.(8.2.3)]
 Verify that authenticated data is cleared from client storage,
 such as the browser *DOM*, after the client or session is terminated.

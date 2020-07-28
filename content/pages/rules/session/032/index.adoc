@@ -47,19 +47,26 @@ communication channel that can be sniffed by unauthorized actors.
 The web application uses the *HTTP* *GET* method to process a request and
 includes sensitive information in the query string of that request.
 
-. [[r4]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r4]] link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A2-Broken_Authentication[OWASP Top 10 A2:2017-Broken Authentication].
+Application functions related to authentication and session management are
+often implemented incorrectly,
+allowing attackers to compromise passwords, keys, or session tokens,
+or to exploit other implementation flaws to assume other users’ identities
+temporarily or permanently.
+
+. [[r5]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V3.1 Client-side Data Protection.(3.1.1)]
 Verify the application never reveals session tokens in *URL* parameters or error
 messages.
 
-. [[r5]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r6]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V8.3 Sensitive Private Data.(8.3.1)]
 Verify that sensitive data is sent to the server in the *HTTP* message body or
 headers,
 and that query string parameters from any *HTTP* verb do not contain sensitive
 data.
 
-. [[r6]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r7]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V13.1 Generic Web Service Security Verification Requirements.(13.1.3)]
 Verify *API* **URL**s do not expose sensitive information,
 such as the *API* key, session tokens etc.
