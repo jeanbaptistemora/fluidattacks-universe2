@@ -7,6 +7,7 @@ from django.conf import settings
 from asgiref.sync import async_to_sync
 import pytz
 from pyexcelerate import (
+    Alignment,
     Color,
     Style,
     Workbook,
@@ -23,7 +24,7 @@ from backend.typing import (
 
 EMPTY = '-'
 HEADER_HEIGHT = 20
-ROW_HEIGHT = 50
+ROW_HEIGHT = 57
 RED = Color(255, 52, 53, 1)  # FF3435
 WHITE = Color(255, 255, 255, 1)
 
@@ -38,59 +39,60 @@ class ITReport():
     row = 1
     result_filename = ''
     project_name = ''
-    header_labels = [
-        '#',
-        'Related Finding',
-        'Finding Id',
-        'Vulnerability Id',
-        'Where',
-        'Specific',
-        'Description',
-        'Status',
-        'Severity',
-        'Requirements',
-        'Impact',
-        'Affected System',
-        'Threat',
-        'Recommendation',
-        'External BTS',
-        'Compromised Attributes',
-        '# Compromised records',
-        'Tags',
-        'Business Critically',
-        'Report Moment',
-        'Close Moment',
-        'Age in days',
-        'First Treatment',
-        'First Treatment Moment',
-        'First Treatment Justification',
-        'First Treatment expiration Moment',
-        'First Treatment manager',
-        'Current Treatment',
-        'Current Treatment Moment',
-        'Current Treatment Justification',
-        'Current Treatment expiration Moment',
-        'Current Treatment manager',
-        'Pending Reattack',
-        '# Requested Reattacks',
-        'Remediation Effectiveness',
-        'Last requested reattack',
-        'Last reattack Requester',
-        'CVSSv3.1 string vector',
-        'Attack Vector',
-        'Attack Complexity',
-        'Privileges Required',
-        'User Interaction',
-        'Severity Scope',
-        'Confidentiality Impact',
-        'Integrity Impact',
-        'Availability Impact',
-        'Exploitability',
-        'Remediation Level',
-        'Report Confidence',
-    ]
+    header = {
+        '#': 4,
+        'Related Finding': 55,
+        'Finding Id': 25,
+        'Vulnerability Id': 50,
+        'Where': 45,
+        'Specific': 38,
+        'Description': 95,
+        'Status': 13,
+        'Severity': 13,
+        'Requirements': 100,
+        'Impact': 65,
+        'Affected System': 45,
+        'Threat': 55,
+        'Recommendation': 100,
+        'External BTS': 80,
+        'Compromised Attributes': 35,
+        '# Compromised records': 30,
+        'Tags': 60,
+        'Business Critically': 25,
+        'Report Moment': 25,
+        'Close Moment': 25,
+        'Age in days': 20,
+        'First Treatment': 20,
+        'First Treatment Moment': 25,
+        'First Treatment Justification': 95,
+        'First Treatment expiration Moment': 40,
+        'First Treatment manager': 35,
+        'Current Treatment': 20,
+        'Current Treatment Moment': 25,
+        'Current Treatment Justification': 95,
+        'Current Treatment expiration Moment': 40,
+        'Current Treatment manager': 35,
+        'Pending Reattack': 25,
+        '# Requested Reattacks': 25,
+        'Remediation Effectiveness': 25,
+        'Last requested reattack': 25,
+        'Last reattack Requester': 35,
+        'CVSSv3.1 string vector': 55,
+        'Attack Vector': 18,
+        'Attack Complexity': 20,
+        'Privileges Required': 25,
+        'User Interaction': 20,
+        'Severity Scope': 20,
+        'Confidentiality Impact': 23,
+        'Integrity Impact': 20,
+        'Availability Impact': 20,
+        'Exploitability': 18,
+        'Remediation Level': 25,
+        'Report Confidence': 25,
+    }
     vulnerability = {
-        col_name: index + 1 for index, col_name in enumerate(header_labels)
+        col_name: index + 1
+        for index, col_name in enumerate(list(header.keys()))
     }
     cvss_measures = {
         'AV': 'attackVector',
@@ -142,12 +144,11 @@ class ITReport():
         header.style.alignment.vertical = 'center'
         header.style.alignment.wrap_text = True
 
-        for column in range(1, len(self.row_values)):
+        for column, (_, value) in enumerate(self.header.items()):
             self.current_sheet.set_col_style(
-                column,
-                Style(size=-1)
+                column + 1,
+                Style(size=value, alignment=Alignment(wrap_text=True)),
             )
-        self.current_sheet.set_row_style(2, Style(size=ROW_HEIGHT))
 
     def parse_template(self) -> None:
         self.current_sheet.range(*self.get_row_range(self.row)).value = [
@@ -285,9 +286,14 @@ class ITReport():
         self.write_reattack_data(finding, row)
         self.set_cvss_metrics_cell(finding)
 
-        values = [self.row_values[1:]]
-        self.current_sheet.range(*self.get_row_range(self.row)).value = values
-        self.current_sheet.set_row_style(self.row, Style(size=ROW_HEIGHT))
+        self.current_sheet.range(*self.get_row_range(self.row)).value = \
+            [self.row_values[1:]]
+        self.current_sheet.set_row_style(
+            self.row, Style(
+                size=ROW_HEIGHT,
+                alignment=Alignment(wrap_text=True)
+            )
+        )
 
     def write_finding_data(
         self,
@@ -301,12 +307,13 @@ class ITReport():
                 len(compromised_attributes.split('\n'))
             )
         external_bts = finding.get('externalBts', EMPTY)
+        severity = cast(int, finding.get('severityCvss', 0))
 
         finding_data = {
             'Description': str(finding.get('vulnerability', EMPTY)),
             'Status': cast(
                 HistoricType, vuln.get('historic_state'))[-1]['state'],
-            'Severity': str(finding.get('severityCvss', EMPTY)),
+            'Severity': severity or EMPTY,
             'Requirements': str(finding.get('requirements', EMPTY)),
             'Impact': str(finding.get('attackVectorDesc', EMPTY)),
             'Affected System': str(finding.get('affectedSystems', EMPTY)),
@@ -335,11 +342,10 @@ class ITReport():
                 vuln_historic_state[-1]['date'], '%Y-%m-%d %H:%M:%S'
             )
         vuln_age_days = int((limit_date - vuln_date).days)
-        vuln_age = f'{vuln_age_days} '
 
         vuln_temporal_data: Dict[str, Union[str, int, datetime]] = {
             'Report Moment': vuln_date,
-            'Age in days': vuln_age,
+            'Age in days': vuln_age_days,
             'Close Moment': vuln_close_date
         }
         for key, value in vuln_temporal_data.items():
