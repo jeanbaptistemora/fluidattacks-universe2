@@ -24,6 +24,7 @@ DYNAMODB_RESOURCE = dynamodb.DYNAMODB_RESOURCE  # type: ignore
 ACCESS_TABLE = DYNAMODB_RESOURCE.Table('FI_project_access')
 AUTHZ_TABLE = DYNAMODB_RESOURCE.Table('fi_authz')
 USERS_TABLE = DYNAMODB_RESOURCE.Table('FI_users')
+USERS_TABLE_NAME = 'FI_users'
 
 # Typing
 SubjectPolicy = NamedTuple(
@@ -156,14 +157,18 @@ def get_all(filter_exp: object, data_attr: str = '') -> List[Dict[str, str]]:
     return items
 
 
-def get_attributes(email: str, attributes: List[str]) -> UserType:
+async def get_attributes(email: str, attributes: List[str]) -> UserType:
     items = {}
     try:
-        response = USERS_TABLE.get_item(
-            Key={'email': email},
-            AttributesToGet=attributes
+        query_attrs = {'KeyConditionExpression': Key('email').eq(email)}
+        if attributes:
+            projection = ','.join(attributes)
+            query_attrs.update({'ProjectionExpression': projection})
+        response_items = await dynamodb.async_query(
+            USERS_TABLE_NAME, query_attrs
         )
-        items = response.get('Item', {})
+        if response_items:
+            items = response_items[0]
     except ClientError as ex:
         LOGGER.exception(ex, extra={'extra': locals()})
     return items

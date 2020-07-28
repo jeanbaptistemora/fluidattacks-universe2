@@ -655,7 +655,7 @@ async def _get_users(
     """Get users."""
     requester_email = util.get_jwt_content(info.context)['user_email']
 
-    group_user_emails = await sync_to_async(project_domain.get_users)(
+    group_user_emails = await project_domain.get_users(
         project_name
     )
 

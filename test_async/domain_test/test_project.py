@@ -328,13 +328,13 @@ class ProjectTest(TestCase):
         expected_output = 'Integrates unit test project'
         assert expected_output == await get_description(project_name)
 
-    def test_get_users(self):
+    async def test_get_users(self):
         project_name = 'unittesting'
         expected_output = [
             'integratesmanager@gmail.com', 'unittest@fluidattacks.com', 'integratesanalyst@gmail.com',
             'integratesuser@gmail.com', 'continuoushacking@gmail.com'
         ]
-        assert expected_output == get_users(project_name)
+        assert expected_output == await get_users(project_name)
 
     def test_get_pending_to_delete(self):
         projects = get_pending_to_delete()

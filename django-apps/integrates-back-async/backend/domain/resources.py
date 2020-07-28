@@ -52,7 +52,8 @@ def send_mail(
         resource_list: List[ResourceType],
         action: str,
         resource_type: str):
-    recipients = set(project_dal.list_project_managers(project_name))
+    recipients = set(async_to_sync(project_dal.list_project_managers)(
+        project_name))
     recipients.add(user_email)
     recipients.update(FI_MAIL_RESOURCERS.split(','))
     resource_description = format_resource(resource_list, resource_type)

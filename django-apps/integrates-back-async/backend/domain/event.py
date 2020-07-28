@@ -144,13 +144,13 @@ def validate_evidence(evidence_type: str, file) -> bool:
     return success
 
 
-def _send_new_event_mail(
+async def _send_new_event_mail(
         analyst: str,
         event_id: str,
         project: str,
         subscription: str,
         event_type: str):
-    recipients = project_dal.list_project_managers(project)
+    recipients = await project_dal.list_project_managers(project)
     recipients.append(analyst)
     if subscription == 'oneshot':
         recipients.append(FI_MAIL_PROJECTS)
@@ -263,14 +263,14 @@ async def create_event(
             if image:
                 await update_evidence(event_id, 'evidence', image)
             success = True
-            _send_new_event_mail(
+            await _send_new_event_mail(
                 analyst_email, event_id, project_name, subscription,
                 event_attrs['event_type']
             )
 
     else:
         success = await event_dal.create(event_id, project_name, event_attrs)
-        _send_new_event_mail(
+        await _send_new_event_mail(
             analyst_email, event_id, project_name, subscription,
             event_attrs['event_type']
         )

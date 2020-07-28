@@ -111,7 +111,7 @@ async def _create_new_user(  # pylint: disable=too-many-arguments
     if valid:
         success_granted = authz.grant_group_level_role(email, group, role)
 
-        if not user_domain.get_data(email, 'email'):
+        if not await user_domain.get_data(email, 'email'):
             await aio.ensure_io_bound(
                 user_domain.create,
                 email.lower(),
@@ -124,7 +124,7 @@ async def _create_new_user(  # pylint: disable=too-many-arguments
         if not await org_domain.has_user_access(email, organization_id):
             await org_domain.add_user(organization_id, email, 'customer')
 
-        if not user_domain.is_registered(email):
+        if not await user_domain.is_registered(email):
             user_domain.register(email)
             authz.grant_user_level_role(email, 'customer')
 
@@ -170,10 +170,10 @@ def _get_role(
     return cast(str, role)
 
 
-@sync_to_async  # type: ignore
-def _get_phone_number(_: GraphQLResolveInfo, email: str, *__: str) -> str:
+async def _get_phone_number(
+        _: GraphQLResolveInfo, email: str, *__: str) -> str:
     """Get phone number."""
-    return has_phone_number(email)
+    return await has_phone_number(email)
 
 
 @sync_to_async  # type: ignore
@@ -190,16 +190,16 @@ def _get_responsibility(
     return result
 
 
-@sync_to_async  # type: ignore
-def _get_first_login(_: GraphQLResolveInfo, email: str, *__: str) -> str:
+async def _get_first_login(_: GraphQLResolveInfo, email: str, *__: str) -> str:
     """Get first login."""
-    return cast(str, user_domain.get_data(email, 'date_joined'))
+    return cast(str, await user_domain.get_data(email, 'date_joined'))
 
 
-@sync_to_async  # type: ignore
-def _get_last_login(_: GraphQLResolveInfo, email: str, *__: str) -> str:
+async def _get_last_login(_: GraphQLResolveInfo, email: str, *__: str) -> str:
     """Get last_login."""
-    last_login_response = cast(str, user_domain.get_data(email, 'last_login'))
+    last_login_response = cast(
+        str, await user_domain.get_data(email, 'last_login')
+    )
     if last_login_response == '1111-1-1 11:11:11' or not last_login_response:
         last_login = [-1, -1]
     else:
@@ -283,7 +283,7 @@ async def resolve_for_group(  # pylint: disable=too-many-arguments
     role = await _get_role(info, email, entity, project_name)
 
     if project_name and role:
-        if (not user_domain.get_data(email, 'email') or
+        if (not await user_domain.get_data(email, 'email') or
                 not has_access_to_project(email, project_name)):
             raise UserNotFound()
 

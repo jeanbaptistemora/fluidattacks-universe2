@@ -85,7 +85,7 @@ def _remove_test_projects(
 
 
 def _get_recipient_first_name(email: str) -> str:
-    first_name = user_domain.get_data(email, 'first_name')
+    first_name = async_to_sync(user_domain.get_data)(email, 'first_name')
     if not first_name:
         first_name = email.split('@')[0]
     else:

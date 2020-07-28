@@ -465,8 +465,8 @@ def remove_project(project_name: str) -> NamedTuple:
 
 def remove_all_users_access(project: str) -> bool:
     """Remove user access to project."""
-    user_active = get_users(project)
-    user_suspended = get_users(project, active=False)
+    user_active = async_to_sync(get_users)(project)
+    user_suspended = async_to_sync(get_users)(project, active=False)
     all_users = user_active + user_suspended
     are_users_removed = True
     for user in all_users:
@@ -976,8 +976,8 @@ async def get_description(project_name: str) -> str:
     return await project_dal.get_description(project_name)
 
 
-def get_users(project_name: str, active: bool = True) -> List[str]:
-    return project_dal.get_users(project_name, active)
+async def get_users(project_name: str, active: bool = True) -> List[str]:
+    return await project_dal.get_users(project_name, active)
 
 
 async def get_many_groups(
@@ -995,7 +995,7 @@ async def get_many_groups(
 async def get_users_to_notify(
         project_name: str,
         active: bool = True) -> List[str]:
-    users = get_users(project_name, active)
+    users = await get_users(project_name, active)
     user_roles = await asyncio.gather(*[
         asyncio.create_task(
             sync_to_async(get_group_level_role)(user, project_name)
@@ -1012,7 +1012,7 @@ async def get_users_to_notify(
 def get_managers(project_name: str) -> List[str]:
     return [
         user_email
-        for user_email in get_users(project_name, active=True)
+        for user_email in async_to_sync(get_users)(project_name, active=True)
         if authz.get_group_level_role(
             user_email, project_name
         ) == 'customeradmin'

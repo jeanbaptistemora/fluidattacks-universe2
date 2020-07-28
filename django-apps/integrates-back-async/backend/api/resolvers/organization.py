@@ -127,7 +127,7 @@ async def _do_grant_user_organization_access(
     )
 
     user_created = False
-    user_exists = bool(user_domain.get_data(user_email, 'email'))
+    user_exists = bool(await user_domain.get_data(user_email, 'email'))
     if not user_exists:
         user_created = await aio.ensure_io_bound(
             user_domain.create_without_project,

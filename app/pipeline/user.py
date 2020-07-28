@@ -1,4 +1,5 @@
 from typing import Dict, Sequence, Any, Union
+from asgiref.sync import async_to_sync
 from backend import authz, mailer
 from backend.domain import user as user_domain
 from social_core.strategy import BaseStrategy
@@ -35,7 +36,7 @@ def autoenroll_user(strategy: BaseStrategy, email: str) -> bool:
     was_granted_access: bool = True
 
     # Registered users have this attribute set to True
-    is_registered: bool = user_domain.get_attributes(email, ['registered'])
+    is_registered: bool = async_to_sync(user_domain.is_registered)(email)
 
     if not is_registered:
         new_user_user_level_role: str = 'customer'
@@ -95,7 +96,7 @@ def create_user(
         'date_joined': today
     }
     if user:
-        if user_domain.get_data(str(user), 'first_name'):
+        if async_to_sync(user_domain.get_data)(str(user), 'first_name'):
             user_domain.update_last_login(user)
         else:
             user_domain.update_multiple_user_attributes(str(user), data_dict)
@@ -120,8 +121,8 @@ def check_registered(
     del kwargs
     del backend
     email = details['email'].lower()
-    is_registered = user_domain.is_registered(email)
-    last_login = user_domain.get_data(email, 'last_login')
+    is_registered = async_to_sync(user_domain.is_registered)(email)
+    last_login = async_to_sync(user_domain.get_data)(email, 'last_login')
     role = authz.get_user_level_role(email)
     strategy.session_set('role', role)
     strategy.session_set('username', email)

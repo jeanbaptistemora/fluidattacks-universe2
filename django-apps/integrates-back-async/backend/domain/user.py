@@ -34,8 +34,8 @@ def get_current_date() -> str:
     return today
 
 
-def get_data(email: str, attr: str) -> Union[str, UserType]:
-    data_attr = get_attributes(email, [attr])
+async def get_data(email: str, attr: str) -> Union[str, UserType]:
+    data_attr = await get_attributes(email, [attr])
     if data_attr and attr in data_attr:
         return cast(UserType, data_attr[attr])
     return str()
@@ -85,13 +85,13 @@ def get_group_access(email: str, group: str) -> bool:
     return bool(group_level_role)
 
 
-def get_attributes(email: str, data: List[str]) -> UserType:
+async def get_attributes(email: str, data: List[str]) -> UserType:
     """ Get attributes of a user. """
-    return user_dal.get_attributes(email, data)
+    return await user_dal.get_attributes(email, data)
 
 
-def is_registered(email: str) -> bool:
-    return bool(get_data(email, 'registered'))
+async def is_registered(email: str) -> bool:
+    return bool(await get_data(email, 'registered'))
 
 
 def register(email: str) -> bool:

@@ -38,6 +38,7 @@ DYNAMODB_RESOURCE = dynamodb.DYNAMODB_RESOURCE  # type: ignore
 LOGGER = logging.getLogger(__name__)
 TABLE = DYNAMODB_RESOURCE.Table('FI_projects')
 TABLE_ACCESS = DYNAMODB_RESOURCE.Table('FI_project_access')
+TABLE_ACCESS_NAME = 'FI_project_access'
 TABLE_NAME = 'FI_projects'
 TABLE_GROUP_COMMENTS = 'fi_project_comments'
 
@@ -222,8 +223,8 @@ async def list_events(project_name: str) -> List[str]:
     return [event['event_id'] for event in events]
 
 
-def list_internal_managers(project_name: str) -> List[str]:
-    all_managers = list_project_managers(project_name)
+async def list_internal_managers(project_name: str) -> List[str]:
+    all_managers = await list_project_managers(project_name)
     internal_managers = [
         user
         for user in all_managers
@@ -244,27 +245,18 @@ async def get_description(project: str) -> str:
     return project_description
 
 
-def get_users(project: str, active: bool = True) -> List[str]:
+async def get_users(project: str, active: bool = True) -> List[str]:
     """Get users of a project."""
     project_name = project.lower()
     key_condition = Key('project_name').eq(project_name)
     projection_expression = \
         'user_email, has_access, project_name, responsibility'
-    response = TABLE_ACCESS.query(
-        IndexName='project_access_users',
-        KeyConditionExpression=key_condition,
-        ProjectionExpression=projection_expression
-    )
-    users = response['Items']
-
-    while response.get('LastEvaluatedKey'):
-        response = TABLE_ACCESS.query(
-            IndexName='project_access_users',
-            KeyConditionExpression=key_condition,
-            ProjectionExpression=projection_expression,
-            ExclusiveStartKey=response['LastEvaluatedKey']
-        )
-        users += response['Items']
+    query_attrs = {
+        'IndexName': 'project_access_users',
+        'KeyConditionExpression': key_condition,
+        'ProjectionExpression': projection_expression
+    }
+    users = await dynamodb.async_query(TABLE_ACCESS_NAME, query_attrs)
     if active:
         users_filtered = [
             user.get('user_email')
@@ -292,14 +284,23 @@ async def exists(
     return bool(project_data)
 
 
-def list_project_managers(group: str) -> List[str]:
-    users_active = get_users(group, True)
-    users_inactive = get_users(group, False)
+async def list_project_managers(group: str) -> List[str]:
+    users_active, users_inactive = await aio.materialize([
+        get_users(group, True),
+        get_users(group, False)
+    ])
     all_users = users_active + users_inactive
+    users_roles = await aio.ensure_many_io_bound([
+        aio.PyCallable(
+            instance=authz.get_group_level_role,
+            args=(user, group),
+        )
+        for user in all_users
+    ])
     managers = [
         user
-        for user in all_users
-        if authz.get_group_level_role(user, group) == 'group_manager'
+        for user, role in zip(all_users, users_roles)
+        if role == 'group_manager'
     ]
     return managers
 
@@ -499,8 +500,8 @@ async def get_comments(project_name: str) -> List[Dict[str, str]]:
     }
     items = await dynamodb.async_query(TABLE_GROUP_COMMENTS, query_attrs)
     comment_name_data = await aio.materialize({
-        mail: aio.ensure_io_bound(
-            get_user_attributes, mail, ['last_name', 'first_name']
+        mail: get_user_attributes(
+            mail, ['last_name', 'first_name']
         )
         for mail in set(item['email'] for item in items)
     })

@@ -42,12 +42,12 @@ def has_access_to_event(email: str, event_id: str) -> bool:
     return has_access_to_project(email, group)
 
 
-def has_valid_access_token(email: str, context: Dict[str, str], jti: str) -> \
-        bool:
+async def has_valid_access_token(
+        email: str, context: Dict[str, str], jti: str) -> bool:
     """ Verify if has active access token and match. """
     access_token = cast(
         Dict[str, str],
-        user_domain.get_data(email, 'access_token')
+        await user_domain.get_data(email, 'access_token')
     )
     resp = False
     if context and access_token:
@@ -70,7 +70,7 @@ def has_responsibility(project: str, email: str) -> str:
     return user_resp
 
 
-def has_phone_number(email: str) -> str:
-    user_info = str(user_domain.get_data(email, 'phone'))
+async def has_phone_number(email: str) -> str:
+    user_info = str(await user_domain.get_data(email, 'phone'))
     user_phone = user_info if user_info else '-'
     return user_phone

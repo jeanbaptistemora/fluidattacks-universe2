@@ -106,7 +106,7 @@ async def _get_projects(
 
 async def _get_access_token(_: GraphQLResolveInfo, user_email: str) -> str:
     """Get access token."""
-    access_token = await sync_to_async(user_domain.get_data)(
+    access_token = await user_domain.get_data(
         user_email, 'access_token')
     access_token_dict = {
         'hasAccessToken': bool(access_token),
@@ -119,7 +119,7 @@ async def _get_access_token(_: GraphQLResolveInfo, user_email: str) -> str:
 
 async def _get_remember(_: GraphQLResolveInfo, user_email: str) -> bool:
     """Get remember preference."""
-    remember = await sync_to_async(user_domain.get_data)(
+    remember = await user_domain.get_data(
         user_email, 'legal_remember'
     )
     return bool(remember)

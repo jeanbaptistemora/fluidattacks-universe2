@@ -97,21 +97,21 @@ def require_login(func: TVar) -> TVar:
 
     @apm.trace(overridden_function=require_login)
     @functools.wraps(_func)
-    def verify_and_call(*args: Any, **kwargs: Any) -> Any:
+    async def verify_and_call(*args: Any, **kwargs: Any) -> Any:
         # The underlying request object being served
         context = args[1].context if len(args) > 1 else args[0]
 
         try:
             user_data = util.get_jwt_content(context)
             if util.is_api_token(user_data):
-                verify_jti(
+                await verify_jti(
                     user_data['user_email'],
                     context.META.get('HTTP_AUTHORIZATION'),
                     user_data['jti']
                 )
         except InvalidAuthorization:
             raise GraphQLError('Login required')
-        return _func(*args, **kwargs)
+        return await _func(*args, **kwargs)
     return cast(TVar, verify_and_call)
 
 
@@ -271,8 +271,8 @@ def enforce_user_level_auth_async(func: TVar) -> TVar:
     return cast(TVar, verify_and_call)
 
 
-def verify_jti(email: str, context: Dict[str, str], jti: str) -> None:
-    if not has_valid_access_token(email, context, jti):
+async def verify_jti(email: str, context: Dict[str, str], jti: str) -> None:
+    if not await has_valid_access_token(email, context, jti):
         raise InvalidAuthorization()
 
 

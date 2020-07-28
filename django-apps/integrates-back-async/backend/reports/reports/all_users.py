@@ -1,5 +1,6 @@
 from typing import cast, Dict
 import uuid
+from asgiref.sync import async_to_sync
 from openpyxl import Workbook
 from backend.dal import user as user_dal
 from backend.domain import user as user_domain
@@ -20,7 +21,9 @@ def generate(user_email: str) -> str:
 
             name_attrs = cast(
                 Dict[str, str],
-                user_domain.get_attributes(email, ['first_name', 'last_name'])
+                async_to_sync(user_domain.get_attributes)(
+                    email, ['first_name', 'last_name']
+                )
             )
             full_name = ' '.join(list(name_attrs.values()))
 
