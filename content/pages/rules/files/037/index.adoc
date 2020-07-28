@@ -100,33 +100,40 @@ The application constructs the name of a file or other resource using input
 from an upstream component,
 but it does not restrict or incorrectly restricts the resulting name.
 
-. [[r7]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r7]] link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A1-Injection[OWASP Top 10 A1:2017-Injection].
+Injection flaws, such as **SQL**, **NoSQL**, **OS**, and *LDAP* injection,
+occur when untrusted data is sent to an interpreter as part of a command or
+query.
+The attacker’s hostile data can trick the interpreter into executing unintended
+commands or accessing data without proper authorization.
+
+. [[r8]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V5.3 Output encoding and Injection Prevention Requirements.(5.3.9)]
 Verify that the application protects against Local File Inclusion (*LFI*) or
 Remote File Inclusion (*RFI*) attacks.
 
-. [[r8]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r9]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V5.3 Output encoding and Injection Prevention Requirements.(5.3.10)]
 Verify that the application protects against *XPath* injection or *XML*
 injection attacks.
 
-. [[r9]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r10]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V12.3 File execution Requirements.(12.3.1)]
 Verify that user-submitted filename metadata is not used directly with system
 or framework file and *URL* *API* to protect against path traversal.
 
-. [[r10]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r11]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V12.3 File execution Requirements.(12.3.2)]
 Verify that user-submitted filename metadata is validated or ignored to prevent
 the disclosure, creation, updating or removal of local files (*LFI*).
 
-. [[r11]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r12]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V12.3 File execution Requirements.(12.3.3)]
 Verify that user-submitted filename metadata is validated or ignored to prevent
 the disclosure or execution of remote files (*RFI*),
 which may also lead to *SSRF*.
 
-. [[r12]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r13]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V12.3 File execution Requirements.(12.3.4)]
 Verify that the application protects against reflective file download (*RFD*)
 by validating or ignoring user-submitted filenames in a *JSON*, *JSONP*,
@@ -134,7 +141,7 @@ or *URL* parameter,
 the response **Content-Type** header should be set to **text/plain**,
 and the **Content-Disposition** header should have a fixed filename.
 
-. [[r13]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r14]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V12.3 File execution Requirements.(12.3.5)]
 Verify that untrusted file metadata is not used directly with system *API* or
 libraries, to protect against *OS* command injection.

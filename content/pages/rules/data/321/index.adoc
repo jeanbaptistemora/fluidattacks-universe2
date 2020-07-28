@@ -42,7 +42,20 @@ the input in a dynamic evaluation call (e.g. "*eval*").
 The application deserializes untrusted data without sufficiently verifying that
 the resulting data will be valid.
 
-. [[r4]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r4]] link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A1-Injection[OWASP Top 10 A1:2017-Injection].
+Injection flaws, such as **SQL**, **NoSQL**, **OS**, and *LDAP* injection,
+occur when untrusted data is sent to an interpreter as part of a command or
+query.
+The attacker’s hostile data can trick the interpreter into executing unintended
+commands or accessing data without proper authorization.
+
+. [[r5]] link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A8-Insecure_Deserialization[OWASP Top 10 A8:2017-Insecure Deserialization].
+Insecure deserialization often leads to remote code execution.
+Even if deserialization flaws do not result in remote code execution,
+they can be used to perform attacks,
+including replay attacks, injection attacks, and privilege escalation attacks.
+
+. [[r6]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V1.5 Input and Output Architectural Requirements.(1.5.2)]
 Verify that serialization is not used when communicating with untrusted
 clients.
@@ -51,29 +64,29 @@ ensure that adequate integrity controls
 (and possibly encryption if sensitive data is sent)
 are enforced to prevent deserialization attacks including object injection.
 
-. [[r5]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r7]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V5.5 Deserialization Prevention Requirements.(5.5.1)]
 Verify that serialized objects use integrity checks or are encrypted to prevent
 hostile object creation or data tampering.
 
-. [[r6]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r8]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V5.5 Deserialization Prevention Requirements.(5.5.3)]
 Verify that deserialization of untrusted data is avoided or is protected in
 both custom code and third-party libraries
 (such as *JSON*, *XML* and *YAML* parsers).
 
-. [[r7]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r9]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V5.5 Deserialization Prevention Requirements.(5.5.4)]
 Verify that when parsing *JSON* in browsers or JavaScript-based backends,
 **JSON.parse** is used to parse the *JSON* document.
 Do not use **eval()** to parse *JSON*.
 
-. [[r7]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r10]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V13.2 RESTful Web Service Verification Requirements.(13.2.2)]
 Verify that *JSON* schema validation is in place and verified before accepting
 input.
 
-. [[r8]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r11]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V13.3 SOAP Web Service Verification Requirements.(13.3.1)]
 Verify that *XSD* schema validation takes place to ensure a properly formed
 *XML* document,

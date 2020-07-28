@@ -14,3 +14,12 @@ must not display *HTML* code by default.
 == Findings
 
 * [inner]#link:/web/findings/114/[F114. Phishing]#
+
+== References
+
+. [[r1]] link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A1-Injection[OWASP Top 10 A1:2017-Injection].
+Injection flaws, such as **SQL**, **NoSQL**, **OS**, and *LDAP* injection,
+occur when untrusted data is sent to an interpreter as part of a command or
+query.
+The attacker’s hostile data can trick the interpreter into executing unintended
+commands or accessing data without proper authorization.

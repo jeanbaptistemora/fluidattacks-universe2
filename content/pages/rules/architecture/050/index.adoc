@@ -38,18 +38,25 @@ attacks,
 including for eval attacks, remote *JavaScript* includes, *CSP* bypasses,
 **DOM XSS**, and *JavaScript* expression evaluation.
 
-. [[r4]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r4]] link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A1-Injection[OWASP Top 10 A1:2017-Injection].
+Injection flaws, such as **SQL**, **NoSQL**, **OS**, and *LDAP* injection,
+occur when untrusted data is sent to an interpreter as part of a command or
+query.
+The attacker’s hostile data can trick the interpreter into executing unintended
+commands or accessing data without proper authorization.
+
+. [[r5]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V10.3 Deployed Application Integrity Controls.(10.3.2)]
 The application must not load or execute code from untrusted sources,
 such as loading includes, modules, plugins, code, or libraries from untrusted
 sources or the Internet.
 
-. [[r5]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r6]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V10.3 Deployed Application Integrity Controls.(10.3.3)]
 Verify that the application has protection from sub-domain takeovers if the
 application relies upon *DNS* entries or *DNS* sub-domains.
 
-. [[r6]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r7]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V12.3 File execution Requirements.(12.3.6)]
 Verify that the application does not include and execute functionality from
 untrusted sources,
