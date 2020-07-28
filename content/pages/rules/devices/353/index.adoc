@@ -12,7 +12,7 @@ Devices should update their own firmware upon a predefined schedule.
 
 == References
 
-. [[r1]] link:https://cwe.mitre.org/data/definitions/362.html[CWE-367: Time-of-check Time-of-use (TOCTOU) Race Condition.]
+. [[r1]] link:https://cwe.mitre.org/data/definitions/367.html[CWE-367: Time-of-check Time-of-use (TOCTOU) Race Condition.]
 The software checks the state of a resource before using that resource,
 but the resource's state can change between the check and the use in a way that
 invalidates the results of the check.
