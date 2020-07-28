@@ -25,7 +25,14 @@ externally-influenced input from an upstream component,
 but it does not neutralize or incorrectly neutralizes special elements that
 could modify the intended SQL command.
 
-. [[r2]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r2]] link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A1-Injection[OWASP Top 10 A1:2017-Injection].
+Injection flaws, such as **SQL**, **NoSQL**, **OS**, and *LDAP* injection,
+occur when untrusted data is sent to an interpreter as part of a command or
+query.
+The attacker’s hostile data can trick the interpreter into executing unintended
+commands or accessing data without proper authorization.
+
+. [[r3]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V5.3 Output encoding and Injection Prevention Requirements.(5.3.4)]
 Verify that data selection or database queries
 (e.g. *SQL*, *HQL*, *ORM*, *NoSQL*) use parameterized queries, *ORMs*,

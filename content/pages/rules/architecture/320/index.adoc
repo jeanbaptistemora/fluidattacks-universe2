@@ -61,53 +61,60 @@ The measures referred to in paragraph 1 shall at least ensure that personal
 data can be accessed only by authorized personnel for legally authorized
 purposes.
 
-. [[r6]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r6]] link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A2-Broken_Authentication[OWASP Top 10 A2:2017-Broken Authentication].
+Application functions related to authentication and session management are
+often implemented incorrectly,
+allowing attackers to compromise passwords, keys, or session tokens,
+or to exploit other implementation flaws to assume other users’ identities
+temporarily or permanently.
+
+. [[r7]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V1.4 Access Control Architectural Requirements.(1.4.1)]
 Verify that trusted enforcement points such as at access control gateways,
 servers, and serverless functions enforce access controls.
 Never enforce access controls on the client.
 
-. [[r7]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r8]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V1.4 Access Control Architectural Requirements.(1.4.4)]
 Verify the application uses a single and well-vetted access control mechanism
 for accessing protected data and resources.
 All requests must pass through this single mechanism to avoid copy and paste or
 insecure alternative paths.
 
-. [[r8]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r9]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V1.5 Input and Output Architectural Requirements.(1.5.3)]
 Verify that input validation is enforced on a trusted service layer.
 
-. [[r9]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r10]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V4.1 General Access Control Design.(4.1.1)]
 Verify that the application enforces access control rules on a trusted service
 layer,
 especially if client-side access control is present and could be bypassed.
 
-. [[r10]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r11]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V4.1 General Access Control Design.(4.1.2)]
 Verify that all user and data attributes and policy information used by access
 controls cannot be manipulated by end users unless specifically authorized.
 
-. [[r11]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r12]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V4.2 Operation Level Access Control.(4.2.1)]
 Verify that sensitive data and APIs are protected against direct object attacks
 targeting creation, reading, updating and deletion of records,
 such as creating or updating someone else's record, viewing everyone's records,
 or deleting all records.
 
-. [[r12]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r13]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V13.1 Generic Web Service Security Verification Requirements.(13.1.4)]
 Verify that authorization decisions are made at both the URI,
 enforced by programmatic or declarative security at the controller or router,
 and at the resource level, enforced by model-based permissions.
 
-. [[r13]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r14]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V13.4 GraphQL and other Web Service Data Layer Security Requirements.(13.4.2)]
 Verify that *GraphQL* or other data layer authorization logic should be
 implemented at the business logic layer instead of the *GraphQL* layer.
 
-. [[r14]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r15]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V14.5 Validate HTTP Request Header Requirements.(14.5.2)]
 Verify that the supplied *Origin* header is not used for authentication or
 access control decisions,

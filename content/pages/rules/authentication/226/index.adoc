@@ -23,7 +23,14 @@ but the mechanism is too restrictive and can be triggered too easily,
 which allows attackers to deny service to legitimate users by causing their
 accounts to be locked out.
 
-. [[r2]] link:https://www.owasp.org/index.php/ASVS_V2_Authentication[OWASP-ASVS v3.1-2.20]
+. [[r2]] link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A2-Broken_Authentication[OWASP Top 10 A2:2017-Broken Authentication].
+Application functions related to authentication and session management are
+often implemented incorrectly,
+allowing attackers to compromise passwords, keys, or session tokens,
+or to exploit other implementation flaws to assume other users’ identities
+temporarily or permanently.
+
+. [[r3]] link:https://www.owasp.org/index.php/ASVS_V2_Authentication[OWASP-ASVS v3.1-2.20]
 Verify that anti-automation is in place
 to prevent breached credential testing, brute forcing,
 and account lockout attacks.

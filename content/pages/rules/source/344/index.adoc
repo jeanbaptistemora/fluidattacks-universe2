@@ -37,27 +37,34 @@ The software receives input from an upstream component,
 but it does not neutralize or incorrectly neutralizes code syntax before using
 the input in a dynamic evaluation call (e.g. "*eval*").
 
-. [[r4]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r4]] link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A1-Injection[OWASP Top 10 A1:2017-Injection].
+Injection flaws, such as **SQL**, **NoSQL**, **OS**, and *LDAP* injection,
+occur when untrusted data is sent to an interpreter as part of a command or
+query.
+The attacker’s hostile data can trick the interpreter into executing unintended
+commands or accessing data without proper authorization.
+
+. [[r5]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 Appendix C: Internet of Things Verification Requirements.(C.14)]
 Verify that the application and firmware components are not susceptible to *OS*
 Command Injection by invoking shell command wrappers, scripts,
 or that security controls prevent *OS* Command Injection.
 
-. [[r5]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r6]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V5.1 Input Validation Requirements.(5.2.4)]
 Verify that the application avoids the use of **eval()** or other dynamic code
 execution features.
 Where there is no alternative, any user input being included must be sanitized
 or sandboxed before being executed.
 
-. [[r6]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r7]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V5.2 Sanitization and Sandboxing Requirements.(5.2.7)]
 Verify that the application sanitizes, disables, or sandboxes user-supplied
 *SVG* scriptable content,
 especially as they relate to *XSS* resulting from inline scripts, and
 *foreignObject*.
 
-. [[r7]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r8]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V5.2 Sanitization and Sandboxing Requirements.(5.2.8)]
 Verify that the application sanitizes, disables, or sandboxes user-supplied
 scriptable or expression template language content,
