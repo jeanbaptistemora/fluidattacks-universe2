@@ -1,6 +1,6 @@
 """Data Access Layer to the Forces tables."""
 
-from typing import AsyncIterator
+from typing import Any, AsyncIterator
 
 # Standard library
 from datetime import datetime
@@ -37,6 +37,12 @@ async def yield_executions(
         FilterExpression=filter_expression)
 
     for result in results['Items']:
+        if 'accepted_exploits' not in result['vulnerabilities']:
+            result['vulnerabilities']['accepted_exploits'] = []
+        if 'integrates_exploits' not in result['vulnerabilities']:
+            result['vulnerabilities']['integrates_exploits'] = []
+        if 'exploits' not in result['vulnerabilities']:
+            result['vulnerabilities']['exploits'] = []
         yield result
 
     while results.get('LastEvaluatedKey'):
@@ -49,10 +55,13 @@ async def yield_executions(
 
 
 async def create_execution(project_name: str,
-                           **execution_attributes: str) -> bool:
+                           **execution_attributes: Any) -> bool:
     """Create an execution of forces."""
     success = False
     try:
+        execution_attributes['date'] = datetime.strftime(
+            execution_attributes['date'], '%Y-%m-%dT%H:%M:%S.%f%z')
+
         execution_attributes['subscription'] = project_name
         success = await dynamodb.async_put_item(TABLE_NAME,
                                                 execution_attributes)
