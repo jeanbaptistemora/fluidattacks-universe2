@@ -14,7 +14,6 @@ from asgiref.sync import async_to_sync, sync_to_async
 
 from backend import mailer, util
 from backend.dal import (
-    finding as finding_dal,
     project as project_dal
 )
 from backend.domain import (
@@ -79,7 +78,7 @@ def extract_info_from_event_dict(event_dict: EventType) -> EventType:
     return event_dict
 
 
-async def send_unsolved_events_email(project: str):
+async def send_unsolved_events_email(project: str) -> None:
     mail_to = []
     events_info_for_email = []
     project_info = await project_domain.get_attributes(
@@ -186,8 +185,7 @@ def get_by_time_range(
     count = 0
     if finding['finding_id'] == vuln['finding_id']:
 
-        history = vuln_domain.get_last_approved_state(
-            cast(Dict[str, finding_dal.FindingType], vuln))
+        history = vuln_domain.get_last_approved_state(vuln)
         if (history and
                 first_day <= history['date'] <= last_day and
                 history['state'] == 'open'):
@@ -245,8 +243,8 @@ async def create_register_by_week(
 
 
 def create_data_format_chart(
-        all_registers: Dict[str, Dict[str, int]]) -> \
-        List[List[Dict[str, Union[str, int]]]]:
+    all_registers: Dict[str, Dict[str, int]]
+) -> List[List[Dict[str, Union[str, int]]]]:
     result_data = []
     plot_points: Dict[str, List[Dict[str, Union[str, int]]]] = {
         'found': [],
@@ -263,8 +261,8 @@ def create_data_format_chart(
     return result_data
 
 
-def get_first_week_dates(vulns: List[Dict[str, FindingType]]) -> \
-        Tuple[str, str]:
+def get_first_week_dates(
+        vulns: List[Dict[str, FindingType]]) -> Tuple[str, str]:
     """Get first week vulnerabilities"""
     first_date = min([
         datetime.strptime(
@@ -361,8 +359,8 @@ async def get_group_new_vulnerabilities(group_name: str) -> None:
         )
 
 
-@async_to_sync
-async def get_new_vulnerabilities():
+@async_to_sync  # type: ignore
+async def get_new_vulnerabilities() -> None:
     """Summary mail send with the findings of a project."""
     LOGGER.warning('[scheduler]: get_new_vulnerabilities is running')
     groups = await aio.ensure_io_bound(
@@ -411,7 +409,8 @@ async def calculate_vulnerabilities(
 
 
 def format_vulnerabilities(
-        delta: int, act_finding: Dict[str, FindingType]) -> str:
+        delta: int,
+        act_finding: Dict[str, FindingType]) -> str:
     """Format vulnerabities changes in findings."""
     if delta > 0:
         finding_text = f'{act_finding["finding"]} (+{delta})'
@@ -450,8 +449,8 @@ async def create_msj_finding_pending(
     return result
 
 
-@async_to_sync
-async def get_remediated_findings():
+@async_to_sync  # type: ignore
+async def get_remediated_findings() -> None:
     """Summary mail send with findings that have not been verified yet."""
     LOGGER.warning('[scheduler]: get_remediated_findings is running')
     active_projects = await sync_to_async(project_domain.get_active_projects)()
@@ -470,16 +469,20 @@ async def get_remediated_findings():
     if findings:
         try:
             mail_to = [FI_MAIL_CONTINUOUS, FI_MAIL_PROJECTS]
-            context = {'findings': list()}
+            context = {'findings': list(), 'total': 0}
             for finding in findings:
-                context['findings'].append({
+                cast(
+                    List[Dict[str, str]],
+                    context['findings']
+                ).append({
                     'finding_name': finding['finding'],
                     'finding_url': (
                         f'{BASE_URL}/groups/'
                         f'{str.lower(str(finding["project_name"]))}/'
                         f'{finding["finding_id"]}/description'
                     ),
-                    'project': str.upper(str(finding['project_name']))})
+                    'project': str.upper(str(finding['project_name']))
+                })
             context['total'] = len(findings)
             await sync_to_async(mailer.send_mail_new_remediated)(
                 mail_to, context
@@ -490,13 +493,15 @@ async def get_remediated_findings():
         LOGGER.warning('[scheduler]: There are no findings to verify')
 
 
-@async_to_sync
-async def get_new_releases():
+@async_to_sync  # type: ignore
+async def get_new_releases() -> None:
     """Summary mail send with findings that have not been released yet."""
     LOGGER.warning('[scheduler]: get_new_releases is running')
     test_projects = FI_TEST_PROJECTS.split(',')
     projects = await sync_to_async(project_domain.get_active_projects)()
-    email_context = defaultdict(list)
+    email_context: Dict[str, Union[List[Dict[str, str]], int]] = (
+        defaultdict(list)
+    )
     cont = 0
     projects = [
         project
@@ -525,7 +530,10 @@ async def get_new_releases():
                             if status in ('CREATED', 'REJECTED')
                             else 'unreleased'
                         )
-                        email_context[category].append({
+                        cast(
+                            List[Dict[str, str]],
+                            email_context[category]
+                        ).append({
                             'finding_name': finding.get('finding'),
                             'finding_url': (
                                 f'{BASE_URL}/groups/{project}/drafts/'
@@ -540,8 +548,12 @@ async def get_new_releases():
             # ignore test projects
             pass
     if cont > 0:
-        email_context['total_unreleased'] = len(email_context['unreleased'])
-        email_context['total_unsubmitted'] = len(email_context['unsubmitted'])
+        email_context['total_unreleased'] = len(
+            cast(List[Dict[str, str]], email_context['unreleased'])
+        )
+        email_context['total_unsubmitted'] = len(
+            cast(List[Dict[str, str]], email_context['unsubmitted'])
+        )
         approvers = FI_MAIL_REVIEWERS.split(',')
         mail_to = [FI_MAIL_PROJECTS]
         mail_to.extend(approvers)
@@ -552,12 +564,12 @@ async def get_new_releases():
         LOGGER.warning('[scheduler]: There are no new drafts')
 
 
-@async_to_sync
-async def send_unsolved_to_all() -> List[bool]:
+@async_to_sync  # type: ignore
+async def send_unsolved_to_all() -> None:
     """Send email with unsolved events to all projects """
     LOGGER.warning('[scheduler]: send_unsolved_to_all is running')
     projects = await sync_to_async(project_domain.get_active_projects)()
-    return await asyncio.gather(*[
+    await asyncio.gather(*[
         asyncio.create_task(
             send_unsolved_events_email(project)
         )
@@ -635,8 +647,8 @@ async def update_group_indicators(group_name: str) -> None:
         LOGGER.exception(ex, extra={'extra': payload_data})
 
 
-@async_to_sync
-async def update_indicators():
+@async_to_sync  # type: ignore
+async def update_indicators() -> None:
     """Update in dynamo indicators."""
     LOGGER.warning('[scheduler]: update_indicators is running')
     groups = await sync_to_async(project_domain.get_active_projects)()
@@ -652,7 +664,8 @@ async def update_indicators():
 
 
 async def reset_group_expired_accepted_findings(
-        group_name: str, today: str) -> None:
+        group_name: str,
+        today: str) -> None:
     LOGGER.info(
         'Resetting expired accepted findings',
         extra={'extra': locals()})
@@ -691,8 +704,8 @@ async def reset_group_expired_accepted_findings(
             util.invalidate_cache(finding_id)
 
 
-@async_to_sync
-async def reset_expired_accepted_findings():
+@async_to_sync  # type: ignore
+async def reset_expired_accepted_findings() -> None:
     """ Update treatment if acceptance date expires """
     LOGGER.warning('[scheduler]: reset_expired_accepted_findings is running')
     today = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
@@ -708,8 +721,8 @@ async def reset_expired_accepted_findings():
         ])
 
 
-@async_to_sync
-async def delete_pending_projects():
+@async_to_sync  # type: ignore
+async def delete_pending_projects() -> None:
     """ Delete pending to delete projects """
     LOGGER.warning('[scheduler]: delete_pending_projects is running')
     today = datetime.now()
