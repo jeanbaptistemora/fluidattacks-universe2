@@ -24,7 +24,6 @@ import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
 import { alphaNumeric, maxLength, required, validTextField } from "../../../../utils/validations";
 import { GenericForm } from "../../components/GenericForm";
-import { PROJECTS_QUERY } from "../../containers/HomeView/queries";
 import { CREATE_PROJECT_MUTATION, PROJECTS_NAME_QUERY } from "./queries";
 import { IAddProjectModal, IProjectName } from "./types";
 
@@ -150,7 +149,6 @@ const addProjectModal: ((props: IAddProjectModal) => JSX.Element) = (props: IAdd
                 mutation={CREATE_PROJECT_MUTATION}
                 onCompleted={handleMutationResult}
                 onError={handleCreateError}
-                refetchQueries={[{ query: PROJECTS_QUERY, variables }]}
               >
                 {(createProject: MutationFunction, { loading: submitting }: MutationResult): JSX.Element => {
 

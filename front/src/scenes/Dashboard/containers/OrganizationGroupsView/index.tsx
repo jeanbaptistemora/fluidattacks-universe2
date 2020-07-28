@@ -18,7 +18,7 @@ import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
 import { AddProjectModal } from "../../components/AddProjectModal";
 import { ProjectBox } from "../../components/ProjectBox";
-import { default as style } from "../HomeView/index.css";
+import { default as style } from "./index.css";
 import { GET_ORGANIZATION_GROUPS } from "./queries";
 import { IOrganizationGroups, IOrganizationGroupsProps } from "./types";
 

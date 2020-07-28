@@ -31,6 +31,9 @@
 :local .breadcrumb {
   margin-bottom: unset;
 }
+:local .breadcrumb > li:first-of-type {
+  font-weight: bold !important;
+}
 :local .breadcrumb > li + li::before {
   padding: 0 2px;
 }

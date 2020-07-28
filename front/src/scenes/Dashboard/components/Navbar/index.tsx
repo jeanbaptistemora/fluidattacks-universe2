@@ -82,9 +82,6 @@ export const navbarComponent: React.FC<RouteComponentProps> = (props: RouteCompo
       <Row id="navbar" className={style.container}>
         <Col md={renderOrganizationBox ? 6 : 9} sm={12} xs={12}>
           <Breadcrumb className={style.breadcrumb}>
-            <BreadcrumbItem>
-              <Link to="/home"><b>{translate.t("navbar.breadcrumbRoot")}</b></Link>
-            </BreadcrumbItem>
             {breadcrumbItems}
           </Breadcrumb>
         </Col>

@@ -68,12 +68,6 @@ class ViewTestCase(unittest.TestCase):
         self.selenium.quit()
         super(ViewTestCase, self).tearDown()
 
-    def __access_project_by_description(self, description):
-        project = WebDriverWait(self.selenium, self.delay).until(
-            expected.presence_of_element_located(
-                (By.XPATH, "//*[contains(text(), '{}')]".format(description))))
-        self.__click(project)
-
     def __cancel_modal(self):
         cancel_btn = self.selenium.find_element_by_xpath(
             '//*/button[contains(text(), "Cancel")]')
@@ -83,7 +77,7 @@ class ViewTestCase(unittest.TestCase):
     def __check_existing_session(self):
         try:
             selenium = self.selenium
-            continue_btn = WebDriverWait(selenium, self.delay/4).until(
+            continue_btn = WebDriverWait(selenium, self.delay/10).until(
                 expected.presence_of_element_located(
                     (By.XPATH, "//*[contains(text(), 'Continue')]")))
             self.__click(continue_btn)
@@ -126,7 +120,7 @@ class ViewTestCase(unittest.TestCase):
         WebDriverWait(selenium, self.delay).until(
             expected.presence_of_element_located(
                 (By.XPATH,
-                    "//*[contains(text(), 'Integrates unit test project')]")))
+                    "//*[contains(text(), 'Vulnerabilities over time')]")))
         selenium.save_screenshot(f'{SCR_PATH}00.01-after-login.png')
         return selenium
 
@@ -141,17 +135,13 @@ class ViewTestCase(unittest.TestCase):
 
     def test_02_dashboard(self):
         selenium = self.__login()
-        WebDriverWait(selenium, self.delay).until(
-            expected.presence_of_element_located(
-                (By.XPATH,
-                 "//*[contains(text(), 'Integrates unit test project')]")))
         selenium.save_screenshot(SCR_PATH + '01-dashboard.png')
-        assert 'My Portfolios' in selenium.page_source
-        assert 'Integrates unit test project' in selenium.page_source
+        assert 'Analytics' in selenium.page_source
+        assert 'Vulnerabilities over time' in selenium.page_source
 
     def test_03_analytics(self):
         selenium = self.__login()
-        self.__access_project_by_description('Integrates unit test project')
+        selenium.get(self.url + '/groups/UNITTESTING/')
         WebDriverWait(selenium, self.delay).until(
             expected.presence_of_element_located(
                (By.XPATH,
@@ -161,7 +151,6 @@ class ViewTestCase(unittest.TestCase):
 
     def test_04_findings(self):
         selenium = self.__login()
-        self.__access_project_by_description('Integrates unit test project')
         selenium.get(self.url + '/groups/UNITTESTING/findings')
         WebDriverWait(selenium, self.delay).until(
             expected.presence_of_element_located(
@@ -172,7 +161,6 @@ class ViewTestCase(unittest.TestCase):
 
     def test_05_finding(self):
         selenium = self.__login()
-        self.__access_project_by_description('Integrates unit test project')
         selenium.get(self.url + '/project/unittesting/findings')
         finding_elem = WebDriverWait(selenium, self.delay).until(
             expected.presence_of_element_located(
@@ -217,7 +205,6 @@ class ViewTestCase(unittest.TestCase):
 
     def test_06_severity(self):
         selenium = self.__login()
-        self.__access_project_by_description('Integrates unit test project')
         selenium.get(self.url + '/groups/UNITTESTING/findings')
         finding_elem = WebDriverWait(selenium, self.delay).until(
             expected.presence_of_element_located(
@@ -242,7 +229,6 @@ class ViewTestCase(unittest.TestCase):
 
     def test_07_evidence(self):
         selenium = self.__login()
-        self.__access_project_by_description('Integrates unit test project')
         selenium.get(self.url + '/project/unittesting/findings')
         finding_elem = WebDriverWait(selenium, self.delay).until(
             expected.presence_of_element_located(
@@ -268,7 +254,6 @@ class ViewTestCase(unittest.TestCase):
 
     def test_08_exploit(self):
         selenium = self.__login()
-        self.__access_project_by_description('Integrates unit test project')
         selenium.get(self.url + '/groups/UNITTESTING/findings')
         finding_elem = WebDriverWait(selenium, self.delay).until(
             expected.presence_of_element_located(
@@ -292,7 +277,6 @@ class ViewTestCase(unittest.TestCase):
 
     def test_09_tracking(self):
         selenium = self.__login()
-        self.__access_project_by_description('Integrates unit test project')
         selenium.get(self.url + '/project/unittesting/findings')
         finding_elem = WebDriverWait(selenium, self.delay).until(
             expected.presence_of_element_located(
@@ -317,7 +301,6 @@ class ViewTestCase(unittest.TestCase):
 
     def test_10_comments(self):
         selenium = self.__login()
-        self.__access_project_by_description('Integrates unit test project')
         selenium.get(self.url + '/groups/UNITTESTING/findings')
         finding_elem = WebDriverWait(selenium, self.delay).until(
             expected.presence_of_element_located(
@@ -341,7 +324,6 @@ class ViewTestCase(unittest.TestCase):
 
     def test_11_techpdf(self):
         selenium = self.__login()
-        self.__access_project_by_description('Integrates unit test project')
         selenium.get(self.url + '/project/unittesting/findings')
         WebDriverWait(selenium, self.delay).until(
             expected.presence_of_element_located(
@@ -369,7 +351,6 @@ class ViewTestCase(unittest.TestCase):
 
     def test_13_events(self):
         selenium = self.__login()
-        self.__access_project_by_description('Integrates unit test project')
         selenium.get(self.url + '/groups/unittesting/events')
         event_tab = WebDriverWait(selenium, self.delay).until(
             expected.presence_of_element_located(
@@ -388,7 +369,6 @@ class ViewTestCase(unittest.TestCase):
 
     def test_14_resources(self):
         selenium = self.__login()
-        self.__access_project_by_description('Integrates unit test project')
 
         selenium.get(self.url + '/project/unittesting/resources')
         WebDriverWait(selenium, self.delay).until(
@@ -458,7 +438,6 @@ class ViewTestCase(unittest.TestCase):
 
     def test_15_project_comments(self):
         selenium = self.__login()
-        self.__access_project_by_description('Integrates unit test project')
         selenium.get(self.url + '/project/unittesting/comments')
         WebDriverWait(selenium, self.delay).until(
             expected.presence_of_element_located(
@@ -471,17 +450,14 @@ class ViewTestCase(unittest.TestCase):
     def test_16_forces(self):
         if self.branch == 'master':
             project_name = 'BWAPP'
-            expected_description = 'a Buggy-Web-Application'
             expected_exploitability =\
                 'Running Fluid Asserts'
         else:
             project_name = 'UNITTESTING'
-            expected_description = 'Integrates unit test project'
             expected_exploitability =\
                 'Running Fluid Asserts'
 
         selenium = self.__login()
-        self.__access_project_by_description(expected_description)
         selenium.get(
             self.url + '/dashboard#!/project/{}/forces'.format(project_name))
         time.sleep(3.0)
@@ -502,13 +478,8 @@ class ViewTestCase(unittest.TestCase):
 
     def test_17_pending_to_delete(self):
         selenium = self.__login()
-        WebDriverWait(selenium, self.delay).until(
-            expected.presence_of_element_located(
-                (By.XPATH,
-                    "//*[contains(text(), 'test project pending to deleted')]")))
-        selenium.save_screenshot(SCR_PATH + '17-01-pending_to_delete.png')
 
-        selenium.get(self.url + '/dashboard#!/project/PENDINGPROJECT/resources')
+        selenium.get(self.url + '/project/PENDINGPROJECT/resources')
         WebDriverWait(selenium, self.delay).until(
             expected.presence_of_element_located(
                 (By.XPATH, "//*[contains(text(), 'Cancel group deletion')]")))
@@ -526,10 +497,10 @@ class ViewTestCase(unittest.TestCase):
         selenium.save_screenshot(SCR_PATH + '17-03-pending_to_delete.png')
         assert 'Group pending to delete' in selenium.page_source
 
+
     def test_18_tag_indicators(self):
         selenium = self.__login()
-        self.__access_project_by_description('TEST-PROJECTS')
-        time.sleep(2)
+        selenium.get(self.url + '/dashboard#!/portfolios/TEST-PROJECTS/indicators')
         WebDriverWait(selenium, self.delay).until(
             expected.presence_of_element_located(
                 (By.XPATH, "//*[contains(text(), 'Max open severity')]")))
@@ -567,5 +538,5 @@ class ViewTestCase(unittest.TestCase):
         selenium.get(self.url + '/dashboard#!/portfolio/DOESNOTEXIST/indicators')
         WebDriverWait(selenium, self.delay).until(
             expected.presence_of_element_located(
-                (By.XPATH, "//*[contains(text(), 'Integrates unit test project')]")))
+                (By.XPATH, "//*[contains(text(), 'Vulnerabilities over time')]")))
         selenium.save_screenshot(SCR_PATH + '18-09-tag_indicators.png')

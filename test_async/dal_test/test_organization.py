@@ -68,13 +68,13 @@ async def test_add_group():
 async def test_add_user():
     org_id = 'ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3'
     users = await org_dal.get_users(org_id)
-    assert len(users) == 2
+    assert len(users) == 3
 
     email = 'test@testemail.com'
     await org_dal.add_user(org_id, email)
     users = await org_dal.get_users(org_id)
-    assert len(users) == 3
-    assert sorted(users) == ['integratesmanager@gmail.com', 'integratesuser@gmail.com', email]
+    assert len(users) == 4
+    assert sorted(users) == ['continuoushacking@gmail.com', 'integratesmanager@gmail.com', 'integratesuser@gmail.com', email]
 
 
 @pytest.mark.changes_db
@@ -136,8 +136,8 @@ async def test_get_user_organization_ids():
 async def test_get_users():
     org_id = 'ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3'
     users = await org_dal.get_users(org_id)
-    assert len(users) == 2
-    assert sorted(users) == ['integratesmanager@gmail.com', 'integratesuser@gmail.com']
+    assert len(users) == 3
+    assert sorted(users) == ['continuoushacking@gmail.com', 'integratesmanager@gmail.com', 'integratesuser@gmail.com']
 
 
 @pytest.mark.changes_db

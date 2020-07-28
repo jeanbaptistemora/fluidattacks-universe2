@@ -8,7 +8,6 @@ import { Provider } from "react-redux";
 import { RouteComponentProps } from "react-router";
 import { Link, MemoryRouter } from "react-router-dom";
 import store from "../../../../store";
-import translate from "../../../../utils/translations/translate";
 import { navbarComponent as NavbarComponent } from "./index";
 import { GET_USER_ORGANIZATIONS } from "./queries";
 
@@ -41,7 +40,7 @@ describe("Navbar", () => {
       },
       location: {
         hash: "",
-        pathname: "/home",
+        pathname: "/organizations/imamura",
         search: "",
         state: {
           userInfo: {
@@ -52,7 +51,7 @@ describe("Navbar", () => {
       match: {
         isExact: true,
         params: {},
-        path: "/home",
+        path: "/organizations/imamura",
         url: "",
       },
     };
@@ -88,10 +87,8 @@ describe("Navbar", () => {
     await act(async () => { await wait(0); wrapper.update(); });
     expect(wrapper.contains(
       <BreadcrumbItem active={false}>
-        <Link to="/home">
-          <b>
-            {translate.t("navbar.breadcrumbRoot")}
-          </b>
+        <Link to="/organizations/imamura">
+            {"Imamura"}
         </Link>
       </BreadcrumbItem>,
     ))

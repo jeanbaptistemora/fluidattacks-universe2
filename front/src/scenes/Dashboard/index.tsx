@@ -124,7 +124,7 @@ const dashboard: React.FC = (): JSX.Element => {
             <div id="dashboard" className={style.container}>
               <Switch>
                 <Route path="/home" exact={true}>
-                  <HomeView setUserRole={setUserRole} />
+                  <HomeView />
                 </Route>
                 <Route path="/reports" component={ReportsView} />
                 <Route path="/organizations/:organizationName/groups/:projectName">

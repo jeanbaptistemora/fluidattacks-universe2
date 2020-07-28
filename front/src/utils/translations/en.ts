@@ -588,7 +588,6 @@ export const enTranslations: ResourceKey = {
   },
   logout: "Log out",
   navbar: {
-    breadcrumbRoot: "Home",
     searchPlaceholder: "Group Name",
   },
   organization: {
