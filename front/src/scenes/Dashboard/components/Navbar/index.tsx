@@ -9,6 +9,7 @@ import { Link, useHistory } from "react-router-dom";
 import { EventWithDataHandler, Field } from "redux-form";
 import { Button } from "../../../../components/Button/index";
 import { FluidIcon } from "../../../../components/FluidIcon";
+import { stylizeBreadcrumbItem } from "../../../../utils/formatHelpers";
 import { Dropdown, Text } from "../../../../utils/forms/fields";
 import { useStoredState } from "../../../../utils/hooks";
 import { msgError } from "../../../../utils/notifications";
@@ -77,7 +78,7 @@ export const navbarComponent: React.FC<RouteComponentProps> = (props: RouteCompo
 
     return (
       <BreadcrumbItem key={index}>
-        <Link to={`/${baseLink}/${link}`}>{_.capitalize(item)}</Link>
+        <Link to={`/${baseLink}/${link}`}>{stylizeBreadcrumbItem(item)}</Link>
       </BreadcrumbItem>
     );
   });

@@ -459,7 +459,7 @@ class ViewTestCase(unittest.TestCase):
 
         selenium = self.__login()
         selenium.get(
-            self.url + '/dashboard#!/project/{}/forces'.format(project_name))
+            self.url + '/dashboard#!/project/{}/devsecops'.format(project_name))
         time.sleep(3.0)
         selenium.save_screenshot(SCR_PATH + '16.01-forces-executions.png')
 
