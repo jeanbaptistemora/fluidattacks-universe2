@@ -62,7 +62,14 @@ An authenticated protected channel between sensor
 and verifier SHALL be established and the sensor or endpoint SHALL be
 authenticated prior to capturing the biometric sample from the claimant.
 
-. [[r7]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r7]] link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A2-Broken_Authentication[OWASP Top 10 A2:2017-Broken Authentication].
+Application functions related to authentication and session management are
+often implemented incorrectly,
+allowing attackers to compromise passwords, keys, or session tokens,
+or to exploit other implementation flaws to assume other users’ identities
+temporarily or permanently.
+
+. [[r8]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V2.8 Single or Multi Factor One Time Verifier Requirements.(2.8.7)]
 Verify that biometric authenticators are limited to use only as secondary
 factors in conjunction with either something you have and something you know.

@@ -14,6 +14,13 @@ The authentication process must have a defined time limit of 30 seconds.
 
 . [[r1]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V3.6 Re-authentication from a Federation or Assertion.(3.6.1)]
-Verify that relying parties specify the maximum authentication time to CSPs and
-that CSPs re-authenticate the subscriber if they haven't used a session within
-that period.
+Verify that relying parties specify the maximum authentication time to **CSP**s
+and that **CSP**s re-authenticate the subscriber if they haven't used a session
+within that period.
+
+. [[r2]] link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A2-Broken_Authentication[OWASP Top 10 A2:2017-Broken Authentication].
+Application functions related to authentication and session management are
+often implemented incorrectly,
+allowing attackers to compromise passwords, keys, or session tokens,
+or to exploit other implementation flaws to assume other users’ identities
+temporarily or permanently.

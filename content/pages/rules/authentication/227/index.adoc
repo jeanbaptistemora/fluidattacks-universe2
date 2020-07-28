@@ -9,7 +9,7 @@
 == Requirement
 
 The system must notify, under any access attempt,
-that access on the same system is only available to authorized users.
+that access to the same system is only available for authorized users.
 
 == Description
 
