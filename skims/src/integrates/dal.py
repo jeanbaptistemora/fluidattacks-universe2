@@ -1,4 +1,7 @@
 # Standard library
+from io import (
+    BytesIO,
+)
 import socket
 from typing import (
     Any,
@@ -25,6 +28,7 @@ from utils.logs import (
 )
 from utils.model import (
     FindingEnum,
+    FindingEvidenceID,
     IntegratesVulnerabilityMetadata,
     SeverityEnum,
     Vulnerability,
@@ -348,6 +352,41 @@ async def do_update_finding_severity(
     )
 
     success: bool = result['data']['updateSeverity']['success']
+
+    return success
+
+
+@RETRY
+async def do_update_evidence(
+    *,
+    evidence_id: FindingEvidenceID,
+    evidence_stream: BytesIO,
+    finding_id: str,
+) -> bool:
+    result = await _execute(
+        query="""
+            mutation DoUpdateEvidence(
+                $evidence_id: EvidenceType!
+                $evidence_stream: Upload!
+                $finding_id: String!
+            ) {
+                updateEvidence(
+                    evidenceId: $evidence_id
+                    file: $evidence_stream
+                    findingId: $finding_id
+                ) {
+                    success
+                }
+            }
+        """,
+        variables=dict(
+            evidence_id=evidence_id.value,
+            evidence_stream=evidence_stream,
+            finding_id=finding_id,
+        )
+    )
+
+    success: bool = result['data']['updateEvidence']['success']
 
     return success
 

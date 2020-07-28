@@ -1,4 +1,8 @@
 # Standard library
+from io import (
+    BytesIO,
+)
+import random
 import sys
 from typing import (
     Dict,
@@ -11,6 +15,7 @@ from integrates.graphql import (
 )
 from integrates.dal import (
     do_release_vulnerability,
+    do_update_evidence,
     get_finding_vulnerabilities,
     get_group_findings,
     get_group_level_role,
@@ -28,11 +33,55 @@ from utils.logs import (
 )
 from utils.model import (
     FindingEnum,
+    FindingEvidenceID,
     IntegratesVulnerabilityMetadata,
     Vulnerability,
     VulnerabilityApprovalStatusEnum,
     VulnerabilitySourceEnum,
 )
+from utils.string import (
+    to_png,
+)
+
+
+async def upload_evidences(
+    *,
+    finding_id: str,
+    results: Tuple[Vulnerability, ...],
+) -> bool:
+    evidence_ids: Tuple[FindingEvidenceID, ...] = (
+        FindingEvidenceID.EVIDENCE1,
+        FindingEvidenceID.EVIDENCE2,
+        FindingEvidenceID.EVIDENCE3,
+        FindingEvidenceID.EVIDENCE4,
+        FindingEvidenceID.EVIDENCE5,
+    )
+    number_of_samples: int = min(len(results), len(evidence_ids))
+
+    snippets: Tuple[str, ...] = await materialize(
+        result.skims_metadata.snippet
+        for result in (
+            random.sample(results, k=number_of_samples)
+        )
+        if result.skims_metadata
+    )
+    evidence_streams: Tuple[BytesIO, ...] = await materialize(
+        to_png(string=snippet) for snippet in snippets
+    )
+
+    return all(
+        await materialize(
+            do_update_evidence(
+                evidence_id=evidence_id,
+                evidence_stream=evidence_stream,
+                finding_id=finding_id,
+            )
+            for evidence_id, evidence_stream in zip(
+                evidence_ids,
+                evidence_streams,
+            )
+        )
+    )
 
 
 async def approve_skims_vulnerabilities(
@@ -128,6 +177,9 @@ async def persist_finding(
         success: bool = await do_build_and_upload_vulnerabilities(
             finding_id=finding_id,
             results=merged_results,
+        ) and await upload_evidences(
+            finding_id=finding_id,
+            results=results,
         ) and await approve_skims_vulnerabilities(
             finding=finding,
             finding_id=finding_id,

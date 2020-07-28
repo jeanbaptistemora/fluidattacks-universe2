@@ -11,6 +11,7 @@ from utils.aio import (
     block_decorator,
 )
 from utils.string import (
+    get_char_to_yx_map,
     to_snippet,
 )
 
@@ -42,7 +43,7 @@ async def test_to_snippet() -> None:
     )
 
     assert snippet == dedent("""
-        ¦ line ¦ File                                        ¦
+        ¦ line ¦ Data                                        ¦
         ¦ ---- ¦ ------------------------------------------- ¦
         ¦    1 ¦                                             ¦
         ¦    2 ¦                                             ¦
@@ -56,21 +57,6 @@ async def test_to_snippet() -> None:
         ¦ ---- ¦ ------------------------------------------- ¦
                ^ Column 29
     """)[1:-1], snippet
-# Third party libraries
-from textwrap import (
-    dedent,
-)
-from typing import (
-    Tuple,
-)
-
-# Local libraries
-from utils.aio import (
-    block_decorator,
-)
-from utils.string import (
-    get_char_to_yx_map,
-)
 
 
 @block_decorator

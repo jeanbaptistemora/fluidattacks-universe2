@@ -72,7 +72,7 @@ async def to_in_memory_file(string: str) -> BytesIO:
 
 async def to_snippet(
     *,
-    chars_per_line: int = 160,
+    chars_per_line: int = 120,
     column: int,
     content: str,
     context: int = 10,
@@ -92,7 +92,7 @@ async def to_snippet(
 
         separator: str = f'¦ {"-" * zeros_needed} ¦ {"-" * chars_per_line} ¦'
         snippet: str = '\n'.join(chain(
-            [f'¦ {"line":^{zeros_needed}s} ¦ {"File":<{chars_per_line}s} ¦'],
+            [f'¦ {"line":^{zeros_needed}s} ¦ {"Data":<{chars_per_line}s} ¦'],
             [separator],
             (
                 f'¦ {line_no!s:>{zeros_needed}s} ¦ '
@@ -113,21 +113,9 @@ async def to_snippet(
 
 async def to_png(
     *,
-    chars_per_line: int = 160,
-    column: int,
-    content: str,
-    context: int = 10,
-    line: int,
+    string: str,
     width_px: int = 1024,
 ) -> BytesIO:
-
-    snippet: str = await to_snippet(
-        chars_per_line=chars_per_line,
-        content=content,
-        context=context,
-        column=column,
-        line=line,
-    )
 
     def _string_to_png() -> BytesIO:
         # Dummy images just to access their methods
@@ -135,18 +123,20 @@ async def to_png(
         dummy_drawing: ImageDraw = ImageDraw.Draw(dummy_img)
 
         # This is the number of pixes needed to draw this text, may be big
-        size: Tuple[int, int] = dummy_drawing.multiline_textsize(snippet)
+        size: Tuple[int, int] = dummy_drawing.multiline_textsize(string)
 
         # Create an image with the right size to fit the snippet
         #  and resize it to a common resolution
         img: Image = Image.new('RGB', size, (0x27, 0x28, 0x22))
         drawing: ImageDraw = ImageDraw.Draw(img)
-        drawing.multiline_text((0, 0), snippet, (0xEE, 0xEE, 0xEC))
+        drawing.multiline_text((0, 0), string, (0xEE, 0xEE, 0xEC))
         img = img.resize((width_px, width_px * size[1] // size[0]))
 
         stream: BytesIO = BytesIO()
 
-        img.save('test.png', format='PNG')
+        img.save(stream, format='PNG')
+
+        stream.seek(0)
 
         return stream
 

@@ -38,6 +38,9 @@ from utils.model import (
     VulnerabilityKindEnum,
     VulnerabilityStateEnum,
 )
+from utils.string import (
+    to_snippet,
+)
 
 
 def javascript_insecure_randoms(
@@ -50,8 +53,6 @@ def javascript_insecure_randoms(
     grammar.ignore(SINGLE_QUOTED_STRING)
     grammar.ignore(DOUBLE_QUOTED_STRING)
 
-    # Minimalistic proof of concept so we can focus on the heavy lifting:
-    #   reporting, closing, etc
     results: Tuple[Vulnerability, ...] = tuple(
         Vulnerability(
             finding=FindingEnum.F0034,
@@ -61,6 +62,11 @@ def javascript_insecure_randoms(
             where=f'{match.start_line}',
             skims_metadata=SkimsVulnerabilityMetadata(
                 grammar_match=match,
+                snippet=to_snippet(
+                    column=match.start_column,
+                    content=file_content,
+                    line=match.start_line,
+                )
             )
         )
         for match in blocking_get_matching_lines(

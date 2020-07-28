@@ -1,6 +1,7 @@
 # Standard library
 from enum import Enum
 from typing import (
+    Awaitable,
     Dict,
     NamedTuple,
     Optional,
@@ -9,6 +10,18 @@ from typing import (
 
 class FindingEnum(Enum):
     F0034: str = 'FIN.S.0034. Insecure random numbers generation'
+
+
+class FindingEvidenceID(Enum):
+    ANIMATION: str = 'ANIMATION'
+    EVIDENCE1: str = 'EVIDENCE1'
+    EVIDENCE2: str = 'EVIDENCE2'
+    EVIDENCE3: str = 'EVIDENCE3'
+    EVIDENCE4: str = 'EVIDENCE4'
+    EVIDENCE5: str = 'EVIDENCE5'
+    EXPLOIT: str = 'EXPLOIT'
+    EXPLOITATION: str = 'EXPLOITATION'
+    RECORDS: str = 'RECORDS'
 
 
 class SeverityEnum(Enum):
@@ -75,6 +88,8 @@ class IntegratesVulnerabilityMetadata(NamedTuple):
 
 
 class SkimsVulnerabilityMetadata(NamedTuple):
+    snippet: Awaitable[str]
+
     grammar_match: Optional[GrammarMatch] = None
 
 
