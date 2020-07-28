@@ -3,7 +3,13 @@ import json
 import logging
 import threading
 from html import escape
-from typing import Dict, List, Union, cast
+from typing import (
+    cast,
+    Dict,
+    List,
+    Optional,
+    Union,
+)
 
 import boto3
 import botocore
@@ -95,22 +101,17 @@ def _get_recipient_first_name(email: str) -> str:
 
 
 # pylint: disable=too-many-locals
-def _send_mail(
-        template_name: str,
-        email_to: List[str],
-        context: Dict[str, Union[str, int]],
-        tags: List[str]):
+def _get_sqs_email_message(
+    context: Dict[str, Union[str, int]],
+    email_to: List[str],
+    tags: List[str],
+) -> Optional[Dict[str, object]]:
     project = str(context.get('project', '')).lower()
     test_proj_list = FI_TEST_PROJECTS.split(',')
-    sqs = boto3.client(  # type: ignore
-        'sqs',
-        aws_access_key_id=FI_AWS_DYNAMODB_ACCESS_KEY,
-        aws_secret_access_key=FI_AWS_DYNAMODB_SECRET_KEY,
-        aws_session_token=os.environ.get('AWS_SESSION_TOKEN'),
-        region_name='us-east-1'
-    )
     no_test_context = _remove_test_projects(context, test_proj_list)
     new_context = _escape_context(no_test_context)
+    sqs_message: Optional[Dict[str, object]] = None
+
     if project not in test_proj_list:
         message: Dict[str, List[Union[str, Dict[str, object]]]] = {
             'to': [],
@@ -130,11 +131,36 @@ def _send_mail(
                 {'name': key, 'content': value}
             )
         message['tags'] = cast(List[Union[Dict[str, object], str]], tags)
+        sqs_message = {
+            'message': message,
+            'api_key': API_KEY,
+        }
+
+    return sqs_message
+
+
+def _send_mail(
+    template_name: str,
+    email_to: List[str],
+    context: Dict[str, Union[str, int]],
+    tags: List[str],
+):
+    sqs_message: Optional[Dict[str, object]] = _get_sqs_email_message(
+        context=context,
+        email_to=email_to,
+        tags=tags,
+    )
+
+    if sqs_message:
         try:
-            sqs_message = {
-                'message': message,
-                'api_key': API_KEY
-            }
+            sqs = boto3.client(  # type: ignore
+                'sqs',
+                aws_access_key_id=FI_AWS_DYNAMODB_ACCESS_KEY,
+                aws_secret_access_key=FI_AWS_DYNAMODB_SECRET_KEY,
+                aws_session_token=os.environ.get('AWS_SESSION_TOKEN'),
+                region_name='us-east-1'
+            )
+
             LOGGER.info(
                 '[mailer]: sending to SQS',
                 extra={
