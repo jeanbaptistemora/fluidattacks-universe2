@@ -1,14 +1,16 @@
 # pylint: disable=method-hidden
 
 import asyncio
-from typing import Dict, List
+from typing import Dict, List, Union, cast
 from aiodataloader import DataLoader
 from backend.domain import project as project_domain
+from backend.typing import Project as ProjectType
 
 
-async def _batch_load_fn(projects: List[str]):
+async def _batch_load_fn(
+        projects: List[str]) -> List[Dict[str, Union[List[str], ProjectType]]]:
     """Batch the data load requests within the same execution fragment."""
-    projects_data: Dict = dict()
+    projects_data: Dict[str, Union[List[str], ProjectType]] = dict()
 
     finding_task = asyncio.create_task(project_domain.list_findings(projects))
     draft_task = asyncio.create_task(project_domain.list_drafts(projects))
@@ -26,10 +28,19 @@ async def _batch_load_fn(projects: List[str]):
             attrs=group_info
         )
 
-    return [projects_data.get(project, dict()) for project in projects]
+    return [
+        cast(
+            Dict[str, Union[List[str], ProjectType]],
+            projects_data.get(project, dict())
+        )
+        for project in projects
+    ]
 
 
 # pylint: disable=too-few-public-methods
-class ProjectLoader(DataLoader):
-    async def batch_load_fn(self, projects: List[str]):
+class ProjectLoader(DataLoader):  # type: ignore
+    async def batch_load_fn(
+        self,
+        projects: List[str]
+    ) -> List[Dict[str, Union[List[str], ProjectType]]]:
         return await _batch_load_fn(projects)
