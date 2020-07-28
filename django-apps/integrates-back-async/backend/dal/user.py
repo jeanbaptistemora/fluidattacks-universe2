@@ -72,15 +72,20 @@ def cast_dict_into_subject_policy(item: dict) -> SubjectPolicy:
 
 def get_subject_policy(subject: str, object_: str) -> SubjectPolicy:
     """Return a policy for the given subject over the given object."""
-    response = AUTHZ_TABLE.get_item(
-        ConsistentRead=True,
-        Key={
-            'subject': subject.lower(),
-            'object': object_.lower(),
-        },
-    )
+    items = {}
+    try:
+        response = AUTHZ_TABLE.get_item(
+            ConsistentRead=True,
+            Key={
+                'subject': subject.lower(),
+                'object': object_.lower(),
+            },
+        )
+        items = response.get('Item', {})
+    except ClientError as ex:
+        LOGGER.exception(ex, extra={'extra': locals()})
 
-    return cast_dict_into_subject_policy(response.get('Item', {}))
+    return cast_dict_into_subject_policy(items)
 
 
 def get_subject_policies(subject: str) -> List[SubjectPolicy]:
