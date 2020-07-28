@@ -1,7 +1,7 @@
 stages:
   - build
   - test
-  - mr-check
+  - mr-test
   - deploy-infra
   - deploy
   - postdeploy
@@ -39,6 +39,8 @@ build_nix_caches:
   stage: build
   before_script:
     - apk add --no-cache bash
+  parallel: 11
+  interruptible: false
 
 infra_ephemeral_test:
   <<: *with_nix
@@ -126,24 +128,10 @@ postdeploy_release_email:
   needs: [deploy_production]
   except: [schedules]
 
-danger:
-  tags: [autoscaling]
-  stage: mr-check
-  image: fluidattacks/danger-ruby
-  only:
-    - merge_requests
-  variables:
-    DANGER_GITLAB_API_TOKEN: $DANGER_TOKEN
-  before_script:
-    - curl -LOJ https://static-objects.gitlab.net/fluidattacks/public/raw/master/commitlint-configs/others/parser-preset.js
-    - curl -LOJ https://static-objects.gitlab.net/fluidattacks/public/raw/master/commitlint-configs/others/commitlint.config.js
-    - export CI_MERGE_REQUEST_ID=$(git ls-remote -q origin merge-requests\*\head
-      | grep ${CI_COMMIT_SHA}
-      | sed 's/.*refs\/merge-requests\/\([0-9]*\)\/head/\1/g')
-    - npm install @commitlint/{config-conventional,cli}
-
-  script:
-    - danger --verbose --fail-on-errors=true
+reviews:
+  <<: *with_nix
+  stage: mr-test
+  only: [merge_requests]
 
 asserts-static:
   stage: test

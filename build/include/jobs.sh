@@ -11,20 +11,15 @@ source "${srcEnv}"
 function job_build_nix_caches {
   local context='.'
   local dockerfile='build/Dockerfile'
-  local provisioner
-  local provisioner_path
+  local provisioners
 
       helper_use_pristine_workdir \
-  &&  for provisioner_path in ./build/provisioners/*
+  &&  provisioners=(./build/provisioners/*) \
+  &&  helper_build_nix_caches_parallel \
+  &&  for (( i="${lower_limit}";i<="${upper_limit}";i++ ))
       do
-            provisioner=$(basename "${provisioner_path}") \
+            provisioner=$(basename "${provisioners[${i}]}") \
         &&  provisioner="${provisioner%.*}" \
-        &&  if [ "${provisioner}" = 'deploy_container_nix_caches' ]
-            then
-                  echo '[INFO] Skipping deploy_container_nix_caches' \
-              &&  continue
-            fi \
-        &&  echo "Building ${provisioner}" \
         &&  helper_docker_build_and_push \
               "${CI_REGISTRY_IMAGE}/nix:${provisioner}" \
               "${context}" \
@@ -257,4 +252,24 @@ function job_postdeploy_release_email {
           'version': _get_version_date(), 'message': _get_message()},
         tags=['general'])" >> "${TEMP_FILE1}" \
   &&  python3 "${TEMP_FILE1}"
+}
+
+function job_reviews {
+  local public_url='https://static-objects.gitlab.net/fluidattacks/public/raw/master'
+  local parser_url="${public_url}/commitlint-configs/others/parser-preset.js"
+  local rules_url="${public_url}/commitlint-configs/others/commitlint.config.js"
+
+  function reviews {
+    export __NIX_PATH
+    export __NIX_SSL_CERT_FILE
+
+    NIX_PATH="${__NIX_PATH}" \
+    NIX_SSL_CERT_FILE="${__NIX_SSL_CERT_FILE}" \
+      "${srcProduct}/bin/reviews" "${@}"
+  }
+
+      helper_use_pristine_workdir \
+  &&  curl -LOJ "${parser_url}" \
+  &&  curl -LOJ "${rules_url}" \
+  &&  reviews flavor generic
 }
