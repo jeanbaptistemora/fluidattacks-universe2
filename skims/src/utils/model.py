@@ -9,6 +9,7 @@ from typing import (
 
 class FindingEnum(Enum):
     F0034: str = 'FIN.S.0034. Insecure random numbers generation'
+    F0052: str = 'FIN.S.0034. Insecure cryptography'
 
 
 class FindingEvidenceID(Enum):

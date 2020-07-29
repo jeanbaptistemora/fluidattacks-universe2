@@ -39,6 +39,7 @@ from utils.model import (
     Vulnerability,
     VulnerabilityApprovalStatusEnum,
     VulnerabilitySourceEnum,
+    VulnerabilityStateEnum,
 )
 from utils.string import (
     to_png,
@@ -115,32 +116,46 @@ async def merge_results(
 ) -> Tuple[Vulnerability, ...]:
 
     def _merge_results() -> Tuple[Vulnerability, ...]:
-        # Add Integrates results
-        merged_results: Tuple[Vulnerability, ...] = tuple(
+        # Filter integrates results managed by skims
+        integrates_results_by_skims: Tuple[Vulnerability, ...] = tuple(
             result
             for result in integrates_results
-            # We only manage the ones who have been created by skims
             if (result.integrates_metadata and
                 result.integrates_metadata.source == (
                     VulnerabilitySourceEnum.SKIMS
                 ))
         )
 
-        # Add skims results
-        merged_results += tuple(
-            Vulnerability(
-                finding=result.finding,
-                integrates_metadata=IntegratesVulnerabilityMetadata(
-                    # Mark them as managed by skims
-                    source=VulnerabilitySourceEnum.SKIMS,
-                ),
-                kind=result.kind,
-                state=result.state,
-                what=result.what,
-                where=result.where,
+        # The hash is a trick to de-duplicate results by primary key
+        #   Given all integrates results are added first as closed
+        #   And then all skims results are added as open
+        #   And all results are uploaded in a single transacion
+        #   Then this perfectly emulates a single-transacion closing cycle
+        merged_results: Tuple[Vulnerability, ...] = tuple({
+            hash((
+                result.finding,
+                result.kind,
+                result.what,
+                result.where,
+            )): (
+                Vulnerability(
+                    finding=result.finding,
+                    integrates_metadata=IntegratesVulnerabilityMetadata(
+                        # Mark them as managed by skims
+                        source=VulnerabilitySourceEnum.SKIMS,
+                    ),
+                    kind=result.kind,
+                    state=result_state,
+                    what=result.what,
+                    where=result.where,
+                )
             )
-            for result in skims_results
-        )
+            for result_state, results in [
+                (VulnerabilityStateEnum.CLOSED, integrates_results_by_skims),
+                (VulnerabilityStateEnum.OPEN, skims_results),
+            ]
+            for result in results
+        }.values())
 
         return merged_results
 
