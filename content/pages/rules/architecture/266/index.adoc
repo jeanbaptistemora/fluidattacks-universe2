@@ -67,35 +67,44 @@ Attackers can exploit these flaws to access unauthorized functionality and/or
 data, such as access other users’ accounts, view sensitive files,
 modify other users’ data, change access rights, etc.
 
-. [[r5]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r5]] link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A6-Security_Misconfiguration[OWASP Top 10 A6:2017-Security Misconfiguration].
+Security misconfiguration is the most commonly seen issue.
+This is commonly a result of insecure default configurations,
+incomplete or ad hoc configurations, open cloud storage,
+misconfigured *HTTP* headers,
+and verbose error messages containing sensitive information.
+Not only must all operating systems, frameworks, libraries, and applications be
+securely configured, but they must be patched/upgraded in a timely fashion.
+
+. [[r6]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 Appendix C: Internet of Things Verification Requirements.(C.1)]
 Verify that application layer debugging interfaces such *USB*, *UART*,
 and other serial variants are disabled or protected by a complex password.
 
-. [[r6]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r7]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 Appendix C: Internet of Things Verification Requirements.(C.4)]
 Verify that on-chip debugging interfaces such as *JTAG* or *SWD* are disabled
 or that an available protection mechanism is enabled and configured
 appropriately.
 
-. [[r7]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r8]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 Appendix C: Internet of Things Verification Requirements.(C.11)]
 Verify that any use of banned *C* functions are replaced with the appropriate
 safe equivalent functions.
 
-. [[r8]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r9]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V1.4 Access Control Architectural Requirements.(1.4.1)]
 Verify that trusted enforcement points such as at access control gateways,
 servers, and serverless functions enforce access controls.
 Never enforce access controls on the client.
 
-. [[r9]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r10]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V4.1 General Access Control Design.(4.1.1)]
 Verify that the application enforces access control rules on a trusted service
 layer,
 especially if client-side access control is present and could be bypassed.
 
-. [[r10]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r11]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V6.2 Algorithms.(6.2.5)]
 Verify that known insecure block modes (i.e. *ECB*, etc.), padding modes
 (i.e. **PKCS#1** v1.5, etc.), ciphers with small block sizes
@@ -103,21 +112,21 @@ Verify that known insecure block modes (i.e. *ECB*, etc.), padding modes
 (i.e. *MD5*, *SHA1*, etc.) are not used unless required for backwards
 compatibility.
 
-. [[r11]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r12]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V9.1 Communications Security Requirements.(9.1.3)]
 Verify that old versions of *SSL* and *TLS* protocols, algorithms, ciphers, and
 configuration are disabled,
 such as *SSLv2*, *SSLv3*, or *TLS* 1.0 and *TLS* 1.1.
 The latest version of *TLS* should be the preferred cipher suite.
 
-. [[r12]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r13]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V14.2 Dependency.(14.2.2)]
 Verify that all unneeded features, documentation, samples, configurations are
 removed,
 such as sample applications, platform documentation, and default or example
 users.
 
-. [[r13]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r14]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V14.5 Validate HTTP Request Header Requirements.(14.5.1)]
 Verify that the application server only accepts the *HTTP* methods in use by
 the application or *API*, including pre-flight *OPTIONS*.

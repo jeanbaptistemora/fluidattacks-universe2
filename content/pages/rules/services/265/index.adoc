@@ -64,20 +64,27 @@ Identification and authentication:
 The information system uniquely identifies and authenticates
 organizational users (or processes acting on behalf of organizational users).
 
-. [[r8]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r8]] link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A5-Broken_Access_Control[OWASP Top 10 A5:2017-Broken Access Control].
+Restrictions on what authenticated users are allowed to do are often not
+properly enforced.
+Attackers can exploit these flaws to access unauthorized functionality and/or
+data, such as access other users’ accounts, view sensitive files,
+modify other users’ data, change access rights, etc.
+
+. [[r9]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V1.4 Access Control Architectural Requirements.(1.4.3)]
 Verify enforcement of the principle of least privilege in functions, data
 files, URLs, controllers, services, and other resources.
 This implies protection against spoofing and elevation of privilege.
 
-. [[r9]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r10]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V1.4 Access Control Architectural Requirements.(1.4.4)]
 Verify the application uses a single and well-vetted access control mechanism
 for accessing protected data and resources.
 All requests must pass through this single mechanism to avoid copy and paste or
 insecure alternative paths.
 
-. [[r10]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r11]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V1.4 Access Control Architectural Requirements.(1.4.5)]
 Verify that attribute or feature-based access control is used whereby the code
 checks the user's authorization for a feature/data item rather than just their
