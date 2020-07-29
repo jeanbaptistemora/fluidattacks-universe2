@@ -56,9 +56,9 @@ def test_all_pipelines_successful(mr_info: Any) -> bool:
         p_id: str = str(pipeline['id'])
         p_status: str = str(pipeline['status'])
         if p_id not in current_p_id:
-            if p_status in 'success' or p_status in 'manual':
+            if p_status in ('success', 'manual'):
                 pass
-            elif p_status in 'pending' or p_status in 'running':
+            elif p_status in ('pending', 'running'):
                 sleep(5)
                 index = -1
             else:
