@@ -7,7 +7,6 @@ export const GET_DRAFTS: DocumentNode = gql`
       drafts {
         id
         reportDate
-        type
         title
         description
         severityScore

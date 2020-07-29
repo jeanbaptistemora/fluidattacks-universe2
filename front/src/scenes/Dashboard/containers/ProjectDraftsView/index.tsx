@@ -75,8 +75,7 @@ const projectDraftsView: React.FC<IProjectDraftsBaseProps> = (props: IProjectDra
 
   const tableHeaders: IHeaderConfig[] = [
     { align: "center", dataField: "reportDate", header: "Date", onSort: onSortState, width: "10%" },
-    { align: "center", dataField: "type", header: "Type", onSort: onSortState, width: "8%" },
-    { align: "center", dataField: "title", header: "Title", onSort: onSortState, wrapped: true, width: "18%" },
+    { align: "center", dataField: "title", header: "Type", onSort: onSortState, wrapped: true, width: "18%" },
     {
       align: "center", dataField: "description", header: "Description", onSort: onSortState, width: "30%",
       wrapped: true,

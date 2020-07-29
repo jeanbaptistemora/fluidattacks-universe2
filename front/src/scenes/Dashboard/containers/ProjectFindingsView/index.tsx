@@ -206,7 +206,7 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
         delay: 1000,
         onFilter: onFilterTitle,
       }),
-      header: "Title", onSort: onSortState, visible: checkedItems.title, width: "11%", wrapped: true,
+      header: "Type", onSort: onSortState, visible: checkedItems.title, width: "11%", wrapped: true,
     },
     {
       align: "center", dataField: "description", header: "Description", onSort: onSortState,
@@ -222,7 +222,7 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
       header: "Severity", onSort: onSortState, visible: checkedItems.severityScore, width: "6%", wrapped: true,
     },
     {
-      align: "center", dataField: "openVulnerabilities", header: "Open Vulns.", onSort: onSortState,
+      align: "center", dataField: "openVulnerabilities", header: "Open", onSort: onSortState,
       visible: checkedItems.openVulnerabilities, width: "6%",
     },
     {

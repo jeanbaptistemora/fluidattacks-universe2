@@ -478,7 +478,7 @@ export const enTranslations: ResourceKey = {
           "Keep track of all the situations that are affecting the group",
       },
       findings: {
-        text: "Findings",
+        text: "Vulnerabilities",
         tooltip: "Keep track of the status of all the approved findings",
       },
       forces: {
