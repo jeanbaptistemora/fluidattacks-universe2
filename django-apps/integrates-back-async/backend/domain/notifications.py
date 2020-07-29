@@ -1,5 +1,6 @@
 # Standard library
 from datetime import datetime
+from typing import Dict, Union, cast
 import html
 import threading
 
@@ -20,31 +21,34 @@ async def new_group(
     requester_email: str,
     subscription: str,
 ) -> bool:
-    translations: dict = {
+    translations: Dict[Union[str, bool], str] = {
         'continuous': 'Continuous Hacking',
         'oneshot': 'One-Shot Hacking',
         True: 'Active',
         False: 'Inactive',
     }
 
-    return await aio.ensure_io_bound(
-        notifications_dal.create_ticket,
-        subject=f'[Integrates] Group created: {group_name}',
-        description=f"""
-            You are receiving this email because you have created a group
-            through Integrates by Fluid Attacks.
+    return cast(
+        bool,
+        await aio.ensure_io_bound(
+            notifications_dal.create_ticket,
+            subject=f'[Integrates] Group created: {group_name}',
+            description=f"""
+                You are receiving this email because you have created a group
+                through Integrates by Fluid Attacks.
 
-            Here are the details of the group:
-            - Name: {group_name}
-            - Description: {description}
-            - Type: {translations.get(subscription, subscription)}
-            - Drills: {translations[has_drills]}
-            - Forces: {translations[has_forces]}
+                Here are the details of the group:
+                - Name: {group_name}
+                - Description: {description}
+                - Type: {translations.get(subscription, subscription)}
+                - Drills: {translations[has_drills]}
+                - Forces: {translations[has_forces]}
 
-            If you require any further information,
-            do not hesitate to contact us.
-        """,
-        requester_email=requester_email,
+                If you require any further information,
+                do not hesitate to contact us.
+            """,
+            requester_email=requester_email,
+        )
     )
 
 
@@ -62,39 +66,42 @@ async def edit_group(
     requester_email: str,
     subscription: str,
 ) -> bool:
-    translations: dict = {
+    translations: Dict[Union[str, bool], str] = {
         'continuous': 'Continuous Hacking',
         'oneshot': 'One-Shot Hacking',
         True: 'Active',
         False: 'Inactive',
     }
 
-    return await aio.ensure_io_bound(
-        notifications_dal.create_ticket,
-        subject=f'[Integrates] Group edited: {group_name}',
-        description=f"""
-            You are receiving this email because you have edited a group
-            through Integrates by Fluid Attacks.
+    return cast(
+        bool,
+        await aio.ensure_io_bound(
+            notifications_dal.create_ticket,
+            subject=f'[Integrates] Group edited: {group_name}',
+            description=f"""
+                You are receiving this email because you have edited a group
+                through Integrates by Fluid Attacks.
 
-            Here are the details of the group:
-            - Name: {group_name}
-            - Type: {translations.get(subscription, subscription)}
-            - Integrates:
-                from: {translations[had_integrates]}
-                to: {translations[has_integrates]}
-            - Drills:
-                from: {translations[had_drills]}
-                to: {translations[has_drills]}
-            - Forces:
-                from: {translations[had_forces]}
-                to: {translations[has_forces]}
-            - Comments: {html.escape(comments, quote=True)}
-            - Reason: {reason}
+                Here are the details of the group:
+                - Name: {group_name}
+                - Type: {translations.get(subscription, subscription)}
+                - Integrates:
+                    from: {translations[had_integrates]}
+                    to: {translations[has_integrates]}
+                - Drills:
+                    from: {translations[had_drills]}
+                    to: {translations[has_drills]}
+                - Forces:
+                    from: {translations[had_forces]}
+                    to: {translations[has_forces]}
+                - Comments: {html.escape(comments, quote=True)}
+                - Reason: {reason}
 
-            If you require any further information,
-            do not hesitate to contact us.
-        """,
-        requester_email=requester_email,
+                If you require any further information,
+                do not hesitate to contact us.
+            """,
+            requester_email=requester_email,
+        )
     )
 
 
@@ -104,7 +111,7 @@ def new_password_protected_report(
     passphrase: str,
     file_type: str,
     file_link: str = '',
-):
+) -> None:
     email_send_thread = threading.Thread(
         name='Report passphrase email thread',
         target=mailer.send_mail_project_report,

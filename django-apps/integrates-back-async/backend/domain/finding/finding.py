@@ -3,7 +3,7 @@ import asyncio
 import re
 from datetime import datetime
 from contextlib import AsyncExitStack
-from typing import Dict, List, Union, cast
+from typing import Dict, List, Union, cast, Any, Optional
 
 import aioboto3
 import pytz
@@ -134,7 +134,7 @@ async def handle_acceptation(
         observations: str,
         user_mail: str,
         response: str) -> bool:
-    tzn = pytz.timezone(settings.TIME_ZONE)  # type: ignore
+    tzn = pytz.timezone(settings.TIME_ZONE)
     today = datetime.now(tz=tzn).today().strftime('%Y-%m-%d %H:%M:%S')
     new_state = {
         'acceptance_status': response,
@@ -384,7 +384,7 @@ async def delete_finding(
         finding_id: str,
         project_name: str,
         justification: str,
-        context) -> bool:
+        context: Any) -> bool:
     finding_data = await get_finding(finding_id)
     submission_history = cast(
         List[Dict[str, str]],
@@ -393,7 +393,7 @@ async def delete_finding(
     success = False
 
     if submission_history[-1].get('state') != 'DELETED':
-        tzn = pytz.timezone(settings.TIME_ZONE)  # type: ignore
+        tzn = pytz.timezone(settings.TIME_ZONE)
         today = datetime.now(tz=tzn).today()
         delete_date = str(today.strftime('%Y-%m-%d %H:%M:%S'))
         submission_history.append({
@@ -454,12 +454,12 @@ async def get_findings_async(
             for finding_id in finding_ids
         ]
         findings = await asyncio.gather(*findings_tasks)
-    return findings
+    return cast(List[Dict[str, FindingType]], findings)
 
 
 async def validate_finding(
         finding_id: Union[str, int] = 0,
-        finding: Dict[str, FindingType] = None) -> bool:
+        finding: Optional[Dict[str, FindingType]] = None) -> bool:
     """Validate if a finding is not deleted."""
     if not finding:
         finding = await finding_dal.get_finding(str(finding_id))
@@ -563,7 +563,7 @@ async def is_pending_verification(finding_id: str) -> bool:
     return len(reattack_requested) > 0 and await validate_finding(finding_id)
 
 
-@async_to_sync
+@async_to_sync  # type: ignore
 async def mask_finding(finding_id: str) -> bool:
     finding = await finding_dal.get_finding(finding_id)
     finding = finding_utils.format_data(finding)

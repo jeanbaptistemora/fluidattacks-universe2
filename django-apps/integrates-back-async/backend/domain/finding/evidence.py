@@ -1,7 +1,8 @@
 # pylint:disable=too-many-branches
-from typing import Dict, List, Union, cast
+from typing import Dict, List, Union, cast, Optional, Any
 from magic import Magic
 
+from django.core.files.uploadedfile import InMemoryUploadedFile
 from backend import util
 from backend.dal import finding as finding_dal
 from backend.exceptions import (
@@ -16,7 +17,10 @@ from backend.utils import (
 from .finding import get_finding
 
 
-async def update_evidence(finding_id: str, evidence_type: str, file) -> bool:
+async def update_evidence(
+        finding_id: str,
+        evidence_type: str,
+        file: InMemoryUploadedFile) -> bool:
     finding = await get_finding(finding_id)
     files = cast(List[Dict[str, str]], finding.get('files', []))
     project_name = str(finding.get('projectName', ''))
@@ -57,7 +61,7 @@ async def update_evidence(finding_id: str, evidence_type: str, file) -> bool:
     full_name = f'{project_name}/{finding_id}/{evidence_id}'
 
     if await finding_dal.save_evidence(file, full_name):
-        evidence: Union[Dict[str, str], list] = next(
+        evidence: Union[Dict[str, str], List[Optional[Any]]] = next(
             (
                 item
                 for item in files
@@ -102,7 +106,7 @@ async def update_evidence_description(
     )
     success = False
 
-    evidence: Union[Dict[str, str], list] = next(
+    evidence: Union[Dict[str, str], List[Optional[Any]]] = next(
         (
             item
             for item in files
@@ -152,7 +156,7 @@ async def remove_evidence(evidence_name: str, finding_id: str) -> bool:
     return success
 
 
-def validate_evidence(evidence_id: str, file) -> bool:
+def validate_evidence(evidence_id: str, file: InMemoryUploadedFile) -> bool:
     mib = 1048576
     success = False
     max_size = {

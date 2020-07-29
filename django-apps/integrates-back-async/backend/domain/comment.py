@@ -174,7 +174,7 @@ async def get_observations(
 async def create(
         element_id: str, comment_data: CommentType,
         user_info: UserType) -> Tuple[Union[int, None], bool]:
-    tzn = pytz.timezone(settings.TIME_ZONE)  # type: ignore
+    tzn = pytz.timezone(settings.TIME_ZONE)
     today = datetime.now(tz=tzn).today().strftime('%Y-%m-%d %H:%M:%S')
     comment_id = cast(int, comment_data.get('user_id', 0))
     comment_attributes = {
@@ -195,7 +195,7 @@ async def create(
     }
     success = await comment_dal.create(
         comment_id,
-        cast(CommentType, comment_attributes)
+        comment_attributes
     )
 
     return (comment_id if success else None, success)

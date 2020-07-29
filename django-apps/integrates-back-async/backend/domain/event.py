@@ -1,5 +1,5 @@
 """Domain functions for events."""  # pylint:disable=cyclic-import
-from typing import Dict, List, Tuple, Union, cast
+from typing import Dict, List, Tuple, Union, cast, Any
 import asyncio
 import random
 import threading
@@ -7,6 +7,7 @@ from datetime import datetime
 
 import pytz
 from django.conf import settings
+from django.core.files.uploadedfile import InMemoryUploadedFile
 from magic import Magic
 
 from backend import authz, mailer, util
@@ -62,7 +63,7 @@ async def solve_event(
     )[-1].get('state') == 'SOLVED':
         raise EventAlreadyClosed()
 
-    tzn = pytz.timezone(settings.TIME_ZONE)  # type: ignore
+    tzn = pytz.timezone(settings.TIME_ZONE)
     today = datetime.now(tz=tzn).today()
     history = cast(List[Dict[str, str]], event.get('historic_state', []))
     history += [
@@ -84,7 +85,10 @@ async def solve_event(
     return success
 
 
-async def update_evidence(event_id: str, evidence_type: str, file) -> bool:
+async def update_evidence(
+        event_id: str,
+        evidence_type: str,
+        file: InMemoryUploadedFile) -> bool:
     event = await get_event(event_id)
     success = False
 
@@ -118,7 +122,7 @@ async def update_evidence(event_id: str, evidence_type: str, file) -> bool:
     return success
 
 
-def validate_evidence(evidence_type: str, file) -> bool:
+def validate_evidence(evidence_type: str, file: InMemoryUploadedFile) -> bool:
     success = False
 
     if evidence_type == 'evidence':
@@ -149,7 +153,7 @@ async def _send_new_event_mail(
         event_id: str,
         project: str,
         subscription: str,
-        event_type: str):
+        event_type: str) -> None:
     recipients = await project_dal.list_project_managers(project)
     recipients.append(analyst)
     if subscription == 'oneshot':
@@ -194,14 +198,14 @@ async def _send_new_event_mail(
 async def create_event(
         analyst_email: str,
         project_name: str,
-        file=None,
-        image=None,
-        **kwargs) -> bool:
+        file: InMemoryUploadedFile = None,
+        image: InMemoryUploadedFile = None,
+        **kwargs: Any) -> bool:
     validations.validate_fields([kwargs['detail']])
     validations.validate_field_length(kwargs['detail'], 300)
     event_id = str(random.randint(10000000, 170000000))
 
-    tzn = pytz.timezone(settings.TIME_ZONE)  # type: ignore
+    tzn = pytz.timezone(settings.TIME_ZONE)
     today = datetime.now(tz=tzn).today()
 
     project_info = await project_domain.get_attributes(
