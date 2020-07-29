@@ -4,8 +4,9 @@
 
 import hashlib
 import uuid
-from typing import Dict, List, cast
-from openpyxl import Workbook, worksheet
+from enum import Enum
+from typing import Dict, List, NamedTuple, cast
+from pyexcelerate import Workbook
 
 from asgiref.sync import async_to_sync
 
@@ -17,41 +18,67 @@ from __init__ import FI_TEST_PROJECTS
 
 TEST_PROJECTS = FI_TEST_PROJECTS.split(',')
 
-COLUMNS_FINS = [
-    'project_name',
-    'finding_id',
-    'finding',
-    'finding_type',
-    'attack_vector',
-    'attack_complexity',
-    'user_interaction',
-    'severity_scope',
-    'confidentiality_impact',
-    'integrity_impact',
-    'availability_impact',
-    'exploitability',
-    'remediation_level',
-    'report_confidence',
-    'cvss_basescore',
-    'cvss_temporal',
-    'actor',
-    'cwe',
-    'scenario'
-]
 
-COLUMNS_VULNS = [
-    'vuln_type',
-    'report_date',
-    'analyst',
-    'treatment',
-    'specific',
-    'closing_date'
-]
+class ColumnConfig(NamedTuple):
+    label: str
+    width: int
 
-MASKED_COLUMNS = [
-    'finding_id',
-    'project_name',
-]
+
+class AllVulnsHeader(Enum):
+
+    @classmethod
+    def labels(cls):
+        return [member.value.label for member in cls]
+
+    @classmethod
+    def widths(cls):
+        return [member.value.label for member in cls]
+
+
+class AllVulnsReportHeaderFindings(AllVulnsHeader):
+    PROJECT: ColumnConfig = ColumnConfig(label='project_name', width=30)
+    FINDING_ID: ColumnConfig = ColumnConfig(label='finding_id', width=30)
+    FINDING: ColumnConfig = ColumnConfig(label='finding', width=30)
+    FINDING_TYPE: ColumnConfig = ColumnConfig(label='finding_type', width=30)
+    ATTACK_VECTOR: ColumnConfig = ColumnConfig(label='attack_vector', width=30)
+    ATTACK_COMPLEXITY: ColumnConfig = ColumnConfig(
+        label='attack_complexity', width=30)
+    USER_INTERACTION: ColumnConfig = ColumnConfig(
+        label='user_interaction', width=30)
+    SEVERITY_SCOPE: ColumnConfig = ColumnConfig(
+        label='severity_scope', width=30)
+    CONFIDENTIALITY_IMPACT: ColumnConfig = ColumnConfig(
+        label='confidentiality_impact', width=30)
+    INTEGRITY_IMPACT: ColumnConfig = ColumnConfig(
+        label='integrity_impact', width=30)
+    AVAILABILITY_IMPACT: ColumnConfig = ColumnConfig(
+        label='availability_impact', width=30)
+    EXPLOITABILITY: ColumnConfig = ColumnConfig(
+        label='exploitability', width=30)
+    REMEDIATION_LEVEL: ColumnConfig = ColumnConfig(
+        label='remediation_level', width=30)
+    REPORT_CONFIDENCE: ColumnConfig = ColumnConfig(
+        label='report_confidence', width=30)
+    CVSS_BASESCORE: ColumnConfig = ColumnConfig(
+        label='cvss_basescore', width=30)
+    CVSS_TEMPORAL: ColumnConfig = ColumnConfig(label='cvss_temporal', width=30)
+    ACTOR: ColumnConfig = ColumnConfig(label='actor', width=30)
+    CWE: ColumnConfig = ColumnConfig(label='cwe', width=30)
+    SCENARIO: ColumnConfig = ColumnConfig(label='scenario', width=30)
+
+
+class AllVulnsReportHeaderVulns(AllVulnsHeader):
+    VULN_TYPE: ColumnConfig = ColumnConfig(label='vuln_type', width=30)
+    REPORT_DATE: ColumnConfig = ColumnConfig(label='report_date', width=30)
+    ANALYST: ColumnConfig = ColumnConfig(label='analyst', width=30)
+    TREATMENT: ColumnConfig = ColumnConfig(label='treatment', width=30)
+    SPECIFIC: ColumnConfig = ColumnConfig(label='specific', width=30)
+    CLOSE_DATE: ColumnConfig = ColumnConfig(label='closing_date', width=30)
+
+
+class AllVulnsReportHeaderMasked(Enum):
+    FINDING_ID: str = 'finding_id'
+    PROJECT_NAME: str = 'project_name'
 
 
 def _hash_cell(cell: str) -> str:
@@ -59,7 +86,7 @@ def _hash_cell(cell: str) -> str:
 
 
 def _mask_finding(finding: Dict[str, FindingType]) -> Dict[str, FindingType]:
-    for masked_cell in MASKED_COLUMNS:
+    for masked_cell in [label.value for label in AllVulnsReportHeaderMasked]:
         finding[masked_cell] = _hash_cell(str(finding[masked_cell]))
     return finding
 
@@ -94,10 +121,6 @@ def _format_specific(vuln: Dict[str, FindingType]) -> str:
                 specific = ''
         elif vuln.get('vuln_type') == 'ports':
             specific = str(vuln.get('specific'))
-        else:
-            specific = ''
-    else:
-        specific = ''
 
     return specific
 
@@ -126,19 +149,11 @@ def _format_vuln(
     return vuln
 
 
-def fill_sheet(
-    sheet: worksheet,
-    finding_row: Dict[str, FindingType],
-    vuln_row: Dict[str, FindingType],
-    row_index: int
-) -> None:
-    for col, col_name in enumerate(COLUMNS_FINS, 1):
-        sheet.cell(row_index, col, finding_row.get(col_name, ''))
-    for col, col_name in enumerate(COLUMNS_VULNS, len(COLUMNS_FINS) + 1):
-        sheet.cell(row_index, col, vuln_row.get(col_name, ''))
-
-
 def generate_all_vulns_xlsx(user_email: str, project_name: str = '') -> str:
+    workbook = Workbook()
+    header = AllVulnsReportHeaderFindings.labels() + \
+        AllVulnsReportHeaderVulns.labels()
+    sheet_values = [header]
     if project_name:
         projects = [{'project_name': project_name}]
     else:
@@ -146,10 +161,7 @@ def generate_all_vulns_xlsx(user_email: str, project_name: str = '') -> str:
             List[Dict[str, str]],
             project_dal.get_all(data_attr='project_name')
         )
-    book = Workbook()
-    sheet = book.active
-    sheet.append(COLUMNS_FINS + COLUMNS_VULNS)
-    row_index = 2
+
     for project in projects:
         if project not in TEST_PROJECTS:
             findings = async_to_sync(project_dal.get_released_findings)(
@@ -162,11 +174,21 @@ def generate_all_vulns_xlsx(user_email: str, project_name: str = '') -> str:
             )
             finding_row = _mask_finding(finding)
             for vuln in vulns:
-                vuln_row = _format_vuln(vuln, finding_row)
-                fill_sheet(sheet, finding_row, vuln_row, row_index)
-                row_index += 1
+                vuln_row = cast(
+                    Dict[str, FindingType],
+                    _format_vuln(vuln, finding_row)
+                )
+
+                sheet_values.append([
+                    [finding_row.get(label, '')
+                        for label in AllVulnsReportHeaderFindings.labels()] +
+                    [vuln_row.get(label, '')
+                        for label in AllVulnsReportHeaderVulns.labels()]
+                ])
 
     username = user_email.split('@')[0]
     filepath = f'/tmp/{username}-{str(uuid.uuid4())}-allvulns.xlsx'
-    book.save(filepath)
+    workbook.new_sheet('Data', data=sheet_values)
+    workbook.save(filepath)
+
     return filepath
