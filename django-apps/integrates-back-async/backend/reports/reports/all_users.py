@@ -4,12 +4,13 @@ from asgiref.sync import async_to_sync
 from pyexcelerate import Workbook
 from backend.dal import user as user_dal
 from backend.domain import user as user_domain
+from backend.reports.typing import AllUsersReportHeader
 from backend.utils import reports as reports_utils
 
 
 def generate(user_email: str) -> str:
     workbook = Workbook()
-    sheet_values = [['full_name', 'user_email']]
+    sheet_values = [AllUsersReportHeader.labels()]
     row_index = 2
 
     unique_users = []

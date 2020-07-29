@@ -1,84 +1,24 @@
 # -*- coding: utf-8 -*-
 """ Export all vulnerabilities """
-
-
 import hashlib
 import uuid
-from enum import Enum
-from typing import Dict, List, NamedTuple, cast
+from typing import Dict, List, cast
 from pyexcelerate import Workbook
 
 from asgiref.sync import async_to_sync
 
 from backend.dal import project as project_dal
 from backend.domain import vulnerability as vuln_domain
+from backend.reports.typing import (
+    AllVulnsReportHeaderFindings,
+    AllVulnsReportHeaderMasked,
+    AllVulnsReportHeaderVulns
+)
 from backend.typing import Finding as FindingType
 
 from __init__ import FI_TEST_PROJECTS
 
 TEST_PROJECTS = FI_TEST_PROJECTS.split(',')
-
-
-class ColumnConfig(NamedTuple):
-    label: str
-    width: int
-
-
-class AllVulnsHeader(Enum):
-
-    @classmethod
-    def labels(cls):
-        return [member.value.label for member in cls]
-
-    @classmethod
-    def widths(cls):
-        return [member.value.label for member in cls]
-
-
-class AllVulnsReportHeaderFindings(AllVulnsHeader):
-    PROJECT: ColumnConfig = ColumnConfig(label='project_name', width=30)
-    FINDING_ID: ColumnConfig = ColumnConfig(label='finding_id', width=30)
-    FINDING: ColumnConfig = ColumnConfig(label='finding', width=30)
-    FINDING_TYPE: ColumnConfig = ColumnConfig(label='finding_type', width=30)
-    ATTACK_VECTOR: ColumnConfig = ColumnConfig(label='attack_vector', width=30)
-    ATTACK_COMPLEXITY: ColumnConfig = ColumnConfig(
-        label='attack_complexity', width=30)
-    USER_INTERACTION: ColumnConfig = ColumnConfig(
-        label='user_interaction', width=30)
-    SEVERITY_SCOPE: ColumnConfig = ColumnConfig(
-        label='severity_scope', width=30)
-    CONFIDENTIALITY_IMPACT: ColumnConfig = ColumnConfig(
-        label='confidentiality_impact', width=30)
-    INTEGRITY_IMPACT: ColumnConfig = ColumnConfig(
-        label='integrity_impact', width=30)
-    AVAILABILITY_IMPACT: ColumnConfig = ColumnConfig(
-        label='availability_impact', width=30)
-    EXPLOITABILITY: ColumnConfig = ColumnConfig(
-        label='exploitability', width=30)
-    REMEDIATION_LEVEL: ColumnConfig = ColumnConfig(
-        label='remediation_level', width=30)
-    REPORT_CONFIDENCE: ColumnConfig = ColumnConfig(
-        label='report_confidence', width=30)
-    CVSS_BASESCORE: ColumnConfig = ColumnConfig(
-        label='cvss_basescore', width=30)
-    CVSS_TEMPORAL: ColumnConfig = ColumnConfig(label='cvss_temporal', width=30)
-    ACTOR: ColumnConfig = ColumnConfig(label='actor', width=30)
-    CWE: ColumnConfig = ColumnConfig(label='cwe', width=30)
-    SCENARIO: ColumnConfig = ColumnConfig(label='scenario', width=30)
-
-
-class AllVulnsReportHeaderVulns(AllVulnsHeader):
-    VULN_TYPE: ColumnConfig = ColumnConfig(label='vuln_type', width=30)
-    REPORT_DATE: ColumnConfig = ColumnConfig(label='report_date', width=30)
-    ANALYST: ColumnConfig = ColumnConfig(label='analyst', width=30)
-    TREATMENT: ColumnConfig = ColumnConfig(label='treatment', width=30)
-    SPECIFIC: ColumnConfig = ColumnConfig(label='specific', width=30)
-    CLOSE_DATE: ColumnConfig = ColumnConfig(label='closing_date', width=30)
-
-
-class AllVulnsReportHeaderMasked(Enum):
-    FINDING_ID: str = 'finding_id'
-    PROJECT_NAME: str = 'project_name'
 
 
 def _hash_cell(cell: str) -> str:

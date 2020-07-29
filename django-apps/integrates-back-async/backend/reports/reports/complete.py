@@ -1,6 +1,5 @@
 # Standard library
-from enum import Enum
-from typing import cast, List, NamedTuple
+from typing import cast, List
 import uuid
 from pyexcelerate import Workbook
 
@@ -11,24 +10,9 @@ from backend.domain import (
     project as project_domain,
     vulnerability as vuln_domain
 )
+from backend.reports.typing import CompleteReportHeader
 from backend.typing import Historic as HistoricType
 from backend.utils import reports as reports_utils
-
-
-class ColumnConfig(NamedTuple):
-    label: str
-    width: int
-
-
-class CompleteReportHeader(Enum):
-    PROJECT: ColumnConfig = ColumnConfig(label='Project', width=30)
-    FINDING: ColumnConfig = ColumnConfig(label='Finding', width=30)
-    WHERE: ColumnConfig = ColumnConfig(label='Vulnerability (where)', width=30)
-    SPECIFIC: ColumnConfig = ColumnConfig(
-        label='Vulnerability (specific)', width=30)
-    TREATMENT: ColumnConfig = ColumnConfig(label='Treatment', width=30)
-    TREATMENT_MANAGER: ColumnConfig = ColumnConfig(
-        label='Treatment Manager', width=30)
 
 
 # pylint: disable=too-many-locals
@@ -36,7 +20,7 @@ def generate(
     user_email: str,
     projects: List[str]
 ) -> str:
-    header = [label.value.label for label in CompleteReportHeader]
+    header = CompleteReportHeader.labels()
     workbook = Workbook()
     sheet_values = [header]
 
