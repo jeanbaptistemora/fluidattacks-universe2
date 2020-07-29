@@ -15,7 +15,7 @@ Bussiness sensitive data
 
 Applications usually handle personal information such as credit card numbers,
 *CVV*, personal identifications, social security numbers, etc.
-The exposure of this data could severely affect their owners and so they must
+The exposure of this data could severely affect their owners and so it must
 be considered sensitive and specifically protected.
 Masking is a mechanism that contributes to this protection.
 

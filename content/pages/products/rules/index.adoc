@@ -39,9 +39,6 @@ related to information security, including the following:
 . [inner]#link:../../search.html?q=ASVS[ASVS]#.
 link:https://www.owasp.org/index.php/Category:OWASP_Application_Security_Verification_Standard_Project[`OWASP` Application Security Verification Standard].
 
-. [inner]#link:../../search.html?q=pci[PCI]#.
-link:https://www.pcisecuritystandards.org/[`PCI` Security Standards Council].
-
 . [inner]#link:../../search.html?q=bsimm9[BSIMM9]#.
 link:https://www.bsimm.com/download.html[Building Security In Maturity Model].
 
@@ -59,6 +56,12 @@ link:https://www.hhs.gov/hipaa/for-professionals/security/laws-regulations/index
 
 . [inner]#link:../../search.html?q=NIST+800-53[NIST]#.
 link:https://nvd.nist.gov/800-53/Rev4[`NIST` Special Publication 800-53 (Rev. 4)].
+
+. [inner]#link:../../search.html?q=OWASP[OWASP]#.
+link:https://owasp.org/www-project-top-ten/[`OWASP` Top 10].
+
+. [inner]#link:../../search.html?q=pci[`PCI`]#.
+link:https://www.pcisecuritystandards.org/[PCI Security Standards Council].
 
 == Categories
 
