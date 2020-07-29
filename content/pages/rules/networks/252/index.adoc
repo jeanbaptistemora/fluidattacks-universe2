@@ -10,3 +10,14 @@
 
 The organization must prefer the use of `WPA2` Personal
 or `WPA2` Enterprise (+802.1x+) key encryption methods.
+
+== References
+
+. [[r1]] link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A6-Security_Misconfiguration[OWASP Top 10 A6:2017-Security Misconfiguration].
+Security misconfiguration is the most commonly seen issue.
+This is commonly a result of insecure default configurations,
+incomplete or ad hoc configurations, open cloud storage,
+misconfigured *HTTP* headers,
+and verbose error messages containing sensitive information.
+Not only must all operating systems, frameworks, libraries, and applications be
+securely configured, but they must be patched/upgraded in a timely fashion.

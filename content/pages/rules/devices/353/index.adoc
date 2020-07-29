@@ -19,23 +19,32 @@ invalidates the results of the check.
 This can cause the software to perform invalid actions when the resource is in
 an unexpected state.
 
-. [[r2]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r2]] link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A6-Security_Misconfiguration[OWASP Top 10 A6:2017-Security Misconfiguration].
+Security misconfiguration is the most commonly seen issue.
+This is commonly a result of insecure default configurations,
+incomplete or ad hoc configurations, open cloud storage,
+misconfigured *HTTP* headers,
+and verbose error messages containing sensitive information.
+Not only must all operating systems, frameworks, libraries, and applications be
+securely configured, but they must be patched/upgraded in a timely fashion.
+
+. [[r3]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 Appendix C: Internet of Things Verification Requirements.(C.20)]
 Verify that the firmware update process is not vulnerable to time-of-check vs
 time-of-use attacks.
 
-. [[r3]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r4]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 Appendix C: Internet of Things Verification Requirements.(C.24)]
 Verify that firmware can perform automatic firmware updates upon a predefined
 schedule.
 
-. [[r4]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r5]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V1.11 Business Logic Architectural Requirements.(1.11.3)]
 Verify that all high-value business logic flows,
 including authentication, session management and access control,
 are thread safe and resistant to time-of-check and time-of-use race conditions.
 
-. [[r5]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r6]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V11.1 Business Logic Security Requirements.(11.1.6)]
 Verify the application does not suffer from "time of check to time of use"
 (*TOCTOU*) issues or other race conditions for sensitive operations.

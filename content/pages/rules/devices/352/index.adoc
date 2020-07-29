@@ -21,7 +21,16 @@ provides sufficient defense against directed attacks against the product.
 The product implements a register lock bit protection feature that permits
 security sensitive controls to modify the protected configuration.
 
-. [[r3]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r3]] link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A6-Security_Misconfiguration[OWASP Top 10 A6:2017-Security Misconfiguration].
+Security misconfiguration is the most commonly seen issue.
+This is commonly a result of insecure default configurations,
+incomplete or ad hoc configurations, open cloud storage,
+misconfigured *HTTP* headers,
+and verbose error messages containing sensitive information.
+Not only must all operating systems, frameworks, libraries, and applications be
+securely configured, but they must be patched/upgraded in a timely fashion.
+
+. [[r4]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 Appendix C: Internet of Things Verification Requirements.(C.5)]
 Verify that trusted execution is implemented and enabled, if available on the
 device SoC or CPU.
