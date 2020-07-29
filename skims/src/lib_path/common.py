@@ -28,6 +28,7 @@ from utils.string import (
 C_STYLE_COMMENT: ParserElement = cppStyleComment
 
 EXTENSIONS_CSHARP = ('cs',)
+EXTENSIONS_JAVA = ('class', 'java')
 EXTENSIONS_JAVASCRIPT = ('js', 'jsx', 'ts', 'tsx')
 
 SINGLE_QUOTED_STRING: QuotedString = QuotedString("'")
