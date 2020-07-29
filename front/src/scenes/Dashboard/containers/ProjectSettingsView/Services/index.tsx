@@ -356,7 +356,7 @@ const services: React.FC<IServicesProps> = (props: IServicesProps): JSX.Element 
                   />
                 </FormGroup>
                 <Alert bsStyle="warning">
-                  * {translate.t("home.newGroup.extra_charges_may_apply")}
+                  * {translate.t("organization.tabs.groups.newGroup.extra_charges_may_apply")}
                 </Alert>
               </Modal>
             </React.Fragment>
