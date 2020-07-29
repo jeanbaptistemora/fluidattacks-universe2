@@ -5,11 +5,11 @@
 :rules: yes
 :extended: yes
 
-= R097. Define control access model
+= R097. Define an access control model
 
 == Requirement
 
-The organization must define a control access model for the systems.
+The organization must define an access control model for the systems.
 
 == References
 

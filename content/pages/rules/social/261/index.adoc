@@ -1,7 +1,7 @@
 :slug: rules/261/
 :category: social
 :description: This requirement establishes the importance of not exposing corporate information on publicly accessible web pages and application sections.
-:keywords: Corporate, Personal, Security, Sensitive, CWE, GDPR, Rules, Ethical Hacking, Pentesting
+:keywords: Corporate, Personal, Security, Sensitive, CWE, GDPR, OWASP, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R261. Avoid exposing sensitive information
@@ -47,3 +47,12 @@ Personal data shall be processed in a manner that ensures appropriate security
 of the personal data,
 including protection against unauthorized or unlawful processing and against
 accidental loss, destruction or damage.
+
+. [[r5]] link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A3-Sensitive_Data_Exposure[OWASP Top 10 A3:2017-Sensitive Data Exposure].
+Many web applications and **API**s do not properly protect sensitive data,
+such as financial, healthcare, and *PII*.
+Attackers may steal or modify such weakly protected data to conduct credit card
+fraud, identity theft, or other crimes.
+Sensitive data may be compromised without extra protection,
+such as encryption at rest or in transit, and requires special precautions when
+exchanged with the browser.
