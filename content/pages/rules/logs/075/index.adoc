@@ -99,47 +99,53 @@ Audit Controls: Implement hardware, software, and/or procedural mechanisms
 that record and examine activity in information systems
 that contain or use electronic protected health information.
 
-. [[r6]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r6]] link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A10-Insufficient_Logging%252526Monitoring[OWASP Top 10 A10:2017-Insufficient Logging & Monitoring].
+Insufficient logging and monitoring,
+coupled with missing or ineffective integration with incident response,
+allows attackers to further attack systems, maintain persistence,
+pivot to more systems, and tamper, extract, or destroy data.
+
+. [[r7]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V1.7 Errors, Logging and Auditing Architectural Requirements.(1.7.1)]
 Verify that a common logging format and approach is used across the system.
 
-. [[r7]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r8]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V7.1 Log Content Requirements.(7.1.3)]
 Verify that the application logs security relevant events including successful
 and failed authentication events, access control failures, deserialization
 failures and input validation failures.
 
-. [[r8]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r9]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V7.1 Log Content Requirements.(7.1.4)]
 Verify that each log event includes necessary information that would allow for
 a detailed investigation of the timeline when an event happens.
 
-. [[r9]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r10]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V7.2 Log Processing Requirements.(7.2.1)]
 Verify that all authentication decisions are logged,
 without storing sensitive session identifiers or passwords.
 This should include requests with relevant metadata needed for security
 investigations.
 
-. [[r10]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r11]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V7.2 Log Processing Requirements.(7.2.2)]
 Verify that all access control decisions can be logged and all failed decisions
 are logged.
 This should include requests with relevant metadata needed for security
 investigations.
 
-. [[r11]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r12]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V8.3 Sensitive Private Data.(8.3.5)]
 Verify accessing sensitive data is audited
 (without logging the sensitive data itself),
 if the data is collected under relevant data protection directives or where
 logging of access is required.
 
-. [[r12]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r14]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V9.2 Server Communications Security Requirements.(9.2.5)]
 Verify that backend *TLS* connection failures are logged.
 
-. [[r13]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r14]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V11.1 Business Logic Security Requirements.(11.1.7)]
 Verify the application monitors for unusual events or activity from a business
 logic perspective.
