@@ -71,9 +71,9 @@ async def analyze_one_path(path: str) -> Tuple[Vulnerability, ...]:
 
 
 async def analyze(paths: Tuple[str, ...]) -> Tuple[Vulnerability, ...]:
-    unique_paths: Set[str] = set(*(
+    unique_paths: Set[str] = set(chain(*(
         await materialize(map(recurse, paths))
-    ))
+    )))
 
     results: Tuple[Vulnerability, ...] = tuple(chain(*(
         await materialize(map(analyze_one_path, unique_paths))

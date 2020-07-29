@@ -37,7 +37,7 @@ def test_dispatch(test_group: str) -> None:
     result = _cli('--path', 'test')
     assert result.exit_code == 0
 
-    result = _cli('--group', test_group, '--path', 'test')
+    result = _cli('--group', test_group, '--path', 'test', '--path', 'test')
     assert result.exit_code == 0
 
     result = _cli('--group', test_group, '--path', 'test', '--token', '123')
