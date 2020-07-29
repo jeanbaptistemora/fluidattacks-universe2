@@ -31,7 +31,6 @@ from utils.model import (
     FindingEvidenceID,
     FindingReleaseStatus,
     IntegratesVulnerabilityMetadata,
-    SeverityEnum,
     Vulnerability,
     VulnerabilityApprovalStatusEnum,
     VulnerabilityKindEnum,
@@ -295,20 +294,41 @@ async def do_create_draft(
     result = await _execute(
         query="""
             mutation DoCreateDraft(
+                $cwe: String
+                $description: String
                 $group: String!
+                $recommendation: String
+                $requirements: String
+                $risk: String
+                $threat: String
                 $title: String!
+                $type: FindingType
             ) {
                 createDraft(
-                    projectName: $group,
-                    title: $title,
+                    cwe: $cwe
+                    description: $description
+                    projectName: $group
+                    recommendation: $recommendation
+                    requirements: $requirements
+                    risk: $risk
+                    threat: $threat
+                    title: $title
+                    type: $type
                 ) {
                     success
                 }
             }
         """,
         variables=dict(
+            cwe=finding.value.cwe,
+            description=finding.value.description,
             group=group,
-            title=finding.value,
+            recommendation=finding.value.recommendation,
+            requirements=finding.value.requirements,
+            risk=finding.value.risk,
+            threat=finding.value.threat,
+            title=finding.value.title,
+            type=finding.value.type.value,
         )
     )
 
@@ -380,7 +400,7 @@ async def do_submit_draft(
 async def do_update_finding_severity(
     *,
     finding_id: str,
-    severity: SeverityEnum,
+    severity: Dict[str, float],
 ) -> bool:
     result = await _execute(
         query="""
@@ -401,7 +421,7 @@ async def do_update_finding_severity(
             data=dict(
                 cvssVersion='3.1',
                 id=finding_id,
-                **severity.value,
+                **severity,
             ),
         )
     )

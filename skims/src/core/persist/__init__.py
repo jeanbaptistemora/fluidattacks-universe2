@@ -177,7 +177,7 @@ async def persist_finding(
     )
 
     if finding_id:
-        await log('debug', 'closest finding for: %s = %s', finding, finding_id)
+        await log('debug', 'finding for: %s = %s', finding.name, finding_id)
 
         merged_results: Tuple[Vulnerability, ...] = await merge_results(
             skims_results=results,
@@ -190,12 +190,12 @@ async def persist_finding(
         success: bool = await do_build_and_upload_vulnerabilities(
             finding_id=finding_id,
             results=merged_results,
-        ) and await upload_evidences(
-            finding_id=finding_id,
-            results=results,
         ) and await approve_skims_vulnerabilities(
             finding=finding,
             finding_id=finding_id,
+        ) and await upload_evidences(
+            finding_id=finding_id,
+            results=results,
         ) and await do_release_finding(
             finding_id=finding_id,
         )

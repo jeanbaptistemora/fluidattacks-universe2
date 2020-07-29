@@ -26,7 +26,6 @@ from utils.model import (
     FindingEnum,
     FindingReleaseStatus,
     IntegratesVulnerabilitiesLines,
-    SeverityEnum,
     Vulnerability,
     VulnerabilityKindEnum,
     VulnerabilitySourceEnum,
@@ -81,7 +80,7 @@ async def get_closest_finding_id(
         await get_group_findings(group=group)
 
     for existing_finding in existing_findings:
-        if are_similar(finding.value, existing_finding.title):
+        if are_similar(finding.value.title, existing_finding.title):
             return existing_finding.identifier
 
     # No similar finding has been found at this point
@@ -96,10 +95,14 @@ async def get_closest_finding_id(
                 finding=finding,
                 group=group,
             )
-            await do_update_finding_severity(
-                finding_id=finding_id,
-                severity=getattr(SeverityEnum, finding.name),
-            )
+
+            if finding_id:
+                await do_update_finding_severity(
+                    finding_id=finding_id,
+                    severity=finding.value.severity,
+                )
+            else:
+                finding_id = ''
         else:
             finding_id = ''
     else:

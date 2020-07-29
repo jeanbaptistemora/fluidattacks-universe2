@@ -42,7 +42,7 @@ async def main(
     await materialize(
         log(
             'info', '%s: %s @ %s\n\n%s\n',
-            result.finding.value,
+            result.finding.value.title,
             result.what,
             result.where,
             result.skims_metadata.snippet,

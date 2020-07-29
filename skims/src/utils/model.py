@@ -1,5 +1,10 @@
 # Standard library
-from enum import Enum
+from enum import (
+    Enum,
+)
+from textwrap import (
+    dedent,
+)
 from typing import (
     Dict,
     NamedTuple,
@@ -7,9 +12,77 @@ from typing import (
 )
 
 
+def prettify(multiline_str: str) -> str:
+    return dedent(multiline_str)[1:-1]
+
+
+class FindingType(Enum):
+    HYGIENE: str = 'HYGIENE'
+    SECURITY: str = 'SECURITY'
+
+
+class FindingMetadata(NamedTuple):
+    cwe: str
+    description: str
+    recommendation: str
+    requirements: str
+    risk: str
+    severity: Dict[str, float]
+    threat: str
+    title: str
+    type: FindingType
+
+
 class FindingEnum(Enum):
-    F0034: str = 'FIN.S.0034. Insecure random numbers generation'
-    F0052: str = 'FIN.S.0034. Insecure cryptography'
+    F0034: FindingMetadata = FindingMetadata(
+        cwe='330',
+        description=prettify("""
+            The system uses insecure functions, insufficient ranges or
+            low-entropy components to generate random numbers.
+        """),
+        recommendation=prettify("""
+            Use a well-vetted algorithm that is currently considered to be
+            strong by experts in the field, and select well-tested
+            implementations with adequate length seeds.
+        """),
+        requirements=prettify("""
+            R223. Uniform distribution in random numbers
+            R224. Use secure cryptographic mechanisms
+        """),
+        risk=prettify("""
+            An attacker could guess the generation sequence within a
+            reasonable time or predict results using probabilistic methods.
+        """),
+        threat=prettify("""
+            External attacker over the Internet.
+        """),
+        severity={
+            'attackComplexity': 0.77,
+            'attackVector': 0.85,
+            'availabilityImpact': 0.0,
+            'availabilityRequirement': 0.5,
+            'confidentialityImpact': 0.22,
+            'confidentialityRequirement': 0.5,
+            'exploitability': 0.94,
+            'integrityImpact': 0.22,
+            'integrityRequirement': 0.5,
+            'modifiedAttackComplexity': 0.77,
+            'modifiedAttackVector': 0.55,
+            'modifiedAvailabilityImpact': 0.0,
+            'modifiedConfidentialityImpact': 0.22,
+            'modifiedIntegrityImpact': 0.22,
+            'modifiedPrivilegesRequired': 0.85,
+            'modifiedUserInteraction': 0.85,
+            'modifiedSeverityScope': 0.0,
+            'privilegesRequired': 0.85,
+            'remediationLevel': 0.95,
+            'reportConfidence': 1.0,
+            'severityScope': 0.0,
+            'userInteraction': 0.85,
+        },
+        title='FIN.S.0034. Insecure random number generation',
+        type=FindingType.SECURITY,
+    )
 
 
 class FindingEvidenceID(Enum):
@@ -29,33 +102,6 @@ class FindingReleaseStatus(Enum):
     CREATED: str = 'CREATED'
     REJECTED: str = 'REJECTED'
     SUBMITTED: str = 'SUBMITTED'
-
-
-class SeverityEnum(Enum):
-    F0034: Dict[str, float] = {
-        'attackComplexity': 0.77,
-        'attackVector': 0.85,
-        'availabilityImpact': 0.0,
-        'availabilityRequirement': 0.5,
-        'confidentialityImpact': 0.22,
-        'confidentialityRequirement': 0.5,
-        'exploitability': 0.94,
-        'integrityImpact': 0.22,
-        'integrityRequirement': 0.5,
-        'modifiedAttackComplexity': 0.77,
-        'modifiedAttackVector': 0.55,
-        'modifiedAvailabilityImpact': 0.0,
-        'modifiedConfidentialityImpact': 0.22,
-        'modifiedIntegrityImpact': 0.22,
-        'modifiedPrivilegesRequired': 0.85,
-        'modifiedUserInteraction': 0.85,
-        'modifiedSeverityScope': 0.0,
-        'privilegesRequired': 0.85,
-        'remediationLevel': 0.95,
-        'reportConfidence': 1.0,
-        'severityScope': 0.0,
-        'userInteraction': 0.85,
-    }
 
 
 class VulnerabilityApprovalStatusEnum(Enum):

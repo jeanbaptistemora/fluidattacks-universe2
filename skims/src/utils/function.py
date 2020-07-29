@@ -31,7 +31,10 @@ def retry(
                 with contextlib.suppress(*on_exceptions):
                     return await _function(*args, **kwargs)
 
-            return on_error_return
+            if on_error_return:
+                return on_error_return
+
+            return await _function(*args, **kwargs)
 
         return cast(TVar, wrapper)
 

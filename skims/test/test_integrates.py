@@ -26,7 +26,6 @@ from utils.model import (
     FindingEnum,
     IntegratesVulnerabilitiesLines,
     IntegratesVulnerabilityMetadata,
-    SeverityEnum,
     Vulnerability,
     VulnerabilityApprovalStatusEnum,
     VulnerabilityKindEnum,
@@ -104,12 +103,12 @@ async def test_statefull(
 
     assert await do_update_finding_severity(
         finding_id=finding_id,
-        severity=SeverityEnum.F0034,
+        severity=finding.value.severity,
     )
 
     assert ResultGetGroupFindings(
         identifier=finding_id,
-        title=finding.value,
+        title=finding.value.title,
     ) in await get_group_findings(group=test_group)
 
     assert await do_upload_vulnerabilities(
