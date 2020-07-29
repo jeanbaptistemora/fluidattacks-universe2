@@ -26,7 +26,7 @@ function job_reviews_lint {
   local path='reviews'
 
       helper_common_poetry_install_deps "${path}" \
-  &&  pushd reviews/ \
+  &&  pushd "${path}" \
     &&  for pkg in "${REVIEWS_GLOBAL_PKGS[@]}"
         do
               echo "[INFO] Static type checking: ${pkg}" \
@@ -59,7 +59,7 @@ function job_reviews_structure {
   local path='reviews'
 
       helper_common_poetry_install_deps "${path}" \
-  &&  pushd reviews/ \
+  &&  pushd "${path}" \
     &&  poetry run pydeps "${pydeps_args[@]}" \
   &&  popd \
   ||  return 1

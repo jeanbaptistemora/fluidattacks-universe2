@@ -1,6 +1,7 @@
 # Standard libraries
 import os
-from typing import Any, List, Dict
+from typing import Any, List, Dict, Callable
+from functools import partial
 
 # Third party libraries
 import gitlab
@@ -22,9 +23,8 @@ from utils.logs import (
     log
 )
 
-# Constants
+
 GITLAB_URL: str = 'https://gitlab.com'
-REGEX_MR_TITLE: str = r'^(\w*)\((\w*)\):\s(#[1-9]\d*)(.\d+)?\s(.*)$'
 REGEX_COMMIT_USER: str = r'^[A-Z][a-z]+ [A-Z][a-z]+$'
 RELEVANCES: Dict[str, int] = {
     'rever': 1,
@@ -33,7 +33,7 @@ RELEVANCES: Dict[str, int] = {
     'fix': 4,
     'refac': 5,
     'test': 6,
-    'style': 7
+    'style': 7,
 }
 
 
@@ -48,7 +48,7 @@ def required_env() -> bool:
         'MR_TEST_MAX_DELTAS',
         'CI_PROJECT_ID',
         'CI_MERGE_REQUEST_IID',
-        'MR_TEST_TOKEN'
+        'MR_TEST_TOKEN',
     ]
     success: bool = True
     for variable in variables:
@@ -60,7 +60,10 @@ def required_env() -> bool:
     return success
 
 
-def generic() -> bool:
+def run_flavor(
+        fail_tests: List[str],
+        warn_tests: List[str],
+        regex_mr_title: str) -> bool:
     success: bool = required_env()
 
     if success:
@@ -73,18 +76,33 @@ def generic() -> bool:
         mr_commit_msg: str = f'{mr_info.title}\n\n{mr_info.description}'
 
     if success and not test_skip_ci(mr_info):
-        # Run tests that produce failure
-        success = test_mr_under_max_deltas(mr_info, max_deltas) and success
-        success = test_all_pipelines_successful(mr_info) and success
-        success = test_mr_message(mr_commit_msg) and success
-        success = test_branch_equals_to_user(mr_info) and success
-        success = \
-            test_most_relevant_type(mr_info, REGEX_MR_TITLE, RELEVANCES) \
-            and success
-        success = test_commits_user(mr_info, REGEX_COMMIT_USER) and success
-        success = test_mr_user(mr_info, REGEX_COMMIT_USER) and success
+        tests: Dict[str, Callable[[], bool]] = {
+            'mr_under_max_deltas':
+                partial(test_mr_under_max_deltas, mr_info, max_deltas),
+            'all_pipelines_successful':
+                partial(test_all_pipelines_successful, mr_info),
+            'mr_message':
+                partial(test_mr_message, mr_commit_msg),
+            'branch_equals_to_user':
+                partial(test_branch_equals_to_user, mr_info),
+            'most_relevant_type':
+                partial(test_most_relevant_type, mr_info,
+                        regex_mr_title, RELEVANCES),
+            'commits_user':
+                partial(test_commits_user, mr_info, REGEX_COMMIT_USER),
+            'mr_user':
+                partial(test_mr_user, mr_info, REGEX_COMMIT_USER),
+            'one_commit_per_mr':
+                partial(test_one_commit_per_mr, mr_info),
+            'close_issue_directive':
+                partial(test_close_issue_directive, mr_info, regex_mr_title)
+        }
 
-        # Run other tests
-        test_one_commit_per_mr(mr_info)
-        test_close_issue_directive(mr_info, REGEX_MR_TITLE)
+        # Run tests that produce failure
+        for test in fail_tests:
+            success = tests[test]() and success
+
+        for test in warn_tests:
+            tests[test]()
+
     return success
