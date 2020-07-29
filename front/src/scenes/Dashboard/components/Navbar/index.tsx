@@ -55,7 +55,7 @@ export const navbarComponent: React.FC<RouteComponentProps> = (props: RouteCompo
   // Render Elements
   const organizationList: Array<{ name: string }> = _.isEmpty(data) || _.isUndefined(data)
     ? [{ name: "" }]
-    : data.me.organizations;
+    : data.me.organizations.sort((a: { name: string }, b: { name: string }) => (a.name > b.name) ? 1 : -1);
   const filteredOrganizations: Array<{ name: string }> = organizationList.filter(
     (userOrganization: { name: string }) => path.includes(userOrganization.name),
   );
