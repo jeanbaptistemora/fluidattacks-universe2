@@ -17,6 +17,7 @@ import { GET_USER_PERMISSIONS } from "../../queries";
 import { ChartsForOrganizationView } from "../ChartsForOrganizationView";
 import { OrganizationGroups } from "../OrganizationGroupsView";
 import { OrganizationPolicies } from "../OrganizationPoliciesView/index";
+import { OrganizationPortfolios } from "../OrganizationPortfoliosView/index";
 import { OrganizationUsers } from "../OrganizationUsersView/index";
 import { GET_ORGANIZATION_ID } from "./queries";
 import { IOrganizationContent, IOrganizationPermission } from "./types";
@@ -111,6 +112,16 @@ const organizationContent: React.FC<IOrganizationContent> = (props: IOrganizatio
                     tooltip={translate.t("organization.tabs.users.tooltip")}
                   />
                 </Can>
+                <Can do="backend_api_resolvers_me__get_tags">
+                  <ContentTab
+                    icon="icon pe-7s-display2"
+                    id="portfoliosTab"
+                    link={`${url}/portfolios`}
+                    plus={{ visible: true }}
+                    title={translate.t("organization.tabs.portfolios.text")}
+                    tooltip={translate.t("organization.tabs.portfolios.tooltip")}
+                  />
+                </Can>
               </ul>
             </div>
             <div className={globalStyle.tabContent}>
@@ -126,6 +137,9 @@ const organizationContent: React.FC<IOrganizationContent> = (props: IOrganizatio
                 </Route>
                 <Route path={`${path}/users`} exact={true}>
                   <OrganizationUsers organizationId={basicData.organizationId.id} />
+                </Route>
+                <Route path={`${path}/portfolios`} exact={true}>
+                  <OrganizationPortfolios organizationId={basicData.organizationId.id} />
                 </Route>
                 <Redirect to={`${path}/analytics`} />
               </Switch>

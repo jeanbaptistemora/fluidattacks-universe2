@@ -556,13 +556,6 @@ export const enTranslations: ResourceKey = {
     verified_success: "This finding was marked as verified.",
     vuln_closed: "Vulnerability has already been closed",
   },
-  home: {
-    organizations: "My Organizations",
-    tagOther: "others",
-    tagResume: " and {{remaining}} more",
-    tags: "My Portfolios",
-    title: "My Groups",
-  },
   legalNotice: {
     acceptBtn: {
       text: "Accept and continue",
@@ -674,6 +667,12 @@ export const enTranslations: ResourceKey = {
         tooltip:
           "Set common policies across all the groups of the organization",
         value: "Value",
+      },
+      portfolios: {
+        remainingDescription: "and {{remaining}} more",
+        text: "Portfolios",
+        tooltip:
+          "Classify groups using tags and have overall indicators of those tags",
       },
       users: {
         addButton: {

@@ -58,7 +58,7 @@ const organizationGroups: React.FC<IOrganizationGroupsProps> = (props: IOrganiza
 
   // Auxiliary functions
   const goToGroup: ((groupName: string) => void) = (groupName: string): void => {
-    push(`${url}/${groupName.toLowerCase()}/analytics`);
+    push(`${url}/${groupName.toLowerCase()}/`);
   };
 
   const handleRowClick: ((event: React.FormEvent<HTMLButtonElement>, rowInfo: { name: string }) => void) = (
