@@ -2,39 +2,6 @@
 
 source "${srcIncludeHelpers}"
 
-function helper_deploy_install_plugins_old {
-  local asciidoc='asciidoc_reader'
-  local asciidoc_version='ad6d407'
-
-  local tipuesearch='assets/tipuesearch/tipuesearch.min.js assets/tipuesearch/tipuesearch_set.js'
-  local tipuesearch_version='d4b5df7'
-
-  local others='assets neighbors share_post related_posts representative_image tipue_search sitemap i18n_subsites tag_cloud'
-  local others_version='666716e'
-
-  local pelican_plugins_path='pelican-plugins'
-  local url_pelican_plugins='https://github.com/getpelican/pelican-plugins.git'
-
-  local js_plugins_path='theme/2014/static/js'
-  local url_tipuesearch_plugin='https://github.com/jekylltools/jekyll-tipue-search.git'
-
-      helper_git_sparse_checkout \
-        "${asciidoc}" \
-        "${asciidoc_version}" \
-        "${pelican_plugins_path}" \
-        "${url_pelican_plugins}" \
-  &&  helper_git_sparse_checkout \
-        "${tipuesearch}" \
-        "${tipuesearch_version}" \
-        "${js_plugins_path}" \
-        "${url_tipuesearch_plugin}" \
-  &&  helper_git_sparse_checkout \
-        "${others}" \
-        "${others_version}" \
-        "${pelican_plugins_path}" \
-        "${url_pelican_plugins}"
-}
-
 function helper_deploy_install_plugins_new {
   local asciidoc='asciidoc_reader'
   local asciidoc_version='ad6d407'
@@ -184,29 +151,6 @@ function helper_deploy_pages {
   &&  rm -rf new/content/pages/values
 }
 
-function helper_deploy_compile_old {
-  local target="${1}"
-
-      env_prepare_python_packages \
-  &&  npm install --prefix theme/2014/ \
-  &&  PATH="${PATH}:$(pwd)/theme/2014/node_modules/.bin/" \
-  &&  sed -i "s#\$flagsImagePath:.*#\$flagsImagePath:\ \"../../images/\";#" "theme/2014/node_modules/intl-tel-input/src/css/intlTelInput.scss" \
-  &&  helper_deploy_install_plugins_old \
-  &&  PATH="${PATH}:$(pwd)/theme/2014/node_modules/uglify-js/bin/" \
-  &&  sed -i "s|https://fluidattacks.com|${target}|g" pelicanconf.py \
-  &&  npm run --prefix theme/2014/ build \
-  &&  cp -a "${STARTDIR}/cache" . || true \
-  &&  echo '[INFO] Compiling site' \
-  &&  pelican --fatal errors --fatal warnings content/ \
-  &&  echo '[INFO] Finished compiling site' \
-  &&  cp -a cache/ "${STARTDIR}" || true \
-  &&  rm -rf output/web/de \
-  &&  mv output/oldweb/pages/* output/oldweb/ \
-  &&  rm -rf output/oldweb/pages \
-  &&  rm output/oldweb/sitemap.xml \
-  &&  cp robots.txt output/robots.txt
-}
-
 function helper_deploy_compile_new {
   local target="${1}"
       helper_deploy_pages \
@@ -215,6 +159,8 @@ function helper_deploy_compile_new {
   &&  helper_deploy_install_plugins_new \
   &&  sed -i "s|https://fluidattacks.com|${target}|g" pelicanconf.py \
   &&  npm install --prefix theme/2020/ \
+  &&  PATH="${PATH}:$(pwd)/theme/2020/node_modules/.bin/" \
+  &&  PATH="${PATH}:$(pwd)/theme/2020/node_modules/uglify-js/bin/" \
   &&  npm run --prefix theme/2020/ build \
   &&  sed -i "s#\$flagsImagePath:.*#\$flagsImagePath:\ \"../../images/\";#" "theme/2020/node_modules/intl-tel-input/src/css/intlTelInput.scss" \
   &&  cp -a "${STARTDIR}/new/cache" . || true \
@@ -225,16 +171,15 @@ function helper_deploy_compile_new {
   &&  rm -rf output/web/de \
   &&  mv output/web/pages/* output/web/ \
   &&  rm -rf output/web/pages \
+  &&  cp ../sitemap.xml output/sitemap.xml \
+  &&  tail -n +6 output/web/sitemap.xml >> output/sitemap.xml \
+  &&  cp ../robots.txt output/ \
   &&  popd || return 1
 }
 
 function helper_deploy_compile_all {
   local target="${1}"
 
-      helper_deploy_compile_old "${target}" \
-  &&  helper_deploy_compile_new "${target}" \
-  &&  cp -a new/output/web output/ \
-  &&  cp sitemap.xml output/sitemap.xml \
-  &&  tail -n +6 output/web/sitemap.xml >> output/sitemap.xml \
-  &&  rm output/web/sitemap.xml
+      helper_deploy_compile_new "${target}" \
+  &&  cp -a new/output output/
 }
