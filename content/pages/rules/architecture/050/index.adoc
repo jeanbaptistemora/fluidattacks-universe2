@@ -45,18 +45,36 @@ query.
 The attacker’s hostile data can trick the interpreter into executing unintended
 commands or accessing data without proper authorization.
 
-. [[r5]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r5]] link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A6-Security_Misconfiguration[OWASP Top 10 A6:2017-Security Misconfiguration].
+Security misconfiguration is the most commonly seen issue.
+This is commonly a result of insecure default configurations,
+incomplete or ad hoc configurations, open cloud storage,
+misconfigured *HTTP* headers,
+and verbose error messages containing sensitive information.
+Not only must all operating systems, frameworks, libraries, and applications be
+securely configured, but they must be patched/upgraded in a timely fashion.
+
+. [[r6]] link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A7-Cross-Site_Scripting_(XSS)[OWASP Top 10 A7:2017-Cross-Site Scripting (XSS)].
+*XSS* flaws occur whenever an application includes untrusted data in a new web
+page without proper validation or escaping,
+or updates an existing web page with user-supplied data using a browser *API*
+that can create *HTML* or **JavaScript**.
+*XSS* allows attackers to execute scripts in the victim’s browser which can
+hijack user sessions, deface web sites, or redirect the user to malicious
+sites.
+
+. [[r7]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V10.3 Deployed Application Integrity Controls.(10.3.2)]
 The application must not load or execute code from untrusted sources,
 such as loading includes, modules, plugins, code, or libraries from untrusted
 sources or the Internet.
 
-. [[r6]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r8]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V10.3 Deployed Application Integrity Controls.(10.3.3)]
 Verify that the application has protection from sub-domain takeovers if the
 application relies upon *DNS* entries or *DNS* sub-domains.
 
-. [[r7]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r9]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V12.3 File execution Requirements.(12.3.6)]
 Verify that the application does not include and execute functionality from
 untrusted sources,

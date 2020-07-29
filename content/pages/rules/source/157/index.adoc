@@ -39,19 +39,25 @@ and verbose error messages containing sensitive information.
 Not only must all operating systems, frameworks, libraries, and applications be
 securely configured, but they must be patched/upgraded in a timely fashion.
 
-. [[r5]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r5]] link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A8-Insecure_Deserialization[OWASP Top 10 A8:2017-Insecure Deserialization].
+Insecure deserialization often leads to remote code execution.
+Even if deserialization flaws do not result in remote code execution,
+they can be used to perform attacks,
+including replay attacks, injection attacks, and privilege escalation attacks.
+
+. [[r6]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 Appendix C: Internet of Things Verification Requirements.(C.33)]
 Verify that secure compiler flags such as **-fPIE**, **-fstack-protector-all**,
 **-Wl**, **-z,noexecstack**, **-Wl**, **-z,noexecheap** are configured for
 firmware builds.
 
-. [[r6]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r7]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V5.5 Deserialization Prevention Requirements.(5.5.2)]
 Verify that the application correctly restricts *XML* parsers to only use the
 most restrictive configuration possible and to ensure that unsafe features such
 as resolving external entities are disabled to prevent *XXE*.
 
-. [[r7]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r8]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V14.1 Build.(14.1.2)]
 Verify that compiler flags are configured to enable all available buffer
 overflow protections and warnings,

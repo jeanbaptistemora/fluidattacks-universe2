@@ -49,18 +49,18 @@ query.
 The attacker’s hostile data can trick the interpreter into executing unintended
 commands or accessing data without proper authorization.
 
-. [[r5]] link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A8-Insecure_Deserialization[OWASP Top 10 A8:2017-Insecure Deserialization].
-Insecure deserialization often leads to remote code execution.
-Even if deserialization flaws do not result in remote code execution,
-they can be used to perform attacks,
-including replay attacks, injection attacks, and privilege escalation attacks.
-
-. [[r6]] link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A4-XML_External_Entities_(XXE)[OWASP Top 10 A4:2017-XML External Entities (XXE)].
+. [[r5]] link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A4-XML_External_Entities_(XXE)[OWASP Top 10 A4:2017-XML External Entities (XXE)].
 Many older or poorly configured *XML* processors evaluate external entity
 references within *XML* documents.
 External entities can be used to disclose internal files using the file *URI*
 handler, internal file shares, internal port scanning, remote code execution,
 and denial of service attacks.
+
+. [[r6]] link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A8-Insecure_Deserialization[OWASP Top 10 A8:2017-Insecure Deserialization].
+Insecure deserialization often leads to remote code execution.
+Even if deserialization flaws do not result in remote code execution,
+they can be used to perform attacks,
+including replay attacks, injection attacks, and privilege escalation attacks.
 
 . [[r7]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V1.5 Input and Output Architectural Requirements.(1.5.2)]
