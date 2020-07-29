@@ -10,7 +10,6 @@
 
 WSDL files containing sensitive information must not be publicly accessible.
 
-
 == Description
 
 Some web services architectures require exposing a WSDL file.

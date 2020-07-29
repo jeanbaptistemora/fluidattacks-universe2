@@ -52,28 +52,37 @@ stored or transmitted against accidental or unlawful destruction,
 accidental loss or alteration,
 and unauthorized or unlawful storage, processing, access or disclosure.
 
-. [[r3]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r3]] link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A3-Sensitive_Data_Exposure[OWASP Top 10 A3:2017-Sensitive Data Exposure].
+Many web applications and **API**s do not properly protect sensitive data,
+such as financial, healthcare, and *PII*.
+Attackers may steal or modify such weakly protected data to conduct credit card
+fraud, identity theft, or other crimes.
+Sensitive data may be compromised without extra protection,
+such as encryption at rest or in transit, and requires special precautions when
+exchanged with the browser.
+
+. [[r4]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V1.7 Errors, Logging and Auditing Architectural Requirements.(1.7.1)]
 Verify that a common logging format and approach is used across the system.
 
-. [[r4]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r5]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V7.1 Log Content Requirements.(7.1.1)]
 Verify that the application does not log credentials or payment details.
 Session tokens should only be stored in logs in an irreversible, hashed form.
 
-. [[r5]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r6]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V7.1 Log Content Requirements.(7.1.2)]
 Verify that the application does not log other sensitive data as defined under
 local privacy laws or relevant security policy.
 
-. [[r6]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r7]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V7.2 Log Processing Requirements.(7.2.1)]
 Verify that all authentication decisions are logged,
 without storing sensitive session identifiers or passwords.
 This should include requests with relevant metadata needed for security
 investigations.
 
-. [[r7]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r8]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V8.3 Sensitive Private Data.(8.3.5)]
 Verify accessing sensitive data is audited
 (without logging the sensitive data itself),

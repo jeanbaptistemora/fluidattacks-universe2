@@ -54,8 +54,8 @@ freedoms.
 
 . [[r5]] link:https://pages.nist.gov/800-63-3/sp800-63b.html[NIST 800-63B 7.1 Session Bindings]
 Secrets used for session binding SHOULD NOT be placed in insecure locations
-such as HTML5 Local Storage due to the potential exposure of local storage to
-cross-site scripting (XSS) attacks.
+such as *HTML5* Local Storage due to the potential exposure of local storage to
+cross-site scripting (*XSS*) attacks.
 
 . [[r6]] link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A3-Sensitive_Data_Exposure[OWASP Top 10 A3:2017-Sensitive Data Exposure].
 Many web applications and **API**s do not properly protect sensitive data,
