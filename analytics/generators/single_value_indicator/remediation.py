@@ -1,18 +1,19 @@
 # Standard library
 import asyncio
-from functools import reduce
+from datetime import datetime, timedelta
+from itertools import chain
 from typing import (
-    cast,
-    Dict,
-    List
+    List,
+    Tuple
 )
 
 # Third party libraries
 from backend.api.dataloaders.project import (
     ProjectLoader as GroupLoader,
 )
+from backend.api.dataloaders.vulnerability import VulnerabilityLoader
 from backend.typing import (
-    Project as ProjectType
+    Vulnerability as VulnerabilityType
 )
 
 # Local libraries
@@ -21,40 +22,94 @@ from analytics import (
 )
 
 
+def had_state_by_then(
+    last_day: datetime,
+    state: str,
+    vuln: VulnerabilityType
+) -> bool:
+    historic_state = reversed(vuln['historic_state'])
+    last_state: dict = next(
+        filter(
+            lambda item:
+            datetime.strptime(
+                item['date'],
+                '%Y-%m-%d %H:%M:%S'
+            ) <= last_day,
+            historic_state
+        ),
+        dict()
+    )
+
+    return last_state.get('state') == state
+
+
+def get_totals_by_week(
+    vulns: List[VulnerabilityType],
+    last_day: datetime
+) -> Tuple[int, int]:
+    open_vulns = len(tuple(
+        filter(
+            lambda vuln: had_state_by_then(
+                last_day=last_day,
+                state='open',
+                vuln=vuln,
+            ),
+            vulns
+        )
+    ))
+    closed_vulns = len(tuple(
+        filter(
+            lambda vuln: had_state_by_then(
+                last_day=last_day,
+                state='closed',
+                vuln=vuln,
+            ),
+            vulns
+        )
+    ))
+
+    return open_vulns, closed_vulns
+
+
 async def generate_one(groups: List[str]):
     group_data = await GroupLoader().load_many(groups)
 
-    def filter_last_week(group: ProjectType, key: str):
-        attrs = cast(Dict[str, List[Dict[str, int]]], group['attrs'])
-        items = attrs.get('remediated_daily', [])
-        if len(items) >= 8:
-            return items[-8].get(key, 0)
-        return 0
+    current_rolling_week = datetime.now()
+    previous_rolling_week = current_rolling_week - timedelta(days=7)
 
-    open_last_week: int = reduce(
-        lambda acc, group:
-        acc + filter_last_week(group, 'open'), group_data, 0)
-    closed_last_week: int = reduce(
-        lambda acc, group:
-        acc + filter_last_week(group, 'closed'), group_data, 0)
+    total_previous_open: int = 0
+    total_previous_closed: int = 0
+    total_current_open: int = 0
+    total_current_closed: int = 0
 
-    open_vulns: int = reduce(
-        lambda acc, group:
-            acc + int(group['attrs'].get('open_vulnerabilities', 0)),
-        group_data, 0)
-    closed_vulns: int = reduce(
-        lambda acc, group:
-            acc + int(group['attrs'].get('closed_vulnerabilities', 0)),
-        group_data, 0)
+    for group in group_data:
+        vulns = list(filter(
+            lambda vuln: vuln['current_approval_status'] != 'PENDING',
+            chain(*await VulnerabilityLoader().load_many(group['findings']))
+        ))
+
+        open_last_week, closed_last_week = get_totals_by_week(
+            vulns,
+            previous_rolling_week,
+        )
+        total_previous_open += open_last_week
+        total_previous_closed += closed_last_week
+
+        currently_open, currently_closed = get_totals_by_week(
+            vulns,
+            current_rolling_week,
+        )
+        total_current_open += currently_open
+        total_current_closed += currently_closed
 
     return {
         'previous': {
-            'closed': closed_last_week,
-            'open': open_last_week,
+            'closed': total_previous_closed,
+            'open': total_previous_open,
         },
         'current': {
-            'closed': closed_vulns,
-            'open': open_vulns,
+            'closed': total_current_closed,
+            'open': total_current_open,
         },
     }
 

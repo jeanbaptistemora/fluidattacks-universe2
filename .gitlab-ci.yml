@@ -272,12 +272,6 @@ scheduler_send_unsolved_to_all:
     refs: [schedules]
     variables: [$send_unsolved_to_all]
 
-scheduler_update_remediated_historic:
-  <<: *scheduler_prod_template
-  only:
-    refs: [schedules]
-    variables: [$update_remediated_historic]
-
 build_front:
   <<: *with_nix
   <<: *in_everywhere_except_periodic_jobs_and_mrs_integrates

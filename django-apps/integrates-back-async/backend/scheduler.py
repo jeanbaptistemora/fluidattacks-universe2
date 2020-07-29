@@ -735,31 +735,3 @@ async def delete_pending_projects() -> None:
             remove_project_tasks.append(task)
             util.invalidate_cache(project.get('project_name'))
     await asyncio.gather(*remove_project_tasks)
-
-
-async def update_remediated_vulns(group_name: str) -> None:
-    today = datetime.now()
-    group_attrs: dict = await project_domain.get_attributes(
-        group_name,
-        [
-            'closed_vulnerabilities',
-            'open_vulnerabilities',
-            'remediated_daily',
-        ]
-    )
-    current_items: list = group_attrs.get('remediated_daily', [])
-    await project_domain.update(group_name, {
-        'remediated_daily': current_items + [{
-            'closed': group_attrs.get('closed_vulnerabilities', 0),
-            'date': today.strftime('%Y-%m-%d %H:%M:%S'),
-            'open': group_attrs.get('open_vulnerabilities', 0)
-        }]
-    })
-
-
-@async_to_sync  # type: ignore
-async def update_remediated_historic() -> None:
-    """Stores open and closed vulns total to daily historic"""
-    LOGGER.warning('[scheduler]: update_remediated_historic is running')
-    groups = await sync_to_async(project_domain.get_active_projects)()
-    await util.run_task_by_chunks(update_remediated_vulns, groups)
