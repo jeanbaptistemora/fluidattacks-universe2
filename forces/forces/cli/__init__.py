@@ -6,14 +6,11 @@ from io import TextIOWrapper
 # Third parties libraries
 import jose.jwt
 import jose.exceptions
-import oyaml as yaml
 import click
 
 # Local imports
-from forces.apis.integrates import (
-    set_api_token,
-)
-from forces.report import process
+from forces import entrypoint
+from forces.utils.aio import block
 
 
 class IntegratesToken(click.ParamType):
@@ -62,22 +59,19 @@ class IntegratesToken(click.ParamType):
     help='save output in FILE',
     required=False)
 @click.option('--strict/--lax')
-def main(token: str, group: str, verbose: int, strict: bool,
-         output: TextIOWrapper) -> None:
+@click.option('--repo-path', default=('.'))
+def main(token: str,  # pylint: disable=too-many-arguments
+         group: str,
+         verbose: int,
+         strict: bool,
+         output: TextIOWrapper,
+         repo_path: str) -> None:
     """Main function"""
-    set_api_token(token)
-
-    report = process(group, verbose)
-    yaml_report = yaml.dump(report, allow_unicode=True)
-
-    if output:
-        output.write(yaml_report)
-    else:
-        print(yaml_report)
-    if strict:
-        if report['summary']['open'] > 0:
-            sys.exit(1)
-
-
-if __name__ == "__main__":
-    main()  # pylint: disable=no-value-for-parameter
+    result = block(entrypoint,
+                   token=token,
+                   group=group,
+                   verbose=verbose,
+                   strict=strict,
+                   output=output,
+                   repo_path=repo_path)
+    sys.exit(result)

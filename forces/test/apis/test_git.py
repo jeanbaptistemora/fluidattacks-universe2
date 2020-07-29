@@ -6,8 +6,8 @@ from git import Repo
 from forces.apis.git import get_repository_metadata
 
 
-@pytest.mark.asyncio
-def test_get_repository_metadata_test():
+@pytest.mark.asyncio  # type: ignore
+def test_get_repository_metadata_test() -> None:
     result = get_repository_metadata(repo_path='../')
     assert result['git_repo'] == 'integrates'
     assert 'integrates.git' in result['git_origin']

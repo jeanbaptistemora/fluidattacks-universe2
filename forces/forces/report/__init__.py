@@ -8,7 +8,8 @@ from typing import (
 )
 from timeit import default_timer as timer
 
-# 3d Impors
+# Third parties libraries
+import oyaml as yaml
 
 # Local imports
 from forces.apis.integrates.api import (
@@ -16,10 +17,12 @@ from forces.apis.integrates.api import (
     get_findings,
     vulns_generator,
 )
+from forces.utils.aio import (
+    unblock,
+)
 
 
 async def create_findings_dict(project: str,
-                               verbose_level: int,
                                **kwargs: str) -> Dict[str, Dict[str, Any]]:
     """Returns a dictionary containing as key the findings of a project."""
     findings_dict: Dict[str, Dict[str, Any]] = dict()
@@ -34,14 +37,31 @@ async def create_findings_dict(project: str,
             'closed': 0,
             'accepted': 0
         })
-        if verbose_level > 1:
-            findings_dict[find['id']]['vulnerabilities'] = list()
+        findings_dict[find['id']]['vulnerabilities'] = list()
     return findings_dict
 
 
-async def generate_report(project: str,
-                          verbose_level: int,
-                          **kwargs: str) -> Dict[str, Any]:
+async def generate_report_log(report: Dict[str, Any],
+                              verbose_level: int) -> str:
+    if verbose_level == 1:
+        for finding in report['findings']:
+            finding.pop('vulnerabilities')
+    elif verbose_level == 2:
+        for finding in report['findings']:
+            finding['vulnerabilities'] = [
+                vuln for vuln in finding['vulnerabilities']
+                if vuln['state'] == 'open'
+            ]
+    elif verbose_level == 3:
+        for finding in report['findings']:
+            finding['vulnerabilities'] = [
+                vuln for vuln in finding['vulnerabilities']
+                if vuln['state'] in ('open', 'closed')
+            ]
+    return await unblock(yaml.dump, report, allow_unicode=True)
+
+
+async def generate_report(project: str, **kwargs: str) -> Dict[str, Any]:
     """
     Generate a project vulnerability report.
 
@@ -51,8 +71,7 @@ async def generate_report(project: str,
     _start_time = timer()
     _summary_dict = {'open': 0, 'closed': 0, 'accepted': 0}
     raw_report: Dict[str, List[Any]] = {'findings': list()}
-    findings_dict = await create_findings_dict(
-        project, verbose_level, **kwargs)
+    findings_dict = await create_findings_dict(project, **kwargs)
 
     async for vuln in vulns_generator(project):
         find_id: str = vuln['findingId']  # type: ignore
@@ -69,19 +88,16 @@ async def generate_report(project: str,
         elif state == 'open':
             _summary_dict['open'] += 1
             findings_dict[find_id]['open'] += 1
-        if verbose_level == 1:
-            continue
+
         vulnerability = {
             'type': 'SAST' if vuln['vulnType'] == 'lines' else 'DAST',
             'where': vuln['where'],
-            'specific': ('https://fluidattacks.com/integrates/groups/'
-                         f'{project}/findings/{vuln["findingId"]}'),
-            'state': vuln['currentState']
+            'specific': vuln['specific'],
+            'URL': ('https://fluidattacks.com/integrates/groups/'
+                    f'{project}/findings/{vuln["findingId"]}'),
+            'state': state
         }
 
-        if verbose_level == 2 and vulnerability['state'] in ('accepted',
-                                                             'closed'):
-            continue
         findings_dict[find_id]['vulnerabilities'].append(vulnerability)
 
     for find in findings_dict.values():
@@ -97,10 +113,3 @@ async def generate_report(project: str,
     }
     raw_report.update(summary)  # type: ignore
     return raw_report
-
-
-def process(project: str, verbose_level: int) -> Dict[str, Any]:
-    """Process a report."""
-    async def _proccess() -> Dict[str, Any]:
-        return await generate_report(project, verbose_level)
-    return asyncio.run(_proccess())
