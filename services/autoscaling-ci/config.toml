@@ -34,7 +34,7 @@ check_interval = 20
       BucketName = "autoscaling-ci-cache"
       BucketLocation = "us-east-1"
   [runners.machine]
-    IdleCount = 10
+    IdleCount = 20
     IdleTime = 1800
     MaxBuilds = 100
     MachineDriver = "amazonec2"
