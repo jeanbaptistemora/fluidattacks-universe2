@@ -6,7 +6,7 @@ import { GraphQLError } from "graphql";
 import _ from "lodash";
 import React from "react";
 import { ButtonToolbar, Col, Glyphicon, Row, ToggleButton, ToggleButtonGroup } from "react-bootstrap";
-import { useHistory } from "react-router";
+import { useHistory, useRouteMatch } from "react-router";
 import { DataTableNext } from "../../../../components/DataTableNext/index";
 import { IHeaderConfig } from "../../../../components/DataTableNext/types";
 import { authzPermissionsContext } from "../../../../utils/authz/config";
@@ -22,6 +22,7 @@ import { IOrganizationPortfoliosProps, IPortfolios, IPortfoliosTable } from "./t
 const organizationPortfolios: React.FC<IOrganizationPortfoliosProps> =
   (props: IOrganizationPortfoliosProps): JSX.Element => {
     const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
+    const { url } = useRouteMatch();
     const { push } = useHistory();
 
     // State Management
@@ -66,7 +67,7 @@ const organizationPortfolios: React.FC<IOrganizationPortfoliosProps> =
     );
 
     const goToPortfolio: (portfolioName: string) => void = (portfolioName: string): void => {
-      push(`/portfolios/${portfolioName.toLowerCase()}/`);
+      push(`${url}/${portfolioName.toLowerCase()}/`);
     };
 
     const handleDisplayChange: ((value: string) => void) = (value: string): void => {

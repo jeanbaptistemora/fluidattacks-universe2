@@ -91,6 +91,13 @@ async def get_list_projects(
     return projects
 
 
+async def _get_organization(
+        _: GraphQLResolveInfo,
+        organization: str,
+        **__: Any) -> str:
+    return organization
+
+
 async def _get_projects(
         info: GraphQLResolveInfo,
         projects: List[str],

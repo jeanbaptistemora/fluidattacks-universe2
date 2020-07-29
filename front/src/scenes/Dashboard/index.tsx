@@ -31,11 +31,11 @@ import { Navbar } from "./components/Navbar/index";
 import { Sidebar } from "./components/Sidebar";
 import { HomeView } from "./containers/HomeView";
 import { OrganizationContent } from "./containers/OrganizationContent/index";
-import { ProjectRedirect } from "./containers/ProjectRedirectView";
+import { OrganizationRedirect } from "./containers/OrganizationRedirectView";
 import { ProjectRoute } from "./containers/ProjectRoute/index";
 import { IUserDataAttr } from "./containers/ProjectUsersView/types";
 import { ReportsView } from "./containers/ReportsView";
-import { TagContent } from "./containers/TagContent/index";
+import { TagContent } from "./containers/TagContent";
 import { default as style } from "./index.css";
 import {
   ADD_USER_MUTATION,
@@ -134,14 +134,19 @@ const dashboard: React.FC = (): JSX.Element => {
                     </authzPermissionsContext.Provider>
                   </authzGroupContext.Provider>
                 </Route>
+                <Route path="/organizations/:organizationName/portfolios/:tagName" component={TagContent} />
                 <Route path="/organizations/:organizationName">
                   <authzPermissionsContext.Provider value={organizationLevelPermissions}>
                     <OrganizationContent setUserRole={setUserRole} />
                   </authzPermissionsContext.Provider>
                 </Route>
-                <Route path="/portfolios/:tagName" component={TagContent} />
+                <Route path="/portfolios/:tagName">
+                  <OrganizationRedirect type={"portfolios"} />
+                </Route>
                 {/* Necessary to support old group URLs */}
-                <Route path="/groups/:projectName" component={ProjectRedirect} />
+                <Route path="/groups/:projectName">
+                  <OrganizationRedirect type={"groups"} />
+                </Route>
                 {/* Necessary to support hashrouter URLs */}
                 <Redirect path="/dashboard" to={hash.replace("#!", "")} />
                 {/* Necessary to support old URLs with entities in singular */}

@@ -7,14 +7,17 @@ import {  Redirect, Switch, useLocation, useParams } from "react-router";
 import { msgError } from "../../../../utils/notifications";
 import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
-import { GET_PROJECT_ORGANIZATION } from "./queries";
+import { GET_ENTITY_ORGANIZATION } from "./queries";
+import { IOrganizationRedirectProps } from "./types";
 
-const projectRedirect: React.FC = (): JSX.Element => {
-  const { projectName } = useParams();
+const organizationtRedirect: React.FC<IOrganizationRedirectProps> =
+    (props: IOrganizationRedirectProps): JSX.Element => {
+  const { type } = props;
+  const { projectName, tagName } = useParams();
   const { pathname } = useLocation();
 
   // GraphQL operations
-  const { data } = useQuery(GET_PROJECT_ORGANIZATION, {
+  const { data } = useQuery(GET_ENTITY_ORGANIZATION, {
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
         msgError(translate.t("group_alerts.error_textsad"));
@@ -22,7 +25,14 @@ const projectRedirect: React.FC = (): JSX.Element => {
       });
     },
     variables: {
-      projectName: projectName.toLowerCase(),
+      getProject: type === "groups",
+      getTag: type === "portfolios",
+      projectName: _.isUndefined(projectName)
+        ? ""
+        : projectName.toLowerCase(),
+      tagName: _.isUndefined(tagName)
+        ? ""
+        : tagName.toLowerCase(),
     },
   });
 
@@ -33,13 +43,13 @@ const projectRedirect: React.FC = (): JSX.Element => {
   return (
     <React.Fragment>
       <Switch>
-        <Redirect
-          path="/groups/:projectName"
-          to={`/organizations/${data.project.organization}${pathname}`}
-        />
+        {type === "groups"
+          ? <Redirect path="/groups/:groupName" to={`/organizations/${data.project.organization}${pathname}`} />
+          : <Redirect path="/portfolios/:tagName" to={`/organizations/${data.tag.organization}${pathname}`} />
+        }
       </Switch>
     </React.Fragment>
   );
 };
 
-export { projectRedirect as ProjectRedirect };
+export { organizationtRedirect as OrganizationRedirect };

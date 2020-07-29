@@ -241,6 +241,7 @@ type Tag {
     meanRemediateLowSeverity: Float
     meanRemediateMediumSeverity: Float
     meanRemediate: Float
+    organization: String
     projects: [Project]
 }
 
