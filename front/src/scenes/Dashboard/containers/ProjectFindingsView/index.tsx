@@ -219,7 +219,7 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
         onFilter: onFilterSeverity,
         options: selectOptionsSeverity,
       }),
-      header: "Severity", onSort: onSortState, visible: checkedItems.severityScore, width: "6%",
+      header: "Severity", onSort: onSortState, visible: checkedItems.severityScore, width: "6%", wrapped: true,
     },
     {
       align: "center", dataField: "openVulnerabilities", header: "Open Vulns.", onSort: onSortState,
@@ -233,6 +233,7 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
         options: selectOptionsStatus,
       }),
       formatter: statusFormatter, header: "Status", onSort: onSortState, visible: checkedItems.state, width: "7%",
+      wrapped: true,
     },
     {
       align: "center", dataField: "treatment",
@@ -250,7 +251,7 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
         onFilter: onFilterVerification,
         options: selectOptionsVerification,
       }),
-      header: "Verification", onSort: onSortState, visible: checkedItems.remediated, width: "8%",
+      header: "Verification", onSort: onSortState, visible: checkedItems.remediated, width: "8%", wrapped: true,
     },
     {
       align: "center", dataField: "isExploitable",
@@ -259,7 +260,7 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
         onFilter: onFilterExploitable,
         options: selectOptionsExploitable,
       }),
-      header: "Exploitable", onSort: onSortState, visible: checkedItems.isExploitable, width: "8%",
+      header: "Exploitable", onSort: onSortState, visible: checkedItems.isExploitable, width: "8%", wrapped: true,
     },
     {
       align: "center", dataField: "where",

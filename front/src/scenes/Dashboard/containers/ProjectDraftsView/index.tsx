@@ -93,6 +93,7 @@ const projectDraftsView: React.FC<IProjectDraftsBaseProps> = (props: IProjectDra
         options: selectOptionsStatus,
       }),
       formatter: statusFormatter, header: "State", onSort: onSortState, width: "10%",
+      wrapped: true,
     },
   ];
 

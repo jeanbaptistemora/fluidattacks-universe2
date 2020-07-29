@@ -134,7 +134,9 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
         rowEvents={rowEvents}
         selectRow={selectionMode}
         striped={striped}
-        wrapperClasses={style.tableWrapper}
+        wrapperClasses={`table-responsive ${style.tableWrapper} ${
+          bordered ? "" : style.borderNone
+        }`}
       />
     </div>
   );

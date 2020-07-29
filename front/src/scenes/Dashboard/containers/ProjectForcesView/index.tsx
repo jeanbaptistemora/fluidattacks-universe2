@@ -165,7 +165,7 @@ const projectForcesView: React.FunctionComponent<ForcesViewProps> = (props: Forc
   const headersExecutionTable: IHeaderConfig[] = [
     {
       align: "center", dataField: "date", header: translate.t("group.forces.date"),
-      onSort: onSortState, width: "13%", wrapped: true,
+      onSort: onSortState, width: "13%",
     },
     {
       align: "center", dataField: "status", header: translate.t("group.forces.status.title"),

@@ -1,5 +1,13 @@
-:local .tableWrapper {
-  overflow-x: auto;
+:local .borderNone {
+  border: none;
+}
+
+:local .wFull {
+  width: 100%;
+}
+
+:local .tableWrapper table {
+  table-layout: auto !important;
 }
 
 :local .tableHeader > th,
@@ -18,7 +26,6 @@
 :local .tableHeader > th {
   text-align: center !important;
   vertical-align: middle !important;
-  white-space: unset !important;
   font-weight: 400;
 }
 

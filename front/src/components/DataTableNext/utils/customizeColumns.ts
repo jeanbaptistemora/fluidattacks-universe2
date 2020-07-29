@@ -49,7 +49,6 @@ const addGivenHeaders: (
             : key.wrapped
             ? "unset"
             : "nowrap",
-          width: key.width,
         }),
         hidden: _.isUndefined(key.visible) ? key.visible : !key.visible,
         onSort: handleSort,

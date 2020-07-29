@@ -20,7 +20,6 @@
 }
 
 :local .tableBody > td {
-	white-space: unset !important;
 	padding: 2px 3px !important;
 	word-break: break-all;
 	border: none !important;

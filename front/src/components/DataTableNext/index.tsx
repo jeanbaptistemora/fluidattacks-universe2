@@ -2,6 +2,7 @@ import { ITableProps } from "./types";
 import React from "react";
 import { TableWrapper } from "./table";
 import _ from "lodash";
+import { default as style } from "./index.css";
 import ToolkitProvider, {
   ToolkitProviderProps,
 } from "react-bootstrap-table2-toolkit";
@@ -30,7 +31,7 @@ export const DataTableNext: React.FC<ITableProps> = (
     : dataset;
 
   return (
-    <div id={id}>
+    <div className={style.wFull} id={id}>
       {(!_.isEmpty(dataset) || !_.isEmpty(headers)) && (
         <ToolkitProvider
           columnToggle={columnToggle}

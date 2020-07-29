@@ -376,7 +376,6 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
               header: "URL",
               onSort: onSortInputs,
               width: "60%",
-              wrapped: true,
             },
             {
               align: "left",
@@ -384,7 +383,6 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
               header: translate.t("search_findings.tab_description.field"),
               onSort: onSortInputs,
               width: "20%",
-              wrapped: true,
             }];
             const linesHeader: IHeaderConfig[] = [
               {
@@ -398,7 +396,6 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                 header: translate.t("search_findings.tab_description.path"),
                 onSort: onSortLines,
                 width: "60%",
-                wrapped: true,
               },
               {
                 align: "left",
@@ -420,7 +417,6 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                 header: "Host",
                 onSort: onSortPorts,
                 width: "60%",
-                wrapped: true,
               },
               {
                 align: "left",
@@ -521,6 +517,7 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                   onSort: onSortPorts,
                   visible: true,
                   width: "20%",
+                  wrapped: true,
                 },
                 {
                   align: "left",
@@ -760,7 +757,6 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                     dataField: "specific",
                     header: translate.t("search_findings.tab_description.field"),
                     width: "15%",
-                    wrapped: true,
                   },
                   {
                     align: "left",
