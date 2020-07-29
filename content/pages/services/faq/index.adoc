@@ -107,7 +107,6 @@ Frequently asked questions about Continuous Hacking.
   This allows for hacking and development to occur simultaneously,
   which in turn minimizes the dependency on functional environments,
   as well as the need for coordination between hackers and developers.
-  The client prioritizes detected vulnerabilities.
   The decisions regarding which findings are prioritized for each sprint
   rest solely with the client.
   Unless we are dealing with a company with daily `CI/CD`
@@ -115,51 +114,52 @@ Frequently asked questions about Continuous Hacking.
   not all sprints generate code eligible for release and deployment,
   which improves the remediation (repair) time for detected vulnerabilities.
 
-*If Continuous Hacking is done manually how can a big project move rapidly*::
+*If Continuous Hacking is done manually, how can a big project move rapidly*::
 *and expand as more active authors (developers) join the team?*::
   Standard Continuous Hacking
   covers `95%` of all business applications being developed,
-  because the subscription is taken according to the number
-  of active developers in the project and defines the amount of resources
+  as the subscription is based on the number
+  of active developers in the project and this defines the amount of resources
   assigned to the project.
 
-*If Continuous Hacking is done manually how does it move rapidly*::
+*If Continuous Hacking is done manually, how does it move rapidly*::
 *when a client has a big application portfolio that is constantly increasing?*::
-  According to `Fluid Attacks` historical data,
-  recruitment and training capabilities,
-  and our ability to innovate internal processes,
-  `Fluid Attacks` is fully capable of taking on
+  Based on our historical data,
+  and thanks to our recruitment and training capabilities,
+  as well as our ability to innovate internal processes,
+  we are fully capable of taking on
   between `5` and `10` new applications each month.
 
 *What kind of information does Fluid Attacks need*::
-*in order to serve a quotation?*::
+*in order to provide a quotation?*::
 
-  To serve a proposal, `Fluid Attacks` needs to determine
+  To provide a proposal, we need to determine
   what will the target of evaluations (scope) be.
-  So, here we ask you for the following items:
-  +
+  So, we require the following information:
+
   . *One-shot hacking* (by project):
-  +
+
   .. How many ports are included in the scope?
   .. How many inputs of applications are included in the scope?
   .. How many `LoC` are included in the scope?
-  `Fluid Attacks` suggest to you, running link:https://github.com/AlDanial/cloc[`CLOC`] on it for quantifying it.
-  +
-  *Note:* It would be desirable to get the credential to access
+  We recommend running link:https://github.com/AlDanial/cloc[`CLOC`]
+  in order to facilitate quantification.
+
+  *Note:* It would be desirable to obtain the access credentials
   (standard user, not privileges) to the applications
-  in the cases that it will be included.
+  in cases where this will be included.
 
   . *Continuous hacking* (`SDLC`):
-  Under this model, we should know how many active authors
+  Under this model, we need to know how many active authors
   will be involved in the project.
-  +
+
   Regarding the health check estimation,
-  it will be considered as one-shot hacking.
-  So, the customer should provide these answers as well.
+  the same considerations apply as for one-shot hacking,
+  so the client should provide the above-mentioned information as well.
 
 *Does the cost of Continuous Hacking vary according to the scope*::
 *or development phases?*::
-  Yes. The service cost varies depending on the amount of active authors
+  Yes. The service cost varies depending on the number of active authors
   identified in the project each month.
 
 *Why is it necessary for Continuous Hacking to have access*::
@@ -171,7 +171,7 @@ Frequently asked questions about Continuous Hacking.
 *When does Continuous Hacking begin?*::
   Continuous Hacking begins immediately after receiving the purchase order.
 
-*Why there is a month 0 and how does setup work?*::
+*Why is there a month 0 and how does setup work?*::
 
   Month `0` begins the test setup and is the start of the monthly payment.
   A project leader is assigned who is responsible
@@ -180,7 +180,7 @@ Frequently asked questions about Continuous Hacking.
   to begin the review without setbacks.
 
 *Is it possible to hire On-the-Premises Continuous Hacking?*::
-  No. Due to the operational model that supports Continuous Hacking
+  No. Due to the operational model that supports Continuous Hacking,
   it can only be done remotely.
 
 *Is it possible to schedule follow-up meetings?*::
@@ -198,7 +198,7 @@ Frequently asked questions about Continuous Hacking.
 
 *When does Continuous Hacking end?*::
   Continuous Hacking is contracted for a minimum of `12` months
-  and is renewed automatically at the end of the `12` month time period.
+  and is renewed automatically at the end of the `12-month` time period.
   Continuous Hacking ends when we receive a written request
   through previously defined channels to terminate the contract.
 
@@ -207,7 +207,7 @@ Frequently asked questions about Continuous Hacking.
   Cancellation can be requested through any communication channel
   previously defined in the contract.
 
-*When the coverage of my application reaches 100% is Continuous Hacking*::
+*When the coverage of my application reaches 100%, is Continuous Hacking*::
 *suspended until new code is added to the repository?*::
   No. Even if `100%` of coverage is reached,
   we continue checking already attacked source code to identify
@@ -215,14 +215,14 @@ Frequently asked questions about Continuous Hacking.
   including components developed by third parties in our hacking process.
 
 *How is the severity and criticality of the vulnerability calculated?*::
-  `Fluid Attacks` uses the link:https://www.first.org/cvss/[CVSS]
+  `Fluid Attacks` uses link:https://www.first.org/cvss/[CVSS]
   (Common Vulnerability Scoring System),
-  an international standard using a “standardized framework used
-  to rate the severity of security vulnerabilities in software.”
+  a “standardized framework used to rate
+  the severity of security vulnerabilities in software.”
   It gives us a quantitative measure ranging from `0` to `10`,
   `0` being the lowest level of risk and `10` the highest
-  and most critical level of risk based on the qualitative characteristics
-  of a vulnerability.
+  and most critical level of risk,
+  based on the qualitative characteristics of a vulnerability.
 
 *How do I get information about the vulnerabilities found in my application?*::
   Continuous Hacking has an interactive reporting platform
@@ -238,31 +238,31 @@ Frequently asked questions about Continuous Hacking.
   a technical report available in `Excel` and/or `PDF` format
   during the execution of the project contract.
   Once the project ends, Integrates delivers a presentation
-  and an executive report also in `PDF` format.
+  and an executive report, also in `PDF` format.
 
 *What happens after Fluid Attacks reports a vulnerability?*::
   Once `Fluid Attacks` reports a vulnerability,
-  the main objective, for developers, is to eliminate it.
-  Through Integrates a client company’s developers can also access
+  the main objective for developers is to eliminate it.
+  Through Integrates, a client company’s developers can access
   first-hand detailed information regarding a vulnerability
   in order to plan and execute corrective measures
   to remove it from the application.
 
 *What communication does Fluid Attacks provide? When? How?*::
- For continuous hacking, day to day basis is made via Integrates
- between developers and hacker.
- In one shot hacking communication is made through the project manager (`PM`)
- as single point of contact (`SPOC`).
+ For Continuous Hacking, communication takes place
+ between developers and hackers on a day-to-day basis via Integrates.
+ In One-shot Hacking, communication is handled
+ through the project manager (`PM`) as a single point of contact (`SPOC`).
 
 *How does Fluid Attacks know a vulnerability*::
 *has been eliminated or remediated?*::
-  Through link:../../products/integrates/[Integrates]
+  Through link:../../products/integrates/[Integrates],
   any user with access to the project can request verification
   of a remediated vulnerability.
   A request for verification that a remediated vulnerability
   no longer poses a risk must be accompanied by notification from you
   that the planned remediation has been executed.
-  Then `Fluid Attacks` performs a closing verification
+  We then perform a closing verification
   to confirm the effectiveness of the remediation.
   Results of the closing verification are then forwarded
   to the project team by email.
@@ -275,7 +275,7 @@ Frequently asked questions about Continuous Hacking.
   One of Continuous Hacking’s objectives
   is to maintain clear and effortless communication
   between all project members.
-  This is accomplished when you notify `Fluid Attacks`
+  This is accomplished when you notify us
   because the message goes through Integrates and by doing so,
   the entire project team is notified.
 
@@ -283,14 +283,15 @@ Frequently asked questions about Continuous Hacking.
   Within link:../../products/integrates/[Integrates] there is a comment section.
   A client company can post its reasons
   for believing a vulnerability finding is not valid.
-  Then, `Fluid Attacks` experts and all other project members
-  can interface and discuss the relative merits of the vulnerability finding
-  and the validity of it as a security risk,
+  Our experts and all other project members
+  can then interface and discuss
+  the relative merits of the vulnerability finding
+  as well as the validity of it as a security risk,
   and a final determination can be made.
 
 *Do all reported vulnerabilities have to be remediated?*::
   No. However, this decision is made entirely by the client,
-  not by `Fluid Attacks`, and the client assumes all responsibility
+  not by us, and the client assumes all responsibility
   for possible negative impacts of non-remediation.
   In link:../../products/integrates/[Integrates], under the treatment option,
   a client company indicates whether it will remediate
@@ -306,14 +307,14 @@ Frequently asked questions about Continuous Hacking.
 *If the application is stored along multiple repositories,*::
 *can they all be attacked?*::
   Yes, with one condition.
-  The code must be stored on the same branch in each repository.
+  The code must be stored in the same branch in each repository.
   For example: If it is agreed that all attacks
   will be performed on the `QA` branch,
   then this same branch must be present in all of the repositories
   included for Continuous Hacking.
 
 *If I have code that was developed a long time ago,*::
-*is it possible to still hire Continuous Hacking?*::
+*is it possible to still use Continuous Hacking?*::
   Yes, it is still possible to use Continuous Hacking.
   There are two possible options available:
 
@@ -322,17 +323,17 @@ Frequently asked questions about Continuous Hacking.
   within the defined scope (<<q11,see question 11>>).
   This option is better suited for applications under development.
 
-  . Start with the standard limits (<<q10,see question 10>>)
+  . Start with the standard limits (<<q10,see question 10>>),
   increasing the coverage on a monthly basis until `100%` is reached.
   This option is better suited for applications no longer in development.
 
 *What does Fluid Attacks do to catch up with the revision*::
 *of the existing code before starting the hacking process?*::
- `Fluid Attacks` recommends that application development
+ We recommend that application development
  and the hacking process begin simultaneously.
  However, this is not always possible.
- To catch up with developers
- we perform a link:../../use-cases/continuous-hacking/#healthcheck[`HealthCheck`] (additional fees apply).
+ To catch up with developers,
+ we perform a link:../../use-cases/continuous-hacking/healthcheck/[`Health Check`] (additional fees apply).
  This means all versions of the existing code
  are attacked up to the contracted starting point
  in addition to the monthly test limit.
@@ -348,18 +349,18 @@ Frequently asked questions about Continuous Hacking.
  that is never going to be tested and, therefore,
  it's not possible to know what vulnerabilities may exist in it;
  those vulnerabilities are not going to be identified.
- `Fluid Attacks` guarantees that `100%` of the code change
+ We guarantee that `100%` of the code change
  is going to be tested, but what cannot be reached, cannot be tested.
 
 *Do the repositories need to be in a specific version control system?*::
-  Continuous Hacking is based on using `GIT` for version control.
-  Therefore, `GIT` is necessary for Continuous Hacking.
+  Continuous Hacking is based on using `Git` for version control.
+  Therefore, `Git` is necessary for Continuous Hacking.
 
 *Does Fluid Attacks keep or store information*::
 *regarding the vulnerabilities found?*::
   Information is only kept for the duration of the Continuous Hacking contract.
   Once the contract has ended, information is kept for `7` business days
-  and then deleted from all `Fluid Attacks` information systems.
+  and then deleted from all our information systems.
 
 *How will our data be erased?*::
   `Integrates` uses an automated erasing process,
@@ -376,26 +377,26 @@ Frequently asked questions about Continuous Hacking.
 *Will Fluid Attacks periodically do presentations via teleconferencing?*::
 *How do I set one up?*::
   Yes. `Fluid Attacks` can schedule periodic presentations via teleconferencing.
-  To set up a teleconference presentation you will need to provide us
-  with the emails of attendees, and `3` optional time periods
-  of `1` hour duration for the teleconference.
+  To set up a teleconference presentation, you will need to provide us
+  with the emails of attendees and `3` optional time periods
+  of `1-hour` duration for the teleconference.
   We will then notify you of the best time for the teleconference
-  based on your availability and ours.
-  And, we will send emails to your list of attendees
-  inviting their participation.
+  based on your availability and ours,
+  and send emails to your list of attendees
+  inviting them to participate.
 
 *Does the use of the Continuous Hacking model*::
 *depend on the type of repository where the code is stored?*::
 No. The client can use whatever repository they deem appropriate.
-`Fluid Attacks` only requires access to the integration branch
+We only require access to the integration branch
 and its respective environment.
 
 *Who would be performing the work?*::
- All the hackers. all the team.
+ Our designated team of hackers.
 
 *Can we see resumes?*::
- Yes, in our link:../../about-us/people[people] page
- you can check the `LinkedIn` profiles of some members of our team.
+ Yes, you can access the `LinkedIn` profiles of some members of our team
+ on our link:../../about-us/people[people] page.
 
 *What certifications does Fluid Attacks have?*::
 Please refer to our link:../../about-us/certifications/[certifications] page
@@ -417,14 +418,14 @@ your proprietary rights to that code.
 
 *Does Continuous Hacking only focus on source code?*::
 *Is it possible to include the infrastructure associated with the app?*::
- `Fluid Attacks` has improved the Continuous Hacking model
+ We have improved the Continuous Hacking model
  to now include infrastructure within the Target of Evaluation (`ToE`).
  This includes the application's ports, inputs,
- infrastructure, and an application itself.
+ infrastructure, and of course the application itself.
 
  *What external tools does Fluid Attacks use to perform pentesting?*::
  We use link:https://portswigger.net/burp[Burp Suite] for web testing,
- link:https://www.immunityinc.com/products/canvas/[CANVAS] and
+ and link:https://www.immunityinc.com/products/canvas/[CANVAS] and
  link:https://www.coresecurity.com/products/core-impact[Core Impact]
  for infrastructure testing with additional exploits.
 
@@ -436,18 +437,18 @@ your proprietary rights to that code.
   * link:https://aws.amazon.com/[`AWS` on the cloud] (mainly `S3` and
     link:https://aws.amazon.com/dynamodb/[`DynamoDB`],
     all security enabled)
-  * Hacker's computers with disk encryption in all partitions.
+  * Hackers' computers with disk encryption in all partitions.
 
 *Where does Integrates run?*::
- The platform link:../../products/integrates/[Integrates], runs in the cloud.
+ The platform, link:../../products/integrates/[Integrates], runs in the cloud.
 
 *Does Fluid Attacks manage the access credentials to Integrates?*::
  No. We use federated authentication.
  `Google` and `Azure` (`Microsoft 360`)
- are the entities who validate your user access credentials.
+ are the entities which validate your user access credentials.
 
 *Is it possible to activate the double authentication token?*::
- Yes, it is, and we recommend that you do so.
+ Yes, it is, and we recommend you do so.
  Using double authentication will increase
  the security level of your credentials.
  This will help prevent unauthorized users
@@ -459,21 +460,20 @@ your proprietary rights to that code.
  The goal is `100%` coverage.
  Therefore, there will be results
  regarding system vulnerabilities continuously throughout the contract period.
- `Fluid Attacks` takes into account all pushes to the tested branch,
+ We take into account all pushes to the tested branch,
  which are monitored using automated scripts (robots)
  that extract and analyze the changes made to the source code every night.
 
 *Does `Fluid Attacks` test every time I make a push*::
 *in the subscription branch?*::
- During the execution of a project the following scenarios can occur:
+ During the execution of a project, the following scenarios can occur:
 
  . Application in development without overdue code (`100%` coverage):
  The robot detects the change and generates the updated control files.
- This allows our hackers to attack the application bearing in mind the changes.
  This means that no specific file or commit is audited,
- the change analysis performed by the robot is considered
- when the hacker takes the environment and the branch
- and tries to attack the application taking into account the changes made.
+ but rather the change analysis performed by the robot is incorporated
+ when the hackers attack the application,
+ thus allowing them to take into account the changes made.
 
  . Application in production without overdue code (100% coverage):
  Even when there are no changes, the application is attacked.
@@ -483,7 +483,7 @@ your proprietary rights to that code.
  or increasing the number of hackers assigned to the project
  in order to find undiscovered vulnerabilities.
 
- . Application in development with overdue code (`<100` coverage):
+ . Application in development with overdue code (`<100%` coverage):
  Same as the first scenario, but attacks are only related
  to the change that was made.
  The attack surface that existed before the subscription point is not attacked.
@@ -491,24 +491,24 @@ your proprietary rights to that code.
  . Application in production with overdue code (`<100%` coverage):
  Same as the second scenario, but if in a specified month there is no new code,
  it is hacked only to the extent of the changes
- made by `1` active author in `1` previous month.
+ made by `one` active author in `one` previous month.
 
 *What options for retesting are available?*::
- link:../../use-cases/one-shot-hacking[One shot Hacking] includes one retest.
+ link:../../use-cases/one-shot-hacking[One-shot Hacking] includes one retest.
  link:../../use-cases/continuous-hacking/[Continuous Hacking] includes infinite retests
  during the subscription time.
 
-*What are the scheduled activities during the continuous hacking test?*::
+*What are the scheduled activities during the Continuous Hacking test?*::
  Once the setup has been completed,
  and everything is ready for the service to begin, the security tests start.
- The steps are:
+ The steps are as follows:
 
- . Request approval (purchase order confirmed).
+ . Approval request (purchase order confirmed).
  . Project leader assignment.
  . The project leader schedules the start meeting (teleconference).
  . Service condition validation.
  . Supplies request (access to environments and code).
- . Project leader receives supplies,
+ . The project leader receives supplies,
  and programs the setup of the verification and access robots.
  . The project leader creates an admin user in link:../../products/integrates/[Integrates] for the client.
  . The admin user invites all project stakeholders including the developers.
@@ -535,21 +535,21 @@ Yes, it is available by going into link:https://fluidattacks.com/asserts/[Assert
 *How would I recognize the vulnerabilities within each application?*::
 According to the active authors model,
  it is possible to create a large cell with all the developers
- or to divide it into applications according to the customer's needs.
- When managing only one cell it is important to consider that:
- * All the users in the project can see all the vulnerabilities
+ or to divide it into applications according to the client's needs.
+ When managing only one cell, it is important to consider the following:
+ * All users in the project can see all the vulnerabilities
  of the application inside the same cell.
- * When the same vulnerability appears in several applications
- the only way to identify/locate each one, in each individual application
- is by checking the vulnerability report under the heading, location.
- There it will specify where each can be found.
+ * When the same vulnerability appears in several applications,
+ the only way to identify/locate each one in each individual application
+ is by checking the vulnerability report under the heading "location".
+ There, it will specify where each vulnerability can be found.
 
 *Is it possible to change the environment*::
 *when the subscription is already active?*::
-Yes, it is possible with the condition that the new environment
-must be the same branch environment where the source code is reviewed,
-thus `Fluid Attacks` can test statically and dynamically the same version
-of the change.
+Yes, it is possible under the condition that the new environment
+be the same branch environment where the source code is reviewed,
+thus allowing us to test the same version of the change
+both statically and dynamically.
 
 *How will you ensure the availability of my systems and services*::
 *while the test is taking place?*::
