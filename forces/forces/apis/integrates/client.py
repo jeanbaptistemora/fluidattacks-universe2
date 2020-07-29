@@ -23,7 +23,6 @@ from gql.client import (
 from forces.utils.aio import (
     unblock,
 )
-
 from forces.apis.integrates import (
     get_api_token,
 )
@@ -39,15 +38,11 @@ async def get_transport(
         **kwargs: Any
 ) -> AIOHTTPTransport:
     """Returns an AIOHTTPTransport."""
-
-    def _get_transport() -> AIOHTTPTransport:
-        return AIOHTTPTransport(
-            headers={'authorization': f'Bearer {api_token}'},
-            url=endpoint_url,
-            **kwargs
-        )
-
-    return await unblock(_get_transport)
+    return await unblock(
+        AIOHTTPTransport,
+        headers={'authorization': f'Bearer {api_token}'},
+        url=endpoint_url,
+        **kwargs)
 
 
 @contextlib.asynccontextmanager
