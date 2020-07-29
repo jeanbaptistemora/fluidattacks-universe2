@@ -54,8 +54,8 @@ async def analyze_one_path(path: str) -> Tuple[Vulnerability, ...]:
         await materialize(
             getattr(module, 'analyze')(
                 char_to_yx_map_generator=char_to_yx_map_generator,
+                content_generator=file_content_generator,
                 extension=os.path.splitext(path)[1][1:],
-                file_content_generator=file_content_generator,
                 path=path,
             )
             for module in (

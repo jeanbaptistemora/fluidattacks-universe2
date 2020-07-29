@@ -4,7 +4,7 @@ source "${srcEnv}"
 source "${srcIncludeHelpersCommon}"
 source "${srcIncludeHelpersSkims}"
 
-declare -A GLOBAL_PKGS=(
+declare -Arx SKIMS_GLOBAL_PKGS=(
   [cli]=src/cli
   [core]=src/core
   [integrates]=src/integrates
@@ -12,7 +12,7 @@ declare -A GLOBAL_PKGS=(
   [utils]=src/utils
 )
 
-declare -A GLOBAL_TEST_PKGS=(
+declare -Arx SKIMS_GLOBAL_TEST_PKGS=(
   [test]=test/
 )
 
@@ -60,13 +60,13 @@ function job_skims_lint {
 
       helper_common_poetry_install_deps "${path}" \
   &&  pushd "${path}" \
-    &&  for pkg in "${GLOBAL_PKGS[@]}" "${GLOBAL_TEST_PKGS[@]}"
+    &&  for pkg in "${SKIMS_GLOBAL_PKGS[@]}" "${SKIMS_GLOBAL_TEST_PKGS[@]}"
         do
               echo "[INFO] Static type checking: ${pkg}" \
           &&  poetry run mypy "${args_mypy[@]}" "${pkg}" \
           ||  return 1
         done \
-    &&  for pkg in "${GLOBAL_PKGS[@]}" "${GLOBAL_TEST_PKGS[@]}"
+    &&  for pkg in "${SKIMS_GLOBAL_PKGS[@]}" "${SKIMS_GLOBAL_TEST_PKGS[@]}"
         do
               echo "[INFO] Linting: ${pkg}" \
           &&  poetry run prospector "${args_prospector[@]}" "${pkg}" \
@@ -79,15 +79,15 @@ function job_skims_lint {
 function job_skims_structure {
   local pydeps_args=(
     --cluster
-    --keep-target-cluster
+    --include-missing
     --max-bacon 0
     --max-cluster-size 100
     --noshow
-    --only "${!GLOBAL_PKGS[@]}"
+    --only "${!SKIMS_GLOBAL_PKGS[@]}"
     --reverse
     -x 'click'
     --
-    "${GLOBAL_PKGS[cli]}"
+    "${SKIMS_GLOBAL_PKGS[cli]}"
   )
   local path='skims'
 
@@ -113,7 +113,7 @@ function job_skims_test {
 
       helper_common_poetry_install_deps "${path}" \
   &&  pushd "${path}" \
-    &&  for pkg in "${GLOBAL_PKGS[@]}" "${GLOBAL_TEST_PKGS[@]}"
+    &&  for pkg in "${SKIMS_GLOBAL_PKGS[@]}" "${SKIMS_GLOBAL_TEST_PKGS[@]}"
         do
           args_pytest+=( "--cov=${pkg}" )
         done \

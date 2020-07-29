@@ -37,7 +37,7 @@ def test_to_snippet() -> None:
         chars_per_line=43,
         content=content,
         context=4,
-        column=50,
+        column=39,
         line=5,
     )
 
@@ -48,7 +48,7 @@ def test_to_snippet() -> None:
         ¦    2 ¦                                             ¦
         ¦    3 ¦                                             ¦
         ¦    4 ¦                                             ¦
-        ¦    5 ¦                                             ¦
+        ¦  > 5 ¦                                             ¦
         ¦    6 ¦                                             ¦
         ¦    7 ¦ x                                           ¦
         ¦    8 ¦ xxxxxxxxxxx                                 ¦

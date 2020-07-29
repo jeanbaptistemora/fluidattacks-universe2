@@ -3,7 +3,7 @@
 source "${srcEnv}"
 source "${srcIncludeHelpersCommon}"
 
-declare -A GLOBAL_PKGS=(
+declare -Arx REVIEWS_GLOBAL_PKGS=(
   [cli]=src/cli
   [core]=src/core
   [utils]=src/utils
@@ -27,13 +27,13 @@ function job_reviews_lint {
 
       helper_common_poetry_install_deps "${path}" \
   &&  pushd reviews/ \
-    &&  for pkg in "${GLOBAL_PKGS[@]}"
+    &&  for pkg in "${REVIEWS_GLOBAL_PKGS[@]}"
         do
               echo "[INFO] Static type checking: ${pkg}" \
           &&  poetry run mypy "${args_mypy[@]}" "${pkg}" \
           ||  return 1
         done \
-    &&  for pkg in "${GLOBAL_PKGS[@]}"
+    &&  for pkg in "${REVIEWS_GLOBAL_PKGS[@]}"
         do
               echo "[INFO] Linting: ${pkg}" \
           &&  poetry run prospector "${args_prospector[@]}" "${pkg}" \
@@ -46,15 +46,15 @@ function job_reviews_lint {
 function job_reviews_structure {
   local pydeps_args=(
     --cluster
-    --keep-target-cluster
+    --include-missing
     --max-bacon 0
     --max-cluster-size 100
     --noshow
-    --only "${!GLOBAL_PKGS[@]}"
+    --only "${!REVIEWS_GLOBAL_PKGS[@]}"
     --reverse
     -x 'click'
     --
-    "${GLOBAL_PKGS[cli]}"
+    "${REVIEWS_GLOBAL_PKGS[cli]}"
   )
   local path='reviews'
 

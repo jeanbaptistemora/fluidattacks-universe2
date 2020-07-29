@@ -14,12 +14,15 @@ from typing import (
 from pyparsing import (
     Keyword,
     nestedExpr,
+    Optional,
 )
 
 # Local libraries
-from lib_path.grammars import (
-    blocking_get_matching_lines,
+from lib_path.common import (
+    blocking_get_vulnerabilities,
     C_STYLE_COMMENT,
+    EXTENSIONS_CSHARP,
+    EXTENSIONS_JAVASCRIPT,
     DOUBLE_QUOTED_STRING,
     SINGLE_QUOTED_STRING,
 )
@@ -27,25 +30,42 @@ from utils.aio import (
     materialize,
     unblock,
 )
-from utils.fs import (
-    get_file_content,
-)
 from utils.model import (
     FindingEnum,
-    GrammarMatch,
-    SkimsVulnerabilityMetadata,
     Vulnerability,
-    VulnerabilityKindEnum,
-    VulnerabilityStateEnum,
 )
-from utils.string import (
-    blocking_to_snippet,
-)
+
+
+def csharp_insecure_randoms(
+    char_to_yx_map: Dict[int, Tuple[int, int]],
+    content: str,
+    path: str,
+) -> Tuple[Vulnerability, ...]:
+    # secure versions:
+    #  - System.Security.Cryptography.RandomNumberGenerator
+    #  - System.Security.Cryptography.RNGCryptoServiceProvider
+    grammar = (
+        Keyword('new') +
+        Optional(Keyword('System') + '.') +
+        Keyword('Random') +
+        nestedExpr()
+    )
+    grammar.ignore(C_STYLE_COMMENT)
+    grammar.ignore(SINGLE_QUOTED_STRING)
+    grammar.ignore(DOUBLE_QUOTED_STRING)
+
+    return blocking_get_vulnerabilities(
+        char_to_yx_map=char_to_yx_map,
+        content=content,
+        finding=FindingEnum.F0034,
+        grammar=grammar,
+        path=path,
+    )
 
 
 def javascript_insecure_randoms(
     char_to_yx_map: Dict[int, Tuple[int, int]],
-    file_content: str,
+    content: str,
     path: str,
 ) -> Tuple[Vulnerability, ...]:
     grammar = Keyword('Math') + '.' + Keyword('random') + nestedExpr()
@@ -53,45 +73,35 @@ def javascript_insecure_randoms(
     grammar.ignore(SINGLE_QUOTED_STRING)
     grammar.ignore(DOUBLE_QUOTED_STRING)
 
-    results: Tuple[Vulnerability, ...] = tuple(
-        Vulnerability(
-            finding=FindingEnum.F0034,
-            kind=VulnerabilityKindEnum.LINES,
-            state=VulnerabilityStateEnum.OPEN,
-            what=path,
-            where=f'{match.start_line}',
-            skims_metadata=SkimsVulnerabilityMetadata(
-                grammar_match=match,
-                snippet=blocking_to_snippet(
-                    column=match.start_column,
-                    content=file_content,
-                    line=match.start_line,
-                )
-            )
-        )
-        for match in blocking_get_matching_lines(
-            content=file_content,
-            char_to_yx_map=char_to_yx_map,
-            grammar=grammar,
-        )
+    return blocking_get_vulnerabilities(
+        char_to_yx_map=char_to_yx_map,
+        content=content,
+        finding=FindingEnum.F0034,
+        grammar=grammar,
+        path=path,
     )
-
-    return results
 
 
 async def analyze(
     char_to_yx_map_generator: AsyncGenerator[Dict[int, Tuple[int, int]], None],
+    content_generator: AsyncGenerator[str, None],
     extension: str,
-    file_content_generator: AsyncGenerator[str, None],
     path: str,
 ) -> Tuple[Vulnerability, ...]:
     coroutines: List[Awaitable[Tuple[Vulnerability, ...]]] = []
 
-    if extension in ['js', 'jsx', 'ts', 'tsx']:
+    if extension in EXTENSIONS_CSHARP:
+        coroutines.append(unblock(
+            csharp_insecure_randoms,
+            char_to_yx_map=await char_to_yx_map_generator.__anext__(),
+            content=await content_generator.__anext__(),
+            path=path,
+        ))
+    elif extension in EXTENSIONS_JAVASCRIPT:
         coroutines.append(unblock(
             javascript_insecure_randoms,
             char_to_yx_map=await char_to_yx_map_generator.__anext__(),
-            file_content=await file_content_generator.__anext__(),
+            content=await content_generator.__anext__(),
             path=path,
         ))
 
