@@ -64,3 +64,18 @@ function job_reviews_structure {
   &&  popd \
   ||  return 1
 }
+
+function job_reviews {
+
+  function reviews {
+    export __NIX_PATH
+    export __NIX_SSL_CERT_FILE
+
+    NIX_PATH="${__NIX_PATH}" \
+    NIX_SSL_CERT_FILE="${__NIX_SSL_CERT_FILE}" \
+      "${srcProduct}/bin/reviews" "${@}"
+  }
+
+      helper_use_pristine_workdir \
+  &&  reviews flavor product
+}

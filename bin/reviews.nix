@@ -5,7 +5,7 @@ let
   builders.nodeJsModule = import ../build/builders/nodejs-module pkgs;
 in
   pkgs.stdenv.mkDerivation rec {
-    name = "bin";
+    name = "reviews";
 
     buildInputs = [
       pkgs.nodejs

@@ -25,7 +25,7 @@ function job_lint_build_system {
 
       nix-linter --recursive . \
   && echo '[OK] Nix code is compliant'
-      shellcheck --external-sources build.sh \
+      shellcheck --external-sources --exclude=SC2153 build.sh \
   && find 'build' -name '*.sh' -exec \
       shellcheck --external-sources --exclude=SC1090,SC2016,SC2153,SC2154 {} + \
   && echo '[OK] Shell code is compliant'
@@ -76,13 +76,9 @@ function job_lint_secrets {
 function job_lint_commit_msg {
   local commit_diff
   local commit_hashes
-  local parser_url='https://static-objects.gitlab.net/fluidattacks/public/raw/master/commitlint-configs/integrates/parser-preset.js'
-  local rules_url='https://static-objects.gitlab.net/fluidattacks/public/raw/master/commitlint-configs/integrates/commitlint.config.js'
 
       helper_use_pristine_workdir \
-  &&  curl -LOJ "${parser_url}" \
-  &&  curl -LOJ "${rules_url}" \
-  &&  npm install @commitlint/{config-conventional,cli} \
+  &&  env_prepare_node_modules \
   &&  git fetch --prune > /dev/null \
   &&  if [ "${IS_LOCAL_BUILD}" = "${TRUE}" ]
       then
@@ -93,7 +89,7 @@ function job_lint_commit_msg {
   &&  commit_hashes="$(git log --pretty=%h "${commit_diff}")" \
   &&  for commit_hash in ${commit_hashes}
       do
-            git log -1 --pretty=%B "${commit_hash}" | npx commitlint \
+            git log -1 --pretty=%B "${commit_hash}" | commitlint \
         ||  return 1
       done
 }

@@ -66,10 +66,6 @@ mobile/coverage
 package-lock.json
 node_modules
 
-# Commitlint
-commitlint.config.js
-parser-preset.js
-
 # Terraform
 .terraform/
 *.tfstate

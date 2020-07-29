@@ -1,5 +1,6 @@
 let
   pkgs = import ../pkgs/stable.nix;
+  builders.nodeJsModule = import ../builders/nodejs-module pkgs;
 in
   pkgs.stdenv.mkDerivation (
        (import ../src/basic.nix)
@@ -9,9 +10,18 @@ in
 
       buildInputs = [
         pkgs.git
-        pkgs.cacert
         pkgs.nodejs
-        pkgs.curl
       ];
+
+      nodeJsModuleCommitlint =
+        builders.nodeJsModule {
+          moduleName = "commitlint";
+          requirement = "@commitlint/cli@9.0.1";
+        };
+      nodeJsModuleCommitlintConfigConventional =
+        builders.nodeJsModule {
+          moduleName = "commitlint-config-conventional";
+          requirement = "@commitlint/config-conventional@9.0.1";
+        };
     })
   )

@@ -5,7 +5,7 @@ let
   builders.pythonPackageLocal = import ../build/builders/python-package-local pkgs;
 in
   pkgs.stdenv.mkDerivation rec {
-    name = "bin";
+    name = "skims";
 
     buildInputs = [
     ];

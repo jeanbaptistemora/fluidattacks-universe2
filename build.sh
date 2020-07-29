@@ -17,6 +17,8 @@ function decide_and_call_provisioner {
   local job="${1:-}"
   local arg1="${2:-}"
   local provisioner
+  export __NIX_PATH="${NIX_PATH}"
+  export __NIX_SSL_CERT_FILE="${NIX_SSL_CERT_FILE}"
 
   # shellcheck disable=2016
       provisioner="./build/provisioners/${job}.nix" \
@@ -37,6 +39,9 @@ function decide_and_call_provisioner {
         --keep CI_PROJECT_DIR \
         --keep CI_REGISTRY_USER \
         --keep CI_REGISTRY_PASSWORD \
+        --keep CI_MERGE_REQUEST_IID \
+        --keep CI_PIPELINE_ID \
+        --keep CI_PROJECT_ID \
         --keep DEV_AWS_ACCESS_KEY_ID \
         --keep DEV_AWS_SECRET_ACCESS_KEY \
         --keep DNS_ZONE_ID \
@@ -45,11 +50,15 @@ function decide_and_call_provisioner {
         --keep GITLAB_TOKEN \
         --keep INTEGRATES_API_TOKEN \
         --keep JWT_TOKEN \
+        --keep __NIX_PATH \
+        --keep __NIX_SSL_CERT_FILE \
         --keep NIX_PATH \
         --keep NIX_PROFILES \
         --keep NIX_SSL_CERT_FILE \
         --keep PROD_AWS_ACCESS_KEY_ID \
         --keep PROD_AWS_SECRET_ACCESS_KEY \
+        --keep MR_TEST_TOKEN \
+        --keep MR_TEST_MAX_DELTAS \
         --keep PYPI_TOKEN \
         --max-jobs auto \
         --option restrict-eval false \
