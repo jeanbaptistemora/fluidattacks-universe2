@@ -18,9 +18,6 @@ in
         pkgs.python37
       ];
 
-      pyPkgMandrill = builders.pythonPackage {
-        requirement = "mandrill-37==1.1.0";
-      };
       pyPkgGitPython = builders.pythonPackage {
         requirement = "GitPython==3.1.0";
       };

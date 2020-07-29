@@ -37,7 +37,7 @@ from __init__ import (
 )
 
 # Constants
-LOGGER = logging.getLogger('pipeline')
+LOGGER = logging.getLogger('console')
 
 
 def is_not_a_fluidattacks_email(email: str) -> bool:

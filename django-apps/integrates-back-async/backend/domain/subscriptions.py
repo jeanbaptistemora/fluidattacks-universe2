@@ -38,7 +38,8 @@ from backend.services import (
 
 # Constants
 LOGGER_ERRORS = logging.getLogger(__name__)
-LOGGER_PIPELINE = logging.getLogger('pipeline')
+LOGGER_CONSOLE = logging.getLogger('console')
+NO_EXTRA = {'extra': None}
 
 
 def frequency_to_period(*, frequency: str) -> int:
@@ -121,7 +122,7 @@ def should_process_event(
         event_frequency == 'hourly'
     )
 
-    LOGGER_PIPELINE.info('%s', locals())
+    LOGGER_CONSOLE.info('- %s', locals(), extra=NO_EXTRA)
 
     return success
 
@@ -241,7 +242,7 @@ async def unsubscribe_user_to_entity_report(
 async def trigger_user_to_entity_report() -> None:
     bot_time: datetime = datetime.utcnow()
 
-    LOGGER_PIPELINE.info('UTC datetime: %s', bot_time)
+    LOGGER_CONSOLE.info('UTC datetime: %s', bot_time, extra=NO_EXTRA)
 
     for subscription in await get_subscriptions_to_entity_report(
         audience='user',
@@ -252,7 +253,7 @@ async def trigger_user_to_entity_report() -> None:
         report_entity: str = subscription['sk']['entity']
         report_subject: str = subscription['sk']['subject']
 
-        LOGGER_PIPELINE.info('%s', locals())
+        LOGGER_CONSOLE.warning('Subscription: %s', locals(), extra=NO_EXTRA)
 
         # A user may be subscribed but now he does not have access to the
         #   group or organization, so let's handle this case
@@ -261,14 +262,14 @@ async def trigger_user_to_entity_report() -> None:
             report_subject=report_subject,
             user_email=user_email,
         ):
-            LOGGER_PIPELINE.info('- can be subscribed')
+            LOGGER_CONSOLE.info('- can be subscribed', extra=NO_EXTRA)
 
             # The processor is expected to run every hour
             if should_process_event(
                 bot_time=bot_time,
                 event_frequency=event_frequency,
             ):
-                LOGGER_PIPELINE.info('- processing event')
+                LOGGER_CONSOLE.info('- processing event', extra=NO_EXTRA)
                 await send_user_to_entity_report(
                     event_frequency=event_frequency,
                     event_period=event_period,
@@ -277,9 +278,11 @@ async def trigger_user_to_entity_report() -> None:
                     user_email=user_email,
                 )
             else:
-                LOGGER_PIPELINE.info('- not processing event')
+                LOGGER_CONSOLE.info('- not processing event', extra=NO_EXTRA)
         else:
-            LOGGER_PIPELINE.warning('- can not be subscribed, unsubscribing')
+            LOGGER_CONSOLE.warning(
+                '- can not be subscribed, unsubscribing', extra=NO_EXTRA,
+            )
             # Unsubscribe this user, he won't even notice as he no longer
             #   has access to the requested resource
             await unsubscribe_user_to_entity_report(
@@ -306,9 +309,8 @@ async def send_user_to_entity_report(
             ext='png',
             ttl=float(event_period),
         )
-        LOGGER_PIPELINE.info('- image_url: %s', image_url)
     except botocore.exceptions.ClientError as ex:
-        LOGGER_PIPELINE.error('%s', ex)
+        LOGGER_CONSOLE.exception('%s', ex, extra=NO_EXTRA)
         LOGGER_ERRORS.exception(
             ex,
             extra={
@@ -324,7 +326,7 @@ async def send_user_to_entity_report(
             if report_entity.lower() == 'organization'
             else report_subject
         )
-        LOGGER_PIPELINE.info('- sending email')
+        LOGGER_CONSOLE.info('- sending email', extra=NO_EXTRA)
 
         await mailer.send_mail_analytics(
             user_email,
@@ -337,4 +339,4 @@ async def send_user_to_entity_report(
             report_subject_percent=quote_plus(report_subject),
         )
 
-        LOGGER_PIPELINE.info('- email sent')
+        LOGGER_CONSOLE.info('- email sent', extra=NO_EXTRA)

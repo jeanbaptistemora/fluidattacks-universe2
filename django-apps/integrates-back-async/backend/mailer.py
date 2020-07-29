@@ -1,3 +1,4 @@
+# Standard library
 import os
 import json
 import logging
@@ -11,10 +12,13 @@ from typing import (
     Union,
 )
 
+# Third party libraries
 import boto3
 import botocore
 from asgiref.sync import async_to_sync
+import mandrill
 
+# Local libraries
 from backend import authz
 from backend.domain import (
     project as project_domain,
@@ -105,15 +109,15 @@ def _get_sqs_email_message(
     context: Dict[str, Union[str, int]],
     email_to: List[str],
     tags: List[str],
-) -> Optional[Dict[str, object]]:
+) -> Optional[Dict[str, List[Union[str, Dict[str, object]]]]]:
     project = str(context.get('project', '')).lower()
     test_proj_list = FI_TEST_PROJECTS.split(',')
     no_test_context = _remove_test_projects(context, test_proj_list)
     new_context = _escape_context(no_test_context)
-    sqs_message: Optional[Dict[str, object]] = None
+    message: Optional[Dict[str, List[Union[str, Dict[str, object]]]]] = None
 
     if project not in test_proj_list:
-        message: Dict[str, List[Union[str, Dict[str, object]]]] = {
+        message = {
             'to': [],
             'global_merge_vars': [],
             'merge_vars': []
@@ -131,12 +135,8 @@ def _get_sqs_email_message(
                 {'name': key, 'content': value}
             )
         message['tags'] = cast(List[Union[Dict[str, object], str]], tags)
-        sqs_message = {
-            'message': message,
-            'api_key': API_KEY,
-        }
 
-    return sqs_message
+    return message
 
 
 def _send_mail(
@@ -145,13 +145,18 @@ def _send_mail(
     context: Dict[str, Union[str, int]],
     tags: List[str],
 ):
-    sqs_message: Optional[Dict[str, object]] = _get_sqs_email_message(
+    message = _get_sqs_email_message(
         context=context,
         email_to=email_to,
         tags=tags,
     )
 
-    if sqs_message:
+    if message:
+        sqs_message = {
+            'api_key': API_KEY,
+            'message': message,
+        }
+
         try:
             sqs = boto3.client(  # type: ignore
                 'sqs',
@@ -165,7 +170,7 @@ def _send_mail(
                 '[mailer]: sending to SQS',
                 extra={
                     'extra': {
-                        'message': json.dumps(sqs_message["message"]),
+                        'message': json.dumps(message),
                         'MessageGroupId': template_name,
                     }
                 })
@@ -188,6 +193,52 @@ def _send_mail(
     else:
         # Mail should not be sent if is a test project
         pass
+
+
+def _send_mail_immediately(
+    context: Dict[str, Union[str, int]],
+    email_to: List[str],
+    tags: List[str],
+    template_name: str,
+) -> bool:
+    LOGGER.info('[mailer]: _send_mail_immediately', extra={'extra': {
+        'context': context,
+        'email_to': email_to,
+        'template_name': template_name,
+    }})
+
+    result: list = []
+    success: bool = False
+    message = _get_sqs_email_message(
+        context=context,
+        email_to=email_to,
+        tags=tags,
+    )
+
+    if message:
+        try:
+            result = mandrill.Mandrill(API_KEY).messages.send_template(
+                message=message,
+                template_content=[],
+                template_name=template_name,
+            )
+        except mandrill.InvalidKeyError as exc:
+            LOGGER.exception(exc)
+            success = False
+        else:
+            success = True
+    else:
+        # Mail should not be sent if is a test project
+        success = True
+
+    LOGGER.info('[mailer]: _send_mail_immediately', extra={'extra': {
+        'email_to': email_to,
+        'result': result,
+        'success': success,
+        'template_name': template_name,
+    }})
+
+    return success
 
 
 def send_comment_mail(
@@ -311,7 +362,7 @@ async def send_mail_analytics(*email_to: str, **context: str) -> None:
         })
 
     await aio.ensure_io_bound(
-        function=_send_mail,
+        function=_send_mail_immediately,
         template_name='charts-report',
         email_to=email_to,
         context=context,

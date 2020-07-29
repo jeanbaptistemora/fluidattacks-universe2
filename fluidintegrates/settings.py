@@ -10,7 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.10/ref/settings/
 """
 
-import logging
+import logging.config
 import os
 import subprocess
 import sys
@@ -197,12 +197,19 @@ BOTO3_SESSION = Session(aws_access_key_id=AWS_ACCESS_KEY_ID,
                         aws_secret_access_key=AWS_SECRET_ACCESS_KEY,
                         aws_session_token=os.environ.get('AWS_SESSION_TOKEN'),
                         region_name=AWS_REGION_NAME)
+
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
     'filters': {
         'require_debug_false': {
             '()': 'django.utils.log.RequireDebugFalse'
+        },
+    },
+    'formatters': {
+        'level_message_extra': {
+            'format': '[{levelname}] {message}, extra={extra}',
+            'style': '{',
         },
     },
     'handlers': {
@@ -214,6 +221,7 @@ LOGGING = {
         'console': {
             'class': 'logging.StreamHandler',
             'level': 'INFO',
+            'formatter': 'level_message_extra',
         },
         'watchtower': {
             'boto3_session': BOTO3_SESSION,
@@ -242,6 +250,10 @@ LOGGING = {
             'handlers': ['bugsnag', 'console'],
             'level': 'INFO'
         },
+        'console': {
+            'handlers': ['console'],
+            'level': 'INFO',
+        },
         'transactional': {
             'handlers': ['console', 'watchtower'],
             'level': 'INFO'
@@ -249,11 +261,11 @@ LOGGING = {
     }
 }
 
-# Use only for pipeline actions or scheduler jobs
-# It's declared here because at the moment a CI job runs
-#   the django logging settings are not fully loaded and nothing gets printed
-logging.getLogger('pipeline').setLevel(logging.INFO)
-logging.getLogger('pipeline').addHandler(logging.StreamHandler())
+# Force logging to load the config right away !
+# This is important otherwise loggers are not going to work in CI jobs
+# This happens because django loads the loggers on the first request,
+#   which in CI jobs does never happen as there is no server listening
+logging.config.dictConfig(LOGGING)
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
