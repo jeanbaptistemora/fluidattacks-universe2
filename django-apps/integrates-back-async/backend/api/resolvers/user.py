@@ -490,14 +490,8 @@ async def _do_remove_user_access(
         project_name: str,
         user_email: str) -> RemoveUserAccessPayloadType:
     """Resolve remove_user_access mutation."""
-    success = False
-
-    asyncio.create_task(
-        sync_to_async(project_domain.remove_user_access)(
-            project_name, user_email)
-    )
-    success = await sync_to_async(project_domain.remove_access)(
-        user_email, project_name
+    success = await project_domain.remove_user_access(
+        project_name, user_email
     )
     removed_email = user_email if success else ''
     if success:

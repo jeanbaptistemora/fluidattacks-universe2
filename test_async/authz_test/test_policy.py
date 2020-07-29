@@ -82,12 +82,12 @@ async def test_revoke_group_level_role():
     assert get_group_level_role('revoke_GROUP_level_role@gmail.com', 'other-group') == 'customer'
     assert not get_group_level_role('REVOKE_group_level_role@gmail.com', 'yet-other-group')
 
-    assert revoke_group_level_role('revoke_GROUP_level_role@gmail.com', 'other-group')
+    assert await revoke_group_level_role('revoke_GROUP_level_role@gmail.com', 'other-group')
     assert get_group_level_role('revoke_group_level_role@gmail.com', 'group') == 'customer'
     assert not get_group_level_role('revoke_group_level_role@gmail.com', 'other-group')
     assert not get_group_level_role('revoke_group_level_role@gmail.com', 'yet-other-group')
 
-    assert revoke_group_level_role('revoke_GROUP_level_role@gmail.com', 'group')
+    assert await revoke_group_level_role('revoke_GROUP_level_role@gmail.com', 'group')
     assert not get_group_level_role('revOke_group_level_role@gmail.com', 'group')
     assert not get_group_level_role('revoKe_group_level_role@gmail.com', 'other-group')
     assert not get_group_level_role('revokE_group_level_role@gmail.com', 'yet-other-group')
@@ -98,5 +98,5 @@ async def test_revoke_user_level_role():
 
     assert get_user_level_role('revoke_user_level_ROLE@gmail.com') == 'customer'
     assert not get_user_level_role('REVOKE_user_level_role@gmail.net')
-    assert revoke_user_level_role('revoke_USER_LEVEL_ROLE@gmail.com')
+    assert await revoke_user_level_role('revoke_USER_LEVEL_ROLE@gmail.com')
     assert not get_user_level_role('revoke_user_level_ROLE@gmail.com')

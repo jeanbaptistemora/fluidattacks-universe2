@@ -52,9 +52,9 @@ class ProjectTest(TestCase):
             validate_project_services_config(False, False, True, True)
 
     @pytest.mark.changes_db
-    def test_remove_access(self):
-        assert remove_access('unittest', 'unittesting')
-        assert not remove_access('', '')
+    async def test_remove_access(self):
+        assert await remove_access('unittest', 'unittesting')
+        assert not await remove_access('', '')
 
     def test_validate_tags(self):
         assert validate_tags(
@@ -318,10 +318,10 @@ class ProjectTest(TestCase):
         expected_output = ['540462628', '538745942', '463578352', '484763304', '418900971']
         assert expected_output == await list_events(project_name)
 
-    def test_get_managers(self):
+    async def test_get_managers(self):
         project_name = 'unittesting'
         expected_output = ['integratesuser@gmail.com', 'continuoushacking@gmail.com']
-        assert expected_output == get_managers(project_name)
+        assert expected_output == await get_managers(project_name)
 
     async def test_get_description(self):
         project_name = 'unittesting'

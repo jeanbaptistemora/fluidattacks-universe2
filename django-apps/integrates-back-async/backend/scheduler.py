@@ -90,7 +90,7 @@ async def send_unsolved_events_email(project: str) -> None:
     )
     if (project_info and
             historic_configuration[-1].get('type', '') == 'continuous'):
-        mail_to = await sync_to_async(get_external_recipients)(project)
+        mail_to = await get_external_recipients(project)
         mail_to.append(FI_MAIL_CONTINUOUS)
         mail_to.append(FI_MAIL_PROJECTS)
         unsolved_events = await get_unsolved_events(project)
@@ -107,8 +107,8 @@ async def send_unsolved_events_email(project: str) -> None:
         mailer.send_mail_unsolved_events(mail_to, context_event)
 
 
-def get_external_recipients(project: str) -> List[str]:
-    recipients = cast(List[str], project_domain.get_managers(project))
+async def get_external_recipients(project: str) -> List[str]:
+    recipients = await project_domain.get_managers(project)
     return remove_fluid_from_recipients(recipients)
 
 

@@ -611,16 +611,18 @@ def add_access(user_email: str, project_name: str,
         )
 
 
-def remove_access(user_email: str, project_name: str) -> bool:
+async def remove_access(user_email: str, project_name: str) -> bool:
     """Remove project access in dynamo."""
     try:
-        response = TABLE_ACCESS.delete_item(
+        delete_attrs = DynamoDeleteType(
             Key={
                 'user_email': user_email.lower(),
                 'project_name': project_name.lower(),
             }
         )
-        resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
+        resp = await dynamodb.async_delete_item(
+            TABLE_ACCESS_NAME, delete_attrs
+        )
         return resp
     except ClientError as ex:
         LOGGER.exception(ex)

@@ -15,6 +15,7 @@ from backend.dal import (
     user as user_dal,
 )
 from backend.utils import (
+    aio,
     apm,
 )
 from backend.utils.encodings import (
@@ -227,16 +228,23 @@ def revoke_cached_subject_policies(subject: str) -> bool:
     return True
 
 
-def revoke_group_level_role(email: str, group: str) -> bool:
-    return user_dal.delete_subject_policy(email, group) \
-        and revoke_cached_subject_policies(email)
+async def revoke_group_level_role(email: str, group: str) -> bool:
+    return all(await aio.materialize([
+        user_dal.delete_subject_policy(email, group),
+        aio.ensure_io_bound(revoke_cached_subject_policies, email)
+    ]))
 
 
-def revoke_organization_level_role(email: str, organization_id: str) -> bool:
-    return user_dal.delete_subject_policy(email, organization_id) \
-        and revoke_cached_subject_policies(email)
+async def revoke_organization_level_role(
+        email: str, organization_id: str) -> bool:
+    return all(await aio.materialize([
+        user_dal.delete_subject_policy(email, organization_id),
+        aio.ensure_io_bound(revoke_cached_subject_policies, email)
+    ]))
 
 
-def revoke_user_level_role(email: str) -> bool:
-    return user_dal.delete_subject_policy(email, 'self') \
-        and revoke_cached_subject_policies(email)
+async def revoke_user_level_role(email: str) -> bool:
+    return all(await aio.materialize([
+        user_dal.delete_subject_policy(email, 'self'),
+        aio.ensure_io_bound(revoke_cached_subject_policies, email)
+    ]))

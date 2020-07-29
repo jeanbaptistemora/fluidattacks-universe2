@@ -299,8 +299,8 @@ def add_access(user_email: str, project_name: str,
         user_email, project_name, project_attr, attr_value)
 
 
-def remove_access(user_email: str, project_name: str) -> bool:
-    return project_dal.remove_access(user_email, project_name)
+async def remove_access(user_email: str, project_name: str) -> bool:
+    return await project_dal.remove_access(user_email, project_name)
 
 
 def get_pending_to_delete() -> List[Dict[str, ProjectType]]:
@@ -463,28 +463,28 @@ def remove_project(project_name: str) -> NamedTuple:
     return cast(NamedTuple, response)
 
 
-def remove_all_users_access(project: str) -> bool:
+@async_to_sync
+async def remove_all_users_access(project: str) -> bool:
     """Remove user access to project."""
-    user_active = async_to_sync(get_users)(project)
-    user_suspended = async_to_sync(get_users)(project, active=False)
+    user_active, user_suspended = await aio.materialize([
+        get_users(project, True),
+        get_users(project, False)
+    ])
     all_users = user_active + user_suspended
-    are_users_removed = True
-    for user in all_users:
-        is_user_removed = remove_user_access(project, user)
-        if is_user_removed:
-            are_users_removed = True
-        else:
-            are_users_removed = False
-            break
+    are_users_removed = all(await aio.materialize([
+        remove_user_access(project, user)
+        for user in all_users
+    ]))
+
     return are_users_removed
 
 
-def remove_user_access(group: str, email: str) -> bool:
+async def remove_user_access(group: str, email: str) -> bool:
     """Remove user access to project."""
-    return (
-        authz.revoke_group_level_role(email, group) and
-        project_dal.remove_access(email, group)
-    )
+    return all(await aio.materialize([
+        authz.revoke_group_level_role(email, group),
+        remove_access(email, group)
+    ]))
 
 
 def _has_repeated_tags(project_name: str, tags: List[str]) -> bool:
@@ -1009,13 +1009,19 @@ async def get_users_to_notify(
     ]
 
 
-def get_managers(project_name: str) -> List[str]:
+async def get_managers(project_name: str) -> List[str]:
+    users = await get_users(project_name, active=True)
+    users_roles = await aio.ensure_many_io_bound([
+        aio.PyCallable(
+            instance=authz.get_group_level_role,
+            args=(user, project_name),
+        )
+        for user in users
+    ])
     return [
         user_email
-        for user_email in async_to_sync(get_users)(project_name, active=True)
-        if authz.get_group_level_role(
-            user_email, project_name
-        ) == 'customeradmin'
+        for user_email, role in zip(users, users_roles)
+        if role == 'customeradmin'
     ]
 
 

@@ -7,7 +7,10 @@ from typing import Dict, List, NamedTuple
 from boto3.dynamodb.conditions import Attr, Key, Not
 from botocore.exceptions import ClientError
 from backend.dal.helpers import dynamodb
-from backend.typing import User as UserType
+from backend.typing import (
+    DynamoDelete as DynamoDeleteType,
+    User as UserType
+)
 from backend.utils import (
     apm,
 )
@@ -25,6 +28,7 @@ ACCESS_TABLE = DYNAMODB_RESOURCE.Table('FI_project_access')
 AUTHZ_TABLE = DYNAMODB_RESOURCE.Table('fi_authz')
 USERS_TABLE = DYNAMODB_RESOURCE.Table('FI_users')
 USERS_TABLE_NAME = 'FI_users'
+AUTHZ_TABLE_NAME = 'fi_authz'
 
 # Typing
 SubjectPolicy = NamedTuple(
@@ -124,15 +128,18 @@ def put_subject_policy(policy: SubjectPolicy) -> bool:
     return False
 
 
-def delete_subject_policy(subject: str, object_: str) -> bool:
+async def delete_subject_policy(subject: str, object_: str) -> bool:
     with contextlib.suppress(ClientError):
-        response = AUTHZ_TABLE.delete_item(
+        delete_attrs = DynamoDeleteType(
             Key={
                 'subject': subject.lower(),
                 'object': object_.lower(),
             }
         )
-        return response['ResponseMetadata']['HTTPStatusCode'] == 200
+        response = await dynamodb.async_delete_item(
+            AUTHZ_TABLE_NAME, delete_attrs
+        )
+        return response
 
     LOGGER.error(
         'Error in user_dal.delete_subject_policy',

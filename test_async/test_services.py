@@ -11,6 +11,11 @@ from backend.services import (
     has_valid_access_token
 )
 
+pytestmark = [
+    pytest.mark.asyncio,
+]
+
+
 class ServicesTests(TestCase):
 
     def test_has_access_to_finding(self):
@@ -23,7 +28,7 @@ class ServicesTests(TestCase):
     def test_has_access_to_event(self):
         assert has_access_to_event('unittest@fluidattacks.com', '418900971')
 
-    def test_has_valid_access_token(self):
+    async def test_has_valid_access_token(self):
         jti = 'ff6273146a0e4ed82715cdb4db7f5915b30dfa4bccc54c0d2cda17a61a44a5f6'
-        assert has_valid_access_token(
+        assert await has_valid_access_token(
             'unittest@fluidattacks.com', {'test_context': 'test_context_value'}, jti)
