@@ -1,6 +1,5 @@
 let
   pkgs = import ../pkgs/stable.nix;
-  builders.pythonPackageLocal = import ../builders/python-package-local pkgs;
   builders.pythonRequirements = import ../builders/python-requirements pkgs;
 in
   pkgs.stdenv.mkDerivation (

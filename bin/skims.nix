@@ -10,5 +10,8 @@ in
     buildInputs = [
     ];
 
-    pyPkgSkims = builders.pythonPackageLocal ../skims;
+    pyPkgSkims = builders.pythonPackageLocal {
+      path = ../skims;
+      python = pkgs.python38;
+    };
   }

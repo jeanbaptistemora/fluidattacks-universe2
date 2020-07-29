@@ -3,7 +3,9 @@ pkgs:
 let
   stringToDerivationName = import ../../lambdas/string-to-derivation-name pkgs;
 in
-  path:
+  { path,
+    python ? pkgs.python37,
+  }:
     pkgs.stdenv.mkDerivation rec {
       name = stringToDerivationName (builtins.baseNameOf path);
       inherit path;
@@ -13,7 +15,7 @@ in
 
       builder = ./builder.sh;
       buildInputs = [
-        (pkgs.python37.withPackages (ps: with ps; [
+        (python.withPackages (ps: with ps; [
           matplotlib
           pip
           python_magic

@@ -23,5 +23,5 @@ in
         requirement = "@commitlint/config-conventional@9.0.1";
       };
 
-    pyPkgReviews = builders.pythonPackageLocal ../reviews;
+    pyPkgReviews = builders.pythonPackageLocal { path = ../reviews; };
   }
