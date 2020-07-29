@@ -13,7 +13,7 @@ function job_build_front {
     &&  npm run build \
   &&  popd \
   &&  sed --in-place \
-        "s/integrates_version/v. ${FI_VERSION}/g" \
+        "s/integrates_version/${FI_VERSION}/g" \
         'app/static/dashboard/app-bundle.min.js'
 }
 

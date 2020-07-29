@@ -1,3 +1,4 @@
+import { BugsnagErrorBoundary } from "./utils/bugsnagErrorBoundary";
 import { Dashboard } from "./scenes/Dashboard";
 import LogRocket from "logrocket";
 import { NetworkStatus } from "react-apollo-network-status";
@@ -26,27 +27,29 @@ const App: React.FC = (): JSX.Element => {
 
   return (
     <React.StrictMode>
-      <BrowserRouter basename={"/integrates"}>
-        <ApolloProvider>
-          <ReduxProvider store={store}>
-            <authzPermissionsContext.Provider value={userLevelPermissions}>
-              <secureStoreContext.Provider value={secureStore}>
-                <Switch>
-                  <Route component={Registration} path={"/registration"} />
-                  <Route component={Dashboard} path={"/"} />
-                </Switch>
-              </secureStoreContext.Provider>
-              {isLoading ? <Preloader /> : undefined}
-            </authzPermissionsContext.Provider>
-          </ReduxProvider>
-        </ApolloProvider>
-      </BrowserRouter>
-      <ToastContainer
-        autoClose={5000}
-        closeOnClick={false}
-        hideProgressBar={true}
-        position={"top-right"}
-      />
+      <BugsnagErrorBoundary>
+        <BrowserRouter basename={"/integrates"}>
+          <ApolloProvider>
+            <ReduxProvider store={store}>
+              <authzPermissionsContext.Provider value={userLevelPermissions}>
+                <secureStoreContext.Provider value={secureStore}>
+                  <Switch>
+                    <Route component={Registration} path={"/registration"} />
+                    <Route component={Dashboard} path={"/"} />
+                  </Switch>
+                </secureStoreContext.Provider>
+                {isLoading ? <Preloader /> : undefined}
+              </authzPermissionsContext.Provider>
+            </ReduxProvider>
+          </ApolloProvider>
+        </BrowserRouter>
+        <ToastContainer
+          autoClose={5000}
+          closeOnClick={false}
+          hideProgressBar={true}
+          position={"top-right"}
+        />
+      </BugsnagErrorBoundary>
     </React.StrictMode>
   );
 };

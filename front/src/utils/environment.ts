@@ -1,5 +1,4 @@
 import _ from "lodash";
-import rollbar from "./rollbar";
 
 export const getEnvironment: () => string = (): string => {
   if (_.isUndefined(window)) {
@@ -14,11 +13,6 @@ export const getEnvironment: () => string = (): string => {
     } else if (currentUrl === "fluidattacks.com") {
       return "production";
     } else {
-      rollbar.error(
-        "Couldn't identify environment for url",
-        new TypeError(`Couldn't identify environment for url: ${currentUrl}`)
-      );
-
       return "production";
     }
   }

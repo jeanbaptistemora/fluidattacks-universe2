@@ -9,6 +9,7 @@
       "src/store/**",
       "src/graphics/**",
       "src/utils/+(translations|authz|forms|hooks|secureStore)/**",
+      "src/utils/bugsnagErrorBoundary.ts",
       "src/utils/environment.ts",
       "src/utils/rollbar.ts",
       "src/utils/sortHelpers.ts",

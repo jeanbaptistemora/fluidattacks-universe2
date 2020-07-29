@@ -61,7 +61,7 @@ const sidebar: React.FC<ISidebarProps> = (props: ISidebarProps): JSX.Element => 
         ) :
           <div className={style.version}><small>{translate.t(`userModal.roles.${userRole}`)}</small></div>
         }
-        <div className={style.version}><small>integrates_version</small></div>
+        <div className={style.version}><small>v. integrates_version</small></div>
         <TooltipWrapper message="Log out of Integrates" placement="right">
           <ul>
             <li onClick={onLogoutClick}><a><span className="icon pe-7s-power" /></a></li>
