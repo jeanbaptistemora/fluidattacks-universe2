@@ -338,7 +338,7 @@ class ViewTestCase(unittest.TestCase):
         tech_pdf_report = WebDriverWait(selenium, self.delay).until(
             expected.presence_of_element_located(
                 (By.XPATH,
-                    "//div[@id='techReport']//button[contains(text(), 'PDF')]")))
+                    "//div[@id='techReport']//button[contains(text(), 'Executive')]")))
         selenium.save_screenshot(SCR_PATH + '11-02-techpdf.png')
 
         self.__click(tech_pdf_report)

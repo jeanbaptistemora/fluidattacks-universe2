@@ -350,7 +350,6 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
               >
                 <Row className={style.modalContainer}>
                   <Col md={12} id="techReport">
-                    <h3>{translate.t("group.findings.report.tech_title")}</h3>
                     <Trans>
                       <p>{translate.t("group.findings.report.tech_description")}</p>
                     </Trans>

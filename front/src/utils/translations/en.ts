@@ -395,16 +395,15 @@ export const enTranslations: ResourceKey = {
           text: "Reports",
           tooltip: "Generate a report of findings and send it to your email",
         },
-        data: "  DATA",
+        data: "  Export",
         modal_close: "Close",
         modal_title: "Reports",
-        pdf: "  PDF",
+        pdf: "  Executive",
         tech_description:
-          "Technical reports are created on-demand and are protected by a <strong>passphrase</strong>. " +
+          "Reports are created on-demand and are protected by a <strong>passphrase</strong>. " +
           "The <strong>passphrase</strong> is generated randomly and will be sent to your email along " +
           "with a link to download the requested report.",
-        tech_title: "Technical Reports",
-        xls: "  XLS",
+        xls: "  Technical",
       },
       tableSet: {
         btn: {
