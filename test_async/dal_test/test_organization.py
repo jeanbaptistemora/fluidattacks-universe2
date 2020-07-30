@@ -55,13 +55,13 @@ def test__map_attributes_to_dal():
 async def test_add_group():
     org_id = 'ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3'
     groups = await org_dal.get_groups(org_id)
-    assert len(groups) == 2
+    assert len(groups) == 3
 
     group_name = 'testgroup'
     await org_dal.add_group(org_id, group_name)
     groups = await org_dal.get_groups(org_id)
-    assert len(groups) == 3
-    assert sorted(groups) == ['oneshottest', group_name, 'unittesting']
+    assert len(groups) == 4
+    assert sorted(groups) == ['continuoustesting', 'oneshottest', group_name, 'unittesting']
 
 
 @pytest.mark.changes_db
@@ -107,8 +107,8 @@ async def test_get():
 async def test_get_groups():
     org_id = 'ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3'
     groups = await org_dal.get_groups(org_id)
-    assert len(groups) == 2
-    assert sorted(groups) == ['oneshottest', 'unittesting']
+    assert len(groups) == 3
+    assert sorted(groups) == ['continuoustesting', 'oneshottest', 'unittesting']
 
 
 async def test_organizations_by_id():

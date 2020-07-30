@@ -1,15 +1,22 @@
 import asyncio
-from typing import Dict, List, Union
+from typing import Dict, List, Optional, Union
 
 from asgiref.sync import sync_to_async
 
 from backend.dal import tag as tag_dal
 from backend.domain import project as project_domain
+from backend.typing import Tag as TagType
 
 
 def get_attributes(organization: str, tag: str,
                    attributes: List[str]) -> Dict[str, Union[List[str], str]]:
     return tag_dal.get_attributes(organization, tag, attributes)
+
+
+async def get_tags(
+        organization: str,
+        attributes: Optional[List[str]] = None) -> List[TagType]:
+    return await tag_dal.get_tags(organization, attributes)
 
 
 def is_tag_allowed(user_projects: List[Dict[str, Union[str, List[str]]]],

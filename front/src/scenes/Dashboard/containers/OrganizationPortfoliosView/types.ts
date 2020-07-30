@@ -1,5 +1,5 @@
 export interface IOrganizationPortfoliosProps {
-  organizationId: string;
+  portfolios: IPortfolios[];
 }
 
 export interface IPortfolios {

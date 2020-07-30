@@ -3,8 +3,7 @@ import json
 import logging
 import sys
 from datetime import datetime, timedelta
-from collections import defaultdict
-from typing import Dict, List, Set, Any, cast
+from typing import Dict, List, Set, Any, cast, Union
 
 from ariadne import (
     convert_kwargs_to_snake_case,
@@ -26,10 +25,7 @@ from backend.api.resolvers import (
 from backend.dal.organization import (
     get_ids_for_user as get_user_organizations,
 )
-from backend.decorators import (
-    require_login,
-    enforce_user_level_auth_async
-)
+from backend.decorators import require_login
 from backend.domain import (
     organization as org_domain,
     subscriptions as subscriptions_domain,
@@ -41,7 +37,6 @@ from backend.typing import (
     Me as MeType,
     Organization as OrganizationType,
     Project as ProjectType,
-    Tag as TagType,
     SignInPayload as SignInPayloadType,
     SimplePayload as SimplePayloadType,
     UpdateAccessTokenPayload as UpdateAccessTokenPayloadType,
@@ -157,43 +152,32 @@ async def _get_permissions(
     return permissions
 
 
-@enforce_user_level_auth_async
 async def _get_tags(
-        info: GraphQLResolveInfo,
-        user_email: str) -> List[TagType]:
+    _: GraphQLResolveInfo,
+    user_email: str,
+    organization_id: str
+) -> List[Dict[str, Union[str, List[Dict[str, str]]]]]:
     """Get tags."""
-    projects = await user_domain.get_projects(
-        user_email, access_pending_projects=False)
-    tags_dict: Dict[str, List[Dict[str, str]]] = defaultdict(list)
-    organization: str = '-'
-    if projects:
-        project_attrs = await info.context.loaders['project'].load(projects[0])
-        project_attrs = project_attrs['attrs']
-        org_id = await org_domain.get_id_for_group(
-            project_attrs['project_name']
-        )
-        organization = await org_domain.get_name_by_id(org_id)
-    projects_filtered: List[str] = []
-    for project in projects:
-        project_attrs = await info.context.loaders['project'].load(project)
-        project_attrs = project_attrs['attrs']
-        if project_attrs.get('project_status', '') == 'ACTIVE':
-            projects_filtered.append(project_attrs.get('project_name', ''))
-            project_tag = project_attrs.get('tag', [])
-            for tag in project_tag:
-                tags_dict[tag].append(dict(name=project))
-    tags = []
-    allowed_tags = await tag_domain.filter_allowed_tags(
-        organization, projects_filtered
+    org_name = await org_domain.get_name_by_id(organization_id)
+    org_tags = await tag_domain.get_tags(org_name, ['projects', 'tag'])
+    user_groups = await user_domain.get_projects(
+        user_email, organization_id=organization_id
     )
-    for tag, projects in tags_dict.items():
-        tags.append(dict(name=tag, projects=projects))
-    tags = [
-        tag
-        for tag in tags
-        if tag.get('name', '') in allowed_tags
+    tag_info: List[Dict[str, Union[str, List[Dict[str, str]]]]] = [
+        {
+            'name': str(tag['tag']),
+            'projects': [
+                {'name': str(group)}
+                for group in cast(List[str], tag['projects'])
+            ]
+        }
+        for tag in org_tags
+        if all([
+            group in user_groups
+            for group in cast(List[str], tag['projects'])
+        ])
     ]
-    return tags
+    return tag_info
 
 
 async def _get_caller_origin(

@@ -19,7 +19,7 @@ import { OrganizationGroups } from "../OrganizationGroupsView";
 import { OrganizationPolicies } from "../OrganizationPoliciesView/index";
 import { OrganizationPortfolios } from "../OrganizationPortfoliosView/index";
 import { OrganizationUsers } from "../OrganizationUsersView/index";
-import { GET_ORGANIZATION_ID } from "./queries";
+import { GET_ORGANIZATION_ID, GET_USER_PORTFOLIOS } from "./queries";
 import { IOrganizationContent, IOrganizationPermission } from "./types";
 
 const organizationContent: React.FC<IOrganizationContent> = (props: IOrganizationContent): JSX.Element => {
@@ -48,6 +48,19 @@ const organizationContent: React.FC<IOrganizationContent> = (props: IOrganizatio
     },
   });
 
+  const { data: portfoliosData } = useQuery(GET_USER_PORTFOLIOS, {
+    onError: ({ graphQLErrors }: ApolloError): void => {
+      graphQLErrors.forEach((error: GraphQLError): void => {
+        msgError(translate.t("group_alerts.error_textsad"));
+        rollbar.error("An error occurred fetching user portfolios", error);
+      });
+    },
+    skip: !basicData,
+    variables: {
+      organizationId: basicData && basicData.organizationId.id,
+    },
+  });
+
   useQuery(GET_USER_PERMISSIONS, {
     onCompleted: (permData: IOrganizationPermission): void => {
       if (!_.isUndefined(permData)) {
@@ -70,7 +83,8 @@ const organizationContent: React.FC<IOrganizationContent> = (props: IOrganizatio
     },
   });
 
-  if (_.isUndefined(basicData) || _.isEmpty(basicData)) {
+  // Render Elements
+  if (_.isUndefined(portfoliosData) || _.isEmpty(portfoliosData)) {
     return <React.Fragment />;
   }
 
@@ -95,16 +109,19 @@ const organizationContent: React.FC<IOrganizationContent> = (props: IOrganizatio
                   title={translate.t("organization.tabs.groups.text")}
                   tooltip={translate.t("organization.tabs.groups.tooltip")}
                 />
-                <Can do="backend_api_resolvers_me__get_tags">
-                  <ContentTab
+                {portfoliosData.me.tags.length > 0
+                  ? (
+                    <ContentTab
                     icon="icon pe-7s-display2"
                     id="portfoliosTab"
                     link={`${url}/portfolios`}
                     plus={{ visible: true }}
                     title={translate.t("organization.tabs.portfolios.text")}
                     tooltip={translate.t("organization.tabs.portfolios.tooltip")}
-                  />
-                </Can>
+                    />
+                  )
+                  : <React.Fragment />
+                }
                 <Can do="backend_api_resolvers_organization__get_users">
                   <ContentTab
                     icon="icon pe-7s-users"
@@ -133,7 +150,7 @@ const organizationContent: React.FC<IOrganizationContent> = (props: IOrganizatio
                   <OrganizationGroups organizationId={basicData.organizationId.id} />
                 </Route>
                 <Route path={`${path}/portfolios`} exact={true}>
-                  <OrganizationPortfolios organizationId={basicData.organizationId.id} />
+                  <OrganizationPortfolios portfolios={portfoliosData.me.tags}/>
                 </Route>
                 <Route path={`${path}/users`} exact={true}>
                   <OrganizationUsers organizationId={basicData.organizationId.id} />

@@ -12,7 +12,6 @@ from graphql.type.definition import GraphQLResolveInfo
 
 from backend.api.resolvers import project as project_loader
 from backend.decorators import (
-    enforce_user_level_auth_async,
     get_entity_cache_async,
     require_login
 )
@@ -237,7 +236,6 @@ async def _get_mean_remediate_critical_severity(
 
 @convert_kwargs_to_snake_case  # type: ignore
 @require_login
-@enforce_user_level_auth_async
 async def resolve_tag(_: Any, info: GraphQLResolveInfo, tag: str) -> TagType:
     """Resolve alert query."""
     tag = tag.lower()

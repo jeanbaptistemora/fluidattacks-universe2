@@ -1,15 +1,19 @@
 import logging
 from decimal import Decimal
-from typing import Dict, List, Union
+from typing import Dict, List, Optional, Union
 
+from boto3.dynamodb.conditions import Key
 from botocore.exceptions import ClientError
+
 from backend.dal.helpers import dynamodb
+from backend.typing import Tag as TagType
 
 
 # Constants
 DYNAMODB_RESOURCE = dynamodb.DYNAMODB_RESOURCE  # type: ignore
 LOGGER = logging.getLogger(__name__)
-TABLE = DYNAMODB_RESOURCE.Table('fi_portfolios')
+TABLE_NAME = 'fi_portfolios'
+TABLE = DYNAMODB_RESOURCE.Table(TABLE_NAME)
 
 
 def update(organization: str, tag: str,
@@ -65,3 +69,22 @@ def get_attributes(organization: str, tag: str,
     }
     response = TABLE.get_item(**item_attrs)
     return response.get('Item', {})
+
+
+async def get_tags(
+        organization: str,
+        attributes: Optional[List[str]]) -> List[TagType]:
+    tags: List[TagType] = []
+
+    query_attrs = {
+        'KeyConditionExpression': Key('organization').eq(organization)
+    }
+    if attributes:
+        projection = ','.join(attributes)
+        query_attrs.update({'ProjectionExpression': projection})
+
+    try:
+        tags = await dynamodb.async_query(TABLE_NAME, query_attrs)
+    except ClientError as ex:
+        LOGGER.exception(ex, extra={'extra': locals()})
+    return tags

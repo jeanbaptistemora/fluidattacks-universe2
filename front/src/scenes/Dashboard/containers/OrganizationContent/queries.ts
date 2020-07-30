@@ -8,3 +8,16 @@ export const GET_ORGANIZATION_ID: DocumentNode = gql`
   }
 }
 `;
+
+export const GET_USER_PORTFOLIOS: DocumentNode = gql`
+  query GetUserPortfolios($organizationId: String!) {
+    me(callerOrigin: "FRONT") {
+      tags(organizationId: $organizationId) {
+        name
+        projects {
+          name
+        }
+      }
+    }
+  }
+`;

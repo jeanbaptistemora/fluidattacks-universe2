@@ -1,49 +1,23 @@
-import { useQuery } from "@apollo/react-hooks";
-import { PureAbility } from "@casl/ability";
-import { useAbility } from "@casl/react";
-import { ApolloError } from "apollo-client";
-import { GraphQLError } from "graphql";
 import _ from "lodash";
 import React from "react";
 import { ButtonToolbar, Col, Glyphicon, Row, ToggleButton, ToggleButtonGroup } from "react-bootstrap";
 import { useHistory, useRouteMatch } from "react-router";
 import { DataTableNext } from "../../../../components/DataTableNext/index";
 import { IHeaderConfig } from "../../../../components/DataTableNext/types";
-import { authzPermissionsContext } from "../../../../utils/authz/config";
 import { useStoredState } from "../../../../utils/hooks";
-import { msgError } from "../../../../utils/notifications";
-import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
 import { ProjectBox } from "../../components/ProjectBox";
 import { default as style } from "../OrganizationGroupsView/index.css";
-import { GET_USER_PORTFOLIOS } from "./queries";
 import { IOrganizationPortfoliosProps, IPortfolios, IPortfoliosTable } from "./types";
 
 const organizationPortfolios: React.FC<IOrganizationPortfoliosProps> =
   (props: IOrganizationPortfoliosProps): JSX.Element => {
-    const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
+    const portfoliosList: IPortfolios[] = props.portfolios;
     const { url } = useRouteMatch();
     const { push } = useHistory();
 
     // State Management
     const [display, setDisplay] = useStoredState("portfoliosDisplay", { mode: "grid" }, localStorage);
-
-    // GraphQL Operations
-    const { data } = useQuery(GET_USER_PORTFOLIOS, {
-      onError: ({ graphQLErrors }: ApolloError): void => {
-        graphQLErrors.forEach((error: GraphQLError): void => {
-          msgError(translate.t("group_alerts.error_textsad"));
-          rollbar.error("An error occurred fetching user portfolios", error);
-        });
-      },
-      variables: {
-        allowed: permissions.can("backend_api_resolvers_me__get_tags"),
-      },
-    });
-
-    const portfoliosList: IPortfolios[] = _.isEmpty(data) || _.isUndefined(data)
-      ? []
-      : data.me.tags;
 
     // Auxiliary Opertaions
     const formatPortfolioDescription: ((groups: Array<{ name: string }>) => string) =

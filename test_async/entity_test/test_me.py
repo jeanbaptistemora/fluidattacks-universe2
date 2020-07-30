@@ -28,7 +28,7 @@ class MeTests(TestCase):
                     name
                     description
                 }
-                tags {
+                tags(organizationId: "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3") {
                     name
                     projects {
                         name

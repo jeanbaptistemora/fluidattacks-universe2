@@ -185,7 +185,7 @@ type Me {
     remember: Boolean
     role(entity: Entity!, identifier: String): String
     subscriptionsToEntityReport: [EntityReportSubscription]
-    tags: [Tag!]
+    tags(organizationId: String!): [Tag!]
     permissions(entity: Entity!, identifier: String): [String]
     callerOrigin: CallerOrigin
 }
