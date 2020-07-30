@@ -16,8 +16,8 @@ a|== Offensive Security Certified Expert (OSCE)
 
 `OSCE` is a certification focused on advanced penetration testing skills,
 created by `Offensive Security`.
-Performing an intense 48hour exam,
-the professionals have to prove they can develop exploits,
+In an intense 48-hour exam,
+the professionals prove they can develop exploits,
 execute attacks, and obtain administrative access.
 `OSCEs` can think outside the box
 and perform with persistence, even under pressure.
@@ -31,7 +31,7 @@ offensive information security certification.
 It requires the professionals to prove
 that they have a clear understanding
 of the penetration testing process and life cycle
-through an arduous 24hour exam.
+through an arduous 24-hour exam.
 
 a|image::logo-oscp.png[logo oscp]
 

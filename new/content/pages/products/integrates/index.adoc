@@ -39,18 +39,17 @@ After a vulnerability has been remediated
 you can ask Fluid Attacks for documentation.
 
 [role="w-25-ns w-90 dib tl v-top pa3"]
-== Forces and Exploitation-Animation
+== Continuous Integration Control
 
 [role="fw1 f-key-features lh-key-features"]
-Within Integrates, Forces (Fluid Attacks' product)
-displays the diagnostic script used to expose, or exploit,
-a security vulnerability. This same script can also be
-used to verify that your company's solution to a
-particular problem has been successful. In addition,
-with the Exploitation-Animation option,
-a gif allows you to see
-an animated representation of the process
-used to exploit a vulnerability.
+Integrates allows you to monitor what is happening
+in the Continuous Integration pipeline.
+You can check at any time what has been found in your tested system,
+as well as all information
+related to the use of Forces (Fluid Attacks' product).
+Forces works on the information provided by Integrates
+about the state of the vulnerabilities found,
+and from that, it breaks the build if required.
 
 [role="w-25-ns w-90 dib tl v-top pa3"]
 == Compromised Records and Real-Time Events

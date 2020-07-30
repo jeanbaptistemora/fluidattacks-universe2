@@ -15,4 +15,4 @@ the infrastructure, and the source code.
 The testing needs access to the *GIT* repository
 and the integration environment.
 The selected system is attacked repeatedly to test all existing versions
-and uses various techniques like *SAST*, *DAST*, *IAST* and *SCA*.
+by using various techniques such as *SAST*, *DAST*, *IAST* and *SCA*.

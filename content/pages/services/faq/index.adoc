@@ -512,7 +512,7 @@ your proprietary rights to that code.
  and programs the setup of the verification and access robots.
  . The project leader creates an admin user in link:../../products/integrates/[Integrates] for the client.
  . The admin user invites all project stakeholders including the developers.
- (They must have `Google Apps` or `Office365`)
+ (They must have `Google Apps` or `Office365`.)
  . Vulnerabilities are reported in link:../../products/integrates/[Integrates].
  . Project stakeholders access vulnerabilities and start remediation.
  . If any questions or problems arise,
@@ -520,7 +520,7 @@ your proprietary rights to that code.
  . When the client has remediated the reported vulnerabilities,
  they may request validation of their repairs through link:../../products/integrates/[Integrates].
  . Our hacker performs the closure verification and updates the report.
- . Steps `3` - `7` are repeated until subscription ends.
+ . Steps `3` - `7` are repeated until the subscription ends.
 
 *What technical conditions do I need to meet*::
 *if I want to use Asserts inside my continuous integrator?*::
@@ -529,7 +529,7 @@ your proprietary rights to that code.
  and has access to the internet.
 
 *Is there documentation for Asserts?*::
-Yes, it is available by going into link:https://fluidattacks.com/asserts/[Asserts page].
+Yes, it is available on the link:https://fluidattacks.com/asserts/[Asserts page].
 
 *Is it possible to group multiple applications into one subscription?*::
 *How would I recognize the vulnerabilities within each application?*::
@@ -555,11 +555,12 @@ both statically and dynamically.
 *while the test is taking place?*::
  It is possible to cause an accidental `DoS` during the hacking service.
  We recommend including only the staging phase in the scope.
- However, many customers decide to also include
+ However, many clients decide to also include
  the production stage in the tests.
  It is unusual for us to take down environments
  because when we foresee a possible breakpoint,
- we ask the customer for a special environment for such a test.
+ we ask the client for a special environment
+ within which to carry out the test.
 
 *What happens if I want to review different environments*::
 *of the same application?*::
@@ -570,9 +571,9 @@ both statically and dynamically.
 *how long does it take to get an answer?*::
  All questions made through the vulnerabilities comment system,
  have a `4` business hours `SLA`. M - F
- from `8AM` to `12` noon and `2PM` to `6PM`.
+ from `8AM` to `12` noon and `2PM` to `6PM`
  (`UTC-5` Colombia = same as Eastern Standard Time `USA`).
  `SLA` is not contractually defined, it is our value promise.
 
  *Do you have liability insurance?*::
- Yes, `1M USD`.
+ Yes, `1M USD` coverage.

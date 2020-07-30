@@ -34,10 +34,10 @@ image::product-forces.png[link="../products/forces/"]
 
 == Forces
 
-*Forces* is a precise and very fast robot
+*Forces* is a precise and very fast robot,
 built to verify what is found in exact locations within the systems.
-*Forces* is integrated with CI with the goal of verifying the status
-(open or closed) of vulnerabilities, and breaks the build to force
-the remediation of open vulnerabilities.
+It is designed for CI and has the goal of verifying the status
+(open or closed) of vulnerabilities, as well as breaking the build
+to force the remediation of open vulnerabilities.
 [role="tc mt3 mb-products f5"]
 [button]#link:./forces/[View Product, role="button-white"]#

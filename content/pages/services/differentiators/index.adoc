@@ -152,12 +152,9 @@ a|{yes} Integrable with any development method, such as:
 * Agile.
 * `DevOps`.
 
-[button]#link:../../use-cases/continuous-hacking/[Continuous Hacking]#, +
-{sp} +
-[button]#link:../../products/integrates/[Integrates]# +
-{sp} +
-and [button]#link:../../asserts/[Asserts]# +
-{sp} +
+[button]#link:../../use-cases/continuous-hacking/[Continuous Hacking]#,
+[button]#link:../../products/integrates/[Integrates]#
+and [button]#link:../../asserts/[Asserts]#
 fit perfectly for the last 2 use cases.
 a|{no} Integrable with a single development method:
 
