@@ -1,31 +1,44 @@
 """Fluid Forces Integrates api client."""
 # Standard library
 import contextlib
+import sys
 from contextvars import (
     ContextVar,
     Token,
 )
 from typing import (
     Any,
+    Dict,
     AsyncIterator,
+    TypeVar
 )
 
 # Third party libraries
-from gql import (
-    AIOHTTPTransport,
-    Client,
+from aiohttp.client_exceptions import (
+    ClientConnectorError,
 )
 from gql.client import (
     AsyncClientSession,
+)
+from gql import (
+    AIOHTTPTransport,
+    Client,
+    gql,
+)
+from gql.transport.exceptions import (
+    TransportQueryError,
 )
 
 # Local libraries
 from forces.apis.integrates import (
     get_api_token,
 )
-
+from forces.utils.logs import (
+    log,
+)
 # Context
 SESSION: ContextVar[AsyncClientSession] = ContextVar('SESSION')
+TVar = TypeVar('TVar')
 
 
 def get_transport(
@@ -66,3 +79,23 @@ async def session(
                 yield SESSION.get()
             finally:
                 SESSION.reset(token)
+
+
+async def execute(query: str,
+                  variables: Dict[str, Any],
+                  default: Any = None,
+                  **kwargs: Any) -> TVar:
+    async with session(**kwargs) as client:
+        gql_query = gql(query)
+        response: Any = default
+        try:
+            response = await client.execute(
+                gql_query, variable_values=variables)
+        except ClientConnectorError as exc:
+            await log('error', str(exc))
+            sys.exit(1)
+        except TransportQueryError as exc:
+            await log('warning', ('The token may be invalid or does '
+                                  'not have the required permissions'))
+            await log('error', exc.errors[0]['message'])
+        return response  # type: ignore

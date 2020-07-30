@@ -9,23 +9,10 @@ from typing import (
     List,
     Union,
 )
-import sys
 # 3dr Imports
-from gql import (
-    gql,
-)
-from gql.transport.exceptions import (
-    TransportQueryError,
-)
-from aiohttp.client_exceptions import (
-    ClientConnectorError,
-)
 
 # Local Library
-from forces.apis.integrates.client import (
-    session,
-)
-from forces.utils.logs import log as logger
+from forces.apis.integrates.client import (execute)
 
 
 async def get_findings(project: str, **kwargs: str) -> List[str]:
@@ -35,7 +22,7 @@ async def get_findings(project: str, **kwargs: str) -> List[str]:
     :param client: gql Client.
     :param project: Project name.
     """
-    query = gql("""
+    query = """
         query GetProjectFindings($project_name: String!) {
           project (projectName: $project_name) {
             findings {
@@ -43,23 +30,18 @@ async def get_findings(project: str, **kwargs: str) -> List[str]:
             }
           }
         }
-        """)
-    async with session(**kwargs) as client:
-        params = {'project_name': project}
-        findings: List[str] = []
-        try:
-            result: Dict[str, Dict[str, Any]] = await client.execute(
-                query, variable_values=params)
-            findings = [group['id'] for group in result['project']['findings']]
-        except ClientConnectorError as exc:
-            await logger('error', str(exc))
-            sys.exit(1)
-        except TransportQueryError as exc:
-            await logger('warning', f"{project}'s findings cannot be obtained")
-            await logger('warning', ('The token may be invalid or does '
-                                     'not have the required permissions'))
-            await logger('error', exc.errors[0]['message'])
-        return findings
+        """
+
+    params = {'project_name': project}
+    result: Dict[str, Dict[str, List[Any]]] = await execute(
+        query=query, variables=params, default=dict(), **kwargs)
+
+    findings: List[str] = [
+        group['id']
+        for group in result.get('project', dict()).get('findings', [])
+    ]
+
+    return findings
 
 
 async def get_vulnerabilities(
@@ -71,7 +53,7 @@ async def get_vulnerabilities(
     :param client: gql Client.
     :param finding: Finding identifier.
     """
-    query = gql("""
+    query = """
         query GetFindingVulnerabilities($finding_id: String!){
           finding(identifier: $finding_id) {
             vulnerabilities {
@@ -83,23 +65,12 @@ async def get_vulnerabilities(
             }
           }
         }
-        """)
-    async with session(**kwargs) as client:
-        params = {'finding_id': finding}
-        result = []
-        try:
-            response = await client.execute(query, variable_values=params)
-            result = response['finding']['vulnerabilities']
-        except ClientConnectorError as exc:
-            await logger('error', str(exc))
-            sys.exit(1)
-        except TransportQueryError as exc:
-            await logger('warning', (f'the vulnerability of finding {finding}'
-                                     ' cannot be obtained'))
-            await logger('warning', ('The token may be invalid or does not'
-                                     ' have the required permissions'))
-            await logger('error', exc.errors[0]['message'])
-        return result
+        """
+
+    params = {'finding_id': finding}
+    response: Dict[str, Dict[str, List[Any]]] = await execute(
+        query=query, variables=params, default=dict(), **kwargs)
+    return response.get('finding', dict()).get('vulnerabilities', list())
 
 
 async def get_finding(finding: str, **kwargs: str) -> Dict[str, str]:
@@ -108,7 +79,7 @@ async def get_finding(finding: str, **kwargs: str) -> Dict[str, str]:
 
     :param finding: Finding identifier.
     """
-    query = gql("""
+    query = """
         query GetFinding($finding_id: String!) {
           finding(identifier: $finding_id) {
             title
@@ -116,22 +87,11 @@ async def get_finding(finding: str, **kwargs: str) -> Dict[str, str]:
             state
           }
         }
-        """)
-    async with session(**kwargs) as client:
-        params = {'finding_id': finding}
-        result: Dict[str, str] = {}
-        try:
-            response = await client.execute(query, variable_values=params)
-            result = response['finding']
-        except ClientConnectorError as exc:
-            await logger('error', str(exc))
-            sys.exit(1)
-        except TransportQueryError as exc:
-            await logger('warning', f'cannot find finding {finding}')
-            await logger('warning', ('The token may be invalid or does not'
-                                     ' have the required permissions'))
-            await logger('error', exc.errors[0]['message'])
-        return result
+        """
+    params = {'finding_id': finding}
+    response: Dict[str, str] = await execute(
+        query=query, variables=params, default=dict(), **kwargs)
+    return response.get('finding', dict())  # type: ignore
 
 
 async def vulns_generator(project: str, **kwargs: str) -> AsyncGenerator[Dict[
@@ -148,24 +108,22 @@ async def vulns_generator(project: str, **kwargs: str) -> AsyncGenerator[Dict[
             yield vuln
 
 
-async def upload_report(project: str,
-                        report: Dict[str, Any],
-                        log: str,
+async def upload_report(project: str, report: Dict[str, Any], log: str,
                         git_metadata: Dict[str, str],
                         **kwargs: Union[datetime, str]) -> bool:
     """
     Upload report execution to Integrates.
 
-    :param project:
-    :param execution_id:
-    :param exit_code:
-    :param report:
-    :param log:
-    :param strictness:
-    :param git_metadata:
-    :param date:
+    :param project: Subscription name.
+    :param execution_id: ID of forces execution.
+    :param exit_code: Exit code.
+    :param report: Forces execution report.
+    :param log: Forces execution log.
+    :param strictness: Strictness execution.
+    :param git_metadata: Repository metadata.
+    :param date: Forces execution date.
     """
-    query = gql("""
+    query = """
         mutation UploadReport(
             $project_name: String!
             $execution_id: String!
@@ -206,7 +164,7 @@ async def upload_report(project: str,
                 success
             }
         }
-        """)
+        """
     exploits: List[Dict[str, str]] = []
     accepted: List[Dict[str, str]] = []
     for vuln in [
@@ -239,17 +197,6 @@ async def upload_report(project: str,
         'num_exploits': report['summary']['open'] + report['summary']['open']
     }
 
-    async with session(**kwargs) as client:
-        result = False
-        try:
-            response = await client.execute(query, variable_values=params)
-            result = response['addForcesExecution']['success']
-        except ClientConnectorError as exc:
-            await logger('error', str(exc))
-            sys.exit(1)
-        except TransportQueryError as exc:
-            await logger('warning', 'Cannot upload report')
-            await logger('warning', ('The token may be invalid or does not'
-                                     ' have the required permissions'))
-            await logger('error', exc.errors[0]['message'])
-        return result
+    response: Dict[str, Dict[str, bool]] = await execute(
+        query=query, variables=params, default={}, **kwargs)
+    return response.get('addForcesExecution', dict()).get('success', False)
