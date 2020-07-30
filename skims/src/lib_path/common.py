@@ -63,9 +63,10 @@ def blocking_get_matching_lines(
     return matches
 
 
-def blocking_get_vulnerabilities(
+def blocking_get_vulnerabilities(  # pylint: disable=too-many-arguments
     char_to_yx_map: Dict[int, Tuple[int, int]],
     content: str,
+    description: str,
     finding: FindingEnum,
     grammar: ParserElement,
     path: str,
@@ -78,6 +79,7 @@ def blocking_get_vulnerabilities(
             what=path,
             where=f'{match.start_line}',
             skims_metadata=SkimsVulnerabilityMetadata(
+                description=description,
                 grammar_match=match,
                 snippet=blocking_to_snippet(
                     column=match.start_column,

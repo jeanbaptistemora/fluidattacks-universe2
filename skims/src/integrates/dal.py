@@ -29,6 +29,7 @@ from utils.logs import (
 from utils.model import (
     FindingEnum,
     FindingEvidenceID,
+    FindingEvidenceDescriptionID,
     FindingReleaseStatus,
     IntegratesVulnerabilityMetadata,
     Vulnerability,
@@ -464,6 +465,41 @@ async def do_update_evidence(
     )
 
     success: bool = result['data']['updateEvidence']['success']
+
+    return success
+
+
+@RETRY
+async def do_update_evidence_description(
+    *,
+    evidence_description: str,
+    evidence_description_id: FindingEvidenceDescriptionID,
+    finding_id: str,
+) -> bool:
+    result = await _execute(
+        query="""
+            mutation DoUpdateEvidenceDescription(
+                $evidence_description: String!
+                $evidence_description_id: EvidenceDescriptionType!
+                $finding_id: String!
+            ) {
+                updateEvidenceDescription(
+                    description: $evidence_description
+                    evidenceId: $evidence_description_id
+                    findingId: $finding_id
+                ) {
+                    success
+                }
+            }
+        """,
+        variables=dict(
+            evidence_description=evidence_description,
+            evidence_description_id=evidence_description_id.value,
+            finding_id=finding_id,
+        )
+    )
+
+    success: bool = result['data']['updateEvidenceDescription']['success']
 
     return success
 

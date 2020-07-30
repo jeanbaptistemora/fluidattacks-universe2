@@ -16,6 +16,7 @@ from integrates.graphql import (
 from integrates.dal import (
     do_release_vulnerability,
     do_update_evidence,
+    do_update_evidence_description,
     get_finding_vulnerabilities,
     get_group_findings,
     get_group_level_role,
@@ -35,6 +36,7 @@ from utils.logs import (
 from utils.model import (
     FindingEnum,
     FindingEvidenceID,
+    FindingEvidenceDescriptionID,
     IntegratesVulnerabilityMetadata,
     Vulnerability,
     VulnerabilityApprovalStatusEnum,
@@ -51,36 +53,55 @@ async def upload_evidences(
     finding_id: str,
     results: Tuple[Vulnerability, ...],
 ) -> bool:
-    evidence_ids: Tuple[FindingEvidenceID, ...] = (
-        FindingEvidenceID.EVIDENCE1,
-        FindingEvidenceID.EVIDENCE2,
-        FindingEvidenceID.EVIDENCE3,
-        FindingEvidenceID.EVIDENCE4,
-        FindingEvidenceID.EVIDENCE5,
+    evidence_ids: (
+        Tuple[Tuple[FindingEvidenceID, FindingEvidenceDescriptionID], ...]
+    ) = (
+        (FindingEvidenceID.EVIDENCE1, FindingEvidenceDescriptionID.EVIDENCE1),
+        (FindingEvidenceID.EVIDENCE2, FindingEvidenceDescriptionID.EVIDENCE2),
+        (FindingEvidenceID.EVIDENCE3, FindingEvidenceDescriptionID.EVIDENCE3),
+        (FindingEvidenceID.EVIDENCE4, FindingEvidenceDescriptionID.EVIDENCE4),
+        (FindingEvidenceID.EVIDENCE5, FindingEvidenceDescriptionID.EVIDENCE5),
     )
     number_of_samples: int = min(len(results), len(evidence_ids))
+    result_samples: Tuple[Vulnerability, ...] = tuple(
+        random.sample(results, k=number_of_samples),
+    )
 
     evidence_streams: Tuple[BytesIO, ...] = await materialize(
         to_png(string=result.skims_metadata.snippet)
-        for result in (
-            random.sample(results, k=number_of_samples)
-        )
+        for result in result_samples
+        if result.skims_metadata
+    )
+    evidence_descriptions: Tuple[str, ...] = tuple(
+        result.skims_metadata.description
+        for result in result_samples
         if result.skims_metadata
     )
 
-    return all(
-        await materialize(
+    return all((
+        *await materialize(
             do_update_evidence(
                 evidence_id=evidence_id,
                 evidence_stream=evidence_stream,
                 finding_id=finding_id,
             )
-            for evidence_id, evidence_stream in zip(
+            for (evidence_id, _), evidence_stream in zip(
                 evidence_ids,
                 evidence_streams,
             )
+        ),
+        *await materialize(
+            do_update_evidence_description(
+                evidence_description_id=evidence_description_id,
+                evidence_description=evidence_description,
+                finding_id=finding_id,
+            )
+            for (_, evidence_description_id), evidence_description in zip(
+                evidence_ids,
+                evidence_descriptions,
+            )
         )
-    )
+    ))
 
 
 async def approve_skims_vulnerabilities(

@@ -13,6 +13,10 @@ from typing import (
 
 
 def prettify(multiline_str: str) -> str:
+    return ' '.join(prettify_respecting_new_lines(multiline_str).splitlines())
+
+
+def prettify_respecting_new_lines(multiline_str: str) -> str:
     return dedent(multiline_str)[1:-1]
 
 
@@ -45,36 +49,37 @@ class FindingEnum(Enum):
             strong by experts in the field, and select well-tested
             implementations with adequate length seeds.
         """),
-        requirements=prettify("""
-            R223. Uniform distribution in random numbers
-            R224. Use secure cryptographic mechanisms
+        requirements=prettify_respecting_new_lines("""
+            R223. Uniform distribution in random numbers.
+            R224. Use secure cryptographic mechanisms.
         """),
         risk=prettify("""
             An attacker could guess the generation sequence within a
             reasonable time or predict results using probabilistic methods.
         """),
         threat=prettify("""
-            External attacker over the Internet.
+            External attacker with enough privileges to access
+            the affected component.
         """),
         severity={
-            'attackComplexity': 0.77,
+            'attackComplexity': 0.44,
             'attackVector': 0.85,
             'availabilityImpact': 0.0,
             'availabilityRequirement': 0.5,
             'confidentialityImpact': 0.22,
             'confidentialityRequirement': 0.5,
             'exploitability': 0.94,
-            'integrityImpact': 0.22,
+            'integrityImpact': 0.0,
             'integrityRequirement': 0.5,
-            'modifiedAttackComplexity': 0.77,
-            'modifiedAttackVector': 0.55,
+            'modifiedAttackComplexity': 0.44,
+            'modifiedAttackVector': 0.85,
             'modifiedAvailabilityImpact': 0.0,
             'modifiedConfidentialityImpact': 0.22,
-            'modifiedIntegrityImpact': 0.22,
-            'modifiedPrivilegesRequired': 0.85,
+            'modifiedIntegrityImpact': 0.0,
+            'modifiedPrivilegesRequired': 0.62,
             'modifiedUserInteraction': 0.85,
             'modifiedSeverityScope': 0.0,
-            'privilegesRequired': 0.85,
+            'privilegesRequired': 0.62,
             'remediationLevel': 0.95,
             'reportConfidence': 1.0,
             'severityScope': 0.0,
@@ -95,6 +100,14 @@ class FindingEvidenceID(Enum):
     EXPLOIT: str = 'EXPLOIT'
     EXPLOITATION: str = 'EXPLOITATION'
     RECORDS: str = 'RECORDS'
+
+
+class FindingEvidenceDescriptionID(Enum):
+    EVIDENCE1: str = 'EVIDENCE1'
+    EVIDENCE2: str = 'EVIDENCE2'
+    EVIDENCE3: str = 'EVIDENCE3'
+    EVIDENCE4: str = 'EVIDENCE4'
+    EVIDENCE5: str = 'EVIDENCE5'
 
 
 class FindingReleaseStatus(Enum):
@@ -141,6 +154,7 @@ class IntegratesVulnerabilityMetadata(NamedTuple):
 
 
 class SkimsVulnerabilityMetadata(NamedTuple):
+    description: str
     snippet: str
 
     grammar_match: Optional[GrammarMatch] = None

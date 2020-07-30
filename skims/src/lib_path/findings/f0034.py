@@ -59,45 +59,71 @@ def csharp_insecure_randoms(
     return blocking_get_vulnerabilities(
         char_to_yx_map=char_to_yx_map,
         content=content,
+        description='Use of C# System.Random',
         finding=FindingEnum.F0034,
         grammar=grammar,
         path=path,
     )
 
 
-def java_insecure_randoms(
+def java_use_of_lang_math_random(
+    char_to_yx_map: Dict[int, Tuple[int, int]],
+    content: str,
+    path: str,
+) -> Tuple[Vulnerability, ...]:
+    _java = Keyword('java')
+    _lang = Keyword('lang')
+    _math = Keyword('Math')
+    _import = Keyword('import')
+    _random = Keyword('random')
+
+    grammar_lang_math_random = MatchFirst([
+        # Math.random()
+        _math + '.' + _random + nestedExpr(),
+        # import java.lang.Math.random
+        _import + _java + '.' + _lang + '.' + _math + '.' + _random,
+    ])
+    grammar_lang_math_random.ignore(C_STYLE_COMMENT)
+    grammar_lang_math_random.ignore(SINGLE_QUOTED_STRING)
+    grammar_lang_math_random.ignore(DOUBLE_QUOTED_STRING)
+
+    return blocking_get_vulnerabilities(
+        char_to_yx_map=char_to_yx_map,
+        content=content,
+        description='Use of Java lang.Math.random',
+        finding=FindingEnum.F0034,
+        grammar=grammar_lang_math_random,
+        path=path,
+    )
+
+
+def java_use_of_util_random(
     char_to_yx_map: Dict[int, Tuple[int, int]],
     content: str,
     path: str,
 ) -> Tuple[Vulnerability, ...]:
     _java = Keyword('java')
     _util = Keyword('util')
-    _lang = Keyword('lang')
-    _math = Keyword('Math')
     _import = Keyword('import')
-    _random_minus = Keyword('random')
-    _random_title = Keyword('Random')
+    _random = Keyword('Random')
     _args = nestedExpr()
 
-    grammar = MatchFirst([
+    grammar_util_random = MatchFirst([
         # util.Random()
-        _util + '.' + _random_title + _args,
-        # Math.random()
-        _math + '.' + _random_minus + _args,
+        _util + '.' + _random + _args,
         # import java.util.Random
-        _import + _java + '.' + _util + '.' + _random_title,
-        # import java.lang.Math.random
-        _import + _java + '.' + _lang + '.' + _math + '.' + _random_minus,
+        _import + _java + '.' + _util + '.' + _random,
     ])
-    grammar.ignore(C_STYLE_COMMENT)
-    grammar.ignore(SINGLE_QUOTED_STRING)
-    grammar.ignore(DOUBLE_QUOTED_STRING)
+    grammar_util_random.ignore(C_STYLE_COMMENT)
+    grammar_util_random.ignore(SINGLE_QUOTED_STRING)
+    grammar_util_random.ignore(DOUBLE_QUOTED_STRING)
 
     return blocking_get_vulnerabilities(
         char_to_yx_map=char_to_yx_map,
         content=content,
+        description='Use of Java util.Random',
         finding=FindingEnum.F0034,
-        grammar=grammar,
+        grammar=grammar_util_random,
         path=path,
     )
 
@@ -115,6 +141,7 @@ def javascript_insecure_randoms(
     return blocking_get_vulnerabilities(
         char_to_yx_map=char_to_yx_map,
         content=content,
+        description='Use of Javascript Math.random',
         finding=FindingEnum.F0034,
         grammar=grammar,
         path=path,
@@ -138,7 +165,13 @@ async def analyze(
         ))
     elif extension in EXTENSIONS_JAVA:
         coroutines.append(unblock(
-            java_insecure_randoms,
+            java_use_of_lang_math_random,
+            char_to_yx_map=await char_to_yx_map_generator.__anext__(),
+            content=await content_generator.__anext__(),
+            path=path,
+        ))
+        coroutines.append(unblock(
+            java_use_of_util_random,
             char_to_yx_map=await char_to_yx_map_generator.__anext__(),
             content=await content_generator.__anext__(),
             path=path,
