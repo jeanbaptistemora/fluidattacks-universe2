@@ -2,7 +2,7 @@ module.exports = {
   parserPreset: './.commitlint-parser-preset',
   extends: [ '@commitlint/config-conventional' ],
   rules: {
-    'header-max-length': [ 2, 'always', 60 ], // header max chars 50
+    'header-max-length': [ 2, 'always', 60 ], // header max chars 60
     'scope-empty': [ 2, 'never' ], // always scope
     'subject-case': [ 2, 'always', 'lower-case' ], // lower-case subject
     'body-leading-blank': [ 2, 'always' ], // blank line between header and body

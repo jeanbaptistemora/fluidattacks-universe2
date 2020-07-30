@@ -26,15 +26,6 @@ from utils.logs import (
 
 GITLAB_URL: str = 'https://gitlab.com'
 REGEX_COMMIT_USER: str = r'^[A-Z][a-z]+ [A-Z][a-z]+$'
-RELEVANCES: Dict[str, int] = {
-    'rever': 1,
-    'feat': 2,
-    'perf': 3,
-    'fix': 4,
-    'refac': 5,
-    'test': 6,
-    'style': 7,
-}
 
 
 def get_mr(session: Any, project_id: str, mr_iid: str) -> Any:
@@ -63,7 +54,8 @@ def required_env() -> bool:
 def run_flavor(
         fail_tests: List[str],
         warn_tests: List[str],
-        regex_mr_title: str) -> bool:
+        regex_mr_title: str,
+        relevances: Dict[str, int]) -> bool:
     success: bool = required_env()
 
     if success:
@@ -87,7 +79,7 @@ def run_flavor(
                 partial(test_branch_equals_to_user, mr_info),
             'most_relevant_type':
                 partial(test_most_relevant_type, mr_info,
-                        regex_mr_title, RELEVANCES),
+                        regex_mr_title, relevances),
             'commits_user':
                 partial(test_commits_user, mr_info, REGEX_COMMIT_USER),
             'mr_user':
@@ -95,10 +87,9 @@ def run_flavor(
             'one_commit_per_mr':
                 partial(test_one_commit_per_mr, mr_info),
             'close_issue_directive':
-                partial(test_close_issue_directive, mr_info, regex_mr_title)
+                partial(test_close_issue_directive, mr_info, regex_mr_title),
         }
 
-        # Run tests that produce failure
         for test in fail_tests:
             success = tests[test]() and success
 
