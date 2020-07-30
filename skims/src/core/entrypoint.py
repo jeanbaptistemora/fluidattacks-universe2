@@ -5,6 +5,10 @@ from typing import (
 )
 
 # Local imports
+from config import (
+    ConfigError,
+    load,
+)
 from core.persist import (
     persist,
 )
@@ -19,14 +23,14 @@ from utils.logs import (
     set_level,
 )
 from utils.model import (
+    SkimsConfig,
     Vulnerability,
 )
 
 
 async def main(
+    config: str,
     debug: bool,
-    group: str,
-    paths: Tuple[str, ...],
     token: str,
 ) -> bool:
     if debug:
@@ -34,31 +38,51 @@ async def main(
 
     success: bool = True
 
-    results: Tuple[Vulnerability, ...] = tuple(*(await materialize((
-        analyze_paths(paths),
-        # skimmers for other sources (--url, etc) go here
-    ))))
-
-    await materialize(
-        log(
-            'info', '%s: %s @ %s\n\n%s\n',
-            result.finding.value.title,
-            result.what,
-            result.where,
-            result.skims_metadata.snippet,
-        )
-        for result in results
-        if result.skims_metadata
-    )
-
-    if all((group, token)):
-        await log('info', 'Results will be synced to group: %s', group)
-
-        success = await persist(group=group, results=results, token=token)
+    try:
+        config_objects: Tuple[SkimsConfig, ...] = await load(config)
+    except ConfigError as exc:
+        await log('critical', '%s', exc)
+        success = False
     else:
-        await log('info', ' '.join((
-            'In case you want to persist results to Integrates',
-            'please make sure you set both the --group and --token flags',
-        )))
+        for config_obj in config_objects:
+            results: Tuple[Vulnerability, ...] = tuple(*await materialize((
+                analyze_paths(
+                    paths_to_exclude=(
+                        config_obj.path.exclude if config_obj.path else ()
+                    ),
+                    paths_to_include=(
+                        config_obj.path.include if config_obj.path else ()
+                    ),
+                ),
+            )))
+
+            await materialize(
+                log(
+                    'info', '%s: %s @ %s\n\n%s\n',
+                    result.finding.value.title,
+                    result.what,
+                    result.where,
+                    result.skims_metadata.snippet,
+                )
+                for result in results
+                if result.skims_metadata
+            )
+
+            if token:
+                msg = 'Results will be synced to group: %s'
+                await log('info', msg, config_obj.group)
+
+                success = await persist(
+                    group=config_obj.group,
+                    results=results,
+                    token=token,
+                )
+            else:
+                await log('info', ' '.join((
+                    'In case you want to persist results to Integrates',
+                    'please make sure you set the --token flag',
+                )))
+
+            return success
 
     return success

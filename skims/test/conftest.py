@@ -3,6 +3,7 @@ import asyncio
 import os
 from typing import (
     AsyncIterator,
+    Callable,
     Iterator,
 )
 
@@ -16,6 +17,15 @@ from integrates.graphql import (
 from utils.model import (
     FindingEnum,
 )
+
+
+@pytest.fixture(scope='session')  # type: ignore
+def test_config() -> Iterator[Callable[[str], str]]:
+
+    def config(name: str) -> str:
+        return f'test/data/config/{name}.hcl'
+
+    yield config
 
 
 @pytest.fixture(scope='session')  # type: ignore

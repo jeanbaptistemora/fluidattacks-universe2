@@ -1,3 +1,8 @@
+# Standard library
+from typing import (
+    Callable,
+)
+
 # Third party libraries
 from click.testing import (
     CliRunner,
@@ -25,20 +30,33 @@ def test_help() -> None:
     assert 'Usage:' in result.output
 
 
-def test_dispatch(test_group: str) -> None:
-    result = _cli('--debug')
-    assert result.exit_code == 0
-
-    result = _cli('--path', '#')
+def test_dispatch_config_not_found(test_config: Callable[[str], str]) -> None:
+    result = _cli('#')
     assert result.exit_code != 0
-    assert "Path '#' does not exist" in result.stderr, \
+    assert "File '#' does not exist." in result.stderr, \
         (result.stderr, result.stdout, result.output)
 
-    result = _cli('--path', 'test')
+
+def test_dispatch_correct(test_config: Callable[[str], str]) -> None:
+    result = _cli(test_config('correct'))
     assert result.exit_code == 0
 
-    result = _cli('--group', test_group, '--path', 'test', '--path', 'test')
+
+def test_dispatch_debug_empty(test_config: Callable[[str], str]) -> None:
+    result = _cli('--debug', test_config('empty'))
     assert result.exit_code == 0
 
-    result = _cli('--group', test_group, '--path', 'test', '--token', '123')
+
+def test_dispatch_empty(test_config: Callable[[str], str]) -> None:
+    result = _cli(test_config('empty'))
+    assert result.exit_code == 0
+
+
+def test_dispatch_null(test_config: Callable[[str], str]) -> None:
+    result = _cli(test_config('null'))
+    assert result.exit_code == 0
+
+
+def test_dispatch_token(test_config: Callable[[str], str]) -> None:
+    result = _cli('--token', '123', test_config('correct'))
     assert result.exit_code == 1
