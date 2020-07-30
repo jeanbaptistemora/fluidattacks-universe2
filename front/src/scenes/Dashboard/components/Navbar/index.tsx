@@ -71,36 +71,33 @@ export const navbarComponent: React.FC<RouteComponentProps> = (props: RouteCompo
 
   React.useEffect(setOrganization, [filteredOrganization]);
 
-  const breadcrumbItems: JSX.Element[] = pathData.map((item: string, index: number) => {
-    const baseLink: string = path.split("/")[1];
-    const link: string = pathData.slice(0, index + 1)
-      .join("/");
+  const breadcrumbItems: JSX.Element[] = pathData.slice(1)
+    .map((item: string, index: number) => {
+      const baseLink: string = path.split("/")[1];
+      const link: string = pathData.slice(0, index + 2)
+        .join("/");
 
-    return (
-      <BreadcrumbItem key={index}>
-        <Link to={`/${baseLink}/${link}`}>{stylizeBreadcrumbItem(item)}</Link>
-      </BreadcrumbItem>
-    );
-  });
+      return (
+        <BreadcrumbItem key={index}>
+          <Link to={`/${baseLink}/${link}`}>{stylizeBreadcrumbItem(item)}</Link>
+        </BreadcrumbItem>
+      );
+    });
 
   return (
     <React.StrictMode>
       <Row id="navbar" className={style.container}>
-        <Col md={6} sm={12} xs={12}>
+        <Col md={9} sm={12} xs={12}>
           <Breadcrumb className={style.breadcrumb}>
-            {breadcrumbItems}
-          </Breadcrumb>
-        </Col>
-        <Col md={3} sm={12} xs={12}>
-          <GenericForm
-            name="organizationList"
-            onSubmit={handleSubmit}>
-            <div className={style.organizationForm}>
+          <BreadcrumbItem>
+            <GenericForm
+              name="organizationList"
+              onSubmit={handleSubmit}>
               <Field
                 component={Dropdown}
                 name="organization"
                 onChange={handleOrganizationChange}
-              >
+                >
                 {organizationList.map((organization: { name: string }, index: number) => {
                   const extraProps: Dictionary<boolean> = { selected: false };
                   if (currentOrganization.name === organization.name) {
@@ -109,13 +106,15 @@ export const navbarComponent: React.FC<RouteComponentProps> = (props: RouteCompo
 
                   return (
                     <option value={organization.name} key={index} {...extraProps}>
-                      {organization.name.toUpperCase()}
+                      {_.capitalize(organization.name)}
                     </option>
                   );
                 })}
               </Field>
-            </div>
-          </GenericForm>
+            </GenericForm>
+          </BreadcrumbItem>
+          {breadcrumbItems}
+        </Breadcrumb>
         </Col>
         <Col md={3} sm={12} xs={12}>
           <GenericForm name="searchBar" onSubmit={handleSearchSubmit}>

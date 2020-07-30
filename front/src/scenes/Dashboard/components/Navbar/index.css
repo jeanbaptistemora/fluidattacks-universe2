@@ -22,6 +22,16 @@
 :local .container select {
   background: unset !important;
   border-style: none !important;
+  font-weight: bold !important;
+  font-size: 18px !important;
+  color: #FF3435;
+  cursor: pointer;
+  height: auto;
+  padding: 0 0.6rem 0 0;
+}
+
+:local .container select:hover {
+  color: #23527c;
 }
 
 :local .container button:focus {
@@ -31,9 +41,7 @@
 :local .breadcrumb {
   margin-bottom: unset;
 }
-:local .breadcrumb > li:first-of-type {
-  font-weight: bold !important;
-}
+
 :local .breadcrumb > li + li::before {
   padding: 0 2px;
 }
@@ -44,10 +52,5 @@
     position: sticky;
     top: 0px;
     z-index: 4;
-  }
-
-  :local .organizationForm {
-    margin-left: auto;
-    width: max-content;
   }
 }

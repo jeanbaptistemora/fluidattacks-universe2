@@ -86,11 +86,9 @@ describe("Navbar", () => {
     );
     await act(async () => { await wait(0); wrapper.update(); });
     expect(wrapper.contains(
-      <BreadcrumbItem active={false}>
-        <Link to="/organizations/imamura">
-            {"Imamura"}
-        </Link>
-      </BreadcrumbItem>,
+      <option value="imamura" selected={true}>
+        Imamura
+      </option>,
     ))
       .toBeTruthy();
   });
