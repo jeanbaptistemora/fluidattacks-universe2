@@ -181,8 +181,7 @@ async def create_project(  # pylint: disable=too-many-arguments
                     }.get(user_role, 'customeradmin')
 
                     success = success and all(await asyncio.gather(
-                        aio.ensure_io_bound(
-                            user_domain.update_project_access,
+                        user_domain.update_project_access(
                             user_email,
                             project_name,
                             True
@@ -293,10 +292,14 @@ async def edit(
     return success
 
 
-def add_access(user_email: str, project_name: str,
-               project_attr: str, attr_value: Union[str, bool]) -> bool:
-    return project_dal.add_access(
-        user_email, project_name, project_attr, attr_value)
+async def add_access(
+        user_email: str,
+        project_name: str,
+        project_attr: str,
+        attr_value: Union[str, bool]) -> bool:
+    return await project_dal.update_access(
+        user_email, project_name, project_attr, attr_value
+    )
 
 
 async def remove_access(user_email: str, project_name: str) -> bool:

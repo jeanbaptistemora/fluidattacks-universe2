@@ -15,11 +15,11 @@ async def test_list_internal_managers():
 async def test_update_access():
     assert 'unittest2@fluidattacks.com' in \
         await get_users('unittesting', False)
-    assert update_access('unittest2@fluidattacks.com', 'unittesting',
+    assert await update_access('unittest2@fluidattacks.com', 'unittesting',
                         'has_access', True)
     assert 'unittest2@fluidattacks.com' in \
         await get_users('unittesting', True)
-    assert update_access('unittest2@fluidattacks.com', 'unittesting',
+    assert await update_access('unittest2@fluidattacks.com', 'unittesting',
                         'has_access', False)
     assert 'unittest2@fluidattacks.com' in \
         await get_users('unittesting', False)

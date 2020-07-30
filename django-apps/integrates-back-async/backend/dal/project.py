@@ -558,8 +558,9 @@ def get_pending_to_delete() -> List[Dict[str, ProjectType]]:
     return get_filtered_list('project_name, historic_deletion', filtering_exp)
 
 
-def get_user_access(user_email: str, project_name: str) -> \
-        List[Dict[str, ProjectType]]:
+async def get_user_access(
+        user_email: str,
+        project_name: str) -> List[Dict[str, ProjectType]]:
     """Get user access of a project."""
     user_email = user_email.lower()
     project_name = project_name.lower()
@@ -569,46 +570,12 @@ def get_user_access(user_email: str, project_name: str) -> \
         Key(filter_key).eq(user_email) &
         Key(filter_sort).eq(project_name)
     )
-    response = TABLE_ACCESS.query(KeyConditionExpression=filtering_exp)
-    items = response['Items']
+    query_attrs = {
+        'KeyConditionExpression': filtering_exp
+    }
+    items = await dynamodb.async_query(TABLE_ACCESS_NAME, query_attrs)
 
-    while True:
-        if response.get('LastEvaluatedKey'):
-            response = TABLE_ACCESS.query(
-                KeyConditionExpression=filtering_exp,
-                ExclusiveStartKey=response['LastEvaluatedKey']
-            )
-            items += response['Items']
-        else:
-            break
     return items
-
-
-def add_access(user_email: str, project_name: str,
-               project_attr: str, attr_value: Union[str, bool]) -> bool:
-    """Add project access attribute."""
-    item = get_user_access(user_email, project_name)
-    if item == []:
-        try:
-            response = TABLE_ACCESS.put_item(
-                Item={
-                    'user_email': user_email.lower(),
-                    'project_name': project_name.lower(),
-                    project_attr: attr_value
-                }
-            )
-            resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
-            return resp
-        except ClientError as ex:
-            LOGGER.exception(ex)
-            return False
-    else:
-        return update_access(
-            user_email,
-            project_name,
-            project_attr,
-            attr_value
-        )
 
 
 async def remove_access(user_email: str, project_name: str) -> bool:
@@ -629,24 +596,27 @@ async def remove_access(user_email: str, project_name: str) -> bool:
         return False
 
 
-def update_access(user_email: str, project_name: str,
-                  project_attr: str, attr_value: Union[str, bool]) -> bool:
+async def update_access(
+        user_email: str,
+        project_name: str,
+        project_attr: str,
+        attr_value: Union[str, bool]) -> bool:
     """Update project access attribute."""
     try:
-        response = TABLE_ACCESS.update_item(
-            Key={
+        set_expression = f'{project_attr} = :{project_attr}'
+        expression_values = {f':{project_attr}': attr_value}
+
+        update_attrs = {
+            'Key': {
                 'user_email': user_email.lower(),
-                'project_name': project_name.lower(),
+                'project_name': project_name.lower()
             },
-            UpdateExpression='SET #project_attr = :val1',
-            ExpressionAttributeNames={
-                '#project_attr': project_attr
-            },
-            ExpressionAttributeValues={
-                ':val1': attr_value
-            }
+            'UpdateExpression': f'SET {set_expression}'.strip(),
+            'ExpressionAttributeValues': expression_values
+        }
+        resp = await dynamodb.async_update_item(
+            TABLE_ACCESS_NAME, update_attrs
         )
-        resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
         return resp
     except ClientError as ex:
         LOGGER.exception(ex)

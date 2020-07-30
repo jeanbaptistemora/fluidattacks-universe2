@@ -122,8 +122,11 @@ def update_last_login(email: str) -> bool:
     return user_dal.update(str(email), {'last_login': get_current_date()})
 
 
-def update_project_access(email: str, project_name: str, access: bool) -> bool:
-    return project_dal.add_access(email, project_name, 'has_access', access)
+async def update_project_access(
+        email: str, project_name: str, access: bool) -> bool:
+    return await project_dal.update_access(
+        email, project_name, 'has_access', access
+    )
 
 
 def update_multiple_user_attributes(email: str, data_dict: UserType) -> bool:

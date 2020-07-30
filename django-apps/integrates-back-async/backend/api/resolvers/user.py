@@ -6,6 +6,7 @@ import threading
 from datetime import datetime
 from typing import (
     cast,
+    Awaitable,
     Dict,
     List,
     Union,
@@ -13,7 +14,7 @@ from typing import (
 )
 
 from ariadne import convert_kwargs_to_snake_case, convert_camel_case_to_snake
-from asgiref.sync import async_to_sync, sync_to_async
+from asgiref.sync import sync_to_async
 
 from graphql.type.definition import GraphQLResolveInfo
 from backend.api.resolvers import project as project_resolver
@@ -59,19 +60,32 @@ from __init__ import BASE_URL
 LOGGER = logging.getLogger(__name__)
 
 
-def _give_user_access(
+async def _give_user_access(
         email: str,
         group: str,
         responsibility: str,
         phone_number: str) -> bool:
     success = False
-    project_domain.add_access(email, group, 'responsibility', responsibility)
+    coroutines: List[Awaitable[bool]] = []
+    coroutines.append(
+        project_domain.add_access(
+            email, group, 'responsibility', responsibility
+        )
+    )
 
     if phone_number and phone_number[1:].isdigit():
-        user_domain.add_phone_to_user(email, phone_number)
+        coroutines.append(
+            aio.ensure_io_bound(
+                user_domain.add_phone_to_user, email, phone_number
+            )
+        )
 
-    if group and user_domain.update_project_access(email, group, True):
-        description = async_to_sync(project_domain.get_description)(
+    coroutines.append(
+        user_domain.update_project_access(email, group, True)
+    )
+
+    if group and all(await aio.materialize(coroutines)):
+        description = await project_domain.get_description(
             group.lower()
         )
         project_url = f'{BASE_URL}/groups/{group.lower()}/indicators'
@@ -129,8 +143,7 @@ async def _create_new_user(  # pylint: disable=too-many-arguments
             authz.grant_user_level_role(email, 'customer')
 
         if group and responsibility and len(responsibility) <= 50:
-            success_access_given = await aio.ensure_io_bound(
-                _give_user_access,
+            success_access_given = await _give_user_access(
                 email,
                 group,
                 responsibility,
@@ -176,8 +189,7 @@ async def _get_phone_number(
     return await has_phone_number(email)
 
 
-@sync_to_async  # type: ignore
-def _get_responsibility(
+async def _get_responsibility(
         _: GraphQLResolveInfo,
         email: str,
         entity: str,
@@ -186,7 +198,7 @@ def _get_responsibility(
     result = ''
     if entity == 'PROJECT':
         project_name = identifier
-        result = has_responsibility(project_name, email)
+        result = await has_responsibility(project_name, email)
     return result
 
 
@@ -586,14 +598,14 @@ async def _do_edit_user(
     )
 
 
-def _add_acess(
+async def _add_acess(
         responsibility: str,
         email: str,
         project_name: str,
         context: object) -> bool:
     result = False
     if len(responsibility) <= 50:
-        result = project_domain.add_access(
+        result = await project_domain.add_access(
             email, project_name, 'responsibility', responsibility
         )
     else:
@@ -605,8 +617,7 @@ def _add_acess(
     return result
 
 
-@sync_to_async  # type: ignore
-def modify_user_information(
+async def modify_user_information(
         context: Any,
         modified_user_data: Dict[str, str],
         project_name: str) -> bool:
@@ -614,10 +625,10 @@ def modify_user_information(
     email = modified_user_data['email']
     responsibility = modified_user_data['responsibility']
     phone = modified_user_data['phone_number']
-    successes = []
+    coroutines: List[Awaitable[bool]] = []
 
     if responsibility:
-        successes.append(_add_acess(
+        coroutines.append(_add_acess(
             responsibility,
             email,
             project_name,
@@ -625,17 +636,20 @@ def modify_user_information(
         ))
 
     if phone and validate_phone_field(phone):
-        result = user_domain.add_phone_to_user(email, phone)
-        successes.append(result)
+        coroutines.append(
+            aio.ensure_io_bound(
+                user_domain.add_phone_to_user, email, phone
+            )
+        )
     else:
         util.cloudwatch_log(
             context,
             (f'Security: {email} Attempted to edit user '
              'phone bypassing validation')
         )
-        successes.append(False)
+        return False
 
-    return all(successes)
+    return all(await aio.materialize(coroutines))
 
 
 @convert_kwargs_to_snake_case  # type: ignore

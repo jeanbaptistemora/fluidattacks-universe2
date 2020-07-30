@@ -59,9 +59,9 @@ async def has_valid_access_token(
     return resp
 
 
-def has_responsibility(project: str, email: str) -> str:
+async def has_responsibility(project: str, email: str) -> str:
     """Verify if a user has responsibility."""
-    project_data = project_dal.get_user_access(email, project)
+    project_data = await project_dal.get_user_access(email, project)
     user_resp = "-"
     for data in project_data:
         if 'responsibility' in data:

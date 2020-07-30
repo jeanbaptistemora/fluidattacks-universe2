@@ -55,7 +55,7 @@ def autoenroll_user(strategy: BaseStrategy, email: str) -> bool:
         for group in FI_COMMUNITY_PROJECTS.split(','):
             was_granted_access = (
                 was_granted_access and
-                user_domain.update_project_access(
+                async_to_sync(user_domain.update_project_access)(
                     email, group, access=True
                 ) and
                 authz.grant_group_level_role(
