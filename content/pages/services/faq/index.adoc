@@ -39,7 +39,7 @@ Frequently asked questions about Continuous Hacking.
   with the new techniques and changes related to cybersecurity and `IT`.
   Through link:../../blog[blog entries]
   we keep our team updated with the state of art.
-
+  [[q5]]
 *What are the necessary inputs and requirements for Continuous Hacking?*::
   The necessary inputs and requirements are:
 
@@ -77,10 +77,10 @@ Frequently asked questions about Continuous Hacking.
   to the application.
 
 *What is an active author and how can I identify it?*::
- An active author is a user with access to the `Git` repository
- who makes changes to the stored code in the repository during
- the analyzed month.
-
+  An active author is a user with access to the `Git` repository
+  who makes changes to the stored code in the repository during
+  the analyzed month.
+  [[q10]]
 *Does Continuous Hacking use a series of automated tools*::
 *or is it the result of a manual (by hand) process?*::
   Automated tools, by themselves,
@@ -100,7 +100,7 @@ Frequently asked questions about Continuous Hacking.
   in order to reveal additional vulnerabilities
   which may be an even greater security risk
   than the individual vulnerabilities alone.
-
+  [[q11]]
 *If Continuous Hacking includes a manual review, how does Fluid Attacks*::
 *ensure that development cycles are not slowed down?*::
   Continuous Hacking is first performed on the source code.
@@ -422,7 +422,7 @@ your proprietary rights to that code.
  to now include infrastructure within the Target of Evaluation (`ToE`).
  This includes the application's ports, inputs,
  infrastructure, and of course the application itself.
-
+ [[q52]]
  *What external tools does Fluid Attacks use to perform pentesting?*::
  We use link:https://portswigger.net/burp[Burp Suite] for web testing,
  and link:https://www.immunityinc.com/products/canvas/[CANVAS] and
