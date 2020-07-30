@@ -19,7 +19,7 @@ async def test_get_transport(
     test_token: str,
     test_endpoint: str,
 ) -> None:
-    transport: AIOHTTPTransport = await get_transport(
+    transport: AIOHTTPTransport = get_transport(
         endpoint_url=test_endpoint, api_token=test_token)
     assert 'authorization' in transport.headers
     assert transport.headers['authorization'] == f'Bearer {test_token}'

@@ -42,7 +42,7 @@ def test_cli_invalid_group(test_token: str) -> None:
         '--token', test_token, '--group', 'invalid_group', '--lax',
         '--repo-path', '../'
     ])
-    assert result.exit_code == 1
+    assert result.exit_code == 0
 
 
 def test_cli_out_to_file(test_token: str, test_group: str) -> None:

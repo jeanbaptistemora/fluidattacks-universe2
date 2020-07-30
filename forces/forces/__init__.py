@@ -24,7 +24,8 @@ from forces.utils.aio import (
 
 async def entrypoint(token: str, group: str, **kwargs: Any) -> int:
     """Entrypoint function"""
-    exit_code = 0
+    strict = kwargs.get('strict', False)
+    exit_code = 1 if strict else 0
     set_api_token(token)
 
     report = await generate_report(project=group)
@@ -35,7 +36,7 @@ async def entrypoint(token: str, group: str, **kwargs: Any) -> int:
         await unblock(kwargs['output'].write, yaml_report)
     else:
         print(yaml_report)
-    if kwargs.get('strict', False):
+    if strict:
         if report['summary']['open'] > 0:
             exit_code = 1
     execution_id = str(uuid.uuid4()).replace('-', '')

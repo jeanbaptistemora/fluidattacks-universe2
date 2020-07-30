@@ -20,9 +20,6 @@ from gql.client import (
 )
 
 # Local libraries
-from forces.utils.aio import (
-    unblock,
-)
 from forces.apis.integrates import (
     get_api_token,
 )
@@ -31,15 +28,14 @@ from forces.apis.integrates import (
 SESSION: ContextVar[AsyncClientSession] = ContextVar('SESSION')
 
 
-async def get_transport(
+def get_transport(
         *,
         api_token: str,
         endpoint_url: str,
         **kwargs: Any
 ) -> AIOHTTPTransport:
     """Returns an AIOHTTPTransport."""
-    return await unblock(
-        AIOHTTPTransport,
+    return AIOHTTPTransport(
         headers={'authorization': f'Bearer {api_token}'},
         url=endpoint_url,
         **kwargs)
@@ -52,18 +48,21 @@ async def session(
         **kwargs: str,
 ) -> AsyncIterator[Client]:
     """Returns an Async GraphQL Client."""
-    api_token = api_token or get_api_token()
-    transport: AIOHTTPTransport = await get_transport(
-        api_token=api_token,
-        endpoint_url=endpoint_url,
-        **kwargs
-    )
-    async with Client(
-            execute_timeout=None,
-            transport=transport,
-    ) as client_session:
-        token: Token[Any] = SESSION.set(client_session)
-        try:
-            yield SESSION.get()
-        finally:
-            SESSION.reset(token)
+    try:
+        yield SESSION.get()
+    except LookupError:
+        api_token = api_token or get_api_token()
+        transport: AIOHTTPTransport = get_transport(
+            api_token=api_token,
+            endpoint_url=endpoint_url,
+            **kwargs
+        )
+        async with Client(
+                execute_timeout=None,
+                transport=transport,
+        ) as client_session:
+            token: Token[Any] = SESSION.set(client_session)
+            try:
+                yield SESSION.get()
+            finally:
+                SESSION.reset(token)
