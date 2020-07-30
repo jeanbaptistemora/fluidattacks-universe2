@@ -114,7 +114,7 @@ function job_test_generic {
   local max_columns='81'
   local min_words='1'
   local max_words='4500'
-  local max_lix='80'
+  local max_lix='65'
 
       all_content_files="$(find content/ -type f)" \
   &&  touched_adoc_files="$(helper_list_touched_files | grep '.adoc')" || true \
