@@ -22,8 +22,8 @@ import {
   groupLevelPermissions,
   organizationLevelPermissions,
 } from "../../utils/authz/config";
+import Logger from "../../utils/logger";
 import { msgError, msgSuccess } from "../../utils/notifications";
-import rollbar from "../../utils/rollbar";
 import translate from "../../utils/translations/translate";
 import { updateAccessTokenModal as UpdateAccessTokenModal } from "./components/AddAccessTokenModal/index";
 import { addUserModal as AddUserModal } from "./components/AddUserModal/index";
@@ -69,7 +69,7 @@ const dashboard: React.FC = (): JSX.Element => {
     { graphQLErrors }: ApolloError,
   ): void => {
     graphQLErrors.forEach((error: GraphQLError): void => {
-      rollbar.error("An error occurred adding user", error);
+      Logger.warning("An error occurred adding user", error);
       msgError(translate.t("group_alerts.error_textsad"));
     });
   };
@@ -89,7 +89,7 @@ const dashboard: React.FC = (): JSX.Element => {
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
         msgError(translate.t("group_alerts.error_textsad"));
-        rollbar.critical("Couldn't load user-level permissions", error);
+        Logger.error("Couldn't load user-level permissions", error);
       });
     },
     variables: {
