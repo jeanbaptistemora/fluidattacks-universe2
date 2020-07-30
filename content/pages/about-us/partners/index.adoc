@@ -12,15 +12,13 @@
 = Partners
 
 Partners facilitate the delivery of our services to our end customers
-located in a variety of geographic areas (Germany link:#teraport[^1^],
+in a variety of geographic areas (Germany link:#teraport[^1^],
 Australia link:#the-missing-link[^2^], and the United States link:#arroyo-consulting[^3^] link:#sba[^4^])
 and sectors (Government, Defense) link:#evolution-it[^5^].
 In addition to our services, they complete their portfolio
 (functional testing link:#choucair[^6^] link:#greensqa[^7^], software development),
-providing integrated solutions.
-If you are interested in partnering with `Fluid Attacks`,
-please start by reading the [button]#link:terms/[terms]#
-of our general partner agreement.
+providing integrated solutions. The following are our current partners:
+
 
 [role="tb-alt"]
 [cols=2, frame="none"]
@@ -122,6 +120,5 @@ a|image::logo-proximiteam.png[alt="Logo SBA",link="https://www.proximiteam.com/"
 
 |====
 
-If you agree with the [inner]#link:terms/[terms]#
-of our general partner agreement and would like to become a partner,
+If you are interested in partnering with `Fluid Attacks`,
 please submit the following link:../../contact-us/[Contact Form].
