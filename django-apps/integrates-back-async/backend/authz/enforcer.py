@@ -2,6 +2,7 @@
 from typing import (
     Callable,
     Coroutine,
+    Any
 )
 
 # Local libraries
@@ -18,7 +19,7 @@ from .model import (
 
 
 def get_user_level_enforcer(subject: str) -> \
-        Callable[[str, str, str], Coroutine]:
+        Callable[[str, str, str], Coroutine[Any, Any, bool]]:
     """Return a filtered group-level authorization for the provided subject."""
     policies = get_cached_subject_policies(subject)
     roles = USER_LEVEL_ROLES
@@ -38,7 +39,7 @@ def get_user_level_enforcer(subject: str) -> \
 
 
 def get_group_level_enforcer(subject: str) -> \
-        Callable[[str, str, str], Coroutine]:
+        Callable[[str, str, str], Coroutine[Any, Any, bool]]:
     """Return a filtered group-level authorization for the provided subject."""
     policies = get_cached_subject_policies(subject)
     roles = GROUP_LEVEL_ROLES
@@ -72,7 +73,7 @@ def get_group_level_enforcer(subject: str) -> \
 
 
 def get_group_service_attributes_enforcer(group: str) -> \
-        Callable[[str], Coroutine]:
+        Callable[[str], Coroutine[Any, Any, bool]]:
     """Return a filtered group authorization for the provided group."""
     policies = get_cached_group_service_attributes_policies(group)
 
@@ -89,7 +90,7 @@ def get_group_service_attributes_enforcer(group: str) -> \
 
 
 def get_organization_level_enforcer(subject: str) -> \
-        Callable[[str, str, str], Coroutine]:
+        Callable[[str, str, str], Coroutine[Any, Any, bool]]:
     """
     Return a filtered organization-level authorization
     for the provided subject.

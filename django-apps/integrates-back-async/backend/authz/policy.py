@@ -4,6 +4,7 @@ from typing import (
     Dict,
     List,
     Tuple,
+    cast
 )
 
 # Third party library
@@ -60,7 +61,7 @@ def get_cached_group_service_attributes_policies(
         except RedisClusterException:
             pass
 
-    return ret
+    return cast(Tuple[Tuple[str, str], ...], ret)
 
 
 def get_cached_subject_policies(
@@ -86,7 +87,7 @@ def get_cached_subject_policies(
         except RedisClusterException:
             pass
 
-    return ret
+    return cast(Tuple[Tuple[str, str, str, str], ...], ret)
 
 
 @apm.trace()

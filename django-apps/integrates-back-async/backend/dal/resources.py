@@ -11,7 +11,7 @@ from __init__ import (
 
 
 # Constants
-DYNAMODB_RESOURCE = dynamodb.DYNAMODB_RESOURCE  # type: ignore
+DYNAMODB_RESOURCE = dynamodb.DYNAMODB_RESOURCE
 LOGGER = logging.getLogger(__name__)
 
 
@@ -23,7 +23,7 @@ async def search_file(file_name: str) -> List[str]:
 
 
 async def save_file(file_object: object, file_name: str) -> bool:
-    success = await s3.upload_memory_file(  # type: ignore
+    success: bool = await s3.upload_memory_file(  # type: ignore
         FI_AWS_S3_RESOURCES_BUCKET,
         file_object,
         file_name

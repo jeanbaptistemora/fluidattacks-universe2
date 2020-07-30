@@ -9,13 +9,13 @@ from backend.dal import project as project_dal
 from backend.typing import Historic
 
 
-class PDF(FPDF):
+class PDF(FPDF):  # type: ignore
     user = ''
 
-    def set_user(self, user):
+    def set_user(self, user: str) -> None:
         self.user = user
 
-    def footer(self):
+    def footer(self) -> None:
         self.set_y(-15)
         self.set_font('Times', '', 12)
         self.cell(0, 10, 'Only for %s' % self.user, 0, 0, align='L')

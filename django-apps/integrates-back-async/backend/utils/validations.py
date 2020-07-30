@@ -15,7 +15,10 @@ from backend.exceptions import (
 FLUIDATTACKS_EMAIL_SUFFIX = '@fluidattacks.com'
 
 
-async def validate_fluidattacks_staff_on_group(group, email, role) -> bool:
+async def validate_fluidattacks_staff_on_group(
+        group: str,
+        email: str,
+        role: str) -> bool:
     """Makes sure that Fluid Attacks groups have only Fluid attacks staff."""
     enforcer = authz.get_group_service_attributes_enforcer(group)
 
@@ -58,7 +61,7 @@ def validate_email_address(email: str) -> bool:
         raise InvalidField('email address')
 
 
-def validate_fields(fields: List[str]):
+def validate_fields(fields: List[str]) -> None:
     allowed_chars = (
         r'a-zA-Z0-9ñáéíóúäëïöüÑÁÉÍÓÚÄËÏÖÜ \t\n\r\x0b\x0c(),./:;@_$#=\?-'
     )
@@ -68,7 +71,7 @@ def validate_fields(fields: List[str]):
             check_field(field, regex)
 
 
-def validate_url(url: str):
+def validate_url(url: str) -> None:
     clean_url: str = url
     encoded_chars_whitelist: List[str] = ['%20']
     for encoded_char in encoded_chars_whitelist:
@@ -96,12 +99,15 @@ def validate_file_name(name: str) -> bool:
     return is_valid
 
 
-def check_field(field: str, regexp: str):
+def check_field(field: str, regexp: str) -> None:
     if not re.match(regexp, field):
         raise InvalidChar()
 
 
-def validate_field_length(field: str, limit: int, is_greater_than_limit=True):
+def validate_field_length(
+        field: str,
+        limit: int,
+        is_greater_than_limit: bool = True) -> None:
     """
     if is_greater_than_limit equals False,
     it means we are checking if field < limit
@@ -110,7 +116,7 @@ def validate_field_length(field: str, limit: int, is_greater_than_limit=True):
         raise InvalidFieldLength()
 
 
-def validate_project_name(project_name: str):
+def validate_project_name(project_name: str) -> None:
     if not project_name.isalnum():
         raise InvalidField('project name')
 
