@@ -8,6 +8,7 @@ export const ORGS_QUERY: DocumentNode = gql`{
         documentName: "remediation"
         documentType: "singleValueIndicator"
       )
+      name
       totalGroups
     }
   }

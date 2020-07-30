@@ -61,6 +61,7 @@ describe("DashboardView", (): void => {
                     open: 5,
                   },
                 },
+                name: "testorg",
                 totalGroups: 1,
               },
             ],
@@ -183,11 +184,13 @@ describe("DashboardView", (): void => {
                     open: 0,
                   },
                 },
+                name: "testorg",
                 totalGroups: 1,
               },
               {
                 // tslint:disable-next-line: no-null-keyword
                 analytics: null,
+                name: "testorg2",
                 totalGroups: 1,
               },
             ],
@@ -266,6 +269,7 @@ describe("DashboardView", (): void => {
                     open: 4,
                   },
                 },
+                name: "testorg",
                 totalGroups: 1,
               },
             ],
@@ -285,14 +289,15 @@ describe("DashboardView", (): void => {
               {
                 analytics: {
                   current: {
-                    closed: 12,
-                    open: 0,
+                    closed: 11,
+                    open: 1,
                   },
                   previous: {
                     closed: 8,
                     open: 4,
                   },
                 },
+                name: "testorg",
                 totalGroups: 1,
               },
               {
@@ -306,7 +311,8 @@ describe("DashboardView", (): void => {
                     open: 3,
                   },
                 },
-                totalGroups: 1,
+                name: "testorg2",
+                totalGroups: 2,
               },
             ],
           },
@@ -351,11 +357,17 @@ describe("DashboardView", (): void => {
     await act(async (): Promise<void> => { await wait(0); wrapper.update(); });
 
     expect(wrapper.text())
+      .toContain("91.7%");
+    expect(wrapper.text())
+      .toContain("+25%Compared");
+    expect(wrapper.text())
+      .toContain("of 12 found in 1 system");
+    expect(wrapper.text())
       .toContain("100%");
     expect(wrapper.text())
-      .toContain("+35%Compared");
+      .toContain("+37.5%Compared");
     expect(wrapper.text())
-      .toContain("of 20 found in 2 systems");
+      .toContain("of 8 found in 2 systems");
 
     wrapper.unmount();
   });

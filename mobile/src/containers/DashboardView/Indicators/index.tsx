@@ -67,6 +67,7 @@ const indicators: React.FC<IIndicatorsProps> = (
 
   return (
     <View style={styles.container}>
+      <Title>{org.name}</Title>
       <View style={styles.percentageContainer}>
         <SvgCss xml={Border} width={220} height={220} />
         <Text style={styles.percentageText}>

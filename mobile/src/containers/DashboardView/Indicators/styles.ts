@@ -5,10 +5,14 @@ export const styles: Dictionary = StyleSheet.create({
     alignItems: "center",
     width: Dimensions.get("window").width,
   },
-  diff: { alignItems: "center", flexDirection: "row" },
+  diff: {
+    alignItems: "center",
+    flexDirection: "row",
+  },
   percentageContainer: {
     alignItems: "center",
     justifyContent: "center",
+    marginTop: 10,
   },
   percentageText: {
     fontSize: 30,

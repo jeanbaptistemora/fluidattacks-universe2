@@ -13,7 +13,7 @@ import "intl/locale-data/jsonp/es-CO";
 import _ from "lodash";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { Alert, AppState, AppStateStatus, View } from "react-native";
+import { Alert, AppState, AppStateStatus, ScrollView, View } from "react-native";
 import { useTheme } from "react-native-paper";
 import { useHistory } from "react-router-native";
 
@@ -32,39 +32,6 @@ import { IOrganization, IOrgsResult } from "./types";
 const hasAnalytics: ((organization: IOrganization) => boolean) = (
   organization: IOrganization,
 ): boolean => !_.isNil(organization.analytics);
-
-/** Indicators data structure */
-interface IIndicators {
-  closed: number;
-  open: number;
-}
-
-type CalcIndicatorsFn = ((
-  orgs: IOrganization[],
-  kind: keyof IOrganization["analytics"],
-) => IIndicators);
-
-const calcIndicators: CalcIndicatorsFn = (
-  orgs: IOrganization[],
-  kind: keyof IOrganization["analytics"],
-): IIndicators => {
-  const closedVulns: number = orgs.reduce(
-    (previousValue: number, organization: IOrganization): number =>
-      previousValue
-      + organization.analytics[kind].closed,
-    0);
-
-  const openVulns: number = orgs.reduce(
-    (previousValue: number, organization: IOrganization): number =>
-      previousValue
-      + organization.analytics[kind].open,
-    0);
-
-  return {
-    closed: closedVulns,
-    open: openVulns,
-  };
-};
 
 const dashboardView: React.FunctionComponent = (): JSX.Element => {
   const history: ReturnType<typeof useHistory> = useHistory();
@@ -132,19 +99,19 @@ const dashboardView: React.FunctionComponent = (): JSX.Element => {
     };
   };
   React.useEffect(onMount, []);
-
+  const emptyOrg: IOrganization = {
+    analytics: {
+      current: { closed: 0, open: 0 },
+      previous: { closed: 0, open: 0 },
+    },
+    name: "",
+    totalGroups: 0,
+  };
   const orgs: IOrganization[] = _.isUndefined(data) || _.isEmpty(data)
-    ? []
-    : data.me.organizations.filter(hasAnalytics);
-
-  const current: IIndicators = calcIndicators(orgs, "current");
-  const previous: IIndicators = calcIndicators(orgs, "previous");
-
-  const totalGroups: number = orgs.reduce(
-    (previousValue: number, organization: IOrganization): number =>
-      previousValue
-      + organization.totalGroups,
-    0);
+    ? [emptyOrg]
+    : data.me.organizations.length === 0
+      ? [emptyOrg]
+      : data.me.organizations.filter(hasAnalytics);
 
   // Event handlers
   const handleLogout: (() => void) = async (): Promise<void> => {
@@ -158,7 +125,17 @@ const dashboardView: React.FunctionComponent = (): JSX.Element => {
     <React.StrictMode>
       <Header user={user} onLogout={handleLogout} />
       <View style={[styles.container, { backgroundColor: colors.background }]}>
-        <Indicators org={{ analytics: { current, previous }, totalGroups }} />
+        <ScrollView
+          decelerationRate="fast"
+          horizontal={true}
+          pagingEnabled={true}
+          showsHorizontalScrollIndicator={false}
+          snapToAlignment="center"
+        >
+          {orgs.map((org: IOrganization): JSX.Element => (
+            <Indicators key={org.name} org={org} />
+          ))}
+        </ScrollView>
         <Preloader
           visible={[
             NetworkStatus.loading,

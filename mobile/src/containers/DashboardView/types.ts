@@ -12,6 +12,7 @@ export interface IOrganization {
       open: number;
     };
   };
+  name: string;
   totalGroups: number;
 }
 
