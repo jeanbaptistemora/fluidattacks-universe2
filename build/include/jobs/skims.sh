@@ -80,6 +80,19 @@ function job_skims_lint {
   ||  return 1
 }
 
+function job_skims_security {
+  local bandit_args=(
+    --recursive src/
+  )
+  local path='skims'
+
+      helper_common_poetry_install_deps "${path}" \
+  &&  pushd "${path}" \
+    &&  poetry run bandit "${bandit_args[@]}" \
+  &&  popd \
+  ||  return 1
+}
+
 function job_skims_structure {
   local pydeps_args=(
     --cluster

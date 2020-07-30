@@ -4,6 +4,7 @@ stages:
   - lint-code
   - test-code
   - test-infra
+  - test-security
   - merge-request
   - deploy-infra
   - deploy-app
@@ -675,6 +676,11 @@ skims_lint:
   <<: *with_nix
   <<: *skims_in_dev_and_master_branch
   stage: lint-code
+
+skims_security:
+  <<: *with_nix
+  <<: *skims_in_dev_and_master_branch
+  stage: test-security
 
 skims_structure:
   <<: *with_nix
