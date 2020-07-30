@@ -237,7 +237,7 @@ describe("Environments", () => {
       .find("RowPureContent")
       .at(0);
     expect(firstRowInfo.text())
-      .toEqual("Docker image found at: https://test/testActive");
+      .toEqual("Docker image found at: https://test/test2000/03/24 15:45:00Active");
     const tagHeader: ReactWrapper = wrapper
       .find({"aria-label": "Environment sortable"});
     tagHeader.simulate("click");
@@ -246,7 +246,7 @@ describe("Environments", () => {
       .find("RowPureContent")
       .at(0);
     expect(firstRowInfo.text())
-      .toEqual("Docker image found at: https://test/testActive");
+      .toEqual("Docker image found at: https://test/test2000/03/24 15:45:00Active");
   });
 
   it("should filter environments by state", async () => {

@@ -279,7 +279,7 @@ describe("Repositories", () => {
       .find("RowPureContent")
       .at(0);
     expect(firstRowInfo.text())
-      .toEqual("SSHpruebarepo/git2masterActive");
+      .toEqual("SSHpruebarepo/git2master2020/02/13 10:15:26Active");
     const repositoryHeader: ReactWrapper = wrapper
       .find({"aria-label": "Protocol sortable"});
     repositoryHeader.simulate("click");
@@ -287,7 +287,7 @@ describe("Repositories", () => {
       .find("RowPureContent")
       .at(0);
     expect(firstRowInfo.text())
-      .toEqual("SSHpruebarepo/git2masterActive");
+      .toEqual("SSHpruebarepo/git2master2020/02/13 10:15:26Active");
   });
 
   it("should handle errors when add a repository", async () => {

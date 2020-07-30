@@ -147,7 +147,7 @@ describe("ProjectSettingsView", () => {
       .find("BootstrapTable")
       .find("RowPureContent")
       .find("Cell")
-      .at(3)
+      .at(4)
       .find("e")
       .prop("checked");
     const protocol: string = wrapper
@@ -160,7 +160,7 @@ describe("ProjectSettingsView", () => {
     expect(wrapper)
       .toHaveLength(1);
     expect(onerow)
-      .toHaveLength(4);
+      .toHaveLength(5);
     expect(statuschecked)
       .toEqual(true || false);
     expect(protocol)
@@ -189,13 +189,13 @@ describe("ProjectSettingsView", () => {
       .find("BootstrapTable")
       .find("RowPureContent")
       .find("Cell")
-      .at(1)
+      .at(2)
       .find("e")
       .prop("checked");
     expect(wrapper)
       .toHaveLength(1);
     expect(onerow)
-      .toHaveLength(2);
+      .toHaveLength(3);
     expect(statuschecked)
       .toEqual(true || false);
   });

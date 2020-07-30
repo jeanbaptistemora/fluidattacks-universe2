@@ -104,9 +104,7 @@ async def create_file(
         json_data.append({
             'fileName': file_info.get('fileName', file_info['fileName']),
             'description': description,
-            'uploadDate': str(
-                datetime.now().replace(second=0, microsecond=0)
-            )[:-3],
+            'uploadDate': datetime.now().strftime('%Y-%m-%d %H:%M'),
             'uploader': user_email,
         })
     file_id = '{project}/{file_name}'.format(
@@ -227,8 +225,7 @@ def encode_resources(res_data: List[Dict[str, str]]) -> List[ResourceType]:
 def create_initial_state(user_email: str) -> Dict[str, str]:
     return {
         'user': user_email,
-        'date': util.format_comment_date(
-            datetime.today().strftime('%Y-%m-%d %H:%M:%S')),
+        'date': str(datetime.now().strftime('%Y-%m-%d %H:%M')),
         'state': 'ACTIVE'
     }
 
@@ -261,8 +258,6 @@ async def create_repositories(
             'urlRepo': url_repo,
             'branch': branch,
             'protocol': res.get('protocol', 'HTTPS'),
-            'uploadDate': str(
-                datetime.now().replace(second=0, microsecond=0))[:-3],
             'historic_state': [create_initial_state(user_email)],
         }
         json_data.append(res_object)

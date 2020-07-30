@@ -742,6 +742,7 @@ export const enTranslations: ResourceKey = {
     },
     environment_table: {
       environment: "Environment",
+      upload_date: "Upload Date",
     },
     files_table: {
       description: "Description",
@@ -761,6 +762,7 @@ export const enTranslations: ResourceKey = {
       protocol: "Protocol",
       repository: "Repository URL",
       state: "State",
+      upload_date: "Upload Date",
     },
     services_table: {
       active: "Active",

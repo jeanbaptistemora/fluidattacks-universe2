@@ -96,6 +96,7 @@ const repositories: React.FC<IRepositoriesProps> = (props: IRepositoriesProps): 
       return {
         ...repo,
         branch: decodeURIComponent(_.get(repo, "branch")),
+        creationDate: (_.first(historicState) as IHistoricState).date,
         state: _.capitalize((_.last(historicState) as IHistoricState).state),
         urlRepo: decodeURIComponent(_.get(repo, "urlRepo")),
       };
@@ -191,21 +192,28 @@ const repositories: React.FC<IRepositoriesProps> = (props: IRepositoriesProps): 
               dataField: "protocol",
               header: translate.t("search_findings.repositories_table.protocol"),
               onSort: sortState,
-              width: "14%",
+              width: "12%",
               wrapped: true,
             },
             {
               dataField: "urlRepo",
               header: translate.t("search_findings.repositories_table.repository"),
               onSort: sortState,
-              width: "56%",
+              width: "54%",
               wrapped: true,
             },
             {
               dataField: "branch",
               header: translate.t("search_findings.repositories_table.branch"),
               onSort: sortState,
-              width: "18%",
+              width: "12%",
+              wrapped: true,
+            },
+            {
+              dataField: "creationDate",
+              header: translate.t("search_findings.repositories_table.upload_date"),
+              onSort: sortState,
+              width: "12%",
               wrapped: true,
             },
             {
@@ -216,7 +224,7 @@ const repositories: React.FC<IRepositoriesProps> = (props: IRepositoriesProps): 
               formatter: canUpdate ? changeFormatter : statusFormatter,
               header: translate.t("search_findings.repositories_table.state"),
               onSort: sortState,
-              width: "12%",
+              width: "10%",
               wrapped: true,
             },
           ];

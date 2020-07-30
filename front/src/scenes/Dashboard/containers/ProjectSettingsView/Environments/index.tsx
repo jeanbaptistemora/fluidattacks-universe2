@@ -95,6 +95,7 @@ const environments: React.FC<IEnvironmentsProps> = (props: IEnvironmentsProps): 
 
       return {
         ...env,
+        creationDate: (_.first(historicState) as IHistoricState).date,
         state: _.capitalize((_.last(historicState) as IHistoricState).state),
         urlEnv: decodeURIComponent(_.get(env, "urlEnv")),
       };
@@ -186,6 +187,14 @@ const environments: React.FC<IEnvironmentsProps> = (props: IEnvironmentsProps): 
               dataField: "urlEnv",
               header: translate.t("search_findings.environment_table.environment"),
               onSort: sortState,
+              width: "80%",
+              wrapped: true,
+            },
+            {
+              dataField: "creationDate",
+              header: translate.t("search_findings.environment_table.upload_date"),
+              onSort: sortState,
+              width: "10%",
               wrapped: true,
             },
             {
@@ -196,7 +205,7 @@ const environments: React.FC<IEnvironmentsProps> = (props: IEnvironmentsProps): 
               formatter: canUpdate ? changeFormatter : statusFormatter,
               header: translate.t("search_findings.repositories_table.state"),
               onSort: sortState,
-              width: "12%",
+              width: "10%",
               wrapped: true,
             },
           ];
