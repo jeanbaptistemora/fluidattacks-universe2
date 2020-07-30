@@ -95,23 +95,6 @@ const organizationContent: React.FC<IOrganizationContent> = (props: IOrganizatio
                   title={translate.t("organization.tabs.groups.text")}
                   tooltip={translate.t("organization.tabs.groups.tooltip")}
                 />
-                <ContentTab
-                  icon="icon pe-7s-box1"
-                  id="policiesTab"
-                  link={`${url}/policies`}
-                  plus={{ visible: true }}
-                  title={translate.t("organization.tabs.policies.text")}
-                  tooltip={translate.t("organization.tabs.policies.tooltip")}
-                />
-                <Can do="backend_api_resolvers_organization__get_users">
-                  <ContentTab
-                    icon="icon pe-7s-users"
-                    id="usersTab"
-                    link={`${url}/users`}
-                    title={translate.t("organization.tabs.users.text")}
-                    tooltip={translate.t("organization.tabs.users.tooltip")}
-                  />
-                </Can>
                 <Can do="backend_api_resolvers_me__get_tags">
                   <ContentTab
                     icon="icon pe-7s-display2"
@@ -122,6 +105,23 @@ const organizationContent: React.FC<IOrganizationContent> = (props: IOrganizatio
                     tooltip={translate.t("organization.tabs.portfolios.tooltip")}
                   />
                 </Can>
+                <Can do="backend_api_resolvers_organization__get_users">
+                  <ContentTab
+                    icon="icon pe-7s-users"
+                    id="usersTab"
+                    link={`${url}/users`}
+                    title={translate.t("organization.tabs.users.text")}
+                    tooltip={translate.t("organization.tabs.users.tooltip")}
+                  />
+                </Can>
+                <ContentTab
+                  icon="icon pe-7s-box1"
+                  id="policiesTab"
+                  link={`${url}/policies`}
+                  plus={{ visible: true }}
+                  title={translate.t("organization.tabs.policies.text")}
+                  tooltip={translate.t("organization.tabs.policies.tooltip")}
+                />
               </ul>
             </div>
             <div className={globalStyle.tabContent}>
@@ -132,14 +132,14 @@ const organizationContent: React.FC<IOrganizationContent> = (props: IOrganizatio
                 <Route path={`${path}/groups`} exact={true}>
                   <OrganizationGroups organizationId={basicData.organizationId.id} />
                 </Route>
-                <Route path={`${path}/policies`} exact={true}>
-                  <OrganizationPolicies organizationId={basicData.organizationId.id} />
+                <Route path={`${path}/portfolios`} exact={true}>
+                  <OrganizationPortfolios organizationId={basicData.organizationId.id} />
                 </Route>
                 <Route path={`${path}/users`} exact={true}>
                   <OrganizationUsers organizationId={basicData.organizationId.id} />
                 </Route>
-                <Route path={`${path}/portfolios`} exact={true}>
-                  <OrganizationPortfolios organizationId={basicData.organizationId.id} />
+                <Route path={`${path}/policies`} exact={true}>
+                  <OrganizationPolicies organizationId={basicData.organizationId.id} />
                 </Route>
                 <Redirect to={`${path}/analytics`} />
               </Switch>
