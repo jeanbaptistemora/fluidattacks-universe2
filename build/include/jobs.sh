@@ -75,8 +75,8 @@ function job_test_lint_code {
       helper_use_pristine_workdir \
   &&  env_prepare_python_packages \
   &&  helper_list_touched_files | xargs pre-commit run -v --files \
-  &&  npm install --prefix new/theme/2020/ \
-  &&  npm run --prefix new/theme/2020/ lint
+  &&  npm install --prefix theme/2020/ \
+  &&  npm run --prefix theme/2020/ lint
 }
 
 function job_test_images {

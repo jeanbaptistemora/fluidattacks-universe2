@@ -153,9 +153,8 @@ function helper_deploy_pages {
 
 function helper_deploy_compile_new {
   local target="${1}"
-      helper_deploy_pages \
-  &&  pushd new/ || return 1 \
-  &&  env_prepare_python_packages \
+
+      env_prepare_python_packages \
   &&  helper_deploy_install_plugins_new \
   &&  sed -i "s|https://fluidattacks.com|${target}|g" pelicanconf.py \
   &&  npm install --prefix theme/2020/ \
@@ -163,23 +162,22 @@ function helper_deploy_compile_new {
   &&  PATH="${PATH}:$(pwd)/theme/2020/node_modules/uglify-js/bin/" \
   &&  npm run --prefix theme/2020/ build \
   &&  sed -i "s#\$flagsImagePath:.*#\$flagsImagePath:\ \"../../images/\";#" "theme/2020/node_modules/intl-tel-input/src/css/intlTelInput.scss" \
-  &&  cp -a "${STARTDIR}/new/cache" . || true \
+  &&  cp -a "${STARTDIR}/cache" . || true \
   &&  echo '[INFO] Compiling New site' \
   &&  pelican --fatal errors --fatal warnings content/ \
   &&  echo '[INFO] Finished compiling New site' \
-  &&  cp -a cache/ "${STARTDIR}/new" || true \
+  &&  cp -a cache/ "${STARTDIR}" || true \
   &&  rm -rf output/web/de \
   &&  mv output/web/pages/* output/web/ \
   &&  rm -rf output/web/pages \
-  &&  cp ../sitemap.xml output/sitemap.xml \
+  &&  cp sitemap.xml output/sitemap.xml \
   &&  tail -n +6 output/web/sitemap.xml >> output/sitemap.xml \
-  &&  cp ../robots.txt output/ \
-  &&  popd || return 1
+  &&  cp robots.txt output/ \
+  &&  rm output/web/sitemap.xml
 }
 
 function helper_deploy_compile_all {
   local target="${1}"
 
-      helper_deploy_compile_new "${target}" \
-  &&  cp -a new/output output/
+      helper_deploy_compile_new "${target}"
 }

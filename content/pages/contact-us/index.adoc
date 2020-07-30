@@ -1,6 +1,6 @@
 :slug: contact-us/
-:description: In this page we present our contact information, where you can get further details about our products and services. Fluid Attacks is a company focused on information security, ethical hacking, penetration testing and vulnerabilities detection over applications.
-:keywords: Fluid Attacks, Contact, Information, Company, About us, Security.
-:template: salesforce
+:description: Contact Fluid Attacks' team and solve now all the vulnerabilities in your company's software!
+:keywords: Fluid Attacks, Contact Us, Information, Company, About Us, Security, Experts, Pentesting, Ethical Hacking
+:template: contact-us
 
-= Contact Us
+= Talk to our experts

@@ -1,0 +1,334 @@
+:slug: about-us/differentiators/
+:category: about-us
+:description: We're an Ethical Hacking and Pentesting company offering services to identify cybersecurity vulnerabilities. Find here what differentiates us from competitors.
+:keywords: Fluid Attacks, Ethical Hacking, Pentesting, Differentiators, Cybersecurity
+:yes: image:../../images/icons/yes.png[yes]
+:no: image:../../images/icons/no.png[no]
+:banner: differentiators-bg
+
+= Differentiators
+
+We're an Ethical Hacking and Pentesting company
+offering services to identify cybersecurity vulnerabilities.
+In the following table, we outline what differentiates us from our competitors:
+
+.Comparative table: Pentesting vs Vulnerability Analysis
+[role="tb-row"]
+[cols="15,45,40"]
+|====
+| *Aspect*
+| *Fluid Attacks*
+| *Others*
+
+a|==== Focus
+| {yes} We do security risk hacking only. All day, all the time.
+| {no} Only from time to time,
+because they do other things besides hacking.
+
+a|==== Independence
+| {yes} We don't install, maintain, operate or sell other security products.
+With no hidden agendas, you can have confidence
+in the independence and impartiality of our reports
+link:../../use-cases/continuous-hacking/remediation/[^1^]
+link:../../use-cases/one-shot-hacking/[^2^].
+| {no}  Since other providers develop, maintain, install or operate
+security controls such as `SOC`, `NAC`, Firewalls etc,
+they may not be truly impartial nor independent.
+
+a|==== Attributes
+a|{yes} We verify the basic security attributes:
+
+* Confidentiality.
+* Integrity.
+* Availability.
+
+Additionally, we also verify extended attributes such as:
+
+* Privacy.
+* Non-repudiation.
+* Traceability (logs and error management).
+a|{no} Others only verify:
+
+* Confidentiality.
+* Integrity.
+* Availability.
+
+a|==== Method
+| {yes} Automated tools + hands-on expert review (Hybrid).
+| {no} Static (automated tools only).
+
+a|==== Team
+a|{yes} Our hackers are certified in practical hacking in real scenarios
+link:../certifications/[^3^]:
+
+* `OSCE`.
+* `OSCP`.
+* `OSWP`.
+* `CRTE`.
+
+Additionally, they are selected and trained through the most demanding
+[button]#link:../../careers/[process]# in the industry,
+guaranteeing their ability to program their own tools
+and audit code in multiple languages,
+effectively making them *programmer-hackers*.
+
+a|{no} Others are only certified in theoretical hacking
+through questions and answers:
+
+* `CEH`.
+
+a|==== Model
+| `Red Team`
+link:../../use-cases/continuous-hacking/hacking-tech/[^4^]
+link:../../use-cases/one-shot-hacking/hacking-tech/[^5^].
+| Vulnerability analysis with selective exploitation.
+
+a|==== Targets
+a|* Web applications.
+* Mobile applications (iPhone, Android).
+* Desktop applications (`GUI`).
+* Mainframe applications (`AS400`).
+* Embedded applications (`POS`, `ATM`).
+* `APIs` (`SOAP`, `REST`, `GraphQL`).
+* Servers.
+* Networks.
+* `IoT` Devices.
+* Industrial Control Systems (`ICS`).
+* Security Operations Centers (`SOC`).
+a|* Web applications.
+* Servers.
+* Networks.
+
+a|==== Techniques
+a|{yes} 1 service, all techniques
+link:../../use-cases/continuous-hacking/break-build/[^6^]
+link:../../use-cases/continuous-hacking/critical-info/[^7^]
+link:../../use-cases/one-shot-hacking/infection/[^8^]
+link:../../use-cases/one-shot-hacking/critical-info/[^9^]:
+
+* link:../../blog/fuzzy-bugs-online/[Fuzzing].
+* Dynamic (`DAST`), Static (`SAST`) and Interactive (`IAST`) Security Testing.
+* link:../../blog/stand-shoulders-giants/[`SCA`](Software Composition Analysis).
+* Manual code review.
+* link:../../blog/reversing-mortals/[Reversing] (if source is not provided).
+* False positive elimination.
+* Exploitation with public, private and custom exploits.
+* User enumeration.
+* Password guessing and cracking.
+* Trojan infection.
+| {no} Only 1 technique per product.
+
+a|==== link:../../blog/delimit-ethical-hacking/[Scope]
+a|{yes} Precision and granularity in the attack surface
+link:../../use-cases/continuous-hacking/environments/[^10^]
+link:../../use-cases/one-shot-hacking/environments/[^11^]:
+
+* For infrastructure (networks, servers, etc),
+according to `TCP` and `UDP` open ports.
+* For applications, according to inputs
+(visible fields, hidden fields, headers and function parameters).
+* For source code, according to strictly effectives lines of code (`LoC`).
+* For binaries, according to the size in `MiB`
+of the software previously installed.
+a|{no} Ambiguity or lack of detail in the attack surface:
+
+* For infrastructure, according to `IP` addresses.
+* For applications, according to the number of screens
+and forms of the application.
+
+a|==== Legacy Languages
+a|{yes} We hack legacy applications coded in old-established languages, such as:
+
+* `COBOL`.
+* `RPG`.
+* `PL1`.
+* `TAL`.
+| {no} No support.
+
+a|==== Development Method
+a|{yes} Integrable with any development method, such as:
+
+* Waterfall.
+* Agile.
+* `DevOps`.
+
+[button]#link:../../use-cases/continuous-hacking/[Continuous Hacking]#,
+[button]#link:../../products/integrates/[Integrates]#
+and [button]#link:../../asserts/[Asserts]#
+fit perfectly for the last 2 use cases.
+a|{no} Integrable with a single development method:
+
+* Waterfall.
+
+a|==== Environments
+a|* Integration:
+[button]#link:../../use-cases/continuous-hacking/[Continuous Hacking]#
+and [button]#link:../../asserts/[Asserts]#
+fit perfectly for this use case
+link:../../use-cases/continuous-hacking/environments/[^12^]
+link:../../use-cases/one-shot-hacking/environments/[^13^].
+* Staging.
+* Production.
+a|* Staging.
+* Production.
+
+a|==== Windows
+a|{yes} In the [button]#link:../../use-cases/continuous-hacking/[Continuous Hacking]# service,
+test windows are not required and environments:
+
+* Can change constantly.
+* Are not necessarily frozen.
+| {no} Frozen environments and test windows are required.
+
+a|==== Coverage
+a|{yes} Known
+link:../../use-cases/continuous-hacking/environments/[^16^]
+link:../../use-cases/one-shot-hacking/environments/[^17^]:
+
+* In fixed scopes, the exact part of the attack surface to be verified,
+and its proportion with respect to the total, is agreed upon in advance.
+
+* In variable scopes, the exact part of the attack surface
+that was verified, and its proportion
+with respect to the total, is reported at the end.
+| {no} Unknown, because they may not accurately report
+what was tested and what was not.
+
+a|==== Profiling
+| {yes} Our product, [button]#link:../../rules/[Rules]#,
+allows you to define the security requirements that will be checked
+during our hacking service.
+| {no} Non-parameterizable.
+
+a|==== Strictness
+| {yes} You will know the exact strictness of the hacking
+(for inspected and non-inspected
+link:#profiling[profiled] requirements)
+link:../../use-cases/continuous-hacking/environments/[^18^]
+link:../../use-cases/one-shot-hacking/environments/[^19^].
+| {no} Unknown.
+
+a|==== Finding Types
+a|* Of a specific business impact.
+* Insecure programming practices.
+* Alignment with security standards and regulations.
+a|* Based on signatures.
+* Syntax-based.
+
+a|==== Type of Evidence
+a|{yes}  Some of the most relevant evidence is:
+
+* Images of the attack with explanatory annotations.
+* Animated `GIFs` of the attack.
+a|{no} In the case of other suppliers:
+
+* Images without annotations.
+* Copy-paste of test outcomes which may include false positives.
+
+a|==== Zero Day Vulnerabilities
+| {yes} Yes link:../../use-cases/continuous-hacking/hacking-tech/[^20^]
+| {no} No
+
+a|==== False Positives
+| {yes} 0%
+| {no} ~20%
+
+a|==== Exploitation
+a|{yes} Yes, as long as we have
+link:../../use-cases/continuous-hacking/break-build/[^21^]
+link:../../use-cases/one-shot-hacking/infection/[^22^]:
+
+* An available environment.
+* The appropriate authorization.
+| {no} No
+
+a|==== Custom Exploits
+| {yes} Using our own exploitation engine
+[button]#link:../../asserts/[Asserts]#.
+| {no} Unable to create and execute exploits.
+
+a|==== link:../../blog/importance-pentesting/#diagram[Correlation]
+| {yes} By combining vulnerabilities `A` and `B` we are able to find
+a new vulnerability `C` of greater impact, which may compromise more registers.
+| {no} Only detects vulnerabilities `A` and `B`
+but is not able to correlate them.
+
+a|==== Infection
+| {yes} In our [button]#link:../../use-cases/one-shot-hacking/infection/[One-shot hacking]#
+service we infect stations and critical servers
+using cyberweapons.
+| {no} Don't infect or dispose of cyberweapons.
+
+a|==== Compromised Records
+a|{yes} After discovering a vulnerability and exploiting it,
+we extract the critical business information
+which indicates a high impact level.
+This allows us to show the severity of any individual vulnerability on:
+
+* Users.
+* Passwords.
+* Wages.
+* Personal IDs.
+* Credit card numbers.
+* Files in hard disk.
+* Central repositories without password.
+
+| {no} No record extraction
+
+a|==== Cycles
+| {yes} Multiple cycles in our service: +
+{sp} +
+[button]#link:../../use-cases/continuous-hacking/[Continuous Hacking]#
+link:../../use-cases/continuous-hacking/hacking-tech/[^23^].
+| {no}  Only 1.
+
+a|==== link:../../blog/replaced-machines/[Escapes]
+| {yes} 0% on the agreed link:#scope[scope].
+| {no} ~65% on the agreed link:#scope[scope].
+
+a|==== Remediation
+a|{yes} During the project you can request clarifications
+directly from our hackers via
+[button]#link:../../products/integrates/[Integrates]#.
+link:../../use-cases/continuous-hacking/remediation/[^24^]
+link:../../use-cases/one-shot-hacking/[^25^].
+| {no} No support during the remediation phase.
+
+a|==== Deliverables
+a|{yes} Real-time documentation web system
+[button]#link:../../products/integrates/[Integrates]#
+which allows our customers to auto-generate and supervise
+every system from day 1 of the project
+link:../../use-cases/continuous-hacking/vuln-manage/[^26^]
+link:../../use-cases/one-shot-hacking/vuln-manage/[^27^]:
+
+* Executive report in `PDF`.
+* Technical report in `XLS`.
+* Technical report in `PDF`.
+* Graphics and metrics illustrating the system's security status.
+
+a|{no} Available only at the end of the project
+because it is manually generated.
+
+* Word document.
+* Tool reports without discarding false positives.
+
+a|==== End
+|{yes} Our service ends when the agreed upon scope is completed,
+without any increase in cost to you.
+link:../../use-cases/continuous-hacking/critical-info/[^28^]
+link:../../use-cases/one-shot-hacking/critical-info/[^29^]
+|{no} The service ends
+when a prior agreed upon time limit for the project runs out.
+Therefore, the scope and coverage
+are ultimately not defined and therefore unknown.
+
+a|==== Pricing
+| {yes} Fixed, according to the previously agreed upon scope.
+| {no} Variable, depending on time and materials.
+
+|====
+{sp} +
+Do you want more information about our services?
+Do not hesitate to
+[button]#link:../../contact-us/[contact us]#.

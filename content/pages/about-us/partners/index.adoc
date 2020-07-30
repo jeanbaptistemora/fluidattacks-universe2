@@ -1,0 +1,127 @@
+:slug: about-us/partners/
+:category: about-us
+:description: Our partners allow us to complete our portfolio and offer better security testing services. Get to know them and become one of them.
+:keywords: Fluid Attacks, Partners, Services, Security Testing, Software Development, Pentesting, Ethical Hacking
+:germany: image:../../images/icons/germany-flag.png[Germany Flag]
+:usa: image:../../images/icons/us-flag.png[USA Flag]
+:australia: image:../../images/icons/australia-flag.png[Australia Flag]
+:peru: image:../../images/icons/peru-flag.png[Peru Flag]
+:canada: image:../../images/icons/canada-flag.png[Canada Flag]
+:banner: partners-bg
+
+= Partners
+
+Partners facilitate the delivery of our services to our end customers
+located in a variety of geographic areas (Germany link:#teraport[^1^],
+Australia link:#the-missing-link[^2^], and the United States link:#arroyo-consulting[^3^] link:#sba[^4^])
+and sectors (Government, Defense) link:#evolution-it[^5^].
+In addition to our services, they complete their portfolio
+(functional testing link:#choucair[^6^] link:#greensqa[^7^], software development),
+providing integrated solutions.
+If you are interested in partnering with `Fluid Attacks`,
+please start by reading the [button]#link:terms/[terms]#
+of our general partner agreement.
+
+[role="tb-alt"]
+[cols=2, frame="none"]
+|====
+
+a|image::logo-arroyo.png[alt="Logo Arroyo",link="http://www.arroyo.consulting/"]
+
+a|== Arroyo Consulting
+
+{usa} Arroyo Consulting is an agile `IT` development firm formed in `2009`.
+They have offices in the United States
+and low-cost operation centers located in Mexico City, Mexico,
+and Medellín and Bogotá, Colombia.
+They have successfully delivered over `1000` projects internationally,
+with partners in a variety of industries and sectors.
+
+a|== Choucair
+
+Choucair is a Colombian company, a pioneer in software testing.
+It was created in `1999`, with an international scope,
+offering services related to software testing to reduce operational risks.
+The success of its services is based on research
+and qualified human resources,
+supported by a certified and effective methodology.
+
+a|image::logo-choucair.png[alt="Logo Choucair",link="http://www.choucairtesting.com/"]
+
+a|image::ediligence-logo.png[alt="Logo Ediligence",link="http://ediligence.co/"]
+
+a|== Ediligence
+
+Ediligence is a company that provides information security services,
+forensics, and technologies consulting.
+By aligning legal and technical concepts,
+support is given to litigation,
+administrative investigations,
+and consultancy in the areas of compliance such as competence,
+protection of personal data, and intellectual property.
+
+a|== Evolution IT
+
+Evolution is a company that promotes, implements, and strengthens
+the effective management of `IT`.
+It helps companies improve their competitiveness
+through better quality services, increasing their profitability.
+It employs world-class practices and successfully establishes
+business relationships with customers, business partners,
+and collaborators based on mutual trust.
+
+a|image::logo-evolution.png[alt="Logo Evolution",link="http://www.evolution-it.com.co/"]
+
+a|image::gamma-logo.png[alt="Logo Gamma Ingenieros",link="https://www.gammaingenieros.com/"]
+
+a|== Gamma Ingenieros
+
+Gamma Ingenieros is a Colombian company
+focused on satisfying its customers' needs
+regarding `IT` services and solutions.
+It is a company that performs consulting and auditing
+of construction and telecommunications works.
+It has a proven track record of fostering customer confidence
+and improving their experience.
+
+a|== GreenSQA
+
+GreenSQA ia a company with `15` years of experience in software testing,
+such as performance tests and tests on different mobile devices.
+It tests automation throughout the product development life-cycle.
+
+a|image::logo-greensqa.png[alt="Logo GreenSQA",link="http://greensqa.com/"]
+
+a|image::logo-newnet.png[alt="Logo NewNet",link="http://www.newnetsa.com/"]
+
+a|== NewNet
+
+NewNet is a Colombian company
+dedicated to providing `IT` services and solutions.
+It is a pioneer in information technology,
+with more than `20` years of experience.
+NewNet's objective is to plan, establish, implement, operate,
+review, maintain, and improve technology management.
+All this within the framework of security, service,
+and support according to each organization's needs.
+
+a|== Proximiteam
+
+{canada} Proximiteam is a global provider
+of high-quality software development services.
+Its teams of experienced software engineers and `IT` specialists
+create innovative systems and applications for every industry.
+Headquartered in Toronto, Canada,
+with a solid nearshore network of development centers and global partners,
+Proximiteam has defined efficient service delivery models
+that focus on value and productivity.
+Its services include custom software development,
+systems integration, data analytics, testing, and support.
+
+a|image::logo-proximiteam.png[alt="Logo SBA",link="https://www.proximiteam.com/"]
+
+|====
+
+If you agree with the [inner]#link:terms/[terms]#
+of our general partner agreement and would like to become a partner,
+please submit the following link:../../contact-us/[Contact Form].

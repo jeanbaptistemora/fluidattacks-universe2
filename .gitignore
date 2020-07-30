@@ -20,7 +20,7 @@ package-lock.json
 
 # Webpack
 theme/2014/static/js/tmp/
-new/theme/2020/static/js/tmp/
+theme/2020/static/js/tmp/
 
 # Terraform
 .terraform
