@@ -317,16 +317,9 @@ STATICFILES_DIRS = [
     ('styles', os.path.join(BASE_DIR, 'app', 'static', 'styles')),
 ]
 
-CRONJOBS = [
-    ('0 5 * * 1', 'backend.scheduler.get_new_vulnerabilities'),
-    ('30 5,16 * * 1-5', 'backend.scheduler.get_remediated_findings'),
-    ('30 5,15 * * 1-5', 'backend.scheduler.get_new_releases'),
-    ('0 15 * * 1',
-        'backend.scheduler.send_unsolved_to_all'),
-    ('0 6,13 * * 1-5', 'backend.scheduler.update_indicators'),
-    ('0 0 * * *', 'backend.scheduler.reset_expired_accepted_findings'),
-    ('0 0 * * *', 'backend.scheduler.delete_pending_projects'),
-]
+# All new scheduled tasks are performed using the CI.
+# Check the CI configuration to learn how to add new tasks.
+CRONJOBS = []
 
 
 AUTHENTICATION_BACKENDS = (

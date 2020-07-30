@@ -326,7 +326,7 @@ def format_data(finding: Dict[str, FindingType]) -> Dict[str, FindingType]:
             cast(datetime, finding['releaseDate'])
         ).days
     finding['exploitable'] = forms_utils.is_exploitable(
-        float(str(finding.get('exploitability', ''))),
+        float(str(finding.get('exploitability', 0))),
         str(finding.get('cvssVersion', ''))
     ) == 'Si'
 
@@ -335,11 +335,12 @@ def format_data(finding: Dict[str, FindingType]) -> Dict[str, FindingType]:
         finding.get('historicVerification', [{}])
     )
     finding['remediated'] = (
+        historic_verification and
         historic_verification[-1].get('status') == 'REQUESTED' and
         not historic_verification[-1].get('vulns', [])
     )
 
-    finding_files = cast(List[Dict[str, str]], finding.get('files'))
+    finding_files = cast(List[Dict[str, str]], finding.get('files', []))
     finding['evidence'] = {
         'animation': _get_evidence('animation', finding_files),
         'evidence1': _get_evidence('evidence_route_1', finding_files),

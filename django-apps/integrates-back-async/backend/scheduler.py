@@ -6,6 +6,7 @@ import logging
 import logging.config
 from collections import OrderedDict, defaultdict
 from datetime import datetime, timedelta
+from decimal import Decimal
 from typing import Dict, List, Tuple, Union, cast
 
 from more_itertools import chunked
@@ -14,10 +15,12 @@ from asgiref.sync import async_to_sync, sync_to_async
 
 from backend import mailer, util
 from backend.dal import (
-    project as project_dal
+    project as project_dal,
+    tag as tag_dal
 )
 from backend.domain import (
     finding as finding_domain,
+    organization as org_domain,
     project as project_domain,
     vulnerability as vuln_domain,
     event as event_domain
@@ -25,7 +28,8 @@ from backend.domain import (
 from backend.typing import (
     Event as EventType,
     Finding as FindingType,
-    Historic as HistoricType
+    Historic as HistoricType,
+    Project as ProjectType
 )
 from backend.utils import aio
 from __init__ import (
@@ -369,6 +373,39 @@ async def get_new_vulnerabilities() -> None:
     await util.run_task_by_chunks(get_group_new_vulnerabilities, groups)
 
 
+def calculate_tag_indicators(
+        tag: str,
+        tags_dict: Dict[str, List[ProjectType]],
+        indicator_list: List[str]) -> Dict[str, Union[Decimal, List[str]]]:
+    tag_info: Dict[str, Union[Decimal, List[str]]] = {}
+    for indicator in indicator_list:
+        if 'max' in indicator:
+            tag_info[indicator] = Decimal(
+                max([
+                    cast(Decimal, group.get(indicator, Decimal('0.0')))
+                    for group in tags_dict[tag]
+                ])
+            ).quantize(Decimal('0.1'))
+        elif 'mean' in indicator:
+            tag_info[indicator] = Decimal(
+                sum([
+                    cast(Decimal, group.get(indicator, Decimal('0.0')))
+                    for group in tags_dict[tag]
+                ]) / Decimal(len(tags_dict[tag]))
+            ).quantize(Decimal('0.1'))
+        else:
+            tag_info[indicator] = Decimal(
+                min([
+                    cast(Decimal, group.get(indicator, Decimal('inf')))
+                    for group in tags_dict[tag]
+                ])
+            ).quantize(Decimal('0.1'))
+        tag_info['projects'] = [
+            str(group['name']) for group in tags_dict[tag]
+        ]
+    return tag_info
+
+
 async def calculate_vulnerabilities(
         act_finding: Dict[str, FindingType]) -> int:
     vulns = await vuln_domain.list_vulnerabilities_async(
@@ -650,6 +687,86 @@ async def update_indicators() -> None:
     LOGGER.warning('[scheduler]: update_indicators is running')
     groups = await sync_to_async(project_domain.get_active_projects)()
     await util.run_task_by_chunks(update_group_indicators, groups)
+
+
+async def update_organization_indicators(
+        organization_name: str,
+        groups: List[str]) -> bool:
+    success: List[bool] = []
+    indicator_list: List[str] = [
+        'max_open_severity',
+        'mean_remediate',
+        'mean_remediate_critical_severity',
+        'mean_remediate_high_severity',
+        'mean_remediate_low_severity',
+        'mean_remediate_medium_severity',
+        'last_closing_date'
+    ]
+    tags_dict: Dict[str, List[ProjectType]] = defaultdict(list)
+    groups_attrs = await aio.materialize(
+        project_domain.get_attributes(
+            group,
+            indicator_list + ['tag']
+        )
+        for group in groups
+    )
+    groups_findings = await project_domain.list_findings(groups)
+    groups_findings_attrs = await aio.materialize(
+        finding_domain.get_findings_async(group_findings)
+        for group_findings in groups_findings
+    )
+    for index, group in enumerate(groups):
+        groups_attrs[index]['max_severity'] = Decimal(max(
+            [
+                float(finding.get('severityCvss', 0.0))
+                for finding in groups_findings_attrs[index]
+            ]
+            if groups_findings_attrs[index]
+            else [0.0]
+        )).quantize(Decimal('0.1'))
+        groups_attrs[index]['name'] = group
+        for tag in groups_attrs[index]['tag']:
+            tags_dict[tag].append(groups_attrs[index])
+    for tag in tags_dict:
+        tag_info = calculate_tag_indicators(
+            tag, tags_dict, indicator_list + ['max_severity']
+        )
+        success.append(
+            await aio.ensure_io_bound(
+                tag_dal.update, organization_name, tag, tag_info
+            )
+        )
+        if success[-1]:
+            util.invalidate_cache(tag)
+    return all(success)
+
+
+@async_to_sync
+async def update_portfolios() -> None:
+    """
+    Update portfolios metrics
+    """
+    LOGGER.info(
+        '[scheduker]: updating portfolios indicators', extra={'extra': {}}
+    )
+    async for _, org_name, org_groups in \
+            org_domain.iterate_organizations_and_groups():
+        org_groups_attrs = await aio.materialize(
+            project_domain.get_attributes(
+                group, ['project_name', 'project_status', 'tag']
+            )
+            for group in org_groups
+        )
+        tag_groups: List[str] = [
+            group['project_name']
+            for group in org_groups_attrs
+            if group.get('project_status') == 'ACTIVE' and group.get('tag', [])
+        ]
+        if not await update_organization_indicators(org_name, tag_groups):
+            LOGGER.error(
+                '[scheduler]: error updating portfolio indicators',
+                extra={'extra': {'organization': org_name}}
+            )
 
 
 async def reset_group_expired_accepted_findings(

@@ -248,6 +248,12 @@ scheduler_update_indicators:
     refs: [schedules]
     variables: [$update_indicators]
 
+scheduler_update_portfolios:
+  <<: *scheduler_prod_template
+  only:
+    refs: [schedules]
+    variables: [$update_portfolios]
+
 scheduler_get_new_releases:
   <<: *scheduler_prod_template
   only:
