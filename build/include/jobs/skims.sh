@@ -54,7 +54,11 @@ function job_skims_lint {
     --strict
   )
   local args_prospector=(
+    # Some day when skims has https://readthedocs.org !
+    # --doc-warnings
+    --full-pep8
     --strictness veryhigh
+    --test-warnings
   )
   local path='skims'
 
