@@ -215,14 +215,14 @@ function job_test_commit_msg {
 
 function job_deploy_local {
       helper_use_pristine_workdir \
-  &&  helper_deploy_compile_all 'http://localhost:8000' \
+  &&  helper_deploy_compile_web 'http://localhost:8000' \
   &&  python3 -m http.server --directory output
 }
 
 function job_deploy_ephemeral {
       helper_use_pristine_workdir \
   &&  helper_set_dev_secrets \
-  &&  helper_deploy_compile_all "https://web.eph.fluidattacks.com/${CI_COMMIT_REF_NAME}" \
+  &&  helper_deploy_compile_web "https://web.eph.fluidattacks.com/${CI_COMMIT_REF_NAME}" \
   &&  helper_deploy_sync_s3 'output/' "web.eph.fluidattacks.com/${CI_COMMIT_REF_NAME}"
 }
 
@@ -234,7 +234,7 @@ function job_deploy_stop_ephemeral {
 function job_deploy_production {
       helper_use_pristine_workdir \
   &&  helper_set_prod_secrets \
-  &&  helper_deploy_compile_all 'https://fluidattacks.com' \
+  &&  helper_deploy_compile_web 'https://fluidattacks.com' \
   &&  helper_deploy_sync_s3 'output/' 'web.fluidattacks.com'
 }
 

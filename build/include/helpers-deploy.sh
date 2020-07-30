@@ -2,7 +2,7 @@
 
 source "${srcIncludeHelpers}"
 
-function helper_deploy_install_plugins_new {
+function helper_deploy_install_plugins {
   local asciidoc='asciidoc_reader'
   local asciidoc_version='ad6d407'
 
@@ -101,61 +101,11 @@ function helper_deploy_sync_s3 {
         --delete
 }
 
-function helper_deploy_pages {
-      rsync -av --progress content/pages/ new/content/pages/ --exclude contact-us \
-        --exclude products --exclude services --exclude careers/* \
-        --exclude location \
-        --exclude reviews --exclude events \
-        --exclude people --exclude partners \
-  &&  rsync -av --progress content/pages/careers/ new/content/pages/careers/ \
-  &&  rsync -av --progress content/pages/rules/services new/content/pages/rules/ \
-  &&  sed -i "s|:template: faq||g" new/content/pages/careers/faq/index.adoc \
-  &&  rsync -av --progress content/pages/services/certifications content/pages/services/differentiators \
-        content/pages/values content/pages/reviews content/pages/events \
-        content/pages/people content/pages/partners new/content/pages/about-us/ \
-  &&  sed -i "s|:slug: services/|:slug: about-us/|g" new/content/pages/about-us/*/index.adoc \
-  &&  sed -i "s|:slug: values/|:slug: about-us/values/|g" new/content/pages/about-us/*/index.adoc \
-  &&  sed -i "s|:slug: reviews/|:slug: about-us/reviews/|g" new/content/pages/about-us/*/index.adoc \
-  &&  sed -i "s|:slug: certifications/|:slug: about-us/certifications/|g" new/content/pages/about-us/*/index.adoc \
-  &&  sed -i "s|:slug: events/|:slug: about-us/events/|g" new/content/pages/about-us/*/index.adoc \
-  &&  sed -i "s|:slug: events/|:slug: about-us/events/|g" new/content/pages/about-us/events/*/index.adoc \
-  &&  sed -i "s|:slug: people/|:slug: about-us/people/|g" new/content/pages/about-us/*/index.adoc \
-  &&  sed -i "s|:slug: people/|:slug: about-us/people/|g" new/content/pages/about-us/people/*/index.adoc \
-  &&  sed -i "s|:slug: partners/|:slug: about-us/partners/|g" new/content/pages/about-us/*/index.adoc \
-  &&  sed -i "s|:slug: partners/terms|:slug: about-us/partners/terms|g" \
-        new/content/pages/about-us/partners/terms/index.adoc \
-  &&  sed -i "s|:category: services|:category: about-us|g" new/content/pages/about-us/*/index.adoc \
-  &&  rsync -av --progress content/blog/ new/content/blog/ \
-  &&  rsync -av --progress content/images new/content/ \
-  &&  sed -i "s|image:../images|image:../../images|g" new/content/pages/about-us/partners/index.adoc \
-  &&  sed -i "s|:template: rules|:template: findings|g" new/content/pages/rules/index.adoc \
-  &&  sed -i "s|:template: extended|:template: findings|g" new/content/pages/rules/out-of-scope/index.adoc \
-  &&  sed -i "s|:template: defends|:template: findings|g" new/content/pages/defends/index.adoc \
-  &&  cp theme/2014/static/js/rules.ts new/theme/2020/static/js/ \
-  &&  cp theme/2014/static/images/arrow.svg new/theme/2020/static/images/ \
-  &&  sed -i "s|:category: people|:category: about-us|g" new/content/pages/about-us/people/*/index.adoc \
-  &&  rsync -av --progress content/pages/services/faq/index.adoc new/content/pages/faq/clients/ \
-  &&  sed -i "s|:slug: services/faq|:slug: faq/clients|g" new/content/pages/faq/clients/index.adoc \
-  &&  sed -i "s|:category: services|:category: faq|g" new/content/pages/faq/clients/index.adoc \
-  &&  sed -i "s|= Frequently asked questions|= Clients FAQ|g" new/content/pages/faq/clients/index.adoc \
-  &&  rsync -av --progress content/pages/services/comparative new/content/pages/use-cases/ \
-  &&  sed -i "s|:slug: services/|:slug: use-cases/|g" new/content/pages/use-cases/comparative/index.adoc \
-  &&  sed -i "s|:category: services|:category: use-cases|g" new/content/pages/use-cases/comparative/index.adoc \
-  &&  sed -i "s|services/continuous-hacking|use-cases/continuous-hacking|g" new/content/blog/*/index.adoc \
-  &&  sed -i "s|services/one-shot-hacking|use-cases/one-shot-hacking|g" new/content/blog/*/index.adoc \
-  &&  sed -i "s|services/continuous-hacking|use-cases/continuous-hacking|g" new/content/pages/*/index.adoc \
-  &&  rsync -av --progress content/pages/products/rules new/content/pages/products/ \
-  &&  cp theme/2014/static/scss/tipuesearch.scss new/theme/2020/static/scss/ \
-  &&  sed -i "s|Source Sans Pro, sans-serif|'Roboto', sans-serif|g" new/theme/2020/static/scss/tipuesearch.scss \
-  &&  sed -i "s|:category: products|:category: resources|g" new/content/pages/products/rules/index.adoc \
-  &&  rm -rf new/content/pages/values
-}
-
-function helper_deploy_compile_new {
+function helper_deploy_compile_web {
   local target="${1}"
 
       env_prepare_python_packages \
-  &&  helper_deploy_install_plugins_new \
+  &&  helper_deploy_install_plugins \
   &&  sed -i "s|https://fluidattacks.com|${target}|g" pelicanconf.py \
   &&  npm install --prefix theme/2020/ \
   &&  PATH="${PATH}:$(pwd)/theme/2020/node_modules/.bin/" \
@@ -163,9 +113,9 @@ function helper_deploy_compile_new {
   &&  npm run --prefix theme/2020/ build \
   &&  sed -i "s#\$flagsImagePath:.*#\$flagsImagePath:\ \"../../images/\";#" "theme/2020/node_modules/intl-tel-input/src/css/intlTelInput.scss" \
   &&  cp -a "${STARTDIR}/cache" . || true \
-  &&  echo '[INFO] Compiling New site' \
+  &&  echo '[INFO] Compiling Web site' \
   &&  pelican --fatal errors --fatal warnings content/ \
-  &&  echo '[INFO] Finished compiling New site' \
+  &&  echo '[INFO] Finished compiling Web site' \
   &&  cp -a cache/ "${STARTDIR}" || true \
   &&  rm -rf output/web/de \
   &&  mv output/web/pages/* output/web/ \
@@ -174,10 +124,4 @@ function helper_deploy_compile_new {
   &&  tail -n +6 output/web/sitemap.xml >> output/sitemap.xml \
   &&  cp robots.txt output/ \
   &&  rm output/web/sitemap.xml
-}
-
-function helper_deploy_compile_all {
-  local target="${1}"
-
-      helper_deploy_compile_new "${target}"
 }
