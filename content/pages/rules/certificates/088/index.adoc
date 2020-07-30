@@ -14,11 +14,16 @@ This must be done especially during the authentication process.
 
 == References
 
-. [[r1]] link:https://cwe.mitre.org/data/definitions/521.html[CWE-521: Weak Password Requirements]
+. [[r1]] link:https://cwe.mitre.org/data/definitions/299.html[CWE-299: Improper Check for Certificate Revocation].
+The software does not check or incorrectly checks the revocation status of a
+certificate,
+which may cause it to use a certificate that has been compromised.
+
+. [[r2]] link:https://cwe.mitre.org/data/definitions/521.html[CWE-521: Weak Password Requirements].
 The product does not require that users should have strong passwords,
 which makes it easier for attackers to compromise user accounts.
 
-. [[r2]] link:https://pages.nist.gov/800-63-3/sp800-63b.html[NIST 800-63B 5.2.5 Verifier Impersonation Resistance]
+. [[r3]] link:https://pages.nist.gov/800-63-3/sp800-63b.html[NIST 800-63B 5.2.5 Verifier Impersonation Resistance].
 A verifier impersonation-resistant authentication protocol SHALL establish an
 authenticated protected channel with the verifier.
 It SHALL then strongly and irreversibly bind a channel identifier that was
@@ -27,20 +32,25 @@ authenticator output
 (e.g., by signing the two values together using a private key controlled by the
 claimant for which the public key is known to the verifier).
 
-. [[r3]] link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A2-Broken_Authentication[OWASP Top 10 A2:2017-Broken Authentication].
+. [[r4]] link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A2-Broken_Authentication[OWASP Top 10 A2:2017-Broken Authentication].
 Application functions related to authentication and session management are
 often implemented incorrectly,
 allowing attackers to compromise passwords, keys, or session tokens,
 or to exploit other implementation flaws to assume other users’ identities
 temporarily or permanently.
 
-. [[r4]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r5]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 Appendix C: Internet of Things Verification Requirements.(C.9)]
 Verify that wireless communications are mutually authenticated.
 
-. [[r5]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r6]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V2.2 General Authenticator Requirements.(2.2.4)]
 Verify impersonation resistance against phishing,
 such as the use of multi-factor authentication, cryptographic devices with
 intent (such as connected keys with a push to authenticate),
 or at higher AAL levels, client-side certificates.
+
+. [[r7]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V9.2 Server Communications Security Requirements.(9.2.4)]
+Verify that proper certification revocation, such as Online Certificate Status
+Protocol (**OCSP**) Stapling, is enabled and configured.

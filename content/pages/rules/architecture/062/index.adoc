@@ -98,6 +98,11 @@ Verify that encryption initialization vector, cipher configuration,
 and block modes are configured securely using the latest advice.
 
 . [[r11]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V9.2 Server Communications Security Requirements.(9.2.4)]
+Verify that proper certification revocation, such as Online Certificate Status
+Protocol (**OCSP**) Stapling, is enabled and configured.
+
+. [[r12]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V10.3 Deployed Application Integrity Controls.(10.3.2)]
 Verify that the application employs integrity protections,
 such as code signing or sub-resource integrity.
@@ -105,25 +110,25 @@ The application must not load or execute code from untrusted sources,
 such as loading includes, modules, plugins, code, or libraries from untrusted
 sources or the Internet.
 
-. [[r12]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r13]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V13.2 RESTful Web Service Verification Requirements.(13.2.2)]
 Verify that *JSON* schema validation is in place and verified before accepting
 input.
 
-. [[r13]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r14]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V13.3 SOAP Web Service Verification Requirements.(13.3.1)]
 Verify that *XSD* schema validation takes place to ensure a properly formed
 *XML* document,
 followed by validation of each input field before any processing of that data
 takes place.
 
-. [[r14]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r15]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V14.1 Build.(14.1.1)]
 Verify that the application build and deployment processes are performed in a
 secure and repeatable way, such as *CI* / *CD* automation,
 automated configuration management, and automated deployment scripts.
 
-. [[r15]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r16]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V14.1 Build.(14.1.2)]
 Verify that compiler flags are configured to enable all available buffer
 overflow protections and warnings,
@@ -131,7 +136,7 @@ including stack randomization, data execution prevention,
 and to break the build if an unsafe pointer, memory, format string, integer,
 or string operations are found.
 
-. [[r16]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r17]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V14.1 Build.(14.1.3)]
 Verify that server configuration is hardened as per the recommendations of the
 application server and frameworks in use.
