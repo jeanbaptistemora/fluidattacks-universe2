@@ -9,7 +9,7 @@ from typing import (
 )
 
 # Local imports
-from lib_path.findings import (
+from lib_path import (
     f0034,
 )
 from utils.aio import (
@@ -50,8 +50,8 @@ async def analyze_one_path(path: str) -> Tuple[Vulnerability, ...]:
         file_content_generator=file_content_generator,
     )
 
-    results: Tuple[Vulnerability, ...] = tuple(chain(*(
-        await materialize(
+    results: Tuple[Vulnerability, ...] = tuple(chain(
+        *await materialize(
             getattr(module, 'analyze')(
                 char_to_yx_map_generator=char_to_yx_map_generator,
                 content_generator=file_content_generator,
@@ -62,7 +62,7 @@ async def analyze_one_path(path: str) -> Tuple[Vulnerability, ...]:
                 f0034,
             )
         )
-    )))
+    ))
 
     await char_to_yx_map_generator.aclose()
     await file_content_generator.aclose()
@@ -75,8 +75,8 @@ async def analyze(paths: Tuple[str, ...]) -> Tuple[Vulnerability, ...]:
         await materialize(map(recurse, paths))
     )))
 
-    results: Tuple[Vulnerability, ...] = tuple(chain(*(
-        await materialize(map(analyze_one_path, unique_paths))
-    )))
+    results: Tuple[Vulnerability, ...] = tuple(chain(
+        *await materialize(map(analyze_one_path, unique_paths))
+    ))
 
     return results

@@ -4,7 +4,7 @@
 #  [a-zA-Z] (caseless)
 
 /**/*.egg-info
-/**/.coverage
+/**/.coverage*
 /**/.venv
 /coverage*
 /dist

@@ -6,6 +6,7 @@ source "${srcIncludeHelpersSkims}"
 
 declare -Arx SKIMS_GLOBAL_PKGS=(
   [cli]=src/cli
+  [config]=src/config
   [core]=src/core
   [integrates]=src/integrates
   [lib_path]=src/lib_path
@@ -124,6 +125,7 @@ function job_skims_test {
     --cov-report "xml:${PWD}/skims/coverage.xml"
     --disable-pytest-warnings
     --exitfirst
+    --no-cov-on-fail
     --verbose
   )
   local path='skims'

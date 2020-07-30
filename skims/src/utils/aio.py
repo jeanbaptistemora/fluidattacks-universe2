@@ -1,7 +1,14 @@
 # Standard library
 import asyncio
 import collections.abc
+from concurrent.futures import (
+    ProcessPoolExecutor,
+    ThreadPoolExecutor,
+)
 import functools
+from os import (
+    cpu_count,
+)
 from typing import (
     Any,
     Awaitable,
@@ -15,7 +22,12 @@ from more_itertools import chunked
 import uvloop
 
 # Constants
+CPU_COUNT: int = cpu_count() or 1
 TVar = TypeVar('TVar')
+
+# Executors
+PROCESS_POOL = ProcessPoolExecutor(max_workers=CPU_COUNT - 1)
+THREAD_POOL = ThreadPoolExecutor(max_workers=10 * CPU_COUNT)
 
 
 async def materialize(obj: Any, batch_size: int = 128) -> Any:
@@ -58,7 +70,17 @@ async def unblock(
     **kwargs: Any,
 ) -> TVar:
     return await asyncio.get_running_loop().run_in_executor(
-        None, functools.partial(function, *args, **kwargs),
+        THREAD_POOL, functools.partial(function, *args, **kwargs),
+    )
+
+
+async def unblock_cpu(
+    function: Callable[..., TVar],
+    *args: Any,
+    **kwargs: Any,
+) -> TVar:
+    return await asyncio.get_running_loop().run_in_executor(
+        PROCESS_POOL, functools.partial(function, *args, **kwargs),
     )
 
 

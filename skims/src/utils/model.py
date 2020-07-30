@@ -9,6 +9,7 @@ from typing import (
     Dict,
     NamedTuple,
     Optional,
+    Tuple,
 )
 
 
@@ -18,6 +19,10 @@ def prettify(multiline_str: str) -> str:
 
 def prettify_respecting_new_lines(multiline_str: str) -> str:
     return dedent(multiline_str)[1:-1]
+
+
+class LanguagesEnum(Enum):
+    EN: str = 'EN'
 
 
 class FindingType(Enum):
@@ -151,6 +156,17 @@ class IntegratesVulnerabilityMetadata(NamedTuple):
     approval_status: Optional[VulnerabilityApprovalStatusEnum] = None
     source: Optional[VulnerabilitySourceEnum] = None
     uuid: Optional[str] = None
+
+
+class SkimsPathConfig(NamedTuple):
+    exclude: Tuple[str, ...]
+    include: Tuple[str, ...]
+
+
+class SkimsConfig(NamedTuple):
+    group: str
+    path: Optional[SkimsPathConfig]
+    language: LanguagesEnum
 
 
 class SkimsVulnerabilityMetadata(NamedTuple):

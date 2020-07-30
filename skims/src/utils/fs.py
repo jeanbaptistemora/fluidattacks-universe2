@@ -21,11 +21,11 @@ async def generate_file_content(path: str) -> AsyncGenerator[str, None]:
         yield file_contents
 
 
-async def get_file_content(path: str) -> str:
+async def get_file_content(path: str, encoding: str = 'latin-1') -> str:
     async with aiofiles.open(
         path,
         mode='r',
-        encoding='latin-1',
+        encoding=encoding,
     ) as file_handle:
         file_contents: str = await file_handle.read()
 

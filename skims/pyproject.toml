@@ -19,6 +19,7 @@ license = "MPL-2.0"
 name = "skims"
 packages = [
   { include = "cli", from = "src" },
+  { include = "config", from = "src" },
   { include = "core", from = "src" },
   { include = "integrates", from = "src" },
   { include = "lib_path", from = "src" },
@@ -34,6 +35,7 @@ aiogqlc = "1.0.5"
 click = "7.1.2"
 more-itertools = "8.4.0"
 pillow = "7.2.0"
+pyhcl = "0.4.4"
 pyparsing = "2.4.7"
 python = "^3.8"
 ruamel-yaml = "0.16.10"
