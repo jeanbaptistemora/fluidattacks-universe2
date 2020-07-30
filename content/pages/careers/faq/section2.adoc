@@ -286,7 +286,7 @@ Therefore, those who have requested vacation time before you,
 will be granted vacation time, also before you.
 If you have an exceptional event that you have to attend,
 you don’t need to request vacation time, just notify your supervisor.
-
+[[q23]]
 ==== 23. When do I get a salary review?
 
 Salary reviews are done under `3` possible circumstances.
@@ -362,7 +362,7 @@ in a yearly salary review.
 
 ==== 28. What would be my estimated salary after one year?
 
-<<when-do-i-get-a-salary-review,See question 23>>
+See <<q23,question 23>>.
 
 ==== 29. What are the available salary ranges?
 
@@ -490,7 +490,7 @@ because salaries at `Fluid Attacks` are not only attached
 to the growth in authority (non-technical scale)
 but also to the growth in knowledge (technical scale).
 This is why it is common to find engineers
-with higher salaries than their bosses (see <<q23, Question 23>>).
+with higher salaries than their bosses (see <<q23,question 23>>).
 
 ==== 33. Can my role evolve over time and in accordance
 
