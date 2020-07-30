@@ -37,8 +37,7 @@ LOGGER = logging.getLogger(__name__)
 
 async def add_user(organization_id: str, email: str, role: str) -> bool:
     user_added = await org_dal.add_user(organization_id, email)
-    role_added = await aio.ensure_io_bound(
-        authz.grant_organization_level_role,
+    role_added = await authz.grant_organization_level_role(
         email,
         organization_id,
         role

@@ -2,6 +2,7 @@ from typing import Dict, Sequence, Any, Union
 from asgiref.sync import async_to_sync
 from backend import authz, mailer
 from backend.domain import user as user_domain
+from backend.utils import aio
 from social_core.strategy import BaseStrategy
 from social_core.backends.oauth import OAuthAuth
 from django.contrib.auth.models import User
@@ -31,19 +32,20 @@ def get_upn(
         )['email']
 
 
-def autoenroll_user(strategy: BaseStrategy, email: str) -> bool:
+@async_to_sync
+async def autoenroll_user(strategy: BaseStrategy, email: str) -> bool:
     # New users must have access to the community projects
     was_granted_access: bool = True
 
     # Registered users have this attribute set to True
-    is_registered: bool = async_to_sync(user_domain.is_registered)(email)
+    is_registered: bool = await user_domain.is_registered(email)
 
     if not is_registered:
         new_user_user_level_role: str = 'customer'
         new_user_group_level_role: str = 'customer'
 
         # Create the user into the community organization
-        is_registered = user_domain.create_without_project(
+        is_registered = await user_domain.create_without_project(
             email=email,
             role=new_user_user_level_role,
         )
@@ -53,15 +55,12 @@ def autoenroll_user(strategy: BaseStrategy, email: str) -> bool:
 
         # Add the user into the community projects
         for group in FI_COMMUNITY_PROJECTS.split(','):
-            was_granted_access = (
-                was_granted_access and
-                async_to_sync(user_domain.update_project_access)(
-                    email, group, access=True
-                ) and
+            was_granted_access = all(await aio.materialize([
+                user_domain.update_project_access(email, group, access=True),
                 authz.grant_group_level_role(
                     email, group, new_user_group_level_role
                 )
-            )
+            ]))
 
     return is_registered and was_granted_access
 

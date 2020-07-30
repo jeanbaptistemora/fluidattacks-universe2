@@ -123,11 +123,12 @@ async def _create_new_user(  # pylint: disable=too-many-arguments
     success_granted = False
     success_access_given = False
     if valid:
-        success_granted = authz.grant_group_level_role(email, group, role)
+        success_granted = await authz.grant_group_level_role(
+            email, group, role
+        )
 
         if not await user_domain.get_data(email, 'email'):
-            await aio.ensure_io_bound(
-                user_domain.create,
+            await user_domain.create(
                 email.lower(),
                 {
                     'phone': phone_number
@@ -140,7 +141,7 @@ async def _create_new_user(  # pylint: disable=too-many-arguments
 
         if not await user_domain.is_registered(email):
             user_domain.register(email)
-            authz.grant_user_level_role(email, 'customer')
+            await authz.grant_user_level_role(email, 'customer')
 
         if group and responsibility and len(responsibility) <= 50:
             success_access_given = await _give_user_access(
@@ -387,7 +388,7 @@ async def _do_add_user(
     )
 
     if role in allowed_roles_to_grant:
-        new_user = await sync_to_async(user_domain.create_without_project)(
+        new_user = await user_domain.create_without_project(
             email=email,
             role=role,
             phone_number=phone_number,
@@ -553,7 +554,7 @@ async def _do_edit_user(
     )
 
     if modified_role in allowed_roles_to_grant:
-        if await sync_to_async(authz.grant_group_level_role)(
+        if await authz.grant_group_level_role(
                 modified_email, project_name, modified_role):
             success = await modify_user_information(
                 info.context, modified_user_data, project_name

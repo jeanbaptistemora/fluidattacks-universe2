@@ -2,7 +2,6 @@ from datetime import datetime
 from typing import Dict, List, Union, cast
 
 import pytz
-from asgiref.sync import async_to_sync
 import aioboto3
 from django.conf import settings
 from backend.dal.helpers import dynamodb
@@ -133,8 +132,8 @@ def update_multiple_user_attributes(email: str, data_dict: UserType) -> bool:
     return user_dal.update(email, data_dict)
 
 
-def create(email: str, data: UserType) -> bool:
-    return user_dal.create(email, data)
+async def create(email: str, data: UserType) -> bool:
+    return await user_dal.create(email, data)
 
 
 def update(email: str, data_attr: str, name_attr: str) -> bool:
@@ -145,7 +144,7 @@ def get(email: str) -> UserType:
     return user_dal.get(email)
 
 
-def create_without_project(
+async def create_without_project(
     email: str,
     role: str,
     phone_number: str = ''
@@ -162,11 +161,13 @@ def create_without_project(
         if phone_number:
             new_user_data['phone'] = phone_number
 
-        success = authz.grant_user_level_role(email, role)
-        success = success and create(email, new_user_data)
+        success = all(await aio.materialize([
+            authz.grant_user_level_role(email, role),
+            create(email, new_user_data)
+        ]))
 
-        org_id = async_to_sync(org_domain.get_or_create)('imamura', email)
-        if not async_to_sync(org_domain.has_user_access)(email, org_id):
-            async_to_sync(org_domain.add_user)(org_id, email, 'customer')
+        org_id = await org_domain.get_or_create('imamura', email)
+        if not await org_domain.has_user_access(email, org_id):
+            await org_domain.add_user(org_id, email, 'customer')
 
     return success

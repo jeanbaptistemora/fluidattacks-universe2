@@ -186,8 +186,7 @@ async def create_project(  # pylint: disable=too-many-arguments
                             project_name,
                             True
                         ),
-                        aio.ensure_io_bound(
-                            authz.grant_group_level_role,
+                        authz.grant_group_level_role(
                             user_email, project_name,
                             user_role
                         ))

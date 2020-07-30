@@ -1,5 +1,6 @@
 # Standard library
 from typing import (
+    Awaitable,
     Dict,
     List,
     Tuple,
@@ -132,7 +133,7 @@ def get_user_level_role(email: str) -> str:
     return user_dal.get_subject_policy(email, 'self').role
 
 
-def grant_group_level_role(email: str, group: str, role: str) -> bool:
+async def grant_group_level_role(email: str, group: str, role: str) -> bool:
     if role not in GROUP_LEVEL_ROLES:
         raise ValueError(f'Invalid role value: {role}')
 
@@ -143,20 +144,24 @@ def grant_group_level_role(email: str, group: str, role: str) -> bool:
         role=role,
     )
 
-    success: bool = True
+    success: bool = False
+    coroutines: List[Awaitable[bool]] = []
+    coroutines.append(user_dal.put_subject_policy(policy))
 
     # If there is no user-level role for this user add one
-    if not get_user_level_role(email):
+    if not await aio.ensure_io_bound(get_user_level_role, email):
         user_level_role: str = \
             role if role in USER_LEVEL_ROLES else 'customer'
-        success = success and grant_user_level_role(email, user_level_role)
+        coroutines.append(grant_user_level_role(email, user_level_role))
 
-    return success \
-        and user_dal.put_subject_policy(policy) \
-        and revoke_cached_subject_policies(email)
+    success = await aio.materialize(coroutines)
+
+    return success and await aio.ensure_io_bound(
+        revoke_cached_subject_policies, email
+    )
 
 
-def grant_organization_level_role(
+async def grant_organization_level_role(
     email: str,
     organization: str,
     role: str
@@ -171,23 +176,27 @@ def grant_organization_level_role(
         role=role,
     )
 
-    success: bool = True
+    success: bool = False
+    coroutines: List[Awaitable[bool]] = []
+    coroutines.append(user_dal.put_subject_policy(policy))
 
     # If there is no user-level role for this user add one
-    if not get_user_level_role(email):
+    if not await aio.ensure_io_bound(get_user_level_role, email):
         user_level_role: str = (
             role
             if role in USER_LEVEL_ROLES
             else 'customer'
         )
-        success = success and grant_user_level_role(email, user_level_role)
+        coroutines.append(grant_user_level_role(email, user_level_role))
 
-    return success \
-        and user_dal.put_subject_policy(policy) \
-        and revoke_cached_subject_policies(email)
+    success = await aio.materialize(coroutines)
+
+    return success and await aio.ensure_io_bound(
+        revoke_cached_subject_policies, email
+    )
 
 
-def grant_user_level_role(email: str, role: str) -> bool:
+async def grant_user_level_role(email: str, role: str) -> bool:
     if role not in USER_LEVEL_ROLES:
         raise ValueError(f'Invalid role value: {role}')
 
@@ -198,8 +207,8 @@ def grant_user_level_role(email: str, role: str) -> bool:
         role=role,
     )
 
-    return user_dal.put_subject_policy(policy) \
-        and revoke_cached_subject_policies(email)
+    return (await user_dal.put_subject_policy(policy) and
+            await aio.ensure_io_bound(revoke_cached_subject_policies, email))
 
 
 def revoke_cached_group_service_attributes_policies(group: str) -> bool:
@@ -229,22 +238,16 @@ def revoke_cached_subject_policies(subject: str) -> bool:
 
 
 async def revoke_group_level_role(email: str, group: str) -> bool:
-    return all(await aio.materialize([
-        user_dal.delete_subject_policy(email, group),
-        aio.ensure_io_bound(revoke_cached_subject_policies, email)
-    ]))
+    return (await user_dal.delete_subject_policy(email, group) and
+            await aio.ensure_io_bound(revoke_cached_subject_policies, email))
 
 
 async def revoke_organization_level_role(
         email: str, organization_id: str) -> bool:
-    return all(await aio.materialize([
-        user_dal.delete_subject_policy(email, organization_id),
-        aio.ensure_io_bound(revoke_cached_subject_policies, email)
-    ]))
+    return (await user_dal.delete_subject_policy(email, organization_id) and
+            await aio.ensure_io_bound(revoke_cached_subject_policies, email))
 
 
 async def revoke_user_level_role(email: str) -> bool:
-    return all(await aio.materialize([
-        user_dal.delete_subject_policy(email, 'self'),
-        aio.ensure_io_bound(revoke_cached_subject_policies, email)
-    ]))
+    return (await user_dal.delete_subject_policy(email, 'self') and
+            await aio.ensure_io_bound(revoke_cached_subject_policies, email))

@@ -113,12 +113,12 @@ def get_subject_policies(subject: str) -> List[SubjectPolicy]:
     return policies
 
 
-def put_subject_policy(policy: SubjectPolicy) -> bool:
+async def put_subject_policy(policy: SubjectPolicy) -> bool:
     item = cast_subject_policy_into_dict(policy)
 
     with contextlib.suppress(ClientError):
-        response = AUTHZ_TABLE.put_item(Item=item)
-        return response['ResponseMetadata']['HTTPStatusCode'] == 200
+        response = await dynamodb.async_put_item(AUTHZ_TABLE_NAME, item)
+        return response
 
     LOGGER.error(
         'Error in user_dal.put_subject_policy',
@@ -185,13 +185,12 @@ def remove_attribute(email: str, name_attribute: str) -> bool:
     return update(email.lower(), {name_attribute: None})
 
 
-def create(email: str, data: UserType) -> bool:
+async def create(email: str, data: UserType) -> bool:
     resp = False
 
     try:
         data.update({'email': email})
-        response = USERS_TABLE.put_item(Item=data)
-        resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
+        resp = await dynamodb.async_put_item(USERS_TABLE_NAME, data)
     except ClientError as ex:
         LOGGER.exception(ex, extra={'extra': locals()})
     return resp

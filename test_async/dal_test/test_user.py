@@ -7,6 +7,11 @@ from backend.dal.user import (
     delete, get, create, update
 )
 
+pytestmark = [
+    pytest.mark.asyncio,
+]
+
+
 @pytest.mark.changes_db
 def test_delete():
     test_1 = 'unittest3'
@@ -21,18 +26,18 @@ def test_delete():
     assert {} == get(test_1)
 
 @pytest.mark.changes_db
-def test_create():
+async def test_create():
     assert get('unittest4') == {}
 
-    create('unittest4', {'phone_number': '11111111'})
+    await create('unittest4', {'phone_number': '11111111'})
     assert get('unittest4') == \
         {'email': 'unittest4', 'phone_number': '11111111'}
 
 @pytest.mark.changes_db
-def test_update():
+async def test_update():
     assert get('unittest5') == {}
 
-    create('unittest5', {'phone_number': '22222222'})
+    await create('unittest5', {'phone_number': '22222222'})
     update('unittest5', {})
     assert get('unittest5') == \
         {'email': 'unittest5', 'phone_number': '22222222'}

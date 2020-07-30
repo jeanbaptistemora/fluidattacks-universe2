@@ -65,8 +65,7 @@ async def _do_edit_user_organization(
     new_phone_number: str = str(parameters.get('phone_number'))
     new_role: str = str(parameters.get('role')).lower()
 
-    if await aio.ensure_io_bound(
-        authz.grant_organization_level_role,
+    if await authz.grant_organization_level_role(
         user_email,
         organization_id,
         new_role
@@ -129,8 +128,7 @@ async def _do_grant_user_organization_access(
     user_created = False
     user_exists = bool(await user_domain.get_data(user_email, 'email'))
     if not user_exists:
-        user_created = await aio.ensure_io_bound(
-            user_domain.create_without_project,
+        user_created = await user_domain.create_without_project(
             user_email,
             'customer',
             user_phone_number
