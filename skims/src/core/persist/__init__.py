@@ -189,12 +189,15 @@ async def persist_finding(
     group: str,
     results: Tuple[Vulnerability, ...],
 ) -> bool:
+    success: bool = False
+
     await log('info', 'persisting: %s, %s results', finding.name, len(results))
 
     finding_id: str = await get_closest_finding_id(
         create_if_missing=True,
         finding=finding,
         group=group,
+        recreate_if_draft=True,
     )
 
     if finding_id:
@@ -208,7 +211,7 @@ async def persist_finding(
             ),
         )
 
-        success: bool = await do_build_and_upload_vulnerabilities(
+        success = await do_build_and_upload_vulnerabilities(
             finding_id=finding_id,
             results=merged_results,
         ) and await approve_skims_vulnerabilities(
