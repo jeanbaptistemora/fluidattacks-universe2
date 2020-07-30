@@ -1,4 +1,5 @@
 import { MaterialIcons } from "@expo/vector-icons";
+import _ from "lodash";
 import React from "react";
 import { Trans, useTranslation } from "react-i18next";
 import { View } from "react-native";
@@ -67,7 +68,7 @@ const indicators: React.FC<IIndicatorsProps> = (
 
   return (
     <View style={styles.container}>
-      <Title>{org.name}</Title>
+      <Title>{_.capitalize(org.name)}</Title>
       <View style={styles.percentageContainer}>
         <SvgCss xml={Border} width={220} height={220} />
         <Text style={styles.percentageText}>
