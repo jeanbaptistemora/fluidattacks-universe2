@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-""" Class for generate an xlsx file with findings information. """
+""" Class for generate an xlsx file with vulnerabilities information. """
 from typing import cast, Dict, List, Union
 
 from datetime import datetime
@@ -119,6 +119,7 @@ class ITReport():
         """Initialize variables."""
         self.project_name = str(data[0].get('projectName'))
         self.lang = lang
+
         self.workbook = Workbook()
         self.current_sheet = self.workbook.new_sheet('Data')
 
@@ -162,8 +163,16 @@ class ITReport():
             [finding.get('findingId') for finding in data]
         )
         for vuln in vulns:
-            self.write_vuln_row(vuln)
+            self.set_vuln_row(vuln)
             self.row += 1
+
+    def set_row_height(self):
+        self.current_sheet.set_row_style(
+            self.row, Style(
+                size=ROW_HEIGHT,
+                alignment=Alignment(wrap_text=True)
+            )
+        )
 
     @classmethod
     def get_row_range(cls, row: int) -> List[str]:
@@ -262,7 +271,7 @@ class ITReport():
         )
         self.row_values[vuln[cvss_key]] = cell_content
 
-    def write_vuln_row(self, row: VulnType) -> None:
+    def set_vuln_row(self, row: VulnType) -> None:
         vuln = self.vulnerability
         finding = async_to_sync(get_finding)(row.get('finding_id'))
         specific = str(row.get('specific', ''))
@@ -280,22 +289,17 @@ class ITReport():
         self.row_values[vuln['Specific']] = specific
         self.row_values[vuln['Tags']] = tags
 
-        self.write_finding_data(finding, row)
-        self.write_vuln_temporal_data(row)
-        self.write_treatment_data(finding, row)
-        self.write_reattack_data(finding, row)
+        self.set_finding_data(finding, row)
+        self.set_vuln_temporal_data(row)
+        self.set_treatment_data(finding, row)
+        self.set_reattack_data(finding, row)
         self.set_cvss_metrics_cell(finding)
 
         self.current_sheet.range(*self.get_row_range(self.row)).value = \
             [self.row_values[1:]]
-        self.current_sheet.set_row_style(
-            self.row, Style(
-                size=ROW_HEIGHT,
-                alignment=Alignment(wrap_text=True)
-            )
-        )
+        self.set_row_height()
 
-    def write_finding_data(
+    def set_finding_data(
         self,
         finding: Dict[str, FindingType],
         vuln: VulnType
@@ -326,7 +330,7 @@ class ITReport():
         for key, value in finding_data.items():
             self.row_values[self.vulnerability[key]] = value
 
-    def write_vuln_temporal_data(self, vuln: VulnType) -> None:
+    def set_vuln_temporal_data(self, vuln: VulnType) -> None:
         vuln_historic_state = cast(HistoricType, vuln.get('historic_state'))
         vuln_date = datetime.strptime(
             vuln_historic_state[0]['date'], '%Y-%m-%d %H:%M:%S'
@@ -351,7 +355,7 @@ class ITReport():
         for key, value in vuln_temporal_data.items():
             self.row_values[self.vulnerability[key]] = value
 
-    def write_treatment_data(  # pylint: disable=too-many-locals
+    def set_treatment_data(  # pylint: disable=too-many-locals
         self,
         finding: Dict[str, FindingType],
         vuln: VulnType
@@ -432,7 +436,7 @@ class ITReport():
             kword = self.vulnerability[first_treatment_key]
             self.row_values[kword] = first_treatment_data[first_treatment_key]
 
-    def write_reattack_data(
+    def set_reattack_data(
         self,
         finding: Dict[str, FindingType],
         vuln: VulnType
