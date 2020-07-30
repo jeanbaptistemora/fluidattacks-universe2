@@ -1,6 +1,5 @@
 import { useQuery } from "@apollo/react-hooks";
 import { wait } from "@apollo/react-testing";
-import { MaterialIcons } from "@expo/vector-icons";
 import { ApolloError, NetworkStatus } from "apollo-client";
 import { GraphQLError } from "graphql";
 /* tslint:disable: no-import-side-effect no-submodule-imports
@@ -13,14 +12,11 @@ import "intl/locale-data/jsonp/es-CO";
 // tslint:enable
 import _ from "lodash";
 import React from "react";
-import { Trans, useTranslation } from "react-i18next";
+import { useTranslation } from "react-i18next";
 import { Alert, AppState, AppStateStatus, View } from "react-native";
-import { Headline, Subheading, Text, Title, useTheme } from "react-native-paper";
-import { SvgCss } from "react-native-svg";
+import { useTheme } from "react-native-paper";
 import { useHistory } from "react-router-native";
 
-// tslint:disable-next-line: no-default-import
-import { default as Border } from "../../../assets/percentBorder.svg";
 import { About } from "../../components/About";
 import { Logo } from "../../components/Logo";
 import { Preloader } from "../../components/Preloader";
@@ -28,6 +24,7 @@ import { rollbar } from "../../utils/rollbar";
 import { IAuthState, logout } from "../../utils/socialAuth";
 
 import { Header } from "./Header";
+import { Indicators } from "./Indicators";
 import { ORGS_QUERY } from "./queries";
 import { styles } from "./styles";
 import { IOrganization, IOrgsResult } from "./types";
@@ -39,8 +36,7 @@ const hasAnalytics: ((organization: IOrganization) => boolean) = (
 /** Indicators data structure */
 interface IIndicators {
   closed: number;
-  percentage: number;
-  total: number;
+  open: number;
 }
 
 type CalcIndicatorsFn = ((
@@ -58,19 +54,15 @@ const calcIndicators: CalcIndicatorsFn = (
       + organization.analytics[kind].closed,
     0);
 
-  const totalVulns: number = orgs.reduce(
+  const openVulns: number = orgs.reduce(
     (previousValue: number, organization: IOrganization): number =>
       previousValue
-      + organization.analytics[kind].open
-      + organization.analytics[kind].closed,
+      + organization.analytics[kind].open,
     0);
-
-  const remediationPercentage: number = (closedVulns / totalVulns * 100);
 
   return {
     closed: closedVulns,
-    percentage: isNaN(remediationPercentage) ? 0 : remediationPercentage,
-    total: totalVulns,
+    open: openVulns,
   };
 };
 
@@ -147,8 +139,6 @@ const dashboardView: React.FunctionComponent = (): JSX.Element => {
 
   const current: IIndicators = calcIndicators(orgs, "current");
   const previous: IIndicators = calcIndicators(orgs, "previous");
-  const percentageDiff: number =
-    parseFloat((current.percentage - previous.percentage).toFixed(1));
 
   const totalGroups: number = orgs.reduce(
     (previousValue: number, organization: IOrganization): number =>
@@ -164,48 +154,11 @@ const dashboardView: React.FunctionComponent = (): JSX.Element => {
     history.replace("/Login");
   };
 
-  const color: string = percentageDiff === 0
-    ? colors.text
-    : percentageDiff > 0
-      ? "#0F9D58"
-      : "#DB4437";
-
   return (
     <React.StrictMode>
       <Header user={user} onLogout={handleLogout} />
       <View style={[styles.container, { backgroundColor: colors.background }]}>
-        <View style={styles.percentageContainer}>
-          <SvgCss xml={Border} width={220} height={220} />
-          <Text style={styles.percentageText}>
-            {parseFloat(current.percentage.toFixed(1))}%
-          </Text>
-        </View>
-        <View style={styles.remediationContainer}>
-          <View style={{ alignItems: "center", flexDirection: "row" }}>
-            {percentageDiff === 0
-              ? <MaterialIcons name="remove" size={24} color={color} />
-              : percentageDiff > 0
-                ? <MaterialIcons name="arrow-upward" size={24} color={color} />
-                : <MaterialIcons
-                  name="arrow-downward"
-                  size={24}
-                  color={color}
-                />
-            }
-            <Title style={{ color }}>
-              {percentageDiff > 0 ? "+" : undefined}{percentageDiff}%
-            </Title>
-          </View>
-          <Text>{t("dashboard.diff")}</Text>
-          <Headline style={styles.remediatedText}>
-            {t("dashboard.remediated")}
-          </Headline>
-          <Subheading>
-            <Trans i18nKey="dashboard.vulnsFound" count={totalGroups}>
-              <Title>{{ totalVulns: current.total.toLocaleString() }}</Title>
-            </Trans>
-          </Subheading>
-        </View>
+        <Indicators org={{ analytics: { current, previous }, totalGroups }} />
         <Preloader
           visible={[
             NetworkStatus.loading,
