@@ -240,6 +240,7 @@
         "historic_state": "list<dict>",
         "historic_verification": "list<dict>",
         "last_update": "date-time",
+        "source": "string",
         "specific": "string",
         "treatment": "string",
         "treatmentManager": "string",
