@@ -1,7 +1,0 @@
-:slug: products/integrates/
-:category: products
-:description: Integrates is a system which provides all interested parties information and updates about the current state of the project.
-:keywords: Fluid Attacks, Products, Integrates, Ethical Hacking, Pentesting, Security.
-:template: salesforce
-
-= Integrates
