@@ -43,6 +43,7 @@ const addGivenHeaders: (
         filter: isFilterEnabled ? key.filter : undefined,
         formatExtraData: key,
         formatter: _.isUndefined(key.formatter) ? undefined : handleFormatter,
+        headerFormatter: key.headerFormatter,
         headerStyle: (): CSSProperties => ({
           whiteSpace: _.isUndefined(key.wrapped)
             ? "nowrap"

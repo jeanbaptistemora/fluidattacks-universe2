@@ -3,6 +3,7 @@
   Disabling this rule is necessary, because the dataset array may contain
   different types since this is a generic component.
 */
+import { Column } from "react-bootstrap-table-next";
 import { ReactElement } from "react";
 import {
   ColumnToggleProps,
@@ -57,6 +58,11 @@ export interface IHeaderConfig {
     rowA: any,
     rowB: any
   ) => number;
+  headerFormatter?: (
+    column: Column,
+    colIndex: number,
+    components: Record<string, ReactElement>
+  ) => JSX.Element;
 }
 
 export interface ICustomToggleProps {

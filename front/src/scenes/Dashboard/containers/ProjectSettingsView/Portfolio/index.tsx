@@ -9,6 +9,7 @@ import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React from "react";
 import { ButtonToolbar, Col, Glyphicon, Row } from "react-bootstrap";
+import { Badge } from "../../../../../components/Badge";
 import { Button } from "../../../../../components/Button";
 import { DataTableNext } from "../../../../../components/DataTableNext";
 import { IHeaderConfig } from "../../../../../components/DataTableNext/types";
@@ -144,7 +145,7 @@ const portfolio: React.FC<IPortfolioProps> = (props: IPortfolioProps): JSX.Eleme
     <React.StrictMode>
       <Row>
         <Col lg={8} md={10} xs={7}>
-          <h3>{translate.t("search_findings.tab_resources.tags.title")}</h3>
+          <h3>{translate.t("search_findings.tab_resources.tags.title")}<Badge>pro</Badge></h3>
         </Col>
         <Col lg={4} md={2} xs={5}>
           <ButtonToolbar className="pull-right">

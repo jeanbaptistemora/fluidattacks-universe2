@@ -227,6 +227,7 @@ declare module 'react-bootstrap-table-next' {
         text: string;
         classes?: string;
         headerClasses?: string;
+        headerFormatter?: (column: Column, colIndex: number, components: Record<string, ReactElement>) => JSX.Element
         hidden?: boolean;
         isDummyField?: boolean;
         sort?: boolean;

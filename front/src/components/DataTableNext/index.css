@@ -75,3 +75,23 @@
   border: none;
   background: transparent;
 }
+
+:local .plusFormatter,
+.plusFormatter > div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+:local .plusFormatter {
+  flex-wrap: wrap;
+}
+
+:local .plusFormatter > div {
+  flex-wrap: wrap-reverse;
+  white-space: nowrap;
+}
+
+:local .plusFormatter :global .badge {
+  position: relative;
+}

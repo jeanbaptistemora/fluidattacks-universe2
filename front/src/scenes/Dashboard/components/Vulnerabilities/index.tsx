@@ -18,6 +18,7 @@ import { Button } from "../../../../components/Button/index";
 import { ConfirmDialog, IConfirmFn } from "../../../../components/ConfirmDialog/index";
 import { DataTableNext } from "../../../../components/DataTableNext";
 import { approveFormatter, deleteFormatter, statusFormatter } from "../../../../components/DataTableNext/formatters";
+import { proFormatter } from "../../../../components/DataTableNext/headerFormatters/proFormatter";
 import { IHeaderConfig } from "../../../../components/DataTableNext/types";
 import { FluidIcon } from "../../../../components/FluidIcon";
 import { Can } from "../../../../utils/authz/Can";
@@ -446,6 +447,7 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                   align: "left",
                   dataField: "tag",
                   header: translate.t("search_findings.tab_description.tag"),
+                  headerFormatter: proFormatter,
                   onSort: onSortInputs,
                   visible: true,
                   width: "20%",
@@ -454,6 +456,7 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                   align: "left",
                   dataField: "severity",
                   header: translate.t("search_findings.tab_description.business_criticality"),
+                  headerFormatter: proFormatter,
                   onSort: onSortInputs,
                   visible: true,
                   width: "25%",
@@ -480,6 +483,7 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                   align: "left",
                   dataField: "tag",
                   header: translate.t("search_findings.tab_description.tag"),
+                  headerFormatter: proFormatter,
                   onSort: onSortLines,
                   visible: true,
                   width: "20%",
@@ -488,6 +492,7 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                   align: "left",
                   dataField: "severity",
                   header: translate.t("search_findings.tab_description.business_criticality"),
+                  headerFormatter: proFormatter,
                   onSort: onSortLines,
                   visible: true,
                   width: "25%",
@@ -514,6 +519,7 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                   align: "left",
                   dataField: "tag",
                   header: translate.t("search_findings.tab_description.tag"),
+                  headerFormatter: proFormatter,
                   onSort: onSortPorts,
                   visible: true,
                   width: "20%",
@@ -523,6 +529,7 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                   align: "left",
                   dataField: "severity",
                   header: translate.t("search_findings.tab_description.business_criticality"),
+                  headerFormatter: proFormatter,
                   onSort: onSortPorts,
                   visible: true,
                   width: "25%",
