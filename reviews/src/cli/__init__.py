@@ -37,7 +37,6 @@ def flavor_management(flavor_name: str) -> None:
         'style': 7,
     }
     fail_tests: List[str] = [
-        'mr_under_max_deltas',
         'all_pipelines_successful',
         'branch_equals_to_user',
         'commits_user',
@@ -48,6 +47,7 @@ def flavor_management(flavor_name: str) -> None:
     ]
     if 'generic' in flavor_name:
         fail_tests.extend((
+            'mr_under_max_deltas',
             'mr_message',
         ))
         warn_tests.extend((
@@ -57,6 +57,7 @@ def flavor_management(flavor_name: str) -> None:
         regex_mr_title = r'^(?:all|forces|integrates|reviews|skims|sorts)' \
                          r'\\(\w*)\((\w*)\):\s(#[1-9]\d*)(.\d+)?\s(.*)$'
         fail_tests.extend((
+            'mr_under_max_deltas',
             'mr_message',
             'most_relevant_type',
         ))
