@@ -15,6 +15,7 @@ from pyexcelerate import (
 )
 from backend.domain import vulnerability as vuln_domain
 from backend.domain.finding import get_finding
+from backend.reports.typing import GroupVulnsReportHeader
 from backend.typing import (
     Finding as FindingType,
     Historic as HistoricType,
@@ -39,60 +40,9 @@ class ITReport():
     row = 1
     result_filename = ''
     project_name = ''
-    header = {
-        '#': 4,
-        'Related Finding': 55,
-        'Finding Id': 25,
-        'Vulnerability Id': 50,
-        'Where': 45,
-        'Specific': 38,
-        'Description': 95,
-        'Status': 13,
-        'Severity': 13,
-        'Requirements': 100,
-        'Impact': 65,
-        'Affected System': 45,
-        'Threat': 55,
-        'Recommendation': 100,
-        'External BTS': 80,
-        'Compromised Attributes': 35,
-        '# Compromised records': 30,
-        'Tags': 60,
-        'Business Critically': 25,
-        'Report Moment': 25,
-        'Close Moment': 25,
-        'Age in days': 20,
-        'First Treatment': 20,
-        'First Treatment Moment': 25,
-        'First Treatment Justification': 95,
-        'First Treatment expiration Moment': 40,
-        'First Treatment manager': 35,
-        'Current Treatment': 20,
-        'Current Treatment Moment': 25,
-        'Current Treatment Justification': 95,
-        'Current Treatment expiration Moment': 40,
-        'Current Treatment manager': 35,
-        'Pending Reattack': 25,
-        '# Requested Reattacks': 25,
-        'Remediation Effectiveness': 25,
-        'Last requested reattack': 25,
-        'Last reattack Requester': 35,
-        'CVSSv3.1 string vector': 55,
-        'Attack Vector': 18,
-        'Attack Complexity': 20,
-        'Privileges Required': 25,
-        'User Interaction': 20,
-        'Severity Scope': 20,
-        'Confidentiality Impact': 23,
-        'Integrity Impact': 20,
-        'Availability Impact': 20,
-        'Exploitability': 18,
-        'Remediation Level': 25,
-        'Report Confidence': 25,
-    }
     vulnerability = {
         col_name: index + 1
-        for index, col_name in enumerate(list(header.keys()))
+        for index, col_name in enumerate(GroupVulnsReportHeader.labels())
     }
     cvss_measures = {
         'AV': 'attackVector',
@@ -145,10 +95,10 @@ class ITReport():
         header.style.alignment.vertical = 'center'
         header.style.alignment.wrap_text = True
 
-        for column, (_, value) in enumerate(self.header.items()):
+        for column, col_width in enumerate(GroupVulnsReportHeader.widths()):
             self.current_sheet.set_col_style(
                 column + 1,
-                Style(size=value, alignment=Alignment(wrap_text=True)),
+                Style(size=col_width, alignment=Alignment(wrap_text=True)),
             )
 
     def parse_template(self) -> None:
