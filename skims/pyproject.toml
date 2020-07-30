@@ -16,6 +16,7 @@ classifiers = [
 ]
 description = "Deterministic vulnerability life-cycle reporting and closing tool"
 include = [
+  "static/**/*",
   "vendor/**/*",
 ]
 license = "MPL-2.0"

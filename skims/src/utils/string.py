@@ -8,9 +8,11 @@ from itertools import (
 )
 from itertools import (
     chain,
+    repeat,
 )
 from typing import (
     Dict,
+    List,
     Tuple,
 )
 
@@ -24,16 +26,26 @@ from PIL import (
 # Local libraries
 from utils.aio import (
     unblock,
+    unblock_cpu,
 )
 from utils.ctx import (
     get_artifact,
 )
+from utils.image import (
+    blocking_clarify,
+)
 
 
 # Constants
+DUMMY_IMG: Image = Image.new('RGB', (0, 0))
+DUMMY_DRAWING: ImageDraw = ImageDraw.Draw(DUMMY_IMG)
 FONT: ImageFont = ImageFont.truetype(
     font=get_artifact('vendor/fonts/roboto_mono_from_google/regular.ttf'),
     size=22,
+)
+WATERMARK: Image = blocking_clarify(
+    image=Image.open(get_artifact('static/imgs/logo_1024x329.png')),
+    ratio=0.15,
 )
 
 
@@ -119,38 +131,64 @@ def blocking_to_snippet(
     return snippet
 
 
-async def to_png(
+def blocking_boxify(
     *,
+    width_to_height_ratio: int = 3,
     string: str,
-) -> BytesIO:
+) -> str:
+    lines: List[str] = string.splitlines()
 
-    def _string_to_png() -> BytesIO:
-        # Dummy images just to access their methods
-        dummy_img: Image = Image.new('RGB', (0, 0))
-        dummy_drawing: ImageDraw = ImageDraw.Draw(dummy_img)
+    width, height = max(map(len, lines)), len(lines)
 
-        # This is the number of pixes needed to draw this text, may be big
-        size: Tuple[int, int] = dummy_drawing.textsize(string, font=FONT)
+    missing_height: int = width // width_to_height_ratio - height
 
-        # Create an image with the right size to fit the snippet
-        #  and resize it to a common resolution
-        margin = 25
-        size = (size[0] + 2 * margin, size[1] + 2 * margin)
-        img: Image = Image.new('RGB', size, (0xff, 0xff, 0xff))
-        drawing: ImageDraw = ImageDraw.Draw(img)
-        drawing.multiline_text(
-            xy=(margin, margin),
-            text=string,
-            fill=(0x33, 0x33, 0x33),
-            font=FONT,
-        )
+    filling: List[str] = list(repeat('', missing_height // 2))
 
-        stream: BytesIO = BytesIO()
+    return '\n'.join(filling + lines + filling)
 
-        img.save(stream, format='PNG')
 
-        stream.seek(0)
+def _to_png(*, string: str, margin: int = 25) -> BytesIO:
+    # Make this image rectangular
+    string = blocking_boxify(string=string)
 
-        return stream
+    # This is the number of pixes needed to draw this text, may be big
+    size: Tuple[int, int] = DUMMY_DRAWING.textsize(string, font=FONT)
+    size = (
+        size[0] + 2 * margin,
+        size[1] + 2 * margin,
+    )
+    watermark_size: Tuple[int, int] = (
+        size[0] // 2,
+        WATERMARK.size[1] * size[0] // WATERMARK.size[0] // 2,
+    )
+    watermark_position: Tuple[int, int] = (
+        (size[0] - watermark_size[0]) // 2,
+        (size[1] - watermark_size[1]) // 2,
+    )
 
-    return await unblock(_string_to_png)
+    # Create an image with the right size to fit the snippet
+    #  and resize it to a common resolution
+    img: Image = Image.new('RGB', size, (0xff, 0xff, 0xff))
+
+    drawing: ImageDraw = ImageDraw.Draw(img)
+    drawing.multiline_text(
+        xy=(margin, margin),
+        text=string,
+        fill=(0x33, 0x33, 0x33),
+        font=FONT,
+    )
+
+    watermark = WATERMARK.resize(watermark_size)
+    img.paste(watermark, watermark_position, watermark)
+
+    stream: BytesIO = BytesIO()
+
+    img.save(stream, format='PNG')
+
+    stream.seek(0)
+
+    return stream
+
+
+async def to_png(*, string: str) -> BytesIO:
+    return await unblock_cpu(_to_png, string=string)
