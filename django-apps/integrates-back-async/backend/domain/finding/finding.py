@@ -86,7 +86,8 @@ def get_age_finding(act_finding: Dict[str, FindingType]) -> int:
 
 
 async def get_tracking_vulnerabilities(
-        vulnerabilities: List[Dict[str, FindingType]]) -> List[Dict[str, int]]:
+    vulnerabilities: List[Dict[str, FindingType]]
+) -> List[Dict[str, Union[int, str]]]:
     """get tracking vulnerabilities dictionary"""
     last_approved_status = await asyncio.gather(*[
         asyncio.create_task(

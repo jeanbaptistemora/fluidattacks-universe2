@@ -426,18 +426,18 @@ async def calculate_vulnerabilities(
     if len(all_tracking) > 1:
         if ((datetime.strptime(str(all_tracking[-1]['date']), "%Y-%m-%d")) >
                 (datetime.now() - timedelta(days=8))):
-            delta_open = abs(
-                all_tracking[-1]['open'] - all_tracking[-2]['open']
-            )
-            delta_closed = abs(
-                all_tracking[-1]['closed'] - all_tracking[-2]['closed']
-            )
+            open_2 = cast(int, all_tracking[-1]['open'])
+            open_1 = cast(int, all_tracking[-2]['open'])
+            closed_2 = cast(int, all_tracking[-1]['closed'])
+            closed_1 = cast(int, all_tracking[-2]['closed'])
+            delta_open = abs(open_2 - open_1)
+            delta_closed = abs(closed_2 - closed_1)
             delta_total = delta_open - delta_closed
     elif (len(all_tracking) == 1 and
             (datetime.strptime(str(all_tracking[-1]['date']), "%Y-%m-%d")) >
             (datetime.now() - timedelta(days=8))):
-        delta_open = all_tracking[-1]['open']
-        delta_closed = all_tracking[-1]['closed']
+        delta_open = cast(int, all_tracking[-1]['open'])
+        delta_closed = cast(int, all_tracking[-1]['closed'])
         delta_total = delta_open - delta_closed
     return delta_total
 

@@ -6,13 +6,14 @@ import logging
 import threading
 from datetime import datetime
 from decimal import Decimal
-from typing import Dict, List, Union, cast
+from typing import Dict, List, Union, cast, Tuple
 
 import pytz
 from asgiref.sync import async_to_sync
-from backports import csv  # type: ignore
+from backports import csv
 from django.conf import settings
 from django.core.files.base import ContentFile
+from django.core.files.uploadedfile import InMemoryUploadedFile
 from magic import Magic
 from pytz.tzinfo import DstTzInfo
 
@@ -98,7 +99,9 @@ async def _download_evidence_file(
     raise Exception('Evidence not found')
 
 
-def append_records_to_file(records: List[Dict[str, str]], new_file):
+def append_records_to_file(
+        records: List[Dict[str, str]],
+        new_file: InMemoryUploadedFile) -> ContentFile:
     header = records[0].keys()
     values = [
         list(v)
@@ -127,12 +130,14 @@ def append_records_to_file(records: List[Dict[str, str]], new_file):
     buff = io.BytesIO(
         records_str.encode('utf-8').decode('unicode_escape').encode('utf-8')
     )
-    content_file = ContentFile(buff.read())
+    content_file: ContentFile = ContentFile(buff.read())
     content_file.close()
     return content_file
 
 
-def cast_tracking(tracking) -> List[Dict[str, int]]:
+def cast_tracking(
+    tracking: List[Tuple[str, Dict[str, int]]]
+) -> List[Dict[str, Union[int, str]]]:
     """Cast tracking in accordance to schema."""
     cycle = 0
     tracking_casted = []
@@ -142,7 +147,7 @@ def cast_tracking(tracking) -> List[Dict[str, int]]:
                 int(value['closed']) / float(value['open'] + value['closed'])
             ) * 100
         )
-        closing_cicle = {
+        closing_cicle: Dict[str, Union[int, str]] = {
             'cycle': cycle,
             'open': value['open'],
             'closed': value['closed'],
@@ -245,8 +250,9 @@ def get_open_verification_dates(
 
 
 def add_open_verification_dates(
-        tracking_grouped,
-        open_verification_dates) -> List[Dict[str, int]]:
+    tracking_grouped: Dict[str, Dict[str, int]],
+    open_verification_dates: List[str]
+) -> List[Tuple[str, Dict[str, int]]]:
     """Add dates to tracking when open vulns were verified."""
     open_verification_tracking = sorted(tracking_grouped.items())
     tracking_dates = [
@@ -423,7 +429,7 @@ async def mask_verification(
 def send_finding_verified_email(
         finding_id: str,
         finding_name: str,
-        project_name: str):
+        project_name: str) -> None:
     recipients = async_to_sync(project_domain.get_users_to_notify)(
         project_name
     )
@@ -444,8 +450,9 @@ def send_finding_verified_email(
     email_send_thread.start()
 
 
-def remove_repeated(vulnerabilities: List[Dict[str, FindingType]]) -> \
-        List[Dict[str, Dict[str, str]]]:
+def remove_repeated(
+    vulnerabilities: List[Dict[str, FindingType]]
+) -> List[Dict[str, Dict[str, str]]]:
     """Remove vulnerabilities that changes in the same day."""
     vuln_casted = []
     for vuln in vulnerabilities:
@@ -468,7 +475,7 @@ def send_finding_delete_mail(
         finding_name: str,
         project_name: str,
         discoverer_email: str,
-        justification: str):
+        justification: str) -> None:
     recipients = [FI_MAIL_CONTINUOUS, FI_MAIL_PROJECTS]
     approvers = FI_MAIL_REVIEWERS.split(',')
     recipients.extend(approvers)
@@ -491,7 +498,7 @@ def send_remediation_email(
         finding_id: str,
         finding_name: str,
         project_name: str,
-        justification: str):
+        justification: str) -> None:
     recipients = async_to_sync(project_domain.get_users_to_notify)(
         project_name
     )
@@ -513,7 +520,9 @@ def send_remediation_email(
     email_send_thread.start()
 
 
-def send_accepted_email(finding: Dict[str, FindingType], justification: str):
+def send_accepted_email(
+        finding: Dict[str, FindingType],
+        justification: str) -> None:
     project_name = str(finding.get('projectName', ''))
     finding_name = str(finding.get('finding', ''))
     last_historic_treatment = cast(
@@ -546,7 +555,7 @@ def send_draft_reject_mail(
         project_name: str,
         discoverer_email: str,
         finding_name: str,
-        reviewer_email: str):
+        reviewer_email: str) -> None:
     recipients = FI_MAIL_REVIEWERS.split(',')
     recipients.append(discoverer_email)
     email_context = {
@@ -572,7 +581,7 @@ def send_draft_reject_mail(
 async def send_new_draft_mail(
         analyst_email: str,
         finding_id: str, finding_title: str,
-        project_name: str):
+        project_name: str) -> None:
     recipients = FI_MAIL_REVIEWERS.split(',')
     recipients += await project_dal.list_internal_managers(project_name)
 
@@ -595,7 +604,7 @@ async def send_new_draft_mail(
 
 def should_send_mail(
         finding: Dict[str, FindingType],
-        updated_values: Dict[str, str]):
+        updated_values: Dict[str, str]) -> None:
     if updated_values['treatment'] == 'ACCEPTED':
         send_accepted_email(
             finding, str(updated_values.get('justification', ''))

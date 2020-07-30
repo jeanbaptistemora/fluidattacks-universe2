@@ -144,7 +144,7 @@ def _send_mail(
     email_to: List[str],
     context: Dict[str, Union[str, int]],
     tags: List[str],
-):
+) -> None:
     message = _get_sqs_email_message(
         context=context,
         email_to=email_to,
@@ -158,7 +158,7 @@ def _send_mail(
         }
 
         try:
-            sqs = boto3.client(  # type: ignore
+            sqs = boto3.client(
                 'sqs',
                 aws_access_key_id=FI_AWS_DYNAMODB_ACCESS_KEY,
                 aws_secret_access_key=FI_AWS_DYNAMODB_SECRET_KEY,
@@ -207,7 +207,7 @@ def _send_mail_immediately(
         'template_name': template_name,
     }})
 
-    result: list = []
+    result: List[Dict[str, str]] = []
     success: bool = False
     message = _get_sqs_email_message(
         context=context,
@@ -251,7 +251,7 @@ def send_comment_mail(
             Dict[str, FindingType],
             EventType,
             ProjectType
-        ] = ''):
+        ] = '') -> None:
     parent = comment_data['parent']
     email_context = {
         'user_email': user_mail,
@@ -347,7 +347,7 @@ def get_email_recipients(group: str, comment_type: Union[str, bool]) -> \
 
 def send_mail_new_draft(
         email_to: List[str],
-        context: Dict[str, Union[str, int]]):
+        context: Dict[str, Union[str, int]]) -> None:
     _send_mail('new-draft', email_to, context=context, tags=GENERAL_TAG)
 
 
@@ -372,7 +372,7 @@ async def send_mail_analytics(*email_to: str, **context: str) -> None:
 
 def send_mail_new_vulnerabilities(
         email_to: List[str],
-        context: Dict[str, Union[str, int]]):
+        context: Dict[str, Union[str, int]]) -> None:
     _send_mail(
         'newvulnerabilitiesintegrates',
         email_to,
@@ -383,7 +383,7 @@ def send_mail_new_vulnerabilities(
 
 def send_mail_new_user(
         email_to: List[str],
-        context: Dict[str, Union[str, int]]):
+        context: Dict[str, Union[str, int]]) -> None:
     _send_mail(
         'userfindingintegrates', email_to, context=context, tags=GENERAL_TAG
     )
@@ -391,7 +391,7 @@ def send_mail_new_user(
 
 def send_mail_delete_finding(
         email_to: List[str],
-        context: Dict[str, Union[str, int]]):
+        context: Dict[str, Union[str, int]]) -> None:
     _send_mail(
         'deletefindingintegrates',
         email_to,
@@ -402,7 +402,7 @@ def send_mail_delete_finding(
 
 def send_mail_remediate_finding(
         email_to: List[str],
-        context: Dict[str, Union[str, int]]):
+        context: Dict[str, Union[str, int]]) -> None:
     _send_mail(
         'remediate-finding', email_to, context=context, tags=VERIFY_TAG
     )
@@ -410,7 +410,7 @@ def send_mail_remediate_finding(
 
 def send_mail_comment(
         email_to: List[List[str]],
-        context: List[Dict[str, Union[str, int]]]):
+        context: List[Dict[str, Union[str, int]]]) -> None:
     _send_mail(
         'new-comment', email_to[0], context=context[0], tags=COMMENTS_TAG
     )
@@ -421,25 +421,25 @@ def send_mail_comment(
 
 def send_mail_project_report(
         email_to: List[str],
-        context: Dict[str, Union[str, int]]):
+        context: Dict[str, Union[str, int]]) -> None:
     _send_mail('project-report', email_to, context=context, tags=GENERAL_TAG)
 
 
 def send_mail_verified_finding(
         email_to: List[str],
-        context: Dict[str, Union[str, int]]):
+        context: Dict[str, Union[str, int]]) -> None:
     _send_mail('verified-finding', email_to, context=context, tags=VERIFY_TAG)
 
 
 def send_mail_updated_manager(
         email_to: List[str],
-        context: Dict[str, Union[str, int]]):
+        context: Dict[str, Union[str, int]]) -> None:
     _send_mail('manager-updated', email_to, context=context, tags=GENERAL_TAG)
 
 
 def send_mail_new_remediated(
         email_to: List[str],
-        context: Dict[str, Union[str, int]]):
+        context: Dict[str, Union[str, int]]) -> None:
     _send_mail(
         'newremediatefindingintegrates',
         email_to,
@@ -450,7 +450,7 @@ def send_mail_new_remediated(
 
 def send_mail_reject_draft(
         email_to: List[str],
-        context: Dict[str, Union[str, int]]):
+        context: Dict[str, Union[str, int]]) -> None:
     _send_mail(
         'unsubmitted_draft', email_to, context=context, tags=GENERAL_TAG
     )
@@ -458,7 +458,7 @@ def send_mail_reject_draft(
 
 def send_mail_new_releases(
         email_to: List[str],
-        context: Dict[str, Union[str, int]]):
+        context: Dict[str, Union[str, int]]) -> None:
     _send_mail(
         'newreleasesintegrates', email_to, context=context, tags=GENERAL_TAG
     )
@@ -466,7 +466,7 @@ def send_mail_new_releases(
 
 def send_mail_access_granted(
         email_to: List[str],
-        context: Dict[str, Union[str, int]]):
+        context: Dict[str, Union[str, int]]) -> None:
     _send_mail(
         'accessgrantedintegrates', email_to, context=context, tags=GENERAL_TAG
     )
@@ -474,7 +474,7 @@ def send_mail_access_granted(
 
 def send_mail_resources(
         email_to: List[str],
-        context: Dict[str, Union[str, int]]):
+        context: Dict[str, Union[str, int]]) -> None:
     _send_mail(
         'resources-changes', email_to, context=context, tags=GENERAL_TAG
     )
@@ -482,7 +482,7 @@ def send_mail_resources(
 
 def send_mail_unsolved_events(
         email_to: List[str],
-        context: Dict[str, Union[str, int]]):
+        context: Dict[str, Union[str, int]]) -> None:
     _send_mail(
         'unsolvedevents', email_to, context=context, tags=GENERAL_TAG
     )
@@ -490,7 +490,7 @@ def send_mail_unsolved_events(
 
 def send_mail_accepted_finding(
         email_to: List[str],
-        context: Dict[str, Union[str, int]]):
+        context: Dict[str, Union[str, int]]) -> None:
     _send_mail(
         'acceptedfinding', email_to, context=context, tags=GENERAL_TAG
     )
@@ -498,6 +498,6 @@ def send_mail_accepted_finding(
 
 def send_mail_new_event(
         email_to: List[List[str]],
-        context: List[Dict[str, Union[str, int]]]):
+        context: List[Dict[str, Union[str, int]]]) -> None:
     _send_mail('new-event', email_to[0], context=context[0], tags=GENERAL_TAG)
     _send_mail('new-event', email_to[1], context=context[1], tags=GENERAL_TAG)

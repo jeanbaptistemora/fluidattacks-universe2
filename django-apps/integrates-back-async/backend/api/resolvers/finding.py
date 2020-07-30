@@ -200,7 +200,7 @@ async def _get_release_date(info: GraphQLResolveInfo, identifier: str) -> str:
 @get_entity_cache_async
 async def _get_tracking(
         info: GraphQLResolveInfo,
-        identifier: str) -> List[Dict[str, int]]:
+        identifier: str) -> List[Dict[str, Union[str, int]]]:
     """Get tracking."""
     finding = await info.context.loaders['finding'].load(identifier)
     release_date = finding['release_date']

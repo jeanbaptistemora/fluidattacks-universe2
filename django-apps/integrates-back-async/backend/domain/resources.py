@@ -6,6 +6,7 @@ from collections import namedtuple
 from datetime import datetime
 from typing import Dict, List, NamedTuple, cast
 from urllib.parse import quote, unquote
+from django.core.files.uploadedfile import InMemoryUploadedFile
 
 from asgiref.sync import async_to_sync
 
@@ -51,7 +52,7 @@ async def send_mail(
         user_email: str,
         resource_list: List[ResourceType],
         action: str,
-        resource_type: str):
+        resource_type: str) -> None:
     recipients = set(await project_dal.list_project_managers(project_name))
     recipients.add(user_email)
     recipients.update(FI_MAIL_RESOURCERS.split(','))
@@ -78,7 +79,9 @@ async def send_mail(
     ).start()
 
 
-def validate_file_size(uploaded_file, file_size: int) -> bool:
+def validate_file_size(
+        uploaded_file: InMemoryUploadedFile,
+        file_size: int) -> bool:
     """Validate if uploaded file size is less than a given file size."""
     mib = 1048576
     if uploaded_file.size > file_size * mib:
@@ -88,7 +91,7 @@ def validate_file_size(uploaded_file, file_size: int) -> bool:
 
 async def create_file(
         files_data: List[Dict[str, str]],
-        uploaded_file,
+        uploaded_file: InMemoryUploadedFile,
         project_name: str,
         user_email: str) -> bool:
     success = False
@@ -371,7 +374,7 @@ async def update_resource(
     )
 
 
-@async_to_sync
+@async_to_sync  # type: ignore
 async def mask(project_name: str) -> NamedTuple:
     project_name = project_name.lower()
     project = await project_dal.get_attributes(
