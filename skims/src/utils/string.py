@@ -18,11 +18,22 @@ from typing import (
 from PIL import (
     Image,
     ImageDraw,
+    ImageFont,
 )
 
 # Local libraries
 from utils.aio import (
     unblock,
+)
+from utils.ctx import (
+    get_artifact,
+)
+
+
+# Constants
+FONT: ImageFont = ImageFont.truetype(
+    font=get_artifact('vendor/fonts/roboto_mono_from_google/regular.ttf'),
+    size=22,
 )
 
 
@@ -111,7 +122,6 @@ def blocking_to_snippet(
 async def to_png(
     *,
     string: str,
-    width_px: int = 1024,
 ) -> BytesIO:
 
     def _string_to_png() -> BytesIO:
@@ -120,14 +130,20 @@ async def to_png(
         dummy_drawing: ImageDraw = ImageDraw.Draw(dummy_img)
 
         # This is the number of pixes needed to draw this text, may be big
-        size: Tuple[int, int] = dummy_drawing.multiline_textsize(string)
+        size: Tuple[int, int] = dummy_drawing.textsize(string, font=FONT)
 
         # Create an image with the right size to fit the snippet
         #  and resize it to a common resolution
-        img: Image = Image.new('RGB', size, (0x27, 0x28, 0x22))
+        margin = 25
+        size = (size[0] + 2 * margin, size[1] + 2 * margin)
+        img: Image = Image.new('RGB', size, (0xff, 0xff, 0xff))
         drawing: ImageDraw = ImageDraw.Draw(img)
-        drawing.multiline_text((0, 0), string, (0xEE, 0xEE, 0xEC))
-        img = img.resize((width_px, width_px * size[1] // size[0]))
+        drawing.multiline_text(
+            xy=(margin, margin),
+            text=string,
+            fill=(0x33, 0x33, 0x33),
+            font=FONT,
+        )
 
         stream: BytesIO = BytesIO()
 

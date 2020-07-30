@@ -15,6 +15,9 @@ classifiers = [
   "Topic :: Security",
 ]
 description = "Deterministic vulnerability life-cycle reporting and closing tool"
+include = [
+  "vendor/**/*",
+]
 license = "MPL-2.0"
 name = "skims"
 packages = [
