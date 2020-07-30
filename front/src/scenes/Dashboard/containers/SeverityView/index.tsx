@@ -19,7 +19,7 @@ import { Field, formValueSelector, InjectedFormProps } from "redux-form";
 import { Button } from "../../../../components/Button/index";
 import { FluidIcon } from "../../../../components/FluidIcon";
 import { Can } from "../../../../utils/authz/Can";
-import { authzPermissionsContext } from "../../../../utils/authz/config";
+import { authzGroupContext, authzPermissionsContext } from "../../../../utils/authz/config";
 import { calcCVSSv3 } from "../../../../utils/cvss";
 import { castFieldsCVSS3 } from "../../../../utils/formatHelpers";
 import { Dropdown } from "../../../../utils/forms/fields";
@@ -40,6 +40,7 @@ const severityView: React.FC<SeverityViewProps> = (props: SeverityViewProps): JS
   const { findingId } = props.match.params;
   const { userName } = window as typeof window & Dictionary<string>;
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
+  const groupPermissions: PureAbility<string> = useAbility(authzGroupContext);
 
   const onMount: (() => void) = (): void => {
     mixpanel.track("FindingSeverity", { User: userName });
@@ -117,6 +118,7 @@ const severityView: React.FC<SeverityViewProps> = (props: SeverityViewProps): JS
                       {
                         query: GET_FINDING_HEADER,
                         variables: {
+                          canGetExploit: groupPermissions.can("has_forces"),
                           canGetHistoricState: permissions.can("backend_api_resolvers_finding__get_historic_state"),
                           findingId,
                         },

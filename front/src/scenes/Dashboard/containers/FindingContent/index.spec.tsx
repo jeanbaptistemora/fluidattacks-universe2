@@ -10,7 +10,7 @@ import { MemoryRouter } from "react-router-dom";
 import wait from "waait";
 import waitForExpect from "wait-for-expect";
 import store from "../../../../store";
-import { authzPermissionsContext } from "../../../../utils/authz/config";
+import { authzGroupContext, authzPermissionsContext } from "../../../../utils/authz/config";
 import { msgError, msgSuccess } from "../../../../utils/notifications";
 import { FindingContent } from "./index";
 import {
@@ -64,6 +64,7 @@ describe("FindingContent", () => {
       request: {
         query: GET_FINDING_HEADER,
         variables: {
+          canGetExploit: true,
           canGetHistoricState: true,
           findingId: "438679960",
         },
@@ -109,6 +110,7 @@ describe("FindingContent", () => {
     request: {
       query: GET_FINDING_HEADER,
       variables: {
+        canGetExploit: true,
         canGetHistoricState: true,
         findingId: "438679960",
       },
@@ -187,12 +189,17 @@ describe("FindingContent", () => {
     const mockedPermissions: PureAbility<string> = new PureAbility([
       { action: "backend_api_resolvers_finding__get_historic_state" },
     ]);
+    const mockedGroupPermissions: PureAbility<string> = new PureAbility([
+      { action: "has_forces" },
+    ]);
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/project/TEST/findings/438679960/description"]}>
         <Provider store={store}>
           <MockedProvider mocks={[findingMock]} addTypename={false}>
             <authzPermissionsContext.Provider value={mockedPermissions}>
-              <FindingContent {...mockProps} />
+              <authzGroupContext.Provider value={mockedGroupPermissions}>
+                <FindingContent {...mockProps} />
+              </authzGroupContext.Provider>
             </authzPermissionsContext.Provider>
           </MockedProvider>
         </Provider>
@@ -207,12 +214,17 @@ describe("FindingContent", () => {
     const mockedPermissions: PureAbility<string> = new PureAbility([
       { action: "backend_api_resolvers_finding__get_historic_state" },
     ]);
+    const mockedGroupPermissions: PureAbility<string> = new PureAbility([
+      { action: "has_forces" },
+    ]);
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/project/TEST/findings/438679960/description"]}>
         <Provider store={store}>
           <MockedProvider mocks={[findingMock]} addTypename={false}>
             <authzPermissionsContext.Provider value={mockedPermissions}>
-              <FindingContent {...mockProps} />
+              <authzGroupContext.Provider value={mockedGroupPermissions}>
+                <FindingContent {...mockProps} />
+              </authzGroupContext.Provider>
             </authzPermissionsContext.Provider>
           </MockedProvider>
         </Provider>
@@ -249,12 +261,17 @@ describe("FindingContent", () => {
       { action: "backend_api_resolvers_finding__get_historic_state" },
       { action: "backend_api_resolvers_finding__do_update_evidence" },
     ]);
+    const mockedGroupPermissions: PureAbility<string> = new PureAbility([
+      { action: "has_forces" },
+    ]);
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/project/TEST/findings/438679960/description"]}>
         <Provider store={store}>
           <MockedProvider mocks={[draftMock]} addTypename={false}>
             <authzPermissionsContext.Provider value={mockedPermissions}>
-              <FindingContent {...mockProps} />
+              <authzGroupContext.Provider value={mockedGroupPermissions}>
+                <FindingContent {...mockProps} />
+              </authzGroupContext.Provider>
             </authzPermissionsContext.Provider>
           </MockedProvider>
         </Provider>
@@ -271,12 +288,17 @@ describe("FindingContent", () => {
       { action: "backend_api_resolvers_finding__get_historic_state" },
       { action: "backend_api_resolvers_finding__do_submit_draft" },
     ]);
+    const mockedGroupPermissions: PureAbility<string> = new PureAbility([
+      { action: "has_forces" },
+    ]);
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/project/TEST/findings/438679960/description"]}>
         <Provider store={store}>
           <MockedProvider mocks={[draftMock]} addTypename={false}>
             <authzPermissionsContext.Provider value={mockedPermissions}>
-              <FindingContent {...mockProps} />
+              <authzGroupContext.Provider value={mockedGroupPermissions}>
+                <FindingContent {...mockProps} />
+              </authzGroupContext.Provider>
             </authzPermissionsContext.Provider>
           </MockedProvider>
         </Provider>
@@ -297,12 +319,17 @@ describe("FindingContent", () => {
       { action: "backend_api_resolvers_finding__get_historic_state" },
       { action: "backend_api_resolvers_finding__do_delete_finding" },
     ]);
+    const mockedGroupPermissions: PureAbility<string> = new PureAbility([
+      { action: "has_forces" },
+    ]);
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/project/TEST/findings/438679960/description"]}>
         <Provider store={store}>
           <MockedProvider mocks={[findingMock]} addTypename={false}>
             <authzPermissionsContext.Provider value={mockedPermissions}>
-              <FindingContent {...mockProps} />
+              <authzGroupContext.Provider value={mockedGroupPermissions}>
+                <FindingContent {...mockProps} />
+              </authzGroupContext.Provider>
             </authzPermissionsContext.Provider>
           </MockedProvider>
         </Provider>
@@ -353,12 +380,17 @@ describe("FindingContent", () => {
       { action: "backend_api_resolvers_finding__get_historic_state" },
       { action: "backend_api_resolvers_finding__do_submit_draft" },
     ]);
+    const mockedGroupPermissions: PureAbility<string> = new PureAbility([
+      { action: "has_forces" },
+    ]);
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/project/TEST/findings/438679960/description"]}>
         <Provider store={store}>
           <MockedProvider mocks={[draftMock, submitMutationMock, submittedDraftMock]} addTypename={false}>
             <authzPermissionsContext.Provider value={mockedPermissions}>
-              <FindingContent {...mockProps} />
+              <authzGroupContext.Provider value={mockedGroupPermissions}>
+                <FindingContent {...mockProps} />
+              </authzGroupContext.Provider>
             </authzPermissionsContext.Provider>
           </MockedProvider>
         </Provider>
@@ -407,12 +439,17 @@ describe("FindingContent", () => {
       { action: "backend_api_resolvers_finding__get_historic_state" },
       { action: "backend_api_resolvers_finding__do_submit_draft" },
     ]);
+    const mockedGroupPermissions: PureAbility<string> = new PureAbility([
+      { action: "has_forces" },
+    ]);
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/project/TEST/findings/438679960/description"]}>
         <Provider store={store}>
           <MockedProvider mocks={[draftMock, submitErrorMock, draftMock]} addTypename={false}>
             <authzPermissionsContext.Provider value={mockedPermissions}>
-              <FindingContent {...mockProps} />
+              <authzGroupContext.Provider value={mockedGroupPermissions}>
+                <FindingContent {...mockProps} />
+              </authzGroupContext.Provider>
             </authzPermissionsContext.Provider>
           </MockedProvider>
         </Provider>
@@ -451,12 +488,17 @@ describe("FindingContent", () => {
       { action: "backend_api_resolvers_finding__get_historic_state" },
       { action: "backend_api_resolvers_finding__do_approve_draft" },
     ]);
+    const mockedGroupPermissions: PureAbility<string> = new PureAbility([
+      { action: "has_forces" },
+    ]);
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/project/TEST/findings/438679960/description"]}>
         <Provider store={store}>
           <MockedProvider mocks={[submittedDraftMock, approveMutationMock, findingMock]} addTypename={false}>
             <authzPermissionsContext.Provider value={mockedPermissions}>
-              <FindingContent {...mockProps} />
+              <authzGroupContext.Provider value={mockedGroupPermissions}>
+                <FindingContent {...mockProps} />
+              </authzGroupContext.Provider>
             </authzPermissionsContext.Provider>
           </MockedProvider>
         </Provider>
@@ -519,12 +561,17 @@ describe("FindingContent", () => {
       { action: "backend_api_resolvers_finding__get_historic_state" },
       { action: "backend_api_resolvers_finding__do_approve_draft" },
     ]);
+    const mockedGroupPermissions: PureAbility<string> = new PureAbility([
+      { action: "has_forces" },
+    ]);
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/project/TEST/findings/438679960/description"]}>
         <Provider store={store}>
           <MockedProvider mocks={[submittedDraftMock, approveErrorMock, submittedDraftMock]} addTypename={false}>
             <authzPermissionsContext.Provider value={mockedPermissions}>
-              <FindingContent {...mockProps} />
+              <authzGroupContext.Provider value={mockedGroupPermissions}>
+                <FindingContent {...mockProps} />
+              </authzGroupContext.Provider>
             </authzPermissionsContext.Provider>
           </MockedProvider>
         </Provider>
@@ -573,12 +620,17 @@ describe("FindingContent", () => {
       { action: "backend_api_resolvers_finding__get_historic_state" },
       { action: "backend_api_resolvers_finding__do_reject_draft" },
     ]);
+    const mockedGroupPermissions: PureAbility<string> = new PureAbility([
+      { action: "has_forces" },
+    ]);
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/project/TEST/findings/438679960/description"]}>
         <Provider store={store}>
           <MockedProvider mocks={[submittedDraftMock, rejectMutationMock, findingMock]} addTypename={false}>
             <authzPermissionsContext.Provider value={mockedPermissions}>
-              <FindingContent {...mockProps} />
+              <authzGroupContext.Provider value={mockedGroupPermissions}>
+                <FindingContent {...mockProps} />
+              </authzGroupContext.Provider>
             </authzPermissionsContext.Provider>
           </MockedProvider>
         </Provider>
@@ -640,12 +692,17 @@ describe("FindingContent", () => {
       { action: "backend_api_resolvers_finding__get_historic_state" },
       { action: "backend_api_resolvers_finding__do_reject_draft" },
     ]);
+    const mockedGroupPermissions: PureAbility<string> = new PureAbility([
+      { action: "has_forces" },
+    ]);
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/project/TEST/findings/438679960/description"]}>
         <Provider store={store}>
           <MockedProvider mocks={[submittedDraftMock, rejectErrorMock, submittedDraftMock]} addTypename={false}>
             <authzPermissionsContext.Provider value={mockedPermissions}>
-              <FindingContent {...mockProps} />
+              <authzGroupContext.Provider value={mockedGroupPermissions}>
+                <FindingContent {...mockProps} />
+              </authzGroupContext.Provider>
             </authzPermissionsContext.Provider>
           </MockedProvider>
         </Provider>
@@ -695,12 +752,17 @@ describe("FindingContent", () => {
       { action: "backend_api_resolvers_finding__get_historic_state" },
       { action: "backend_api_resolvers_finding__do_delete_finding" },
     ]);
+    const mockedGroupPermissions: PureAbility<string> = new PureAbility([
+      { action: "has_forces" },
+    ]);
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/project/test/findings/438679960/description"]}>
         <Provider store={store}>
           <MockedProvider mocks={[findingMock, deleteMutationMock]} addTypename={false}>
             <authzPermissionsContext.Provider value={mockedPermissions}>
-              <FindingContent {...mockProps} />
+              <authzGroupContext.Provider value={mockedGroupPermissions}>
+                <FindingContent {...mockProps} />
+              </authzGroupContext.Provider>
             </authzPermissionsContext.Provider>
           </MockedProvider>
         </Provider>
@@ -745,12 +807,17 @@ describe("FindingContent", () => {
       { action: "backend_api_resolvers_finding__get_historic_state" },
       { action: "backend_api_resolvers_finding__do_delete_finding" },
     ]);
+    const mockedGroupPermissions: PureAbility<string> = new PureAbility([
+      { action: "has_forces" },
+    ]);
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/project/TEST/findings/438679960/description"]}>
         <Provider store={store}>
           <MockedProvider mocks={[findingMock, deleteMutationMock]} addTypename={false}>
             <authzPermissionsContext.Provider value={mockedPermissions}>
-              <FindingContent {...mockProps} />
+              <authzGroupContext.Provider value={mockedGroupPermissions}>
+                <FindingContent {...mockProps} />
+              </authzGroupContext.Provider>
             </authzPermissionsContext.Provider>
           </MockedProvider>
         </Provider>

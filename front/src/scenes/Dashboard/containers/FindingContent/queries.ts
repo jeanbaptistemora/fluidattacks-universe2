@@ -2,10 +2,11 @@ import { DocumentNode } from "graphql";
 import gql from "graphql-tag";
 
 export const GET_FINDING_HEADER: DocumentNode = gql`
-  query GetFindingHeader($findingId: String!, $canGetHistoricState: Boolean!) {
+  query GetFindingHeader($findingId: String!, $canGetHistoricState: Boolean!,
+      $canGetExploit: Boolean!) {
     finding(identifier: $findingId) {
       closedVulns: closedVulnerabilities
-      exploit
+      exploit @include(if: $canGetExploit)
       id
       openVulns: openVulnerabilities
       releaseDate

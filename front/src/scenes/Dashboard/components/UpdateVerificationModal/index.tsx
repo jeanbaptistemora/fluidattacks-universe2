@@ -11,7 +11,7 @@ import React from "react";
 import { DataTableNext } from "../../../../components/DataTableNext";
 import { changeVulnStateFormatter } from "../../../../components/DataTableNext/formatters";
 import { IHeaderConfig } from "../../../../components/DataTableNext/types";
-import { authzPermissionsContext } from "../../../../utils/authz/config";
+import { authzGroupContext, authzPermissionsContext } from "../../../../utils/authz/config";
 import { msgError, msgSuccess } from "../../../../utils/notifications";
 import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
@@ -42,7 +42,9 @@ export interface IUpdateVerificationModal {
 
 const updateVerificationModal: React.FC<IUpdateVerificationModal> = (props: IUpdateVerificationModal): JSX.Element => {
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
+  const groupPermissions: PureAbility<string> = useAbility(authzGroupContext);
   const canDisplayAnalyst: boolean = permissions.can("backend_api_resolvers_finding__get_analyst");
+  const canDisplayExploit: boolean = groupPermissions.can("has_forces");
 
   // State management
   const [vulnerabilitiesList, setVulnerabilities] = React.useState(props.vulns);
@@ -114,7 +116,11 @@ const updateVerificationModal: React.FC<IUpdateVerificationModal> = (props: IUpd
       });
     },
     refetchQueries: [
-      { query: GET_FINDING_HEADER, variables: { findingId: props.findingId, canGetHistoricState: canDisplayAnalyst } },
+      { query: GET_FINDING_HEADER, variables: {
+        canGetExploit: canDisplayExploit,
+        canGetHistoricState: canDisplayAnalyst,
+        findingId: props.findingId,
+      } },
       { query: GET_VULNERABILITIES, variables: { analystField: canDisplayAnalyst, identifier: props.findingId } },
     ],
   });

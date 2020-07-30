@@ -19,7 +19,8 @@ import { Field } from "redux-form";
 import { Button } from "../../../../components/Button";
 import { Modal } from "../../../../components/Modal";
 import { Can } from "../../../../utils/authz/Can";
-import { authzPermissionsContext } from "../../../../utils/authz/config";
+import { authzGroupContext, authzPermissionsContext } from "../../../../utils/authz/config";
+import { Have } from "../../../../utils/authz/Have";
 import { Dropdown } from "../../../../utils/forms/fields";
 import { msgError, msgSuccess } from "../../../../utils/notifications";
 import rollbar from "../../../../utils/rollbar";
@@ -46,6 +47,7 @@ import { IFindingContentProps, IHeaderQueryResult } from "./types";
 const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentProps): JSX.Element => {
   const { findingId, projectName } = props.match.params;
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
+  const groupPermissions: PureAbility<string> = useAbility(authzGroupContext);
   const { replace } = useHistory();
 
   // State management
@@ -63,6 +65,7 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
       });
     },
     variables: {
+      canGetExploit: groupPermissions.can("has_forces"),
       canGetHistoricState: permissions.can("backend_api_resolvers_finding__get_historic_state"),
       findingId,
     },
@@ -262,15 +265,17 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
                     title={translate.t("search_findings.tab_evidence.tab_title")}
                     tooltip={translate.t("search_findings.tab_evidence.tooltip")}
                   />
-                  { hasExploit || permissions.can("backend_api_resolvers_finding__do_update_evidence")
-                    ? <ContentTab
-                        icon="icon pe-7s-file"
-                        id="exploitItem"
-                        link={`${props.match.url}/exploit`}
-                        title={translate.t("search_findings.tab_exploit.tab_title")}
-                        tooltip={translate.t("search_findings.tab_exploit.tooltip")}
-                    />
-                   : undefined }
+                  <Have I="has_forces">
+                    { hasExploit || permissions.can("backend_api_resolvers_finding__do_update_evidence")
+                      ? <ContentTab
+                          icon="icon pe-7s-file"
+                          id="exploitItem"
+                          link={`${props.match.url}/exploit`}
+                          title={translate.t("search_findings.tab_exploit.tab_title")}
+                          tooltip={translate.t("search_findings.tab_exploit.tooltip")}
+                      />
+                     : undefined }
+                  </Have>
                   <ContentTab
                     icon="icon pe-7s-graph1"
                     id="trackingItem"

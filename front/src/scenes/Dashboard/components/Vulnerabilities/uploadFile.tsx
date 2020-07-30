@@ -15,7 +15,7 @@ import { submit } from "redux-form";
 import { Button } from "../../../../components/Button/index";
 import { FluidIcon } from "../../../../components/FluidIcon";
 import store from "../../../../store/index";
-import { authzPermissionsContext } from "../../../../utils/authz/config";
+import { authzGroupContext, authzPermissionsContext } from "../../../../utils/authz/config";
 import { msgError, msgErrorStick, msgSuccess } from "../../../../utils/notifications";
 import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
@@ -32,6 +32,7 @@ import {
 const uploadVulnerabilities: ((props: IVulnerabilitiesViewProps) => JSX.Element) =
 (props: IVulnerabilitiesViewProps): JSX.Element => {
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
+  const groupPermissions: PureAbility<string> = useAbility(authzGroupContext);
 
   const handleUploadResult: ((mtResult: IUploadVulnerabilitiesResult) => void) =
   (mtResult: IUploadVulnerabilitiesResult): void => {
@@ -134,6 +135,7 @@ const uploadVulnerabilities: ((props: IVulnerabilitiesViewProps) => JSX.Element)
         {
           query: GET_FINDING_HEADER,
           variables: {
+            canGetExploit: groupPermissions.can("has_forces"),
             canGetHistoricState: permissions.can("backend_api_resolvers_finding__get_historic_state"),
             findingId: props.findingId,
           },

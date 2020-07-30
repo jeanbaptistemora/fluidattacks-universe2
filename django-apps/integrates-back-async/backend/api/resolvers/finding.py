@@ -13,7 +13,7 @@ from graphql import GraphQLError
 
 from backend.decorators import (
     enforce_group_level_auth_async, get_entity_cache_async, rename_kwargs,
-    require_integrates,
+    require_attribute, require_integrates,
     require_login, require_finding_access
 )
 from backend.domain import (
@@ -242,6 +242,9 @@ async def _get_cvss_version(info: GraphQLResolveInfo, identifier: str) -> str:
     return cast(str, finding['cvss_version'])
 
 
+@rename_kwargs({'identifier': 'finding_id'})
+@require_attribute('has_forces')
+@rename_kwargs({'finding_id': 'identifier'})
 @get_entity_cache_async
 async def _get_exploit(info: GraphQLResolveInfo, identifier: str) -> str:
     """Get exploit."""
