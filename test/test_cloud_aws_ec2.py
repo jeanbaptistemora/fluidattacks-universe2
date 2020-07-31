@@ -8,10 +8,12 @@ from contextlib import contextmanager
 
 # 3rd party imports
 import pytest
-pytestmark = pytest.mark.asserts_module('cloud_aws_api')
 
 # local imports
 from fluidasserts.cloud.aws import ec2
+
+# pylint: disable=invalid-name
+pytestmark = pytest.mark.asserts_module('cloud_aws_api')
 
 
 # Constants
@@ -163,6 +165,11 @@ def test_has_open_all_ports_to_the_public_open():
                                                 AWS_SECRET_ACCESS_KEY
                                                 ).is_open()
 
+
+def test_has_defined_user_data_open():
+    """Search userData attribute on instances."""
+    assert ec2.has_defined_user_data(
+        AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY).is_open()
 
 #
 # Closing tests

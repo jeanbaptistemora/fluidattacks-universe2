@@ -668,6 +668,7 @@ def exec_aws_package(credentials: List[str], enable_multiprocessing: bool):
             ec2.has_unused_seggroups('{key}', '{secret}')
             ec2.seggroup_allows_anyone_to_admin_ports('{key}', '{secret}')
             ec2.vpcs_without_flowlog('{key}', '{secret}')
+            ec2.has_defined_user_data('{key}', '{secret}')
             """,
         ('ecs', 'Elastic Container Service'): """
             ecs.has_not_resources_usage_limits('{key}', '{secret}')

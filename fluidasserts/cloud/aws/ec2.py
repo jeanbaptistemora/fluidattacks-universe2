@@ -1114,3 +1114,65 @@ def has_open_all_ports_to_the_public(key_id: str,
         msg_closed=msg_closed,
         vulns=vulns,
         safes=safes)
+
+
+@api(risk=MEDIUM, kind=DAST)
+@unknown_if(BotoCoreError, RequestException)
+def has_defined_user_data(key_id: str,
+                          secret: str,
+                          session_token: str = None,
+                          retry: bool = True) -> tuple:
+    """
+    Verify if ``EC2::instance`` has defined **userData** attribute.
+
+    The **userData** attribute is a place on where attackers can inject
+    commands that will be executed everytime during the instance startup.
+
+    :param key_id: AWS Key Id.
+    :param secret: AWS Key Secret.
+
+    :returns: - ``OPEN`` if the instance has the
+                **userData** attribute set.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+
+    :rtype: :class:`fluidasserts.Result`
+    """
+    msg_open: str = \
+        'EC2 instances has custom userData defined'
+    msg_closed: str = ('EC2 instances has not userData defined')
+    vulns, safes = [], []
+
+    instances = map(
+        lambda x: x['Instances'],
+        aws.run_boto3_func(
+            key_id=key_id,
+            secret=secret,
+            boto3_client_kwargs={'aws_session_token': session_token},
+            service='ec2',
+            func='describe_instances',
+            param='Reservations',
+            retry=retry))
+
+    for instance in _flatten(list(instances)):
+        user_data = aws.run_boto3_func(
+            key_id=key_id,
+            secret=secret,
+            boto3_client_kwargs={'aws_session_token': session_token},
+            service='ec2',
+            func='describe_instance_attribute',
+            param='UserData',
+            Attribute='userData',
+            InstanceId=instance['InstanceId'],
+            retry=retry)
+        (vulns if user_data else safes).append(
+            (instance['InstanceId'],
+             'userData defined'))
+
+    return _get_result_as_tuple(
+        service='EC2',
+        objects='Instances',
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        vulns=vulns,
+        safes=safes)
