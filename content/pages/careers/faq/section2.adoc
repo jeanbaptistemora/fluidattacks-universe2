@@ -373,7 +373,7 @@ and fewer people in the higher salary range.
 
 ==== 30. What does Fluid Attacks expect from a new employee?
 
-At Fluid Attacks, we have three unchanging, non-negotiable link:../../values[values]:
+At Fluid Attacks, we have three unchanging, non-negotiable link:../../about-us/values[values]:
 
 *HONESTY:* We expect new employees to strictly abide by our ethics code,
 to follow our working philosophy,

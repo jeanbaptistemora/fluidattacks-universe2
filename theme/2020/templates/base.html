@@ -182,11 +182,11 @@
     <!-- End Google Tag Manager -->
   </head>
   <body class="bg-white ma0 lh-copy">
-    {% assets output="static/js/contentHome.min.js", "../node_modules/jquery/dist/jquery.js", "js/tmp/contentHome.min.js", "js/tmp/dynClasses.min.js", "js/assets/tipuesearch/tipuesearch.min.js", "../node_modules/iframe-resizer/js/iframeResizer.js", "js/assets/tipuesearch/tipuesearch_set.js" %}
+    {% assets filters="uglifyjs", output="static/js/plugins.min.js", "../node_modules/jquery/dist/jquery.js", "js/assets/tipuesearch/tipuesearch.min.js", "../node_modules/iframe-resizer/js/iframeResizer.js", "js/assets/tipuesearch/tipuesearch_set.js" %}
       <script type="text/javascript"
               src="{{ SITEURL }}/{{ ASSET_URL }}"></script>
     {% endassets %}
-    {% assets output="static/js/anchor.min.js", "js/tmp/anchor.min.js" %}
+    {% assets output="static/js/contentHome.min.js", "js/tmp/contentHome.min.js", "js/tmp/dynClasses.min.js", "js/tmp/anchor.min.js" %}
     <script type="text/javascript"
               src="{{ SITEURL }}/{{ ASSET_URL }}"></script>
     {% endassets %}
