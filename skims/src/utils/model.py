@@ -21,8 +21,9 @@ def prettify_respecting_new_lines(multiline_str: str) -> str:
     return dedent(multiline_str)[1:-1]
 
 
-class LanguagesEnum(Enum):
+class LocalesEnum(Enum):
     EN: str = 'EN'
+    ES: str = 'ES'
 
 
 class FindingType(Enum):
@@ -166,7 +167,7 @@ class SkimsPathConfig(NamedTuple):
 class SkimsConfig(NamedTuple):
     group: str
     path: Optional[SkimsPathConfig]
-    language: LanguagesEnum
+    language: LocalesEnum
 
 
 class SkimsVulnerabilityMetadata(NamedTuple):

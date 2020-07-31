@@ -6,7 +6,7 @@ from utils.aio import (
     unblock_cpu,
 )
 from utils.model import (
-    LanguagesEnum,
+    LocalesEnum,
     SkimsConfig,
     SkimsPathConfig,
 )
@@ -23,13 +23,12 @@ def _load(path: str) -> SkimsConfig:
     config = template.get(
         confuse.Template({
             'group': confuse.String(pattern=r'^[a-z0-9]+$'),
-            'language': confuse.Choice(LanguagesEnum),
+            'language': confuse.Choice(LocalesEnum),
             'path': confuse.Template({
                 'exclude': confuse.Sequence(confuse.Filename(cwd='')),
                 'include': confuse.Sequence(confuse.Filename(cwd='')),
             }),
-        },
-        ),
+        }),
     )
 
     return SkimsConfig(
