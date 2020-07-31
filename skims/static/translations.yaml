@@ -17,6 +17,11 @@ utils.model.finding.enum.f0034.description:
   es: >
     El sistema usa funciones inseguras, rangos insuficientes o componentes
     de baja entropía para generar números aleatorios.
+utils.model.finding.enum.f0034.impact:
+  en: >
+    Predict the sequence of random numbers.
+  es: >
+    Predecir la secuencia de números aleatorios.
 utils.model.finding.enum.f0034.recommendation:
   en: >
     Use a well-vetted algorithm that is currently considered to be
@@ -31,8 +36,8 @@ utils.model.finding.enum.f0034.requirements:
     R223. Uniform distribution in random numbers.
     R224. Use secure cryptographic mechanisms.
   es: |
-    R223. Distribución uniforme de números aleatorios.
-    R224. Uso de mecanismos criptográficos seguros.
+    R223. Los números aleatorios generados deben seguir una distribución uniforme.
+    R224. Debe usarse el mecanismo criptográfico más seguro ofrecido por la plataforma.
 utils.model.finding.enum.f0034.risk:
   en: >
     An attacker could guess the generation sequence within a
@@ -42,11 +47,9 @@ utils.model.finding.enum.f0034.risk:
     tiempo razonable o predecir resultados usando métodos probabilísticos.
 utils.model.finding.enum.f0034.threat:
   en: >
-    External attacker with enough privileges to access
-    the affected component.
+    Autenticated attacker from the Internet.
   es: >
-    Atacante externo con suficientes privilegios para acceder
-    El componente afectado.
+    Atacante autenticado desde Internet.
 utils.model.finding.enum.f0034.title:
   en: FIN.S.0034. Insecure random number generation
   es: FIN.S.0034. Generación de números aleatorios inseguros

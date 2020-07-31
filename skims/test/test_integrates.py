@@ -32,6 +32,9 @@ from utils.model import (
     VulnerabilitySourceEnum,
     VulnerabilityStateEnum,
 )
+from zone import (
+    t,
+)
 
 
 def test_session(
@@ -108,7 +111,7 @@ async def test_statefull(
 
     assert ResultGetGroupFindings(
         identifier=finding_id,
-        title=finding.value.title(),
+        title=t(finding.value.title),
     ) in await get_group_findings(group=test_group)
 
     assert await do_upload_vulnerabilities(

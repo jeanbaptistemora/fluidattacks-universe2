@@ -30,7 +30,7 @@ from lib_path.common import (
 )
 from utils.aio import (
     materialize,
-    unblock,
+    unblock_cpu,
 )
 from utils.model import (
     FindingEnum,
@@ -172,27 +172,27 @@ async def analyze(
     coroutines: List[Awaitable[Tuple[Vulnerability, ...]]] = []
 
     if extension in EXTENSIONS_CSHARP:
-        coroutines.append(unblock(
+        coroutines.append(unblock_cpu(
             csharp_insecure_randoms,
             char_to_yx_map=await char_to_yx_map_generator.__anext__(),
             content=await content_generator.__anext__(),
             path=path,
         ))
     elif extension in EXTENSIONS_JAVA:
-        coroutines.append(unblock(
+        coroutines.append(unblock_cpu(
             java_use_of_lang_math_random,
             char_to_yx_map=await char_to_yx_map_generator.__anext__(),
             content=await content_generator.__anext__(),
             path=path,
         ))
-        coroutines.append(unblock(
+        coroutines.append(unblock_cpu(
             java_use_of_util_random,
             char_to_yx_map=await char_to_yx_map_generator.__anext__(),
             content=await content_generator.__anext__(),
             path=path,
         ))
     elif extension in EXTENSIONS_JAVASCRIPT:
-        coroutines.append(unblock(
+        coroutines.append(unblock_cpu(
             javascript_insecure_randoms,
             char_to_yx_map=await char_to_yx_map_generator.__anext__(),
             content=await content_generator.__anext__(),

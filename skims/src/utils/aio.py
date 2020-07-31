@@ -26,7 +26,7 @@ CPU_COUNT: int = cpu_count() or 1
 TVar = TypeVar('TVar')
 
 # Executors
-PROCESS_POOL = ProcessPoolExecutor(max_workers=CPU_COUNT - 1)
+PROCESS_POOL = ProcessPoolExecutor(max_workers=CPU_COUNT)
 THREAD_POOL = ThreadPoolExecutor(max_workers=10 * CPU_COUNT)
 
 

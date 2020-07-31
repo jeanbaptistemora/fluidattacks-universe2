@@ -33,6 +33,9 @@ from utils.model import (
 from utils.string import (
     are_similar,
 )
+from zone import (
+    t,
+)
 
 
 async def build_vulnerabilities_stream(
@@ -83,7 +86,7 @@ async def get_closest_finding_id(
         await get_group_findings(group=group)
 
     for existing_finding in existing_findings:
-        if are_similar(finding.value.title(), existing_finding.title):
+        if are_similar(t(finding.value.title), existing_finding.title):
             finding_id = existing_finding.identifier
             break
 

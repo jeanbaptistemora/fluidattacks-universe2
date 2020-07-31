@@ -37,7 +37,7 @@ def _load(path: str) -> SkimsConfig:
         config_path = config.pop('path', None)
 
         skims_config: SkimsConfig = SkimsConfig(
-            group=config.pop('group'),
+            group=config.pop('group', None),
             language=LocalesEnum(config.pop('language')),
             path=SkimsPathConfig(
                 exclude=config_path.pop('exclude'),

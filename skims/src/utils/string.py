@@ -103,7 +103,7 @@ def blocking_to_snippet(
     context: int = 10,
     line: int,
 ) -> str:
-    lines: Tuple[str, ...] = tuple(content.splitlines())
+    lines: Tuple[str, ...] = tuple(content.replace('\t', ' ').splitlines())
     number_of_lines: int = len(lines)
     zeros_needed: int = max(len(str(number_of_lines)), 2) + 2
 

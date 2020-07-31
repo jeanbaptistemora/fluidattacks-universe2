@@ -32,6 +32,7 @@ from utils.model import (
 )
 from zone import (
     set_locale,
+    t,
 )
 
 
@@ -68,7 +69,7 @@ async def main(
             await materialize(
                 log(
                     'info', '%s: %s @ %s\n\n%s\n',
-                    result.finding.value.title(),
+                    t(result.finding.value.title),
                     result.what,
                     result.where,
                     result.skims_metadata.snippet,
@@ -77,7 +78,7 @@ async def main(
                 if result.skims_metadata
             )
 
-            if token:
+            if config_obj.group and token:
                 msg = 'Results will be synced to group: %s'
                 await log('info', msg, config_obj.group)
 
@@ -89,7 +90,8 @@ async def main(
             else:
                 await log('info', ' '.join((
                     'In case you want to persist results to Integrates',
-                    'please make sure you set the --token flag',
+                    'please make sure you set the --token flag in the CLI',
+                    'and the "group" key in the config file'
                 )))
         except SystemExit:
             success = False

@@ -41,6 +41,9 @@ from utils.model import (
 from utils.string import (
     to_in_memory_file,
 )
+from zone import (
+    t,
+)
 
 
 # Constants
@@ -322,13 +325,13 @@ async def do_create_draft(
         """,
         variables=dict(
             cwe=finding.value.cwe,
-            description=finding.value.description(),
+            description=t(finding.value.description),
             group=group,
-            recommendation=finding.value.recommendation(),
-            requirements=finding.value.requirements(),
-            risk=finding.value.risk(),
-            threat=finding.value.threat(),
-            title=finding.value.title(),
+            recommendation=t(finding.value.recommendation),
+            requirements=t(finding.value.requirements),
+            risk=t(finding.value.risk),
+            threat=t(finding.value.threat),
+            title=t(finding.value.title),
             type=finding.value.type.value,
         )
     )

@@ -2,11 +2,7 @@
 from enum import (
     Enum,
 )
-from textwrap import (
-    dedent,
-)
 from typing import (
-    Callable,
     Dict,
     NamedTuple,
     Optional,
@@ -15,17 +11,8 @@ from typing import (
 
 # Local libraries
 from zone import (
-    lazy_t,
     LocalesEnum,
 )
-
-
-def prettify(multiline_str: str) -> str:
-    return ' '.join(prettify_respecting_new_lines(multiline_str).splitlines())
-
-
-def prettify_respecting_new_lines(multiline_str: str) -> str:
-    return dedent(multiline_str)[1:-1]
 
 
 class FindingType(Enum):
@@ -35,24 +22,26 @@ class FindingType(Enum):
 
 class FindingMetadata(NamedTuple):
     cwe: str
-    description: Callable[[], str]
-    recommendation: Callable[[], str]
-    requirements: Callable[[], str]
-    risk: Callable[[], str]
+    description: str
+    impact: str
+    recommendation: str
+    requirements: str
+    risk: str
     severity: Dict[str, float]
-    threat: Callable[[], str]
-    title: Callable[[], str]
+    threat: str
+    title: str
     type: FindingType
 
 
 class FindingEnum(Enum):
     F0034: FindingMetadata = FindingMetadata(
         cwe='330',
-        description=lazy_t('utils.model.finding.enum.f0034.description'),
-        recommendation=lazy_t('utils.model.finding.enum.f0034.recommendation'),
-        requirements=lazy_t('utils.model.finding.enum.f0034.requirements'),
-        risk=lazy_t('utils.model.finding.enum.f0034.risk'),
-        threat=lazy_t('utils.model.finding.enum.f0034.threat'),
+        description='utils.model.finding.enum.f0034.description',
+        impact='utils.model.finding.enum.f0034.impact',
+        recommendation='utils.model.finding.enum.f0034.recommendation',
+        requirements='utils.model.finding.enum.f0034.requirements',
+        risk='utils.model.finding.enum.f0034.risk',
+        threat='utils.model.finding.enum.f0034.threat',
         severity={
             'attackComplexity': 0.44,
             'attackVector': 0.85,
@@ -77,7 +66,7 @@ class FindingEnum(Enum):
             'severityScope': 0.0,
             'userInteraction': 0.85,
         },
-        title=lazy_t('utils.model.finding.enum.f0034.title'),
+        title='utils.model.finding.enum.f0034.title',
         type=FindingType.SECURITY,
     )
 
@@ -151,7 +140,7 @@ class SkimsPathConfig(NamedTuple):
 
 
 class SkimsConfig(NamedTuple):
-    group: str
+    group: Optional[str]
     path: Optional[SkimsPathConfig]
     language: LocalesEnum
 

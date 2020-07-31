@@ -1,9 +1,10 @@
 # Standard library
-from enum import Enum
+from enum import (
+    Enum,
+)
 from typing import (
     Any,
     Dict,
-    Callable,
 )
 
 # Third party libraries
@@ -41,10 +42,6 @@ def load_translations(path: str) -> Dict[str, Dict[LocalesEnum, str]]:
 TRANSLATIONS: Dict[str, Dict[LocalesEnum, str]] = load_translations(
     get_artifact('static/translations.yaml'),
 )
-
-
-def lazy_t(key: str) -> Callable[[], str]:
-    return lambda: t(key)
 
 
 def set_locale(locale: LocalesEnum) -> None:
