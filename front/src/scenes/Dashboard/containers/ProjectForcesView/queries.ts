@@ -17,16 +17,22 @@ export const GET_FORCES_EXECUTIONS: DocumentNode = gql`
             kind
             who
             where
+            state
+            exploitability
           }
           exploits {
             kind
             who
             where
+            state
+            exploitability
           }
           integratesExploits {
             kind
             who
             where
+            state
+            exploitability
           }
           numOfVulnerabilitiesInAcceptedExploits
           numOfVulnerabilitiesInExploits

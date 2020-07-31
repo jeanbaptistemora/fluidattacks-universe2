@@ -10,6 +10,7 @@ from typing import (
     Dict,
     List,
 )
+from decimal import Decimal
 
 # Local libraries
 from backend.dal import (
@@ -48,17 +49,51 @@ async def get_executions(
     group_name: str,
     to_date: datetime,
 ) -> List[ForcesExecutionType]:
-    return [
-        match_fields(execution)
-        async for execution in forces_dal.yield_executions(
-            project_name=group_name,
-            from_date=from_date,
-            to_date=to_date
-        )
-    ]
+    result = []
+    async for execution in forces_dal.yield_executions(
+        project_name=group_name,
+        from_date=from_date,
+        to_date=to_date
+    ):
+        for key, vulnerabilities in execution.get('vulnerabilities',
+                                                  {}).items():
+            if not isinstance(vulnerabilities, list):
+                continue
+
+            for vuln in vulnerabilities:
+                explot = {
+                    '0.91': 'Unproven',
+                    '0.94': 'Proof of concept',
+                    '0.97': 'Functional',
+                    '1.0': 'High',
+                }.get(str(vuln.get('exploitability', 0)), '-')
+                vuln['exploitability'] = explot
+
+                vuln['state'] = vuln.get('state', 'UNKNOWN')
+
+                if key == 'integrates_exploits' and vuln['state'] == 'UNKNOWN':
+                    vuln['state'] = 'OPEN'
+                elif key == 'exploits' and vuln['state'] == 'UNKNOWN':
+                    vuln['state'] = 'OPEN'
+                elif key == 'accepted_exploits' and vuln['state'] == 'UNKNOWN':
+                    vuln['state'] = 'ACCEPTED'
+
+        result.append(match_fields(execution))
+    return result
 
 
 async def add_forces_execution(*, project_name: str,
                                **execution_attributes) -> bool:
+    for vuln in execution_attributes.get('vulnerabilities', dict()).get(
+            'acceptedExploits', list()):
+        vuln['state'] = vuln.get('state', 'ACCEPTED')
+    for vulnerabilities in execution_attributes.get('vulnerabilities',
+                                                    {}).values():
+        if not isinstance(vulnerabilities, list):
+            continue
+        for vuln in vulnerabilities:
+            vuln['exploitability'] = Decimal(
+                str(vuln.get('exploitability', 0)))
+            vuln['state'] = vuln.get('state', 'UNKNOWN')
     return await forces_dal.create_execution(
         project_name=project_name, **execution_attributes)

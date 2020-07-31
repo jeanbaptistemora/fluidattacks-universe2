@@ -32,7 +32,9 @@ import { GET_FORCES_EXECUTIONS } from "./queries";
 type ForcesViewProps = RouteComponentProps<{ projectName: string }>;
 
 export interface IExploitResult {
+  exploitability: number;
   kind: string;
+  state: string;
   where: string;
   who: string;
 }
@@ -125,21 +127,30 @@ const projectForcesView: React.FunctionComponent<ForcesViewProps> = (props: Forc
     return `${exploitableStr}, ${acceptedStr}, ${notExploitableStr}, ${totalStr}`;
   };
 
+  const stateResolve: (status: string) => string = (status: string): string => {
+    switch (status) {
+      case "OPEN":
+        return translate.t("group.forces.status.vulnerable");
+      case "CLOSED":
+        return translate.t("group.forces.status.secure");
+      case "ACCEPTED":
+        return translate.t("group.forces.status.accepted");
+      default:
+        return "";
+    }
+  };
+
   const getDatasetFromVulnerabilities: ((vulnerabilities: IVulnerabilities) => Dictionary[]) = (
     vulnerabilities: IVulnerabilities,
-  ): Dictionary[] => {
-    const exploits: Dictionary[] = vulnerabilities.exploits.map((elem: IExploitResult) => ({
-      ...elem, riskState: translate.t("group.forces.found_vulnerabilities.exploitable"),
+  ): Dictionary[] => vulnerabilities.exploits.concat(
+    vulnerabilities.acceptedExploits.concat(
+      vulnerabilities.integratesExploits,
+    ),
+  )
+    .map((elem: IExploitResult) => ({
+      ...elem,
+      state: statusFormatter(stateResolve(elem.state)),
     }));
-    const acceptedExploits: Dictionary[] = vulnerabilities.acceptedExploits.map((elem: IExploitResult) => ({
-      ...elem, riskState: translate.t("group.forces.found_vulnerabilities.accepted"),
-    }));
-    const integratesExploits: Dictionary[] = vulnerabilities.integratesExploits.map((elem: IExploitResult) => ({
-      ...elem, riskState: translate.t("group.forces.found_vulnerabilities.not_exploitable"),
-    }));
-
-    return exploits.concat(acceptedExploits.concat(integratesExploits));
-  };
 
   const formatDate: ((date: string) => string) = (date: string): string => {
     const dateObj: Date = new Date(date);
@@ -195,10 +206,17 @@ const projectForcesView: React.FunctionComponent<ForcesViewProps> = (props: Forc
   ];
   const headersCompromisedToeTable: IHeaderConfig[] = [
     {
-      dataField: "riskState",
+      dataField: "exploitability",
       formatter: formatText,
-      header: translate.t("group.forces.compromised_toe.risk_state"),
+      header: translate.t("group.forces.compromised_toe.exploitability"),
       width: "15%",
+      wrapped: true,
+    },
+    {
+      dataField: "state",
+      formatter: formatText,
+      header: translate.t("group.forces.compromised_toe.status"),
+      width: "10%",
       wrapped: true,
     },
     {

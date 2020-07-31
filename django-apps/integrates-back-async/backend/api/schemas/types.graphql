@@ -286,8 +286,12 @@ type ExecutionVulnerabilities {
 }
 
 input ExploitResultInput {
+    "CVSS Exploitability"
+    exploitability: Float
     "Execution kind"
     kind: String
+    "Vulnerability state"
+    state: VulnerabilityState
     "Vulnerability where"
     where: String
     "Execution specific"
@@ -297,7 +301,9 @@ input ExploitResultInput {
 type ExploitResult {
     kind: String
     where: String
-    who: String
+    who: String,
+    state: VulnerabilityState
+    exploitability: String
 }
 
 "Report type definition"
@@ -518,4 +524,11 @@ enum EditGroupReason {
 enum AuthProvider {
     GOOGLE
     MICROSOFT
+}
+
+enum VulnerabilityState {
+    ACCEPTED
+    CLOSED
+    OPEN
+    UNKNOWN
 }

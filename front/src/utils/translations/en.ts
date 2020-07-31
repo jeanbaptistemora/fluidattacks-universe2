@@ -415,7 +415,8 @@ export const enTranslations: ResourceKey = {
     },
     forces: {
       compromised_toe: {
-        risk_state: "Risk State",
+        exploitability: "Exploitability",
+        status: "Status",
         title: "Compromised Surface",
         type: "Type",
         what: "What",
@@ -441,6 +442,7 @@ export const enTranslations: ResourceKey = {
         title: "Target of Evaluation",
       },
       status: {
+        accepted: "Accepted",
         secure: "Secure",
         title: "Status",
         vulnerabilities: "Vulnerabilities",

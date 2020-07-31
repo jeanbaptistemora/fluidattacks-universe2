@@ -18,6 +18,7 @@ const getBgColor: (value: string) => string = (value: string): string => {
     case "Verified (closed)":
       return "#259800";
     // Orange
+    case "Accepted":
     case "Created":
     case "Partially closed":
       return "#FFBF00";

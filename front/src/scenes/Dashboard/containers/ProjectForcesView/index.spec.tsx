@@ -60,21 +60,27 @@ describe("ForcesView", () => {
                 vulnerabilities: {
                   acceptedExploits: [
                     {
+                      exploitability: "Unproven",
                       kind: "DAST",
+                      state: "OPEN",
                       where: "HTTP/Implementation",
                       who: "https://test.com/test",
                     },
                   ],
                   exploits: [
                     {
+                      exploitability: "Functional",
                       kind: "DAST",
+                      state: "ACCEPTED",
                       where: "HTTP/Implementation",
                       who: "https://test.com/test",
                     },
                   ],
                   integratesExploits: [
                     {
+                      exploitability: "Unproven",
                       kind: "DAST",
+                      state: "MOCK_EXP",
                       where: "HTTP/Implementation",
                       who: "https://test.com/test",
                     },
@@ -168,6 +174,6 @@ describe("ForcesView", () => {
     row.simulate("click");
     expect(wrapper
       .find("span"))
-      .toHaveLength(57);
+      .toHaveLength(65);
   });
 });
