@@ -1,3 +1,4 @@
+import { BugsnagSourceMapUploaderPlugin } from "webpack-bugsnag-plugins";
 import OptimizeCssAssetsPlugin from "optimize-css-assets-webpack-plugin";
 import TerserPlugin from "terser-webpack-plugin";
 import { commonConfig } from "./webpack.common.config";
@@ -12,6 +13,7 @@ const branchName: string =
 const prodConfig: webpack.Configuration = {
   ...commonConfig,
   bail: true,
+  devtool: "source-map",
   mode: "production",
   module: {
     ...commonConfig.module,
@@ -51,6 +53,14 @@ const prodConfig: webpack.Configuration = {
       new OptimizeCssAssetsPlugin(),
     ],
   },
+  plugins: [
+    ...(commonConfig.plugins as []),
+    new BugsnagSourceMapUploaderPlugin({
+      apiKey: "99a64555a50340cfa856f6623c6bf35d",
+      appVersion: process.env.FI_VERSION,
+      publicPath: `https://${bucketName}-${branchName}.s3.amazonaws.com/integrates/static/dashboard/`,
+    }),
+  ],
 };
 
 export = prodConfig;
