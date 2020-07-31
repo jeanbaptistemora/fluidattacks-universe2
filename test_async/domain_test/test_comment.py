@@ -29,7 +29,7 @@ class CommentTests(TestCase):
         assert sorted(test_data) == sorted(expected_output)
 
     @pytest.mark.changes_db
-    def test_fill_comment_data(self):
+    async def test_fill_comment_data(self):
         test_data = {
             'content': 'test content',
             'created': '2018-12-27 16:30:28',
@@ -39,11 +39,11 @@ class CommentTests(TestCase):
             'parent': Decimal('0')
         }
         res_data_no_fullname = \
-            comment_domain.fill_comment_data('unittesting', 'customer', test_data)
+            await comment_domain.fill_comment_data('unittesting', 'customer', test_data)
         assert res_data_no_fullname['fullname'] == 'unittesting@test.com'
 
         test_data['fullname'] = ''
         res_data_empty_fullname = \
-            comment_domain.fill_comment_data('unittesting', 'customer', test_data)
+            await comment_domain.fill_comment_data('unittesting', 'customer', test_data)
 
         assert res_data_empty_fullname['fullname'] == 'unittesting@test.com'

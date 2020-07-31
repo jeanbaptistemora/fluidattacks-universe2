@@ -96,9 +96,11 @@ def create_user(
     }
     if user:
         if async_to_sync(user_domain.get_data)(str(user), 'first_name'):
-            user_domain.update_last_login(user)
+            async_to_sync(user_domain.update_last_login)(user)
         else:
-            user_domain.update_multiple_user_attributes(str(user), data_dict)
+            async_to_sync(user_domain.update_multiple_user_attributes)(
+                str(user), data_dict
+            )
     else:
         mail_to = [FI_MAIL_CONTINUOUS, FI_MAIL_PROJECTS]
         name = f'{first_name} {last_name}'
@@ -107,7 +109,9 @@ def create_user(
             'mail_user': email,
         }
         mailer.send_mail_new_user(mail_to, context)
-        user_domain.update_multiple_user_attributes(email, data_dict)
+        async_to_sync(user_domain.update_multiple_user_attributes)(
+            email, data_dict
+        )
 
 
 def check_registered(

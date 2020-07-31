@@ -181,10 +181,6 @@ async def get_attributes(email: str, attributes: List[str]) -> UserType:
     return items
 
 
-def remove_attribute(email: str, name_attribute: str) -> bool:
-    return update(email.lower(), {name_attribute: None})
-
-
 async def create(email: str, data: UserType) -> bool:
     resp = False
 
@@ -196,39 +192,36 @@ async def create(email: str, data: UserType) -> bool:
     return resp
 
 
-def update(email: str, data: UserType) -> bool:
+async def update(email: str, data: UserType) -> bool:
     success = False
-    primary_key = {'email': email.lower()}
+    set_expression = ''
+    remove_expression = ''
+    expression_names = {}
+    expression_values = {}
+    for attr, value in data.items():
+        if value is None:
+            remove_expression += f'#{attr}, '
+            expression_names.update({f'#{attr}': attr})
+        else:
+            set_expression += f'#{attr} = :{attr}, '
+            expression_names.update({f'#{attr}': attr})
+            expression_values.update({f':{attr}': value})
+    if set_expression:
+        set_expression = f'SET {set_expression.strip(", ")}'
+    if remove_expression:
+        remove_expression = f'REMOVE {remove_expression.strip(", ")}'
+    update_attrs = {
+        'Key': {'email': email.lower()},
+        'UpdateExpression': f'{set_expression} {remove_expression}'.strip(),
+    }
+    if expression_values:
+        update_attrs.update({'ExpressionAttributeValues': expression_values})
+    if expression_names:
+        update_attrs.update({'ExpressionAttributeNames': expression_names})
     try:
-        attrs_to_remove = [
-            attr
-            for attr in data
-            if data[attr] is None
-        ]
-        for attr in attrs_to_remove:
-            response = USERS_TABLE.update_item(
-                Key=primary_key,
-                UpdateExpression='REMOVE #attr',
-                ExpressionAttributeNames={'#attr': attr}
-            )
-            success = response['ResponseMetadata']['HTTPStatusCode'] == 200
-            del data[attr]
-
-        if data:
-            for attr in data:
-                response = USERS_TABLE.update_item(
-                    Key=primary_key,
-                    UpdateExpression='SET #attrName = :val1',
-                    ExpressionAttributeNames={
-                        '#attrName': attr
-                    },
-                    ExpressionAttributeValues={
-                        ':val1': data[attr]
-                    }
-                )
-                success = response['ResponseMetadata']['HTTPStatusCode'] == 200
-                if not success:
-                    break
+        success = await dynamodb.async_update_item(
+            USERS_TABLE_NAME, update_attrs
+        )
     except ClientError as ex:
         LOGGER.exception(ex, extra={'extra': locals()})
 

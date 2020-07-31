@@ -371,7 +371,7 @@ async def _do_update_access_token(
             key=settings.JWT_SECRET_API
         )
 
-        success = await sync_to_async(user_domain.update_access_token)(
+        success = await user_domain.update_access_token(
             email, token_data
         )
         if success:
@@ -409,7 +409,7 @@ async def _do_invalidate_access_token(
     """Resolve invalidate_access_token mutation."""
     user_info = util.get_jwt_content(info.context)
 
-    success = await sync_to_async(user_domain.remove_access_token)(
+    success = await user_domain.remove_access_token(
         user_info['user_email']
     )
     if success:
@@ -434,7 +434,7 @@ async def _do_accept_legal(
     """Resolve accept_legal mutation."""
     user_email = util.get_jwt_content(info.context)['user_email']
 
-    success = await sync_to_async(user_domain.update_legal_remember)(
+    success = await user_domain.update_legal_remember(
         user_email, remember
     )
 

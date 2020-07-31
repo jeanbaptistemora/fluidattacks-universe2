@@ -15,6 +15,7 @@ from backend.typing import (
     Comment as CommentType,
     User as UserType
 )
+from backend.utils import aio
 
 
 async def _get_comments(
@@ -22,7 +23,7 @@ async def _get_comments(
         project_name: str,
         finding_id: str,
         user_email: str) -> List[CommentType]:
-    comments = [
+    comments = await aio.materialize([
         fill_comment_data(
             project_name,
             user_email,
@@ -32,7 +33,7 @@ async def _get_comments(
             comment_type,
             int(finding_id)
         )
-    ]
+    ])
     return comments
 
 
@@ -91,7 +92,7 @@ async def get_event_comments(
     return comments
 
 
-def get_fullname(
+async def get_fullname(
         project_name: str,
         requester_email: str,
         objective_data: Dict[str, str]) -> str:
@@ -107,8 +108,8 @@ def get_fullname(
     if is_requester_at_fluid or not is_objective_at_fluid:
         name_to_show = real_name
     else:
-        objective_role = authz.get_group_level_role(
-            objective_email, project_name
+        objective_role = await aio.ensure_io_bound(
+            authz.get_group_level_role, objective_email, project_name
         )
 
         name_to_show = {
@@ -139,11 +140,11 @@ def fill_vuln_info(
     return cast(CommentType, comment)
 
 
-def fill_comment_data(
+async def fill_comment_data(
         project_name: str,
         requester_email: str,
         data: Dict[str, str]) -> CommentType:
-    fullname = get_fullname(
+    fullname = await get_fullname(
         project_name=project_name,
         requester_email=requester_email,
         objective_data=data)

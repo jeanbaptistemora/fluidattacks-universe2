@@ -215,14 +215,13 @@ async def update_treatment_in_vuln(
                 authz.get_group_level_role
             )(email, group)
 
-            new_values['treatment_manager'] = await sync_to_async(
-                vuln_domain.set_treatment_manager
-            )(
-                treatment,
-                email,
-                finding,
-                group_level_role == 'customeradmin',
-                email
+            new_values['treatment_manager'] = \
+                await vuln_domain.set_treatment_manager(
+                    treatment,
+                    email,
+                    finding,
+                    group_level_role == 'customeradmin',
+                    email
             )
             break
 

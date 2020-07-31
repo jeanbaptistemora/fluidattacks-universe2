@@ -38,10 +38,10 @@ async def test_update():
     assert get('unittest5') == {}
 
     await create('unittest5', {'phone_number': '22222222'})
-    update('unittest5', {})
+    await update('unittest5', {})
     assert get('unittest5') == \
         {'email': 'unittest5', 'phone_number': '22222222'}
 
-    update('unittest5', {'last_name':'testing'})
+    await update('unittest5', {'last_name':'testing'})
     assert get('unittest5') == \
         {'last_name':'testing', 'email': 'unittest5', 'phone_number': '22222222'}

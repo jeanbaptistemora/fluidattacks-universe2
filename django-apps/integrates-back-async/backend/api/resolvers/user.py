@@ -75,9 +75,7 @@ async def _give_user_access(
 
     if phone_number and phone_number[1:].isdigit():
         coroutines.append(
-            aio.ensure_io_bound(
-                user_domain.add_phone_to_user, email, phone_number
-            )
+            user_domain.add_phone_to_user(email, phone_number)
         )
 
     coroutines.append(
@@ -638,9 +636,7 @@ async def modify_user_information(
 
     if phone and validate_phone_field(phone):
         coroutines.append(
-            aio.ensure_io_bound(
-                user_domain.add_phone_to_user, email, phone
-            )
+            user_domain.add_phone_to_user(email, phone)
         )
     else:
         util.cloudwatch_log(

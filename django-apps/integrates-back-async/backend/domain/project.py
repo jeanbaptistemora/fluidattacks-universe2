@@ -935,12 +935,8 @@ async def list_drafts(
 async def list_comments(
         project_name: str,
         user_email: str) -> List[CommentType]:
-    comments = await asyncio.gather(*[
-        asyncio.create_task(
-            sync_to_async(comment_domain.fill_comment_data)(
-                project_name, user_email, comment
-            )
-        )
+    comments = await aio.materialize([
+        comment_domain.fill_comment_data(project_name, user_email, comment)
         for comment in await project_dal.get_comments(project_name)
     ])
 

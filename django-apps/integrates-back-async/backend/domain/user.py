@@ -22,9 +22,9 @@ from backend.utils import (
 from backend import authz
 
 
-def add_phone_to_user(email: str, phone: str) -> bool:
+async def add_phone_to_user(email: str, phone: str) -> bool:
     """ Update user phone number. """
-    return user_dal.update(email, {'phone': phone})
+    return await user_dal.update(email, {'phone': phone})
 
 
 def get_current_date() -> str:
@@ -93,32 +93,34 @@ async def is_registered(email: str) -> bool:
     return bool(await get_data(email, 'registered'))
 
 
-def register(email: str) -> bool:
-    return user_dal.update(email, {'registered': True})
+async def register(email: str) -> bool:
+    return await user_dal.update(email, {'registered': True})
 
 
-def remove_access_token(email: str) -> bool:
+async def remove_access_token(email: str) -> bool:
     """ Remove access token attribute """
-    return user_dal.remove_attribute(email, 'access_token')
+    return await user_dal.update(email, {'access_token': None})
 
 
-def update_legal_remember(email: str, remember: bool) -> bool:
+async def update_legal_remember(email: str, remember: bool) -> bool:
     """ Remember legal notice acceptance """
-    return user_dal.update(email, {'legal_remember': remember})
+    return await user_dal.update(email, {'legal_remember': remember})
 
 
-def update_access_token(email: str, token_data: Dict[str, str]) -> bool:
+async def update_access_token(email: str, token_data: Dict[str, str]) -> bool:
     """ Update access token """
     access_token = {
         'iat': int(datetime.utcnow().timestamp()),
         'jti': token_data['jti_hashed'],
         'salt': token_data['salt']
     }
-    return user_dal.update(email, {'access_token': access_token})
+    return await user_dal.update(email, {'access_token': access_token})
 
 
-def update_last_login(email: str) -> bool:
-    return user_dal.update(str(email), {'last_login': get_current_date()})
+async def update_last_login(email: str) -> bool:
+    return await user_dal.update(
+        str(email), {'last_login': get_current_date()}
+    )
 
 
 async def update_project_access(
@@ -128,16 +130,17 @@ async def update_project_access(
     )
 
 
-def update_multiple_user_attributes(email: str, data_dict: UserType) -> bool:
-    return user_dal.update(email, data_dict)
+async def update_multiple_user_attributes(
+        email: str, data_dict: UserType) -> bool:
+    return await user_dal.update(email, data_dict)
 
 
 async def create(email: str, data: UserType) -> bool:
     return await user_dal.create(email, data)
 
 
-def update(email: str, data_attr: str, name_attr: str) -> bool:
-    return user_dal.update(email, {name_attr: data_attr})
+async def update(email: str, data_attr: str, name_attr: str) -> bool:
+    return await user_dal.update(email, {name_attr: data_attr})
 
 
 def get(email: str) -> UserType:
