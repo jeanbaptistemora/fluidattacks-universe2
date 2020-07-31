@@ -111,7 +111,7 @@ const dashboardView: React.FunctionComponent = (): JSX.Element => {
     ? [emptyOrg]
     : data.me.organizations.length === 0
       ? [emptyOrg]
-      : data.me.organizations.filter(hasAnalytics);
+      : _.sortBy(data.me.organizations.filter(hasAnalytics), "name");
 
   // Event handlers
   const handleLogout: (() => void) = async (): Promise<void> => {
