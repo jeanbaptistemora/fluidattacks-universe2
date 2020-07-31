@@ -471,6 +471,7 @@ function job_reset {
     'lambda/.venv.*'
     'mobile/.expo/'
     'mobile/google-services.json'
+    'skims/coverage'
     'TEMP_FD'
     'test_async/dynamo_data/bb_executions.json.now'
     'version.txt'

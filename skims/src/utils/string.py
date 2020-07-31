@@ -44,7 +44,9 @@ FONT: ImageFont = ImageFont.truetype(
     size=22,
 )
 WATERMARK: Image = blocking_clarify(
-    image=Image.open(get_artifact('static/imgs/logo_1024x329.png')),
+    image=Image.open(
+        get_artifact('static/img/logo_fluid_attacks_854x329.png'),
+    ),
     ratio=0.15,
 )
 
