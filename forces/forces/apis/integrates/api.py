@@ -73,7 +73,7 @@ async def get_vulnerabilities(
     return response.get('finding', dict()).get('vulnerabilities', list())
 
 
-async def get_finding(finding: str, **kwargs: str) -> Dict[str, str]:
+async def get_finding(finding: str, **kwargs: str) -> Dict[str, Any]:
     """
     Returns a finding.
 
@@ -85,6 +85,7 @@ async def get_finding(finding: str, **kwargs: str) -> Dict[str, str]:
             title
             id
             state
+            severity
           }
         }
         """
@@ -172,12 +173,11 @@ async def upload_report(project: str, report: Dict[str, Any], log: str,
             for find in report['findings'] for vuln in find['vulnerabilities']
     ]:
         (accepted if vuln['state'] == 'accepted' else exploits).append({
-            'kind':
-            vuln['type'],
-            'who':
-            vuln['specific'],
-            'where':
-            vuln['where']
+            'kind': vuln['type'],
+            'who': vuln['specific'],
+            'where': vuln['where'],
+            'state': vuln['state'].upper(),
+            'exploitability': vuln['exploitability']
         })
     params: Dict[str, Any] = {
         'project_name': project,

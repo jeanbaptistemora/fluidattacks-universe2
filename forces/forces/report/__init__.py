@@ -22,6 +22,14 @@ from forces.utils.aio import (
 )
 
 
+def get_exploitability_measure(score: int) -> str:
+    data = {'0.91': 'Unproven',
+            '0.94': 'Proof of concept',
+            '0.97': 'Functional',
+            '1.0': 'High'}
+    return data.get(str(score), '-')
+
+
 async def create_findings_dict(project: str,
                                **kwargs: str) -> Dict[str, Dict[str, Any]]:
     """Returns a dictionary containing as key the findings of a project."""
@@ -30,7 +38,9 @@ async def create_findings_dict(project: str,
         get_finding(fin) for fin in await get_findings(project, **kwargs)
     ]
     for _find in asyncio.as_completed(findings_futures):
-        find: Dict[str, str] = await _find
+        find: Dict[str, Any] = await _find
+        severity: Dict[str, Any] = find.pop('severity', dict())
+        find['exploitability'] = severity.get('exploitability', 0)
         findings_dict[find['id']] = find
         findings_dict[find['id']].update({
             'open': 0,
@@ -43,6 +53,11 @@ async def create_findings_dict(project: str,
 
 async def generate_report_log(report: Dict[str, Any],
                               verbose_level: int) -> str:
+    for finding in report['findings']:
+        explot = get_exploitability_measure(finding.get('exploitability', 0))
+        finding['exploitability'] = explot
+        for vuln in finding['vulnerabilities']:
+            vuln['exploitability'] = explot
     if verbose_level == 1:
         for finding in report['findings']:
             finding.pop('vulnerabilities')
@@ -95,7 +110,8 @@ async def generate_report(project: str, **kwargs: str) -> Dict[str, Any]:
             'specific': vuln['specific'],
             'URL': ('https://fluidattacks.com/integrates/groups/'
                     f'{project}/findings/{vuln["findingId"]}'),
-            'state': state
+            'state': state,
+            'exploitability': findings_dict[find_id]['exploitability']
         }
 
         findings_dict[find_id]['vulnerabilities'].append(vulnerability)
