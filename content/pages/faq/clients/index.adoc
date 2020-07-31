@@ -134,7 +134,7 @@ Frequently asked questions about Continuous Hacking.
 *in order to provide a quotation?*::
 
   To provide a proposal, we need to determine
-  what will the target of evaluations (scope) be.
+  what the target of evaluation (scope) will be.
   So, we require the following information:
 
   . *One-shot hacking* (by project):

@@ -12,7 +12,7 @@ Continuous hacking means automatic and manual testing with speed.
 It is done through the ethical hacking of the apps,
 the infrastructure, and the source code.
 *Fluid Attacks* makes Zero-Day findings and does not report false positives.
-The testing needs access to the *GIT* repository
+The testing needs access to the *Git* repository
 and the integration environment.
 The selected system is attacked repeatedly to test all existing versions
 by using various techniques such as *SAST*, *DAST*, *IAST* and *SCA*.
