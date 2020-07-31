@@ -16,8 +16,8 @@ import { Button } from "../../../../components/Button/index";
 import { FluidIcon } from "../../../../components/FluidIcon";
 import store from "../../../../store/index";
 import { authzGroupContext, authzPermissionsContext } from "../../../../utils/authz/config";
+import Logger from "../../../../utils/logger";
 import { msgError, msgErrorStick, msgSuccess } from "../../../../utils/notifications";
-import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
 import { isValidVulnsFile } from "../../../../utils/validations";
 import { GET_FINDING_HEADER } from "../../containers/FindingContent/queries";
@@ -88,7 +88,7 @@ const uploadVulnerabilities: ((props: IVulnerabilitiesViewProps) => JSX.Element)
         msgError(translate.t("group_alerts.error_textsad"));
       } else {
         msgError(translate.t("group_alerts.invalid_specific"));
-        rollbar.error(message);
+        Logger.warning(message);
       }
     });
   };
@@ -107,13 +107,13 @@ const uploadVulnerabilities: ((props: IVulnerabilitiesViewProps) => JSX.Element)
         msgError(translate.t("group_alerts.error_textsad"));
         switch (message) {
           case "Exception - Error Uploading File to S3":
-            rollbar.error(
+            Logger.warning(
               "An error occurred downloading vuln file while uploading file to S3",
               downloadError,
             );
             break;
           default:
-            rollbar.error("An error occurred downloading vuln file", downloadError);
+            Logger.warning("An error occurred downloading vuln file", downloadError);
         }
       });
     },

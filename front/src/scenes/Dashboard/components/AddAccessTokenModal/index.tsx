@@ -15,8 +15,8 @@ import { Modal } from "../../../../components/Modal/index";
 import store from "../../../../store/index";
 import { default as globalStyle } from "../../../../styles/global.css";
 import { Date as DateField, TextArea } from "../../../../utils/forms/fields";
+import Logger from "../../../../utils/logger";
 import { msgError, msgSuccess } from "../../../../utils/notifications";
-import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
 import { isLowerDate, isValidDateAccessToken, required } from "../../../../utils/validations";
 import { GenericForm } from "../GenericForm/index";
@@ -58,7 +58,7 @@ const renderAccessTokenForm: ((props: IAddAccessTokenModalProps) => JSX.Element)
               msgError(translate.t("update_access_token.invalid_exp_time"));
               break;
             default:
-              rollbar.error("An error occurred adding access token", error);
+              Logger.warning("An error occurred adding access token", error);
               msgError(translate.t("group_alerts.error_textsad"));
           }
         });
@@ -116,7 +116,7 @@ const renderAccessTokenForm: ((props: IAddAccessTokenModalProps) => JSX.Element)
               { graphQLErrors }: ApolloError,
             ): void => {
               graphQLErrors.forEach((error: GraphQLError): void => {
-                rollbar.error("An error occurred getting access token", error);
+                Logger.warning("An error occurred getting access token", error);
                 msgError(translate.t("group_alerts.error_textsad"));
               });
             };
@@ -198,7 +198,7 @@ const renderAccessTokenForm: ((props: IAddAccessTokenModalProps) => JSX.Element)
                           { graphQLErrors }: ApolloError,
                         ): void => {
                           graphQLErrors.forEach((error: GraphQLError): void => {
-                            rollbar.error("An error occurred invalidating access token", error);
+                            Logger.warning("An error occurred invalidating access token", error);
                             msgError(translate.t("group_alerts.error_textsad"));
                           });
                           store.dispatch(reset("updateAccessToken"));

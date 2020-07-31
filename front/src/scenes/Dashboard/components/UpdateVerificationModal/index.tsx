@@ -12,8 +12,8 @@ import { DataTableNext } from "../../../../components/DataTableNext";
 import { changeVulnStateFormatter } from "../../../../components/DataTableNext/formatters";
 import { IHeaderConfig } from "../../../../components/DataTableNext/types";
 import { authzGroupContext, authzPermissionsContext } from "../../../../utils/authz/config";
+import Logger from "../../../../utils/logger";
 import { msgError, msgSuccess } from "../../../../utils/notifications";
-import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
 import { GET_FINDING_HEADER } from "../../containers/FindingContent/queries";
 import { RemediationModal } from "../RemediationModal/index";
@@ -78,7 +78,7 @@ const updateVerificationModal: React.FC<IUpdateVerificationModal> = (props: IUpd
             break;
           default:
             msgError(translate.t("group_alerts.error_textsad"));
-            rollbar.error("An error occurred requesting verification", error);
+            Logger.warning("An error occurred requesting verification", error);
         }
       });
     },
@@ -111,7 +111,7 @@ const updateVerificationModal: React.FC<IUpdateVerificationModal> = (props: IUpd
             break;
           default:
             msgError(translate.t("group_alerts.error_textsad"));
-            rollbar.error("An error occurred verifying a request", error);
+            Logger.warning("An error occurred verifying a request", error);
         }
       });
     },

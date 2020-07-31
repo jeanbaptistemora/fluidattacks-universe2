@@ -19,8 +19,8 @@ import { Modal } from "../../../../components/Modal/index";
 import { TooltipWrapper } from "../../../../components/TooltipWrapper";
 import { authzPermissionsContext } from "../../../../utils/authz/config";
 import { Dropdown, Text } from "../../../../utils/forms/fields";
+import Logger from "../../../../utils/logger";
 import { msgError, msgSuccess } from "../../../../utils/notifications";
-import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
 import { alphaNumeric, maxLength, required, validTextField } from "../../../../utils/validations";
 import { GenericForm } from "../../components/GenericForm";
@@ -61,7 +61,7 @@ const addProjectModal: ((props: IAddProjectModal) => JSX.Element) = (props: IAdd
           break;
         default:
           msgError(translate.t("group_alerts.error_textsad"));
-          rollbar.error("An error occurred adding access token", error);
+          Logger.warning("An error occurred adding access token", error);
       }
     });
   };
@@ -111,7 +111,7 @@ const addProjectModal: ((props: IAddProjectModal) => JSX.Element) = (props: IAdd
                     break;
                   default:
                     msgError(translate.t("group_alerts.error_textsad"));
-                    rollbar.error("An error occurred adding a project", error);
+                    Logger.warning("An error occurred adding a project", error);
                 }
               });
             };

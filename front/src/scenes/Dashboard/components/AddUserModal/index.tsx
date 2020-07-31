@@ -14,8 +14,8 @@ import { Button } from "../../../../components/Button/index";
 import { Modal } from "../../../../components/Modal/index";
 import { Can } from "../../../../utils/authz/Can";
 import { Dropdown, PhoneNumber, Text } from "../../../../utils/forms/fields";
+import Logger from "../../../../utils/logger";
 import { msgError } from "../../../../utils/notifications";
-import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
 import { required, validEmail, validTextField } from "../../../../utils/validations";
 import { GenericForm } from "../GenericForm/index";
@@ -53,7 +53,7 @@ export const addUserModal: React.FC<IAddUserModalProps> = (props: IAddUserModalP
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
         msgError(translate.t("group_alerts.error_textsad"));
-        rollbar.error(
+        Logger.warning(
           "An error occurred getting user information for autofill",
           error,
         );

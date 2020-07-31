@@ -8,8 +8,8 @@ import { RouteComponentProps, withRouter } from "react-router";
 import { Link, useHistory } from "react-router-dom";
 import { stylizeBreadcrumbItem } from "../../../../utils/formatHelpers";
 import { useStoredState } from "../../../../utils/hooks";
+import Logger from "../../../../utils/logger";
 import { msgError } from "../../../../utils/notifications";
-import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
 import { default as style } from "./index.css";
 import { GET_USER_ORGANIZATIONS } from "./queries";
@@ -27,7 +27,7 @@ export const navbarComponent: React.FC<RouteComponentProps> = (props: RouteCompo
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
         msgError(translate.t("group_alerts.error_textsad"));
-        rollbar.error("An error occurred fetching organizations for the navbar", error);
+        Logger.warning("An error occurred fetching organizations for the navbar", error);
       });
     },
   });

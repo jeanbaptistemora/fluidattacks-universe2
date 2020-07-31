@@ -20,8 +20,8 @@ import store from "../../../../store";
 import { authzPermissionsContext } from "../../../../utils/authz/config";
 import { formatDropdownField } from "../../../../utils/formatHelpers";
 import { Dropdown, TagInput, Text } from "../../../../utils/forms/fields";
+import Logger from "../../../../utils/logger";
 import { msgError, msgSuccess } from "../../../../utils/notifications";
-import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
 import { isValidVulnSeverity, numeric, required } from "../../../../utils/validations";
 import { IHistoricTreatment } from "../../containers/DescriptionView/types";
@@ -63,7 +63,7 @@ const updateTreatmentModal: ((props: IUpdateTreatmentModal) => JSX.Element) = (
           break;
         default:
           msgError(translate.t("group_alerts.error_textsad"));
-          rollbar.error("An error occurred updating vuln treatment", updateError);
+          Logger.warning("An error occurred updating vuln treatment", updateError);
       }
     });
   };
@@ -140,7 +140,7 @@ const updateTreatmentModal: ((props: IUpdateTreatmentModal) => JSX.Element) = (
           ): void => {
             graphQLErrors.forEach((error: GraphQLError): void => {
               msgError(translate.t("group_alerts.error_textsad"));
-              rollbar.error("An error occurred deleting vulnerabilities", error);
+              Logger.warning("An error occurred deleting vulnerabilities", error);
             });
           };
           const handleDeleteResult: ((mtResult: IDeleteTagResult) => void) =

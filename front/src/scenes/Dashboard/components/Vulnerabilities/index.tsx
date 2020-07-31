@@ -23,8 +23,8 @@ import { IHeaderConfig } from "../../../../components/DataTableNext/types";
 import { FluidIcon } from "../../../../components/FluidIcon";
 import { Can } from "../../../../utils/authz/Can";
 import { authzPermissionsContext } from "../../../../utils/authz/config";
+import Logger from "../../../../utils/logger";
 import { msgError, msgSuccess } from "../../../../utils/notifications";
-import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
 import { deleteVulnerabilityModal as DeleteVulnerabilityModal } from "../DeleteVulnerability/index";
 import { IDeleteVulnAttr } from "../DeleteVulnerability/types";
@@ -264,7 +264,7 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
     ): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
         msgError(translate.t("group_alerts.error_textsad"));
-        rollbar.error("An error occurred getting vulnerabilities", error);
+        Logger.warning("An error occurred getting vulnerabilities", error);
       });
     };
 
@@ -708,7 +708,7 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
             ): void => {
               graphQLErrors.forEach((error: GraphQLError): void => {
                 msgError(translate.t("group_alerts.error_textsad"));
-                rollbar.error("An error occurred approving vulnerabilities", error);
+                Logger.warning("An error occurred approving vulnerabilities", error);
               });
             };
 
