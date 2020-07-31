@@ -78,7 +78,7 @@ def generate_pdf(
         user_email,
         group_name,
         passphrase,
-        'PDF',
+        'Executive',
         reports_utils.sign_url(uploaded_file_name),
     )
 
@@ -123,7 +123,7 @@ def generate_xls(
         user_email,
         group_name,
         passphrase,
-        'XLS',
+        'Technical',
         reports_utils.sign_url(uploaded_file_name),
     )
 
