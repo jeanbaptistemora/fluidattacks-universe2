@@ -1,17 +1,32 @@
 :slug: rules/259/
 :category: networks
 :description: This requirement establishes the importance of separating logical networks by segmenting them for different functional areas.
-:keywords: Requirement, Security, Logical, Network, Segment, Areas, Rules, Ethical Hacking, Pentesting
+:keywords: Requirement, Security, Logical, Network, Segment, Areas, ASVS, CWE, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
-= R259. Segment organization network
+= R259. Segment the organization network
 
 == Requirement
 
-Organization network must be segmented.
+The organization network must be segmented.
 
 == References
 
-. [[r1]] link:https://www.owasp.org/index.php/ASVS_V1_Architecture[+OWASP-ASVS v3.1-1.8+]
-Components are segregated from each other via a defined security control,
-such as network segmentation, firewall rules, or cloud based security groups.
+. [[r1]] link:https://cwe.mitre.org/data/definitions/923.html[CWE-923: Improper Restriction of Communication Channel to Intended Endpoints].
+The software establishes a communication channel to an endpoint for
+privileged or protected operations,
+but it does not properly ensure that it is communicating with the correct
+endpoint.
+
+. [[r2]] link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A6-Security_Misconfiguration[OWASP Top 10 A6:2017-Security Misconfiguration].
+Security misconfiguration is the most commonly seen issue.
+This is commonly a result of insecure default configurations,
+incomplete or ad hoc configurations, open cloud storage,
+misconfigured *HTTP* headers,
+and verbose error messages.
+
+. [[r3]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V6.4 Secret Management.(6.4.1)]
+Verify the segregation of components of differing trust levels through
+well-defined security controls, firewall rules, *API* gateways,
+reverse proxies, cloud-based security groups, or similar mechanisms.
