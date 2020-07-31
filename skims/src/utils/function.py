@@ -1,5 +1,4 @@
 # Standard library
-import contextlib
 import functools
 from typing import (
     Any,
@@ -8,6 +7,11 @@ from typing import (
     Tuple,
     Type,
     TypeVar,
+)
+
+# Local libraries
+from utils.logs import (
+    log,
 )
 
 # Constants
@@ -28,8 +32,10 @@ def retry(
         @functools.wraps(_function)
         async def wrapper(*args: Any, **kwargs: Any) -> Any:
             for _ in range(attempts):
-                with contextlib.suppress(*on_exceptions):
+                try:
                     return await _function(*args, **kwargs)
+                except on_exceptions:
+                    await log('debug', 'retrying: %s', _function.__name__)
 
             if on_error_return:
                 return on_error_return

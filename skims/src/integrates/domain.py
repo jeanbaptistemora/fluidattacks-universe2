@@ -75,6 +75,7 @@ async def build_vulnerabilities_stream(
 
 async def get_closest_finding_id(
     *,
+    affected_systems: str = '',
     create_if_missing: bool = False,
     finding: FindingEnum,
     group: str,
@@ -96,6 +97,7 @@ async def get_closest_finding_id(
         finding_id = ''
 
     if not finding_id and create_if_missing and await do_create_draft(
+        affected_systems=affected_systems,
         finding=finding,
         group=group,
     ):

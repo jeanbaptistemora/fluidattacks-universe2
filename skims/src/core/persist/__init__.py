@@ -2,6 +2,7 @@
 from io import (
     BytesIO,
 )
+import os
 import random
 import sys
 from typing import (
@@ -40,12 +41,28 @@ from utils.model import (
     IntegratesVulnerabilityMetadata,
     Vulnerability,
     VulnerabilityApprovalStatusEnum,
+    VulnerabilityKindEnum,
     VulnerabilitySourceEnum,
     VulnerabilityStateEnum,
 )
 from utils.string import (
     to_png,
 )
+
+
+def get_root(vulnerability: Vulnerability) -> str:
+    if vulnerability.kind == VulnerabilityKindEnum.LINES:
+        return os.path.basename(vulnerability.what[::-1])[::-1]
+
+    raise NotImplementedError(f'Not implemented for: {vulnerability.kind}')
+
+
+def get_affected_systems(
+    results: Tuple[Vulnerability, ...],
+) -> Tuple[str, ...]:
+    affected_systems: Tuple[str, ...] = tuple(set(map(get_root, results)))
+
+    return affected_systems
 
 
 async def upload_evidences(
@@ -194,6 +211,7 @@ async def persist_finding(
     await log('info', 'persisting: %s, %s results', finding.name, len(results))
 
     finding_id: str = await get_closest_finding_id(
+        affected_systems=', '.join(get_affected_systems(results)),
         create_if_missing=True,
         finding=finding,
         group=group,

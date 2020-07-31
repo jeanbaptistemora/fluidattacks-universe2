@@ -49,6 +49,7 @@ from zone import (
 # Constants
 TVar = TypeVar('TVar')
 RETRY: Callable[[TVar], TVar] = retry(
+    attempts=12,
     on_exceptions=(
         aiohttp.ClientError,
         IndexError,
@@ -84,7 +85,11 @@ async def _execute(*, query: str, variables: Dict[str, Any]) -> Dict[str, Any]:
         query=query,
         variables=variables,
     )
-    response.raise_for_status()
+    if response.status >= 400:
+        await log('debug', 'query: %s', query)
+        await log('debug', 'variables: %s', variables)
+        await log('debug', 'response status: %s', response.status)
+        raise aiohttp.ClientError()
 
     result: Dict[str, Any] = await response.json()
 
@@ -292,12 +297,15 @@ async def do_release_vulnerability(
 @RETRY
 async def do_create_draft(
     *,
+    affected_systems: str,
     finding: FindingEnum,
     group: str,
 ) -> bool:
     result = await _execute(
         query="""
             mutation DoCreateDraft(
+                $affected_systems: String
+                $impact: String
                 $cwe: String
                 $description: String
                 $group: String!
@@ -309,6 +317,8 @@ async def do_create_draft(
                 $type: FindingType
             ) {
                 createDraft(
+                    affectedSystems: $affected_systems
+                    attackVectorDesc: $impact
                     cwe: $cwe
                     description: $description
                     projectName: $group
@@ -324,8 +334,10 @@ async def do_create_draft(
             }
         """,
         variables=dict(
+            affected_systems=affected_systems,
             cwe=finding.value.cwe,
             description=t(finding.value.description),
+            impact=t(finding.value.impact),
             group=group,
             recommendation=t(finding.value.recommendation),
             requirements=t(finding.value.requirements),
