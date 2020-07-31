@@ -72,7 +72,10 @@ def get_totals_by_week(
 
 
 async def generate_one(groups: List[str]):
-    group_data = await GroupLoader().load_many(groups)
+    groups_data = filter(
+        lambda group: group.get('project_status') == 'ACTIVE',
+        await GroupLoader().load_many(groups)
+    )
 
     current_rolling_week = datetime.now()
     previous_rolling_week = current_rolling_week - timedelta(days=7)
@@ -82,7 +85,7 @@ async def generate_one(groups: List[str]):
     total_current_open: int = 0
     total_current_closed: int = 0
 
-    for group in group_data:
+    for group in groups_data:
         vulns = list(filter(
             lambda vuln: vuln['current_approval_status'] != 'PENDING',
             chain(*await VulnerabilityLoader().load_many(group['findings']))
