@@ -34,7 +34,7 @@ def is_tag_allowed(user_projects: List[Dict[str, Union[str, List[str]]]],
             for p_tag in project.get('tag', [])
         ]
     ]
-    return all(project.lower() in user_projects_tag
+    return any(project.lower() in user_projects_tag
                for project in all_projects_tag.get('projects', []))
 
 

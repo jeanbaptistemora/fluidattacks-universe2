@@ -80,8 +80,8 @@ class TagTests(TestCase):
             }
         '''
         data = {'query': query}
-        
-        request = create_dummy_session('integratesuser@gmail.com')
+
+        request = create_dummy_session('unittests')
         request.loaders = {
             'event': EventLoader(),
             'finding': FindingLoader(),

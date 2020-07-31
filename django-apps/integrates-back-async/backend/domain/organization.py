@@ -170,10 +170,8 @@ async def remove_user(organization_id: str, email: str) -> bool:
         raise UserNotInOrganization()
 
     user_removed = await org_dal.remove_user(organization_id, email)
-    role_removed = await aio.ensure_io_bound(
-        authz.revoke_organization_level_role,
-        email,
-        organization_id
+    role_removed = await authz.revoke_organization_level_role(
+        email, organization_id
     )
 
     org_groups = await get_groups(organization_id)

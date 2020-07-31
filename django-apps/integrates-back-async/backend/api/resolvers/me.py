@@ -172,7 +172,7 @@ async def _get_tags(
             ]
         }
         for tag in org_tags
-        if all([
+        if any([
             group in user_groups
             for group in cast(List[str], tag['projects'])
         ])
