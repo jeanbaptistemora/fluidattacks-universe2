@@ -102,6 +102,8 @@ async def analyze(
     except FileNotFoundError as exc:
         await log('critical', 'File does not exist: %s', exc.filename)
         raise SystemExit()
+    else:
+        await log('info', 'Files to be tested: %s', len(unique_paths))
 
     results: Tuple[Vulnerability, ...] = tuple(chain(
         *await materialize(map(analyze_one_path, unique_paths))
