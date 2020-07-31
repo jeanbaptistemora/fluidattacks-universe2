@@ -73,7 +73,7 @@ def get_totals_by_week(
 
 async def generate_one(groups: List[str]):
     groups_data = filter(
-        lambda group: group.get('project_status') == 'ACTIVE',
+        lambda group: group['attrs'].get('project_status') == 'ACTIVE',
         await GroupLoader().load_many(groups)
     )
 
