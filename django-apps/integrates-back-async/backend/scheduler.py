@@ -22,6 +22,7 @@ from backend.domain import (
     finding as finding_domain,
     organization as org_domain,
     project as project_domain,
+    tag as tag_domain,
     vulnerability as vuln_domain,
     event as event_domain
 )
@@ -691,8 +692,9 @@ async def update_indicators() -> None:
 
 async def update_organization_indicators(
         organization_name: str,
-        groups: List[str]) -> bool:
+        groups: List[str]) -> Tuple[bool, List[str]]:
     success: List[bool] = []
+    updated_tags: List[str] = []
     indicator_list: List[str] = [
         'max_open_severity',
         'mean_remediate',
@@ -728,6 +730,7 @@ async def update_organization_indicators(
         for tag in groups_attrs[index]['tag']:
             tags_dict[tag].append(groups_attrs[index])
     for tag in tags_dict:
+        updated_tags.append(tag)
         tag_info = calculate_tag_indicators(
             tag, tags_dict, indicator_list + ['max_severity']
         )
@@ -738,7 +741,7 @@ async def update_organization_indicators(
         )
         if success[-1]:
             util.invalidate_cache(tag)
-    return all(success)
+    return all(success), updated_tags
 
 
 @async_to_sync
@@ -751,6 +754,7 @@ async def update_portfolios() -> None:
     )
     async for _, org_name, org_groups in \
             org_domain.iterate_organizations_and_groups():
+        org_tags = await tag_domain.get_tags(org_name, ['tag'])
         org_groups_attrs = await aio.materialize(
             project_domain.get_attributes(
                 group, ['project_name', 'project_status', 'tag']
@@ -762,7 +766,19 @@ async def update_portfolios() -> None:
             for group in org_groups_attrs
             if group.get('project_status') == 'ACTIVE' and group.get('tag', [])
         ]
-        if not await update_organization_indicators(org_name, tag_groups):
+        success, updated_tags = await update_organization_indicators(
+            org_name, tag_groups
+        )
+        if success:
+            deleted_tags = [
+                tag['tag']
+                for tag in org_tags
+                if tag['tag'] not in updated_tags
+            ]
+            await aio.materialize(
+                tag_domain.delete(org_name, str(tag)) for tag in deleted_tags
+            )
+        else:
             LOGGER.error(
                 '[scheduler]: error updating portfolio indicators',
                 extra={'extra': {'organization': org_name}}

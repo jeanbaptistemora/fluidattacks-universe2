@@ -6,14 +6,31 @@ from boto3.dynamodb.conditions import Key
 from botocore.exceptions import ClientError
 
 from backend.dal.helpers import dynamodb
-from backend.typing import Tag as TagType
-
+from backend.typing import (
+    DynamoDelete as DynamoDeleteType,
+    Tag as TagType
+)
 
 # Constants
 DYNAMODB_RESOURCE = dynamodb.DYNAMODB_RESOURCE  # type: ignore
 LOGGER = logging.getLogger(__name__)
 TABLE_NAME = 'fi_portfolios'
 TABLE = DYNAMODB_RESOURCE.Table(TABLE_NAME)
+
+
+async def delete(organization: str, tag: str) -> bool:
+    success: bool = False
+    item = DynamoDeleteType(
+        Key={
+            'organization': organization.lower(),
+            'tag': tag.lower()
+        }
+    )
+    try:
+        success = await dynamodb.async_delete_item(TABLE_NAME, item)
+    except ClientError as ex:
+        LOGGER.exception(ex, extra={'extra': locals()})
+    return success
 
 
 def update(organization: str, tag: str,

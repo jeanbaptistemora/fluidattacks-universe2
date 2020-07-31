@@ -8,6 +8,10 @@ from backend.domain import project as project_domain
 from backend.typing import Tag as TagType
 
 
+async def delete(organization: str, tag: str) -> bool:
+    return await tag_dal.delete(organization, tag)
+
+
 def get_attributes(organization: str, tag: str,
                    attributes: List[str]) -> Dict[str, Union[List[str], str]]:
     return tag_dal.get_attributes(organization, tag, attributes)
