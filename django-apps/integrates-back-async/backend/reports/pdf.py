@@ -11,9 +11,13 @@ from typing import Dict
 import jinja2
 import matplotlib
 
+from backend.reports.typing import PDFWordlistEn
+
 from __init__ import BASE_URL
-matplotlib.use('Agg')
 from pylab import figure, pie, axis, savefig, cla, clf, close  # noqa
+
+
+matplotlib.use('Agg')
 
 
 # pylint: disable=too-many-instance-attributes
@@ -80,64 +84,9 @@ class CreatorPDF():
 
     def lang_support_en(self):
         """ Add the English dictionary.  """
-        self.wordlist['en'] = {
-            'finding_title': 'Finding',
-            'finding_section_title': 'Resume',
-            'content_title': 'Content',
-            'content_list': [
-                '1. Goals',
-                '2. Finding Table',
-                '3. General View',
-                '4. Findings Summary'
-            ],
-            'tech': 'Technical Report',
-            'executive': 'Executive Report',
-            'goals_title': 'Goals',
-            'metodology_title': 'Methodology',
-            'state_title': 'Status',
-            'records_title': 'Records',
-            'description_title': 'Vulnerability',
-            'field': 'Field',
-            'inputs': 'Inputs',
-            'line': 'Line',
-            'lines': 'Lines',
-            'path': 'Path',
-            'port': 'Port',
-            'ports': 'Ports',
-            'resume_vuln_title': 'Vulnerabilities',
-            'where_title': 'Where',
-            'resume_perc_title': 'Percent',
-            'resume_regi_title': 'Total Records',
-            'resume_vnum_title': '#',
-            'resume_vname_title': 'Name',
-            'resume_ttab_title': 'Metric Resume Table',
-            'resume_top_title': 'Finding Top',
-            'threat_title': 'Threat',
-            'solution_title': 'Solution',
-            'requisite_title': 'Requirement',
-            'treatment_title': 'Treatment',
-            'risk_title': 'Risk',
-            'evidence_title': 'Evidences',
-            'compromised_system_title': 'Compromised System',
-            'severity_title': 'Severity',
-            'cardinality_title': 'Vulnerabilities',
-            'attack_vector_title': 'Attack Vector',
-            'resume_page_title': 'General View',
-            'resume_table_title': 'Finding Table',
-            'vuln_c': 'Critical',
-            'vuln_h': 'High',
-            'vuln_m': 'Moderate',
-            'vuln_l': 'Low',
-            'crit_c': '(Critical)',
-            'crit_h': '(High)',
-            'crit_m': '(Moderate)',
-            'crit_l': '(Low)',
-            'treat_status_wor': 'New',
-            'treat_status_asu': 'Temporarily accepted',
-            'treat_status_rem': 'In Progress',
-            'fin_status_open': 'Open',
-            'fin_status_closed': 'Closed'
-        }
+        self.wordlist['en'] = dict(
+            zip(PDFWordlistEn.keys(), PDFWordlistEn.labels())
+        )
 
     def tech(self, data, project, description, user):
         """ Create the template to render and apply the context. """

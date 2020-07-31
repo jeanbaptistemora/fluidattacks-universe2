@@ -1,6 +1,8 @@
 from enum import Enum
-from typing import NamedTuple
+from typing import List, NamedTuple, Union
 
+
+# XLS reports types definitions
 
 class ColumnConfig(NamedTuple):
     label: str
@@ -164,3 +166,132 @@ class GroupVulnsReportHeader(GenericHeader):
         label='Remediation Level', width=25)
     REPORT_CONFIDENCE: ColumnConfig = ColumnConfig(
         label='Report Confidence', width=25)
+
+
+# PDF report types definitions
+
+class WordlistItem(NamedTuple):
+    key: str
+    label: Union[str, List[str]]
+
+
+class Wordlist(Enum):
+
+    @classmethod
+    def keys(cls):
+        return [member.value.key for member in cls]
+
+    @classmethod
+    def labels(cls):
+        return [member.value.label for member in cls]
+
+
+class PDFWordlistEn(Wordlist):
+    FINDING_TITLE: WordlistItem = WordlistItem(
+        'finding_title', 'Finding')
+    FINDING_SECTION_TITLE: WordlistItem = WordlistItem(
+        'finding_section_title', 'Resume')
+    CONTENT_TITLE: WordlistItem = WordlistItem(
+        'content_title', 'Content')
+    CONTENT_LIST: WordlistItem = WordlistItem(
+        'content_list',
+        [
+            '1. Goals',
+            '2. Finding Table',
+            '3. General View',
+            '4. Findings Summary'
+        ])
+    TECH: WordlistItem = WordlistItem(
+        'tech', 'Technical Report')
+    EXECUTIVE: WordlistItem = WordlistItem(
+        'executive', 'Executive Report')
+    GOALS_TITLE: WordlistItem = WordlistItem(
+        'goals_title', 'Goals')
+    METHODOLOGY_TITLE: WordlistItem = WordlistItem(
+        'metodology_title', 'Methodology')
+    STATE_TITLE: WordlistItem = WordlistItem(
+        'state_title', 'Status')
+    RECORDS_TITLE: WordlistItem = WordlistItem(
+        'records_title', 'Records')
+    DESCRIPTION_TITLE: WordlistItem = WordlistItem(
+        'description_title', 'Vulnerability')
+    FIELD: WordlistItem = WordlistItem(
+        'field', 'Field')
+    INPUTS: WordlistItem = WordlistItem(
+        'inputs', 'Inputs')
+    LINE: WordlistItem = WordlistItem(
+        'line', 'Line')
+    LINES: WordlistItem = WordlistItem(
+        'lines', 'Lines')
+    PATH: WordlistItem = WordlistItem(
+        'path', 'Path')
+    PORT: WordlistItem = WordlistItem(
+        'port', 'Port')
+    PORTS: WordlistItem = WordlistItem(
+        'ports', 'Ports')
+    RESUME_VULN_TITLE: WordlistItem = WordlistItem(
+        'resume_vuln_title', 'Vulnerabilities')
+    WHERE_TITLE: WordlistItem = WordlistItem(
+        'where_title', 'Where')
+    RESUME_PERC_TITLE: WordlistItem = WordlistItem(
+        'resume_perc_title', 'Percent')
+    RESUME_REGI_TITLE: WordlistItem = WordlistItem(
+        'resume_regi_title', 'Total Records')
+    RESUME_VNUM_TITLE: WordlistItem = WordlistItem(
+        'resume_vnum_title', '#')
+    RESUME_VNAME_TITLE: WordlistItem = WordlistItem(
+        'resume_vname_title', 'Name')
+    RESUME_TTAB_TITLE: WordlistItem = WordlistItem(
+        'resume_ttab_title', 'Name')
+    RESUME_TOP_TITLE: WordlistItem = WordlistItem(
+        'resume_top_title', 'Finding Top')
+    THREAT_TITLE: WordlistItem = WordlistItem(
+        'threat_title', 'Threat')
+    SOLUCION_TITLE: WordlistItem = WordlistItem(
+        'solution_title', 'Solution')
+    REQUISITE_TITLE: WordlistItem = WordlistItem(
+        'requisite_title', 'Requirement')
+    TREATMENT_TITLE: WordlistItem = WordlistItem(
+        'treatment_title', 'Treatment')
+    RISK_TITLE: WordlistItem = WordlistItem(
+        'risk_title', 'Risk')
+    EVIDENCE_TITLE: WordlistItem = WordlistItem(
+        'evidence_title', 'Evidences')
+    COMPROMISED_SYSTEM_TITLE: WordlistItem = WordlistItem(
+        'compromised_system_title', 'Compromised System')
+    SEVERITY_TITLE: WordlistItem = WordlistItem(
+        'severity_title', 'Severity')
+    CARDINALITY_TITLE: WordlistItem = WordlistItem(
+        'cardinality_title', 'Vulnerabilities')
+    ATTACK_VECTOR_TITLE: WordlistItem = WordlistItem(
+        'attack_vector_title', 'Attack Vector')
+    RESUME_PAGE_TITLE: WordlistItem = WordlistItem(
+        'resume_page_title', 'General View')
+    RESUME_TABLE_TITLE: WordlistItem = WordlistItem(
+        'resume_table_title', 'Finding Table')
+    VULN_C: WordlistItem = WordlistItem(
+        'vuln_c', 'Critical')
+    VULN_H: WordlistItem = WordlistItem(
+        'vuln_h', 'High')
+    VULN_M: WordlistItem = WordlistItem(
+        'vuln_m', 'Moderate')
+    VULN_L: WordlistItem = WordlistItem(
+        'vuln_l', 'Low')
+    CRIT_C: WordlistItem = WordlistItem(
+        'crit_c', '(Critical)')
+    CRIT_H: WordlistItem = WordlistItem(
+        'crit_h', '(High)')
+    CRIT_M: WordlistItem = WordlistItem(
+        'crit_m', '(Moderate)')
+    CRIT_L: WordlistItem = WordlistItem(
+        'crit_l', '(Low)')
+    TREAT_STATUS_WOR: WordlistItem = WordlistItem(
+        'treat_status_wor', 'New')
+    TREAT_STATUS_ASU: WordlistItem = WordlistItem(
+        'treat_status_asu', 'Temporarily Accepted')
+    TREAT_STATUS_REM: WordlistItem = WordlistItem(
+        'treat_status_rem', 'In Progress')
+    FIN_STATUS_OPEN: WordlistItem = WordlistItem(
+        'fin_status_open', 'Open')
+    FIN_STATUS_CLOSED: WordlistItem = WordlistItem(
+        'fin_status_closed', 'Closed')
