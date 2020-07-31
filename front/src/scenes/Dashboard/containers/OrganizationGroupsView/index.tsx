@@ -4,23 +4,21 @@ import { GraphQLError } from "graphql";
 import _ from "lodash";
 import React from "react";
 import {
-  ButtonToolbar, Col, Glyphicon, Row, ToggleButton, ToggleButtonGroup,
-} from "react-bootstrap";
+  ButtonToolbar, Col, Glyphicon, Row } from "react-bootstrap";
 import { useHistory, useParams, useRouteMatch } from "react-router-dom";
 import { Button } from "../../../../components/Button";
+import { statusFormatter } from "../../../../components/DataTableNext/formatters";
 import { DataTableNext } from "../../../../components/DataTableNext/index";
 import { IHeaderConfig } from "../../../../components/DataTableNext/types";
 import { TooltipWrapper } from "../../../../components/TooltipWrapper/index";
 import { Can } from "../../../../utils/authz/Can";
-import { useStoredState } from "../../../../utils/hooks";
 import { msgError } from "../../../../utils/notifications";
 import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
 import { AddProjectModal } from "../../components/AddProjectModal";
-import { ProjectBox } from "../../components/ProjectBox";
 import { default as style } from "./index.css";
 import { GET_ORGANIZATION_GROUPS } from "./queries";
-import { IOrganizationGroups, IOrganizationGroupsProps } from "./types";
+import { IGroupData, IOrganizationGroupsProps } from "./types";
 
 const organizationGroups: React.FC<IOrganizationGroupsProps> = (props: IOrganizationGroupsProps): JSX.Element => {
   const { organizationId } = props;
@@ -30,7 +28,6 @@ const organizationGroups: React.FC<IOrganizationGroupsProps> = (props: IOrganiza
 
   // State management
   const [isProjectModalOpen, setProjectModalOpen] = React.useState(false);
-  const [display, setDisplay] = useStoredState("groupsDisplay", { mode: "grid" });
 
   const openNewProjectModal: (() => void) = (): void => {
     setProjectModalOpen(true);
@@ -38,9 +35,6 @@ const organizationGroups: React.FC<IOrganizationGroupsProps> = (props: IOrganiza
   const closeNewProjectModal: (() => void) = (): void => {
     setProjectModalOpen(false);
     refetchGroups();
-  };
-  const handleDisplayChange: ((value: string) => void) = (value: string): void => {
-    setDisplay({ mode: value });
   };
 
   // GraphQL operations
@@ -67,30 +61,38 @@ const organizationGroups: React.FC<IOrganizationGroupsProps> = (props: IOrganiza
     goToGroup(rowInfo.name);
   };
 
+  const formatGroupData: (groupData: IGroupData[]) => IGroupData[] =
+      (groupData: IGroupData[]): IGroupData[] => groupData.map((group: IGroupData) => {
+    const servicesParameters: { [key: string]: string } = {
+      false: "organization.tabs.groups.disabled",
+      true: "organization.tabs.groups.enabled",
+    };
+    const name: string = group.name.toUpperCase();
+    const description: string = _.capitalize(group.description);
+    const drills: string = translate.t(servicesParameters[group.hasDrills.toString()]);
+    const forces: string = translate.t(servicesParameters[group.hasForces.toString()]);
+
+    return { ...group, name, description, drills, forces };
+  });
+
   // Render Elements
   const tableHeaders: IHeaderConfig[] = [
-    { dataField: "name", header: "Group Name" },
-    { dataField: "description", header: "Description" },
+    { align: "center", dataField: "name", header: "Group Name" },
+    { align: "center", dataField: "description", header: "Description" },
+    { align: "center", dataField: "drills", formatter: statusFormatter, header: "Drills" },
+    { align: "center", dataField: "forces", formatter: statusFormatter, header: "Forces" },
+    {
+      align: "center",
+      dataField: "userRole",
+      formatter: (value: string) => translate.t(`userModal.roles.${value}`, { defaultValue: "-" }),
+      header: "Role",
+    },
   ];
 
   return (
     <React.StrictMode>
       <div className={style.container}>
         <Row>
-          <Col sm={12}>
-            <ButtonToolbar className={style.displayOptions}>
-              <ToggleButtonGroup
-                defaultValue="grid"
-                name="displayOptions"
-                onChange={handleDisplayChange}
-                type="radio"
-                value={display.mode}
-              >
-                <ToggleButton value="grid"><Glyphicon glyph="th" /></ToggleButton>
-                <ToggleButton value="list"><Glyphicon glyph="th-list" /></ToggleButton>
-              </ToggleButtonGroup>
-            </ButtonToolbar>
-          </Col>
           <Can do="backend_api_resolvers_project__do_create_project">
             <Col md={2} mdOffset={5}>
               <ButtonToolbar>
@@ -108,31 +110,17 @@ const organizationGroups: React.FC<IOrganizationGroupsProps> = (props: IOrganiza
             <Row>
               <Col md={12}>
                 <Row className={style.content}>
-                  {display.mode === "grid"
-                    ? data.organization.projects.map(
-                        (group: IOrganizationGroups["data"]["organization"]["projects"][0], index: number):
-                        JSX.Element => (
-                          <Col md={3} key={index}>
-                            <ProjectBox
-                              name={group.name.toUpperCase()}
-                              description={group.description}
-                              onClick={goToGroup}
-                            />
-                          </Col>
-                      ))
-                    : (
-                      <DataTableNext
-                        bordered={true}
-                        dataset={data.organization.projects}
-                        exportCsv={false}
-                        headers={tableHeaders}
-                        id="tblGroups"
-                        pageSize={15}
-                        rowEvents={{ onClick: handleRowClick }}
-                        search={true}
-                      />
-                    )
-                  }
+                  <DataTableNext
+                    bordered={true}
+                    defaultSorted={{ dataField: "name", order: "asc"}}
+                    dataset={formatGroupData(data.organization.projects)}
+                    exportCsv={false}
+                    headers={tableHeaders}
+                    id="tblGroups"
+                    pageSize={15}
+                    rowEvents={{ onClick: handleRowClick }}
+                    search={true}
+                  />
                 </Row>
               </Col>
               <AddProjectModal

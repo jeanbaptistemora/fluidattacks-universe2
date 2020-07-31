@@ -129,7 +129,6 @@ async def _get_remediated_over_time(
     return remediated_over_time
 
 
-@require_integrates
 @get_entity_cache_async
 async def _get_has_drills(
         info: GraphQLResolveInfo,
@@ -144,7 +143,6 @@ async def _get_has_drills(
     )
 
 
-@require_integrates
 @get_entity_cache_async
 async def _get_has_forces(
         info: GraphQLResolveInfo,
@@ -644,6 +642,14 @@ async def _get_service_attributes(
         project_name: str,
         **__: Any) -> Set[str]:
     return await authz.get_group_service_attributes(project_name)
+
+
+async def _get_user_role(
+        info: GraphQLResolveInfo,
+        project_name: str,
+        **__: Any) -> str:
+    user_email = util.get_jwt_content(info.context)['user_email']
+    return authz.get_group_level_role(user_email, project_name)
 
 
 @enforce_group_level_auth_async

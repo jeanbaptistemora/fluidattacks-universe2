@@ -147,6 +147,7 @@ type Project {
     serviceAttributes: [String]
     totalFindings: Int
     users: [User!]
+    userRole: String
     totalTreatment: GenericScalar
     drafts: [Finding!]
     description: String

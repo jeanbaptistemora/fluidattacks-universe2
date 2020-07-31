@@ -589,6 +589,8 @@ export const enTranslations: ResourceKey = {
         tooltip: "Organization status at a glance",
       },
       groups: {
+        disabled: "Disabled",
+        enabled: "Enabled",
         newGroup: {
           description: {
             text: "Description",

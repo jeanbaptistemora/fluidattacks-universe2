@@ -7,6 +7,9 @@ export const GET_ORGANIZATION_GROUPS: DocumentNode = gql`
       projects {
         name
         description
+        hasDrills
+        hasForces
+        userRole
       }
     }
   }

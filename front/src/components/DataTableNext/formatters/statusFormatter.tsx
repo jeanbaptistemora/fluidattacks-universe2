@@ -10,6 +10,7 @@ const getBgColor: (value: string) => string = (value: string): string => {
     // Green
     case "Active":
     case "Closed":
+    case "Enabled":
     case "Secure":
     case "Solved":
     case "Submitted":
@@ -21,6 +22,7 @@ const getBgColor: (value: string) => string = (value: string): string => {
     case "Partially closed":
       return "#FFBF00";
     // Red
+    case "Disabled":
     case "Failed":
     case "Inactive":
     case "Open":
