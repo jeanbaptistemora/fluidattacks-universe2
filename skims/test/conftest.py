@@ -23,7 +23,7 @@ from utils.model import (
 def test_config() -> Iterator[Callable[[str], str]]:
 
     def config(name: str) -> str:
-        return f'test/data/config/{name}.hcl'
+        return f'test/data/config/{name}.yaml'
 
     yield config
 

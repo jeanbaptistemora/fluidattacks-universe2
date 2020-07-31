@@ -37,26 +37,23 @@ def test_dispatch_config_not_found(test_config: Callable[[str], str]) -> None:
         (result.stderr, result.stdout, result.output)
 
 
-def test_dispatch_correct(test_config: Callable[[str], str]) -> None:
-    result = _cli(test_config('correct'))
-    assert result.exit_code == 0
-
-
-def test_dispatch_debug_empty(test_config: Callable[[str], str]) -> None:
-    result = _cli('--debug', test_config('empty'))
+def test_dispatch_debug_correct_nothing_to_do(
+    test_config: Callable[[str], str],
+) -> None:
+    result = _cli('--debug', test_config('correct_nothing_to_do'))
     assert result.exit_code == 0
 
 
 def test_dispatch_empty(test_config: Callable[[str], str]) -> None:
-    result = _cli(test_config('empty'))
-    assert result.exit_code == 0
-
-
-def test_dispatch_null(test_config: Callable[[str], str]) -> None:
-    result = _cli(test_config('null'))
+    result = _cli(test_config('correct_nothing_to_do'))
     assert result.exit_code == 0
 
 
 def test_dispatch_token(test_config: Callable[[str], str]) -> None:
-    result = _cli('--token', '123', test_config('correct'))
+    result = _cli('--token', '123', test_config('correct_nothing_to_do'))
     assert result.exit_code == 1
+
+
+def test_dispatch_correct(test_config: Callable[[str], str]) -> None:
+    result = _cli(test_config('correct'))
+    assert result.exit_code == 0

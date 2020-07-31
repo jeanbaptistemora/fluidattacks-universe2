@@ -4,9 +4,13 @@ from typing import (
     Tuple,
 )
 
+# Third party imports
+from confuse import (
+    ConfigError,
+)
+
 # Local imports
 from config import (
-    ConfigError,
     load,
 )
 from core.persist import (
@@ -39,12 +43,12 @@ async def main(
     success: bool = True
 
     try:
-        config_objects: Tuple[SkimsConfig, ...] = await load(config)
+        config_obj: SkimsConfig = await load(config)
     except ConfigError as exc:
         await log('critical', '%s', exc)
         success = False
     else:
-        for config_obj in config_objects:
+        try:
             results: Tuple[Vulnerability, ...] = tuple(*await materialize((
                 analyze_paths(
                     paths_to_exclude=(
@@ -82,7 +86,7 @@ async def main(
                     'In case you want to persist results to Integrates',
                     'please make sure you set the --token flag',
                 )))
-
-            return success
+        except SystemExit:
+            success = False
 
     return success

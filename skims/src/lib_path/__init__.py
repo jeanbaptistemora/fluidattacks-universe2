@@ -1,9 +1,13 @@
 # Standard library
+from glob import (
+    iglob as glob,
+)
 import os
 from itertools import chain
 from typing import (
     AsyncGenerator,
     Dict,
+    Iterator,
     Set,
     Tuple,
 )
@@ -18,6 +22,9 @@ from utils.aio import (
 from utils.fs import (
     generate_file_content,
     recurse,
+)
+from utils.logs import (
+    log,
 )
 from utils.model import (
     Vulnerability,
@@ -75,11 +82,26 @@ async def analyze(
     paths_to_exclude: Tuple[str, ...],
     paths_to_include: Tuple[str, ...],
 ) -> Tuple[Vulnerability, ...]:
-    unique_paths: Set[str] = set(chain(
-        *await materialize(map(recurse, paths_to_include))
-    )) - set(chain(
-        *await materialize(map(recurse, paths_to_exclude))
-    ))
+
+    def resolve(path: str) -> Iterator[str]:
+        if path.startswith('glob(') and path.endswith(')'):
+            yield from glob(path[5:-1])
+        else:
+            yield path
+
+    try:
+        unique_paths: Set[str] = set(chain(
+            *await materialize(
+                map(recurse, chain(*map(resolve, paths_to_include))),
+            ),
+        )) - set(chain(
+            *await materialize(
+                map(recurse, chain(*map(resolve, paths_to_exclude))),
+            ),
+        ))
+    except FileNotFoundError as exc:
+        await log('critical', 'File does not exist: %s', exc.filename)
+        raise SystemExit()
 
     results: Tuple[Vulnerability, ...] = tuple(chain(
         *await materialize(map(analyze_one_path, unique_paths))
