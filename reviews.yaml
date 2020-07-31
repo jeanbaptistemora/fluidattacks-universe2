@@ -1,0 +1,35 @@
+gitlab_url: 'https://gitlab.com'
+tests:
+  all_pipelines_successful:
+    fail: true
+  mr_message_syntax:
+    fail: true
+  branch_equals_to_user:
+    fail: true
+  mr_under_max_deltas:
+    fail: true
+    max_deltas: 200
+    repo_path: null
+  most_relevant_type:
+    fail: true
+    commit_regex: '^(?:all|forces|integrates|reviews|skims|sorts)\\(\w*)\((\w*)\):\s(#[1-9]\d*)(.\d+)?\s(.*)$'
+    relevances:
+      rever: 1
+      feat: 2
+      perf: 3
+      fix: 4
+      refac: 5
+      test: 6
+      style: 7
+  commits_user_syntax:
+    fail: true
+    user_regex: '^[A-Z][a-z]+ [A-Z][a-z]+$'
+  mr_user_syntax:
+    fail: true
+    user_regex: '^[A-Z][a-z]+ [A-Z][a-z]+$'
+  max_commits_per_mr:
+    fail: false
+    max_commits: 1
+  close_issue_directive:
+    fail: false
+    mr_title_regex: '^(?:all|forces|integrates|reviews|skims|sorts)\\(\w*)\((\w*)\):\s(#[1-9]\d*)(.\d+)?\s(.*)$'
