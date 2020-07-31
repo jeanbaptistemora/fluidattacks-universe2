@@ -5,10 +5,17 @@ export const styles: Dictionary = StyleSheet.create({
     alignItems: "center",
     flex: 1,
     justifyContent: "flex-end",
-    marginBottom: 15,
+    marginBottom: 5,
   },
   container: {
     flex: 1,
-    paddingTop: 20,
+    paddingTop: 10,
+  },
+  dotsContainer: {
+    flexDirection: "row",
+    justifyContent: "center",
+  },
+  scrollContainer: {
+    flexGrow: 0,
   },
 });

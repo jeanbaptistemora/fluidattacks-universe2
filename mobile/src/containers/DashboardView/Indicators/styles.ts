@@ -20,10 +20,10 @@ export const styles: Dictionary = StyleSheet.create({
   },
   remediatedText: {
     fontWeight: "bold",
-    marginTop: 10,
+    marginTop: 15,
   },
   remediationContainer: {
     alignItems: "center",
-    marginTop: 15,
+    marginTop: 8,
   },
 });

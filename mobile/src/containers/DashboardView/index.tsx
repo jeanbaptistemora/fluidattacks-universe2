@@ -13,8 +13,16 @@ import "intl/locale-data/jsonp/es-CO";
 import _ from "lodash";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { Alert, AppState, AppStateStatus, ScrollView, View } from "react-native";
-import { useTheme } from "react-native-paper";
+import {
+  Alert,
+  Animated,
+  AppState,
+  AppStateStatus,
+  Dimensions,
+  ScrollViewProps,
+  View,
+} from "react-native";
+import { Headline, useTheme } from "react-native-paper";
 import { useHistory } from "react-router-native";
 
 import { About } from "../../components/About";
@@ -38,6 +46,13 @@ const dashboardView: React.FunctionComponent = (): JSX.Element => {
   const { user } = history.location.state as IAuthState;
   const { colors } = useTheme();
   const { t } = useTranslation();
+  const { width } = Dimensions.get("window");
+
+  // State management
+  const scrollPosition: Animated.Value = React.useRef(
+    new Animated.Value(0)).current;
+  const currentPage: Animated.AnimatedDivision = Animated.divide(
+    scrollPosition, width);
 
   // GraphQL operations
   const { client, data, networkStatus, refetch } = useQuery<IOrgsResult>(
@@ -121,21 +136,45 @@ const dashboardView: React.FunctionComponent = (): JSX.Element => {
     history.replace("/Login");
   };
 
+  const handleScroll: ScrollViewProps["onScroll"] = Animated.event(
+    [{ nativeEvent: { contentOffset: { x: scrollPosition } } }],
+    { useNativeDriver: true },
+  );
+
   return (
     <React.StrictMode>
       <Header user={user} onLogout={handleLogout} />
       <View style={[styles.container, { backgroundColor: colors.background }]}>
-        <ScrollView
+        <Animated.ScrollView
           decelerationRate="fast"
           horizontal={true}
+          onScroll={handleScroll}
           pagingEnabled={true}
+          scrollEventThrottle={16}
           showsHorizontalScrollIndicator={false}
           snapToAlignment="center"
+          style={styles.scrollContainer}
         >
           {orgs.map((org: IOrganization): JSX.Element => (
             <Indicators key={org.name} org={org} />
           ))}
-        </ScrollView>
+        </Animated.ScrollView>
+        <View style={styles.dotsContainer}>
+          {orgs.map((_0: IOrganization, index: number): JSX.Element => {
+            const opacityScale: number = 0.3;
+            const opacity: Animated.AnimatedInterpolation =
+              currentPage.interpolate({
+                inputRange: [index - 1, index, index + 1],
+                outputRange: [opacityScale, 1, opacityScale],
+              });
+
+            return (
+              <Animated.View key={index} style={{ opacity }}>
+                <Headline>&bull;</Headline>
+              </Animated.View>
+            );
+          })}
+        </View>
         <Preloader
           visible={[
             NetworkStatus.loading,

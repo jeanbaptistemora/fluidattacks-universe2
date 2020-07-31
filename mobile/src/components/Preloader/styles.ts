@@ -5,8 +5,8 @@ export const styles: Dictionary = StyleSheet.create({
     alignItems: "center",
   },
   loadingGif: {
-    height: 100,
+    height: 70,
     resizeMode: "stretch",
-    width: 100,
+    width: 70,
   },
 });
