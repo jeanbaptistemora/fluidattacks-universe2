@@ -70,7 +70,8 @@ function job_forces_deploy {
 function job_forces_deploy_to_docker_hub {
   export DOCKER_HUB_USER
   export DOCKER_HUB_PASS
-  local image_name="fluidattacks/forces"
+  local image_name="fluidattacks/forces:new"
+
   echo "[INFO] Logging in to Docker Hub" \
   &&  docker login "${DOCKER_HUB_URL}" \
       --username "${DOCKER_HUB_USER}" \
