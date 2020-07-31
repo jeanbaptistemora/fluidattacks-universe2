@@ -6,10 +6,17 @@ from textwrap import (
     dedent,
 )
 from typing import (
+    Callable,
     Dict,
     NamedTuple,
     Optional,
     Tuple,
+)
+
+# Local libraries
+from zone import (
+    lazy_t,
+    LocalesEnum,
 )
 
 
@@ -21,11 +28,6 @@ def prettify_respecting_new_lines(multiline_str: str) -> str:
     return dedent(multiline_str)[1:-1]
 
 
-class LocalesEnum(Enum):
-    EN: str = 'EN'
-    ES: str = 'ES'
-
-
 class FindingType(Enum):
     HYGIENE: str = 'HYGIENE'
     SECURITY: str = 'SECURITY'
@@ -33,40 +35,24 @@ class FindingType(Enum):
 
 class FindingMetadata(NamedTuple):
     cwe: str
-    description: str
-    recommendation: str
-    requirements: str
-    risk: str
+    description: Callable[[], str]
+    recommendation: Callable[[], str]
+    requirements: Callable[[], str]
+    risk: Callable[[], str]
     severity: Dict[str, float]
-    threat: str
-    title: str
+    threat: Callable[[], str]
+    title: Callable[[], str]
     type: FindingType
 
 
 class FindingEnum(Enum):
     F0034: FindingMetadata = FindingMetadata(
         cwe='330',
-        description=prettify("""
-            The system uses insecure functions, insufficient ranges or
-            low-entropy components to generate random numbers.
-        """),
-        recommendation=prettify("""
-            Use a well-vetted algorithm that is currently considered to be
-            strong by experts in the field, and select well-tested
-            implementations with adequate length seeds.
-        """),
-        requirements=prettify_respecting_new_lines("""
-            R223. Uniform distribution in random numbers.
-            R224. Use secure cryptographic mechanisms.
-        """),
-        risk=prettify("""
-            An attacker could guess the generation sequence within a
-            reasonable time or predict results using probabilistic methods.
-        """),
-        threat=prettify("""
-            External attacker with enough privileges to access
-            the affected component.
-        """),
+        description=lazy_t('utils.model.finding.enum.f0034.description'),
+        recommendation=lazy_t('utils.model.finding.enum.f0034.recommendation'),
+        requirements=lazy_t('utils.model.finding.enum.f0034.requirements'),
+        risk=lazy_t('utils.model.finding.enum.f0034.risk'),
+        threat=lazy_t('utils.model.finding.enum.f0034.threat'),
         severity={
             'attackComplexity': 0.44,
             'attackVector': 0.85,
@@ -91,7 +77,7 @@ class FindingEnum(Enum):
             'severityScope': 0.0,
             'userInteraction': 0.85,
         },
-        title='FIN.S.0034. Insecure random number generation',
+        title=lazy_t('utils.model.finding.enum.f0034.title'),
         type=FindingType.SECURITY,
     )
 

@@ -83,7 +83,7 @@ async def get_closest_finding_id(
         await get_group_findings(group=group)
 
     for existing_finding in existing_findings:
-        if are_similar(finding.value.title, existing_finding.title):
+        if are_similar(finding.value.title(), existing_finding.title):
             finding_id = existing_finding.identifier
             break
 

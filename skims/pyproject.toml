@@ -28,6 +28,7 @@ packages = [
   { include = "integrates", from = "src" },
   { include = "lib_path", from = "src" },
   { include = "utils", from = "src" },
+  { include = "zone", from = "src" },
 ]
 readme = "./README.md"
 repository = "https://gitlab.com/fluidattacks/integrates/-/tree/master/skims"

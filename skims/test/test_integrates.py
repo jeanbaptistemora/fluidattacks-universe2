@@ -108,7 +108,7 @@ async def test_statefull(
 
     assert ResultGetGroupFindings(
         identifier=finding_id,
-        title=finding.value.title,
+        title=finding.value.title(),
     ) in await get_group_findings(group=test_group)
 
     assert await do_upload_vulnerabilities(

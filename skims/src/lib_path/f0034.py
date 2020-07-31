@@ -36,6 +36,9 @@ from utils.model import (
     FindingEnum,
     Vulnerability,
 )
+from zone import (
+    t,
+)
 
 
 def csharp_insecure_randoms(
@@ -59,7 +62,10 @@ def csharp_insecure_randoms(
     return blocking_get_vulnerabilities(
         char_to_yx_map=char_to_yx_map,
         content=content,
-        description='Use of C# System.Random',
+        description=t(
+            key='src.lib_path.f0034.csharp_insecure_randoms.description',
+            path=path,
+        ),
         finding=FindingEnum.F0034,
         grammar=grammar,
         path=path,
@@ -90,7 +96,10 @@ def java_use_of_lang_math_random(
     return blocking_get_vulnerabilities(
         char_to_yx_map=char_to_yx_map,
         content=content,
-        description='Use of Java lang.Math.random',
+        description=t(
+            key='src.lib_path.f0034.java_use_of_lang_math_random.description',
+            path=path,
+        ),
         finding=FindingEnum.F0034,
         grammar=grammar_lang_math_random,
         path=path,
@@ -121,7 +130,10 @@ def java_use_of_util_random(
     return blocking_get_vulnerabilities(
         char_to_yx_map=char_to_yx_map,
         content=content,
-        description='Use of Java util.Random',
+        description=t(
+            key='src.lib_path.f0034.java_use_of_util_random.description',
+            path=path,
+        ),
         finding=FindingEnum.F0034,
         grammar=grammar_util_random,
         path=path,
@@ -141,7 +153,10 @@ def javascript_insecure_randoms(
     return blocking_get_vulnerabilities(
         char_to_yx_map=char_to_yx_map,
         content=content,
-        description='Use of Javascript Math.random',
+        description=t(
+            key='src.lib_path.f0034.javascript_insecure_randoms.description',
+            path=path,
+        ),
         finding=FindingEnum.F0034,
         grammar=grammar,
         path=path,

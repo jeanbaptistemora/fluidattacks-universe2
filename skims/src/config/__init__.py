@@ -6,12 +6,14 @@ from utils.aio import (
     unblock_cpu,
 )
 from utils.model import (
-    LocalesEnum,
     SkimsConfig,
     SkimsPathConfig,
 )
 from utils.logs import (
     log,
+)
+from zone import (
+    LocalesEnum,
 )
 
 
@@ -33,7 +35,7 @@ def _load(path: str) -> SkimsConfig:
 
     return SkimsConfig(
         group=config['group'],
-        language=config['language'],
+        language=LocalesEnum(config['language']),
         path=SkimsPathConfig(
             exclude=config['path']['exclude'],
             include=config['path']['include'],

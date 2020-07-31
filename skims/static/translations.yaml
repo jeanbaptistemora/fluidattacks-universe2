@@ -1,1 +1,52 @@
-{}
+src.lib_path.f0034.csharp_insecure_randoms.description:
+  en: Use of C# System.Random in {path}
+  es: Uso de C# System.Random en {path}
+src.lib_path.f0034.java_use_of_lang_math_random.description:
+  en: Use of Java lang.Math.random in {path}
+  es: Uso de Java lang.Math.random en {path}
+src.lib_path.f0034.java_use_of_util_random.description:
+  en: Use of Java util.Random in {path}
+  es: Uso de Java util.Random en {path}
+src.lib_path.f0034.javascript_insecure_randoms.description:
+  en: Use of Javascript Math.random in {path}
+  es: Uso de Javascript Math.random en {path}
+utils.model.finding.enum.f0034.description:
+  en: >
+    The system uses insecure functions, insufficient ranges or low-entropy
+    components to generate random numbers.
+  es: >
+    El sistema usa funciones inseguras, rangos insuficientes o componentes
+    de baja entropía para generar números aleatorios.
+utils.model.finding.enum.f0034.recommendation:
+  en: >
+    Use a well-vetted algorithm that is currently considered to be
+    strong by experts in the field, and select well-tested
+    implementations with adequate length seeds.
+  es: >
+    Utilice un algoritmo bien examinado que se considere fuerte actualmente
+    por expertos en el campo, y seleccione implementaciones bien probadas
+    con semillas o vectores de inicialización de longitud adecuada.
+utils.model.finding.enum.f0034.requirements:
+  en: |
+    R223. Uniform distribution in random numbers.
+    R224. Use secure cryptographic mechanisms.
+  es: |
+    R223. Distribución uniforme de números aleatorios.
+    R224. Uso de mecanismos criptográficos seguros.
+utils.model.finding.enum.f0034.risk:
+  en: >
+    An attacker could guess the generation sequence within a
+    reasonable time or predict results using probabilistic methods.
+  es: >
+    Un atacante podría adivinar la secuencia de generación dentro de un
+    tiempo razonable o predecir resultados usando métodos probabilísticos.
+utils.model.finding.enum.f0034.threat:
+  en: >
+    External attacker with enough privileges to access
+    the affected component.
+  es: >
+    Atacante externo con suficientes privilegios para acceder
+    El componente afectado.
+utils.model.finding.enum.f0034.title:
+  en: FIN.S.0034. Insecure random number generation
+  es: FIN.S.0034. Generación de números aleatorios inseguros

@@ -30,6 +30,9 @@ from utils.model import (
     SkimsConfig,
     Vulnerability,
 )
+from zone import (
+    set_locale,
+)
 
 
 async def main(
@@ -49,6 +52,8 @@ async def main(
         success = False
     else:
         try:
+            set_locale(config_obj.language)
+
             results: Tuple[Vulnerability, ...] = tuple(*await materialize((
                 analyze_paths(
                     paths_to_exclude=(
@@ -63,7 +68,7 @@ async def main(
             await materialize(
                 log(
                     'info', '%s: %s @ %s\n\n%s\n',
-                    result.finding.value.title,
+                    result.finding.value.title(),
                     result.what,
                     result.where,
                     result.skims_metadata.snippet,

@@ -1,6 +1,9 @@
 # Standard library
+from enum import Enum
 from typing import (
+    Any,
     Dict,
+    Callable,
 )
 
 # Third party libraries
@@ -10,9 +13,11 @@ from ruamel import yaml
 from utils.ctx import (
     get_artifact,
 )
-from utils.model import (
-    LocalesEnum,
-)
+
+
+class LocalesEnum(Enum):
+    EN: str = 'EN'
+    ES: str = 'ES'
 
 
 class _State():
@@ -38,9 +43,13 @@ TRANSLATIONS: Dict[str, Dict[LocalesEnum, str]] = load_translations(
 )
 
 
+def lazy_t(key: str) -> Callable[[], str]:
+    return lambda: t(key)
+
+
 def set_locale(locale: LocalesEnum) -> None:
     _State.value = locale
 
 
-def t(key: str) -> str:  # pylint: disable=invalid-name
-    return TRANSLATIONS[key][_State.value]
+def t(key: str, **kwargs: Any) -> str:  # pylint: disable=invalid-name
+    return TRANSLATIONS[key][_State.value].format(**kwargs)

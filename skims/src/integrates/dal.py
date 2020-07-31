@@ -322,13 +322,13 @@ async def do_create_draft(
         """,
         variables=dict(
             cwe=finding.value.cwe,
-            description=finding.value.description,
+            description=finding.value.description(),
             group=group,
-            recommendation=finding.value.recommendation,
-            requirements=finding.value.requirements,
-            risk=finding.value.risk,
-            threat=finding.value.threat,
-            title=finding.value.title,
+            recommendation=finding.value.recommendation(),
+            requirements=finding.value.requirements(),
+            risk=finding.value.risk(),
+            threat=finding.value.threat(),
+            title=finding.value.title(),
             type=finding.value.type.value,
         )
     )
