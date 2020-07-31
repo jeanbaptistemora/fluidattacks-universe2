@@ -17,6 +17,7 @@ from backend import (
     util
 )
 from backend.dal import organization as org_dal
+from backend.domain import project as project_domain
 from backend.exceptions import (
     InvalidAcceptanceDays,
     InvalidAcceptanceSeverity,
@@ -147,6 +148,10 @@ async def get_or_create(organization_name: str, email: str) -> str:
     return str(org['id'])
 
 
+async def get_user_organizations(email: str) -> List[str]:
+    return await org_dal.get_ids_for_user(email)
+
+
 async def get_users(organization_id: str) -> List[str]:
     return await org_dal.get_users(organization_id)
 
@@ -170,7 +175,19 @@ async def remove_user(organization_id: str, email: str) -> bool:
         email,
         organization_id
     )
-    return user_removed and role_removed
+
+    org_groups = await get_groups(organization_id)
+    groups_removed = all(
+        await aio.materialize(
+            project_domain.remove_user_access(
+                group,
+                email,
+                check_org_access=False
+            )
+            for group in org_groups
+        )
+    )
+    return user_removed and role_removed and groups_removed
 
 
 async def update_policies(

@@ -148,6 +148,30 @@
             "PutRequest": {
                 "Item": {
                     "pk": {
+                        "S": "ORG#c2ee2d15-04ab-4f39-9795-fbe30cdeee86"
+                    },
+                    "sk": {
+                        "S": "USER#integratesuser@gmail.com"
+                    }
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "pk": {
+                        "S": "ORG#c2ee2d15-04ab-4f39-9795-fbe30cdeee86"
+                    },
+                    "sk": {
+                        "S": "USER#unittest"
+                    }
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "pk": {
                         "S": "ORG#708f518a-d2c3-4441-b367-eec85e53d134"
                     },
                     "sk": {

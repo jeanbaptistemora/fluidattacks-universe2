@@ -5,6 +5,7 @@
 """Views and services for FluidIntegrates."""
 
 # Standard library
+import logging
 import os
 from datetime import datetime, timedelta
 from typing import (
@@ -33,6 +34,7 @@ from magic import Magic
 from backend import authz, util
 from backend.domain import (
     analytics as analytics_domain,
+    organization as org_domain
 )
 from backend.decorators import (
     authenticate,
@@ -62,6 +64,8 @@ CLIENT_S3 = boto3.client(
 )
 
 BUCKET_S3 = FI_AWS_S3_BUCKET
+
+LOGGER = logging.getLogger(__name__)
 
 
 def enforce_user_level_role(
@@ -201,10 +205,28 @@ def app(request: HttpRequest) -> HttpResponse:
                 request.session.session_key,
             )
 
-        response = render(request, 'app.html', {
-            'debug': settings.DEBUG,
-            'username': request.session['username']
-        })
+        if not async_to_sync(org_domain.get_user_organizations)(
+                request.session['username']):
+            LOGGER.warning(
+                'User does not have organizations',
+                extra={'extra': {'user': request.session['username']}})
+            response = render(
+                request,
+                'unauthorized.html',
+                {
+                    'debug': settings.DEBUG,
+                    'username': request.session['username']
+                }
+            )
+        else:
+            response = render(
+                request,
+                'app.html',
+                {
+                    'debug': settings.DEBUG,
+                    'username': request.session['username']
+                }
+            )
 
         set_session_cookie_in_response(
             response=response,

@@ -481,12 +481,22 @@ async def remove_all_users_access(project: str) -> bool:
     return are_users_removed
 
 
-async def remove_user_access(group: str, email: str) -> bool:
+async def remove_user_access(
+        group: str,
+        email: str,
+        check_org_access: bool = True) -> bool:
     """Remove user access to project."""
-    return all(await aio.materialize([
-        authz.revoke_group_level_role(email, group),
-        remove_access(email, group)
-    ]))
+    success: bool = all(
+        await aio.materialize([
+            authz.revoke_group_level_role(email, group),
+            remove_access(email, group)
+        ])
+    )
+    if success and check_org_access:
+        org_id = await org_domain.get_id_for_group(group)
+        if not await user_domain.get_projects(email, organization_id=org_id):
+            await org_domain.remove_user(org_id, email)
+    return success
 
 
 def _has_repeated_tags(project_name: str, tags: List[str]) -> bool:
