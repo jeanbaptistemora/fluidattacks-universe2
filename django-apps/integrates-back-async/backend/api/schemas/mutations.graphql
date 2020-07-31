@@ -229,6 +229,8 @@ type Mutation {
 
     approveDraft(draftId: String!): ApproveDraftPayload!
     createDraft(
+        affectedSystems: String,
+        attackVectorDesc: String,
         cwe: String,
         description: String,
         origin: String,
