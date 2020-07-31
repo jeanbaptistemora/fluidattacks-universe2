@@ -33,14 +33,27 @@ def _load(path: str) -> SkimsConfig:
         }),
     )
 
-    return SkimsConfig(
-        group=config['group'],
-        language=LocalesEnum(config['language']),
-        path=SkimsPathConfig(
-            exclude=config['path']['exclude'],
-            include=config['path']['include'],
-        ) if 'path' in config else None,
-    )
+    try:
+        config_path = config.pop('path', None)
+
+        skims_config: SkimsConfig = SkimsConfig(
+            group=config.pop('group'),
+            language=LocalesEnum(config.pop('language')),
+            path=SkimsPathConfig(
+                exclude=config_path.pop('exclude'),
+                include=config_path.pop('include'),
+            ) if config_path else None,
+        )
+    except KeyError as exc:
+        raise confuse.ConfigError(f'Key: {exc.args[0]} is required')
+    else:
+        if config:
+            unrecognized_keys: str = ', '.join(config)
+            raise confuse.ConfigError(
+                f'Some keys were not recognized: {unrecognized_keys}',
+            )
+
+    return skims_config
 
 
 async def load(path: str) -> SkimsConfig:

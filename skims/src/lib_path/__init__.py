@@ -85,7 +85,7 @@ async def analyze(
 
     def resolve(path: str) -> Iterator[str]:
         if path.startswith('glob(') and path.endswith(')'):
-            yield from glob(path[5:-1])
+            yield from glob(path[5:-1], recursive=True)
         else:
             yield path
 

@@ -5,4 +5,4 @@ path:
     - glob(test/data/lib_path/*)
     - src/
   exclude:
-    - src/
+    - glob(src/**/*)

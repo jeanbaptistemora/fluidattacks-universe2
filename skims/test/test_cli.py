@@ -49,6 +49,11 @@ def test_dispatch_empty(test_config: Callable[[str], str]) -> None:
     assert result.exit_code == 0
 
 
+def test_dispatch_bad_extra_things(test_config: Callable[[str], str]) -> None:
+    result = _cli(test_config('bad_extra_things'))
+    assert result.exit_code == 1
+
+
 def test_dispatch_token(test_config: Callable[[str], str]) -> None:
     result = _cli('--token', '123', test_config('correct_nothing_to_do'))
     assert result.exit_code == 1
