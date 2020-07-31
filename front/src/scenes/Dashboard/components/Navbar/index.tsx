@@ -3,20 +3,14 @@ import { ApolloError } from "apollo-client";
 import { GraphQLError } from "graphql";
 import _ from "lodash";
 import React from "react";
-import { Breadcrumb, BreadcrumbItem, Col, InputGroup, Row } from "react-bootstrap";
+import { Breadcrumb, BreadcrumbItem, Col, MenuItem, Row, SelectCallback, SplitButton } from "react-bootstrap";
 import { RouteComponentProps, withRouter } from "react-router";
 import { Link, useHistory } from "react-router-dom";
-import { EventWithDataHandler, Field } from "redux-form";
-import { Button } from "../../../../components/Button/index";
-import { FluidIcon } from "../../../../components/FluidIcon";
 import { stylizeBreadcrumbItem } from "../../../../utils/formatHelpers";
-import { Dropdown, Text } from "../../../../utils/forms/fields";
 import { useStoredState } from "../../../../utils/hooks";
 import { msgError } from "../../../../utils/notifications";
 import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
-import { alphaNumeric } from "../../../../utils/validations";
-import { GenericForm } from "../GenericForm";
 import { default as style } from "./index.css";
 import { GET_USER_ORGANIZATIONS } from "./queries";
 
@@ -39,17 +33,16 @@ export const navbarComponent: React.FC<RouteComponentProps> = (props: RouteCompo
   });
 
   // Auxiliary Operations
-  const handleOrganizationChange: EventWithDataHandler<React.ChangeEvent<string>> =
-    (event: React.ChangeEvent<string> | undefined, organizationName: string): void => {
-      setCurrentOrganization({ name: organizationName });
-      push(`/organizations/${organizationName.toLowerCase()}/`);
+  const handleOrganizationChange: ((eventKey: string, event: React.SyntheticEvent<SplitButton>) => void) =
+    (eventKey: string): void => {
+      if (eventKey !== currentOrganization.name) {
+        setCurrentOrganization({ name: eventKey });
+        push(`/organizations/${eventKey}/`);
+      }
   };
-
-  const handleSubmit: (() => void) = (): void => undefined;
-
-  const handleSearchSubmit: ((values: { projectName: string }) => void) = (values: { projectName: string }): void => {
-    const projectName: string = values.projectName.toLowerCase();
-    if (!_.isEmpty(projectName)) { push(`/groups/${projectName}/indicators`); }
+  const handleOrganizationClick: (event: React.MouseEvent<SplitButton, globalThis.MouseEvent>) => void =
+    () => {
+      push(`/organizations/${currentOrganization.name}/`);
   };
 
   // Render Elements
@@ -87,49 +80,29 @@ export const navbarComponent: React.FC<RouteComponentProps> = (props: RouteCompo
   return (
     <React.StrictMode>
       <Row id="navbar" className={style.container}>
-        <Col md={9} sm={12} xs={12}>
+        <Col md={12} sm={12} xs={12}>
           <Breadcrumb className={style.breadcrumb}>
           <BreadcrumbItem>
-            <GenericForm
-              name="organizationList"
-              onSubmit={handleSubmit}>
-              <Field
-                component={Dropdown}
-                name="organization"
-                onChange={handleOrganizationChange}
+          <div className={style.splitButton}>
+            <SplitButton
+              id={"organizationList"}
+              onClick={handleOrganizationClick}
+              onSelect={handleOrganizationChange as SelectCallback}
+              title={currentOrganization.name}
+            >
+              {organizationList.map((organization: {name: string}) =>
+                <MenuItem
+                  eventKey={organization.name}
+                  key={organization.name}
                 >
-                {organizationList.map((organization: { name: string }, index: number) => {
-                  const extraProps: Dictionary<boolean> = { selected: false };
-                  if (currentOrganization.name === organization.name) {
-                    extraProps.selected = true;
-                  }
-
-                  return (
-                    <option value={organization.name} key={index} {...extraProps}>
-                      {_.capitalize(organization.name)}
-                    </option>
-                  );
-                })}
-              </Field>
-            </GenericForm>
+                  {organization.name}
+                </MenuItem>,
+              )}
+            </SplitButton>
+          </div>
           </BreadcrumbItem>
           {breadcrumbItems}
         </Breadcrumb>
-        </Col>
-        <Col md={3} sm={12} xs={12}>
-          <GenericForm name="searchBar" onSubmit={handleSearchSubmit}>
-            <InputGroup>
-              <Field
-                name="projectName"
-                component={Text}
-                placeholder={translate.t("navbar.searchPlaceholder")}
-                validate={[alphaNumeric]}
-              />
-              <InputGroup.Button>
-                <Button type="submit"><FluidIcon icon="search" /></Button>
-              </InputGroup.Button>
-            </InputGroup>
-          </GenericForm>
         </Col>
       </Row>
     </React.StrictMode>

@@ -1,12 +1,13 @@
-import { MockedProvider, MockedResponse, wait } from "@apollo/react-testing";
+import { MockedProvider, MockedResponse } from "@apollo/react-testing";
 import { mount, ReactWrapper } from "enzyme";
 import React from "react";
-import { BreadcrumbItem } from "react-bootstrap";
+import { SplitButton } from "react-bootstrap";
 // tslint:disable-next-line: no-submodule-imports
 import { act } from "react-dom/test-utils";
 import { Provider } from "react-redux";
 import { RouteComponentProps } from "react-router";
-import { Link, MemoryRouter } from "react-router-dom";
+import { MemoryRouter } from "react-router-dom";
+import waitForExpect from "wait-for-expect";
 import store from "../../../../store";
 import { navbarComponent as NavbarComponent } from "./index";
 import { GET_USER_ORGANIZATIONS } from "./queries";
@@ -84,12 +85,14 @@ describe("Navbar", () => {
         </Provider>
       </MemoryRouter>,
     );
-    await act(async () => { await wait(0); wrapper.update(); });
-    expect(wrapper.contains(
-      <option value="imamura" selected={true}>
-        Imamura
-      </option>,
-    ))
-      .toBeTruthy();
+    await act(async () => {
+      await waitForExpect(() => {
+        wrapper.update();
+
+        expect(wrapper.find(SplitButton)
+            .props().title)
+            .toBe("imamura");
+      });
+    });
   });
 });
