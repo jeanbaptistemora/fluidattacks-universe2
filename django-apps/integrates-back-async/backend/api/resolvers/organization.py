@@ -35,6 +35,7 @@ from backend.decorators import (
 )
 from backend.domain import (
     organization as org_domain,
+    project as group_domain,
     user as user_domain
 )
 from backend.typing import (
@@ -301,6 +302,15 @@ async def _get_projects(
     user_groups = await user_domain.get_projects(
         user_email, organization_id=organization_id
     )
+    user_groups_attrs = await aio.materialize(
+        group_domain.get_attributes(group, ['project_name', 'project_status'])
+        for group in user_groups
+    )
+    active_user_groups = [
+        group_attrs['project_name']
+        for group_attrs in user_groups_attrs
+        if group_attrs['project_status'] in ['ACTIVE', 'PENDING_DELETION']
+    ]
 
     return cast(
         List[ProjectType],
@@ -310,7 +320,7 @@ async def _get_projects(
                 group,
                 as_field=True
             )
-            for group in user_groups
+            for group in active_user_groups
         )
     )
 
