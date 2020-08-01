@@ -28,8 +28,8 @@ utils.model.finding.enum.f0034.recommendation:
     strong by experts in the field, and select well-tested
     implementations with adequate length seeds.
   es: >
-    Utilice un algoritmo bien examinado que se considere fuerte actualmente
-    por expertos en el campo, y seleccione implementaciones bien probadas
+    Utilizar un algoritmo bien examinado que se considere fuerte actualmente
+    por expertos en el campo, y seleccionar implementaciones bien probadas
     con semillas o vectores de inicialización de longitud adecuada.
 utils.model.finding.enum.f0034.requirements:
   en: |

@@ -1,12 +1,23 @@
 # Standard library
+from multiprocessing import (
+    Manager,
+)
+from multiprocessing.managers import (
+    SyncManager,
+)
 from os.path import (
     abspath,
     dirname,
     exists,
     join,
 )
+from typing import (
+    Any,
+)
 
 # Constants
+MANAGER: SyncManager = Manager()
+NAMESPACE: Any = MANAGER.Namespace()
 ROOT: str = abspath(dirname(dirname(dirname(__file__))))
 
 
