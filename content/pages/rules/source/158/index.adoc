@@ -28,19 +28,22 @@ such an attack can facilitate serious data loss or server takeover.
 Applications and **API**s using components with known vulnerabilities may
 undermine application defenses and enable various attacks and impacts.
 
-. [[r2]] link:https://www.owasp.org/index.php/ASVS_V1_Architecture[OWASP-ASVS v3.1-1.9]
-A mechanism for enforcing updates of the application exists.
-
-. [[r3]] link:https://www.owasp.org/index.php/ASVS_V1_Architecture[OWASP-ASVS v3.1-1.11]
-All application components, libraries, modules, frameworks, platform,
-and operating systems are free from known vulnerabilities.
-
-. [[r4]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r2]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 Appendix C: Internet of Things Verification Requirements.(C.11)]
 Verify that any use of banned *C* functions are replaced with the appropriate
 safe equivalent functions.
 
-. [[r5]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r3]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V5.4 Memory, String, and Unmanaged Code Requirements.(5.4.1)]
 Verify that the application uses memory-safe string, safer memory copy and
 pointer arithmetic to detect or prevent stack, buffer, or heap overflows.
+
+. [[r4]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V14.2 Dependency.(14.2.1)]
+Verify that all components are up to date, preferably using a dependency
+checker during build or compile time.
+
+. [[r5]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V14.2 Dependency.(14.2.4)]
+Verify that third party components come from pre-defined, trusted and
+continually maintained repositories.

@@ -11,9 +11,3 @@
 
 All dependencies or components
 used by information systems must be identified.
-
-== References
-
-. [[r1]] link:https://www.owasp.org/index.php/ASVS_V1_Architecture[+OWASP-ASVS v3.1-1.5+]
-All app components are defined in terms of the business functions
-and/or security functions they provide.

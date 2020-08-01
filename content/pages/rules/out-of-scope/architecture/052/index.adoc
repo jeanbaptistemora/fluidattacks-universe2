@@ -9,13 +9,4 @@
 
 == Requirement
 
-All critical security components must be identified (+TCB+).
-
-== References
-
-. [[r1]] link:https://www.owasp.org/index.php/ASVS_V1_Architecture[+OWASP-ASVS v3.1-1.1+]
-All app components are identified and known to be needed.
-
-. [[r2]] link:https://www.owasp.org/index.php/ASVS_V1_Architecture[+OWASP-ASVS v3.1-1.4+]
-Data considered sensitive
-in the context of the application is clearly identified.
+All critical security components must be identified (*TCB*).

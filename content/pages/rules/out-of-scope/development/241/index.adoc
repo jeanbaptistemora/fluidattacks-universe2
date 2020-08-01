@@ -11,8 +11,3 @@
 
 The organization must define the information security criteria requirements
 that apply to the system.
-
-== References
-
-. [[r1]] link:https://www.owasp.org/index.php/ASVS_V1_Architecture[+OWASP-ASVS v3.1-1.10+]
-Security is addressed within all parts of the software development lifecycle.

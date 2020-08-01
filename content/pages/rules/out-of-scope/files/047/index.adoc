@@ -48,9 +48,3 @@ mechanisms.
 * Phase: Operation.
 
 * Type of Control: Recommendation.
-
-== References
-
-. [[r1]] link:https://www.owasp.org/index.php/ASVS_V1_Architecture[OWASP-ASVS v3.1-1.4]
-Data considered sensitive
-in the context of the application is clearly identified.

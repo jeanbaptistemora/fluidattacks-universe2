@@ -28,7 +28,3 @@ held by the covered entity.
 Facility Security Plan: Implement policies and procedures
 to safeguard the facility and the equipment therein
 from unauthorized physical access, tampering, and theft.
-
-. [[r4]] link:https://www.owasp.org/index.php/ASVS_V1_Architecture[+OWASP-ASVS v3.1-1.6+]
-A threat model for the application and the associated remote services
-has been produced that identifies potential threats and countermeasures.

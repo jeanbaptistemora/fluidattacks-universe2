@@ -11,9 +11,3 @@
 
 Access credentials for systems with critical business information must be
 guarded by two authorized users.
-
-== References
-
-. [[r1]] link:https://www.owasp.org/index.php/ASVS_V4_Access_Control[OWASP-ASVS v3.1-4.4]
-Verify that access to sensitive records is protected,
-such that only authorized objects or data is accessible to each user.

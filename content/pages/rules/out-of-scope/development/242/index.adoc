@@ -12,8 +12,3 @@
 Support to applications or systems must be performed
 only in environments other than of production
 (development, testing, QA, UAT).
-
-== References
-
-. [[r1]] link:https://www.owasp.org/index.php/ASVS_V1_Architecture[+OWASP-ASVS v3.1-1.10+]
-Security is addressed within all parts of the software development lifecycle.
