@@ -155,18 +155,18 @@ async def do_delete_if_draft(
     *,
     finding_id: str,
 ) -> bool:
-    success: bool = False
+    was_deleted: bool = False
     release_status: FindingReleaseStatus = (
         await get_finding_current_release_status(finding_id=finding_id)
     )
 
     if release_status == FindingReleaseStatus.APPROVED:
         # Already released so it's not a draft
-        success = True
+        was_deleted = False
     else:
-        success = await do_delete_finding(finding_id=finding_id)
+        was_deleted = await do_delete_finding(finding_id=finding_id)
 
-    return success
+    return was_deleted
 
 
 async def do_release_finding(
