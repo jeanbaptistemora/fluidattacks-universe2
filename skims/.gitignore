@@ -5,6 +5,7 @@
 
 /**/*.egg-info
 /**/.coverage*
+/**/.skims
 /**/.venv
 /coverage*
 /dist

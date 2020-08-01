@@ -27,6 +27,7 @@ packages = [
   { include = "core", from = "src" },
   { include = "integrates", from = "src" },
   { include = "lib_path", from = "src" },
+  { include = "state", from = "src" },
   { include = "utils", from = "src" },
   { include = "zone", from = "src" },
 ]

@@ -28,6 +28,9 @@ from lib_path.common import (
     DOUBLE_QUOTED_STRING,
     SINGLE_QUOTED_STRING,
 )
+from state import (
+    caching_all_arguments,
+)
 from utils.aio import (
     materialize,
     unblock_cpu,
@@ -172,27 +175,31 @@ async def analyze(
     coroutines: List[Awaitable[Tuple[Vulnerability, ...]]] = []
 
     if extension in EXTENSIONS_CSHARP:
-        coroutines.append(unblock_cpu(
+        coroutines.append(caching_all_arguments(
+            unblock_cpu,
             csharp_insecure_randoms,
             char_to_yx_map=await char_to_yx_map_generator.__anext__(),
             content=await content_generator.__anext__(),
             path=path,
         ))
     elif extension in EXTENSIONS_JAVA:
-        coroutines.append(unblock_cpu(
+        coroutines.append(caching_all_arguments(
+            unblock_cpu,
             java_use_of_lang_math_random,
             char_to_yx_map=await char_to_yx_map_generator.__anext__(),
             content=await content_generator.__anext__(),
             path=path,
         ))
-        coroutines.append(unblock_cpu(
+        coroutines.append(caching_all_arguments(
+            unblock_cpu,
             java_use_of_util_random,
             char_to_yx_map=await char_to_yx_map_generator.__anext__(),
             content=await content_generator.__anext__(),
             path=path,
         ))
     elif extension in EXTENSIONS_JAVASCRIPT:
-        coroutines.append(unblock_cpu(
+        coroutines.append(caching_all_arguments(
+            unblock_cpu,
             javascript_insecure_randoms,
             char_to_yx_map=await char_to_yx_map_generator.__anext__(),
             content=await content_generator.__anext__(),

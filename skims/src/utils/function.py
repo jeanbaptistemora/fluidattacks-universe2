@@ -1,5 +1,6 @@
 # Standard library
 import functools
+import inspect
 from typing import (
     Any,
     Callable,
@@ -16,6 +17,26 @@ from utils.logs import (
 
 # Constants
 TVar = TypeVar('TVar')
+
+
+def get_bound_arguments(
+    function: Callable[..., Any],
+    *args: Any,
+    **kwargs: Any,
+) -> inspect.BoundArguments:
+    signature: inspect.Signature = get_signature(function)
+    arguments: inspect.BoundArguments = signature.bind(*args, **kwargs)
+    arguments.apply_defaults()
+
+    return arguments
+
+
+def get_signature(function: Callable[..., Any]) -> inspect.Signature:
+    signature: inspect.Signature = inspect.signature(
+        function, follow_wrapped=True,
+    )
+
+    return signature
 
 
 def retry(

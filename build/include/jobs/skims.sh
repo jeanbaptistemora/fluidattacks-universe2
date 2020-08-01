@@ -10,6 +10,7 @@ declare -Arx SKIMS_GLOBAL_PKGS=(
   [core]=src/core
   [integrates]=src/integrates
   [lib_path]=src/lib_path
+  [state]=src/state
   [utils]=src/utils
   [zone]=src/zone
 )
