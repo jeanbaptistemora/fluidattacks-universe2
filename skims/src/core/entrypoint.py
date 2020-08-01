@@ -16,7 +16,7 @@ from config import (
 from core.persist import (
     persist,
 )
-from lib_path import (
+from lib_path.analyze import (
     analyze as analyze_paths,
 )
 from utils.aio import (

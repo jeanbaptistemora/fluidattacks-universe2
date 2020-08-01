@@ -23,14 +23,13 @@ function job_skims_deploy {
   # Propagated from Gitlab env vars
   export SKIMS_PYPI_TOKEN
   local version
-  local path='skims'
 
   function restore_version {
     sed --in-place 's|^version.*$|version = "1.0.0"|g' "skims/pyproject.toml"
   }
 
-      helper_common_poetry_install_deps "${path}" \
-  &&  pushd "${path}" \
+      helper_common_poetry_install_deps skims \
+  &&  pushd skims \
     &&  version=$(helper_skims_compute_version) \
     &&  echo "[INFO] Skims: ${version}" \
     &&  trap 'restore_version' EXIT \
@@ -46,9 +45,7 @@ function job_skims_deploy {
 }
 
 function job_skims_install {
-  local path='skims'
-
-  helper_common_poetry_install "${path}"
+  helper_common_poetry_install skims
 }
 
 function job_skims_lint {
@@ -63,22 +60,13 @@ function job_skims_lint {
     --strictness veryhigh
     --test-warnings
   )
-  local path='skims'
 
-      helper_common_poetry_install_deps "${path}" \
-  &&  pushd "${path}" \
-    &&  for pkg in "${SKIMS_GLOBAL_PKGS[@]}" "${SKIMS_GLOBAL_TEST_PKGS[@]}"
-        do
-              echo "[INFO] Static type checking: ${pkg}" \
-          &&  poetry run mypy "${args_mypy[@]}" "${pkg}" \
-          ||  return 1
-        done \
-    &&  for pkg in "${SKIMS_GLOBAL_PKGS[@]}" "${SKIMS_GLOBAL_TEST_PKGS[@]}"
-        do
-              echo "[INFO] Linting: ${pkg}" \
-          &&  poetry run prospector "${args_prospector[@]}" "${pkg}" \
-          ||  return 1
-        done \
+      helper_common_poetry_install_deps skims \
+  &&  pushd skims \
+    &&  echo '[INFO] Checking static typing' \
+    &&  poetry run mypy "${args_mypy[@]}" src/ \
+    &&  echo "[INFO] Linting" \
+    &&  poetry run prospector "${args_prospector[@]}" src/ \
   &&  popd \
   ||  return 1
 }
@@ -87,33 +75,42 @@ function job_skims_security {
   local bandit_args=(
     --recursive src/
   )
-  local path='skims'
 
-      helper_common_poetry_install_deps "${path}" \
-  &&  pushd "${path}" \
+      helper_common_poetry_install_deps skims \
+  &&  pushd skims \
     &&  poetry run bandit "${bandit_args[@]}" \
   &&  popd \
   ||  return 1
 }
 
 function job_skims_structure {
-  local pydeps_args=(
+  local base_args=(
     --cluster
     --include-missing
     --max-bacon 0
-    --max-cluster-size 100
     --noshow
     --only "${!SKIMS_GLOBAL_PKGS[@]}"
     --reverse
     -x 'click'
+  )
+  local end_args=(
     --
     "${SKIMS_GLOBAL_PKGS[cli]}"
   )
-  local path='skims'
 
-      helper_common_poetry_install_deps "${path}" \
-  &&  pushd "${path}" \
-    &&  poetry run pydeps "${pydeps_args[@]}" \
+      helper_common_poetry_install_deps skims \
+  &&  pushd skims \
+    &&  echo "[INFO]: Running pydeps" \
+    &&  poetry run pydeps -o skims.file-dag.svg "${base_args[@]}" \
+          --max-cluster-size 100 \
+          "${end_args[@]}" \
+    &&  poetry run pydeps -o skims.module-dag.svg "${base_args[@]}" \
+          --max-cluster-size 1 \
+          "${end_args[@]}" \
+    &&  poetry run pydeps -o skims.cycles.svg "${base_args[@]}" \
+          --max-cluster-size 100 \
+          --show-cycles \
+          "${end_args[@]}" \
   &&  popd \
   ||  return 1
 }
@@ -129,10 +126,9 @@ function job_skims_test {
     --no-cov-on-fail
     --verbose
   )
-  local path='skims'
 
-      helper_common_poetry_install_deps "${path}" \
-  &&  pushd "${path}" \
+      helper_common_poetry_install_deps skims \
+  &&  pushd skims \
     &&  for pkg in "${SKIMS_GLOBAL_PKGS[@]}" "${SKIMS_GLOBAL_TEST_PKGS[@]}"
         do
           args_pytest+=( "--cov=${pkg}" )

@@ -9,10 +9,10 @@ from typing import (
     Tuple,
 )
 
-# Local libraries
-from zone import (
-    LocalesEnum,
-)
+
+class LocalesEnum(Enum):
+    EN: str = 'EN'
+    ES: str = 'ES'
 
 
 class FindingType(Enum):

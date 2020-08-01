@@ -10,4 +10,4 @@
 /coverage*
 /dist
 /poetry.lock
-cli.svg
+/skims.*.svg

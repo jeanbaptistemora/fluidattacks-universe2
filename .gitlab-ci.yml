@@ -688,7 +688,7 @@ skims_structure:
   artifacts:
     expire_in: 1 week
     paths:
-      - skims
+      - skims/*.svg
     when: on_success
   stage: test-code
 

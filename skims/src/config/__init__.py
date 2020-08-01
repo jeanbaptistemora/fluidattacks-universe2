@@ -6,14 +6,12 @@ from utils.aio import (
     unblock_cpu,
 )
 from utils.model import (
+    LocalesEnum,
     SkimsConfig,
     SkimsPathConfig,
 )
 from utils.logs import (
     log,
-)
-from zone import (
-    LocalesEnum,
 )
 
 

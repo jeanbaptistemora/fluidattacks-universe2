@@ -1,7 +1,4 @@
 # Standard library
-from enum import (
-    Enum,
-)
 from typing import (
     Any,
     Dict,
@@ -15,11 +12,9 @@ from utils.ctx import (
     get_artifact,
     NAMESPACE,
 )
-
-
-class LocalesEnum(Enum):
-    EN: str = 'EN'
-    ES: str = 'ES'
+from utils.model import (
+    LocalesEnum,
+)
 
 
 def load_translations(path: str) -> Dict[str, Dict[str, str]]:
