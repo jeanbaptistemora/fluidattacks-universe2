@@ -26,7 +26,7 @@ CPU_COUNT: int = cpu_count() or 1
 TVar = TypeVar('TVar')
 
 # Executors
-PROCESS_POOL = ProcessPoolExecutor(max_workers=CPU_COUNT)
+PROCESS_POOL = ProcessPoolExecutor(max_workers=CPU_COUNT - 1)
 THREAD_POOL = ThreadPoolExecutor(max_workers=10 * CPU_COUNT)
 
 
@@ -46,7 +46,7 @@ async def materialize(obj: Any, batch_size: int = 128) -> Any:
             await materialize(obj.values()),
         ))
     elif isinstance(obj, collections.abc.Iterable):
-        materialized_obj = [
+        materialized_obj = tuple([
             await awaitable
             for awaitables in chunked(obj, batch_size)
             for awaitable in [
@@ -57,7 +57,7 @@ async def materialize(obj: Any, batch_size: int = 128) -> Any:
                 )
                 for elem in awaitables
             ]
-        ]
+        ])
     else:
         raise ValueError(f'Not implemented for type: {type(obj)}')
 

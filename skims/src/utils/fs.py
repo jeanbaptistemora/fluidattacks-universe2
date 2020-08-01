@@ -1,4 +1,11 @@
 # Standard library
+from itertools import (
+    chain,
+)
+from operator import (
+    attrgetter,
+    methodcaller,
+)
 import os
 from typing import (
     AsyncGenerator,
@@ -10,7 +17,7 @@ import aiofiles
 
 # Local libraries
 from utils.aio import (
-    unblock,
+    materialize,
 )
 
 
@@ -32,22 +39,18 @@ async def get_file_content(path: str, encoding: str = 'latin-1') -> str:
         return file_contents
 
 
+async def recurse_dir(path: str) -> Tuple[str, ...]:
+    scanner = tuple(os.scandir(path))
+
+    dirs = map(attrgetter('path'), filter(methodcaller('is_dir'), scanner))
+    files = map(attrgetter('path'), filter(methodcaller('is_file'), scanner))
+
+    tree: Tuple[str, ...] = tuple(chain(
+        files, *await materialize(map(recurse_dir, dirs)),
+    ))
+
+    return tree
+
+
 async def recurse(path: str) -> Tuple[str, ...]:
-
-    def _recurse(_path: str) -> Tuple[str, ...]:
-        if os.path.isfile(_path):
-            return (_path,)
-
-        tree: Tuple[str, ...] = tuple(
-            os.path.relpath(file)
-            for entry in os.scandir(_path)
-            for file in (
-                _recurse(entry.path) if entry.is_dir() else [entry.path]
-            )
-        )
-
-        return tree
-
-    results: Tuple[str, ...] = await unblock(_recurse, path)
-
-    return results
+    return (path,) if os.path.isfile(path) else await recurse_dir(path)

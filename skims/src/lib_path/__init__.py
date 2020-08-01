@@ -57,8 +57,8 @@ async def analyze_one_path(path: str) -> Tuple[Vulnerability, ...]:
         file_content_generator=file_content_generator,
     )
 
-    results: Tuple[Vulnerability, ...] = tuple(chain(
-        *await materialize(
+    results: Tuple[Vulnerability, ...] = tuple(chain.from_iterable(
+        await materialize(
             getattr(module, 'analyze')(
                 char_to_yx_map_generator=char_to_yx_map_generator,
                 content_generator=file_content_generator,
@@ -90,14 +90,14 @@ async def analyze(
             yield path
 
     try:
-        unique_paths: Set[str] = set(chain(
-            *await materialize(
-                map(recurse, chain(*map(resolve, paths_to_include))),
-            ),
-        )) - set(chain(
-            *await materialize(
-                map(recurse, chain(*map(resolve, paths_to_exclude))),
-            ),
+        unique_paths: Set[str] = set(chain.from_iterable(
+            await materialize(map(
+                recurse, chain.from_iterable(map(resolve, paths_to_include)),
+            )),
+        )) - set(chain.from_iterable(
+            await materialize(map(
+                recurse, chain.from_iterable(map(resolve, paths_to_exclude)),
+            )),
         ))
     except FileNotFoundError as exc:
         await log('critical', 'File does not exist: %s', exc.filename)
@@ -105,8 +105,8 @@ async def analyze(
     else:
         await log('info', 'Files to be tested: %s', len(unique_paths))
 
-    results: Tuple[Vulnerability, ...] = tuple(chain(
-        *await materialize(map(analyze_one_path, unique_paths))
+    results: Tuple[Vulnerability, ...] = tuple(chain.from_iterable(
+        await materialize(map(analyze_one_path, unique_paths))
     ))
 
     return results

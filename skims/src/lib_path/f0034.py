@@ -199,8 +199,8 @@ async def analyze(
             path=path,
         ))
 
-    results: Tuple[Vulnerability, ...] = tuple(chain(
-        *await materialize(coroutines)
+    results: Tuple[Vulnerability, ...] = tuple(chain.from_iterable(
+        await materialize(coroutines)
     ))
 
     return results
