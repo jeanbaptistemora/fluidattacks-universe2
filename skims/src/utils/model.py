@@ -15,7 +15,7 @@ class LocalesEnum(Enum):
     ES: str = 'ES'
 
 
-class FindingType(Enum):
+class FindingTypeEnum(Enum):
     HYGIENE: str = 'HYGIENE'
     SECURITY: str = 'SECURITY'
 
@@ -30,7 +30,7 @@ class FindingMetadata(NamedTuple):
     severity: Dict[str, float]
     threat: str
     title: str
-    type: FindingType
+    type: FindingTypeEnum
 
 
 class FindingEnum(Enum):
@@ -67,11 +67,11 @@ class FindingEnum(Enum):
             'userInteraction': 0.85,
         },
         title='utils.model.finding.enum.f0034.title',
-        type=FindingType.SECURITY,
+        type=FindingTypeEnum.SECURITY,
     )
 
 
-class FindingEvidenceID(Enum):
+class FindingEvidenceIDEnum(Enum):
     ANIMATION: str = 'ANIMATION'
     EVIDENCE1: str = 'EVIDENCE1'
     EVIDENCE2: str = 'EVIDENCE2'
@@ -83,7 +83,7 @@ class FindingEvidenceID(Enum):
     RECORDS: str = 'RECORDS'
 
 
-class FindingEvidenceDescriptionID(Enum):
+class FindingEvidenceDescriptionIDEnum(Enum):
     EVIDENCE1: str = 'EVIDENCE1'
     EVIDENCE2: str = 'EVIDENCE2'
     EVIDENCE3: str = 'EVIDENCE3'
@@ -91,7 +91,7 @@ class FindingEvidenceDescriptionID(Enum):
     EVIDENCE5: str = 'EVIDENCE5'
 
 
-class FindingReleaseStatus(Enum):
+class FindingReleaseStatusEnum(Enum):
     APPROVED: str = 'APPROVED'
     CREATED: str = 'CREATED'
     REJECTED: str = 'REJECTED'
@@ -148,8 +148,6 @@ class SkimsConfig(NamedTuple):
 class SkimsVulnerabilityMetadata(NamedTuple):
     description: str
     snippet: str
-
-    grammar_match: Optional[GrammarMatch] = None
 
 
 class IntegratesVulnerabilitiesLines(NamedTuple):

@@ -80,7 +80,6 @@ def blocking_get_vulnerabilities(  # pylint: disable=too-many-arguments
             where=f'{match.start_line}',
             skims_metadata=SkimsVulnerabilityMetadata(
                 description=description,
-                grammar_match=match,
                 snippet=blocking_to_snippet(
                     column=match.start_column,
                     content=content,

@@ -36,8 +36,8 @@ from utils.logs import (
 )
 from utils.model import (
     FindingEnum,
-    FindingEvidenceID,
-    FindingEvidenceDescriptionID,
+    FindingEvidenceIDEnum,
+    FindingEvidenceDescriptionIDEnum,
     IntegratesVulnerabilityMetadata,
     Vulnerability,
     VulnerabilityApprovalStatusEnum,
@@ -70,14 +70,19 @@ async def upload_evidences(
     finding_id: str,
     results: Tuple[Vulnerability, ...],
 ) -> bool:
-    evidence_ids: (
-        Tuple[Tuple[FindingEvidenceID, FindingEvidenceDescriptionID], ...]
-    ) = (
-        (FindingEvidenceID.EVIDENCE1, FindingEvidenceDescriptionID.EVIDENCE1),
-        (FindingEvidenceID.EVIDENCE2, FindingEvidenceDescriptionID.EVIDENCE2),
-        (FindingEvidenceID.EVIDENCE3, FindingEvidenceDescriptionID.EVIDENCE3),
-        (FindingEvidenceID.EVIDENCE4, FindingEvidenceDescriptionID.EVIDENCE4),
-        (FindingEvidenceID.EVIDENCE5, FindingEvidenceDescriptionID.EVIDENCE5),
+    evidence_ids: Tuple[
+        Tuple[FindingEvidenceIDEnum, FindingEvidenceDescriptionIDEnum], ...
+    ] = (
+        (FindingEvidenceIDEnum.EVIDENCE1,
+         FindingEvidenceDescriptionIDEnum.EVIDENCE1),
+        (FindingEvidenceIDEnum.EVIDENCE2,
+         FindingEvidenceDescriptionIDEnum.EVIDENCE2),
+        (FindingEvidenceIDEnum.EVIDENCE3,
+         FindingEvidenceDescriptionIDEnum.EVIDENCE3),
+        (FindingEvidenceIDEnum.EVIDENCE4,
+         FindingEvidenceDescriptionIDEnum.EVIDENCE4),
+        (FindingEvidenceIDEnum.EVIDENCE5,
+         FindingEvidenceDescriptionIDEnum.EVIDENCE5),
     )
     number_of_samples: int = min(len(results), len(evidence_ids))
     result_samples: Tuple[Vulnerability, ...] = tuple(

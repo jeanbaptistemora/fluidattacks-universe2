@@ -24,7 +24,7 @@ from utils.encodings import (
 )
 from utils.model import (
     FindingEnum,
-    FindingReleaseStatus,
+    FindingReleaseStatusEnum,
     IntegratesVulnerabilitiesLines,
     Vulnerability,
     VulnerabilityKindEnum,
@@ -156,11 +156,11 @@ async def do_delete_if_draft(
     finding_id: str,
 ) -> bool:
     was_deleted: bool = False
-    release_status: FindingReleaseStatus = (
+    release_status: FindingReleaseStatusEnum = (
         await get_finding_current_release_status(finding_id=finding_id)
     )
 
-    if release_status == FindingReleaseStatus.APPROVED:
+    if release_status == FindingReleaseStatusEnum.APPROVED:
         # Already released so it's not a draft
         was_deleted = False
     else:
@@ -174,13 +174,13 @@ async def do_release_finding(
     finding_id: str,
 ) -> bool:
     success: bool = False
-    release_status: FindingReleaseStatus = (
+    release_status: FindingReleaseStatusEnum = (
         await get_finding_current_release_status(finding_id=finding_id)
     )
 
     if release_status in (
-        FindingReleaseStatus.SUBMITTED,
-        FindingReleaseStatus.APPROVED,
+        FindingReleaseStatusEnum.SUBMITTED,
+        FindingReleaseStatusEnum.APPROVED,
     ):
         # Already released
         success = True

@@ -28,9 +28,9 @@ from utils.logs import (
 )
 from utils.model import (
     FindingEnum,
-    FindingEvidenceID,
-    FindingEvidenceDescriptionID,
-    FindingReleaseStatus,
+    FindingEvidenceIDEnum,
+    FindingEvidenceDescriptionIDEnum,
+    FindingReleaseStatusEnum,
     IntegratesVulnerabilityMetadata,
     Vulnerability,
     VulnerabilityApprovalStatusEnum,
@@ -190,7 +190,7 @@ async def get_group_findings(
 async def get_finding_current_release_status(
     *,
     finding_id: str,
-) -> FindingReleaseStatus:
+) -> FindingReleaseStatusEnum:
     result = await _execute(
         query="""
             query GetFindingVulnerabilities(
@@ -207,9 +207,9 @@ async def get_finding_current_release_status(
     )
 
     return (
-        FindingReleaseStatus(result['data']['finding']['currentState'])
+        FindingReleaseStatusEnum(result['data']['finding']['currentState'])
         if result['data']['finding']['currentState']
-        else FindingReleaseStatus.APPROVED
+        else FindingReleaseStatusEnum.APPROVED
     )
 
 
@@ -450,7 +450,7 @@ async def do_update_finding_severity(
 @RETRY
 async def do_update_evidence(
     *,
-    evidence_id: FindingEvidenceID,
+    evidence_id: FindingEvidenceIDEnum,
     evidence_stream: BytesIO,
     finding_id: str,
 ) -> bool:
@@ -488,7 +488,7 @@ async def do_update_evidence(
 async def do_update_evidence_description(
     *,
     evidence_description: str,
-    evidence_description_id: FindingEvidenceDescriptionID,
+    evidence_description_id: FindingEvidenceDescriptionIDEnum,
     finding_id: str,
 ) -> bool:
     result = await _execute(
