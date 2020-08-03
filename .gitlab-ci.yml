@@ -654,6 +654,16 @@ forces_dynamic:
   allow_failure: true
   <<: *in_master_branch_integrates
 
+forces_new:
+  stage: post-deploy
+  tags: [autoscaling]
+  image: fluidattacks/forces:new
+  script:
+    - forces --token "${INTEGRATES_API_TOKEN}" --strict --group daimon -vv
+  interruptible: true
+  allow_failure: true
+  <<: *in_master_branch_integrates
+
 lint_commit_msg:
   <<: *with_nix
   except:
