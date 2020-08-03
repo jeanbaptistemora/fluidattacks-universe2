@@ -491,7 +491,7 @@ export const enTranslations: ResourceKey = {
         tooltip: "Summary of the group status",
       },
       resources: {
-        text: "Settings",
+        text: "Scope",
         tooltip:
           "Configure the resources needed by the security tests and the services to be purchased," +
           " if applicable",
@@ -764,7 +764,7 @@ export const enTranslations: ResourceKey = {
     medium_severity: "Medium",
     none_severity: "None",
     openVulnsLabel: "Open vulnerabilities",
-    reportDateLabel: "Report date",
+    reportDateLabel: "Discovery date",
     repositories_table: {
       branch: "Branch",
       protocol: "Protocol",
@@ -875,7 +875,7 @@ export const enTranslations: ResourceKey = {
       bts: "External BTS",
       bts_placeholder:
         "https://gitlab.com/fluidattacks/integrates/-/issues/2084",
-      business_criticality: "Business Criticality",
+      business_criticality: "Level",
       cancel_verified: "Cancel Verify",
       cancel_verify: "Cancel Request",
       compromised_attrs: {
