@@ -17,8 +17,8 @@ import { changeFormatter, statusFormatter } from "../../../../../components/Data
 import { IHeaderConfig } from "../../../../../components/DataTableNext/types";
 import { TooltipWrapper } from "../../../../../components/TooltipWrapper";
 import { Can } from "../../../../../utils/authz/Can";
+import Logger from "../../../../../utils/logger";
 import { msgError, msgSuccess } from "../../../../../utils/notifications";
-import rollbar from "../../../../../utils/rollbar";
 import translate from "../../../../../utils/translations/translate";
 import { AddEnvironmentsModal } from "../../../components/AddEnvironmentsModal/index";
 import { ADD_ENVIRONMENTS_MUTATION, GET_ENVIRONMENTS, UPDATE_ENVIRONMENT_MUTATION } from "../queries";
@@ -41,7 +41,7 @@ const environments: React.FC<IEnvironmentsProps> = (props: IEnvironmentsProps): 
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
         msgError(translate.t("group_alerts.error_textsad"));
-        rollbar.error("An error occurred loading project envs", error);
+        Logger.warning("An error occurred loading project envs", error);
       });
     },
     variables: { projectName: props.projectName },
@@ -62,7 +62,7 @@ const environments: React.FC<IEnvironmentsProps> = (props: IEnvironmentsProps): 
             break;
           default:
             msgError(translate.t("group_alerts.error_textsad"));
-            rollbar.error("An error occurred adding environments", envsError);
+            Logger.warning("An error occurred adding environments", envsError);
         }
       });
     },
@@ -80,7 +80,7 @@ const environments: React.FC<IEnvironmentsProps> = (props: IEnvironmentsProps): 
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
         msgError(translate.t("group_alerts.error_textsad"));
-        rollbar.error("An error occurred updating environment state", error);
+        Logger.warning("An error occurred updating environment state", error);
       });
     },
   });

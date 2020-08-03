@@ -15,8 +15,8 @@ import { DataTableNext } from "../../../../../components/DataTableNext";
 import { IHeaderConfig } from "../../../../../components/DataTableNext/types";
 import { TooltipWrapper } from "../../../../../components/TooltipWrapper";
 import { Can } from "../../../../../utils/authz/Can";
+import Logger from "../../../../../utils/logger";
 import { msgError, msgSuccess } from "../../../../../utils/notifications";
-import rollbar from "../../../../../utils/rollbar";
 import translate from "../../../../../utils/translations/translate";
 import { AddTagsModal } from "../../../components/AddTagsModal/index";
 import { ADD_TAGS_MUTATION, GET_TAGS, REMOVE_TAG_MUTATION } from "../queries";
@@ -40,7 +40,7 @@ const portfolio: React.FC<IPortfolioProps> = (props: IPortfolioProps): JSX.Eleme
     notifyOnNetworkStatusChange: true,
     onError: (error: ApolloError): void => {
       msgError(translate.t("group_alerts.error_textsad"));
-      rollbar.error("An error occurred loading project tags", error);
+      Logger.warning("An error occurred loading project tags", error);
     },
     variables: { projectName: props.projectName },
   });
@@ -63,7 +63,7 @@ const portfolio: React.FC<IPortfolioProps> = (props: IPortfolioProps): JSX.Eleme
             break;
           default:
             msgError(translate.t("group_alerts.error_textsad"));
-            rollbar.error("An error occurred adding tags", error);
+            Logger.warning("An error occurred adding tags", error);
         }
       });
     },
@@ -82,7 +82,7 @@ const portfolio: React.FC<IPortfolioProps> = (props: IPortfolioProps): JSX.Eleme
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
         msgError(translate.t("group_alerts.error_textsad"));
-        rollbar.error("An error occurred removing tags", error);
+        Logger.warning("An error occurred removing tags", error);
       });
     },
   });

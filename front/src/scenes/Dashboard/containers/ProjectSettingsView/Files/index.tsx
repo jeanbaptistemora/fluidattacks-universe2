@@ -13,8 +13,8 @@ import { DataTableNext } from "../../../../../components/DataTableNext";
 import { IHeaderConfig } from "../../../../../components/DataTableNext/types";
 import { TooltipWrapper } from "../../../../../components/TooltipWrapper";
 import { Can } from "../../../../../utils/authz/Can";
+import Logger from "../../../../../utils/logger";
 import { msgError, msgSuccess } from "../../../../../utils/notifications";
-import rollbar from "../../../../../utils/rollbar";
 import translate from "../../../../../utils/translations/translate";
 import { AddFilesModal } from "../../../components/AddFilesModal";
 import { FileOptionsModal } from "../../../components/FileOptionsModal";
@@ -50,7 +50,7 @@ const files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
         msgError(translate.t("group_alerts.error_textsad"));
-        rollbar.error("An error occurred loading project files", error);
+        Logger.warning("An error occurred loading project files", error);
       });
     },
     variables: { projectName: props.projectName },
@@ -64,7 +64,7 @@ const files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
         msgError(translate.t("group_alerts.error_textsad"));
-        rollbar.error("An error occurred downloading project files", error);
+        Logger.warning("An error occurred downloading project files", error);
       });
     },
     variables: {
@@ -86,7 +86,7 @@ const files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
         msgError(translate.t("group_alerts.error_textsad"));
-        rollbar.error("An error occurred removing project files", error);
+        Logger.warning("An error occurred removing project files", error);
       });
     },
   });
@@ -132,7 +132,7 @@ const files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
             break;
           default:
             msgError(translate.t("group_alerts.error_textsad"));
-            rollbar.error("An error occurred adding files to project", filesError);
+            Logger.warning("An error occurred adding files to project", filesError);
         }
       });
     },

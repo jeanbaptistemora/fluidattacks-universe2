@@ -18,8 +18,8 @@ import { DataTableNext } from "../../../../../components/DataTableNext";
 import { IHeaderConfig } from "../../../../../components/DataTableNext/types";
 import { Modal } from "../../../../../components/Modal/index";
 import { Dropdown, SwitchButton, Text, TextArea } from "../../../../../utils/forms/fields";
+import Logger from "../../../../../utils/logger";
 import { msgError, msgSuccess } from "../../../../../utils/notifications";
-import rollbar from "../../../../../utils/rollbar";
 import translate from "../../../../../utils/translations/translate";
 import { maxLength, required, validTextField } from "../../../../../utils/validations";
 import { GenericForm } from "../../../components/GenericForm";
@@ -90,7 +90,7 @@ const services: React.FC<IServicesProps> = (props: IServicesProps): JSX.Element 
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
         msgError(translate.t("group_alerts.error_textsad"));
-        rollbar.error("An error occurred getting group data", error);
+        Logger.warning("An error occurred getting group data", error);
       });
     },
     variables: { groupName },
@@ -123,7 +123,7 @@ const services: React.FC<IServicesProps> = (props: IServicesProps): JSX.Element 
             break;
           default:
             msg = "group_alerts.error_textsad";
-            rollbar.error("An error occurred editing group services", error);
+            Logger.warning("An error occurred editing group services", error);
         }
 
         msgError(translate.t(msg));

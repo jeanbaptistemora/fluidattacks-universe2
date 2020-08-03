@@ -17,8 +17,8 @@ import { changeFormatter, statusFormatter } from "../../../../../components/Data
 import { IHeaderConfig } from "../../../../../components/DataTableNext/types";
 import { TooltipWrapper } from "../../../../../components/TooltipWrapper";
 import { Can } from "../../../../../utils/authz/Can";
+import Logger from "../../../../../utils/logger";
 import { msgError, msgSuccess } from "../../../../../utils/notifications";
-import rollbar from "../../../../../utils/rollbar";
 import translate from "../../../../../utils/translations/translate";
 import { AddRepositoriesModal } from "../../../components/AddRepositoriesModal/index";
 import { ADD_REPOSITORIES_MUTATION, GET_REPOSITORIES, UPDATE_REPOSITORY_MUTATION } from "../queries";
@@ -41,7 +41,7 @@ const repositories: React.FC<IRepositoriesProps> = (props: IRepositoriesProps): 
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
         msgError(translate.t("group_alerts.error_textsad"));
-        rollbar.error("An error occurred loading project repos", error);
+        Logger.warning("An error occurred loading project repos", error);
       });
     },
     variables: { projectName: props.projectName },
@@ -62,7 +62,7 @@ const repositories: React.FC<IRepositoriesProps> = (props: IRepositoriesProps): 
             break;
           default:
             msgError(translate.t("group_alerts.error_textsad"));
-            rollbar.error("An error occurred adding repositories", reposError);
+            Logger.warning("An error occurred adding repositories", reposError);
         }
       });
     },
@@ -80,7 +80,7 @@ const repositories: React.FC<IRepositoriesProps> = (props: IRepositoriesProps): 
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
         msgError(translate.t("group_alerts.error_textsad"));
-        rollbar.error("An error occurred updating repository state", error);
+        Logger.warning("An error occurred updating repository state", error);
       });
     },
   });

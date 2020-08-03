@@ -23,8 +23,8 @@ import { authzGroupContext, authzPermissionsContext } from "../../../../utils/au
 import { calcCVSSv3 } from "../../../../utils/cvss";
 import { castFieldsCVSS3 } from "../../../../utils/formatHelpers";
 import { Dropdown } from "../../../../utils/forms/fields";
+import Logger from "../../../../utils/logger";
 import { msgError, msgSuccess } from "../../../../utils/notifications";
-import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
 import { required } from "../../../../utils/validations";
 import { EditableField } from "../../components/EditableField";
@@ -58,7 +58,7 @@ const severityView: React.FC<SeverityViewProps> = (props: SeverityViewProps): JS
   ): void => {
     graphQLErrors.forEach((error: GraphQLError): void => {
       msgError(translate.t("group_alerts.error_textsad"));
-      rollbar.error("An error occurred loading finding severity", error);
+      Logger.warning("An error occurred loading finding severity", error);
     });
   };
 
@@ -94,7 +94,7 @@ const severityView: React.FC<SeverityViewProps> = (props: SeverityViewProps): JS
               ): void => {
                 graphQLErrors.forEach((error: GraphQLError): void => {
                   msgError(translate.t("group_alerts.error_textsad"));
-                  rollbar.error("An error occurred updating severity", error);
+                  Logger.warning("An error occurred updating severity", error);
                 });
               };
 

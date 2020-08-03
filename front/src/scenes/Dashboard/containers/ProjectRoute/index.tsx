@@ -15,8 +15,8 @@ import { Redirect, Route, Switch, useHistory, useParams, useRouteMatch } from "r
 import { Button } from "../../../../components/Button";
 import { Modal } from "../../../../components/Modal";
 import { authzGroupContext, authzPermissionsContext } from "../../../../utils/authz/config";
+import Logger from "../../../../utils/logger";
 import { msgError, msgSuccess } from "../../../../utils/notifications";
-import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
 import { GET_USER_PERMISSIONS } from "../../queries";
 import { EventContent } from "../EventContent";
@@ -63,7 +63,7 @@ const projectRoute: React.FC<IProjectRoute> = (props: IProjectRoute): JSX.Elemen
     },
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((permissionsError: GraphQLError) => {
-        rollbar.critical(
+        Logger.error(
           "Couldn't load group-level permissions",
           permissionsError,
         );
@@ -83,7 +83,7 @@ const projectRoute: React.FC<IProjectRoute> = (props: IProjectRoute): JSX.Elemen
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((groupError: GraphQLError): void => {
         msgError(translate.t("group_alerts.error_textsad"));
-        rollbar.error("An error occurred group data", groupError);
+        Logger.warning("An error occurred group data", groupError);
       });
     },
     variables: { projectName },
@@ -103,7 +103,7 @@ const projectRoute: React.FC<IProjectRoute> = (props: IProjectRoute): JSX.Elemen
       closeRejectProjectModal();
       graphQLErrors.forEach((rejectError: GraphQLError): void => {
         msgError(translate.t("group_alerts.error_textsad"));
-        rollbar.error("An error occurred rejecting project deletion", rejectError);
+        Logger.warning("An error occurred rejecting project deletion", rejectError);
       });
     },
   });

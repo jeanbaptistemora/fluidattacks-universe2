@@ -12,8 +12,8 @@ import { IHeaderConfig } from "../../../../components/DataTableNext/types";
 import { FluidIcon } from "../../../../components/FluidIcon/index";
 import { TooltipWrapper } from "../../../../components/TooltipWrapper/index";
 import { formatLastLogin, formatUserlist } from "../../../../utils/formatHelpers";
+import Logger from "../../../../utils/logger";
 import { msgError, msgSuccess } from "../../../../utils/notifications";
-import rollbar from "../../../../utils/rollbar";
 import { sortLastLogin } from "../../../../utils/sortHelpers";
 import translate from "../../../../utils/translations/translate";
 import { addUserModal as AddUserModal } from "../../components/AddUserModal/index";
@@ -74,7 +74,7 @@ const handleMtError: (mtError: ApolloError) => void = (mtError: ApolloError): vo
         break;
       default:
         msgError(translate.t("group_alerts.error_textsad"));
-        rollbar.error("An error occurred adding user to organization", Error);
+        Logger.warning("An error occurred adding user to organization", mtError);
     }
   });
 };
@@ -106,7 +106,7 @@ const organizationUsers: React.FC<IOrganizationUsers> = (props: IOrganizationUse
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
         msgError(translate.t("group_alerts.error_textsad"));
-        rollbar.error(
+        Logger.warning(
           "An error occurred fetching organization users",
           error,
         );
@@ -162,7 +162,7 @@ const organizationUsers: React.FC<IOrganizationUsers> = (props: IOrganizationUse
     },
     onError: (removeError: ApolloError): void => {
       msgError(translate.t("group_alerts.error_textsad"));
-      rollbar.error("An error occurred removing user", removeError);
+      Logger.warning("An error occurred removing user", removeError);
     },
   });
 

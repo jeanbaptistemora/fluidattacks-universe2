@@ -27,8 +27,8 @@ import { castEventType, formatEvents } from "../../../../utils/formatHelpers";
 import {
   Checkbox, DateTime, Dropdown, FileInput, Text, TextArea,
 } from "../../../../utils/forms/fields";
+import Logger from "../../../../utils/logger";
 import { msgError, msgSuccess } from "../../../../utils/notifications";
-import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
 import {
   dateTimeBeforeToday, isValidFileSize, maxLength, numeric, required, someRequired, validDatetime,
@@ -147,7 +147,7 @@ const projectEventsView: React.FunctionComponent<EventsViewProps> = (props: Even
     { graphQLErrors }: ApolloError,
   ): void => {
     graphQLErrors.forEach((error: GraphQLError): void => {
-      rollbar.error("An error occurred loading project data", error);
+      Logger.warning("An error occurred loading project data", error);
       msgError(translate.t("group_alerts.error_textsad"));
     });
   };
@@ -218,7 +218,7 @@ const projectEventsView: React.FunctionComponent<EventsViewProps> = (props: Even
                     break;
                   default:
                     msgError(translate.t("group_alerts.error_textsad"));
-                    rollbar.error("An error occurred updating event evidence", creationError);
+                    Logger.warning("An error occurred updating event evidence", creationError);
                 }
               });
             };

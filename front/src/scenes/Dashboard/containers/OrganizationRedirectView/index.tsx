@@ -4,8 +4,8 @@ import { GraphQLError } from "graphql";
 import _ from "lodash";
 import React from "react";
 import {  Redirect, Switch, useLocation, useParams } from "react-router";
+import Logger from "../../../../utils/logger";
 import { msgError } from "../../../../utils/notifications";
-import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
 import { GET_ENTITY_ORGANIZATION } from "./queries";
 import { IOrganizationRedirectProps } from "./types";
@@ -21,7 +21,7 @@ const organizationtRedirect: React.FC<IOrganizationRedirectProps> =
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
         msgError(translate.t("group_alerts.error_textsad"));
-        rollbar.error("An error occurred getting organization name for redirection", error);
+        Logger.warning("An error occurred getting organization name for redirection", error);
       });
     },
     variables: {

@@ -19,8 +19,8 @@ import { FluidIcon } from "../../../../components/FluidIcon";
 import { default as globalStyle } from "../../../../styles/global.css";
 import { Can } from "../../../../utils/authz/Can";
 import { FileInput } from "../../../../utils/forms/fields";
+import Logger from "../../../../utils/logger";
 import { msgError } from "../../../../utils/notifications";
-import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
 import { required, validRecordsFile } from "../../../../utils/validations";
 import { GenericForm } from "../../components/GenericForm";
@@ -46,7 +46,7 @@ const recordsView: React.FC<IRecordsViewProps> = (props: IRecordsViewProps): JSX
   ): void => {
     graphQLErrors.forEach((error: GraphQLError): void => {
       msgError(translate.t("group_alerts.error_textsad"));
-      rollbar.error("An error occurred loading finding records", error);
+      Logger.warning("An error occurred loading finding records", error);
     });
   };
 
@@ -74,7 +74,7 @@ const recordsView: React.FC<IRecordsViewProps> = (props: IRecordsViewProps): JSX
                   break;
                 default:
                   msgError(translate.t("group_alerts.error_textsad"));
-                  rollbar.error("An error occurred updating records", updateError);
+                  Logger.warning("An error occurred updating records", updateError);
               }
             });
           };

@@ -13,8 +13,8 @@ import React from "react";
 import { Col, Row } from "react-bootstrap";
 import { RouteComponentProps } from "react-router";
 import { Can } from "../../../../utils/authz/Can";
+import Logger from "../../../../utils/logger";
 import { msgError } from "../../../../utils/notifications";
-import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
 import { TrackingItem } from "../../components/TrackingItem";
 import { VulnerabilitiesView } from "../../components/Vulnerabilities/index";
@@ -45,7 +45,7 @@ const trackingView: React.FC<TrackingViewProps> = (props: TrackingViewProps): JS
   ): void => {
     graphQLErrors.forEach((error: GraphQLError): void => {
       msgError(translate.t("group_alerts.error_textsad"));
-      rollbar.error("An error occurred loading finding tracking", error);
+      Logger.warning("An error occurred loading finding tracking", error);
     });
   };
 

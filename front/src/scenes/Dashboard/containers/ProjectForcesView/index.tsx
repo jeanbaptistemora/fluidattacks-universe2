@@ -23,8 +23,8 @@ import { statusFormatter } from "../../../../components/DataTableNext/formatters
 import { DataTableNext } from "../../../../components/DataTableNext/index";
 import { IHeaderConfig } from "../../../../components/DataTableNext/types";
 import { Modal } from "../../../../components/Modal";
+import Logger from "../../../../utils/logger";
 import { msgError } from "../../../../utils/notifications";
-import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
 import styles from "./index.css";
 import { GET_FORCES_EXECUTIONS } from "./queries";
@@ -257,7 +257,7 @@ const projectForcesView: React.FunctionComponent<ForcesViewProps> = (props: Forc
   ): void => {
     graphQLErrors.forEach((error: GraphQLError): void => {
       msgError(translate.t("group_alerts.error_textsad"));
-      rollbar.error("An error occurred getting executions", error);
+      Logger.warning("An error occurred getting executions", error);
     });
   };
 

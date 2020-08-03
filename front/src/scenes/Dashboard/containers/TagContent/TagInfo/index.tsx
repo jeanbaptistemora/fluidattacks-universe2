@@ -21,8 +21,8 @@ import { default as globalStyle } from "../../../../../styles/global.css";
 import {
   calcPercent, IStatusGraph, ITreatmentGraph, statusGraph, treatmentGraph,
 } from "../../../../../utils/formatHelpers";
+import Logger from "../../../../../utils/logger";
 import { msgError } from "../../../../../utils/notifications";
-import rollbar from "../../../../../utils/rollbar";
 import translate from "../../../../../utils/translations/translate";
 import { HorizontalBarIndicator } from "../../../components/HorizontalBarIndicator";
 import { IndicatorBox } from "../../../components/IndicatorBox";
@@ -91,7 +91,7 @@ const tagsInfo: React.FC<TagsProps> = (props: TagsProps): JSX.Element => {
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
         msgError(translate.t("group_alerts.error_textsad"));
-        rollbar.error("An error occurred loading tag info", error);
+        Logger.warning("An error occurred loading tag info", error);
       });
     },
     variables: { tag: tagName },

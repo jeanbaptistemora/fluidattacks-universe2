@@ -20,8 +20,8 @@ import { TooltipWrapper } from "../../../../components/TooltipWrapper/index";
 import { Can } from "../../../../utils/authz/Can";
 import { authzPermissionsContext } from "../../../../utils/authz/config";
 import { formatLastLogin, formatUserlist } from "../../../../utils/formatHelpers";
+import Logger from "../../../../utils/logger";
 import { msgError, msgSuccess } from "../../../../utils/notifications";
-import rollbar from "../../../../utils/rollbar";
 import { sortLastLogin } from "../../../../utils/sortHelpers";
 import translate from "../../../../utils/translations/translate";
 import { addUserModal as AddUserModal } from "../../components/AddUserModal/index";
@@ -100,7 +100,7 @@ const projectUsersView: React.FC<IProjectUsersViewProps> = (props: IProjectUsers
   const { data, refetch } = useQuery(GET_USERS, {
     onError: (error: ApolloError): void => {
       msgError(translate.t("group_alerts.error_textsad"));
-      rollbar.error("An error occurred loading project users", error);
+      Logger.warning("An error occurred loading project users", error);
     },
     variables: { projectName },
   });
@@ -145,7 +145,7 @@ const projectUsersView: React.FC<IProjectUsersViewProps> = (props: IProjectUsers
             break;
           default:
             msgError(translate.t("group_alerts.error_textsad"));
-            rollbar.error("An error occurred adding user to project", grantError);
+            Logger.warning("An error occurred adding user to project", grantError);
         }
       });
     },
@@ -185,7 +185,7 @@ const projectUsersView: React.FC<IProjectUsersViewProps> = (props: IProjectUsers
             break;
           default:
             msgError(translate.t("group_alerts.error_textsad"));
-            rollbar.error("An error occurred editing user", editError);
+            Logger.warning("An error occurred editing user", editError);
         }
       });
     },
@@ -206,7 +206,7 @@ const projectUsersView: React.FC<IProjectUsersViewProps> = (props: IProjectUsers
     },
     onError: (removeError: ApolloError): void => {
       msgError(translate.t("group_alerts.error_textsad"));
-      rollbar.error("An error occurred removing user", removeError);
+      Logger.warning("An error occurred removing user", removeError);
     },
   });
 

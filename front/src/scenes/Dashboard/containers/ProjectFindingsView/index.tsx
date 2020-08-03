@@ -24,8 +24,8 @@ import { Modal } from "../../../../components/Modal/index";
 import { TooltipWrapper } from "../../../../components/TooltipWrapper/index";
 import { formatFindings, formatTreatment } from "../../../../utils/formatHelpers";
 import { useStoredState } from "../../../../utils/hooks";
+import Logger from "../../../../utils/logger";
 import { msgError, msgSuccess } from "../../../../utils/notifications";
-import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
 import { default as style } from "./index.css";
 import { GET_FINDINGS, REQUEST_PROJECT_REPORT } from "./queries";
@@ -56,7 +56,7 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
     },
     onError: (error: ApolloError): void => {
       msgError(translate.t("group_alerts.error_textsad"));
-      rollbar.error("An error occurred requesting project report", error);
+      Logger.warning("An error occurred requesting project report", error);
     },
   });
 
@@ -150,7 +150,7 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
   ): void => {
     graphQLErrors.forEach((error: GraphQLError): void => {
       msgError(translate.t("group_alerts.error_textsad"));
-      rollbar.error("An error occurred loading project data", error);
+      Logger.warning("An error occurred loading project data", error);
     });
   };
   const onSortState: ((dataField: string, order: SortOrder) => void) =

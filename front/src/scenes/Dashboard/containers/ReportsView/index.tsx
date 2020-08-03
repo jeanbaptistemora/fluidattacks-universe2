@@ -3,8 +3,8 @@ import { ApolloError } from "apollo-client";
 import { GraphQLError } from "graphql";
 import React from "react";
 import { Button, Col, Row } from "react-bootstrap";
+import Logger from "../../../../utils/logger";
 import { msgError } from "../../../../utils/notifications";
-import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
 import { default as style } from "./index.css";
 import { GET_COMPLETE_REPORT } from "./queries";
@@ -20,7 +20,7 @@ const reportsView: React.FC = (): JSX.Element => {
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
         msgError(translate.t("group_alerts.error_textsad"));
-        rollbar.error(
+        Logger.warning(
           "An error occurred downloading the complete report",
           error,
         );
