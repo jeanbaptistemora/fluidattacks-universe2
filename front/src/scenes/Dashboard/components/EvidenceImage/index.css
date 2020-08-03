@@ -40,4 +40,5 @@
 :local .description {
   padding: 20px 20px 15px;
   border-top: 1px solid #DDDDDD;
+  word-break: break-word;
 }
