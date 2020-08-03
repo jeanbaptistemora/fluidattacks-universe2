@@ -272,7 +272,7 @@ async def persist(
         finding: persist_finding(
             finding=finding,
             group=group,
-            results=results,
+            results=finding_results,
         )
         for finding in FindingEnum
         for finding_results in [tuple(

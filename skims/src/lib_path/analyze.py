@@ -14,6 +14,7 @@ from typing import (
 
 # Local imports
 from lib_path import (
+    f011,
     f034,
 )
 from utils.aio import (
@@ -58,17 +59,25 @@ async def analyze_one_path(path: str) -> Tuple[Vulnerability, ...]:
     )
 
     results: Tuple[Vulnerability, ...] = tuple(chain.from_iterable(
-        await materialize(
-            getattr(module, 'analyze')(
-                char_to_yx_map_generator=char_to_yx_map_generator,
-                content_generator=file_content_generator,
-                extension=os.path.splitext(path)[1][1:],
-                path=path,
+        await materialize(chain.from_iterable((
+            (
+                f011.analyze(
+                    content_generator=file_content_generator,
+                    file_name=file_name,
+                    file_extension=file_extension,
+                    path=path,
+                ),
+                f034.analyze(
+                    char_to_yx_map_generator=char_to_yx_map_generator,
+                    content_generator=file_content_generator,
+                    file_extension=file_extension,
+                    path=path,
+                ),
             )
-            for module in (
-                f034,
-            )
-        )
+            for folder, file in [os.path.split(path)]
+            for file_name, file_extension in [os.path.splitext(file)]
+            for file_extension in [file_extension[1:]]
+        )))
     ))
 
     await char_to_yx_map_generator.aclose()

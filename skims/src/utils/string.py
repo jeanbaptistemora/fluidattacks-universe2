@@ -133,6 +133,24 @@ def blocking_to_snippet(
     return snippet
 
 
+async def to_snippet(
+    *,
+    chars_per_line: int = 120,
+    column: int,
+    content: str,
+    context: int = 10,
+    line: int,
+) -> str:
+    return await unblock_cpu(
+        blocking_to_snippet,
+        chars_per_line=chars_per_line,
+        column=column,
+        content=content,
+        context=context,
+        line=line,
+    )
+
+
 def blocking_boxify(
     *,
     width_to_height_ratio: int = 3,

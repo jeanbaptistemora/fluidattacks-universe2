@@ -7,6 +7,12 @@ from frozendict import (
 )
 import lark
 
+# Local libraries
+from utils.aio import (
+    unblock_cpu,
+)
+
+
 # Constants
 GRAMMAR = r"""
     ?start: value
@@ -33,7 +39,7 @@ GRAMMAR = r"""
 """
 
 
-def loads(stream: str) -> frozendict:
+def blocking_loads(stream: str) -> frozendict:
     json_parser = lark.Lark(
         grammar=GRAMMAR,
         parser='lalr',
@@ -44,6 +50,10 @@ def loads(stream: str) -> frozendict:
     )
 
     return json_parser.parse(stream)
+
+
+async def loads(stream: str) -> frozendict:
+    return await unblock_cpu(blocking_loads, stream)
 
 
 class Builder(lark.Transformer[frozendict]):

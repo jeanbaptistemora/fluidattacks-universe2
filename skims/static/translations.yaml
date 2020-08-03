@@ -66,8 +66,7 @@ utils.model.finding.enum.f011.impact:
     Explotar vulnerabilidades encontradas en los componentes afectados.
 utils.model.finding.enum.f011.recommendation:
   en: >
-    Update the affected software to the versions recommended by the
-    manufacturer.
+    Update the affected software to the versions recommended by the vendor.
   es: >
     Actualizar el software afectado a las versiones recomendadas por el
     fabricante.

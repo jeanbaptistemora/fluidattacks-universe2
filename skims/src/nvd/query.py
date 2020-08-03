@@ -44,7 +44,9 @@ class CVE(NamedTuple):
     code: str
     cvss: str
     description: str
+    product: str
     url: str
+    version: str
 
 
 @RETRY
@@ -76,7 +78,9 @@ async def get_vulnerabilities(
             code=code,
             cvss=cvss or '0.0',
             description=description,
-            url=f'https://nvd.nist.gov/vuln/detail/{code}'
+            product=product,
+            url=f'https://nvd.nist.gov/vuln/detail/{code}',
+            version=version,
         )
         for code, cvss, description in zip(
             RE_CVE.findall(text),

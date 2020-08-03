@@ -225,18 +225,18 @@ async def javascript_insecure_randoms(
 async def analyze(
     char_to_yx_map_generator: AsyncGenerator[Dict[int, Tuple[int, int]], None],
     content_generator: AsyncGenerator[str, None],
-    extension: str,
+    file_extension: str,
     path: str,
 ) -> Tuple[Vulnerability, ...]:
     coroutines: List[Awaitable[Tuple[Vulnerability, ...]]] = []
 
-    if extension in EXTENSIONS_CSHARP:
+    if file_extension in EXTENSIONS_CSHARP:
         coroutines.append(csharp_insecure_randoms(
             char_to_yx_map=await char_to_yx_map_generator.__anext__(),
             content=await content_generator.__anext__(),
             path=path,
         ))
-    elif extension in EXTENSIONS_JAVA:
+    elif file_extension in EXTENSIONS_JAVA:
         coroutines.append(java_use_of_lang_math_random(
             char_to_yx_map=await char_to_yx_map_generator.__anext__(),
             content=await content_generator.__anext__(),
@@ -247,7 +247,7 @@ async def analyze(
             content=await content_generator.__anext__(),
             path=path,
         ))
-    elif extension in EXTENSIONS_JAVASCRIPT:
+    elif file_extension in EXTENSIONS_JAVASCRIPT:
         coroutines.append(javascript_insecure_randoms(
             char_to_yx_map=await char_to_yx_map_generator.__anext__(),
             content=await content_generator.__anext__(),
