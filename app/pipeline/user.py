@@ -32,7 +32,6 @@ def get_upn(
         )['email']
 
 
-@async_to_sync
 async def autoenroll_user(strategy: BaseStrategy, email: str) -> bool:
     # New users must have access to the community projects
     was_granted_access: bool = True
@@ -66,7 +65,8 @@ async def autoenroll_user(strategy: BaseStrategy, email: str) -> bool:
 
 
 # pylint: disable=keyword-arg-before-vararg
-def create_user(
+@async_to_sync
+async def create_user(
         strategy: BaseStrategy,
         details: Dict[str, str],
         backend: OAuthAuth,
@@ -81,7 +81,7 @@ def create_user(
     email = details['email'].lower()
 
     # Grant new users access to Integrates and the community projects
-    autoenroll_user(strategy, email)
+    await autoenroll_user(strategy, email)
 
     # Put details on session.
     strategy.session_set('first_name', first_name)
@@ -95,10 +95,10 @@ def create_user(
         'date_joined': today
     }
     if user:
-        if async_to_sync(user_domain.get_data)(str(user), 'first_name'):
-            async_to_sync(user_domain.update_last_login)(user)
+        if await user_domain.get_data(str(user), 'first_name'):
+            await user_domain.update_last_login(user)
         else:
-            async_to_sync(user_domain.update_multiple_user_attributes)(
+            await user_domain.update_multiple_user_attributes(
                 str(user), data_dict
             )
     else:
@@ -109,12 +109,13 @@ def create_user(
             'mail_user': email,
         }
         mailer.send_mail_new_user(mail_to, context)
-        async_to_sync(user_domain.update_multiple_user_attributes)(
+        await user_domain.update_multiple_user_attributes(
             email, data_dict
         )
 
 
-def check_registered(
+@async_to_sync
+async def check_registered(
         strategy: BaseStrategy,
         details: Dict[str, str],
         backend: OAuthAuth,
@@ -124,9 +125,11 @@ def check_registered(
     del kwargs
     del backend
     email = details['email'].lower()
-    is_registered = async_to_sync(user_domain.is_registered)(email)
-    last_login = async_to_sync(user_domain.get_data)(email, 'last_login')
-    role = authz.get_user_level_role(email)
+    is_registered, last_login, role = await aio.materialize([
+        user_domain.is_registered(email),
+        user_domain.get_data(email, 'last_login'),
+        aio.ensure_io_bound(authz.get_user_level_role, email)
+    ])
     strategy.session_set('role', role)
     strategy.session_set('username', email)
     strategy.session_set('registered', is_registered)

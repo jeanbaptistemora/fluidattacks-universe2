@@ -49,9 +49,7 @@ async def get_projects(
         access_pending_projects: bool = True,
         organization_id: str = '') -> List[str]:
     user_projects: List[str] = []
-    projects = await aio.ensure_io_bound(
-        user_dal.get_projects, user_email, active,
-    )
+    projects = await user_dal.get_projects(user_email, active)
 
     group_level_roles = await aio.ensure_io_bound(
         authz.get_group_level_roles, user_email, projects,
@@ -145,8 +143,8 @@ async def update(email: str, data_attr: str, name_attr: str) -> bool:
     return await user_dal.update(email, {name_attr: data_attr})
 
 
-def get(email: str) -> UserType:
-    return user_dal.get(email)
+async def get(email: str) -> UserType:
+    return await user_dal.get(email)
 
 
 async def create_without_project(

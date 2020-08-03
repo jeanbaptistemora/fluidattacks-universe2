@@ -71,7 +71,7 @@ async def add_comment(
             str(comment_data.get('comment_type')),
             await get_finding(finding_id)
         )
-    user_data = user_domain.get(user_email)
+    user_data = await user_domain.get(user_email)
     user_data['user_email'] = user_data.pop('email')
     success = await comment_domain.create(finding_id, comment_data, user_data)
     return success[1]

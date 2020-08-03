@@ -14,7 +14,7 @@ def generate(user_email: str) -> str:
     row_index = 2
 
     unique_users = []
-    for user in user_dal.get_platform_users():
+    for user in async_to_sync(user_dal.get_platform_users)():
         email = str(user.get('user_email', '')).lower()
         if email not in unique_users:
             unique_users.append(email)

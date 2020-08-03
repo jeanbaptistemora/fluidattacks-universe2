@@ -66,7 +66,7 @@ class MeTests(TestCase):
             assert 'description' in project
         groups = [prj['name'] for prj in result['data']['me']['projects']]
         assert sorted(expected_groups) == sorted(groups)
-        all_user_groups = get_projects(user_email, True)
+        all_user_groups = await get_projects(user_email, True)
         assert len(groups) < len(all_user_groups)
         self.assertFalse(groups == all_user_groups)
 

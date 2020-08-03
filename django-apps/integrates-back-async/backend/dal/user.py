@@ -27,6 +27,7 @@ DYNAMODB_RESOURCE = dynamodb.DYNAMODB_RESOURCE  # type: ignore
 ACCESS_TABLE = DYNAMODB_RESOURCE.Table('FI_project_access')
 AUTHZ_TABLE = DYNAMODB_RESOURCE.Table('fi_authz')
 USERS_TABLE = DYNAMODB_RESOURCE.Table('FI_users')
+ACCESS_TABLE_NAME = 'FI_project_access'
 USERS_TABLE_NAME = 'FI_users'
 AUTHZ_TABLE_NAME = 'fi_authz'
 
@@ -149,17 +150,14 @@ async def delete_subject_policy(subject: str, object_: str) -> bool:
     return False
 
 
-def get_all(filter_exp: object, data_attr: str = '') -> List[Dict[str, str]]:
+async def get_all(
+        filter_exp: object,
+        data_attr: str = '') -> List[Dict[str, UserType]]:
     scan_attrs = {}
     scan_attrs['FilterExpression'] = filter_exp
     if data_attr:
         scan_attrs['ProjectionExpression'] = data_attr
-    response = USERS_TABLE.scan(**scan_attrs)
-    items = response['Items']
-    while response.get('LastEvaluatedKey'):
-        scan_attrs['ExclusiveStartKey'] = response['LastEvaluatedKey']
-        response = USERS_TABLE.scan(**scan_attrs)
-        items += response['Items']
+    items = await dynamodb.async_scan(USERS_TABLE_NAME, scan_attrs)
 
     return items
 
@@ -228,36 +226,39 @@ async def update(email: str, data: UserType) -> bool:
     return success
 
 
-def get(email: str) -> UserType:
-    response = USERS_TABLE.get_item(Key={'email': email.lower()})
-    return response.get('Item', {})
+async def get(email: str) -> UserType:
+    response = {}
+    query_attrs = {
+        'KeyConditionExpression': Key('email').eq(email.lower()),
+        'Limit': 1
+    }
+    response_items = await dynamodb.async_query(USERS_TABLE_NAME, query_attrs)
+    if response_items:
+        response = response_items[0]
+
+    return response
 
 
-def delete(email: str) -> bool:
-    primary_keys = {'email': email.lower()}
+async def delete(email: str) -> bool:
     resp = False
     try:
-        item = USERS_TABLE.get_item(Key=primary_keys)
-        if item.get('Item'):
-            response = USERS_TABLE.delete_item(Key=primary_keys)
-            resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
+        delete_attrs = DynamoDeleteType(
+            Key={'email': email.lower()}
+        )
+        resp = await dynamodb.async_delete_item(USERS_TABLE_NAME, delete_attrs)
     except ClientError as ex:
         LOGGER.exception(ex, extra={'extra': locals()})
     return resp
 
 
 @apm.trace()
-def get_projects(user_email: str, active: bool) -> List[str]:
+async def get_projects(user_email: str, active: bool) -> List[str]:
     """ Get projects of a user """
     filtering_exp = Key('user_email').eq(user_email.lower())
-    response = ACCESS_TABLE.query(KeyConditionExpression=filtering_exp)
-    projects = response['Items']
-    while response.get('LastEvaluatedKey'):
-        response = ACCESS_TABLE.query(
-            KeyConditionExpression=filtering_exp,
-            ExclusiveStartKey=response['LastEvaluatedKey']
-        )
-        projects += response['Items']
+    query_attrs = {
+        'KeyConditionExpression': filtering_exp
+    }
+    projects = await dynamodb.async_query(ACCESS_TABLE_NAME, query_attrs)
     if active:
         projects_filtered = [
             project.get('project_name')
@@ -273,20 +274,14 @@ def get_projects(user_email: str, active: bool) -> List[str]:
     return projects_filtered
 
 
-def get_platform_users() -> List[Dict[str, UserType]]:
+async def get_platform_users() -> List[Dict[str, UserType]]:
     filter_exp = (
         Attr('has_access').eq(True) &
         Not(Attr('user_email').contains('@fluidattacks.com')) &
         Not(Attr('project_name').is_in(FI_TEST_PROJECTS.split(',')))
     )
+    scan_attrs = {
+        'FilterExpression': filter_exp
+    }
 
-    response = ACCESS_TABLE.scan(FilterExpression=filter_exp)
-    users = response['Items']
-    while response.get('LastEvaluatedKey'):
-        response = ACCESS_TABLE.scan(
-            FilterExpression=filter_exp,
-            ExclusiveStartKey=response['LastEvaluatedKey']
-        )
-        users += response['Items']
-
-    return users
+    return await dynamodb.async_scan(ACCESS_TABLE_NAME, scan_attrs)

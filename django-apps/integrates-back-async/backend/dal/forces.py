@@ -7,7 +7,7 @@ from datetime import datetime
 import logging
 
 # Third party libraries
-from asgiref.sync import sync_to_async
+import aioboto3
 from boto3.dynamodb.conditions import Key, Attr
 from botocore.exceptions import ClientError
 
@@ -16,7 +16,6 @@ from backend.dal.helpers import dynamodb
 
 # Constants
 LOGGER = logging.getLogger(__name__)
-TABLE = dynamodb.DYNAMODB_RESOURCE.Table('bb_executions')  # type: ignore
 TABLE_NAME = 'bb_executions'
 
 
@@ -32,26 +31,29 @@ async def yield_executions(
         Attr('date').gte(from_date.isoformat()) \
         & Attr('date').lte(to_date.isoformat())
 
-    results = await sync_to_async(TABLE.query)(
-        KeyConditionExpression=key_condition_expresion,
-        FilterExpression=filter_expression)
-
-    for result in results['Items']:
-        if 'accepted_exploits' not in result['vulnerabilities']:
-            result['vulnerabilities']['accepted_exploits'] = []
-        if 'integrates_exploits' not in result['vulnerabilities']:
-            result['vulnerabilities']['integrates_exploits'] = []
-        if 'exploits' not in result['vulnerabilities']:
-            result['vulnerabilities']['exploits'] = []
-        yield result
-
-    while results.get('LastEvaluatedKey'):
-        results = await sync_to_async(TABLE.query)(
+    async with aioboto3.resource(**dynamodb.RESOURCE_OPTIONS) as resource:
+        table = await resource.Table(TABLE_NAME)
+        results = await table.query(
             KeyConditionExpression=key_condition_expresion,
-            FilterExpression=filter_expression,
-            ExclusiveStartKey=results['LastEvaluatedKey'])
+            FilterExpression=filter_expression
+        )
+
         for result in results['Items']:
+            if 'accepted_exploits' not in result['vulnerabilities']:
+                result['vulnerabilities']['accepted_exploits'] = []
+            if 'integrates_exploits' not in result['vulnerabilities']:
+                result['vulnerabilities']['integrates_exploits'] = []
+            if 'exploits' not in result['vulnerabilities']:
+                result['vulnerabilities']['exploits'] = []
             yield result
+
+        while results.get('LastEvaluatedKey'):
+            results = await table.query(
+                KeyConditionExpression=key_condition_expresion,
+                FilterExpression=filter_expression,
+                ExclusiveStartKey=results['LastEvaluatedKey'])
+            for result in results['Items']:
+                yield result
 
 
 async def create_execution(project_name: str,

@@ -13,7 +13,7 @@ pytestmark = [
 
 
 @pytest.mark.changes_db
-def test_delete():
+async def test_delete():
     test_1 = 'unittest3'
     assert {
             'company' : 'unittest', 'date_joined': '2017-12-28 23:54:55',
@@ -21,27 +21,27 @@ def test_delete():
             'legal_remember' : True,
             'organization': 'ORG#6ee4c12b-7881-4490-a851-07357fff1d64',
             'registered' : False
-        } == get(test_1)
-    assert delete(test_1)
-    assert {} == get(test_1)
+        } == await get(test_1)
+    assert await delete(test_1)
+    assert {} == await get(test_1)
 
 @pytest.mark.changes_db
 async def test_create():
-    assert get('unittest4') == {}
+    assert await get('unittest4') == {}
 
     await create('unittest4', {'phone_number': '11111111'})
-    assert get('unittest4') == \
+    assert await get('unittest4') == \
         {'email': 'unittest4', 'phone_number': '11111111'}
 
 @pytest.mark.changes_db
 async def test_update():
-    assert get('unittest5') == {}
+    assert await get('unittest5') == {}
 
     await create('unittest5', {'phone_number': '22222222'})
     await update('unittest5', {})
-    assert get('unittest5') == \
+    assert await get('unittest5') == \
         {'email': 'unittest5', 'phone_number': '22222222'}
 
     await update('unittest5', {'last_name':'testing'})
-    assert get('unittest5') == \
+    assert await get('unittest5') == \
         {'last_name':'testing', 'email': 'unittest5', 'phone_number': '22222222'}
