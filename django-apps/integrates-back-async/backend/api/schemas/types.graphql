@@ -89,7 +89,6 @@ type Organization {
     maxNumberAcceptations: Int
     minAcceptanceSeverity: Float!
     name: String!
-    totalGroups: Int
     users: [User]
 }
 

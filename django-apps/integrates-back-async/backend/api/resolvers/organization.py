@@ -326,16 +326,6 @@ async def _get_projects(
 
 
 @rename_kwargs({'identifier': 'organization_id'})
-async def _get_total_groups(
-        _: GraphQLResolveInfo,
-        organization_id: str,
-        **__: Any) -> int:
-    org_groups = await org_domain.get_groups(organization_id)
-
-    return len(org_groups)
-
-
-@rename_kwargs({'identifier': 'organization_id'})
 @enforce_organization_level_auth_async
 @get_entity_cache_async
 async def _get_users(
