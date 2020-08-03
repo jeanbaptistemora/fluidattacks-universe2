@@ -36,15 +36,53 @@ DEFAULT_MIN_SEVERITY = Decimal('0.0')
 LOGGER = logging.getLogger(__name__)
 
 
+async def add_group(organization_id: str, group: str) -> bool:
+    success = await org_dal.add_group(organization_id, group)
+    if success:
+        users = await get_users(organization_id)
+        users_roles = await aio.materialize(
+            aio.ensure_io_bound(
+                authz.get_organization_level_role, user, organization_id
+            )
+            for user in users
+        )
+        success = (
+            success and
+            all(
+                await aio.materialize(
+                    project_domain.add_user_access(
+                        user, group, 'group_manager'
+                    )
+                    for user in users
+                    if users_roles.pop(0) == 'group_manager'
+                )
+            )
+        )
+    return success
+
+
 async def add_user(organization_id: str, email: str, role: str) -> bool:
-    user_added = await org_dal.add_user(organization_id, email)
-    role_added = await authz.grant_organization_level_role(
-        email,
-        organization_id,
-        role
+    success = (
+        await org_dal.add_user(organization_id, email) and
+        await authz.grant_organization_level_role(
+            email,
+            organization_id,
+            role
+        )
     )
+    if success and role == 'group_manager':
+        groups = await get_groups(organization_id)
+        success = (
+            success and
+            all(
+                await aio.materialize(
+                    project_domain.add_user_access(email, group, role)
+                    for group in groups
+                )
+            )
+        )
     util.invalidate_cache(organization_id.lower())
-    return user_added and role_added
+    return success
 
 
 async def delete_organization(organization_id: str) -> bool:

@@ -469,6 +469,13 @@ ORGANIZATION_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             'grant_organization_level_role:customeradmin'
         },
         tags=set()
+    ),
+    group_manager=dict(
+        actions={
+            'backend_api_resolvers_organization__get_analytics',
+            'backend_api_resolvers_project__do_create_project',
+        },
+        tags=set()
     )
 )
 

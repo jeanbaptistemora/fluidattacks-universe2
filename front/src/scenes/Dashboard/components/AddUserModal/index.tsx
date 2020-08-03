@@ -41,6 +41,7 @@ const groupLevelRoles: string[] = [
 const organizationLevelRoles: string[] = [
   "customeradmin",
   "customer",
+  "group_manager",
 ];
 
 export const addUserModal: React.FC<IAddUserModalProps> = (props: IAddUserModalProps): JSX.Element => {

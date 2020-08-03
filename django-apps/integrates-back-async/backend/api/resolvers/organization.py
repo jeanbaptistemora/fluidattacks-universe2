@@ -17,10 +17,7 @@ from ariadne import (
 from graphql.language.ast import FieldNode, SelectionSetNode, ObjectFieldNode
 from graphql.type.definition import GraphQLResolveInfo
 
-from backend import (
-    authz,
-    util
-)
+from backend import util
 from backend.api.resolvers import (
     analytics as analytics_loader,
     project as group_loader,
@@ -66,9 +63,9 @@ async def _do_edit_user_organization(
     new_phone_number: str = str(parameters.get('phone_number'))
     new_role: str = str(parameters.get('role')).lower()
 
-    if await authz.grant_organization_level_role(
-        user_email,
+    if await org_domain.add_user(
         organization_id,
+        user_email,
         new_role
     ):
         success = await user_loader.modify_user_information(

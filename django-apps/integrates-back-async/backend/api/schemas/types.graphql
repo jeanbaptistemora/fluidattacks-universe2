@@ -497,6 +497,7 @@ enum ReportLang {
 enum OrganizationRole {
     CUSTOMER
     CUSTOMERADMIN
+    GROUP_MANAGER
 }
 
 enum UserRole {

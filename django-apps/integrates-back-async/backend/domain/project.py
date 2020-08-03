@@ -18,7 +18,6 @@ from backend.authz.policy import get_group_level_role
 from backend.dal.helpers.dynamodb import start_context
 from backend.dal import (
     finding as finding_dal,
-    organization as org_dal,
     project as project_dal
 )
 from backend.typing import (
@@ -168,7 +167,7 @@ async def create_project(  # pylint: disable=too-many-arguments
             success = await project_dal.create(project)
             if success:
                 await asyncio.gather(
-                    org_dal.add_group(org_id, project_name),
+                    org_domain.add_group(org_id, project_name),
                     available_group_domain.remove(project_name)
                 )
                 # Admins are not granted access to the project
@@ -298,6 +297,13 @@ async def add_access(
         attr_value: Union[str, bool]) -> bool:
     return await project_dal.update_access(
         user_email, project_name, project_attr, attr_value
+    )
+
+
+async def add_user_access(email: str, group: str, role: str) -> bool:
+    return (
+        await add_access(email, group, 'has_access', True) and
+        await authz.grant_group_level_role(email, group, role)
     )
 
 
