@@ -16,17 +16,20 @@ from frozendict import (
 
 # Local libraries
 from nvd.query import (
-    CVE as NVD_CVE,
     get_vulnerabilities as get_nvd_vulnerabilities,
 )
 from parse_json import (
     loads as json_loads,
+)
+from state import (
+    cache_decorator,
 )
 from utils.aio import (
     materialize,
 )
 from utils.model import (
     FindingEnum,
+    NVDVulnerability,
     SkimsVulnerabilityMetadata,
     Vulnerability,
     VulnerabilityKindEnum,
@@ -43,6 +46,7 @@ from zone import (
 DependencyType = Tuple[frozendict, frozendict]
 
 
+@cache_decorator()
 async def npm_package_json(
     content: str,
     path: str,
@@ -57,7 +61,7 @@ async def npm_package_json(
     )
 
     query_results: Tuple[
-        Tuple[DependencyType, Tuple[NVD_CVE, ...]],
+        Tuple[DependencyType, Tuple[NVDVulnerability, ...]],
         ...
     ] = tuple(zip(
         dependencies,

@@ -166,6 +166,15 @@ class IntegratesVulnerabilityMetadata(NamedTuple):
     uuid: Optional[str] = None
 
 
+class NVDVulnerability(NamedTuple):
+    code: str
+    cvss: str
+    description: str
+    product: str
+    url: str
+    version: str
+
+
 class SkimsPathConfig(NamedTuple):
     exclude: Tuple[str, ...]
     include: Tuple[str, ...]

@@ -216,7 +216,7 @@ async def persist_finding(
     await log('info', 'persisting: %s, %s results', finding.name, len(results))
 
     finding_id: str = await get_closest_finding_id(
-        affected_systems=', '.join(get_affected_systems(results)),
+        affected_systems='\n'.join(get_affected_systems(results)),
         create_if_missing=True,
         finding=finding,
         group=group,

@@ -3,7 +3,6 @@ import re
 import socket
 from typing import (
     Callable,
-    NamedTuple,
     Pattern,
     Tuple,
     TypeVar,
@@ -16,11 +15,17 @@ import aiohttp
 from nvd.cpe import (
     build as build_cpe,
 )
+from state import (
+    cache_decorator
+)
 from utils.function import (
     retry,
 )
 from utils.logs import (
     log,
+)
+from utils.model import (
+    NVDVulnerability,
 )
 
 # Constants
@@ -40,22 +45,14 @@ RE_CVSS: Pattern = re.compile(
 )
 
 
-class CVE(NamedTuple):
-    code: str
-    cvss: str
-    description: str
-    product: str
-    url: str
-    version: str
-
-
+@cache_decorator(ttl=604800)
 @RETRY
 async def get_vulnerabilities(
     product: str,
     version: str,
     keywords: Tuple[str, ...] = (),
     target_software: str = '',
-) -> Tuple[CVE, ...]:
+) -> Tuple[NVDVulnerability, ...]:
     cpe = build_cpe(
         keywords=keywords,
         product=product,
@@ -74,7 +71,7 @@ async def get_vulnerabilities(
             text = await response.text()
 
     return tuple(
-        CVE(
+        NVDVulnerability(
             code=code,
             cvss=cvss or '0.0',
             description=description,

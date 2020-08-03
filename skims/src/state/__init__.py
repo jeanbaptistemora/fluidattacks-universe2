@@ -11,6 +11,7 @@ from typing import (
     cast,
     Awaitable,
     Callable,
+    Optional,
     Tuple,
     TypeVar,
 )
@@ -58,9 +59,9 @@ async def cache_read(key: Any) -> Any:
     return obj
 
 
-async def cache_store(key: Any, value: Any) -> None:
+async def cache_store(key: Any, value: Any, ttl: Optional[int] = None) -> None:
     obj_id: bytes = await get_obj_id(key)
-    obj_stream: bytes = await py_dumps(value)
+    obj_stream: bytes = await py_dumps(value, ttl=ttl)
     obj_location: str = join(CACHE_FOLDER, obj_id.hex())
 
     async with aiofiles.open(obj_location, mode='wb') as obj_store:
@@ -70,6 +71,7 @@ async def cache_store(key: Any, value: Any) -> None:
 async def cache(
     function_cache_keys: Tuple[str, ...],
     function: Callable[..., Awaitable[TVar]],
+    ttl: Optional[int],
     *args: Any,
     **kwargs: Any,
 ) -> TVar:
@@ -87,18 +89,21 @@ async def cache(
         cache_value: TVar = await cache_read(cache_key)
     except (FileNotFoundError, LoadError):
         cache_value = await function(*args, **kwargs)
-        await cache_store(cache_key, cache_value)
+        await cache_store(cache_key, cache_value, ttl=ttl)
 
     return cache_value
 
 
-def cache_decorator(*cache_keys: str) -> Callable[[TFunc], TFunc]:
+def cache_decorator(
+    *cache_keys: str,
+    ttl: Optional[int] = None,
+) -> Callable[[TFunc], TFunc]:
 
     def decorator(function: TFunc) -> TFunc:
 
         @functools.wraps(function)
         async def wrapper(*args: Any, **kwargs: Any) -> Any:
-            return await cache(cache_keys, function, *args, **kwargs)
+            return await cache(cache_keys, function, ttl, *args, **kwargs)
 
         return cast(TFunc, wrapper)
 

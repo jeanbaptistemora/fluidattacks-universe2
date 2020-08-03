@@ -11,6 +11,7 @@ from typing import (
     Callable,
     Dict,
     List,
+    Optional,
     Tuple,
     TypeVar,
 )
@@ -24,10 +25,14 @@ from utils.model import (
     FindingMetadata,
     FindingTypeEnum,
     IntegratesVulnerabilityMetadata,
+    NVDVulnerability,
     SkimsVulnerabilityMetadata,
     Vulnerability,
     VulnerabilityKindEnum,
     VulnerabilityStateEnum,
+)
+from utils.time import (
+    get_utc_timestamp,
 )
 
 # Constants
@@ -135,6 +140,7 @@ ALLOWED_FACTORIES: Dict[type, Dict[str, Any]] = {
             for named_tuple in (
                 FindingMetadata,
                 IntegratesVulnerabilityMetadata,
+                NVDVulnerability,
                 SkimsVulnerabilityMetadata,
                 Vulnerability,
             )
@@ -172,10 +178,15 @@ def _dump(instance: Any) -> Serialized:
     return dumper(instance)
 
 
-async def dump(instance: Any) -> bytes:
+async def dump(instance: Any, ttl: Optional[int] = None) -> bytes:
     dumped: Serialized = await unblock_cpu(_dump, instance)
+    message = {
+        'expires_at': None if ttl is None else get_utc_timestamp() + ttl,
+        'instance': dumped,
+    }
+
     serialized: str = (
-        await unblock_cpu(json.dumps, dumped, separators=(',', ':'))
+        await unblock_cpu(json.dumps, message, separators=(',', ':'))
     )
 
     return await unblock_cpu(serialized.encode, 'utf-8')
@@ -185,10 +196,14 @@ async def load(stream: bytes) -> Any:
     try:
         deserialized: Any = await unblock_cpu(json.loads, stream)
 
-        return await unblock_cpu(_deserialize, deserialized)
+        if (deserialized['expires_at'] or 0) > get_utc_timestamp():
+            raise LoadError('Data has expired')
+
+        return await unblock_cpu(_deserialize, deserialized['instance'])
     except (
         AttributeError,
         json.decoder.JSONDecodeError,
+        LoadError,
         TypeError,
         ValueError,
     ) as exc:
