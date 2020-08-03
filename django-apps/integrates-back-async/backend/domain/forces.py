@@ -66,6 +66,7 @@ async def get_executions(
                     '0.94': 'Proof of concept',
                     '0.97': 'Functional',
                     '1.0': 'High',
+                    '1': 'High',
                 }.get(str(vuln.get('exploitability', 0)), '-')
                 vuln['exploitability'] = explot
 
