@@ -57,8 +57,8 @@ function decide_and_call_provisioner {
         --keep NIX_SSL_CERT_FILE \
         --keep PROD_AWS_ACCESS_KEY_ID \
         --keep PROD_AWS_SECRET_ACCESS_KEY \
-        --keep MR_TEST_TOKEN \
-        --keep MR_TEST_MAX_DELTAS \
+        --keep REVIEWS_TOKEN \
+        --keep REVIEWS_MAX_DELTAS \
         --keep PYPI_TOKEN \
         --max-jobs auto \
         --option restrict-eval false \

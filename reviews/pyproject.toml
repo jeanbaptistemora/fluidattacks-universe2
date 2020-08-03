@@ -13,6 +13,7 @@ license = "MPL-2.0"
 name = "reviews"
 packages = [
   { include = "cli", from = "src" },
+  { include = "config", from = "src" },
   { include = "core", from = "src" },
   { include = "utils", from = "src" },
 ]
@@ -22,7 +23,7 @@ version = "1.0.0"
 
 [tool.poetry.dependencies]
 click = "7.1.2"
-confuse = "1.3.0"
+dynaconf = "3.0.0"
 GitPython = "3.1.7"
 python = "^3.7"
 python-gitlab = "2.4.0"

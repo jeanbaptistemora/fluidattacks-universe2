@@ -77,5 +77,5 @@ function job_reviews {
   }
 
       helper_use_pristine_workdir \
-  &&  reviews --config reviews.yaml
+  &&  reviews reviews.toml
 }

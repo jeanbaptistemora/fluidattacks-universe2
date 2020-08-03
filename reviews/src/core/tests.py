@@ -11,6 +11,7 @@ from utils.logs import (
     log
 )
 
+
 def get_err_log(should_fail: bool) -> str:
     err_log: str = 'error' if should_fail else 'warn'
     return err_log
@@ -33,10 +34,10 @@ def mr_under_max_deltas(mr_info: Any, config: Dict[str, Any]) -> bool:
         return found_commit
 
     success: bool = True
-    should_fail: bool = config['fail'].get(bool)
+    should_fail: bool = config['fail']
     err_log: str = get_err_log(should_fail)
     repo_path = '.' if config['repo_path'] is None else config['repo_path']
-    max_deltas: int = config['max_deltas'].get(int)
+    max_deltas: int = config['max_deltas']
     try:
         repo: Any = Repo(repo_path)
     except InvalidGitRepositoryError:
@@ -58,7 +59,7 @@ def mr_under_max_deltas(mr_info: Any, config: Dict[str, Any]) -> bool:
 def all_pipelines_successful(mr_info: Any, config: Dict[str, Any]) -> bool:
     """Test if all previous pipelines were successful"""
     success: bool = True
-    should_fail: bool = config['fail'].get(bool)
+    should_fail: bool = config['fail']
     err_log: str = get_err_log(should_fail)
     current_p_id: str = str(os.environ.get('CI_PIPELINE_ID'))
     index: int = 0
@@ -88,7 +89,7 @@ def all_pipelines_successful(mr_info: Any, config: Dict[str, Any]) -> bool:
 def mr_message_syntax(mr_info: Any, config: Dict[str, Any]) -> bool:
     """Run commitlint on MR message"""
     success: bool = True
-    should_fail: bool = config['fail'].get(bool)
+    should_fail: bool = config['fail']
     err_log: str = get_err_log(should_fail)
     mr_commit_msg: str = f'{mr_info.title}\n\n{mr_info.description}'
     command: List[str] = ['commitlint']
@@ -105,7 +106,7 @@ def mr_message_syntax(mr_info: Any, config: Dict[str, Any]) -> bool:
 def branch_equals_to_user(mr_info: Any, config: Dict[str, Any]) -> bool:
     """Test if branch name differs from user name"""
     success: bool = True
-    should_fail: bool = config['fail'].get(bool)
+    should_fail: bool = config['fail']
     err_log: str = get_err_log(should_fail)
     if mr_info.source_branch not in mr_info.author['username']:
         log(err_log,
@@ -121,10 +122,10 @@ def branch_equals_to_user(mr_info: Any, config: Dict[str, Any]) -> bool:
 def most_relevant_type(mr_info: Any, config: Dict[str, Any]) -> bool:
     """Test if MR message uses the most relevant type of all its commits"""
     success: bool = True
-    should_fail: bool = config['fail'].get(bool)
+    should_fail: bool = config['fail']
     err_log: str = get_err_log(should_fail)
-    commit_regex: str = config['commit_regex'].get(str)
-    relevances: Dict[str, int] = config['relevances'].get()
+    commit_regex: str = config['commit_regex']
+    relevances: Dict[str, int] = config['relevances']
     mr_title_match: Any = re.match(commit_regex, mr_info.title)
     if mr_title_match is None:
         success = False
@@ -162,9 +163,9 @@ def most_relevant_type(mr_info: Any, config: Dict[str, Any]) -> bool:
 def commits_user_syntax(mr_info: Any, config: Dict[str, Any]) -> bool:
     """Test if usernames of all commits associated to MR are compliant"""
     success: bool = True
-    should_fail: bool = config['fail'].get(bool)
+    should_fail: bool = config['fail']
     err_log: str = get_err_log(should_fail)
-    user_regex: str = config['user_regex'].get(str)
+    user_regex: str = config['user_regex']
     failed_user: str = ''
     commits: Any = mr_info.commits()
     for commit in commits:
@@ -188,9 +189,9 @@ def commits_user_syntax(mr_info: Any, config: Dict[str, Any]) -> bool:
 def mr_user_syntax(mr_info: Any, config: Dict[str, Any]) -> bool:
     """Test if gitlab username of mr author is compliant"""
     success: bool = True
-    should_fail: bool = config['fail'].get(bool)
+    should_fail: bool = config['fail']
     err_log: str = get_err_log(should_fail)
-    user_regex: str = config['user_regex'].get(str)
+    user_regex: str = config['user_regex']
     if not re.match(user_regex, mr_info.author['name']):
         success = False
         log(err_log,
@@ -208,9 +209,9 @@ def mr_user_syntax(mr_info: Any, config: Dict[str, Any]) -> bool:
 def max_commits_per_mr(mr_info: Any, config: Dict[str, Any]) -> bool:
     """Only one commit per MR"""
     success: bool = True
-    should_fail: bool = config['fail'].get(bool)
+    should_fail: bool = config['fail']
     err_log: str = get_err_log(should_fail)
-    max_commits: int = config['max_commits'].get(int)
+    max_commits: int = config['max_commits']
     commit_number: int = len(list(mr_info.commits()))
     if commit_number > max_commits:
         success = False
@@ -226,9 +227,9 @@ def max_commits_per_mr(mr_info: Any, config: Dict[str, Any]) -> bool:
 def close_issue_directive(mr_info: Any, config: Dict[str, Any]) -> bool:
     """Test if a MR has an issue different from #0 without a Close directive"""
     success: bool = True
-    should_fail: bool = config['fail'].get(bool)
+    should_fail: bool = config['fail']
     err_log: str = get_err_log(should_fail)
-    mr_title_regex: str = config['mr_title_regex'].get(str)
+    mr_title_regex: str = config['mr_title_regex']
     mr_title_match: Any = re.match(mr_title_regex, mr_info.title)
     if mr_title_match is None:
         success = False
