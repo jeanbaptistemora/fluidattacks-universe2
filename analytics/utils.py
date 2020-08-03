@@ -11,7 +11,6 @@ from typing import (
     AsyncIterator,
     Callable,
     Dict,
-    Iterator,
     List,
     Tuple,
     Type,
@@ -82,8 +81,11 @@ def get_vulnerability_source(vulnerability: Dict[str, str]) -> str:
     return root
 
 
-def iterate_groups() -> Iterator[str]:
-    for group in sorted(group_domain.get_alive_projects(), reverse=True):
+async def iterate_groups() -> AsyncIterator[str]:
+    for group in sorted(
+        await group_domain.get_alive_projects(),
+        reverse=True
+    ):
         log_info(f'Working on group: {group}')
         yield group
 

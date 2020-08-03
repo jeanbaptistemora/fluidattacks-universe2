@@ -156,7 +156,7 @@ async def main():
 
         # Group reports
         base = f'{TARGET_URL}/graphics-for-group?reportMode=true'
-        for group in utils.iterate_groups():
+        async for group in utils.iterate_groups():
             await insert_cookies('group', session)
             await take_snapshot(
                 driver=driver,

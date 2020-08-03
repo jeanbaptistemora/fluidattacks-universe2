@@ -25,7 +25,7 @@ async def generate_one(group: str):
 
 
 async def generate_all():
-    for group in utils.iterate_groups():
+    async for group in utils.iterate_groups():
         utils.json_dump(
             document=await generate_one(group),
             entity='group',

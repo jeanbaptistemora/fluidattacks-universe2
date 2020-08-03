@@ -287,12 +287,12 @@ class ProjectTest(TestCase):
         comment_data['parent'] = str(comment_id)
         assert add_comment(project_name, 'unittest@fluidattacks.com', comment_data)
 
-    def test_get_active_projects(self):
-        test_data = get_active_projects()
+    async def test_get_active_projects(self):
+        test_data = await get_active_projects()
         assert test_data is not None
 
-    def test_get_alive_projects(self):
-        test_data = get_alive_projects()
+    async def test_get_alive_projects(self):
+        test_data = await get_alive_projects()
         expected_output = ['suspendedtest', 'oneshottest', 'unittesting', 'continuoustesting']
         assert sorted(test_data) == sorted(expected_output)
 
@@ -336,8 +336,8 @@ class ProjectTest(TestCase):
         ]
         assert expected_output == await get_users(project_name)
 
-    def test_get_pending_to_delete(self):
-        projects = get_pending_to_delete()
+    async def test_get_pending_to_delete(self):
+        projects = await get_pending_to_delete()
         projects = [project['project_name'] for project in projects]
         expected_output = ['pendingproject']
         assert expected_output == projects

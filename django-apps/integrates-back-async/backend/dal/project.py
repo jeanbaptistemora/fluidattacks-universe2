@@ -111,26 +111,26 @@ def get_service_policies(group: str) -> List[ServicePolicy]:
     return policies
 
 
-def get_active_projects() -> List[str]:
+async def get_active_projects() -> List[str]:
     """Get active project in DynamoDB"""
     filtering_exp = (
         Attr('project_status').eq('ACTIVE') &
         Attr('project_status').exists()
     )
-    projects = get_all(filtering_exp, 'project_name')
+    projects = await get_all(filtering_exp, 'project_name')
     return cast(
         List[str],
         [prj['project_name'] for prj in projects]
     )
 
 
-def get_alive_projects() -> List[str]:
+async def get_alive_projects() -> List[str]:
     """Get active and suspended projects in DynamoDB"""
     filtering_exp = (
         Attr('project_status').eq('ACTIVE') |
         Attr('project_status').eq('SUSPENDED')
     )
-    projects = get_all(filtering_exp, 'project_name')
+    projects = await get_all(filtering_exp, 'project_name')
     return cast(
         List[str],
         [prj['project_name'] for prj in projects]
@@ -331,24 +331,6 @@ async def get_attributes(
     return response
 
 
-def get_filtered_list(
-        attributes: str = '', filter_expresion: object = None) -> \
-        List[Dict[str, ProjectType]]:
-    scan_attrs = {}
-    if filter_expresion:
-        scan_attrs['FilterExpression'] = filter_expresion
-    if attributes:
-        scan_attrs['ProjectionExpression'] = attributes
-    response = TABLE.scan(**scan_attrs)
-    projects = response['Items']
-
-    while response.get('LastEvaluatedKey'):
-        scan_attrs['ExclusiveStartKey'] = response['LastEvaluatedKey']
-        response = TABLE.scan(**scan_attrs)
-        projects += response['Items']
-    return projects
-
-
 async def is_alive(
         project: str,
         pre_computed_project_data: dict = None) -> bool:
@@ -534,28 +516,30 @@ async def delete_comment(group_name: str, user_id: str) -> bool:
     return resp
 
 
-def get_all(filtering_exp: object = '', data_attr: str = '') -> \
-        List[ProjectType]:
+async def get_all(
+        filtering_exp: object = '', data_attr: str = '') -> List[ProjectType]:
     """Get all projects"""
     scan_attrs = {}
     if filtering_exp:
         scan_attrs['FilterExpression'] = filtering_exp
     if data_attr:
         scan_attrs['ProjectionExpression'] = data_attr
-    response = TABLE.scan(**scan_attrs)
-    items = response['Items']
 
-    while response.get('LastEvaluatedKey'):
-        scan_attrs['ExclusiveStartKey'] = response['LastEvaluatedKey']
-        response = TABLE.scan(**scan_attrs)
-        items += response['Items']
+    async with aioboto3.resource(**dynamodb.RESOURCE_OPTIONS) as resource:
+        table = await resource.Table(TABLE_NAME)
+        response = await table.scan(**scan_attrs)
+        items = response.get('Items', [])
+        while 'LastEvaluatedKey' in response:
+            scan_attrs['ExclusiveStartKey'] = response['LastEvaluatedKey']
+            response = await table.scan(**scan_attrs)
+            items += response.get('Items', [])
 
     return items
 
 
-def get_pending_to_delete() -> List[Dict[str, ProjectType]]:
+async def get_pending_to_delete() -> List[ProjectType]:
     filtering_exp = Attr('project_status').eq('PENDING_DELETION')
-    return get_filtered_list('project_name, historic_deletion', filtering_exp)
+    return await get_all(filtering_exp, 'project_name, historic_deletion')
 
 
 async def get_user_access(

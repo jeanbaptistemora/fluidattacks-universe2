@@ -556,8 +556,8 @@ async def _get_description(
         **__: Any) -> str:
     """Get description."""
     project_attrs = await info.context.loaders['project'].load(project_name)
-    project_attrs = project_attrs['attrs']
-    return cast(str, project_attrs.get('description', ''))
+    project_attr = project_attrs['attrs']
+    return cast(str, project_attr.get('description', ''))
 
 
 @enforce_group_level_auth_async
@@ -737,6 +737,7 @@ async def resolve(
     req_fields: List[Union[FieldNode, ObjectFieldNode]] = []
 
     req_fields.extend(_get_requested_fields(info, as_field, as_list))
+
     if selection_set:
         req_fields.extend(selection_set.selections)
 
@@ -1053,7 +1054,7 @@ async def _get_alive_projects(
         info: GraphQLResolveInfo,
         filters: Union[None, Dict[str, Any]]) -> List[ProjectType]:
     """Resolve for ACTIVE and SUSPENDED projects."""
-    alive_projects = await sync_to_async(project_domain.get_alive_projects)()
+    alive_projects = await project_domain.get_alive_projects()
     req_fields: List[Union[FieldNode, ObjectFieldNode]] = []
     selection_set = SelectionSetNode()
     filters_ofn: List[Union[None, ObjectFieldNode]] = []

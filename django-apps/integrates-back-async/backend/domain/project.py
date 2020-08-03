@@ -305,8 +305,8 @@ async def remove_access(user_email: str, project_name: str) -> bool:
     return await project_dal.remove_access(user_email, project_name)
 
 
-def get_pending_to_delete() -> List[Dict[str, ProjectType]]:
-    return project_dal.get_pending_to_delete()
+async def get_pending_to_delete() -> List[ProjectType]:
+    return await project_dal.get_pending_to_delete()
 
 
 async def get_historic_deletion(project_name: str) -> HistoricType:
@@ -943,14 +943,14 @@ async def list_comments(
     return comments
 
 
-def get_active_projects() -> List[str]:
-    projects = project_dal.get_active_projects()
+async def get_active_projects() -> List[str]:
+    projects = await project_dal.get_active_projects()
 
     return projects
 
 
-def get_alive_projects() -> List[str]:
-    projects = project_dal.get_alive_projects()
+async def get_alive_projects() -> List[str]:
+    projects = await project_dal.get_alive_projects()
 
     return projects
 

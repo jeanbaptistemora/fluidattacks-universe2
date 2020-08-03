@@ -99,7 +99,7 @@ def generate_all_vulns_xlsx(user_email: str, project_name: str = '') -> str:
     else:
         projects = cast(
             List[Dict[str, str]],
-            project_dal.get_all(data_attr='project_name')
+            async_to_sync(project_dal.get_all)(data_attr='project_name')
         )
 
     for project in projects:

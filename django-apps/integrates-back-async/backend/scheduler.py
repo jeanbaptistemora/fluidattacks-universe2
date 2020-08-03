@@ -368,9 +368,7 @@ async def get_group_new_vulnerabilities(group_name: str) -> None:
 async def get_new_vulnerabilities() -> None:
     """Summary mail send with the findings of a project."""
     LOGGER.warning('[scheduler]: get_new_vulnerabilities is running')
-    groups = await aio.ensure_io_bound(
-        project_domain.get_active_projects
-    )
+    groups = await project_domain.get_active_projects()
     await util.run_task_by_chunks(get_group_new_vulnerabilities, groups)
 
 
@@ -488,7 +486,7 @@ async def create_msj_finding_pending(
 async def get_remediated_findings() -> None:
     """Summary mail send with findings that have not been verified yet."""
     LOGGER.warning('[scheduler]: get_remediated_findings is running')
-    active_projects = await sync_to_async(project_domain.get_active_projects)()
+    active_projects = await project_domain.get_active_projects()
     findings = []
     pending_verification_findings = await asyncio.gather(*[
         asyncio.create_task(
@@ -533,7 +531,7 @@ async def get_new_releases() -> None:
     """Summary mail send with findings that have not been released yet."""
     LOGGER.warning('[scheduler]: get_new_releases is running')
     test_projects = FI_TEST_PROJECTS.split(',')
-    projects = await sync_to_async(project_domain.get_active_projects)()
+    projects = await project_domain.get_active_projects()
     email_context: Dict[str, Union[List[Dict[str, str]], int]] = (
         defaultdict(list)
     )
@@ -603,7 +601,7 @@ async def get_new_releases() -> None:
 async def send_unsolved_to_all() -> None:
     """Send email with unsolved events to all projects """
     LOGGER.warning('[scheduler]: send_unsolved_to_all is running')
-    projects = await sync_to_async(project_domain.get_active_projects)()
+    projects = await project_domain.get_active_projects()
     await asyncio.gather(*[
         asyncio.create_task(
             send_unsolved_events_email(project)
@@ -686,7 +684,7 @@ async def update_group_indicators(group_name: str) -> None:
 async def update_indicators() -> None:
     """Update in dynamo indicators."""
     LOGGER.warning('[scheduler]: update_indicators is running')
-    groups = await sync_to_async(project_domain.get_active_projects)()
+    groups = await project_domain.get_active_projects()
     await util.run_task_by_chunks(update_group_indicators, groups)
 
 
@@ -831,7 +829,7 @@ async def reset_expired_accepted_findings() -> None:
     """ Update treatment if acceptance date expires """
     LOGGER.warning('[scheduler]: reset_expired_accepted_findings is running')
     today = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-    groups = await sync_to_async(project_domain.get_active_projects)()
+    groups = await project_domain.get_active_projects()
     # number of groups that can be updated at a time
     groups_chunks = chunked(groups, 40)
     for grps_chunk in groups_chunks:
@@ -848,16 +846,21 @@ async def delete_pending_projects() -> None:
     """ Delete pending to delete projects """
     LOGGER.warning('[scheduler]: delete_pending_projects is running')
     today = datetime.now()
-    projects = await sync_to_async(project_domain.get_pending_to_delete)()
+    projects = await project_domain.get_pending_to_delete()
     remove_project_tasks = []
     LOGGER.info('- pending projects: %s', projects)
     for project in projects:
-        historic_deletion = project.get('historic_deletion', [{}])
+        historic_deletion: HistoricType = cast(
+            HistoricType,
+            project.get('historic_deletion', [{}])
+        )
         last_state = historic_deletion[-1]
-        deletion_date = last_state.get(
+        last_state_date: str = last_state.get(
             'deletion_date', today.strftime('%Y-%m-%d %H:%M:%S')
         )
-        deletion_date = datetime.strptime(deletion_date, '%Y-%m-%d %H:%M:%S')
+        deletion_date: datetime = datetime.strptime(
+            last_state_date, '%Y-%m-%d %H:%M:%S'
+        )
         if deletion_date < today:
             LOGGER.info('- project: %s will be deleted', project)
             task = asyncio.create_task(
@@ -866,5 +869,5 @@ async def delete_pending_projects() -> None:
                 )
             )
             remove_project_tasks.append(task)
-            util.invalidate_cache(project.get('project_name'))
+            util.invalidate_cache(str(project.get('project_name')))
     await asyncio.gather(*remove_project_tasks)

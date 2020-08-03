@@ -8,7 +8,7 @@ from datetime import datetime
 from botocore.exceptions import ClientError
 
 # Local libraries
-from backend.dal.helpers.s3 import CLIENT as S3_CLIENT  # type: ignore
+from backend.dal.helpers.s3 import aio_client  # type: ignore
 from backend.utils import (
     apm,
 )
@@ -22,7 +22,7 @@ LOGGER = logging.getLogger(__name__)
 
 
 @apm.trace()
-def get_bill_buffer(*, date: datetime, group: str) -> io.BytesIO:
+async def get_bill_buffer(*, date: datetime, group: str) -> io.BytesIO:
     year: str = date.strftime('%Y')
     month: str = date.strftime('%m')
 
@@ -31,7 +31,8 @@ def get_bill_buffer(*, date: datetime, group: str) -> io.BytesIO:
     key: str = os.path.join('aggregates', 'bills', year, month, f'{group}.csv')
 
     try:
-        S3_CLIENT.download_fileobj(SERVICES_DATA_BUCKET, key, buffer)
+        async with aio_client() as client:
+            await client.download_fileobj(SERVICES_DATA_BUCKET, key, buffer)
     except ClientError as ex:
         LOGGER.exception(ex)
     else:
