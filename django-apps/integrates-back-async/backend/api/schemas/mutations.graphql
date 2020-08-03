@@ -300,6 +300,9 @@ type Mutation {
         authToken: String!,
         provider: AuthProvider!
     ): SignInPayload!
+    addPushToken(
+        token: String!
+    ): SimplePayload
 
     subscribeToEntityReport(
         frequency: Frequency!,

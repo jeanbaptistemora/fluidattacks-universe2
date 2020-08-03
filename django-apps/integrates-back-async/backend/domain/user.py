@@ -1,3 +1,4 @@
+import re
 from datetime import datetime
 from typing import Dict, List, Union, cast
 
@@ -10,6 +11,7 @@ from backend.dal import (
     user as user_dal
 )
 from backend.domain import organization as org_domain
+from backend.exceptions import InvalidPushToken
 from backend.typing import User as UserType
 from backend.utils.validations import (
     validate_email_address,
@@ -174,3 +176,19 @@ async def create_without_project(
             await org_domain.add_user(org_id, email, 'customer')
 
     return success
+
+
+async def add_push_token(user_email: str, push_token: str) -> bool:
+    if not re.match(r'^ExponentPushToken\[[a-zA-Z\d_-]+\]$', push_token):
+        raise InvalidPushToken()
+
+    user_attrs: dict = await get_attributes(user_email, ['push_tokens'])
+    tokens: List[str] = user_attrs.get('push_tokens', [])
+
+    if push_token not in tokens:
+        return await user_dal.update(
+            user_email,
+            {'push_tokens': tokens + [push_token]}
+        )
+
+    return True

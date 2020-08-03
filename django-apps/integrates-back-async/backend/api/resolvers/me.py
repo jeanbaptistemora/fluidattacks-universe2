@@ -439,3 +439,16 @@ async def _do_accept_legal(
     )
 
     return SimplePayloadType(success=success)
+
+
+@require_login
+async def _do_add_push_token(
+    _: Any,
+    info: GraphQLResolveInfo,
+    token: str
+) -> SimplePayloadType:
+    """ Save push token """
+    user_email = util.get_jwt_content(info.context)['user_email']
+    success = await user_domain.add_push_token(user_email, token)
+
+    return SimplePayloadType(success=success)

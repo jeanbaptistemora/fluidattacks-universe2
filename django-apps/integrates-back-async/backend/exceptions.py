@@ -555,3 +555,12 @@ class DocumentNotFound(Exception):
         """ Constructor """
         msg = 'Exception - Document not found'
         super(DocumentNotFound, self).__init__(msg)
+
+
+class InvalidPushToken(Exception):
+    """Exception to validate mobile push token format"""
+
+    def __init__(self) -> None:
+        """ Constructor """
+        msg = 'Exception - Invalid push token'
+        super(InvalidPushToken, self).__init__(msg)
