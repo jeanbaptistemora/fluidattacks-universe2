@@ -658,7 +658,9 @@ forces_new:
   stage: post-deploy
   tags: [autoscaling]
   needs: []
-  image: fluidattacks/forces:new
+  image:
+    name: fluidattacks/forces:new
+    entrypoint: [""]
   script:
     - forces --token "${INTEGRATES_API_TOKEN}" --strict --group daimon -vv
   interruptible: true

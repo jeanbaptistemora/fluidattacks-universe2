@@ -195,7 +195,7 @@ async def upload_report(project: str, report: Dict[str, Any], log: str,
         'strictness': kwargs.pop('strictness'),
         'kind': 'other',
         'num_accepted': report['summary']['accepted'],
-        'num_exploits': report['summary']['open'] + report['summary']['open']
+        'num_exploits': report['summary']['open']
     }
 
     response: Dict[str, Dict[str, bool]] = await execute(

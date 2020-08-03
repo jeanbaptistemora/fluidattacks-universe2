@@ -9,3 +9,5 @@ COPY . /pakage
 WORKDIR /pakage
 
 RUN pip install .
+
+ENTRYPOINT [ "forces" ]
