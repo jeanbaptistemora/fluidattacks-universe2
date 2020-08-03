@@ -26,7 +26,6 @@ class FindingMetadata(NamedTuple):
     impact: str
     recommendation: str
     requirements: str
-    risk: str
     severity: Dict[str, float]
     threat: str
     title: str
@@ -34,13 +33,46 @@ class FindingMetadata(NamedTuple):
 
 
 class FindingEnum(Enum):
+    F011: FindingMetadata = FindingMetadata(
+        cwe='937',
+        description='utils.model.finding.enum.f011.description',
+        impact='utils.model.finding.enum.f011.impact',
+        recommendation='utils.model.finding.enum.f011.recommendation',
+        requirements='utils.model.finding.enum.f011.requirements',
+        threat='utils.model.finding.enum.f011.threat',
+        severity={
+            "attackComplexity": 0.44,
+            "attackVector": 0.85,
+            "availabilityImpact": 0.22,
+            "availabilityRequirement": 0.5,
+            "confidentialityImpact": 0.22,
+            "confidentialityRequirement": 0.5,
+            "exploitability": 0.94,
+            "integrityImpact": 0.22,
+            "integrityRequirement": 0.5,
+            "modifiedAttackComplexity": 0.44,
+            "modifiedAttackVector": 0.85,
+            "modifiedAvailabilityImpact": 0.22,
+            "modifiedConfidentialityImpact": 0.22,
+            "modifiedIntegrityImpact": 0.22,
+            "modifiedPrivilegesRequired": 0.62,
+            "modifiedUserInteraction": 0.85,
+            "modifiedSeverityScope": 0,
+            "privilegesRequired": 0.62,
+            "remediationLevel": 0.95,
+            "reportConfidence": 1.0,
+            "severityScope": 0.0,
+            "userInteraction": 0.85,
+        },
+        title='utils.model.finding.enum.f011.title',
+        type=FindingTypeEnum.SECURITY,
+    )
     F034: FindingMetadata = FindingMetadata(
         cwe='330',
         description='utils.model.finding.enum.f034.description',
         impact='utils.model.finding.enum.f034.impact',
         recommendation='utils.model.finding.enum.f034.recommendation',
         requirements='utils.model.finding.enum.f034.requirements',
-        risk='utils.model.finding.enum.f034.risk',
         threat='utils.model.finding.enum.f034.threat',
         severity={
             'attackComplexity': 0.44,

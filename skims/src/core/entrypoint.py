@@ -68,10 +68,9 @@ async def main(
 
             await materialize(
                 log(
-                    'info', '%s: %s @ %s\n\n%s\n',
+                    'info', '%s: %s\n\n%s\n',
                     t(result.finding.value.title),
                     result.what,
-                    result.where,
                     result.skims_metadata.snippet,
                 )
                 for result in results

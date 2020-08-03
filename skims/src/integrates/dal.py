@@ -311,7 +311,6 @@ async def do_create_draft(
                 $group: String!
                 $recommendation: String
                 $requirements: String
-                $risk: String
                 $threat: String
                 $title: String!
                 $type: FindingType
@@ -324,7 +323,6 @@ async def do_create_draft(
                     projectName: $group
                     recommendation: $recommendation
                     requirements: $requirements
-                    risk: $risk
                     threat: $threat
                     title: $title
                     type: $type
@@ -341,7 +339,6 @@ async def do_create_draft(
             group=group,
             recommendation=t(finding.value.recommendation),
             requirements=t(finding.value.requirements),
-            risk=t(finding.value.risk),
             threat=t(finding.value.threat),
             title=t(finding.value.title),
             type=finding.value.type.value,
