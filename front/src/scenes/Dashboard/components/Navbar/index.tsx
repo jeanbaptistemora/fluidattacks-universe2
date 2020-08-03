@@ -3,20 +3,27 @@ import { ApolloError } from "apollo-client";
 import { GraphQLError } from "graphql";
 import _ from "lodash";
 import React from "react";
-import { Breadcrumb, BreadcrumbItem, Col, MenuItem, Row, SelectCallback, SplitButton } from "react-bootstrap";
+import { Breadcrumb, BreadcrumbItem, Col, InputGroup, MenuItem, Row, SelectCallback, SplitButton } from "react-bootstrap";
 import { RouteComponentProps, withRouter } from "react-router";
 import { Link, useHistory } from "react-router-dom";
+import { Field } from "redux-form";
+import { Button } from "../../../../components/Button";
+import { FluidIcon } from "../../../../components/FluidIcon";
 import { stylizeBreadcrumbItem } from "../../../../utils/formatHelpers";
+import { Text } from "../../../../utils/forms/fields";
 import { useStoredState } from "../../../../utils/hooks";
 import Logger from "../../../../utils/logger";
 import { msgError } from "../../../../utils/notifications";
 import translate from "../../../../utils/translations/translate";
+import { alphaNumeric } from "../../../../utils/validations";
+import { GenericForm } from "../GenericForm";
 import { default as style } from "./index.css";
 import { GET_USER_ORGANIZATIONS } from "./queries";
 
 export const navbarComponent: React.FC<RouteComponentProps> = (props: RouteComponentProps): JSX.Element => {
   const { push } = useHistory();
   const [currentOrganization, setCurrentOrganization] = useStoredState("organization", { name: "" }, localStorage);
+  const { userEmail } = window as typeof window & { userEmail: string };
 
   const path: string = props.location.pathname;
   const pathData: string[] = path.split("/")
@@ -43,6 +50,10 @@ export const navbarComponent: React.FC<RouteComponentProps> = (props: RouteCompo
   const handleOrganizationClick: (event: React.MouseEvent<SplitButton, globalThis.MouseEvent>) => void =
     () => {
       push(`/organizations/${currentOrganization.name}/`);
+  };
+  const handleSearchSubmit: ((values: { projectName: string }) => void) = (values: { projectName: string }): void => {
+    const projectName: string = values.projectName.toLowerCase();
+    if (!_.isEmpty(projectName)) { push(`/groups/${projectName}/indicators`); }
   };
 
   // Render Elements
@@ -80,7 +91,7 @@ export const navbarComponent: React.FC<RouteComponentProps> = (props: RouteCompo
   return (
     <React.StrictMode>
       <Row id="navbar" className={style.container}>
-        <Col md={12} sm={12} xs={12}>
+        <Col md={9} sm={12} xs={12}>
           <Breadcrumb className={style.breadcrumb}>
           <BreadcrumbItem>
           <div className={style.splitButton}>
@@ -103,6 +114,23 @@ export const navbarComponent: React.FC<RouteComponentProps> = (props: RouteCompo
           </BreadcrumbItem>
           {breadcrumbItems}
         </Breadcrumb>
+        </Col>
+        <Col md={3} sm={12} xs={12}>
+          {userEmail.endsWith("fluidattacks.com") ?
+           (<GenericForm name="searchBar" onSubmit={handleSearchSubmit}>
+              <InputGroup className={style.groupsInput}>
+                <Field
+                  name="projectName"
+                  component={Text}
+                  placeholder={translate.t("navbar.searchPlaceholder")}
+                  validate={[alphaNumeric]}
+                  />
+                <InputGroup.Button>
+                  <Button className={style.searchButton} type="submit"><FluidIcon icon="search" /></Button>
+                </InputGroup.Button>
+              </InputGroup>
+            </GenericForm>) : undefined
+          }
         </Col>
       </Row>
     </React.StrictMode>

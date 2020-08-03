@@ -5,14 +5,6 @@
   border-bottom: 2px #e4e4e4 solid;
 }
 
-:local .container input {
-  background: unset;
-  border: none;
-  border-left: 1px solid lightgray;
-  border-bottom: none;
-  border-right: none;
-}
-
 :local .breadcrumb {
   margin-bottom: 0;
   display: flex;
@@ -64,6 +56,34 @@
 
 :local .splitButton ul a {
   padding: 0.6rem 3rem 0.6rem 1.8rem;
+}
+
+:local .groupsInput input {
+  background: unset;
+  border: none;
+  border-left: 1px solid lightgray;
+  border-bottom: none;
+  border-right: none;
+}
+
+:local .groupsInput span:focus {
+  outline: none;
+}
+
+:local .searchButton,
+.searchButton:active,
+.searchButton:focus,
+.searchButton:hover {
+  outline: none !important;
+  background: transparent !important;
+}
+
+:local .searchButton:active {
+  box-shadow: none;
+}
+
+:local .searchButton {
+  border: none;
 }
 
 @media (min-width: 768px) {

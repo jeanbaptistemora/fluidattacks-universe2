@@ -9,10 +9,12 @@ import { RouteComponentProps } from "react-router";
 import { MemoryRouter } from "react-router-dom";
 import waitForExpect from "wait-for-expect";
 import store from "../../../../store";
+import { GenericForm } from "../GenericForm";
 import { navbarComponent as NavbarComponent } from "./index";
 import { GET_USER_ORGANIZATIONS } from "./queries";
 
 describe("Navbar", () => {
+  (window as typeof window & { userEmail: string }).userEmail = "test@fluidattacks.com";
 
   it("should return a function", () => {
     expect(typeof (NavbarComponent))
@@ -85,13 +87,17 @@ describe("Navbar", () => {
         </Provider>
       </MemoryRouter>,
     );
+
     await act(async () => {
       await waitForExpect(() => {
         wrapper.update();
 
         expect(wrapper.find(SplitButton)
-            .props().title)
-            .toBe("imamura");
+          .props().title)
+          .toBe("imamura");
+        expect(wrapper.find(GenericForm)
+          .props().name)
+          .toBe("searchBar");
       });
     });
   });
