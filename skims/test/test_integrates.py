@@ -52,7 +52,7 @@ async def test_build_vulnerabilities_stream() -> None:
     assert await build_vulnerabilities_stream(
         results=(
             Vulnerability(
-                finding=FindingEnum.F0034,
+                finding=FindingEnum.F034,
                 integrates_metadata=IntegratesVulnerabilityMetadata(
                     source=VulnerabilitySourceEnum.SKIMS,
                 ),
@@ -84,7 +84,7 @@ async def test_statefull(
     test_group: str,
     test_integrates_session: None,
 ) -> None:
-    finding: FindingEnum = FindingEnum.F0034
+    finding: FindingEnum = FindingEnum.F034
 
     assert await delete_closest_findings(
         finding=finding,
@@ -119,7 +119,7 @@ async def test_statefull(
         stream=await build_vulnerabilities_stream(
             results=(
                 Vulnerability(
-                    finding=FindingEnum.F0034,
+                    finding=FindingEnum.F034,
                     integrates_metadata=IntegratesVulnerabilityMetadata(
                         source=VulnerabilitySourceEnum.SKIMS,
                     ),
@@ -134,7 +134,7 @@ async def test_statefull(
 
     assert any(
         (
-            vulnerability.finding == FindingEnum.F0034
+            vulnerability.finding == FindingEnum.F034
             and vulnerability.integrates_metadata
             and vulnerability.integrates_metadata.approval_status == (
                 VulnerabilityApprovalStatusEnum.PENDING
@@ -149,7 +149,7 @@ async def test_statefull(
             and vulnerability.where == '123'
         )
         for vulnerability in await get_finding_vulnerabilities(
-            finding=FindingEnum.F0034,
+            finding=FindingEnum.F034,
             finding_id=finding_id,
         )
     )

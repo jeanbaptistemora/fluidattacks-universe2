@@ -14,7 +14,7 @@ from typing import (
 
 # Local imports
 from lib_path import (
-    f0034,
+    f034,
 )
 from utils.aio import (
     materialize,
@@ -66,7 +66,7 @@ async def analyze_one_path(path: str) -> Tuple[Vulnerability, ...]:
                 path=path,
             )
             for module in (
-                f0034,
+                f034,
             )
         )
     ))

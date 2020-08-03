@@ -34,14 +34,14 @@ class FindingMetadata(NamedTuple):
 
 
 class FindingEnum(Enum):
-    F0034: FindingMetadata = FindingMetadata(
+    F034: FindingMetadata = FindingMetadata(
         cwe='330',
-        description='utils.model.finding.enum.f0034.description',
-        impact='utils.model.finding.enum.f0034.impact',
-        recommendation='utils.model.finding.enum.f0034.recommendation',
-        requirements='utils.model.finding.enum.f0034.requirements',
-        risk='utils.model.finding.enum.f0034.risk',
-        threat='utils.model.finding.enum.f0034.threat',
+        description='utils.model.finding.enum.f034.description',
+        impact='utils.model.finding.enum.f034.impact',
+        recommendation='utils.model.finding.enum.f034.recommendation',
+        requirements='utils.model.finding.enum.f034.requirements',
+        risk='utils.model.finding.enum.f034.risk',
+        threat='utils.model.finding.enum.f034.threat',
         severity={
             'attackComplexity': 0.44,
             'attackVector': 0.85,
@@ -66,7 +66,7 @@ class FindingEnum(Enum):
             'severityScope': 0.0,
             'userInteraction': 0.85,
         },
-        title='utils.model.finding.enum.f0034.title',
+        title='utils.model.finding.enum.f034.title',
         type=FindingTypeEnum.SECURITY,
     )
 

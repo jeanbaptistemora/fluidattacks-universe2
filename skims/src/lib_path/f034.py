@@ -66,10 +66,10 @@ def _csharp_insecure_randoms(
         char_to_yx_map=char_to_yx_map,
         content=content,
         description=t(
-            key='src.lib_path.f0034.csharp_insecure_randoms.description',
+            key='src.lib_path.f034.csharp_insecure_randoms.description',
             path=path,
         ),
-        finding=FindingEnum.F0034,
+        finding=FindingEnum.F034,
         grammar=grammar,
         path=path,
     )
@@ -114,10 +114,10 @@ def _java_use_of_lang_math_random(
         char_to_yx_map=char_to_yx_map,
         content=content,
         description=t(
-            key='src.lib_path.f0034.java_use_of_lang_math_random.description',
+            key='src.lib_path.f034.java_use_of_lang_math_random.description',
             path=path,
         ),
-        finding=FindingEnum.F0034,
+        finding=FindingEnum.F034,
         grammar=grammar_lang_math_random,
         path=path,
     )
@@ -162,10 +162,10 @@ def _java_use_of_util_random(
         char_to_yx_map=char_to_yx_map,
         content=content,
         description=t(
-            key='src.lib_path.f0034.java_use_of_util_random.description',
+            key='src.lib_path.f034.java_use_of_util_random.description',
             path=path,
         ),
-        finding=FindingEnum.F0034,
+        finding=FindingEnum.F034,
         grammar=grammar_util_random,
         path=path,
     )
@@ -199,10 +199,10 @@ def _javascript_insecure_randoms(
         char_to_yx_map=char_to_yx_map,
         content=content,
         description=t(
-            key='src.lib_path.f0034.javascript_insecure_randoms.description',
+            key='src.lib_path.f034.javascript_insecure_randoms.description',
             path=path,
         ),
-        finding=FindingEnum.F0034,
+        finding=FindingEnum.F034,
         grammar=grammar,
         path=path,
     )
