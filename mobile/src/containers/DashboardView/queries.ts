@@ -9,7 +9,6 @@ export const ORGS_QUERY: DocumentNode = gql`{
         documentType: "singleValueIndicator"
       )
       name
-      totalGroups
     }
   }
 }`;

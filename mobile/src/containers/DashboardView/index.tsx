@@ -118,9 +118,9 @@ const dashboardView: React.FunctionComponent = (): JSX.Element => {
     analytics: {
       current: { closed: 0, open: 0 },
       previous: { closed: 0, open: 0 },
+      totalGroups: 0,
     },
     name: "",
-    totalGroups: 0,
   };
   const orgs: IOrganization[] = _.isUndefined(data) || _.isEmpty(data)
     ? [emptyOrg]

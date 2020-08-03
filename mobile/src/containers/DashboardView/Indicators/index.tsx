@@ -21,12 +21,12 @@ interface IIndicators {
 
 type CalcIndicatorsFn = ((
   org: IOrganization,
-  kind: keyof IOrganization["analytics"],
+  kind: "current" | "previous",
 ) => IIndicators);
 
 const calcIndicators: CalcIndicatorsFn = (
   org: IOrganization,
-  kind: keyof IOrganization["analytics"],
+  kind: "current" | "previous",
 ): IIndicators => {
   const closedVulns: number = org.analytics[kind].closed;
 
@@ -55,6 +55,7 @@ const indicators: React.FC<IIndicatorsProps> = (
   const { colors } = useTheme();
   const { t } = useTranslation();
 
+  const { totalGroups } = org.analytics;
   const current: IIndicators = calcIndicators(org, "current");
   const previous: IIndicators = calcIndicators(org, "previous");
   const percentageDiff: number =
@@ -96,7 +97,7 @@ const indicators: React.FC<IIndicatorsProps> = (
           {t("dashboard.remediated")}
         </Headline>
         <Subheading>
-          <Trans i18nKey="dashboard.vulnsFound" count={org.totalGroups}>
+          <Trans i18nKey="dashboard.vulnsFound" count={totalGroups}>
             <Title>{{ totalVulns: current.total.toLocaleString() }}</Title>
           </Trans>
         </Subheading>

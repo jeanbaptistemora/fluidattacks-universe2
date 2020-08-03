@@ -72,10 +72,10 @@ def get_totals_by_week(
 
 
 async def generate_one(groups: List[str]):
-    groups_data = filter(
+    groups_data = list(filter(
         lambda group: group['attrs'].get('project_status') == 'ACTIVE',
         await GroupLoader().load_many(groups)
-    )
+    ))
 
     current_rolling_week = datetime.now()
     previous_rolling_week = current_rolling_week - timedelta(days=7)
@@ -106,14 +106,15 @@ async def generate_one(groups: List[str]):
         total_current_closed += currently_closed
 
     return {
-        'previous': {
-            'closed': total_previous_closed,
-            'open': total_previous_open,
-        },
         'current': {
             'closed': total_current_closed,
             'open': total_current_open,
         },
+        'previous': {
+            'closed': total_previous_closed,
+            'open': total_previous_open,
+        },
+        'totalGroups': len(groups_data)
     }
 
 

@@ -11,9 +11,9 @@ export interface IOrganization {
       closed: number;
       open: number;
     };
+    totalGroups: number;
   };
   name: string;
-  totalGroups: number;
 }
 
 /**
