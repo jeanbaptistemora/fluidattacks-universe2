@@ -64,10 +64,10 @@ describe("Finding Description", () => {
 
   it("should render a component", async () => {
     const wrapper: ReactWrapper = mount(
-      <MemoryRouter initialEntries={["/TEST/findings/413372600/description"]}>
+      <MemoryRouter initialEntries={["/TEST/vulns/413372600/description"]}>
         <Provider store={store}>
           <MockedProvider mocks={[descriptionQuery]} addTypename={false}>
-            <Route path="/:projectName/findings/:findingId/description" component={DescriptionView} />
+            <Route path="/:projectName/vulns/:findingId/description" component={DescriptionView} />
           </MockedProvider>
         </Provider>
       </MemoryRouter>,
@@ -90,11 +90,11 @@ describe("Finding Description", () => {
       { action: "backend_api_resolvers_finding__do_update_client_description" },
     ]);
     const wrapper: ReactWrapper = mount(
-      <MemoryRouter initialEntries={["/TEST/findings/413372600/description"]}>
+      <MemoryRouter initialEntries={["/TEST/vulns/413372600/description"]}>
         <Provider store={store}>
           <MockedProvider mocks={[descriptionQuery]} addTypename={false}>
             <authzPermissionsContext.Provider value={mockedPermissions}>
-              <Route path="/:projectName/findings/:findingId/description" component={DescriptionView} />
+              <Route path="/:projectName/vulns/:findingId/description" component={DescriptionView} />
             </authzPermissionsContext.Provider>
           </MockedProvider>
         </Provider>

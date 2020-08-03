@@ -109,7 +109,7 @@ async def generate_report(project: str, **kwargs: str) -> Dict[str, Any]:
             'where': vuln['where'],
             'specific': vuln['specific'],
             'URL': ('https://fluidattacks.com/integrates/groups/'
-                    f'{project}/findings/{vuln["findingId"]}'),
+                    f'{project}/vulns/{vuln["findingId"]}'),
             'state': state,
             'exploitability': findings_dict[find_id]['exploitability']
         }

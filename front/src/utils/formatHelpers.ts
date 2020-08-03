@@ -539,6 +539,8 @@ export const stylizeBreadcrumbItem: (item: string) => string = (item: string): s
   switch (item) {
     case "devsecops":
       return "DevSecOps";
+    case "vulns":
+      return "Vulnerabilities";
     default:
       return _.capitalize(item);
   }

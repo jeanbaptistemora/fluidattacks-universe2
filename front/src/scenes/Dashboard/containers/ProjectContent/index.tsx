@@ -38,7 +38,7 @@ const projectContent: React.FC<IProjectContentProps> = (props: IProjectContentPr
                   <ContentTab
                     icon="icon pe-7s-light"
                     id="findingsTab"
-                    link={`${props.match.url}/findings`}
+                    link={`${props.match.url}/vulns`}
                     title={translate.t("group.tabs.findings.text")}
                     tooltip={translate.t("group.tabs.findings.tooltip")}
                   />
@@ -106,7 +106,7 @@ const projectContent: React.FC<IProjectContentProps> = (props: IProjectContentPr
                 <Switch>
                   <Route path={`${props.match.path}/authors`} component={ProjectAuthorsView} exact={true} />
                   <Route path={`${props.match.path}/analytics`} component={ChartsForGroupView} exact={true} />
-                  <Route path={`${props.match.path}/findings`} component={ProjectFindingsView} exact={true} />
+                  <Route path={`${props.match.path}/vulns`} component={ProjectFindingsView} exact={true} />
                   <Route path={`${props.match.path}/drafts`} component={ProjectDraftsView} exact={true} />
                   <Route path={`${props.match.path}/devsecops`} component={ProjectForcesView} exact={true} />
                   <Route path={`${props.match.path}/events`} component={ProjectEventsView} exact={true} />

@@ -565,13 +565,13 @@ const tagsInfo: React.FC<TagsProps> = (props: TagsProps): JSX.Element => {
   const projectWithLastClosingVuln: string = getLastClosingVulnProject(data.tag.projects);
   const findingIdWithLastClosingVuln: string = getLastClosingVulnFindingId(data.tag.projects);
   const goToProjectMaxSeverityFinding: (() => void) = (): void => {
-    push(`/groups/${projectWithMaxSeverity.toLowerCase()}/findings/${findingIdWithMaxSeverity}/description`);
+    push(`/groups/${projectWithMaxSeverity.toLowerCase()}/vulns/${findingIdWithMaxSeverity}/description`);
   };
   const goToProjectMaxOpenSeverityFinding: (() => void) = (): void => {
-    push(`/groups/${projectWithMaxOpenSeverity.toLowerCase()}/findings/${findingIdWithMaxOpenSeverity}/description`);
+    push(`/groups/${projectWithMaxOpenSeverity.toLowerCase()}/vulns/${findingIdWithMaxOpenSeverity}/description`);
   };
   const goToProjectFindingTracking: (() => void) = (): void => {
-    push(`/groups/${projectWithLastClosingVuln.toLowerCase()}/findings/${findingIdWithLastClosingVuln}/tracking`);
+    push(`/groups/${projectWithLastClosingVuln.toLowerCase()}/vulns/${findingIdWithLastClosingVuln}/tracking`);
   };
 
   return (

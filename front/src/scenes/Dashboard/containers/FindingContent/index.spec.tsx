@@ -193,7 +193,7 @@ describe("FindingContent", () => {
       { action: "has_forces" },
     ]);
     const wrapper: ReactWrapper = mount(
-      <MemoryRouter initialEntries={["/project/TEST/findings/438679960/description"]}>
+      <MemoryRouter initialEntries={["/project/TEST/vulns/438679960/description"]}>
         <Provider store={store}>
           <MockedProvider mocks={[findingMock]} addTypename={false}>
             <authzPermissionsContext.Provider value={mockedPermissions}>
@@ -218,7 +218,7 @@ describe("FindingContent", () => {
       { action: "has_forces" },
     ]);
     const wrapper: ReactWrapper = mount(
-      <MemoryRouter initialEntries={["/project/TEST/findings/438679960/description"]}>
+      <MemoryRouter initialEntries={["/project/TEST/vulns/438679960/description"]}>
         <Provider store={store}>
           <MockedProvider mocks={[findingMock]} addTypename={false}>
             <authzPermissionsContext.Provider value={mockedPermissions}>
@@ -241,7 +241,7 @@ describe("FindingContent", () => {
       { action: "backend_api_resolvers_finding__get_historic_state" },
     ]);
     const wrapper: ReactWrapper = mount(
-      <MemoryRouter initialEntries={["/project/TEST/findings/438679960/description"]}>
+      <MemoryRouter initialEntries={["/project/TEST/vulns/438679960/description"]}>
         <Provider store={store}>
           <MockedProvider mocks={[draftMock]} addTypename={false}>
             <authzPermissionsContext.Provider value={mockedPermissions}>
@@ -265,7 +265,7 @@ describe("FindingContent", () => {
       { action: "has_forces" },
     ]);
     const wrapper: ReactWrapper = mount(
-      <MemoryRouter initialEntries={["/project/TEST/findings/438679960/description"]}>
+      <MemoryRouter initialEntries={["/project/TEST/vulns/438679960/description"]}>
         <Provider store={store}>
           <MockedProvider mocks={[draftMock]} addTypename={false}>
             <authzPermissionsContext.Provider value={mockedPermissions}>
@@ -292,7 +292,7 @@ describe("FindingContent", () => {
       { action: "has_forces" },
     ]);
     const wrapper: ReactWrapper = mount(
-      <MemoryRouter initialEntries={["/project/TEST/findings/438679960/description"]}>
+      <MemoryRouter initialEntries={["/project/TEST/vulns/438679960/description"]}>
         <Provider store={store}>
           <MockedProvider mocks={[draftMock]} addTypename={false}>
             <authzPermissionsContext.Provider value={mockedPermissions}>
@@ -323,7 +323,7 @@ describe("FindingContent", () => {
       { action: "has_forces" },
     ]);
     const wrapper: ReactWrapper = mount(
-      <MemoryRouter initialEntries={["/project/TEST/findings/438679960/description"]}>
+      <MemoryRouter initialEntries={["/project/TEST/vulns/438679960/description"]}>
         <Provider store={store}>
           <MockedProvider mocks={[findingMock]} addTypename={false}>
             <authzPermissionsContext.Provider value={mockedPermissions}>
@@ -384,7 +384,7 @@ describe("FindingContent", () => {
       { action: "has_forces" },
     ]);
     const wrapper: ReactWrapper = mount(
-      <MemoryRouter initialEntries={["/project/TEST/findings/438679960/description"]}>
+      <MemoryRouter initialEntries={["/project/TEST/vulns/438679960/description"]}>
         <Provider store={store}>
           <MockedProvider mocks={[draftMock, submitMutationMock, submittedDraftMock]} addTypename={false}>
             <authzPermissionsContext.Provider value={mockedPermissions}>
@@ -443,7 +443,7 @@ describe("FindingContent", () => {
       { action: "has_forces" },
     ]);
     const wrapper: ReactWrapper = mount(
-      <MemoryRouter initialEntries={["/project/TEST/findings/438679960/description"]}>
+      <MemoryRouter initialEntries={["/project/TEST/vulns/438679960/description"]}>
         <Provider store={store}>
           <MockedProvider mocks={[draftMock, submitErrorMock, draftMock]} addTypename={false}>
             <authzPermissionsContext.Provider value={mockedPermissions}>
@@ -492,7 +492,7 @@ describe("FindingContent", () => {
       { action: "has_forces" },
     ]);
     const wrapper: ReactWrapper = mount(
-      <MemoryRouter initialEntries={["/project/TEST/findings/438679960/description"]}>
+      <MemoryRouter initialEntries={["/project/TEST/vulns/438679960/description"]}>
         <Provider store={store}>
           <MockedProvider mocks={[submittedDraftMock, approveMutationMock, findingMock]} addTypename={false}>
             <authzPermissionsContext.Provider value={mockedPermissions}>
@@ -565,7 +565,7 @@ describe("FindingContent", () => {
       { action: "has_forces" },
     ]);
     const wrapper: ReactWrapper = mount(
-      <MemoryRouter initialEntries={["/project/TEST/findings/438679960/description"]}>
+      <MemoryRouter initialEntries={["/project/TEST/vulns/438679960/description"]}>
         <Provider store={store}>
           <MockedProvider mocks={[submittedDraftMock, approveErrorMock, submittedDraftMock]} addTypename={false}>
             <authzPermissionsContext.Provider value={mockedPermissions}>
@@ -624,7 +624,7 @@ describe("FindingContent", () => {
       { action: "has_forces" },
     ]);
     const wrapper: ReactWrapper = mount(
-      <MemoryRouter initialEntries={["/project/TEST/findings/438679960/description"]}>
+      <MemoryRouter initialEntries={["/project/TEST/vulns/438679960/description"]}>
         <Provider store={store}>
           <MockedProvider mocks={[submittedDraftMock, rejectMutationMock, findingMock]} addTypename={false}>
             <authzPermissionsContext.Provider value={mockedPermissions}>
@@ -696,7 +696,7 @@ describe("FindingContent", () => {
       { action: "has_forces" },
     ]);
     const wrapper: ReactWrapper = mount(
-      <MemoryRouter initialEntries={["/project/TEST/findings/438679960/description"]}>
+      <MemoryRouter initialEntries={["/project/TEST/vulns/438679960/description"]}>
         <Provider store={store}>
           <MockedProvider mocks={[submittedDraftMock, rejectErrorMock, submittedDraftMock]} addTypename={false}>
             <authzPermissionsContext.Provider value={mockedPermissions}>
@@ -756,7 +756,7 @@ describe("FindingContent", () => {
       { action: "has_forces" },
     ]);
     const wrapper: ReactWrapper = mount(
-      <MemoryRouter initialEntries={["/project/test/findings/438679960/description"]}>
+      <MemoryRouter initialEntries={["/project/test/vulns/438679960/description"]}>
         <Provider store={store}>
           <MockedProvider mocks={[findingMock, deleteMutationMock]} addTypename={false}>
             <authzPermissionsContext.Provider value={mockedPermissions}>
@@ -784,7 +784,7 @@ describe("FindingContent", () => {
     expect(msgSuccess)
       .toHaveBeenCalled();
     expect(mockHistoryReplace)
-      .toHaveBeenCalledWith("/groups/test/findings");
+      .toHaveBeenCalledWith("/groups/test/vulns");
   });
 
   it("should handle deletion errors", async () => {
@@ -811,7 +811,7 @@ describe("FindingContent", () => {
       { action: "has_forces" },
     ]);
     const wrapper: ReactWrapper = mount(
-      <MemoryRouter initialEntries={["/project/TEST/findings/438679960/description"]}>
+      <MemoryRouter initialEntries={["/project/TEST/vulns/438679960/description"]}>
         <Provider store={store}>
           <MockedProvider mocks={[findingMock, deleteMutationMock]} addTypename={false}>
             <authzPermissionsContext.Provider value={mockedPermissions}>

@@ -285,7 +285,7 @@ class CreatorPDF():
             'ports': words['ports'],
             'user': user,
             'date': time.strftime('%Y-%m-%d at %H:%M'),
-            'link': f'{BASE_URL}/groups/{project}/findings'
+            'link': f'{BASE_URL}/groups/{project}/vulns'
         }
 
 

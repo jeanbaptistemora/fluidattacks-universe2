@@ -151,7 +151,7 @@ class ViewTestCase(unittest.TestCase):
 
     def test_04_findings(self):
         selenium = self.__login()
-        selenium.get(self.url + '/groups/UNITTESTING/findings')
+        selenium.get(self.url + '/groups/UNITTESTING/vulns')
         WebDriverWait(selenium, self.delay).until(
             expected.presence_of_element_located(
                 (By.XPATH,
@@ -161,7 +161,7 @@ class ViewTestCase(unittest.TestCase):
 
     def test_05_finding(self):
         selenium = self.__login()
-        selenium.get(self.url + '/project/unittesting/findings')
+        selenium.get(self.url + '/project/unittesting/vulns')
         finding_elem = WebDriverWait(selenium, self.delay).until(
             expected.presence_of_element_located(
                 (By.XPATH,
@@ -205,7 +205,7 @@ class ViewTestCase(unittest.TestCase):
 
     def test_06_severity(self):
         selenium = self.__login()
-        selenium.get(self.url + '/groups/UNITTESTING/findings')
+        selenium.get(self.url + '/groups/UNITTESTING/vulns')
         finding_elem = WebDriverWait(selenium, self.delay).until(
             expected.presence_of_element_located(
                 (By.XPATH,
@@ -229,7 +229,7 @@ class ViewTestCase(unittest.TestCase):
 
     def test_07_evidence(self):
         selenium = self.__login()
-        selenium.get(self.url + '/project/unittesting/findings')
+        selenium.get(self.url + '/project/unittesting/vulns')
         finding_elem = WebDriverWait(selenium, self.delay).until(
             expected.presence_of_element_located(
                 (By.XPATH,
@@ -254,7 +254,7 @@ class ViewTestCase(unittest.TestCase):
 
     def test_08_exploit(self):
         selenium = self.__login()
-        selenium.get(self.url + '/groups/UNITTESTING/findings')
+        selenium.get(self.url + '/groups/UNITTESTING/vulns')
         finding_elem = WebDriverWait(selenium, self.delay).until(
             expected.presence_of_element_located(
                 (By.XPATH,
@@ -277,7 +277,7 @@ class ViewTestCase(unittest.TestCase):
 
     def test_09_tracking(self):
         selenium = self.__login()
-        selenium.get(self.url + '/project/unittesting/findings')
+        selenium.get(self.url + '/project/unittesting/vulns')
         finding_elem = WebDriverWait(selenium, self.delay).until(
             expected.presence_of_element_located(
                 (By.XPATH,
@@ -301,7 +301,7 @@ class ViewTestCase(unittest.TestCase):
 
     def test_10_comments(self):
         selenium = self.__login()
-        selenium.get(self.url + '/groups/UNITTESTING/findings')
+        selenium.get(self.url + '/groups/UNITTESTING/vulns')
         finding_elem = WebDriverWait(selenium, self.delay).until(
             expected.presence_of_element_located(
                 (By.XPATH,
@@ -324,7 +324,7 @@ class ViewTestCase(unittest.TestCase):
 
     def test_11_techpdf(self):
         selenium = self.__login()
-        selenium.get(self.url + '/project/unittesting/findings')
+        selenium.get(self.url + '/project/unittesting/vulns')
         WebDriverWait(selenium, self.delay).until(
             expected.presence_of_element_located(
                 (By.XPATH,
@@ -490,7 +490,7 @@ class ViewTestCase(unittest.TestCase):
             "//*[contains(text(), 'This group is expected to be removed')]").text
         assert 'Group pending to delete' in selenium.page_source
 
-        selenium.get(self.url + '/dashboard#!/project/PENDINGPROJECT/findings')
+        selenium.get(self.url + '/dashboard#!/project/PENDINGPROJECT/vulns')
         WebDriverWait(selenium, self.delay).until(
             expected.presence_of_element_located(
                 (By.XPATH, "//*[contains(text(), 'Cancel group deletion')]")))

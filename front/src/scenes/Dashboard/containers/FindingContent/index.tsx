@@ -185,7 +185,7 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
           translate.t("search_findings.finding_deleted", { findingId }),
           translate.t("group.drafts.title_success"),
         );
-        replace(`/groups/${projectName}/findings`);
+        replace(`/groups/${projectName}/vulns`);
       }
     },
     onError: ({ graphQLErrors }: ApolloError): void => {

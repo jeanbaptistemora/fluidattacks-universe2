@@ -162,9 +162,9 @@ const projectRoute: React.FC<IProjectRoute> = (props: IProjectRoute): JSX.Elemen
         <React.Fragment>
           <Switch>
             <Route path={`${path}/events/:eventId(\\d+)`} component={EventContent} />
-            <Route path={`${path}/:type(findings|drafts)/:findingId(\\d+)`} component={FindingContent} />
+            <Route path={`${path}/:type(vulns|drafts)/:findingId(\\d+)`} component={FindingContent} />
             {/* Necessary to support legacy URLs before finding had its own path */}
-            <Redirect path={`${path}/:findingId(\\d+)`} to={`${path}/findings/:findingId(\\d+)`} />
+            <Redirect path={`${path}/:findingId(\\d+)`} to={`${path}/vulns/:findingId(\\d+)`} />
             <Route path={path} component={ProjectContent} />
           </Switch>
         </React.Fragment>

@@ -442,7 +442,7 @@ def send_finding_verified_email(
             'finding_name': finding_name,
             'finding_url': (
                 f'{BASE_URL}/groups/{project_name}'
-                f'/findings/{finding_id}/tracking'
+                f'/vulns/{finding_id}/tracking'
             ),
             'finding_id': finding_id
         }))

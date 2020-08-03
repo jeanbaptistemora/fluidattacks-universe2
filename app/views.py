@@ -355,7 +355,7 @@ def get_evidence(
         return error
 
     username = request.session['username']
-    if ((evidence_type in ['drafts', 'findings'] and
+    if ((evidence_type in ['drafts', 'findings', 'vulns'] and
          has_access_to_finding(username, findingid)) or
         (evidence_type == 'events' and
          has_access_to_event(username, findingid))):
