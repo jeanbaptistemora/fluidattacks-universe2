@@ -673,6 +673,11 @@ export const enTranslations: ResourceKey = {
       },
       portfolios: {
         remainingDescription: "and {{remaining}} more",
+        table: {
+          groups: "Groups",
+          n_groups: "# of Groups",
+          portfolio: "Portfolio",
+        },
         text: "Portfolios",
         tooltip:
           "Classify groups using tags and have overall indicators of those tags",

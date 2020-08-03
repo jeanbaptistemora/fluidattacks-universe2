@@ -36,7 +36,11 @@ const organizationPortfolios: React.FC<IOrganizationPortfoliosProps> =
     const formatPortfolioTableData: ((portfolios: IPortfolios[]) => IPortfoliosTable[]) =
         (portfolios: IPortfolios[]): IPortfoliosTable[] => (
       portfolios.map((portfolio: IPortfolios) => (
-        { name: portfolio.name, projects: formatPortfolioDescription(portfolio.projects) }),
+        {
+          groups: formatPortfolioDescription(portfolio.projects),
+          n_groups: portfolio.projects.length,
+          portfolio: portfolio.name,
+        }),
       )
     );
 
@@ -55,29 +59,14 @@ const organizationPortfolios: React.FC<IOrganizationPortfoliosProps> =
 
     // Render Elements
     const tableHeaders: IHeaderConfig[] = [
-      { dataField: "name", header: "Tag" },
-      { dataField: "projects", header: "Projects" },
+      { dataField: "portfolio", header: translate.t("organization.tabs.portfolios.table.portfolio") },
+      { dataField: "n_groups", header: translate.t("organization.tabs.portfolios.table.n_groups") },
+      { dataField: "groups", header: translate.t("organization.tabs.portfolios.table.groups") },
     ];
 
     return (
       <React.StrictMode>
         <div className={style.container}>
-          <Row>
-            <Col sm={12}>
-              <ButtonToolbar className={style.displayOptions}>
-                <ToggleButtonGroup
-                  defaultValue="grid"
-                  name="displayOptions"
-                  onChange={handleDisplayChange}
-                  type="radio"
-                  value={display.mode}
-                >
-                  <ToggleButton value="grid"><Glyphicon glyph="th" /></ToggleButton>
-                  <ToggleButton value="list"><Glyphicon glyph="th-list" /></ToggleButton>
-                </ToggleButtonGroup>
-              </ButtonToolbar>
-            </Col>
-          </Row>
           {_.isEmpty(portfoliosList)
             ? <React.Fragment />
             : (
@@ -85,31 +74,16 @@ const organizationPortfolios: React.FC<IOrganizationPortfoliosProps> =
                 <Row>
                   <Col md={12}>
                     <Row className={style.content}>
-                      {display.mode === "grid"
-                        ? portfoliosList.map(
-                            (portfolio: IPortfolios, index: number): JSX.Element => (
-                              <Col md={3} key={index}>
-                                <ProjectBox
-                                  name={portfolio.name.toUpperCase()}
-                                  description={formatPortfolioDescription(portfolio.projects)}
-                                  onClick={goToPortfolio}
-                                />
-                              </Col>
-                            ),
-                          )
-                        : (
-                          <DataTableNext
-                            bordered={true}
-                            dataset={formatPortfolioTableData(portfoliosList)}
-                            exportCsv={false}
-                            headers={tableHeaders}
-                            id="tblGroups"
-                            pageSize={15}
-                            rowEvents={{ onClick: handleRowClick }}
-                            search={true}
-                          />
-                        )
-                      }
+                      <DataTableNext
+                        bordered={true}
+                        dataset={formatPortfolioTableData(portfoliosList)}
+                        exportCsv={false}
+                        headers={tableHeaders}
+                        id="tblGroups"
+                        pageSize={15}
+                        rowEvents={{ onClick: handleRowClick }}
+                        search={true}
+                      />
                     </Row>
                   </Col>
                 </Row>

@@ -8,6 +8,7 @@ export interface IPortfolios {
 }
 
 export interface IPortfoliosTable {
-    name: string;
-    projects: string;
+    groups: string;
+    n_groups: number;
+    portfolio: string;
 }
