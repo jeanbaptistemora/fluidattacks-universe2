@@ -35,10 +35,14 @@ RETRY: Callable[[TVar], TVar] = retry(
 )
 RE_CVE: Pattern = re.compile(r'vuln-detail-link-[0-9]+">(CVE-[0-9-]+)</a>')
 RE_DESCRIPTION: Pattern = re.compile(r'vuln-summary-[0-9]+">([^<]*?)</p>')
+RE_CVSS: Pattern = re.compile(
+    r'vuln-cvss3-link-[0-9]+">([0-9.]*?) [A-Z]+</a>|\(not available\)',
+)
 
 
 class CVE(NamedTuple):
     code: str
+    cvss: str
     description: str
     url: str
 
@@ -57,7 +61,7 @@ async def get_vulnerabilities(
         version=version,
     )
 
-    await log('info', 'cpe: %s', cpe)
+    await log('debug', 'cpe: %s', cpe)
 
     async with aiohttp.ClientSession(
         timeout=aiohttp.ClientTimeout(total=60.0),
@@ -70,11 +74,13 @@ async def get_vulnerabilities(
     return tuple(
         CVE(
             code=code,
+            cvss=cvss or '0.0',
             description=description,
             url=f'https://nvd.nist.gov/vuln/detail/{code}'
         )
-        for code, description in zip(
+        for code, cvss, description in zip(
             RE_CVE.findall(text),
+            RE_CVSS.findall(text),
             RE_DESCRIPTION.findall(text),
         )
     )
