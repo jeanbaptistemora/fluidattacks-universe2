@@ -28,6 +28,7 @@ packages = [
   { include = "integrates", from = "src" },
   { include = "lib_path", from = "src" },
   { include = "nvd", from = "src" },
+  { include = "parse_json", from = "src" },
   { include = "state", from = "src" },
   { include = "utils", from = "src" },
   { include = "zone", from = "src" },
@@ -42,6 +43,8 @@ aiogqlc = "1.0.5"
 aiohttp = "3.6.2"
 click = "7.1.2"
 confuse = "1.3.0"
+frozendict = "1.2"
+lark-parser = "0.9.0"
 more-itertools = "8.4.0"
 pillow = "7.2.0"
 pyparsing = "2.4.7"
