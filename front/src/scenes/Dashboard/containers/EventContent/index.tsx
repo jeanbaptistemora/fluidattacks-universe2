@@ -12,8 +12,8 @@ import React from "react";
 import { Col, Row } from "react-bootstrap";
 import { Redirect, Route, RouteComponentProps, Switch } from "react-router";
 import { NavLink } from "react-router-dom";
+import Logger from "../../../../utils/logger";
 import { msgError } from "../../../../utils/notifications";
-import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
 import { default as style } from "../../components/ContentTab/index.css";
 import { EventHeader } from "../../components/EventHeader";
@@ -32,7 +32,7 @@ const eventContent: React.FC<EventContentProps> = (props: EventContentProps): JS
   ): void => {
     graphQLErrors.forEach((error: GraphQLError): void => {
       msgError(translate.t("group_alerts.error_textsad"));
-      rollbar.error("An error occurred loading event header", error);
+      Logger.warning("An error occurred loading event header", error);
     });
   };
 

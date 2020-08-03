@@ -15,8 +15,8 @@ import { RouteComponentProps } from "react-router";
 import { GraphQLError } from "graphql";
 import { DataTableNext } from "../../../../components/DataTableNext/index";
 import { IHeaderConfig } from "../../../../components/DataTableNext/types";
+import Logger from "../../../../utils/logger";
 import { msgError } from "../../../../utils/notifications";
-import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
 import styles from "./index.css";
 import { GET_BILL } from "./queries";
@@ -94,7 +94,7 @@ const projectAuthorsView: React.FunctionComponent<ForcesViewProps> = (props: For
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
         msgError(translate.t("group_alerts.error_textsad"));
-        rollbar.error("An error occurred getting bill data", error);
+        Logger.warning("An error occurred getting bill data", error);
       });
     },
     variables: { date: billDate, projectName },

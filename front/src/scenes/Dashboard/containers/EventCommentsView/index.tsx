@@ -10,8 +10,8 @@ import { GraphQLError } from "graphql";
 import _ from "lodash";
 import React from "react";
 import { RouteComponentProps } from "react-router";
+import Logger from "../../../../utils/logger";
 import { msgError } from "../../../../utils/notifications";
-import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
 import { Comments, ICommentStructure, loadCallback, postCallback } from "../../components/Comments/index";
 import { ADD_EVENT_COMMENT, GET_EVENT_COMMENTS } from "./queries";
@@ -26,7 +26,7 @@ const eventCommentsView: React.FC<EventCommentsProps> = (props: EventCommentsPro
   ): void => {
     graphQLErrors.forEach((error: GraphQLError): void => {
       msgError(translate.t("group_alerts.error_textsad"));
-      rollbar.error("An error occurred loading event comments", error);
+      Logger.warning("An error occurred loading event comments", error);
     });
   };
 
@@ -55,7 +55,7 @@ const eventCommentsView: React.FC<EventCommentsProps> = (props: EventCommentsPro
                   break;
                 default:
                   msgError(translate.t("group_alerts.error_textsad"));
-                  rollbar.error("An error occurred posting event comment", addCommentError);
+                  Logger.warning("An error occurred posting event comment", addCommentError);
               }
             });
           };

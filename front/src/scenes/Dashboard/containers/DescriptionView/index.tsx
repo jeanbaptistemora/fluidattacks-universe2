@@ -25,8 +25,8 @@ import {
   formatCompromisedRecords, formatCweUrl, formatFindingType, getLastTreatment,
 } from "../../../../utils/formatHelpers";
 import { Dropdown, Text, TextArea } from "../../../../utils/forms/fields";
+import Logger from "../../../../utils/logger";
 import { msgError, msgSuccess } from "../../../../utils/notifications";
-import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
 import { maxLength, numeric, required, validDraftTitle, validTextField } from "../../../../utils/validations";
 import { EditableField } from "../../components/EditableField";
@@ -132,7 +132,7 @@ const descriptionView: React.FC = (): JSX.Element => {
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
         msgError(translate.t("group_alerts.error_textsad"));
-        rollbar.error("An error occurred loading finding description", error);
+        Logger.warning("An error occurred loading finding description", error);
       });
     },
     variables: {
@@ -163,7 +163,7 @@ const descriptionView: React.FC = (): JSX.Element => {
             break;
           default:
             msgError(translate.t("group_alerts.error_textsad"));
-            rollbar.error("An error occurred updating treatment", updateError);
+            Logger.warning("An error occurred updating treatment", updateError);
         }
       });
     },

@@ -11,8 +11,8 @@ import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React from "react";
 import { RouteComponentProps } from "react-router";
+import Logger from "../../../../utils/logger";
 import { msgError } from "../../../../utils/notifications";
-import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
 import { Comments, ICommentStructure, loadCallback, postCallback } from "../../components/Comments/index";
 import { ADD_FINDING_COMMENT, GET_FINDING_COMMENTS, GET_FINDING_OBSERVATIONS } from "./queries";
@@ -33,7 +33,7 @@ const commentsView: React.FC<ICommentsViewProps> = (props: ICommentsViewProps): 
   ): void => {
     graphQLErrors.forEach((error: GraphQLError): void => {
       msgError(translate.t("group_alerts.error_textsad"));
-      rollbar.error(`An error occurred loading finding ${type}`, error);
+      Logger.warning(`An error occurred loading finding ${type}`, error);
     });
   };
 
@@ -70,7 +70,7 @@ const commentsView: React.FC<ICommentsViewProps> = (props: ICommentsViewProps): 
                   break;
                 default:
                   msgError(translate.t("group_alerts.error_textsad"));
-                  rollbar.error(`An error occurred posting ${type}`, addCommentError);
+                  Logger.warning(`An error occurred posting ${type}`, addCommentError);
               }
             });
           };

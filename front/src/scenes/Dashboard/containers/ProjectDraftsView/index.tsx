@@ -22,8 +22,8 @@ import { Modal } from "../../../../components/Modal";
 import { TooltipWrapper } from "../../../../components/TooltipWrapper/index";
 import { formatDrafts } from "../../../../utils/formatHelpers";
 import { AutoCompleteText } from "../../../../utils/forms/fields";
+import Logger from "../../../../utils/logger";
 import { msgError, msgSuccess } from "../../../../utils/notifications";
-import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
 import { required, validDraftTitle } from "../../../../utils/validations";
 import { GenericForm } from "../../components/GenericForm";
@@ -146,7 +146,7 @@ const projectDraftsView: React.FC<IProjectDraftsBaseProps> = (props: IProjectDra
   ): void => {
     graphQLErrors.forEach((error: GraphQLError): void => {
       msgError(translate.t("group_alerts.error_textsad"));
-      rollbar.error("An error occurred getting project drafts", error);
+      Logger.warning("An error occurred getting project drafts", error);
     });
   };
 
@@ -188,7 +188,7 @@ const projectDraftsView: React.FC<IProjectDraftsBaseProps> = (props: IProjectDra
                   break;
                 default:
                   msgError(translate.t("group_alerts.error_textsad"));
-                  rollbar.error(
+                  Logger.warning(
                     "An error occurred getting project drafts",
                     error,
                   );

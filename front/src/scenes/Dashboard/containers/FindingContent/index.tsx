@@ -22,8 +22,8 @@ import { Can } from "../../../../utils/authz/Can";
 import { authzGroupContext, authzPermissionsContext } from "../../../../utils/authz/config";
 import { Have } from "../../../../utils/authz/Have";
 import { Dropdown } from "../../../../utils/forms/fields";
+import Logger from "../../../../utils/logger";
 import { msgError, msgSuccess } from "../../../../utils/notifications";
-import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
 import { required } from "../../../../utils/validations";
 import { ContentTab } from "../../components/ContentTab";
@@ -61,7 +61,7 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
         msgError(translate.t("group_alerts.error_textsad"));
-        rollbar.error("An error occurred loading finding header", error);
+        Logger.warning("An error occurred loading finding header", error);
       });
     },
     variables: {
@@ -99,7 +99,7 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
             .catch();
         } else {
           msgError(translate.t("group_alerts.error_textsad"));
-          rollbar.error("An error occurred submitting draft", submitError);
+          Logger.warning("An error occurred submitting draft", submitError);
         }
       });
     },
@@ -136,7 +136,7 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
             break;
           default:
             msgError(translate.t("group_alerts.error_textsad"));
-            rollbar.error("An error occurred approving draft", approveError);
+            Logger.warning("An error occurred approving draft", approveError);
         }
       });
     },
@@ -170,7 +170,7 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
             break;
           default:
             msgError(translate.t("group_alerts.error_textsad"));
-            rollbar.error("An error occurred rejecting draft", rejectError);
+            Logger.warning("An error occurred rejecting draft", rejectError);
         }
       });
     },
@@ -191,7 +191,7 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
         msgError(translate.t("group_alerts.error_textsad"));
-        rollbar.error("An error occurred deleting finding", error);
+        Logger.warning("An error occurred deleting finding", error);
       });
     },
   });

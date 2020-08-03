@@ -20,8 +20,8 @@ import { FluidIcon } from "../../../../../components/FluidIcon";
 import { Can } from "../../../../../utils/authz/Can";
 import { formatDropdownField, getLastTreatment, getPreviousTreatment } from "../../../../../utils/formatHelpers";
 import { Date, Dropdown, Text, TextArea } from "../../../../../utils/forms/fields";
+import Logger from "../../../../../utils/logger";
 import { msgError, msgSuccess } from "../../../../../utils/notifications";
-import rollbar from "../../../../../utils/rollbar";
 import translate from "../../../../../utils/translations/translate";
 import {
   isLowerDate, maxLength, required, validTextField, validUrlField,
@@ -102,7 +102,7 @@ const treatmentView: React.FC<ITreatmentViewProps> = (props: ITreatmentViewProps
             break;
           default:
             msgError(translate.t("group_alerts.error_textsad"));
-            rollbar.error("An error occurred updating treatment", updateError);
+            Logger.warning("An error occurred updating treatment", updateError);
         }
       });
     },
@@ -131,7 +131,7 @@ const treatmentView: React.FC<ITreatmentViewProps> = (props: ITreatmentViewProps
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
         msgError(translate.t("group_alerts.error_textsad"));
-        rollbar.error("An error occurred approving acceptation", error);
+        Logger.warning("An error occurred approving acceptation", error);
       });
     },
   });

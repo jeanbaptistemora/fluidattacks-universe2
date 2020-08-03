@@ -16,8 +16,8 @@ import { FluidIcon } from "../../../../components/FluidIcon";
 import { Modal } from "../../../../components/Modal";
 import { Can } from "../../../../utils/authz/Can";
 import { DateTime, Text } from "../../../../utils/forms/fields";
+import Logger from "../../../../utils/logger";
 import { msgError } from "../../../../utils/notifications";
-import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
 import { dateTimeBeforeToday, numeric, required, validDatetime } from "../../../../utils/validations";
 import { EditableField } from "../../components/EditableField";
@@ -51,7 +51,7 @@ const eventDescriptionView: React.FC<EventDescriptionProps> = (props: EventDescr
   ): void => {
     graphQLErrors.forEach((error: GraphQLError): void => {
       msgError(translate.t("group_alerts.error_textsad"));
-      rollbar.error("An error occurred loading event description", error);
+      Logger.warning("An error occurred loading event description", error);
     });
   };
 
@@ -76,7 +76,7 @@ const eventDescriptionView: React.FC<EventDescriptionProps> = (props: EventDescr
                   break;
                 default:
                   msgError(translate.t("group_alerts.error_textsad"));
-                  rollbar.error("An error occurred updating event", updateError);
+                  Logger.warning("An error occurred updating event", updateError);
               }
             });
           };

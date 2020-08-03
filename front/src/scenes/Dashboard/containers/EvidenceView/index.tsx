@@ -17,8 +17,8 @@ import { Button } from "../../../../components/Button";
 import { FluidIcon } from "../../../../components/FluidIcon";
 import { default as globalStyle } from "../../../../styles/global.css";
 import { Can } from "../../../../utils/authz/Can";
+import Logger from "../../../../utils/logger";
 import { msgError } from "../../../../utils/notifications";
-import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
 import { isValidFileSize, validEvidenceImage } from "../../../../utils/validations";
 import { evidenceImage as EvidenceImage } from "../../components/EvidenceImage/index";
@@ -53,7 +53,7 @@ const evidenceView: React.FC<EventEvidenceProps> = (props: EventEvidenceProps): 
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
         msgError(translate.t("group_alerts.error_textsad"));
-        rollbar.error("An error occurred loading finding evidences", error);
+        Logger.warning("An error occurred loading finding evidences", error);
       });
     },
     variables: { findingId },
@@ -65,7 +65,7 @@ const evidenceView: React.FC<EventEvidenceProps> = (props: EventEvidenceProps): 
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
         msgError(translate.t("group_alerts.error_textsad"));
-        rollbar.error("An error occurred removing finding evidences", error);
+        Logger.warning("An error occurred removing finding evidences", error);
       });
     },
   });
@@ -81,7 +81,7 @@ const evidenceView: React.FC<EventEvidenceProps> = (props: EventEvidenceProps): 
             break;
           default:
             msgError(translate.t("group_alerts.error_textsad"));
-            rollbar.error("An error occurred updating finding evidence", updateError);
+            Logger.warning("An error occurred updating finding evidence", updateError);
         }
       });
     },
@@ -102,7 +102,7 @@ const evidenceView: React.FC<EventEvidenceProps> = (props: EventEvidenceProps): 
             break;
           default:
             msgError(translate.t("group_alerts.error_textsad"));
-            rollbar.error("An error occurred updating finding evidence", updateError);
+            Logger.warning("An error occurred updating finding evidence", updateError);
         }
       });
     },

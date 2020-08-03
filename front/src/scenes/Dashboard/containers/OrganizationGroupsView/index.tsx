@@ -12,8 +12,8 @@ import { DataTableNext } from "../../../../components/DataTableNext/index";
 import { IHeaderConfig } from "../../../../components/DataTableNext/types";
 import { TooltipWrapper } from "../../../../components/TooltipWrapper/index";
 import { Can } from "../../../../utils/authz/Can";
+import Logger from "../../../../utils/logger";
 import { msgError } from "../../../../utils/notifications";
-import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
 import { AddProjectModal } from "../../components/AddProjectModal";
 import { default as style } from "./index.css";
@@ -42,7 +42,7 @@ const organizationGroups: React.FC<IOrganizationGroupsProps> = (props: IOrganiza
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
         msgError(translate.t("group_alerts.error_textsad"));
-        rollbar.error("An error occurred loading organization groups", error);
+        Logger.warning("An error occurred loading organization groups", error);
       });
     },
     variables: {

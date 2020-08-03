@@ -16,8 +16,8 @@ import { Badge } from "../../../../../../components/Badge";
 import { Button } from "../../../../../../components/Button";
 import { DropdownButton } from "../../../../../../components/DropdownButton";
 import { TooltipWrapper } from "../../../../../../components/TooltipWrapper";
+import Logger from "../../../../../../utils/logger";
 import { msgError, msgSuccess } from "../../../../../../utils/notifications";
-import rollbar from "../../../../../../utils/rollbar";
 import translate from "../../../../../../utils/translations/translate";
 import styles from "../../index.css";
 import {
@@ -61,7 +61,7 @@ const chartsGenericViewExtras: React.FC<IChartsGenericViewProps> = (props: IChar
       onError: ({ graphQLErrors }: ApolloError): void => {
         graphQLErrors.forEach((error: GraphQLError): void => {
           msgError(translate.t("group_alerts.error_textsad"));
-          rollbar.error("An error occurred loading subscriptions info", error);
+          Logger.warning("An error occurred loading subscriptions info", error);
         });
       },
     });
@@ -70,7 +70,7 @@ const chartsGenericViewExtras: React.FC<IChartsGenericViewProps> = (props: IChar
     onError: (updateError: ApolloError): void => {
       updateError.graphQLErrors.forEach(({ message }: GraphQLError): void => {
         msgError(translate.t("group_alerts.error_textsad"));
-        rollbar.error("An error occurred subscribing to charts", message);
+        Logger.warning("An error occurred subscribing to charts", message);
       });
     },
   });

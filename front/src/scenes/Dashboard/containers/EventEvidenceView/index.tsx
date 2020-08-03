@@ -16,8 +16,8 @@ import { Button } from "../../../../components/Button";
 import { FluidIcon } from "../../../../components/FluidIcon";
 import { default as globalStyle } from "../../../../styles/global.css";
 import { Can } from "../../../../utils/authz/Can";
+import Logger from "../../../../utils/logger";
 import { msgError } from "../../../../utils/notifications";
-import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
 import { isValidFileSize, validEventFile, validEvidenceImage } from "../../../../utils/validations";
 import { evidenceImage as EvidenceImage } from "../../components/EvidenceImage/index";
@@ -51,7 +51,7 @@ const eventEvidenceView: React.FC<EventEvidenceProps> = (props: EventEvidencePro
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
         msgError(translate.t("group_alerts.error_textsad"));
-        rollbar.error("An error occurred loading event evidences", error);
+        Logger.warning("An error occurred loading event evidences", error);
       });
     },
     variables: { eventId },
@@ -66,7 +66,7 @@ const eventEvidenceView: React.FC<EventEvidenceProps> = (props: EventEvidencePro
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
         msgError(translate.t("group_alerts.error_textsad"));
-        rollbar.error("An error occurred downloading event file", error);
+        Logger.warning("An error occurred downloading event file", error);
       });
     },
   });
@@ -75,7 +75,7 @@ const eventEvidenceView: React.FC<EventEvidenceProps> = (props: EventEvidencePro
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
         msgError(translate.t("group_alerts.error_textsad"));
-        rollbar.error("An error occurred removing event evidence", error);
+        Logger.warning("An error occurred removing event evidence", error);
       });
     },
   });
@@ -97,7 +97,7 @@ const eventEvidenceView: React.FC<EventEvidenceProps> = (props: EventEvidencePro
             break;
           default:
             msgError(translate.t("group_alerts.error_textsad"));
-            rollbar.error("An error occurred updating event evidence", updateError);
+            Logger.warning("An error occurred updating event evidence", updateError);
         }
       });
     },

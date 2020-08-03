@@ -9,8 +9,8 @@ import { Redirect, Route, Switch, useParams, useRouteMatch } from "react-router-
 import { default as globalStyle } from "../../../../styles/global.css";
 import { Can } from "../../../../utils/authz/Can";
 import { authzPermissionsContext } from "../../../../utils/authz/config";
+import Logger from "../../../../utils/logger";
 import { msgError } from "../../../../utils/notifications";
-import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
 import { ContentTab } from "../../components/ContentTab";
 import { GET_USER_PERMISSIONS } from "../../queries";
@@ -40,7 +40,7 @@ const organizationContent: React.FC<IOrganizationContent> = (props: IOrganizatio
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
         msgError(translate.t("group_alerts.error_textsad"));
-        rollbar.error("An error occurred fetching organization ID", error);
+        Logger.warning("An error occurred fetching organization ID", error);
       });
     },
     variables: {
@@ -52,7 +52,7 @@ const organizationContent: React.FC<IOrganizationContent> = (props: IOrganizatio
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
         msgError(translate.t("group_alerts.error_textsad"));
-        rollbar.error("An error occurred fetching user portfolios", error);
+        Logger.warning("An error occurred fetching user portfolios", error);
       });
     },
     skip: !basicData,
@@ -70,7 +70,7 @@ const organizationContent: React.FC<IOrganizationContent> = (props: IOrganizatio
     },
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((permissionsError: GraphQLError) => {
-        rollbar.critical(
+        Logger.error(
           "Couldn't load organization-level permissions",
           permissionsError,
         );
