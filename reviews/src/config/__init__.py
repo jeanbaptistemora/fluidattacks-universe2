@@ -4,7 +4,7 @@ from typing import Any, Dict, List
 # Third party libraries
 from dynaconf import Dynaconf, Validator
 
-def get_validators() -> List[Any]:
+def get_validators() -> List[Validator]:
 
     def dict_has_type_values(dictionary: Dict[str, Any], expected_type: type) -> bool:
         success: bool = True
@@ -13,7 +13,7 @@ def get_validators() -> List[Any]:
                 success = False
         return success
 
-    validators: List[Any] = [
+    validators: List[Validator] = [
         # base
         Validator('gitlab_url', 'tests', must_exist=True),
 
@@ -83,8 +83,8 @@ def get_validators() -> List[Any]:
     return validators
 
 
-def load(config_path: str) -> Any:
-    config = Dynaconf(
+def load(config_path: str) -> Dynaconf:
+    config: Dynaconf = Dynaconf(
         envvar_prefix='REVIEWS',
         settings_files=[config_path],
         validators=get_validators(),

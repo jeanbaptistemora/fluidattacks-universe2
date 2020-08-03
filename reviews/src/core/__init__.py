@@ -4,16 +4,17 @@ from functools import partial
 from typing import Any, List, Callable
 
 # Third party libraries
-import gitlab
+from gitlab import Gitlab
+from dynaconf import Dynaconf
 
 # Local libraries
 from core import tests
 from utils.logs import log
 
 
-def run_tests(config: Any) -> bool:
+def run_tests(config: Dynaconf) -> bool:
 
-    def get_mr(session: Any, project_id: str, mr_iid: str) -> Any:
+    def get_mr(session: Gitlab, project_id: str, mr_iid: str) -> Any:
         project: Any = session.projects.get(project_id)
         mr_info: Any = project.mergerequests.get(mr_iid, lazy=False)
         return mr_info
@@ -39,7 +40,7 @@ def run_tests(config: Any) -> bool:
         project_id: str = str(os.environ.get('CI_PROJECT_ID'))
         mr_iid: str = str(os.environ.get('CI_MERGE_REQUEST_IID'))
         token: str = str(os.environ.get('REVIEWS_TOKEN'))
-        session: Any = gitlab.Gitlab(gitlab_url, private_token=token)
+        session: Gitlab = Gitlab(gitlab_url, private_token=token)
         mr_info: Any = get_mr(session, project_id, mr_iid)
 
     if success and not tests.skip_ci(mr_info):
