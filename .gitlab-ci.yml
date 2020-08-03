@@ -657,6 +657,7 @@ forces_dynamic:
 forces_new:
   stage: post-deploy
   tags: [autoscaling]
+  needs: []
   image: fluidattacks/forces:new
   script:
     - forces --token "${INTEGRATES_API_TOKEN}" --strict --group daimon -vv
@@ -735,11 +736,9 @@ forces_test:
 forces_deploy:
   <<: *with_nix
   <<: *forces_in_master_branch
-  stage: build
+  stage: deploy-app
 
 forces_deploy_to_docker_hub:
   <<: *with_nix
   <<: *forces_in_master_branch
   stage: deploy-app
-  needs:
-    - forces_deploy

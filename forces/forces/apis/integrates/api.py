@@ -157,6 +157,7 @@ async def upload_report(project: str, report: Dict[str, Any], log: str,
                 vulnerabilities: {
                     exploits: $exploits,
                     acceptedExploits: $accepted,
+                    integratesExploits: [],
                     numOfVulnerabilitiesInAcceptedExploits: $num_accepted,
                     numOfVulnerabilitiesInExploits: $num_exploits,
                     numOfVulnerabilitiesInIntegratesExploits: 0
