@@ -1,18 +1,16 @@
 # Standard library
+import functools
 from os import (
     makedirs,
 )
 from os.path import (
     join,
 )
-from pickle import (  # nosec
-    UnpicklingError,
-)
 from typing import (
     Any,
+    cast,
     Awaitable,
     Callable,
-    Optional,
     Tuple,
     TypeVar,
 )
@@ -21,19 +19,21 @@ from typing import (
 import aiofiles
 
 # Local libraries
-from utils.encodings import (
-    py_dumps,
-    py_loads,
-)
 from utils.crypto import (
     get_hash,
 )
 from utils.function import (
     get_bound_arguments,
 )
+from utils.serialization import (
+    dump as py_dumps,
+    load as py_loads,
+    LoadError,
+)
 
 
 # Constants
+TFunc = TypeVar('TFunc', bound=Callable[..., Any])
 TVar = TypeVar('TVar')
 STATE_FOLDER: str = '.skims'
 CACHE_FOLDER: str = join(STATE_FOLDER, 'cache')
@@ -67,8 +67,8 @@ async def cache_store(key: Any, value: Any) -> None:
         await obj_store.write(obj_stream)
 
 
-async def caching(
-    function_cache_keys: Optional[Tuple[str, ...]],
+async def cache(
+    function_cache_keys: Tuple[str, ...],
     function: Callable[..., Awaitable[TVar]],
     *args: Any,
     **kwargs: Any,
@@ -85,16 +85,21 @@ async def caching(
 
     try:
         cache_value: TVar = await cache_read(cache_key)
-    except (FileNotFoundError, UnpicklingError):
+    except (FileNotFoundError, LoadError):
         cache_value = await function(*args, **kwargs)
         await cache_store(cache_key, cache_value)
 
     return cache_value
 
 
-async def caching_all_arguments(
-    function: Callable[..., Awaitable[TVar]],
-    *args: Any,
-    **kwargs: Any,
-) -> TVar:
-    return await caching(None, function, *args, **kwargs)
+def cache_decorator(*cache_keys: str) -> Callable[[TFunc], TFunc]:
+
+    def decorator(function: TFunc) -> TFunc:
+
+        @functools.wraps(function)
+        async def wrapper(*args: Any, **kwargs: Any) -> Any:
+            return await cache(cache_keys, function, *args, **kwargs)
+
+        return cast(TFunc, wrapper)
+
+    return decorator

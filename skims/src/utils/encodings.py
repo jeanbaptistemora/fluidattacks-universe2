@@ -1,7 +1,6 @@
 # Standard library
 from enum import Enum
 import json
-import pickle  # nosec
 from typing import (
     Any,
 )
@@ -12,7 +11,6 @@ from ruamel import yaml
 # Local libraries
 from utils.aio import (
     unblock,
-    unblock_cpu,
 )
 
 
@@ -45,14 +43,6 @@ async def simplify(obj: Any) -> Any:
 
 async def json_dumps(element: object, **kwargs: Any) -> str:
     return await unblock(json.dumps, await simplify(element), **kwargs)
-
-
-async def py_dumps(element: Any) -> bytes:
-    return await unblock_cpu(pickle.dumps, element)
-
-
-async def py_loads(stream: bytes) -> Any:
-    return await unblock_cpu(pickle.loads, stream)
 
 
 async def yaml_dumps(element: object, **kwargs: Any) -> str:

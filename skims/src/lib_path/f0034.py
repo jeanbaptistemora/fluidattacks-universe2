@@ -29,7 +29,7 @@ from lib_path.common import (
     SINGLE_QUOTED_STRING,
 )
 from state import (
-    caching_all_arguments,
+    cache_decorator,
 )
 from utils.aio import (
     materialize,
@@ -44,7 +44,7 @@ from zone import (
 )
 
 
-def csharp_insecure_randoms(
+def _csharp_insecure_randoms(
     char_to_yx_map: Dict[int, Tuple[int, int]],
     content: str,
     path: str,
@@ -75,7 +75,21 @@ def csharp_insecure_randoms(
     )
 
 
-def java_use_of_lang_math_random(
+@cache_decorator()
+async def csharp_insecure_randoms(
+    char_to_yx_map: Dict[int, Tuple[int, int]],
+    content: str,
+    path: str,
+) -> Tuple[Vulnerability, ...]:
+    return await unblock_cpu(
+        _csharp_insecure_randoms,
+        char_to_yx_map=char_to_yx_map,
+        content=content,
+        path=path,
+    )
+
+
+def _java_use_of_lang_math_random(
     char_to_yx_map: Dict[int, Tuple[int, int]],
     content: str,
     path: str,
@@ -109,7 +123,21 @@ def java_use_of_lang_math_random(
     )
 
 
-def java_use_of_util_random(
+@cache_decorator()
+async def java_use_of_lang_math_random(
+    char_to_yx_map: Dict[int, Tuple[int, int]],
+    content: str,
+    path: str,
+) -> Tuple[Vulnerability, ...]:
+    return await unblock_cpu(
+        _java_use_of_lang_math_random,
+        char_to_yx_map=char_to_yx_map,
+        content=content,
+        path=path,
+    )
+
+
+def _java_use_of_util_random(
     char_to_yx_map: Dict[int, Tuple[int, int]],
     content: str,
     path: str,
@@ -143,7 +171,21 @@ def java_use_of_util_random(
     )
 
 
-def javascript_insecure_randoms(
+@cache_decorator()
+async def java_use_of_util_random(
+    char_to_yx_map: Dict[int, Tuple[int, int]],
+    content: str,
+    path: str,
+) -> Tuple[Vulnerability, ...]:
+    return await unblock_cpu(
+        _java_use_of_util_random,
+        char_to_yx_map=char_to_yx_map,
+        content=content,
+        path=path,
+    )
+
+
+def _javascript_insecure_randoms(
     char_to_yx_map: Dict[int, Tuple[int, int]],
     content: str,
     path: str,
@@ -166,6 +208,20 @@ def javascript_insecure_randoms(
     )
 
 
+@cache_decorator()
+async def javascript_insecure_randoms(
+    char_to_yx_map: Dict[int, Tuple[int, int]],
+    content: str,
+    path: str,
+) -> Tuple[Vulnerability, ...]:
+    return await unblock_cpu(
+        _javascript_insecure_randoms,
+        char_to_yx_map=char_to_yx_map,
+        content=content,
+        path=path,
+    )
+
+
 async def analyze(
     char_to_yx_map_generator: AsyncGenerator[Dict[int, Tuple[int, int]], None],
     content_generator: AsyncGenerator[str, None],
@@ -175,32 +231,24 @@ async def analyze(
     coroutines: List[Awaitable[Tuple[Vulnerability, ...]]] = []
 
     if extension in EXTENSIONS_CSHARP:
-        coroutines.append(caching_all_arguments(
-            unblock_cpu,
-            csharp_insecure_randoms,
+        coroutines.append(csharp_insecure_randoms(
             char_to_yx_map=await char_to_yx_map_generator.__anext__(),
             content=await content_generator.__anext__(),
             path=path,
         ))
     elif extension in EXTENSIONS_JAVA:
-        coroutines.append(caching_all_arguments(
-            unblock_cpu,
-            java_use_of_lang_math_random,
+        coroutines.append(java_use_of_lang_math_random(
             char_to_yx_map=await char_to_yx_map_generator.__anext__(),
             content=await content_generator.__anext__(),
             path=path,
         ))
-        coroutines.append(caching_all_arguments(
-            unblock_cpu,
-            java_use_of_util_random,
+        coroutines.append(java_use_of_util_random(
             char_to_yx_map=await char_to_yx_map_generator.__anext__(),
             content=await content_generator.__anext__(),
             path=path,
         ))
     elif extension in EXTENSIONS_JAVASCRIPT:
-        coroutines.append(caching_all_arguments(
-            unblock_cpu,
-            javascript_insecure_randoms,
+        coroutines.append(javascript_insecure_randoms(
             char_to_yx_map=await char_to_yx_map_generator.__anext__(),
             content=await content_generator.__anext__(),
             path=path,
