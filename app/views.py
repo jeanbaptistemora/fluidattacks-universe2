@@ -187,6 +187,7 @@ def app(request: HttpRequest) -> HttpResponse:
                     'username': request.session['username']
                 }
             )
+            logout(request)
         else:
             response = render(
                 request,
@@ -196,15 +197,14 @@ def app(request: HttpRequest) -> HttpResponse:
                     'username': request.session['username']
                 }
             )
-
-        set_session_cookie_in_response(
-            response=response,
-            token=create_session_token(
-                email=request.session['username'],
-                first_name=request.session['first_name'],
-                last_name=request.session['last_name'],
-            ),
-        )
+            set_session_cookie_in_response(
+                response=response,
+                token=create_session_token(
+                    email=request.session['username'],
+                    first_name=request.session['first_name'],
+                    last_name=request.session['last_name'],
+                ),
+            )
     except KeyError as ex:
         bugsnag.notify(ex)
         return redirect('/integrates/error500')
