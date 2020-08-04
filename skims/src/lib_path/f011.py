@@ -60,6 +60,49 @@ async def npm_package_json(
         for product, version in obj[key].items()
     )
 
+    return await npm(
+        content=content,
+        dependencies=dependencies,
+        path=path,
+    )
+
+
+@cache_decorator()
+async def npm_package_lock_json(
+    content: str,
+    path: str,
+) -> Tuple[Vulnerability, ...]:
+
+    def resolve(
+        obj: frozendict,
+        current: List[DependencyType],
+    ) -> List[DependencyType]:
+        for key in obj:
+            if key['item'] == 'dependencies':
+                for product, spec in obj[key].items():
+                    for spec_key, spec_val in spec.items():
+                        if spec_key['item'] == 'version':
+                            current.append((product, spec_val))
+                            current = resolve(spec, current)
+
+        return current
+
+    dependencies: Tuple[DependencyType, ...] = tuple(resolve(
+        await json_loads(content), [],
+    ))
+
+    return await npm(
+        content=content,
+        dependencies=dependencies,
+        path=path,
+    )
+
+
+async def npm(
+    content: str,
+    dependencies: Tuple[DependencyType, ...],
+    path: str,
+) -> Tuple[Vulnerability, ...]:
     query_results: Tuple[
         Tuple[DependencyType, Tuple[NVDVulnerability, ...]],
         ...
@@ -119,6 +162,11 @@ async def analyze(
 
     if (file_name, file_extension) == ('package', 'json'):
         coroutines.append(npm_package_json(
+            content=await content_generator.__anext__(),
+            path=path,
+        ))
+    elif (file_name, file_extension) == ('package-lock', 'json'):
+        coroutines.append(npm_package_lock_json(
             content=await content_generator.__anext__(),
             path=path,
         ))
