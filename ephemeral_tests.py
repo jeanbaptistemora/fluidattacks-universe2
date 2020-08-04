@@ -311,7 +311,7 @@ class ViewTestCase(unittest.TestCase):
         self.__click(finding_elem)
         comments_elem = WebDriverWait(selenium, self.delay).until(
             expected.presence_of_element_located(
-                (By.XPATH, "//a[text()[contains(., 'Comments')]]")))
+                (By.XPATH, "//a[text()[contains(., 'Consulting')]]")))
         selenium.save_screenshot(SCR_PATH + '10-02-comments.png')
 
         self.__click(comments_elem)

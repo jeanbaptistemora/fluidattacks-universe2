@@ -465,7 +465,7 @@ export const enTranslations: ResourceKey = {
         tooltip: "People that have contributed to your group",
       },
       comments: {
-        text: "Comments",
+        text: "Consulting",
         tooltip:
           "Space where all interested parties can share information about the group",
       },
@@ -497,7 +497,7 @@ export const enTranslations: ResourceKey = {
           " if applicable",
       },
       users: {
-        text: "Users",
+        text: "Stakeholders",
         tooltip: "Add, edit, and remove users from this group",
       },
     },
@@ -750,12 +750,12 @@ export const enTranslations: ResourceKey = {
     },
     environment_table: {
       environment: "Environment",
-      upload_date: "Upload Date",
+      upload_date: "Since",
     },
     files_table: {
       description: "Description",
       file: "File",
-      upload_date: "Upload Date",
+      upload_date: "Since",
     },
     finding_deleted: "Finding {{findingId}} was deleted",
     finding_rejected: "Finding {{findingId}} was rejected",
@@ -770,7 +770,7 @@ export const enTranslations: ResourceKey = {
       protocol: "Protocol",
       repository: "Repository URL",
       state: "State",
-      upload_date: "Upload Date",
+      upload_date: "Since",
     },
     services_table: {
       active: "Active",
@@ -837,7 +837,7 @@ export const enTranslations: ResourceKey = {
     },
     statusLabel: "Status",
     tab_comments: {
-      tab_title: "Comments",
+      tab_title: "Consulting",
       tooltip:
         "Space where all interested parties can share information about the finding",
     },
