@@ -21,6 +21,7 @@ python-jose = "3.1.0"
 python = "^3.8"
 uvloop = "0.14.0"
 pytz = "2020.1"
+bugsnag = "3.7.1"
 
 [tool.poetry.dev-dependencies]
 prospector = "1.2.0"

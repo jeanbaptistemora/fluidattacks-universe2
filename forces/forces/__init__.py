@@ -1,7 +1,14 @@
 """Fluidattacks Forces package."""
 from typing import Any
 import copy
+import os
 import uuid
+
+# Third party libraries
+import bugsnag
+from gql.transport.exceptions import (
+    TransportQueryError,
+)
 
 # Local imports
 from forces.apis.integrates import (
@@ -19,6 +26,28 @@ from forces.report import (
 )
 from forces.utils.aio import (
     unblock,
+)
+
+# contants
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+
+def customize_bugsnag_error_reports(notification: Any) -> None:
+    # Customize Login required error
+    if isinstance(notification.exception, TransportQueryError):
+        login_error = any([
+            err.get('message') in ('Login required', 'Access denied')
+            for err in notification.exception.errors
+        ])
+        if login_error:
+            notification.severity = 'info'
+            notification.unhandled = False
+
+
+bugsnag.before_notify(customize_bugsnag_error_reports)
+bugsnag.configure(
+    api_key="3625546064ad4b5b78aa0c0c93919fc5",
+    project_root=BASE_DIR,
 )
 
 

@@ -14,6 +14,7 @@ from typing import (
 )
 
 # Third party libraries
+import bugsnag
 from aiohttp.client_exceptions import (
     ClientConnectorError,
 )
@@ -36,6 +37,8 @@ from forces.apis.integrates import (
 from forces.utils.logs import (
     log,
 )
+from forces.utils.aio import (
+    unblock,)
 # Context
 SESSION: ContextVar[AsyncClientSession] = ContextVar('SESSION')
 TVar = TypeVar('TVar')
@@ -88,14 +91,23 @@ async def execute(query: str,
     async with session(**kwargs) as client:
         gql_query = gql(query)
         response: Any = default
+        exc_metadata = {'parameters': {
+            'query': query,
+            'default': default,
+            'variables': variables,
+            **kwargs}}
         try:
             response = await client.execute(
                 gql_query, variable_values=variables)
         except ClientConnectorError as exc:
             await log('error', str(exc))
+            await unblock(bugsnag.notify, exc, metadata=exc_metadata,
+                          context='integrates_api')
             sys.exit(1)
         except TransportQueryError as exc:
             await log('warning', ('The token may be invalid or does '
                                   'not have the required permissions'))
             await log('error', exc.errors[0]['message'])
+            await unblock(bugsnag.notify, exc, metadata=exc_metadata,
+                          context='integrates_api')
         return response  # type: ignore
