@@ -1,7 +1,11 @@
 """Fluid Forces integrates api module."""
 # Standar Imports
 import asyncio
-from datetime import datetime
+import os
+from datetime import (
+    datetime,
+    timezone,
+)
 from typing import (
     Any,
     AsyncGenerator,
@@ -10,6 +14,7 @@ from typing import (
     Union,
 )
 # 3dr Imports
+import pytz
 
 # Local Library
 from forces.apis.integrates.client import (execute)
@@ -180,10 +185,13 @@ async def upload_report(project: str, report: Dict[str, Any], log: str,
             'state': vuln['state'].upper(),
             'exploitability': vuln['exploitability']
         })
+    utc_dt = datetime.now(timezone.utc)
+    bogota = pytz.timezone(os.environ.get('TZ', 'America/Bogota'))
     params: Dict[str, Any] = {
         'project_name': project,
         'execution_id': kwargs.pop('execution_id'),
-        'date': kwargs.pop('date', datetime.now()).isoformat(),  # type: ignore
+        'date': kwargs.pop('date', utc_dt.astimezone(
+            bogota)).isoformat(),  # type: ignore
         'exit_code': str(kwargs.pop('exit_code')),
         'git_branch': git_metadata['git_branch'],
         'git_commit': git_metadata['git_commit'],

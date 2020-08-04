@@ -1,3 +1,8 @@
+[![PyPI](https://img.shields.io/pypi/v/skims)](https://pypi.org/project/skims)
+[![Status](https://img.shields.io/pypi/status/skims)](https://pypi.org/project/skims)
+[![Downloads](https://img.shields.io/pypi/dm/skims)](https://pypi.org/project/skims)
+[![License](https://img.shields.io/pypi/l/skims)](../LICENSE)
+
 You can use forces on any operating system that python can run on, you can see the status of the package in [Pypi](https://pypi.org/project/forces/).
 You can also integrate forces into your `CI/CD` to ensure that your software is built and shipped without previously reported vulnerabilities in **integrates**.
 
@@ -8,7 +13,9 @@ You can also integrate forces into your `CI/CD` to ensure that your software is 
    - git
    - python3.8
    - pip
-3. Install forces by running the following command `pip install forces`.
+3. Install forces by running the following command:
+    * Windows: `python -m pip install forces`.
+    * Linux and Mac OS: `python3.8 -m pip install forces`
 4. You can also make use of the Docker image `docker pull fluidattacks/forces:new`.
 5. Be sure to use forces within a git repository.
 
@@ -31,14 +38,16 @@ In your local environment you execute:
 `forces --token <your-token> --group <your-group>`.
 
 You can also use the Docker image:
-`docker run --rm fluidattacks/forces:new --token <your-token> --group <your-group>`.
+`docker run --rm fluidattacks/forces:new forces --token <your-token> --group <your-group>`.
 
 ## Use in some CI\CD.
 
 In `GitLab` add these lines to your `.gitlab-ci.yml`
 ```
 forces:
-  image: fluidattacks/forces:new
+  image:
+    name: fluidattacks/forces:new
+    entrypoint: [""]
   script:
     - forces --token <your-token> --group <your-group>  --strict
 ```
