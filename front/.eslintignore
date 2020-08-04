@@ -2,7 +2,6 @@
 
 src/resources/
 src/scenes/
-src/utils/cvss.ts
 src/utils/formatHelpers.ts
 src/utils/validations.ts
 src/utils/*.tsx

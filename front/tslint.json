@@ -14,6 +14,7 @@
       "src/utils/logger.ts",
       "src/utils/sortHelpers.ts",
       "src/utils/apollo.ts",
+      "src/utils/cvss.ts",
       "src/components/**"
     ]
   },
