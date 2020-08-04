@@ -615,45 +615,6 @@ test_mobile:
       - mobile/coverage.lcov
     expire_in: 1 week
 
-forces_static:
-  stage: test-code
-  tags: [autoscaling]
-  needs: []
-  image:
-    name: fluidattacks/break-build
-    entrypoint: [""]
-  before_script:
-    - docker pull fluidattacks/break-build
-  script:
-    - bash <(docker run fluidattacks/break-build
-              --static
-              --id ${FORCES_ID}
-              --secret ${FORCES_SECRET}
-              --gitlab-docker-socket-binding
-             )
-  interruptible: true
-  <<: *in_dev_and_master_branch_integrates
-
-forces_dynamic:
-  stage: post-deploy
-  tags: [autoscaling]
-  needs: []
-  image:
-    name: fluidattacks/break-build
-    entrypoint: [""]
-  before_script:
-    - docker pull fluidattacks/break-build
-  script:
-    - bash <(docker run fluidattacks/break-build
-              --dynamic
-              --id ${FORCES_ID}
-              --secret ${FORCES_SECRET}
-              --gitlab-docker-socket-binding
-             )
-  interruptible: true
-  allow_failure: true
-  <<: *in_master_branch_integrates
-
 forces_new:
   stage: post-deploy
   tags: [autoscaling]
