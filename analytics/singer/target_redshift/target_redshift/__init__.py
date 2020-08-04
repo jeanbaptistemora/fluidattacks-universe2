@@ -420,7 +420,10 @@ class Batcher():
         """
         if do_print:
             LOGGER.info(f"EXEC: {statement}.")
-        self.dbcur.execute(statement)
+        try:
+            self.dbcur.execute(statement)
+        except postgres.ProgrammingError as exc:
+            LOGGER.error(f'EXCEPTION: {type(exc)} {exc}')
 
     def set_field_names(self, table_name: str, field_names: List[str]):
         """Set the fields for the provided table."""
