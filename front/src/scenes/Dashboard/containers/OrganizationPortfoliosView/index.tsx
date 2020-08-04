@@ -52,9 +52,9 @@ const organizationPortfolios: React.FC<IOrganizationPortfoliosProps> =
       setDisplay({ mode: value });
     };
 
-    const handleRowClick: (event: React.FormEvent<HTMLButtonElement>, rowInfo: { name: string }) => void =
-        (_0: React.FormEvent<HTMLButtonElement>, rowInfo: { name: string }): void => {
-      goToPortfolio(rowInfo.name);
+    const handleRowClick: (event: React.FormEvent<HTMLButtonElement>, rowInfo: { portfolio: string }) => void =
+        (_0: React.FormEvent<HTMLButtonElement>, rowInfo: { portfolio: string }): void => {
+      goToPortfolio(rowInfo.portfolio);
     };
 
     // Render Elements
