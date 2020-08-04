@@ -5,6 +5,7 @@ from itertools import (
 from typing import (
     AsyncGenerator,
     Awaitable,
+    Iterator,
     List,
     Tuple,
 )
@@ -12,6 +13,9 @@ from typing import (
 # Third party libraries
 from frozendict import (
     frozendict,
+)
+from more_itertools import (
+    windowed,
 )
 
 # Local libraries
@@ -98,6 +102,52 @@ async def npm_package_lock_json(
     )
 
 
+@cache_decorator()
+async def yarn_lock(
+    content: str,
+    path: str,
+) -> Tuple[Vulnerability, ...]:
+
+    def resolve() -> Iterator[DependencyType]:
+        windower: Iterator[
+            Tuple[Tuple[int, str], Tuple[int, str]],
+        ] = windowed(  # type: ignore
+            fillvalue='',
+            n=2,
+            seq=tuple(enumerate(content.splitlines(), start=1)),
+            step=1,
+        )
+
+        # ((11479, 'zen-observable@^0.8.21:'), (11480, '  version "0.8.21"'))
+        for (product_line, product), (version_line, version) in windower:
+            product, version = product.strip(), version.strip()
+
+            if (
+                product.endswith(':') and not product.startswith(' ')
+                and version.startswith('version')
+            ):
+                product = product.rstrip(':')
+                product = product.split(',', maxsplit=1)[0]
+                product = product.strip('"')
+                product = product.rsplit('@', maxsplit=1)[0]
+
+                version = version.split(' ', maxsplit=1)[1]
+                version = version.strip('"')
+
+                yield (
+                    {'column': 0, 'line': product_line, 'item': product},
+                    {'column': 0, 'line': version_line, 'item': version},
+                )
+
+    dependencies: Tuple[DependencyType, ...] = tuple(resolve())
+
+    return await npm(
+        content=content,
+        dependencies=dependencies,
+        path=path,
+    )
+
+
 async def npm(
     content: str,
     dependencies: Tuple[DependencyType, ...],
@@ -167,6 +217,11 @@ async def analyze(
         ))
     elif (file_name, file_extension) == ('package-lock', 'json'):
         coroutines.append(npm_package_lock_json(
+            content=await content_generator.__anext__(),
+            path=path,
+        ))
+    elif (file_name, file_extension) == ('yarn', 'lock'):
+        coroutines.append(yarn_lock(
             content=await content_generator.__anext__(),
             path=path,
         ))

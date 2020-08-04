@@ -37,6 +37,7 @@ RETRY: Callable[[TVar], TVar] = retry(
         IndexError,
         socket.gaierror,
     ),
+    sleep_between_retries=5,
 )
 RE_CVE: Pattern = re.compile(r'vuln-detail-link-[0-9]+">(CVE-[0-9-]+)</a>')
 RE_DESCRIPTION: Pattern = re.compile(r'vuln-summary-[0-9]+">([^<]*?)</p>')
