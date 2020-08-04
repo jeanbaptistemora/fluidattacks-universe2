@@ -71,7 +71,6 @@ function job_forces_deploy_to_docker_hub {
   export DOCKER_HUB_USER
   export DOCKER_HUB_PASS
   local image_name="fluidattacks/forces:new"
-  local base_image_name="fluidattacks/forces:base"
 
   echo "[INFO] Logging in to Docker Hub" \
   &&  docker login "${DOCKER_HUB_URL}" \
@@ -80,16 +79,10 @@ function job_forces_deploy_to_docker_hub {
       <<< "${DOCKER_HUB_PASS}" \
   && pushd forces \
     && docker build  \
-          --target "complete" \
           --tag "${image_name}" \
           -f "Dockerfile" \
           . \
     &&  docker push "${image_name}" \
-    && docker build \
-          --target "base" \
-          --tag "${base_image_name}" \
-          -f "Dockerfile" \
-          . \
   && popd \
   || return 1
 }

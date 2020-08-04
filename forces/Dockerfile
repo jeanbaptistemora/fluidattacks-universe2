@@ -1,4 +1,4 @@
-FROM python:3.8-slim-buster as base
+FROM python:3.8-slim-buster
 
 RUN apt update
 
@@ -9,7 +9,3 @@ COPY . /pakage
 WORKDIR /pakage
 
 RUN pip install .
-
-FROM base as complete
-
-ENTRYPOINT [ "forces" ]
