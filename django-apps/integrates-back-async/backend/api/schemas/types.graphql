@@ -71,9 +71,9 @@ type Finding {
     pendingVulns: [Vulnerability]
 }
 
-"InternalProject type definition"
-type InternalProject {
-    projectName: String
+"InternalNames type definition"
+type InternalName {
+    name: String
 }
 
 "Organization type definition"
@@ -339,6 +339,11 @@ enum Entity {
     ORGANIZATION
     PROJECT
     USER
+}
+
+enum NameEntity {
+    GROUP
+    ORGANIZATION
 }
 
 enum Frequency {

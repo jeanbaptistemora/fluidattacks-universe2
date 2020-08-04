@@ -9,7 +9,7 @@ import { IProjectName } from "./types";
 
 describe("AddProjectModal component", () => {
 
-  const projectName: IProjectName = { internalProjectNames : { projectName: "" } };
+  const projectName: IProjectName = { internalNames : { name: "" } };
 
   const mocksMutation: MockedResponse[] = [{
     request: {

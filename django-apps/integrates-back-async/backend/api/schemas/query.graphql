@@ -9,8 +9,8 @@ type Query {
     "Finding entity"
     finding(identifier: String!): Finding
 
-    "InternalProject entity"
-    internalProjectNames: InternalProject
+    "InternalNames entity"
+    internalNames(entity: NameEntity!): InternalName
 
     "Get resources from project"
     resources(projectName: String!): Resource

@@ -36,7 +36,7 @@ from backend.domain import (
     event as event_domain,
     organization as org_domain,
     vulnerability as vuln_domain,
-    available_group as available_group_domain
+    available_name as available_name_domain
 )
 from backend.exceptions import (
     AlreadyPendingDeletion,
@@ -142,7 +142,7 @@ async def create_project(  # pylint: disable=too-many-arguments
             has_integrates=True)
 
         is_group_avail, group_exists = await asyncio.gather(
-            available_group_domain.exists(project_name),
+            available_name_domain.exists(project_name, 'group'),
             project_dal.exists(project_name)
         )
 
@@ -168,7 +168,7 @@ async def create_project(  # pylint: disable=too-many-arguments
             if success:
                 await asyncio.gather(
                     org_domain.add_group(org_id, project_name),
-                    available_group_domain.remove(project_name)
+                    available_name_domain.remove(project_name, 'group')
                 )
                 # Admins are not granted access to the project
                 # they are omnipresent

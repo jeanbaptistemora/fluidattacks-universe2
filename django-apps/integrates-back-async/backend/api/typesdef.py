@@ -3,7 +3,7 @@ from ariadne import ObjectType, EnumType
 EVENT = ObjectType('Event')
 FINDING = ObjectType('Finding')
 FORCES_EXECUTIONS = ObjectType('ForcesExecutions')
-INTERNAL_PROJECT_NAME = ObjectType('InternalProject')
+INTERNAL_NAME = ObjectType('InternalName')
 ME = ObjectType('Me')
 PROJECT = ObjectType('Project')
 RESOURCE = ObjectType('Resource')
@@ -215,7 +215,7 @@ AUTH_PROVIDER = EnumType(
 
 
 RAW_TYPES = [
-    EVENT, FINDING, FORCES_EXECUTIONS, INTERNAL_PROJECT_NAME,
+    EVENT, FINDING, FORCES_EXECUTIONS, INTERNAL_NAME,
     ME, PROJECT, RESOURCE, USER
 ]
 

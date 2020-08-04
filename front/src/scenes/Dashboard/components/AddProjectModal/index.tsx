@@ -85,7 +85,7 @@ const addProjectModal: ((props: IAddProjectModal) => JSX.Element) = (props: IAdd
           {({ data }: QueryResult<IProjectName>): JSX.Element => {
             const projectName: string = _.isUndefined(data) || _.isEmpty(data)
               ? ""
-              : data.internalProjectNames.projectName;
+              : data.internalNames.name;
 
             const handleMutationResult: ((result: { createProject: { success: boolean } }) => void) = (
               result: { createProject: { success: boolean } },

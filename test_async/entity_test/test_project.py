@@ -17,7 +17,7 @@ from backend.api.dataloaders.finding import FindingLoader
 from backend.api.dataloaders.project import ProjectLoader
 from backend.api.dataloaders.vulnerability import VulnerabilityLoader
 from backend.api.schema import SCHEMA
-from backend.domain.available_group import get_name
+from backend.domain.available_name import get_name
 from backend.exceptions import AlreadyPendingDeletion, NotPendingDeletion, PermissionDenied
 
 from test_async.utils import create_dummy_session
@@ -199,7 +199,7 @@ class ProjectTests(TestCase):
             createProject(
                 organization: "imamura",
                 description: "This is a new project from pytest",
-                projectName: "%(project_name)s",
+                projectName: "%(name)s",
                 subscription: CONTINUOUS,
                 hasDrills: true,
                 hasForces: true
@@ -207,7 +207,7 @@ class ProjectTests(TestCase):
             success
            }
         }'''
-        query = query % {'project_name': await get_name()}
+        query = query % {'name': await get_name('group')}
         data = {'query': query}
         result = await self._get_result_async(data, user='integratesuser@gmail.com')
         assert 'errors' not in result

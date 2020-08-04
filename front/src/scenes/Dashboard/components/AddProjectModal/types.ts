@@ -5,5 +5,5 @@ export interface IAddProjectModal {
 }
 
 export interface IProjectName {
-  internalProjectNames: { projectName: string };
+  internalNames: { name: string };
 }

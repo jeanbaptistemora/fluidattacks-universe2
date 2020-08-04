@@ -12,14 +12,14 @@ from backend.api.schema import SCHEMA
 from test_async.utils import create_dummy_session
 
 
-class InternalProjectTests(TestCase):
+class InternalNameTests(TestCase):
 
     @pytest.mark.asyncio
     async def test_internal_project(self):
         """Check for internal project"""
         query = '''{
-            internalProjectNames{
-                projectName
+            internalNames(entity: GROUP){
+                name
                 __typename
             }
         }'''
@@ -27,4 +27,4 @@ class InternalProjectTests(TestCase):
         request = create_dummy_session('integratesuser@gmail.com')
         _, result = await graphql(SCHEMA, data, context_value=request)
         assert 'errors' not in result
-        assert 'internalProjectNames' in result['data']
+        assert 'internalNames' in result['data']

@@ -19,14 +19,14 @@ RESOURCE_OPTIONS: Dict[str, str] = dynamodb.RESOURCE_OPTIONS  # type: ignore
 TABLE_NAME: str = dynamodb.TABLE_NAME  # type: ignore
 
 
-async def create(group_name: str) -> bool:
+async def create(name: str, entity: str) -> bool:
     """
-    Create an available group
+    Create an available entity name
     """
     new_item = {
-        'pk': 'AVAILABLE_GROUP',
-        'sk': group_name.upper(),
-        'gsi-2-pk': 'RANDOM_AVAILABLE_GROUP_SORT',
+        'pk': f'AVAILABLE_{entity.upper()}',
+        'sk': name.upper(),
+        'gsi-2-pk': f'RANDOM_AVAILABLE_{entity.upper()}_SORT',
         'gsi-2-sk': str(uuid.uuid4())
     }
     resp = False
@@ -40,12 +40,12 @@ async def create(group_name: str) -> bool:
     return resp
 
 
-async def remove(group_name: str) -> bool:
+async def remove(name: str, entity: str) -> bool:
     """
-    Removes an available group given its name
+    Removes an available entity given its name
     """
-    primary_keys = {'pk': 'AVAILABLE_GROUP',
-                    'sk': group_name.upper()}
+    primary_keys = {'pk': f'AVAILABLE_{entity.upper()}',
+                    'sk': name.upper()}
     resp = False
     async with aioboto3.resource(**RESOURCE_OPTIONS) as dynamodb_resource:
         table = await dynamodb_resource.Table(TABLE_NAME)
@@ -57,18 +57,18 @@ async def remove(group_name: str) -> bool:
     return resp
 
 
-async def get_one() -> str:
+async def get_one(entity: str) -> str:
     """
-    Returns a random available group name
+    Returns a random available entity name
     """
-    group_name = ''
+    name = ''
     random_uuid = str(uuid.uuid4())
     key_exp_gt = (
-        Key('gsi-2-pk').eq('RANDOM_AVAILABLE_GROUP_SORT') &
+        Key('gsi-2-pk').eq(f'RANDOM_AVAILABLE_{entity.upper()}_SORT') &
         Key('gsi-2-sk').gt(random_uuid)
     )
     key_exp_lt = (
-        Key('gsi-2-pk').eq('RANDOM_AVAILABLE_GROUP_SORT') &
+        Key('gsi-2-pk').eq(f'RANDOM_AVAILABLE_{entity.upper()}_SORT') &
         Key('gsi-2-sk').lte(random_uuid)
     )
     query_attrs = {
@@ -84,24 +84,24 @@ async def get_one() -> str:
         response = await table.query(**query_attrs)
         response_items = response.get('Items', [])
         if response_items:
-            group_name = response_items[0].get('sk', '').lower()
+            name = response_items[0].get('sk', '').lower()
         else:
             # Second attempt with less than or equal operator
             query_attrs['KeyConditionExpression'] = key_exp_lt
             response = await table.query(**query_attrs)
             response_items = response.get('Items', [])
             if response_items:
-                group_name = response_items[0].get('sk', '').lower()
+                name = response_items[0].get('sk', '').lower()
             else:
                 raise EmptyPoolGroupName()
-    return group_name
+    return name
 
 
-async def get_all() -> List[str]:
+async def get_all(entity: str) -> List[str]:
     """
-    Returns all availale group names
+    Returns all availale entity names
     """
-    key_exp = Key('pk').eq('AVAILABLE_GROUP')
+    key_exp = Key('pk').eq(f'AVAILABLE_{entity.upper()}')
     all_names = []
     async with aioboto3.resource(**RESOURCE_OPTIONS) as dynamodb_resource:
         table = await dynamodb_resource.Table(TABLE_NAME)
@@ -121,17 +121,17 @@ async def get_all() -> List[str]:
     return all_names
 
 
-async def exists(group_name: str) -> bool:
+async def exists(name: str, entity: str) -> bool:
     """
-    Returns True if the given group name exists
+    Returns True if the given entity name exists
     """
     item_exists = False
     async with aioboto3.resource(**RESOURCE_OPTIONS) as dynamodb_resource:
         table = await dynamodb_resource.Table(TABLE_NAME)
         response = await table.get_item(
             Key={
-                'pk': 'AVAILABLE_GROUP',
-                'sk': group_name.upper()
+                'pk': f'AVAILABLE_{entity.upper()}',
+                'sk': name.upper()
             }
         )
         item_exists = bool(response.get('Item', {}))

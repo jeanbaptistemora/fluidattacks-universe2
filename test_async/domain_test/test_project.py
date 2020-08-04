@@ -29,7 +29,7 @@ from backend.exceptions import (
 from backend.dal import (
     project as project_dal,
     vulnerability as vuln_dal,
-    available_group as available_group_dal
+    available_name as available_name_dal
 )
 
 DYNAMODB_RESOURCE = dynamodb.DYNAMODB_RESOURCE  # type: ignore
@@ -360,7 +360,7 @@ class ProjectTest(TestCase):
 
     @pytest.mark.changes_db
     async def test_create_project_not_user_admin(self):
-        await available_group_dal.create('NEWAVAILABLENAME')
+        await available_name_dal.create('NEWAVAILABLENAME', 'group')
         user_email = 'integratesuser@gmail.com'
         user_role = 'customeradmin'
         test_data = await create_project(

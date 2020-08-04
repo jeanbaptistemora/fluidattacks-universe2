@@ -53,7 +53,7 @@ Resources = Dict[str, Union[
     List[Resource]
 ]]
 Tag = Dict[str, Union[Decimal, str, List[str]]]
-InternalProject = Dict[str, str]
+InternalName = Dict[str, str]
 ExploitResult = Dict[str, str]
 ExecutionVulnerabilities = Dict[str, Union[
     int,
