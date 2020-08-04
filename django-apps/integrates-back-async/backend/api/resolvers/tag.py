@@ -6,7 +6,6 @@ from ariadne import (
     convert_kwargs_to_snake_case,
     convert_camel_case_to_snake
 )
-from asgiref.sync import sync_to_async
 from graphql import GraphQLError
 from graphql.type.definition import GraphQLResolveInfo
 
@@ -122,10 +121,10 @@ async def _get_last_closing_vuln(
         organization: str,
         **__: str) -> float:
     """Get tag last_closing_vuln."""
-    last_closing_vuln = await sync_to_async(tag_domain.get_attributes)(
+    last_closing_vuln_attr = await tag_domain.get_attributes(
         organization, tag, ['last_closing_date']
     )
-    last_closing_vuln = last_closing_vuln.get('last_closing_date', 0)
+    last_closing_vuln = last_closing_vuln_attr.get('last_closing_date', 0)
     return cast(float, last_closing_vuln)
 
 
@@ -136,10 +135,10 @@ async def _get_max_severity(
         organization: str,
         **__: str) -> float:
     """Get tag max_severity."""
-    max_severity = await sync_to_async(tag_domain.get_attributes)(
+    max_severity_attr = await tag_domain.get_attributes(
         organization, tag, ['max_severity']
     )
-    max_severity = max_severity.get('max_severity', 0)
+    max_severity = max_severity_attr.get('max_severity', 0)
     return cast(float, max_severity)
 
 
@@ -150,7 +149,7 @@ async def _get_max_open_severity(
         organization: str,
         **__: str) -> float:
     """Resolve tag maximum severity"""
-    max_open_severity = await sync_to_async(tag_domain.get_attributes)(
+    max_open_severity = await tag_domain.get_attributes(
         organization, tag, ['max_open_severity']
     )
     return cast(float, max_open_severity.get('max_open_severity', 0))
@@ -163,10 +162,10 @@ async def _get_mean_remediate(
         organization: str,
         **__: str) -> float:
     """Get tag mean_remediate."""
-    mean_remediate = await sync_to_async(tag_domain.get_attributes)(
+    mean_remediate_attr = await tag_domain.get_attributes(
         organization, tag, ['mean_remediate']
     )
-    mean_remediate = mean_remediate.get('mean_remediate', 0)
+    mean_remediate = mean_remediate_attr.get('mean_remediate', 0)
     return cast(float, mean_remediate)
 
 
@@ -177,10 +176,9 @@ async def _get_mean_remediate_low_severity(
         organization: str,
         **__: str) -> float:
     """Get tag mean_remediate_low_severity."""
-    mean_remediate_low_severity = await sync_to_async(
-        tag_domain.get_attributes
-    )(organization, tag, ['mean_remediate_low_severity'])
-    mean_remediate_low_severity = mean_remediate_low_severity.get(
+    mean_remediate_low_severity_attr = await tag_domain.get_attributes(
+        organization, tag, ['mean_remediate_low_severity'])
+    mean_remediate_low_severity = mean_remediate_low_severity_attr.get(
         'mean_remediate_low_severity', 0
     )
     return cast(float, mean_remediate_low_severity)
@@ -193,10 +191,9 @@ async def _get_mean_remediate_medium_severity(
         organization: str,
         **__: str) -> float:
     """Get tag mean_remediate_medium_severity."""
-    mean_remediate_medium_severity = await sync_to_async(
-        tag_domain.get_attributes
-    )(organization, tag, ['mean_remediate_medium_severity'])
-    mean_remediate_medium_severity = mean_remediate_medium_severity.get(
+    mean_remediate_medium_severity_attr = await tag_domain.get_attributes(
+        organization, tag, ['mean_remediate_medium_severity'])
+    mean_remediate_medium_severity = mean_remediate_medium_severity_attr.get(
         'mean_remediate_medium_severity', 0
     )
     return cast(float, mean_remediate_medium_severity)
@@ -209,10 +206,9 @@ async def _get_mean_remediate_high_severity(
         organization: str,
         **__: str) -> float:
     """Get tag mean_remediate_high_severity."""
-    mean_remediate_high_severity = await sync_to_async(
-        tag_domain.get_attributes
-    )(organization, tag, ['mean_remediate_high_severity'])
-    mean_remediate_high_severity = mean_remediate_high_severity.get(
+    mean_remediate_high_severity_attr = await tag_domain.get_attributes(
+        organization, tag, ['mean_remediate_high_severity'])
+    mean_remediate_high_severity = mean_remediate_high_severity_attr.get(
         'mean_remediate_high_severity', 0
     )
     return cast(float, mean_remediate_high_severity)
@@ -225,10 +221,10 @@ async def _get_mean_remediate_critical_severity(
         organization: str,
         **__: str) -> float:
     """Get tag mean_remediate_critical_severity."""
-    mean_critical_remediate = await sync_to_async(tag_domain.get_attributes)(
+    mean_critical_remediate_attr = await tag_domain.get_attributes(
         organization, tag, ['mean_remediate_critical_severity']
     )
-    mean_critical_remediate = mean_critical_remediate.get(
+    mean_critical_remediate = mean_critical_remediate_attr.get(
         'mean_remediate_critical_severity', 0
     )
     return cast(float, mean_critical_remediate)

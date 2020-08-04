@@ -6,11 +6,15 @@ from backend.dal.tag import (
     update, get_attributes
 )
 
+pytestmark = [
+    pytest.mark.asyncio,
+]
+
 
 class TagTest(TestCase):
 
     @pytest.mark.changes_db
-    def test_update(self):
+    async def test_update(self):
         # company, tag, data
         test_1 = ('imamura', 'test-updates', {
             'mean_remediate_critical_severity' : None,
@@ -23,7 +27,7 @@ class TagTest(TestCase):
             'max_severity' : Decimal('6.0')
         }
         attributes = [attr for attr in original]
-        assert original == get_attributes(test_1[0], test_1[1], attributes)
+        assert original == await get_attributes(test_1[0], test_1[1], attributes)
         assert update(*test_1)
         assert {'max_severity' : Decimal('3.3')} == \
-            get_attributes(test_1[0], test_1[1], attributes)
+            await get_attributes(test_1[0], test_1[1], attributes)

@@ -8,6 +8,7 @@ from botocore.exceptions import ClientError
 from backend.dal.helpers import dynamodb
 from backend.typing import (
     DynamoDelete as DynamoDeleteType,
+    DynamoQuery as DynamoQueryType,
     Tag as TagType
 )
 
@@ -75,17 +76,22 @@ def update(organization: str, tag: str,
     return success
 
 
-def get_attributes(organization: str, tag: str,
-                   attributes: List[str]) -> Dict[str, Union[List[str], str]]:
-    item_attrs: Dict[str, Union[List[str], Dict[str, str]]] = {
-        'Key': {
-            'organization': organization.lower(),
-            'tag': tag.lower()
-        },
-        'AttributesToGet': attributes
+async def get_attributes(
+        organization: str,
+        tag: str,
+        attributes: List[str]) -> Dict[str, Union[List[str], str]]:
+    response = {}
+    item_attrs: DynamoQueryType = {
+        'KeyConditionExpression': (
+            Key('organization').eq(organization.lower()) &
+            Key('tag').eq(tag.lower())
+        ),
+        'ProjectionExpression': ','.join(attributes)
     }
-    response = TABLE.get_item(**item_attrs)
-    return response.get('Item', {})
+    response_items = await dynamodb.async_query(TABLE_NAME, item_attrs)
+    if response_items:
+        response = response_items[0]
+    return response
 
 
 async def get_tags(

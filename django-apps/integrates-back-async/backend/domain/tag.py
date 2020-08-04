@@ -1,8 +1,6 @@
 import asyncio
 from typing import Dict, List, Optional, Union
 
-from asgiref.sync import sync_to_async
-
 from backend.dal import tag as tag_dal
 from backend.domain import project as project_domain
 from backend.typing import Tag as TagType
@@ -12,9 +10,11 @@ async def delete(organization: str, tag: str) -> bool:
     return await tag_dal.delete(organization, tag)
 
 
-def get_attributes(organization: str, tag: str,
-                   attributes: List[str]) -> Dict[str, Union[List[str], str]]:
-    return tag_dal.get_attributes(organization, tag, attributes)
+async def get_attributes(
+        organization: str,
+        tag: str,
+        attributes: List[str]) -> Dict[str, Union[List[str], str]]:
+    return await tag_dal.get_attributes(organization, tag, attributes)
 
 
 async def get_tags(
@@ -23,9 +23,11 @@ async def get_tags(
     return await tag_dal.get_tags(organization, attributes)
 
 
-def is_tag_allowed(user_projects: List[Dict[str, Union[str, List[str]]]],
-                   organization: str, tag: str) -> bool:
-    all_projects_tag = get_attributes(organization, tag, ['projects'])
+async def is_tag_allowed(
+        user_projects: List[Dict[str, Union[str, List[str]]]],
+        organization: str,
+        tag: str) -> bool:
+    all_projects_tag = await get_attributes(organization, tag, ['projects'])
     user_projects_tag = [
         str(project.get('project_name', '')).lower()
         for project in user_projects
@@ -52,7 +54,7 @@ async def filter_allowed_tags(organization: str, user_projects: List[str]) -> \
         for tag in project.get('tag', [])
     }
     are_tags_allowed = await asyncio.gather(*[
-        sync_to_async(is_tag_allowed)(
+        is_tag_allowed(
             projects, organization, tag
         )
         for tag in all_tags
