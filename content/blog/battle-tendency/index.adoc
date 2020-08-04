@@ -153,7 +153,7 @@ in a cybersecurity approach for vulnerabilities [inner]#link:../triage-hacker/[c
 and we already [inner]#link:../../asserts/[automate]#
 the vulnerabilities closures
 on our customers' pipelines (`CI/CD`)
-with our [inner]#link:../../use-cases/continuous-hacking/[continuous hacking service]#.
+with our [inner]#link:../../services/continuous-hacking/[continuous hacking service]#.
 We are aware of the potential of some of these techniques,
 not only for cybersecurity and overall hardening
 but also for development and operations.

@@ -159,7 +159,7 @@ Off-loading cognitive attention on secure coding
 from developers is a way to provide more robustness to security,
 by allocating full attention to safe coding
 (there are some ways to do this).
-Do you know our [inner]#link:../../use-cases/continuous-hacking/[continuous hacking service]#?
+Do you know our [inner]#link:../../services/continuous-hacking/[continuous hacking service]#?
 We are bandwidth for you!
 We make easier for your development team
 to focus first on functionality and performance,

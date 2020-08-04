@@ -150,5 +150,5 @@ whether through automatic systems or manual work,
 continuous hacking will always mean more depth and thoroughness
 in the search for vulnerabilities.
 
-Would you like to know about `Fluid Attacks` [inner]#link:../../use-cases/continuous-hacking/[continuous hacking]# services?
+Would you like to know about `Fluid Attacks` [inner]#link:../../services/continuous-hacking/[continuous hacking]# services?
 [inner]#link:../../contact-us/[Contact us]#.

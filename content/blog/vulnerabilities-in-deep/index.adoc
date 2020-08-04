@@ -160,7 +160,7 @@ of integrating them
 into continuous software development
 via [inner]#link:../../asserts/[continuous integrations]#
 to detect vulnerabilities in
-[inner]#link:../../use-cases/continuous-hacking/[early stages]#
+[inner]#link:../../services/continuous-hacking/[early stages]#
 and avoid the spread of known security issues
 on latter versions of the system.
 

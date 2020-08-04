@@ -149,8 +149,8 @@ is something very likely to happen soon.
 
 `IoT` weaknesses and leakage of sensitive information
 are well under our scope.
-We provide [inner]#link:../../use-cases/continuous-hacking/[Continuous hacking]#,
-as well as [inner]#link:../../use-cases/one-shot-hacking/[One-shot hacking]#.
+We provide [inner]#link:../../services/continuous-hacking/[Continuous hacking]#,
+as well as [inner]#link:../../services/one-shot-hacking/[One-shot hacking]#.
 If you have `IoT` devices deployed on your premises,
 we can help you identifying attacks vectors,
 as well as providing ways to increase their security.

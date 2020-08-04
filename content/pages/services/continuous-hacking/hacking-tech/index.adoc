@@ -1,0 +1,18 @@
+:slug: services/continuous-hacking/hacking-tech/
+:description: The Fluid Attacks team's continuous and ethical hacking involves automatic and manual testing of the infrastructure, applications, and source code.
+:keywords: Fluid Attacks, Services, Continuous Hacking, Ethical Hacking, Security, Vulnerabilities, Pentesting
+:nextpage: services/continuous-hacking/healthcheck/
+:category: continuous-hacking
+:section: Continuous Hacking
+:template: services/feature
+
+= Hacking Techniques, Team, Duration and Cycles
+
+Continuous hacking means automatic and manual testing with speed.
+It is done through the ethical hacking of the apps,
+the infrastructure, and the source code.
+*Fluid Attacks* makes Zero-Day findings and does not report false positives.
+The testing needs access to the *Git* repository
+and the integration environment.
+The selected system is attacked repeatedly to test all existing versions
+by using various techniques such as *SAST*, *DAST*, *IAST* and *SCA*.

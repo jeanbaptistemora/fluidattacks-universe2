@@ -171,7 +171,7 @@ As many of the cases reviewed here,
 it all began with one or more weaknesses exploited by an attacker.
 At `Fluid Attacks`, we excel in proactive security testing:
 
-- We are capable of #link:../../use-cases/continuous-hacking/[continuously hacking]#
+- We are capable of #link:../../services/continuous-hacking/[continuously hacking]#
 enterprise-level systems. We can detect small changes
 that could pose risks to your business.
 We combine automated tools with the best-trained cybersecurity professionals.

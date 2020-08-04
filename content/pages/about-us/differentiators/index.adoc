@@ -29,8 +29,8 @@ a|==== Independence
 | {yes} We don't install, maintain, operate or sell other security products.
 With no hidden agendas, you can have confidence
 in the independence and impartiality of our reports
-link:../../use-cases/continuous-hacking/remediation/[^1^]
-link:../../use-cases/one-shot-hacking/[^2^].
+link:../../services/continuous-hacking/remediation/[^1^]
+link:../../services/one-shot-hacking/[^2^].
 | {no}  Since other providers develop, maintain, install or operate
 security controls such as `SOC`, `NAC`, Firewalls etc,
 they may not be truly impartial nor independent.
@@ -79,8 +79,8 @@ through questions and answers:
 
 a|==== Model
 | `Red Team`
-link:../../use-cases/continuous-hacking/hacking-tech/[^4^]
-link:../../use-cases/one-shot-hacking/hacking-tech/[^5^].
+link:../../services/continuous-hacking/hacking-tech/[^4^]
+link:../../services/one-shot-hacking/hacking-tech/[^5^].
 | Vulnerability analysis with selective exploitation.
 
 a|==== Targets
@@ -101,10 +101,10 @@ a|* Web applications.
 
 a|==== Techniques
 a|{yes} 1 service, all techniques
-link:../../use-cases/continuous-hacking/break-build/[^6^]
-link:../../use-cases/continuous-hacking/critical-info/[^7^]
-link:../../use-cases/one-shot-hacking/infection/[^8^]
-link:../../use-cases/one-shot-hacking/critical-info/[^9^]:
+link:../../services/continuous-hacking/break-build/[^6^]
+link:../../services/continuous-hacking/critical-info/[^7^]
+link:../../services/one-shot-hacking/infection/[^8^]
+link:../../services/one-shot-hacking/critical-info/[^9^]:
 
 * link:../../blog/fuzzy-bugs-online/[Fuzzing].
 * Dynamic (`DAST`), Static (`SAST`) and Interactive (`IAST`) Security Testing.
@@ -120,8 +120,8 @@ link:../../use-cases/one-shot-hacking/critical-info/[^9^]:
 
 a|==== link:../../blog/delimit-ethical-hacking/[Scope]
 a|{yes} Precision and granularity in the attack surface
-link:../../use-cases/continuous-hacking/environments/[^10^]
-link:../../use-cases/one-shot-hacking/environments/[^11^]:
+link:../../services/continuous-hacking/environments/[^10^]
+link:../../services/one-shot-hacking/environments/[^11^]:
 
 * For infrastructure (networks, servers, etc),
 according to `TCP` and `UDP` open ports.
@@ -152,7 +152,7 @@ a|{yes} Integrable with any development method, such as:
 * Agile.
 * `DevOps`.
 
-[button]#link:../../use-cases/continuous-hacking/[Continuous Hacking]#,
+[button]#link:../../services/continuous-hacking/[Continuous Hacking]#,
 [button]#link:../../products/integrates/[Integrates]#
 and [button]#link:../../asserts/[Asserts]#
 fit perfectly for the last 2 use cases.
@@ -162,18 +162,18 @@ a|{no} Integrable with a single development method:
 
 a|==== Environments
 a|* Integration:
-[button]#link:../../use-cases/continuous-hacking/[Continuous Hacking]#
+[button]#link:../../services/continuous-hacking/[Continuous Hacking]#
 and [button]#link:../../asserts/[Asserts]#
 fit perfectly for this use case
-link:../../use-cases/continuous-hacking/environments/[^12^]
-link:../../use-cases/one-shot-hacking/environments/[^13^].
+link:../../services/continuous-hacking/environments/[^12^]
+link:../../services/one-shot-hacking/environments/[^13^].
 * Staging.
 * Production.
 a|* Staging.
 * Production.
 
 a|==== Windows
-a|{yes} In the [button]#link:../../use-cases/continuous-hacking/[Continuous Hacking]# service,
+a|{yes} In the [button]#link:../../services/continuous-hacking/[Continuous Hacking]# service,
 test windows are not required and environments:
 
 * Can change constantly.
@@ -182,8 +182,8 @@ test windows are not required and environments:
 
 a|==== Coverage
 a|{yes} Known
-link:../../use-cases/continuous-hacking/environments/[^16^]
-link:../../use-cases/one-shot-hacking/environments/[^17^]:
+link:../../services/continuous-hacking/environments/[^16^]
+link:../../services/one-shot-hacking/environments/[^17^]:
 
 * In fixed scopes, the exact part of the attack surface to be verified,
 and its proportion with respect to the total, is agreed upon in advance.
@@ -204,8 +204,8 @@ a|==== Strictness
 | {yes} You will know the exact strictness of the hacking
 (for inspected and non-inspected
 link:#profiling[profiled] requirements)
-link:../../use-cases/continuous-hacking/environments/[^18^]
-link:../../use-cases/one-shot-hacking/environments/[^19^].
+link:../../services/continuous-hacking/environments/[^18^]
+link:../../services/one-shot-hacking/environments/[^19^].
 | {no} Unknown.
 
 a|==== Finding Types
@@ -226,7 +226,7 @@ a|{no} In the case of other suppliers:
 * Copy-paste of test outcomes which may include false positives.
 
 a|==== Zero Day Vulnerabilities
-| {yes} Yes link:../../use-cases/continuous-hacking/hacking-tech/[^20^]
+| {yes} Yes link:../../services/continuous-hacking/hacking-tech/[^20^]
 | {no} No
 
 a|==== False Positives
@@ -235,8 +235,8 @@ a|==== False Positives
 
 a|==== Exploitation
 a|{yes} Yes, as long as we have
-link:../../use-cases/continuous-hacking/break-build/[^21^]
-link:../../use-cases/one-shot-hacking/infection/[^22^]:
+link:../../services/continuous-hacking/break-build/[^21^]
+link:../../services/one-shot-hacking/infection/[^22^]:
 
 * An available environment.
 * The appropriate authorization.
@@ -254,7 +254,7 @@ a new vulnerability `C` of greater impact, which may compromise more registers.
 but is not able to correlate them.
 
 a|==== Infection
-| {yes} In our [button]#link:../../use-cases/one-shot-hacking/infection/[One-shot hacking]#
+| {yes} In our [button]#link:../../services/one-shot-hacking/infection/[One-shot hacking]#
 service we infect stations and critical servers
 using cyberweapons.
 | {no} Don't infect or dispose of cyberweapons.
@@ -278,8 +278,8 @@ This allows us to show the severity of any individual vulnerability on:
 a|==== Cycles
 | {yes} Multiple cycles in our service: +
 {sp} +
-[button]#link:../../use-cases/continuous-hacking/[Continuous Hacking]#
-link:../../use-cases/continuous-hacking/hacking-tech/[^23^].
+[button]#link:../../services/continuous-hacking/[Continuous Hacking]#
+link:../../services/continuous-hacking/hacking-tech/[^23^].
 | {no}  Only 1.
 
 a|==== link:../../blog/replaced-machines/[Escapes]
@@ -290,8 +290,8 @@ a|==== Remediation
 a|{yes} During the project you can request clarifications
 directly from our hackers via
 [button]#link:../../products/integrates/[Integrates]#.
-link:../../use-cases/continuous-hacking/remediation/[^24^]
-link:../../use-cases/one-shot-hacking/[^25^].
+link:../../services/continuous-hacking/remediation/[^24^]
+link:../../services/one-shot-hacking/[^25^].
 | {no} No support during the remediation phase.
 
 a|==== Deliverables
@@ -299,8 +299,8 @@ a|{yes} Real-time documentation web system
 [button]#link:../../products/integrates/[Integrates]#
 which allows our customers to auto-generate and supervise
 every system from day 1 of the project
-link:../../use-cases/continuous-hacking/vuln-manage/[^26^]
-link:../../use-cases/one-shot-hacking/vuln-manage/[^27^]:
+link:../../services/continuous-hacking/vuln-manage/[^26^]
+link:../../services/one-shot-hacking/vuln-manage/[^27^]:
 
 * Executive report in `PDF`.
 * Technical report in `XLS`.
@@ -316,8 +316,8 @@ because it is manually generated.
 a|==== End
 |{yes} Our service ends when the agreed upon scope is completed,
 without any increase in cost to you.
-link:../../use-cases/continuous-hacking/critical-info/[^28^]
-link:../../use-cases/one-shot-hacking/critical-info/[^29^]
+link:../../services/continuous-hacking/critical-info/[^28^]
+link:../../services/one-shot-hacking/critical-info/[^29^]
 |{no} The service ends
 when a prior agreed upon time limit for the project runs out.
 Therefore, the scope and coverage

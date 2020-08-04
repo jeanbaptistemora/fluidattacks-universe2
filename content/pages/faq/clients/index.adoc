@@ -333,7 +333,7 @@ Frequently asked questions about Continuous Hacking.
  and the hacking process begin simultaneously.
  However, this is not always possible.
  To catch up with developers,
- we perform a link:../../use-cases/continuous-hacking/healthcheck/[`Health Check`] (additional fees apply).
+ we perform a link:../../services/continuous-hacking/healthcheck/[`Health Check`] (additional fees apply).
  This means all versions of the existing code
  are attacked up to the contracted starting point
  in addition to the monthly test limit.
@@ -494,8 +494,8 @@ your proprietary rights to that code.
  made by `one` active author in `one` previous month.
 
 *What options for retesting are available?*::
- link:../../use-cases/one-shot-hacking[One-shot Hacking] includes one retest.
- link:../../use-cases/continuous-hacking/[Continuous Hacking] includes infinite retests
+ link:../../services/one-shot-hacking[One-shot Hacking] includes one retest.
+ link:../../services/continuous-hacking/[Continuous Hacking] includes infinite retests
  during the subscription time.
 
 *What are the scheduled activities during the Continuous Hacking test?*::

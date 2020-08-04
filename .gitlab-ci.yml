@@ -77,11 +77,11 @@ test_images:
   <<: *with_nix
   stage: test
 
-test_generic:
+.test_generic:
   <<: *with_nix
   stage: test
 
-test_blog:
+.test_blog:
   <<: *with_nix
   stage: test
 

@@ -174,7 +174,7 @@ industry-standard
 We have projects focused on hacking our software.
 For us, it is essential to set an example of secure software,
 that is why today our entire technology stack
-goes through a process of comprehensive [inner]#link:../use-cases/continuous-hacking/[Continuous Hacking]#.
+goes through a process of comprehensive [inner]#link:../services/continuous-hacking/[Continuous Hacking]#.
 
 All our development projects run
 <<CI, Continuous Integration>>
@@ -603,7 +603,7 @@ Currently, we keep the following systems as code:
 - link:https://gitlab.com/fluidattacks/integrates/-/commits/master[Integrates]
 - link:https://gitlab.com/fluidattacks/asserts/-/commits/master[Asserts]
 - link:https://gitlab.com/fluidattacks/web/-/commits/master[Website]
-- [inner]#link:../use-cases/continuous-hacking/[Continuous hacking]#
+- [inner]#link:../services/continuous-hacking/[Continuous hacking]#
 - <<IAC, Infrastructure>>
 - General documentation
 

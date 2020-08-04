@@ -124,8 +124,8 @@ link:https://www.geekwire.com/2014/nate-silver/[journalists should learn to code
 
 Indeed, `Fluid Attacks` has a `DevOps` approach.
 Want to know more?
-Visit our [inner]#link:../../use-cases/continuous-hacking/[Continuous Hacking]#
-and [inner]#link:../../use-cases/one-shot-hacking/[One-shot Hacking]# services.
+Visit our [inner]#link:../../services/continuous-hacking/[Continuous Hacking]#
+and [inner]#link:../../services/one-shot-hacking/[One-shot Hacking]# services.
 
 *Why do you think companies that know their weaknesses,*
 *do not fix them or do it too late?*

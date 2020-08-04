@@ -174,7 +174,7 @@ At `Fluid Attacks`, we’re committed to contributing to improving
 the safety of organizations by putting some pressure (testing by attacking)
 on their mission-critical systems.
 How do we do it?
-Check our [inner]#link:../../use-cases/continuous-hacking/[hacking services]#,
+Check our [inner]#link:../../services/continuous-hacking/[hacking services]#,
 as well as our [inner]#link:../../products/[products]#.
 We can provide `IT` and risk management insights continuously and,
 thus, properly prioritize your resources, closing open holes to bad guys.

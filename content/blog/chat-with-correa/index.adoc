@@ -64,8 +64,8 @@ image::petya.png[Petya]
 
 At `Fluid Attacks`, we blend automation with the best talent in hacking
 to find weaknesses in our customer’s systems
-by means of our [inner]#link:../../use-cases/continuous-hacking/[Continuous]#
-and [inner]#link:../../use-cases/one-shot-hacking/[One-shot Hacking]# services.
+by means of our [inner]#link:../../services/continuous-hacking/[Continuous]#
+and [inner]#link:../../services/one-shot-hacking/[One-shot Hacking]# services.
 As Daniel says, hacking skills are still not replaceable by machines.
 
 *And the other variant?*
