@@ -45,3 +45,9 @@ temporarily or permanently.
 V3.3 Session Logout and Timeout Requirements.(3.3.4)]
 Verify that users are able to view and log out of any or all currently active
 sessions and devices.
+
+. [[r6]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V3.5 Token-based Session Management.(3.5.1)]
+Verify the application does not treat *OAuth* and refresh tokens — on their
+own — as the presence of the subscriber and allows users to terminate
+trust relationships with linked applications.

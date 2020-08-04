@@ -35,18 +35,22 @@ or to exploit other implementation flaws to assume other users’ identities
 temporarily or permanently.
 
 . [[r5]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V3.2 Session Binding Requirements.(3.2.2)]
+Verify that session tokens possess at least 64 bits of entropy.
+
+. [[r6]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V3.5 Token-based Session Management.(3.5.1)]
 Verify the application does not treat *OAuth* and refresh tokens — on their
 own — as the presence of the subscriber and allows users to terminate
 trust relationships with linked applications.
 
-. [[r6]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r7]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V3.5 Token-based Session Management.(3.5.2)]
 Verify the application uses session tokens rather than static *API* secrets
 and keys,
 except with legacy implementations.
 
-. [[r7]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r8]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V3.5 Token-based Session Management.(3.5.3)]
 Verify that stateless session tokens use digital signatures, encryption, and
 other countermeasures to protect against tampering, enveloping, replay,

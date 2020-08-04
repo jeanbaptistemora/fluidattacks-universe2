@@ -99,8 +99,13 @@ after an idle period.
 
 . [[r9]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V3.6 Re-authentication from a Federation or Assertion.(3.6.1)]
-Verify that relying parties specify the maximum authentication time to CSPs and
-that CSPs re-authenticate the subscriber if they haven't used a session within
-that period.
+Verify that relying parties specify the maximum authentication time to **CSP**s
+and that **CSP**s re-authenticate the subscriber if they haven't used a session
+within that period.
 
-. [[r10]] link:https://pcinetwork.org/forum/index.php?threads/pci-dss-3-0-6-5-10-broken-authentication-and-session-management.667/[[PCI DSS 3.0\] 6.5.10 Broken authentication and session management].
+. [[r10]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V3.6 Re-authentication from a Federation or Assertion.(3.6.2)]
+Verify that **CSP**s inform relying parties of the last authentication event,
+to allow **RP**s to determine if they need to re-authenticate the user.
+
+. [[r11]] link:https://pcinetwork.org/forum/index.php?threads/pci-dss-3-0-6-5-10-broken-authentication-and-session-management.667/[[PCI DSS 3.0\] 6.5.10 Broken authentication and session management].

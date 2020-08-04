@@ -18,7 +18,7 @@ are included, during development, to aid the development and testing processes.
 These functions often represent backdoors because they leave exposed ports
 or help in bypassing the authentication and/or authorization mechanisms.
 Therefore, they should not be part of the production environment,
-as they could become serious security threats.
+as they could become serious security vulnerabilities.
 
 == References
 

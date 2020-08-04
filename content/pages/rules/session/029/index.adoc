@@ -200,9 +200,9 @@ path possible.
 
 . [[r17]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V4.2 Operation Level Access Control.(4.2.2)]
-Verify that the application or framework enforces a strong anti-CSRF mechanism
-to protect authenticated functionality,
-and effective anti-automation or anti-CSRF protects unauthenticated
+Verify that the application or framework enforces a strong anti-**CSRF**
+mechanism to protect authenticated functionality,
+and effective anti-automation or anti-**CSRF** protects unauthenticated
 functionality.
 
 . [[r18]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
