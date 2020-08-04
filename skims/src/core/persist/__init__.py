@@ -15,7 +15,7 @@ from integrates.graphql import (
     create_session,
 )
 from integrates.dal import (
-    do_release_vulnerability,
+    do_release_vulnerabilities,
     do_update_evidence,
     do_update_evidence_description,
     get_finding_vulnerabilities,
@@ -40,7 +40,6 @@ from utils.model import (
     FindingEvidenceDescriptionIDEnum,
     IntegratesVulnerabilityMetadata,
     Vulnerability,
-    VulnerabilityApprovalStatusEnum,
     VulnerabilityKindEnum,
     VulnerabilitySourceEnum,
     VulnerabilityStateEnum,
@@ -124,33 +123,6 @@ async def upload_evidences(
             )
         )
     ))
-
-
-async def approve_skims_vulnerabilities(
-    *,
-    finding: FindingEnum,
-    finding_id: str,
-) -> bool:
-    return all(
-        await materialize(
-            do_release_vulnerability(
-                finding_id=finding_id,
-                vulnerability_uuid=vulnerability.integrates_metadata.uuid
-            )
-            for vulnerability in await get_finding_vulnerabilities(
-                finding=finding,
-                finding_id=finding_id,
-            )
-            if (vulnerability.integrates_metadata
-                and vulnerability.integrates_metadata.uuid
-                and vulnerability.integrates_metadata.approval_status == (
-                    VulnerabilityApprovalStatusEnum.PENDING
-                )
-                and vulnerability.integrates_metadata.source == (
-                    VulnerabilitySourceEnum.SKIMS
-                ))
-        )
-    )
 
 
 async def merge_results(
@@ -237,8 +209,7 @@ async def persist_finding(
         success = await do_build_and_upload_vulnerabilities(
             finding_id=finding_id,
             results=merged_results,
-        ) and await approve_skims_vulnerabilities(
-            finding=finding,
+        ) and await do_release_vulnerabilities(
             finding_id=finding_id,
         ) and await upload_evidences(
             finding_id=finding_id,

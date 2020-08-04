@@ -1,4 +1,7 @@
 # Standard library
+from asyncio import (
+    sleep,
+)
 import functools
 import inspect
 from typing import (
@@ -44,6 +47,7 @@ def retry(
     attempts: int = 5,
     on_exceptions: Tuple[Type[Exception], ...],
     on_error_return: Any = None,
+    sleep_between_retries: int = 0
 ) -> Callable[[TVar], TVar]:
 
     def decorator(function: TVar) -> TVar:
@@ -57,6 +61,7 @@ def retry(
                     return await _function(*args, **kwargs)
                 except on_exceptions:
                     await log('debug', 'retrying: %s', _function.__name__)
+                    await sleep(sleep_between_retries)
 
             if on_error_return:
                 return on_error_return

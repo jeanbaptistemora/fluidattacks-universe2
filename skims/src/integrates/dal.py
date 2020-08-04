@@ -55,6 +55,7 @@ RETRY: Callable[[TVar], TVar] = retry(
         IndexError,
         socket.gaierror,
     ),
+    sleep_between_retries=5,
 )
 
 
@@ -286,6 +287,34 @@ async def do_release_vulnerability(
         variables=dict(
             finding_id=finding_id,
             vulnerability_uuid=vulnerability_uuid,
+        )
+    )
+
+    success: bool = result['data']['approveVulnerability']['success']
+
+    return success
+
+
+@RETRY
+async def do_release_vulnerabilities(
+    *,
+    finding_id: str,
+) -> bool:
+    result = await _execute(
+        query="""
+            mutation DoReleaseVulnerability(
+                $finding_id: String!
+            ) {
+                approveVulnerability(
+                    approvalStatus: true
+                    findingId: $finding_id
+                ) {
+                    success
+                }
+            }
+        """,
+        variables=dict(
+            finding_id=finding_id,
         )
     )
 

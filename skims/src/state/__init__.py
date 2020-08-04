@@ -4,6 +4,7 @@ from os import (
     makedirs,
 )
 from os.path import (
+    expanduser,
     join,
 )
 from typing import (
@@ -36,7 +37,7 @@ from utils.serialization import (
 # Constants
 TFunc = TypeVar('TFunc', bound=Callable[..., Any])
 TVar = TypeVar('TVar')
-STATE_FOLDER: str = '.skims'
+STATE_FOLDER: str = expanduser('~/.skims')
 CACHE_FOLDER: str = join(STATE_FOLDER, 'cache')
 
 # Side effects
