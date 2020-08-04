@@ -565,12 +565,14 @@ function job_serve_mobile {
           "secrets-development.yaml" \
     &&  pushd mobile \
     &&  npm install \
+    &&  rm -rf ~/.expo ./.expo \
     &&  npx --no-install expo login \
             --username "${EXPO_USER}" \
             --password "${EXPO_PASS}" \
             --non-interactive \
-    &&  rm -rf ~/.expo ./.expo \
-    &&  npm start -- --non-interactive \
+    &&  npm start -- \
+          --clear \
+          --non-interactive \
   &&  popd \
   ||  return 1
 }
