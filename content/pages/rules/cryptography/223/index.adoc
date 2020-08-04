@@ -52,20 +52,25 @@ The product uses a scheme that generates numbers or identifiers that are more
 predictable than required.
 
 . [[r7]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V2.6 Look-up Secret Verifier Requirements.(2.6.3)]
+Verify that lookup secrets are resistant to offline attacks,
+such as predictable values.
+
+. [[r8]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V6.3 Random Values.(6.3.1)]
 Verify that all random numbers, random file names, random **GUID**s, and random
 strings are generated using the cryptographic module's approved
 cryptographically secure random number generator when these random values are
 intended to be not guessable by an attacker.
 
-. [[r8]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r9]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V6.3 Random Values.(6.3.2)]
 Verify that random GUIDs are created using the *GUID* v4 algorithm,
 and a cryptographically-secure pseudo-random number generator (*CSPRNG*).
 **GUID**s created using other pseudo-random number generators may be
 predictable.
 
-. [[r9]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r10]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V6.3 Random Values.(6.3.3)]
 Verify that random numbers are created with proper entropy even when the
 application is under heavy load,
