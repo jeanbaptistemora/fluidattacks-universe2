@@ -95,7 +95,7 @@ const projectContent: React.FC<IProjectContentProps> = (props: IProjectContentPr
                   <ContentTab
                     icon="icon pe-7s-box1"
                     id="resourcesTab"
-                    link={`${props.match.url}/settings`}
+                    link={`${props.match.url}/scope`}
                     title={translate.t("group.tabs.resources.text")}
                     tooltip={translate.t("group.tabs.resources.tooltip")}
                   />
@@ -110,11 +110,11 @@ const projectContent: React.FC<IProjectContentProps> = (props: IProjectContentPr
                   <Route path={`${props.match.path}/drafts`} component={ProjectDraftsView} exact={true} />
                   <Route path={`${props.match.path}/devsecops`} component={ProjectForcesView} exact={true} />
                   <Route path={`${props.match.path}/events`} component={ProjectEventsView} exact={true} />
-                  <Route path={`${props.match.path}/settings`} component={ProjectSettingsView} exact={true} />
+                  <Route path={`${props.match.path}/scope`} component={ProjectSettingsView} exact={true} />
                   <Route path={`${props.match.path}/users`} component={ProjectUsersView} exact={true} />
                   <Route path={`${props.match.path}/comments`} component={ProjectCommentsView} exact={true} />
                   {/* Necessary to support old resources URLs */}
-                  <Redirect path={`${props.match.path}/resources`} to={`${props.match.path}/settings`} />
+                  <Redirect path={`${props.match.path}/resources`} to={`${props.match.path}/scope`} />
                   <Redirect to={`${props.match.path}/analytics`} />
                 </Switch>
               </div>
