@@ -12,3 +12,10 @@ export const ORGS_QUERY: DocumentNode = gql`{
     }
   }
 }`;
+
+export const ADD_PUSH_TOKEN_MUTATION: DocumentNode = gql`
+mutation addPushToken($token: String!) {
+  addPushToken(token: $token) {
+    success
+  }
+}`;

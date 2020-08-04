@@ -10,6 +10,7 @@
       "package": "com.fluidattacks.integrates",
       "permissions": [],
       "playStoreUrl": "https://play.google.com/store/apps/details?id=com.fluidattacks.integrates",
+      "useNextNotificationsApi": true,
       "versionCode": 0
     },
     "assetBundlePatterns": [

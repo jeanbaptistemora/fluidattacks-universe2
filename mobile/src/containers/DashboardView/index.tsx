@@ -1,4 +1,4 @@
-import { useQuery } from "@apollo/react-hooks";
+import { useMutation, useQuery } from "@apollo/react-hooks";
 import { wait } from "@apollo/react-testing";
 import { ApolloError, NetworkStatus } from "apollo-client";
 import { GraphQLError } from "graphql";
@@ -28,12 +28,13 @@ import { useHistory } from "react-router-native";
 import { About } from "../../components/About";
 import { Logo } from "../../components/Logo";
 import { Preloader } from "../../components/Preloader";
+import { getPushToken } from "../../utils/notifications";
 import { rollbar } from "../../utils/rollbar";
 import { IAuthState, logout } from "../../utils/socialAuth";
 
 import { Header } from "./Header";
 import { Indicators } from "./Indicators";
-import { ORGS_QUERY } from "./queries";
+import { ADD_PUSH_TOKEN_MUTATION, ORGS_QUERY } from "./queries";
 import { styles } from "./styles";
 import { IOrganization, IOrgsResult } from "./types";
 
@@ -73,6 +74,12 @@ const dashboardView: React.FunctionComponent = (): JSX.Element => {
     },
   });
 
+  const [addPushToken] = useMutation(ADD_PUSH_TOKEN_MUTATION, {
+    onError: (error: ApolloError): void => {
+      rollbar.error("Couldn't add push token", error);
+    },
+  });
+
   // Side effects
   let lockTimerId: number | undefined;
   let locked: boolean = false;
@@ -106,8 +113,17 @@ const dashboardView: React.FunctionComponent = (): JSX.Element => {
     }
   };
 
+  const registerPushToken: (() => void) = async (): Promise<void> => {
+    const token: string = await getPushToken();
+
+    if (!_.isEmpty(token)) {
+      await addPushToken({ variables: { token } });
+    }
+  };
+
   const onMount: (() => void) = (): (() => void) => {
     AppState.addEventListener("change", handleAppStateChange);
+    registerPushToken();
 
     return (): void => {
       AppState.removeEventListener("change", handleAppStateChange);
