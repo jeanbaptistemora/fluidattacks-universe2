@@ -386,7 +386,6 @@ deploy_mobile_ota:
   <<: *with_nix
   <<: *in_everywhere_except_periodic_jobs_and_mrs_integrates
   stage: deploy-app
-  tags: [autoscaling-large]
 
 deploy_mobile_playstore:
   <<: *with_nix

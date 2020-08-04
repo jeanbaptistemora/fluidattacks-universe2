@@ -266,21 +266,13 @@ function job_deploy_front {
 }
 
 function job_deploy_mobile_ota {
+  export EXPO_USE_DEV_SERVER="true"
+
       helper_use_pristine_workdir \
   &&  if  helper_have_any_file_changed \
             'mobile/'
       then
-            echo '[INFO] Veryfing if we should set fs.inotify.max_user_watches' \
-        &&  if test "${IS_LOCAL_BUILD}" = "${FALSE}"
-            then
-                  echo '[INFO] Setting: fs.inotify.max_user_watches=524288' \
-              &&  echo 'fs.inotify.max_user_watches=524288' \
-                    >> /etc/sysctl.conf \
-              &&  sysctl -p
-            else
-                  echo '[INFO] Local build, skipping...'
-            fi \
-        &&  echo '[INFO] Logging in to AWS' \
+            echo '[INFO] Logging in to AWS' \
         &&  aws_login "${ENVIRONMENT_NAME}" \
         &&  sops_env "secrets-${ENVIRONMENT_NAME}.yaml" 'default' \
               EXPO_USER \
@@ -303,16 +295,10 @@ function job_deploy_mobile_ota {
           &&  echo '[INFO] Replacing versions' \
           &&  sed -i "s/integrates_version/${FI_VERSION}/g" ./app.json \
           &&  sed -i "s/\"versionCode\": 0/\"versionCode\": ${FI_VERSION_MOBILE}/g" ./app.json \
-          &&  echo '[INFO] Launching expo bundler' \
-          &&  { npx --no-install expo start --non-interactive & } \
-          &&  EXPO_PID=$! \
-          &&  echo '[INFO] Waiting 10 seconds to leave the bundler start' \
-          &&  sleep 10 \
           &&  echo '[INFO] Publishing update' \
           &&  npx --no-install expo publish \
                 --non-interactive \
                 --release-channel "${CI_COMMIT_REF_NAME}" \
-          &&  kill -9 "${EXPO_PID}" \
           &&  if test "${ENVIRONMENT_NAME}" = 'production'
               then
                     echo '[INFO] Sending report to rollbar' \

@@ -57,7 +57,7 @@
     "bunyan": "1.8.14",
     "enzyme": "3.11.0",
     "enzyme-adapter-react-16": "1.15.2",
-    "expo-cli": "3.22.3",
+    "expo-cli": "3.23.2",
     "fetch-mock": "9.10.5",
     "jest": "26.1.0",
     "jest-expo": "38.0.2",
