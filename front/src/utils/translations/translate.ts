@@ -1,6 +1,6 @@
+import Logger from "../logger";
 import { enTranslations } from "./en";
 import { initReactI18next } from "react-i18next";
-import rollbar from "../rollbar";
 import i18next, { TOptions } from "i18next";
 
 i18next
@@ -16,7 +16,7 @@ i18next
     },
   })
   .catch((reason: string): void => {
-    rollbar.error("There was an error initializing translations", reason);
+    Logger.warning("There was an error initializing translations", reason);
   });
 
 interface ITranslationFn {

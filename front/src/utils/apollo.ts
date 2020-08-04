@@ -5,6 +5,7 @@
 */
 import { ApolloClient } from "apollo-client";
 import { ApolloProvider as BaseApolloProvider } from "@apollo/react-hooks";
+import Logger from "./logger";
 import React from "react";
 import { WebSocketLink } from "apollo-link-ws";
 import _ from "lodash";
@@ -13,7 +14,6 @@ import { createUploadLink } from "apollo-upload-client";
 import { getEnvironment } from "./environment";
 import { getMainDefinition } from "apollo-utilities";
 import { msgError } from "./notifications";
-import rollbar from "./rollbar";
 import translate from "./translations/translate";
 import { useHistory } from "react-router";
 import {
@@ -220,7 +220,7 @@ const errorLink: (history: History) => ApolloLink = (
           break;
         default:
           msgError(translate.t("group_alerts.error_textsad"));
-          rollbar.error("A network error occurred", { ...networkError });
+          Logger.warning("A network error occurred", { ...networkError });
       }
     } else {
       if (graphQLErrors !== undefined) {

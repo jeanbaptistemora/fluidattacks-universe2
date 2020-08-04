@@ -12,7 +12,6 @@
       "src/utils/bugsnagErrorBoundary.ts",
       "src/utils/environment.ts",
       "src/utils/logger.ts",
-      "src/utils/rollbar.ts",
       "src/utils/sortHelpers.ts",
       "src/utils/apollo.ts",
       "src/components/**"
