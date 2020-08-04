@@ -1,7 +1,6 @@
 """ FluidIntegrates services definition """
 
 from typing import Dict, cast
-from asgiref.sync import async_to_sync
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
@@ -14,6 +13,7 @@ from backend.domain import (
 
 from backend import authz, util
 from backend.dal import project as project_dal
+from backend.utils import aio
 
 
 @csrf_exempt  # type: ignore
@@ -29,18 +29,18 @@ def has_access_to_project(email: str, group: str) -> bool:
     return bool(authz.get_group_level_role(email, group.lower()))
 
 
-def has_access_to_finding(email: str, finding_id: str) -> bool:
+async def has_access_to_finding(email: str, finding_id: str) -> bool:
     """ Verify if the user has access to a finding submission. """
-    finding = async_to_sync(finding_domain.get_finding)(finding_id)
+    finding = await finding_domain.get_finding(finding_id)
     group = cast(str, finding.get('projectName', ''))
-    return has_access_to_project(email, group)
+    return await aio.ensure_io_bound(has_access_to_project, email, group)
 
 
-def has_access_to_event(email: str, event_id: str) -> bool:
+async def has_access_to_event(email: str, event_id: str) -> bool:
     """ Verify if the user has access to a event submission. """
-    event = async_to_sync(event_domain.get_event)(event_id)
+    event = await event_domain.get_event(event_id)
     group = cast(str, event.get('project_name', ''))
-    return has_access_to_project(email, group)
+    return await aio.ensure_io_bound(has_access_to_project, email, group)
 
 
 async def has_valid_access_token(

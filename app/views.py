@@ -6,7 +6,6 @@
 
 # Standard library
 import logging
-import os
 from datetime import datetime, timedelta
 from typing import (
     List,
@@ -17,7 +16,6 @@ from typing import (
 )
 
 # Third party libraries
-import boto3
 import bugsnag
 from asgiref.sync import async_to_sync
 from django.conf import settings
@@ -32,6 +30,10 @@ from magic import Magic
 
 # Local libraries
 from backend import authz, util
+from backend.dal.helpers.s3 import (  # type: ignore
+    download_file,
+    list_files,
+)
 from backend.domain import (
     analytics as analytics_domain,
     organization as org_domain
@@ -46,9 +48,8 @@ from backend.services import (
     has_access_to_finding,
     has_access_to_event
 )
+from backend.utils import aio
 from __init__ import (
-    FI_AWS_S3_ACCESS_KEY,
-    FI_AWS_S3_SECRET_KEY,
     FI_AWS_S3_BUCKET,
     FI_ENVIRONMENT
 )
@@ -56,46 +57,12 @@ from __init__ import (
 # Constants
 CACHE_TTL = getattr(settings, 'CACHE_TTL', DEFAULT_TIMEOUT)
 
-CLIENT_S3 = boto3.client(
-    's3',
-    aws_access_key_id=FI_AWS_S3_ACCESS_KEY,
-    aws_secret_access_key=FI_AWS_S3_SECRET_KEY,
-    aws_session_token=os.environ.get('AWS_SESSION_TOKEN')
-)
-
 BUCKET_S3 = FI_AWS_S3_BUCKET
 
 LOGGER = logging.getLogger(__name__)
 
 
-def enforce_user_level_role(
-        request: HttpRequest,
-        *allowed_roles: Sequence[str]) -> HttpResponse:
-    # Verify role if the user is logged in
-    email = request.session.get('username')
-    registered = request.session.get('registered')
-
-    if not email or not registered:
-        # The user is not even authenticated. Redirect to login
-        return HttpResponse(
-            '<script> '
-            'var getUrl=window.location.href.split('
-            '`${window.location.host}/integrates`); '
-            'localStorage.setItem("start_url",getUrl[getUrl.length - 1]); '
-            'location = "/integrates/index"; '
-            '</script>'
-        )
-
-    requester_role = authz.get_user_level_role(email)
-    if requester_role not in allowed_roles:
-        response = HttpResponse("Access denied")
-        response.status_code = 403
-        return response
-
-    return None
-
-
-def enforce_group_level_role(
+async def enforce_group_level_role(
         request: HttpRequest,
         group: str,
         *allowed_roles: Sequence[str]) -> HttpResponse:
@@ -114,7 +81,9 @@ def enforce_group_level_role(
             '</script>'
         )
 
-    requester_role = authz.get_group_level_role(email, group)
+    requester_role = await aio.ensure_io_bound(
+        authz.get_group_level_role, email, group
+    )
     if requester_role not in allowed_roles:
         response = HttpResponse("Access denied")
         response.status_code = 403
@@ -336,7 +305,8 @@ def logout(request: HttpRequest) -> HttpResponse:
 @cache_content  # type: ignore
 @cache_control(private=True, max_age=31536000)  # type: ignore
 @csrf_exempt  # type: ignore
-def get_evidence(
+@async_to_sync  # type: ignore
+async def get_evidence(
         request: HttpRequest,
         project: str,
         evidence_type: str,
@@ -349,16 +319,16 @@ def get_evidence(
         'reviewer'
     ]
 
-    error = enforce_group_level_role(request, project, *allowed_roles)
+    error = await enforce_group_level_role(request, project, *allowed_roles)
 
     if error is not None:
         return error
 
     username = request.session['username']
     if ((evidence_type in ['drafts', 'findings', 'vulns'] and
-         has_access_to_finding(username, findingid)) or
+         await has_access_to_finding(username, findingid)) or
         (evidence_type == 'events' and
-         has_access_to_event(username, findingid))):
+         await has_access_to_event(username, findingid))):
         if fileid is None:
             bugsnag.notify(Exception('Missing evidence image ID'))
 
@@ -366,14 +336,16 @@ def get_evidence(
                 'Error - Unsent image ID',
                 content_type='text/html'
             )
-        key_list = list_s3_evidences(f'{project.lower()}/{findingid}/{fileid}')
+        key_list = await list_s3_evidences(
+            f'{project.lower()}/{findingid}/{fileid}'
+        )
         if key_list:
             for k in key_list:
                 start = k.find(findingid) + len(findingid)
                 localfile = '/tmp' + k[start:]
                 ext = {'.png': '.tmp', '.gif': '.tmp'}
                 localtmp = util.replace_all(localfile, ext)
-                CLIENT_S3.download_file(BUCKET_S3, k, localtmp)
+                await download_file(BUCKET_S3, k, localtmp)
                 return retrieve_image(request, localtmp)
         else:
             return util.response(
@@ -404,6 +376,6 @@ def retrieve_image(request: HttpRequest, img_file: str) -> HttpResponse:
         )
 
 
-def list_s3_evidences(prefix: str) -> List[str]:
+async def list_s3_evidences(prefix: str) -> List[str]:
     """return keys that begin with prefix from the evidences folder."""
-    return list(util.iterate_s3_keys(CLIENT_S3, BUCKET_S3, prefix))
+    return list(await list_files(BUCKET_S3, prefix))
