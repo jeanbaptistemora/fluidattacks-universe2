@@ -191,18 +191,6 @@ kubectl apply -f ingress/autonomic.yaml
 issue_secondary_domain_certificates ingress/secondary-domains.yaml \
   secondary-domains-cert secondary-domains
 
-
-# Provide information to access Gitlab Container Registry and pull images
-if ! kubectl get secret gitlab-reg; then
-  echo "Creating secret to access Gitlab Registry..."
-  # Create secret in serves namespace
-  kubectl create secret docker-registry gitlab-reg \
-    --docker-server="$CI_REGISTRY" --docker-username="$DOCKER_USER" \
-    --docker-password="$DOCKER_PASS" --docker-email="$DOCKER_EMAIL" \
-  # Copy secret to runners namespace
-  kubectl get secret gitlab-reg --export -o yaml | kubectl apply --namespace=runners -f -
-fi
-
 # Prepare environments for Review Apps
 sed 's/$PROJECT/integrates/g' review-apps/env-template.yaml | kubectl apply -f -
 
