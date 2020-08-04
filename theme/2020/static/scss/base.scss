@@ -210,6 +210,9 @@ $codeyellow: rgba(230, 219, 116, 1);
 .w-card { width: 350px; }
 .mw-1200 { max-width: 1200px; }
 .h30-em { height: 30em; }
+.shadow-menu { box-shadow: 0 5px 5px 0 rgb(176,176,176,0.2); }
+.h-logo { height: 70px; }
+.h-navbar { height: 110px; }
 
 // Tachyons custom responsive classes
 @media screen and (min-width: 960px) and (max-width: 1200px) {
@@ -244,7 +247,6 @@ $codeyellow: rgba(230, 219, 116, 1);
   .w90-s { width: 90%; }
   .fheader-s { font-size: 4.5rem; }
   .cover-s { background-size: cover; }
-  .shadow-menu { box-shadow: 0 8px 6px -6px $shadowblack; }
   .w-100-s { width: 100%; }
   .asap-bg-s { background-image: url('../../images/bg-asap-mobile.png'); height: 25rem; }
   .nt-menu { margin-top: -.125rem; }
@@ -255,6 +257,7 @@ $codeyellow: rgba(230, 219, 116, 1);
   .h-search-icon { height: 1.125rem; }
   .w-menu-bt { width: 18px; }
   .dn-s { display: none; }
+  .h-logo { height: 50px; }
 }
 //medium resolutions
 @media screen and (min-width: 30em) and (max-width: 60em) {
@@ -880,5 +883,32 @@ video {
 
 #aboutus-title:checked~.aboutus-list {
   animation: fadein .5s;
+  display: block;
+}
+
+.usecases-content, .products-content {
+  display: none;
+  position: absolute;
+  background-color: white;
+  min-width: 160px;
+  box-shadow: 0px 20px 20px $darkshadow;
+  a {
+    float: none;
+    color: $fluid-black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+    &:hover {
+      color: $fluid-red;
+    }
+  }
+}
+
+.usecases-index:hover .usecases-content {
+  display: block;
+}
+
+.products-index:hover .products-content {
   display: block;
 }

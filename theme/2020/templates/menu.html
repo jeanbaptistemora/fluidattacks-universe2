@@ -1,9 +1,9 @@
-<div class="b relative w-100 z-5 mw9 mr-auto ml-auto">
-  <div class="cssmenu bg-white lh-solid h-menu-s cover shadow-menu">
+<div class="cssmenu bg-white lh-solid h-navbar cover shadow-menu relative">
+  <div class="b relative w-100 z-5 mw9 mr-auto ml-auto">
     <ul class="list ma0 pa0 overflow-hidden">
       <li class="fl">
         <a class="db tc pa1 no-underline" href="{{ SITEURL }}/">
-          <img loading="lazy" class="w5-l w-logo ml3 mv2 absolute"
+          <img loading="lazy" class="h-logo ml3 mv2 pv2 absolute"
             src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/logo-menu-new.svg" alt="Young hacker smiling">
         </a>
       </li>
@@ -218,40 +218,55 @@
         </label>
       </li>
       <li class="relative fr mt-menu mr3 mv4-l pv3-l pv-4-m db-l dn">
-        <a class="tc no-underline c-fluid-bk f-key-features fw4 menu-txt-trans roboto hv-fluid-rd nt-menu"
+        <a class="tc no-underline c-fluid-bk f-key-features menu-txt-trans roboto hv-fluid-rd nt-menu"
             href="{{ SITEURL }}/contact-us/">
-          <button class="outline-transparent br2 ph2 pv1 bg-white bc-fluid-red ba hv-fluid-rd hv-fluid-bd bt-trans c-dkred pointer">CONTACT</button>
+          <button class="outline-transparent fw7 br2 ph2 pv1 bg-white bc-fluid-red ba hv-fluid-rd hv-fluid-bd bt-trans c-dkred pointer">CONTACT</button>
         </a>
       </li>
       <li class="db-ns dn relative fr mt-menu mr3 pr2 mv4-l mv3 pv3-l pv-4-m">
-        <a class="tc no-underline c-fluid-bk f-key-features fw4 menu-txt-trans roboto hv-fluid-rd nt-menu"
+        <a class="tc no-underline c-fluid-bk f-key-features menu-txt-trans roboto hv-fluid-rd nt-menu"
             href="https://fluidattacks.com/integrates">
-          <button class="outline-transparent bn ph0 pv1 hv-fluid-rd bg-transparent pointer">LOGIN</button>
+          <button class="outline-transparent fw7 bn ph0 pv1 hv-fluid-rd bg-transparent pointer">LOGIN</button>
         </a>
       </li>
       <li class="db-xl display-none relative fr mt-menu mr3 pr2 mv4-l mv3 pv3-l pv-4-m">
-        <a class="tc no-underline c-fluid-bk f-key-features fw4 menu-txt-trans roboto hv-fluid-rd nt-menu"
+        <a class="tc no-underline c-fluid-bk f-key-features menu-txt-trans roboto hv-fluid-rd nt-menu"
             href="{{ SITEURL }}/blog/">
-          <button class="outline-transparent bn ph0 pv1 hv-fluid-rd bg-transparent pointer">BLOG</button>
+          <button class="outline-transparent fw7 bn ph0 pv1 hv-fluid-rd bg-transparent pointer">BLOG</button>
         </a>
       </li>
       <li class="db-xl display-none relative fr mt-menu mr3 pr2 mv4-l mv3 pv3-l pv-4-m">
-        <a class="tc no-underline c-fluid-bk f-key-features fw4 menu-txt-trans roboto hv-fluid-rd nt-menu"
+        <a class="tc no-underline c-fluid-bk f-key-features menu-txt-trans roboto hv-fluid-rd nt-menu"
             href="{{ SITEURL }}/resources/">
-          <button class="outline-transparent bn ph0 pv1 hv-fluid-rd bg-transparent pointer">RESOURCES</button>
+          <button class="outline-transparent fw7 bn ph0 pv1 hv-fluid-rd bg-transparent pointer">RESOURCES</button>
         </a>
       </li>
-      <li class="db-xl display-none relative fr mt-menu mr3 pr2 mv4-l mv3 pv3-l pv-4-m">
-        <a class="tc no-underline c-fluid-bk f-key-features fw4 menu-txt-trans roboto hv-fluid-rd nt-menu"
+      <li class="db-l dn fr mt-menu mr3 pr2 mv4-l mv3 pv3-l pv-4-m products-index">
+        <a class="tc no-underline c-fluid-bk f-key-features menu-txt-trans roboto hv-fluid-rd nt-menu"
             href="{{ SITEURL }}/products/">
-          <button class="outline-transparent bn ph0 pv1 hv-fluid-rd bg-transparent pointer">PRODUCTS</button>
+          <button class="outline-transparent fw7 bn ph0 pv1 hv-fluid-rd bg-transparent pointer">
+            PRODUCTS<div class="dib w1"><i class="fas fa-angle-down"></i></div>
+          </button>
         </a>
+        <div class="products-content roboto br3 br--bottom pt4 fadein">
+          <a class="f-key-features fw4" href="{{ SITEURL }}/products/integrates/">Integrates</a>
+          <a class="f-key-features fw4" href="{{ SITEURL }}/products/drills/">Drills</a>
+          <a class="f-key-features fw4" href="{{ SITEURL }}/products/forces/">Forces</a>
+          <a class="f-key-features fw4" href="{{ SITEURL }}/products/rules/">Rules</a>
+        </div>
       </li>
-      <li class="db-l dn relative fr mt-menu mr3 pr2 mv4-l mv3 pv3-l pv-4-m">
-        <a class="tc no-underline c-fluid-bk f-key-features fw4 menu-txt-trans roboto hv-fluid-rd nt-menu"
+      <li class="db-l dn fr mt-menu mr3 pr2 mv4-l mv3 pv3-l pv-4-m usecases-index">
+        <a class="tc no-underline c-fluid-bk f-key-features menu-txt-trans roboto hv-fluid-rd nt-menu"
             href="{{ SITEURL }}/use-cases/continuous-hacking/">
-          <button class="outline-transparent bn ph0 pv1 hv-fluid-rd bg-transparent pointer">USE CASES</button>
+          <button class="outline-transparent fw7 bn ph0 pv1 hv-fluid-rd bg-transparent pointer">
+            USE CASES<div class="dib w1"><i class="fas fa-angle-down"></i></div>
+          </button>
         </a>
+        <div class="usecases-content roboto br3 br--bottom pt4 fadein">
+          <a class="f-key-features fw4" href="{{ SITEURL }}/use-cases/continuous-hacking/">Continuous Hacking</a>
+          <a class="f-key-features fw4" href="{{ SITEURL }}/use-cases/one-shot-hacking/">One-shot Hacking</a>
+          <a class="f-key-features fw4" href="{{ SITEURL }}/use-cases/comparative/">Comparative</a>
+        </div>
       </li>
     </ul>
   </div>
