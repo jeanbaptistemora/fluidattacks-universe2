@@ -428,21 +428,13 @@ reviews:
   stage: mr-test
   only: [merge_requests]
 
-test_forces_static:
-  <<: *with_nix
-  <<: *in_dev_branch
-  stage: test
-
-test_forces_dynamic:
-  <<: *with_nix
-  <<: *in_master_branch
-  stage: postdeploy
-
 test_forces_new:
   tags: [autoscaling]
   stage: postdeploy
   needs: []
-  image: fluidattacks/forces:new
+  image:
+    name: fluidattacks/forces:new
+    entrypoint: [""]
   script:
     - forces --token "${INTEGRATES_API_TOKEN}" --strict --group "${INTEGRATES_GROUP}" -vv
   interruptible: true

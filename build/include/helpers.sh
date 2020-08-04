@@ -517,25 +517,3 @@ function helper_test_lint_code_python {
   &&  popd || return 1 \
   &&  prospector --profile .prospector.yml .
 }
-
-function helper_test_forces {
-  local kind="${1}"
-  local args
-
-      args=(
-        "--${kind}"
-        '--id'  "${BREAK_BUILD_ID}"
-        '--secret' "${BREAK_BUILD_SECRET}"
-        '--no-image-rm'
-      ) \
-  &&  docker pull fluidattacks/break-build \
-  &&  pushd "${STARTDIR}" || return 1 \
-  &&  if ! test "${IS_LOCAL_BUILD}"
-      then
-        args+=('--gitlab-docker-socket-binding')
-      fi \
-  &&  docker run fluidattacks/break-build \
-        "${args[@]}" \
-        | bash \
-  &&  popd || return 1
-}

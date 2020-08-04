@@ -555,14 +555,6 @@ function job_test_commit_msg {
   &&  helper_test_commit_msg_commitlint
 }
 
-function job_test_forces_dynamic {
-  helper_test_forces 'dynamic'
-}
-
-function job_test_forces_static {
-  helper_test_forces 'static'
-}
-
 function job_apply_config_autoscaling_ci {
   local bastion_ip='192.168.3.11'
   local bastion_user='ubuntu'
