@@ -78,8 +78,6 @@ function env_prepare_python_packages {
     echo "  [${pkg}] ${!pkg}"
     PATH="${PATH}:${!pkg}/site-packages/bin"
     PYTHONPATH="${PYTHONPATH}:${!pkg}/site-packages"
-    chmod --recursive +rwx "${!pkg}"
-    rm -rf "${!pkg}/site-packages/typing.py"
   done < "${TEMP_FILE1}"
 }
 
