@@ -1,4 +1,10 @@
 # Standard library
+from asyncio import (
+    all_tasks,
+    create_task,
+    sleep,
+    Task,
+)
 import logging
 from typing import (
     Tuple,
@@ -36,11 +42,19 @@ from zone import (
 )
 
 
+async def monitor() -> None:
+    while await sleep(10.0, result=True):
+        tasks: int = len(all_tasks())
+        await log('info', 'Still running, %s tasks pending to finish', tasks)
+
+
 async def main(
     config: str,
     debug: bool,
     token: str,
 ) -> bool:
+    monitor_task: Task[None] = create_task(monitor())
+
     if debug:
         set_level(logging.DEBUG)
 
@@ -94,5 +108,7 @@ async def main(
                 )))
         except SystemExit:
             success = False
+
+    monitor_task.cancel()
 
     return success
