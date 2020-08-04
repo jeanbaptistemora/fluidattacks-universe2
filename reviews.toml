@@ -37,7 +37,7 @@ fail = true
 user_regex = '^[A-Z][a-z]+ [A-Z][a-z]+$'
 
 [tests.max_commits_per_mr]
-fail = true
+fail = false
 max_commits = 1
 
 [tests.close_issue_directive]
