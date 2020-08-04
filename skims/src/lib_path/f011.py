@@ -49,6 +49,16 @@ from zone import (
 # Constants
 DependencyType = Tuple[frozendict, frozendict]
 
+# Roadmap:
+# | package           | weight | Implemented
+# | build.gradle      | 3132   |
+# | package.json      | 2823   | yes
+# | packages.config   | 755    |
+# | pom.xml           | 672    |
+# | package-lock.json | 555    | yes
+# | bower.json        | 158    |
+# | yarn.lock         | 47     | yes
+
 
 @cache_decorator()
 async def npm_package_json(
@@ -197,6 +207,9 @@ async def npm(
         )
         for (product, version), dependency_cves in query_results
         for dependency_cve in dependency_cves
+        if dependency_cve.code not in (
+            'CVE-2013-1779',
+        )
     ])
 
     return results

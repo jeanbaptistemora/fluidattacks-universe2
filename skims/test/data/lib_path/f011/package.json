@@ -1,5 +1,6 @@
 {
   "dependencies": {
-    "connect": "2.8"
+    "connect": "2.8",
+    "fresh": "0.5.2"
   }
 }
