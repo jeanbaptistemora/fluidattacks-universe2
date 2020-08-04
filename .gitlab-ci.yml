@@ -438,6 +438,16 @@ test_forces_dynamic:
   <<: *in_master_branch
   stage: postdeploy
 
+test_forces_new:
+  tags: [autoscaling]
+  stage: postdeploy
+  needs: []
+  image: fluidattacks/forces:new
+  script:
+    - forces --token "${INTEGRATES_API_TOKEN}" --strict --group "${INTEGRATES_GROUP}" -vv
+  interruptible: true
+  allow_failure: true
+
 send_new_release_email:
   <<: *with_nix
   <<: *in_master_branch
