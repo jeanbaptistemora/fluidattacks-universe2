@@ -15,6 +15,7 @@
       "src/utils/sortHelpers.ts",
       "src/utils/apollo.ts",
       "src/utils/cvss.ts",
+      "src/utils/validations.ts",
       "src/components/**"
     ]
   },

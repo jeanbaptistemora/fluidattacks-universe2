@@ -1,19 +1,29 @@
-import _ from "lodash";
-import moment, { Moment } from "moment";
+import Logger from "./logger";
 import { Validator } from "redux-form";
-import {
-  hasLengthGreaterThan, hasLengthLessThan, isAlphaNumeric, isNumeric, isRequired, matchesPattern,
-} from "revalidate";
+import _ from "lodash";
 import { msgError } from "./notifications";
 import translate from "./translations/translate";
+import {
+  hasLengthGreaterThan,
+  hasLengthLessThan,
+  isAlphaNumeric,
+  isNumeric,
+  isRequired,
+  matchesPattern,
+} from "revalidate";
+import moment, { Moment } from "moment";
 
 export const required: Validator = isRequired({
   message: translate.t("validations.required"),
 });
 
-const getGroupValues: ((allValues: Dictionary, name: string) => Dictionary) = (
-  allValues: Dictionary, name: string,
-): Dictionary => {
+const getGroupValues: (
+  allValues: Record<string, Record<string, unknown>>,
+  name: string
+) => Record<string, unknown> | undefined = (
+  allValues: Record<string, Record<string, unknown>>,
+  name: string
+): Record<string, unknown> | undefined => {
   const fieldId: string[] = name.split(".");
 
   if (fieldId.length > 1) {
@@ -21,100 +31,128 @@ const getGroupValues: ((allValues: Dictionary, name: string) => Dictionary) = (
 
     return allValues[groupName];
   } else {
-    throw new TypeError(`Field ${fieldId} must be grouped by a <FormSection> component`);
+    Logger.error(
+      `Fields must be grouped by a <FormSection> component`,
+      new TypeError(
+        `Field ${fieldId.toString()} must be grouped by a <FormSection> component`
+      )
+    );
   }
 };
 
 export const someRequired: Validator = (
-  _0: boolean, allValues: { [key: string]: {} }, _1: {}, name: string,
+  _0: boolean,
+  allValues: Record<string, Record<string, unknown>>,
+  _1: Record<string, unknown>,
+  name: string
 ): string | undefined => {
-  const groupValues: Dictionary = getGroupValues(allValues, name);
+  const groupValues: Record<string, unknown> | undefined = getGroupValues(
+    allValues,
+    name
+  );
   const isValid: boolean = _.some(groupValues);
 
   return isValid ? undefined : translate.t("validations.some_required");
 };
 
 export const validEvidenceDescription: Validator = (
-  _0: boolean, allValues: { [key: string]: {} }, _1: {}, name: string,
+  _0: boolean,
+  allValues: Record<string, Record<string, unknown>>,
+  _1: Record<string, unknown>,
+  name: string
 ): string | undefined => {
-
-  const groupValues: Dictionary = _.isEmpty(allValues) ? {} : getGroupValues(allValues, name);
-  const hasDescription: boolean = !_.isEmpty(groupValues.description);
-  const hasFileSelected: boolean = !_.isEmpty(groupValues.file as FileList);
-  const hasUrl: boolean = !_.isEmpty(groupValues.url);
+  const groupValues: Record<string, unknown> | undefined = _.isEmpty(allValues)
+    ? {}
+    : getGroupValues(allValues, name);
+  const hasDescription: boolean = _.has(groupValues, "description");
+  const hasFileSelected: boolean = _.has(groupValues, "file");
+  const hasUrl: boolean = _.has(groupValues, "url");
 
   return hasDescription
     ? hasUrl
       ? undefined
       : hasFileSelected
-        ? undefined
-        : translate.t("group_alerts.no_file_selected")
+      ? undefined
+      : translate.t("group_alerts.no_file_selected")
     : hasFileSelected
-      ? translate.t("validations.required")
-      : undefined;
+    ? translate.t("validations.required")
+    : undefined;
 };
 
-export const validTextField: Validator = (value: string): string | undefined => {
-  let error: string | undefined;
-
+export const validTextField: Validator = (
+  value: string
+): string | undefined => {
   if (!_.isNil(value)) {
-    let invalidChar: string = "";
-    let match: RegExpMatchArray | null = value.match(
-      /[^a-zA-Z0-9ñáéíóúäëïöüÑÁÉÍÓÚÄËÏÖÜ \t\n\r\x0b\x0c(),./:;@_$#=\?-]/);
-    if (match !== null) {
-      invalidChar = `'${match[0]}'`;
-      error = translate.t("validations.invalidTextField", { chars: invalidChar });
+    const beginTextMatch: RegExpMatchArray | null = /^=/u.exec(value);
+    if (!_.isNull(beginTextMatch)) {
+      return translate.t("validations.invalidTextBeginning", {
+        chars: `'${beginTextMatch[0]}'`,
+      });
     }
 
-    match = value.match(/^=/);
-    if (match !== null) {
-      invalidChar = `'${match[0]}'`;
-      error = translate.t("validations.invalidTextBeginning", { chars: invalidChar });
+    // We use them for control character pattern matching.
+    // eslint-disable-next-line no-control-regex
+    const textMatch: RegExpMatchArray | null = /[^a-zA-Z0-9ñáéíóúäëïöüÑÁÉÍÓÚÄËÏÖÜ \t\n\r\x0b\x0c(),./:;@_$#=?-]/u.exec(
+      value
+    );
+    if (!_.isNull(textMatch)) {
+      return translate.t("validations.invalidTextField", {
+        chars: `'${textMatch[0]}'`,
+      });
     }
   }
-
-  return error;
 };
 
 export const validUrlField: Validator = (value: string): string | undefined => {
-  let error: string | undefined;
-  let cleanValue: string = value;
   const encodedCharWhitelist: string[] = ["%20"];
-  for (const encodedChar of encodedCharWhitelist) {
-    cleanValue = cleanValue.replace(new RegExp(encodedChar, "g"), "");
-  }
 
+  const cleanValue: string = encodedCharWhitelist.reduce(
+    (valueBeingCleaned: string, encodedChar: string): string =>
+      valueBeingCleaned.replace(new RegExp(encodedChar, "gu"), ""),
+    value
+  );
   if (!_.isNil(cleanValue)) {
-    let invalidChar: string = "";
-    let match: RegExpMatchArray | null = cleanValue.match(/[^a-zA-Z0-9(),./:;@_$#=\?-]/);
-    if (match !== null) {
-      invalidChar = `'${match[0]}'`;
-      error = translate.t("validations.invalidUrlField", { chars: invalidChar });
+    const textMatch: RegExpMatchArray | null = /^=/u.exec(value);
+    if (!_.isNull(textMatch)) {
+      return translate.t("validations.invalidTextBeginning", {
+        chars: `'${textMatch[0]}'`,
+      });
     }
 
-    match = value.match(/^=/);
-    if (match !== null) {
-      invalidChar = `'${match[0]}'`;
-      error = translate.t("validations.invalidTextBeginning", { chars: invalidChar });
+    const urlMatch: RegExpMatchArray | null = /[^a-zA-Z0-9(),./:;@_$#=?-]/u.exec(
+      cleanValue
+    );
+    if (!_.isNull(urlMatch)) {
+      return translate.t("validations.invalidUrlField", {
+        chars: `'${urlMatch[0]}'`,
+      });
     }
   }
-
-  return error;
 };
 
-export const numberBetween: ((min: number, max: number) => Validator) =
-  (min: number, max: number): Validator =>
-    (value: number): string | undefined =>
-      value < min || value > max ? translate.t("validations.between", { min, max }) : undefined;
+export const numberBetween: (min: number, max: number) => Validator = (
+  min: number,
+  max: number
+): Validator => (value: number): string | undefined =>
+  value < min || value > max
+    ? // eslint-disable-next-line sort-keys -- correct semantic order
+      translate.t("validations.between", { min, max })
+    : undefined;
 
-export const minLength: ((min: number) => Validator) = (min: number): Validator =>
-  hasLengthGreaterThan(min - 1)({ message: translate.t("validations.minLength", { count: min }) });
+export const minLength: (min: number) => Validator = (min: number): Validator =>
+  hasLengthGreaterThan(min - 1)({
+    message: translate.t("validations.minLength", { count: min }),
+  }) as Validator;
 
-export const maxLength: ((max: number) => Validator) = (max: number): Validator =>
-  hasLengthLessThan(max)({ message: translate.t("validations.maxLength", { count: max }) });
+export const maxLength: (max: number) => Validator = (max: number): Validator =>
+  hasLengthLessThan(max)({
+    message: translate.t("validations.maxLength", { count: max }),
+  }) as Validator;
 
-export const sameValue: ((projectName: string) => Validator) = (projectName: string): Validator =>
-  (value: string): string | undefined => value !== projectName ? translate.t("validations.required") : undefined;
+export const sameValue: (projectName: string) => Validator = (
+  projectName: string
+): Validator => (value: string): string | undefined =>
+  value !== projectName ? translate.t("validations.required") : undefined;
 
 export const numeric: Validator = isNumeric({
   message: translate.t("validations.numeric"),
@@ -125,116 +163,141 @@ export const alphaNumeric: Validator = isAlphaNumeric({
 });
 
 export const validAlphanumericSpace: Validator = matchesPattern(
-  /^[a-z\d\s]+$/i,
+  /^[a-z\d\s]+$/iu
 )({
   message: translate.t("validations.alphanumeric"),
 });
 
 export const validEmail: Validator = matchesPattern(
-  /^[a-zA-Z0-9.!#$%&’*/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
+  /^[a-zA-Z0-9.!#$%&’*/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/u
 )({
   message: translate.t("validations.email"),
 });
 
-export const validDraftTitle: ((title: string) => string | undefined) = (title: string): string | undefined => {
-  if (/^[A-Z]+\.(H\.|S\.|SH\.)??[0-9]+\. .+/g.test(title)) {
-
+export const validDraftTitle: (title: string) => string | undefined = (
+  title: string
+): string | undefined => {
+  if (/^[A-Z]+\.(H\.|S\.|SH\.)??[0-9]+\. .+/gu.test(title)) {
     return undefined;
   }
 
   return translate.t("validations.draftTitle");
 };
 
-export const isValidVulnSeverity: Validator = (value: string): string | undefined => {
+export const isValidVulnSeverity: Validator = (
+  value: string
+): string | undefined => {
   const min: number = 0;
   const max: number = 1000000000;
-  if (_.isUndefined(isNumeric({ message: translate.t("validations.numeric") }, value))) {
-    const severityBetween: ((value: number) => string | undefined) = numberBetween(min, max);
+  if (
+    _.isUndefined(
+      isNumeric({ message: translate.t("validations.numeric") }, value)
+    )
+  ) {
+    const severityBetween: (
+      value: number
+    ) => string | undefined = numberBetween(min, max);
 
     return severityBetween(Number(value));
   }
 
+  // eslint-disable-next-line sort-keys -- correct semantic order
   return translate.t("validations.between", { min, max });
 };
 
-export const validDatetime: Validator = (value?: Moment | string): string | undefined => (
-  moment.isMoment(value) ? undefined : translate.t("validations.datetime")
-);
+export const validDatetime: Validator = (
+  value?: Moment | string
+): string | undefined =>
+  moment.isMoment(value) ? undefined : translate.t("validations.datetime");
 
-const getFileExtension: ((file: File) => string) = (file: File): string => {
+const getFileExtension: (file: File) => string = (file: File): string => {
   const splittedName: string[] = file.name.split(".");
-  const extension: string = splittedName.length > 1 ? _.last(splittedName) as string : "";
+  const extension: string =
+    splittedName.length > 1 ? (_.last(splittedName) as string) : "";
 
   return extension.toLowerCase();
 };
 
-const hasExtension: ((allowedExtensions: string | string[], file?: File) => boolean) = (
-  allowedExtensions: string | string[], file?: File,
-): boolean => {
-  let isValid: boolean = false;
-
-  if (file !== undefined) {
-    isValid = _.includes(allowedExtensions, getFileExtension(file));
+const hasExtension: (
+  allowedExtensions: string | string[],
+  file?: File
+) => boolean = (allowedExtensions: string | string[], file?: File): boolean => {
+  if (!_.isUndefined(file)) {
+    return _.includes(allowedExtensions, getFileExtension(file));
   }
 
-  return isValid;
+  return false;
 };
 
-export const validEventFile: Validator = (value: FileList): string | undefined => (
+export const validEventFile: Validator = (
+  value: FileList
+): string | undefined =>
   _.isEmpty(value) || hasExtension(["pdf", "zip", "csv", "txt"], _.first(value))
     ? undefined
-    : translate.t("group.events.form.wrong_file_type")
-);
+    : translate.t("group.events.form.wrong_file_type");
 
-export const validEvidenceImage: Validator = (value: FileList): string | undefined => (
-  _.isEmpty(value) || hasExtension(["gif", "jpg", "jpeg", "png"], _.first(value))
+export const validEvidenceImage: Validator = (
+  value: FileList
+): string | undefined =>
+  _.isEmpty(value) ||
+  hasExtension(["gif", "jpg", "jpeg", "png"], _.first(value))
     ? undefined
-    : translate.t("group.events.form.wrong_image_type")
-);
+    : translate.t("group.events.form.wrong_image_type");
 
-export const validExploitFile: Validator = (value: FileList): string | undefined => (
+export const validExploitFile: Validator = (
+  value: FileList
+): string | undefined =>
   hasExtension(["exp", "py"], _.first(value))
     ? undefined
-    : translate.t("group_alerts.file_type_py")
-);
+    : translate.t("group_alerts.file_type_py");
 
-export const validRecordsFile: Validator = (value: FileList): string | undefined => (
+export const validRecordsFile: Validator = (
+  value: FileList
+): string | undefined =>
   hasExtension("csv", _.first(value))
     ? undefined
-    : translate.t("group_alerts.file_type_csv")
-);
+    : translate.t("group_alerts.file_type_csv");
 
-export const dateTimeBeforeToday: Validator = (date: Moment): string | undefined => {
+export const dateTimeBeforeToday: Validator = (
+  date: Moment
+): string | undefined => {
   const today: Moment = moment();
 
-  return date.isSameOrBefore(today) ? undefined : translate.t("validations.greater_date");
+  return date.isSameOrBefore(today)
+    ? undefined
+    : translate.t("validations.greater_date");
 };
 
-export const isValidVulnsFile: ((fieldId: string) => boolean) = (fieldId: string): boolean => {
-  const selected: FileList | null = (document.querySelector(fieldId) as HTMLInputElement).files;
-  let valid: boolean; valid = false;
+export const isValidVulnsFile: (fieldId: string) => boolean = (
+  fieldId: string
+): boolean => {
+  const selected: FileList | null = (document.querySelector(
+    fieldId
+  ) as HTMLInputElement).files;
 
   if (_.isNil(selected) || selected.length === 0) {
     msgError(translate.t("group_alerts.no_file_selected"));
   } else {
     const file: File = selected[0];
-    let MIB: number; MIB = 1048576;
-    const fileType: string = `.${_.last(file.name.split("."))}`.toLowerCase();
+    const MIB: number = 1048576;
+    const fileType: string = `.${
+      _.last(file.name.split(".")) as string
+    }`.toLowerCase();
 
     if (file.size > MIB * 1) {
       msgError(translate.t("validations.file_size", { count: 1 }));
     } else if (!_.includes([".yml", ".yaml"], fileType)) {
       msgError(translate.t("group_alerts.file_type_yaml"));
     } else {
-      valid = true;
+      return true;
     }
   }
 
-  return valid;
+  return false;
 };
 
 export const validTag: Validator = (value: string): string | undefined => {
-  const pattern: RegExp = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
+  const pattern: RegExp = /^[a-z0-9]+(?:-[a-z0-9]+)*$/u;
   if (_.isEmpty(value) || !pattern.test(value)) {
     return translate.t("validations.tags");
   } else {
@@ -243,7 +306,7 @@ export const validTag: Validator = (value: string): string | undefined => {
 };
 
 export const validField: Validator = (value: string): string | undefined => {
-  const pattern: RegExp = /^(?!=).+/;
+  const pattern: RegExp = /^(?!=).+/u;
   if (_.isEmpty(value) || !pattern.test(value)) {
     return translate.t("validations.invalidValueInField");
   } else {
@@ -251,43 +314,49 @@ export const validField: Validator = (value: string): string | undefined => {
   }
 };
 
-export const isValidFileName: Validator = (file: FileList): string | undefined => {
+export const isValidFileName: Validator = (
+  file: FileList
+): string | undefined => {
   const fileName: string = _.isEmpty(file) ? "" : file[0].name;
   const name: string[] = fileName.split(".");
-  const validCharacters: RegExp = /^[A-Za-z0-9!\-_.*'()&$@=;:+,?\s]*$/;
+  const validCharacters: RegExp = /^[A-Za-z0-9!\-_.*'()&$@=;:+,?\s]*$/u;
 
   return name.length <= 2 && validCharacters.test(fileName)
     ? undefined
     : translate.t("search_findings.tab_resources.invalid_chars");
 };
 
-export const isValidFileSize: ((maxSize: number) => Validator) = (maxSize: number): Validator =>
-  (file: FileList): string | undefined => {
-    const MIB: number = 1048576;
+export const isValidFileSize: (maxSize: number) => Validator = (
+  maxSize: number
+): Validator => (file: FileList): string | undefined => {
+  const MIB: number = 1048576;
 
-    return _.isEmpty(file) || file[0].size < MIB * maxSize
-      ? undefined
-      : translate.t("validations.file_size", { count: maxSize });
+  return _.isEmpty(file) || file[0].size < MIB * maxSize
+    ? undefined
+    : translate.t("validations.file_size", { count: maxSize });
 };
 
-export const isValidDateAccessToken: Validator = (value: string): string | undefined => {
-  let date: Date; date = new Date(value);
-  let today: Date; today = new Date(); today = new Date(today.setMonth(today.getMonth() + 6));
+export const isValidDateAccessToken: Validator = (
+  value: string
+): string | undefined => {
+  const numberOfMonths: number = 6;
+  const date: Date = new Date(value);
+  const today: Date = new Date();
 
-  if (date > today) {
+  const sixMonthsLater: Date = new Date(
+    today.setMonth(today.getMonth() + numberOfMonths)
+  );
+
+  if (date > sixMonthsLater) {
     return translate.t("validations.valid_date_token");
-  } else {
-    return undefined;
   }
 };
 
 export const isLowerDate: Validator = (value: string): string | undefined => {
-  let date: Date; date = new Date(value);
-  let today: Date; today = new Date();
+  const date: Date = new Date(value);
+  const today: Date = new Date();
 
   if (date <= today) {
     return translate.t("validations.lower_date");
-  } else {
-    return undefined;
   }
 };

@@ -3,7 +3,6 @@
 src/resources/
 src/scenes/
 src/utils/formatHelpers.ts
-src/utils/validations.ts
 src/utils/*.tsx
 src/**/*.css.d.ts
 src/**/*.d.ts
