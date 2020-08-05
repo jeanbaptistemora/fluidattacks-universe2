@@ -165,22 +165,26 @@ def cloudwatch_log(request, msg: str) -> None:
 
 
 def cloudwatch_log_sync(request, msg: str) -> None:
-    user_data = get_jwt_content(request)
-    info = [str(user_data["user_email"])]
-    for parameter in ["project", "findingid"]:
+    try:
+        user_data = get_jwt_content(request)
+        info = [str(user_data['user_email'])]
+    except (ExpiredToken, InvalidAuthorization):
+        info = ['unauthenticated user']
+
+    for parameter in ['project', 'findingid']:
         if parameter in request.POST.dict():
             info.append(request.POST.dict()[parameter])
         elif parameter in request.GET.dict():
             info.append(request.GET.dict()[parameter])
     info.append(FI_ENVIRONMENT)
     info.append(msg)
-    LOGGER_TRANSACTIONAL.info(":".join(info))
+    LOGGER_TRANSACTIONAL.info(':'.join(info))
 
 
 async def cloudwatch_log_queue(request, msg: str) -> None:
     user_data = get_jwt_content(request)
-    info = [str(user_data["user_email"])]
-    for parameter in ["project", "findingid"]:
+    info = [str(user_data['user_email'])]
+    for parameter in ['project', 'findingid']:
         if parameter in request.POST.dict():
             info.append(request.POST.dict()[parameter])
         elif parameter in request.GET.dict():
@@ -188,7 +192,7 @@ async def cloudwatch_log_queue(request, msg: str) -> None:
     info.append(FI_ENVIRONMENT)
     info.append(msg)
     asyncio.create_task(
-        sync_to_async(LOGGER_TRANSACTIONAL.info)(":".join(info)))
+        sync_to_async(LOGGER_TRANSACTIONAL.info)(':'.join(info)))
 
 
 @apm.trace()
