@@ -1,7 +1,7 @@
 import pytest
 
 import backend.dal.available_name as available_name_dal
-from backend.exceptions import EmptyPoolGroupName
+from backend.exceptions import EmptyPoolName
 
 @pytest.mark.changes_db
 async def test_remove():
@@ -15,7 +15,7 @@ async def test_empty_pool():
     for group_name in all_groups:
         is_deleted = await available_name_dal.remove(group_name, 'group')
         assert is_deleted
-    with pytest.raises(EmptyPoolGroupName):
+    with pytest.raises(EmptyPoolName):
         assert await available_name_dal.get_one('group')
 
 @pytest.mark.changes_db

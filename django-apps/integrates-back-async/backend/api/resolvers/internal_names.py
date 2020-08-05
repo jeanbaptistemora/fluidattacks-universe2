@@ -28,4 +28,4 @@ async def resolve_project_name(
         entity: str,
         *___: Any) -> InternalNameType:
     """Resolve InternalNameNames query."""
-    return await _resolve_fields(entity)
+    return await _resolve_fields(entity.lower())

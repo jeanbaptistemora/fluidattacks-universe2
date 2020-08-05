@@ -26,6 +26,7 @@ import Logger from "../../utils/logger";
 import { msgError, msgSuccess } from "../../utils/notifications";
 import translate from "../../utils/translations/translate";
 import { updateAccessTokenModal as UpdateAccessTokenModal } from "./components/AddAccessTokenModal/index";
+import { AddOrganizationModal } from "./components/AddOrganizationModal/index";
 import { addUserModal as AddUserModal } from "./components/AddUserModal/index";
 import { Navbar } from "./components/Navbar/index";
 import { Sidebar } from "./components/Sidebar";
@@ -53,6 +54,10 @@ const dashboard: React.FC = (): JSX.Element => {
   const [isUserModalOpen, setUserModalOpen] = React.useState(false);
   const openUserModal: (() => void) = (): void => { setUserModalOpen(true); };
   const closeUserModal: (() => void) = (): void => { setUserModalOpen(false); };
+
+  const [isOrganizationModalOpen, setOrganizationModalOpen] = React.useState(false);
+  const openOrganizationModal: (() => void) = (): void => { setOrganizationModalOpen(true); };
+  const closeOrganizationModal: (() => void) = (): void => { setOrganizationModalOpen(false); };
 
   const handleMtAddUserRes: ((mtResult: IAddUserAttr) => void) = (mtResult: IAddUserAttr): void => {
     if (!_.isUndefined(mtResult)) {
@@ -114,6 +119,7 @@ const dashboard: React.FC = (): JSX.Element => {
                   userRole={userRole}
                   onLogoutClick={handleLogout}
                   onOpenAccessTokenModal={openTokenModal}
+                  onOpenAddOrganizationModal={openOrganizationModal}
                   onOpenAddUserModal={openUserModal}
                 />
               );
@@ -159,6 +165,7 @@ const dashboard: React.FC = (): JSX.Element => {
         </React.Fragment>
       <ScrollUpButton visibleAt={400} />
       <UpdateAccessTokenModal open={isTokenModalOpen} onClose={closeTokenModal} />
+      <AddOrganizationModal open={isOrganizationModalOpen} onClose={closeOrganizationModal} />
       <Mutation mutation={ADD_USER_MUTATION} onCompleted={handleMtAddUserRes} onError={handleMtAddUserError}>
         {(addUser: MutationFunction): JSX.Element => {
           const handleSubmit: ((values: IUserDataAttr) => void) = (values: IUserDataAttr): void => {

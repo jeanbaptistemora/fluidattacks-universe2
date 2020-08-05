@@ -65,10 +65,28 @@ describe("Dashboard", () => {
           },
         },
       },
+      {
+        request: {
+          query: GET_USER_ORGANIZATIONS,
+        },
+        result: {
+          data: {
+            me: {
+              __typename: "Me",
+              organizations: [
+                {
+                  __typename: "Organization",
+                  name: "imamura",
+                },
+              ],
+            },
+          },
+        },
+      },
     ];
 
     const wrapper: ReactWrapper = mount(
-      <MemoryRouter initialEntries={["/integrates"]}>
+      <MemoryRouter initialEntries={["/integrates/orgs/imamura"]}>
         <MockedProvider mocks={mocks}>
           <Provider store={store}>
             <Dashboard />

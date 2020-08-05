@@ -15,11 +15,19 @@ interface ISidebarProps {
   userRole: string | undefined;
   onLogoutClick(): void;
   onOpenAccessTokenModal(): void;
+  onOpenAddOrganizationModal(): void;
   onOpenAddUserModal(): void;
 }
 
 const sidebar: React.FC<ISidebarProps> = (props: ISidebarProps): JSX.Element => {
-  const { userEmail, userRole, onOpenAddUserModal, onOpenAccessTokenModal, onLogoutClick } = props;
+  const {
+    userEmail,
+    userRole,
+    onLogoutClick,
+    onOpenAccessTokenModal,
+    onOpenAddOrganizationModal,
+    onOpenAddUserModal,
+  } = props;
   const { push } = useHistory();
 
   const handleLogoClick: (() => void) = (): void => { push("/home"); };
@@ -45,6 +53,13 @@ const sidebar: React.FC<ISidebarProps> = (props: ISidebarProps): JSX.Element => 
           </TooltipWrapper>
         </li>
         </Can>
+        <li onClick={onOpenAddOrganizationModal}>
+          <TooltipWrapper message={translate.t("sidebar.newOrganization.tooltip")} placement="right">
+            <div className={style.item}><i className="icon pe-7s-plus" />
+              <span className={style.label}>{translate.t("sidebar.newOrganization.text")}</span>
+            </div>
+          </TooltipWrapper>
+        </li>
         <li onClick={onOpenAccessTokenModal}>
           <TooltipWrapper message={translate.t("sidebar.token.tooltip")} placement="right">
             <div className={style.item}><i className="icon pe-7s-user" />

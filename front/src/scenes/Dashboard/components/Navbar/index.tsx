@@ -22,15 +22,18 @@ import { GET_USER_ORGANIZATIONS } from "./queries";
 
 export const navbarComponent: React.FC<RouteComponentProps> = (props: RouteComponentProps): JSX.Element => {
   const { push } = useHistory();
-  const [currentOrganization, setCurrentOrganization] = useStoredState("organization", { name: "" }, localStorage);
+  const [lastOrganization, setLastOrganization] = useStoredState("organization", { name: "" }, localStorage);
   const { userEmail } = window as typeof window & { userEmail: string };
 
   const path: string = props.location.pathname;
   const pathData: string[] = path.split("/")
     .slice(2);
+  const pathOrganization: string = path.includes("/home")
+    ? lastOrganization.name
+    : pathData[0].toLowerCase();
 
   // GraphQL operations
-  const { data } = useQuery(GET_USER_ORGANIZATIONS, {
+  const { data, refetch: refetchOrganizationList } = useQuery(GET_USER_ORGANIZATIONS, {
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
         msgError(translate.t("group_alerts.error_textsad"));
@@ -42,14 +45,14 @@ export const navbarComponent: React.FC<RouteComponentProps> = (props: RouteCompo
   // Auxiliary Operations
   const handleOrganizationChange: ((eventKey: string, event: React.SyntheticEvent<SplitButton>) => void) =
     (eventKey: string): void => {
-      if (eventKey !== currentOrganization.name) {
-        setCurrentOrganization({ name: eventKey });
+      if (eventKey !== lastOrganization.name) {
+        setLastOrganization({ name: eventKey });
         push(`/orgs/${eventKey}/`);
       }
   };
   const handleOrganizationClick: (event: React.MouseEvent<SplitButton, globalThis.MouseEvent>) => void =
     () => {
-      push(`/orgs/${currentOrganization.name}/`);
+      push(`/orgs/${lastOrganization.name}/`);
   };
   const handleSearchSubmit: ((values: { projectName: string }) => void) = (values: { projectName: string }): void => {
     const projectName: string = values.projectName.toLowerCase();
@@ -60,20 +63,14 @@ export const navbarComponent: React.FC<RouteComponentProps> = (props: RouteCompo
   const organizationList: Array<{ name: string }> = _.isEmpty(data) || _.isUndefined(data)
     ? [{ name: "" }]
     : data.me.organizations.sort((a: { name: string }, b: { name: string }) => (a.name > b.name) ? 1 : -1);
-  const filteredOrganizations: Array<{ name: string }> = organizationList.filter(
-    (userOrganization: { name: string }) => path.includes(userOrganization.name),
+
+  React.useEffect(
+    (): void => {
+      refetchOrganizationList();
+      setLastOrganization({ name: pathOrganization });
+    },
+    [pathOrganization],
   );
-  const filteredOrganization: string = filteredOrganizations.length === 0
-    ? organizationList[0].name
-    : filteredOrganizations[0].name;
-
-  const setOrganization: () => void = (): void => {
-    if (!_.isEmpty(filteredOrganization)) {
-      setCurrentOrganization({ name: filteredOrganization });
-    }
-  };
-
-  React.useEffect(setOrganization, [filteredOrganization]);
 
   const breadcrumbItems: JSX.Element[] = pathData.slice(1)
     .map((item: string, index: number) => {
@@ -99,7 +96,7 @@ export const navbarComponent: React.FC<RouteComponentProps> = (props: RouteCompo
               id={"organizationList"}
               onClick={handleOrganizationClick}
               onSelect={handleOrganizationChange as SelectCallback}
-              title={currentOrganization.name}
+              title={pathOrganization}
             >
               {organizationList.map((organization: {name: string}) =>
                 <MenuItem

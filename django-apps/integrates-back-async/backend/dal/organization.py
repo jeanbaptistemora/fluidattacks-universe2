@@ -141,6 +141,7 @@ async def create(organization_name: str) -> OrganizationType:
 
     try:
         await dynamo_async_put_item(TABLE_NAME, new_item)
+        new_item.update({'sk': organization_name.lower().strip()})
     except ClientError as ex:
         LOGGER.exception(ex, extra={'extra': locals()})
     return _map_keys_to_domain(new_item)

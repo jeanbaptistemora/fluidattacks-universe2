@@ -1721,6 +1721,21 @@ export const enTranslations: ResourceKey = {
   },
   sidebar: {
     forms: "Formstack",
+    newOrganization: {
+      modal: {
+        invalidName: "Name specified for the organization is not allowed",
+        name: "Organization Name",
+        nameTooltip:
+          "Random name that will be assigned to your new organization",
+        namesUnavailable:
+          "There are no available organization names at the moment",
+        success: "Organization {{name}} created successfully",
+        successTitle: "Success",
+        title: "Add new organization",
+      },
+      text: "Add Organization",
+      tooltip: "Create new organization",
+    },
     reports: "Reports",
     token: {
       text: "API",

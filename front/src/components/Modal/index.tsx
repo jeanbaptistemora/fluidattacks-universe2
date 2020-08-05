@@ -14,6 +14,7 @@ export interface IModalProps {
   headerTitle: string;
   open: boolean;
   onClose?: () => void;
+  onOpen?: () => void;
 }
 
 const modal: React.FC<IModalProps> = (
@@ -27,11 +28,18 @@ const modal: React.FC<IModalProps> = (
     children,
     footer,
     onClose,
+    onOpen,
   } = props;
 
   function handleModalClose(): void {
     if (onClose !== undefined) {
       onClose();
+    }
+  }
+
+  function handleModalOpen(): void {
+    if (onOpen !== undefined) {
+      onOpen();
     }
   }
 
@@ -42,6 +50,7 @@ const modal: React.FC<IModalProps> = (
         bsSize={bsSize}
         dialogClassName={style.dialog}
         onHide={handleModalClose}
+        onShow={handleModalOpen}
         show={open}
       >
         <Modal.Header className={style.header}>

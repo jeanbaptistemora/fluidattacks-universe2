@@ -21,6 +21,7 @@ describe("Sidebar", () => {
           onLogoutClick={functionMock}
           onOpenAccessTokenModal={functionMock}
           onOpenAddUserModal={functionMock}
+          onOpenAddOrganizationModal={functionMock}
         />
       </MemoryRouter>,
     );

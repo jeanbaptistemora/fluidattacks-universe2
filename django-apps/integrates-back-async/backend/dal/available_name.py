@@ -9,7 +9,7 @@ from boto3.dynamodb.conditions import Key
 from botocore.exceptions import ClientError
 
 # local imports
-from backend.exceptions import EmptyPoolGroupName
+from backend.exceptions import EmptyPoolName
 from backend.dal.helpers import dynamodb
 
 
@@ -93,7 +93,7 @@ async def get_one(entity: str) -> str:
             if response_items:
                 name = response_items[0].get('sk', '').lower()
             else:
-                raise EmptyPoolGroupName()
+                raise EmptyPoolName(entity)
     return name
 
 

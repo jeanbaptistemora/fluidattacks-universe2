@@ -83,7 +83,7 @@ async def test_create():
     new_org = await org_dal.create(org_name)
     assert isinstance(new_org, dict)
     assert 'id' in new_org
-    assert new_org['name'] == f'INFO#{org_name}'
+    assert new_org['name'] == f'{org_name}'
     with pytest.raises(InvalidOrganization):
         await org_dal.create(org_name)
 

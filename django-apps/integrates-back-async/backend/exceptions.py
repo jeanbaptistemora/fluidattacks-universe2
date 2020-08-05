@@ -202,12 +202,14 @@ class InvalidProjectServicesConfig(Exception):
             f'Exception - {msg}')
 
 
-class EmptyPoolGroupName(Exception):
+class EmptyPoolName(Exception):
     """Exception to control an empty pool of groups name"""
-    def __init__(self) -> None:
+    def __init__(self, entity: str) -> None:
         """ Constructor """
-        msg = 'Exception - There are no group names available at the moment'
-        super(EmptyPoolGroupName, self).__init__(msg)
+        msg = (
+            f'Exception - There are no {entity} names available at the moment'
+        )
+        super(EmptyPoolName, self).__init__(msg)
 
 
 class InvalidSpecific(Exception):
