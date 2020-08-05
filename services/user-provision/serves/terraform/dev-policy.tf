@@ -16,6 +16,19 @@ data "aws_iam_policy_document" "dev-policy-data" {
       "kms:List*",
       "kms:Get*",
       "kms:Describe*",
+      "dynamodb:Describe*",
+      "dynamodb:List*",
+      "events:Describe*",
+      "events:List*",
+      "elasticloadbalancing:Describe*",
+      "cloudwatch:List*",
+      "cloudwatch:Describe*",
+      "ec2:Describe*",
+      "ec2:Get*",
+      "eks:Describe*",
+      "eks:List*",
+      "autoscaling:Describe*",
+      "autoscaling:Get*",
     ]
     resources = [
       "*"

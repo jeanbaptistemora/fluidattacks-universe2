@@ -77,6 +77,14 @@ YAML
   username: integrates-dev
   groups:
     - system:masters
+- userarn: arn:aws:iam::205810638802:user/user-provision/serves-prod
+  username: serves-prod
+  groups:
+    - system:masters
+- userarn: arn:aws:iam::205810638802:user/user-provision/serves-dev
+  username: serves-dev
+  groups:
+    - system:masters
 YAML
   }
 
