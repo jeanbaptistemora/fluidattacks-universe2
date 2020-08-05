@@ -30,69 +30,74 @@ should also be clearly stated.
 
 == References
 
-. [[r1]] link:https://cwe.mitre.org/data/definitions/276.html[CWE-276: Incorrect Default Permissions].
+. [[r1]] link:https://cwe.mitre.org/data/definitions/250.html[CWE-250: Execution with Unnecessary Privileges]
+The software performs an operation at a privilege level that is higher than the
+minimum level required,
+which creates new weaknesses or amplifies the consequences of other weaknesses.
+
+. [[r2]] link:https://cwe.mitre.org/data/definitions/276.html[CWE-276: Incorrect Default Permissions].
 The product, upon installation, sets incorrect permissions for an object that
 exposes it to an unintended actor.
 
-. [[r2]] link:https://cwe.mitre.org/data/definitions/287.html[CWE-287: Improper Authentication].
+. [[r3]] link:https://cwe.mitre.org/data/definitions/287.html[CWE-287: Improper Authentication].
 When an actor claims to have a given identity,
 the software does not prove or insufficiently proves that the claim is correct.
 
-. [[r3]] link:https://cwe.mitre.org/data/definitions/306.html[CWE-306: Missing Authentication for Critical Function].
+. [[r4]] link:https://cwe.mitre.org/data/definitions/306.html[CWE-306: Missing Authentication for Critical Function].
 The software does not perform any authentication for functionality that
 requires a provable user identity or consumes a significant amount of
 resources.
 
-. [[r4]] link:https://www.law.cornell.edu/cfr/text/45/164.312[HIPAA Security Rules 164.312(a)(1):]
+. [[r5]] link:https://www.law.cornell.edu/cfr/text/45/164.312[HIPAA Security Rules 164.312(a)(1):]
 Access Control: Implement technical policies and procedures
 for electronic information systems
 that maintain electronic protected health information
 to allow access only to those persons or software programs
 that have been granted access rights as specified in link:https://www.law.cornell.edu/cfr/text/45/164.308[164.308(a)(4)]
 
-. [[r5]] link:https://www.law.cornell.edu/cfr/text/45/164.312[HIPAA Security Rules 164.312(d):]
+. [[r6]] link:https://www.law.cornell.edu/cfr/text/45/164.312[HIPAA Security Rules 164.312(d):]
 Person or Entity Authentication:
 Implement procedures to verify that a person or entity
 seeking access to electronic protected health information
 is the one claimed.
 
-. [[r6]] link:https://nvd.nist.gov/800-53/Rev4/control/AC-2[NIST 800-53 AC-2 (6)]
+. [[r7]] link:https://nvd.nist.gov/800-53/Rev4/control/AC-2[NIST 800-53 AC-2 (6)]
 The information system implements the following
 dynamic privilege management capabilities:
 [Assignment: organization-defined list
 of dynamic privilege management capabilities].
 
-. [[r7]] link:https://nvd.nist.gov/800-53/Rev4/control/AC-2[NIST 800-53 AC-2 (7) a]
+. [[r8]] link:https://nvd.nist.gov/800-53/Rev4/control/AC-2[NIST 800-53 AC-2 (7) a]
 The organization establishes and administers privileged user accounts
 in accordance with a role-based access scheme
 that organizes allowed information system access and privileges into roles.
 
-. [[r8]] link:https://nvd.nist.gov/800-53/Rev4/control/AC-2[NIST 800-53 AC-2 (7) b]
+. [[r9]] link:https://nvd.nist.gov/800-53/Rev4/control/AC-2[NIST 800-53 AC-2 (7) b]
 The organization monitors privileged role assignments.
 
-. [[r9]] link:https://nvd.nist.gov/800-53/Rev4/control/AC-2[NIST 800-53 AC-2 (7) c]
+. [[r10]] link:https://nvd.nist.gov/800-53/Rev4/control/AC-2[NIST 800-53 AC-2 (7) c]
 The organization Takes [Assignment: organization-defined actions]
 when privileged role assignments are no longer appropriate.
 
-. [[r10]] link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A5-Broken_Access_Control[OWASP Top 10 A5:2017-Broken Access Control].
+. [[r11]] link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A5-Broken_Access_Control[OWASP Top 10 A5:2017-Broken Access Control].
 Restrictions on what authenticated users are allowed to do are often not
 properly enforced.
 Attackers can exploit these flaws to access unauthorized functionality and/or
 data, such as access other users’ accounts, view sensitive files,
 modify other users’ data, change access rights, etc.
 
-. [[r11]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r12]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V1.2 Authentication Architectural Requirements.(1.2.1)]
 Verify the use of unique or special low-privilege operating system accounts for
 all application components, services, and servers.
 
-. [[r12]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r13]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V4.1 General Access Control Design.(4.1.4)]
 Verify that the principle of deny by default exists whereby new users/roles
 start with minimal or no permissions and users/roles do not receive access to
 new features until access is explicitly assigned.
 
-. [[r13]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r14]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V13.2 RESTful Web Service Verification Requirements.(13.2.1)]
 Verify that enabled **RESTful HTTP** methods are a valid choice for the user or
 action,

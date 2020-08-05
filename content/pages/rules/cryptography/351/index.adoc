@@ -27,6 +27,12 @@ Verify that cryptographic keys and certificates are unique to each individual
 device.
 
 . [[r4]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V2.9 Cryptographic Software and Devices Verifier Requirements.(2.9.2)]
+Verify that the challenge nonce is at least 64 bits in length,
+and statistically unique or unique over the lifetime of the cryptographic
+device.
+
+. [[r5]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V6.2 Algorithms.(6.2.6)]
 Verify that nonces, initialization vectors, and other single use numbers must
 not be used more than once with a given encryption key.

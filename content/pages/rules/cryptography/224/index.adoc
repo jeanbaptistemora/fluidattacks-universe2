@@ -111,21 +111,27 @@ Verify that approved cryptographic algorithms are used in the generation,
 seeding, and verification.
 
 . [[r17]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V2.9 Cryptographic Software and Devices Verifier Requirements.(2.9.2)]
+Verify that the challenge nonce is at least 64 bits in length,
+and statistically unique or unique over the lifetime of the cryptographic
+device.
+
+. [[r18]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V2.9 Cryptographic Software and Devices Verifier Requirements.(2.9.3)]
 Verify that approved cryptographic algorithms are used in the generation,
 seeding, and verification.
 
-. [[r18]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r19]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V3.2 Session Binding Requirements.(3.2.4)]
 Verify that session token are generated using approved cryptographic
 algorithms.
 
-. [[r19]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r20]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V6.2 Algorithms.(6.2.3)]
 Verify that encryption initialization vector, cipher configuration,
 and block modes are configured securely using the latest advice.
 
-. [[r20]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r21]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V6.2 Algorithms.(6.2.5)]
 Verify that known insecure block modes (i.e. *ECB*, etc.), padding modes
 (i.e. **PKCS#1** v1.5, etc.), ciphers with small block sizes
@@ -133,20 +139,20 @@ Verify that known insecure block modes (i.e. *ECB*, etc.), padding modes
 (i.e. *MD5*, *SHA1*, etc.) are not used unless required for backwards
 compatibility.
 
-. [[r21]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r22]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V6.3 Random Values.(6.3.1)]
 Verify that all random numbers, random file names, random **GUID**s, and random
 strings are generated using the cryptographic module's approved
 cryptographically secure random number generator when these random values are
 intended to be not guessable by an attacker.
 
-. [[r22]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r23]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V8.3 Sensitive Private Data.(8.3.7)]
 Verify that sensitive or private information that is required to be encrypted,
 is encrypted using approved algorithms that provide both confidentiality and
 integrity.
 
-. [[r23]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r24]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V9.1 Communications Security Requirements.(9.1.2)]
 Verify using online or up to date *TLS* testing tools that only strong
 algorithms, ciphers, and protocols are enabled,
