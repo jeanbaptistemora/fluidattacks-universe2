@@ -21,7 +21,13 @@ type Query {
         organizationId: String,
         projectName: String,
         userEmail: String!
-    ): User
+    ): User @deprecated(reason: "User entity is now replaced by Stakeholder")
+    stakeholder(
+        entity: Entity!,
+        organizationId: String,
+        projectName: String,
+        userEmail: String!
+    ): Stakeholder
 
     "List projects a user is subscribed to"
     userListProjects(userEmail: String!): [Project]
