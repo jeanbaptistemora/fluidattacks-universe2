@@ -127,15 +127,15 @@ const dashboard: React.FC = (): JSX.Element => {
                   <HomeView />
                 </Route>
                 <Route path="/reports" component={ReportsView} />
-                <Route path="/organizations/:organizationName/groups/:projectName">
+                <Route path="/orgs/:organizationName/groups/:projectName">
                   <authzGroupContext.Provider value={groupAttributes}>
                     <authzPermissionsContext.Provider value={groupLevelPermissions}>
                       <ProjectRoute setUserRole={setUserRole} />
                     </authzPermissionsContext.Provider>
                   </authzGroupContext.Provider>
                 </Route>
-                <Route path="/organizations/:organizationName/portfolios/:tagName" component={TagContent} />
-                <Route path="/organizations/:organizationName">
+                <Route path="/orgs/:organizationName/portfolios/:tagName" component={TagContent} />
+                <Route path="/orgs/:organizationName">
                   <authzPermissionsContext.Provider value={organizationLevelPermissions}>
                     <OrganizationContent setUserRole={setUserRole} />
                   </authzPermissionsContext.Provider>

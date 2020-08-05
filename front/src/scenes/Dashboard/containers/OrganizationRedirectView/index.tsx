@@ -44,8 +44,8 @@ const organizationtRedirect: React.FC<IOrganizationRedirectProps> =
     <React.Fragment>
       <Switch>
         {type === "groups"
-          ? <Redirect path="/groups/:groupName" to={`/organizations/${data.project.organization}${pathname}`} />
-          : <Redirect path="/portfolios/:tagName" to={`/organizations/${data.tag.organization}${pathname}`} />
+          ? <Redirect path="/groups/:groupName" to={`/orgs/${data.project.organization}${pathname}`} />
+          : <Redirect path="/portfolios/:tagName" to={`/orgs/${data.tag.organization}${pathname}`} />
         }
       </Switch>
     </React.Fragment>

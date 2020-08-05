@@ -44,12 +44,12 @@ export const navbarComponent: React.FC<RouteComponentProps> = (props: RouteCompo
     (eventKey: string): void => {
       if (eventKey !== currentOrganization.name) {
         setCurrentOrganization({ name: eventKey });
-        push(`/organizations/${eventKey}/`);
+        push(`/orgs/${eventKey}/`);
       }
   };
   const handleOrganizationClick: (event: React.MouseEvent<SplitButton, globalThis.MouseEvent>) => void =
     () => {
-      push(`/organizations/${currentOrganization.name}/`);
+      push(`/orgs/${currentOrganization.name}/`);
   };
   const handleSearchSubmit: ((values: { projectName: string }) => void) = (values: { projectName: string }): void => {
     const projectName: string = values.projectName.toLowerCase();

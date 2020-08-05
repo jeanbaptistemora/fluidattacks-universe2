@@ -57,7 +57,7 @@ const homeView: React.FC = (): JSX.Element => {
       <Switch>
         <Redirect
           path="/home"
-          to={`/organizations/${homeOrganization}/`}
+          to={`/orgs/${homeOrganization}/`}
         />
       </Switch>
     </React.Fragment>

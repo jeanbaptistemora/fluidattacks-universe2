@@ -126,7 +126,7 @@ const organizationContent: React.FC<IOrganizationContent> = (props: IOrganizatio
                   <ContentTab
                     icon="icon pe-7s-users"
                     id="usersTab"
-                    link={`${url}/users`}
+                    link={`${url}/stakeholders`}
                     title={translate.t("organization.tabs.users.text")}
                     tooltip={translate.t("organization.tabs.users.tooltip")}
                   />
@@ -152,7 +152,7 @@ const organizationContent: React.FC<IOrganizationContent> = (props: IOrganizatio
                 <Route path={`${path}/portfolios`} exact={true}>
                   <OrganizationPortfolios portfolios={portfoliosData.me.tags}/>
                 </Route>
-                <Route path={`${path}/users`} exact={true}>
+                <Route path={`${path}/stakeholders`} exact={true}>
                   <OrganizationUsers organizationId={basicData.organizationId.id} />
                 </Route>
                 <Route path={`${path}/policies`} exact={true}>

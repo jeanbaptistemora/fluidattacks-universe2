@@ -43,7 +43,7 @@ describe("Navbar", () => {
       },
       location: {
         hash: "",
-        pathname: "/organizations/imamura",
+        pathname: "/orgs/imamura",
         search: "",
         state: {
           userInfo: {
@@ -54,7 +54,7 @@ describe("Navbar", () => {
       match: {
         isExact: true,
         params: {},
-        path: "/organizations/imamura",
+        path: "/orgs/imamura",
         url: "",
       },
     };
