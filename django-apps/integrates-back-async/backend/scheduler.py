@@ -45,6 +45,7 @@ from __init__ import (
 # Constants
 logging.config.dictConfig(LOGGING)
 LOGGER = logging.getLogger('console')
+NOEXTRA = dict(extra=None)
 
 
 def is_not_a_fluidattacks_email(email: str) -> bool:
@@ -458,7 +459,7 @@ def format_vulnerabilities(
             f'Finding {act_finding["finding_id"]} of project '
             f'{act_finding["project_name"]} has no changes during the week'
         )
-        LOGGER.info(message)
+        LOGGER.info(message, extra=NOEXTRA)
     return finding_text
 
 
@@ -757,9 +758,7 @@ async def update_portfolios() -> None:
     """
     Update portfolios metrics
     """
-    LOGGER.info(
-        '[scheduker]: updating portfolios indicators', extra={'extra': {}}
-    )
+    LOGGER.info('[scheduker]: updating portfolios indicators', extra=NOEXTRA)
     async for _, org_name, org_groups in \
             org_domain.iterate_organizations_and_groups():
         org_tags = await tag_domain.get_tags(org_name, ['tag'])
@@ -798,7 +797,8 @@ async def reset_group_expired_accepted_findings(
         today: str) -> None:
     LOGGER.info(
         'Resetting expired accepted findings',
-        extra={'extra': locals()})
+        extra={'extra': locals()}
+    )
     list_findings = await project_domain.list_findings(
         [group_name]
     )
@@ -860,7 +860,12 @@ async def delete_pending_projects() -> None:
     today = datetime.now()
     projects = await project_domain.get_pending_to_delete()
     remove_project_tasks = []
-    LOGGER.info('- pending projects: %s', projects)
+    project_names = [
+        project.get('project_name', '')
+        for project in projects
+    ]
+    msg = f'- pending projects: {project_names}'
+    LOGGER.info(msg, extra=dict(extra=projects))
     for project in projects:
         historic_deletion: HistoricType = cast(
             HistoricType,
@@ -874,7 +879,8 @@ async def delete_pending_projects() -> None:
             last_state_date, '%Y-%m-%d %H:%M:%S'
         )
         if deletion_date < today:
-            LOGGER.info('- project: %s will be deleted', project)
+            msg = f'- project: {project.get("project_name")} will be deleted'
+            LOGGER.info(msg, extra=dict(extra=project))
             task = asyncio.create_task(
                 sync_to_async(project_domain.remove_project)(
                     project.get('project_name')
