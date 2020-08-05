@@ -227,7 +227,7 @@ subscriptions_trigger_user_to_entity_report_prod_schedule:
   interruptible: false
   stage: scheduler
   image: "${CI_REGISTRY_IMAGE}/nix:scheduler_prod"
-  tags: [autoscaling]
+  tags: [autoscaling-large]
   script:
     - ./build.sh scheduler_prod "${CI_JOB_NAME/scheduler_/}"
 
