@@ -637,6 +637,7 @@ function job_apply_config_autoscaling_ci {
   )
 
       echo '[INFO] Adding bastion to known hosts' \
+  &&  helper_aws_login prod \
   &&  mkdir -p ~/.ssh \
   &&  touch ~/.ssh/known_hosts \
   &&  ssh-keyscan \

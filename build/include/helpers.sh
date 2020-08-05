@@ -343,7 +343,7 @@ function helper_infra_monolith {
           &&  kubectl config \
                 set-context "$(kubectl config current-context)" --namespace 'serves' \
           &&  helper_terraform_apply . \
-          &&  sops_env secrets-prod.yaml default \
+          &&  sops_env ../secrets-prod.yaml default \
                 AUTONOMIC_TLS_CERT \
                 AUTONOMIC_TLS_KEY \
                 FLUIDATTACKS_TLS_CERT \
