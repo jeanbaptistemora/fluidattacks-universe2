@@ -76,22 +76,21 @@ def cast_dict_into_subject_policy(item: dict) -> SubjectPolicy:
     })
 
 
-def get_subject_policy(subject: str, object_: str) -> SubjectPolicy:
+async def get_subject_policy(subject: str, object_: str) -> SubjectPolicy:
     """Return a policy for the given subject over the given object."""
-    items = {}
-    try:
-        response = AUTHZ_TABLE.get_item(
-            ConsistentRead=True,
-            Key={
-                'subject': subject.lower(),
-                'object': object_.lower(),
-            },
+    response = {}
+    query_attrs = {
+        'ConsistentRead': True,
+        'KeyConditionExpression': (
+            Key('subject').eq(subject.lower()) &
+            Key('object').eq(object_.lower())
         )
-        items = response.get('Item', {})
-    except ClientError as ex:
-        LOGGER.exception(ex, extra={'extra': locals()})
+    }
+    response_items = await dynamodb.async_query(AUTHZ_TABLE_NAME, query_attrs)
+    if response_items:
+        response = response_items[0]
 
-    return cast_dict_into_subject_policy(items)
+    return cast_dict_into_subject_policy(response)
 
 
 def get_subject_policies(subject: str) -> List[SubjectPolicy]:

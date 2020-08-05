@@ -19,7 +19,6 @@ from graphql.language.ast import (
 )
 from graphql.type.definition import GraphQLResolveInfo
 import simplejson as json
-from asgiref.sync import sync_to_async
 
 # Local libraries
 from backend import authz
@@ -649,7 +648,7 @@ async def _get_user_role(
         project_name: str,
         **__: Any) -> str:
     user_email = util.get_jwt_content(info.context)['user_email']
-    return authz.get_group_level_role(user_email, project_name)
+    return await authz.get_group_level_role(user_email, project_name)
 
 
 @enforce_group_level_auth_async
@@ -683,7 +682,7 @@ async def _get_users(
             user_email
             for user_email in group_user_emails
             if user_email.endswith('@fluidattacks.com')
-            and authz.get_group_level_role(
+            and await authz.get_group_level_role(
                 user_email, project_name) == 'group_manager'
         ]
 
@@ -803,7 +802,7 @@ async def _do_create_project(  # pylint: disable=too-many-arguments
     """Resolve create_project mutation."""
     user_data = util.get_jwt_content(info.context)
     user_email = user_data['user_email']
-    user_role = await sync_to_async(authz.get_user_level_role)(user_email)
+    user_role = await authz.get_user_level_role(user_email)
 
     success = await project_domain.create_project(
         user_email,

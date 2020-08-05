@@ -128,7 +128,7 @@ async def check_registered(
     is_registered, last_login, role = await aio.materialize([
         user_domain.is_registered(email),
         user_domain.get_data(email, 'last_login'),
-        aio.ensure_io_bound(authz.get_user_level_role, email)
+        authz.get_user_level_role(email)
     ])
     strategy.session_set('role', role)
     strategy.session_set('username', email)

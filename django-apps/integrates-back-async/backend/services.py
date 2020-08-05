@@ -13,7 +13,6 @@ from backend.domain import (
 
 from backend import authz, util
 from backend.dal import project as project_dal
-from backend.utils import aio
 
 
 @csrf_exempt  # type: ignore
@@ -24,23 +23,23 @@ def login(request: HttpRequest) -> JsonResponse:
     return util.response([], 'Bienvenido ' + username, False)
 
 
-def has_access_to_project(email: str, group: str) -> bool:
+async def has_access_to_project(email: str, group: str) -> bool:
     """ Verify if the user has access to a project. """
-    return bool(authz.get_group_level_role(email, group.lower()))
+    return bool(await authz.get_group_level_role(email, group.lower()))
 
 
 async def has_access_to_finding(email: str, finding_id: str) -> bool:
     """ Verify if the user has access to a finding submission. """
     finding = await finding_domain.get_finding(finding_id)
     group = cast(str, finding.get('projectName', ''))
-    return await aio.ensure_io_bound(has_access_to_project, email, group)
+    return await has_access_to_project(email, group)
 
 
 async def has_access_to_event(email: str, event_id: str) -> bool:
     """ Verify if the user has access to a event submission. """
     event = await event_domain.get_event(event_id)
     group = cast(str, event.get('project_name', ''))
-    return await aio.ensure_io_bound(has_access_to_project, email, group)
+    return await has_access_to_project(email, group)
 
 
 async def has_valid_access_token(

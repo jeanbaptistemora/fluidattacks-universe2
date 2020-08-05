@@ -290,11 +290,8 @@ async def list_project_managers(group: str) -> List[str]:
         get_users(group, False)
     ])
     all_users = users_active + users_inactive
-    users_roles = await aio.ensure_many_io_bound([
-        aio.PyCallable(
-            instance=authz.get_group_level_role,
-            args=(user, group),
-        )
+    users_roles = await aio.materialize([
+        authz.get_group_level_role(user, group)
         for user in all_users
     ])
     managers = [

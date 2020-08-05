@@ -84,7 +84,7 @@ async def _get_url_all_vulns(
         info: GraphQLResolveInfo,
         user_email: str,
         project_name: str) -> str:
-    if authz.get_user_level_role(user_email) == 'admin':
+    if await authz.get_user_level_role(user_email) == 'admin':
         url = await aio.ensure_io_bound(
             report.generate_all_vulns_report,
             user_email,
@@ -144,7 +144,7 @@ async def _get_url_group_report(
 async def _get_url_all_users(
         info: GraphQLResolveInfo,
         user_email: str) -> str:
-    if authz.get_user_level_role(user_email) == 'admin':
+    if await authz.get_user_level_role(user_email) == 'admin':
         url = await sync_to_async(
             report.generate_all_users_report)(
                 user_email

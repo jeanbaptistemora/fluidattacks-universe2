@@ -174,12 +174,14 @@ async def _send_new_event_mail(
     recipients_customers = [
         recipient
         for recipient in recipients
-        if authz.get_group_level_role(recipient, project) == 'customeradmin'
+        if await authz.get_group_level_role(
+            recipient, project) == 'customeradmin'
     ]
     recipients_not_customers = [
         recipient
         for recipient in recipients
-        if authz.get_group_level_role(recipient, project) != 'customeradmin'
+        if await authz.get_group_level_role(
+            recipient, project) != 'customeradmin'
     ]
     email_context_customers = email_context.copy()
     email_context_customers['analyst_email'] = f'Hacker at FluidIntegrates'

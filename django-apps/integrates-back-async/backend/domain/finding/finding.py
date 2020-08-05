@@ -211,9 +211,8 @@ async def update_treatment_in_vuln(
             group: str = cast(str, finding.get('project_name', ''))
             email: str = updated_values.get('user', '')
             treatment: str = cast(str, new_values.get('treatment', ''))
-            group_level_role: str = await sync_to_async(
-                authz.get_group_level_role
-            )(email, group)
+            group_level_role: str = await authz.get_group_level_role(
+                email, group)
 
             new_values['treatment_manager'] = \
                 await vuln_domain.set_treatment_manager(

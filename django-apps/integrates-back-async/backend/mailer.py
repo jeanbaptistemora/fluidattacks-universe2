@@ -299,18 +299,18 @@ def send_comment_mail(
     recipients_customers = [
         recipient
         for recipient in recipients
-        if authz.get_group_level_role(
+        if async_to_sync(authz.get_group_level_role)(
             recipient, project_name) in ['customer', 'customeradmin']
     ]
     recipients_not_customers = [
         recipient
         for recipient in recipients
-        if authz.get_group_level_role(
+        if async_to_sync(authz.get_group_level_role)(
             recipient, project_name) not in ['customer', 'customeradmin']
     ]
 
     email_context_customers = email_context.copy()
-    if authz.get_group_level_role(
+    if async_to_sync(authz.get_group_level_role)(
             user_mail, project_name) not in ['customer', 'customeradmin']:
         email_context_customers['user_email'] = f'Hacker at FluidIntegrates'
     email_send_thread = threading.Thread(
@@ -336,7 +336,9 @@ def get_email_recipients(group: str, comment_type: Union[str, bool]) -> \
         analysts = [
             email
             for email in project_users
-            if authz.get_group_level_role(email, group) == 'analyst'
+            if async_to_sync(authz.get_group_level_role)(
+                email, group
+            ) == 'analyst'
         ]
         recipients += analysts
     else:

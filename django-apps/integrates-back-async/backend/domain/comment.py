@@ -108,8 +108,8 @@ async def get_fullname(
     if is_requester_at_fluid or not is_objective_at_fluid:
         name_to_show = real_name
     else:
-        objective_role = await aio.ensure_io_bound(
-            authz.get_group_level_role, objective_email, project_name
+        objective_role = await authz.get_group_level_role(
+            objective_email, project_name
         )
 
         name_to_show = {

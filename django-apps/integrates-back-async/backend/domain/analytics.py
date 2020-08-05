@@ -37,7 +37,6 @@ from backend.services import (
     has_access_to_project as has_access_to_group,
 )
 from backend.utils import (
-    aio,
     apm,
 )
 from backend.utils.encodings import (
@@ -125,8 +124,8 @@ async def handle_authz_claims(
     email = util.get_jwt_content(request)['user_email']
 
     if params.entity == 'group':
-        if not await aio.ensure_io_bound(
-            has_access_to_group, email, params.subject.lower(),
+        if not await has_access_to_group(
+            email, params.subject.lower(),
         ):
             raise PermissionError('Access denied')
     elif params.entity == 'organization':

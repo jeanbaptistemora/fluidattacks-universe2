@@ -189,7 +189,7 @@ async def _get_release_date(info: GraphQLResolveInfo, identifier: str) -> str:
     release_date = finding['release_date']
     user_data = util.get_jwt_content(info.context)
     user_email = user_data['user_email']
-    curr_user_role = await sync_to_async(authz.get_group_level_role)(
+    curr_user_role = await authz.get_group_level_role(
         user_email, finding['project_name']
     )
     if not release_date and curr_user_role not in allowed_roles:
@@ -788,7 +788,7 @@ async def _do_add_finding_comment(
         finding_loader = info.context.loaders['finding']
         finding = await finding_loader.load(finding_id)
         group = finding.get('project_name')
-        role = authz.get_group_level_role(user_email, group)
+        role = await authz.get_group_level_role(user_email, group)
         if (param_type == 'observation' and
                 role not in ['analyst', 'admin', 'group_manager', 'reviewer']):
             util.cloudwatch_log(

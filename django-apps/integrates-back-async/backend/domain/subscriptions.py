@@ -28,7 +28,6 @@ from backend.domain import (
     organization as org_domain,
 )
 from backend.utils import (
-    aio,
     reports,
 )
 from backend.services import (
@@ -173,8 +172,7 @@ async def can_subscribe_user_to_entity_report(
     success: bool = False
 
     if report_entity.lower() == 'group':
-        success = await aio.ensure_io_bound(
-            has_access_to_group,
+        success = await has_access_to_group(
             user_email,
             report_subject.lower(),
         )

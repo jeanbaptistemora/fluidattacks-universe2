@@ -59,16 +59,16 @@ async def _get_role(
     """Get role."""
     if project_name or (entity == 'PROJECT' and identifier):
         group_name = project_name or identifier
-        role = await sync_to_async(authz.get_group_level_role)(
+        role = await authz.get_group_level_role(
             user_email, group_name
         )
     elif entity == 'ORGANIZATION' and identifier:
         organization_id = identifier
-        role = await sync_to_async(authz.get_organization_level_role)(
+        role = await authz.get_organization_level_role(
             user_email, organization_id
         )
     else:
-        role = await sync_to_async(authz.get_user_level_role)(user_email)
+        role = await authz.get_user_level_role(user_email)
     return cast(str, role)
 
 

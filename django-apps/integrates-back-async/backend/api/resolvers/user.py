@@ -163,8 +163,7 @@ def _get_email(_: GraphQLResolveInfo, email: str, *__: str) -> str:
     return email.lower()
 
 
-@sync_to_async  # type: ignore
-def _get_role(
+async def _get_role(
         _: GraphQLResolveInfo,
         email: str,
         entity: str,
@@ -172,12 +171,12 @@ def _get_role(
     """Get role."""
     if entity == 'PROJECT' and identifier:
         project_name = identifier
-        role = authz.get_group_level_role(email, project_name)
+        role = await authz.get_group_level_role(email, project_name)
     elif entity == 'ORGANIZATION' and identifier:
         organization_id = identifier
-        role = authz.get_organization_level_role(email, organization_id)
+        role = await authz.get_organization_level_role(email, organization_id)
     else:
-        role = authz.get_user_level_role(email)
+        role = await authz.get_user_level_role(email)
 
     return cast(str, role)
 
@@ -295,7 +294,7 @@ async def resolve_for_group(  # pylint: disable=too-many-arguments
 
     if project_name and role:
         if (not await user_domain.get_data(email, 'email') or
-                not has_access_to_project(email, project_name)):
+                not await has_access_to_project(email, project_name)):
             raise UserNotFound()
 
     return await resolve(

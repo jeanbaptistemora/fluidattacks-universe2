@@ -9,7 +9,7 @@ import logging
 import re
 from typing import Any, Callable, Dict, cast, TypeVar
 
-from asgiref.sync import async_to_sync, sync_to_async
+from asgiref.sync import async_to_sync
 from django.conf import settings
 from django.core.cache import cache
 from django.core.cache.backends.base import DEFAULT_TIMEOUT
@@ -333,11 +333,10 @@ def require_organization_access(func: TVar) -> TVar:
             else await org_domain.get_id_by_name(organization_identifier)
         )
 
-        role = await sync_to_async(authz.get_organization_level_role)(
-            user_email, organization_id)
-        has_access = await org_domain.has_user_access(
-            user_email, organization_id
-        )
+        role, has_access = await aio.materialize([
+            authz.get_organization_level_role(user_email, organization_id),
+            org_domain.has_user_access(user_email, organization_id)
+        ])
 
         if role != 'admin' and not has_access:
             util.cloudwatch_log(

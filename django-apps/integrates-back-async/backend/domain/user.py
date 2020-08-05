@@ -79,8 +79,8 @@ async def get_projects(
     return user_projects
 
 
-def get_group_access(email: str, group: str) -> bool:
-    group_level_role = authz.get_group_level_role(email, group)
+async def get_group_access(email: str, group: str) -> bool:
+    group_level_role = await authz.get_group_level_role(email, group)
     return bool(group_level_role)
 
 

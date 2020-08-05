@@ -41,9 +41,7 @@ async def add_group(organization_id: str, group: str) -> bool:
     if success:
         users = await get_users(organization_id)
         users_roles = await aio.materialize(
-            aio.ensure_io_bound(
-                authz.get_organization_level_role, user, organization_id
-            )
+            authz.get_organization_level_role(user, organization_id)
             for user in users
         )
         success = (
@@ -200,7 +198,8 @@ async def has_group(group_name: str, organization_id: str) -> bool:
 
 async def has_user_access(email: str, organization_id: str) -> bool:
     return await org_dal.has_user_access(email, organization_id) \
-        or authz.get_organization_level_role(email, organization_id) == 'admin'
+        or await authz.get_organization_level_role(
+            email, organization_id) == 'admin'
 
 
 async def remove_user(organization_id: str, email: str) -> bool:

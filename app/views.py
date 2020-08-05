@@ -48,7 +48,6 @@ from backend.services import (
     has_access_to_finding,
     has_access_to_event
 )
-from backend.utils import aio
 from __init__ import (
     FI_AWS_S3_BUCKET,
     FI_ENVIRONMENT
@@ -81,9 +80,7 @@ async def enforce_group_level_role(
             '</script>'
         )
 
-    requester_role = await aio.ensure_io_bound(
-        authz.get_group_level_role, email, group
-    )
+    requester_role = await authz.get_group_level_role(email, group)
     if requester_role not in allowed_roles:
         response = HttpResponse("Access denied")
         response.status_code = 403

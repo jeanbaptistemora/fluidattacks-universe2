@@ -8,6 +8,7 @@ from typing import (
 )
 
 # Third party library
+from asgiref.sync import async_to_sync
 from django.core.cache import cache
 from rediscluster.nodemanager import RedisClusterException
 
@@ -91,29 +92,31 @@ def get_cached_subject_policies(
 
 
 @apm.trace()
-def get_group_level_role(email: str, group: str) -> str:
+async def get_group_level_role(email: str, group: str) -> str:
     # Admins are granted access to all groups
-    group_role = user_dal.get_subject_policy(email, group).role
-    if get_user_level_role(email) == 'admin' and not group_role:
+    subject_policy = await user_dal.get_subject_policy(email, group)
+    group_role = subject_policy.role
+    if await get_user_level_role(email) == 'admin' and not group_role:
         return 'admin'
 
     return group_role
 
 
 @apm.trace()
-def get_organization_level_role(email: str, organization_id: str) -> str:
+async def get_organization_level_role(email: str, organization_id: str) -> str:
     # Admins are granted access to all organizations
-    organization_role = user_dal.get_subject_policy(
+    subject_policy = await user_dal.get_subject_policy(
         email, organization_id.lower()
-    ).role
-    if get_user_level_role(email) == 'admin' and not organization_role:
+    )
+    organization_role = subject_policy.role
+    if await get_user_level_role(email) == 'admin' and not organization_role:
         return 'admin'
 
     return organization_role
 
 
 def get_group_level_roles(email: str, groups: List[str]) -> Dict[str, str]:
-    is_admin: bool = get_user_level_role(email) == 'admin'
+    is_admin: bool = async_to_sync(get_user_level_role)(email) == 'admin'
 
     db_roles: Dict[str, str] = {
         object_: role
@@ -130,8 +133,9 @@ def get_group_level_roles(email: str, groups: List[str]) -> Dict[str, str]:
     }
 
 
-def get_user_level_role(email: str) -> str:
-    return user_dal.get_subject_policy(email, 'self').role
+async def get_user_level_role(email: str) -> str:
+    user_policy = await user_dal.get_subject_policy(email, 'self')
+    return user_policy.role
 
 
 async def grant_group_level_role(email: str, group: str, role: str) -> bool:
@@ -150,7 +154,7 @@ async def grant_group_level_role(email: str, group: str, role: str) -> bool:
     coroutines.append(user_dal.put_subject_policy(policy))
 
     # If there is no user-level role for this user add one
-    if not await aio.ensure_io_bound(get_user_level_role, email):
+    if not await get_user_level_role(email):
         user_level_role: str = \
             role if role in USER_LEVEL_ROLES else 'customer'
         coroutines.append(grant_user_level_role(email, user_level_role))
@@ -182,7 +186,7 @@ async def grant_organization_level_role(
     coroutines.append(user_dal.put_subject_policy(policy))
 
     # If there is no user-level role for this user add one
-    if not await aio.ensure_io_bound(get_user_level_role, email):
+    if not await get_user_level_role(email):
         user_level_role: str = (
             role
             if role in USER_LEVEL_ROLES

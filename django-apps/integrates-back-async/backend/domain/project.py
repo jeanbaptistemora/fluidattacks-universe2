@@ -324,7 +324,7 @@ async def get_historic_deletion(project_name: str) -> HistoricType:
 async def request_deletion(project_name: str, user_email: str) -> bool:
     project = project_name.lower()
     response = False
-    if (user_domain.get_group_access(user_email, project) and
+    if (await user_domain.get_group_access(user_email, project) and
             project_name == project):
         data = await project_dal.get_attributes(
             project,
@@ -1012,7 +1012,7 @@ async def get_users_to_notify(
     users = await get_users(project_name, active)
     user_roles = await asyncio.gather(*[
         asyncio.create_task(
-            sync_to_async(get_group_level_role)(user, project_name)
+            get_group_level_role(user, project_name)
         )
         for user in users
     ])
@@ -1025,11 +1025,8 @@ async def get_users_to_notify(
 
 async def get_managers(project_name: str) -> List[str]:
     users = await get_users(project_name, active=True)
-    users_roles = await aio.ensure_many_io_bound([
-        aio.PyCallable(
-            instance=authz.get_group_level_role,
-            args=(user, project_name),
-        )
+    users_roles = await aio.materialize([
+        authz.get_group_level_role(user, project_name)
         for user in users
     ])
     return [
