@@ -21,9 +21,6 @@ from state import (
 from utils.function import (
     retry,
 )
-from utils.logs import (
-    log,
-)
 from utils.model import (
     NVDVulnerability,
 )
@@ -60,8 +57,6 @@ async def get_vulnerabilities(
         target_software=target_software,
         version=version,
     )
-
-    await log('debug', 'cpe: %s', cpe)
 
     async with aiohttp.ClientSession(
         timeout=aiohttp.ClientTimeout(total=60.0),

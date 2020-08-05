@@ -2,11 +2,13 @@
 from itertools import (
     chain,
 )
+import re
 from typing import (
     AsyncGenerator,
     Awaitable,
     Iterator,
     List,
+    Pattern,
     Tuple,
 )
 
@@ -24,9 +26,6 @@ from nvd.query import (
 )
 from parse_json import (
     loads as json_loads,
-)
-from state import (
-    cache_decorator,
 )
 from utils.aio import (
     materialize,
@@ -49,9 +48,34 @@ from zone import (
 # Constants
 DependencyType = Tuple[frozendict, frozendict]
 
+NODE_JS_KEYWORDS: Tuple[str, ...] = ('node',)
+NODE_JS_TARGET_SOFTWARE: str = 'node.js'
+MAVEN_KEYWORDS: Tuple[str, ...] = ()
+MAVEN_TARGET_SOFTWARE: str = ''
+
+QUOTE = r'["\']'
+TEXT = r'[^"\']+'
+WS = r'\s*'
+
+# Regexes
+RE_MAVEN_A: Pattern[str] = re.compile(
+    r'^.*'
+    fr'{WS}(?:compile|implementation){WS}[(]?{WS}'
+    fr'group{WS}:{WS}{QUOTE}(?P<group>{TEXT}){QUOTE}{WS}'
+    fr',{WS}name{WS}:{WS}{QUOTE}(?P<name>{TEXT}){QUOTE}{WS}'
+    fr'(?:,{WS}version{WS}:{WS}{QUOTE}(?P<version>{TEXT}){QUOTE}{WS})?'
+    fr'.*$'
+)
+RE_MAVEN_B: Pattern[str] = re.compile(
+    r'^.*'
+    fr'{WS}(?:compile|implementation){WS}[(]?{WS}'
+    fr'{QUOTE}(?P<statement>{TEXT}){QUOTE}'
+    fr'.*$'
+)
+
 # Roadmap:
 # | package           | weight | Implemented
-# | build.gradle      | 3132   |
+# | build.gradle      | 3132   | yes
 # | package.json      | 2823   | yes
 # | packages.config   | 755    |
 # | pom.xml           | 672    |
@@ -60,7 +84,42 @@ DependencyType = Tuple[frozendict, frozendict]
 # | yarn.lock         | 47     | yes
 
 
-@cache_decorator()
+async def build_gradle(
+    content: str,
+    path: str,
+) -> Tuple[Vulnerability, ...]:
+    dependencies: List[DependencyType] = []
+
+    for line_no, line in enumerate(content.splitlines(), start=1):
+        if match := RE_MAVEN_A.match(line):
+            column: int = match.start('group')
+            product: str = match.group('group') + ':' + match.group('name')
+            version: str = match.group('version') or '*'
+        elif match := RE_MAVEN_B.match(line):
+            column = match.start('statement')
+            statement = match.group('statement')
+            product, version = (
+                statement.rsplit(':', maxsplit=1)
+                if statement.count(':') >= 2
+                else (statement, '*')
+            )
+        else:
+            continue
+
+        dependencies.append((
+            {'column': column, 'line': line_no, 'item': product},
+            {'column': column, 'line': line_no, 'item': version},
+        ))
+
+    return await translate_dependencies_to_vulnerabilities(
+        content=content,
+        dependencies=tuple(dependencies),
+        keywords=MAVEN_KEYWORDS,
+        path=path,
+        target_software=MAVEN_TARGET_SOFTWARE,
+    )
+
+
 async def npm_package_json(
     content: str,
     path: str,
@@ -74,14 +133,15 @@ async def npm_package_json(
         for product, version in obj[key].items()
     )
 
-    return await npm(
+    return await translate_dependencies_to_vulnerabilities(
         content=content,
         dependencies=dependencies,
+        keywords=NODE_JS_KEYWORDS,
         path=path,
+        target_software=NODE_JS_TARGET_SOFTWARE,
     )
 
 
-@cache_decorator()
 async def npm_package_lock_json(
     content: str,
     path: str,
@@ -105,14 +165,15 @@ async def npm_package_lock_json(
         await json_loads(content), [],
     ))
 
-    return await npm(
+    return await translate_dependencies_to_vulnerabilities(
         content=content,
         dependencies=dependencies,
+        keywords=NODE_JS_KEYWORDS,
         path=path,
+        target_software=NODE_JS_TARGET_SOFTWARE,
     )
 
 
-@cache_decorator()
 async def yarn_lock(
     content: str,
     path: str,
@@ -151,32 +212,37 @@ async def yarn_lock(
 
     dependencies: Tuple[DependencyType, ...] = tuple(resolve())
 
-    return await npm(
+    return await translate_dependencies_to_vulnerabilities(
         content=content,
         dependencies=dependencies,
+        keywords=NODE_JS_KEYWORDS,
         path=path,
+        target_software=NODE_JS_TARGET_SOFTWARE,
     )
 
 
-async def npm(
+async def translate_dependencies_to_vulnerabilities(
+    *,
     content: str,
     dependencies: Tuple[DependencyType, ...],
+    keywords: Tuple[str, ...],
     path: str,
+    target_software: str,
 ) -> Tuple[Vulnerability, ...]:
     query_results: Tuple[
         Tuple[DependencyType, Tuple[NVDVulnerability, ...]],
         ...
     ] = tuple(zip(
         dependencies,
-        await materialize(
+        await materialize((
             get_nvd_vulnerabilities(
                 product=product['item'],
                 version=version['item'],
-                keywords=('node',),
-                target_software='node.js',
+                keywords=keywords,
+                target_software=target_software,
             )
             for product, version in dependencies
-        ),
+        ), batch_size=5),
     ))
 
     results: Tuple[Vulnerability, ...] = tuple([
@@ -223,7 +289,12 @@ async def analyze(
 ) -> Tuple[Vulnerability, ...]:
     coroutines: List[Awaitable[Tuple[Vulnerability, ...]]] = []
 
-    if (file_name, file_extension) == ('package', 'json'):
+    if (file_name, file_extension) == ('build', 'gradle'):
+        coroutines.append(build_gradle(
+            content=await content_generator.__anext__(),
+            path=path,
+        ))
+    elif (file_name, file_extension) == ('package', 'json'):
         coroutines.append(npm_package_json(
             content=await content_generator.__anext__(),
             path=path,
