@@ -26,6 +26,7 @@ from typing import (
 
 # Third party libraries
 from frozendict import frozendict
+from more_itertools import chunked
 
 # Local libraries
 from backend.utils import (
@@ -115,7 +116,7 @@ async def _ensure_many(
 
 
 @apm.trace()
-async def materialize(obj: object) -> object:
+async def materialize(obj: Any, batch_size: int = 128) -> Any:
     """
     Turn any awaitable and possibly nested-object into a real object.
 
@@ -125,7 +126,7 @@ async def materialize(obj: object) -> object:
     because non-materialized futures, coroutines or tasks cannot be sent
     to redis.
     """
-    materialized_obj: object
+    materialized_obj: Any
 
     # Please use abstract base classes:
     #   https://docs.python.org/3/glossary.html#term-abstract-base-class
@@ -135,11 +136,23 @@ async def materialize(obj: object) -> object:
     #
 
     if isinstance(obj, collections.abc.Mapping):
-        materialized_obj = \
-            dict(zip(obj, await materialize(tuple(obj.values()))))
+        materialized_obj = dict(zip(
+            obj,
+            await materialize(obj.values()),
+        ))
     elif isinstance(obj, collections.abc.Iterable):
-        materialized_obj = \
-            await gather(*map(create_task, obj))
+        materialized_obj = [
+            await awaitable
+            for awaitables in chunked(obj, batch_size)
+            for awaitable in [
+                (
+                    elem
+                    if isinstance(elem, Future)
+                    else create_task(elem)
+                )
+                for elem in awaitables
+            ]
+        ]
     else:
         raise ValueError(f'Not implemented for type: {type(obj)}')
 

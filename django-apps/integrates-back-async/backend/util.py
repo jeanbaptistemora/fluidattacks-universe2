@@ -12,7 +12,6 @@ import re
 import secrets
 from typing import (
     Any,
-    Callable,
     cast,
     Dict,
     Iterator,
@@ -45,7 +44,6 @@ from graphql.language.ast import (
 )
 from jose import jwt, JWTError
 from magic import Magic
-from more_itertools import chunked
 
 from backend.dal import session as session_dal
 from backend.exceptions import (
@@ -58,7 +56,6 @@ from backend.typing import (
     User as UserType
 )
 from backend.utils import (
-    aio,
     apm,
 )
 from __init__ import (
@@ -587,14 +584,3 @@ def remove_token(key: str):
 
 def token_exists(key: str) -> bool:
     return session_dal.element_exists(key)
-
-
-async def run_task_by_chunks(func: Callable[..., Any], groups: List[str]):
-    groups_per_chunk = 40
-    chunks = chunked(groups, groups_per_chunk)
-
-    for chunk in chunks:
-        await aio.materialize(
-            func(group_name)
-            for group_name in chunk
-        )

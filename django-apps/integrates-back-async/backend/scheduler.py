@@ -372,7 +372,7 @@ async def get_new_vulnerabilities() -> None:
     msg = '[scheduler]: get_new_vulnerabilities is running'
     LOGGER.warning(msg, extra=dict(extra=None))
     groups = await project_domain.get_active_projects()
-    await util.run_task_by_chunks(get_group_new_vulnerabilities, groups)
+    await aio.materialize(map(get_group_new_vulnerabilities, groups))
 
 
 def calculate_tag_indicators(
@@ -694,7 +694,7 @@ async def update_indicators() -> None:
     msg = '[scheduler]: update_indicators is running'
     LOGGER.warning(msg, extra=dict(extra=None))
     groups = await project_domain.get_active_projects()
-    await util.run_task_by_chunks(update_group_indicators, groups)
+    await aio.materialize(map(update_group_indicators, groups), 20)
 
 
 async def update_organization_indicators(
