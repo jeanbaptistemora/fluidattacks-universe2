@@ -136,7 +136,10 @@ def new_password_protected_report(
     file_type: str,
     file_link: str = '',
 ) -> None:
-    send_push_notification(user_email, 'Report passphrase', passphrase)
+    send_push_notification(
+        user_email,
+        f'{file_type} report passphrase',
+        passphrase)
 
     email_send_thread = threading.Thread(
         name='Report passphrase email thread',
