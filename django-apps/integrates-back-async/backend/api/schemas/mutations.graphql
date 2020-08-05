@@ -23,6 +23,7 @@ type Mutation {
         This mutation is deprecated and will be removed in the future.
         Please use the AddRepositories and AddEnvironments mutations instead
         """)
+    createOrganization(name: String!): CreateOrganizationPayload!
     updateEnvironment(
         env: EnvironmentInput!,
         projectName: String!,

@@ -85,6 +85,10 @@ AddUserPayload = NamedTuple('AddUserPayload', [
     ('success', bool),
     ('email', str),
 ])
+CreateOrganizationPayload = NamedTuple('CreateOrganizationPayload', [
+    ('success', bool),
+    ('organization', Organization)
+])
 GrantUserAccessPayload = NamedTuple('GrantUserAccessPayload', [
     ('success', bool),
     ('granted_user', User),

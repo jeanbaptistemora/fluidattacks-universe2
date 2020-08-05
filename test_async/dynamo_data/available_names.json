@@ -89,6 +89,78 @@
                     }
                 }
             }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "pk": {
+                        "S": "AVAILABLE_ORGANIZATION"
+                    },
+                    "sk": {
+                        "S": "HAJIME"
+                    },
+                    "gsi-2-pk": {
+                        "S": "RANDOM_AVAILABLE_ORGANIZATION_SORT"
+                    },
+                    "gsi-2-sk": {
+                        "S": "ecc9b34e-48c0-4647-bbce-1a4b228e5b65"
+                    }
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "pk": {
+                        "S": "AVAILABLE_ORGANIZATION"
+                    },
+                    "sk": {
+                        "S": "MAKOTO"
+                    },
+                    "gsi-2-pk": {
+                        "S": "RANDOM_AVAILABLE_ORGANIZATION_SORT"
+                    },
+                    "gsi-2-sk": {
+                        "S": "d0488e04-3357-4892-aaf0-76ca1c1290c1"
+                    }
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "pk": {
+                        "S": "AVAILABLE_ORGANIZATION"
+                    },
+                    "sk": {
+                        "S": "AKAME"
+                    },
+                    "gsi-2-pk": {
+                        "S": "RANDOM_AVAILABLE_ORGANIZATION_SORT"
+                    },
+                    "gsi-2-sk": {
+                        "S": "fb0f86e5-30e8-44ba-bf20-39e622487ae7"
+                    }
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "pk": {
+                        "S": "AVAILABLE_ORGANIZATION"
+                    },
+                    "sk": {
+                        "S": "ESDEATH"
+                    },
+                    "gsi-2-pk": {
+                        "S": "RANDOM_AVAILABLE_ORGANIZATION_SORT"
+                    },
+                    "gsi-2-sk": {
+                        "S": "c46b431b-485c-4574-a63f-18284eed4028"
+                    }
+                }
+            }
         }
     ]
 }

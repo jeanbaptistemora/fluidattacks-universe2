@@ -17,7 +17,10 @@ from backend import (
     util
 )
 from backend.dal import organization as org_dal
-from backend.domain import project as project_domain
+from backend.domain import (
+    available_name as available_name_domain,
+    project as project_domain
+)
 from backend.exceptions import (
     InvalidAcceptanceDays,
     InvalidAcceptanceSeverity,
@@ -81,6 +84,17 @@ async def add_user(organization_id: str, email: str, role: str) -> bool:
         )
     util.invalidate_cache(organization_id.lower())
     return success
+
+
+async def create_organization(name: str, email: str) -> OrganizationType:
+    new_organization: OrganizationType = {}
+
+    if not await available_name_domain.exists(name, 'organization'):
+        raise InvalidOrganization()
+
+    new_organization = await get_or_create(name, email)
+    await available_name_domain.remove(name, 'organization')
+    return new_organization
 
 
 async def delete_organization(organization_id: str) -> bool:
@@ -162,7 +176,9 @@ async def get_min_acceptance_severity(organization_id: str) -> Decimal:
     return result.get('min_acceptance_severity', DEFAULT_MIN_SEVERITY)
 
 
-async def get_or_create(organization_name: str, email: str) -> str:
+async def get_or_create(
+        organization_name: str,
+        email: str) -> OrganizationType:
     """
     Return an organization, even if it does not exists,
     in which case it will be created
@@ -181,7 +197,7 @@ async def get_or_create(organization_name: str, email: str) -> str:
 
     if org_created or not has_access:
         await add_user(str(org['id']), email, org_role)
-    return str(org['id'])
+    return org
 
 
 async def get_user_organizations(email: str) -> List[str]:

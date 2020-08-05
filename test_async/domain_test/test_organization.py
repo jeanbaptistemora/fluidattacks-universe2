@@ -66,11 +66,11 @@ async def test_get_or_create():
     email = 'unittest@fluidattacks.com'
     not_ex_org_name = 'new-org'
     existing_org = await org_domain.get_or_create(ex_org_name, email)
-    assert isinstance(existing_org, str)
-    assert existing_org == 'ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3'
+    assert isinstance(existing_org, dict)
+    assert existing_org['id'] == 'ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3'
 
     not_existent_org = await org_domain.get_or_create(not_ex_org_name, email)
-    assert isinstance(not_existent_org, str)
+    assert isinstance(not_existent_org, dict)
     assert not_existent_org
 
 

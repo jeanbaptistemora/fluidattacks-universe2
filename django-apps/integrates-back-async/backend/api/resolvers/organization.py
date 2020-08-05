@@ -36,6 +36,7 @@ from backend.domain import (
     user as user_domain
 )
 from backend.typing import (
+    CreateOrganizationPayload as CreateOrganizationPayloadType,
     EditUserPayload as EditUserPayloadType,
     GrantUserAccessPayload as GrantUserAccessPayloadType,
     Organization as OrganizationType,
@@ -46,6 +47,36 @@ from backend.typing import (
 from backend.utils import aio
 
 
+async def _do_create_organization(
+        _: Any,
+        info: GraphQLResolveInfo,
+        name: str) -> CreateOrganizationPayloadType:
+    user_email = util.get_jwt_content(info.context)['user_email']
+
+    organization = await org_domain.create_organization(name, user_email)
+
+    if organization:
+        util.cloudwatch_log(
+            info.context,
+            f'Security: Organization {organization["name"]} with ID '
+            f'{organization["id"]} was successfully created by {user_email}'
+        )
+        response = CreateOrganizationPayloadType(
+            success=True, organization=organization
+        )
+    else:
+        util.cloudwatch_log(
+            info.context,
+            f'Security: User {user_email} attempted to create organization '
+            f'with name {name}'
+        )
+        response = CreateOrganizationPayloadType(
+            success=False, organization={}
+        )
+    return response
+
+
+@require_organization_access
 @enforce_organization_level_auth_async
 async def _do_edit_user_organization(
     _: Any,
@@ -101,6 +132,7 @@ async def _do_edit_user_organization(
     )
 
 
+@require_organization_access
 @enforce_organization_level_auth_async
 async def _do_grant_user_organization_access(
     _: Any,
@@ -158,6 +190,7 @@ async def _do_grant_user_organization_access(
     )
 
 
+@require_organization_access
 @enforce_organization_level_auth_async
 async def _do_remove_user_organization_access(
     _: Any,
@@ -434,7 +467,6 @@ async def resolve_organization(
 
 @convert_kwargs_to_snake_case  # type: ignore
 @require_login
-@require_organization_access
 async def resolve_organization_mutation(
         obj: Any,
         info: GraphQLResolveInfo,

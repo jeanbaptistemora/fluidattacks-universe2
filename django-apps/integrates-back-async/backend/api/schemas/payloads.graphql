@@ -6,6 +6,11 @@ type SimplePayload implements Payload {
     success: Boolean!
 }
 
+type CreateOrganizationPayload implements Payload {
+    success: Boolean!
+    organization: Organization
+}
+
 type UpdateAccessTokenPayload implements Payload {
     success: Boolean!
     sessionJwt: String
