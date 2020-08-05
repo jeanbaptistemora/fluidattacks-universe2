@@ -45,8 +45,6 @@ function decide_and_call_provisioner {
         --keep DEV_AWS_ACCESS_KEY_ID \
         --keep DEV_AWS_SECRET_ACCESS_KEY \
         --keep DNS_ZONE_ID \
-        --keep DOCKER_HUB_USER \
-        --keep DOCKER_HUB_PASS \
         --keep GITLAB_TOKEN \
         --keep INTEGRATES_API_TOKEN \
         --keep JWT_TOKEN \
