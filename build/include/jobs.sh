@@ -130,6 +130,7 @@ function job_test_infra_dns {
   local target='services/dns/terraform'
 
       helper_use_pristine_workdir \
+  &&  helper_aws_login dev \
   &&  helper_infra_dns_get_load_balancer \
   &&  helper_terraform_plan \
         "${target}"
@@ -139,6 +140,7 @@ function job_apply_infra_dns {
   local target='services/dns/terraform'
 
       helper_use_pristine_workdir \
+  &&  helper_aws_login prod \
   &&  helper_infra_dns_get_load_balancer \
   &&  helper_terraform_apply \
         "${target}"
@@ -148,6 +150,7 @@ function job_test_infra_autoscaling_ci {
   local target='services/autoscaling-ci/terraform'
 
       helper_use_pristine_workdir \
+  &&  helper_aws_login dev \
   &&  helper_terraform_plan \
         "${target}"
 }
@@ -156,6 +159,7 @@ function job_apply_infra_autoscaling_ci {
   local target='services/autoscaling-ci/terraform'
 
       helper_use_pristine_workdir \
+  &&  helper_aws_login prod \
   &&  helper_terraform_apply \
         "${target}"
 }
@@ -164,6 +168,7 @@ function job_test_infra_analytics {
   local target='services/analytics/terraform'
 
       helper_use_pristine_workdir \
+  &&  helper_aws_login dev \
   &&  helper_terraform_plan \
         "${target}"
 }
@@ -172,6 +177,7 @@ function job_apply_infra_analytics {
   local target='services/analytics/terraform'
 
       helper_use_pristine_workdir \
+  &&  helper_aws_login prod \
   &&  helper_terraform_apply \
         "${target}"
 }
@@ -180,6 +186,7 @@ function job_test_infra_aws_sso {
   local target='services/aws-sso/terraform'
 
       helper_use_pristine_workdir \
+  &&  helper_aws_login dev \
   &&  helper_terraform_plan \
         "${target}"
 }
@@ -188,6 +195,7 @@ function job_apply_infra_aws_sso {
   local target='services/aws-sso/terraform'
 
       helper_use_pristine_workdir \
+  &&  helper_aws_login prod \
   &&  helper_terraform_apply \
         "${target}"
 }
@@ -196,6 +204,7 @@ function job_test_infra_fluid_vpc {
   local target='services/fluid-vpc/terraform'
 
       helper_use_pristine_workdir \
+  &&  helper_aws_login dev \
   &&  helper_terraform_plan \
         "${target}"
 }
@@ -204,6 +213,7 @@ function job_apply_infra_fluid_vpc {
   local target='services/fluid-vpc/terraform'
 
       helper_use_pristine_workdir \
+  &&  helper_aws_login prod \
   &&  helper_terraform_apply \
         "${target}"
 }
@@ -212,6 +222,7 @@ function job_test_infra_secret_management {
   local target='secret-management/terraform'
 
       helper_use_pristine_workdir \
+  &&  helper_aws_login dev \
   &&  helper_terraform_plan \
         "${target}"
 }
@@ -220,6 +231,7 @@ function job_apply_infra_secret_management {
   local target='secret-management/terraform'
 
       helper_use_pristine_workdir \
+  &&  helper_aws_login prod \
   &&  helper_terraform_apply \
         "${target}"
 }
@@ -228,6 +240,7 @@ function job_test_user_provision_asserts_dev {
   local target='services/user-provision/asserts/dev/terraform'
 
       helper_use_pristine_workdir \
+  &&  helper_aws_login dev \
   &&  helper_terraform_plan \
         "${target}"
 }
@@ -236,6 +249,7 @@ function job_apply_user_provision_asserts_dev {
   local target='services/user-provision/asserts/dev/terraform'
 
       helper_use_pristine_workdir \
+  &&  helper_aws_login prod \
   &&  helper_terraform_apply \
         "${target}"
 }
@@ -244,6 +258,7 @@ function job_test_user_provision_asserts_prod {
   local target='services/user-provision/asserts/prod/terraform'
 
       helper_use_pristine_workdir \
+  &&  helper_aws_login dev \
   &&  helper_terraform_plan \
         "${target}"
 }
@@ -252,6 +267,7 @@ function job_apply_user_provision_asserts_prod {
   local target='services/user-provision/asserts/prod/terraform'
 
       helper_use_pristine_workdir \
+  &&  helper_aws_login prod \
   &&  helper_terraform_apply \
         "${target}"
 }
@@ -260,6 +276,7 @@ function job_test_user_provision_services_dev {
   local target='services/user-provision/services/dev/terraform'
 
       helper_use_pristine_workdir \
+  &&  helper_aws_login dev \
   &&  helper_terraform_plan \
         "${target}"
 }
@@ -268,6 +285,7 @@ function job_apply_user_provision_services_dev {
   local target='services/user-provision/services/dev/terraform'
 
       helper_use_pristine_workdir \
+  &&  helper_aws_login prod \
   &&  helper_terraform_apply \
         "${target}"
 }
@@ -276,6 +294,7 @@ function job_test_user_provision_services_prod {
   local target='services/user-provision/services/prod/terraform'
 
       helper_use_pristine_workdir \
+  &&  helper_aws_login dev \
   &&  helper_terraform_plan \
         "${target}"
 }
@@ -284,6 +303,7 @@ function job_apply_user_provision_services_prod {
   local target='services/user-provision/services/prod/terraform'
 
       helper_use_pristine_workdir \
+  &&  helper_aws_login prod \
   &&  helper_terraform_apply \
         "${target}"
 }
@@ -292,6 +312,7 @@ function job_test_user_provision_integrates_dev {
   local target='services/user-provision/integrates/dev/terraform'
 
       helper_use_pristine_workdir \
+  &&  helper_aws_login dev \
   &&  helper_terraform_plan \
         "${target}"
 }
@@ -300,6 +321,7 @@ function job_apply_user_provision_integrates_dev {
   local target='services/user-provision/integrates/dev/terraform'
 
       helper_use_pristine_workdir \
+  &&  helper_aws_login prod \
   &&  helper_terraform_apply \
         "${target}"
 }
@@ -308,6 +330,7 @@ function job_test_user_provision_integrates_prod {
   local target='services/user-provision/integrates/prod/terraform'
 
       helper_use_pristine_workdir \
+  &&  helper_aws_login dev \
   &&  helper_terraform_plan \
         "${target}"
 }
@@ -316,6 +339,7 @@ function job_apply_user_provision_integrates_prod {
   local target='services/user-provision/integrates/prod/terraform'
 
       helper_use_pristine_workdir \
+  &&  helper_aws_login prod \
   &&  helper_terraform_apply \
         "${target}"
 }
@@ -324,6 +348,7 @@ function job_test_user_provision_web_dev {
   local target='services/user-provision/web/dev/terraform'
 
       helper_use_pristine_workdir \
+  &&  helper_aws_login dev \
   &&  helper_terraform_plan \
         "${target}"
 }
@@ -332,6 +357,7 @@ function job_apply_user_provision_web_dev {
   local target='services/user-provision/web/dev/terraform'
 
       helper_use_pristine_workdir \
+  &&  helper_aws_login prod \
   &&  helper_terraform_apply \
         "${target}"
 }
@@ -340,6 +366,7 @@ function job_test_user_provision_web_prod {
   local target='services/user-provision/web/prod/terraform'
 
       helper_use_pristine_workdir \
+  &&  helper_aws_login dev \
   &&  helper_terraform_plan \
         "${target}"
 }
@@ -348,6 +375,7 @@ function job_apply_user_provision_web_prod {
   local target='services/user-provision/web/prod/terraform'
 
       helper_use_pristine_workdir \
+  &&  helper_aws_login prod \
   &&  helper_terraform_apply \
         "${target}"
 }
@@ -356,6 +384,7 @@ function job_test_user_provision_serves {
   local target='services/user-provision/serves/terraform'
 
       helper_use_pristine_workdir \
+  &&  helper_aws_login dev \
   &&  helper_terraform_plan \
         "${target}"
 }
@@ -364,6 +393,7 @@ function job_apply_user_provision_serves {
   local target='services/user-provision/serves/terraform'
 
       helper_use_pristine_workdir \
+  &&  helper_aws_login prod \
   &&  helper_terraform_apply \
         "${target}"
 }
@@ -647,7 +677,7 @@ function job_send_new_release_email {
       helper_use_pristine_workdir \
   &&  env_prepare_python_packages \
   &&  temp="$(mktemp)" \
-  &&  helper_aws_login \
+  &&  helper_aws_login prod \
   &&  sops_env secrets-prod.yaml default \
         MANDRILL_APIKEY \
         MANDRILL_EMAIL_TO \

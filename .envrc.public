@@ -11,6 +11,7 @@ export TRUE='true'
 export NIX_YES='1'
 export NIX_NO='0'
 export GITLAB_API_URL="https://gitlab.com/api/v4/projects/${CI_PROJECT_ID}/variables"
+export AWS_DEFAULT_REGION='us-east-1'
 
 export NIXPKGS_ALLOW_UNFREE="${NIX_YES}"
 

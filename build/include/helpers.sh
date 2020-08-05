@@ -173,7 +173,7 @@ function helper_move_services_fusion_to_master_git {
 function helper_deploy_integrates {
   local integrates_id='4620828'
 
-      helper_aws_login \
+      helper_aws_login prod \
   &&  sops_env secrets-prod.yaml default INTEGRATES_PIPELINE_TOKEN \
   &&  curl \
         -X POST \
@@ -204,7 +204,24 @@ function helper_build_nix_caches_parallel {
 }
 
 function helper_aws_login {
-      echo '[INFO] Logging into AWS' \
+  local user="${1}"
+  export AWS_ACCESS_KEY_ID
+  export AWS_SECRET_ACCESS_KEY
+
+
+      if [ "${user}" = 'dev' ]
+      then
+            AWS_ACCESS_KEY_ID="${DEV_AWS_ACCESS_KEY_ID}" \
+        &&  AWS_SECRET_ACCESS_KEY="${DEV_AWS_SECRET_ACCESS_KEY}"
+      elif [ "${user}" = 'prod' ]
+      then
+            AWS_ACCESS_KEY_ID="${PROD_AWS_ACCESS_KEY_ID}" \
+        &&  AWS_SECRET_ACCESS_KEY="${PROD_AWS_SECRET_ACCESS_KEY}"
+      else
+            echo '[ERROR] either prod or dev must be passed as arg' \
+        &&  return 1
+      fi \
+  &&  echo "[INFO] Logging into AWS with ${user} credentials" \
   &&  aws configure set aws_access_key_id "${AWS_ACCESS_KEY_ID}" \
   &&  aws configure set aws_secret_access_key "${AWS_SECRET_ACCESS_KEY}"
 }
@@ -213,8 +230,7 @@ function helper_terraform_login {
   export TF_VAR_aws_access_key
   export TF_VAR_aws_secret_key
 
-      helper_aws_login \
-  &&  echo '[INFO] Logging into Terraform' \
+      echo '[INFO] Logging into Terraform' \
   &&  TF_VAR_aws_access_key="${AWS_ACCESS_KEY_ID}" \
   &&  TF_VAR_aws_secret_key="${AWS_SECRET_ACCESS_KEY}"
 }
@@ -286,7 +302,7 @@ function helper_infra_dns_get_load_balancer {
   local tags
   local jq_query='.TagDescriptions[0].Tags[] | select(.Key == "kubernetes.io/cluster/FluidServes")'
 
-      helper_aws_login \
+      helper_aws_login dev \
   &&  elbs_info="$(mktemp)" \
   &&  aws elb --region 'us-east-1' describe-load-balancers \
         > "${elbs_info}" \
@@ -318,26 +334,27 @@ function helper_infra_monolith {
   local helm_home
   local first_argument="${1}"
 
-      helper_aws_login \
-  &&  aws eks update-kubeconfig \
-        --name 'FluidServes' --region 'us-east-1' \
-  &&  kubectl config \
-        set-context "$(kubectl config current-context)" --namespace 'serves' \
-  &&  sops_env secrets-prod.yaml default \
-        AUTONOMIC_TLS_CERT \
-        AUTONOMIC_TLS_KEY \
-        FLUIDATTACKS_TLS_CERT \
-        FLUID_TLS_KEY \
-        HELM_CA \
-        HELM_CERT \
-        HELM_KEY \
-        NRIA_LICENSE_KEY \
-        TILLER_CERT \
-        TILLER_KEY \
+      helper_aws_login dev \
   &&  pushd infrastructure/ || return 1 \
     &&  helper_terraform_plan . \
     &&  if [ "${first_argument}" == "deploy" ]; then
+              helper_aws_login prod \
+          &&  aws eks update-kubeconfig \
+                --name 'FluidServes' --region 'us-east-1' \
+          &&  kubectl config \
+                set-context "$(kubectl config current-context)" --namespace 'serves' \
               helper_terraform_apply . \
+          &&  sops_env secrets-prod.yaml default \
+                AUTONOMIC_TLS_CERT \
+                AUTONOMIC_TLS_KEY \
+                FLUIDATTACKS_TLS_CERT \
+                FLUID_TLS_KEY \
+                HELM_CA \
+                HELM_CERT \
+                HELM_KEY \
+                NRIA_LICENSE_KEY \
+                TILLER_CERT \
+                TILLER_KEY \
           &&  helm_home="$(helm home)" \
           &&  mkdir -p "${helm_home}" \
           &&  base64 -d > "${helm_home}/key.pem"  <<< "${HELM_KEY}" \
@@ -429,6 +446,7 @@ function helper_user_provision_rotate_keys {
 
       resource_to_taint_number="$( \
         helper_get_resource_to_taint_number)" \
+  &&  helper_aws_login prod \
   &&  helper_terraform_taint \
         "${terraform_dir}" \
         "${resource_to_taint}-${resource_to_taint_number}" \

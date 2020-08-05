@@ -47,8 +47,10 @@ function decide_and_call_provisioner {
         --keep CI_PIPELINE_ID \
         --keep CI_JOB_ID \
         --keep CI_PROJECT_DIR \
-        --keep AWS_ACCESS_KEY_ID \
-        --keep AWS_SECRET_ACCESS_KEY \
+        --keep DEV_AWS_ACCESS_KEY_ID \
+        --keep DEV_AWS_SECRET_ACCESS_KEY \
+        --keep PROD_AWS_ACCESS_KEY_ID \
+        --keep PROD_AWS_SECRET_ACCESS_KEY \
         --keep GITLAB_API_USER \
         --keep GITLAB_API_TOKEN \
         --keep BREAK_BUILD_ID \
