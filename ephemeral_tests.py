@@ -438,7 +438,7 @@ class ViewTestCase(unittest.TestCase):
 
     def test_15_project_comments(self):
         selenium = self.__login()
-        selenium.get(self.url + '/project/unittesting/comments')
+        selenium.get(self.url + '/project/unittesting/consulting')
         WebDriverWait(selenium, self.delay).until(
             expected.presence_of_element_located(
                 (By.XPATH,

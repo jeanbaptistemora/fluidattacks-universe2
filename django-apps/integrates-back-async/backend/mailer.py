@@ -291,7 +291,7 @@ def send_comment_mail(
     elif entity_name == 'project':
         project_name = str(entity)
         recipients = get_email_recipients(project_name, True)
-        comment_url = f'{BASE_URL}/groups/{project_name}/comments'
+        comment_url = f'{BASE_URL}/groups/{project_name}/consulting'
 
     email_context['comment_url'] = comment_url
     email_context['project'] = project_name

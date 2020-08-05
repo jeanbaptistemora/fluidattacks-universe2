@@ -68,7 +68,7 @@ const projectContent: React.FC<IProjectContentProps> = (props: IProjectContentPr
                   <ContentTab
                     icon="icon pe-7s-comment"
                     id="commentsTab"
-                    link={`${props.match.url}/comments`}
+                    link={`${props.match.url}/consulting`}
                     title={translate.t("group.tabs.comments.text")}
                     tooltip={translate.t("group.tabs.comments.tooltip")}
                   />
@@ -112,7 +112,7 @@ const projectContent: React.FC<IProjectContentProps> = (props: IProjectContentPr
                   <Route path={`${props.match.path}/events`} component={ProjectEventsView} exact={true} />
                   <Route path={`${props.match.path}/scope`} component={ProjectSettingsView} exact={true} />
                   <Route path={`${props.match.path}/users`} component={ProjectUsersView} exact={true} />
-                  <Route path={`${props.match.path}/comments`} component={ProjectCommentsView} exact={true} />
+                  <Route path={`${props.match.path}/consulting`} component={ProjectCommentsView} exact={true} />
                   {/* Necessary to support old resources URLs */}
                   <Redirect path={`${props.match.path}/resources`} to={`${props.match.path}/scope`} />
                   <Redirect to={`${props.match.path}/analytics`} />

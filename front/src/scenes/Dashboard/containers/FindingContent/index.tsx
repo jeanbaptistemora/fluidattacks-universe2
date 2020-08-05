@@ -293,7 +293,7 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
                   <ContentTab
                     icon="icon pe-7s-comment"
                     id="commentItem"
-                    link={`${props.match.url}/comments`}
+                    link={`${props.match.url}/consulting`}
                     title={translate.t("search_findings.tab_comments.tab_title")}
                     tooltip={translate.t("search_findings.tab_comments.tooltip")}
                   />
@@ -317,7 +317,7 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
                   <Route path={`${props.match.path}/tracking`} component={TrackingView} exact={true} />
                   <Route path={`${props.match.path}/records`} component={RecordsView} exact={true} />
                   <Route
-                    path={`${props.match.path}/:type(comments|observations)`}
+                    path={`${props.match.path}/:type(consulting|observations)`}
                     component={CommentsView}
                     exact={true}
                   />

@@ -20,7 +20,11 @@ import { ADD_FINDING_COMMENT, GET_FINDING_COMMENTS, GET_FINDING_OBSERVATIONS } f
 type ICommentsViewProps = RouteComponentProps<{ findingId: string; type: string }>;
 
 const commentsView: React.FC<ICommentsViewProps> = (props: ICommentsViewProps): JSX.Element => {
-  const { findingId, type } = props.match.params;
+  const findingId: string = props.match.params.findingId;
+  let type: string = props.match.params.type;
+  if (type === "consulting") {
+    type = "comments";
+  }
   const onMount: (() => void) = (): void => {
     mixpanel.track(type === "comments" ? "FindingComments" : "FindingObservations", {
       User: (window as typeof window & { userName: string }).userName,
