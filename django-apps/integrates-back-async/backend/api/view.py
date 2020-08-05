@@ -15,6 +15,7 @@ from backend.api.dataloaders.event import EventLoader
 from backend.api.dataloaders.finding import FindingLoader
 from backend.api.dataloaders.project import ProjectLoader
 from backend.api.dataloaders.vulnerability import VulnerabilityLoader
+from backend import util
 
 
 async def _context_value(context):
@@ -78,8 +79,13 @@ class APIView(GraphQLView):
     def execute_query(self, request: HttpRequest, data: dict) -> GraphQLResult:
         """Execute async query and apply configs for performance tracking"""
         name = data.get('operationName', 'External (unnamed)')
+        variables = data.get('variables', '-')
         newrelic.agent.set_transaction_name(f'api:{name}')
         newrelic.agent.add_custom_parameters(tuple(data.items()))
+        util.cloudwatch_log_sync(
+            request,
+            f'API: {name} with parameters {variables}'
+        )
 
         # Use this instead of asyncio.run
         # https://docs.djangoproject.com/en/3.0/topics/async/#async-to-sync
