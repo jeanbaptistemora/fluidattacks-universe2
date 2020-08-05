@@ -70,7 +70,7 @@
     "ts-jest": "26.1.4",
     "tslint": "6.1.3",
     "tslint-react": "5.0.0",
-    "turtle-cli": "0.17.0",
+    "turtle-cli": "0.17.1",
     "typescript": "3.9.7"
   },
   "scripts": {

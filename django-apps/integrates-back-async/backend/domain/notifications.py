@@ -1,13 +1,20 @@
 # Standard library
 from datetime import datetime
-from typing import Dict, Union, cast
+from typing import cast, Dict, List, Union
 import html
 import threading
+
+# Third party imports
+from asgiref.sync import async_to_sync
+from exponent_server_sdk import DeviceNotRegisteredError
 
 # Local imports
 from backend import mailer
 from backend.dal import (
     notifications as notifications_dal,
+)
+from backend.domain import (
+    user as user_domain
 )
 from backend.utils import aio
 
@@ -105,6 +112,23 @@ async def edit_group(
     )
 
 
+@async_to_sync
+async def send_push_notification(
+    user_email: str,
+    title: str,
+    message: str
+) -> None:
+    user_attrs: dict = await user_domain.get_attributes(
+        user_email, ['push_tokens'])
+    tokens: List[str] = user_attrs.get('push_tokens', [])
+
+    for token in tokens:
+        try:
+            notifications_dal.send_push_notification(token, title, message)
+        except DeviceNotRegisteredError:
+            user_domain.remove_push_token(user_email, token)
+
+
 def new_password_protected_report(
     user_email: str,
     project_name: str,
@@ -112,6 +136,8 @@ def new_password_protected_report(
     file_type: str,
     file_link: str = '',
 ) -> None:
+    send_push_notification(user_email, 'Report passphrase', passphrase)
+
     email_send_thread = threading.Thread(
         name='Report passphrase email thread',
         target=mailer.send_mail_project_report,

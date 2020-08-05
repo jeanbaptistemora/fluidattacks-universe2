@@ -3,6 +3,14 @@ import contextlib
 import logging
 
 # Third party imports
+import requests
+from exponent_server_sdk import (
+    DeviceNotRegisteredError,
+    PushClient,
+    PushMessage,
+    PushResponseError,
+    PushServerError
+)
 from zenpy import Zenpy
 from zenpy.lib.exception import ZenpyException
 from zenpy.lib.api_objects import Ticket, User
@@ -67,3 +75,32 @@ def create_ticket(
             })
 
     return success
+
+
+def send_push_notification(token: str, title: str, message: str) -> None:
+    client = PushClient()
+
+    try:
+        response = client.publish(
+            PushMessage(
+                body=message,
+                channel_id='default',
+                display_in_foreground=True,
+                sound='default',
+                title=title,
+                to=token,
+            )
+        )
+    except (
+        requests.exceptions.ConnectionError,
+        requests.exceptions.HTTPError,
+        PushServerError
+    ) as ex:
+        LOGGER.exception(ex)
+
+    try:
+        response.validate_response()
+    except DeviceNotRegisteredError:
+        raise
+    except PushResponseError as ex:
+        LOGGER.exception(ex)

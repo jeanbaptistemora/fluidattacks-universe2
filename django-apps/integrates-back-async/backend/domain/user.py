@@ -190,3 +190,15 @@ async def add_push_token(user_email: str, push_token: str) -> bool:
         )
 
     return True
+
+
+async def remove_push_token(user_email: str, push_token: str) -> bool:
+    user_attrs: dict = await get_attributes(user_email, ['push_tokens'])
+    tokens: List[str] = list(
+        filter(
+            lambda token: token != push_token,
+            user_attrs.get('push_tokens', [])
+        )
+    )
+
+    return await user_dal.update(user_email, {'push_tokens': tokens})
