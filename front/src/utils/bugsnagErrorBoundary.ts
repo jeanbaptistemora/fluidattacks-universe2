@@ -18,11 +18,17 @@ interface IBugsnagPluginReactResultConfig {
   createErrorBoundary: (react?: typeof React) => BugsnagErrorBoundary;
 }
 
+const { userEmail, userName } = window as typeof window & Dictionary<string>;
+
 Bugsnag.start({
   apiKey: "99a64555a50340cfa856f6623c6bf35d",
   appVersion: "integrates_version",
   plugins: [new BugsnagPluginReact(React)],
   releaseStage: getEnvironment(),
+  user: {
+    email: userEmail,
+    name: userName,
+  },
 });
 
 const reactPlugin:

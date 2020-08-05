@@ -1,9 +1,20 @@
-import { BugsnagSourceMapUploaderPlugin } from "webpack-bugsnag-plugins";
 import OptimizeCssAssetsPlugin from "optimize-css-assets-webpack-plugin";
 import TerserPlugin from "terser-webpack-plugin";
+import _ from "lodash";
 import { commonConfig } from "./webpack.common.config";
 import webpack from "webpack";
+import {
+  BugsnagBuildReporterPlugin,
+  BugsnagSourceMapUploaderPlugin,
+} from "webpack-bugsnag-plugins";
 
+const appVersion: string = _.isString(process.env.FI_VERSION)
+  ? process.env.FI_VERSION
+  : "";
+const commitSha: string = _.isString(process.env.CI_COMMIT_SHA)
+  ? process.env.CI_COMMIT_SHA
+  : "";
+const bugsnagApiKey: string = "99a64555a50340cfa856f6623c6bf35d";
 const bucketName: string = "fluidintegrates-static";
 const branchName: string =
   process.env.CI_COMMIT_REF_NAME === undefined
@@ -56,9 +67,18 @@ const prodConfig: webpack.Configuration = {
   plugins: [
     ...(commonConfig.plugins as []),
     new BugsnagSourceMapUploaderPlugin({
-      apiKey: "99a64555a50340cfa856f6623c6bf35d",
-      appVersion: process.env.FI_VERSION,
+      apiKey: bugsnagApiKey,
+      appVersion: appVersion,
       publicPath: `https://${bucketName}-${branchName}.s3.amazonaws.com/integrates/static/dashboard/`,
+    }),
+    new BugsnagBuildReporterPlugin({
+      apiKey: bugsnagApiKey,
+      appVersion: appVersion,
+      sourceControl: {
+        provider: "gitlab",
+        repository: "https://gitlab.com/fluidattacks/integrates.git",
+        revision: `${commitSha}/front`,
+      },
     }),
   ],
 };
