@@ -28,8 +28,8 @@ import { useHistory } from "react-router-native";
 import { About } from "../../components/About";
 import { Logo } from "../../components/Logo";
 import { Preloader } from "../../components/Preloader";
+import { LOGGER } from "../../utils/logger";
 import { getPushToken } from "../../utils/notifications";
-import { rollbar } from "../../utils/rollbar";
 import { IAuthState, logout } from "../../utils/socialAuth";
 
 import { Header } from "./Header";
@@ -67,7 +67,7 @@ const dashboardView: React.FunctionComponent = (): JSX.Element => {
             // Ignore orgs without analytics
             break;
           default:
-            rollbar.error("An error occurred loading dashboard data", error);
+            LOGGER.warning("An error occurred loading dashboard data", error);
             Alert.alert(t("common.error.title"), t("common.error.msg"));
         }
       });
@@ -76,7 +76,7 @@ const dashboardView: React.FunctionComponent = (): JSX.Element => {
 
   const [addPushToken] = useMutation(ADD_PUSH_TOKEN_MUTATION, {
     onError: (error: ApolloError): void => {
-      rollbar.error("Couldn't add push token", error);
+      LOGGER.warning("Couldn't add push token", error);
     },
   });
 
