@@ -196,7 +196,8 @@ async def load(stream: bytes) -> Any:
     try:
         deserialized: Any = await unblock_cpu(json.loads, stream)
 
-        if (deserialized['expires_at'] or 0) > get_utc_timestamp():
+        expires_at: Optional[int] = deserialized['expires_at']
+        if expires_at and get_utc_timestamp() > expires_at:
             raise LoadError('Data has expired')
 
         return await unblock_cpu(_deserialize, deserialized['instance'])
