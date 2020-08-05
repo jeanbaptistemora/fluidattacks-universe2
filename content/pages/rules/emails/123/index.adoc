@@ -4,12 +4,12 @@
 :keywords: Person, Email, Robot, Human, Scrapper, ASVS, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
-= R123. Restrict reading of emails
+= R123. Restrict the reading of emails
 
 == Requirement
 
 The system must guarantee that
-exposed email addresses can only be viewed by humans.
+exposed email addresses can only be read by humans.
 
 == Description
 

@@ -78,11 +78,16 @@ intent (such as connected keys with a push to authenticate),
 or at higher AAL levels, client-side certificates.
 
 . [[r10]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V2.2 General Authenticator Requirements.(2.2.7)]
+Verify intent to authenticate by requiring the entry of an *OTP* token or
+user-initiated action such as a button press on a *FIDO* hardware key.
+
+. [[r11]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V4.3 Other Access Control Considerations.(4.3.1)]
 Verify administrative interfaces use appropriate multi-factor authentication to
 prevent unauthorized use.
 
-. [[r11]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r12]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V4.3 Other Access Control Considerations.(4.3.3)]
 Verify the application has additional authorization
 (such as step up or adaptive authentication) for lower value systems,
