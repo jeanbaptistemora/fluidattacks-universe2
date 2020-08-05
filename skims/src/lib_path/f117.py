@@ -83,7 +83,9 @@ async def analyze(
 ) -> Tuple[Vulnerability, ...]:
     coroutines: List[Awaitable[Tuple[Vulnerability, ...]]] = []
 
-    if file_extension in {'class', 'jar'}:
+    if file_extension in {
+        'bin', 'class', 'dll', 'exec', 'jar', 'jasper', 'pyc',
+    }:
         coroutines.append(unverifiable_files(
             file_name=file_name,
             file_extension=file_extension,

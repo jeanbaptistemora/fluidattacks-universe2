@@ -274,7 +274,10 @@ async def translate_dependencies_to_vulnerabilities(
         for (product, version), dependency_cves in query_results
         for dependency_cve in dependency_cves
         if dependency_cve.code not in (
+            'CVE-2017-12419',
             'CVE-2013-1779',
+            'CVE-2012-5627',
+            'CVE-2009-2942',
         )
     ])
 
