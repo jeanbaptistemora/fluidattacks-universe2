@@ -6,6 +6,7 @@
  * Their security relies on a whitelist of
  * origins and redirect urls
  */
+export const BUGSNAG_KEY: string = "c7b947a293ced0235cdd8edc8c09dad4";
 export const GOOGLE_LOGIN_KEY_ANDROID_DEV: string =
   "335718398321-vv3cfdee0ng40tuhgm5g2mp42c2d2o9j.apps.googleusercontent.com";
 export const GOOGLE_LOGIN_KEY_ANDROID_PROD: string =

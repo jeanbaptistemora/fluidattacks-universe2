@@ -15,6 +15,9 @@
   "homepage": "https://fluidattacks.com/integrates",
   "dependencies": {
     "@apollo/react-hooks": "3.1.5",
+    "@bugsnag/expo": "7.2.1",
+    "@bugsnag/core": "7.2.1",
+    "@bugsnag/plugin-react": "7.2.1",
     "@expo/vector-icons": "10.2.0",
     "@types/react-native": "0.62.18",
     "@types/react-router-native": "5.1.0",
