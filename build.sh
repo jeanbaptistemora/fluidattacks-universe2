@@ -53,8 +53,6 @@ function decide_and_call_provisioner {
         --keep PROD_AWS_SECRET_ACCESS_KEY \
         --keep GITLAB_API_USER \
         --keep GITLAB_API_TOKEN \
-        --keep BREAK_BUILD_ID \
-        --keep BREAK_BUILD_SECRET \
         --keep GITLAB_CI_PROJECT_DIR \
         --keep MR_TEST_TOKEN \
         --keep MR_TEST_MAX_DELTAS \

@@ -22,6 +22,7 @@ data "aws_iam_policy_document" "prod-policy-data" {
       "elasticache:*",
       "acm:*",
       "events:*",
+      "logs:*"
     ]
     resources = ["*"]
   }
