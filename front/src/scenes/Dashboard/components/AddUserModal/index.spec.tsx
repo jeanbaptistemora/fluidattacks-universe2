@@ -12,7 +12,7 @@ import { authzPermissionsContext } from "../../../../utils/authz/config";
 import { msgError } from "../../../../utils/notifications";
 import { addUserModal as AddUserModal } from "./index";
 import { GET_USER } from "./queries";
-import { IAddUserModalProps } from "./types";
+import { IAddStakeholderModalProps } from "./types";
 
 jest.mock("../../../../utils/notifications", () => {
   const mockedNotifications: Dictionary = jest.requireActual("../../../../utils/notifications");
@@ -25,7 +25,7 @@ const functionMock: (() => void) = (): void => undefined;
 
 describe("Add user modal", () => {
 
-  const mockPropsAdd: IAddUserModalProps = {
+  const mockPropsAdd: IAddStakeholderModalProps = {
     action: "add",
     editTitle: "",
     initialValues: {},
@@ -37,7 +37,7 @@ describe("Add user modal", () => {
     type: "user",
   };
 
-  const mockPropsEdit: IAddUserModalProps = {
+  const mockPropsEdit: IAddStakeholderModalProps = {
     action: "edit",
     editTitle: "",
     initialValues: {},
@@ -62,7 +62,7 @@ describe("Add user modal", () => {
       },
       result: {
         data: {
-          user: {
+          stakeholder: {
             __typename: "User",
             email: "user@test.com",
             phoneNumber: "+573123456791",
@@ -84,7 +84,7 @@ describe("Add user modal", () => {
       },
       result: {
         data: {
-          user: {
+          stakeholder: {
             __typename: "User",
             email: "unittest@test.com",
             phoneNumber: "+573123210123",

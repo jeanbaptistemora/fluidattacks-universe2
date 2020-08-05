@@ -20,7 +20,7 @@ import translate from "../../../../utils/translations/translate";
 import { required, validEmail, validTextField } from "../../../../utils/validations";
 import { GenericForm } from "../GenericForm/index";
 import { GET_USER } from "./queries";
-import { IAddUserModalProps, IUserDataAttr } from "./types";
+import { IAddStakeholderModalProps, IStakeholderDataAttr } from "./types";
 
 const requiredIndicator: JSX.Element = <label style={{ color: "#f22" }}>* </label>;
 const userLevelRoles: string[] = [
@@ -44,13 +44,13 @@ const organizationLevelRoles: string[] = [
   "group_manager",
 ];
 
-export const addUserModal: React.FC<IAddUserModalProps> = (props: IAddUserModalProps): JSX.Element => {
+export const addUserModal: React.FC<IAddStakeholderModalProps> = (props: IAddStakeholderModalProps): JSX.Element => {
   const { onClose, onSubmit } = props;
   const title: string = props.action === "add"
       ? props.title
       : props.editTitle;
 
-  const [getUser, { data }] = useLazyQuery<IUserDataAttr>(GET_USER, {
+  const [getUser, { data }] = useLazyQuery<IStakeholderDataAttr>(GET_USER, {
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
         msgError(translate.t("group_alerts.error_textsad"));
@@ -63,7 +63,7 @@ export const addUserModal: React.FC<IAddUserModalProps> = (props: IAddUserModalP
   });
 
   const userData: Record<string, string> =
-    _.isEmpty(data) || _.isUndefined(data) ? {} : data.user;
+    _.isEmpty(data) || _.isUndefined(data) ? {} : data.stakeholder;
 
   const loadAutofillData: ((event: React.FocusEvent<HTMLInputElement>) => void) = (
     event: React.FocusEvent<HTMLInputElement>,

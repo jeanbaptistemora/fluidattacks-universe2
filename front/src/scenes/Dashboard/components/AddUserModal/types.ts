@@ -1,12 +1,12 @@
-export interface IUserDataAttr {
-  user: {
+export interface IStakeholderDataAttr {
+  stakeholder: {
     organization: string;
     phoneNumber: string;
     responsibility: string;
   };
 }
 
-export interface IAddUserModalProps {
+export interface IAddStakeholderModalProps {
   action: "add" | "edit";
   editTitle: string;
   initialValues: Record<string, string>;

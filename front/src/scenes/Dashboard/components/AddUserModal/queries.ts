@@ -2,13 +2,13 @@ import { DocumentNode } from "graphql";
 import gql from "graphql-tag";
 
 export const GET_USER: DocumentNode = gql`
-  query GetUserDataQuery(
+  query GetStakeholderDataQuery(
     $entity: Entity!,
     $organizationId: String,
     $projectName: String,
     $userEmail: String!
   ) {
-    user(
+    stakeholder(
       entity: $entity,
       organizationId: $organizationId,
       projectName: $projectName,
