@@ -32,3 +32,19 @@ class UserTests(TestCase):
             user_email, ['push_tokens'])
         assert 'push_tokens' in user_attrs
         assert valid_token in user_attrs['push_tokens']
+
+    @pytest.mark.changes_db
+    async def test_remove_push_token(self):
+        user_email = 'unittest@fluidattacks.com'
+        token = 'ExponentPushToken[dummy]'
+
+        attrs_before = await user_domain.get_attributes(
+            user_email, ['push_tokens'])
+        assert 'push_tokens' in attrs_before
+        assert token in attrs_before['push_tokens']
+
+        assert await user_domain.remove_push_token(user_email, token)
+
+        attrs_after = await user_domain.get_attributes(
+            user_email, ['push_tokens'])
+        assert token not in attrs_after['push_tokens']

@@ -61,6 +61,13 @@
             "email": {
               "S": "unittest@fluidattacks.com"
             },
+            "push_tokens": {
+              "L": [
+                {
+                  "S": "ExponentPushToken[dummy]"
+                }
+              ]
+            },
             "registered": {
               "BOOL": true
             }
