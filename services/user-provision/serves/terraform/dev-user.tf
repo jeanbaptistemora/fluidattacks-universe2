@@ -1,12 +1,12 @@
-resource "aws_iam_user" "serves-dev" {
-  name = var.user-name
+resource "aws_iam_user" "dev" {
+  name = "serves-dev"
   path = "/user-provision/"
 }
 
-resource "aws_iam_access_key" "serves-dev-key-1" {
-  user = var.user-name
+resource "aws_iam_access_key" "dev-key-1" {
+  user = "serves-dev"
 }
 
-resource "aws_iam_access_key" "serves-dev-key-2" {
-  user = var.user-name
+resource "aws_iam_access_key" "dev-key-2" {
+  user = "serves-dev"
 }

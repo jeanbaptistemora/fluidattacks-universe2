@@ -1,6 +1,5 @@
-data "aws_iam_policy_document" "serves-prod-policy-data" {
+data "aws_iam_policy_document" "prod-policy-data" {
 
-  # S3 serves prod and ephemeral buckets
   statement {
     effect  = "Allow"
     actions = [
@@ -26,16 +25,17 @@ data "aws_iam_policy_document" "serves-prod-policy-data" {
     ]
     resources = ["*"]
   }
+
 }
 
-resource "aws_iam_policy" "serves-prod-policy" {
-  description = "serves-prod policy"
+resource "aws_iam_policy" "prod-policy" {
+  description = "serves prod policy"
   name        = "serves-prod-policy"
   path        = "/user-provision/"
-  policy      = data.aws_iam_policy_document.serves-prod-policy-data.json
+  policy      = data.aws_iam_policy_document.prod-policy-data.json
 }
 
-resource "aws_iam_user_policy_attachment" "serves-prod-attach-policy" {
+resource "aws_iam_user_policy_attachment" "prod-attach-policy" {
   user       = "serves-prod"
-  policy_arn = aws_iam_policy.serves-prod-policy.arn
+  policy_arn = aws_iam_policy.prod-policy.arn
 }

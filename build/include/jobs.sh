@@ -352,6 +352,22 @@ function job_apply_user_provision_web_prod {
         "${target}"
 }
 
+function job_test_user_provision_serves {
+  local target='services/user-provision/serves/terraform'
+
+      helper_use_pristine_workdir \
+  &&  helper_terraform_plan \
+        "${target}"
+}
+
+function job_apply_user_provision_serves {
+  local target='services/user-provision/serves/terraform'
+
+      helper_use_pristine_workdir \
+  &&  helper_terraform_apply \
+        "${target}"
+}
+
 function job_apply_rotate_keys_user_provision_asserts_dev {
   local terraform_dir='services/user-provision/asserts/dev/terraform'
   local resource_to_taint='aws_iam_access_key.asserts-dev-key'
@@ -527,6 +543,29 @@ function job_apply_rotate_keys_user_provision_web_prod {
   local gitlab_secret_key_name='PROD_AWS_SECRET_ACCESS_KEY'
   local gitlab_masked='true'
   local gitlab_protected='true'
+
+      helper_user_provision_rotate_keys \
+        "${terraform_dir}" \
+        "${resource_to_taint}" \
+        "${output_key_id_name}" \
+        "${output_secret_key_name}" \
+        "${gitlab_repo_id}" \
+        "${gitlab_key_id_name}" \
+        "${gitlab_secret_key_name}" \
+        "${gitlab_masked}" \
+        "${gitlab_protected}"
+}
+
+function job_apply_rotate_keys_user_provision_serves {
+  local terraform_dir='services/user-provision/serves/terraform'
+  local resource_to_taint='aws_iam_access_key.dev-key'
+  local output_key_id_name='dev-secret-key-id'
+  local output_secret_key_name='dev-secret-key'
+  local gitlab_repo_id="${CI_PROJECT_ID}"
+  local gitlab_key_id_name='DEV_AWS_ACCESS_KEY_ID'
+  local gitlab_secret_key_name='DEV_AWS_SECRET_ACCESS_KEY'
+  local gitlab_masked='true'
+  local gitlab_protected='false'
 
       helper_user_provision_rotate_keys \
         "${terraform_dir}" \

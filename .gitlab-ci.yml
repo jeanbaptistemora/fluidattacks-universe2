@@ -373,6 +373,16 @@ apply_user_provision_web_prod:
   <<: *in_master_branch
   stage: deploy
 
+test_user_provision_serves:
+  <<: *with_nix
+  <<: *in_dev_branch
+  stage: test
+
+apply_user_provision_serves:
+  <<: *with_nix
+  <<: *in_master_branch
+  stage: deploy
+
 apply_rotate_keys_user_provision_asserts_dev:
   <<: *with_nix
   <<: *in_schedule_user_provision_rotate_keys
@@ -409,6 +419,11 @@ apply_rotate_keys_user_provision_web_dev:
   stage: rotation
 
 apply_rotate_keys_user_provision_web_prod:
+  <<: *with_nix
+  <<: *in_schedule_user_provision_rotate_keys
+  stage: rotation
+
+apply_rotate_keys_user_provision_serves:
   <<: *with_nix
   <<: *in_schedule_user_provision_rotate_keys
   stage: rotation
