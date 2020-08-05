@@ -28,12 +28,13 @@ from utils.model import (
 # Constants
 TVar = TypeVar('TVar')
 RETRY: Callable[[TVar], TVar] = retry(
-    attempts=12,
+    attempts=3,
     on_exceptions=(
         aiohttp.ClientError,
         IndexError,
         socket.gaierror,
     ),
+    on_error_return=(),
     sleep_between_retries=5,
 )
 RE_CVE: Pattern = re.compile(r'vuln-detail-link-[0-9]+">(CVE-[0-9-]+)</a>')
@@ -43,7 +44,7 @@ RE_CVSS: Pattern = re.compile(
 )
 
 
-@cache_decorator(ttl=604800)
+@cache_decorator(ttl=86400)
 @RETRY
 async def get_vulnerabilities(
     product: str,
