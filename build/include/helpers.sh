@@ -302,8 +302,7 @@ function helper_infra_dns_get_load_balancer {
   local tags
   local jq_query='.TagDescriptions[0].Tags[] | select(.Key == "kubernetes.io/cluster/FluidServes")'
 
-      helper_aws_login dev \
-  &&  elbs_info="$(mktemp)" \
+      elbs_info="$(mktemp)" \
   &&  aws elb --region 'us-east-1' describe-load-balancers \
         > "${elbs_info}" \
   &&  elbs_names=$( \
@@ -343,7 +342,7 @@ function helper_infra_monolith {
                 --name 'FluidServes' --region 'us-east-1' \
           &&  kubectl config \
                 set-context "$(kubectl config current-context)" --namespace 'serves' \
-              helper_terraform_apply . \
+          &&  helper_terraform_apply . \
           &&  sops_env secrets-prod.yaml default \
                 AUTONOMIC_TLS_CERT \
                 AUTONOMIC_TLS_KEY \
