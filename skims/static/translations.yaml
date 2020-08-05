@@ -87,6 +87,9 @@ utils.model.finding.enum.f011.title:
 
 ###
 
+src.lib_path.f117.unverifiable_files.description:
+  en: Unverifiable file in {path}
+  es: Archivo no verificable en {path}
 utils.model.finding.enum.f117.description:
   en: >
     Binary files usually have a file size greater than their source

@@ -16,12 +16,14 @@ from typing import (
 from lib_path import (
     f011,
     f034,
+    f117,
 )
 from utils.aio import (
     materialize,
 )
 from utils.fs import (
     generate_file_content,
+    generate_file_raw_content,
     recurse,
 )
 from utils.logs import (
@@ -52,6 +54,9 @@ async def analyze_one_path(path: str) -> Tuple[Vulnerability, ...]:
     file_content_generator: AsyncGenerator[str, None] = generate_file_content(
         path,
     )
+    file_raw_content_generator: AsyncGenerator[bytes, None] = (
+        generate_file_raw_content(path)
+    )
     char_to_yx_map_generator: (
         AsyncGenerator[Dict[int, Tuple[int, int]], None]
     ) = generate_char_to_yx_map(
@@ -72,6 +77,12 @@ async def analyze_one_path(path: str) -> Tuple[Vulnerability, ...]:
                     content_generator=file_content_generator,
                     file_extension=file_extension,
                     path=path,
+                ),
+                f117.analyze(
+                    file_name=file_name,
+                    file_extension=file_extension,
+                    path=path,
+                    raw_content_generator=file_raw_content_generator,
                 ),
             )
             for folder, file in [os.path.split(path)]

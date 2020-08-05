@@ -1,6 +1,7 @@
 # Standard library
 from typing import (
     Dict,
+    Set,
     Tuple,
 )
 
@@ -27,10 +28,11 @@ from utils.string import (
 # Reusable Components
 C_STYLE_COMMENT: ParserElement = cppStyleComment
 
-EXTENSIONS_CSHARP = ('cs',)
-EXTENSIONS_JAVA = ('class', 'java')
-EXTENSIONS_JAVASCRIPT = ('js', 'jsx', 'ts', 'tsx')
-
+EXTENSIONS_CSHARP: Set[str] = {'cs'}
+EXTENSIONS_JAVA: Set[str] = {'class', 'java'}
+EXTENSIONS_JAVASCRIPT: Set[str] = {'js', 'jsx', 'ts', 'tsx'}
+EXTENSIONS_JSON: Set[str] = {'json'}
+EXTENSIONS_YAML: Set[str] = {'yml', 'yaml'}
 SINGLE_QUOTED_STRING: QuotedString = QuotedString("'")
 DOUBLE_QUOTED_STRING: QuotedString = QuotedString('"')
 

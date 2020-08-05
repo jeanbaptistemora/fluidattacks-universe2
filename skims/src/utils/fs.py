@@ -28,6 +28,13 @@ async def generate_file_content(path: str) -> AsyncGenerator[str, None]:
         yield file_contents
 
 
+async def generate_file_raw_content(path: str) -> AsyncGenerator[bytes, None]:
+    file_contents: bytes = await get_file_raw_content(path)
+
+    while True:
+        yield file_contents
+
+
 async def get_file_content(path: str, encoding: str = 'latin-1') -> str:
     async with aiofiles.open(
         path,
@@ -35,6 +42,13 @@ async def get_file_content(path: str, encoding: str = 'latin-1') -> str:
         encoding=encoding,
     ) as file_handle:
         file_contents: str = await file_handle.read()
+
+        return file_contents
+
+
+async def get_file_raw_content(path: str) -> bytes:
+    async with aiofiles.open(path, mode='rb') as file_handle:
+        file_contents: bytes = await file_handle.read()
 
         return file_contents
 

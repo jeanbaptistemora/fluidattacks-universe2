@@ -1,0 +1,98 @@
+# Standard library
+from itertools import (
+    chain,
+)
+from typing import (
+    AsyncGenerator,
+    Awaitable,
+    List,
+    Set,
+    Tuple,
+)
+
+# Local libraries
+from state import (
+    cache_decorator,
+)
+from utils.aio import (
+    materialize,
+    unblock_cpu,
+)
+from utils.model import (
+    FindingEnum,
+    SkimsVulnerabilityMetadata,
+    Vulnerability,
+    VulnerabilityKindEnum,
+    VulnerabilityStateEnum,
+)
+from utils.string import (
+    blocking_to_snippet,
+)
+from zone import (
+    t,
+)
+
+ALLOWED: Set[Tuple[str, str]] = {
+    ('gradle-wrapper', 'jar'),
+}
+
+
+@cache_decorator()
+async def unverifiable_files(
+    file_name: str,
+    file_extension: str,
+    path: str,
+    raw_content: bytes,
+) -> Tuple[Vulnerability, ...]:
+    if (file_name, file_extension) in ALLOWED:
+        return ()
+
+    skims_metadata = SkimsVulnerabilityMetadata(
+        description=t(
+            key='src.lib_path.f117.unverifiable_files.description',
+            path=path,
+        ),
+        snippet=blocking_to_snippet(
+            column=0,
+            content=await unblock_cpu(
+                raw_content.decode,
+                encoding='utf-8',
+                errors='replace',
+            ),
+            line=1,
+        )
+    )
+
+    return (
+        Vulnerability(
+            finding=FindingEnum.F117,
+            kind=VulnerabilityKindEnum.LINES,
+            state=VulnerabilityStateEnum.OPEN,
+            what=path,
+            where='1',
+            skims_metadata=skims_metadata,
+        ),
+    )
+
+
+async def analyze(
+    file_name: str,
+    file_extension: str,
+    path: str,
+    raw_content_generator: AsyncGenerator[bytes, None],
+) -> Tuple[Vulnerability, ...]:
+    coroutines: List[Awaitable[Tuple[Vulnerability, ...]]] = []
+
+    if file_extension in {'class', 'jar'}:
+        coroutines.append(unverifiable_files(
+            file_name=file_name,
+            file_extension=file_extension,
+            path=path,
+            raw_content=await raw_content_generator.__anext__(),
+        ))
+
+    results: Tuple[Vulnerability, ...] = tuple(chain.from_iterable(
+        await materialize(coroutines)
+    ))
+
+    return results
