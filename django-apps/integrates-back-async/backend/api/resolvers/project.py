@@ -173,11 +173,10 @@ async def _get_findings(
     if filters:
         req_fields.extend(filters)
     selection_set.selections = req_fields
-    msg = (
-        f'Security: Access to {project_name} findings. '
-        f'Query: getFindings with parameters {info.variable_values}'
+    util.cloudwatch_log(
+        info.context,
+        f'Security: Access to {project_name} findings'  # pragma: no cover
     )
-    util.cloudwatch_log(info.context, msg)
     project_findings = await info.context.loaders['project'].load(project_name)
     project_findings = project_findings['findings']
     findings = await info.context.loaders['finding'].load_many(
@@ -600,11 +599,9 @@ async def _get_drafts(
         project_name: str,
         **__: Any) -> List[Dict[str, FindingType]]:
     """Get drafts."""
-    msg = (
-        f'Security: Access to {project_name} drafts. '
-        f'Query: getDrafts with parameters {info.variable_values}'
-    )
-    util.cloudwatch_log(info.context, msg)
+    util.cloudwatch_log(
+        info.context,
+        f'Security: Access to {project_name} drafts')  # pragma: no cover
     project_drafts = await info.context.loaders['project'].load(project_name)
     project_drafts = project_drafts['drafts']
     findings = await info.context.loaders['finding'].load_many(project_drafts)
@@ -624,11 +621,9 @@ async def _get_events(
         project_name: str,
         **__: Any) -> List[EventType]:
     """Get events."""
-    msg = (
-        f'Security: Access to {project_name} events. '
-        f'Query: getEvents with parameters {info.variable_values}'
-    )
-    util.cloudwatch_log(info.context, msg)
+    util.cloudwatch_log(
+        info.context,
+        f'Security: Access to {project_name} events')  # pragma: no cover
     event_ids = await project_domain.list_events(project_name)
     events = await info.context.loaders['event'].load_many(event_ids)
     return cast(List[EventType], events)
@@ -824,11 +819,10 @@ async def _do_create_project(  # pylint: disable=too-many-arguments
     if success:
 
         util.invalidate_cache(user_email)
-        msg = (
-            f'Security: Created project {project_name} successfully. '
-            f'Mutation: createProject with parameters {info.variable_values}'
+        util.cloudwatch_log(
+            info.context,
+            f'Security: Created project {project_name.lower()} successfully',
         )
-        util.cloudwatch_log(info.context, msg)
 
     return SimplePayloadType(success=success)
 
@@ -866,11 +860,10 @@ async def _do_edit_group(  # pylint: disable=too-many-arguments
         util.invalidate_cache(group_name)
         util.invalidate_cache(requester_email)
         authz.revoke_cached_group_service_attributes_policies(group_name)
-        msg = (
-            f'Security: Edited group {group_name} successfully. '
-            f'Mutation: editGroup with parameters {info.variable_values}'
+        util.cloudwatch_log(
+            info.context,
+            f'Security: Edited group {group_name} successfully',
         )
-        util.cloudwatch_log(info.context, msg)
 
     return SimplePayloadType(success=success)
 
@@ -890,12 +883,11 @@ async def _do_reject_remove_project(
     if success:
         project = project_name.lower()
         util.invalidate_cache(project)
-        msg = (
-            f'Security: Reject project {project_name} deletion successfully. '
-            f'Mutation: rejectRemoveProject with parameters '
-            f'{info.variable_values}'
+        util.cloudwatch_log(
+            info.context,
+            'Security: Reject project '
+            f'{project} deletion successfully'  # pragma: no cover
         )
-        util.cloudwatch_log(info.context, msg)
     return SimplePayloadType(success=success)
 
 
@@ -929,19 +921,15 @@ async def _do_add_project_comment(
     )
     if success:
         util.invalidate_cache(project_name)
-        msg = (
-            f'Security: Added comment to {project_name} project successfully. '
-            f'Mutation: addProjectComment with parameters '
-            f'{info.variable_values}'
+        util.cloudwatch_log(
+            info.context, 'Security: Added comment to '
+            f'{project_name} project successfully'  # pragma: no cover
         )
-        util.cloudwatch_log(info.context, msg)
     else:
-        msg = (
-            f'Security: Attempted to add comment in {project_name} project. '
-            f'Mutation: addProjectComment with parameters '
-            f'{info.variable_values}'
+        util.cloudwatch_log(
+            info.context, 'Security: Attempted to add '
+            f'comment in {project_name} project'  # pragma: no cover
         )
-        util.cloudwatch_log(info.context, msg)
     ret = AddCommentPayloadType(success=success, comment_id=str(comment_id))
     return ret
 
@@ -988,19 +976,17 @@ async def _do_add_tags(
                 project_name, project_tags, tags
             )
         else:
-            msg = (
-                f'Security: Attempted to upload tags in {project_name} '
-                f'project without the allowed structure. '
-                f'Mutation: addTags with parameters {info.variable_values}'
+            util.cloudwatch_log(
+                info.context,
+                ('Security: Attempted to upload '
+                 'tags without the allowed structure')  # pragma: no cover
             )
-            util.cloudwatch_log(info.context, msg)
     else:
-        msg = (
-            f'Security: Attempted to upload tags in {project_name} project. '
-            f'without the allowed validations. '
-            f'Mutation: removeTag with parameters {info.variable_values}'
+        util.cloudwatch_log(
+            info.context,
+            ('Security: Attempted to upload tags '
+             'without the allowed validations')  # pragma: no cover
         )
-        util.cloudwatch_log(info.context, msg)
     if success:
         project_loader.clear(project_name)
         util.invalidate_cache(project_name)
@@ -1038,17 +1024,17 @@ async def _do_remove_tag(
     if success:
         project_loader.clear(project_name)
         util.invalidate_cache(project_name)
-        msg = (
-            f'Security: Removed tag from {project_name} project successfully. '
-            f'Mutation: removeTag with parameters {info.variable_values}'
+        util.cloudwatch_log(
+            info.context,
+            ('Security: Removed tag from '
+             f'{project_name} project successfully')  # pragma: no cover
         )
-        util.cloudwatch_log(info.context, msg)
     else:
-        msg = (
-            f'Security: Attempted to remove tag in {project_name} project. '
-            f'Mutation: removeTag with parameters {info.variable_values}'
+        util.cloudwatch_log(
+            info.context,
+            ('Security: Attempted to remove '
+             f'tag in {project_name} project')  # pragma: no cover
         )
-        util.cloudwatch_log(info.context, msg)
     project = await resolve(info, project_name, True, False)
     return SimpleProjectPayloadType(success=success, project=project)
 
