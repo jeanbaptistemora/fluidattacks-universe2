@@ -8,7 +8,10 @@ from ariadne import (
 )
 from graphql.type.definition import GraphQLResolveInfo
 
-from backend.decorators import require_login
+from backend.decorators import (
+    enforce_group_level_auth_async,
+    require_login
+)
 from backend.domain import (
     user as user_domain,
 )
@@ -101,12 +104,13 @@ async def _get_url_all_vulns(
     return cast(str, url)
 
 
+@enforce_group_level_auth_async
 async def _get_url_group_report(
     info: GraphQLResolveInfo,
     report_type: str,
     user_email: str,
+    lang: str,
     project_name: str,
-    lang: str
 ) -> str:
     project_findings = await info.context.loaders['project'].load(project_name)
     project_findings = project_findings['findings']
@@ -176,8 +180,8 @@ async def _get_url(
             info,
             report_type,
             user_email,
-            project_name,
-            parameters.get('lang', 'en')
+            parameters.get('lang', 'en'),
+            project_name=project_name
         )
     else:
         payload_data = {

@@ -22,6 +22,7 @@ import { DataTableNext } from "../../../../components/DataTableNext/index";
 import { IHeaderConfig } from "../../../../components/DataTableNext/types";
 import { Modal } from "../../../../components/Modal/index";
 import { TooltipWrapper } from "../../../../components/TooltipWrapper/index";
+import { Can } from "../../../../utils/authz/Can";
 import { formatFindings, formatTreatment } from "../../../../utils/formatHelpers";
 import { useStoredState } from "../../../../utils/hooks";
 import Logger from "../../../../utils/logger";
@@ -316,15 +317,21 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
 
         return (
           <React.StrictMode>
-            <Row>
-              <Col md={2} mdOffset={5}>
-                <ButtonToolbar className={style.reportsBtn}>
-                  <TooltipWrapper message={translate.t("group.findings.report.btn.tooltip")}>
-                    <Button onClick={openReportsModal}>{translate.t("group.findings.report.btn.text")}</Button>
-                  </TooltipWrapper>
-                </ButtonToolbar>
-              </Col>
-            </Row>
+            <Can I="backend_api_resolvers_report__get_url_group_report">
+              <Row>
+                <Col md={2} mdOffset={5}>
+                  <ButtonToolbar className={style.reportsBtn}>
+                    <TooltipWrapper
+                      message={translate.t("group.findings.report.btn.tooltip")}
+                    >
+                      <Button onClick={openReportsModal}>
+                        {translate.t("group.findings.report.btn.text")}
+                      </Button>
+                    </TooltipWrapper>
+                  </ButtonToolbar>
+                </Col>
+              </Row>
+            </Can>
             <p>{translate.t("group.findings.help_label")}</p>
             <DataTableNext
               bordered={true}
