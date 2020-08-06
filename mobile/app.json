@@ -20,6 +20,19 @@
     "experiments": {
       "redesignedLogBox": true
     },
+    "extra": {
+      "bugsnag": {
+        "apiKey": "c7b947a293ced0235cdd8edc8c09dad4"
+      }
+    },
+    "hooks": {
+      "postPublish": [
+        {
+          "file": "@bugsnag/expo/hooks/post-publish.js",
+          "config": {}
+        }
+      ]
+    },
     "icon": "./assets/icon.png",
     "ios": {
       "bundleIdentifier": "com.fluidattacks.integrates",
