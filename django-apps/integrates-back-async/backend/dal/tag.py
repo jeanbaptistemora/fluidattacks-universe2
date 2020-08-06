@@ -13,10 +13,8 @@ from backend.typing import (
 )
 
 # Constants
-DYNAMODB_RESOURCE = dynamodb.DYNAMODB_RESOURCE  # type: ignore
 LOGGER = logging.getLogger(__name__)
 TABLE_NAME = 'fi_portfolios'
-TABLE = DYNAMODB_RESOURCE.Table(TABLE_NAME)
 
 
 async def delete(organization: str, tag: str) -> bool:
@@ -34,43 +32,42 @@ async def delete(organization: str, tag: str) -> bool:
     return success
 
 
-def update(organization: str, tag: str,
-           data: Dict[str, Union[List[str], Decimal]]) -> bool:
+async def update(
+        organization: str,
+        tag: str,
+        data: Dict[str, Union[List[str], Decimal]]) -> bool:
     success = False
-    primary_keys = {
-        'organization': organization,
-        'tag': tag
+    set_expression = ''
+    remove_expression = ''
+    expression_names = {}
+    expression_values = {}
+    for attr, value in data.items():
+        if value is None:
+            remove_expression += f'#{attr}, '
+            expression_names.update({f'#{attr}': attr})
+        else:
+            set_expression += f'#{attr} = :{attr}, '
+            expression_names.update({f'#{attr}': attr})
+            expression_values.update({f':{attr}': value})
+
+    if set_expression:
+        set_expression = f'SET {set_expression.strip(", ")}'
+    if remove_expression:
+        remove_expression = f'REMOVE {remove_expression.strip(", ")}'
+    update_attrs = {
+        'Key': {
+            'organization': organization,
+            'tag': tag
+        },
+        'UpdateExpression': f'{set_expression} {remove_expression}'.strip(),
     }
+
+    if expression_values:
+        update_attrs.update({'ExpressionAttributeValues': expression_values})
+    if expression_names:
+        update_attrs.update({'ExpressionAttributeNames': expression_names})
     try:
-        attrs_to_remove = [
-            attr
-            for attr in data
-            if data[attr] is None
-        ]
-        for attr in attrs_to_remove:
-            response = TABLE.update_item(
-                Key=primary_keys,
-                UpdateExpression='REMOVE #attr',
-                ExpressionAttributeNames={'#attr': attr}
-            )
-            success = response['ResponseMetadata']['HTTPStatusCode'] == 200
-            del data[attr]
-
-        if data:
-            attributes = [
-                f'{attr} = :{attr}'
-                for attr in data
-            ]
-            values = {
-                ':{}'.format(attr): data[attr]
-                for attr in data
-            }
-
-            response = TABLE.update_item(
-                Key=primary_keys,
-                UpdateExpression='SET ' + ','.join(attributes),
-                ExpressionAttributeValues=values)
-            success = response['ResponseMetadata']['HTTPStatusCode'] == 200
+        success = await dynamodb.async_update_item(TABLE_NAME, update_attrs)
     except ClientError as ex:
         LOGGER.exception(ex, extra={'extra': locals()})
     return success

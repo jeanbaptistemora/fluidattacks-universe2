@@ -24,9 +24,7 @@ LOGGER = logging.getLogger(__name__)
 
 # Shared resources
 DYNAMODB_RESOURCE = dynamodb.DYNAMODB_RESOURCE  # type: ignore
-ACCESS_TABLE = DYNAMODB_RESOURCE.Table('FI_project_access')
 AUTHZ_TABLE = DYNAMODB_RESOURCE.Table('fi_authz')
-USERS_TABLE = DYNAMODB_RESOURCE.Table('FI_users')
 ACCESS_TABLE_NAME = 'FI_project_access'
 USERS_TABLE_NAME = 'FI_users'
 AUTHZ_TABLE_NAME = 'fi_authz'

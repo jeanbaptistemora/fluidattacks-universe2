@@ -11,7 +11,6 @@ from __init__ import (
 
 
 # Constants
-DYNAMODB_RESOURCE = dynamodb.DYNAMODB_RESOURCE
 LOGGER = logging.getLogger(__name__)
 
 

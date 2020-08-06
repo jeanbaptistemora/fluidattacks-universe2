@@ -12,9 +12,7 @@ from __init__ import FI_AWS_S3_BUCKET
 
 
 # Constants
-DYNAMODB_RESOURCE = dynamodb.DYNAMODB_RESOURCE  # type: ignore
 LOGGER = logging.getLogger(__name__)
-TABLE = DYNAMODB_RESOURCE.Table('FI_findings')
 TABLE_NAME: str = 'FI_findings'
 
 

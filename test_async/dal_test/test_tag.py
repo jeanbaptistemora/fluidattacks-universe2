@@ -28,6 +28,6 @@ class TagTest(TestCase):
         }
         attributes = [attr for attr in original]
         assert original == await get_attributes(test_1[0], test_1[1], attributes)
-        assert update(*test_1)
+        assert await update(*test_1)
         assert {'max_severity' : Decimal('3.3')} == \
             await get_attributes(test_1[0], test_1[1], attributes)

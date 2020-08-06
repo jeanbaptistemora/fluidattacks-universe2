@@ -744,9 +744,7 @@ async def update_organization_indicators(
             tag, tags_dict, indicator_list + ['max_severity']
         )
         success.append(
-            await aio.ensure_io_bound(
-                tag_dal.update, organization_name, tag, tag_info
-            )
+            await tag_dal.update(organization_name, tag, tag_info)
         )
         if success[-1]:
             util.invalidate_cache(tag)
