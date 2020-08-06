@@ -111,12 +111,12 @@ utils.model.finding.enum.f117.description:
     graves vulnerabilidades como puertas traseras, rootkits e información
     sensible.
 utils.model.finding.enum.f117.impact:
-  en: >
-    Difficult the versioning and security auditing process.
-    Introduce vulnerabilities of previous versions in the repository.
+  en: |
+    - Difficult the versioning and security auditing process.
+    - Introduce vulnerabilities of previous versions in the repository.
   es: |
-    Dificultar el proceso de versionamiento y auditoría de seguridad.
-    Introducir vulnerabilidades de versiones pasadas de archivos en el repositorio.
+    - Dificultar el proceso de versionamiento y auditoría de seguridad.
+    - Introducir vulnerabilidades de versiones pasadas de archivos en el repositorio.
 utils.model.finding.enum.f117.recommendation:
   en: >
     Avoid including binary files in the source repository.
@@ -124,11 +124,11 @@ utils.model.finding.enum.f117.recommendation:
     Evitar la inclusión de archivos binarios en el repositorio de código.
 utils.model.finding.enum.f117.requirements:
   en: >
-    R323 Los archivos binarios y de otros tipos que a menudo no pueden ser
+    R323. Exclude unverifiable files.
+  es: >
+    R323. Los archivos binarios y de otros tipos que a menudo no pueden ser
     auditados por motivos de seguridad no deberían ser almacenados en el
     repositorio de código.
-  es: >
-    R323. Exclude unverifiable files.
 utils.model.finding.enum.f117.threat:
   en: >
     Autenticated attacker from the Internet.
