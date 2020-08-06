@@ -28,7 +28,7 @@ export const navbarComponent: React.FC<RouteComponentProps> = (props: RouteCompo
   const path: string = props.location.pathname;
   const pathData: string[] = path.split("/")
     .slice(2);
-  const pathOrganization: string = path.includes("/home")
+  const pathOrganization: string = !path.includes("/orgs")
     ? lastOrganization.name
     : pathData[0].toLowerCase();
 
