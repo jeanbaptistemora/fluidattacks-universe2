@@ -9,6 +9,7 @@ from typing import (
     List,
 )
 from uuid import uuid4
+from asgiref.sync import async_to_sync
 
 # Local libraries
 from backend import util
@@ -59,8 +60,8 @@ def generate(
             passphrase=passphrase,
             source_contents=_get_directory_contents(directory),
         ) as file:
-            signed_url = reports_utils.sign_url(
-                reports_utils.upload_report(file)
+            signed_url = async_to_sync(reports_utils.sign_url)(
+                async_to_sync(reports_utils.upload_report)(file)
             )
 
             notifications_domain.new_password_protected_report(

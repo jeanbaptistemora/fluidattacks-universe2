@@ -72,14 +72,15 @@ def generate_pdf(
         user_email=user_email,
     )
 
-    uploaded_file_name = reports_utils.upload_report(report_filename)
+    uploaded_file_name = async_to_sync(reports_utils.upload_report)(
+        report_filename)
 
     notifications_domain.new_password_protected_report(
         user_email,
         group_name,
         passphrase,
         'Executive',
-        reports_utils.sign_url(uploaded_file_name),
+        async_to_sync(reports_utils.sign_url)(uploaded_file_name),
     )
 
 
@@ -117,14 +118,15 @@ def generate_xls(
         passphrase=passphrase,
     )
 
-    uploaded_file_name = reports_utils.upload_report(report_filename)
+    uploaded_file_name = async_to_sync(reports_utils.upload_report)(
+        report_filename)
 
     notifications_domain.new_password_protected_report(
         user_email,
         group_name,
         passphrase,
         'Technical',
-        reports_utils.sign_url(uploaded_file_name),
+        async_to_sync(reports_utils.sign_url)(uploaded_file_name),
     )
 
 

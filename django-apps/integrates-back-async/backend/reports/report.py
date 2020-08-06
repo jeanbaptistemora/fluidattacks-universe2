@@ -78,13 +78,15 @@ async def generate_group_report(
     return url
 
 
-def generate_complete_report(user_email: str, projects: List[str]) -> str:
-    return complete_report.generate(user_email, projects)
+async def generate_complete_report(
+        user_email: str, projects: List[str]) -> str:
+    return await complete_report.generate(user_email, projects)
 
 
-def generate_all_vulns_report(user_email: str, project_name: str = '') -> str:
-    return all_vulns_report.generate(user_email, project_name)
+async def generate_all_vulns_report(
+        user_email: str, project_name: str = '') -> str:
+    return await all_vulns_report.generate(user_email, project_name)
 
 
-def generate_all_users_report(user_email: str) -> str:
-    return all_users_report.generate(user_email)
+async def generate_all_users_report(user_email: str) -> str:
+    return await all_users_report.generate(user_email)

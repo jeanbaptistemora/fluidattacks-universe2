@@ -5,8 +5,6 @@ import uuid
 from typing import Dict, List, cast
 from pyexcelerate import Workbook
 
-from asgiref.sync import async_to_sync
-
 from backend.dal import project as project_dal
 from backend.domain import vulnerability as vuln_domain
 from backend.reports.typing import (
@@ -89,7 +87,8 @@ def _format_vuln(
     return vuln
 
 
-def generate_all_vulns_xlsx(user_email: str, project_name: str = '') -> str:
+async def generate_all_vulns_xlsx(
+        user_email: str, project_name: str = '') -> str:
     workbook = Workbook()
     header = AllVulnsReportHeaderFindings.labels() + \
         AllVulnsReportHeaderVulns.labels()
@@ -99,17 +98,17 @@ def generate_all_vulns_xlsx(user_email: str, project_name: str = '') -> str:
     else:
         projects = cast(
             List[Dict[str, str]],
-            async_to_sync(project_dal.get_all)(data_attr='project_name')
+            await project_dal.get_all(data_attr='project_name')
         )
 
     for project in projects:
         if project not in TEST_PROJECTS:
-            findings = async_to_sync(project_dal.get_released_findings)(
+            findings = await project_dal.get_released_findings(
                 project.get('project_name', ''))
         else:
             findings = []
         for finding in findings:
-            vulns = async_to_sync(vuln_domain.list_vulnerabilities_async)(
+            vulns = await vuln_domain.list_vulnerabilities_async(
                 [str(finding['finding_id'])]
             )
             finding_row = _mask_finding(finding)

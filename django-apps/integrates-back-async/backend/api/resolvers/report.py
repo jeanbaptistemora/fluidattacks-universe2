@@ -6,7 +6,6 @@ from ariadne import (
     convert_kwargs_to_snake_case,
     convert_camel_case_to_snake
 )
-from asgiref.sync import sync_to_async
 from graphql.type.definition import GraphQLResolveInfo
 
 from backend.decorators import require_login
@@ -21,7 +20,6 @@ from backend.typing import (
     Report as ReportType,
 )
 from backend import authz, util
-from backend.utils import aio
 
 
 # Constants
@@ -69,8 +67,7 @@ async def resolve(
 
 async def _get_url_complete(info: GraphQLResolveInfo, user_email: str) -> str:
     projects = await user_domain.get_projects(user_email)
-    url = await aio.ensure_io_bound(
-        report.generate_complete_report,
+    url = await report.generate_complete_report(
         user_email, projects
     )
     util.cloudwatch_log(
@@ -85,8 +82,7 @@ async def _get_url_all_vulns(
         user_email: str,
         project_name: str) -> str:
     if await authz.get_user_level_role(user_email) == 'admin':
-        url = await aio.ensure_io_bound(
-            report.generate_all_vulns_report,
+        url = await report.generate_all_vulns_report(
             user_email,
             project_name
         )
@@ -145,10 +141,7 @@ async def _get_url_all_users(
         info: GraphQLResolveInfo,
         user_email: str) -> str:
     if await authz.get_user_level_role(user_email) == 'admin':
-        url = await sync_to_async(
-            report.generate_all_users_report)(
-                user_email
-        )
+        url = await report.generate_all_users_report(user_email)
         msg = (
             f'Security: All users report successfully requested '
             f'by {user_email}'

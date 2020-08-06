@@ -2,7 +2,6 @@
 from uuid import uuid4 as uuid
 
 # Third party libraries
-from asgiref.sync import async_to_sync
 from django.core.files.base import ContentFile
 
 # Local libraries
@@ -20,8 +19,10 @@ from __init__ import (
 )
 
 
-def sign_url(path: str, minutes: float = 60.0) -> str:
-    return cloudfront.sign_url(FI_CLOUDFRONT_REPORTS_DOMAIN, path, minutes)
+async def sign_url(path: str, minutes: float = 60.0) -> str:
+    return await aio.ensure_io_bound(
+        cloudfront.sign_url, FI_CLOUDFRONT_REPORTS_DOMAIN, path, minutes
+    )
 
 
 async def sign(path: str, ttl: float) -> str:
@@ -33,9 +34,9 @@ async def sign(path: str, ttl: float) -> str:
     )
 
 
-def upload_report(file_name: str) -> str:
+async def upload_report(file_name: str) -> str:
     with open(file_name, 'rb') as file:
-        return upload_report_from_file_descriptor(
+        return await upload_report_from_file_descriptor(
             ContentFile(file.read(), name=file_name),
         )
 
@@ -61,7 +62,6 @@ async def expose_bytes_as_url(
     return await sign(path=file_name, ttl=ttl)
 
 
-@async_to_sync
 async def upload_report_from_file_descriptor(report) -> str:
     file_path = report.name
     file_name = file_path.split('_')[-1]
