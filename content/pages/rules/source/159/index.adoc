@@ -1,14 +1,14 @@
 :slug: rules/159/
 :category: source
 :description: This requirement establishes the importance of obfuscating the application source code in production environments.
-:keywords: Requirement, Security, Source Code, Obfuscation, Protection, ASVS, Rules, Ethical Hacking, Pentesting
+:keywords: Requirement, Security, Source Code, Obfuscation, Protection, ASVS, CWE, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R159. Obfuscate code
 
 == Requirement
 
-Source code must be obfuscated in production environments.
+The source code must be obfuscated in production environments.
 
 == Findings
 
@@ -18,12 +18,16 @@ Source code must be obfuscated in production environments.
 
 . [[r1]] link:https://www.bsimm.com/framework/deployment/software-environment.html[BSIMM9 SE3.2 Use code protection].
 
-. [[r2]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r2]] link:https://cwe.mitre.org/data/definitions/1269.html[CWE-1269: Product Released in Non-Release Configuration].
+The product released to market is released in pre-production or manufacturing
+configuration.
+
+. [[r3]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 Appendix C: Internet of Things Verification Requirements.(C.18)]
 Verify security controls are in place to hinder firmware reverse engineering
 (e.g., removal of verbose debugging symbols).
 
-. [[r3]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r4]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 Appendix C: Internet of Things Verification Requirements.(C.34)]
 Verify that micro controllers are configured with code protection
 (if applicable).
