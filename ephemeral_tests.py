@@ -141,7 +141,8 @@ class ViewTestCase(unittest.TestCase):
 
     def test_03_analytics(self):
         selenium = self.__login()
-        selenium.get(self.url + '/groups/UNITTESTING/')
+        org = 'okada' if self.branch == 'master' else 'imamura'
+        selenium.get(self.url + f'/orgs/{org}/groups/unittesting/')
         WebDriverWait(selenium, self.delay).until(
             expected.presence_of_element_located(
                (By.XPATH,
@@ -151,7 +152,8 @@ class ViewTestCase(unittest.TestCase):
 
     def test_04_findings(self):
         selenium = self.__login()
-        selenium.get(self.url + '/groups/UNITTESTING/vulns')
+        org = 'okada' if self.branch == 'master' else 'imamura'
+        selenium.get(self.url + f'/orgs/{org}/groups/unittesting/vulns')
         WebDriverWait(selenium, self.delay).until(
             expected.presence_of_element_located(
                 (By.XPATH,
@@ -161,7 +163,8 @@ class ViewTestCase(unittest.TestCase):
 
     def test_05_finding(self):
         selenium = self.__login()
-        selenium.get(self.url + '/project/unittesting/vulns')
+        org = 'okada' if self.branch == 'master' else 'imamura'
+        selenium.get(self.url + f'/orgs/{org}/groups/unittesting/vulns')
         finding_elem = WebDriverWait(selenium, self.delay).until(
             expected.presence_of_element_located(
                 (By.XPATH,
@@ -205,7 +208,8 @@ class ViewTestCase(unittest.TestCase):
 
     def test_06_severity(self):
         selenium = self.__login()
-        selenium.get(self.url + '/groups/UNITTESTING/vulns')
+        org = 'okada' if self.branch == 'master' else 'imamura'
+        selenium.get(self.url + f'/orgs/{org}/groups/unittesting/vulns')
         finding_elem = WebDriverWait(selenium, self.delay).until(
             expected.presence_of_element_located(
                 (By.XPATH,
@@ -229,7 +233,8 @@ class ViewTestCase(unittest.TestCase):
 
     def test_07_evidence(self):
         selenium = self.__login()
-        selenium.get(self.url + '/project/unittesting/vulns')
+        org = 'okada' if self.branch == 'master' else 'imamura'
+        selenium.get(self.url + f'/orgs/{org}/groups/unittesting/vulns')
         finding_elem = WebDriverWait(selenium, self.delay).until(
             expected.presence_of_element_located(
                 (By.XPATH,
@@ -254,7 +259,8 @@ class ViewTestCase(unittest.TestCase):
 
     def test_08_exploit(self):
         selenium = self.__login()
-        selenium.get(self.url + '/groups/UNITTESTING/vulns')
+        org = 'okada' if self.branch == 'master' else 'imamura'
+        selenium.get(self.url + f'/orgs/{org}/groups/unittesting/vulns')
         finding_elem = WebDriverWait(selenium, self.delay).until(
             expected.presence_of_element_located(
                 (By.XPATH,
@@ -277,7 +283,8 @@ class ViewTestCase(unittest.TestCase):
 
     def test_09_tracking(self):
         selenium = self.__login()
-        selenium.get(self.url + '/project/unittesting/vulns')
+        org = 'okada' if self.branch == 'master' else 'imamura'
+        selenium.get(self.url + f'/orgs/{org}/groups/unittesting/vulns')
         finding_elem = WebDriverWait(selenium, self.delay).until(
             expected.presence_of_element_located(
                 (By.XPATH,
@@ -301,7 +308,8 @@ class ViewTestCase(unittest.TestCase):
 
     def test_10_comments(self):
         selenium = self.__login()
-        selenium.get(self.url + '/groups/UNITTESTING/vulns')
+        org = 'okada' if self.branch == 'master' else 'imamura'
+        selenium.get(self.url + f'/orgs/{org}/groups/unittesting/vulns')
         finding_elem = WebDriverWait(selenium, self.delay).until(
             expected.presence_of_element_located(
                 (By.XPATH,
@@ -324,7 +332,8 @@ class ViewTestCase(unittest.TestCase):
 
     def test_11_techpdf(self):
         selenium = self.__login()
-        selenium.get(self.url + '/project/unittesting/vulns')
+        org = 'okada' if self.branch == 'master' else 'imamura'
+        selenium.get(self.url + f'/orgs/{org}/groups/unittesting/vulns')
         WebDriverWait(selenium, self.delay).until(
             expected.presence_of_element_located(
                 (By.XPATH,
@@ -351,7 +360,8 @@ class ViewTestCase(unittest.TestCase):
 
     def test_13_events(self):
         selenium = self.__login()
-        selenium.get(self.url + '/groups/unittesting/events')
+        org = 'okada' if self.branch == 'master' else 'imamura'
+        selenium.get(self.url + f'/orgs/{org}/groups/unittesting/events')
         event_tab = WebDriverWait(selenium, self.delay).until(
             expected.presence_of_element_located(
                 (By.XPATH,
@@ -369,8 +379,8 @@ class ViewTestCase(unittest.TestCase):
 
     def test_14_resources(self):
         selenium = self.__login()
-
-        selenium.get(self.url + '/project/unittesting/resources')
+        org = 'okada' if self.branch == 'master' else 'imamura'
+        selenium.get(self.url + f'/orgs/{org}/groups/unittesting/scope')
         WebDriverWait(selenium, self.delay).until(
             expected.presence_of_element_located(
                 (By.XPATH, "//*[contains(text(), 'Repositories')]")))
@@ -438,7 +448,8 @@ class ViewTestCase(unittest.TestCase):
 
     def test_15_project_comments(self):
         selenium = self.__login()
-        selenium.get(self.url + '/project/unittesting/consulting')
+        org = 'okada' if self.branch == 'master' else 'imamura'
+        selenium.get(self.url + f'/orgs/{org}/groups/unittesting/consulting')
         WebDriverWait(selenium, self.delay).until(
             expected.presence_of_element_located(
                 (By.XPATH,
@@ -448,18 +459,10 @@ class ViewTestCase(unittest.TestCase):
         assert 'Now we can post comments on projects' in selenium.page_source
 
     def test_16_forces(self):
-        if self.branch == 'master':
-            project_name = 'BWAPP'
-            expected_exploitability =\
-                'Running Fluid Asserts'
-        else:
-            project_name = 'UNITTESTING'
-            expected_exploitability =\
-                'Running Fluid Asserts'
-
         selenium = self.__login()
+        project_name = 'bwapp' if self.branch == 'master' else 'unittesting'
         selenium.get(
-            self.url + '/dashboard#!/project/{}/devsecops'.format(project_name))
+            self.url + f'/orgs/imamura/groups/{project_name}/devsecops')
         time.sleep(3.0)
         selenium.save_screenshot(SCR_PATH + '16.01-forces-executions.png')
 
@@ -474,12 +477,13 @@ class ViewTestCase(unittest.TestCase):
                 (By.XPATH, "//*[contains(text(), 'Exploitable')]")))
         time.sleep(1)
         selenium.save_screenshot(SCR_PATH + '16.03-forces-execution-modal.png')
-        assert expected_exploitability in selenium.page_source
+        assert 'Running Fluid Asserts' in selenium.page_source
 
     def test_17_pending_to_delete(self):
         selenium = self.__login()
 
-        selenium.get(self.url + '/project/PENDINGPROJECT/resources')
+        org = 'okada' if self.branch == 'master' else 'testorg'
+        selenium.get(self.url + f'/orgs/{org}/groups/pendingproject')
         WebDriverWait(selenium, self.delay).until(
             expected.presence_of_element_located(
                 (By.XPATH, "//*[contains(text(), 'Cancel group deletion')]")))
@@ -490,7 +494,7 @@ class ViewTestCase(unittest.TestCase):
             "//*[contains(text(), 'This group is expected to be removed')]").text
         assert 'Group pending to delete' in selenium.page_source
 
-        selenium.get(self.url + '/dashboard#!/project/PENDINGPROJECT/vulns')
+        selenium.get(self.url + f'/orgs/{org}/groups/pendingproject/vulns')
         WebDriverWait(selenium, self.delay).until(
             expected.presence_of_element_located(
                 (By.XPATH, "//*[contains(text(), 'Cancel group deletion')]")))
@@ -500,7 +504,10 @@ class ViewTestCase(unittest.TestCase):
 
     def test_18_tag_indicators(self):
         selenium = self.__login()
-        selenium.get(self.url + '/dashboard#!/portfolios/TEST-PROJECTS/indicators')
+
+        org = 'okada' if self.branch == 'master' else 'imamura'
+        selenium.get(
+            self.url + f'/orgs/{org}/portfolios/test-projects/indicators')
         WebDriverWait(selenium, self.delay).until(
             expected.presence_of_element_located(
                 (By.XPATH, "//*[contains(text(), 'Max open severity')]")))
@@ -535,7 +542,8 @@ class ViewTestCase(unittest.TestCase):
         assert 'Treatment' in selenium.page_source
         assert 'Treatmentless by group' in selenium.page_source
 
-        selenium.get(self.url + '/dashboard#!/portfolio/DOESNOTEXIST/indicators')
+        selenium.get(
+            self.url + f'/orgs/{org}/portfolios/doesnotexists/indicators')
         WebDriverWait(selenium, self.delay).until(
             expected.presence_of_element_located(
                 (By.XPATH, "//*[contains(text(), 'Vulnerabilities over time')]")))
