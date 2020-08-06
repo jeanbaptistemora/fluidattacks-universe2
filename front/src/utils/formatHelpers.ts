@@ -531,17 +531,3 @@ export const treatmentGraph: ((props: ITreatmentGraph) => ChartData) = (props: I
 
   return treatmentGraphData;
 };
-
-export const minToSec: ((min: number) => number) = (min: number): number => min * 60;
-export const secToMs: ((min: number) => number) = (min: number): number => min * 1000;
-
-export const stylizeBreadcrumbItem: (item: string) => string = (item: string): string => {
-  switch (item) {
-    case "devsecops":
-      return "DevSecOps";
-    case "vulns":
-      return "Vulnerabilities";
-    default:
-      return _.capitalize(item);
-  }
-};

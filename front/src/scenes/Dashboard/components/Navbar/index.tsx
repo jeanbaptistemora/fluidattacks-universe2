@@ -9,7 +9,6 @@ import { Link, useHistory } from "react-router-dom";
 import { Field } from "redux-form";
 import { Button } from "../../../../components/Button";
 import { FluidIcon } from "../../../../components/FluidIcon";
-import { stylizeBreadcrumbItem } from "../../../../utils/formatHelpers";
 import { Text } from "../../../../utils/forms/fields";
 import { useStoredState } from "../../../../utils/hooks";
 import Logger from "../../../../utils/logger";
@@ -19,6 +18,7 @@ import { alphaNumeric } from "../../../../utils/validations";
 import { GenericForm } from "../GenericForm";
 import { default as style } from "./index.css";
 import { GET_USER_ORGANIZATIONS } from "./queries";
+import { stylizeBreadcrumbItem } from "./utils";
 
 export const navbarComponent: React.FC<RouteComponentProps> = (props: RouteComponentProps): JSX.Element => {
   const { push } = useHistory();

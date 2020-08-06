@@ -16,6 +16,7 @@
       "src/utils/apollo.ts",
       "src/utils/cvss.ts",
       "src/utils/validations.ts",
+      "src/scenes/Dashboard/**/utils.ts",
       "src/components/**"
     ]
   },

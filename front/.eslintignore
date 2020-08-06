@@ -1,7 +1,9 @@
 # List of ignored files/dirs by the new linter
 
-src/resources/
-src/scenes/
+src/scenes/Login/
+src/scenes/Registration/
+src/scenes/Dashboard/**/*.*
+!src/scenes/Dashboard/**/utils.ts
 src/utils/formatHelpers.ts
 src/utils/*.tsx
 src/**/*.css.d.ts
