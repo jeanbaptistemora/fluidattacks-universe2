@@ -133,41 +133,14 @@ reviews:
   stage: mr-test
   only: [merge_requests]
 
-asserts-static:
-  stage: test
+test_forces_new:
   tags: [autoscaling]
-  image:
-    name: fluidattacks/break-build
-    entrypoint: [""]
-  needs: []
-  before_script:
-    - docker pull fluidattacks/break-build
-  script:
-    - bash <(docker run fluidattacks/break-build
-              --static
-              --id ${FORCES_ID}
-              --secret ${FORCES_SECRET}
-              --gitlab-docker-socket-binding
-             )
-  except:
-    - master
-  interruptible: true
-
-asserts-dynamic:
   stage: postdeploy
-  tags: [autoscaling]
+  needs: []
   image:
-    name: fluidattacks/break-build
+    name: fluidattacks/forces:new
     entrypoint: [""]
-  before_script:
-    - docker pull fluidattacks/break-build
   script:
-    - bash <(docker run fluidattacks/break-build
-              --dynamic
-              --id ${FORCES_ID}
-              --secret ${FORCES_SECRET}
-              --gitlab-docker-socket-binding
-             )
-  only:
-    - master
+    - forces --token "${INTEGRATES_API_TOKEN}" --strict --group rockland -vv
   interruptible: true
+  allow_failure: true
