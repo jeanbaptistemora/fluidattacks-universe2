@@ -26,7 +26,7 @@ def validate(config: Dynaconf) -> None:
     # Validate main keys
     config.validators.register(
         Validator('gitlab_url', 'tests', must_exist=True,
-                  messages={'must_exist_true': '{name} is required.'})
+                  messages=err_default),
     )
     config.validators.validate()
 
@@ -34,8 +34,8 @@ def validate(config: Dynaconf) -> None:
     tests: List[str] = list(config['tests'].keys())
     for test in tests:
         config.validators.register(
-            Validator(f'tests.{test}.fail', must_exist=True,
-                      is_type_of=bool, messages=err_default),
+            Validator(f'tests.{test}.fail', f'tests.{test}.close_mr',
+                      must_exist=True, is_type_of=bool, messages=err_default),
         )
         if test in ('commits_user_syntax', 'mr_user_syntax'):
             config.validators.register(

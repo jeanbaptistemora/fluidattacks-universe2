@@ -12,12 +12,18 @@ from core import tests
 from utils.logs import log
 
 
-def run_tests(config: Dynaconf) -> bool:
+def get_mr(session: Gitlab, project_id: str, mr_iid: str) -> Any:
+    project: Any = session.projects.get(project_id)
+    mr_info: Any = project.mergerequests.get(mr_iid, lazy=False)
+    return mr_info
 
-    def get_mr(session: Gitlab, project_id: str, mr_iid: str) -> Any:
-        project: Any = session.projects.get(project_id)
-        mr_info: Any = project.mergerequests.get(mr_iid, lazy=False)
-        return mr_info
+
+def close_mr(mr_info: Any) -> None:
+    mr_info.state_event = 'close'
+    mr_info.save()
+
+
+def run_tests(config: Dynaconf) -> bool:
 
     def required_env() -> bool:
         variables: List[str] = [
@@ -49,5 +55,10 @@ def run_tests(config: Dynaconf) -> bool:
                 partial(getattr(tests, name), mr_info=mr_info, config=args)
             log('info', f'Running tests.{name}')
             success = test() and success
+            if not success \
+                    and args['close_mr'] \
+                    and mr_info.state not in 'closed':
+                close_mr(mr_info)
+                log('error', 'Merge Request closed by: %s', name)
 
     return success
