@@ -35,6 +35,7 @@
     "expo-google-app-auth": "8.1.2",
     "expo-local-authentication": "9.1.1",
     "expo-localization": "8.2.1",
+    "expo-network": "2.2.1",
     "expo-notifications": "0.3.3",
     "expo-permissions": "9.0.1",
     "expo-secure-store": "9.0.1",

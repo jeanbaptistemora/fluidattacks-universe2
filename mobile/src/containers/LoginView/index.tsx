@@ -1,3 +1,4 @@
+import Bugsnag from "@bugsnag/expo";
 import {
   AppOwnership, default as Constants, NativeConstants,
 } from "expo-constants";
@@ -14,7 +15,6 @@ import { useHistory } from "react-router-native";
 import { About } from "../../components/About";
 import { Logo } from "../../components/Logo";
 import { Preloader } from "../../components/Preloader";
-import { rollbar } from "../../utils/rollbar";
 import {
   authWithGoogle, authWithMicrosoft, IAuthResult,
 } from "../../utils/socialAuth";
@@ -60,7 +60,7 @@ const loginView: React.FunctionComponent = (): JSX.Element => {
 
     const result: IAuthResult = await authWithGoogle();
     if (result.type === "success") {
-      rollbar.setPerson({ id: result.user.email });
+      Bugsnag.setUser(result.user.id, result.user.email, result.user.firstName);
       await SecureStore.setItemAsync("authState", JSON.stringify(result));
       history.replace("/Welcome", result);
     } else {
@@ -73,7 +73,7 @@ const loginView: React.FunctionComponent = (): JSX.Element => {
 
     const result: IAuthResult = await authWithMicrosoft();
     if (result.type === "success") {
-      rollbar.setPerson({ id: result.user.email });
+      Bugsnag.setUser(result.user.id, result.user.email, result.user.firstName);
       await SecureStore.setItemAsync("authState", JSON.stringify(result));
       history.replace("/Welcome", result);
     } else {
