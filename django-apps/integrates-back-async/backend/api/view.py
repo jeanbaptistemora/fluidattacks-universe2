@@ -80,11 +80,12 @@ class APIView(GraphQLView):
         """Execute async query and apply configs for performance tracking"""
         name = data.get('operationName', 'External (unnamed)')
         variables = data.get('variables', '-')
+        query = data.get('query', '-').replace('\n', '')
         newrelic.agent.set_transaction_name(f'api:{name}')
         newrelic.agent.add_custom_parameters(tuple(data.items()))
         util.cloudwatch_log_sync(
             request,
-            f'API: {name} with parameters {variables}'
+            f'API: {name} with parameters {variables}. Complete query: {query}'
         )
 
         # Use this instead of asyncio.run
