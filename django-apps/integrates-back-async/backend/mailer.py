@@ -31,6 +31,7 @@ from backend.typing import (
     Project as ProjectType
 )
 from backend.utils import aio
+from fluidintegrates.settings import LOGGING
 
 from __init__ import (
     BASE_URL,
@@ -42,6 +43,7 @@ from __init__ import (
     SQS_QUEUE_URL
 )
 
+logging.config.dictConfig(LOGGING)
 
 # Constants
 API_KEY = FI_MANDRILL_API_KEY
@@ -189,7 +191,7 @@ def _send_mail(
                 })
         except (botocore.vendored.requests.exceptions.ConnectionError,
                 botocore.exceptions.ClientError) as exc:
-            LOGGER.exception(exc)
+            LOGGER.exception(exc, extra=dict(extra=locals()))
     else:
         # Mail should not be sent if is a test project
         pass
@@ -223,7 +225,7 @@ def _send_mail_immediately(
                 template_name=template_name,
             )
         except mandrill.InvalidKeyError as exc:
-            LOGGER.exception(exc)
+            LOGGER.exception(exc, extra=dict(extra=locals()))
             success = False
         else:
             success = True

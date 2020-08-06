@@ -43,6 +43,9 @@ from backend.utils.encodings import (
     safe_encode,
 )
 from backend import util
+from fluidintegrates.settings import LOGGING
+
+logging.config.dictConfig(LOGGING)
 
 # Containers
 GraphicParameters = NamedTuple(
@@ -251,7 +254,7 @@ async def handle_graphic_request(request: HttpRequest) -> HttpResponse:
         PermissionError,
         ValueError,
     ) as ex:
-        LOGGER.exception(ex)
+        LOGGER.exception(ex, extra=dict(extra=locals()))
         response = render(request, 'graphic-error.html', dict(
             debug=settings.DEBUG,
             traceback=traceback.format_exc(),
@@ -295,7 +298,7 @@ async def handle_graphics_for_entity_request(
         PermissionError,
         ValueError,
     ) as ex:
-        LOGGER.exception(ex)
+        LOGGER.exception(ex, extra=dict(extra=locals()))
         response = render(request, 'graphic-error.html', dict(
             debug=settings.DEBUG,
             traceback=traceback.format_exc(),
@@ -332,7 +335,7 @@ async def handle_graphics_report_request(
         PermissionError,
         ValueError,
     ) as ex:
-        LOGGER.exception(ex)
+        LOGGER.exception(ex, extra=dict(extra=locals()))
         response = render(request, 'graphic-error.html', dict(
             debug=settings.DEBUG,
             traceback=traceback.format_exc(),

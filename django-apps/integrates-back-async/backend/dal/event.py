@@ -7,12 +7,14 @@ from botocore.exceptions import ClientError
 from backend.dal.helpers import cloudfront, dynamodb, s3
 from backend.typing import Event as EventType
 from backend.utils import aio
+from fluidintegrates.settings import LOGGING
 
 from __init__ import (
     FI_AWS_S3_BUCKET,
     FI_CLOUDFRONT_RESOURCES_DOMAIN
 )
 
+logging.config.dictConfig(LOGGING)
 
 # Constants
 DYNAMODB_RESOURCE = dynamodb.DYNAMODB_RESOURCE  # type: ignore

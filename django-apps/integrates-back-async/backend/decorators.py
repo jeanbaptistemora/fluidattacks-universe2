@@ -38,6 +38,9 @@ from backend.utils import (
     aio,
     apm,
 )
+from fluidintegrates.settings import LOGGING
+
+logging.config.dictConfig(LOGGING)
 
 # Constants
 CACHE_TTL = getattr(settings, 'CACHE_TTL', DEFAULT_TIMEOUT)
@@ -441,7 +444,7 @@ def cache_content(func: TVar) -> TVar:
             cache.set(key_name, ret, timeout=CACHE_TTL)
             return ret
         except RedisClusterException as ex:
-            LOGGER.exception(ex)
+            LOGGER.exception(ex, extra=dict(extra=locals()))
             return _func(*args, **kwargs)
     return cast(TVar, decorated)
 
@@ -488,7 +491,7 @@ def get_entity_cache_async(func: TVar) -> TVar:
                 )
             return ret
         except RedisClusterException as ex:
-            LOGGER.exception(ex)
+            LOGGER.exception(ex, extra=dict(extra=locals()))
             return await _func(*args, **kwargs)
 
     return cast(TVar, decorated)
@@ -547,7 +550,7 @@ def cache_idempotent(*, ttl: int) -> Callable[[TVar], TVar]:
                     )
                 return ret
             except RedisClusterException as ex:
-                LOGGER.exception(ex)
+                LOGGER.exception(ex, extra=dict(extra=locals()))
                 return await _func(*args, **kwargs)
 
         return cast(TVar, wrapper)

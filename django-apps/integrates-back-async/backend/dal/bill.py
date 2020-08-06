@@ -12,10 +12,12 @@ from backend.dal.helpers.s3 import aio_client  # type: ignore
 from backend.utils import (
     apm,
 )
+from fluidintegrates.settings import LOGGING
 from __init__ import (
     SERVICES_AWS_S3_DATA_BUCKET as SERVICES_DATA_BUCKET,
 )
 
+logging.config.dictConfig(LOGGING)
 
 # Constants
 LOGGER = logging.getLogger(__name__)
@@ -34,7 +36,7 @@ async def get_bill_buffer(*, date: datetime, group: str) -> io.BytesIO:
         async with aio_client() as client:
             await client.download_fileobj(SERVICES_DATA_BUCKET, key, buffer)
     except ClientError as ex:
-        LOGGER.exception(ex)
+        LOGGER.exception(ex, extra=dict(extra=locals()))
     else:
         buffer.seek(0)
 

@@ -13,6 +13,9 @@ from botocore.exceptions import ClientError
 
 # Local libraries
 from backend.dal.helpers import dynamodb
+from fluidintegrates.settings import LOGGING
+
+logging.config.dictConfig(LOGGING)
 
 # Constants
 LOGGER = logging.getLogger(__name__)

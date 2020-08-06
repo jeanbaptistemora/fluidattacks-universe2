@@ -36,7 +36,9 @@ from backend.utils import (
     virus_scan,
 )
 from backend import authz, util
+from fluidintegrates.settings import LOGGING
 
+logging.config.dictConfig(LOGGING)
 
 # Constants
 LOGGER = logging.getLogger(__name__)

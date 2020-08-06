@@ -44,7 +44,9 @@ from backend.typing import (
 from backend.utils import aio
 from backend import util
 from backend import authz
+from fluidintegrates.settings import LOGGING
 
+logging.config.dictConfig(LOGGING)
 
 # Constants
 LOGGER = logging.getLogger(__name__)

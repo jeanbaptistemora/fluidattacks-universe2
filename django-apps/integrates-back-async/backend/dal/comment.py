@@ -10,7 +10,9 @@ from backend.typing import (
     Comment as CommentType,
     DynamoDelete as DynamoDeleteType
 )
+from fluidintegrates.settings import LOGGING
 
+logging.config.dictConfig(LOGGING)
 
 # Constants
 LOGGER = logging.getLogger(__name__)

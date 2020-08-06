@@ -31,7 +31,9 @@ from backend.exceptions import (
 )
 from backend.typing import Organization as OrganizationType
 from backend.utils import aio
+from fluidintegrates.settings import LOGGING
 
+logging.config.dictConfig(LOGGING)
 
 # Constants
 DEFAULT_MAX_SEVERITY = Decimal('10.0')

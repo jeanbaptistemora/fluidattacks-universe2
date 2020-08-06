@@ -24,7 +24,9 @@ from backend.typing import (
 from backend.exceptions import InvalidProject
 from backend.utils import virus_scan
 from backend import util
+from fluidintegrates.settings import LOGGING
 
+logging.config.dictConfig(LOGGING)
 
 # Constants
 LOGGER = logging.getLogger(__name__)

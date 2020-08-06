@@ -16,12 +16,14 @@ from zenpy.lib.exception import ZenpyException
 from zenpy.lib.api_objects import Ticket, User
 
 # Local imports
+from fluidintegrates.settings import LOGGING
 from __init__ import (
     FI_ZENDESK_EMAIL,
     FI_ZENDESK_SUBDOMAIN,
     FI_ZENDESK_TOKEN,
 )
 
+logging.config.dictConfig(LOGGING)
 
 # Constants
 LOGGER = logging.getLogger(__name__)
@@ -36,7 +38,7 @@ def zendesk() -> Zenpy:
             token=FI_ZENDESK_TOKEN,
         )
     except ZenpyException as exception:
-        LOGGER.exception(exception)
+        LOGGER.exception(exception, extra=dict(extra=locals()))
         raise exception
 
 
@@ -61,7 +63,7 @@ def create_ticket(
             ))
 
     except ZenpyException as exception:
-        LOGGER.exception(exception)
+        LOGGER.exception(exception, extra=dict(extra=locals()))
     else:
         success = True
         LOGGER.info(

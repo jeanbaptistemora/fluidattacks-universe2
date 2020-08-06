@@ -31,7 +31,9 @@ from backend.dal.finding import (
 )
 from backend.dal.user import get_attributes as get_user_attributes
 from backend.utils import aio
+from fluidintegrates.settings import LOGGING
 
+logging.config.dictConfig(LOGGING)
 
 # Constants
 DYNAMODB_RESOURCE = dynamodb.DYNAMODB_RESOURCE  # type: ignore
@@ -435,7 +437,7 @@ async def add_comment(
         payload.update(cast(Dict[str, str], comment_data))
         resp = await dynamodb.async_put_item(TABLE_GROUP_COMMENTS, payload)
     except ClientError as ex:
-        LOGGER.exception(ex)
+        LOGGER.exception(ex, extra=dict(extra=locals()))
     return resp
 
 
@@ -509,7 +511,7 @@ async def delete_comment(group_name: str, user_id: str) -> bool:
             TABLE_GROUP_COMMENTS, delete_attrs
         )
     except ClientError as ex:
-        LOGGER.exception(ex)
+        LOGGER.exception(ex, extra=dict(extra=locals()))
     return resp
 
 
@@ -573,7 +575,7 @@ async def remove_access(user_email: str, project_name: str) -> bool:
         )
         return resp
     except ClientError as ex:
-        LOGGER.exception(ex)
+        LOGGER.exception(ex, extra=dict(extra=locals()))
         return False
 
 
@@ -600,5 +602,5 @@ async def update_access(
         )
         return resp
     except ClientError as ex:
-        LOGGER.exception(ex)
+        LOGGER.exception(ex, extra=dict(extra=locals))
         return False

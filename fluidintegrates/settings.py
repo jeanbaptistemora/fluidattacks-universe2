@@ -261,6 +261,8 @@ LOGGING = {
     }
 }
 
+NOEXTRA = {'extra': {'extra': None}}
+
 # Force logging to load the config right away !
 # This is important otherwise loggers are not going to work in CI jobs
 # This happens because django loads the loggers on the first request,

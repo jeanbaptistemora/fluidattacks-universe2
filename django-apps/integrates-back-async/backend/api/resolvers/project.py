@@ -57,9 +57,11 @@ from backend.utils import (
     aio,
     apm,
 )
+from fluidintegrates.settings import LOGGING
 
 from __init__ import FI_COMMUNITY_PROJECTS
 
+logging.config.dictConfig(LOGGING)
 
 # Constants
 LOGGER = logging.getLogger(__name__)

@@ -23,7 +23,9 @@ from backend.typing import (
     Report as ReportType,
 )
 from backend import authz, util
+from fluidintegrates.settings import LOGGING
 
+logging.config.dictConfig(LOGGING)
 
 # Constants
 LOGGER = logging.getLogger(__name__)

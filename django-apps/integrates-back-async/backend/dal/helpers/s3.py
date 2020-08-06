@@ -17,10 +17,12 @@ from django.core.files.uploadedfile import (
 
 # Local libraries
 from backend.utils import apm
+from fluidintegrates.settings import LOGGING
 from __init__ import (
     FI_AWS_S3_ACCESS_KEY, FI_AWS_S3_SECRET_KEY
 )
 
+logging.config.dictConfig(LOGGING)
 
 # Constants
 LOGGER = logging.getLogger(__name__)

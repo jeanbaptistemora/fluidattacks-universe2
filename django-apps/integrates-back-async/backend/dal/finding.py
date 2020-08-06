@@ -8,8 +8,10 @@ from botocore.exceptions import ClientError
 
 from backend.typing import Finding as FindingType
 from backend.dal.helpers import s3, dynamodb
+from fluidintegrates.settings import LOGGING
 from __init__ import FI_AWS_S3_BUCKET
 
+logging.config.dictConfig(LOGGING)
 
 # Constants
 LOGGER = logging.getLogger(__name__)

@@ -33,7 +33,10 @@ from backend.typing import (
     Project as ProjectType
 )
 from backend.utils import aio
-from fluidintegrates.settings import LOGGING
+from fluidintegrates.settings import (
+    LOGGING,
+    NOEXTRA
+)
 from __init__ import (
     BASE_URL,
     FI_TEST_PROJECTS,
@@ -42,10 +45,10 @@ from __init__ import (
     FI_MAIL_REVIEWERS
 )
 
-# Constants
 logging.config.dictConfig(LOGGING)
+
+# Constants
 LOGGER = logging.getLogger('console')
-NOEXTRA = dict(extra=None)
 
 
 def is_not_a_fluidattacks_email(email: str) -> bool:
@@ -371,7 +374,7 @@ async def get_group_new_vulnerabilities(group_name: str) -> None:
 async def get_new_vulnerabilities() -> None:
     """Summary mail send with the findings of a project."""
     msg = '[scheduler]: get_new_vulnerabilities is running'
-    LOGGER.warning(msg, extra=dict(extra=None))
+    LOGGER.warning(msg, **NOEXTRA)
     groups = await project_domain.get_active_projects()
     await aio.materialize(map(get_group_new_vulnerabilities, groups))
 
@@ -459,7 +462,7 @@ def format_vulnerabilities(
             f'Finding {act_finding["finding_id"]} of project '
             f'{act_finding["project_name"]} has no changes during the week'
         )
-        LOGGER.info(message, extra=NOEXTRA)
+        LOGGER.info(message, **NOEXTRA)
     return finding_text
 
 
@@ -693,7 +696,7 @@ async def update_group_indicators(group_name: str) -> None:
 async def update_indicators() -> None:
     """Update in dynamo indicators."""
     msg = '[scheduler]: update_indicators is running'
-    LOGGER.warning(msg, extra=dict(extra=None))
+    LOGGER.warning(msg, **NOEXTRA)
     groups = await project_domain.get_active_projects()
     for group in groups:
         await update_group_indicators(group)
@@ -756,7 +759,7 @@ async def update_portfolios() -> None:
     """
     Update portfolios metrics
     """
-    LOGGER.info('[scheduker]: updating portfolios indicators', extra=NOEXTRA)
+    LOGGER.info('[scheduler]: updating portfolios indicators', **NOEXTRA)
     async for _, org_name, org_groups in \
             org_domain.iterate_organizations_and_groups():
         org_tags = await tag_domain.get_tags(org_name, ['tag'])
@@ -836,7 +839,7 @@ async def reset_group_expired_accepted_findings(
 async def reset_expired_accepted_findings() -> None:
     """ Update treatment if acceptance date expires """
     msg = '[scheduler]: reset_expired_accepted_findings is running'
-    LOGGER.warning(msg, extra=dict(extra=None))
+    LOGGER.warning(msg, **NOEXTRA)
     today = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     groups = await project_domain.get_active_projects()
     # number of groups that can be updated at a time
@@ -854,7 +857,7 @@ async def reset_expired_accepted_findings() -> None:
 async def delete_pending_projects() -> None:
     """ Delete pending to delete projects """
     msg = '[scheduler]: delete_pending_projects is running'
-    LOGGER.warning(msg, extra=dict(extra=None))
+    LOGGER.warning(msg, **NOEXTRA)
     today = datetime.now()
     projects = await project_domain.get_pending_to_delete()
     remove_project_tasks = []

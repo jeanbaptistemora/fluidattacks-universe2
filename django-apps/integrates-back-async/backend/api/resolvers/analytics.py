@@ -18,7 +18,9 @@ from backend.domain import (
 )
 from backend.exceptions import DocumentNotFound
 from backend.utils import apm
+from fluidintegrates.settings import LOGGING
 
+logging.config.dictConfig(LOGGING)
 
 # Constants
 LOGGER = logging.getLogger(__name__)

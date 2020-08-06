@@ -11,6 +11,9 @@ from backend.typing import (
     DynamoQuery as DynamoQueryType,
     Tag as TagType
 )
+from fluidintegrates.settings import LOGGING
+
+logging.config.dictConfig(LOGGING)
 
 # Constants
 LOGGER = logging.getLogger(__name__)

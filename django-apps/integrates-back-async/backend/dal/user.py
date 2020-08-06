@@ -16,8 +16,10 @@ from backend.utils import (
 )
 
 # Local libraries
+from fluidintegrates.settings import LOGGING
 from __init__ import FI_TEST_PROJECTS
 
+logging.config.dictConfig(LOGGING)
 
 # Constants
 LOGGER = logging.getLogger(__name__)

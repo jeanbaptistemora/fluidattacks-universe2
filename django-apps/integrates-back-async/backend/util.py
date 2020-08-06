@@ -58,6 +58,10 @@ from backend.typing import (
 from backend.utils import (
     apm,
 )
+from fluidintegrates.settings import (
+    LOGGING,
+    NOEXTRA
+)
 from __init__ import (
     FI_ENVIRONMENT,
     FI_TEST_PROJECTS,
@@ -65,6 +69,8 @@ from __init__ import (
     FORCES_TRIGGER_REF,
     FORCES_TRIGGER_TOKEN
 )
+
+logging.config.dictConfig(LOGGING)
 
 # Constants
 LOGGER = logging.getLogger(__name__)
@@ -178,7 +184,7 @@ def cloudwatch_log_sync(request, msg: str) -> None:
             info.append(request.GET.dict()[parameter])
     info.append(FI_ENVIRONMENT)
     info.append(msg)
-    LOGGER_TRANSACTIONAL.info(':'.join(info))
+    LOGGER_TRANSACTIONAL.info(':'.join(info), **NOEXTRA)
 
 
 async def cloudwatch_log_queue(request, msg: str) -> None:
@@ -192,7 +198,7 @@ async def cloudwatch_log_queue(request, msg: str) -> None:
     info.append(FI_ENVIRONMENT)
     info.append(msg)
     asyncio.create_task(
-        sync_to_async(LOGGER_TRANSACTIONAL.info)(':'.join(info)))
+        sync_to_async(LOGGER_TRANSACTIONAL.info)(':'.join(info), **NOEXTRA))
 
 
 @apm.trace()
@@ -240,11 +246,11 @@ def get_jwt_content(context) -> Dict[str, str]:
         LOGGER.exception(ex, extra={'extra': context})
         raise InvalidAuthorization()
     except jwt.JWTClaimsError as ex:
-        LOGGER.info('Security: Invalid token claims')
+        LOGGER.info('Security: Invalid token claims', **NOEXTRA)
         LOGGER.warning(ex, extra={'extra': context})
         raise InvalidAuthorization()
     except JWTError as ex:
-        LOGGER.info('Security: Invalid token')
+        LOGGER.info('Security: Invalid token', **NOEXTRA)
         LOGGER.warning(ex, extra={'extra': context})
         raise InvalidAuthorization()
 
@@ -376,7 +382,7 @@ def verificate_hash_token(access_token: Dict[str, str], jti_token: str) -> \
             binascii.unhexlify(access_token['jti']))
         resp = True
     except InvalidKey as ex:
-        LOGGER.exception(ex)
+        LOGGER.exception(ex, extra=dict(extra=locals()))
 
     return resp
 
@@ -428,7 +434,7 @@ def forces_trigger_deployment(project_name: str) -> bool:
             task.add_done_callback(functools.partial(callback, client))
 
     except httpx.HTTPError as ex:
-        LOGGER.exception(ex)
+        LOGGER.exception(ex, extra=dict(extra=locals()))
     else:
         success = True
     return success

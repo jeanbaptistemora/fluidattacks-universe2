@@ -52,9 +52,11 @@ from backend.utils.validations import (
     validate_email_address, validate_alphanumeric_field, validate_phone_field
 )
 from backend import util
+from fluidintegrates.settings import LOGGING
 
 from __init__ import BASE_URL
 
+logging.config.dictConfig(LOGGING)
 
 # Constants
 LOGGER = logging.getLogger(__name__)
