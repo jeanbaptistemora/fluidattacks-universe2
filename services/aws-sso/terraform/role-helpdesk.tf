@@ -2,6 +2,7 @@ data "aws_iam_policy_document" "helpdesk-policy-data" {
   statement {
     effect = "Allow"
     actions = [
+      "ec2:Describe*Instance*",
       "ec2:StartInstances",
       "ec2:StopInstances",
       "ec2:ApplySecurityGroupsToClientVpnTargetNetwork",
