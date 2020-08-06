@@ -24,7 +24,9 @@ const welcomeView: React.FC<WelcomeViewProps> = (): JSX.Element => {
 
   const [isLegalModalOpen, setLegalModalOpen] = React.useState(true);
 
-  const initialUrl: string = _.get(localStorage, "start_url", "/home");
+  const savedUrl: string = _.get(localStorage, "start_url", "/home");
+  const initialUrl: string = savedUrl === "/logout" ? "/home" : savedUrl;
+
   const loadDashboard: (() => void) = (): void => {
     localStorage.removeItem("showAlreadyLoggedin");
     localStorage.removeItem("concurrentSession");
