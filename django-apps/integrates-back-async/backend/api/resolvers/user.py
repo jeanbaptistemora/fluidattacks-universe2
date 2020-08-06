@@ -134,7 +134,7 @@ async def _create_new_user(  # pylint: disable=too-many-arguments
             )
 
         organization_id = await org_domain.get_id_for_group(group)
-        if not await org_domain.has_user_access(email, organization_id):
+        if not await org_domain.has_user_access(organization_id, email):
             await org_domain.add_user(organization_id, email, 'customer')
 
         if not await user_domain.is_registered(email):

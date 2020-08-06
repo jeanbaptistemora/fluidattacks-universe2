@@ -382,7 +382,7 @@ async def get_users(organization_id: str) -> List[str]:
     return users
 
 
-async def has_group(group_name: str, organization_id: str) -> bool:
+async def has_group(organization_id: str, group_name: str) -> bool:
     group_in_org: bool = False
     query_attrs: DynamoQueryType = {
         'KeyConditionExpression': (
@@ -396,7 +396,7 @@ async def has_group(group_name: str, organization_id: str) -> bool:
     return group_in_org
 
 
-async def has_user_access(email: str, organization_id: str) -> bool:
+async def has_user_access(organization_id: str, email: str) -> bool:
     has_access: bool = False
     query_attrs: DynamoQueryType = {
         'KeyConditionExpression': (

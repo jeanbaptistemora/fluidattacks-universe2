@@ -170,7 +170,7 @@ async def create_without_project(
         ]))
 
         org = await org_domain.get_or_create('imamura', email)
-        if not await org_domain.has_user_access(email, str(org['id'])):
+        if not await org_domain.has_user_access(str(org['id']), email):
             await org_domain.add_user(str(org['id']), email, 'customer')
 
     return success

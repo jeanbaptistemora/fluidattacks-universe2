@@ -189,7 +189,7 @@ async def get_or_create(
 
     org = await org_dal.get_by_name(organization_name, ['id', 'name'])
     if org:
-        has_access = await has_user_access(email, str(org['id']))
+        has_access = await has_user_access(str(org['id']), email)
     else:
         org = await org_dal.create(organization_name)
         org_created = True
@@ -208,18 +208,18 @@ async def get_users(organization_id: str) -> List[str]:
     return await org_dal.get_users(organization_id)
 
 
-async def has_group(group_name: str, organization_id: str) -> bool:
-    return await org_dal.has_group(group_name, organization_id)
+async def has_group(organization_id: str, group_name: str) -> bool:
+    return await org_dal.has_group(organization_id, group_name)
 
 
-async def has_user_access(email: str, organization_id: str) -> bool:
-    return await org_dal.has_user_access(email, organization_id) \
+async def has_user_access(organization_id: str, email: str) -> bool:
+    return await org_dal.has_user_access(organization_id, email) \
         or await authz.get_organization_level_role(
             email, organization_id) == 'admin'
 
 
 async def remove_user(organization_id: str, email: str) -> bool:
-    if not await has_user_access(email, organization_id):
+    if not await has_user_access(organization_id, email):
         raise UserNotInOrganization()
 
     user_removed = await org_dal.remove_user(organization_id, email)

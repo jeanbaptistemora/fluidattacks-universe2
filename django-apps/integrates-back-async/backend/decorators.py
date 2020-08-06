@@ -335,7 +335,7 @@ def require_organization_access(func: TVar) -> TVar:
 
         role, has_access = await aio.materialize([
             authz.get_organization_level_role(user_email, organization_id),
-            org_domain.has_user_access(user_email, organization_id)
+            org_domain.has_user_access(organization_id, user_email)
         ])
 
         if role != 'admin' and not has_access:

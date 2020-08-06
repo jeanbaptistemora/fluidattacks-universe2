@@ -147,7 +147,7 @@ async def create_project(  # pylint: disable=too-many-arguments
         )
 
         org_id = await org_domain.get_id_by_name(organization)
-        if not await org_domain.has_user_access(user_email, org_id):
+        if not await org_domain.has_user_access(org_id, user_email):
             raise UserNotInOrganization(org_id)
 
         if is_group_avail and not group_exists:
