@@ -286,6 +286,22 @@ async def _get_comments(
     return comments
 
 
+@get_entity_cache_async
+async def _get_consulting(
+        info: GraphQLResolveInfo,
+        identifier: str) -> List[CommentType]:
+    finding = await info.context.loaders['finding'].load(identifier)
+    finding_id = finding['id']
+    project_name = finding.get('project_name')
+    user_data = util.get_jwt_content(info.context)
+    user_email = user_data['user_email']
+
+    consultings = await comment_domain.get_comments(
+        project_name, finding_id, user_email
+    )
+    return consultings
+
+
 @rename_kwargs({'identifier': 'finding_id'})
 @enforce_group_level_auth_async
 @require_integrates

@@ -573,6 +573,19 @@ async def _get_comments(
     return comments
 
 
+@enforce_group_level_auth_async
+@require_integrates
+async def _get_consulting(
+        info: GraphQLResolveInfo,
+        project_name: str,
+        **__: Any) -> List[CommentType]:
+    user_data = util.get_jwt_content(info.context)
+    user_email = user_data['user_email']
+
+    consultings = await project_domain.list_comments(project_name, user_email)
+    return consultings
+
+
 @apm.trace()
 @enforce_group_level_auth_async
 @require_attribute('has_drills_white')

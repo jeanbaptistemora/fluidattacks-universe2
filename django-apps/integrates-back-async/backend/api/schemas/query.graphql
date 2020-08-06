@@ -21,7 +21,7 @@ type Query {
         organizationId: String,
         projectName: String,
         userEmail: String!
-    ): User @deprecated(reason: "User entity is now replaced by Stakeholder")
+    ): User @deprecated(reason: "Right now, you can query Users using both the 'User' and 'Stakeholder' keywords. After 2021-02-06, the 'User' keyword will be invalid.")
     stakeholder(
         entity: Entity!,
         organizationId: String,

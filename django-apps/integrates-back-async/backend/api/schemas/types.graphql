@@ -30,9 +30,10 @@ type Finding {
     attackVectorDesc: String
     btsUrl: String
     closedVulnerabilities: Int
-    comments: [Comment]
+    comments: [Comment] @deprecated(reason: "Right now, you can query comments using both the 'comments' and 'consulting' keywords. After 2021-02-06, the 'comments' keyword will be invalid.")
     compromisedAttributes: String
     compromisedRecords: Int
+    consulting: [Consult!]
     currentState: String
     cvssVersion: String
     cweUrl: String
@@ -136,7 +137,8 @@ type Project {
     openVulnerabilities: Int
     closedVulnerabilities: Int
     subscription: String
-    comments: [Comment!]
+    comments: [Comment!] @deprecated(reason: "Right now, you can query comments using both the 'comments' and 'consulting' keywords. After 2021-02-06, the 'comments' keyword will be invalid.")
+    consulting: [Consult!]
     tags: [String!]
     deletionDate: String
     pendingClosingCheck: Int
@@ -200,8 +202,17 @@ type Me {
     callerOrigin: CallerOrigin
 }
 
-"Comment type definition"
+"Comment/Consult type definition"
 type Comment {
+    id: String
+    content: String
+    created: String
+    email: String
+    fullname: String
+    modified: String
+    parent: String
+}
+type Consult {
     id: String
     content: String
     created: String
