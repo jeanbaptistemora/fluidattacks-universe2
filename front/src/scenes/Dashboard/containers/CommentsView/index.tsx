@@ -55,7 +55,7 @@ const commentsView: React.FC<ICommentsViewProps> = (props: ICommentsViewProps): 
             callbackFn: (data: ICommentStructure[]) => void,
           ): void => {
             const comments: ICommentStructure[] = type === "comments"
-              ? data.finding.comments
+              ? data.finding.consulting
               : data.finding.observations;
             callbackFn(comments.map((comment: ICommentStructure) => ({
               ...comment,

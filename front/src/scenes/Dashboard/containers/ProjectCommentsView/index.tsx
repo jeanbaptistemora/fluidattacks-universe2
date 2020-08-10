@@ -59,7 +59,7 @@ const projectCommentsView: React.FC<IProjectCommentsViewProps> = (props: IProjec
           const getData: ((callback: loadCallback) => void) = (
             callbackFn: (data: ICommentStructure[]) => void,
           ): void => {
-            callbackFn(data.project.comments.map((comment: ICommentStructure) => ({
+            callbackFn(data.project.consulting.map((comment: ICommentStructure) => ({
               ...comment,
               created_by_current_user: comment.email === (window as typeof window & { userEmail: string }).userEmail,
               id: Number(comment.id),

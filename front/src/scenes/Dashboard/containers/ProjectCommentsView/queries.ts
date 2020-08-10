@@ -2,9 +2,9 @@ import { DocumentNode } from "graphql";
 import gql from "graphql-tag";
 
 export const GET_PROJECT_COMMENTS: DocumentNode = gql`
-  query GetProjectComments($projectName: String!) {
+  query GetProjectConsulting($projectName: String!) {
     project(projectName: $projectName) {
-      comments {
+      consulting {
         id
         content
         created

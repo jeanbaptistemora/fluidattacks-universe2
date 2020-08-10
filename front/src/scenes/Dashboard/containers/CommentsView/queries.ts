@@ -13,18 +13,29 @@ const FRAGMENTS: Dictionary<DocumentNode> = {
       parent
     }
   `,
+  consultFields: gql`
+    fragment consultFields on Consult {
+      id
+      content
+      created
+      email
+      fullname
+      modified
+      parent
+    }
+  `,
 };
 
 export const GET_FINDING_COMMENTS: DocumentNode = gql`
-  query GetFindingComments($findingId: String!) {
+  query GetFindingConsulting($findingId: String!) {
     finding(identifier: $findingId) {
-      comments {
-        ...commentFields
+      consulting {
+        ...consultFields
       }
       id
     }
   }
-  ${FRAGMENTS.commentFields}
+  ${FRAGMENTS.consultFields}
 `;
 
 export const GET_FINDING_OBSERVATIONS: DocumentNode = gql`

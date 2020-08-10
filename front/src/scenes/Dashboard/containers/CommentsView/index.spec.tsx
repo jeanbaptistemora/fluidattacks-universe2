@@ -56,8 +56,8 @@ describe("FindingCommentsView", () => {
         data: {
           finding: {
             __typename: "Finding",
-            comments: [{
-              __typename: "Comment",
+            consulting: [{
+              __typename: "Consult",
               content: "This is a comment",
               created: "2019/12/04 08:13:53",
               email: "unittest@fluidattacks.com",
@@ -122,7 +122,7 @@ describe("FindingCommentsView", () => {
         data: {
           finding: {
             __typename: "Finding",
-            comments: [],
+            consulting: [],
             id: "413372600",
           },
         },

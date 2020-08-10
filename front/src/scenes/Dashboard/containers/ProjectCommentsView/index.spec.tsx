@@ -54,7 +54,7 @@ describe("ProjectCommentsView", () => {
     result: {
       data: {
         project: {
-          comments: [{
+          consulting: [{
             content: "Hello world",
             created: "2019/12/04 08:13:53",
             email: "unittest@fluidattacks.com",
@@ -94,7 +94,7 @@ describe("ProjectCommentsView", () => {
       result: {
         data: {
           project: {
-            comments: [],
+            consulting: [],
             name: "unittesting",
           },
         },
