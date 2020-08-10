@@ -42,6 +42,12 @@ def validate(config: Dynaconf) -> None:
                 Validator(f'tests.{test}.user_regex', must_exist=True,
                           is_type_of=str, messages=err_default),
             )
+        if test in 'all_pipelines_successful':
+            config.validators.register(
+                Validator(f'tests.{test}.passed_first_pipeline_before_mr',
+                          must_exist=True, is_type_of=bool,
+                          messages=err_default),
+            )
         if test in 'mr_under_max_deltas':
             config.validators.register(
                 Validator(f'tests.{test}.max_deltas', must_exist=True,

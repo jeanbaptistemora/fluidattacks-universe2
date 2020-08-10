@@ -58,9 +58,22 @@ def mr_under_max_deltas(mr_info: Any, config: Dict[str, Any]) -> bool:
 
 def all_pipelines_successful(mr_info: Any, config: Dict[str, Any]) -> bool:
     """Test if all previous pipelines were successful"""
-    success: bool = True
+
+    def passed_first_pipeline_before_mr() -> bool:
+        success: bool = True
+        if config['passed_first_pipeline_before_mr']:
+            first_pipeline: Dict[str, str] = mr_info.pipelines()[-1]
+            if first_pipeline['status'] not in 'success':
+                log(err_log,
+                    'The Dev pipeline should pass before you open an MR.\n'
+                    'Specifically, you opened your MR before %s passed.',
+                    first_pipeline['web_url'])
+                success = False
+        return success
+
     should_fail: bool = config['fail']
     err_log: str = get_err_log(should_fail)
+    success: bool = passed_first_pipeline_before_mr()
     current_p_id: str = str(os.environ.get('CI_PIPELINE_ID'))
     index: int = 0
     while index < len(mr_info.pipelines()):

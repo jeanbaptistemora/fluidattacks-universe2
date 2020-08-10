@@ -5,6 +5,7 @@ gitlab_url = 'https://gitlab.com'
 [tests.all_pipelines_successful]
 fail = true
 close_mr = true
+passed_first_pipeline_before_mr = true
 
 [tests.mr_message_syntax]
 fail = true
