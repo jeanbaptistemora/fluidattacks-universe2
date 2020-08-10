@@ -1,7 +1,7 @@
 :slug: osce-journey/
-:date: 2020-09-10
+:date: 2020-08-10
 :category: attacks
-:subtitle: OSCE journey
+:subtitle: A personal OSCE experience
 :tags: osce, training, exploit
 :image: cover.png
 :alt: Photo by Joshua Earle on Unsplash
@@ -36,7 +36,7 @@ trigger for me to get deep into the security world.
 As you may guess, it took me several years to fully understand that article,
 but I learned a *LOT* during the process.
 
-Since then I've been working full time in security-related tasks,
+Since then, I've been working full time in security-related tasks,
 mostly focused on offensive security.
 
 I've earned the CEH certification several times, the last one expired at 2012.
@@ -57,7 +57,7 @@ The course modules are very well structured. Mati's clear explainations of
 each technical detail shows his mastery of the topic.
 
 While you are in the course, you have a one month access to a Offsec lab
-on where you can follow along with the module content.
+on where you can follow along with the modules content.
 
 The way I approached the course was to watch the videos following the
 written material. Then, at the end of each module, replicated the whole
@@ -66,8 +66,8 @@ come up with the same result. Also, I developed and solved the extra mile
 excercises.
 
 It took me around one and a half week to complete to course.
-However, I wanted to be able to understand and replicate all by myself
-the vulnerabilities presented on the modules. In the remaining lab time,
+However, I wanted to be able to understand and replicate the vulnerabilities
+presented on the modules, all by myself. In the remaining lab time,
 I re-did all the course modules, at least 3 times, from the scratch. Every
 failure on getting the module objectives was an oportunity to learn new
 things.
@@ -78,7 +78,7 @@ It was consisted of a Windows XP SP3 and a Windows Vista Business machines.
 == Self study
 
 My lab time was scheduled to end the 8th of June and the OSCE exam was
-scheduled on 13th of July.
+scheduled on the 13th of July.
 
 During that month I needed to practice what was learnt during the course. So
 I used the following to sharpen the skills:
@@ -87,7 +87,7 @@ I used the following to sharpen the skills:
 link:https://github.com/stephenbradshaw/vulnserver[Vulnserver]. It is a
 TCP server with several mock commands, some of them vulnerable on purpose and
 each vulnerability has its own quirk. To be able to fully understand the
-exploitation proccess of each affected command, I produced a series of
+exploitation process of each affected command, I produced a series of
 articles:
 ** link:../vulnserver-trun/[TRUN command exploitation]
 ** link:../vulnserver-gmon/[GMON command exploitation]
@@ -121,9 +121,9 @@ My exam was scheduled to start the 13th of July at 2PM. I was pretty anxious
 about what was going to be presented in the exam. I read a lot of reviews
 and almost everyone mentioned that the exam was "brutal", "made
 by the devil", and the "hardest thing ever tried".
-When I checked the asking objectives of the exam points, I then realized that
-the course was indeed a starting point and that further study of what
-was taught in the CTP modules is extremely important to complete the exam.
+When I checked the exam objectives, I then realized that the course was
+indeed a starting point and that further study of what was taught in the
+CTP modules is extremely important to complete the exam.
 
 With that in place, I decided to start with the lower points tasks. After
 around 4 hours I had them resolved. It was about 6PM and I decided to take a
@@ -151,6 +151,6 @@ completed the exam and earned OSCE!
 
 That was my OSCE journey. I can only advice to take the time to expand
 to what is taught on the course, because on real world, every application
-will have it's tricks to be exploited and you won't have a teacher next
+will have it's own tricks to be exploited and you won't have a teacher next
 to you. Also, in my case, writing articles greatly helped me to consolidate
 what I've learnt. You milliage may vary.
