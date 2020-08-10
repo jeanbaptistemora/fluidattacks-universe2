@@ -19,7 +19,7 @@ import { Alert } from "react-native";
 import { useHistory } from "react-router-native";
 
 import { getEnvironment } from "./environment";
-import { rollbar } from "./rollbar";
+import { LOGGER } from "./logger";
 import { logout } from "./socialAuth";
 import { i18next } from "./translations/translate";
 
@@ -103,7 +103,7 @@ const errorLink: ((history: History) => ApolloLink) = (
           Alert.alert(
             i18next.t("common.error.title"),
             i18next.t("common.error.msg"));
-          rollbar.error("A network error occurred", { ...networkError });
+          LOGGER.warning("A network error occurred", { ...networkError });
       }
     } else {
       if (graphQLErrors !== undefined) {

@@ -16,4 +16,3 @@ export const GOOGLE_LOGIN_KEY_IOS_DEV: string =
 export const GOOGLE_LOGIN_KEY_IOS_PROD: string =
   "335718398321-s67kko7rj2cdf1a3jaj1vgdohjme2sna.apps.googleusercontent.com";
 export const MICROSOFT_LOGIN_KEY: string = "4a9923e0-17f1-43b7-9b16-7892eed25f18";
-export const ROLLBAR_KEY: string = "cad6d1f7ecda480ba003e29f0428d44e";

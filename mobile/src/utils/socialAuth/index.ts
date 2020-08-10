@@ -1,3 +1,4 @@
+import Bugsnag from "@bugsnag/expo";
 import * as AppAuth from "expo-app-auth";
 import * as Google from "expo-google-app-auth";
 import * as SecureStore from "expo-secure-store";
@@ -11,7 +12,7 @@ import {
   GOOGLE_LOGIN_KEY_IOS_PROD,
   MICROSOFT_LOGIN_KEY,
 } from "../constants";
-import { rollbar } from "../rollbar";
+import { LOGGER } from "../logger";
 import { i18next } from "../translations/translate";
 
 /**
@@ -104,7 +105,7 @@ export const authWithGoogle: (() => Promise<IAuthResult>) = async (): Promise<IA
           i18next.t("common.networkError.msg"));
         break;
       default:
-        rollbar.error("An error occurred authenticating with Google", { ...error });
+        LOGGER.warning("An error occurred authenticating with Google", { ...error });
         Alert.alert(i18next.t("common.error.title"), i18next.t("common.error.msg"));
     }
   }
@@ -160,7 +161,7 @@ export const authWithMicrosoft: (() => Promise<IAuthResult>) = async (): Promise
       case AppAuthError.AccessDenied:
         break;
       default:
-        rollbar.error("An error occurred authenticating with Microsoft", { ...error });
+        LOGGER.warning("An error occurred authenticating with Microsoft", { ...error });
         Alert.alert(i18next.t("common.error.title"), i18next.t("common.error.msg"));
     }
   }
@@ -179,15 +180,15 @@ export const logout: (() => Promise<void>) = async (): Promise<void> => {
     case "GOOGLE":
       Google.logOutAsync({ accessToken: authToken, ...googleConfig })
         .catch((error: Error): void => {
-          rollbar.error("Couldn't revoke google session", { ...error });
+          LOGGER.warning("Couldn't revoke google session", { ...error });
         });
     case "MICROSOFT":
       AppAuth.revokeAsync(microsoftConfig, { isClientIdProvided: true, token: authToken })
         .catch((error: Error): void => {
-          rollbar.error("Couldn't revoke microsoft session", { ...error });
+          LOGGER.warning("Couldn't revoke microsoft session", { ...error });
         });
     default:
   }
   await SecureStore.deleteItemAsync("authState");
-  rollbar.clearPerson();
+  Bugsnag.setUser("", "", "");
 };

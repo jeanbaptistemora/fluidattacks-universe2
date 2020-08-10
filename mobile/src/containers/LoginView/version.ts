@@ -1,7 +1,7 @@
 import { AndroidManifest, default as Constants } from "expo-constants";
 import _ from "lodash";
 
-import { rollbar } from "../../utils/rollbar";
+import { LOGGER } from "../../utils/logger";
 
 export const checkPlayStoreVersion: (() => Promise<boolean>) = async (): Promise<boolean> => {
   let isOutdated: boolean = false;
@@ -12,7 +12,7 @@ export const checkPlayStoreVersion: (() => Promise<boolean>) = async (): Promise
   const match: RegExpMatchArray | null = html.match(/>[0-9]+\.?[0-9]+\.?[0-9]+</);
 
   if (_.isNull(match)) {
-    rollbar.error("Couldn't retrieve play store version", html);
+    LOGGER.warning("Couldn't retrieve play store version", html);
   } else {
     const remoteVersion: string = match[0].slice(1, -1);
     const localVersion: string = String(Constants.nativeAppVersion);

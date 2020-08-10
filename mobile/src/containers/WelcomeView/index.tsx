@@ -10,7 +10,7 @@ import { useHistory } from "react-router-native";
 
 import { Avatar } from "../../components/Avatar";
 import { Preloader } from "../../components/Preloader";
-import { rollbar } from "../../utils/rollbar";
+import { LOGGER } from "../../utils/logger";
 import { IAuthState, logout } from "../../utils/socialAuth";
 
 import { SIGN_IN_MUTATION } from "./queries";
@@ -39,13 +39,13 @@ const welcomeView: React.FunctionComponent = (): JSX.Element => {
           result.signIn.sessionJwt);
         history.replace("/Dashboard", { user });
       } else {
-        rollbar.error("Unsuccessful API auth", result);
+        LOGGER.warning("Unsuccessful API auth", result);
         Alert.alert(t("common.error.title"), t("common.error.msg"));
         handleLogout();
       }
     },
     onError: (error: ApolloError): void => {
-      rollbar.error("API auth failed", error);
+      LOGGER.warning("API auth failed", error);
       Alert.alert(t("common.error.title"), t("common.error.msg"));
       handleLogout();
     },

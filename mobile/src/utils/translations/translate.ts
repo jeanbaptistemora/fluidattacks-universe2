@@ -2,7 +2,7 @@ import { locale } from "expo-localization";
 import i18next from "i18next";
 import { initReactI18next } from "react-i18next";
 
-import { rollbar } from "../rollbar";
+import { LOGGER } from "../logger";
 
 import { enTranslations } from "./en";
 
@@ -19,7 +19,7 @@ i18next
     },
   })
   .catch((error: Error): void => {
-    rollbar.error("Couldn't initialize translations", error);
+    LOGGER.warning("Couldn't initialize translations", error);
     throw error;
   });
 
