@@ -15,7 +15,7 @@ import Logger from "../../../../utils/logger";
 import { msgError } from "../../../../utils/notifications";
 import translate from "../../../../utils/translations/translate";
 import { Comments, ICommentStructure, loadCallback, postCallback } from "../../components/Comments/index";
-import { ADD_PROJECT_COMMENT, GET_PROJECT_COMMENTS } from "./queries";
+import { ADD_PROJECT_CONSULT, GET_PROJECT_CONSULTING } from "./queries";
 
 type IProjectCommentsViewProps = RouteComponentProps<{ projectName: string }>;
 
@@ -53,7 +53,12 @@ const projectCommentsView: React.FC<IProjectCommentsViewProps> = (props: IProjec
 
   return (
     <React.StrictMode>
-      <Query fetchPolicy="network-only" query={GET_PROJECT_COMMENTS} variables={{ projectName }} onError={handleErrors}>
+      <Query
+        fetchPolicy="network-only"
+        query={GET_PROJECT_CONSULTING}
+        variables={{ projectName }}
+        onError={handleErrors}
+      >
         {({ data, loading }: QueryResult): JSX.Element => {
           if (_.isUndefined(data) || loading) { return <React.Fragment />; }
           const getData: ((callback: loadCallback) => void) = (
@@ -68,14 +73,14 @@ const projectCommentsView: React.FC<IProjectCommentsViewProps> = (props: IProjec
           };
 
           return (
-            <Mutation mutation={ADD_PROJECT_COMMENT} onError={handleAddCommentError}>
+            <Mutation mutation={ADD_PROJECT_CONSULT} onError={handleAddCommentError}>
               {(addComment: MutationFunction): JSX.Element => {
                 const handlePost: ((comment: ICommentStructure, callbackFn: postCallback) => void) = (
                   comment: ICommentStructure, callbackFn: postCallback,
                 ): void => {
                   interface IMutationResult {
                     data: {
-                      addProjectComment: {
+                      addProjectConsult: {
                         commentId: string;
                         success: boolean;
                       };
@@ -85,8 +90,8 @@ const projectCommentsView: React.FC<IProjectCommentsViewProps> = (props: IProjec
                   addComment({ variables: { projectName, ...comment } })
                     .then((mtResult: void | {}): void => {
                       const result: IMutationResult["data"] = (mtResult as IMutationResult).data;
-                      if (result.addProjectComment.success) {
-                        callbackFn({ ...comment, id: Number(result.addProjectComment.commentId) });
+                      if (result.addProjectConsult.success) {
+                        callbackFn({ ...comment, id: Number(result.addProjectConsult.commentId) });
                       }
                     })
                     .catch();

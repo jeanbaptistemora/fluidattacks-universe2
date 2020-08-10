@@ -116,6 +116,10 @@ AddCommentPayload = NamedTuple('AddCommentPayload', [
     ('success', bool),
     ('comment_id', str),
 ])
+AddConsultPayload = NamedTuple('AddConsultPayload', [
+    ('success', bool),
+    ('comment_id', str),
+])
 DownloadFilePayload = NamedTuple('DownloadFilePayload', [
     ('success', bool),
     ('url', str),

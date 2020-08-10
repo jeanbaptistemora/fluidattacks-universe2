@@ -8,7 +8,7 @@ import { act } from "react-dom/test-utils";
 import { RouteComponentProps } from "react-router";
 import wait from "waait";
 import { ProjectCommentsView } from "./index";
-import { GET_PROJECT_COMMENTS } from "./queries";
+import { GET_PROJECT_CONSULTING } from "./queries";
 
 jest.mock("jquery-comments_brainkit", () => jest.requireActual("jquery-comments_brainkit")($));
 
@@ -48,7 +48,7 @@ describe("ProjectCommentsView", () => {
 
   const mocks: ReadonlyArray<MockedResponse> = [{
     request: {
-      query: GET_PROJECT_COMMENTS,
+      query: GET_PROJECT_CONSULTING,
       variables: { projectName: "unittesting" },
     },
     result: {
@@ -88,7 +88,7 @@ describe("ProjectCommentsView", () => {
   it("should render empty UI", async () => {
     const emptyMocks: ReadonlyArray<MockedResponse> = [{
       request: {
-        query: GET_PROJECT_COMMENTS,
+        query: GET_PROJECT_CONSULTING,
         variables: { projectName: "unittesting" },
       },
       result: {

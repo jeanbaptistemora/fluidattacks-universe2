@@ -170,7 +170,12 @@ type Mutation {
         content: String!,
         parent: GenericScalar!,
         projectName: String!
-    ): AddCommentPayload!
+    ): AddCommentPayload! @deprecated(reason: "Right now, you can add a project comment using both the 'addProjectComment' and 'addProjectConsult' query. After 2021-02-06, the 'addProjectComment' query will be invalid.")
+    addProjectConsult(
+        content: String!,
+        parent: GenericScalar!,
+        projectName: String!
+    ): AddConsultPayload!
     createProject(
         description: String!,
         organization: String,

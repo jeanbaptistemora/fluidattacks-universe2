@@ -61,6 +61,8 @@ MUTATION.set_field('rejectRemoveProject',
                    project.resolve_project_mutation)
 MUTATION.set_field('addProjectComment',
                    project.resolve_project_mutation)
+MUTATION.set_field('addProjectConsult',
+                   project.resolve_project_mutation)
 MUTATION.set_field('addTags', project.resolve_project_mutation)
 MUTATION.set_field('removeTag', project.resolve_project_mutation)
 MUTATION.set_field('removeEvidence', finding.resolve_finding_mutation)

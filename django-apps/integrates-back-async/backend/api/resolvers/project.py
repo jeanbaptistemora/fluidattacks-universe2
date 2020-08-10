@@ -48,6 +48,7 @@ from backend.typing import (
     Project as ProjectType,
     User as UserType,
     AddCommentPayload as AddCommentPayloadType,
+    AddConsultPayload as AddConsultPayloadType,
     SimplePayload as SimplePayloadType,
     SimpleProjectPayload as SimpleProjectPayloadType,
     Historic as HistoricType
@@ -945,6 +946,48 @@ async def _do_add_project_comment(
             f'comment in {project_name} project'  # pragma: no cover
         )
     ret = AddCommentPayloadType(success=success, comment_id=str(comment_id))
+    return ret
+
+
+@require_login
+@enforce_group_level_auth_async
+@require_integrates
+async def _do_add_project_consult(
+        _: Any,
+        info: GraphQLResolveInfo,
+        **parameters: Any) -> AddConsultPayloadType:
+    project_name = parameters.get('project_name', '').lower()
+    user_info = util.get_jwt_content(info.context)
+    current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    comment_id = int(round(time.time() * 1000))
+    comment_data = {
+        'user_id': comment_id,
+        'content': parameters.get('content'),
+        'created': current_time,
+        'fullname': str.join(
+            ' ',
+            [user_info['first_name'], user_info['last_name']]
+        ),
+        'modified': current_time,
+        'parent': parameters.get('parent')
+    }
+    success = await project_domain.add_comment(
+        project_name,
+        user_info['user_email'],
+        comment_data
+    )
+    if success:
+        util.invalidate_cache(project_name)
+        util.cloudwatch_log(
+            info.context, 'Security: Added comment to '
+            f'{project_name} project successfully'  # pragma: no cover
+        )
+    else:
+        util.cloudwatch_log(
+            info.context, 'Security: Attempted to add '
+            f'comment in {project_name} project'  # pragma: no cover
+        )
+    ret = AddConsultPayloadType(success=success, comment_id=str(comment_id))
     return ret
 
 
