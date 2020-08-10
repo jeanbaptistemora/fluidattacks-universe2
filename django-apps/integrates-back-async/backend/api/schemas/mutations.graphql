@@ -260,6 +260,11 @@ type Mutation {
         eventId: String!,
         parent: GenericScalar!
     ): AddCommentPayload!
+    addEventConsult(
+        content: String!,
+        eventId: String!,
+        parent: GenericScalar!
+    ): AddConsultPayload!
     createEvent(
         actionAfterBlocking: ActionsAfterBlocking!,
         actionBeforeBlocking: ActionsBeforeBlocking!,

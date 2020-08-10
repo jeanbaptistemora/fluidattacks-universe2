@@ -14,7 +14,7 @@ import Logger from "../../../../utils/logger";
 import { msgError } from "../../../../utils/notifications";
 import translate from "../../../../utils/translations/translate";
 import { Comments, ICommentStructure, loadCallback, postCallback } from "../../components/Comments/index";
-import { ADD_EVENT_COMMENT, GET_EVENT_CONSULTING } from "./queries";
+import { ADD_EVENT_CONSULT, GET_EVENT_CONSULTING } from "./queries";
 
 type EventCommentsProps = RouteComponentProps<{ eventId: string }>;
 
@@ -61,14 +61,14 @@ const eventCommentsView: React.FC<EventCommentsProps> = (props: EventCommentsPro
           };
 
           return (
-            <Mutation mutation={ADD_EVENT_COMMENT} onError={handleAddCommentError}>
+            <Mutation mutation={ADD_EVENT_CONSULT} onError={handleAddCommentError}>
               {(addComment: MutationFunction): JSX.Element => {
                 const handlePost: ((comment: ICommentStructure, callbackFn: postCallback) => void) = (
                   comment: ICommentStructure, callbackFn: postCallback,
                 ): void => {
                   interface IMutationResult {
                     data: {
-                      addEventComment: {
+                      addEventConsult: {
                         commentId: string;
                         success: boolean;
                       };
@@ -78,8 +78,8 @@ const eventCommentsView: React.FC<EventCommentsProps> = (props: EventCommentsPro
                   addComment({ variables: { eventId, ...comment } })
                     .then((mtResult: void | {}): void => {
                       const result: IMutationResult["data"] = (mtResult as IMutationResult).data;
-                      if (result.addEventComment.success) {
-                        callbackFn({ ...comment, id: Number(result.addEventComment.commentId) });
+                      if (result.addEventConsult.success) {
+                        callbackFn({ ...comment, id: Number(result.addEventConsult.commentId) });
                       }
                     })
                     .catch();

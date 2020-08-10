@@ -23,6 +23,7 @@ from backend.typing import (
     Comment as CommentType,
     SimplePayload as SimplePayloadType,
     AddCommentPayload as AddCommentPayloadType,
+    AddConsultPayload as AddConsultPayloadType,
     DownloadFilePayload as DownloadFilePayloadType,
 )
 from backend import util
@@ -366,6 +367,36 @@ async def _do_add_event_comment(
              f'in event {event_id}')  # pragma: no cover
         )
     return AddCommentPayloadType(success=success, comment_id=str(comment_id))
+
+
+@require_login
+@enforce_group_level_auth_async
+@require_integrates
+async def _do_add_event_consult(
+        _: Any,
+        info: GraphQLResolveInfo,
+        content: str,
+        event_id: str,
+        parent: str) -> AddConsultPayloadType:
+    random_comment_id = int(round(time() * 1000))
+    user_info = util.get_jwt_content(info.context)
+    comment_id, success = await event_domain.add_comment(
+        random_comment_id, content, event_id, parent, user_info
+    )
+    if success:
+        util.invalidate_cache(event_id)
+        util.cloudwatch_log(
+            info.context,
+            ('Security: Added comment to '
+             f'event {event_id} successfully')  # pragma: no cover
+        )
+    else:
+        util.cloudwatch_log(
+            info.context,
+            ('Security: Attempted to add comment '
+             f'in event {event_id}')  # pragma: no cover
+        )
+    return AddConsultPayloadType(success=success, comment_id=str(comment_id))
 
 
 @require_login
