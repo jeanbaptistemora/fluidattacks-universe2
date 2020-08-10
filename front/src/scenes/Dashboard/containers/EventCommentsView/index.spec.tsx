@@ -8,7 +8,7 @@ import { act } from "react-dom/test-utils";
 import { RouteComponentProps } from "react-router";
 import wait from "waait";
 import { EventCommentsView } from "./index";
-import { GET_EVENT_COMMENTS } from "./queries";
+import { GET_EVENT_CONSULTING } from "./queries";
 
 jest.mock("jquery-comments_brainkit", () => jest.requireActual("jquery-comments_brainkit")($));
 
@@ -48,13 +48,13 @@ describe("EventCommentsView", () => {
 
   const mocks: ReadonlyArray<MockedResponse> = [{
     request: {
-      query: GET_EVENT_COMMENTS,
+      query: GET_EVENT_CONSULTING,
       variables: { eventId: "413372600" },
     },
     result: {
       data: {
         event: {
-          comments: [{
+          consulting: [{
             content: "Hello world",
             created: "2019/12/04 08:13:53",
             email: "unittest@fluidattacks.com",
@@ -88,13 +88,13 @@ describe("EventCommentsView", () => {
   it("should render empty UI", async () => {
     const emptyMocks: ReadonlyArray<MockedResponse> = [{
       request: {
-        query: GET_EVENT_COMMENTS,
+        query: GET_EVENT_CONSULTING,
         variables: { eventId: "413372600" },
       },
       result: {
         data: {
           event: {
-            comments: [],
+            consulting: [],
             id: "413372600",
           },
         },

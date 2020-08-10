@@ -1,10 +1,10 @@
 import { DocumentNode } from "graphql";
 import gql from "graphql-tag";
 
-export const GET_EVENT_COMMENTS: DocumentNode = gql`
-  query GetEventComments($eventId: String!) {
+export const GET_EVENT_CONSULTING: DocumentNode = gql`
+  query GetEventConsulting($eventId: String!) {
     event(identifier: $eventId) {
-      comments {
+      consulting {
         id
         content
         created

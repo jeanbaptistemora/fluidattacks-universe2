@@ -3,7 +3,8 @@ type Event {
     id: String
     analyst: String
     client: String
-    comments: [Comment!]
+    comments: [Comment!] @deprecated(reason: "Right now, you can query comments using both the 'comments' and 'consulting' keywords. After 2021-02-06, the 'comments' keyword will be invalid.")
+    consulting: [Consult!]
     projectName: String
     clientProject: String
     detail: String

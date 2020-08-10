@@ -175,6 +175,21 @@ async def _get_comments(
     return comments
 
 
+@get_entity_cache_async
+async def _get_consulting(
+        info: GraphQLResolveInfo,
+        identifier: str) -> List[CommentType]:
+    user_data = util.get_jwt_content(info.context)
+    user_email = user_data['user_email']
+    event = await info.context.loaders['event'].load(identifier)
+    project_name = event['project_name']
+
+    consulting = await comment_domain.get_event_comments(
+        project_name, identifier, user_email
+    )
+    return consulting
+
+
 @convert_kwargs_to_snake_case  # type: ignore
 async def resolve_event_mutation(
     obj: Any,

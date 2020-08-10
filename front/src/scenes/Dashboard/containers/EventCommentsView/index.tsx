@@ -14,7 +14,7 @@ import Logger from "../../../../utils/logger";
 import { msgError } from "../../../../utils/notifications";
 import translate from "../../../../utils/translations/translate";
 import { Comments, ICommentStructure, loadCallback, postCallback } from "../../components/Comments/index";
-import { ADD_EVENT_COMMENT, GET_EVENT_COMMENTS } from "./queries";
+import { ADD_EVENT_COMMENT, GET_EVENT_CONSULTING } from "./queries";
 
 type EventCommentsProps = RouteComponentProps<{ eventId: string }>;
 
@@ -32,13 +32,13 @@ const eventCommentsView: React.FC<EventCommentsProps> = (props: EventCommentsPro
 
   return (
     <React.StrictMode>
-      <Query fetchPolicy="network-only" query={GET_EVENT_COMMENTS} variables={{ eventId }} onError={handleErrors}>
+      <Query fetchPolicy="network-only" query={GET_EVENT_CONSULTING} variables={{ eventId }} onError={handleErrors}>
         {({ data, loading }: QueryResult): JSX.Element => {
           if (_.isUndefined(data) || loading) { return <React.Fragment />; }
           const getData: ((callback: loadCallback) => void) = (
             callbackFn: (data: ICommentStructure[]) => void,
           ): void => {
-            callbackFn(data.event.comments.map((comment: ICommentStructure) => ({
+            callbackFn(data.event.consulting.map((comment: ICommentStructure) => ({
               ...comment,
               created_by_current_user: comment.email === (window as typeof window & { userEmail: string }).userEmail,
               id: Number(comment.id),
