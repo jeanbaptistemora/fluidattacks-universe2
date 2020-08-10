@@ -409,10 +409,10 @@ async def test_edit_group_good(
         ['\xFF', 'UNITTESTING', 'CONTINUOUS', 'true', 'true', 'true', 'NONE',
          'Exception - Invalid characters'],
         # Input validation error, too long string
-        [' ' * 251, 'UNITTESTING', 'CONTINUOUS', 'true', 'true', 'true', 'NONE',
+        ['-' * 251, 'UNITTESTING', 'CONTINUOUS', 'true', 'true', 'true', 'NONE',
          'Exception - Invalid field length in form'],
         # Invalid reason
-        [' ', 'UNITTESTING', 'CONTINUOUS', 'true', 'true', 'true', 'ASDF',
+        ['-', 'UNITTESTING', 'CONTINUOUS', 'true', 'true', 'true', 'ASDF',
          'Expected type EditGroupReason, found ASDF.'],
 
     ]

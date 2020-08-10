@@ -63,9 +63,9 @@ def validate_email_address(email: str) -> bool:
 
 def validate_fields(fields: List[str]) -> None:
     allowed_chars = (
-        r'a-zA-Z0-9ñáéíóúäëïöüÑÁÉÍÓÚÄËÏÖÜ \t\n\r\x0b\x0c(),./:;@_$#=\?-'
+        r'a-zA-Z0-9ñáéíóúäëïöüÑÁÉÍÓÚÄËÏÖÜ \t\n\r\x0b\x0c(),./:;%@_$#=\?-'
     )
-    regex = fr'^[{allowed_chars.replace("=", "")}]+[{"allowed_chars"}]*$'
+    regex = fr'^[{allowed_chars.replace("=", "")}][{allowed_chars}]*$'
     for field in map(str, fields):
         if field:
             check_field(field, regex)
@@ -100,7 +100,7 @@ def validate_file_name(name: str) -> bool:
 
 
 def check_field(field: str, regexp: str) -> None:
-    if not re.match(regexp, field):
+    if not re.match(regexp, field.strip()):
         raise InvalidChar()
 
 

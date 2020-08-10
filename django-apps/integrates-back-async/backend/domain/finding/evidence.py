@@ -157,7 +157,7 @@ async def remove_evidence(evidence_name: str, finding_id: str) -> bool:
 
 
 def validate_evidence(evidence_id: str, file: InMemoryUploadedFile) -> bool:
-    mib = 1048576
+    mib = 2097152
     success = False
     max_size = {
         'animation': 15,

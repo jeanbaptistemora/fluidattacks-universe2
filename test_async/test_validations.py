@@ -14,12 +14,14 @@ from backend.exceptions import InvalidChar, InvalidField, InvalidFieldLength
 class ValidationsTests(TestCase):
 
     def test_validate_fields(self):
+        assert not bool(validate_fields(['valid%', ' valid=']))
         assert not bool(validate_fields(['testfield', 'testfield2']))
         with pytest.raises(InvalidChar):
+            assert validate_fields(['valid', ' =invalid'])
             assert validate_fields(['=testfield', 'testfield2'])
             assert validate_fields(['testfield', 'testfiel\'d'])
             assert validate_fields(['testfield', '<testfield2'])
-    
+
     def test_validate_field_length(self):
         assert not bool(validate_field_length('testlength', limit=12))
         assert not bool(validate_field_length('testlength', limit=2, is_greater_than_limit= False))
