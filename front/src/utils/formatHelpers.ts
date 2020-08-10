@@ -5,6 +5,7 @@ import { IProjectDraftsAttr } from "../scenes/Dashboard/containers/ProjectDrafts
 import { IProjectFindingsAttr } from "../scenes/Dashboard/containers/ProjectFindingsView/types";
 import { ILastLogin, IUserDataAttr, IUsersAttr } from "../scenes/Dashboard/containers/ProjectUsersView/types";
 import { ISeverityAttr, ISeverityField } from "../scenes/Dashboard/containers/SeverityView/types";
+import { castPrivileges } from "../scenes/Dashboard/containers/SeverityView/utils";
 import translate from "./translations/translate";
 
 type IUserList = IUsersAttr["project"]["users"];
@@ -47,24 +48,6 @@ export const formatUserlist: ((userList: IUserDataAttr[]) => IUserList) =
 
 export const formatLastLogin: (value: ILastLogin) => string =
   (value: ILastLogin): string => (value.label);
-
-export const castPrivileges: ((scope: string) => Dictionary<string>) = (scope: string): Dictionary<string> => {
-  const privilegesRequiredScope: {[value: string]: string} = {
-    0.85: "search_findings.tab_severity.privileges_required_options.none.text",
-    0.68: "search_findings.tab_severity.privileges_required_options.low.text",
-    0.5: "search_findings.tab_severity.privileges_required_options.high.text",
-  };
-  const privilegesRequiredNoScope: {[value: string]: string} = {
-    0.85: "search_findings.tab_severity.privileges_required_options.none.text",
-    0.62: "search_findings.tab_severity.privileges_required_options.low.text",
-    0.27: "search_findings.tab_severity.privileges_required_options.high.text",
-  };
-  const privilegesOptions: {[value: string]: string} = (parseInt(scope, 10) === 1)
-    ? privilegesRequiredScope
-    : privilegesRequiredNoScope;
-
-  return privilegesOptions;
-};
 
 export const castFieldsCVSS3: ((
   dataset: ISeverityAttr["finding"]["severity"],
@@ -470,65 +453,4 @@ export const getPreviousTreatment: ((historic: IHistoricTreatment[]) => IHistori
   previousTreatment.reverse();
 
   return previousTreatment.map((treatment: IHistoricTreatment) => formatHistoricTreatment(treatment, true));
-};
-
-// Remove below
-interface IStatusGraph {
-  closedVulnerabilities: number;
-  openVulnerabilities: number;
-}
-interface ITreatmentGraph extends IStatusGraph {
-  totalTreatment: string;
-}
-interface IGraphData {
-  backgroundColor: string[];
-  data: number[];
-  hoverBackgroundColor: string[];
-  stack?: string;
-}
-const calcPercent: ((value: number, total: number) => number) = (value: number, total: number): number =>
-    _.round(value * 100 / total, 1);
-
-const statusGraph: ((graphProps: IStatusGraph) => { [key: string]: string | string[] | IGraphData[]}) =
-(graphProps: IStatusGraph): { [key: string]: string | string[] | IGraphData[]} => {
-  const { openVulnerabilities, closedVulnerabilities } = graphProps;
-  const statusDataset: IGraphData = {
-    backgroundColor: ["#ff1a1a", "#27BF4F"],
-    data: [openVulnerabilities, closedVulnerabilities],
-    hoverBackgroundColor: ["#e51414", "#069D2E"],
-  };
-  const totalVulnerabilities: number = openVulnerabilities + closedVulnerabilities;
-  const openPercent: number = calcPercent(openVulnerabilities, totalVulnerabilities);
-  const closedPercent: number = calcPercent(closedVulnerabilities, totalVulnerabilities);
-  const statusGraphData: { [key: string]: string | string[] | IGraphData[]} = {
-    datasets: [statusDataset],
-    labels: [`${openPercent}% ${translate.t("search_findings.tab_indicators.open")}`,
-             `${closedPercent}% ${translate.t("search_findings.tab_indicators.closed")}`],
-  };
-
-  return statusGraphData;
-};
-
-const treatmentGraph: ((props: ITreatmentGraph) => ChartData) = (props: ITreatmentGraph): ChartData => {
-  const totalTreatment: Dictionary<number> = JSON.parse(props.totalTreatment);
-  const treatmentDataset: IGraphData = {
-    backgroundColor: ["#b7b7b7", "#000", "#FFAA63", "#CD2A86"],
-    data: [
-      totalTreatment.accepted, totalTreatment.acceptedUndefined, totalTreatment.inProgress, totalTreatment.undefined],
-    hoverBackgroundColor: ["#999797", "#000", "#FF9034", "#A70762"],
-  };
-  const acceptedPercent: number = calcPercent(totalTreatment.accepted, props.openVulnerabilities);
-  const inProgressPercent: number = calcPercent(totalTreatment.inProgress, props.openVulnerabilities);
-  const undefinedPercent: number = calcPercent(totalTreatment.undefined, props.openVulnerabilities);
-  const acceptedUndefinedPercent: number = _.round(100 - acceptedPercent - inProgressPercent - undefinedPercent, 1);
-  const treatmentGraphData: ChartData = {
-    datasets: [treatmentDataset],
-    labels: [
-      `${acceptedPercent}% ${translate.t("search_findings.tab_indicators.treatment_accepted")}`,
-      `${acceptedUndefinedPercent}% ${translate.t("search_findings.tab_indicators.treatment_accepted_undefined")}`,
-      `${inProgressPercent}% ${translate.t("search_findings.tab_indicators.treatment_in_progress")}`,
-      `${undefinedPercent}% ${translate.t("search_findings.tab_indicators.treatment_no_defined")}`],
-  };
-
-  return treatmentGraphData;
 };
