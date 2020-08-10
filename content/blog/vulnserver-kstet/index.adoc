@@ -14,7 +14,7 @@
 :about2: "We don't need the key, we'll break in" RATM
 :source: https://unsplash.com/photos/fjT3Zn2IhIk
 
-= KSTET: Multistage exploiting
+= KSTET: Multistage Exploiting
 
 This is the fifth article on the series of exploiting `Vulnserver`,
 a VbD (Vulnerable-by-Design) application in which you can practice Windows
@@ -23,19 +23,19 @@ exploit development.
 In previous posts, we have been able to exploit Vulnserver commands:
 
 . `TRUN` was link:../vulnserver-trun/[exploited] using a direct EIP overwrite,
-with virtually no space or characters restrictions to work on.
+with virtually no space or character restrictions to work on.
 . `GMON` used a
 link:../vulnserver-gmon/[Structured Exception Handling (SEH)] overwrite to
 take control of the execution flow.
-. `GTER` showed up with space restrictions and we were able to exploit it
+. `GTER` showed up with space restrictions, and we were able to exploit it
 using link:../vulnserver-gter/[egghunters] and
 link:../vulnserver-gter-no-egghunter/[WinSocket stack reuse].
 
-In this post we will exploit the `KSTET` command on where,
-as we will see later, we will be faced to a more restrictive space buffer to
-work on, but we will use a different way to exploit it.
+In this post, we will exploit the `KSTET` command where,
+as we will see later, we will face a more restrictive space buffer to
+work with, but we will use a different way to exploit it.
 
-Let's start from the scratch.
+Let's start from scratch.
 
 == Fingerprinting KSTET
 
@@ -55,38 +55,39 @@ KSTET hello
 KSTET SUCCESSFUL
 ----
 
-Well, easy enough. Now we are going to do the same but we will check it
+Well, easy enough. Now we are going to do the same, but we will check it
 under our debugger. I will use Immunity Debugger.
 
 The first step is to identify where the `KSTET` command is processed.
 
-We can do that by right clicking,
-then `Search for -> All referenced text strings`, right click again, then
+We can do that by right-clicking,
+then `Search for -> All referenced text strings`, right-click again, then
 `Search for text` and type `KSTET`. Make sure that `Entire scope` is selected.
 Now, select the match on where `KSTET` string is presented and set a
 breakpoint:
 
 image::debug1.gif[Debugging KSTET]
 
-With that in place, we can start again our connection to `Vulnserver` and
-see what happens under the hood:
+With that in place, we can start our connection to `Vulnserver` again
+and see what happens under the hood:
 
 image::debug2.gif[Debugging KSTET]
 
 As you can see, several things are happening:
 
 . Our breakpoint was reached when we typed `KSTET hello`.
-. Several external functions are called, including `strncpy`, `malloc`,
-`memset`.
-. But there is one that stands out: `strcpy`, which will copy anything that
-is on one buffer to another, without checking buffer boundaries.
+. Several external functions are called,
+including `strncpy`, `malloc` and `memset`.
+. There is one function that stands out: `strcpy`,
+which will copy anything that is on one buffer to another,
+without checking buffer boundaries.
 
 Let's see what happens when we issue something larger than a `hello` to the
 `KSTET` command:
 
 image::crash1.gif[Crash]
 
-Uggh! With a very short string, Vulnserver crashed and we overwrote `EIP`,
+Uggh! With a very short string, Vulnserver crashed, and we overwrote `EIP`,
 which means that we can control the execution flow of the application.
 
 With that, we can start creating our proof-of-concept exploit:
@@ -113,8 +114,8 @@ And check it:
 
 image::poc1.gif[Crash]
 
-That's good news. However, the injected string was really short and maybe
-we'd have a narrow buffer space to work on.
+That's good news. However, the injected string was really short,
+and maybe we'd have a narrow buffer space to work on.
 
 == Checking available buffer space
 
@@ -123,21 +124,21 @@ If we check the state of the application after the crash, we will see this:
 image::space1.png[Buffer space]
 
 In the dump window (bottom left), we see our injected buffer. In the PoC,
-we sent 200 `A` chars but as you can see here, the total amount of injected
-bytes, including the word `KSTET` itself is only 0x63 or 99 bytes.
+we sent 200 `A` chars, but as you can see here, the total amount of injected
+bytes, including the word `KSTET` itself, is only 0x63 or 99 bytes.
 
-In the exploitation of `GTER` command, we had 140+ bytes to work on and we
-used two techniques:
+In the `GTER` command exploitation, we had 140+ bytes to work on,
+and we used two techniques:
 link:../vulnserver-gter-no-egghunter/[WinSocket stack reusing] and
 an link:../vulnserver-gter/[egghunter].
 
-The first one is not viable because altough we reduced the shellcode length to
-the half, the resultant shellcode was 128 bytes.
+The first one is not viable because, although we reduced the shellcode length
+to the half, the resultant shellcode was 128 bytes.
 
-We could use an `egghunter` here but that wouldn't be much fun. Why make it
-easy if we can do it the hard way?
+We could use an `egghunter` here, but that wouldn't be much fun.
+Why make it easy if we can do it the hard way?
 
-Ok, let's start by checking the offset of the crash, by creating a cyclic
+Ok, let's start by checking the offset of the crash by creating a cyclic
 pattern of 100 characters using `pattern_create.rb` tool from Metasploit:
 
 [source,console]
@@ -213,7 +214,7 @@ execution flow.
 == Exploiting
 
 As with the link:../vulnserver-trun/[TRUN] and link:../vulnserver-gter/[GTER]
-commands, we have a direct `EIP` overwrite here and the `ESP` register
+commands, we have a direct `EIP` overwrite here, and the `ESP` register
 points directly to our controlled buffer. That means that we can look for
 a `JMP ESP` instruction and overwrite `EIP` with its address to take
 control of the execution flow. We can do that using `mona.py` plugin:
@@ -225,7 +226,7 @@ control of the execution flow. We can do that using `mona.py` plugin:
 
 This would tell `mona` to look for instructions that can be used to jump to
 `ESP` (`jmp -r esp`), excluding pointers with null bytes (`-cp nonull`) and
-exlude OS DLLs (`-o`). The result is this:
+omitting OS DLLs (`-o`). The result is the following:
 
 image::mona1.png[JMP ESP]
 
@@ -259,10 +260,10 @@ And check it:
 
 image::jmp1.gif[JMP ESP]
 
-Great! However, as you can see, we landed to a 20 bytes buffer where we
-put the `C` chars but we have 66 bytes above on the buffer of the `A` chars.
+Great! However, as you can see, we landed on a 20 bytes buffer where we
+put the `C` chars, but we have 66 bytes above on the buffer of the `A` chars.
 
-With a short jump backwards we can easily jump to that place:
+With a short jump backward, we can easily jump to that place:
 
 image::jmp2.gif[JMP backwards]
 
@@ -299,15 +300,15 @@ image::jmp3.gif[JMP backwards]
 But again, we were brutally reminded that we have a narrow buffer space
 to work on.
 
-To workaround that constrain, we will use this time a 2-stage exploit, where
-the first stage will be a very short shellcode that opens the door to the
-second stage which will contain our reverse shellcode.
+To work around that constraint, we will use a 2-stage exploit this time,
+where the first stage will be a very short shellcode that opens the door
+to the second stage, which will contain our reverse shellcode.
 
 == Stage 1: Reusing sockets
 
 As we saw on the `GTER` link:../vulnserver-gter-no-egghunter/[exploitation post],
 we were able to reuse part of the `WinSocket` calling stack to minimize
-the final length of our shellcode. That time, the resultant shellcode was
+our shellcode's final lenght. At that time, the resultant shellcode was
 128 bytes. We need to reuse something more in order to fit our stage-1
 shellcode in less than 70 bytes of buffer.
 
@@ -316,11 +317,11 @@ Let's check a simplified structure of a TCP server and client interaction:
 .taken from https://www.geeksforgeeks.org/socket-programming-cc/
 image::socket1.png[TCP Server]
 
-We can see the different functions needed by both the server and client to
-perform a TCP communication.
+We can see the different functions needed by both the server and the client
+to perform a TCP communication.
 
-And you can notice that the actual data exchange occurs at the end, by
-sending and receiving information.
+And you can notice that the actual data exchange occurs at the end
+by sending and receiving information.
 
 What we will do for our stage-1 shellcode is take advantage of that calling
 stack, and create a shellcode with only a new `recv()` call instance, reuse
@@ -343,20 +344,20 @@ int recv(
 
 Easy! The parameters are really simple:
 
-. `SOCKET s` is the socket handle
-. `char *buf` is a pointer on where the received data will be stored
-. `int len` is the total amount of data expected
-. `int flags` modifies the behavior of the `recv()` call. In our case it
-can be zero.
+. `SOCKET s` is the socket handle.
+. `char *buf` is a pointer on where the received data will be stored.
+. `int len` is the total amount of data expected.
+. `int flags` modifies the behavior of the `recv()` call.
+In our case, it can be zero.
 
 But first, we need to know 2 things:
 
 . The address of the `recv()` call in the system.
 . The value of the socket handle.
 
-To do that, we can use the debugger again, by right clicking on the
+To do that, we can use the debugger again, by right-clicking on the
 `CPU` window, selecting `Search for -> All intermodular calls`,
-look for the call to `WS2_32.recv` and set a breakpoint on it:
+looking for the call to `WS2_32.recv` and setting a breakpoint on it:
 
 image::recv1.gif[recv() call location]
 
@@ -364,14 +365,14 @@ Now create a new connection:
 
 image::recv2.gif[recv() call]
 
-Wonderful! We can see the parameters of the `recv()` call on
+Wonderful! We can see the parameters of the `recv()` call
 on the stack window (bottom right) from where we can get the value of the
 socket handle (`144`). We also got the address of the `recv()` function
 at `0040252C`.
 
 With all the needed values, it's time to write some Assembler!
-Remember that we need to avoid null bytes and we have to push the parameters
-in reverse order:
+Remember that we need to avoid null bytes,
+and we have to push the parameters in reverse order:
 
 [source,x86asm]
 ----
@@ -617,22 +618,22 @@ Several things are worth to mention:
 the 1024 bytes with NOPs (`\x90`).
 . We added a `time.sleep(3)` to wait for the brute force to get the socket
 handle.
-. And finally we send the stage-2 payload.
+. And finally, we send the stage-2 payload.
 
 Let's see it in action:
 
 image::stage2payload.gif[Stage-2 payload]
 
-Beautiful! As you can see, the shellcode was injected below our execution flow
-so it will be eventually reached and triggered. Also, the socket handle was
-now `0x151` which means that our brute forcer worked just as expected.
+Beautiful! As you can see, the shellcode was injected below our execution flow,
+so it will eventually be reached and triggered. Also, the socket handle was
+now `0x151`, which means that our brute forcer worked just as expected.
 Let's see if we got the shell:
 
 image::success.gif[Success]
 
 Woohooo! We got our shell! And in a lot more fun way than with egghunters, huh?
 
-You can download the final exploit link:exploit.py[here]
+You can download the final exploit link:exploit.py[here].
 
 == Conclusion
 
