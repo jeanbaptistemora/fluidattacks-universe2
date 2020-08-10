@@ -1,11 +1,30 @@
 data "aws_caller_identity" "current" {}
-variable "aws_access_key" {}
-variable "aws_secret_key" {}
+data "aws_iam_policy_document" "device-farm" {
+
+  statement {
+    sid    = "Device farm"
+    effect = "Allow"
+    principals {
+      type        = "AWS"
+      identifiers = [
+        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/user-provision/integrates-prod",
+      ]
+    }
+    actions = [
+      "devicefarm:CreateProject",
+    ]
+    resources = [
+      "*"
+    ]
+  }
+}
 
 /**
- * Terraform only supports us-west-2 for device-farm
- * https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/devicefarm_project
+ * Device farm currently only supports us-west-2
+ * https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services/
  */
 variable "region" {
   default = "us-west-2"
 }
+variable "aws_access_key" {}
+variable "aws_secret_key" {}
