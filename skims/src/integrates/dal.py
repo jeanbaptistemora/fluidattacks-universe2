@@ -181,8 +181,8 @@ async def get_group_findings(
             title=finding['title'],
         )
         for finding in (
-            result['data']['project']['drafts'] +
-            result['data']['project']['findings']
+            result['data']['project']['findings'] +
+            result['data']['project']['drafts']
         )
     )
 

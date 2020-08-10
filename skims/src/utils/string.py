@@ -83,7 +83,7 @@ async def get_char_to_yx_map(
     return await unblock(_get_char_to_yx_map)
 
 
-def are_similar(string_a: str, string_b: str, threshold: float = 0.85) -> bool:
+def are_similar(string_a: str, string_b: str, threshold: float = 0.75) -> bool:
     return SequenceMatcher(None, string_a, string_b).ratio() >= threshold
 
 
