@@ -52,7 +52,7 @@ class FindingTests(TestCase):
               cvssVersion
               exploit
               evidence
-              comments {
+              consulting {
                   id
                   content
               }
@@ -126,8 +126,8 @@ class FindingTests(TestCase):
         assert 'It works' in result['data']['finding']['exploit']
         assert 'evidence' in result['data']['finding']
         assert 'evidence1' in result['data']['finding']['evidence']
-        assert 'comments' in result['data']['finding']
-        assert result['data']['finding']['comments'][0]['content'] == 'This is a comenting test'
+        assert 'consulting' in result['data']['finding']
+        assert result['data']['finding']['consulting'][0]['content'] == 'This is a comenting test'
         assert 'historicState' in result['data']['finding']
         assert 'title' in result['data']['finding']
         assert 'scenario' in result['data']['finding']

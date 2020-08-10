@@ -21,7 +21,7 @@ class UserTests(TestCase):
         """Check for user."""
         query = '''
             query {
-                user(entity: PROJECT,
+                stakeholder(entity: PROJECT,
                      projectName: "unittesting",
                      userEmail: "continuoushacking@gmail.com") {
                     email
@@ -41,9 +41,9 @@ class UserTests(TestCase):
         request = create_dummy_session()
         _, result = await graphql(SCHEMA, data, context_value=request)
         assert 'errors' not in result
-        assert 'user' in result['data']
-        assert 'responsibility' in result['data']['user']
-        assert 'phoneNumber' in result['data']['user']
+        assert 'stakeholder' in result['data']
+        assert 'responsibility' in result['data']['stakeholder']
+        assert 'phoneNumber' in result['data']['stakeholder']
 
     async def test_user_list_projects(self):
         """Check for user."""
