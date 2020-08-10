@@ -17,15 +17,18 @@ type Query {
 
     "Get user info from project"
     user(
-        entity: Entity!,
-        organizationId: String,
-        projectName: String,
+        entity: Entity!
+        organizationId: String
+        projectName: String
         userEmail: String!
-    ): User @deprecated(reason: "Right now, you can query Users using both the 'User' and 'Stakeholder' keywords. After 2021-02-06, the 'User' keyword will be invalid.")
+    ): User
+        @deprecated(
+            reason: "Right now, you can query Users using both the 'User' and 'Stakeholder' keywords. After 2021-02-06, the 'User' keyword will be invalid."
+        )
     stakeholder(
-        entity: Entity!,
-        organizationId: String,
-        projectName: String,
+        entity: Entity!
+        organizationId: String
+        projectName: String
         userEmail: String!
     ): Stakeholder
 
@@ -41,8 +44,8 @@ type Query {
 
     "Get Forces executions"
     forcesExecutions(
-        projectName: String!,
-        fromDate: DateTime,
+        projectName: String!
+        fromDate: DateTime
         toDate: DateTime
     ): ForcesExecutions
 
@@ -54,9 +57,9 @@ type Query {
 
     "Report entity"
     report(
-        reportType: ReportType!,
-        findingId: String,
-        projectName: String,
+        reportType: ReportType!
+        findingId: String
+        projectName: String
         lang: ReportLang
     ): Report
 
@@ -64,9 +67,11 @@ type Query {
     projects(filters: GenericScalar): [Project]
 
     "List of alive projects"
-    aliveProjects(filters: GenericScalar): [Project] @deprecated(reason:
-        """
-        This query is deprecated and will be removed in the future.
-        Please use the `projects` query instead
-        """)
+    aliveProjects(filters: GenericScalar): [Project]
+        @deprecated(
+            reason: """
+            This query is deprecated and will be removed in the future.
+            Please use the `projects` query instead
+            """
+        )
 }

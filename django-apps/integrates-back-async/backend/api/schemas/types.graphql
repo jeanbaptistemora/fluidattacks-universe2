@@ -31,7 +31,10 @@ type Finding {
     attackVectorDesc: String
     btsUrl: String
     closedVulnerabilities: Int
-    comments: [Comment] @deprecated(reason: "Right now, you can query comments using both the 'comments' and 'consulting' keywords. After 2021-02-06, the 'comments' keyword will be invalid.")
+    comments: [Comment]
+        @deprecated(
+            reason: "Right now, you can query comments using both the 'comments' and 'consulting' keywords. After 2021-02-06, the 'comments' keyword will be invalid."
+        )
     compromisedAttributes: String
     compromisedRecords: Int
     consulting: [Consult]
@@ -80,10 +83,7 @@ type InternalName {
 
 "Organization type definition"
 type Organization {
-    analytics(
-        documentName: String!
-        documentType: String!
-    ): GenericScalar
+    analytics(documentName: String!, documentType: String!): GenericScalar
     projects: [Project]
     id: String!
     maxAcceptanceDays: Int
@@ -125,10 +125,7 @@ type Stakeholder {
 
 "Project type definition"
 type Project {
-    analytics(
-        documentName: String!
-        documentType: String!
-    ): GenericScalar
+    analytics(documentName: String!, documentType: String!): GenericScalar
     bill(date: DateTime): Bill
     name: String
     findings(filters: GenericScalar): [Finding]
@@ -138,7 +135,10 @@ type Project {
     openVulnerabilities: Int
     closedVulnerabilities: Int
     subscription: String
-    comments: [Comment!] @deprecated(reason: "Right now, you can query comments using both the 'comments' and 'consulting' keywords. After 2021-02-06, the 'comments' keyword will be invalid.")
+    comments: [Comment!]
+        @deprecated(
+            reason: "Right now, you can query comments using both the 'comments' and 'consulting' keywords. After 2021-02-06, the 'comments' keyword will be invalid."
+        )
     consulting: [Consult!]
     tags: [String!]
     deletionDate: String
@@ -322,7 +322,7 @@ input ExploitResultInput {
 type ExploitResult {
     kind: String
     where: String
-    who: String,
+    who: String
     state: VulnerabilityState
     exploitability: String
 }
@@ -541,11 +541,11 @@ enum UserRole {
 }
 
 enum EditGroupReason {
-  BUDGET
-  NONE
-  OTHER
-  PROJECT_FINALIZATION
-  PROJECT_SUSPENSION
+    BUDGET
+    NONE
+    OTHER
+    PROJECT_FINALIZATION
+    PROJECT_SUSPENSION
 }
 
 enum AuthProvider {

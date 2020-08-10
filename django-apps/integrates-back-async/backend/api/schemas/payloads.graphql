@@ -75,4 +75,3 @@ type SignInPayload implements Payload {
     success: Boolean!
     sessionJwt: String
 }
-
