@@ -14,7 +14,7 @@
 :about2: "We don't need the key, we'll break in" RATM
 :source: https://unsplash.com/photos/iIJrUoeRoCQ
 
-= KSTET: DLL Side-loading exploit
+= KSTET: DLL Side-Loading Exploit
 
 This is an alternate take of the article of exploiting the
 link:../vulnserver-kstet/[KSTET] command  of `Vulnserver`, a VbD
@@ -26,13 +26,14 @@ the instruction pointer `EIP`, we are left with little space to work on.
 
 With that kind of restrictions, we must be very creative in order to achieve
 a working exploit that triggers something complex like a reverse shell.
-For example, in the exploitation of the `GTER`,
-command, we have space restrictions too and we used an
-link:../vulnserver-gter/[Egghunter] and
+For example, we also had space restrictions
+in the exploitation of the `GTER` command,
+and we used an link:../vulnserver-gter/[Egghunter] and
 link:../vulnserver-gter-no-egghunter/[reused part of the WinSock stack]
-to create a custom reverse shellcode. In the `KSTET` command article, we
-used a technique called link:../vulnserver-kstet/[socket reusing].
+to create a custom reverse shellcode.
 
+In the `KSTET` command article,
+we used a technique called link:../vulnserver-kstet/[socket reusing].
 In this post we will squeeze our space restriction a little more and use a
 different exploitation technique.
 
@@ -64,33 +65,34 @@ under our debugger. I will use Immunity Debugger.
 
 The first step is to identify where the `KSTET` command is processed.
 
-We can do that by right clicking,
-then `Search for -> All referenced text strings`, right click again, then
+We can do that by right-clicking,
+then `Search for -> All referenced text strings`, right-click again, then
 `Search for text` and type `KSTET`. Make sure that `Entire scope` is selected.
 Now, select the match on where `KSTET` string is presented and set a
 breakpoint:
 
 image::debug1.gif[Debugging KSTET]
 
-With that in place, we can start again our connection to `Vulnserver` and
-see what happens under the hood:
+With that in place, we can start our connection to `Vulnserver` again
+and see what happens under the hood:
 
 image::debug2.gif[Debugging KSTET]
 
 As you can see, several things are happening:
 
 . Our breakpoint was reached when we typed `KSTET hello`.
-. Several external functions are called, including `strncpy`, `malloc`,
-`memset`.
-. But there is one that stands out: `strcpy`, which will copy anything that
-is on one buffer to another, without checking buffer boundaries.
+. Several external functions are called,
+including `strncpy`, `malloc` and `memset`.
+. There is one function that stands out: `strcpy`,
+which will copy anything that is on one buffer to another,
+without checking buffer boundaries.
 
 Let's see what happens when we issue something larger than a `hello` to the
 `KSTET` command:
 
 image::crash1.gif[Crash]
 
-Uggh! With a very short string, Vulnserver crashed and we overwrote `EIP`,
+Uggh! With a very short string, Vulnserver crashed, and we overwrote `EIP`,
 which means that we can control the execution flow of the application.
 
 With that, we can start creating our proof-of-concept exploit:
@@ -117,8 +119,8 @@ And check it:
 
 image::poc1.gif[Crash]
 
-That's good news. However, the injected string was really short and maybe
-we'd have a narrow buffer space to work on.
+That's good news. However, the injected string was really short,
+and maybe we'd have a narrow buffer space to work on.
 
 == Checking available buffer space
 
@@ -127,21 +129,21 @@ If we check the state of the application after the crash, we will see this:
 image::space1.png[Buffer space]
 
 In the dump window (bottom left), we see our injected buffer. In the PoC,
-we sent 200 `A` chars but as you can see here, the total amount of injected
-bytes, including the word `KSTET` itself is only 0x63 or 99 bytes.
+we sent 200 `A` chars, but as you can see here, the total amount of injected
+bytes, including the word `KSTET` itself, is only 0x63 or 99 bytes.
 
-In the exploitation of `GTER` command, we had 140+ bytes to work on and we
-used two techniques:
+In the `GTER` command exploitation, we had 140+ bytes to work on,
+and we used two techniques:
 link:../vulnserver-gter-no-egghunter/[WinSocket stack reusing] and
 an link:../vulnserver-gter/[egghunter].
 
-The first one is not viable because altough we reduced the shellcode length to
+The first one is not viable because although we reduced the shellcode length to
 the half, the resultant shellcode was 128 bytes.
 
-We could use an `egghunter` here but that wouldn't be much fun. Why make it
-easy if we can do it the hard way?
+We could use an `egghunter` here, but that wouldn't be much fun.
+Why make it easy if we can do it the hard way?
 
-OK, let's start by checking the offset of the crash, by creating a cyclic
+OK, let's start by checking the offset of the crash by creating a cyclic
 pattern of 100 characters using `pattern_create.rb` tool from Metasploit:
 
 [source,console]
@@ -217,7 +219,7 @@ execution flow.
 == Exploiting
 
 As with the link:../vulnserver-trun/[TRUN] and link:../vulnserver-gter/[GTER]
-commands, we have a direct `EIP` overwrite here and the `ESP` register
+commands, we have a direct `EIP` overwrite here, and the `ESP` register
 points directly to our controlled buffer. That means that we can look for
 a `JMP ESP` instruction and overwrite `EIP` with its address to take
 control of the execution flow. We can do that using `mona.py` plugin:
@@ -229,7 +231,7 @@ control of the execution flow. We can do that using `mona.py` plugin:
 
 This would tell `mona` to look for instructions that can be used to jump to
 `ESP` (`jmp -r esp`), excluding pointers with null bytes (`-cp nonull`) and
-exlude OS DLLs (`-o`). The result is this:
+omitting OS DLLs (`-o`). The result is the following:
 
 image::mona1.png[JMP ESP]
 
@@ -263,10 +265,10 @@ And check it:
 
 image::jmp1.gif[JMP ESP]
 
-Great! However, as you can see, we landed to a 20 bytes buffer where we
-put the `C` chars but we have 66 bytes above on the buffer of the `A` chars.
+Great! However, as you can see, we landed on a 20 bytes buffer where we
+put the `C` chars, but we have 66 bytes above on the buffer of the `A` chars.
 
-With a short jump backwards we can easily jump to that place:
+With a short jump backward, we can easily jump to that place:
 
 image::jmp2.gif[JMP backwards]
 
@@ -303,21 +305,21 @@ image::jmp3.gif[JMP backwards]
 But again, we were brutally reminded that we have a narrow buffer space
 to work on.
 
-To workaround that constrain, we will use this time a sideloading technique
+To work around that constraint, we will use this time a sideloading technique
 for injecting the needed payload from an adjacent computer.
 
 == Dynamic linking
 
 Commonly, when creating an exploit, you inject the required payload and
 modify the instruction pointer `EIP` to point to your code. Then, the
-victim application will execute the code you injected that can be a simple
-`MessageBox` or anything complex like a `TCP` shell.
+victim application will execute the code you injected,
+which can be a simple `MessageBox` or anything complex like a `TCP` shell.
 
 That payload, or shellcode, can only use calls to the OS API of modules
 that the victim application has already loaded in memory.
 
 The OS API is distributed on reusable files that can be linked to any
-application. In Windows they are known as *Dynamic-Link Library* or `DLL`
+application. In Windows, they are known as *Dynamic-Link Library* or `DLL`
 files. Commonly, an application will load executable dependencies at
 run-time using the OS dynamic linker.
 
@@ -332,18 +334,18 @@ function included on any of those modules.
 However, there is a way for an application to include new libraries when it's
 already running: *Dynamic Linking*. On Windows, it can be done with any of the
 *LibraryLoad* functions family. Those functions are located on `KERNEL32.DLL`,
-which is the module that exposes most of the Win32 base API and therefore
-virtually any Windows application has it loaded at run-time.
+which is the module that exposes most of the Win32 base API;
+therefore, virtually any Windows application has it loaded at run-time.
 
-As the injected shellcode is also part of the application, we can
-dyncamically link any available `DLL` too.
+As the injected shellcode is also part of the application,
+we can dynamically link any available `DLL`.
 
 With that ultra-simplified introduction to dynamic linking, it's time to write
 some Assembler!
 
 == Dynamic-included payload
 
-The first thing to do is locate the address of `LoadLibraryA` on our system.
+The first thing to do is to locate the address of `LoadLibraryA` on our system.
 We can do that using the
 link:http://www.vividmachines.com/shellcode/arwin.c[arwin] tool:
 
@@ -369,20 +371,20 @@ HMODULE LoadLibraryA(
 ----
 
 Easy! The `lpLibFileName` is a string with the location of the `DLL` file to
-be included. To our advantage, the location can be an Universal Naming
+be included. To our advantage, the location can be a Universal Naming
 Convention (`UNC`) path in the form `\\server\share\file.dll`.
 
 In Windows, that path would be resolved using the `SMB` protocol. That means
-that we must expose that file using a `SMB` server, but we will get to that
+that we must expose that file using an `SMB` server, but we will get to that
 later. For now, we can predict that the `UNC` path of our payload will
-be at `\\attacker_ip\share\shell.dll`, in my case, it would be
+be at `\\attacker_ip\share\shell.dll`; in my case, it would be
 `\\192.168.0.18\X\pwn.dll`.
 
-To call `LoadLibraryA` on a `x86` architecture, we must push to the stack
-the `lpLibFileName` value which is a pointer to the
+To call `LoadLibraryA` on an `x86` architecture, we must push into the stack
+the `lpLibFileName` value, which is a pointer to the
 `\\192.168.0.18\X\pwn.dll` string. As `x86` is a 32 bits architecture, we
-must push exactly 4 bytes each time to the stack, and as we are pushing data
-to the stack, it must be in reverse order. So, we need to convert
+must push exactly 4 bytes each time into the stack, and as we are pushing data
+into the stack, it must be in reverse order. So, we need to convert
 `\\192.168.0.18\X\pwn.dll` to hex, split it in chunks of 4 bytes, pad as
 needed and reverse. This can be done with:
 
@@ -477,7 +479,7 @@ Great! The `LoadLibraryA` function is now ready.
 == Show time
 
 Now that we have everything set, we must now create a shellcode on a
-`DLL` file and share it on a `SMB` server.
+`DLL` file and share it on an `SMB` server.
 
 Luckily for us, `msfvenom` can create shellcodes in `DLL` format. Let's do
 that:
@@ -491,8 +493,8 @@ Final size of dll file: 5120 bytes
 Saved as: pwn.dll
 ----
 
-We also must serve that `pwn.dll` file on a `SMB` share called `X`. We can use
-Impacket's `smbserver.py` to do that:
+We also must serve that `pwn.dll` file on an `SMB` share called `X`.
+We can use Impacket's `smbserver.py` to do that:
 
 [source,console]
 ----
@@ -523,10 +525,10 @@ executable modules:
 
 image::modules2.png[Executable modules]
 
-Crazy, huh? You can download the final exploit link:exploit.py[here]
+Crazy, huh? You can download the final exploit link:exploit.py[here].
 
 == Conclusion
 
-This was a very fun way for exploiting Vulnserver. Remember that this
+This was a very fun way of exploiting Vulnserver. Remember that this
 technique only works if the attacking machine is adjacent to the victim
-machine and there are not network restrictions between them.
+machine and there are no network restrictions between them.
