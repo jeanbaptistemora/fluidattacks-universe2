@@ -33,6 +33,40 @@ class FindingMetadata(NamedTuple):
 
 
 class FindingEnum(Enum):
+    F009: FindingMetadata = FindingMetadata(
+        cwe='311',
+        description='utils.model.finding.enum.f009.description',
+        impact='utils.model.finding.enum.f009.impact',
+        recommendation='utils.model.finding.enum.f009.recommendation',
+        requirements='utils.model.finding.enum.f009.requirements',
+        threat='utils.model.finding.enum.f009.threat',
+        severity={
+            'attackComplexity': 0.77,
+            'attackVector': 0.85,
+            'availabilityImpact': 0.0,
+            'availabilityRequirement': 1.5,
+            'confidentialityImpact': 0.22,
+            'confidentialityRequirement': 1.5,
+            'exploitability': 0.94,
+            'integrityImpact': 0.0,
+            'integrityRequirement': 1.5,
+            'modifiedAttackComplexity': 0.77,
+            'modifiedAttackVector': 0.85,
+            'modifiedAvailabilityImpact': 0.0,
+            'modifiedConfidentialityImpact': 0.22,
+            'modifiedIntegrityImpact': 0.0,
+            'modifiedPrivilegesRequired': 0.62,
+            'modifiedUserInteraction': 0.85,
+            'modifiedSeverityScope': 0.0,
+            'privilegesRequired': 0.62,
+            'remediationLevel': 1.0,
+            'reportConfidence': 1.0,
+            'severityScope': 0.0,
+            'userInteraction': 0.85,
+        },
+        title='utils.model.finding.enum.f009.title',
+        type=FindingTypeEnum.SECURITY,
+    )
     F011: FindingMetadata = FindingMetadata(
         cwe='937',
         description='utils.model.finding.enum.f011.description',

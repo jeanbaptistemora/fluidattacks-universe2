@@ -1,0 +1,37 @@
+utils.model.finding.enum.f009.description:
+  en: >
+    The source code repository contains sensitive information such as
+    usernames, passwords, email addresses and IP addresses, among others.
+  es: >
+    En el repositorio se encuentra almacenada informacion sensible como
+    usuarios, contraseñas, correos electronicos,credenciales de API, entre
+    otros.
+utils.model.finding.enum.f009.impact:
+  en: >
+    Get sensitive information or private secrets.
+  es: >
+    Obtener información sensible o secretos privados.
+utils.model.finding.enum.f009.recommendation:
+  en: |
+    It is recommended to load sensitive data from:
+     - A key vault service
+     - A configuration file that is properly encrypted
+     - Administrative environment variables
+  es: |
+    Se recomienda cargar los datos sensibles desde:
+    - Un servicio de bóveda de claves
+    - Un archivo de configuración que esté debidamente cifrado
+    - Variables de entorno administrativas
+utils.model.finding.enum.f009.requirements:
+  en: |
+    R156. Source code without sensitive information.
+  es: >
+    R156. El código fuente no debe contener información sensible.
+utils.model.finding.enum.f009.threat:
+  en: >
+    Internal attacker with access to the source-code from the Internet.
+  es: >
+    Atacante interno con acceso al código fuente desde Internet.
+utils.model.finding.enum.f009.title:
+  en: FIN.S.009. Sensitive information in source code
+  es: FIN.S.009. Información sensible almacenada en el código fuente
