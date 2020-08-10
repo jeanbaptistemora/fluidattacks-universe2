@@ -269,12 +269,17 @@ def send_comment_mail(
         is_draft = 'releaseDate' in finding
         email_context['finding_id'] = str(finding.get('findingId', ''))
         email_context['finding_name'] = str(finding.get('finding', ''))
+
+        plural = 'observations'
+        if comment_type == 'comment':
+            plural = 'consulting'
+
         comment_url = (
             BASE_URL +
             f'/groups/{project_name}/' +
-            ('findings' if is_draft else 'drafts') +
+            ('vulns' if is_draft else 'drafts') +
             '/' + finding.get('findingId') +
-            f'/{comment_type}s'
+            f'/{plural}'
         )
 
     elif entity_name == 'event':
