@@ -83,7 +83,7 @@ image::devsecops.png[DevSecOps]
 In this approach, companies have to establish security requirements
 (to be continuously verified)
 that they must meet during the `SDLC`.
-These requirements can be link:https://medium.com/faun/what-is-devsecops-the-6-steps-to-secure-your-software-delivery-447906a6bd9f[based on system infrastructure assessments].
+These requirements can be based on system infrastructure assessments.
 Such evaluations carried out manually and from the attacker's point of view
 detect potential security issues.
 In other words, these assessments are intended to answer questions such as:
