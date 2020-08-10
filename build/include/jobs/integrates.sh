@@ -865,6 +865,27 @@ function job_infra_django_db_test {
   || return 1
 }
 
+function job_infra_devicefarm_deploy {
+      echo '[INFO] Logging in to AWS production' \
+  &&  CI_COMMIT_REF_NAME=master aws_login production \
+  &&  pushd deploy/devicefarm/terraform \
+    &&  terraform init \
+    &&  terraform apply -auto-approve -refresh=true \
+  &&  popd \
+  || return 1
+}
+
+function job_infra_devicefarm_test {
+      echo '[INFO] Logging in to AWS development' \
+  &&  aws_login development \
+  &&  pushd deploy/devicefarm/terraform \
+    &&  terraform init \
+    &&  tflint --deep --module \
+    &&  terraform plan -lock=false -refresh=true \
+  &&  popd \
+  || return 1
+}
+
 function job_infra_resources_deploy {
       echo '[INFO] Logging in to AWS production' \
   &&  CI_COMMIT_REF_NAME=master aws_login production \
