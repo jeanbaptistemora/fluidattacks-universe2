@@ -104,7 +104,7 @@ async def upload_evidences(
         *await collect(
             do_update_evidence(
                 evidence_id=evidence_id,
-                evidence_stream=evidence_stream,
+                evidence_stream=evidence_stream.read(),
                 finding_id=finding_id,
             )
             for (evidence_id, _), evidence_stream in zip(

@@ -477,21 +477,21 @@ async def do_update_finding_severity(
 async def do_update_evidence(
     *,
     evidence_id: FindingEvidenceIDEnum,
-    evidence_stream: BytesIO,
+    evidence_stream: bytes,
     finding_id: str,
 ) -> bool:
-    evidence_stream.seek(0)
+    evidence_buffer = BytesIO(evidence_stream)
 
     result = await _execute(
         query="""
             mutation DoUpdateEvidence(
                 $evidence_id: EvidenceType!
-                $evidence_stream: Upload!
+                $evidence_buffer: Upload!
                 $finding_id: String!
             ) {
                 updateEvidence(
                     evidenceId: $evidence_id
-                    file: $evidence_stream
+                    file: $evidence_buffer
                     findingId: $finding_id
                 ) {
                     success
@@ -500,7 +500,7 @@ async def do_update_evidence(
         """,
         variables=dict(
             evidence_id=evidence_id.value,
-            evidence_stream=evidence_stream,
+            evidence_buffer=evidence_buffer,
             finding_id=finding_id,
         )
     )
