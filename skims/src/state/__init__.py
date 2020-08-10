@@ -9,11 +9,10 @@ from os.path import (
 )
 from typing import (
     Any,
-    cast,
     Awaitable,
     Callable,
+    cast,
     Optional,
-    Tuple,
     TypeVar,
 )
 
@@ -23,9 +22,6 @@ import aiofiles
 # Local libraries
 from utils.crypto import (
     get_hash,
-)
-from utils.function import (
-    get_bound_arguments,
 )
 from utils.serialization import (
     dump as py_dumps,
@@ -70,21 +66,12 @@ async def cache_store(key: Any, value: Any, ttl: Optional[int] = None) -> None:
 
 
 async def cache(
-    function_cache_keys: Tuple[str, ...],
     function: Callable[..., Awaitable[TVar]],
     ttl: Optional[int],
     *args: Any,
     **kwargs: Any,
 ) -> TVar:
-    arguments = get_bound_arguments(function, *args, **kwargs).arguments
-
-    # Compute a cache key based on the hand-picked arguments provided
-    cache_key = {
-        '__module__': function.__module__,
-        '__name__': function.__name__,
-    }
-    for function_arg in function_cache_keys or arguments.keys():
-        cache_key[function_arg] = arguments[function_arg]
+    cache_key = (function.__module__, function.__name__, args, kwargs)
 
     try:
         cache_value: TVar = await cache_read(cache_key)
@@ -96,7 +83,7 @@ async def cache(
 
 
 def cache_decorator(
-    *cache_keys: str,
+    *,
     ttl: Optional[int] = None,
 ) -> Callable[[TFunc], TFunc]:
 
@@ -104,7 +91,7 @@ def cache_decorator(
 
         @functools.wraps(function)
         async def wrapper(*args: Any, **kwargs: Any) -> Any:
-            return await cache(cache_keys, function, ttl, *args, **kwargs)
+            return await cache(function, ttl, *args, **kwargs)
 
         return cast(TFunc, wrapper)
 
