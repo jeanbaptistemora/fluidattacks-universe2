@@ -51,9 +51,7 @@ async def get_projects(
     user_projects: List[str] = []
     projects = await user_dal.get_projects(user_email, active)
 
-    group_level_roles = await aio.ensure_io_bound(
-        authz.get_group_level_roles, user_email, projects,
-    )
+    group_level_roles = await authz.get_group_level_roles(user_email, projects)
 
     async with aioboto3.resource(**dynamodb.RESOURCE_OPTIONS) as resource:
         dynamo_table = await resource.Table(project_dal.TABLE_NAME)

@@ -24,7 +24,7 @@ async def test_group_level_enforcer():
         await authz.revoke_user_level_role(subject)
         await authz.revoke_group_level_role(subject, group)
         await authz.grant_group_level_role(subject, group, role)
-        enforcer = authz.get_group_level_enforcer(subject)
+        enforcer = await authz.get_group_level_enforcer(subject)
 
         for action in model[role]['actions']:
             assert await enforcer(subject, group, action), \
@@ -44,7 +44,7 @@ async def test_user_level_enforcer():
     for role in model:
         await authz.revoke_user_level_role(subject)
         await authz.grant_user_level_role(subject, role)
-        enforcer = authz.get_user_level_enforcer(subject)
+        enforcer = await authz.get_user_level_enforcer(subject)
 
         for action in model[role]['actions']:
             assert await enforcer(subject, object_, action), \

@@ -180,10 +180,7 @@ def enforce_group_level_auth_async(func: TVar) -> TVar:
                     }
                 })
 
-        enforcer = await aio.ensure_io_bound(
-            authz.get_group_level_enforcer,
-            subject
-        )
+        enforcer = await authz.get_group_level_enforcer(subject)
 
         if not await enforcer(subject, object_, action):
             util.cloudwatch_log(context, UNAUTHORIZED_ROLE_MSG)
@@ -230,10 +227,7 @@ def enforce_organization_level_auth_async(func: TVar) -> TVar:
                     'subject': subject,
                 })
 
-        enforcer = await aio.ensure_io_bound(
-            authz.get_organization_level_enforcer,
-            subject
-        )
+        enforcer = await authz.get_organization_level_enforcer(subject)
 
         if not await enforcer(subject, object_, action):
             util.cloudwatch_log(context, UNAUTHORIZED_ROLE_MSG)
@@ -262,10 +256,7 @@ def enforce_user_level_auth_async(func: TVar) -> TVar:
         object_ = 'self'
         action = f'{_func.__module__}.{_func.__qualname__}'.replace('.', '_')
 
-        enforcer = await aio.ensure_io_bound(
-            authz.get_user_level_enforcer,
-            subject
-        )
+        enforcer = await authz.get_user_level_enforcer(subject)
 
         if not await enforcer(subject, object_, action):
             util.cloudwatch_log(context, UNAUTHORIZED_ROLE_MSG)

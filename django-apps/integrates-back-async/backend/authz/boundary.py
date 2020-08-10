@@ -20,7 +20,7 @@ from .model import (
 
 
 async def get_user_level_actions(subject: str) -> Set[str]:
-    enforcer = get_user_level_enforcer(subject)
+    enforcer = await get_user_level_enforcer(subject)
     object_ = 'self'
 
     return set(tuple([
@@ -36,7 +36,7 @@ async def get_user_level_roles_a_user_can_grant(
     requester_email: str,
 ) -> Tuple[str, ...]:
     """Return a tuple of roles that users can grant based on their role."""
-    enforcer = get_user_level_enforcer(requester_email)
+    enforcer = await get_user_level_enforcer(requester_email)
 
     roles_the_user_can_grant: Tuple[str, ...] = tuple([
         role
@@ -50,7 +50,7 @@ async def get_user_level_roles_a_user_can_grant(
 
 
 async def get_group_level_actions(subject: str, group: str) -> Set[str]:
-    enforcer = get_group_level_enforcer(subject)
+    enforcer = await get_group_level_enforcer(subject)
 
     return set(tuple([
         action
@@ -63,7 +63,7 @@ async def get_group_level_actions(subject: str, group: str) -> Set[str]:
 async def get_organization_level_actions(
         subject: str,
         organization_id: str) -> Set[str]:
-    enforcer = get_organization_level_enforcer(subject)
+    enforcer = await get_organization_level_enforcer(subject)
 
     return set(tuple([
         action
@@ -90,7 +90,7 @@ async def get_group_level_roles_a_user_can_grant(
     requester_email: str,
 ) -> Tuple[str, ...]:
     """Return a tuple of roles that users can grant based on their role."""
-    enforcer = get_group_level_enforcer(requester_email)
+    enforcer = await get_group_level_enforcer(requester_email)
 
     roles_the_user_can_grant: Tuple[str, ...] = tuple([
         role

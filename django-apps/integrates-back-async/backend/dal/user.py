@@ -25,8 +25,6 @@ logging.config.dictConfig(LOGGING)
 LOGGER = logging.getLogger(__name__)
 
 # Shared resources
-DYNAMODB_RESOURCE = dynamodb.DYNAMODB_RESOURCE  # type: ignore
-AUTHZ_TABLE = DYNAMODB_RESOURCE.Table('fi_authz')
 ACCESS_TABLE_NAME = 'FI_project_access'
 USERS_TABLE_NAME = 'FI_users'
 AUTHZ_TABLE_NAME = 'fi_authz'
@@ -93,24 +91,16 @@ async def get_subject_policy(subject: str, object_: str) -> SubjectPolicy:
     return cast_dict_into_subject_policy(response)
 
 
-def get_subject_policies(subject: str) -> List[SubjectPolicy]:
+async def get_subject_policies(subject: str) -> List[SubjectPolicy]:
     """Return a list of policies for the given subject."""
-    policies: List[SubjectPolicy] = []
     query_params = {
         'ConsistentRead': True,
         'KeyConditionExpression': Key('subject').eq(subject.lower()),
     }
 
-    response = AUTHZ_TABLE.query(**query_params)
-    policies.extend(map(cast_dict_into_subject_policy, response['Items']))
+    response = await dynamodb.async_query(AUTHZ_TABLE_NAME, query_params)
 
-    while 'LastEvaluatedKey' in response:
-        query_params['ExclusiveStartKey'] = response['LastEvaluatedKey']
-
-        response = AUTHZ_TABLE.query(**query_params)
-        policies.extend(map(cast_dict_into_subject_policy, response['Items']))
-
-    return policies
+    return list(map(cast_dict_into_subject_policy, response))
 
 
 async def put_subject_policy(policy: SubjectPolicy) -> bool:

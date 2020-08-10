@@ -18,10 +18,10 @@ from .model import (
 )
 
 
-def get_user_level_enforcer(subject: str) -> \
+async def get_user_level_enforcer(subject: str) -> \
         Callable[[str, str, str], Coroutine[Any, Any, bool]]:
     """Return a filtered group-level authorization for the provided subject."""
-    policies = get_cached_subject_policies(subject)
+    policies = await get_cached_subject_policies(subject)
     roles = USER_LEVEL_ROLES
 
     async def enforcer(r_subject: str, r_object: str, r_action: str) -> bool:
@@ -38,10 +38,10 @@ def get_user_level_enforcer(subject: str) -> \
     return enforcer
 
 
-def get_group_level_enforcer(subject: str) -> \
+async def get_group_level_enforcer(subject: str) -> \
         Callable[[str, str, str], Coroutine[Any, Any, bool]]:
     """Return a filtered group-level authorization for the provided subject."""
-    policies = get_cached_subject_policies(subject)
+    policies = await get_cached_subject_policies(subject)
     roles = GROUP_LEVEL_ROLES
 
     async def enforcer(r_subject: str, r_object: str, r_action: str) -> bool:
@@ -89,13 +89,13 @@ def get_group_service_attributes_enforcer(group: str) -> \
     return enforcer
 
 
-def get_organization_level_enforcer(subject: str) -> \
+async def get_organization_level_enforcer(subject: str) -> \
         Callable[[str, str, str], Coroutine[Any, Any, bool]]:
     """
     Return a filtered organization-level authorization
     for the provided subject.
     """
-    policies = get_cached_subject_policies(subject)
+    policies = await get_cached_subject_policies(subject)
     roles = ORGANIZATION_LEVEL_ROLES
 
     async def enforcer(r_subject: str, r_object: str, r_action: str) -> bool:

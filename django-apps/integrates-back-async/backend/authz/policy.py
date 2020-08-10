@@ -8,7 +8,6 @@ from typing import (
 )
 
 # Third party library
-from asgiref.sync import async_to_sync
 from django.core.cache import cache
 from rediscluster.nodemanager import RedisClusterException
 
@@ -65,7 +64,7 @@ def get_cached_group_service_attributes_policies(
     return cast(Tuple[Tuple[str, str], ...], ret)
 
 
-def get_cached_subject_policies(
+async def get_cached_subject_policies(
     subject: str,
 ) -> Tuple[Tuple[str, str, str, str], ...]:
     """Cached function to get 1 user authorization policies."""
@@ -73,7 +72,7 @@ def get_cached_subject_policies(
 
     try:
         # Attempt to retrieve data from the cache
-        ret = cache.get(cache_key)
+        ret = await aio.ensure_io_bound(cache.get, cache_key)
     except RedisClusterException:
         ret = None
 
@@ -81,10 +80,10 @@ def get_cached_subject_policies(
         # Let's fetch the data from the database
         ret = tuple(
             (policy.level, policy.subject, policy.object, policy.role)
-            for policy in user_dal.get_subject_policies(subject))
+            for policy in await user_dal.get_subject_policies(subject))
         try:
             # Put the data in the cache
-            cache.set(cache_key, ret, timeout=300)
+            await aio.ensure_io_bound(cache.set, cache_key, ret, timeout=300)
         except RedisClusterException:
             pass
 
@@ -115,12 +114,14 @@ async def get_organization_level_role(email: str, organization_id: str) -> str:
     return organization_role
 
 
-def get_group_level_roles(email: str, groups: List[str]) -> Dict[str, str]:
-    is_admin: bool = async_to_sync(get_user_level_role)(email) == 'admin'
+async def get_group_level_roles(
+        email: str, groups: List[str]) -> Dict[str, str]:
+    is_admin: bool = await get_user_level_role(email) == 'admin'
+    policies = await get_cached_subject_policies(email)
 
     db_roles: Dict[str, str] = {
         object_: role
-        for level, subject, object_, role in get_cached_subject_policies(email)
+        for level, subject, object_, role in policies
         if level == 'group'
         and subject == email
     }
@@ -161,9 +162,7 @@ async def grant_group_level_role(email: str, group: str, role: str) -> bool:
 
     success = await aio.materialize(coroutines)
 
-    return success and await aio.ensure_io_bound(
-        revoke_cached_subject_policies, email
-    )
+    return success and await revoke_cached_subject_policies(email)
 
 
 async def grant_organization_level_role(
@@ -196,9 +195,7 @@ async def grant_organization_level_role(
 
     success = await aio.materialize(coroutines)
 
-    return success and await aio.ensure_io_bound(
-        revoke_cached_subject_policies, email
-    )
+    return success and await revoke_cached_subject_policies(email)
 
 
 async def grant_user_level_role(email: str, role: str) -> bool:
@@ -213,7 +210,7 @@ async def grant_user_level_role(email: str, role: str) -> bool:
     )
 
     return (await user_dal.put_subject_policy(policy) and
-            await aio.ensure_io_bound(revoke_cached_subject_policies, email))
+            await revoke_cached_subject_policies(email))
 
 
 def revoke_cached_group_service_attributes_policies(group: str) -> bool:
@@ -229,30 +226,30 @@ def revoke_cached_group_service_attributes_policies(group: str) -> bool:
     return True
 
 
-def revoke_cached_subject_policies(subject: str) -> bool:
+async def revoke_cached_subject_policies(subject: str) -> bool:
     """Revoke the cached policies for the provided subject."""
     cache_key: str = get_subject_cache_key(subject)
 
     # Delete the cache key from the cache
-    cache.delete_pattern(f'*{cache_key}*')
+    await aio.ensure_io_bound(cache.delete_pattern, f'*{cache_key}*')
 
     # Refresh the cache key as the user is probably going to use it soon :)
-    get_cached_subject_policies(subject)
+    await get_cached_subject_policies(subject)
 
     return True
 
 
 async def revoke_group_level_role(email: str, group: str) -> bool:
     return (await user_dal.delete_subject_policy(email, group) and
-            await aio.ensure_io_bound(revoke_cached_subject_policies, email))
+            await revoke_cached_subject_policies(email))
 
 
 async def revoke_organization_level_role(
         email: str, organization_id: str) -> bool:
     return (await user_dal.delete_subject_policy(email, organization_id) and
-            await aio.ensure_io_bound(revoke_cached_subject_policies, email))
+            await revoke_cached_subject_policies(email))
 
 
 async def revoke_user_level_role(email: str) -> bool:
     return (await user_dal.delete_subject_policy(email, 'self') and
-            await aio.ensure_io_bound(revoke_cached_subject_policies, email))
+            await revoke_cached_subject_policies(email))
