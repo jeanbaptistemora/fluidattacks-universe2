@@ -1,6 +1,11 @@
 # Standard library
 from textwrap import dedent
 
+# Third party libraries
+from aioextensions import (
+    block_decorator,
+)
+
 # Local libraries
 from integrates.graphql import (
     Session,
@@ -18,9 +23,6 @@ from integrates.domain import (
     build_vulnerabilities_stream,
     delete_closest_findings,
     get_closest_finding_id,
-)
-from utils.aio import (
-    block_decorator,
 )
 from utils.model import (
     FindingEnum,

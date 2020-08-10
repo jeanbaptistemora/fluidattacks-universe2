@@ -18,6 +18,12 @@ from pyparsing import (
     Optional,
 )
 
+# Third party libraries
+from aioextensions import (
+    collect,
+    unblock_cpu,
+)
+
 # Local libraries
 from lib_path.common import (
     blocking_get_vulnerabilities,
@@ -30,10 +36,6 @@ from lib_path.common import (
 )
 from state import (
     cache_decorator,
-)
-from utils.aio import (
-    materialize,
-    unblock_cpu,
 )
 from utils.model import (
     FindingEnum,
@@ -255,7 +257,7 @@ async def analyze(
         ))
 
     results: Tuple[Vulnerability, ...] = tuple(chain.from_iterable(
-        await materialize(coroutines)
+        await collect(coroutines)
     ))
 
     return results

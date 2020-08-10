@@ -2,14 +2,14 @@
 import sys
 
 # Third party libraries
+from aioextensions import (
+    block,
+)
 import click
 
 # Local libraries
 from core.entrypoint import (
     main,
-)
-from utils.aio import (
-    block,
 )
 
 

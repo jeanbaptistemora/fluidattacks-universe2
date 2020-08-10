@@ -12,14 +12,16 @@ from typing import (
     Tuple,
 )
 
+# Third party libraries
+from aioextensions import (
+    collect,
+)
+
 # Local imports
 from lib_path import (
     f011,
     f034,
     f117,
-)
-from utils.aio import (
-    materialize,
 )
 from utils.fs import (
     generate_file_content,
@@ -64,7 +66,7 @@ async def analyze_one_path(path: str) -> Tuple[Vulnerability, ...]:
     )
 
     results: Tuple[Vulnerability, ...] = tuple(chain.from_iterable(
-        await materialize(chain.from_iterable((
+        await collect(tuple(chain.from_iterable((
             (
                 f011.analyze(
                     content_generator=file_content_generator,
@@ -88,7 +90,7 @@ async def analyze_one_path(path: str) -> Tuple[Vulnerability, ...]:
             for folder, file in [os.path.split(path)]
             for file_name, file_extension in [os.path.splitext(file)]
             for file_extension in [file_extension[1:]]
-        )))
+        ))))
     ))
 
     await char_to_yx_map_generator.aclose()
@@ -111,11 +113,11 @@ async def analyze(
 
     try:
         unique_paths: Set[str] = set(chain.from_iterable(
-            await materialize(map(
+            await collect(map(
                 recurse, chain.from_iterable(map(resolve, paths_to_include)),
             )),
         )) - set(chain.from_iterable(
-            await materialize(map(
+            await collect(map(
                 recurse, chain.from_iterable(map(resolve, paths_to_exclude)),
             )),
         ))
@@ -126,7 +128,7 @@ async def analyze(
         await log('info', 'Files to be tested: %s', len(unique_paths))
 
     results: Tuple[Vulnerability, ...] = tuple(chain.from_iterable(
-        await materialize(map(analyze_one_path, unique_paths))
+        await collect(map(analyze_one_path, unique_paths), workers=64)
     ))
 
     return results

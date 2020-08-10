@@ -5,6 +5,11 @@ from typing import (
     Union,
 )
 
+# Third party libraries
+from aioextensions import (
+    unblock,
+)
+
 # Local libraries
 from integrates.dal import (
     do_create_draft,
@@ -15,9 +20,6 @@ from integrates.dal import (
     get_finding_current_release_status,
     get_group_findings,
     ResultGetGroupFindings,
-)
-from utils.aio import (
-    unblock,
 )
 from utils.encodings import (
     yaml_dumps,

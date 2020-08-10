@@ -1,0 +1,8 @@
+group: worcester
+language: EN
+path:
+  include:
+    - ../
+  exclude:
+    - glob(../**/.git/)
+    - glob(../**/node_modules/)

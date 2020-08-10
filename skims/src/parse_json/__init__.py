@@ -2,15 +2,13 @@
 import ast
 
 # Third party libraries
+from aioextensions import (
+    unblock_cpu,
+)
 from frozendict import (
     frozendict
 )
 import lark
-
-# Local libraries
-from utils.aio import (
-    unblock_cpu,
-)
 
 
 # Constants

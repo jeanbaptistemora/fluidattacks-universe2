@@ -6,8 +6,13 @@ import os
 import random
 import sys
 from typing import (
-    Dict,
     Tuple,
+)
+
+# Third party libraries
+from aioextensions import (
+    collect,
+    unblock,
 )
 
 # Local libraries
@@ -26,10 +31,6 @@ from integrates.domain import (
     do_build_and_upload_vulnerabilities,
     do_release_finding,
     get_closest_finding_id,
-)
-from utils.aio import (
-    materialize,
-    unblock,
 )
 from utils.logs import (
     log,
@@ -88,7 +89,7 @@ async def upload_evidences(
         random.sample(results, k=number_of_samples),
     )
 
-    evidence_streams: Tuple[BytesIO, ...] = await materialize(
+    evidence_streams: Tuple[BytesIO, ...] = await collect(
         to_png(string=result.skims_metadata.snippet)
         for result in result_samples
         if result.skims_metadata
@@ -100,7 +101,7 @@ async def upload_evidences(
     )
 
     return all((
-        *await materialize(
+        *await collect(
             do_update_evidence(
                 evidence_id=evidence_id,
                 evidence_stream=evidence_stream,
@@ -111,7 +112,7 @@ async def upload_evidences(
                 evidence_streams,
             )
         ),
-        *await materialize(
+        *await collect(
             do_update_evidence_description(
                 evidence_description_id=evidence_description_id,
                 evidence_description=evidence_description,
@@ -239,8 +240,8 @@ async def persist(
 
     await verify_permissions(group=group)
 
-    persisted_findings: Dict[FindingEnum, bool] = await materialize({
-        finding: persist_finding(
+    success: bool = all(await collect(
+        persist_finding(
             finding=finding,
             group=group,
             results=finding_results,
@@ -252,9 +253,7 @@ async def persist(
             if result.finding == finding
         )]
         if finding_results
-    })
-
-    success: bool = all(persisted_findings.values())
+    ))
 
     return success
 

@@ -2,8 +2,8 @@
 import hashlib
 import hmac
 
-# Local libraries
-from utils.aio import (
+# Third party libraries
+from aioextensions import (
     unblock_cpu,
 )
 

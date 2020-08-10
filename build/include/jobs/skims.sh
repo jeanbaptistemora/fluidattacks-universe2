@@ -67,8 +67,10 @@ function job_skims_lint {
   &&  pushd skims \
     &&  echo '[INFO] Checking static typing' \
     &&  poetry run mypy "${args_mypy[@]}" src/ \
+    &&  poetry run mypy "${args_mypy[@]}" test/ \
     &&  echo "[INFO] Linting" \
     &&  poetry run prospector "${args_prospector[@]}" src/ \
+    &&  poetry run prospector "${args_prospector[@]}" test/ \
   &&  popd \
   ||  return 1
 }

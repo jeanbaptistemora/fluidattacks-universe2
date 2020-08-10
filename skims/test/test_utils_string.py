@@ -6,10 +6,12 @@ from typing import (
     Tuple,
 )
 
-# Local libraries
-from utils.aio import (
+# Third party libraries
+from aioextensions import (
     block_decorator,
 )
+
+# Local libraries
 from utils.string import (
     get_char_to_yx_map,
     blocking_to_snippet,

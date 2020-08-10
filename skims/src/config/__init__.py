@@ -1,10 +1,12 @@
 # Third party libraries
 import confuse
 
-# Local libraries
-from utils.aio import (
+# Third party libraries
+from aioextensions import (
     unblock_cpu,
 )
+
+# Local libraries
 from utils.model import (
     LocalesEnum,
     SkimsConfig,

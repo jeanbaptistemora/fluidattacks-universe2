@@ -38,6 +38,7 @@ repository = "https://gitlab.com/fluidattacks/integrates/-/tree/master/skims"
 version = "1.0.0"
 
 [tool.poetry.dependencies]
+aioextensions = "20.8.792051"
 aiofiles = "0.5.0"
 aiogqlc = "1.0.5"
 aiohttp = "3.6.2"

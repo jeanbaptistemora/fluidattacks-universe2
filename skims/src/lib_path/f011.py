@@ -20,15 +20,17 @@ from more_itertools import (
     windowed,
 )
 
+# Third party libraries
+from aioextensions import (
+    collect,
+)
+
 # Local libraries
 from nvd.query import (
     get_vulnerabilities as get_nvd_vulnerabilities,
 )
 from parse_json import (
     loads as json_loads,
-)
-from utils.aio import (
-    materialize,
 )
 from utils.model import (
     FindingEnum,
@@ -234,7 +236,7 @@ async def translate_dependencies_to_vulnerabilities(
         ...
     ] = tuple(zip(
         dependencies,
-        await materialize((
+        await collect((
             get_nvd_vulnerabilities(
                 product=product['item'],
                 version=version['item'],
@@ -242,7 +244,7 @@ async def translate_dependencies_to_vulnerabilities(
                 target_software=target_software,
             )
             for product, version in dependencies
-        ), batch_size=5),
+        ), workers=5),
     ))
 
     results: Tuple[Vulnerability, ...] = tuple([
@@ -314,7 +316,7 @@ async def analyze(
         ))
 
     results: Tuple[Vulnerability, ...] = tuple(chain.from_iterable(
-        await materialize(coroutines)
+        await collect(coroutines)
     ))
 
     return results

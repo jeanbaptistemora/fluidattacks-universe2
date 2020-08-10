@@ -1,7 +1,9 @@
-# Local libraries
-from utils.aio import (
+# Third party libraries
+from aioextensions import (
     block_decorator,
 )
+
+# Local libraries
 from utils.system import (
     call,
 )

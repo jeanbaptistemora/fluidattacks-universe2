@@ -15,11 +15,12 @@ from typing import (
     Tuple,
     TypeVar,
 )
-
-# Local libraries
-from utils.aio import (
+# Third party libraries
+from aioextensions import (
     unblock_cpu,
 )
+
+# Local libraries
 from utils.model import (
     FindingEnum,
     FindingMetadata,

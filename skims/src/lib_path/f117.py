@@ -10,13 +10,15 @@ from typing import (
     Tuple,
 )
 
+# Third party libraries
+from aioextensions import (
+    collect,
+    unblock_cpu,
+)
+
 # Local libraries
 from state import (
     cache_decorator,
-)
-from utils.aio import (
-    materialize,
-    unblock_cpu,
 )
 from utils.model import (
     FindingEnum,
@@ -94,7 +96,7 @@ async def analyze(
         ))
 
     results: Tuple[Vulnerability, ...] = tuple(chain.from_iterable(
-        await materialize(coroutines)
+        await collect(coroutines)
     ))
 
     return results

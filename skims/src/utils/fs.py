@@ -14,10 +14,8 @@ from typing import (
 
 # Third party imports
 import aiofiles
-
-# Local libraries
-from utils.aio import (
-    materialize,
+from aioextensions import (
+    collect,
 )
 
 
@@ -60,7 +58,7 @@ async def recurse_dir(path: str) -> Tuple[str, ...]:
     files = map(attrgetter('path'), filter(methodcaller('is_file'), scanner))
 
     tree: Tuple[str, ...] = tuple(chain(
-        files, *await materialize(map(recurse_dir, dirs)),
+        files, *await collect(map(recurse_dir, dirs)),
     ))
 
     return tree

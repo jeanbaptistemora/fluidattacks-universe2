@@ -7,9 +7,7 @@ from typing import (
 
 # Third party libraries
 from ruamel import yaml
-
-# Local libraries
-from utils.aio import (
+from aioextensions import (
     unblock,
 )
 

@@ -5,12 +5,18 @@ from asyncio import (
     sleep,
     Task,
 )
+from itertools import (
+    chain,
+)
 import logging
 from typing import (
     Tuple,
 )
 
 # Third party imports
+from aioextensions import (
+    collect,
+)
 from confuse import (
     ConfigError,
 )
@@ -24,9 +30,6 @@ from core.persist import (
 )
 from lib_path.analyze import (
     analyze as analyze_paths,
-)
-from utils.aio import (
-    materialize,
 )
 from utils.logs import (
     log,
@@ -69,18 +72,20 @@ async def main(
         try:
             set_locale(config_obj.language)
 
-            results: Tuple[Vulnerability, ...] = tuple(*await materialize((
-                analyze_paths(
-                    paths_to_exclude=(
-                        config_obj.path.exclude if config_obj.path else ()
+            results: Tuple[Vulnerability, ...] = tuple(chain.from_iterable(
+                await collect((
+                    analyze_paths(
+                        paths_to_exclude=(
+                            config_obj.path.exclude if config_obj.path else ()
+                        ),
+                        paths_to_include=(
+                            config_obj.path.include if config_obj.path else ()
+                        ),
                     ),
-                    paths_to_include=(
-                        config_obj.path.include if config_obj.path else ()
-                    ),
-                ),
-            )))
+                ))
+            ))
 
-            await materialize(
+            await collect(
                 log(
                     'info', '%s: %s\n\n%s\n',
                     t(result.finding.value.title),

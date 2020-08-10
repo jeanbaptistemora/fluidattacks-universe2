@@ -17,6 +17,10 @@ from typing import (
 )
 
 # Third party libraries
+from aioextensions import (
+    unblock,
+    unblock_cpu,
+)
 from PIL import (
     Image,
     ImageDraw,
@@ -24,10 +28,6 @@ from PIL import (
 )
 
 # Local libraries
-from utils.aio import (
-    unblock,
-    unblock_cpu,
-)
 from utils.ctx import (
     get_artifact,
 )
