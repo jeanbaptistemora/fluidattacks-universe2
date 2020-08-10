@@ -25,8 +25,8 @@ def validate(config: Dynaconf) -> None:
 
     # Validate main keys
     config.validators.register(
-        Validator('gitlab_url', 'tests', must_exist=True,
-                  messages=err_default),
+        Validator('endpoint_url', 'platform', 'tests', 'job_name',
+                  must_exist=True, messages=err_default),
     )
     config.validators.validate()
 
