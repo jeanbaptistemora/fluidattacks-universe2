@@ -7,9 +7,8 @@ from typing import Any, List, Dict
 from git import Repo, InvalidGitRepositoryError
 
 # Local libraries
-from utils.logs import (
-    log
-)
+from dal.model import PullRequest
+from utils.logs import log
 
 
 def get_err_log(should_fail: bool) -> str:
@@ -17,11 +16,11 @@ def get_err_log(should_fail: bool) -> str:
     return err_log
 
 
-def skip_ci(mr_info: Any) -> bool:
-    return '[skip ci]' in mr_info.title
+def skip_ci(pull_request: PullRequest) -> bool:
+    return '[skip ci]' in pull_request.raw.title
 
 
-def mr_under_max_deltas(mr_info: Any, config: Dict[str, Any]) -> bool:
+def mr_under_max_deltas(pull_request: PullRequest, config: Dict[str, Any]) -> bool:
     """MR under max_deltas if commit is not solution"""
 
     def get_commit_by_sha(sha: str, repo: Any) -> Any:
@@ -45,8 +44,8 @@ def mr_under_max_deltas(mr_info: Any, config: Dict[str, Any]) -> bool:
             'You must be in the repo path in order '
             'to run this test')
         raise InvalidGitRepositoryError
-    skip_deltas: bool = '- no-deltas-test' in mr_info.description
-    commit: Any = get_commit_by_sha(mr_info.changes()['sha'], repo)
+    skip_deltas: bool = '- no-deltas-test' in pull_request.raw.description
+    commit: Any = get_commit_by_sha(pull_request.raw.changes()['sha'], repo)
     deltas: int = int(commit.stats.total['lines'])
     if not skip_deltas and deltas > max_deltas:
         log(err_log,
@@ -56,13 +55,13 @@ def mr_under_max_deltas(mr_info: Any, config: Dict[str, Any]) -> bool:
     return success or not should_fail
 
 
-def all_pipelines_successful(mr_info: Any, config: Dict[str, Any]) -> bool:
+def all_pipelines_successful(pull_request: PullRequest, config: Dict[str, Any]) -> bool:
     """Test if all previous pipelines were successful"""
 
     def passed_first_pipeline_before_mr() -> bool:
         success: bool = True
         if config['passed_first_pipeline_before_mr']:
-            first_pipeline: Dict[str, str] = mr_info.pipelines()[-1]
+            first_pipeline: Dict[str, str] = pull_request.raw.pipelines()[-1]
             if first_pipeline['status'] not in ('success', 'manual'):
                 log(err_log,
                     'The Dev pipeline should pass before you open an MR.\n'
@@ -76,8 +75,8 @@ def all_pipelines_successful(mr_info: Any, config: Dict[str, Any]) -> bool:
     success: bool = passed_first_pipeline_before_mr()
     current_p_id: str = str(os.environ.get('CI_PIPELINE_ID'))
     index: int = 0
-    while index < len(mr_info.pipelines()):
-        pipeline: Dict[str, str] = mr_info.pipelines()[index]
+    while index < len(pull_request.raw.pipelines()):
+        pipeline: Dict[str, str] = pull_request.raw.pipelines()[index]
         p_id: str = str(pipeline['id'])
         p_status: str = str(pipeline['status'])
         if p_id not in current_p_id:
@@ -99,12 +98,12 @@ def all_pipelines_successful(mr_info: Any, config: Dict[str, Any]) -> bool:
     return success or not should_fail
 
 
-def mr_message_syntax(mr_info: Any, config: Dict[str, Any]) -> bool:
+def mr_message_syntax(pull_request: PullRequest, config: Dict[str, Any]) -> bool:
     """Run commitlint on MR message"""
     success: bool = True
     should_fail: bool = config['fail']
     err_log: str = get_err_log(should_fail)
-    mr_commit_msg: str = f'{mr_info.title}\n\n{mr_info.description}'
+    mr_commit_msg: str = f'{pull_request.raw.title}\n\n{pull_request.raw.description}'
     command: List[str] = ['commitlint']
     proc: Any = subprocess.run(command, input=mr_commit_msg,
                                encoding='ascii', check=False)
@@ -116,35 +115,35 @@ def mr_message_syntax(mr_info: Any, config: Dict[str, Any]) -> bool:
     return success or not should_fail
 
 
-def branch_equals_to_user(mr_info: Any, config: Dict[str, Any]) -> bool:
+def branch_equals_to_user(pull_request: PullRequest, config: Dict[str, Any]) -> bool:
     """Test if branch name differs from user name"""
     success: bool = True
     should_fail: bool = config['fail']
     err_log: str = get_err_log(should_fail)
-    if mr_info.source_branch not in mr_info.author['username']:
+    if pull_request.raw.source_branch not in pull_request.raw.author['username']:
         log(err_log,
             'Your branch name should be equal to your gitlab user.\n\n'
             'Branch name: %s\n'
             'Gitlab user: %s',
-            mr_info.source_branch,
-            mr_info.author['username'])
+            pull_request.raw.source_branch,
+            pull_request.raw.author['username'])
         success = False
     return success or not should_fail
 
 
-def most_relevant_type(mr_info: Any, config: Dict[str, Any]) -> bool:
+def most_relevant_type(pull_request: PullRequest, config: Dict[str, Any]) -> bool:
     """Test if MR message uses the most relevant type of all its commits"""
     success: bool = True
     should_fail: bool = config['fail']
     err_log: str = get_err_log(should_fail)
     commit_regex: str = config['commit_regex']
     relevances: Dict[str, int] = config['relevances']
-    mr_title_match: Any = re.match(commit_regex, mr_info.title)
+    mr_title_match: Any = re.match(commit_regex, pull_request.raw.title)
     if mr_title_match is None:
         success = False
     else:
         mr_title_matches: List[str] = list(mr_title_match.groups())
-    commits: Any = mr_info.commits()
+    commits: Any = pull_request.raw.commits()
     mr_title_type: str = mr_title_matches[0] if success else ''
     most_relevant_type: str = list(relevances.keys())[-1]
     for commit in commits:
@@ -173,14 +172,14 @@ def most_relevant_type(mr_info: Any, config: Dict[str, Any]) -> bool:
     return success or not should_fail
 
 
-def commits_user_syntax(mr_info: Any, config: Dict[str, Any]) -> bool:
+def commits_user_syntax(pull_request: PullRequest, config: Dict[str, Any]) -> bool:
     """Test if usernames of all commits associated to MR are compliant"""
     success: bool = True
     should_fail: bool = config['fail']
     err_log: str = get_err_log(should_fail)
     user_regex: str = config['user_regex']
     failed_user: str = ''
-    commits: Any = mr_info.commits()
+    commits: Any = pull_request.raw.commits()
     for commit in commits:
         if not re.match(user_regex, commit.author_name):
             failed_user = commit.author_name
@@ -199,13 +198,13 @@ def commits_user_syntax(mr_info: Any, config: Dict[str, Any]) -> bool:
     return success or not should_fail
 
 
-def mr_user_syntax(mr_info: Any, config: Dict[str, Any]) -> bool:
+def mr_user_syntax(pull_request: PullRequest, config: Dict[str, Any]) -> bool:
     """Test if gitlab username of mr author is compliant"""
     success: bool = True
     should_fail: bool = config['fail']
     err_log: str = get_err_log(should_fail)
     user_regex: str = config['user_regex']
-    if not re.match(user_regex, mr_info.author['name']):
+    if not re.match(user_regex, pull_request.raw.author['name']):
         success = False
         log(err_log,
             'Your gitlab user name is %s. \n'
@@ -215,17 +214,17 @@ def mr_user_syntax(mr_info: Any, config: Dict[str, Any]) -> bool:
             'For example: Aureliano Buendia. \n'
             'You can change your gitlab user name here: \n'
             'https://gitlab.com/profile',
-            mr_info.author['name'])
+            pull_request.raw.author['name'])
     return success or not should_fail
 
 
-def max_commits_per_mr(mr_info: Any, config: Dict[str, Any]) -> bool:
+def max_commits_per_mr(pull_request: PullRequest, config: Dict[str, Any]) -> bool:
     """Only one commit per MR"""
     success: bool = True
     should_fail: bool = config['fail']
     err_log: str = get_err_log(should_fail)
     max_commits: int = config['max_commits']
-    commit_number: int = len(list(mr_info.commits()))
+    commit_number: int = len(list(pull_request.raw.commits()))
     if commit_number > max_commits:
         success = False
         log(err_log,
@@ -237,19 +236,19 @@ def max_commits_per_mr(mr_info: Any, config: Dict[str, Any]) -> bool:
     return success or not should_fail
 
 
-def close_issue_directive(mr_info: Any, config: Dict[str, Any]) -> bool:
+def close_issue_directive(pull_request: PullRequest, config: Dict[str, Any]) -> bool:
     """Test if a MR has an issue different from #0 without a Close directive"""
     success: bool = True
     should_fail: bool = config['fail']
     err_log: str = get_err_log(should_fail)
     mr_title_regex: str = config['mr_title_regex']
-    mr_title_match: Any = re.match(mr_title_regex, mr_info.title)
+    mr_title_match: Any = re.match(mr_title_regex, pull_request.raw.title)
     if mr_title_match is None:
         success = False
     else:
         mr_title_matches: List[str] = list(mr_title_match.groups())
     if success and mr_title_matches[2] not in '#0' \
-            and 'Closes #' not in mr_info.description:
+            and 'Closes #' not in pull_request.raw.description:
         log(err_log,
             'This MR is referencing issue %s '
             'but it does not have a: Close %s '
