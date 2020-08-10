@@ -1,11 +1,9 @@
-import { ChartData } from "chart.js";
 import _ from "lodash";
 import { IHistoricTreatment } from "../scenes/Dashboard/containers/DescriptionView/types";
 import { IProjectDraftsAttr } from "../scenes/Dashboard/containers/ProjectDraftsView/types";
 import { IProjectFindingsAttr } from "../scenes/Dashboard/containers/ProjectFindingsView/types";
 import { ILastLogin, IUserDataAttr, IUsersAttr } from "../scenes/Dashboard/containers/ProjectUsersView/types";
 import { ISeverityAttr, ISeverityField } from "../scenes/Dashboard/containers/SeverityView/types";
-import { castPrivileges } from "../scenes/Dashboard/containers/SeverityView/utils";
 import translate from "./translations/translate";
 
 type IUserList = IUsersAttr["project"]["users"];
@@ -49,7 +47,8 @@ export const formatUserlist: ((userList: IUserDataAttr[]) => IUserList) =
 export const formatLastLogin: (value: ILastLogin) => string =
   (value: ILastLogin): string => (value.label);
 
-export const castFieldsCVSS3: ((
+// Remove this function
+const castFieldsCVSS3: ((
   dataset: ISeverityAttr["finding"]["severity"],
   isEditing: boolean,
   formValues: Dictionary<string>) => ISeverityField[]
@@ -119,7 +118,7 @@ export const castFieldsCVSS3: ((
     0.92: "search_findings.tab_severity.report_confidence_options.unknown.text",
   };
 
-  let fields: ISeverityField[] = [
+  const fields: ISeverityField[] = [
     {
       currentValue: dataset.attackVector, name: "attackVector",
       options: attackVector,
@@ -169,11 +168,6 @@ export const castFieldsCVSS3: ((
       currentValue: dataset.reportConfidence, name: "reportConfidence",
       options: reportConfidence,
       title: translate.t("search_findings.tab_severity.report_confidence"),
-    },
-    {
-      currentValue: dataset.privilegesRequired, name: "privilegesRequired",
-      options: castPrivileges(formValues.severityScope),
-      title: translate.t("search_findings.tab_severity.privileges_required"),
     },
   ];
 
@@ -247,16 +241,6 @@ export const castFieldsCVSS3: ((
       title: translate.t("search_findings.tab_severity.modified_availability_impact"),
     },
   ];
-
-  if (isEditing && formValues.cvssVersion === "3.1") {
-    fields = fields.concat([
-      ...environmentFields,
-      {
-        currentValue: dataset.modifiedPrivilegesRequired, name: "modifiedPrivilegesRequired",
-        options: castPrivileges(formValues.modifiedSeverityScope),
-        title: translate.t("search_findings.tab_severity.modified_privileges_required"),
-      }]);
-  }
 
   return fields;
 };

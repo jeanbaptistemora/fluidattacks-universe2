@@ -21,7 +21,6 @@ import { FluidIcon } from "../../../../components/FluidIcon";
 import { Can } from "../../../../utils/authz/Can";
 import { authzGroupContext, authzPermissionsContext } from "../../../../utils/authz/config";
 import { calcCVSSv3 } from "../../../../utils/cvss";
-import { castFieldsCVSS3 } from "../../../../utils/formatHelpers";
 import { Dropdown } from "../../../../utils/forms/fields";
 import Logger from "../../../../utils/logger";
 import { msgError, msgSuccess } from "../../../../utils/notifications";
@@ -33,6 +32,7 @@ import { GET_FINDING_HEADER } from "../FindingContent/queries";
 import { default as style } from "./index.css";
 import { GET_SEVERITY, UPDATE_SEVERITY_MUTATION } from "./queries";
 import { ISeverityAttr, ISeverityField, IUpdateSeverityAttr } from "./types";
+import { castFieldsCVSS3 } from "./utils";
 
 type SeverityViewProps = RouteComponentProps<{ findingId: string }>;
 
