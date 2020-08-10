@@ -1,7 +1,7 @@
 :slug: rules/259/
 :category: networks
 :description: This requirement establishes the importance of separating logical networks by segmenting them for different functional areas.
-:keywords: Requirement, Security, Logical, Network, Segment, Areas, ASVS, CWE, Rules, Ethical Hacking, Pentesting
+:keywords: Requirement, Security, Logical, Network, Segment, Areas, ASVS, CWE, OWASP, PCI DSS, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R259. Segment the organization network
@@ -30,3 +30,8 @@ V6.4 Secret Management.(6.4.1)]
 Verify the segregation of components of differing trust levels through
 well-defined security controls, firewall rules, *API* gateways,
 reverse proxies, cloud-based security groups, or similar mechanisms.
+
+. [[r4]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2es-LA.pdf[PCI DSS - Requirement 1.2.1]
+Restrict inbound and outbound traffic to that which is necessary for the
+cardholder data environment,
+and specifically deny all other traffic.
