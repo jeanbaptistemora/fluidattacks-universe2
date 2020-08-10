@@ -18,9 +18,6 @@ import { RouteComponentProps, useHistory } from "react-router-dom";
 import { DataTableNext } from "../../../../../components/DataTableNext";
 import { IHeaderConfig } from "../../../../../components/DataTableNext/types";
 import { default as globalStyle } from "../../../../../styles/global.css";
-import {
-  calcPercent, IStatusGraph, ITreatmentGraph, statusGraph, treatmentGraph,
-} from "../../../../../utils/formatHelpers";
 import Logger from "../../../../../utils/logger";
 import { msgError } from "../../../../../utils/notifications";
 import translate from "../../../../../utils/translations/translate";
@@ -31,6 +28,9 @@ import { IndicatorStack } from "../../../components/IndicatorStack";
 import { IFindingAttr } from "../../ProjectFindingsView/types";
 import { default as style } from "./index.css";
 import { TAG_QUERY } from "./queries";
+import {
+  calcPercent, IStatusGraphConfig, ITreatmentGraphConfig, statusGraph, treatmentGraph,
+} from "./utils";
 
 export type TagsProps = RouteComponentProps<{ tagName: string }>;
 
@@ -42,7 +42,7 @@ interface IStackedGraph {
   openVulnerabilities: number;
 }
 
-interface IStatusGraphName extends IStatusGraph {
+interface IStatusGraphName extends IStatusGraphConfig {
   name: string;
 }
 
@@ -115,19 +115,19 @@ const tagsInfo: React.FC<TagsProps> = (props: TagsProps): JSX.Element => {
     projects.map((project: IProjectTag) => ({ name: project.name, description: project.description }))
   );
 
-  const formatStatusGraphData: ((projects: ITreatmentGraph[]) => IStatusGraph) = (
-    projects: ITreatmentGraph[],
-  ): IStatusGraph => {
+  const formatStatusGraphData: ((projects: ITreatmentGraphConfig[]) => IStatusGraphConfig) = (
+    projects: ITreatmentGraphConfig[],
+  ): IStatusGraphConfig => {
     const closedVulnerabilities: number = projects.reduce(
-      (acc: number, project: ITreatmentGraph) => (acc + project.closedVulnerabilities), 0);
+      (acc: number, project: ITreatmentGraphConfig) => (acc + project.closedVulnerabilities), 0);
     const openVulnerabilities: number = projects.reduce(
-      (acc: number, project: ITreatmentGraph) => (acc + project.openVulnerabilities), 0);
+      (acc: number, project: ITreatmentGraphConfig) => (acc + project.openVulnerabilities), 0);
 
     return { closedVulnerabilities, openVulnerabilities };
   };
 
-  const getNumberOfVulns: ((projects: ITreatmentGraph[]) => number) = (
-    projects: ITreatmentGraph[],
+  const getNumberOfVulns: ((projects: ITreatmentGraphConfig[]) => number) = (
+    projects: ITreatmentGraphConfig[],
   ): number => {
     const { closedVulnerabilities, openVulnerabilities } = formatStatusGraphData(projects);
 
@@ -144,17 +144,17 @@ const tagsInfo: React.FC<TagsProps> = (props: TagsProps): JSX.Element => {
       0)
   );
 
-  const getNumberOfOpenVulns: ((projects: ITreatmentGraph[]) => number) = (
-    projects: ITreatmentGraph[],
+  const getNumberOfOpenVulns: ((projects: ITreatmentGraphConfig[]) => number) = (
+    projects: ITreatmentGraphConfig[],
   ): number => (
-    projects.reduce((acc: number, project: ITreatmentGraph) => (acc + project.openVulnerabilities), 0)
+    projects.reduce((acc: number, project: ITreatmentGraphConfig) => (acc + project.openVulnerabilities), 0)
   );
 
-  const formatTreatmentGraphData: ((projects: ITreatmentGraph[]) => ITreatmentGraph) = (
-    projects: ITreatmentGraph[],
-  ): ITreatmentGraph => {
+  const formatTreatmentGraphData: ((projects: ITreatmentGraphConfig[]) => ITreatmentGraphConfig) = (
+    projects: ITreatmentGraphConfig[],
+  ): ITreatmentGraphConfig => {
     const totalTreatment: Dictionary<number> = projects.reduce(
-      (acc: Dictionary<number>, project: ITreatmentGraph) => {
+      (acc: Dictionary<number>, project: ITreatmentGraphConfig) => {
         const projectTreatment: Dictionary<number> = JSON.parse(project.totalTreatment);
 
         return ({
@@ -336,14 +336,14 @@ const tagsInfo: React.FC<TagsProps> = (props: TagsProps): JSX.Element => {
     const statusDataset: Array<Dictionary<string | number []>> = [
       {
         backgroundColor: "#27BF4F",
-        data: dataPercentSorted.map((projectPercent: IStatusGraph) => projectPercent.closedVulnerabilities),
+        data: dataPercentSorted.map((projectPercent: IStatusGraphConfig) => projectPercent.closedVulnerabilities),
         hoverBackgroundColor: "#069D2E",
         label: `% ${translate.t("search_findings.tab_indicators.closed")}`,
         stack: "2",
       },
       {
         backgroundColor: "#ff1a1a",
-        data: dataPercentSorted.map((projectPercent: IStatusGraph) => projectPercent.openVulnerabilities),
+        data: dataPercentSorted.map((projectPercent: IStatusGraphConfig) => projectPercent.openVulnerabilities),
         hoverBackgroundColor: "#e51414",
         label: `% ${translate.t("search_findings.tab_indicators.open")}`,
         stack: "2",

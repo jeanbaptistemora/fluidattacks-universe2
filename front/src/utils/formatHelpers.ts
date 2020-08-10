@@ -472,23 +472,24 @@ export const getPreviousTreatment: ((historic: IHistoricTreatment[]) => IHistori
   return previousTreatment.map((treatment: IHistoricTreatment) => formatHistoricTreatment(treatment, true));
 };
 
-export interface IStatusGraph {
+// Remove below
+interface IStatusGraph {
   closedVulnerabilities: number;
   openVulnerabilities: number;
 }
-export interface ITreatmentGraph extends IStatusGraph {
+interface ITreatmentGraph extends IStatusGraph {
   totalTreatment: string;
 }
-export interface IGraphData {
+interface IGraphData {
   backgroundColor: string[];
   data: number[];
   hoverBackgroundColor: string[];
   stack?: string;
 }
-export const calcPercent: ((value: number, total: number) => number) = (value: number, total: number): number =>
+const calcPercent: ((value: number, total: number) => number) = (value: number, total: number): number =>
     _.round(value * 100 / total, 1);
 
-export const statusGraph: ((graphProps: IStatusGraph) => { [key: string]: string | string[] | IGraphData[]}) =
+const statusGraph: ((graphProps: IStatusGraph) => { [key: string]: string | string[] | IGraphData[]}) =
 (graphProps: IStatusGraph): { [key: string]: string | string[] | IGraphData[]} => {
   const { openVulnerabilities, closedVulnerabilities } = graphProps;
   const statusDataset: IGraphData = {
@@ -508,7 +509,7 @@ export const statusGraph: ((graphProps: IStatusGraph) => { [key: string]: string
   return statusGraphData;
 };
 
-export const treatmentGraph: ((props: ITreatmentGraph) => ChartData) = (props: ITreatmentGraph): ChartData => {
+const treatmentGraph: ((props: ITreatmentGraph) => ChartData) = (props: ITreatmentGraph): ChartData => {
   const totalTreatment: Dictionary<number> = JSON.parse(props.totalTreatment);
   const treatmentDataset: IGraphData = {
     backgroundColor: ["#b7b7b7", "#000", "#FFAA63", "#CD2A86"],
