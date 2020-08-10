@@ -3,8 +3,8 @@ from itertools import (
     chain,
 )
 from typing import (
-    AsyncGenerator,
     Awaitable,
+    Callable,
     List,
     Set,
     Tuple,
@@ -81,7 +81,7 @@ async def analyze(
     file_name: str,
     file_extension: str,
     path: str,
-    raw_content_generator: AsyncGenerator[bytes, None],
+    raw_content_generator: Callable[[], Awaitable[bytes]],
 ) -> Tuple[Vulnerability, ...]:
     coroutines: List[Awaitable[Tuple[Vulnerability, ...]]] = []
 
@@ -92,7 +92,7 @@ async def analyze(
             file_name=file_name,
             file_extension=file_extension,
             path=path,
-            raw_content=await raw_content_generator.__anext__(),
+            raw_content=await raw_content_generator(),
         ))
 
     results: Tuple[Vulnerability, ...] = tuple(chain.from_iterable(

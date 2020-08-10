@@ -5,7 +5,8 @@ from glob import (
 import os
 from itertools import chain
 from typing import (
-    AsyncGenerator,
+    Awaitable,
+    Callable,
     Dict,
     Iterator,
     Set,
@@ -19,6 +20,7 @@ from aioextensions import (
 
 # Local imports
 from lib_path import (
+    f009,
     f011,
     f034,
     f117,
@@ -39,35 +41,36 @@ from utils.string import (
 )
 
 
-async def generate_char_to_yx_map(
-    file_content_generator: AsyncGenerator[str, None],
-) -> AsyncGenerator[Dict[int, Tuple[int, int]], None]:
-    file_content: str = await file_content_generator.__anext__()
+def generate_char_to_yx_map(
+    file_content_generator: Callable[[], Awaitable[str]],
+) -> Callable[[], Awaitable[Dict[int, Tuple[int, int]]]]:
+    data: Dict[str, Dict[int, Tuple[int, int]]] = {}
 
-    mapping: Dict[int, Tuple[int, int]] = await get_char_to_yx_map(
-        lines=tuple(file_content.splitlines()),
-    )
+    async def get_one() -> Dict[int, Tuple[int, int]]:
+        if not data:
+            content = await file_content_generator()
+            data['mapping'] = await get_char_to_yx_map(
+                lines=tuple(content.splitlines()),
+            )
+        return data['mapping']
 
-    while True:
-        yield mapping
+    return get_one
 
 
 async def analyze_one_path(path: str) -> Tuple[Vulnerability, ...]:
-    file_content_generator: AsyncGenerator[str, None] = generate_file_content(
-        path,
-    )
-    file_raw_content_generator: AsyncGenerator[bytes, None] = (
-        generate_file_raw_content(path)
-    )
-    char_to_yx_map_generator: (
-        AsyncGenerator[Dict[int, Tuple[int, int]], None]
-    ) = generate_char_to_yx_map(
-        file_content_generator=file_content_generator,
-    )
+    file_content_generator = generate_file_content(path)
+    file_raw_content_generator = generate_file_raw_content(path)
+    char_to_yx_map_generator = generate_char_to_yx_map(file_content_generator)
 
     results: Tuple[Vulnerability, ...] = tuple(chain.from_iterable(
         await collect(tuple(chain.from_iterable((
             (
+                f009.analyze(
+                    char_to_yx_map_generator=char_to_yx_map_generator,
+                    content_generator=file_content_generator,
+                    file_extension=file_extension,
+                    path=path,
+                ),
                 f011.analyze(
                     content_generator=file_content_generator,
                     file_name=file_name,
@@ -92,9 +95,6 @@ async def analyze_one_path(path: str) -> Tuple[Vulnerability, ...]:
             for file_extension in [file_extension[1:]]
         ))))
     ))
-
-    await char_to_yx_map_generator.aclose()
-    await file_content_generator.aclose()
 
     return results
 

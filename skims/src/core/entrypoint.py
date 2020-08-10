@@ -2,6 +2,7 @@
 from asyncio import (
     all_tasks,
     create_task,
+    get_event_loop,
     sleep,
     Task,
 )
@@ -59,6 +60,7 @@ async def main(
     monitor_task: Task[None] = create_task(monitor())
 
     if debug:
+        get_event_loop().set_debug(True)
         set_level(logging.DEBUG)
 
     success: bool = True

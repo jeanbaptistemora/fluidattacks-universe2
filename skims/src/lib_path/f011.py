@@ -4,8 +4,8 @@ from itertools import (
 )
 import re
 from typing import (
-    AsyncGenerator,
     Awaitable,
+    Callable,
     Iterator,
     List,
     Pattern,
@@ -287,7 +287,7 @@ async def translate_dependencies_to_vulnerabilities(
 
 
 async def analyze(
-    content_generator: AsyncGenerator[str, None],
+    content_generator: Callable[[], Awaitable[str]],
     file_name: str,
     file_extension: str,
     path: str,
@@ -296,22 +296,22 @@ async def analyze(
 
     if (file_name, file_extension) == ('build', 'gradle'):
         coroutines.append(build_gradle(
-            content=await content_generator.__anext__(),
+            content=await content_generator(),
             path=path,
         ))
     elif (file_name, file_extension) == ('package', 'json'):
         coroutines.append(npm_package_json(
-            content=await content_generator.__anext__(),
+            content=await content_generator(),
             path=path,
         ))
     elif (file_name, file_extension) == ('package-lock', 'json'):
         coroutines.append(npm_package_lock_json(
-            content=await content_generator.__anext__(),
+            content=await content_generator(),
             path=path,
         ))
     elif (file_name, file_extension) == ('yarn', 'lock'):
         coroutines.append(yarn_lock(
-            content=await content_generator.__anext__(),
+            content=await content_generator(),
             path=path,
         ))
 

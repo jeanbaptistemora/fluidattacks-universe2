@@ -8,7 +8,9 @@ from operator import (
 )
 import os
 from typing import (
-    AsyncGenerator,
+    Awaitable,
+    Callable,
+    Dict,
     Tuple,
 )
 
@@ -19,18 +21,26 @@ from aioextensions import (
 )
 
 
-async def generate_file_content(path: str) -> AsyncGenerator[str, None]:
-    file_contents: str = await get_file_content(path)
+def generate_file_content(path: str) -> Callable[[], Awaitable[str]]:
+    data: Dict[str, str] = {}
 
-    while True:
-        yield file_contents
+    async def get_one() -> str:
+        if not data:
+            data['file_contents'] = await get_file_content(path)
+        return data['file_contents']
+
+    return get_one
 
 
-async def generate_file_raw_content(path: str) -> AsyncGenerator[bytes, None]:
-    file_contents: bytes = await get_file_raw_content(path)
+def generate_file_raw_content(path: str) -> Callable[[], Awaitable[bytes]]:
+    data: Dict[str, bytes] = {}
 
-    while True:
-        yield file_contents
+    async def get_one() -> bytes:
+        if not data:
+            data['file_raw_content'] = await get_file_raw_content(path)
+        return data['file_raw_content']
+
+    return get_one
 
 
 async def get_file_content(path: str, encoding: str = 'latin-1') -> str:
