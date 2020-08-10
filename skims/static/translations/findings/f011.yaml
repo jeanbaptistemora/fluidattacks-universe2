@@ -1,0 +1,35 @@
+src.lib_path.f011.npm_package_json.description:
+  en: Use of {product} at version {version} with {cve} in {path}
+  es: Uso de {product} en la version {version} con {cve} en {path}
+utils.model.finding.enum.f011.description:
+  en: >
+    The system uses the version of a software or dependency with known
+    vulnerabilities.
+  es: >
+    El sistema usa la version de un software o dependencia con vulnerabilidades
+    conocidas.
+utils.model.finding.enum.f011.impact:
+  en: >
+    Exploit found vulnerabilities in the affected components.
+  es: >
+    Explotar vulnerabilidades encontradas en los componentes afectados.
+utils.model.finding.enum.f011.recommendation:
+  en: >
+    Update the affected software to the versions recommended by the vendor.
+  es: >
+    Actualizar el software afectado a las versiones recomendadas por el
+    fabricante.
+utils.model.finding.enum.f011.requirements:
+  en: |
+    R262. Verify third-party components.
+  es: >
+    R262. Los componentes provistos por terceros deben corresponder a versiones
+    estables, probadas y actualizadas.
+utils.model.finding.enum.f011.threat:
+  en: >
+    Autenticated attacker from the Internet.
+  es: >
+    Atacante autenticado desde Internet.
+utils.model.finding.enum.f011.title:
+  en: FIN.S.011. Use of software with known vulnerabilities
+  es: FIN.S.011. Uso de componentes con vulnerabilidades conocidas

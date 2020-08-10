@@ -1,0 +1,48 @@
+src.lib_path.f034.csharp_insecure_randoms.description:
+  en: Use of C# System.Random in {path}
+  es: Uso de C# System.Random en {path}
+src.lib_path.f034.java_use_of_lang_math_random.description:
+  en: Use of Java lang.Math.random in {path}
+  es: Uso de Java lang.Math.random en {path}
+src.lib_path.f034.java_use_of_util_random.description:
+  en: Use of Java util.Random in {path}
+  es: Uso de Java util.Random en {path}
+src.lib_path.f034.javascript_insecure_randoms.description:
+  en: Use of Javascript Math.random in {path}
+  es: Uso de Javascript Math.random en {path}
+utils.model.finding.enum.f034.description:
+  en: >
+    The system uses insecure functions, insufficient ranges or low-entropy
+    components to generate random numbers.
+  es: >
+    El sistema usa funciones inseguras, rangos insuficientes o componentes
+    de baja entropía para generar números aleatorios.
+utils.model.finding.enum.f034.impact:
+  en: >
+    Predict the sequence of random numbers.
+  es: >
+    Predecir la secuencia de números aleatorios.
+utils.model.finding.enum.f034.recommendation:
+  en: >
+    Use a well-vetted algorithm that is currently considered to be
+    strong by experts in the field, and select well-tested
+    implementations with adequate length seeds.
+  es: >
+    Utilizar un algoritmo bien examinado que se considere fuerte actualmente
+    por expertos en el campo, y seleccionar implementaciones bien probadas
+    con semillas o vectores de inicialización de longitud adecuada.
+utils.model.finding.enum.f034.requirements:
+  en: |
+    R223. Uniform distribution in random numbers.
+    R224. Use secure cryptographic mechanisms.
+  es: |
+    R223. Los números aleatorios generados deben seguir una distribución uniforme.
+    R224. Debe usarse el mecanismo criptográfico más seguro ofrecido por la plataforma.
+utils.model.finding.enum.f034.threat:
+  en: >
+    Autenticated attacker from the Internet.
+  es: >
+    Atacante autenticado desde Internet.
+utils.model.finding.enum.f034.title:
+  en: FIN.S.034. Insecure random number generation
+  es: FIN.S.034. Generación de números aleatorios inseguros

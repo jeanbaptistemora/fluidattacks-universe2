@@ -1,4 +1,7 @@
 # Standard library
+from glob import (
+    iglob,
+)
 from typing import (
     Any,
     Dict,
@@ -17,23 +20,24 @@ from utils.model import (
 )
 
 
-def load_translations(path: str) -> Dict[str, Dict[str, str]]:
-    with open(path) as handle:
-        translations: Dict[str, Dict[str, str]] = {
-            key: {
-                locale_code: data[locale_code.lower()]
-                for locale in LocalesEnum
-                for locale_code in [locale.value]
-            }
-            for key, data in yaml.safe_load(handle).items()  # type: ignore
-        }
+def load_translations() -> Dict[str, Dict[str, str]]:
+    translations: Dict[str, Dict[str, str]] = {}
+    translations_folder: str = get_artifact('static/translations')
+    for path in iglob(f'{translations_folder}/**/*.yaml', recursive=True):
+        with open(path) as handle:
+            translations.update({
+                key: {
+                    locale_code: data[locale_code.lower()]
+                    for locale in LocalesEnum
+                    for locale_code in [locale.value]
+                }
+                for key, data in yaml.safe_load(handle).items()  # type: ignore
+            })
 
     return translations
 
 
-TRANSLATIONS: Dict[str, Dict[str, str]] = load_translations(
-    get_artifact('static/translations.yaml'),
-)
+TRANSLATIONS: Dict[str, Dict[str, str]] = load_translations()
 
 
 def set_locale(locale: LocalesEnum) -> None:
