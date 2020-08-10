@@ -3,6 +3,13 @@ import pytest
 import backend.dal.available_name as available_name_dal
 from backend.exceptions import EmptyPoolName
 
+
+# Run async tests
+pytestmark = [
+    pytest.mark.asyncio,
+]
+
+
 @pytest.mark.changes_db
 async def test_remove():
     is_deleted = await available_name_dal.remove('manila', 'group')
