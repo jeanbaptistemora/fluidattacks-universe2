@@ -63,7 +63,7 @@ def all_pipelines_successful(mr_info: Any, config: Dict[str, Any]) -> bool:
         success: bool = True
         if config['passed_first_pipeline_before_mr']:
             first_pipeline: Dict[str, str] = mr_info.pipelines()[-1]
-            if first_pipeline['status'] not in 'success':
+            if first_pipeline['status'] not in ('success', 'manual'):
                 log(err_log,
                     'The Dev pipeline should pass before you open an MR.\n'
                     'Specifically, you opened your MR before %s passed.',
