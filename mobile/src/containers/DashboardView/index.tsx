@@ -75,8 +75,10 @@ const dashboardView: React.FunctionComponent = (): JSX.Element => {
   });
 
   const [addPushToken] = useMutation(ADD_PUSH_TOKEN_MUTATION, {
-    onError: (error: ApolloError): void => {
-      LOGGER.warning("Couldn't add push token", error);
+    onError: ({ graphQLErrors }: ApolloError): void => {
+      graphQLErrors.forEach((error: GraphQLError): void => {
+        LOGGER.error("Couldn't add push token", error);
+      });
     },
   });
 
