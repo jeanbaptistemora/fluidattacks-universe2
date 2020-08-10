@@ -185,19 +185,20 @@ async def persist_finding(
     results: Tuple[Vulnerability, ...],
 ) -> bool:
     success: bool = False
+    has_results: bool = bool(results)
 
     await log('info', 'persisting: %s, %s results', finding.name, len(results))
 
     finding_id: str = await get_closest_finding_id(
         affected_systems='\n'.join(get_affected_systems(results)),
-        create_if_missing=True,
+        create_if_missing=has_results,
         finding=finding,
         group=group,
         recreate_if_draft=True,
     )
 
     if finding_id:
-        await log('debug', 'finding for: %s = %s', finding.name, finding_id)
+        await log('info', 'finding for: %s = %s', finding.name, finding_id)
 
         merged_results: Tuple[Vulnerability, ...] = await merge_results(
             skims_results=results,
@@ -218,6 +219,13 @@ async def persist_finding(
         ) and await do_release_finding(
             finding_id=finding_id,
         )
+
+        await log(
+            'info', 'persisted: %s, results: %s, success: %s',
+            finding.name, len(results), success,
+        )
+    elif not has_results:
+        success = True
 
         await log(
             'info', 'persisted: %s, results: %s, success: %s',
@@ -252,7 +260,6 @@ async def persist(
             for result in results
             if result.finding == finding
         )]
-        if finding_results
     ))
 
     return success
