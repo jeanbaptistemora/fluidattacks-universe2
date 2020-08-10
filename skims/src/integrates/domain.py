@@ -1,6 +1,7 @@
 # Standard library
 from typing import (
     Dict,
+    List,
     Tuple,
     Union,
 )
@@ -8,6 +9,9 @@ from typing import (
 # Third party libraries
 from aioextensions import (
     unblock,
+)
+from more_itertools import (
+    ichunked,
 )
 
 # Local libraries
@@ -23,6 +27,9 @@ from integrates.dal import (
 )
 from utils.encodings import (
     yaml_dumps,
+)
+from utils.logs import (
+    log,
 )
 from utils.model import (
     FindingEnum,
@@ -44,7 +51,6 @@ async def build_vulnerabilities_stream(
     *,
     results: Tuple[Vulnerability, ...],
 ) -> str:
-
     data_type = Dict[
         VulnerabilityKindEnum,
         Tuple[Union[IntegratesVulnerabilitiesLines], ...]
@@ -142,15 +148,26 @@ async def delete_closest_findings(*, group: str, finding: FindingEnum) -> bool:
 
 async def do_build_and_upload_vulnerabilities(
     *,
+    batch_size: int = 50,
     finding_id: str,
     results: Tuple[Vulnerability, ...],
 ) -> bool:
-    return await do_upload_vulnerabilities(
-        finding_id=finding_id,
-        stream=await build_vulnerabilities_stream(
-            results=results,
-        ),
-    )
+    successes: List[bool] = []
+    msg: str = 'Uploading vulnerabilities to %s, batch %s of size %s'
+
+    for index, iterable in enumerate(ichunked(results, batch_size)):
+        batch: Tuple[Vulnerability] = tuple(iterable)  # type: ignore
+        await log('info', msg, finding_id, index, len(batch))
+        successes.append(
+            await do_upload_vulnerabilities(
+                finding_id=finding_id,
+                stream=await build_vulnerabilities_stream(
+                    results=batch,
+                ),
+            ),
+        )
+
+    return all(successes)
 
 
 async def do_delete_if_draft(
