@@ -112,12 +112,15 @@ async def test_remove_group():
 @pytest.mark.changes_db
 async def test_remove_user():
     org_id = 'ORG#f2e2777d-a168-4bea-93cd-d79142b294d2'
+    user = 'org_testuser2@gmail.com'
     users = await org_dal.get_users(org_id)
     assert len(users) > 0
+    assert user in users
 
-    await org_dal.remove_user(org_id, users[0])
+    await org_dal.remove_user(org_id, user)
     updated_users = await org_dal.get_users(org_id)
     assert len(updated_users) == len(users) - 1
+    assert user not in updated_users
 
 
 async def test_exists():
@@ -249,6 +252,7 @@ async def test_iterate_organizations():
         'ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3': 'imamura',
         'ORG#c2ee2d15-04ab-4f39-9795-fbe30cdeee86': 'bulat',
         'ORG#f2e2777d-a168-4bea-93cd-d79142b294d2': 'hajime',
+        'ORG#fe80d2d4-ccb7-46d1-8489-67c6360581de': 'tatsumi',
         'ORG#ffddc7a3-7f05-4fc7-b65d-7defffa883c2': 'himura'
     }
     async for org_id, org_name in org_dal.iterate_organizations():

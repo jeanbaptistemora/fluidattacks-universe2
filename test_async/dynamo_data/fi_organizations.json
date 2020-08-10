@@ -181,7 +181,7 @@
                         "N": "60"
                     },
                     "max_acceptance_severity": {
-                        "N": "7.3"
+                        "N": "7.0"
                     },
                     "max_number_acceptations": {
                         "N": "1"
@@ -209,6 +209,42 @@
                     },
                     "sk": {
                         "S": "USER#org_testuser2@gmail.com"
+                    }
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "pk": {
+                        "S": "ORG#f2e2777d-a168-4bea-93cd-d79142b294d2"
+                    },
+                    "sk": {
+                        "S": "USER#org_testgroupmanager1@gmail.com"
+                    }
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "pk": {
+                        "S": "ORG#fe80d2d4-ccb7-46d1-8489-67c6360581de"
+                    },
+                    "sk": {
+                        "S": "INFO#tatsumi"
+                    }
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "pk": {
+                        "S": "ORG#fe80d2d4-ccb7-46d1-8489-67c6360581de"
+                    },
+                    "sk": {
+                        "S": "USER#org_testuser1@gmail.com"
                     }
                 }
             }

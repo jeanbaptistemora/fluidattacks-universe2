@@ -1,18 +1,101 @@
 import pytest
 from decimal import Decimal
 
-import backend.domain.organization as org_domain
+from backend import authz
+from backend.domain import (
+    organization as org_domain,
+    project as project_domain
+)
 from backend.exceptions import (
     InvalidAcceptanceDays,
     InvalidAcceptanceSeverity,
     InvalidAcceptanceSeverityRange,
-    InvalidNumberAcceptations
+    InvalidNumberAcceptations,
+    InvalidOrganization
 )
+from backend.utils import aio
 
 # Run async tests
 pytestmark = [
     pytest.mark.asyncio,
 ]
+
+
+@pytest.mark.changes_db
+async def test_add_group():
+    org_id = 'ORG#f2e2777d-a168-4bea-93cd-d79142b294d2'
+    group = 'najenda'
+    assert not await org_domain.has_group(org_id, group)
+
+    await org_domain.add_group(org_id, group)
+    assert await org_domain.has_group(org_id, group)
+
+    users = await project_domain.get_users(group)
+    assert await authz.get_organization_level_role(
+        users[0], org_id
+    ) == 'group_manager'
+
+
+@pytest.mark.changes_db
+async def test_add_user():
+    org_id = 'ORG#f2e2777d-a168-4bea-93cd-d79142b294d2'
+    user = 'org_testgroupmanager2@gmail.com'
+    assert not await org_domain.has_user_access(org_id, user)
+
+    await org_domain.add_user(org_id, user, 'group_manager')
+    assert await authz.get_organization_level_role(
+        user, org_id
+    ) == 'group_manager'
+
+    groups = await org_domain.get_groups(org_id)
+    groups_users = await aio.materialize(
+        project_domain.get_users(group) for group in groups
+    )
+    assert all([user in group_users for group_users in groups_users])
+
+
+@pytest.mark.changes_db
+async def test_create_organization():
+    org_name = 'esdeath'
+    user = 'org_testusermanager1@gmail.com'
+    with pytest.raises(InvalidOrganization):
+        await org_domain.get_id_by_name(org_name)
+
+    await org_domain.create_organization(org_name, user)
+    org_id = await org_domain.get_id_by_name(org_name)
+    assert await org_domain.has_user_access(org_id, user)
+    assert await authz.get_organization_level_role(
+        user, org_id
+    ) == 'customeradmin'
+
+    with pytest.raises(InvalidOrganization):
+        await org_domain.create_organization(org_name, user)
+
+
+@pytest.mark.changes_db
+async def test_delete_organization():
+    org_id = 'ORG#fe80d2d4-ccb7-46d1-8489-67c6360581de'
+    users = await org_domain.get_users(org_id)
+    assert len(users) > 0
+
+    await org_domain.delete_organization(org_id)
+    updated_users = await org_domain.get_users(org_id)
+    assert len(updated_users) == 0
+
+    with pytest.raises(InvalidOrganization):
+        await org_domain.get_name_by_id(org_id)
+
+
+async def test_get_groups():
+    org_id = 'ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3'
+    groups = await org_domain.get_groups(org_id)
+    assert len(groups) == 3
+    assert sorted(groups) == [
+        'continuoustesting',
+        'oneshottest',
+        'unittesting'
+    ]
+
 
 async def test_get_id_for_group():
     group_name = 'unittesting'
