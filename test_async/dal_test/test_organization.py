@@ -57,41 +57,29 @@ def test__map_attributes_to_dal():
 async def test_add_group():
     org_id = 'ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3'
     groups = await org_dal.get_groups(org_id)
-    assert len(groups) == 3
 
-    group_name = 'testgroup'
+    group_name = 'mine'
     await org_dal.add_group(org_id, group_name)
-    groups = await org_dal.get_groups(org_id)
-    assert len(groups) == 4
-    assert sorted(groups) == [
-        'continuoustesting',
-        'oneshottest',
-        group_name,
-        'unittesting'
-    ]
+    updated_groups = await org_dal.get_groups(org_id)
+    assert len(updated_groups) == len(groups) + 1
+    assert sorted(updated_groups) == sorted(groups + [group_name])
 
 
 @pytest.mark.changes_db
 async def test_add_user():
     org_id = 'ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3'
     users = await org_dal.get_users(org_id)
-    assert len(users) == 3
 
-    email = 'test@testemail.com'
+    email = 'org_testuser1@gmail.com'
     await org_dal.add_user(org_id, email)
-    users = await org_dal.get_users(org_id)
-    assert len(users) == 4
-    assert sorted(users) == [
-        'continuoushacking@gmail.com',
-        'integratesmanager@gmail.com',
-        'integratesuser@gmail.com',
-        email
-    ]
+    updated_users = await org_dal.get_users(org_id)
+    assert len(updated_users) == len(users) + 1
+    assert sorted(updated_users) == sorted(users + [email])
 
 
 @pytest.mark.changes_db
 async def test_create():
-    org_name = 'test-org-creating'
+    org_name = 'test-create-org'
     new_org = await org_dal.create(org_name)
     assert isinstance(new_org, dict)
     assert 'id' in new_org
@@ -112,28 +100,24 @@ async def test_delete():
 
 @pytest.mark.changes_db
 async def test_remove_group():
-    org_id = 'ORG#708f518a-d2c3-4441-b367-eec85e53d134'
+    org_id = 'ORG#f2e2777d-a168-4bea-93cd-d79142b294d2'
     groups = await org_dal.get_groups(org_id)
-    assert len(groups) == 1
+    assert len(groups) > 0
 
-    await org_dal.remove_group(
-        'ORG#708f518a-d2c3-4441-b367-eec85e53d134', groups[0]
-    )
-    groups = await org_dal.get_groups(org_id)
-    assert len(groups) == 0
+    await org_dal.remove_group(org_id, groups[0])
+    updated_groups = await org_dal.get_groups(org_id)
+    assert len(updated_groups) == len(groups) - 1
 
 
 @pytest.mark.changes_db
 async def test_remove_user():
-    org_id = 'ORG#708f518a-d2c3-4441-b367-eec85e53d134'
+    org_id = 'ORG#f2e2777d-a168-4bea-93cd-d79142b294d2'
     users = await org_dal.get_users(org_id)
-    assert len(users) == 1
+    assert len(users) > 0
 
-    await org_dal.remove_user(
-        'ORG#708f518a-d2c3-4441-b367-eec85e53d134', users[0]
-    )
-    users = await org_dal.get_users(org_id)
-    assert len(users) == 0
+    await org_dal.remove_user(org_id, users[0])
+    updated_users = await org_dal.get_users(org_id)
+    assert len(updated_users) == len(users) - 1
 
 
 async def test_exists():
@@ -173,7 +157,7 @@ async def test_get_many_by_id():
     ]
     orgs = await org_dal.get_many_by_id(org_ids, ['id', 'name'])
     assert orgs[0]['id'] == org_ids[0]
-    assert orgs[1]['name'] == 'testorg'
+    assert orgs[1]['name'] == 'bulat'
     assert not orgs[2]
 
 
@@ -188,7 +172,7 @@ async def test_get_id_for_group():
 
 async def test_get_ids_for_user():
     existing_user = 'integratesmanager@gmail.com'
-    non_existent_user = 'madeupuser@madeup.com'
+    non_existent_user = 'madeupuser@gmail.com'
     org_ids_1 = await org_dal.get_ids_for_user(existing_user)
     org_ids_2 = await org_dal.get_ids_for_user(non_existent_user)
     assert sorted(org_ids_1) == [
@@ -231,7 +215,7 @@ async def test_has_group():
 async def test_has_user_access():
     org_id = 'ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3'
     existing_user = 'integratesmanager@gmail.com'
-    non_existent_user = 'madeupuser@madeup.com'
+    non_existent_user = 'madeupuser@gmail.com'
     assert await org_dal.has_user_access(org_id, existing_user)
     assert not await org_dal.has_user_access(org_id, non_existent_user)
 
@@ -263,8 +247,8 @@ async def test_update():
 async def test_iterate_organizations():
     expected_organizations = {
         'ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3': 'imamura',
-        'ORG#c2ee2d15-04ab-4f39-9795-fbe30cdeee86': 'testorg',
-        'ORG#708f518a-d2c3-4441-b367-eec85e53d134': 'testorg2',
+        'ORG#c2ee2d15-04ab-4f39-9795-fbe30cdeee86': 'bulat',
+        'ORG#f2e2777d-a168-4bea-93cd-d79142b294d2': 'hajime',
         'ORG#ffddc7a3-7f05-4fc7-b65d-7defffa883c2': 'himura'
     }
     async for org_id, org_name in org_dal.iterate_organizations():

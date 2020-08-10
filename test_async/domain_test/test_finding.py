@@ -77,7 +77,7 @@ class FindingTests(TestCase):
     @pytest.mark.changes_db
     async def test_update_client_description(self):
         finding_id = '463461507'
-        org_id = 'ORG#708f518a-d2c3-4441-b367-eec85e53d134'
+        org_id = 'ORG#f2e2777d-a168-4bea-93cd-d79142b294d2'
         info_to_check = {
             'historic_treatment': [{
                     'date': '2020-01-01 12:00:00',
@@ -245,7 +245,7 @@ class FindingTests(TestCase):
 
     async def test_validate_acceptance_severity(self):
         finding_id = '463461507'
-        org_id = 'ORG#708f518a-d2c3-4441-b367-eec85e53d134'
+        org_id = 'ORG#f2e2777d-a168-4bea-93cd-d79142b294d2'
         info_to_check = {
             'historic_treatment': [{
                     'date': '2020-02-01 12:00:00',
@@ -274,7 +274,7 @@ class FindingTests(TestCase):
 
     async def test_validate_number_acceptations(self):
         finding_id = '463461507'
-        org_id = 'ORG#708f518a-d2c3-4441-b367-eec85e53d134'
+        org_id = 'ORG#f2e2777d-a168-4bea-93cd-d79142b294d2'
         info_to_check = {
             'historic_treatment': [
                 {

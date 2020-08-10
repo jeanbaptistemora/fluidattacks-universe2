@@ -97,7 +97,7 @@
                         "S": "ORG#c2ee2d15-04ab-4f39-9795-fbe30cdeee86"
                     },
                     "sk": {
-                        "S": "INFO#testorg"
+                        "S": "INFO#bulat"
                     },
                     "max_acceptance_severity": {
                         "N": "6.9"
@@ -172,22 +172,19 @@
             "PutRequest": {
                 "Item": {
                     "pk": {
-                        "S": "ORG#708f518a-d2c3-4441-b367-eec85e53d134"
+                        "S": "ORG#f2e2777d-a168-4bea-93cd-d79142b294d2"
                     },
                     "sk": {
-                        "S": "INFO#testorg2"
+                        "S": "INFO#hajime"
                     },
                     "max_acceptance_days": {
                         "N": "60"
                     },
+                    "max_acceptance_severity": {
+                        "N": "7.3"
+                    },
                     "max_number_acceptations": {
                         "N": "1"
-                    },
-                    "max_acceptance_severity": {
-                        "N": "6.9"
-                    },
-                    "min_acceptance_severity": {
-                        "N": "3.4"
                     }
                 }
             }
@@ -196,10 +193,10 @@
             "PutRequest": {
                 "Item": {
                     "pk": {
-                        "S": "ORG#708f518a-d2c3-4441-b367-eec85e53d134"
+                        "S": "ORG#f2e2777d-a168-4bea-93cd-d79142b294d2"
                     },
                     "sk": {
-                        "S": "GROUP#grouptodelete"
+                        "S": "GROUP#sheele"
                     }
                 }
             }
@@ -208,10 +205,10 @@
             "PutRequest": {
                 "Item": {
                     "pk": {
-                        "S": "ORG#708f518a-d2c3-4441-b367-eec85e53d134"
+                        "S": "ORG#f2e2777d-a168-4bea-93cd-d79142b294d2"
                     },
                     "sk": {
-                        "S": "USER#emailtodelete@testemail.com"
+                        "S": "USER#org_testuser2@gmail.com"
                     }
                 }
             }
