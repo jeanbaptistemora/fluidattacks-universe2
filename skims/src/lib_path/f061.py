@@ -1,4 +1,5 @@
 # Standard library
+import ast
 from itertools import (
     chain,
 )
@@ -6,6 +7,7 @@ from typing import (
     Awaitable,
     Callable,
     Dict,
+    Iterator,
     List,
     Tuple,
 )
@@ -13,13 +15,10 @@ from typing import (
 # Third party libraries
 from pyparsing import (
     Empty,
-    indentedBlock,
     Keyword,
-    LineEnd,
     MatchFirst,
     nestedExpr,
     Optional,
-    SkipTo,
 )
 
 # Third party libraries
@@ -37,15 +36,23 @@ from lib_path.common import (
     EXTENSIONS_JAVASCRIPT,
     EXTENSIONS_PYTHON,
     DOUBLE_QUOTED_STRING,
-    SHARP_STYLE_COMMENT,
     SINGLE_QUOTED_STRING,
 )
 from state import (
     cache_decorator,
 )
+from utils.ast import (
+    iterate_nodes,
+)
 from utils.model import (
     FindingEnum,
+    SkimsVulnerabilityMetadata,
     Vulnerability,
+    VulnerabilityKindEnum,
+    VulnerabilityStateEnum,
+)
+from utils.string import (
+    blocking_to_snippet,
 )
 from zone import (
     t,
@@ -193,44 +200,51 @@ async def java_swallows_exceptions(
 
 
 def _python_swallows_exceptions(
-    char_to_yx_map: Dict[int, Tuple[int, int]],
     content: str,
     path: str,
 ) -> Tuple[Vulnerability, ...]:
-    # Empty() grammar matches 'anything'
-    # ~Empty() grammar matches 'not anything' or 'nothing'
-    grammar = (
-        Keyword('except') +
-        SkipTo(LineEnd(), include=True) +
-        indentedBlock(Keyword('pass'), indentStack=[1])
-    )
-    grammar.ignore(SHARP_STYLE_COMMENT)
-    grammar.ignore(DOUBLE_QUOTED_STRING)
-    grammar.ignore(SINGLE_QUOTED_STRING)
-
-    return blocking_get_vulnerabilities(
-        char_to_yx_map=char_to_yx_map,
+    node: ast.AST
+    vulnerable_nodes: Iterator[ast.ExceptHandler] = iterate_nodes(
         content=content,
-        description=t(
-            key='src.lib_path.f061.swallows_exceptions.description',
-            lang='Python',
-            path=path,
+        filters=(
+            lambda node: isinstance(node, ast.ExceptHandler),
+            lambda node: hasattr(node, 'body'),
+            lambda node: bool(node.body),
+            lambda node: all(isinstance(c, ast.Pass) for c in node.body),
         ),
-        finding=FindingEnum.F061,
-        grammar=grammar,
-        path=path,
+    )
+
+    return tuple(
+        Vulnerability(
+            finding=FindingEnum.F061,
+            kind=VulnerabilityKindEnum.LINES,
+            state=VulnerabilityStateEnum.OPEN,
+            what=path,
+            where=f'{node.lineno}',
+            skims_metadata=SkimsVulnerabilityMetadata(
+                description=t(
+                    key='src.lib_path.f061.swallows_exceptions.description',
+                    lang='Python',
+                    path=path,
+                ),
+                snippet=blocking_to_snippet(
+                    column=node.col_offset,
+                    content=content,
+                    line=node.lineno,
+                )
+            )
+        )
+        for node in vulnerable_nodes
     )
 
 
 @cache_decorator()
 async def python_swallows_exceptions(
-    char_to_yx_map: Dict[int, Tuple[int, int]],
     content: str,
     path: str,
 ) -> Tuple[Vulnerability, ...]:
     return await unblock_cpu(
         _python_swallows_exceptions,
-        char_to_yx_map=char_to_yx_map,
         content=content,
         path=path,
     )
@@ -266,7 +280,6 @@ async def analyze(
         ))
     elif file_extension in EXTENSIONS_PYTHON:
         coroutines.append(python_swallows_exceptions(
-            char_to_yx_map=await char_to_yx_map_generator(),
             content=await content_generator(),
             path=path,
         ))
