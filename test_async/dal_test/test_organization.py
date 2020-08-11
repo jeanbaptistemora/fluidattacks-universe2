@@ -101,10 +101,11 @@ async def test_delete():
 @pytest.mark.changes_db
 async def test_remove_group():
     org_id = 'ORG#f2e2777d-a168-4bea-93cd-d79142b294d2'
+    group = 'kurome'
     groups = await org_dal.get_groups(org_id)
     assert len(groups) > 0
 
-    await org_dal.remove_group(org_id, groups[0])
+    await org_dal.remove_group(org_id, group)
     updated_groups = await org_dal.get_groups(org_id)
     assert len(updated_groups) == len(groups) - 1
 

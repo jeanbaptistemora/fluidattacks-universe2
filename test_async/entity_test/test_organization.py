@@ -107,7 +107,7 @@ async def test_edit_user_organization():
 @pytest.mark.changes_db
 async def test_grant_user_organization_access():
     org_id = 'ORG#f2e2777d-a168-4bea-93cd-d79142b294d2'
-    user = 'org_testuser5@gmail.com'
+    user = 'org_testuser6@gmail.com'
     query = Template(f'''
         mutation {{
             grantUserOrganizationAccess(
@@ -170,6 +170,67 @@ async def test_remove_user_organization_access():
     data = {'query': query.substitute(user='madeupuser@gmail.com')}
     result = await _get_result_async(data)
     exe = UserNotInOrganization()
+    assert 'errors' in result
+    assert result['errors'][0]['message'] == exe.args[0]
+
+
+@pytest.mark.changes_db
+async def test_update_organization_policies():
+    org_id = 'ORG#f2e2777d-a168-4bea-93cd-d79142b294d2'
+    org_name = 'hajime'
+    query = f'''
+        mutation {{
+            updateOrganizationPolicies(
+                maxAcceptanceDays: 5,
+                maxAcceptanceSeverity: 8.5,
+                maxNumberAcceptations: 3,
+                minAcceptanceSeverity: 1.5,
+                organizationId: "{org_id}",
+                organizationName: "{org_name}"
+            ) {{
+                success
+            }}
+        }}
+    '''
+
+    data = {'query': query}
+    result = await _get_result_async(data)
+    assert 'errors' not in result
+    assert result['data']['updateOrganizationPolicies']['success']
+
+    result = await _get_result_async(data, user='org_testuser5@gmail.com')
+    assert 'errors' in result
+    assert result['errors'][0]['message'] == 'Access denied'
+
+    result = await _get_result_async(data, user='madeupuser@gmail.com')
+    exe = UserNotInOrganization()
+    assert 'errors' in result
+    assert result['errors'][0]['message'] == exe.args[0]
+
+
+async def test_get_organization_id():
+    org_name = 'imamura'
+    expected_org_id = 'ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3'
+    query = Template('''
+        query {
+            organizationId(organizationName: "$name") {
+                id
+            }
+        }
+    ''')
+
+    data = {'query': query.substitute(name=org_name)}
+    result = await _get_result_async(data)
+    assert 'errors' not in result
+    assert result['data']['organizationId']['id'] == expected_org_id
+
+    result = await _get_result_async(data, user='madeupuser@gmail.com')
+    assert 'errors' in result
+    assert result['errors'][0]['message'] == 'Access denied'
+
+    data = {'query': query.substitute(name='madeup-name')}
+    result = await _get_result_async(data)
+    exe = InvalidOrganization()
     assert 'errors' in result
     assert result['errors'][0]['message'] == exe.args[0]
 

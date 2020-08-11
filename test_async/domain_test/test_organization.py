@@ -224,6 +224,7 @@ async def test_has_user_access():
     assert not await org_domain.has_user_access(org_id, non_existent_user)
 
 
+@pytest.mark.changes_db
 async def test_remove_user():
     user = 'org_testuser3@gmail.com'
     group = 'sheele'
@@ -233,7 +234,7 @@ async def test_remove_user():
     assert await authz.get_group_level_role(user, group) == 'customer'
     assert await authz.get_organization_level_role(user, org_id) == 'customer'
 
-    await org_domain.remove_user(org_id, user)
+    assert await org_domain.remove_user(org_id, user)
     updated_group_users = await project_domain.get_users(group)
     assert user not in updated_group_users
     assert await authz.get_group_level_role(user, group) == ''
@@ -360,7 +361,7 @@ async def test_iterate_organizations_and_groups():
             'bulat': ['pendingproject']
         },
         'ORG#f2e2777d-a168-4bea-93cd-d79142b294d2': {
-            'hajime': ['sheele']
+            'hajime': ['kurome', 'sheele']
         },
         'ORG#fe80d2d4-ccb7-46d1-8489-67c6360581de': {
             'tatsumi': ['lubbock']

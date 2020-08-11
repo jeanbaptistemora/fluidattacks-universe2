@@ -233,6 +233,7 @@ async def _do_remove_user_organization_access(
     return SimplePayloadType(success=success)
 
 
+@require_organization_access
 @enforce_organization_level_auth_async
 async def _do_update_organization_policies(
     _: Any,

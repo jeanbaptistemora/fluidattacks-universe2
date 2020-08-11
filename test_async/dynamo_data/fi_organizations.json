@@ -196,6 +196,18 @@
                         "S": "ORG#f2e2777d-a168-4bea-93cd-d79142b294d2"
                     },
                     "sk": {
+                        "S": "GROUP#kurome"
+                    }
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "pk": {
+                        "S": "ORG#f2e2777d-a168-4bea-93cd-d79142b294d2"
+                    },
+                    "sk": {
                         "S": "GROUP#sheele"
                     }
                 }
@@ -233,6 +245,18 @@
                     },
                     "sk": {
                         "S": "USER#org_testuser4@gmail.com"
+                    }
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "pk": {
+                        "S": "ORG#f2e2777d-a168-4bea-93cd-d79142b294d2"
+                    },
+                    "sk": {
+                        "S": "USER#org_testuser5@gmail.com"
                     }
                 }
             }
