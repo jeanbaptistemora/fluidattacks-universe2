@@ -29,12 +29,12 @@ from utils.model import (
 TVar = TypeVar('TVar')
 RETRY: Callable[[TVar], TVar] = retry(
     attempts=3,
+    on_error=(),
     on_exceptions=(
         aiohttp.ClientError,
         IndexError,
         socket.gaierror,
     ),
-    on_error_return=(),
     sleep_between_retries=5,
 )
 RE_CVE: Pattern = re.compile(r'vuln-detail-link-[0-9]+">(CVE-[0-9-]+)</a>')

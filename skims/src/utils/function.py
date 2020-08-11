@@ -19,6 +19,7 @@ from utils.logs import (
 )
 
 # Constants
+RAISE = object()
 TVar = TypeVar('TVar')
 
 
@@ -45,8 +46,8 @@ def get_signature(function: Callable[..., Any]) -> inspect.Signature:
 def retry(
     *,
     attempts: int = 5,
+    on_error: Any = RAISE,
     on_exceptions: Tuple[Type[Exception], ...],
-    on_error_return: Any = None,
     sleep_between_retries: int = 0
 ) -> Callable[[TVar], TVar]:
 
@@ -63,10 +64,10 @@ def retry(
                     await log('debug', 'retrying: %s', _function.__name__)
                     await sleep(sleep_between_retries)
 
-            if on_error_return:
-                return on_error_return
+            if on_error is RAISE:
+                return await _function(*args, **kwargs)
 
-            return await _function(*args, **kwargs)
+            return on_error
 
         return cast(TVar, wrapper)
 
