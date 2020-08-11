@@ -18,7 +18,7 @@ import { DataTableNext } from "../../../../../components/DataTableNext";
 import { IHeaderConfig } from "../../../../../components/DataTableNext/types";
 import { FluidIcon } from "../../../../../components/FluidIcon";
 import { Can } from "../../../../../utils/authz/Can";
-import { formatDropdownField, getLastTreatment, getPreviousTreatment } from "../../../../../utils/formatHelpers";
+import { formatDropdownField, getPreviousTreatment } from "../../../../../utils/formatHelpers";
 import { Date, Dropdown, Text, TextArea } from "../../../../../utils/forms/fields";
 import Logger from "../../../../../utils/logger";
 import { msgError, msgSuccess } from "../../../../../utils/notifications";
@@ -31,6 +31,7 @@ import { GenericForm } from "../../../components/GenericForm";
 import { RemediationModal } from "../../../components/RemediationModal";
 import { HANDLE_ACCEPTATION } from "../queries";
 import { IHistoricTreatment } from "../types";
+import { getLastTreatment } from "../utils";
 import { default as style } from "./index.css";
 import { GET_FINDING_TREATMENT, UPDATE_TREATMENT_MUTATION } from "./queries";
 

@@ -1,5 +1,6 @@
 import _ from "lodash";
 import { IHistoricTreatment } from "../scenes/Dashboard/containers/DescriptionView/types";
+import { formatHistoricTreatment } from "../scenes/Dashboard/containers/DescriptionView/utils";
 import { IProjectDraftsAttr } from "../scenes/Dashboard/containers/ProjectDraftsView/types";
 import { IProjectFindingsAttr } from "../scenes/Dashboard/containers/ProjectFindingsView/types";
 import { ILastLogin, IUserDataAttr, IUsersAttr } from "../scenes/Dashboard/containers/ProjectUsersView/types";
@@ -71,9 +72,6 @@ export const castEventStatus: ((field: string) => string) = (field: string): str
   return eventStatus[field];
 };
 
-export const formatCweUrl: ((cweId: string) => string) = (cweId: string): string =>
-  _.includes(["None", ""], cweId) ? "-" : `https://cwe.mitre.org/data/definitions/${cweId}.html`;
-
 export const formatDropdownField: ((field: string) => string) = (field: string): string => {
   const translationParameters: {[value: string]: string} = {
     ACCEPTED: "search_findings.tab_description.treatment.accepted",
@@ -105,9 +103,6 @@ export const formatDropdownField: ((field: string) => string) = (field: string):
   return translationParameters[field];
 };
 
-export const formatFindingType: ((type: string) => string) = (type: string): string =>
-  _.isEmpty(type) ? "-" : translate.t(`search_findings.tab_description.type.${type.toLowerCase()}`);
-
 export const formatTreatment: ((treatment: string, findingState: string) => string) =
   (treatment: string, findingState: string): string => {
     const treatmentParameters: { [value: string]: string } = {
@@ -128,9 +123,6 @@ export const formatTreatment: ((treatment: string, findingState: string) => stri
 
     return treatmentRes;
   };
-
-export const formatCompromisedRecords: ((records: number) => string) = (records: number): string =>
-  records.toString();
 
 type IFindingsDataset = IProjectFindingsAttr["project"]["findings"];
 export const formatFindings: ((dataset: IFindingsDataset) => IFindingsDataset) =
@@ -188,48 +180,6 @@ export const formatEvents: ((dataset: IEventsDataset) => IEventsDataset) =
 
     return { ...event, eventType, eventStatus };
   });
-
-const formatHistoricTreatment: (
-  (treatmentEvent: IHistoricTreatment, translateTreatment: boolean) => IHistoricTreatment) = (
-  treatmentEvent: IHistoricTreatment, translateTreatment: boolean,
-): IHistoricTreatment => {
-
-  const date: string = _.get(treatmentEvent, "date", "")
-    .split(" ")[0];
-  const acceptanceDate: string = _.get(treatmentEvent, "acceptance_date", "")
-    .split(" ")[0];
-  const acceptanceStatus: string = _.get(treatmentEvent, "acceptance_status", "")
-    .split(" ")[0];
-  const treatment: string = translateTreatment
-    ? formatTreatment(
-        _.get(treatmentEvent, "treatment")
-          .replace(" ", "_"),
-        "open",
-      )
-    : _.get(treatmentEvent, "treatment")
-        .replace(" ", "_");
-  const justification: string = _.get(treatmentEvent, "justification", "");
-  const acceptationUser: string = _.get(treatmentEvent, "user", "");
-
-  return {
-    acceptanceDate,
-    acceptanceStatus,
-    date,
-    justification,
-    treatment,
-    user: acceptationUser,
-  };
-};
-
-export const getLastTreatment: ((historic: IHistoricTreatment[]) => IHistoricTreatment) = (
-  historic: IHistoricTreatment[],
-): IHistoricTreatment => {
-  const lastTreatment: IHistoricTreatment = historic.length > 0
-    ? _.last(historic) as IHistoricTreatment
-    : { date: "", treatment: "", user: "" };
-
-  return formatHistoricTreatment(lastTreatment, false);
-};
 
 export const getPreviousTreatment: ((historic: IHistoricTreatment[]) => IHistoricTreatment[]) = (
   historic: IHistoricTreatment[],

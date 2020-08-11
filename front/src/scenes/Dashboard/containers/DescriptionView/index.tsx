@@ -21,9 +21,6 @@ import { ConfigurableValidator } from "revalidate";
 import { TooltipWrapper } from "../../../../components/TooltipWrapper/index";
 import { Can } from "../../../../utils/authz/Can";
 import { authzPermissionsContext } from "../../../../utils/authz/config";
-import {
-  formatCompromisedRecords, formatCweUrl, formatFindingType, getLastTreatment,
-} from "../../../../utils/formatHelpers";
 import { Dropdown, Text, TextArea } from "../../../../utils/forms/fields";
 import Logger from "../../../../utils/logger";
 import { msgError, msgSuccess } from "../../../../utils/notifications";
@@ -38,6 +35,9 @@ import { ActionButtons } from "./ActionButtons";
 import { GET_FINDING_DESCRIPTION, UPDATE_DESCRIPTION_MUTATION } from "./queries";
 import { TreatmentView } from "./TreatmentView";
 import { IFinding, IFindingDescriptionData, IFindingDescriptionVars, IHistoricTreatment } from "./types";
+import {
+  formatCompromisedRecords, formatCweUrl, formatFindingType, getLastTreatment,
+} from "./utils";
 
 const maxTitleLength: ConfigurableValidator = maxLength(90);
 const maxDescriptionLength: ConfigurableValidator = maxLength(500);
