@@ -1,7 +1,7 @@
-import Access from "./scenes/Login/containers/Access";
 import { BugsnagErrorBoundary } from "./utils/bugsnagErrorBoundary";
 import { Dashboard } from "./scenes/Dashboard";
 import LogRocket from "logrocket";
+import { Login } from "./scenes/Login";
 import { NetworkStatus } from "react-apollo-network-status";
 import { Preloader } from "./components/Preloader";
 import React from "react";
@@ -35,7 +35,7 @@ const App: React.FC = (): JSX.Element => {
               <authzPermissionsContext.Provider value={userLevelPermissions}>
                 <secureStoreContext.Provider value={secureStore}>
                   <Switch>
-                    <Route component={Access} path={"/"} exact={true} />
+                    <Route component={Login} exact={true} path={"/"} />
                     <Route component={Registration} path={"/registration"} />
                     <Route component={Dashboard} path={"/"} />
                   </Switch>

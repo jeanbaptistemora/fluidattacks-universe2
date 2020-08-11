@@ -1,0 +1,45 @@
+:local .container {
+  align-items: center;
+  color: white;
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+}
+
+:local .content {
+  margin-top: -6%;
+}
+
+:local .googleBtn {
+  align-items: center;
+  background-color: #CC0000;
+  border-color: #AA0000;
+  border-radius: 0px;
+  color: white;
+  display: flex;
+  font-size: 18px;
+  height: 40px;
+  justify-content: space-between;
+  margin-top: 60px;
+}
+
+:local .microsoftBtn {
+  align-items: center;
+  background-color: #007BFF;
+  border-color: #007BFF;
+  border-radius: 0px;
+  display: flex;
+  font-size: 18px;
+  height: 40px;
+  justify-content: space-between;
+}
+
+:local .microsoftBtn:hover {
+  background-color: #0069D9;
+  border-color: #0062CC;
+}
+
+:local .twofactor {
+  background-color: #3D3C3C !important;
+  font-family: 'Source Sans Pro', sans-serif !important;
+}

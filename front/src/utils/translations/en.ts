@@ -580,6 +580,14 @@ export const enTranslations: ResourceKey = {
     },
     title: "Legal notice",
   },
+  login: {
+    "2fa":
+      "We strongly recommend you to use 2-Step verification. For more information please visit:",
+    auth: "Please authenticate to proceed.",
+    google: "Sign in with Google",
+    microsoft: "Sign in with Microsoft",
+    newuser: "If you are a new user, click below to sign up.",
+  },
   logout: "Log out",
   navbar: {
     searchPlaceholder: "Group Name",

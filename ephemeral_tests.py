@@ -109,10 +109,10 @@ class ViewTestCase(unittest.TestCase):
         selenium.get(self.url)
         WebDriverWait(selenium, self.delay).until(
             expected.presence_of_element_located(
-                (By.XPATH, "//*[contains(text(), 'Access with Azure')]")))
+                (By.XPATH, "//*[contains(text(), 'Sign in with Microsoft')]")))
         selenium.save_screenshot(f'{SCR_PATH}00.00-init-page.png')
         azure_login = selenium.find_element_by_xpath(
-            "//*[contains(text(), 'Access with Azure')]")
+            "//*[contains(text(), 'Sign in with Microsoft')]")
         self.__click(azure_login)
         self.__check_existing_session()
         self.__check_legal_notice()
@@ -129,9 +129,9 @@ class ViewTestCase(unittest.TestCase):
         selenium.get(self.url)
         WebDriverWait(selenium, self.delay).until(
             expected.presence_of_element_located(
-                (By.XPATH, "//*[contains(text(), 'Access with Google')]")))
+                (By.XPATH, "//*[contains(text(), 'Sign in with Google')]")))
         selenium.save_screenshot(SCR_PATH + '01-init_page.png')
-        assert 'Access with Google' in selenium.page_source
+        assert 'Sign in with Google' in selenium.page_source
 
     def test_02_dashboard(self):
         selenium = self.__login()

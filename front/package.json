@@ -55,7 +55,7 @@
     "apollo-link-ws": "1.0.20",
     "apollo-upload-client": "13.0.0",
     "apollo-utilities": "1.3.4",
-    "bootstrap": "4.5.0",
+    "bootstrap": "3.4.1",
     "bootstrap-switch-button-react": "1.2.0",
     "chart.js": "2.9.3",
     "chartjs-plugin-doughnutlabel": "2.0.3",
