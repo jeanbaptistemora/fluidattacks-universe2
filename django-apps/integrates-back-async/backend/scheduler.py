@@ -250,6 +250,11 @@ async def create_register_by_week(
                 datetime.strptime(last_day, '%Y-%m-%d %H:%M:%S') +
                 timedelta(days=7)
             )
+    if project == 'bwapp':
+        LOGGER.debug(
+            'local funtion information for bwapp group',
+            extra=dict(extra=locals())
+        )
     return create_data_format_chart(all_registers)
 
 
