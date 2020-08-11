@@ -76,7 +76,7 @@ async def enforce_group_level_role(
             'var getUrl=window.location.href.split('
             '`${window.location.host}/integrates`); '
             'localStorage.setItem("start_url",getUrl[getUrl.length - 1]); '
-            'location = "/integrates/index"; '
+            'location = "/integrates"; '
             '</script>'
         )
 
@@ -294,7 +294,7 @@ def logout(request: HttpRequest) -> HttpResponse:
     except KeyError as ex:
         bugsnag.notify(ex)
 
-    response = redirect('/integrates/index')
+    response = redirect('/integrates')
     response.delete_cookie(settings.JWT_COOKIE_NAME)
     return response
 

@@ -7,7 +7,6 @@ export const commonConfig: webpack.Configuration = {
     app: "./src/app.tsx",
     graphicsForGroup: "./src/graphics/views/group.tsx",
     graphicsForOrganization: "./src/graphics/views/organization.tsx",
-    login: "./src/scenes/Login/index.tsx",
   },
   module: {
     rules: [

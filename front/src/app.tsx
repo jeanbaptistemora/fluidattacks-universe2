@@ -1,3 +1,4 @@
+import Access from "./scenes/Login/containers/Access";
 import { BugsnagErrorBoundary } from "./utils/bugsnagErrorBoundary";
 import { Dashboard } from "./scenes/Dashboard";
 import LogRocket from "logrocket";
@@ -34,6 +35,7 @@ const App: React.FC = (): JSX.Element => {
               <authzPermissionsContext.Provider value={userLevelPermissions}>
                 <secureStoreContext.Provider value={secureStore}>
                   <Switch>
+                    <Route component={Access} path={"/"} exact={true} />
                     <Route component={Registration} path={"/registration"} />
                     <Route component={Dashboard} path={"/"} />
                   </Switch>

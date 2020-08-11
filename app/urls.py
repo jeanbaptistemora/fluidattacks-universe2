@@ -11,7 +11,6 @@ from django.conf.urls import (
 from django.http import HttpRequest, HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 
-from backend import services
 from backend.api.schema import SCHEMA
 from backend.api.view import APIView
 from backend.decorators import verify_csrf
@@ -63,10 +62,7 @@ urlpatterns = [
     url(r'^error500/?$', views.error500, name='error500'),
     url(r'^error401/?$', views.error401, name='error401'),
     url(r'^mobile/?$', views.mobile, name='mobile'),
-    url(r'^login/?$', services.login, name='login'),
     url(r'^logout/?$', views.logout, name='logout'),
-    url(r'^dashboard/?$', views.app, name='dashboard'),
-    url(r'^registration/?$', views.app, name='registration'),
     url(r'^oauth/', include('social_django.urls', namespace='social')),
     url(r'^api/?\.*$', api_dispatcher),
     # Evidences
@@ -88,6 +84,6 @@ urlpatterns = [
         r'(?P<fileid>[\w\.-]+)?$',
         views.get_evidence
     ),
-    # catch all others because of the no longer use hash location
+    # Let the front router handle them
     url(r'', views.app),
 ]
