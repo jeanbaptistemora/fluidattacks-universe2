@@ -57,12 +57,12 @@ def all_pipelines_successful(pull_request: PullRequest, config: Dict[str, Any]) 
     def passed_first_pipeline_before_mr() -> bool:
         success: bool = True
         if config['passed_first_pipeline_before_mr']:
-            first_pipeline: Dict[str, str] = pull_request.pipelines()[-1]
-            if first_pipeline['status'] not in ('success', 'manual'):
+            first_pipeline: Any = pull_request.pipelines()[-1]
+            if first_pipeline.status not in ('success', 'manual'):
                 log(err_log,
                     'The Dev pipeline should pass before you open an MR.\n'
                     'Specifically, you opened your MR before %s passed.',
-                    first_pipeline['web_url'])
+                    first_pipeline.web_url)
                 success = False
         return success
 
@@ -72,10 +72,11 @@ def all_pipelines_successful(pull_request: PullRequest, config: Dict[str, Any]) 
     current_p_id: str = str(os.environ.get('CI_PIPELINE_ID'))
     index: int = 0
     while index < len(pull_request.pipelines()):
-        pipeline: Dict[str, str] = pull_request.pipelines()[index]
-        p_id: str = str(pipeline['id'])
-        p_status: str = str(pipeline['status'])
-        if p_id not in current_p_id:
+        pipeline: Any = pull_request.pipelines()[index]
+        p_id: str = str(pipeline.id)
+        p_status: str = str(pipeline.status)
+        p_job_names: List[str] = [ job.name for job in pipeline.jobs.list() ]
+        if p_id not in current_p_id and config['job_name'] not in p_job_names:
             if p_status in ('success', 'manual'):
                 pass
             elif p_status in ('pending', 'running'):

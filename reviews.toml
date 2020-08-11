@@ -1,6 +1,5 @@
 endpoint_url = 'https://gitlab.com'
 platform = 'gitlab'
-job_name = 'reviews'
 
 [tests]
 
@@ -8,6 +7,7 @@ job_name = 'reviews'
     fail = true
     close_mr = true
     passed_first_pipeline_before_mr = true
+    job_name = 'reviews'
 
   [tests.mr_message_syntax]
     fail = true

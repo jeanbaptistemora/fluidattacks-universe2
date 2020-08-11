@@ -649,6 +649,7 @@ reviews:
   <<: *with_nix
   stage: merge-request
   <<: *in_mrs
+  interruptible: false
 
 skims_deploy:
   <<: *with_nix

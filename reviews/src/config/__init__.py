@@ -27,7 +27,7 @@ def dict_has_type_values(
 
 def validate_base(config: Dynaconf) -> None:
     config.validators.register(
-        Validator('endpoint_url', 'platform', 'tests', 'job_name',
+        Validator('endpoint_url', 'platform', 'tests',
                   must_exist=True, messages=ERR_DEFAULT),
     )
     config.validators.validate()
@@ -51,6 +51,9 @@ def validate_specific(config: Dynaconf) -> None:
             config.validators.register(
                 Validator(f'tests.{test}.passed_first_pipeline_before_mr',
                           must_exist=True, is_type_of=bool,
+                          messages=ERR_DEFAULT),
+                Validator(f'tests.{test}.job_name',
+                          must_exist=True, is_type_of=str,
                           messages=ERR_DEFAULT),
             )
         elif test in 'mr_under_max_deltas':
