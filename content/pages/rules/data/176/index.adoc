@@ -127,5 +127,5 @@ action,
 such as preventing normal users using *DELETE* or *PUT* on protected *API* or
 resources.
 
-. [[r15]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2es-LA.pdf[PCI DSS - Requirement 1.2.2]
+. [[r15]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 1.2.2]
 Secure and synchronize router configuration files.

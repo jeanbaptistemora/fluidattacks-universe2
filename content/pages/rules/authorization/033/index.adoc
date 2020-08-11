@@ -80,10 +80,10 @@ V13.1 Generic Web Service Security Verification Requirements.(13.1.2)]
 Verify that access to administration and management functions is limited to
 authorized administrators.
 
-. [[r4]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2es-LA.pdf[PCI DSS - Requirement 1.2.1]
+. [[r4]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 1.2.1]
 Restrict inbound and outbound traffic to that which is necessary for the
 cardholder data environment,
 and specifically deny all other traffic.
 
-. [[r5]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2es-LA.pdf[PCI DSS - Requirement 1.2.2]
+. [[r5]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 1.2.2]
 Secure and synchronize router configuration files.

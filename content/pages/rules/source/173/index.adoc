@@ -386,6 +386,6 @@ Verify that *XSD* schema validation takes place to ensure a properly formed
 followed by validation of each input field before any processing of that data
 takes place.
 
-. [[r46]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2es-LA.pdf[PCI DSS - Requirement 1.3.3]
+. [[r46]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 1.3.3]
 Implement anti-spoofing measures to detect and block forged source IP addresses
 from entering the network.
