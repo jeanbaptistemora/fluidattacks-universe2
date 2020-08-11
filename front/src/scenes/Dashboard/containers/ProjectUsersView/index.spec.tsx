@@ -139,7 +139,7 @@ describe("Project users view", () => {
       .toHaveLength(1);
   });
 
-  it("should render an add user component", async () => {
+  it("should render an add stakeholder component", async () => {
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
         <MockedProvider mocks={mocks} addTypename={false}>
@@ -152,7 +152,7 @@ describe("Project users view", () => {
       .toHaveLength(1);
   });
 
-  it("should render an edit user component", async () => {
+  it("should render an edit stakeholder component", async () => {
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
         <MockedProvider mocks={mocks} addTypename={false}>
@@ -165,7 +165,7 @@ describe("Project users view", () => {
       .toHaveLength(1);
   });
 
-  it("should open a modal to add user", async () => {
+  it("should open a modal to add stakeholder", async () => {
     const mockedPermissions: PureAbility<string> = new PureAbility([
       { action: "backend_api_resolvers_user__do_grant_user_access" },
     ]);
@@ -181,7 +181,7 @@ describe("Project users view", () => {
     await act(async () => { await wait(0); wrapper.update(); });
     let addUserModal: ReactWrapper = wrapper
       .find("modal")
-      .find({open: true, headerTitle: "Add user to this group"});
+      .find({open: true, headerTitle: "Add stakeholder to this group"});
     expect(addUserModal)
       .toHaveLength(0);
     const addButton: ReactWrapper = wrapper.find("button")
@@ -191,12 +191,12 @@ describe("Project users view", () => {
     await act(async () => { await wait(0); wrapper.update(); });
     addUserModal = wrapper
       .find("modal")
-      .find({open: true, headerTitle: "Add user to this group"});
+      .find({open: true, headerTitle: "Add stakeholder to this group"});
     expect(addUserModal)
       .toHaveLength(1);
   });
 
-  it("should open a modal to edit user", async () => {
+  it("should open a modal to edit stakeholder", async () => {
     const mockedPermissions: PureAbility<string> = new PureAbility([
       { action: "backend_api_resolvers_user__do_edit_user" },
     ]);
@@ -212,7 +212,7 @@ describe("Project users view", () => {
     await act(async () => { await wait(0); wrapper.update(); });
     let editUserModal: ReactWrapper = wrapper
       .find("modal")
-      .find({open: true, headerTitle: "Edit user information"});
+      .find({open: true, headerTitle: "Edit stakeholder information"});
     expect(editUserModal)
       .toHaveLength(0);
     const userInfo: ReactWrapper = wrapper.find("tr")
@@ -226,12 +226,12 @@ describe("Project users view", () => {
     await act(async () => { await wait(0); wrapper.update(); });
     editUserModal = wrapper
       .find("modal")
-      .find({open: true, headerTitle: "Edit user information"});
+      .find({open: true, headerTitle: "Edit stakeholder information"});
     expect(editUserModal)
       .toHaveLength(1);
   });
 
-  it("should add user to the project", async () => {
+  it("should add stakeholder to the project", async () => {
     const mocksMutation: ReadonlyArray<MockedResponse> = [{
       request: {
         query: ADD_USER_MUTATION,
@@ -265,7 +265,7 @@ describe("Project users view", () => {
     addButton.simulate("click");
     let addUserModal: ReactWrapper = wrapper
       .find("modal")
-      .find({open: true, headerTitle: "Add user to this group"});
+      .find({open: true, headerTitle: "Add stakeholder to this group"});
     expect(addUserModal)
       .toHaveLength(1);
     const emailInput: ReactWrapper = addUserModal
@@ -294,14 +294,14 @@ describe("Project users view", () => {
     await act(async () => { await wait(0); wrapper.update(); });
     addUserModal = wrapper
       .find("modal")
-      .find({open: true, headerTitle: "Add user to this group"});
+      .find({open: true, headerTitle: "Add stakeholder to this group"});
     expect(addUserModal)
       .toHaveLength(0);
     expect(msgSuccess)
       .toHaveBeenCalled();
   });
 
-  it("should remove user from the project", async () => {
+  it("should remove stakeholder from the project", async () => {
     const mocksMutation: ReadonlyArray<MockedResponse> = [{
       request: {
         query: REMOVE_USER_MUTATION,
@@ -338,7 +338,7 @@ describe("Project users view", () => {
       .toHaveBeenCalled();
   });
 
-  it("should edit user from the project", async () => {
+  it("should edit stakeholder from the project", async () => {
     const mocksMutation: ReadonlyArray<MockedResponse> = [{
       request: {
         query: EDIT_USER_MUTATION,
@@ -382,7 +382,7 @@ describe("Project users view", () => {
     editButton.simulate("click");
     let editUserModal: ReactWrapper = wrapper
       .find("modal")
-      .find({open: true, headerTitle: "Edit user information"});
+      .find({open: true, headerTitle: "Edit stakeholder information"});
     expect(editUserModal)
       .toHaveLength(1);
     const phoneNumberInput: ReactWrapper = editUserModal
@@ -406,14 +406,14 @@ describe("Project users view", () => {
     await act(async () => { await wait(0); wrapper.update(); });
     editUserModal = wrapper
       .find("modal")
-      .find({open: true, headerTitle: "Edit user information"});
+      .find({open: true, headerTitle: "Edit stakeholder information"});
     expect(editUserModal)
       .toHaveLength(0);
     expect(msgSuccess)
       .toHaveBeenCalled();
   });
 
-  it("should handle errors when add user to the project", async () => {
+  it("should handle errors when add stakeholder to the project", async () => {
     const mocksMutation: ReadonlyArray<MockedResponse> = [{
       request: {
         query: ADD_USER_MUTATION,
@@ -458,7 +458,7 @@ describe("Project users view", () => {
     addButton.simulate("click");
     let addUserModal: ReactWrapper = wrapper
       .find("modal")
-      .find({open: true, headerTitle: "Add user to this group"});
+      .find({open: true, headerTitle: "Add stakeholder to this group"});
     expect(addUserModal)
       .toHaveLength(1);
     const emailInput: ReactWrapper = addUserModal
@@ -487,14 +487,14 @@ describe("Project users view", () => {
     await act(async () => { await wait(0); wrapper.update(); });
     addUserModal = wrapper
       .find("modal")
-      .find({open: true, headerTitle: "Add user to this group"});
+      .find({open: true, headerTitle: "Add stakeholder to this group"});
     expect(addUserModal)
       .toHaveLength(0);
     expect(msgError)
       .toHaveBeenCalledTimes(8);
   });
 
-  it("should handle error when remove user from the project", async () => {
+  it("should handle error when remove stakeholder from the project", async () => {
     const mocksMutation: ReadonlyArray<MockedResponse> = [{
       request: {
         query: REMOVE_USER_MUTATION,
@@ -531,7 +531,7 @@ describe("Project users view", () => {
       .toHaveBeenCalled();
   });
 
-  it("should handle error when edit user from the project", async () => {
+  it("should handle error when edit stakeholder from the project", async () => {
     const mocksMutation: ReadonlyArray<MockedResponse> = [{
       request: {
         query: EDIT_USER_MUTATION,
@@ -584,7 +584,7 @@ describe("Project users view", () => {
     editButton.simulate("click");
     let editUserModal: ReactWrapper = wrapper
       .find("modal")
-      .find({open: true, headerTitle: "Edit user information"});
+      .find({open: true, headerTitle: "Edit stakeholder information"});
     expect(editUserModal)
       .toHaveLength(1);
     const phoneNumberInput: ReactWrapper = editUserModal
@@ -608,7 +608,7 @@ describe("Project users view", () => {
     await act(async () => { await wait(0); wrapper.update(); });
     editUserModal = wrapper
       .find("modal")
-      .find({open: true, headerTitle: "Edit user information"});
+      .find({open: true, headerTitle: "Edit stakeholder information"});
     expect(editUserModal)
       .toHaveLength(0);
     expect(msgError)
