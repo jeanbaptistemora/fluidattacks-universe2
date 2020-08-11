@@ -44,20 +44,9 @@ class FindingEnum(Enum):
             'attackComplexity': 0.77,
             'attackVector': 0.85,
             'availabilityImpact': 0.0,
-            'availabilityRequirement': 1.5,
             'confidentialityImpact': 0.22,
-            'confidentialityRequirement': 1.5,
             'exploitability': 0.94,
             'integrityImpact': 0.0,
-            'integrityRequirement': 1.5,
-            'modifiedAttackComplexity': 0.77,
-            'modifiedAttackVector': 0.85,
-            'modifiedAvailabilityImpact': 0.0,
-            'modifiedConfidentialityImpact': 0.22,
-            'modifiedIntegrityImpact': 0.0,
-            'modifiedPrivilegesRequired': 0.62,
-            'modifiedUserInteraction': 0.85,
-            'modifiedSeverityScope': 0.0,
             'privilegesRequired': 0.62,
             'remediationLevel': 1.0,
             'reportConfidence': 1.0,
@@ -78,20 +67,9 @@ class FindingEnum(Enum):
             'attackComplexity': 0.44,
             'attackVector': 0.85,
             'availabilityImpact': 0.22,
-            'availabilityRequirement': 0.5,
             'confidentialityImpact': 0.22,
-            'confidentialityRequirement': 0.5,
             'exploitability': 0.94,
             'integrityImpact': 0.22,
-            'integrityRequirement': 0.5,
-            'modifiedAttackComplexity': 0.44,
-            'modifiedAttackVector': 0.85,
-            'modifiedAvailabilityImpact': 0.22,
-            'modifiedConfidentialityImpact': 0.22,
-            'modifiedIntegrityImpact': 0.22,
-            'modifiedPrivilegesRequired': 0.62,
-            'modifiedUserInteraction': 0.85,
-            'modifiedSeverityScope': 0.0,
             'privilegesRequired': 0.62,
             'remediationLevel': 0.95,
             'reportConfidence': 1.0,
@@ -112,20 +90,9 @@ class FindingEnum(Enum):
             'attackComplexity': 0.44,
             'attackVector': 0.85,
             'availabilityImpact': 0.0,
-            'availabilityRequirement': 0.5,
             'confidentialityImpact': 0.22,
-            'confidentialityRequirement': 0.5,
             'exploitability': 0.94,
             'integrityImpact': 0.0,
-            'integrityRequirement': 0.5,
-            'modifiedAttackComplexity': 0.44,
-            'modifiedAttackVector': 0.85,
-            'modifiedAvailabilityImpact': 0.0,
-            'modifiedConfidentialityImpact': 0.22,
-            'modifiedIntegrityImpact': 0.0,
-            'modifiedPrivilegesRequired': 0.62,
-            'modifiedUserInteraction': 0.85,
-            'modifiedSeverityScope': 0.0,
             'privilegesRequired': 0.62,
             'remediationLevel': 0.95,
             'reportConfidence': 1.0,
@@ -133,6 +100,29 @@ class FindingEnum(Enum):
             'userInteraction': 0.85,
         },
         title='utils.model.finding.enum.f034.title',
+        type=FindingTypeEnum.SECURITY,
+    )
+    F061: FindingMetadata = FindingMetadata(
+        cwe='388',
+        description='utils.model.finding.enum.f061.description',
+        impact='utils.model.finding.enum.f061.impact',
+        recommendation='utils.model.finding.enum.f061.recommendation',
+        requirements='utils.model.finding.enum.f061.requirements',
+        threat='utils.model.finding.enum.f061.threat',
+        severity={
+            'attackComplexity': 0.77,
+            'attackVector': 0.85,
+            'availabilityImpact': 0.22,
+            'confidentialityImpact': 0.0,
+            'exploitability': 0.94,
+            'integrityImpact': 0.0,
+            'privilegesRequired': 0.62,
+            'remediationLevel': 0.95,
+            'reportConfidence': 1.0,
+            'severityScope': 0.0,
+            'userInteraction': 0.85,
+        },
+        title='utils.model.finding.enum.f061.title',
         type=FindingTypeEnum.SECURITY,
     )
     F117: FindingMetadata = FindingMetadata(
@@ -146,20 +136,9 @@ class FindingEnum(Enum):
             'attackComplexity': 0.44,
             'attackVector': 0.85,
             'availabilityImpact': 0.0,
-            'availabilityRequirement': 0.0,
             'confidentialityImpact': 0.0,
-            'confidentialityRequirement': 0.0,
             'exploitability': 0.91,
             'integrityImpact': 0.22,
-            'integrityRequirement': 0.0,
-            'modifiedAttackComplexity': 0.0,
-            'modifiedAttackVector': 0.85,
-            'modifiedAvailabilityImpact': 0.0,
-            'modifiedConfidentialityImpact': 0.0,
-            'modifiedIntegrityImpact': 0.22,
-            'modifiedPrivilegesRequired': 0.62,
-            'modifiedUserInteraction': 0.85,
-            'modifiedSeverityScope': 0.0,
             'privilegesRequired': 0.62,
             'remediationLevel': 1,
             'reportConfidence': 1,
@@ -275,3 +254,28 @@ class Vulnerability(NamedTuple):
 
     integrates_metadata: Optional[IntegratesVulnerabilityMetadata] = None
     skims_metadata: Optional[SkimsVulnerabilityMetadata] = None
+
+
+def _fill_finding_enum() -> None:
+    for finding in FindingEnum:
+        for modified, base in [
+            ('modifiedAttackComplexity', 'attackComplexity'),
+            ('modifiedAttackVector', 'attackVector'),
+            ('modifiedAvailabilityImpact', 'availabilityImpact'),
+            ('modifiedConfidentialityImpact', 'confidentialityImpact'),
+            ('modifiedIntegrityImpact', 'integrityImpact'),
+            ('modifiedPrivilegesRequired', 'privilegesRequired'),
+            ('modifiedUserInteraction', 'userInteraction'),
+            ('modifiedSeverityScope', 'severityScope'),
+        ]:
+            finding.value.severity[modified] = finding.value.severity[base]
+
+        for environmental in [
+            'availabilityRequirement',
+            'confidentialityRequirement',
+            'integrityRequirement',
+        ]:
+            finding.value.severity[environmental] = 0.0
+
+
+_fill_finding_enum()
