@@ -27,6 +27,8 @@ from __init__ import (
     FI_AWS_CLOUDWATCH_SECRET_KEY,
     FI_AZUREAD_OAUTH2_KEY,
     FI_AZUREAD_OAUTH2_SECRET,
+    FI_BITBUCKET_OAUTH2_KEY,
+    FI_BITBUCKET_OAUTH2_SECRET,
     FI_BUGSNAG_ACCESS_TOKEN,
     FI_DB_HOST,
     FI_DB_PASSWD,
@@ -325,8 +327,9 @@ CRONJOBS = []
 
 
 AUTHENTICATION_BACKENDS = (
-    'social_core.backends.google.GoogleOAuth2',
     'backend.auth.azuread_tenant.AzureADTenantBackend',
+    'social_core.backends.bitbucket.BitbucketOAuth2',
+    'social_core.backends.google.GoogleOAuth2',
     'django.contrib.auth.backends.ModelBackend',
 )
 
@@ -439,6 +442,11 @@ SOCIAL_AUTH_DISCONNECT_REDIRECT_URL = '/integrates'
 SOCIAL_AUTH_INACTIVE_USER_URL = '/integrates'
 SOCIAL_AUTH_LOGIN_URL = '/integrates'
 SOCIAL_AUTH_LOGIN_ERROR_URL = '/integrates'
+
+# Bitbucket OAuth2
+SOCIAL_AUTH_BITBUCKET_OAUTH2_KEY = FI_BITBUCKET_OAUTH2_KEY
+SOCIAL_AUTH_BITBUCKET_OAUTH2_SECRET = FI_BITBUCKET_OAUTH2_SECRET  # noqa
+SOCIAL_AUTH_BITBUCKET_OAUTH2_VERIFIED_EMAILS_ONLY = True
 
 # Google OAuth2
 SOCIAL_AUTH_GOOGLE_OAUTH2_IGNORE_DEFAULT_SCOPE = True

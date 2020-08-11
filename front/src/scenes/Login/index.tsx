@@ -17,7 +17,7 @@ const login: React.FC = (): JSX.Element => {
       <div>
         <p>{t("login.2fa")}</p>
         <div>
-          <Col xs={12} md={6}>
+          <Col xs={12} md={4}>
             <Button
               href="http://bit.ly/2Gpjt6h"
               bsStyle="danger"
@@ -26,13 +26,22 @@ const login: React.FC = (): JSX.Element => {
               <FontAwesome name="google" size="2x" />&nbsp;
             </Button>
           </Col>
-          <Col xs={12} md={6}>
+          <Col xs={12} md={4}>
             <Button
               href="http://bit.ly/2Gp1L2X"
               bsStyle="primary"
               block={true}
             >
               <FontAwesome name="windows" size="2x" />&nbsp;
+            </Button>
+          </Col>
+          <Col xs={12} md={4}>
+            <Button
+              href="https://bit.ly/3it0Im7"
+              bsStyle="primary"
+              block={true}
+            >
+              <FontAwesome name="bitbucket" size="2x" />&nbsp;
             </Button>
           </Col>
         </div>
@@ -43,6 +52,11 @@ const login: React.FC = (): JSX.Element => {
   React.useEffect(onMount, []);
 
   // Event handlers
+  const handleBitbucketLogin: (() => void) = (): void => {
+    mixpanel.track("Login Bitbucket");
+    window.location.href = "/integrates/oauth/login/bitbucket-oauth2/";
+  };
+
   const handleGoogleLogin: (() => void) = (): void => {
     mixpanel.track("Login Google");
     window.location.href = "/integrates/oauth/login/google-oauth2/";
@@ -66,7 +80,7 @@ const login: React.FC = (): JSX.Element => {
             <Row>
               <Button
                 bsStyle="danger"
-                className={style.googleBtn}
+                className={`${style.socialBtn} ${style.googleBtn}`}
                 onClick={handleGoogleLogin}
                 block={true}
               >
@@ -75,12 +89,21 @@ const login: React.FC = (): JSX.Element => {
               </Button>
               <Button
                 bsStyle="primary"
-                className={style.microsoftBtn}
+                className={`${style.socialBtn} ${style.microsoftBtn}`}
                 onClick={handleMicrosoftLogin}
                 block={true}
               >
                 <FontAwesome name="windows" size="2x" />
                 {t("login.microsoft")}
+              </Button>
+              <Button
+                bsStyle="primary"
+                className={`${style.socialBtn} ${style.bitbucketBtn}`}
+                onClick={handleBitbucketLogin}
+                block={true}
+              >
+                <FontAwesome name="bitbucket" size="2x" />
+                {t("login.bitbucket")}
               </Button>
             </Row>
           </Col>

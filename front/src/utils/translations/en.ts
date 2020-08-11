@@ -584,6 +584,7 @@ export const enTranslations: ResourceKey = {
     "2fa":
       "We strongly recommend you to use 2-Step verification. For more information please visit:",
     auth: "Please authenticate to proceed.",
+    bitbucket: "Sign in with Bitbucket",
     google: "Sign in with Google",
     microsoft: "Sign in with Microsoft",
     newuser: "If you are a new user, click below to sign up.",
