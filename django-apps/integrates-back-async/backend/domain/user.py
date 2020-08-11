@@ -200,3 +200,7 @@ async def remove_push_token(user_email: str, push_token: str) -> bool:
     )
 
     return await user_dal.update(user_email, {'push_tokens': tokens})
+
+
+async def ensure_user_exists(email: str) -> bool:
+    return bool(await user_dal.get(email))

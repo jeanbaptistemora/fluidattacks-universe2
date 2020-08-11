@@ -17,6 +17,7 @@ from ariadne import convert_kwargs_to_snake_case, convert_camel_case_to_snake
 from asgiref.sync import sync_to_async
 
 from graphql.type.definition import GraphQLResolveInfo
+
 from backend.api.resolvers import project as project_resolver
 from backend.decorators import (
     require_integrates,
@@ -429,6 +430,7 @@ async def _do_add_user(
 async def _do_grant_user_access(
         _: Any,
         info: GraphQLResolveInfo,
+        role: str,
         **query_args: str) -> GrantUserAccessPayloadType:
     """Resolve grant_user_access mutation."""
     project_name = query_args.get('project_name', '').lower()
@@ -436,7 +438,7 @@ async def _do_grant_user_access(
     user_data = util.get_jwt_content(info.context)
     user_email = user_data['user_email']
 
-    new_user_role = query_args.get('role')
+    new_user_role = role
     new_user_email = query_args.get('email', '')
 
     allowed_roles_to_grant = \
@@ -450,7 +452,7 @@ async def _do_grant_user_access(
                 context=info.context,
                 email=new_user_email,
                 responsibility=query_args.get('responsibility', '-'),
-                role=query_args.get('role', ''),
+                role=new_user_role,
                 phone_number=query_args.get('phone_number', ''),
                 group=project_name):
             success = True

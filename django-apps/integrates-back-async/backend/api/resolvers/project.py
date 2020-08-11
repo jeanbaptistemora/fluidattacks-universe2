@@ -40,6 +40,7 @@ from backend.domain import (
     bill as bill_domain,
     organization as org_domain,
     project as project_domain,
+    user as user_domain,
 )
 from backend.typing import (
     Comment as CommentType,
@@ -58,6 +59,7 @@ from backend.utils import (
     aio,
     apm,
 )
+from backend.api.resolvers.user import _create_new_user
 from fluidintegrates.settings import LOGGING
 
 from __init__ import FI_COMMUNITY_PROJECTS
@@ -804,6 +806,24 @@ async def resolve_project_mutation(
     return await resolver_func(obj, info, **parameters)
 
 
+async def _create_forces_user(info: GraphQLResolveInfo,
+                              group_name: str) -> bool:
+    success = await _create_new_user(
+        context=info.context,
+        email=f'forces.{group_name}@fluidattacks.com',
+        responsibility='Forces service user',
+        role='customer',
+        phone_number='',
+        group=group_name)
+    if not success:
+        LOGGER.error('Couldn\'t grant access to project',
+                     extra={
+                         'extra': info.context,
+                         'username': group_name
+                     })
+    return success
+
+
 @require_login
 @enforce_user_level_auth_async
 async def _do_create_project(  # pylint: disable=too-many-arguments
@@ -831,8 +851,9 @@ async def _do_create_project(  # pylint: disable=too-many-arguments
         subscription
     )
 
+    if success and has_forces:
+        await _create_forces_user(info, project_name)
     if success:
-
         util.invalidate_cache(user_email)
         util.cloudwatch_log(
             info.context,
@@ -870,7 +891,12 @@ async def _do_edit_group(  # pylint: disable=too-many-arguments
         requester_email=requester_email,
         subscription=subscription,
     )
-
+    if success and has_forces:
+        await _create_forces_user(info, group_name)
+    elif success and not has_forces and await user_domain.ensure_user_exists(
+            f'forces.{group_name}@fluidattacks.com'):
+        await project_domain.remove_user_access(
+            group_name, f'forces.{group_name}@fluidattacks.com')
     if success:
         util.invalidate_cache(group_name)
         util.invalidate_cache(requester_email)
