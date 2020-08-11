@@ -199,12 +199,8 @@ class VulnerabilitySourceEnum(Enum):
 
 
 class GrammarMatch(NamedTuple):
-    start_char: int
     start_column: int
     start_line: int
-    end_char: int
-    end_column: int
-    end_line: int
 
 
 class IntegratesVulnerabilityMetadata(NamedTuple):

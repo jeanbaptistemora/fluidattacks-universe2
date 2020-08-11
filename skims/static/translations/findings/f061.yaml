@@ -1,12 +1,6 @@
-src.lib_path.f061.csharp_swallows_exceptions.description:
-  en: Empty C# catch in {path}
-  es: Catch de C# vacío en {path}
-src.lib_path.f061.java_swallows_exceptions.description:
-  en: Empty Java catch in {path}
-  es: Catch de Java vacío en {path}
-src.lib_path.f061.javascript_swallows_exceptions.description:
-  en: Empty Javascript catch in {path}
-  es: Catch de Javascript vacío en {path}
+src.lib_path.f061.swallows_exceptions.description:
+  en: Empty {lang} catch in {path}
+  es: Catch de {lang} vacío en {path}
 utils.model.finding.enum.f061.description:
   en: >
     Application errors are handled neither by throwing an exception nor by

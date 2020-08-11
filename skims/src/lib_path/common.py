@@ -9,6 +9,7 @@ from typing import (
 from pyparsing import (
     cppStyleComment,
     ParserElement,
+    pythonStyleComment,
     QuotedString,
 )
 
@@ -27,11 +28,13 @@ from utils.string import (
 
 # Reusable Components
 C_STYLE_COMMENT: ParserElement = cppStyleComment
+SHARP_STYLE_COMMENT: ParserElement = pythonStyleComment
 
 EXTENSIONS_CSHARP: Set[str] = {'cs'}
 EXTENSIONS_JAVA: Set[str] = {'class', 'java'}
 EXTENSIONS_JAVASCRIPT: Set[str] = {'js', 'jsx', 'ts', 'tsx'}
 EXTENSIONS_JSON: Set[str] = {'json'}
+EXTENSIONS_PYTHON: Set[str] = {'py', 'pyw'}
 EXTENSIONS_YAML: Set[str] = {'yml', 'yaml'}
 SINGLE_QUOTED_STRING: QuotedString = QuotedString("'")
 DOUBLE_QUOTED_STRING: QuotedString = QuotedString('"')
@@ -49,17 +52,11 @@ def blocking_get_matching_lines(
 
     matches: Tuple[GrammarMatch, ...] = tuple(
         GrammarMatch(
-            start_char=start_char,
             start_column=start_column,
             start_line=start_line,
-            end_char=end_char,
-            end_column=end_column,
-            end_line=end_line,
         )
-
-        for _, start_char, end_char in grammar.scanString(content)
+        for _, start_char, _ in grammar.scanString(content)
         for start_line, start_column in [char_to_yx_map[start_char]]
-        for end_line, end_column in [char_to_yx_map[end_char]]
     )
 
     return matches

@@ -13,10 +13,13 @@ from typing import (
 # Third party libraries
 from pyparsing import (
     Empty,
+    indentedBlock,
     Keyword,
+    LineEnd,
     MatchFirst,
-    Optional,
     nestedExpr,
+    Optional,
+    SkipTo,
 )
 
 # Third party libraries
@@ -32,7 +35,9 @@ from lib_path.common import (
     EXTENSIONS_CSHARP,
     EXTENSIONS_JAVA,
     EXTENSIONS_JAVASCRIPT,
+    EXTENSIONS_PYTHON,
     DOUBLE_QUOTED_STRING,
+    SHARP_STYLE_COMMENT,
     SINGLE_QUOTED_STRING,
 )
 from state import (
@@ -68,7 +73,8 @@ def _csharp_swallows_exceptions(
         char_to_yx_map=char_to_yx_map,
         content=content,
         description=t(
-            key='src.lib_path.f061.csharp_swallows_exceptions.description',
+            key='src.lib_path.f061.swallows_exceptions.description',
+            lang='C#',
             path=path,
         ),
         finding=FindingEnum.F061,
@@ -118,7 +124,8 @@ def _javascript_swallows_exceptions(
         char_to_yx_map=char_to_yx_map,
         content=content,
         description=t(
-            key='src.lib_path.f061.javascript_swallows_exceptions.description',
+            key='src.lib_path.f061.swallows_exceptions.description',
+            lang='Javascript',
             path=path,
         ),
         finding=FindingEnum.F061,
@@ -161,7 +168,8 @@ def _java_swallows_exceptions(
         char_to_yx_map=char_to_yx_map,
         content=content,
         description=t(
-            key='src.lib_path.f061.java_swallows_exceptions.description',
+            key='src.lib_path.f061.swallows_exceptions.description',
+            lang='Java',
             path=path,
         ),
         finding=FindingEnum.F061,
@@ -178,6 +186,50 @@ async def java_swallows_exceptions(
 ) -> Tuple[Vulnerability, ...]:
     return await unblock_cpu(
         _java_swallows_exceptions,
+        char_to_yx_map=char_to_yx_map,
+        content=content,
+        path=path,
+    )
+
+
+def _python_swallows_exceptions(
+    char_to_yx_map: Dict[int, Tuple[int, int]],
+    content: str,
+    path: str,
+) -> Tuple[Vulnerability, ...]:
+    # Empty() grammar matches 'anything'
+    # ~Empty() grammar matches 'not anything' or 'nothing'
+    grammar = (
+        Keyword('except') +
+        SkipTo(LineEnd(), include=True) +
+        indentedBlock(Keyword('pass'), indentStack=[1])
+    )
+    grammar.ignore(SHARP_STYLE_COMMENT)
+    grammar.ignore(DOUBLE_QUOTED_STRING)
+    grammar.ignore(SINGLE_QUOTED_STRING)
+
+    return blocking_get_vulnerabilities(
+        char_to_yx_map=char_to_yx_map,
+        content=content,
+        description=t(
+            key='src.lib_path.f061.swallows_exceptions.description',
+            lang='Python',
+            path=path,
+        ),
+        finding=FindingEnum.F061,
+        grammar=grammar,
+        path=path,
+    )
+
+
+@cache_decorator()
+async def python_swallows_exceptions(
+    char_to_yx_map: Dict[int, Tuple[int, int]],
+    content: str,
+    path: str,
+) -> Tuple[Vulnerability, ...]:
+    return await unblock_cpu(
+        _python_swallows_exceptions,
         char_to_yx_map=char_to_yx_map,
         content=content,
         path=path,
@@ -208,6 +260,12 @@ async def analyze(
         ))
     elif file_extension in EXTENSIONS_JAVASCRIPT:
         coroutines.append(javascript_swallows_exceptions(
+            char_to_yx_map=await char_to_yx_map_generator(),
+            content=await content_generator(),
+            path=path,
+        ))
+    elif file_extension in EXTENSIONS_PYTHON:
+        coroutines.append(python_swallows_exceptions(
             char_to_yx_map=await char_to_yx_map_generator(),
             content=await content_generator(),
             path=path,
