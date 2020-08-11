@@ -26,7 +26,7 @@ const FRAGMENTS: Dictionary<DocumentNode> = {
   `,
 };
 
-export const GET_FINDING_COMMENTS: DocumentNode = gql`
+export const GET_FINDING_CONSULTING: DocumentNode = gql`
   query GetFindingConsulting($findingId: String!) {
     finding(identifier: $findingId) {
       consulting {

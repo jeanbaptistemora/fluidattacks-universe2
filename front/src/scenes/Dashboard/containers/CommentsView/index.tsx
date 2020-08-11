@@ -15,7 +15,7 @@ import Logger from "../../../../utils/logger";
 import { msgError } from "../../../../utils/notifications";
 import translate from "../../../../utils/translations/translate";
 import { Comments, ICommentStructure, loadCallback, postCallback } from "../../components/Comments/index";
-import { ADD_FINDING_CONSULT, GET_FINDING_COMMENTS, GET_FINDING_OBSERVATIONS } from "./queries";
+import { ADD_FINDING_CONSULT, GET_FINDING_CONSULTING, GET_FINDING_OBSERVATIONS } from "./queries";
 
 type ICommentsViewProps = RouteComponentProps<{ findingId: string; type: string }>;
 
@@ -45,7 +45,7 @@ const commentsView: React.FC<ICommentsViewProps> = (props: ICommentsViewProps): 
     <React.StrictMode>
       <Query
         fetchPolicy="network-only"
-        query={type === "comments" ? GET_FINDING_COMMENTS : GET_FINDING_OBSERVATIONS}
+        query={type === "comments" ? GET_FINDING_CONSULTING : GET_FINDING_OBSERVATIONS}
         variables={{ findingId }}
         onError={handleErrors}
       >

@@ -8,7 +8,7 @@ import { act } from "react-dom/test-utils";
 import { RouteComponentProps } from "react-router";
 import wait from "waait";
 import { CommentsView } from "./index";
-import { GET_FINDING_COMMENTS, GET_FINDING_OBSERVATIONS } from "./queries";
+import { GET_FINDING_CONSULTING, GET_FINDING_OBSERVATIONS } from "./queries";
 
 jest.mock("jquery-comments_brainkit", () => jest.requireActual("jquery-comments_brainkit")($));
 
@@ -49,7 +49,7 @@ describe("FindingCommentsView", () => {
   const mocks: ReadonlyArray<MockedResponse> = [
     {
       request: {
-        query: GET_FINDING_COMMENTS,
+        query: GET_FINDING_CONSULTING,
         variables: { findingId: "413372600" },
       },
       result: {
@@ -115,7 +115,7 @@ describe("FindingCommentsView", () => {
   it("should render empty UI", async () => {
     const emptyMocks: ReadonlyArray<MockedResponse> = [{
       request: {
-        query: GET_FINDING_COMMENTS,
+        query: GET_FINDING_CONSULTING,
         variables: { findingId: "413372600" },
       },
       result: {
