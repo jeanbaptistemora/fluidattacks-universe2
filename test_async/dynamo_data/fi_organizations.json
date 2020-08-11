@@ -220,6 +220,18 @@
                         "S": "ORG#f2e2777d-a168-4bea-93cd-d79142b294d2"
                     },
                     "sk": {
+                        "S": "USER#org_testuser3@gmail.com"
+                    }
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "pk": {
+                        "S": "ORG#f2e2777d-a168-4bea-93cd-d79142b294d2"
+                    },
+                    "sk": {
                         "S": "USER#org_testgroupmanager1@gmail.com"
                     }
                 }
@@ -245,6 +257,18 @@
                     },
                     "sk": {
                         "S": "USER#org_testuser1@gmail.com"
+                    }
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "pk": {
+                        "S": "ORG#fe80d2d4-ccb7-46d1-8489-67c6360581de"
+                    },
+                    "sk": {
+                        "S": "GROUP#lubbock"
                     }
                 }
             }

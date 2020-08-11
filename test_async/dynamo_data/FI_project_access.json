@@ -302,6 +302,24 @@
             }
           }
         }
+      },
+      {
+        "PutRequest": {
+          "Item": {
+            "responsibility": {
+              "S": ""
+            },
+            "project_name": {
+              "S": "sheele"
+            },
+            "has_access": {
+              "BOOL": true
+            },
+            "user_email": {
+              "S": "org_testuser3@gmail.com"
+            }
+          }
+        }
       }
    ]
 }
