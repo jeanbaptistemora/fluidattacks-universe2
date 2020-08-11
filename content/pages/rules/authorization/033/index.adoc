@@ -84,3 +84,6 @@ authorized administrators.
 Restrict inbound and outbound traffic to that which is necessary for the
 cardholder data environment,
 and specifically deny all other traffic.
+
+. [[r5]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2es-LA.pdf[PCI DSS - Requirement 1.2.2]
+Secure and synchronize router configuration files.
