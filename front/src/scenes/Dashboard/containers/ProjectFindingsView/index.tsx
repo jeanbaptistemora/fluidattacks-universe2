@@ -23,7 +23,7 @@ import { IHeaderConfig } from "../../../../components/DataTableNext/types";
 import { Modal } from "../../../../components/Modal/index";
 import { TooltipWrapper } from "../../../../components/TooltipWrapper/index";
 import { Can } from "../../../../utils/authz/Can";
-import { formatFindings, formatTreatment } from "../../../../utils/formatHelpers";
+import { formatTreatment } from "../../../../utils/formatHelpers";
 import { useStoredState } from "../../../../utils/hooks";
 import Logger from "../../../../utils/logger";
 import { msgError, msgSuccess } from "../../../../utils/notifications";
@@ -31,6 +31,7 @@ import translate from "../../../../utils/translations/translate";
 import { default as style } from "./index.css";
 import { GET_FINDINGS, REQUEST_PROJECT_REPORT } from "./queries";
 import { IFindingAttr, IProjectFindingsAttr, IProjectFindingsProps } from "./types";
+import { formatFindings } from "./utils";
 
 const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFindingsProps): JSX.Element => {
   const now: Date = new Date();

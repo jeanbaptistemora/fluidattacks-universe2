@@ -2,7 +2,6 @@ import _ from "lodash";
 import { IHistoricTreatment } from "../scenes/Dashboard/containers/DescriptionView/types";
 import { formatHistoricTreatment } from "../scenes/Dashboard/containers/DescriptionView/utils";
 import { IProjectDraftsAttr } from "../scenes/Dashboard/containers/ProjectDraftsView/types";
-import { IProjectFindingsAttr } from "../scenes/Dashboard/containers/ProjectFindingsView/types";
 import { ILastLogin, IUserDataAttr, IUsersAttr } from "../scenes/Dashboard/containers/ProjectUsersView/types";
 import translate from "./translations/translate";
 
@@ -123,33 +122,6 @@ export const formatTreatment: ((treatment: string, findingState: string) => stri
 
     return treatmentRes;
   };
-
-type IFindingsDataset = IProjectFindingsAttr["project"]["findings"];
-export const formatFindings: ((dataset: IFindingsDataset) => IFindingsDataset) =
-  (dataset: IFindingsDataset): IFindingsDataset => dataset.map((finding: IFindingsDataset[0]) => {
-    const stateParameters: { [value: string]: string } = {
-      closed: "search_findings.status.closed",
-      open: "search_findings.status.open",
-    };
-    const typeParameters: { [value: string]: string } = {
-      HYGIENE: "search_findings.tab_description.type.hygiene",
-      SECURITY: "search_findings.tab_description.type.security",
-    };
-    const state: string = translate.t(stateParameters[finding.state]);
-    const treatment: string = translate.t(formatTreatment(finding.treatment, finding.state));
-    const type: string = translate.t(typeParameters[finding.type]);
-    const isExploitable: string = translate.t(Boolean(finding.isExploitable)
-      ? "group.findings.boolean.True" : "group.findings.boolean.False");
-    const remediated: string = translate.t(Boolean(finding.remediated) || !finding.verified
-    ? "group.findings.remediated.True" : "group.findings.remediated.False");
-
-    const where: string = _.uniqBy(finding.vulnerabilities, "where")
-      .map((vuln: { where: string }): string => vuln.where)
-      .sort()
-      .join(", ");
-
-    return { ...finding, state, treatment, type, isExploitable, remediated, where };
-  });
 
 type IDraftsDataset = IProjectDraftsAttr["project"]["drafts"];
 export const formatDrafts: ((dataset: IDraftsDataset) => IDraftsDataset) =
