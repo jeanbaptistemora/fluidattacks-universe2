@@ -8,8 +8,7 @@ from aioextensions import (
 )
 
 # Constants
-HASH = hashlib.sha3_512
-DIGEST_SIZE: int = 64
+HASH = hashlib.blake2b  # https://blake2.net/
 
 
 def _get_hash(stream: bytes) -> bytes:
