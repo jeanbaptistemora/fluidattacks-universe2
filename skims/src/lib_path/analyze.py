@@ -22,6 +22,7 @@ from aioextensions import (
 from lib_path import (
     f009,
     f011,
+    f061,
     f117,
 )
 from utils.fs import (
@@ -73,6 +74,12 @@ async def analyze_one_path(path: str) -> Tuple[Vulnerability, ...]:
                 f011.analyze(
                     content_generator=file_content_generator,
                     file_name=file_name,
+                    file_extension=file_extension,
+                    path=path,
+                ),
+                f061.analyze(
+                    char_to_yx_map_generator=char_to_yx_map_generator,
+                    content_generator=file_content_generator,
                     file_extension=file_extension,
                     path=path,
                 ),

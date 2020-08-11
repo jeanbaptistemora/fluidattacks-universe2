@@ -1,3 +1,6 @@
+src.lib_path.f061.javascript_swallows_exceptions.description:
+  en: Empty Javascript catch in {path}
+  es: Catch de Javascript vacío en {path}
 utils.model.finding.enum.f061.description:
   en: >
     Application errors are handled neither by throwing an exception nor by
