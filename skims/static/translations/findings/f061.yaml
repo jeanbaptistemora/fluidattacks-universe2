@@ -1,0 +1,36 @@
+utils.model.finding.enum.f061.description:
+  en: >
+    Application errors are handled neither by throwing an exception nor by
+    triggering a logging event, which causes a loss of traceability.
+  es: >
+    Los errores generados en la aplicación no lanzan ninguna excepción o
+    guardado en logs para saber donde se generaron.
+utils.model.finding.enum.f061.impact:
+  en: >
+    Make auditing and debugging difficult, as it is not possible to
+    correctly identify the errors generated.
+  es: >
+    Dificultar las labores de auditoría y debug, ya que no es posible
+    identificar correctamente los errores generados.
+utils.model.finding.enum.f061.recommendation:
+  en: |
+    - Use a centralized logging mechanism that supports several levels of detail.
+    - Make sure all events related to successes and failures are recorded.
+  es: |
+    - Utilice un mecanismo de registro centralizado que admita varios niveles de detalle.
+    - Asegúrese de que se registren todos los eventos relacionados con éxitos y fracasos.
+utils.model.finding.enum.f061.requirements:
+  en: |
+    R075. Record exceptional events in logs.
+    R161. Define secure default options.
+  es: |
+    R075. El sistema debe registrar todos los eventos excepcionales y de seguridad en bitácoras.
+    R161. Definir opciones por defecto seguras.
+utils.model.finding.enum.f061.threat:
+  en: >
+    Autenticated attacker from the Internet.
+  es: >
+    Atacante autenticado desde Internet.
+utils.model.finding.enum.f061.title:
+  en: FIN.H.061. Errors without traceability
+  es: FIN.H.061. Errores sin trazabilidad
