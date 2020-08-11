@@ -37,7 +37,7 @@ const addOrganizationModal: React.FC<IAddOrganizationModalProps> =
             break;
           default:
             msgError(translate.t("group_alerts.error_textsad"));
-            Logger.warning("An error occurred adding access token", message);
+            Logger.warning("An error occurred creating an organization", message);
         }
       });
     },
