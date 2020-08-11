@@ -26,6 +26,9 @@ from aioextensions import (
 from lib_path.common import (
     blocking_get_vulnerabilities,
 )
+from state import (
+    cache_decorator,
+)
 from utils.model import (
     FindingEnum,
     Vulnerability,
@@ -57,6 +60,7 @@ def _aws_credentials(
     )
 
 
+@cache_decorator()
 async def aws_credentials(
     char_to_yx_map: Dict[int, Tuple[int, int]],
     content: str,

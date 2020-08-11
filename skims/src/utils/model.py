@@ -228,6 +228,7 @@ class SkimsPathConfig(NamedTuple):
 
 
 class SkimsConfig(NamedTuple):
+    chdir: Optional[str]
     group: Optional[str]
     path: Optional[SkimsPathConfig]
     language: LocalesEnum

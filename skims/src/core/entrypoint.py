@@ -10,6 +10,13 @@ from itertools import (
     chain,
 )
 import logging
+from os import (
+    chdir,
+    getcwd,
+)
+from os.path import (
+    abspath,
+)
 from typing import (
     Tuple,
 )
@@ -72,6 +79,12 @@ async def main(
         success = False
     else:
         try:
+            if config_obj.chdir is not None:
+                newcwd: str = abspath(config_obj.chdir)
+                await log('info', 'Startup working dir is: %s', getcwd())
+                await log('info', 'Moving working dir to: %s', newcwd)
+                chdir(newcwd)
+
             set_locale(config_obj.language)
 
             results: Tuple[Vulnerability, ...] = tuple(chain.from_iterable(
@@ -113,6 +126,9 @@ async def main(
                     'please make sure you set the --token flag in the CLI',
                     'and the "group" key in the config file'
                 )))
+        except MemoryError:
+            await log('critical', 'Not enough memory could be allocated')
+            success = False
         except SystemExit:
             success = False
 

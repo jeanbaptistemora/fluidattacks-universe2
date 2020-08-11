@@ -1,8 +1,12 @@
+chdir: ../
 group: worcester
 language: EN
 path:
   include:
-    - ../
+    - .
   exclude:
-    - glob(../**/.git/)
-    - glob(../**/node_modules/)
+    - skims/test/
+    - glob(**/.git/)
+    - glob(**/.venv/)
+    - glob(**/node_modules/)
+    - glob(**/*.pyc)
