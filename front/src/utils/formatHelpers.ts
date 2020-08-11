@@ -1,7 +1,6 @@
 import _ from "lodash";
 import { IHistoricTreatment } from "../scenes/Dashboard/containers/DescriptionView/types";
 import { formatHistoricTreatment } from "../scenes/Dashboard/containers/DescriptionView/utils";
-import { IProjectDraftsAttr } from "../scenes/Dashboard/containers/ProjectDraftsView/types";
 import { ILastLogin, IUserDataAttr, IUsersAttr } from "../scenes/Dashboard/containers/ProjectUsersView/types";
 import translate from "./translations/translate";
 
@@ -122,36 +121,6 @@ export const formatTreatment: ((treatment: string, findingState: string) => stri
 
     return treatmentRes;
   };
-
-type IDraftsDataset = IProjectDraftsAttr["project"]["drafts"];
-export const formatDrafts: ((dataset: IDraftsDataset) => IDraftsDataset) =
-  (dataset: IDraftsDataset): IDraftsDataset => dataset.map((draft: IDraftsDataset[0]) => {
-    const typeParameters: { [value: string]: string } = {
-      HYGIENE: "search_findings.tab_description.type.hygiene",
-      SECURITY: "search_findings.tab_description.type.security",
-    };
-    const status: { [value: string]: string } = {
-      CREATED: "search_findings.draft_status.created",
-      REJECTED: "search_findings.draft_status.rejected",
-      SUBMITTED: "search_findings.draft_status.submitted",
-    };
-    const reportDate: string = draft.reportDate.split(" ")[0];
-    const currentState: string = translate.t(status[draft.currentState]);
-    const type: string = translate.t(typeParameters[draft.type]);
-    const isExploitable: string = translate.t(Boolean(draft.isExploitable)
-      ? "group.findings.boolean.True" : "group.findings.boolean.False");
-
-    return { ...draft, reportDate, type, isExploitable, currentState };
-  });
-
-type IEventsDataset = Array<{ eventStatus: string; eventType: string }>;
-export const formatEvents: ((dataset: IEventsDataset) => IEventsDataset) =
-  (dataset: IEventsDataset): IEventsDataset => dataset.map((event: IEventsDataset[0]) => {
-    const eventType: string = translate.t(castEventType(event.eventType));
-    const eventStatus: string = translate.t(castEventStatus(event.eventStatus));
-
-    return { ...event, eventType, eventStatus };
-  });
 
 export const getPreviousTreatment: ((historic: IHistoricTreatment[]) => IHistoricTreatment[]) = (
   historic: IHistoricTreatment[],

@@ -23,7 +23,7 @@ import { Modal } from "../../../../components/Modal";
 import { TooltipWrapper } from "../../../../components/TooltipWrapper/index";
 import { default as globalStyle } from "../../../../styles/global.css";
 import { Can } from "../../../../utils/authz/Can";
-import { castEventType, formatEvents } from "../../../../utils/formatHelpers";
+import { castEventType } from "../../../../utils/formatHelpers";
 import {
   Checkbox, DateTime, Dropdown, FileInput, Text, TextArea,
 } from "../../../../utils/forms/fields";
@@ -36,6 +36,7 @@ import {
 } from "../../../../utils/validations";
 import { GenericForm } from "../../components/GenericForm";
 import { CREATE_EVENT_MUTATION, GET_EVENTS } from "./queries";
+import { formatEvents } from "./utils";
 
 type EventsViewProps = RouteComponentProps<{ projectName: string }>;
 

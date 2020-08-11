@@ -20,7 +20,6 @@ import { DataTableNext } from "../../../../components/DataTableNext/index";
 import { IHeaderConfig } from "../../../../components/DataTableNext/types";
 import { Modal } from "../../../../components/Modal";
 import { TooltipWrapper } from "../../../../components/TooltipWrapper/index";
-import { formatDrafts } from "../../../../utils/formatHelpers";
 import { AutoCompleteText } from "../../../../utils/forms/fields";
 import Logger from "../../../../utils/logger";
 import { msgError, msgSuccess } from "../../../../utils/notifications";
@@ -29,6 +28,7 @@ import { required, validDraftTitle } from "../../../../utils/validations";
 import { GenericForm } from "../../components/GenericForm";
 import { CREATE_DRAFT_MUTATION, GET_DRAFTS } from "./queries";
 import { IProjectDraftsAttr, IProjectDraftsBaseProps } from "./types";
+import { formatDrafts } from "./utils";
 
 const projectDraftsView: React.FC<IProjectDraftsBaseProps> = (props: IProjectDraftsBaseProps): JSX.Element => {
   const { projectName } = props.match.params;
