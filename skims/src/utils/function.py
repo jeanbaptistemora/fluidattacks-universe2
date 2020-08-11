@@ -14,6 +14,11 @@ from typing import (
     TypeVar,
 )
 
+# Third party libraries
+from more_itertools import (
+    mark_ends,
+)
+
 # Local libraries
 from utils.logs import (
     log,
@@ -21,7 +26,6 @@ from utils.logs import (
 
 # Constants
 RAISE = object()
-TVar = TypeVar('TVar')
 TFun = TypeVar('TFun', bound=Callable[..., Any])
 
 
@@ -62,26 +66,33 @@ def retry(
     on_error: Any = RAISE,
     on_exceptions: Tuple[Type[Exception], ...],
     sleep_between_retries: int = 0
-) -> Callable[[TVar], TVar]:
+) -> Callable[[TFun], TFun]:
+    if attempts < 1:
+        raise ValueError('attempts must be >= 1')
 
-    def decorator(function: TVar) -> TVar:
+    def decorator(function: TFun) -> TFun:
 
-        _function = cast(Callable[..., Any], function)
-
-        @functools.wraps(_function)
+        @functools.wraps(function)
         async def wrapper(*args: Any, **kwargs: Any) -> Any:
-            for _ in range(attempts):
+            function_id = f'{function.__module__}.{function.__name__}'
+
+            for _, is_last, number in mark_ends(range(attempts)):
                 try:
-                    return await _function(*args, **kwargs)
-                except on_exceptions:
-                    await log('debug', 'retrying: %s', _function.__name__)
+                    return await function(*args, **kwargs)
+                except on_exceptions as exc:
+                    msg: str = 'Function: %s, %s: %s'
+                    exc_msg: str = str(exc)
+                    exc_type: str = type(exc).__name__
+                    await log('info', msg, function_id, exc_type, exc_msg)
+
+                    if is_last:
+                        if on_error is RAISE:
+                            raise exc
+                        return on_error
+
+                    await log('info', 'retry #%s: %s', number, function_id)
                     await sleep(sleep_between_retries)
 
-            if on_error is RAISE:
-                return await _function(*args, **kwargs)
-
-            return on_error
-
-        return cast(TVar, wrapper)
+        return cast(TFun, wrapper)
 
     return decorator

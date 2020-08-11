@@ -25,6 +25,7 @@ from aioextensions import (
 # Local libraries
 from lib_path.common import (
     blocking_get_vulnerabilities,
+    HANDLE_ERRORS,
 )
 from state import (
     cache_decorator,
@@ -61,6 +62,7 @@ def _aws_credentials(
 
 
 @cache_decorator()
+@HANDLE_ERRORS
 async def aws_credentials(
     char_to_yx_map: Dict[int, Tuple[int, int]],
     content: str,

@@ -1,4 +1,7 @@
 # Standard library
+from asyncio import (
+    TimeoutError as AsyncioTimeoutError,
+)
 from io import (
     BytesIO,
 )
@@ -47,11 +50,12 @@ from zone import (
 
 
 # Constants
-TVar = TypeVar('TVar')
-RETRY: Callable[[TVar], TVar] = retry(
+TFun = TypeVar('TFun', bound=Callable[..., Any])
+RETRY: Callable[[TFun], TFun] = retry(
     attempts=12,
     on_exceptions=(
         aiohttp.ClientError,
+        AsyncioTimeoutError,
         IndexError,
         socket.gaierror,
     ),

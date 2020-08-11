@@ -36,6 +36,7 @@ from lib_path.common import (
     EXTENSIONS_JAVASCRIPT,
     EXTENSIONS_PYTHON,
     DOUBLE_QUOTED_STRING,
+    HANDLE_ERRORS,
     SINGLE_QUOTED_STRING,
 )
 from state import (
@@ -91,6 +92,7 @@ def _csharp_swallows_exceptions(
 
 
 @cache_decorator()
+@HANDLE_ERRORS
 async def csharp_swallows_exceptions(
     char_to_yx_map: Dict[int, Tuple[int, int]],
     content: str,
@@ -142,6 +144,7 @@ def _javascript_swallows_exceptions(
 
 
 @cache_decorator()
+@HANDLE_ERRORS
 async def javascript_swallows_exceptions(
     char_to_yx_map: Dict[int, Tuple[int, int]],
     content: str,
@@ -186,6 +189,7 @@ def _java_swallows_exceptions(
 
 
 @cache_decorator()
+@HANDLE_ERRORS
 async def java_swallows_exceptions(
     char_to_yx_map: Dict[int, Tuple[int, int]],
     content: str,

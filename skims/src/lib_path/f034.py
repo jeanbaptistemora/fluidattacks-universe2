@@ -28,6 +28,7 @@ from aioextensions import (
 from lib_path.common import (
     blocking_get_vulnerabilities,
     C_STYLE_COMMENT,
+    HANDLE_ERRORS,
     EXTENSIONS_CSHARP,
     EXTENSIONS_JAVA,
     EXTENSIONS_JAVASCRIPT,
@@ -78,6 +79,7 @@ def _csharp_insecure_randoms(
 
 
 @cache_decorator()
+@HANDLE_ERRORS
 async def csharp_insecure_randoms(
     char_to_yx_map: Dict[int, Tuple[int, int]],
     content: str,
@@ -126,6 +128,7 @@ def _java_use_of_lang_math_random(
 
 
 @cache_decorator()
+@HANDLE_ERRORS
 async def java_use_of_lang_math_random(
     char_to_yx_map: Dict[int, Tuple[int, int]],
     content: str,
@@ -174,6 +177,7 @@ def _java_use_of_util_random(
 
 
 @cache_decorator()
+@HANDLE_ERRORS
 async def java_use_of_util_random(
     char_to_yx_map: Dict[int, Tuple[int, int]],
     content: str,
@@ -211,6 +215,7 @@ def _javascript_insecure_randoms(
 
 
 @cache_decorator()
+@HANDLE_ERRORS
 async def javascript_insecure_randoms(
     char_to_yx_map: Dict[int, Tuple[int, int]],
     content: str,

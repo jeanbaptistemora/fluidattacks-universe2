@@ -1,4 +1,7 @@
 # Standard library
+from asyncio import (
+    TimeoutError as AsyncioTimeoutError,
+)
 import re
 import socket
 from typing import (
@@ -32,6 +35,7 @@ RETRY: Callable[[TVar], TVar] = retry(
     on_error=(),
     on_exceptions=(
         aiohttp.ClientError,
+        AsyncioTimeoutError,
         IndexError,
         socket.gaierror,
     ),

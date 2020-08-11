@@ -1,8 +1,11 @@
 # Standard library
 from typing import (
+    Any,
+    Callable,
     Dict,
     Set,
     Tuple,
+    TypeVar,
 )
 
 # Third party libraries
@@ -14,6 +17,9 @@ from pyparsing import (
 )
 
 # Local libraries
+from utils.function import (
+    retry,
+)
 from utils.model import (
     FindingEnum,
     GrammarMatch,
@@ -25,6 +31,9 @@ from utils.model import (
 from utils.string import (
     blocking_to_snippet,
 )
+
+# Constants
+TFun = TypeVar('TFun', bound=Callable[..., Any])
 
 # Reusable Components
 C_STYLE_COMMENT: ParserElement = cppStyleComment
@@ -38,6 +47,14 @@ EXTENSIONS_PYTHON: Set[str] = {'py', 'pyw'}
 EXTENSIONS_YAML: Set[str] = {'yml', 'yaml'}
 SINGLE_QUOTED_STRING: QuotedString = QuotedString("'")
 DOUBLE_QUOTED_STRING: QuotedString = QuotedString('"')
+
+HANDLE_ERRORS: Callable[[TFun], TFun] = retry(
+    attempts=1,
+    on_error=(),
+    on_exceptions=(
+        RecursionError,
+    ),
+)
 
 
 def blocking_get_matching_lines(
