@@ -25,6 +25,7 @@ def _load(path: str) -> SkimsConfig:
     config = template.get(
         confuse.Template({
             'chdir': confuse.Filename(cwd=''),
+            'console_snippets': confuse.Choice((True, False)),
             'group': confuse.String(pattern=r'^[a-z0-9]+$'),
             'language': confuse.Choice(LocalesEnum),
             'path': confuse.Template({
@@ -39,6 +40,7 @@ def _load(path: str) -> SkimsConfig:
 
         skims_config: SkimsConfig = SkimsConfig(
             chdir=config.pop('chdir', None),
+            console_snippets=config.pop('console_snippets', True),
             group=config.pop('group', None),
             language=LocalesEnum(config.pop('language')),
             path=SkimsPathConfig(

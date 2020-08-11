@@ -46,6 +46,7 @@ from utils.logs import (
 from utils.model import (
     SkimsConfig,
     Vulnerability,
+    VulnerabilityKindEnum,
 )
 from zone import (
     set_locale,
@@ -57,6 +58,38 @@ async def monitor() -> None:
     while await sleep(10.0, result=True):
         tasks: int = len(all_tasks())
         await log('info', 'Still running, %s tasks pending to finish', tasks)
+
+
+async def notify_findings(
+    config_obj: SkimsConfig,
+    results: Tuple[Vulnerability, ...],
+) -> None:
+
+    async def dump(
+        kind: VulnerabilityKindEnum,
+        snippet: str,
+        title: str,
+        what: str,
+        where: str,
+    ) -> None:
+        where = t(f'words.{kind.value[:-1]}') + ' ' + where
+
+        if config_obj.console_snippets:
+            await log('info', '%s: %s\n\n%s\n', title, what, snippet)
+        else:
+            await log('info', '%s: %s, %s', title, what, where)
+
+    await collect(
+        dump(
+            kind=result.kind,
+            snippet=result.skims_metadata.snippet,
+            title=t(result.finding.value.title),
+            what=result.what,
+            where=result.where,
+        )
+        for result in results
+        if result.skims_metadata
+    )
 
 
 async def main(
@@ -79,9 +112,9 @@ async def main(
         success = False
     else:
         try:
+            await log('info', 'Startup working dir is: %s', getcwd())
             if config_obj.chdir is not None:
                 newcwd: str = abspath(config_obj.chdir)
-                await log('info', 'Startup working dir is: %s', getcwd())
                 await log('info', 'Moving working dir to: %s', newcwd)
                 chdir(newcwd)
 
@@ -100,16 +133,7 @@ async def main(
                 ))
             ))
 
-            await collect(
-                log(
-                    'info', '%s: %s\n\n%s\n',
-                    t(result.finding.value.title),
-                    result.what,
-                    result.skims_metadata.snippet,
-                )
-                for result in results
-                if result.skims_metadata
-            )
+            await notify_findings(config_obj, results)
 
             if config_obj.group and token:
                 msg = 'Results will be synced to group: %s'
