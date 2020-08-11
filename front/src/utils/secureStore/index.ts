@@ -3,6 +3,7 @@
   We need both to be able to generate and assign a secret key, every time its
   useful life expires.
 */
+import Logger from "../logger";
 import React from "react";
 import sjcl from "sjcl";
 
@@ -86,13 +87,19 @@ const retrieveBlob: (identifier: string) => string = (
 const storeIframeContent: (reference: Readonly<iFrameReferenceType>) => void = (
   reference: Readonly<iFrameReferenceType>
 ): void => {
-  const contents: string | undefined =
-    reference.current?.contentDocument?.documentElement.outerHTML;
-  const identifier: string | undefined =
-    reference.current?.contentWindow?.location.href;
+  if (
+    location.hostname === reference.current?.contentDocument?.location.hostname
+  ) {
+    const contents: string | undefined =
+      reference.current.contentDocument.documentElement.outerHTML;
+    const identifier: string | undefined =
+      reference.current.contentWindow?.location.href;
 
-  if (contents !== undefined && identifier !== undefined) {
-    storeBlob(identifier, contents, "text/html");
+    if (identifier !== undefined) {
+      storeBlob(identifier, contents, "text/html");
+    }
+  } else {
+    Logger.warning("Cross origin");
   }
 };
 
