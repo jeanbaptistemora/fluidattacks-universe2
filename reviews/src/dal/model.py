@@ -1,4 +1,4 @@
-from typing import NamedTuple, List, Dict, Union, Any
+from typing import NamedTuple, List, Dict, Callable, Any
 
 
 class PullRequest(NamedTuple):
@@ -11,7 +11,7 @@ class PullRequest(NamedTuple):
     description: str
     source_branch: str
     target_branch: str
-    commits: Dict[str, Dict[str, str]]
-    changes: Dict[str, Any]
-    pipelines: List[Dict[str, str]]
+    commits: Callable[[], Any]
+    changes: Callable[[], Any]
+    pipelines: Callable[[], List[Dict[str, str]]]
     raw: Any

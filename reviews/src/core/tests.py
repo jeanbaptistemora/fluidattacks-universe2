@@ -37,8 +37,8 @@ def mr_under_max_deltas(pull_request: PullRequest, config: Dict[str, Any]) -> bo
             'to run this test')
         raise GitError
     skip_deltas: bool = '- no-deltas-test' in pull_request.description
-    start_sha: str = str(pull_request.changes['diff_refs']['start_sha'])
-    head_sha: str = str(pull_request.changes['diff_refs']['head_sha'])
+    start_sha: str = str(pull_request.changes()['diff_refs']['start_sha'])
+    head_sha: str = str(pull_request.changes()['diff_refs']['head_sha'])
     start_commit: Any = repo.revparse_single(start_sha)
     head_commit: Any = repo.revparse_single(head_sha)
     diff: Any = repo.diff(start_commit, head_commit)
@@ -57,7 +57,7 @@ def all_pipelines_successful(pull_request: PullRequest, config: Dict[str, Any]) 
     def passed_first_pipeline_before_mr() -> bool:
         success: bool = True
         if config['passed_first_pipeline_before_mr']:
-            first_pipeline: Dict[str, str] = pull_request.pipelines[-1]
+            first_pipeline: Dict[str, str] = pull_request.pipelines()[-1]
             if first_pipeline['status'] not in ('success', 'manual'):
                 log(err_log,
                     'The Dev pipeline should pass before you open an MR.\n'
@@ -71,8 +71,8 @@ def all_pipelines_successful(pull_request: PullRequest, config: Dict[str, Any]) 
     success: bool = passed_first_pipeline_before_mr()
     current_p_id: str = str(os.environ.get('CI_PIPELINE_ID'))
     index: int = 0
-    while index < len(pull_request.pipelines):
-        pipeline: Dict[str, str] = pull_request.pipelines[index]
+    while index < len(pull_request.pipelines()):
+        pipeline: Dict[str, str] = pull_request.pipelines()[index]
         p_id: str = str(pipeline['id'])
         p_status: str = str(pipeline['status'])
         if p_id not in current_p_id:
@@ -139,7 +139,7 @@ def most_relevant_type(pull_request: PullRequest, config: Dict[str, Any]) -> boo
         success = False
     else:
         mr_title_matches: List[str] = list(mr_title_match.groups())
-    commits: Any = pull_request.commits
+    commits: Any = pull_request.commits()
     mr_title_type: str = mr_title_matches[0] if success else ''
     most_relevant_type: str = list(relevances.keys())[-1]
     for commit in commits:
@@ -175,7 +175,7 @@ def commits_user_syntax(pull_request: PullRequest, config: Dict[str, Any]) -> bo
     err_log: str = get_err_log(should_fail)
     user_regex: str = config['user_regex']
     failed_user: str = ''
-    commits: Any = pull_request.commits
+    commits: Any = pull_request.commits()
     for commit in commits:
         if not re.match(user_regex, commit.author_name):
             failed_user = commit.author_name
@@ -220,7 +220,7 @@ def max_commits_per_mr(pull_request: PullRequest, config: Dict[str, Any]) -> boo
     should_fail: bool = config['fail']
     err_log: str = get_err_log(should_fail)
     max_commits: int = config['max_commits']
-    commit_number: int = len(list(pull_request.commits))
+    commit_number: int = len(list(pull_request.commits()))
     if commit_number > max_commits:
         success = False
         log(err_log,

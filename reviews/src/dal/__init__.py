@@ -1,12 +1,8 @@
 # Standard libraries
 import os
-from typing import List, Any
-
-# Third party libraries
-from gitlab import Gitlab
+from typing import List
 
 # Local libraries
-import dal.gitlab
 from utils.logs import log
 
 

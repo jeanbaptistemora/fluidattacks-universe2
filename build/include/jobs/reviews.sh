@@ -5,7 +5,9 @@ source "${srcIncludeHelpersCommon}"
 
 declare -Arx REVIEWS_GLOBAL_PKGS=(
   [cli]=src/cli
+  [config]=src/config
   [core]=src/core
+  [dal]=src/dal
   [utils]=src/utils
 )
 
