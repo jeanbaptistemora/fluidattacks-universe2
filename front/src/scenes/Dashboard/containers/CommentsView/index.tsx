@@ -15,7 +15,7 @@ import Logger from "../../../../utils/logger";
 import { msgError } from "../../../../utils/notifications";
 import translate from "../../../../utils/translations/translate";
 import { Comments, ICommentStructure, loadCallback, postCallback } from "../../components/Comments/index";
-import { ADD_FINDING_COMMENT, GET_FINDING_COMMENTS, GET_FINDING_OBSERVATIONS } from "./queries";
+import { ADD_FINDING_CONSULT, GET_FINDING_COMMENTS, GET_FINDING_OBSERVATIONS } from "./queries";
 
 type ICommentsViewProps = RouteComponentProps<{ findingId: string; type: string }>;
 
@@ -80,14 +80,14 @@ const commentsView: React.FC<ICommentsViewProps> = (props: ICommentsViewProps): 
           };
 
           return (
-            <Mutation mutation={ADD_FINDING_COMMENT} onError={handleAddCommentError}>
+            <Mutation mutation={ADD_FINDING_CONSULT} onError={handleAddCommentError}>
               {(addComment: MutationFunction): JSX.Element => {
                 const handlePost: ((comment: ICommentStructure, callbackFn: postCallback) => void) = (
                   comment: ICommentStructure, callbackFn: postCallback,
                 ): void => {
                   interface IMutationResult {
                     data: {
-                      addFindingComment: {
+                      addFindingConsult: {
                         commentId: string;
                         success: boolean;
                       };
@@ -101,8 +101,8 @@ const commentsView: React.FC<ICommentsViewProps> = (props: ICommentsViewProps): 
                                             ...comment } })
                     .then((mtResult: void | {}): void => {
                       const result: IMutationResult["data"] = (mtResult as IMutationResult).data;
-                      if (result.addFindingComment.success) {
-                        callbackFn({ ...comment, id: Number(result.addFindingComment.commentId) });
+                      if (result.addFindingConsult.success) {
+                        callbackFn({ ...comment, id: Number(result.addFindingConsult.commentId) });
                       }
                     })
                     .catch();

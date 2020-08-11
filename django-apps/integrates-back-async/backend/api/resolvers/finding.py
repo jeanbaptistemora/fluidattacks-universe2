@@ -29,6 +29,7 @@ from backend.typing import (
     SimpleFindingPayload as SimpleFindingPayloadType,
     ApproveDraftPayload as ApproveDraftPayloadType,
     AddCommentPayload as AddCommentPayloadType,
+    AddConsultPayload as AddConsultPayloadType,
     Vulnerability as VulnerabilityType,
 )
 from backend.utils import (
@@ -850,6 +851,69 @@ async def _do_add_finding_comment(
              f'comment in finding {finding_id}')  # pragma: no cover
         )
     ret = AddCommentPayloadType(success=success, comment_id=str(comment_id))
+    return ret
+
+
+@require_login
+@enforce_group_level_auth_async
+@require_integrates
+@require_finding_access
+async def _do_add_finding_consult(
+        _: Any,
+        info: GraphQLResolveInfo,
+        **parameters: Any) -> AddConsultPayloadType:
+    param_type = parameters.get('type', '').lower()
+    if param_type in ['comment', 'observation']:
+        user_data = util.get_jwt_content(info.context)
+        user_email = user_data['user_email']
+        finding_id = str(parameters.get('finding_id'))
+        finding_loader = info.context.loaders['finding']
+        finding = await finding_loader.load(finding_id)
+        group = finding.get('project_name')
+        role = await authz.get_group_level_role(user_email, group)
+        if (param_type == 'observation' and
+                role not in ['analyst', 'admin', 'group_manager', 'reviewer']):
+            util.cloudwatch_log(
+                info.context,
+                ('Security: Unauthorized role '
+                 'attempted to add observation')  # pragma: no cover
+            )
+            raise GraphQLError('Access denied')
+
+        user_email = user_data['user_email']
+        comment_id = int(round(time() * 1000))
+        comment_data = {
+            'user_id': comment_id,
+            'comment_type': param_type,
+            'content': parameters.get('content'),
+            'fullname': ' '.join(
+                [user_data['first_name'], user_data['last_name']]
+            ),
+            'parent': parameters.get('parent'),
+        }
+        success = await finding_domain.add_comment(
+            user_email=user_email,
+            comment_data=comment_data,
+            finding_id=finding_id,
+            is_remediation_comment=False
+        )
+    else:
+        raise GraphQLError('Invalid comment type')
+    if success:
+        finding_loader.clear(finding_id)
+        util.invalidate_cache(parameters.get('finding_id', ''))
+        util.cloudwatch_log(
+            info.context,
+            ('Security: Added comment in '
+             f'finding {finding_id} successfully')  # pragma: no cover
+        )
+    else:
+        util.cloudwatch_log(
+            info.context,
+            ('Security: Attempted to add '
+             f'comment in finding {finding_id}')  # pragma: no cover
+        )
+    ret = AddConsultPayloadType(success=success, comment_id=str(comment_id))
     return ret
 
 

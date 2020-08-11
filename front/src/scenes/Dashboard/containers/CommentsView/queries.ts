@@ -50,10 +50,10 @@ export const GET_FINDING_OBSERVATIONS: DocumentNode = gql`
   ${FRAGMENTS.commentFields}
 `;
 
-export const ADD_FINDING_COMMENT: DocumentNode = gql`
-  mutation AddFindingComment(
+export const ADD_FINDING_CONSULT: DocumentNode = gql`
+  mutation AddFindingConsult(
       $content: String!, $findingId: String!, $parent: GenericScalar!, $type: FindingCommentType!) {
-    addFindingComment(content: $content, findingId: $findingId, parent: $parent, type: $type) {
+    addFindingConsult(content: $content, findingId: $findingId, parent: $parent, type: $type) {
       commentId
       success
     }

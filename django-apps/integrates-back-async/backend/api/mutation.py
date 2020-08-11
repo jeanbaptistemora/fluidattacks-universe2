@@ -74,6 +74,8 @@ MUTATION.set_field('updateSeverity',
                    finding.resolve_finding_mutation)
 MUTATION.set_field('addFindingComment',
                    finding.resolve_finding_mutation)
+MUTATION.set_field('addFindingConsult',
+                   finding.resolve_finding_mutation)
 MUTATION.set_field('updateDescription',
                    finding.resolve_finding_mutation)
 MUTATION.set_field('updateClientDescription',
