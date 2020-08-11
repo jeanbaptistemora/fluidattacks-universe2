@@ -18,7 +18,7 @@ import { DataTableNext } from "../../../../../components/DataTableNext";
 import { IHeaderConfig } from "../../../../../components/DataTableNext/types";
 import { FluidIcon } from "../../../../../components/FluidIcon";
 import { Can } from "../../../../../utils/authz/Can";
-import { formatDropdownField, getPreviousTreatment } from "../../../../../utils/formatHelpers";
+import { formatDropdownField } from "../../../../../utils/formatHelpers";
 import { Date, Dropdown, Text, TextArea } from "../../../../../utils/forms/fields";
 import Logger from "../../../../../utils/logger";
 import { msgError, msgSuccess } from "../../../../../utils/notifications";
@@ -34,6 +34,7 @@ import { IHistoricTreatment } from "../types";
 import { getLastTreatment } from "../utils";
 import { default as style } from "./index.css";
 import { GET_FINDING_TREATMENT, UPDATE_TREATMENT_MUTATION } from "./queries";
+import { getPreviousTreatment } from "./utils";
 
 export interface ITreatmentViewProps {
   approvalModalConfig: { open: boolean; type: string };

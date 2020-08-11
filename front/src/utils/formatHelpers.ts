@@ -1,6 +1,4 @@
 import _ from "lodash";
-import { IHistoricTreatment } from "../scenes/Dashboard/containers/DescriptionView/types";
-import { formatHistoricTreatment } from "../scenes/Dashboard/containers/DescriptionView/utils";
 import { ILastLogin, IUserDataAttr, IUsersAttr } from "../scenes/Dashboard/containers/ProjectUsersView/types";
 import translate from "./translations/translate";
 
@@ -121,12 +119,3 @@ export const formatTreatment: ((treatment: string, findingState: string) => stri
 
     return treatmentRes;
   };
-
-export const getPreviousTreatment: ((historic: IHistoricTreatment[]) => IHistoricTreatment[]) = (
-  historic: IHistoricTreatment[],
-): IHistoricTreatment[] => {
-  const previousTreatment: IHistoricTreatment[] = [...historic];
-  previousTreatment.reverse();
-
-  return previousTreatment.map((treatment: IHistoricTreatment) => formatHistoricTreatment(treatment, true));
-};
