@@ -34,16 +34,32 @@ I knew nothing about computers. The introduction of that article mentioned
 unknown things like *Linux*, *C*, *Stack*, etc and it was the very first
 trigger for me to get deep into the security world.
 As you may guess, it took me several years to fully understand that article,
-but I learned a *LOT* during the process.
+but I learned a *LOT* during the process. In fact, I wrote several tools
+at that time to debug and reverse ELF files.
 
-Since then, I've been working full time in security-related tasks,
+I also started making contributions to the Debian project, starting on 2003
+maintaining a core package for Linux at that time:
+link:https://salsa.debian.org/joowie-guest/maintain_lilo/-/blob/master/debian/changelog[LILO]
+(the acestor of Grub).
+With that, I became an official Debian maintainer and still hold that
+position (aroldan <at> debian.org). I was very
+active from 2003 to 2013 making contributions to the Debian project,
+maintaining packages like
+link:https://people.redhat.com/jakub/prelink/[Prelink] and
+link:https://www.valgrind.org/[Valgrind], whose manpage I initially
+link:https://linux.die.net/man/1/valgrind[wrote] (you can see my email in the
+credits at the end). I also made the first Debian package for
+link:https://metadata.ftp-master.debian.org/changelogs//main/h/hydra/hydra_9.1-1_changelog[Hydra] and packaged
+link:https://github.com/thorkill/eresi[ERESI].
+
+I've also been working full time in security-related tasks for over 18 years,
 mostly focused on offensive security.
 
 I've earned the CEH certification several times, the last one expired at 2012.
 The same year, I made the PWK course (although at that time Kali was known as
 Backtrack) and earned the OSCP certification.
 
-The OSCE was the next step, but I thought it was beyond my skills.
+The OSCE was the next step.
 
 == CTP course
 
@@ -54,15 +70,15 @@ I made no previous special preparation for the course, other than my
 work experience.
 
 The course modules are very well structured. Mati's clear explainations of
-each technical detail shows his mastery of the topic.
+each technical detail shows his mastery on the topic.
 
-While you are in the course, you have a one month access to a Offsec lab
+While you are in the course, you have a one-month access to a Offsec lab
 on where you can follow along with the modules content.
 
 The way I approached the course was to watch the videos following the
 written material. Then, at the end of each module, replicated the whole
 exercise from the scratch, without peeping the course material and tried to
-come up with the same result. Also, I developed and solved the extra mile
+came up with the same result. Also, I developed and solved the extra mile
 excercises.
 
 It took me around one and a half week to complete to course.
@@ -75,7 +91,7 @@ things.
 When the lab time was about to expire, I was able to set up my own test lab.
 It was consisted of a Windows XP SP3 and a Windows Vista Business machines.
 
-== Self study
+== Self-study
 
 My lab time was scheduled to end the 8th of June and the OSCE exam was
 scheduled on the 13th of July.
@@ -104,32 +120,35 @@ of articles with some tricky exploitations:
 * And finally wrote an article about backdooring and avoiding antivirus:
 ** link:../backdooring-putty/[Backdooring PuTTY]
 
-In the end, writing those articles helped me a lot to fully put together
+Writing those articles helped me a lot to fully put together
 what was taught in the course.
 
 The web part of the course was practiced using
 link:http://www.dvwa.co.uk/[DVWA] and link:http://www.itsecgames.com/[BWAPP]
 
+In summary, my total preparation time, including the CTP course and self-study
+was around 50 days, with an average daily time of study of 9 hours.
+
 == Exam
 
-The OSCE exam is a VPN network with several objetives to perform. The VPN
+The OSCE exam is a VPN network with several objetives to complete. The VPN
 access is provided for 47h:45m and they give you another 24 hours
 after the exam to send a detailed professional report with the findings and
 objectives.
 
-My exam was scheduled to start the 13th of July at 2PM. I was pretty anxious
-about what was going to be presented in the exam. I read a lot of reviews
-and almost everyone mentioned that the exam was "brutal", "made
+My exam was scheduled to start the 13th of July at 2PM COT. I was pretty
+anxious about what was going to be presented in the exam. I read a lot of
+reviews and almost everyone mentioned that the exam was "brutal", "made
 by the devil", and the "hardest thing ever tried".
 When I checked the exam objectives, I then realized that the course was
 indeed a starting point and that further study of what was taught in the
-CTP modules is extremely important to complete the exam.
+CTP modules is extremely important in order to complete the exam.
 
 With that in place, I decided to start with the lower points tasks. After
 around 4 hours I had them resolved. It was about 6PM and I decided to take a
 short rest to eat. After around 30 minutes, I started with one of the
 higher points tasks and fully complete it after around 3 hours.
-It was around 10PM and I was a bit exhausted. I was trying to figure out
+It was almost 10PM and I was a bit exhausted. I was trying to figure out
 the other higher point task but I couldn't get a way to even start. I then
 took a rest and watched TV to switch brain context. At around 11PM I got
 an idea of how to approach the final task. I started working on my idea,
@@ -153,4 +172,4 @@ That was my OSCE journey. I can only advice to take the time to expand
 to what is taught on the course, because on real world, every application
 will have it's own tricks to be exploited and you won't have a teacher next
 to you. Also, in my case, writing articles greatly helped me to consolidate
-what I've learnt. You milliage may vary.
+what I've learnt. But as always, you milliage may vary.
