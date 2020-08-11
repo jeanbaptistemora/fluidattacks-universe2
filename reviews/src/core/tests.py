@@ -37,16 +37,17 @@ def mr_under_max_deltas(pull_request: PullRequest, config: Dict[str, Any]) -> bo
             'to run this test')
         raise GitError
     skip_deltas: bool = '- no-deltas-test' in pull_request.description
-    start_sha: str = str(pull_request.changes()['diff_refs']['start_sha'])
+    base_sha: str = str(pull_request.changes()['diff_refs']['base_sha'])
     head_sha: str = str(pull_request.changes()['diff_refs']['head_sha'])
-    start_commit: Any = repo.revparse_single(start_sha)
+    base_commit: Any = repo.revparse_single(base_sha)
     head_commit: Any = repo.revparse_single(head_sha)
-    diff: Any = repo.diff(start_commit, head_commit)
+    diff: Any = repo.diff(base_commit, head_commit)
     deltas: int = diff.stats.deletions + diff.stats.insertions
     if not skip_deltas and deltas > max_deltas:
         log(err_log,
-            'MR should be under or equal to %s deltas',
-            max_deltas)
+            'MR should be under or equal to %s deltas. You MR has %s deltas',
+            max_deltas,
+            deltas)
         success = False
     return success or not should_fail
 
@@ -69,14 +70,13 @@ def all_pipelines_successful(pull_request: PullRequest, config: Dict[str, Any]) 
     should_fail: bool = config['fail']
     err_log: str = get_err_log(should_fail)
     success: bool = passed_first_pipeline_before_mr()
-    current_p_id: str = str(os.environ.get('CI_PIPELINE_ID'))
     index: int = 0
     while index < len(pull_request.pipelines()):
         pipeline: Any = pull_request.pipelines()[index]
         p_id: str = str(pipeline.id)
         p_status: str = str(pipeline.status)
         p_job_names: List[str] = [ job.name for job in pipeline.jobs.list() ]
-        if p_id not in current_p_id and config['job_name'] not in p_job_names:
+        if config['job_name'] not in p_job_names:
             if p_status in ('success', 'manual'):
                 pass
             elif p_status in ('pending', 'running'):
