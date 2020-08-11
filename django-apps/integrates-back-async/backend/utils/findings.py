@@ -43,6 +43,7 @@ from backend.utils import (
     cvss,
     forms as forms_utils
 )
+from fluidintegrates.settings import LOGGING
 from __init__ import (
     BASE_URL,
     FI_MAIL_CONTINUOUS,
@@ -50,6 +51,7 @@ from __init__ import (
     FI_MAIL_REVIEWERS
 )
 
+logging.config.dictConfig(LOGGING)
 
 # Constants
 CVSS_PARAMETERS = {

@@ -23,9 +23,14 @@ from backend.exceptions import (
     InvalidResource
 )
 from backend.utils import validations, aio
+from fluidintegrates.settings import (
+    LOGGING,
+    NOEXTRA
+)
 
 from __init__ import BASE_URL, FI_MAIL_RESOURCERS
 
+logging.config.dictConfig(LOGGING)
 
 # Constants
 LOGGER = logging.getLogger(__name__)
@@ -115,7 +120,7 @@ async def create_file(
         file_size = 100
         validate_file_size(uploaded_file, file_size)
     except InvalidFileSize as ex:
-        LOGGER.exception(ex)
+        LOGGER.exception(ex, extra=dict(extra=locals()))
     files = await project_dal.get_attributes(project_name, ['files'])
     project_files = cast(List[ResourceType], files.get('files', []))
     if project_files:
@@ -125,7 +130,7 @@ async def create_file(
             if f.get('fileName') == uploaded_file.name
         ]
         if contains_repeated:
-            LOGGER.error('File already exists')
+            LOGGER.error('File already exists', **NOEXTRA)
     else:
         # Project doesn't have files
         pass

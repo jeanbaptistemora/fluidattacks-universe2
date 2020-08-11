@@ -6,11 +6,13 @@ from cloudmersive_virus_api_client.rest import ApiException
 from django.core.files.uploadedfile import InMemoryUploadedFile
 
 from backend.exceptions import FileInfected
+from fluidintegrates.settings import LOGGING
 from __init__ import (
     FI_CLOUDMERSIVE_API_KEY,
     FI_ENVIRONMENT
 )
 
+logging.config.dictConfig(LOGGING)
 
 # Constants
 API_CONFIGURATION = cloudmersive_virus_api_client.Configuration()

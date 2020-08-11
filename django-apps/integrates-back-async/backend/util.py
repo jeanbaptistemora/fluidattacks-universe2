@@ -7,7 +7,6 @@ from datetime import datetime, timedelta, timezone
 import binascii
 import functools
 import logging
-import logging.config
 import re
 import secrets
 from typing import (

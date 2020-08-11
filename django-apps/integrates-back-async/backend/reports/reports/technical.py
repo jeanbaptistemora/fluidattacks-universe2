@@ -25,7 +25,9 @@ from backend.reports.secure_pdf import SecurePDF
 from backend.typing import Finding as FindingType
 from backend.utils import reports as reports_utils
 from backend.utils.passphrase import get_passphrase
+from fluidintegrates.settings import LOGGING
 
+logging.config.dictConfig(LOGGING)
 
 # Constants
 LOGGER = logging.getLogger(__name__)

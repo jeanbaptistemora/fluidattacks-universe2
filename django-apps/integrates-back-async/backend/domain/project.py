@@ -55,7 +55,9 @@ from backend.utils import (
     validations
 )
 from backend import authz, mailer, util
+from fluidintegrates.settings import LOGGING
 
+logging.config.dictConfig(LOGGING)
 
 # Constants
 LOGGER = logging.getLogger(__name__)
@@ -431,7 +433,8 @@ def remove_project(project_name: str) -> NamedTuple:
     LOGGER.warning(
         'Removing %s project',
         project_name,
-        extra={'extra': locals()})
+        extra={'extra': locals()}
+    )
     Status: NamedTuple = namedtuple(
         'Status',
         'are_findings_masked are_users_removed is_group_masked '
