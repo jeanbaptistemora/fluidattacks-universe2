@@ -277,7 +277,6 @@ function job_deploy_mobile_ota {
         &&  sops_env "secrets-${ENVIRONMENT_NAME}.yaml" 'default' \
               EXPO_USER \
               EXPO_PASS \
-              ROLLBAR_ACCESS_TOKEN \
         &&  sops \
               --aws-profile default \
               --decrypt \
@@ -299,15 +298,15 @@ function job_deploy_mobile_ota {
           &&  npx --no-install expo publish \
                 --non-interactive \
                 --release-channel "${CI_COMMIT_REF_NAME}" \
-          &&  if test "${ENVIRONMENT_NAME}" = 'production'
-              then
-                    echo '[INFO] Sending report to rollbar' \
-                &&  curl "https://api.rollbar.com/api/1/deploy" \
-                      --form "access_token=${ROLLBAR_ACCESS_TOKEN}" \
-                      --form 'environment=mobile-production' \
-                      --form "revision=${CI_COMMIT_SHA}" \
-                      --form "local_username=${CI_COMMIT_AUTHOR}"
-              fi \
+          &&  echo '[INFO] Sending build info to bugsnag' \
+          &&  npx bugsnag-build-reporter \
+                --api-key c7b947a293ced0235cdd8edc8c09dad4 \
+                --app-version "${FI_VERSION}" \
+                --release-stage "mobile-${ENVIRONMENT_NAME}" \
+                --builder-name "${CI_COMMIT_AUTHOR}" \
+                --source-control-provider gitlab \
+                --source-control-repository https://gitlab.com/fluidattacks/integrates.git \
+                --source-control-revision "${CI_COMMIT_SHA}/mobile" \
         &&  popd \
         ||  return 1
       else

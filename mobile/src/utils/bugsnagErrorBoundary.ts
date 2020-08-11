@@ -1,7 +1,6 @@
 import { OnErrorCallback } from "@bugsnag/core";
 import Bugsnag from "@bugsnag/expo";
 import BugsnagPluginReact from "@bugsnag/plugin-react";
-import { default as Constants } from "expo-constants";
 import * as Network from "expo-network";
 import _ from "lodash";
 import React from "react";
@@ -26,13 +25,8 @@ interface IBugsnagPluginReactResultConfig {
   createErrorBoundary(react?: typeof React): BugsnagErrorBoundary;
 }
 
-const appVersion: string = _.isString(Constants.nativeAppVersion)
-  ? Constants.nativeAppVersion
-  : "";
-
 Bugsnag.start({
   apiKey: BUGSNAG_KEY,
-  appVersion,
   plugins: [new BugsnagPluginReact(React)],
   releaseStage: `mobile-${getEnvironment().name}`,
 });
