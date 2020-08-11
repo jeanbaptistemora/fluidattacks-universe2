@@ -1,6 +1,7 @@
 # Standard library
 from asyncio import (
     sleep,
+    Lock,
 )
 import functools
 import inspect
@@ -21,6 +22,7 @@ from utils.logs import (
 # Constants
 RAISE = object()
 TVar = TypeVar('TVar')
+TFun = TypeVar('TFun', bound=Callable[..., Any])
 
 
 def get_bound_arguments(
@@ -41,6 +43,17 @@ def get_signature(function: Callable[..., Any]) -> inspect.Signature:
     )
 
     return signature
+
+
+def locked(function: TFun) -> TFun:
+    lock = Lock()
+
+    @functools.wraps(function)
+    async def wrapper(*args: Any, **kwargs: Any) -> Any:
+        async with lock:
+            return await function(*args, **kwargs)
+
+    return cast(TFun, wrapper)
 
 
 def retry(

@@ -24,13 +24,13 @@ def _load(path: str) -> SkimsConfig:
 
     config = template.get(
         confuse.Template({
-            'chdir': confuse.Filename(cwd=''),
+            'chdir': confuse.String(),
             'console_snippets': confuse.Choice((True, False)),
             'group': confuse.String(pattern=r'^[a-z0-9]+$'),
             'language': confuse.Choice(LocalesEnum),
             'path': confuse.Template({
-                'exclude': confuse.Sequence(confuse.Filename(cwd='')),
-                'include': confuse.Sequence(confuse.Filename(cwd='')),
+                'exclude': confuse.Sequence(confuse.String()),
+                'include': confuse.Sequence(confuse.String()),
             }),
         }),
     )

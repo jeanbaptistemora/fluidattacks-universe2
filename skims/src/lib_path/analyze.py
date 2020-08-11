@@ -2,7 +2,11 @@
 from glob import (
     iglob as glob,
 )
-import os
+from os.path import (
+    normpath,
+    split,
+    splitext,
+)
 from itertools import chain
 from typing import (
     Awaitable,
@@ -25,6 +29,9 @@ from lib_path import (
     f061,
     f117,
 )
+from utils.function import (
+    locked,
+)
 from utils.fs import (
     generate_file_content,
     generate_file_raw_content,
@@ -46,6 +53,7 @@ def generate_char_to_yx_map(
 ) -> Callable[[], Awaitable[Dict[int, Tuple[int, int]]]]:
     data: Dict[str, Dict[int, Tuple[int, int]]] = {}
 
+    @locked
     async def get_one() -> Dict[int, Tuple[int, int]]:
         if not data:
             content = await file_content_generator()
@@ -90,8 +98,8 @@ async def analyze_one_path(path: str) -> Tuple[Vulnerability, ...]:
                     raw_content_generator=file_raw_content_generator,
                 ),
             )
-            for folder, file in [os.path.split(path)]
-            for file_name, file_extension in [os.path.splitext(file)]
+            for folder, file in [split(path)]
+            for file_name, file_extension in [splitext(file)]
             for file_extension in [file_extension[1:]]
         ))))
     ))
@@ -105,6 +113,9 @@ async def analyze(
     paths_to_include: Tuple[str, ...],
 ) -> Tuple[Vulnerability, ...]:
 
+    def normalize(path: str) -> str:
+        return normpath(path)
+
     def resolve(path: str) -> Iterator[str]:
         if path.startswith('glob(') and path.endswith(')'):
             yield from glob(path[5:-1], recursive=True)
@@ -112,15 +123,15 @@ async def analyze(
             yield path
 
     try:
-        unique_paths: Set[str] = set(chain.from_iterable(
+        unique_paths: Set[str] = set(map(normalize, chain.from_iterable(
             await collect(map(
                 recurse, chain.from_iterable(map(resolve, paths_to_include)),
             )),
-        )) - set(chain.from_iterable(
+        ))) - set(map(normalize, chain.from_iterable(
             await collect(map(
                 recurse, chain.from_iterable(map(resolve, paths_to_exclude)),
             )),
-        ))
+        )))
     except FileNotFoundError as exc:
         await log('critical', 'File does not exist: %s', exc.filename)
         raise SystemExit()

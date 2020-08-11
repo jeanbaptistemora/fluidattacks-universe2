@@ -1,12 +1,12 @@
-chdir: ../
+chdir: ../../
 console_snippets: false
 group: worcester
 language: EN
 path:
   include:
-    - .
+    - product/
   exclude:
-    - skims/test/
+    - product/skims/test/
     - glob(**/.git/)
     - glob(**/.venv/)
     - glob(**/node_modules/)
