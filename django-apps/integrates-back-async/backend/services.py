@@ -1,10 +1,6 @@
 """ FluidIntegrates services definition """
 
 from typing import Dict, cast
-from django.http import JsonResponse
-from django.views.decorators.csrf import csrf_exempt
-from django.views.decorators.http import require_http_methods
-from django.http import HttpRequest
 from backend.domain import (
     event as event_domain,
     finding as finding_domain,
@@ -13,14 +9,6 @@ from backend.domain import (
 
 from backend import authz, util
 from backend.dal import project as project_dal
-
-
-@csrf_exempt  # type: ignore
-@require_http_methods(["POST"])  # type: ignore
-def login(request: HttpRequest) -> JsonResponse:
-    """ Authentication service defintion. """
-    username = request.session['username']
-    return util.response([], 'Bienvenido ' + username, False)
 
 
 async def has_access_to_project(email: str, group: str) -> bool:
