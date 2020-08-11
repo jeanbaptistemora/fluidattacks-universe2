@@ -1,3 +1,6 @@
+src.lib_path.f061.csharp_swallows_exceptions.description:
+  en: Empty C# catch in {path}
+  es: Catch de C# vacío en {path}
 src.lib_path.f061.java_swallows_exceptions.description:
   en: Empty Java catch in {path}
   es: Catch de Java vacío en {path}

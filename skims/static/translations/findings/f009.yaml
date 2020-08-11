@@ -32,9 +32,9 @@ utils.model.finding.enum.f009.requirements:
     R156. El código fuente no debe contener información sensible.
 utils.model.finding.enum.f009.threat:
   en: >
-    Internal attacker with access to the source-code from the Internet.
+    Attacker with access to the source-code from the Internet.
   es: >
-    Atacante interno con acceso al código fuente desde Internet.
+    Atacante con acceso al código fuente desde Internet.
 utils.model.finding.enum.f009.title:
   en: FIN.S.009. Sensitive information in source code
   es: FIN.S.009. Información sensible almacenada en el código fuente

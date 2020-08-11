@@ -34,7 +34,7 @@ class FindingMetadata(NamedTuple):
 
 class FindingEnum(Enum):
     F009: FindingMetadata = FindingMetadata(
-        cwe='311',
+        cwe='798',
         description='utils.model.finding.enum.f009.description',
         impact='utils.model.finding.enum.f009.impact',
         recommendation='utils.model.finding.enum.f009.recommendation',
