@@ -29,6 +29,7 @@ from aioextensions import (
 from lib_path.common import (
     blocking_get_vulnerabilities,
     C_STYLE_COMMENT,
+    EXTENSIONS_JAVA,
     EXTENSIONS_JAVASCRIPT,
     DOUBLE_QUOTED_STRING,
     SINGLE_QUOTED_STRING,
@@ -95,6 +96,49 @@ async def javascript_swallows_exceptions(
     )
 
 
+def _java_swallows_exceptions(
+    char_to_yx_map: Dict[int, Tuple[int, int]],
+    content: str,
+    path: str,
+) -> Tuple[Vulnerability, ...]:
+    # Empty() grammar matches 'anything'
+    # ~Empty() grammar matches 'not anything' or 'nothing'
+    grammar = (
+        Keyword('catch') +
+        nestedExpr(opener='(', closer=')') +
+        nestedExpr(opener='{', closer='}', content=~Empty())
+    )
+    grammar.ignore(C_STYLE_COMMENT)
+    grammar.ignore(DOUBLE_QUOTED_STRING)
+    grammar.ignore(SINGLE_QUOTED_STRING)
+
+    return blocking_get_vulnerabilities(
+        char_to_yx_map=char_to_yx_map,
+        content=content,
+        description=t(
+            key='src.lib_path.f061.java_swallows_exceptions.description',
+            path=path,
+        ),
+        finding=FindingEnum.F061,
+        grammar=grammar,
+        path=path,
+    )
+
+
+@cache_decorator()
+async def java_swallows_exceptions(
+    char_to_yx_map: Dict[int, Tuple[int, int]],
+    content: str,
+    path: str,
+) -> Tuple[Vulnerability, ...]:
+    return await unblock_cpu(
+        _java_swallows_exceptions,
+        char_to_yx_map=char_to_yx_map,
+        content=content,
+        path=path,
+    )
+
+
 async def analyze(
     char_to_yx_map_generator: Callable[
         [], Awaitable[Dict[int, Tuple[int, int]]],
@@ -105,7 +149,13 @@ async def analyze(
 ) -> Tuple[Vulnerability, ...]:
     coroutines: List[Awaitable[Tuple[Vulnerability, ...]]] = []
 
-    if file_extension in EXTENSIONS_JAVASCRIPT:
+    if file_extension in EXTENSIONS_JAVA:
+        coroutines.append(java_swallows_exceptions(
+            char_to_yx_map=await char_to_yx_map_generator(),
+            content=await content_generator(),
+            path=path,
+        ))
+    elif file_extension in EXTENSIONS_JAVASCRIPT:
         coroutines.append(javascript_swallows_exceptions(
             char_to_yx_map=await char_to_yx_map_generator(),
             content=await content_generator(),
