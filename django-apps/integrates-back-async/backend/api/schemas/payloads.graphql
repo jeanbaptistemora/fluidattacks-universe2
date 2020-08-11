@@ -46,6 +46,11 @@ type AddUserPayload implements Payload {
     email: String
 }
 
+type AddStakeholderPayload implements Payload {
+    success: Boolean!
+    email: String
+}
+
 type SimpleFindingPayload implements Payload {
     success: Boolean!
     finding: Finding

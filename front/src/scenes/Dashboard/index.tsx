@@ -39,10 +39,10 @@ import { ReportsView } from "./containers/ReportsView";
 import { TagContent } from "./containers/TagContent";
 import { default as style } from "./index.css";
 import {
-  ADD_USER_MUTATION,
+  ADD_STAKEHOLDER_MUTATION,
   GET_USER_PERMISSIONS,
 } from "./queries";
-import { IAddUserAttr, IGetUserPermissionsAttr } from "./types";
+import { IAddStakeholderAttr, IGetUserPermissionsAttr } from "./types";
 
 const dashboard: React.FC = (): JSX.Element => {
   const { hash } = useLocation();
@@ -59,18 +59,19 @@ const dashboard: React.FC = (): JSX.Element => {
   const openOrganizationModal: (() => void) = (): void => { setOrganizationModalOpen(true); };
   const closeOrganizationModal: (() => void) = (): void => { setOrganizationModalOpen(false); };
 
-  const handleMtAddUserRes: ((mtResult: IAddUserAttr) => void) = (mtResult: IAddUserAttr): void => {
+  const handleMtAddStakeholderRes:
+    ((mtResult: IAddStakeholderAttr) => void) = (mtResult: IAddStakeholderAttr): void => {
     if (!_.isUndefined(mtResult)) {
-      if (mtResult.addUser.success) {
+      if (mtResult.addStakeholder.success) {
         closeUserModal();
         msgSuccess(
-          translate.t("userModal.success", { email: mtResult.addUser.email }),
+          translate.t("userModal.success", { email: mtResult.addStakeholder.email }),
           translate.t("search_findings.tab_users.title_success"),
         );
       }
     }
   };
-  const handleMtAddUserError: ((mtError: ApolloError) => void) = (
+  const handleMtAddStakeholderError: ((mtError: ApolloError) => void) = (
     { graphQLErrors }: ApolloError,
   ): void => {
     graphQLErrors.forEach((error: GraphQLError): void => {
@@ -166,10 +167,14 @@ const dashboard: React.FC = (): JSX.Element => {
       <ScrollUpButton visibleAt={400} />
       <UpdateAccessTokenModal open={isTokenModalOpen} onClose={closeTokenModal} />
       <AddOrganizationModal open={isOrganizationModalOpen} onClose={closeOrganizationModal} />
-      <Mutation mutation={ADD_USER_MUTATION} onCompleted={handleMtAddUserRes} onError={handleMtAddUserError}>
-        {(addUser: MutationFunction): JSX.Element => {
+      <Mutation
+        mutation={ADD_STAKEHOLDER_MUTATION}
+        onCompleted={handleMtAddStakeholderRes}
+        onError={handleMtAddStakeholderError}
+      >
+        {(addStakeholder: MutationFunction): JSX.Element => {
           const handleSubmit: ((values: IUserDataAttr) => void) = (values: IUserDataAttr): void => {
-            addUser({ variables: values })
+            addStakeholder({ variables: values })
               .catch();
           };
 

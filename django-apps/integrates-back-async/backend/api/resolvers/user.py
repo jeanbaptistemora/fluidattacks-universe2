@@ -37,6 +37,7 @@ from backend.exceptions import (
 from backend.typing import (
     User as UserType,
     AddUserPayload as AddUserPayloadType,
+    AddStakeholderPayload as AddStakeholderPayloadType,
     GrantUserAccessPayload as GrantUserAccessPayloadType,
     RemoveUserAccessPayload as RemoveUserAccessPayloadType,
     EditUserPayload as EditUserPayloadType,
@@ -422,6 +423,61 @@ async def _do_add_user(
             })
 
     return AddUserPayloadType(success=success, email=email)
+
+
+@require_login
+@enforce_user_level_auth_async
+async def _do_add_stakeholder(
+    _: Any,
+    info: GraphQLResolveInfo,
+    email: str,
+    role: str,
+    phone_number: str = ''
+) -> AddStakeholderPayloadType:
+    success: bool = False
+
+    user_data = util.get_jwt_content(info.context)
+    user_email = user_data['user_email']
+
+    allowed_roles_to_grant = await authz.get_user_level_roles_a_user_can_grant(
+        requester_email=user_email,
+    )
+
+    if role in allowed_roles_to_grant:
+        new_user = await user_domain.create_without_project(
+            email=email,
+            role=role,
+            phone_number=phone_number,
+        )
+        if new_user:
+            util.cloudwatch_log(
+                info.context,
+                f'Security: Add user {email}')  # pragma: no cover
+            mail_to = [email]
+            context = {'admin': email}
+            email_send_thread = threading.Thread(
+                name='Access granted email thread',
+                target=mailer.send_mail_access_granted,
+                args=(mail_to, context,)
+            )
+            email_send_thread.start()
+            success = True
+        else:
+            LOGGER.error(
+                'Error: Couldn\'t grant user access',
+                extra={'extra': info.context})
+    else:
+        LOGGER.error(
+            'Invalid role provided',
+            extra={
+                'extra': {
+                    'email': email,
+                    'requester_email': user_email,
+                    'role': role
+                }
+            })
+
+    return AddStakeholderPayloadType(success=success, email=email)
 
 
 @require_login

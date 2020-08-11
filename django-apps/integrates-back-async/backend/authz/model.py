@@ -524,6 +524,7 @@ USER_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             'backend_api_resolvers_project__do_create_project',
             'backend_api_resolvers_project_resolve_alive_projects',
             'backend_api_resolvers_user__do_add_user',
+            'backend_api_resolvers_user__do_add_stakeholder',
             'backend_api_resolvers_user_resolve_user_list_projects',
             'grant_user_level_role:admin',
             'grant_user_level_role:customer',

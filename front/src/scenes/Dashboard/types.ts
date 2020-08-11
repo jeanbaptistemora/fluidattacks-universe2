@@ -1,5 +1,5 @@
-export interface IAddUserAttr {
-  addUser: {
+export interface IAddStakeholderAttr {
+  addStakeholder: {
     email: string;
     success: boolean;
   };

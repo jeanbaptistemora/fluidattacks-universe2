@@ -1,13 +1,13 @@
 import { DocumentNode } from "graphql";
 import gql from "graphql-tag";
 
-export const ADD_USER_MUTATION: DocumentNode = gql`
-  mutation AddUserMutation(
+export const ADD_STAKEHOLDER_MUTATION: DocumentNode = gql`
+  mutation AddStakeholderMutation(
     $email: String!,
     $role: UserRole!
     $phoneNumber: String,
     ) {
-    addUser (
+    addStakeholder (
       email: $email,
       role: $role,
       phoneNumber: $phoneNumber,
