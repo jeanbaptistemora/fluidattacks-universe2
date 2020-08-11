@@ -66,6 +66,114 @@ async def test_create_organization():
     assert result['errors'][0]['message'] == exe.args[0]
 
 
+@pytest.mark.changes_db
+async def test_edit_user_organization():
+    org_id = 'ORG#f2e2777d-a168-4bea-93cd-d79142b294d2'
+    user = 'org_testgroupmanager1@gmail.com'
+    query = Template('''
+        mutation {
+            editUserOrganization(
+                organizationId: "$org_id",
+                phoneNumber: "-",
+                role: $role,
+                userEmail: "$user"
+            ) {
+                success
+                modifiedUser {
+                    email
+                }
+            }
+        }
+    ''')
+
+    data = {'query': query.substitute(org_id=org_id, role='CUSTOMER', user=user)}
+    result = await _get_result_async(data)
+    assert 'errors' not in result
+    assert result['data']['editUserOrganization']['success']
+    assert result['data']['editUserOrganization']['modifiedUser']['email'] == user
+
+    data = {'query': query.substitute(org_id=org_id, role='CUSTOMERADMIN', user=user)}
+    result = await _get_result_async(data, user=user)
+    assert 'errors' in result
+    assert result['errors'][0]['message'] == 'Access denied'
+
+    data = {'query': query.substitute(org_id=org_id, role='CUSTOMERADMIN', user='madeupuser@gmail.com')}
+    result = await _get_result_async(data)
+    exe = UserNotInOrganization()
+    assert 'errors' in result
+    assert result['errors'][0]['message'] == exe.args[0]
+
+
+@pytest.mark.changes_db
+async def test_grant_user_organization_access():
+    org_id = 'ORG#f2e2777d-a168-4bea-93cd-d79142b294d2'
+    user = 'org_testuser5@gmail.com'
+    query = Template(f'''
+        mutation {{
+            grantUserOrganizationAccess(
+                organizationId: "{org_id}",
+                phoneNumber: "-",
+                role: $role,
+                userEmail: "$user"
+            ) {{
+                success
+                grantedUser {{
+                    email
+                }}
+            }}
+        }}
+    ''')
+
+    data = {'query': query.substitute(user=user, role='CUSTOMER')}
+    result = await _get_result_async(data)
+    assert 'errors' not in result
+    assert result['data']['grantUserOrganizationAccess']['success']
+    assert result['data']['grantUserOrganizationAccess']['grantedUser']['email'] == user
+
+    data = {'query': query.substitute(user='madeupuser@gmail.com', role='CUSTOMER')}
+    result = await _get_result_async(data, user=user)
+    assert 'errors' in result
+    assert result['errors'][0]['message'] == 'Access denied'
+
+    data = {'query': query.substitute(user='madeupuser@gmail.com', role='CUSTOMER')}
+    result = await _get_result_async(data, 'madeupuser@gmail.com')
+    exe = UserNotInOrganization()
+    assert 'errors' in result
+    assert result['errors'][0]['message'] == exe.args[0]
+
+
+@pytest.mark.changes_db
+async def test_remove_user_organization_access():
+    org_id = 'ORG#f2e2777d-a168-4bea-93cd-d79142b294d2'
+    user = 'org_testuser4@gmail.com'
+    query = Template(f'''
+        mutation {{
+            removeUserOrganizationAccess(
+                organizationId: "{org_id}",
+                userEmail: "$user"
+            ) {{
+                success
+            }}
+        }}
+    ''')
+
+    data = {'query': query.substitute(user=user)}
+    result = await _get_result_async(data)
+    assert 'errors' not in result
+    assert result['data']['removeUserOrganizationAccess']['success']
+
+    data = {'query': query.substitute(user='org_testuser2@gmail.com')}
+    result = await _get_result_async(data, user='madeupuser@gmail.com')
+    assert 'errors' in result
+    assert result['errors'][0]['message'] == 'Access denied'
+
+    data = {'query': query.substitute(user='madeupuser@gmail.com')}
+    result = await _get_result_async(data)
+    exe = UserNotInOrganization()
+    assert 'errors' in result
+    assert result['errors'][0]['message'] == exe.args[0]
+
+
 async def test_organization():
     org_id = 'ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3'
     expected_groups = ['oneshottest', 'unittesting']

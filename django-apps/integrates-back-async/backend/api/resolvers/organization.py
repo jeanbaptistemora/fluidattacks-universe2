@@ -36,7 +36,10 @@ from backend.domain import (
     project as group_domain,
     user as user_domain
 )
-from backend.exceptions import InvalidOrganization
+from backend.exceptions import (
+    InvalidOrganization,
+    UserNotInOrganization
+)
 from backend.typing import (
     CreateOrganizationPayload as CreateOrganizationPayloadType,
     EditUserPayload as EditUserPayloadType,
@@ -92,6 +95,15 @@ async def _do_edit_user_organization(
     user_email: str = str(parameters.get('user_email'))
     new_phone_number: str = str(parameters.get('phone_number'))
     new_role: str = str(parameters.get('role')).lower()
+
+    if not await org_domain.has_user_access(organization_id, user_email):
+        util.cloudwatch_log(
+            info.context,
+            f'Security: User {requester_email} attempted to edit information '
+            f'from a not existent user {user_email} in organization'
+            f'{organization_name}'
+        )
+        raise UserNotInOrganization()
 
     if await org_domain.add_user(
         organization_id,
