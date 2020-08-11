@@ -8,6 +8,7 @@ in
     name = "reviews";
 
     buildInputs = [
+      pkgs.cacert
       pkgs.nodejs
     ];
 

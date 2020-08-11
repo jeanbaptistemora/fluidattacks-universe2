@@ -11,7 +11,7 @@ class PullRequest(NamedTuple):
     description: str
     source_branch: str
     target_branch: str
-    commits: Dict[str, Dict[str,str]]
-    changes: Dict[str, Union[str, Dict[str,str]]]
-    pipelines: List[Dict[str,str]]
+    commits: Dict[str, Dict[str, str]]
+    changes: Dict[str, Any]
+    pipelines: List[Dict[str, str]]
     raw: Any

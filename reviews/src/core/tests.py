@@ -4,7 +4,9 @@ import re
 import subprocess
 from time import sleep
 from typing import Any, List, Dict
-from git import Repo, InvalidGitRepositoryError
+
+# Third party libraries
+from pygit2 import Repository, GitError
 
 # Local libraries
 from dal.model import PullRequest
@@ -22,31 +24,25 @@ def skip_ci(pull_request: PullRequest) -> bool:
 
 def mr_under_max_deltas(pull_request: PullRequest, config: Dict[str, Any]) -> bool:
     """MR under max_deltas if commit is not solution"""
-
-    def get_commit_by_sha(sha: str, repo: Any) -> Any:
-        commits: Any = list(repo.iter_commits())
-        found_commit: Any = None
-        for commit in commits:
-            if commit.hexsha in sha:
-                found_commit = commit
-                break
-        return found_commit
-
     success: bool = True
     should_fail: bool = config['fail']
     err_log: str = get_err_log(should_fail)
     repo_path = '.' if config['repo_path'] is None else config['repo_path']
     max_deltas: int = config['max_deltas']
     try:
-        repo: Any = Repo(repo_path)
-    except InvalidGitRepositoryError:
+        repo: Any = Repository(repo_path)
+    except GitError:
         log('error',
             'You must be in the repo path in order '
             'to run this test')
-        raise InvalidGitRepositoryError
+        raise GitError
     skip_deltas: bool = '- no-deltas-test' in pull_request.description
-    commit: Any = get_commit_by_sha(str(pull_request.changes['sha']), repo)
-    deltas: int = int(commit.stats.total['lines'])
+    start_sha: str = str(pull_request.changes['diff_refs']['start_sha'])
+    head_sha: str = str(pull_request.changes['diff_refs']['head_sha'])
+    start_commit: Any = repo.revparse_single(start_sha)
+    head_commit: Any = repo.revparse_single(head_sha)
+    diff: Any = repo.diff(start_commit, head_commit)
+    deltas: int = diff.stats.deletions + diff.stats.insertions
     if not skip_deltas and deltas > max_deltas:
         log(err_log,
             'MR should be under or equal to %s deltas',
