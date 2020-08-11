@@ -900,7 +900,7 @@ async def _do_edit_group(  # pylint: disable=too-many-arguments
     if success:
         util.invalidate_cache(group_name)
         util.invalidate_cache(requester_email)
-        authz.revoke_cached_group_service_attributes_policies(group_name)
+        await authz.revoke_cached_group_service_attributes_policies(group_name)
         util.cloudwatch_log(
             info.context,
             f'Security: Edited group {group_name} successfully',

@@ -74,7 +74,7 @@ async def get_organization_level_actions(
 
 
 async def get_group_service_attributes(group: str) -> Set[str]:
-    enforcer = get_group_service_attributes_enforcer(group)
+    enforcer = await get_group_service_attributes_enforcer(group)
 
     return set(tuple([
         attribute

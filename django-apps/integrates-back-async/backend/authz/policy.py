@@ -38,7 +38,7 @@ def get_subject_cache_key(subject: str) -> str:
     return f'authorization.subject.{safe_encode(subject.lower())}'
 
 
-def get_cached_group_service_attributes_policies(
+async def get_cached_group_service_attributes_policies(
     group: str,
 ) -> Tuple[Tuple[str, str], ...]:
     """Cached function to get 1 group features authorization policies."""
@@ -46,7 +46,7 @@ def get_cached_group_service_attributes_policies(
 
     try:
         # Attempt to retrieve data from the cache
-        ret = cache.get(cache_key)
+        ret = await aio.ensure_io_bound(cache.get, cache_key)
     except RedisClusterException:
         ret = None
 
@@ -54,10 +54,10 @@ def get_cached_group_service_attributes_policies(
         # Let's fetch the data from the database
         ret = tuple(
             (policy.group, policy.service)
-            for policy in project_dal.get_service_policies(group))
+            for policy in await project_dal.get_service_policies(group))
         try:
             # Put the data in the cache
-            cache.set(cache_key, ret, timeout=3600)
+            await aio.ensure_io_bound(cache.set, cache_key, ret, timeout=3600)
         except RedisClusterException:
             pass
 
@@ -213,15 +213,15 @@ async def grant_user_level_role(email: str, role: str) -> bool:
             await revoke_cached_subject_policies(email))
 
 
-def revoke_cached_group_service_attributes_policies(group: str) -> bool:
+async def revoke_cached_group_service_attributes_policies(group: str) -> bool:
     """Revoke the cached policies for the provided group."""
     cache_key: str = get_group_cache_key(group)
 
     # Delete the cache key from the cache
-    cache.delete_pattern(f'*{cache_key}*')
+    await aio.ensure_io_bound(cache.delete_pattern, f'*{cache_key}*')
 
     # Refresh the cache key as the user is probably going to use it soon :)
-    get_cached_group_service_attributes_policies(group)
+    await get_cached_group_service_attributes_policies(group)
 
     return True
 

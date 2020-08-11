@@ -92,7 +92,7 @@ async def test_group_service_attributes_enforcer():
         ('non_existing', 'must_only_have_fluidattacks_hackers', False),
         ('non_existing', 'non_existing_attribute', False),
     ]:
-        enforcer = authz.get_group_service_attributes_enforcer(group)
+        enforcer = await authz.get_group_service_attributes_enforcer(group)
 
         assert await enforcer(attribute) == result, \
             f'{group} attribute: {attribute}, should have value {result}'

@@ -360,8 +360,7 @@ async def request_deletion(project_name: str, user_email: str) -> bool:
         raise PermissionDenied()
 
     if response:
-        await aio.ensure_io_bound(
-            authz.revoke_cached_group_service_attributes_policies,
+        await authz.revoke_cached_group_service_attributes_policies(
             project_name
         )
 
@@ -400,8 +399,7 @@ async def reject_deletion(project_name: str, user_email: str) -> bool:
         raise PermissionDenied()
 
     if response:
-        await aio.ensure_io_bound(
-            authz.revoke_cached_group_service_attributes_policies,
+        await authz.revoke_cached_group_service_attributes_policies(
             project_name
         )
 

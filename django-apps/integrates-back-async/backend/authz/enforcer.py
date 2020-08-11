@@ -72,10 +72,10 @@ async def get_group_level_enforcer(subject: str) -> \
     return enforcer
 
 
-def get_group_service_attributes_enforcer(group: str) -> \
+async def get_group_service_attributes_enforcer(group: str) -> \
         Callable[[str], Coroutine[Any, Any, bool]]:
     """Return a filtered group authorization for the provided group."""
-    policies = get_cached_group_service_attributes_policies(group)
+    policies = await get_cached_group_service_attributes_policies(group)
 
     async def enforcer(r_attribute: str) -> bool:
         should_grant_access: bool = any(

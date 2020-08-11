@@ -20,7 +20,7 @@ async def validate_fluidattacks_staff_on_group(
         email: str,
         role: str) -> bool:
     """Makes sure that Fluid Attacks groups have only Fluid attacks staff."""
-    enforcer = authz.get_group_service_attributes_enforcer(group)
+    enforcer = await authz.get_group_service_attributes_enforcer(group)
 
     is_user_at_fluidattacks: bool = email.endswith(FLUIDATTACKS_EMAIL_SUFFIX)
     user_has_hacker_role: bool = (

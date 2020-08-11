@@ -21,13 +21,13 @@ pytestmark = [
 async def test_get_cached_group_service_attributes_policies():
     function = get_cached_group_service_attributes_policies
 
-    assert sorted(function('not-exists... probably')) == [
+    assert sorted(await function('not-exists... probably')) == [
     ]
-    assert sorted(function('oneshottest')) == [
+    assert sorted(await function('oneshottest')) == [
         ('oneshottest', 'drills_black'),
         ('oneshottest', 'integrates'),
     ]
-    assert sorted(function('unittesting')) == [
+    assert sorted(await function('unittesting')) == [
         ('unittesting', 'drills_white'),
         ('unittesting', 'forces'),
         ('unittesting', 'integrates'),

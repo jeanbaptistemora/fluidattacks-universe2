@@ -38,8 +38,6 @@ logging.config.dictConfig(LOGGING)
 # Constants
 DYNAMODB_RESOURCE = dynamodb.DYNAMODB_RESOURCE  # type: ignore
 LOGGER = logging.getLogger(__name__)
-TABLE = DYNAMODB_RESOURCE.Table('FI_projects')
-TABLE_ACCESS = DYNAMODB_RESOURCE.Table('FI_project_access')
 TABLE_ACCESS_NAME = 'FI_project_access'
 TABLE_NAME = 'FI_projects'
 TABLE_GROUP_COMMENTS = 'fi_project_comments'
@@ -50,26 +48,22 @@ ServicePolicy = NamedTuple(
 )
 
 
-def get_service_policies(group: str) -> List[ServicePolicy]:
+async def get_service_policies(group: str) -> List[ServicePolicy]:
     """Return a list of policies for the given group."""
     policies: List[ServicePolicy] = []
 
-    group_attributes: dict = TABLE.get_item(
-        AttributesToGet=[
-            'historic_configuration',
-            'project_status',
-        ],
-        ConsistentRead=True,
-        Key=dict(
-            project_name=group.lower(),
-        ),
-    )
+    query_attrs = {
+        'KeyConditionExpression': Key('project_name').eq(group.lower()),
+        'ConsistentRead': True,
+        'ProjectionExpression': 'historic_configuration, project_status'
+    }
+    response_items = await dynamodb.async_query(TABLE_NAME, query_attrs)
 
     # There is no such group, let's make an early return
-    if 'Item' not in group_attributes:
+    if not response_items:
         return policies
 
-    group_attributes = group_attributes['Item']
+    group_attributes = response_items[0]
 
     historic_config: list = group_attributes['historic_configuration']
 

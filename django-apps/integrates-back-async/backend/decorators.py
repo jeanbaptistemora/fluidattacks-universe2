@@ -281,7 +281,7 @@ def require_attribute(attribute: str) -> Callable[[TVar], TVar]:
         async def resolve_and_call(*args: Any, **kwargs: Any) -> Any:
             group = await resolve_project_name(args, kwargs)
 
-            enforcer = authz.get_group_service_attributes_enforcer(group)
+            enforcer = await authz.get_group_service_attributes_enforcer(group)
 
             if not await enforcer(attribute):
                 raise GraphQLError('Access denied')
