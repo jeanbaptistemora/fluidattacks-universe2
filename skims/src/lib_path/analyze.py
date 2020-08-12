@@ -67,6 +67,13 @@ def generate_char_to_yx_map(
 
 
 async def analyze_one_path(path: str) -> Tuple[Vulnerability, ...]:
+    """Execute all findings against the provided file.
+
+    :param path: Path to the file who's object of analysis
+    :type path: str
+    :return: Tuple with the vulnerabilities found
+    :rtype: Tuple[Vulnerability, ...]
+    """
     file_content_generator = generate_file_content(path)
     file_raw_content_generator = generate_file_raw_content(path)
     char_to_yx_map_generator = generate_char_to_yx_map(file_content_generator)
@@ -87,6 +94,7 @@ async def analyze_one_path(path: str) -> Tuple[Vulnerability, ...]:
                     path=path,
                 ),
                 f060.analyze(
+                    char_to_yx_map_generator=char_to_yx_map_generator,
                     content_generator=file_content_generator,
                     file_extension=file_extension,
                     path=path,

@@ -10,10 +10,14 @@ from typing import (
 
 # Third party libraries
 from pyparsing import (
+    alphas,
+    alphanums,
     cppStyleComment,
+    delimitedList,
     ParserElement,
     pythonStyleComment,
     QuotedString,
+    Word,
 )
 
 # Local libraries
@@ -47,6 +51,9 @@ EXTENSIONS_PYTHON: Set[str] = {'py', 'pyw'}
 EXTENSIONS_YAML: Set[str] = {'yml', 'yaml'}
 SINGLE_QUOTED_STRING: QuotedString = QuotedString("'")
 DOUBLE_QUOTED_STRING: QuotedString = QuotedString('"')
+
+VAR_NAME_JAVA: ParserElement = Word(alphas + '$_', alphanums + '$_')
+VAR_ATTR_JAVA: ParserElement = delimitedList(VAR_NAME_JAVA, '.', True)
 
 HANDLE_ERRORS: Callable[[TFun], TFun] = retry(
     attempts=1,

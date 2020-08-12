@@ -1,2 +1,2 @@
 try {
-} catch (RuntimeError e) { /* Unhandled */ }
+} catch (ArithmeticException e) { /* Unhandled */ }
