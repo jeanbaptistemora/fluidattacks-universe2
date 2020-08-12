@@ -190,7 +190,6 @@ analytics_make_documents_prod:
   <<: *analytics_template
   <<: *in_master_branch_integrates
   image: "${CI_REGISTRY_IMAGE}/nix:analytics_make_documents_prod"
-  interruptible: false
   parallel: 6
 
 analytics_make_documents_prod_schedule:
