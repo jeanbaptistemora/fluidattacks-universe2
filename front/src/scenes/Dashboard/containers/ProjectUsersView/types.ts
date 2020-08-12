@@ -7,7 +7,7 @@ export interface ILastLogin {
 
 export interface IUsersAttr {
   project: {
-    users: Array<{
+    stakeholders: Array<{
       email: string;
       firstLogin: string;
       lastLogin: ILastLogin;

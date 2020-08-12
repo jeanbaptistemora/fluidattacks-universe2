@@ -156,12 +156,12 @@ type Project {
     openFindings: Int
     organization: String!
     serviceAttributes: [String]
+    stakeholders: [Stakeholder!]
     totalFindings: Int
     users: [User!]
         @deprecated(
             reason: "Right now, you can query users using both the 'users' and 'stakeholders' keywords. After 2021-02-06, the 'users' keyword will be invalid."
         )
-    stakeholders: [Stakeholder!]
     userRole: String
     totalTreatment: GenericScalar
     drafts: [Finding!]

@@ -6,7 +6,7 @@ import {
   IUsersAttr,
 } from "../scenes/Dashboard/containers/ProjectUsersView/types";
 
-type User = IUsersAttr["project"]["users"][0];
+type User = IUsersAttr["project"]["stakeholders"][0];
 
 export const formatUserlist: (userList: IUserDataAttr[]) => User[] = (
   userList: IUserDataAttr[]

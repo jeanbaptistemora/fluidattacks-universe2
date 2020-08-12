@@ -11,7 +11,7 @@ import store from "../../../../store/index";
 import { authzPermissionsContext } from "../../../../utils/authz/config";
 import { msgError, msgSuccess } from "../../../../utils/notifications";
 import { ProjectUsersView } from "./index";
-import { ADD_USER_MUTATION, EDIT_STAKEHOLDER_MUTATION, GET_USERS, REMOVE_STAKEHOLDER_MUTATION } from "./queries";
+import { ADD_USER_MUTATION, EDIT_STAKEHOLDER_MUTATION, GET_STAKEHOLDERS, REMOVE_STAKEHOLDER_MUTATION } from "./queries";
 import { IProjectUsersViewProps } from "./types";
 
 jest.mock("../../../../utils/notifications", () => {
@@ -53,7 +53,7 @@ describe("Project users view", () => {
   const mocks: ReadonlyArray<MockedResponse> = [
     {
       request: {
-        query: GET_USERS,
+        query: GET_STAKEHOLDERS,
         variables: {
           projectName: "TEST",
         },
@@ -61,7 +61,7 @@ describe("Project users view", () => {
       result: {
         data: {
           project: {
-            users: [{
+            stakeholders: [{
               email: "user@gmail.com",
               firstLogin: "2017-09-05 15:00:00",
               lastLogin: "[3, 81411]",
@@ -75,7 +75,7 @@ describe("Project users view", () => {
     },
     {
       request: {
-        query: GET_USERS,
+        query: GET_STAKEHOLDERS,
         variables: {
           projectName: "TEST",
         },
@@ -83,7 +83,7 @@ describe("Project users view", () => {
       result: {
         data: {
           project: {
-            users: [
+            stakeholders: [
               {
                 email: "user@gmail.com",
                 firstLogin: "2017-09-05 15:00:00",
@@ -110,7 +110,7 @@ describe("Project users view", () => {
   const mockError: ReadonlyArray<MockedResponse> = [
     {
       request: {
-        query: GET_USERS,
+        query: GET_STAKEHOLDERS,
         variables: {
           projectName: "TEST",
         },

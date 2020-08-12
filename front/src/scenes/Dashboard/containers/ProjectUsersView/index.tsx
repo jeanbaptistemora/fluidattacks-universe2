@@ -25,7 +25,7 @@ import { msgError, msgSuccess } from "../../../../utils/notifications";
 import { sortLastLogin } from "../../../../utils/sortHelpers";
 import translate from "../../../../utils/translations/translate";
 import { addUserModal as AddUserModal } from "../../components/AddUserModal/index";
-import { ADD_USER_MUTATION, EDIT_STAKEHOLDER_MUTATION, GET_USERS, REMOVE_STAKEHOLDER_MUTATION } from "./queries";
+import { ADD_USER_MUTATION, EDIT_STAKEHOLDER_MUTATION, GET_STAKEHOLDERS, REMOVE_STAKEHOLDER_MUTATION } from "./queries";
 import {
   IAddUserAttr, IEditStakeholderAttr, IProjectUsersViewProps, IRemoveStakeholderAttr, IUserDataAttr, IUsersAttr,
 } from "./types";
@@ -97,7 +97,7 @@ const projectUsersView: React.FC<IProjectUsersViewProps> = (props: IProjectUsers
   };
 
   // GraphQL operations
-  const { data, refetch } = useQuery(GET_USERS, {
+  const { data, refetch } = useQuery(GET_STAKEHOLDERS, {
     onError: (error: ApolloError): void => {
       msgError(translate.t("group_alerts.error_textsad"));
       Logger.warning("An error occurred loading project users", error);
@@ -238,7 +238,7 @@ const projectUsersView: React.FC<IProjectUsersViewProps> = (props: IProjectUsers
     return <React.Fragment />;
   }
 
-  const userList: IUsersAttr["project"]["users"] = formatUserlist(data.project.users);
+  const userList: IUsersAttr["project"]["stakeholders"] = formatUserlist(data.project.stakeholders);
 
   return (
     <React.StrictMode>

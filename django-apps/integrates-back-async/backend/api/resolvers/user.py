@@ -258,11 +258,12 @@ async def resolve(  # pylint: disable=too-many-arguments
     identifier: str,
     as_field: bool,
     selection_set: object,
+    field_name: str = 'users'
 ) -> UserType:
     """Async resolve of fields."""
     result = dict()
     requested_fields = (
-        util.get_requested_fields('users', selection_set)
+        util.get_requested_fields(field_name, selection_set)
         if as_field
         else info.field_nodes[0].selection_set.selections
     )
@@ -293,7 +294,8 @@ async def resolve_for_group(  # pylint: disable=too-many-arguments
     user_email: str,
     project_name: str = '',
     as_field: bool = False,
-    selection_set: object = None
+    selection_set: object = None,
+    field_name: str = 'users'
 ) -> UserType:
     email = user_email.lower()
     role = await _get_role(info, email, entity, project_name)
@@ -304,7 +306,7 @@ async def resolve_for_group(  # pylint: disable=too-many-arguments
             raise UserNotFound()
 
     return await resolve(
-        info, entity, email, project_name, as_field, selection_set
+        info, entity, email, project_name, as_field, selection_set, field_name
     )
 
 

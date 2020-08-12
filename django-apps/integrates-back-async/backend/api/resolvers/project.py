@@ -735,7 +735,6 @@ async def _get_stakeholders(
         project_name
     )
 
-    as_field = True
     selection_set = SelectionSetNode()
     selection_set.selections = requested_fields
 
@@ -766,8 +765,9 @@ async def _get_stakeholders(
                     'PROJECT',
                     user_email,
                     project_name=project_name,
-                    as_field=as_field,
-                    selection_set=selection_set
+                    as_field=True,
+                    selection_set=selection_set,
+                    field_name='stakeholders'
                 )
             )
             for user_email in filtered_group_user_emails

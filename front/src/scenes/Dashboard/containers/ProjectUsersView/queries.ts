@@ -1,10 +1,10 @@
 import { DocumentNode } from "graphql";
 import gql from "graphql-tag";
 
-export const GET_USERS: DocumentNode = gql`
-  query GetUsersQuery($projectName: String!) {
+export const GET_STAKEHOLDERS: DocumentNode = gql`
+  query GetStakeholdersQuery($projectName: String!) {
     project(projectName: $projectName){
-      users {
+      stakeholders {
         email
         role
         responsibility
