@@ -9,8 +9,9 @@
       "src/store/**",
       "src/graphics/**",
       "src/utils/**",
+      "src/components/**",
       "src/scenes/Dashboard/**/utils.ts",
-      "src/components/**"
+      "src/scenes/Login/index.tsx"
     ]
   },
   "rules": {

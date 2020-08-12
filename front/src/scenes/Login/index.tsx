@@ -1,108 +1,113 @@
-import mixpanel from "mixpanel-browser";
-import React from "react";
-import { Button, Col, Grid, Row } from "react-bootstrap";
+/* eslint-disable react/forbid-component-props
+  -------
+  We need className to override default styles from react-boostrap.
+*/
 import FontAwesome from "react-fontawesome";
+import React from "react";
+import { default as logo } from "../../resources/integrates.svg";
+import mixpanel from "mixpanel-browser";
+import { default as style } from "./index.css";
+import { useTranslation } from "react-i18next";
+import { Button, Col, Grid, Row } from "react-bootstrap";
 import { Slide, toast } from "react-toastify";
 
-import { useTranslation } from "react-i18next";
-import { default as logo } from "../../resources/integrates.svg";
-import { default as style } from "./index.css";
-
-const login: React.FC = (): JSX.Element => {
+export const Login: React.FC = (): JSX.Element => {
   const { t } = useTranslation();
 
-  // Side effects
-  const onMount: (() => void) = (): void => {
+  // Show 2FA Notification
+  React.useEffect((): void => {
     toast.info(
       <div>
         <p>{t("login.2fa")}</p>
         <div>
-          <Col xs={12} md={4}>
+          <Col md={4} xs={12}>
             <Button
-              href="http://bit.ly/2Gpjt6h"
-              bsStyle="danger"
               block={true}
+              bsStyle={"danger"}
+              href={"https://bit.ly/2Gpjt6h"}
             >
-              <FontAwesome name="google" size="2x" />&nbsp;
+              <FontAwesome name={"google"} size={"2x"} />
+              &nbsp;
             </Button>
           </Col>
-          <Col xs={12} md={4}>
+          <Col md={4} xs={12}>
             <Button
-              href="http://bit.ly/2Gp1L2X"
-              bsStyle="primary"
               block={true}
+              bsStyle={"primary"}
+              href={"https://bit.ly/2Gp1L2X"}
             >
-              <FontAwesome name="windows" size="2x" />&nbsp;
+              <FontAwesome name={"windows"} size={"2x"} />
+              &nbsp;
             </Button>
           </Col>
-          <Col xs={12} md={4}>
+          <Col md={4} xs={12}>
             <Button
-              href="https://bit.ly/3it0Im7"
-              bsStyle="primary"
               block={true}
+              bsStyle={"primary"}
+              href={"https://bit.ly/3it0Im7"}
             >
-              <FontAwesome name="bitbucket" size="2x" />&nbsp;
+              <FontAwesome name={"bitbucket"} size={"2x"} />
+              &nbsp;
             </Button>
           </Col>
         </div>
       </div>,
-      { autoClose: false, className: style.twofactor, transition: Slide },
+      { autoClose: false, className: style.twofactor, transition: Slide }
     );
-  };
-  React.useEffect(onMount, []);
+  }, [t]);
 
   // Event handlers
-  const handleBitbucketLogin: (() => void) = (): void => {
+  function handleBitbucketLogin(): void {
     mixpanel.track("Login Bitbucket");
-    window.location.href = "/integrates/oauth/login/bitbucket-oauth2/";
-  };
-
-  const handleGoogleLogin: (() => void) = (): void => {
+    window.location.assign("/integrates/oauth/login/bitbucket-oauth2/");
+  }
+  function handleGoogleLogin(): void {
     mixpanel.track("Login Google");
-    window.location.href = "/integrates/oauth/login/google-oauth2/";
-  };
-
-  const handleMicrosoftLogin: (() => void) = (): void => {
+    window.location.assign("/integrates/oauth/login/google-oauth2/");
+  }
+  function handleMicrosoftLogin(): void {
     mixpanel.track("Login Azure");
-    window.location.href = "/integrates/oauth/login/azuread-tenant-oauth2/";
-  };
+    window.location.assign("/integrates/oauth/login/azuread-tenant-oauth2/");
+  }
 
   return (
     <div className={style.container}>
       <Grid>
         <Row className={style.content}>
           <Col md={4} mdOffset={4}>
-            <Row><img src={logo} alt="logo" /></Row>
-            <Row className="text-center">
+            <Row>
+              <img alt={"logo"} src={logo} />
+            </Row>
+            <Row className={"text-center"}>
               <p>{t("login.auth")}</p>
               <p>{t("login.newuser")}</p>
             </Row>
             <Row>
               <Button
-                bsStyle="danger"
+                block={true}
+                bsStyle={"danger"}
                 className={`${style.socialBtn} ${style.googleBtn}`}
                 onClick={handleGoogleLogin}
-                block={true}
               >
-                <FontAwesome name="google" size="2x" />
+                <FontAwesome name={"google"} size={"2x"} />
                 {t("login.google")}
               </Button>
               <Button
-                bsStyle="primary"
+                block={true}
+                bsStyle={"primary"}
                 className={`${style.socialBtn} ${style.microsoftBtn}`}
                 onClick={handleMicrosoftLogin}
-                block={true}
               >
-                <FontAwesome name="windows" size="2x" />
+                <FontAwesome name={"windows"} size={"2x"} />
                 {t("login.microsoft")}
               </Button>
               <Button
-                bsStyle="primary"
+                block={true}
+                bsStyle={"primary"}
                 className={`${style.socialBtn} ${style.bitbucketBtn}`}
                 onClick={handleBitbucketLogin}
-                block={true}
               >
-                <FontAwesome name="bitbucket" size="2x" />
+                <FontAwesome name={"bitbucket"} size={"2x"} />
                 {t("login.bitbucket")}
               </Button>
             </Row>
@@ -112,5 +117,3 @@ const login: React.FC = (): JSX.Element => {
     </div>
   );
 };
-
-export { login as Login };
