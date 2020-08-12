@@ -1,7 +1,7 @@
 :slug: rules/077/
 :category: logs
 :description: This requirement establishes the importance of preventing data leakages by avoiding sensitive information disclosure in the application.
-:keywords: Information, Disclosure, ASVS, CWE, Security, Requirement, Rules, Ethical Hacking, Pentesting
+:keywords: Information, Disclosure, ASVS, CWE, PCI DSS, Security, Requirement, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R077. Avoid disclosing technical information
@@ -59,3 +59,7 @@ and unintended security disclosures.
 V14.3 Unintended Security Disclosure Requirements.(14.3.3)]
 Verify that the *HTTP* headers or any part of the *HTTP* response do not expose
 detailed version information of system components.
+
+. [[r7]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 1.3.7]
+Do not disclose private *IP* addresses and routing information to unauthorized
+parties.

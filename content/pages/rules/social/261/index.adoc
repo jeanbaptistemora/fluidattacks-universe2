@@ -1,7 +1,7 @@
 :slug: rules/261/
 :category: social
 :description: This requirement establishes the importance of not exposing corporate information on publicly accessible web pages and application sections.
-:keywords: Corporate, Personal, Security, Sensitive, ASVS, CWE, GDPR, OWASP, Rules, Ethical Hacking, Pentesting
+:keywords: Corporate, Personal, Security, Sensitive, ASVS, CWE, GDPR, OWASP, PCI DSS, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R261. Avoid exposing sensitive information
@@ -67,3 +67,7 @@ Verify that directory browsing is disabled unless deliberately desired.
 Additionally, applications should not allow discovery or disclosure of file or
 directory metadata,
 such as Thumbs.db, .DS_Store, .git or .svn folders.
+
+. [[r8]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 1.3.7]
+Do not disclose private *IP* addresses and routing information to unauthorized
+parties.

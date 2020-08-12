@@ -29,3 +29,6 @@ provide authorized publicly accessible services, protocols, and ports.
 
 . [[r3]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 1.3.2]
 Limit inbound Internet traffic to *IP* addresses within the *DMZ*.
+
+. [[r4]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 1.3.5]
+Permit only "established" connections into the network.

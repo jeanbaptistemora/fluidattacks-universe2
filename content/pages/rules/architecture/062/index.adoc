@@ -147,3 +147,6 @@ Secure and synchronize router configuration files.
 . [[r19]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 1.3.4]
 Implement anti-spoofing measures to detect and block forged source IP addresses
 from entering the network.
+
+. [[r20]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 1.3.5]
+Permit only "established" connections into the network.
