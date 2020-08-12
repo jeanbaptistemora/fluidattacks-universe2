@@ -6,6 +6,9 @@ import _ from "lodash";
 import { Alert, Platform } from "react-native";
 
 import {
+  BITBUCKET_LOGIN_KEY_DEV,
+  BITBUCKET_LOGIN_KEY_PROD,
+  BITBUCKET_LOGIN_SECRET_DEV,
   GOOGLE_LOGIN_KEY_ANDROID_DEV,
   GOOGLE_LOGIN_KEY_ANDROID_PROD,
   GOOGLE_LOGIN_KEY_IOS_DEV,
@@ -56,7 +59,7 @@ export interface IUser {
 
 /** Auth data provided after login */
 export interface IAuthState {
-  authProvider: "GOOGLE" | "MICROSOFT";
+  authProvider: "BITBUCKET" | "GOOGLE" | "MICROSOFT";
   authToken: string;
   user: IUser;
 }
@@ -169,6 +172,98 @@ export const authWithMicrosoft: (() => Promise<IAuthResult>) = async (): Promise
   return authResult;
 };
 
+const bitbucketConfig: AppAuth.OAuthProps = {
+  clientId: __DEV__ ? BITBUCKET_LOGIN_KEY_DEV : BITBUCKET_LOGIN_KEY_PROD,
+  clientSecret:
+    __DEV__ ? BITBUCKET_LOGIN_SECRET_DEV : BITBUCKET_LOGIN_SECRET_DEV,
+  issuer: "",
+  redirectUrl: `${AppAuth.OAuthRedirect}://oauth2redirect/bitbucket`,
+  scopes: ["account", "email"],
+  serviceConfiguration: {
+    authorizationEndpoint: "https://bitbucket.org/site/oauth2/authorize",
+    tokenEndpoint: "https://bitbucket.org/site/oauth2/access_token",
+  },
+};
+
+export const authWithBitbucket: (() => Promise<IAuthResult>) = async (
+): Promise<IAuthResult> => {
+  try {
+    const logInResult: AppAuth.TokenResponse =
+      await AppAuth.authAsync(bitbucketConfig);
+    const userResponse: Response = await fetch(
+      "https://api.bitbucket.org/2.0/user",
+      { headers: { Authorization: `Bearer ${logInResult.accessToken}` } },
+    );
+    const emailsResponse: Response = await fetch(
+      "https://api.bitbucket.org/2.0/user/emails",
+      { headers: { Authorization: `Bearer ${logInResult.accessToken}` } },
+    );
+
+    /**
+     * User properties returned by Bitbucket's API
+     * @see https://developer.atlassian.com/bitbucket/api/2/reference/resource/user
+     */
+    interface IUserProps {
+      account_id: string;
+      display_name: string;
+      links: {
+        avatar: {
+          href: string;
+        };
+      };
+      username: string;
+    }
+    const userProps: IUserProps = await userResponse.json() as IUserProps;
+
+    /**
+     * Accounts may have multiple associated emails but only one primary
+     * @see https://developer.atlassian.com/bitbucket/api/2/reference/resource/user/emails
+     */
+    interface IEmails {
+      values: Array<{
+        email: string;
+        is_primary: boolean;
+      }>;
+    }
+    const { values: emails }: IEmails = await emailsResponse.json() as IEmails;
+    const { email: primaryEmail } = emails.find((
+      email: IEmails["values"][0]): boolean => email.is_primary,
+    ) as IEmails["values"][0];
+
+    return {
+      authProvider: "BITBUCKET",
+      authToken: logInResult.accessToken as string,
+      type: "success",
+      user: {
+        email: primaryEmail,
+        firstName: _.capitalize(userProps.username),
+        fullName: _.startCase(userProps.display_name.toLowerCase()),
+        id: userProps.account_id,
+        photoUrl: userProps.links.avatar.href,
+      },
+    };
+  } catch (error) {
+    const errorCode: AppAuthError =
+      getStandardErrorCode(Number((error as { code: AppAuthError }).code));
+
+    switch (errorCode) {
+      case AppAuthError.UserCanceledAuthorizationFlow:
+      case AppAuthError.ProgramCanceledAuthorizationFlow:
+      case AppAuthError.AccessDenied:
+        break;
+      default:
+        LOGGER.warning(
+          "An error occurred authenticating with Bitbucket",
+          { ...error });
+        Alert.alert(
+          i18next.t("common.error.title"),
+          i18next.t("common.error.msg"));
+    }
+  }
+
+  return { type: "cancel" };
+};
+
 export const logout: (() => Promise<void>) = async (): Promise<void> => {
   await SecureStore.deleteItemAsync("integrates_session");
   const authState: string | null = await SecureStore.getItemAsync("authState");
@@ -177,16 +272,23 @@ export const logout: (() => Promise<void>) = async (): Promise<void> => {
     : JSON.parse(authState) as Record<string, string>;
 
   switch (authProvider) {
+    case "BITBUCKET":
+      // Bitbucket does not implement a revoke endpoint for oauth2
+      break;
     case "GOOGLE":
       Google.logOutAsync({ accessToken: authToken, ...googleConfig })
         .catch((error: Error): void => {
           LOGGER.warning("Couldn't revoke google session", { ...error });
         });
+      break;
     case "MICROSOFT":
-      AppAuth.revokeAsync(microsoftConfig, { isClientIdProvided: true, token: authToken })
+      AppAuth.revokeAsync(
+        microsoftConfig,
+        { isClientIdProvided: true, token: authToken })
         .catch((error: Error): void => {
           LOGGER.warning("Couldn't revoke microsoft session", { ...error });
         });
+      break;
     default:
   }
   await SecureStore.deleteItemAsync("authState");

@@ -16,11 +16,13 @@ import { About } from "../../components/About";
 import { Logo } from "../../components/Logo";
 import { Preloader } from "../../components/Preloader";
 import {
+  authWithBitbucket,
   authWithGoogle,
   authWithMicrosoft,
   IAuthResult,
 } from "../../utils/socialAuth";
 
+import { BitbucketButton } from "./BitbucketButton";
 import { GoogleButton } from "./GoogleButton";
 import { MicrosoftButton } from "./MicrosoftButton";
 import { styles } from "./styles";
@@ -57,6 +59,19 @@ const loginView: React.FunctionComponent = (): JSX.Element => {
   React.useEffect(onMount, []);
 
   // Event handlers
+  const handleBitbucketLogin: (() => void) = async (): Promise<void> => {
+    setLoading(true);
+
+    const result: IAuthResult = await authWithBitbucket();
+    if (result.type === "success") {
+      Bugsnag.setUser(result.user.id, result.user.email, result.user.firstName);
+      await SecureStore.setItemAsync("authState", JSON.stringify(result));
+      history.replace("/Welcome", result);
+    } else {
+      setLoading(false);
+    }
+  };
+
   const handleGoogleLogin: (() => void) = async (): Promise<void> => {
     setLoading(true);
 
@@ -99,6 +114,10 @@ const loginView: React.FunctionComponent = (): JSX.Element => {
           <MicrosoftButton
             disabled={isLoading ? true : isOutdated}
             onPress={handleMicrosoftLogin}
+          />
+          <BitbucketButton
+            disabled={isLoading ? true : isOutdated}
+            onPress={handleBitbucketLogin}
           />
         </View>
         <Preloader visible={isLoading} />

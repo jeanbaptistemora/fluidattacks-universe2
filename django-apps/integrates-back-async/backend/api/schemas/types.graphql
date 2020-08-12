@@ -552,6 +552,7 @@ enum EditGroupReason {
 }
 
 enum AuthProvider {
+    BITBUCKET
     GOOGLE
     MICROSOFT
 }

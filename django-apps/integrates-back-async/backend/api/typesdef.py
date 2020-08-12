@@ -208,6 +208,7 @@ CALLER_ORIGIN = EnumType(
 AUTH_PROVIDER = EnumType(
     'AuthProvider',
     {
+        'BITBUCKET': 'bitbucket-oauth2',
         'GOOGLE': 'google-oauth2',
         'MICROSOFT': 'azuread-tenant-oauth2'
     }

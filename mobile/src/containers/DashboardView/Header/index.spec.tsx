@@ -35,7 +35,7 @@ describe("Header", (): void => {
     expect(wrapper.find("Image").length)
       .toBeGreaterThan(1);
     expect(wrapper.text())
-      .toContain("Welcome John");
+      .toContain("John Doe");
     expect(wrapper.text())
       .toContain("jdoe@mail.com");
   });

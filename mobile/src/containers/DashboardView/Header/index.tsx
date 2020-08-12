@@ -31,7 +31,7 @@ const header: React.FC<IHeaderProps> = (props: IHeaderProps): JSX.Element => {
           />
         </View>
         <Appbar.Content
-          title={`${t("dashboard.greetingText")} ${user.firstName}`}
+          title={user.fullName}
           titleStyle={styles.name}
           subtitle={user.email}
           subtitleStyle={styles.email}

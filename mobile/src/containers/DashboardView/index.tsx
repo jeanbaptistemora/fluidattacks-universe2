@@ -142,7 +142,7 @@ const dashboardView: React.FunctionComponent = (): JSX.Element => {
   };
   const orgs: IOrganization[] = _.isUndefined(data) || _.isEmpty(data)
     ? [emptyOrg]
-    : data.me.organizations.length === 0
+    : data.me.organizations.filter(hasAnalytics).length === 0
       ? [emptyOrg]
       : _.sortBy(data.me.organizations.filter(hasAnalytics), "name");
 
