@@ -30,6 +30,7 @@ from lib_path.common import (
     blocking_get_vulnerabilities,
     C_STYLE_COMMENT,
     DOUBLE_QUOTED_STRING,
+    EXTENSIONS_CSHARP,
     EXTENSIONS_JAVA,
     EXTENSIONS_PYTHON,
     HANDLE_ERRORS,
@@ -55,6 +56,80 @@ from utils.string import (
 from zone import (
     t,
 )
+
+
+def _csharp_insecure_exceptions(
+    char_to_yx_map: Dict[int, Tuple[int, int]],
+    content: str,
+    path: str,
+) -> Tuple[Vulnerability, ...]:
+    insecure_exceptions: Set[str] = {
+        # Generic
+        'Exception',
+        'ApplicationException',
+        'SystemException',
+        'System.Exception',
+        'System.ApplicationException',
+        'System.SystemException',
+
+        # Unrecoverable
+        'NullReferenceException',
+        'system.NullReferenceException',
+    }
+
+    exception = VAR_ATTR_JAVA.copy()
+    exception.addCondition(
+        # Ensure that at least one exception in the group is the provided one
+        lambda tokens: any(token in insecure_exceptions for token in tokens),
+    )
+
+    grammar = (
+        Keyword('catch') +
+        Optional(
+            nestedExpr(
+                closer=')',
+                content=exception + Optional(VAR_ATTR_JAVA),
+                ignoreExpr=None,
+                opener='(',
+            )
+        ) +
+        Optional(
+            Keyword('when') +
+            nestedExpr(opener='(', closer=')')
+        ) +
+        nestedExpr(opener='{', closer='}')
+    )
+    grammar.ignore(C_STYLE_COMMENT)
+    grammar.ignore(DOUBLE_QUOTED_STRING)
+    grammar.ignore(SINGLE_QUOTED_STRING)
+
+    return blocking_get_vulnerabilities(
+        char_to_yx_map=char_to_yx_map,
+        content=content,
+        description=t(
+            key='src.lib_path.f060.insecure_exceptions.description',
+            lang='C#',
+            path=path,
+        ),
+        finding=FindingEnum.F060,
+        grammar=grammar,
+        path=path,
+    )
+
+
+@cache_decorator()
+@HANDLE_ERRORS
+async def csharp_insecure_exceptions(
+    char_to_yx_map: Dict[int, Tuple[int, int]],
+    content: str,
+    path: str,
+) -> Tuple[Vulnerability, ...]:
+    return await unblock_cpu(
+        _csharp_insecure_exceptions,
+        char_to_yx_map=char_to_yx_map,
+        content=content,
+        path=path,
+    )
 
 
 def _java_insecure_exceptions(
@@ -202,7 +277,13 @@ async def analyze(
 ) -> Tuple[Vulnerability, ...]:
     coroutines: List[Awaitable[Tuple[Vulnerability, ...]]] = []
 
-    if file_extension in EXTENSIONS_JAVA:
+    if file_extension in EXTENSIONS_CSHARP:
+        coroutines.append(csharp_insecure_exceptions(
+            char_to_yx_map=await char_to_yx_map_generator(),
+            content=await content_generator(),
+            path=path,
+        ))
+    elif file_extension in EXTENSIONS_JAVA:
         coroutines.append(java_insecure_exceptions(
             char_to_yx_map=await char_to_yx_map_generator(),
             content=await content_generator(),
