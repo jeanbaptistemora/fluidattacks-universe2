@@ -232,6 +232,11 @@ LOGGING = {
             'log_group': 'FLUID',
             'filters': ['require_debug_false'],
             'stream_name': 'FLUIDIntegrates',
+
+            # Since LogGroup already exists, it was causing a
+            # ThrottlingException error that resulted in 'unable to configure
+            # watchtower'
+            'create_log_group': False,
         },
     },
     'loggers': {
