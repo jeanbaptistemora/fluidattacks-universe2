@@ -16,9 +16,9 @@ export const GET_USERS: DocumentNode = gql`
   }
   `;
 
-export const REMOVE_USER_MUTATION: DocumentNode = gql`
-  mutation RemoveUserAccessMutation($projectName: String!, $userEmail: String!, ) {
-    removeUserAccess (
+export const REMOVE_STAKEHOLDER_MUTATION: DocumentNode = gql`
+  mutation RemoveStakeholderAccessMutation($projectName: String!, $userEmail: String!, ) {
+    removeStakeholderAccess (
       projectName: $projectName
       userEmail: $userEmail
     ) {

@@ -25,9 +25,9 @@ import { msgError, msgSuccess } from "../../../../utils/notifications";
 import { sortLastLogin } from "../../../../utils/sortHelpers";
 import translate from "../../../../utils/translations/translate";
 import { addUserModal as AddUserModal } from "../../components/AddUserModal/index";
-import { ADD_USER_MUTATION, EDIT_USER_MUTATION, GET_USERS, REMOVE_USER_MUTATION } from "./queries";
+import { ADD_USER_MUTATION, EDIT_USER_MUTATION, GET_USERS, REMOVE_STAKEHOLDER_MUTATION } from "./queries";
 import {
-  IAddUserAttr, IEditUserAttr, IProjectUsersViewProps, IRemoveUserAttr, IUserDataAttr, IUsersAttr,
+  IAddUserAttr, IEditUserAttr, IProjectUsersViewProps, IRemoveStakeholderAttr, IUserDataAttr, IUsersAttr,
 } from "./types";
 
 const tableHeaders: IHeaderConfig[] = [
@@ -191,13 +191,13 @@ const projectUsersView: React.FC<IProjectUsersViewProps> = (props: IProjectUsers
     },
   });
 
-  const [removeUserAccess, { loading: removing }] = useMutation(REMOVE_USER_MUTATION, {
-    onCompleted: (mtResult: IRemoveUserAttr): void => {
-      if (mtResult.removeUserAccess.success) {
+  const [removeStakeholderAccess, { loading: removing }] = useMutation(REMOVE_STAKEHOLDER_MUTATION, {
+    onCompleted: (mtResult: IRemoveStakeholderAttr): void => {
+      if (mtResult.removeStakeholderAccess.success) {
         refetch()
           .catch();
         mixpanel.track("RemoveUserAccess", { User: userName });
-        const { removedEmail } = mtResult.removeUserAccess;
+        const { removedEmail } = mtResult.removeStakeholderAccess;
         msgSuccess(
           `${removedEmail} ${translate.t("search_findings.tab_users.success_delete")}`,
           translate.t("search_findings.tab_users.title_success"),
@@ -228,7 +228,7 @@ const projectUsersView: React.FC<IProjectUsersViewProps> = (props: IProjectUsers
   };
 
   const handleRemoveUser: (() => void) = (): void => {
-    removeUserAccess({ variables: { projectName, userEmail: currentRow.email } })
+    removeStakeholderAccess({ variables: { projectName, userEmail: currentRow.email } })
       .catch();
     setCurrentRow({});
     setuserModalAction("add");

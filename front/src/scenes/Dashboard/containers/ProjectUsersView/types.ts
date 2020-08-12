@@ -19,8 +19,8 @@ export interface IUsersAttr {
   };
 }
 
-export interface IRemoveUserAttr {
-  removeUserAccess: {
+export interface IRemoveStakeholderAttr {
+  removeStakeholderAccess: {
     removedEmail: string;
     success: boolean;
   };

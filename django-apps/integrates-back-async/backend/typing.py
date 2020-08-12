@@ -101,6 +101,10 @@ RemoveUserAccessPayload = NamedTuple('RemoveUserAccessPayload', [
     ('success', bool),
     ('removed_email', str),
 ])
+RemoveStakeholderAccessPayload = NamedTuple('RemoveStakeholderAccessPayload', [
+    ('success', bool),
+    ('removed_email', str),
+])
 EditUserPayload = NamedTuple('EditUserPayload', [
     ('success', bool),
     ('modified_user', User),

@@ -11,7 +11,7 @@ import store from "../../../../store/index";
 import { authzPermissionsContext } from "../../../../utils/authz/config";
 import { msgError, msgSuccess } from "../../../../utils/notifications";
 import { ProjectUsersView } from "./index";
-import { ADD_USER_MUTATION, EDIT_USER_MUTATION, GET_USERS, REMOVE_USER_MUTATION } from "./queries";
+import { ADD_USER_MUTATION, EDIT_USER_MUTATION, GET_USERS, REMOVE_STAKEHOLDER_MUTATION } from "./queries";
 import { IProjectUsersViewProps } from "./types";
 
 jest.mock("../../../../utils/notifications", () => {
@@ -304,13 +304,13 @@ describe("Project users view", () => {
   it("should remove stakeholder from the project", async () => {
     const mocksMutation: ReadonlyArray<MockedResponse> = [{
       request: {
-        query: REMOVE_USER_MUTATION,
+        query: REMOVE_STAKEHOLDER_MUTATION,
         variables: {
           projectName: "TEST",
           userEmail: "user@gmail.com",
         },
       },
-      result: { data: { removeUserAccess : { success: true, removedEmail: "user@gmail.com" } } },
+      result: { data: { removeStakeholderAccess : { success: true, removedEmail: "user@gmail.com" } } },
     }];
     const mockedPermissions: PureAbility<string> = new PureAbility([
       { action: "backend_api_resolvers_user__do_remove_user_access" },
@@ -497,7 +497,7 @@ describe("Project users view", () => {
   it("should handle error when remove stakeholder from the project", async () => {
     const mocksMutation: ReadonlyArray<MockedResponse> = [{
       request: {
-        query: REMOVE_USER_MUTATION,
+        query: REMOVE_STAKEHOLDER_MUTATION,
         variables: {
           projectName: "TEST",
           userEmail: "user@gmail.com",

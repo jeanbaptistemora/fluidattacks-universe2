@@ -39,6 +39,7 @@ from backend.typing import (
     AddUserPayload as AddUserPayloadType,
     AddStakeholderPayload as AddStakeholderPayloadType,
     GrantUserAccessPayload as GrantUserAccessPayloadType,
+    RemoveStakeholderAccessPayload as RemoveStakeholderAccessPayloadType,
     RemoveUserAccessPayload as RemoveUserAccessPayloadType,
     EditUserPayload as EditUserPayloadType,
     Project as ProjectType,
@@ -579,6 +580,38 @@ async def _do_remove_user_access(
              f'from {project_name} project')  # pragma: no cover
         )
     return RemoveUserAccessPayloadType(
+        success=success,
+        removed_email=removed_email
+    )
+
+
+@require_login
+@enforce_group_level_auth_async
+@require_integrates
+async def _do_remove_stakeholder_access(
+        _: Any,
+        info: GraphQLResolveInfo,
+        project_name: str,
+        user_email: str) -> RemoveStakeholderAccessPayloadType:
+    success = await project_domain.remove_user_access(
+        project_name, user_email
+    )
+    removed_email = user_email if success else ''
+    if success:
+        util.invalidate_cache(project_name)
+        util.invalidate_cache(user_email)
+        msg = (
+            f'Security: Removed stakeholder: {user_email} from {project_name} '
+            f'project successfully'
+        )
+        util.cloudwatch_log(info.context, msg)
+    else:
+        msg = (
+            f'Security: Attempted to remove stakeholder: {user_email} '
+            f'from {project_name} project'
+        )
+        util.cloudwatch_log(info.context, msg)
+    return RemoveStakeholderAccessPayloadType(
         success=success,
         removed_email=removed_email
     )

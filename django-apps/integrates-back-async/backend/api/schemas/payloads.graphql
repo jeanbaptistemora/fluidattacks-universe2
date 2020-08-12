@@ -36,6 +36,11 @@ type RemoveUserAccessPayload implements Payload {
     removedEmail: String
 }
 
+type RemoveStakeholderAccessPayload implements Payload {
+    success: Boolean!
+    removedEmail: String
+}
+
 type EditUserPayload implements Payload {
     success: Boolean!
     modifiedUser: User
