@@ -42,8 +42,7 @@ function decide_and_call_provisioner {
         --keep DEV_AWS_SECRET_ACCESS_KEY \
         --keep PROD_AWS_ACCESS_KEY_ID \
         --keep PROD_AWS_SECRET_ACCESS_KEY \
-        --keep MR_TEST_TOKEN \
-        --keep MR_TEST_MAX_DELTAS \
+        --keep REVIEWS_TOKEN \
         --keep NIX_PATH \
         --keep NIX_PROFILES \
         --keep NIX_SSL_CERT_FILE \

@@ -271,5 +271,5 @@ function job_reviews {
       helper_use_pristine_workdir \
   &&  curl -LOJ "${parser_url}" \
   &&  curl -LOJ "${rules_url}" \
-  &&  reviews flavor generic
+  &&  reviews reviews.toml
 }
