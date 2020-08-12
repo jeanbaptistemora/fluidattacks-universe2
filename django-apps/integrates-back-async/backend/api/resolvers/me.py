@@ -354,29 +354,13 @@ async def _do_update_access_token(
     """Resolve update_access_token mutation."""
     user_info = util.get_jwt_content(info.context)
     email = user_info['user_email']
-    token_data = util.calculate_hash_token()
-    session_jwt = ''
-    success = False
-
-    if util.is_valid_expiration_time(expiration_time):
-        session_jwt = jwt.encode(
-            {
-                'user_email': email,
-                'first_name': user_info['first_name'],
-                'last_name': user_info['last_name'],
-                'jti': token_data['jti'],
-                'iat': datetime.utcnow().timestamp(),
-                'exp': expiration_time,
-                'sub': 'api_token',
-            },
-            algorithm='HS512',
-            key=settings.JWT_SECRET_API
-        )
-
-        success = await user_domain.update_access_token(
-            email, token_data
-        )
-        if success:
+    try:
+        result = await user_domain.update_access_token(
+            email,
+            expiration_time,
+            first_name=user_info['first_name'],
+            last_name=user_info['last_name'])
+        if result.success:
             util.cloudwatch_log(
                 info.context,
                 (f'{user_info["user_email"]} '  # pragma: no cover
@@ -388,7 +372,8 @@ async def _do_update_access_token(
                 (f'{user_info["user_email"]} '  # pragma: no cover
                  'attempted to update access token')
             )
-    else:
+        return result
+    except InvalidExpirationTime as exc:
         util.cloudwatch_log(
             info.context,
             (f'{user_info["user_email"]} '  # pragma: no cover
@@ -396,12 +381,7 @@ async def _do_update_access_token(
              'greater than six months or minor '
              'than current time')
         )
-        raise InvalidExpirationTime()
-
-    return UpdateAccessTokenPayloadType(
-        success=success,
-        session_jwt=session_jwt
-    )
+        raise exc
 
 
 @require_login

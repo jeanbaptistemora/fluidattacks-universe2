@@ -862,17 +862,19 @@ async def _create_forces_user(info: GraphQLResolveInfo,
                               group_name: str) -> bool:
     success = await _create_new_user(
         context=info.context,
-        email=f'forces.{group_name}@fluidattacks.com',
+        email=user_domain.format_forces_user_email(group_name),
         responsibility='Forces service user',
         role='customer',
         phone_number='',
         group=group_name)
     if not success:
-        LOGGER.error('Couldn\'t grant access to project',
-                     extra={
-                         'extra': info.context,
-                         'username': group_name
-                     })
+        LOGGER.error(
+            'Couldn\'t grant access to project',
+            extra={
+                'extra': info.context,
+                'username': group_name
+            },
+        )
     return success
 
 
@@ -946,9 +948,9 @@ async def _do_edit_group(  # pylint: disable=too-many-arguments
     if success and has_forces:
         await _create_forces_user(info, group_name)
     elif success and not has_forces and await user_domain.ensure_user_exists(
-            f'forces.{group_name}@fluidattacks.com'):
+            user_domain.format_forces_user_email(group_name)):
         await project_domain.remove_user_access(
-            group_name, f'forces.{group_name}@fluidattacks.com')
+            group_name, user_domain.format_forces_user_email(group_name))
     if success:
         await util.invalidate_cache(group_name, requester_email)
         await authz.revoke_cached_group_service_attributes_policies(group_name)

@@ -3,6 +3,10 @@ type Mutation {
 
     updateAccessToken(expirationTime: Int!): UpdateAccessTokenPayload!
 
+    updateForcesAccessToken(
+        projectName: String!
+    ): UpdateAccessTokenPayload!
+
     invalidateAccessToken: SimplePayload!
 
     addEnvironments(

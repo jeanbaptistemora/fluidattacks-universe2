@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 import sys
 from typing import (
     Any,
@@ -20,12 +20,15 @@ from backend.decorators import (
 )
 from backend.domain import (
     forces as forces_domain,
+    user as user_domain
 )
 from backend.typing import (
     ForcesExecution as ForcesExecutionType,
     ForcesExecutions as ForcesExecutionsType,
     SimplePayload as SimplePayloadType,
+    UpdateAccessTokenPayload as UpdateAccessTokenPayloadType,
 )
+from backend.exceptions import InvalidExpirationTime
 from backend import util
 
 
@@ -145,3 +148,55 @@ async def resolve_forces_executions(
     from_date = from_date or util.get_current_time_minus_delta(weeks=1)
     to_date = to_date or datetime.utcnow()
     return await _resolve_fields(info, project_name, from_date, to_date)
+
+
+@convert_kwargs_to_snake_case
+@enforce_group_level_auth_async
+async def update_forces_access_token(
+        _: Any, info: GraphQLResolveInfo,
+        project_name: str) -> UpdateAccessTokenPayloadType:
+    """Resolve update_access_token mutation."""
+    user_info = util.get_jwt_content(info.context)
+
+    user_email = user_domain.format_forces_user_email(project_name)
+    if not user_domain.ensure_user_exists(user_email):
+        util.cloudwatch_log(
+            info.context,
+            (
+                f'{user_info["user_email"]} '  # pragma: no cover
+                'try to update token for a user forces that does not exist'
+                f' {user_email}'),
+        )
+        return UpdateAccessTokenPayloadType(success=False, session_jwt='')
+
+    expiration_time = int((datetime.now() + timedelta(days=180)).timestamp())
+    try:
+        result = await user_domain.update_access_token(
+            user_email,
+            expiration_time,
+        )
+        if result.success:
+            util.cloudwatch_log(
+                info.context,
+                (
+                    f'{user_info["user_email"]} '  # pragma: no cover
+                    f'update access token for {user_email}'),
+            )
+        else:
+            util.cloudwatch_log(
+                info.context,
+                (
+                    f'{user_info["user_email"]} '  # pragma: no cover
+                    f'attempted to update access token for {user_email}'),
+            )
+        return result
+    except InvalidExpirationTime as exc:
+        util.cloudwatch_log(
+            info.context,
+            (
+                f'{user_info["user_email"]} '  # pragma: no cover
+                'attempted to use expiration time '
+                'greater than six months or minor '
+                'than current time'),
+        )
+        raise exc

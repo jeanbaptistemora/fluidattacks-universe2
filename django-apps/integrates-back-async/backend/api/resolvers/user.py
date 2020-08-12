@@ -44,7 +44,7 @@ from backend.typing import (
     RemoveUserAccessPayload as RemoveUserAccessPayloadType,
     EditUserPayload as EditUserPayloadType,
     EditStakeholderPayload as EditStakeholderPayloadType,
-    Project as ProjectType,
+    Project as ProjectType
 )
 from backend.services import (
     has_responsibility, has_phone_number,

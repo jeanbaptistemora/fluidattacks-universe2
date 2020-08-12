@@ -1,27 +1,39 @@
+# Standard Libraries
 import re
 from datetime import datetime
-from typing import Dict, List, Union, cast
+from typing import Any, List, Union, cast
 
+# Third libraries
 import pytz
 import aioboto3
 from django.conf import settings
+from jose import jwt
+
+# Local libraries
 from backend.dal.helpers import dynamodb
 from backend.dal import (
     project as project_dal,
-    user as user_dal
+    user as user_dal,
 )
 from backend.domain import organization as org_domain
-from backend.exceptions import InvalidPushToken
-from backend.typing import User as UserType
+from backend.exceptions import (
+    InvalidPushToken,
+    InvalidExpirationTime,
+)
+from backend.typing import (
+    User as UserType,
+    UpdateAccessTokenPayload as UpdateAccessTokenPayloadType,
+)
 from backend.utils.validations import (
     validate_email_address,
-    validate_phone_field
+    validate_phone_field,
 )
 from backend.utils import (
     aio,
     apm,
 )
 from backend import authz
+from backend import util
 
 
 async def add_phone_to_user(email: str, phone: str) -> bool:
@@ -105,14 +117,38 @@ async def update_legal_remember(email: str, remember: bool) -> bool:
     return await user_dal.update(email, {'legal_remember': remember})
 
 
-async def update_access_token(email: str, token_data: Dict[str, str]) -> bool:
+async def update_access_token(
+        email: str, expiration_time: int,
+        **kwargs_token: Any) -> UpdateAccessTokenPayloadType:
     """ Update access token """
-    access_token = {
-        'iat': int(datetime.utcnow().timestamp()),
-        'jti': token_data['jti_hashed'],
-        'salt': token_data['salt']
-    }
-    return await user_dal.update(email, {'access_token': access_token})
+    token_data = util.calculate_hash_token()
+    session_jwt = ''
+    success = False
+
+    if util.is_valid_expiration_time(expiration_time):
+        iat = int(datetime.utcnow().timestamp())
+        session_jwt = jwt.encode(
+            {
+                'user_email': email,
+                'jti': token_data['jti'],
+                'iat': iat,
+                'exp': expiration_time,
+                'sub': 'api_token',
+                **kwargs_token
+            },
+            algorithm='HS512',
+            key=settings.JWT_SECRET_API)
+        access_token = {
+            'iat': iat,
+            'jti': token_data['jti_hashed'],
+            'salt': token_data['salt']
+        }
+        success = await user_dal.update(email, {'access_token': access_token})
+    else:
+        raise InvalidExpirationTime()
+
+    return UpdateAccessTokenPayloadType(success=success,
+                                        session_jwt=session_jwt)
 
 
 async def update_last_login(email: str) -> bool:
@@ -204,3 +240,13 @@ async def remove_push_token(user_email: str, push_token: str) -> bool:
 
 async def ensure_user_exists(email: str) -> bool:
     return bool(await user_dal.get(email))
+
+
+def is_forces_user(email: str) -> bool:
+    """Ensure that is an forces user."""
+    pattern = r'forces.(?P<group>\w+)@fluidattacks.com'
+    return bool(re.match(pattern, email))
+
+
+def format_forces_user_email(project_name: str) -> str:
+    return f'forces.{project_name}@fluidattacks.com'

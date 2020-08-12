@@ -27,6 +27,8 @@ MUTATION.set_field('removeEventEvidence', event.resolve_event_mutation)
 MUTATION.set_field('signIn', me.resolve_me_mutation)
 MUTATION.set_field('subscribeToEntityReport', me.resolve_me_mutation)
 MUTATION.set_field('updateAccessToken', me.resolve_me_mutation)
+MUTATION.set_field('updateForcesAccessToken',
+                   forces.update_forces_access_token)
 MUTATION.set_field('invalidateAccessToken', me.resolve_me_mutation)
 MUTATION.set_field('acceptLegal', me.resolve_me_mutation)
 MUTATION.set_field('addPushToken', me.resolve_me_mutation)

@@ -70,6 +70,7 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             'backend_api_resolvers_user__do_grant_user_access',
             'backend_api_resolvers_user__do_remove_stakeholder_access',
             'backend_api_resolvers_user__do_remove_user_access',
+            'backend_api_resolvers_forces_update_forces_access_token',
             'backend_api_resolvers_user_resolve_for_group',
             'backend_api_resolvers_vulnerability__do_approve_vulnerability',
             'backend_api_resolvers_vulnerability__do_delete_vulnerability',
@@ -378,6 +379,7 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             'backend_api_resolvers_user__do_grant_user_access',
             'backend_api_resolvers_user__do_remove_stakeholder_access',
             'backend_api_resolvers_user__do_remove_user_access',
+            'backend_api_resolvers_forces_update_forces_access_token',
             'backend_api_resolvers_user_resolve_for_group',
             'backend_api_resolvers_vulnerability__do_delete_tags',
             ('backend_api_resolvers_vulnerability__do_'
