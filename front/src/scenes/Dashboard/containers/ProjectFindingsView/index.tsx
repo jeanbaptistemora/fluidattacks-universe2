@@ -22,6 +22,8 @@ import { DataTableNext } from "../../../../components/DataTableNext/index";
 import { IHeaderConfig } from "../../../../components/DataTableNext/types";
 import { Modal } from "../../../../components/Modal/index";
 import { TooltipWrapper } from "../../../../components/TooltipWrapper/index";
+import { default as AppstoreBadge } from "../../../../resources/appstore_badge.svg";
+import { default as GoogleplayBadge } from "../../../../resources/googleplay_badge.svg";
 import { Can } from "../../../../utils/authz/Can";
 import { formatTreatment } from "../../../../utils/formatHelpers";
 import { useStoredState } from "../../../../utils/hooks";
@@ -361,6 +363,22 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
                     <Trans>
                       <p>{translate.t("group.findings.report.tech_description")}</p>
                     </Trans>
+                    <p>
+                      <a
+                        href="https://apps.apple.com/us/app/integrates/id1470450298"
+                        rel="nofollow noopener"
+                        target="_blank"
+                      >
+                        <img src={AppstoreBadge} width="140" height="40" />
+                      </a>
+                      <a
+                        href="https://play.google.com/store/apps/details?id=com.fluidattacks.integrates"
+                        rel="nofollow noopener"
+                        target="_blank"
+                      >
+                        <img src={GoogleplayBadge} width="140" height="40" />
+                      </a>
+                    </p>
                     <br />
                     <Row>
                       <Col md={12} className={style.downloadButtonsContainer}>
@@ -368,11 +386,11 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
                           <Button onClick={handleRequestProjectReport}>
                             <FontAwesome name="file-pdf-o" />
                               {translate.t("group.findings.report.pdf")}
-                              </Button>
+                          </Button>
                           <Button onClick={handleRequestProjectReport}>
                             <FontAwesome name="file-excel-o" />
                               {translate.t("group.findings.report.xls")}
-                              </Button>
+                          </Button>
                           <Button onClick={handleRequestProjectReport}>
                             <FontAwesome name="file-zip-o" />
                             {translate.t("group.findings.report.data")}

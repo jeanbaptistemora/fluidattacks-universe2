@@ -401,8 +401,8 @@ export const enTranslations: ResourceKey = {
         pdf: "  Executive",
         tech_description:
           "Reports are created on-demand and are protected by a <strong>passphrase</strong>. " +
-          "The <strong>passphrase</strong> is generated randomly and will be sent to your email along " +
-          "with a link to download the requested report.",
+          "The <strong>passphrase</strong> is generated randomly and will be " +
+          "sent through a notification to your mobile device.",
         xls: "  Technical",
       },
       tableSet: {

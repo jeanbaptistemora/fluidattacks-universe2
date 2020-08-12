@@ -142,14 +142,13 @@ def new_password_protected_report(
         passphrase)
 
     email_send_thread = threading.Thread(
-        name='Report passphrase email thread',
+        name='Report email thread',
         target=mailer.send_mail_project_report,
         args=([user_email], {
             'filetype': file_type,
             'date': datetime.today().strftime('%Y-%m-%d'),
             'time': datetime.today().strftime('%H:%M'),
             'projectname': project_name,
-            'passphrase': passphrase,
             'filelink': file_link
         }))
 
