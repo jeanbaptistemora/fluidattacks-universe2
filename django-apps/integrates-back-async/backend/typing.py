@@ -48,6 +48,13 @@ User = Dict[str, Union[
     Dict[str, object],
     None
 ]]
+Stakeholder = Dict[str, Union[
+    str, bool,
+    List[str],
+    Set[str],
+    Dict[str, object],
+    None
+]]
 Resources = Dict[str, Union[
     str,
     List[Resource]
