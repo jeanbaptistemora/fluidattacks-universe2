@@ -21,5 +21,9 @@ in
       pyPkgGitPython = builders.pythonPackage {
         requirement = "GitPython==3.1.0";
       };
+
+      pyPkgMandrill = builders.pythonPackage {
+        requirement = "mandrill-really-maintained==1.2.4";
+      };
     })
   )
