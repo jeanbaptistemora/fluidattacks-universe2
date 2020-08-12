@@ -248,7 +248,9 @@ function job_build_container_app {
         "${context}" \
         "${dockerfile}" \
         'CI_API_V4_URL' "${CI_API_V4_URL}" \
+        'CI_COMMIT_AUTHOR' "${CI_COMMIT_AUTHOR}" \
         'CI_COMMIT_REF_NAME' "${CI_COMMIT_REF_NAME}" \
+        'CI_COMMIT_SHA' "${CI_COMMIT_SHA}" \
         'CI_PROJECT_ID' "${CI_PROJECT_ID}" \
         'CI_REPOSITORY_URL' "${CI_REPOSITORY_URL}" \
         'ENV_NAME' "${ENVIRONMENT_NAME}" \
@@ -1087,7 +1089,6 @@ function job_deploy_k8s_back {
       CI_COMMIT_REF_NAME='master' aws_login 'production' \
   &&  helper_use_pristine_workdir \
   &&  sops_env 'secrets-production.yaml' 'default' \
-        ROLLBAR_ACCESS_TOKEN \
         NEW_RELIC_API_KEY \
         NEW_RELIC_APP_ID \
   &&  echo "[INFO] Setting namespace preferences..." \
@@ -1121,11 +1122,6 @@ function job_deploy_k8s_back {
         &&  kubectl rollout undo 'deploy/integrates-app' \
         &&  return 1
       fi \
-  &&  curl "https://api.rollbar.com/api/1/deploy" \
-        --form "access_token=${ROLLBAR_ACCESS_TOKEN}" \
-        --form 'environment=production' \
-        --form "revision=${CI_COMMIT_SHA}" \
-        --form "local_username=${CI_COMMIT_AUTHOR}" \
   &&  curl "https://api.newrelic.com/v2/applications/${NEW_RELIC_APP_ID}/deployments.json" \
         --request 'POST' \
         --header "X-Api-Key: ${NEW_RELIC_API_KEY}" \

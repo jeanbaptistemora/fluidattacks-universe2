@@ -52,6 +52,8 @@ function helper_docker_build_and_push {
   local build_arg_8_val="${19:-build_arg_8_val}"
   local build_arg_9_key="${20:-build_arg_9_key}"
   local build_arg_9_val="${21:-build_arg_9_val}"
+  local build_arg_10_key="${20:-build_arg_10_key}"
+  local build_arg_10_val="${21:-build_arg_10_val}"
   local build_args=(
     --tag "${tag}"
     --file "${dockerfile}"
@@ -64,6 +66,7 @@ function helper_docker_build_and_push {
     --build-arg "${build_arg_7_key}=${build_arg_7_val}"
     --build-arg "${build_arg_8_key}=${build_arg_8_val}"
     --build-arg "${build_arg_9_key}=${build_arg_9_val}"
+    --build-arg "${build_arg_10_key}=${build_arg_10_val}"
   )
 
       echo "[INFO] Logging into: ${CI_REGISTRY}" \

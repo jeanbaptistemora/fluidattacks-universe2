@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.10/ref/settings/
 """
 
+import json
 import logging.config
 import os
 import subprocess
@@ -17,12 +18,15 @@ import sys
 from uuid import uuid4
 
 import bugsnag
+import requests
 from boto3.session import Session
 from botocore.exceptions import ClientError
 from graphql import GraphQLError
 
 from __init__ import (
     BASE_URL,
+    CI_COMMIT_AUTHOR,
+    CI_COMMIT_SHA,
     FI_AWS_CLOUDWATCH_ACCESS_KEY,
     FI_AWS_CLOUDWATCH_SECRET_KEY,
     FI_AZUREAD_OAUTH2_KEY,
@@ -164,6 +168,22 @@ BUGSNAG = {
     'project_root': BASE_DIR,
     'release_stage': FI_ENVIRONMENT,
 }
+
+if FI_ENVIRONMENT == 'production':
+    URL = 'https://build.bugsnag.com'
+    HEADERS = {'Content-Type': 'application/json'}
+    PAYLOAD = {
+        'apiKey': FI_BUGSNAG_ACCESS_TOKEN,
+        'appVersion': FI_VERSION,
+        'builderName': CI_COMMIT_AUTHOR,
+        'releaseStage': FI_ENVIRONMENT,
+        'sourceControl': {
+            'provider': 'gitlab',
+            'repository': 'https://gitlab.com/fluidattacks/integrates.git',
+            'revision': f'{CI_COMMIT_SHA}/django-apps',
+        },
+    }
+    requests.post(URL, headers=HEADERS, data=json.dumps(PAYLOAD))
 
 
 def customize_bugsnag_error_reports(notification):
