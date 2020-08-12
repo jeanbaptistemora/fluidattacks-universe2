@@ -1,7 +1,7 @@
 :slug: rules/266/
 :category: architecture
 :description: This requirement establishes the importance of disabling or controlling system functions that could be harmful to the application.
-:keywords: Insecure, Functionality, System, Hardening, ASVS, CWE, Rules, Ethical Hacking, Pentesting
+:keywords: Insecure, Functionality, System, Hardening, ASVS, CWE, OWASP, PCI DSS, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R266. Disable insecure functionalities
@@ -130,3 +130,7 @@ users.
 V14.5 Validate HTTP Request Header Requirements.(14.5.1)]
 Verify that the application server only accepts the *HTTP* methods in use by
 the application or *API*, including pre-flight *OPTIONS*.
+
+. [[r15]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 2.2.2]
+Enable only necessary services, protocols, daemons, etc.,
+as required for the function of the system.

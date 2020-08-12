@@ -9,7 +9,7 @@
 == Requirement
 
 All dependencies (third-party software/libraries) must be explicitly declared
-(name and version) in a file inside the source code repository.
+(name and specific version) in a file inside the source code repository.
 Their source code must not be directly included in the repository.
 
 == Description
