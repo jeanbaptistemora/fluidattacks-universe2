@@ -74,14 +74,14 @@ const googleConfig: Google.GoogleLogInConfig = {
   scopes: ["profile", "email"],
 };
 
-export const authWithGoogle: (() => Promise<IAuthResult>) = async (): Promise<IAuthResult> => {
-  let authResult: IAuthResult = { type: "cancel" };
-
+export const authWithGoogle: (() => Promise<IAuthResult>) = async (
+): Promise<IAuthResult> => {
   try {
-    const logInResult: Google.LogInResult = await Google.logInAsync(googleConfig);
+    const logInResult: Google.LogInResult =
+      await Google.logInAsync(googleConfig);
 
     if (logInResult.type === "success") {
-      authResult = {
+      return {
         authProvider: "GOOGLE",
         authToken: logInResult.accessToken as string,
         type: "success",
@@ -96,7 +96,8 @@ export const authWithGoogle: (() => Promise<IAuthResult>) = async (): Promise<IA
       };
     }
   } catch (error) {
-    const errorCode: AppAuthError = getStandardErrorCode((error as { code: AppAuthError }).code);
+    const errorCode: AppAuthError =
+      getStandardErrorCode((error as { code: AppAuthError }).code);
 
     switch (errorCode) {
       case AppAuthError.UserCanceledAuthorizationFlow:
@@ -108,12 +109,16 @@ export const authWithGoogle: (() => Promise<IAuthResult>) = async (): Promise<IA
           i18next.t("common.networkError.msg"));
         break;
       default:
-        LOGGER.warning("An error occurred authenticating with Google", { ...error });
-        Alert.alert(i18next.t("common.error.title"), i18next.t("common.error.msg"));
+        LOGGER.warning(
+          "An error occurred authenticating with Google",
+          { ...error });
+        Alert.alert(
+          i18next.t("common.error.title"),
+          i18next.t("common.error.msg"));
     }
   }
 
-  return authResult;
+  return { type: "cancel" };
 };
 
 const microsoftConfig: AppAuth.OAuthProps = {
@@ -122,17 +127,19 @@ const microsoftConfig: AppAuth.OAuthProps = {
   redirectUrl: `${AppAuth.OAuthRedirect}://oauth2redirect/microsoft`,
   scopes: ["openid", "profile", "email"],
   serviceConfiguration: {
-    authorizationEndpoint: "https://login.microsoftonline.com/common/oauth2/authorize",
-    revocationEndpoint: "https://login.microsoftonline.com/common/oauth2/logout",
+    authorizationEndpoint:
+      "https://login.microsoftonline.com/common/oauth2/authorize",
+    revocationEndpoint:
+      "https://login.microsoftonline.com/common/oauth2/logout",
     tokenEndpoint: "https://login.microsoftonline.com/common/oauth2/token",
   },
 };
 
-export const authWithMicrosoft: (() => Promise<IAuthResult>) = async (): Promise<IAuthResult> => {
-  let authResult: IAuthResult = { type: "cancel" };
-
+export const authWithMicrosoft: (() => Promise<IAuthResult>) = async (
+): Promise<IAuthResult> => {
   try {
-    const logInResult: AppAuth.TokenResponse = await AppAuth.authAsync(microsoftConfig);
+    const logInResult: AppAuth.TokenResponse =
+      await AppAuth.authAsync(microsoftConfig);
     const userResponse: Response = await fetch(
       "https://login.microsoftonline.com/common/openid/userinfo",
       { headers: { Authorization: `Bearer ${logInResult.accessToken}` } },
@@ -142,9 +149,10 @@ export const authWithMicrosoft: (() => Promise<IAuthResult>) = async (): Promise
      * User properties returned by Microsoft's Graph API
      * @see https://docs.microsoft.com/en-us/graph/api/resources/user?view=graph-rest-1.0#properties
      */
-    const userProps: Record<string, string> = await userResponse.json() as Record<string, string>;
+    const userProps: Record<string, string> =
+      await userResponse.json() as Record<string, string>;
 
-    authResult = {
+    return {
       authProvider: "MICROSOFT",
       authToken: logInResult.idToken as string,
       type: "success",
@@ -157,19 +165,25 @@ export const authWithMicrosoft: (() => Promise<IAuthResult>) = async (): Promise
       },
     };
   } catch (error) {
-    const errorCode: AppAuthError = getStandardErrorCode(Number((error as { code: AppAuthError }).code));
+    const errorCode: AppAuthError =
+      getStandardErrorCode(Number((error as { code: AppAuthError }).code));
+
     switch (errorCode) {
       case AppAuthError.UserCanceledAuthorizationFlow:
       case AppAuthError.ProgramCanceledAuthorizationFlow:
       case AppAuthError.AccessDenied:
         break;
       default:
-        LOGGER.warning("An error occurred authenticating with Microsoft", { ...error });
-        Alert.alert(i18next.t("common.error.title"), i18next.t("common.error.msg"));
+        LOGGER.warning(
+          "An error occurred authenticating with Microsoft",
+          { ...error });
+        Alert.alert(
+          i18next.t("common.error.title"),
+          i18next.t("common.error.msg"));
     }
   }
 
-  return authResult;
+  return { type: "cancel" };
 };
 
 const bitbucketConfig: AppAuth.OAuthProps = {
