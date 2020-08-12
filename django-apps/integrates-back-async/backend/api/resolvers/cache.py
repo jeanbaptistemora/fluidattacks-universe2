@@ -2,7 +2,6 @@ import re
 
 from typing import Any
 from ariadne import convert_kwargs_to_snake_case
-from asgiref.sync import sync_to_async
 
 from graphql.type.definition import GraphQLResolveInfo
 from backend.decorators import (
@@ -24,7 +23,7 @@ async def resolve_invalidate_cache(
     success = False
     regex = r'^\w+$'
     if re.match(regex, pattern):
-        await sync_to_async(util.invalidate_cache)(pattern)
+        await util.invalidate_cache(pattern)
         success = True
         util.cloudwatch_log(
             info.context,

@@ -906,7 +906,7 @@ async def _do_create_project(  # pylint: disable=too-many-arguments
     if success and has_forces:
         await _create_forces_user(info, project_name)
     if success:
-        util.invalidate_cache(user_email)
+        await util.invalidate_cache(user_email)
         util.cloudwatch_log(
             info.context,
             f'Security: Created project {project_name.lower()} successfully',
@@ -950,8 +950,7 @@ async def _do_edit_group(  # pylint: disable=too-many-arguments
         await project_domain.remove_user_access(
             group_name, f'forces.{group_name}@fluidattacks.com')
     if success:
-        util.invalidate_cache(group_name)
-        util.invalidate_cache(requester_email)
+        await util.invalidate_cache(group_name, requester_email)
         await authz.revoke_cached_group_service_attributes_policies(group_name)
         util.cloudwatch_log(
             info.context,
@@ -975,7 +974,7 @@ async def _do_reject_remove_project(
     )
     if success:
         project = project_name.lower()
-        util.invalidate_cache(project)
+        await util.invalidate_cache(project)
         util.cloudwatch_log(
             info.context,
             'Security: Reject project '
@@ -1013,7 +1012,7 @@ async def _do_add_project_comment(
         comment_data
     )
     if success:
-        util.invalidate_cache(project_name)
+        await util.invalidate_cache(project_name)
         util.cloudwatch_log(
             info.context, 'Security: Added comment to '
             f'{project_name} project successfully'  # pragma: no cover
@@ -1055,7 +1054,7 @@ async def _do_add_project_consult(
         comment_data
     )
     if success:
-        util.invalidate_cache(project_name)
+        await util.invalidate_cache(project_name)
         util.cloudwatch_log(
             info.context, 'Security: Added comment to '
             f'{project_name} project successfully'  # pragma: no cover
@@ -1124,7 +1123,7 @@ async def _do_add_tags(
         )
     if success:
         project_loader.clear(project_name)
-        util.invalidate_cache(project_name)
+        await util.invalidate_cache(project_name)
     project = await resolve(info, project_name, True, False)
     return SimpleProjectPayloadType(success=success, project=project)
 
@@ -1158,7 +1157,7 @@ async def _do_remove_tag(
             LOGGER.error('Couldn\'t remove a tag', extra={'extra': locals()})
     if success:
         project_loader.clear(project_name)
-        util.invalidate_cache(project_name)
+        await util.invalidate_cache(project_name)
         util.cloudwatch_log(
             info.context,
             ('Security: Removed tag from '

@@ -153,7 +153,7 @@ async def _do_add_repositories(
     )
 
     if success:
-        util.invalidate_cache(project_name)
+        await util.invalidate_cache(project_name)
         util.cloudwatch_log(
             info.context,
             ('Security: Added repos to '
@@ -192,7 +192,7 @@ async def _do_add_environments(
     )
 
     if success:
-        util.invalidate_cache(project_name)
+        await util.invalidate_cache(project_name)
         util.cloudwatch_log(
             info.context,
             ('Security: Added envs to '
@@ -251,7 +251,7 @@ async def _do_add_files(
     else:
         LOGGER.error('Couldn\'t upload file', extra={'extra': parameters})
     if success:
-        util.invalidate_cache(project_name)
+        await util.invalidate_cache(project_name)
         util.cloudwatch_log(
             info.context,
             ('Security: Added resource files to '
@@ -302,7 +302,7 @@ async def _do_remove_files(
                 }
             })
     if success:
-        util.invalidate_cache(project_name)
+        await util.invalidate_cache(project_name)
         util.cloudwatch_log(
             info.context,
             ('Security: Removed Files from '
@@ -385,7 +385,7 @@ async def _do_update_environment(
     )
 
     if success:
-        util.invalidate_cache(project_name)
+        await util.invalidate_cache(project_name)
         util.cloudwatch_log(
             info.context,
             (f'Security: Updated environment state in {project_name} '
@@ -434,7 +434,7 @@ async def _do_update_repository(
     )
 
     if success:
-        util.invalidate_cache(project_name)
+        await util.invalidate_cache(project_name)
         util.cloudwatch_log(
             info.context,
             (f'Security: Updated repository state in {project_name} '

@@ -121,8 +121,7 @@ async def _do_edit_user_organization(
         )
 
     if success:
-        util.invalidate_cache(user_email)
-        util.invalidate_cache(organization_id.lower())
+        await util.invalidate_cache(user_email, organization_id.lower())
         util.cloudwatch_log(
             info.context,
             f'Security: User {requester_email} modified information from the '
@@ -177,8 +176,7 @@ async def _do_grant_user_organization_access(
     success = user_added and any([user_created, user_exists])
 
     if success:
-        util.invalidate_cache(user_email)
-        util.invalidate_cache(organization_id.lower())
+        await util.invalidate_cache(user_email, organization_id.lower())
         util.cloudwatch_log(
             info.context,
             f'Security: User {user_email} was granted access to organization '
@@ -217,7 +215,7 @@ async def _do_remove_user_organization_access(
         organization_id, user_email.lower()
     )
     if success:
-        util.invalidate_cache(organization_id.lower())
+        await util.invalidate_cache(organization_id.lower())
         util.cloudwatch_log(
             info.context,
             f'Security: User {requester_email} removed user {user_email} '

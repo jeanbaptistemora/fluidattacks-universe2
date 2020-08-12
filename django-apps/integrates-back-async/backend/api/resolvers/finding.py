@@ -673,7 +673,7 @@ async def _do_remove_evidence(
             ('Security: Removed evidence '
              f'in finding {finding_id}')  # pragma: no cover
         )
-        util.invalidate_cache(finding_id)
+        await util.invalidate_cache(finding_id)
     finding = await info.context.loaders['finding'].load(finding_id)
     return SimpleFindingPayloadType(finding=finding, success=success)
 
@@ -704,7 +704,7 @@ async def _do_update_evidence(
             finding_id, evidence_id, file
         )
     if success:
-        util.invalidate_cache(finding_id)
+        await util.invalidate_cache(finding_id)
         util.cloudwatch_log(
             info.context,
             ('Security: Updated evidence in finding '
@@ -736,7 +736,7 @@ async def _do_update_evidence_description(
             finding_id, evidence_id, description
         )
         if success:
-            util.invalidate_cache(finding_id)
+            await util.invalidate_cache(finding_id)
             util.cloudwatch_log(
                 info.context,
                 ('Security: Evidence description '
@@ -773,8 +773,7 @@ async def _do_update_severity(
     success = await finding_domain.save_severity(data)
     if success:
         finding_loader.clear(finding_id)
-        util.invalidate_cache(finding_id)
-        util.invalidate_cache(project)
+        await util.invalidate_cache(finding_id, project)
         util.cloudwatch_log(
             info.context,
             ('Security: Updated severity in '
@@ -838,7 +837,7 @@ async def _do_add_finding_comment(
         raise GraphQLError('Invalid comment type')
     if success:
         finding_loader.clear(finding_id)
-        util.invalidate_cache(parameters.get('finding_id', ''))
+        await util.invalidate_cache(parameters.get('finding_id', ''))
         util.cloudwatch_log(
             info.context,
             ('Security: Added comment in '
@@ -901,7 +900,7 @@ async def _do_add_finding_consult(
         raise GraphQLError('Invalid comment type')
     if success:
         finding_loader.clear(finding_id)
-        util.invalidate_cache(parameters.get('finding_id', ''))
+        await util.invalidate_cache(parameters.get('finding_id', ''))
         util.cloudwatch_log(
             info.context,
             ('Security: Added comment in '
@@ -946,8 +945,9 @@ async def _do_handle_acceptation(
     )
     if success:
         finding_loader.clear(finding_id)
-        util.invalidate_cache(finding_id)
-        util.invalidate_cache(parameters.get('project_name', ''))
+        await util.invalidate_cache(
+            finding_id, parameters.get('project_name', '')
+        )
         util.forces_trigger_deployment(parameters.get('project_name', ''))
         util.cloudwatch_log(
             info.context,
@@ -975,8 +975,7 @@ async def _do_update_description(
         finding_data = await finding_loader.load(finding_id)
         project_name = finding_data['project_name']
         finding_loader.clear(finding_id)
-        util.invalidate_cache(finding_id)
-        util.invalidate_cache(project_name)
+        await util.invalidate_cache(finding_id, project_name)
         util.forces_trigger_deployment(project_name)
         util.cloudwatch_log(
             info.context,
@@ -1026,8 +1025,7 @@ async def _do_update_client_description(
     )
     if success:
         finding_loader.clear(finding_id)
-        util.invalidate_cache(finding_id)
-        util.invalidate_cache(project_name)
+        await util.invalidate_cache(finding_id, project_name)
         util.forces_trigger_deployment(project_name)
         util.cloudwatch_log(
             info.context,
@@ -1060,8 +1058,7 @@ async def _do_reject_draft(
         finding_data = await finding_loader.load(finding_id)
         project_name = finding_data['project_name']
         finding_loader.clear(finding_id)
-        util.invalidate_cache(finding_id)
-        util.invalidate_cache(project_name)
+        await util.invalidate_cache(finding_id, project_name)
         util.cloudwatch_log(
             info.context,
             (f'Security: Draft {finding_id}'
@@ -1095,8 +1092,7 @@ async def _do_delete_finding(
     )
     if success:
         finding_loader.clear(finding_id)
-        util.invalidate_cache(finding_id)
-        util.invalidate_cache(project_name)
+        await util.invalidate_cache(finding_id, project_name)
         util.forces_trigger_deployment(project_name)
         util.cloudwatch_log(
             info.context,
@@ -1127,8 +1123,7 @@ async def _do_approve_draft(
         draft_id, reviewer_email
     )
     if success:
-        util.invalidate_cache(draft_id)
-        util.invalidate_cache(project_name)
+        await util.invalidate_cache(draft_id, project_name)
         util.forces_trigger_deployment(project_name)
         util.cloudwatch_log(
             info.context,
@@ -1179,7 +1174,7 @@ async def _do_submit_draft(
     success = await finding_domain.submit_draft(finding_id, analyst_email)
 
     if success:
-        util.invalidate_cache(finding_id)
+        await util.invalidate_cache(finding_id)
         util.cloudwatch_log(
             info.context,
             ('Security: Submitted draft '

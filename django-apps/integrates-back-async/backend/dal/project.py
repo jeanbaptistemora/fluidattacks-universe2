@@ -36,7 +36,6 @@ from fluidintegrates.settings import LOGGING
 logging.config.dictConfig(LOGGING)
 
 # Constants
-DYNAMODB_RESOURCE = dynamodb.DYNAMODB_RESOURCE  # type: ignore
 LOGGER = logging.getLogger(__name__)
 TABLE_ACCESS_NAME = 'FI_project_access'
 TABLE_NAME = 'FI_projects'

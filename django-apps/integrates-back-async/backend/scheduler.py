@@ -687,7 +687,7 @@ async def update_group_indicators(group_name: str) -> None:
             indicators
         )
         if response:
-            util.invalidate_cache(group_name)
+            await util.invalidate_cache(group_name)
             msg = 'Info: Updated indicators'
             LOGGER.info(msg, extra={'extra': payload_data})
         else:
@@ -755,7 +755,7 @@ async def update_organization_indicators(
             await tag_dal.update(organization_name, tag, tag_info)
         )
         if success[-1]:
-            util.invalidate_cache(tag)
+            await util.invalidate_cache(tag)
     return all(success), updated_tags
 
 
@@ -837,7 +837,7 @@ async def reset_group_expired_accepted_findings(
             await finding_domain.update_treatment(
                 finding_id, updated_values, ''
             )
-            util.invalidate_cache(finding_id)
+            await util.invalidate_cache(finding_id)
 
 
 @async_to_sync  # type: ignore
@@ -893,5 +893,5 @@ async def delete_pending_projects() -> None:
                 )
             )
             remove_project_tasks.append(task)
-            util.invalidate_cache(str(project.get('project_name')))
+            await util.invalidate_cache(str(project.get('project_name')))
     await asyncio.gather(*remove_project_tasks)

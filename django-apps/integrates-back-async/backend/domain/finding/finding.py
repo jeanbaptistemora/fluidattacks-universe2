@@ -5,9 +5,13 @@ from datetime import datetime
 from contextlib import AsyncExitStack
 from typing import Dict, List, Union, cast, Any, Optional
 
+from aioextensions import (
+    collect,
+    unblock_cpu
+)
 import aioboto3
 import pytz
-from asgiref.sync import async_to_sync, sync_to_async
+from asgiref.sync import async_to_sync
 from django.conf import settings
 from graphql import GraphQLError
 from pytz.tzinfo import DstTzInfo
@@ -89,32 +93,28 @@ async def get_tracking_vulnerabilities(
     vulnerabilities: List[Dict[str, FindingType]]
 ) -> List[Dict[str, Union[int, str]]]:
     """get tracking vulnerabilities dictionary"""
-    last_approved_status = await asyncio.gather(*[
-        asyncio.create_task(
-            sync_to_async(vuln_domain.get_last_approved_status)(
-                vuln
-            )
-        )
+    last_approved_status = await collect(
+        unblock_cpu(vuln_domain.get_last_approved_status, vuln)
         for vuln in vulnerabilities
-    ])
+    )
     vulns_filtered = [
-        vuln for vuln in vulnerabilities
+        vuln for vuln, last_approved in zip(
+            vulnerabilities, last_approved_status
+        )
         if cast(
             List[Dict[str, str]],
             vuln['historic_state']
         )[-1].get('approval_status') != 'PENDING' or
-        last_approved_status.pop(0)
+        last_approved
     ]
-    filter_deleted_status = await asyncio.gather(*[
-        sync_to_async(vuln_domain.filter_deleted_status)(
-            vuln
-        )
-        for vuln in vulns_filtered
-    ])
+    filter_deleted_status = await collect(
+        unblock_cpu(vuln_domain.filter_deleted_status, vuln)
+        for vuln in vulnerabilities
+    )
     vulns_filtered = [
         vuln
-        for vuln in vulns_filtered
-        if filter_deleted_status.pop(0)
+        for vuln, filter_deleted in zip(vulns_filtered, filter_deleted_status)
+        if filter_deleted
     ]
     vuln_casted = finding_utils.remove_repeated(vulns_filtered)
     open_verification_dates = finding_utils.get_open_verification_dates(
@@ -650,6 +650,6 @@ async def mask_finding(finding_id: str) -> bool:
     mask_finding_tasks.extend(mask_vulns_task)
 
     success = all(await asyncio.gather(*mask_finding_tasks))
-    util.invalidate_cache(finding_id)
+    await util.invalidate_cache(finding_id)
 
     return success

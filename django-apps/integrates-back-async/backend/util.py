@@ -20,6 +20,10 @@ from typing import (
 import httpx
 import pytz
 
+from aioextensions import (
+    collect,
+    unblock,
+)
 from asgiref.sync import sync_to_async
 from cryptography.exceptions import InvalidKey
 from cryptography.hazmat.backends import default_backend
@@ -316,9 +320,12 @@ def snakecase_to_camelcase(str_value: str) -> str:
     return re.sub('_.', lambda x: x.group()[1].upper(), str_value)
 
 
-def invalidate_cache(key_pattern: str) -> None:
+async def invalidate_cache(*keys_pattern: str) -> None:
     """Remove keys from cache that matches a given pattern."""
-    cache.delete_pattern('*' + str(key_pattern).lower() + '*')
+    await collect(
+        unblock(cache.delete_pattern, f'*{key_pattern.lower()}*')
+        for key_pattern in keys_pattern
+    )
 
 
 def format_comment_date(date_string: str) -> str:
