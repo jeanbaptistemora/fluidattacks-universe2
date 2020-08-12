@@ -12,6 +12,7 @@ import { NativeRouter } from "react-router-native";
 
 import { i18next } from "../../utils/translations/translate";
 
+import { BitbucketButton, IBitbucketButtonProps } from "./BitbucketButton";
 import { GoogleButton, IGoogleButtonProps } from "./GoogleButton";
 import { LoginView } from "./index";
 import { IMicrosoftButtonProps, MicrosoftButton } from "./MicrosoftButton";
@@ -62,6 +63,8 @@ jest.mock("./version", (): Dictionary => {
 jest.mock("expo-secure-store");
 jest.mock("expo-local-authentication");
 
+const mockedFetch: FetchMockStatic = fetch as typeof fetch & FetchMockStatic;
+
 describe("LoginView", (): void => {
   afterEach((): void => {
     jest.clearAllMocks();
@@ -91,6 +94,76 @@ describe("LoginView", (): void => {
       .toBeGreaterThan(0);
     expect(wrapper.find("googleButton"))
       .toHaveLength(1);
+  });
+
+  it("should auth with bitbucket", async (): Promise<void> => {
+    (checkPlayStoreVersion as jest.Mock).mockImplementation((): Promise<boolean> => Promise.resolve(false));
+    (AppAuth.authAsync as jest.Mock).mockImplementation((): Promise<AppAuth.TokenResponse> => Promise.resolve({
+      accessToken: "abc123",
+      accessTokenExpirationDate: "",
+      additionalParameters: {},
+      idToken: "def456",
+      refreshToken: "",
+      tokenType: "",
+    }));
+    mockedFetch.mock("https://api.bitbucket.org/2.0/user", {
+      body: {
+        account_id: "",
+        display_name: "JOHN DOE",
+        links: {
+          avatar: {
+            href: "https://bitbucket.org/some/picture.png",
+          },
+        },
+        username: "jdoe",
+      },
+      status: 200,
+    });
+    mockedFetch.mock("https://api.bitbucket.org/2.0/user/emails", {
+      body: {
+        values: [
+          { email: "something@test.com", is_primary: false },
+          { email: "test@fluidattacks.com", is_primary: true },
+        ],
+      },
+      status: 200,
+    });
+
+    const wrapper: ReactWrapper = mount(
+      <PaperProvider>
+        <I18nextProvider i18n={i18next}>
+          <NativeRouter initialEntries={["/"]}>
+            <LoginView />
+          </NativeRouter>
+        </I18nextProvider>
+      </PaperProvider>,
+    );
+
+    expect(wrapper)
+      .toHaveLength(1);
+
+    const bitbucketBtn: ReactWrapper<IBitbucketButtonProps> = wrapper
+      .find<IBitbucketButtonProps>(BitbucketButton);
+    expect(bitbucketBtn)
+      .toHaveLength(1);
+
+    await act(async (): Promise<void> => {
+      await (bitbucketBtn.invoke("onPress") as () => Promise<void>)();
+      wrapper.update();
+    });
+    expect(mockHistoryReplace)
+      .toHaveBeenCalledWith("/Welcome", {
+        authProvider: "BITBUCKET",
+        authToken: "abc123",
+        type: "success",
+        user: {
+          email: "test@fluidattacks.com",
+          firstName: "Jdoe",
+          fullName: "John Doe",
+          id: "",
+          photoUrl: "https://bitbucket.org/some/picture.png",
+        },
+      });
   });
 
   it("should auth with google", async (): Promise<void> => {
@@ -154,7 +227,6 @@ describe("LoginView", (): void => {
       refreshToken: "",
       tokenType: "",
     }));
-    const mockedFetch: FetchMockStatic = fetch as typeof fetch & FetchMockStatic;
     mockedFetch.mock("https://login.microsoftonline.com/common/openid/userinfo", {
       body: {
         email: "test@fluidattacks.com",
@@ -296,7 +368,19 @@ describe("LoginView", (): void => {
       wrapper.update();
     });
 
+    const bitbucketBtn: ReactWrapper<IBitbucketButtonProps> = wrapper
+      .find<IBitbucketButtonProps>(BitbucketButton);
+    expect(bitbucketBtn)
+      .toHaveLength(1);
+
+    await act(async (): Promise<void> => {
+      await (bitbucketBtn.invoke("onPress") as () => Promise<void>)();
+      wrapper.update();
+    });
+
+    const expectedErrors: number = 3;
+
     expect(Alert.alert)
-      .toHaveBeenCalledTimes(2);
+      .toHaveBeenCalledTimes(expectedErrors);
   });
 });
