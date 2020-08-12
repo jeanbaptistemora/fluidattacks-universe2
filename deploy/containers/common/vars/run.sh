@@ -27,12 +27,6 @@ fi
 sops_vars "$ENV_NAME"
 
 if [ "$CI_COMMIT_REF_NAME" = 'master' ]; then
-    ./manage.py crontab add
-    crontab -l >> /tmp/mycron
-    sed -i 's|/usr/bin/python3 /usr/src/app/manage.py crontab run|/usr/src/app/deploy/containers/common/vars/run_cron.sh|g' /tmp/mycron
-    crontab /tmp/mycron
-    service cron restart
-
     system_vars \
       AWS_ACCESS_KEY_ID \
       AWS_SECRET_ACCESS_KEY \

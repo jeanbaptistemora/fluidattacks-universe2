@@ -117,7 +117,6 @@ RUN pip3 install --no-cache-dir --no-index \
   && mv deploy/containers/common/vars/fluent.conf /etc/td-agent/td-agent.conf \
   && mv deploy/containers/common/vars/td-agent /etc/init.d/td-agent \
     && chmod 0755 /etc/init.d/td-agent \
-  && mv deploy/containers/common/vars/out_rollbar.rb /etc/td-agent/plugin/ \
   && echo "$SSL_CERT" | base64 -di > /etc/ssl/certs/fluidla.crt \
   && echo "$SSL_KEY" | base64 -di > /etc/ssl/private/fluidla.key \
   && apt -y autoremove \
