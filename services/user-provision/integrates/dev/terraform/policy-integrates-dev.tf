@@ -7,7 +7,6 @@ data "aws_iam_policy_document" "integrates-dev-policy-data" {
     resources = [
       "arn:aws:s3:::fluidintegrates*/*",
       "arn:aws:s3:::fluidintegrates*",
-      "arn:aws:s3:::fi.binaryalert*"
     ]
   }
   statement {
@@ -50,9 +49,7 @@ data "aws_iam_policy_document" "integrates-dev-policy-data" {
     actions = ["iam:*"]
     resources = [
       "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/integrates-*",
-      "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/fi_binaryalert*",
-      "arn:aws:iam::${data.aws_caller_identity.current.account_id}:policy/integrates-*",
-      "arn:aws:iam::${data.aws_caller_identity.current.account_id}:policy/fi_binaryalert*"
+      "arn:aws:iam::${data.aws_caller_identity.current.account_id}:policy/integrates-*"
     ]
   }
   statement {
@@ -90,7 +87,6 @@ data "aws_iam_policy_document" "integrates-dev-policy-data" {
     effect  = "Allow"
     actions = ["lambda:*"]
     resources = [
-      "arn:aws:lambda:${var.region}:${data.aws_caller_identity.current.account_id}:function:fi_binaryalert*",
       "arn:aws:lambda:${var.region}:${data.aws_caller_identity.current.account_id}:function:integrates-*"
     ]
   }
@@ -109,8 +105,7 @@ data "aws_iam_policy_document" "integrates-dev-policy-data" {
     effect  = "Allow"
     actions = ["logs:*"]
     resources = [
-      "arn:aws:logs:${var.region}:${data.aws_caller_identity.current.account_id}:log-group:/aws/lambda/integrates-*",
-      "arn:aws:logs:${var.region}:${data.aws_caller_identity.current.account_id}:log-group:/aws/lambda/fi_binaryalert*"
+      "arn:aws:logs:${var.region}:${data.aws_caller_identity.current.account_id}:log-group:/aws/lambda/integrates-*"
     ]
   }
 
@@ -133,7 +128,6 @@ data "aws_iam_policy_document" "integrates-dev-policy-data" {
     effect  = "Allow"
     actions = ["kms:*"]
     resources = [
-      "arn:aws:kms:${var.region}:${data.aws_caller_identity.current.account_id}:alias/fi_binaryalert*",
       "arn:aws:kms:${var.region}:${data.aws_caller_identity.current.account_id}:alias/integrates-dev-*"
     ]
   }
@@ -161,30 +155,15 @@ data "aws_iam_policy_document" "integrates-dev-policy-data" {
   }
   statement {
     effect  = "Allow"
-    actions = ["sns:*"]
-    resources = [
-      "arn:aws:sns:${var.region}:${data.aws_caller_identity.current.account_id}:fi_binaryalert*"
-    ]
-  }
-  statement {
-    effect  = "Allow"
     actions = ["cloudwatch:*"]
     resources = [
-      "arn:aws:cloudwatch:${var.region}:${data.aws_caller_identity.current.account_id}:alarm:fi*",
-      "arn:aws:cloudwatch::${data.aws_caller_identity.current.account_id}:dashboard/BinaryAlert"
+      "arn:aws:cloudwatch:${var.region}:${data.aws_caller_identity.current.account_id}:alarm:fi*"
     ]
   }
   statement {
     effect    = "Allow"
     actions   = ["cloudfront:*"]
     resources = ["*"]
-  }
-  statement {
-    effect  = "Allow"
-    actions = ["events:*"]
-    resources = [
-      "arn:aws:events:${var.region}:${data.aws_caller_identity.current.account_id}:rule/fi_binaryalert*"
-    ]
   }
 
   # ACM create and read certificate
