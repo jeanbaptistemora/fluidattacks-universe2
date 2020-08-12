@@ -4,6 +4,6 @@ src/scenes/Login/
 src/scenes/Registration/
 src/scenes/Dashboard/**/*.*
 !src/scenes/Dashboard/**/utils.ts
-src/utils/*.tsx
+src/utils/index.spec.tsx
 src/**/*.css.d.ts
 src/**/*.d.ts

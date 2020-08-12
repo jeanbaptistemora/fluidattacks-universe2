@@ -135,8 +135,7 @@ export const numberBetween: (min: number, max: number) => Validator = (
   max: number
 ): Validator => (value: number): string | undefined =>
   value < min || value > max
-    ? // eslint-disable-next-line sort-keys -- correct semantic order
-      translate.t("validations.between", { min, max })
+    ? translate.t("validations.between", { max, min })
     : undefined;
 
 export const minLength: (min: number) => Validator = (min: number): Validator =>
@@ -201,8 +200,7 @@ export const isValidVulnSeverity: Validator = (
     return severityBetween(Number(value));
   }
 
-  // eslint-disable-next-line sort-keys -- correct semantic order
-  return translate.t("validations.between", { min, max });
+  return translate.t("validations.between", { max, min });
 };
 
 export const validDatetime: Validator = (

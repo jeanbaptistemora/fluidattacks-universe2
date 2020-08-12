@@ -8,15 +8,7 @@
       "src/app.tsx",
       "src/store/**",
       "src/graphics/**",
-      "src/utils/+(translations|authz|forms|hooks|secureStore)/**",
-      "src/utils/bugsnagErrorBoundary.ts",
-      "src/utils/environment.ts",
-      "src/utils/logger.ts",
-      "src/utils/sortHelpers.ts",
-      "src/utils/apollo.ts",
-      "src/utils/cvss.ts",
-      "src/utils/validations.ts",
-      "src/utils/formatHelpers.ts",
+      "src/utils/**",
       "src/scenes/Dashboard/**/utils.ts",
       "src/components/**"
     ]
