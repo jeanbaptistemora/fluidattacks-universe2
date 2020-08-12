@@ -188,10 +188,6 @@ data "aws_iam_policy_document" "integrates-prod-policy-data" {
     actions   = ["cloudfront:*"]
     resources = ["*"]
   }
-  statement {
-    effect  = "Allow"
-    actions = ["events:*"]
-  }
 
   # ACM create and read certificate
   statement {
