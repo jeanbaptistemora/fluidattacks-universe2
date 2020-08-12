@@ -1,0 +1,38 @@
+utils.model.finding.enum.f060.description:
+  en: >
+    The source code uses generic exceptions to handle unexpected errors.
+    Catching generic exceptions obscures the problem that caused the error and
+    promotes a generic way to handle different categories or sources of error.
+    This may cause security vulnerabilities to materialize, as some special
+    flows go unnoticed.
+  es: >
+    El código fuente usa excepciones genéricas para manejar errores inesperados.
+    La captura de excepciones genéricas oculta el problema que causó el error y
+    promueve una forma genérica de manejar diferentes categorías o fuentes de error.
+    Esto puede hacer que se materialicen vulnerabilidades de seguridad, ya que algunas
+    los flujos pasan desapercibidos.
+utils.model.finding.enum.f060.impact:
+  en: |
+    Lose the traceability necessary to identify and fix unexpected errors.
+  es: >
+    Perder la trazabilidad necesaria para identificar y solucionar los errores
+    inesperados.
+utils.model.finding.enum.f060.recommendation:
+  en: >
+    Catch specific exceptions and provide custom treatment to every exceptional event.
+  es: >
+    Capturar excepciones de manera específica y dar un tratamiento especial a
+    cada una de ellas.
+utils.model.finding.enum.f060.requirements:
+  en: |
+    R359. Avoid using generic exceptions.
+  es: |
+    R359. El sistema debe usar excepciones tipeadas.
+utils.model.finding.enum.f060.threat:
+  en: >
+    Autenticated attacker from the Internet.
+  es: >
+    Atacante autenticado desde Internet.
+utils.model.finding.enum.f060.title:
+  en: FIN.H.060. Insecure exceptions
+  es: FIN.H.060. Excepciones inseguras
