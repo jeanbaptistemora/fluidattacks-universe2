@@ -46,6 +46,11 @@ type EditUserPayload implements Payload {
     modifiedUser: User
 }
 
+type EditStakeholderPayload implements Payload {
+    success: Boolean!
+    modifiedUser: User
+}
+
 type AddUserPayload implements Payload {
     success: Boolean!
     email: String

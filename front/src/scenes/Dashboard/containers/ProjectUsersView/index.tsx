@@ -25,9 +25,9 @@ import { msgError, msgSuccess } from "../../../../utils/notifications";
 import { sortLastLogin } from "../../../../utils/sortHelpers";
 import translate from "../../../../utils/translations/translate";
 import { addUserModal as AddUserModal } from "../../components/AddUserModal/index";
-import { ADD_USER_MUTATION, EDIT_USER_MUTATION, GET_USERS, REMOVE_STAKEHOLDER_MUTATION } from "./queries";
+import { ADD_USER_MUTATION, EDIT_STAKEHOLDER_MUTATION, GET_USERS, REMOVE_STAKEHOLDER_MUTATION } from "./queries";
 import {
-  IAddUserAttr, IEditUserAttr, IProjectUsersViewProps, IRemoveStakeholderAttr, IUserDataAttr, IUsersAttr,
+  IAddUserAttr, IEditStakeholderAttr, IProjectUsersViewProps, IRemoveStakeholderAttr, IUserDataAttr, IUsersAttr,
 } from "./types";
 
 const tableHeaders: IHeaderConfig[] = [
@@ -151,9 +151,9 @@ const projectUsersView: React.FC<IProjectUsersViewProps> = (props: IProjectUsers
     },
   });
 
-  const [editUser] = useMutation(EDIT_USER_MUTATION, {
-    onCompleted: (mtResult: IEditUserAttr): void => {
-      if (mtResult.editUser.success) {
+  const [editUser] = useMutation(EDIT_STAKEHOLDER_MUTATION, {
+    onCompleted: (mtResult: IEditStakeholderAttr): void => {
+      if (mtResult.editStakeholder.success) {
         refetch()
           .catch();
         mixpanel.track("EditUserAccess", { User: userName });

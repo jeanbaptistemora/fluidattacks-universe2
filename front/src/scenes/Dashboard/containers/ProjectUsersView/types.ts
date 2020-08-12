@@ -52,8 +52,8 @@ export interface IUserDataAttr {
   role: string;
 }
 
-export interface IEditUserAttr {
-  editUser: {
+export interface IEditStakeholderAttr {
+  editStakeholder: {
     success: boolean;
   };
 }

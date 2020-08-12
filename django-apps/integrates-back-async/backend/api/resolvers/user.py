@@ -42,6 +42,7 @@ from backend.typing import (
     RemoveStakeholderAccessPayload as RemoveStakeholderAccessPayloadType,
     RemoveUserAccessPayload as RemoveUserAccessPayloadType,
     EditUserPayload as EditUserPayloadType,
+    EditStakeholderPayload as EditStakeholderPayloadType,
     Project as ProjectType,
 )
 from backend.services import (
@@ -453,7 +454,8 @@ async def _do_add_stakeholder(
         if new_user:
             util.cloudwatch_log(
                 info.context,
-                f'Security: Add user {email}')  # pragma: no cover
+                f'Security: Add stakeholder {email}'
+            )
             mail_to = [email]
             context = {'admin': email}
             email_send_thread = threading.Thread(
@@ -465,7 +467,7 @@ async def _do_add_stakeholder(
             success = True
         else:
             LOGGER.error(
-                'Error: Couldn\'t grant user access',
+                'Error: Couldn\'t grant stakeholder access',
                 extra={'extra': info.context})
     else:
         LOGGER.error(
@@ -681,6 +683,77 @@ async def _do_edit_user(
         )
 
     return EditUserPayloadType(
+        success=success,
+        modified_user=dict(
+            project_name=project_name,
+            email=modified_user_data['email']
+        )
+    )
+
+
+@require_login
+@enforce_group_level_auth_async
+@require_integrates
+async def _do_edit_stakeholder(
+        _: Any,
+        info: GraphQLResolveInfo,
+        **modified_user_data: str) -> EditStakeholderPayloadType:
+    project_name = modified_user_data['project_name'].lower()
+    modified_role = modified_user_data['role']
+    modified_email = modified_user_data['email']
+
+    success = False
+    user_data = util.get_jwt_content(info.context)
+    user_email = user_data['user_email']
+
+    allowed_roles_to_grant = \
+        await authz.get_group_level_roles_a_user_can_grant(
+            group=project_name,
+            requester_email=user_email,
+        )
+
+    await validate_fluidattacks_staff_on_group(
+        project_name, modified_email, modified_role
+    )
+
+    if modified_role in allowed_roles_to_grant:
+        if await authz.grant_group_level_role(
+                modified_email, project_name, modified_role):
+            success = await modify_user_information(
+                info.context, modified_user_data, project_name
+            )
+        else:
+            LOGGER.error(
+                'Couldn\'t update stakeholder role',
+                extra={'extra': info.context})
+    else:
+        LOGGER.error(
+            'Invalid role provided',
+            extra={
+                'extra': {
+                    'modified_user_role': modified_role,
+                    'project_name': project_name,
+                    'requester_email': user_email
+                }
+            })
+
+    if success:
+        util.invalidate_cache(project_name)
+        util.invalidate_cache(modified_email)
+        msg = (
+            f'Security: Modified stakeholder data: {modified_email} '
+            f'in {project_name} project successfully'
+        )
+        util.cloudwatch_log(info.context, msg)
+    else:
+        msg = (
+            f'Security: Attempted to modify stakeholder '
+            f'data:{modified_email} in '
+            f'{project_name} project'
+        )
+        util.cloudwatch_log(info.context, msg)
+
+    return EditStakeholderPayloadType(
         success=success,
         modified_user=dict(
             project_name=project_name,

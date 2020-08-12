@@ -109,6 +109,10 @@ EditUserPayload = NamedTuple('EditUserPayload', [
     ('success', bool),
     ('modified_user', User),
 ])
+EditStakeholderPayload = NamedTuple('EditStakeholderPayload', [
+    ('success', bool),
+    ('modified_user', User),
+])
 SimplePayload = NamedTuple('SimplePayload', [
     ('success', bool),
 ])

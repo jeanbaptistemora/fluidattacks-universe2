@@ -55,15 +55,15 @@ export const ADD_USER_MUTATION: DocumentNode = gql`
   }
   `;
 
-export const EDIT_USER_MUTATION: DocumentNode = gql`
-  mutation EditUserMutation(
+export const EDIT_STAKEHOLDER_MUTATION: DocumentNode = gql`
+  mutation EditStakeholderMutation(
     $email: String!,
     $phoneNumber: String!,
     $projectName: String!,
     $responsibility: String!,
     $role: UserRole!
     ) {
-    editUser (
+    editStakeholder (
       email: $email,
       phoneNumber: $phoneNumber,
       projectName: $projectName,

@@ -11,7 +11,7 @@ import store from "../../../../store/index";
 import { authzPermissionsContext } from "../../../../utils/authz/config";
 import { msgError, msgSuccess } from "../../../../utils/notifications";
 import { ProjectUsersView } from "./index";
-import { ADD_USER_MUTATION, EDIT_USER_MUTATION, GET_USERS, REMOVE_STAKEHOLDER_MUTATION } from "./queries";
+import { ADD_USER_MUTATION, EDIT_STAKEHOLDER_MUTATION, GET_USERS, REMOVE_STAKEHOLDER_MUTATION } from "./queries";
 import { IProjectUsersViewProps } from "./types";
 
 jest.mock("../../../../utils/notifications", () => {
@@ -341,7 +341,7 @@ describe("Project users view", () => {
   it("should edit stakeholder from the project", async () => {
     const mocksMutation: ReadonlyArray<MockedResponse> = [{
       request: {
-        query: EDIT_USER_MUTATION,
+        query: EDIT_STAKEHOLDER_MUTATION,
         variables: {
           email: "user@gmail.com",
           firstLogin: "2017-09-05",
@@ -356,7 +356,7 @@ describe("Project users view", () => {
           uniqueId: 0,
         },
       },
-      result: { data: { editUser : { success: true } } },
+      result: { data: { editStakeholder : { success: true } } },
     }];
     const mockedPermissions: PureAbility<string> = new PureAbility([
       { action: "backend_api_resolvers_user__do_edit_user" },
@@ -534,7 +534,7 @@ describe("Project users view", () => {
   it("should handle error when edit stakeholder from the project", async () => {
     const mocksMutation: ReadonlyArray<MockedResponse> = [{
       request: {
-        query: EDIT_USER_MUTATION,
+        query: EDIT_STAKEHOLDER_MUTATION,
         variables: {
           email: "user@gmail.com",
           firstLogin: "2017-09-05",
