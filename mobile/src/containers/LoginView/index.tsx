@@ -16,7 +16,9 @@ import { About } from "../../components/About";
 import { Logo } from "../../components/Logo";
 import { Preloader } from "../../components/Preloader";
 import {
-  authWithGoogle, authWithMicrosoft, IAuthResult,
+  authWithGoogle,
+  authWithMicrosoft,
+  IAuthResult,
 } from "../../utils/socialAuth";
 
 import { GoogleButton } from "./GoogleButton";
@@ -55,7 +57,7 @@ const loginView: React.FunctionComponent = (): JSX.Element => {
   React.useEffect(onMount, []);
 
   // Event handlers
-  const handleGoogleButtonClick: (() => void) = async (): Promise<void> => {
+  const handleGoogleLogin: (() => void) = async (): Promise<void> => {
     setLoading(true);
 
     const result: IAuthResult = await authWithGoogle();
@@ -68,7 +70,7 @@ const loginView: React.FunctionComponent = (): JSX.Element => {
     }
   };
 
-  const handleMicrosoftButtonClick: (() => void) = async (): Promise<void> => {
+  const handleMicrosoftLogin: (() => void) = async (): Promise<void> => {
     setLoading(true);
 
     const result: IAuthResult = await authWithMicrosoft();
@@ -92,11 +94,11 @@ const loginView: React.FunctionComponent = (): JSX.Element => {
         <View style={styles.buttonsContainer}>
           <GoogleButton
             disabled={isLoading ? true : isOutdated}
-            onPress={handleGoogleButtonClick}
+            onPress={handleGoogleLogin}
           />
           <MicrosoftButton
             disabled={isLoading ? true : isOutdated}
-            onPress={handleMicrosoftButtonClick}
+            onPress={handleMicrosoftLogin}
           />
         </View>
         <Preloader visible={isLoading} />

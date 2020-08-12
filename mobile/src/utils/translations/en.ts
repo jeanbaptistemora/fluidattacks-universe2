@@ -29,6 +29,7 @@ export const enTranslations: ResourceLanguage = {
     title: "Unlock to continue",
   },
   login: {
+    btnBitbucketText: "Sign in with Bitbucket",
     btnGoogleText: "Sign in with Google",
     btnMicrosoftText: "Sign in with Microsoft",
     newVersion: {
