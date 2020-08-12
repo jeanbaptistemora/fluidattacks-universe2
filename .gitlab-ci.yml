@@ -651,6 +651,16 @@ reviews:
   <<: *in_mrs
   interruptible: false
 
+skims_doc:
+  <<: *with_nix
+  <<: *skims_in_dev_and_master_branch
+  stage: deploy-app
+  artifacts:
+    expire_in: 1 week
+    paths:
+      - skims/html
+    when: on_success
+
 skims_deploy:
   <<: *with_nix
   <<: *skims_in_master_branch

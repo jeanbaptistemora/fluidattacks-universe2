@@ -49,7 +49,14 @@ def get_signature(function: Callable[..., Any]) -> inspect.Signature:
     return signature
 
 
-def locked(function: TFun) -> TFun:
+def never_concurrent(function: TFun) -> TFun:
+    """Ensure the decorated function runs at max once at any point in time.
+
+    :param function: Function to decorate
+    :type function: TFun
+    :return: A function capped to be executed at most once at any point in time
+    :rtype: TFun
+    """
     lock = Lock()
 
     @functools.wraps(function)

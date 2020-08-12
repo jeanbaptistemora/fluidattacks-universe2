@@ -22,14 +22,14 @@ from aioextensions import (
 
 # Local libraries
 from utils.function import (
-    locked,
+    never_concurrent,
 )
 
 
 def generate_file_content(path: str) -> Callable[[], Awaitable[str]]:
     data: Dict[str, str] = {}
 
-    @locked
+    @never_concurrent
     async def get_one() -> str:
         if not data:
             data['file_contents'] = await get_file_content(path)
@@ -41,7 +41,7 @@ def generate_file_content(path: str) -> Callable[[], Awaitable[str]]:
 def generate_file_raw_content(path: str) -> Callable[[], Awaitable[bytes]]:
     data: Dict[str, bytes] = {}
 
-    @locked
+    @never_concurrent
     async def get_one() -> bytes:
         if not data:
             data['file_raw_content'] = await get_file_raw_content(path)

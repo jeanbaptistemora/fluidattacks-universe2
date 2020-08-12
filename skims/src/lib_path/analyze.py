@@ -30,7 +30,7 @@ from lib_path import (
     f117,
 )
 from utils.function import (
-    locked,
+    never_concurrent,
 )
 from utils.fs import (
     generate_file_content,
@@ -53,7 +53,7 @@ def generate_char_to_yx_map(
 ) -> Callable[[], Awaitable[Dict[int, Tuple[int, int]]]]:
     data: Dict[str, Dict[int, Tuple[int, int]]] = {}
 
-    @locked
+    @never_concurrent
     async def get_one() -> Dict[int, Tuple[int, int]]:
         if not data:
             content = await file_content_generator()

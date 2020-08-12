@@ -21,6 +21,27 @@ declare -Arx SKIMS_GLOBAL_TEST_PKGS=(
   [test]=test/
 )
 
+function job_skims_doc {
+      helper_common_poetry_install_deps skims \
+  &&  pushd skims \
+    &&  poetry run sphinx-apidoc \
+          --ext-autodoc \
+          --ext-doctest \
+          --output-dir doc/ \
+          --maxdepth 10 \
+          src \
+    &&  poetry run sphinx-build \
+          -a \
+          -b html \
+          -E \
+          -j 8 \
+          doc/ \
+          html/ \
+  &&  popd \
+  ||  return 1
+
+}
+
 function job_skims_deploy {
   # Propagated from Gitlab env vars
   export SKIMS_PYPI_TOKEN
