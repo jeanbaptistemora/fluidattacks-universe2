@@ -1,3 +1,6 @@
+src.lib_path.f060.generic_exceptions.description:
+  en: Generic {lang} exception in {path}
+  es: Excepción genérica de {lang} en {path}
 utils.model.finding.enum.f060.description:
   en: >
     The source code uses generic exceptions to handle unexpected errors.

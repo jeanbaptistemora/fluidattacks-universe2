@@ -13,18 +13,16 @@ from typing import (
 )
 
 # Third party libraries
+from aioextensions import (
+    collect,
+    unblock_cpu,
+)
 from pyparsing import (
     Empty,
     Keyword,
     MatchFirst,
     nestedExpr,
     Optional,
-)
-
-# Third party libraries
-from aioextensions import (
-    collect,
-    unblock_cpu,
 )
 
 # Local libraries
