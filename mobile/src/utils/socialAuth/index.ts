@@ -9,6 +9,7 @@ import {
   BITBUCKET_LOGIN_KEY_DEV,
   BITBUCKET_LOGIN_KEY_PROD,
   BITBUCKET_LOGIN_SECRET_DEV,
+  BITBUCKET_LOGIN_SECRET_PROD,
   GOOGLE_LOGIN_KEY_ANDROID_DEV,
   GOOGLE_LOGIN_KEY_ANDROID_PROD,
   GOOGLE_LOGIN_KEY_IOS_DEV,
@@ -189,7 +190,7 @@ export const authWithMicrosoft: (() => Promise<IAuthResult>) = async (
 const bitbucketConfig: AppAuth.OAuthProps = {
   clientId: __DEV__ ? BITBUCKET_LOGIN_KEY_DEV : BITBUCKET_LOGIN_KEY_PROD,
   clientSecret:
-    __DEV__ ? BITBUCKET_LOGIN_SECRET_DEV : BITBUCKET_LOGIN_SECRET_DEV,
+    __DEV__ ? BITBUCKET_LOGIN_SECRET_DEV : BITBUCKET_LOGIN_SECRET_PROD,
   issuer: "",
   redirectUrl: `${AppAuth.OAuthRedirect}://oauth2redirect/bitbucket`,
   scopes: ["account", "email"],
