@@ -3,8 +3,8 @@ let
 
   srcProductGit = pkgs.fetchgit {
     url = "https://gitlab.com/fluidattacks/integrates";
-    rev = "036fd066f89951ee1cbfe73a77696b9df015233e";
-    sha256 = "0a9x2k900p67pdxd4aarb83lw6w6y3636s7bsk9v7ypph86jk7dn";
+    rev = "edd2d818d137c2a7cadfc1b02af0d7ad1e68c3b0";
+    sha256 = "1xrxjky4wcw8gax453ml8m5wdwr277ivmhzn476i4v0rbj8d7h5c";
   };
 in
   pkgs.stdenv.mkDerivation (

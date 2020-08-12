@@ -54,8 +54,7 @@ function decide_and_call_provisioner {
         --keep GITLAB_API_USER \
         --keep GITLAB_API_TOKEN \
         --keep GITLAB_CI_PROJECT_DIR \
-        --keep MR_TEST_TOKEN \
-        --keep MR_TEST_MAX_DELTAS \
+        --keep REVIEWS_TOKEN \
         --max-jobs auto \
         --option restrict-eval false \
         --option sandbox false \
