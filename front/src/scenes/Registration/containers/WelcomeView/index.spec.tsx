@@ -5,7 +5,7 @@ import React from "react";
 // tslint:disable-next-line: no-submodule-imports
 import { act } from "react-dom/test-utils";
 import { Provider } from "react-redux";
-import { RouteComponentProps } from "react-router-dom";
+import { MemoryRouter, RouteComponentProps } from "react-router-dom";
 import wait from "waait";
 import store from "../../../../store";
 import translate from "../../../../utils/translations/translate";
@@ -107,7 +107,9 @@ describe("Welcome view", () => {
     localStorage.setItem("start_url", "/project/BWAPP/vulns/413372600/consulting");
     const wrapper: ReactWrapper = mount(
       <MockedProvider mocks={mocks} addTypename={false}>
-        <WelcomeView {...routeProps} />
+        <MemoryRouter>
+          <WelcomeView {...routeProps} />
+        </MemoryRouter>
       </MockedProvider>,
     );
 

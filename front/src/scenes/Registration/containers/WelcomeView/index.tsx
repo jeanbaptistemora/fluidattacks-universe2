@@ -9,7 +9,7 @@ import { Mutation, Query } from "@apollo/react-components";
 import _ from "lodash";
 import React from "react";
 import { Col, Row } from "react-bootstrap";
-import { Redirect, RouteComponentProps } from "react-router-dom";
+import { Redirect, RouteComponentProps, useHistory } from "react-router-dom";
 import { Button } from "../../../../components/Button";
 import { default as logo } from "../../../../resources/integrates.svg";
 import { default as globalStyle } from "../../../../styles/global.css";
@@ -21,7 +21,7 @@ import { ACCEPT_LEGAL_MUTATION, GET_USER_AUTHORIZATION } from "./queries";
 type WelcomeViewProps = RouteComponentProps;
 
 const welcomeView: React.FC<WelcomeViewProps> = (): JSX.Element => {
-
+  const history: ReturnType<typeof useHistory> = useHistory();
   const [isLegalModalOpen, setLegalModalOpen] = React.useState(true);
 
   const savedUrl: string = _.get(localStorage, "start_url", "/home");
@@ -31,7 +31,7 @@ const welcomeView: React.FC<WelcomeViewProps> = (): JSX.Element => {
     localStorage.removeItem("showAlreadyLoggedin");
     localStorage.removeItem("concurrentSession");
     localStorage.removeItem("start_url");
-    location.assign(`/integrates${initialUrl}`);
+    history.replace(initialUrl);
   };
 
   const { userEmail, userName } = window as typeof window & Dictionary<string>;
