@@ -35,7 +35,7 @@ from lib_path.common import (
     DOUBLE_QUOTED_STRING,
     SINGLE_QUOTED_STRING,
 )
-from state import (
+from state.cache import (
     cache_decorator,
 )
 from utils.model import (

@@ -37,7 +37,7 @@ from lib_path.common import (
     SINGLE_QUOTED_STRING,
     VAR_ATTR_JAVA,
 )
-from state import (
+from state.cache import (
     cache_decorator,
 )
 from utils.ast import (

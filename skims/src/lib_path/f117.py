@@ -17,7 +17,7 @@ from aioextensions import (
 )
 
 # Local libraries
-from state import (
+from state.cache import (
     cache_decorator,
 )
 from utils.model import (

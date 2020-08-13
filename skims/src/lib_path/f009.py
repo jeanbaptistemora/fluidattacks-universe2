@@ -27,7 +27,7 @@ from lib_path.common import (
     blocking_get_vulnerabilities,
     HANDLE_ERRORS,
 )
-from state import (
+from state.cache import (
     cache_decorator,
 )
 from utils.model import (

@@ -18,8 +18,8 @@ import aiohttp
 from nvd.cpe import (
     build as build_cpe,
 )
-from state import (
-    cache_decorator
+from state.cache import (
+    cache_decorator,
 )
 from utils.function import (
     retry,

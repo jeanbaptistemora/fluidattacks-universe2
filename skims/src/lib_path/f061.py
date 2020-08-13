@@ -37,7 +37,7 @@ from lib_path.common import (
     HANDLE_ERRORS,
     SINGLE_QUOTED_STRING,
 )
-from state import (
+from state.cache import (
     cache_decorator,
 )
 from utils.ast import (
