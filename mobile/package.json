@@ -64,7 +64,7 @@
     "enzyme-adapter-react-16": "1.15.3",
     "expo-cli": "3.24.0",
     "fetch-mock": "9.10.6",
-    "jest": "26.3.0",
+    "jest": "26.4.0",
     "jest-expo": "38.0.2",
     "react-dom": "16.13.1",
     "ts-jest": "26.2.0",

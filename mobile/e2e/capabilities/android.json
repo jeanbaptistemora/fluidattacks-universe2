@@ -1,0 +1,6 @@
+{
+  "app": "Exponent-2.16.1.apk",
+  "appWaitForLaunch": true,
+  "deviceName": "device",
+  "platformName": "Android"
+}

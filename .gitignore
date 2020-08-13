@@ -54,6 +54,7 @@ mobile/*.key
 mobile/*.mobileprovision
 mobile/google-services.json
 mobile/output/*
+mobile/e2e/*.zip
 
 #coverage output
 front/.nyc_output
