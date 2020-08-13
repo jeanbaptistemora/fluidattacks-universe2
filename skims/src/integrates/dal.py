@@ -23,6 +23,10 @@ import aiohttp
 from integrates.graphql import (
     Session,
 )
+from state.ephemeral import (
+    EphemeralStore,
+    get_ephemeral_store,
+)
 from utils.function import (
     retry,
 )
@@ -223,7 +227,7 @@ async def get_finding_vulnerabilities(
     *,
     finding: FindingEnum,
     finding_id: str,
-) -> Tuple[Vulnerability, ...]:
+) -> EphemeralStore:
     result = await _execute(
         query="""
             query GetFindingVulnerabilities(
@@ -247,8 +251,9 @@ async def get_finding_vulnerabilities(
         )
     )
 
-    return tuple(
-        Vulnerability(
+    store: EphemeralStore = get_ephemeral_store()
+    for vulnerability in result['data']['finding']['vulnerabilities']:
+        await store.store(Vulnerability(
             finding=finding,
             integrates_metadata=IntegratesVulnerabilityMetadata(
                 approval_status=VulnerabilityApprovalStatusEnum((
@@ -262,9 +267,9 @@ async def get_finding_vulnerabilities(
             state=VulnerabilityStateEnum(vulnerability['currentState']),
             what=vulnerability['where'],
             where=vulnerability['specific'],
-        )
-        for vulnerability in result['data']['finding']['vulnerabilities']
-    )
+        ))
+
+    return store
 
 
 @RETRY

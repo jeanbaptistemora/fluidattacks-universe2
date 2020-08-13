@@ -114,11 +114,6 @@ async def execute_skims(config: SkimsConfig, token: str) -> bool:
 
         success = await persist(
             group=config.group,
-            results=tuple([
-                result
-                for store in stores.values()
-                async for result in store.iterate()
-            ]),
             stores=stores,
             token=token,
         )

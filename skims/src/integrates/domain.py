@@ -10,9 +10,6 @@ from typing import (
 from aioextensions import (
     unblock,
 )
-from more_itertools import (
-    ichunked,
-)
 
 # Local libraries
 from integrates.dal import (
@@ -24,6 +21,9 @@ from integrates.dal import (
     get_finding_current_release_status,
     get_group_findings,
     ResultGetGroupFindings,
+)
+from state.ephemeral import (
+    EphemeralStore,
 )
 from utils.encodings import (
     yaml_dumps,
@@ -150,22 +150,34 @@ async def do_build_and_upload_vulnerabilities(
     *,
     batch_size: int = 50,
     finding_id: str,
-    results: Tuple[Vulnerability, ...],
+    store: EphemeralStore,
 ) -> bool:
     successes: List[bool] = []
     msg: str = 'Uploading vulnerabilities to %s, batch %s of size %s'
 
-    for index, iterable in enumerate(ichunked(results, batch_size)):
-        batch: Tuple[Vulnerability] = tuple(iterable)  # type: ignore
-        await log('info', msg, finding_id, index, len(batch))
+    async def batch_upload() -> None:
+        await log('info', msg, finding_id, batch_id, len(batch))
         successes.append(
             await do_upload_vulnerabilities(
                 finding_id=finding_id,
                 stream=await build_vulnerabilities_stream(
-                    results=batch,
+                    results=tuple(batch),
                 ),
             ),
         )
+        batch.clear()
+
+    batch = []
+    batch_id = -1
+    async for result in store.iterate():
+        batch.append(result)
+        if len(batch) == batch_size:
+            batch_id += 1
+            await batch_upload()
+
+    if batch:
+        batch_id += 1
+        await batch_upload()
 
     return all(successes)
 

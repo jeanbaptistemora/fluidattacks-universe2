@@ -14,6 +14,7 @@ from typing import (
     Awaitable,
     Callable,
     NamedTuple,
+    Tuple,
 )
 
 # Local libraries
@@ -33,6 +34,7 @@ from utils.fs import (
 # Constants
 EPHEMERAL: str = join(STATE_FOLDER, 'ephemeral')
 ClearFunction = Callable[[], Awaitable[None]]
+GetAFewFunction = Callable[[int], Awaitable[Tuple[Any, ...]]]
 StoreFunction = Callable[[Any], Awaitable[None]]
 LengthFunction = Callable[[], Awaitable[int]]
 IteratorFunction = Callable[[], AsyncIterator[Any]]
@@ -43,6 +45,7 @@ makedirs(EPHEMERAL, mode=0o700, exist_ok=True)
 
 class EphemeralStore(NamedTuple):
     clear: ClearFunction
+    get_a_few: GetAFewFunction
     iterate: IteratorFunction
     length: LengthFunction
     store: StoreFunction
@@ -69,8 +72,17 @@ def get_ephemeral_store() -> EphemeralStore:
         for object_key in await recurse_dir(folder):
             yield await read_blob(object_key)
 
+    async def get_a_few(count: int) -> Tuple[Any, ...]:
+        results = []
+        async for obj in iterate():
+            results.append(obj)
+            if len(results) == count:
+                break
+        return tuple(results)
+
     return EphemeralStore(
         clear=clear,
+        get_a_few=get_a_few,
         iterate=iterate,
         length=length,
         store=store,

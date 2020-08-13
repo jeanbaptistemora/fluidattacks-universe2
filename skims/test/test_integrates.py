@@ -134,7 +134,7 @@ async def test_statefull(
         ),
     )
 
-    assert any(
+    assert any([
         (
             vulnerability.finding == FindingEnum.F034
             and vulnerability.integrates_metadata
@@ -150,8 +150,10 @@ async def test_statefull(
             and vulnerability.what == 'repo/file'
             and vulnerability.where == '123'
         )
-        for vulnerability in await get_finding_vulnerabilities(
-            finding=FindingEnum.F034,
-            finding_id=finding_id,
-        )
-    )
+        async for vulnerability in (
+            await get_finding_vulnerabilities(
+                finding=FindingEnum.F034,
+                finding_id=finding_id,
+            )
+        ).iterate()
+    ])

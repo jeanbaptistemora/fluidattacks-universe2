@@ -32,6 +32,7 @@ from utils.model import (
     NVDVulnerability,
     SkimsVulnerabilityMetadata,
     Vulnerability,
+    VulnerabilityApprovalStatusEnum,
     VulnerabilityKindEnum,
     VulnerabilitySourceEnum,
     VulnerabilityStateEnum,
@@ -136,6 +137,7 @@ ALLOWED_FACTORIES: Dict[type, Dict[str, Any]] = {
             for enum in (
                 FindingEnum,
                 FindingTypeEnum,
+                VulnerabilityApprovalStatusEnum,
                 VulnerabilityKindEnum,
                 VulnerabilitySourceEnum,
                 VulnerabilityStateEnum,

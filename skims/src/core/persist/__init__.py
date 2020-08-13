@@ -7,6 +7,7 @@ import random
 import sys
 from typing import (
     Dict,
+    Set,
     Tuple,
 )
 
@@ -80,7 +81,7 @@ async def get_affected_systems(store: EphemeralStore) -> str:
 async def upload_evidences(
     *,
     finding_id: str,
-    results: Tuple[Vulnerability, ...],
+    store: EphemeralStore,
 ) -> bool:
     evidence_ids: Tuple[
         Tuple[FindingEvidenceIDEnum, FindingEvidenceDescriptionIDEnum], ...
@@ -95,6 +96,9 @@ async def upload_evidences(
          FindingEvidenceDescriptionIDEnum.EVIDENCE4),
         (FindingEvidenceIDEnum.EVIDENCE5,
          FindingEvidenceDescriptionIDEnum.EVIDENCE5),
+    )
+    results: Tuple[Vulnerability, ...] = (
+        await store.get_a_few(len(evidence_ids))
     )
     number_of_samples: int = min(len(results), len(evidence_ids))
     result_samples: Tuple[Vulnerability, ...] = tuple(
@@ -138,33 +142,16 @@ async def upload_evidences(
     ))
 
 
-def get_results_managed_by_skims(
-    results: Tuple[Vulnerability, ...],
-) -> Tuple[Vulnerability, ...]:
-    results_by_skims: Tuple[Vulnerability, ...] = tuple(
-        result
-        for result in results
-        if (
-            result.integrates_metadata and
-            result.integrates_metadata.source == (
-                VulnerabilitySourceEnum.SKIMS
-            )
-        )
-    )
-
-    return results_by_skims
-
-
 async def merge_results(
     skims_store: EphemeralStore,
-    integrates_results: Tuple[Vulnerability, ...],
+    integrates_store: EphemeralStore,
 ) -> EphemeralStore:
     """Merge results from Skims and Integrates, closing or creating if needed.
 
     :param skims_store: Store with the results from Skims
     :type skims_store: EphemeralStore
-    :param integrates_results: Tuple of results from Integrates
-    :type integrates_results: Tuple[Vulnerability, ...]
+    :param integrates_store: Store with the results from Integrates
+    :type integrates_store: EphemeralStore
     :return: A new store with the merged results
     :rtype: EphemeralStore
     """
@@ -186,33 +173,40 @@ async def merge_results(
             where=result.where,
         )
 
-    # Filter integrates results managed by skims
-    integrates_results = get_results_managed_by_skims(integrates_results)
-
-    # Create a data structure that maps hash to index
-    hashes: Dict[int, int] = {
-        get_vulnerability_hash(result): index
-        for index, result in enumerate(integrates_results)
+    # Think of the update as the difference in the generation that
+    #   is currently on Integrates, vs the generation that Skims found
+    new_generation_hashes: Set[int] = set()
+    old_generation_hashes: Set[int] = {
+        get_vulnerability_hash(result)
+        async for result in integrates_store.iterate()
+        # Filter integrates results managed by skims
+        if (result.integrates_metadata and
+            result.integrates_metadata.source == (
+                VulnerabilitySourceEnum.SKIMS
+            ))
     }
 
     # Walk all Skims results
     async for result in skims_store.iterate():
-        # Ignore the integrates result because Skims will perform an update
-        hashes.pop(get_vulnerability_hash(result), None)
-
-        # Store the Skims result as OPEN
+        # Store the Skims result as OPEN in the new generation
+        new_generation_hashes.add(get_vulnerability_hash(result))
         await store.store(prepare_result(
             result=result,
             state=VulnerabilityStateEnum.OPEN,
         ))
 
-    # This are the integrates results that were not found by Skims
-    #   and therefore they should be closed
-    for index in hashes.values():
-        await store.store(prepare_result(
-            result=integrates_results[index],
-            state=VulnerabilityStateEnum.OPEN,
-        ))
+    # This difference are results that should be CLOSED on Integrates
+    generation_difference: Set[int] = (
+        old_generation_hashes - new_generation_hashes
+    )
+
+    # Walk all integrates results that are in the generation difference
+    async for result in integrates_store.iterate():
+        if get_vulnerability_hash(result) in generation_difference:
+            await store.store(prepare_result(
+                result=result,
+                state=VulnerabilityStateEnum.CLOSED,
+            ))
 
     return store
 
@@ -221,7 +215,6 @@ async def persist_finding(
     *,
     finding: FindingEnum,
     group: str,
-    results: Tuple[Vulnerability, ...],
     store: EphemeralStore,
 ) -> bool:
     """Persist a finding to Integrates
@@ -230,8 +223,6 @@ async def persist_finding(
     :type finding: FindingEnum
     :param group: The group whose state is to be synced
     :type group: str
-    :param results: Tuple with the source data to persist
-    :type results: Tuple[Vulnerability, ...]
     :param store: Store to read data from
     :type store: EphemeralStore
     :return: A boolean indicating success
@@ -255,7 +246,7 @@ async def persist_finding(
         await log('info', 'finding for: %s = %s', finding.name, finding_id)
 
         merged_store: EphemeralStore = await merge_results(
-            integrates_results=await get_finding_vulnerabilities(
+            integrates_store=await get_finding_vulnerabilities(
                 finding=finding,
                 finding_id=finding_id,
             ),
@@ -264,26 +255,26 @@ async def persist_finding(
 
         success = await do_build_and_upload_vulnerabilities(
             finding_id=finding_id,
-            results=tuple([x async for x in merged_store.iterate()]),
+            store=merged_store,
         ) and await do_release_vulnerabilities(
             finding_id=finding_id,
         ) and await upload_evidences(
             finding_id=finding_id,
-            results=results,
+            store=store,
         ) and await do_release_finding(
             finding_id=finding_id,
         )
 
         await log(
             'info', 'persisted: %s, results: %s, success: %s',
-            finding.name, len(results), success,
+            finding.name, store_length, success,
         )
     elif not has_results:
         success = True
 
         await log(
             'info', 'persisted: %s, results: %s, success: %s',
-            finding.name, len(results), success,
+            finding.name, store_length, success,
         )
     else:
         await log('critical', 'could not find or create finding: %s', finding)
@@ -295,7 +286,6 @@ async def persist_finding(
 async def persist(
     *,
     group: str,
-    results: Tuple[Vulnerability, ...],
     stores: Dict[FindingEnum, EphemeralStore],
     token: str,
 ) -> bool:
@@ -303,8 +293,6 @@ async def persist(
 
     :param group: The group whose state is to be synced
     :type group: str
-    :param results: Tuple with the source data to persist
-    :type results: Tuple[Vulnerability, ...]
     :param stores: A mapping of findings to results store
     :type stores: Dict[FindingEnum, EphemeralStore]
     :param token: Integrates API token
@@ -320,7 +308,6 @@ async def persist(
         persist_finding(
             finding=finding,
             group=group,
-            results=results,
             store=stores[finding],
         )
         for finding in FindingEnum
