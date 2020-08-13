@@ -148,7 +148,7 @@ const organizationUsers: React.FC<IOrganizationUsers> = (props: IOrganizationUse
         refetchUsers()
           .catch();
         mixpanel.track("EditUserOrganizationAccess", { Organization: organizationName, User: userName });
-        const { email } = mtResult.editStakeholderOrganization.modifiedUser;
+        const { email } = mtResult.editStakeholderOrganization.modifiedStakeholder;
         msgSuccess(
           `${email} ${translate.t("organization.tabs.users.editButton.success")}`,
           translate.t("organization.tabs.users.successTitle"),

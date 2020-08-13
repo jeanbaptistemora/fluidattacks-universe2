@@ -14,7 +14,7 @@ export interface IAddUserAttrs {
 
 export interface IEditStakeholderAttrs {
   editStakeholderOrganization: {
-    modifiedUser: {
+    modifiedStakeholder: {
       email: string;
     };
     success: boolean;

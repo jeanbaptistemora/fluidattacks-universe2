@@ -203,7 +203,7 @@ async def _do_edit_stakeholder_organization(
         )
     return EditStakeholderPayloadType(
         success=success,
-        modified_user=dict(
+        modified_stakeholder=dict(
             email=user_email
         )
     )

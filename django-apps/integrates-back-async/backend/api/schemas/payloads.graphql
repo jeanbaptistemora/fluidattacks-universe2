@@ -53,7 +53,7 @@ type EditUserPayload implements Payload {
 
 type EditStakeholderPayload implements Payload {
     success: Boolean!
-    modifiedUser: User
+    modifiedStakeholder: User
 }
 
 type AddUserPayload implements Payload {

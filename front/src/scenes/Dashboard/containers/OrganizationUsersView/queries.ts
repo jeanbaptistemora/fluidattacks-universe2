@@ -50,7 +50,7 @@ export const EDIT_STAKEHOLDER_MUTATION: DocumentNode = gql`
       userEmail: $email
     ) {
       success
-      modifiedUser {
+      modifiedStakeholder {
         email
       }
     }

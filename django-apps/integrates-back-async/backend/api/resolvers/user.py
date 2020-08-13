@@ -829,7 +829,7 @@ async def _do_edit_stakeholder(
 
     return EditStakeholderPayloadType(
         success=success,
-        modified_user=dict(
+        modified_stakeholder=dict(
             project_name=project_name,
             email=modified_user_data['email']
         )
