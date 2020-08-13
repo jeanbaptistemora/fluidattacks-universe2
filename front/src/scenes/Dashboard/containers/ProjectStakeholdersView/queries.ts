@@ -34,7 +34,7 @@ export const ADD_STAKEHOLDER_MUTATION: DocumentNode = gql`
     $phoneNumber: String,
     $projectName: String,
     $responsibility: String,
-    $role: UserRole!
+    $role: StakeholderRole!
     ) {
     grantStakeholderAccess (
       email: $email,
@@ -61,7 +61,7 @@ export const EDIT_STAKEHOLDER_MUTATION: DocumentNode = gql`
     $phoneNumber: String!,
     $projectName: String!,
     $responsibility: String!,
-    $role: UserRole!
+    $role: StakeholderRole!
     ) {
     editStakeholder (
       email: $email,

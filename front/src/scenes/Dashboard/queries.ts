@@ -4,7 +4,7 @@ import gql from "graphql-tag";
 export const ADD_STAKEHOLDER_MUTATION: DocumentNode = gql`
   mutation AddStakeholderMutation(
     $email: String!,
-    $role: UserRole!
+    $role: StakeholderRole!
     $phoneNumber: String,
     ) {
     addStakeholder (

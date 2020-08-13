@@ -550,7 +550,7 @@ enum OrganizationRole {
     GROUP_MANAGER
 }
 
-enum UserRole {
+enum StakeholderRole {
     ADMIN
     ANALYST
     CLOSER

@@ -174,7 +174,7 @@ REPORT_LANG = EnumType(
 )
 
 USER_LEVEL_ROLE = EnumType(
-    'UserRole',
+    'StakeholderRole',
     {
         'ADMIN': 'admin',
         'ANALYST': 'analyst',
@@ -184,7 +184,7 @@ USER_LEVEL_ROLE = EnumType(
 )
 
 GROUP_LEVEL_ROLE = EnumType(
-    'UserRole',
+    'StakeholderRole',
     {
         'ANALYST': 'analyst',
         'CLOSER': 'closer',
