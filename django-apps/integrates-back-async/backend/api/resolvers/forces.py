@@ -133,7 +133,7 @@ async def resolve_forces_execution_mutation(
     )
 
 
-@convert_kwargs_to_snake_case
+@convert_kwargs_to_snake_case  # type: ignore
 @require_login
 @enforce_group_level_auth_async
 @require_integrates

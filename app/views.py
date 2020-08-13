@@ -30,7 +30,7 @@ from magic import Magic
 
 # Local libraries
 from backend import authz, util
-from backend.dal.helpers.s3 import (  # type: ignore
+from backend.dal.helpers.s3 import (
     download_file,
     list_files,
 )

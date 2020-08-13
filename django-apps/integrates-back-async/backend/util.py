@@ -56,7 +56,8 @@ from backend.exceptions import (
 )
 from backend.typing import (
     Finding as FindingType,
-    User as UserType
+    User as UserType,
+    Project as ProjectType
 )
 from backend.utils import (
     apm,
@@ -543,7 +544,7 @@ def camel_case_list_dict(elements: List[Dict]) -> List[Dict]:
     ]
 
 
-def dict_to_object_field_node(input_dict: dict) -> \
+def dict_to_object_field_node(input_dict: Dict[str, Any]) -> \
         List[Union[None, ObjectFieldNode]]:
     """Convert a dict into a list of ObjectFieldNode objects."""
     if not input_dict:
@@ -558,7 +559,7 @@ def dict_to_object_field_node(input_dict: dict) -> \
     return result
 
 
-async def get_filtered_elements(elements, filters):
+async def get_filtered_elements(elements, filters) -> List[ProjectType]:
     """Return filtered findings accorging to filters."""
     # This should be called with all() in the future, but there's a known bug
     # of Python that currently prevents it: https://bugs.python.org/issue39562

@@ -93,7 +93,7 @@ def validate_project_services_config(
     has_drills: bool,
     has_forces: bool,
     has_integrates: bool,
-):
+) -> None:
     if is_continuous_type:
         if has_drills:
             if not has_integrates:
@@ -233,22 +233,22 @@ async def edit(
         has_forces,
         has_integrates)
 
-    item = cast(
-        Dict[str, List[dict]],
-        await project_dal.get_attributes(
-            project_name=group_name,
-            attributes=[
-                'historic_configuration',
-                'project_name'
-            ]
-        )
+    item = await project_dal.get_attributes(
+        project_name=group_name,
+        attributes=[
+            'historic_configuration',
+            'project_name'
+        ]
     )
     item.setdefault('historic_configuration', [])
 
     if item.get('project_name'):
         success = await project_dal.update(
             data={
-                'historic_configuration': item['historic_configuration'] + [{
+                'historic_configuration': cast(
+                    List[Dict[str, Union[bool, str]]],
+                    item['historic_configuration']
+                ) + [{
                     'comments': comments,
                     'date': util.get_current_time_as_iso_str(),
                     'has_drills': has_drills,
@@ -272,11 +272,23 @@ async def edit(
             comments=comments,
             group_name=group_name,
             had_drills=(
-                item['historic_configuration'][-1]['has_drills']
+                cast(
+                    bool,
+                    cast(
+                        List[Dict[str, Union[bool, str]]],
+                        item['historic_configuration']
+                    )[-1]['has_drills']
+                )
                 if item['historic_configuration'] else False
             ),
             had_forces=(
-                item['historic_configuration'][-1]['has_forces']
+                cast(
+                    bool,
+                    cast(
+                        List[Dict[str, Union[bool, str]]],
+                        item['historic_configuration']
+                    )[-1]['has_forces']
+                )
                 if item['historic_configuration'] else False
             ),
             had_integrates=True,
@@ -336,7 +348,7 @@ async def request_deletion(project_name: str, user_email: str) -> bool:
             data.get('historic_deletion', [])
         )
         if data.get('project_status') not in ['DELETED', 'PENDING_DELETION']:
-            tzn = pytz.timezone(settings.TIME_ZONE)  # type: ignore
+            tzn = pytz.timezone(settings.TIME_ZONE)
             today = datetime.now(tz=tzn).today()
             deletion_date = (
                 (today + timedelta(days=30))
@@ -379,7 +391,7 @@ async def reject_deletion(project_name: str, user_email: str) -> bool:
             data.get('historic_deletion', [])
         )
         if data.get('project_status') == 'PENDING_DELETION':
-            tzn = pytz.timezone(settings.TIME_ZONE)  # type: ignore
+            tzn = pytz.timezone(settings.TIME_ZONE)
             today = datetime.now(tz=tzn).today()
             new_state = {
                 'date': today.strftime('%Y-%m-%d %H:%M:%S'),
@@ -405,9 +417,9 @@ async def reject_deletion(project_name: str, user_email: str) -> bool:
     return response
 
 
-@async_to_sync
+@async_to_sync  # type: ignore
 async def mask(group_name: str) -> bool:
-    tzn = pytz.timezone(settings.TIME_ZONE)  # type: ignore
+    tzn = pytz.timezone(settings.TIME_ZONE)
     today = datetime.now(tz=tzn).today().strftime('%Y-%m-%d %H:%M:%S')
     comments = await project_dal.get_comments(group_name)
     comments_result = all(await aio.materialize([
@@ -583,7 +595,7 @@ async def get_pending_verification_findings(
         ) for finding_id in pending_to_verify_ids
     )
 
-    return pending_to_verify
+    return cast(List[Dict[str, FindingType]], pending_to_verify)
 
 
 async def get_pending_closing_check(project: str) -> int:
@@ -644,7 +656,7 @@ async def get_last_closing_vuln_info(
         )
         last_closing_vuln = closed_vulns[date_index]
         current_date = max(closing_vuln_dates)
-        tzn = pytz.timezone(settings.TIME_ZONE)  # type: ignore
+        tzn = pytz.timezone(settings.TIME_ZONE)
         last_closing_days = (
             Decimal((datetime.now(tz=tzn).date() - current_date).days)
             .quantize(Decimal('0.1'))
@@ -665,7 +677,7 @@ def get_last_closing_date(vulnerability: Dict[str, FindingType]) -> datetime:
             current_state.get('date', '').split(' ')[0],
             '%Y-%m-%d'
         )
-        tzn = pytz.timezone(settings.TIME_ZONE)  # type: ignore
+        tzn = pytz.timezone(settings.TIME_ZONE)
         last_closing_date = cast(
             datetime,
             last_closing_date.replace(tzinfo=tzn).date()
@@ -935,7 +947,7 @@ async def list_drafts(
             project_dal.list_drafts(group_name, table, should_list_deleted)
             for group_name in groups_name
         )
-    return drafts
+    return cast(List[List[str]], drafts)
 
 
 async def list_comments(
@@ -946,7 +958,7 @@ async def list_comments(
         for comment in await project_dal.get_comments(project_name)
     ])
 
-    return comments
+    return cast(List[CommentType], comments)
 
 
 async def get_active_projects() -> List[str]:
@@ -972,7 +984,7 @@ async def list_findings(
             project_dal.list_findings(group_name, table, should_list_deleted)
             for group_name in groups_name
         )
-    return findings
+    return cast(List[List[str]], findings)
 
 
 async def list_events(project_name: str) -> List[str]:
@@ -1003,7 +1015,7 @@ async def get_many_groups(
             project_dal.get_group(group_name, table)
             for group_name in groups_name
         )
-    return groups
+    return cast(List[ProjectType], groups)
 
 
 async def get_users_to_notify(

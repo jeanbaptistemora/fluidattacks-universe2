@@ -42,7 +42,7 @@ async def add_phone_to_user(email: str, phone: str) -> bool:
 
 
 def get_current_date() -> str:
-    tzn = pytz.timezone(settings.TIME_ZONE)  # type: ignore
+    tzn = pytz.timezone(settings.TIME_ZONE)
     today = datetime.now(tz=tzn).today().strftime('%Y-%m-%d %H:%M:%S')
     return today
 

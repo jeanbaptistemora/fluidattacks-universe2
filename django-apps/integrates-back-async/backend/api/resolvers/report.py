@@ -1,7 +1,7 @@
 import logging
 import sys
 
-from typing import Any, cast
+from typing import Any
 from ariadne import (
     convert_kwargs_to_snake_case,
     convert_camel_case_to_snake
@@ -79,7 +79,7 @@ async def _get_url_complete(info: GraphQLResolveInfo, user_email: str) -> str:
         info.context,
         f'Security: Complete report succesfully requested by {user_email}'
     )
-    return cast(str, url)
+    return url
 
 
 async def _get_url_all_vulns(
@@ -103,7 +103,7 @@ async def _get_url_all_vulns(
         )
         util.cloudwatch_log(info.context, msg)
         raise PermissionDenied()
-    return cast(str, url)
+    return url
 
 
 @enforce_group_level_auth_async
@@ -160,7 +160,7 @@ async def _get_url_all_users(
         )
         util.cloudwatch_log(info.context, msg)
         raise PermissionDenied()
-    return cast(str, url)
+    return url
 
 
 async def _get_url(

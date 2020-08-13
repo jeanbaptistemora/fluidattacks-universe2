@@ -667,7 +667,10 @@ async def _get_user_role(
         project_name: str,
         **__: Any) -> str:
     user_email = util.get_jwt_content(info.context)['user_email']
-    return await authz.get_group_level_role(user_email, project_name)
+    return cast(
+        str,
+        await authz.get_group_level_role(user_email, project_name)
+    )
 
 
 @enforce_group_level_auth_async

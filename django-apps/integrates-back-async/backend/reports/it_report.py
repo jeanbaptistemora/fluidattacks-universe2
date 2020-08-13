@@ -116,7 +116,7 @@ class ITReport():
             self.set_vuln_row(vuln)
             self.row += 1
 
-    def set_row_height(self):
+    def set_row_height(self) -> None:
         self.current_sheet.set_row_style(
             self.row, Style(
                 size=ROW_HEIGHT,

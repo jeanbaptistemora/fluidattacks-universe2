@@ -65,7 +65,7 @@ async def autoenroll_user(strategy: BaseStrategy, email: str) -> bool:
 
 
 # pylint: disable=keyword-arg-before-vararg
-@async_to_sync
+@async_to_sync  # type: ignore
 async def create_user(
         strategy: BaseStrategy,
         details: Dict[str, str],
@@ -114,7 +114,7 @@ async def create_user(
         )
 
 
-@async_to_sync
+@async_to_sync  # type: ignore
 async def check_registered(
         strategy: BaseStrategy,
         details: Dict[str, str],
