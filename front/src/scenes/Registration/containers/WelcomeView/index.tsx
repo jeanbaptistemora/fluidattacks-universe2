@@ -14,9 +14,9 @@ import { ACCEPT_LEGAL_MUTATION, GET_USER_AUTHORIZATION } from "./queries";
 import { Col, Row } from "react-bootstrap";
 import { Mutation, Query } from "@apollo/react-components";
 import { MutationFunction, QueryResult } from "@apollo/react-common";
-import { Redirect, RouteComponentProps, useHistory } from "react-router-dom";
+import { Redirect, useHistory } from "react-router-dom";
 
-export const WelcomeView: React.FC<RouteComponentProps> = (): JSX.Element => {
+export const WelcomeView: React.FC = (): JSX.Element => {
   const history: ReturnType<typeof useHistory> = useHistory();
   const [isLegalModalOpen, setLegalModalOpen] = React.useState(true);
 

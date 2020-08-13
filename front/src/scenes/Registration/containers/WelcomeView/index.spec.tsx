@@ -1,5 +1,5 @@
-/* eslint-disable react/jsx-props-no-spreading */
 import { GET_USER_AUTHORIZATION } from "./queries";
+import { MemoryRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import React from "react";
 import { WelcomeView } from "./index";
@@ -7,32 +7,13 @@ import _ from "lodash";
 import { act } from "react-dom/test-utils";
 import store from "../../../../store";
 import translate from "../../../../utils/translations/translate";
-import { MemoryRouter, RouteComponentProps } from "react-router-dom";
 import { MockedProvider, MockedResponse, wait } from "@apollo/react-testing";
-import { ReactWrapper, ShallowWrapper, mount, shallow } from "enzyme";
+import { ReactWrapper, mount } from "enzyme";
 
 describe("Welcome view", (): void => {
   // Necessary to setup the window object within the test.
   // eslint-disable-next-line fp/no-mutation
   (window as typeof window & { userName: string }).userName = "Test";
-
-  const routeProps: RouteComponentProps = {
-    history: {
-      action: "PUSH",
-      block: (): (() => void) => (): void => undefined,
-      createHref: (): string => "",
-      go: (): void => undefined,
-      goBack: (): void => undefined,
-      goForward: (): void => undefined,
-      length: 1,
-      listen: (): (() => void) => (): void => undefined,
-      location: { hash: "", pathname: "/", search: "", state: {} },
-      push: (): void => undefined,
-      replace: (): void => undefined,
-    },
-    location: { hash: "", pathname: "/", search: "", state: {} },
-    match: { isExact: true, params: {}, path: "/", url: "" },
-  };
 
   it("should return a function", (): void => {
     expect.hasAssertions();
@@ -42,7 +23,11 @@ describe("Welcome view", (): void => {
   it("should render greetings message", (): void => {
     expect.hasAssertions();
 
-    const wrapper: ShallowWrapper = shallow(<WelcomeView {...routeProps} />);
+    const wrapper: ReactWrapper = mount(
+      <MockedProvider>
+        <WelcomeView />
+      </MockedProvider>
+    );
 
     expect(wrapper.text()).toContain("Hello Test!");
   });
@@ -61,7 +46,7 @@ describe("Welcome view", (): void => {
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
         <MockedProvider addTypename={false} mocks={mocks}>
-          <WelcomeView {...routeProps} />
+          <WelcomeView />
         </MockedProvider>
       </Provider>
     );
@@ -81,7 +66,11 @@ describe("Welcome view", (): void => {
     expect.hasAssertions();
 
     localStorage.setItem("showAlreadyLoggedin", "1");
-    const wrapper: ShallowWrapper = shallow(<WelcomeView {...routeProps} />);
+    const wrapper: ReactWrapper = mount(
+      <MockedProvider>
+        <WelcomeView />
+      </MockedProvider>
+    );
 
     expect(wrapper.find("h3").text()).toContain("You are already logged in");
   });
@@ -91,7 +80,11 @@ describe("Welcome view", (): void => {
 
     localStorage.setItem("showAlreadyLoggedin", "0");
     localStorage.setItem("concurrentSession", "1");
-    const wrapper: ShallowWrapper = shallow(<WelcomeView {...routeProps} />);
+    const wrapper: ReactWrapper = mount(
+      <MockedProvider>
+        <WelcomeView />
+      </MockedProvider>
+    );
 
     expect(wrapper.find("h3").text()).toContain(
       translate.t("registration.concurrent_session_message")
@@ -115,11 +108,11 @@ describe("Welcome view", (): void => {
       "/project/BWAPP/vulns/413372600/consulting"
     );
     const wrapper: ReactWrapper = mount(
-      <MockedProvider addTypename={false} mocks={mocks}>
-        <MemoryRouter>
-          <WelcomeView {...routeProps} />
-        </MemoryRouter>
-      </MockedProvider>
+      <MemoryRouter>
+        <MockedProvider addTypename={false} mocks={mocks}>
+          <WelcomeView />
+        </MockedProvider>
+      </MemoryRouter>
     );
 
     wrapper.find("Button").simulate("click");
