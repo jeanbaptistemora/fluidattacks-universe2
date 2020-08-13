@@ -60,10 +60,74 @@ async def monitor() -> None:
         await log('info', 'Still running, %s tasks pending to finish', tasks)
 
 
+async def execute_skims(config: SkimsConfig, token: str) -> bool:
+    """Execute skims according to the provided config.
+
+    :param config: Skims configuration object
+    :type config: SkimsConfig
+    :param token: Integrates API token
+    :type token: str
+    :raises MemoryError: If not enough memory can be allocated by the runtime
+    :raises SystemExit: If any critical error occurs
+    :return: A boolean indicating success
+    :rtype: bool
+    """
+    success: bool = True
+
+    await log('info', 'Startup working dir is: %s', getcwd())
+    if config.chdir is not None:
+        newcwd: str = abspath(config.chdir)
+        await log('info', 'Moving working dir to: %s', newcwd)
+        chdir(newcwd)
+
+    set_locale(config.language)
+
+    results: Tuple[Vulnerability, ...] = tuple(chain.from_iterable(
+        await collect((
+            analyze_paths(
+                paths_to_exclude=(
+                    config.path.exclude if config.path else ()
+                ),
+                paths_to_include=(
+                    config.path.include if config.path else ()
+                ),
+            ),
+        ))
+    ))
+
+    await notify_findings(config, results)
+
+    if config.group and token:
+        msg = 'Results will be synced to group: %s'
+        await log('info', msg, config.group)
+
+        success = await persist(
+            group=config.group,
+            results=results,
+            token=token,
+        )
+    else:
+        success = True
+        await log('info', ' '.join((
+            'In case you want to persist results to Integrates',
+            'please make sure you set the --token flag in the CLI',
+            'and the "group" key in the config file'
+        )))
+
+    return success
+
+
 async def notify_findings(
-    config_obj: SkimsConfig,
+    config: SkimsConfig,
     results: Tuple[Vulnerability, ...],
 ) -> None:
+    """Print user-friendly messages about the results found.
+
+    :param config: Skims configuration object
+    :type config: SkimsConfig
+    :param results: Results to be shown
+    :type results: Tuple[Vulnerability, ...]
+    """
 
     async def dump(
         kind: VulnerabilityKindEnum,
@@ -74,7 +138,7 @@ async def notify_findings(
     ) -> None:
         where = t(f'words.{kind.value[:-1]}') + ' ' + where
 
-        if config_obj.console_snippets:
+        if config.console_snippets:
             await log('info', '%s: %s\n\n%s\n', title, what, snippet)
         else:
             await log('info', '%s: %s, %s', title, what, where)
@@ -107,54 +171,15 @@ async def main(
 
     try:
         config_obj: SkimsConfig = await load(config)
+        success = await execute_skims(config_obj, token)
     except ConfigError as exc:
         await log('critical', '%s', exc)
         success = False
-    else:
-        try:
-            await log('info', 'Startup working dir is: %s', getcwd())
-            if config_obj.chdir is not None:
-                newcwd: str = abspath(config_obj.chdir)
-                await log('info', 'Moving working dir to: %s', newcwd)
-                chdir(newcwd)
-
-            set_locale(config_obj.language)
-
-            results: Tuple[Vulnerability, ...] = tuple(chain.from_iterable(
-                await collect((
-                    analyze_paths(
-                        paths_to_exclude=(
-                            config_obj.path.exclude if config_obj.path else ()
-                        ),
-                        paths_to_include=(
-                            config_obj.path.include if config_obj.path else ()
-                        ),
-                    ),
-                ))
-            ))
-
-            await notify_findings(config_obj, results)
-
-            if config_obj.group and token:
-                msg = 'Results will be synced to group: %s'
-                await log('info', msg, config_obj.group)
-
-                success = await persist(
-                    group=config_obj.group,
-                    results=results,
-                    token=token,
-                )
-            else:
-                await log('info', ' '.join((
-                    'In case you want to persist results to Integrates',
-                    'please make sure you set the --token flag in the CLI',
-                    'and the "group" key in the config file'
-                )))
-        except MemoryError:
-            await log('critical', 'Not enough memory could be allocated')
-            success = False
-        except SystemExit:
-            success = False
+    except MemoryError:
+        await log('critical', 'Not enough memory could be allocated')
+        success = False
+    except SystemExit:
+        success = False
 
     monitor_task.cancel()
 

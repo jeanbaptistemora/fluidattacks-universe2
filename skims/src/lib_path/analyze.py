@@ -153,7 +153,7 @@ async def analyze(
         await log('info', 'Files to be tested: %s', len(unique_paths))
 
     results: Tuple[Vulnerability, ...] = tuple(chain.from_iterable(
-        await collect(map(analyze_one_path, unique_paths), workers=64)
+        await collect(map(analyze_one_path, unique_paths), workers=16)
     ))
 
     return results
