@@ -67,8 +67,7 @@ async def add_comment(
     comment_data['modified'] = current_time
 
     if not is_remediation_comment:
-        await aio.ensure_io_bound(
-            mailer.send_comment_mail,
+        await mailer.send_comment_mail(
             comment_data,
             'finding',
             user_email,

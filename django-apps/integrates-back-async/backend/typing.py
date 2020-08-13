@@ -59,6 +59,10 @@ Resources = Dict[str, Union[
     str,
     List[Resource]
 ]]
+MailContent = Dict[str, Union[
+    int, str,
+    List[Dict[str, str]]
+]]
 Tag = Dict[str, Union[Decimal, str, List[str]]]
 InternalName = Dict[str, str]
 ExploitResult = Dict[str, str]

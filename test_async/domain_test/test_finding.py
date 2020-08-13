@@ -36,11 +36,11 @@ pytestmark = [
 
 class FindingTests(TestCase):
 
-    def test_get_email_recipients(self):
+    async def test_get_email_recipients(self):
         comment_type = 'comment'
         finding_id = '436992569'
 
-        test_data = mailer.get_email_recipients(comment_type, finding_id)
+        test_data = await mailer.get_email_recipients(comment_type, finding_id)
         assert isinstance(test_data, list)
         assert isinstance(test_data[0], str)
 

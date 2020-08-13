@@ -36,6 +36,7 @@ from backend.exceptions import (
 )
 from backend.typing import (
     Finding as FindingType,
+    MailContent as MailContentType,
     Historic as HistoricType
 )
 from backend.utils import (
@@ -587,7 +588,7 @@ async def send_new_draft_mail(
     recipients = FI_MAIL_REVIEWERS.split(',')
     recipients += await project_dal.list_internal_managers(project_name)
 
-    email_context = {
+    email_context: MailContentType = {
         'analyst_email': analyst_email,
         'finding_id': finding_id,
         'finding_name': finding_title,
@@ -597,11 +598,9 @@ async def send_new_draft_mail(
         ),
         'project': project_name
     }
-    email_send_thread = threading.Thread(
-        name='New draft email thread',
-        target=mailer.send_mail_new_draft,
-        args=(recipients, email_context))
-    email_send_thread.start()
+    asyncio.create_task(
+        mailer.send_mail_new_draft(recipients, email_context)
+    )
 
 
 def should_send_mail(

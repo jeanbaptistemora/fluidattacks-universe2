@@ -35,7 +35,6 @@ from backend.typing import (
     User as UserType
 )
 from backend.utils import (
-    aio,
     events as event_utils,
     validations
 )
@@ -326,8 +325,7 @@ async def add_comment(
     success = await comment_domain.create(event_id, comment_data, user_info)
     del comment_data['user_id']
     if success:
-        await aio.ensure_io_bound(
-            mailer.send_comment_mail,
+        await mailer.send_comment_mail(
             comment_data,
             'event',
             str(user_info['user_email']),

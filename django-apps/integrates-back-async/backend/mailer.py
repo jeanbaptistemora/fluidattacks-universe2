@@ -1,8 +1,8 @@
 # Standard library
+import asyncio
 import os
 import json
 import logging
-import threading
 from html import escape
 from typing import (
     cast,
@@ -13,6 +13,7 @@ from typing import (
 )
 
 # Third party libraries
+import aioboto3
 import boto3
 import botocore
 from asgiref.sync import async_to_sync
@@ -28,9 +29,9 @@ from backend.dal.comment import CommentType
 from backend.typing import (
     Event as EventType,
     Finding as FindingType,
+    MailContent as MailContentType,
     Project as ProjectType
 )
-from backend.utils import aio
 from fluidintegrates.settings import LOGGING
 
 from __init__ import (
@@ -96,6 +97,52 @@ def _remove_test_projects(
     return context
 
 
+async def _get_recipient_first_name_async(email: str) -> str:
+    first_name = await user_domain.get_data(email, 'first_name')
+    if not first_name:
+        first_name = email.split('@')[0]
+    else:
+        # First name exists in database
+        pass
+    return str(first_name)
+
+
+async def _get_sqs_email_message_async(
+    context: MailContentType,
+    email_to: List[str],
+    tags: List[str],
+) -> Optional[Dict[str, List[Union[str, Dict[str, object]]]]]:
+    project = str(context.get('project', '')).lower()
+    test_proj_list = FI_TEST_PROJECTS.split(',')
+    no_test_context = _remove_test_projects(
+        cast(Dict[str, Union[str, int]], context),
+        test_proj_list)
+    new_context = _escape_context(no_test_context)
+    message: Optional[Dict[str, List[Union[str, Dict[str, object]]]]] = None
+
+    if project not in test_proj_list:
+        message = {
+            'to': [],
+            'global_merge_vars': [],
+            'merge_vars': []
+        }
+        for email in email_to:
+            fname_mail = await _get_recipient_first_name_async(email)
+            merge_var = {
+                'rcpt': email,
+                'vars': [{'name': 'fname', 'content': fname_mail}]
+            }
+            message['to'].append({'email': email})
+            message['merge_vars'].append(merge_var)
+        for key, value in list(new_context.items()):
+            message['global_merge_vars'].append(
+                {'name': key, 'content': value}
+            )
+        message['tags'] = cast(List[Union[Dict[str, object], str]], tags)
+
+    return message
+
+
 def _get_recipient_first_name(email: str) -> str:
     first_name = async_to_sync(user_domain.get_data)(email, 'first_name')
     if not first_name:
@@ -139,6 +186,62 @@ def _get_sqs_email_message(
         message['tags'] = cast(List[Union[Dict[str, object], str]], tags)
 
     return message
+
+
+async def _send_mail_async(
+    template_name: str,
+    email_to: List[str],
+    context: MailContentType,
+    tags: List[str],
+) -> None:
+    message = await _get_sqs_email_message_async(
+        context=context,
+        email_to=email_to,
+        tags=tags,
+    )
+
+    if message:
+        sqs_message = {
+            'api_key': API_KEY,
+            'message': message,
+        }
+
+        try:
+            resource_options = dict(
+                service_name='sqs',
+                aws_access_key_id=FI_AWS_DYNAMODB_ACCESS_KEY,
+                aws_secret_access_key=FI_AWS_DYNAMODB_SECRET_KEY,
+                aws_session_token=os.environ.get('AWS_SESSION_TOKEN'),
+                region_name='us-east-1'
+            )
+            async with aioboto3.client(**resource_options) as sqs:
+                LOGGER.info(
+                    '[mailer]: sending to SQS',
+                    extra={
+                        'extra': {
+                            'message': json.dumps(message),
+                            'MessageGroupId': template_name,
+                        }
+                    })
+                await sqs.send_message(
+                    QueueUrl=QUEUE_URL,
+                    MessageBody=json.dumps(sqs_message),
+                    MessageGroupId=template_name
+                )
+                LOGGER.info(
+                    '[mailer]: mail sent',
+                    extra={
+                        'extra': {
+                            'message': json.dumps(sqs_message["message"]),
+                            'MessageGroupId': template_name,
+                        }
+                    })
+        except (botocore.vendored.requests.exceptions.ConnectionError,
+                botocore.exceptions.ClientError) as exc:
+            LOGGER.exception(exc, extra=dict(extra=locals()))
+    else:
+        # Mail should not be sent if is a test project
+        pass
 
 
 def _send_mail(
@@ -197,8 +300,8 @@ def _send_mail(
         pass
 
 
-def _send_mail_immediately(
-    context: Dict[str, Union[str, int]],
+async def _send_mail_immediately(
+    context: MailContentType,
     email_to: List[str],
     tags: List[str],
     template_name: str,
@@ -211,7 +314,7 @@ def _send_mail_immediately(
 
     result: List[Dict[str, str]] = []
     success: bool = False
-    message = _get_sqs_email_message(
+    message = await _get_sqs_email_message_async(
         context=context,
         email_to=email_to,
         tags=tags,
@@ -243,7 +346,7 @@ def _send_mail_immediately(
     return success
 
 
-def send_comment_mail(
+async def send_comment_mail(
         comment_data: CommentType,
         entity_name: str,
         user_mail: str,
@@ -254,8 +357,8 @@ def send_comment_mail(
             EventType,
             ProjectType
         ] = '') -> None:
-    parent = comment_data['parent']
-    email_context = {
+    parent = str(comment_data['parent'])
+    email_context: MailContentType = {
         'user_email': user_mail,
         'comment': str(comment_data['content']).replace('\n', ' '),
         'comment_type': comment_type,
@@ -264,7 +367,7 @@ def send_comment_mail(
     if entity_name == 'finding':
         finding: Dict[str, FindingType] = cast(Dict[str, FindingType], entity)
         project_name = str(finding.get('projectName', ''))
-        recipients = get_email_recipients(project_name, comment_type)
+        recipients = await get_email_recipients(project_name, comment_type)
 
         is_draft = 'releaseDate' in finding
         email_context['finding_id'] = str(finding.get('findingId', ''))
@@ -286,7 +389,7 @@ def send_comment_mail(
         event = cast(EventType, entity)
         event_id = str(event.get('event_id', ''))
         project_name = str(event.get('project_name', ''))
-        recipients = async_to_sync(project_domain.get_users_to_notify)(
+        recipients = await project_domain.get_users_to_notify(
             project_name, True
         )
         email_context['finding_id'] = event_id
@@ -297,7 +400,7 @@ def send_comment_mail(
 
     elif entity_name == 'project':
         project_name = str(entity)
-        recipients = get_email_recipients(project_name, True)
+        recipients = await get_email_recipients(project_name, True)
         comment_url = f'{BASE_URL}/groups/{project_name}/consulting'
 
     email_context['comment_url'] = comment_url
@@ -306,34 +409,31 @@ def send_comment_mail(
     recipients_customers = [
         recipient
         for recipient in recipients
-        if async_to_sync(authz.get_group_level_role)(
+        if await authz.get_group_level_role(
             recipient, project_name) in ['customer', 'customeradmin']
     ]
     recipients_not_customers = [
         recipient
         for recipient in recipients
-        if async_to_sync(authz.get_group_level_role)(
+        if await authz.get_group_level_role(
             recipient, project_name) not in ['customer', 'customeradmin']
     ]
 
     email_context_customers = email_context.copy()
-    if async_to_sync(authz.get_group_level_role)(
+    if await authz.get_group_level_role(
             user_mail, project_name) not in ['customer', 'customeradmin']:
         email_context_customers['user_email'] = f'Hacker at FluidIntegrates'
-    email_send_thread = threading.Thread(
-        name='New {} email thread'.format(entity_name),
-        target=send_mail_comment,
-        args=(
+    asyncio.create_task(
+        send_mail_comment(
             [recipients_not_customers, recipients_customers],
             [email_context, email_context_customers]
         )
     )
-    email_send_thread.start()
 
 
-def get_email_recipients(group: str, comment_type: Union[str, bool]) -> \
-        List[str]:
-    project_users = async_to_sync(project_domain.get_users_to_notify)(group)
+async def get_email_recipients(
+        group: str, comment_type: Union[str, bool]) -> List[str]:
+    project_users = await project_domain.get_users_to_notify(group)
     recipients: List[str] = []
 
     approvers = FI_MAIL_REVIEWERS.split(',')
@@ -343,7 +443,7 @@ def get_email_recipients(group: str, comment_type: Union[str, bool]) -> \
         analysts = [
             email
             for email in project_users
-            if async_to_sync(authz.get_group_level_role)(
+            if await authz.get_group_level_role(
                 email, group
             ) == 'analyst'
         ]
@@ -354,10 +454,11 @@ def get_email_recipients(group: str, comment_type: Union[str, bool]) -> \
     return recipients
 
 
-def send_mail_new_draft(
+async def send_mail_new_draft(
         email_to: List[str],
-        context: Dict[str, Union[str, int]]) -> None:
-    _send_mail('new-draft', email_to, context=context, tags=GENERAL_TAG)
+        context: MailContentType) -> None:
+    await _send_mail_async(
+        'new-draft', email_to, context=context, tags=GENERAL_TAG)
 
 
 async def send_mail_analytics(*email_to: str, **context: str) -> None:
@@ -370,11 +471,10 @@ async def send_mail_analytics(*email_to: str, **context: str) -> None:
             }
         })
 
-    await aio.ensure_io_bound(
-        function=_send_mail_immediately,
+    await _send_mail_immediately(
         template_name='charts-report',
-        email_to=email_to,
-        context=context,
+        email_to=list(email_to),
+        context=cast(MailContentType, context),
         tags=GENERAL_TAG,
     )
 
@@ -417,13 +517,13 @@ def send_mail_remediate_finding(
     )
 
 
-def send_mail_comment(
+async def send_mail_comment(
         email_to: List[List[str]],
-        context: List[Dict[str, Union[str, int]]]) -> None:
-    _send_mail(
+        context: List[MailContentType]) -> None:
+    await _send_mail_async(
         'new-comment', email_to[0], context=context[0], tags=COMMENTS_TAG
     )
-    _send_mail(
+    await _send_mail_async(
         'new-comment', email_to[1], context=context[1], tags=COMMENTS_TAG
     )
 

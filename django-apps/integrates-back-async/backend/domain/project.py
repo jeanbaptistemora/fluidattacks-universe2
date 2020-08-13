@@ -78,8 +78,7 @@ async def add_comment(
         ]
         if parent not in project_comments:
             raise InvalidCommentParent()
-    await aio.ensure_io_bound(
-        mailer.send_comment_mail,
+    await mailer.send_comment_mail(
         comment_data,
         'project',
         email,
