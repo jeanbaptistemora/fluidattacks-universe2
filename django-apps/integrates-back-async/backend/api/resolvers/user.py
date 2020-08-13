@@ -318,11 +318,18 @@ async def resolve_for_organization(  # pylint: disable=too-many-arguments
     user_email: str,
     organization_id: str = '',
     as_field: bool = False,
-    selection_set: object = None
+    selection_set: object = None,
+    field_name: str = 'users'
 ) -> UserType:
     email = user_email.lower()
     return await resolve(
-        info, entity, email, organization_id, as_field, selection_set
+        info,
+        entity,
+        email,
+        organization_id,
+        as_field,
+        selection_set,
+        field_name
     )
 
 

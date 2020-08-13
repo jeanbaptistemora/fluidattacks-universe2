@@ -3,7 +3,12 @@ type Event {
     id: String
     analyst: String
     client: String
-    comments: [Comment!] @deprecated(reason: "Right now, you can query comments using both the 'comments' and 'consulting' keywords. After 2021-02-06, the 'comments' keyword will be invalid.")
+    comments: [Comment!] @deprecated(
+        reason: """
+        Right now, you can query comments using both the 'comments' and 'consulting' keywords.
+        After 2021-02-06, the 'comments' keyword will be invalid.
+        """
+    )
     consulting: [Consult!]
     projectName: String
     clientProject: String
@@ -33,7 +38,10 @@ type Finding {
     closedVulnerabilities: Int
     comments: [Comment]
         @deprecated(
-            reason: "Right now, you can query comments using both the 'comments' and 'consulting' keywords. After 2021-02-06, the 'comments' keyword will be invalid."
+            reason: """
+            Right now, you can query comments using both the 'comments' and 'consulting' keywords.
+            After 2021-02-06, the 'comments' keyword will be invalid.
+            """
         )
     compromisedAttributes: String
     compromisedRecords: Int
@@ -91,7 +99,13 @@ type Organization {
     maxNumberAcceptations: Int
     minAcceptanceSeverity: Float!
     name: String!
-    users: [User]
+    stakeholders: [Stakeholder]
+    users: [User] @deprecated(
+        reason: """
+        Right now, you can query users using both the 'users' and 'stakeholders' keywords.
+        After 2021-02-06, the 'users' keyword will be invalid.
+        """
+    )
 }
 
 "Resource type definition"
@@ -136,7 +150,10 @@ type Project {
     subscription: String
     comments: [Comment!]
         @deprecated(
-            reason: "Right now, you can query comments using both the 'comments' and 'consulting' keywords. After 2021-02-06, the 'comments' keyword will be invalid."
+            reason: """
+            Right now, you can query comments using both the 'comments' and 'consulting' keywords.
+            After 2021-02-06, the 'comments' keyword will be invalid.
+            """
         )
     consulting: [Consult!]
     tags: [String!]
@@ -160,7 +177,10 @@ type Project {
     totalFindings: Int
     users: [User!]
         @deprecated(
-            reason: "Right now, you can query users using both the 'users' and 'stakeholders' keywords. After 2021-02-06, the 'users' keyword will be invalid."
+            reason: """
+            Right now, you can query users using both the 'users' and 'stakeholders' keywords.
+            After 2021-02-06, the 'users' keyword will be invalid.
+            """
         )
     userRole: String
     totalTreatment: GenericScalar

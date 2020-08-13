@@ -36,7 +36,7 @@ export interface ILastLogin {
   value: number[];
 }
 
-export interface IUserAttrs {
+export interface IStakeholderAttrs {
   email: string;
   firstLogin: string;
   lastLogin: ILastLogin;

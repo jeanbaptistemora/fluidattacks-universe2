@@ -17,8 +17,19 @@ import { msgError, msgSuccess } from "../../../../utils/notifications";
 import { sortLastLogin } from "../../../../utils/sortHelpers";
 import translate from "../../../../utils/translations/translate";
 import { addUserModal as AddUserModal } from "../../components/AddUserModal/index";
-import { ADD_USER_MUTATION, EDIT_USER_MUTATION, GET_ORGANIZATION_USERS, REMOVE_USER_MUTATION } from "./queries";
-import { IAddUserAttrs, IEditUserAttrs, IOrganizationUsers, IRemoveUserAttrs, IUserAttrs } from "./types";
+import {
+  ADD_USER_MUTATION,
+  EDIT_USER_MUTATION,
+  GET_ORGANIZATION_STAKEHOLDERS,
+  REMOVE_USER_MUTATION,
+} from "./queries";
+import {
+  IAddUserAttrs,
+  IEditUserAttrs,
+  IOrganizationUsers,
+  IRemoveUserAttrs,
+  IStakeholderAttrs,
+} from "./types";
 
 const tableHeaders: IHeaderConfig[] = [
   {
@@ -102,7 +113,7 @@ const organizationUsers: React.FC<IOrganizationUsers> = (props: IOrganizationUse
   };
 
   // GraphQL Operations
-  const { data, refetch: refetchUsers } = useQuery(GET_ORGANIZATION_USERS, {
+  const { data, refetch: refetchUsers } = useQuery(GET_ORGANIZATION_STAKEHOLDERS, {
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
         msgError(translate.t("group_alerts.error_textsad"));
@@ -167,7 +178,7 @@ const organizationUsers: React.FC<IOrganizationUsers> = (props: IOrganizationUse
   });
 
   // Auxiliary elements
-  const handleSubmit: ((values: IUserAttrs) => void) = (values: IUserAttrs): void => {
+  const handleSubmit: ((values: IStakeholderAttrs) => void) = (values: IStakeholderAttrs): void => {
     closeUserModal();
     if (userModalAction === "add") {
       grantUserAccess({ variables: {
@@ -194,9 +205,9 @@ const organizationUsers: React.FC<IOrganizationUsers> = (props: IOrganizationUse
   };
 
   // Render Elements
-  const userList: IUserAttrs[] = _.isUndefined(data) || _.isEmpty(data)
+  const stakeholdersList: IStakeholderAttrs[] = _.isUndefined(data) || _.isEmpty(data)
     ? []
-    : formatUserlist(data.organization.users);
+    : formatUserlist(data.organization.stakeholders);
 
   return (
     <React.StrictMode>
@@ -243,7 +254,7 @@ const organizationUsers: React.FC<IOrganizationUsers> = (props: IOrganizationUse
                 <DataTableNext
                   id="tblUsers"
                   bordered={true}
-                  dataset={userList}
+                  dataset={stakeholdersList}
                   exportCsv={true}
                   headers={tableHeaders}
                   pageSize={15}

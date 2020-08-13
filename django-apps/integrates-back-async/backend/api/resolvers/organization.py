@@ -47,6 +47,7 @@ from backend.typing import (
     Organization as OrganizationType,
     Project as ProjectType,
     SimplePayload as SimplePayloadType,
+    Stakeholder as StakeholderType,
     User as UserType
 )
 from backend.utils import aio
@@ -395,6 +396,39 @@ async def _get_users(
                 )
             )
             for user_email in organization_users
+        ])
+    )
+
+
+@rename_kwargs({'identifier': 'organization_id'})
+@enforce_organization_level_auth_async
+@get_entity_cache_async
+async def _get_stakeholders(
+    info: GraphQLResolveInfo,
+    organization_id: str,
+    requested_fields: List[FieldNode],
+    **__: Any
+) -> List[StakeholderType]:
+    organization_stakeholders = await org_domain.get_users(organization_id)
+
+    selection_set = SelectionSetNode()
+    selection_set.selections = requested_fields
+
+    return cast(
+        List[StakeholderType],
+        await asyncio.gather(*[
+            asyncio.create_task(
+                user_loader.resolve_for_organization(
+                    info,
+                    'ORGANIZATION',
+                    user_email,
+                    organization_id=organization_id,
+                    as_field=True,
+                    selection_set=selection_set,
+                    field_name='stakeholders'
+                )
+            )
+            for user_email in organization_stakeholders
         ])
     )
 
