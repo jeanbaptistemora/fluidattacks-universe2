@@ -119,6 +119,7 @@ async def execute_skims(config: SkimsConfig, token: str) -> bool:
                 for store in stores.values()
                 async for result in store.iterate()
             ]),
+            stores=stores,
             token=token,
         )
     else:

@@ -6,6 +6,7 @@ import os
 import random
 import sys
 from typing import (
+    Dict,
     Tuple,
 )
 
@@ -32,6 +33,9 @@ from integrates.domain import (
     do_release_finding,
     get_closest_finding_id,
 )
+from state.ephemeral import (
+    EphemeralStore,
+)
 from utils.logs import (
     log,
 )
@@ -57,12 +61,19 @@ def get_root(vulnerability: Vulnerability) -> str:
     raise NotImplementedError(f'Not implemented for: {vulnerability.kind}')
 
 
-def get_affected_systems(
-    results: Tuple[Vulnerability, ...],
-) -> Tuple[str, ...]:
-    affected_systems: Tuple[str, ...] = tuple(set(map(get_root, results)))
+async def get_affected_systems(store: EphemeralStore) -> str:
+    """Compute a list of systems from the provided store.
 
-    return affected_systems
+    :param store: Store to read data from
+    :type store: EphemeralStore
+    :return: A new-line separated string with the affected systems
+    :rtype: str
+    """
+    affected_systems: Tuple[str, ...] = tuple({
+        get_root(result) async for result in store.iterate()
+    })
+
+    return '\n'.join(affected_systems)
 
 
 async def upload_evidences(
@@ -183,14 +194,29 @@ async def persist_finding(
     finding: FindingEnum,
     group: str,
     results: Tuple[Vulnerability, ...],
+    store: EphemeralStore,
 ) -> bool:
-    success: bool = False
-    has_results: bool = bool(results)
+    """Persist a finding to Integrates
 
-    await log('info', 'persisting: %s, %s results', finding.name, len(results))
+    :param finding: The finding to persist
+    :type finding: FindingEnum
+    :param group: The group whose state is to be synced
+    :type group: str
+    :param results: Tuple with the source data to persist
+    :type results: Tuple[Vulnerability, ...]
+    :param store: Store to read data from
+    :type store: EphemeralStore
+    :return: A boolean indicating success
+    :rtype: bool
+    """
+    success: bool = False
+    store_length: int = await store.length()
+    has_results: bool = store_length > 0
+
+    await log('info', 'persisting: %s, %s results', finding.name, store_length)
 
     finding_id: str = await get_closest_finding_id(
-        affected_systems='\n'.join(get_affected_systems(results)),
+        affected_systems=await get_affected_systems(store),
         create_if_missing=has_results,
         finding=finding,
         group=group,
@@ -242,25 +268,35 @@ async def persist(
     *,
     group: str,
     results: Tuple[Vulnerability, ...],
+    stores: Dict[FindingEnum, EphemeralStore],
     token: str,
 ) -> bool:
+    """Persist all findings with the data extracted from the store.
+
+    :param group: The group whose state is to be synced
+    :type group: str
+    :param results: Tuple with the source data to persist
+    :type results: Tuple[Vulnerability, ...]
+    :param stores: A mapping of findings to results store
+    :type stores: Dict[FindingEnum, EphemeralStore]
+    :param token: Integrates API token
+    :type token: str
+    :return: A boolean indicating success
+    :rtype: bool
+    """
     create_session(api_token=token)
 
     await verify_permissions(group=group)
 
-    success: bool = all(await collect(
+    success: bool = all(await collect(tuple(
         persist_finding(
             finding=finding,
             group=group,
-            results=finding_results,
+            results=results,
+            store=stores[finding],
         )
         for finding in FindingEnum
-        for finding_results in [tuple(
-            result
-            for result in results
-            if result.finding == finding
-        )]
-    ))
+    )))
 
     return success
 
