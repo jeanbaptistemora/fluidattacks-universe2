@@ -6,9 +6,6 @@ from asyncio import (
     sleep,
     Task,
 )
-from itertools import (
-    chain,
-)
 import logging
 from os import (
     chdir,
@@ -18,7 +15,7 @@ from os.path import (
     abspath,
 )
 from typing import (
-    Tuple,
+    Dict,
 )
 
 # Third party imports
@@ -40,6 +37,8 @@ from lib_path.analyze import (
     analyze as analyze_paths,
 )
 from state.ephemeral import (
+    EphemeralStore,
+    get_ephemeral_store,
     reset as reset_ephemeral_state,
 )
 from utils.logs import (
@@ -48,8 +47,8 @@ from utils.logs import (
     set_level,
 )
 from utils.model import (
+    FindingEnum,
     SkimsConfig,
-    Vulnerability,
     VulnerabilityKindEnum,
 )
 from zone import (
@@ -91,20 +90,23 @@ async def execute_skims(config: SkimsConfig, token: str) -> bool:
     """
     success: bool = True
 
-    results: Tuple[Vulnerability, ...] = tuple(chain.from_iterable(
-        await collect((
-            analyze_paths(
-                paths_to_exclude=(
-                    config.path.exclude if config.path else ()
-                ),
-                paths_to_include=(
-                    config.path.include if config.path else ()
-                ),
+    stores: Dict[FindingEnum, EphemeralStore] = {
+        finding: get_ephemeral_store() for finding in FindingEnum
+    }
+
+    await collect((
+        analyze_paths(
+            paths_to_exclude=(
+                config.path.exclude if config.path else ()
             ),
-        ))
+            paths_to_include=(
+                config.path.include if config.path else ()
+            ),
+            stores=stores,
+        ),
     ))
 
-    await notify_findings(config, results)
+    await notify_findings(config, stores)
 
     if config.group and token:
         msg = 'Results will be synced to group: %s'
@@ -112,7 +114,11 @@ async def execute_skims(config: SkimsConfig, token: str) -> bool:
 
         success = await persist(
             group=config.group,
-            results=results,
+            results=tuple([
+                result
+                for store in stores.values()
+                async for result in store.iterate()
+            ]),
             token=token,
         )
     else:
@@ -128,14 +134,14 @@ async def execute_skims(config: SkimsConfig, token: str) -> bool:
 
 async def notify_findings(
     config: SkimsConfig,
-    results: Tuple[Vulnerability, ...],
+    stores: Dict[FindingEnum, EphemeralStore],
 ) -> None:
     """Print user-friendly messages about the results found.
 
     :param config: Skims configuration object
     :type config: SkimsConfig
-    :param results: Results to be shown
-    :type results: Tuple[Vulnerability, ...]
+    :param stores: Results to be shown
+    :type stores: Dict[FindingEnum, EphemeralStore]
     """
 
     async def dump(
@@ -152,17 +158,16 @@ async def notify_findings(
         else:
             await log('info', '%s: %s, %s', title, what, where)
 
-    await collect(
-        dump(
-            kind=result.kind,
-            snippet=result.skims_metadata.snippet,
-            title=t(result.finding.value.title),
-            what=result.what,
-            where=result.where,
-        )
-        for result in results
-        if result.skims_metadata
-    )
+    for store in stores.values():
+        async for result in store.iterate():
+            if result.skims_metadata:
+                await dump(
+                    kind=result.kind,
+                    snippet=result.skims_metadata.snippet,
+                    title=t(result.finding.value.title),
+                    what=result.what,
+                    where=result.where,
+                )
 
 
 async def main(

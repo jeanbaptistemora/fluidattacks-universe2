@@ -20,6 +20,7 @@ from typing import (
 # Third party libraries
 from aioextensions import (
     collect,
+    resolve,
 )
 
 # Local imports
@@ -29,6 +30,9 @@ from lib_path import (
     f060,
     f061,
     f117,
+)
+from state.ephemeral import (
+    EphemeralStore,
 )
 from utils.function import (
     never_concurrent,
@@ -42,6 +46,7 @@ from utils.logs import (
     log,
 )
 from utils.model import (
+    FindingEnum,
     Vulnerability,
 )
 from utils.string import (
@@ -170,14 +175,16 @@ async def analyze(
     *,
     paths_to_exclude: Tuple[str, ...],
     paths_to_include: Tuple[str, ...],
-) -> Tuple[Vulnerability, ...]:
+    stores: Dict[FindingEnum, EphemeralStore],
+) -> Dict[FindingEnum, EphemeralStore]:
     unique_paths: Set[str] = await resolve_paths(
         exclude=paths_to_exclude,
         include=paths_to_include,
     )
 
-    results: Tuple[Vulnerability, ...] = tuple(chain.from_iterable(
-        await collect(map(analyze_one_path, unique_paths), workers=16)
-    ))
+    results: Awaitable[Tuple[Vulnerability, ...]]
+    for results in resolve(map(analyze_one_path, unique_paths), workers=8):
+        for result in await results:
+            await stores[result.finding].store(result)
 
-    return results
+    return stores

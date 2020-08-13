@@ -7,6 +7,9 @@ from operator import (
     methodcaller,
 )
 import os
+from shutil import (
+    rmtree,
+)
 from typing import (
     Awaitable,
     Callable,
@@ -19,6 +22,7 @@ import aiofiles
 from aioextensions import (
     collect,
     unblock,
+    unblock_cpu,
 )
 
 # Local libraries
@@ -74,7 +78,7 @@ async def mkdir(name: str, mode: int = 0o777, exist_ok: bool = False) -> None:
 
 
 async def rmdir(name: str) -> None:
-    return await unblock(os.removedirs, name)
+    return await unblock_cpu(rmtree, name)
 
 
 async def recurse_dir(path: str) -> Tuple[str, ...]:
