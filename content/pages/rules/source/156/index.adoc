@@ -24,8 +24,6 @@ as it could lead a source code leak to putting critical systems in jeopardy.
 
 * [inner]#link:/web/findings/009/[F009. Sensitive information in source code]#
 
-* [inner]#link:/web/findings/016/[F016. Non-parameterized cryptographic key]#
-
 == References
 
 . [[r1]] link:https://cwe.mitre.org/data/definitions/259.html[CWE-259: Use of Hard-coded Password]

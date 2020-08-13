@@ -1,7 +1,7 @@
 :slug: rules/185/
 :category: data
 :description: This requirement establishes the importance of protecting sensitive data using secure cryptographic mechanisms to avoid information leakages.
-:keywords: GDPR, Sensitive, Information, Encrypt, ASVS, CWE, Rules, Ethical Hacking, Pentesting
+:keywords: GDPR, Sensitive, Information, Encrypt, ASVS, CWE, PCI DSS, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R185. Encrypt sensitive information
@@ -87,3 +87,6 @@ V8.3 Sensitive Private Data.(8.3.7)]
 Verify that sensitive or private information that is required to be encrypted,
 is encrypted using approved algorithms that provide both confidentiality and
 integrity.
+
+. [[r11]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 2.3]
+Encrypt all non-console administrative access using strong cryptography.

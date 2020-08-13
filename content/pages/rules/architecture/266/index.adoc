@@ -134,3 +134,7 @@ the application or *API*, including pre-flight *OPTIONS*.
 . [[r15]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 2.2.2]
 Enable only necessary services, protocols, daemons, etc.,
 as required for the function of the system.
+
+. [[r16]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 2.2.5]
+Remove all unnecessary functionality, such as scripts, drivers, features,
+subsystems, file systems, and unnecessary web servers.

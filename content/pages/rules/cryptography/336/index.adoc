@@ -1,7 +1,7 @@
 :slug: rules/336/
 :category: cryptography
 :description: This requirement establishes the importance of disabling out-of-date or insecure versions of TLS and SSL protocols.
-:keywords: SSL, Version, Protocol, TLS, CWE, ASVS, Rules, Ethical Hacking, Pentesting
+:keywords: SSL, Version, Protocol, TLS, CWE, ASVS, OWASP, PCI DSS, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R336. Disable insecure TLS versions
@@ -82,3 +82,7 @@ including for management ports, monitoring, authentication, *API*,
 or web service calls, database, cloud, serverless, mainframe, external,
 and partner connections.
 The server must not fall back to insecure or unencrypted protocols.
+
+. [[r10]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 2.2.2]
+Enable only necessary services, protocols, daemons, etc.,
+as required for the function of the system.

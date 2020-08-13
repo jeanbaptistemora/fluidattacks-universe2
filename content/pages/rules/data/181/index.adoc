@@ -1,7 +1,7 @@
 :slug: rules/181/
 :category: data
 :description: This requirement establishes the importance of using secure protocols to perform sensitive information transmission.
-:keywords: Transmission, Data, Protocols, Information, ASVS, CWE, Ethical Hacking, Pentesting
+:keywords: Transmission, Data, Protocols, Information, ASVS, CWE, PCI DSS, Ethical Hacking, Pentesting
 :rules: yes
 
 = R181. Transmit data using secure protocols
@@ -190,3 +190,6 @@ Verify that the message payload is signed using *WS-Security* to ensure
 reliable transport between client and service.
 
 . [[r24]] link:https://pcinetwork.org/forum/index.php?threads/pci-dss-3-0-6-5-4-insecure-communications.660/[PCI 6.5.4 Insecure communications/transport layer protection]
+
+. [[r25]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 2.3]
+Encrypt all non-console administrative access using strong cryptography.
