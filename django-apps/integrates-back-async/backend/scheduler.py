@@ -147,6 +147,9 @@ def get_status_vulns_by_time_range(
                 resp['closed'] += 1
             elif last_state['state'] == 'DELETED':
                 resp['found'] -= 1
+            elif last_state['state'] == 'open' and len(historic_states) > 1:
+                if historic_states[-2]['state'] == 'closed':
+                    resp['found'] += 1
         if first_day <= historic_states[0]['date'] <= last_day:
             resp['found'] += 1
     resp['accepted'] = get_accepted_vulns(
@@ -250,11 +253,6 @@ async def create_register_by_week(
                 datetime.strptime(last_day, '%Y-%m-%d %H:%M:%S') +
                 timedelta(days=7)
             )
-    if project == 'bwapp':
-        LOGGER.info(
-            'local function information for bwapp group',
-            extra=dict(extra=locals())
-        )
     return create_data_format_chart(all_registers)
 
 
