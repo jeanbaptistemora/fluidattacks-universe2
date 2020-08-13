@@ -90,6 +90,7 @@ def alter_state__aux(row, state, cache, writer):
                 row["comments"] = cache["comments"]
             else:
                 row = cache
+            row.pop(None, None)
             writer.writerow(row)
             state, cache = "init", None
         else:
