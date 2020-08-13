@@ -36,14 +36,14 @@ export const ADD_USER_MUTATION: DocumentNode = gql`
   }
   `;
 
-export const EDIT_USER_MUTATION: DocumentNode = gql`
-  mutation EditUserOrganizationMutation(
+export const EDIT_STAKEHOLDER_MUTATION: DocumentNode = gql`
+  mutation EditStakeholderOrganizationMutation(
     $email: String!,
     $organizationId: String!,
     $phoneNumber: String,
     $role: OrganizationRole!
   ) {
-    editUserOrganization (
+    editStakeholderOrganization (
       organizationId: $organizationId,
       phoneNumber: $phoneNumber,
       role: $role

@@ -12,8 +12,8 @@ export interface IAddUserAttrs {
   };
 }
 
-export interface IEditUserAttrs {
-  editUserOrganization: {
+export interface IEditStakeholderAttrs {
+  editStakeholderOrganization: {
     modifiedUser: {
       email: string;
     };

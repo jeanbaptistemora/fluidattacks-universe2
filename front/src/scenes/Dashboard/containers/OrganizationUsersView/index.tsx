@@ -19,13 +19,13 @@ import translate from "../../../../utils/translations/translate";
 import { addUserModal as AddUserModal } from "../../components/AddUserModal/index";
 import {
   ADD_USER_MUTATION,
-  EDIT_USER_MUTATION,
+  EDIT_STAKEHOLDER_MUTATION,
   GET_ORGANIZATION_STAKEHOLDERS,
   REMOVE_USER_MUTATION,
 } from "./queries";
 import {
   IAddUserAttrs,
-  IEditUserAttrs,
+  IEditStakeholderAttrs,
   IOrganizationUsers,
   IRemoveUserAttrs,
   IStakeholderAttrs,
@@ -142,13 +142,13 @@ const organizationUsers: React.FC<IOrganizationUsers> = (props: IOrganizationUse
     onError: handleMtError,
   });
 
-  const [editUser] = useMutation(EDIT_USER_MUTATION, {
-    onCompleted: (mtResult: IEditUserAttrs): void => {
-      if (mtResult.editUserOrganization.success) {
+  const [editStakeholder] = useMutation(EDIT_STAKEHOLDER_MUTATION, {
+    onCompleted: (mtResult: IEditStakeholderAttrs): void => {
+      if (mtResult.editStakeholderOrganization.success) {
         refetchUsers()
           .catch();
         mixpanel.track("EditUserOrganizationAccess", { Organization: organizationName, User: userName });
-        const { email } = mtResult.editUserOrganization.modifiedUser;
+        const { email } = mtResult.editStakeholderOrganization.modifiedUser;
         msgSuccess(
           `${email} ${translate.t("organization.tabs.users.editButton.success")}`,
           translate.t("organization.tabs.users.successTitle"),
@@ -187,7 +187,7 @@ const organizationUsers: React.FC<IOrganizationUsers> = (props: IOrganizationUse
       } })
         .catch();
     } else {
-      editUser({ variables: {
+      editStakeholder({ variables: {
         ...values,
         organizationId,
       } })

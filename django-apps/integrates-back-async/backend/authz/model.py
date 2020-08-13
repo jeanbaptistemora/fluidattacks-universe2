@@ -481,6 +481,8 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
 ORGANIZATION_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
     admin=dict(
         actions={
+            ('backend_api_resolvers_organization__do_'
+                'edit_stakeholder_organization'),
             'backend_api_resolvers_organization__do_edit_user_organization',
             ('backend_api_resolvers_organization__do_'
                 'grant_user_organization_access'),
@@ -506,6 +508,8 @@ ORGANIZATION_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
     ),
     customeradmin=dict(
         actions={
+            ('backend_api_resolvers_organization__do_'
+                'edit_stakeholder_organization'),
             'backend_api_resolvers_organization__do_edit_user_organization',
             ('backend_api_resolvers_organization__do_'
                 'grant_user_organization_access'),

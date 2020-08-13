@@ -182,7 +182,7 @@ type Mutation {
         phoneNumber: String!
     ): EditStakeholderPayload! @deprecated(reason:
         """
-        Right now, you can add a project comment using both the 'editUser'
+        Right now, you can edit a project user/stakeholder using both the 'editUser'
         and 'editStakeholder' query. After 2021-02-06, the 'editUser'
         query will be invalid.
         """)
@@ -192,7 +192,18 @@ type Mutation {
         phoneNumber: String
         role: OrganizationRole!
         userEmail: String!
-    ): EditUserPayload!
+    ): EditUserPayload! @deprecated(reason:
+        """
+        Right now, you can edit a project user/stakeholder using both the 'editUserOrganization'
+        and 'editStakeholderOrganization' query. After 2021-02-06, the 'editUserOrganization'
+        query will be invalid.
+        """)
+    editStakeholderOrganization(
+        organizationId: String!
+        phoneNumber: String
+        role: OrganizationRole!
+        userEmail: String!
+    ): EditStakeholderPayload!
 
     addUser(
         email: String!

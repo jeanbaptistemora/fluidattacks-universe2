@@ -50,6 +50,9 @@ MUTATION.set_field(
     'createOrganization', organization.resolve_organization_mutation
 )
 MUTATION.set_field(
+    'editStakeholderOrganization', organization.resolve_organization_mutation
+)
+MUTATION.set_field(
     'editUserOrganization', organization.resolve_organization_mutation
 )
 MUTATION.set_field(
