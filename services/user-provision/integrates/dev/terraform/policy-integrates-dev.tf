@@ -165,6 +165,11 @@ data "aws_iam_policy_document" "integrates-dev-policy-data" {
     actions   = ["cloudfront:*"]
     resources = ["*"]
   }
+  statement {
+    effect  = "Allow"
+    actions = ["devicefarm:GetProject"]
+    resources = ["arn:aws:devicefarm:*"]
+  }
 
   # ACM create and read certificate
   statement {
