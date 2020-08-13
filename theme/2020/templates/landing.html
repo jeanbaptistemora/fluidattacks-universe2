@@ -44,16 +44,16 @@
 
 {% block content %}
 
-<div class="mw9 center pv5">
+<div class="mw9 center h6 pv5 mv5">
   <div class="tl pl3-l pr0-l">
     <h1 class="c-fluid-bk center roboto w-100 tc ph3-ns ph3 f1-l f2 lh-solid mw7">
       Comprehensive Hacking at the Speed of your Business
     </h1>
   </div>
   <div class="pt4 pb3 pl3-l">
-    <h2 class="c-fluid-bk tl-l tc f1-l f2 roboto">
+    <h1 class="c-fluid-bk tl-l tc f1-l f2 roboto">
       Products
-    </h2>
+    </h1>
   </div>
   <div class="pl3-l pr0-l dib w-100">
     <div class="mh0-l center fl min-vh-height">
@@ -93,7 +93,7 @@
       </div>
     </div>
     <div class="mh0-l center fl min-vh-height">
-      <ul class="list fr center w-60-l w-100 ph0-l ph3 pb4">
+      <ul class="list fr center w-60-l w-100 ph0-l ph3">
         <li>
           <img
           class="fr"
@@ -129,7 +129,7 @@
       </div>
     </div>
     <div class="mh0-l center fl min-vh-height">
-      <ul class="list fr center w-60-l w-100 ph0-l ph3 pb4">
+      <ul class="list fr center w-60-l w-100 ph0-l ph3">
         <li>
           <img
           class="fr"
@@ -166,15 +166,47 @@
   </div>
 </div>
 <!-- Services -->
-<div class="mw9 center pb5">
-  <div class="pt4 pb3 pl3-l">
-    <h2 class="c-fluid-bk tl-l tc f1-l f2 roboto">
+<div class="mw9 center h6 pv5 mv5">
+  <div class="tl fr-l w-40-l">
+    <h2 class="c-fluid-bk center roboto w-100 tl-l tc f2-ns f3 mb0 pb4">
       Services
     </h2>
+    <div class="continuous dn-l">
+      <ul class="list tc w-40-l w-100 ph2">
+        <li>
+          <img
+          src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/services/service-continuous.png"
+          alt="Young hacker smiling">
+        </li>
+      </ul>
+    </div>
+    <div class="oneshot dn">
+      <ul class="list tc w-40-l w-100 ph2 dn-l">
+        <li>
+          <img
+          src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/services/service-one-shot.png"
+          alt="Young hacker smiling">
+        </li>
+      </ul>
+    </div>
+    <ul class="list pl0-ns pl3 tl tc-m ma0">
+      <li class="pr2 di">
+        <input type="radio" id="op5" class="dn" name="menu2" checked />
+        <label class="index5 c-fluid-gray f4-ns f5 roboto no-underline fw3 hv-fluid-dkred pointer" for="op5">
+          Continuous Hacking
+        </label>
+      </li>
+      <li class="ph2 di">
+        <input type="radio" id="op6" class="dn transparent" name="menu2"/>
+        <label class="index6 c-fluid-gray f4-ns f5 roboto no-underline fw3 hv-fluid-dkred pointer" for="op6">
+          One-Shot Hacking
+        </label>
+      </li>
+    </ul>
   </div>
   <div class="pl3-l pr0-l dib w-100">
-    <div class="mh0-l center fl min-vh-height">
-      <ul class="list fr center w-60-l w-100 ph0-l ph3 pb4">
+    <div class="continuous w-100 mh0-l ph3-l center fl">
+      <ul class="list fl center w-40-l w-100 ph2 db-l dn">
         <li>
           <img
           class="fr-l"
@@ -182,41 +214,38 @@
           alt="Young hacker smiling">
         </li>
       </ul>
-      <div class="parallax_continuous">
-        <ul class="list fl-l w-40-l w-70-m w-100 pl0-l ph3 center tl-ns tc">
-          <li>
-            <h2 class="roboto c-fluid-bk f2-ns f3 strong mv0">
-              Continuous Hacking
-            </h2>
-          </li>
-          <li>
-            <p class="roboto fw1 tl f3-ns f5 lh-2">
-              Vulnerabilities and security issues are continuously detected
-              and reported during the entire software development cycle.
-              Fluid Attacks runs comprehensive testing
-              through SAST, DAST, IAST and SCA techniques,
-              detecting all vulnerabilities with no false positives.
-            </p>
-          </li>
-          <li class="pt4-l">
-            <div class="dib ph2">
-              <a href="{{ SITEURL }}/services/continuous-hacking/">
-                <button class="button-white tl roboto fw7">Learn More</button>
-              </a>
-            </div>
-            <div class="dib ph2">
-              <a href="{{ SITEURL }}/contact-us/">
-                <button class="outline-transparent bannerbt hv-bt-fluid-rd pointer white pv2 ph4 roboto fw7 f5 dib bt-trans br2 bc-fluid-red ba">
+      <ul class="list fr-l w-40-l w-70-m w-100 pl0-l ph3 center tl-ns tc">
+        <li>
+          <p class="roboto fw1 tl f3-ns f5 lh-2">
+            Vulnerabilities and security issues are continuously detected
+            and reported during the entire software development cycle.
+            Fluid Attacks runs comprehensive testing
+            through SAST, DAST, IAST and SCA techniques,
+            detecting all vulnerabilities with no false positives.
+          </p>
+        </li>
+        <li class="pt4-l">
+          <div class="dib">
+            <a class="no-underline pr4 b roboto dib-l dn"
+               href="{{ SITEURL }}/services/continuous-hacking/">
+              <span class="br2 bg-white bc-fluid-red ba hv-fluid-rd hv-fluid-bd ph4 pv2 bt-trans c-dkred pointer mt2">
+                Learn More
+              </span>
+            </a>
+          </div>
+          <div class="dib tc w-auto-l w-100">
+            <a class="roboto fw1 f5 no-underline c-fluid-bk hv-fluid-dkred"
+               href="{{ SITEURL }}/contact-us/">
+              <span class="br2 bannerbt hv-bt-fluid-rd ph4-l ph5 pv2 bt-trans white b roboto pointer mt2">
                   Get a Demo
-                </button>
-              </a>
-            </div>
-          </li>
-        </ul>
-      </div>
+              </span>
+            </a>
+          </div>
+        </li>
+      </ul>
     </div>
-    <div class="mh0-l center fl min-vh-height">
-      <ul class="list fr center w-60-l w-100 ph0-l ph3 pb4">
+    <div class="oneshot w-100 mh0-l ph3-l center dn fl">
+      <ul class="list fl center w-40-l w-100 ph2 db-l dn">
         <li>
           <img
           class="fr"
@@ -224,36 +253,33 @@
           alt="Young hacker smiling">
         </li>
       </ul>
-      <div class="parallax_oneshot">
-        <ul class="list fl-l w-40-l w-70-m w-100 pl0-l ph3 center tl-ns tc">
-          <li>
-            <h2 class="roboto c-fluid-bk f2-ns f3 strong mv0">
-              One Shot Hacking
-            </h2>
-          </li>
-          <li>
-            <p class="roboto fw1 tl f3-ns f5 lh-2">
-              Fluid Attacks detects and reports vulnerabilities within one
-              specific version of your application. All existing vulnerabilities
-              are detected with no false positives.
-            </p>
-          </li>
-          <li class="pt4-l">
-            <div class="dib ph2">
-              <a href="{{ SITEURL }}/services/one-shot-hacking/">
-                <button class="button-white tl roboto fw7">Learn More</button>
-              </a>
-            </div>
-            <div class="dib ph2">
-              <a href="{{ SITEURL }}/contact-us/">
-                <button class="outline-transparent bannerbt hv-bt-fluid-rd pointer white pv2 ph4 roboto fw7 f5 dib bt-trans br2 bc-fluid-red ba">
+      <ul class="list fr-l w-40-l w-70-m w-100 pl0-l ph3 center tl-ns tc">
+        <li>
+          <p class="roboto fw1 tl f3-ns f5 lh-2">
+            Fluid Attacks detects and reports vulnerabilities within one
+            specific version of your application. All existing vulnerabilities
+            are detected with no false positives.
+          </p>
+        </li>
+        <li class="pt4-l">
+          <div class="dib">
+            <a class="no-underline pr4 b roboto dib-l dn"
+               href="{{ SITEURL }}/services/one-shot-hacking/">
+              <span class="br2 bg-white bc-fluid-red ba hv-fluid-rd hv-fluid-bd ph4 pv2 bt-trans c-dkred pointer mt2">
+                Learn More
+              </span>
+            </a>
+          </div>
+          <div class="dib tc w-auto-l w-100">
+            <a class="roboto fw1 f5 no-underline c-fluid-bk hv-fluid-dkred"
+               href="{{ SITEURL }}/contact-us/">
+              <span class="br2 bannerbt hv-bt-fluid-rd ph4-l ph5 pv2 bt-trans white b roboto pointer mt2">
                   Get a Demo
-                </button>
-              </a>
-            </div>
-          </li>
-        </ul>
-      </div>
+              </span>
+            </a>
+          </div>
+        </li>
+      </ul>
     </div>
   </div>
 </div>
