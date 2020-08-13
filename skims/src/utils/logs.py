@@ -33,7 +33,7 @@ async def log(level: str, msg: str, *args: Any) -> None:
     await unblock(getattr(_LOGGER, level), msg, *args)
 
 
-async def log_exception(level: str, exception: Exception) -> None:
+async def log_exception(level: str, exception: BaseException) -> None:
     exc_type: str = type(exception).__name__
     exc_msg: str = str(exception)
     await log(level, 'Exception: %s, %s', exc_type, exc_msg)

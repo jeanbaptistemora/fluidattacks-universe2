@@ -27,8 +27,10 @@ function job_skims_doc {
     &&  poetry run sphinx-apidoc \
           --ext-autodoc \
           --ext-doctest \
+          --ext-viewcode \
           --output-dir doc/ \
-          --maxdepth 10 \
+          --maxdepth 12 \
+          --separate \
           src \
     &&  poetry run sphinx-build \
           -a \

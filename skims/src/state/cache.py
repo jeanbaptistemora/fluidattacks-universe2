@@ -66,7 +66,7 @@ async def cache(
     *args: Any,
     **kwargs: Any,
 ) -> TVar:
-    """Cache the result of function(*args, **kwargs) on-disk for ttl seconds.
+    """Cache function(\\*args, \\*\\*kwargs) on-disk for ttl seconds.
 
     :param function: The function whose result is to be cached
     :type function: Callable[..., Awaitable[TVar]]

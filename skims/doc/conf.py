@@ -30,6 +30,7 @@ author = 'development@fluidattacks.com'
 # ones.
 extensions = [
     'sphinx.ext.autodoc',
+    'sphinx.ext.viewcode',
     'sphinx_rtd_theme',
 ]
 

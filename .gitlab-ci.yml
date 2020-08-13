@@ -138,6 +138,18 @@ stages:
       when: never
     - if: *all_commit_pattern
 
+.skims_in_dev_branch: &skims_in_dev_branch
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "master"'
+      when: never
+    - if: '$CI_PIPELINE_SOURCE == "schedule"'
+      when: never
+    - if: '$CI_PIPELINE_SOURCE == "trigger"'
+      when: never
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+      when: never
+    - if: *skims_commit_pattern
+
 .skims_in_dev_and_master_branch: &skims_in_dev_and_master_branch
   rules:
     - if: '$CI_PIPELINE_SOURCE == "schedule"'
@@ -687,7 +699,7 @@ skims_structure:
 
 skims_test:
   <<: *with_nix
-  <<: *skims_in_dev_and_master_branch
+  <<: *skims_in_dev_branch
   stage: test-code
 
 reviews_lint:

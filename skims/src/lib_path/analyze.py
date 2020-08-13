@@ -121,16 +121,28 @@ async def analyze_one_path(path: str) -> Tuple[Vulnerability, ...]:
     return results
 
 
-async def analyze(
+async def resolve_paths(
     *,
-    paths_to_exclude: Tuple[str, ...],
-    paths_to_include: Tuple[str, ...],
-) -> Tuple[Vulnerability, ...]:
+    exclude: Tuple[str, ...],
+    include: Tuple[str, ...],
+) -> Set[str]:
+    """Compute a set of unique paths based on the include/exclude rules.
+
+    Paths will be un-globed, normalized and entered if needed.
+
+    :param exclude: Paths to exclude
+    :type exclude: Tuple[str, ...]
+    :param include: Paths to include
+    :type include: Tuple[str, ...]
+    :raises SystemExit: If any critical error occurs
+    :return: A set of unique paths
+    :rtype: Set[str]
+    """
 
     def normalize(path: str) -> str:
         return normpath(path)
 
-    def resolve(path: str) -> Iterator[str]:
+    def evaluate(path: str) -> Iterator[str]:
         if path.startswith('glob(') and path.endswith(')'):
             yield from glob(path[5:-1], recursive=True)
         else:
@@ -139,18 +151,30 @@ async def analyze(
     try:
         unique_paths: Set[str] = set(map(normalize, chain.from_iterable(
             await collect(map(
-                recurse, chain.from_iterable(map(resolve, paths_to_include)),
+                recurse, chain.from_iterable(map(evaluate, include)),
             )),
         ))) - set(map(normalize, chain.from_iterable(
             await collect(map(
-                recurse, chain.from_iterable(map(resolve, paths_to_exclude)),
+                recurse, chain.from_iterable(map(evaluate, exclude)),
             )),
         )))
     except FileNotFoundError as exc:
-        await log('critical', 'File does not exist: %s', exc.filename)
-        raise SystemExit()
+        raise SystemExit(f'File does not exist: {exc.filename}')
     else:
         await log('info', 'Files to be tested: %s', len(unique_paths))
+
+    return unique_paths
+
+
+async def analyze(
+    *,
+    paths_to_exclude: Tuple[str, ...],
+    paths_to_include: Tuple[str, ...],
+) -> Tuple[Vulnerability, ...]:
+    unique_paths: Set[str] = await resolve_paths(
+        exclude=paths_to_exclude,
+        include=paths_to_include,
+    )
 
     results: Tuple[Vulnerability, ...] = tuple(chain.from_iterable(
         await collect(map(analyze_one_path, unique_paths), workers=16)

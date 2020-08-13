@@ -39,8 +39,12 @@ from core.persist import (
 from lib_path.analyze import (
     analyze as analyze_paths,
 )
+from state.ephemeral import (
+    reset as reset_ephemeral_state,
+)
 from utils.logs import (
     log,
+    log_exception,
     set_level,
 )
 from utils.model import (
@@ -60,6 +64,19 @@ async def monitor() -> None:
         await log('info', 'Still running, %s tasks pending to finish', tasks)
 
 
+async def adjust_working_dir(config: SkimsConfig) -> None:
+    """Move the skims working directory to the one the user wants.
+
+    :param config: Skims configuration object
+    :type config: SkimsConfig
+    """
+    await log('info', 'Startup working dir is: %s', getcwd())
+    if config.chdir is not None:
+        newcwd: str = abspath(config.chdir)
+        await log('info', 'Moving working dir to: %s', newcwd)
+        chdir(newcwd)
+
+
 async def execute_skims(config: SkimsConfig, token: str) -> bool:
     """Execute skims according to the provided config.
 
@@ -73,14 +90,6 @@ async def execute_skims(config: SkimsConfig, token: str) -> bool:
     :rtype: bool
     """
     success: bool = True
-
-    await log('info', 'Startup working dir is: %s', getcwd())
-    if config.chdir is not None:
-        newcwd: str = abspath(config.chdir)
-        await log('info', 'Moving working dir to: %s', newcwd)
-        chdir(newcwd)
-
-    set_locale(config.language)
 
     results: Tuple[Vulnerability, ...] = tuple(chain.from_iterable(
         await collect((
@@ -171,6 +180,9 @@ async def main(
 
     try:
         config_obj: SkimsConfig = await load(config)
+        set_locale(config_obj.language)
+        await reset_ephemeral_state()
+        await adjust_working_dir(config_obj)
         success = await execute_skims(config_obj, token)
     except ConfigError as exc:
         await log('critical', '%s', exc)
@@ -178,7 +190,8 @@ async def main(
     except MemoryError:
         await log('critical', 'Not enough memory could be allocated')
         success = False
-    except SystemExit:
+    except SystemExit as exc:
+        await log_exception('critical', exc)
         success = False
 
     monitor_task.cancel()
