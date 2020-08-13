@@ -1,7 +1,7 @@
 """Domain functions for resources."""
 
+import asyncio
 import logging
-import threading
 from collections import namedtuple
 from datetime import datetime
 from typing import Dict, List, NamedTuple, cast
@@ -16,7 +16,10 @@ from backend.dal import (
     project as project_dal,
     resources as resources_dal
 )
-from backend.typing import Resource as ResourceType
+from backend.typing import (
+    MailContent as MailContentType,
+    Resource as ResourceType
+)
 from backend.exceptions import (
     InvalidFileSize,
     RepeatedValues,
@@ -69,7 +72,7 @@ async def send_mail(
     else:
         # resource_type is the same
         pass
-    context = {
+    context: MailContentType = {
         'project': project_name.lower(),
         'user_email': user_email,
         'action': action,
@@ -77,11 +80,11 @@ async def send_mail(
         'resource_list': resource_description,
         'project_url': f'{BASE_URL}/groups/{project_name}/resources'
     }
-    threading.Thread(
-        name='Remove repositories email thread',
-        target=mailer.send_mail_resources,
-        args=(list(recipients), context,)
-    ).start()
+    asyncio.create_task(
+        mailer.send_mail_resources(
+            list(recipients), context
+        )
+    )
 
 
 def validate_file_size(

@@ -1,5 +1,6 @@
+import asyncio
 from typing import Dict, Sequence, Any, Union
-from asgiref.sync import async_to_sync, sync_to_async
+from asgiref.sync import async_to_sync
 from backend import authz, mailer
 from backend.domain import user as user_domain
 from backend.utils import aio
@@ -108,7 +109,9 @@ async def create_user(
             'name_user': name,
             'mail_user': email,
         }
-        await sync_to_async(mailer.send_mail_new_user)(mail_to, context)
+        asyncio.create_task(
+            mailer.send_mail_new_user(mail_to, context)
+        )
         await user_domain.update_multiple_user_attributes(
             email, data_dict
         )

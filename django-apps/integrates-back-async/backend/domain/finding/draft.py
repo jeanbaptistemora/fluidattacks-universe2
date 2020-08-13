@@ -23,7 +23,6 @@ from backend.typing import (
     User as UserType
 )
 from backend.utils import (
-    aio,
     findings as finding_utils
 )
 from .finding import get_finding
@@ -54,8 +53,7 @@ async def reject_draft(draft_id: str, reviewer_email: str) -> bool:
                 'historic_state': history
             })
             if success:
-                await aio.ensure_io_bound(
-                    finding_utils.send_draft_reject_mail,
+                await finding_utils.send_draft_reject_mail(
                     draft_id,
                     str(draft_data.get('projectName', '')),
                     str(draft_data.get('analyst', '')),

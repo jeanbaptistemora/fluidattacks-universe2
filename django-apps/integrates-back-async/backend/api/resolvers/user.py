@@ -609,8 +609,7 @@ async def _do_grant_stakeholder_access(
             })
 
     if success:
-        util.invalidate_cache(project_name)
-        util.invalidate_cache(new_user_email)
+        await util.invalidate_cache(project_name, new_user_email)
         util.cloudwatch_log(
             info.context,
             (f'Security: Given grant access to {new_user_email} '

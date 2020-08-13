@@ -429,28 +429,27 @@ async def mask_verification(
     )
 
 
-def send_finding_verified_email(
+async def send_finding_verified_email(
         finding_id: str,
         finding_name: str,
         project_name: str) -> None:
-    recipients = async_to_sync(project_domain.get_users_to_notify)(
+    recipients = await project_domain.get_users_to_notify(
         project_name
     )
-
-    email_send_thread = threading.Thread(
-        name='Verified finding email thread',
-        target=mailer.send_mail_verified_finding,
-        args=(recipients, {
-            'project': project_name,
-            'finding_name': finding_name,
-            'finding_url': (
-                f'{BASE_URL}/groups/{project_name}'
-                f'/vulns/{finding_id}/tracking'
-            ),
-            'finding_id': finding_id
-        }))
-
-    email_send_thread.start()
+    asyncio.create_task(
+        mailer.send_mail_verified_finding(
+            recipients,
+            {
+                'project': project_name,
+                'finding_name': finding_name,
+                'finding_url': (
+                    f'{BASE_URL}/groups/{project_name}'
+                    f'/vulns/{finding_id}/tracking'
+                ),
+                'finding_id': finding_id
+            }
+        )
+    )
 
 
 def remove_repeated(
@@ -496,31 +495,31 @@ def send_finding_delete_mail(
     email_send_thread.start()
 
 
-def send_remediation_email(
+async def send_remediation_email(
         user_email: str,
         finding_id: str,
         finding_name: str,
         project_name: str,
         justification: str) -> None:
-    recipients = async_to_sync(project_domain.get_users_to_notify)(
+    recipients = await project_domain.get_users_to_notify(
         project_name
     )
-    email_send_thread = threading.Thread(
-        name='Remediate finding email thread',
-        target=mailer.send_mail_remediate_finding,
-        args=(recipients, {
-            'project': project_name.lower(),
-            'finding_name': finding_name,
-            'finding_url': (
-                f'{BASE_URL}/groups/{project_name}'
-                f'/{finding_id}/description'
-            ),
-            'finding_id': finding_id,
-            'user_email': user_email,
-            'solution_description': justification
-        }))
-
-    email_send_thread.start()
+    asyncio.create_task(
+        mailer.send_mail_remediate_finding(
+            recipients,
+            {
+                'project': project_name.lower(),
+                'finding_name': finding_name,
+                'finding_url': (
+                    f'{BASE_URL}/groups/{project_name}'
+                    f'/{finding_id}/description'
+                ),
+                'finding_id': finding_id,
+                'user_email': user_email,
+                'solution_description': justification
+            }
+        )
+    )
 
 
 def send_accepted_email(
@@ -553,7 +552,7 @@ def send_accepted_email(
     email_send_thread.start()
 
 
-def send_draft_reject_mail(
+async def send_draft_reject_mail(
         draft_id: str,
         project_name: str,
         discoverer_email: str,
@@ -561,7 +560,7 @@ def send_draft_reject_mail(
         reviewer_email: str) -> None:
     recipients = FI_MAIL_REVIEWERS.split(',')
     recipients.append(discoverer_email)
-    email_context = {
+    email_context: MailContentType = {
         'admin_mail': reviewer_email,
         'analyst_mail': discoverer_email,
         'draft_url': (
@@ -572,13 +571,11 @@ def send_draft_reject_mail(
         'finding_name': finding_name,
         'project': project_name
     }
-    email_send_thread = threading.Thread(
-        name='Reject draft email thread',
-        target=mailer.send_mail_reject_draft,
-        args=(recipients, email_context)
+    asyncio.create_task(
+        mailer.send_mail_reject_draft(
+            recipients, email_context
+        )
     )
-
-    email_send_thread.start()
 
 
 async def send_new_draft_mail(

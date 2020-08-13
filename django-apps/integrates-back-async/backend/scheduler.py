@@ -30,6 +30,7 @@ from backend.typing import (
     Event as EventType,
     Finding as FindingType,
     Historic as HistoricType,
+    MailContent as MailContentType,
     Project as ProjectType
 )
 from backend.utils import aio
@@ -109,13 +110,13 @@ async def send_unsolved_events_email(project: str) -> None:
             extract_info_from_event_dict(x)
             for x in unsolved_events
         ]
-    context_event: Dict[str, Union[str, int]] = {
+    context_event: MailContentType = {
         'project': project.capitalize(),
         'events_len': int(len(events_info_for_email)),
         'event_url': f'{BASE_URL}/groups/{project}/events'
     }
     if context_event['events_len'] and mail_to:
-        mailer.send_mail_unsolved_events(mail_to, context_event)
+        await mailer.send_mail_unsolved_events(mail_to, context_event)
 
 
 async def get_external_recipients(project: str) -> List[str]:
@@ -320,7 +321,7 @@ async def get_group_new_vulnerabilities(group_name: str) -> None:
     msg = 'Info: Getting new vulnerabilities'
     LOGGER.info(msg, extra={'extra': locals()})
     fin_attrs = 'finding_id, historic_treatment, project_name, finding'
-    context: Dict[str, Union[str, List[Dict[str, str]]]] = {
+    context: MailContentType = {
         'updated_findings': list(),
         'no_treatment_findings': list()
     }
@@ -366,8 +367,7 @@ async def get_group_new_vulnerabilities(group_name: str) -> None:
         raise
     if context['updated_findings']:
         mail_to = await project_domain.get_users_to_notify(group_name)
-        await aio.ensure_io_bound(
-            mailer.send_mail_new_vulnerabilities,
+        await mailer.send_mail_new_vulnerabilities(
             mail_to,
             context
         )
@@ -513,7 +513,7 @@ async def get_remediated_findings() -> None:
     if findings:
         try:
             mail_to = [FI_MAIL_CONTINUOUS, FI_MAIL_PROJECTS]
-            context = {'findings': list(), 'total': 0}
+            context: MailContentType = {'findings': list(), 'total': 0}
             for finding in findings:
                 cast(
                     List[Dict[str, str]],
@@ -528,7 +528,7 @@ async def get_remediated_findings() -> None:
                     'project': str.upper(str(finding['project_name']))
                 })
             context['total'] = len(findings)
-            await sync_to_async(mailer.send_mail_new_remediated)(
+            await mailer.send_mail_new_remediated(
                 mail_to, context
             )
         except (TypeError, KeyError) as ex:
@@ -545,7 +545,7 @@ async def get_new_releases() -> None:  # pylint: disable=too-many-locals
     LOGGER.warning(msg, extra=dict(extra=None))
     test_projects = FI_TEST_PROJECTS.split(',')
     projects = await project_domain.get_active_projects()
-    email_context: Dict[str, Union[List[Dict[str, str]], int]] = (
+    email_context: MailContentType = (
         defaultdict(list)
     )
     cont = 0
@@ -603,7 +603,7 @@ async def get_new_releases() -> None:  # pylint: disable=too-many-locals
         approvers = FI_MAIL_REVIEWERS.split(',')
         mail_to = [FI_MAIL_PROJECTS]
         mail_to.extend(approvers)
-        await sync_to_async(mailer.send_mail_new_releases)(
+        await mailer.send_mail_new_releases(
             mail_to, email_context
         )
     else:

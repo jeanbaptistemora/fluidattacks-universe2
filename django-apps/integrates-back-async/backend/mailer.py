@@ -479,10 +479,10 @@ async def send_mail_analytics(*email_to: str, **context: str) -> None:
     )
 
 
-def send_mail_new_vulnerabilities(
+async def send_mail_new_vulnerabilities(
         email_to: List[str],
-        context: Dict[str, Union[str, int]]) -> None:
-    _send_mail(
+        context: MailContentType) -> None:
+    await _send_mail_async(
         'newvulnerabilitiesintegrates',
         email_to,
         context=context,
@@ -490,10 +490,10 @@ def send_mail_new_vulnerabilities(
     )
 
 
-def send_mail_new_user(
+async def send_mail_new_user(
         email_to: List[str],
-        context: Dict[str, Union[str, int]]) -> None:
-    _send_mail(
+        context: MailContentType) -> None:
+    await _send_mail_async(
         'userfindingintegrates', email_to, context=context, tags=GENERAL_TAG
     )
 
@@ -509,10 +509,10 @@ def send_mail_delete_finding(
     )
 
 
-def send_mail_remediate_finding(
+async def send_mail_remediate_finding(
         email_to: List[str],
-        context: Dict[str, Union[str, int]]) -> None:
-    _send_mail(
+        context: MailContentType) -> None:
+    await _send_mail_async(
         'remediate-finding', email_to, context=context, tags=VERIFY_TAG
     )
 
@@ -534,10 +534,11 @@ def send_mail_project_report(
     _send_mail('project-report', email_to, context=context, tags=GENERAL_TAG)
 
 
-def send_mail_verified_finding(
+async def send_mail_verified_finding(
         email_to: List[str],
-        context: Dict[str, Union[str, int]]) -> None:
-    _send_mail('verified-finding', email_to, context=context, tags=VERIFY_TAG)
+        context: MailContentType) -> None:
+    await _send_mail_async(
+        'verified-finding', email_to, context=context, tags=VERIFY_TAG)
 
 
 def send_mail_updated_manager(
@@ -546,10 +547,10 @@ def send_mail_updated_manager(
     _send_mail('manager-updated', email_to, context=context, tags=GENERAL_TAG)
 
 
-def send_mail_new_remediated(
+async def send_mail_new_remediated(
         email_to: List[str],
-        context: Dict[str, Union[str, int]]) -> None:
-    _send_mail(
+        context: MailContentType) -> None:
+    await _send_mail_async(
         'newremediatefindingintegrates',
         email_to,
         context=context,
@@ -557,18 +558,18 @@ def send_mail_new_remediated(
     )
 
 
-def send_mail_reject_draft(
+async def send_mail_reject_draft(
         email_to: List[str],
-        context: Dict[str, Union[str, int]]) -> None:
-    _send_mail(
+        context: MailContentType) -> None:
+    await _send_mail_async(
         'unsubmitted_draft', email_to, context=context, tags=GENERAL_TAG
     )
 
 
-def send_mail_new_releases(
+async def send_mail_new_releases(
         email_to: List[str],
-        context: Dict[str, Union[str, int]]) -> None:
-    _send_mail(
+        context: MailContentType) -> None:
+    await _send_mail_async(
         'newreleasesintegrates', email_to, context=context, tags=GENERAL_TAG
     )
 
@@ -581,18 +582,18 @@ def send_mail_access_granted(
     )
 
 
-def send_mail_resources(
+async def send_mail_resources(
         email_to: List[str],
-        context: Dict[str, Union[str, int]]) -> None:
-    _send_mail(
+        context: MailContentType) -> None:
+    await _send_mail_async(
         'resources-changes', email_to, context=context, tags=GENERAL_TAG
     )
 
 
-def send_mail_unsolved_events(
+async def send_mail_unsolved_events(
         email_to: List[str],
-        context: Dict[str, Union[str, int]]) -> None:
-    _send_mail(
+        context: MailContentType) -> None:
+    await _send_mail_async(
         'unsolvedevents', email_to, context=context, tags=GENERAL_TAG
     )
 
