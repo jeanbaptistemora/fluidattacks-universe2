@@ -213,7 +213,6 @@ $codeyellow: rgba(230, 219, 116, 1);
 .shadow-menu { box-shadow: 0 5px 5px 0 rgb(176,176,176,0.2); }
 .h-logo { height: 70px; }
 .h-navbar { height: 6.875rem; }
-.min-vh-height { min-height: 100vh; }
 
 // Tachyons custom responsive classes
 @media screen and (min-width: 960px) and (max-width: 1200px) {
@@ -233,10 +232,6 @@ $codeyellow: rgba(230, 219, 116, 1);
   .db-xl { display: block; }
   .fr-xl { float: right; }
   .mr3-xl { margin-right: 1rem; }
-}
-
-@media screen and (min-width: 1900px) {
-  .min-vh-height { min-height: 70vh; }
 }
 
 // Small screens
@@ -721,7 +716,6 @@ video {
   color: $button-red;
   cursor: pointer;
   font-weight: 800;
-  outline: 1px solid transparent;
   padding-bottom: .5rem;
   padding-left: 2rem;
   padding-top: .5rem;
