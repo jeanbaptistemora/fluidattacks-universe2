@@ -466,18 +466,21 @@ class ViewTestCase(unittest.TestCase):
         time.sleep(3.0)
         selenium.save_screenshot(SCR_PATH + '16.01-forces-executions.png')
 
-        forces_elem = WebDriverWait(selenium, self.delay).until(
-            expected.presence_of_element_located(
-                (By.XPATH, "//*[contains(text(), 'Deployed System')]")))
-        selenium.save_screenshot(SCR_PATH + '16.02-forces-executions.png')
+        if self.branch == 'master':
+            assert 'There is no data to display' in selenium.page_source
+        else:
+            forces_elem = WebDriverWait(selenium, self.delay).until(
+                expected.presence_of_element_located(
+                    (By.XPATH, "//*[contains(text(), 'Deployed System')]")))
+            selenium.save_screenshot(SCR_PATH + '16.02-forces-executions.png')
 
-        forces_elem.click()
-        WebDriverWait(selenium, self.delay).until(
-            expected.presence_of_element_located(
-                (By.XPATH, "//*[contains(text(), 'Exploitable')]")))
-        time.sleep(1)
-        selenium.save_screenshot(SCR_PATH + '16.03-forces-execution-modal.png')
-        assert 'Running Fluid Asserts' in selenium.page_source
+            forces_elem.click()
+            WebDriverWait(selenium, self.delay).until(
+                expected.presence_of_element_located(
+                    (By.XPATH, "//*[contains(text(), 'Exploitable')]")))
+            time.sleep(1)
+            selenium.save_screenshot(SCR_PATH + '16.03-forces-execution-modal.png')
+            assert 'Running Fluid Asserts' in selenium.page_source
 
     def test_17_pending_to_delete(self):
         selenium = self.__login()
@@ -489,9 +492,6 @@ class ViewTestCase(unittest.TestCase):
                 (By.XPATH, "//*[contains(text(), 'Cancel group deletion')]")))
         time.sleep(2)
         selenium.save_screenshot(SCR_PATH + '17-02-pending_to_delete.png')
-
-        cancel_modal_text = selenium.find_element_by_xpath(
-            "//*[contains(text(), 'This group is expected to be removed')]").text
         assert 'Group pending to delete' in selenium.page_source
 
         selenium.get(self.url + f'/orgs/{org}/groups/pendingproject/vulns')
