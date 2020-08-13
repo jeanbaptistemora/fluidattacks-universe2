@@ -58,7 +58,6 @@ urlpatterns = [
         name='graphics_for_organization'
     ),
     url(r'^graphics-report/?$', views.graphics_report, name='graphics_report'),
-    url(r'^index/?$', views.index, name='index'),
     url(r'^error500/?$', views.error500, name='error500'),
     url(r'^error401/?$', views.error401, name='error401'),
     url(r'^mobile/?$', views.mobile, name='mobile'),
