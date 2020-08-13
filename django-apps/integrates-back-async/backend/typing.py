@@ -104,6 +104,10 @@ GrantUserAccessPayload = NamedTuple('GrantUserAccessPayload', [
     ('success', bool),
     ('granted_user', User),
 ])
+GrantStakeholderAccessPayload = NamedTuple('GrantStakeholderAccessPayload', [
+    ('success', bool),
+    ('granted_stakeholder', Stakeholder),
+])
 RemoveUserAccessPayload = NamedTuple('RemoveUserAccessPayload', [
     ('success', bool),
     ('removed_email', str),

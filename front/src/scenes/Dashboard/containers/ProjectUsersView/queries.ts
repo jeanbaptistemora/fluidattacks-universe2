@@ -28,22 +28,22 @@ export const REMOVE_STAKEHOLDER_MUTATION: DocumentNode = gql`
   }
   `;
 
-export const ADD_USER_MUTATION: DocumentNode = gql`
-  mutation GrantUserMutation(
+export const ADD_STAKEHOLDER_MUTATION: DocumentNode = gql`
+  mutation GrantStakeholderMutation(
     $email: String!,
     $phoneNumber: String,
     $projectName: String,
     $responsibility: String,
     $role: UserRole!
     ) {
-    grantUserAccess (
+    grantStakeholderAccess (
       email: $email,
       phoneNumber: $phoneNumber,
       projectName: $projectName,
       responsibility: $responsibility,
       role: $role) {
       success
-      grantedUser {
+      grantedStakeholder {
         email
         role
         responsibility

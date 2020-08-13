@@ -25,9 +25,19 @@ import { msgError, msgSuccess } from "../../../../utils/notifications";
 import { sortLastLogin } from "../../../../utils/sortHelpers";
 import translate from "../../../../utils/translations/translate";
 import { addUserModal as AddUserModal } from "../../components/AddUserModal/index";
-import { ADD_USER_MUTATION, EDIT_STAKEHOLDER_MUTATION, GET_STAKEHOLDERS, REMOVE_STAKEHOLDER_MUTATION } from "./queries";
 import {
-  IAddUserAttr, IEditStakeholderAttr, IProjectUsersViewProps, IRemoveStakeholderAttr, IUserDataAttr, IUsersAttr,
+  ADD_STAKEHOLDER_MUTATION,
+  EDIT_STAKEHOLDER_MUTATION,
+  GET_STAKEHOLDERS,
+  REMOVE_STAKEHOLDER_MUTATION,
+} from "./queries";
+import {
+  IAddStakeholderAttr,
+  IEditStakeholderAttr,
+  IProjectUsersViewProps,
+  IRemoveStakeholderAttr,
+  IUserDataAttr,
+  IUsersAttr,
 } from "./types";
 
 const tableHeaders: IHeaderConfig[] = [
@@ -104,13 +114,13 @@ const projectUsersView: React.FC<IProjectUsersViewProps> = (props: IProjectUsers
     },
     variables: { projectName },
   });
-  const [grantUserAccess] = useMutation(ADD_USER_MUTATION, {
-    onCompleted: (mtResult: IAddUserAttr): void => {
-      if (mtResult.grantUserAccess.success) {
+  const [grantStakeholderAccess] = useMutation(ADD_STAKEHOLDER_MUTATION, {
+    onCompleted: (mtResult: IAddStakeholderAttr): void => {
+      if (mtResult.grantStakeholderAccess.success) {
         refetch()
           .catch();
         mixpanel.track("AddUserAccess", { User: userName });
-        const { email } = mtResult.grantUserAccess.grantedUser;
+        const { email } = mtResult.grantStakeholderAccess.grantedStakeholder;
         msgSuccess(
           `${email} ${translate.t("search_findings.tab_users.success")}`,
           translate.t("search_findings.tab_users.title_success"),
@@ -213,7 +223,7 @@ const projectUsersView: React.FC<IProjectUsersViewProps> = (props: IProjectUsers
   const handleSubmit: ((values: IUserDataAttr) => void) = (values: IUserDataAttr): void => {
     closeUserModal();
     if (userModalAction === "add") {
-      grantUserAccess({ variables: {
+      grantStakeholderAccess({ variables: {
           ...values,
           projectName,
       } })

@@ -123,7 +123,19 @@ type Mutation {
         responsibility: String
         role: UserRole!
         phoneNumber: String
-    ): GrantUserAccessPayload!
+    ): GrantUserAccessPayload! @deprecated(reason:
+        """
+        Right now, you can grant a stakeholder/user access to a project using both
+        the 'grantUserAccess' and 'grantStakeholderAccess' queries. After 2021-02-06,
+        the 'grantUserAccess' query will be invalid.
+        """)
+    grantStakeholderAccess(
+        projectName: String
+        email: String!
+        responsibility: String
+        role: UserRole!
+        phoneNumber: String
+    ): GrantStakeholderAccessPayload!
 
     grantUserOrganizationAccess(
         organizationId: String!

@@ -26,9 +26,9 @@ export interface IRemoveStakeholderAttr {
   };
 }
 
-export interface IAddUserAttr {
-  grantUserAccess: {
-    grantedUser: {
+export interface IAddStakeholderAttr {
+  grantStakeholderAccess: {
+    grantedStakeholder: {
       email: string;
       firstLogin: string;
       lastLogin: string;

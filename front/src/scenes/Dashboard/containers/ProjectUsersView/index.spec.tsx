@@ -11,7 +11,12 @@ import store from "../../../../store/index";
 import { authzPermissionsContext } from "../../../../utils/authz/config";
 import { msgError, msgSuccess } from "../../../../utils/notifications";
 import { ProjectUsersView } from "./index";
-import { ADD_USER_MUTATION, EDIT_STAKEHOLDER_MUTATION, GET_STAKEHOLDERS, REMOVE_STAKEHOLDER_MUTATION } from "./queries";
+import {
+  ADD_STAKEHOLDER_MUTATION,
+  EDIT_STAKEHOLDER_MUTATION,
+  GET_STAKEHOLDERS,
+  REMOVE_STAKEHOLDER_MUTATION,
+} from "./queries";
 import { IProjectUsersViewProps } from "./types";
 
 jest.mock("../../../../utils/notifications", () => {
@@ -234,7 +239,7 @@ describe("Project users view", () => {
   it("should add stakeholder to the project", async () => {
     const mocksMutation: ReadonlyArray<MockedResponse> = [{
       request: {
-        query: ADD_USER_MUTATION,
+        query: ADD_STAKEHOLDER_MUTATION,
         variables: {
           email: "unittest@test.com",
           phoneNumber: "+573123210123",
@@ -243,7 +248,16 @@ describe("Project users view", () => {
           role: "ANALYST",
         },
       },
-      result: { data: { grantUserAccess : { success: true, grantedUser: {email: "unittest@test.com"} } } },
+      result: {
+        data: {
+          grantStakeholderAccess: {
+            grantedStakeholder: {
+              email: "unittest@test.com",
+            },
+            success: true,
+          },
+        },
+      },
     }];
     const mockedPermissions: PureAbility<string> = new PureAbility([
       { action: "backend_api_resolvers_user__do_grant_user_access" },
@@ -416,7 +430,7 @@ describe("Project users view", () => {
   it("should handle errors when add stakeholder to the project", async () => {
     const mocksMutation: ReadonlyArray<MockedResponse> = [{
       request: {
-        query: ADD_USER_MUTATION,
+        query: ADD_STAKEHOLDER_MUTATION,
         variables: {
           email: "unittest@test.com",
           phoneNumber: "+573123210123",
