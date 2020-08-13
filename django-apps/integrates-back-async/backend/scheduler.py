@@ -701,7 +701,7 @@ async def update_indicators() -> None:
     msg = '[scheduler]: update_indicators is running'
     LOGGER.warning(msg, **NOEXTRA)
     groups = await project_domain.get_active_projects()
-    aio.materialize(map(update_group_indicators, groups), 10)
+    await aio.materialize(map(update_group_indicators, groups), 10)
 
 
 async def update_organization_indicators(
