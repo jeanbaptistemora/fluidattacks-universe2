@@ -1,7 +1,7 @@
 :slug: rules/302/
 :category: source
 :description: This requirement establishes the importance of explicitly declaring all the dependencies used in the source code.
-:keywords: Security, Files, Dependencies, Source Code, Libraries, ASVS, CWE, Rules, Ethical Hacking, Pentesting
+:keywords: Security, Files, Dependencies, Source Code, Libraries, ASVS, CWE, PCI DSS, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R302. Declare dependencies explicitly
@@ -56,3 +56,6 @@ checker during build or compile time.
 V14.2 Dependency.(14.2.5)]
 Verify that an inventory catalog is maintained of all third party libraries in
 use.
+
+. [[r6]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 2.3]
+Maintain an inventory of system components that are in scope for **PCI DSS**.

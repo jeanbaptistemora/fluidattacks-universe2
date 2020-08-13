@@ -1,7 +1,7 @@
 :slug: rules/183/
 :category: data
 :description: This requirement establishes the importance of securely removing sensitive data when it is no longer required in order to avoid information leakages.
-:keywords: Sensitive, Data, Removal, Information, ASVS, GDPR, Ethical Hacking, Pentesting
+:keywords: Sensitive, Data, Removal, Information, ASVS, GDPR, CWE, PCI DSS, Ethical Hacking, Pentesting
 :rules: yes
 
 = R183. Delete sensitive data securely
@@ -97,3 +97,8 @@ Verify that sensitive personal information is subject to data retention
 classification,
 such that old or out of date data is deleted automatically, on a schedule,
 or as the situation requires.
+
+. [[r13]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 3.1]
+Keep cardholder data storage to a minimum by implementing data retention and
+disposal policies, procedures and processes for secure deletion of data when no
+longer needed.

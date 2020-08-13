@@ -1,7 +1,7 @@
 :slug: rules/300/
 :category: data
 :description: This requirement establishes the importance of masking sensitive personal and business data to avoid information leakages.
-:keywords: Requirement, Security, Data, Information, Business, Mask, Rules, Ethical Hacking, Pentesting
+:keywords: Requirement, Security, Data, Information, Business, Mask, GDPR, OWASP, PCI DSS, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R300. Mask sensitive data
@@ -46,3 +46,10 @@ fraud, identity theft, or other crimes.
 Sensitive data may be compromised without extra protection,
 such as encryption at rest or in transit, and requires special precautions when
 exchanged with the browser.
+
+. [[r4]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 3.3]
+Mask *PAN* (Primary Account Number) when displayed
+(the first sixand last four digits are the maximum number of digits to be
+displayed),
+such that only personnel with a legitimate business need can see more than the
+first six/last four digits of the *PAN*.
