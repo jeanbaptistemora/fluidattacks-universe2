@@ -23,37 +23,35 @@ export const CompulsoryNotice: React.FC<ICompulsoryNoticeProps> = (
   }
 
   return (
-    <React.StrictMode>
-      <Modal
-        footer={<div />}
-        headerTitle={translate.t("legalNotice.title")}
-        open={open}
+    <Modal
+      footer={<div />}
+      headerTitle={translate.t("legalNotice.title")}
+      open={open}
+    >
+      <GenericForm
+        initialValues={{ remember: false }}
+        name={"acceptLegal"}
+        onSubmit={handleSubmit}
       >
-        <GenericForm
-          initialValues={{ remember: false }}
-          name={"acceptLegal"}
-          onSubmit={handleSubmit}
-        >
-          <React.Fragment>
-            <p>{content}</p>
-            <Field
-              component={Checkbox}
-              name={"remember"}
-              title={translate.t("legalNotice.rememberCbo.tooltip")}
+        <React.Fragment>
+          <p>{content}</p>
+          <Field
+            component={Checkbox}
+            name={"remember"}
+            title={translate.t("legalNotice.rememberCbo.tooltip")}
+          >
+            {translate.t("legalNotice.rememberCbo.text")}
+          </Field>
+          <ButtonToolbar bsClass={"pull-right"}>
+            <Button
+              title={translate.t("legalNotice.acceptBtn.tooltip")}
+              type={"submit"}
             >
-              {translate.t("legalNotice.rememberCbo.text")}
-            </Field>
-            <ButtonToolbar>
-              <Button
-                title={translate.t("legalNotice.acceptBtn.tooltip")}
-                type={"submit"}
-              >
-                {translate.t("legalNotice.acceptBtn.text")}
-              </Button>
-            </ButtonToolbar>
-          </React.Fragment>
-        </GenericForm>
-      </Modal>
-    </React.StrictMode>
+              {translate.t("legalNotice.acceptBtn.text")}
+            </Button>
+          </ButtonToolbar>
+        </React.Fragment>
+      </GenericForm>
+    </Modal>
   );
 };
