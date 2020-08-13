@@ -13,7 +13,6 @@ from typing import (
 # Third party libraries
 from aioextensions import (
     collect,
-    unblock,
 )
 
 # Local libraries
@@ -35,6 +34,7 @@ from integrates.domain import (
 )
 from state.ephemeral import (
     EphemeralStore,
+    get_ephemeral_store,
 )
 from utils.logs import (
     log,
@@ -43,6 +43,7 @@ from utils.model import (
     FindingEnum,
     FindingEvidenceIDEnum,
     FindingEvidenceDescriptionIDEnum,
+    get_vulnerability_hash,
     IntegratesVulnerabilityMetadata,
     Vulnerability,
     VulnerabilityKindEnum,
@@ -137,56 +138,83 @@ async def upload_evidences(
     ))
 
 
-async def merge_results(
-    skims_results: Tuple[Vulnerability, ...],
-    integrates_results: Tuple[Vulnerability, ...],
+def get_results_managed_by_skims(
+    results: Tuple[Vulnerability, ...],
 ) -> Tuple[Vulnerability, ...]:
+    results_by_skims: Tuple[Vulnerability, ...] = tuple(
+        result
+        for result in results
+        if (
+            result.integrates_metadata and
+            result.integrates_metadata.source == (
+                VulnerabilitySourceEnum.SKIMS
+            )
+        )
+    )
 
-    def _merge_results() -> Tuple[Vulnerability, ...]:
-        # Filter integrates results managed by skims
-        integrates_results_by_skims: Tuple[Vulnerability, ...] = tuple(
-            result
-            for result in integrates_results
-            if (result.integrates_metadata and
-                result.integrates_metadata.source == (
-                    VulnerabilitySourceEnum.SKIMS
-                ))
+    return results_by_skims
+
+
+async def merge_results(
+    skims_store: EphemeralStore,
+    integrates_results: Tuple[Vulnerability, ...],
+) -> EphemeralStore:
+    """Merge results from Skims and Integrates, closing or creating if needed.
+
+    :param skims_store: Store with the results from Skims
+    :type skims_store: EphemeralStore
+    :param integrates_results: Tuple of results from Integrates
+    :type integrates_results: Tuple[Vulnerability, ...]
+    :return: A new store with the merged results
+    :rtype: EphemeralStore
+    """
+    store = get_ephemeral_store()
+
+    def prepare_result(
+        result: Vulnerability,
+        state: VulnerabilityStateEnum,
+    ) -> Vulnerability:
+        return Vulnerability(
+            finding=result.finding,
+            integrates_metadata=IntegratesVulnerabilityMetadata(
+                # Mark them as managed by skims
+                source=VulnerabilitySourceEnum.SKIMS,
+            ),
+            kind=result.kind,
+            state=state,
+            what=result.what,
+            where=result.where,
         )
 
-        # The hash is a trick to de-duplicate results by primary key
-        #   Given all integrates results are added first as closed
-        #   And then all skims results are added as open
-        #   And all results are uploaded in a single transacion
-        #   Then this perfectly emulates a single-transacion closing cycle
-        merged_results: Tuple[Vulnerability, ...] = tuple({
-            hash((
-                result.finding,
-                result.kind,
-                result.what,
-                result.where,
-            )): (
-                Vulnerability(
-                    finding=result.finding,
-                    integrates_metadata=IntegratesVulnerabilityMetadata(
-                        # Mark them as managed by skims
-                        source=VulnerabilitySourceEnum.SKIMS,
-                    ),
-                    kind=result.kind,
-                    state=result_state,
-                    what=result.what,
-                    where=result.where,
-                )
-            )
-            for result_state, results in [
-                (VulnerabilityStateEnum.CLOSED, integrates_results_by_skims),
-                (VulnerabilityStateEnum.OPEN, skims_results),
-            ]
-            for result in results
-        }.values())
+    # Filter integrates results managed by skims
+    integrates_results = get_results_managed_by_skims(integrates_results)
 
-        return merged_results
+    # Create a data structure that maps hash to index
+    hashes: Dict[int, int] = {
+        get_vulnerability_hash(result): index
+        for index, result in enumerate(integrates_results)
+    }
 
-    return await unblock(_merge_results)
+    # Walk all Skims results
+    async for result in skims_store.iterate():
+        # Ignore the integrates result because Skims will perform an update
+        hashes.pop(get_vulnerability_hash(result), None)
+
+        # Store the Skims result as OPEN
+        await store.store(prepare_result(
+            result=result,
+            state=VulnerabilityStateEnum.OPEN,
+        ))
+
+    # This are the integrates results that were not found by Skims
+    #   and therefore they should be closed
+    for index in hashes.values():
+        await store.store(prepare_result(
+            result=integrates_results[index],
+            state=VulnerabilityStateEnum.OPEN,
+        ))
+
+    return store
 
 
 async def persist_finding(
@@ -226,17 +254,17 @@ async def persist_finding(
     if finding_id:
         await log('info', 'finding for: %s = %s', finding.name, finding_id)
 
-        merged_results: Tuple[Vulnerability, ...] = await merge_results(
-            skims_results=results,
+        merged_store: EphemeralStore = await merge_results(
             integrates_results=await get_finding_vulnerabilities(
                 finding=finding,
                 finding_id=finding_id,
             ),
+            skims_store=store,
         )
 
         success = await do_build_and_upload_vulnerabilities(
             finding_id=finding_id,
-            results=merged_results,
+            results=tuple([x async for x in merged_store.iterate()]),
         ) and await do_release_vulnerabilities(
             finding_id=finding_id,
         ) and await upload_evidences(

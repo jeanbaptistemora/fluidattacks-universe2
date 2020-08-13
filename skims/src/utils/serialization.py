@@ -33,6 +33,7 @@ from utils.model import (
     SkimsVulnerabilityMetadata,
     Vulnerability,
     VulnerabilityKindEnum,
+    VulnerabilitySourceEnum,
     VulnerabilityStateEnum,
 )
 from utils.time import (
@@ -136,6 +137,7 @@ ALLOWED_FACTORIES: Dict[type, Dict[str, Any]] = {
                 FindingEnum,
                 FindingTypeEnum,
                 VulnerabilityKindEnum,
+                VulnerabilitySourceEnum,
                 VulnerabilityStateEnum,
             )
         ],

@@ -277,6 +277,23 @@ class Vulnerability(NamedTuple):
     skims_metadata: Optional[SkimsVulnerabilityMetadata] = None
 
 
+def get_vulnerability_hash(vulnerability: Vulnerability) -> int:
+    """Compute the hash of a Vulnerability according to Integrates rules.
+
+    :param vulnerability: Vulnerability object to hash
+    :type vulnerability: Vulnerability
+    :return: A unique identifier under this runtime, not guaranteed to
+        be the same across executions
+    :rtype: int
+    """
+    return hash((
+        vulnerability.finding,
+        vulnerability.kind,
+        vulnerability.what,
+        vulnerability.where,
+    ))
+
+
 def _fill_finding_enum() -> None:
     for finding in FindingEnum:
         for modified, base in [
