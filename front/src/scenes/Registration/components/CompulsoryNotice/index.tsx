@@ -1,41 +1,53 @@
-import React from "react";
-import { ButtonToolbar } from "react-bootstrap";
-import { Field } from "redux-form";
 import { Button } from "../../../../components/Button/index";
-import { Modal } from "../../../../components/Modal/index";
+import { ButtonToolbar } from "react-bootstrap";
 import { Checkbox } from "../../../../utils/forms/fields";
-import translate from "../../../../utils/translations/translate";
+import { Field } from "redux-form";
 import { GenericForm } from "../../../Dashboard/components/GenericForm";
+import { Modal } from "../../../../components/Modal/index";
+import React from "react";
+import translate from "../../../../utils/translations/translate";
 
-/**
- *  CompulsoryNotice properties
- */
 interface ICompulsoryNoticeProps {
   content: string;
   open: boolean;
-  onAccept(remember: boolean): void;
+  onAccept: (remember: boolean) => void;
 }
 
-const compulsoryNotice: React.FC<ICompulsoryNoticeProps> = (props: ICompulsoryNoticeProps): JSX.Element => {
-  const handleSubmit: ((values: { remember: boolean }) => void) = (values: { remember: boolean }): void => {
-    props.onAccept(values.remember);
-  };
+export const CompulsoryNotice: React.FC<ICompulsoryNoticeProps> = (
+  props: ICompulsoryNoticeProps
+): JSX.Element => {
+  const { open, content, onAccept } = props;
+
+  function handleSubmit(values: { remember: boolean }): void {
+    onAccept(values.remember);
+  }
 
   return (
     <React.StrictMode>
       <Modal
-        open={props.open}
-        headerTitle={translate.t("legalNotice.title")}
         footer={<div />}
+        headerTitle={translate.t("legalNotice.title")}
+        open={open}
       >
-        <GenericForm name="acceptLegal" initialValues={{ remember: false }} onSubmit={handleSubmit}>
+        <GenericForm
+          initialValues={{ remember: false }}
+          name={"acceptLegal"}
+          onSubmit={handleSubmit}
+        >
           <React.Fragment>
-            <p>{props.content}</p>
-            <Field title={translate.t("legalNotice.rememberCbo.tooltip")} component={Checkbox} name="remember">
+            <p>{content}</p>
+            <Field
+              component={Checkbox}
+              name={"remember"}
+              title={translate.t("legalNotice.rememberCbo.tooltip")}
+            >
               {translate.t("legalNotice.rememberCbo.text")}
             </Field>
-            <ButtonToolbar className="pull-right">
-              <Button type="submit" title={translate.t("legalNotice.acceptBtn.tooltip")}>
+            <ButtonToolbar>
+              <Button
+                title={translate.t("legalNotice.acceptBtn.tooltip")}
+                type={"submit"}
+              >
                 {translate.t("legalNotice.acceptBtn.text")}
               </Button>
             </ButtonToolbar>
@@ -45,5 +57,3 @@ const compulsoryNotice: React.FC<ICompulsoryNoticeProps> = (props: ICompulsoryNo
     </React.StrictMode>
   );
 };
-
-export { compulsoryNotice as CompulsoryNotice };

@@ -7,7 +7,7 @@ import { Preloader } from "./components/Preloader";
 import React from "react";
 import ReactDOM from "react-dom";
 import { Provider as ReduxProvider } from "react-redux";
-import { default as Registration } from "./scenes/Registration";
+import { Registration } from "./scenes/Registration";
 import { ToastContainer } from "react-toastify";
 import { getEnvironment } from "./utils/environment";
 import mixpanel from "mixpanel-browser";

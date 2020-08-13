@@ -1,58 +1,48 @@
-import { mount, ReactWrapper, shallow, ShallowWrapper } from "enzyme";
-import React from "react";
-import { Provider } from "react-redux";
-import store from "../../../../store";
 import { CompulsoryNotice } from "./index";
+import { Provider } from "react-redux";
+import React from "react";
+import store from "../../../../store";
+import { ReactWrapper, ShallowWrapper, mount, shallow } from "enzyme";
 
-describe("Compulsory notice modal", () => {
-  it("should return a function", () => {
-    expect(typeof (CompulsoryNotice))
-      .toEqual("function");
+describe("Compulsory notice modal", (): void => {
+  it("should return a function", (): void => {
+    expect.hasAssertions();
+    expect(typeof CompulsoryNotice).toStrictEqual("function");
   });
 
-  it("should be rendered", () => {
+  it("should be rendered", (): void => {
+    expect.hasAssertions();
+
     const wrapper: ShallowWrapper = shallow(
-      <CompulsoryNotice
-        content=""
-        open={true}
-        onAccept={jest.fn()}
-      />,
+      <CompulsoryNotice content={""} onAccept={jest.fn()} open={true} />
     );
 
-    expect(wrapper)
-      .toHaveLength(1);
+    expect(wrapper).toHaveLength(1);
   });
 
-  it("should render checkbox", () => {
+  it("should render checkbox", (): void => {
+    expect.hasAssertions();
+
     const wrapper: ShallowWrapper = shallow(
-      <CompulsoryNotice
-        content=""
-        open={true}
-        onAccept={jest.fn()}
-      />,
+      <CompulsoryNotice content={""} onAccept={jest.fn()} open={true} />
     );
-    const checkbox: ShallowWrapper = wrapper.find("modal")
-      .dive()
-      .find("Field");
-    expect(checkbox)
-      .toHaveLength(1);
+    const checkbox: ShallowWrapper = wrapper.find("modal").dive().find("Field");
+
+    expect(checkbox).toHaveLength(1);
   });
 
-  it("should submit", () => {
+  it("should submit", (): void => {
+    expect.hasAssertions();
+
     const handleAccept: jest.Mock = jest.fn();
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
-        <CompulsoryNotice
-          content=""
-          open={true}
-          onAccept={handleAccept}
-        />
-      </Provider>,
+        <CompulsoryNotice content={""} onAccept={handleAccept} open={true} />
+      </Provider>
     );
-    const form: ReactWrapper = wrapper.find("modal")
-      .find("genericForm");
+    const form: ReactWrapper = wrapper.find("modal").find("genericForm");
     form.simulate("submit");
-    expect(handleAccept.mock.calls.length)
-      .toEqual(1);
+
+    expect(handleAccept.mock.calls).toHaveLength(1);
   });
 });

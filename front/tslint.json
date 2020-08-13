@@ -10,8 +10,9 @@
       "src/graphics/**",
       "src/utils/**",
       "src/components/**",
+      "src/scenes/Login/**",
       "src/scenes/Dashboard/**/utils.ts",
-      "src/scenes/Login/index.tsx"
+      "src/scenes/Registration/components/**"
     ]
   },
   "rules": {
