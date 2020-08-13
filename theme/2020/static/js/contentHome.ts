@@ -81,6 +81,8 @@ const contentHome: (() => void) = (): void => {
         parallaxEffect(".parallax_integrates");
         parallaxEffect(".parallax_drills");
         parallaxEffect(".parallax_forces");
+        parallaxEffect(".parallax_continuous");
+        parallaxEffect(".parallax_oneshot");
     });
   });
 };
