@@ -2,17 +2,17 @@ import _ from "lodash";
 import translate from "./translations/translate";
 import {
   ILastLogin,
-  IUserDataAttr,
-  IUsersAttr,
-} from "../scenes/Dashboard/containers/ProjectUsersView/types";
+  IStakeholderAttr,
+  IStakeholderDataAttr,
+} from "../scenes/Dashboard/containers/ProjectStakeholdersView/types";
 
-type User = IUsersAttr["project"]["stakeholders"][0];
+type User = IStakeholderAttr["project"]["stakeholders"][0];
 
-export const formatUserlist: (userList: IUserDataAttr[]) => User[] = (
-  userList: IUserDataAttr[]
+export const formatUserlist: (userList: IStakeholderDataAttr[]) => User[] = (
+  userList: IStakeholderDataAttr[]
 ): User[] =>
   userList.map(
-    (user: IUserDataAttr): User => {
+    (user: IStakeholderDataAttr): User => {
       const missing: number = -1;
       const lastLoginDate: number[] = JSON.parse(user.lastLogin);
       const daysInMonth: number = 30;

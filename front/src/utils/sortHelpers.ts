@@ -1,4 +1,4 @@
-import { ILastLogin } from "../scenes/Dashboard/containers/ProjectUsersView/types";
+import { ILastLogin } from "../scenes/Dashboard/containers/ProjectStakeholdersView/types";
 
 export const sortLastLogin: (
   a: ILastLogin,

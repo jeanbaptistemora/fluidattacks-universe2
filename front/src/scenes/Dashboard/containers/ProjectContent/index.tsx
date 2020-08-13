@@ -15,7 +15,7 @@ import { ProjectEventsView } from "../ProjectEventsView/index";
 import { ProjectFindingsView } from "../ProjectFindingsView/index";
 import { ProjectForcesView } from "../ProjectForcesView";
 import { ProjectSettingsView } from "../ProjectSettingsView/index";
-import { ProjectUsersView } from "../ProjectUsersView/index";
+import { ProjectStakeholdersView } from "../ProjectStakeholdersView/index";
 
 type IProjectContentProps = RouteComponentProps<{ projectName: string }>;
 
@@ -111,7 +111,7 @@ const projectContent: React.FC<IProjectContentProps> = (props: IProjectContentPr
                   <Route path={`${props.match.path}/devsecops`} component={ProjectForcesView} exact={true} />
                   <Route path={`${props.match.path}/events`} component={ProjectEventsView} exact={true} />
                   <Route path={`${props.match.path}/scope`} component={ProjectSettingsView} exact={true} />
-                  <Route path={`${props.match.path}/stakeholders`} component={ProjectUsersView} exact={true} />
+                  <Route path={`${props.match.path}/stakeholders`} component={ProjectStakeholdersView} exact={true} />
                   <Route path={`${props.match.path}/consulting`} component={ProjectCommentsView} exact={true} />
                   {/* Necessary to support old resources URLs */}
                   <Redirect path={`${props.match.path}/resources`} to={`${props.match.path}/scope`} />

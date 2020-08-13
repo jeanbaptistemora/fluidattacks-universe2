@@ -10,14 +10,14 @@ import wait from "waait";
 import store from "../../../../store/index";
 import { authzPermissionsContext } from "../../../../utils/authz/config";
 import { msgError, msgSuccess } from "../../../../utils/notifications";
-import { ProjectUsersView } from "./index";
+import { ProjectStakeholdersView } from "./index";
 import {
   ADD_STAKEHOLDER_MUTATION,
   EDIT_STAKEHOLDER_MUTATION,
   GET_STAKEHOLDERS,
   REMOVE_STAKEHOLDER_MUTATION,
 } from "./queries";
-import { IProjectUsersViewProps } from "./types";
+import { IProjectStakeholdersViewProps } from "./types";
 
 jest.mock("../../../../utils/notifications", () => {
   const mockedNotifications: Dictionary = jest.requireActual("../../../../utils/notifications");
@@ -32,7 +32,7 @@ describe("Project users view", () => {
     jest.clearAllMocks();
   });
 
-  const mockProps: IProjectUsersViewProps = {
+  const mockProps: IProjectStakeholdersViewProps = {
     history: {
       action: "PUSH",
       block: (): (() => void) => (): void => undefined,
@@ -127,7 +127,7 @@ describe("Project users view", () => {
   ];
 
   it("should return a function", () => {
-    expect(typeof (ProjectUsersView))
+    expect(typeof (ProjectStakeholdersView))
       .toEqual("function");
   });
 
@@ -135,7 +135,7 @@ describe("Project users view", () => {
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
         <MockedProvider mocks={mockError} addTypename={false}>
-          <ProjectUsersView {...mockProps} />
+          <ProjectStakeholdersView {...mockProps} />
         </MockedProvider>
       </Provider>,
     );
@@ -148,7 +148,7 @@ describe("Project users view", () => {
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
         <MockedProvider mocks={mocks} addTypename={false}>
-          <ProjectUsersView {...mockProps} />
+          <ProjectStakeholdersView {...mockProps} />
         </MockedProvider>
       </Provider>,
     );
@@ -161,7 +161,7 @@ describe("Project users view", () => {
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
         <MockedProvider mocks={mocks} addTypename={false}>
-          <ProjectUsersView {...mockProps} />
+          <ProjectStakeholdersView {...mockProps} />
         </MockedProvider>
       </Provider>,
     );
@@ -178,7 +178,7 @@ describe("Project users view", () => {
       <Provider store={store}>
         <MockedProvider mocks={mocks} addTypename={false}>
           <authzPermissionsContext.Provider value={mockedPermissions}>
-            <ProjectUsersView {...mockProps} />
+            <ProjectStakeholdersView {...mockProps} />
           </authzPermissionsContext.Provider>
         </MockedProvider>
       </Provider>,
@@ -209,7 +209,7 @@ describe("Project users view", () => {
       <Provider store={store}>
         <MockedProvider mocks={mocks} addTypename={false}>
           <authzPermissionsContext.Provider value={mockedPermissions}>
-            <ProjectUsersView {...mockProps} />
+            <ProjectStakeholdersView {...mockProps} />
           </authzPermissionsContext.Provider>
         </MockedProvider>
       </Provider>,
@@ -267,7 +267,7 @@ describe("Project users view", () => {
       <Provider store={store}>
         <MockedProvider mocks={mocks.concat(mocksMutation)} addTypename={false}>
           <authzPermissionsContext.Provider value={mockedPermissions}>
-            <ProjectUsersView {...mockProps} />
+            <ProjectStakeholdersView {...mockProps} />
           </authzPermissionsContext.Provider>
         </MockedProvider>
       </Provider>,
@@ -333,7 +333,7 @@ describe("Project users view", () => {
       <Provider store={store}>
         <MockedProvider mocks={mocks.concat(mocksMutation)} addTypename={false}>
           <authzPermissionsContext.Provider value={mockedPermissions}>
-            <ProjectUsersView {...mockProps} />
+            <ProjectStakeholdersView {...mockProps} />
           </authzPermissionsContext.Provider>
         </MockedProvider>
       </Provider>,
@@ -380,7 +380,7 @@ describe("Project users view", () => {
       <Provider store={store}>
         <MockedProvider mocks={mocks.concat(mocksMutation)} addTypename={false}>
           <authzPermissionsContext.Provider value={mockedPermissions}>
-            <ProjectUsersView {...mockProps} />
+            <ProjectStakeholdersView {...mockProps} />
           </authzPermissionsContext.Provider>
         </MockedProvider>
       </Provider>,
@@ -460,7 +460,7 @@ describe("Project users view", () => {
       <Provider store={store}>
         <MockedProvider mocks={mocks.concat(mocksMutation)} addTypename={false}>
           <authzPermissionsContext.Provider value={mockedPermissions}>
-            <ProjectUsersView {...mockProps} />
+            <ProjectStakeholdersView {...mockProps} />
           </authzPermissionsContext.Provider>
         </MockedProvider>
       </Provider>,
@@ -526,7 +526,7 @@ describe("Project users view", () => {
       <Provider store={store}>
         <MockedProvider mocks={mocks.concat(mocksMutation)} addTypename={false}>
           <authzPermissionsContext.Provider value={mockedPermissions}>
-            <ProjectUsersView {...mockProps} />
+            <ProjectStakeholdersView {...mockProps} />
           </authzPermissionsContext.Provider>
         </MockedProvider>
       </Provider>,
@@ -582,7 +582,7 @@ describe("Project users view", () => {
       <Provider store={store}>
         <MockedProvider mocks={mocks.concat(mocksMutation)} addTypename={false}>
           <authzPermissionsContext.Provider value={mockedPermissions}>
-            <ProjectUsersView {...mockProps} />
+            <ProjectStakeholdersView {...mockProps} />
           </authzPermissionsContext.Provider>
         </MockedProvider>
       </Provider>,

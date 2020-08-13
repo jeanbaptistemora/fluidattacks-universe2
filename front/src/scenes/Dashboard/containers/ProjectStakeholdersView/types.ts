@@ -5,7 +5,7 @@ export interface ILastLogin {
   value: number[];
 }
 
-export interface IUsersAttr {
+export interface IStakeholderAttr {
   project: {
     stakeholders: Array<{
       email: string;
@@ -41,7 +41,7 @@ export interface IAddStakeholderAttr {
   };
 }
 
-export interface IUserDataAttr {
+export interface IStakeholderDataAttr {
   email: string;
   firstLogin: string;
   lastLogin: string;
@@ -58,4 +58,4 @@ export interface IEditStakeholderAttr {
   };
 }
 
-export type IProjectUsersViewProps = RouteComponentProps<{ projectName: string }>;
+export type IProjectStakeholdersViewProps = RouteComponentProps<{ projectName: string }>;

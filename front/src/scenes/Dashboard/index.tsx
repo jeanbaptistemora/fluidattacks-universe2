@@ -34,7 +34,7 @@ import { HomeView } from "./containers/HomeView";
 import { OrganizationContent } from "./containers/OrganizationContent/index";
 import { OrganizationRedirect } from "./containers/OrganizationRedirectView";
 import { ProjectRoute } from "./containers/ProjectRoute/index";
-import { IUserDataAttr } from "./containers/ProjectUsersView/types";
+import { IStakeholderDataAttr } from "./containers/ProjectStakeholdersView/types";
 import { ReportsView } from "./containers/ReportsView";
 import { TagContent } from "./containers/TagContent";
 import { default as style } from "./index.css";
@@ -173,7 +173,7 @@ const dashboard: React.FC = (): JSX.Element => {
         onError={handleMtAddStakeholderError}
       >
         {(addStakeholder: MutationFunction): JSX.Element => {
-          const handleSubmit: ((values: IUserDataAttr) => void) = (values: IUserDataAttr): void => {
+          const handleSubmit: ((values: IStakeholderDataAttr) => void) = (values: IStakeholderDataAttr): void => {
             addStakeholder({ variables: values })
               .catch();
           };

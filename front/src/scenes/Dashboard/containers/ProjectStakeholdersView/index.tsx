@@ -34,10 +34,10 @@ import {
 import {
   IAddStakeholderAttr,
   IEditStakeholderAttr,
-  IProjectUsersViewProps,
+  IProjectStakeholdersViewProps,
   IRemoveStakeholderAttr,
-  IUserDataAttr,
-  IUsersAttr,
+  IStakeholderAttr,
+  IStakeholderDataAttr,
 } from "./types";
 
 const tableHeaders: IHeaderConfig[] = [
@@ -79,7 +79,8 @@ const tableHeaders: IHeaderConfig[] = [
   },
 ];
 
-const projectUsersView: React.FC<IProjectUsersViewProps> = (props: IProjectUsersViewProps): JSX.Element => {
+const projectStakeholdersView: React.FC<IProjectStakeholdersViewProps> =
+  (props: IProjectStakeholdersViewProps): JSX.Element => {
   const { projectName } = props.match.params;
   const { userName } = window as typeof window & Dictionary<string>;
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
@@ -110,7 +111,7 @@ const projectUsersView: React.FC<IProjectUsersViewProps> = (props: IProjectUsers
   const { data, refetch } = useQuery(GET_STAKEHOLDERS, {
     onError: (error: ApolloError): void => {
       msgError(translate.t("group_alerts.error_textsad"));
-      Logger.warning("An error occurred loading project users", error);
+      Logger.warning("An error occurred loading project stakeholders", error);
     },
     variables: { projectName },
   });
@@ -155,13 +156,13 @@ const projectUsersView: React.FC<IProjectUsersViewProps> = (props: IProjectUsers
             break;
           default:
             msgError(translate.t("group_alerts.error_textsad"));
-            Logger.warning("An error occurred adding user to project", grantError);
+            Logger.warning("An error occurred adding stakeholder to project", grantError);
         }
       });
     },
   });
 
-  const [editUser] = useMutation(EDIT_STAKEHOLDER_MUTATION, {
+  const [editStakeholder] = useMutation(EDIT_STAKEHOLDER_MUTATION, {
     onCompleted: (mtResult: IEditStakeholderAttr): void => {
       if (mtResult.editStakeholder.success) {
         refetch()
@@ -220,7 +221,7 @@ const projectUsersView: React.FC<IProjectUsersViewProps> = (props: IProjectUsers
     },
   });
 
-  const handleSubmit: ((values: IUserDataAttr) => void) = (values: IUserDataAttr): void => {
+  const handleSubmit: ((values: IStakeholderDataAttr) => void) = (values: IStakeholderDataAttr): void => {
     closeUserModal();
     if (userModalAction === "add") {
       grantStakeholderAccess({ variables: {
@@ -229,7 +230,7 @@ const projectUsersView: React.FC<IProjectUsersViewProps> = (props: IProjectUsers
       } })
         .catch();
     } else {
-      editUser({ variables: {
+      editStakeholder({ variables: {
           ...values,
           projectName,
       } })
@@ -248,7 +249,7 @@ const projectUsersView: React.FC<IProjectUsersViewProps> = (props: IProjectUsers
     return <React.Fragment />;
   }
 
-  const userList: IUsersAttr["project"]["stakeholders"] = formatUserlist(data.project.stakeholders);
+  const userList: IStakeholderAttr["project"]["stakeholders"] = formatUserlist(data.project.stakeholders);
 
   return (
     <React.StrictMode>
@@ -336,4 +337,4 @@ const projectUsersView: React.FC<IProjectUsersViewProps> = (props: IProjectUsers
   );
 };
 
-export { projectUsersView as ProjectUsersView };
+export { projectStakeholdersView as ProjectStakeholdersView };
