@@ -1,6 +1,6 @@
 import { default as $ } from "jquery";
 
-import { animationById, toggleClasses } from "./jqueryFunctions";
+import { animationById, parallaxEffect } from "./jqueryFunctions";
 
 const contentHome: (() => void) = (): void => {
   $(() => {
@@ -74,6 +74,14 @@ const contentHome: (() => void) = (): void => {
         $(".search-div")
           .animate({height: "toggle"});
       });
+
+      // Parallax scroll for Products and Services
+    $(window)
+      .on("load scroll", () => {
+        parallaxEffect(".parallax_integrates");
+        parallaxEffect(".parallax_drills");
+        parallaxEffect(".parallax_forces");
+    });
   });
 };
 
