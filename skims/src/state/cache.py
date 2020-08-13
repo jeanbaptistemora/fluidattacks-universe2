@@ -15,19 +15,15 @@ from typing import (
     TypeVar,
 )
 
-# Third party libraries
-import aiofiles
-
 # Local libraries
 from state import (
     STATE_FOLDER,
 )
-from utils.crypto import (
-    get_hash,
+from state.common import (
+    retrieve_object,
+    store_object,
 )
 from utils.serialization import (
-    dump as py_dumps,
-    load as py_loads,
     LoadError,
 )
 
@@ -40,17 +36,6 @@ TVar = TypeVar('TVar')
 makedirs(CACHE_FOLDER, mode=0o700, exist_ok=True)
 
 
-async def get_obj_id(obj: Any) -> bytes:
-    """Compute an unique identifier from a Python object.
-
-    :param obj: The object to identify
-    :type obj: Any
-    :return: An unique object identifier
-    :rtype: bytes
-    """
-    return await get_hash(await py_dumps(obj))
-
-
 async def cache_read(key: Any) -> Any:
     """Retrieve an entry from the cache.
 
@@ -59,14 +44,7 @@ async def cache_read(key: Any) -> Any:
     :return: The value that is hold under the specified key
     :rtype: Any
     """
-    obj_id: bytes = await get_obj_id(key)
-    obj_location: str = join(CACHE_FOLDER, obj_id.hex())
-
-    async with aiofiles.open(obj_location, mode='rb') as obj_store:
-        obj_stream: bytes = await obj_store.read()
-        obj: Any = await py_loads(obj_stream)
-
-    return obj
+    return await retrieve_object(CACHE_FOLDER, key)
 
 
 async def cache_store(key: Any, value: Any, ttl: Optional[int] = None) -> None:
@@ -79,12 +57,7 @@ async def cache_store(key: Any, value: Any, ttl: Optional[int] = None) -> None:
     :param ttl: Time to live in seconds, defaults to None
     :type ttl: Optional[int], optional
     """
-    obj_id: bytes = await get_obj_id(key)
-    obj_stream: bytes = await py_dumps(value, ttl=ttl)
-    obj_location: str = join(CACHE_FOLDER, obj_id.hex())
-
-    async with aiofiles.open(obj_location, mode='wb') as obj_store:
-        await obj_store.write(obj_stream)
+    await store_object(CACHE_FOLDER, key, value, ttl)
 
 
 async def cache(

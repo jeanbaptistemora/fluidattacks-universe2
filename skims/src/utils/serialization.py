@@ -21,6 +21,9 @@ from aioextensions import (
 )
 
 # Local libraries
+from utils.logs import (
+    log_exception,
+)
 from utils.model import (
     FindingEnum,
     FindingMetadata,
@@ -209,4 +212,5 @@ async def load(stream: bytes) -> Any:
         TypeError,
         ValueError,
     ) as exc:
+        await log_exception('debug', exc)
         raise LoadError(exc)
