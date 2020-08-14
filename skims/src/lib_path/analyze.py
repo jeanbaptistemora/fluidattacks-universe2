@@ -19,8 +19,8 @@ from typing import (
 
 # Third party libraries
 from aioextensions import (
+    CPU_COUNT,
     collect,
-    resolve,
 )
 
 # Local imports
@@ -47,7 +47,6 @@ from utils.logs import (
 )
 from utils.model import (
     FindingEnum,
-    Vulnerability,
 )
 from utils.string import (
     get_char_to_yx_map,
@@ -75,59 +74,60 @@ def generate_char_to_yx_map(
     return get_one
 
 
-async def analyze_one_path(path: str) -> Tuple[Vulnerability, ...]:
+async def analyze_one_path(
+    path: str,
+    stores: Dict[FindingEnum, EphemeralStore],
+) -> None:
     """Execute all findings against the provided file.
 
     :param path: Path to the file who's object of analysis
     :type path: str
-    :return: Tuple with the vulnerabilities found
-    :rtype: Tuple[Vulnerability, ...]
     """
     file_content_generator = generate_file_content(path, size=MAX_READ)
     file_raw_content_generator = generate_file_raw_content(path, size=MAX_READ)
     char_to_yx_map_generator = generate_char_to_yx_map(file_content_generator)
 
-    results: Tuple[Vulnerability, ...] = tuple(chain.from_iterable(
-        await collect(tuple(chain.from_iterable((
-            (
-                f009.analyze(
-                    char_to_yx_map_generator=char_to_yx_map_generator,
-                    content_generator=file_content_generator,
-                    file_extension=file_extension,
-                    path=path,
-                ),
-                f011.analyze(
-                    content_generator=file_content_generator,
-                    file_name=file_name,
-                    file_extension=file_extension,
-                    path=path,
-                ),
-                f060.analyze(
-                    char_to_yx_map_generator=char_to_yx_map_generator,
-                    content_generator=file_content_generator,
-                    file_extension=file_extension,
-                    path=path,
-                ),
-                f061.analyze(
-                    char_to_yx_map_generator=char_to_yx_map_generator,
-                    content_generator=file_content_generator,
-                    file_extension=file_extension,
-                    path=path,
-                ),
-                f117.analyze(
-                    file_name=file_name,
-                    file_extension=file_extension,
-                    path=path,
-                    raw_content_generator=file_raw_content_generator,
-                ),
-            )
-            for folder, file in [split(path)]
-            for file_name, file_extension in [splitext(file)]
-            for file_extension in [file_extension[1:]]
-        ))))
-    ))
+    _, file = split(path)
+    file_name, file_extension = splitext(file)
+    file_extension = file_extension[1:]
 
-    return results
+    await collect((
+        f009.analyze(
+            char_to_yx_map_generator=char_to_yx_map_generator,
+            content_generator=file_content_generator,
+            file_extension=file_extension,
+            path=path,
+            store=stores[FindingEnum.F009],
+        ),
+        f011.analyze(
+            content_generator=file_content_generator,
+            file_name=file_name,
+            file_extension=file_extension,
+            path=path,
+            store=stores[FindingEnum.F011],
+        ),
+        f060.analyze(
+            char_to_yx_map_generator=char_to_yx_map_generator,
+            content_generator=file_content_generator,
+            file_extension=file_extension,
+            path=path,
+            store=stores[FindingEnum.F060],
+        ),
+        f061.analyze(
+            char_to_yx_map_generator=char_to_yx_map_generator,
+            content_generator=file_content_generator,
+            file_extension=file_extension,
+            path=path,
+            store=stores[FindingEnum.F061],
+        ),
+        f117.analyze(
+            file_name=file_name,
+            file_extension=file_extension,
+            path=path,
+            raw_content_generator=file_raw_content_generator,
+            store=stores[FindingEnum.F117],
+        ),
+    ))
 
 
 async def resolve_paths(
@@ -180,15 +180,14 @@ async def analyze(
     paths_to_exclude: Tuple[str, ...],
     paths_to_include: Tuple[str, ...],
     stores: Dict[FindingEnum, EphemeralStore],
-) -> Dict[FindingEnum, EphemeralStore]:
+) -> None:
     unique_paths: Set[str] = await resolve_paths(
         exclude=paths_to_exclude,
         include=paths_to_include,
     )
 
-    results: Awaitable[Tuple[Vulnerability, ...]]
-    for results in resolve(map(analyze_one_path, unique_paths), workers=8):
-        for result in await results:
-            await stores[result.finding].store(result)
-
-    return stores
+    await collect(
+        (analyze_one_path(path, stores) for path in unique_paths),
+        workers=CPU_COUNT,
+        worker_greediness=4,
+    )

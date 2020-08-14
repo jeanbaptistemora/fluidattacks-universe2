@@ -1,7 +1,4 @@
 # Standard library
-from itertools import (
-    chain,
-)
 import re
 from typing import (
     Awaitable,
@@ -23,6 +20,7 @@ from more_itertools import (
 # Third party libraries
 from aioextensions import (
     collect,
+    resolve,
 )
 
 # Local libraries
@@ -31,6 +29,9 @@ from nvd.query import (
 )
 from parse_json import (
     loads as json_loads,
+)
+from state.ephemeral import (
+    EphemeralStore,
 )
 from utils.model import (
     FindingEnum,
@@ -149,7 +150,7 @@ async def npm_package_lock_json(
     path: str,
 ) -> Tuple[Vulnerability, ...]:
 
-    def resolve(
+    def resolve_dependencies(
         obj: frozendict,
         current: List[DependencyType],
     ) -> List[DependencyType]:
@@ -159,11 +160,11 @@ async def npm_package_lock_json(
                     for spec_key, spec_val in spec.items():
                         if spec_key['item'] == 'version':
                             current.append((product, spec_val))
-                            current = resolve(spec, current)
+                            current = resolve_dependencies(spec, current)
 
         return current
 
-    dependencies: Tuple[DependencyType, ...] = tuple(resolve(
+    dependencies: Tuple[DependencyType, ...] = tuple(resolve_dependencies(
         await json_loads(content), [],
     ))
 
@@ -181,7 +182,7 @@ async def yarn_lock(
     path: str,
 ) -> Tuple[Vulnerability, ...]:
 
-    def resolve() -> Iterator[DependencyType]:
+    def resolve_dependencies() -> Iterator[DependencyType]:
         windower: Iterator[
             Tuple[Tuple[int, str], Tuple[int, str]],
         ] = windowed(  # type: ignore
@@ -212,7 +213,7 @@ async def yarn_lock(
                     {'column': 0, 'line': version_line, 'item': version},
                 )
 
-    dependencies: Tuple[DependencyType, ...] = tuple(resolve())
+    dependencies: Tuple[DependencyType, ...] = tuple(resolve_dependencies())
 
     return await translate_dependencies_to_vulnerabilities(
         content=content,
@@ -291,7 +292,8 @@ async def analyze(
     file_name: str,
     file_extension: str,
     path: str,
-) -> Tuple[Vulnerability, ...]:
+    store: EphemeralStore,
+) -> None:
     coroutines: List[Awaitable[Tuple[Vulnerability, ...]]] = []
 
     if (file_name, file_extension) == ('build', 'gradle'):
@@ -315,8 +317,6 @@ async def analyze(
             path=path,
         ))
 
-    results: Tuple[Vulnerability, ...] = tuple(chain.from_iterable(
-        await collect(coroutines)
-    ))
-
-    return results
+    for results in resolve(coroutines):
+        for result in await results:
+            await store.store(result)

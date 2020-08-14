@@ -1,7 +1,4 @@
 # Standard library
-from itertools import (
-    chain,
-)
 from typing import (
     Awaitable,
     Callable,
@@ -20,7 +17,7 @@ from pyparsing import (
 
 # Third party libraries
 from aioextensions import (
-    collect,
+    resolve,
     unblock_cpu,
 )
 
@@ -37,6 +34,9 @@ from lib_path.common import (
 )
 from state.cache import (
     cache_decorator,
+)
+from state.ephemeral import (
+    EphemeralStore,
 )
 from utils.model import (
     FindingEnum,
@@ -236,7 +236,8 @@ async def analyze(
     content_generator: Callable[[], Awaitable[str]],
     file_extension: str,
     path: str,
-) -> Tuple[Vulnerability, ...]:
+    store: EphemeralStore,
+) -> None:
     coroutines: List[Awaitable[Tuple[Vulnerability, ...]]] = []
 
     if file_extension in EXTENSIONS_CSHARP:
@@ -263,8 +264,6 @@ async def analyze(
             path=path,
         ))
 
-    results: Tuple[Vulnerability, ...] = tuple(chain.from_iterable(
-        await collect(coroutines)
-    ))
-
-    return results
+    for results in resolve(coroutines):
+        for result in await results:
+            await store.store(result)
