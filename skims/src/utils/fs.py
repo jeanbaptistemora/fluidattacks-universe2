@@ -31,44 +31,59 @@ from utils.function import (
 )
 
 
-def generate_file_content(path: str) -> Callable[[], Awaitable[str]]:
+def generate_file_content(
+    path: str,
+    encoding: str = 'latin-1',
+    size: int = -1,
+) -> Callable[[], Awaitable[str]]:
     data: Dict[str, str] = {}
 
     @never_concurrent
     async def get_one() -> str:
         if not data:
-            data['file_contents'] = await get_file_content(path)
+            data['file_contents'] = await get_file_content(
+                path=path,
+                encoding=encoding,
+                size=size,
+            )
         return data['file_contents']
 
     return get_one
 
 
-def generate_file_raw_content(path: str) -> Callable[[], Awaitable[bytes]]:
+def generate_file_raw_content(
+    path: str,
+    size: int = -1,
+) -> Callable[[], Awaitable[bytes]]:
     data: Dict[str, bytes] = {}
 
     @never_concurrent
     async def get_one() -> bytes:
         if not data:
-            data['file_raw_content'] = await get_file_raw_content(path)
+            data['file_raw_content'] = await get_file_raw_content(path, size)
         return data['file_raw_content']
 
     return get_one
 
 
-async def get_file_content(path: str, encoding: str = 'latin-1') -> str:
+async def get_file_content(
+    path: str,
+    encoding: str = 'latin-1',
+    size: int = -1,
+) -> str:
     async with aiofiles.open(
         path,
         mode='r',
         encoding=encoding,
     ) as file_handle:
-        file_contents: str = await file_handle.read()
+        file_contents: str = await file_handle.read(size)
 
         return file_contents
 
 
-async def get_file_raw_content(path: str) -> bytes:
+async def get_file_raw_content(path: str, size: int = -1) -> bytes:
     async with aiofiles.open(path, mode='rb') as file_handle:
-        file_contents: bytes = await file_handle.read()
+        file_contents: bytes = await file_handle.read(size)
 
         return file_contents
 

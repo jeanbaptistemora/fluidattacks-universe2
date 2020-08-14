@@ -1,0 +1,8 @@
+chdir: ../../
+console_snippets: false
+group: worcester
+language: EN
+path:
+  include:
+    - product/
+  exclude: []

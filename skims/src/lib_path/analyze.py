@@ -53,6 +53,10 @@ from utils.string import (
     get_char_to_yx_map,
 )
 
+# Constants
+MEBIBYTE: int = 1048576
+MAX_READ: int = 64 * MEBIBYTE
+
 
 def generate_char_to_yx_map(
     file_content_generator: Callable[[], Awaitable[str]],
@@ -79,8 +83,8 @@ async def analyze_one_path(path: str) -> Tuple[Vulnerability, ...]:
     :return: Tuple with the vulnerabilities found
     :rtype: Tuple[Vulnerability, ...]
     """
-    file_content_generator = generate_file_content(path)
-    file_raw_content_generator = generate_file_raw_content(path)
+    file_content_generator = generate_file_content(path, size=MAX_READ)
+    file_raw_content_generator = generate_file_raw_content(path, size=MAX_READ)
     char_to_yx_map_generator = generate_char_to_yx_map(file_content_generator)
 
     results: Tuple[Vulnerability, ...] = tuple(chain.from_iterable(
