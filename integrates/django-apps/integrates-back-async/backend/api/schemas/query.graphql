@@ -9,6 +9,9 @@ type Query {
     "Finding entity"
     finding(identifier: String!): Finding
 
+    "Vulnerability entity"
+    vulnerability(identifier: String!, uuid: String!): Vulnerability
+
     "InternalNames entity"
     internalNames(entity: NameEntity!): InternalName
 

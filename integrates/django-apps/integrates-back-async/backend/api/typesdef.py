@@ -8,6 +8,7 @@ ME = ObjectType('Me')
 PROJECT = ObjectType('Project')
 RESOURCE = ObjectType('Resource')
 USER = ObjectType('User')
+VULNERABILITY = ObjectType('Vulnerability')
 
 DELETE_VULNERABILITY_JUSTIFICATION = EnumType(
     'DeleteVulnerabilityJustification',
@@ -218,7 +219,7 @@ AUTH_PROVIDER = EnumType(
 
 RAW_TYPES = [
     EVENT, FINDING, FORCES_EXECUTIONS, INTERNAL_NAME,
-    ME, PROJECT, RESOURCE, USER
+    ME, PROJECT, RESOURCE, USER, VULNERABILITY
 ]
 
 ENUMS = [
