@@ -12,6 +12,7 @@ from typing import Dict, List, Tuple, Union, cast
 from more_itertools import chunked
 from botocore.exceptions import ClientError
 from asgiref.sync import async_to_sync, sync_to_async
+from aioextensions import collect
 
 from backend import mailer, util
 from backend.dal import (
@@ -701,7 +702,7 @@ async def update_indicators() -> None:
     msg = '[scheduler]: update_indicators is running'
     LOGGER.warning(msg, **NOEXTRA)
     groups = await project_domain.get_active_projects()
-    await aio.materialize(map(update_group_indicators, groups), 20)
+    await collect(map(update_group_indicators, groups), workers=20)
 
 
 async def update_organization_indicators(
