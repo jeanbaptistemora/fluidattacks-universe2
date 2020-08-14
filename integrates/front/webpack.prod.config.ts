@@ -68,16 +68,16 @@ const prodConfig: webpack.Configuration = {
     ...(commonConfig.plugins as []),
     new BugsnagSourceMapUploaderPlugin({
       apiKey: bugsnagApiKey,
-      appVersion: appVersion,
+      appVersion,
       publicPath: `https://${bucketName}-${branchName}.s3.amazonaws.com/integrates/static/dashboard/`,
     }),
     new BugsnagBuildReporterPlugin({
       apiKey: bugsnagApiKey,
-      appVersion: appVersion,
+      appVersion,
       sourceControl: {
         provider: "gitlab",
         repository: "https://gitlab.com/fluidattacks/integrates.git",
-        revision: `${commitSha}/front`,
+        revision: `${commitSha}/integrates/front`,
       },
     }),
   ],

@@ -331,7 +331,7 @@ function job_deploy_mobile_ota {
                 --builder-name "${CI_COMMIT_AUTHOR}" \
                 --source-control-provider gitlab \
                 --source-control-repository https://gitlab.com/fluidattacks/integrates.git \
-                --source-control-revision "${CI_COMMIT_SHA}/mobile" \
+                --source-control-revision "${CI_COMMIT_SHA}/integrates/mobile" \
         &&  popd \
         ||  return 1
       else
