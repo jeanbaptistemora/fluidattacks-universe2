@@ -107,3 +107,7 @@ isolated security module like a vault for cryptographic operations.
 
 . [[r15]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 3.4.1]
 Decryption keys must not be associated with user accounts.
+
+. [[r16]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 3.5.2]
+Restrict access to cryptographic keys to the fewest number of custodians
+necessary.

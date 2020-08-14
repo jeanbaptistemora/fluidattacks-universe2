@@ -110,3 +110,7 @@ logical access must be managed separately and independently of native operating
 system authentication and access control mechanisms
 (for example, by not using local user account databases or general network
 login credentials).
+
+. [[r16]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 3.5.2]
+Restrict access to cryptographic keys to the fewest number of custodians
+necessary.

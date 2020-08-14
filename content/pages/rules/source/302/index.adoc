@@ -28,6 +28,8 @@ it should merely be referenced and managed using a package manager.
 
 * [inner]#link:/web/findings/079/[F079. Non-upgradable dependencies]#
 
+* [inner]#link:/web/findings/120/[F120. Improper dependency pinning]#
+
 == References
 
 . [[r1]] link:https://cwe.mitre.org/data/definitions/829.html[CWE-829: Inclusion of Functionality from Untrusted Control Sphere].
