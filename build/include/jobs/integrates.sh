@@ -6,7 +6,7 @@ source "${srcExternalGitlabVariables}"
 source "${srcExternalSops}"
 
 function job_build_front {
-      pushd integrates \
+      pushd "${STARTDIR}/integrates" \
   &&  pushd front \
   &&  npm install \
   &&  < ../../build/patches/jquery-comments.diff \
@@ -104,7 +104,7 @@ function job_build_mobile_ios {
   export EXPO_APPLE_PASSWORD
   export EXPO_IOS_DIST_P12_PASSWORD
 
-      pushd integrates \
+      pushd "${STARTDIR}/integrates" \
   &&  echo '[INFO] Logging in to AWS' \
   &&  aws_login "${ENVIRONMENT_NAME}" \
   &&  sops_env "secrets-${ENVIRONMENT_NAME}.yaml" 'default' \
@@ -179,7 +179,7 @@ function job_build_lambdas {
     &&  popd \
     ||  return 1
   }
-      pushd integrates \
+      pushd "${STARTDIR}/integrates" \
   &&  _job_build_lambdas 'send_mail_notification' \
   &&  _job_build_lambdas 'project_to_pdf' \
   &&  popd \
@@ -202,7 +202,7 @@ function job_clean_registries {
   local registry_name='app'
   local registry_id
 
-      pushd integrates \
+      pushd "${STARTDIR}/integrates" \
   &&  if helper_is_today_first_day_of_month
       then
             echo '[INFO] Cleaning registries' \
@@ -249,7 +249,7 @@ function job_build_container_app {
   local dockerfile='deploy/containers/app/Dockerfile'
   local tag="${CI_REGISTRY_IMAGE}/app:${CI_COMMIT_REF_NAME}"
 
-      pushd integrates \
+      pushd "${STARTDIR}/integrates" \
   &&  echo '[INFO] Remember that this job needs: build_lambdas' \
   &&  helper_build_django_apps \
   &&  echo '[INFO] Computing Fluid Integrates version' \
@@ -279,7 +279,7 @@ function job_build_container_app {
 }
 
 function job_deploy_front {
-      pushd integrates \
+      pushd "${STARTDIR}/integrates" \
   &&  env_prepare_python_packages \
   &&  env_prepare_django_static_external \
   &&  aws_login "${ENVIRONMENT_NAME}" \
@@ -293,7 +293,7 @@ function job_deploy_mobile_ota {
   export EXPO_USE_DEV_SERVER="true"
 
       helper_use_pristine_workdir \
-  &&  pushd integrates \
+  &&  pushd "${STARTDIR}/integrates" \
   &&  if  helper_have_any_file_changed \
             'mobile/'
       then
@@ -345,7 +345,7 @@ function job_deploy_mobile_ota {
 function job_deploy_mobile_playstore {
   export LANG=en_US.UTF-8
 
-      pushd integrates \
+      pushd "${STARTDIR}/integrates" \
   &&  if  helper_have_any_file_changed \
         'mobile/app.json'
       then
@@ -385,7 +385,7 @@ function job_deploy_permissions_matrix {
   export PYTHONPATH=".:${PYTHONPATH}"
   export DJANGO_SETTINGS_MODULE='fluidintegrates.settings'
 
-      pushd integrates \
+      pushd "${STARTDIR}/integrates" \
   &&  env_prepare_python_packages \
   &&  helper_set_dev_secrets \
   &&  echo '[INFO] Deploying permissions matrix' \
@@ -397,7 +397,7 @@ function job_deploy_permissions_matrix {
 function job_django_console {
  export DJANGO_SETTINGS_MODULE='fluidintegrates.settings'
 
-      pushd integrates \
+      pushd "${STARTDIR}/integrates" \
   &&  env_prepare_python_packages \
   &&  env_prepare_ruby_modules \
   &&  env_prepare_node_modules \
@@ -408,21 +408,21 @@ function job_django_console {
 }
 
 function job_functional_tests_local {
-      pushd integrates \
+      pushd "${STARTDIR}/integrates" \
   &&  helper_functional_tests \
   &&  popd \
   ||  return 1
 }
 
 function job_functional_tests_dev {
-      pushd integrates \
+      pushd "${STARTDIR}/integrates" \
   &&  CI='true' helper_functional_tests \
   &&  popd \
   ||  return 1
 }
 
 function job_functional_tests_prod {
-      pushd integrates \
+      pushd "${STARTDIR}/integrates" \
   &&  CI_COMMIT_REF_NAME='master' helper_functional_tests \
   &&  popd \
   ||  return 1
@@ -442,7 +442,7 @@ function job_renew_certificates {
     RA_ACCESS_KEY
   )
 
-      pushd integrates \
+      pushd "${STARTDIR}/integrates" \
   &&  if helper_is_today_wednesday
       then
         # shellcheck disable=SC2034
@@ -521,7 +521,7 @@ function job_reset {
     '*.terraform'
   )
 
-      pushd integrates \
+      pushd "${STARTDIR}/integrates" \
   &&  for file in "${files_to_delete[@]}"
       do
         # I want word splitting to exploit globbing
@@ -542,7 +542,7 @@ function job_reset {
 function job_serve_dynamodb_local {
   local port=8022
 
-      pushd integrates \
+      pushd "${STARTDIR}/integrates" \
   &&  env_prepare_dynamodb_local \
   &&  echo '[INFO] Launching DynamoDB local' \
   &&  {
@@ -590,7 +590,7 @@ function job_serve_front {
 }
 
 function job_serve_mobile {
-      pushd integrates \
+      pushd "${STARTDIR}/integrates" \
   &&  echo '[INFO] Logging in to AWS' \
   &&  aws_login "${ENVIRONMENT_NAME}" \
   &&  sops_env "secrets-${ENVIRONMENT_NAME}.yaml" 'default' \
@@ -621,7 +621,7 @@ function job_serve_mobile {
 function job_serve_redis {
   local port=6379
 
-      pushd integrates \
+      pushd "${STARTDIR}/integrates" \
   &&  echo "[INFO] Serving redis on port ${port}" \
   &&  redis-server --port "${port}" \
   &&  popd \
@@ -629,7 +629,7 @@ function job_serve_redis {
 }
 
 function job_serve_back_dev {
-      pushd integrates \
+      pushd "${STARTDIR}/integrates" \
   &&  helper_serve_back dev \
   &&  popd \
   ||  return 1
@@ -638,7 +638,7 @@ function job_serve_back_dev {
 function job_cron_show {
   export DJANGO_SETTINGS_MODULE='fluidintegrates.settings'
 
-      pushd integrates \
+      pushd "${STARTDIR}/integrates" \
   &&  env_prepare_python_packages \
   &&  helper_set_dev_secrets \
   &&  python3 manage.py crontab add \
@@ -651,7 +651,7 @@ function job_cron_run {
   export DJANGO_SETTINGS_MODULE='fluidintegrates.settings'
   local cron_job="${1}"
 
-      pushd integrates \
+      pushd "${STARTDIR}/integrates" \
   &&  env_prepare_python_packages \
   &&  helper_set_dev_secrets \
   &&  python3 manage.py crontab run "${cron_job}" \
@@ -660,7 +660,7 @@ function job_cron_run {
 }
 
 function job_serve_back_prod {
-      pushd integrates \
+      pushd "${STARTDIR}/integrates" \
   &&  helper_serve_back prod \
   &&  popd \
   ||  return 1
@@ -683,7 +683,7 @@ function _job_make_migration {
 function job_make_migration_dev_test {
   local migration_file="${1}"
 
-      pushd integrates \
+      pushd "${STARTDIR}/integrates" \
   &&  _job_make_migration 'dev' 'test' "${migration_file}" \
         | tee "${migration_file}.dev_test.out" \
   &&  popd \
@@ -693,7 +693,7 @@ function job_make_migration_dev_test {
 function job_make_migration_prod_test {
   local migration_file="${1}"
 
-      pushd integrates \
+      pushd "${STARTDIR}/integrates" \
   &&  _job_make_migration 'prod' 'test' "${migration_file}" \
   &&  popd \
   ||  return 1
@@ -756,7 +756,7 @@ function _job_analytics_make_snapshots {
 }
 
 function job_analytics_make_documents_dev {
-      pushd integrates \
+      pushd "${STARTDIR}/integrates" \
   &&  env_prepare_python_packages \
   &&  helper_set_dev_secrets \
   &&  if test "${IS_LOCAL_BUILD}" = "${FALSE}"
@@ -769,7 +769,7 @@ function job_analytics_make_documents_dev {
 }
 
 function job_analytics_make_documents_prod {
-      pushd integrates \
+      pushd "${STARTDIR}/integrates" \
   &&  env_prepare_python_packages \
   &&  helper_set_prod_secrets \
   &&  _job_analytics_make_documents \
@@ -778,14 +778,14 @@ function job_analytics_make_documents_prod {
 }
 
 function job_analytics_make_documents_prod_schedule {
-      pushd integrates \
+      pushd "${STARTDIR}/integrates" \
   &&  job_analytics_make_documents_prod \
   &&  popd \
   ||  return 1
 }
 
 function job_analytics_make_snapshots_prod_schedule {
-      pushd integrates \
+      pushd "${STARTDIR}/integrates" \
   &&  env_prepare_python_packages \
   &&  helper_set_prod_secrets \
   &&  _job_analytics_make_snapshots \
@@ -796,7 +796,7 @@ function job_analytics_make_snapshots_prod_schedule {
 function job_make_migration_dev_apply {
   local migration_file="${1}"
 
-  pushd integrates \
+  pushd "${STARTDIR}/integrates" \
   &&  _job_make_migration 'dev' 'apply' "${migration_file}" \
         | tee "${migration_file}.dev_apply.out" \
   &&  popd \
@@ -806,7 +806,7 @@ function job_make_migration_dev_apply {
 function job_make_migration_prod_apply {
   local migration_file="${1}"
 
-      pushd integrates \
+      pushd "${STARTDIR}/integrates" \
   &&  _job_make_migration 'prod' 'apply' "${migration_file}" \
   &&  popd \
   ||  return 1
@@ -818,7 +818,7 @@ function _job_subscriptions_trigger_user_to_entity_report {
 }
 
 function job_subscriptions_trigger_user_to_entity_report_dev {
-      pushd integrates \
+      pushd "${STARTDIR}/integrates" \
   &&  helper_bootstrap_dev_ci \
   &&  _job_subscriptions_trigger_user_to_entity_report \
   &&  popd \
@@ -826,7 +826,7 @@ function job_subscriptions_trigger_user_to_entity_report_dev {
 }
 
 function job_subscriptions_trigger_user_to_entity_report_prod_schedule {
-      pushd integrates \
+      pushd "${STARTDIR}/integrates" \
   &&  helper_bootstrap_prod_ci \
   &&  _job_subscriptions_trigger_user_to_entity_report \
   &&  popd \
@@ -836,7 +836,7 @@ function job_subscriptions_trigger_user_to_entity_report_prod_schedule {
 function job_scheduler_dev {
   local module="backend.scheduler.${1}"
 
-      pushd integrates \
+      pushd "${STARTDIR}/integrates" \
   &&  helper_bootstrap_dev_ci \
   &&  helper_invoke_py "${module}" \
   &&  popd \
@@ -846,7 +846,7 @@ function job_scheduler_dev {
 function job_scheduler_prod {
   local module="backend.scheduler.${1}"
 
-      pushd integrates \
+      pushd "${STARTDIR}/integrates" \
   &&  helper_bootstrap_prod_ci \
   &&  helper_invoke_py "${module}" \
   &&  popd \
@@ -857,7 +857,7 @@ function job_integrates_infra_backup_deploy {
   export TF_VAR_db_user
   export TF_VAR_db_password
 
-      pushd integrates \
+      pushd "${STARTDIR}/integrates" \
   &&  echo '[INFO] Logging in to AWS production' \
   &&  CI_COMMIT_REF_NAME=master aws_login production \
   &&  sops_env 'secrets-production.yaml' 'default' \
@@ -874,7 +874,7 @@ function job_integrates_infra_backup_deploy {
 }
 
 function job_integrates_infra_backup_test {
-      pushd integrates \
+      pushd "${STARTDIR}/integrates" \
   &&  echo '[INFO] Logging in to AWS development' \
   &&  aws_login development \
   &&  pushd deploy/backup/terraform \
@@ -890,7 +890,7 @@ function job_integrates_infra_database_deploy {
   export TF_VAR_db_user
   export TF_VAR_db_password
 
-      pushd integrates \
+      pushd "${STARTDIR}/integrates" \
   &&  echo '[INFO] Logging in to AWS production' \
   &&  CI_COMMIT_REF_NAME=master aws_login production \
   &&  sops_env 'secrets-production.yaml' 'default' \
@@ -907,7 +907,7 @@ function job_integrates_infra_database_deploy {
 }
 
 function job_integrates_infra_database_test {
-      pushd integrates \
+      pushd "${STARTDIR}/integrates" \
   &&  echo '[INFO] Logging in to AWS development' \
   &&  aws_login development \
   &&  pushd deploy/database/terraform \
@@ -920,7 +920,7 @@ function job_integrates_infra_database_test {
 }
 
 function job_integrates_infra_cache_db_deploy {
-      pushd integrates \
+      pushd "${STARTDIR}/integrates" \
   &&  echo '[INFO] Logging in to AWS production' \
   &&  CI_COMMIT_REF_NAME=master aws_login production \
   &&  pushd deploy/cache-db/terraform \
@@ -932,7 +932,7 @@ function job_integrates_infra_cache_db_deploy {
 }
 
 function job_integrates_infra_cache_db_test {
-      pushd integrates \
+      pushd "${STARTDIR}/integrates" \
   &&  echo '[INFO] Logging in to AWS development' \
   &&  aws_login development \
   &&  pushd deploy/cache-db/terraform \
@@ -948,7 +948,7 @@ function job_integrates_infra_django_db_deploy {
   export TF_VAR_db_user
   export TF_VAR_db_password
 
-      pushd integrates \
+      pushd "${STARTDIR}/integrates" \
   &&  echo '[INFO] Logging in to AWS production' \
   &&  CI_COMMIT_REF_NAME=master aws_login production \
   &&  sops_env 'secrets-production.yaml' 'default' \
@@ -968,7 +968,7 @@ function job_integrates_infra_django_db_test {
   export TF_VAR_db_user
   export TF_VAR_db_password
 
-      pushd integrates \
+      pushd "${STARTDIR}/integrates" \
   &&  echo '[INFO] Logging in to AWS development' \
   &&  aws_login development \
   &&  sops_env 'secrets-development.yaml' 'default' \
@@ -986,7 +986,7 @@ function job_integrates_infra_django_db_test {
 }
 
 function job_integrates_infra_devicefarm_deploy {
-      pushd integrates \
+      pushd "${STARTDIR}/integrates" \
   &&  echo '[INFO] Logging in to AWS production' \
   &&  CI_COMMIT_REF_NAME=master aws_login production \
   &&  pushd deploy/devicefarm/terraform \
@@ -998,7 +998,7 @@ function job_integrates_infra_devicefarm_deploy {
 }
 
 function job_integrates_infra_devicefarm_test {
-      pushd integrates \
+      pushd "${STARTDIR}/integrates" \
   &&  echo '[INFO] Logging in to AWS development' \
   &&  aws_login development \
   &&  pushd deploy/devicefarm/terraform \
@@ -1011,7 +1011,7 @@ function job_integrates_infra_devicefarm_test {
 }
 
 function job_integrates_infra_resources_deploy {
-      pushd integrates \
+      pushd "${STARTDIR}/integrates" \
   &&  echo '[INFO] Logging in to AWS production' \
   &&  CI_COMMIT_REF_NAME=master aws_login production \
   &&  pushd deploy/terraform-resources \
@@ -1023,7 +1023,7 @@ function job_integrates_infra_resources_deploy {
 }
 
 function job_integrates_infra_resources_test {
-      pushd integrates \
+      pushd "${STARTDIR}/integrates" \
   &&  echo '[INFO] Logging in to AWS development' \
   &&  aws_login development \
   &&  pushd deploy/terraform-resources \
@@ -1035,7 +1035,7 @@ function job_integrates_infra_resources_test {
 }
 
 function job_integrates_infra_secret_management_deploy {
-      pushd integrates \
+      pushd "${STARTDIR}/integrates" \
   &&  echo '[INFO] Logging in to AWS production' \
   &&  CI_COMMIT_REF_NAME=master aws_login production \
   &&  pushd deploy/secret-management/terraform \
@@ -1047,7 +1047,7 @@ function job_integrates_infra_secret_management_deploy {
 }
 
 function job_integrates_infra_secret_management_test {
-      pushd integrates \
+      pushd "${STARTDIR}/integrates" \
   &&  echo '[INFO] Logging in to AWS development' \
   &&  aws_login development \
   &&  pushd deploy/secret-management/terraform \
@@ -1067,7 +1067,7 @@ function job_rotate_jwt_token {
   local set_as_masked='true'
   local set_as_protected='false'
 
-      pushd integrates \
+      pushd "${STARTDIR}/integrates" \
   &&  echo "[INFO] Extracting ${bytes_of_entropy} bytes of pseudo random entropy" \
   &&  var_value=$(head -c "${bytes_of_entropy}" /dev/urandom | base64) \
   &&  echo '[INFO] Extracting secrets' \
@@ -1110,7 +1110,7 @@ function job_test_back {
   )
 
   # shellcheck disable=SC2015
-      pushd integrates \
+      pushd "${STARTDIR}/integrates" \
   &&  env_prepare_python_packages \
   &&  helper_set_dev_secrets \
   &&  helper_set_local_dynamo_and_redis \
@@ -1172,7 +1172,7 @@ function job_deploy_k8s_back_ephemeral {
 
   # shellcheck disable=SC2034
       helper_use_pristine_workdir \
-  &&  pushd integrates \
+  &&  pushd "${STARTDIR}/integrates" \
   &&  aws_login 'development' \
   &&  echo "[INFO] Setting namespace preferences..." \
   &&  aws eks update-kubeconfig --name FluidServes --region us-east-1 \
@@ -1226,7 +1226,7 @@ function job_deploy_k8s_back {
 
   # shellcheck disable=SC2034
       helper_use_pristine_workdir \
-  &&  pushd integrates \
+  &&  pushd "${STARTDIR}/integrates" \
   &&  CI_COMMIT_REF_NAME='master' aws_login 'production' \
   &&  sops_env 'secrets-production.yaml' 'default' \
         NEW_RELIC_API_KEY \
@@ -1280,7 +1280,7 @@ function job_deploy_k8s_back {
 }
 
 function job_deploy_k8s_stop_ephemeral {
-      pushd integrates \
+      pushd "${STARTDIR}/integrates" \
   &&  echo "[INFO] Setting namespace preferences..." \
   &&  aws_login 'development' \
   &&  aws eks update-kubeconfig --name FluidServes --region us-east-1 \
