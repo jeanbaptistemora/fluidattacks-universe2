@@ -30,6 +30,7 @@ from lib_path.common import (
     EXTENSIONS_CSHARP,
     EXTENSIONS_JAVA,
     EXTENSIONS_PYTHON,
+    EXTENSIONS_SWIFT,
     HANDLE_ERRORS,
     SINGLE_QUOTED_STRING,
     VAR_ATTR_JAVA,
@@ -267,6 +268,49 @@ async def python_insecure_exceptions(
     )
 
 
+def _swift_insecure_exceptions(
+    char_to_yx_map: Dict[int, Tuple[int, int]],
+    content: str,
+    path: str,
+) -> Tuple[Vulnerability, ...]:
+    grammar = (
+        Keyword('catch') +
+        Optional('let' + VAR_ATTR_JAVA) +
+        Optional('as' + VAR_ATTR_JAVA) +
+        '{'
+    )
+    grammar.ignore(C_STYLE_COMMENT)
+    grammar.ignore(DOUBLE_QUOTED_STRING)
+    grammar.ignore(SINGLE_QUOTED_STRING)
+
+    return blocking_get_vulnerabilities(
+        char_to_yx_map=char_to_yx_map,
+        content=content,
+        description=t(
+            key='src.lib_path.f060.insecure_exceptions.description',
+            lang='Swift',
+            path=path,
+        ),
+        finding=FindingEnum.F060,
+        grammar=grammar,
+        path=path,
+    )
+
+
+@HANDLE_ERRORS
+async def swift_insecure_exceptions(
+    char_to_yx_map: Dict[int, Tuple[int, int]],
+    content: str,
+    path: str,
+) -> Tuple[Vulnerability, ...]:
+    return await unblock_cpu(
+        _swift_insecure_exceptions,
+        char_to_yx_map=char_to_yx_map,
+        content=content,
+        path=path,
+    )
+
+
 async def analyze(
     char_to_yx_map_generator: Callable[
         [], Awaitable[Dict[int, Tuple[int, int]]],
@@ -292,6 +336,12 @@ async def analyze(
         ))
     elif file_extension in EXTENSIONS_PYTHON:
         coroutines.append(python_insecure_exceptions(
+            content=await content_generator(),
+            path=path,
+        ))
+    elif file_extension in EXTENSIONS_SWIFT:
+        coroutines.append(swift_insecure_exceptions(
+            char_to_yx_map=await char_to_yx_map_generator(),
             content=await content_generator(),
             path=path,
         ))

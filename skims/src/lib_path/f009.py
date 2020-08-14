@@ -96,6 +96,7 @@ async def analyze(
         'py',
         'sbt',
         'sql',
+        'swift',
         'yaml',
         'yml',
     }:

@@ -16,6 +16,9 @@ from typing import (
     NamedTuple,
     Tuple,
 )
+from uuid import (
+    uuid4 as uuid,
+)
 
 # Local libraries
 from state import (
@@ -32,7 +35,7 @@ from utils.fs import (
 )
 
 # Constants
-EPHEMERAL: str = join(STATE_FOLDER, 'ephemeral')
+EPHEMERAL: str = join(STATE_FOLDER, 'ephemeral', uuid().hex)
 ClearFunction = Callable[[], Awaitable[None]]
 GetAFewFunction = Callable[[int], Awaitable[Tuple[Any, ...]]]
 StoreFunction = Callable[[Any], Awaitable[None]]
