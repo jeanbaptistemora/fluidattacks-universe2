@@ -526,7 +526,7 @@ function job_apply_rotate_keys_user_provision_integrates_prod {
 
       helper_check_last_job_succeeded \
         "${gitlab_repo_id}" \
-        'deploy_k8s_back' \
+        'integrates_deploy_k8s_back' \
   &&  helper_user_provision_rotate_keys \
         "${terraform_dir}" \
         "${resource_to_taint}" \
