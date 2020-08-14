@@ -283,6 +283,7 @@ def _swift_insecure_exceptions(
     )
 
 
+@cache_decorator()
 @HANDLE_ERRORS
 async def swift_insecure_exceptions(
     char_to_yx_map: Dict[int, Tuple[int, int]],

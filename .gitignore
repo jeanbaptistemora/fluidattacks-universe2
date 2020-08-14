@@ -24,3 +24,6 @@ package-lock.json
 /test
 /test.py
 /.coverage*
+
+# Secrets
+.envrc

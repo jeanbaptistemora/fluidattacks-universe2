@@ -1,9 +1,12 @@
 # Standard library
+import re
 from typing import (
     Awaitable,
     Callable,
     Dict,
     List,
+    Pattern,
+    Set,
     Tuple,
 )
 
@@ -27,6 +30,7 @@ from lib_path.common import (
     DOUBLE_QUOTED_STRING,
     EXTENSIONS_JAVASCRIPT,
     HANDLE_ERRORS,
+    NAMES_DOCKERFILE,
     SINGLE_QUOTED_STRING,
 )
 from state.cache import (
@@ -37,10 +41,23 @@ from state.ephemeral import (
 )
 from utils.model import (
     FindingEnum,
+    SkimsVulnerabilityMetadata,
     Vulnerability,
+    VulnerabilityKindEnum,
+    VulnerabilityStateEnum,
+)
+from utils.string import (
+    to_snippet,
 )
 from zone import (
     t,
+)
+
+# Constants
+WS = r'\s*'
+WSM = r'\s+'
+DOCKERFILE_ENV: Pattern[str] = re.compile(
+    fr'^{WS}ENV{WS}(?P<key>[\w\.]+)(?:{WS}={WS}|{WSM})(?P<value>.+?){WS}$',
 )
 
 
@@ -81,7 +98,7 @@ async def aws_credentials(
     )
 
 
-# @cache_decorator()
+@cache_decorator()
 @HANDLE_ERRORS
 async def crypto_js_credentials(
     char_to_yx_map: Dict[int, Tuple[int, int]],
@@ -134,12 +151,68 @@ def _crypto_js_credentials(
     )
 
 
-async def analyze(
+def _dockerfile_env_secrets(content: str) -> Tuple[Tuple[int, int], ...]:
+    secret_smells: Set[str] = {
+        'api_key',
+        'jboss_pass',
+        'license_key',
+        'password',
+        'secret',
+    }
+
+    secrets: List[Tuple[int, int]] = []
+    for line_no, line in enumerate(content.splitlines(), start=1):
+        if match := DOCKERFILE_ENV.match(line):
+            secret: str = match.group('key').lower()
+            value: str = match.group('value').strip('"').strip("'")
+            if (
+                value
+                and not value.startswith('#{') and not value.endswith('}#')
+                and any(smell in secret for smell in secret_smells)
+            ):
+                column: int = match.start('value')
+                secrets.append((line_no, column))
+
+    return tuple(secrets)
+
+
+@cache_decorator()
+async def dockerfile_env_secrets(
+    content: str,
+    path: str,
+) -> Tuple[Vulnerability, ...]:
+    return tuple([
+        Vulnerability(
+            finding=FindingEnum.F011,
+            kind=VulnerabilityKindEnum.LINES,
+            state=VulnerabilityStateEnum.OPEN,
+            what=path,
+            where=f'{line_no}',
+            skims_metadata=SkimsVulnerabilityMetadata(
+                description=t(
+                    key='src.lib_path.f009.dockerfile_env_secrets.description',
+                    path=path,
+                ),
+                snippet=await to_snippet(
+                    column=column,
+                    content=content,
+                    line=line_no,
+                )
+            )
+        )
+        for line_no, column in await unblock_cpu(
+            _dockerfile_env_secrets, content,
+        )
+    ])
+
+
+async def analyze(  # pylint: disable=too-many-arguments
     char_to_yx_map_generator: Callable[
         [], Awaitable[Dict[int, Tuple[int, int]]],
     ],
     content_generator: Callable[[], Awaitable[str]],
     file_extension: str,
+    file_name: str,
     path: str,
     store: EphemeralStore,
 ) -> None:
@@ -167,6 +240,11 @@ async def analyze(
     if file_extension in EXTENSIONS_JAVASCRIPT:
         coroutines.append(crypto_js_credentials(
             char_to_yx_map=await char_to_yx_map_generator(),
+            content=await content_generator(),
+            path=path,
+        ))
+    elif file_name in NAMES_DOCKERFILE:
+        coroutines.append(dockerfile_env_secrets(
             content=await content_generator(),
             path=path,
         ))

@@ -43,6 +43,7 @@ TFun = TypeVar('TFun', bound=Callable[..., Any])
 C_STYLE_COMMENT: ParserElement = cppStyleComment
 SHARP_STYLE_COMMENT: ParserElement = pythonStyleComment
 
+NAMES_DOCKERFILE: Set[str] = {'Dockerfile'}
 EXTENSIONS_CSHARP: Set[str] = {'cs'}
 EXTENSIONS_JAVA: Set[str] = {'class', 'java'}
 EXTENSIONS_JAVASCRIPT: Set[str] = {'js', 'jsx', 'ts', 'tsx'}

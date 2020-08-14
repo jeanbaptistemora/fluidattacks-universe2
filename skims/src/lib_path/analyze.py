@@ -96,6 +96,7 @@ async def analyze_one_path(
             char_to_yx_map_generator=char_to_yx_map_generator,
             content_generator=file_content_generator,
             file_extension=file_extension,
+            file_name=file_name,
             path=path,
             store=stores[FindingEnum.F009],
         ),
