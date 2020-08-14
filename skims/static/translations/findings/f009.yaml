@@ -1,6 +1,9 @@
 src.lib_path.f009.aws_credentials.description:
   en: AWS credential in {path}
   es: Credencial de AWS en {path}
+src.lib_path.f009.crypto_js_credentials.description:
+  en: CryptoJS plaintext data source in {path}
+  es: Fuente de datos en texto plano para CryptoJS en {path}
 utils.model.finding.enum.f009.description:
   en: >
     The source code repository contains sensitive information such as

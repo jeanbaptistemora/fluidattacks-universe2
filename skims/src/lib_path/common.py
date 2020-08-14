@@ -50,8 +50,9 @@ EXTENSIONS_JSON: Set[str] = {'json'}
 EXTENSIONS_PYTHON: Set[str] = {'py', 'pyw'}
 EXTENSIONS_SWIFT: Set[str] = {'swift'}
 EXTENSIONS_YAML: Set[str] = {'yml', 'yaml'}
-SINGLE_QUOTED_STRING: QuotedString = QuotedString("'")
-DOUBLE_QUOTED_STRING: QuotedString = QuotedString('"')
+BACKTICK_QUOTED_STRING: QuotedString = QuotedString("`", escChar='\\')
+SINGLE_QUOTED_STRING: QuotedString = QuotedString("'", escChar='\\')
+DOUBLE_QUOTED_STRING: QuotedString = QuotedString('"', escChar='\\')
 
 VAR_NAME_JAVA: ParserElement = Word(alphas + '$_', alphanums + '$_')
 VAR_ATTR_JAVA: ParserElement = delimitedList(VAR_NAME_JAVA, '.', True)
