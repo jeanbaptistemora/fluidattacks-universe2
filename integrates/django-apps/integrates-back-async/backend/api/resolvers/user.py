@@ -2,7 +2,6 @@
 import asyncio
 import logging
 import sys
-import threading
 from datetime import datetime
 from typing import (
     cast,
@@ -44,6 +43,7 @@ from backend.typing import (
     RemoveUserAccessPayload as RemoveUserAccessPayloadType,
     EditUserPayload as EditUserPayloadType,
     EditStakeholderPayload as EditStakeholderPayloadType,
+    MailContent as MailContentType,
     Project as ProjectType
 )
 from backend.services import (
@@ -95,18 +95,17 @@ async def _give_user_access(
         )
         project_url = f'{BASE_URL}/groups/{group.lower()}/indicators'
         mail_to = [email]
-        context = {
+        context: MailContentType = {
             'admin': email,
             'project': group,
             'project_description': description,
             'project_url': project_url,
         }
-        email_send_thread = threading.Thread(
-            name='Access granted email thread',
-            target=mailer.send_mail_access_granted,
-            args=(mail_to, context,)
+        asyncio.create_task(
+            mailer.send_mail_access_granted(
+                mail_to, context,
+            )
         )
-        email_send_thread.start()
         success = True
     return success
 
@@ -411,13 +410,12 @@ async def _do_add_user(
                 info.context,
                 f'Security: Add user {email}')  # pragma: no cover
             mail_to = [email]
-            context = {'admin': email}
-            email_send_thread = threading.Thread(
-                name='Access granted email thread',
-                target=mailer.send_mail_access_granted,
-                args=(mail_to, context,)
+            context: MailContentType = {'admin': email}
+            asyncio.create_task(
+                mailer.send_mail_access_granted(
+                    mail_to, context
+                )
             )
-            email_send_thread.start()
             success = True
         else:
             LOGGER.error(
@@ -467,13 +465,12 @@ async def _do_add_stakeholder(
                 f'Security: Add stakeholder {email}'
             )
             mail_to = [email]
-            context = {'admin': email}
-            email_send_thread = threading.Thread(
-                name='Access granted email thread',
-                target=mailer.send_mail_access_granted,
-                args=(mail_to, context,)
+            context: MailContentType = {'admin': email}
+            asyncio.create_task(
+                mailer.send_mail_access_granted(
+                    mail_to, context,
+                )
             )
-            email_send_thread.start()
             success = True
         else:
             LOGGER.error(

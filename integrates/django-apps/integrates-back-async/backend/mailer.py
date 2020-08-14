@@ -498,10 +498,10 @@ async def send_mail_new_user(
     )
 
 
-def send_mail_delete_finding(
+async def send_mail_delete_finding(
         email_to: List[str],
-        context: Dict[str, Union[str, int]]) -> None:
-    _send_mail(
+        context: MailContentType) -> None:
+    await _send_mail_async(
         'deletefindingintegrates',
         email_to,
         context=context,
@@ -541,10 +541,11 @@ async def send_mail_verified_finding(
         'verified-finding', email_to, context=context, tags=VERIFY_TAG)
 
 
-def send_mail_updated_manager(
+async def send_mail_updated_manager(
         email_to: List[str],
-        context: Dict[str, Union[str, int]]) -> None:
-    _send_mail('manager-updated', email_to, context=context, tags=GENERAL_TAG)
+        context: MailContentType) -> None:
+    await _send_mail_async(
+        'manager-updated', email_to, context=context, tags=GENERAL_TAG)
 
 
 async def send_mail_new_remediated(
@@ -574,10 +575,10 @@ async def send_mail_new_releases(
     )
 
 
-def send_mail_access_granted(
+async def send_mail_access_granted(
         email_to: List[str],
-        context: Dict[str, Union[str, int]]) -> None:
-    _send_mail(
+        context: MailContentType) -> None:
+    await _send_mail_async(
         'accessgrantedintegrates', email_to, context=context, tags=GENERAL_TAG
     )
 
@@ -598,16 +599,18 @@ async def send_mail_unsolved_events(
     )
 
 
-def send_mail_accepted_finding(
+async def send_mail_accepted_finding(
         email_to: List[str],
-        context: Dict[str, Union[str, int]]) -> None:
-    _send_mail(
+        context: MailContentType) -> None:
+    await _send_mail_async(
         'acceptedfinding', email_to, context=context, tags=GENERAL_TAG
     )
 
 
-def send_mail_new_event(
+async def send_mail_new_event(
         email_to: List[List[str]],
-        context: List[Dict[str, Union[str, int]]]) -> None:
-    _send_mail('new-event', email_to[0], context=context[0], tags=GENERAL_TAG)
-    _send_mail('new-event', email_to[1], context=context[1], tags=GENERAL_TAG)
+        context: List[MailContentType]) -> None:
+    await _send_mail_async(
+        'new-event', email_to[0], context=context[0], tags=GENERAL_TAG)
+    await _send_mail_async(
+        'new-event', email_to[1], context=context[1], tags=GENERAL_TAG)

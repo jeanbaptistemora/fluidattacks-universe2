@@ -2,7 +2,6 @@
 from typing import Dict, List, Tuple, Union, cast, Any
 import asyncio
 import random
-import threading
 from datetime import datetime
 
 import pytz
@@ -32,6 +31,7 @@ from backend.exceptions import (
 from backend.typing import (
     Event as EventType,
     Historic as HistoryType,
+    MailContent as MailContentType,
     User as UserType
 )
 from backend.utils import (
@@ -163,7 +163,7 @@ async def _send_new_event_mail(
         recipients.append(FI_MAIL_PRODUCTION)
         recipients += FI_MAIL_REVIEWERS.split(',')
 
-    email_context = {
+    email_context: MailContentType = {
         'analyst_email': analyst,
         'event_id': event_id,
         'event_url': f'{BASE_URL}/groups/{project}/events/{event_id}',
@@ -185,15 +185,12 @@ async def _send_new_event_mail(
     email_context_customers = email_context.copy()
     email_context_customers['analyst_email'] = f'Hacker at FluidIntegrates'
 
-    email_send_thread = threading.Thread(
-        name='New event email thread',
-        target=mailer.send_mail_new_event,
-        args=(
+    asyncio.create_task(
+        mailer.send_mail_new_event(
             [recipients_not_customers, recipients_customers],
             [email_context, email_context_customers]
         )
     )
-    email_send_thread.start()
 
 
 async def create_event(

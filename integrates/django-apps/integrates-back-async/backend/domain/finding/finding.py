@@ -29,7 +29,6 @@ from backend.exceptions import (
     InvalidDraftTitle,
 )
 from backend.utils import (
-    aio,
     cvss,
     validations,
     findings as finding_utils,
@@ -337,8 +336,7 @@ async def update_treatment(
     result_update_vuln = await update_treatment_in_vuln(
         finding_id, historic_treatment[-1])
     if result_update_finding and result_update_vuln:
-        await aio.ensure_io_bound(
-            finding_utils.should_send_mail,
+        await finding_utils.should_send_mail(
             finding,
             updated_values
         )
@@ -410,8 +408,7 @@ async def delete_finding(
                 'FALSE_POSITIVE': 'It is a false positive',
                 'NOT_REQUIRED': 'Finding not required',
             }
-            await aio.ensure_io_bound(
-                finding_utils.send_finding_delete_mail,
+            await finding_utils.send_finding_delete_mail(
                 finding_id,
                 str(finding_data.get('finding', '')),
                 project_name,

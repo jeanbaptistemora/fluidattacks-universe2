@@ -3,13 +3,11 @@ import bisect
 import io
 import itertools
 import logging
-import threading
 from datetime import datetime
 from decimal import Decimal
 from typing import Dict, List, Union, cast, Tuple
 
 import pytz
-from asgiref.sync import async_to_sync
 from backports import csv
 from django.conf import settings
 from django.core.files.base import ContentFile
@@ -472,7 +470,7 @@ def remove_repeated(
     return vuln_casted
 
 
-def send_finding_delete_mail(
+async def send_finding_delete_mail(
         finding_id: str,
         finding_name: str,
         project_name: str,
@@ -482,17 +480,18 @@ def send_finding_delete_mail(
     approvers = FI_MAIL_REVIEWERS.split(',')
     recipients.extend(approvers)
 
-    email_send_thread = threading.Thread(
-        name='Delete finding email thread',
-        target=mailer.send_mail_delete_finding,
-        args=(recipients, {
-            'mail_analista': discoverer_email,
-            'name_finding': finding_name,
-            'id_finding': finding_id,
-            'description': justification,
-            'project': project_name,
-        }))
-    email_send_thread.start()
+    asyncio.create_task(
+        mailer.send_mail_delete_finding(
+            recipients,
+            {
+                'mail_analista': discoverer_email,
+                'name_finding': finding_name,
+                'id_finding': finding_id,
+                'description': justification,
+                'project': project_name,
+            }
+        )
+    )
 
 
 async def send_remediation_email(
@@ -522,7 +521,7 @@ async def send_remediation_email(
     )
 
 
-def send_accepted_email(
+async def send_accepted_email(
         finding: Dict[str, FindingType],
         justification: str) -> None:
     project_name = str(finding.get('projectName', ''))
@@ -531,25 +530,25 @@ def send_accepted_email(
         List[Dict[str, str]],
         finding.get('historicTreatment')
     )[-1]
-    recipients = async_to_sync(project_domain.get_users_to_notify)(
+    recipients = await project_domain.get_users_to_notify(
         project_name
     )
     treatment = 'Temporarily accepted'
     if last_historic_treatment['treatment'] == 'ACCEPTED_UNDEFINED':
         treatment = 'Eternally accepted'
-    email_send_thread = threading.Thread(
-        name='Accepted finding email thread',
-        target=mailer.send_mail_accepted_finding,
-        args=(recipients, {
-            'finding_name': finding_name,
-            'finding_id': finding.get('finding_id'),
-            'project': project_name.capitalize(),
-            'justification': justification,
-            'user_email': last_historic_treatment['user'],
-            'treatment': treatment
-        }))
-
-    email_send_thread.start()
+    asyncio.create_task(
+        mailer.send_mail_accepted_finding(
+            recipients,
+            {
+                'finding_name': finding_name,
+                'finding_id': str(finding.get('finding_id')),
+                'project': project_name.capitalize(),
+                'justification': justification,
+                'user_email': last_historic_treatment['user'],
+                'treatment': treatment
+            }
+        )
+    )
 
 
 async def send_draft_reject_mail(
@@ -600,15 +599,15 @@ async def send_new_draft_mail(
     )
 
 
-def should_send_mail(
+async def should_send_mail(
         finding: Dict[str, FindingType],
         updated_values: Dict[str, str]) -> None:
     if updated_values['treatment'] == 'ACCEPTED':
-        send_accepted_email(
+        await send_accepted_email(
             finding, str(updated_values.get('justification', ''))
         )
     if updated_values['treatment'] == 'ACCEPTED_UNDEFINED':
-        send_accepted_email(
+        await send_accepted_email(
             finding,
             ('Treatment state approval is pending '
              f'for finding {finding.get("finding", "")}')
