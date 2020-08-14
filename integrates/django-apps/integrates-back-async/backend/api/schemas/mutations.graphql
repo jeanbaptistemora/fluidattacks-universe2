@@ -146,7 +146,18 @@ type Mutation {
         phoneNumber: String
         role: OrganizationRole!
         userEmail: String!
-    ): GrantUserAccessPayload!
+    ): GrantUserAccessPayload! @deprecated(reason:
+        """
+        Right now, you can grant a stakeholder/user access to a project using both
+        the 'grantUserOrganizationAccess' and 'grantStakeholderOrganizationAccess' queries. After 2021-02-06,
+        the 'grantUserOrganizationAccess' query will be invalid.
+        """)
+    grantStakeholderOrganizationAccess(
+        organizationId: String!
+        phoneNumber: String
+        role: OrganizationRole!
+        userEmail: String!
+    ): GrantStakeholderAccessPayload!
 
     removeUserAccess(
         projectName: String!

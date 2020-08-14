@@ -44,6 +44,7 @@ from backend.typing import (
     CreateOrganizationPayload as CreateOrganizationPayloadType,
     EditStakeholderPayload as EditStakeholderPayloadType,
     EditUserPayload as EditUserPayloadType,
+    GrantStakeholderAccessPayload as GrantStakeholderAccessPayloadType,
     GrantUserAccessPayload as GrantUserAccessPayloadType,
     Organization as OrganizationType,
     Project as ProjectType,
@@ -261,6 +262,63 @@ async def _do_grant_user_organization_access(
     return GrantUserAccessPayloadType(
         success=success,
         granted_user=dict(
+            email=user_email
+        )
+    )
+
+
+@require_organization_access
+@enforce_organization_level_auth_async
+async def _do_grant_stakeholder_organization_access(
+    _: Any,
+    info: GraphQLResolveInfo,
+    **parameters: Any
+) -> GrantStakeholderAccessPayloadType:
+    success: bool = False
+
+    organization_id = str(parameters.get('organization_id'))
+    organization_name = await org_domain.get_name_by_id(organization_id)
+
+    requester_data = util.get_jwt_content(info.context)
+    requester_email = requester_data['user_email']
+
+    user_email = str(parameters.get('user_email'))
+    user_phone_number = str(parameters.get('phone_number'))
+    user_role = str(parameters.get('role')).lower()
+
+    user_added = await org_domain.add_user(
+        organization_id, user_email, user_role
+    )
+
+    user_created = False
+    user_exists = bool(await user_domain.get_data(user_email, 'email'))
+    if not user_exists:
+        user_created = await user_domain.create_without_project(
+            user_email,
+            'customer',
+            user_phone_number
+        )
+    success = user_added and any([user_created, user_exists])
+
+    if success:
+        await util.invalidate_cache(user_email, organization_id.lower())
+        util.cloudwatch_log(
+            info.context,
+            f'Security: Stakeholder {user_email} was granted access '
+            f'to organization {organization_name} with role {user_role} '
+            f'by stakeholder {requester_email}'
+        )
+    else:
+        util.cloudwatch_log(
+            info.context,
+            f'Security: Stakeholder {requester_email} attempted to '
+            f'grant stakeholder {user_email} {user_role} access to '
+            f'organization {organization_name}'
+        )
+
+    return GrantStakeholderAccessPayloadType(
+        success=success,
+        granted_stakeholder=dict(
             email=user_email
         )
     )

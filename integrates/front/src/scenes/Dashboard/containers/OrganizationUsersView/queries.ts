@@ -15,21 +15,21 @@ export const GET_ORGANIZATION_STAKEHOLDERS: DocumentNode = gql`
   }
   `;
 
-export const ADD_USER_MUTATION: DocumentNode = gql`
-  mutation GrantUserOrganizationAccessMutation(
+export const ADD_STAKEHOLDER_MUTATION: DocumentNode = gql`
+  mutation GrantStakeholderOrganizationAccessMutation(
     $email: String!,
     $organizationId: String!,
     $phoneNumber: String,
     $role: OrganizationRole!
     ) {
-    grantUserOrganizationAccess (
+    grantStakeholderOrganizationAccess (
       organizationId: $organizationId,
       phoneNumber: $phoneNumber,
       role: $role,
       userEmail: $email,
     ) {
       success
-      grantedUser {
+      grantedStakeholder {
         email
       }
     }

@@ -1,6 +1,6 @@
-export interface IAddUserAttrs {
-  grantUserOrganizationAccess: {
-    grantedUser: {
+export interface IAddStakeholderAttrs {
+  grantStakeholderOrganizationAccess: {
+    grantedStakeholder: {
       email: string;
       firstLogin: string;
       lastLogin: string;

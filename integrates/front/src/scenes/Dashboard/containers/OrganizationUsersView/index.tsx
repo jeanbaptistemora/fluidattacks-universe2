@@ -18,13 +18,13 @@ import { sortLastLogin } from "../../../../utils/sortHelpers";
 import translate from "../../../../utils/translations/translate";
 import { addUserModal as AddUserModal } from "../../components/AddUserModal/index";
 import {
-  ADD_USER_MUTATION,
+  ADD_STAKEHOLDER_MUTATION,
   EDIT_STAKEHOLDER_MUTATION,
   GET_ORGANIZATION_STAKEHOLDERS,
   REMOVE_STAKEHOLDER_MUTATION,
 } from "./queries";
 import {
-  IAddUserAttrs,
+  IAddStakeholderAttrs,
   IEditStakeholderAttrs,
   IOrganizationUsers,
   IRemoveStakeholderAttrs,
@@ -126,13 +126,13 @@ const organizationUsers: React.FC<IOrganizationUsers> = (props: IOrganizationUse
     variables: { organizationId },
   });
 
-  const [grantUserAccess] = useMutation(ADD_USER_MUTATION, {
-    onCompleted: (mtResult: IAddUserAttrs): void => {
-      if (mtResult.grantUserOrganizationAccess.success) {
+  const [grantStakeholderAccess] = useMutation(ADD_STAKEHOLDER_MUTATION, {
+    onCompleted: (mtResult: IAddStakeholderAttrs): void => {
+      if (mtResult.grantStakeholderOrganizationAccess.success) {
         refetchUsers()
           .catch();
         mixpanel.track("AddUserOrganzationAccess", { Organization: organizationName, User: userName });
-        const { email } = mtResult.grantUserOrganizationAccess.grantedUser;
+        const { email } = mtResult.grantStakeholderOrganizationAccess.grantedStakeholder;
         msgSuccess(
           `${email} ${translate.t("organization.tabs.users.addButton.success")}`,
           translate.t("organization.tabs.users.successTitle"),
@@ -181,7 +181,7 @@ const organizationUsers: React.FC<IOrganizationUsers> = (props: IOrganizationUse
   const handleSubmit: ((values: IStakeholderAttrs) => void) = (values: IStakeholderAttrs): void => {
     closeUserModal();
     if (userModalAction === "add") {
-      grantUserAccess({ variables: {
+      grantStakeholderAccess({ variables: {
         ...values,
         organizationId,
       } })
