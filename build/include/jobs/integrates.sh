@@ -853,7 +853,7 @@ function job_scheduler_prod {
   ||  return 1
 }
 
-function job_infra_backup_deploy {
+function job_integrates_infra_backup_deploy {
   export TF_VAR_db_user
   export TF_VAR_db_password
 
@@ -873,7 +873,7 @@ function job_infra_backup_deploy {
   || return 1
 }
 
-function job_infra_backup_test {
+function job_integrates_infra_backup_test {
       pushd integrates \
   &&  echo '[INFO] Logging in to AWS development' \
   &&  aws_login development \
@@ -886,7 +886,7 @@ function job_infra_backup_test {
   || return 1
 }
 
-function job_infra_database_deploy {
+function job_integrates_infra_database_deploy {
   export TF_VAR_db_user
   export TF_VAR_db_password
 
@@ -906,7 +906,7 @@ function job_infra_database_deploy {
   || return 1
 }
 
-function job_infra_database_test {
+function job_integrates_infra_database_test {
       pushd integrates \
   &&  echo '[INFO] Logging in to AWS development' \
   &&  aws_login development \
@@ -919,7 +919,7 @@ function job_infra_database_test {
   || return 1
 }
 
-function job_infra_cache_db_deploy {
+function job_integrates_infra_cache_db_deploy {
       pushd integrates \
   &&  echo '[INFO] Logging in to AWS production' \
   &&  CI_COMMIT_REF_NAME=master aws_login production \
@@ -931,7 +931,7 @@ function job_infra_cache_db_deploy {
   || return 1
 }
 
-function job_infra_cache_db_test {
+function job_integrates_infra_cache_db_test {
       pushd integrates \
   &&  echo '[INFO] Logging in to AWS development' \
   &&  aws_login development \
@@ -944,7 +944,7 @@ function job_infra_cache_db_test {
   || return 1
 }
 
-function job_infra_django_db_deploy {
+function job_integrates_infra_django_db_deploy {
   export TF_VAR_db_user
   export TF_VAR_db_password
 
@@ -964,7 +964,7 @@ function job_infra_django_db_deploy {
   || return 1
 }
 
-function job_infra_django_db_test {
+function job_integrates_infra_django_db_test {
   export TF_VAR_db_user
   export TF_VAR_db_password
 
@@ -985,7 +985,7 @@ function job_infra_django_db_test {
   || return 1
 }
 
-function job_infra_devicefarm_deploy {
+function job_integrates_infra_devicefarm_deploy {
       pushd integrates \
   &&  echo '[INFO] Logging in to AWS production' \
   &&  CI_COMMIT_REF_NAME=master aws_login production \
@@ -997,7 +997,7 @@ function job_infra_devicefarm_deploy {
   || return 1
 }
 
-function job_infra_devicefarm_test {
+function job_integrates_infra_devicefarm_test {
       pushd integrates \
   &&  echo '[INFO] Logging in to AWS development' \
   &&  aws_login development \
@@ -1010,7 +1010,7 @@ function job_infra_devicefarm_test {
   || return 1
 }
 
-function job_infra_resources_deploy {
+function job_integrates_infra_resources_deploy {
       pushd integrates \
   &&  echo '[INFO] Logging in to AWS production' \
   &&  CI_COMMIT_REF_NAME=master aws_login production \
@@ -1022,7 +1022,7 @@ function job_infra_resources_deploy {
   || return 1
 }
 
-function job_infra_resources_test {
+function job_integrates_infra_resources_test {
       pushd integrates \
   &&  echo '[INFO] Logging in to AWS development' \
   &&  aws_login development \
@@ -1034,7 +1034,7 @@ function job_infra_resources_test {
   || return 1
 }
 
-function job_infra_secret_management_deploy {
+function job_integrates_infra_secret_management_deploy {
       pushd integrates \
   &&  echo '[INFO] Logging in to AWS production' \
   &&  CI_COMMIT_REF_NAME=master aws_login production \
@@ -1046,7 +1046,7 @@ function job_infra_secret_management_deploy {
   || return 1
 }
 
-function job_infra_secret_management_test {
+function job_integrates_infra_secret_management_test {
       pushd integrates \
   &&  echo '[INFO] Logging in to AWS development' \
   &&  aws_login development \

@@ -480,76 +480,76 @@ functional_tests_prod:
       - integrates/test/functional/screenshots/
     when: always
 
-infra_backup_deploy:
+integrates_infra_backup_deploy:
   <<: *with_nix
   <<: *in_master_branch_integrates
   stage: deploy-infra
 
-infra_backup_test:
+integrates_infra_backup_test:
   <<: *with_nix
   <<: *in_dev_and_master_branch_integrates
   stage: test-infra
 
-infra_database_deploy:
+integrates_infra_database_deploy:
   <<: *with_nix
   <<: *in_master_branch_integrates
   stage: deploy-infra
 
-infra_database_test:
+integrates_infra_database_test:
   <<: *with_nix
   <<: *in_dev_and_master_branch_integrates
   stage: test-infra
 
-infra_cache_db_deploy:
+integrates_infra_cache_db_deploy:
   <<: *with_nix
   <<: *in_master_branch_integrates
   stage: deploy-infra
 
-infra_cache_db_test:
+integrates_infra_cache_db_test:
   <<: *with_nix
   <<: *in_dev_and_master_branch_integrates
   stage: test-infra
 
-infra_django_db_deploy:
+integrates_infra_django_db_deploy:
   <<: *with_nix
   <<: *in_master_branch_integrates
   stage: deploy-infra
 
-infra_django_db_test:
+integrates_infra_django_db_test:
   <<: *with_nix
   <<: *in_dev_and_master_branch_integrates
   stage: test-infra
 
-infra_devicefarm_deploy:
+integrates_infra_devicefarm_deploy:
   <<: *with_nix
   <<: *in_master_branch_integrates
   stage: deploy-infra
 
-infra_devicefarm_test:
+integrates_infra_devicefarm_test:
   <<: *with_nix
   <<: *in_dev_and_master_branch_integrates
   stage: test-infra
 
-infra_resources_deploy:
+integrates_infra_resources_deploy:
   <<: *with_nix
   <<: *in_master_branch_integrates
   needs:
     - build_lambdas
   stage: deploy-infra
 
-infra_resources_test:
+integrates_infra_resources_test:
   <<: *with_nix
   <<: *in_dev_and_master_branch_integrates
   needs:
     - build_lambdas
   stage: test-infra
 
-infra_secret_management_deploy:
+integrates_infra_secret_management_deploy:
   <<: *with_nix
   <<: *in_master_branch_integrates
   stage: deploy-infra
 
-infra_secret_management_test:
+integrates_infra_secret_management_test:
   <<: *with_nix
   <<: *in_dev_and_master_branch_integrates
   stage: test-infra
