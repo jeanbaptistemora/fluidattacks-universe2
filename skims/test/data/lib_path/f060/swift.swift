@@ -1,7 +1,7 @@
-do {}
-catch Machine.insufficientFunds(let coinsNeeded) {}
-catch Machine.insufficientFunds {}
-catch is Machine.insufficientFunds, Machine.insufficientFunds {}
-catch let error as NSError { }
-catch let error { }
-catch { }
+do { }
+catch Machine.insufficientFunds(let coinsNeeded) { log() }
+catch Machine.insufficientFunds { log() }
+catch is Machine.insufficientFunds, Machine.insufficientFunds { log() }
+catch let error as NSError { log() }
+catch let error { log() }
+catch { log() }
