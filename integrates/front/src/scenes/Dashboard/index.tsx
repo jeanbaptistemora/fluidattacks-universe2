@@ -1,13 +1,13 @@
 import { AddOrganizationModal } from "./components/AddOrganizationModal/index";
 import { addUserModal as AddUserModal } from "./components/AddUserModal/index";
 import { ApolloError } from "apollo-client";
+import { GET_USER_PERMISSIONS } from "./queries";
 import { GraphQLError } from "graphql";
 import { HomeView } from "./containers/HomeView";
+import { IGetUserPermissionsAttr } from "./types";
 import { IStakeholderDataAttr } from "./containers/ProjectStakeholdersView/types";
 import LogRocket from "logrocket";
 import Logger from "../../utils/logger";
-import { Mutation } from "@apollo/react-components";
-import { MutationFunction } from "@apollo/react-common";
 import { Navbar } from "./components/Navbar/index";
 import { OrganizationContent } from "./containers/OrganizationContent/index";
 import { OrganizationRedirect } from "./containers/OrganizationRedirectView";
@@ -19,13 +19,12 @@ import { ScrollUpButton } from "../../components/ScrollUpButton";
 import { Sidebar } from "./components/Sidebar";
 import { TagContent } from "./containers/TagContent";
 import { updateAccessTokenModal as UpdateAccessTokenModal } from "./components/AddAccessTokenModal/index";
-import _ from "lodash";
+import { msgError } from "../../utils/notifications";
 import { default as style } from "./index.css";
 import translate from "../../utils/translations/translate";
+import { useAddStakeholder } from "./hooks";
 import { useQuery } from "@apollo/react-hooks";
-import { ADD_STAKEHOLDER_MUTATION, GET_USER_PERMISSIONS } from "./queries";
 import { ConfirmDialog, IConfirmFn } from "../../components/ConfirmDialog";
-import { IAddStakeholderAttr, IGetUserPermissionsAttr } from "./types";
 import { Redirect, Route, Switch, useLocation } from "react-router-dom";
 import {
   authzGroupContext,
@@ -34,7 +33,6 @@ import {
   groupLevelPermissions,
   organizationLevelPermissions,
 } from "../../utils/authz/config";
-import { msgError, msgSuccess } from "../../utils/notifications";
 
 export const Dashboard: React.FC = (): JSX.Element => {
   const { hash } = useLocation();
@@ -47,12 +45,19 @@ export const Dashboard: React.FC = (): JSX.Element => {
     setTokenModalOpen(false);
   }
 
-  const [isUserModalOpen, setUserModalOpen] = React.useState(false);
+  const [
+    addStakeholder,
+    isUserModalOpen,
+    toggleUserModal,
+  ] = useAddStakeholder();
+  function handleAddUserSubmit(values: IStakeholderDataAttr): void {
+    void addStakeholder({ variables: values });
+  }
   function openUserModal(): void {
-    setUserModalOpen(true);
+    toggleUserModal(true);
   }
   function closeUserModal(): void {
-    setUserModalOpen(false);
+    toggleUserModal(false);
   }
 
   const [isOrganizationModalOpen, setOrganizationModalOpen] = React.useState(
@@ -63,26 +68,6 @@ export const Dashboard: React.FC = (): JSX.Element => {
   }
   function closeOrganizationModal(): void {
     setOrganizationModalOpen(false);
-  }
-
-  function handleMtAddStakeholderRes(mtResult: IAddStakeholderAttr): void {
-    if (!_.isUndefined(mtResult)) {
-      if (mtResult.addStakeholder.success) {
-        closeUserModal();
-        msgSuccess(
-          translate.t("userModal.success", {
-            email: mtResult.addStakeholder.email,
-          }),
-          translate.t("search_findings.tab_users.title_success")
-        );
-      }
-    }
-  }
-  function handleMtAddStakeholderError({ graphQLErrors }: ApolloError): void {
-    graphQLErrors.forEach((error: GraphQLError): void => {
-      Logger.warning("An error occurred adding user", error);
-      msgError(translate.t("group_alerts.error_textsad"));
-    });
   }
 
   const permissions: PureAbility<string> = React.useContext(
@@ -199,30 +184,16 @@ export const Dashboard: React.FC = (): JSX.Element => {
         onClose={closeOrganizationModal}
         open={isOrganizationModalOpen}
       />
-      <Mutation
-        mutation={ADD_STAKEHOLDER_MUTATION}
-        onCompleted={handleMtAddStakeholderRes}
-        onError={handleMtAddStakeholderError}
-      >
-        {(addStakeholder: MutationFunction): JSX.Element => {
-          function handleSubmit(values: IStakeholderDataAttr): void {
-            void addStakeholder({ variables: values });
-          }
-
-          return (
-            <AddUserModal
-              action={"add"}
-              editTitle={""}
-              initialValues={{}}
-              onClose={closeUserModal}
-              onSubmit={handleSubmit}
-              open={isUserModalOpen}
-              title={translate.t("sidebar.user.text")}
-              type={"user"}
-            />
-          );
-        }}
-      </Mutation>
+      <AddUserModal
+        action={"add"}
+        editTitle={""}
+        initialValues={{}}
+        onClose={closeUserModal}
+        onSubmit={handleAddUserSubmit}
+        open={isUserModalOpen}
+        title={translate.t("sidebar.user.text")}
+        type={"user"}
+      />
     </React.Fragment>
   );
 };

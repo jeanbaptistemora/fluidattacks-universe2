@@ -2,6 +2,7 @@
 
 src/scenes/Dashboard/**/*.*
 !src/scenes/Dashboard/**/utils.ts
+!src/scenes/Dashboard/**/hooks.ts
 !src/scenes/Dashboard/*.*
 src/**/*.css.d.ts
 src/**/*.d.ts
