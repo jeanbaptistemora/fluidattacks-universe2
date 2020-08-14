@@ -494,7 +494,7 @@ function job_reset {
     'django-apps/integrates-back-async/backend/reports/tpls/*'
     'django-apps/integrates-back-async/backend/reports/results/results_pdf/*'
     'django-apps/integrates-back-async/backend/reports/results/results_excel/*'
-    '../build/coverage'
+    'build/coverage'
     'django-apps/*/*.egg-info'
     'front/coverage'
     'geckodriver.log'
@@ -566,10 +566,9 @@ function job_serve_dynamodb_local {
 }
 
 function job_send_new_release_email {
-      pushd integrates \
-  &&  env_prepare_python_packages \
+      env_prepare_python_packages \
   &&  CI_COMMIT_REF_NAME=master aws_login 'production' \
-  &&  sops_env "secrets-production.yaml" default \
+  &&  sops_env "integrates/secrets-production.yaml" default \
         MANDRILL_APIKEY \
         MANDRILL_EMAIL_TO \
   &&  curl -Lo \
@@ -579,9 +578,7 @@ function job_send_new_release_email {
         context={'project': PROJECT, 'project_url': '$CI_PROJECT_URL',
           'version': _get_version_date(), 'message': _get_message()},
         tags=['general'])" >> "${TEMP_FILE1}" \
-  &&  python3 "${TEMP_FILE1}" \
-  &&  popd \
-  ||  return 1
+  &&  python3 "${TEMP_FILE1}"
 }
 
 function job_serve_front {
