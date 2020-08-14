@@ -90,7 +90,7 @@ const storeIframeContent: (reference: Readonly<iFrameReferenceType>) => void = (
   if (
     location.hostname === reference.current?.contentDocument?.location.hostname
   ) {
-    const contents: string | undefined =
+    const contents: string =
       reference.current.contentDocument.documentElement.outerHTML;
     const identifier: string | undefined =
       reference.current.contentWindow?.location.href;
@@ -99,7 +99,7 @@ const storeIframeContent: (reference: Readonly<iFrameReferenceType>) => void = (
       storeBlob(identifier, contents, "text/html");
     }
   } else {
-    Logger.warning("Cross origin");
+    Logger.warning("Iframe with Cross-origin: Host != Iframe Host");
   }
 };
 
