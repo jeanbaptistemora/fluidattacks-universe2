@@ -3,14 +3,16 @@ import { InMemoryCache, NormalizedCacheObject } from "apollo-cache-inmemory";
 import { ApolloClient } from "apollo-client";
 import {
   ApolloLink,
+  ExecutionResult,
   FetchResult,
   NextLink,
   Observable,
   Operation,
 } from "apollo-link";
 import { setContext } from "apollo-link-context";
-import { ErrorHandler, ErrorResponse } from "apollo-link-error";
+import { ErrorResponse } from "apollo-link-error";
 import { createHttpLink } from "apollo-link-http";
+import { ServerError, ServerParseError } from "apollo-link-http-common";
 import * as SecureStore from "expo-secure-store";
 import { GraphQLError } from "graphql";
 import _ from "lodash";
@@ -22,6 +24,22 @@ import { getEnvironment } from "./environment";
 import { LOGGER } from "./logger";
 import { logout } from "./socialAuth";
 import { i18next } from "./translations/translate";
+
+/**
+ * Handled error attributes
+ */
+interface IHandledErrorAttr {
+  forward: NextLink;
+  graphQLErrors?: readonly GraphQLError[];
+  networkError?: Error | ServerError | ServerParseError;
+  operation: Operation;
+  response?: ExecutionResult;
+  skipForwarding?(): void;
+}
+
+// It can return a void type according to apollo-link
+// tslint:disable-next-line:invalid-void
+type ErrorHandler = (error: IHandledErrorAttr) => Observable<FetchResult> | void;
 
 type History = ReturnType<typeof useHistory>;
 
@@ -58,15 +76,22 @@ const onError: ((errorHandler: ErrorHandler) => ApolloLink) = (
             });
           },
           next: (result: FetchResult): void => {
+            let isForwarded: boolean = true;
+            const skipForwarding: () => void = (): void => {
+              isForwarded = false;
+            };
             if (result.errors !== undefined) {
               errorHandler({
                 forward,
                 graphQLErrors: result.errors,
                 operation,
                 response: result,
+                skipForwarding,
               });
             }
-            observer.next(result);
+            if (isForwarded) {
+              observer.next(result);
+            }
           },
         });
       } catch (exception) {
@@ -89,7 +114,7 @@ const onError: ((errorHandler: ErrorHandler) => ApolloLink) = (
 const errorLink: ((history: History) => ApolloLink) = (
   history: History,
 ): ApolloLink =>
-  onError(({ graphQLErrors, networkError, response }: ErrorResponse): void => {
+  onError(({ graphQLErrors, networkError, response, skipForwarding }: IHandledErrorAttr): void => {
     if (networkError !== undefined) {
       const { statusCode } = networkError as { statusCode?: number };
 
@@ -110,8 +135,9 @@ const errorLink: ((history: History) => ApolloLink) = (
         graphQLErrors.forEach(async (error: GraphQLError): Promise<void> => {
           if (error.message === "Login required") {
             if (response !== undefined) {
-              response.data = undefined;
-              response.errors = [];
+              if (_.isFunction(skipForwarding)) {
+                skipForwarding();
+              }
             }
             await logout();
             Alert.alert(

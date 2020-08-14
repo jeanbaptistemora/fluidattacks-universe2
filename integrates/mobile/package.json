@@ -27,6 +27,7 @@
     "apollo-link-context": "1.0.20",
     "apollo-link-error": "1.1.13",
     "apollo-link-http": "1.5.17",
+    "apollo-link-http-common": "0.2.16",
     "babel-plugin-inline-import": "3.0.0",
     "expo": "38.0.9",
     "expo-app-auth": "9.1.1",
