@@ -94,3 +94,10 @@ Encrypt all non-console administrative access using strong cryptography.
 . [[r12]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 3.4]
 Render *PAN* (Primary Account Number) unreadable anywhere it is stored
 (including on portable digital media, backup media, and in logs).
+
+. [[r13]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 3.5.3]
+Store secret and private keys used to encrypt/decrypt cardholder data encrypted
+with a key-encrypting key that is at least as strong as the data-encrypting
+key,
+and that is stored separately from the data-encrypting key.
+  

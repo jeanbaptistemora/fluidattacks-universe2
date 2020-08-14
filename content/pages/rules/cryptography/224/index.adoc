@@ -160,3 +160,7 @@ with the strongest algorithms and ciphers set as preferred.
 
 . [[r25]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 2.3]
 Encrypt all non-console administrative access using strong cryptography.
+
+. [[r26]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 3.6.1]
+Fully document and implement all key-management processes and procedures for
+cryptographic keys including generation of strong cryptographic keys.

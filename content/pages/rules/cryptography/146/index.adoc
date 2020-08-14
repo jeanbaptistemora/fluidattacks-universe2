@@ -1,7 +1,7 @@
 :slug: rules/146/
 :category: cryptography
 :description: This requirement establishes the importance of protecting cryptographic keys by limiting the time they remain in system RAM.
-:keywords: Timeout, Cryptographic, Keys, ASVS, CWE, RAM, Rules, Ethical Hacking, Pentesting
+:keywords: Timeout, Cryptographic, Keys, ASVS, CWE, RAM, PCI DSS, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R146. Set timeout to cryptographic keys
@@ -43,3 +43,10 @@ V8.3 Sensitive Private Data.(8.3.6)]
 Verify that sensitive information contained in memory is overwritten as soon as
 it is no longer required to mitigate memory dumping attacks,
 using zeros or random data.
+
+. [[r7]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 3.5.4]
+Store cryptographic keys in the fewest possible locations.
+
+. [[r8]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 3.6.3]
+Fully document and implement all key-management processes and procedures for
+cryptographic keys including secure cryptographic key storage.
