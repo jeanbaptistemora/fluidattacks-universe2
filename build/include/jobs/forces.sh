@@ -71,7 +71,7 @@ function job_forces_deploy_to_docker_hub {
   local image_name="fluidattacks/forces:new"
 
       aws_login "${ENVIRONMENT_NAME}" \
-  &&  sops_env "secrets-${ENVIRONMENT_NAME}.yaml" default \
+  &&  sops_env "integrates/secrets-${ENVIRONMENT_NAME}.yaml" default \
         DOCKER_HUB_USER \
         DOCKER_HUB_PASS \
   &&  echo "[INFO] Logging in to Docker Hub" \

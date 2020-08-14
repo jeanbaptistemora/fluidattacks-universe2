@@ -39,10 +39,10 @@ in
       pkgFirefox = pkgs.firefox;
 
       pyPkgIntegratesBack =
-        import ../../django-apps/integrates-back-async pkgs;
+        import ../../integrates/django-apps/integrates-back-async pkgs;
 
       pyPkgReqsApp =
-        builders.pythonRequirements ../../deploy/containers/app/requirements.txt;
+        builders.pythonRequirements ../../integrates/deploy/containers/app/requirements.txt;
 
       rubyGemAsciiDoctor =
         builders.rubyGem "asciidoctor:2.0.10";

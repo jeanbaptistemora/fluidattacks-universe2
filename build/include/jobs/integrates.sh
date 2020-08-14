@@ -6,15 +6,18 @@ source "${srcExternalGitlabVariables}"
 source "${srcExternalSops}"
 
 function job_build_front {
-      pushd front \
-    &&  npm install \
-    &&  < ../build/patches/jquery-comments.diff \
+      pushd integrates \
+  &&  pushd front \
+  &&  npm install \
+  &&  < ../../build/patches/jquery-comments.diff \
         patch -p1 --binary node_modules/jquery-comments_brainkit/js/jquery-comments.js \
-    &&  npm run build \
+  &&  npm run build \
   &&  popd \
   &&  sed --in-place \
         "s/integrates_version/${FI_VERSION}/g" \
-        'app/static/dashboard/app-bundle.min.js'
+        'app/static/dashboard/app-bundle.min.js' \
+  &&  popd \
+  || return 1
 }
 
 function job_build_mobile_android {
@@ -37,68 +40,72 @@ function job_build_mobile_android {
   "
   export GRADLE_DAEMON_DISABLED="1"
 
-  if  helper_have_any_file_changed \
-    'mobile/app.json' \
-    'mobile/assets/icon.png' \
-    'mobile/assets/splash.png'
-  then
-        echo '[INFO] Logging in to AWS' \
-    &&  aws_login "${ENVIRONMENT_NAME}" \
-    &&  sops_env "secrets-${ENVIRONMENT_NAME}.yaml" 'default' \
-          EXPO_USER \
-          EXPO_PASS \
-    &&  sops \
-          --aws-profile default \
-          --decrypt \
-          --extract '["GOOGLE_SERVICES_APP"]' \
-          --output 'mobile/google-services.json' \
-          --output-type 'json' \
-          "secrets-development.yaml" \
-    &&  EXPO_ANDROID_KEYSTORE_PASSWORD=${EXPO_PASS} \
-    &&  EXPO_ANDROID_KEY_PASSWORD=${EXPO_PASS} \
-    &&  pushd mobile \
-      &&  echo '[INFO] Installing deps' \
-      &&  echo '[INFO] Using NodeJS '"$(node -v)"'' \
-      &&  echo '[INFO] Using Java '"$(java -version 2>&1)"'' \
-      &&  npm install \
-      &&  npx --no-install expo login \
-            --username "${EXPO_USER}" \
-            --password "${EXPO_PASS}" \
-      &&  aws s3 cp \
-            --recursive \
-            "s3://fluidintegrates.build/mobile/certs" \
-            ./certs \
-      &&  echo '[INFO] Patching android sdk' \
-      &&  rm -rf "${HOME}/.turtle/" \
-      &&  mkdir -p "${TURTLE_ANDROID_DEPENDENCIES_DIR}/sdk" \
-      &&  cp -r --no-preserve=mode,ownership \
-            "${androidSdk}"/libexec/android-sdk/* \
-            "${TURTLE_ANDROID_DEPENDENCIES_DIR}/sdk" \
-      &&  touch "${TURTLE_ANDROID_DEPENDENCIES_DIR}/sdk/.ready" \
-      &&  echo '[INFO] Building android app' \
-      &&  npx --no-install turtle build:android \
-            --username "${EXPO_USER}" \
-            --password "${EXPO_PASS}" \
-            --keystore-alias fluidintegrates-keystore \
-            --keystore-path ./certs/keystore-dev.jks \
-            --output output/integrates.aab \
-            --release-channel "${CI_COMMIT_REF_NAME}" \
-            --type app-bundle \
-      &&  rm google-services.json \
-      &&  rm -rf ./certs \
-    &&  popd \
-    ||  return 1
-  else
-        echo '[INFO] No relevant files were modified, skipping build' \
-    &&  return 0
-  fi
+      pushd integrates/ \
+  &&  if  helper_have_any_file_changed \
+        'mobile/app.json' \
+        'mobile/assets/icon.png' \
+        'mobile/assets/splash.png'
+      then
+            echo '[INFO] Logging in to AWS' \
+        &&  aws_login "${ENVIRONMENT_NAME}" \
+        &&  sops_env "secrets-${ENVIRONMENT_NAME}.yaml" 'default' \
+              EXPO_USER \
+              EXPO_PASS \
+        &&  sops \
+              --aws-profile default \
+              --decrypt \
+              --extract '["GOOGLE_SERVICES_APP"]' \
+              --output 'mobile/google-services.json' \
+              --output-type 'json' \
+              "secrets-development.yaml" \
+        &&  EXPO_ANDROID_KEYSTORE_PASSWORD=${EXPO_PASS} \
+        &&  EXPO_ANDROID_KEY_PASSWORD=${EXPO_PASS} \
+        &&  pushd mobile \
+          &&  echo '[INFO] Installing deps' \
+          &&  echo '[INFO] Using NodeJS '"$(node -v)"'' \
+          &&  echo '[INFO] Using Java '"$(java -version 2>&1)"'' \
+          &&  npm install \
+          &&  npx --no-install expo login \
+                --username "${EXPO_USER}" \
+                --password "${EXPO_PASS}" \
+          &&  aws s3 cp \
+                --recursive \
+                "s3://fluidintegrates.build/mobile/certs" \
+                ./certs \
+          &&  echo '[INFO] Patching android sdk' \
+          &&  rm -rf "${HOME}/.turtle/" \
+          &&  mkdir -p "${TURTLE_ANDROID_DEPENDENCIES_DIR}/sdk" \
+          &&  cp -r --no-preserve=mode,ownership \
+                "${androidSdk}"/libexec/android-sdk/* \
+                "${TURTLE_ANDROID_DEPENDENCIES_DIR}/sdk" \
+          &&  touch "${TURTLE_ANDROID_DEPENDENCIES_DIR}/sdk/.ready" \
+          &&  echo '[INFO] Building android app' \
+          &&  npx --no-install turtle build:android \
+                --username "${EXPO_USER}" \
+                --password "${EXPO_PASS}" \
+                --keystore-alias fluidintegrates-keystore \
+                --keystore-path ./certs/keystore-dev.jks \
+                --output output/integrates.aab \
+                --release-channel "${CI_COMMIT_REF_NAME}" \
+                --type app-bundle \
+          &&  rm google-services.json \
+          &&  rm -rf ./certs \
+        &&  popd \
+        ||  return 1
+      else
+            echo '[INFO] No relevant files were modified, skipping build' \
+        &&  return 0
+      fi \
+  &&  popd \
+  ||  return 1
 }
 
 function job_build_mobile_ios {
   export EXPO_APPLE_PASSWORD
   export EXPO_IOS_DIST_P12_PASSWORD
 
-      echo '[INFO] Logging in to AWS' \
+      pushd integrates \
+  &&  echo '[INFO] Logging in to AWS' \
   &&  aws_login "${ENVIRONMENT_NAME}" \
   &&  sops_env "secrets-${ENVIRONMENT_NAME}.yaml" 'default' \
         APPLE_DIST_CERT_PASSWORD \
@@ -134,7 +141,7 @@ function job_build_mobile_ios {
           --type archive \
     &&  curl -sSo output/integrates.ipa "$(npx expo-cli url:ipa)" \
     &&  rm -rf ./certs \
-  &&  popd \
+    &&  popd \
   ||  return 1
 }
 
@@ -172,40 +179,48 @@ function job_build_lambdas {
     &&  popd \
     ||  return 1
   }
-
-      _job_build_lambdas 'send_mail_notification' \
-  &&  _job_build_lambdas 'project_to_pdf'
+      pushd integrates \
+  &&  _job_build_lambdas 'send_mail_notification' \
+  &&  _job_build_lambdas 'project_to_pdf' \
+  &&  popd \
+  || return 1
 }
 
 function job_coverage_report {
-      env_prepare_python_packages \
+      pushd integrates/ \
+  &&  env_prepare_python_packages \
   &&  echo '[INFO] Logging in to AWS' \
   &&  aws_login "${ENVIRONMENT_NAME}" \
   &&  sops_env "secrets-${ENVIRONMENT_NAME}.yaml" 'default' \
         CODECOV_TOKEN \
-  &&  codecov -b "${CI_COMMIT_REF_NAME}"
+  &&  codecov -b "${CI_COMMIT_REF_NAME}" \
+  &&  popd \
+  || return 1
 }
 
 function job_clean_registries {
   local registry_name='app'
   local registry_id
 
-  if helper_is_today_first_day_of_month
-  then
-        echo '[INFO] Cleaning registries' \
-    &&  CI_COMMIT_REF_NAME='master' aws_login 'production' \
-    &&  sops_env 'secrets-production.yaml' 'default' \
-          GITLAB_API_TOKEN \
-    &&  echo "[INFO] Computing registry ID for: ${registry_name}" \
-    &&  registry_id=$(helper_get_gitlab_registry_id "${registry_name}") \
-    &&  echo "[INFO] Deleting registry ID: ${registry_id}" \
-    &&  curl "https://gitlab.com/api/v4/projects/${CI_PROJECT_ID}/registry/repositories/${registry_id}" \
-          --request 'DELETE' \
-          --header "private-token: ${GITLAB_API_TOKEN}"
-  else
-        echo '[INFO] Skipping, this is only meant to be run on first of each month' \
-    &&  return 0
-  fi
+      pushd integrates \
+  &&  if helper_is_today_first_day_of_month
+      then
+            echo '[INFO] Cleaning registries' \
+        &&  CI_COMMIT_REF_NAME='master' aws_login 'production' \
+        &&  sops_env 'secrets-production.yaml' 'default' \
+              GITLAB_API_TOKEN \
+        &&  echo "[INFO] Computing registry ID for: ${registry_name}" \
+        &&  registry_id=$(helper_get_gitlab_registry_id "${registry_name}") \
+        &&  echo "[INFO] Deleting registry ID: ${registry_id}" \
+        &&  curl "https://gitlab.com/api/v4/projects/${CI_PROJECT_ID}/registry/repositories/${registry_id}" \
+              --request 'DELETE' \
+              --header "private-token: ${GITLAB_API_TOKEN}"
+      else
+            echo '[INFO] Skipping, this is only meant to be run on first of each month' \
+        &&  return 0
+      fi \
+  &&  popd \
+  ||  return 1
 }
 
 function job_build_nix_caches {
@@ -234,7 +249,8 @@ function job_build_container_app {
   local dockerfile='deploy/containers/app/Dockerfile'
   local tag="${CI_REGISTRY_IMAGE}/app:${CI_COMMIT_REF_NAME}"
 
-      echo '[INFO] Remember that this job needs: build_lambdas' \
+      pushd integrates \
+  &&  echo '[INFO] Remember that this job needs: build_lambdas' \
   &&  helper_build_django_apps \
   &&  echo '[INFO] Computing Fluid Integrates version' \
   &&  echo -n "${FI_VERSION}" > 'version.txt' \
@@ -243,6 +259,7 @@ function job_build_container_app {
   &&  sops_env "secrets-${ENVIRONMENT_NAME}.yaml" 'default' \
         SSL_KEY \
         SSL_CERT \
+  &&  cp ../build/include/helpers/common.sh . \
   &&  helper_docker_build_and_push \
         "${tag}" \
         "${context}" \
@@ -256,21 +273,27 @@ function job_build_container_app {
         'ENV_NAME' "${ENVIRONMENT_NAME}" \
         'SSL_CERT' "${SSL_CERT}" \
         'SSL_KEY' "${SSL_KEY}" \
-        'VERSION' "${FI_VERSION}"
+        'VERSION' "${FI_VERSION}" \
+  &&  popd \
+  || return 1
 }
 
 function job_deploy_front {
-      env_prepare_python_packages \
+      pushd integrates \
+  &&  env_prepare_python_packages \
   &&  env_prepare_django_static_external \
   &&  aws_login "${ENVIRONMENT_NAME}" \
   &&  sops_vars "${ENVIRONMENT_NAME}" \
-  &&  ./manage.py collectstatic --no-input
+  &&  ./manage.py collectstatic --no-input \
+  &&  popd \
+  ||  return 1
 }
 
 function job_deploy_mobile_ota {
   export EXPO_USE_DEV_SERVER="true"
 
       helper_use_pristine_workdir \
+  &&  pushd integrates \
   &&  if  helper_have_any_file_changed \
             'mobile/'
       then
@@ -314,40 +337,45 @@ function job_deploy_mobile_ota {
       else
             echo '[INFO] No relevant files were modified, skipping deploy' \
         &&  return 0
-      fi
+      fi \
+  &&  popd \
+  ||  return 1
 }
 
 function job_deploy_mobile_playstore {
   export LANG=en_US.UTF-8
 
-  if  helper_have_any_file_changed \
-    'mobile/app.json'
-  then
-        echo '[INFO] Logging in to AWS' \
-    &&  aws_login "${ENVIRONMENT_NAME}" \
-    &&  sops \
-          --aws-profile default \
-          --decrypt \
-          --extract '["PLAYSTORE_CREDENTIALS"]' \
-          --output 'mobile/playstore-credentials.json' \
-          --output-type 'json' \
-          "secrets-${ENVIRONMENT_NAME}.yaml" \
-    &&  pushd mobile \
-      &&  echo '[INFO] Installing deps' \
-      &&  bundle install \
-      &&  echo '[INFO] Deploying to Google Play Store' \
-      &&  bundle exec fastlane supply \
-            --aab ./output/integrates.aab \
-            --json_key ./playstore-credentials.json \
-            --package_name "com.fluidattacks.integrates" \
-            --track production \
-      &&  rm playstore-credentials.json \
-    &&  popd \
-    ||  return 1
-  else
-        echo '[INFO] No relevant files were modified, skipping deploy' \
-    &&  return 0
-  fi
+      pushd integrates \
+  &&  if  helper_have_any_file_changed \
+        'mobile/app.json'
+      then
+            echo '[INFO] Logging in to AWS' \
+        &&  aws_login "${ENVIRONMENT_NAME}" \
+        &&  sops \
+              --aws-profile default \
+              --decrypt \
+              --extract '["PLAYSTORE_CREDENTIALS"]' \
+              --output 'mobile/playstore-credentials.json' \
+              --output-type 'json' \
+              "secrets-${ENVIRONMENT_NAME}.yaml" \
+        &&  pushd mobile \
+          &&  echo '[INFO] Installing deps' \
+          &&  bundle install \
+          &&  echo '[INFO] Deploying to Google Play Store' \
+          &&  bundle exec fastlane supply \
+                --aab ./output/integrates.aab \
+                --json_key ./playstore-credentials.json \
+                --package_name "com.fluidattacks.integrates" \
+                --track production \
+          &&  rm playstore-credentials.json \
+        &&  popd \
+        ||  return 1
+      else
+            echo '[INFO] No relevant files were modified, skipping deploy' \
+        &&  return 0
+      fi \
+  &&  popd \
+  ||  return 1
 }
 
 function job_deploy_permissions_matrix {
@@ -357,32 +385,47 @@ function job_deploy_permissions_matrix {
   export PYTHONPATH=".:${PYTHONPATH}"
   export DJANGO_SETTINGS_MODULE='fluidintegrates.settings'
 
-      env_prepare_python_packages \
+      pushd integrates \
+  &&  env_prepare_python_packages \
   &&  helper_set_dev_secrets \
   &&  echo '[INFO] Deploying permissions matrix' \
-  &&  python3 deploy/permissions-matrix/matrix.py
+  &&  python3 deploy/permissions-matrix/matrix.py \
+  &&  popd \
+  ||  return 1
 }
 
 function job_django_console {
  export DJANGO_SETTINGS_MODULE='fluidintegrates.settings'
 
-      env_prepare_python_packages \
+      pushd integrates \
+  &&  env_prepare_python_packages \
   &&  env_prepare_ruby_modules \
   &&  env_prepare_node_modules \
   &&  "helper_set_dev_secrets" \
-  && ./manage.py shell
+  &&  ./manage.py shell \
+  &&  popd \
+  ||  return 1
 }
 
 function job_functional_tests_local {
-  helper_functional_tests
+      pushd integrates \
+  &&  helper_functional_tests \
+  &&  popd \
+  ||  return 1
 }
 
 function job_functional_tests_dev {
-  CI='true' helper_functional_tests
+      pushd integrates \
+  &&  CI='true' helper_functional_tests \
+  &&  popd \
+  ||  return 1
 }
 
 function job_functional_tests_prod {
-  CI_COMMIT_REF_NAME='master' helper_functional_tests
+      pushd integrates \
+  &&  CI_COMMIT_REF_NAME='master' helper_functional_tests \
+  &&  popd \
+  ||  return 1
 }
 
 function job_renew_certificates {
@@ -399,46 +442,49 @@ function job_renew_certificates {
     RA_ACCESS_KEY
   )
 
-  if helper_is_today_wednesday
-  then
-    # shellcheck disable=SC2034
-        aws_login 'development' \
-    &&  echo '[INFO] Setting context' \
-    &&  aws eks update-kubeconfig --name FluidServes --region us-east-1 \
-    &&  kubectl config \
-          set-context "$(kubectl config current-context)" \
-          --namespace="${CI_PROJECT_NAME}" \
-    &&  echo '[INFO] Computing secrets' \
-    &&  RA_ACCESS_KEY="${AWS_ACCESS_KEY_ID}" \
-    &&  echo '[INFO] Replacing secrets' \
-    &&  for file in "${files[@]}"
-        do
-          for var in "${vars_to_replace_in_manifest[@]}"
-          do
-                rpl "__${var}__" "${!var}" "${file}" \
-            |&  grep 'Replacing' \
-            |&  sed -E 's/with.*$//g' \
-            ||  return 1
-          done
-        done \
-    &&  echo '[INFO] Deleting current resources' \
-    &&  kubectl delete secret "${secret_name}" \
-    &&  kubectl delete issuer "${certificate_issuer}" \
-    &&  kubectl delete certificate "${certificate}" \
-    &&  echo '[INFO] Applying: review-apps/tls.yaml' \
-    &&  kubectl apply -f 'review-apps/tls.yaml' \
-    &&  while ! kubectl describe certificate "${certificate}" \
-          | tr -s ' ' \
-          | grep 'Status: True'
-        do
-              echo '[INFO] Still issuing certificate, sleeping 10 seconds...' \
-          &&  sleep 10 \
-          ||  return 1
-        done
-  else
-        echo '[INFO] Skipping, this is only meant to be run on wednesday' \
-    &&  return 0
-  fi
+      pushd integrates \
+  &&  if helper_is_today_wednesday
+      then
+        # shellcheck disable=SC2034
+            aws_login 'development' \
+        &&  echo '[INFO] Setting context' \
+        &&  aws eks update-kubeconfig --name FluidServes --region us-east-1 \
+        &&  kubectl config \
+              set-context "$(kubectl config current-context)" \
+              --namespace="${CI_PROJECT_NAME}" \
+        &&  echo '[INFO] Computing secrets' \
+        &&  RA_ACCESS_KEY="${AWS_ACCESS_KEY_ID}" \
+        &&  echo '[INFO] Replacing secrets' \
+        &&  for file in "${files[@]}"
+            do
+              for var in "${vars_to_replace_in_manifest[@]}"
+              do
+                    rpl "__${var}__" "${!var}" "${file}" \
+                |&  grep 'Replacing' \
+                |&  sed -E 's/with.*$//g' \
+                ||  return 1
+              done
+            done \
+        &&  echo '[INFO] Deleting current resources' \
+        &&  kubectl delete secret "${secret_name}" \
+        &&  kubectl delete issuer "${certificate_issuer}" \
+        &&  kubectl delete certificate "${certificate}" \
+        &&  echo '[INFO] Applying: review-apps/tls.yaml' \
+        &&  kubectl apply -f 'review-apps/tls.yaml' \
+        &&  while ! kubectl describe certificate "${certificate}" \
+              | tr -s ' ' \
+              | grep 'Status: True'
+            do
+                  echo '[INFO] Still issuing certificate, sleeping 10 seconds...' \
+              &&  sleep 10 \
+              ||  return 1
+            done
+      else
+            echo '[INFO] Skipping, this is only meant to be run on wednesday' \
+        &&  return 0
+      fi \
+  &&  popd \
+  ||  return 1
 }
 
 function job_reset {
@@ -448,7 +494,7 @@ function job_reset {
     'django-apps/integrates-back-async/backend/reports/tpls/*'
     'django-apps/integrates-back-async/backend/reports/results/results_pdf/*'
     'django-apps/integrates-back-async/backend/reports/results/results_excel/*'
-    'build/coverage'
+    '../build/coverage'
     'django-apps/*/*.egg-info'
     'front/coverage'
     'geckodriver.log'
@@ -475,25 +521,29 @@ function job_reset {
     '*.terraform'
   )
 
-  for file in "${files_to_delete[@]}"
-  do
-    # I want word splitting to exploit globbing
-    # shellcheck disable=SC2086
-        echo "[INFO] Deleting: ${file}" \
-    &&  rm -rf ${file}
-  done
+      pushd integrates \
+  &&  for file in "${files_to_delete[@]}"
+      do
+        # I want word splitting to exploit globbing
+        # shellcheck disable=SC2086
+            echo "[INFO] Deleting: ${file}" \
+        &&  rm -rf ${file}
+      done
 
-  for glob in "${globs_to_delete[@]}"
-  do
-        echo "[INFO] Deleting: ${glob}" \
-    &&  find . -wholename "${glob}" -exec rm -rf {} +
-  done
+      for glob in "${globs_to_delete[@]}"
+      do
+            echo "[INFO] Deleting: ${glob}" \
+        &&  find . -wholename "${glob}" -exec rm -rf {} +
+      done \
+  &&  popd \
+  ||  return 1
 }
 
 function job_serve_dynamodb_local {
   local port=8022
 
-      env_prepare_dynamodb_local \
+      pushd integrates \
+  &&  env_prepare_dynamodb_local \
   &&  echo '[INFO] Launching DynamoDB local' \
   &&  {
         java \
@@ -510,11 +560,14 @@ function job_serve_dynamodb_local {
   &&  bash ./deploy/containers/common/vars/provision_local_db.sh \
   &&  echo "[INFO] DynamoDB is ready and listening on port ${port}!" \
   &&  echo "[INFO] Hit Ctrl+C to exit" \
-  &&  fg %1
+  &&  fg %1 \
+  &&  popd \
+  ||  return 1
 }
 
 function job_send_new_release_email {
-      env_prepare_python_packages \
+      pushd integrates \
+  &&  env_prepare_python_packages \
   &&  CI_COMMIT_REF_NAME=master aws_login 'production' \
   &&  sops_env "secrets-production.yaml" default \
         MANDRILL_APIKEY \
@@ -526,11 +579,13 @@ function job_send_new_release_email {
         context={'project': PROJECT, 'project_url': '$CI_PROJECT_URL',
           'version': _get_version_date(), 'message': _get_message()},
         tags=['general'])" >> "${TEMP_FILE1}" \
-  &&  python3 "${TEMP_FILE1}"
+  &&  python3 "${TEMP_FILE1}" \
+  &&  popd \
+  ||  return 1
 }
 
 function job_serve_front {
-      pushd front \
+      pushd integrates/front \
     &&  npm install \
     &&  npm start \
   &&  popd \
@@ -538,28 +593,30 @@ function job_serve_front {
 }
 
 function job_serve_mobile {
-        echo '[INFO] Logging in to AWS' \
-    &&  aws_login "${ENVIRONMENT_NAME}" \
-    &&  sops_env "secrets-${ENVIRONMENT_NAME}.yaml" 'default' \
-          EXPO_USER \
-          EXPO_PASS \
-    &&  sops \
-          --aws-profile default \
-          --decrypt \
-          --extract '["GOOGLE_SERVICES_APP"]' \
-          --output 'mobile/google-services.json' \
-          --output-type 'json' \
-          "secrets-development.yaml" \
-    &&  pushd mobile \
-    &&  npm install \
-    &&  rm -rf ~/.expo ./.expo \
-    &&  npx --no-install expo login \
-            --username "${EXPO_USER}" \
-            --password "${EXPO_PASS}" \
-            --non-interactive \
-    &&  npm start -- \
-          --clear \
+      pushd integrates \
+  &&  echo '[INFO] Logging in to AWS' \
+  &&  aws_login "${ENVIRONMENT_NAME}" \
+  &&  sops_env "secrets-${ENVIRONMENT_NAME}.yaml" 'default' \
+        EXPO_USER \
+        EXPO_PASS \
+  &&  sops \
+        --aws-profile default \
+        --decrypt \
+        --extract '["GOOGLE_SERVICES_APP"]' \
+        --output 'mobile/google-services.json' \
+        --output-type 'json' \
+        "secrets-development.yaml" \
+  &&  pushd mobile \
+  &&  npm install \
+  &&  rm -rf ~/.expo ./.expo \
+  &&  npx --no-install expo login \
+          --username "${EXPO_USER}" \
+          --password "${EXPO_PASS}" \
           --non-interactive \
+  &&  npm start -- \
+        --clear \
+        --non-interactive \
+  &&  popd \
   &&  popd \
   ||  return 1
 }
@@ -567,34 +624,49 @@ function job_serve_mobile {
 function job_serve_redis {
   local port=6379
 
-      echo "[INFO] Serving redis on port ${port}" \
-  &&  redis-server --port "${port}"
+      pushd integrates \
+  &&  echo "[INFO] Serving redis on port ${port}" \
+  &&  redis-server --port "${port}" \
+  &&  popd \
+  ||  return 1
 }
 
 function job_serve_back_dev {
-  helper_serve_back dev
+      pushd integrates \
+  &&  helper_serve_back dev \
+  &&  popd \
+  ||  return 1
 }
 
 function job_cron_show {
   export DJANGO_SETTINGS_MODULE='fluidintegrates.settings'
 
-      env_prepare_python_packages \
+      pushd integrates \
+  &&  env_prepare_python_packages \
   &&  helper_set_dev_secrets \
   &&  python3 manage.py crontab add \
-  &&  python3 manage.py crontab show
+  &&  python3 manage.py crontab show \
+  &&  popd \
+  ||  return 1
 }
 
 function job_cron_run {
   export DJANGO_SETTINGS_MODULE='fluidintegrates.settings'
   local cron_job="${1}"
 
-      env_prepare_python_packages \
+      pushd integrates \
+  &&  env_prepare_python_packages \
   &&  helper_set_dev_secrets \
-  &&  python3 manage.py crontab run "${cron_job}"
+  &&  python3 manage.py crontab run "${cron_job}" \
+  &&  popd \
+  ||  return 1
 }
 
 function job_serve_back_prod {
-  helper_serve_back prod
+      pushd integrates \
+  &&  helper_serve_back prod \
+  &&  popd \
+  ||  return 1
 }
 
 function _job_make_migration {
@@ -614,14 +686,20 @@ function _job_make_migration {
 function job_make_migration_dev_test {
   local migration_file="${1}"
 
-  _job_make_migration 'dev' 'test' "${migration_file}" \
-    | tee "${migration_file}.dev_test.out"
+      pushd integrates \
+  &&  _job_make_migration 'dev' 'test' "${migration_file}" \
+        | tee "${migration_file}.dev_test.out" \
+  &&  popd \
+  ||  return 1
 }
 
 function job_make_migration_prod_test {
   local migration_file="${1}"
 
-  _job_make_migration 'prod' 'test' "${migration_file}"
+      pushd integrates \
+  &&  _job_make_migration 'prod' 'test' "${migration_file}" \
+  &&  popd \
+  ||  return 1
 }
 
 function _execute_analytics_generator {
@@ -681,42 +759,60 @@ function _job_analytics_make_snapshots {
 }
 
 function job_analytics_make_documents_dev {
-      env_prepare_python_packages \
+      pushd integrates \
+  &&  env_prepare_python_packages \
   &&  helper_set_dev_secrets \
   &&  if test "${IS_LOCAL_BUILD}" = "${FALSE}"
       then
         helper_set_local_dynamo_and_redis
       fi \
-  &&  _job_analytics_make_documents
+  &&  _job_analytics_make_documents \
+  &&  popd \
+  ||  return 1
 }
 
 function job_analytics_make_documents_prod {
-      env_prepare_python_packages \
+      pushd integrates \
+  &&  env_prepare_python_packages \
   &&  helper_set_prod_secrets \
-  &&  _job_analytics_make_documents
+  &&  _job_analytics_make_documents \
+  &&  popd \
+  ||  return 1
 }
 
 function job_analytics_make_documents_prod_schedule {
-  job_analytics_make_documents_prod
+      pushd integrates \
+  &&  job_analytics_make_documents_prod \
+  &&  popd \
+  ||  return 1
 }
 
 function job_analytics_make_snapshots_prod_schedule {
-      env_prepare_python_packages \
+      pushd integrates \
+  &&  env_prepare_python_packages \
   &&  helper_set_prod_secrets \
-  &&  _job_analytics_make_snapshots
+  &&  _job_analytics_make_snapshots \
+  &&  popd \
+  ||  return 1
 }
 
 function job_make_migration_dev_apply {
   local migration_file="${1}"
 
-  _job_make_migration 'dev' 'apply' "${migration_file}" \
-    | tee "${migration_file}.dev_apply.out"
+  pushd integrates \
+  &&  _job_make_migration 'dev' 'apply' "${migration_file}" \
+        | tee "${migration_file}.dev_apply.out" \
+  &&  popd \
+  ||  return 1
 }
 
 function job_make_migration_prod_apply {
   local migration_file="${1}"
 
-  _job_make_migration 'prod' 'apply' "${migration_file}"
+      pushd integrates \
+  &&  _job_make_migration 'prod' 'apply' "${migration_file}" \
+  &&  popd \
+  ||  return 1
 }
 
 function _job_subscriptions_trigger_user_to_entity_report {
@@ -725,36 +821,47 @@ function _job_subscriptions_trigger_user_to_entity_report {
 }
 
 function job_subscriptions_trigger_user_to_entity_report_dev {
-      helper_bootstrap_dev_ci \
+      pushd integrates \
+  &&  helper_bootstrap_dev_ci \
   &&  _job_subscriptions_trigger_user_to_entity_report \
-
+  &&  popd \
+  ||  return 1
 }
 
 function job_subscriptions_trigger_user_to_entity_report_prod_schedule {
-      helper_bootstrap_prod_ci \
+      pushd integrates \
+  &&  helper_bootstrap_prod_ci \
   &&  _job_subscriptions_trigger_user_to_entity_report \
-
+  &&  popd \
+  ||  return 1
 }
 
 function job_scheduler_dev {
   local module="backend.scheduler.${1}"
-      helper_bootstrap_dev_ci \
-  &&  helper_invoke_py "${module}" \
 
+      pushd integrates \
+  &&  helper_bootstrap_dev_ci \
+  &&  helper_invoke_py "${module}" \
+  &&  popd \
+  ||  return 1
 }
 
 function job_scheduler_prod {
   local module="backend.scheduler.${1}"
-      helper_bootstrap_prod_ci \
-  &&  helper_invoke_py "${module}" \
 
+      pushd integrates \
+  &&  helper_bootstrap_prod_ci \
+  &&  helper_invoke_py "${module}" \
+  &&  popd \
+  ||  return 1
 }
 
 function job_infra_backup_deploy {
   export TF_VAR_db_user
   export TF_VAR_db_password
 
-      echo '[INFO] Logging in to AWS production' \
+      pushd integrates \
+  &&  echo '[INFO] Logging in to AWS production' \
   &&  CI_COMMIT_REF_NAME=master aws_login production \
   &&  sops_env 'secrets-production.yaml' 'default' \
         DB_USER \
@@ -765,16 +872,19 @@ function job_infra_backup_deploy {
     &&  terraform init \
     &&  terraform apply -auto-approve -refresh=true \
   &&  popd \
+  &&  popd \
   || return 1
 }
 
 function job_infra_backup_test {
-      echo '[INFO] Logging in to AWS development' \
+      pushd integrates \
+  &&  echo '[INFO] Logging in to AWS development' \
   &&  aws_login development \
   &&  pushd deploy/backup/terraform \
     &&  terraform init \
     &&  tflint --deep --module \
     &&  terraform plan -lock=false -refresh=true \
+  &&  popd \
   &&  popd \
   || return 1
 }
@@ -783,7 +893,8 @@ function job_infra_database_deploy {
   export TF_VAR_db_user
   export TF_VAR_db_password
 
-      echo '[INFO] Logging in to AWS production' \
+      pushd integrates \
+  &&  echo '[INFO] Logging in to AWS production' \
   &&  CI_COMMIT_REF_NAME=master aws_login production \
   &&  sops_env 'secrets-production.yaml' 'default' \
         DB_USER \
@@ -794,37 +905,44 @@ function job_infra_database_deploy {
     &&  terraform init \
     &&  terraform apply -auto-approve -refresh=true \
   &&  popd \
+  &&  popd \
   || return 1
 }
 
 function job_infra_database_test {
-      echo '[INFO] Logging in to AWS development' \
+      pushd integrates \
+  &&  echo '[INFO] Logging in to AWS development' \
   &&  aws_login development \
   &&  pushd deploy/database/terraform \
     &&  terraform init \
     &&  tflint --deep --module \
     &&  terraform plan -lock=false -refresh=true \
   &&  popd \
+  &&  popd \
   || return 1
 }
 
 function job_infra_cache_db_deploy {
-      echo '[INFO] Logging in to AWS production' \
+      pushd integrates \
+  &&  echo '[INFO] Logging in to AWS production' \
   &&  CI_COMMIT_REF_NAME=master aws_login production \
   &&  pushd deploy/cache-db/terraform \
     &&  terraform init \
     &&  terraform apply -auto-approve -refresh=true \
   &&  popd \
+  &&  popd \
   || return 1
 }
 
 function job_infra_cache_db_test {
-      echo '[INFO] Logging in to AWS development' \
+      pushd integrates \
+  &&  echo '[INFO] Logging in to AWS development' \
   &&  aws_login development \
   &&  pushd deploy/cache-db/terraform \
     &&  terraform init \
     &&  tflint --deep --module \
     &&  terraform plan -lock=false -refresh=true \
+  &&  popd \
   &&  popd \
   || return 1
 }
@@ -833,7 +951,8 @@ function job_infra_django_db_deploy {
   export TF_VAR_db_user
   export TF_VAR_db_password
 
-      echo '[INFO] Logging in to AWS production' \
+      pushd integrates \
+  &&  echo '[INFO] Logging in to AWS production' \
   &&  CI_COMMIT_REF_NAME=master aws_login production \
   &&  sops_env 'secrets-production.yaml' 'default' \
         DB_USER \
@@ -844,6 +963,7 @@ function job_infra_django_db_deploy {
     &&  terraform init \
     &&  terraform apply -auto-approve -refresh=true \
   &&  popd \
+  &&  popd \
   || return 1
 }
 
@@ -851,7 +971,8 @@ function job_infra_django_db_test {
   export TF_VAR_db_user
   export TF_VAR_db_password
 
-      echo '[INFO] Logging in to AWS development' \
+      pushd integrates \
+  &&  echo '[INFO] Logging in to AWS development' \
   &&  aws_login development \
   &&  sops_env 'secrets-development.yaml' 'default' \
         DB_USER \
@@ -863,42 +984,50 @@ function job_infra_django_db_test {
     &&  tflint --deep --module \
     &&  terraform plan -lock=false -refresh=true \
   &&  popd \
+  &&  popd \
   || return 1
 }
 
 function job_infra_devicefarm_deploy {
-      echo '[INFO] Logging in to AWS production' \
+      pushd integrates \
+  &&  echo '[INFO] Logging in to AWS production' \
   &&  CI_COMMIT_REF_NAME=master aws_login production \
   &&  pushd deploy/devicefarm/terraform \
     &&  terraform init \
     &&  terraform apply -auto-approve -refresh=true \
   &&  popd \
+  &&  popd \
   || return 1
 }
 
 function job_infra_devicefarm_test {
-      echo '[INFO] Logging in to AWS development' \
+      pushd integrates \
+  &&  echo '[INFO] Logging in to AWS development' \
   &&  aws_login development \
   &&  pushd deploy/devicefarm/terraform \
     &&  terraform init \
     &&  tflint --deep --module \
     &&  terraform plan -lock=false -refresh=true \
   &&  popd \
+  &&  popd \
   || return 1
 }
 
 function job_infra_resources_deploy {
-      echo '[INFO] Logging in to AWS production' \
+      pushd integrates \
+  &&  echo '[INFO] Logging in to AWS production' \
   &&  CI_COMMIT_REF_NAME=master aws_login production \
   &&  pushd deploy/terraform-resources \
     &&  terraform init \
     &&  terraform apply -auto-approve -refresh=true \
   &&  popd \
+  &&  popd \
   || return 1
 }
 
 function job_infra_resources_test {
-      echo '[INFO] Logging in to AWS development' \
+      pushd integrates \
+  &&  echo '[INFO] Logging in to AWS development' \
   &&  aws_login development \
   &&  pushd deploy/terraform-resources \
     &&  terraform init \
@@ -909,22 +1038,26 @@ function job_infra_resources_test {
 }
 
 function job_infra_secret_management_deploy {
-      echo '[INFO] Logging in to AWS production' \
+      pushd integrates \
+  &&  echo '[INFO] Logging in to AWS production' \
   &&  CI_COMMIT_REF_NAME=master aws_login production \
   &&  pushd deploy/secret-management/terraform \
     &&  terraform init \
     &&  terraform apply -auto-approve -refresh=true \
   &&  popd \
+  &&  popd \
   || return 1
 }
 
 function job_infra_secret_management_test {
-      echo '[INFO] Logging in to AWS development' \
+      pushd integrates \
+  &&  echo '[INFO] Logging in to AWS development' \
   &&  aws_login development \
   &&  pushd deploy/secret-management/terraform \
     &&  terraform init \
     &&  tflint --deep --module \
     &&  terraform plan -lock=false -refresh=true \
+  &&  popd \
   &&  popd \
   || return 1
 }
@@ -937,7 +1070,8 @@ function job_rotate_jwt_token {
   local set_as_masked='true'
   local set_as_protected='false'
 
-      echo "[INFO] Extracting ${bytes_of_entropy} bytes of pseudo random entropy" \
+      pushd integrates \
+  &&  echo "[INFO] Extracting ${bytes_of_entropy} bytes of pseudo random entropy" \
   &&  var_value=$(head -c "${bytes_of_entropy}" /dev/urandom | base64) \
   &&  echo '[INFO] Extracting secrets' \
   &&  aws_login "${ENVIRONMENT_NAME}" \
@@ -950,7 +1084,9 @@ function job_rotate_jwt_token {
         "${var_name}" \
         "${var_value}" \
         "${set_as_protected}" \
-        "${set_as_masked}"
+        "${set_as_masked}" \
+  &&  popd \
+  || return 1
 }
 
 function job_test_back {
@@ -977,7 +1113,8 @@ function job_test_back {
   )
 
   # shellcheck disable=SC2015
-      env_prepare_python_packages \
+      pushd integrates \
+  &&  env_prepare_python_packages \
   &&  helper_set_dev_secrets \
   &&  helper_set_local_dynamo_and_redis \
   &&  for i in "${!markers[@]}"
@@ -994,11 +1131,13 @@ function job_test_back {
               'test_async' \
         ||  return 1
       done \
-  &&  cp -a 'build/coverage/results.xml' "coverage.xml"
+  &&  cp -a 'build/coverage/results.xml' "coverage.xml" \
+  &&  popd \
+  ||  return 1
 }
 
 function job_test_front {
-      pushd front \
+      pushd integrates/front \
     &&  npm install --unsafe-perm \
     &&  npm test \
     &&  mv coverage/lcov.info coverage.lcov \
@@ -1007,7 +1146,7 @@ function job_test_front {
 }
 
 function job_test_mobile {
-      pushd mobile \
+      pushd integrates/mobile \
     &&  npm install --unsafe-perm \
     &&  npm test \
     &&  mv coverage/lcov.info coverage.lcov \
@@ -1035,8 +1174,9 @@ function job_deploy_k8s_back_ephemeral {
   )
 
   # shellcheck disable=SC2034
-      aws_login 'development' \
-  &&  helper_use_pristine_workdir \
+      helper_use_pristine_workdir \
+  &&  pushd integrates \
+  &&  aws_login 'development' \
   &&  echo "[INFO] Setting namespace preferences..." \
   &&  aws eks update-kubeconfig --name FluidServes --region us-east-1 \
   &&  kubectl config \
@@ -1067,7 +1207,9 @@ function job_deploy_k8s_back_ephemeral {
   &&  kubectl apply -f 'review-apps/ingress.yaml' \
   &&  echo '[INFO] Applying: review-apps/deploy-integrates.yaml' \
   &&  kubectl apply -f 'review-apps/deploy-integrates.yaml' \
-  &&  kubectl rollout status "deploy/review-${CI_COMMIT_REF_SLUG}" --timeout=5m
+  &&  kubectl rollout status "deploy/review-${CI_COMMIT_REF_SLUG}" --timeout=5m \
+  &&  popd \
+  ||  return 1
 }
 
 function job_deploy_k8s_back {
@@ -1086,8 +1228,9 @@ function job_deploy_k8s_back {
   )
 
   # shellcheck disable=SC2034
-      CI_COMMIT_REF_NAME='master' aws_login 'production' \
-  &&  helper_use_pristine_workdir \
+      helper_use_pristine_workdir \
+  &&  pushd integrates \
+  &&  CI_COMMIT_REF_NAME='master' aws_login 'production' \
   &&  sops_env 'secrets-production.yaml' 'default' \
         NEW_RELIC_API_KEY \
         NEW_RELIC_APP_ID \
@@ -1134,11 +1277,14 @@ function job_deploy_k8s_back {
               \"description\": \"production\",
               \"user\": \"${CI_COMMIT_AUTHOR}\"
             }
-          }"
+          }" \
+  &&  popd \
+  ||  return 1
 }
 
 function job_deploy_k8s_stop_ephemeral {
-      echo "[INFO] Setting namespace preferences..." \
+      pushd integrates \
+  &&  echo "[INFO] Setting namespace preferences..." \
   &&  aws_login 'development' \
   &&  aws eks update-kubeconfig --name FluidServes --region us-east-1 \
   &&  kubectl config \
@@ -1147,5 +1293,7 @@ function job_deploy_k8s_stop_ephemeral {
   &&  echo '[INFO] Deleting deployments' \
   &&  kubectl delete deployment "review-${CI_COMMIT_REF_SLUG}" \
   &&  kubectl delete service "service-${CI_COMMIT_REF_SLUG}" \
-  &&  kubectl delete ingress "review-${CI_COMMIT_REF_SLUG}"
+  &&  kubectl delete ingress "review-${CI_COMMIT_REF_SLUG}" \
+  &&  popd \
+  ||  return 1
 }

@@ -298,7 +298,7 @@ build_front:
   artifacts:
     expire_in: 1 day
     paths:
-      - app/static/
+      - integrates/app/static/
     when: on_success
 
 build_mobile_android:
@@ -309,7 +309,7 @@ build_mobile_android:
   artifacts:
     expire_in: 1 day
     paths:
-      - mobile/output/
+      - integrates/mobile/output/
     when: on_success
 
 build_lambdas:
@@ -319,7 +319,7 @@ build_lambdas:
   artifacts:
     expire_in: 1 day
     paths:
-      - lambda/packages/
+      - integrates/lambda/packages/
     when: on_success
 
 coverage_report:
@@ -413,9 +413,9 @@ deploy_permissions_matrix:
   artifacts:
     expire_in: 1 day
     paths:
-      - deploy/permissions-matrix/group_level.html
-      - deploy/permissions-matrix/organization_level.html
-      - deploy/permissions-matrix/user_level.html
+      - integrates/deploy/permissions-matrix/group_level.html
+      - integrates/deploy/permissions-matrix/organization_level.html
+      - integrates/deploy/permissions-matrix/user_level.html
     when: on_success
 
 build_container_app:
@@ -426,8 +426,8 @@ build_container_app:
   artifacts:
     expire_in: 1 day
     paths:
-      - version.txt
-      - django-apps/packages/
+      - integrates/version.txt
+      - integrates/django-apps/packages/
     when: on_success
 
 build_nix_caches:
@@ -462,7 +462,7 @@ functional_tests_dev:
   artifacts:
     name: "regression_${CI_COMMIT_REF_NAME}_${CI_COMMIT_SHA:0:8}"
     paths:
-      - test/functional/screenshots/
+      - integrates/test/functional/screenshots/
     when: always
 
 functional_tests_prod:
@@ -477,7 +477,7 @@ functional_tests_prod:
   artifacts:
     name: "regression_${CI_COMMIT_REF_NAME}_${CI_COMMIT_SHA:0:8}"
     paths:
-      - test/functional/screenshots/
+      - integrates/test/functional/screenshots/
     when: always
 
 infra_backup_deploy:
@@ -612,7 +612,7 @@ test_back:
   artifacts:
     name: "coverage_xml_${CI_COMMIT_REF_NAME}_${CI_COMMIT_SHA:0:8}"
     paths:
-      - coverage.xml
+      - integrates/coverage.xml
     expire_in: 1 week
 
 test_front:
@@ -622,7 +622,7 @@ test_front:
   artifacts:
     name: "coverage_lcov_${CI_COMMIT_REF_NAME}_${CI_COMMIT_SHA:0:8}"
     paths:
-      - front/coverage.lcov
+      - integrates/front/coverage.lcov
     expire_in: 1 week
 
 test_mobile:
@@ -632,7 +632,7 @@ test_mobile:
   artifacts:
     name: "coverage_lcov_${CI_COMMIT_REF_NAME}_${CI_COMMIT_SHA:0:8}"
     paths:
-      - mobile/coverage.lcov
+      - integrates/mobile/coverage.lcov
     expire_in: 1 week
 
 forces_new:

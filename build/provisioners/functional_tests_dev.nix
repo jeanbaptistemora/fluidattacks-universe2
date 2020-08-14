@@ -21,11 +21,11 @@ in
       pkgFirefox = pkgs.firefox;
 
       pyPkgIntegratesBack =
-        import ../../django-apps/integrates-back-async pkgs;
+        import ../../integrates/django-apps/integrates-back-async pkgs;
 
       pyPkgReqs =
         builders.pythonRequirements ../dependencies/requirements.txt;
       pyPkgReqsApp =
-        builders.pythonRequirements ../../deploy/containers/app/requirements.txt;
+        builders.pythonRequirements ../../integrates/deploy/containers/app/requirements.txt;
     })
   )

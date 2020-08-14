@@ -20,8 +20,8 @@ in
       ];
 
       pyPkgIntegratesBack =
-        import ../../django-apps/integrates-back-async pkgs;
+        import ../../integrates/django-apps/integrates-back-async pkgs;
       pyPkgReqsApp =
-        builders.pythonRequirements ../../deploy/containers/app/requirements.txt;
+        builders.pythonRequirements ../../integrates/deploy/containers/app/requirements.txt;
     })
   )

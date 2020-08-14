@@ -1,7 +1,8 @@
 # shellcheck shell=bash
 
 function job_lint_back {
-      env_prepare_python_packages \
+      pushd integrates/ \
+  &&  env_prepare_python_packages \
   &&  mypy --strict --ignore-missing-imports analytics/ \
   &&  mypy --ignore-missing-imports --follow-imports=skip \
         django-apps/integrates-back-async \
@@ -14,7 +15,9 @@ function job_lint_back {
   &&  prospector -F -s veryhigh -u django -i node_modules deploy/permissions-matrix \
   &&  npx graphql-schema-linter \
         --except 'enum-values-all-caps,enum-values-have-descriptions,fields-are-camel-cased,fields-have-descriptions,input-object-values-are-camel-cased,relay-page-info-spec,types-have-descriptions,type-fields-sorted-alphabetically,arguments-have-descriptions,type-fields-sorted-alphabetically' \
-        django-apps/integrates-back-async/backend/api/schemas/*
+        django-apps/integrates-back-async/backend/api/schemas/* \
+  &&  popd \
+  || return 1
 }
 
 function job_lint_build_system {
@@ -24,33 +27,33 @@ function job_lint_build_system {
   # SC2154: var is referenced but not assigned.
 
       nix-linter --recursive . \
-  && echo '[OK] Nix code is compliant'
-      shellcheck --external-sources --exclude=SC2153 build.sh \
-  && find 'build' -name '*.sh' -exec \
-      shellcheck --external-sources --exclude=SC1090,SC2016,SC2153,SC2154 {} + \
-  && echo '[OK] Shell code is compliant'
+  &&  echo '[OK] Nix code is compliant' \
+  &&  shellcheck --external-sources --exclude=SC2153 build.sh \
+  &&  find 'build' -name '*.sh' -exec \
+        shellcheck --external-sources --exclude=SC1090,SC2016,SC2153,SC2154 {} + \
+  &&  echo '[OK] Shell code is compliant'
 }
 
 function job_lint_front {
-      pushd front \
+        pushd integrates/front/ \
     &&  npm install \
     &&  npm audit \
     &&  npm run lint:tslint \
     &&  npm run lint:eslint \
-  &&  popd \
-  ||  return 1
+    &&  popd \
+    ||  return 1
 }
 
 function job_lint_graphics {
       env_prepare_node_modules \
-  &&  pushd app/static/graphics \
+  &&  pushd integrates/app/static/graphics \
         &&  eslint --config .eslintrc --fix . \
   &&  popd \
   ||  return 1
 }
 
 function job_lint_mobile {
-      pushd mobile \
+      pushd integrates/mobile \
     &&  npm install \
     &&  npm run lint \
   &&  popd \
@@ -62,7 +65,8 @@ function job_lint_secrets {
     secrets-development.yaml
     secrets-production.yaml
   )
-      env_prepare_python_packages \
+      pushd integrates/ \
+  &&  env_prepare_python_packages \
   &&  echo "[INFO] Veryfing that secrets is sorted" \
   &&  for sf in "${files_to_verify[@]}"
       do
@@ -70,7 +74,9 @@ function job_lint_secrets {
         &&  head -n -13 "${sf}" > "temp-${sf}" \
         &&  yamllint --no-warnings -d "{extends: relaxed, rules: {key-ordering: {level: error}}}" "temp-${sf}" \
         &&  rm "temp-${sf}"
-      done
+      done \
+  &&  popd \
+  || return 1
 }
 
 function job_lint_commit_msg {

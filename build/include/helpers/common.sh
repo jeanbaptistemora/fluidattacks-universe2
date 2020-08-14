@@ -231,8 +231,8 @@ function helper_set_local_dynamo_and_redis {
   &&  env_prepare_dynamodb_local \
   &&  {
         java \
-          -Djava.library.path="${STARTDIR}/.DynamoDB/DynamoDBLocal_lib" \
-          -jar "${STARTDIR}/.DynamoDB/DynamoDBLocal.jar" \
+          -Djava.library.path="${STARTDIR}/integrates/.DynamoDB/DynamoDBLocal_lib" \
+          -jar "${STARTDIR}/integrates/.DynamoDB/DynamoDBLocal.jar" \
           -inMemory \
           -port "${port_dynamo}" \
           -sharedDb \
