@@ -36,7 +36,6 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             'backend_api_resolvers_finding__get_pending_vulns',
             'backend_api_resolvers_finding_resolve_finding',
             'backend_api_resolvers_forces_resolve_forces_executions',
-            'backend_api_resolvers_forces__do_add_forces_execution',
             'backend_api_resolvers_organization__do_move_group_organization',
             'backend_api_resolvers_project__do_add_project_comment',
             'backend_api_resolvers_project__do_add_project_consult',
@@ -346,7 +345,6 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             'backend_api_resolvers_finding__get_pending_vulns',
             'backend_api_resolvers_finding_resolve_finding',
             'backend_api_resolvers_forces_resolve_forces_executions',
-            'backend_api_resolvers_forces__do_add_forces_execution',
             'backend_api_resolvers_organization__do_move_group_organization',
             'backend_api_resolvers_project__do_add_project_comment',
             'backend_api_resolvers_project__do_add_project_consult',
@@ -474,7 +472,17 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
         tags={
             'drills',
         }
-    )
+    ),
+    service_forces=dict(
+        actions={
+            'backend_api_resolvers_forces__do_add_forces_execution',
+            'backend_api_resolvers_project_resolve_project',
+            'backend_api_resolvers_finding_resolve_finding',
+        },
+        tags={
+            'forces'
+        }
+    ),
 )
 
 

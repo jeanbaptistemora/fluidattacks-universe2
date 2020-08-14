@@ -561,6 +561,7 @@ enum StakeholderRole {
     INTERNAL_MANAGER
     RESOURCER
     REVIEWER
+    SERVICE_FORCES
 }
 
 enum EditGroupReason {

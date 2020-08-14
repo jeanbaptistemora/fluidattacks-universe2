@@ -25,6 +25,7 @@ pytestmark = [
             'group_manager',
             'resourcer',
             'reviewer',
+            'service_forces'
         ]),
         (authz.USER_LEVEL_ROLES, [
             'admin',

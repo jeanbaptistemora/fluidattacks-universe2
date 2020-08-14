@@ -867,7 +867,7 @@ async def _create_forces_user(info: GraphQLResolveInfo,
         context=info.context,
         email=user_domain.format_forces_user_email(group_name),
         responsibility='Forces service user',
-        role='customer',
+        role='service_forces',
         phone_number='',
         group=group_name)
     if not success:

@@ -193,7 +193,8 @@ GROUP_LEVEL_ROLE = EnumType(
         'EXECUTIVE': 'executive',
         'GROUP_MANAGER': 'group_manager',
         'RESOURCER': 'resourcer',
-        'REVIEWER': 'reviewer'
+        'REVIEWER': 'reviewer',
+        'SERVICE_FORCES': 'service_forces'
     }
 )
 
