@@ -2,19 +2,19 @@
 * @mnorenaatfluid @jrestrepoatfluid @ralvarezatfluid @kamadoatfluid
 
 # Front approvers
-/front/ @dacevedoatfluid @mnorenaatfluid @jrestrepoatfluid @kamadoatfluid
-/mobile/ @dacevedoatfluid @mnorenaatfluid @jrestrepoatfluid @kamadoatfluid
+/integrates/front/ @dacevedoatfluid @mnorenaatfluid @jrestrepoatfluid @kamadoatfluid
+/integrates/mobile/ @dacevedoatfluid @mnorenaatfluid @jrestrepoatfluid @kamadoatfluid
 
 # Back approvers
-/django-apps/integrates-back-async/backend/authz/ @jrestrepoatfluid @mnorenaatfluid @kamadoatfluid
+/integrates/django-apps/integrates-back-async/backend/authz/ @jrestrepoatfluid @mnorenaatfluid @kamadoatfluid
 
 # Linter approvers
 /build/include/linter-jobs.sh @mnorenaatfluid @kamadoatfluid @jrestrepoatfluid
-/app/static/graphics/.eslintrc @mnorenaatfluid @kamadoatfluid @jrestrepoatfluid
-/front/.eslintignore @mnorenaatfluid @kamadoatfluid @jrestrepoatfluid
-/front/.eslintrc.json @mnorenaatfluid @kamadoatfluid @jrestrepoatfluid
-/front/tslint.json @mnorenaatfluid @kamadoatfluid @jrestrepoatfluid
-/mobile/tslint.json @mnorenaatfluid @kamadoatfluid @jrestrepoatfluid
+/integrates/app/static/graphics/.eslintrc @mnorenaatfluid @kamadoatfluid @jrestrepoatfluid
+/integrates/front/.eslintignore @mnorenaatfluid @kamadoatfluid @jrestrepoatfluid
+/integrates/front/.eslintrc.json @mnorenaatfluid @kamadoatfluid @jrestrepoatfluid
+/integrates/front/tslint.json @mnorenaatfluid @kamadoatfluid @jrestrepoatfluid
+/integrates/mobile/tslint.json @mnorenaatfluid @kamadoatfluid @jrestrepoatfluid
 
 /forces/ @drestrepoatfluid @jrestrepoatfluid @kamadoatfluid
 /skims/ @drestrepoatfluid @jrestrepoatfluid @kamadoatfluid @mnorenaatfluid @ralvarezatfluid
