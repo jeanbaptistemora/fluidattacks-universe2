@@ -12,6 +12,7 @@
       "src/components/**",
       "src/scenes/Login/**",
       "src/scenes/Dashboard/**/utils.ts",
+      "src/scenes/Dashboard/index.tsx",
       "src/scenes/Registration/**"
     ]
   },
