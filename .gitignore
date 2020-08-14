@@ -32,11 +32,11 @@ env.list
 .vscode/
 
 # Rule for ignore non compiled js files over dashboard
-front/node_modules
-front/src/**/*.js
-front/src/**/*.jsx
-front/src/**/*.css.d.ts
-front/package-lock.json
+integrates/front/node_modules
+integrates/front/src/**/*.js
+integrates/front/src/**/*.jsx
+integrates/front/src/**/*.css.d.ts
+integrates/front/package-lock.json
 app/static/login/*.js
 app/static/dashboard/*
 env-dev.vars
@@ -57,10 +57,10 @@ mobile/output/*
 mobile/e2e/*.zip
 
 #coverage output
-front/.nyc_output
-front/coverage.lcov
-front/coverage_results.txt
-front/coverage
+integrates/front/.nyc_output
+integrates/front/coverage.lcov
+integrates/front/coverage_results.txt
+integrates/front/coverage
 mobile/coverage
 
 # npm
