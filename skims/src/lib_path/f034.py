@@ -264,6 +264,6 @@ async def analyze(
             path=path,
         ))
 
-    for results in resolve(coroutines):
+    for results in resolve(coroutines, worker_greediness=1):
         for result in await results:
             await store.store(result)

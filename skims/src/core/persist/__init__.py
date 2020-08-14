@@ -105,11 +105,11 @@ async def upload_evidences(
         random.sample(results, k=number_of_samples),
     )
 
-    evidence_streams: Tuple[BytesIO, ...] = await collect(
+    evidence_streams: Tuple[BytesIO, ...] = await collect(tuple(
         to_png(string=result.skims_metadata.snippet)
         for result in result_samples
         if result.skims_metadata
-    )
+    ))
     evidence_descriptions: Tuple[str, ...] = tuple(
         result.skims_metadata.description
         for result in result_samples
@@ -117,7 +117,7 @@ async def upload_evidences(
     )
 
     return all((
-        *await collect(
+        *await collect(tuple(
             do_update_evidence(
                 evidence_id=evidence_id,
                 evidence_stream=evidence_stream.read(),
@@ -127,8 +127,8 @@ async def upload_evidences(
                 evidence_ids,
                 evidence_streams,
             )
-        ),
-        *await collect(
+        )),
+        *await collect(tuple(
             do_update_evidence_description(
                 evidence_description_id=evidence_description_id,
                 evidence_description=evidence_description,
@@ -138,7 +138,7 @@ async def upload_evidences(
                 evidence_ids,
                 evidence_descriptions,
             )
-        )
+        ))
     ))
 
 

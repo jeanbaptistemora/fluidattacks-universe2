@@ -245,7 +245,7 @@ async def translate_dependencies_to_vulnerabilities(
                 target_software=target_software,
             )
             for product, version in dependencies
-        ), workers=5),
+        ), workers=5, worker_greediness=4),
     ))
 
     results: Tuple[Vulnerability, ...] = tuple([
@@ -317,6 +317,6 @@ async def analyze(
             path=path,
         ))
 
-    for results in resolve(coroutines):
+    for results in resolve(coroutines, worker_greediness=1):
         for result in await results:
             await store.store(result)
