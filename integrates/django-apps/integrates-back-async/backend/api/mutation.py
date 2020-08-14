@@ -32,6 +32,7 @@ MUTATION.set_field('updateForcesAccessToken',
 MUTATION.set_field('invalidateAccessToken', me.resolve_me_mutation)
 MUTATION.set_field('acceptLegal', me.resolve_me_mutation)
 MUTATION.set_field('addPushToken', me.resolve_me_mutation)
+MUTATION.set_field('addStakeholder', user.resolve_user_mutation)
 MUTATION.set_field('addUser', user.resolve_user_mutation)
 MUTATION.set_field('grantStakeholderAccess', user.resolve_user_mutation)
 MUTATION.set_field('grantUserAccess', user.resolve_user_mutation)

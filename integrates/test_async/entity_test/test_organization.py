@@ -22,9 +22,9 @@ pytestmark = [
 ]
 
 
-async def _get_result_async(data, user='integratesmanager@gmail.com'):
+async def _get_result_async(data, stakeholder='integratesmanager@gmail.com'):
     """Get result."""
-    request = create_dummy_session(username=user)
+    request = create_dummy_session(username=stakeholder)
     request.loaders = {
         'event': EventLoader(),
         'finding': FindingLoader(),
@@ -67,37 +67,37 @@ async def test_create_organization():
 
 
 @pytest.mark.changes_db
-async def test_edit_user_organization():
+async def test_edit_stakeholder_organization():
     org_id = 'ORG#f2e2777d-a168-4bea-93cd-d79142b294d2'
-    user = 'org_testgroupmanager1@gmail.com'
+    stakeholder = 'org_testgroupmanager1@gmail.com'
     query = Template('''
         mutation {
-            editUserOrganization(
+            editStakeholderOrganization(
                 organizationId: "$org_id",
                 phoneNumber: "-",
                 role: $role,
-                userEmail: "$user"
+                userEmail: "$email"
             ) {
                 success
-                modifiedUser {
+                modifiedStakeholder {
                     email
                 }
             }
         }
     ''')
 
-    data = {'query': query.substitute(org_id=org_id, role='CUSTOMER', user=user)}
+    data = {'query': query.substitute(org_id=org_id, role='CUSTOMER', email=stakeholder)}
     result = await _get_result_async(data)
     assert 'errors' not in result
-    assert result['data']['editUserOrganization']['success']
-    assert result['data']['editUserOrganization']['modifiedUser']['email'] == user
+    assert result['data']['editStakeholderOrganization']['success']
+    assert result['data']['editStakeholderOrganization']['modifiedStakeholder']['email'] == stakeholder
 
-    data = {'query': query.substitute(org_id=org_id, role='CUSTOMERADMIN', user=user)}
-    result = await _get_result_async(data, user=user)
+    data = {'query': query.substitute(org_id=org_id, role='CUSTOMERADMIN', email=stakeholder)}
+    result = await _get_result_async(data, stakeholder=stakeholder)
     assert 'errors' in result
     assert result['errors'][0]['message'] == 'Access denied'
 
-    data = {'query': query.substitute(org_id=org_id, role='CUSTOMERADMIN', user='madeupuser@gmail.com')}
+    data = {'query': query.substitute(org_id=org_id, role='CUSTOMERADMIN', email='madeupuser@gmail.com')}
     result = await _get_result_async(data)
     exe = UserNotInOrganization()
     assert 'errors' in result
@@ -105,37 +105,37 @@ async def test_edit_user_organization():
 
 
 @pytest.mark.changes_db
-async def test_grant_user_organization_access():
+async def test_grant_stakeholder_organization_access():
     org_id = 'ORG#f2e2777d-a168-4bea-93cd-d79142b294d2'
-    user = 'org_testuser6@gmail.com'
+    stakeholder = 'org_testuser6@gmail.com'
     query = Template(f'''
         mutation {{
-            grantUserOrganizationAccess(
+            grantStakeholderOrganizationAccess(
                 organizationId: "{org_id}",
                 phoneNumber: "-",
                 role: $role,
-                userEmail: "$user"
+                userEmail: "$email"
             ) {{
                 success
-                grantedUser {{
+                grantedStakeholder {{
                     email
                 }}
             }}
         }}
     ''')
 
-    data = {'query': query.substitute(user=user, role='CUSTOMER')}
+    data = {'query': query.substitute(email=stakeholder, role='CUSTOMER')}
     result = await _get_result_async(data)
     assert 'errors' not in result
-    assert result['data']['grantUserOrganizationAccess']['success']
-    assert result['data']['grantUserOrganizationAccess']['grantedUser']['email'] == user
+    assert result['data']['grantStakeholderOrganizationAccess']['success']
+    assert result['data']['grantStakeholderOrganizationAccess']['grantedStakeholder']['email'] == stakeholder
 
-    data = {'query': query.substitute(user='madeupuser@gmail.com', role='CUSTOMER')}
-    result = await _get_result_async(data, user=user)
+    data = {'query': query.substitute(email='madeupuser@gmail.com', role='CUSTOMER')}
+    result = await _get_result_async(data, stakeholder=stakeholder)
     assert 'errors' in result
     assert result['errors'][0]['message'] == 'Access denied'
 
-    data = {'query': query.substitute(user='madeupuser@gmail.com', role='CUSTOMER')}
+    data = {'query': query.substitute(email='madeupuser@gmail.com', role='CUSTOMER')}
     result = await _get_result_async(data, 'madeupuser@gmail.com')
     exe = UserNotInOrganization()
     assert 'errors' in result
@@ -143,31 +143,31 @@ async def test_grant_user_organization_access():
 
 
 @pytest.mark.changes_db
-async def test_remove_user_organization_access():
+async def test_remove_stakeholder_organization_access():
     org_id = 'ORG#f2e2777d-a168-4bea-93cd-d79142b294d2'
-    user = 'org_testuser4@gmail.com'
+    stakeholder = 'org_testuser4@gmail.com'
     query = Template(f'''
         mutation {{
-            removeUserOrganizationAccess(
+            removeStakeholderOrganizationAccess(
                 organizationId: "{org_id}",
-                userEmail: "$user"
+                userEmail: "$email"
             ) {{
                 success
             }}
         }}
     ''')
 
-    data = {'query': query.substitute(user=user)}
+    data = {'query': query.substitute(email=stakeholder)}
     result = await _get_result_async(data)
     assert 'errors' not in result
-    assert result['data']['removeUserOrganizationAccess']['success']
+    assert result['data']['removeStakeholderOrganizationAccess']['success']
 
-    data = {'query': query.substitute(user='org_testuser2@gmail.com')}
-    result = await _get_result_async(data, user='madeupuser@gmail.com')
+    data = {'query': query.substitute(email='org_testuser2@gmail.com')}
+    result = await _get_result_async(data, stakeholder='madeupuser@gmail.com')
     assert 'errors' in result
     assert result['errors'][0]['message'] == 'Access denied'
 
-    data = {'query': query.substitute(user='madeupuser@gmail.com')}
+    data = {'query': query.substitute(email='madeupuser@gmail.com')}
     result = await _get_result_async(data)
     exe = UserNotInOrganization()
     assert 'errors' in result
@@ -198,11 +198,11 @@ async def test_update_organization_policies():
     assert 'errors' not in result
     assert result['data']['updateOrganizationPolicies']['success']
 
-    result = await _get_result_async(data, user='org_testuser5@gmail.com')
+    result = await _get_result_async(data, stakeholder='org_testuser5@gmail.com')
     assert 'errors' in result
     assert result['errors'][0]['message'] == 'Access denied'
 
-    result = await _get_result_async(data, user='madeupuser@gmail.com')
+    result = await _get_result_async(data, stakeholder='madeupuser@gmail.com')
     exe = UserNotInOrganization()
     assert 'errors' in result
     assert result['errors'][0]['message'] == exe.args[0]
@@ -224,7 +224,7 @@ async def test_get_organization_id():
     assert 'errors' not in result
     assert result['data']['organizationId']['id'] == expected_org_id
 
-    result = await _get_result_async(data, user='madeupuser@gmail.com')
+    result = await _get_result_async(data, stakeholder='madeupuser@gmail.com')
     assert 'errors' in result
     assert result['errors'][0]['message'] == 'Access denied'
 
@@ -238,7 +238,7 @@ async def test_get_organization_id():
 async def test_organization():
     org_id = 'ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3'
     expected_groups = ['oneshottest', 'unittesting']
-    expected_users = [
+    expected_stakeholders = [
         'continuoushacking@gmail.com',
         'integratesmanager@gmail.com',
         'integratesuser@gmail.com'
@@ -255,7 +255,7 @@ async def test_organization():
                 projects {{
                     name
                 }}
-                users {{
+                stakeholders {{
                     email
                 }}
             }}
@@ -265,7 +265,7 @@ async def test_organization():
     data = {'query': query}
     result = await _get_result_async(data)
     groups = [group['name'] for group in result['data']['organization']['projects']]
-    users = [user['email'] for user in result['data']['organization']['users']]
+    stakeholders = [stakeholders['email'] for stakeholders in result['data']['organization']['stakeholders']]
 
     assert 'errors' not in result
     assert result['data']['organization']['id'] == org_id
@@ -275,9 +275,9 @@ async def test_organization():
     assert result['data']['organization']['minAcceptanceSeverity'] == Decimal('0.0')
     assert result['data']['organization']['name'] == 'imamura'
     assert sorted(groups) == expected_groups
-    assert sorted(users) == expected_users
+    assert sorted(stakeholders) == expected_stakeholders
 
     exe = UserNotInOrganization()
-    result = await _get_result_async(data, user='madeupuser@gmail.com')
+    result = await _get_result_async(data, stakeholder='madeupuser@gmail.com')
     assert 'errors' in result
     assert result['errors'][0]['message'] == exe.args[0]

@@ -62,12 +62,14 @@ class UserTests(TestCase):
 
     @pytest.mark.changes_db
     async def test_add_user(self):
-        """Check for addUser mutation."""
+        """Check for addStakeholder mutation."""
         query = '''
             mutation {
-                addUser(email: "test@test.com",
-                        role: CUSTOMER,
-                        phoneNumber: "3331112233") {
+                addStakeholder(
+                    email: "test@test.com",
+                    role: CUSTOMER,
+                    phoneNumber: "3331112233"
+                ) {
                     success
                     email
                 }
@@ -77,23 +79,23 @@ class UserTests(TestCase):
         request = create_dummy_session('integratesmanager@gmail.com')
         _, result = await graphql(SCHEMA, data, context_value=request)
         assert 'errors' not in result
-        assert 'addUser' in result['data']
-        assert 'success' in result['data']['addUser']
-        assert 'email' in result['data']['addUser']
+        assert 'addStakeholder' in result['data']
+        assert 'success' in result['data']['addStakeholder']
+        assert 'email' in result['data']['addStakeholder']
 
     @pytest.mark.changes_db
     async def test_grant_user_access_1(self):
-        """Check for grantUserAccess mutation."""
+        """Check for grantStakeholderAccess mutation."""
         query = '''
             mutation {
-                grantUserAccess (
+                grantStakeholderAccess (
                 email: "test@test.test",
                 phoneNumber: "3453453453"
                 projectName: "unittesting",
                 responsibility: "test",
                 role: CUSTOMER) {
                 success
-                grantedUser {
+                grantedStakeholder {
                     email
                     role
                     responsibility
@@ -108,23 +110,23 @@ class UserTests(TestCase):
         request = create_dummy_session()
         _, result = await graphql(SCHEMA, data, context_value=request)
         assert 'errors' not in result
-        assert 'success' in result['data']['grantUserAccess']
-        assert 'grantedUser' in result['data']['grantUserAccess']
-        assert 'email' in result['data']['grantUserAccess']['grantedUser']
+        assert 'success' in result['data']['grantStakeholderAccess']
+        assert 'grantedStakeholder' in result['data']['grantStakeholderAccess']
+        assert 'email' in result['data']['grantStakeholderAccess']['grantedStakeholder']
 
     @pytest.mark.changes_db
-    async def test_grant_user_access_2(self):
-        """Check for grantUserAccess mutation."""
+    async def test_grant_stakeholder_access_2(self):
+        """Check for grantStakeholderAccess mutation."""
         query = '''
             mutation {
-                grantUserAccess (
+                grantStakeholderAccess (
                 email: "test@test.test",
                 phoneNumber: "3453453453"
                 projectName: "unittesting",
                 responsibility: "test",
                 role: ANALYST) {
                     success
-                    grantedUser {
+                    grantedStakeholder {
                         email
                         role
                         responsibility
@@ -145,18 +147,18 @@ class UserTests(TestCase):
         )
 
     @pytest.mark.changes_db
-    async def test_grant_user_access_3(self):
-        """Check for grantUserAccess mutation."""
+    async def test_grant_stakeholder_access_3(self):
+        """Check for grantStakeholderAccess mutation."""
         query = '''
             mutation {
-                grantUserAccess (
+                grantStakeholderAccess (
                 email: "test@fluidattacks.com",
                 phoneNumber: "3453453453"
                 projectName: "unittesting",
                 responsibility: "test",
                 role: ANALYST) {
                     success
-                    grantedUser {
+                    grantedStakeholder {
                         email
                         role
                         responsibility
@@ -171,16 +173,16 @@ class UserTests(TestCase):
         request = create_dummy_session()
         _, result = await graphql(SCHEMA, data, context_value=request)
         assert 'errors' not in result
-        assert 'success' in result['data']['grantUserAccess']
-        assert 'grantedUser' in result['data']['grantUserAccess']
-        assert 'email' in result['data']['grantUserAccess']['grantedUser']
+        assert 'success' in result['data']['grantStakeholderAccess']
+        assert 'grantedStakeholder' in result['data']['grantStakeholderAccess']
+        assert 'email' in result['data']['grantStakeholderAccess']['grantedStakeholder']
 
     @pytest.mark.changes_db
-    async def test_remove_user_access(self):
-        """Check for removeUserAccess mutation."""
+    async def test_remove_stakeholder_access(self):
+        """Check for removeStakeholderAccess mutation."""
         query = '''
             mutation {
-              removeUserAccess (
+              removeStakeholderAccess (
                 projectName: "unittesting"
                 userEmail: "test@test.test"
                 )
@@ -194,15 +196,15 @@ class UserTests(TestCase):
         request = create_dummy_session()
         _, result = await graphql(SCHEMA, data, context_value=request)
         assert 'errors' not in result
-        assert 'success' in result['data']['removeUserAccess']
-        assert 'removedEmail' in result['data']['removeUserAccess']
+        assert 'success' in result['data']['removeStakeholderAccess']
+        assert 'removedEmail' in result['data']['removeStakeholderAccess']
 
     @pytest.mark.changes_db
-    async def test_edit_user(self):
-        """Check for editUser mutation."""
+    async def test_edit_stakeholder(self):
+        """Check for editStakeholder mutation."""
         query = '''
             mutation {
-              editUser (
+              editStakeholder (
                 email: "test@test.testedited",
                 phoneNumber: "17364735",
                 projectName: "unittesting",
@@ -216,4 +218,4 @@ class UserTests(TestCase):
         request = create_dummy_session()
         _, result = await graphql(SCHEMA, data, context_value=request)
         assert 'errors' not in result
-        assert 'success' in result['data']['editUser']
+        assert 'success' in result['data']['editStakeholder']
