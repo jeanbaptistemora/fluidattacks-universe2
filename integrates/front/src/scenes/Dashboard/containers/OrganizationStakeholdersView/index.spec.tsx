@@ -7,15 +7,15 @@ import { Provider } from "react-redux";
 import { MemoryRouter, Route } from "react-router";
 import waitForExpect from "wait-for-expect";
 import store from "../../../../store";
-import { OrganizationUsers } from "./index";
+import { OrganizationStakeholders } from "./index";
 import { GET_ORGANIZATION_STAKEHOLDERS } from "./queries";
-import { IOrganizationUsers } from "./types";
+import { IOrganizationStakeholders } from "./types";
 
 describe("Organization users view", () => {
-  const mockProps: IOrganizationUsers = { organizationId: "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3" };
+  const mockProps: IOrganizationStakeholders = { organizationId: "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3" };
 
   it("should return a function", () => {
-    expect(typeof OrganizationUsers)
+    expect(typeof OrganizationStakeholders)
       .toEqual("function");
   });
 
@@ -57,7 +57,7 @@ describe("Organization users view", () => {
         <Provider store={store}>
           <MockedProvider mocks={mocks} addTypename={false} >
             <Route path="/orgs/:organizationName/stakeholders" >
-              <OrganizationUsers {...mockProps} />
+              <OrganizationStakeholders {...mockProps} />
             </Route>
           </MockedProvider>
         </Provider>

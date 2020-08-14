@@ -18,7 +18,7 @@ import { ChartsForOrganizationView } from "../ChartsForOrganizationView";
 import { OrganizationGroups } from "../OrganizationGroupsView";
 import { OrganizationPolicies } from "../OrganizationPoliciesView/index";
 import { OrganizationPortfolios } from "../OrganizationPortfoliosView/index";
-import { OrganizationUsers } from "../OrganizationUsersView/index";
+import { OrganizationStakeholders } from "../OrganizationStakeholdersView/index";
 import { GET_ORGANIZATION_ID, GET_USER_PORTFOLIOS } from "./queries";
 import { IOrganizationContent, IOrganizationPermission } from "./types";
 
@@ -153,7 +153,7 @@ const organizationContent: React.FC<IOrganizationContent> = (props: IOrganizatio
                   <OrganizationPortfolios portfolios={portfoliosData.me.tags}/>
                 </Route>
                 <Route path={`${path}/stakeholders`} exact={true}>
-                  <OrganizationUsers organizationId={basicData.organizationId.id} />
+                  <OrganizationStakeholders organizationId={basicData.organizationId.id} />
                 </Route>
                 <Route path={`${path}/policies`} exact={true}>
                   <OrganizationPolicies organizationId={basicData.organizationId.id} />

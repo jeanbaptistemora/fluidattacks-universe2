@@ -21,7 +21,7 @@ export interface IEditStakeholderAttrs {
   };
  }
 
-export interface IOrganizationUsers {
+export interface IOrganizationStakeholders {
   organizationId: string;
 }
 

@@ -26,7 +26,7 @@ import {
 import {
   IAddStakeholderAttrs,
   IEditStakeholderAttrs,
-  IOrganizationUsers,
+  IOrganizationStakeholders,
   IRemoveStakeholderAttrs,
   IStakeholderAttrs,
 } from "./types";
@@ -90,35 +90,36 @@ const handleMtError: (mtError: ApolloError) => void = (mtError: ApolloError): vo
   });
 };
 
-const organizationUsers: React.FC<IOrganizationUsers> = (props: IOrganizationUsers): JSX.Element => {
+const organizationStakeholders: React.FC<IOrganizationStakeholders> =
+  (props: IOrganizationStakeholders): JSX.Element => {
   const { organizationId } = props;
   const { organizationName } = useParams<{ organizationName: string }>();
   const { userName } = window as typeof window & Dictionary<string>;
 
   // State management
   const [currentRow, setCurrentRow] = React.useState<Dictionary<string>>({});
-  const [isUserModalOpen, setUserModalOpen] = React.useState(false);
-  const [userModalAction, setuserModalAction] = React.useState<"add" | "edit">("add");
+  const [isStakeholderModalOpen, setStakeholderModalOpen] = React.useState(false);
+  const [stakeholderModalAction, setStakeholderModalAction] = React.useState<"add" | "edit">("add");
 
-  const openAddUserModal: (() => void) = (): void => {
-    setuserModalAction("add");
-    setUserModalOpen(true);
+  const openAddStakeholderModal: (() => void) = (): void => {
+    setStakeholderModalAction("add");
+    setStakeholderModalOpen(true);
   };
-  const openEditUserModal: (() => void) = (): void => {
-    setuserModalAction("edit");
-    setUserModalOpen(true);
+  const openEditStakeholderModal: (() => void) = (): void => {
+    setStakeholderModalAction("edit");
+    setStakeholderModalOpen(true);
   };
-  const closeUserModal: (() => void) = (): void => {
-    setUserModalOpen(false);
+  const closeStakeholderModal: (() => void) = (): void => {
+    setStakeholderModalOpen(false);
   };
 
   // GraphQL Operations
-  const { data, refetch: refetchUsers } = useQuery(GET_ORGANIZATION_STAKEHOLDERS, {
+  const { data, refetch: refetchStakeholders } = useQuery(GET_ORGANIZATION_STAKEHOLDERS, {
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
         msgError(translate.t("group_alerts.error_textsad"));
         Logger.warning(
-          "An error occurred fetching organization users",
+          "An error occurred fetching organization stakeholders",
           error,
         );
       });
@@ -129,7 +130,7 @@ const organizationUsers: React.FC<IOrganizationUsers> = (props: IOrganizationUse
   const [grantStakeholderAccess] = useMutation(ADD_STAKEHOLDER_MUTATION, {
     onCompleted: (mtResult: IAddStakeholderAttrs): void => {
       if (mtResult.grantStakeholderOrganizationAccess.success) {
-        refetchUsers()
+        refetchStakeholders()
           .catch();
         mixpanel.track("AddUserOrganzationAccess", { Organization: organizationName, User: userName });
         const { email } = mtResult.grantStakeholderOrganizationAccess.grantedStakeholder;
@@ -145,7 +146,7 @@ const organizationUsers: React.FC<IOrganizationUsers> = (props: IOrganizationUse
   const [editStakeholder] = useMutation(EDIT_STAKEHOLDER_MUTATION, {
     onCompleted: (mtResult: IEditStakeholderAttrs): void => {
       if (mtResult.editStakeholderOrganization.success) {
-        refetchUsers()
+        refetchStakeholders()
           .catch();
         mixpanel.track("EditUserOrganizationAccess", { Organization: organizationName, User: userName });
         const { email } = mtResult.editStakeholderOrganization.modifiedStakeholder;
@@ -161,7 +162,7 @@ const organizationUsers: React.FC<IOrganizationUsers> = (props: IOrganizationUse
   const [removeStakeholderAccess, { loading: removing }] = useMutation(REMOVE_STAKEHOLDER_MUTATION, {
     onCompleted: (mtResult: IRemoveStakeholderAttrs): void => {
       if (mtResult.removeStakeholderOrganizationAccess.success) {
-        refetchUsers()
+        refetchStakeholders()
           .catch();
         mixpanel.track("RemoveUserOrganizationAccess", { Organization: organizationName, User: userName });
         msgSuccess(
@@ -173,14 +174,14 @@ const organizationUsers: React.FC<IOrganizationUsers> = (props: IOrganizationUse
     },
     onError: (removeError: ApolloError): void => {
       msgError(translate.t("group_alerts.error_textsad"));
-      Logger.warning("An error occurred removing user", removeError);
+      Logger.warning("An error occurred removing stakeholder", removeError);
     },
   });
 
   // Auxiliary elements
   const handleSubmit: ((values: IStakeholderAttrs) => void) = (values: IStakeholderAttrs): void => {
-    closeUserModal();
-    if (userModalAction === "add") {
+    closeStakeholderModal();
+    if (stakeholderModalAction === "add") {
       grantStakeholderAccess({ variables: {
         ...values,
         organizationId,
@@ -195,13 +196,13 @@ const organizationUsers: React.FC<IOrganizationUsers> = (props: IOrganizationUse
     }
   };
 
-  const handleRemoveUser: (() => void) = (): void => {
+  const handleRemoveStakeholder: (() => void) = (): void => {
     removeStakeholderAccess({ variables: {
       organizationId,
       userEmail: currentRow.email,
     } })
       .catch();
-    setuserModalAction("add");
+    setStakeholderModalAction("add");
   };
 
   // Render Elements
@@ -220,7 +221,7 @@ const organizationUsers: React.FC<IOrganizationUsers> = (props: IOrganizationUse
                     <TooltipWrapper
                       message={translate.t("organization.tabs.users.addButton.tooltip")}
                     >
-                      <Button id="addUser" onClick={openAddUserModal}>
+                      <Button id="addUser" onClick={openAddStakeholderModal}>
                         <Glyphicon glyph="plus" />
                         &nbsp;{translate.t("organization.tabs.users.addButton.text")}
                       </Button>
@@ -228,7 +229,7 @@ const organizationUsers: React.FC<IOrganizationUsers> = (props: IOrganizationUse
                     <TooltipWrapper
                       message={translate.t("organization.tabs.users.editButton.tooltip")}
                     >
-                      <Button id="editUser" onClick={openEditUserModal} disabled={_.isEmpty(currentRow)}>
+                      <Button id="editUser" onClick={openEditStakeholderModal} disabled={_.isEmpty(currentRow)}>
                         <FluidIcon icon="edit" />
                         &nbsp;{translate.t("organization.tabs.users.editButton.text")}
                       </Button>
@@ -238,7 +239,7 @@ const organizationUsers: React.FC<IOrganizationUsers> = (props: IOrganizationUse
                     >
                       <Button
                         id="removeUser"
-                        onClick={handleRemoveUser}
+                        onClick={handleRemoveStakeholder}
                         disabled={_.isEmpty(currentRow) || removing}
                       >
                         <Glyphicon glyph="minus" />
@@ -271,12 +272,12 @@ const organizationUsers: React.FC<IOrganizationUsers> = (props: IOrganizationUse
           </Col>
         </Row>
         <AddUserModal
-          action={userModalAction}
+          action={stakeholderModalAction}
           editTitle={translate.t("organization.tabs.users.modalEditTitle")}
-          initialValues={userModalAction === "edit" ? currentRow : {}}
+          initialValues={stakeholderModalAction === "edit" ? currentRow : {}}
           onSubmit={handleSubmit}
-          open={isUserModalOpen}
-          onClose={closeUserModal}
+          open={isStakeholderModalOpen}
+          onClose={closeStakeholderModal}
           organizationId={organizationId}
           title={translate.t("organization.tabs.users.modalAddTitle")}
           type="organization"
@@ -286,4 +287,4 @@ const organizationUsers: React.FC<IOrganizationUsers> = (props: IOrganizationUse
     );
 };
 
-export { organizationUsers as OrganizationUsers };
+export { organizationStakeholders as OrganizationStakeholders };
