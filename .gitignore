@@ -1,80 +1,17 @@
-analytics/**/*.jpg
-analytics/**/*.json
-analytics/**/*.html
-analytics/**/*.png
-django-apps/integrates-back-async/backend/reports/results/results_pdf/*.pdf
-django-apps/integrates-back-async/backend/reports/results/results_excel/*.xlsx
-django-apps/integrates-back-async/backend/reports/tpls/*.tpl
-django-apps/integrates-back-async/backend/reports/images/*.png
-app/autodoc/results/*.xlsx
-app/autodoc/results/*.pptx
-app/techdoc/results/*.xlsx
-!app/autodoc/templates/*.pptx
-!app/autodoc/templates/*.xlsx
-!app/techdoc/templates/*.xlsx
-logs
-shared-local-instance.db
+# Python
 *.pyc
-*.sqlite3
-*.retry
+
+# Bundle
 .bundle
 Gemfile.lock
-vendor
-app/static/admin/
-app/static/external/
-app/static/node_modules
-app/static/package-lock.json
-deploy/.terraform
-deploy/terraform.tfstate
-*.envrc
-env.list
-.torus.json
-.vscode/
 
-# Rule for ignore non compiled js files over dashboard
-integrates/front/node_modules
-integrates/front/src/**/*.js
-integrates/front/src/**/*.jsx
-integrates/front/src/**/*.css.d.ts
-integrates/front/package-lock.json
-app/static/login/*.js
-app/static/dashboard/*
-env-dev.vars
-local-test.sh
-local-linting.sh
-webpack-stats.json
-
-# mobile
-mobile/node_modules/**/*
-mobile/.expo/*
-mobile/npm-debug.*
-mobile/*.jks
-mobile/*.p12
-mobile/*.key
-mobile/*.mobileprovision
-mobile/google-services.json
-mobile/output/*
-mobile/e2e/*.zip
-
-#coverage output
-integrates/front/.nyc_output
-integrates/front/coverage.lcov
-integrates/front/coverage_results.txt
-integrates/front/coverage
-mobile/coverage
-
-# npm
-package-lock.json
+# Nodejs
 node_modules
+package-lock.json
 
 # Terraform
 .terraform/
 *.tfstate
-
-# Setuptools
-django-apps/**/*.egg-info
-django-apps/**/build
-django-apps/**/dist
 
 # Build system
 /build/coverage
@@ -86,11 +23,4 @@ django-apps/**/dist
 /TEMP_FD
 /test
 /test.py
-/integrates/test_async/dynamo_data/bb_executions.json.now
-/version.txt
 /.coverage*
-/integrates/.DynamoDB
-/integrates/.tmp
-
-# Reports
-*.xlsx

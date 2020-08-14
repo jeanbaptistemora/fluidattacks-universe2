@@ -1,0 +1,38 @@
+test_async/dynamo_data/bb_executions.json.now
+.DynamoDB
+.tmp
+version.txt
+
+# Rule for ignore non compiled js files over dashboard
+front/src/**/*.css.d.ts
+webpack-stats.json
+
+# mobile
+mobile/.expo/*
+mobile/npm-debug.*
+mobile/certs
+mobile/google-services.json
+mobile/output/*
+mobile/e2e/*.zip
+
+#coverage output
+front/.nyc_output
+front/coverage.lcov
+front/coverage_results.txt
+front/coverage
+mobile/coverage
+
+# Django apps
+django-apps/**/*.egg-info
+django-apps/**/build
+django-apps/**/dist
+django-apps/integrates-back-async/backend/reports/results/results_pdf/*.pdf
+django-apps/integrates-back-async/backend/reports/results/results_excel/*.xlsx
+django-apps/integrates-back-async/backend/reports/tpls/*.tpl
+django-apps/integrates-back-async/backend/reports/images/*.png
+
+# Analytics
+analytics/**/*.jpg
+analytics/**/*.json
+analytics/**/*.html
+analytics/**/*.png
