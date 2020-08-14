@@ -297,7 +297,7 @@ function helper_build_django_apps {
   ||  return 1
 }
 
-function helper_serve_back {
+function helper_integrates_serve_back {
   local app='fluidintegrates.asgi:APP'
   local host='0.0.0.0'
   local http_port='8000'
@@ -333,7 +333,7 @@ function helper_serve_back {
   &&  kill -TERM "${HTTP_PID}"
 }
 
-function helper_functional_tests {
+function helper_integrates_functional_tests {
       env_prepare_python_packages \
   &&  echo '[INFO] Logging in to AWS' \
   &&  aws_login "${ENVIRONMENT_NAME}" \

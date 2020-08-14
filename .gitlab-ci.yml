@@ -192,19 +192,19 @@ stages:
   stage: analytics
   tags: [autoscaling]
 
-analytics_make_documents_dev:
+integrates_analytics_make_documents_dev:
   <<: *analytics_template
   <<: *in_dev_branch_integrates
   image: "${CI_REGISTRY_IMAGE}/nix:analytics_make_documents_dev"
   parallel: 3
 
-analytics_make_documents_prod:
+integrates_analytics_make_documents_prod:
   <<: *analytics_template
   <<: *in_master_branch_integrates
   image: "${CI_REGISTRY_IMAGE}/nix:analytics_make_documents_prod"
   parallel: 6
 
-analytics_make_documents_prod_schedule:
+integrates_analytics_make_documents_prod_schedule:
   <<: *analytics_template
   image: "${CI_REGISTRY_IMAGE}/nix:analytics_make_documents_prod_schedule"
   interruptible: false
@@ -213,7 +213,7 @@ analytics_make_documents_prod_schedule:
     variables: [$analytics]
   parallel: 6
 
-analytics_make_snapshots_prod_schedule:
+integrates_analytics_make_snapshots_prod_schedule:
   <<: *analytics_template
   interruptible: false
   only:
@@ -290,7 +290,7 @@ scheduler_send_unsolved_to_all:
     refs: [schedules]
     variables: [$send_unsolved_to_all]
 
-build_front:
+integrates_build_front:
   <<: *with_nix
   <<: *in_everywhere_except_periodic_jobs_and_mrs_integrates
   stage: build
@@ -301,7 +301,7 @@ build_front:
       - integrates/app/static/
     when: on_success
 
-build_mobile_android:
+integrates_build_mobile_android:
   <<: *with_nix
   <<: *in_master_branch_integrates
   stage: build
@@ -312,7 +312,7 @@ build_mobile_android:
       - integrates/mobile/output/
     when: on_success
 
-build_lambdas:
+integrates_build_lambdas:
   <<: *with_nix
   <<: *in_dev_and_master_branch_integrates
   stage: build
@@ -334,9 +334,9 @@ coverage_report:
     - if: *integrates_commit_pattern
       when: always
   needs:
-    - test_back
-    - test_front
-    - test_mobile
+    - integrates_test_back
+    - integrates_test_front
+    - integrates_test_mobile
   stage: external
   retry: 1
 
@@ -345,36 +345,36 @@ clean_registries:
   <<: *in_schedule_nightly_build_integrates
   stage: post-deploy
 
-deploy_k8s_back_ephemeral:
+integrates_deploy_k8s_back_ephemeral:
   <<: *with_nix
   <<: *in_dev_branch_integrates
   stage: deploy-app
-  needs: [build_container_app]
+  needs: [integrates_build_container_app]
   retry: 1
   environment:
     name: "ephemeral/$CI_COMMIT_REF_SLUG"
     url: "https://$CI_COMMIT_REF_SLUG.$CI_PROJECT_NAME.env.fluidattacks.com/integrates"
-    on_stop: deploy_k8s_stop_ephemeral
+    on_stop: integrates_deploy_k8s_stop_ephemeral
 
 # Take into account that changing this job name impacts the rotation of
 #   AWS secrets at serves.
-# The rotation script looks the last deploy_k8s_back execution
+# The rotation script looks the last integrates_deploy_k8s_back execution
 #   and decides if keys should be rotated or not.
 # This is done to avoid keys expiration on the current integrates deployment
 #   in case the continuous delivery system at Integrates is failing
 # Please follow the link and adjust if needed, thanks!
 #   https://gitlab.com/fluidattacks/serves/-/blob/0cb7556d236a3668bdcae64027941565e92131ad/build/include/helpers.sh#L180
-deploy_k8s_back:
+integrates_deploy_k8s_back:
   <<: *with_nix
   <<: *in_master_except_periodic_jobs_integrates
   stage: deploy-app
-  needs: [build_container_app]
+  needs: [integrates_build_container_app]
   retry: 1
   environment:
     name: "production"
     url: "https://fluidattacks.com/integrates"
 
-deploy_k8s_stop_ephemeral:
+integrates_deploy_k8s_stop_ephemeral:
   <<: *with_nix
   stage: deploy-app
   retry: 1
@@ -393,20 +393,20 @@ deploy_k8s_stop_ephemeral:
     - if: *integrates_commit_pattern
       when: manual
 
-deploy_mobile_ota:
+integrates_deploy_mobile_ota:
   <<: *with_nix
   <<: *in_everywhere_except_periodic_jobs_and_mrs_integrates
   stage: deploy-app
 
-deploy_mobile_playstore:
+integrates_deploy_mobile_playstore:
   <<: *with_nix
   <<: *in_master_branch_integrates
   stage: deploy-app
-  needs: [build_mobile_android]
+  needs: [integrates_build_mobile_android]
   dependencies:
-    - build_mobile_android
+    - integrates_build_mobile_android
 
-deploy_permissions_matrix:
+integrates_deploy_permissions_matrix:
   <<: *with_nix
   <<: *in_dev_and_master_branch_integrates
   stage: deploy-app
@@ -418,7 +418,7 @@ deploy_permissions_matrix:
       - integrates/deploy/permissions-matrix/user_level.html
     when: on_success
 
-build_container_app:
+integrates_build_container_app:
   <<: *with_nix
   <<: *in_everywhere_except_periodic_jobs_and_mrs_integrates
   stage: build
@@ -437,25 +437,25 @@ build_nix_caches:
   stage: build
   before_script:
     - apk add --no-cache bash
-  parallel: 41
+  parallel: 45
   interruptible: false
   only:
     refs: [schedules]
     variables: [$build_nix_caches]
 
-deploy_front:
+integrates_deploy_front:
   <<: *with_nix
   <<: *in_everywhere_except_periodic_jobs_and_mrs_integrates
   stage: deploy-app
-  needs: [build_front]
+  needs: [integrates_build_front]
 
-functional_tests_dev:
+integrates_functional_tests_dev:
   <<: *with_nix
   <<: *in_dev_branch_integrates
   image: "${CI_REGISTRY_IMAGE}/nix:functional_tests_dev"
   needs:
-    - deploy_k8s_back_ephemeral
-    - deploy_front
+    - integrates_deploy_k8s_back_ephemeral
+    - integrates_deploy_front
   stage: post-deploy
   retry: 1
   parallel: 6
@@ -465,13 +465,13 @@ functional_tests_dev:
       - integrates/test/functional/screenshots/
     when: always
 
-functional_tests_prod:
+integrates_functional_tests_prod:
   <<: *with_nix
   <<: *in_master_branch_integrates
   image: "${CI_REGISTRY_IMAGE}/nix:functional_tests_prod"
   needs:
-    - deploy_k8s_back
-    - deploy_front
+    - integrates_deploy_k8s_back
+    - integrates_deploy_front
   stage: post-deploy
   retry: 1
   artifacts:
@@ -534,14 +534,14 @@ integrates_infra_resources_deploy:
   <<: *with_nix
   <<: *in_master_branch_integrates
   needs:
-    - build_lambdas
+    - integrates_build_lambdas
   stage: deploy-infra
 
 integrates_infra_resources_test:
   <<: *with_nix
   <<: *in_dev_and_master_branch_integrates
   needs:
-    - build_lambdas
+    - integrates_build_lambdas
   stage: test-infra
 
 integrates_infra_secret_management_deploy:
@@ -554,32 +554,32 @@ integrates_infra_secret_management_test:
   <<: *in_dev_and_master_branch_integrates
   stage: test-infra
 
-lint_back:
+integrates_lint_back:
   <<: *with_nix
   <<: *in_dev_and_master_branch_integrates
   stage: lint-code
 
-lint_front:
+integrates_lint_front:
   <<: *with_nix
   <<: *in_dev_and_master_branch_integrates
   stage: lint-code
 
-lint_graphics:
+integrates_lint_graphics:
   <<: *with_nix
   <<: *in_dev_and_master_branch_integrates
   stage: lint-code
 
-lint_build_system:
+integrates_lint_build_system:
   <<: *with_nix
   <<: *all_in_dev_and_master_branch
   stage: lint-code
 
-lint_mobile:
+integrates_lint_mobile:
   <<: *with_nix
   <<: *in_dev_and_master_branch_integrates
   stage: lint-code
 
-lint_secrets:
+integrates_lint_secrets:
   <<: *with_nix
   <<: *in_dev_and_master_branch_integrates
   stage: lint-code
@@ -602,9 +602,9 @@ send_new_release_email:
   <<: *in_master_branch_integrates
   stage: post-deploy
   needs:
-    - deploy_k8s_back
+    - integrates_deploy_k8s_back
 
-test_back:
+integrates_test_back:
   <<: *with_nix
   <<: *in_dev_and_master_branch_integrates
   stage: test-code
@@ -615,7 +615,7 @@ test_back:
       - integrates/coverage.xml
     expire_in: 1 week
 
-test_front:
+integrates_test_front:
   <<: *with_nix
   <<: *in_dev_and_master_branch_integrates
   stage: test-code
@@ -625,7 +625,7 @@ test_front:
       - integrates/front/coverage.lcov
     expire_in: 1 week
 
-test_mobile:
+integrates_test_mobile:
   <<: *with_nix
   <<: *in_dev_and_master_branch_integrates
   stage: test-code

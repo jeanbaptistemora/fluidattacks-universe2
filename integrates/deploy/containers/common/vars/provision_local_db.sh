@@ -250,7 +250,7 @@ aws dynamodb batch-write-item \
   --endpoint-url 'http://localhost:8022' \
   --request-items 'file://test_async/dynamo_data/bb_executions.json.now'
 
-if test "${CI_JOB_NAME:-}" = "serve_dynamodb_local"
+if test "${CI_JOB_NAME:-}" = "integrates_serve_dynamodb_local"
 then
   echo '[INFO] Adding mock users'
   for index in $(seq 1 200)
@@ -319,7 +319,7 @@ then
   done
 fi
 
-if test "${CI_JOB_NAME:-}" != "test_back"
+if test "${CI_JOB_NAME:-}" != 'integrates_test_back'
 then
   number_findings=()
   number_vulns=()

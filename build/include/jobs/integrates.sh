@@ -5,7 +5,7 @@ source "${srcIncludeHelpersCommon}"
 source "${srcExternalGitlabVariables}"
 source "${srcExternalSops}"
 
-function job_build_front {
+function job_integrates_build_front {
       pushd "${STARTDIR}/integrates" \
   &&  pushd front \
   &&  npm install \
@@ -20,7 +20,7 @@ function job_build_front {
   || return 1
 }
 
-function job_build_mobile_android {
+function job_integrates_build_mobile_android {
   export EXPO_ANDROID_KEYSTORE_PASSWORD
   export EXPO_ANDROID_KEY_PASSWORD
   export TURTLE_ANDROID_DEPENDENCIES_DIR="${HOME}/.turtle/androidDependencies"
@@ -100,7 +100,7 @@ function job_build_mobile_android {
   ||  return 1
 }
 
-function job_build_mobile_ios {
+function job_integrates_build_mobile_ios {
   export EXPO_APPLE_PASSWORD
   export EXPO_IOS_DIST_P12_PASSWORD
 
@@ -145,9 +145,9 @@ function job_build_mobile_ios {
   ||  return 1
 }
 
-function job_build_lambdas {
+function job_integrates_build_lambdas {
 
-  function _job_build_lambdas {
+  function _job_integrates_build_lambdas {
     local lambda_name="${1}"
     local lambda_zip_file
     local current_path="${PWD}/lambda"
@@ -180,8 +180,8 @@ function job_build_lambdas {
     ||  return 1
   }
       pushd "${STARTDIR}/integrates" \
-  &&  _job_build_lambdas 'send_mail_notification' \
-  &&  _job_build_lambdas 'project_to_pdf' \
+  &&  _job_integrates_build_lambdas 'send_mail_notification' \
+  &&  _job_integrates_build_lambdas 'project_to_pdf' \
   &&  popd \
   || return 1
 }
@@ -244,7 +244,7 @@ function job_build_nix_caches {
       done
 }
 
-function job_build_container_app {
+function job_integrates_build_container_app {
   local context='.'
   local dockerfile='deploy/containers/app/Dockerfile'
   local tag="${CI_REGISTRY_IMAGE}/app:${CI_COMMIT_REF_NAME}"
@@ -278,7 +278,7 @@ function job_build_container_app {
   || return 1
 }
 
-function job_deploy_front {
+function job_integrates_deploy_front {
       pushd "${STARTDIR}/integrates" \
   &&  env_prepare_python_packages \
   &&  env_prepare_django_static_external \
@@ -289,7 +289,7 @@ function job_deploy_front {
   ||  return 1
 }
 
-function job_deploy_mobile_ota {
+function job_integrates_deploy_mobile_ota {
   export EXPO_USE_DEV_SERVER="true"
 
       helper_use_pristine_workdir \
@@ -342,7 +342,7 @@ function job_deploy_mobile_ota {
   ||  return 1
 }
 
-function job_deploy_mobile_playstore {
+function job_integrates_deploy_mobile_playstore {
   export LANG=en_US.UTF-8
 
       pushd "${STARTDIR}/integrates" \
@@ -378,7 +378,7 @@ function job_deploy_mobile_playstore {
   ||  return 1
 }
 
-function job_deploy_permissions_matrix {
+function job_integrates_deploy_permissions_matrix {
   export PYTHONPATH="${pyPkgPandas}/lib/python3.7/site-packages"
   export PYTHONPATH="${pyPkgNumpy}/lib/python3.7/site-packages:${PYTHONPATH}"
   export PYTHONPATH="${pyPkgMagic}/lib/python3.7/site-packages:${PYTHONPATH}"
@@ -407,23 +407,23 @@ function job_django_console {
   ||  return 1
 }
 
-function job_functional_tests_local {
+function job_integrates_functional_tests_local {
       pushd "${STARTDIR}/integrates" \
-  &&  helper_functional_tests \
+  &&  helper_integrates_functional_tests \
   &&  popd \
   ||  return 1
 }
 
-function job_functional_tests_dev {
+function job_integrates_functional_tests_dev {
       pushd "${STARTDIR}/integrates" \
-  &&  CI='true' helper_functional_tests \
+  &&  CI='true' helper_integrates_functional_tests \
   &&  popd \
   ||  return 1
 }
 
-function job_functional_tests_prod {
+function job_integrates_functional_tests_prod {
       pushd "${STARTDIR}/integrates" \
-  &&  CI_COMMIT_REF_NAME='master' helper_functional_tests \
+  &&  CI_COMMIT_REF_NAME='master' helper_integrates_functional_tests \
   &&  popd \
   ||  return 1
 }
@@ -487,7 +487,7 @@ function job_renew_certificates {
   ||  return 1
 }
 
-function job_reset {
+function job_integrates_reset {
   local files_to_delete=(
     'app/static/dashboard/'
     'app/backend/reports/images/*'
@@ -539,7 +539,7 @@ function job_reset {
   ||  return 1
 }
 
-function job_serve_dynamodb_local {
+function job_integrates_serve_dynamodb_local {
   local port=8022
 
       pushd "${STARTDIR}/integrates" \
@@ -581,7 +581,7 @@ function job_send_new_release_email {
   &&  python3 "${TEMP_FILE1}"
 }
 
-function job_serve_front {
+function job_integrates_serve_front {
       pushd integrates/front \
     &&  npm install \
     &&  npm start \
@@ -589,7 +589,7 @@ function job_serve_front {
   ||  return 1
 }
 
-function job_serve_mobile {
+function job_integrates_serve_mobile {
       pushd "${STARTDIR}/integrates" \
   &&  echo '[INFO] Logging in to AWS' \
   &&  aws_login "${ENVIRONMENT_NAME}" \
@@ -618,7 +618,7 @@ function job_serve_mobile {
   ||  return 1
 }
 
-function job_serve_redis {
+function job_integrates_serve_redis {
   local port=6379
 
       pushd "${STARTDIR}/integrates" \
@@ -628,9 +628,9 @@ function job_serve_redis {
   ||  return 1
 }
 
-function job_serve_back_dev {
+function job_integrates_serve_back_dev {
       pushd "${STARTDIR}/integrates" \
-  &&  helper_serve_back dev \
+  &&  helper_integrates_serve_back dev \
   &&  popd \
   ||  return 1
 }
@@ -659,9 +659,9 @@ function job_cron_run {
   ||  return 1
 }
 
-function job_serve_back_prod {
+function job_integrates_serve_back_prod {
       pushd "${STARTDIR}/integrates" \
-  &&  helper_serve_back prod \
+  &&  helper_integrates_serve_back prod \
   &&  popd \
   ||  return 1
 }
@@ -713,7 +713,7 @@ function _execute_analytics_generator {
 
 }
 
-function _job_analytics_make_documents {
+function _job_integrates_analytics_make_documents {
   export CI_COMMIT_REF_NAME
   export CI_NODE_INDEX
   export CI_NODE_TOTAL
@@ -740,7 +740,7 @@ function _job_analytics_make_documents {
 
 }
 
-function _job_analytics_make_snapshots {
+function _job_integrates_analytics_make_snapshots {
   export CI_COMMIT_REF_NAME
   export DJANGO_SETTINGS_MODULE='fluidintegrates.settings'
   export PYTHONPATH="${PWD}:${PWD}/analytics:${PYTHONPATH}"
@@ -751,11 +751,10 @@ function _job_analytics_make_snapshots {
       python3 analytics/collector/generate_reports.py \
   &&  echo '[INFO] Uploading static results' \
   &&  aws s3 sync \
-        'analytics/collector' "s3://${remote_bucket}/${CI_COMMIT_REF_NAME}/snapshots" \
-
+        'analytics/collector' "s3://${remote_bucket}/${CI_COMMIT_REF_NAME}/snapshots"
 }
 
-function job_analytics_make_documents_dev {
+function job_integrates_analytics_make_documents_dev {
       pushd "${STARTDIR}/integrates" \
   &&  env_prepare_python_packages \
   &&  helper_set_dev_secrets \
@@ -763,32 +762,32 @@ function job_analytics_make_documents_dev {
       then
         helper_set_local_dynamo_and_redis
       fi \
-  &&  _job_analytics_make_documents \
+  &&  _job_integrates_analytics_make_documents \
   &&  popd \
   ||  return 1
 }
 
-function job_analytics_make_documents_prod {
+function job_integrates_analytics_make_documents_prod {
       pushd "${STARTDIR}/integrates" \
   &&  env_prepare_python_packages \
   &&  helper_set_prod_secrets \
-  &&  _job_analytics_make_documents \
+  &&  _job_integrates_analytics_make_documents \
   &&  popd \
   ||  return 1
 }
 
-function job_analytics_make_documents_prod_schedule {
+function job_integrates_analytics_make_documents_prod_schedule {
       pushd "${STARTDIR}/integrates" \
-  &&  job_analytics_make_documents_prod \
+  &&  job_integrates_analytics_make_documents_prod \
   &&  popd \
   ||  return 1
 }
 
-function job_analytics_make_snapshots_prod_schedule {
+function job_integrates_analytics_make_snapshots_prod_schedule {
       pushd "${STARTDIR}/integrates" \
   &&  env_prepare_python_packages \
   &&  helper_set_prod_secrets \
-  &&  _job_analytics_make_snapshots \
+  &&  _job_integrates_analytics_make_snapshots \
   &&  popd \
   ||  return 1
 }
@@ -1086,7 +1085,7 @@ function job_rotate_jwt_token {
   || return 1
 }
 
-function job_test_back {
+function job_integrates_test_back {
   local common_args=(
     -n auto
     --ds 'fluidintegrates.settings'
@@ -1133,7 +1132,7 @@ function job_test_back {
   ||  return 1
 }
 
-function job_test_front {
+function job_integrates_test_front {
       pushd integrates/front \
     &&  npm install --unsafe-perm \
     &&  npm test \
@@ -1142,7 +1141,7 @@ function job_test_front {
   ||  return 1
 }
 
-function job_test_mobile {
+function job_integrates_test_mobile {
       pushd integrates/mobile \
     &&  npm install --unsafe-perm \
     &&  npm test \
@@ -1151,7 +1150,7 @@ function job_test_mobile {
   ||  return 1
 }
 
-function job_deploy_k8s_back_ephemeral {
+function job_integrates_deploy_k8s_back_ephemeral {
   local B64_AWS_ACCESS_KEY_ID
   local B64_AWS_SECRET_ACCESS_KEY
   local B64_JWT_TOKEN
@@ -1209,7 +1208,7 @@ function job_deploy_k8s_back_ephemeral {
   ||  return 1
 }
 
-function job_deploy_k8s_back {
+function job_integrates_deploy_k8s_back {
   local B64_AWS_ACCESS_KEY_ID
   local B64_AWS_SECRET_ACCESS_KEY
   local B64_JWT_TOKEN
@@ -1279,7 +1278,7 @@ function job_deploy_k8s_back {
   ||  return 1
 }
 
-function job_deploy_k8s_stop_ephemeral {
+function job_integrates_deploy_k8s_stop_ephemeral {
       pushd "${STARTDIR}/integrates" \
   &&  echo "[INFO] Setting namespace preferences..." \
   &&  aws_login 'development' \

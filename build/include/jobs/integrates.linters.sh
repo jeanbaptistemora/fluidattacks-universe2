@@ -1,6 +1,6 @@
 # shellcheck shell=bash
 
-function job_lint_back {
+function job_integrates_lint_back {
       pushd integrates/ \
   &&  env_prepare_python_packages \
   &&  mypy --strict --ignore-missing-imports analytics/ \
@@ -20,7 +20,7 @@ function job_lint_back {
   || return 1
 }
 
-function job_lint_build_system {
+function job_integrates_lint_build_system {
   # SC1090: Can't follow non-constant source. Use a directive to specify location.
   # SC2016: Expressions don't expand in single quotes, use double quotes for that.
   # SC2153: Possible misspelling: TEMP_FILE2 may not be assigned, but TEMP_FILE1 is.
@@ -34,7 +34,7 @@ function job_lint_build_system {
   &&  echo '[OK] Shell code is compliant'
 }
 
-function job_lint_front {
+function job_integrates_lint_front {
         pushd integrates/front/ \
     &&  npm install \
     &&  npm audit \
@@ -44,7 +44,7 @@ function job_lint_front {
     ||  return 1
 }
 
-function job_lint_graphics {
+function job_integrates_lint_graphics {
       env_prepare_node_modules \
   &&  pushd integrates/app/static/graphics \
         &&  eslint --config .eslintrc --fix . \
@@ -52,7 +52,7 @@ function job_lint_graphics {
   ||  return 1
 }
 
-function job_lint_mobile {
+function job_integrates_lint_mobile {
       pushd integrates/mobile \
     &&  npm install \
     &&  npm run lint \
@@ -60,7 +60,7 @@ function job_lint_mobile {
   ||  return 1
 }
 
-function job_lint_secrets {
+function job_integrates_lint_secrets {
   local files_to_verify=(
     secrets-development.yaml
     secrets-production.yaml
