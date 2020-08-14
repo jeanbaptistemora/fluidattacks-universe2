@@ -42,6 +42,7 @@ def mr_under_max_deltas(pull_request: PullRequest, config: Dict[str, Any]) -> bo
     base_commit: Any = repo.revparse_single(base_sha)
     head_commit: Any = repo.revparse_single(head_sha)
     diff: Any = repo.diff(base_commit, head_commit)
+    diff.find_similar()
     deltas: int = diff.stats.deletions + diff.stats.insertions
     if not skip_deltas and deltas > max_deltas:
         log(err_log,
