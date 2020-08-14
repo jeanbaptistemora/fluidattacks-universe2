@@ -1,4 +1,4 @@
-import { MockedProvider, MockedResponse } from "@apollo/react-testing";
+import { MockedProvider, MockedResponse, wait } from "@apollo/react-testing";
 import { mount, ReactWrapper } from "enzyme";
 import React from "react";
 // tslint:disable-next-line: no-submodule-imports
@@ -11,7 +11,7 @@ import { msgSuccess } from "../../../../utils/notifications";
 import { addUserModal } from "../../components/AddUserModal/index";
 import { GET_USER } from "../../components/AddUserModal/queries";
 import { OrganizationStakeholders } from "./index";
-import { ADD_STAKEHOLDER_MUTATION, GET_ORGANIZATION_STAKEHOLDERS } from "./queries";
+import { ADD_STAKEHOLDER_MUTATION, EDIT_STAKEHOLDER_MUTATION, GET_ORGANIZATION_STAKEHOLDERS } from "./queries";
 import { IOrganizationStakeholders } from "./types";
 
 jest.mock("../../../../utils/notifications", (): Dictionary => {
@@ -367,6 +367,196 @@ describe("Organization users view", () => {
           .toHaveBeenCalled();
         expect(wrapper.find("tr"))
           .toHaveLength(3);
+      });
+    });
+  });
+
+  it("should edit a user", async () => {
+    const mocks: ReadonlyArray<MockedResponse> = [
+      {
+        request: {
+          query: GET_ORGANIZATION_STAKEHOLDERS,
+          variables: {
+            organizationId: mockProps.organizationId,
+          },
+        },
+        result: {
+          data: {
+            organization: {
+              stakeholders: [
+                {
+                  email: "testuser1@gmail.com",
+                  firstLogin: "2020-06-01",
+                  lastLogin: "[10, 35207]",
+                  phoneNumber: "+573100000000",
+                  role: "customer",
+                },
+              ],
+            },
+          },
+        },
+      },
+      {
+        request: {
+          query: EDIT_STAKEHOLDER_MUTATION,
+          variables: {
+            email: "testuser1@gmail.com",
+            organizationId: mockProps.organizationId,
+            phoneNumber: "+573201113333",
+            responsibility: "",
+            role: "CUSTOMERADMIN",
+          },
+        },
+        result: {
+          data: {
+            editStakeholderOrganization: {
+              modifiedStakeholder: {
+                email: "testuser1@gmail.com",
+              },
+              success: true,
+            },
+          },
+        },
+      },
+      {
+        request: {
+          query: GET_ORGANIZATION_STAKEHOLDERS,
+          variables: {
+            organizationId: mockProps.organizationId,
+          },
+        },
+        result: {
+          data: {
+            organization: {
+              stakeholders: [
+                {
+                  email: "testuser1@gmail.com",
+                  firstLogin: "2020-06-01",
+                  lastLogin: "[10, 35207]",
+                  phoneNumber: "+573201113333",
+                  role: "customeradmin",
+                },
+              ],
+            },
+          },
+        },
+      },
+    ];
+    const wrapper: ReactWrapper = mount(
+      <MemoryRouter initialEntries={["/orgs/imamura/stakeholders"]} >
+        <Provider store={store} >
+          <MockedProvider mocks={mocks} addTypename={false} >
+            <Route path="/orgs/:organizationName/stakeholders" >
+              <OrganizationStakeholders {...mockProps} />
+            </Route>
+          </MockedProvider>
+        </Provider>
+      </MemoryRouter>,
+    );
+
+    await act(async () => {
+      await waitForExpect(() => {
+        wrapper.update();
+
+        expect(wrapper)
+          .toHaveLength(1);
+        expect(wrapper.find("tr"))
+          .toHaveLength(2);
+      });
+    });
+
+    expect(
+      wrapper
+        .find(addUserModal)
+        .prop("open"))
+      .toBe(false);
+
+    wrapper
+      .find("tr")
+      .at(1)
+      .simulate("click");
+
+    await act(async () => {
+      await waitForExpect(() => {
+        wrapper.update();
+
+        expect(
+          wrapper
+            .find("button#editUser")
+            .first()
+            .prop("disabled"))
+          .toBe(false);
+      });
+    });
+
+    wrapper
+      .find("button#editUser")
+      .first()
+      .simulate("click");
+
+    expect(
+      wrapper
+        .find(addUserModal)
+        .prop("open"))
+      .toBe(true);
+    expect(
+      wrapper
+        .find(addUserModal)
+        .find({ name: "email" })
+        .find("input")
+        .prop("value"))
+      .toBe("testuser1@gmail.com");
+    expect(
+      wrapper
+        .find(addUserModal)
+        .find({ name: "email" })
+        .find("input")
+        .prop("disabled"))
+      .toBe(true);
+    expect(
+      wrapper
+        .find(addUserModal)
+        .find({ name: "role" })
+        .find("select")
+        .prop("defaultValue"))
+      .toBe("CUSTOMER");
+    expect(
+      wrapper
+        .find(addUserModal)
+        .find({ name: "phoneNumber" })
+        .find("input")
+        .prop("value"))
+      .toBe("+57 (310) 000 0000");
+
+    const form: ReactWrapper = wrapper
+      .find(addUserModal)
+      .find("genericForm");
+    const roleField: ReactWrapper = wrapper
+      .find(addUserModal)
+      .find({ name: "role" })
+      .find("select");
+    const phoneField: ReactWrapper = wrapper
+      .find(addUserModal)
+      .find({ name: "phoneNumber" })
+      .find("input");
+
+    roleField.simulate("change", { target: { value: "CUSTOMERADMIN" } });
+    phoneField.simulate("change", { target: { value: "+57 (320) 111 3333" }});
+    form.simulate("submit");
+
+    await act(async () => {
+      await waitForExpect(() => {
+        wrapper.update();
+
+        expect(
+          wrapper
+            .find(addUserModal)
+            .prop("open"))
+          .toBe(false);
+        expect(msgSuccess)
+          .toHaveBeenCalled();
+        expect(wrapper.find("tr"))
+          .toHaveLength(2);
       });
     });
   });

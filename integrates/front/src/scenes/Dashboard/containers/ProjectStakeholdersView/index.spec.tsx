@@ -358,16 +358,10 @@ describe("Project users view", () => {
         query: EDIT_STAKEHOLDER_MUTATION,
         variables: {
           email: "user@gmail.com",
-          firstLogin: "2017-09-05",
-          lastLogin: {
-            label: "3 days ago",
-            value: [3, 81411],
-          },
           phoneNumber: "+573123210123",
           projectName: "TEST",
           responsibility: "Project Manager",
           role: "ANALYST",
-          uniqueId: 0,
         },
       },
       result: { data: { editStakeholder : { success: true } } },
@@ -551,16 +545,10 @@ describe("Project users view", () => {
         query: EDIT_STAKEHOLDER_MUTATION,
         variables: {
           email: "user@gmail.com",
-          firstLogin: "2017-09-05",
-          lastLogin: {
-            label: "3 days ago",
-            value: [3, 81411],
-          },
           phoneNumber: "+573123210123",
           projectName: "TEST",
           responsibility: "Project Manager",
           role: "ANALYST",
-          uniqueId: 0,
         },
       },
       result: { errors: [

@@ -83,16 +83,19 @@ export const addUserModal: React.FC<IAddStakeholderModalProps> = (props: IAddSta
     }
   };
 
-  const initialValues: Record<string, string> = props.action === "edit"
-    ? {
-        ...props.initialValues,
-        role: props.initialValues.role.toUpperCase(),
-      }
-    : {};
-
   const groupModal: boolean = props.projectName !== undefined;
   const organizationModal: boolean = props.type === "organization";
   const sidebarModal: boolean = props.type === "user" && props.projectName === undefined;
+  const initialValues: Record<string, string> = props.action === "edit"
+    ? {
+        email: props.initialValues.email,
+        phoneNumber: props.initialValues.phoneNumber,
+        responsibility: organizationModal
+          ? ""
+          : props.initialValues.responsibility,
+        role: props.initialValues.role.toUpperCase(),
+      }
+    : {};
 
   return (
     <React.StrictMode>
