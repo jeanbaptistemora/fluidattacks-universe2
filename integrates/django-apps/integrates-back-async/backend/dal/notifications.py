@@ -79,7 +79,12 @@ def create_ticket(
     return success
 
 
-def send_push_notification(token: str, title: str, message: str) -> None:
+def send_push_notification(
+    user_email: str,
+    token: str,
+    title: str,
+    message: str
+) -> None:
     client = PushClient()
 
     try:
@@ -88,11 +93,20 @@ def send_push_notification(token: str, title: str, message: str) -> None:
                 body=message,
                 channel_id='default',
                 display_in_foreground=True,
+                priority='high',
                 sound='default',
                 title=title,
                 to=token,
             )
         )
+        LOGGER.info(
+            '[notifier]: push notification sent',
+            extra={
+                'extra': {
+                    'email': user_email,
+                    'title': title,
+                }
+            })
     except (
         requests.exceptions.ConnectionError,
         requests.exceptions.HTTPError,

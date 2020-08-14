@@ -124,7 +124,8 @@ async def send_push_notification(
 
     for token in tokens:
         try:
-            notifications_dal.send_push_notification(token, title, message)
+            notifications_dal.send_push_notification(
+                user_email, token, title, message)
         except DeviceNotRegisteredError:
             user_domain.remove_push_token(user_email, token)
 
