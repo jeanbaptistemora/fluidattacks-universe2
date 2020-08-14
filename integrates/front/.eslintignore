@@ -2,6 +2,6 @@
 
 src/scenes/Dashboard/**/*.*
 !src/scenes/Dashboard/**/utils.ts
-!src/scenes/Dashboard/index.tsx
+!src/scenes/Dashboard/*.*
 src/**/*.css.d.ts
 src/**/*.d.ts
