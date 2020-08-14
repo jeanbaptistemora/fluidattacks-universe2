@@ -86,11 +86,11 @@ django-apps/**/dist
 /TEMP_FD
 /test
 /test.py
-/test_async/dynamo_data/bb_executions.json.now
+/integrates/test_async/dynamo_data/bb_executions.json.now
 /version.txt
 /.coverage*
-/.DynamoDB
-/.tmp
+/integrates/.DynamoDB
+/integrates/.tmp
 
 # Reports
 *.xlsx

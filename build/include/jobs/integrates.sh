@@ -547,8 +547,8 @@ function job_serve_dynamodb_local {
   &&  echo '[INFO] Launching DynamoDB local' \
   &&  {
         java \
-          -Djava.library.path="${STARTDIR}/.DynamoDB/DynamoDBLocal_lib" \
-          -jar "${STARTDIR}/.DynamoDB/DynamoDBLocal.jar" \
+          -Djava.library.path="${STARTDIR}/integrates/.DynamoDB/DynamoDBLocal_lib" \
+          -jar "${STARTDIR}/integrates/.DynamoDB/DynamoDBLocal.jar" \
           -inMemory \
           -port "${port}" \
           -sharedDb \
