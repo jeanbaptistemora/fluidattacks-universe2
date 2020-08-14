@@ -1,21 +1,20 @@
+import { Notifications } from "expo";
 import { default as Constants } from "expo-constants";
-import * as Notifications from "expo-notifications";
 import * as Permissions from "expo-permissions";
 import { Platform } from "react-native";
 
 const getToken: (() => Promise<string>) = async (
 ): Promise<string> => {
-  const { data } = await Notifications.getExpoPushTokenAsync();
+  const token: string = await Notifications.getExpoPushTokenAsync();
 
   if (Platform.OS === "android") {
-    await Notifications.setNotificationChannelAsync("default", {
-      importance: Notifications.AndroidImportance.MAX,
-      lightColor: "#fe3435",
+    await Notifications.createChannelAndroidAsync("default", {
       name: "Integrates notifications",
+      priority: "max",
     });
   }
 
-  return data;
+  return token;
 };
 
 export const getPushToken: (() => Promise<string>) = async (

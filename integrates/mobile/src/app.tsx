@@ -1,5 +1,4 @@
 import { registerRootComponent } from "expo";
-import * as Notifications from "expo-notifications";
 import * as SecureStore from "expo-secure-store";
 import _ from "lodash";
 import React from "react";
@@ -44,15 +43,6 @@ const darkTheme: ReactNativePaper.Theme = {
     primary: "#FF3435",
   },
 };
-
-Notifications.setNotificationHandler({
-  handleNotification: async (
-  ): Promise<Notifications.NotificationBehavior> => ({
-    shouldPlaySound: true,
-    shouldSetBadge: false,
-    shouldShowAlert: true,
-  }),
-});
 
 /* tslint:disable-next-line: variable-name
 * The root component name must be 'App' for fast refresh to work properly
