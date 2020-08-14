@@ -33,98 +33,94 @@ export const WelcomeView: React.FC = (): JSX.Element => {
   const { userEmail, userName } = window as typeof window & Dictionary<string>;
 
   return (
-    <React.StrictMode>
-      <div className={`${style.container} ${globalStyle.lightFg}`}>
-        <div className={style.content}>
-          <div className={style.imgDiv}>
-            <img alt={"logo"} className={style.img} src={logo} />
-            <br />
-            <h1>
-              {translate.t("registration.greeting")} {userName}
-              {"!"}
-            </h1>
-          </div>
-          {localStorage.getItem("showAlreadyLoggedin") === "1" ? (
-            <div>
-              <Row className={style.row}>
-                <h3>{translate.t("registration.logged_in_title")}</h3>
-              </Row>
-              <Row>
-                <Col md={12}>
-                  <p>{translate.t("registration.logged_in_message")}</p>
-                </Col>
-              </Row>
-              <Row>
-                <Col md={12}>
-                  <Button
-                    block={true}
-                    bsStyle={"primary"}
-                    onClick={loadDashboard}
-                  >
-                    {translate.t("registration.continue_as_btn")} {userEmail}
-                  </Button>
-                </Col>
-              </Row>
-            </div>
-          ) : localStorage.getItem("concurrentSession") === "1" ? (
-            <div>
-              <Row className={style.row}>
-                <h3>
-                  {translate.t("registration.concurrent_session_message")}
-                </h3>
-              </Row>
-              <Row>
-                <Col md={12}>
-                  <Button
-                    block={true}
-                    bsStyle={"primary"}
-                    onClick={loadDashboard}
-                  >
-                    {translate.t("registration.continue_btn")}
-                  </Button>
-                </Col>
-              </Row>
-            </div>
-          ) : (
-            <Query fetchPolicy={"network-only"} query={GET_USER_AUTHORIZATION}>
-              {({
-                data,
-                loading,
-              }: QueryResult<{ me: { remember: boolean } }>): JSX.Element => {
-                if (_.isUndefined(data) || loading) {
-                  return <div />;
-                }
-
-                return data.me.remember ? (
-                  <Redirect
-                    to={initialUrl === "/registration" ? "/home" : initialUrl}
-                  />
-                ) : (
-                  <Mutation
-                    mutation={ACCEPT_LEGAL_MUTATION}
-                    onCompleted={loadDashboard}
-                  >
-                    {(acceptLegal: MutationFunction): JSX.Element => {
-                      function handleAccept(remember: boolean): void {
-                        setLegalModalOpen(false);
-                        void acceptLegal({ variables: { remember } }).catch();
-                      }
-
-                      return (
-                        <CompulsoryNotice
-                          content={translate.t("legalNotice.description")}
-                          onAccept={handleAccept}
-                          open={isLegalModalOpen}
-                        />
-                      );
-                    }}
-                  </Mutation>
-                );
-              }}
-            </Query>
-          )}
+    <div className={`${style.container} ${globalStyle.lightFg}`}>
+      <div className={style.content}>
+        <div className={style.imgDiv}>
+          <img alt={"logo"} className={style.img} src={logo} />
+          <br />
+          <h1>
+            {translate.t("registration.greeting")} {userName}
+            {"!"}
+          </h1>
         </div>
+        {localStorage.getItem("showAlreadyLoggedin") === "1" ? (
+          <div>
+            <Row className={style.row}>
+              <h3>{translate.t("registration.logged_in_title")}</h3>
+            </Row>
+            <Row>
+              <Col md={12}>
+                <p>{translate.t("registration.logged_in_message")}</p>
+              </Col>
+            </Row>
+            <Row>
+              <Col md={12}>
+                <Button
+                  block={true}
+                  bsStyle={"primary"}
+                  onClick={loadDashboard}
+                >
+                  {translate.t("registration.continue_as_btn")} {userEmail}
+                </Button>
+              </Col>
+            </Row>
+          </div>
+        ) : localStorage.getItem("concurrentSession") === "1" ? (
+          <div>
+            <Row className={style.row}>
+              <h3>{translate.t("registration.concurrent_session_message")}</h3>
+            </Row>
+            <Row>
+              <Col md={12}>
+                <Button
+                  block={true}
+                  bsStyle={"primary"}
+                  onClick={loadDashboard}
+                >
+                  {translate.t("registration.continue_btn")}
+                </Button>
+              </Col>
+            </Row>
+          </div>
+        ) : (
+          <Query fetchPolicy={"network-only"} query={GET_USER_AUTHORIZATION}>
+            {({
+              data,
+              loading,
+            }: QueryResult<{ me: { remember: boolean } }>): JSX.Element => {
+              if (_.isUndefined(data) || loading) {
+                return <div />;
+              }
+
+              return data.me.remember ? (
+                <Redirect
+                  to={initialUrl === "/registration" ? "/home" : initialUrl}
+                />
+              ) : (
+                <Mutation
+                  mutation={ACCEPT_LEGAL_MUTATION}
+                  onCompleted={loadDashboard}
+                >
+                  {(acceptLegal: MutationFunction): JSX.Element => {
+                    function handleAccept(remember: boolean): void {
+                      setLegalModalOpen(false);
+                      void acceptLegal({ variables: { remember } }).catch();
+                    }
+
+                    return (
+                      <CompulsoryNotice
+                        content={translate.t("legalNotice.description")}
+                        onAccept={handleAccept}
+                        open={isLegalModalOpen}
+                      />
+                    );
+                  }}
+                </Mutation>
+              );
+            }}
+          </Query>
+        )}
       </div>
-    </React.StrictMode>
+    </div>
   );
 };
