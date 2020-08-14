@@ -1,6 +1,10 @@
 """Fluid Forces CLI module."""
 # Standard library
+from typing import (
+    Any,
+)
 import sys
+import re
 from io import TextIOWrapper
 
 # Third parties libraries
@@ -12,6 +16,35 @@ import click
 from forces import entrypoint
 from forces.utils.aio import block
 
+# Constants
+USER_PATTERN = r'forces.(?P<group>\w+)@fluidattacks.com'
+
+
+def is_forces_user(email: str) -> bool:
+    """Ensure that is an forces user."""
+    return bool(re.match(USER_PATTERN, email))
+
+
+def get_group_from_email(email: str) -> str:
+    return re.match(USER_PATTERN, email).group('group')  # type: ignore
+
+
+def decode_token(token: str) -> Any:
+    return jose.jwt.decode(token,
+                           key='',
+                           options={
+                               'verify_signature': False,
+                               'verify_aud': True,
+                               'verify_iat': True,
+                               'verify_exp': True,
+                               'verify_nbf': True,
+                               'verify_iss': True,
+                               'verify_sub': True,
+                               'verify_jti': True,
+                               'verify_at_hash': True,
+                               'leeway': 0,
+                           })
+
 
 class IntegratesToken(click.ParamType):
     """Represents a integrates api token."""
@@ -20,25 +53,17 @@ class IntegratesToken(click.ParamType):
     def convert(self, value: str, param, ctx) -> str:  # type: ignore
         """Validate token integrity."""
         try:
-            jose.jwt.decode(value, key='', options={
-                'verify_signature': False,
-                'verify_aud': True,
-                'verify_iat': True,
-                'verify_exp': True,
-                'verify_nbf': True,
-                'verify_iss': True,
-                'verify_sub': True,
-                'verify_jti': True,
-                'verify_at_hash': True,
-                'leeway': 0,
-            })
+            token_data = decode_token(value)
+            if not is_forces_user(token_data.get('user_email')):
+                self.fail(("Ensure that you use an forces user"), param, ctx)
         except jose.exceptions.JOSEError:
             self.fail(
                 ("Please verify the validity of your integrates api token.\n"
                  "You can generate one at https://fluidattacks.com/integrates"
                  ),
                 param,
-                ctx)
+                ctx,
+            )
 
         return value
 
@@ -49,7 +74,6 @@ class IntegratesToken(click.ParamType):
     required=True,
     help='Integrates valid token',
     type=IntegratesToken())
-@click.option('--group', required=True, help='Name of group')
 @click.option('-v', '--verbose', count=True, default=3, required=False)
 @click.option(
     '--output',
@@ -61,12 +85,12 @@ class IntegratesToken(click.ParamType):
 @click.option('--strict/--lax')
 @click.option('--repo-path', default=('.'))
 def main(token: str,  # pylint: disable=too-many-arguments
-         group: str,
          verbose: int,
          strict: bool,
          output: TextIOWrapper,
          repo_path: str) -> None:
     """Main function"""
+    group = get_group_from_email(decode_token(token)['user_email'])
     result = block(entrypoint,
                    token=token,
                    group=group,

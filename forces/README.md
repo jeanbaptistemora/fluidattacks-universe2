@@ -22,7 +22,6 @@ You can also integrate forces into your `CI/CD` to ensure that your software is 
 # Options:
 
 - `--token`: Your token for integrates API [required]
-- `--group`: Name of your subscription [required]
 - `--verbose <number>`: Declare the level of detail of the report (default 3)
   - 1: It only shows the number of open, closed and accepted vulnerabilities
   - 2: Only show open vulnerabilities
@@ -35,10 +34,10 @@ You can also integrate forces into your `CI/CD` to ensure that your software is 
 # Examples.
 
 In your local environment you execute:
-`forces --token <your-token> --group <your-group>`.
+`forces --token <your-token>`.
 
 You can also use the Docker image:
-`docker run --rm fluidattacks/forces:new forces --token <your-token> --group <your-group>`.
+`docker run --rm fluidattacks/forces:new forces --token <your-token>`.
 
 ## Use in some CI\CD.
 
@@ -49,7 +48,7 @@ forces:
     name: fluidattacks/forces:new
     entrypoint: [""]
   script:
-    - forces --token <your-token> --group <your-group>  --strict
+    - forces --token <your-token> --strict
 ```
 
 In `Azure DevOps` add these lines to you configuration file:
@@ -58,7 +57,7 @@ jobs:
   - forces:
     container: fluidattacks/forces:new
     steps:
-    - bash: forces --token <your-token> --group <your-group>
+    - bash: forces --token <your-token>
 ```
 
 In `Jenkins`, the configuration file should look like this:
@@ -76,7 +75,7 @@ pipeline {
         script {
           sh """
             docker pull fluidattacks/forces:new
-            docker run fluidattacks/forces:new --token ${TOKEN} --group <your-group>
+            docker run fluidattacks/forces:new --token ${TOKEN}
           """
         }
       }

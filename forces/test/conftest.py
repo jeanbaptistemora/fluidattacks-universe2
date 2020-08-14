@@ -20,7 +20,7 @@ def test_finding() -> Iterator[str]:
 
 @pytest.fixture(scope='session')  # type: ignore
 def test_token() -> Iterator[str]:
-    yield os.environ['INTEGRATES_API_TOKEN']
+    yield os.environ['INTEGRATES_FORCES_API_TOKEN']
 
 
 @pytest.fixture(scope='session')  #type: ignore

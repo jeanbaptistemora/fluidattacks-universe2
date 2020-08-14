@@ -10,7 +10,8 @@ from typing import (
     Any,
     Dict,
     AsyncIterator,
-    TypeVar
+    TypeVar,
+    Optional,
 )
 
 # Third party libraries
@@ -85,29 +86,36 @@ async def session(
 
 
 async def execute(query: str,
-                  variables: Dict[str, Any],
-                  default: Any = None,
+                  variables: Optional[Dict[str, Any]] = None,
+                  default: Optional[Any] = None,
                   **kwargs: Any) -> TVar:
     async with session(**kwargs) as client:
         gql_query = gql(query)
         response: Any = default
-        exc_metadata = {'parameters': {
-            'query': query,
-            'default': default,
-            'variables': variables,
-            **kwargs}}
+        exc_metadata: Dict[str, Any] = {
+            'parameters': {
+                'query': query,
+                'default': default,
+                'variables': variables,
+                **kwargs
+            }
+        }
         try:
-            response = await client.execute(
-                gql_query, variable_values=variables)
+            response = await client.execute(gql_query,
+                                            variable_values=variables)
         except ClientConnectorError as exc:
             await log('error', str(exc))
-            await unblock(bugsnag.notify, exc, metadata=exc_metadata,
+            await unblock(bugsnag.notify,
+                          exc,
+                          metadata=exc_metadata,
                           context='integrates_api')
             sys.exit(1)
         except TransportQueryError as exc:
             await log('warning', ('The token may be invalid or does '
                                   'not have the required permissions'))
             await log('error', exc.errors[0]['message'])
-            await unblock(bugsnag.notify, exc, metadata=exc_metadata,
+            await unblock(bugsnag.notify,
+                          exc,
+                          metadata=exc_metadata,
                           context='integrates_api')
         return response  # type: ignore

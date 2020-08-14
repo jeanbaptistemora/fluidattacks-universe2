@@ -1,13 +1,14 @@
 # Standar library
 import re
 from contextlib import suppress
-from typing import (
-    Dict
-)
+from typing import (Dict)
 
 # Third libraries
-from git import Repo, Commit
-
+from git import (
+    InvalidGitRepositoryError,
+    Repo,
+    Commit,
+)
 
 # Contants
 DEFAULT_COLUMN_VALUE: str = 'unable to retrieve'
@@ -20,28 +21,35 @@ REGEXES_GIT_REPO_FROM_ORIGIN = [
 
 
 def get_repository_metadata(repo_path: str = '.') -> Dict[str, str]:
-    repo = Repo(repo_path)
-    head_commit: Commit = repo.head.commit
-
     git_branch = DEFAULT_COLUMN_VALUE
-    with suppress(TypeError):
-        git_branch = repo.active_branch.name
-
-    git_commit = head_commit.hexsha
-    git_commit_author = (f'{head_commit.author.name}'
-                         f' <{head_commit.author.email}>')
-    git_commit_authored_date = head_commit.authored_datetime.isoformat()
+    git_commit = DEFAULT_COLUMN_VALUE
+    git_commit_author = DEFAULT_COLUMN_VALUE
+    git_commit_authored_date = DEFAULT_COLUMN_VALUE
     git_repo = DEFAULT_COLUMN_VALUE
-    origins = []
-    with suppress(ValueError):
-        origins = list(repo.remote().urls)
     git_origin = DEFAULT_COLUMN_VALUE
-    if origins:
-        git_origin = origins[0]
-        for regex in REGEXES_GIT_REPO_FROM_ORIGIN:
-            match = regex.match(git_origin)
-            if match and match.group(1):
-                git_repo = match.group(1)
+    with suppress(InvalidGitRepositoryError):
+        repo = Repo(repo_path)
+        head_commit: Commit = repo.head.commit
+
+        git_branch = DEFAULT_COLUMN_VALUE
+        with suppress(TypeError):
+            git_branch = repo.active_branch.name
+
+        git_commit = head_commit.hexsha
+        git_commit_author = (f'{head_commit.author.name}'
+                             f' <{head_commit.author.email}>')
+        git_commit_authored_date = head_commit.authored_datetime.isoformat()
+        git_repo = DEFAULT_COLUMN_VALUE
+        origins = []
+        with suppress(ValueError):
+            origins = list(repo.remote().urls)
+        git_origin = DEFAULT_COLUMN_VALUE
+        if origins:
+            git_origin = origins[0]
+            for regex in REGEXES_GIT_REPO_FROM_ORIGIN:
+                match = regex.match(git_origin)
+                if match and match.group(1):
+                    git_repo = match.group(1)
 
     return {
         'git_branch': git_branch,

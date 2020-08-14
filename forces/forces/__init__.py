@@ -77,7 +77,7 @@ async def entrypoint(token: str, group: str, **kwargs: Any) -> int:
         exit_code=str(exit_code),
         report=report,
         log=yaml_report,
-        strictness='strict' if kwargs.get('strict', False) else 'lax',
+        strictness='strict' if strict else 'lax',
         git_metadata=metadata,
     )
     return exit_code

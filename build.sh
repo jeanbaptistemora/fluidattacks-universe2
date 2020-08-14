@@ -57,6 +57,7 @@ function decide_and_call_provisioner {
         --keep PROD_AWS_SECRET_ACCESS_KEY \
         --keep REVIEWS_TOKEN \
         --keep PYPI_TOKEN \
+        --keep INTEGRATES_FORCES_API_TOKEN \
         --max-jobs auto \
         --option restrict-eval false \
         --option sandbox false \
