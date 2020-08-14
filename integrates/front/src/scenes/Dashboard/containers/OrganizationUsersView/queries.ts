@@ -57,12 +57,12 @@ export const EDIT_STAKEHOLDER_MUTATION: DocumentNode = gql`
   }
   `;
 
-export const REMOVE_USER_MUTATION: DocumentNode = gql`
-  mutation RemoveUserOrganizationAccessMutation(
+export const REMOVE_STAKEHOLDER_MUTATION: DocumentNode = gql`
+  mutation RemoveStakeholderOrganizationAccessMutation(
     $organizationId: String!,
     $userEmail: String!,
     ) {
-      removeUserOrganizationAccess (
+      removeStakeholderOrganizationAccess (
         organizationId: $organizationId,
         userEmail: $userEmail
       ) {

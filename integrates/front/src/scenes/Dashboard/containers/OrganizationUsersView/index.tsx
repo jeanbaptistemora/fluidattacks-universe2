@@ -21,13 +21,13 @@ import {
   ADD_USER_MUTATION,
   EDIT_STAKEHOLDER_MUTATION,
   GET_ORGANIZATION_STAKEHOLDERS,
-  REMOVE_USER_MUTATION,
+  REMOVE_STAKEHOLDER_MUTATION,
 } from "./queries";
 import {
   IAddUserAttrs,
   IEditStakeholderAttrs,
   IOrganizationUsers,
-  IRemoveUserAttrs,
+  IRemoveStakeholderAttrs,
   IStakeholderAttrs,
 } from "./types";
 
@@ -158,9 +158,9 @@ const organizationUsers: React.FC<IOrganizationUsers> = (props: IOrganizationUse
     onError: handleMtError,
   });
 
-  const [removeUserAccess, { loading: removing }] = useMutation(REMOVE_USER_MUTATION, {
-    onCompleted: (mtResult: IRemoveUserAttrs): void => {
-      if (mtResult.removeUserOrganizationAccess.success) {
+  const [removeStakeholderAccess, { loading: removing }] = useMutation(REMOVE_STAKEHOLDER_MUTATION, {
+    onCompleted: (mtResult: IRemoveStakeholderAttrs): void => {
+      if (mtResult.removeStakeholderOrganizationAccess.success) {
         refetchUsers()
           .catch();
         mixpanel.track("RemoveUserOrganizationAccess", { Organization: organizationName, User: userName });
@@ -196,7 +196,7 @@ const organizationUsers: React.FC<IOrganizationUsers> = (props: IOrganizationUse
   };
 
   const handleRemoveUser: (() => void) = (): void => {
-    removeUserAccess({ variables: {
+    removeStakeholderAccess({ variables: {
       organizationId,
       userEmail: currentRow.email,
     } })

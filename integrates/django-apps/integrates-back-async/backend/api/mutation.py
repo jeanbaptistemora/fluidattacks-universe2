@@ -59,6 +59,10 @@ MUTATION.set_field(
     'grantUserOrganizationAccess', organization.resolve_organization_mutation
 )
 MUTATION.set_field(
+    'removeStakeholderOrganizationAccess',
+    organization.resolve_organization_mutation
+)
+MUTATION.set_field(
     'removeUserOrganizationAccess', organization.resolve_organization_mutation
 )
 MUTATION.set_field(

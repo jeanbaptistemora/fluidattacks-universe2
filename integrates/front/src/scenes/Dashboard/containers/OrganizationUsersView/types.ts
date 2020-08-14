@@ -25,8 +25,8 @@ export interface IOrganizationUsers {
   organizationId: string;
 }
 
-export interface IRemoveUserAttrs {
-  removeUserOrganizationAccess: {
+export interface IRemoveStakeholderAttrs {
+  removeStakeholderOrganizationAccess: {
     success: boolean;
   };
 }

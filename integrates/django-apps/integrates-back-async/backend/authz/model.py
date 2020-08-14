@@ -487,6 +487,8 @@ ORGANIZATION_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             ('backend_api_resolvers_organization__do_'
                 'grant_user_organization_access'),
             ('backend_api_resolvers_organization__'
+                'do_remove_stakeholder_organization_access'),
+            ('backend_api_resolvers_organization__'
                 'do_remove_user_organization_access'),
             ('backend_api_resolvers_organization__do_'
                 'update_organization_policies'),
@@ -513,6 +515,8 @@ ORGANIZATION_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             'backend_api_resolvers_organization__do_edit_user_organization',
             ('backend_api_resolvers_organization__do_'
                 'grant_user_organization_access'),
+            ('backend_api_resolvers_organization__'
+                'do_remove_stakeholder_organization_access'),
             ('backend_api_resolvers_organization__'
                 'do_remove_user_organization_access'),
             ('backend_api_resolvers_organization__do_'

@@ -165,6 +165,15 @@ type Mutation {
     removeUserOrganizationAccess(
         organizationId: String!
         userEmail: String!
+    ): SimplePayload! @deprecated(reason:
+        """
+        Right now, you can add a project comment using both the 'removeUserOrganizationAccess'
+        and 'removeStakeholderOrganizationAccess' query. After 2021-02-06, the 'removeUserOrganizationAccess'
+        query will be invalid.
+        """)
+    removeStakeholderOrganizationAccess(
+        organizationId: String!
+        userEmail: String!
     ): SimplePayload!
 
     editUser(
