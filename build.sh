@@ -24,7 +24,7 @@ function decide_and_call_provisioner {
       provisioner="./build/provisioners/${job}.nix" \
   &&  if [ ! -f "${provisioner}" ]
       then
-        provisioner='./build/provisioners/reset.nix'
+        provisioner='./build/provisioners/integrates_reset.nix'
       fi \
   &&  echo "[INFO] Running with provisioner: ${provisioner}" \
   &&  nix-shell \

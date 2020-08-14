@@ -186,7 +186,7 @@ function job_integrates_build_lambdas {
   || return 1
 }
 
-function job_coverage_report {
+function job_integrates_coverage_report {
       pushd integrates/ \
   &&  env_prepare_python_packages \
   &&  echo '[INFO] Logging in to AWS' \
@@ -198,7 +198,7 @@ function job_coverage_report {
   || return 1
 }
 
-function job_clean_registries {
+function job_integrates_clean_registries {
   local registry_name='app'
   local registry_id
 
@@ -394,7 +394,7 @@ function job_integrates_deploy_permissions_matrix {
   ||  return 1
 }
 
-function job_django_console {
+function job_integrates_django_console {
  export DJANGO_SETTINGS_MODULE='fluidintegrates.settings'
 
       pushd "${STARTDIR}/integrates" \
@@ -635,7 +635,7 @@ function job_integrates_serve_back_dev {
   ||  return 1
 }
 
-function job_cron_show {
+function job_integrates_cron_show {
   export DJANGO_SETTINGS_MODULE='fluidintegrates.settings'
 
       pushd "${STARTDIR}/integrates" \
@@ -647,7 +647,7 @@ function job_cron_show {
   ||  return 1
 }
 
-function job_cron_run {
+function job_integrates_cron_run {
   export DJANGO_SETTINGS_MODULE='fluidintegrates.settings'
   local cron_job="${1}"
 
@@ -666,7 +666,7 @@ function job_integrates_serve_back_prod {
   ||  return 1
 }
 
-function _job_make_migration {
+function _job_integrates_make_migration {
   local env="${1}"
   local stage="${2}"
   local migration_file="${3}"
@@ -680,21 +680,21 @@ function _job_make_migration {
 
 }
 
-function job_make_migration_dev_test {
+function job_integrates_make_migration_dev_test {
   local migration_file="${1}"
 
       pushd "${STARTDIR}/integrates" \
-  &&  _job_make_migration 'dev' 'test' "${migration_file}" \
+  &&  _job_integrates_make_migration 'dev' 'test' "${migration_file}" \
         | tee "${migration_file}.dev_test.out" \
   &&  popd \
   ||  return 1
 }
 
-function job_make_migration_prod_test {
+function job_integrates_make_migration_prod_test {
   local migration_file="${1}"
 
       pushd "${STARTDIR}/integrates" \
-  &&  _job_make_migration 'prod' 'test' "${migration_file}" \
+  &&  _job_integrates_make_migration 'prod' 'test' "${migration_file}" \
   &&  popd \
   ||  return 1
 }
@@ -792,47 +792,47 @@ function job_integrates_analytics_make_snapshots_prod_schedule {
   ||  return 1
 }
 
-function job_make_migration_dev_apply {
+function job_integrates_make_migration_dev_apply {
   local migration_file="${1}"
 
   pushd "${STARTDIR}/integrates" \
-  &&  _job_make_migration 'dev' 'apply' "${migration_file}" \
+  &&  _job_integrates_make_migration 'dev' 'apply' "${migration_file}" \
         | tee "${migration_file}.dev_apply.out" \
   &&  popd \
   ||  return 1
 }
 
-function job_make_migration_prod_apply {
+function job_integrates_make_migration_prod_apply {
   local migration_file="${1}"
 
       pushd "${STARTDIR}/integrates" \
-  &&  _job_make_migration 'prod' 'apply' "${migration_file}" \
+  &&  _job_integrates_make_migration 'prod' 'apply' "${migration_file}" \
   &&  popd \
   ||  return 1
 }
 
-function _job_subscriptions_trigger_user_to_entity_report {
+function _job_integrates_subscriptions_trigger_user_to_entity_report {
   helper_invoke_py backend.domain.subscriptions.trigger_user_to_entity_report
 
 }
 
-function job_subscriptions_trigger_user_to_entity_report_dev {
+function job_integrates_subscriptions_trigger_user_to_entity_report_dev {
       pushd "${STARTDIR}/integrates" \
   &&  helper_bootstrap_dev_ci \
-  &&  _job_subscriptions_trigger_user_to_entity_report \
+  &&  _job_integrates_subscriptions_trigger_user_to_entity_report \
   &&  popd \
   ||  return 1
 }
 
-function job_subscriptions_trigger_user_to_entity_report_prod_schedule {
+function job_integrates_subscriptions_trigger_user_to_entity_report_prod_schedule {
       pushd "${STARTDIR}/integrates" \
   &&  helper_bootstrap_prod_ci \
-  &&  _job_subscriptions_trigger_user_to_entity_report \
+  &&  _job_integrates_subscriptions_trigger_user_to_entity_report \
   &&  popd \
   ||  return 1
 }
 
-function job_scheduler_dev {
+function job_integrates_scheduler_dev {
   local module="backend.scheduler.${1}"
 
       pushd "${STARTDIR}/integrates" \
@@ -842,7 +842,7 @@ function job_scheduler_dev {
   ||  return 1
 }
 
-function job_scheduler_prod {
+function job_integrates_scheduler_prod {
   local module="backend.scheduler.${1}"
 
       pushd "${STARTDIR}/integrates" \
@@ -1058,7 +1058,7 @@ function job_integrates_infra_secret_management_test {
   || return 1
 }
 
-function job_rotate_jwt_token {
+function job_integrates_rotate_jwt_token {
   local integrates_repo_id='4620828'
   local var_name='JWT_TOKEN'
   local var_value
