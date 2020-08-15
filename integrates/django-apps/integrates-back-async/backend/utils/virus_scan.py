@@ -50,3 +50,4 @@ def scan_file(
                 raise FileInfected()
         except ApiException as api_error:
             LOGGER.exception(api_error, extra={'extra': payload_data})
+            target_file.seek(0)
