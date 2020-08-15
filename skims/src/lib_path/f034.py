@@ -2,7 +2,6 @@
 from typing import (
     Awaitable,
     Callable,
-    Dict,
     List,
     Tuple,
 )
@@ -48,7 +47,6 @@ from zone import (
 
 
 def _csharp_insecure_randoms(
-    char_to_yx_map: Dict[int, Tuple[int, int]],
     content: str,
     path: str,
 ) -> Tuple[Vulnerability, ...]:
@@ -66,7 +64,6 @@ def _csharp_insecure_randoms(
     grammar.ignore(DOUBLE_QUOTED_STRING)
 
     return blocking_get_vulnerabilities(
-        char_to_yx_map=char_to_yx_map,
         content=content,
         description=t(
             key='src.lib_path.f034.csharp_insecure_randoms.description',
@@ -81,20 +78,17 @@ def _csharp_insecure_randoms(
 @cache_decorator()
 @HANDLE_ERRORS
 async def csharp_insecure_randoms(
-    char_to_yx_map: Dict[int, Tuple[int, int]],
     content: str,
     path: str,
 ) -> Tuple[Vulnerability, ...]:
     return await unblock_cpu(
         _csharp_insecure_randoms,
-        char_to_yx_map=char_to_yx_map,
         content=content,
         path=path,
     )
 
 
 def _java_use_of_lang_math_random(
-    char_to_yx_map: Dict[int, Tuple[int, int]],
     content: str,
     path: str,
 ) -> Tuple[Vulnerability, ...]:
@@ -115,7 +109,6 @@ def _java_use_of_lang_math_random(
     grammar_lang_math_random.ignore(DOUBLE_QUOTED_STRING)
 
     return blocking_get_vulnerabilities(
-        char_to_yx_map=char_to_yx_map,
         content=content,
         description=t(
             key='src.lib_path.f034.java_use_of_lang_math_random.description',
@@ -130,20 +123,17 @@ def _java_use_of_lang_math_random(
 @cache_decorator()
 @HANDLE_ERRORS
 async def java_use_of_lang_math_random(
-    char_to_yx_map: Dict[int, Tuple[int, int]],
     content: str,
     path: str,
 ) -> Tuple[Vulnerability, ...]:
     return await unblock_cpu(
         _java_use_of_lang_math_random,
-        char_to_yx_map=char_to_yx_map,
         content=content,
         path=path,
     )
 
 
 def _java_use_of_util_random(
-    char_to_yx_map: Dict[int, Tuple[int, int]],
     content: str,
     path: str,
 ) -> Tuple[Vulnerability, ...]:
@@ -164,7 +154,6 @@ def _java_use_of_util_random(
     grammar_util_random.ignore(DOUBLE_QUOTED_STRING)
 
     return blocking_get_vulnerabilities(
-        char_to_yx_map=char_to_yx_map,
         content=content,
         description=t(
             key='src.lib_path.f034.java_use_of_util_random.description',
@@ -179,20 +168,17 @@ def _java_use_of_util_random(
 @cache_decorator()
 @HANDLE_ERRORS
 async def java_use_of_util_random(
-    char_to_yx_map: Dict[int, Tuple[int, int]],
     content: str,
     path: str,
 ) -> Tuple[Vulnerability, ...]:
     return await unblock_cpu(
         _java_use_of_util_random,
-        char_to_yx_map=char_to_yx_map,
         content=content,
         path=path,
     )
 
 
 def _javascript_insecure_randoms(
-    char_to_yx_map: Dict[int, Tuple[int, int]],
     content: str,
     path: str,
 ) -> Tuple[Vulnerability, ...]:
@@ -202,7 +188,6 @@ def _javascript_insecure_randoms(
     grammar.ignore(DOUBLE_QUOTED_STRING)
 
     return blocking_get_vulnerabilities(
-        char_to_yx_map=char_to_yx_map,
         content=content,
         description=t(
             key='src.lib_path.f034.javascript_insecure_randoms.description',
@@ -217,22 +202,17 @@ def _javascript_insecure_randoms(
 @cache_decorator()
 @HANDLE_ERRORS
 async def javascript_insecure_randoms(
-    char_to_yx_map: Dict[int, Tuple[int, int]],
     content: str,
     path: str,
 ) -> Tuple[Vulnerability, ...]:
     return await unblock_cpu(
         _javascript_insecure_randoms,
-        char_to_yx_map=char_to_yx_map,
         content=content,
         path=path,
     )
 
 
 async def analyze(
-    char_to_yx_map_generator: Callable[
-        [], Awaitable[Dict[int, Tuple[int, int]]],
-    ],
     content_generator: Callable[[], Awaitable[str]],
     file_extension: str,
     path: str,
@@ -242,24 +222,20 @@ async def analyze(
 
     if file_extension in EXTENSIONS_CSHARP:
         coroutines.append(csharp_insecure_randoms(
-            char_to_yx_map=await char_to_yx_map_generator(),
             content=await content_generator(),
             path=path,
         ))
     elif file_extension in EXTENSIONS_JAVA:
         coroutines.append(java_use_of_lang_math_random(
-            char_to_yx_map=await char_to_yx_map_generator(),
             content=await content_generator(),
             path=path,
         ))
         coroutines.append(java_use_of_util_random(
-            char_to_yx_map=await char_to_yx_map_generator(),
             content=await content_generator(),
             path=path,
         ))
     elif file_extension in EXTENSIONS_JAVASCRIPT:
         coroutines.append(javascript_insecure_randoms(
-            char_to_yx_map=await char_to_yx_map_generator(),
             content=await content_generator(),
             path=path,
         ))

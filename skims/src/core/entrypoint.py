@@ -41,6 +41,9 @@ from state.ephemeral import (
     get_ephemeral_store,
     reset as reset_ephemeral_state,
 )
+from utils.hardware import (
+    get_max_memory_usage,
+)
 from utils.logs import (
     log,
     log_exception,
@@ -61,6 +64,7 @@ async def monitor() -> None:
     while await sleep(10.0, result=True):
         tasks: int = len(all_tasks())
         await log('info', 'Still running, %s tasks pending to finish', tasks)
+        await log('info', 'Max memory usage: %s GB', get_max_memory_usage())
 
 
 async def adjust_working_dir(config: SkimsConfig) -> None:

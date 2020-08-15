@@ -2,7 +2,6 @@
 from typing import (
     Any,
     Callable,
-    Dict,
     Set,
     Tuple,
     TypeVar,
@@ -12,8 +11,10 @@ from typing import (
 from pyparsing import (
     alphas,
     alphanums,
+    col,
     cppStyleComment,
     delimitedList,
+    lineno,
     ParserElement,
     pythonStyleComment,
     QuotedString,
@@ -69,7 +70,6 @@ HANDLE_ERRORS: Callable[[TFun], TFun] = retry(
 
 def blocking_get_matching_lines(
     content: str,
-    char_to_yx_map: Dict[int, Tuple[int, int]],
     grammar: ParserElement,
 ) -> Tuple[GrammarMatch, ...]:
     # Pyparsing's scanString expands tabs to 'n' number of spaces
@@ -79,18 +79,16 @@ def blocking_get_matching_lines(
 
     matches: Tuple[GrammarMatch, ...] = tuple(
         GrammarMatch(
-            start_column=start_column,
-            start_line=start_line,
+            start_column=col(start_char, content) - 1,
+            start_line=lineno(start_char, content),
         )
-        for _, start_char, _ in grammar.scanString(content)
-        for start_line, start_column in [char_to_yx_map[start_char]]
+        for tokens, start_char, _ in grammar.scanString(content)
     )
 
     return matches
 
 
 def blocking_get_vulnerabilities(  # pylint: disable=too-many-arguments
-    char_to_yx_map: Dict[int, Tuple[int, int]],
     content: str,
     description: str,
     finding: FindingEnum,
@@ -115,7 +113,6 @@ def blocking_get_vulnerabilities(  # pylint: disable=too-many-arguments
         )
         for match in blocking_get_matching_lines(
             content=content,
-            char_to_yx_map=char_to_yx_map,
             grammar=grammar,
         )
     )

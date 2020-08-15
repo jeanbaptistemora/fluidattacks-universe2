@@ -3,7 +3,6 @@ import ast
 from typing import (
     Awaitable,
     Callable,
-    Dict,
     Iterator,
     List,
     Tuple,
@@ -61,7 +60,6 @@ from zone import (
 
 
 def _csharp_swallows_exceptions(
-    char_to_yx_map: Dict[int, Tuple[int, int]],
     content: str,
     path: str,
 ) -> Tuple[Vulnerability, ...]:
@@ -78,7 +76,6 @@ def _csharp_swallows_exceptions(
     grammar.ignore(SINGLE_QUOTED_STRING)
 
     return blocking_get_vulnerabilities(
-        char_to_yx_map=char_to_yx_map,
         content=content,
         description=t(
             key='src.lib_path.f061.swallows_exceptions.description',
@@ -94,20 +91,17 @@ def _csharp_swallows_exceptions(
 @cache_decorator()
 @HANDLE_ERRORS
 async def csharp_swallows_exceptions(
-    char_to_yx_map: Dict[int, Tuple[int, int]],
     content: str,
     path: str,
 ) -> Tuple[Vulnerability, ...]:
     return await unblock_cpu(
         _csharp_swallows_exceptions,
-        char_to_yx_map=char_to_yx_map,
         content=content,
         path=path,
     )
 
 
 def _javascript_swallows_exceptions(
-    char_to_yx_map: Dict[int, Tuple[int, int]],
     content: str,
     path: str,
 ) -> Tuple[Vulnerability, ...]:
@@ -130,7 +124,6 @@ def _javascript_swallows_exceptions(
     grammar.ignore(SINGLE_QUOTED_STRING)
 
     return blocking_get_vulnerabilities(
-        char_to_yx_map=char_to_yx_map,
         content=content,
         description=t(
             key='src.lib_path.f061.swallows_exceptions.description',
@@ -146,20 +139,17 @@ def _javascript_swallows_exceptions(
 @cache_decorator()
 @HANDLE_ERRORS
 async def javascript_swallows_exceptions(
-    char_to_yx_map: Dict[int, Tuple[int, int]],
     content: str,
     path: str,
 ) -> Tuple[Vulnerability, ...]:
     return await unblock_cpu(
         _javascript_swallows_exceptions,
-        char_to_yx_map=char_to_yx_map,
         content=content,
         path=path,
     )
 
 
 def _java_swallows_exceptions(
-    char_to_yx_map: Dict[int, Tuple[int, int]],
     content: str,
     path: str,
 ) -> Tuple[Vulnerability, ...]:
@@ -175,7 +165,6 @@ def _java_swallows_exceptions(
     grammar.ignore(SINGLE_QUOTED_STRING)
 
     return blocking_get_vulnerabilities(
-        char_to_yx_map=char_to_yx_map,
         content=content,
         description=t(
             key='src.lib_path.f061.swallows_exceptions.description',
@@ -191,13 +180,11 @@ def _java_swallows_exceptions(
 @cache_decorator()
 @HANDLE_ERRORS
 async def java_swallows_exceptions(
-    char_to_yx_map: Dict[int, Tuple[int, int]],
     content: str,
     path: str,
 ) -> Tuple[Vulnerability, ...]:
     return await unblock_cpu(
         _java_swallows_exceptions,
-        char_to_yx_map=char_to_yx_map,
         content=content,
         path=path,
     )
@@ -255,7 +242,6 @@ async def python_swallows_exceptions(
 
 
 def _swift_insecure_exceptions(
-    char_to_yx_map: Dict[int, Tuple[int, int]],
     content: str,
     path: str,
 ) -> Tuple[Vulnerability, ...]:
@@ -270,7 +256,6 @@ def _swift_insecure_exceptions(
     grammar.ignore(SINGLE_QUOTED_STRING)
 
     return blocking_get_vulnerabilities(
-        char_to_yx_map=char_to_yx_map,
         content=content,
         description=t(
             key='src.lib_path.f061.swallows_exceptions.description',
@@ -286,22 +271,17 @@ def _swift_insecure_exceptions(
 @cache_decorator()
 @HANDLE_ERRORS
 async def swift_insecure_exceptions(
-    char_to_yx_map: Dict[int, Tuple[int, int]],
     content: str,
     path: str,
 ) -> Tuple[Vulnerability, ...]:
     return await unblock_cpu(
         _swift_insecure_exceptions,
-        char_to_yx_map=char_to_yx_map,
         content=content,
         path=path,
     )
 
 
 async def analyze(
-    char_to_yx_map_generator: Callable[
-        [], Awaitable[Dict[int, Tuple[int, int]]],
-    ],
     content_generator: Callable[[], Awaitable[str]],
     file_extension: str,
     path: str,
@@ -311,19 +291,16 @@ async def analyze(
 
     if file_extension in EXTENSIONS_CSHARP:
         coroutines.append(csharp_swallows_exceptions(
-            char_to_yx_map=await char_to_yx_map_generator(),
             content=await content_generator(),
             path=path,
         ))
     elif file_extension in EXTENSIONS_JAVA:
         coroutines.append(java_swallows_exceptions(
-            char_to_yx_map=await char_to_yx_map_generator(),
             content=await content_generator(),
             path=path,
         ))
     elif file_extension in EXTENSIONS_JAVASCRIPT:
         coroutines.append(javascript_swallows_exceptions(
-            char_to_yx_map=await char_to_yx_map_generator(),
             content=await content_generator(),
             path=path,
         ))
@@ -334,7 +311,6 @@ async def analyze(
         ))
     elif file_extension in EXTENSIONS_SWIFT:
         coroutines.append(swift_insecure_exceptions(
-            char_to_yx_map=await char_to_yx_map_generator(),
             content=await content_generator(),
             path=path,
         ))

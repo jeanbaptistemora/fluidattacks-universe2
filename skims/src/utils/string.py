@@ -1,17 +1,15 @@
 # Standard library
-from difflib import SequenceMatcher
+from difflib import (
+    SequenceMatcher,
+)
 from io import (
     BytesIO,
-)
-from itertools import (
-    accumulate,
 )
 from itertools import (
     chain,
     repeat,
 )
 from typing import (
-    Dict,
     List,
     Tuple,
 )
@@ -49,38 +47,6 @@ WATERMARK: Image = blocking_clarify(
     ),
     ratio=0.15,
 )
-
-
-async def get_char_to_yx_map(
-    *,
-    lines: Tuple[str, ...],
-) -> Dict[int, Tuple[int, int]]:
-
-    def _get_char_to_yx_map() -> Dict[int, Tuple[int, int]]:
-        mapping: Dict[int, Tuple[int, int]] = {}
-
-        if not lines:
-            return mapping
-
-        # Add 1 to take into account for the new line
-        cumulated_lines_length: Tuple[int, ...] = tuple(
-            accumulate(len(line) + 1 for line in lines),
-        )
-
-        line: int = 0
-        column: int = 0
-        for char_number in range(1, cumulated_lines_length[-1] + 1):
-            mapping[char_number - 1] = (line + 1, column)
-
-            if char_number == cumulated_lines_length[line]:
-                line += 1
-                column = 0
-            else:
-                column += 1
-
-        return mapping
-
-    return await unblock(_get_char_to_yx_map)
 
 
 def are_similar(string_a: str, string_b: str, threshold: float = 0.75) -> bool:

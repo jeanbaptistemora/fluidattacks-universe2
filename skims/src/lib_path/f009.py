@@ -3,7 +3,6 @@ import re
 from typing import (
     Awaitable,
     Callable,
-    Dict,
     List,
     Pattern,
     Set,
@@ -62,16 +61,12 @@ DOCKERFILE_ENV: Pattern[str] = re.compile(
 
 
 def _aws_credentials(
-    char_to_yx_map: Dict[int, Tuple[int, int]],
     content: str,
     path: str,
 ) -> Tuple[Vulnerability, ...]:
-    grammar = MatchFirst([
-        Regex(r'AKIA[A-Z0-9]{16}'),
-    ])
+    grammar = Regex(r'AKIA[A-Z0-9]{16}')
 
     return blocking_get_vulnerabilities(
-        char_to_yx_map=char_to_yx_map,
         content=content,
         description=t(
             key='src.lib_path.f009.aws_credentials.description',
@@ -86,13 +81,11 @@ def _aws_credentials(
 @cache_decorator()
 @HANDLE_ERRORS
 async def aws_credentials(
-    char_to_yx_map: Dict[int, Tuple[int, int]],
     content: str,
     path: str,
 ) -> Tuple[Vulnerability, ...]:
     return await unblock_cpu(
         _aws_credentials,
-        char_to_yx_map=char_to_yx_map,
         content=content,
         path=path,
     )
@@ -101,20 +94,17 @@ async def aws_credentials(
 @cache_decorator()
 @HANDLE_ERRORS
 async def crypto_js_credentials(
-    char_to_yx_map: Dict[int, Tuple[int, int]],
     content: str,
     path: str,
 ) -> Tuple[Vulnerability, ...]:
     return await unblock_cpu(
         _crypto_js_credentials,
-        char_to_yx_map=char_to_yx_map,
         content=content,
         path=path,
     )
 
 
 def _crypto_js_credentials(
-    char_to_yx_map: Dict[int, Tuple[int, int]],
     content: str,
     path: str,
 ) -> Tuple[Vulnerability, ...]:
@@ -139,7 +129,6 @@ def _crypto_js_credentials(
     )
 
     return blocking_get_vulnerabilities(
-        char_to_yx_map=char_to_yx_map,
         content=content,
         description=t(
             key='src.lib_path.f009.crypto_js_credentials.description',
@@ -207,9 +196,6 @@ async def dockerfile_env_secrets(
 
 
 async def analyze(  # pylint: disable=too-many-arguments
-    char_to_yx_map_generator: Callable[
-        [], Awaitable[Dict[int, Tuple[int, int]]],
-    ],
     content_generator: Callable[[], Awaitable[str]],
     file_extension: str,
     file_name: str,
@@ -232,14 +218,12 @@ async def analyze(  # pylint: disable=too-many-arguments
         'yml',
     }:
         coroutines.append(aws_credentials(
-            char_to_yx_map=await char_to_yx_map_generator(),
             content=await content_generator(),
             path=path,
         ))
 
     if file_extension in EXTENSIONS_JAVASCRIPT:
         coroutines.append(crypto_js_credentials(
-            char_to_yx_map=await char_to_yx_map_generator(),
             content=await content_generator(),
             path=path,
         ))
