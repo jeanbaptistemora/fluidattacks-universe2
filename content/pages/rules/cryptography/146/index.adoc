@@ -4,7 +4,7 @@
 :keywords: Timeout, Cryptographic, Keys, ASVS, CWE, RAM, PCI DSS, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
-= R146. Set timeout to cryptographic keys
+= R146. Remove cryptographic keys from RAM
 
 == Requirement
 
