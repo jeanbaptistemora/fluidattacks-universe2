@@ -1,5 +1,6 @@
 import { MockedProvider, MockedResponse, wait } from "@apollo/react-testing";
 import { mount, ReactWrapper } from "enzyme";
+import { GraphQLError } from "graphql";
 import React from "react";
 // tslint:disable-next-line: no-submodule-imports
 import { act } from "react-dom/test-utils";
@@ -7,15 +8,22 @@ import { Provider } from "react-redux";
 import { MemoryRouter, Route } from "react-router";
 import waitForExpect from "wait-for-expect";
 import store from "../../../../store";
-import { msgSuccess } from "../../../../utils/notifications";
+import { msgError, msgSuccess } from "../../../../utils/notifications";
+import translate from "../../../../utils/translations/translate";
 import { addUserModal } from "../../components/AddUserModal/index";
 import { GET_USER } from "../../components/AddUserModal/queries";
 import { OrganizationStakeholders } from "./index";
-import { ADD_STAKEHOLDER_MUTATION, EDIT_STAKEHOLDER_MUTATION, GET_ORGANIZATION_STAKEHOLDERS } from "./queries";
+import {
+  ADD_STAKEHOLDER_MUTATION,
+  EDIT_STAKEHOLDER_MUTATION,
+  GET_ORGANIZATION_STAKEHOLDERS,
+  REMOVE_STAKEHOLDER_MUTATION,
+} from "./queries";
 import { IOrganizationStakeholders } from "./types";
 
 jest.mock("../../../../utils/notifications", (): Dictionary => {
   const mockedNotifications: Dictionary = jest.requireActual("../../../../utils/notifications");
+  mockedNotifications.msgError = jest.fn();
   mockedNotifications.msgSuccess = jest.fn();
 
   return mockedNotifications;
@@ -454,16 +462,12 @@ describe("Organization users view", () => {
       </MemoryRouter>,
     );
 
-    await act(async () => {
-      await waitForExpect(() => {
-        wrapper.update();
+    await act(async () => { await wait(0); wrapper.update(); });
 
-        expect(wrapper)
-          .toHaveLength(1);
-        expect(wrapper.find("tr"))
-          .toHaveLength(2);
-      });
-    });
+    expect(wrapper)
+      .toHaveLength(1);
+    expect(wrapper.find("tr"))
+      .toHaveLength(2);
 
     expect(
       wrapper
@@ -475,19 +479,6 @@ describe("Organization users view", () => {
       .find("tr")
       .at(1)
       .simulate("click");
-
-    await act(async () => {
-      await waitForExpect(() => {
-        wrapper.update();
-
-        expect(
-          wrapper
-            .find("button#editUser")
-            .first()
-            .prop("disabled"))
-          .toBe(false);
-      });
-    });
 
     wrapper
       .find("button#editUser")
@@ -557,6 +548,407 @@ describe("Organization users view", () => {
           .toHaveBeenCalled();
         expect(wrapper.find("tr"))
           .toHaveLength(2);
+      });
+    });
+  });
+
+  it("should remove a user", async () => {
+    const mocks: ReadonlyArray<MockedResponse> = [
+      {
+        request: {
+          query: GET_ORGANIZATION_STAKEHOLDERS,
+          variables: {
+            organizationId: mockProps.organizationId,
+          },
+        },
+        result: {
+          data: {
+            organization: {
+              stakeholders: [
+                {
+                  email: "testuser1@gmail.com",
+                  firstLogin: "2020-06-01",
+                  lastLogin: "[10, 35207]",
+                  phoneNumber: "3100000000",
+                  role: "group_manager",
+                },
+                {
+                  email: "testuser2@gmail.com",
+                  firstLogin: "2020-08-01",
+                  lastLogin: "[-1, -1]",
+                  phoneNumber: "3140000000",
+                  role: "customeradmin",
+                },
+              ],
+            },
+          },
+        },
+      },
+      {
+        request: {
+          query: REMOVE_STAKEHOLDER_MUTATION,
+          variables: {
+            organizationId: mockProps.organizationId,
+            userEmail: "testuser2@gmail.com",
+          },
+        },
+        result: {
+          data: {
+            removeStakeholderOrganizationAccess: {
+              success: true,
+            },
+          },
+        },
+      },
+      {
+        request: {
+          query: GET_ORGANIZATION_STAKEHOLDERS,
+          variables: {
+            organizationId: mockProps.organizationId,
+          },
+        },
+        result: {
+          data: {
+            organization: {
+              stakeholders: [
+                {
+                  email: "testuser1@gmail.com",
+                  firstLogin: "2020-06-01",
+                  lastLogin: "[10, 35207]",
+                  phoneNumber: "3100000000",
+                  role: "group_manager",
+                },
+              ],
+            },
+          },
+        },
+      },
+    ];
+    const wrapper: ReactWrapper = mount(
+      <MemoryRouter initialEntries={["/orgs/imamura/stakeholders"]} >
+        <Provider store={store}>
+          <MockedProvider mocks={mocks} addTypename={false} >
+            <Route path="/orgs/:organizationName/stakeholders" >
+              <OrganizationStakeholders {...mockProps} />
+            </Route>
+          </MockedProvider>
+        </Provider>
+      </MemoryRouter>,
+    );
+
+    await act(async () => {
+      await waitForExpect(() => {
+        wrapper.update();
+
+        expect(wrapper)
+          .toHaveLength(1);
+        expect(wrapper.find("tr"))
+          .toHaveLength(3);
+      });
+    });
+
+    wrapper
+      .find("tr")
+      .at(2)
+      .simulate("click");
+
+    await act(async () => {
+      await waitForExpect(() => {
+        wrapper.update();
+
+        expect(
+          wrapper
+            .find("button#removeUser")
+            .first()
+            .prop("disabled"))
+          .toBe(false);
+      });
+    });
+
+    wrapper
+      .find("button#removeUser")
+      .first()
+      .simulate("click");
+
+    await act(async () => {
+      await waitForExpect(() => {
+        wrapper.update();
+
+        expect(msgSuccess)
+          .toHaveBeenCalled();
+        expect(wrapper.find("tr"))
+          .toHaveLength(2);
+      });
+    });
+  });
+
+  it("should handle query errors", async () => {
+    const mocks: ReadonlyArray<MockedResponse> = [
+      {
+        request: {
+          query: GET_ORGANIZATION_STAKEHOLDERS,
+          variables: {
+            organizationId: mockProps.organizationId,
+          },
+        },
+        result: {
+          errors: [new GraphQLError("An error occurred fetching organization users")],
+        },
+      },
+    ];
+    const wrapper: ReactWrapper = mount(
+      <MemoryRouter initialEntries={["/orgs/imamura/stakeholders"]} >
+        <Provider store={store}>
+          <MockedProvider mocks={mocks} addTypename={false} >
+            <Route path="/orgs/:organizationName/stakeholders" >
+              <OrganizationStakeholders {...mockProps} />
+            </Route>
+          </MockedProvider>
+        </Provider>
+      </MemoryRouter>,
+    );
+
+    await act(async () => {
+      await waitForExpect(() => {
+        wrapper.update();
+
+        expect(msgError)
+          .toHaveBeenCalled();
+        expect(
+          wrapper
+            .find("tr")
+            .at(1)
+            .find("td")
+            .at(0)
+            .text())
+          .toBe("There is no data to display");
+      });
+    });
+  });
+
+  it("should handle mutation errors", async () => {
+    const mocks: ReadonlyArray<MockedResponse> = [
+      {
+        request: {
+          query: GET_ORGANIZATION_STAKEHOLDERS,
+          variables: {
+            organizationId: mockProps.organizationId,
+          },
+        },
+        result: {
+          data: {
+            organization: {
+              stakeholders: [
+                {
+                  email: "testuser1@gmail.com",
+                  firstLogin: "2020-06-01",
+                  lastLogin: "[10, 35207]",
+                  phoneNumber: "3100000000",
+                  role: "group_manager",
+                },
+              ],
+            },
+          },
+        },
+      },
+      {
+        request: {
+          query: EDIT_STAKEHOLDER_MUTATION,
+          variables: {
+            email: "testuser1@gmail.com",
+            organizationId: mockProps.organizationId,
+            phoneNumber: "3100000000",
+            responsibility: "",
+            role: "CUSTOMERADMIN",
+          },
+        },
+        result: {
+          errors: [new GraphQLError("Exception - Email is not valid")],
+        },
+      },
+      {
+        request: {
+          query: EDIT_STAKEHOLDER_MUTATION,
+          variables: {
+            email: "testuser1@gmail.com",
+            organizationId: mockProps.organizationId,
+            phoneNumber: "3100000000",
+            responsibility: "",
+            role: "CUSTOMERADMIN",
+          },
+        },
+        result: {
+          errors: [new GraphQLError("Exception - Invalid field in form")],
+        },
+      },
+      {
+        request: {
+          query: EDIT_STAKEHOLDER_MUTATION,
+          variables: {
+            email: "testuser1@gmail.com",
+            organizationId: mockProps.organizationId,
+            phoneNumber: "3100000000",
+            responsibility: "",
+            role: "CUSTOMERADMIN",
+          },
+        },
+        result: {
+          errors: [new GraphQLError("Exception - Invalid characters")],
+        },
+      },
+      {
+        request: {
+          query: EDIT_STAKEHOLDER_MUTATION,
+          variables: {
+            email: "testuser1@gmail.com",
+            organizationId: mockProps.organizationId,
+            phoneNumber: "3100000000",
+            responsibility: "",
+            role: "CUSTOMERADMIN",
+          },
+        },
+        result: {
+          errors: [new GraphQLError("Exception - Invalid phone number in form")],
+        },
+      },
+      {
+        request: {
+          query: EDIT_STAKEHOLDER_MUTATION,
+          variables: {
+            email: "testuser1@gmail.com",
+            organizationId: mockProps.organizationId,
+            phoneNumber: "3100000000",
+            responsibility: "",
+            role: "CUSTOMERADMIN",
+          },
+        },
+        result: {
+          errors: [new GraphQLError("Exception - Invalid email address in form")],
+        },
+      },
+      {
+        request: {
+          query: EDIT_STAKEHOLDER_MUTATION,
+          variables: {
+            email: "testuser1@gmail.com",
+            organizationId: mockProps.organizationId,
+            phoneNumber: "3100000000",
+            responsibility: "",
+            role: "CUSTOMERADMIN",
+          },
+        },
+        result: {
+          errors: [new GraphQLError("Access denied")],
+        },
+      },
+    ];
+    const wrapper: ReactWrapper = mount(
+      <MemoryRouter initialEntries={["/orgs/imamura/stakeholders"]} >
+        <Provider store={store}>
+          <MockedProvider mocks={mocks} addTypename={false} >
+            <Route path="/orgs/:organizationName/stakeholders" >
+              <OrganizationStakeholders {...mockProps} />
+            </Route>
+          </MockedProvider>
+        </Provider>
+      </MemoryRouter>,
+    );
+
+    await act(async () => { await wait(0); wrapper.update(); });
+
+    expect(wrapper)
+      .toHaveLength(1);
+    expect(wrapper.find("tr"))
+      .toHaveLength(2);
+
+    wrapper
+      .find("tr")
+      .at(1)
+      .simulate("click");
+
+    wrapper
+      .find("button#editUser")
+      .first()
+      .simulate("click");
+
+    expect(
+      wrapper
+        .find(addUserModal)
+        .prop("open"))
+      .toBe(true);
+
+    const form: ReactWrapper = wrapper
+      .find(addUserModal)
+      .find("genericForm");
+    const roleField: ReactWrapper = wrapper
+      .find(addUserModal)
+      .find({ name: "role" })
+      .find("select");
+
+    roleField.simulate("change", { target: { value: "CUSTOMERADMIN" } });
+    form.simulate("submit");
+
+    await act(async () => {
+      await waitForExpect(() => {
+        wrapper.update();
+
+        expect(msgError)
+          .toHaveBeenCalledWith(translate.t("validations.email"));
+      });
+    });
+
+    form.simulate("submit");
+
+    await act(async () => {
+      await waitForExpect(() => {
+        wrapper.update();
+
+        expect(msgError)
+          .toHaveBeenCalledWith(translate.t("validations.invalidValueInField"));
+      });
+    });
+
+    form.simulate("submit");
+
+    await act(async () => {
+      await waitForExpect(() => {
+        wrapper.update();
+
+        expect(msgError)
+          .toHaveBeenCalledWith(translate.t("validations.invalid_char"));
+      });
+    });
+
+    form.simulate("submit");
+
+    await act(async () => {
+      await waitForExpect(() => {
+        wrapper.update();
+
+        expect(msgError)
+          .toHaveBeenCalledWith(translate.t("validations.invalidPhoneNumberInField"));
+      });
+    });
+
+    form.simulate("submit");
+
+    await act(async () => {
+      await waitForExpect(() => {
+        wrapper.update();
+
+        expect(msgError)
+          .toHaveBeenCalledWith(translate.t("validations.invalidEmailInField"));
+      });
+    });
+
+    form.simulate("submit");
+
+    await act(async () => {
+      await waitForExpect(() => {
+        wrapper.update();
+
+        expect(msgError)
+          .toHaveBeenCalledWith(translate.t("group_alerts.error_textsad"));
       });
     });
   });
