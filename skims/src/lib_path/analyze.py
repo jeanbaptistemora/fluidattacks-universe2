@@ -26,7 +26,6 @@ from aioextensions import (
 # Local imports
 from lib_path import (
     f009,
-    f011,
     f060,
     f061,
     f117,
@@ -74,13 +73,6 @@ async def analyze_one_path(
             file_name=file_name,
             path=path,
             store=stores[FindingEnum.F009],
-        ),
-        f011.analyze(
-            content_generator=file_content_generator,
-            file_name=file_name,
-            file_extension=file_extension,
-            path=path,
-            store=stores[FindingEnum.F011],
         ),
         f060.analyze(
             content_generator=file_content_generator,

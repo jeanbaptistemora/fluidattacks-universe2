@@ -282,6 +282,7 @@ async def translate_dependencies_to_vulnerabilities(
             'CVE-2013-1779',
             'CVE-2015-3187',
             'CVE-2017-12419',
+            'CVE-2018-0735',
         )
     ])
 
