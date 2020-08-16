@@ -8,8 +8,7 @@
 /**/.skims
 /**/.venv
 /coverage*
-/doc/src.*
+/docs/skims
 /dist
-/html
 /poetry.lock
 /skims.*.svg

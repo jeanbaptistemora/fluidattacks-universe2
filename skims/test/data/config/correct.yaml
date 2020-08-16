@@ -3,6 +3,6 @@ language: EN
 path:
   include:
     - glob(test/data/lib_path/*)
-    - src/
+    - skims/
   exclude:
-    - glob(src/**/*)
+    - glob(skims/**/*)

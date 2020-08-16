@@ -5,16 +5,16 @@ source "${srcIncludeHelpersCommon}"
 source "${srcIncludeHelpersSkims}"
 
 declare -Arx SKIMS_GLOBAL_PKGS=(
-  [cli]=src/cli
-  [config]=src/config
-  [core]=src/core
-  [integrates]=src/integrates
-  [lib_path]=src/lib_path
-  [nvd]=src/nvd
-  [parse_json]=src/parse_json
-  [state]=src/state
-  [utils]=src/utils
-  [zone]=src/zone
+  [cli]=skims/cli
+  [config]=skims/config
+  [core]=skims/core
+  [integrates]=skims/integrates
+  [lib_path]=skims/lib_path
+  [nvd]=skims/nvd
+  [parse_json]=skims/parse_json
+  [state]=skims/state
+  [utils]=skims/utils
+  [zone]=skims/zone
 )
 
 declare -Arx SKIMS_GLOBAL_TEST_PKGS=(
@@ -24,22 +24,18 @@ declare -Arx SKIMS_GLOBAL_TEST_PKGS=(
 function job_skims_doc {
       helper_common_poetry_install_deps skims \
   &&  pushd skims \
-    &&  poetry run sphinx-apidoc \
-          --ext-autodoc \
-          --ext-doctest \
-          --ext-viewcode \
-          --output-dir doc/ \
-          --maxdepth 12 \
-          --separate \
-          src \
-    &&  poetry run sphinx-build \
-          -a \
-          -b html \
-          -E \
-          -j 8 \
-          doc/ \
-          html/ \
+    &&  echo '[INFO] Building' \
+    &&  rm -rf docs/skims/ \
+    &&  poetry run pdoc \
+          --force \
+          --html \
+          --output-dir docs/ \
+          --template-dir docs/templates/ \
+          skims \
   &&  popd \
+  &&  rm -rf public/ \
+  &&  git checkout -- public/ \
+  &&  mv skims/docs/skims public/ \
   ||  return 1
 
 }
@@ -89,10 +85,10 @@ function job_skims_lint {
       helper_common_poetry_install_deps skims \
   &&  pushd skims \
     &&  echo '[INFO] Checking static typing' \
-    &&  poetry run mypy "${args_mypy[@]}" src/ \
+    &&  poetry run mypy "${args_mypy[@]}" skims/ \
     &&  poetry run mypy "${args_mypy[@]}" test/ \
     &&  echo "[INFO] Linting" \
-    &&  poetry run prospector "${args_prospector[@]}" src/ \
+    &&  poetry run prospector "${args_prospector[@]}" skims/ \
     &&  poetry run prospector "${args_prospector[@]}" test/ \
   &&  popd \
   ||  return 1
@@ -100,7 +96,7 @@ function job_skims_lint {
 
 function job_skims_security {
   local bandit_args=(
-    --recursive src/
+    --recursive skims/
   )
 
       helper_common_poetry_install_deps skims \

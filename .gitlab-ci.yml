@@ -662,15 +662,14 @@ reviews:
   <<: *in_mrs
   interruptible: false
 
-skims_doc:
+.skims_doc: &skims_doc
   <<: *with_nix
   <<: *skims_in_dev_and_master_branch
-  stage: deploy-app
   artifacts:
-    expire_in: 1 week
-    paths:
-      - skims/html
-    when: on_success
+    paths: [public/]
+  script:
+    - ./build.sh skims_doc
+  stage: deploy-app
 
 skims_deploy:
   <<: *with_nix
@@ -736,3 +735,6 @@ forces_deploy_to_docker_hub:
   <<: *with_nix
   <<: *forces_in_master_branch
   stage: deploy-app
+
+pages:
+  <<: *skims_doc
