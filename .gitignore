@@ -14,9 +14,7 @@ package-lock.json
 *.tfstate
 
 # Build system
-/build/coverage
 /build/provisioners/test.nix
-/coverage.xml
 /dump.rdb
 /geckodriver.log
 /lambda/.venv.*
@@ -24,7 +22,6 @@ package-lock.json
 /TEMP_FD
 /test
 /test.py
-/.coverage*
 
 # Secrets
 .envrc

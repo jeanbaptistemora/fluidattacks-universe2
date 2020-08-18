@@ -1,6 +1,7 @@
 test_async/dynamo_data/bb_executions.json.now
 .DynamoDB
 .tmp
+oneshottest-vulnerabilities-*
 version.txt
 
 # Rule for ignore non compiled js files over dashboard
@@ -22,6 +23,9 @@ front/coverage.lcov
 front/coverage_results.txt
 front/coverage
 mobile/coverage
+.coverage*
+coverage.xml
+build/coverage
 
 # Django apps
 django-apps/**/*.egg-info
