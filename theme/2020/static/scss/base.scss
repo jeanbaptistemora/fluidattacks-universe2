@@ -914,3 +914,20 @@ video {
 .products-index:hover .products-content {
   display: block;
 }
+
+.paginator {
+  a:not(.current) {
+    padding: 12px 18px;
+    background-color: white;
+    &:hover {
+      background-color: $fluid-red;
+      color: white;
+    }
+  }
+}
+
+.current {
+  padding: 12px 18px;
+  background-color: $fluid-red;
+  color: white;
+}
