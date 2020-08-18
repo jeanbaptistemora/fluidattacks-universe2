@@ -1,6 +1,6 @@
 import React from "react";
 import _ from "lodash";
-import { default as style } from "../../index.css";
+import style from "../../index.css";
 import translate from "../../../translations/translate";
 import { validTextField } from "../../../validations";
 import { FormControlProps, HelpBlock } from "react-bootstrap";

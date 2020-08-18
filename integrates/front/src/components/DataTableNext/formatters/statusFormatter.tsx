@@ -1,6 +1,6 @@
 import { Label } from "react-bootstrap";
 import React from "react";
-import { default as style } from "../index.css";
+import style from "../index.css";
 
 const getBgColor: (value: string) => string = (value: string): string => {
   switch (value) {

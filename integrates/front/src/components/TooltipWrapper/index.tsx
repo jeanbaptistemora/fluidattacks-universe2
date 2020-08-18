@@ -1,6 +1,6 @@
 import React from "react";
 import { Trans } from "react-i18next";
-import { default as style } from "./index.css";
+import style from "./index.css";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
 
 interface ITooltipWrapperProps {

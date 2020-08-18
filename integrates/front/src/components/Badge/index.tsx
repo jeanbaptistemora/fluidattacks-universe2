@@ -1,6 +1,6 @@
 import { Badge as BootstrapBadge } from "react-bootstrap";
 import React from "react";
-import { default as style } from "./index.css";
+import style from "./index.css";
 
 export interface IBadgeProps {
   responsive?: boolean;

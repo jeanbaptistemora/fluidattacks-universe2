@@ -4,9 +4,9 @@
 */
 import FontAwesome from "react-fontawesome";
 import React from "react";
-import { default as logo } from "../../resources/integrates.svg";
+import logo from "../../resources/integrates.svg";
 import mixpanel from "mixpanel-browser";
-import { default as style } from "./index.css";
+import style from "./index.css";
 import { useTranslation } from "react-i18next";
 import { Button, Col, Grid, Row } from "react-bootstrap";
 import { Slide, toast } from "react-toastify";

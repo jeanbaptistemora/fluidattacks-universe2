@@ -16,7 +16,7 @@ import { TooltipWrapper } from "../TooltipWrapper";
 import _ from "lodash";
 import filterFactory from "react-bootstrap-table2-filter";
 import paginationFactory from "react-bootstrap-table2-paginator";
-import { default as style } from "./index.css";
+import style from "./index.css";
 import translate from "../../utils/translations/translate";
 import {
   ButtonGroup,

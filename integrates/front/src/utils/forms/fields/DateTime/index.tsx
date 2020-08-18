@@ -1,8 +1,8 @@
-import { default as Datetime } from "react-datetime";
+import Datetime from "react-datetime";
 import React from "react";
 import { WrappedFieldProps } from "redux-form";
 import _ from "lodash";
-import { default as style } from "../../index.css";
+import style from "../../index.css";
 import { FormControlProps, HelpBlock } from "react-bootstrap";
 import "react-datetime/css/react-datetime.css";
 

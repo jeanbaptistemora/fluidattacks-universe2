@@ -1,7 +1,7 @@
 import { FluidIcon } from "../../FluidIcon";
 import { IHeaderConfig } from "../types";
 import React from "react";
-import { default as style } from "../index.css";
+import style from "../index.css";
 
 export const approveFormatter: (
   value: string,

@@ -2,7 +2,7 @@ import { ITableProps } from "./types";
 import React from "react";
 import { TableWrapper } from "./table";
 import _ from "lodash";
-import { default as style } from "./index.css";
+import style from "./index.css";
 import ToolkitProvider, {
   ToolkitProviderProps,
 } from "react-bootstrap-table2-toolkit";
