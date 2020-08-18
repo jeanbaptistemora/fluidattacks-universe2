@@ -5,6 +5,7 @@ set -e
 
 # Import functions
 . <(curl -sL https://static-objects.gitlab.net/fluidattacks/public/raw/master/shared-scripts/sops.sh)
+. integrates.sh
 . common.sh
 . $(get_sops_env)
 

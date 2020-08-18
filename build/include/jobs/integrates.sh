@@ -223,27 +223,6 @@ function job_integrates_clean_registries {
   ||  return 1
 }
 
-function job_build_nix_caches {
-  local context='.'
-  local dockerfile='build/Dockerfile'
-  local provisioners
-
-      helper_use_pristine_workdir \
-  &&  provisioners=(./build/provisioners/*) \
-  &&  helper_build_nix_caches_parallel \
-  &&  for (( i="${lower_limit}";i<="${upper_limit}";i++ ))
-      do
-            provisioner=$(basename "${provisioners[${i}]}") \
-        &&  provisioner="${provisioner%.*}" \
-        &&  helper_docker_build_and_push \
-              "${CI_REGISTRY_IMAGE}/nix:${provisioner}" \
-              "${context}" \
-              "${dockerfile}" \
-              'PROVISIONER' "${provisioner}" \
-        ||  return 1
-      done
-}
-
 function job_integrates_build_container_app {
   local context='.'
   local dockerfile='deploy/containers/app/Dockerfile'
@@ -260,6 +239,7 @@ function job_integrates_build_container_app {
         SSL_KEY \
         SSL_CERT \
   &&  cp ../build/include/helpers/common.sh . \
+  &&  cp ../build/include/helpers/integrates.sh . \
   &&  helper_docker_build_and_push \
         "${tag}" \
         "${context}" \
@@ -428,7 +408,7 @@ function job_integrates_functional_tests_prod {
   ||  return 1
 }
 
-function job_renew_certificates {
+function job_integrates_renew_certificates {
   local certificate='ssl-review-apps'
   local certificate_issuer='letsencrypt'
   local secret_name='ssl-certificate'
@@ -563,22 +543,6 @@ function job_integrates_serve_dynamodb_local {
   &&  fg %1 \
   &&  popd \
   ||  return 1
-}
-
-function job_send_new_release_email {
-      env_prepare_python_packages \
-  &&  CI_COMMIT_REF_NAME=master aws_login 'production' \
-  &&  sops_env "integrates/secrets-production.yaml" default \
-        MANDRILL_APIKEY \
-        MANDRILL_EMAIL_TO \
-  &&  curl -Lo \
-        "${TEMP_FILE1}" \
-        'https://static-objects.gitlab.net/fluidattacks/public/raw/master/shared-scripts/mail.py' \
-  &&  echo "send_mail('new_version', MANDRILL_EMAIL_TO,
-        context={'project': PROJECT, 'project_url': '$CI_PROJECT_URL',
-          'version': _get_version_date(), 'message': _get_message()},
-        tags=['general'])" >> "${TEMP_FILE1}" \
-  &&  python3 "${TEMP_FILE1}"
 }
 
 function job_integrates_serve_front {

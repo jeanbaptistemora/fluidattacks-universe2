@@ -430,7 +430,7 @@ integrates_build_container_app:
       - integrates/django-apps/packages/
     when: on_success
 
-build_nix_caches:
+common_build_nix_caches:
   <<: *with_nix
   tags: [autoscaling-large]
   image: nixos/nix:2.3
@@ -568,7 +568,7 @@ integrates_lint_graphics:
   <<: *in_dev_and_master_branch_integrates
   stage: lint-code
 
-integrates_lint_build_system:
+common_lint_build_system:
   <<: *with_nix
   <<: *all_in_dev_and_master_branch
   stage: lint-code
@@ -583,7 +583,7 @@ integrates_lint_secrets:
   <<: *in_dev_and_master_branch_integrates
   stage: lint-code
 
-renew_certificates:
+integrates_renew_certificates:
   <<: *with_nix
   <<: *in_schedule_nightly_build_integrates
   stage: post-deploy
@@ -596,7 +596,7 @@ integrates_rotate_jwt_token:
   <<: *in_schedule_nightly_build_integrates
   stage: rotation
 
-send_new_release_email:
+common_send_new_release_email:
   <<: *with_nix
   <<: *in_master_branch_integrates
   stage: post-deploy
@@ -647,7 +647,7 @@ forces_new:
   allow_failure: true
   <<: *in_master_branch_integrates
 
-lint_commit_msg:
+common_lint_commit_msg:
   <<: *with_nix
   except:
     refs:

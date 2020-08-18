@@ -20,20 +20,6 @@ function job_integrates_lint_back {
   || return 1
 }
 
-function job_integrates_lint_build_system {
-  # SC1090: Can't follow non-constant source. Use a directive to specify location.
-  # SC2016: Expressions don't expand in single quotes, use double quotes for that.
-  # SC2153: Possible misspelling: TEMP_FILE2 may not be assigned, but TEMP_FILE1 is.
-  # SC2154: var is referenced but not assigned.
-
-      nix-linter --recursive . \
-  &&  echo '[OK] Nix code is compliant' \
-  &&  shellcheck --external-sources --exclude=SC2153 build.sh \
-  &&  find 'build' -name '*.sh' -exec \
-        shellcheck --external-sources --exclude=SC1090,SC2016,SC2153,SC2154 {} + \
-  &&  echo '[OK] Shell code is compliant'
-}
-
 function job_integrates_lint_front {
         pushd integrates/front/ \
     &&  npm install \
@@ -77,25 +63,4 @@ function job_integrates_lint_secrets {
       done \
   &&  popd \
   || return 1
-}
-
-function job_lint_commit_msg {
-  local commit_diff
-  local commit_hashes
-
-      helper_use_pristine_workdir \
-  &&  env_prepare_node_modules \
-  &&  git fetch --prune > /dev/null \
-  &&  if [ "${IS_LOCAL_BUILD}" = "${TRUE}" ]
-      then
-            commit_diff="origin/master..${CI_COMMIT_REF_NAME}"
-      else
-            commit_diff="origin/master..origin/${CI_COMMIT_REF_NAME}"
-      fi \
-  &&  commit_hashes="$(git log --pretty=%h "${commit_diff}")" \
-  &&  for commit_hash in ${commit_hashes}
-      do
-            git log -1 --pretty=%B "${commit_hash}" | commitlint \
-        ||  return 1
-      done
 }

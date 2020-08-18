@@ -2,6 +2,7 @@
 
 source "${srcEnv}"
 source "${srcIncludeHelpersCommon}"
+source "${srcIncludeCommonJobs}"
 source "${srcIncludeForcesJobs}"
 source "${srcIncludeIntegratesJobs}"
 source "${srcIncludeIntegratesLintersJobs}"
