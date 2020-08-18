@@ -177,7 +177,12 @@ aws dynamodb create-table --endpoint-url http://localhost:8022 \
 --key-schema \
     AttributeName=finding_id,KeyType=HASH \
     AttributeName=UUID,KeyType=RANGE \
---provisioned-throughput ReadCapacityUnits=1,WriteCapacityUnits=1
+--provisioned-throughput ReadCapacityUnits=1,WriteCapacityUnits=1 \
+--global-secondary-indexes \
+    IndexName=gsi_uuid,\
+KeySchema=["{AttributeName=UUID,KeyType=HASH}"],\
+Projection="{ProjectionType=ALL}",\
+ProvisionedThroughput="{ReadCapacityUnits=1,WriteCapacityUnits=1}"
 
 aws dynamodb create-table --endpoint-url http://localhost:8022 \
 --table-name integrates \

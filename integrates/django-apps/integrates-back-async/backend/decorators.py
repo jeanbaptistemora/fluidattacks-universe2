@@ -23,7 +23,8 @@ from rediscluster.nodemanager import RedisClusterException
 from backend.domain import (
     event as event_domain,
     finding as finding_domain,
-    organization as org_domain
+    organization as org_domain,
+    vulnerability as vuln_domain
 )
 from backend.services import (
     has_valid_access_token
@@ -138,6 +139,11 @@ async def resolve_project_name(args: Any, kwargs: Any) -> str:  # noqa: MC0001
         event = await event_domain.get_event(
             kwargs['event_id'])
         project_name = event.get('project_name')
+    elif 'vuln_uuid' in kwargs:
+        vulnerability = await vuln_domain.get_by_uuid(kwargs['vuln_uuid'])
+        project_name = await finding_domain.get_project(
+            cast(str, vulnerability['finding_id'])
+        )
     elif settings.DEBUG:
         raise Exception('Unable to identify project')
     else:
@@ -165,7 +171,6 @@ def enforce_group_level_auth_async(func: TVar) -> TVar:
             GraphQLError('Could not get context from request.')
 
         user_data = util.get_jwt_content(context)
-
         subject = user_data['user_email']
         object_ = await resolve_project_name(args, kwargs)
         action = f'{_func.__module__}.{_func.__qualname__}'.replace('.', '_')
@@ -360,6 +365,9 @@ def require_finding_access(func: TVar) -> TVar:
             if kwargs.get('identifier') is None
             else kwargs.get('identifier')
         )
+        if not finding_id:
+            vuln = await vuln_domain.get_by_uuid(kwargs['vuln_uuid'])
+            finding_id = vuln['finding_id']
 
         if not re.match('^[0-9]*$', finding_id):
             LOGGER.error(

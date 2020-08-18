@@ -10,7 +10,7 @@ type Query {
     finding(identifier: String!): Finding
 
     "Vulnerability entity"
-    vulnerability(identifier: String!, uuid: String!): Vulnerability
+    vulnerability(uuid: String!): Vulnerability
 
     "InternalNames entity"
     internalNames(entity: NameEntity!): InternalName
