@@ -8,7 +8,7 @@ from typing import (
 
 # Third party libraries
 from aioextensions import (
-    in_thread,
+    in_process,
 )
 
 # Local libraries
@@ -47,38 +47,46 @@ from zone import (
 )
 
 
+VulnStreamType = Dict[VulnerabilityKindEnum, Tuple[
+    Union[
+        IntegratesVulnerabilitiesLines
+    ],
+    ...,
+]]
+
+
+def _build_vulnerabilities_stream(
+    results: Tuple[Vulnerability, ...],
+) -> VulnStreamType:
+    data: VulnStreamType = {
+        VulnerabilityKindEnum.LINES: tuple(
+            IntegratesVulnerabilitiesLines(
+                line=result.where,
+                path=result.what,
+                source=(
+                    result.integrates_metadata.source
+                    if (result.integrates_metadata and
+                        result.integrates_metadata.source)
+                    else VulnerabilitySourceEnum.INTEGRATES
+                ),
+                state=result.state,
+            )
+            for result in results
+            if result.kind == VulnerabilityKindEnum.LINES
+        ),
+        # More bindings for PORTS and INPUTS go here ...
+    }
+
+    return data
+
+
 async def build_vulnerabilities_stream(
     *,
     results: Tuple[Vulnerability, ...],
 ) -> str:
-    data_type = Dict[
-        VulnerabilityKindEnum,
-        Tuple[Union[IntegratesVulnerabilitiesLines], ...]
-    ]
-
-    def _get_data() -> data_type:
-        data: data_type = {
-            VulnerabilityKindEnum.LINES: tuple(
-                IntegratesVulnerabilitiesLines(
-                    line=result.where,
-                    path=result.what,
-                    source=(
-                        result.integrates_metadata.source
-                        if (result.integrates_metadata and
-                            result.integrates_metadata.source)
-                        else VulnerabilitySourceEnum.INTEGRATES
-                    ),
-                    state=result.state,
-                )
-                for result in results
-                if result.kind == VulnerabilityKindEnum.LINES
-            ),
-            # More bindings for PORTS and INPUTS go here ...
-        }
-
-        return data
-
-    return await yaml_dumps(await in_thread(_get_data))
+    return await yaml_dumps(
+        await in_process(_build_vulnerabilities_stream, results),
+    )
 
 
 async def get_closest_finding_id(
