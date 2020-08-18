@@ -1,6 +1,6 @@
-import { Button } from "../Button/index";
+import { Button } from "../Button";
 import { ButtonToolbar } from "react-bootstrap";
-import { Modal } from "../Modal/index";
+import { Modal } from "../Modal";
 import React from "react";
 import _ from "lodash";
 import translate from "../../utils/translations/translate";

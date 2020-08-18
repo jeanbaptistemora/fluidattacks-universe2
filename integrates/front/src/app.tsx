@@ -11,14 +11,14 @@ import { Registration } from "./scenes/Registration";
 import { ToastContainer } from "react-toastify";
 import { getEnvironment } from "./utils/environment";
 import mixpanel from "mixpanel-browser";
-import store from "./store/index";
+import store from "./store";
 import { ApolloProvider, networkStatusNotifier } from "./utils/apollo";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import {
   authzPermissionsContext,
   userLevelPermissions,
 } from "./utils/authz/config";
-import { secureStore, secureStoreContext } from "./utils/secureStore/index";
+import { secureStore, secureStoreContext } from "./utils/secureStore";
 import "react-toastify/dist/ReactToastify.min.css";
 
 const App: React.FC = (): JSX.Element => {

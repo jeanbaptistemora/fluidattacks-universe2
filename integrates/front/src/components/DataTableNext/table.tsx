@@ -12,7 +12,7 @@ import { ITableWrapperProps } from "./types";
 import React from "react";
 import { Search } from "react-bootstrap-table2-toolkit";
 import { SizePerPageRenderer } from "./sizePerPageRenderer";
-import { TooltipWrapper } from "../TooltipWrapper/index";
+import { TooltipWrapper } from "../TooltipWrapper";
 import _ from "lodash";
 import filterFactory from "react-bootstrap-table2-filter";
 import paginationFactory from "react-bootstrap-table2-paginator";

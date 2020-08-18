@@ -1,5 +1,5 @@
 import { Field } from "redux-form";
-import { FileInput } from "./index";
+import { FileInput } from ".";
 import { FormGroup } from "react-bootstrap";
 import { GenericForm } from "../../../../scenes/Dashboard/components/GenericForm";
 import { Provider } from "react-redux";

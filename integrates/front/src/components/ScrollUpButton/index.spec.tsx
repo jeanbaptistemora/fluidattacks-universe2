@@ -1,4 +1,4 @@
-import { ScrollUpButton } from "./index";
+import { ScrollUpButton } from ".";
 import * as React from "react";
 import { ShallowWrapper, shallow } from "enzyme";
 

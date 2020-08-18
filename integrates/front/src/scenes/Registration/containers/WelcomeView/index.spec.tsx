@@ -2,7 +2,7 @@ import { GET_USER_AUTHORIZATION } from "./queries";
 import { MemoryRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import React from "react";
-import { WelcomeView } from "./index";
+import { WelcomeView } from ".";
 import _ from "lodash";
 import { act } from "react-dom/test-utils";
 import store from "../../../../store";

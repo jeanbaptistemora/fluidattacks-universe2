@@ -1,7 +1,7 @@
 import { Field } from "redux-form";
 import { GenericForm } from "../../../../scenes/Dashboard/components/GenericForm";
 import PhoneInput from "react-phone-input-2";
-import { PhoneNumber } from "./index";
+import { PhoneNumber } from ".";
 import { Provider } from "react-redux";
 import React from "react";
 import { required } from "../../../validations";

@@ -3,7 +3,7 @@ import { FormControl } from "react-bootstrap";
 import { GenericForm } from "../../../../scenes/Dashboard/components/GenericForm";
 import { Provider } from "react-redux";
 import React from "react";
-import { TextArea } from "./index";
+import { TextArea } from ".";
 import { required } from "../../../validations";
 import store from "../../../../store";
 import { ReactWrapper, mount } from "enzyme";

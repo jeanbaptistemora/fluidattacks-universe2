@@ -3,7 +3,7 @@ import { GenericForm } from "../../../../scenes/Dashboard/components/GenericForm
 import { Provider } from "react-redux";
 import React from "react";
 import { WithContext as ReactTags } from "react-tag-input";
-import { TagInput } from "./index";
+import { TagInput } from ".";
 import store from "../../../../store";
 import { ReactWrapper, mount } from "enzyme";
 

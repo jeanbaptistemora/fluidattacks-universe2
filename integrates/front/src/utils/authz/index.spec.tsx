@@ -1,5 +1,5 @@
-import { Can } from "./Can/index";
-import { Have } from "./Have/index";
+import { Can } from "./Can";
+import { Have } from "./Have";
 import React from "react";
 import { ReactWrapper, mount } from "enzyme";
 import {

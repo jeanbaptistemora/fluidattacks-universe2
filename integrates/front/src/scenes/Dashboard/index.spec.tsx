@@ -1,4 +1,4 @@
-import { Dashboard } from "./index";
+import { Dashboard } from ".";
 import { GET_USER_ORGANIZATIONS } from "./components/Navbar/queries";
 import { GET_USER_PERMISSIONS } from "./queries";
 import { IGetUserPermissionsAttr } from "./types";
@@ -6,7 +6,7 @@ import { MemoryRouter } from "react-router";
 import { Provider } from "react-redux";
 import React from "react";
 import { act } from "react-dom/test-utils";
-import store from "../../store/index";
+import store from "../../store";
 import { MockedProvider, MockedResponse, wait } from "@apollo/react-testing";
 import { ReactWrapper, mount } from "enzyme";
 

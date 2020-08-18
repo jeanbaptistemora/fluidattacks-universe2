@@ -1,4 +1,4 @@
-import { Dropdown } from "./index";
+import { Dropdown } from ".";
 import { Field } from "redux-form";
 import { GenericForm } from "../../../../scenes/Dashboard/components/GenericForm";
 import { Provider } from "react-redux";

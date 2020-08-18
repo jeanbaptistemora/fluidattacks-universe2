@@ -168,6 +168,7 @@
     "import/no-deprecated": "error",
     "import/no-named-as-default": "error",
     "import/no-self-import": "error",
+    "import/no-useless-path-segments": ["error", { "noUselessIndex": true }],
     "import/no-webpack-loader-syntax": "error",
     "jest/lowercase-name": [
       "error",

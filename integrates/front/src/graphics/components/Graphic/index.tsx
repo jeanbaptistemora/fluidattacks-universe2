@@ -18,7 +18,7 @@ import {
 import {
   ISecureStoreConfig,
   secureStoreContext,
-} from "../../../utils/secureStore/index";
+} from "../../../utils/secureStore";
 import useComponentSize, { ComponentSize } from "@rehooks/component-size";
 
 const glyphPadding: number = 15;

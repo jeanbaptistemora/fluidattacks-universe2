@@ -1,4 +1,4 @@
-import { Notification } from "./index";
+import { Notification } from ".";
 import * as React from "react";
 import { ShallowWrapper, shallow } from "enzyme";
 

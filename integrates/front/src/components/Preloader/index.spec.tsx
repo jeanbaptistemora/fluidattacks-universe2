@@ -1,4 +1,4 @@
-import { Preloader } from "./index";
+import { Preloader } from ".";
 import React from "react";
 import { default as loadingAnim } from "../../resources/loading.gif";
 import { default as style } from "./index.css";

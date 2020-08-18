@@ -1,4 +1,4 @@
-import { Date } from "./index";
+import { Date } from ".";
 import { Field } from "redux-form";
 import { FormControl } from "react-bootstrap";
 import { GenericForm } from "../../../../scenes/Dashboard/components/GenericForm";

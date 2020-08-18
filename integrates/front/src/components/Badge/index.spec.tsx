@@ -1,4 +1,4 @@
-import { Badge } from "./index";
+import { Badge } from ".";
 import * as React from "react";
 import { ShallowWrapper, shallow } from "enzyme";
 

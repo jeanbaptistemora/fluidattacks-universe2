@@ -2,7 +2,7 @@
   --------
   Disable for testing purposes
 */
-import { Modal } from "./index";
+import { Modal } from ".";
 import React from "react";
 import {
   Button,

@@ -1,4 +1,4 @@
-import { Button } from "./index";
+import { Button } from ".";
 import * as React from "react";
 import { ShallowWrapper, shallow } from "enzyme";
 

@@ -1,6 +1,6 @@
-import { Button } from "../Button/index";
+import { Button } from "../Button";
 import * as React from "react";
-import { ConfirmDialog, IConfirmFn } from "./index";
+import { ConfirmDialog, IConfirmFn } from ".";
 import { ReactWrapper, mount } from "enzyme";
 
 describe("ConfirmDialog", (): void => {
