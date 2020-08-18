@@ -9,12 +9,13 @@ from typing import (
     List,
 )
 from uuid import uuid4
-from asgiref.sync import async_to_sync
 
 # Local libraries
-from backend import util
 from backend.typing import Finding as FindingType
-from backend.dal.helpers.s3 import CLIENT as S3_CLIENT  # type: ignore
+from backend.dal.helpers.s3 import (  # type: ignore
+    download_file,
+    list_files,
+)
 from backend.domain import (
     notifications as notifications_domain
 )
@@ -28,7 +29,7 @@ from __init__ import (
 )
 
 
-def generate(
+async def generate(
     *,
     findings_ord: List[Dict[str, FindingType]],
     group: str,
@@ -38,7 +39,7 @@ def generate(
     passphrase = get_passphrase(4)
 
     with tempfile.TemporaryDirectory() as directory:
-        _append_pdf_report(
+        await _append_pdf_report(
             directory=directory,
             findings_ord=findings_ord,
             group=group,
@@ -46,12 +47,12 @@ def generate(
             passphrase=passphrase,
             requester_email=requester_email,
         )
-        _append_xls_report(
+        await _append_xls_report(
             directory=directory,
             findings_ord=findings_ord,
             passphrase=passphrase,
         )
-        _append_evidences(
+        await _append_evidences(
             directory=directory,
             group=group,
         )
@@ -60,11 +61,11 @@ def generate(
             passphrase=passphrase,
             source_contents=_get_directory_contents(directory),
         ) as file:
-            signed_url = async_to_sync(reports_utils.sign_url)(
-                async_to_sync(reports_utils.upload_report)(file)
+            signed_url = await reports_utils.sign_url(
+                await reports_utils.upload_report(file)
             )
 
-            notifications_domain.new_password_protected_report(
+            await notifications_domain.new_password_protected_report(
                 file_link=signed_url,
                 file_type='Group Data',
                 passphrase=passphrase,
@@ -73,7 +74,7 @@ def generate(
             )
 
 
-def _append_pdf_report(
+async def _append_pdf_report(
     *,
     directory: str,
     findings_ord: List[Dict[str, FindingType]],
@@ -83,7 +84,7 @@ def _append_pdf_report(
     requester_email: str,
 ) -> None:
     # Generate the PDF report
-    report_filename = technical_report.generate_pdf_file(
+    report_filename = await technical_report.generate_pdf_file(
         description=group_description,
         findings_ord=findings_ord,
         group_name=group,
@@ -96,12 +97,12 @@ def _append_pdf_report(
             file.write(report.read())
 
 
-def _append_xls_report(
+async def _append_xls_report(
     directory: str,
     findings_ord: List[Dict[str, FindingType]],
     passphrase: str,
 ) -> None:
-    report_filename = technical_report.generate_xls_file(
+    report_filename = await technical_report.generate_xls_file(
         findings_ord=findings_ord,
         passphrase=passphrase,
     )
@@ -110,7 +111,7 @@ def _append_xls_report(
             file.write(report.read())
 
 
-def _append_evidences(
+async def _append_evidences(
     *,
     directory: str,
     group: str,
@@ -124,20 +125,14 @@ def _append_evidences(
     }
 
     # Walk everything under the S3 evidences bucket and save relevant info
-    for key in util.iterate_s3_keys(
-        client=S3_CLIENT,
-        bucket=EVIDENCES_BUCKET,
-        prefix=group,
-    ):
+    for key in await list_files(EVIDENCES_BUCKET, group):
         _, extension = os.path.splitext(key)
 
         if extension in target_folders:
             target_name = os.path.join(directory, target_folders[extension])
             os.makedirs(target_name, exist_ok=True)
             target_name = os.path.join(target_name, os.path.basename(key))
-
-            with open(target_name, mode='wb') as file:
-                S3_CLIENT.download_fileobj(EVIDENCES_BUCKET, key, file)
+            await download_file(EVIDENCES_BUCKET, key, target_name)
 
 
 @contextlib.contextmanager

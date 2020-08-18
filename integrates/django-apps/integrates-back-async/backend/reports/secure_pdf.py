@@ -2,7 +2,9 @@
 """ Class to secure a PDF of findings. """
 from typing import cast
 import os
-from asgiref.sync import async_to_sync
+from aioextensions import (
+    unblock_cpu,
+)
 from fpdf import FPDF
 from PyPDF4 import PdfFileWriter, PdfFileReader
 from backend.dal import project as project_dal
@@ -50,7 +52,7 @@ class SecurePDF():
         self.result_dir = os.path.join(self.base, 'results/results_pdf/')
         self.passphrase = passphrase
 
-    def create_full(
+    async def create_full(
         self,
         usermail: str,
         basic_pdf_name: str,
@@ -59,7 +61,7 @@ class SecurePDF():
         """ Execute the security process in a PDF. """
         self.secure_pdf_usermail = usermail
         self.secure_pdf_username = usermail.split('@')[0]
-        project_info = async_to_sync(project_dal.get_attributes)(
+        project_info = await project_dal.get_attributes(
             project.lower(), ['historic_configuration']
         )
         historic_configuration = cast(
@@ -67,10 +69,16 @@ class SecurePDF():
         )
         if (project_info and
                 historic_configuration[-1].get('type') == 'continuous'):
-            self.secure_pdf_filename = self.lock(basic_pdf_name)
+            self.secure_pdf_filename = await unblock_cpu(
+                self.lock, basic_pdf_name
+            )
         else:
-            water_pdf_name = self.overlays(basic_pdf_name)
-            self.secure_pdf_filename = self.lock(water_pdf_name)
+            water_pdf_name = await unblock_cpu(
+                self.overlays, basic_pdf_name
+            )
+            self.secure_pdf_filename = await unblock_cpu(
+                self.lock, water_pdf_name
+            )
         return self.result_dir + self.secure_pdf_filename
 
     def overlays(self, in_filename: str) -> str:

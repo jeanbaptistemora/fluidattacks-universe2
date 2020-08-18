@@ -8,7 +8,6 @@ from typing import (
 )
 
 # Third party libraries
-from asgiref.sync import async_to_sync
 from botocore.exceptions import ClientError
 
 # Local libraries
@@ -33,7 +32,7 @@ logging.config.dictConfig(LOGGING)
 LOGGER = logging.getLogger(__name__)
 
 
-def generate_pdf_file(
+async def generate_pdf_file(
     *,
     description: str,
     findings_ord: List[Dict[str, FindingType]],
@@ -44,10 +43,10 @@ def generate_pdf_file(
 ) -> str:
     pdf_maker = CreatorPDF(lang, 'tech')
     secure_pdf = SecurePDF(passphrase)
-    download_evidences_for_pdf(findings_ord)
+    await download_evidences_for_pdf(findings_ord)
     report_filename = ''
     pdf_maker.tech(findings_ord, group_name, description, user_email)
-    report_filename = secure_pdf.create_full(
+    report_filename = await secure_pdf.create_full(
         user_email, pdf_maker.out_name, group_name
     )
 
@@ -55,7 +54,7 @@ def generate_pdf_file(
 
 
 @shield
-def generate_pdf(
+async def generate_pdf(
     *,
     description: str,
     findings_ord: List[Dict[str, FindingType]],
@@ -65,7 +64,7 @@ def generate_pdf(
 ) -> None:
     passphrase = get_passphrase(4)
 
-    report_filename = generate_pdf_file(
+    report_filename = await generate_pdf_file(
         description=description,
         findings_ord=findings_ord,
         group_name=group_name,
@@ -74,23 +73,25 @@ def generate_pdf(
         user_email=user_email,
     )
 
-    uploaded_file_name = async_to_sync(reports_utils.upload_report)(
-        report_filename)
+    uploaded_file_name = await reports_utils.upload_report(
+        report_filename
+    )
 
-    notifications_domain.new_password_protected_report(
+    await notifications_domain.new_password_protected_report(
         user_email,
         group_name,
         passphrase,
         'Executive',
-        async_to_sync(reports_utils.sign_url)(uploaded_file_name),
+        await reports_utils.sign_url(uploaded_file_name),
     )
 
 
-def generate_xls_file(
+async def generate_xls_file(
     findings_ord: List[Dict[str, FindingType]],
     passphrase: str,
 ) -> str:
     it_report = ITReport(data=findings_ord)
+    await it_report.create()
     filepath = it_report.result_filename
 
     cmd = (
@@ -108,31 +109,32 @@ def generate_xls_file(
 
 
 @shield
-def generate_xls(
+async def generate_xls(
     findings_ord: List[Dict[str, FindingType]],
     group_name: str,
     user_email: str,
 ) -> None:
     passphrase = get_passphrase(4)
 
-    report_filename = generate_xls_file(
+    report_filename = await generate_xls_file(
         findings_ord=findings_ord,
         passphrase=passphrase,
     )
 
-    uploaded_file_name = async_to_sync(reports_utils.upload_report)(
-        report_filename)
+    uploaded_file_name = await reports_utils.upload_report(
+        report_filename
+    )
 
-    notifications_domain.new_password_protected_report(
+    await notifications_domain.new_password_protected_report(
         user_email,
         group_name,
         passphrase,
         'Technical',
-        async_to_sync(reports_utils.sign_url)(uploaded_file_name),
+        await reports_utils.sign_url(uploaded_file_name),
     )
 
 
-def download_evidences_for_pdf(findings: List[Dict[str, FindingType]]) -> None:
+async def download_evidences_for_pdf(findings: List[Dict[str, FindingType]]):
     images_path = (
         '/usr/src/app/django-apps/integrates-back-async/backend/reports/images'
     )
@@ -165,7 +167,7 @@ def download_evidences_for_pdf(findings: List[Dict[str, FindingType]]) -> None:
             for evidence in evidence_set:
                 evidence_id_2 = str(evidence['id']).split('/')[2]
                 try:
-                    async_to_sync(finding_dal.download_evidence)(
+                    await finding_dal.download_evidence(
                         evidence['id'],
                         f'{path}/{evidence_id_2}',
                     )

@@ -24,7 +24,7 @@ async def generate_group_report(
 ) -> str:
     context = parameters.get('context')
     project_findings = parameters.get('project_findings', [])
-    project_name = parameters.get('project_name')
+    project_name = str(parameters.get('project_name'))
 
     success = False
     url = ''
@@ -42,7 +42,7 @@ async def generate_group_report(
 
     if report_type == 'PDF':
         asyncio.create_task(
-            sync_to_async(technical_report.generate_pdf)(
+            technical_report.generate_pdf(
                 description=description,
                 findings_ord=findings_ord,
                 group_name=project_name,
@@ -53,7 +53,7 @@ async def generate_group_report(
         success = True
     elif report_type == 'XLS':
         asyncio.create_task(
-            sync_to_async(technical_report.generate_xls)(
+            technical_report.generate_xls(
                 findings_ord=findings_ord,
                 group_name=project_name,
                 user_email=user_email,
@@ -62,7 +62,7 @@ async def generate_group_report(
         success = True
     elif report_type == 'DATA':
         asyncio.create_task(
-            sync_to_async(data_report.generate)(
+            data_report.generate(
                 findings_ord=findings_ord,
                 group=project_name,
                 group_description=description,

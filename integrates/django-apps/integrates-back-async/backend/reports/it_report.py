@@ -4,7 +4,6 @@ from typing import cast, Dict, List, Union
 
 from datetime import datetime
 from django.conf import settings
-from asgiref.sync import async_to_sync
 import pytz
 from pyexcelerate import (
     Alignment,
@@ -35,7 +34,7 @@ class ITReport():
 
     workbook: Workbook
     current_sheet: WorksheetType = None
-    data = None
+    data: List[Dict[str, FindingType]] = []
     lang = None
     row = 1
     result_filename = ''
@@ -67,6 +66,7 @@ class ITReport():
             data: List[Dict[str, FindingType]],
             lang: str = 'es') -> None:
         """Initialize variables."""
+        self.data = data
         self.project_name = str(data[0].get('projectName'))
         self.lang = lang
 
@@ -74,9 +74,10 @@ class ITReport():
         self.current_sheet = self.workbook.new_sheet('Data')
 
         self.parse_template()
-        self.generate(data)
-        self.style_sheet()
 
+    async def create(self) -> None:
+        await self.generate(self.data)
+        self.style_sheet()
         self.save()
 
     def save(self) -> None:
@@ -107,13 +108,13 @@ class ITReport():
         ]
         self.row += 1
 
-    def generate(self, data: List[Dict[str, FindingType]]) -> None:
+    async def generate(self, data: List[Dict[str, FindingType]]) -> None:
         self.project_name = str(data[0].get('projectName'))
-        vulns = async_to_sync(vuln_domain.list_vulnerabilities_async)(
-            [finding.get('findingId') for finding in data]
+        vulns = await vuln_domain.list_vulnerabilities_async(
+            [str(finding.get('findingId')) for finding in data]
         )
         for vuln in vulns:
-            self.set_vuln_row(vuln)
+            await self.set_vuln_row(cast(VulnType, vuln))
             self.row += 1
 
     def set_row_height(self) -> None:
@@ -198,7 +199,7 @@ class ITReport():
 
         return description
 
-    def set_cvss_metrics_cell(self, row: VulnType) -> None:
+    def set_cvss_metrics_cell(self, row: Dict[str, FindingType]) -> None:
         metric_vector = []
         vuln = self.vulnerability
         cvss_key = 'CVSSv3.1 string vector'
@@ -221,9 +222,9 @@ class ITReport():
         )
         self.row_values[vuln[cvss_key]] = cell_content
 
-    def set_vuln_row(self, row: VulnType) -> None:
+    async def set_vuln_row(self, row: VulnType) -> None:
         vuln = self.vulnerability
-        finding = async_to_sync(get_finding)(row.get('finding_id'))
+        finding = await get_finding(str(row.get('finding_id')))
         specific = str(row.get('specific', ''))
         if row.get('vuln_type') == 'lines':
             specific = str(int(specific))
@@ -232,8 +233,9 @@ class ITReport():
             tags = str(', '.join(cast(List[str], row.get('tag'))))
 
         self.row_values[vuln['#']] = self.row - 1
-        self.row_values[vuln['Related Finding']] = finding.get('finding')
-        self.row_values[vuln['Finding Id']] = finding.get('findingId', EMPTY)
+        self.row_values[vuln['Related Finding']] = str(finding.get('finding'))
+        self.row_values[vuln['Finding Id']] = str(
+            finding.get('findingId', EMPTY))
         self.row_values[vuln['Vulnerability Id']] = str(row.get('UUID', EMPTY))
         self.row_values[vuln['Where']] = str(row.get('where'))
         self.row_values[vuln['Specific']] = specific

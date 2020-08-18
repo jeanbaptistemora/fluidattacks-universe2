@@ -528,10 +528,11 @@ async def send_mail_comment(
     )
 
 
-def send_mail_project_report(
+async def send_mail_project_report(
         email_to: List[str],
-        context: Dict[str, Union[str, int]]) -> None:
-    _send_mail('project-report', email_to, context=context, tags=GENERAL_TAG)
+        context: MailContentType) -> None:
+    await _send_mail_async(
+        'project-report', email_to, context=context, tags=GENERAL_TAG)
 
 
 async def send_mail_verified_finding(

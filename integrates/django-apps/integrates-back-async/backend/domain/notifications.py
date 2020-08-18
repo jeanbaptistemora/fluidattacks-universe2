@@ -2,10 +2,11 @@
 from datetime import datetime
 from typing import cast, Dict, List, Union
 import html
-import threading
 
 # Third party imports
-from asgiref.sync import async_to_sync
+from aioextensions import (
+    collect,
+)
 from exponent_server_sdk import DeviceNotRegisteredError
 
 # Local imports
@@ -112,7 +113,6 @@ async def edit_group(
     )
 
 
-@async_to_sync
 async def send_push_notification(
     user_email: str,
     title: str,
@@ -130,27 +130,26 @@ async def send_push_notification(
             user_domain.remove_push_token(user_email, token)
 
 
-def new_password_protected_report(
+async def new_password_protected_report(
     user_email: str,
     project_name: str,
     passphrase: str,
     file_type: str,
     file_link: str = '',
 ) -> None:
-    send_push_notification(
-        user_email,
-        f'{file_type} report passphrase',
-        passphrase)
-
-    email_send_thread = threading.Thread(
-        name='Report email thread',
-        target=mailer.send_mail_project_report,
-        args=([user_email], {
-            'filetype': file_type,
-            'date': datetime.today().strftime('%Y-%m-%d'),
-            'time': datetime.today().strftime('%H:%M'),
-            'projectname': project_name,
-            'filelink': file_link
-        }))
-
-    email_send_thread.start()
+    await collect((
+        send_push_notification(
+            user_email,
+            f'{file_type} report passphrase',
+            passphrase),
+        mailer.send_mail_project_report(
+            [user_email],
+            {
+                'filetype': file_type,
+                'date': datetime.today().strftime('%Y-%m-%d'),
+                'time': datetime.today().strftime('%H:%M'),
+                'projectname': project_name,
+                'filelink': file_link
+            }
+        )
+    ))

@@ -597,7 +597,7 @@ def shield(func: TVar) -> TVar:
             try:
                 return await _func(*args, **kwargs)
             except Exception as exception:  # pylint: disable=broad-except
-                report(exception)
+                await report(exception)
 
     else:
         @functools.wraps(_func)
