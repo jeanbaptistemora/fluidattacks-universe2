@@ -1,3 +1,6 @@
+include:
+  - local: reviews/.gitlab-ci.yml
+
 stages:
   - rotation
   - build
@@ -18,7 +21,6 @@ stages:
   - &all_commit_pattern '$CI_COMMIT_TITLE =~ /^(all|forces|integrates|reviews|skims)/'
   - &forces_commit_pattern '$CI_COMMIT_TITLE =~ /^(all|forces)/'
   - &integrates_commit_pattern '$CI_COMMIT_TITLE =~ /^(all|integrates)/'
-  - &reviews_commit_pattern '$CI_COMMIT_TITLE =~ /^(all|reviews)/'
   - &skims_commit_pattern '$CI_COMMIT_TITLE =~ /^(all|skims)/'
 
 .in_everywhere_except_periodic_jobs_and_mrs_integrates: &in_everywhere_except_periodic_jobs_and_mrs_integrates
@@ -171,16 +173,6 @@ stages:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
       when: never
     - if: *skims_commit_pattern
-
-.reviews_in_dev_and_master_branch: &reviews_in_dev_and_master_branch
-  rules:
-    - if: '$CI_PIPELINE_SOURCE == "schedule"'
-      when: never
-    - if: '$CI_PIPELINE_SOURCE == "trigger"'
-      when: never
-    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
-      when: never
-    - if: *reviews_commit_pattern
 
 .analytics_template: &analytics_template
   <<: *with_nix
@@ -698,21 +690,6 @@ skims_structure:
 skims_test:
   <<: *with_nix
   <<: *skims_in_dev_branch
-  stage: test-code
-
-reviews_lint:
-  <<: *with_nix
-  <<: *reviews_in_dev_and_master_branch
-  stage: lint-code
-
-reviews_structure:
-  <<: *with_nix
-  <<: *reviews_in_dev_and_master_branch
-  artifacts:
-    expire_in: 1 week
-    paths:
-      - reviews
-    when: on_success
   stage: test-code
 
 forces_lint:

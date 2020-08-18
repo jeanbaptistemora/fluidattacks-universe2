@@ -1,0 +1,34 @@
+.with_nix: &with_nix
+  tags: [autoscaling]
+  image: "${CI_REGISTRY_IMAGE}/nix:${CI_JOB_NAME}"
+  needs: []
+  script:
+    - ./build.sh "${CI_JOB_NAME% *}"
+  interruptible: true
+
+.reviews_commit_pattern: &reviews_commit_pattern '$CI_COMMIT_TITLE =~ /^(all|reviews)/'
+
+.reviews_in_dev_and_master_branch: &reviews_in_dev_and_master_branch
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "schedule"'
+      when: never
+    - if: '$CI_PIPELINE_SOURCE == "trigger"'
+      when: never
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+      when: never
+    - if: *reviews_commit_pattern
+
+reviews_lint:
+  <<: *with_nix
+  <<: *reviews_in_dev_and_master_branch
+  stage: lint-code
+
+reviews_structure:
+  <<: *with_nix
+  <<: *reviews_in_dev_and_master_branch
+  artifacts:
+    expire_in: 1 week
+    paths:
+      - reviews
+    when: on_success
+  stage: test-code
