@@ -533,13 +533,11 @@ $codeyellow: rgba(230, 219, 116, 1);
     line-height: 1.25rem;
   }
 
-  a {
-    font-weight: 800;
+  a:not(.link-hvred):not(.button-rules):not(.button-white):not(.button-asserts) {
+    font-weight: 400;
     text-decoration: none;
     color: $fluid-black;
-    &:hover {
-      color: $fluid-red;
-    }
+    border-bottom: 1px solid $fluid-gray;
   }
 
   .sub-btn {
@@ -550,6 +548,7 @@ $codeyellow: rgba(230, 219, 116, 1);
     background-color: $button-red;
     border-radius: .25rem ;
     color: white;
+    text-decoration: none;
     cursor: pointer;
     font-weight: 800;
     padding-bottom: .5rem;
@@ -703,6 +702,7 @@ video {
 .button-asserts {
   a {
     color: white;
+    text-decoration: none;
     &:hover {
       color: white;;
     }
@@ -930,4 +930,13 @@ video {
   padding: 12px 18px;
   background-color: $fluid-red;
   color: white;
+}
+
+.link-hvred {
+  font-weight: 800;
+  text-decoration: none;
+  color: $fluid-black;
+  &:hover {
+    color: $fluid-red;
+  }
 }

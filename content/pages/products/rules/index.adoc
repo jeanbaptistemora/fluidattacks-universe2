@@ -36,32 +36,32 @@ image::logos04.png[Certifications 4, role="tc"]
 Rules is based on several standards
 related to information security, including the following:
 
-. [inner]#link:../../search.html?q=ASVS[ASVS]#.
-link:https://www.owasp.org/index.php/Category:OWASP_Application_Security_Verification_Standard_Project[`OWASP` Application Security Verification Standard].
+. [inner]#link:../../search.html?q=ASVS[ASVS, role="link-hvred"]#.
+link:https://www.owasp.org/index.php/Category:OWASP_Application_Security_Verification_Standard_Project[`OWASP` Application Security Verification Standard, role="link-hvred"].
 
-. [inner]#link:../../search.html?q=bsimm9[BSIMM9]#.
-link:https://www.bsimm.com/download.html[Building Security In Maturity Model].
+. [inner]#link:../../search.html?q=bsimm9[BSIMM9, role="link-hvred"]#.
+link:https://www.bsimm.com/download.html[Building Security In Maturity Model, role="link-hvred"].
 
-. [inner]#link:../../search.html?q=CWE[CWE]#.
-link:https://cwe.mitre.org/[Common Weakness Enumeration].
+. [inner]#link:../../search.html?q=CWE[CWE, role="link-hvred"]#.
+link:https://cwe.mitre.org/[Common Weakness Enumeration, role="link-hvred"].
 
-. [inner]#link:../../search.html?q=directive[EPR]#.
-link:https://edps.europa.eu/data-protection/our-work/subjects/eprivacy-directive_en[E-privacy Directive].
+. [inner]#link:../../search.html?q=directive[EPR, role="link-hvred"]#.
+link:https://edps.europa.eu/data-protection/our-work/subjects/eprivacy-directive_en[E-privacy Directive, role="link-hvred"].
 
-. [inner]#link:../../search.html?q=GDPR[GDPR]#.
-link:https://gdpr-info.eu/[General Data Protection Regulation].
+. [inner]#link:../../search.html?q=GDPR[GDPR, role="link-hvred"]#.
+link:https://gdpr-info.eu/[General Data Protection Regulation, role="link-hvred"].
 
-. [inner]#link:../../search.html?q=HIPAA[HIPAA]#.
-link:https://www.hhs.gov/hipaa/for-professionals/security/laws-regulations/index.html[Health Insurance Portability and Accountability Act].
+. [inner]#link:../../search.html?q=HIPAA[HIPAA, role="link-hvred"]#.
+link:https://www.hhs.gov/hipaa/for-professionals/security/laws-regulations/index.html[Health Insurance Portability and Accountability Act, role="link-hvred"].
 
-. [inner]#link:../../search.html?q=NIST+800-53[NIST]#.
-link:https://nvd.nist.gov/800-53/Rev4[`NIST` Special Publication 800-53 (Rev. 4)].
+. [inner]#link:../../search.html?q=NIST+800-53[NIST, role="link-hvred"]#.
+link:https://nvd.nist.gov/800-53/Rev4[`NIST` Special Publication 800-53 (Rev. 4), role="link-hvred"].
 
-. [inner]#link:../../search.html?q=OWASP[OWASP]#.
-link:https://owasp.org/www-project-top-ten/[`OWASP` Top 10].
+. [inner]#link:../../search.html?q=OWASP[OWASP, role="link-hvred"]#.
+link:https://owasp.org/www-project-top-ten/[`OWASP` Top 10, role="link-hvred"].
 
-. [inner]#link:../../search.html?q=pci[`PCI`]#.
-link:https://www.pcisecuritystandards.org/[PCI Security Standards Council].
+. [inner]#link:../../search.html?q=pci[`PCI`, role="link-hvred"]#.
+link:https://www.pcisecuritystandards.org/[PCI Security Standards Council, role="link-hvred"].
 
 == Categories
 
