@@ -6,10 +6,12 @@ import os
 from typing import Any, Dict, List, Optional
 from contextlib import asynccontextmanager
 
+import logging
 import aioboto3
 import boto3
 import botocore
 
+from botocore.exceptions import ClientError
 from backend.typing import (
     DynamoDelete as DynamoDeleteType,
     DynamoQuery as DynamoQueryType
@@ -21,6 +23,9 @@ from __init__ import (
     FI_DYNAMODB_HOST, FI_DYNAMODB_PORT
 )
 
+
+# Constants
+LOGGER = logging.getLogger(__name__)
 
 CLIENT_CONFIG = botocore.config.Config(
     max_pool_connections=50,
@@ -80,16 +85,20 @@ async def async_put_item(table: str, item: Dict[str, Any]) -> bool:
 
 async def async_query(
         table: str, query_attrs: DynamoQueryType) -> List:
-    async with aioboto3.resource(**RESOURCE_OPTIONS) as dynamodb_resource:
-        dynamo_table = await dynamodb_resource.Table(table)
-        response = await dynamo_table.query(**query_attrs)
-        response_items = response.get('Items', [])
-        while response.get('LastEvaluatedKey'):
-            query_attrs.update(
-                {'ExclusiveStartKey': response.get('LastEvaluatedKey')}
-            )
+    response_items: List
+    try:
+        async with aioboto3.resource(**RESOURCE_OPTIONS) as dynamodb_resource:
+            dynamo_table = await dynamodb_resource.Table(table)
             response = await dynamo_table.query(**query_attrs)
-            response_items += response.get('Items', [])
+            response_items = response.get('Items', [])
+            while response.get('LastEvaluatedKey'):
+                query_attrs.update(
+                    {'ExclusiveStartKey': response.get('LastEvaluatedKey')}
+                )
+                response = await dynamo_table.query(**query_attrs)
+                response_items += response.get('Items', [])
+    except ClientError as ex:
+        LOGGER.exception(ex, extra={'extra': locals()})
     return response_items
 
 
