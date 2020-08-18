@@ -1,14 +1,14 @@
 # shellcheck shell=bash
 
 function job_integrates_lint_back {
-      pushd integrates/ \
+      pushd "${STARTDIR}/integrates" \
   &&  env_prepare_python_packages \
   &&  mypy --strict --ignore-missing-imports analytics/ \
   &&  mypy --ignore-missing-imports --follow-imports=skip \
         django-apps/integrates-back-async \
   &&  mypy --strict --ignore-missing-imports app/migrations/ \
   &&  prospector -F -s veryhigh analytics/ \
-  &&  prospector -F -s high -u django -i node_modules app \
+  &&  prospector -F -s veryhigh -u django -i node_modules app \
   &&  prospector -F -s veryhigh -u django -i node_modules django-apps/integrates-back-async \
   &&  prospector -F -s veryhigh -u django -i node_modules fluidintegrates \
   &&  prospector -F -s veryhigh lambda \
@@ -21,7 +21,7 @@ function job_integrates_lint_back {
 }
 
 function job_integrates_lint_front {
-        pushd integrates/front/ \
+        pushd "${STARTDIR}/integrates/front" \
     &&  npm install \
     &&  npm audit \
     &&  npm run lint:tslint \
@@ -32,14 +32,14 @@ function job_integrates_lint_front {
 
 function job_integrates_lint_graphics {
       env_prepare_node_modules \
-  &&  pushd integrates/app/static/graphics \
+  &&  pushd "${STARTDIR}/integrates/app/static/graphics" \
         &&  eslint --config .eslintrc --fix . \
   &&  popd \
   ||  return 1
 }
 
 function job_integrates_lint_mobile {
-      pushd integrates/mobile \
+      pushd "${STARTDIR}/integrates/mobile" \
     &&  npm install \
     &&  npm run lint \
   &&  popd \
@@ -51,7 +51,7 @@ function job_integrates_lint_secrets {
     secrets-development.yaml
     secrets-production.yaml
   )
-      pushd integrates/ \
+      pushd "${STARTDIR}/integrates" \
   &&  env_prepare_python_packages \
   &&  echo "[INFO] Veryfing that secrets is sorted" \
   &&  for sf in "${files_to_verify[@]}"

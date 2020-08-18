@@ -40,7 +40,7 @@ function job_integrates_build_mobile_android {
   "
   export GRADLE_DAEMON_DISABLED="1"
 
-      pushd integrates/ \
+      pushd "${STARTDIR}/integrates" \
   &&  if  helper_have_any_file_changed \
         'mobile/app.json' \
         'mobile/assets/icon.png' \
@@ -187,7 +187,7 @@ function job_integrates_build_lambdas {
 }
 
 function job_integrates_coverage_report {
-      pushd integrates/ \
+      pushd "${STARTDIR}/integrates" \
   &&  env_prepare_python_packages \
   &&  echo '[INFO] Logging in to AWS' \
   &&  aws_login "${ENVIRONMENT_NAME}" \
@@ -546,7 +546,7 @@ function job_integrates_serve_dynamodb_local {
 }
 
 function job_integrates_serve_front {
-      pushd integrates/front \
+      pushd "${STARTDIR}/integrates/front" \
     &&  npm install \
     &&  npm start \
   &&  popd \
@@ -1097,7 +1097,7 @@ function job_integrates_test_back {
 }
 
 function job_integrates_test_front {
-      pushd integrates/front \
+      pushd "${STARTDIR}/integrates/front" \
     &&  npm install --unsafe-perm \
     &&  npm test \
     &&  mv coverage/lcov.info coverage.lcov \
@@ -1106,7 +1106,7 @@ function job_integrates_test_front {
 }
 
 function job_integrates_test_mobile {
-      pushd integrates/mobile \
+      pushd "${STARTDIR}/integrates/mobile" \
     &&  npm install --unsafe-perm \
     &&  npm test \
     &&  mv coverage/lcov.info coverage.lcov \
