@@ -1,1 +1,1 @@
-import ./functional_tests_dev.nix
+import ./integrates_functional_tests_dev.nix

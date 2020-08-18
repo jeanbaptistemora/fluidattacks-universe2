@@ -195,18 +195,18 @@ stages:
 integrates_analytics_make_documents_dev:
   <<: *analytics_template
   <<: *in_dev_branch_integrates
-  image: "${CI_REGISTRY_IMAGE}/nix:analytics_make_documents_dev"
+  image: "${CI_REGISTRY_IMAGE}/nix:integrates_analytics_make_documents_dev"
   parallel: 3
 
 integrates_analytics_make_documents_prod:
   <<: *analytics_template
   <<: *in_master_branch_integrates
-  image: "${CI_REGISTRY_IMAGE}/nix:analytics_make_documents_prod"
+  image: "${CI_REGISTRY_IMAGE}/nix:integrates_analytics_make_documents_prod"
   parallel: 6
 
 integrates_analytics_make_documents_prod_schedule:
   <<: *analytics_template
-  image: "${CI_REGISTRY_IMAGE}/nix:analytics_make_documents_prod_schedule"
+  image: "${CI_REGISTRY_IMAGE}/nix:integrates_analytics_make_documents_prod_schedule"
   interruptible: false
   only:
     refs: [schedules]
@@ -468,7 +468,6 @@ integrates_functional_tests_dev:
 integrates_functional_tests_prod:
   <<: *with_nix
   <<: *in_master_branch_integrates
-  image: "${CI_REGISTRY_IMAGE}/nix:integrates_functional_tests_prod"
   needs:
     - integrates_deploy_k8s_back
     - integrates_deploy_front

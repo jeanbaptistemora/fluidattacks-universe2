@@ -6,9 +6,9 @@ RUN apk add --no-cache \
 
 ARG PROVISIONER
 
-COPY build       /code/build
-COPY deploy      /code/deploy
-COPY django-apps /code/django-apps
+COPY build /code/build
+COPY integrates/deploy /code/integrates/deploy
+COPY integrates/django-apps /code/integrates/django-apps
 
 RUN   nix-shell --run ':' "/code/build/provisioners/${PROVISIONER}.nix" \
   &&  nix-store --optimise
