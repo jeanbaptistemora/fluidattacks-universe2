@@ -269,6 +269,12 @@ resource "aws_dynamodb_table" "vulnerabilities" {
   point_in_time_recovery {
     enabled = true
   }
+
+  global_secondary_index {
+    name = "gsi_uuid"
+    hash_key =  "UUID"
+    projection_type = "ALL"
+  }
 }
 
 resource "aws_dynamodb_table" "portfolios" {
