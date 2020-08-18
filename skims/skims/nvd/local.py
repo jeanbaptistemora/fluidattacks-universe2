@@ -99,6 +99,42 @@ DATABASE_NPM: Dict[str, Dict[str, List[List[str]]]] = {
             ['>=3.0.0', '<3.0.2'],
         ],
     },
+    'handlebars': {
+        'CVE-2015-8861': [
+            ['<4.0.0'],
+        ],
+        'github.com/handlebars-lang/handlebars.js/issues/1558': [
+            ['<3.8.0'],
+            ['>=4.0.0', '<4.3.0'],
+        ],
+        'github.com/handlebars-lang/handlebars.js/issues/1495': [
+            ['>=3.0.0', '<3.0.7'],
+            ['>=4.0.0', '<4.0.14'],
+            ['>=4.1.0', '<4.1.2'],
+        ],
+        'hackerone.com/reports/726364': [
+            ['<4.6.0'],
+        ],
+        'npmjs.com/advisories/1325': [
+            ['<3.0.8'],
+            ['>=4.0.0', '<4.5.3'],
+        ],
+        'npmjs.com/advisories/1324': [
+            ['<3.0.8'],
+            ['>=4.0.0', '<4.5.3'],
+        ],
+        'npmjs.com/advisories/1316': [
+            ['<3.0.8'],
+            ['>=4.0.0', '<4.5.3'],
+        ],
+        'npmjs.com/advisories/1300': [
+            ['<4.4.5'],
+        ],
+        'npmjs.com/advisories/755': [
+            ['>=4.0.0', '<4.0.14'],
+            ['>=4.1.0', '<4.1.2'],
+        ],
+    },
     'hoek': {
         'CVE-2018-3728': [
             ['>=0.0.0', '<4.2.0'],
