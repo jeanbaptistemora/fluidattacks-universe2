@@ -7,7 +7,7 @@ import { HomeView } from "./containers/HomeView";
 import { IGetUserPermissionsAttr } from "./types";
 import { IStakeholderDataAttr } from "./containers/ProjectStakeholdersView/types";
 import LogRocket from "logrocket";
-import Logger from "../../utils/logger";
+import { Logger } from "../../utils/logger";
 import { Navbar } from "./components/Navbar/index";
 import { OrganizationContent } from "./containers/OrganizationContent/index";
 import { OrganizationRedirect } from "./containers/OrganizationRedirectView";

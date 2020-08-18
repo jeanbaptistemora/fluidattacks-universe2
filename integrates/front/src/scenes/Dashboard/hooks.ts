@@ -2,7 +2,7 @@ import { ADD_STAKEHOLDER_MUTATION } from "./queries";
 import { ApolloError } from "apollo-client";
 import { GraphQLError } from "graphql";
 import { IAddStakeholderAttr } from "./types";
-import Logger from "../../utils/logger";
+import { Logger } from "../../utils/logger";
 import { MutationFunction } from "@apollo/react-common";
 import React from "react";
 import _ from "lodash";

@@ -6,7 +6,7 @@
 import { ApolloClient } from "apollo-client";
 import { ApolloProvider as BaseApolloProvider } from "@apollo/react-hooks";
 import { ErrorResponse } from "apollo-link-error";
-import Logger from "./logger";
+import { Logger } from "./logger";
 import React from "react";
 import { WebSocketLink } from "apollo-link-ws";
 import _ from "lodash";

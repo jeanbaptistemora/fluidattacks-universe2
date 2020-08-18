@@ -1,4 +1,4 @@
-import Logger from "./logger";
+import { Logger } from "./logger";
 import { Validator } from "redux-form";
 import _ from "lodash";
 import { msgError } from "./notifications";

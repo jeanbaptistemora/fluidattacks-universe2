@@ -3,7 +3,7 @@
   We need both to be able to generate and assign a secret key, every time its
   useful life expires.
 */
-import Logger from "../logger";
+import { Logger } from "../logger";
 import React from "react";
 import sjcl from "sjcl";
 

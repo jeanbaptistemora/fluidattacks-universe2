@@ -1,4 +1,4 @@
-import Logger from "../logger";
+import { Logger } from "../logger";
 import { enTranslations } from "./en";
 import { initReactI18next } from "react-i18next";
 import i18next, { TOptions } from "i18next";

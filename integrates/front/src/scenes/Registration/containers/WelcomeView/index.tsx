@@ -6,7 +6,7 @@ import { ApolloError } from "apollo-client";
 import { Button } from "../../../../components/Button";
 import { CompulsoryNotice } from "../../components/CompulsoryNotice";
 import { GraphQLError } from "graphql";
-import Logger from "../../../../utils/logger";
+import { Logger } from "../../../../utils/logger";
 import React from "react";
 import _ from "lodash";
 import { default as globalStyle } from "../../../../styles/global.css";

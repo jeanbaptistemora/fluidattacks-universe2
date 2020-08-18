@@ -20,7 +20,8 @@
     "prettier",
     "jest",
     "jest-formatting",
-    "jsx-a11y"
+    "jsx-a11y",
+    "import"
   ],
   "extends": [
     "eslint:recommended",
@@ -30,6 +31,7 @@
     "plugin:jest-formatting/strict",
     "plugin:fp/recommended",
     "plugin:jsx-a11y/strict",
+    "plugin:import/typescript",
     "plugin:prettier/recommended",
     "prettier/@typescript-eslint",
     "prettier/react"
@@ -161,6 +163,12 @@
      */
     "fp/no-unused-expression": "off",
     "fp/no-nil": "off",
+    "import/no-absolute-path": ["error", { "commonjs": false }],
+    "import/no-cycle": ["error", { "ignoreExternal": true }],
+    "import/no-deprecated": "error",
+    "import/no-named-as-default": "error",
+    "import/no-self-import": "error",
+    "import/no-webpack-loader-syntax": "error",
     "jest/lowercase-name": [
       "error",
       {
