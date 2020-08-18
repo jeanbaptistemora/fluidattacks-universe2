@@ -57,7 +57,7 @@ resource "aws_lambda_function" "autoscaling-clean" {
   role          = aws_iam_role.autoscaling-clean.arn
   handler       = "index.handler"
   publish       = true
-  timeout       = 10
+  timeout       = 60
 
   source_code_hash = data.archive_file.autoscaling-clean.output_base64sha256
 
