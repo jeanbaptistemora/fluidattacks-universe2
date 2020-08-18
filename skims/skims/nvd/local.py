@@ -58,10 +58,31 @@ DATABASE_NPM: Dict[str, Dict[str, List[List[str]]]] = {
             ['>=4.0.0-alpha', '<4.0.0-beta.2'],
         ],
     },
+    'chownr': {
+        'CVE-2017-18869': [
+            ['<1.1.0'],
+        ],
+    },
     'debug': {
         'CVE-2017-16137': [
             ['>=1.0.0', '<2.6.9'],
             ['>=3.0.0', '<3.1.0'],
+        ],
+    },
+    'decompress': {
+        'github.com/kevva/decompress/issues/71': [
+            ['<4.2.1'],
+        ],
+    },
+    'decompress-tar': {
+        'npmjs.com/advisories/1217': [
+            ['4.2.1'],
+        ],
+    },
+    'decompress-zip': {
+        'npmjs.com/advisories/777': [
+            ['<0.2.2'],
+            ['>=0.3.0', '<0.3.2'],
         ],
     },
     'elliptic': {
@@ -70,6 +91,12 @@ DATABASE_NPM: Dict[str, Dict[str, List[List[str]]]] = {
         ],
         'SNYK-JS-ELLIPTIC-511941': [
             ['<6.5.2'],
+        ],
+    },
+    'extend': {
+        'CVE-2018-16492': [
+            ['<2.0.2'],
+            ['>=3.0.0', '<3.0.2'],
         ],
     },
     'hoek': {
@@ -148,6 +175,20 @@ DATABASE_NPM: Dict[str, Dict[str, List[List[str]]]] = {
     'minimist': {
         'CVE-2020-7598': [
             ['<=1.2.2'],
+        ],
+    },
+    'mixin-deep': {
+        'CVE-2019-10746': [
+            ['>=2.0.0', '<2.0.1'],
+            ['<1.3.2'],
+        ],
+        'CVE-2018-3719': [
+            ['<1.3.1'],
+        ],
+    },
+    'parsejson': {
+        'CVE-2017-16113': [
+            ['<=0.0.3'],
         ],
     },
     'serialize-javascript': {
