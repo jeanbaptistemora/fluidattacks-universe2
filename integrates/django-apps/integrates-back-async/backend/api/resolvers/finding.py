@@ -969,7 +969,6 @@ async def _do_update_description(
         project_name = finding_data['project_name']
         finding_loader.clear(finding_id)
         await util.invalidate_cache(finding_id, project_name)
-        util.forces_trigger_deployment(project_name)
         util.cloudwatch_log(
             info.context,
             ('Security: Updated description in '
