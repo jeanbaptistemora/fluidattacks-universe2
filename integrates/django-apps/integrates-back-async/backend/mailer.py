@@ -14,9 +14,7 @@ from typing import (
 
 # Third party libraries
 import aioboto3
-import boto3
 import botocore
-from asgiref.sync import async_to_sync
 import mandrill
 
 # Local libraries
@@ -143,51 +141,6 @@ async def _get_sqs_email_message_async(
     return message
 
 
-def _get_recipient_first_name(email: str) -> str:
-    first_name = async_to_sync(user_domain.get_data)(email, 'first_name')
-    if not first_name:
-        first_name = email.split('@')[0]
-    else:
-        # First name exists in database
-        pass
-    return str(first_name)
-
-
-# pylint: disable=too-many-locals
-def _get_sqs_email_message(
-    context: Dict[str, Union[str, int]],
-    email_to: List[str],
-    tags: List[str],
-) -> Optional[Dict[str, List[Union[str, Dict[str, object]]]]]:
-    project = str(context.get('project', '')).lower()
-    test_proj_list = FI_TEST_PROJECTS.split(',')
-    no_test_context = _remove_test_projects(context, test_proj_list)
-    new_context = _escape_context(no_test_context)
-    message: Optional[Dict[str, List[Union[str, Dict[str, object]]]]] = None
-
-    if project not in test_proj_list:
-        message = {
-            'to': [],
-            'global_merge_vars': [],
-            'merge_vars': []
-        }
-        for email in email_to:
-            fname_mail = _get_recipient_first_name(email)
-            merge_var = {
-                'rcpt': email,
-                'vars': [{'name': 'fname', 'content': fname_mail}]
-            }
-            message['to'].append({'email': email})
-            message['merge_vars'].append(merge_var)
-        for key, value in list(new_context.items()):
-            message['global_merge_vars'].append(
-                {'name': key, 'content': value}
-            )
-        message['tags'] = cast(List[Union[Dict[str, object], str]], tags)
-
-    return message
-
-
 async def _send_mail_async(
     template_name: str,
     email_to: List[str],
@@ -236,62 +189,6 @@ async def _send_mail_async(
                             'MessageGroupId': template_name,
                         }
                     })
-        except (botocore.vendored.requests.exceptions.ConnectionError,
-                botocore.exceptions.ClientError) as exc:
-            LOGGER.exception(exc, extra=dict(extra=locals()))
-    else:
-        # Mail should not be sent if is a test project
-        pass
-
-
-def _send_mail(
-    template_name: str,
-    email_to: List[str],
-    context: Dict[str, Union[str, int]],
-    tags: List[str],
-) -> None:
-    message = _get_sqs_email_message(
-        context=context,
-        email_to=email_to,
-        tags=tags,
-    )
-
-    if message:
-        sqs_message = {
-            'api_key': API_KEY,
-            'message': message,
-        }
-
-        try:
-            sqs = boto3.client(
-                'sqs',
-                aws_access_key_id=FI_AWS_DYNAMODB_ACCESS_KEY,
-                aws_secret_access_key=FI_AWS_DYNAMODB_SECRET_KEY,
-                aws_session_token=os.environ.get('AWS_SESSION_TOKEN'),
-                region_name='us-east-1'
-            )
-
-            LOGGER.info(
-                '[mailer]: sending to SQS',
-                extra={
-                    'extra': {
-                        'message': json.dumps(message),
-                        'MessageGroupId': template_name,
-                    }
-                })
-            sqs.send_message(
-                QueueUrl=QUEUE_URL,
-                MessageBody=json.dumps(sqs_message),
-                MessageGroupId=template_name
-            )
-            LOGGER.info(
-                '[mailer]: mail sent',
-                extra={
-                    'extra': {
-                        'message': json.dumps(sqs_message["message"]),
-                        'MessageGroupId': template_name,
-                    }
-                })
         except (botocore.vendored.requests.exceptions.ConnectionError,
                 botocore.exceptions.ClientError) as exc:
             LOGGER.exception(exc, extra=dict(extra=locals()))
@@ -357,32 +254,26 @@ async def send_comment_mail(
             EventType,
             ProjectType
         ] = '') -> None:
-    parent = str(comment_data['parent'])
     email_context: MailContentType = {
         'user_email': user_mail,
         'comment': str(comment_data['content']).replace('\n', ' '),
         'comment_type': comment_type,
-        'parent': parent,
+        'parent': str(comment_data['parent']),
     }
     if entity_name == 'finding':
         finding: Dict[str, FindingType] = cast(Dict[str, FindingType], entity)
         project_name = str(finding.get('projectName', ''))
         recipients = await get_email_recipients(project_name, comment_type)
 
-        is_draft = 'releaseDate' in finding
         email_context['finding_id'] = str(finding.get('findingId', ''))
         email_context['finding_name'] = str(finding.get('finding', ''))
-
-        plural = 'observations'
-        if comment_type == 'comment':
-            plural = 'consulting'
 
         comment_url = (
             BASE_URL +
             f'/groups/{project_name}/' +
-            ('vulns' if is_draft else 'drafts') +
-            '/' + finding.get('findingId') +
-            f'/{plural}'
+            ('vulns' if 'releaseDate' in finding else 'drafts') +
+            '/' + finding.get('findingId') + '/' +
+            ('consulting' if comment_type == 'comment' else 'observations')
         )
 
     elif entity_name == 'event':
