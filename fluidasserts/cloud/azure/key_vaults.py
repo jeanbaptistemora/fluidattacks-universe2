@@ -8,8 +8,7 @@ from contextlib import suppress
 
 # 3rd party imports
 from msrest.exceptions import AuthenticationError, ClientException
-from azure.keyvault.keys._shared._generated.v7_0.models._models_py3 import (
-    KeyVaultErrorException)
+from azure.keyvault.keys._shared.exceptions import HttpResponseError
 from azure.mgmt.keyvault import KeyVaultManagementClient
 from azure.identity import ClientSecretCredential
 from azure.keyvault.keys import KeyClient
@@ -23,7 +22,7 @@ from fluidasserts.cloud.azure import (
 
 
 @api(risk=MEDIUM, kind=DAST)
-@unknown_if(ClientException, AuthenticationError, KeyVaultErrorException)
+@unknown_if(ClientException, AuthenticationError, HttpResponseError)
 def has_key_expiration_disabled(client_id: str, secret: str, tenant: str,
                                 subscription_id: str) -> Tuple:
     """
@@ -73,7 +72,7 @@ def has_key_expiration_disabled(client_id: str, secret: str, tenant: str,
 
 
 @api(risk=MEDIUM, kind=DAST)
-@unknown_if(ClientException, AuthenticationError, KeyVaultErrorException)
+@unknown_if(ClientException, AuthenticationError, HttpResponseError)
 def entities_have_all_access(client_id: str, secret: str, tenant: str,
                              subscription_id: str) -> Tuple:
     """
@@ -129,7 +128,7 @@ def entities_have_all_access(client_id: str, secret: str, tenant: str,
 
 
 @api(risk=MEDIUM, kind=DAST)
-@unknown_if(ClientException, AuthenticationError, KeyVaultErrorException)
+@unknown_if(ClientException, AuthenticationError, HttpResponseError)
 def has_secret_expiration_disabled(client_id: str, secret: str, tenant: str,
                                    subscription_id: str) -> Tuple:
     """

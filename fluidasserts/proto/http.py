@@ -1297,7 +1297,7 @@ def has_not_subresource_integrity(url: str,
         lines_vuln, lines_safe = [], []
         for elem in soup(elem_types):
             vulnerable = elem.get('integrity') is None if urlparse(
-                elem.get('href')).netloc not in trusted_hosts else True
+                elem.get('href')).netloc not in trusted_hosts else False
 
             (lines_vuln if vulnerable else lines_safe).append(elem.sourceline)
 

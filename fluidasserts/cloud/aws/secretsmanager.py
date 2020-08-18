@@ -105,8 +105,9 @@ def has_automatic_rotation_disabled(key_id: str,
             func='describe_secret',
             SecretId=secret_['Name'],
             retry=retry)
-        (vulns if description['RotationEnabled'] is False else safes).append(
-            (description['ARN'], 'The secret must enable automatic rotation.'))
+        (vulns if description.get('RotationEnabled', False) is False else
+         safes).append((description['ARN'],
+                        'The secret must enable automatic rotation.'))
 
     return _get_result_as_tuple(
         service='Secrets Manager',
