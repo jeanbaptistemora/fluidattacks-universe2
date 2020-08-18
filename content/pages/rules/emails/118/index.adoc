@@ -1,7 +1,7 @@
 :slug: rules/118/
 :category: emails
 :description: This requirement establishes that email attachments must be inspected employing anti-malware software to avoid virus propagation.
-:keywords: Files, Email, Attachment, Malware, Analyze, ASVS, Rules, Ethical Hacking, Pentesting
+:keywords: Files, Email, Attachment, Malware, Analyze, ASVS, PCI DSS, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R118. Inspect attachments
@@ -31,3 +31,7 @@ connections.
 V12.4 File Storage Requirements.(12.4.2)]
 Verify that files obtained from untrusted sources are scanned by antivirus
 scanners to prevent upload of known malicious content.
+
+. [[r4]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 5.1.1]
+Ensure that anti-virus programs are capable of detecting, removing, and
+protecting against all known types of malicious software.

@@ -204,3 +204,7 @@ Ensure wireless networks transmitting cardholder data or connected to the
 cardholder data environment,
 use industry best practices to implement strong encryption for authentication
 and transmission.
+
+. [[r28]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 4.2]
+Never send unprotected **PAN**s by end-user messaging technologies
+(for example, e-mail, instant messaging, *SMS*, chat, etc.).

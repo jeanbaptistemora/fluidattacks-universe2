@@ -114,3 +114,7 @@ login credentials).
 . [[r16]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 3.5.2]
 Restrict access to cryptographic keys to the fewest number of custodians
 necessary.
+
+. [[r17]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 5.3]
+Ensure that anti-virus mechanisms are actively running and cannot be disabled
+or altered by users.

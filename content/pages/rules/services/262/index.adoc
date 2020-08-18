@@ -1,7 +1,7 @@
 :slug: rules/262/
 :category: services
 :description: This requirement establishes the importance of verifying that third-party components are always up to date in a stable and tested version.
-:keywords: Third-party, Dependency, Up-to-date, Stable, ASVS, OWASP, Rules, Ethical Hacking, Pentesting
+:keywords: Third-party, Dependency, Up-to-date, Stable, ASVS, OWASP, PCI DSS, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R262. Verify third-party components
@@ -147,3 +147,6 @@ checker during build or compile time.
 V14.2 Dependency.(14.2.4)]
 Verify that third party components come from pre-defined, trusted and
 continually maintained repositories.
+
+. [[r14]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 5.2]
+Ensure that all anti-virus mechanisms are kept current.

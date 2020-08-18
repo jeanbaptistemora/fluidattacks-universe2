@@ -1,7 +1,7 @@
 :slug: rules/273/
 :category: system
 :description: This requirement establishes the importance of installing a fixed and unalterable security suite in all production workstations.
-:keywords: CWE, ASVS, Suite, Workstation, Antivirus, Firewall, Rules, Ethical Hacking, Pentesting
+:keywords: CWE, ASVS, Suite, Workstation, Antivirus, Firewall, PCI DSS, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R273. Define a fixed security suite
@@ -40,3 +40,8 @@ client-side technologies such as *NSAPI* plugins, *Flash*, *Shockwave*,
 V12.4 File Storage Requirements.(12.4.2)]
 Verify that files obtained from untrusted sources are scanned by antivirus
 scanners to prevent upload of known malicious content.
+
+. [[r4]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 5.1]
+Deploy anti-virus software on all systems commonly affected by malicious
+software
+(particularly personal computers and servers).
