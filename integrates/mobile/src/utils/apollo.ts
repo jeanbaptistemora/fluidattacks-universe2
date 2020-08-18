@@ -65,9 +65,17 @@ const onError: ((errorHandler: ErrorHandler) => ApolloLink) = (
 
       try {
         const operationObserver: Observable<FetchResult> = forward(operation);
+        let isForwarded: boolean = true;
+        const skipForwarding: () => void = (): void => {
+          isForwarded = false;
+        };
 
         subscription = operationObserver.subscribe({
-          complete: observer.complete.bind(observer),
+          complete: (): void => {
+            if (isForwarded) {
+              observer.complete.bind(observer)();
+            }
+          },
           error: (networkError: ErrorResponse["networkError"]): void => {
             errorHandler({
               forward,
@@ -76,10 +84,6 @@ const onError: ((errorHandler: ErrorHandler) => ApolloLink) = (
             });
           },
           next: (result: FetchResult): void => {
-            let isForwarded: boolean = true;
-            const skipForwarding: () => void = (): void => {
-              isForwarded = false;
-            };
             if (result.errors !== undefined) {
               errorHandler({
                 forward,
