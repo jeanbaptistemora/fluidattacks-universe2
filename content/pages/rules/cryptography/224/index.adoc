@@ -164,3 +164,8 @@ Encrypt all non-console administrative access using strong cryptography.
 . [[r26]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 3.6.1]
 Fully document and implement all key-management processes and procedures for
 cryptographic keys including generation of strong cryptographic keys.
+
+. [[r27]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 4.1]
+Use strong cryptography and security protocols to safeguard sensitive
+cardholder data during transmission over open, public networks.
+The encryption strength is appropriate for the encryption methodology in use.

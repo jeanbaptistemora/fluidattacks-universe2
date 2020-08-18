@@ -86,3 +86,8 @@ The server must not fall back to insecure or unencrypted protocols.
 . [[r10]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 2.2.2]
 Enable only necessary services, protocols, daemons, etc.,
 as required for the function of the system.
+
+. [[r11]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 4.1]
+Use strong cryptography and security protocols to safeguard sensitive
+cardholder data during transmission over open, public networks.
+The protocol in use only supports secure versions or configurations.

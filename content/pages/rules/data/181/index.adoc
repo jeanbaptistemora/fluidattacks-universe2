@@ -193,3 +193,14 @@ reliable transport between client and service.
 
 . [[r25]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 2.3]
 Encrypt all non-console administrative access using strong cryptography.
+
+. [[r26]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 4.1]
+Use strong cryptography and security protocols to safeguard sensitive
+cardholder data during transmission over open, public networks.
+The protocol in use only supports secure versions or configurations.
+
+. [[r27]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 4.1.1]
+Ensure wireless networks transmitting cardholder data or connected to the
+cardholder data environment,
+use industry best practices to implement strong encryption for authentication
+and transmission.

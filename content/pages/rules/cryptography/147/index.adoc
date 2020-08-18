@@ -1,7 +1,7 @@
 :slug: rules/147/
 :category: cryptography
 :description: This requirement establishes the importance of using pre-existing and up-to-date cryptographic mechanisms.
-:keywords: Cryptographic, Encryption, Mechanisms, HIPAA, NIST, ASVS, Rules, Ethical Hacking, Pentesting
+:keywords: Cryptographic, Encryption, Mechanisms, HIPAA, NIST, ASVS, PCI DSS, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R147. Use pre-existent mechanisms
@@ -80,3 +80,9 @@ modes, and libraries are used, instead of custom coded cryptography.
 V6.2 Algorithms.(6.2.3)]
 Verify that encryption initialization vector, cipher configuration,
 and block modes are configured securely using the latest advice.
+
+. [[r13]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 4.1.1]
+Ensure wireless networks transmitting cardholder data or connected to the
+cardholder data environment,
+use industry best practices to implement strong encryption for authentication
+and transmission.
