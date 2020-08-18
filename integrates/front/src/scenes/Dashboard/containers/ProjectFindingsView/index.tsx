@@ -27,7 +27,7 @@ import { default as GoogleplayBadge } from "../../../../resources/googleplay_bad
 import { Can } from "../../../../utils/authz/Can";
 import { formatTreatment } from "../../../../utils/formatHelpers";
 import { useStoredState } from "../../../../utils/hooks";
-import Logger from "../../../../utils/logger";
+import { Logger } from "../../../../utils/logger";
 import { msgError, msgSuccess } from "../../../../utils/notifications";
 import translate from "../../../../utils/translations/translate";
 import { default as style } from "./index.css";

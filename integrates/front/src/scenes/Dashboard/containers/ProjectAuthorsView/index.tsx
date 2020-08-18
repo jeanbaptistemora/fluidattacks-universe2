@@ -15,7 +15,7 @@ import { RouteComponentProps } from "react-router";
 import { GraphQLError } from "graphql";
 import { DataTableNext } from "../../../../components/DataTableNext/index";
 import { IHeaderConfig } from "../../../../components/DataTableNext/types";
-import Logger from "../../../../utils/logger";
+import { Logger } from "../../../../utils/logger";
 import { msgError } from "../../../../utils/notifications";
 import translate from "../../../../utils/translations/translate";
 import styles from "./index.css";

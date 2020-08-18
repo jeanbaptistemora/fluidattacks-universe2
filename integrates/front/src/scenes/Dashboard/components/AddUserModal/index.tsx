@@ -14,7 +14,7 @@ import { Button } from "../../../../components/Button/index";
 import { Modal } from "../../../../components/Modal/index";
 import { Can } from "../../../../utils/authz/Can";
 import { Dropdown, PhoneNumber, Text } from "../../../../utils/forms/fields";
-import Logger from "../../../../utils/logger";
+import { Logger } from "../../../../utils/logger";
 import { msgError } from "../../../../utils/notifications";
 import translate from "../../../../utils/translations/translate";
 import { required, validEmail, validTextField } from "../../../../utils/validations";

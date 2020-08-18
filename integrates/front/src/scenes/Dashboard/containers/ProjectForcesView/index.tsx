@@ -23,7 +23,7 @@ import { statusFormatter } from "../../../../components/DataTableNext/formatters
 import { DataTableNext } from "../../../../components/DataTableNext/index";
 import { IHeaderConfig } from "../../../../components/DataTableNext/types";
 import { Modal } from "../../../../components/Modal";
-import Logger from "../../../../utils/logger";
+import { Logger } from "../../../../utils/logger";
 import { msgError } from "../../../../utils/notifications";
 import translate from "../../../../utils/translations/translate";
 import styles from "./index.css";

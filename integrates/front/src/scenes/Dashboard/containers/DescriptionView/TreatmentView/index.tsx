@@ -20,7 +20,7 @@ import { FluidIcon } from "../../../../../components/FluidIcon";
 import { Can } from "../../../../../utils/authz/Can";
 import { formatDropdownField } from "../../../../../utils/formatHelpers";
 import { Date, Dropdown, Text, TextArea } from "../../../../../utils/forms/fields";
-import Logger from "../../../../../utils/logger";
+import { Logger } from "../../../../../utils/logger";
 import { msgError, msgSuccess } from "../../../../../utils/notifications";
 import translate from "../../../../../utils/translations/translate";
 import {

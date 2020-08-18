@@ -15,7 +15,7 @@ import { Redirect, Route, Switch, useHistory, useParams, useRouteMatch } from "r
 import { Button } from "../../../../components/Button";
 import { Modal } from "../../../../components/Modal";
 import { authzGroupContext, authzPermissionsContext } from "../../../../utils/authz/config";
-import Logger from "../../../../utils/logger";
+import { Logger } from "../../../../utils/logger";
 import { msgError, msgSuccess } from "../../../../utils/notifications";
 import translate from "../../../../utils/translations/translate";
 import { GET_USER_PERMISSIONS } from "../../queries";

@@ -3,7 +3,7 @@ import { ApolloError } from "apollo-client";
 import { GraphQLError } from "graphql";
 import React from "react";
 import { Button, Col, Row } from "react-bootstrap";
-import Logger from "../../../../utils/logger";
+import { Logger } from "../../../../utils/logger";
 import { msgError } from "../../../../utils/notifications";
 import translate from "../../../../utils/translations/translate";
 import { default as style } from "./index.css";

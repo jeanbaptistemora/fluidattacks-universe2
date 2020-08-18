@@ -20,7 +20,7 @@ import store from "../../../../store";
 import { authzPermissionsContext } from "../../../../utils/authz/config";
 import { formatDropdownField } from "../../../../utils/formatHelpers";
 import { Dropdown, TagInput, Text } from "../../../../utils/forms/fields";
-import Logger from "../../../../utils/logger";
+import { Logger } from "../../../../utils/logger";
 import { msgError, msgSuccess } from "../../../../utils/notifications";
 import translate from "../../../../utils/translations/translate";
 import { isValidVulnSeverity, numeric, required } from "../../../../utils/validations";

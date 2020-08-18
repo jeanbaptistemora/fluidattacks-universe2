@@ -23,7 +23,7 @@ import { IHeaderConfig } from "../../../../components/DataTableNext/types";
 import { FluidIcon } from "../../../../components/FluidIcon";
 import { Can } from "../../../../utils/authz/Can";
 import { authzPermissionsContext } from "../../../../utils/authz/config";
-import Logger from "../../../../utils/logger";
+import { Logger } from "../../../../utils/logger";
 import { msgError, msgSuccess } from "../../../../utils/notifications";
 import translate from "../../../../utils/translations/translate";
 import { deleteVulnerabilityModal as DeleteVulnerabilityModal } from "../DeleteVulnerability/index";

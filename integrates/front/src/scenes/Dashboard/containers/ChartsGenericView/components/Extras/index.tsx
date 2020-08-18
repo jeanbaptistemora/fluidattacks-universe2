@@ -16,7 +16,7 @@ import { Badge } from "../../../../../../components/Badge";
 import { Button } from "../../../../../../components/Button";
 import { DropdownButton } from "../../../../../../components/DropdownButton";
 import { TooltipWrapper } from "../../../../../../components/TooltipWrapper";
-import Logger from "../../../../../../utils/logger";
+import { Logger } from "../../../../../../utils/logger";
 import { msgError, msgSuccess } from "../../../../../../utils/notifications";
 import translate from "../../../../../../utils/translations/translate";
 import styles from "../../index.css";

@@ -20,7 +20,7 @@ import { TooltipWrapper } from "../../../../components/TooltipWrapper/index";
 import { Can } from "../../../../utils/authz/Can";
 import { authzPermissionsContext } from "../../../../utils/authz/config";
 import { formatLastLogin, formatUserlist } from "../../../../utils/formatHelpers";
-import Logger from "../../../../utils/logger";
+import { Logger } from "../../../../utils/logger";
 import { msgError, msgSuccess } from "../../../../utils/notifications";
 import { sortLastLogin } from "../../../../utils/sortHelpers";
 import translate from "../../../../utils/translations/translate";

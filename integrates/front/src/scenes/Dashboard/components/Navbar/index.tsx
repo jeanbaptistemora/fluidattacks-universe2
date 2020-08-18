@@ -11,7 +11,7 @@ import { Button } from "../../../../components/Button";
 import { FluidIcon } from "../../../../components/FluidIcon";
 import { Text } from "../../../../utils/forms/fields";
 import { useStoredState } from "../../../../utils/hooks";
-import Logger from "../../../../utils/logger";
+import { Logger } from "../../../../utils/logger";
 import { msgError } from "../../../../utils/notifications";
 import translate from "../../../../utils/translations/translate";
 import { alphaNumeric } from "../../../../utils/validations";

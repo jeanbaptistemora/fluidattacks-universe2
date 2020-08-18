@@ -4,7 +4,7 @@ import { GraphQLError } from "graphql";
 import _ from "lodash";
 import React from "react";
 import {  Redirect, Switch, useLocation, useParams } from "react-router";
-import Logger from "../../../../utils/logger";
+import { Logger } from "../../../../utils/logger";
 import { msgError } from "../../../../utils/notifications";
 import translate from "../../../../utils/translations/translate";
 import { GET_ENTITY_ORGANIZATION } from "./queries";

@@ -18,7 +18,7 @@ import { DataTableNext } from "../../../../../components/DataTableNext";
 import { IHeaderConfig } from "../../../../../components/DataTableNext/types";
 import { Modal } from "../../../../../components/Modal/index";
 import { Dropdown, SwitchButton, Text, TextArea } from "../../../../../utils/forms/fields";
-import Logger from "../../../../../utils/logger";
+import { Logger } from "../../../../../utils/logger";
 import { msgError, msgSuccess } from "../../../../../utils/notifications";
 import translate from "../../../../../utils/translations/translate";
 import { maxLength, required, validTextField } from "../../../../../utils/validations";

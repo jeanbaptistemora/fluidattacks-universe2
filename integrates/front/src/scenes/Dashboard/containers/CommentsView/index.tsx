@@ -11,7 +11,7 @@ import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React from "react";
 import { RouteComponentProps } from "react-router";
-import Logger from "../../../../utils/logger";
+import { Logger } from "../../../../utils/logger";
 import { msgError } from "../../../../utils/notifications";
 import translate from "../../../../utils/translations/translate";
 import { Comments, ICommentStructure, loadCallback, postCallback } from "../../components/Comments/index";

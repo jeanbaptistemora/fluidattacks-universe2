@@ -27,7 +27,7 @@ import { castEventType } from "../../../../utils/formatHelpers";
 import {
   Checkbox, DateTime, Dropdown, FileInput, Text, TextArea,
 } from "../../../../utils/forms/fields";
-import Logger from "../../../../utils/logger";
+import { Logger } from "../../../../utils/logger";
 import { msgError, msgSuccess } from "../../../../utils/notifications";
 import translate from "../../../../utils/translations/translate";
 import {

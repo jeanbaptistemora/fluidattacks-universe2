@@ -13,7 +13,7 @@ import { DataTableNext } from "../../../../../components/DataTableNext";
 import { IHeaderConfig } from "../../../../../components/DataTableNext/types";
 import { TooltipWrapper } from "../../../../../components/TooltipWrapper";
 import { Can } from "../../../../../utils/authz/Can";
-import Logger from "../../../../../utils/logger";
+import { Logger } from "../../../../../utils/logger";
 import { msgError, msgSuccess } from "../../../../../utils/notifications";
 import translate from "../../../../../utils/translations/translate";
 import { AddFilesModal } from "../../../components/AddFilesModal";

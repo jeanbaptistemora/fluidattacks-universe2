@@ -16,7 +16,7 @@ import { Button } from "../../../../components/Button";
 import { FluidIcon } from "../../../../components/FluidIcon";
 import { default as globalStyle } from "../../../../styles/global.css";
 import { Can } from "../../../../utils/authz/Can";
-import Logger from "../../../../utils/logger";
+import { Logger } from "../../../../utils/logger";
 import { msgError } from "../../../../utils/notifications";
 import translate from "../../../../utils/translations/translate";
 import { isValidFileSize, validEventFile, validEvidenceImage } from "../../../../utils/validations";

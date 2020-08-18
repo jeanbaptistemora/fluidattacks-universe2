@@ -12,7 +12,7 @@ import React from "react";
 import { Col, Row } from "react-bootstrap";
 import { Redirect, Route, RouteComponentProps, Switch } from "react-router";
 import { NavLink } from "react-router-dom";
-import Logger from "../../../../utils/logger";
+import { Logger } from "../../../../utils/logger";
 import { msgError } from "../../../../utils/notifications";
 import translate from "../../../../utils/translations/translate";
 import { default as style } from "../../components/ContentTab/index.css";

@@ -13,7 +13,7 @@ import { DataTableNext } from "../../../../components/DataTableNext/index";
 import { IHeaderConfig } from "../../../../components/DataTableNext/types";
 import { Can } from "../../../../utils/authz/Can";
 import { Text } from "../../../../utils/forms/fields";
-import Logger from "../../../../utils/logger";
+import { Logger } from "../../../../utils/logger";
 import { msgError, msgSuccess } from "../../../../utils/notifications";
 import translate from "../../../../utils/translations/translate";
 import { GenericForm } from "../../components/GenericForm";

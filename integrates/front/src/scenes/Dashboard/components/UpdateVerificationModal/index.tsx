@@ -12,7 +12,7 @@ import { DataTableNext } from "../../../../components/DataTableNext";
 import { changeVulnStateFormatter } from "../../../../components/DataTableNext/formatters";
 import { IHeaderConfig } from "../../../../components/DataTableNext/types";
 import { authzGroupContext, authzPermissionsContext } from "../../../../utils/authz/config";
-import Logger from "../../../../utils/logger";
+import { Logger } from "../../../../utils/logger";
 import { msgError, msgSuccess } from "../../../../utils/notifications";
 import translate from "../../../../utils/translations/translate";
 import { GET_FINDING_HEADER } from "../../containers/FindingContent/queries";

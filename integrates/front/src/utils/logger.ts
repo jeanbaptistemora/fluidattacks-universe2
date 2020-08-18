@@ -48,9 +48,3 @@ export const Logger: ILoggerAttr = {
   error: sendErrorReport,
   warning: sendWarningReport,
 };
-
-/*
- * I'll change every import of this file to named import
- */
-// eslint-disable-next-line import/no-default-export
-export default Logger;

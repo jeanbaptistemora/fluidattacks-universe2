@@ -12,7 +12,7 @@ import { IHeaderConfig } from "../../../../components/DataTableNext/types";
 import { FluidIcon } from "../../../../components/FluidIcon/index";
 import { TooltipWrapper } from "../../../../components/TooltipWrapper/index";
 import { formatLastLogin, formatUserlist } from "../../../../utils/formatHelpers";
-import Logger from "../../../../utils/logger";
+import { Logger } from "../../../../utils/logger";
 import { msgError, msgSuccess } from "../../../../utils/notifications";
 import { sortLastLogin } from "../../../../utils/sortHelpers";
 import translate from "../../../../utils/translations/translate";

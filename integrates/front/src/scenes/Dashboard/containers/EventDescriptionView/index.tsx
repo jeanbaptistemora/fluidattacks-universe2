@@ -16,7 +16,7 @@ import { FluidIcon } from "../../../../components/FluidIcon";
 import { Modal } from "../../../../components/Modal";
 import { Can } from "../../../../utils/authz/Can";
 import { DateTime, Text } from "../../../../utils/forms/fields";
-import Logger from "../../../../utils/logger";
+import { Logger } from "../../../../utils/logger";
 import { msgError } from "../../../../utils/notifications";
 import translate from "../../../../utils/translations/translate";
 import { dateTimeBeforeToday, numeric, required, validDatetime } from "../../../../utils/validations";

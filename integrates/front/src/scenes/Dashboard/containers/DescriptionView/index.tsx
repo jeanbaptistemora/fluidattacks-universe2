@@ -22,7 +22,7 @@ import { TooltipWrapper } from "../../../../components/TooltipWrapper/index";
 import { Can } from "../../../../utils/authz/Can";
 import { authzPermissionsContext } from "../../../../utils/authz/config";
 import { Dropdown, Text, TextArea } from "../../../../utils/forms/fields";
-import Logger from "../../../../utils/logger";
+import { Logger } from "../../../../utils/logger";
 import { msgError, msgSuccess } from "../../../../utils/notifications";
 import translate from "../../../../utils/translations/translate";
 import { maxLength, numeric, required, validDraftTitle, validTextField } from "../../../../utils/validations";

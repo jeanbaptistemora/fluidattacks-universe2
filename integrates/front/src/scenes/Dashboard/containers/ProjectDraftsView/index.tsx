@@ -21,7 +21,7 @@ import { IHeaderConfig } from "../../../../components/DataTableNext/types";
 import { Modal } from "../../../../components/Modal";
 import { TooltipWrapper } from "../../../../components/TooltipWrapper/index";
 import { AutoCompleteText } from "../../../../utils/forms/fields";
-import Logger from "../../../../utils/logger";
+import { Logger } from "../../../../utils/logger";
 import { msgError, msgSuccess } from "../../../../utils/notifications";
 import translate from "../../../../utils/translations/translate";
 import { required, validDraftTitle } from "../../../../utils/validations";

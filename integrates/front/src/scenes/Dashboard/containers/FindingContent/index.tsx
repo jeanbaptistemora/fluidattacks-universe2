@@ -22,7 +22,7 @@ import { Can } from "../../../../utils/authz/Can";
 import { authzGroupContext, authzPermissionsContext } from "../../../../utils/authz/config";
 import { Have } from "../../../../utils/authz/Have";
 import { Dropdown } from "../../../../utils/forms/fields";
-import Logger from "../../../../utils/logger";
+import { Logger } from "../../../../utils/logger";
 import { msgError, msgSuccess } from "../../../../utils/notifications";
 import translate from "../../../../utils/translations/translate";
 import { required } from "../../../../utils/validations";

@@ -18,7 +18,7 @@ import { RouteComponentProps, useHistory } from "react-router-dom";
 import { DataTableNext } from "../../../../../components/DataTableNext";
 import { IHeaderConfig } from "../../../../../components/DataTableNext/types";
 import { default as globalStyle } from "../../../../../styles/global.css";
-import Logger from "../../../../../utils/logger";
+import { Logger } from "../../../../../utils/logger";
 import { msgError } from "../../../../../utils/notifications";
 import translate from "../../../../../utils/translations/translate";
 import { HorizontalBarIndicator } from "../../../components/HorizontalBarIndicator";
