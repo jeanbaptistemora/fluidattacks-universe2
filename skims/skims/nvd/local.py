@@ -69,6 +69,11 @@ DATABASE_NPM: Dict[str, Dict[str, List[List[str]]]] = {
             ['>=3.0.0', '<3.1.0'],
         ],
     },
+    'decamelize': {
+        'CVE-2017-16023': [
+            ['>=1.1.0', '<1.1.2'],
+        ],
+    },
     'decompress': {
         'github.com/kevva/decompress/issues/71': [
             ['<4.2.1'],
@@ -97,6 +102,11 @@ DATABASE_NPM: Dict[str, Dict[str, List[List[str]]]] = {
         'CVE-2018-16492': [
             ['<2.0.2'],
             ['>=3.0.0', '<3.0.2'],
+        ],
+    },
+    'fresh': {
+        'CVE-2017-16119': [
+            ['<0.5.2'],
         ],
     },
     'handlebars': {
@@ -203,6 +213,12 @@ DATABASE_NPM: Dict[str, Dict[str, List[List[str]]]] = {
             ['<4.17.20'],
         ],
     },
+    'mime': {
+        'CVE-2017-16138': [
+            ['<1.4.1'],
+            ['>=2.0.0', '<2.0.3'],
+        ],
+    },
     'minimatch': {
         'CVE-2016-10540': [
             ['<=3.0.1'],
@@ -220,6 +236,17 @@ DATABASE_NPM: Dict[str, Dict[str, List[List[str]]]] = {
         ],
         'CVE-2018-3719': [
             ['<1.3.1'],
+        ],
+    },
+    'ms': {
+        'CVE-2015-8315': [
+            ['<0.7.1'],
+        ],
+        (
+            'github.com/vercel/ms/pull/89/commits'
+            '/305f2ddcd4eff7cc7c518aca6bb2b2d2daad8fef'
+        ): [
+            ['>=0.7.1', '<2.0.0'],
         ],
     },
     'parsejson': {
@@ -248,9 +275,47 @@ DATABASE_NPM: Dict[str, Dict[str, List[List[str]]]] = {
             ['<0.3.20'],
         ],
     },
+    'superagent': {
+        'CVE-2017-16129': [
+            ['<3.7.0'],
+        ],
+        'github.com/visionmedia/superagent/issues/1309': [
+            ['<3.8.1'],
+        ],
+        'npmjs.com/advisories/479': [
+            ['<3.7.0'],
+        ],
+    },
     'timespan': {
         'CVE-2017-16115': [
             ['>0.0.0', '<=2.3.0'],
+        ],
+    },
+    'tough-cookie': {
+        'CVE-2017-15010': [
+            ['<2.3.3'],
+        ],
+        'CVE-2016-1000232': [
+            ['>=0.9.7', '<2.3.0'],
+        ],
+        'github.com/salesforce/tough-cookie/issues/92': [
+            ['<2.3.3'],
+        ],
+    },
+    'treekill': {
+        'CVE-2019-15598': [
+            ['<1.0.0'],
+        ],
+        'hackerone.com/reports/703415': [
+            ['<1.0.0'],
+        ],
+    },
+    'tree-kill': {
+        'CVE-2019-15599': [
+            ['<1.2.2'],
+        ],
+        'hackerone.com/reports/701183': [
+            ['<1.2.2'],
         ],
     },
     'websocket-extensions': {
@@ -284,7 +349,7 @@ def does_version_match(version: str, condition: str) -> bool:
 
 
 def normalize(version: str) -> str:
-    """Normalize a version so it contains major. minor and patch."""
+    """Normalize a version so it contains major, minor and patch."""
     while version.count('.') < 2:
         version += '.0'
     return version
@@ -296,6 +361,9 @@ def remove_constraints(version: str) -> str:
     These version constraints may be resolved to the latest or may not.
     It's better not to assume things and go conservative.
     """
+    if version == '*':
+        return '0'
+
     return version.translate(IGNORED_CHARS).replace('.*', '.0')
 
 
@@ -306,7 +374,7 @@ def query(
 ) -> List[str]:
     """Search a product and a version in the database and return a list of CVE.
     """
-    version = normalize(remove_constraints(version))
+    version = normalize(remove_constraints(version.strip()))
     database = getattr(modules[__name__], f'DATABASE_{platform}')
 
     cves: List[str] = [
