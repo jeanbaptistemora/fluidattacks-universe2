@@ -1,4 +1,5 @@
 include:
+  - local: forces/.gitlab-ci.yml
   - local: reviews/.gitlab-ci.yml
 
 stages:
@@ -19,7 +20,6 @@ stages:
 
 .commit_stages:
   - &all_commit_pattern '$CI_COMMIT_TITLE =~ /^(all|forces|integrates|reviews|skims)/'
-  - &forces_commit_pattern '$CI_COMMIT_TITLE =~ /^(all|forces)/'
   - &integrates_commit_pattern '$CI_COMMIT_TITLE =~ /^(all|integrates)/'
   - &skims_commit_pattern '$CI_COMMIT_TITLE =~ /^(all|skims)/'
 
@@ -61,28 +61,6 @@ stages:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
       when: never
     - if: *integrates_commit_pattern
-
-.forces_in_dev_and_master_branch: &forces_in_dev_and_master_branch
-  rules:
-    - if: '$CI_PIPELINE_SOURCE == "schedule"'
-      when: never
-    - if: '$CI_PIPELINE_SOURCE == "trigger"'
-      when: never
-    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
-      when: never
-    - if: *forces_commit_pattern
-
-.forces_in_master_branch: &forces_in_master_branch
-  rules:
-    - if: '$CI_COMMIT_BRANCH != "master"'
-      when: never
-    - if: '$CI_PIPELINE_SOURCE == "schedule"'
-      when: never
-    - if: '$CI_PIPELINE_SOURCE == "trigger"'
-      when: never
-    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
-      when: never
-    - if: *forces_commit_pattern
 
 .in_master_branch_integrates: &in_master_branch_integrates
   rules:
@@ -691,26 +669,6 @@ skims_test:
   <<: *with_nix
   <<: *skims_in_dev_branch
   stage: test-code
-
-forces_lint:
-  <<: *with_nix
-  <<: *forces_in_dev_and_master_branch
-  stage: lint-code
-
-forces_test:
-  <<: *with_nix
-  <<: *forces_in_dev_and_master_branch
-  stage: test-code
-
-forces_deploy:
-  <<: *with_nix
-  <<: *forces_in_master_branch
-  stage: deploy-app
-
-forces_deploy_to_docker_hub:
-  <<: *with_nix
-  <<: *forces_in_master_branch
-  stage: deploy-app
 
 pages:
   <<: *skims_doc
