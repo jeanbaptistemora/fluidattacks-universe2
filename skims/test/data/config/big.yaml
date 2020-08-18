@@ -1,12 +1,11 @@
 chdir: ../../
 console_snippets: false
-group: worcester
+group: unittesting
 language: EN
 path:
   include:
     - product/
   exclude:
-    - product/skims/test/
     - glob(**/.git/)
     - glob(**/.venv/)
     - glob(**/node_modules/)

@@ -6,6 +6,7 @@ from typing import (
     Callable,
     Iterator,
     List,
+    Literal,
     Pattern,
     Tuple,
 )
@@ -124,6 +125,7 @@ async def build_gradle(
         content=content,
         dependencies=dependencies,
         path=path,
+        platform='MAVEN',
     )
 
 
@@ -153,6 +155,7 @@ async def npm_package_json(
         content=content,
         dependencies=dependencies,
         path=path,
+        platform='NPM',
     )
 
 
@@ -194,6 +197,7 @@ async def npm_package_lock_json(
         content=content,
         dependencies=dependencies,
         path=path,
+        platform='NPM',
     )
 
 
@@ -250,6 +254,7 @@ async def yarn_lock(
         content=content,
         dependencies=dependencies,
         path=path,
+        platform='NPM',
     )
 
 
@@ -258,6 +263,7 @@ async def translate_dependencies_to_vulnerabilities(
     content: str,
     dependencies: Tuple[DependencyType, ...],
     path: str,
+    platform: Literal['NPM', 'MAVEN'],
 ) -> Tuple[Vulnerability, ...]:
     results: Tuple[Vulnerability, ...] = tuple([
         Vulnerability(
@@ -286,7 +292,7 @@ async def translate_dependencies_to_vulnerabilities(
             )
         )
         for product, version in dependencies
-        for cve in query(product['item'], version['item'])
+        for cve in query(platform, product['item'], version['item'])
     ])
 
     return results

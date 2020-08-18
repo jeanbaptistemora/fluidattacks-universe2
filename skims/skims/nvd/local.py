@@ -2,9 +2,13 @@
 from contextlib import (
     suppress,
 )
+from sys import (
+    modules,
+)
 from typing import (
     Dict,
     List,
+    Literal,
 )
 
 # Third party libraries
@@ -13,7 +17,13 @@ from semver import (
 )
 
 # Constants
-DATABASE: Dict[str, Dict[str, List[List[str]]]] = {
+DATABASE_NPM: Dict[str, Dict[str, List[List[str]]]] = {
+    'debug': {
+        'CVE-2017-16137': [
+            ['>=1.0.0', '<2.6.9'],
+            ['>=3.0.0', '<3.1.0'],
+        ],
+    },
     'hoek': {
         'CVE-2018-3728': [
             ['>=0.0.0', '<4.2.0'],
@@ -52,6 +62,53 @@ DATABASE: Dict[str, Dict[str, List[List[str]]]] = {
             ['<1.6.3'],
         ],
     },
+    'lodahs': {
+        'CVE-2019-19771': [
+            ['>0.0.0'],
+        ],
+    },
+    'lodash': {
+        'CVE-2020-8203': [
+            ['<=4.17.15'],
+        ],
+        'CVE-2019-1010266': [
+            ['<4.17.11'],
+        ],
+        'CVE-2019-10744': [
+            ['<4.17.12'],
+        ],
+        'CVE-2018-16487': [
+            ['<4.17.11'],
+        ],
+        'CVE-2018-3721': [
+            ['<4.17.5'],
+        ],
+        'SNYK-JS-LODASH-590103': [
+            ['<4.17.20'],
+        ],
+    },
+    'serialize-javascript': {
+        'CVE-2020-7660': [
+            ['<3.1.0'],
+        ],
+        'CVE-2019-16769': [
+            ['<2.1.1'],
+        ],
+    },
+    'timespan': {
+        'CVE-2017-16115': [
+            ['>0.0.0', '<=2.3.0'],
+        ],
+    },
+    'websocket-extensions': {
+        'CVE-2020-7662': [
+            ['<0.1.4'],
+        ],
+    },
+}
+"""Dictionary mapping products to their manually verified list of CVE."""
+
+DATABASE_MAVEN: Dict[str, Dict[str, List[List[str]]]] = {
 }
 """Dictionary mapping products to their manually verified list of CVE."""
 
@@ -66,6 +123,13 @@ def does_version_match(version: str, condition: str) -> bool:
     return False
 
 
+def normalize(version: str) -> str:
+    """Normalize a version so it contains major. minor and patch."""
+    while version.count('.') < 2:
+        version += '.0'
+    return version
+
+
 def remove_constraints(version: str) -> str:
     """Remove version constrans like `^`, `~` and `*`.
 
@@ -75,14 +139,19 @@ def remove_constraints(version: str) -> str:
     return version.translate(IGNORED_CHARS).replace('.*', '.0')
 
 
-def query(product: str, version: str) -> List[str]:
+def query(
+    platform: Literal['NPM', 'MAVEN'],
+    product: str,
+    version: str,
+) -> List[str]:
     """Search a product and a version in the database and return a list of CVE.
     """
-    version = remove_constraints(version)
+    version = normalize(remove_constraints(version))
+    database = getattr(modules[__name__], f'DATABASE_{platform}')
 
     cves: List[str] = [
         cve
-        for cve, weak_versions in DATABASE.get(product.lower(), {}).items()
+        for cve, weak_versions in database.get(product.lower(), {}).items()
         for conditions in weak_versions
         if all(
             does_version_match(version, condition) for condition in conditions

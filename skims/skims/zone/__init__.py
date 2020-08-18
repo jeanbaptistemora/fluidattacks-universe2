@@ -55,6 +55,7 @@ def set_locale(locale: LocalesEnum) -> None:
 IGNORED_CHARS = str.maketrans('', '', ''.join({
     '+',
     '^',
+    '*',
 }))
 
 
