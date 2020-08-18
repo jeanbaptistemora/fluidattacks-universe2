@@ -111,10 +111,7 @@ class ProjectTest(TestCase):
         }
 
         open_vulnerability = await vuln_dal.get(
-            finding_id='422286126',
-            vuln_type='inputs',
-            where='https://example.com',
-            uuid='80d6a69f-a376-46be-98cd-2fdedcffdcc0'
+            '80d6a69f-a376-46be-98cd-2fdedcffdcc0'
         )
 
         test_data = get_last_closing_date(closed_vulnerability)
@@ -141,10 +138,7 @@ class ProjectTest(TestCase):
         }
 
         open_vulnerability = await vuln_dal.get(
-            finding_id='422286126',
-            vuln_type='inputs',
-            where='https://example.com',
-            uuid='80d6a69f-a376-46be-98cd-2fdedcffdcc0'
+            '80d6a69f-a376-46be-98cd-2fdedcffdcc0'
         )
 
         assert is_vulnerability_closed(closed_vulnerability)
@@ -194,10 +188,7 @@ class ProjectTest(TestCase):
         }
 
         open_vulnerability = await vuln_dal.get(
-            finding_id='422286126',
-            vuln_type='inputs',
-            where='https://example.com',
-            uuid='80d6a69f-a376-46be-98cd-2fdedcffdcc0'
+            '80d6a69f-a376-46be-98cd-2fdedcffdcc0'
         )
 
         test_data = get_open_vulnerability_date(open_vulnerability[0])

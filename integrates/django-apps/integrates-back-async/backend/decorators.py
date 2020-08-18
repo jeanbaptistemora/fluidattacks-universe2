@@ -140,7 +140,7 @@ async def resolve_project_name(args: Any, kwargs: Any) -> str:  # noqa: MC0001
             kwargs['event_id'])
         project_name = event.get('project_name')
     elif 'vuln_uuid' in kwargs:
-        vulnerability = await vuln_domain.get_by_uuid(kwargs['vuln_uuid'])
+        vulnerability = await vuln_domain.get(kwargs['vuln_uuid'])
         project_name = await finding_domain.get_project(
             cast(str, vulnerability['finding_id'])
         )
@@ -366,7 +366,7 @@ def require_finding_access(func: TVar) -> TVar:
             else kwargs.get('identifier')
         )
         if not finding_id:
-            vuln = await vuln_domain.get_by_uuid(kwargs['vuln_uuid'])
+            vuln = await vuln_domain.get(kwargs['vuln_uuid'])
             finding_id = vuln['finding_id']
 
         if not re.match('^[0-9]*$', finding_id):

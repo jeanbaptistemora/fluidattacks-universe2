@@ -133,7 +133,7 @@ class SchedulerTests(TestCase):
         finding = await get_finding('422286126')
         first_day = '2019-01-01 12:00:00'
         last_day = '2019-06-30 23:59:59'
-        vuln = await get_vuln('422286126', uuid='80d6a69f-a376-46be-98cd-2fdedcffdcc0')
+        vuln = await get_vuln('80d6a69f-a376-46be-98cd-2fdedcffdcc0')
         test_data = get_by_time_range(
             finding, vuln[0], first_day, last_day
         )
