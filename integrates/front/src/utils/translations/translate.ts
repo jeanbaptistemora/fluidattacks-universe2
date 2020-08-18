@@ -28,4 +28,9 @@ const translate: { t: ITranslationFn } = {
     i18next.t(key, options),
 };
 
+/*
+ * I'll change every import of this file to named import and use the
+ * useTranslation hook when it is posible.
+ */
+// eslint-disable-next-line import/no-default-export
 export default translate;

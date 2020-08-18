@@ -1,5 +1,5 @@
 import { Button } from "../Button";
-import * as React from "react";
+import React from "react";
 import { ConfirmDialog, IConfirmFn } from ".";
 import { ReactWrapper, mount } from "enzyme";
 

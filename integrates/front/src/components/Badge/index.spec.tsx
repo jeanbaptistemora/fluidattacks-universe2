@@ -1,5 +1,5 @@
 import { Badge } from ".";
-import * as React from "react";
+import React from "react";
 import { ShallowWrapper, shallow } from "enzyme";
 
 describe("Badge", (): void => {

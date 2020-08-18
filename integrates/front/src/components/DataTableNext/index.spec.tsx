@@ -1,6 +1,6 @@
 import { DataTableNext } from ".";
 import { IHeaderConfig } from "./types";
-import * as React from "react";
+import React from "react";
 import { ReactWrapper, ShallowWrapper, mount, shallow } from "enzyme";
 import {
   approveFormatter,
