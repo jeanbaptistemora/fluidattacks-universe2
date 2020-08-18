@@ -387,6 +387,36 @@ function job_integrates_django_console {
   ||  return 1
 }
 
+function job_integrates_functional_tests_mobile_local {
+  local expo_apk_url="https://d1ahtucjixef4r.cloudfront.net/Exponent-2.16.1.apk"
+
+  function teardown {
+    kill %1
+  }
+
+      env_prepare_python_packages \
+      env_prepare_node_modules \
+  &&  pushd "${STARTDIR}/integrates/mobile" \
+    &&  curl -sSo e2e/expoClient.apk "${expo_apk_url}" \
+    &&  echo '[INFO] Looking for available android devices...' \
+    &&  echo '[INFO] Make sure to enable USB debugging and set USB to'\
+              'file transfer mode on your mobile device' \
+    &&  "${ANDROID_SDK_ROOT}/platform-tools/adb" wait-for-device \
+    &&  {
+      npx --no-install appium \
+        --default-capabilities e2e/capabilities/android.json \
+      &
+    } \
+    &&  echo '[INFO] Waiting 5 seconds to leave appium start' \
+    &&  sleep 5 \
+    &&  trap 'teardown' EXIT \
+    &&  pytest e2e/ \
+          --exitfirst \
+          --verbose \
+  &&  popd \
+  ||  return 1
+}
+
 function job_integrates_functional_tests_local {
       pushd "${STARTDIR}/integrates" \
   &&  helper_integrates_functional_tests \

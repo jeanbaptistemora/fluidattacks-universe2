@@ -1,5 +1,5 @@
-# Standard Imports
-from time import sleep
+# Standard
+import time
 
 # 3rd party
 import pytest
@@ -11,9 +11,18 @@ from appium.webdriver.webdriver import WebDriver
 def open_ephemeral(appium_driver: WebDriver) -> None:
     host_url: str = 'exp://exp.host/@developmentatfluid/integrates'
     branch_name: str = 'someoneatfluid'
-    appium_driver.get(f'{host_url}?release-channel={branch_name}')
-    experience_load_delay_ms: int = 2000
-    sleep(experience_load_delay_ms)
+    load_delay: int = 10
+    # https://docs.expo.io/workflow/debugging/#developer-menu
+    devmenu_close_keycode: int = 82
+
+    time.sleep(load_delay)
+    appium_driver.execute_script(
+        'mobile:deepLink', {
+            'package': 'host.exp.exponent',
+            'url': f'{host_url}?release-channel={branch_name}'
+        })
+    time.sleep(load_delay)
+    appium_driver.keyevent(devmenu_close_keycode)
 
 
 @pytest.fixture  # type: ignore

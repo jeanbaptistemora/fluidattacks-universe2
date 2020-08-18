@@ -1,6 +1,8 @@
 {
-  "app": "Exponent-2.16.1.apk",
+  "app": "e2e/expoClient.apk",
+  "activity": "host.exp.exponent.experience.HomeActivity",
   "appWaitForLaunch": true,
-  "deviceName": "device",
+  "automationName": "UiAutomator2",
+  "intentAction": "android.intent.action.VIEW",
   "platformName": "Android"
 }
