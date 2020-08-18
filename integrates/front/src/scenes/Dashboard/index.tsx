@@ -36,7 +36,10 @@ import {
 
 export const Dashboard: React.FC = (): JSX.Element => {
   const { hash } = useLocation();
+  const { userEmail } = window as typeof window & Record<string, string>;
+
   const [userRole, setUserRole] = React.useState<string | undefined>(undefined);
+
   const [isTokenModalOpen, setTokenModalOpen] = React.useState(false);
   function openTokenModal(): void {
     setTokenModalOpen(true);
@@ -73,7 +76,6 @@ export const Dashboard: React.FC = (): JSX.Element => {
   const permissions: PureAbility<string> = React.useContext(
     authzPermissionsContext
   );
-
   useQuery(GET_USER_PERMISSIONS, {
     onCompleted: (data: IGetUserPermissionsAttr): void => {
       permissions.update(
@@ -99,82 +101,76 @@ export const Dashboard: React.FC = (): JSX.Element => {
     },
   });
 
-  const { userEmail } = window as typeof window & Dictionary<string>;
-
   return (
     <React.Fragment>
-      <React.Fragment>
-        <ConfirmDialog title={"Logout"}>
-          {(confirm: IConfirmFn): React.ReactNode => {
-            function handleLogout(): void {
-              confirm((): void => {
-                location.assign("/integrates/logout");
-              });
-            }
+      <ConfirmDialog title={"Logout"}>
+        {(confirm: IConfirmFn): React.ReactNode => {
+          function handleLogout(): void {
+            confirm((): void => {
+              location.assign("/integrates/logout");
+            });
+          }
 
-            return (
-              <Sidebar
-                onLogoutClick={handleLogout}
-                onOpenAccessTokenModal={openTokenModal}
-                onOpenAddOrganizationModal={openOrganizationModal}
-                onOpenAddUserModal={openUserModal}
-                userEmail={userEmail}
-                userRole={userRole}
-              />
-            );
-          }}
-        </ConfirmDialog>
-        <div>
-          <Navbar />
-          <div className={style.container} id={"dashboard"}>
-            <Switch>
-              <Route exact={true} path={"/home"}>
-                <HomeView />
-              </Route>
-              <Route component={ReportsView} path={"/reports"} />
-              <Route path={"/orgs/:organizationName/groups/:projectName"}>
-                <authzGroupContext.Provider value={groupAttributes}>
-                  <authzPermissionsContext.Provider
-                    value={groupLevelPermissions}
-                  >
-                    <ProjectRoute setUserRole={setUserRole} />
-                  </authzPermissionsContext.Provider>
-                </authzGroupContext.Provider>
-              </Route>
-              <Route
-                component={TagContent}
-                path={"/orgs/:organizationName/portfolios/:tagName"}
-              />
-              <Route path={"/orgs/:organizationName"}>
-                <authzPermissionsContext.Provider
-                  value={organizationLevelPermissions}
-                >
-                  <OrganizationContent setUserRole={setUserRole} />
+          return (
+            <Sidebar
+              onLogoutClick={handleLogout}
+              onOpenAccessTokenModal={openTokenModal}
+              onOpenAddOrganizationModal={openOrganizationModal}
+              onOpenAddUserModal={openUserModal}
+              userEmail={userEmail}
+              userRole={userRole}
+            />
+          );
+        }}
+      </ConfirmDialog>
+      <div>
+        <Navbar />
+        <div className={style.container} id={"dashboard"}>
+          <Switch>
+            <Route exact={true} path={"/home"}>
+              <HomeView />
+            </Route>
+            <Route component={ReportsView} path={"/reports"} />
+            <Route path={"/orgs/:organizationName/groups/:projectName"}>
+              <authzGroupContext.Provider value={groupAttributes}>
+                <authzPermissionsContext.Provider value={groupLevelPermissions}>
+                  <ProjectRoute setUserRole={setUserRole} />
                 </authzPermissionsContext.Provider>
-              </Route>
-              <Route path={"/portfolios/:tagName"}>
-                <OrganizationRedirect type={"portfolios"} />
-              </Route>
-              {/* Necessary to support old group URLs */}
-              <Route path={"/groups/:projectName"}>
-                <OrganizationRedirect type={"groups"} />
-              </Route>
-              {/* Necessary to support hashrouter URLs */}
-              <Redirect path={"/dashboard"} to={hash.replace("#!", "")} />
-              {/* Necessary to support old URLs with entities in singular */}
-              <Redirect
-                path={"/portfolio/:tagName/*"}
-                to={"/portfolios/:tagName/*"}
-              />
-              <Redirect
-                path={"/project/:projectName/*"}
-                to={"/groups/:projectName/*"}
-              />
-              <Redirect to={"/home"} />
-            </Switch>
-          </div>
+              </authzGroupContext.Provider>
+            </Route>
+            <Route
+              component={TagContent}
+              path={"/orgs/:organizationName/portfolios/:tagName"}
+            />
+            <Route path={"/orgs/:organizationName"}>
+              <authzPermissionsContext.Provider
+                value={organizationLevelPermissions}
+              >
+                <OrganizationContent setUserRole={setUserRole} />
+              </authzPermissionsContext.Provider>
+            </Route>
+            <Route path={"/portfolios/:tagName"}>
+              <OrganizationRedirect type={"portfolios"} />
+            </Route>
+            {/* Necessary to support old group URLs */}
+            <Route path={"/groups/:projectName"}>
+              <OrganizationRedirect type={"groups"} />
+            </Route>
+            {/* Necessary to support hashrouter URLs */}
+            <Redirect path={"/dashboard"} to={hash.replace("#!", "")} />
+            {/* Necessary to support old URLs with entities in singular */}
+            <Redirect
+              path={"/portfolio/:tagName/*"}
+              to={"/portfolios/:tagName/*"}
+            />
+            <Redirect
+              path={"/project/:projectName/*"}
+              to={"/groups/:projectName/*"}
+            />
+            <Redirect to={"/home"} />
+          </Switch>
         </div>
-      </React.Fragment>
+      </div>
       <ScrollUpButton visibleAt={400} />
       <UpdateAccessTokenModal
         onClose={closeTokenModal}
