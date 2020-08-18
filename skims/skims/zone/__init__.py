@@ -56,6 +56,7 @@ IGNORED_CHARS = str.maketrans('', '', ''.join({
     '+',
     '^',
     '*',
+    '~',
 }))
 
 
