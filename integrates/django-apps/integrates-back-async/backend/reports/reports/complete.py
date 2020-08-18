@@ -1,5 +1,5 @@
 # Standard library
-from typing import cast, List
+from typing import cast, List, Union
 import uuid
 from pyexcelerate import Workbook
 
@@ -20,7 +20,7 @@ async def generate(
 ) -> str:
     header = CompleteReportHeader.labels()
     workbook = Workbook()
-    sheet_values = [header]
+    sheet_values: List[Union[List[str], List[List[str]]]] = [header]
 
     for project in projects:
         findings = await project_domain.get_released_findings(
@@ -33,21 +33,24 @@ async def generate(
             for vuln in vulns:
                 historic_treatment = finding.get('historic_treatment', [{}])
                 sheet_values.append([
-                    vuln['where'],
-                    vuln['specific'],
+                    cast(str, vuln['where']),
+                    cast(str, vuln['specific']),
                     (f'{str(finding["finding"]).encode("utf-8")!s} '
                      f'(#{str(finding["finding_id"])})'),
                     cast(
-                        HistoricType,
-                        historic_treatment
-                    )[-1].get('treatment', ''),
-                    vuln.get('treatment_manager', 'Unassigned')
+                        str,
+                        cast(
+                            HistoricType,
+                            historic_treatment
+                        )[-1].get('treatment', '')
+                    ),
+                    cast(str, vuln.get('treatment_manager', 'Unassigned'))
                 ])
 
     username = user_email.split('@')[0]
     report_filepath = f'/tmp/{username}-{uuid.uuid4()}-complete.xlsx'
     workbook.new_sheet('Data', data=sheet_values)
-    workbook.save(cast(str, report_filepath))
+    workbook.save(report_filepath)
 
     uploaded_file_name = await reports_utils.upload_report(report_filepath)
     uploaded_file_url = await reports_utils.sign_url(

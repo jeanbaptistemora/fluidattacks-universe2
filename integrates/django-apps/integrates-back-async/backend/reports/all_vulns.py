@@ -2,7 +2,7 @@
 """ Export all vulnerabilities """
 import hashlib
 import uuid
-from typing import Dict, List, cast
+from typing import Dict, List, cast, Union
 from pyexcelerate import Workbook
 
 from backend.dal import project as project_dal
@@ -92,7 +92,7 @@ async def generate_all_vulns_xlsx(
     workbook = Workbook()
     header = AllVulnsReportHeaderFindings.labels() + \
         AllVulnsReportHeaderVulns.labels()
-    sheet_values = [header]
+    sheet_values: List[Union[List[str], List[List[str]]]] = [header]
     if project_name:
         projects = [{'project_name': project_name}]
     else:
@@ -113,15 +113,12 @@ async def generate_all_vulns_xlsx(
             )
             finding_row = _mask_finding(finding)
             for vuln in vulns:
-                vuln_row = cast(
-                    Dict[str, FindingType],
-                    _format_vuln(vuln, finding_row)
-                )
+                vuln_row = _format_vuln(vuln, finding_row)
 
                 sheet_values.append([
-                    [finding_row.get(label, '')
+                    [cast(str, finding_row.get(label, ''))
                         for label in AllVulnsReportHeaderFindings.labels()] +
-                    [vuln_row.get(label, '')
+                    [cast(str, vuln_row.get(label, ''))
                         for label in AllVulnsReportHeaderVulns.labels()]
                 ])
 

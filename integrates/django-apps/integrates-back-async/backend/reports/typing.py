@@ -12,11 +12,11 @@ class ColumnConfig(NamedTuple):
 class GenericHeader(Enum):
 
     @classmethod
-    def labels(cls):
+    def labels(cls) -> List[str]:
         return [member.value.label for member in cls]
 
     @classmethod
-    def widths(cls):
+    def widths(cls) -> List[int]:
         return [member.value.width for member in cls]
 
 
