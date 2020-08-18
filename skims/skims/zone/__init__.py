@@ -52,5 +52,12 @@ def set_locale(locale: LocalesEnum) -> None:
     NAMESPACE.current_locale = locale.value
 
 
+IGNORED_CHARS = str.maketrans('', '', ''.join({
+    '+',
+    '^',
+}))
+
+
 def t(key: str, **kwargs: Any) -> str:  # pylint: disable=invalid-name
-    return TRANSLATIONS[key][NAMESPACE.current_locale].format(**kwargs)
+    translation = TRANSLATIONS[key][NAMESPACE.current_locale].format(**kwargs)
+    return translation.translate(IGNORED_CHARS)

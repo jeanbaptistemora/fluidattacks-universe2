@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "connect": "2.8",
-    "fresh": "0.5.2"
+    "fresh": "xxxxwhasdflaskdjfasdf",
+    "hoek": "^5.0.0"
   }
 }

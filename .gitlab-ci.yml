@@ -663,7 +663,7 @@ reviews:
 
 .skims_doc: &skims_doc
   <<: *with_nix
-  <<: *skims_in_dev_and_master_branch
+  <<: *skims_in_master_branch
   artifacts:
     paths: [public/]
   script:

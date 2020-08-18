@@ -1,6 +1,7 @@
 # Standard library
 import re
 from typing import (
+    Any,
     Awaitable,
     Callable,
     Iterator,
@@ -19,13 +20,13 @@ from more_itertools import (
 
 # Third party libraries
 from aioextensions import (
-    collect,
     resolve,
+    unblock_cpu,
 )
 
 # Local libraries
-from nvd.query import (
-    get_vulnerabilities as get_nvd_vulnerabilities,
+from nvd.local import (
+    query,
 )
 from parse_json import (
     loads as json_loads,
@@ -35,7 +36,6 @@ from state.ephemeral import (
 )
 from utils.model import (
     FindingEnum,
-    NVDVulnerability,
     SkimsVulnerabilityMetadata,
     Vulnerability,
     VulnerabilityKindEnum,
@@ -50,11 +50,6 @@ from zone import (
 
 # Constants
 DependencyType = Tuple[frozendict, frozendict]
-
-NODE_JS_KEYWORDS: Tuple[str, ...] = ('node',)
-NODE_JS_TARGET_SOFTWARE: str = 'node.js'
-MAVEN_KEYWORDS: Tuple[str, ...] = ()
-MAVEN_TARGET_SOFTWARE: str = ''
 
 QUOTE = r'["\']'
 TEXT = r'[^"\']+'
@@ -87,10 +82,9 @@ RE_MAVEN_B: Pattern[str] = re.compile(
 # | yarn.lock         | 47     | yes
 
 
-async def build_gradle(
+def _get_build_gradle_dependencies(
     content: str,
-    path: str,
-) -> Tuple[Vulnerability, ...]:
+) -> Tuple[DependencyType, ...]:
     dependencies: List[DependencyType] = []
 
     for line_no, line in enumerate(content.splitlines(), start=1):
@@ -114,41 +108,57 @@ async def build_gradle(
             {'column': column, 'line': line_no, 'item': version},
         ))
 
+    return tuple(dependencies)
+
+
+async def build_gradle(
+    content: str,
+    path: str,
+) -> Tuple[Vulnerability, ...]:
+    dependencies: Tuple[DependencyType, ...] = await unblock_cpu(
+        _get_build_gradle_dependencies,
+        content=content,
+    )
+
     return await translate_dependencies_to_vulnerabilities(
         content=content,
-        dependencies=tuple(dependencies),
-        keywords=MAVEN_KEYWORDS,
+        dependencies=dependencies,
         path=path,
-        target_software=MAVEN_TARGET_SOFTWARE,
     )
+
+
+def _get_npm_package_json_dependencies(
+    content_json: Any,
+) -> Tuple[DependencyType, ...]:
+    dependencies: Tuple[DependencyType, ...] = tuple(
+        (product, version)
+        for key in content_json
+        if key['item'] == 'dependencies'
+        for product, version in content_json[key].items()
+    )
+
+    return dependencies
 
 
 async def npm_package_json(
     content: str,
     path: str,
 ) -> Tuple[Vulnerability, ...]:
-    obj = await json_loads(content)
-
-    dependencies: Tuple[DependencyType, ...] = tuple(
-        (product, version)
-        for key in obj
-        if key['item'] == 'dependencies'
-        for product, version in obj[key].items()
+    dependencies: Tuple[DependencyType, ...] = await unblock_cpu(
+        _get_npm_package_json_dependencies,
+        content_json=await json_loads(content),
     )
 
     return await translate_dependencies_to_vulnerabilities(
         content=content,
         dependencies=dependencies,
-        keywords=NODE_JS_KEYWORDS,
         path=path,
-        target_software=NODE_JS_TARGET_SOFTWARE,
     )
 
 
-async def npm_package_lock_json(
-    content: str,
-    path: str,
-) -> Tuple[Vulnerability, ...]:
+def _get_npm_package_lock_json_dependencies(
+    content_json: Any,
+) -> Tuple[DependencyType, ...]:
 
     def resolve_dependencies(
         obj: frozendict,
@@ -165,22 +175,31 @@ async def npm_package_lock_json(
         return current
 
     dependencies: Tuple[DependencyType, ...] = tuple(resolve_dependencies(
-        await json_loads(content), [],
+        content_json, [],
     ))
+
+    return dependencies
+
+
+async def npm_package_lock_json(
+    content: str,
+    path: str,
+) -> Tuple[Vulnerability, ...]:
+    dependencies: Tuple[DependencyType, ...] = await unblock_cpu(
+        _get_npm_package_lock_json_dependencies,
+        content_json=await json_loads(content),
+    )
 
     return await translate_dependencies_to_vulnerabilities(
         content=content,
         dependencies=dependencies,
-        keywords=NODE_JS_KEYWORDS,
         path=path,
-        target_software=NODE_JS_TARGET_SOFTWARE,
     )
 
 
-async def yarn_lock(
+def _get_yarn_lock_dependencies(
     content: str,
-    path: str,
-) -> Tuple[Vulnerability, ...]:
+) -> Tuple[DependencyType, ...]:
 
     def resolve_dependencies() -> Iterator[DependencyType]:
         windower: Iterator[
@@ -215,12 +234,22 @@ async def yarn_lock(
 
     dependencies: Tuple[DependencyType, ...] = tuple(resolve_dependencies())
 
+    return dependencies
+
+
+async def yarn_lock(
+    content: str,
+    path: str,
+) -> Tuple[Vulnerability, ...]:
+    dependencies: Tuple[DependencyType, ...] = await unblock_cpu(
+        _get_yarn_lock_dependencies,
+        content=content,
+    )
+
     return await translate_dependencies_to_vulnerabilities(
         content=content,
         dependencies=dependencies,
-        keywords=NODE_JS_KEYWORDS,
         path=path,
-        target_software=NODE_JS_TARGET_SOFTWARE,
     )
 
 
@@ -228,26 +257,8 @@ async def translate_dependencies_to_vulnerabilities(
     *,
     content: str,
     dependencies: Tuple[DependencyType, ...],
-    keywords: Tuple[str, ...],
     path: str,
-    target_software: str,
 ) -> Tuple[Vulnerability, ...]:
-    query_results: Tuple[
-        Tuple[DependencyType, Tuple[NVDVulnerability, ...]],
-        ...
-    ] = tuple(zip(
-        dependencies,
-        await collect((
-            get_nvd_vulnerabilities(
-                product=product['item'],
-                version=version['item'],
-                keywords=keywords,
-                target_software=target_software,
-            )
-            for product, version in dependencies
-        ), workers=5, worker_greediness=4),
-    ))
-
     results: Tuple[Vulnerability, ...] = tuple([
         Vulnerability(
             finding=FindingEnum.F011,
@@ -255,17 +266,17 @@ async def translate_dependencies_to_vulnerabilities(
             state=VulnerabilityStateEnum.OPEN,
             what=' '.join((
                 path,
-                f'({dependency_cve.product} v{dependency_cve.version})',
-                f'[{dependency_cve.code}]',
+                f'({product["item"]} v{version["item"]})',
+                f'[{cve}]',
             )),
             where=f'{product["line"]}',
             skims_metadata=SkimsVulnerabilityMetadata(
                 description=t(
                     key='src.lib_path.f011.npm_package_json.description',
                     path=path,
-                    product=dependency_cve.product,
-                    version=dependency_cve.version,
-                    cve=dependency_cve.code,
+                    product=product['item'],
+                    version=version['item'],
+                    cve=cve,
                 ),
                 snippet=await to_snippet(
                     column=product['column'],
@@ -274,16 +285,8 @@ async def translate_dependencies_to_vulnerabilities(
                 )
             )
         )
-        for (product, version), dependency_cves in query_results
-        for dependency_cve in dependency_cves
-        if dependency_cve.code not in (
-            'CVE-2009-2942',
-            'CVE-2012-5627',
-            'CVE-2013-1779',
-            'CVE-2015-3187',
-            'CVE-2017-12419',
-            'CVE-2018-0735',
-        )
+        for product, version in dependencies
+        for cve in query(product['item'], version['item'])
     ])
 
     return results
