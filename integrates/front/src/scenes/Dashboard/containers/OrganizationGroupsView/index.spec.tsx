@@ -65,15 +65,28 @@ describe("Organization groups view", () => {
                   description: "Continuous type test project",
                   hasDrills: true,
                   hasForces: true,
+                  hasIntegrates: true,
                   name: "unittesting",
+                  subscription: "continuous",
                   userRole: "customer",
                 },
                 {
                   description: "One-shot type test project",
                   hasDrills: true,
                   hasForces: false,
+                  hasIntegrates: true,
                   name: "oneshottest",
+                  subscription: "oneshot",
                   userRole: "customeradmin",
+                },
+                {
+                  description: "Continuous project for deletion",
+                  hasDrills: false,
+                  hasForces: false,
+                  hasIntegrates: false,
+                  name: "pendingproject",
+                  subscription: "continuous",
+                  userRole: "group_manager",
                 },
               ],
             },
@@ -105,7 +118,7 @@ describe("Organization groups view", () => {
         expect(wrapper)
           .toHaveLength(1);
         expect(wrapper.find("tr"))
-          .toHaveLength(3);
+          .toHaveLength(4);
       });
     });
 
@@ -115,9 +128,12 @@ describe("Organization groups view", () => {
     const oneshottestRow: ReactWrapper = wrapper
       .find("tr")
       .at(1);
-    const unittestingRow: ReactWrapper = wrapper
+    const pendingProjectRow: ReactWrapper = wrapper
       .find("tr")
       .at(2);
+    const unittestingRow: ReactWrapper = wrapper
+      .find("tr")
+      .at(3);
 
     expect(newGroupButton.text())
       .toMatch(/New/);
@@ -125,27 +141,43 @@ describe("Organization groups view", () => {
     expect(oneshottestRow.text())
       .toContain("ONESHOTTEST");
     expect(oneshottestRow.text())
+      .toContain("Oneshot");
+    expect(oneshottestRow.text())
       .toContain("User Manager");
     expect(
         oneshottestRow
           .find("span")
           .filterWhere((element: ReactWrapper) => element.contains("Enabled")))
-      .toHaveLength(1);
+      .toHaveLength(2);
     expect(
         oneshottestRow
           .find("span")
           .filterWhere((element: ReactWrapper) => element.contains("Disabled")))
       .toHaveLength(1);
 
+    expect(pendingProjectRow.text())
+      .toContain("PENDINGPROJECT");
+    expect(pendingProjectRow.text())
+      .toContain("Continuous");
+    expect(pendingProjectRow.text())
+      .toContain("Group Manager");
+    expect(
+      pendingProjectRow
+          .find("span")
+          .filterWhere((element: ReactWrapper) => element.contains("Disabled")))
+      .toHaveLength(3);
+
     expect(unittestingRow.text())
       .toContain("UNITTESTING");
     expect(unittestingRow.text())
       .toContain("User");
+    expect(unittestingRow.text())
+        .toContain("Continuous");
     expect(
         unittestingRow
           .find("span")
           .filterWhere((element: ReactWrapper) => element.contains("Enabled")))
-      .toHaveLength(2);
+      .toHaveLength(3);
 
     unittestingRow.simulate("click");
     expect(mockHistoryPush)
@@ -208,14 +240,18 @@ describe("Organization groups view", () => {
                   description: "Continuous type test project",
                   hasDrills: true,
                   hasForces: true,
+                  hasIntegrates: true,
                   name: "unittesting",
+                  subscription: "continuous",
                   userRole: "customer",
                 },
                 {
                   description: "One-shot type test project",
                   hasDrills: true,
                   hasForces: false,
+                  hasIntegrates: true,
                   name: "oneshottest",
+                  subscription: "oneshot",
                   userRole: "customeradmin",
                 },
               ],
@@ -270,21 +306,27 @@ describe("Organization groups view", () => {
                   description: "Continuous type test project",
                   hasDrills: true,
                   hasForces: true,
+                  hasIntegrates: true,
                   name: "unittesting",
+                  subscription: "continuous",
                   userRole: "customer",
                 },
                 {
                   description: "One-shot type test project",
                   hasDrills: true,
                   hasForces: false,
+                  hasIntegrates: true,
                   name: "oneshottest",
+                  subscription: "oneshot",
                   userRole: "customeradmin",
                 },
                 {
                   description: "Test project",
                   hasDrills: true,
                   hasForces: true,
+                  hasIntegrates: true,
                   name: "akame",
+                  subscription: "continuous",
                   userRole: "customeradmin",
                 },
               ],

@@ -69,16 +69,20 @@ const organizationGroups: React.FC<IOrganizationGroupsProps> = (props: IOrganiza
     };
     const name: string = group.name.toUpperCase();
     const description: string = _.capitalize(group.description);
+    const subscription: string = _.capitalize(group.subscription);
     const drills: string = translate.t(servicesParameters[group.hasDrills.toString()]);
     const forces: string = translate.t(servicesParameters[group.hasForces.toString()]);
+    const integrates: string = translate.t(servicesParameters[group.hasIntegrates.toString()]);
 
-    return { ...group, name, description, drills, forces };
+    return { ...group, name, description, drills, forces, integrates, subscription };
   });
 
   // Render Elements
   const tableHeaders: IHeaderConfig[] = [
     { align: "center", dataField: "name", header: "Group Name" },
     { align: "center", dataField: "description", header: "Description" },
+    { align: "center", dataField: "subscription", header: "Service Type" },
+    { align: "center", dataField: "integrates", formatter: statusFormatter, header: "Integrates" },
     { align: "center", dataField: "drills", formatter: statusFormatter, header: "Drills" },
     { align: "center", dataField: "forces", formatter: statusFormatter, header: "Forces" },
     {

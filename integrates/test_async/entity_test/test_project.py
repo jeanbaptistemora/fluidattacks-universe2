@@ -56,6 +56,7 @@ class ProjectTests(TestCase):
               findings {
                   analyst
               }
+              hasIntegrates
               openVulnerabilities
               closedVulnerabilities
               lastClosingVuln

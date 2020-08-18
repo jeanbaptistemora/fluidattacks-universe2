@@ -4,7 +4,10 @@ export interface IGroupData {
     forces: string;
     hasDrills: boolean;
     hasForces: boolean;
+    hasIntegrates: boolean;
+    integrates: string;
     name: string;
+    subscription: string;
     userRole: string;
 }
 

@@ -9,6 +9,8 @@ export const GET_ORGANIZATION_GROUPS: DocumentNode = gql`
         description
         hasDrills
         hasForces
+        hasIntegrates
+        subscription
         userRole
       }
     }

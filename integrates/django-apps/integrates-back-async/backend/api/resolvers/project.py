@@ -162,6 +162,20 @@ async def _get_has_forces(
     )
 
 
+@get_entity_cache_async
+async def _get_has_integrates(
+        info: GraphQLResolveInfo,
+        project_name: str,
+        **__: Any) -> bool:
+    """Get has_forces."""
+    project_attrs = await info.context.loaders['project'].load(project_name)
+
+    return cast(
+        bool,
+        project_attrs['attrs']['project_status'] == 'ACTIVE'
+    )
+
+
 @require_integrates
 async def _get_findings(
     info: GraphQLResolveInfo,
@@ -493,7 +507,6 @@ async def _get_total_treatment(
     return total_treatment
 
 
-@require_integrates
 @get_entity_cache_async
 async def _get_subscription(
         info: GraphQLResolveInfo,
