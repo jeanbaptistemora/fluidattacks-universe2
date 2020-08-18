@@ -8,7 +8,7 @@ from typing import (
 # Third party libraries
 from ruamel import yaml
 from aioextensions import (
-    unblock,
+    in_thread,
 )
 
 
@@ -36,17 +36,17 @@ async def simplify(obj: Any) -> Any:
 
         return simplified_obj
 
-    return await unblock(_simplify, obj)
+    return await in_thread(_simplify, obj)
 
 
 async def json_dumps(element: object, **kwargs: Any) -> str:
-    return await unblock(json.dumps, await simplify(element), **kwargs)
+    return await in_thread(json.dumps, await simplify(element), **kwargs)
 
 
 async def yaml_dumps(element: object, **kwargs: Any) -> str:
     element = await simplify(element)
 
-    return await unblock(
+    return await in_thread(
         yaml.safe_dump,  # type: ignore
         element,
         default_flow_style=False,

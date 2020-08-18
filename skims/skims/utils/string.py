@@ -16,8 +16,8 @@ from typing import (
 
 # Third party libraries
 from aioextensions import (
-    unblock,
-    unblock_cpu,
+    in_thread,
+    in_process,
 )
 from PIL import (
     Image,
@@ -58,7 +58,7 @@ async def to_in_memory_file(string: str) -> BytesIO:
     def _to_in_memory_file() -> BytesIO:
         return BytesIO(string.encode())
 
-    return await unblock(_to_in_memory_file)
+    return await in_thread(_to_in_memory_file)
 
 
 def blocking_to_snippet(
@@ -107,7 +107,7 @@ async def to_snippet(
     context: int = 10,
     line: int,
 ) -> str:
-    return await unblock_cpu(
+    return await in_process(
         blocking_to_snippet,
         chars_per_line=chars_per_line,
         column=column,
@@ -177,4 +177,4 @@ def _to_png(*, string: str, margin: int = 25) -> BytesIO:
 
 
 async def to_png(*, string: str) -> BytesIO:
-    return await unblock_cpu(_to_png, string=string)
+    return await in_process(_to_png, string=string)

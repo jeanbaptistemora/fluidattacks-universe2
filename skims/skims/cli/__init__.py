@@ -3,7 +3,7 @@ import sys
 
 # Third party libraries
 from aioextensions import (
-    block,
+    run,
 )
 import click
 
@@ -43,11 +43,13 @@ def dispatch(
     debug: bool,
     token: str,
 ) -> None:
-    success: bool = block(
-        main,
-        config=config,
+    success: bool = run(
+        main(
+            config=config,
+            debug=debug,
+            token=token,
+        ),
         debug=debug,
-        token=token,
     )
 
     sys.exit(0 if success else 1)

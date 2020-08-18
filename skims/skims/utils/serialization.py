@@ -17,7 +17,7 @@ from typing import (
 )
 # Third party libraries
 from aioextensions import (
-    unblock_cpu,
+    in_process,
 )
 
 # Local libraries
@@ -187,28 +187,28 @@ def _dump(instance: Any) -> Serialized:
 
 
 async def dump(instance: Any, ttl: Optional[int] = None) -> bytes:
-    dumped: Serialized = await unblock_cpu(_dump, instance)
+    dumped: Serialized = await in_process(_dump, instance)
     message = {
         'expires_at': None if ttl is None else get_utc_timestamp() + ttl,
         'instance': dumped,
     }
 
     serialized: str = (
-        await unblock_cpu(json.dumps, message, separators=(',', ':'))
+        await in_process(json.dumps, message, separators=(',', ':'))
     )
 
-    return await unblock_cpu(serialized.encode, 'utf-8')
+    return await in_process(serialized.encode, 'utf-8')
 
 
 async def load(stream: bytes) -> Any:
     try:
-        deserialized: Any = await unblock_cpu(json.loads, stream)
+        deserialized: Any = await in_process(json.loads, stream)
 
         expires_at: Optional[int] = deserialized['expires_at']
         if expires_at and get_utc_timestamp() > expires_at:
             raise LoadError('Data has expired')
 
-        return await unblock_cpu(_deserialize, deserialized['instance'])
+        return await in_process(_deserialize, deserialized['instance'])
     except (
         AttributeError,
         json.decoder.JSONDecodeError,

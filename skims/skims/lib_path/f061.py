@@ -11,7 +11,7 @@ from typing import (
 # Third party libraries
 from aioextensions import (
     resolve,
-    unblock_cpu,
+    in_process,
 )
 from pyparsing import (
     Empty,
@@ -94,7 +94,7 @@ async def csharp_swallows_exceptions(
     content: str,
     path: str,
 ) -> Tuple[Vulnerability, ...]:
-    return await unblock_cpu(
+    return await in_process(
         _csharp_swallows_exceptions,
         content=content,
         path=path,
@@ -142,7 +142,7 @@ async def javascript_swallows_exceptions(
     content: str,
     path: str,
 ) -> Tuple[Vulnerability, ...]:
-    return await unblock_cpu(
+    return await in_process(
         _javascript_swallows_exceptions,
         content=content,
         path=path,
@@ -183,7 +183,7 @@ async def java_swallows_exceptions(
     content: str,
     path: str,
 ) -> Tuple[Vulnerability, ...]:
-    return await unblock_cpu(
+    return await in_process(
         _java_swallows_exceptions,
         content=content,
         path=path,
@@ -234,7 +234,7 @@ async def python_swallows_exceptions(
     content: str,
     path: str,
 ) -> Tuple[Vulnerability, ...]:
-    return await unblock_cpu(
+    return await in_process(
         _python_swallows_exceptions,
         content=content,
         path=path,
@@ -274,7 +274,7 @@ async def swift_insecure_exceptions(
     content: str,
     path: str,
 ) -> Tuple[Vulnerability, ...]:
-    return await unblock_cpu(
+    return await in_process(
         _swift_insecure_exceptions,
         content=content,
         path=path,

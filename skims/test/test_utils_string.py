@@ -8,7 +8,7 @@ from typing import (
 
 # Third party libraries
 from aioextensions import (
-    block_decorator,
+    run_decorator,
 )
 
 # Local libraries

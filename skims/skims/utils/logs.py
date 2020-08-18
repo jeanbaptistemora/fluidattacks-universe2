@@ -7,7 +7,7 @@ from typing import (
 
 # Third party libraries
 from aioextensions import (
-    unblock,
+    in_thread,
 )
 
 # Private constants
@@ -30,7 +30,7 @@ def set_level(level: int) -> None:
 
 
 async def log(level: str, msg: str, *args: Any) -> None:
-    await unblock(getattr(_LOGGER, level), msg, *args)
+    await in_thread(getattr(_LOGGER, level), msg, *args)
 
 
 async def log_exception(level: str, exception: BaseException) -> None:

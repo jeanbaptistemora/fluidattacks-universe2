@@ -17,7 +17,7 @@ from pyparsing import (
 # Third party libraries
 from aioextensions import (
     resolve,
-    unblock_cpu,
+    in_process,
 )
 
 # Local libraries
@@ -81,7 +81,7 @@ async def csharp_insecure_randoms(
     content: str,
     path: str,
 ) -> Tuple[Vulnerability, ...]:
-    return await unblock_cpu(
+    return await in_process(
         _csharp_insecure_randoms,
         content=content,
         path=path,
@@ -126,7 +126,7 @@ async def java_use_of_lang_math_random(
     content: str,
     path: str,
 ) -> Tuple[Vulnerability, ...]:
-    return await unblock_cpu(
+    return await in_process(
         _java_use_of_lang_math_random,
         content=content,
         path=path,
@@ -171,7 +171,7 @@ async def java_use_of_util_random(
     content: str,
     path: str,
 ) -> Tuple[Vulnerability, ...]:
-    return await unblock_cpu(
+    return await in_process(
         _java_use_of_util_random,
         content=content,
         path=path,
@@ -205,7 +205,7 @@ async def javascript_insecure_randoms(
     content: str,
     path: str,
 ) -> Tuple[Vulnerability, ...]:
-    return await unblock_cpu(
+    return await in_process(
         _javascript_insecure_randoms,
         content=content,
         path=path,

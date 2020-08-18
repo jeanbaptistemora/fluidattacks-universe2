@@ -19,7 +19,7 @@ from typing import (
 
 # Third party libraries
 from aioextensions import (
-    CPU_COUNT,
+    CPU_CORES,
     collect,
 )
 
@@ -162,6 +162,6 @@ async def analyze(
 
     await collect(
         (analyze_one_path(path, stores) for path in unique_paths),
-        workers=CPU_COUNT,
+        workers=CPU_CORES,
         worker_greediness=4,
     )

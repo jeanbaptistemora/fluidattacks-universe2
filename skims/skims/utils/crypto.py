@@ -4,7 +4,7 @@ import hmac
 
 # Third party libraries
 from aioextensions import (
-    unblock_cpu,
+    in_process,
 )
 
 # Constants
@@ -19,7 +19,7 @@ def _get_hash(stream: bytes) -> bytes:
 
 
 async def get_hash(stream: bytes) -> bytes:
-    return await unblock_cpu(_get_hash, stream)
+    return await in_process(_get_hash, stream)
 
 
 def _get_hmac(key: bytes, stream: bytes) -> bytes:
@@ -27,4 +27,4 @@ def _get_hmac(key: bytes, stream: bytes) -> bytes:
 
 
 async def get_hmac(key: bytes, stream: bytes) -> bytes:
-    return await unblock_cpu(_get_hmac, key, stream)
+    return await in_process(_get_hmac, key, stream)

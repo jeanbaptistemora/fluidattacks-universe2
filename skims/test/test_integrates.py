@@ -3,7 +3,7 @@ from textwrap import dedent
 
 # Third party libraries
 from aioextensions import (
-    block_decorator,
+    run_decorator,
 )
 
 # Local libraries
@@ -49,7 +49,7 @@ def test_session(
     }
 
 
-@block_decorator
+@run_decorator
 async def test_build_vulnerabilities_stream() -> None:
     assert await build_vulnerabilities_stream(
         results=(
@@ -73,7 +73,7 @@ async def test_build_vulnerabilities_stream() -> None:
     """)[1:]
 
 
-@block_decorator
+@run_decorator
 async def test_get_group_level_role(
     test_group: str,
     test_integrates_session: str,
@@ -81,7 +81,7 @@ async def test_get_group_level_role(
     assert await get_group_level_role(group=test_group) == 'admin'
 
 
-@block_decorator
+@run_decorator
 async def test_statefull(
     test_group: str,
     test_integrates_session: None,

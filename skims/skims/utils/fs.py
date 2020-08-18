@@ -21,8 +21,8 @@ from typing import (
 import aiofiles
 from aioextensions import (
     collect,
-    unblock,
-    unblock_cpu,
+    in_thread,
+    in_process,
 )
 
 # Local libraries
@@ -89,11 +89,11 @@ async def get_file_raw_content(path: str, size: int = -1) -> bytes:
 
 
 async def mkdir(name: str, mode: int = 0o777, exist_ok: bool = False) -> None:
-    return await unblock(os.makedirs, name, mode=mode, exist_ok=exist_ok)
+    return await in_thread(os.makedirs, name, mode=mode, exist_ok=exist_ok)
 
 
 async def rmdir(name: str) -> None:
-    return await unblock_cpu(rmtree, name)
+    return await in_process(rmtree, name)
 
 
 async def recurse_dir(path: str) -> Tuple[str, ...]:

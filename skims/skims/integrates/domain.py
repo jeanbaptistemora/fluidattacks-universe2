@@ -8,7 +8,7 @@ from typing import (
 
 # Third party libraries
 from aioextensions import (
-    unblock,
+    in_thread,
 )
 
 # Local libraries
@@ -78,7 +78,7 @@ async def build_vulnerabilities_stream(
 
         return data
 
-    return await yaml_dumps(await unblock(_get_data))
+    return await yaml_dumps(await in_thread(_get_data))
 
 
 async def get_closest_finding_id(

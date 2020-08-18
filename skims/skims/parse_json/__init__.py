@@ -3,7 +3,7 @@ import ast
 
 # Third party libraries
 from aioextensions import (
-    unblock_cpu,
+    in_process,
 )
 from frozendict import (
     frozendict
@@ -51,7 +51,7 @@ def blocking_loads(stream: str) -> frozendict:
 
 
 async def loads(stream: str) -> frozendict:
-    return await unblock_cpu(blocking_loads, stream)
+    return await in_process(blocking_loads, stream)
 
 
 class Builder(lark.Transformer[frozendict]):

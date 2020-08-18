@@ -21,7 +21,7 @@ from more_itertools import (
 # Third party libraries
 from aioextensions import (
     resolve,
-    unblock_cpu,
+    in_process,
 )
 
 # Local libraries
@@ -115,7 +115,7 @@ async def build_gradle(
     content: str,
     path: str,
 ) -> Tuple[Vulnerability, ...]:
-    dependencies: Tuple[DependencyType, ...] = await unblock_cpu(
+    dependencies: Tuple[DependencyType, ...] = await in_process(
         _get_build_gradle_dependencies,
         content=content,
     )
@@ -144,7 +144,7 @@ async def npm_package_json(
     content: str,
     path: str,
 ) -> Tuple[Vulnerability, ...]:
-    dependencies: Tuple[DependencyType, ...] = await unblock_cpu(
+    dependencies: Tuple[DependencyType, ...] = await in_process(
         _get_npm_package_json_dependencies,
         content_json=await json_loads(content),
     )
@@ -185,7 +185,7 @@ async def npm_package_lock_json(
     content: str,
     path: str,
 ) -> Tuple[Vulnerability, ...]:
-    dependencies: Tuple[DependencyType, ...] = await unblock_cpu(
+    dependencies: Tuple[DependencyType, ...] = await in_process(
         _get_npm_package_lock_json_dependencies,
         content_json=await json_loads(content),
     )
@@ -241,7 +241,7 @@ async def yarn_lock(
     content: str,
     path: str,
 ) -> Tuple[Vulnerability, ...]:
-    dependencies: Tuple[DependencyType, ...] = await unblock_cpu(
+    dependencies: Tuple[DependencyType, ...] = await in_process(
         _get_yarn_lock_dependencies,
         content=content,
     )

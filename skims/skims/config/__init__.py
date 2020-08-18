@@ -3,7 +3,7 @@ import confuse
 
 # Third party libraries
 from aioextensions import (
-    unblock_cpu,
+    in_process,
 )
 
 # Local libraries
@@ -61,7 +61,7 @@ def _load(path: str) -> SkimsConfig:
 
 
 async def load(path: str) -> SkimsConfig:
-    skims_config: SkimsConfig = await unblock_cpu(_load, path)
+    skims_config: SkimsConfig = await in_process(_load, path)
 
     await log('debug', '%s', skims_config)
 

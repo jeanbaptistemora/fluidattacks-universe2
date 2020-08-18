@@ -1,6 +1,6 @@
 # Third party libraries
 from aioextensions import (
-    block_decorator,
+    run_decorator,
 )
 
 # Local libraries
@@ -9,7 +9,7 @@ from utils.system import (
 )
 
 
-@block_decorator
+@run_decorator
 async def test_call() -> None:
     process = await call('echo', 'test')
 

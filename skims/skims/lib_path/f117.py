@@ -10,7 +10,7 @@ from typing import (
 # Third party libraries
 from aioextensions import (
     resolve,
-    unblock_cpu,
+    in_process,
 )
 
 # Local libraries
@@ -56,7 +56,7 @@ async def unverifiable_files(
         ),
         snippet=blocking_to_snippet(
             column=0,
-            content=await unblock_cpu(
+            content=await in_process(
                 raw_content.decode,
                 encoding='utf-8',
                 errors='replace',

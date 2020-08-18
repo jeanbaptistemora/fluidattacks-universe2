@@ -19,7 +19,7 @@ from pyparsing import (
 # Third party libraries
 from aioextensions import (
     resolve,
-    unblock_cpu,
+    in_process,
 )
 
 # Local libraries
@@ -84,7 +84,7 @@ async def aws_credentials(
     content: str,
     path: str,
 ) -> Tuple[Vulnerability, ...]:
-    return await unblock_cpu(
+    return await in_process(
         _aws_credentials,
         content=content,
         path=path,
@@ -97,7 +97,7 @@ async def crypto_js_credentials(
     content: str,
     path: str,
 ) -> Tuple[Vulnerability, ...]:
-    return await unblock_cpu(
+    return await in_process(
         _crypto_js_credentials,
         content=content,
         path=path,
@@ -189,7 +189,7 @@ async def dockerfile_env_secrets(
                 )
             )
         )
-        for line_no, column in await unblock_cpu(
+        for line_no, column in await in_process(
             _dockerfile_env_secrets, content,
         )
     ])

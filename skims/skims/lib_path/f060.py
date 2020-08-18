@@ -12,7 +12,7 @@ from typing import (
 # Third party libraries
 from aioextensions import (
     resolve,
-    unblock_cpu,
+    in_process,
 )
 from pyparsing import (
     delimitedList,
@@ -121,7 +121,7 @@ async def csharp_insecure_exceptions(
     content: str,
     path: str,
 ) -> Tuple[Vulnerability, ...]:
-    return await unblock_cpu(
+    return await in_process(
         _csharp_insecure_exceptions,
         content=content,
         path=path,
@@ -190,7 +190,7 @@ async def java_insecure_exceptions(
     content: str,
     path: str,
 ) -> Tuple[Vulnerability, ...]:
-    return await unblock_cpu(
+    return await in_process(
         _java_insecure_exceptions,
         content=content,
         path=path,
@@ -252,7 +252,7 @@ async def python_insecure_exceptions(
     content: str,
     path: str,
 ) -> Tuple[Vulnerability, ...]:
-    return await unblock_cpu(
+    return await in_process(
         _python_insecure_exceptions,
         content=content,
         path=path,
@@ -292,7 +292,7 @@ async def swift_insecure_exceptions(
     content: str,
     path: str,
 ) -> Tuple[Vulnerability, ...]:
-    return await unblock_cpu(
+    return await in_process(
         _swift_insecure_exceptions,
         content=content,
         path=path,
