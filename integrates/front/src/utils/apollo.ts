@@ -177,9 +177,19 @@ const onError: (errorHandler: IErrorHandlerAttr) => ApolloLink = (
               const operationObserver: Observable<FetchResult> = forward(
                 operation
               );
+              // It is necessary to change the variable value
+              // eslint-disable-next-line fp/no-let
+              let isForwarded: boolean = true;
+              const skipForwarding: () => void = (): void => {
+                isForwarded = false;
+              };
 
               return operationObserver.subscribe({
-                complete: observer.complete.bind(observer),
+                complete: (): void => {
+                  if (isForwarded) {
+                    observer.complete.bind(observer)();
+                  }
+                },
                 error: (networkError: ErrorResponse["networkError"]): void => {
                   errorHandler({
                     forward,
@@ -188,12 +198,6 @@ const onError: (errorHandler: IErrorHandlerAttr) => ApolloLink = (
                   });
                 },
                 next: (result: FetchResult): void => {
-                  // It is necessary to change the variable value
-                  // eslint-disable-next-line fp/no-let
-                  let isForwarded: boolean = true;
-                  const skipForwarding: () => void = (): void => {
-                    isForwarded = false;
-                  };
                   if (result.errors !== undefined) {
                     errorHandler({
                       forward,
