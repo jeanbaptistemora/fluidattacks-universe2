@@ -388,6 +388,7 @@ function job_integrates_django_console {
 }
 
 function job_integrates_functional_tests_mobile_local {
+  export CI_COMMIT_REF_NAME
   local expo_apk_url="https://d1ahtucjixef4r.cloudfront.net/Exponent-2.16.1.apk"
 
   function teardown {
@@ -399,8 +400,8 @@ function job_integrates_functional_tests_mobile_local {
   &&  pushd "${STARTDIR}/integrates/mobile" \
     &&  curl -sSo e2e/expoClient.apk "${expo_apk_url}" \
     &&  echo '[INFO] Looking for available android devices...' \
-    &&  echo '[INFO] Make sure to enable USB debugging and set USB to'\
-              'file transfer mode on your mobile device' \
+    &&  echo '[INFO] Make sure to enable USB debugging and set' \
+              'your mobile device to file transfer mode' \
     &&  "${ANDROID_SDK_ROOT}/platform-tools/adb" wait-for-device \
     &&  {
       npx --no-install appium \

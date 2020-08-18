@@ -1,4 +1,5 @@
 # Standard
+import os
 import time
 
 # 3rd party
@@ -10,7 +11,7 @@ from appium.webdriver.webdriver import WebDriver
 
 def open_ephemeral(appium_driver: WebDriver) -> None:
     host_url: str = 'exp://exp.host/@developmentatfluid/integrates'
-    branch_name: str = 'someoneatfluid'
+    branch_name: str = os.environ['CI_COMMIT_REF_NAME']
     load_delay: int = 10
     # https://docs.expo.io/workflow/debugging/#developer-menu
     devmenu_close_keycode: int = 82
