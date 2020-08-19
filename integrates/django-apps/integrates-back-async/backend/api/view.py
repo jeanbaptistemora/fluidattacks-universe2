@@ -14,6 +14,9 @@ from asgiref.sync import async_to_sync
 from backend.api.dataloaders.event import EventLoader
 from backend.api.dataloaders.finding import FindingLoader
 from backend.api.dataloaders.project import ProjectLoader
+from backend.api.dataloaders.single_vulnerability import (
+    SingleVulnerabilityLoader
+)
 from backend.api.dataloaders.vulnerability import VulnerabilityLoader
 from backend import util
 
@@ -24,7 +27,8 @@ async def _context_value(context):
         'event': EventLoader(),
         'finding': FindingLoader(),
         'project': ProjectLoader(),
-        'vulnerability': VulnerabilityLoader()
+        'single_vulnerability': SingleVulnerabilityLoader(),
+        'vulnerability': VulnerabilityLoader(),
     }
     return context
 
