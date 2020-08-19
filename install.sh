@@ -11,11 +11,11 @@ then
 fi
 
 echo
-echo '[INFO] Checking fluidasserts is not installed with pip'
-if command -v asserts | grep -v nix
+echo '[INFO] Checking skims is not installed with pip'
+if command -v skims | grep -v nix
 then
   echo
-  echo '[ERROR] Please uninstall fluidasserts with pip'
+  echo '[ERROR] Please uninstall skims with pip'
   exit
 fi
 

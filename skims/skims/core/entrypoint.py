@@ -194,6 +194,7 @@ async def main(
     except (
         BrokenExecutor,
         ConfigError,
+        KeyboardInterrupt,
         MemoryError,
         SystemExit,
         TypeError,
