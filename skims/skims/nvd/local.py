@@ -23,6 +23,11 @@ DATABASE_NPM: Dict[str, Dict[str, List[List[str]]]] = {
             ['<0.4.9'],
         ],
     },
+    'ajv': {
+        'CVE-2020-15366': [
+            ['<6.12.3'],
+        ],
+    },
     'atob': {
         'CVE-2018-3745': [
             ['<2.0.3'],
@@ -69,6 +74,11 @@ DATABASE_NPM: Dict[str, Dict[str, List[List[str]]]] = {
         'CVE-2016-10735': [
             ['<3.4.0'],
             ['>=4.0.0-alpha', '<4.0.0-beta.2'],
+        ],
+    },
+    'braces': {
+        'npmjs.com/advisories/786': [
+            ['<2.3.1'],
         ],
     },
     'chownr': {
@@ -273,6 +283,20 @@ DATABASE_NPM: Dict[str, Dict[str, List[List[str]]]] = {
             ['<=0.0.3'],
         ],
     },
+    'request': {
+        'CVE-2017-16026': [
+            ['>=2.2.6', '<2.47.0'],
+            ['>2.51.0', '<=2.67.0'],
+        ],
+        'npmjs.com/advisories/309': [
+            ['>2.2.5', '<2.68.0'],
+        ],
+    },
+    'semver': {
+        'CVE-2015-8855': [
+            ['<4.3.2'],
+        ],
+    },
     'serialize-javascript': {
         'CVE-2020-7660': [
             ['<3.1.0'],
@@ -396,7 +420,11 @@ def remove_constraints(version: str) -> str:
     if version == '*':
         return '0'
 
-    return version.translate(IGNORED_CHARS).replace('.*', '.0')
+    return version \
+        .translate(IGNORED_CHARS) \
+        .replace('.*', '.0') \
+        .replace('.x', '.0') \
+
 
 
 def query(
@@ -406,7 +434,7 @@ def query(
 ) -> List[str]:
     """Search a product and a version in the database and return a list of CVE.
     """
-    version = normalize(remove_constraints(version.strip()))
+    version = normalize(remove_constraints(version.strip().lower()))
     database = getattr(modules[__name__], f'DATABASE_{platform}')
 
     cves: List[str] = [
