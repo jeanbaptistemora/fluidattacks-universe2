@@ -236,6 +236,24 @@ function job_apply_infra_secret_management {
         "${target}"
 }
 
+function job_test_infra_certificates {
+  local target='services/certificates/terraform'
+
+      helper_use_pristine_workdir \
+  &&  helper_aws_login dev \
+  &&  helper_terraform_plan \
+        "${target}"
+}
+
+function job_apply_infra_certificates {
+  local target='services/certificates/terraform'
+
+      helper_use_pristine_workdir \
+  &&  helper_aws_login prod \
+  &&  helper_terraform_apply \
+        "${target}"
+}
+
 function job_test_user_provision_asserts_dev {
   local target='services/user-provision/asserts/dev/terraform'
 

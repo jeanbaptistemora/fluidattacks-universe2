@@ -293,6 +293,16 @@ apply_infra_secret_management:
   <<: *in_master_branch
   stage: deploy
 
+test_infra_certificates:
+  <<: *with_nix
+  <<: *in_dev_branch
+  stage: test
+
+apply_infra_certificates:
+  <<: *with_nix
+  <<: *in_master_branch
+  stage: deploy
+
 test_user_provision_asserts_dev:
   <<: *with_nix
   <<: *in_dev_branch
