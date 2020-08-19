@@ -6,9 +6,7 @@ import sys
 
 # Third libraries
 import click
-from click.testing import CliRunner
 import boto3
-from forces.cli import main as cli
 
 # Constants
 AWS_REGION: str = 'us-east-1'
@@ -107,15 +105,8 @@ def get_forces_token(group: str, key_id: str, secret_key: str) -> str:
 def main(o_id: str, o_secret: str, no_strict: bool, **_: Any) -> None:
     group = aws_sts_get_username(o_id, o_secret).split('-')[-1]
     token = get_forces_token(group, o_id, o_secret)
-    runner = CliRunner()
-    result = runner.invoke(cli, [
-        '--token',
-        token,
-        '--lax' if no_strict else '--strict',
-        '-vvv',
-    ])
-    print(result.output)
-    sys.exit(result.exit_code)
+    print(
+        f"forces --token {token} {'--lax' if no_strict else '--strict'} -vvv")
 
 
 if __name__ == "__main__":

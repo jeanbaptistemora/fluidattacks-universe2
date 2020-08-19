@@ -2,7 +2,9 @@ FROM python:3.8-slim-buster as forces
 
 RUN apt update
 
-RUN apt -y install git
+RUN apt -y install git curl
+
+RUN curl -fsSL https://get.docker.com -o get-docker.sh && sh get-docker.sh
 
 COPY . /pakage
 
