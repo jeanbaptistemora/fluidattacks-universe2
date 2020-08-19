@@ -21,13 +21,45 @@ stages:
   - scheduler
 
 .commit_stages:
-  - &all_commit_pattern '$CI_COMMIT_TITLE =~ /^(all|forces|integrates|reviews|skims)/'
+  - &common_commit_pattern '$CI_COMMIT_TITLE =~ /^(all|forces|integrates|reviews|skims)/'
 
-.all_in_mrs: &all_in_mrs
+.common_in_mrs: &common_in_mrs
   rules:
     - if: '$CI_PIPELINE_SOURCE != "merge_request_event"'
       when: never
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+
+.common_in_dev_and_master_branch: &common_in_dev_and_master_branch
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "schedule"'
+      when: never
+    - if: '$CI_PIPELINE_SOURCE == "trigger"'
+      when: never
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+      when: never
+    - if: *common_commit_pattern
+
+.common_in_dev_branch: &common_in_dev_branch
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "master"'
+      when: never
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+      when: never
+    - if: '$CI_PIPELINE_SOURCE == "schedule"'
+      when: never
+    - if: '$CI_PIPELINE_SOURCE == "trigger"'
+      when: never
+    - if: *common_commit_pattern
+
+.common_in_master_branch: &common_in_master_branch
+  rules:
+    - if: '$CI_COMMIT_BRANCH != "master"'
+      when: never
+    - if: '$CI_PIPELINE_SOURCE == "schedule"'
+      when: never
+    - if: '$CI_PIPELINE_SOURCE == "trigger"'
+      when: never
+    - if: *common_commit_pattern
 
 .with_nix: &with_nix
   tags: [autoscaling]
@@ -36,16 +68,6 @@ stages:
   script:
     - ./build.sh "${CI_JOB_NAME% *}"
   interruptible: true
-
-.all_in_dev_and_master_branch: &all_in_dev_and_master_branch
-  rules:
-    - if: '$CI_PIPELINE_SOURCE == "schedule"'
-      when: never
-    - if: '$CI_PIPELINE_SOURCE == "trigger"'
-      when: never
-    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
-      when: never
-    - if: *all_commit_pattern
 
 common_build_nix_caches:
   <<: *with_nix
@@ -62,19 +84,29 @@ common_build_nix_caches:
 
 common_lint_build_system:
   <<: *with_nix
-  <<: *all_in_dev_and_master_branch
+  <<: *common_in_dev_and_master_branch
   stage: lint-code
 
 common_lint_commit_msg:
   <<: *with_nix
-  except:
-    refs:
-      - schedules
-      - triggers
+  <<: *common_in_dev_branch
   stage: lint-code
 
 reviews:
   <<: *with_nix
+  <<: *common_in_mrs
   stage: merge-request
-  <<: *all_in_mrs
   interruptible: false
+
+common_forces:
+  <<: *common_in_master_branch
+  stage: post-deploy
+  tags: [autoscaling]
+  needs: []
+  image:
+    name: fluidattacks/forces:new
+    entrypoint: [""]
+  script:
+    - forces --token "${INTEGRATES_API_TOKEN}" --strict --group daimon -vv
+  interruptible: true
+  allow_failure: true

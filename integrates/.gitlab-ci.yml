@@ -36,7 +36,6 @@
       when: never
     - if: *integrates_commit_pattern
 
-
 .in_dev_and_master_branch_integrates: &in_dev_and_master_branch_integrates
   rules:
     - if: '$CI_PIPELINE_SOURCE == "schedule"'
@@ -512,16 +511,3 @@ common_send_new_release_email:
   stage: post-deploy
   needs:
     - integrates_deploy_k8s_back
-
-forces_new:
-  stage: post-deploy
-  tags: [autoscaling]
-  needs: []
-  image:
-    name: fluidattacks/forces:new
-    entrypoint: [""]
-  script:
-    - forces --token "${INTEGRATES_API_TOKEN}" --strict --group daimon -vv
-  interruptible: true
-  allow_failure: true
-  <<: *in_master_branch_integrates
