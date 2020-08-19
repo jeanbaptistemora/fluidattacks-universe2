@@ -81,6 +81,11 @@ DATABASE_NPM: Dict[str, Dict[str, List[List[str]]]] = {
             ['<2.3.1'],
         ],
     },
+    'brace-expansion': {
+        'CVE-2017-18077': [
+            ['<1.1.7'],
+        ],
+    },
     'chownr': {
         'CVE-2017-18869': [
             ['<1.1.0'],
@@ -183,6 +188,14 @@ DATABASE_NPM: Dict[str, Dict[str, List[List[str]]]] = {
             ['>=5.0.0', '<5.0.3'],
         ],
     },
+    'ip': {
+        (
+            'github.com/indutny/node-ip/commit'
+            '/b2b4469255a624619bda71e52fd1f05dc0dd621f'
+        ): [
+            ['<1.1.5'],
+        ],
+    },
     'jquery': {
         'CVE-2020-11022': [
             ['>=1.2.0', '<3.5.0'],
@@ -210,6 +223,14 @@ DATABASE_NPM: Dict[str, Dict[str, List[List[str]]]] = {
         ],
         'CVE-2011-4969': [
             ['<1.6.3'],
+        ],
+    },
+    'js-yaml': {
+        'CVE-2013-4660': [
+            ['<2.0.5'],
+        ],
+        'npmjs.com/advisories/813': [
+            ['<3.13.1'],
         ],
     },
     'kind-of': {
@@ -267,6 +288,11 @@ DATABASE_NPM: Dict[str, Dict[str, List[List[str]]]] = {
             ['<1.3.1'],
         ],
     },
+    'mocha': {
+        'github.com/mochajs/mocha/pull/3686': [
+            ['<6.0.0'],
+        ],
+    },
     'ms': {
         'CVE-2015-8315': [
             ['<0.7.1'],
@@ -281,6 +307,14 @@ DATABASE_NPM: Dict[str, Dict[str, List[List[str]]]] = {
     'parsejson': {
         'CVE-2017-16113': [
             ['<=0.0.3'],
+        ],
+    },
+    'qs': {
+        'CVE-2017-1000048': [
+            ['>=6.1.0', '<6.1.2'],
+            ['>=6.2.0', '<6.2.3'],
+            ['>=6.3.0', '<6.3.2'],
+            ['<6.0.4'],
         ],
     },
     'request': {
@@ -316,6 +350,11 @@ DATABASE_NPM: Dict[str, Dict[str, List[List[str]]]] = {
         ],
         'CVE-2020-7693': [
             ['<0.3.20'],
+        ],
+    },
+    'ssri': {
+        'CVE-2018-7651': [
+            ['<5.2.2'],
         ],
     },
     'superagent': {
