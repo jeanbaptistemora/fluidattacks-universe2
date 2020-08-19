@@ -187,13 +187,11 @@ async def main(
         await reset_ephemeral_state()
         await adjust_working_dir(config_obj)
         success = await execute_skims(config_obj, token)
-    except ConfigError as exc:
-        await log('critical', '%s', exc)
-        success = False
-    except MemoryError:
-        await log('critical', 'Not enough memory could be allocated')
-        success = False
-    except SystemExit as exc:
+    except (
+        ConfigError,
+        MemoryError,
+        SystemExit,
+    ) as exc:
         await log_exception('critical', exc)
         success = False
 

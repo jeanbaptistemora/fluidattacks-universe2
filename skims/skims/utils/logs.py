@@ -9,6 +9,14 @@ from typing import (
 from aioextensions import (
     in_thread,
 )
+import bugsnag
+
+# Initialization
+bugsnag.configure(
+    # There is no problem in making this key public
+    #   it's intentional so we can monitor Skims stability in remote users
+    api_key="f990c9a571de4cb44c96050ff0d50ddb",
+)
 
 # Private constants
 _FORMAT: str = '[%(levelname)s] %(message)s'
@@ -22,6 +30,13 @@ _LOGGER_HANDLER.setFormatter(_LOGGER_FORMATTER)
 _LOGGER: logging.Logger = logging.getLogger('Skims')
 _LOGGER.setLevel(logging.INFO)
 _LOGGER.addHandler(_LOGGER_HANDLER)
+
+_LOGGER_REMOTE_HANDLER = bugsnag.handlers.BugsnagHandler()
+_LOGGER_REMOTE_HANDLER.setLevel(logging.ERROR)
+
+_LOGGER_REMOTE: logging.Logger = logging.getLogger('Skims.stability')
+_LOGGER_REMOTE.setLevel(logging.ERROR)
+_LOGGER_REMOTE.addHandler(_LOGGER_REMOTE_HANDLER)  # Sorry sir event-loop
 
 
 def set_level(level: int) -> None:
@@ -37,3 +52,7 @@ async def log_exception(level: str, exception: BaseException) -> None:
     exc_type: str = type(exception).__name__
     exc_msg: str = str(exception)
     await log(level, 'Exception: %s, %s', exc_type, exc_msg)
+
+
+async def log_to_remote(exception: BaseException) -> None:
+    await in_thread(bugsnag.notify, exception)
