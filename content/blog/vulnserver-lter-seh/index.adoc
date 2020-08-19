@@ -23,7 +23,7 @@ exploit development.
 In previous posts, we have been able to exploit Vulnserver commands:
 
 . `TRUN` was link:../vulnserver-trun/[exploited] using a direct EIP overwrite,
-with virtually no space or characters restrictions to work on.
+with virtually no space or character restrictions to work on.
 . `GMON` used a
 link:../vulnserver-gmon/[Structured Exception Handling (SEH)] overwrite to
 take control of the execution flow.
@@ -38,9 +38,9 @@ to none restrictions on what kind of instructions we were allowed to use.
 
 But in fact, instruction restrictions are the rule. Think about exploiting a
 `Host` HTTP header: A host name normally is only alphanumeric and few
-other chars are allowed. If we are going to inject code on that header, we
-would be surely limited to use instructions whose opcodes are in the allowed
-list.
+other chars are allowed. If we are going to inject code on that header,
+we would surely be limited to use instructions
+whose opcodes are in the allowed list.
 
 In this post, we will exploit the Vulnserver `LTER` command.
 
