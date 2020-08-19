@@ -8,7 +8,7 @@ import { act } from "react-dom/test-utils";
 import { Provider } from "react-redux";
 import waitForExpect from "wait-for-expect";
 import store from "../../../../store";
-import { updateAccessTokenModal as UpdateAccessTokenModal } from "./index";
+import { UpdateAccessTokenModal } from "./index";
 import { GET_ACCESS_TOKEN, UPDATE_ACCESS_TOKEN_MUTATION } from "./queries";
 import { IGetAccessTokenDictAttr, IUpdateAccessTokenAttr } from "./types";
 

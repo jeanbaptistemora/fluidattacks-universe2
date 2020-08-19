@@ -18,7 +18,7 @@ import { ReportsView } from "./containers/ReportsView";
 import { ScrollUpButton } from "../../components/ScrollUpButton";
 import { Sidebar } from "./components/Sidebar";
 import { TagContent } from "./containers/TagContent";
-import { updateAccessTokenModal as UpdateAccessTokenModal } from "./components/AddAccessTokenModal";
+import { UpdateAccessTokenModal } from "./components/AddAccessTokenModal";
 import { msgError } from "../../utils/notifications";
 import style from "./index.css";
 import { translate } from "../../utils/translations/translate";
