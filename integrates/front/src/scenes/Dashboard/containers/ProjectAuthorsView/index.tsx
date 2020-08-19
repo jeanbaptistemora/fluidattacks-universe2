@@ -17,7 +17,7 @@ import { DataTableNext } from "../../../../components/DataTableNext/index";
 import { IHeaderConfig } from "../../../../components/DataTableNext/types";
 import { Logger } from "../../../../utils/logger";
 import { msgError } from "../../../../utils/notifications";
-import translate from "../../../../utils/translations/translate";
+import { translate } from "../../../../utils/translations/translate";
 import styles from "./index.css";
 import { GET_BILL } from "./queries";
 import { IBillDeveloper, IData } from "./types";

@@ -15,7 +15,7 @@ import { Can } from "../../../../utils/authz/Can";
 import { Text } from "../../../../utils/forms/fields";
 import { Logger } from "../../../../utils/logger";
 import { msgError, msgSuccess } from "../../../../utils/notifications";
-import translate from "../../../../utils/translations/translate";
+import { translate } from "../../../../utils/translations/translate";
 import { GenericForm } from "../../components/GenericForm";
 import { default as style } from "./index.css";
 import { GET_ORGANIZATION_POLICIES, UPDATE_ORGANIZATION_POLICIES } from "./queries";

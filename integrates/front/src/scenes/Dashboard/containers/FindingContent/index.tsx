@@ -24,7 +24,7 @@ import { Have } from "../../../../utils/authz/Have";
 import { Dropdown } from "../../../../utils/forms/fields";
 import { Logger } from "../../../../utils/logger";
 import { msgError, msgSuccess } from "../../../../utils/notifications";
-import translate from "../../../../utils/translations/translate";
+import { translate } from "../../../../utils/translations/translate";
 import { required } from "../../../../utils/validations";
 import { ContentTab } from "../../components/ContentTab";
 import { default as style } from "../../components/ContentTab/index.css";

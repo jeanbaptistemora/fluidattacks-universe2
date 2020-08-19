@@ -17,7 +17,7 @@ import { Modal } from "../../../../components/Modal";
 import { authzGroupContext, authzPermissionsContext } from "../../../../utils/authz/config";
 import { Logger } from "../../../../utils/logger";
 import { msgError, msgSuccess } from "../../../../utils/notifications";
-import translate from "../../../../utils/translations/translate";
+import { translate } from "../../../../utils/translations/translate";
 import { GET_USER_PERMISSIONS } from "../../queries";
 import { EventContent } from "../EventContent";
 import { FindingContent } from "../FindingContent";

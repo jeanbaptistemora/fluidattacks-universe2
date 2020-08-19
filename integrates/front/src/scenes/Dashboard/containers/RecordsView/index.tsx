@@ -21,7 +21,7 @@ import { Can } from "../../../../utils/authz/Can";
 import { FileInput } from "../../../../utils/forms/fields";
 import { Logger } from "../../../../utils/logger";
 import { msgError } from "../../../../utils/notifications";
-import translate from "../../../../utils/translations/translate";
+import { translate } from "../../../../utils/translations/translate";
 import { required, validRecordsFile } from "../../../../utils/validations";
 import { GenericForm } from "../../components/GenericForm";
 import { REMOVE_EVIDENCE_MUTATION, UPDATE_EVIDENCE_MUTATION } from "../EvidenceView/queries";

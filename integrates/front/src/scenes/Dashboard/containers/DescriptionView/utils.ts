@@ -1,7 +1,7 @@
 import { IHistoricTreatment } from "./types";
 import _ from "lodash";
 import { formatTreatment } from "../../../../utils/formatHelpers";
-import translate from "../../../../utils/translations/translate";
+import { translate } from "../../../../utils/translations/translate";
 
 export const formatCweUrl: (cweId: string) => string = (
   cweId: string

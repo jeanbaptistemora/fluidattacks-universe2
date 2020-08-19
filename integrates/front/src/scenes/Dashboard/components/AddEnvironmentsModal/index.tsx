@@ -10,7 +10,7 @@ import { ConfigurableValidator } from "revalidate";
 import { Button } from "../../../../components/Button/index";
 import { Modal } from "../../../../components/Modal/index";
 import { TextArea } from "../../../../utils/forms/fields";
-import translate from "../../../../utils/translations/translate";
+import { translate } from "../../../../utils/translations/translate";
 import { maxLength, required, validField } from "../../../../utils/validations";
 import { GenericForm } from "../GenericForm";
 

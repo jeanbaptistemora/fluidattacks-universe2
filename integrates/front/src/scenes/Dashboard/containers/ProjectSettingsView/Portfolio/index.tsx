@@ -17,7 +17,7 @@ import { TooltipWrapper } from "../../../../../components/TooltipWrapper";
 import { Can } from "../../../../../utils/authz/Can";
 import { Logger } from "../../../../../utils/logger";
 import { msgError, msgSuccess } from "../../../../../utils/notifications";
-import translate from "../../../../../utils/translations/translate";
+import { translate } from "../../../../../utils/translations/translate";
 import { AddTagsModal } from "../../../components/AddTagsModal/index";
 import { ADD_TAGS_MUTATION, GET_TAGS, REMOVE_TAG_MUTATION } from "../queries";
 

@@ -21,7 +21,7 @@ import { TagContent } from "./containers/TagContent";
 import { updateAccessTokenModal as UpdateAccessTokenModal } from "./components/AddAccessTokenModal";
 import { msgError } from "../../utils/notifications";
 import style from "./index.css";
-import translate from "../../utils/translations/translate";
+import { translate } from "../../utils/translations/translate";
 import { useAddStakeholder } from "./hooks";
 import { useQuery } from "@apollo/react-hooks";
 import { ConfirmDialog, IConfirmFn } from "../../components/ConfirmDialog";

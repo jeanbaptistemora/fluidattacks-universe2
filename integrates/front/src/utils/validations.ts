@@ -2,7 +2,7 @@ import { Logger } from "./logger";
 import { Validator } from "redux-form";
 import _ from "lodash";
 import { msgError } from "./notifications";
-import translate from "./translations/translate";
+import { translate } from "./translations/translate";
 import {
   hasLengthGreaterThan,
   hasLengthLessThan,

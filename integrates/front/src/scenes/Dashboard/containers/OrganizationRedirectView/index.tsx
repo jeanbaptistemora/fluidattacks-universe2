@@ -6,7 +6,7 @@ import React from "react";
 import {  Redirect, Switch, useLocation, useParams } from "react-router";
 import { Logger } from "../../../../utils/logger";
 import { msgError } from "../../../../utils/notifications";
-import translate from "../../../../utils/translations/translate";
+import { translate } from "../../../../utils/translations/translate";
 import { GET_ENTITY_ORGANIZATION } from "./queries";
 import { IOrganizationRedirectProps } from "./types";
 

@@ -6,7 +6,7 @@ import { Modal } from "../Modal";
 import React from "react";
 import { TooltipWrapper } from "../TooltipWrapper";
 import _ from "lodash";
-import translate from "../../utils/translations/translate";
+import { translate } from "../../utils/translations/translate";
 import { ButtonToolbar, Checkbox, Col, Glyphicon } from "react-bootstrap";
 
 export const CustomToggleList: React.FC<ICustomToggleProps> = (

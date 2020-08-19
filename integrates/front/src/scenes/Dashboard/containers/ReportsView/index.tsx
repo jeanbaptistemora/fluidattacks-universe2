@@ -5,7 +5,7 @@ import React from "react";
 import { Button, Col, Row } from "react-bootstrap";
 import { Logger } from "../../../../utils/logger";
 import { msgError } from "../../../../utils/notifications";
-import translate from "../../../../utils/translations/translate";
+import { translate } from "../../../../utils/translations/translate";
 import { default as style } from "./index.css";
 import { GET_COMPLETE_REPORT } from "./queries";
 

@@ -12,7 +12,7 @@ import React from "react";
 import { RouteComponentProps } from "react-router";
 import { Logger } from "../../../../utils/logger";
 import { msgError } from "../../../../utils/notifications";
-import translate from "../../../../utils/translations/translate";
+import { translate } from "../../../../utils/translations/translate";
 import { Comments, ICommentStructure, loadCallback, postCallback } from "../../components/Comments/index";
 import { ADD_EVENT_CONSULT, GET_EVENT_CONSULTING } from "./queries";
 

@@ -1,5 +1,5 @@
 import { IProjectDraftsAttr } from "./types";
-import translate from "../../../../utils/translations/translate";
+import { translate } from "../../../../utils/translations/translate";
 
 type Draft = IProjectDraftsAttr["project"]["drafts"][0];
 

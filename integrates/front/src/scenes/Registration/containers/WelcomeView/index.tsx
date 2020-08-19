@@ -12,7 +12,7 @@ import _ from "lodash";
 import globalStyle from "../../../../styles/global.css";
 import logo from "../../../../resources/integrates.svg";
 import style from "./index.css";
-import translate from "../../../../utils/translations/translate";
+import { translate } from "../../../../utils/translations/translate";
 import { useHistory } from "react-router-dom";
 import { ACCEPT_LEGAL_MUTATION, GET_USER_AUTHORIZATION } from "./queries";
 import { Col, Row } from "react-bootstrap";

@@ -5,7 +5,7 @@ import { useHistory, useRouteMatch } from "react-router";
 import { DataTableNext } from "../../../../components/DataTableNext/index";
 import { IHeaderConfig } from "../../../../components/DataTableNext/types";
 import { useStoredState } from "../../../../utils/hooks";
-import translate from "../../../../utils/translations/translate";
+import { translate } from "../../../../utils/translations/translate";
 import { ProjectBox } from "../../components/ProjectBox";
 import { default as style } from "../OrganizationGroupsView/index.css";
 import { IOrganizationPortfoliosProps, IPortfolios, IPortfoliosTable } from "./types";

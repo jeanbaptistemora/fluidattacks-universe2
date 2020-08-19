@@ -2,7 +2,7 @@ import _ from "lodash";
 import React from "react";
 import { Col, Grid, Panel, Row } from "react-bootstrap";
 import { Graphic } from "../../../../graphics/components/Graphic";
-import translate from "../../../../utils/translations/translate";
+import { translate } from "../../../../utils/translations/translate";
 import { ChartsGenericViewExtras } from "./components/Extras";
 import styles from "./index.css";
 import { EntityType, IChartsGenericViewProps } from "./types";

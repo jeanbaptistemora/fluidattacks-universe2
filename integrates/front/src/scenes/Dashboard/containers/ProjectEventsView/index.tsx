@@ -29,7 +29,7 @@ import {
 } from "../../../../utils/forms/fields";
 import { Logger } from "../../../../utils/logger";
 import { msgError, msgSuccess } from "../../../../utils/notifications";
-import translate from "../../../../utils/translations/translate";
+import { translate } from "../../../../utils/translations/translate";
 import {
   dateTimeBeforeToday, isValidFileSize, maxLength, numeric, required, someRequired, validDatetime,
   validEventFile, validEvidenceImage, validTextField,

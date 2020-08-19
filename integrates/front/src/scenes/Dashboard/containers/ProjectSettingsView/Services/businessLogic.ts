@@ -1,5 +1,5 @@
 import _ from "lodash";
-import translate from "../../../../../utils/translations/translate";
+import { translate } from "../../../../../utils/translations/translate";
 import { IFormData, IGroupData } from "./types";
 
 const serviceStateToString: ((value: boolean | string | undefined) => string) =

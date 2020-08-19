@@ -11,7 +11,7 @@ import { Button } from "../../../../components/Button/index";
 import { Modal } from "../../../../components/Modal/index";
 import { TooltipWrapper } from "../../../../components/TooltipWrapper";
 import { Dropdown, Text } from "../../../../utils/forms/fields";
-import translate from "../../../../utils/translations/translate";
+import { translate } from "../../../../utils/translations/translate";
 import { maxLength, required, validField } from "../../../../utils/validations";
 import { GenericForm } from "../GenericForm";
 import { default as style } from "./index.css";

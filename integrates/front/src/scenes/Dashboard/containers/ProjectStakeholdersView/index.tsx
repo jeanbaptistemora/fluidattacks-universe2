@@ -23,7 +23,7 @@ import { formatLastLogin, formatUserlist } from "../../../../utils/formatHelpers
 import { Logger } from "../../../../utils/logger";
 import { msgError, msgSuccess } from "../../../../utils/notifications";
 import { sortLastLogin } from "../../../../utils/sortHelpers";
-import translate from "../../../../utils/translations/translate";
+import { translate } from "../../../../utils/translations/translate";
 import { addUserModal as AddUserModal } from "../../components/AddUserModal/index";
 import {
   ADD_STAKEHOLDER_MUTATION,

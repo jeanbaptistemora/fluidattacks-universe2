@@ -1,6 +1,6 @@
 import { ChartData } from "chart.js";
 import _ from "lodash";
-import translate from "../../../../../utils/translations/translate";
+import { translate } from "../../../../../utils/translations/translate";
 
 export interface IStatusGraphConfig {
   closedVulnerabilities: number;

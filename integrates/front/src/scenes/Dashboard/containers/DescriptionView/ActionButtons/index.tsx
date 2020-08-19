@@ -10,7 +10,7 @@ import { Button } from "../../../../../components/Button";
 import { FluidIcon } from "../../../../../components/FluidIcon";
 import { TooltipWrapper } from "../../../../../components/TooltipWrapper";
 import { Can } from "../../../../../utils/authz/Can";
-import translate from "../../../../../utils/translations/translate";
+import { translate } from "../../../../../utils/translations/translate";
 import { IHistoricTreatment } from "../types";
 
 export interface IActionButtonsProps {

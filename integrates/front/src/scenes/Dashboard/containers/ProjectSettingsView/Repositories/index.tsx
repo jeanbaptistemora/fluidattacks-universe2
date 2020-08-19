@@ -19,7 +19,7 @@ import { TooltipWrapper } from "../../../../../components/TooltipWrapper";
 import { Can } from "../../../../../utils/authz/Can";
 import { Logger } from "../../../../../utils/logger";
 import { msgError, msgSuccess } from "../../../../../utils/notifications";
-import translate from "../../../../../utils/translations/translate";
+import { translate } from "../../../../../utils/translations/translate";
 import { AddRepositoriesModal } from "../../../components/AddRepositoriesModal/index";
 import { ADD_REPOSITORIES_MUTATION, GET_REPOSITORIES, UPDATE_REPOSITORY_MUTATION } from "../queries";
 import { IHistoricState, IRepositoriesAttr } from "../types";

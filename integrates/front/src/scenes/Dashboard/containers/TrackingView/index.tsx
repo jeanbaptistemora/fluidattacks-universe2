@@ -15,7 +15,7 @@ import { RouteComponentProps } from "react-router";
 import { Can } from "../../../../utils/authz/Can";
 import { Logger } from "../../../../utils/logger";
 import { msgError } from "../../../../utils/notifications";
-import translate from "../../../../utils/translations/translate";
+import { translate } from "../../../../utils/translations/translate";
 import { TrackingItem } from "../../components/TrackingItem";
 import { VulnerabilitiesView } from "../../components/Vulnerabilities/index";
 import { default as style } from "./index.css";

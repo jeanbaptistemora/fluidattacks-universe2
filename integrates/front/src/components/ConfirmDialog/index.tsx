@@ -3,7 +3,7 @@ import { ButtonToolbar } from "react-bootstrap";
 import { Modal } from "../Modal";
 import React from "react";
 import _ from "lodash";
-import translate from "../../utils/translations/translate";
+import { translate } from "../../utils/translations/translate";
 
 export interface IConfirmFn {
   (confirmCallback: () => void, cancelCallback?: () => void): void;

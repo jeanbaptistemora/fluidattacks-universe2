@@ -13,7 +13,7 @@ import { Text } from "../../../../utils/forms/fields";
 import { useStoredState } from "../../../../utils/hooks";
 import { Logger } from "../../../../utils/logger";
 import { msgError } from "../../../../utils/notifications";
-import translate from "../../../../utils/translations/translate";
+import { translate } from "../../../../utils/translations/translate";
 import { alphaNumeric } from "../../../../utils/validations";
 import { GenericForm } from "../GenericForm";
 import { default as style } from "./index.css";

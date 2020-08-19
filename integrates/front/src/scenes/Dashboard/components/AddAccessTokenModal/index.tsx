@@ -17,7 +17,7 @@ import { default as globalStyle } from "../../../../styles/global.css";
 import { Date as DateField, TextArea } from "../../../../utils/forms/fields";
 import { Logger } from "../../../../utils/logger";
 import { msgError, msgSuccess } from "../../../../utils/notifications";
-import translate from "../../../../utils/translations/translate";
+import { translate } from "../../../../utils/translations/translate";
 import { isLowerDate, isValidDateAccessToken, required } from "../../../../utils/validations";
 import { GenericForm } from "../GenericForm/index";
 import { GET_ACCESS_TOKEN, INVALIDATE_ACCESS_TOKEN_MUTATION, UPDATE_ACCESS_TOKEN_MUTATION } from "./queries";

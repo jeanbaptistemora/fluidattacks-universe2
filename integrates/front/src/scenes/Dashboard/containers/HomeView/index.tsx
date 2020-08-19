@@ -7,7 +7,7 @@ import { Redirect, Switch } from "react-router-dom";
 import { useStoredState } from "../../../../utils/hooks";
 import { Logger } from "../../../../utils/logger";
 import { msgError } from "../../../../utils/notifications";
-import translate from "../../../../utils/translations/translate";
+import { translate } from "../../../../utils/translations/translate";
 import { GET_USER_ORGANIZATIONS } from "../../components/Navbar/queries";
 
 const homeView: React.FC = (): JSX.Element => {

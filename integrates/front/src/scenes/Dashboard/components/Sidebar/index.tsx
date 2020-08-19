@@ -7,7 +7,7 @@ import { Badge } from "../../../../components/Badge";
 import { TooltipWrapper } from "../../../../components/TooltipWrapper/index";
 import { default as logo } from "../../../../resources/integrates.svg";
 import { Can } from "../../../../utils/authz/Can";
-import translate from "../../../../utils/translations/translate";
+import { translate } from "../../../../utils/translations/translate";
 import { default as style } from "./index.css";
 
 interface ISidebarProps {

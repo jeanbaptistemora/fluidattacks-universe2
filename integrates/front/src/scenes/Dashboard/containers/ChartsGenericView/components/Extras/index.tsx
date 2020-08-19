@@ -18,7 +18,7 @@ import { DropdownButton } from "../../../../../../components/DropdownButton";
 import { TooltipWrapper } from "../../../../../../components/TooltipWrapper";
 import { Logger } from "../../../../../../utils/logger";
 import { msgError, msgSuccess } from "../../../../../../utils/notifications";
-import translate from "../../../../../../utils/translations/translate";
+import { translate } from "../../../../../../utils/translations/translate";
 import styles from "../../index.css";
 import {
   SUBSCRIBE_TO_ENTITY_REPORT,

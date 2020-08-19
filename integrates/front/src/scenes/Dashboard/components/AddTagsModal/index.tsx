@@ -9,7 +9,7 @@ import { Field, FieldArray, InjectedFormProps, WrappedFieldArrayProps } from "re
 import { Button } from "../../../../components/Button/index";
 import { Modal } from "../../../../components/Modal/index";
 import { Text } from "../../../../utils/forms/fields";
-import translate from "../../../../utils/translations/translate";
+import { translate } from "../../../../utils/translations/translate";
 import { required, validTag } from "../../../../utils/validations";
 import { GenericForm } from "../GenericForm";
 import { default as style } from "./index.css";

@@ -1,7 +1,7 @@
 import React from "react";
 import _ from "lodash";
 import style from "../../index.css";
-import translate from "../../../translations/translate";
+import { translate } from "../../../translations/translate";
 import { validTextField } from "../../../validations";
 import { FormControlProps, HelpBlock } from "react-bootstrap";
 import { WithContext as ReactTags, Tag } from "react-tag-input";

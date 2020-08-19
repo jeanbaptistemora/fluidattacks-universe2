@@ -1,4 +1,4 @@
-import translate from "../../../../utils/translations/translate";
+import { translate } from "../../../../utils/translations/translate";
 import { ISeverityAttr, ISeverityField } from "./types";
 
 const castPrivileges: (scope: string) => Record<string, string> = (

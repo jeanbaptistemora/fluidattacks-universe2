@@ -19,7 +19,7 @@ import { default as globalStyle } from "../../../../styles/global.css";
 import { Can } from "../../../../utils/authz/Can";
 import { Logger } from "../../../../utils/logger";
 import { msgError } from "../../../../utils/notifications";
-import translate from "../../../../utils/translations/translate";
+import { translate } from "../../../../utils/translations/translate";
 import { isValidFileSize, validEvidenceImage } from "../../../../utils/validations";
 import { evidenceImage as EvidenceImage } from "../../components/EvidenceImage/index";
 import { EvidenceLightbox } from "../../components/EvidenceLightbox";

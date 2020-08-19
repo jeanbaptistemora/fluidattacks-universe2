@@ -2,7 +2,7 @@ import { FluidIcon } from "../FluidIcon";
 import React from "react";
 import { TooltipWrapper } from "../TooltipWrapper";
 import style from "./index.css";
-import translate from "../../utils/translations/translate";
+import { translate } from "../../utils/translations/translate";
 import {
   CSVExport,
   ToolkitProviderProps,

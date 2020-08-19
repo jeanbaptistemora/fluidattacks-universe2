@@ -22,7 +22,7 @@ import { formatDropdownField } from "../../../../../utils/formatHelpers";
 import { Date, Dropdown, Text, TextArea } from "../../../../../utils/forms/fields";
 import { Logger } from "../../../../../utils/logger";
 import { msgError, msgSuccess } from "../../../../../utils/notifications";
-import translate from "../../../../../utils/translations/translate";
+import { translate } from "../../../../../utils/translations/translate";
 import {
   isLowerDate, maxLength, required, validTextField, validUrlField,
 } from "../../../../../utils/validations";

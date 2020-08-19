@@ -16,7 +16,7 @@ import { Can } from "../../../../utils/authz/Can";
 import { Dropdown, PhoneNumber, Text } from "../../../../utils/forms/fields";
 import { Logger } from "../../../../utils/logger";
 import { msgError } from "../../../../utils/notifications";
-import translate from "../../../../utils/translations/translate";
+import { translate } from "../../../../utils/translations/translate";
 import { required, validEmail, validTextField } from "../../../../utils/validations";
 import { GenericForm } from "../GenericForm/index";
 import { GET_USER } from "./queries";

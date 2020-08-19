@@ -1,7 +1,7 @@
 import { IFindingAttr } from "./types";
 import _ from "lodash";
 import { formatTreatment } from "../../../../utils/formatHelpers";
-import translate from "../../../../utils/translations/translate";
+import { translate } from "../../../../utils/translations/translate";
 
 export const formatFindings: (dataset: IFindingAttr[]) => IFindingAttr[] = (
   dataset: IFindingAttr[]

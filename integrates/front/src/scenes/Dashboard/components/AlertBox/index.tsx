@@ -1,6 +1,6 @@
 import React from "react";
 import { Alert } from "react-bootstrap";
-import translate from "../../../../utils/translations/translate";
+import { translate } from "../../../../utils/translations/translate";
 import { default as style } from "./index.css";
 
 interface IAlertBoxProps {

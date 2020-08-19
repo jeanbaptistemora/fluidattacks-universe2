@@ -15,7 +15,7 @@ import { createUploadLink } from "apollo-upload-client";
 import { getEnvironment } from "./environment";
 import { getMainDefinition } from "apollo-utilities";
 import { msgError } from "./notifications";
-import translate from "./translations/translate";
+import { translate } from "./translations/translate";
 import { useHistory } from "react-router";
 import {
   ApolloLink,

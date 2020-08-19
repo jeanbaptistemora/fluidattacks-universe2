@@ -3,7 +3,7 @@
  * Disabling this rule is necessary for conditional rendering
  */
 import React from "react";
-import translate from "../../../../utils/translations/translate";
+import { translate } from "../../../../utils/translations/translate";
 import styles from "./index.css";
 
 interface ITrackingItemProps {

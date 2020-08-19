@@ -3,7 +3,7 @@ import React from "react";
 import { Col, Row } from "react-bootstrap";
 import { NavLink, Redirect, Route, RouteComponentProps, Switch } from "react-router-dom";
 import { default as globalStyle } from "../../../../styles/global.css";
-import translate from "../../../../utils/translations/translate";
+import { translate } from "../../../../utils/translations/translate";
 import { TagsInfo } from "./TagInfo/index";
 
 type IProjectContentProps = RouteComponentProps<{ tagName: string }>;

@@ -6,7 +6,7 @@ import { WelcomeView } from ".";
 import _ from "lodash";
 import { act } from "react-dom/test-utils";
 import store from "../../../../store";
-import translate from "../../../../utils/translations/translate";
+import { translate } from "../../../../utils/translations/translate";
 import { MockedProvider, MockedResponse, wait } from "@apollo/react-testing";
 import { ReactWrapper, mount } from "enzyme";
 

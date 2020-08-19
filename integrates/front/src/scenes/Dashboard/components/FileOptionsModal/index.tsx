@@ -6,7 +6,7 @@ import React from "react";
 import { ButtonToolbar, Col, Glyphicon, Row } from "react-bootstrap";
 import { Button } from "../../../../components/Button/index";
 import { Modal } from "../../../../components/Modal/index";
-import translate from "../../../../utils/translations/translate";
+import { translate } from "../../../../utils/translations/translate";
 
 export interface IFileOptionsModalProps {
   canRemove: boolean;

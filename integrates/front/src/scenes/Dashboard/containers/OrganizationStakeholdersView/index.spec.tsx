@@ -9,7 +9,7 @@ import { MemoryRouter, Route } from "react-router";
 import waitForExpect from "wait-for-expect";
 import store from "../../../../store";
 import { msgError, msgSuccess } from "../../../../utils/notifications";
-import translate from "../../../../utils/translations/translate";
+import { translate } from "../../../../utils/translations/translate";
 import { addUserModal } from "../../components/AddUserModal/index";
 import { GET_USER } from "../../components/AddUserModal/queries";
 import { OrganizationStakeholders } from "./index";

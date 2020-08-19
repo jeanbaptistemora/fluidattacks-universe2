@@ -1,5 +1,5 @@
 import _ from "lodash";
-import translate from "./translations/translate";
+import { translate } from "./translations/translate";
 import {
   ILastLogin,
   IStakeholderAttr,

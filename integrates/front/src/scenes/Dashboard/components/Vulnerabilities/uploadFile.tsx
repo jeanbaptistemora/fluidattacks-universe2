@@ -18,7 +18,7 @@ import store from "../../../../store/index";
 import { authzGroupContext, authzPermissionsContext } from "../../../../utils/authz/config";
 import { Logger } from "../../../../utils/logger";
 import { msgError, msgErrorStick, msgSuccess } from "../../../../utils/notifications";
-import translate from "../../../../utils/translations/translate";
+import { translate } from "../../../../utils/translations/translate";
 import { isValidVulnsFile } from "../../../../utils/validations";
 import { GET_FINDING_HEADER } from "../../containers/FindingContent/queries";
 import { FileInput } from "../FileInput";

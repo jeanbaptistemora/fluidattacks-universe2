@@ -11,7 +11,7 @@ import waitForExpect from "wait-for-expect";
 import store from "../../../../store";
 import { authzPermissionsContext } from "../../../../utils/authz/config";
 import { msgError, msgSuccess } from "../../../../utils/notifications";
-import translate from "../../../../utils/translations/translate";
+import { translate } from "../../../../utils/translations/translate";
 import { OrganizationPolicies } from "./index";
 import { GET_ORGANIZATION_POLICIES, UPDATE_ORGANIZATION_POLICIES } from "./queries";
 import { IOrganizationPolicies } from "./types";

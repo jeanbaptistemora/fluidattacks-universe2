@@ -14,7 +14,7 @@ import { TooltipWrapper } from "../../../../components/TooltipWrapper/index";
 import { Can } from "../../../../utils/authz/Can";
 import { Logger } from "../../../../utils/logger";
 import { msgError } from "../../../../utils/notifications";
-import translate from "../../../../utils/translations/translate";
+import { translate } from "../../../../utils/translations/translate";
 import { AddProjectModal } from "../../components/AddProjectModal";
 import { default as style } from "./index.css";
 import { GET_ORGANIZATION_GROUPS } from "./queries";

@@ -10,7 +10,7 @@ import { default as defaultIcon } from "../../../../resources/default_finding_st
 import { default as failIcon } from "../../../../resources/fail.svg";
 import { default as okIcon } from "../../../../resources/ok.svg";
 import { default as vulnerabilitiesIcon } from "../../../../resources/vulnerabilities.svg";
-import translate from "../../../../utils/translations/translate";
+import { translate } from "../../../../utils/translations/translate";
 import { default as style } from "./index.css";
 
 interface IFindingHeaderProps {

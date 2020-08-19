@@ -11,7 +11,7 @@ import { ConfirmDialog, IConfirmFn } from "../../../../components/ConfirmDialog"
 import { FluidIcon } from "../../../../components/FluidIcon";
 import { TooltipWrapper } from "../../../../components/TooltipWrapper";
 import { Can } from "../../../../utils/authz/Can";
-import translate from "../../../../utils/translations/translate";
+import { translate } from "../../../../utils/translations/translate";
 
 interface IFindingActionsProps {
   hasSubmission: boolean;

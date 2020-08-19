@@ -4,7 +4,7 @@
 */
 import React from "react";
 import style from "../index.css";
-import translate from "../../../utils/translations/translate";
+import { translate } from "../../../utils/translations/translate";
 import { Col, Row } from "react-bootstrap";
 
 export const limitFormatter: (value: string) => JSX.Element = (

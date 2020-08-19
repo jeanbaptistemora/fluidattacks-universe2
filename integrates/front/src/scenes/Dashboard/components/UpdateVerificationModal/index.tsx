@@ -14,7 +14,7 @@ import { IHeaderConfig } from "../../../../components/DataTableNext/types";
 import { authzGroupContext, authzPermissionsContext } from "../../../../utils/authz/config";
 import { Logger } from "../../../../utils/logger";
 import { msgError, msgSuccess } from "../../../../utils/notifications";
-import translate from "../../../../utils/translations/translate";
+import { translate } from "../../../../utils/translations/translate";
 import { GET_FINDING_HEADER } from "../../containers/FindingContent/queries";
 import { RemediationModal } from "../RemediationModal/index";
 import { GET_VULNERABILITIES } from "../Vulnerabilities/queries";

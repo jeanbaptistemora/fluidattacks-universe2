@@ -11,7 +11,7 @@ import { Can } from "../../../../utils/authz/Can";
 import { authzPermissionsContext } from "../../../../utils/authz/config";
 import { Logger } from "../../../../utils/logger";
 import { msgError } from "../../../../utils/notifications";
-import translate from "../../../../utils/translations/translate";
+import { translate } from "../../../../utils/translations/translate";
 import { ContentTab } from "../../components/ContentTab";
 import { GET_USER_PERMISSIONS } from "../../queries";
 import { ChartsForOrganizationView } from "../ChartsForOrganizationView";

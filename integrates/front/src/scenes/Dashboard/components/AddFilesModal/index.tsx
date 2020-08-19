@@ -9,7 +9,7 @@ import { ConfigurableValidator } from "revalidate";
 import { Button } from "../../../../components/Button/index";
 import { Modal } from "../../../../components/Modal/index";
 import { FileInput, TextArea } from "../../../../utils/forms/fields";
-import translate from "../../../../utils/translations/translate";
+import { translate } from "../../../../utils/translations/translate";
 import {
   isValidFileName, isValidFileSize, maxLength, required, validField, validTextField,
 } from "../../../../utils/validations";

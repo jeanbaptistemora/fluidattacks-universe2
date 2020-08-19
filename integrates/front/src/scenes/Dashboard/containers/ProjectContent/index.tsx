@@ -5,7 +5,7 @@ import { Redirect, Route, RouteComponentProps, Switch } from "react-router-dom";
 import { default as globalStyle } from "../../../../styles/global.css";
 import { Can } from "../../../../utils/authz/Can";
 import { Have } from "../../../../utils/authz/Have";
-import translate from "../../../../utils/translations/translate";
+import { translate } from "../../../../utils/translations/translate";
 import { ContentTab } from "../../components/ContentTab";
 import { ChartsForGroupView } from "../ChartsForGroupView";
 import { ProjectAuthorsView } from "../ProjectAuthorsView";

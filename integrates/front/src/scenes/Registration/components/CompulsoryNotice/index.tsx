@@ -5,7 +5,7 @@ import { Field } from "redux-form";
 import { GenericForm } from "../../../Dashboard/components/GenericForm";
 import { Modal } from "../../../../components/Modal";
 import React from "react";
-import translate from "../../../../utils/translations/translate";
+import { translate } from "../../../../utils/translations/translate";
 
 interface ICompulsoryNoticeProps {
   content: string;
