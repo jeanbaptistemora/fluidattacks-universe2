@@ -15,6 +15,7 @@ from aioextensions import (
 from integrates.dal import (
     do_create_draft,
     do_delete_finding,
+    do_release_vulnerabilities,
     do_submit_draft,
     do_update_finding_severity,
     do_upload_vulnerabilities,
@@ -158,6 +159,7 @@ async def do_build_and_upload_vulnerabilities(
     *,
     batch_size: int = 50,
     finding_id: str,
+    release: bool,
     store: EphemeralStore,
 ) -> bool:
     successes: List[bool] = []
@@ -174,6 +176,11 @@ async def do_build_and_upload_vulnerabilities(
             ),
         )
         batch.clear()
+
+        if release:
+            successes.append(await do_release_vulnerabilities(
+                finding_id=finding_id,
+            ))
 
     batch = []
     batch_id = -1

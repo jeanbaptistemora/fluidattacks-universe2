@@ -21,7 +21,6 @@ from integrates.graphql import (
     create_session,
 )
 from integrates.dal import (
-    do_release_vulnerabilities,
     do_update_evidence,
     do_update_evidence_description,
     get_finding_vulnerabilities,
@@ -255,9 +254,8 @@ async def persist_finding(
 
         success = await do_build_and_upload_vulnerabilities(
             finding_id=finding_id,
+            release=True,
             store=merged_store,
-        ) and await do_release_vulnerabilities(
-            finding_id=finding_id,
         ) and await upload_evidences(
             finding_id=finding_id,
             store=store,

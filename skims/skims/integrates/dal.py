@@ -29,6 +29,7 @@ from state.ephemeral import (
 )
 from utils.function import (
     retry,
+    RetryAndFinallyReturn,
 )
 from utils.logs import (
     log,
@@ -61,7 +62,9 @@ RETRY: Callable[[TFun], TFun] = retry(
         aiohttp.ClientError,
         AsyncioTimeoutError,
         IndexError,
+        RetryAndFinallyReturn,
         socket.gaierror,
+        TypeError,
     ),
     sleep_between_retries=5,
 )
@@ -301,6 +304,9 @@ async def do_release_vulnerability(
 
     success: bool = result['data']['approveVulnerability']['success']
 
+    if not success:
+        raise RetryAndFinallyReturn(success)
+
     return success
 
 
@@ -328,6 +334,9 @@ async def do_release_vulnerabilities(
     )
 
     success: bool = result['data']['approveVulnerability']['success']
+
+    if not success:
+        raise RetryAndFinallyReturn(success)
 
     return success
 
@@ -385,6 +394,9 @@ async def do_create_draft(
 
     success: bool = result['data']['createDraft']['success']
 
+    if not success:
+        raise RetryAndFinallyReturn(success)
+
     return success
 
 
@@ -417,6 +429,9 @@ async def do_delete_finding(
 
     await log('warn', 'Deleting finding: %s, success: %s', finding_id, success)
 
+    if not success:
+        raise RetryAndFinallyReturn(success)
+
     return success
 
 
@@ -443,6 +458,9 @@ async def do_submit_draft(
     )
 
     success: bool = result['data']['submitDraft']['success']
+
+    if not success:
+        raise RetryAndFinallyReturn(success)
 
     return success
 
@@ -478,6 +496,9 @@ async def do_update_finding_severity(
     )
 
     success: bool = result['data']['updateSeverity']['success']
+
+    if not success:
+        raise RetryAndFinallyReturn(success)
 
     return success
 
@@ -516,6 +537,9 @@ async def do_update_evidence(
 
     success: bool = result['data']['updateEvidence']['success']
 
+    if not success:
+        raise RetryAndFinallyReturn(success)
+
     return success
 
 
@@ -551,6 +575,9 @@ async def do_update_evidence_description(
 
     success: bool = result['data']['updateEvidenceDescription']['success']
 
+    if not success:
+        raise RetryAndFinallyReturn(success)
+
     return success
 
 
@@ -581,5 +608,8 @@ async def do_upload_vulnerabilities(
     )
 
     success: bool = result['data']['uploadFile']['success']
+
+    if not success:
+        raise RetryAndFinallyReturn(success)
 
     return success

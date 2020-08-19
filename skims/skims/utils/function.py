@@ -29,6 +29,14 @@ RAISE = object()
 TFun = TypeVar('TFun', bound=Callable[..., Any])
 
 
+class RetryAndFinallyReturn(Exception):
+    """Mark an operation as failed but whose value can be the result.
+
+    Raising this exception will make the `retry` decorator retry the operation.
+    Aditionally, in the last round the exception argument will be returned.
+    """
+
+
 def get_bound_arguments(
     function: Callable[..., Any],
     *args: Any,
@@ -93,6 +101,8 @@ def retry(
                     await log('info', msg, function_id, exc_type, exc_msg)
 
                     if is_last:
+                        if isinstance(exc, RetryAndFinallyReturn):
+                            return exc.args[0]
                         if on_error is RAISE:
                             raise exc
                         return on_error
