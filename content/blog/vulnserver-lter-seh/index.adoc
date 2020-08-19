@@ -44,8 +44,8 @@ whose opcodes are in the allowed list.
 
 In this post, we will exploit the Vulnserver `LTER` command.
 
-We'll have to use techniques we've learn on our previous posts, and include
-some others in order for us to successfully exploit that command.
+We'll have to use techniques we've learned on our previous posts
+and include others to exploit that command successfully.
 
 == Fingerprinting LTER
 
@@ -98,7 +98,7 @@ Now use a debugger to see what's going on:
 
 image::crash2.gif[Crash 2]
 
-Well, it seems we're facing a SEH overwrite. Please, check
+Well, it seems we're facing an SEH overwrite. Please, check
 link:../vulnserver-gmon/[this post] for an explanation of SEH.
 
 OK, we need to figure out the offset by:
@@ -186,7 +186,7 @@ pointers with null bytes (`-cp nonull`), those with `SafeSEH` enabled
 (`-cp safeseh=off`) and not belonging to the OS (`-o`). That gave us
 12 pointers.
 
-Let's use the first in the list `625010B4` to replace our `B` buffer:
+Let's use the first in the list (`625010B4`) to replace our `B` buffer:
 
 [source,python]
 ----
@@ -215,16 +215,16 @@ execution flow to our controlled buffer. Let's check it:
 
 image::badchar1.gif[Badchar return address]
 
-Hummm something's not quite right. We injected `625010B4` but
-for some reason the application turned the last byte of the address, `B4`
-to `35` and got `62501035` instead. We didn't expect that.
+Hmmm, something's not quite right. We injected `625010B4`,
+but for some reason the application turned the last byte of the address
+(`B4`) to `35` and got `62501035` instead. We didn't expect that.
 
 We need to check what other variations would be applied to our buffer in order
 to get the available bytes we can work with.
 
 == Hunting for bad chars
 
-Let's look at this image
+Let's look at this image:
 
 image::ansi1.png[ANSI]
 
@@ -246,7 +246,7 @@ This will create an array with all the 256 available `ANSI` chars:
 
 image::bytearray1.png[ANSI]
 
-I've mention in other posts that it's a good idea to exclude null chars
+I've mentioned in other posts that it's a good idea to exclude null chars
 (`0x00`), carriage return (`0x0d`) and line feed (`0x0a`) from our shellcode.
 We can filter them in advance with:
 
@@ -291,8 +291,8 @@ with socket.create_connection((HOST, PORT)) as fd:
     fd.sendall(PAYLOAD)
 ----
 
-Now, run this updated exploit to check how are all the chars treated by the
-`LTER` command:
+Now, run this updated exploit to check
+how the `LTER` command treats all the chars:
 
 image::check-badchars1.gif[Checking bad chars]
 
@@ -301,8 +301,8 @@ We can see several things here:
 . Our payload of bad chars was successfully injected after the `LTER .` string.
 . It seems that all the chars, from `0x01` to `0x7f` were successfully
 injected.
-. When the bytearray reached the char `0x80`, it was converted to `0x01`, then
-`0x81` to `0x02` and so on.
+. When the bytearray reached the char `0x80`, it was converted to `0x01`,
+then `0x81` to `0x02`, and so on.
 
 There is a more graphical way to check that, using `mona` once again:
 
@@ -314,7 +314,7 @@ There is a more graphical way to check that, using `mona` once again:
 This will tell `mona` to compare the contents of the previously created
 file `C:\mona\vulnserver\bytearray.bin` with the contents of the memory on
 where our bad chars array started. In the previous example, the
-bad chars was started to be injected on `00F0F1EE`:
+bad chars were started to be injected on `00F0F1EE`:
 
 image::badchars-start.png[Bad chars start]
 
@@ -387,12 +387,12 @@ our previously injected address `625010B4` was translated to `62501035`.
 
 == Allowed charset
 
-In the previous section we were able to narrow the character set that
+In the previous section, we were able to narrow the character set that
 was allowed for us to inject code. The characters range from hex
 `0x1` to `0x7f`, excluding `0xa` and `0xd`. That range belongs to what's
 known as the ASCII character set. In Linux, you can see the ASCII
 table using the command `man 7 ascii`. However, a simple search on Google
-will give thounsands of results.
+will give thousands of results.
 
 This means that for now on, we are limited to work with that set of
 characters.
@@ -407,7 +407,7 @@ gadgets containing only ASCII bytes and excluding `0xa` and `0xd`:
 !mona seh -cm safeseh=off -cp nonull,ascii -o -cpb '\x0a\x0d'
 ----
 
-Fortunately for us, there's 3 pointers that fulfill all our requirements:
+Fortunately for us, 3 pointers fulfill all our requirements:
 
 image::ascii-poppopret1.png[ASCII POP/POP/RET]
 
@@ -435,33 +435,33 @@ with socket.create_connection((HOST, PORT)) as fd:
     fd.sendall(PAYLOAD)
 ----
 
-And check if, this time, we are able to reach of `POP/POP/RET` sequence:
+And check if this time we are able to reach the `POP/POP/RET` sequence:
 
 image::retsuccess1.gif[Return success]
 
-Yes! Things start to getting better... or not?
+Yes! Things start to get better... or not?
 
 == Finding useful instructions
 
 After the `POP/POP/RET` on `6250172B` sequence is executed, we landed
-at the link:../vulnserver-gmon/[nSEH parameter]  and we need to get past over
+at the link:../vulnserver-gmon/[nSEH parameter], and we need to get past over
 the injected SEH handler address. What we did before with the
 `GMON` command was to perform a short jump. That jump had the
 bytecode `\xeb\x08`. However, this time we are limited by
-instructions on the `\x00 - \x7f` range so the short jump opcode (`\xeb`) is
+instructions on the `\x00 - \x7f` range, so the short jump opcode (`\xeb`) is
 not an option. We need to find an instruction that can perform a short jump
-an has an opcode in our allowed character set. That instruction must also fit
+and has an opcode in our allowed character set. That instruction must also fit
 in 4 bytes or less.
 
-Luckly for us,
+Luckily for us,
 link:http://unixwiz.net/techtips/x86-jumps.html[conditional jumps] are
 the answer:
 
-. They are 2 byte long.
+. They are 2 bytes long.
 . Most of them have opcodes on our allowed range.
 
-However, we need to choose the appropiate condition that actually performs the
-jump. For example, if we'd to choose the `JNZ` conditional, we must make sure
+However, we need to choose the appropriate condition that actually performs the
+jump. For example, if we choose the `JNZ` conditional, we must make sure
 that the condition is always true in order to perform the desired jump.
 
 Or, we can use some discrete mathematics here and take advantage of
@@ -481,9 +481,9 @@ conditional jumps:
 \x74\x06      ; JZ SHORT +0x8: If the previous jump didn't happen (ZF is 0), jump!
 ----
 
-This will ensure that, no matter the value of `ZF` on the processor, any of
-those instructions will be true and the jump will be performed. Let's update
-our exploit with that:
+This will ensure that no matter the value of `ZF` on the processor, any of
+those instructions will be true, and the jump will be performed.
+Let's update our exploit with that:
 
 [source,python]
 ----
@@ -518,42 +518,42 @@ image::jmp-success1.gif[Jump success]
 It did! The first condition was not met, the second was, and the
 jump succeded.
 
-Now, after successfully jumping over the SEH handler, we landed on a 41 byte
+Now, after successfully jumping over the SEH handler, we landed on a 41-byte
 section where we injected our `C` buffer. What would normally
-happen is to perform a long jump backwards to the start of our `A` buffer to
+happen is to perform a long jump back to the start of our `A` buffer to
 make some more room to inject something larger like a shellcode.
 
 While that is certainly true, we can't perform a normal long jump because
-it will contain unallowed bytes (`\xff` for example).
+it will contain unallowed bytes (`\xff`, for example).
 
-== Checking existant encoders
+== Checking existing encoders
 
 To overcome that, we will need to start encoding everything we inject, using
 our allowed characters, in a way that it will decode in memory and execute
 the needed action.
 
-Let's encode our first needed instruction: The backwards long jump.
+Let's encode our first needed instruction: The long backward jump.
 
 First, we need to get the desired opcode:
 
 image::longjump1.png[Long jump]
 
-As we can see, we'd need to inject an encoded version of `E9 13 F2 FF FF`
+As we can see, we'd need to inject an encoded version of `E9 13 F2 FF FF`.
 
 First, we're going to try existing encoders. We will try those
 available on `msfvenom` that generate an alphanumeric shellcode:
 
 image::failed-encoders1.gif[Failed encoders]
 
-Having a restricted 41 byte buffer, the common alphanumeric encoders are
-not viable:
+Having a restricted 41-byte buffer,
+the common alphanumeric encoders are not viable:
 
-. `x86/alpha_mixed` produced a 71 byte shellcode.
+. `x86/alpha_mixed` produced a 71-byte shellcode.
 . `x86/add_sub` failed.
-. `x86/opt_sub` produced a 61 byte shellcode.
+. `x86/opt_sub` produced a 61-byte shellcode.
 
-Maybe the long jump instruction is too large. Let's try with the farest
-backward short jump possible `JMP SHORT +0x80 = \xeb\x80`:
+Maybe the long jump instruction is too large. Let's try with the farthest
+possible short backward jump `JMP SHORT +0x80 = \xeb\x80`:
 
 [source,console]
 ----
@@ -576,13 +576,13 @@ Payload size: 66 bytes
 Saved as: /dev/null
 ----
 
-Better, however it won't fit either. That means that we have to encode that
-short jump manually.
+Better. However, it won't fit either. That means that we have to encode
+that short jump manually.
 
 == Manual encoding
 
 Having our restricted allowed characters set, the technique we will use is
-something known as ADD/SUB/AND encoding. The technique is fully described
+known as ADD/SUB/AND encoding. The technique is fully described
 link:https://vellosec.net/2018/08/carving-shellcode-using-restrictive-character-sets/[here].
 
 Basically, what we'll need to do is the following:
@@ -605,7 +605,7 @@ Let's do that:
 image::align-esp1.gif[Align ESP]
 
 Note that all the resulting bytes are in our allowed charset. Now update our
-exploit with that instructions:
+exploit with those instructions:
 
 [source,python]
 ----
@@ -649,13 +649,13 @@ that's exactly what we wanted to do.
 
 === Carve short jump
 
-With that in place, we need to make `EAX` holds our short backwards jump bytes,
+With that in place, we need to make `EAX` holds our short backward jump bytes,
 `\xeb\x80`. But we need to do it the right way:
 
-. Remember that `EAX` is a 32 bit register, so we must pad it with
+. Remember that `EAX` is a 32-bit register, so we must pad it with
 two NOPs. The resultant expected value should be `\xeb\x80\x90\x90`.
-. As we are pushing that on the stack, and having in mind that the x86
-architecture is little endian, we must reverse that value and make EAX equals
+. As we are pushing that on the stack and keeping in mind that the x86
+architecture is little-endian, we must reverse that value and make EAX equal
 to `\x90\x90\x80\xeb` and then, when the `PUSH EAX` occurs, the injected value
 would be `\xeb\x80\x90\x90`.
 
@@ -679,7 +679,7 @@ __________________________________________
            0000000000000000000000000000000
 ----
 
-Then, we need to find some values that, when added, result on `909080eb`.
+Then, we need to find some values that, when added, result in `909080eb`.
 If we divide `909080eb` by two, we will get `48484075.8`. So we can add
 `48484075` to `EAX` and then add `48484076` to make it `909080eb`.
 
@@ -694,7 +694,7 @@ like magic:
 
 image::push-eax1.gif[Carve EAX]
 
-Isn't it wonderful? It looks black magic!
+Isn't it wonderful? It looks like black magic!
 
 Let's update our exploit with that:
 
@@ -739,23 +739,23 @@ with socket.create_connection((HOST, PORT)) as fd:
 
 == More jumping around
 
-Great, but we landed on a 78 byte buffer. We need to jump to the start of
+Great, but we landed on a 78-byte buffer. We need to jump to the start of
 our `A` buffer. However, as we saw before, 78 bytes is more than enough for
-encoding and executing a long backwards jump. We will use the same strategy
-as before.
+encoding and executing a long backward jump.
+We will use the same strategy as before.
 
-First, we need to know the exact instruction of the desired backwards long
-jump:
+First, we need to know the exact instruction
+of the desired long backward jump:
 
 image::long-jump2.png[Second long jump]
 
 The resulting bytes are `E9 2D F2 FF FF`. We must perform a long jump not to
 the very start of our buffer, but somewhere in the first bytes.
 This is because we don't know at this point the memory address on where
-the `JMP` instruction will be generated and thus, the offset will likely
-change.
+the `JMP` instruction will be generated, and thus,
+the offset will likely change.
 
-With the needed bytes, we need to align the `ESP` pointer again. As we saw,
+With the required bytes, we need to align the `ESP` pointer again. As we saw,
 it's a good idea to point it to the higher memory of the block in order
 to avoid overwriting our encoded payload. This leads to:
 
@@ -820,10 +820,10 @@ And check it:
 
 image::align-esp3.gif[Align ESP]
 
-Great! We can now encode our backwards long jump. This time I will use
-a tool called
+Great! We can now encode our long backward jump.
+This time I will use a tool called
 link:https://github.com/andresroldan/Automatic-ASCII-Shellcode-Subtraction-Encoder[Automatic ASCII Shellcode Subtraction Encoder].
-It was created by Elias Augusto and I added some convenient improvements.
+Elias Augusto created it and I added some convenient improvements.
 
 Let's get our encoded jump:
 
@@ -900,9 +900,9 @@ image::long-jump-success1.gif[Long jump success]
 
 Fantastic! Now we have enough room for encoding something really useful.
 
-We will use the stager shellcode used to exploit the `KSTET` command, with
-only a slight modification on the `ESP` alignment (2 bytes instead of 64). More
-information of that stager on the link:../vulnserver-kstet/[KSTET writeup]:
+We will use the stager shellcode applied to exploit the `KSTET` command, with
+only a slight modification on the `ESP` alignment (2 bytes instead of 64; more
+information of that stager on the link:../vulnserver-kstet/[KSTET writeup]):
 
 .shellcode.asm
 [source,x86asm]
@@ -986,7 +986,7 @@ pop esp             ; Pop it back the ESP
 ----
 
 And update our exploit with that. Remember to add a padding in the first
-bytes so our long jump lands there and the execution slides to our stager:
+bytes, so our long jump lands there and the execution slides to our stager:
 
 [source,python]
 ----
@@ -1070,8 +1070,8 @@ And check it:
 image::stager2.gif[Stager success]
 
 Weeeh! Now to finish, we can create our shellcode and insert it on our side
-channel created by the stager. As we now control the `recv()` call, we are not
-limited by the bad chars now! Let's do that:
+channel created by the stager. As we now control the `recv()` call,
+we are not limited by the bad chars! Let's do that:
 
 [source,console]
 ----
@@ -1232,11 +1232,11 @@ image::success.gif[Success]
 
 Wonderful! It was easy, isn't it? No, it was not, but we learned a lot!
 
-You can download the final exploit link:exploit.py[here]
+You can download the final exploit link:exploit.py[here].
 
 == Conclusion
 
-Dealing with bad chars when exploiting is very common. Commonly, encoders
-from known tools like `msfvemon` will help us to overcome that restrictions
-but there are some picky applications that will makes us drive the extra mile,
+Dealing with bad chars when exploiting is very common. Generally, encoders
+from known tools like `msfvemon` will help us to overcome those restrictions,
+but there are some picky applications that will make us drive the extra mile,
 but it's worth it.
