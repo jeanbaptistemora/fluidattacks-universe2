@@ -168,7 +168,7 @@ def _get_npm_package_lock_json_dependencies(
         current: List[DependencyType],
     ) -> List[DependencyType]:
         for key in obj:
-            if key['item'] == 'dependencies':
+            if key['item'] in ('dependencies', 'devDependencies'):
                 for product, spec in obj[key].items():
                     for spec_key, spec_val in spec.items():
                         if spec_key['item'] == 'version':

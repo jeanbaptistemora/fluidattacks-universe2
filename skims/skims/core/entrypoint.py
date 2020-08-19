@@ -5,6 +5,9 @@ from asyncio import (
     sleep,
     Task,
 )
+from concurrent.futures import (
+    BrokenExecutor,
+)
 import logging
 from os import (
     chdir,
@@ -46,6 +49,7 @@ from utils.hardware import (
 from utils.logs import (
     log,
     log_exception,
+    log_to_remote,
     set_level,
 )
 from utils.model import (
@@ -188,12 +192,16 @@ async def main(
         await adjust_working_dir(config_obj)
         success = await execute_skims(config_obj, token)
     except (
+        BrokenExecutor,
         ConfigError,
         MemoryError,
         SystemExit,
+        TypeError,
     ) as exc:
-        await log_exception('critical', exc)
         success = False
+        await log_exception('critical', exc)
+        if isinstance(exc, (BrokenExecutor, TypeError)):
+            await log_to_remote(exc)
 
     monitor_task.cancel()
 

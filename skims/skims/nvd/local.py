@@ -18,14 +18,27 @@ from semver import (
 
 # Constants
 DATABASE_NPM: Dict[str, Dict[str, List[List[str]]]] = {
+    'adm-zip': {
+        'CVE-2018-1002204': [
+            ['<0.4.9'],
+        ],
+    },
+    'atob': {
+        'CVE-2018-3745': [
+            ['<2.0.3'],
+        ],
+        'hackerone.com/reports/321686': [
+            ['<2.1.0'],
+        ],
+    },
     'axioss': {
-        'SNYK-JS-AXIOSS-460538': [
-            ['>0.0.0'],
+        'npmjs.com/advisories/1124': [
+            ['>=0.0.0'],
         ],
     },
     'axios-http': {
-        'SNYK-JS-AXIOSHTTP-460539': [
-            ['>0.0.0'],
+        'npmjs.com/advisories/1123': [
+            ['>=0.0.0'],
         ],
     },
     'axios': {
@@ -61,6 +74,15 @@ DATABASE_NPM: Dict[str, Dict[str, List[List[str]]]] = {
     'chownr': {
         'CVE-2017-18869': [
             ['<1.1.0'],
+        ],
+    },
+    'cryptiles': {
+        'npmjs.com/advisories/720': [
+            ['>=4.0.0', '<4.1.2'],
+            ['>=3.1.0', '<3.1.3'],
+        ],
+        'CVE-2018-1000620': [
+            ['>=4.0.0', '<4.1.2'],
         ],
     },
     'debug': {
@@ -161,9 +183,6 @@ DATABASE_NPM: Dict[str, Dict[str, List[List[str]]]] = {
         'CVE-2019-11358': [
             ['<3.4.0'],
         ],
-        'CVE-2019-5428': [
-            ['<3.4.0'],
-        ],
         'CVE-2017-16012': [
             ['<3.0.0'],
         ],
@@ -190,7 +209,7 @@ DATABASE_NPM: Dict[str, Dict[str, List[List[str]]]] = {
     },
     'lodahs': {
         'CVE-2019-19771': [
-            ['>0.0.0'],
+            ['>=0.0.0'],
         ],
     },
     'lodash': {
@@ -209,7 +228,7 @@ DATABASE_NPM: Dict[str, Dict[str, List[List[str]]]] = {
         'CVE-2018-3721': [
             ['<4.17.5'],
         ],
-        'SNYK-JS-LODASH-590103': [
+        'github.com/lodash/lodash/issues/4874': [
             ['<4.17.20'],
         ],
     },
@@ -288,7 +307,7 @@ DATABASE_NPM: Dict[str, Dict[str, List[List[str]]]] = {
     },
     'timespan': {
         'CVE-2017-16115': [
-            ['>0.0.0', '<=2.3.0'],
+            ['>=0.0.0', '<=2.3.0'],
         ],
     },
     'tough-cookie': {
@@ -316,6 +335,19 @@ DATABASE_NPM: Dict[str, Dict[str, List[List[str]]]] = {
         ],
         'hackerone.com/reports/701183': [
             ['<1.2.2'],
+        ],
+    },
+    'webpack-dev-server': {
+        'CVE-2018-14732': [
+            ['<3.1.6'],
+        ],
+        'github.com/webpack/webpack-dev-server/issues/1445': [
+            ['>=2.0.0', '<2.11.4'],
+            ['>=3.0.0', '<3.1.11'],
+        ],
+        'npmjs.com/advisories/725': [
+            ['>=2.0.0', '<2.11.4'],
+            ['>=3.0.0', '<3.1.11'],
         ],
     },
     'websocket-extensions': {
