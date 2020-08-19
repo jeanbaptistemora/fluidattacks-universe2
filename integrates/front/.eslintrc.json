@@ -164,6 +164,7 @@
     "fp/no-unused-expression": "off",
     "fp/no-nil": "off",
     "import/export": "error",
+    "import/exports-last": "error",
     "import/first": "error",
     "import/group-exports": "error",
     "import/newline-after-import": "error",

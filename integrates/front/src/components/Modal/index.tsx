@@ -6,7 +6,7 @@ import React from "react";
 import style from "./index.css";
 import { Modal, Sizes } from "react-bootstrap";
 
-export interface IModalProps {
+interface IModalProps {
   bsSize?: Sizes;
   children?: React.ReactNode;
   content?: React.ReactNode;
@@ -44,26 +44,24 @@ const modal: React.FC<IModalProps> = (
   }
 
   return (
-    <React.StrictMode>
-      <Modal
-        backdrop={true}
-        bsSize={bsSize}
-        dialogClassName={style.dialog}
-        onHide={handleModalClose}
-        onShow={handleModalOpen}
-        show={open}
-      >
-        <Modal.Header className={style.header}>
-          <Modal.Title className={style.title}>{headerTitle}</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          {content}
-          {children}
-        </Modal.Body>
-        <Modal.Footer>{footer}</Modal.Footer>
-      </Modal>
-    </React.StrictMode>
+    <Modal
+      backdrop={true}
+      bsSize={bsSize}
+      dialogClassName={style.dialog}
+      onHide={handleModalClose}
+      onShow={handleModalOpen}
+      show={open}
+    >
+      <Modal.Header className={style.header}>
+        <Modal.Title className={style.title}>{headerTitle}</Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        {content}
+        {children}
+      </Modal.Body>
+      <Modal.Footer>{footer}</Modal.Footer>
+    </Modal>
   );
 };
 
-export { modal as Modal };
+export { IModalProps, modal as Modal };

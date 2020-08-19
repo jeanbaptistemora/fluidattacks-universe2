@@ -5,7 +5,7 @@ import React from "react";
 import _ from "lodash";
 import { translate } from "../../utils/translations/translate";
 
-export interface IConfirmFn {
+interface IConfirmFn {
   (confirmCallback: () => void, cancelCallback?: () => void): void;
 }
 
@@ -15,7 +15,7 @@ interface IConfirmDialogProps {
   children: (confirm: IConfirmFn) => React.ReactNode;
 }
 
-export const ConfirmDialog: React.FC<IConfirmDialogProps> = (
+const ConfirmDialog: React.FC<IConfirmDialogProps> = (
   props: Readonly<IConfirmDialogProps>
 ): JSX.Element => {
   const { children, title, message } = props;
@@ -83,3 +83,5 @@ export const ConfirmDialog: React.FC<IConfirmDialogProps> = (
     </React.Fragment>
   );
 };
+
+export { IConfirmFn, ConfirmDialog };
