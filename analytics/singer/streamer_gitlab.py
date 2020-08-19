@@ -49,7 +49,11 @@ class API():
         except json.JSONDecodeError as error:
             log(f'ERROR: json.JSONDecodeError, {error}')
         else:
-            self.success = True
+            if 200 <= self.response.status < 400:
+                self.success = True
+            else:
+                log(f'ERROR: status: {self.response.status}')
+                self.success = False
 
     def paginate(self, resource, extra_query_args: str = ''):
         """Paginate a resource."""
