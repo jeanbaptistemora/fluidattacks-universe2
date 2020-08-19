@@ -137,7 +137,7 @@ analytics_mandrill:
 
 analytics_gitlab:
   <<: *with_nix
-  tags: [autoscaling-analytics]
+  tags: [autoscaling]
   stage: analytics
   only:
     refs: [schedules]
