@@ -44,145 +44,82 @@
 
 {% block content %}
 
-<div class="mw9 center h6 pv5 mv5">
-  <div class="tl pl3-l pr0-l pb4">
-    <h1 class="c-fluid-bk center roboto w-100 tc ph3-ns ph3 f1-l f2 lh-solid mw7">
-      Comprehensive Hacking at the Speed of your Business
-    </h1>
-  </div>
+<div class="tl pl3-l pr0-l mv4 bg-dk-red pv1 w-100">
+  <h1 class="white center roboto w-100 tc ph3-ns ph3 f1-l f2 lh-solid mw7">
+    Comprehensive Hacking at the Speed of your Business
+  </h1>
+</div>
+<div class="mw9 center h6 pv4">
   <div class="pl3-l pr0-l dib w-100">
-    <div class="ph3-l w-20-l w-100 tc h3 w-100 fr-l nowrap">
-      <ul class="list pl0 tl-l tc mt4">
-        <li class="db-l dib ph3">
-          <input type="radio" id="op1" class="dn" name="menu1" checked />
-          <label class="index1 c-fluid-gray f5 roboto no-underline fw3 hv-fluid-dkred pointer" for="op1">
-            <img
-            class="line-menu w2-l w1 h1 fl-l nl-3 pt2 pr2-l pr3 relative"
-            src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/line-menu.svg"
-            alt="Young hacker smiling">1. Integrates</label>
-        </li>
-        <li class="db-l dib ph3">
-          <input type="radio" id="op2" class="dn" name="menu1"/>
-          <label class="index2 c-fluid-gray f6 roboto no-underline fw3 hv-fluid-dkred pointer" for="op2">
-            <img
-            class="line-menu w2-l w1 h1 fl-l nl-3 pt2 pr2-l pr3 relative"
-            src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/line-menu.svg"
-            alt="Young hacker smiling">2. Drills</label>
-        </li>
-        <li class="db-l dib ph3">
-          <input type="radio" id="op3" class="dn" name="menu1"/>
-          <label class="index3 c-fluid-gray f6 roboto no-underline fw3 hv-fluid-dkred pointer" for="op3">
-            <img
-            class="line-menu w2-l w1 h1 fl-l nl-3 pt2 pr2-l pr3 relative"
-            src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/line-menu.svg"
-            alt="Young hacker smiling">3. Forces</label>
-        </li>
-      </ul>
+    <h2 class="roboto f2-ns f3 c-fluid-bk strong tc">Products</h2>
+    <div class="w-90 tc ml-auto mr-auto pv3">
+      <div class="w-50-l ml-auto mr-auto">
+        <img
+        data-aos="zoom-in"
+        src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/products/product-integrates.png"
+        alt="Young hacker smiling">
+
+        <img
+        class="pv3"
+        src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/products/integrates/integrates-logo.png"
+        alt="integrates logo">
+        <h3 class="c-fluid-bk roboto fw1 f3-ns f4">
+          The Platform Element that Control the Process to Achieve Remediation
+        </h3>
+        <p class="c-fluid-bk roboto fw1 f4 lh-2">
+          <strong class="b">Integrates</strong> is a platform that stores vulnerabilities
+          and gives you access to their evidence in different phases and in real time.
+          You can easily and quickly classify and prioritize them,
+          define their treatments, and check the status and progress of their
+          remediation.
+        </p>
+      </div>
     </div>
-    <div class="fixes w-80-l w-100 mh0-l ph3-l center fl">
-      <ul class="list fl-l w-40-l w-70-m w-100 pl0-l ph3 center tl-ns tc mt4">
-        <li>
-          <h2 class="roboto f2-ns f3 c-fluid-bk strong mv0">
-            The Platform Element
-          </h2>
-        </li>
-        <li>
-          <h3 class="roboto fw1 f3-ns f4 mt0">
-            Control the Process to Achieve Remediation
-          </h3>
-        </li>
-        <li>
-          <a class="no-underline" href="{{ SITEURL }}/products/integrates/">
-            <p class="c-fluid-bk roboto fw1 tl f4 lh-2">
-              <strong class="b">Integrates</strong> is a platform that stores vulnerabilities
-              and gives you access to their evidence in different phases and in real time.
-              You can easily and quickly classify and prioritize them,
-              define their treatments, and check the status and progress of their
-              remediation.
-            </p>
-          </a>
-        </li>
-      </ul>
-      <ul class="list fr center w-50-l w-100 ph0-l ph3 mt0">
-        <li>
-          <a href="{{ SITEURL }}/products/integrates/">
-            <img
-            class="fr"
-            src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/products/product-integrates.png"
-            alt="Young hacker smiling">
-          </a>
-        </li>
-      </ul>
+    <div class="w-90 tc ml-auto mr-auto pv3">
+      <div class="w-50-l ml-auto mr-auto">
+        <img
+        data-aos="zoom-in"
+        src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/products/product-drills.png"
+        alt="Young hacker smiling">
+
+        <img
+        class="pv3"
+        src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/products/drills/drills-logo.png"
+        alt="Drills logo">
+        <h3 class="roboto f3-ns f4 fw1 mt0">
+          The Human element that Continuously Detect Vulnerabilities
+        </h3>
+        <p class="c-fluid-bk roboto fw1 f4 lh-2">
+          <strong class="b">Drills</strong>, through the right combination
+          of technology and human intelligence, finds deep and zero-day vulnerabilities
+          during the software development life cycle.
+          Forget about false positives and false negatives.
+          <strong class="b">Drills</strong> includes SAST, DAST, IAST, and SCA techniques.
+        </p>
+      </div>
     </div>
-    <div class="drills w-80-l w-100 mh0-l ph3-l center dn fl">
-      <ul class="list fl-l w-40-l w-70-m w-100 pl0-l ph3 center tl-ns tc mt4">
-        <li>
-          <h2 class="roboto strong c-fluid-bk f2-ns f3 mv0">
-            The Human Element
-          </h2>
-        </li>
-        <li>
-          <h3 class="roboto f3-ns f4 fw1 mt0">
-            Continuous Detection of Vulnerabilities
-          </h3>
-        </li>
-        <li>
-          <a class="no-underline" href="{{ SITEURL }}/products/drills">
-            <p class="c-fluid-bk roboto fw1 tl f4 lh-2">
-              <strong class="b">Drills</strong>, through the right combination
-              of technology and human intelligence, finds deep and zero-day vulnerabilities
-              during the software development life cycle.
-              Forget about false positives and false negatives.
-              <strong class="b">Drills</strong> includes SAST, DAST, IAST, and SCA techniques.
-            </p>
-          </a>
-        </li>
-      </ul>
-      <ul class="list fr center w-50-l w-100 ph0-l ph3 mt0">
-        <li>
-          <a class="no-underline" href="{{ SITEURL }}/products/drills/">
-            <img
-            class="fr"
-            src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/products/product-drills.png"
-            alt="Young hacker smiling">
-          </a>
-        </li>
-      </ul>
-    </div>
-    <div class="forces w-80-l w-100 mh0-l ph3-l center dn fl">
-      <ul class="list fl-l w-40-l w-70-m w-100 pl0-l ph3 center tl-ns tc mt4">
-        <li>
-          <h2 class="roboto c-fluid-bk f2-ns f3 strong mv0">
-            The Robot Element
-          </h2>
-        </li>
-        <li>
-          <h3 class="roboto f3-ns f4 fw1 mt0">
-            Break the Build to Force Remediation
-          </h3>
-        </li>
-        <li>
-          <a class="no-underline" href="{{ SITEURL }}/products/forces/">
-            <p class="c-fluid-bk roboto fw1 tl f4 lh-2">
-              <strong class="b">Forces</strong> allows you to implement
-              DevSecOps in your project. It breaks the build
-              to force remediation of confirmed deep vulnerabilities,
-              re-opened vulnerabilities, and new peripheral vulnerabilities.
-              It can also verify your post-deploy production status.
-            </p>
-          </a>
-        </li>
-      </ul>
-      <ul class="list fr center w-50-l w-100 ph0-l ph3 mt0">
-        <li>
-          <a class="no-underline" href="{{ SITEURL }}/products/forces/">
-            <img
-            class="fr"
-            src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/products/product-forces.png"
-            alt="Young hacker smiling">
-          </a>
-        </li>
-      </ul>
+    <div class="w-90 tc ml-auto mr-auto pv3">
+      <div class="w-50-l ml-auto mr-auto">
+        <img
+        data-aos="zoom-in"
+        src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/products/product-forces.png"
+        alt="Young hacker smiling">
+
+        <img
+        class="pv3"
+        src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/products/forces/forces-logo.png"
+        alt="Forces logo">
+        <h3 class="roboto f3-ns f4 fw1 mt0">
+          The Robot Element that Breaks the Build to Force Remediation
+        </h3>
+        <p class="c-fluid-bk roboto fw1 f4 lh-2">
+          <strong class="b">Forces</strong> allows you to implement
+          DevSecOps in your project. It breaks the build
+          to force remediation of confirmed deep vulnerabilities,
+          re-opened vulnerabilities, and new peripheral vulnerabilities.
+          It can also verify your post-deploy production status.
+        </p>
+      </div>
     </div>
   </div>
 </div>
