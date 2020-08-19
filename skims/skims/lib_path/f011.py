@@ -148,7 +148,7 @@ async def npm_package_json(
 ) -> Tuple[Vulnerability, ...]:
     dependencies: Tuple[DependencyType, ...] = await in_process(
         _get_npm_package_json_dependencies,
-        content_json=await json_loads(content),
+        content_json=await json_loads(content, default={}),
     )
 
     return await translate_dependencies_to_vulnerabilities(
@@ -190,7 +190,7 @@ async def npm_package_lock_json(
 ) -> Tuple[Vulnerability, ...]:
     dependencies: Tuple[DependencyType, ...] = await in_process(
         _get_npm_package_lock_json_dependencies,
-        content_json=await json_loads(content),
+        content_json=await json_loads(content, default={}),
     )
 
     return await translate_dependencies_to_vulnerabilities(

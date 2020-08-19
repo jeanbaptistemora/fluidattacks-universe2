@@ -1,5 +1,8 @@
 # Standard library
 import ast
+from typing import (
+    Optional,
+)
 
 # Third party libraries
 from aioextensions import (
@@ -37,7 +40,11 @@ GRAMMAR = r"""
 """
 
 
-def blocking_loads(stream: str) -> frozendict:
+def blocking_loads(
+    stream: str,
+    *,
+    default: Optional[frozendict] = None,
+) -> frozendict:
     json_parser = lark.Lark(
         grammar=GRAMMAR,
         parser='lalr',
@@ -47,11 +54,21 @@ def blocking_loads(stream: str) -> frozendict:
         transformer=Builder(),
     )
 
-    return json_parser.parse(stream)
+    try:
+        return json_parser.parse(stream)
+    except lark.exceptions.LarkError:
+        if default is None:
+            raise
+
+        return default
 
 
-async def loads(stream: str) -> frozendict:
-    return await in_process(blocking_loads, stream)
+async def loads(
+    stream: str,
+    *,
+    default: Optional[frozendict] = None,
+) -> frozendict:
+    return await in_process(blocking_loads, stream, default=default)
 
 
 class Builder(lark.Transformer[frozendict]):
