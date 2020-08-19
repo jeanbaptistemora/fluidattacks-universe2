@@ -137,7 +137,9 @@ const projectDraftsView: React.FC<IProjectDraftsBaseProps> = (props: IProjectDra
           };
         }));
       })
-      .catch();
+      .catch((error: Error) => {
+        Logger.error("An error occurred getting draft suggestions", error);
+      });
   };
   React.useEffect(onMount, []);
 
