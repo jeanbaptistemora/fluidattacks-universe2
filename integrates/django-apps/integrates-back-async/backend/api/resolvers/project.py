@@ -8,17 +8,18 @@ from datetime import datetime
 from typing import Dict, List, Set, Any, cast, Union
 
 # Third party libraries
+import simplejson as json
 from ariadne import (
     convert_camel_case_to_snake,
     convert_kwargs_to_snake_case,
 )
+from graphql import GraphQLError
 from graphql.language.ast import (
     FieldNode,
     SelectionSetNode,
     ObjectFieldNode
 )
 from graphql.type.definition import GraphQLResolveInfo
-import simplejson as json
 
 # Local libraries
 from backend import authz
@@ -860,6 +861,9 @@ async def resolve_project(
         info: GraphQLResolveInfo,
         project_name: str) -> ProjectType:
     """Resolve project query."""
+    project = await info.context.loaders['project'].load(project_name.lower())
+    if not project['attrs'] or project['attrs'].get('deletion_date'):
+        raise GraphQLError('Access denied')
     return await resolve(info, project_name)
 
 
