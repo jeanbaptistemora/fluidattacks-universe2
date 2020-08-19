@@ -165,14 +165,13 @@ def _dockerfile_env_secrets(content: str) -> Tuple[Tuple[int, int], ...]:
     return tuple(secrets)
 
 
-@cache_decorator()
 async def dockerfile_env_secrets(
     content: str,
     path: str,
 ) -> Tuple[Vulnerability, ...]:
     return tuple([
         Vulnerability(
-            finding=FindingEnum.F011,
+            finding=FindingEnum.F009,
             kind=VulnerabilityKindEnum.LINES,
             state=VulnerabilityStateEnum.OPEN,
             what=path,

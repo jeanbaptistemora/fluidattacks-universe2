@@ -1,0 +1,592 @@
+{
+  "@angular-devkit/core": {},
+  "@babel/code-frame": {},
+  "@babel/generator": {},
+  "@babel/helper-function-name": {},
+  "@babel/helper-plugin-utils": {},
+  "@babel/helper-split-export-declaration": {},
+  "@babel/helper-validator-identifier": {},
+  "@babel/parser": {},
+  "@babel/template": {},
+  "@babel/traverse": {},
+  "@babel/types": {},
+  "@jest/types": {},
+  "@webassemblyjs/ast": {},
+  "@webassemblyjs/helper-wasm-bytecode": {},
+  "accepts": {},
+  "adm-zip": {
+    "CVE-2018-1002204": [
+      "<0.4.9"
+    ]
+  },
+  "agent-base": {},
+  "ajv": {
+    "CVE-2020-15366": [
+      "<6.12.3"
+    ]
+  },
+  "ajv-keywords": {},
+  "ansi-regex": {},
+  "ansi-styles": {},
+  "anymatch": {},
+  "aproba": {},
+  "arr-diff": {},
+  "arr-flatten": {},
+  "array-unique": {},
+  "assert-plus": {},
+  "async": {},
+  "atob": {
+    "CVE-2018-3745": [
+      "<2.0.3"
+    ],
+    "hackerone.com/reports/321686": [
+      "<2.1.0"
+    ]
+  },
+  "aws-sdk": {},
+  "axios": {
+    "CVE-2019-10742": [
+      "<=0.18.0"
+    ]
+  },
+  "axios-http": {
+    "npmjs.com/advisories/1123": [
+      ">=0.0.0"
+    ]
+  },
+  "axioss": {
+    "npmjs.com/advisories/1124": [
+      ">=0.0.0"
+    ]
+  },
+  "babel-runtime": {},
+  "babel-types": {},
+  "balanced-match": {},
+  "bluebird": {},
+  "bn.js": {},
+  "bootstrap": {
+    "CVE-2019-8331": [
+      "<3.4.1",
+      ">=4.0.0,<4.3.1"
+    ],
+    "CVE-2018-20677": [
+      "<3.4.0"
+    ],
+    "CVE-2018-20676": [
+      "<3.4.0"
+    ],
+    "CVE-2018-14042": [
+      "<4.1.2"
+    ],
+    "CVE-2018-14041": [
+      "<4.1.2"
+    ],
+    "CVE-2018-14040": [
+      "<4.1.2"
+    ],
+    "CVE-2016-10735": [
+      "<3.4.0",
+      ">=4.0.0-alpha,<4.0.0-beta.2"
+    ]
+  },
+  "brace-expansion": {
+    "CVE-2017-18077": [
+      "<1.1.7"
+    ]
+  },
+  "braces": {
+    "npmjs.com/advisories/786": [
+      "<2.3.1"
+    ]
+  },
+  "browserslist": {},
+  "cacache": {},
+  "camelcase": {},
+  "chalk": {},
+  "chokidar": {},
+  "chownr": {
+    "CVE-2017-18869": [
+      "<1.1.0"
+    ]
+  },
+  "cipher-base": {},
+  "cliui": {},
+  "color-convert": {},
+  "color-name": {},
+  "combined-stream": {},
+  "commander": {},
+  "component-emitter": {},
+  "console-control-strings": {},
+  "convert-source-map": {},
+  "core-js": {},
+  "core-util-is": {},
+  "create-hash": {},
+  "cross-spawn": {},
+  "cryptiles": {
+    "npmjs.com/advisories/720": [
+      ">=4.0.0,<4.1.2",
+      ">=3.1.0,<3.1.3"
+    ],
+    "CVE-2018-1000620": [
+      ">=4.0.0,<4.1.2"
+    ]
+  },
+  "debug": {
+    "CVE-2017-16137": [
+      ">=1.0.0,<2.6.9",
+      ">=3.0.0,<3.1.0"
+    ]
+  },
+  "decamelize": {
+    "CVE-2017-16023": [
+      ">=1.1.0,<1.1.2"
+    ]
+  },
+  "decompress": {
+    "github.com/kevva/decompress/issues/71": [
+      "<4.2.1"
+    ]
+  },
+  "decompress-tar": {
+    "npmjs.com/advisories/1217": [
+      "<4.2.1"
+    ]
+  },
+  "decompress-zip": {
+    "npmjs.com/advisories/777": [
+      "<0.2.2",
+      ">=0.3.0,<0.3.2"
+    ]
+  },
+  "define-properties": {},
+  "define-property": {},
+  "depd": {},
+  "elliptic": {
+    "CVE-2020-13822": [
+      "<6.5.3"
+    ],
+    "SNYK-JS-ELLIPTIC-511941": [
+      "<6.5.2"
+    ]
+  },
+  "emoji-regex": {},
+  "encodeurl": {},
+  "end-of-stream": {},
+  "es-abstract": {},
+  "escape-html": {},
+  "escape-string-regexp": {},
+  "esprima": {},
+  "estraverse": {},
+  "esutils": {},
+  "execa": {},
+  "extend": {
+    "CVE-2018-16492": [
+      "<2.0.2",
+      ">=3.0.0,<3.0.2"
+    ]
+  },
+  "extend-shallow": {},
+  "fast-deep-equal": {},
+  "fast-json-stable-stringify": {},
+  "figgy-pudding": {},
+  "fill-range": {},
+  "find-up": {},
+  "fragment-cache": {},
+  "fresh": {
+    "CVE-2017-16119": [
+      "<0.5.2"
+    ]
+  },
+  "fs.realpath": {},
+  "fsevents": {},
+  "function-bind": {},
+  "get-caller-file": {},
+  "get-stream": {},
+  "get-value": {},
+  "glob": {},
+  "glob-parent": {},
+  "globals": {},
+  "graceful-fs": {},
+  "handlebars": {
+    "CVE-2015-8861": [
+      "<4.0.0"
+    ],
+    "github.com/handlebars-lang/handlebars.js/issues/1558": [
+      "<3.8.0",
+      ">=4.0.0,<4.3.0"
+    ],
+    "github.com/handlebars-lang/handlebars.js/issues/1495": [
+      ">=3.0.0,<3.0.7",
+      ">=4.0.0,<4.0.14",
+      ">=4.1.0,<4.1.2"
+    ],
+    "hackerone.com/reports/726364": [
+      "<4.6.0"
+    ],
+    "npmjs.com/advisories/1325": [
+      "<3.0.8",
+      ">=4.0.0,<4.5.3"
+    ],
+    "npmjs.com/advisories/1324": [
+      "<3.0.8",
+      ">=4.0.0,<4.5.3"
+    ],
+    "npmjs.com/advisories/1316": [
+      "<3.0.8",
+      ">=4.0.0,<4.5.3"
+    ],
+    "npmjs.com/advisories/1300": [
+      "<4.4.5"
+    ],
+    "npmjs.com/advisories/755": [
+      ">=4.0.0,<4.0.14",
+      ">=4.1.0,<4.1.2"
+    ]
+  },
+  "has": {},
+  "has-flag": {},
+  "has-symbols": {},
+  "hoek": {
+    "CVE-2018-3728": [
+      ">=0.0.0,<4.2.0",
+      ">=5.0.0,<5.0.3"
+    ]
+  },
+  "http-errors": {},
+  "iconv-lite": {},
+  "imurmurhash": {},
+  "inflight": {},
+  "inherits": {},
+  "ini": {},
+  "ip": {
+    "github.com/indutny/node-ip/commit/b2b4469255a624619bda71e52fd1f05dc0dd621f": [
+      "<1.1.5"
+    ]
+  },
+  "is-accessor-descriptor": {},
+  "is-buffer": {},
+  "is-data-descriptor": {},
+  "is-descriptor": {},
+  "is-extendable": {},
+  "is-extglob": {},
+  "is-fullwidth-code-point": {},
+  "is-glob": {},
+  "is-number": {},
+  "is-plain-object": {},
+  "is-stream": {},
+  "isarray": {},
+  "isobject": {},
+  "istanbul-lib-coverage": {},
+  "jquery": {
+    "CVE-2020-11022": [
+      ">=1.2.0,<3.5.0"
+    ],
+    "CVE-2020-7656": [
+      "<1.9.0"
+    ],
+    "CVE-2019-11358": [
+      "<3.4.0"
+    ],
+    "CVE-2017-16012": [
+      "<3.0.0"
+    ],
+    "CVE-2017-16011": [
+      ">=1.7.1,<1.9.0"
+    ],
+    "CVE-2015-9251": [
+      "<3.0.0"
+    ],
+    "CVE-2014-6071": [
+      "==1.4.2"
+    ],
+    "CVE-2012-6708": [
+      ">=1.7.1,<1.9.0"
+    ],
+    "CVE-2011-4969": [
+      "<1.6.3"
+    ]
+  },
+  "js-tokens": {},
+  "js-yaml": {
+    "CVE-2013-4660": [
+      "<2.0.5"
+    ],
+    "npmjs.com/advisories/813": [
+      "<3.13.1"
+    ]
+  },
+  "jsesc": {},
+  "json-parse-better-errors": {},
+  "json-schema-traverse": {},
+  "kind-of": {
+    "CVE-2019-20149": [
+      ">=6.0.0,<6.0.3"
+    ]
+  },
+  "loader-utils": {},
+  "locate-path": {},
+  "lodahs": {
+    "CVE-2019-19771": [
+      ">=0.0.0"
+    ]
+  },
+  "lodash": {
+    "CVE-2020-8203": [
+      "<=4.17.15"
+    ],
+    "CVE-2019-1010266": [
+      "<4.17.11"
+    ],
+    "CVE-2019-10744": [
+      "<4.17.12"
+    ],
+    "CVE-2018-16487": [
+      "<4.17.11"
+    ],
+    "CVE-2018-3721": [
+      "<4.17.5"
+    ],
+    "github.com/lodash/lodash/issues/4874": [
+      "<4.17.20"
+    ]
+  },
+  "lru-cache": {},
+  "make-dir": {},
+  "micromatch": {},
+  "mime": {
+    "CVE-2017-16138": [
+      "<1.4.1",
+      ">=2.0.0,<2.0.3"
+    ]
+  },
+  "mime-types": {},
+  "minimalistic-assert": {},
+  "minimatch": {
+    "CVE-2016-10540": [
+      "<=3.0.1"
+    ]
+  },
+  "minimist": {
+    "CVE-2020-7598": [
+      "<=1.2.2"
+    ]
+  },
+  "minipass": {},
+  "mixin-deep": {
+    "CVE-2019-10746": [
+      ">=2.0.0,<2.0.1",
+      "<1.3.2"
+    ],
+    "CVE-2018-3719": [
+      "<1.3.1"
+    ]
+  },
+  "mkdirp": {},
+  "mocha": {
+    "github.com/mochajs/mocha/pull/3686": [
+      "<6.0.0"
+    ]
+  },
+  "ms": {
+    "CVE-2015-8315": [
+      "<0.7.1"
+    ],
+    "github.com/vercel/ms/pull/89/commits/305f2ddcd4eff7cc7c518aca6bb2b2d2daad8fef": [
+      ">=0.7.1,<2.0.0"
+    ]
+  },
+  "normalize-package-data": {},
+  "normalize-path": {},
+  "npm-package-arg": {},
+  "number-is-nan": {},
+  "object-assign": {},
+  "object-keys": {},
+  "object.pick": {},
+  "on-finished": {},
+  "once": {},
+  "os-tmpdir": {},
+  "osenv": {},
+  "p-limit": {},
+  "p-locate": {},
+  "p-try": {},
+  "parsejson": {
+    "CVE-2017-16113": [
+      "<=0.0.3"
+    ]
+  },
+  "parseurl": {},
+  "path-exists": {},
+  "path-is-absolute": {},
+  "path-key": {},
+  "pify": {},
+  "pinkie-promise": {},
+  "pkg-dir": {},
+  "postcss": {},
+  "postcss-value-parser": {},
+  "process-nextick-args": {},
+  "pump": {},
+  "punycode": {},
+  "qs": {
+    "CVE-2017-1000048": [
+      ">=6.1.0,<6.1.2",
+      ">=6.2.0,<6.2.3",
+      ">=6.3.0,<6.3.2",
+      "<6.0.4"
+    ]
+  },
+  "randombytes": {},
+  "range-parser": {},
+  "readable-stream": {},
+  "regex-not": {},
+  "repeat-element": {},
+  "repeat-string": {},
+  "request": {
+    "CVE-2017-16026": [
+      ">=2.2.6,<2.47.0",
+      ">2.51.0,<=2.67.0"
+    ],
+    "npmjs.com/advisories/309": [
+      ">2.2.5,<2.68.0"
+    ]
+  },
+  "require-directory": {},
+  "require-main-filename": {},
+  "resolve": {},
+  "resolve-from": {},
+  "rimraf": {},
+  "rxjs": {},
+  "safe-buffer": {},
+  "safer-buffer": {},
+  "sax": {},
+  "schema-utils": {},
+  "semver": {
+    "CVE-2015-8855": [
+      "<4.3.2"
+    ]
+  },
+  "serialize-javascript": {
+    "CVE-2020-7660": [
+      "<3.1.0"
+    ],
+    "CVE-2019-16769": [
+      "<2.1.1"
+    ]
+  },
+  "set-blocking": {},
+  "set-value": {
+    "CVE-2019-10747": [
+      "<3.0.1"
+    ]
+  },
+  "signal-exit": {},
+  "slash": {},
+  "snapdragon": {},
+  "snapdragon-node": {},
+  "sockjs": {
+    "CVE-2020-8823": [
+      "<0.3.0"
+    ],
+    "CVE-2020-7693": [
+      "<0.3.20"
+    ]
+  },
+  "source-map": {},
+  "source-map-support": {},
+  "spdx-expression-parse": {},
+  "spdx-license-ids": {},
+  "split-string": {},
+  "ssri": {
+    "CVE-2018-7651": [
+      "<5.2.2"
+    ]
+  },
+  "statuses": {},
+  "string-width": {},
+  "string_decoder": {},
+  "strip-ansi": {},
+  "strip-bom": {},
+  "superagent": {
+    "CVE-2017-16129": [
+      "<3.7.0"
+    ],
+    "github.com/visionmedia/superagent/issues/1309": [
+      "<3.8.1"
+    ],
+    "npmjs.com/advisories/479": [
+      "<3.7.0"
+    ]
+  },
+  "supports-color": {},
+  "timespan": {
+    "CVE-2017-16115": [
+      ">=0.0.0,<=2.3.0"
+    ]
+  },
+  "to-fast-properties": {},
+  "to-regex": {},
+  "to-regex-range": {},
+  "tough-cookie": {
+    "CVE-2017-15010": [
+      "<2.3.3"
+    ],
+    "CVE-2016-1000232": [
+      ">=0.9.7,<2.3.0"
+    ],
+    "github.com/salesforce/tough-cookie/issues/92": [
+      "<2.3.3"
+    ]
+  },
+  "tree-kill": {
+    "CVE-2019-15599": [
+      "<1.2.2"
+    ],
+    "hackerone.com/reports/701183": [
+      "<1.2.2"
+    ]
+  },
+  "treekill": {
+    "CVE-2019-15598": [
+      "<1.0.0"
+    ],
+    "hackerone.com/reports/703415": [
+      "<1.0.0"
+    ]
+  },
+  "tslib": {},
+  "util-deprecate": {},
+  "uuid": {},
+  "webpack-dev-server": {
+    "CVE-2018-14732": [
+      "<3.1.6"
+    ],
+    "github.com/webpack/webpack-dev-server/issues/1445": [
+      ">=2.0.0,<2.11.4",
+      ">=3.0.0,<3.1.11"
+    ],
+    "npmjs.com/advisories/725": [
+      ">=2.0.0,<2.11.4",
+      ">=3.0.0,<3.1.11"
+    ]
+  },
+  "webpack-sources": {},
+  "websocket-extensions": {
+    "CVE-2020-7662": [
+      "<0.1.4"
+    ]
+  },
+  "which": {},
+  "which-module": {},
+  "wrap-ansi": {},
+  "wrappy": {},
+  "xtend": {},
+  "y18n": {},
+  "yallist": {},
+  "yargs": {},
+  "yargs-parser": {
+    "CVE-2020-7608": [
+      "<13.1.2,!=5.0.0-security.0",
+      ">=14.0.0,<15.0.1",
+      ">=16.0.0,<18.1.1"
+    ]
+  }
+}

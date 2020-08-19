@@ -30,3 +30,8 @@ def get_artifact(path: str) -> str:
             return attempt
 
     raise FileNotFoundError(path)
+
+
+def read_artifact(path: str) -> bytes:
+    with open(get_artifact(path), mode='rb') as file:
+        return file.read()
