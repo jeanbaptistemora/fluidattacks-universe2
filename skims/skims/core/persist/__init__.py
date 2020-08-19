@@ -7,7 +7,6 @@ import random
 import sys
 from typing import (
     Dict,
-    Set,
     Tuple,
 )
 
@@ -141,18 +140,19 @@ async def upload_evidences(
     ))
 
 
-async def merge_results(
+async def diff_results(
     skims_store: EphemeralStore,
     integrates_store: EphemeralStore,
 ) -> EphemeralStore:
-    """Merge results from Skims and Integrates, closing or creating if needed.
+    """Diff results from Skims and Integrates, closing or creating if needed.
 
-    :param skims_store: Store with the results from Skims
-    :type skims_store: EphemeralStore
-    :param integrates_store: Store with the results from Integrates
-    :type integrates_store: EphemeralStore
-    :return: A new store with the merged results
-    :rtype: EphemeralStore
+    Args:
+        skims_store: Store with the results from Skims.
+        integrates_store: Store with the results from Integrates.
+
+    Returns:
+        A new store with the exact difference that needs to be
+        persisted to Integrates in order to reflect the Skims state.
     """
     store = get_ephemeral_store()
 
@@ -174,9 +174,10 @@ async def merge_results(
 
     # Think of the update as the difference in the generation that
     #   is currently on Integrates, vs the generation that Skims found
-    new_generation_hashes: Set[int] = set()
-    old_generation_hashes: Set[int] = {
-        get_vulnerability_hash(result)
+
+    # The current state at Integrates
+    integrates_hashes: Dict[int, VulnerabilityStateEnum] = {
+        get_vulnerability_hash(result): result.state
         async for result in integrates_store.iterate()
         # Filter integrates results managed by skims
         if (result.integrates_metadata and
@@ -185,23 +186,37 @@ async def merge_results(
             ))
     }
 
+    # The current state to Skims
+    skims_hashes: Dict[int, VulnerabilityStateEnum] = {}
+
     # Walk all Skims results
     async for result in skims_store.iterate():
-        # Store the Skims result as OPEN in the new generation
-        new_generation_hashes.add(get_vulnerability_hash(result))
-        await store.store(prepare_result(
-            result=result,
-            state=VulnerabilityStateEnum.OPEN,
-        ))
+        result_hash = get_vulnerability_hash(result)
 
-    # This difference are results that should be CLOSED on Integrates
-    generation_difference: Set[int] = (
-        old_generation_hashes - new_generation_hashes
-    )
+        # All skims results are part of the new generation
+        skims_hashes[result_hash] = result.state
 
-    # Walk all integrates results that are in the generation difference
+        # Check if this result is in the old generation and changed stated
+        if integrates_hashes.get(result_hash) == result.state:
+            # The result exists in the old generation and has not changed state
+            pass
+        else:
+            # Either this is a new vulnerability or it has changed state
+            # Let's store the Skims result for persistion
+            await store.store(prepare_result(
+                result=result,
+                state=result.state,
+            ))
+
+    # Walk all integrates results
     async for result in integrates_store.iterate():
-        if get_vulnerability_hash(result) in generation_difference:
+        if (
+            # This result was not found by Skims
+            get_vulnerability_hash(result) not in skims_hashes
+            # And this result is OPEN
+            and result.state == VulnerabilityStateEnum.OPEN \
+        ):
+            # This result must be CLOSED and persisted to Integrates
             await store.store(prepare_result(
                 result=result,
                 state=VulnerabilityStateEnum.CLOSED,
@@ -244,18 +259,16 @@ async def persist_finding(
     if finding_id:
         await log('info', 'finding for: %s = %s', finding.name, finding_id)
 
-        merged_store: EphemeralStore = await merge_results(
-            integrates_store=await get_finding_vulnerabilities(
-                finding=finding,
-                finding_id=finding_id,
-            ),
-            skims_store=store,
-        )
-
         success = await do_build_and_upload_vulnerabilities(
             finding_id=finding_id,
             release=True,
-            store=merged_store,
+            store=await diff_results(
+                integrates_store=await get_finding_vulnerabilities(
+                    finding=finding,
+                    finding_id=finding_id,
+                ),
+                skims_store=store,
+            ),
         ) and await upload_evidences(
             finding_id=finding_id,
             store=store,
