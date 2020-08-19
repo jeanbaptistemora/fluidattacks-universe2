@@ -96,12 +96,18 @@ const organizationPolicies: React.FC<IOrganizationPolicies> = (props: IOrganizat
     {
       dataField: "policy",
       header: translate.t("organization.tabs.policies.policy"),
-      width: "75%",
+      width: "50%",
       wrapped: true,
     },
     {
       dataField: "value",
       header: translate.t("organization.tabs.policies.value"),
+      width: "25%",
+      wrapped: true,
+    },
+    {
+      dataField: "recommended",
+      header: translate.t("organization.tabs.policies.recommended.title"),
       width: "25%",
       wrapped: true,
     },
@@ -111,6 +117,9 @@ const organizationPolicies: React.FC<IOrganizationPolicies> = (props: IOrganizat
     {
       policy: (
       <p>{translate.t("organization.tabs.policies.policies.maxAcceptanceDays")}</p>
+      ),
+      recommended: (
+      <p className={style.recommended}>{translate.t("organization.tabs.policies.recommended.acceptanceDays")}</p>
       ),
       value: (
         <Field
@@ -123,6 +132,9 @@ const organizationPolicies: React.FC<IOrganizationPolicies> = (props: IOrganizat
     {
       policy: (
       <p>{translate.t("organization.tabs.policies.policies.acceptanceSeverityRange")}</p>
+      ),
+      recommended: (
+      <p className={style.recommended}>{translate.t("organization.tabs.policies.recommended.acceptanceSeverity")}</p>
       ),
       value: (
         <React.Fragment>
@@ -153,6 +165,9 @@ const organizationPolicies: React.FC<IOrganizationPolicies> = (props: IOrganizat
     {
       policy: (
       <p>{translate.t("organization.tabs.policies.policies.maxNumberAcceptations")}</p>
+      ),
+      recommended: (
+      <p className={style.recommended}>{translate.t("organization.tabs.policies.recommended.numberAcceptations")}</p>
       ),
       value: (
         <Field

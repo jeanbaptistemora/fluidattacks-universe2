@@ -1,14 +1,20 @@
+:local .recommended {
+  margin: 10px 0 0 0 ;
+  text-align: center;
+  white-space: pre;
+}
+
 :local .severityGrid {
-    padding: 0 !important;
+  padding: 0 !important;
 }
 
 :local .severityRow {
-    text-align: center !important;
+  text-align: center !important;
 }
 
-@media(min-width: 768px) {
-    .severityRow {
-        align-items: center !important;
-        display: flex !important;
-    }
+@media(min-width: 1000px) {
+  .severityRow {
+    align-items: center !important;
+    display: flex !important;
+  }
 }

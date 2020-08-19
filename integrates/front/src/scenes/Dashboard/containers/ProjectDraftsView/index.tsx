@@ -74,15 +74,15 @@ const projectDraftsView: React.FC<IProjectDraftsBaseProps> = (props: IProjectDra
   };
 
   const tableHeaders: IHeaderConfig[] = [
-    { align: "center", dataField: "reportDate", header: "Date", onSort: onSortState, width: "10%" },
-    { align: "center", dataField: "title", header: "Type", onSort: onSortState, wrapped: true, width: "18%" },
+    { align: "center", dataField: "reportDate", header: "Date", onSort: onSortState, width: "9%" },
+    { align: "center", dataField: "title", header: "Type", onSort: onSortState, wrapped: true, width: "28%" },
     {
-      align: "center", dataField: "description", header: "Description", onSort: onSortState, width: "30%",
+      align: "center", dataField: "description", header: "Description", onSort: onSortState, width: "28%",
       wrapped: true,
     },
-    { align: "center", dataField: "severityScore", header: "Severity", onSort: onSortState, width: "8%" },
+    { align: "center", dataField: "severityScore", header: "Severity", onSort: onSortState, width: "10%" },
     {
-      align: "center", dataField: "openVulnerabilities", header: "Open Vulns.", onSort: onSortState, width: "6%",
+      align: "center", dataField: "openVulnerabilities", header: "Open Vulns.", onSort: onSortState, width: "10%",
     },
     {
       align: "center", dataField: "currentState",
@@ -91,7 +91,7 @@ const projectDraftsView: React.FC<IProjectDraftsBaseProps> = (props: IProjectDra
         onFilter: onFilterStatus,
         options: selectOptionsStatus,
       }),
-      formatter: statusFormatter, header: "State", onSort: onSortState, width: "10%",
+      formatter: statusFormatter, header: "State", onSort: onSortState, width: "15%",
       wrapped: true,
     },
   ];

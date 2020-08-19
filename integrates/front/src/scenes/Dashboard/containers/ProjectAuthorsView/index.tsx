@@ -75,7 +75,7 @@ const projectAuthorsView: React.FunctionComponent<ForcesViewProps> = (props: For
       dataField: "commit",
       formatter: formatCommit,
       header: translate.t("group.authors.commit"),
-      width: "10%",
+      width: "20%",
       wrapped: true,
     },
     {

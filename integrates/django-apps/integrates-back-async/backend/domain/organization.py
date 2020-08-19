@@ -307,7 +307,7 @@ async def validate_acceptance_severity_range(
         if values.get('max_acceptance_severity', None) is not None
         else await get_max_acceptance_severity(organization_id)
     )
-    if min_value >= max_value:
+    if min_value > max_value:
         raise InvalidAcceptanceSeverityRange()
     return success
 

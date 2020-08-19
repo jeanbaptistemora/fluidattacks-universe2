@@ -376,14 +376,12 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
               }),
               header: "URL",
               onSort: onSortInputs,
-              width: "60%",
             },
             {
               align: "left",
               dataField: "specific",
               header: translate.t("search_findings.tab_description.field"),
               onSort: onSortInputs,
-              width: "20%",
             }];
             const linesHeader: IHeaderConfig[] = [
               {
@@ -396,14 +394,12 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                 }),
                 header: translate.t("search_findings.tab_description.path"),
                 onSort: onSortLines,
-                width: "60%",
               },
               {
                 align: "left",
                 dataField: "specific",
                 header: translate.t("search_findings.tab_description.line", {count: 1}),
                 onSort: onSortLines,
-                width: "20%",
                 wrapped: true,
               }];
             const portsHeader: IHeaderConfig[] = [
@@ -417,14 +413,12 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                 }),
                 header: "Host",
                 onSort: onSortPorts,
-                width: "60%",
               },
               {
                 align: "left",
                 dataField: "specific",
                 header: translate.t("search_findings.tab_description.port", {count: 1}),
                 onSort: onSortPorts,
-                width: "20%",
                 wrapped: true,
               }];
 
@@ -441,7 +435,6 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                   formatter: statusFormatter,
                   header: translate.t("search_findings.tab_description.verification"),
                   onSort: onSortInputs,
-                  width: "20%",
                 },
                 {
                   align: "left",
@@ -450,7 +443,6 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                   headerFormatter: proFormatter,
                   onSort: onSortInputs,
                   visible: true,
-                  width: "20%",
                 },
                 {
                   align: "left",
@@ -459,7 +451,6 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                   headerFormatter: proFormatter,
                   onSort: onSortInputs,
                   visible: true,
-                  width: "25%",
                 },
                 {
                   align: "left",
@@ -477,7 +468,6 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                   formatter: statusFormatter,
                   header: translate.t("search_findings.tab_description.verification"),
                   onSort: onSortLines,
-                  width: "20%",
                 },
                 {
                   align: "left",
@@ -495,7 +485,6 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                   headerFormatter: proFormatter,
                   onSort: onSortLines,
                   visible: true,
-                  width: "25%",
                 },
                 {
                   align: "left",
@@ -503,7 +492,6 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                   header: translate.t("search_findings.tab_description.treatment_mgr"),
                   onSort: onSortLines,
                   visible: true,
-                  width: "30%",
                 },
               );
               portsHeader.push(
@@ -513,7 +501,6 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                   formatter: statusFormatter,
                   header: translate.t("search_findings.tab_description.verification"),
                   onSort: onSortPorts,
-                  width: "20%",
                 },
                 {
                   align: "left",
@@ -522,7 +509,6 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                   headerFormatter: proFormatter,
                   onSort: onSortPorts,
                   visible: true,
-                  width: "20%",
                   wrapped: true,
                 },
                 {
@@ -532,7 +518,6 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                   headerFormatter: proFormatter,
                   onSort: onSortPorts,
                   visible: true,
-                  width: "25%",
                 },
                 {
                   align: "left",
@@ -540,7 +525,6 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                   header: translate.t("search_findings.tab_description.treatment_mgr"),
                   onSort: onSortPorts,
                   visible: true,
-                  width: "30%",
                 },
               );
             }
@@ -552,7 +536,6 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                           deleteFunction: handleDeleteVulnerability,
                           formatter: deleteFormatter,
                           header: translate.t("search_findings.tab_description.action"),
-                          width: "10%",
                         });
               linesHeader.push({
                           align: "center",
@@ -560,7 +543,6 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                           deleteFunction: handleDeleteVulnerability,
                           formatter: deleteFormatter,
                           header: translate.t("search_findings.tab_description.action"),
-                          width: "10%",
                         });
               portsHeader.push({
                           align: "center",
@@ -575,19 +557,16 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                 align: "left",
                 dataField: "lastAnalyst",
                 header: translate.t("search_findings.tab_description.analyst"),
-                width: "30%",
               });
               linesHeader.push({
                 align: "left",
                 dataField: "lastAnalyst",
                 header: translate.t("search_findings.tab_description.analyst"),
-                width: "30%",
               });
               portsHeader.push({
                 align: "left",
                 dataField: "lastAnalyst",
                 header: translate.t("search_findings.tab_description.analyst"),
-                width: "30%",
               });
             } else if (shouldGroup) {
               formattedDataLines = groupSpecific(dataLines);

@@ -99,7 +99,7 @@ const projectEventsView: React.FunctionComponent<EventsViewProps> = (props: Even
     },
     {
       align: "center", dataField: "eventDate", header: translate.t("search_findings.tab_events.date"),
-      onSort: onSortState, width: "13%", wrapped: true,
+      onSort: onSortState, width: "10%", wrapped: true,
     },
     {
       align: "center", dataField: "detail", header: translate.t("search_findings.tab_events.description"),
@@ -122,7 +122,7 @@ const projectEventsView: React.FunctionComponent<EventsViewProps> = (props: Even
         options: selectOptionsStatus,
       }),
       formatter: statusFormatter, header: translate.t("search_findings.tab_events.status"), onSort: onSortState,
-      width: "13%", wrapped: true,
+      width: "16%", wrapped: true,
     },
     {
       align: "center", dataField: "closingDate", header: translate.t("search_findings.tab_events.closing_date"),

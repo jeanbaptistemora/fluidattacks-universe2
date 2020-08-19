@@ -672,6 +672,12 @@ export const enTranslations: ResourceKey = {
             "Maximum number of times a finding can be temporally accepted",
         },
         policy: "Policy",
+        recommended: {
+          acceptanceDays: "0",
+          acceptanceSeverity: "0.0    -    0.0",
+          numberAcceptations: "0",
+          title: "Recommended Values",
+        },
         save: "Save",
         success: "Organization policies updated successfully",
         success_title: "Success",

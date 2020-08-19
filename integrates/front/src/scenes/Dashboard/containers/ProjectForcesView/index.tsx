@@ -176,32 +176,32 @@ const projectForcesView: React.FunctionComponent<ForcesViewProps> = (props: Forc
   const headersExecutionTable: IHeaderConfig[] = [
     {
       align: "center", dataField: "date", header: translate.t("group.forces.date"),
-      onSort: onSortState, width: "13%",
+      onSort: onSortState,
     },
     {
       align: "center", dataField: "status", header: translate.t("group.forces.status.title"),
-      onSort: onSortState, width: "13%", wrapped: true,
+      onSort: onSortState, wrapped: true,
     },
     {
       align: "center", dataField: "foundVulnerabilities.total",
       header: translate.t("group.forces.status.vulnerabilities"),
-      onSort: onSortState, width: "6%", wrapped: true,
+      onSort: onSortState, wrapped: true,
     },
     {
       align: "center", dataField: "strictness", header: translate.t("group.forces.strictness.title"),
-      onSort: onSortState, width: "5%", wrapped: true,
+      onSort: onSortState, wrapped: true,
     },
     {
       align: "center", dataField: "kind", header: translate.t("group.forces.kind.title"),
-      onSort: onSortState, width: "13%", wrapped: true,
+      onSort: onSortState,  wrapped: true,
     },
     {
       align: "center", dataField: "gitRepo", header: translate.t("group.forces.git_repo"),
-      onSort: onSortState, width: "13%", wrapped: true,
+      onSort: onSortState, wrapped: true,
     },
     {
       align: "center", dataField: "execution_id", header: translate.t("group.forces.identifier"),
-      onSort: onSortState, width: "13%", wrapped: true,
+      onSort: onSortState, wrapped: true,
     },
   ];
   const headersCompromisedToeTable: IHeaderConfig[] = [

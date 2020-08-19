@@ -44,7 +44,7 @@ const tableHeaders: IHeaderConfig[] = [
   {
     dataField: "email",
     header: translate.t("search_findings.users_table.usermail"),
-    width: "27%",
+    width: "33%",
   },
   {
     dataField: "role",
@@ -53,12 +53,12 @@ const tableHeaders: IHeaderConfig[] = [
       { defaultValue: "-" },
     ),
     header: translate.t("search_findings.users_table.userRole"),
-    width: "12%",
+    width: "13%",
   },
   {
     dataField: "responsibility",
     header: translate.t("search_findings.users_table.userResponsibility"),
-    width: "12%",
+    width: "13%",
   },
   {
     dataField: "phoneNumber",
@@ -68,14 +68,14 @@ const tableHeaders: IHeaderConfig[] = [
   {
     dataField: "firstLogin",
     header: translate.t("search_findings.users_table.firstlogin"),
-    width: "12%",
+    width: "13%",
   },
   {
     dataField: "lastLogin",
     formatter: formatLastLogin,
     header: translate.t("search_findings.users_table.lastlogin"),
     sortFunc: sortLastLogin,
-    width: "12%",
+    width: "13%",
   },
 ];
 
