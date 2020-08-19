@@ -97,14 +97,10 @@ def s3_sync_fusion_to_s3(
         stderr=None,
     )
     command: List[str] = [
-        'aws',
-        's3',
-        'sync',
-        fusion_dir,
-        f's3://{bucket}/{s3_subs_active_repos_path}',
-        '--sse',
-        'AES256',
-        '--delete'
+        'aws', 's3', 'sync',
+        '--delete',
+        '--sse', 'AES256',
+        fusion_dir, f's3://{bucket}/{s3_subs_active_repos_path}',
     ]
     if endpoint_url:
         command.append('--endpoint')

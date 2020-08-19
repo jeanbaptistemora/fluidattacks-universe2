@@ -67,8 +67,12 @@ def pull_repos_s3_to_fusion(subs: str, local_path: str) -> bool:
     '''
     bucket_path: str = f's3://continuous-repositories/{subs}/active/'
     os.makedirs(local_path, exist_ok=True)
-    sync_command: List[str] = ['aws', 's3', 'sync', bucket_path, local_path,
-                               '--sse', 'AES256']
+    sync_command: List[str] = [
+        'aws', 's3', 'sync',
+        '--delete',
+        '--sse', 'AES256',
+        bucket_path, local_path,
+    ]
     logger.info(f'Downloading {subs} repositories')
 
     # Passing None to stdout and stderr shows the s3 progress
