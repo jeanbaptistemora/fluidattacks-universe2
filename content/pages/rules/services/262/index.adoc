@@ -150,3 +150,7 @@ continually maintained repositories.
 
 . [[r14]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 5.2]
 Ensure that all anti-virus mechanisms are kept current.
+
+. [[r15]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 6.2]
+Ensure that all system components and software are protected from known
+vulnerabilities by installing applicable vendor-supplied security patches.

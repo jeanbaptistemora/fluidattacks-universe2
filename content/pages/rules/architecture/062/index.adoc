@@ -157,3 +157,13 @@ or daemons that are considered to be insecure.
 
 . [[r21]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 2.2.4]
 Configure system security parameters to prevent misuse.
+
+. [[r22]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 6.2]
+Ensure that all system components and software are protected from known
+vulnerabilities by installing applicable vendor-supplied security patches.
+
+. [[r23]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 6.3]
+Develop internal and external software applications
+(including web-based administrative access to applications)
+securely.
+Based on industry standards and/or best practices.
