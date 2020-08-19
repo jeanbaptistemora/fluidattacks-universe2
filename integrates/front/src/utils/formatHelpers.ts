@@ -8,7 +8,7 @@ import {
 
 type User = IStakeholderAttr["project"]["stakeholders"][0];
 
-export const formatUserlist: (userList: IStakeholderDataAttr[]) => User[] = (
+const formatUserlist: (userList: IStakeholderDataAttr[]) => User[] = (
   userList: IStakeholderDataAttr[]
 ): User[] =>
   userList.map(
@@ -65,13 +65,11 @@ export const formatUserlist: (userList: IStakeholderDataAttr[]) => User[] = (
     }
   );
 
-export const formatLastLogin: (value: ILastLogin) => string = (
+const formatLastLogin: (value: ILastLogin) => string = (
   value: ILastLogin
 ): string => value.label;
 
-export const castEventType: (field: string) => string = (
-  field: string
-): string => {
+const castEventType: (field: string) => string = (field: string): string => {
   const eventType: Record<string, string> = {
     AUTHORIZATION_SPECIAL_ATTACK:
       "search_findings.tab_events.type_values.auth_attack",
@@ -92,9 +90,7 @@ export const castEventType: (field: string) => string = (
   return eventType[field];
 };
 
-export const castEventStatus: (field: string) => string = (
-  field: string
-): string => {
+const castEventStatus: (field: string) => string = (field: string): string => {
   const eventStatus: Record<string, string> = {
     CREATED: "search_findings.tab_events.status_values.unsolve",
     SOLVED: "search_findings.tab_events.status_values.solve",
@@ -103,7 +99,7 @@ export const castEventStatus: (field: string) => string = (
   return eventStatus[field];
 };
 
-export const formatDropdownField: (field: string) => string = (
+const formatDropdownField: (field: string) => string = (
   field: string
 ): string => {
   const translationParameters: Record<string, string> = {
@@ -143,10 +139,10 @@ export const formatDropdownField: (field: string) => string = (
   return translationParameters[field];
 };
 
-export const formatTreatment: (
+const formatTreatment: (treatment: string, findingState: string) => string = (
   treatment: string,
   findingState: string
-) => string = (treatment: string, findingState: string): string => {
+): string => {
   const treatmentParameters: Record<string, string> = {
     "-": findingState === "closed" ? "-" : "-",
     ACCEPTED:
@@ -178,4 +174,13 @@ export const formatTreatment: (
   const treatmentRes: string = translate.t(treatmentParameters[treatment]);
 
   return treatmentRes;
+};
+
+export {
+  formatUserlist,
+  formatLastLogin,
+  castEventType,
+  castEventStatus,
+  formatDropdownField,
+  formatTreatment,
 };

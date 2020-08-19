@@ -3,25 +3,21 @@ import _ from "lodash";
 import { formatTreatment } from "../../../../utils/formatHelpers";
 import { translate } from "../../../../utils/translations/translate";
 
-export const formatCweUrl: (cweId: string) => string = (
-  cweId: string
-): string =>
+const formatCweUrl: (cweId: string) => string = (cweId: string): string =>
   _.includes(["None", ""], cweId)
     ? "-"
     : `https://cwe.mitre.org/data/definitions/${cweId}.html`;
 
-export const formatFindingType: (type: string) => string = (
-  type: string
-): string =>
+const formatFindingType: (type: string) => string = (type: string): string =>
   _.isEmpty(type)
     ? "-"
     : translate.t(`search_findings.tab_description.type.${type.toLowerCase()}`);
 
-export const formatCompromisedRecords: (records: number) => string = (
+const formatCompromisedRecords: (records: number) => string = (
   records: number
 ): string => records.toString();
 
-export const formatHistoricTreatment: (
+const formatHistoricTreatment: (
   treatmentEvent: IHistoricTreatment,
   translateTreatment: boolean
 ) => IHistoricTreatment = (
@@ -58,7 +54,7 @@ export const formatHistoricTreatment: (
   };
 };
 
-export const getLastTreatment: (
+const getLastTreatment: (
   historic: IHistoricTreatment[]
 ) => IHistoricTreatment = (
   historic: IHistoricTreatment[]
@@ -69,4 +65,12 @@ export const getLastTreatment: (
       : { date: "", treatment: "", user: "" };
 
   return formatHistoricTreatment(lastTreatment, false);
+};
+
+export {
+  formatCweUrl,
+  formatFindingType,
+  formatCompromisedRecords,
+  formatHistoricTreatment,
+  getLastTreatment,
 };

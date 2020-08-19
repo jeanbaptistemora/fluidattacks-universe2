@@ -1,12 +1,14 @@
-export interface IAddStakeholderAttr {
+interface IAddStakeholderAttr {
   addStakeholder: {
     email: string;
     success: boolean;
   };
 }
 
-export interface IGetUserPermissionsAttr {
+interface IGetUserPermissionsAttr {
   me: {
     permissions: string[];
   };
 }
+
+export { IAddStakeholderAttr, IGetUserPermissionsAttr };

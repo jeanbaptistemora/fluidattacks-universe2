@@ -10,7 +10,7 @@ import {
   ToolkitProviderProps,
 } from "react-bootstrap-table2-toolkit";
 
-export interface ITableProps {
+interface ITableProps {
   bodyContainer?: string;
   bordered: boolean;
   columnToggle?: boolean;
@@ -33,7 +33,7 @@ export interface ITableProps {
   onUpdateEnableFilter?: () => void;
 }
 
-export interface IHeaderConfig {
+interface IHeaderConfig {
   align?: string;
   dataField: string;
   filter?: unknown;
@@ -65,13 +65,15 @@ export interface IHeaderConfig {
   ) => JSX.Element;
 }
 
-export interface ICustomToggleProps {
+interface ICustomToggleProps {
   propsTable: ITableProps;
   propsToggle: ColumnToggleProps;
 }
 
-export interface ITableWrapperProps {
+interface ITableWrapperProps {
   dataset: Record<string, unknown>[];
   tableProps: ITableProps;
   toolkitProps: ToolkitProviderProps;
 }
+
+export { ITableProps, IHeaderConfig, ICustomToggleProps, ITableWrapperProps };

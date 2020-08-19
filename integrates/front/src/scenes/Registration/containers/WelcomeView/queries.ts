@@ -1,7 +1,7 @@
 import { DocumentNode } from "graphql";
 import gql from "graphql-tag";
 
-export const GET_USER_AUTHORIZATION: DocumentNode = gql`
+const GET_USER_AUTHORIZATION: DocumentNode = gql`
   query GetUserAuthorization {
     me(callerOrigin: "FRONT") {
       remember
@@ -9,10 +9,12 @@ export const GET_USER_AUTHORIZATION: DocumentNode = gql`
   }
 `;
 
-export const ACCEPT_LEGAL_MUTATION: DocumentNode = gql`
+const ACCEPT_LEGAL_MUTATION: DocumentNode = gql`
   mutation AcceptLegalMutation($remember: Boolean!) {
     acceptLegal(remember: $remember) {
       success
     }
   }
 `;
+
+export { GET_USER_AUTHORIZATION, ACCEPT_LEGAL_MUTATION };

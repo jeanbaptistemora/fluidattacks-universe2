@@ -13,7 +13,7 @@ import {
 } from "revalidate";
 import moment, { Moment } from "moment";
 
-export const required: Validator = isRequired({
+const required: Validator = isRequired({
   message: translate.t("validations.required"),
 });
 
@@ -40,7 +40,7 @@ const getGroupValues: (
   }
 };
 
-export const someRequired: Validator = (
+const someRequired: Validator = (
   _0: boolean,
   allValues: Record<string, Record<string, unknown>>,
   _1: Record<string, unknown>,
@@ -55,7 +55,7 @@ export const someRequired: Validator = (
   return isValid ? undefined : translate.t("validations.some_required");
 };
 
-export const validEvidenceDescription: Validator = (
+const validEvidenceDescription: Validator = (
   _0: boolean,
   allValues: Record<string, Record<string, unknown>>,
   _1: Record<string, unknown>,
@@ -79,9 +79,7 @@ export const validEvidenceDescription: Validator = (
     : undefined;
 };
 
-export const validTextField: Validator = (
-  value: string
-): string | undefined => {
+const validTextField: Validator = (value: string): string | undefined => {
   if (!_.isNil(value)) {
     const beginTextMatch: RegExpMatchArray | null = /^=/u.exec(value);
     if (!_.isNull(beginTextMatch)) {
@@ -103,7 +101,7 @@ export const validTextField: Validator = (
   }
 };
 
-export const validUrlField: Validator = (value: string): string | undefined => {
+const validUrlField: Validator = (value: string): string | undefined => {
   const encodedCharWhitelist: string[] = ["%20"];
 
   const cleanValue: string = encodedCharWhitelist.reduce(
@@ -130,7 +128,7 @@ export const validUrlField: Validator = (value: string): string | undefined => {
   }
 };
 
-export const numberBetween: (min: number, max: number) => Validator = (
+const numberBetween: (min: number, max: number) => Validator = (
   min: number,
   max: number
 ): Validator => (value: number): string | undefined =>
@@ -138,42 +136,40 @@ export const numberBetween: (min: number, max: number) => Validator = (
     ? translate.t("validations.between", { max, min })
     : undefined;
 
-export const minLength: (min: number) => Validator = (min: number): Validator =>
+const minLength: (min: number) => Validator = (min: number): Validator =>
   hasLengthGreaterThan(min - 1)({
     message: translate.t("validations.minLength", { count: min }),
   }) as Validator;
 
-export const maxLength: (max: number) => Validator = (max: number): Validator =>
+const maxLength: (max: number) => Validator = (max: number): Validator =>
   hasLengthLessThan(max)({
     message: translate.t("validations.maxLength", { count: max }),
   }) as Validator;
 
-export const sameValue: (projectName: string) => Validator = (
+const sameValue: (projectName: string) => Validator = (
   projectName: string
 ): Validator => (value: string): string | undefined =>
   value !== projectName ? translate.t("validations.required") : undefined;
 
-export const numeric: Validator = isNumeric({
+const numeric: Validator = isNumeric({
   message: translate.t("validations.numeric"),
 });
 
-export const alphaNumeric: Validator = isAlphaNumeric({
+const alphaNumeric: Validator = isAlphaNumeric({
   message: translate.t("validations.alphanumeric"),
 });
 
-export const validAlphanumericSpace: Validator = matchesPattern(
-  /^[a-z\d\s]+$/iu
-)({
+const validAlphanumericSpace: Validator = matchesPattern(/^[a-z\d\s]+$/iu)({
   message: translate.t("validations.alphanumeric"),
 });
 
-export const validEmail: Validator = matchesPattern(
+const validEmail: Validator = matchesPattern(
   /^[a-zA-Z0-9.!#$%&’*/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/u
 )({
   message: translate.t("validations.email"),
 });
 
-export const validDraftTitle: (title: string) => string | undefined = (
+const validDraftTitle: (title: string) => string | undefined = (
   title: string
 ): string | undefined => {
   if (/^[A-Z]+\.(H\.|S\.|SH\.)??[0-9]+\. .+/gu.test(title)) {
@@ -183,9 +179,7 @@ export const validDraftTitle: (title: string) => string | undefined = (
   return translate.t("validations.draftTitle");
 };
 
-export const isValidVulnSeverity: Validator = (
-  value: string
-): string | undefined => {
+const isValidVulnSeverity: Validator = (value: string): string | undefined => {
   const min: number = 0;
   const max: number = 1000000000;
   if (
@@ -203,7 +197,7 @@ export const isValidVulnSeverity: Validator = (
   return translate.t("validations.between", { max, min });
 };
 
-export const validDatetime: Validator = (
+const validDatetime: Validator = (
   value?: Moment | string
 ): string | undefined =>
   moment.isMoment(value) ? undefined : translate.t("validations.datetime");
@@ -227,38 +221,28 @@ const hasExtension: (
   return false;
 };
 
-export const validEventFile: Validator = (
-  value: FileList
-): string | undefined =>
+const validEventFile: Validator = (value: FileList): string | undefined =>
   _.isEmpty(value) || hasExtension(["pdf", "zip", "csv", "txt"], _.first(value))
     ? undefined
     : translate.t("group.events.form.wrong_file_type");
 
-export const validEvidenceImage: Validator = (
-  value: FileList
-): string | undefined =>
+const validEvidenceImage: Validator = (value: FileList): string | undefined =>
   _.isEmpty(value) ||
   hasExtension(["gif", "jpg", "jpeg", "png"], _.first(value))
     ? undefined
     : translate.t("group.events.form.wrong_image_type");
 
-export const validExploitFile: Validator = (
-  value: FileList
-): string | undefined =>
+const validExploitFile: Validator = (value: FileList): string | undefined =>
   hasExtension(["exp", "py"], _.first(value))
     ? undefined
     : translate.t("group_alerts.file_type_py");
 
-export const validRecordsFile: Validator = (
-  value: FileList
-): string | undefined =>
+const validRecordsFile: Validator = (value: FileList): string | undefined =>
   hasExtension("csv", _.first(value))
     ? undefined
     : translate.t("group_alerts.file_type_csv");
 
-export const dateTimeBeforeToday: Validator = (
-  date: Moment
-): string | undefined => {
+const dateTimeBeforeToday: Validator = (date: Moment): string | undefined => {
   const today: Moment = moment();
 
   return date.isSameOrBefore(today)
@@ -266,7 +250,7 @@ export const dateTimeBeforeToday: Validator = (
     : translate.t("validations.greater_date");
 };
 
-export const isValidVulnsFile: (fieldId: string) => boolean = (
+const isValidVulnsFile: (fieldId: string) => boolean = (
   fieldId: string
 ): boolean => {
   const selected: FileList | null = (document.querySelector(
@@ -294,7 +278,7 @@ export const isValidVulnsFile: (fieldId: string) => boolean = (
   return false;
 };
 
-export const validTag: Validator = (value: string): string | undefined => {
+const validTag: Validator = (value: string): string | undefined => {
   const pattern: RegExp = /^[a-z0-9]+(?:-[a-z0-9]+)*$/u;
   if (_.isEmpty(value) || !pattern.test(value)) {
     return translate.t("validations.tags");
@@ -303,7 +287,7 @@ export const validTag: Validator = (value: string): string | undefined => {
   }
 };
 
-export const validField: Validator = (value: string): string | undefined => {
+const validField: Validator = (value: string): string | undefined => {
   const pattern: RegExp = /^(?!=).+/u;
   if (_.isEmpty(value) || !pattern.test(value)) {
     return translate.t("validations.invalidValueInField");
@@ -312,9 +296,7 @@ export const validField: Validator = (value: string): string | undefined => {
   }
 };
 
-export const isValidFileName: Validator = (
-  file: FileList
-): string | undefined => {
+const isValidFileName: Validator = (file: FileList): string | undefined => {
   const fileName: string = _.isEmpty(file) ? "" : file[0].name;
   const name: string[] = fileName.split(".");
   const validCharacters: RegExp = /^[A-Za-z0-9!\-_.*'()&$@=;:+,?\s]*$/u;
@@ -324,7 +306,7 @@ export const isValidFileName: Validator = (
     : translate.t("search_findings.tab_resources.invalid_chars");
 };
 
-export const isValidFileSize: (maxSize: number) => Validator = (
+const isValidFileSize: (maxSize: number) => Validator = (
   maxSize: number
 ): Validator => (file: FileList): string | undefined => {
   const MIB: number = 1048576;
@@ -334,7 +316,7 @@ export const isValidFileSize: (maxSize: number) => Validator = (
     : translate.t("validations.file_size", { count: maxSize });
 };
 
-export const isValidDateAccessToken: Validator = (
+const isValidDateAccessToken: Validator = (
   value: string
 ): string | undefined => {
   const numberOfMonths: number = 6;
@@ -350,11 +332,42 @@ export const isValidDateAccessToken: Validator = (
   }
 };
 
-export const isLowerDate: Validator = (value: string): string | undefined => {
+const isLowerDate: Validator = (value: string): string | undefined => {
   const date: Date = new Date(value);
   const today: Date = new Date();
 
   if (date <= today) {
     return translate.t("validations.lower_date");
   }
+};
+
+export {
+  required,
+  someRequired,
+  validEvidenceDescription,
+  validTextField,
+  validUrlField,
+  numberBetween,
+  minLength,
+  maxLength,
+  sameValue,
+  numeric,
+  alphaNumeric,
+  validAlphanumericSpace,
+  validEmail,
+  validDraftTitle,
+  isValidVulnSeverity,
+  validDatetime,
+  validEventFile,
+  validEvidenceImage,
+  validExploitFile,
+  validRecordsFile,
+  dateTimeBeforeToday,
+  isValidVulnsFile,
+  validTag,
+  validField,
+  isValidFileName,
+  isValidFileSize,
+  isValidDateAccessToken,
+  isLowerDate,
 };

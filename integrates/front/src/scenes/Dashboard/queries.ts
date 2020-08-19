@@ -1,7 +1,7 @@
 import { DocumentNode } from "graphql";
 import gql from "graphql-tag";
 
-export const ADD_STAKEHOLDER_MUTATION: DocumentNode = gql`
+const ADD_STAKEHOLDER_MUTATION: DocumentNode = gql`
   mutation AddStakeholderMutation(
     $email: String!
     $role: StakeholderRole!
@@ -14,7 +14,7 @@ export const ADD_STAKEHOLDER_MUTATION: DocumentNode = gql`
   }
 `;
 
-export const GET_USER_PERMISSIONS: DocumentNode = gql`
+const GET_USER_PERMISSIONS: DocumentNode = gql`
   query GetPermissions($entity: Entity!, $identifier: String) {
     me(callerOrigin: "FRONT") {
       permissions(entity: $entity, identifier: $identifier)
@@ -22,3 +22,5 @@ export const GET_USER_PERMISSIONS: DocumentNode = gql`
     }
   }
 `;
+
+export { ADD_STAKEHOLDER_MUTATION, GET_USER_PERMISSIONS };

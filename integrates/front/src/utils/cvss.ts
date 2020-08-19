@@ -5,10 +5,10 @@ import { ISeverityAttr } from "../scenes/Dashboard/containers/SeverityView/types
  * Values were taken from:
  * @see https://www.first.org/cvss/specification-document 7.4. Metric Values
  */
-export const calcPrivilegesRequired: (
+const calcPrivilegesRequired: (privileges: string, scope: string) => number = (
   privileges: string,
   scope: string
-) => number = (privileges: string, scope: string): number => {
+): number => {
   const LOW_SCOPE_U: number = 0.62;
   const LOW_SCOPE_C: number = 0.68;
   const HIGH_SCOPE_U: number = 0.27;
@@ -37,9 +37,9 @@ export const calcPrivilegesRequired: (
  * Values and formulas were taken from:
  * @see https://www.first.org/cvss/specification-document
  */
-export const calcCVSSv3: (
+const calcCVSSv3: (data: ISeverityAttr["finding"]["severity"]) => number = (
   data: ISeverityAttr["finding"]["severity"]
-) => number = (data: ISeverityAttr["finding"]["severity"]): number => {
+): number => {
   const BASESCORE_FACTOR: number = 1.08;
   const IMPACT_FACTOR_1: number = 6.42;
   const IMPACT_FACTOR_2: number = 7.52;
@@ -89,3 +89,5 @@ export const calcCVSSv3: (
 
   return isNaN(temporal) ? 0 : temporal;
 };
+
+export { calcPrivilegesRequired, calcCVSSv3 };

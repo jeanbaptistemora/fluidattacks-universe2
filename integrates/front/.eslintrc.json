@@ -165,6 +165,7 @@
     "fp/no-nil": "off",
     "import/export": "error",
     "import/first": "error",
+    "import/group-exports": "error",
     "import/newline-after-import": "error",
     "import/no-absolute-path": ["error", { "commonjs": false }],
     "import/no-cycle": ["error", { "ignoreExternal": true }],

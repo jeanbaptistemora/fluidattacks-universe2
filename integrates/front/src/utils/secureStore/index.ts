@@ -103,7 +103,7 @@ const storeIframeContent: (reference: Readonly<iFrameReferenceType>) => void = (
   }
 };
 
-export interface ISecureStoreConfig {
+interface ISecureStoreConfig {
   decrypt: (ciphertext: string) => string;
   encrypt: (plaintext: string) => string;
   hash: (input: string) => string;
@@ -112,7 +112,7 @@ export interface ISecureStoreConfig {
   storeIframeContent: (reference: Readonly<iFrameReferenceType>) => void;
 }
 
-export const secureStore: ISecureStoreConfig = {
+const secureStore: ISecureStoreConfig = {
   decrypt,
   encrypt,
   hash,
@@ -121,6 +121,8 @@ export const secureStore: ISecureStoreConfig = {
   storeIframeContent,
 };
 
-export const secureStoreContext: React.Context<ISecureStoreConfig> = React.createContext(
+const secureStoreContext: React.Context<ISecureStoreConfig> = React.createContext(
   secureStore
 );
+
+export { ISecureStoreConfig, secureStore, secureStoreContext };

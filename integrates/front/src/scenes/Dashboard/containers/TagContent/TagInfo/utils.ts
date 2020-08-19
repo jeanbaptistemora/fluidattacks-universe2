@@ -2,12 +2,12 @@ import { ChartData } from "chart.js";
 import _ from "lodash";
 import { translate } from "../../../../../utils/translations/translate";
 
-export interface IStatusGraphConfig {
+interface IStatusGraphConfig {
   closedVulnerabilities: number;
   openVulnerabilities: number;
 }
 
-export interface ITreatmentGraphConfig extends IStatusGraphConfig {
+interface ITreatmentGraphConfig extends IStatusGraphConfig {
   totalTreatment: string;
 }
 
@@ -18,7 +18,7 @@ interface IGraphConfig {
   stack?: string;
 }
 
-export const calcPercent: (value: number, total: number) => number = (
+const calcPercent: (value: number, total: number) => number = (
   value: number,
   total: number
 ): number => {
@@ -27,7 +27,7 @@ export const calcPercent: (value: number, total: number) => number = (
   return _.round((value * totalPercent) / total, 1);
 };
 
-export const statusGraph: (
+const statusGraph: (
   graphProps: IStatusGraphConfig
 ) => Record<string, string | string[] | IGraphConfig[]> = (
   graphProps: IStatusGraphConfig
@@ -61,7 +61,7 @@ export const statusGraph: (
   return statusGraphData;
 };
 
-export const treatmentGraph: (props: ITreatmentGraphConfig) => ChartData = (
+const treatmentGraph: (props: ITreatmentGraphConfig) => ChartData = (
   props: ITreatmentGraphConfig
 ): ChartData => {
   const totalPercent: number = 100;
@@ -113,4 +113,12 @@ export const treatmentGraph: (props: ITreatmentGraphConfig) => ChartData = (
   };
 
   return treatmentGraphData;
+};
+
+export {
+  IStatusGraphConfig,
+  ITreatmentGraphConfig,
+  calcPercent,
+  statusGraph,
+  treatmentGraph,
 };

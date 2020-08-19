@@ -3,7 +3,7 @@ import React from "react";
 import style from "../components/Notification/index.css";
 import { Slide, toast } from "react-toastify";
 
-export const msgSuccess: (text: string, title: string) => void = (
+const msgSuccess: (text: string, title: string) => void = (
   text: string,
   title: string
 ): void => {
@@ -13,7 +13,7 @@ export const msgSuccess: (text: string, title: string) => void = (
   });
 };
 
-export const msgError: (text: string, title?: string) => void = (
+const msgError: (text: string, title?: string) => void = (
   text: string,
   title: string = "Oops!"
 ): void => {
@@ -26,7 +26,7 @@ export const msgError: (text: string, title?: string) => void = (
   }
 };
 
-export const msgErrorStick: (text: string, title?: string) => void = (
+const msgErrorStick: (text: string, title?: string) => void = (
   text: string,
   title: string = "Oops!"
 ): void => {
@@ -37,3 +37,5 @@ export const msgErrorStick: (text: string, title?: string) => void = (
     transition: Slide,
   });
 };
+
+export { msgSuccess, msgError, msgErrorStick };

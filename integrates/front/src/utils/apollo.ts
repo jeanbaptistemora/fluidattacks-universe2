@@ -139,7 +139,7 @@ const wsLink: ApolloLink = new WebSocketLink({
   uri: `wss://${window.location.host}/integrates/api`,
 });
 
-export const networkStatusNotifier: ReturnType<typeof createNetworkStatusNotifier> = createNetworkStatusNotifier();
+const networkStatusNotifier: ReturnType<typeof createNetworkStatusNotifier> = createNetworkStatusNotifier();
 const apiLink: ApolloLink = ApolloLink.split(
   ({ query }: Operation): boolean => {
     const definition:
@@ -299,7 +299,7 @@ type ProviderProps = Omit<
   React.ComponentProps<typeof BaseApolloProvider>,
   "client"
 >;
-export const ApolloProvider: React.FC<ProviderProps> = (
+const ApolloProvider: React.FC<ProviderProps> = (
   props: ProviderProps
 ): JSX.Element => {
   const history: History = useHistory();
@@ -323,3 +323,5 @@ export const ApolloProvider: React.FC<ProviderProps> = (
 
   return React.createElement(BaseApolloProvider, { client, ...props });
 };
+
+export { networkStatusNotifier, ApolloProvider };
