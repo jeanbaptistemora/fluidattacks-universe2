@@ -129,3 +129,8 @@ resources.
 
 . [[r15]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 1.2.2]
 Secure and synchronize router configuration files.
+
+. [[r16]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 3.6.7]
+Fully document and implement all key-management processes and procedures for
+cryptographic keys including prevention of unauthorized substitution of
+cryptographic keys.

@@ -1,7 +1,7 @@
 :slug: rules/180/
 :category: data
 :description: This requirement establishes the importance of using mock data in non-production environments.
-:keywords: Mock, Data, Environment, Information, ASVS, CWE, Rules, Ethical Hacking, Pentesting
+:keywords: Mock, Data, Environment, Information, ASVS, CWE, PCI DSS, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R180. Use mock data
@@ -70,3 +70,10 @@ V8.3 Sensitive Private Data.(8.3.4)]
 Verify that all sensitive data created and processed by the application has
 been identified,
 and ensure that a policy is in place on how to deal with sensitive data.
+
+. [[r9]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 6.4.1]
+Separate development/test environments from production environments,
+and enforce the separation with access controls.
+
+. [[r10]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 6.4.3]
+Production data (live **PAN**s) are not used for testing or development.

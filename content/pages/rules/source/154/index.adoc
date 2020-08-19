@@ -1,7 +1,7 @@
 :slug: rules/154/
 :category: source
 :description: This requirement establishes the importance of eliminating backdoors and other functionalities that are not part of the system's functional specification.
-:keywords: Source Code, Functional Requirements, Rootkit, Backdoors, CWE, ASVS, Rules, Ethical Hacking, Pentesting
+:keywords: Source Code, Functional Requirements, Rootkit, Backdoors, CWE, ASVS, PCI DSS, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R154. Eliminate backdoors
@@ -22,17 +22,21 @@ as they could become serious security vulnerabilities.
 
 == References
 
-. [[r1]] link:https://cwe.mitre.org/data/definitions/779.html[CWE-510: Trapdoor.]
+. [[r1]] link:https://cwe.mitre.org/data/definitions/779.html[CWE-510: Trapdoor].
 A trapdoor is a hidden piece of code that responds to a special input,
 allowing its user access to resources without passing through the normal
 security enforcement mechanism.
 
-. [[r2]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r2]] link:https://cwe.mitre.org/data/definitions/1269.html[CWE-1269: Product Released in Non-Release Configuration].
+The product released to market is released in pre-production or manufacturing
+configuration.
+
+. [[r3]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 Appendix C: Internet of Things Verification Requirements.(C.13)]
 Verify all code including third-party binaries, libraries, frameworks are
 reviewed for hardcoded credentials (*backdoors*).
 
-. [[r3]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r4]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V10.2 Malicious Code Search.(10.2.3)]
 Verify that the application source code and third party libraries do not contain
 backdoors,
@@ -41,3 +45,7 @@ code obfuscation, undocumented binary blobs, rootkits,
 or anti-debugging, insecure debugging features,
 or otherwise out of date, insecure, or hidden functionality that could be used
 maliciously if discovered.
+
+. [[r5]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 6.3.1]
+Remove development, test and/or custom application accounts, user IDs,
+and passwords before applications become active or are released to customers.

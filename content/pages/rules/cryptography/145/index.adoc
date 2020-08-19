@@ -127,3 +127,8 @@ cryptographic keys including secure cryptographic key distribution.
 . [[r20]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 3.6.3]
 Fully document and implement all key-management processes and procedures for
 cryptographic keys including secure cryptographic key storage.
+
+. [[r21]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 3.6.7]
+Fully document and implement all key-management processes and procedures for
+cryptographic keys including prevention of unauthorized substitution of
+cryptographic keys.

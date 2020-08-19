@@ -51,9 +51,16 @@ Verify that nonces, initialization vectors, and other single use numbers must
 not be used more than once with a given encryption key.
 The method of generation must be appropriate for the algorithm being used.
 
-. [[r6]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 3.5.3]
+. [[r6]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 3.6.4]
 Fully document and implement all key-management processes and procedures for
 cryptographic keys including cryptographic key changes for keys that have
 reached the end of their cryptoperiod.
 For example, after a defined period of time has passed and/or after a certain
 amount of cipher-text has been produced by a given key.
+
+. [[r7]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 3.6.5]
+Fully document and implement all key-management processes and procedures for
+cryptographic keys including retirement or replacement
+(for example, archiving, destruction, and/or revocation)
+of keys as deemed necessary when the integrity of the key has been weakened,
+or keys are suspected of being compromised.
