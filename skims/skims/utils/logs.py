@@ -16,6 +16,8 @@ bugsnag.configure(
     # There is no problem in making this key public
     #   it's intentional so we can monitor Skims stability in remote users
     api_key="f990c9a571de4cb44c96050ff0d50ddb",
+    # Assume development stage if this source file is in the product repository
+    release_stage='development' if '/product/' in __file__ else 'production',
 )
 bugsnag.start_session()
 bugsnag.send_sessions()
