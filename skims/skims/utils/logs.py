@@ -16,7 +16,9 @@ bugsnag.configure(
     # There is no problem in making this key public
     #   it's intentional so we can monitor Skims stability in remote users
     api_key="f990c9a571de4cb44c96050ff0d50ddb",
+    auto_capture_sessions=False,
 )
+bugsnag.start_session()
 
 # Private constants
 _FORMAT: str = '[%(levelname)s] %(message)s'
