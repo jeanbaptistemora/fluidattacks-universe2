@@ -11,7 +11,10 @@ from decimal import Decimal
 from typing import Dict, List, NamedTuple, Tuple, Union, cast
 
 import pytz
-from asgiref.sync import sync_to_async, async_to_sync
+from aioextensions import (
+    collect,
+    unblock_cpu,
+)
 from django.conf import settings
 
 from backend.authz.policy import get_group_level_role
@@ -417,7 +420,6 @@ async def reject_deletion(project_name: str, user_email: str) -> bool:
     return response
 
 
-@async_to_sync  # type: ignore
 async def mask(group_name: str) -> bool:
     tzn = pytz.timezone(settings.TIME_ZONE)
     today = datetime.now(tz=tzn).today().strftime('%Y-%m-%d %H:%M:%S')
@@ -437,7 +439,7 @@ async def mask(group_name: str) -> bool:
     return comments_result and is_group_finished
 
 
-def remove_project(project_name: str) -> NamedTuple:
+async def remove_project(project_name: str) -> NamedTuple:
     """Delete project information."""
     LOGGER.warning(
         'Removing %s project',
@@ -449,28 +451,31 @@ def remove_project(project_name: str) -> NamedTuple:
         'are_findings_masked are_users_removed is_group_masked '
         'are_events_masked are_resources_removed'
     )
-    data = async_to_sync(project_dal.get_attributes)(
+    data = await project_dal.get_attributes(
         project_name, ['project_status'])
     if data.get('project_status') == 'PENDING_DELETION':
-        are_users_removed = remove_all_users_access(project_name)
-        findings_and_drafts = (
-            async_to_sync(list_findings)(
-                [project_name], should_list_deleted=True)[0] +
-            async_to_sync(list_drafts)(
-                project_name, should_list_deleted=True)[0]
+        are_users_removed = await remove_all_users_access(project_name)
+        group_findings = await list_findings(
+            [project_name], should_list_deleted=True
         )
-        are_findings_masked = all([
+        group_drafts = await list_drafts(
+            [project_name], should_list_deleted=True
+        )
+        findings_and_drafts = (
+            group_findings[0] + group_drafts[0]
+        )
+        are_findings_masked = all(await collect(
             finding_domain.mask_finding(finding_id)
             for finding_id in findings_and_drafts
-        ])
-        events = async_to_sync(list_events)(project_name)
-        are_events_masked = all([
-            async_to_sync(event_domain.mask)(event_id)
+        ))
+        events = await list_events(project_name)
+        are_events_masked = all(await collect(
+            event_domain.mask(event_id)
             for event_id in events
-        ])
-        is_group_masked = mask(project_name)
+        ))
+        is_group_masked = await mask(project_name)
         are_resources_removed = all(
-            list(cast(List[bool], resources_domain.mask(project_name))))
+            list(cast(List[bool], await resources_domain.mask(project_name))))
         response = Status(
             are_findings_masked,
             are_users_removed,
@@ -483,7 +488,6 @@ def remove_project(project_name: str) -> NamedTuple:
     return cast(NamedTuple, response)
 
 
-@async_to_sync
 async def remove_all_users_access(project: str) -> bool:
     """Remove user access to project."""
     user_active, user_suspended = await aio.materialize([
@@ -517,22 +521,23 @@ async def remove_user_access(
     return success
 
 
-def _has_repeated_tags(project_name: str, tags: List[str]) -> bool:
+async def _has_repeated_tags(project_name: str, tags: List[str]) -> bool:
     has_repeated_inputs = len(tags) != len(set(tags))
 
-    existing_tags = async_to_sync(get_attributes)(
-        project_name.lower(), ['tag']).get('tag', [])
+    project_info = await get_attributes(
+        project_name.lower(), ['tag'])
+    existing_tags = project_info.get('tag', [])
     all_tags = list(existing_tags) + tags
     has_repeated_tags = len(all_tags) != len(set(all_tags))
 
     return has_repeated_inputs or has_repeated_tags
 
 
-def validate_tags(project_name: str, tags: List[str]) -> List[str]:
+async def validate_tags(project_name: str, tags: List[str]) -> List[str]:
     """Validate tags array."""
     tags_validated = []
     pattern = re.compile('^[a-z0-9]+(?:-[a-z0-9]+)*$')
-    if _has_repeated_tags(project_name, tags):
+    if await _has_repeated_tags(project_name, tags):
         raise RepeatedValues()
 
     for tag in tags:
@@ -766,26 +771,20 @@ async def get_mean_remediate(findings: List[Dict[str, FindingType]]) -> \
     vulns = await vuln_domain.list_vulnerabilities_async(
         [str(finding['finding_id']) for finding in validated_findings]
     )
-    open_vuln_dates = await aio.ensure_many_cpu_bound([
-        aio.PyCallable(
-            instance=get_open_vulnerability_date,
-            args=(vuln,),
-        )
+    open_vuln_dates = await collect(
+        unblock_cpu(get_open_vulnerability_date, vuln)
         for vuln in vulns
-    ])
+    )
     filtered_open_vuln_dates = [
         vuln
         for vuln in open_vuln_dates
         if vuln
     ]
-    closed_vuln_dates = await asyncio.gather(*[
-        asyncio.create_task(
-            sync_to_async(get_last_closing_date)(
-                vuln)
-        )
-        for vuln in vulns
-        if open_vuln_dates.pop(0)
-    ])
+    closed_vuln_dates = await collect(
+        unblock_cpu(get_last_closing_date, vuln)
+        for vuln, open_vuln in zip(vulns, open_vuln_dates)
+        if open_vuln
+    )
     for index, closed_vuln_date in enumerate(closed_vuln_dates):
         if closed_vuln_date:
             total_days += int(
@@ -912,21 +911,17 @@ async def get_total_treatment(
 
 async def get_open_findings(
         finding_vulns: List[List[Dict[str, FindingType]]]) -> int:
-    last_approved_status = await asyncio.gather(*[
-        asyncio.create_task(
-            sync_to_async(vuln_domain.get_last_approved_status)(
-                vuln
-            )
-        )
+    last_approved_status = await collect(
+        unblock_cpu(vuln_domain.get_last_approved_status, vuln)
         for vulns in finding_vulns
         for vuln in vulns
-    ])
+    )
     open_findings = [
         vulns
-        for vulns in finding_vulns
+        for vulns, last_approved in zip(finding_vulns, last_approved_status)
         if [
             vuln for vuln in vulns
-            if last_approved_status.pop(0) == 'open'
+            if last_approved == 'open'
         ]
     ]
     return len(open_findings)

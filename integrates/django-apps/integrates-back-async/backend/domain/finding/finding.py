@@ -11,7 +11,6 @@ from aioextensions import (
 )
 import aioboto3
 import pytz
-from asgiref.sync import async_to_sync
 from django.conf import settings
 from graphql import GraphQLError
 from pytz.tzinfo import DstTzInfo
@@ -558,7 +557,6 @@ async def is_pending_verification(finding_id: str) -> bool:
     return len(reattack_requested) > 0 and await validate_finding(finding_id)
 
 
-@async_to_sync  # type: ignore
 async def mask_finding(finding_id: str) -> bool:
     finding = await finding_dal.get_finding(finding_id)
     finding = finding_utils.format_data(finding)

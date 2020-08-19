@@ -8,8 +8,6 @@ from typing import Dict, List, NamedTuple, cast
 from urllib.parse import quote, unquote
 from django.core.files.uploadedfile import InMemoryUploadedFile
 
-from asgiref.sync import async_to_sync
-
 from backend import mailer
 from backend import util
 from backend.dal import (
@@ -377,7 +375,6 @@ async def update_resource(
     )
 
 
-@async_to_sync  # type: ignore
 async def mask(project_name: str) -> NamedTuple:
     project_name = project_name.lower()
     project = await project_dal.get_attributes(

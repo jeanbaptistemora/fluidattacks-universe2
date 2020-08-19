@@ -11,7 +11,6 @@ from typing import Dict, List, Tuple, Union, cast
 
 from more_itertools import chunked
 from botocore.exceptions import ClientError
-from asgiref.sync import async_to_sync, sync_to_async
 from aioextensions import collect
 
 from backend import mailer, util
@@ -374,7 +373,6 @@ async def get_group_new_vulnerabilities(group_name: str) -> None:
         )
 
 
-@async_to_sync  # type: ignore
 async def get_new_vulnerabilities() -> None:
     """Summary mail send with the findings of a project."""
     msg = '[scheduler]: get_new_vulnerabilities is running'
@@ -493,7 +491,6 @@ async def create_msj_finding_pending(
     return result
 
 
-@async_to_sync  # type: ignore
 async def get_remediated_findings() -> None:
     """Summary mail send with findings that have not been verified yet."""
     msg = '[scheduler]: get_remediated_findings is running'
@@ -539,7 +536,6 @@ async def get_remediated_findings() -> None:
         LOGGER.warning(msg, extra=dict(extra=None))
 
 
-@async_to_sync  # type: ignore
 async def get_new_releases() -> None:  # pylint: disable=too-many-locals
     """Summary mail send with findings that have not been released yet."""
     msg = '[scheduler]: get_new_releases is running'
@@ -612,7 +608,6 @@ async def get_new_releases() -> None:  # pylint: disable=too-many-locals
         LOGGER.warning(msg, extra=dict(extra=None))
 
 
-@async_to_sync  # type: ignore
 async def send_unsolved_to_all() -> None:
     """Send email with unsolved events to all projects """
     msg = '[scheduler]: send_unsolved_to_all is running'
@@ -696,7 +691,6 @@ async def update_group_indicators(group_name: str) -> None:
         LOGGER.exception(ex, extra={'extra': payload_data})
 
 
-@async_to_sync  # type: ignore
 async def update_indicators() -> None:
     """Update in dynamo indicators."""
     msg = '[scheduler]: update_indicators is running'
@@ -757,7 +751,6 @@ async def update_organization_indicators(
     return all(success), updated_tags
 
 
-@async_to_sync
 async def update_portfolios() -> None:
     """
     Update portfolios metrics
@@ -838,7 +831,6 @@ async def reset_group_expired_accepted_findings(
             await util.invalidate_cache(finding_id)
 
 
-@async_to_sync  # type: ignore
 async def reset_expired_accepted_findings() -> None:
     """ Update treatment if acceptance date expires """
     msg = '[scheduler]: reset_expired_accepted_findings is running'
@@ -856,7 +848,6 @@ async def reset_expired_accepted_findings() -> None:
         ])
 
 
-@async_to_sync  # type: ignore
 async def delete_pending_projects() -> None:
     """ Delete pending to delete projects """
     msg = '[scheduler]: delete_pending_projects is running'
@@ -886,8 +877,8 @@ async def delete_pending_projects() -> None:
             msg = f'- project: {project.get("project_name")} will be deleted'
             LOGGER.info(msg, extra=dict(extra=project))
             task = asyncio.create_task(
-                sync_to_async(project_domain.remove_project)(
-                    project.get('project_name')
+                project_domain.remove_project(
+                    str(project.get('project_name'))
                 )
             )
             remove_project_tasks.append(task)

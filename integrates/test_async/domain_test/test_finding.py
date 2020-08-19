@@ -183,14 +183,14 @@ class FindingTests(TestCase):
         assert test_data == expected_output
 
     @pytest.mark.changes_db
-    def test_mask_finding(self):
+    async def test_mask_finding(self):
         finding_id = '475041524'
-        test_data = mask_finding(finding_id)
+        test_data = await mask_finding(finding_id)
         expected_output = True
         assert isinstance(test_data, bool)
         assert test_data == expected_output
 
-        finding = async_to_sync(finding_dal.get_finding)(finding_id)
+        finding = await finding_dal.get_finding(finding_id)
         assert finding.get('historic_treatment', [{}])[-1].get('user') == 'Masked'
 
     def test_validate_evidence_exploit(self):

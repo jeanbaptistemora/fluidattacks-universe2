@@ -56,17 +56,17 @@ class ProjectTest(TestCase):
         assert await remove_access('unittest', 'unittesting')
         assert not await remove_access('', '')
 
-    def test_validate_tags(self):
-        assert validate_tags(
+    async def test_validate_tags(self):
+        assert await validate_tags(
             'unittesting', ['testtag', 'this-is-ok', 'th15-4l50'])
-        assert validate_tags(
+        assert await validate_tags(
             'unittesting', ['this-tag-is-valid', 'but this is not']) == [
             'this-tag-is-valid']
         with pytest.raises(RepeatedValues):
-            assert validate_tags(
+            assert await validate_tags(
                 'unittesting', ['same-name', 'same-name', 'another-one'])
         with pytest.raises(RepeatedValues):
-            assert validate_tags('unittesting', ['test-projects'])
+            assert await validate_tags('unittesting', ['test-projects'])
 
     async def test_is_alive(self):
         assert await is_alive('unittesting')
@@ -368,12 +368,12 @@ class ProjectTest(TestCase):
         assert test_data == expected_output
 
     @pytest.mark.changes_db
-    def test_remove_group(self):
+    async def test_remove_group(self):
         group_name = 'pendingproject'
-        assert len(async_to_sync(project_dal.get_comments)(group_name)) >= 1
-        test_data = remove_project(group_name)
+        assert len(await project_dal.get_comments(group_name)) >= 1
+        test_data = await remove_project(group_name)
         assert all(test_data)
-        assert len(async_to_sync(project_dal.get_comments)(group_name)) == 0
+        assert len(await project_dal.get_comments(group_name)) == 0
 
 @pytest.mark.changes_db
 @pytest.mark.parametrize(

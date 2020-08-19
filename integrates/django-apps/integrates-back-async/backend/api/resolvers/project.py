@@ -1119,8 +1119,7 @@ async def _do_add_tags(
     success = False
     project_name = project_name.lower()
     if await project_domain.is_alive(project_name):
-        if await aio.ensure_io_bound(
-                project_domain.validate_tags,
+        if await project_domain.validate_tags(
                 project_name,
                 tags):
             project_loader = info.context.loaders['project']
