@@ -68,7 +68,8 @@ function job_forces_deploy {
 
 
 function job_forces_deploy_to_docker_hub {
-  local image_name="fluidattacks/forces:new"
+  local forces_image="fluidattacks/forces:new"
+  local break_build_image="fluidattacks/break-build:new"
 
       aws_login "${ENVIRONMENT_NAME}" \
   &&  sops_env "integrates/secrets-${ENVIRONMENT_NAME}.yaml" default \
@@ -81,10 +82,17 @@ function job_forces_deploy_to_docker_hub {
       <<< "${DOCKER_HUB_PASS}" \
   && pushd forces \
     && docker build  \
-          --tag "${image_name}" \
+          --tag "${forces_image}" \
+          --target "forces" \
           -f "Dockerfile" \
           . \
-    &&  docker push "${image_name}" \
+    && docker build  \
+          --tag "${break_build_image}" \
+          --target "break_build" \
+          -f "Dockerfile" \
+          . \
+    &&  docker push "${forces_image}" \
+    &&  docker push "${break_build_image}" \
   && popd \
   || return 1
 }
