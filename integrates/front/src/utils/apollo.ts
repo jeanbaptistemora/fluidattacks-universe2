@@ -184,16 +184,16 @@ const onError: (
               const skipForwarding: () => void = (): void => {
                 isForwarded = false;
               };
-              const initialHistoryState: Record<string, unknown> =
+              const initialHistoryState: Record<string, unknown> | null =
                 history.state;
 
               return operationObserver.subscribe({
                 complete: (): void => {
-                  const finalHistoryState: Record<string, unknown> =
+                  const finalHistoryState: Record<string, unknown> | null =
                     history.state;
                   if (
                     isForwarded &&
-                    initialHistoryState.key == finalHistoryState.key
+                    initialHistoryState?.key === finalHistoryState?.key
                   ) {
                     observer.complete.bind(observer)();
                   }
