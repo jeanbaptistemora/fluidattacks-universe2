@@ -41,6 +41,18 @@ async def test_diff_results() -> None:
     common_kind = VulnerabilityKindEnum.LINES
     common_where = 'file'
 
+    # Something that Skims does not manage
+    await integrates_store.store(Vulnerability(
+        finding=common_finding,
+        integrates_metadata=IntegratesVulnerabilityMetadata(
+            source=VulnerabilitySourceEnum.INTEGRATES,
+        ),
+        kind=common_kind,
+        state=VulnerabilityStateEnum.OPEN,
+        what='0',
+        where=common_where,
+    ))
+
     # Something was open at Integrates and was found open by Skims
     await integrates_store.store(Vulnerability(
         finding=common_finding,

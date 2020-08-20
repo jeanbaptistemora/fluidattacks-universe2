@@ -210,9 +210,13 @@ async def diff_results(
 
     # Walk all integrates results
     async for result in integrates_store.iterate():
+        result_hash = get_vulnerability_hash(result)
+
         if (
-            # This result was not found by Skims
-            get_vulnerability_hash(result) not in skims_hashes
+            # Ensure this is part of the old generation
+            result_hash in integrates_hashes
+            # And his result was not found by Skims
+            and result_hash not in skims_hashes
             # And this result is OPEN
             and result.state == VulnerabilityStateEnum.OPEN \
         ):

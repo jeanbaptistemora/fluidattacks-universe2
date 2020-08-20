@@ -78,6 +78,8 @@ class ErrorMapping(NamedTuple):
 async def raise_errors(
     errors: Optional[Tuple[Dict[str, Any], ...]],
     error_mappings: Tuple[ErrorMapping, ...],
+    query: str,
+    variables: Dict[str, Any],
 ) -> None:
     for error in (errors or ()):
         for error_mapping in error_mappings:
@@ -86,6 +88,8 @@ async def raise_errors(
 
     if errors:
         for error in errors:
+            await log('debug', 'query: %s', query)
+            await log('debug', 'variables: %s', variables)
             await log('error', '%s', error)
     else:
         # no errors happened
@@ -121,6 +125,8 @@ async def _execute(*, query: str, variables: Dict[str, Any]) -> Dict[str, Any]:
                 ),
             ),
         ),
+        query=query,
+        variables=variables,
     )
 
     return result
