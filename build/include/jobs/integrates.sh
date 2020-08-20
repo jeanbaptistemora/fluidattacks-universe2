@@ -40,13 +40,13 @@ function job_integrates_build_mobile_android {
   "
   export GRADLE_DAEMON_DISABLED="1"
 
-      pushd "${STARTDIR}/integrates" \
-  &&  if  helper_have_any_file_changed \
-        'mobile/app.json' \
-        'mobile/assets/icon.png' \
-        'mobile/assets/splash.png'
+      if  helper_have_any_file_changed \
+        'integrates/mobile/app.json' \
+        'integrates/mobile/assets/icon.png' \
+        'integrates/mobile/assets/splash.png'
       then
-            echo '[INFO] Logging in to AWS' \
+            pushd "${STARTDIR}/integrates" \
+        &&  echo '[INFO] Logging in to AWS' \
         &&  aws_login "${ENVIRONMENT_NAME}" \
         &&  sops_env "secrets-${ENVIRONMENT_NAME}.yaml" 'default' \
               EXPO_USER \
@@ -272,12 +272,12 @@ function job_integrates_deploy_front {
 function job_integrates_deploy_mobile_ota {
   export EXPO_USE_DEV_SERVER="true"
 
-      helper_use_pristine_workdir \
-  &&  pushd "${STARTDIR}/integrates" \
-  &&  if  helper_have_any_file_changed \
-            'mobile/'
+      if  helper_have_any_file_changed \
+            'integrates/mobile/'
       then
-            echo '[INFO] Logging in to AWS' \
+            pushd "${STARTDIR}/integrates" \
+        &&  helper_use_pristine_workdir \
+        &&  echo '[INFO] Logging in to AWS' \
         &&  aws_login "${ENVIRONMENT_NAME}" \
         &&  sops_env "secrets-${ENVIRONMENT_NAME}.yaml" 'default' \
               EXPO_USER \
@@ -325,11 +325,11 @@ function job_integrates_deploy_mobile_ota {
 function job_integrates_deploy_mobile_playstore {
   export LANG=en_US.UTF-8
 
-      pushd "${STARTDIR}/integrates" \
-  &&  if  helper_have_any_file_changed \
-        'mobile/app.json'
+      if  helper_have_any_file_changed \
+        'integrates/mobile/app.json'
       then
-            echo '[INFO] Logging in to AWS' \
+            pushd "${STARTDIR}/integrates" \
+        &&  echo '[INFO] Logging in to AWS' \
         &&  aws_login "${ENVIRONMENT_NAME}" \
         &&  sops \
               --aws-profile default \
