@@ -6,7 +6,7 @@ source "${srcExternalSops}"
 source "${srcExternalGitlabVariables}"
 source "${srcEnv}"
 
-function job_build_nix_caches {
+function job_serves_build_nix_caches {
   local provisioners
   local dockerfile
   local context='.'
@@ -28,105 +28,105 @@ function job_build_nix_caches {
       done
 }
 
-function job_analytics_formstack {
+function job_serves_analytics_formstack {
       helper_use_pristine_workdir \
   &&  env_prepare_python_packages \
   &&  helper_analytics_formstack
 }
 
-function job_analytics_dynamodb {
+function job_serves_analytics_dynamodb {
       helper_use_pristine_workdir \
   &&  env_prepare_python_packages \
   &&  helper_analytics_dynamodb
 }
 
-function job_analytics_services_toe {
+function job_serves_analytics_services_toe {
       helper_use_pristine_workdir \
   &&  env_prepare_python_packages \
   &&  helper_analytics_services_toe
 }
 
-function job_analytics_infrastructure {
+function job_serves_analytics_infrastructure {
       helper_use_pristine_workdir \
   &&  env_prepare_python_packages \
   &&  helper_analytics_infrastructure
 }
 
-function job_analytics_intercom {
+function job_serves_analytics_intercom {
       helper_use_pristine_workdir \
   &&  env_prepare_python_packages \
   &&  helper_analytics_intercom
 }
 
-function job_analytics_mandrill {
+function job_serves_analytics_mandrill {
       helper_use_pristine_workdir \
   &&  env_prepare_python_packages \
   &&  helper_analytics_mandrill
 }
 
-function job_analytics_gitlab {
+function job_serves_analytics_gitlab {
       helper_use_pristine_workdir \
   &&  env_prepare_python_packages \
   &&  helper_analytics_gitlab
 }
 
-function job_analytics_timedoctor {
+function job_serves_analytics_timedoctor {
       helper_use_pristine_workdir \
   &&  env_prepare_python_packages \
   &&  helper_analytics_timedoctor
 }
 
-function job_analytics_zoho {
+function job_serves_analytics_zoho {
       helper_use_pristine_workdir \
   &&  env_prepare_python_packages \
   &&  helper_analytics_zoho
 }
 
-function job_analytics_git_process {
+function job_serves_analytics_git_process {
       env_prepare_python_packages \
   &&  helper_analytics_git_process
 }
 
-function job_analytics_git_upload {
+function job_serves_analytics_git_upload {
       env_prepare_python_packages \
   &&  helper_analytics_git_upload
 }
 
-function job_analytics_timedoctor_refresh_token {
+function job_serves_analytics_timedoctor_refresh_token {
       helper_use_pristine_workdir \
   &&  env_prepare_python_packages \
   &&  helper_analytics_timedoctor_refresh_token
 }
 
-function job_analytics_timedoctor_backup {
+function job_serves_analytics_timedoctor_backup {
       helper_use_pristine_workdir \
   &&  env_prepare_python_packages \
   &&  helper_analytics_timedoctor_backup
 }
 
-function job_analytics_timedoctor_manually_create_token {
+function job_serves_analytics_timedoctor_manually_create_token {
       helper_use_pristine_workdir \
   &&  env_prepare_python_packages \
   &&  helper_analytics_timedoctor_manually_create_token
 }
 
-function job_analytics_services_repositories_cache {
+function job_serves_analytics_services_repositories_cache {
       helper_use_pristine_workdir \
   &&  env_prepare_python_packages \
   &&  helper_analytics_services_repositories_cache
 }
 
-function job_test_infra_monolith {
+function job_serves_test_infra_monolith {
       helper_use_pristine_workdir \
   &&  helper_infra_monolith 'test'
 }
 
-function job_apply_infra_monolith {
+function job_serves_apply_infra_monolith {
       helper_use_pristine_workdir \
   &&  helper_infra_monolith 'deploy'
 }
 
-function job_test_infra_dns {
+function job_serves_test_infra_dns {
   local target='services/dns/terraform'
 
       helper_use_pristine_workdir \
@@ -136,7 +136,7 @@ function job_test_infra_dns {
         "${target}"
 }
 
-function job_apply_infra_dns {
+function job_serves_apply_infra_dns {
   local target='services/dns/terraform'
 
       helper_use_pristine_workdir \
@@ -146,7 +146,7 @@ function job_apply_infra_dns {
         "${target}"
 }
 
-function job_test_infra_autoscaling_ci {
+function job_serves_test_infra_autoscaling_ci {
   local target='services/autoscaling-ci/terraform'
 
       helper_use_pristine_workdir \
@@ -155,7 +155,7 @@ function job_test_infra_autoscaling_ci {
         "${target}"
 }
 
-function job_apply_infra_autoscaling_ci {
+function job_serves_apply_infra_autoscaling_ci {
   local target='services/autoscaling-ci/terraform'
 
       helper_use_pristine_workdir \
@@ -164,7 +164,7 @@ function job_apply_infra_autoscaling_ci {
         "${target}"
 }
 
-function job_test_infra_analytics {
+function job_serves_test_infra_analytics {
   local target='services/analytics/terraform'
 
       helper_use_pristine_workdir \
@@ -173,7 +173,7 @@ function job_test_infra_analytics {
         "${target}"
 }
 
-function job_apply_infra_analytics {
+function job_serves_apply_infra_analytics {
   local target='services/analytics/terraform'
 
       helper_use_pristine_workdir \
@@ -182,7 +182,7 @@ function job_apply_infra_analytics {
         "${target}"
 }
 
-function job_test_infra_aws_sso {
+function job_serves_test_infra_aws_sso {
   local target='services/aws-sso/terraform'
 
       helper_use_pristine_workdir \
@@ -191,7 +191,7 @@ function job_test_infra_aws_sso {
         "${target}"
 }
 
-function job_apply_infra_aws_sso {
+function job_serves_apply_infra_aws_sso {
   local target='services/aws-sso/terraform'
 
       helper_use_pristine_workdir \
@@ -200,7 +200,7 @@ function job_apply_infra_aws_sso {
         "${target}"
 }
 
-function job_test_infra_fluid_vpc {
+function job_serves_test_infra_fluid_vpc {
   local target='services/fluid-vpc/terraform'
 
       helper_use_pristine_workdir \
@@ -209,7 +209,7 @@ function job_test_infra_fluid_vpc {
         "${target}"
 }
 
-function job_apply_infra_fluid_vpc {
+function job_serves_apply_infra_fluid_vpc {
   local target='services/fluid-vpc/terraform'
 
       helper_use_pristine_workdir \
@@ -218,7 +218,7 @@ function job_apply_infra_fluid_vpc {
         "${target}"
 }
 
-function job_test_infra_secret_management {
+function job_serves_test_infra_secret_management {
   local target='secret-management/terraform'
 
       helper_use_pristine_workdir \
@@ -227,7 +227,7 @@ function job_test_infra_secret_management {
         "${target}"
 }
 
-function job_apply_infra_secret_management {
+function job_serves_apply_infra_secret_management {
   local target='secret-management/terraform'
 
       helper_use_pristine_workdir \
@@ -236,7 +236,7 @@ function job_apply_infra_secret_management {
         "${target}"
 }
 
-function job_test_infra_certificates {
+function job_serves_test_infra_certificates {
   local target='services/certificates/terraform'
 
       helper_use_pristine_workdir \
@@ -245,7 +245,7 @@ function job_test_infra_certificates {
         "${target}"
 }
 
-function job_apply_infra_certificates {
+function job_serves_apply_infra_certificates {
   local target='services/certificates/terraform'
 
       helper_use_pristine_workdir \
@@ -254,7 +254,7 @@ function job_apply_infra_certificates {
         "${target}"
 }
 
-function job_test_user_provision_asserts_dev {
+function job_serves_test_user_provision_asserts_dev {
   local target='services/user-provision/asserts/dev/terraform'
 
       helper_use_pristine_workdir \
@@ -263,7 +263,7 @@ function job_test_user_provision_asserts_dev {
         "${target}"
 }
 
-function job_apply_user_provision_asserts_dev {
+function job_serves_apply_user_provision_asserts_dev {
   local target='services/user-provision/asserts/dev/terraform'
 
       helper_use_pristine_workdir \
@@ -272,7 +272,7 @@ function job_apply_user_provision_asserts_dev {
         "${target}"
 }
 
-function job_test_user_provision_asserts_prod {
+function job_serves_test_user_provision_asserts_prod {
   local target='services/user-provision/asserts/prod/terraform'
 
       helper_use_pristine_workdir \
@@ -281,7 +281,7 @@ function job_test_user_provision_asserts_prod {
         "${target}"
 }
 
-function job_apply_user_provision_asserts_prod {
+function job_serves_apply_user_provision_asserts_prod {
   local target='services/user-provision/asserts/prod/terraform'
 
       helper_use_pristine_workdir \
@@ -290,7 +290,7 @@ function job_apply_user_provision_asserts_prod {
         "${target}"
 }
 
-function job_test_user_provision_services_dev {
+function job_serves_test_user_provision_services_dev {
   local target='services/user-provision/services/dev/terraform'
 
       helper_use_pristine_workdir \
@@ -299,7 +299,7 @@ function job_test_user_provision_services_dev {
         "${target}"
 }
 
-function job_apply_user_provision_services_dev {
+function job_serves_apply_user_provision_services_dev {
   local target='services/user-provision/services/dev/terraform'
 
       helper_use_pristine_workdir \
@@ -308,7 +308,7 @@ function job_apply_user_provision_services_dev {
         "${target}"
 }
 
-function job_test_user_provision_services_prod {
+function job_serves_test_user_provision_services_prod {
   local target='services/user-provision/services/prod/terraform'
 
       helper_use_pristine_workdir \
@@ -317,7 +317,7 @@ function job_test_user_provision_services_prod {
         "${target}"
 }
 
-function job_apply_user_provision_services_prod {
+function job_serves_apply_user_provision_services_prod {
   local target='services/user-provision/services/prod/terraform'
 
       helper_use_pristine_workdir \
@@ -326,7 +326,7 @@ function job_apply_user_provision_services_prod {
         "${target}"
 }
 
-function job_test_user_provision_integrates_dev {
+function job_serves_test_user_provision_integrates_dev {
   local target='services/user-provision/integrates/dev/terraform'
 
       helper_use_pristine_workdir \
@@ -335,7 +335,7 @@ function job_test_user_provision_integrates_dev {
         "${target}"
 }
 
-function job_apply_user_provision_integrates_dev {
+function job_serves_apply_user_provision_integrates_dev {
   local target='services/user-provision/integrates/dev/terraform'
 
       helper_use_pristine_workdir \
@@ -344,7 +344,7 @@ function job_apply_user_provision_integrates_dev {
         "${target}"
 }
 
-function job_test_user_provision_integrates_prod {
+function job_serves_test_user_provision_integrates_prod {
   local target='services/user-provision/integrates/prod/terraform'
 
       helper_use_pristine_workdir \
@@ -353,7 +353,7 @@ function job_test_user_provision_integrates_prod {
         "${target}"
 }
 
-function job_apply_user_provision_integrates_prod {
+function job_serves_apply_user_provision_integrates_prod {
   local target='services/user-provision/integrates/prod/terraform'
 
       helper_use_pristine_workdir \
@@ -362,7 +362,7 @@ function job_apply_user_provision_integrates_prod {
         "${target}"
 }
 
-function job_test_user_provision_web_dev {
+function job_serves_test_user_provision_web_dev {
   local target='services/user-provision/web/dev/terraform'
 
       helper_use_pristine_workdir \
@@ -371,7 +371,7 @@ function job_test_user_provision_web_dev {
         "${target}"
 }
 
-function job_apply_user_provision_web_dev {
+function job_serves_apply_user_provision_web_dev {
   local target='services/user-provision/web/dev/terraform'
 
       helper_use_pristine_workdir \
@@ -380,7 +380,7 @@ function job_apply_user_provision_web_dev {
         "${target}"
 }
 
-function job_test_user_provision_web_prod {
+function job_serves_test_user_provision_web_prod {
   local target='services/user-provision/web/prod/terraform'
 
       helper_use_pristine_workdir \
@@ -389,7 +389,7 @@ function job_test_user_provision_web_prod {
         "${target}"
 }
 
-function job_apply_user_provision_web_prod {
+function job_serves_apply_user_provision_web_prod {
   local target='services/user-provision/web/prod/terraform'
 
       helper_use_pristine_workdir \
@@ -398,7 +398,7 @@ function job_apply_user_provision_web_prod {
         "${target}"
 }
 
-function job_test_user_provision_serves {
+function job_serves_test_user_provision_serves {
   local target='services/user-provision/serves/terraform'
 
       helper_use_pristine_workdir \
@@ -407,7 +407,7 @@ function job_test_user_provision_serves {
         "${target}"
 }
 
-function job_apply_user_provision_serves {
+function job_serves_apply_user_provision_serves {
   local target='services/user-provision/serves/terraform'
 
       helper_use_pristine_workdir \
@@ -416,7 +416,7 @@ function job_apply_user_provision_serves {
         "${target}"
 }
 
-function job_apply_rotate_keys_user_provision_asserts_dev {
+function job_serves_apply_rotate_keys_user_provision_asserts_dev {
   local terraform_dir='services/user-provision/asserts/dev/terraform'
   local resource_to_taint='aws_iam_access_key.asserts-dev-key'
   local output_key_id_name='asserts-dev-secret-key-id'
@@ -439,7 +439,7 @@ function job_apply_rotate_keys_user_provision_asserts_dev {
         "${gitlab_protected}"
 }
 
-function job_apply_rotate_keys_user_provision_asserts_prod {
+function job_serves_apply_rotate_keys_user_provision_asserts_prod {
   local terraform_dir='services/user-provision/asserts/prod/terraform'
   local resource_to_taint='aws_iam_access_key.asserts-prod-key'
   local output_key_id_name='asserts-prod-secret-key-id'
@@ -462,7 +462,7 @@ function job_apply_rotate_keys_user_provision_asserts_prod {
         "${gitlab_protected}"
 }
 
-function job_apply_rotate_keys_user_provision_services_dev {
+function job_serves_apply_rotate_keys_user_provision_services_dev {
   local terraform_dir='services/user-provision/services/dev/terraform'
   local resource_to_taint='aws_iam_access_key.continuous-dev-key'
   local output_key_id_name='continuous-dev-secret-key-id'
@@ -485,7 +485,7 @@ function job_apply_rotate_keys_user_provision_services_dev {
         "${gitlab_protected}"
 }
 
-function job_apply_rotate_keys_user_provision_services_prod {
+function job_serves_apply_rotate_keys_user_provision_services_prod {
   local terraform_dir='services/user-provision/services/prod/terraform'
   local resource_to_taint='aws_iam_access_key.continuous-prod-key'
   local output_key_id_name='continuous-prod-secret-key-id'
@@ -508,7 +508,7 @@ function job_apply_rotate_keys_user_provision_services_prod {
         "${gitlab_protected}"
 }
 
-function job_apply_rotate_keys_user_provision_integrates_dev {
+function job_serves_apply_rotate_keys_user_provision_integrates_dev {
   local terraform_dir='services/user-provision/integrates/dev/terraform'
   local resource_to_taint='aws_iam_access_key.integrates-dev-key'
   local output_key_id_name='integrates-dev-secret-key-id'
@@ -531,7 +531,7 @@ function job_apply_rotate_keys_user_provision_integrates_dev {
         "${gitlab_protected}"
 }
 
-function job_apply_rotate_keys_user_provision_integrates_prod {
+function job_serves_apply_rotate_keys_user_provision_integrates_prod {
   local terraform_dir='services/user-provision/integrates/prod/terraform'
   local resource_to_taint='aws_iam_access_key.integrates-prod-key'
   local output_key_id_name='integrates-prod-secret-key-id'
@@ -558,7 +558,7 @@ function job_apply_rotate_keys_user_provision_integrates_prod {
   &&  helper_deploy_integrates
 }
 
-function job_apply_rotate_keys_user_provision_web_dev {
+function job_serves_apply_rotate_keys_user_provision_web_dev {
   local terraform_dir='services/user-provision/web/dev/terraform'
   local resource_to_taint='aws_iam_access_key.web-dev-key'
   local output_key_id_name='web-dev-secret-key-id'
@@ -581,7 +581,7 @@ function job_apply_rotate_keys_user_provision_web_dev {
         "${gitlab_protected}"
 }
 
-function job_apply_rotate_keys_user_provision_web_prod {
+function job_serves_apply_rotate_keys_user_provision_web_prod {
   local terraform_dir='services/user-provision/web/prod/terraform'
   local resource_to_taint='aws_iam_access_key.web-prod-key'
   local output_key_id_name='web-prod-secret-key-id'
@@ -604,7 +604,7 @@ function job_apply_rotate_keys_user_provision_web_prod {
         "${gitlab_protected}"
 }
 
-function job_apply_rotate_keys_user_provision_serves {
+function job_serves_apply_rotate_keys_user_provision_serves {
   local terraform_dir='services/user-provision/serves/terraform'
   local resource_to_taint='aws_iam_access_key.dev-key'
   local output_key_id_name='dev-secret-key-id'
@@ -627,7 +627,7 @@ function job_apply_rotate_keys_user_provision_serves {
         "${gitlab_protected}"
 }
 
-function job_test_lint_code {
+function job_serves_test_lint_code {
 
       helper_use_pristine_workdir \
   &&  env_prepare_python_packages \
@@ -636,13 +636,13 @@ function job_test_lint_code {
   &&  helper_test_lint_code_python
 }
 
-function job_test_commit_msg {
+function job_serves_test_commit_msg {
       helper_use_pristine_workdir \
   &&  env_prepare_node_modules \
   &&  helper_test_commit_msg_commitlint
 }
 
-function job_apply_config_autoscaling_ci {
+function job_serves_apply_config_autoscaling_ci {
   local bastion_ip='192.168.3.11'
   local bastion_user='ubuntu'
   local secrets_to_replace=(
@@ -690,7 +690,7 @@ function job_apply_config_autoscaling_ci {
         'sudo killall -SIGHUP gitlab-runner'
 }
 
-function job_send_new_release_email {
+function job_serves_send_new_release_email {
   local temp
 
       helper_use_pristine_workdir \
@@ -710,7 +710,7 @@ function job_send_new_release_email {
   &&  python3 "${temp}"
 }
 
-function job_reviews {
+function job_serves_reviews {
   local public_url='https://static-objects.gitlab.net/fluidattacks/public/raw/master'
   local parser_url="${public_url}/commitlint-configs/others/parser-preset.js"
   local rules_url="${public_url}/commitlint-configs/others/commitlint.config.js"
