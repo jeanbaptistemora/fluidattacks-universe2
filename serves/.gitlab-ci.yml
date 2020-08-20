@@ -20,6 +20,16 @@
       when: never
     - if: *serves_commit_pattern
 
+.in_master_branch_serves: &in_master_branch_serves
+  rules:
+    - if: '$CI_COMMIT_BRANCH != "master"'
+      when: never
+    - if: '$CI_PIPELINE_SOURCE == "schedule"'
+      when: never
+    - if: '$CI_PIPELINE_SOURCE == "trigger"'
+      when: never
+    - if: *serves_commit_pattern
+
 serves_test_infra_monolith:
   <<: *with_nix
   <<: *in_dev_branch_serves
@@ -59,3 +69,43 @@ serves_test_infra_secret_management:
   <<: *with_nix
   <<: *in_dev_branch_serves
   stage: test-infra
+
+serves_apply_infra_monolith:
+  <<: *with_nix
+  <<: *in_master_branch_serves
+  stage: deploy-infra
+
+serves_apply_infra_autoscaling_ci:
+  <<: *with_nix
+  <<: *in_master_branch_serves
+  stage: deploy-infra
+
+serves_apply_infra_dns:
+  <<: *with_nix
+  <<: *in_master_branch_serves
+  stage: deploy-infra
+
+serves_apply_infra_analytics:
+  <<: *with_nix
+  <<: *in_master_branch_serves
+  stage: deploy-infra
+
+serves_apply_infra_aws_sso:
+  <<: *with_nix
+  <<: *in_master_branch_serves
+  stage: deploy-infra
+
+serves_apply_infra_fluid_vpc:
+  <<: *with_nix
+  <<: *in_master_branch_serves
+  stage: deploy-infra
+
+serves_apply_infra_secret_management:
+  <<: *with_nix
+  <<: *in_master_branch_serves
+  stage: deploy-infra
+
+serves_apply_infra_certificates:
+  <<: *with_nix
+  <<: *in_master_branch_serves
+  stage: deploy-infra

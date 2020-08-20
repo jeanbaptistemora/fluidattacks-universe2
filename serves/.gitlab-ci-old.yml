@@ -218,53 +218,7 @@ analytics_services_repositories_cache:
     variables: [$SCHEDULE_SERVICES_REPOSITORIES_CACHE]
   interruptible: false
 
-
-
-apply_infra_monolith:
-  <<: *with_nix
-  <<: *in_master_branch
-  stage: deploy
-
-
-
-apply_infra_autoscaling_ci:
-  <<: *with_nix
-  <<: *in_master_branch
-  stage: deploy
-
-
-
-apply_infra_dns:
-  <<: *with_nix
-  <<: *in_master_branch
-  stage: deploy
-
 apply_config_autoscaling_ci:
-  <<: *with_nix
-  <<: *in_master_branch
-  stage: deploy
-
-apply_infra_analytics:
-  <<: *with_nix
-  <<: *in_master_branch
-  stage: deploy
-
-apply_infra_aws_sso:
-  <<: *with_nix
-  <<: *in_master_branch
-  stage: deploy
-
-apply_infra_fluid_vpc:
-  <<: *with_nix
-  <<: *in_master_branch
-  stage: deploy
-
-apply_infra_secret_management:
-  <<: *with_nix
-  <<: *in_master_branch
-  stage: deploy
-
-apply_infra_certificates:
   <<: *with_nix
   <<: *in_master_branch
   stage: deploy
