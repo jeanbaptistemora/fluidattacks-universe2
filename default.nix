@@ -9,6 +9,7 @@ in
 
     propagatedBuildInputs = [
       pkgs.python37
+      pkgs.openvpn
       pkgs.python37Packages.pip
       overridenPandas
     ];
