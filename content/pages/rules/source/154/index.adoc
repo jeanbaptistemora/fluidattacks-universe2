@@ -49,3 +49,7 @@ maliciously if discovered.
 . [[r5]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 6.3.1]
 Remove development, test and/or custom application accounts, user IDs,
 and passwords before applications become active or are released to customers.
+
+. [[r6]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 6.4.4]
+Processes must include removal of test data and accounts from system components
+before the system becomes active / goes into production.
