@@ -208,3 +208,7 @@ and transmission.
 . [[r28]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 4.2]
 Never send unprotected **PAN**s by end-user messaging technologies
 (for example, e-mail, instant messaging, *SMS*, chat, etc.).
+
+. [[r29]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 6.5.4]
+Address common coding vulnerabilities in software-development processes such as
+insecure communications.

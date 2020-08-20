@@ -63,3 +63,7 @@ detailed version information of system components.
 . [[r7]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 1.3.7]
 Do not disclose private *IP* addresses and routing information to unauthorized
 parties.
+
+. [[r8]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 6.5.5]
+Address common coding vulnerabilities in software-development processes such as
+improper error handling.

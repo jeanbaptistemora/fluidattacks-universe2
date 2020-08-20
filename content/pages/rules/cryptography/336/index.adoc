@@ -91,3 +91,7 @@ as required for the function of the system.
 Use strong cryptography and security protocols to safeguard sensitive
 cardholder data during transmission over open, public networks.
 The protocol in use only supports secure versions or configurations.
+
+. [[r12]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 6.5.4]
+Address common coding vulnerabilities in software-development processes such as
+insecure communications.
