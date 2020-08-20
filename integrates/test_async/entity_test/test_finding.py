@@ -39,6 +39,37 @@ class FindingTests(TestCase):
 
     async def test_finding(self):
         """Check for finding query."""
+        expected_vuln = {
+          'id': '80d6a69f-a376-46be-98cd-2fdedcffdcc0',
+          'findingId': '422286126',
+          'where': 'https://example.com',
+          'specific': 'phone',
+          'historicState': [
+            {
+              'date': '2018-09-28 10:32:58',
+              'analyst': 'test@unittesting.com',
+              'state': 'open'
+            },
+            {
+              'date': '2019-01-08 16:01:26',
+              'analyst': 'test@unittesting.com',
+              'state': 'open'
+            }
+          ],
+          'tag': '',
+          'severity': '',
+          'remediated': False,
+          'verification': '',
+          'historicVerification': [],
+          'currentState': 'open',
+          'currentApprovalStatus': '',
+          'lastApprovedStatus': 'open',
+          'analyst': 'test@unittesting.com',
+          'treatmentManager': 'integratesuser@gmail.com',
+          'lastAnalyst': 'test@unittesting.com',
+          'source': 'integrates',
+          'vulnType': 'inputs'
+        }
         query = '''{
           finding(identifier: "422286126"){
               id
@@ -89,7 +120,27 @@ class FindingTests(TestCase):
               newRemediated
               verified
               vulnerabilities {
+                id
+                findingId
+                where
                 specific
+                historicState
+                tag
+                severity
+                remediated
+                verification
+                historicVerification {
+                  date
+                  status
+                }
+                currentState
+                currentApprovalStatus
+                lastApprovedStatus
+                analyst
+                treatmentManager
+                lastAnalyst
+                source
+                vulnType
               }
               portsVulns {
                   specific
@@ -159,7 +210,8 @@ class FindingTests(TestCase):
         assert 'lastVulnerability' in result['data']['finding']
         assert 'historicState' in result['data']['finding']
         assert 'vulnerabilities' in result['data']['finding']
-        assert result['data']['finding']['vulnerabilities'][0]['specific'] == 'phone'
+        for field, value in result['data']['finding']['vulnerabilities'][0].items():
+            assert value == expected_vuln[field]
 
     @pytest.mark.changes_db
     async def test_remove_evidence(self):
