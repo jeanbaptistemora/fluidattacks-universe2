@@ -161,9 +161,10 @@ const apiLink: ApolloLink = ApolloLink.split(
  * @see https://github.com/apollographql/react-apollo/issues/1548
  * @see https://github.com/apollographql/apollo-link/issues/855
  */
-const onError: (errorHandler: IErrorHandlerAttr) => ApolloLink = (
-  errorHandler: IErrorHandlerAttr
-): ApolloLink =>
+const onError: (
+  errorHandler: IErrorHandlerAttr,
+  history: History
+) => ApolloLink = (errorHandler: IErrorHandlerAttr): ApolloLink =>
   new ApolloLink(
     (operation: Operation, forward: NextLink): Observable<FetchResult> =>
       new Observable(
@@ -183,10 +184,17 @@ const onError: (errorHandler: IErrorHandlerAttr) => ApolloLink = (
               const skipForwarding: () => void = (): void => {
                 isForwarded = false;
               };
+              const initialHistoryState: Record<string, unknown> =
+                history.state;
 
               return operationObserver.subscribe({
                 complete: (): void => {
-                  if (isForwarded) {
+                  const finalHistoryState: Record<string, unknown> =
+                    history.state;
+                  if (
+                    isForwarded &&
+                    initialHistoryState.key == finalHistoryState.key
+                  ) {
                     observer.complete.bind(observer)();
                   }
                 },
@@ -204,7 +212,7 @@ const onError: (errorHandler: IErrorHandlerAttr) => ApolloLink = (
                       graphQLErrors: result.errors,
                       operation,
                       response: result,
-                      skipForwarding: skipForwarding,
+                      skipForwarding,
                     });
                   }
                   // isForwarded can change its value
@@ -292,7 +300,8 @@ const errorLink: (history: History) => ApolloLink = (
           });
         }
       }
-    }
+    },
+    history
   );
 
 type ProviderProps = Omit<
