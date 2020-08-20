@@ -77,7 +77,7 @@ common_build_nix_caches:
   stage: build
   before_script:
     - apk add --no-cache bash
-  parallel: 45
+  parallel: 50
   interruptible: false
   only:
     refs: [schedules]
