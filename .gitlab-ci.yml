@@ -2,6 +2,7 @@ include:
   - local: forces/.gitlab-ci.yml
   - local: integrates/.gitlab-ci.yml
   - local: reviews/.gitlab-ci.yml
+  - local: serves/.gitlab-ci.yml
   - local: skims/.gitlab-ci.yml
 
 stages:

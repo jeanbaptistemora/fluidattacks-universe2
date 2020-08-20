@@ -15,8 +15,12 @@ in
             old-pkgs.nix-linter
           ];
 
-          pyPkgMypy = builders.pythonPackage "mypy==0.782";
-          pyPkgProspector = builders.pythonPackage "prospector[with_everything]==1.2.0";
+          pyPkgMypy = builders.pythonPackage {
+            requirement = "mypy==0.782";
+          };
+          pyPkgProspector = builders.pythonPackage {
+            requirement = "prospector[with_everything]==1.2.0";
+          };
         })
   )
 

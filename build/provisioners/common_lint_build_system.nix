@@ -1,5 +1,6 @@
 let
   pkgs = import ../pkgs/stable.nix;
+  old-pkgs = import ../pkgs/old.nix;
 in
   pkgs.stdenv.mkDerivation (
        (import ../src/basic.nix)
@@ -10,7 +11,7 @@ in
       buildInputs = [
         pkgs.git
         pkgs.shellcheck
-        pkgs.nix-linter
+        old-pkgs.nix-linter
       ];
     })
   )

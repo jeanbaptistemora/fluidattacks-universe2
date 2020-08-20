@@ -159,7 +159,6 @@ function job_serves_apply_infra_monolith {
 function job_serves_test_infra_dns {
   local target='services/dns/terraform'
 
-
       helper_use_pristine_workdir \
   &&  pushd serves \
   &&  helper_serves_aws_login dev \
@@ -760,9 +759,9 @@ function job_serves_apply_rotate_keys_user_provision_serves {
   local resource_to_taint='aws_iam_access_key.dev-key'
   local output_key_id_name='dev-secret-key-id'
   local output_secret_key_name='dev-secret-key'
-  local gitlab_repo_id="${CI_PROJECT_ID}"
-  local gitlab_key_id_name='DEV_AWS_ACCESS_KEY_ID'
-  local gitlab_secret_key_name='DEV_AWS_SECRET_ACCESS_KEY'
+  local gitlab_repo_id='4620828'
+  local gitlab_key_id_name='SERVES_DEV_AWS_ACCESS_KEY_ID'
+  local gitlab_secret_key_name='SERVES_DEV_AWS_SECRET_ACCESS_KEY'
   local gitlab_masked='true'
   local gitlab_protected='false'
 

@@ -53,7 +53,7 @@ function helper_serves_move_services_fusion_to_master_git {
 function helper_serves_deploy_integrates {
   local integrates_id='4620828'
 
-      helper_aws_login prod \
+      helper_serves_aws_login prod \
   &&  sops_env secrets-prod.yaml default INTEGRATES_PIPELINE_TOKEN \
   &&  curl \
         -X POST \
@@ -70,12 +70,12 @@ function helper_serves_aws_login {
 
       if [ "${user}" = 'dev' ]
       then
-            AWS_ACCESS_KEY_ID="${DEV_AWS_ACCESS_KEY_ID}" \
-        &&  AWS_SECRET_ACCESS_KEY="${DEV_AWS_SECRET_ACCESS_KEY}"
+            AWS_ACCESS_KEY_ID="${SERVES_DEV_AWS_ACCESS_KEY_ID}" \
+        &&  AWS_SECRET_ACCESS_KEY="${SERVES_DEV_AWS_SECRET_ACCESS_KEY}"
       elif [ "${user}" = 'prod' ]
       then
-            AWS_ACCESS_KEY_ID="${PROD_AWS_ACCESS_KEY_ID}" \
-        &&  AWS_SECRET_ACCESS_KEY="${PROD_AWS_SECRET_ACCESS_KEY}"
+            AWS_ACCESS_KEY_ID="${SERVES_PROD_AWS_ACCESS_KEY_ID}" \
+        &&  AWS_SECRET_ACCESS_KEY="${SERVES_PROD_AWS_SECRET_ACCESS_KEY}"
       else
             echo '[ERROR] either prod or dev must be passed as arg' \
         &&  return 1
@@ -97,7 +97,7 @@ function helper_serves_terraform_login {
 function helper_serves_terraform_init {
   local target_dir="${1}"
 
-      helper_terraform_login \
+      helper_serves_terraform_login \
   &&  pushd "${target_dir}" \
     &&  echo '[INFO] Running terraform init' \
     &&  terraform init \
@@ -108,7 +108,7 @@ function helper_serves_terraform_init {
 function helper_serves_terraform_plan {
   local target_dir="${1}"
 
-      helper_terraform_init "${target_dir}" \
+      helper_serves_terraform_init "${target_dir}" \
   &&  pushd "${target_dir}" \
     &&  echo '[INFO] Running terraform plan' \
     &&  terraform plan -lock=false -refresh=true \
@@ -120,7 +120,7 @@ function helper_serves_terraform_plan {
 function helper_serves_terraform_apply {
   local target_dir="${1}"
 
-      helper_terraform_init "${target_dir}" \
+      helper_serves_terraform_init "${target_dir}" \
   &&  pushd "${target_dir}" \
     &&  echo '[INFO] Running terraform apply' \
     &&  terraform apply -auto-approve -refresh=true \
@@ -132,7 +132,7 @@ function helper_serves_terraform_taint {
   local target_dir="${1}"
   local marked_value="${2}"
 
-      helper_terraform_init "${target_dir}" \
+      helper_serves_terraform_init "${target_dir}" \
   &&  pushd "${target_dir}" \
     &&  terraform refresh \
     &&  echo "[INFO] Running terraform taint: ${marked_value}" \
@@ -145,7 +145,7 @@ function helper_serves_terraform_output {
   local target_dir="${1}"
   local output_name="${2}"
 
-      helper_terraform_init "${target_dir}" 1>&2 \
+      helper_serves_terraform_init "${target_dir}" 1>&2 \
   &&  pushd "${target_dir}" 1>&2 \
     &&  echo "[INFO] Running terraform output: ${output_name}" 1>&2 \
     &&  terraform output "${output_name}" \
@@ -192,16 +192,16 @@ function helper_serves_infra_monolith {
   local helm_home
   local first_argument="${1}"
 
-      helper_aws_login dev \
+      helper_serves_aws_login dev \
   &&  pushd infrastructure/ || return 1 \
-    &&  helper_terraform_plan . \
+    &&  helper_serves_terraform_plan . \
     &&  if [ "${first_argument}" == "deploy" ]; then
-              helper_aws_login prod \
+              helper_serves_aws_login prod \
           &&  aws eks update-kubeconfig \
                 --name 'FluidServes' --region 'us-east-1' \
           &&  kubectl config \
                 set-context "$(kubectl config current-context)" --namespace 'serves' \
-          &&  helper_terraform_apply . \
+          &&  helper_serves_terraform_apply . \
           &&  sops_env ../secrets-prod.yaml default \
                 AUTONOMIC_TLS_CERT \
                 AUTONOMIC_TLS_KEY \
@@ -303,19 +303,19 @@ function helper_serves_user_provision_rotate_keys {
   local resource_to_taint_number
 
       resource_to_taint_number="$( \
-        helper_get_resource_to_taint_number)" \
-  &&  helper_aws_login prod \
-  &&  helper_terraform_taint \
+        helper_serves_get_resource_to_taint_number)" \
+  &&  helper_serves_aws_login prod \
+  &&  helper_serves_terraform_taint \
         "${terraform_dir}" \
         "${resource_to_taint}-${resource_to_taint_number}" \
-  &&  helper_terraform_apply \
+  &&  helper_serves_terraform_apply \
         "${terraform_dir}" \
   &&  output_key_id_value=$( \
-        helper_terraform_output \
+        helper_serves_terraform_output \
           "${terraform_dir}" \
           "${output_key_id_name}-${resource_to_taint_number}") \
   &&  output_secret_key_value=$( \
-        helper_terraform_output \
+        helper_serves_terraform_output \
           "${terraform_dir}" \
           "${output_secret_key_name}-${resource_to_taint_number}")  \
   &&  set_project_variable \

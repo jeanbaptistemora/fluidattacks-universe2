@@ -18,7 +18,9 @@ in
           ];
 
           # Do not remove, please!
-          pyPkgFluidCLI = builders.pythonPackage "fluidattacks";
+          pyPkgFluidCLI = builders.pythonPackage {
+            requirement = "fluidattacks";
+          };
           LD_LIBRARY_PATH="${pkgs.stdenv.cc.cc.lib}/lib64:$LD_LIBRARY_PATH";
 
           pyPkgTapgit = builders.pythonPackageLocal ../../analytics/singer/tap_git;

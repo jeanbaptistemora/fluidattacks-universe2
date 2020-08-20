@@ -16,7 +16,9 @@ in
             pkgs.jq
           ];
 
-          pyPkgRequests = builders.pythonPackage "requests==2.24.0";
+          pyPkgRequests = builders.pythonPackage {
+            requirement = "requests==2.24.0";
+          };
 
           pyPkgTapjson = builders.pythonPackageLocal ../../analytics/singer/tap_json;
           pyPkgTargetRedshift = builders.pythonPackageLocal ../../analytics/singer/target_redshift;
