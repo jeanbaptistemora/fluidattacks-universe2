@@ -250,7 +250,7 @@ async def persist_finding(
     store_length: int = await store.length()
     has_results: bool = store_length > 0
 
-    await log('info', 'persisting: %s, %s results', finding.name, store_length)
+    await log('info', 'persisting: %s, %s vulns', finding.name, store_length)
 
     finding_id: str = await get_closest_finding_id(
         affected_systems=await get_affected_systems(store),
@@ -260,36 +260,44 @@ async def persist_finding(
         recreate_if_draft=has_results,
     )
 
+    # Even if there are no results to persist we must give Skims the
+    #   opportunity to close
     if finding_id:
         await log('info', 'finding for: %s = %s', finding.name, finding_id)
+
+        diff_store: EphemeralStore = await diff_results(
+            integrates_store=await get_finding_vulnerabilities(
+                finding=finding,
+                finding_id=finding_id,
+            ),
+            skims_store=store,
+        )
 
         success = await do_build_and_upload_vulnerabilities(
             finding_id=finding_id,
             release=True,
-            store=await diff_results(
-                integrates_store=await get_finding_vulnerabilities(
-                    finding=finding,
-                    finding_id=finding_id,
-                ),
-                skims_store=store,
-            ),
-        ) and await upload_evidences(
-            finding_id=finding_id,
-            store=store,
-        ) and await do_release_finding(
-            auto_approve=finding.value.auto_approve,
-            finding_id=finding_id,
+            store=diff_store,
         )
 
+        # Evidences and draft submit only make sense if there are results
+        if has_results:
+            success = success and await upload_evidences(
+                finding_id=finding_id,
+                store=store,
+            ) and await do_release_finding(
+                auto_approve=finding.value.auto_approve,
+                finding_id=finding_id,
+            )
+
         await log(
-            'info', 'persisted: %s, results: %s, success: %s',
-            finding.name, store_length, success,
+            'info', 'persisted: %s, modified vulns: %s, success: %s',
+            finding.name, await diff_store.length(), success,
         )
     elif not has_results:
         success = True
 
         await log(
-            'info', 'persisted: %s, results: %s, success: %s',
+            'info', 'persisted: %s, vulns: %s, success: %s',
             finding.name, store_length, success,
         )
     else:
