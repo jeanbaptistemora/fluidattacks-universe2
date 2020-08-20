@@ -75,7 +75,6 @@ async def create_user(
         *args: Sequence[Any],
         **kwargs: Dict[str, Any]) -> None:
     del args
-    del kwargs
     del backend
     first_name = details['first_name'][:29]
     last_name = details['last_name'][:29]
@@ -87,6 +86,7 @@ async def create_user(
     # Put details on session.
     strategy.session_set('first_name', first_name)
     strategy.session_set('last_name', last_name)
+    strategy.session_set('client', kwargs.get('client', 'web'))
 
     today = user_domain.get_current_date()
     data_dict = {

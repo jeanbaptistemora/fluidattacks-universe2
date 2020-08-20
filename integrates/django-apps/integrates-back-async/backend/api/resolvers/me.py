@@ -313,7 +313,8 @@ async def _do_sign_in(
         strategy = load_strategy(info.context)
         auth_backend = load_backend(
             strategy=strategy, name=provider, redirect_uri=None)
-        user = await sync_to_async(auth_backend.do_auth)(auth_token)
+        user = await sync_to_async(auth_backend.do_auth)(
+            auth_token, client='mobile')
         email = user.email.lower()
         session_jwt = jwt.encode(
             {

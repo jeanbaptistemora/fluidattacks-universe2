@@ -14,30 +14,18 @@ from test_async.utils import create_dummy_simple_session
 
 
 def _test_get_all_logged_users():
-    def unpack_sessions(active_users):
-        return sorted(
-            [tuple(*a_user.items()) for a_user in active_users],
-            key = itemgetter(1)
-        )
-
-    for session in unpack_sessions(get_all_logged_users()):
-        invalidate_session(session[1])
+    for session in get_all_logged_users():
+        invalidate_session(session['key'])
     assert not bool(get_all_logged_users())
 
     create_dummy_simple_session('unittest')
     create_dummy_simple_session('unittest2')
-    users, _ = zip(*unpack_sessions(get_all_logged_users()))
+    users = [session['username'] for session in get_all_logged_users()]
     assert sorted(users) == ['unittest', 'unittest2']
 
 def _test_get_previous_session():
-    def unpack_sessions(active_users):
-        return sorted(
-            [tuple(*a_user.items()) for a_user in active_users],
-            key = itemgetter(1)
-        )
-
-    for session in unpack_sessions(get_all_logged_users()):
-        invalidate_session(session[1])
+    for session in get_all_logged_users():
+        invalidate_session(session['key'])
     assert not bool(get_all_logged_users())
 
     test_1 = [
@@ -46,6 +34,7 @@ def _test_get_previous_session():
         for i in range(5)]
     assert len(get_all_logged_users()) == len(test_1)
 
+    create_dummy_simple_session('unittest4', 'mobile')
     assert not bool(get_previous_session('unittest4', test_1[-1]))
 
     assert \
@@ -56,14 +45,8 @@ def _test_get_previous_session():
                 'unittest4').session.session_key)
 
 def _test_invalidate_session():
-    def unpack_sessions(active_users):
-        return sorted(
-            [tuple(*a_user.items()) for a_user in active_users],
-            key = itemgetter(1)
-        )
-
-    for session in unpack_sessions(get_all_logged_users()):
-        invalidate_session(session[1])
+    for session in get_all_logged_users():
+        invalidate_session(session['key'])
     assert not bool(get_all_logged_users())
 
     all_active_sessions = sorted(
@@ -83,8 +66,9 @@ def _test_invalidate_session():
             if index in index_for_test]
     for to_invalidate in test_1:
         invalidate_session(to_invalidate)
-    _, result_1 = zip(*unpack_sessions(get_all_logged_users()))
+    result_1 = [session['key'] for session in get_all_logged_users()]
     assert sorted(result_1) == expected
+
 
 @pytest.mark.changes_sessions
 def test_sessions():
