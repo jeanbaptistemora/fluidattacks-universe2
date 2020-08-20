@@ -2,3 +2,10 @@ inputs:
 - field: phone
   state: open
   url: https://example.com
+lines:
+- line: '123'
+  path: path/to/file1.ext
+  state: closed
+- line: '345'
+  path: path/to/file3.ext
+  state: closed

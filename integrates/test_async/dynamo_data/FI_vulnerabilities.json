@@ -1044,6 +1044,20 @@
                      }
                   ]
                },
+               "historic_verification": {
+                  "L" : [
+                    {
+                      "M": {
+                        "date": {
+                          "S": "2020-02-19 10:41:04"
+                        },
+                        "status": {
+                          "S": "REQUESTED"
+                        }
+                      }
+                    }
+                  ]
+               },
                "specific" : {
                   "S" : "345"
                },
