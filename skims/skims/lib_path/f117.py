@@ -90,6 +90,7 @@ async def analyze(
         'bin',
         'class',
         'dll',
+        'DS_Store',
         'exec',
         'hprof',
         'jar',

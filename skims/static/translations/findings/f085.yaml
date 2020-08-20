@@ -1,0 +1,35 @@
+utils.model.finding.enum.f085.description:
+  en: >
+    The application stores sensitive information in the client-side storage
+    (localStorage or sessionStorage). This exposes the information to
+    unauthorized read and write operations.
+  es: >
+    La aplicación almacena información confidencial en el almacenamiento del
+    lado del cliente (localStorage o sessionStorage). Esto expone la
+    información a operaciones de lectura y escritura no autorizadas.
+utils.model.finding.enum.f085.impact:
+  en: >
+    Obtain sensitive information through XSS or MitB attacks.
+  es: >
+    Obtener información sensible mediante ataques XSS o MitB.
+utils.model.finding.enum.f085.recommendation:
+  en: >
+    Do not use the client side storage to store sensitive information, use
+    cookies instead by defining their respective security attributes.
+  es: >
+    No usar el client side storage para almacenar información sensible, usar
+    cookies en su lugar definiendo sus respectivos atributos de seguridad.
+utils.model.finding.enum.f085.requirements:
+  en: |
+    R329. Keep client-side storage without sensitive data.
+  es: >
+    R329. La información sensible y de sesión no debe ser almacenada en el
+    localStorage ni en el sessionStorage (client-side storage).
+utils.model.finding.enum.f085.threat:
+  en: >
+    Attacker with physical or virtual access to the victim's browser.
+  es: >
+    Atacante con acceso físico o virtual al navegador de la víctima.
+utils.model.finding.enum.f085.title:
+  en: FIN.S.085. Sensitive data stored in the client-side storage
+  es: FIN.S.085. Almacenamiento inseguro de información sensible en el client-side storage
