@@ -16,6 +16,7 @@ in
         pkgs.curl
         pkgs.git
         pkgs.jq
+        pkgs.yq-go
         pkgs.zip
       ];
     })

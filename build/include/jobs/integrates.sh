@@ -272,11 +272,11 @@ function job_integrates_deploy_front {
 function job_integrates_deploy_mobile_ota {
   export EXPO_USE_DEV_SERVER="true"
 
-      if  helper_have_any_file_changed \
-            'integrates/mobile/'
-      then
-            pushd "${STARTDIR}/integrates" \
-        &&  helper_use_pristine_workdir \
+    if  helper_have_any_file_changed \
+          'integrates/mobile/'
+    then
+          helper_use_pristine_workdir \
+      &&  pushd integrates \
         &&  echo '[INFO] Logging in to AWS' \
         &&  aws_login "${ENVIRONMENT_NAME}" \
         &&  sops_env "secrets-${ENVIRONMENT_NAME}.yaml" 'default' \
@@ -313,13 +313,13 @@ function job_integrates_deploy_mobile_ota {
                 --source-control-repository https://gitlab.com/fluidattacks/integrates.git \
                 --source-control-revision "${CI_COMMIT_SHA}/integrates/mobile" \
         &&  popd \
-        ||  return 1
-      else
-            echo '[INFO] No relevant files were modified, skipping deploy' \
-        &&  return 0
-      fi \
-  &&  popd \
-  ||  return 1
+        ||  return 1 \
+      &&  popd \
+      ||  return 1
+    else
+          echo '[INFO] No relevant files were modified, skipping deploy' \
+      &&  return 0
+    fi
 }
 
 function job_integrates_deploy_mobile_playstore {
@@ -403,11 +403,7 @@ function job_integrates_functional_tests_mobile_local {
   &&  echo '[INFO] Make sure to enable USB debugging and set' \
             'your mobile device to file transfer mode' \
   &&  "${ANDROID_SDK_ROOT}/platform-tools/adb" wait-for-device \
-  &&  {
-    npx --no-install appium \
-      --default-capabilities capabilities/android.json \
-    &
-  } \
+  &&  { appium --default-capabilities capabilities/android.json & } \
   &&  echo '[INFO] Waiting 5 seconds to leave appium start' \
   &&  sleep 5 \
   &&  trap 'teardown' EXIT \
@@ -439,7 +435,7 @@ function job_integrates_functional_tests_mobile {
         aws devicefarm create-device-pool \
           --name devicePool \
           --project-arn "${project_arn}" \
-          --rules file://devices.json \
+          --rules file://devicefarm/devices.json \
         | jq -r '.devicePool | .arn'
       ) \
   &&  echo '[INFO] Preparing apk' \
@@ -449,16 +445,22 @@ function job_integrates_functional_tests_mobile {
         expoClient.apk \
         ANDROID_APP \
   &&  echo '[INFO] Preparing test package' \
-  &&  zip -r9 tests.zip tests/ requirements.txt \
+  &&  zip -r9 devicefarm/tests.zip tests/ requirements.txt \
   &&  helper_upload_to_devicefarm \
         test_pkg_arn \
-        tests.zip \
+        devicefarm/tests.zip \
         APPIUM_PYTHON_TEST_PACKAGE \
-  &&  echo '[INFO] Preparing test environment' \
-  &&  sed -i "s/__DEPLOYMENT_NAME__/${CI_COMMIT_REF_NAME}/g" ./testSpec.yml \
+  &&  echo '[INFO] Preparing test spec' \
+  &&  yq write -i \
+        devicefarm/spec.yml \
+        'phases.test.commands[+]' \
+        "$(cat devicefarm/test.sh)" \
+  &&  sed -i \
+        "s/__CI_COMMIT_REF_NAME__/${CI_COMMIT_REF_NAME}/g" \
+        devicefarm/spec.yml \
   &&  helper_upload_to_devicefarm \
         test_spec_arn \
-        testSpec.yml \
+        devicefarm/spec.yml \
         APPIUM_PYTHON_TEST_SPEC \
   &&  echo "${project_arn}" \
   &&  echo "${device_pool_arn}" \

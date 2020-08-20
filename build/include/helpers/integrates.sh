@@ -232,11 +232,13 @@ sops_vars() {
 
 function helper_upload_to_devicefarm {
     local resource_arn_out="${1}"
-    local file_name="${2}"
+    local file_path="${2}"
     local file_type="${3}"
+    local file_name
     local upload_status
-    
+
         echo "[INFO] Uploading ${file_type} to AWS Device Farm" \
+    &&  file_name=$(basename "${file_path}") \
     &&  resource_data=$(
           aws devicefarm create-upload \
             --content-type "application/octet-stream" \
@@ -249,7 +251,7 @@ function helper_upload_to_devicefarm {
     &&  curl \
           --header 'Content-Type: application/octet-stream' \
           --upload-file \
-          "${file_name}" \
+          "${file_path}" \
           "${resource_url}" \
     &&  while true;
         do

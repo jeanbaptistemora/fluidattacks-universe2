@@ -1,0 +1,8 @@
+# https://docs.aws.amazon.com/devicefarm/latest/developerguide/custom-test-environments.html
+
+version: 0.1
+phases:
+  test:
+    commands:
+artifacts:
+  - "${DEVICEFARM_LOG_DIR}"

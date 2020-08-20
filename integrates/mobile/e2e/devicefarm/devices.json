@@ -1,0 +1,7 @@
+[
+  {
+    "attribute": "ARN",
+    "operator": "IN",
+    "value": "[\"arn:aws:devicefarm:us-west-2::device:47F07CB507F04E229BF67180FC1786F2\",\"arn:aws:devicefarm:us-west-2::device:63CA317F2C79433081CD14AE3F2A5CB3\"]"
+  }
+]

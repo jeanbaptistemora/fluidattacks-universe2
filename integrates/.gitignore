@@ -14,8 +14,8 @@ mobile/npm-debug.*
 mobile/certs
 mobile/google-services.json
 mobile/output/*
-mobile/e2e/*.apk
-mobile/e2e/*.zip
+mobile/e2e/**/*.apk
+mobile/e2e/**/*.zip
 
 #coverage output
 front/.nyc_output
