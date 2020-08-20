@@ -169,3 +169,7 @@ cryptographic keys including generation of strong cryptographic keys.
 Use strong cryptography and security protocols to safeguard sensitive
 cardholder data during transmission over open, public networks.
 The encryption strength is appropriate for the encryption methodology in use.
+
+. [[r28]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 6.5.3]
+Address common coding vulnerabilities in software-development processes such as
+insecure cryptographic storage.

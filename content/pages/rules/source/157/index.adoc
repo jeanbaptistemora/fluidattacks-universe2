@@ -1,7 +1,7 @@
 :slug: rules/157/
 :category: source
 :description: This requirement establishes the importance of compiling and interpreting the source code in strict mode.
-:keywords: Source Code, Strict, Mode, Compilation, ASVS, CWE, Interpretation, Rules, Ethical Hacking, Pentesting
+:keywords: Source Code, Strict, Mode, Compilation, ASVS, CWE, PCI DSS, Interpretation, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R157. Use the strict mode
@@ -64,3 +64,7 @@ overflow protections and warnings,
 including stack randomization, data execution prevention,
 and to break the build if an unsafe pointer, memory, format string, integer,
 or string operations are found.
+
+. [[r9]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 6.5.2]
+Address common coding vulnerabilities in software-development processes such as
+buffer overflows.

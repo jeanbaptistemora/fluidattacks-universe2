@@ -100,4 +100,7 @@ Store secret and private keys used to encrypt/decrypt cardholder data encrypted
 with a key-encrypting key that is at least as strong as the data-encrypting
 key,
 and that is stored separately from the data-encrypting key.
-  
+
+. [[r14]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 6.5.3]
+Address common coding vulnerabilities in software-development processes such as
+insecure cryptographic storage.

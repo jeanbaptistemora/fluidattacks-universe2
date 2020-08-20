@@ -1,7 +1,7 @@
 :slug: rules/345/
 :category: source
 :description: This requirement establishes the importance of establishing protection mechanisms against overflow attacks.
-:keywords: Overflow, Buffer, Mechanism, Protection, ASVS, CWE
+:keywords: Overflow, Buffer, Mechanism, Protection, ASVS, CWE, PCI DSS, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R345. Establish protections against overflows
@@ -54,3 +54,7 @@ and are constant.
 V5.4 Memory, String, and Unmanaged Code Requirements.(5.4.3)]
 Verify that sign, range, and input validation techniques are used to prevent
 integer overflows.
+
+. [[r7]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 6.5.2]
+Address common coding vulnerabilities in software-development processes such as
+buffer overflows.

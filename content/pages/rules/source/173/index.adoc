@@ -395,3 +395,7 @@ Address common coding vulnerabilities in software-development processes such as
 injection flaws, particularly *SQL* injection.
 Also consider *OS* Command Injection, *LDAP* and *XPath* injection flaws as
 well as other injection flaws.
+
+. [[r48]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 6.5.2]
+Address common coding vulnerabilities in software-development processes such as
+buffer overflows.
