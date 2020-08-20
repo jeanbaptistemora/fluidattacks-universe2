@@ -36,8 +36,8 @@ def get_previous_session(user_mail: str, session_key: str) -> Optional[str]:
     old_session_key = [
         session
         for session in all_active_sessions
-        if session['username'] == user_mail
-        and session['client'] == current_session.get('client', 'web')
+        if session.get('username') == user_mail
+        and session.get('client') == current_session.get('client', 'web')
         and session['key'] != f'fi_session:{session_key}'
     ]
     return old_session_key[0]['key'] if old_session_key else None
