@@ -59,12 +59,15 @@ export const App: React.FunctionComponent = (): JSX.Element => {
 
   // Side effects
   const checkAuth: (() => void) = async (): Promise<void> => {
-    const token: string | null =
-      await SecureStore.getItemAsync("integrates_session");
-    const authState: string | null =
-      await SecureStore.getItemAsync("authState");
-
-    setLoggedIn(_.isNil(token) || _.isNil(authState) ? false : true);
+    try {
+      const token: string | null =
+        await SecureStore.getItemAsync("integrates_session");
+      const authState: string | null =
+        await SecureStore.getItemAsync("authState");
+      setLoggedIn(_.isNil(token) || _.isNil(authState) ? false : true);
+    } catch {
+      setLoggedIn(false);
+    }
   };
 
   const onMount: (() => void) = (): void => {

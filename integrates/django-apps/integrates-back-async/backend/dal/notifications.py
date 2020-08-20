@@ -92,6 +92,7 @@ def send_push_notification(
             PushMessage(
                 body=message,
                 channel_id='default',
+                data={'message': message, 'title': title},
                 display_in_foreground=True,
                 priority='high',
                 sound='default',

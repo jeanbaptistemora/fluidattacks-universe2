@@ -1,6 +1,11 @@
 import { useMutation, useQuery } from "@apollo/react-hooks";
 import { wait } from "@apollo/react-testing";
 import { ApolloError, NetworkStatus } from "apollo-client";
+import { Notifications } from "expo";
+/* tslint:disable-next-line: no-submodule-imports
+ * Necessary to import unindexed types
+ */
+import { Notification } from "expo/build/Notifications/Notifications.types";
 import { GraphQLError } from "graphql";
 /* tslint:disable: no-import-side-effect no-submodule-imports
  * Necessary polyfill due to a bug in RN for android
@@ -19,6 +24,7 @@ import {
   AppState,
   AppStateStatus,
   Dimensions,
+  EventSubscription,
   ScrollViewProps,
   View,
 } from "react-native";
@@ -123,12 +129,24 @@ const dashboardView: React.FunctionComponent = (): JSX.Element => {
     }
   };
 
+  const handleIncomingNotifs: ((notification: Notification) => void) = (
+    notification: Notification,
+  ): void => {
+    if (!_.isEmpty(notification.data)) {
+      const { message, title } = notification.data as Record<string, string>;
+      Alert.alert(title, message);
+    }
+  };
+
   const onMount: (() => void) = (): (() => void) => {
     AppState.addEventListener("change", handleAppStateChange);
+    const notificationListener: EventSubscription =
+      Notifications.addListener(handleIncomingNotifs) as EventSubscription;
     registerPushToken();
 
     return (): void => {
       AppState.removeEventListener("change", handleAppStateChange);
+      notificationListener.remove();
     };
   };
   React.useEffect(onMount, []);
