@@ -1,397 +1,546 @@
 # shellcheck shell=bash
 
-source "${srcIncludeHelpers}"
-source "${srcIncludeHelpersAnalytics}"
-source "${srcExternalSops}"
-source "${srcExternalGitlabVariables}"
 source "${srcEnv}"
+source "${srcIncludeHelpersCommon}"
+source "${srcExternalGitlabVariables}"
+source "${srcExternalSops}"
+source "${srcIncludeHelpersServes}"
+source "${srcIncludeHelpersAnalytics}"
 
 function job_serves_analytics_formstack {
       helper_use_pristine_workdir \
+  &&  pushd serves \
   &&  env_prepare_python_packages \
-  &&  helper_analytics_formstack
+  &&  helper_analytics_formstack \
+  &&  popd \
+  ||  return 1
 }
 
 function job_serves_analytics_dynamodb {
       helper_use_pristine_workdir \
+  &&  pushd serves \
   &&  env_prepare_python_packages \
-  &&  helper_analytics_dynamodb
+  &&  helper_analytics_dynamodb \
+  &&  popd \
+  ||  return 1
 }
 
 function job_serves_analytics_services_toe {
       helper_use_pristine_workdir \
+  &&  pushd serves \
   &&  env_prepare_python_packages \
-  &&  helper_analytics_services_toe
+  &&  helper_analytics_services_toe \
+  &&  popd \
+  ||  return 1
 }
 
 function job_serves_analytics_infrastructure {
       helper_use_pristine_workdir \
+  &&  pushd serves \
   &&  env_prepare_python_packages \
-  &&  helper_analytics_infrastructure
+  &&  helper_analytics_infrastructure \
+  &&  popd \
+  ||  return 1
 }
 
 function job_serves_analytics_intercom {
       helper_use_pristine_workdir \
+  &&  pushd serves \
   &&  env_prepare_python_packages \
-  &&  helper_analytics_intercom
+  &&  helper_analytics_intercom \
+  &&  popd \
+  ||  return 1
 }
 
 function job_serves_analytics_mandrill {
       helper_use_pristine_workdir \
+  &&  pushd serves \
   &&  env_prepare_python_packages \
-  &&  helper_analytics_mandrill
+  &&  helper_analytics_mandrill \
+  &&  popd \
+  ||  return 1
 }
 
 function job_serves_analytics_gitlab {
       helper_use_pristine_workdir \
+  &&  pushd serves \
   &&  env_prepare_python_packages \
-  &&  helper_analytics_gitlab
+  &&  helper_analytics_gitlab \
+  &&  popd \
+  ||  return 1
 }
 
 function job_serves_analytics_timedoctor {
       helper_use_pristine_workdir \
+  &&  pushd serves \
   &&  env_prepare_python_packages \
-  &&  helper_analytics_timedoctor
+  &&  helper_analytics_timedoctor \
+  &&  popd \
+  ||  return 1
 }
 
 function job_serves_analytics_zoho {
       helper_use_pristine_workdir \
+  &&  pushd serves \
   &&  env_prepare_python_packages \
-  &&  helper_analytics_zoho
+  &&  helper_analytics_zoho \
+  &&  popd \
+  ||  return 1
 }
 
 function job_serves_analytics_git_process {
-      env_prepare_python_packages \
-  &&  helper_analytics_git_process
+      pushd serves \
+  &&  env_prepare_python_packages \
+  &&  helper_analytics_git_process \
+  &&  popd \
+  ||  return 1
 }
 
 function job_serves_analytics_git_upload {
-      env_prepare_python_packages \
-  &&  helper_analytics_git_upload
+      pushd serves \
+  &&  env_prepare_python_packages \
+  &&  helper_analytics_git_upload \
+  &&  popd \
+  ||  return 1
 }
 
 function job_serves_analytics_timedoctor_refresh_token {
       helper_use_pristine_workdir \
+  &&  pushd serves \
   &&  env_prepare_python_packages \
-  &&  helper_analytics_timedoctor_refresh_token
+  &&  helper_analytics_timedoctor_refresh_token \
+  &&  popd \
+  ||  return 1
 }
 
 function job_serves_analytics_timedoctor_backup {
       helper_use_pristine_workdir \
+  &&  pushd serves \
   &&  env_prepare_python_packages \
-  &&  helper_analytics_timedoctor_backup
+  &&  helper_analytics_timedoctor_backup \
+  &&  popd \
+  ||  return 1
 }
 
 function job_serves_analytics_timedoctor_manually_create_token {
       helper_use_pristine_workdir \
+  &&  pushd serves \
   &&  env_prepare_python_packages \
-  &&  helper_analytics_timedoctor_manually_create_token
+  &&  helper_analytics_timedoctor_manually_create_token \
+  &&  popd \
+  ||  return 1
 }
 
 function job_serves_analytics_services_repositories_cache {
       helper_use_pristine_workdir \
+  &&  pushd serves \
   &&  env_prepare_python_packages \
-  &&  helper_analytics_services_repositories_cache
+  &&  helper_analytics_services_repositories_cache \
+  &&  popd \
+  ||  return 1
 }
 
 function job_serves_test_infra_monolith {
       helper_use_pristine_workdir \
-  &&  helper_serves_infra_monolith 'test'
+  &&  pushd serves \
+  &&  helper_serves_infra_monolith 'test' \
+  &&  popd \
+  ||  return 1
 }
 
 function job_serves_apply_infra_monolith {
       helper_use_pristine_workdir \
-  &&  helper_serves_infra_monolith 'deploy'
+  &&  pushd serves \
+  &&  helper_serves_infra_monolith 'deploy' \
+  &&  popd \
+  ||  return 1
 }
 
 function job_serves_test_infra_dns {
   local target='services/dns/terraform'
 
+
       helper_use_pristine_workdir \
+  &&  pushd serves \
   &&  helper_serves_aws_login dev \
   &&  helper_serves_infra_dns_get_load_balancer \
   &&  helper_serves_terraform_plan \
-        "${target}"
+        "${target}" \
+  &&  popd \
+  ||  return 1
 }
 
 function job_serves_apply_infra_dns {
   local target='services/dns/terraform'
 
       helper_use_pristine_workdir \
+  &&  pushd serves \
   &&  helper_serves_aws_login prod \
   &&  helper_serves_infra_dns_get_load_balancer \
   &&  helper_serves_terraform_apply \
-        "${target}"
+        "${target}" \
+  &&  popd \
+  ||  return 1
 }
 
 function job_serves_test_infra_autoscaling_ci {
   local target='services/autoscaling-ci/terraform'
 
       helper_use_pristine_workdir \
+  &&  pushd serves \
   &&  helper_serves_aws_login dev \
   &&  helper_serves_terraform_plan \
-        "${target}"
+        "${target}" \
+  &&  popd \
+  ||  return 1
 }
 
 function job_serves_apply_infra_autoscaling_ci {
   local target='services/autoscaling-ci/terraform'
 
       helper_use_pristine_workdir \
+  &&  pushd serves \
   &&  helper_serves_aws_login prod \
   &&  helper_serves_terraform_apply \
-        "${target}"
+        "${target}" \
+  &&  popd \
+  ||  return 1
 }
 
 function job_serves_test_infra_analytics {
   local target='services/analytics/terraform'
 
       helper_use_pristine_workdir \
+  &&  pushd serves \
   &&  helper_serves_aws_login dev \
   &&  helper_serves_terraform_plan \
-        "${target}"
+        "${target}" \
+  &&  popd \
+  ||  return 1
 }
 
 function job_serves_apply_infra_analytics {
   local target='services/analytics/terraform'
 
       helper_use_pristine_workdir \
+  &&  pushd serves \
   &&  helper_serves_aws_login prod \
   &&  helper_serves_terraform_apply \
-        "${target}"
+        "${target}" \
+  &&  popd \
+  ||  return 1
 }
 
 function job_serves_test_infra_aws_sso {
   local target='services/aws-sso/terraform'
 
       helper_use_pristine_workdir \
+  &&  pushd serves \
   &&  helper_serves_aws_login dev \
   &&  helper_serves_terraform_plan \
-        "${target}"
+        "${target}" \
+  &&  popd \
+  ||  return 1
 }
 
 function job_serves_apply_infra_aws_sso {
   local target='services/aws-sso/terraform'
 
       helper_use_pristine_workdir \
+  &&  pushd serves \
   &&  helper_serves_aws_login prod \
   &&  helper_serves_terraform_apply \
-        "${target}"
+        "${target}" \
+  &&  popd \
+  ||  return 1
 }
 
 function job_serves_test_infra_fluid_vpc {
   local target='services/fluid-vpc/terraform'
 
       helper_use_pristine_workdir \
+  &&  pushd serves \
   &&  helper_serves_aws_login dev \
   &&  helper_serves_terraform_plan \
-        "${target}"
+        "${target}" \
+  &&  popd \
+  ||  return 1
 }
 
 function job_serves_apply_infra_fluid_vpc {
   local target='services/fluid-vpc/terraform'
 
       helper_use_pristine_workdir \
+  &&  pushd serves \
   &&  helper_serves_aws_login prod \
   &&  helper_serves_terraform_apply \
-        "${target}"
+        "${target}" \
+  &&  popd \
+  ||  return 1
 }
 
 function job_serves_test_infra_secret_management {
   local target='secret-management/terraform'
 
       helper_use_pristine_workdir \
+  &&  pushd serves \
   &&  helper_serves_aws_login dev \
   &&  helper_serves_terraform_plan \
-        "${target}"
+        "${target}" \
+  &&  popd \
+  ||  return 1
 }
 
 function job_serves_apply_infra_secret_management {
   local target='secret-management/terraform'
 
       helper_use_pristine_workdir \
+  &&  pushd serves \
   &&  helper_serves_aws_login prod \
   &&  helper_serves_terraform_apply \
-        "${target}"
+        "${target}" \
+  &&  popd \
+  ||  return 1
 }
 
 function job_serves_test_infra_certificates {
   local target='services/certificates/terraform'
 
       helper_use_pristine_workdir \
+  &&  pushd serves \
   &&  helper_serves_aws_login dev \
   &&  helper_serves_terraform_plan \
-        "${target}"
+        "${target}" \
+  &&  popd \
+  ||  return 1
 }
 
 function job_serves_apply_infra_certificates {
   local target='services/certificates/terraform'
 
       helper_use_pristine_workdir \
+  &&  pushd serves \
   &&  helper_serves_aws_login prod \
   &&  helper_serves_terraform_apply \
-        "${target}"
+        "${target}" \
+  &&  popd \
+  ||  return 1
 }
 
 function job_serves_test_user_provision_asserts_dev {
   local target='services/user-provision/asserts/dev/terraform'
 
       helper_use_pristine_workdir \
+  &&  pushd serves \
   &&  helper_serves_aws_login dev \
   &&  helper_serves_terraform_plan \
-        "${target}"
+        "${target}" \
+  &&  popd \
+  ||  return 1
 }
 
 function job_serves_apply_user_provision_asserts_dev {
   local target='services/user-provision/asserts/dev/terraform'
 
       helper_use_pristine_workdir \
+  &&  pushd serves \
   &&  helper_serves_aws_login prod \
   &&  helper_serves_terraform_apply \
-        "${target}"
+        "${target}" \
+  &&  popd \
+  ||  return 1
 }
 
 function job_serves_test_user_provision_asserts_prod {
   local target='services/user-provision/asserts/prod/terraform'
 
       helper_use_pristine_workdir \
+  &&  pushd serves \
   &&  helper_serves_aws_login dev \
   &&  helper_serves_terraform_plan \
-        "${target}"
+        "${target}" \
+  &&  popd \
+  ||  return 1
 }
 
 function job_serves_apply_user_provision_asserts_prod {
   local target='services/user-provision/asserts/prod/terraform'
 
       helper_use_pristine_workdir \
+  &&  pushd serves \
   &&  helper_serves_aws_login prod \
   &&  helper_serves_terraform_apply \
-        "${target}"
+        "${target}" \
+  &&  popd \
+  ||  return 1
 }
 
 function job_serves_test_user_provision_services_dev {
   local target='services/user-provision/services/dev/terraform'
 
       helper_use_pristine_workdir \
+  &&  pushd serves \
   &&  helper_serves_aws_login dev \
   &&  helper_serves_terraform_plan \
-        "${target}"
+        "${target}" \
+  &&  popd \
+  ||  return 1
 }
 
 function job_serves_apply_user_provision_services_dev {
   local target='services/user-provision/services/dev/terraform'
 
       helper_use_pristine_workdir \
+  &&  pushd serves \
   &&  helper_serves_aws_login prod \
   &&  helper_serves_terraform_apply \
-        "${target}"
+        "${target}" \
+  &&  popd \
+  ||  return 1
 }
 
 function job_serves_test_user_provision_services_prod {
   local target='services/user-provision/services/prod/terraform'
 
       helper_use_pristine_workdir \
+  &&  pushd serves \
   &&  helper_serves_aws_login dev \
   &&  helper_serves_terraform_plan \
-        "${target}"
+        "${target}" \
+  &&  popd \
+  ||  return 1
 }
 
 function job_serves_apply_user_provision_services_prod {
   local target='services/user-provision/services/prod/terraform'
 
       helper_use_pristine_workdir \
+  &&  pushd serves \
   &&  helper_serves_aws_login prod \
   &&  helper_serves_terraform_apply \
-        "${target}"
+        "${target}" \
+  &&  popd \
+  ||  return 1
 }
 
 function job_serves_test_user_provision_integrates_dev {
   local target='services/user-provision/integrates/dev/terraform'
 
       helper_use_pristine_workdir \
+  &&  pushd serves \
   &&  helper_serves_aws_login dev \
   &&  helper_serves_terraform_plan \
-        "${target}"
+        "${target}" \
+  &&  popd \
+  ||  return 1
 }
 
 function job_serves_apply_user_provision_integrates_dev {
   local target='services/user-provision/integrates/dev/terraform'
 
       helper_use_pristine_workdir \
+  &&  pushd serves \
   &&  helper_serves_aws_login prod \
   &&  helper_serves_terraform_apply \
-        "${target}"
+        "${target}" \
+  &&  popd \
+  ||  return 1
 }
 
 function job_serves_test_user_provision_integrates_prod {
   local target='services/user-provision/integrates/prod/terraform'
 
       helper_use_pristine_workdir \
+  &&  pushd serves \
   &&  helper_serves_aws_login dev \
   &&  helper_serves_terraform_plan \
-        "${target}"
+        "${target}" \
+  &&  popd \
+  ||  return 1
 }
 
 function job_serves_apply_user_provision_integrates_prod {
   local target='services/user-provision/integrates/prod/terraform'
 
       helper_use_pristine_workdir \
+  &&  pushd serves \
   &&  helper_serves_aws_login prod \
   &&  helper_serves_terraform_apply \
-        "${target}"
+        "${target}" \
+  &&  popd \
+  ||  return 1
 }
 
 function job_serves_test_user_provision_web_dev {
   local target='services/user-provision/web/dev/terraform'
 
       helper_use_pristine_workdir \
+  &&  pushd serves \
   &&  helper_serves_aws_login dev \
   &&  helper_serves_terraform_plan \
-        "${target}"
+        "${target}" \
+  &&  popd \
+  ||  return 1
 }
 
 function job_serves_apply_user_provision_web_dev {
   local target='services/user-provision/web/dev/terraform'
 
       helper_use_pristine_workdir \
+  &&  pushd serves \
   &&  helper_serves_aws_login prod \
   &&  helper_serves_terraform_apply \
-        "${target}"
+        "${target}" \
+  &&  popd \
+  ||  return 1
 }
 
 function job_serves_test_user_provision_web_prod {
   local target='services/user-provision/web/prod/terraform'
 
       helper_use_pristine_workdir \
+  &&  pushd serves \
   &&  helper_serves_aws_login dev \
   &&  helper_serves_terraform_plan \
-        "${target}"
+        "${target}" \
+  &&  popd \
+  ||  return 1
 }
 
 function job_serves_apply_user_provision_web_prod {
   local target='services/user-provision/web/prod/terraform'
 
       helper_use_pristine_workdir \
+  &&  pushd serves \
   &&  helper_serves_aws_login prod \
   &&  helper_serves_terraform_apply \
-        "${target}"
+        "${target}" \
+  &&  popd \
+  ||  return 1
 }
 
 function job_serves_test_user_provision_serves {
   local target='services/user-provision/serves/terraform'
 
       helper_use_pristine_workdir \
+  &&  pushd serves \
   &&  helper_serves_aws_login dev \
   &&  helper_serves_terraform_plan \
-        "${target}"
+        "${target}" \
+  &&  popd \
+  ||  return 1
 }
 
 function job_serves_apply_user_provision_serves {
   local target='services/user-provision/serves/terraform'
 
       helper_use_pristine_workdir \
+  &&  pushd serves \
   &&  helper_serves_aws_login prod \
   &&  helper_serves_terraform_apply \
-        "${target}"
+        "${target}" \
+  &&  popd \
+  ||  return 1
 }
 
 function job_serves_apply_rotate_keys_user_provision_asserts_dev {
@@ -405,7 +554,8 @@ function job_serves_apply_rotate_keys_user_provision_asserts_dev {
   local gitlab_masked='true'
   local gitlab_protected='false'
 
-      helper_serves_user_provision_rotate_keys \
+      pushd serves \
+  &&  helper_serves_user_provision_rotate_keys \
         "${terraform_dir}" \
         "${resource_to_taint}" \
         "${output_key_id_name}" \
@@ -414,7 +564,9 @@ function job_serves_apply_rotate_keys_user_provision_asserts_dev {
         "${gitlab_key_id_name}" \
         "${gitlab_secret_key_name}" \
         "${gitlab_masked}" \
-        "${gitlab_protected}"
+        "${gitlab_protected}" \
+  &&  popd \
+  ||  return 1
 }
 
 function job_serves_apply_rotate_keys_user_provision_asserts_prod {
@@ -428,7 +580,8 @@ function job_serves_apply_rotate_keys_user_provision_asserts_prod {
   local gitlab_masked='true'
   local gitlab_protected='true'
 
-      helper_serves_user_provision_rotate_keys \
+      pushd serves \
+  &&  helper_serves_user_provision_rotate_keys \
         "${terraform_dir}" \
         "${resource_to_taint}" \
         "${output_key_id_name}" \
@@ -437,7 +590,9 @@ function job_serves_apply_rotate_keys_user_provision_asserts_prod {
         "${gitlab_key_id_name}" \
         "${gitlab_secret_key_name}" \
         "${gitlab_masked}" \
-        "${gitlab_protected}"
+        "${gitlab_protected}" \
+  &&  popd \
+  ||  return 1
 }
 
 function job_serves_apply_rotate_keys_user_provision_services_dev {
@@ -451,7 +606,8 @@ function job_serves_apply_rotate_keys_user_provision_services_dev {
   local gitlab_masked='true'
   local gitlab_protected='false'
 
-      helper_serves_user_provision_rotate_keys \
+      pushd serves \
+  &&  helper_serves_user_provision_rotate_keys \
         "${terraform_dir}" \
         "${resource_to_taint}" \
         "${output_key_id_name}" \
@@ -460,7 +616,9 @@ function job_serves_apply_rotate_keys_user_provision_services_dev {
         "${gitlab_key_id_name}" \
         "${gitlab_secret_key_name}" \
         "${gitlab_masked}" \
-        "${gitlab_protected}"
+        "${gitlab_protected}" \
+  &&  popd \
+  ||  return 1
 }
 
 function job_serves_apply_rotate_keys_user_provision_services_prod {
@@ -474,7 +632,8 @@ function job_serves_apply_rotate_keys_user_provision_services_prod {
   local gitlab_masked='true'
   local gitlab_protected='true'
 
-      helper_serves_user_provision_rotate_keys \
+      pushd serves \
+  &&  helper_serves_user_provision_rotate_keys \
         "${terraform_dir}" \
         "${resource_to_taint}" \
         "${output_key_id_name}" \
@@ -483,7 +642,9 @@ function job_serves_apply_rotate_keys_user_provision_services_prod {
         "${gitlab_key_id_name}" \
         "${gitlab_secret_key_name}" \
         "${gitlab_masked}" \
-        "${gitlab_protected}"
+        "${gitlab_protected}" \
+  &&  popd \
+  ||  return 1
 }
 
 function job_serves_apply_rotate_keys_user_provision_integrates_dev {
@@ -497,7 +658,8 @@ function job_serves_apply_rotate_keys_user_provision_integrates_dev {
   local gitlab_masked='true'
   local gitlab_protected='false'
 
-      helper_serves_user_provision_rotate_keys \
+      pushd serves \
+  &&  helper_serves_user_provision_rotate_keys \
         "${terraform_dir}" \
         "${resource_to_taint}" \
         "${output_key_id_name}" \
@@ -506,7 +668,9 @@ function job_serves_apply_rotate_keys_user_provision_integrates_dev {
         "${gitlab_key_id_name}" \
         "${gitlab_secret_key_name}" \
         "${gitlab_masked}" \
-        "${gitlab_protected}"
+        "${gitlab_protected}" \
+  &&  popd \
+  ||  return 1
 }
 
 function job_serves_apply_rotate_keys_user_provision_integrates_prod {
@@ -520,7 +684,8 @@ function job_serves_apply_rotate_keys_user_provision_integrates_prod {
   local gitlab_masked='true'
   local gitlab_protected='true'
 
-      helper_serves_check_last_job_succeeded \
+      pushd serves \
+  &&  helper_serves_check_last_job_succeeded \
         "${gitlab_repo_id}" \
         'integrates_deploy_k8s_back' \
   &&  helper_serves_user_provision_rotate_keys \
@@ -533,7 +698,9 @@ function job_serves_apply_rotate_keys_user_provision_integrates_prod {
         "${gitlab_secret_key_name}" \
         "${gitlab_masked}" \
         "${gitlab_protected}" \
-  &&  helper_serves_deploy_integrates
+  &&  helper_serves_deploy_integrates \
+  &&  popd \
+  ||  return 1
 }
 
 function job_serves_apply_rotate_keys_user_provision_web_dev {
@@ -547,7 +714,8 @@ function job_serves_apply_rotate_keys_user_provision_web_dev {
   local gitlab_masked='true'
   local gitlab_protected='false'
 
-      helper_serves_user_provision_rotate_keys \
+      pushd serves \
+  &&  helper_serves_user_provision_rotate_keys \
         "${terraform_dir}" \
         "${resource_to_taint}" \
         "${output_key_id_name}" \
@@ -556,7 +724,9 @@ function job_serves_apply_rotate_keys_user_provision_web_dev {
         "${gitlab_key_id_name}" \
         "${gitlab_secret_key_name}" \
         "${gitlab_masked}" \
-        "${gitlab_protected}"
+        "${gitlab_protected}" \
+  &&  popd \
+  ||  return 1
 }
 
 function job_serves_apply_rotate_keys_user_provision_web_prod {
@@ -570,7 +740,8 @@ function job_serves_apply_rotate_keys_user_provision_web_prod {
   local gitlab_masked='true'
   local gitlab_protected='true'
 
-      helper_serves_user_provision_rotate_keys \
+      pushd serves \
+  &&  helper_serves_user_provision_rotate_keys \
         "${terraform_dir}" \
         "${resource_to_taint}" \
         "${output_key_id_name}" \
@@ -579,7 +750,9 @@ function job_serves_apply_rotate_keys_user_provision_web_prod {
         "${gitlab_key_id_name}" \
         "${gitlab_secret_key_name}" \
         "${gitlab_masked}" \
-        "${gitlab_protected}"
+        "${gitlab_protected}" \
+  &&  popd \
+  ||  return 1
 }
 
 function job_serves_apply_rotate_keys_user_provision_serves {
@@ -593,7 +766,8 @@ function job_serves_apply_rotate_keys_user_provision_serves {
   local gitlab_masked='true'
   local gitlab_protected='false'
 
-      helper_serves_user_provision_rotate_keys \
+      pushd serves \
+  &&  helper_serves_user_provision_rotate_keys \
         "${terraform_dir}" \
         "${resource_to_taint}" \
         "${output_key_id_name}" \
@@ -602,16 +776,21 @@ function job_serves_apply_rotate_keys_user_provision_serves {
         "${gitlab_key_id_name}" \
         "${gitlab_secret_key_name}" \
         "${gitlab_masked}" \
-        "${gitlab_protected}"
+        "${gitlab_protected}" \
+  &&  popd \
+  ||  return 1
 }
 
 function job_serves_test_lint_code {
 
       helper_use_pristine_workdir \
+  &&  pushd serves \
   &&  env_prepare_python_packages \
   &&  helper_serves_test_lint_code_nix . \
   &&  helper_serves_test_lint_code_shell . \
-  &&  helper_serves_test_lint_code_python
+  &&  helper_serves_test_lint_code_python \
+  &&  popd \
+  ||  return 1
 }
 
 function job_serves_apply_config_autoscaling_ci {
@@ -626,7 +805,8 @@ function job_serves_apply_config_autoscaling_ci {
     autoscaling_secret_key
   )
 
-      echo '[INFO] Adding bastion to known hosts' \
+      pushd serves \
+  &&  echo '[INFO] Adding bastion to known hosts' \
   &&  helper_serves_aws_login prod \
   &&  mkdir -p ~/.ssh \
   &&  touch ~/.ssh/known_hosts \
@@ -659,5 +839,7 @@ function job_serves_apply_config_autoscaling_ci {
         'sudo mv /port/config.toml /etc/gitlab-runner/config.toml' \
   &&  echo '[INFO] Reloading config in the bastion from: /etc/gitlab-runner/config.toml' \
   &&  ssh -i "${TEMP_FILE1}" "${bastion_user}@${bastion_ip}" \
-        'sudo killall -SIGHUP gitlab-runner'
+        'sudo killall -SIGHUP gitlab-runner' \
+  &&  popd \
+  ||  return 1
 }

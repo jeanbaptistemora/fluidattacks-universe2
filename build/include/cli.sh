@@ -6,6 +6,7 @@ source "${srcIncludeCommonJobs}"
 source "${srcIncludeForcesJobs}"
 source "${srcIncludeIntegratesJobs}"
 source "${srcIncludeIntegratesLintersJobs}"
+source "${srcIncludeServesJobs}"
 source "${srcIncludeSkimsJobs}"
 source "${srcIncludeReviewsJobs}"
 
