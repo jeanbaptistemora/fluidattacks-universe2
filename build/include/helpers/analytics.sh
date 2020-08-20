@@ -53,7 +53,7 @@ function helper_analytics_dynamodb {
 }
 
 function helper_analytics_services_toe {
-      helper_aws_login prod\
+      helper_aws_login prod \
   &&  sops_env secrets-prod.yaml default \
         analytics_auth_redshift \
   &&  echo '[INFO] Generating secret files' \

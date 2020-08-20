@@ -1,126 +1,6 @@
 # shellcheck shell=bash
 
-function helper_use_pristine_workdir {
-  export WORKDIR
-  export STARTDIR
-
-  function helper_teardown_workdir {
-        echo "[INFO] Deleting: ${WORKDIR}" \
-    &&  rm -rf "${WORKDIR}"
-  }
-  trap 'helper_teardown_workdir' 'EXIT'
-
-      echo '[INFO] Creating a pristine workdir' \
-  &&  rm -rf "${WORKDIR}" \
-  &&  mkdir -p "${WORKDIR}" \
-  &&  echo '[INFO] Copying files to workdir' \
-  &&  cp -r "${STARTDIR}/." "${WORKDIR}" \
-  &&  echo '[INFO] Entering the workdir' \
-  &&  pushd "${WORKDIR}" \
-  &&  echo '[INFO] Running: git clean -xdf' \
-  &&  git clean -xdf \
-  ||  return 1
-}
-
-function helper_docker_build_and_push {
-  local tag="${1}"
-  local context="${2}"
-  local dockerfile="${3}"
-  local build_arg_1_key="${4:-build_arg_1_key}"
-  local build_arg_1_val="${5:-build_arg_1_val}"
-  local build_arg_2_key="${6:-build_arg_2_key}"
-  local build_arg_2_val="${7:-build_arg_2_val}"
-  local build_arg_3_key="${8:-build_arg_3_key}"
-  local build_arg_3_val="${9:-build_arg_3_val}"
-  local build_arg_4_key="${10:-build_arg_4_key}"
-  local build_arg_4_val="${11:-build_arg_4_val}"
-  local build_arg_5_key="${12:-build_arg_5_key}"
-  local build_arg_5_val="${13:-build_arg_5_val}"
-  local build_arg_6_key="${14:-build_arg_6_key}"
-  local build_arg_6_val="${15:-build_arg_6_val}"
-  local build_arg_7_key="${16:-build_arg_7_key}"
-  local build_arg_7_val="${17:-build_arg_7_val}"
-  local build_arg_8_key="${18:-build_arg_8_key}"
-  local build_arg_8_val="${19:-build_arg_8_val}"
-  local build_arg_9_key="${20:-build_arg_9_key}"
-  local build_arg_9_val="${21:-build_arg_9_val}"
-  local build_args=(
-    --tag "${tag}"
-    --file "${dockerfile}"
-    --build-arg "${build_arg_1_key}=${build_arg_1_val}"
-    --build-arg "${build_arg_2_key}=${build_arg_2_val}"
-    --build-arg "${build_arg_3_key}=${build_arg_3_val}"
-    --build-arg "${build_arg_4_key}=${build_arg_4_val}"
-    --build-arg "${build_arg_5_key}=${build_arg_5_val}"
-    --build-arg "${build_arg_6_key}=${build_arg_6_val}"
-    --build-arg "${build_arg_7_key}=${build_arg_7_val}"
-    --build-arg "${build_arg_8_key}=${build_arg_8_val}"
-    --build-arg "${build_arg_9_key}=${build_arg_9_val}"
-  )
-
-      echo "[INFO] Logging into: ${CI_REGISTRY}" \
-  &&  docker login \
-        --username "${CI_REGISTRY_USER}" \
-        --password "${CI_REGISTRY_PASSWORD}" \
-      "${CI_REGISTRY}" \
-  &&  echo "[INFO] Pulling: ${tag}" \
-  &&  if docker pull "${tag}"
-      then
-        build_args+=( --cache-from "${tag}" )
-      fi \
-  &&  echo "[INFO] Building: ${tag}" \
-  &&  docker build "${build_args[@]}" "${context}" \
-  &&  echo "[INFO] Pushing: ${tag}" \
-  &&  docker push "${tag}" \
-  &&  echo "[INFO] Deleting local copy of: ${tag}" \
-  &&  docker image remove "${tag}"
-}
-
-function helper_list_declared_jobs {
-  declare -F \
-    | sed 's/declare -f //' \
-    | grep -P '^job_[a-z_]+' \
-    | sed 's/job_//' \
-    | sort
-}
-
-function helper_list_touched_files {
-  local path
-
-  git show --format= --name-only HEAD | while read -r path
-  do
-    if test -e "${path}"
-    then
-      echo "${path}"
-    fi
-  done
-}
-
-function helper_file_exists {
-  local path="${1}"
-
-      if [ -f "${path}" ]
-      then
-            return 0
-      else
-            echo "[ERROR] ${path} does not exist" \
-        &&  return 1
-      fi
-}
-
-function helper_get_gitlab_var {
-  local gitlab_var_name="${1}"
-  local gitlab_api_token="${2}"
-
-      echo "[INFO] Retrieving var from GitLab: ${gitlab_var_name}" 1>&2 \
-  &&  curl \
-        --silent \
-        --header "private-token: ${gitlab_api_token}" \
-        "${GITLAB_API_URL}/${gitlab_var_name}" \
-      | jq -r '.value'
-}
-
-function helper_move_artifacts_to_git {
+function helper_serves_move_artifacts_to_git {
   local artifacts="${PWD}/artifacts"
   local git="/git"
 
@@ -134,7 +14,7 @@ function helper_move_artifacts_to_git {
   fi
 }
 
-function helper_move_git_to_artifacts {
+function helper_serves_move_git_to_artifacts {
   local artifacts="${PWD}/artifacts"
   local git="/git"
 
@@ -143,7 +23,7 @@ function helper_move_git_to_artifacts {
   &&  mv "${git}/"* "${artifacts}"
 }
 
-function helper_move_services_fusion_to_master_git {
+function helper_serves_move_services_fusion_to_master_git {
   local mock_integrates_api_token='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.e30.xxx'
   local path_empty_repos="${PWD}/repos_to_get_from_cache.lst"
 
@@ -170,7 +50,7 @@ function helper_move_services_fusion_to_master_git {
   set -o nounset
 }
 
-function helper_deploy_integrates {
+function helper_serves_deploy_integrates {
   local integrates_id='4620828'
 
       helper_aws_login prod \
@@ -182,28 +62,7 @@ function helper_deploy_integrates {
         "https://gitlab.com/api/v4/projects/${integrates_id}/trigger/pipeline"
 }
 
-function helper_build_nix_caches_parallel {
-  local n_provisioners
-  local n_provisioners_per_group
-  local n_provisioners_remaining
-  export lower_limit
-  export upper_limit
-
-      n_provisioners=$(find build/provisioners/ -type f | wc -l) \
-  &&  n_provisioners_per_group=$(( n_provisioners/CI_NODE_TOTAL )) \
-  &&  n_provisioners_remaining=$(( n_provisioners%CI_NODE_TOTAL )) \
-  &&  if [ "${n_provisioners_remaining}" -gt '0' ]
-      then
-        n_provisioners_per_group=$(( n_provisioners_per_group+=1 ))
-      fi \
-  &&  lower_limit=$(( (CI_NODE_INDEX-1)*n_provisioners_per_group )) \
-  &&  upper_limit=$(( CI_NODE_INDEX*n_provisioners_per_group-1 )) \
-  &&  upper_limit=$((
-        upper_limit > n_provisioners-1 ? n_provisioners-1 : upper_limit
-      ))
-}
-
-function helper_aws_login {
+function helper_serves_aws_login {
   local user="${1}"
   export AWS_ACCESS_KEY_ID
   export AWS_SECRET_ACCESS_KEY
@@ -226,7 +85,7 @@ function helper_aws_login {
   &&  aws configure set aws_secret_access_key "${AWS_SECRET_ACCESS_KEY}"
 }
 
-function helper_terraform_login {
+function helper_serves_terraform_login {
   export TF_VAR_aws_access_key
   export TF_VAR_aws_secret_key
 
@@ -235,7 +94,7 @@ function helper_terraform_login {
   &&  TF_VAR_aws_secret_key="${AWS_SECRET_ACCESS_KEY}"
 }
 
-function helper_terraform_init {
+function helper_serves_terraform_init {
   local target_dir="${1}"
 
       helper_terraform_login \
@@ -246,7 +105,7 @@ function helper_terraform_init {
   || return 1
 }
 
-function helper_terraform_plan {
+function helper_serves_terraform_plan {
   local target_dir="${1}"
 
       helper_terraform_init "${target_dir}" \
@@ -258,7 +117,7 @@ function helper_terraform_plan {
   || return 1
 }
 
-function helper_terraform_apply {
+function helper_serves_terraform_apply {
   local target_dir="${1}"
 
       helper_terraform_init "${target_dir}" \
@@ -269,7 +128,7 @@ function helper_terraform_apply {
   || return 1
 }
 
-function helper_terraform_taint {
+function helper_serves_terraform_taint {
   local target_dir="${1}"
   local marked_value="${2}"
 
@@ -282,7 +141,7 @@ function helper_terraform_taint {
   || return 1
 }
 
-function helper_terraform_output {
+function helper_serves_terraform_output {
   local target_dir="${1}"
   local output_name="${2}"
 
@@ -294,7 +153,7 @@ function helper_terraform_output {
   || return 1
 }
 
-function helper_infra_dns_get_load_balancer {
+function helper_serves_infra_dns_get_load_balancer {
   export TF_VAR_elbDns
   export TF_VAR_elbZone
   local elbs_info
@@ -329,7 +188,7 @@ function helper_infra_dns_get_load_balancer {
       }
 }
 
-function helper_infra_monolith {
+function helper_serves_infra_monolith {
   local helm_home
   local first_argument="${1}"
 
@@ -365,7 +224,7 @@ function helper_infra_monolith {
   || return 1
 }
 
-function helper_get_resource_to_taint_number {
+function helper_serves_get_resource_to_taint_number {
 
   # Made specifically for nightly rotations.
   # It prints 1 if day is even and 2 if day is odd.
@@ -385,7 +244,7 @@ function helper_get_resource_to_taint_number {
       fi
 }
 
-function helper_check_last_job_succeeded {
+function helper_serves_check_last_job_succeeded {
   export GITLAB_API_TOKEN
   local gitlab_repo_id="${1}"
   local job_name="${2}"
@@ -429,7 +288,7 @@ function helper_check_last_job_succeeded {
       fi
 }
 
-function helper_user_provision_rotate_keys {
+function helper_serves_user_provision_rotate_keys {
   local terraform_dir="${1}"
   local resource_to_taint="${2}"
   local output_key_id_name="${3}"
@@ -469,45 +328,20 @@ function helper_user_provision_rotate_keys {
         "${gitlab_protected}" "${gitlab_masked}"
 }
 
-function helper_test_commit_msg_commitlint {
-  local commit_diff
-  local commit_hashes
-  local parser_url='https://gitlab.com/fluidattacks/public/-/raw/master/commitlint-configs/others/parser-preset.js'
-  local rules_url='https://gitlab.com/fluidattacks/public/-/raw/master/commitlint-configs/others/commitlint.config.js'
-
-      helper_use_pristine_workdir \
-  &&  curl -LOJ "${parser_url}" \
-  &&  curl -LOJ "${rules_url}" \
-  &&  git fetch --prune > /dev/null \
-  &&  if [ "${IS_LOCAL_BUILD}" = "${TRUE}" ]
-      then
-        commit_diff="origin/master..${CI_COMMIT_REF_NAME}"
-      else
-        commit_diff="origin/master..origin/${CI_COMMIT_REF_NAME}"
-      fi \
-  &&  commit_hashes="$(git log --pretty=%h "${commit_diff}")" \
-  &&  for commit_hash in ${commit_hashes}
-      do
-            echo  '[INFO] Running Commitlint' \
-        &&  git log -1 --pretty=%B "${commit_hash}" | commitlint \
-        ||  return 1
-      done
-}
-
-function helper_test_lint_code_nix {
+function helper_serves_test_lint_code_nix {
   local path="${1}"
 
   nix-linter --recursive "${path}"
 }
 
-function helper_test_lint_code_shell {
+function helper_serves_test_lint_code_shell {
   local path="${1}"
 
   find "${path}" -name '*.sh' -exec \
     shellcheck --external-sources --exclude=SC1090,SC2016,SC2153,SC2154 {} +
 }
 
-function helper_test_lint_code_python {
+function helper_serves_test_lint_code_python {
       find . -type f -name '*.py' \
         | (grep -vP './analytics/singer' || cat) \
         | while read -r path

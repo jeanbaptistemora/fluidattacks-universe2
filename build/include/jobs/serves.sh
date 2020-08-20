@@ -6,28 +6,6 @@ source "${srcExternalSops}"
 source "${srcExternalGitlabVariables}"
 source "${srcEnv}"
 
-function job_serves_build_nix_caches {
-  local provisioners
-  local dockerfile
-  local context='.'
-  local dockerfile='build/Dockerfile'
-
-      helper_use_pristine_workdir \
-  &&  provisioners=(./build/provisioners/*) \
-  &&  helper_build_nix_caches_parallel \
-  &&  for (( i="${lower_limit}";i<="${upper_limit}";i++ ))
-      do
-            provisioner=$(basename "${provisioners[${i}]}") \
-        &&  provisioner="${provisioner%.*}" \
-        &&  helper_docker_build_and_push \
-              "${CI_REGISTRY_IMAGE}/nix:${provisioner}" \
-              "${context}" \
-              "${dockerfile}" \
-              'PROVISIONER' "${provisioner}" \
-        ||  return 1
-      done
-}
-
 function job_serves_analytics_formstack {
       helper_use_pristine_workdir \
   &&  env_prepare_python_packages \
@@ -118,21 +96,21 @@ function job_serves_analytics_services_repositories_cache {
 
 function job_serves_test_infra_monolith {
       helper_use_pristine_workdir \
-  &&  helper_infra_monolith 'test'
+  &&  helper_serves_infra_monolith 'test'
 }
 
 function job_serves_apply_infra_monolith {
       helper_use_pristine_workdir \
-  &&  helper_infra_monolith 'deploy'
+  &&  helper_serves_infra_monolith 'deploy'
 }
 
 function job_serves_test_infra_dns {
   local target='services/dns/terraform'
 
       helper_use_pristine_workdir \
-  &&  helper_aws_login dev \
-  &&  helper_infra_dns_get_load_balancer \
-  &&  helper_terraform_plan \
+  &&  helper_serves_aws_login dev \
+  &&  helper_serves_infra_dns_get_load_balancer \
+  &&  helper_serves_terraform_plan \
         "${target}"
 }
 
@@ -140,9 +118,9 @@ function job_serves_apply_infra_dns {
   local target='services/dns/terraform'
 
       helper_use_pristine_workdir \
-  &&  helper_aws_login prod \
-  &&  helper_infra_dns_get_load_balancer \
-  &&  helper_terraform_apply \
+  &&  helper_serves_aws_login prod \
+  &&  helper_serves_infra_dns_get_load_balancer \
+  &&  helper_serves_terraform_apply \
         "${target}"
 }
 
@@ -150,8 +128,8 @@ function job_serves_test_infra_autoscaling_ci {
   local target='services/autoscaling-ci/terraform'
 
       helper_use_pristine_workdir \
-  &&  helper_aws_login dev \
-  &&  helper_terraform_plan \
+  &&  helper_serves_aws_login dev \
+  &&  helper_serves_terraform_plan \
         "${target}"
 }
 
@@ -159,8 +137,8 @@ function job_serves_apply_infra_autoscaling_ci {
   local target='services/autoscaling-ci/terraform'
 
       helper_use_pristine_workdir \
-  &&  helper_aws_login prod \
-  &&  helper_terraform_apply \
+  &&  helper_serves_aws_login prod \
+  &&  helper_serves_terraform_apply \
         "${target}"
 }
 
@@ -168,8 +146,8 @@ function job_serves_test_infra_analytics {
   local target='services/analytics/terraform'
 
       helper_use_pristine_workdir \
-  &&  helper_aws_login dev \
-  &&  helper_terraform_plan \
+  &&  helper_serves_aws_login dev \
+  &&  helper_serves_terraform_plan \
         "${target}"
 }
 
@@ -177,8 +155,8 @@ function job_serves_apply_infra_analytics {
   local target='services/analytics/terraform'
 
       helper_use_pristine_workdir \
-  &&  helper_aws_login prod \
-  &&  helper_terraform_apply \
+  &&  helper_serves_aws_login prod \
+  &&  helper_serves_terraform_apply \
         "${target}"
 }
 
@@ -186,8 +164,8 @@ function job_serves_test_infra_aws_sso {
   local target='services/aws-sso/terraform'
 
       helper_use_pristine_workdir \
-  &&  helper_aws_login dev \
-  &&  helper_terraform_plan \
+  &&  helper_serves_aws_login dev \
+  &&  helper_serves_terraform_plan \
         "${target}"
 }
 
@@ -195,8 +173,8 @@ function job_serves_apply_infra_aws_sso {
   local target='services/aws-sso/terraform'
 
       helper_use_pristine_workdir \
-  &&  helper_aws_login prod \
-  &&  helper_terraform_apply \
+  &&  helper_serves_aws_login prod \
+  &&  helper_serves_terraform_apply \
         "${target}"
 }
 
@@ -204,8 +182,8 @@ function job_serves_test_infra_fluid_vpc {
   local target='services/fluid-vpc/terraform'
 
       helper_use_pristine_workdir \
-  &&  helper_aws_login dev \
-  &&  helper_terraform_plan \
+  &&  helper_serves_aws_login dev \
+  &&  helper_serves_terraform_plan \
         "${target}"
 }
 
@@ -213,8 +191,8 @@ function job_serves_apply_infra_fluid_vpc {
   local target='services/fluid-vpc/terraform'
 
       helper_use_pristine_workdir \
-  &&  helper_aws_login prod \
-  &&  helper_terraform_apply \
+  &&  helper_serves_aws_login prod \
+  &&  helper_serves_terraform_apply \
         "${target}"
 }
 
@@ -222,8 +200,8 @@ function job_serves_test_infra_secret_management {
   local target='secret-management/terraform'
 
       helper_use_pristine_workdir \
-  &&  helper_aws_login dev \
-  &&  helper_terraform_plan \
+  &&  helper_serves_aws_login dev \
+  &&  helper_serves_terraform_plan \
         "${target}"
 }
 
@@ -231,8 +209,8 @@ function job_serves_apply_infra_secret_management {
   local target='secret-management/terraform'
 
       helper_use_pristine_workdir \
-  &&  helper_aws_login prod \
-  &&  helper_terraform_apply \
+  &&  helper_serves_aws_login prod \
+  &&  helper_serves_terraform_apply \
         "${target}"
 }
 
@@ -240,8 +218,8 @@ function job_serves_test_infra_certificates {
   local target='services/certificates/terraform'
 
       helper_use_pristine_workdir \
-  &&  helper_aws_login dev \
-  &&  helper_terraform_plan \
+  &&  helper_serves_aws_login dev \
+  &&  helper_serves_terraform_plan \
         "${target}"
 }
 
@@ -249,8 +227,8 @@ function job_serves_apply_infra_certificates {
   local target='services/certificates/terraform'
 
       helper_use_pristine_workdir \
-  &&  helper_aws_login prod \
-  &&  helper_terraform_apply \
+  &&  helper_serves_aws_login prod \
+  &&  helper_serves_terraform_apply \
         "${target}"
 }
 
@@ -258,8 +236,8 @@ function job_serves_test_user_provision_asserts_dev {
   local target='services/user-provision/asserts/dev/terraform'
 
       helper_use_pristine_workdir \
-  &&  helper_aws_login dev \
-  &&  helper_terraform_plan \
+  &&  helper_serves_aws_login dev \
+  &&  helper_serves_terraform_plan \
         "${target}"
 }
 
@@ -267,8 +245,8 @@ function job_serves_apply_user_provision_asserts_dev {
   local target='services/user-provision/asserts/dev/terraform'
 
       helper_use_pristine_workdir \
-  &&  helper_aws_login prod \
-  &&  helper_terraform_apply \
+  &&  helper_serves_aws_login prod \
+  &&  helper_serves_terraform_apply \
         "${target}"
 }
 
@@ -276,8 +254,8 @@ function job_serves_test_user_provision_asserts_prod {
   local target='services/user-provision/asserts/prod/terraform'
 
       helper_use_pristine_workdir \
-  &&  helper_aws_login dev \
-  &&  helper_terraform_plan \
+  &&  helper_serves_aws_login dev \
+  &&  helper_serves_terraform_plan \
         "${target}"
 }
 
@@ -285,8 +263,8 @@ function job_serves_apply_user_provision_asserts_prod {
   local target='services/user-provision/asserts/prod/terraform'
 
       helper_use_pristine_workdir \
-  &&  helper_aws_login prod \
-  &&  helper_terraform_apply \
+  &&  helper_serves_aws_login prod \
+  &&  helper_serves_terraform_apply \
         "${target}"
 }
 
@@ -294,8 +272,8 @@ function job_serves_test_user_provision_services_dev {
   local target='services/user-provision/services/dev/terraform'
 
       helper_use_pristine_workdir \
-  &&  helper_aws_login dev \
-  &&  helper_terraform_plan \
+  &&  helper_serves_aws_login dev \
+  &&  helper_serves_terraform_plan \
         "${target}"
 }
 
@@ -303,8 +281,8 @@ function job_serves_apply_user_provision_services_dev {
   local target='services/user-provision/services/dev/terraform'
 
       helper_use_pristine_workdir \
-  &&  helper_aws_login prod \
-  &&  helper_terraform_apply \
+  &&  helper_serves_aws_login prod \
+  &&  helper_serves_terraform_apply \
         "${target}"
 }
 
@@ -312,8 +290,8 @@ function job_serves_test_user_provision_services_prod {
   local target='services/user-provision/services/prod/terraform'
 
       helper_use_pristine_workdir \
-  &&  helper_aws_login dev \
-  &&  helper_terraform_plan \
+  &&  helper_serves_aws_login dev \
+  &&  helper_serves_terraform_plan \
         "${target}"
 }
 
@@ -321,8 +299,8 @@ function job_serves_apply_user_provision_services_prod {
   local target='services/user-provision/services/prod/terraform'
 
       helper_use_pristine_workdir \
-  &&  helper_aws_login prod \
-  &&  helper_terraform_apply \
+  &&  helper_serves_aws_login prod \
+  &&  helper_serves_terraform_apply \
         "${target}"
 }
 
@@ -330,8 +308,8 @@ function job_serves_test_user_provision_integrates_dev {
   local target='services/user-provision/integrates/dev/terraform'
 
       helper_use_pristine_workdir \
-  &&  helper_aws_login dev \
-  &&  helper_terraform_plan \
+  &&  helper_serves_aws_login dev \
+  &&  helper_serves_terraform_plan \
         "${target}"
 }
 
@@ -339,8 +317,8 @@ function job_serves_apply_user_provision_integrates_dev {
   local target='services/user-provision/integrates/dev/terraform'
 
       helper_use_pristine_workdir \
-  &&  helper_aws_login prod \
-  &&  helper_terraform_apply \
+  &&  helper_serves_aws_login prod \
+  &&  helper_serves_terraform_apply \
         "${target}"
 }
 
@@ -348,8 +326,8 @@ function job_serves_test_user_provision_integrates_prod {
   local target='services/user-provision/integrates/prod/terraform'
 
       helper_use_pristine_workdir \
-  &&  helper_aws_login dev \
-  &&  helper_terraform_plan \
+  &&  helper_serves_aws_login dev \
+  &&  helper_serves_terraform_plan \
         "${target}"
 }
 
@@ -357,8 +335,8 @@ function job_serves_apply_user_provision_integrates_prod {
   local target='services/user-provision/integrates/prod/terraform'
 
       helper_use_pristine_workdir \
-  &&  helper_aws_login prod \
-  &&  helper_terraform_apply \
+  &&  helper_serves_aws_login prod \
+  &&  helper_serves_terraform_apply \
         "${target}"
 }
 
@@ -366,8 +344,8 @@ function job_serves_test_user_provision_web_dev {
   local target='services/user-provision/web/dev/terraform'
 
       helper_use_pristine_workdir \
-  &&  helper_aws_login dev \
-  &&  helper_terraform_plan \
+  &&  helper_serves_aws_login dev \
+  &&  helper_serves_terraform_plan \
         "${target}"
 }
 
@@ -375,8 +353,8 @@ function job_serves_apply_user_provision_web_dev {
   local target='services/user-provision/web/dev/terraform'
 
       helper_use_pristine_workdir \
-  &&  helper_aws_login prod \
-  &&  helper_terraform_apply \
+  &&  helper_serves_aws_login prod \
+  &&  helper_serves_terraform_apply \
         "${target}"
 }
 
@@ -384,8 +362,8 @@ function job_serves_test_user_provision_web_prod {
   local target='services/user-provision/web/prod/terraform'
 
       helper_use_pristine_workdir \
-  &&  helper_aws_login dev \
-  &&  helper_terraform_plan \
+  &&  helper_serves_aws_login dev \
+  &&  helper_serves_terraform_plan \
         "${target}"
 }
 
@@ -393,8 +371,8 @@ function job_serves_apply_user_provision_web_prod {
   local target='services/user-provision/web/prod/terraform'
 
       helper_use_pristine_workdir \
-  &&  helper_aws_login prod \
-  &&  helper_terraform_apply \
+  &&  helper_serves_aws_login prod \
+  &&  helper_serves_terraform_apply \
         "${target}"
 }
 
@@ -402,8 +380,8 @@ function job_serves_test_user_provision_serves {
   local target='services/user-provision/serves/terraform'
 
       helper_use_pristine_workdir \
-  &&  helper_aws_login dev \
-  &&  helper_terraform_plan \
+  &&  helper_serves_aws_login dev \
+  &&  helper_serves_terraform_plan \
         "${target}"
 }
 
@@ -411,8 +389,8 @@ function job_serves_apply_user_provision_serves {
   local target='services/user-provision/serves/terraform'
 
       helper_use_pristine_workdir \
-  &&  helper_aws_login prod \
-  &&  helper_terraform_apply \
+  &&  helper_serves_aws_login prod \
+  &&  helper_serves_terraform_apply \
         "${target}"
 }
 
@@ -427,7 +405,7 @@ function job_serves_apply_rotate_keys_user_provision_asserts_dev {
   local gitlab_masked='true'
   local gitlab_protected='false'
 
-      helper_user_provision_rotate_keys \
+      helper_serves_user_provision_rotate_keys \
         "${terraform_dir}" \
         "${resource_to_taint}" \
         "${output_key_id_name}" \
@@ -450,7 +428,7 @@ function job_serves_apply_rotate_keys_user_provision_asserts_prod {
   local gitlab_masked='true'
   local gitlab_protected='true'
 
-      helper_user_provision_rotate_keys \
+      helper_serves_user_provision_rotate_keys \
         "${terraform_dir}" \
         "${resource_to_taint}" \
         "${output_key_id_name}" \
@@ -473,7 +451,7 @@ function job_serves_apply_rotate_keys_user_provision_services_dev {
   local gitlab_masked='true'
   local gitlab_protected='false'
 
-      helper_user_provision_rotate_keys \
+      helper_serves_user_provision_rotate_keys \
         "${terraform_dir}" \
         "${resource_to_taint}" \
         "${output_key_id_name}" \
@@ -496,7 +474,7 @@ function job_serves_apply_rotate_keys_user_provision_services_prod {
   local gitlab_masked='true'
   local gitlab_protected='true'
 
-      helper_user_provision_rotate_keys \
+      helper_serves_user_provision_rotate_keys \
         "${terraform_dir}" \
         "${resource_to_taint}" \
         "${output_key_id_name}" \
@@ -519,7 +497,7 @@ function job_serves_apply_rotate_keys_user_provision_integrates_dev {
   local gitlab_masked='true'
   local gitlab_protected='false'
 
-      helper_user_provision_rotate_keys \
+      helper_serves_user_provision_rotate_keys \
         "${terraform_dir}" \
         "${resource_to_taint}" \
         "${output_key_id_name}" \
@@ -542,10 +520,10 @@ function job_serves_apply_rotate_keys_user_provision_integrates_prod {
   local gitlab_masked='true'
   local gitlab_protected='true'
 
-      helper_check_last_job_succeeded \
+      helper_serves_check_last_job_succeeded \
         "${gitlab_repo_id}" \
         'integrates_deploy_k8s_back' \
-  &&  helper_user_provision_rotate_keys \
+  &&  helper_serves_user_provision_rotate_keys \
         "${terraform_dir}" \
         "${resource_to_taint}" \
         "${output_key_id_name}" \
@@ -555,7 +533,7 @@ function job_serves_apply_rotate_keys_user_provision_integrates_prod {
         "${gitlab_secret_key_name}" \
         "${gitlab_masked}" \
         "${gitlab_protected}" \
-  &&  helper_deploy_integrates
+  &&  helper_serves_deploy_integrates
 }
 
 function job_serves_apply_rotate_keys_user_provision_web_dev {
@@ -569,7 +547,7 @@ function job_serves_apply_rotate_keys_user_provision_web_dev {
   local gitlab_masked='true'
   local gitlab_protected='false'
 
-      helper_user_provision_rotate_keys \
+      helper_serves_user_provision_rotate_keys \
         "${terraform_dir}" \
         "${resource_to_taint}" \
         "${output_key_id_name}" \
@@ -592,7 +570,7 @@ function job_serves_apply_rotate_keys_user_provision_web_prod {
   local gitlab_masked='true'
   local gitlab_protected='true'
 
-      helper_user_provision_rotate_keys \
+      helper_serves_user_provision_rotate_keys \
         "${terraform_dir}" \
         "${resource_to_taint}" \
         "${output_key_id_name}" \
@@ -615,7 +593,7 @@ function job_serves_apply_rotate_keys_user_provision_serves {
   local gitlab_masked='true'
   local gitlab_protected='false'
 
-      helper_user_provision_rotate_keys \
+      helper_serves_user_provision_rotate_keys \
         "${terraform_dir}" \
         "${resource_to_taint}" \
         "${output_key_id_name}" \
@@ -631,15 +609,9 @@ function job_serves_test_lint_code {
 
       helper_use_pristine_workdir \
   &&  env_prepare_python_packages \
-  &&  helper_test_lint_code_nix . \
-  &&  helper_test_lint_code_shell . \
-  &&  helper_test_lint_code_python
-}
-
-function job_serves_test_commit_msg {
-      helper_use_pristine_workdir \
-  &&  env_prepare_node_modules \
-  &&  helper_test_commit_msg_commitlint
+  &&  helper_serves_test_lint_code_nix . \
+  &&  helper_serves_test_lint_code_shell . \
+  &&  helper_serves_test_lint_code_python
 }
 
 function job_serves_apply_config_autoscaling_ci {
@@ -655,7 +627,7 @@ function job_serves_apply_config_autoscaling_ci {
   )
 
       echo '[INFO] Adding bastion to known hosts' \
-  &&  helper_aws_login prod \
+  &&  helper_serves_aws_login prod \
   &&  mkdir -p ~/.ssh \
   &&  touch ~/.ssh/known_hosts \
   &&  ssh-keyscan \
@@ -688,44 +660,4 @@ function job_serves_apply_config_autoscaling_ci {
   &&  echo '[INFO] Reloading config in the bastion from: /etc/gitlab-runner/config.toml' \
   &&  ssh -i "${TEMP_FILE1}" "${bastion_user}@${bastion_ip}" \
         'sudo killall -SIGHUP gitlab-runner'
-}
-
-function job_serves_send_new_release_email {
-  local temp
-
-      helper_use_pristine_workdir \
-  &&  env_prepare_python_packages \
-  &&  temp="$(mktemp)" \
-  &&  helper_aws_login prod \
-  &&  sops_env secrets-prod.yaml default \
-        MANDRILL_APIKEY \
-        MANDRILL_EMAIL_TO \
-  &&  curl -Lo \
-        "${temp}" \
-        'https://static-objects.gitlab.net/fluidattacks/public/raw/master/shared-scripts/mail.py' \
-  &&  echo "send_mail('new_version', MANDRILL_EMAIL_TO,
-        context={'project': PROJECT, 'project_url': '${CI_PROJECT_URL}',
-          'version': _get_version_date(), 'message': _get_message()},
-        tags=['general'])" >> "${temp}" \
-  &&  python3 "${temp}"
-}
-
-function job_serves_reviews {
-  local public_url='https://static-objects.gitlab.net/fluidattacks/public/raw/master'
-  local parser_url="${public_url}/commitlint-configs/others/parser-preset.js"
-  local rules_url="${public_url}/commitlint-configs/others/commitlint.config.js"
-
-  function reviews {
-    export __NIX_PATH
-    export __NIX_SSL_CERT_FILE
-
-    NIX_PATH="${__NIX_PATH}" \
-    NIX_SSL_CERT_FILE="${__NIX_SSL_CERT_FILE}" \
-      "${srcProduct}/bin/reviews" "${@}"
-  }
-
-      helper_use_pristine_workdir \
-  &&  curl -LOJ "${parser_url}" \
-  &&  curl -LOJ "${rules_url}" \
-  &&  reviews reviews.toml
 }
