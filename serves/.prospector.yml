@@ -1,0 +1,6 @@
+inherits:
+    - strictness_veryhigh
+
+pylint:
+  disable:
+    - import-error

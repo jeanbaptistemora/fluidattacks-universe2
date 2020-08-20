@@ -1,0 +1,39 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: secondary-domains
+  namespace: serves
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/server-alias: >
+      www.fluid.la
+      fluidsignal.com www.fluidsignal.com
+      fluidsignal.com.co www.fluidsignal.com.co
+      fluidsignal.co www.fluidsignal.co
+      fluid.com.co www.fluid.com.co
+      fluidattacks.co www.fluidattacks.co
+      fluidattacks.com.co www.fluidattacks.com.co
+      fluidattacks.io www.fluidattacks.io
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+      location ~* /(.*) {
+        return 308 https://fluidattacks.com/$1;
+      }
+spec:
+  tls:
+  - hosts:
+    - fluid.la
+    - fluidsignal.com
+    - fluidsignal.com.co
+    - fluidsignal.co
+    - fluid.com.co
+    - fluidattacks.co
+    - fluidattacks.com.co
+    - fluidattacks.io
+    secretName: secondary-domains-cert
+  rules:
+  - host: fluid.la
+    http:
+      paths:
+      - backend:
+          serviceName: web
+          servicePort: 80

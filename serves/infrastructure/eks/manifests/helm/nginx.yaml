@@ -1,0 +1,34 @@
+controller:
+  image:
+    repository: quay.io/kubernetes-ingress-controller/nginx-ingress-controller
+    tag: 0.24.1
+  config:
+    hsts-include-subdomains: "false"
+    hsts-max-age: "31536000"
+    proxy-body-size: "100m"
+    server-tokens: "false"
+    use-gzip: "false"
+    ssl-protocols: "TLSv1.2 TLSv1.3"
+    http-redirect-code: "301"
+  kind: DaemonSet
+  extraArgs:
+    default-ssl-certificate: serves/fluidattacks-cert
+    tcp-services-configmap: serves/expose-vpn
+  minReadySeconds: 20
+  updateStrategy:
+    rollingUpdate:
+      maxUnavailable: 1
+    type: RollingUpdate
+    resources:
+     limits:
+       cpu: 100m
+       memory: 64Mi
+     requests:
+       cpu: 100m
+     memory: 64Mi
+defaultBackend:
+  enabled: true
+rbac:
+  create: true
+tcp:
+  8080: serves/vpn:8080

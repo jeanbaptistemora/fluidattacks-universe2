@@ -1,0 +1,57 @@
+endpoint_url = 'https://gitlab.com'
+platform = 'gitlab'
+
+[tests]
+
+  [tests.all_pipelines_successful]
+    fail = true
+    close_mr = true
+    passed_first_pipeline_before_mr = true
+    job_name = 'reviews'
+
+  [tests.mr_message_syntax]
+    fail = true
+    close_mr = true
+
+  [tests.branch_equals_to_user]
+    fail = true
+    close_mr = true
+
+  [tests.mr_under_max_deltas]
+    fail = true
+    close_mr = true
+    max_deltas = 200
+    repo_path = '.'
+
+  [tests.most_relevant_type]
+    fail = true
+    close_mr = true
+    commit_regex = '^(\w*)\((\w*)\):\s(#[1-9]\d*)(.\d+)?\s(.*)$'
+    [tests.most_relevant_type.relevances]
+      rever = 1
+      feat = 2
+      perf = 3
+      fix = 4
+      refac = 5
+      test = 6
+      style = 7
+
+  [tests.commits_user_syntax]
+    fail = true
+    close_mr = true
+    user_regex = '^[A-Z][a-z]+ [A-Z][a-z]+$'
+
+  [tests.mr_user_syntax]
+    fail = true
+    close_mr = true
+    user_regex = '^[A-Z][a-z]+ [A-Z][a-z]+$'
+
+  [tests.max_commits_per_mr]
+    fail = false
+    close_mr = false
+    max_commits = 1
+
+  [tests.close_issue_directive]
+    fail = false
+    close_mr = false
+    mr_title_regex = '^(\w*)\((\w*)\):\s(#[1-9]\d*)(.\d+)?\s(.*)$'

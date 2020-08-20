@@ -1,0 +1,25 @@
+{
+    "type":"SCHEMA",
+    "stream":"gitinspector",
+    "key_properties":[
+    ],
+    "schema":{
+      "properties":{
+        "author":{
+          "type":"string"
+        },
+        "rows":{
+          "type":"number"
+        },
+        "stability":{
+          "type":"number"
+        },
+        "age":{
+          "type":"number"
+        },
+        "percent_in_comments":{
+          "type":"number"
+        }
+      }
+    }
+  }

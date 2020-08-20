@@ -1,0 +1,14 @@
+[
+  {
+    "organization": "name",            # use it if useful, optional
+    "subscription": "name",            # use it if useful, optional
+    "repository": "name",              # name of the repo, mandatory
+    "location": "~/Downloads/my_repo", # path to local repo, mandatory
+    "branches": [                      # list of branches to track, mandatory
+      "master"
+    ]
+  },
+  {
+    ...                                # other repo goes here
+  }
+]

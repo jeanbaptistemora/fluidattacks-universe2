@@ -1,0 +1,18 @@
+*.pyc
+geckodriver.log
+
+# Bundler
+Gemfile.lock
+
+# prospector
+.mypy_cache
+
+# Terraform
+.terraform
+
+# Build system
+.envrc
+infrastructure/*.xml
+result*
+TEMP_FD
+/artifacts

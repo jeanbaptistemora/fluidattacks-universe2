@@ -1,0 +1,19 @@
+{
+  "type":"SCHEMA",
+  "stream":"metrics_median_line_age",
+  "key_properties":[
+  ],
+  "schema":{
+    "properties":{
+      "repository":{
+        "type":"string"
+      },
+      "actor_id":{
+        "type":"string"
+      },
+      "median_line_age":{
+        "type":"number"
+      }
+    }
+  }
+}

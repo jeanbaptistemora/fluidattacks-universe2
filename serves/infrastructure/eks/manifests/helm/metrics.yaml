@@ -1,0 +1,14 @@
+fullnameOverride: kube-metrics
+image:
+  repository: quay.io/coreos/kube-state-metrics
+  tag: v1.3.0
+  pullPolicy: Always
+rbac:
+  create: true
+resources:
+  limits:
+    cpu: 150m
+    memory: 150Mi
+  requests:
+    cpu: 120m
+    memory: 120Mi

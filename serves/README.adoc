@@ -1,0 +1,11 @@
+= Fluid Attacks - Serves
+
+:lang:               en
+:author:             Enginering Team
+:email:              engineering@fluidattacks.com
+:source-highlighter: pygments
+:keywords:           continuous, fluidattacks
+
+== How to start
+
+1. Run `./build.sh` from root folder
