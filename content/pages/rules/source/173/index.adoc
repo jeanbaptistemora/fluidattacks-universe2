@@ -389,3 +389,9 @@ takes place.
 . [[r46]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 1.3.3]
 Implement anti-spoofing measures to detect and block forged source IP addresses
 from entering the network.
+
+. [[r47]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 6.5.1]
+Address common coding vulnerabilities in software-development processes such as
+injection flaws, particularly *SQL* injection.
+Also consider *OS* Command Injection, *LDAP* and *XPath* injection flaws as
+well as other injection flaws.

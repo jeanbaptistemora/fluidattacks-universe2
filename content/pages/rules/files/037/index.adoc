@@ -1,7 +1,7 @@
 :slug: rules/037/
 :category: files
 :description: This requirement establishes the importance of discarding potentially harmful data inputs in parameters to avoid code injections and data leakage.
-:keywords: Path, Directory, Parameter, File, ASVS, CWE, Rules, Ethical Hacking, Pentesting
+:keywords: Path, Directory, Parameter, File, ASVS, CWE, PCI DSS, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R037. Parameters without sensitive data
@@ -154,3 +154,9 @@ and the **Content-Disposition** header should have a fixed filename.
 V12.3 File execution Requirements.(12.3.5)]
 Verify that untrusted file metadata is not used directly with system *API* or
 libraries, to protect against *OS* command injection.
+
+. [[r16]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 6.5.1]
+Address common coding vulnerabilities in software-development processes such as
+injection flaws, particularly *SQL* injection.
+Also consider *OS* Command Injection, *LDAP* and *XPath* injection flaws as
+well as other injection flaws.

@@ -1,7 +1,7 @@
 :slug: rules/169/
 :category: source
 :description: This requirement establishes the importance of using parameterized queries in order to avoid injection attacks such as SQLi.
-:keywords: Parameterized, Queries, SQLi, Injection, ASVS, CWE, Rules, Ethical Hacking, Pentesting
+:keywords: Parameterized, Queries, SQLi, Injection, ASVS, CWE, PCI DSS, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R169. Use parameterized queries
@@ -37,3 +37,9 @@ V5.3 Output encoding and Injection Prevention Requirements.(5.3.4)]
 Verify that data selection or database queries
 (e.g. *SQL*, *HQL*, *ORM*, *NoSQL*) use parameterized queries, *ORMs*,
 entity frameworks, or are otherwise protected from database injection attacks.
+
+. [[r4]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 6.5.1]
+Address common coding vulnerabilities in software-development processes such as
+injection flaws, particularly *SQL* injection.
+Also consider *OS* Command Injection, *LDAP* and *XPath* injection flaws as
+well as other injection flaws.

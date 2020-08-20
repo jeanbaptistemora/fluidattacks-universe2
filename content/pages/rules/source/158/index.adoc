@@ -1,7 +1,7 @@
 :slug: rules/158/
 :category: source
 :description: This requirement establishes the importance of developing applications in an adequately updated and free of known vulnerabilities programming language.
-:keywords: Security, Source Code, Updates, Vulnerabilities, Programming, ASVS, Rules, Ethical Hacking, Pentesting
+:keywords: Security, Source Code, Updates, Vulnerabilities, Programming, ASVS, PCI DSS, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R158. Use a secure programming language
@@ -47,3 +47,7 @@ checker during build or compile time.
 V14.2 Dependency.(14.2.4)]
 Verify that third party components come from pre-defined, trusted and
 continually maintained repositories.
+
+. [[r6]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 6.2]
+Ensure that all system components and software are protected from known
+vulnerabilities by installing applicable vendor-supplied security patches.

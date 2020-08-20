@@ -1,7 +1,7 @@
 :slug: rules/344/
 :category: source
 :description: This requirement establishes the importance of avoiding the use of dynamic code execution features, especially when it requires user-supplied input.
-:keywords: Dynamic, Code, Execution, Eval, ASVS, CWE
+:keywords: Dynamic, Code, Execution, Eval, ASVS, CWE, PCI DSS, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R344. Avoid dynamic code execution
@@ -78,3 +78,9 @@ V5.2 Sanitization and Sandboxing Requirements.(5.2.8)]
 Verify that the application sanitizes, disables, or sandboxes user-supplied
 scriptable or expression template language content,
 such as Markdown, *CSS* or *XSL* stylesheets, *BBCode*, or similar.
+
+. [[r10]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 6.5.1]
+Address common coding vulnerabilities in software-development processes such as
+injection flaws, particularly *SQL* injection.
+Also consider *OS* Command Injection, *LDAP* and *XPath* injection flaws as
+well as other injection flaws.

@@ -1,7 +1,7 @@
 :slug: rules/160/
 :category: source
 :description: This requirement establishes the importance of encoding system outputs in the corresponding language.
-:keywords: Encoding, Outputs, Escaping, BSIMM9, ASVS, CWE, Rules, Ethical Hacking, Pentesting
+:keywords: Encoding, Outputs, Escaping, BSIMM9, ASVS, CWE, PCI DSS, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R160. Encode system outputs
@@ -120,3 +120,9 @@ log injection.
 V7.3 Log Protection Requirements.(7.3.2)]
 Verify that all events are protected from injection when viewed in log viewing
 software.
+
+. [[r20]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 6.5.1]
+Address common coding vulnerabilities in software-development processes such as
+injection flaws, particularly *SQL* injection.
+Also consider *OS* Command Injection, *LDAP* and *XPath* injection flaws as
+well as other injection flaws.

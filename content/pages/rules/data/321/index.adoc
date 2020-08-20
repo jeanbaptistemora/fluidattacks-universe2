@@ -1,7 +1,7 @@
 :slug: rules/321/
 :category: data
 :description: This requirement establishes the importance of properly validating untrusted data before applying deserialization.
-:keywords: Deserialization, Untrusted, Object, Injection, ASVS, CWE, Rules, Ethical Hacking, Pentesting
+:keywords: Deserialization, Untrusted, Object, Injection, ASVS, CWE, PCI DSS, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R321. Avoid deserializing untrusted data
@@ -99,3 +99,9 @@ Verify that *XSD* schema validation takes place to ensure a properly formed
 *XML* document,
 followed by validation of each input field before any processing of that data
 takes place.
+
+. [[r13]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 6.5.1]
+Address common coding vulnerabilities in software-development processes such as
+injection flaws, particularly *SQL* injection.
+Also consider *OS* Command Injection, *LDAP* and *XPath* injection flaws as
+well as other injection flaws.

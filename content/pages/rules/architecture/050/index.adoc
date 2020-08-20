@@ -1,7 +1,7 @@
 :slug: rules/050/
 :category: architecture
 :description: This requirement establishes the importance of controlling the calls to interpreted code in order to avoid malicious code injections.
-:keywords: Code, System, ASVS, CWE, Interpreted, JavaScript, Rules, Ethical Hacking, Pentesting
+:keywords: Code, System, ASVS, CWE, PCI DSS, Interpreted, JavaScript, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R050. Control calls to interpreted code
@@ -80,3 +80,9 @@ Verify that the application does not include and execute functionality from
 untrusted sources,
 such as unverified content distribution networks, *JavaScript* libraries,
 or **node npm** libraries.
+
+. [[r10]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 6.5.1]
+Address common coding vulnerabilities in software-development processes such as
+injection flaws, particularly *SQL* injection.
+Also consider *OS* Command Injection, *LDAP* and *XPath* injection flaws as
+well as other injection flaws.
