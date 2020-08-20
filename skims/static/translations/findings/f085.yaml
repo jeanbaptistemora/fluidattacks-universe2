@@ -1,3 +1,6 @@
+src.lib_path.f085.client_storage.description:
+  en: Sensitive information storage in {path}
+  es: Almacenamiento de información sensible en {path}
 utils.model.finding.enum.f085.description:
   en: >
     The application stores sensitive information in the client-side storage

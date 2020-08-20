@@ -203,6 +203,8 @@ async def main(
         await log_exception('critical', exc)
         if isinstance(exc, (BrokenExecutor, TypeError)):
             await log_to_remote(exc)
+    finally:
+        await reset_ephemeral_state()
 
     monitor_task.cancel()
 

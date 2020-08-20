@@ -175,7 +175,7 @@ class FindingEnum(Enum):
             'userInteraction': 0.62,
         },
         threat='utils.model.finding.enum.f085.threat',
-        title='utils.model.finding.enum.f085.title',
+        title='utils.model.finding.enum.f085.beta_title',
         type=FindingTypeEnum.SECURITY,
     )
     F117: FindingMetadata = FindingMetadata(

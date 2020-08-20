@@ -29,6 +29,7 @@ from lib_path import (
     f011,
     f060,
     f061,
+    f085,
     f117,
 )
 from state.ephemeral import (
@@ -93,6 +94,12 @@ async def analyze_one_path(
             file_extension=file_extension,
             path=path,
             store=stores[FindingEnum.F061],
+        ),
+        f085.analyze(
+            content_generator=file_content_generator,
+            file_extension=file_extension,
+            path=path,
+            store=stores[FindingEnum.F085],
         ),
         f117.analyze(
             file_name=file_name,
