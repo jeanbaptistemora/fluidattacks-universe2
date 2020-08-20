@@ -1,5 +1,5 @@
 {
-  "app": "e2e/expoClient.apk",
+  "app": "expoClient.apk",
   "activity": "host.exp.exponent.experience.HomeActivity",
   "appWaitForLaunch": true,
   "automationName": "UiAutomator2",

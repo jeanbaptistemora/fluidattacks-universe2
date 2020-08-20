@@ -229,3 +229,46 @@ sops_vars() {
     ZENDESK_SUBDOMAIN \
     ZENDESK_TOKEN
 }
+
+function helper_upload_to_devicefarm {
+    local resource_arn_out="${1}"
+    local file_name="${2}"
+    local file_type="${3}"
+    local upload_status
+    
+        echo "[INFO] Uploading ${file_type} to AWS Device Farm" \
+    &&  resource_data=$(
+          aws devicefarm create-upload \
+            --content-type "application/octet-stream" \
+            --name "${file_name}" \
+            --project-arn "${project_arn}" \
+            --type "${file_type}" \
+        ) \
+    &&  resource_arn=$(echo "${resource_data}" | jq -r '.upload | .arn') \
+    &&  resource_url=$(echo "${resource_data}" | jq -r '.upload | .url') \
+    &&  curl \
+          --header 'Content-Type: application/octet-stream' \
+          --upload-file \
+          "${file_name}" \
+          "${resource_url}" \
+    &&  while true;
+        do
+          upload_status=$(
+            aws devicefarm get-upload \
+              --arn "${resource_arn}" \
+            | jq -r '.upload | .status'
+          )
+          if [ "${upload_status}" == "SUCCEEDED" ];
+          then
+            break;
+          elif [ "${upload_status}" == "FAILED" ];
+          then
+            echo "[ERROR] Couldn't upload ${file_type}";
+            return 1;
+          else
+            echo "[INFO][${upload_status}] sleeping 5 seconds...";
+            sleep 5;
+          fi;
+        done \
+    &&  eval "${resource_arn_out}"="${resource_arn}"
+  }

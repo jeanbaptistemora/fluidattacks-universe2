@@ -395,25 +395,76 @@ function job_integrates_functional_tests_mobile_local {
     kill %1
   }
 
-      env_prepare_python_packages \
-      env_prepare_node_modules \
-  &&  pushd "${STARTDIR}/integrates/mobile" \
-    &&  curl -sSo e2e/expoClient.apk "${expo_apk_url}" \
-    &&  echo '[INFO] Looking for available android devices...' \
-    &&  echo '[INFO] Make sure to enable USB debugging and set' \
-              'your mobile device to file transfer mode' \
-    &&  "${ANDROID_SDK_ROOT}/platform-tools/adb" wait-for-device \
-    &&  {
-      npx --no-install appium \
-        --default-capabilities e2e/capabilities/android.json \
-      &
-    } \
-    &&  echo '[INFO] Waiting 5 seconds to leave appium start' \
-    &&  sleep 5 \
-    &&  trap 'teardown' EXIT \
-    &&  pytest e2e/ \
-          --exitfirst \
-          --verbose \
+      pushd "${STARTDIR}/integrates/mobile/e2e" \
+  &&  env_prepare_python_packages \
+  &&  env_prepare_node_modules \
+  &&  curl -sSo expoClient.apk "${expo_apk_url}" \
+  &&  echo '[INFO] Looking for available android devices...' \
+  &&  echo '[INFO] Make sure to enable USB debugging and set' \
+            'your mobile device to file transfer mode' \
+  &&  "${ANDROID_SDK_ROOT}/platform-tools/adb" wait-for-device \
+  &&  {
+    npx --no-install appium \
+      --default-capabilities capabilities/android.json \
+    &
+  } \
+  &&  echo '[INFO] Waiting 5 seconds to leave appium start' \
+  &&  sleep 5 \
+  &&  trap 'teardown' EXIT \
+  &&  pytest ./ \
+        --exitfirst \
+        --verbose \
+  &&  popd \
+  ||  return 1
+}
+
+function job_integrates_functional_tests_mobile {
+  local expo_apk_url="https://d1ahtucjixef4r.cloudfront.net/Exponent-2.16.1.apk"
+  local project_arn
+  local device_pool_arn
+  local apk_arn
+  local test_pkg_arn
+  local test_spec_arn
+
+      pushd "${STARTDIR}/integrates/mobile/e2e" \
+  &&  echo '[INFO] Logging in to AWS' \
+  &&  aws_login "${ENVIRONMENT_NAME}" \
+  &&  aws configure set region 'us-west-2' \
+  &&  project_arn=$(
+        aws devicefarm list-projects \
+        | jq -r '.projects | .[] | select(.name == "integrates-mobile") | .arn'
+      ) \
+  &&  echo '[INFO] Preparing device pool' \
+  &&  device_pool_arn=$(
+        aws devicefarm create-device-pool \
+          --name devicePool \
+          --project-arn "${project_arn}" \
+          --rules file://devices.json \
+        | jq -r '.devicePool | .arn'
+      ) \
+  &&  echo '[INFO] Preparing apk' \
+  &&  curl -sSo expoClient.apk "${expo_apk_url}" \
+  &&  helper_upload_to_devicefarm \
+        apk_arn \
+        expoClient.apk \
+        ANDROID_APP \
+  &&  echo '[INFO] Preparing test package' \
+  &&  zip -r9 tests.zip tests/ requirements.txt \
+  &&  helper_upload_to_devicefarm \
+        test_pkg_arn \
+        tests.zip \
+        APPIUM_PYTHON_TEST_PACKAGE \
+  &&  echo '[INFO] Preparing test environment' \
+  &&  sed -i "s/__DEPLOYMENT_NAME__/${CI_COMMIT_REF_NAME}/g" ./testSpec.yml \
+  &&  helper_upload_to_devicefarm \
+        test_spec_arn \
+        testSpec.yml \
+        APPIUM_PYTHON_TEST_SPEC \
+  &&  echo "${project_arn}" \
+  &&  echo "${device_pool_arn}" \
+  &&  echo "${apk_arn}" \
+  &&  echo "${test_pkg_arn}" \
+  &&  echo "${test_spec_arn}" \
   &&  popd \
   ||  return 1
 }
