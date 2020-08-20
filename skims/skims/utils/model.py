@@ -21,6 +21,7 @@ class FindingTypeEnum(Enum):
 
 
 class FindingMetadata(NamedTuple):
+    auto_approve: bool
     cwe: str
     description: str
     impact: str
@@ -34,12 +35,12 @@ class FindingMetadata(NamedTuple):
 
 class FindingEnum(Enum):
     F009: FindingMetadata = FindingMetadata(
+        auto_approve=True,
         cwe='798',
         description='utils.model.finding.enum.f009.description',
         impact='utils.model.finding.enum.f009.impact',
         recommendation='utils.model.finding.enum.f009.recommendation',
         requirements='utils.model.finding.enum.f009.requirements',
-        threat='utils.model.finding.enum.f009.threat',
         severity={
             'attackComplexity': 0.77,
             'attackVector': 0.85,
@@ -53,16 +54,17 @@ class FindingEnum(Enum):
             'severityScope': 0.0,
             'userInteraction': 0.85,
         },
+        threat='utils.model.finding.enum.f009.threat',
         title='utils.model.finding.enum.f009.title',
         type=FindingTypeEnum.SECURITY,
     )
     F011: FindingMetadata = FindingMetadata(
+        auto_approve=True,
         cwe='937',
         description='utils.model.finding.enum.f011.description',
         impact='utils.model.finding.enum.f011.impact',
         recommendation='utils.model.finding.enum.f011.recommendation',
         requirements='utils.model.finding.enum.f011.requirements',
-        threat='utils.model.finding.enum.f011.threat',
         severity={
             'attackComplexity': 0.44,
             'attackVector': 0.85,
@@ -76,16 +78,17 @@ class FindingEnum(Enum):
             'severityScope': 0.0,
             'userInteraction': 0.85,
         },
+        threat='utils.model.finding.enum.f011.threat',
         title='utils.model.finding.enum.f011.title',
         type=FindingTypeEnum.SECURITY,
     )
     F034: FindingMetadata = FindingMetadata(
+        auto_approve=True,
         cwe='330',
         description='utils.model.finding.enum.f034.description',
         impact='utils.model.finding.enum.f034.impact',
         recommendation='utils.model.finding.enum.f034.recommendation',
         requirements='utils.model.finding.enum.f034.requirements',
-        threat='utils.model.finding.enum.f034.threat',
         severity={
             'attackComplexity': 0.44,
             'attackVector': 0.85,
@@ -99,16 +102,17 @@ class FindingEnum(Enum):
             'severityScope': 0.0,
             'userInteraction': 0.85,
         },
+        threat='utils.model.finding.enum.f034.threat',
         title='utils.model.finding.enum.f034.title',
         type=FindingTypeEnum.SECURITY,
     )
     F060: FindingMetadata = FindingMetadata(
+        auto_approve=True,
         cwe='396',
         description='utils.model.finding.enum.f060.description',
         impact='utils.model.finding.enum.f060.impact',
         recommendation='utils.model.finding.enum.f060.recommendation',
         requirements='utils.model.finding.enum.f060.requirements',
-        threat='utils.model.finding.enum.f060.threat',
         severity={
             'attackComplexity': 0.77,
             'attackVector': 0.85,
@@ -122,16 +126,17 @@ class FindingEnum(Enum):
             'severityScope': 0.0,
             'userInteraction': 0.85,
         },
+        threat='utils.model.finding.enum.f060.threat',
         title='utils.model.finding.enum.f060.title',
         type=FindingTypeEnum.HYGIENE,
     )
     F061: FindingMetadata = FindingMetadata(
+        auto_approve=True,
         cwe='390',
         description='utils.model.finding.enum.f061.description',
         impact='utils.model.finding.enum.f061.impact',
         recommendation='utils.model.finding.enum.f061.recommendation',
         requirements='utils.model.finding.enum.f061.requirements',
-        threat='utils.model.finding.enum.f061.threat',
         severity={
             'attackComplexity': 0.77,
             'attackVector': 0.85,
@@ -145,16 +150,17 @@ class FindingEnum(Enum):
             'severityScope': 0.0,
             'userInteraction': 0.85,
         },
+        threat='utils.model.finding.enum.f061.threat',
         title='utils.model.finding.enum.f061.title',
         type=FindingTypeEnum.SECURITY,
     )
     F085: FindingMetadata = FindingMetadata(
+        auto_approve=False,
         cwe='922',
         description='utils.model.finding.enum.f085.description',
         impact='utils.model.finding.enum.f085.impact',
         recommendation='utils.model.finding.enum.f085.recommendation',
         requirements='utils.model.finding.enum.f085.requirements',
-        threat='utils.model.finding.enum.f085.threat',
         severity={
             'attackComplexity': 0.44,
             'attackVector': 0.85,
@@ -168,16 +174,17 @@ class FindingEnum(Enum):
             'severityScope': 0.0,
             'userInteraction': 0.62,
         },
+        threat='utils.model.finding.enum.f085.threat',
         title='utils.model.finding.enum.f085.title',
         type=FindingTypeEnum.SECURITY,
     )
     F117: FindingMetadata = FindingMetadata(
+        auto_approve=True,
         cwe='377',
         description='utils.model.finding.enum.f117.description',
         impact='utils.model.finding.enum.f117.impact',
         recommendation='utils.model.finding.enum.f117.recommendation',
         requirements='utils.model.finding.enum.f117.requirements',
-        threat='utils.model.finding.enum.f117.threat',
         severity={
             'attackComplexity': 0.44,
             'attackVector': 0.85,
@@ -192,6 +199,7 @@ class FindingEnum(Enum):
             'userInteraction': 0.85,
         },
         title='utils.model.finding.enum.f117.title',
+        threat='utils.model.finding.enum.f117.threat',
         type=FindingTypeEnum.HYGIENE,
     )
 

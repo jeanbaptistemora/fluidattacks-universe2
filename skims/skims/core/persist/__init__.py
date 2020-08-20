@@ -257,7 +257,7 @@ async def persist_finding(
         create_if_missing=has_results,
         finding=finding,
         group=group,
-        recreate_if_draft=True,
+        recreate_if_draft=has_results,
     )
 
     if finding_id:
@@ -277,6 +277,7 @@ async def persist_finding(
             finding_id=finding_id,
             store=store,
         ) and await do_release_finding(
+            auto_approve=finding.value.auto_approve,
             finding_id=finding_id,
         )
 
@@ -343,7 +344,6 @@ async def verify_permissions(*, group: str) -> bool:
     else:
         allowed_roles: Tuple[str, ...] = (
             'admin',
-            'analyst',
         )
 
         if role in allowed_roles:

@@ -123,6 +123,7 @@ ALLOWED_FACTORIES: Dict[type, Dict[str, Any]] = {
     )
     for _dump_base in [lambda x: _serialize(x, x)]
     for factory, dumper, loader in [
+        (bool, _dump_base, bool),
         (bytes, _dump_bytes, _load_bytes),
         (dict, _dump_dict, _load_dict),
         (float, _dump_base, float),

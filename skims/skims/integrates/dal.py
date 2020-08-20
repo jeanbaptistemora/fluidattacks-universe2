@@ -442,6 +442,36 @@ async def do_delete_finding(
 
 
 @RETRY
+async def do_approve_draft(
+    *,
+    finding_id: str,
+) -> bool:
+    result = await _execute(
+        query="""
+            mutation DoApproveDraft(
+                $finding_id: String!
+            ) {
+                approveDraft(
+                    draftId: $finding_id
+                ) {
+                    success
+                }
+            }
+        """,
+        variables=dict(
+            finding_id=finding_id,
+        )
+    )
+
+    success: bool = result['data']['approveDraft']['success']
+
+    if not success:
+        raise RetryAndFinallyReturn(success)
+
+    return success
+
+
+@RETRY
 async def do_submit_draft(
     *,
     finding_id: str,

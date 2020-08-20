@@ -13,6 +13,7 @@ from aioextensions import (
 
 # Local libraries
 from integrates.dal import (
+    do_approve_draft,
     do_create_draft,
     do_delete_finding,
     do_release_vulnerabilities,
@@ -217,20 +218,35 @@ async def do_delete_if_draft(
 
 async def do_release_finding(
     *,
+    auto_approve: bool,
     finding_id: str,
 ) -> bool:
+    """Release a finding to the approver and optionally the client.
+
+    Findings are released to the releaser first who then decides if
+    releasing it to the client.
+
+    If `auto_approve` is set then it's approved automatically skipping the
+    releaser.
+    """
     success: bool = False
     release_status: FindingReleaseStatusEnum = (
         await get_finding_current_release_status(finding_id=finding_id)
     )
 
-    if release_status in (
-        FindingReleaseStatusEnum.SUBMITTED,
-        FindingReleaseStatusEnum.APPROVED,
-    ):
+    if release_status == FindingReleaseStatusEnum.APPROVED:
         # Already released
         success = True
     else:
-        success = await do_submit_draft(finding_id=finding_id)
+        if release_status == FindingReleaseStatusEnum.SUBMITTED:
+            # Already submitted
+            success = True
+        else:
+            # Submit it
+            success = await do_submit_draft(finding_id=finding_id)
+
+        if auto_approve:
+            # Approve it
+            success = success and await do_approve_draft(finding_id=finding_id)
 
     return success
