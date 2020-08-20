@@ -461,7 +461,7 @@ test_forces_new:
     name: fluidattacks/forces:new
     entrypoint: [""]
   script:
-    - forces --token "${INTEGRATES_API_TOKEN}" --strict --group rockland -vv
+    - forces --token "${FORCES_API_TOKEN}" --strict -vv
   interruptible: true
   allow_failure: true
 
