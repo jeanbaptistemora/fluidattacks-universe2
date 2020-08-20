@@ -148,6 +148,29 @@ class FindingEnum(Enum):
         title='utils.model.finding.enum.f061.title',
         type=FindingTypeEnum.SECURITY,
     )
+    F085: FindingMetadata = FindingMetadata(
+        cwe='922',
+        description='utils.model.finding.enum.f085.description',
+        impact='utils.model.finding.enum.f085.impact',
+        recommendation='utils.model.finding.enum.f085.recommendation',
+        requirements='utils.model.finding.enum.f085.requirements',
+        threat='utils.model.finding.enum.f085.threat',
+        severity={
+            'attackComplexity': 0.44,
+            'attackVector': 0.85,
+            'availabilityImpact': 0.0,
+            'confidentialityImpact': 0.22,
+            'exploitability': 0.94,
+            'integrityImpact': 0.0,
+            'privilegesRequired': 0.85,
+            'remediationLevel': 1.0,
+            'reportConfidence': 1.0,
+            'severityScope': 0.0,
+            'userInteraction': 0.62,
+        },
+        title='utils.model.finding.enum.f085.title',
+        type=FindingTypeEnum.SECURITY,
+    )
     F117: FindingMetadata = FindingMetadata(
         cwe='377',
         description='utils.model.finding.enum.f117.description',
