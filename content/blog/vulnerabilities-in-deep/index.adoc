@@ -4,7 +4,7 @@
 :subtitle: Deep Learning for vulnerability disclosure
 :tags: machine learning, detect, software
 :image: cover.png
-:alt: Data Has A Better Idea. Photo by Stefan Steinbauer on Unsplash: https://unsplash.com/photos/1K6IQsQbizI
+:alt: Photo by Franki Chamaki on Unsplash
 :description: In this blog post, we discuss an article from Boston University that presents new applications of Artificial Intelligence in the security field.
 :keywords: Machine Learning, Deep Learning, Detection, Vulnerability, Code, AI, Ethical Hacking, Pentesting
 :author: Oscar Uribe
@@ -12,7 +12,7 @@
 :name: Oscar Uribe
 :about1: Software and Computer Engineering undergrad student
 :about2: "Behind every successful Coder there is an even more successful De-coder to understand that code." Anonymous
-:source: https://unsplash.com/photos/1K6IQsQbizI
+:source: https://unsplash.com/photos/z4H9MYmWIMA
 
 = Vulnerabilities in Deep Learning
 

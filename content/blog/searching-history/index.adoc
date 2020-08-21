@@ -4,7 +4,7 @@
 :subtitle: Searching for credentials in a repository
 :tags: security, git, vulnerability, credential
 :image: cover.png
-:alt: Click pen and magnifying glass on book page. Photo by Joao Silas on Unsplash: https://unsplash.com/photos/I_LgQ8JZFGE
+:alt: Photo by Mick Haupt on Unsplash
 :description: As everyone knows in our context, production credentials should be protected. In this post, we explain how to extract old credentials and how to protect them.
 :keywords: Git, Security, Vulnerability, Hacking, Repository, Credentials, Ethical Hacking, Pentesting
 :author: Jonathan Armas
@@ -12,7 +12,7 @@
 :name: Jonathan Armas
 :about1: Systems Engineer, OSCP - Security+
 :about2: "Be formless, shapeless like water" Bruce Lee
-:source: https://unsplash.com/photos/I_LgQ8JZFGE
+:source: https://unsplash.com/photos/eQ2Z9ay9Wws
 
 = Search the History
 

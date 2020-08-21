@@ -4,7 +4,7 @@
 :subtitle: Fuzz testing using American Fuzzy Lop
 :tags: fuzzing, application, hacking
 :image: cover.png
-:alt: Monkey staring
+:alt: Photo by su fu on Unsplash
 :description: In this blog post, we are focused on how to perform basic fuzz attacks on desktop Linux C applications using American Fuzzy Lop.
 :keywords: Fuzzing, Attack, AFL, Vulnerability, Security, Application, Hacking, Ethical Hacking, Pentesting
 :author: Rafael Ballestas
@@ -12,7 +12,7 @@
 :name: Rafael Ballestas
 :about1: Mathematician
 :about2: with an itch for CS
-:source: https://unsplash.com/photos/xSM7msizIQI
+:source: https://unsplash.com/photos/N-6mnzmVljA
 
 = The Infinite Monkey Fuzzer
 
