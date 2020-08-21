@@ -229,8 +229,8 @@ Noteworthy words that index the document internally.
 
 | `:image:` | No | Yes
 | Image that will appear in the article preview.
-This image must have certain dimensions, 600 x 200 px and
-must not exceed 300 Kb in size.
+This image must have certain dimensions, 900 x 600 px and
+must not exceed 800 Kb in size.
 
 | `:alt:` | No | Yes
 | Description of the image in the article preview.

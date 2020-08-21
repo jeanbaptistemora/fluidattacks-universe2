@@ -8,11 +8,11 @@ function helper_image_blog_cover_dimensions {
 
       helper_file_exists "${path}" \
   &&  dimensions="$(identify -format "%wx%h" "${path}")" \
-  &&  if [ "${dimensions}" = '600x280' ]
+  &&  if [ "${dimensions}" = '900x600' ]
       then
             return 0
       else
-            echo "[ERROR] ${path} does not have a size of 600x280" \
+            echo "[ERROR] ${path} does not have a size of 900x600" \
         && return 1
       fi
 }
