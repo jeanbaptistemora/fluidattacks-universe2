@@ -1,4 +1,5 @@
 # pylint:disable=too-many-lines
+import asyncio
 import logging
 import sys
 from time import time
@@ -11,6 +12,7 @@ from graphql.language.ast import SelectionSetNode
 from graphql.type.definition import GraphQLResolveInfo
 from graphql import GraphQLError
 
+from backend.api.resolvers import vulnerability as vuln_resolver
 from backend.decorators import (
     enforce_group_level_auth_async, get_entity_cache_async, rename_kwargs,
     require_attribute, require_integrates,
@@ -25,6 +27,7 @@ from backend.domain import (
 from backend.typing import (
     Comment as CommentType,
     Finding as FindingType,
+    Historic as HistoricType,
     SimplePayload as SimplePayloadType,
     SimpleFindingPayload as SimpleFindingPayloadType,
     ApproveDraftPayload as ApproveDraftPayloadType,
@@ -44,24 +47,36 @@ logging.config.dictConfig(LOGGING)
 LOGGER = logging.getLogger(__name__)
 
 
-@get_entity_cache_async
 async def _get_vulnerabilities(
         info: GraphQLResolveInfo,
         identifier: str,
         state: str = '') -> List[VulnerabilityType]:
     """Get vulnerabilities."""
-    vuln_filtered = await info.context.loaders['vulnerability'].load(
-        identifier
-    )
+    finding_vulns = await vuln_domain.list_vulnerabilities_async([identifier])
     if state:
-        vuln_filtered = [
-            vuln
-            for vuln in vuln_filtered
-            if (vuln['current_state'] == state and
-                (vuln['current_approval_status'] != 'PENDING' or
-                 vuln['last_approved_status']))
-        ]
-    return cast(List[VulnerabilityType], vuln_filtered)
+        finding_vulns_stated = []
+        for vuln in finding_vulns:
+            current_state = cast(
+                HistoricType,
+                vuln.get('historic_state', [{}])
+            )[-1].get('state', '')
+            current_approval_status = cast(
+                HistoricType,
+                vuln.get('historic_state', [{}])
+            )[-1].get('approval_status', '')
+            last_approved_status = vuln_domain.get_last_approved_status(vuln)
+            if current_state == state and \
+               (current_approval_status != 'PENDING' or last_approved_status):
+                finding_vulns_stated.append(vuln)
+        finding_vulns = finding_vulns_stated
+
+    list_vulns = await asyncio.gather(*[
+        asyncio.create_task(
+            vuln_resolver.resolve(info, str(vuln['UUID']), all_fields=True)
+        )
+        for vuln in finding_vulns
+    ])
+    return cast(List[VulnerabilityType], list_vulns)
 
 
 @get_entity_cache_async
