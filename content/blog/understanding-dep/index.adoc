@@ -1,7 +1,7 @@
 :slug: understanding-dep/
 :date: 2020-08-21
 :category: attacks
-:subtitle: Understanding DEP
+:subtitle: Let's protect the stack
 :tags: osee, training, exploit
 :image: cover.png
 :alt: Photo by Liam Tucker on Unsplash
@@ -43,8 +43,8 @@ on the stack. This is a common function stack frame distribution on memory:
 .Common function stack frame
 [source,text]
 ----
-.________._________._________._________._____________.
- vuln_var Saved EBP Saved EIP Func args Rest of stack
+.____________._____________._____________._____________._________________.
+   vuln_var     Saved EBP     Saved EIP     Func args     Rest of stack
 ----
 
 On a simple buffer overflow, when we write past the `vuln_var` size,
@@ -58,9 +58,9 @@ stack on where we put the shellcode.
 .Example overflowed vuln_var
 [source,text]
 ----
- AAAAAAAA AAAAAAAAA <pointer to JMP ESP>   Shellcode
-.________._________.____________________._____________.
- vuln_var Saved EBP       Saved EIP       Rest of stack
+ AAAAAAAAAAAA AAAAAAAAAAAAA <pointer to JMP ESP>    Shellcode
+.____________._____________.____________________._______________.
+   vuln_var     Saved EBP         Saved EIP       Rest of stack
 ----
 
 For example, let's take a look a this exploit:
@@ -102,9 +102,9 @@ This version of the exploit will overflow the vulnerable variable this way:
 .Example overflowed vuln_var
 [source,text]
 ----
- AAAAAAAA AAAAAAAAA \xaf\x11\x50\x62  \x90\x08\x04\xc0\x31
-.________._________._________________.____________________.
- vuln_var Saved EBP     Saved EIP          Shellcode
+ AAAAAAAAAAAA AAAAAAAAAAAAA \xaf\x11\x50\x62  \x90\x08\x04\xc0\x31
+.____________._____________._________________.____________________.
+   vuln_var     Saved EBP       Saved EIP          Shellcode
 ----
 
 On where:
@@ -119,21 +119,28 @@ instruction.
 .. `add al,0x8` -> Make `EAX` = `0x00000008`
 .. `nop` -> Does nothing
 
-If you want to see how to get the `JMP ESP` address, you can check
-link:../vulnserver-trun/[this post].
-
 Let's see it in action:
 
 image::exec-stack1.gif[Executing code on the stack]
 
 As you can see, we were able to execute the instructions on our shellcode that
-we placed on the stack as expected.
+we placed on the stack, as expected.
 
 == Enabling DEP
 
-On modern Windows versions, the NX bit of the CPU can be used by using a
-feature called Data Execution Prevention or `DEP`. It can be enabled with
-the following instructions:
+On modern Windows versions, the NX bit of the CPU can be leveraged by using a
+feature called Data Execution Prevention or `DEP`. An application can be
+compiled with the `/NXCOMPAT` flag to enable `DEP` for that application. Also,
+you can use `editbin.exe /NXCOMPAT` over an `.exe` file to enable it on
+an already compiled file.
+
+In a debugger, we can check if an executable has that flag enabled:
+
+image::nxenabled.png[Modules with NXCOMPAT]
+
+You can also enable `DEP` system-wide, which will force `DEP` to all
+applications, including those compiled without `/NXCOMPAT`. To do that,
+you can use the following instructions:
 
 * Press the `Windows` key and search for `View advanced system settings`.
 * In the resulting window, click on tab `Advanced`:
@@ -152,20 +159,21 @@ to turn it on for every application, you must select
 
 *WARNING:* When you change this value and you have `Bitlocker` enabled, you
 will be asked to enter the `Bitlocker` recovery key after the reboot. *If you
-don't have that information, please don't change the DEP value or your system
+don't have that information, please don't change the `DEP` value or your system
 will become unusable.*
 
-With that in place, we can check again our exploit to see if DEP really
+With that in place, we can check again our exploit to see if `DEP` really
 prevents the execution of the instructions of our shellcode.
 
-*NOTE:* We will talk about Hardware-based DEP which uses the NX bit of the CPU
-to mark memory regions as non-executable. Software-based DEP will only prevent
-SEH-based overflows and it's not in the scope of this article. You can
-get more information on SEH-based exploits link:../vulnserver-gmon/[here].
+*NOTE:* We will talk about Hardware-based `DEP` which uses the NX bit of the
+CPU to mark memory regions as non-executable. Software-based `DEP` will
+only prevent SEH-based overflows and it's not in the scope of this article.
+You can get more information on SEH-based
+exploits link:../vulnserver-gmon/[here].
 
 == Executing shellcode with DEP enabled
 
-Now, after enabling DEP system-wide, let's execute our exploit again:
+Now, after enabling `DEP` system-wide, let's execute our exploit again:
 
 image::exec-stack2.gif[DEP enabled]
 
@@ -179,12 +187,12 @@ the stack on where our shellcode is placed.
 . However, when it tries to execute the first instruction on the shellcode
 (`xor eax,eax`), an `Access violation` exception is triggered, which means
 that it was trying to execute code on a memory region marked as non-executable.
-DEP worked.
+`DEP` worked.
 
 == Bypassing DEP
 
-We cannot now execute instructions placed on the stack, but we control the
-execution flow of the application. The stack, however is a place where
+Now, we cannot execute instructions placed on the stack, but we control the
+execution flow of the application. Howeverr, the stack is a place where
 the application (and therefore, the exploit) can read and write data and
 by controlling both (the execution flow and the stack), we can do wonders.
 
@@ -198,7 +206,7 @@ on the stack. Let's welcome Return-Oriented Programming.
 == Conclusions
 
 This article show a mechanism created to prevent the exploitation of
-buffer overflow vulnerabilities. DEP surely leaves behind common exploits.
+buffer overflow vulnerabilities. `DEP` surely leaves behind common exploits.
 However, in the next article we will see how to bypass `DEP` using
 Return-Oriented Programming and then we can create a fully working exploit
 that triggers a reverse TCP shell on a DEP-enabled application.
