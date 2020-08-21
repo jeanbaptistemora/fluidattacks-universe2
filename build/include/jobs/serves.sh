@@ -542,7 +542,7 @@ function job_serves_apply_user_provision_serves {
   ||  return 1
 }
 
-function job_serves_apply_rotate_keys_user_provision_asserts_dev {
+function job_serves_rotate_keys_user_provision_asserts_dev {
   local terraform_dir='services/user-provision/asserts/dev/terraform'
   local resource_to_taint='aws_iam_access_key.asserts-dev-key'
   local output_key_id_name='asserts-dev-secret-key-id'
@@ -568,7 +568,7 @@ function job_serves_apply_rotate_keys_user_provision_asserts_dev {
   ||  return 1
 }
 
-function job_serves_apply_rotate_keys_user_provision_asserts_prod {
+function job_serves_rotate_keys_user_provision_asserts_prod {
   local terraform_dir='services/user-provision/asserts/prod/terraform'
   local resource_to_taint='aws_iam_access_key.asserts-prod-key'
   local output_key_id_name='asserts-prod-secret-key-id'
@@ -594,7 +594,7 @@ function job_serves_apply_rotate_keys_user_provision_asserts_prod {
   ||  return 1
 }
 
-function job_serves_apply_rotate_keys_user_provision_services_dev {
+function job_serves_rotate_keys_user_provision_services_dev {
   local terraform_dir='services/user-provision/services/dev/terraform'
   local resource_to_taint='aws_iam_access_key.continuous-dev-key'
   local output_key_id_name='continuous-dev-secret-key-id'
@@ -620,7 +620,7 @@ function job_serves_apply_rotate_keys_user_provision_services_dev {
   ||  return 1
 }
 
-function job_serves_apply_rotate_keys_user_provision_services_prod {
+function job_serves_rotate_keys_user_provision_services_prod {
   local terraform_dir='services/user-provision/services/prod/terraform'
   local resource_to_taint='aws_iam_access_key.continuous-prod-key'
   local output_key_id_name='continuous-prod-secret-key-id'
@@ -646,7 +646,7 @@ function job_serves_apply_rotate_keys_user_provision_services_prod {
   ||  return 1
 }
 
-function job_serves_apply_rotate_keys_user_provision_integrates_dev {
+function job_serves_rotate_keys_user_provision_integrates_dev {
   local terraform_dir='services/user-provision/integrates/dev/terraform'
   local resource_to_taint='aws_iam_access_key.integrates-dev-key'
   local output_key_id_name='integrates-dev-secret-key-id'
@@ -672,7 +672,7 @@ function job_serves_apply_rotate_keys_user_provision_integrates_dev {
   ||  return 1
 }
 
-function job_serves_apply_rotate_keys_user_provision_integrates_prod {
+function job_serves_rotate_keys_user_provision_integrates_prod {
   local terraform_dir='services/user-provision/integrates/prod/terraform'
   local resource_to_taint='aws_iam_access_key.integrates-prod-key'
   local output_key_id_name='integrates-prod-secret-key-id'
@@ -702,7 +702,7 @@ function job_serves_apply_rotate_keys_user_provision_integrates_prod {
   ||  return 1
 }
 
-function job_serves_apply_rotate_keys_user_provision_web_dev {
+function job_serves_rotate_keys_user_provision_web_dev {
   local terraform_dir='services/user-provision/web/dev/terraform'
   local resource_to_taint='aws_iam_access_key.web-dev-key'
   local output_key_id_name='web-dev-secret-key-id'
@@ -728,7 +728,7 @@ function job_serves_apply_rotate_keys_user_provision_web_dev {
   ||  return 1
 }
 
-function job_serves_apply_rotate_keys_user_provision_web_prod {
+function job_serves_rotate_keys_user_provision_web_prod {
   local terraform_dir='services/user-provision/web/prod/terraform'
   local resource_to_taint='aws_iam_access_key.web-prod-key'
   local output_key_id_name='web-prod-secret-key-id'
@@ -754,7 +754,7 @@ function job_serves_apply_rotate_keys_user_provision_web_prod {
   ||  return 1
 }
 
-function job_serves_apply_rotate_keys_user_provision_serves {
+function job_serves_rotate_keys_user_provision_serves {
   local terraform_dir='services/user-provision/serves/terraform'
   local resource_to_taint='aws_iam_access_key.dev-key'
   local output_key_id_name='dev-secret-key-id'
