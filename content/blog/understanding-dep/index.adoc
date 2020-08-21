@@ -4,7 +4,7 @@
 :subtitle: Let's protect the stack
 :tags: osee, training, exploit
 :image: cover.png
-:alt: Photo by Liam Tucker on Unsplash
+:alt: Photo by Chris Panas on Unsplash
 :description: This post will show how the Data Execution Prevention (DEP) security mechanism works and what are the implication for exploit development.
 :keywords: Bussiness, Information, Security, Protection, Hacking, Exploit, OSEE, Ethical Hacking, Pentesting
 :author: Andres Roldan
@@ -12,7 +12,7 @@
 :name: Andres Roldan
 :about1: Cybersecurity Specialist, OSCE, OSCP, CHFI
 :about2: "We don't need the key, we'll break in" RATM
-:source: https://unsplash.com/photos/cVMaxt672ss
+:source: https://unsplash.com/photos/0Yiy0XajJHQ
 
 = Understanding DEP
 
@@ -112,9 +112,11 @@ On where:
 . 2006 `A` are added to trigger the overflow.
 . `0x625011AF` is a pointer to a `JMP ESP` instruction and will be placed on
 `Saved EIP`.
-. When the vulnerable function returns, it will execute the `JMP ESP`
-instruction.
-. `ESP` is now pointing to our shellcode, that in this case does:
+. When the vulnerable function returns, it will execute the instruction
+pointed by `Saved EIP` which holds the `JMP ESP` instruction.
+. With that, the execution flow is now redirected to the stack on where the
+shellcode was placed.
+. The shellcode, in this case will execute three arbitrary instructions:
 .. `xor eax eax` -> Zero-out `EAX` register
 .. `add al,0x8` -> Make `EAX` = `0x00000008`
 .. `nop` -> Does nothing
