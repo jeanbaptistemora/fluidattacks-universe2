@@ -192,12 +192,29 @@ async def main(
         await adjust_working_dir(config_obj)
         success = await execute_skims(config_obj, token)
     except (
+        ArithmeticError,
+        AssertionError,
+        AttributeError,
         BrokenExecutor,
+        BufferError,
         ConfigError,
+        EOFError,
+        GeneratorExit,
+        ImportError,
         KeyboardInterrupt,
+        LookupError,
         MemoryError,
+        NameError,
+        OSError,
+        ReferenceError,
+        RuntimeError,
+        StopAsyncIteration,
+        StopIteration,
+        SyntaxError,
+        SystemError,
         SystemExit,
         TypeError,
+        ValueError,
     ) as exc:
         success = False
         await log_exception('critical', exc)

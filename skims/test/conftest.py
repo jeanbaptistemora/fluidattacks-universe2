@@ -8,18 +8,20 @@ from typing import (
 )
 
 # Third party libraries
+from aioextensions import (
+    collect,
+    run_decorator,
+)
 import pytest
 
 # Local libraries
 from integrates.graphql import (
     create_session,
-)
-from utils.model import (
-    FindingEnum,
+    end_session,
 )
 
 
-@pytest.fixture(scope='session')  # type: ignore
+@pytest.fixture(autouse=True, scope='session')  # type: ignore
 def test_config() -> Iterator[Callable[[str], str]]:
 
     def config(name: str) -> str:
@@ -28,12 +30,12 @@ def test_config() -> Iterator[Callable[[str], str]]:
     yield config
 
 
-@pytest.fixture(scope='session')  # type: ignore
+@pytest.fixture(autouse=True, scope='session')  # type: ignore
 def test_group() -> Iterator[str]:
     yield 'worcester'
 
 
-@pytest.fixture(scope='session')  # type: ignore
+@pytest.fixture(autouse=True, scope='session')  # type: ignore
 def test_integrates_api_token() -> Iterator[str]:
     yield os.environ['INTEGRATES_API_TOKEN']
 
@@ -41,4 +43,7 @@ def test_integrates_api_token() -> Iterator[str]:
 @pytest.fixture(scope='function')  # type: ignore
 def test_integrates_session(test_integrates_api_token: str) -> Iterator[None]:
     create_session(api_token=test_integrates_api_token)
-    yield
+    try:
+        yield
+    finally:
+        end_session()

@@ -12,8 +12,8 @@ from aioextensions import (
 import bugsnag
 
 # Local libraries
-from utils.ctx import (
-    ROOT,
+from utils.env import (
+    guess_environment,
 )
 
 # Initialization
@@ -22,7 +22,7 @@ bugsnag.configure(
     #   it's intentional so we can monitor Skims stability in remote users
     api_key="f990c9a571de4cb44c96050ff0d50ddb",
     # Assume development stage if this source file is in the product repository
-    release_stage='development' if 'product/' in ROOT else 'production',
+    release_stage=guess_environment(),
 )
 bugsnag.start_session()
 bugsnag.send_sessions()

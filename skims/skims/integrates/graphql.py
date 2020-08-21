@@ -18,3 +18,7 @@ def create_session(
             'authorization': f'Bearer {api_token}'
         },
     )
+
+
+def end_session() -> None:
+    Session.value = None
