@@ -6,8 +6,8 @@ import { default as $ } from "jquery";
 
 const togglecat: ((categ: HTMLElement) => void) = (categ: HTMLElement):
   void => {
-  categ.classList.toggle("bg-fluid-lightgray");
-  categ.children[1].classList.toggle("rotate-90");
+  categ.classList.toggle("ruleactive");
+  categ.children[1].classList.toggle("rotate-180");
   const ruleslist: HTMLElement  = categ.nextElementSibling as HTMLElement;
   ruleslist.classList.toggle("dn");
 };
@@ -26,7 +26,7 @@ for (i = 0; i < rulescat.length; i += 1) {
 const toggleswitch: ((switched: HTMLElement) => void) = (switched: HTMLElement):
   void => {
   switched.children[0].classList.toggle("dn");
-  switched.children[1].classList.toggle("rotate-90");
+  switched.children[1].classList.toggle("rotate-180");
   switched.children[1].classList.toggle("dn");
 };
 
@@ -36,7 +36,7 @@ let collapser: HTMLElement; collapser = document.getElementsByClassName("collall
 // This section expands all categories
 
 expander.addEventListener("click", (event: Event) => {
-  let collapsed: NodeListOf<HTMLElement>; collapsed = document.querySelectorAll(".rulescat:not(.bg-fluid-lightgray)");
+  let collapsed: NodeListOf<HTMLElement>; collapsed = document.querySelectorAll(".rulescat:not(.ruleactive)");
   toggleswitch(expander);
   toggleswitch(collapser);
 
@@ -49,7 +49,7 @@ expander.addEventListener("click", (event: Event) => {
 // This section collapses all categories
 
 collapser.addEventListener("click", (event: Event) => {
-  let expanded: NodeListOf<HTMLElement>; expanded = document.querySelectorAll(".rulescat.bg-fluid-lightgray");
+  let expanded: NodeListOf<HTMLElement>; expanded = document.querySelectorAll(".ruleactive");
   toggleswitch(expander);
   toggleswitch(collapser);
 

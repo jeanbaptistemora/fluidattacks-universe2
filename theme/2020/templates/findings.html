@@ -81,6 +81,19 @@
   </div>
 {% endblock breadcrumb %}
 
+{% block header %}
+  {% if (page.rulesindex and page.slug == "rules/") or (page.rulesindex and page.slug == "rules/out-of-scope/") %}
+    <div
+      class="rules-bg bg-banner-sz coverm cover-s banner-height justify-center items-center flex bg-center">
+      <div class="w-100 center">
+        <h1 class="white fw7 f3 neue tc f-5-l ma0">
+          {{ page.title }}
+        </h1>
+      </div>
+    </div>
+  {% endif %}
+{% endblock header %}
+
 {% block canonical %}
   <link rel="canonical"
         href="{{ SITEURL }}/{{ page.url }}">
@@ -128,32 +141,30 @@
   </article>
   {% endif %}
   {% if page.rulesindex and page.slug == "rules/" %}
-  <article class="internal roboto ma-auto tl mw8 pb4">
-    <h1 class="tc pb3">
-      {{ page.title }}
-    </h1>
-    <div class="expall hover-bg-light-gray flex">
+  <article class="internal roboto ma-auto tl mw8 mv4 ba b--moon-gray">
+    <div class="expall bt bg-graylight b--moon-gray collapse flex ph3">
       <h3 class="w-90">Expand all</h3>
-      <img loading="lazy" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/arrow.svg"
+      <img loading="lazy" class="w1" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/angle-arrow-down.svg"
            alt="Fluid Arrow">
     </div>
-    <div class="collall hover-bg-light-gray flex">
+    <div class="collall bt bg-graylight b--moon-gray collapse flex ph3">
       <h3 class="w-90 dn">Collapse all</h3>
-      <img loading="lazy" class="dn" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/arrow.svg"
+      <img loading="lazy" class="dn w1" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/angle-arrow-down.svg"
            alt="Fluid Arrow">
     </div>
     {% set categorder = ["credentials", "authentication", "authorization", "session", "legal", "privacy", "data", "source", "system", "files", "logs", "emails", "services", "certificates", "cryptography", "architecture", "networks", "virtualization", "devices", "social"] %}
     {% for categ in categorder %}
-      <div class="rulescat hover-bg-light-gray flex">
-        <h3 class="w-90">{{ categ |replace('-', ' ') | capitalize }}</h3>
-        <img loading="lazy" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/arrow.svg"
+    <div class="bt bg-graylight b--moon-gray collapse">
+      <div class="rulescat flex ph3">
+        <h3 class="w-90 f4 c-fluid-bk">{{ categ |replace('-', ' ') | capitalize }}</h3>
+        <img loading="lazy" class="w1" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/angle-arrow-down.svg"
              alt="Fluid Arrow">
       </div>
       <div class="ruleslist dn">
       {% for ruleart in pages if ruleart.rules and not ruleart.extended and ruleart.category == categ %}
-        <ul class="pl4">
+        <ul class="list ph3">
            <li>
-             <a class="f4"
+             <a class="f3 link-hvred"
                 href="../{{ ruleart.slug }}">
                 {{ ruleart.title }}
              </a><br>
@@ -161,66 +172,72 @@
          </ul>
       {% endfor %}
       </div>
+    </div>
     {% endfor %}
     {% assets output="static/js/rules.min.js", "js/tmp/rules.min.js" %}
       <script src="{{ SITEURL }}/{{ ASSET_URL }}"></script>
     {% endassets %}
+  </article>
+  <div class="internal roboto mw8 ml-auto mr-auto">
     <p class="pt4"> Looking for more security checks? Take a look at our
       <a class="fw6 f5 no-underline c-fluid-bk hv-fluid-dkred"
-         href="{{ SITEURL }}/rules/out-of-scope/">
-               Out of Scope Security Rules
+          href="{{ SITEURL }}/rules/out-of-scope/">
+                Out of Scope Security Rules
       </a>
     </p>
-  </article>
+  </div>
   {% endif %}
   {% if page.rulesindex and page.slug == "rules/out-of-scope/" %}
-  <article class="internal roboto ma-auto tl mw8 pb4">
-    <h1 class="tc pb3">
-      {{ page.title }}
-    </h1>
+  <div class="internal roboto mw8 ml-auto mr-auto mt4">
     {{ page.content }}
+  </div>
+  <article class="internal roboto ma-auto tl mw8 mv4 ba b--moon-gray">
     {% set rendered = [] %}
     {% for rulepath in pages if rulepath.rules and rulepath.extended %}
       {% if loop.first %}
         {% do rendered.append( rulepath.category ) %}
-          <div class="rulescat hover-bg-light-gray flex">
-            <h3 class="w-90">{{ rulepath.category |replace('-', ' ') | capitalize }}</h3>
-            <img loading="lazy" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/arrow.svg"
-                 alt="Fluid Arrow">
-          </div>
-        {% set cat = rulepath.category %}
-        <div class="ruleslist dn">
-        {% for ruleart in pages if ruleart.rules and ruleart.category == cat %}
-          <ul class="pl4">
-             <li>
-               <a class="f4"
-                  href="../../{{ ruleart.slug }}">
-                  {{ ruleart.title }}
-               </a><br>
-             </li>
-           </ul>
-        {% endfor %}
-        </div>
-      {% else %}
-        {% if rulepath.category != loop.previtem.category and rulepath.category not in rendered %}
-          {% do rendered.append( rulepath.category ) %}
-          <div class="rulescat hover-bg-light-gray flex">
-            <h3 class="w-90">{{ rulepath.category |replace('-', ' ') | capitalize }}</h3>
-            <img loading="lazy" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/arrow.svg"
+        <div class="bt bg-graylight b--moon-gray collapse ph4">
+          <div class="rulescat flex">
+            <h3 class="w-90 f4 c-fluid-bk">{{ rulepath.category |replace('-', ' ') | capitalize }}</h3>
+            <img loading="lazy" class="w1" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/angle-arrow-down.svg"
                  alt="Fluid Arrow">
           </div>
           {% set cat = rulepath.category %}
           <div class="ruleslist dn">
-          {% for ruleart in pages if ruleart.rules and ruleart.extended and ruleart.category == cat %}
-           <ul class="pl4">
+          {% for ruleart in pages if ruleart.rules and ruleart.category == cat %}
+            <ul class="list ph3">
               <li>
-                <a class="f4"
-                 href="../../{{ ruleart.slug }}">
+                <a class="f3 link-hvred"
+                    href="../../{{ ruleart.slug }}">
                     {{ ruleart.title }}
                 </a><br>
               </li>
             </ul>
           {% endfor %}
+          </div>
+        </div>
+      {% else %}
+        {% if rulepath.category != loop.previtem.category and rulepath.category not in rendered %}
+          {% do rendered.append( rulepath.category ) %}
+          <div class="bt bg-graylight b--moon-gray collapse ph4">
+            <div class="rulescat flex">
+              <h3 class="w-90 f4 c-fluid-bk">{{ rulepath.category |replace('-', ' ') | capitalize }}</h3>
+              <img loading="lazy" class="w1" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/angle-arrow-down.svg"
+                  alt="Fluid Arrow">
+            </div>
+            {% set cat = rulepath.category %}
+            <div class="ruleslist dn">
+            {% for ruleart in pages if ruleart.rules and ruleart.extended and ruleart.category == cat %}
+            <ul class="list ph3">
+                <li>
+                  <a class="f3 link-hvred"
+                  href="../../{{ ruleart.slug }}">
+                      {{ ruleart.title }}
+                  </a><br>
+                </li>
+              </ul>
+            {% endfor %}
+            </div>
           </div>
         {% endif %}
       {% endif %}
