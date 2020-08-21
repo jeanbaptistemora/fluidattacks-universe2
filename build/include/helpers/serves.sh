@@ -58,6 +58,7 @@ function helper_serves_deploy_integrates {
   &&  curl \
         -X POST \
         -F token="${INTEGRATES_PIPELINE_TOKEN}" \
+        -F 'variables[CI_COMMIT_TITLE]=integrates' \
         -F ref=master \
         "https://gitlab.com/api/v4/projects/${integrates_id}/trigger/pipeline"
 }
