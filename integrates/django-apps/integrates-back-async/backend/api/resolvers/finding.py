@@ -8,7 +8,11 @@ from typing import Dict, List, Any, Union, cast
 from ariadne import convert_camel_case_to_snake, convert_kwargs_to_snake_case
 from asgiref.sync import sync_to_async
 from django.core.files.uploadedfile import InMemoryUploadedFile
-from graphql.language.ast import SelectionSetNode
+from graphql.language.ast import (
+    FieldNode,
+    SelectionSetNode,
+    ObjectFieldNode
+)
 from graphql.type.definition import GraphQLResolveInfo
 from graphql import GraphQLError
 
@@ -50,6 +54,7 @@ LOGGER = logging.getLogger(__name__)
 async def _get_vulnerabilities(
         info: GraphQLResolveInfo,
         identifier: str,
+        requested_fields: List[FieldNode],
         state: str = '') -> List[VulnerabilityType]:
     """Get vulnerabilities."""
     finding_vulns = await vuln_domain.list_vulnerabilities_async([identifier])
@@ -70,9 +75,20 @@ async def _get_vulnerabilities(
                 finding_vulns_stated.append(vuln)
         finding_vulns = finding_vulns_stated
 
+    req_fields: List[Union[FieldNode, ObjectFieldNode]] = []
+    selection_set = SelectionSetNode()
+    selection_set.selections = requested_fields
+    req_fields.extend(
+        util.get_requested_fields('vulnerabilities', selection_set)
+    )
+    selection_set.selections = req_fields
+    info.field_nodes[0].selection_set.selections = req_fields
+
     list_vulns = await asyncio.gather(*[
         asyncio.create_task(
-            vuln_resolver.resolve(info, str(vuln['UUID']), all_fields=True)
+            vuln_resolver.resolve(
+                info, str(vuln['UUID']), as_field=False
+            )
         )
         for vuln in finding_vulns
     ])
@@ -613,6 +629,8 @@ async def resolve(
         params = {
             'identifier': identifier
         }
+        if requested_field.name.value == 'vulnerabilities':
+            params['requested_fields'] = requested_fields
         field_params = util.get_field_parameters(requested_field)
         if field_params:
             params.update(field_params)
