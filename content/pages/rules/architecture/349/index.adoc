@@ -1,7 +1,7 @@
 :slug: rules/349/
 :category: architecture
 :description: This requirement establishes the importance of properly configuring HTTP security headers.
-:keywords: HTTP, Security, Header, Configuration, ASVS, CWE, Rules, Ethical Hacking, Pentesting
+:keywords: HTTP, Security, Header, Configuration, ASVS, CWE, PCI DSS, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R349. Include HTTP security headers
@@ -168,3 +168,7 @@ V14.5 Validate HTTP Request Header Requirements.(14.5.3)]
 Verify that the cross-domain resource sharing (*CORS*)
 *Access-Control-Allow-Origin* header uses a strict white-list of trusted
 domains to match against and does not support the "**null**" origin.
+
+. [[r26]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 6.5.7]
+Address common coding vulnerabilities in software-development processes such as
+cross-site scripting (*XSS*).

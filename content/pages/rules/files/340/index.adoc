@@ -1,7 +1,7 @@
 :slug: rules/340/
 :category: files
 :description: This requirement states that the system must serve files coming from untrusted sources using octet stream downloads.
-:keywords: Octet, Stream, File, Download, ASVS, CWE, Rules, Ethical Hacking, Pentesting
+:keywords: Octet, Stream, File, Download, ASVS, CWE, PCI DSS, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R340. Use octet stream downloads
@@ -69,3 +69,7 @@ V14.4 HTTP Security Headers Requirements.(14.4.3)]
 Verify that a content security policy (*CSPv2*) is in place that helps mitigate
 impact for *XSS* attacks like *HTML*, *DOM*, *JSON*, and *JavaScript* injection
 vulnerabilities.
+
+. [[r8]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 6.5.7]
+Address common coding vulnerabilities in software-development processes such as
+cross-site scripting (*XSS*).

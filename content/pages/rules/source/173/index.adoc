@@ -399,3 +399,7 @@ well as other injection flaws.
 . [[r48]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 6.5.2]
 Address common coding vulnerabilities in software-development processes such as
 buffer overflows.
+
+. [[r49]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 6.5.7]
+Address common coding vulnerabilities in software-development processes such as
+cross-site scripting (*XSS*).
