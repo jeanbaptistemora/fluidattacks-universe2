@@ -112,6 +112,7 @@ function helper_blog_adoc_tags {
     'openssl'
     'operations'
     'osce'
+    'osee'
     'password'
     'pentesting'
     'policies'
