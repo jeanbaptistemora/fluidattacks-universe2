@@ -61,7 +61,8 @@ async def log_exception(level: str, exception: BaseException) -> None:
     exc_type: str = type(exception).__name__
     exc_msg: str = str(exception)
     await log(level, 'Exception: %s, %s', exc_type, exc_msg)
-    await log_to_remote(exception)
+    if level in ('warning', 'error', 'critical'):
+        await log_to_remote(exception)
 
 
 async def log_to_remote(exception: BaseException) -> None:
