@@ -17,6 +17,7 @@ stages:
   - deploy-app
   - post-deploy
   - analytics
+  - analytics-upload
   - subscriptions
   - external
   - scheduler
