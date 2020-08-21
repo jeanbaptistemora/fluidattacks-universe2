@@ -15,7 +15,7 @@ in
             pkgs.jq
           ];
 
-          pyPkgTapdynamodb = builders.pythonPackageLocal ../../analytics/singer/tap_awsdynamodb;
-          pyPkgTargetRedshift = builders.pythonPackageLocal ../../analytics/singer/target_redshift;
+          pyPkgTapdynamodb = builders.pythonPackageLocal { path = ../../serves/analytics/singer/tap_awsdynamodb; };
+          pyPkgTargetRedshift = builders.pythonPackageLocal { path = ../../serves/analytics/singer/target_redshift; };
         })
   )

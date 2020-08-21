@@ -17,7 +17,7 @@ in
             pkgs.cacert
           ];
 
-          pyPkgTaptimedoctor = builders.pythonPackageLocal ../../analytics/singer/tap_timedoctor;
-          pyPkgTargetRedshift = builders.pythonPackageLocal ../../analytics/singer/target_redshift;
+          pyPkgTaptimedoctor = builders.pythonPackageLocal { path = ../../serves/analytics/singer/tap_timedoctor; };
+          pyPkgTargetRedshift = builders.pythonPackageLocal { path = ../../serves/analytics/singer/target_redshift; };
         })
   )

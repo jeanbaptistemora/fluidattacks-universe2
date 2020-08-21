@@ -15,7 +15,7 @@ in
             pkgs.jq
           ];
 
-          pyPkgTapformstack = builders.pythonPackageLocal ../../analytics/singer/tap_formstack;
-          pyPkgTargetRedshift = builders.pythonPackageLocal ../../analytics/singer/target_redshift;
+          pyPkgTapformstack = builders.pythonPackageLocal { path = ../../serves/analytics/singer/tap_formstack; };
+          pyPkgTargetRedshift = builders.pythonPackageLocal { path = ../../serves/analytics/singer/target_redshift; };
         })
   )

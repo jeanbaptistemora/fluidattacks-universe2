@@ -1,7 +1,7 @@
 # shellcheck shell=bash
 
 function helper_analytics_formstack {
-      helper_aws_login prod \
+      helper_serves_aws_login prod \
   &&  sops_env secrets-prod.yaml default \
         analytics_auth_redshift \
         analytics_auth_formstack \
@@ -23,7 +23,7 @@ function helper_analytics_formstack {
 }
 
 function helper_analytics_dynamodb {
-      helper_aws_login prod \
+      helper_serves_aws_login prod \
   &&  sops_env secrets-prod.yaml default \
         analytics_aws_access_key \
         analytics_aws_secret_key \
@@ -53,7 +53,7 @@ function helper_analytics_dynamodb {
 }
 
 function helper_analytics_services_toe {
-      helper_aws_login prod \
+      helper_serves_aws_login prod \
   &&  sops_env secrets-prod.yaml default \
         analytics_auth_redshift \
   &&  echo '[INFO] Generating secret files' \
@@ -79,7 +79,7 @@ function helper_analytics_services_toe {
 }
 
 function helper_analytics_infrastructure {
-      helper_aws_login prod \
+      helper_serves_aws_login prod \
   &&  sops_env secrets-prod.yaml default \
         analytics_auth_infra \
         analytics_auth_redshift \
@@ -103,7 +103,7 @@ function helper_analytics_infrastructure {
 }
 
 function helper_analytics_intercom {
-      helper_aws_login prod \
+      helper_serves_aws_login prod \
   &&  sops_env secrets-prod.yaml default \
         analytics_auth_intercom \
         analytics_auth_redshift \
@@ -128,7 +128,7 @@ function helper_analytics_intercom {
 }
 
 function helper_analytics_mandrill {
-      helper_aws_login prod \
+      helper_serves_aws_login prod \
   &&  sops_env secrets-prod.yaml default \
         analytics_auth_mandrill \
         analytics_auth_redshift \
@@ -168,7 +168,7 @@ function helper_analytics_gitlab {
     'fluidattacks/writeups'
   )
 
-      helper_aws_login prod \
+      helper_serves_aws_login prod \
   &&  sops_env secrets-prod.yaml default \
         analytics_auth_redshift \
   &&  echo '[INFO] Generating secret files' \
@@ -194,7 +194,7 @@ function helper_analytics_gitlab {
 function helper_analytics_timedoctor {
   export analytics_auth_timedoctor
 
-      helper_aws_login prod \
+      helper_serves_aws_login prod \
   &&  mkdir ./logs \
   &&  sops_env secrets-prod.yaml default \
         analytics_auth_redshift \
@@ -236,7 +236,7 @@ function helper_analytics_zoho {
     Periods
   )
 
-      helper_aws_login prod \
+      helper_serves_aws_login prod \
   &&  sops_env secrets-prod.yaml default \
         analytics_zoho_email \
         analytics_zoho_token \
@@ -278,7 +278,7 @@ function helper_analytics_git_process {
   export CI_NODE_INDEX
   export CI_NODE_TOTAL
 
-      helper_aws_login prod \
+      helper_serves_aws_login prod \
   &&  echo '[INFO] Cloning our own repositories' \
   &&  python3 analytics/git/clone_us.py \
   &&  echo "[INFO] Generating config: ${CI_NODE_INDEX} / ${CI_NODE_TOTAL}" \
@@ -306,7 +306,7 @@ function helper_analytics_git_process {
 function helper_analytics_git_upload {
   local artifacts="${PWD}/artifacts"
 
-      helper_aws_login prod \
+      helper_serves_aws_login prod \
   &&  sops_env secrets-prod.yaml default \
         analytics_auth_redshift \
   &&  echo '[INFO] Generating secret files' \
@@ -322,7 +322,7 @@ function helper_analytics_git_upload {
 function helper_analytics_timedoctor_refresh_token {
   export analytics_auth_timedoctor
 
-      helper_aws_login prod \
+      helper_serves_aws_login prod \
   &&  analytics_auth_timedoctor=$( \
         helper_get_gitlab_var \
           'analytics_auth_timedoctor' \
@@ -335,7 +335,7 @@ function helper_analytics_timedoctor_refresh_token {
 function helper_analytics_timedoctor_backup {
   export analytics_auth_timedoctor
 
-      helper_aws_login prod \
+      helper_serves_aws_login prod \
   &&  mkdir ./logs \
   &&  sops_env secrets-prod.yaml default \
         analytics_s3_cache_timedoctor \
@@ -370,7 +370,7 @@ function helper_analytics_timedoctor_backup {
 }
 
 function helper_analytics_timedoctor_manually_create_token {
-      helper_aws_login prod \
+      helper_serves_aws_login prod \
   &&  sops_env secrets-prod.yaml default \
         analytics_auth_timedoctor \
   &&  echo '[INFO] Executing creator, follow the steps' \
@@ -381,8 +381,8 @@ function helper_analytics_timedoctor_manually_create_token {
 function helper_analytics_services_repositories_cache {
   local mock_integrates_api_token='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.e30.xxx'
 
-      helper_aws_login prod \
-  &&  helper_move_artifacts_to_git \
+      helper_serves_aws_login prod \
+  &&  helper_serves_move_artifacts_to_git \
   &&  echo '[INFO] Cloning our own repositories' \
   &&  python3 analytics/git/clone_us.py \
   &&  echo '[INFO] Cloning customer repositories' \
@@ -393,8 +393,8 @@ function helper_analytics_services_repositories_cache {
       PROD_AWS_ACCESS_KEY_ID="${AWS_ACCESS_KEY_ID}" \
       PROD_AWS_SECRET_ACCESS_KEY="${AWS_SECRET_ACCESS_KEY}" \
       python3 analytics/git/clone_them.py \
-  &&  helper_move_services_fusion_to_master_git \
+  &&  helper_serves_move_services_fusion_to_master_git \
   &&  echo '[INFO] Generating stats' \
   &&  { python3 analytics/git/generate_stats.py || true; } \
-  &&  helper_move_git_to_artifacts
+  &&  helper_serves_move_git_to_artifacts
 }

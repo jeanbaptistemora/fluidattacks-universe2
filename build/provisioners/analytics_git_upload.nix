@@ -15,6 +15,6 @@ in
             pkgs.jq
           ];
 
-          pyPkgTargetRedshift = builders.pythonPackageLocal ../../analytics/singer/target_redshift;
+          pyPkgTargetRedshift = builders.pythonPackageLocal { path = ../../serves/analytics/singer/target_redshift; };
         })
   )

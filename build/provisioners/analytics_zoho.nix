@@ -20,7 +20,7 @@ in
             requirement = "requests==2.24.0";
           };
 
-          pyPkgTapjson = builders.pythonPackageLocal ../../analytics/singer/tap_json;
-          pyPkgTargetRedshift = builders.pythonPackageLocal ../../analytics/singer/target_redshift;
+          pyPkgTapjson = builders.pythonPackageLocal { path = ../../serves/analytics/singer/tap_json; };
+          pyPkgTargetRedshift = builders.pythonPackageLocal { path = ../../serves/analytics/singer/target_redshift; };
         })
   )

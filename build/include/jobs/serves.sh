@@ -7,7 +7,7 @@ source "${srcExternalSops}"
 source "${srcIncludeHelpersServes}"
 source "${srcIncludeHelpersAnalytics}"
 
-function job_serves_analytics_formstack {
+function job_analytics_formstack {
       helper_use_pristine_workdir \
   &&  pushd serves \
   &&  env_prepare_python_packages \
@@ -16,7 +16,7 @@ function job_serves_analytics_formstack {
   ||  return 1
 }
 
-function job_serves_analytics_dynamodb {
+function job_analytics_dynamodb {
       helper_use_pristine_workdir \
   &&  pushd serves \
   &&  env_prepare_python_packages \
@@ -25,7 +25,7 @@ function job_serves_analytics_dynamodb {
   ||  return 1
 }
 
-function job_serves_analytics_services_toe {
+function job_analytics_services_toe {
       helper_use_pristine_workdir \
   &&  pushd serves \
   &&  env_prepare_python_packages \
@@ -34,7 +34,7 @@ function job_serves_analytics_services_toe {
   ||  return 1
 }
 
-function job_serves_analytics_infrastructure {
+function job_analytics_infrastructure {
       helper_use_pristine_workdir \
   &&  pushd serves \
   &&  env_prepare_python_packages \
@@ -43,7 +43,7 @@ function job_serves_analytics_infrastructure {
   ||  return 1
 }
 
-function job_serves_analytics_intercom {
+function job_analytics_intercom {
       helper_use_pristine_workdir \
   &&  pushd serves \
   &&  env_prepare_python_packages \
@@ -52,7 +52,7 @@ function job_serves_analytics_intercom {
   ||  return 1
 }
 
-function job_serves_analytics_mandrill {
+function job_analytics_mandrill {
       helper_use_pristine_workdir \
   &&  pushd serves \
   &&  env_prepare_python_packages \
@@ -61,7 +61,7 @@ function job_serves_analytics_mandrill {
   ||  return 1
 }
 
-function job_serves_analytics_gitlab {
+function job_analytics_gitlab {
       helper_use_pristine_workdir \
   &&  pushd serves \
   &&  env_prepare_python_packages \
@@ -70,7 +70,7 @@ function job_serves_analytics_gitlab {
   ||  return 1
 }
 
-function job_serves_analytics_timedoctor {
+function job_analytics_timedoctor {
       helper_use_pristine_workdir \
   &&  pushd serves \
   &&  env_prepare_python_packages \
@@ -79,7 +79,7 @@ function job_serves_analytics_timedoctor {
   ||  return 1
 }
 
-function job_serves_analytics_zoho {
+function job_analytics_zoho {
       helper_use_pristine_workdir \
   &&  pushd serves \
   &&  env_prepare_python_packages \
@@ -88,7 +88,7 @@ function job_serves_analytics_zoho {
   ||  return 1
 }
 
-function job_serves_analytics_git_process {
+function job_analytics_git_process {
       pushd serves \
   &&  env_prepare_python_packages \
   &&  helper_analytics_git_process \
@@ -96,7 +96,7 @@ function job_serves_analytics_git_process {
   ||  return 1
 }
 
-function job_serves_analytics_git_upload {
+function job_analytics_git_upload {
       pushd serves \
   &&  env_prepare_python_packages \
   &&  helper_analytics_git_upload \
@@ -104,7 +104,7 @@ function job_serves_analytics_git_upload {
   ||  return 1
 }
 
-function job_serves_analytics_timedoctor_refresh_token {
+function job_analytics_timedoctor_refresh_token {
       helper_use_pristine_workdir \
   &&  pushd serves \
   &&  env_prepare_python_packages \
@@ -113,7 +113,7 @@ function job_serves_analytics_timedoctor_refresh_token {
   ||  return 1
 }
 
-function job_serves_analytics_timedoctor_backup {
+function job_analytics_timedoctor_backup {
       helper_use_pristine_workdir \
   &&  pushd serves \
   &&  env_prepare_python_packages \
@@ -122,7 +122,7 @@ function job_serves_analytics_timedoctor_backup {
   ||  return 1
 }
 
-function job_serves_analytics_timedoctor_manually_create_token {
+function job_analytics_timedoctor_manually_create_token {
       helper_use_pristine_workdir \
   &&  pushd serves \
   &&  env_prepare_python_packages \
@@ -131,7 +131,7 @@ function job_serves_analytics_timedoctor_manually_create_token {
   ||  return 1
 }
 
-function job_serves_analytics_services_repositories_cache {
+function job_analytics_services_repositories_cache {
       helper_use_pristine_workdir \
   &&  pushd serves \
   &&  env_prepare_python_packages \

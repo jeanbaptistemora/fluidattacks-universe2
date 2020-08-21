@@ -23,5 +23,6 @@ in
           setuptools
           wheel
         ]))
+        pkgs.postgresql
       ];
     }
