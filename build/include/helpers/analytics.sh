@@ -329,7 +329,7 @@ function helper_analytics_timedoctor_refresh_token {
           "${GITLAB_API_TOKEN}") \
   &&  echo '[INFO] Updating token...' \
   &&  ./analytics/auth_helper.py --timedoctor-refresh \
-  &&  echo '[INFO] Done! Token created at GitLab/serves env vars'
+  &&  echo '[INFO] Done! Token created for current project'
 }
 
 function helper_analytics_timedoctor_backup {

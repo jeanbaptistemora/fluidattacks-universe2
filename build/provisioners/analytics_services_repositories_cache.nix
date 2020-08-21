@@ -18,7 +18,9 @@ in
             pkgs.python37
           ];
 
-          pyPkgFluidattacks = builders.pythonPackage "fluidattacks";
+          pyPkgFluidattacks = builders.pythonPackage {
+            requirement = "fluidattacks";
+          };
           LD_LIBRARY_PATH="${pkgs.stdenv.cc.cc.lib}/lib64:$LD_LIBRARY_PATH";
         })
   )
