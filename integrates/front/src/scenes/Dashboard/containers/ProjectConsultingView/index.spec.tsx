@@ -7,12 +7,12 @@ import * as React from "react";
 import { act } from "react-dom/test-utils";
 import { RouteComponentProps } from "react-router";
 import wait from "waait";
-import { ProjectCommentsView } from "./index";
+import { ProjectConsultingView } from "./index";
 import { GET_PROJECT_CONSULTING } from "./queries";
 
 jest.mock("jquery-comments_brainkit", () => jest.requireActual("jquery-comments_brainkit")($));
 
-describe("ProjectCommentsView", () => {
+describe("ProjectConsultingView", () => {
   let container: HTMLDivElement | undefined;
   beforeEach(() => {
     container = document.createElement("div");
@@ -70,14 +70,14 @@ describe("ProjectCommentsView", () => {
   }];
 
   it("should return a fuction", () => {
-    expect(typeof (ProjectCommentsView))
+    expect(typeof (ProjectConsultingView))
       .toEqual("function");
   });
 
   it("should render a component", async () => {
     const wrapper: ReactWrapper = mount(
       <MockedProvider mocks={mocks} addTypename={false}>
-        <ProjectCommentsView {...mockProps} />
+        <ProjectConsultingView {...mockProps} />
       </MockedProvider>,
       { attachTo: container });
     await act(async () => { await wait(0); });
@@ -102,7 +102,7 @@ describe("ProjectCommentsView", () => {
     }];
     const wrapper: ReactWrapper = mount(
       <MockedProvider mocks={emptyMocks} addTypename={false}>
-        <ProjectCommentsView {...mockProps} />
+        <ProjectConsultingView {...mockProps} />
       </MockedProvider>,
       { attachTo: container });
     await act(async () => { await wait(0); wrapper.update(); });
@@ -113,7 +113,7 @@ describe("ProjectCommentsView", () => {
   it("should render comment", async () => {
     const wrapper: ReactWrapper = mount(
       <MockedProvider mocks={mocks} addTypename={false}>
-        <ProjectCommentsView {...mockProps} />
+        <ProjectConsultingView {...mockProps} />
       </MockedProvider>,
       { attachTo: container });
     await act(async () => { await wait(0); wrapper.update(); });

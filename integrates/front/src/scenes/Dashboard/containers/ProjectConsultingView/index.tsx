@@ -17,9 +17,10 @@ import { translate } from "../../../../utils/translations/translate";
 import { Comments, ICommentStructure, loadCallback, postCallback } from "../../components/Comments/index";
 import { ADD_PROJECT_CONSULT, GET_PROJECT_CONSULTING } from "./queries";
 
-type IProjectCommentsViewProps = RouteComponentProps<{ projectName: string }>;
+type IProjectConsultingViewProps = RouteComponentProps<{ projectName: string }>;
 
-const projectCommentsView: React.FC<IProjectCommentsViewProps> = (props: IProjectCommentsViewProps): JSX.Element => {
+const projectConsultingView: React.FC<IProjectConsultingViewProps> =
+  (props: IProjectConsultingViewProps): JSX.Element => {
   const { projectName } = props.match.params;
   const onMount: (() => void) = (): void => {
     mixpanel.track("ProjectComments", {
@@ -28,7 +29,7 @@ const projectCommentsView: React.FC<IProjectCommentsViewProps> = (props: IProjec
   };
   React.useEffect(onMount, []);
 
-  const handleAddCommentError: ((addCommentError: ApolloError) => void) =
+  const handleAddConsultError: ((addCommentError: ApolloError) => void) =
     (addCommentError: ApolloError): void => {
       addCommentError.graphQLErrors.forEach(({ message }: GraphQLError): void => {
       switch (message) {
@@ -64,19 +65,19 @@ const projectCommentsView: React.FC<IProjectCommentsViewProps> = (props: IProjec
           const getData: ((callback: loadCallback) => void) = (
             callbackFn: (data: ICommentStructure[]) => void,
           ): void => {
-            callbackFn(data.project.consulting.map((comment: ICommentStructure) => ({
-              ...comment,
-              created_by_current_user: comment.email === (window as typeof window & { userEmail: string }).userEmail,
-              id: Number(comment.id),
-              parent: Number(comment.parent),
+            callbackFn(data.project.consulting.map((consult: ICommentStructure) => ({
+              ...consult,
+              created_by_current_user: consult.email === (window as typeof window & { userEmail: string }).userEmail,
+              id: Number(consult.id),
+              parent: Number(consult.parent),
             })));
           };
 
           return (
-            <Mutation mutation={ADD_PROJECT_CONSULT} onError={handleAddCommentError}>
-              {(addComment: MutationFunction): JSX.Element => {
-                const handlePost: ((comment: ICommentStructure, callbackFn: postCallback) => void) = (
-                  comment: ICommentStructure, callbackFn: postCallback,
+            <Mutation mutation={ADD_PROJECT_CONSULT} onError={handleAddConsultError}>
+              {(addConsult: MutationFunction): JSX.Element => {
+                const handlePost: ((consult: ICommentStructure, callbackFn: postCallback) => void) = (
+                  consult: ICommentStructure, callbackFn: postCallback,
                 ): void => {
                   interface IMutationResult {
                     data: {
@@ -87,11 +88,11 @@ const projectCommentsView: React.FC<IProjectCommentsViewProps> = (props: IProjec
                     };
                   }
 
-                  addComment({ variables: { projectName, ...comment } })
+                  addConsult({ variables: { projectName, ...consult } })
                     .then((mtResult: void | {}): void => {
                       const result: IMutationResult["data"] = (mtResult as IMutationResult).data;
                       if (result.addProjectConsult.success) {
-                        callbackFn({ ...comment, id: Number(result.addProjectConsult.commentId) });
+                        callbackFn({ ...consult, id: Number(result.addProjectConsult.commentId) });
                       }
                     })
                     .catch();
@@ -107,4 +108,4 @@ const projectCommentsView: React.FC<IProjectCommentsViewProps> = (props: IProjec
   );
 };
 
-export { projectCommentsView as ProjectCommentsView };
+export { projectConsultingView as ProjectConsultingView };

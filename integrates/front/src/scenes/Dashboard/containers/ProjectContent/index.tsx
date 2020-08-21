@@ -9,7 +9,7 @@ import { translate } from "../../../../utils/translations/translate";
 import { ContentTab } from "../../components/ContentTab";
 import { ChartsForGroupView } from "../ChartsForGroupView";
 import { ProjectAuthorsView } from "../ProjectAuthorsView";
-import { ProjectCommentsView } from "../ProjectCommentsView/index";
+import { ProjectConsultingView } from "../ProjectConsultingView/index";
 import { ProjectDraftsView } from "../ProjectDraftsView";
 import { ProjectEventsView } from "../ProjectEventsView/index";
 import { ProjectFindingsView } from "../ProjectFindingsView/index";
@@ -112,7 +112,7 @@ const projectContent: React.FC<IProjectContentProps> = (props: IProjectContentPr
                   <Route path={`${props.match.path}/events`} component={ProjectEventsView} exact={true} />
                   <Route path={`${props.match.path}/scope`} component={ProjectSettingsView} exact={true} />
                   <Route path={`${props.match.path}/stakeholders`} component={ProjectStakeholdersView} exact={true} />
-                  <Route path={`${props.match.path}/consulting`} component={ProjectCommentsView} exact={true} />
+                  <Route path={`${props.match.path}/consulting`} component={ProjectConsultingView} exact={true} />
                   {/* Necessary to support old resources URLs */}
                   <Redirect path={`${props.match.path}/resources`} to={`${props.match.path}/scope`} />
                   <Redirect to={`${props.match.path}/analytics`} />
