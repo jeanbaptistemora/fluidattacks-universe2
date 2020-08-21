@@ -154,7 +154,6 @@ function helper_analytics_mandrill {
 
 function helper_analytics_gitlab {
   export GITLAB_API_TOKEN
-  local project
   local projects=(
     'autonomicmind/default'
     'autonomicmind/challenges'
@@ -163,7 +162,6 @@ function helper_analytics_gitlab {
     'fluidattacks/integrates'
     'fluidattacks/private'
     'fluidattacks/public'
-    'fluidattacks/serves'
     'fluidattacks/web'
     'fluidattacks/writeups'
   )
@@ -174,11 +172,7 @@ function helper_analytics_gitlab {
   &&  echo '[INFO] Generating secret files' \
   &&  echo "${analytics_auth_redshift}" > "${TEMP_FILE2}" \
   &&  echo '[INFO] Running streamer' \
-  &&  for project in "${projects[@]}"
-      do
-        ./analytics/singer/streamer_gitlab.py "${project}" >> .jsonstream \
-            || return 1
-      done \
+  &&  python3 ./analytics/singer/streamer_gitlab.py "${projects[@]}" > .jsonstream \
   &&  echo '[INFO] Running tap' \
   &&  tap-json  \
         > .singer \

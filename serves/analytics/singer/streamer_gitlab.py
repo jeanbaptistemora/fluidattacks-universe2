@@ -1,96 +1,133 @@
-#!/usr/bin/env python3
-
-"""Gitlab API streamer."""
-
-import os
-import sys
+# Local libraries
+from asyncio import (
+    create_task,
+    Queue,
+)
 import json
-import time
+from os import (
+    environ,
+)
+import sys
 import urllib.parse
-import urllib.error
-import urllib.request
-from typing import Any
+from typing import (
+    Any,
+)
+
+# Third party libraries
+from aioextensions import (
+    collect,
+    in_process,
+    rate_limited,
+    run,
+)
+import aiohttp
 
 
-def log(*args, **kwargs):
-    """Print to stderr."""
-    kwargs['file'] = sys.stderr
-    kwargs['flush'] = True
-    print(*args, **kwargs)
+def log(level: str, msg: str) -> None:
+    """Print something to console, the user can see it as progress."""
+    print(f'[{level.upper()}]', msg, file=sys.stderr, flush=True)
 
 
-class API():
-    """Class to represent an API worker."""
+def emit(stream: str, records: Any) -> None:
+    """Emit as Singer records so tap-json can consume it from stdin."""
+    for record in records:
+        msg = json.dumps({'stream': stream, 'record': record})
+        print(msg, file=sys.stdout, flush=True)
 
-    def __init__(self, token):
-        self.token: str = token
-        self.success: bool = None
-        self.request: Any = None
 
-        self.json = None
-        self.response: Any = None
-        self.res_headers: Any = None
+async def emitter(queue: Queue) -> None:
+    """Watch the queue and emit messages put into it.
 
-    def get(self, resource) -> None:
-        """Make a request to the API."""
-        self.success, self.response = False, {}
-        try:
-            log(f'FETCH: {resource}')
-            self.request = urllib.request.Request(
-                url=f'https://gitlab.com/api/v4/{resource}',
-                headers={'Private-Token': self.token})
-            self.response = urllib.request.urlopen(self.request)
-            self.json = json.loads(self.response.read().decode())
-            self.res_headers = dict(self.response.info())
-        except urllib.error.HTTPError as error:
-            log(f'ERROR: urllib.error.HTTPError, {error}')
-        except urllib.error.URLError as error:
-            log(f'ERROR: urllib.error.URLError, {error}')
-        except json.JSONDecodeError as error:
-            log(f'ERROR: json.JSONDecodeError, {error}')
-        else:
-            if 200 <= self.response.status < 400:
-                self.success = True
-            else:
-                log(f'ERROR: status: {self.response.status}')
-                self.success = False
+    `None` is a sentinel value drained from the Queue that marks the end.
+    """
+    while True:
+        item = await queue.get()
+        if item is None:
+            break
+        if queue.full():
+            log('warning', f'Queue is full and performance may be impacted!')
 
-    def paginate(self, resource, extra_query_args: str = ''):
-        """Paginate a resource."""
-        page: int = 1
-        errors: int = 0
-        while True:
-            self.get(f'{resource}?page={page}{extra_query_args}')
-            if self.success:
-                page += 1
-                errors = 0
-                yield
-            else:
-                time.sleep(1.0)
+        stream, records = item
+        await in_process(emit, stream, records)
+
+
+@rate_limited(
+    # Gitlab allows at most 10 per second, not bursted
+    max_calls=5,
+    max_calls_period=1,
+    min_seconds_between_calls=0.2,
+)
+async def get(session: aiohttp.ClientSession, endpoint: str) -> Any:
+    """Get as JSON the result of a GET request to endpoint."""
+    async with session.get(
+        endpoint,
+        headers={
+            'Private-Token': API_TOKEN,
+        },
+    ) as response:
+        log('info', f'[{response.status}] {endpoint}')
+        response.raise_for_status()
+
+        return await response.json()
+
+
+async def paginate(
+    queue: Queue,
+    project: str,
+    resource: str,
+    params: str,
+) -> None:
+    """Iterate a gitlab resource for project and put messages into the queue.
+    """
+    errors: int = 0
+    page: int = 1
+    async with aiohttp.ClientSession() as session:
+        while errors <= 10:
+            try:
+                records = await get(
+                    session,
+                    f'https://gitlab.com/api/v4/projects/{project}/{resource}'
+                    f'?page={page}'
+                    f'&per_page=100'
+                    f'{params}'
+                )
+            except aiohttp.ClientError as exc:
+                log('error', f'# {errors}: {type(exc).__name__}: {exc}')
                 errors += 1
-            if self.res_headers and not self.res_headers['X-Next-Page']:
-                break
-            if errors > 10:
-                page += 1
+            else:
+                if not records:
+                    break
+
+                errors, page = 0, page + 1
+                await queue.put((resource, records))
 
 
-def main():
-    """Usual entrypoint."""
-    try:
-        token: str = os.environ['GITLAB_API_TOKEN']
-    except KeyError:
-        log(f'Please set GITLAB_API_TOKEN as an environment variable.')
-    else:
-        api = API(token)
-        project = urllib.parse.quote(sys.argv[1], safe='')
-        for _ in api.paginate(
-                f'projects/{project}/merge_requests', '&scope=all'):
-            for obj in api.json:
-                print(json.dumps({'stream': 'merge_requests', 'record': obj}))
-        for _ in api.paginate(f'projects/{project}/jobs'):
-            for obj in api.json:
-                print(json.dumps({'stream': 'jobs', 'record': obj}))
+async def main() -> None:
+    """Create concurrent tasks of paginators and coordinate a result queue."""
+    queue = Queue(maxsize=1024)
+    emitter_task = create_task(emitter(queue))
+
+    for project in sys.argv[1:]:
+        log('info', f'Executing {project}')
+
+    await collect([
+        paginate(queue, urllib.parse.quote(project, safe=''), resource, params)
+        for project in sys.argv[1:]
+        for resource, params in [
+            ('jobs', ''),
+            ('merge_requests', '&scope=all'),
+        ]
+    ])
+
+    await queue.put(None)
+    await emitter_task
 
 
 if __name__ == '__main__':
-    main()
+    try:
+        API_TOKEN = environ['GITLAB_API_TOKEN']
+    except KeyError:
+        log('critical', 'Export GITLAB_API_TOKEN as environment variable')
+        sys.exit(1)
+    else:
+        run(main())
