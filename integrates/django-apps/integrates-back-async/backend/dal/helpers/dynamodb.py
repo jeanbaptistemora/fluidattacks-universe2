@@ -99,6 +99,7 @@ async def async_query(
                 response_items += response.get('Items', [])
     except ClientError as ex:
         LOGGER.exception(ex, extra={'extra': locals()})
+        raise ex
     return response_items
 
 
