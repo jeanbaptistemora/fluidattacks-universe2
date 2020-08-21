@@ -172,3 +172,7 @@ domains to match against and does not support the "**null**" origin.
 . [[r26]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 6.5.7]
 Address common coding vulnerabilities in software-development processes such as
 cross-site scripting (*XSS*).
+
+. [[r27]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 6.5.9]
+Address common coding vulnerabilities in software-development processes such as
+cross-site request forgery (*CSRF*).
