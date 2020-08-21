@@ -11,6 +11,7 @@ in
 
           buildInputs = [
             pkgs.git
+            pkgs.python38
             pkgs.shellcheck
             old-pkgs.nix-linter
           ];

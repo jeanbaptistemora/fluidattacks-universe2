@@ -197,56 +197,6 @@ analytics_services_repositories_cache:
     variables: [$SCHEDULE_SERVICES_REPOSITORIES_CACHE]
   interruptible: false
 
-apply_config_autoscaling_ci:
-  <<: *with_nix
-  <<: *in_master_branch
-  stage: deploy
-
-apply_user_provision_asserts_dev:
-  <<: *with_nix
-  <<: *in_master_branch
-  stage: deploy
-
-apply_user_provision_asserts_prod:
-  <<: *with_nix
-  <<: *in_master_branch
-  stage: deploy
-
-apply_user_provision_services_dev:
-  <<: *with_nix
-  <<: *in_master_branch
-  stage: deploy
-
-apply_user_provision_services_prod:
-  <<: *with_nix
-  <<: *in_master_branch
-  stage: deploy
-
-apply_user_provision_integrates_dev:
-  <<: *with_nix
-  <<: *in_master_branch
-  stage: deploy
-
-apply_user_provision_integrates_prod:
-  <<: *with_nix
-  <<: *in_master_branch
-  stage: deploy
-
-apply_user_provision_web_dev:
-  <<: *with_nix
-  <<: *in_master_branch
-  stage: deploy
-
-apply_user_provision_web_prod:
-  <<: *with_nix
-  <<: *in_master_branch
-  stage: deploy
-
-apply_user_provision_serves:
-  <<: *with_nix
-  <<: *in_master_branch
-  stage: deploy
-
 apply_rotate_keys_user_provision_asserts_dev:
   <<: *with_nix
   <<: *in_schedule_user_provision_rotate_keys
@@ -291,8 +241,3 @@ apply_rotate_keys_user_provision_serves:
   <<: *with_nix
   <<: *in_schedule_user_provision_rotate_keys
   stage: rotation
-
-test_lint_code:
-  <<: *with_nix
-  <<: *in_dev_branch
-  stage: test

@@ -30,6 +30,11 @@
       when: never
     - if: *serves_commit_pattern
 
+serves_test_lint_code:
+  <<: *with_nix
+  <<: *in_dev_branch_serves
+  stage: lint-code
+
 serves_test_infra_monolith:
   <<: *with_nix
   <<: *in_dev_branch_serves
@@ -151,6 +156,56 @@ serves_apply_infra_secret_management:
   stage: deploy-infra
 
 serves_apply_infra_certificates:
+  <<: *with_nix
+  <<: *in_master_branch_serves
+  stage: deploy-infra
+
+serves_apply_config_autoscaling_ci:
+  <<: *with_nix
+  <<: *in_master_branch_serves
+  stage: deploy-infra
+
+serves_apply_user_provision_asserts_dev:
+  <<: *with_nix
+  <<: *in_master_branch_serves
+  stage: deploy-infra
+
+serves_apply_user_provision_asserts_prod:
+  <<: *with_nix
+  <<: *in_master_branch_serves
+  stage: deploy-infra
+
+serves_apply_user_provision_services_dev:
+  <<: *with_nix
+  <<: *in_master_branch_serves
+  stage: deploy-infra
+
+serves_apply_user_provision_services_prod:
+  <<: *with_nix
+  <<: *in_master_branch_serves
+  stage: deploy-infra
+
+serves_apply_user_provision_integrates_dev:
+  <<: *with_nix
+  <<: *in_master_branch_serves
+  stage: deploy-infra
+
+serves_apply_user_provision_integrates_prod:
+  <<: *with_nix
+  <<: *in_master_branch_serves
+  stage: deploy-infra
+
+serves_apply_user_provision_web_dev:
+  <<: *with_nix
+  <<: *in_master_branch_serves
+  stage: deploy-infra
+
+serves_apply_user_provision_web_prod:
+  <<: *with_nix
+  <<: *in_master_branch_serves
+  stage: deploy-infra
+
+serves_apply_user_provision_serves:
   <<: *with_nix
   <<: *in_master_branch_serves
   stage: deploy-infra
