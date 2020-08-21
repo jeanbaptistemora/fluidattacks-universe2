@@ -111,7 +111,7 @@ function helper_get_gitlab_var {
       echo "[INFO] Retrieving var from GitLab: ${gitlab_var_name}" 1>&2 \
   &&  curl \
         --silent \
-        --header "private-token: ${GITLAB_TOKEN}" \
+        --header "private-token: ${GITLAB_API_TOKEN}" \
         "${GITLAB_API_URL}/${gitlab_var_name}" \
       | jq -r '.value'
 }

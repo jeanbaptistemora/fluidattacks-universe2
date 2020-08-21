@@ -45,7 +45,6 @@ function decide_and_call_provisioner {
         --keep DEV_AWS_ACCESS_KEY_ID \
         --keep DEV_AWS_SECRET_ACCESS_KEY \
         --keep DNS_ZONE_ID \
-        --keep GITLAB_TOKEN \
         --keep GITLAB_API_TOKEN \
         --keep GITLAB_API_USER \
         --keep INTEGRATES_API_TOKEN \
