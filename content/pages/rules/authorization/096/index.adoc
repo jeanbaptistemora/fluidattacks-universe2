@@ -1,7 +1,7 @@
 :slug: rules/096/
 :category: authorization
 :description: This requirement establishes the importance of defining the privileges for each user to access the system.
-:keywords: Access Control, Privileges, ASVS, HIPAA, NIST, CWE, Rules, Ethical Hacking, Pentesting
+:keywords: Access Control, Privileges, ASVS, HIPAA, NIST, CWE, OWASP, PCI DSS, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R096. Set user required privileges
@@ -103,3 +103,9 @@ Verify that enabled **RESTful HTTP** methods are a valid choice for the user or
 action,
 such as preventing normal users using *DELETE* or *PUT* on protected *API* or
 resources.
+
+. [[r15]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 6.5.8]
+Address common coding vulnerabilities in software-development processes
+including improper access control
+(such as insecure direct object references, failure to restrict URL access,
+directory traversal, and failure to restrict user access to functions).
