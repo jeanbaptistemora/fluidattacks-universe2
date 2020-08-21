@@ -8,7 +8,7 @@
 
 .serves_commit_pattern: &serves_commit_pattern '$CI_COMMIT_TITLE =~ /^(all|serves)/'
 
-.in_dev_branch_serves: &in_dev_branch_serves
+.serves_in_dev_branch: &serves_in_dev_branch
   rules:
     - if: '$CI_COMMIT_BRANCH == "master"'
       when: never
@@ -20,7 +20,7 @@
       when: never
     - if: *serves_commit_pattern
 
-.in_master_branch_serves: &in_master_branch_serves
+.serves_in_master_branch: &serves_in_master_branch
   rules:
     - if: '$CI_COMMIT_BRANCH != "master"'
       when: never
@@ -30,182 +30,235 @@
       when: never
     - if: *serves_commit_pattern
 
+.serves_in_schedule_rotate_keys_user_provision: &serves_in_schedule_rotate_keys_user_provision
+  rules:
+    - if: '$CI_PIPELINE_SOURCE != "schedule"'
+      when: never
+    - if:  '$serves_in_schedule_rotate_keys_user_provision == null'
+      when: never
+    - when: always
+
 serves_test_lint_code:
   <<: *with_nix
-  <<: *in_dev_branch_serves
+  <<: *serves_in_dev_branch
   stage: lint-code
 
 serves_test_infra_monolith:
   <<: *with_nix
-  <<: *in_dev_branch_serves
+  <<: *serves_in_dev_branch
   stage: test-infra
 
 serves_test_infra_autoscaling_ci:
   <<: *with_nix
-  <<: *in_dev_branch_serves
+  <<: *serves_in_dev_branch
   stage: test-infra
 
 serves_test_infra_dns:
   <<: *with_nix
-  <<: *in_dev_branch_serves
+  <<: *serves_in_dev_branch
   stage: test-infra
 
 serves_test_infra_analytics:
   <<: *with_nix
-  <<: *in_dev_branch_serves
+  <<: *serves_in_dev_branch
   stage: test-infra
 
 serves_test_infra_aws_sso:
   <<: *with_nix
-  <<: *in_dev_branch_serves
+  <<: *serves_in_dev_branch
   stage: test-infra
 
 serves_test_infra_fluid_vpc:
   <<: *with_nix
-  <<: *in_dev_branch_serves
+  <<: *serves_in_dev_branch
   stage: test-infra
 
 serves_test_infra_certificates:
   <<: *with_nix
-  <<: *in_dev_branch_serves
+  <<: *serves_in_dev_branch
   stage: test-infra
 
 serves_test_infra_secret_management:
   <<: *with_nix
-  <<: *in_dev_branch_serves
+  <<: *serves_in_dev_branch
   stage: test-infra
 
 serves_test_user_provision_asserts_dev:
   <<: *with_nix
-  <<: *in_dev_branch_serves
+  <<: *serves_in_dev_branch
   stage: test-infra
 
 serves_test_user_provision_asserts_prod:
   <<: *with_nix
-  <<: *in_dev_branch_serves
+  <<: *serves_in_dev_branch
   stage: test-infra
 
 serves_test_user_provision_services_dev:
   <<: *with_nix
-  <<: *in_dev_branch_serves
+  <<: *serves_in_dev_branch
   stage: test-infra
 
 serves_test_user_provision_services_prod:
   <<: *with_nix
-  <<: *in_dev_branch_serves
+  <<: *serves_in_dev_branch
   stage: test-infra
 
 serves_test_user_provision_integrates_dev:
   <<: *with_nix
-  <<: *in_dev_branch_serves
+  <<: *serves_in_dev_branch
   stage: test-infra
 
 serves_test_user_provision_integrates_prod:
   <<: *with_nix
-  <<: *in_dev_branch_serves
+  <<: *serves_in_dev_branch
   stage: test-infra
 
 serves_test_user_provision_web_dev:
   <<: *with_nix
-  <<: *in_dev_branch_serves
+  <<: *serves_in_dev_branch
   stage: test-infra
 
 serves_test_user_provision_web_prod:
   <<: *with_nix
-  <<: *in_dev_branch_serves
+  <<: *serves_in_dev_branch
   stage: test-infra
 
 serves_test_user_provision_serves:
   <<: *with_nix
-  <<: *in_dev_branch_serves
+  <<: *serves_in_dev_branch
   stage: test-infra
 
 serves_apply_infra_monolith:
   <<: *with_nix
-  <<: *in_master_branch_serves
+  <<: *serves_in_master_branch
   stage: deploy-infra
 
 serves_apply_infra_autoscaling_ci:
   <<: *with_nix
-  <<: *in_master_branch_serves
+  <<: *serves_in_master_branch
   stage: deploy-infra
 
 serves_apply_infra_dns:
   <<: *with_nix
-  <<: *in_master_branch_serves
+  <<: *serves_in_master_branch
   stage: deploy-infra
 
 serves_apply_infra_analytics:
   <<: *with_nix
-  <<: *in_master_branch_serves
+  <<: *serves_in_master_branch
   stage: deploy-infra
 
 serves_apply_infra_aws_sso:
   <<: *with_nix
-  <<: *in_master_branch_serves
+  <<: *serves_in_master_branch
   stage: deploy-infra
 
 serves_apply_infra_fluid_vpc:
   <<: *with_nix
-  <<: *in_master_branch_serves
+  <<: *serves_in_master_branch
   stage: deploy-infra
 
 serves_apply_infra_secret_management:
   <<: *with_nix
-  <<: *in_master_branch_serves
+  <<: *serves_in_master_branch
   stage: deploy-infra
 
 serves_apply_infra_certificates:
   <<: *with_nix
-  <<: *in_master_branch_serves
+  <<: *serves_in_master_branch
   stage: deploy-infra
 
 serves_apply_config_autoscaling_ci:
   <<: *with_nix
-  <<: *in_master_branch_serves
+  <<: *serves_in_master_branch
   stage: deploy-infra
 
 serves_apply_user_provision_asserts_dev:
   <<: *with_nix
-  <<: *in_master_branch_serves
+  <<: *serves_in_master_branch
   stage: deploy-infra
 
 serves_apply_user_provision_asserts_prod:
   <<: *with_nix
-  <<: *in_master_branch_serves
+  <<: *serves_in_master_branch
   stage: deploy-infra
 
 serves_apply_user_provision_services_dev:
   <<: *with_nix
-  <<: *in_master_branch_serves
+  <<: *serves_in_master_branch
   stage: deploy-infra
 
 serves_apply_user_provision_services_prod:
   <<: *with_nix
-  <<: *in_master_branch_serves
+  <<: *serves_in_master_branch
   stage: deploy-infra
 
 serves_apply_user_provision_integrates_dev:
   <<: *with_nix
-  <<: *in_master_branch_serves
+  <<: *serves_in_master_branch
   stage: deploy-infra
 
 serves_apply_user_provision_integrates_prod:
   <<: *with_nix
-  <<: *in_master_branch_serves
+  <<: *serves_in_master_branch
   stage: deploy-infra
 
 serves_apply_user_provision_web_dev:
   <<: *with_nix
-  <<: *in_master_branch_serves
+  <<: *serves_in_master_branch
   stage: deploy-infra
 
 serves_apply_user_provision_web_prod:
   <<: *with_nix
-  <<: *in_master_branch_serves
+  <<: *serves_in_master_branch
   stage: deploy-infra
 
 serves_apply_user_provision_serves:
   <<: *with_nix
-  <<: *in_master_branch_serves
+  <<: *serves_in_master_branch
   stage: deploy-infra
+
+serves_rotate_keys_user_provision_asserts_dev:
+  <<: *with_nix
+  <<: *serves_in_schedule_rotate_keys_user_provision
+  stage: rotation
+
+serves_rotate_keys_user_provision_asserts_prod:
+  <<: *with_nix
+  <<: *serves_in_schedule_rotate_keys_user_provision
+  stage: rotation
+
+serves_rotate_keys_user_provision_services_dev:
+  <<: *with_nix
+  <<: *serves_in_schedule_rotate_keys_user_provision
+  stage: rotation
+
+serves_rotate_keys_user_provision_services_prod:
+  <<: *with_nix
+  <<: *serves_in_schedule_rotate_keys_user_provision
+  stage: rotation
+
+serves_rotate_keys_user_provision_integrates_dev:
+  <<: *with_nix
+  <<: *serves_in_schedule_rotate_keys_user_provision
+  stage: rotation
+
+serves_rotate_keys_user_provision_integrates_prod:
+  <<: *with_nix
+  <<: *serves_in_schedule_rotate_keys_user_provision
+  stage: rotation
+
+serves_rotate_keys_user_provision_web_dev:
+  <<: *with_nix
+  <<: *serves_in_schedule_rotate_keys_user_provision
+  stage: rotation
+
+serves_rotate_keys_user_provision_web_prod:
+  <<: *with_nix
+  <<: *serves_in_schedule_rotate_keys_user_provision
+  stage: rotation
+
+serves_rotate_keys_user_provision_serves:
+  <<: *with_nix
+  <<: *serves_in_schedule_rotate_keys_user_provision
+  stage: rotation
