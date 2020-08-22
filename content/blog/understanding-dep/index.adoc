@@ -16,12 +16,12 @@
 
 = Understanding DEP
 
-In past blog entries, I've written a good amount of articles dealing
+In past blog entries, we've written a good amount of articles dealing
 with Windows exploit development, link:../tags/vulnserver/[most of them]
 attacking Vulnserver, a vulnerble-by-design (`VbD`) server that is designed
-for such a noble endeavor. I also wrote a couple of articles creating an
-exploit for link:../exploiting-quickzip/[QuickZIP] and
-link:../exploiting-netscanner/[MiTec Net Scanner]. All of those exploits
+for such a noble endeavor. We also wrote a couple of articles creating an
+exploit for link:../quickzip-exploit/[QuickZIP] and
+link:../netscanner-exploit/[MiTec Net Scanner]. All of those exploits
 relied on the ability to execute instructions written on the stack of the
 process.
 
@@ -102,9 +102,9 @@ This version of the exploit will overflow the vulnerable variable this way:
 .Example overflowed vuln_var
 [source,text]
 ----
- AAAAAAAAAAAA AAAAAAAAAAAAA \xaf\x11\x50\x62  \x90\x08\x04\xc0\x31
-.____________._____________._________________.____________________.
-   vuln_var     Saved EBP       Saved EIP          Shellcode
+ AAAAAAAAAAAA AAAAAAAAAAAAA \xaf\x11\x50\x62  \x31\xc0\x04\x08\x90 CCCCCCCCCCC
+.____________._____________._________________.____________________.___________.
+   vuln_var     Saved EBP       Saved EIP          Shellcode       Fill buffer
 ----
 
 On where:
