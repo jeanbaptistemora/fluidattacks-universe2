@@ -36,7 +36,10 @@ def get_unique_wheres(subs):
     response = integrates.Queries.wheres(API_TOKEN, subs)
     wheres_dict = response.data
     for finding in wheres_dict['project']['findings']:
-        vulns = finding['vulnerabilities']
+        vulns = [
+            vuln for vuln in finding['vulnerabilities']
+            if vuln['vulnType'] == 'lines'
+        ]
         total_wheres += len(vulns)
         if vulns:
             for vuln in vulns:

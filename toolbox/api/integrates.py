@@ -215,7 +215,8 @@ class Queries:
                 project(projectName: $projectName) {
                     findings {
                         id
-                        vulnerabilities(vulnType: "lines", state: "open") {
+                        vulnerabilities(state: "open") {
+                            vulnType
                             where
                         }
                     }
