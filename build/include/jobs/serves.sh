@@ -89,6 +89,8 @@ function job_analytics_zoho {
 }
 
 function job_analytics_git_process {
+  # If you move me take into account the artifacts in the .gitlab-ci.yaml
+
       pushd serves \
   &&  env_prepare_python_packages \
   &&  helper_analytics_git_process \

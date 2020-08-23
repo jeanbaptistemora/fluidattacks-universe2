@@ -372,7 +372,7 @@ analytics_git_upload:
   stage: analytics-upload
   artifacts:
     paths:
-      - artifacts/
+      - serves/artifacts/
     when: always
     expire_in: 1 day
   only:
