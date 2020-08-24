@@ -1,5 +1,5 @@
 :slug: findings/028/
-:description: The purpose of this page is to present information about the set of findings reported by Fluid Attacks. In this case, the finding presents information about vulnerabilities arising from storing credentials in cache memory, recommendations to avoid them and related security requirements.
+:description: This finding presents information about vulnerabilities arising from storing credentials in temporary files or cache memory.
 :keywords: Administrative, Credential, Cache, Memory, Obtain, System
 :findings: yes
 :type: security
@@ -9,7 +9,8 @@
 == Description
 
 The system uses temporary files to store sensitive information.
-Alternatively, deploys sensitive temporary files to the production environment.
+Alternatively, the system deploys sensitive temporary files to the production
+environment.
 
 == Rules
 

@@ -1,7 +1,7 @@
 :slug: rules/236/
 :category: authentication
 :description: This requirement establishes the importance of any application setting a reasonable maximum time for its users' authentication process.
-:keywords: Authentication, Time, Seconds, Users, Limit, ASVS, Rules, Ethical Hacking, Pentesting
+:keywords: Authentication, Time, Seconds, Users, Limit, ASVS, OWASP, PCI DSS, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R236. Establish authentication time
@@ -24,3 +24,7 @@ often implemented incorrectly,
 allowing attackers to compromise passwords, keys, or session tokens,
 or to exploit other implementation flaws to assume other users’ identities
 temporarily or permanently.
+
+. [[r3]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 6.5.10]
+Address common coding vulnerabilities in software-development processes such as
+broken authentication and session management.

@@ -1,7 +1,7 @@
 :slug: rules/229/
 :category: authentication
 :description: This requirement establishes the importance of requesting access credentials to validate the authentication process.
-:keywords: Authentication, Credentials, HIPAA, ASVS, NIST, CWE, Rules, Ethical Hacking, Pentesting
+:keywords: Authentication, Credentials, HIPAA, ASVS, CWE, NIST, OWASP, PCI DSS, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R229. Request access credentials
@@ -78,3 +78,7 @@ Verify that the application uses a single vetted authentication mechanism that
 is known to be secure,
 can be extended to include strong authentication,
 and has sufficient logging and monitoring to detect account abuse or breaches.
+
+. [[r9]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 6.5.10]
+Address common coding vulnerabilities in software-development processes such as
+broken authentication and session management.

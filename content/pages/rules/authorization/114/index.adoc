@@ -1,7 +1,7 @@
 :slug: rules/114/
 :category: authorization
 :description: This requirement establishes the importance of adequately managing inactive users and credentials in the system to avoid security breaches.
-:keywords: Requirement, Security, Credentials, Inactive Users, Access, Information, Rules, Ethical Hacking, Pentesting
+:keywords: Requirement, Security, Credentials, Inactive Users, Access, Information, HIPAA, OWASP, PCI DSS, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R114. Deny access with inactive credentials
@@ -24,3 +24,7 @@ often implemented incorrectly,
 allowing attackers to compromise passwords, keys, or session tokens,
 or to exploit other implementation flaws to assume other users’ identities
 temporarily or permanently.
+
+. [[r3]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 6.5.10]
+Address common coding vulnerabilities in software-development processes such as
+broken authentication and session management.

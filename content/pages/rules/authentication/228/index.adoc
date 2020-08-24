@@ -1,7 +1,7 @@
 :slug: rules/228/
 :category: authentication
 :description: This requirement states that the unified authentication process must be carried out employing some standard protocols.
-:keywords: Protocol, Standard, User Account, Authentication, SSO, SAML, Rules, Ethical Hacking, Pentesting
+:keywords: Protocol, Standard, User Account, Authentication, SSO, SAML, OWASP, PCI DSS, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R228. Authenticate using standard protocols
@@ -25,3 +25,7 @@ often implemented incorrectly,
 allowing attackers to compromise passwords, keys, or session tokens,
 or to exploit other implementation flaws to assume other users’ identities
 temporarily or permanently.
+
+. [[r2]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 6.5.10]
+Address common coding vulnerabilities in software-development processes such as
+broken authentication and session management.

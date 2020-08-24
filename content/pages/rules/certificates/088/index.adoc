@@ -1,7 +1,7 @@
 :slug: rules/088/
 :category: certificates
 :description: This requirement establishes that the system demands digital certificates from the client during the authentication process.
-:keywords: Certificate, Digital, Client, ASVS, CWE, NIST, PCI DSS, Rules, Ethical Hacking, Pentesting
+:keywords: Certificate, Digital, Client, ASVS, CWE, NIST, OWASP, PCI DSS, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R088. Request client certificates
@@ -59,3 +59,7 @@ Protocol (**OCSP**) Stapling, is enabled and configured.
 Use strong cryptography and security protocols to safeguard sensitive
 cardholder data during transmission over open, public networks.
 Only trusted keys and certificates are accepted.
+
+. [[r9]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 6.5.10]
+Address common coding vulnerabilities in software-development processes such as
+broken authentication and session management.

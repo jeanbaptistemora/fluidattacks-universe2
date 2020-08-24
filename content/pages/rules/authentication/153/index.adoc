@@ -53,3 +53,7 @@ and stronger alternatives such as push notifications are offered first.
 V2.7 Out of Band Verifier Requirements.(2.7.4)]
 Verify that the out of band authenticator and verifier communicates over a
 secure independent channel.
+
+. [[r7]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 6.5.10]
+Address common coding vulnerabilities in software-development processes such as
+broken authentication and session management.

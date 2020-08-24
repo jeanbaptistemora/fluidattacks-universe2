@@ -1,7 +1,7 @@
 :slug: rules/335/
 :category: authentication
 :description: This requirement establishes the importance of limiting the lifespan of out of band authenticators and the number of times they can be used.
-:keywords: Out-of-band, Token, Lifespan, ASVS, CWE, NIST, Rules, Ethical Hacking, Pentesting
+:keywords: Out-of-band, Token, Lifespan, ASVS, CWE, NIST, OWASP, PCI DSS, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R335. Define out of band tokens lifespan
@@ -62,3 +62,7 @@ V2.7 Out of Band Verifier Requirements.(2.7.3)]
 Verify that the out of band verifier authentication requests, codes, or tokens
 are only usable once,
 and only for the original authentication request.
+
+. [[r9]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 6.5.10]
+Address common coding vulnerabilities in software-development processes such as
+broken authentication and session management.

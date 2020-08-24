@@ -1,10 +1,10 @@
 :slug: rules/231/
 :category: authentication
 :description: This requirement establishes the importance of defining mechanisms and components for biometric verification during the authentication process.
-:keywords: Authentication, Biometric, Verification, ASVS, GDPR, NIST, Rules, Ethical Hacking, Pentesting
+:keywords: Authentication, Biometric, Verification, ASVS, CWE, GDPR, NIST, OWASP, PCI DSS, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
-= R231. Define a biometric verification component
+= R231. Implement a biometric verification component
 
 == Requirement
 
@@ -73,3 +73,7 @@ temporarily or permanently.
 V2.8 Single or Multi Factor One Time Verifier Requirements.(2.8.7)]
 Verify that biometric authenticators are limited to use only as secondary
 factors in conjunction with either something you have and something you know.
+
+. [[r9]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 6.5.10]
+Address common coding vulnerabilities in software-development processes such as
+broken authentication and session management.

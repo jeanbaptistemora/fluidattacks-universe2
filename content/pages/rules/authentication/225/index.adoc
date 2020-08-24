@@ -1,7 +1,7 @@
 :slug: rules/225/
 :category: authentication
 :description: This requirement establishes the importance of securely configuring the system responses to authentication failures.
-:keywords: Requirement, Security, Authentication, Failure, Response, CWE, Rules, Ethical Hacking, Pentesting
+:keywords: Requirement, Security, Authentication, Failure, Response, CWE, OWASP, PCI DSS, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R225. Proper authentication responses
@@ -28,11 +28,11 @@ that they can use in brute force attacks.
 
 == References
 
-. [[r1]] link:https://cwe.mitre.org/data/definitions/203.html[CWE-203: Observable Discrepancy].
-The product behaves differently or sends different responses under different
-circumstances in a way that is observable to an unauthorized actor,
-which exposes security-relevant information about the state of the product,
-such as whether a particular operation was successful or not.
+. [[r1]] link:https://cwe.mitre.org/data/definitions/203.html[CWE-203: Observable Differences in Behavior to Error Inputs].
+Differences in device behavior to an error input may be used by an attacker to
+gather security-relevant information about the device.
+The information may be as simple as whether a particular operation was
+successful.
 
 . [[r2]] link:https://cwe.mitre.org/data/definitions/204.html[CWE-204: Observable Response Discrepancy].
 The product provides different responses to incoming requests in a way that
@@ -45,3 +45,7 @@ often implemented incorrectly,
 allowing attackers to compromise passwords, keys, or session tokens,
 or to exploit other implementation flaws to assume other users’ identities
 temporarily or permanently.
+
+. [[r4]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 6.5.10]
+Address common coding vulnerabilities in software-development processes such as
+broken authentication and session management.

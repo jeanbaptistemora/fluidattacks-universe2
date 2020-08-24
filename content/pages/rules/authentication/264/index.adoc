@@ -1,7 +1,7 @@
 :slug: rules/264/
 :category: authentication
 :description: This requirement states that the system must request authentication for all resources not explicitly classified as public.
-:keywords: Private Resources, Authentication, Public Resources, Access, ASVS, CWE, Rules, Ethical Hacking, Pentesting
+:keywords: Private Resources, Authentication, Public Resources, Access, ASVS, CWE, OWASP, PCI DSS, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R264. Request authentication
@@ -90,3 +90,7 @@ sensitive information or functions are authenticated.
 V14.5 Validate HTTP Request Header Requirements.(14.5.4)]
 Verify that *HTTP* headers added by a trusted proxy or *SSO* devices,
 such as a bearer token, are authenticated by the application.
+
+. [[r11]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 6.5.10]
+Address common coding vulnerabilities in software-development processes such as
+broken authentication and session management.

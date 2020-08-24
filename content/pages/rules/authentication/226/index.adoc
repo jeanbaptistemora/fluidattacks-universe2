@@ -1,7 +1,7 @@
 :slug: rules/226/
 :category: authentication
 :description: This requirement establishes the importance of preventing denial of service attacks by avoiding account lockouts.
-:keywords: Account, Authentication, Attempt, Lockout, ASVS, CWE, Rules, Ethical Hacking, Pentesting
+:keywords: Account, Authentication, Attempt, Lockout, ASVS, CWE, OWASP, PCI DSS, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R226. Avoid account lockouts
@@ -46,3 +46,7 @@ or risk-based restrictions such as location, first login on a device,
 recent attempts to unlock the account, or similar.
 Verify that no more than 100 failed attempts per hour is possible on a single
 account.
+
+. [[r5]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 6.5.10]
+Address common coding vulnerabilities in software-development processes such as
+broken authentication and session management.

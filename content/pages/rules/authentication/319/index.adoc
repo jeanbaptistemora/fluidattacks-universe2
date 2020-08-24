@@ -1,7 +1,7 @@
 :slug: rules/319/
 :category: authentication
 :description: This requirement states that all system authentication options must have the same security control strength.
-:keywords: Control Strength, Identity, Authentication, Access, ASVS, CWE, Rules, Ethical Hacking, Pentesting
+:keywords: Control Strength, Identity, Authentication, Access, ASVS, CWE, OWASP, PCI DSS, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R319. Make authentication options equally secure
@@ -67,3 +67,7 @@ in sequential step order and without skipping steps.
 V14.5 Validate HTTP Request Header Requirements.(14.5.4)]
 Verify that *HTTP* headers added by a trusted proxy or *SSO* devices,
 such as a bearer token, are authenticated by the application.
+
+. [[r8]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 6.5.10]
+Address common coding vulnerabilities in software-development processes such as
+broken authentication and session management.

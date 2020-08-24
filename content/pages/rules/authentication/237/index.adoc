@@ -1,7 +1,7 @@
 :slug: rules/237/
 :category: authentication
 :description: This requirement states that the system must guarantee that all user actions are executed by a human and not by robots performing automated tasks.
-:keywords: Robot, Human Interaction, User, Limit, CWE, ASVS, Rules, Ethical Hacking, Pentesting
+:keywords: Robot, Human Interaction, User, Limit, ASVS, CWE, OWASP, PCI DSS, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R237. Ascertain human interaction
@@ -99,3 +99,7 @@ unusual activity is detected.
 V13.2 RESTful Web Service Verification Requirements.(13.2.4)]
 Verify that *REST* services have anti-automation controls to protect against
 excessive calls, especially if the API is unauthenticated.
+
+. [[r12]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 6.5.10]
+Address common coding vulnerabilities in software-development processes such as
+broken authentication and session management.

@@ -1,7 +1,7 @@
 :slug: rules/238/
 :category: authentication
 :description: This requirement states that the system must guarantee that the owner of the account is the one who resets and recovers the password.
-:keywords: Password, Recovery, Change, Authenticity, ASVS, CWE, Rules, Ethical Hacking, Pentesting
+:keywords: Password, Recovery, Change, Authenticity, ASVS, CWE, OWASP, PCI DSS, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R238. Establish safe recovery
@@ -75,3 +75,7 @@ V4.1 General Access Control Design.(4.1.1)]
 Verify that the application enforces access control rules on a trusted service
 layer,
 especially if client-side access control is present and could be bypassed.
+
+. [[r10]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 6.5.10]
+Address common coding vulnerabilities in software-development processes such as
+broken authentication and session management.
