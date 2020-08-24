@@ -1,7 +1,7 @@
 :slug: rules/209/
 :category: devices
 :description: This requirement establishes that applications that authenticate offline must only store one password in the authentication cache.
-:keywords: Mobile Device, Application, Password, Cache, Authentication, Requirement, Rules, Ethical Hacking, Pentesting
+:keywords: Mobile Device, Application, Password, Cache, OWASP, PCI DSS, Authentication, Requirement, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R209. Manage passwords in cache
@@ -20,3 +20,7 @@ often implemented incorrectly,
 allowing attackers to compromise passwords, keys, or session tokens,
 or to exploit other implementation flaws to assume other users’ identities
 temporarily or permanently.
+
+. [[r2]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 6.5.10]
+Address common coding vulnerabilities in software-development processes such as
+broken authentication and session management.

@@ -1,7 +1,7 @@
 :slug: rules/031/
 :category: session
 :description: This requirement establishes the importance of discarding all related data when a session is terminated.
-:keywords: Session, Objects, Discard, ASVS, CWE, NIST, Rules, Ethical Hacking, Pentesting
+:keywords: Session, Objects, Discard, ASVS, CWE, NIST, OWASP, PCI DSS, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R031. Discard user session data
@@ -67,3 +67,7 @@ including across relying parties.
 V8.2 Client-side Data Protection.(8.2.3)]
 Verify that authenticated data is cleared from client storage,
 such as the browser *DOM*, after the client or session is terminated.
+
+. [[r9]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 6.5.10]
+Address common coding vulnerabilities in software-development processes such as
+broken authentication and session management.

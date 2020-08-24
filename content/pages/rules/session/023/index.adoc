@@ -1,7 +1,7 @@
 :slug: rules/023/
 :category: session
 :description: This requirement establishes the importance of closing inactive user sessions after a certain period of inactivity to avoid security breaches.
-:keywords: Session, Inactive, Close, ASVS, CWE, NIST, Breaches, Rules, Ethical Hacking, Pentesting
+:keywords: Session, Inactive, Close, ASVS, CWE, NIST, OWASP, PCI DSS, Breaches, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R023. Close inactive users sessions
@@ -109,3 +109,7 @@ Verify that **CSP**s inform relying parties of the last authentication event,
 to allow **RP**s to determine if they need to re-authenticate the user.
 
 . [[r11]] link:https://pcinetwork.org/forum/index.php?threads/pci-dss-3-0-6-5-10-broken-authentication-and-session-management.667/[[PCI DSS 3.0\] 6.5.10 Broken authentication and session management].
+
+. [[r12]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 6.5.10]
+Address common coding vulnerabilities in software-development processes such as
+broken authentication and session management.

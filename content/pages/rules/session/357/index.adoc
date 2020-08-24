@@ -1,7 +1,7 @@
 :slug: rules/357/
 :category: session
 :description: This requirement establishes the importance of avoiding the usage of static API secrets.
-:keywords: Stateless, Session, Token, API Secret, ASVS, CWE, OWASP, Rules, Ethical Hacking, Pentesting
+:keywords: Stateless, Session, Token, API Secret, ASVS, CWE, OWASP, PCI DSS, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R357. Use stateless session tokens
@@ -55,3 +55,7 @@ V3.5 Token-based Session Management.(3.5.3)]
 Verify that stateless session tokens use digital signatures, encryption, and
 other countermeasures to protect against tampering, enveloping, replay,
 null cipher, and key substitution attacks.
+
+. [[r9]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 6.5.10]
+Address common coding vulnerabilities in software-development processes such as
+broken authentication and session management.

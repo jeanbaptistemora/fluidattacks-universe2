@@ -1,7 +1,7 @@
 :slug: rules/029/
 :category: session
 :description: This requirement establishes the importance of using cookies with the required security attributes such as HttpOnly and Secure.
-:keywords: Session, Cookies, Attributes, ASVS, CWE, NIST, PCI DSS, Rules, Ethical Hacking, Pentesting
+:keywords: Session, Cookies, Attributes, ASVS, CWE, NIST, OWASP, PCI DSS, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R029. Cookies with security attributes
@@ -227,3 +227,7 @@ cross-site scripting (*XSS*).
 . [[r22]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 6.5.9]
 Address common coding vulnerabilities in software-development processes such as
 cross-site request forgery (*CSRF*).
+
+. [[r23]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 6.5.10]
+Address common coding vulnerabilities in software-development processes such as
+broken authentication and session management.

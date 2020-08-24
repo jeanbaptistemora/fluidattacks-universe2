@@ -1,7 +1,7 @@
 :slug: rules/028/
 :category: session
 :description: This requirement establishes the importance of allowing users to end any active session they have.
-:keywords: Session, Logout, Allow, ASVS, CWE, NIST, Rules, Ethical Hacking, Pentesting
+:keywords: Session, Logout, Allow, ASVS, CWE, NIST, OWASP, PCI DSS, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R028. Allow users to log out
@@ -51,3 +51,7 @@ V3.5 Token-based Session Management.(3.5.1)]
 Verify the application does not treat *OAuth* and refresh tokens — on their
 own — as the presence of the subscriber and allows users to terminate
 trust relationships with linked applications.
+
+. [[r7]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 6.5.10]
+Address common coding vulnerabilities in software-development processes such as
+broken authentication and session management.

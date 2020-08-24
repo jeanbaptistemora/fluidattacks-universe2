@@ -1,7 +1,7 @@
 :slug: rules/030/
 :category: session
 :description: This requirement establishes the importance of defining controls to manage object sessions securely to avoid reuse and replay attacks.
-:keywords: Replay, Reuse, Session, ASVS, CWE, NIST, Rules, Ethical Hacking, Pentesting
+:keywords: Replay, Reuse, Session, ASVS, CWE, NIST, OWSAP, PCI DSS, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R030. Avoid object reutilization
@@ -132,3 +132,7 @@ cryptographic authenticators, or lookup codes.
 . [[r11]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V3.2 Session Binding Requirements.(3.2.1)]
 Verify the application generates a new session token on user authentication.
+
+. [[r12]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 6.5.10]
+Address common coding vulnerabilities in software-development processes such as
+broken authentication and session management.
