@@ -7,138 +7,108 @@ source "${srcExternalSops}"
 source "${srcIncludeHelpersServes}"
 source "${srcIncludeHelpersObserves}"
 
-function job_analytics_formstack {
+function job_observes_formstack {
       helper_use_pristine_workdir \
-  &&  pushd serves \
   &&  env_prepare_python_packages \
   &&  helper_observes_formstack \
-  &&  popd \
   ||  return 1
 }
 
-function job_analytics_dynamodb {
+function job_observes_dynamodb {
       helper_use_pristine_workdir \
-  &&  pushd serves \
   &&  env_prepare_python_packages \
   &&  helper_observes_dynamodb \
-  &&  popd \
   ||  return 1
 }
 
-function job_analytics_services_toe {
+function job_observes_services_toe {
       helper_use_pristine_workdir \
-  &&  pushd serves \
   &&  env_prepare_python_packages \
   &&  helper_observes_services_toe \
-  &&  popd \
   ||  return 1
 }
 
-function job_analytics_infrastructure {
+function job_observes_infrastructure {
       helper_use_pristine_workdir \
-  &&  pushd serves \
   &&  env_prepare_python_packages \
   &&  helper_observes_infrastructure \
-  &&  popd \
   ||  return 1
 }
 
-function job_analytics_intercom {
+function job_observes_intercom {
       helper_use_pristine_workdir \
-  &&  pushd serves \
   &&  env_prepare_python_packages \
   &&  helper_observes_intercom \
-  &&  popd \
   ||  return 1
 }
 
-function job_analytics_mandrill {
+function job_observes_mandrill {
       helper_use_pristine_workdir \
-  &&  pushd serves \
   &&  env_prepare_python_packages \
   &&  helper_observes_mandrill \
-  &&  popd \
   ||  return 1
 }
 
-function job_analytics_gitlab {
+function job_observes_gitlab {
       helper_use_pristine_workdir \
-  &&  pushd serves \
   &&  env_prepare_python_packages \
   &&  helper_observes_gitlab \
-  &&  popd \
   ||  return 1
 }
 
-function job_analytics_timedoctor {
+function job_observes_timedoctor {
       helper_use_pristine_workdir \
-  &&  pushd serves \
   &&  env_prepare_python_packages \
   &&  helper_observes_timedoctor \
-  &&  popd \
   ||  return 1
 }
 
-function job_analytics_zoho {
+function job_observes_zoho {
       helper_use_pristine_workdir \
-  &&  pushd serves \
   &&  env_prepare_python_packages \
   &&  helper_observes_zoho \
-  &&  popd \
   ||  return 1
 }
 
-function job_analytics_git_process {
+function job_observes_git_process {
   # If you move me take into account the artifacts in the .gitlab-ci.yaml
 
-      pushd serves \
-  &&  env_prepare_python_packages \
+      env_prepare_python_packages \
   &&  helper_observes_git_process \
-  &&  popd \
   ||  return 1
 }
 
-function job_analytics_git_upload {
-      pushd serves \
-  &&  env_prepare_python_packages \
+function job_observes_git_upload {
+      env_prepare_python_packages \
   &&  helper_observes_git_upload \
-  &&  popd \
   ||  return 1
 }
 
-function job_analytics_timedoctor_refresh_token {
+function job_observes_timedoctor_refresh_token {
       helper_use_pristine_workdir \
-  &&  pushd serves \
   &&  env_prepare_python_packages \
   &&  helper_observes_timedoctor_refresh_token \
-  &&  popd \
   ||  return 1
 }
 
-function job_analytics_timedoctor_backup {
+function job_observes_timedoctor_backup {
       helper_use_pristine_workdir \
-  &&  pushd serves \
   &&  env_prepare_python_packages \
   &&  helper_observes_timedoctor_backup \
-  &&  popd \
   ||  return 1
 }
 
-function job_analytics_timedoctor_manually_create_token {
+function job_observes_timedoctor_manually_create_token {
       helper_use_pristine_workdir \
-  &&  pushd serves \
   &&  env_prepare_python_packages \
   &&  helper_observes_timedoctor_manually_create_token \
-  &&  popd \
   ||  return 1
 }
 
-function job_analytics_services_repositories_cache {
+function job_observes_services_repositories_cache {
       helper_use_pristine_workdir \
-  &&  pushd serves \
   &&  env_prepare_python_packages \
   &&  helper_observes_services_repositories_cache \
-  &&  popd \
   ||  return 1
 }
 

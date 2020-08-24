@@ -52,7 +52,7 @@ function helper_observes_move_services_fusion_to_master_git {
 
 function helper_observes_formstack {
       helper_serves_aws_login prod \
-  &&  sops_env secrets-prod.yaml default \
+  &&  sops_env serves/secrets-prod.yaml default \
         analytics_auth_redshift \
         analytics_auth_formstack \
   &&  echo '[INFO] Generating secret files' \
@@ -62,7 +62,7 @@ function helper_observes_formstack {
   &&  mkdir ./logs \
   &&  tap-formstack \
         --auth "${TEMP_FILE1}" \
-        --conf ./analytics/conf/formstack.json \
+        --conf ./observes/conf/formstack.json \
         > .singer \
   &&  echo '[INFO] Running target' \
   &&  target-redshift \
@@ -74,7 +74,7 @@ function helper_observes_formstack {
 
 function helper_observes_dynamodb {
       helper_serves_aws_login prod \
-  &&  sops_env secrets-prod.yaml default \
+  &&  sops_env serves/secrets-prod.yaml default \
         analytics_aws_access_key \
         analytics_aws_secret_key \
         analytics_aws_default_region \
@@ -92,7 +92,7 @@ function helper_observes_dynamodb {
   &&  mkdir ./logs \
   &&  tap-awsdynamodb \
         --auth "${TEMP_FILE1}" \
-        --conf ./analytics/conf/awsdynamodb.json \
+        --conf ./observes/conf/awsdynamodb.json \
         > .singer \
   &&  echo '[INFO] Running target' \
   &&  target-redshift \
@@ -104,11 +104,11 @@ function helper_observes_dynamodb {
 
 function helper_observes_services_toe {
       helper_serves_aws_login prod \
-  &&  sops_env secrets-prod.yaml default \
+  &&  sops_env serves/secrets-prod.yaml default \
         analytics_auth_redshift \
   &&  echo '[INFO] Generating secret files' \
   &&  echo "${analytics_auth_redshift}" > "${TEMP_FILE2}" \
-  &&  pushd analytics/services || return 1 \
+  &&  pushd observes/services || return 1 \
     &&  echo '[INFO] Cloning services repository' \
     &&  git clone --depth 1 --single-branch \
           "https://${GITLAB_API_USER}:${GITLAB_API_TOKEN}@gitlab.com/fluidattacks/services.git" \
@@ -130,7 +130,7 @@ function helper_observes_services_toe {
 
 function helper_observes_infrastructure {
       helper_serves_aws_login prod \
-  &&  sops_env secrets-prod.yaml default \
+  &&  sops_env serves/secrets-prod.yaml default \
         analytics_auth_infra \
         analytics_auth_redshift \
   &&  echo '[INFO] Generating secret files' \
@@ -154,7 +154,7 @@ function helper_observes_infrastructure {
 
 function helper_observes_intercom {
       helper_serves_aws_login prod \
-  &&  sops_env secrets-prod.yaml default \
+  &&  sops_env serves/secrets-prod.yaml default \
         analytics_auth_intercom \
         analytics_auth_redshift \
   &&  echo '[INFO] Generating secret files' \
@@ -179,7 +179,7 @@ function helper_observes_intercom {
 
 function helper_observes_mandrill {
       helper_serves_aws_login prod \
-  &&  sops_env secrets-prod.yaml default \
+  &&  sops_env serves/secrets-prod.yaml default \
         analytics_auth_mandrill \
         analytics_auth_redshift \
   &&  echo '[INFO] Generating secret files' \
@@ -217,12 +217,12 @@ function helper_observes_gitlab {
   )
 
       helper_serves_aws_login prod \
-  &&  sops_env secrets-prod.yaml default \
+  &&  sops_env serves/secrets-prod.yaml default \
         analytics_auth_redshift \
   &&  echo '[INFO] Generating secret files' \
   &&  echo "${analytics_auth_redshift}" > "${TEMP_FILE2}" \
   &&  echo '[INFO] Running streamer' \
-  &&  python3 ./analytics/singer/streamer_gitlab.py "${projects[@]}" > .jsonstream \
+  &&  python3 ./observes/singer/streamer_gitlab.py "${projects[@]}" > .jsonstream \
   &&  echo '[INFO] Running tap' \
   &&  tap-json  \
         > .singer \
@@ -240,7 +240,7 @@ function helper_observes_timedoctor {
 
       helper_serves_aws_login prod \
   &&  mkdir ./logs \
-  &&  sops_env secrets-prod.yaml default \
+  &&  sops_env serves/secrets-prod.yaml default \
         analytics_auth_redshift \
         analytics_s3_cache_timedoctor \
   &&  analytics_auth_timedoctor=$( \
@@ -281,7 +281,7 @@ function helper_observes_zoho {
   )
 
       helper_serves_aws_login prod \
-  &&  sops_env secrets-prod.yaml default \
+  &&  sops_env serves/secrets-prod.yaml default \
         analytics_zoho_email \
         analytics_zoho_token \
         analytics_zoho_space \
@@ -292,13 +292,13 @@ function helper_observes_zoho {
   &&  for table in "${analytics_zoho_tables[@]}"
       do
             echo "  [INFO] Table: ${table}" \
-        &&  ./analytics/singer/converter_zoho_csv.py \
+        &&  ./observes/singer/converter_zoho_csv.py \
               --email "${analytics_zoho_email}" \
               --token "${analytics_zoho_token}" \
               --space "${analytics_zoho_space}" \
               --table "${table}" \
               --target "${table}" \
-        &&  ./analytics/singer/streamer_csv.py "${table}" \
+        &&  ./observes/singer/streamer_csv.py "${table}" \
               >> .jsonstream \
         || return 1
       done \
@@ -324,7 +324,7 @@ function helper_observes_git_process {
 
       helper_serves_aws_login prod \
   &&  echo '[INFO] Cloning our own repositories' \
-  &&  python3 analytics/git/clone_us.py \
+  &&  python3 observes/git/clone_us.py \
   &&  echo "[INFO] Generating config: ${CI_NODE_INDEX} / ${CI_NODE_TOTAL}" \
   &&  \
       CI=true \
@@ -332,7 +332,7 @@ function helper_observes_git_process {
       INTEGRATES_API_TOKEN="${mock_integrates_api_token}" \
       PROD_AWS_ACCESS_KEY_ID="${AWS_ACCESS_KEY_ID}" \
       PROD_AWS_SECRET_ACCESS_KEY="${AWS_SECRET_ACCESS_KEY}" \
-      python3 analytics/git/generate_config.py \
+      python3 observes/git/generate_config.py \
   &&  mkdir -p "${artifacts}" \
   &&  echo "[INFO] Running tap in ${num_threads} threads" \
   &&  for fork in $(seq 1 "${num_threads}")
@@ -351,7 +351,7 @@ function helper_observes_git_upload {
   local artifacts="${PWD}/artifacts"
 
       helper_serves_aws_login prod \
-  &&  sops_env secrets-prod.yaml default \
+  &&  sops_env serves/secrets-prod.yaml default \
         analytics_auth_redshift \
   &&  echo '[INFO] Generating secret files' \
   &&  echo "${analytics_auth_redshift}" > "${TEMP_FILE1}" \
@@ -372,7 +372,7 @@ function helper_observes_timedoctor_refresh_token {
           'analytics_auth_timedoctor' \
           "${GITLAB_API_TOKEN}") \
   &&  echo '[INFO] Updating token...' \
-  &&  ./analytics/auth_helper.py --timedoctor-refresh \
+  &&  ./observes/auth_helper.py --timedoctor-refresh \
   &&  echo '[INFO] Done! Token created for current project'
 }
 
@@ -381,7 +381,7 @@ function helper_observes_timedoctor_backup {
 
       helper_serves_aws_login prod \
   &&  mkdir ./logs \
-  &&  sops_env secrets-prod.yaml default \
+  &&  sops_env serves/secrets-prod.yaml default \
         analytics_s3_cache_timedoctor \
   &&  analytics_auth_timedoctor=$( \
         helper_get_gitlab_var \
@@ -415,10 +415,10 @@ function helper_observes_timedoctor_backup {
 
 function helper_observes_timedoctor_manually_create_token {
       helper_serves_aws_login prod \
-  &&  sops_env secrets-prod.yaml default \
+  &&  sops_env serves/secrets-prod.yaml default \
         analytics_auth_timedoctor \
   &&  echo '[INFO] Executing creator, follow the steps' \
-  &&  ./analytics/auth_helper.py --timedoctor-start \
+  &&  ./observes/auth_helper.py --timedoctor-start \
   &&  echo '[INFO] Done! Token created at GitLab/serves env vars'
 }
 
@@ -428,7 +428,7 @@ function helper_observes_services_repositories_cache {
       helper_serves_aws_login prod \
   &&  helper_observes_move_artifacts_to_git \
   &&  echo '[INFO] Cloning our own repositories' \
-  &&  python3 analytics/git/clone_us.py \
+  &&  python3 observes/git/clone_us.py \
   &&  echo '[INFO] Cloning customer repositories' \
   &&  \
       CI=true \
@@ -436,9 +436,9 @@ function helper_observes_services_repositories_cache {
       INTEGRATES_API_TOKEN="${mock_integrates_api_token}" \
       PROD_AWS_ACCESS_KEY_ID="${AWS_ACCESS_KEY_ID}" \
       PROD_AWS_SECRET_ACCESS_KEY="${AWS_SECRET_ACCESS_KEY}" \
-      python3 analytics/git/clone_them.py \
+      python3 observes/git/clone_them.py \
   &&  helper_observes_move_services_fusion_to_master_git \
   &&  echo '[INFO] Generating stats' \
-  &&  { python3 analytics/git/generate_stats.py || true; } \
+  &&  { python3 observes/git/generate_stats.py || true; } \
   &&  helper_observes_move_git_to_artifacts
 }
