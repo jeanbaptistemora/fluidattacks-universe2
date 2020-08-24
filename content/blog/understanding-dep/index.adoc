@@ -203,12 +203,14 @@ shellcode, but we *were able* to execute a single instruction: `JMP ESP`.
 We did that by placing the *pointer* to the instruction in the right place.
 
 We can use that to run arbitrary code, without executing a single instruction
-on the stack. Let's welcome Return-Oriented Programming.
+on the stack. Let's welcome
+link:../bypassing-dep/[Return-Oriented Programming].
 
 == Conclusions
 
 This article shows a mechanism created to prevent the exploitation of
 buffer overflow vulnerabilities. `DEP` surely leaves behind common exploits.
-However, in the next article we will see how to bypass `DEP` using
-Return-Oriented Programming and then we can create a fully working exploit
-that triggers a reverse TCP shell on a DEP-enabled application.
+However, in the link:../bypassing-dep/[next article] we will see how to
+bypass `DEP` using Return-Oriented Programming and later we can create a
+fully working exploit that triggers a reverse TCP shell on a
+DEP-enabled application.
