@@ -1,10 +1,13 @@
 # pylint:disable=too-many-lines
-import asyncio
 import logging
 import sys
 from time import time
 from typing import Dict, List, Any, Union, cast
 
+# Third party libraries
+from aioextensions import (
+    collect,
+)
 from ariadne import convert_camel_case_to_snake, convert_kwargs_to_snake_case
 from asgiref.sync import sync_to_async
 from django.core.files.uploadedfile import InMemoryUploadedFile
@@ -51,6 +54,7 @@ logging.config.dictConfig(LOGGING)
 LOGGER = logging.getLogger(__name__)
 
 
+@get_entity_cache_async
 async def _get_vulnerabilities(
         info: GraphQLResolveInfo,
         identifier: str,
@@ -84,12 +88,8 @@ async def _get_vulnerabilities(
     selection_set.selections = req_fields
     info.field_nodes[0].selection_set.selections = req_fields
 
-    list_vulns = await asyncio.gather(*[
-        asyncio.create_task(
-            vuln_resolver.resolve(
-                info, str(vuln['UUID']), as_field=False
-            )
-        )
+    list_vulns = await collect([
+        vuln_resolver.resolve(info, str(vuln['UUID']), as_field=False)
         for vuln in finding_vulns
     ])
     return cast(List[VulnerabilityType], list_vulns)
