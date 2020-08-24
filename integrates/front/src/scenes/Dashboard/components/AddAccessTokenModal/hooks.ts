@@ -4,8 +4,16 @@ import { useDispatch } from "react-redux";
 import { useTranslation } from "react-i18next";
 import { ApolloError, ApolloQueryResult } from "apollo-client";
 import { FormAction, change, reset } from "redux-form";
-import { GET_ACCESS_TOKEN, UPDATE_ACCESS_TOKEN_MUTATION } from "./queries";
-import { IGetAccessTokenAttr, IUpdateAccessTokenAttr } from "./types";
+import {
+  GET_ACCESS_TOKEN,
+  INVALIDATE_ACCESS_TOKEN_MUTATION,
+  UPDATE_ACCESS_TOKEN_MUTATION,
+} from "./queries";
+import {
+  IGetAccessTokenAttr,
+  IInvalidateAccessTokenAttr,
+  IUpdateAccessTokenAttr,
+} from "./types";
 import { MutationFunction, MutationResult } from "@apollo/react-common";
 import { msgError, msgSuccess } from "../../../../utils/notifications";
 import { useMutation, useQuery } from "@apollo/react-hooks";
@@ -91,4 +99,45 @@ const useGetAPIToken: () => readonly [
   return [data, refetch] as const;
 };
 
-export { useUpdateAPIToken, useGetAPIToken };
+const useInvalidateAPIToken: (
+  refetch: () => Promise<ApolloQueryResult<IGetAccessTokenAttr>>,
+  onClose: () => void
+) => MutationFunction = (
+  refetch: () => Promise<ApolloQueryResult<IGetAccessTokenAttr>>,
+  onClose: () => void
+): MutationFunction => {
+  const { t } = useTranslation();
+  const dispatch: React.Dispatch<FormAction> = useDispatch();
+
+  // Handle mutation results
+  const handleOnSuccess: (mtResult: IInvalidateAccessTokenAttr) => void = (
+    mtResult: IInvalidateAccessTokenAttr
+  ): void => {
+    if (mtResult.invalidateAccessToken.success) {
+      onClose();
+      msgSuccess(
+        t("update_access_token.delete"),
+        t("update_access_token.invalidated")
+      );
+      void refetch();
+    }
+  };
+  const handleOnError: ({ graphQLErrors }: ApolloError) => void = ({
+    graphQLErrors,
+  }: ApolloError): void => {
+    graphQLErrors.forEach((error: GraphQLError): void => {
+      Logger.warning("An error occurred invalidating access token", error);
+      msgError(t("group_alerts.error_textsad"));
+    });
+    dispatch(reset("updateAccessToken"));
+  };
+
+  const [invalidateAPIToken] = useMutation(INVALIDATE_ACCESS_TOKEN_MUTATION, {
+    onCompleted: handleOnSuccess,
+    onError: handleOnError,
+  });
+
+  return invalidateAPIToken;
+};
+
+export { useUpdateAPIToken, useGetAPIToken, useInvalidateAPIToken };
