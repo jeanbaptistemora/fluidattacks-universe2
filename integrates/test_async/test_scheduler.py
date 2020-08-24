@@ -63,7 +63,7 @@ class SchedulerTests(TestCase):
         assert is_a_unsolved_event(dumb_unsolved_event)
         assert not is_a_unsolved_event(dumb_solved_event)
 
-    def test_get_unsolved_events(self):
+    async def test_get_unsolved_events(self):
         request = RequestFactory().get('/')
         middleware = SessionMiddleware()
         middleware.process_request(request)
@@ -77,7 +77,7 @@ class SchedulerTests(TestCase):
             key=settings.JWT_SECRET,
         )
         project_name = 'unittesting'
-        test_data = async_to_sync(get_unsolved_events)(project_name)
+        test_data = await get_unsolved_events(project_name)
         assert isinstance(test_data, list)
         assert isinstance(test_data[0], dict)
         assert [ev for ev in test_data if ev['event_id'] == '540462628']
@@ -207,9 +207,9 @@ class SchedulerTests(TestCase):
         expected_output = u'FIN.S.0038. Fuga de información de negocio'
         assert expected_output in test_data
 
-    def test_get_project_indicators(self):
+    async def test_get_project_indicators(self):
         project_name = 'unittesting'
-        test_data = async_to_sync(get_project_indicators)(project_name)
+        test_data = await get_project_indicators(project_name)
         assert isinstance(test_data, dict)
         assert len(test_data) == 14
         assert test_data['max_open_severity'] == Decimal(6.3).quantize(Decimal('0.1'))

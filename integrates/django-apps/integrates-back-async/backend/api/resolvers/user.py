@@ -12,6 +12,9 @@ from typing import (
     Any
 )
 
+from aioextensions import (
+    collect,
+)
 from ariadne import convert_kwargs_to_snake_case, convert_camel_case_to_snake
 from asgiref.sync import sync_to_async
 
@@ -144,8 +147,10 @@ async def _create_new_user(  # pylint: disable=too-many-arguments
             await org_domain.add_user(organization_id, email, 'customer')
 
         if not await user_domain.is_registered(email):
-            user_domain.register(email)
-            await authz.grant_user_level_role(email, 'customer')
+            await collect((
+                user_domain.register(email),
+                authz.grant_user_level_role(email, 'customer')
+            ))
 
         if group and responsibility and len(responsibility) <= 50:
             success_access_given = await _give_user_access(

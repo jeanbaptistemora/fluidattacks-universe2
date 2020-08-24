@@ -1,6 +1,9 @@
 import asyncio
 from typing import List, Any
-from asgiref.sync import sync_to_async
+
+from aioextensions import (
+    unblock_cpu,
+)
 from backend.domain import (
     finding as finding_domain,
     project as project_domain,
@@ -31,10 +34,15 @@ async def generate_group_report(
 
     findings = await finding_domain.get_findings_async(project_findings)
     findings = [
-        await sync_to_async(finding_domain.cast_new_vulnerabilities)
-        (await vuln_domain.get_open_vuln_by_type(
-            str(finding['findingId']), context), finding)
-        for finding in findings]
+        await unblock_cpu(
+            finding_domain.cast_new_vulnerabilities,
+            await vuln_domain.get_open_vuln_by_type(
+                str(finding['findingId']), context
+            ),
+            finding
+        )
+        for finding in findings
+    ]
     description = await project_domain.get_description(
         str(project_name).lower()
     )

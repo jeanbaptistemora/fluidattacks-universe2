@@ -5,11 +5,13 @@ import sys
 from datetime import datetime, timedelta
 from typing import Dict, List, Set, Any, cast, Union
 
+from aioextensions import (
+    unblock,
+)
 from ariadne import (
     convert_kwargs_to_snake_case,
     convert_camel_case_to_snake
 )
-from asgiref.sync import sync_to_async
 from django.conf import settings
 from jose import jwt
 from mixpanel import Mixpanel
@@ -313,8 +315,11 @@ async def _do_sign_in(
         strategy = load_strategy(info.context)
         auth_backend = load_backend(
             strategy=strategy, name=provider, redirect_uri=None)
-        user = await sync_to_async(auth_backend.do_auth)(
-            auth_token, client='mobile')
+        user = await unblock(
+            auth_backend.do_auth,
+            auth_token,
+            client='mobile'
+        )
         email = user.email.lower()
         session_jwt = jwt.encode(
             {
@@ -329,7 +334,8 @@ async def _do_sign_in(
             key=settings.JWT_SECRET,
         )
         mp_obj = Mixpanel(settings.MIXPANEL_API_TOKEN)
-        await sync_to_async(mp_obj.track)(
+        await unblock(
+            mp_obj.track,
             email,
             'MobileAuth',
             {

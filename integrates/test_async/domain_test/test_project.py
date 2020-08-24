@@ -334,17 +334,17 @@ class ProjectTest(TestCase):
         assert expected_output == projects
 
     @freeze_time("2020-04-12")
-    def test_get_mean_remediate_severity(self):
+    async def test_get_mean_remediate_severity(self):
         project_name = 'unittesting'
         min_severity = 0.1
         max_severity = 3.9
-        mean_remediate_low_severity = async_to_sync(get_mean_remediate_severity)(
+        mean_remediate_low_severity = await get_mean_remediate_severity(
             project_name, min_severity, max_severity)
         expected_output = (218, 232)
         assert mean_remediate_low_severity in expected_output
         min_severity = 4
         max_severity = 6.9
-        mean_remediate_medium_severity = async_to_sync(get_mean_remediate_severity)(
+        mean_remediate_medium_severity = await get_mean_remediate_severity(
             project_name, min_severity, max_severity)
         expected_output = 287
         assert mean_remediate_medium_severity == expected_output

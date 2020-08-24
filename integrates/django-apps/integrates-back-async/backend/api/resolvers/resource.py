@@ -3,8 +3,10 @@ import re
 import sys
 from typing import Any, Dict, List, cast, Union
 
+from aioextensions import (
+    unblock,
+)
 from ariadne import convert_kwargs_to_snake_case, convert_camel_case_to_snake
-from asgiref.sync import sync_to_async
 from django.conf import settings
 from mixpanel import Mixpanel
 from graphql.type.definition import GraphQLResolveInfo
@@ -339,7 +341,8 @@ async def _do_download_file(
         )
         util.cloudwatch_log(info.context, msg)  # pragma: no cover
         mp_obj = Mixpanel(settings.MIXPANEL_API_TOKEN)
-        await sync_to_async(mp_obj.track)(
+        await unblock(
+            mp_obj.track,
             user_email,
             'DownloadProjectFile',
             {
