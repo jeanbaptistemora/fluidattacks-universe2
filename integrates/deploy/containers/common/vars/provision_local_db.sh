@@ -234,6 +234,20 @@ aws dynamodb create-table \
     --provisioned-throughput \
         ReadCapacityUnits=1,WriteCapacityUnits=1
 
+aws dynamodb create-table \
+    --endpoint-url \
+        http://localhost:8022 \
+    --table-name \
+        FI_forces \
+    --attribute-definitions \
+        AttributeName=subscription,AttributeType=S \
+        AttributeName=execution_id,AttributeType=S \
+    --key-schema \
+        AttributeName=subscription,KeyType=HASH \
+        AttributeName=execution_id,KeyType=RANGE \
+    --provisioned-throughput \
+        ReadCapacityUnits=1,WriteCapacityUnits=1
+
 for mock_file in test_async/dynamo_data/*.json; do
     echo "[INFO] Writing data from: ${mock_file}"
     aws dynamodb batch-write-item --endpoint-url http://localhost:8022 \
@@ -254,6 +268,11 @@ echo '[INFO] Writing data from: test_async/dynamo_data/bb_executions.json.now'
 aws dynamodb batch-write-item \
   --endpoint-url 'http://localhost:8022' \
   --request-items 'file://test_async/dynamo_data/bb_executions.json.now'
+
+echo '[INFO] Writing data from: test_async/dynamo_data/bb_executions.json.now'
+aws dynamodb batch-write-item \
+  --endpoint-url 'http://localhost:8022' \
+  --request-items 'file://test_async/dynamo_data/FI_forces.json'
 
 if test "${CI_JOB_NAME:-}" = "integrates_serve_dynamodb_local"
 then

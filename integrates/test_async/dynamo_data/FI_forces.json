@@ -1,0 +1,2232 @@
+{
+    "FI_forces": [
+        {
+            "PutRequest": {
+                "Item": {
+                    "date": {
+                        "S": "2020-08-24T09:11:58.418140-0500"
+                    },
+                    "execution_id": {
+                        "S": "23a7ac72b6b24c9fa4cfcd41c7fdd505"
+                    },
+                    "exit_code": {
+                        "S": "0"
+                    },
+                    "git_branch": {
+                        "S": "drestrepoatfluid"
+                    },
+                    "git_commit": {
+                        "S": "743c41ec54d616299bebe12d9ad5fec1eca12271"
+                    },
+                    "git_origin": {
+                        "S": "git@gitlab.com:fluidattacks/integrates.git"
+                    },
+                    "git_repo": {
+                        "S": "integrates"
+                    },
+                    "kind": {
+                        "S": "other"
+                    },
+                    "log": {
+                        "S": "findings:\n- title: FIN.S.0083. Inyeccion  (XXE)\n  id: '463461507'\n  state: open\n  exploitability: Proof of concept\n  open: 2\n  closed: 0\n  accepted: 0\n  vulnerabilities:\n  - type: DAST\n    where: 192.168.100.105\n    specific: '3636'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/463461507\n    state: open\n    exploitability: Proof of concept\n  - type: DAST\n    where: 192.168.1.18\n    specific: '7777'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/463461507\n    state: open\n    exploitability: Proof of concept\n- title: FIN.H.0037. Fuga de información técnica\n  id: '457497316'\n  state: closed\n  exploitability: Proof of concept\n  open: 0\n  closed: 1\n  accepted: 0\n  vulnerabilities:\n  - type: DAST\n    where: https://10.1.1.1/\n    specific: userToken\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/457497316\n    state: closed\n    exploitability: Proof of concept\n- title: FIN.S.0038. Fuga de información de negocio\n  id: '436992569'\n  state: open\n  exploitability: Functional\n  open: 24\n  closed: 4\n  accepted: 0\n  vulnerabilities:\n  - type: DAST\n    where: 192.168.100.101\n    specific: '333'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/436992569\n    state: open\n    exploitability: Functional\n  - type: DAST\n    where: 192.168.1.12\n    specific: '1111'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/436992569\n    state: open\n    exploitability: Functional\n  - type: DAST\n    where: 192.168.1.4\n    specific: '3333'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/436992569\n    state: open\n    exploitability: Functional\n  - type: DAST\n    where: 192.168.1.17\n    specific: '6666'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/436992569\n    state: open\n    exploitability: Functional\n  - type: DAST\n    where: 192.168.1.15\n    specific: '4444'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/436992569\n    state: open\n    exploitability: Functional\n  - type: DAST\n    where: 192.168.1.6\n    specific: '5555'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/436992569\n    state: open\n    exploitability: Functional\n  - type: DAST\n    where: 192.168.1.10\n    specific: '9999'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/436992569\n    state: open\n    exploitability: Functional\n  - type: DAST\n    where: 192.168.100.112\n    specific: '1111'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/436992569\n    state: open\n    exploitability: Functional\n  - type: DAST\n    where: 192.168.100.105\n    specific: '333'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/436992569\n    state: open\n    exploitability: Functional\n  - type: DAST\n    where: 192.168.100.111\n    specific: '1111'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/436992569\n    state: open\n    exploitability: Functional\n  - type: DAST\n    where: 192.168.100.101\n    specific: '4444'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/436992569\n    state: closed\n    exploitability: Functional\n  - type: DAST\n    where: 192.168.1.5\n    specific: '4444'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/436992569\n    state: open\n    exploitability: Functional\n  - type: DAST\n    where: 192.168.100.104\n    specific: '333'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/436992569\n    state: open\n    exploitability: Functional\n  - type: DAST\n    where: 192.168.100.107\n    specific: '333'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/436992569\n    state: closed\n    exploitability: Functional\n  - type: DAST\n    where: 192.168.1.9\n    specific: '8888'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/436992569\n    state: open\n    exploitability: Functional\n  - type: DAST\n    where: 192.168.100.122\n    specific: '888'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/436992569\n    state: open\n    exploitability: Functional\n  - type: DAST\n    where: 192.168.1.7\n    specific: '6666'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/436992569\n    state: open\n    exploitability: Functional\n  - type: DAST\n    where: 192.168.1.2\n    specific: '1111'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/436992569\n    state: open\n    exploitability: Functional\n  - type: DAST\n    where: 192.168.1.3\n    specific: '2222'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/436992569\n    state: open\n    exploitability: Functional\n  - type: DAST\n    where: 192.168.1.13\n    specific: '2222'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/436992569\n    state: open\n    exploitability: Functional\n  - type: DAST\n    where: 192.168.1.8\n    specific: '7777'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/436992569\n    state: open\n    exploitability: Functional\n  - type: DAST\n    where: 192.168.100.109\n    specific: '333'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/436992569\n    state: closed\n    exploitability: Functional\n  - type: DAST\n    where: 192.168.1.16\n    specific: '5555'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/436992569\n    state: open\n    exploitability: Functional\n  - type: DAST\n    where: 192.168.1.14\n    specific: '3333'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/436992569\n    state: open\n    exploitability: Functional\n  - type: DAST\n    where: 192.168.100.108\n    specific: '333'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/436992569\n    state: open\n    exploitability: Functional\n  - type: DAST\n    where: testing\n    specific: asserts\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/436992569\n    state: open\n    exploitability: Functional\n  - type: DAST\n    where: 192.168.100.113\n    specific: '1111'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/436992569\n    state: open\n    exploitability: Functional\n  - type: DAST\n    where: 192.168.100.103\n    specific: '333'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/436992569\n    state: closed\n    exploitability: Functional\n- title: FIN.S.0007. Cross site request forgery\n  id: '463558592'\n  state: open\n  exploitability: Unproven\n  open: 4\n  closed: 2\n  accepted: 0\n  vulnerabilities:\n  - type: SAST\n    where: path/to/file2.ext\n    specific: '12'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/463558592\n    state: open\n    exploitability: Unproven\n  - type: SAST\n    where: path/to/file2.ext\n    specific: '12456'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/463558592\n    state: closed\n    exploitability: Unproven\n  - type: SAST\n    where: path/to/file3.ext\n    specific: '345'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/463558592\n    state: open\n    exploitability: Unproven\n  - type: SAST\n    where: path/to/file4.ext\n    specific: '564'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/463558592\n    state: open\n    exploitability: Unproven\n  - type: SAST\n    where: path/to/file1.ext\n    specific: '123345'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/463558592\n    state: closed\n    exploitability: Unproven\n  - type: SAST\n    where: path/to/file1.ext\n    specific: '123'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/463558592\n    state: open\n    exploitability: Unproven\n- title: FIN.S.0014. Funcionalidad insegura\n  id: '988493279'\n  state: open\n  exploitability: Proof of concept\n  open: 1\n  closed: 1\n  accepted: 0\n  vulnerabilities:\n  - type: DAST\n    where: 192.168.1.20\n    specific: '9999'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/988493279\n    state: closed\n    exploitability: Proof of concept\n  - type: DAST\n    where: 192.168.1.19\n    specific: '8888'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/988493279\n    state: open\n    exploitability: Proof of concept\n- title: FIN.S.0051. Weak passwords reversed\n  id: '422286126'\n  state: open\n  exploitability: Unproven\n  open: 1\n  closed: 0\n  accepted: 0\n  vulnerabilities:\n  - type: DAST\n    where: https://example.com\n    specific: phone\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/422286126\n    state: open\n    exploitability: Unproven\nsummary:\n  total: 40\n  open: 32\n  closed: 8\n  accepted: 0\n  time: 4.8308 seconds\n"
+                    },
+                    "strictness": {
+                        "S": "lax"
+                    },
+                    "subscription": {
+                        "S": "unittesting"
+                    },
+                    "vulnerabilities": {
+                        "M": {
+                            "accepted": {
+                                "L": []
+                            },
+                            "closed": {
+                                "L": [
+                                    {
+                                        "M": {
+                                            "exploitability": {
+                                                "N": "0.94"
+                                            },
+                                            "kind": {
+                                                "S": "DAST"
+                                            },
+                                            "state": {
+                                                "S": "CLOSED"
+                                            },
+                                            "where": {
+                                                "S": "https://10.1.1.1/"
+                                            },
+                                            "who": {
+                                                "S": "userToken"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "M": {
+                                            "exploitability": {
+                                                "N": "0.97"
+                                            },
+                                            "kind": {
+                                                "S": "DAST"
+                                            },
+                                            "state": {
+                                                "S": "CLOSED"
+                                            },
+                                            "where": {
+                                                "S": "192.168.100.107"
+                                            },
+                                            "who": {
+                                                "S": "333"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "M": {
+                                            "exploitability": {
+                                                "N": "0.97"
+                                            },
+                                            "kind": {
+                                                "S": "DAST"
+                                            },
+                                            "state": {
+                                                "S": "CLOSED"
+                                            },
+                                            "where": {
+                                                "S": "192.168.100.103"
+                                            },
+                                            "who": {
+                                                "S": "333"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "M": {
+                                            "exploitability": {
+                                                "N": "0.91"
+                                            },
+                                            "kind": {
+                                                "S": "SAST"
+                                            },
+                                            "state": {
+                                                "S": "CLOSED"
+                                            },
+                                            "where": {
+                                                "S": "path/to/file2.ext"
+                                            },
+                                            "who": {
+                                                "S": "12456"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "M": {
+                                            "exploitability": {
+                                                "N": "0.94"
+                                            },
+                                            "kind": {
+                                                "S": "DAST"
+                                            },
+                                            "state": {
+                                                "S": "CLOSED"
+                                            },
+                                            "where": {
+                                                "S": "192.168.1.20"
+                                            },
+                                            "who": {
+                                                "S": "9999"
+                                            }
+                                        }
+                                    }
+                                ]
+                            },
+                            "open": {
+                                "L": [
+                                    {
+                                        "M": {
+                                            "exploitability": {
+                                                "N": "0.94"
+                                            },
+                                            "kind": {
+                                                "S": "DAST"
+                                            },
+                                            "state": {
+                                                "S": "OPEN"
+                                            },
+                                            "where": {
+                                                "S": "192.168.100.105"
+                                            },
+                                            "who": {
+                                                "S": "3636"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "M": {
+                                            "exploitability": {
+                                                "N": "0.97"
+                                            },
+                                            "kind": {
+                                                "S": "DAST"
+                                            },
+                                            "state": {
+                                                "S": "OPEN"
+                                            },
+                                            "where": {
+                                                "S": "192.168.100.101"
+                                            },
+                                            "who": {
+                                                "S": "333"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "M": {
+                                            "exploitability": {
+                                                "N": "0.97"
+                                            },
+                                            "kind": {
+                                                "S": "DAST"
+                                            },
+                                            "state": {
+                                                "S": "OPEN"
+                                            },
+                                            "where": {
+                                                "S": "192.168.1.12"
+                                            },
+                                            "who": {
+                                                "S": "1111"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "M": {
+                                            "exploitability": {
+                                                "N": "0.97"
+                                            },
+                                            "kind": {
+                                                "S": "DAST"
+                                            },
+                                            "state": {
+                                                "S": "OPEN"
+                                            },
+                                            "where": {
+                                                "S": "192.168.1.17"
+                                            },
+                                            "who": {
+                                                "S": "6666"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "M": {
+                                            "exploitability": {
+                                                "N": "0.97"
+                                            },
+                                            "kind": {
+                                                "S": "DAST"
+                                            },
+                                            "state": {
+                                                "S": "OPEN"
+                                            },
+                                            "where": {
+                                                "S": "192.168.1.6"
+                                            },
+                                            "who": {
+                                                "S": "5555"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "M": {
+                                            "exploitability": {
+                                                "N": "0.97"
+                                            },
+                                            "kind": {
+                                                "S": "DAST"
+                                            },
+                                            "state": {
+                                                "S": "OPEN"
+                                            },
+                                            "where": {
+                                                "S": "192.168.1.10"
+                                            },
+                                            "who": {
+                                                "S": "9999"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "M": {
+                                            "exploitability": {
+                                                "N": "0.97"
+                                            },
+                                            "kind": {
+                                                "S": "DAST"
+                                            },
+                                            "state": {
+                                                "S": "OPEN"
+                                            },
+                                            "where": {
+                                                "S": "192.168.100.105"
+                                            },
+                                            "who": {
+                                                "S": "333"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "M": {
+                                            "exploitability": {
+                                                "N": "0.97"
+                                            },
+                                            "kind": {
+                                                "S": "DAST"
+                                            },
+                                            "state": {
+                                                "S": "OPEN"
+                                            },
+                                            "where": {
+                                                "S": "192.168.100.111"
+                                            },
+                                            "who": {
+                                                "S": "1111"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "M": {
+                                            "exploitability": {
+                                                "N": "0.97"
+                                            },
+                                            "kind": {
+                                                "S": "DAST"
+                                            },
+                                            "state": {
+                                                "S": "OPEN"
+                                            },
+                                            "where": {
+                                                "S": "192.168.1.5"
+                                            },
+                                            "who": {
+                                                "S": "4444"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "M": {
+                                            "exploitability": {
+                                                "N": "0.97"
+                                            },
+                                            "kind": {
+                                                "S": "DAST"
+                                            },
+                                            "state": {
+                                                "S": "OPEN"
+                                            },
+                                            "where": {
+                                                "S": "192.168.1.9"
+                                            },
+                                            "who": {
+                                                "S": "8888"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "M": {
+                                            "exploitability": {
+                                                "N": "0.97"
+                                            },
+                                            "kind": {
+                                                "S": "DAST"
+                                            },
+                                            "state": {
+                                                "S": "OPEN"
+                                            },
+                                            "where": {
+                                                "S": "192.168.100.122"
+                                            },
+                                            "who": {
+                                                "S": "888"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "M": {
+                                            "exploitability": {
+                                                "N": "0.97"
+                                            },
+                                            "kind": {
+                                                "S": "DAST"
+                                            },
+                                            "state": {
+                                                "S": "OPEN"
+                                            },
+                                            "where": {
+                                                "S": "192.168.1.7"
+                                            },
+                                            "who": {
+                                                "S": "6666"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "M": {
+                                            "exploitability": {
+                                                "N": "0.97"
+                                            },
+                                            "kind": {
+                                                "S": "DAST"
+                                            },
+                                            "state": {
+                                                "S": "OPEN"
+                                            },
+                                            "where": {
+                                                "S": "192.168.1.3"
+                                            },
+                                            "who": {
+                                                "S": "2222"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "M": {
+                                            "exploitability": {
+                                                "N": "0.97"
+                                            },
+                                            "kind": {
+                                                "S": "DAST"
+                                            },
+                                            "state": {
+                                                "S": "OPEN"
+                                            },
+                                            "where": {
+                                                "S": "192.168.1.13"
+                                            },
+                                            "who": {
+                                                "S": "2222"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "M": {
+                                            "exploitability": {
+                                                "N": "0.97"
+                                            },
+                                            "kind": {
+                                                "S": "DAST"
+                                            },
+                                            "state": {
+                                                "S": "OPEN"
+                                            },
+                                            "where": {
+                                                "S": "192.168.1.8"
+                                            },
+                                            "who": {
+                                                "S": "7777"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "M": {
+                                            "exploitability": {
+                                                "N": "0.97"
+                                            },
+                                            "kind": {
+                                                "S": "DAST"
+                                            },
+                                            "state": {
+                                                "S": "OPEN"
+                                            },
+                                            "where": {
+                                                "S": "192.168.1.14"
+                                            },
+                                            "who": {
+                                                "S": "3333"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "M": {
+                                            "exploitability": {
+                                                "N": "0.97"
+                                            },
+                                            "kind": {
+                                                "S": "DAST"
+                                            },
+                                            "state": {
+                                                "S": "OPEN"
+                                            },
+                                            "where": {
+                                                "S": "192.168.100.108"
+                                            },
+                                            "who": {
+                                                "S": "333"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "M": {
+                                            "exploitability": {
+                                                "N": "0.97"
+                                            },
+                                            "kind": {
+                                                "S": "DAST"
+                                            },
+                                            "state": {
+                                                "S": "OPEN"
+                                            },
+                                            "where": {
+                                                "S": "testing"
+                                            },
+                                            "who": {
+                                                "S": "asserts"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "M": {
+                                            "exploitability": {
+                                                "N": "0.97"
+                                            },
+                                            "kind": {
+                                                "S": "DAST"
+                                            },
+                                            "state": {
+                                                "S": "OPEN"
+                                            },
+                                            "where": {
+                                                "S": "192.168.100.113"
+                                            },
+                                            "who": {
+                                                "S": "1111"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "M": {
+                                            "exploitability": {
+                                                "N": "0.91"
+                                            },
+                                            "kind": {
+                                                "S": "SAST"
+                                            },
+                                            "state": {
+                                                "S": "OPEN"
+                                            },
+                                            "where": {
+                                                "S": "path/to/file2.ext"
+                                            },
+                                            "who": {
+                                                "S": "12"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "M": {
+                                            "exploitability": {
+                                                "N": "0.91"
+                                            },
+                                            "kind": {
+                                                "S": "SAST"
+                                            },
+                                            "state": {
+                                                "S": "OPEN"
+                                            },
+                                            "where": {
+                                                "S": "path/to/file3.ext"
+                                            },
+                                            "who": {
+                                                "S": "345"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "M": {
+                                            "exploitability": {
+                                                "N": "0.91"
+                                            },
+                                            "kind": {
+                                                "S": "SAST"
+                                            },
+                                            "state": {
+                                                "S": "OPEN"
+                                            },
+                                            "where": {
+                                                "S": "path/to/file1.ext"
+                                            },
+                                            "who": {
+                                                "S": "123"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "M": {
+                                            "exploitability": {
+                                                "N": "0.94"
+                                            },
+                                            "kind": {
+                                                "S": "DAST"
+                                            },
+                                            "state": {
+                                                "S": "OPEN"
+                                            },
+                                            "where": {
+                                                "S": "192.168.1.19"
+                                            },
+                                            "who": {
+                                                "S": "8888"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "M": {
+                                            "exploitability": {
+                                                "N": "0.91"
+                                            },
+                                            "kind": {
+                                                "S": "DAST"
+                                            },
+                                            "state": {
+                                                "S": "OPEN"
+                                            },
+                                            "where": {
+                                                "S": "https://example.com"
+                                            },
+                                            "who": {
+                                                "S": "phone"
+                                            }
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "date": {
+                        "S": "2020-08-24T09:27:10.329421-0500"
+                    },
+                    "execution_id": {
+                        "S": "92968b3ba84645bf976c12b15f9464bb"
+                    },
+                    "exit_code": {
+                        "S": "0"
+                    },
+                    "git_branch": {
+                        "S": "drestrepoatfluid"
+                    },
+                    "git_commit": {
+                        "S": "743c41ec54d616299bebe12d9ad5fec1eca12271"
+                    },
+                    "git_origin": {
+                        "S": "git@gitlab.com:fluidattacks/integrates.git"
+                    },
+                    "git_repo": {
+                        "S": "integrates"
+                    },
+                    "kind": {
+                        "S": "other"
+                    },
+                    "log": {
+                        "S": "\n#     ______\n#    / ____/___  _____________  _____\n#   / /_  / __ \\/ ___/ ___/ _ \\/ ___/\n#  / __/ / /_/ / /  / /__/  __(__  )\n# /_/    \\____/_/   \\___/\\___/____/\n#\n#  ___\n# | >>|> fluid\n# |___|  attacks, we hack your software\n#\n\nfindings:\n- title: FIN.S.0051. Weak passwords reversed\n  id: '422286126'\n  state: open\n  exploitability: Unproven\n  open: 1\n  closed: 0\n  accepted: 0\n  vulnerabilities:\n  - type: DAST\n    where: https://example.com\n    specific: phone\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/422286126\n    state: open\n    exploitability: Unproven\n- title: FIN.S.0083. Inyeccion  (XXE)\n  id: '463461507'\n  state: open\n  exploitability: Proof of concept\n  open: 2\n  closed: 0\n  accepted: 0\n  vulnerabilities:\n  - type: DAST\n    where: 192.168.100.105\n    specific: '3636'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/463461507\n    state: open\n    exploitability: Proof of concept\n  - type: DAST\n    where: 192.168.1.18\n    specific: '7777'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/463461507\n    state: open\n    exploitability: Proof of concept\n- title: FIN.H.0037. Fuga de información técnica\n  id: '457497316'\n  state: closed\n  exploitability: Proof of concept\n  open: 0\n  closed: 1\n  accepted: 0\n  vulnerabilities:\n  - type: DAST\n    where: https://10.1.1.1/\n    specific: userToken\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/457497316\n    state: closed\n    exploitability: Proof of concept\n- title: FIN.S.0007. Cross site request forgery\n  id: '463558592'\n  state: open\n  exploitability: Unproven\n  open: 4\n  closed: 2\n  accepted: 0\n  vulnerabilities:\n  - type: SAST\n    where: path/to/file2.ext\n    specific: '12'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/463558592\n    state: open\n    exploitability: Unproven\n  - type: SAST\n    where: path/to/file2.ext\n    specific: '12456'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/463558592\n    state: closed\n    exploitability: Unproven\n  - type: SAST\n    where: path/to/file3.ext\n    specific: '345'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/463558592\n    state: open\n    exploitability: Unproven\n  - type: SAST\n    where: path/to/file4.ext\n    specific: '564'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/463558592\n    state: open\n    exploitability: Unproven\n  - type: SAST\n    where: path/to/file1.ext\n    specific: '123345'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/463558592\n    state: closed\n    exploitability: Unproven\n  - type: SAST\n    where: path/to/file1.ext\n    specific: '123'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/463558592\n    state: open\n    exploitability: Unproven\n- title: FIN.S.0038. Fuga de información de negocio\n  id: '436992569'\n  state: open\n  exploitability: Functional\n  open: 24\n  closed: 4\n  accepted: 0\n  vulnerabilities:\n  - type: DAST\n    where: 192.168.100.101\n    specific: '333'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/436992569\n    state: open\n    exploitability: Functional\n  - type: DAST\n    where: 192.168.1.12\n    specific: '1111'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/436992569\n    state: open\n    exploitability: Functional\n  - type: DAST\n    where: 192.168.1.4\n    specific: '3333'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/436992569\n    state: open\n    exploitability: Functional\n  - type: DAST\n    where: 192.168.1.17\n    specific: '6666'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/436992569\n    state: open\n    exploitability: Functional\n  - type: DAST\n    where: 192.168.1.15\n    specific: '4444'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/436992569\n    state: open\n    exploitability: Functional\n  - type: DAST\n    where: 192.168.1.6\n    specific: '5555'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/436992569\n    state: open\n    exploitability: Functional\n  - type: DAST\n    where: 192.168.1.10\n    specific: '9999'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/436992569\n    state: open\n    exploitability: Functional\n  - type: DAST\n    where: 192.168.100.112\n    specific: '1111'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/436992569\n    state: open\n    exploitability: Functional\n  - type: DAST\n    where: 192.168.100.105\n    specific: '333'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/436992569\n    state: open\n    exploitability: Functional\n  - type: DAST\n    where: 192.168.100.111\n    specific: '1111'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/436992569\n    state: open\n    exploitability: Functional\n  - type: DAST\n    where: 192.168.100.101\n    specific: '4444'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/436992569\n    state: closed\n    exploitability: Functional\n  - type: DAST\n    where: 192.168.1.5\n    specific: '4444'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/436992569\n    state: open\n    exploitability: Functional\n  - type: DAST\n    where: 192.168.100.104\n    specific: '333'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/436992569\n    state: open\n    exploitability: Functional\n  - type: DAST\n    where: 192.168.100.107\n    specific: '333'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/436992569\n    state: closed\n    exploitability: Functional\n  - type: DAST\n    where: 192.168.1.9\n    specific: '8888'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/436992569\n    state: open\n    exploitability: Functional\n  - type: DAST\n    where: 192.168.100.122\n    specific: '888'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/436992569\n    state: open\n    exploitability: Functional\n  - type: DAST\n    where: 192.168.1.7\n    specific: '6666'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/436992569\n    state: open\n    exploitability: Functional\n  - type: DAST\n    where: 192.168.1.2\n    specific: '1111'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/436992569\n    state: open\n    exploitability: Functional\n  - type: DAST\n    where: 192.168.1.3\n    specific: '2222'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/436992569\n    state: open\n    exploitability: Functional\n  - type: DAST\n    where: 192.168.1.13\n    specific: '2222'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/436992569\n    state: open\n    exploitability: Functional\n  - type: DAST\n    where: 192.168.1.8\n    specific: '7777'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/436992569\n    state: open\n    exploitability: Functional\n  - type: DAST\n    where: 192.168.100.109\n    specific: '333'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/436992569\n    state: closed\n    exploitability: Functional\n  - type: DAST\n    where: 192.168.1.16\n    specific: '5555'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/436992569\n    state: open\n    exploitability: Functional\n  - type: DAST\n    where: 192.168.1.14\n    specific: '3333'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/436992569\n    state: open\n    exploitability: Functional\n  - type: DAST\n    where: 192.168.100.108\n    specific: '333'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/436992569\n    state: open\n    exploitability: Functional\n  - type: DAST\n    where: testing\n    specific: asserts\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/436992569\n    state: open\n    exploitability: Functional\n  - type: DAST\n    where: 192.168.100.113\n    specific: '1111'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/436992569\n    state: open\n    exploitability: Functional\n  - type: DAST\n    where: 192.168.100.103\n    specific: '333'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/436992569\n    state: closed\n    exploitability: Functional\n- title: FIN.S.0014. Funcionalidad insegura\n  id: '988493279'\n  state: open\n  exploitability: Proof of concept\n  open: 1\n  closed: 1\n  accepted: 0\n  vulnerabilities:\n  - type: DAST\n    where: 192.168.1.20\n    specific: '9999'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/988493279\n    state: closed\n    exploitability: Proof of concept\n  - type: DAST\n    where: 192.168.1.19\n    specific: '8888'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/988493279\n    state: open\n    exploitability: Proof of concept\nsummary:\n  total: 40\n  open: 32\n  closed: 8\n  accepted: 0\n  time: 1.9353 seconds\n"
+                    },
+                    "strictness": {
+                        "S": "lax"
+                    },
+                    "subscription": {
+                        "S": "unittesting"
+                    },
+                    "vulnerabilities": {
+                        "M": {
+                            "accepted": {
+                                "L": []
+                            },
+                            "closed": {
+                                "L": []
+                            },
+                            "open": {
+                                "L": [
+                                    {
+                                        "M": {
+                                            "exploitability": {
+                                                "N": "0.91"
+                                            },
+                                            "kind": {
+                                                "S": "DAST"
+                                            },
+                                            "state": {
+                                                "S": "OPEN"
+                                            },
+                                            "where": {
+                                                "S": "https://example.com"
+                                            },
+                                            "who": {
+                                                "S": "phone"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "M": {
+                                            "exploitability": {
+                                                "N": "0.91"
+                                            },
+                                            "kind": {
+                                                "S": "SAST"
+                                            },
+                                            "state": {
+                                                "S": "OPEN"
+                                            },
+                                            "where": {
+                                                "S": "path/to/file3.ext"
+                                            },
+                                            "who": {
+                                                "S": "345"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "M": {
+                                            "exploitability": {
+                                                "N": "0.91"
+                                            },
+                                            "kind": {
+                                                "S": "SAST"
+                                            },
+                                            "state": {
+                                                "S": "OPEN"
+                                            },
+                                            "where": {
+                                                "S": "path/to/file4.ext"
+                                            },
+                                            "who": {
+                                                "S": "564"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "M": {
+                                            "exploitability": {
+                                                "N": "0.91"
+                                            },
+                                            "kind": {
+                                                "S": "SAST"
+                                            },
+                                            "state": {
+                                                "S": "OPEN"
+                                            },
+                                            "where": {
+                                                "S": "path/to/file1.ext"
+                                            },
+                                            "who": {
+                                                "S": "123"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "M": {
+                                            "exploitability": {
+                                                "N": "0.97"
+                                            },
+                                            "kind": {
+                                                "S": "DAST"
+                                            },
+                                            "state": {
+                                                "S": "OPEN"
+                                            },
+                                            "where": {
+                                                "S": "192.168.100.101"
+                                            },
+                                            "who": {
+                                                "S": "333"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "M": {
+                                            "exploitability": {
+                                                "N": "0.97"
+                                            },
+                                            "kind": {
+                                                "S": "DAST"
+                                            },
+                                            "state": {
+                                                "S": "OPEN"
+                                            },
+                                            "where": {
+                                                "S": "192.168.1.12"
+                                            },
+                                            "who": {
+                                                "S": "1111"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "M": {
+                                            "exploitability": {
+                                                "N": "0.97"
+                                            },
+                                            "kind": {
+                                                "S": "DAST"
+                                            },
+                                            "state": {
+                                                "S": "OPEN"
+                                            },
+                                            "where": {
+                                                "S": "192.168.1.4"
+                                            },
+                                            "who": {
+                                                "S": "3333"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "M": {
+                                            "exploitability": {
+                                                "N": "0.97"
+                                            },
+                                            "kind": {
+                                                "S": "DAST"
+                                            },
+                                            "state": {
+                                                "S": "OPEN"
+                                            },
+                                            "where": {
+                                                "S": "192.168.1.17"
+                                            },
+                                            "who": {
+                                                "S": "6666"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "M": {
+                                            "exploitability": {
+                                                "N": "0.97"
+                                            },
+                                            "kind": {
+                                                "S": "DAST"
+                                            },
+                                            "state": {
+                                                "S": "OPEN"
+                                            },
+                                            "where": {
+                                                "S": "192.168.1.15"
+                                            },
+                                            "who": {
+                                                "S": "4444"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "M": {
+                                            "exploitability": {
+                                                "N": "0.97"
+                                            },
+                                            "kind": {
+                                                "S": "DAST"
+                                            },
+                                            "state": {
+                                                "S": "OPEN"
+                                            },
+                                            "where": {
+                                                "S": "192.168.1.6"
+                                            },
+                                            "who": {
+                                                "S": "5555"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "M": {
+                                            "exploitability": {
+                                                "N": "0.97"
+                                            },
+                                            "kind": {
+                                                "S": "DAST"
+                                            },
+                                            "state": {
+                                                "S": "OPEN"
+                                            },
+                                            "where": {
+                                                "S": "192.168.1.10"
+                                            },
+                                            "who": {
+                                                "S": "9999"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "M": {
+                                            "exploitability": {
+                                                "N": "0.97"
+                                            },
+                                            "kind": {
+                                                "S": "DAST"
+                                            },
+                                            "state": {
+                                                "S": "OPEN"
+                                            },
+                                            "where": {
+                                                "S": "192.168.100.112"
+                                            },
+                                            "who": {
+                                                "S": "1111"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "M": {
+                                            "exploitability": {
+                                                "N": "0.97"
+                                            },
+                                            "kind": {
+                                                "S": "DAST"
+                                            },
+                                            "state": {
+                                                "S": "OPEN"
+                                            },
+                                            "where": {
+                                                "S": "192.168.100.105"
+                                            },
+                                            "who": {
+                                                "S": "333"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "M": {
+                                            "exploitability": {
+                                                "N": "0.97"
+                                            },
+                                            "kind": {
+                                                "S": "DAST"
+                                            },
+                                            "state": {
+                                                "S": "OPEN"
+                                            },
+                                            "where": {
+                                                "S": "192.168.100.111"
+                                            },
+                                            "who": {
+                                                "S": "1111"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "M": {
+                                            "exploitability": {
+                                                "N": "0.97"
+                                            },
+                                            "kind": {
+                                                "S": "DAST"
+                                            },
+                                            "state": {
+                                                "S": "OPEN"
+                                            },
+                                            "where": {
+                                                "S": "192.168.1.5"
+                                            },
+                                            "who": {
+                                                "S": "4444"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "M": {
+                                            "exploitability": {
+                                                "N": "0.97"
+                                            },
+                                            "kind": {
+                                                "S": "DAST"
+                                            },
+                                            "state": {
+                                                "S": "OPEN"
+                                            },
+                                            "where": {
+                                                "S": "192.168.100.104"
+                                            },
+                                            "who": {
+                                                "S": "333"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "M": {
+                                            "exploitability": {
+                                                "N": "0.97"
+                                            },
+                                            "kind": {
+                                                "S": "DAST"
+                                            },
+                                            "state": {
+                                                "S": "OPEN"
+                                            },
+                                            "where": {
+                                                "S": "192.168.1.9"
+                                            },
+                                            "who": {
+                                                "S": "8888"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "M": {
+                                            "exploitability": {
+                                                "N": "0.97"
+                                            },
+                                            "kind": {
+                                                "S": "DAST"
+                                            },
+                                            "state": {
+                                                "S": "OPEN"
+                                            },
+                                            "where": {
+                                                "S": "192.168.100.122"
+                                            },
+                                            "who": {
+                                                "S": "888"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "M": {
+                                            "exploitability": {
+                                                "N": "0.97"
+                                            },
+                                            "kind": {
+                                                "S": "DAST"
+                                            },
+                                            "state": {
+                                                "S": "OPEN"
+                                            },
+                                            "where": {
+                                                "S": "192.168.1.7"
+                                            },
+                                            "who": {
+                                                "S": "6666"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "M": {
+                                            "exploitability": {
+                                                "N": "0.97"
+                                            },
+                                            "kind": {
+                                                "S": "DAST"
+                                            },
+                                            "state": {
+                                                "S": "OPEN"
+                                            },
+                                            "where": {
+                                                "S": "192.168.1.2"
+                                            },
+                                            "who": {
+                                                "S": "1111"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "M": {
+                                            "exploitability": {
+                                                "N": "0.97"
+                                            },
+                                            "kind": {
+                                                "S": "DAST"
+                                            },
+                                            "state": {
+                                                "S": "OPEN"
+                                            },
+                                            "where": {
+                                                "S": "192.168.1.3"
+                                            },
+                                            "who": {
+                                                "S": "2222"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "M": {
+                                            "exploitability": {
+                                                "N": "0.97"
+                                            },
+                                            "kind": {
+                                                "S": "DAST"
+                                            },
+                                            "state": {
+                                                "S": "OPEN"
+                                            },
+                                            "where": {
+                                                "S": "192.168.1.13"
+                                            },
+                                            "who": {
+                                                "S": "2222"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "M": {
+                                            "exploitability": {
+                                                "N": "0.97"
+                                            },
+                                            "kind": {
+                                                "S": "DAST"
+                                            },
+                                            "state": {
+                                                "S": "OPEN"
+                                            },
+                                            "where": {
+                                                "S": "192.168.1.8"
+                                            },
+                                            "who": {
+                                                "S": "7777"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "M": {
+                                            "exploitability": {
+                                                "N": "0.97"
+                                            },
+                                            "kind": {
+                                                "S": "DAST"
+                                            },
+                                            "state": {
+                                                "S": "OPEN"
+                                            },
+                                            "where": {
+                                                "S": "192.168.1.16"
+                                            },
+                                            "who": {
+                                                "S": "5555"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "M": {
+                                            "exploitability": {
+                                                "N": "0.97"
+                                            },
+                                            "kind": {
+                                                "S": "DAST"
+                                            },
+                                            "state": {
+                                                "S": "OPEN"
+                                            },
+                                            "where": {
+                                                "S": "192.168.1.14"
+                                            },
+                                            "who": {
+                                                "S": "3333"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "M": {
+                                            "exploitability": {
+                                                "N": "0.97"
+                                            },
+                                            "kind": {
+                                                "S": "DAST"
+                                            },
+                                            "state": {
+                                                "S": "OPEN"
+                                            },
+                                            "where": {
+                                                "S": "192.168.100.108"
+                                            },
+                                            "who": {
+                                                "S": "333"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "M": {
+                                            "exploitability": {
+                                                "N": "0.97"
+                                            },
+                                            "kind": {
+                                                "S": "DAST"
+                                            },
+                                            "state": {
+                                                "S": "OPEN"
+                                            },
+                                            "where": {
+                                                "S": "testing"
+                                            },
+                                            "who": {
+                                                "S": "asserts"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "M": {
+                                            "exploitability": {
+                                                "N": "0.97"
+                                            },
+                                            "kind": {
+                                                "S": "DAST"
+                                            },
+                                            "state": {
+                                                "S": "OPEN"
+                                            },
+                                            "where": {
+                                                "S": "192.168.100.113"
+                                            },
+                                            "who": {
+                                                "S": "1111"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "M": {
+                                            "exploitability": {
+                                                "N": "0.94"
+                                            },
+                                            "kind": {
+                                                "S": "DAST"
+                                            },
+                                            "state": {
+                                                "S": "OPEN"
+                                            },
+                                            "where": {
+                                                "S": "192.168.1.19"
+                                            },
+                                            "who": {
+                                                "S": "8888"
+                                            }
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "date": {
+                        "S": "2020-08-24T09:27:35.678975-0500"
+                    },
+                    "execution_id": {
+                        "S": "b97ab29d82c84b14a189bc045bdfa76f"
+                    },
+                    "exit_code": {
+                        "S": "0"
+                    },
+                    "git_branch": {
+                        "S": "drestrepoatfluid"
+                    },
+                    "git_commit": {
+                        "S": "743c41ec54d616299bebe12d9ad5fec1eca12271"
+                    },
+                    "git_origin": {
+                        "S": "git@gitlab.com:fluidattacks/integrates.git"
+                    },
+                    "git_repo": {
+                        "S": "integrates"
+                    },
+                    "kind": {
+                        "S": "other"
+                    },
+                    "log": {
+                        "S": "\n#     ______\n#    / ____/___  _____________  _____\n#   / /_  / __ \\/ ___/ ___/ _ \\/ ___/\n#  / __/ / /_/ / /  / /__/  __(__  )\n# /_/    \\____/_/   \\___/\\___/____/\n#\n#  ___\n# | >>|> fluid\n# |___|  attacks, we hack your software\n#\n\nfindings:\n- title: FIN.S.0038. Fuga de información de negocio\n  id: '436992569'\n  state: open\n  exploitability: Functional\n  open: 24\n  closed: 4\n  accepted: 0\n  vulnerabilities:\n  - type: DAST\n    where: 192.168.100.101\n    specific: '333'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/436992569\n    state: open\n    exploitability: Functional\n  - type: DAST\n    where: 192.168.1.12\n    specific: '1111'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/436992569\n    state: open\n    exploitability: Functional\n  - type: DAST\n    where: 192.168.1.4\n    specific: '3333'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/436992569\n    state: open\n    exploitability: Functional\n  - type: DAST\n    where: 192.168.1.17\n    specific: '6666'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/436992569\n    state: open\n    exploitability: Functional\n  - type: DAST\n    where: 192.168.1.15\n    specific: '4444'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/436992569\n    state: open\n    exploitability: Functional\n  - type: DAST\n    where: 192.168.1.6\n    specific: '5555'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/436992569\n    state: open\n    exploitability: Functional\n  - type: DAST\n    where: 192.168.1.10\n    specific: '9999'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/436992569\n    state: open\n    exploitability: Functional\n  - type: DAST\n    where: 192.168.100.112\n    specific: '1111'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/436992569\n    state: open\n    exploitability: Functional\n  - type: DAST\n    where: 192.168.100.105\n    specific: '333'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/436992569\n    state: open\n    exploitability: Functional\n  - type: DAST\n    where: 192.168.100.111\n    specific: '1111'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/436992569\n    state: open\n    exploitability: Functional\n  - type: DAST\n    where: 192.168.100.101\n    specific: '4444'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/436992569\n    state: closed\n    exploitability: Functional\n  - type: DAST\n    where: 192.168.1.5\n    specific: '4444'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/436992569\n    state: open\n    exploitability: Functional\n  - type: DAST\n    where: 192.168.100.104\n    specific: '333'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/436992569\n    state: open\n    exploitability: Functional\n  - type: DAST\n    where: 192.168.100.107\n    specific: '333'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/436992569\n    state: closed\n    exploitability: Functional\n  - type: DAST\n    where: 192.168.1.9\n    specific: '8888'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/436992569\n    state: open\n    exploitability: Functional\n  - type: DAST\n    where: 192.168.100.122\n    specific: '888'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/436992569\n    state: open\n    exploitability: Functional\n  - type: DAST\n    where: 192.168.1.7\n    specific: '6666'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/436992569\n    state: open\n    exploitability: Functional\n  - type: DAST\n    where: 192.168.1.2\n    specific: '1111'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/436992569\n    state: open\n    exploitability: Functional\n  - type: DAST\n    where: 192.168.1.3\n    specific: '2222'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/436992569\n    state: open\n    exploitability: Functional\n  - type: DAST\n    where: 192.168.1.13\n    specific: '2222'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/436992569\n    state: open\n    exploitability: Functional\n  - type: DAST\n    where: 192.168.1.8\n    specific: '7777'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/436992569\n    state: open\n    exploitability: Functional\n  - type: DAST\n    where: 192.168.100.109\n    specific: '333'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/436992569\n    state: closed\n    exploitability: Functional\n  - type: DAST\n    where: 192.168.1.16\n    specific: '5555'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/436992569\n    state: open\n    exploitability: Functional\n  - type: DAST\n    where: 192.168.1.14\n    specific: '3333'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/436992569\n    state: open\n    exploitability: Functional\n  - type: DAST\n    where: 192.168.100.108\n    specific: '333'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/436992569\n    state: open\n    exploitability: Functional\n  - type: DAST\n    where: testing\n    specific: asserts\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/436992569\n    state: open\n    exploitability: Functional\n  - type: DAST\n    where: 192.168.100.113\n    specific: '1111'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/436992569\n    state: open\n    exploitability: Functional\n  - type: DAST\n    where: 192.168.100.103\n    specific: '333'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/436992569\n    state: closed\n    exploitability: Functional\n- title: FIN.S.0051. Weak passwords reversed\n  id: '422286126'\n  state: open\n  exploitability: Unproven\n  open: 1\n  closed: 0\n  accepted: 0\n  vulnerabilities:\n  - type: DAST\n    where: https://example.com\n    specific: phone\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/422286126\n    state: open\n    exploitability: Unproven\n- title: FIN.S.0007. Cross site request forgery\n  id: '463558592'\n  state: open\n  exploitability: Unproven\n  open: 4\n  closed: 2\n  accepted: 0\n  vulnerabilities:\n  - type: SAST\n    where: path/to/file2.ext\n    specific: '12'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/463558592\n    state: open\n    exploitability: Unproven\n  - type: SAST\n    where: path/to/file2.ext\n    specific: '12456'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/463558592\n    state: closed\n    exploitability: Unproven\n  - type: SAST\n    where: path/to/file3.ext\n    specific: '345'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/463558592\n    state: open\n    exploitability: Unproven\n  - type: SAST\n    where: path/to/file4.ext\n    specific: '564'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/463558592\n    state: open\n    exploitability: Unproven\n  - type: SAST\n    where: path/to/file1.ext\n    specific: '123345'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/463558592\n    state: closed\n    exploitability: Unproven\n  - type: SAST\n    where: path/to/file1.ext\n    specific: '123'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/463558592\n    state: open\n    exploitability: Unproven\n- title: FIN.H.0037. Fuga de información técnica\n  id: '457497316'\n  state: closed\n  exploitability: Proof of concept\n  open: 0\n  closed: 1\n  accepted: 0\n  vulnerabilities:\n  - type: DAST\n    where: https://10.1.1.1/\n    specific: userToken\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/457497316\n    state: closed\n    exploitability: Proof of concept\n- title: FIN.S.0083. Inyeccion  (XXE)\n  id: '463461507'\n  state: open\n  exploitability: Proof of concept\n  open: 2\n  closed: 0\n  accepted: 0\n  vulnerabilities:\n  - type: DAST\n    where: 192.168.100.105\n    specific: '3636'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/463461507\n    state: open\n    exploitability: Proof of concept\n  - type: DAST\n    where: 192.168.1.18\n    specific: '7777'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/463461507\n    state: open\n    exploitability: Proof of concept\n- title: FIN.S.0014. Funcionalidad insegura\n  id: '988493279'\n  state: open\n  exploitability: Proof of concept\n  open: 1\n  closed: 1\n  accepted: 0\n  vulnerabilities:\n  - type: DAST\n    where: 192.168.1.20\n    specific: '9999'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/988493279\n    state: closed\n    exploitability: Proof of concept\n  - type: DAST\n    where: 192.168.1.19\n    specific: '8888'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/988493279\n    state: open\n    exploitability: Proof of concept\nsummary:\n  total: 40\n  open: 32\n  closed: 8\n  accepted: 0\n  time: 1.4526 seconds\n"
+                    },
+                    "strictness": {
+                        "S": "lax"
+                    },
+                    "subscription": {
+                        "S": "unittesting"
+                    },
+                    "vulnerabilities": {
+                        "M": {
+                            "accepted": {
+                                "L": []
+                            },
+                            "closed": {
+                                "L": [
+                                    {
+                                        "M": {
+                                            "exploitability": {
+                                                "N": "0.97"
+                                            },
+                                            "kind": {
+                                                "S": "DAST"
+                                            },
+                                            "state": {
+                                                "S": "CLOSED"
+                                            },
+                                            "where": {
+                                                "S": "192.168.100.101"
+                                            },
+                                            "who": {
+                                                "S": "4444"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "M": {
+                                            "exploitability": {
+                                                "N": "0.97"
+                                            },
+                                            "kind": {
+                                                "S": "DAST"
+                                            },
+                                            "state": {
+                                                "S": "CLOSED"
+                                            },
+                                            "where": {
+                                                "S": "192.168.100.107"
+                                            },
+                                            "who": {
+                                                "S": "333"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "M": {
+                                            "exploitability": {
+                                                "N": "0.97"
+                                            },
+                                            "kind": {
+                                                "S": "DAST"
+                                            },
+                                            "state": {
+                                                "S": "CLOSED"
+                                            },
+                                            "where": {
+                                                "S": "192.168.100.109"
+                                            },
+                                            "who": {
+                                                "S": "333"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "M": {
+                                            "exploitability": {
+                                                "N": "0.97"
+                                            },
+                                            "kind": {
+                                                "S": "DAST"
+                                            },
+                                            "state": {
+                                                "S": "CLOSED"
+                                            },
+                                            "where": {
+                                                "S": "192.168.100.103"
+                                            },
+                                            "who": {
+                                                "S": "333"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "M": {
+                                            "exploitability": {
+                                                "N": "0.91"
+                                            },
+                                            "kind": {
+                                                "S": "SAST"
+                                            },
+                                            "state": {
+                                                "S": "CLOSED"
+                                            },
+                                            "where": {
+                                                "S": "path/to/file2.ext"
+                                            },
+                                            "who": {
+                                                "S": "12456"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "M": {
+                                            "exploitability": {
+                                                "N": "0.91"
+                                            },
+                                            "kind": {
+                                                "S": "SAST"
+                                            },
+                                            "state": {
+                                                "S": "CLOSED"
+                                            },
+                                            "where": {
+                                                "S": "path/to/file1.ext"
+                                            },
+                                            "who": {
+                                                "S": "123345"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "M": {
+                                            "exploitability": {
+                                                "N": "0.94"
+                                            },
+                                            "kind": {
+                                                "S": "DAST"
+                                            },
+                                            "state": {
+                                                "S": "CLOSED"
+                                            },
+                                            "where": {
+                                                "S": "https://10.1.1.1/"
+                                            },
+                                            "who": {
+                                                "S": "userToken"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "M": {
+                                            "exploitability": {
+                                                "N": "0.94"
+                                            },
+                                            "kind": {
+                                                "S": "DAST"
+                                            },
+                                            "state": {
+                                                "S": "CLOSED"
+                                            },
+                                            "where": {
+                                                "S": "192.168.1.20"
+                                            },
+                                            "who": {
+                                                "S": "9999"
+                                            }
+                                        }
+                                    }
+                                ]
+                            },
+                            "open": {
+                                "L": []
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "date": {
+                        "S": "2020-08-24T09:30:06.319251-0500"
+                    },
+                    "execution_id": {
+                        "S": "ecf62c1fd6064c1eb773da49750c4011"
+                    },
+                    "exit_code": {
+                        "S": "0"
+                    },
+                    "git_branch": {
+                        "S": "drestrepoatfluid"
+                    },
+                    "git_commit": {
+                        "S": "743c41ec54d616299bebe12d9ad5fec1eca12271"
+                    },
+                    "git_origin": {
+                        "S": "git@gitlab.com:fluidattacks/integrates.git"
+                    },
+                    "git_repo": {
+                        "S": "integrates"
+                    },
+                    "kind": {
+                        "S": "other"
+                    },
+                    "log": {
+                        "S": "\n#     ______\n#    / ____/___  _____________  _____\n#   / /_  / __ \\/ ___/ ___/ _ \\/ ___/\n#  / __/ / /_/ / /  / /__/  __(__  )\n# /_/    \\____/_/   \\___/\\___/____/\n#\n#  ___\n# | >>|> fluid\n# |___|  attacks, we hack your software\n#\n\nfindings:\n- title: FIN.S.0051. Weak passwords reversed\n  id: '422286126'\n  state: open\n  exploitability: Unproven\n  open: 1\n  closed: 0\n  accepted: 0\n  vulnerabilities:\n  - type: DAST\n    where: https://example.com\n    specific: phone\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/422286126\n    state: open\n    exploitability: Unproven\n- title: FIN.S.0014. Funcionalidad insegura\n  id: '988493279'\n  state: open\n  exploitability: Proof of concept\n  open: 1\n  closed: 1\n  accepted: 0\n  vulnerabilities:\n  - type: DAST\n    where: 192.168.1.20\n    specific: '9999'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/988493279\n    state: closed\n    exploitability: Proof of concept\n  - type: DAST\n    where: 192.168.1.19\n    specific: '8888'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/988493279\n    state: open\n    exploitability: Proof of concept\n- title: FIN.S.0007. Cross site request forgery\n  id: '463558592'\n  state: open\n  exploitability: Unproven\n  open: 4\n  closed: 2\n  accepted: 0\n  vulnerabilities:\n  - type: SAST\n    where: path/to/file2.ext\n    specific: '12'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/463558592\n    state: open\n    exploitability: Unproven\n  - type: SAST\n    where: path/to/file2.ext\n    specific: '12456'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/463558592\n    state: closed\n    exploitability: Unproven\n  - type: SAST\n    where: path/to/file3.ext\n    specific: '345'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/463558592\n    state: open\n    exploitability: Unproven\n  - type: SAST\n    where: path/to/file4.ext\n    specific: '564'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/463558592\n    state: open\n    exploitability: Unproven\n  - type: SAST\n    where: path/to/file1.ext\n    specific: '123345'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/463558592\n    state: closed\n    exploitability: Unproven\n  - type: SAST\n    where: path/to/file1.ext\n    specific: '123'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/463558592\n    state: open\n    exploitability: Unproven\n- title: FIN.S.0083. Inyeccion  (XXE)\n  id: '463461507'\n  state: open\n  exploitability: Proof of concept\n  open: 2\n  closed: 0\n  accepted: 0\n  vulnerabilities:\n  - type: DAST\n    where: 192.168.100.105\n    specific: '3636'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/463461507\n    state: open\n    exploitability: Proof of concept\n  - type: DAST\n    where: 192.168.1.18\n    specific: '7777'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/463461507\n    state: open\n    exploitability: Proof of concept\n- title: FIN.H.0037. Fuga de información técnica\n  id: '457497316'\n  state: closed\n  exploitability: Proof of concept\n  open: 0\n  closed: 1\n  accepted: 0\n  vulnerabilities:\n  - type: DAST\n    where: https://10.1.1.1/\n    specific: userToken\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/457497316\n    state: closed\n    exploitability: Proof of concept\n- title: FIN.S.0038. Fuga de información de negocio\n  id: '436992569'\n  state: open\n  exploitability: Functional\n  open: 24\n  closed: 4\n  accepted: 0\n  vulnerabilities:\n  - type: DAST\n    where: 192.168.100.101\n    specific: '333'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/436992569\n    state: open\n    exploitability: Functional\n  - type: DAST\n    where: 192.168.1.12\n    specific: '1111'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/436992569\n    state: open\n    exploitability: Functional\n  - type: DAST\n    where: 192.168.1.4\n    specific: '3333'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/436992569\n    state: open\n    exploitability: Functional\n  - type: DAST\n    where: 192.168.1.17\n    specific: '6666'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/436992569\n    state: open\n    exploitability: Functional\n  - type: DAST\n    where: 192.168.1.15\n    specific: '4444'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/436992569\n    state: open\n    exploitability: Functional\n  - type: DAST\n    where: 192.168.1.6\n    specific: '5555'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/436992569\n    state: open\n    exploitability: Functional\n  - type: DAST\n    where: 192.168.1.10\n    specific: '9999'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/436992569\n    state: open\n    exploitability: Functional\n  - type: DAST\n    where: 192.168.100.112\n    specific: '1111'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/436992569\n    state: open\n    exploitability: Functional\n  - type: DAST\n    where: 192.168.100.105\n    specific: '333'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/436992569\n    state: open\n    exploitability: Functional\n  - type: DAST\n    where: 192.168.100.111\n    specific: '1111'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/436992569\n    state: open\n    exploitability: Functional\n  - type: DAST\n    where: 192.168.100.101\n    specific: '4444'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/436992569\n    state: closed\n    exploitability: Functional\n  - type: DAST\n    where: 192.168.1.5\n    specific: '4444'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/436992569\n    state: open\n    exploitability: Functional\n  - type: DAST\n    where: 192.168.100.104\n    specific: '333'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/436992569\n    state: open\n    exploitability: Functional\n  - type: DAST\n    where: 192.168.100.107\n    specific: '333'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/436992569\n    state: closed\n    exploitability: Functional\n  - type: DAST\n    where: 192.168.1.9\n    specific: '8888'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/436992569\n    state: open\n    exploitability: Functional\n  - type: DAST\n    where: 192.168.100.122\n    specific: '888'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/436992569\n    state: open\n    exploitability: Functional\n  - type: DAST\n    where: 192.168.1.7\n    specific: '6666'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/436992569\n    state: open\n    exploitability: Functional\n  - type: DAST\n    where: 192.168.1.2\n    specific: '1111'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/436992569\n    state: open\n    exploitability: Functional\n  - type: DAST\n    where: 192.168.1.3\n    specific: '2222'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/436992569\n    state: open\n    exploitability: Functional\n  - type: DAST\n    where: 192.168.1.13\n    specific: '2222'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/436992569\n    state: open\n    exploitability: Functional\n  - type: DAST\n    where: 192.168.1.8\n    specific: '7777'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/436992569\n    state: open\n    exploitability: Functional\n  - type: DAST\n    where: 192.168.100.109\n    specific: '333'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/436992569\n    state: closed\n    exploitability: Functional\n  - type: DAST\n    where: 192.168.1.16\n    specific: '5555'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/436992569\n    state: open\n    exploitability: Functional\n  - type: DAST\n    where: 192.168.1.14\n    specific: '3333'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/436992569\n    state: open\n    exploitability: Functional\n  - type: DAST\n    where: 192.168.100.108\n    specific: '333'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/436992569\n    state: open\n    exploitability: Functional\n  - type: DAST\n    where: testing\n    specific: asserts\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/436992569\n    state: open\n    exploitability: Functional\n  - type: DAST\n    where: 192.168.100.113\n    specific: '1111'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/436992569\n    state: open\n    exploitability: Functional\n  - type: DAST\n    where: 192.168.100.103\n    specific: '333'\n    URL: https://fluidattacks.com/integrates/groups/unittesting/vulns/436992569\n    state: closed\n    exploitability: Functional\nsummary:\n  total: 40\n  open: 32\n  closed: 8\n  accepted: 0\n  time: 2.3951 seconds\n"
+                    },
+                    "strictness": {
+                        "S": "lax"
+                    },
+                    "subscription": {
+                        "S": "unittesting"
+                    },
+                    "vulnerabilities": {
+                        "M": {
+                            "accepted": {
+                                "L": []
+                            },
+                            "closed": {
+                                "L": [
+                                    {
+                                        "M": {
+                                            "exploitability": {
+                                                "N": "0.94"
+                                            },
+                                            "kind": {
+                                                "S": "DAST"
+                                            },
+                                            "state": {
+                                                "S": "CLOSED"
+                                            },
+                                            "where": {
+                                                "S": "192.168.1.20"
+                                            },
+                                            "who": {
+                                                "S": "9999"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "M": {
+                                            "exploitability": {
+                                                "N": "0.91"
+                                            },
+                                            "kind": {
+                                                "S": "SAST"
+                                            },
+                                            "state": {
+                                                "S": "CLOSED"
+                                            },
+                                            "where": {
+                                                "S": "path/to/file2.ext"
+                                            },
+                                            "who": {
+                                                "S": "12456"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "M": {
+                                            "exploitability": {
+                                                "N": "0.91"
+                                            },
+                                            "kind": {
+                                                "S": "SAST"
+                                            },
+                                            "state": {
+                                                "S": "CLOSED"
+                                            },
+                                            "where": {
+                                                "S": "path/to/file1.ext"
+                                            },
+                                            "who": {
+                                                "S": "123345"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "M": {
+                                            "exploitability": {
+                                                "N": "0.94"
+                                            },
+                                            "kind": {
+                                                "S": "DAST"
+                                            },
+                                            "state": {
+                                                "S": "CLOSED"
+                                            },
+                                            "where": {
+                                                "S": "https://10.1.1.1/"
+                                            },
+                                            "who": {
+                                                "S": "userToken"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "M": {
+                                            "exploitability": {
+                                                "N": "0.97"
+                                            },
+                                            "kind": {
+                                                "S": "DAST"
+                                            },
+                                            "state": {
+                                                "S": "CLOSED"
+                                            },
+                                            "where": {
+                                                "S": "192.168.100.101"
+                                            },
+                                            "who": {
+                                                "S": "4444"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "M": {
+                                            "exploitability": {
+                                                "N": "0.97"
+                                            },
+                                            "kind": {
+                                                "S": "DAST"
+                                            },
+                                            "state": {
+                                                "S": "CLOSED"
+                                            },
+                                            "where": {
+                                                "S": "192.168.100.107"
+                                            },
+                                            "who": {
+                                                "S": "333"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "M": {
+                                            "exploitability": {
+                                                "N": "0.97"
+                                            },
+                                            "kind": {
+                                                "S": "DAST"
+                                            },
+                                            "state": {
+                                                "S": "CLOSED"
+                                            },
+                                            "where": {
+                                                "S": "192.168.100.109"
+                                            },
+                                            "who": {
+                                                "S": "333"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "M": {
+                                            "exploitability": {
+                                                "N": "0.97"
+                                            },
+                                            "kind": {
+                                                "S": "DAST"
+                                            },
+                                            "state": {
+                                                "S": "CLOSED"
+                                            },
+                                            "where": {
+                                                "S": "192.168.100.103"
+                                            },
+                                            "who": {
+                                                "S": "333"
+                                            }
+                                        }
+                                    }
+                                ]
+                            },
+                            "open": {
+                                "L": [
+                                    {
+                                        "M": {
+                                            "exploitability": {
+                                                "N": "0.91"
+                                            },
+                                            "kind": {
+                                                "S": "DAST"
+                                            },
+                                            "state": {
+                                                "S": "OPEN"
+                                            },
+                                            "where": {
+                                                "S": "https://example.com"
+                                            },
+                                            "who": {
+                                                "S": "phone"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "M": {
+                                            "exploitability": {
+                                                "N": "0.94"
+                                            },
+                                            "kind": {
+                                                "S": "DAST"
+                                            },
+                                            "state": {
+                                                "S": "OPEN"
+                                            },
+                                            "where": {
+                                                "S": "192.168.1.19"
+                                            },
+                                            "who": {
+                                                "S": "8888"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "M": {
+                                            "exploitability": {
+                                                "N": "0.91"
+                                            },
+                                            "kind": {
+                                                "S": "SAST"
+                                            },
+                                            "state": {
+                                                "S": "OPEN"
+                                            },
+                                            "where": {
+                                                "S": "path/to/file2.ext"
+                                            },
+                                            "who": {
+                                                "S": "12"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "M": {
+                                            "exploitability": {
+                                                "N": "0.91"
+                                            },
+                                            "kind": {
+                                                "S": "SAST"
+                                            },
+                                            "state": {
+                                                "S": "OPEN"
+                                            },
+                                            "where": {
+                                                "S": "path/to/file3.ext"
+                                            },
+                                            "who": {
+                                                "S": "345"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "M": {
+                                            "exploitability": {
+                                                "N": "0.91"
+                                            },
+                                            "kind": {
+                                                "S": "SAST"
+                                            },
+                                            "state": {
+                                                "S": "OPEN"
+                                            },
+                                            "where": {
+                                                "S": "path/to/file4.ext"
+                                            },
+                                            "who": {
+                                                "S": "564"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "M": {
+                                            "exploitability": {
+                                                "N": "0.91"
+                                            },
+                                            "kind": {
+                                                "S": "SAST"
+                                            },
+                                            "state": {
+                                                "S": "OPEN"
+                                            },
+                                            "where": {
+                                                "S": "path/to/file1.ext"
+                                            },
+                                            "who": {
+                                                "S": "123"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "M": {
+                                            "exploitability": {
+                                                "N": "0.94"
+                                            },
+                                            "kind": {
+                                                "S": "DAST"
+                                            },
+                                            "state": {
+                                                "S": "OPEN"
+                                            },
+                                            "where": {
+                                                "S": "192.168.100.105"
+                                            },
+                                            "who": {
+                                                "S": "3636"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "M": {
+                                            "exploitability": {
+                                                "N": "0.94"
+                                            },
+                                            "kind": {
+                                                "S": "DAST"
+                                            },
+                                            "state": {
+                                                "S": "OPEN"
+                                            },
+                                            "where": {
+                                                "S": "192.168.1.18"
+                                            },
+                                            "who": {
+                                                "S": "7777"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "M": {
+                                            "exploitability": {
+                                                "N": "0.97"
+                                            },
+                                            "kind": {
+                                                "S": "DAST"
+                                            },
+                                            "state": {
+                                                "S": "OPEN"
+                                            },
+                                            "where": {
+                                                "S": "192.168.100.101"
+                                            },
+                                            "who": {
+                                                "S": "333"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "M": {
+                                            "exploitability": {
+                                                "N": "0.97"
+                                            },
+                                            "kind": {
+                                                "S": "DAST"
+                                            },
+                                            "state": {
+                                                "S": "OPEN"
+                                            },
+                                            "where": {
+                                                "S": "192.168.1.12"
+                                            },
+                                            "who": {
+                                                "S": "1111"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "M": {
+                                            "exploitability": {
+                                                "N": "0.97"
+                                            },
+                                            "kind": {
+                                                "S": "DAST"
+                                            },
+                                            "state": {
+                                                "S": "OPEN"
+                                            },
+                                            "where": {
+                                                "S": "192.168.1.4"
+                                            },
+                                            "who": {
+                                                "S": "3333"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "M": {
+                                            "exploitability": {
+                                                "N": "0.97"
+                                            },
+                                            "kind": {
+                                                "S": "DAST"
+                                            },
+                                            "state": {
+                                                "S": "OPEN"
+                                            },
+                                            "where": {
+                                                "S": "192.168.1.17"
+                                            },
+                                            "who": {
+                                                "S": "6666"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "M": {
+                                            "exploitability": {
+                                                "N": "0.97"
+                                            },
+                                            "kind": {
+                                                "S": "DAST"
+                                            },
+                                            "state": {
+                                                "S": "OPEN"
+                                            },
+                                            "where": {
+                                                "S": "192.168.1.15"
+                                            },
+                                            "who": {
+                                                "S": "4444"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "M": {
+                                            "exploitability": {
+                                                "N": "0.97"
+                                            },
+                                            "kind": {
+                                                "S": "DAST"
+                                            },
+                                            "state": {
+                                                "S": "OPEN"
+                                            },
+                                            "where": {
+                                                "S": "192.168.1.6"
+                                            },
+                                            "who": {
+                                                "S": "5555"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "M": {
+                                            "exploitability": {
+                                                "N": "0.97"
+                                            },
+                                            "kind": {
+                                                "S": "DAST"
+                                            },
+                                            "state": {
+                                                "S": "OPEN"
+                                            },
+                                            "where": {
+                                                "S": "192.168.1.10"
+                                            },
+                                            "who": {
+                                                "S": "9999"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "M": {
+                                            "exploitability": {
+                                                "N": "0.97"
+                                            },
+                                            "kind": {
+                                                "S": "DAST"
+                                            },
+                                            "state": {
+                                                "S": "OPEN"
+                                            },
+                                            "where": {
+                                                "S": "192.168.100.112"
+                                            },
+                                            "who": {
+                                                "S": "1111"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "M": {
+                                            "exploitability": {
+                                                "N": "0.97"
+                                            },
+                                            "kind": {
+                                                "S": "DAST"
+                                            },
+                                            "state": {
+                                                "S": "OPEN"
+                                            },
+                                            "where": {
+                                                "S": "192.168.100.105"
+                                            },
+                                            "who": {
+                                                "S": "333"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "M": {
+                                            "exploitability": {
+                                                "N": "0.97"
+                                            },
+                                            "kind": {
+                                                "S": "DAST"
+                                            },
+                                            "state": {
+                                                "S": "OPEN"
+                                            },
+                                            "where": {
+                                                "S": "192.168.100.111"
+                                            },
+                                            "who": {
+                                                "S": "1111"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "M": {
+                                            "exploitability": {
+                                                "N": "0.97"
+                                            },
+                                            "kind": {
+                                                "S": "DAST"
+                                            },
+                                            "state": {
+                                                "S": "OPEN"
+                                            },
+                                            "where": {
+                                                "S": "192.168.1.5"
+                                            },
+                                            "who": {
+                                                "S": "4444"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "M": {
+                                            "exploitability": {
+                                                "N": "0.97"
+                                            },
+                                            "kind": {
+                                                "S": "DAST"
+                                            },
+                                            "state": {
+                                                "S": "OPEN"
+                                            },
+                                            "where": {
+                                                "S": "192.168.100.104"
+                                            },
+                                            "who": {
+                                                "S": "333"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "M": {
+                                            "exploitability": {
+                                                "N": "0.97"
+                                            },
+                                            "kind": {
+                                                "S": "DAST"
+                                            },
+                                            "state": {
+                                                "S": "OPEN"
+                                            },
+                                            "where": {
+                                                "S": "192.168.1.9"
+                                            },
+                                            "who": {
+                                                "S": "8888"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "M": {
+                                            "exploitability": {
+                                                "N": "0.97"
+                                            },
+                                            "kind": {
+                                                "S": "DAST"
+                                            },
+                                            "state": {
+                                                "S": "OPEN"
+                                            },
+                                            "where": {
+                                                "S": "192.168.100.122"
+                                            },
+                                            "who": {
+                                                "S": "888"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "M": {
+                                            "exploitability": {
+                                                "N": "0.97"
+                                            },
+                                            "kind": {
+                                                "S": "DAST"
+                                            },
+                                            "state": {
+                                                "S": "OPEN"
+                                            },
+                                            "where": {
+                                                "S": "192.168.1.7"
+                                            },
+                                            "who": {
+                                                "S": "6666"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "M": {
+                                            "exploitability": {
+                                                "N": "0.97"
+                                            },
+                                            "kind": {
+                                                "S": "DAST"
+                                            },
+                                            "state": {
+                                                "S": "OPEN"
+                                            },
+                                            "where": {
+                                                "S": "192.168.1.2"
+                                            },
+                                            "who": {
+                                                "S": "1111"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "M": {
+                                            "exploitability": {
+                                                "N": "0.97"
+                                            },
+                                            "kind": {
+                                                "S": "DAST"
+                                            },
+                                            "state": {
+                                                "S": "OPEN"
+                                            },
+                                            "where": {
+                                                "S": "192.168.1.3"
+                                            },
+                                            "who": {
+                                                "S": "2222"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "M": {
+                                            "exploitability": {
+                                                "N": "0.97"
+                                            },
+                                            "kind": {
+                                                "S": "DAST"
+                                            },
+                                            "state": {
+                                                "S": "OPEN"
+                                            },
+                                            "where": {
+                                                "S": "192.168.1.13"
+                                            },
+                                            "who": {
+                                                "S": "2222"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "M": {
+                                            "exploitability": {
+                                                "N": "0.97"
+                                            },
+                                            "kind": {
+                                                "S": "DAST"
+                                            },
+                                            "state": {
+                                                "S": "OPEN"
+                                            },
+                                            "where": {
+                                                "S": "192.168.1.8"
+                                            },
+                                            "who": {
+                                                "S": "7777"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "M": {
+                                            "exploitability": {
+                                                "N": "0.97"
+                                            },
+                                            "kind": {
+                                                "S": "DAST"
+                                            },
+                                            "state": {
+                                                "S": "OPEN"
+                                            },
+                                            "where": {
+                                                "S": "192.168.1.16"
+                                            },
+                                            "who": {
+                                                "S": "5555"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "M": {
+                                            "exploitability": {
+                                                "N": "0.97"
+                                            },
+                                            "kind": {
+                                                "S": "DAST"
+                                            },
+                                            "state": {
+                                                "S": "OPEN"
+                                            },
+                                            "where": {
+                                                "S": "192.168.1.14"
+                                            },
+                                            "who": {
+                                                "S": "3333"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "M": {
+                                            "exploitability": {
+                                                "N": "0.97"
+                                            },
+                                            "kind": {
+                                                "S": "DAST"
+                                            },
+                                            "state": {
+                                                "S": "OPEN"
+                                            },
+                                            "where": {
+                                                "S": "192.168.100.108"
+                                            },
+                                            "who": {
+                                                "S": "333"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "M": {
+                                            "exploitability": {
+                                                "N": "0.97"
+                                            },
+                                            "kind": {
+                                                "S": "DAST"
+                                            },
+                                            "state": {
+                                                "S": "OPEN"
+                                            },
+                                            "where": {
+                                                "S": "testing"
+                                            },
+                                            "who": {
+                                                "S": "asserts"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "M": {
+                                            "exploitability": {
+                                                "N": "0.97"
+                                            },
+                                            "kind": {
+                                                "S": "DAST"
+                                            },
+                                            "state": {
+                                                "S": "OPEN"
+                                            },
+                                            "where": {
+                                                "S": "192.168.100.113"
+                                            },
+                                            "who": {
+                                                "S": "1111"
+                                            }
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    ]
+}

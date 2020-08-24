@@ -325,3 +325,24 @@ resource "aws_dynamodb_table" "organizations" {
     projection_type = "ALL"
   }
 }
+
+resource "aws_dynamodb_table" "forces" {
+  name           = "FI_forces"
+  billing_mode   = "PAY_PER_REQUEST"
+  hash_key       = "subscription"
+  range_key      = "execution_id"
+
+  attribute {
+    name = "execution_id"
+    type = "S"
+  }
+
+  attribute {
+    name = "subscription"
+    type = "S"
+  }
+
+  point_in_time_recovery {
+    enabled = true
+  }
+}
