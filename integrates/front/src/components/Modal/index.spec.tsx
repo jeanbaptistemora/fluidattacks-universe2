@@ -52,12 +52,13 @@ describe("Generic modal", (): void => {
 
     const wrapper: ShallowWrapper = shallow(
       <Modal
-        content={<p>{"Unit modal content"}</p>}
         footer={<div />}
         headerTitle={"Unit test title"}
         onClose={jest.fn()}
         open={true}
-      />
+      >
+        <p>{"Unit modal content"}</p>
+      </Modal>
     );
 
     expect(
@@ -74,12 +75,13 @@ describe("Generic modal", (): void => {
 
     const wrapper: ShallowWrapper = shallow(
       <Modal
-        content={<p>{"Unit modal content"}</p>}
         footer={<Button>{"test btn"}</Button>}
         headerTitle={"Unit test title"}
         onClose={jest.fn()}
         open={true}
-      />
+      >
+        <p>{"Unit modal content"}</p>
+      </Modal>
     );
 
     expect(
@@ -104,12 +106,13 @@ describe("Generic modal", (): void => {
 
     const wrapper: ShallowWrapper = shallow(
       <Modal
-        content={<p>{"Unit modal content"}</p>}
         footer={<Button>{"test btn"}</Button>}
         headerTitle={"Unit test title"}
         onClose={jest.fn()}
         open={true}
-      />
+      >
+        <p>{"Unit modal content"}</p>
+      </Modal>
     );
 
     expect(wrapper).toHaveLength(1);

@@ -9,7 +9,6 @@ import { Modal, Sizes } from "react-bootstrap";
 interface IModalProps {
   bsSize?: Sizes;
   children?: React.ReactNode;
-  content?: React.ReactNode;
   footer: React.ReactNode;
   headerTitle: string;
   open: boolean;
@@ -24,7 +23,6 @@ const modal: React.FC<IModalProps> = (
     bsSize,
     open,
     headerTitle,
-    content,
     children,
     footer,
     onClose,
@@ -55,10 +53,7 @@ const modal: React.FC<IModalProps> = (
       <Modal.Header className={style.header}>
         <Modal.Title className={style.title}>{headerTitle}</Modal.Title>
       </Modal.Header>
-      <Modal.Body>
-        {content}
-        {children}
-      </Modal.Body>
+      <Modal.Body>{children}</Modal.Body>
       <Modal.Footer>{footer}</Modal.Footer>
     </Modal>
   );
