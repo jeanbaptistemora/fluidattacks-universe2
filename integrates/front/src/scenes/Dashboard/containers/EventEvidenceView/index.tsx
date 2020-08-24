@@ -18,6 +18,7 @@ import { default as globalStyle } from "../../../../styles/global.css";
 import { Can } from "../../../../utils/authz/Can";
 import { Logger } from "../../../../utils/logger";
 import { msgError } from "../../../../utils/notifications";
+import { openUrl } from "../../../../utils/resourceHelpers";
 import { translate } from "../../../../utils/translations/translate";
 import { isValidFileSize, validEventFile, validEvidenceImage } from "../../../../utils/validations";
 import { evidenceImage as EvidenceImage } from "../../components/EvidenceImage/index";
@@ -60,8 +61,7 @@ const eventEvidenceView: React.FC<EventEvidenceProps> = (props: EventEvidencePro
 
   const [downloadEvidence] = useMutation(DOWNLOAD_FILE_MUTATION, {
     onCompleted: (downloadData: { downloadEventFile: { url: string } }): void => {
-      const newTab: Window | null = window.open(downloadData.downloadEventFile.url);
-      (newTab as Window).opener = undefined;
+      openUrl(downloadData.downloadEventFile.url);
     },
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {

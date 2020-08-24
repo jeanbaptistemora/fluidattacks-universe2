@@ -18,6 +18,7 @@ import store from "../../../../store/index";
 import { authzGroupContext, authzPermissionsContext } from "../../../../utils/authz/config";
 import { Logger } from "../../../../utils/logger";
 import { msgError, msgErrorStick, msgSuccess } from "../../../../utils/notifications";
+import { openUrl } from "../../../../utils/resourceHelpers";
 import { translate } from "../../../../utils/translations/translate";
 import { isValidVulnsFile } from "../../../../utils/validations";
 import { GET_FINDING_HEADER } from "../../containers/FindingContent/queries";
@@ -97,8 +98,7 @@ const uploadVulnerabilities: ((props: IVulnerabilitiesViewProps) => JSX.Element)
     onCompleted: (result: IDownloadVulnerabilitiesResult): void => {
       if (!_.isUndefined(result)) {
         if (result.downloadVulnFile.success && result.downloadVulnFile.url !== "") {
-          const newTab: Window | null = window.open(result.downloadVulnFile.url);
-          (newTab as Window).opener = undefined;
+          openUrl(result.downloadVulnFile.url);
         }
       }
     },

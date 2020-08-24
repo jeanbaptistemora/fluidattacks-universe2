@@ -15,6 +15,7 @@ import { TooltipWrapper } from "../../../../../components/TooltipWrapper";
 import { Can } from "../../../../../utils/authz/Can";
 import { Logger } from "../../../../../utils/logger";
 import { msgError, msgSuccess } from "../../../../../utils/notifications";
+import { openUrl } from "../../../../../utils/resourceHelpers";
 import { translate } from "../../../../../utils/translations/translate";
 import { AddFilesModal } from "../../../components/AddFilesModal";
 import { FileOptionsModal } from "../../../components/FileOptionsModal";
@@ -58,8 +59,7 @@ const files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
 
   const [downloadFile] = useMutation(DOWNLOAD_FILE_MUTATION, {
     onCompleted: (downloadData: { downloadFile: { url: string } }): void => {
-      const newTab: Window | null = window.open(downloadData.downloadFile.url);
-      (newTab as Window).opener = undefined;
+      openUrl(downloadData.downloadFile.url);
     },
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {

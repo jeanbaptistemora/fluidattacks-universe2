@@ -253,7 +253,7 @@ describe("Files", () => {
     downloadButton.simulate("click");
     await act(async () => { await wait(0); wrapper.update(); });
     expect(open)
-      .toBeCalledWith("https://test.com/file");
+      .toBeCalledWith("https://test.com/file", undefined, "noopener,noreferrer,");
   });
 
   it("should handle errors when add a file", async () => {

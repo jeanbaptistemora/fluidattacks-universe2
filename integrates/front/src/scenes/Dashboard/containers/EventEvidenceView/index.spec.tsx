@@ -241,6 +241,6 @@ describe("EventEvidenceView", () => {
       .simulate("click");
     await act(async () => { await wait(0); });
     expect(onOpenLink)
-      .toHaveBeenCalledWith("https://cloudfront/some_file.pdf");
+      .toHaveBeenCalledWith("https://cloudfront/some_file.pdf", undefined, "noopener,noreferrer,");
   });
 });

@@ -5,6 +5,7 @@ import React from "react";
 import { Button, Col, Row } from "react-bootstrap";
 import { Logger } from "../../../../utils/logger";
 import { msgError } from "../../../../utils/notifications";
+import { openUrl } from "../../../../utils/resourceHelpers";
 import { translate } from "../../../../utils/translations/translate";
 import { default as style } from "./index.css";
 import { GET_COMPLETE_REPORT } from "./queries";
@@ -14,8 +15,7 @@ const reportsView: React.FC = (): JSX.Element => {
   const [getCompleteReport, { data: completeReportData }] = useLazyQuery(GET_COMPLETE_REPORT, {
     fetchPolicy: "network-only",
     onCompleted: (): void => {
-      const newTab: Window | null = window.open(completeReportData.report.url);
-      (newTab as Window).opener = undefined;
+      openUrl(completeReportData.report.url);
     },
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
