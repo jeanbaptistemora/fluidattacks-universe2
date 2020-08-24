@@ -9,7 +9,7 @@ import { act } from "react-dom/test-utils";
 import { Provider } from "react-redux";
 import waitForExpect from "wait-for-expect";
 import store from "../../../../store";
-import { UpdateAccessTokenModal } from "./index";
+import { APITokenModal } from "./index";
 import { GET_ACCESS_TOKEN, UPDATE_ACCESS_TOKEN_MUTATION } from "./queries";
 import { IGetAccessTokenDictAttr, IUpdateAccessTokenAttr } from "./types";
 
@@ -21,7 +21,7 @@ describe("Update access token modal", () => {
     .substring(0, 10);
 
   it("should return a function", () => {
-    expect(typeof UpdateAccessTokenModal)
+    expect(typeof APITokenModal)
       .toEqual("function");
   });
 
@@ -49,7 +49,7 @@ describe("Update access token modal", () => {
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
         <MockedProvider mocks={mockQueryFalse} addTypename={false}>
-          <UpdateAccessTokenModal onClose={handleOnClose} open={true} />
+          <APITokenModal onClose={handleOnClose} open={true} />
         </MockedProvider>
       </Provider>,
     );
@@ -112,7 +112,7 @@ describe("Update access token modal", () => {
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
         <MockedProvider mocks={mockQueryTrue} addTypename={false}>
-          <UpdateAccessTokenModal onClose={handleOnClose} open={true} />
+          <APITokenModal onClose={handleOnClose} open={true} />
         </MockedProvider>
       </Provider>,
     );
@@ -207,7 +207,7 @@ describe("Update access token modal", () => {
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
         <MockedProvider mocks={mockMutation} addTypename={false}>
-          <UpdateAccessTokenModal onClose={handleOnClose} open={true} />
+          <APITokenModal onClose={handleOnClose} open={true} />
         </MockedProvider>
       </Provider>,
     );
@@ -261,7 +261,7 @@ describe("Update access token modal", () => {
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
         <MockedProvider mocks={mockMutationError} addTypename={false}>
-          <UpdateAccessTokenModal onClose={handleOnClose} open={true} />
+          <APITokenModal onClose={handleOnClose} open={true} />
         </MockedProvider>
       </Provider>,
     );

@@ -1,3 +1,4 @@
+import { APITokenModal } from "./components/APITokenModal";
 import { AddOrganizationModal } from "./components/AddOrganizationModal";
 import { addUserModal as AddUserModal } from "./components/AddUserModal";
 import { ApolloError } from "apollo-client";
@@ -18,7 +19,6 @@ import { ReportsView } from "./containers/ReportsView";
 import { ScrollUpButton } from "../../components/ScrollUpButton";
 import { Sidebar } from "./components/Sidebar";
 import { TagContent } from "./containers/TagContent";
-import { UpdateAccessTokenModal } from "./components/AddAccessTokenModal";
 import { msgError } from "../../utils/notifications";
 import style from "./index.css";
 import { translate } from "../../utils/translations/translate";
@@ -172,10 +172,7 @@ export const Dashboard: React.FC = (): JSX.Element => {
         </div>
       </div>
       <ScrollUpButton visibleAt={400} />
-      <UpdateAccessTokenModal
-        onClose={closeTokenModal}
-        open={isTokenModalOpen}
-      />
+      <APITokenModal onClose={closeTokenModal} open={isTokenModalOpen} />
       <AddOrganizationModal
         onClose={closeOrganizationModal}
         open={isOrganizationModalOpen}

@@ -32,13 +32,13 @@ import {
   useUpdateAPIToken,
 } from "./hooks";
 
-interface IAddAccessTokenModalProps {
+interface IAPITokenModalProps {
   open: boolean;
   onClose: () => void;
 }
 
-const UpdateAccessTokenModal: React.FC<IAddAccessTokenModalProps> = (
-  props: IAddAccessTokenModalProps
+const APITokenModal: React.FC<IAPITokenModalProps> = (
+  props: IAPITokenModalProps
 ): JSX.Element => {
   const { open, onClose } = props;
 
@@ -181,4 +181,4 @@ const UpdateAccessTokenModal: React.FC<IAddAccessTokenModalProps> = (
   );
 };
 
-export { IAddAccessTokenModalProps, UpdateAccessTokenModal };
+export { IAPITokenModalProps, APITokenModal };
