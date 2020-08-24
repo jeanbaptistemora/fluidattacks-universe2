@@ -279,12 +279,6 @@ function helper_serves_user_provision_rotate_keys {
         "${gitlab_protected}" "${gitlab_masked}"
 }
 
-function helper_serves_test_lint_code_nix {
-  local path="${1}"
-
-  nix-linter --recursive "${path}"
-}
-
 function helper_serves_test_lint_code_shell {
   local path="${1}"
 

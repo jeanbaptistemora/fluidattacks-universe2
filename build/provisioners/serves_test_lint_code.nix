@@ -1,6 +1,5 @@
 let
   pkgs = import ../pkgs/stable.nix;
-  old-pkgs = import ../pkgs/old.nix;
   builders.pythonPackage = import ../builders/python-package pkgs;
 in
   pkgs.stdenv.mkDerivation (
@@ -13,7 +12,6 @@ in
             pkgs.git
             pkgs.python38
             pkgs.shellcheck
-            old-pkgs.nix-linter
           ];
 
           pyPkgMypy = builders.pythonPackage {
