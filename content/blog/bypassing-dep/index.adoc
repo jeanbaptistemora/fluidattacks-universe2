@@ -158,10 +158,10 @@ the execution flow was diverted to the location on where the `xor eax,eax`
 instruction was placed but then, we lost control.
 
 We need to make `EAX = 0xdeadbeee`. There are several ways to do that. We
-tried with `xor eax,eax -> add eax,0xdeadbeee' but another way to do it
+tried with `xor eax,eax -> add eax,0xdeadbeee` but another way to do it
 is to place the value `0xdeadbeee` on top of the stack and then perform a
 `pop eax`. We also need to return back to the stack to execute the last
-instruction on our shellcode `inc eax` and thus, make `EAX = 0xdeadbeef'.
+instruction on our shellcode `inc eax` and thus, make `EAX = 0xdeadbeef`.
 That means that we need to find an address to a `pop eax` instruction followed
 by a `retn`.
 
@@ -260,8 +260,8 @@ instruction on the stack! We have bypassed `DEP`!
 == Using mona to find gadgets
 
 You may notice by now that finding useful gadgets could become something
-really tedious. Fortunately for us `mona` has made this task easy for
-us. You just need to simply issue the following:
+really tedious. Fortunately for us `mona` has made this task easy.
+You just need to simply issue the following:
 
 [source,bash]
 ----
