@@ -21,7 +21,7 @@ with Windows exploit development, link:../tags/vulnserver/[most of them]
 attacking Vulnserver, a vulnerble-by-design (`VbD`) server that is designed
 for such a noble endeavor. We also wrote a couple of articles creating an
 exploit for link:../quickzip-exploit/[QuickZIP] and
-link:../netscanner-exploit/[MiTec Net Scanner]. All of those exploits
+link:../netscan-exploit/[MiTec Net Scanner]. All of those exploits
 relied on the ability to execute instructions written on the stack of the
 process.
 
@@ -194,7 +194,7 @@ that it was trying to execute code on a memory region marked as non-executable.
 == Bypassing DEP
 
 Now, we cannot execute instructions placed on the stack, but we control the
-execution flow of the application. Howeverr, the stack is a place where
+execution flow of the application. However, the stack is a place where
 the application (and therefore, the exploit) can read and write data and
 by controlling both (the execution flow and the stack), we can do wonders.
 
