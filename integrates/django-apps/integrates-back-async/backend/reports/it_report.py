@@ -13,7 +13,6 @@ from pyexcelerate import (
     Worksheet as WorksheetType
 )
 from backend.domain import vulnerability as vuln_domain
-from backend.domain.finding import get_finding
 from backend.reports.typing import GroupVulnsReportHeader
 from backend.typing import (
     Finding as FindingType,
@@ -110,12 +109,17 @@ class ITReport():
 
     async def generate(self, data: List[Dict[str, FindingType]]) -> None:
         self.project_name = str(data[0].get('projectName'))
-        vulns = await vuln_domain.list_vulnerabilities_async(
-            [str(finding.get('findingId')) for finding in data]
-        )
-        for vuln in vulns:
-            await self.set_vuln_row(cast(VulnType, vuln))
-            self.row += 1
+
+        for finding in data:
+            finding_vulns = await vuln_domain.list_vulnerabilities_async(
+                [str(finding.get('findingId'))]
+            )
+            for vuln in finding_vulns:
+                await self.set_vuln_row(
+                    cast(VulnType, vuln),
+                    cast(Dict[str, FindingType], finding)
+                )
+                self.row += 1
 
     def set_row_height(self) -> None:
         self.current_sheet.set_row_style(
@@ -222,9 +226,12 @@ class ITReport():
         )
         self.row_values[vuln[cvss_key]] = cell_content
 
-    async def set_vuln_row(self, row: VulnType) -> None:
+    async def set_vuln_row(
+        self,
+        row: VulnType,
+        finding: Dict[str, FindingType]
+    ) -> None:
         vuln = self.vulnerability
-        finding = await get_finding(str(row.get('finding_id')))
         specific = str(row.get('specific', ''))
         if row.get('vuln_type') == 'lines':
             specific = str(int(specific))
