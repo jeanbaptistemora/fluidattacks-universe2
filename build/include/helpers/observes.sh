@@ -1,6 +1,6 @@
 # shellcheck shell=bash
 
-function helper_serves_move_artifacts_to_git {
+function helper_observes_move_artifacts_to_git {
   local artifacts="${PWD}/artifacts"
   local git="/git"
 
@@ -14,7 +14,7 @@ function helper_serves_move_artifacts_to_git {
   fi
 }
 
-function helper_serves_move_git_to_artifacts {
+function helper_observes_move_git_to_artifacts {
   local artifacts="${PWD}/artifacts"
   local git="/git"
 
@@ -23,7 +23,7 @@ function helper_serves_move_git_to_artifacts {
   &&  mv "${git}/"* "${artifacts}"
 }
 
-function helper_serves_move_services_fusion_to_master_git {
+function helper_observes_move_services_fusion_to_master_git {
   local mock_integrates_api_token='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.e30.xxx'
   local path_empty_repos="${PWD}/repos_to_get_from_cache.lst"
 
@@ -50,7 +50,7 @@ function helper_serves_move_services_fusion_to_master_git {
   set -o nounset
 }
 
-function helper_analytics_formstack {
+function helper_observes_formstack {
       helper_serves_aws_login prod \
   &&  sops_env secrets-prod.yaml default \
         analytics_auth_redshift \
@@ -72,7 +72,7 @@ function helper_analytics_formstack {
         < .singer
 }
 
-function helper_analytics_dynamodb {
+function helper_observes_dynamodb {
       helper_serves_aws_login prod \
   &&  sops_env secrets-prod.yaml default \
         analytics_aws_access_key \
@@ -102,7 +102,7 @@ function helper_analytics_dynamodb {
         < .singer
 }
 
-function helper_analytics_services_toe {
+function helper_observes_services_toe {
       helper_serves_aws_login prod \
   &&  sops_env secrets-prod.yaml default \
         analytics_auth_redshift \
@@ -128,7 +128,7 @@ function helper_analytics_services_toe {
   && popd || return 1
 }
 
-function helper_analytics_infrastructure {
+function helper_observes_infrastructure {
       helper_serves_aws_login prod \
   &&  sops_env secrets-prod.yaml default \
         analytics_auth_infra \
@@ -152,7 +152,7 @@ function helper_analytics_infrastructure {
         < .singer
 }
 
-function helper_analytics_intercom {
+function helper_observes_intercom {
       helper_serves_aws_login prod \
   &&  sops_env secrets-prod.yaml default \
         analytics_auth_intercom \
@@ -177,7 +177,7 @@ function helper_analytics_intercom {
         < .singer
 }
 
-function helper_analytics_mandrill {
+function helper_observes_mandrill {
       helper_serves_aws_login prod \
   &&  sops_env secrets-prod.yaml default \
         analytics_auth_mandrill \
@@ -202,7 +202,7 @@ function helper_analytics_mandrill {
         < .singer
 }
 
-function helper_analytics_gitlab {
+function helper_observes_gitlab {
   export GITLAB_API_TOKEN
   local projects=(
     'autonomicmind/default'
@@ -235,7 +235,7 @@ function helper_analytics_gitlab {
         < .singer
 }
 
-function helper_analytics_timedoctor {
+function helper_observes_timedoctor {
   export analytics_auth_timedoctor
 
       helper_serves_aws_login prod \
@@ -274,7 +274,7 @@ function helper_analytics_timedoctor {
         < .singer
 }
 
-function helper_analytics_zoho {
+function helper_observes_zoho {
   local analytics_zoho_tables=(
     Candidates
     Periods
@@ -315,7 +315,7 @@ function helper_analytics_zoho {
         < .singer
 }
 
-function helper_analytics_git_process {
+function helper_observes_git_process {
   local artifacts="${PWD}/artifacts"
   local mock_integrates_api_token='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.e30.xxx'
   local num_threads='4'
@@ -347,7 +347,7 @@ function helper_analytics_git_process {
   &&  wait
 }
 
-function helper_analytics_git_upload {
+function helper_observes_git_upload {
   local artifacts="${PWD}/artifacts"
 
       helper_serves_aws_login prod \
@@ -363,7 +363,7 @@ function helper_analytics_git_upload {
             --schema-name "git"
 }
 
-function helper_analytics_timedoctor_refresh_token {
+function helper_observes_timedoctor_refresh_token {
   export analytics_auth_timedoctor
 
       helper_serves_aws_login prod \
@@ -376,7 +376,7 @@ function helper_analytics_timedoctor_refresh_token {
   &&  echo '[INFO] Done! Token created for current project'
 }
 
-function helper_analytics_timedoctor_backup {
+function helper_observes_timedoctor_backup {
   export analytics_auth_timedoctor
 
       helper_serves_aws_login prod \
@@ -413,7 +413,7 @@ function helper_analytics_timedoctor_backup {
   &&  aws s3 cp ca.singer "s3://${bucket}/${cont_folder}/timedoctor.computer_activity.${start_date}.${end_date}.singer"
 }
 
-function helper_analytics_timedoctor_manually_create_token {
+function helper_observes_timedoctor_manually_create_token {
       helper_serves_aws_login prod \
   &&  sops_env secrets-prod.yaml default \
         analytics_auth_timedoctor \
@@ -422,11 +422,11 @@ function helper_analytics_timedoctor_manually_create_token {
   &&  echo '[INFO] Done! Token created at GitLab/serves env vars'
 }
 
-function helper_analytics_services_repositories_cache {
+function helper_observes_services_repositories_cache {
   local mock_integrates_api_token='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.e30.xxx'
 
       helper_serves_aws_login prod \
-  &&  helper_serves_move_artifacts_to_git \
+  &&  helper_observes_move_artifacts_to_git \
   &&  echo '[INFO] Cloning our own repositories' \
   &&  python3 analytics/git/clone_us.py \
   &&  echo '[INFO] Cloning customer repositories' \
@@ -437,8 +437,8 @@ function helper_analytics_services_repositories_cache {
       PROD_AWS_ACCESS_KEY_ID="${AWS_ACCESS_KEY_ID}" \
       PROD_AWS_SECRET_ACCESS_KEY="${AWS_SECRET_ACCESS_KEY}" \
       python3 analytics/git/clone_them.py \
-  &&  helper_serves_move_services_fusion_to_master_git \
+  &&  helper_observes_move_services_fusion_to_master_git \
   &&  echo '[INFO] Generating stats' \
   &&  { python3 analytics/git/generate_stats.py || true; } \
-  &&  helper_serves_move_git_to_artifacts
+  &&  helper_observes_move_git_to_artifacts
 }

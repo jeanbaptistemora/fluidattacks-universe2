@@ -269,88 +269,88 @@ serves_rotate_keys_user_provision_serves:
   <<: *serves_in_schedule_rotate_keys_user_provision
   stage: rotation
 
-analytics_formstack:
+observes_formstack:
   <<: *with_nix
   tags: [autoscaling-analytics]
   stage: analytics
   only:
     refs: [schedules]
-    variables: [$analytics_formstack]
+    variables: [$observes_formstack]
   interruptible: false
 
-analytics_dynamodb:
+observes_dynamodb:
   <<: *with_nix
   tags: [autoscaling-analytics]
   stage: analytics
   only:
     refs: [schedules]
-    variables: [$analytics_dynamodb]
+    variables: [$observes_dynamodb]
   interruptible: false
 
-analytics_services_toe:
+observes_services_toe:
   <<: *with_nix
   tags: [autoscaling-analytics]
   stage: analytics
   only:
     refs: [schedules]
-    variables: [$analytics_services_toe]
+    variables: [$observes_services_toe]
   interruptible: false
 
-analytics_infrastructure:
+observes_infrastructure:
   <<: *with_nix
   tags: [autoscaling-analytics]
   stage: analytics
   only:
     refs: [schedules]
-    variables: [$analytics_infrastructure]
+    variables: [$observes_infrastructure]
   interruptible: false
 
-analytics_intercom:
+observes_intercom:
   <<: *with_nix
   tags: [autoscaling-analytics]
   stage: analytics
   only:
     refs: [schedules]
-    variables: [$analytics_intercom]
+    variables: [$observes_intercom]
   interruptible: false
 
-analytics_mandrill:
+observes_mandrill:
   <<: *with_nix
   tags: [autoscaling-analytics]
   stage: analytics
   only:
     refs: [schedules]
-    variables: [$analytics_mandrill]
+    variables: [$observes_mandrill]
   interruptible: false
 
-analytics_gitlab:
+observes_gitlab:
   <<: *with_nix
   tags: [autoscaling]
   stage: analytics
   only:
     refs: [schedules]
-    variables: [$analytics_gitlab]
+    variables: [$observes_gitlab]
   interruptible: false
 
-analytics_timedoctor:
+observes_timedoctor:
   <<: *with_nix
   tags: [autoscaling-analytics]
   stage: analytics
   only:
     refs: [schedules]
-    variables: [$analytics_timedoctor]
+    variables: [$observes_timedoctor]
   interruptible: false
 
-analytics_zoho:
+observes_zoho:
   <<: *with_nix
   tags: [autoscaling-analytics]
   stage: analytics
   only:
     refs: [schedules]
-    variables: [$analytics_zoho]
+    variables: [$observes_zoho]
   interruptible: false
 
-analytics_git_process:
+observes_git_process:
   <<: *with_nix_serial
   image: "${CI_REGISTRY_IMAGE}/nix:analytics_git_process"
   tags: [autoscaling-analytics]
@@ -363,10 +363,10 @@ analytics_git_process:
   parallel: 50
   only:
     refs: [schedules]
-    variables: [$analytics_git_process]
+    variables: [$observes_git_process]
   interruptible: false
 
-analytics_git_upload:
+observes_git_upload:
   <<: *with_nix_serial
   tags: [autoscaling-analytics]
   stage: analytics-upload
@@ -377,31 +377,31 @@ analytics_git_upload:
     expire_in: 1 day
   only:
     refs: [schedules]
-    variables: [$analytics_git_upload]
+    variables: [$observes_git_upload]
   interruptible: false
 
-analytics_timedoctor_refresh_token:
+observes_timedoctor_refresh_token:
   <<: *with_nix
   stage: analytics
   only:
     refs: [schedules]
-    variables: [$analytics_timedoctor_refresh_token]
+    variables: [$observes_timedoctor_refresh_token]
   interruptible: false
 
-analytics_timedoctor_backup:
-  <<: *with_nix
-  tags: [autoscaling-analytics]
-  stage: analytics
-  only:
-    refs: [schedules]
-    variables: [$analytics_timedoctor_backup]
-  interruptible: false
-
-analytics_services_repositories_cache:
+observes_timedoctor_backup:
   <<: *with_nix
   tags: [autoscaling-analytics]
   stage: analytics
   only:
     refs: [schedules]
-    variables: [$analytics_services_repositories_cache]
+    variables: [$observes_timedoctor_backup]
+  interruptible: false
+
+observes_services_repositories_cache:
+  <<: *with_nix
+  tags: [autoscaling-analytics]
+  stage: analytics
+  only:
+    refs: [schedules]
+    variables: [$observes_services_repositories_cache]
   interruptible: false
