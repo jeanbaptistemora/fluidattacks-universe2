@@ -421,6 +421,7 @@ function job_integrates_functional_tests_mobile {
   local apk_arn
   local test_pkg_arn
   local test_spec_arn
+  local run_name
 
       pushd "${STARTDIR}/integrates/mobile/e2e" \
   &&  echo '[INFO] Logging in to AWS' \
@@ -430,6 +431,7 @@ function job_integrates_functional_tests_mobile {
         aws devicefarm list-projects \
         | jq -r '.projects | .[] | select(.name == "integrates-mobile") | .arn'
       ) \
+  &&  run_name="${CI_COMMIT_REF_NAME}_$(date -Iseconds)" \
   &&  echo '[INFO] Preparing device pool' \
   &&  device_pool_arn=$(
         aws devicefarm create-device-pool \
@@ -442,12 +444,14 @@ function job_integrates_functional_tests_mobile {
   &&  curl -sSo expoClient.apk "${expo_apk_url}" \
   &&  helper_upload_to_devicefarm \
         apk_arn \
+        "${run_name}" \
         expoClient.apk \
         ANDROID_APP \
   &&  echo '[INFO] Preparing test package' \
   &&  zip -r9 devicefarm/tests.zip tests/ requirements.txt \
   &&  helper_upload_to_devicefarm \
         test_pkg_arn \
+        "${run_name}" \
         devicefarm/tests.zip \
         APPIUM_PYTHON_TEST_PACKAGE \
   &&  echo '[INFO] Preparing test spec' \
@@ -460,13 +464,16 @@ function job_integrates_functional_tests_mobile {
         devicefarm/spec.yml \
   &&  helper_upload_to_devicefarm \
         test_spec_arn \
+        "${run_name}" \
         devicefarm/spec.yml \
         APPIUM_PYTHON_TEST_SPEC \
-  &&  echo "${project_arn}" \
-  &&  echo "${device_pool_arn}" \
-  &&  echo "${apk_arn}" \
-  &&  echo "${test_pkg_arn}" \
-  &&  echo "${test_spec_arn}" \
+  &&  helper_run_test_devicefarm \
+        "${apk_arn}" \
+        "${device_pool_arn}" \
+        "${project_arn}" \
+        "${run_name}" \
+        "${test_pkg_arn}" \
+        "${test_spec_arn}" \
   &&  popd \
   ||  return 1
 }

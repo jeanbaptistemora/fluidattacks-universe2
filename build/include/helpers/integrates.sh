@@ -232,8 +232,9 @@ sops_vars() {
 
 function helper_upload_to_devicefarm {
     local resource_arn_out="${1}"
-    local file_path="${2}"
-    local file_type="${3}"
+    local run_name="${2}"
+    local file_path="${3}"
+    local file_type="${4}"
     local file_name
     local upload_status
 
@@ -242,7 +243,7 @@ function helper_upload_to_devicefarm {
     &&  resource_data=$(
           aws devicefarm create-upload \
             --content-type "application/octet-stream" \
-            --name "${file_name}" \
+            --name "${run_name}_${file_name}" \
             --project-arn "${project_arn}" \
             --type "${file_type}" \
         ) \
@@ -259,18 +260,68 @@ function helper_upload_to_devicefarm {
             aws devicefarm get-upload \
               --arn "${resource_arn}" \
             | jq -r '.upload | .status'
-          )
-          if [ "${upload_status}" == "SUCCEEDED" ];
-          then
-            break;
-          elif [ "${upload_status}" == "FAILED" ];
-          then
-            echo "[ERROR] Couldn't upload ${file_type}";
-            return 1;
-          else
-            echo "[INFO][${upload_status}] sleeping 5 seconds...";
-            sleep 5;
-          fi;
+          ) \
+          &&  if [ "${upload_status}" == "SUCCEEDED" ];
+              then
+                break
+              elif [ "${upload_status}" == "FAILED" ];
+              then
+                    echo "[ERROR] Couldn't upload ${file_type}" \
+                &&  return 1
+              else
+                    echo "[INFO][${upload_status}] sleeping 5 seconds..." \
+                &&  sleep 5 \
+                ||  return 1
+              fi
         done \
-    &&  eval "${resource_arn_out}"="${resource_arn}"
+    &&  export "${resource_arn_out}"="${resource_arn}"
+  }
+
+function helper_run_test_devicefarm {
+    local app_arn="${1}"
+    local device_pool_arn="${2}"
+    local project_arn="${3}"
+    local run_name="${4}"
+    local test_pkg_arn="${5}"
+    local test_spec_arn="${6}"
+    local run_arn
+    local run_result
+
+        echo "[INFO] Scheduling run" \
+    &&  run_arn=$(
+          aws devicefarm schedule-run \
+            --project-arn "${project_arn}" \
+            --app-arn "${app_arn}" \
+            --device-pool-arn "${device_pool_arn}" \
+            --name "${run_name}" \
+            --test "testSpecArn=${test_spec_arn},type=APPIUM_PYTHON,testPackageArn=${test_pkg_arn}" \
+          | jq -r '.run | .arn'
+        ) \
+    &&  while true;
+        do
+          run_status=$(
+            aws devicefarm get-run \
+              --arn "${run_arn}" \
+            | jq -r '.run | .status'
+          ) \
+          &&  if [ "${run_status}" == "COMPLETED" ]; then
+                break
+              else
+                    echo "[INFO][${run_status}] sleeping 10 seconds..." \
+                &&  sleep 10 \
+                ||  return 1
+              fi
+        done \
+    &&  run_result=$(
+          aws devicefarm get-run \
+            --arn "${run_arn}" \
+          | jq -r '.run | .result'
+        ) \
+    &&  if [ "${run_result}" == "PASSED" ];
+        then
+          return 0
+        else
+              echo "[ERROR] Run finished with state ${run_result}" \
+          &&  return 1
+        fi
   }
