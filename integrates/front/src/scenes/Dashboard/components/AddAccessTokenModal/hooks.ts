@@ -1,7 +1,5 @@
 import { GraphQLError } from "graphql";
 import { Logger } from "../../../../utils/logger";
-import React from "react";
-import _ from "lodash";
 import { useDispatch } from "react-redux";
 import { useTranslation } from "react-i18next";
 import { ApolloError, ApolloQueryResult } from "apollo-client";
@@ -12,29 +10,20 @@ import { MutationFunction, MutationResult } from "@apollo/react-common";
 import { msgError, msgSuccess } from "../../../../utils/notifications";
 import { useMutation, useQuery } from "@apollo/react-hooks";
 
-const useUpdateAPIToken: () => {
-  canSubmit: [boolean, React.Dispatch<boolean>];
-  canSelectDate: [boolean, React.Dispatch<boolean>];
-  mtResult: [MutationFunction, MutationResult<IUpdateAccessTokenAttr>];
-} = (): {
-  canSubmit: [boolean, React.Dispatch<boolean>];
-  canSelectDate: [boolean, React.Dispatch<boolean>];
-  mtResult: [MutationFunction, MutationResult<IUpdateAccessTokenAttr>];
-} => {
+const useUpdateAPIToken: (
+  refetch: () => Promise<ApolloQueryResult<IGetAccessTokenAttr>>
+) => readonly [MutationFunction, MutationResult<IUpdateAccessTokenAttr>] = (
+  refetch: () => Promise<ApolloQueryResult<IGetAccessTokenAttr>>
+): readonly [MutationFunction, MutationResult<IUpdateAccessTokenAttr>] => {
   const { t } = useTranslation();
   const dispatch: React.Dispatch<FormAction> = useDispatch();
-
-  //  Handle user actions
-  const [canSubmit, setCanSubmit] = React.useState(false);
-  const [canSelectDate, setCanSelectDate] = React.useState(true);
 
   // Handle mutation results
   const handleOnSuccess: (mtResult: IUpdateAccessTokenAttr) => void = (
     mtResult: IUpdateAccessTokenAttr
   ): void => {
-    if (!_.isUndefined(mtResult) && mtResult.updateAccessToken.success) {
-      setCanSubmit(true);
-      setCanSelectDate(false);
+    if (mtResult.updateAccessToken.success) {
+      void refetch();
       dispatch(
         change(
           "updateAccessToken",
@@ -72,11 +61,7 @@ const useUpdateAPIToken: () => {
     }
   );
 
-  return {
-    canSelectDate: [canSelectDate, setCanSelectDate],
-    canSubmit: [canSubmit, setCanSubmit],
-    mtResult: [updateAPIToken, mtResponse],
-  };
+  return [updateAPIToken, mtResponse] as const;
 };
 
 const useGetAPIToken: () => readonly [

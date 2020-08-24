@@ -1,6 +1,7 @@
 import { MockedProvider, MockedResponse, wait } from "@apollo/react-testing";
 import { mount, ReactWrapper } from "enzyme";
 import { GraphQLError } from "graphql";
+import { result } from "lodash";
 import moment from "moment";
 import React from "react";
 // tslint:disable-next-line: no-submodule-imports
@@ -154,8 +155,28 @@ describe("Update access token modal", () => {
         success: true,
       },
     };
-
+    const noAccessToken: IGetAccessTokenDictAttr = {
+      hasAccessToken: false,
+      issuedAt: "",
+    };
+    const accessToken: IGetAccessTokenDictAttr = {
+      hasAccessToken: true,
+      issuedAt: Date.now()
+        .toString(),
+    };
     const mockMutation: MockedResponse[] = [
+      {
+        request: {
+          query: GET_ACCESS_TOKEN,
+        },
+        result: {
+          data: {
+            me: {
+              accessToken: JSON.stringify(noAccessToken),
+            },
+          },
+        },
+      },
       {
         request: {
           query: UPDATE_ACCESS_TOKEN_MUTATION,
@@ -169,7 +190,19 @@ describe("Update access token modal", () => {
           },
         },
       },
-    ];
+      {
+        request: {
+          query: GET_ACCESS_TOKEN,
+        },
+        result: {
+          data: {
+            me: {
+              accessToken: JSON.stringify(accessToken),
+            },
+          },
+        },
+      },
+      ];
 
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>

@@ -6,14 +6,16 @@ import { ApolloError } from "apollo-client";
 import { Button } from "../../../../components/Button";
 import { GenericForm } from "../GenericForm";
 import { GraphQLError } from "graphql";
+import { INVALIDATE_ACCESS_TOKEN_MUTATION } from "./queries";
 import { Logger } from "../../../../utils/logger";
 import { Modal } from "../../../../components/Modal";
+import { Mutation } from "@apollo/react-components";
+import { MutationFunction } from "@apollo/react-common";
 import React from "react";
 import _ from "lodash";
 import globalStyle from "../../../../styles/global.css";
-import store from "../../../../store";
 import { translate } from "../../../../utils/translations/translate";
-import { useUpdateAPIToken } from "./hooks";
+import { useDispatch } from "react-redux";
 import {
   ButtonToolbar,
   Col,
@@ -22,22 +24,19 @@ import {
   Row,
 } from "react-bootstrap";
 import { Date as DateField, TextArea } from "../../../../utils/forms/fields";
-import { Field, InjectedFormProps, reset } from "redux-form";
-import { GET_ACCESS_TOKEN, INVALIDATE_ACCESS_TOKEN_MUTATION } from "./queries";
+import { Field, FormAction, InjectedFormProps, reset } from "redux-form";
 import {
   IAccessTokenAttr,
-  IGetAccessTokenAttr,
   IGetAccessTokenDictAttr,
   IInvalidateAccessTokenAttr,
 } from "./types";
-import { Mutation, Query } from "@apollo/react-components";
-import { MutationFunction, QueryResult } from "@apollo/react-common";
 import {
   isLowerDate,
   isValidDateAccessToken,
   required,
 } from "../../../../utils/validations";
 import { msgError, msgSuccess } from "../../../../utils/notifications";
+import { useGetAPIToken, useUpdateAPIToken } from "./hooks";
 
 interface IAddAccessTokenModalProps {
   open: boolean;
@@ -47,16 +46,20 @@ interface IAddAccessTokenModalProps {
 const UpdateAccessTokenModal: React.FC<IAddAccessTokenModalProps> = (
   props: IAddAccessTokenModalProps
 ): JSX.Element => {
-  const { open } = props;
+  const { open, onClose } = props;
+  const dispatch: React.Dispatch<FormAction> = useDispatch();
 
   const msToSec: number = 1000;
   const yyyymmdd: number = 10;
 
-  const {
-    canSubmit: [canSubmit, setCanSubmit],
-    canSelectDate: [canSelectDate, setCanSelectDate],
-    mtResult: [updateAPIToken, mtResponse],
-  } = useUpdateAPIToken();
+  const [data, refetch] = useGetAPIToken();
+  const accessToken: IGetAccessTokenDictAttr | undefined = _.isUndefined(data)
+    ? undefined
+    : JSON.parse(data.me.accessToken);
+  const hasAPIToken: boolean = accessToken?.hasAccessToken ?? false;
+  const issuedAt: string = accessToken?.issuedAt ?? "0";
+
+  const [updateAPIToken, mtResponse] = useUpdateAPIToken(refetch);
   function handleUpdateAPIToken(values: IAccessTokenAttr): void {
     const expTimeStamp: number = Math.floor(
       new Date(values.expirationTime).getTime() / msToSec
@@ -83,22 +86,24 @@ const UpdateAccessTokenModal: React.FC<IAddAccessTokenModalProps> = (
     }
   }
 
-  function handleQryResult(qrResult: IGetAccessTokenAttr): void {
-    const accessToken: IGetAccessTokenDictAttr = JSON.parse(
-      qrResult.me.accessToken
-    );
-    if (accessToken.hasAccessToken) {
-      setCanSubmit(true);
-      setCanSelectDate(false);
-    } else {
-      setCanSubmit(false);
+  function handleMtInvalidateTokenRes(
+    mtResult: IInvalidateAccessTokenAttr
+  ): void {
+    if (mtResult.invalidateAccessToken.success) {
+      onClose();
+      msgSuccess(
+        translate.t("update_access_token.delete"),
+        translate.t("update_access_token.invalidated")
+      );
+      void refetch();
     }
   }
-  function handleQueryErrors({ graphQLErrors }: ApolloError): void {
+  function handleMtInvalidateErrors({ graphQLErrors }: ApolloError): void {
     graphQLErrors.forEach((error: GraphQLError): void => {
-      Logger.warning("An error occurred getting access token", error);
+      Logger.warning("An error occurred invalidating access token", error);
       msgError(translate.t("group_alerts.error_textsad"));
     });
+    dispatch(reset("updateAccessToken"));
   }
 
   return (
@@ -112,7 +117,7 @@ const UpdateAccessTokenModal: React.FC<IAddAccessTokenModalProps> = (
           <React.Fragment>
             <Row>
               <Col md={12}>
-                {canSelectDate && (
+                {!hasAPIToken && (
                   <FormGroup>
                     <ControlLabel>
                       <b>
@@ -154,130 +159,66 @@ const UpdateAccessTokenModal: React.FC<IAddAccessTokenModalProps> = (
                 </Col>
               </Row>
             )}
-            <Query
-              fetchPolicy={"network-only"}
-              onCompleted={handleQryResult}
-              onError={handleQueryErrors}
-              query={GET_ACCESS_TOKEN}
+            <Mutation
+              mutation={INVALIDATE_ACCESS_TOKEN_MUTATION}
+              onCompleted={handleMtInvalidateTokenRes}
+              onError={handleMtInvalidateErrors}
             >
-              {({ data }: QueryResult<IGetAccessTokenAttr>): JSX.Element => {
-                if (_.isUndefined(data) || _.isEmpty(data)) {
-                  // temporal
-                  // eslint-disable-next-line react/jsx-no-useless-fragment
-                  return <React.Fragment />;
-                }
-
-                function handleMtInvalidateTokenRes(
-                  mtResult: IInvalidateAccessTokenAttr
-                ): void {
-                  if (!_.isUndefined(mtResult)) {
-                    if (mtResult.invalidateAccessToken.success) {
-                      props.onClose();
-                      msgSuccess(
-                        translate.t("update_access_token.delete"),
-                        translate.t("update_access_token.invalidated")
-                      );
-                      setCanSelectDate(true);
-                    }
-                  }
-                }
-                function handleCloseModal(): void {
-                  props.onClose();
-                  setCanSelectDate(true);
-                }
-
-                function handleMtInvalidateErrors({
-                  graphQLErrors,
-                }: ApolloError): void {
-                  graphQLErrors.forEach((error: GraphQLError): void => {
-                    Logger.warning(
-                      "An error occurred invalidating access token",
-                      error
-                    );
-                    msgError(translate.t("group_alerts.error_textsad"));
-                  });
-                  store.dispatch(reset("updateAccessToken"));
+              {(
+                invalidateAccessToken: MutationFunction<
+                  IInvalidateAccessTokenAttr,
+                  Record<string, unknown>
+                >
+              ): JSX.Element => {
+                function handleInvalidateAccessToken(): void {
+                  void invalidateAccessToken();
                 }
 
                 return (
-                  <Mutation
-                    mutation={INVALIDATE_ACCESS_TOKEN_MUTATION}
-                    onCompleted={handleMtInvalidateTokenRes}
-                    onError={handleMtInvalidateErrors}
-                  >
-                    {(
-                      invalidateAccessToken: MutationFunction<
-                        IInvalidateAccessTokenAttr,
-                        Record<string, unknown>
+                  <React.Fragment>
+                    <Row>
+                      {!submitSucceeded && hasAPIToken && (
+                        <Col md={12}>
+                          <ControlLabel>
+                            <b>
+                              {translate.t("update_access_token.token_created")}
+                            </b>
+                            &nbsp;
+                            {new Date(Number.parseInt(issuedAt, 10) * msToSec)
+                              .toISOString()
+                              .substring(0, yyyymmdd)}
+                          </ControlLabel>
+                        </Col>
+                      )}
+                    </Row>
+                    <ButtonToolbar className={"pull-left"}>
+                      <br />
+                      {!submitSucceeded && hasAPIToken && (
+                        <Button
+                          bsStyle={"default"}
+                          onClick={handleInvalidateAccessToken}
+                        >
+                          {translate.t("update_access_token.invalidate")}
+                        </Button>
+                      )}
+                    </ButtonToolbar>
+                    <ButtonToolbar className={"pull-right"}>
+                      <br />
+                      <Button bsStyle={"default"} onClick={onClose}>
+                        {translate.t("update_access_token.close")}
+                      </Button>
+                      <Button
+                        bsStyle={"primary"}
+                        disabled={hasAPIToken}
+                        type={"submit"}
                       >
-                    ): JSX.Element => {
-                      function handleInvalidateAccessToken(): void {
-                        void invalidateAccessToken();
-                      }
-                      const accessToken: IGetAccessTokenDictAttr = JSON.parse(
-                        data.me.accessToken
-                      );
-
-                      return (
-                        <React.Fragment>
-                          <Row>
-                            {accessToken.hasAccessToken ? (
-                              <Col md={12}>
-                                {!_.isEmpty(accessToken.issuedAt) ? (
-                                  <ControlLabel>
-                                    <b>
-                                      {translate.t(
-                                        "update_access_token.token_created"
-                                      )}
-                                    </b>
-                                    &nbsp;
-                                    {new Date(
-                                      Number.parseInt(
-                                        accessToken.issuedAt,
-                                        10
-                                      ) * msToSec
-                                    )
-                                      .toISOString()
-                                      .substring(0, yyyymmdd)}
-                                  </ControlLabel>
-                                ) : undefined}
-                              </Col>
-                            ) : undefined}
-                          </Row>
-                          <ButtonToolbar className={"pull-left"}>
-                            <br />
-                            {accessToken.hasAccessToken ? (
-                              <Button
-                                bsStyle={"default"}
-                                onClick={handleInvalidateAccessToken}
-                              >
-                                {translate.t("update_access_token.invalidate")}
-                              </Button>
-                            ) : undefined}
-                          </ButtonToolbar>
-                          <ButtonToolbar className={"pull-right"}>
-                            <br />
-                            <Button
-                              bsStyle={"default"}
-                              onClick={handleCloseModal}
-                            >
-                              {translate.t("update_access_token.close")}
-                            </Button>
-                            <Button
-                              bsStyle={"primary"}
-                              disabled={canSubmit}
-                              type={"submit"}
-                            >
-                              {translate.t("confirmmodal.proceed")}
-                            </Button>
-                          </ButtonToolbar>
-                        </React.Fragment>
-                      );
-                    }}
-                  </Mutation>
+                        {translate.t("confirmmodal.proceed")}
+                      </Button>
+                    </ButtonToolbar>
+                  </React.Fragment>
                 );
               }}
-            </Query>
+            </Mutation>
           </React.Fragment>
         )}
       </GenericForm>
