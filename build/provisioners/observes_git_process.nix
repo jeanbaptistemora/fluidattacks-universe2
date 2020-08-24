@@ -23,6 +23,6 @@ in
           };
           LD_LIBRARY_PATH="${pkgs.stdenv.cc.cc.lib}/lib64:$LD_LIBRARY_PATH";
 
-          pyPkgTapgit = builders.pythonPackageLocal { path = ../../serves/analytics/singer/tap_git; };
+          pyPkgTapgit = builders.pythonPackageLocal { path = ../../observes/singer/tap_git; };
         })
   )

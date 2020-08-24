@@ -17,6 +17,6 @@ in
             pkgs.cacert
           ];
 
-          pyPkgTaptimedoctor = builders.pythonPackageLocal { path = ../../serves/analytics/singer/tap_timedoctor; };
+          pyPkgTaptimedoctor = builders.pythonPackageLocal { path = ../../observes/singer/tap_timedoctor; };
         })
   )

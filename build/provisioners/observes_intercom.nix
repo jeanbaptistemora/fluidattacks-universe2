@@ -15,8 +15,8 @@ in
             pkgs.jq
           ];
 
-          pyPkgStreamerintercom = builders.pythonPackageLocal { path = ../../serves/analytics/singer/streamer_intercom; };
-          pyPkgTapjson = builders.pythonPackageLocal { path = ../../serves/analytics/singer/tap_json; };
-          pyPkgTargetRedshift = builders.pythonPackageLocal { path = ../../serves/analytics/singer/target_redshift; };
+          pyPkgStreamerintercom = builders.pythonPackageLocal { path = ../../observes/singer/streamer_intercom; };
+          pyPkgTapjson = builders.pythonPackageLocal { path = ../../observes/singer/tap_json; };
+          pyPkgTargetRedshift = builders.pythonPackageLocal { path = ../../observes/singer/target_redshift; };
         })
   )
