@@ -1,0 +1,39 @@
+utils.model.finding.enum.f031_cwe378.description:
+  en: >
+    Opening temporary files without appropriate measures or controls can leave
+    the file, its contents and any function that consumes it vulnerable to
+    attack.
+  es: >
+    Abrir archivos temporales sin las medidas o controles adecuados puede dejar
+    el archivo, su contenido y cualquier función que lo consuma vulnerable a
+    ataques.
+utils.model.finding.enum.f031_cwe378.impact:
+  en: |
+    - Get access to the created temporary files.
+    - Tamper data contained in the created temporary files.
+  es: |
+    - Obtener acceso a los archivos temporales creados.
+    - Manipular los datos contenidos en los archivos temporales.
+utils.model.finding.enum.f031_cwe378.recommendation:
+  en: >
+    Create the temporary files in a different directory than the default
+    provided by the Operative system and ensure it has 0600 permission mask.
+  es: >
+    Crear los archivos temporales en un directorio diferente al provisto por
+    defecto en el sistema operativo y asegurar que estos tienen una mascara
+    de permisos 0600.
+utils.model.finding.enum.f031_cwe378.requirements:
+  en: >
+    R186. Use the principle of least privilege.
+  es: >
+    R186. Se debe aplicar el principio del mínimo privilegio al crear objetos y
+    roles, configurar permisos de acceso y acceder a otros sistemas y bases de
+    datos.
+utils.model.finding.enum.f031_cwe378.threat:
+  en: >
+    Attacker with local access.
+  es: >
+    Atacante con acceso Local.
+utils.model.finding.enum.f031_cwe378.title:
+  en: FIN.S.031. Excessive privileges - Temporary files
+  es: FIN.S.031. Permisos excesivos - Archivos temporales
