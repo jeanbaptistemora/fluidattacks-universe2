@@ -23,7 +23,7 @@ stages:
   - scheduler
 
 .commit_stages:
-  - &common_commit_pattern '$CI_COMMIT_TITLE =~ /^(all|forces|integrates|reviews|serves|skims)/'
+  - &common_commit_pattern '$CI_COMMIT_TITLE =~ /^(all|forces|integrates|observes|reviews|serves|skims|sorts)/'
 
 .common_in_mrs: &common_in_mrs
   rules:

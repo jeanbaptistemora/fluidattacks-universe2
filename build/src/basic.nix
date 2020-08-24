@@ -18,12 +18,15 @@ rec {
   srcIncludeIntegratesJobs = ../include/jobs/integrates.sh;
   srcIncludeIntegratesLintersJobs = ../include/jobs/integrates.linters.sh;
 
+  # Observes
+  srcIncludeHelpersObserves = ../include/helpers/observes.sh;
+  srcIncludeObservesJobs = ../include/jobs/observes.sh;
+
   # Reviews
   srcIncludeReviewsJobs = ../include/jobs/reviews.sh;
 
   # Serves
   srcIncludeHelpersServes = ../include/helpers/serves.sh;
-  srcIncludeHelpersAnalytics = ../include/helpers/analytics.sh;
   srcIncludeServesJobs = ../include/jobs/serves.sh;
 
   # Skims

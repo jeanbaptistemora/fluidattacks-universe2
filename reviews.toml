@@ -26,7 +26,7 @@ platform = 'gitlab'
   [tests.most_relevant_type]
     fail = true
     close_mr = true
-    commit_regex = '^(?:all|forces|integrates|reviews|serves|skims|sorts)\\(\w*)\((\w*)\):\s(#[1-9]\d*)(.\d+)?\s(.*)$'
+    commit_regex = '^(?:all|forces|integrates|observes|reviews|serves|skims|sorts)\\(\w*)\((\w*)\):\s(#[1-9]\d*)(.\d+)?\s(.*)$'
     [tests.most_relevant_type.relevances]
       rever = 1
       feat = 2
@@ -54,4 +54,4 @@ platform = 'gitlab'
   [tests.close_issue_directive]
     fail = false
     close_mr = false
-    mr_title_regex = '^(?:all|forces|integrates|reviews|serves|skims|sorts)\\(\w*)\((\w*)\):\s(#[1-9]\d*)(.\d+)?\s(.*)$'
+    mr_title_regex = '^(?:all|forces|integrates|observes|reviews|serves|skims|sorts)\\(\w*)\((\w*)\):\s(#[1-9]\d*)(.\d+)?\s(.*)$'

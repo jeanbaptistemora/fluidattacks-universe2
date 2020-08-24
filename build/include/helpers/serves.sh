@@ -1,55 +1,5 @@
 # shellcheck shell=bash
 
-function helper_serves_move_artifacts_to_git {
-  local artifacts="${PWD}/artifacts"
-  local git="/git"
-
-  if test -e "${artifacts}"
-  then
-    # shellcheck disable=SC2015
-        echo '[INFO] Moving repositories from the artifacts to git' \
-    &&  mv "${artifacts}/"* "${git}" \
-    &&  ls "${git}" \
-    ||  true
-  fi
-}
-
-function helper_serves_move_git_to_artifacts {
-  local artifacts="${PWD}/artifacts"
-  local git="/git"
-
-      echo '[INFO] Moving repositories from git to artifacts' \
-  &&  mkdir -p "${artifacts}" \
-  &&  mv "${git}/"* "${artifacts}"
-}
-
-function helper_serves_move_services_fusion_to_master_git {
-  local mock_integrates_api_token='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.e30.xxx'
-  local path_empty_repos="${PWD}/repos_to_get_from_cache.lst"
-
-  set +o errexit
-  set +o nounset
-
-  ls
-  pushd '/git/fluidattacks/services'
-    while read -r subs
-    do
-          echo "[INFO] Fetching ${subs} from S3" \
-      &&  CI='true' \
-          CI_COMMIT_REF_NAME='master' \
-          INTEGRATES_API_TOKEN="${mock_integrates_api_token}" \
-          PROD_AWS_ACCESS_KEY_ID="${AWS_ACCESS_KEY_ID}" \
-          PROD_AWS_SECRET_ACCESS_KEY="${AWS_SECRET_ACCESS_KEY}" \
-          fluid drills --pull-repos "${subs}" \
-      &&  mkdir -p ../../"${subs}" \
-      &&  cp -r groups/"${subs}"/fusion/* ../../"${subs}"
-    done < "${path_empty_repos}"
-  popd
-
-  set -o errexit
-  set -o nounset
-}
-
 function helper_serves_deploy_integrates {
   local integrates_id='4620828'
 
