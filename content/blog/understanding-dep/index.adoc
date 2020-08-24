@@ -207,7 +207,7 @@ on the stack. Let's welcome Return-Oriented Programming.
 
 == Conclusions
 
-This article show a mechanism created to prevent the exploitation of
+This article shows a mechanism created to prevent the exploitation of
 buffer overflow vulnerabilities. `DEP` surely leaves behind common exploits.
 However, in the next article we will see how to bypass `DEP` using
 Return-Oriented Programming and then we can create a fully working exploit
