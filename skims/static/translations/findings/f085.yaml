@@ -33,9 +33,6 @@ utils.model.finding.enum.f085.threat:
     Attacker with physical or virtual access to the victim's browser.
   es: >
     Atacante con acceso físico o virtual al navegador de la víctima.
-utils.model.finding.enum.f085.beta_title:
-  en: SKIMS.666. Beta F085 - Please delete
-  es: SKIMS.666. Beta F085 - Por favor borrar
 utils.model.finding.enum.f085.title:
   en: FIN.S.085. Sensitive data stored in the client-side storage
   es: FIN.S.085. Almacenamiento inseguro de información sensible en el client-side storage
