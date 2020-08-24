@@ -5,9 +5,6 @@ from asyncio import (
     sleep,
     Task,
 )
-from concurrent.futures import (
-    BrokenExecutor,
-)
 import logging
 from os import (
     chdir,
@@ -23,9 +20,6 @@ from typing import (
 # Third party imports
 from aioextensions import (
     collect,
-)
-from confuse import (
-    ConfigError,
 )
 
 # Local imports
@@ -48,8 +42,6 @@ from utils.hardware import (
 )
 from utils.logs import (
     log,
-    log_exception,
-    log_to_remote,
     set_level,
 )
 from utils.model import (
@@ -183,46 +175,12 @@ async def main(
     if debug:
         set_level(logging.DEBUG)
 
-    success: bool = True
-
     try:
         config_obj: SkimsConfig = await load(config)
         set_locale(config_obj.language)
         await reset_ephemeral_state()
         await adjust_working_dir(config_obj)
-        success = await execute_skims(config_obj, token)
-    except (
-        ArithmeticError,
-        AssertionError,
-        AttributeError,
-        BrokenExecutor,
-        BufferError,
-        ConfigError,
-        EOFError,
-        GeneratorExit,
-        ImportError,
-        KeyboardInterrupt,
-        LookupError,
-        MemoryError,
-        NameError,
-        OSError,
-        ReferenceError,
-        RuntimeError,
-        StopAsyncIteration,
-        StopIteration,
-        SyntaxError,
-        SystemError,
-        SystemExit,
-        TypeError,
-        ValueError,
-    ) as exc:
-        success = False
-        await log_exception('critical', exc)
-        if isinstance(exc, (BrokenExecutor, TypeError)):
-            await log_to_remote(exc)
+        return await execute_skims(config_obj, token)
     finally:
         await reset_ephemeral_state()
-
-    monitor_task.cancel()
-
-    return success
+        monitor_task.cancel()

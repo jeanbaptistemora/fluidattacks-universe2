@@ -1,11 +1,7 @@
 # Standard library
-from asyncio import (
-    TimeoutError as AsyncioTimeoutError,
-)
 from io import (
     BytesIO,
 )
-import socket
 from typing import (
     Any,
     Callable,
@@ -28,7 +24,7 @@ from state.ephemeral import (
     get_ephemeral_store,
 )
 from utils.function import (
-    retry,
+    shield,
     RetryAndFinallyReturn,
 )
 from utils.logs import (
@@ -56,16 +52,8 @@ from zone import (
 
 # Constants
 TFun = TypeVar('TFun', bound=Callable[..., Any])
-RETRY: Callable[[TFun], TFun] = retry(
-    attempts=12,
-    on_exceptions=(
-        aiohttp.ClientError,
-        AsyncioTimeoutError,
-        IndexError,
-        RetryAndFinallyReturn,
-        socket.gaierror,
-        TypeError,
-    ),
+SHIELD: Callable[[TFun], TFun] = shield(
+    retries=12,
     sleep_between_retries=5,
 )
 
@@ -132,7 +120,7 @@ async def _execute(*, query: str, variables: Dict[str, Any]) -> Dict[str, Any]:
     return result
 
 
-@RETRY
+@SHIELD
 async def get_group_level_role(
     *,
     group: str,
@@ -165,7 +153,7 @@ class ResultGetGroupFindings(NamedTuple):
     title: str
 
 
-@RETRY
+@SHIELD
 async def get_group_findings(
     *,
     group: str,
@@ -204,7 +192,7 @@ async def get_group_findings(
     )
 
 
-@RETRY
+@SHIELD
 async def get_finding_current_release_status(
     *,
     finding_id: str,
@@ -231,7 +219,7 @@ async def get_finding_current_release_status(
     )
 
 
-@RETRY
+@SHIELD
 async def get_finding_vulnerabilities(
     *,
     finding: FindingEnum,
@@ -281,7 +269,7 @@ async def get_finding_vulnerabilities(
     return store
 
 
-@RETRY
+@SHIELD
 async def do_release_vulnerability(
     *,
     finding_id: str,
@@ -316,7 +304,7 @@ async def do_release_vulnerability(
     return success
 
 
-@RETRY
+@SHIELD
 async def do_release_vulnerabilities(
     *,
     finding_id: str,
@@ -347,7 +335,7 @@ async def do_release_vulnerabilities(
     return success
 
 
-@RETRY
+@SHIELD
 async def do_create_draft(
     *,
     affected_systems: str,
@@ -406,7 +394,7 @@ async def do_create_draft(
     return success
 
 
-@RETRY
+@SHIELD
 async def do_delete_finding(
     *,
     finding_id: str,
@@ -441,7 +429,7 @@ async def do_delete_finding(
     return success
 
 
-@RETRY
+@SHIELD
 async def do_approve_draft(
     *,
     finding_id: str,
@@ -471,7 +459,7 @@ async def do_approve_draft(
     return success
 
 
-@RETRY
+@SHIELD
 async def do_submit_draft(
     *,
     finding_id: str,
@@ -501,7 +489,7 @@ async def do_submit_draft(
     return success
 
 
-@RETRY
+@SHIELD
 async def do_update_finding_severity(
     *,
     finding_id: str,
@@ -539,7 +527,7 @@ async def do_update_finding_severity(
     return success
 
 
-@RETRY
+@SHIELD
 async def do_update_evidence(
     *,
     evidence_id: FindingEvidenceIDEnum,
@@ -579,7 +567,7 @@ async def do_update_evidence(
     return success
 
 
-@RETRY
+@SHIELD
 async def do_update_evidence_description(
     *,
     evidence_description: str,
@@ -617,7 +605,7 @@ async def do_update_evidence_description(
     return success
 
 
-@RETRY
+@SHIELD
 async def do_upload_vulnerabilities(
     *,
     finding_id: str,

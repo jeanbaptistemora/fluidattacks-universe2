@@ -1,9 +1,5 @@
 # Standard library
-from asyncio import (
-    TimeoutError as AsyncioTimeoutError,
-)
 import re
-import socket
 from typing import (
     Callable,
     Pattern,
@@ -22,7 +18,7 @@ from state.cache import (
     cache_decorator,
 )
 from utils.function import (
-    retry,
+    shield,
 )
 from utils.model import (
     NVDVulnerability,
@@ -30,15 +26,9 @@ from utils.model import (
 
 # Constants
 TVar = TypeVar('TVar')
-RETRY: Callable[[TVar], TVar] = retry(
-    attempts=3,
-    on_error=(),
-    on_exceptions=(
-        aiohttp.ClientError,
-        AsyncioTimeoutError,
-        IndexError,
-        socket.gaierror,
-    ),
+SHIELD: Callable[[TVar], TVar] = shield(
+    retries=3,
+    on_error_return=(),
     sleep_between_retries=5,
 )
 RE_CVE: Pattern = re.compile(r'vuln-detail-link-[0-9]+">(CVE-[0-9-]+)</a>')
@@ -49,7 +39,7 @@ RE_CVSS: Pattern = re.compile(
 
 
 @cache_decorator(ttl=86400)
-@RETRY
+@SHIELD
 async def get_vulnerabilities(
     product: str,
     version: str,

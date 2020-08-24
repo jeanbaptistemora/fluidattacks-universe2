@@ -23,7 +23,7 @@ from pyparsing import (
 
 # Local libraries
 from utils.function import (
-    retry,
+    shield,
 )
 from utils.model import (
     FindingEnum,
@@ -59,13 +59,7 @@ DOUBLE_QUOTED_STRING: QuotedString = QuotedString('"', escChar='\\')
 VAR_NAME_JAVA: ParserElement = Word(alphas + '$_', alphanums + '$_')
 VAR_ATTR_JAVA: ParserElement = delimitedList(VAR_NAME_JAVA, '.', True)
 
-HANDLE_ERRORS: Callable[[TFun], TFun] = retry(
-    attempts=1,
-    on_error=(),
-    on_exceptions=(
-        RecursionError,
-    ),
-)
+SHIELD: Callable[[TFun], TFun] = shield(on_error_return=())
 
 
 def blocking_get_matching_lines(

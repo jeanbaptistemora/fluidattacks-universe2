@@ -30,7 +30,7 @@ from lib_path.common import (
     EXTENSIONS_JAVA,
     EXTENSIONS_PYTHON,
     EXTENSIONS_SWIFT,
-    HANDLE_ERRORS,
+    SHIELD,
     SINGLE_QUOTED_STRING,
     VAR_ATTR_JAVA,
 )
@@ -116,7 +116,7 @@ def _csharp_insecure_exceptions(
 
 
 @cache_decorator()
-@HANDLE_ERRORS
+@SHIELD
 async def csharp_insecure_exceptions(
     content: str,
     path: str,
@@ -185,7 +185,7 @@ def _java_insecure_exceptions(
 
 
 @cache_decorator()
-@HANDLE_ERRORS
+@SHIELD
 async def java_insecure_exceptions(
     content: str,
     path: str,
@@ -287,7 +287,7 @@ def _swift_insecure_exceptions(
 
 
 @cache_decorator()
-@HANDLE_ERRORS
+@SHIELD
 async def swift_insecure_exceptions(
     content: str,
     path: str,

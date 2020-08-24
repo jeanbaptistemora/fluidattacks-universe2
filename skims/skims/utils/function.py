@@ -22,6 +22,7 @@ from more_itertools import (
 # Local libraries
 from utils.logs import (
     log,
+    log_to_remote,
 )
 
 # Constants
@@ -32,7 +33,7 @@ TFun = TypeVar('TFun', bound=Callable[..., Any])
 class RetryAndFinallyReturn(Exception):
     """Mark an operation as failed but whose value can be the result.
 
-    Raising this exception will make the `retry` decorator retry the operation.
+    Raising this exception will make the `shield` decorator retry the task.
     Aditionally, in the last round the exception argument will be returned.
     """
 
@@ -75,15 +76,18 @@ def never_concurrent(function: TFun) -> TFun:
     return cast(TFun, wrapper)
 
 
-def retry(
+def shield(
     *,
-    attempts: int = 5,
-    on_error: Any = RAISE,
-    on_exceptions: Tuple[Type[Exception], ...],
+    on_error_return: Any = RAISE,
+    on_exceptions: Tuple[Type[BaseException], ...] = (
+        BaseException,
+        RetryAndFinallyReturn,
+    ),
+    retries: int = 1,
     sleep_between_retries: int = 0
 ) -> Callable[[TFun], TFun]:
-    if attempts < 1:
-        raise ValueError('attempts must be >= 1')
+    if retries < 1:
+        raise ValueError('retries must be >= 1')
 
     def decorator(function: TFun) -> TFun:
 
@@ -91,21 +95,22 @@ def retry(
         async def wrapper(*args: Any, **kwargs: Any) -> Any:
             function_id = f'{function.__module__}.{function.__name__}'
 
-            for _, is_last, number in mark_ends(range(attempts)):
+            for _, is_last, number in mark_ends(range(retries)):
                 try:
                     return await function(*args, **kwargs)
                 except on_exceptions as exc:
                     msg: str = 'Function: %s, %s: %s'
                     exc_msg: str = str(exc)
                     exc_type: str = type(exc).__name__
-                    await log('info', msg, function_id, exc_type, exc_msg)
+                    await log('warning', msg, function_id, exc_type, exc_msg)
+                    await log_to_remote(exc)
 
                     if is_last:
                         if isinstance(exc, RetryAndFinallyReturn):
                             return exc.args[0]
-                        if on_error is RAISE:
+                        if on_error_return is RAISE:
                             raise exc
-                        return on_error
+                        return on_error_return
 
                     await log('info', 'retry #%s: %s', number, function_id)
                     await sleep(sleep_between_retries)

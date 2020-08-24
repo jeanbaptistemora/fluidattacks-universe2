@@ -24,7 +24,7 @@ from aioextensions import (
 from lib_path.common import (
     blocking_get_vulnerabilities,
     C_STYLE_COMMENT,
-    HANDLE_ERRORS,
+    SHIELD,
     EXTENSIONS_CSHARP,
     EXTENSIONS_JAVA,
     EXTENSIONS_JAVASCRIPT,
@@ -76,7 +76,7 @@ def _csharp_insecure_randoms(
 
 
 @cache_decorator()
-@HANDLE_ERRORS
+@SHIELD
 async def csharp_insecure_randoms(
     content: str,
     path: str,
@@ -121,7 +121,7 @@ def _java_use_of_lang_math_random(
 
 
 @cache_decorator()
-@HANDLE_ERRORS
+@SHIELD
 async def java_use_of_lang_math_random(
     content: str,
     path: str,
@@ -166,7 +166,7 @@ def _java_use_of_util_random(
 
 
 @cache_decorator()
-@HANDLE_ERRORS
+@SHIELD
 async def java_use_of_util_random(
     content: str,
     path: str,
@@ -200,7 +200,7 @@ def _javascript_insecure_randoms(
 
 
 @cache_decorator()
-@HANDLE_ERRORS
+@SHIELD
 async def javascript_insecure_randoms(
     content: str,
     path: str,

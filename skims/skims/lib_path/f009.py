@@ -28,7 +28,7 @@ from lib_path.common import (
     blocking_get_vulnerabilities,
     DOUBLE_QUOTED_STRING,
     EXTENSIONS_JAVASCRIPT,
-    HANDLE_ERRORS,
+    SHIELD,
     NAMES_DOCKERFILE,
     SINGLE_QUOTED_STRING,
 )
@@ -79,7 +79,7 @@ def _aws_credentials(
 
 
 @cache_decorator()
-@HANDLE_ERRORS
+@SHIELD
 async def aws_credentials(
     content: str,
     path: str,
@@ -92,7 +92,7 @@ async def aws_credentials(
 
 
 @cache_decorator()
-@HANDLE_ERRORS
+@SHIELD
 async def crypto_js_credentials(
     content: str,
     path: str,

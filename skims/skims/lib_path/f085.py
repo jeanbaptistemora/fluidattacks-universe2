@@ -29,7 +29,7 @@ from lib_path.common import (
     C_STYLE_COMMENT,
     DOUBLE_QUOTED_STRING,
     EXTENSIONS_JAVASCRIPT,
-    HANDLE_ERRORS,
+    SHIELD,
     SINGLE_QUOTED_STRING,
     VAR_ATTR_JAVA,
 )
@@ -112,7 +112,7 @@ def _javascript_client_storage(
     )
 
 
-@HANDLE_ERRORS
+@SHIELD
 async def javascript_client_storage(
     content: str,
     path: str,
