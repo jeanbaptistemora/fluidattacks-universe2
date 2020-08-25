@@ -626,9 +626,7 @@ function job_serves_test_lint_code {
 
       helper_use_pristine_workdir \
   &&  pushd serves \
-  &&  env_prepare_python_packages \
   &&  helper_serves_test_lint_code_shell . \
-  &&  helper_serves_test_lint_code_python \
   &&  popd \
   ||  return 1
 }

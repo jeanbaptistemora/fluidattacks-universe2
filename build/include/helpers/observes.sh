@@ -442,3 +442,31 @@ function helper_observes_services_repositories_cache {
   &&  { python3 observes/git/generate_stats.py || true; } \
   &&  helper_observes_move_git_to_artifacts
 }
+
+function helper_observes_lint_code_python {
+      find . -type f -name '*.py' \
+        | (grep -vP './singer' || cat) \
+        | while read -r path
+          do
+                echo "[INFO] linting python file: ${path}" \
+            &&  mypy \
+                  --ignore-missing-imports \
+                  --no-incremental \
+                  "${path}" \
+            || return 1
+          done \
+  &&  pushd singer || return 1 \
+  &&  find "${PWD}" -mindepth 1 -maxdepth 1 -type d \
+        | while read -r path
+          do
+                echo "[INFO] linting python package: ${path}" \
+            &&  path_basename=$(basename "${path}") \
+            &&  mypy \
+                  --ignore-missing-imports \
+                  --no-incremental \
+                  "${path_basename}" \
+            || return 1
+          done \
+  &&  popd || return 1 \
+  &&  prospector --profile .prospector.yml .
+}

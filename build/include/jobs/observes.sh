@@ -135,3 +135,13 @@ function job_serves_apply_infra_analytics {
   &&  popd \
   ||  return 1
 }
+
+function job_observes_lint_code {
+
+      helper_use_pristine_workdir \
+  &&  pushd observes \
+  &&  env_prepare_python_packages \
+  &&  helper_observes_lint_code_python \
+  &&  popd \
+  ||  return 1
+}
