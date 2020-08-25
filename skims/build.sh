@@ -1,6 +1,6 @@
 #! /usr/bin/env bash
 
-function boostrap_and_run {
+function bootstrap_and_run {
   # Found myself doing it very often, let's wrap it!
 
       pushd .. \
@@ -9,4 +9,4 @@ function boostrap_and_run {
   ||  return 1
 }
 
-boostrap_and_run "${@}"
+bootstrap_and_run "${@}"

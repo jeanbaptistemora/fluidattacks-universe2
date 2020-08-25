@@ -1,4 +1,5 @@
 # Standard library
+from collections import defaultdict
 from typing import (
     Awaitable,
     Dict,
@@ -19,6 +20,7 @@ from backend.dal import (
 from backend.utils import (
     aio,
     apm,
+    function,
 )
 from backend.utils.encodings import (
     safe_encode,
@@ -66,8 +68,20 @@ async def get_cached_group_service_attributes_policies(
 
 async def get_cached_subject_policies(
     subject: str,
+    context_store: defaultdict = None,
 ) -> Tuple[Tuple[str, str, str, str], ...]:
     """Cached function to get 1 user authorization policies."""
+    # Unique ID for this function and arguments
+    context_store_key: str = function.get_id(
+        get_cached_subject_policies, subject,
+    )
+
+    # If there is already a result for this operation within the context of
+    # this request let's return it
+    context_store = context_store or defaultdict()
+    if context_store_key in context_store:
+        return context_store[context_store_key]
+
     cache_key: str = get_subject_cache_key(subject)
 
     try:
@@ -87,6 +101,7 @@ async def get_cached_subject_policies(
         except RedisClusterException:
             pass
 
+    context_store[context_store_key] = ret
     return cast(Tuple[Tuple[str, str, str, str], ...], ret)
 
 

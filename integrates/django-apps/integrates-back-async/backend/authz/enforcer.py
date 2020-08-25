@@ -1,4 +1,5 @@
 # Standard library
+from collections import defaultdict
 from typing import (
     Callable,
     Coroutine,
@@ -38,10 +39,15 @@ async def get_user_level_enforcer(subject: str) -> \
     return enforcer
 
 
-async def get_group_level_enforcer(subject: str) -> \
-        Callable[[str, str, str], Coroutine[Any, Any, bool]]:
-    """Return a filtered group-level authorization for the provided subject."""
-    policies = await get_cached_subject_policies(subject)
+async def get_group_level_enforcer(
+    subject: str,
+    context_store: defaultdict = None,
+) -> Callable[[str, str, str], Coroutine[Any, Any, bool]]:
+    """Return a filtered group-level authorization for the provided subject.
+
+    The argument `context_store` will be used to memoize round-trips.
+    """
+    policies = await get_cached_subject_policies(subject, context_store)
     roles = GROUP_LEVEL_ROLES
 
     async def enforcer(r_subject: str, r_object: str, r_action: str) -> bool:

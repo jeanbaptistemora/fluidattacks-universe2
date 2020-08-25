@@ -209,7 +209,7 @@ def enforce_group_level_auth_async(func: TVar) -> TVar:
                     }
                 })
 
-        enforcer = await authz.get_group_level_enforcer(subject)
+        enforcer = await authz.get_group_level_enforcer(subject, context.store)
 
         if not await enforcer(subject, object_, action):
             util.cloudwatch_log(context, UNAUTHORIZED_ROLE_MSG)
