@@ -30,28 +30,19 @@ LOGGER = logging.getLogger(__name__)
 CLIENT_CONFIG = botocore.config.Config(
     max_pool_connections=50,
 )
-RESOURCE_OPTIONS: Dict[str, Optional[str]] = {}
+
+RESOURCE_OPTIONS: Dict[str, Optional[str]] = {
+    'service_name': 'dynamodb',
+    'aws_access_key_id': FI_AWS_DYNAMODB_ACCESS_KEY,
+    'aws_secret_access_key': FI_AWS_DYNAMODB_SECRET_KEY,
+    'aws_session_token': os.environ.get('AWS_SESSION_TOKEN'),
+    'region_name': 'us-east-1',
+    'config': CLIENT_CONFIG
+}
 
 if FI_ENVIRONMENT == 'development' and FI_DYNAMODB_HOST:
     ENDPOINT_URL = 'http://{}:{}'.format(FI_DYNAMODB_HOST, FI_DYNAMODB_PORT)
-    RESOURCE_OPTIONS = {
-        'service_name': 'dynamodb',
-        'aws_access_key_id': FI_AWS_DYNAMODB_ACCESS_KEY,
-        'aws_secret_access_key': FI_AWS_DYNAMODB_SECRET_KEY,
-        'aws_session_token': os.environ.get('AWS_SESSION_TOKEN'),
-        'region_name': 'us-east-1',
-        'config': CLIENT_CONFIG,
-        'endpoint_url': ENDPOINT_URL
-    }
-else:
-    RESOURCE_OPTIONS = {
-        'service_name': 'dynamodb',
-        'aws_access_key_id': FI_AWS_DYNAMODB_ACCESS_KEY,
-        'aws_secret_access_key': FI_AWS_DYNAMODB_SECRET_KEY,
-        'aws_session_token': os.environ.get('AWS_SESSION_TOKEN'),
-        'region_name': 'us-east-1',
-        'config': CLIENT_CONFIG
-    }
+    RESOURCE_OPTIONS['endpoint_url'] = ENDPOINT_URL
 
 DYNAMODB_RESOURCE = boto3.resource(**RESOURCE_OPTIONS)
 TABLE_NAME: str = 'integrates'
