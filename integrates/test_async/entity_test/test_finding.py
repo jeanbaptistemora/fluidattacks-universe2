@@ -15,9 +15,6 @@ from jose import jwt
 from backend import util
 from backend.api.dataloaders.finding import FindingLoader
 from backend.api.dataloaders.project import ProjectLoader
-from backend.api.dataloaders.single_vulnerability import (
-    SingleVulnerabilityLoader
-)
 from backend.api.dataloaders.vulnerability import VulnerabilityLoader
 from backend.api.schema import SCHEMA
 from backend.domain.finding import get_finding
@@ -35,8 +32,7 @@ class FindingTests(TestCase):
         request.loaders = {
             'finding': FindingLoader(),
             'project': ProjectLoader(),
-            'vulnerability': VulnerabilityLoader(),
-            'single_vulnerability': SingleVulnerabilityLoader(),
+            'vulnerability': VulnerabilityLoader()
         }
         _, result = await graphql(SCHEMA, data, context_value=request)
         return result
