@@ -32,17 +32,22 @@ stack frame of the affected function with a pointer to something like
 a shellcode on the stack which is finally executed when the `JMP ESP` is
 performed.
 
-With `DEP`, we can't execute instructions on the stack, but we still control
-the execution flow, and that is because we write on the `Saved EIP`
-of the stack frame.
+When we perform a `JMP ESP` (or any other general purpose register),
+the program expects to find *instructions* on the address pointed to `ESP`.
+With `DEP`, we can't execute instructions on the stack,
+but we still control the execution flow, and that is because we write on
+the `Saved EIP` of the stack frame.
 
 But what would happen if, instead of overwriting the `Saved EIP` with
 a pointer to `JMP ESP`, we overwrite it with a pointer to a `RETN`
 instruction? The `RETN` instruction is commonly used in the function epilogues
 and will make one thing: Pop the value pointed by `ESP` and use it as the
-next instruction pointer or `EIP`. As we control the execution flow and also
-can write on the stack, we can do whatever we want. Let's find a `RETN`
-instruction first:
+next instruction pointer or `EIP`. In other words, `RETN` expects to find
+on the address pointed to `ESP`, a *pointer to a instruction*, not an
+*instruction* itself.
+
+As we control the execution flow and also can write on the stack, we can
+do whatever we want. Let's find a `RETN` instruction first:
 
 [source,bash]
 ----
@@ -160,7 +165,8 @@ instruction was placed but then, we lost control.
 We need to make `EAX = 0xdeadbeee`. There are several ways to do that. We
 tried with `xor eax,eax -> add eax,0xdeadbeee` but another way to do it
 is to place the value `0xdeadbeee` on top of the stack and then perform a
-`pop eax`. We also need to return back to the stack to execute the last
+`pop eax`. We also need regain control of the execution flow. To do that,
+we need to to return back to the stack, so we can execute the last
 instruction on our shellcode `inc eax` and thus, make `EAX = 0xdeadbeef`.
 That means that we need to find an address to a `pop eax` instruction followed
 by a `retn`.
@@ -168,12 +174,12 @@ by a `retn`.
 image::popeax1.gif[POP EAX]
 
 Bingo! We found it at `625011B4`. Now you see why this is called
-Return-Oriented Programming, because we need to always return back to the
-stack to fetch the next pointer to our next desired instruction.
-Also note that any instruction or set of instructions
+Return-Oriented Programming? It is because we need to always return back to
+the stack to fetch the next pointer to our next desired instruction.
+For the record, any instruction or set of instructions
 followed by a `retn` is called a *Gadget* in `ROP` terms.
 
-Our `pop eax,retn` gadget rely on the stack having the value `0xdeadbeee`
+Our `pop eax # retn` gadget rely on the stack having the value `0xdeadbeee`
 on the top. Let's update our exploit with that:
 
 [source,python]
@@ -247,7 +253,6 @@ PAYLOAD = (
 
 with socket.create_connection((HOST, PORT)) as fd:
     fd.sendall(PAYLOAD)
-aroldan@balrog:~/vulnserv
 ----
 
 And check it:
@@ -277,7 +282,7 @@ A file called `rop.txt` is placed on the `mona` directory of the debuggee
 application containing all the gadgets found. `mona` also generates
 proposal of something called `ROP chains`, which is nothing but a set of
 ROP gadgets chained together to perform something more complex. I won't spoil
-the next blog entry, but that ROP chain will be used later on a more
+the next blog entry, but ROP chains will be used later on a more
 serious exploitation.
 
 == Conclusions
