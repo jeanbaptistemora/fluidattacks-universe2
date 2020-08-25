@@ -1,3 +1,4 @@
+from collections import defaultdict
 from datetime import datetime, timedelta
 from django.conf import settings
 from django.contrib.sessions.middleware import SessionMiddleware
@@ -25,6 +26,7 @@ def create_dummy_session(
     username: str = 'unittest'
 ) -> HttpResponseBase:
     request = create_dummy_simple_session(username)
+    request.store = defaultdict(lambda: None)
     payload = {
         'user_email': username,
         'first_name': 'unit',

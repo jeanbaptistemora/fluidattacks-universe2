@@ -38,6 +38,7 @@ from backend.exceptions import (
 from backend.utils import (
     aio,
     apm,
+    function,
 )
 from fluidintegrates.settings import LOGGING
 
@@ -99,11 +100,19 @@ def require_login(func: TVar) -> TVar:
 
     _func = cast(Callable[..., Any], func)
 
+    # Unique ID for this decorator function
+    context_store_key: str = function.get_id(require_login)
+
     @apm.trace(overridden_function=require_login)
     @functools.wraps(_func)
     async def verify_and_call(*args: Any, **kwargs: Any) -> Any:
         # The underlying request object being served
         context = args[1].context if len(args) > 1 else args[0]
+
+        # Within the context of one request we only need to check this once
+        # Future calls to this decorator will be passed trough
+        if context.store[context_store_key]:
+            return await _func(*args, **kwargs)
 
         try:
             user_data = util.get_jwt_content(context)
@@ -115,7 +124,10 @@ def require_login(func: TVar) -> TVar:
                 )
         except InvalidAuthorization:
             raise GraphQLError('Login required')
-        return await _func(*args, **kwargs)
+        else:
+            context.store[context_store_key] = True
+            return await _func(*args, **kwargs)
+
     return cast(TVar, verify_and_call)
 
 

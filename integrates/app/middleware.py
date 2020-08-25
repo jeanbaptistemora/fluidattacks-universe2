@@ -1,3 +1,11 @@
+# Standard library
+from collections import defaultdict
+from typing import (
+    Any,
+    Callable,
+)
+
+# Third party libraries
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import redirect
 from social_core import exceptions as social_exceptions
@@ -25,3 +33,21 @@ class SocialAuthException(SocialAuthExceptionMiddleware):  # type: ignore
         return super(SocialAuthException, self).process_exception(
             request, exception
         )
+
+
+def request_lifespan_store(next_in_chain: Callable[..., Any]) -> Any:
+    """Middleware to add a `defaultdict` into the request object.
+
+    After the middleware is applied `request.store` can be used to store
+    values with a lifetime of the request itself.
+
+    Data is not shared across requests.
+    """
+
+    def middleware(request: HttpRequest) -> HttpResponse:
+        # Append the request store as an attribute
+        request.store = defaultdict(lambda: None)
+
+        return next_in_chain(request)
+
+    return middleware

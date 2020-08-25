@@ -1,4 +1,5 @@
 # pylint: disable=not-callable
+from collections import defaultdict
 from typing import cast
 
 import newrelic
@@ -21,7 +22,7 @@ from backend.api.dataloaders.vulnerability import VulnerabilityLoader
 from backend import util
 
 
-async def _context_value(context):
+def _context_value(context):
     """Add dataloaders to context async."""
     context.loaders = {
         'event': EventLoader(),
@@ -30,6 +31,8 @@ async def _context_value(context):
         'single_vulnerability': SingleVulnerabilityLoader(),
         'vulnerability': VulnerabilityLoader(),
     }
+    context.store = defaultdict(lambda: None)
+
     return context
 
 
@@ -56,7 +59,8 @@ class APIView(GraphQLView):
                 super().context_value(request)  # pylint: disable=not-callable
         else:
             context = super().context_value or request
-        return await _context_value(context)
+
+        return _context_value(context)
 
     async def _execute(
             self, request: HttpRequest, data: dict) -> GraphQLResult:

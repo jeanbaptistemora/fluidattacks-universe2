@@ -100,6 +100,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'app.middleware.request_lifespan_store',
     'bugsnag.django.middleware.BugsnagMiddleware',
     'django.middleware.gzip.GZipMiddleware',
     'debreach.middleware.RandomCommentMiddleware',
