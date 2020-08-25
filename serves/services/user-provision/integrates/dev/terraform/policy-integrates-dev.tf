@@ -168,16 +168,26 @@ data "aws_iam_policy_document" "integrates-dev-policy-data" {
   statement {
     effect  = "Allow"
     actions = [
+      "devicefarm:ListProjects",
+    ]
+    resources = ["*"]
+  }
+  statement {
+    effect  = "Allow"
+    actions = [
       "devicefarm:CreateDevicePool",
-      "devicefarm:CreateProject",
       "devicefarm:CreateUpload",
       "devicefarm:GetProject",
       "devicefarm:GetRun",
       "devicefarm:GetUpload",
-      "devicefarm:ListProjects",
       "devicefarm:ScheduleRun",
     ]
-    resources = ["arn:aws:devicefarm:*"]
+    resources = [
+      "arn:aws:devicefarm:us-west-2:${data.aws_caller_identity.current.account_id}:devicepool:*",
+      "arn:aws:devicefarm:us-west-2:${data.aws_caller_identity.current.account_id}:project:*",
+      "arn:aws:devicefarm:us-west-2:${data.aws_caller_identity.current.account_id}:run:*",
+      "arn:aws:devicefarm:us-west-2:${data.aws_caller_identity.current.account_id}:upload:*",
+    ]
   }
 
   # ACM create and read certificate
