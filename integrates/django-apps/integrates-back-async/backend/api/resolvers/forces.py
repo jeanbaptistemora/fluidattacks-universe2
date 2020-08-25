@@ -150,6 +150,32 @@ async def resolve_forces_executions(
     return await _resolve_fields(info, project_name, from_date, to_date)
 
 
+@convert_kwargs_to_snake_case  # type: ignore
+@require_login
+@enforce_group_level_auth_async
+@require_integrates
+async def resolve_forces_executions_new(
+        _: Any,
+        __: GraphQLResolveInfo,
+        project_name: str,
+        from_date: Union[datetime, None] = None,
+        to_date: Union[datetime, None] = None) -> ForcesExecutionsType:
+    """Resolve forces_executions query."""
+    project_name = project_name.lower()
+    from_date = from_date or util.get_current_time_minus_delta(weeks=1)
+    to_date = to_date or datetime.utcnow()
+    result = await forces_domain.get_executions_new(from_date=from_date,
+                                                    to_date=to_date,
+                                                    group_name=project_name)
+    return cast(
+        ForcesExecutionsType, {
+            'project_name': project_name,
+            'from_date': from_date,
+            'to_date': to_date,
+            'executions': result
+        })
+
+
 @convert_kwargs_to_snake_case
 @enforce_group_level_auth_async
 async def update_forces_access_token(

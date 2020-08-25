@@ -214,6 +214,14 @@ type ForcesExecutions {
     executions: [ForcesExecution]
 }
 
+"ForcesExecutions type definition"
+type ForcesExecutionsNew {
+    projectName: String!
+    fromDate: String
+    toDate: String
+    executions: [ForcesExecutionNew]
+}
+
 "Me type definition"
 type Me {
     accessToken: String
@@ -306,19 +314,28 @@ type ForcesExecution {
     vulnerabilities: ExecutionVulnerabilities
 }
 
+type ForcesExecutionNew {
+    projectName: String
+    execution_id: String
+    date: DateTime
+    exitCode: String
+    gitBranch: String
+    gitCommit: String
+    gitOrigin: String
+    gitRepo: String
+    kind: String
+    log: String
+    strictness: String
+    vulnerabilities: ExecutionVulnerabilitiesNew
+}
+
 input ExecutionVulnerabilitiesInput {
-    "acepted exploits or acepted vulnerabilities"
-    acceptedExploits: [ExploitResultInput!]
-    "executed exploits or vulnerabilities"
-    exploits: [ExploitResultInput!]
-    "integrates exploits or mock exploits"
-    integratesExploits: [ExploitResultInput!]
-    "number of vulnerabilities accepted in exploits"
-    numOfVulnerabilitiesInAcceptedExploits: Int
-    "number of vulnerabilities in exploits"
-    numOfVulnerabilitiesInExploits: Int
-    "number of vulnerabilities in integrates exploits"
-    numOfVulnerabilitiesInIntegratesExploits: Int
+    "acepted vulnerabilities"
+    accepted: [ExploitResultInput!]
+    "closed exploits"
+    closed: [ExploitResultInput!]
+    "open vulnerabilities"
+    open: [ExploitResultInput!]
 }
 
 type ExecutionVulnerabilities {
@@ -328,6 +345,15 @@ type ExecutionVulnerabilities {
     numOfVulnerabilitiesInExploits: Int
     numOfVulnerabilitiesInIntegratesExploits: Int
     numOfVulnerabilitiesInAcceptedExploits: Int
+}
+
+type ExecutionVulnerabilitiesNew {
+    open: [ExploitResult!]
+    closed: [ExploitResult!]
+    accepted: [ExploitResult!]
+    numOfOpenVulnerabilities: Int
+    numOfClosedVulnerabilities: Int
+    numOfAcceptedVulnerabilities: Int
 }
 
 input ExploitResultInput {
