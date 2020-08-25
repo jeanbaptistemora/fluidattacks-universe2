@@ -17,26 +17,57 @@ export const GET_FORCES_EXECUTIONS: DocumentNode = gql`
             kind
             who
             where
-            state
-            exploitability
           }
           exploits {
             kind
             who
             where
-            state
-            exploitability
           }
           integratesExploits {
+            kind
+            who
+            where
+          }
+          numOfVulnerabilitiesInAcceptedExploits
+          numOfVulnerabilitiesInExploits
+          numOfVulnerabilitiesInIntegratesExploits
+        }
+      }
+    }
+    forcesExecutionsNew(projectName: $projectName) {
+      executions {
+        date
+        exitCode
+        gitRepo
+        execution_id
+        kind
+        log
+        strictness
+        vulnerabilities {
+          open {
             kind
             who
             where
             state
             exploitability
           }
-          numOfVulnerabilitiesInAcceptedExploits
-          numOfVulnerabilitiesInExploits
-          numOfVulnerabilitiesInIntegratesExploits
+          closed {
+            kind
+            who
+            where
+            state
+            exploitability
+          }
+          accepted {
+            kind
+            who
+            where
+            state
+            exploitability
+          }
+          numOfAcceptedVulnerabilities
+          numOfOpenVulnerabilities
+          numOfClosedVulnerabilities
         }
       }
     }

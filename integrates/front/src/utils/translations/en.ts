@@ -434,6 +434,13 @@ export const enTranslations: ResourceKey = {
         title: "Vulnerabilities",
         total: "Total",
       },
+      found_vulnerabilities_new: {
+        accepted: "Accepted",
+        closed: "Closed",
+        open: "Open",
+        title: "Vulnerabilities",
+        total: "Total",
+      },
       git_repo: "Git Repository",
       identifier: "Identifier",
       kind: {

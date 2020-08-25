@@ -471,7 +471,7 @@ class ViewTestCase(unittest.TestCase):
         else:
             forces_elem = WebDriverWait(selenium, self.delay).until(
                 expected.presence_of_element_located(
-                    (By.XPATH, "//*[contains(text(), 'Deployed System')]")))
+                    (By.XPATH, "//*[contains(text(), 'Source Code')]")))
             selenium.save_screenshot(SCR_PATH + '16.02-forces-executions.png')
 
             forces_elem.click()
