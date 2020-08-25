@@ -128,6 +128,11 @@ serves_test_user_provision_serves:
   <<: *serves_in_dev_branch
   stage: test-infra
 
+serves_test_user_provision_observes:
+  <<: *with_nix
+  <<: *serves_in_dev_branch
+  stage: test-infra
+
 serves_apply_infra_monolith:
   <<: *with_nix
   <<: *serves_in_master_branch
@@ -214,6 +219,11 @@ serves_apply_user_provision_web_prod:
   stage: deploy-infra
 
 serves_apply_user_provision_serves:
+  <<: *with_nix
+  <<: *serves_in_master_branch
+  stage: deploy-infra
+
+serves_apply_user_provision_observes:
   <<: *with_nix
   <<: *serves_in_master_branch
   stage: deploy-infra

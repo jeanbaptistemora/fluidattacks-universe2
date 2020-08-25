@@ -1,5 +1,37 @@
 data "aws_iam_policy_document" "prod-policy-data" {
 
+  # S3
+  statement {
+    effect = "Allow"
+    actions = [
+      "s3:ListBucket",
+      "s3:PutObject",
+      "s3:GetObject",
+    ]
+    resources = [
+      "arn:aws:s3:::fluidattacks-terraform-states-prod",
+      "arn:aws:s3:::fluidattacks-terraform-states-prod/observes-*",
+    ]
+  }
+
+  # IAM
+  statement {
+    effect = "Allow"
+    actions = [
+      "iam:List*",
+      "iam:Get*",
+    ]
+    resources = ["*"]
+  }
+  statement {
+    effect  = "Allow"
+    actions = ["iam:*"]
+    resources = [
+      "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/observes-*",
+      "arn:aws:iam::${data.aws_caller_identity.current.account_id}:policy/observes-*",
+    ]
+  }
+
   # DynamoDB
   statement {
     effect  = "Allow"

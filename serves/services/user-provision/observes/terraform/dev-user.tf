@@ -1,5 +1,28 @@
 data "aws_iam_policy_document" "dev-policy-data" {
 
+  # S3
+  statement {
+    effect = "Allow"
+    actions = [
+      "s3:ListBucket",
+      "s3:GetObject"
+    ]
+    resources = [
+      "arn:aws:s3:::fluidattacks-terraform-states-prod",
+      "arn:aws:s3:::fluidattacks-terraform-states-prod/*"
+    ]
+  }
+
+  # IAM
+  statement {
+    effect = "Allow"
+    actions = [
+      "iam:List*",
+      "iam:Get*"
+    ]
+    resources = ["*"]
+  }
+
   # DynamoDB
   statement {
     effect  = "Allow"

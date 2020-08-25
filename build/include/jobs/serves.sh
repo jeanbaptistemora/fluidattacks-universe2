@@ -384,6 +384,30 @@ function job_serves_apply_user_provision_serves {
   ||  return 1
 }
 
+function job_serves_test_user_provision_observes {
+  local target='services/user-provision/observes/terraform'
+
+      helper_use_pristine_workdir \
+  &&  pushd serves \
+  &&  helper_serves_aws_login dev \
+  &&  helper_serves_terraform_plan \
+        "${target}" \
+  &&  popd \
+  ||  return 1
+}
+
+function job_serves_apply_user_provision_observes {
+  local target='services/user-provision/observes/terraform'
+
+      helper_use_pristine_workdir \
+  &&  pushd serves \
+  &&  helper_serves_aws_login prod \
+  &&  helper_serves_terraform_apply \
+        "${target}" \
+  &&  popd \
+  ||  return 1
+}
+
 function job_serves_rotate_keys_user_provision_asserts_dev {
   local terraform_dir='services/user-provision/asserts/dev/terraform'
   local resource_to_taint='aws_iam_access_key.asserts-dev-key'
