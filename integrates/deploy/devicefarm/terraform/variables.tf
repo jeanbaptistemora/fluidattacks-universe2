@@ -1,30 +1,4 @@
 data "aws_caller_identity" "current" {}
-data "aws_iam_policy_document" "device-farm" {
-
-  statement {
-    sid    = "Device farm"
-    effect = "Allow"
-    principals {
-      type        = "AWS"
-      identifiers = [
-        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/user-provision/integrates-dev",
-        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/user-provision/integrates-prod",
-      ]
-    }
-    actions = [
-      "devicefarm:CreateDevicePool",
-      "devicefarm:CreateProject",
-      "devicefarm:CreateUpload",
-      "devicefarm:GetRun",
-      "devicefarm:GetUpload",
-      "devicefarm:ListProjects",
-      "devicefarm:ScheduleRun",
-    ]
-    resources = [
-      "*"
-    ]
-  }
-}
 
 /**
  * Device farm currently only supports us-west-2

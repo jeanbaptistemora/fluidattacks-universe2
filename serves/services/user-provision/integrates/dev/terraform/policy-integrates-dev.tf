@@ -167,7 +167,16 @@ data "aws_iam_policy_document" "integrates-dev-policy-data" {
   }
   statement {
     effect  = "Allow"
-    actions = ["devicefarm:GetProject"]
+    actions = [
+      "devicefarm:CreateDevicePool",
+      "devicefarm:CreateProject",
+      "devicefarm:CreateUpload",
+      "devicefarm:GetProject",
+      "devicefarm:GetRun",
+      "devicefarm:GetUpload",
+      "devicefarm:ListProjects",
+      "devicefarm:ScheduleRun",
+    ]
     resources = ["arn:aws:devicefarm:*"]
   }
 
