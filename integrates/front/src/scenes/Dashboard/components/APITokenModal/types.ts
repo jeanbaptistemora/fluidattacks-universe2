@@ -1,27 +1,35 @@
-export interface IInvalidateAccessTokenAttr {
+interface IInvalidateAccessTokenAttr {
   invalidateAccessToken: {
     success: boolean;
   };
 }
 
-export interface IUpdateAccessTokenAttr {
+interface IUpdateAccessTokenAttr {
   updateAccessToken: {
     sessionJwt: string;
     success: boolean;
   };
 }
 
-export interface IAccessTokenAttr {
+interface IAccessTokenAttr {
   expirationTime: string;
 }
 
-export interface IGetAccessTokenAttr {
+interface IGetAccessTokenAttr {
   me: {
     accessToken: string;
   };
 }
 
-export interface IGetAccessTokenDictAttr {
+interface IGetAccessTokenDictAttr {
   hasAccessToken: boolean;
   issuedAt: string;
 }
+
+export {
+  IInvalidateAccessTokenAttr,
+  IUpdateAccessTokenAttr,
+  IAccessTokenAttr,
+  IGetAccessTokenAttr,
+  IGetAccessTokenDictAttr,
+};
