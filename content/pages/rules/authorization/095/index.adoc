@@ -91,3 +91,7 @@ directory traversal, and failure to restrict user access to functions).
 Define access needs for each role,
 including level of privilege required (for example, user, administrator, etc.)
 for accessing resources.
+
+. [[r13]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 7.2.2]
+This access control system(s) must include assignment of privileges to
+individuals based on job classification and function.

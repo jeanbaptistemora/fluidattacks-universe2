@@ -69,3 +69,6 @@ directory traversal, and failure to restrict user access to functions).
 . [[r9]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 7.1.2]
 Restrict access to privileged user IDs to least privileges necessary to perform
 job responsibilities.
+
+. [[r10]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 7.2.2]
+This access control system(s) must include a default "deny-all" setting.
