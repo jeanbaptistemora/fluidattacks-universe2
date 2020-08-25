@@ -292,6 +292,49 @@ function aws_login {
   &&  aws configure set aws_secret_access_key "${AWS_SECRET_ACCESS_KEY}"
 }
 
+function helper_common_terraform_login {
+  export TF_VAR_aws_access_key
+  export TF_VAR_aws_secret_key
+
+      echo '[INFO] Logging into Terraform' \
+  &&  TF_VAR_aws_access_key="${AWS_ACCESS_KEY_ID}" \
+  &&  TF_VAR_aws_secret_key="${AWS_SECRET_ACCESS_KEY}"
+}
+
+function helper_common_terraform_init {
+  local target_dir="${1}"
+
+      helper_common_terraform_login \
+  &&  pushd "${target_dir}" \
+    &&  echo '[INFO] Running terraform init' \
+    &&  terraform init \
+  &&  popd \
+  || return 1
+}
+
+function helper_common_terraform_plan {
+  local target_dir="${1}"
+
+      helper_common_terraform_init "${target_dir}" \
+  &&  pushd "${target_dir}" \
+    &&  echo '[INFO] Running terraform plan' \
+    &&  terraform plan -lock=false -refresh=true \
+    &&  tflint --deep --module \
+  &&  popd \
+  || return 1
+}
+
+function helper_common_terraform_apply {
+  local target_dir="${1}"
+
+      helper_common_terraform_init "${target_dir}" \
+  &&  pushd "${target_dir}" \
+    &&  echo '[INFO] Running terraform apply' \
+    &&  terraform apply -auto-approve -refresh=true \
+  &&  popd \
+  || return 1
+}
+
 function get_sops_env {
   local tmp_file
   local src='https://static-objects.gitlab.net/fluidattacks/public/raw/master/shared-scripts/sops.sh'

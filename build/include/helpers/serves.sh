@@ -36,54 +36,11 @@ function helper_serves_aws_login {
   &&  aws configure set aws_secret_access_key "${AWS_SECRET_ACCESS_KEY}"
 }
 
-function helper_serves_terraform_login {
-  export TF_VAR_aws_access_key
-  export TF_VAR_aws_secret_key
-
-      echo '[INFO] Logging into Terraform' \
-  &&  TF_VAR_aws_access_key="${AWS_ACCESS_KEY_ID}" \
-  &&  TF_VAR_aws_secret_key="${AWS_SECRET_ACCESS_KEY}"
-}
-
-function helper_serves_terraform_init {
-  local target_dir="${1}"
-
-      helper_serves_terraform_login \
-  &&  pushd "${target_dir}" \
-    &&  echo '[INFO] Running terraform init' \
-    &&  terraform init \
-  &&  popd \
-  || return 1
-}
-
-function helper_serves_terraform_plan {
-  local target_dir="${1}"
-
-      helper_serves_terraform_init "${target_dir}" \
-  &&  pushd "${target_dir}" \
-    &&  echo '[INFO] Running terraform plan' \
-    &&  terraform plan -lock=false -refresh=true \
-    &&  tflint --deep --module \
-  &&  popd \
-  || return 1
-}
-
-function helper_serves_terraform_apply {
-  local target_dir="${1}"
-
-      helper_serves_terraform_init "${target_dir}" \
-  &&  pushd "${target_dir}" \
-    &&  echo '[INFO] Running terraform apply' \
-    &&  terraform apply -auto-approve -refresh=true \
-  &&  popd \
-  || return 1
-}
-
 function helper_serves_terraform_taint {
   local target_dir="${1}"
   local marked_value="${2}"
 
-      helper_serves_terraform_init "${target_dir}" \
+      helper_common_terraform_init "${target_dir}" \
   &&  pushd "${target_dir}" \
     &&  terraform refresh \
     &&  echo "[INFO] Running terraform taint: ${marked_value}" \
@@ -96,7 +53,7 @@ function helper_serves_terraform_output {
   local target_dir="${1}"
   local output_name="${2}"
 
-      helper_serves_terraform_init "${target_dir}" 1>&2 \
+      helper_common_terraform_init "${target_dir}" 1>&2 \
   &&  pushd "${target_dir}" 1>&2 \
     &&  echo "[INFO] Running terraform output: ${output_name}" 1>&2 \
     &&  terraform output "${output_name}" \
@@ -145,14 +102,14 @@ function helper_serves_infra_monolith {
 
       helper_serves_aws_login dev \
   &&  pushd infrastructure/ || return 1 \
-    &&  helper_serves_terraform_plan . \
+    &&  helper_common_terraform_plan . \
     &&  if [ "${first_argument}" == "deploy" ]; then
               helper_serves_aws_login prod \
           &&  aws eks update-kubeconfig \
                 --name 'FluidServes' --region 'us-east-1' \
           &&  kubectl config \
                 set-context "$(kubectl config current-context)" --namespace 'serves' \
-          &&  helper_serves_terraform_apply . \
+          &&  helper_common_terraform_apply . \
           &&  sops_env ../secrets-prod.yaml default \
                 AUTONOMIC_TLS_CERT \
                 AUTONOMIC_TLS_KEY \
@@ -259,7 +216,7 @@ function helper_serves_user_provision_rotate_keys {
   &&  helper_serves_terraform_taint \
         "${terraform_dir}" \
         "${resource_to_taint}-${resource_to_taint_number}" \
-  &&  helper_serves_terraform_apply \
+  &&  helper_common_terraform_apply \
         "${terraform_dir}" \
   &&  output_key_id_value=$( \
         helper_serves_terraform_output \

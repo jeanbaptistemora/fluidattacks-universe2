@@ -4,7 +4,6 @@ source "${srcEnv}"
 source "${srcIncludeHelpersCommon}"
 source "${srcExternalGitlabVariables}"
 source "${srcExternalSops}"
-source "${srcIncludeHelpersServes}"
 source "${srcIncludeHelpersObserves}"
 
 function job_observes_formstack {
@@ -117,7 +116,7 @@ function job_observes_test_infra {
 
       helper_use_pristine_workdir \
   &&  helper_observes_aws_login dev \
-  &&  helper_serves_terraform_plan \
+  &&  helper_common_terraform_plan \
         "${target}" \
   ||  return 1
 }
@@ -127,7 +126,7 @@ function job_observes_apply_infra {
 
       helper_use_pristine_workdir \
   &&  helper_observes_aws_login prod \
-  &&  helper_serves_terraform_apply \
+  &&  helper_common_terraform_apply \
         "${target}" \
   ||  return 1
 }
