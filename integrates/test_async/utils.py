@@ -13,6 +13,7 @@ def create_dummy_simple_session(
     client: str = 'web',
 ) -> HttpResponseBase:
     request: HttpResponseBase = RequestFactory().get('/')
+    request.store = defaultdict(lambda: None)
     middleware = SessionMiddleware()
     middleware.process_request(request)
     middleware.process_request(request)
@@ -26,7 +27,6 @@ def create_dummy_session(
     username: str = 'unittest'
 ) -> HttpResponseBase:
     request = create_dummy_simple_session(username)
-    request.store = defaultdict(lambda: None)
     payload = {
         'user_email': username,
         'first_name': 'unit',

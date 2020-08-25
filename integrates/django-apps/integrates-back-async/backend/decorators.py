@@ -115,7 +115,7 @@ def require_login(func: TVar) -> TVar:
             return await _func(*args, **kwargs)
 
         try:
-            user_data = util.get_jwt_content(context)
+            user_data: Any = util.get_jwt_content(context)
             if util.is_api_token(user_data):
                 await verify_jti(
                     user_data['user_email'],

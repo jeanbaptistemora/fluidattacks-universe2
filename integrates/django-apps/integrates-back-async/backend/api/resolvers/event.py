@@ -348,7 +348,7 @@ async def _do_add_event_comment(
         parent: str) -> AddCommentPayloadType:
     """Resolve add_event_comment mutation."""
     random_comment_id = int(round(time() * 1000))
-    user_info = util.get_jwt_content(info.context)
+    user_info: Any = util.get_jwt_content(info.context)
     comment_id, success = await event_domain.add_comment(
         random_comment_id, content, event_id, parent, user_info
     )
@@ -378,7 +378,7 @@ async def _do_add_event_consult(
         event_id: str,
         parent: str) -> AddConsultPayloadType:
     random_comment_id = int(round(time() * 1000))
-    user_info = util.get_jwt_content(info.context)
+    user_info: Any = util.get_jwt_content(info.context)
     comment_id, success = await event_domain.add_comment(
         random_comment_id, content, event_id, parent, user_info
     )

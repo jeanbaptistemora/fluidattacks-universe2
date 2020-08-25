@@ -61,6 +61,7 @@ from backend.typing import (
 )
 from backend.utils import (
     apm,
+    function,
 )
 from fluidintegrates.settings import (
     LOGGING,
@@ -205,8 +206,13 @@ async def cloudwatch_log_queue(request, msg: str) -> None:
         sync_to_async(LOGGER_TRANSACTIONAL.info)(':'.join(info), **NOEXTRA))
 
 
-@apm.trace()
 def get_jwt_content(context) -> Dict[str, str]:
+    context_store_key = function.get_id(get_jwt_content)
+
+    # Within the context of one request we only need to process it once
+    if context_store_key in context.store:
+        return context.store[context_store_key]
+
     try:
         cookies = context.COOKIES \
             if hasattr(context, 'COOKIES') \
@@ -242,7 +248,6 @@ def get_jwt_content(context) -> Dict[str, str]:
                 # Session expired (user logged out)
                 raise ExpiredToken()
 
-        return content
     except jwt.ExpiredSignatureError:
         # Session expired
         raise InvalidAuthorization()
@@ -257,6 +262,9 @@ def get_jwt_content(context) -> Dict[str, str]:
         LOGGER.info('Security: Invalid token', **NOEXTRA)
         LOGGER.warning(ex, extra={'extra': context})
         raise InvalidAuthorization()
+    else:
+        context.store[context_store_key] = content
+        return content
 
 
 def iterate_s3_keys(client, bucket: str, prefix: str) -> Iterator[str]:
