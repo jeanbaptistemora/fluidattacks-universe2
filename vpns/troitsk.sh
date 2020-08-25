@@ -1,6 +1,6 @@
 #! /usr/bin/env nix-shell
 #!   nix-shell -i bash
-#!   nix-shell -p openfortivpn
+#!   nix-shell -p openvpn
 #
 # shellcheck shell=bash
 

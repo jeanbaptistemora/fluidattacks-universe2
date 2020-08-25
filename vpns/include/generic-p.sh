@@ -44,7 +44,7 @@ function start_vpn() {
   echo
   echo 'Setting VPN...'
 
-  sudo openvpn \
+  sudo "$(command -v openvpn)" \
   --client \
   --dev tun \
   --proto tcp-client \
