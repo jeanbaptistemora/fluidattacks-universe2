@@ -272,54 +272,47 @@ function job_integrates_deploy_front {
 function job_integrates_deploy_mobile_ota {
   export EXPO_USE_DEV_SERVER="true"
 
-    if  helper_have_any_file_changed \
-          'integrates/mobile/'
-    then
-          helper_use_pristine_workdir \
-      &&  pushd integrates \
-        &&  echo '[INFO] Logging in to AWS' \
-        &&  aws_login "${ENVIRONMENT_NAME}" \
-        &&  sops_env "secrets-${ENVIRONMENT_NAME}.yaml" 'default' \
-              EXPO_USER \
-              EXPO_PASS \
-        &&  sops \
-              --aws-profile default \
-              --decrypt \
-              --extract '["GOOGLE_SERVICES_APP"]' \
-              --output 'mobile/google-services.json' \
-              --output-type 'json' \
-              "secrets-${ENVIRONMENT_NAME}.yaml" \
-        &&  echo '[INFO] Installing deps' \
-        &&  pushd mobile \
-          &&  echo '[INFO] Using NodeJS '"$(node -v)"'' \
-          &&  npm install \
-          &&  npx --no-install expo login \
-                --username "${EXPO_USER}" \
-                --password "${EXPO_PASS}" \
-          &&  echo '[INFO] Replacing versions' \
-          &&  sed -i "s/integrates_version/${FI_VERSION}/g" ./app.json \
-          &&  sed -i "s/\"versionCode\": 0/\"versionCode\": ${FI_VERSION_MOBILE}/g" ./app.json \
-          &&  echo '[INFO] Publishing update' \
-          &&  npx --no-install expo publish \
-                --non-interactive \
-                --release-channel "${CI_COMMIT_REF_NAME}" \
-          &&  echo '[INFO] Sending build info to bugsnag' \
-          &&  npx bugsnag-build-reporter \
-                --api-key c7b947a293ced0235cdd8edc8c09dad4 \
-                --app-version "${FI_VERSION}" \
-                --release-stage "mobile-${ENVIRONMENT_NAME}" \
-                --builder-name "${CI_COMMIT_AUTHOR}" \
-                --source-control-provider gitlab \
-                --source-control-repository https://gitlab.com/fluidattacks/integrates.git \
-                --source-control-revision "${CI_COMMIT_SHA}/integrates/mobile" \
-        &&  popd \
-        ||  return 1 \
-      &&  popd \
-      ||  return 1
-    else
-          echo '[INFO] No relevant files were modified, skipping deploy' \
-      &&  return 0
-    fi
+      helper_use_pristine_workdir \
+  &&  pushd integrates \
+    &&  echo '[INFO] Logging in to AWS' \
+    &&  aws_login "${ENVIRONMENT_NAME}" \
+    &&  sops_env "secrets-${ENVIRONMENT_NAME}.yaml" 'default' \
+          EXPO_USER \
+          EXPO_PASS \
+    &&  sops \
+          --aws-profile default \
+          --decrypt \
+          --extract '["GOOGLE_SERVICES_APP"]' \
+          --output 'mobile/google-services.json' \
+          --output-type 'json' \
+          "secrets-${ENVIRONMENT_NAME}.yaml" \
+    &&  echo '[INFO] Installing deps' \
+    &&  pushd mobile \
+      &&  echo '[INFO] Using NodeJS '"$(node -v)"'' \
+      &&  npm install \
+      &&  npx --no-install expo login \
+            --username "${EXPO_USER}" \
+            --password "${EXPO_PASS}" \
+      &&  echo '[INFO] Replacing versions' \
+      &&  sed -i "s/integrates_version/${FI_VERSION}/g" ./app.json \
+      &&  sed -i "s/\"versionCode\": 0/\"versionCode\": ${FI_VERSION_MOBILE}/g" ./app.json \
+      &&  echo '[INFO] Publishing update' \
+      &&  npx --no-install expo publish \
+            --non-interactive \
+            --release-channel "${CI_COMMIT_REF_NAME}" \
+      &&  echo '[INFO] Sending build info to bugsnag' \
+      &&  npx bugsnag-build-reporter \
+            --api-key c7b947a293ced0235cdd8edc8c09dad4 \
+            --app-version "${FI_VERSION}" \
+            --release-stage "mobile-${ENVIRONMENT_NAME}" \
+            --builder-name "${CI_COMMIT_AUTHOR}" \
+            --source-control-provider gitlab \
+            --source-control-repository https://gitlab.com/fluidattacks/product.git \
+            --source-control-revision "${CI_COMMIT_SHA}/integrates/mobile" \
+    &&  popd \
+    ||  return 1 \
+  &&  popd \
+  ||  return 1
 }
 
 function job_integrates_deploy_mobile_playstore {
@@ -435,6 +428,7 @@ function job_integrates_functional_tests_mobile {
   &&  echo '[INFO] Preparing device pool' \
   &&  device_pool_arn=$(
         aws devicefarm create-device-pool \
+          --max-devices 1 \
           --name devicePool \
           --project-arn "${project_arn}" \
           --rules file://devicefarm/devices.json \
