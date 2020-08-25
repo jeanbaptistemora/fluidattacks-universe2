@@ -26,6 +26,7 @@ from state.ephemeral import (
 from utils.function import (
     shield,
     RetryAndFinallyReturn,
+    StopRetrying,
 )
 from utils.logs import (
     log,
@@ -84,9 +85,15 @@ async def raise_errors(
         pass
 
 
-async def _execute(*, query: str, variables: Dict[str, Any]) -> Dict[str, Any]:
+async def _execute(
+    *,
+    query: str,
+    operation: str,
+    variables: Dict[str, Any],
+) -> Dict[str, Any]:
     response: aiohttp.ClientResponse = await Session.value.execute(
         query=query,
+        operation=operation,
         variables=variables,
     )
     if response.status >= 400:
@@ -101,13 +108,13 @@ async def _execute(*, query: str, variables: Dict[str, Any]) -> Dict[str, Any]:
         errors=result.get('errors'),
         error_mappings=(
             ErrorMapping(
-                exception=PermissionError('Invalid API token'),
+                exception=StopRetrying('Invalid API token'),
                 messages=(
                     'Login required',
                 ),
             ),
             ErrorMapping(
-                exception=PermissionError('Access denied'),
+                exception=StopRetrying('Access denied'),
                 messages=(
                     'Access denied',
                 ),
@@ -127,7 +134,7 @@ async def get_group_level_role(
 ) -> str:
     result = await _execute(
         query="""
-            query GetGroupLevelRole(
+            query SkimsGetGroupLevelRole(
                 $group: String!
             ) {
                 me {
@@ -138,6 +145,7 @@ async def get_group_level_role(
                 }
             }
         """,
+        operation='SkimsGetGroupLevelRole',
         variables=dict(
             group=group,
         )
@@ -160,7 +168,7 @@ async def get_group_findings(
 ) -> Tuple[ResultGetGroupFindings, ...]:
     result = await _execute(
         query="""
-            query GetGroupFindings(
+            query SkimsGetGroupFindings(
                 $group: String!
             ) {
                 project(projectName: $group) {
@@ -175,6 +183,7 @@ async def get_group_findings(
                 }
             }
         """,
+        operation='SkimsGetGroupFindings',
         variables=dict(
             group=group,
         )
@@ -199,7 +208,7 @@ async def get_finding_current_release_status(
 ) -> FindingReleaseStatusEnum:
     result = await _execute(
         query="""
-            query GetFindingVulnerabilities(
+            query SkimsGetFindingCurrentReleaseStatus(
                 $finding_id: String!
             ) {
                 finding(identifier: $finding_id) {
@@ -207,6 +216,7 @@ async def get_finding_current_release_status(
                 }
             }
         """,
+        operation='SkimsGetFindingCurrentReleaseStatus',
         variables=dict(
             finding_id=finding_id,
         )
@@ -227,7 +237,7 @@ async def get_finding_vulnerabilities(
 ) -> EphemeralStore:
     result = await _execute(
         query="""
-            query GetFindingVulnerabilities(
+            query SkimsGetFindingVulnerabilities(
                 $finding_id: String!
             ) {
                 finding(identifier: $finding_id) {
@@ -243,6 +253,7 @@ async def get_finding_vulnerabilities(
                 }
             }
         """,
+        operation='SkimsGetFindingVulnerabilities',
         variables=dict(
             finding_id=finding_id,
         )
@@ -277,7 +288,7 @@ async def do_release_vulnerability(
 ) -> bool:
     result = await _execute(
         query="""
-            mutation DoReleaseVulnerability(
+            mutation SkimsDoReleaseVulnerability(
                 $finding_id: String!
                 $vulnerability_uuid: String!
             ) {
@@ -290,6 +301,7 @@ async def do_release_vulnerability(
                 }
             }
         """,
+        operation='SkimsDoReleaseVulnerability',
         variables=dict(
             finding_id=finding_id,
             vulnerability_uuid=vulnerability_uuid,
@@ -311,7 +323,7 @@ async def do_release_vulnerabilities(
 ) -> bool:
     result = await _execute(
         query="""
-            mutation DoReleaseVulnerability(
+            mutation SkimsDoReleaseVulnerabilities(
                 $finding_id: String!
             ) {
                 approveVulnerability(
@@ -322,6 +334,7 @@ async def do_release_vulnerabilities(
                 }
             }
         """,
+        operation='SkimsDoReleaseVulnerabilities',
         variables=dict(
             finding_id=finding_id,
         )
@@ -344,7 +357,7 @@ async def do_create_draft(
 ) -> bool:
     result = await _execute(
         query="""
-            mutation DoCreateDraft(
+            mutation SkimsDoCreateDraft(
                 $affected_systems: String
                 $impact: String
                 $cwe: String
@@ -372,6 +385,7 @@ async def do_create_draft(
                 }
             }
         """,
+        operation='SkimsDoCreateDraft',
         variables=dict(
             affected_systems=affected_systems,
             cwe=finding.value.cwe,
@@ -403,7 +417,7 @@ async def do_delete_finding(
 
     result = await _execute(
         query="""
-            mutation DoDeleteFinding(
+            mutation SkimsDoDeleteFinding(
                 $finding_id: String!
             ) {
                 deleteFinding(
@@ -414,6 +428,7 @@ async def do_delete_finding(
                 }
             }
         """,
+        operation='SkimsDoDeleteFinding',
         variables=dict(
             finding_id=finding_id,
         )
@@ -436,7 +451,7 @@ async def do_approve_draft(
 ) -> bool:
     result = await _execute(
         query="""
-            mutation DoApproveDraft(
+            mutation SkimsDoApproveDraft(
                 $finding_id: String!
             ) {
                 approveDraft(
@@ -446,6 +461,7 @@ async def do_approve_draft(
                 }
             }
         """,
+        operation='SkimsDoApproveDraft',
         variables=dict(
             finding_id=finding_id,
         )
@@ -466,7 +482,7 @@ async def do_submit_draft(
 ) -> bool:
     result = await _execute(
         query="""
-            mutation DoSubmitDraft(
+            mutation SkimsDoSubmitDraft(
                 $finding_id: String!
             ) {
                 submitDraft(
@@ -476,6 +492,7 @@ async def do_submit_draft(
                 }
             }
         """,
+        operation='SkimsDoSubmitDraft',
         variables=dict(
             finding_id=finding_id,
         )
@@ -497,7 +514,7 @@ async def do_update_finding_severity(
 ) -> bool:
     result = await _execute(
         query="""
-            mutation DoUpdateSeverity(
+            mutation SkimsDoUpdateFindingSeverity(
                 $finding_id: String!
                 $data: GenericScalar!
             ) {
@@ -509,6 +526,7 @@ async def do_update_finding_severity(
                 }
             }
         """,
+        operation='SkimsDoUpdateFindingSeverity',
         variables=dict(
             finding_id=finding_id,
             data=dict(
@@ -538,7 +556,7 @@ async def do_update_evidence(
 
     result = await _execute(
         query="""
-            mutation DoUpdateEvidence(
+            mutation SkimsDoUpdateEvidence(
                 $evidence_id: EvidenceType!
                 $evidence_buffer: Upload!
                 $finding_id: String!
@@ -552,6 +570,7 @@ async def do_update_evidence(
                 }
             }
         """,
+        operation='SkimsDoUpdateEvidence',
         variables=dict(
             evidence_id=evidence_id.value,
             evidence_buffer=evidence_buffer,
@@ -576,7 +595,7 @@ async def do_update_evidence_description(
 ) -> bool:
     result = await _execute(
         query="""
-            mutation DoUpdateEvidenceDescription(
+            mutation SkimsDoUpdateEvidenceDescription(
                 $evidence_description: String!
                 $evidence_description_id: EvidenceDescriptionType!
                 $finding_id: String!
@@ -590,6 +609,7 @@ async def do_update_evidence_description(
                 }
             }
         """,
+        operation='SkimsDoUpdateEvidenceDescription',
         variables=dict(
             evidence_description=evidence_description,
             evidence_description_id=evidence_description_id.value,
@@ -613,7 +633,7 @@ async def do_upload_vulnerabilities(
 ) -> bool:
     result = await _execute(
         query="""
-            mutation DoUploadFile(
+            mutation SkimsDoUploadVulnerabilities(
                 $file_handle: Upload!
                 $finding_id: String!
             ) {
@@ -625,6 +645,7 @@ async def do_upload_vulnerabilities(
                 }
             }
         """,
+        operation='SkimsDoUploadVulnerabilities',
         variables=dict(
             file_handle=await to_in_memory_file(stream),
             finding_id=finding_id,

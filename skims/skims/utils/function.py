@@ -38,6 +38,11 @@ class RetryAndFinallyReturn(Exception):
     """
 
 
+class StopRetrying(Exception):
+    """Raise this exception will make the `shield` decorator stop retrying.
+    """
+
+
 def get_bound_arguments(
     function: Callable[..., Any],
     *args: Any,
@@ -105,7 +110,7 @@ def shield(
                     await log('warning', msg, function_id, exc_type, exc_msg)
                     await log_to_remote(exc)
 
-                    if is_last:
+                    if is_last or isinstance(exc, StopRetrying):
                         if isinstance(exc, RetryAndFinallyReturn):
                             return exc.args[0]
                         if on_error_return is RAISE:
