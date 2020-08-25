@@ -74,8 +74,8 @@ function helper_observes_move_services_fusion_to_master_git {
 }
 
 function helper_observes_formstack {
-      helper_serves_aws_login prod \
-  &&  sops_env serves/secrets-prod.yaml default \
+      helper_observes_aws_login prod \
+  &&  sops_env observes/secrets-prod.yaml default \
         analytics_auth_redshift \
         analytics_auth_formstack \
   &&  echo '[INFO] Generating secret files' \
@@ -96,8 +96,8 @@ function helper_observes_formstack {
 }
 
 function helper_observes_dynamodb {
-      helper_serves_aws_login prod \
-  &&  sops_env serves/secrets-prod.yaml default \
+      helper_observes_aws_login prod \
+  &&  sops_env observes/secrets-prod.yaml default \
         analytics_aws_access_key \
         analytics_aws_secret_key \
         analytics_aws_default_region \
@@ -126,8 +126,8 @@ function helper_observes_dynamodb {
 }
 
 function helper_observes_services_toe {
-      helper_serves_aws_login prod \
-  &&  sops_env serves/secrets-prod.yaml default \
+      helper_observes_aws_login prod \
+  &&  sops_env observes/secrets-prod.yaml default \
         analytics_auth_redshift \
   &&  echo '[INFO] Generating secret files' \
   &&  echo "${analytics_auth_redshift}" > "${TEMP_FILE2}" \
@@ -152,8 +152,8 @@ function helper_observes_services_toe {
 }
 
 function helper_observes_infrastructure {
-      helper_serves_aws_login prod \
-  &&  sops_env serves/secrets-prod.yaml default \
+      helper_observes_aws_login prod \
+  &&  sops_env observes/secrets-prod.yaml default \
         analytics_auth_infra \
         analytics_auth_redshift \
   &&  echo '[INFO] Generating secret files' \
@@ -176,8 +176,8 @@ function helper_observes_infrastructure {
 }
 
 function helper_observes_intercom {
-      helper_serves_aws_login prod \
-  &&  sops_env serves/secrets-prod.yaml default \
+      helper_observes_aws_login prod \
+  &&  sops_env observes/secrets-prod.yaml default \
         analytics_auth_intercom \
         analytics_auth_redshift \
   &&  echo '[INFO] Generating secret files' \
@@ -201,8 +201,8 @@ function helper_observes_intercom {
 }
 
 function helper_observes_mandrill {
-      helper_serves_aws_login prod \
-  &&  sops_env serves/secrets-prod.yaml default \
+      helper_observes_aws_login prod \
+  &&  sops_env observes/secrets-prod.yaml default \
         analytics_auth_mandrill \
         analytics_auth_redshift \
   &&  echo '[INFO] Generating secret files' \
@@ -239,8 +239,8 @@ function helper_observes_gitlab {
     'fluidattacks/writeups'
   )
 
-      helper_serves_aws_login prod \
-  &&  sops_env serves/secrets-prod.yaml default \
+      helper_observes_aws_login prod \
+  &&  sops_env observes/secrets-prod.yaml default \
         analytics_auth_redshift \
   &&  echo '[INFO] Generating secret files' \
   &&  echo "${analytics_auth_redshift}" > "${TEMP_FILE2}" \
@@ -261,9 +261,9 @@ function helper_observes_gitlab {
 function helper_observes_timedoctor {
   export analytics_auth_timedoctor
 
-      helper_serves_aws_login prod \
+      helper_observes_aws_login prod \
   &&  mkdir ./logs \
-  &&  sops_env serves/secrets-prod.yaml default \
+  &&  sops_env observes/secrets-prod.yaml default \
         analytics_auth_redshift \
         analytics_s3_cache_timedoctor \
   &&  analytics_auth_timedoctor=$( \
@@ -303,8 +303,8 @@ function helper_observes_zoho {
     Periods
   )
 
-      helper_serves_aws_login prod \
-  &&  sops_env serves/secrets-prod.yaml default \
+      helper_observes_aws_login prod \
+  &&  sops_env observes/secrets-prod.yaml default \
         analytics_zoho_email \
         analytics_zoho_token \
         analytics_zoho_space \
@@ -345,7 +345,7 @@ function helper_observes_git_process {
   export CI_NODE_INDEX
   export CI_NODE_TOTAL
 
-      helper_serves_aws_login prod \
+      helper_observes_aws_login prod \
   &&  echo '[INFO] Cloning our own repositories' \
   &&  python3 observes/git/clone_us.py \
   &&  echo "[INFO] Generating config: ${CI_NODE_INDEX} / ${CI_NODE_TOTAL}" \
@@ -373,8 +373,8 @@ function helper_observes_git_process {
 function helper_observes_git_upload {
   local artifacts="${PWD}/artifacts"
 
-      helper_serves_aws_login prod \
-  &&  sops_env serves/secrets-prod.yaml default \
+      helper_observes_aws_login prod \
+  &&  sops_env observes/secrets-prod.yaml default \
         analytics_auth_redshift \
   &&  echo '[INFO] Generating secret files' \
   &&  echo "${analytics_auth_redshift}" > "${TEMP_FILE1}" \
@@ -389,7 +389,7 @@ function helper_observes_git_upload {
 function helper_observes_timedoctor_refresh_token {
   export analytics_auth_timedoctor
 
-      helper_serves_aws_login prod \
+      helper_observes_aws_login prod \
   &&  analytics_auth_timedoctor=$( \
         helper_get_gitlab_var \
           'analytics_auth_timedoctor' \
@@ -402,9 +402,9 @@ function helper_observes_timedoctor_refresh_token {
 function helper_observes_timedoctor_backup {
   export analytics_auth_timedoctor
 
-      helper_serves_aws_login prod \
+      helper_observes_aws_login prod \
   &&  mkdir ./logs \
-  &&  sops_env serves/secrets-prod.yaml default \
+  &&  sops_env observes/secrets-prod.yaml default \
         analytics_s3_cache_timedoctor \
   &&  analytics_auth_timedoctor=$( \
         helper_get_gitlab_var \
@@ -437,18 +437,18 @@ function helper_observes_timedoctor_backup {
 }
 
 function helper_observes_timedoctor_manually_create_token {
-      helper_serves_aws_login prod \
-  &&  sops_env serves/secrets-prod.yaml default \
+      helper_observes_aws_login prod \
+  &&  sops_env observes/secrets-prod.yaml default \
         analytics_auth_timedoctor \
   &&  echo '[INFO] Executing creator, follow the steps' \
   &&  ./observes/auth_helper.py --timedoctor-start \
-  &&  echo '[INFO] Done! Token created at GitLab/serves env vars'
+  &&  echo '[INFO] Done! Token created at GitLab/production env vars'
 }
 
 function helper_observes_services_repositories_cache {
   local mock_integrates_api_token='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.e30.xxx'
 
-      helper_serves_aws_login prod \
+      helper_observes_aws_login prod \
   &&  helper_observes_move_artifacts_to_git \
   &&  echo '[INFO] Cloning our own repositories' \
   &&  python3 observes/git/clone_us.py \

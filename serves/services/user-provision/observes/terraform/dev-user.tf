@@ -59,7 +59,7 @@ data "aws_iam_policy_document" "dev-policy-data" {
       "kms:Describe*",
     ]
     resources = [
-      "arn:aws:kms:${var.region}:${data.aws_caller_identity.current.account_id}:alias/observes-*"
+      "*"
     ]
   }
 }
