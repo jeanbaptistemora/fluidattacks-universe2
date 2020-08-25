@@ -22,7 +22,7 @@ from backend.api.dataloaders.vulnerability import VulnerabilityLoader
 from backend import util
 
 
-def _context_value(context):
+def append_context_value(context):
     """Add dataloaders to context async."""
     context.loaders = {
         'event': EventLoader(),
@@ -60,7 +60,7 @@ class APIView(GraphQLView):
         else:
             context = super().context_value or request
 
-        return _context_value(context)
+        return append_context_value(context)
 
     async def _execute(
             self, request: HttpRequest, data: dict) -> GraphQLResult:

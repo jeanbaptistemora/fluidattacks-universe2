@@ -21,7 +21,6 @@ from graphql.type import GraphQLResolveInfo
 from rediscluster.nodemanager import RedisClusterException
 
 from backend.domain import (
-    event as event_domain,
     finding as finding_domain,
     organization as org_domain,
     vulnerability as vuln_domain
@@ -131,40 +130,56 @@ def require_login(func: TVar) -> TVar:
     return cast(TVar, verify_and_call)
 
 
-async def resolve_project_name(args: Any, kwargs: Any) -> str:  # noqa: MC0001
+async def _resolve_from_event_id(context: Any, identifier: str) -> str:
+    data = await context.loaders['event'].load(identifier)
+    project_name: str = data['project_name']
+    return project_name
+
+
+async def _resolve_from_finding_id(context: Any, identifier: str) -> str:
+    data = await context.loaders['finding'].load(identifier)
+    project_name: str = data['project_name']
+    return project_name
+
+
+async def _resolve_from_vuln_id(context: Any, identifier: str) -> str:
+    data = await context.loaders['single_vulnerability'].load(identifier)
+    return await _resolve_from_finding_id(context, data.finding_id)
+
+
+async def resolve_group_name(  # noqa: MC0001
+    context: Any,
+    args: Any,
+    kwargs: Any,
+) -> str:
     """Get project name based on args passed."""
     if args and hasattr(args[0], 'name'):
-        project_name = args[0].name
+        name = args[0].name
     elif args and hasattr(args[0], 'project_name'):
-        project_name = args[0].project_name
+        name = args[0].project_name
     elif args and hasattr(args[0], 'finding_id'):
-        project_name = await finding_domain.get_project(args[0].finding_id)
+        name = await _resolve_from_finding_id(context, args[0].finding_id)
     elif 'project_name' in kwargs:
-        project_name = kwargs['project_name']
+        name = kwargs['project_name']
     elif 'group_name' in kwargs:
-        project_name = kwargs['group_name']
+        name = kwargs['group_name']
     elif 'finding_id' in kwargs:
-        project_name = await finding_domain.get_project(kwargs['finding_id'])
+        name = await _resolve_from_finding_id(context, kwargs['finding_id'])
     elif 'draft_id' in kwargs:
-        project_name = await finding_domain.get_project(kwargs['draft_id'])
+        name = await _resolve_from_finding_id(context, kwargs['draft_id'])
     elif 'event_id' in kwargs:
-        event = await event_domain.get_event(
-            kwargs['event_id'])
-        project_name = event.get('project_name')
+        name = await _resolve_from_event_id(context, kwargs['event_id'])
     elif 'vuln_uuid' in kwargs:
-        vulnerability = await vuln_domain.get(kwargs['vuln_uuid'])
-        project_name = await finding_domain.get_project(
-            cast(str, vulnerability['finding_id'])
-        )
+        name = await _resolve_from_vuln_id(context, kwargs['vuln_uuid'])
     elif settings.DEBUG:
         raise Exception('Unable to identify project')
     else:
-        project_name = ''
+        name = ''
 
-    if isinstance(project_name, str):
-        project_name = project_name.lower()
+    if isinstance(name, str):
+        name = name.lower()
 
-    return cast(str, project_name)
+    return cast(str, name)
 
 
 def enforce_group_level_auth_async(func: TVar) -> TVar:
@@ -172,7 +187,6 @@ def enforce_group_level_auth_async(func: TVar) -> TVar:
 
     _func = cast(Callable[..., Any], func)
 
-    @apm.trace(overridden_function=enforce_group_level_auth_async)
     @functools.wraps(_func)
     async def verify_and_call(*args: Any, **kwargs: Any) -> Any:
         if hasattr(args[0], 'context'):
@@ -184,7 +198,7 @@ def enforce_group_level_auth_async(func: TVar) -> TVar:
 
         user_data = util.get_jwt_content(context)
         subject = user_data['user_email']
-        object_ = await resolve_project_name(args, kwargs)
+        object_ = await resolve_group_name(context, args, kwargs)
         action = f'{_func.__module__}.{_func.__qualname__}'.replace('.', '_')
 
         if not object_:
@@ -296,7 +310,14 @@ def require_attribute(attribute: str) -> Callable[[TVar], TVar]:
         @apm.trace(overridden_function=require_attribute)
         @functools.wraps(_func)
         async def resolve_and_call(*args: Any, **kwargs: Any) -> Any:
-            group = await resolve_project_name(args, kwargs)
+            if hasattr(args[0], 'context'):
+                context = args[0].context
+            elif hasattr(args[1], 'context'):
+                context = args[1].context
+            else:
+                GraphQLError('Could not get context from request.')
+
+            group = await resolve_group_name(context, args, kwargs)
 
             enforcer = await authz.get_group_service_attributes_enforcer(group)
 
