@@ -2,13 +2,14 @@
   -------
   We need className to override default styles from react-boostrap.
 */
-import FontAwesome from "react-fontawesome";
+import { LoginButton } from "./components/LoginButton";
+import { LoginInfoButton } from "./components/LoginInfoButton";
 import React from "react";
 import logo from "../../resources/integrates.svg";
 import mixpanel from "mixpanel-browser";
 import style from "./index.css";
 import { useTranslation } from "react-i18next";
-import { Button, Col, Grid, Row } from "react-bootstrap";
+import { Col, Grid, Row } from "react-bootstrap";
 import { Slide, toast } from "react-toastify";
 
 export const Login: React.FC = (): JSX.Element => {
@@ -21,34 +22,25 @@ export const Login: React.FC = (): JSX.Element => {
         <p>{t("login.2fa")}</p>
         <div>
           <Col md={4} xs={12}>
-            <Button
-              block={true}
+            <LoginInfoButton
               bsStyle={"danger"}
+              fontAwesomeName={"google"}
               href={"https://bit.ly/2Gpjt6h"}
-            >
-              <FontAwesome name={"google"} size={"2x"} />
-              &nbsp;
-            </Button>
+            />
           </Col>
           <Col md={4} xs={12}>
-            <Button
-              block={true}
+            <LoginInfoButton
               bsStyle={"primary"}
+              fontAwesomeName={"windows"}
               href={"https://bit.ly/2Gp1L2X"}
-            >
-              <FontAwesome name={"windows"} size={"2x"} />
-              &nbsp;
-            </Button>
+            />
           </Col>
           <Col md={4} xs={12}>
-            <Button
-              block={true}
+            <LoginInfoButton
               bsStyle={"primary"}
+              fontAwesomeName={"bitbucket"}
               href={"https://bit.ly/3it0Im7"}
-            >
-              <FontAwesome name={"bitbucket"} size={"2x"} />
-              &nbsp;
-            </Button>
+            />
           </Col>
         </div>
       </div>,
@@ -83,33 +75,27 @@ export const Login: React.FC = (): JSX.Element => {
               <p>{t("login.newuser")}</p>
             </Row>
             <Row>
-              <Button
-                block={true}
+              <LoginButton
                 bsStyle={"danger"}
                 className={`${style.socialBtn} ${style.googleBtn}`}
+                fontAwesomeName={"google"}
                 onClick={handleGoogleLogin}
-              >
-                <FontAwesome name={"google"} size={"2x"} />
-                {t("login.google")}
-              </Button>
-              <Button
-                block={true}
+                text={t("login.google")}
+              />
+              <LoginButton
                 bsStyle={"primary"}
                 className={`${style.socialBtn} ${style.microsoftBtn}`}
+                fontAwesomeName={"windows"}
                 onClick={handleMicrosoftLogin}
-              >
-                <FontAwesome name={"windows"} size={"2x"} />
-                {t("login.microsoft")}
-              </Button>
-              <Button
-                block={true}
+                text={t("login.microsoft")}
+              />
+              <LoginButton
                 bsStyle={"primary"}
                 className={`${style.socialBtn} ${style.bitbucketBtn}`}
+                fontAwesomeName={"bitbucket"}
                 onClick={handleBitbucketLogin}
-              >
-                <FontAwesome name={"bitbucket"} size={"2x"} />
-                {t("login.bitbucket")}
-              </Button>
+                text={t("login.bitbucket")}
+              />
             </Row>
           </Col>
         </Row>
