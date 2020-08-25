@@ -26,10 +26,32 @@
       when: never
     - if: *observes_commit_pattern
 
+.observes_in_master_branch: &observes_in_master_branch
+  rules:
+    - if: '$CI_COMMIT_BRANCH != "master"'
+      when: never
+    - if: '$CI_PIPELINE_SOURCE == "schedule"'
+      when: never
+    - if: '$CI_PIPELINE_SOURCE == "trigger"'
+      when: never
+    - if: *observes_commit_pattern
+
 observes_lint_code:
   <<: *with_nix
   <<: *observes_in_dev_branch
   stage: lint-code
+
+observes_test_infra:
+  <<: *with_nix
+  <<: *observes_in_dev_branch
+  stage: test-infra
+
+observes_apply_infra:
+  <<: *with_nix
+  <<: *observes_in_master_branch
+  stage: deploy-infra
+
+# Schedules
 
 observes_formstack:
   <<: *with_nix

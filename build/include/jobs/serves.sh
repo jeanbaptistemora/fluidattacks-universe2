@@ -647,7 +647,7 @@ function job_serves_rotate_keys_user_provision_serves {
 }
 
 function job_serves_rotate_keys_user_provision_observes {
-  local terraform_dir='services/user-provision/serves/terraform'
+  local terraform_dir='services/user-provision/observes/terraform'
   local gitlab_repo_id='4620828'
 
   # Dev

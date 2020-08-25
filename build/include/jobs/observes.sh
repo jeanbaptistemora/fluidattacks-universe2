@@ -112,27 +112,23 @@ function job_observes_services_repositories_cache {
   ||  return 1
 }
 
-function job_serves_test_infra_analytics {
-  local target='services/analytics/terraform'
+function job_observes_test_infra {
+  local target='observes/infra/terraform'
 
       helper_use_pristine_workdir \
-  &&  pushd serves \
-  &&  helper_serves_aws_login dev \
+  &&  helper_observes_aws_login dev \
   &&  helper_serves_terraform_plan \
         "${target}" \
-  &&  popd \
   ||  return 1
 }
 
-function job_serves_apply_infra_analytics {
-  local target='services/analytics/terraform'
+function job_observes_apply_infra {
+  local target='observes/infra/terraform'
 
       helper_use_pristine_workdir \
-  &&  pushd serves \
-  &&  helper_serves_aws_login prod \
+  &&  helper_observes_aws_login prod \
   &&  helper_serves_terraform_apply \
         "${target}" \
-  &&  popd \
   ||  return 1
 }
 

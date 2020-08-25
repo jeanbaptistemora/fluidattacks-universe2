@@ -29,6 +29,8 @@ data "aws_iam_policy_document" "prod-policy-data" {
     resources = [
       "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/observes-*",
       "arn:aws:iam::${data.aws_caller_identity.current.account_id}:policy/observes-*",
+      "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/analytics",
+      "arn:aws:iam::${data.aws_caller_identity.current.account_id}:policy/analytics",
     ]
   }
 

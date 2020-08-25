@@ -65,6 +65,10 @@ function decide_and_call_provisioner {
         --keep SERVES_DEV_AWS_SECRET_ACCESS_KEY \
         --keep SERVES_PROD_AWS_ACCESS_KEY_ID \
         --keep SERVES_PROD_AWS_SECRET_ACCESS_KEY \
+        --keep OBSERVES_DEV_AWS_ACCESS_KEY_ID \
+        --keep OBSERVES_DEV_AWS_SECRET_ACCESS_KEY \
+        --keep OBSERVES_PROD_AWS_ACCESS_KEY_ID \
+        --keep OBSERVES_PROD_AWS_SECRET_ACCESS_KEY \
         --keep REVIEWS_TOKEN \
         --keep PYPI_TOKEN \
         --keep INTEGRATES_FORCES_API_TOKEN \
