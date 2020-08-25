@@ -79,3 +79,8 @@ especially if client-side access control is present and could be bypassed.
 . [[r10]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 6.5.10]
 Address common coding vulnerabilities in software-development processes such as
 broken authentication and session management.
+
+. [[r11]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 8.2.2]
+Verify user identity before modifying any authentication credential.
+For example, performing password resets, provisioning new tokens,
+or generating new keys.

@@ -104,3 +104,8 @@ and that is stored separately from the data-encrypting key.
 . [[r14]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 6.5.3]
 Address common coding vulnerabilities in software-development processes such as
 insecure cryptographic storage.
+
+. [[r15]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 8.2.1]
+Using strong cryptography, render all authentication credentials
+(such as passwords/phrases) unreadable during transmission and storage on all
+system components.
