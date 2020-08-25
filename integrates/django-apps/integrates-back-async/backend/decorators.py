@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 """ Decorators for FluidIntegrates. """
 
-import asyncio
 from datetime import datetime
 import functools
 import inspect
@@ -9,7 +8,6 @@ import logging
 import re
 from typing import Any, Callable, Dict, cast, TypeVar
 
-from asgiref.sync import async_to_sync
 from django.conf import settings
 from django.core.cache import cache
 from django.core.cache.backends.base import DEFAULT_TIMEOUT
@@ -639,37 +637,3 @@ def turn_args_into_kwargs(func: TVar) -> TVar:
         return await _func(*args[0:2], **args_as_kwargs, **kwargs)
 
     return cast(TVar, newfunc)
-
-
-def shield(func: TVar) -> TVar:
-    """Catches and reports general Exceptions raised in decorated function"""
-
-    _func = cast(Callable[..., Any], func)
-
-    async def report(exception: Exception) -> None:
-        LOGGER.error(
-            'Shielded function raised a generic Exception',
-            extra={
-                'extra': {
-                    'exception': exception,
-                    'function': _func.__name__,
-                }
-            })
-
-    if asyncio.iscoroutinefunction(_func):
-        @functools.wraps(_func)
-        async def shieldedfunc(*args: Any, **kwargs: Any) -> Any:
-            try:
-                return await _func(*args, **kwargs)
-            except Exception as exception:  # pylint: disable=broad-except
-                await report(exception)
-
-    else:
-        @functools.wraps(_func)
-        def shieldedfunc(*args: Any, **kwargs: Any) -> Any:
-            try:
-                return _func(*args, **kwargs)
-            except Exception as exception:  # pylint: disable=broad-except
-                async_to_sync(report)(exception)
-
-    return cast(TVar, shieldedfunc)

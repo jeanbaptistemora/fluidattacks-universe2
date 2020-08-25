@@ -14,10 +14,10 @@ from botocore.exceptions import ClientError
 from backend.dal import (
     finding as finding_dal,
 )
-from backend.decorators import shield
 from backend.domain import (
     notifications as notifications_domain
 )
+from backend.exceptions import ErrorUploadingFileS3
 from backend.reports.it_report import ITReport
 from backend.reports.pdf import CreatorPDF
 from backend.reports.secure_pdf import SecurePDF
@@ -53,7 +53,6 @@ async def generate_pdf_file(
     return report_filename
 
 
-@shield
 async def generate_pdf(
     *,
     description: str,
@@ -73,17 +72,28 @@ async def generate_pdf(
         user_email=user_email,
     )
 
-    uploaded_file_name = await reports_utils.upload_report(
-        report_filename
-    )
-
-    await notifications_domain.new_password_protected_report(
-        user_email,
-        group_name,
-        passphrase,
-        'Executive',
-        await reports_utils.sign_url(uploaded_file_name),
-    )
+    try:
+        uploaded_file_name = await reports_utils.upload_report(
+            report_filename
+        )
+    except ErrorUploadingFileS3 as ex:
+        LOGGER.error(
+            ex,
+            extra={
+                'extra': {
+                    'group_name': group_name,
+                    'user_email': user_email,
+                }
+            }
+        )
+    else:
+        await notifications_domain.new_password_protected_report(
+            user_email,
+            group_name,
+            passphrase,
+            'Executive',
+            await reports_utils.sign_url(uploaded_file_name),
+        )
 
 
 async def generate_xls_file(
@@ -108,7 +118,6 @@ async def generate_xls_file(
     return filepath
 
 
-@shield
 async def generate_xls(
     findings_ord: List[Dict[str, FindingType]],
     group_name: str,
@@ -121,17 +130,28 @@ async def generate_xls(
         passphrase=passphrase,
     )
 
-    uploaded_file_name = await reports_utils.upload_report(
-        report_filename
-    )
-
-    await notifications_domain.new_password_protected_report(
-        user_email,
-        group_name,
-        passphrase,
-        'Technical',
-        await reports_utils.sign_url(uploaded_file_name),
-    )
+    try:
+        uploaded_file_name = await reports_utils.upload_report(
+            report_filename
+        )
+    except ErrorUploadingFileS3 as ex:
+        LOGGER.error(
+            ex,
+            extra={
+                'extra': {
+                    'group_name': group_name,
+                    'user_email': user_email,
+                }
+            }
+        )
+    else:
+        await notifications_domain.new_password_protected_report(
+            user_email,
+            group_name,
+            passphrase,
+            'Technical',
+            await reports_utils.sign_url(uploaded_file_name),
+        )
 
 
 async def download_evidences_for_pdf(findings: List[Dict[str, FindingType]]):
