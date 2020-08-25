@@ -69,3 +69,9 @@ function job_common_lint_build_system {
         shellcheck --external-sources --exclude=SC1090,SC2016,SC2153,SC2154 {} + \
   &&  echo '[OK] Shell code is compliant'
 }
+
+function job_bugsnag_report {
+      export PYTHONPATH=${PYTHONPATH:-}
+      env_prepare_python_packages \
+  &&  python3 "${STARTDIR}/common/bugsnag-report.py" "${@}"
+}

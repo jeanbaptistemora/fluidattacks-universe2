@@ -16,6 +16,11 @@ function check_nix_version {
 function decide_and_call_provisioner {
   local job="${1:-}"
   local arg1="${2:-}"
+  if [[ $job == "bugsnag_report" ]]
+  then
+    shift
+    arg1="$*"
+  fi
   local provisioner
   export __NIX_PATH="${NIX_PATH}"
   export __NIX_SSL_CERT_FILE="${NIX_SSL_CERT_FILE}"
@@ -78,4 +83,9 @@ function decide_and_call_provisioner {
 }
 
 check_nix_version
-decide_and_call_provisioner "${@}"
+if decide_and_call_provisioner "${@}"
+then
+  decide_and_call_provisioner bugsnag_report
+else
+  decide_and_call_provisioner bugsnag_report "${@}"
+fi
