@@ -1,73 +1,77 @@
-import { mount, ReactWrapper, shallow, ShallowWrapper } from "enzyme";
-import * as React from "react";
+import { AddEnvironmentsModal } from ".";
 import { Provider } from "react-redux";
+import React from "react";
 import store from "../../../../store";
-import { AddEnvironmentsModal } from "./index";
+import { ReactWrapper, ShallowWrapper, mount, shallow } from "enzyme";
 
-const functionMock: (() => void) = (): void => undefined;
+describe("Add Environments modal", (): void => {
+  const mockedFn: jest.Mock = jest.fn();
 
-describe("Add Environments modal", () => {
-
-  it("should return a function", () => {
-    expect(typeof (AddEnvironmentsModal))
-      .toEqual("function");
+  it("should return a function", (): void => {
+    expect.hasAssertions();
+    expect(typeof AddEnvironmentsModal).toStrictEqual("function");
   });
 
-  it("should render", () => {
+  it("should render", (): void => {
+    expect.hasAssertions();
+
     const wrapper: ShallowWrapper = shallow(
       <Provider store={store}>
         <AddEnvironmentsModal
           isOpen={true}
-          onClose={functionMock}
-          onSubmit={functionMock}
+          onClose={mockedFn}
+          onSubmit={mockedFn}
         />
-      </Provider>,
+      </Provider>
     );
-    expect(wrapper)
-      .toHaveLength(1);
+
+    expect(wrapper).toHaveLength(1);
   });
 
   it("should render input field and add button", (): void => {
+    expect.hasAssertions();
+
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
         <AddEnvironmentsModal
           isOpen={true}
-          onClose={functionMock}
-          onSubmit={functionMock}
+          onClose={mockedFn}
+          onSubmit={mockedFn}
         />
-      </Provider>,
+      </Provider>
     );
-    expect(wrapper.find("renderEnvsFields")
-      .find("textarea"))
-      .toHaveLength(1);
-    expect(wrapper.find("renderEnvsFields")
-      .find(".glyphicon-plus"))
-      .toHaveLength(1);
+
+    expect(wrapper.find("renderEnvsFields").find("textarea")).toHaveLength(1);
+    expect(
+      wrapper.find("renderEnvsFields").find(".glyphicon-plus")
+    ).toHaveLength(1);
   });
 
   it("should add and remove input field", (): void => {
+    expect.hasAssertions();
+
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
         <AddEnvironmentsModal
           isOpen={true}
-          onClose={functionMock}
-          onSubmit={functionMock}
+          onClose={mockedFn}
+          onSubmit={mockedFn}
         />
-      </Provider>,
+      </Provider>
     );
 
-    const addButton: ReactWrapper = wrapper.find("renderEnvsFields")
-                                      .find(".glyphicon-plus");
+    const addButton: ReactWrapper = wrapper
+      .find("renderEnvsFields")
+      .find(".glyphicon-plus");
     addButton.simulate("click");
-    expect(wrapper.find("renderEnvsFields")
-      .find("textarea"))
-      .toHaveLength(2);
 
-    const removeButton: ReactWrapper = wrapper.find("renderEnvsFields")
-                                         .find(".glyphicon-trash");
+    expect(wrapper.find("renderEnvsFields").find("textarea")).toHaveLength(2);
+
+    const removeButton: ReactWrapper = wrapper
+      .find("renderEnvsFields")
+      .find(".glyphicon-trash");
     removeButton.simulate("click");
-    expect(wrapper.find("renderEnvsFields")
-      .find("textarea"))
-      .toHaveLength(1);
+
+    expect(wrapper.find("renderEnvsFields").find("textarea")).toHaveLength(1);
   });
 });
