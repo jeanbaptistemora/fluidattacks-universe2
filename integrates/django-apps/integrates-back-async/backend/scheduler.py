@@ -8,6 +8,7 @@ from collections import OrderedDict, defaultdict
 from datetime import datetime, timedelta
 from decimal import Decimal
 from typing import Dict, List, Tuple, Union, cast
+import bugsnag
 
 from more_itertools import chunked
 from botocore.exceptions import ClientError
@@ -43,13 +44,22 @@ from __init__ import (
     FI_TEST_PROJECTS,
     FI_MAIL_CONTINUOUS,
     FI_MAIL_PROJECTS,
-    FI_MAIL_REVIEWERS
+    FI_MAIL_REVIEWERS,
+    FI_ENVIRONMENT,
+    FI_BUGSNAG_API_KEY_SCHEDULER
 )
 
 logging.config.dictConfig(LOGGING)
 
-# Constants
-LOGGER = logging.getLogger('console')
+bugsnag.configure(
+    api_key=FI_BUGSNAG_API_KEY_SCHEDULER,
+    project_root=BASE_URL,
+    release_stage=FI_ENVIRONMENT,
+)
+bugsnag.start_session()
+bugsnag.send_sessions()
+
+LOGGER = logging.getLogger(__name__)
 
 
 def is_not_a_fluidattacks_email(email: str) -> bool:
