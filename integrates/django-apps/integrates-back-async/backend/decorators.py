@@ -307,7 +307,6 @@ def require_attribute(attribute: str) -> Callable[[TVar], TVar]:
 
         _func = cast(Callable[..., Any], func)
 
-        @apm.trace(overridden_function=require_attribute)
         @functools.wraps(_func)
         async def resolve_and_call(*args: Any, **kwargs: Any) -> Any:
             if hasattr(args[0], 'context'):
@@ -319,11 +318,22 @@ def require_attribute(attribute: str) -> Callable[[TVar], TVar]:
 
             group = await resolve_group_name(context, args, kwargs)
 
-            enforcer = await authz.get_group_service_attributes_enforcer(group)
+            # Unique ID for this decorator function
+            context_store_key: str = function.get_id(
+                require_attribute, attribute, group,
+            )
 
-            if not await enforcer(attribute):
-                raise GraphQLError('Access denied')
+            # Within the context of one request we only need to check this once
+            # Future calls to this decorator will be passed trough
+            if not context.store[context_store_key]:
+                enforcer = await authz.get_group_service_attributes_enforcer(
+                    group,
+                )
 
+                if not await enforcer(attribute):
+                    raise GraphQLError('Access denied')
+
+            context.store[context_store_key] = True
             return await _func(*args, **kwargs)
 
         return cast(TVar, resolve_and_call)
@@ -331,8 +341,22 @@ def require_attribute(attribute: str) -> Callable[[TVar], TVar]:
     return wrapper
 
 
+# Factory functions
+REQUIRE_INTEGRATES = require_attribute('has_integrates')
+REQUIRE_FORCES = require_attribute('has_forces')
+REQUIRE_DRILLS_WHITE = require_attribute('has_drills_white')
+
+
 def require_integrates(func: TVar) -> TVar:
-    return require_attribute('has_integrates')(func)
+    return REQUIRE_INTEGRATES(func)
+
+
+def require_forces(func: TVar) -> TVar:
+    return REQUIRE_FORCES(func)
+
+
+def require_drills_white(func: TVar) -> TVar:
+    return REQUIRE_DRILLS_WHITE(func)
 
 
 def require_organization_access(func: TVar) -> TVar:

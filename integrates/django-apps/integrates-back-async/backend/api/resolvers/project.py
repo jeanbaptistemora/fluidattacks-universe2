@@ -33,7 +33,7 @@ from backend.decorators import (
     get_entity_cache_async,
     require_login,
     turn_args_into_kwargs,
-    require_attribute,
+    require_drills_white,
     require_integrates,
     enforce_user_level_auth_async
 )
@@ -608,7 +608,7 @@ async def _get_consulting(
 
 @apm.trace()
 @enforce_group_level_auth_async
-@require_attribute('has_drills_white')
+@require_drills_white
 async def _get_bill(
         _: GraphQLResolveInfo,
         project_name: str,

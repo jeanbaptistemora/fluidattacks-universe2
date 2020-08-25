@@ -14,7 +14,7 @@ from graphql.type.definition import GraphQLResolveInfo
 from backend.decorators import (
     enforce_group_level_auth_async,
     get_entity_cache_async,
-    require_attribute,
+    require_forces,
     require_integrates,
     require_login,
 )
@@ -114,7 +114,7 @@ async def _do_add_forces_execution(_: Any,
 
 
 @convert_kwargs_to_snake_case  # type: ignore
-@require_attribute('has_forces')
+@require_forces
 async def resolve_forces_execution_mutation(
     obj: Any,
     info: GraphQLResolveInfo,
