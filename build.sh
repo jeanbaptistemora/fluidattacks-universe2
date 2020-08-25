@@ -89,7 +89,7 @@ function decide_and_call_provisioner {
 check_nix_version
 if decide_and_call_provisioner "${@}"
 then
-  decide_and_call_provisioner bugsnag_report
+  decide_and_call_provisioner bugsnag_report &>/dev/null
 else
-  decide_and_call_provisioner bugsnag_report "${@}"
+  decide_and_call_provisioner bugsnag_report "${@}" &>/dev/null
 fi
