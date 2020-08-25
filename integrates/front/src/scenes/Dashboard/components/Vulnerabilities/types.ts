@@ -30,12 +30,6 @@ export interface IVulnRow {
   where: string;
 }
 
-export interface IApproveVulnAttr {
-  approveVulnerability: {
-    success: boolean;
-  };
-}
-
 export interface IUploadVulnerabilitiesResult {
   uploadFile: {
     success: boolean;

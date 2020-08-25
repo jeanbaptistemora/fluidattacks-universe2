@@ -29,9 +29,9 @@ import { translate } from "../../../../utils/translations/translate";
 import { deleteVulnerabilityModal as DeleteVulnerabilityModal } from "../DeleteVulnerability/index";
 import { IDeleteVulnAttr } from "../DeleteVulnerability/types";
 import { default as style } from "./index.css";
-import { APPROVE_VULN_MUTATION, GET_VULNERABILITIES } from "./queries";
+import { GET_VULNERABILITIES } from "./queries";
 import {
-  IApproveVulnAttr, IVulnDataType, IVulnerabilitiesViewProps, IVulnRow, IVulnsAttr, IVulnType,
+  IVulnDataType, IVulnerabilitiesViewProps, IVulnRow, IVulnsAttr, IVulnType,
 } from "./types";
 import { UpdateTreatmentModal } from "./updateTreatment";
 import { UploadVulnerabilites } from "./uploadFile";
@@ -274,7 +274,7 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
       variables={{ analystField: canGetAnalyst, identifier: props.findingId }}
       onError={handleQueryError}
     >
-      {({ data, refetch }: QueryResult<IVulnsAttr>): JSX.Element => {
+      {({ data, refetch }: QueryResult<IVulnsAttr>): JSX.Element => { // tslint:disable-next-line: cyclomatic-complexity
           if (_.isUndefined(data) || _.isEmpty(data)) {
 
             return <React.Fragment/>;
@@ -311,24 +311,6 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                     translate.t("delete_vulns.not_success"),
                   );
                   setDeleteVulnModal(false);
-                }
-              }
-            };
-
-            const handleMtPendingVulnRes: ((mtResult: IApproveVulnAttr) => void) = (mtResult: IApproveVulnAttr):
-            void => {
-              if (!_.isUndefined(mtResult)) {
-                if (mtResult.approveVulnerability.success) {
-                  refetch()
-                    .catch();
-                  mixpanel.track(
-                    "ApproveVulnerability",
-                    {
-                      User: (window as typeof window & { userName: string }).userName,
-                    });
-                  msgSuccess(
-                    translate.t("search_findings.tab_description.vuln_approval"),
-                    translate.t("group_alerts.title_success"));
                 }
               }
             };
@@ -682,397 +664,296 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                   _.includes(rows.map((row: IVulnRow) => row.id), vuln.id) ? [...acc, indexReduce] : acc,
                 []));
 
-            const handleMtPendingError: ((error: ApolloError) => void) = (
-              { graphQLErrors }: ApolloError,
-            ): void => {
-              graphQLErrors.forEach((error: GraphQLError): void => {
-                msgError(translate.t("group_alerts.error_textsad"));
-                Logger.warning("An error occurred approving vulnerabilities", error);
+            const pendingsHeader: IHeaderConfig[] = [
+              {
+                align: "left",
+                dataField: "where",
+                header: "Where",
+                width: "50%",
+                wrapped: true,
+              },
+              {
+                align: "left",
+                dataField: "specific",
+                header: translate.t("search_findings.tab_description.field"),
+                width: "15%",
+              },
+              {
+                align: "left",
+                dataField: "currentState",
+                formatter: statusFormatter,
+                header: translate.t("search_findings.tab_description.state"),
+                width: "15%",
+                wrapped: true,
+              },
+              {
+                align: "left",
+                dataField: "isNew",
+                header: translate.t("search_findings.tab_description.is_new"),
+                width: "12%",
+                wrapped: true,
+              }];
+            if (canGetAnalyst) {
+              pendingsHeader.push({
+                align: "left",
+                dataField: "analyst",
+                header: translate.t("search_findings.tab_description.analyst"),
+                width: "38%",
               });
+            }
+            const calculateIndex: ((row: IVulnRow, vulns: IVulnRow[]) => number) =
+              (row: IVulnRow, vulns: IVulnRow[]): number => (
+                vulns.reduce(
+                  (acc: number, vuln: IVulnRow, indexR: number) => (vuln.id === row.id ? indexR : acc), 0));
+            const handleOnSelectInputs: ((row: IVulnRow, isSelect: boolean) => void) =
+            (row: IVulnRow, isSelect: boolean): void => {
+              const index: number = calculateIndex(row, dataInputs);
+              if (isSelect) {
+                const newSet: Set<string> = new Set([...arraySelectedRows, row.id]);
+                setArraySelectedRows(Array.from(newSet));
+                setSelectRowsInputs([...selectRowsInputs, index]);
+              } else {
+                const newSet: Set<string> = new Set(arraySelectedRows.filter((rowId: string) => rowId !== row.id));
+                setArraySelectedRows(Array.from(newSet));
+                setSelectRowsInputs([...selectRowsInputs.filter((indexFilter: number) => indexFilter !== index)]);
+              }
+            };
+            const handleOnSelectAllInputs: ((isSelect: boolean, rows: IVulnRow[]) => void) =
+            (isSelect: boolean, rows: IVulnRow[]): void => {
+              const newIds: string[] = rows.map((row: IVulnRow) => row.id);
+              if (isSelect) {
+                const newSet: Set<string> = new Set([...arraySelectedRows, ...newIds]);
+                setArraySelectedRows(Array.from(newSet));
+                let newArray: number[] = calculateNewIndex(rows, dataInputs);
+                if (props.isRequestVerification === true) {
+                  newArray = newArray.filter((indexFilter: number) =>
+                    !_.includes(inputVulnsRemediated, indexFilter));
+                } else if (props.isVerifyRequest === true) {
+                  newArray = newArray.filter((indexFilter: number) =>
+                    !_.includes(inputVulnsVerified, indexFilter));
+                }
+                const newSetInputs: Set<number> = new Set([...selectRowsInputs, ...newArray]);
+                setSelectRowsInputs(Array.from(newSetInputs));
+              } else {
+                const newSet: Set<string> = new Set(arraySelectedRows);
+                newIds.forEach((deleteRowId: string) => newSet.delete(deleteRowId));
+                setArraySelectedRows(Array.from(newSet));
+                setSelectRowsInputs([]);
+              }
+            };
+            const handleOnSelectLines: ((row: IVulnRow, isSelect: boolean) => void) =
+            (row: IVulnRow, isSelect: boolean): void => {
+              const index: number = calculateIndex(row, dataLines);
+              if (isSelect) {
+                const newSet: Set<string> = new Set([...arraySelectedRows, row.id]);
+                setArraySelectedRows(Array.from(newSet));
+                setSelectRowsLines([...selectRowsLines, index]);
+              } else {
+                const newSet: Set<string> = new Set(arraySelectedRows.filter((rowId: string) => rowId !== row.id));
+                setArraySelectedRows(Array.from(newSet));
+                setSelectRowsLines([...selectRowsLines.filter((indexFilter: number) => indexFilter !== index)]);
+              }
+            };
+            const handleOnSelectAllLines: ((isSelect: boolean, rows: IVulnRow[]) => void) =
+            (isSelect: boolean, rows: IVulnRow[]): void => {
+              const newIds: string[] = rows.map((row: IVulnRow) => row.id);
+              if (isSelect) {
+                const newSet: Set<string> = new Set([...arraySelectedRows, ...newIds]);
+                setArraySelectedRows(Array.from(newSet));
+                let newArray: number[] = calculateNewIndex(rows, dataLines);
+                if (props.isRequestVerification === true) {
+                  newArray = newArray.filter((indexFilter: number) =>
+                    !_.includes(lineVulnsRemediated, indexFilter));
+                } else if (props.isVerifyRequest === true) {
+                  newArray = newArray.filter((indexFilter: number) =>
+                    !_.includes(lineVulnsVerified, indexFilter));
+                }
+                const newSetLines: Set<number> = new Set([...selectRowsLines, ...newArray]);
+                setSelectRowsLines(Array.from(newSetLines));
+              } else {
+                const newSet: Set<string> = new Set(arraySelectedRows);
+                newIds.forEach((deleteRowId: string) => newSet.delete(deleteRowId));
+                setArraySelectedRows(Array.from(newSet));
+                setSelectRowsLines([]);
+              }
+            };
+            const handleOnSelectPorts: ((row: IVulnRow, isSelect: boolean) => void) =
+            (row: IVulnRow, isSelect: boolean): void => {
+              const index: number = calculateIndex(row, dataPorts);
+              if (isSelect) {
+                const newSet: Set<string> = new Set([...arraySelectedRows, row.id]);
+                setArraySelectedRows(Array.from(newSet));
+                setSelectRowsPorts([...selectRowsPorts, index]);
+              } else {
+                const newSet: Set<string> = new Set(arraySelectedRows.filter((rowId: string) => rowId !== row.id));
+                setArraySelectedRows(Array.from(newSet));
+                setSelectRowsPorts([...selectRowsPorts.filter((indexFilter: number) => indexFilter !== index)]);
+              }
+            };
+            const handleOnSelectAllPorts: ((isSelect: boolean, rows: IVulnRow[]) => void) =
+            (isSelect: boolean, rows: IVulnRow[]): void => {
+              const newIds: string[] = rows.map((row: IVulnRow) => row.id);
+              if (isSelect) {
+                const newSet: Set<string> = new Set([...arraySelectedRows, ...newIds]);
+                setArraySelectedRows(Array.from(newSet));
+                let newArray: number[] = calculateNewIndex(rows, dataPorts);
+                if (props.isRequestVerification === true) {
+                  newArray = newArray.filter((indexFilter: number) =>
+                    !_.includes(portVulnsRemediated, indexFilter));
+                } else if (props.isVerifyRequest === true) {
+                  newArray = newArray.filter((indexFilter: number) =>
+                    !_.includes(portVulnsVerified, indexFilter));
+                }
+                const newSetPorts: Set<number> = new Set([...selectRowsPorts, ...newArray]);
+                setSelectRowsPorts(Array.from(newSetPorts));
+              } else {
+                const newSet: Set<string> = new Set(arraySelectedRows);
+                newIds.forEach((deleteRowId: string) => newSet.delete(deleteRowId));
+                setArraySelectedRows(Array.from(newSet));
+                setSelectRowsPorts([]);
+              }
+            };
+            const selectionModeInputs: SelectRowOptions = {
+              clickToSelect: false,
+              hideSelectColumn: !isEditing,
+              mode: "checkbox",
+              nonSelectable: props.isRequestVerification === true ? inputVulnsRemediated :
+              props.isVerifyRequest === true ? inputVulnsVerified : undefined,
+              onSelect: handleOnSelectInputs,
+              onSelectAll: handleOnSelectAllInputs,
+              selected: selectRowsInputs,
+            };
+            const selectionModeLines: SelectRowOptions = {
+              clickToSelect: false,
+              hideSelectColumn: !isEditing,
+              mode: "checkbox",
+              nonSelectable: props.isRequestVerification === true ? lineVulnsRemediated :
+              props.isVerifyRequest === true ? lineVulnsVerified : undefined,
+              onSelect: handleOnSelectLines,
+              onSelectAll: handleOnSelectAllLines,
+              selected: selectRowsLines,
+            };
+            const selectionModePorts: SelectRowOptions = {
+              clickToSelect: false,
+              hideSelectColumn: !isEditing,
+              mode: "checkbox",
+              nonSelectable: props.isRequestVerification === true ? portVulnsRemediated :
+              props.isVerifyRequest === true ? portVulnsVerified : undefined,
+              onSelect: handleOnSelectPorts,
+              onSelectAll: handleOnSelectAllPorts,
+              selected: selectRowsPorts,
             };
 
             return (
-              <Mutation
-                mutation={APPROVE_VULN_MUTATION}
-                onCompleted={handleMtPendingVulnRes}
-                onError={handleMtPendingError}
-              >
-                {(approveVulnerability: MutationFunction<IApproveVulnAttr, {
-                approvalStatus: boolean; findingId: string; uuid?: string; }>,
-                 ): JSX.Element => {
-
-                const handleApproveVulnerability: ((vulnInfo: { [key: string]: string } | undefined) =>
-                void) =
-                  (vulnInfo: { [key: string]: string } | undefined): void => {
-                    if (vulnInfo !== undefined) {
-                      approveVulnerability({ variables: {approvalStatus: true, findingId: props.findingId,
-                                                         uuid: vulnInfo.id}})
-                      .catch();
-                    }
-                };
-                const handleRejectVulnerability: ((vulnInfo: { [key: string]: string } | undefined) =>
-                void) =
-                  (vulnInfo: { [key: string]: string } | undefined): void => {
-                    if (vulnInfo !== undefined) {
-                      approveVulnerability({ variables: {approvalStatus: false, findingId: props.findingId,
-                                                         uuid: vulnInfo.id}})
-                      .catch();
-                    }
-                };
-
-                const handleApproveAllVulnerabilities: (() => void) = (): void => {
-                  approveVulnerability({ variables: {approvalStatus: true, findingId: props.findingId }})
-                  .catch();
-                };
-
-                const handleDeleteAllVulnerabilities: (() => void) = (): void => {
-                  approveVulnerability({ variables: {approvalStatus: false, findingId: props.findingId }})
-                  .catch();
-                };
-
-                const pendingsHeader: IHeaderConfig[] = [
-                  {
-                    align: "left",
-                    dataField: "where",
-                    header: "Where",
-                    width: "50%",
-                    wrapped: true,
-                  },
-                  {
-                    align: "left",
-                    dataField: "specific",
-                    header: translate.t("search_findings.tab_description.field"),
-                    width: "15%",
-                  },
-                  {
-                    align: "left",
-                    dataField: "currentState",
-                    formatter: statusFormatter,
-                    header: translate.t("search_findings.tab_description.state"),
-                    width: "15%",
-                    wrapped: true,
-                  },
-                  {
-                    align: "left",
-                    dataField: "isNew",
-                    header: translate.t("search_findings.tab_description.is_new"),
-                    width: "12%",
-                    wrapped: true,
-                  }];
-                if (canGetAnalyst) {
-                  pendingsHeader.push({
-                    align: "left",
-                    dataField: "analyst",
-                    header: translate.t("search_findings.tab_description.analyst"),
-                    width: "38%",
-                  });
-                }
-                if (_.isEqual(props.editModePending, true)) {
-                  pendingsHeader.push({
-                    align: "center",
-                    approveFunction: handleApproveVulnerability,
-                    dataField: "id",
-                    formatter: approveFormatter,
-                    header: translate.t("search_findings.tab_description.approve"),
-                    width: "12%",
-                  });
-                  pendingsHeader.push({
-                    align: "left",
-                    dataField: "id",
-                    deleteFunction: handleRejectVulnerability,
-                    formatter: deleteFormatter,
-                    header: translate.t("search_findings.tab_description.delete"),
-                    width: "12%",
-                  });
-                  }
-                const calculateIndex: ((row: IVulnRow, vulns: IVulnRow[]) => number) =
-                  (row: IVulnRow, vulns: IVulnRow[]): number => (
-                    vulns.reduce(
-                      (acc: number, vuln: IVulnRow, indexR: number) => (vuln.id === row.id ? indexR : acc), 0));
-                const handleOnSelectInputs: ((row: IVulnRow, isSelect: boolean) => void) =
-                (row: IVulnRow, isSelect: boolean): void => {
-                  const index: number = calculateIndex(row, dataInputs);
-                  if (isSelect) {
-                    const newSet: Set<string> = new Set([...arraySelectedRows, row.id]);
-                    setArraySelectedRows(Array.from(newSet));
-                    setSelectRowsInputs([...selectRowsInputs, index]);
-                  } else {
-                    const newSet: Set<string> = new Set(arraySelectedRows.filter((rowId: string) => rowId !== row.id));
-                    setArraySelectedRows(Array.from(newSet));
-                    setSelectRowsInputs([...selectRowsInputs.filter((indexFilter: number) => indexFilter !== index)]);
-                  }
-                };
-                const handleOnSelectAllInputs: ((isSelect: boolean, rows: IVulnRow[]) => void) =
-                (isSelect: boolean, rows: IVulnRow[]): void => {
-                  const newIds: string[] = rows.map((row: IVulnRow) => row.id);
-                  if (isSelect) {
-                    const newSet: Set<string> = new Set([...arraySelectedRows, ...newIds]);
-                    setArraySelectedRows(Array.from(newSet));
-                    let newArray: number[] = calculateNewIndex(rows, dataInputs);
-                    if (props.isRequestVerification === true) {
-                      newArray = newArray.filter((indexFilter: number) =>
-                        !_.includes(inputVulnsRemediated, indexFilter));
-                    } else if (props.isVerifyRequest === true) {
-                      newArray = newArray.filter((indexFilter: number) =>
-                        !_.includes(inputVulnsVerified, indexFilter));
-                    }
-                    const newSetInputs: Set<number> = new Set([...selectRowsInputs, ...newArray]);
-                    setSelectRowsInputs(Array.from(newSetInputs));
-                  } else {
-                    const newSet: Set<string> = new Set(arraySelectedRows);
-                    newIds.forEach((deleteRowId: string) => newSet.delete(deleteRowId));
-                    setArraySelectedRows(Array.from(newSet));
-                    setSelectRowsInputs([]);
-                  }
-                };
-                const handleOnSelectLines: ((row: IVulnRow, isSelect: boolean) => void) =
-                (row: IVulnRow, isSelect: boolean): void => {
-                  const index: number = calculateIndex(row, dataLines);
-                  if (isSelect) {
-                    const newSet: Set<string> = new Set([...arraySelectedRows, row.id]);
-                    setArraySelectedRows(Array.from(newSet));
-                    setSelectRowsLines([...selectRowsLines, index]);
-                  } else {
-                    const newSet: Set<string> = new Set(arraySelectedRows.filter((rowId: string) => rowId !== row.id));
-                    setArraySelectedRows(Array.from(newSet));
-                    setSelectRowsLines([...selectRowsLines.filter((indexFilter: number) => indexFilter !== index)]);
-                  }
-                };
-                const handleOnSelectAllLines: ((isSelect: boolean, rows: IVulnRow[]) => void) =
-                (isSelect: boolean, rows: IVulnRow[]): void => {
-                  const newIds: string[] = rows.map((row: IVulnRow) => row.id);
-                  if (isSelect) {
-                    const newSet: Set<string> = new Set([...arraySelectedRows, ...newIds]);
-                    setArraySelectedRows(Array.from(newSet));
-                    let newArray: number[] = calculateNewIndex(rows, dataLines);
-                    if (props.isRequestVerification === true) {
-                      newArray = newArray.filter((indexFilter: number) =>
-                        !_.includes(lineVulnsRemediated, indexFilter));
-                    } else if (props.isVerifyRequest === true) {
-                      newArray = newArray.filter((indexFilter: number) =>
-                        !_.includes(lineVulnsVerified, indexFilter));
-                    }
-                    const newSetLines: Set<number> = new Set([...selectRowsLines, ...newArray]);
-                    setSelectRowsLines(Array.from(newSetLines));
-                  } else {
-                    const newSet: Set<string> = new Set(arraySelectedRows);
-                    newIds.forEach((deleteRowId: string) => newSet.delete(deleteRowId));
-                    setArraySelectedRows(Array.from(newSet));
-                    setSelectRowsLines([]);
-                  }
-                };
-                const handleOnSelectPorts: ((row: IVulnRow, isSelect: boolean) => void) =
-                (row: IVulnRow, isSelect: boolean): void => {
-                  const index: number = calculateIndex(row, dataPorts);
-                  if (isSelect) {
-                    const newSet: Set<string> = new Set([...arraySelectedRows, row.id]);
-                    setArraySelectedRows(Array.from(newSet));
-                    setSelectRowsPorts([...selectRowsPorts, index]);
-                  } else {
-                    const newSet: Set<string> = new Set(arraySelectedRows.filter((rowId: string) => rowId !== row.id));
-                    setArraySelectedRows(Array.from(newSet));
-                    setSelectRowsPorts([...selectRowsPorts.filter((indexFilter: number) => indexFilter !== index)]);
-                  }
-                };
-                const handleOnSelectAllPorts: ((isSelect: boolean, rows: IVulnRow[]) => void) =
-                (isSelect: boolean, rows: IVulnRow[]): void => {
-                  const newIds: string[] = rows.map((row: IVulnRow) => row.id);
-                  if (isSelect) {
-                    const newSet: Set<string> = new Set([...arraySelectedRows, ...newIds]);
-                    setArraySelectedRows(Array.from(newSet));
-                    let newArray: number[] = calculateNewIndex(rows, dataPorts);
-                    if (props.isRequestVerification === true) {
-                      newArray = newArray.filter((indexFilter: number) =>
-                        !_.includes(portVulnsRemediated, indexFilter));
-                    } else if (props.isVerifyRequest === true) {
-                      newArray = newArray.filter((indexFilter: number) =>
-                        !_.includes(portVulnsVerified, indexFilter));
-                    }
-                    const newSetPorts: Set<number> = new Set([...selectRowsPorts, ...newArray]);
-                    setSelectRowsPorts(Array.from(newSetPorts));
-                  } else {
-                    const newSet: Set<string> = new Set(arraySelectedRows);
-                    newIds.forEach((deleteRowId: string) => newSet.delete(deleteRowId));
-                    setArraySelectedRows(Array.from(newSet));
-                    setSelectRowsPorts([]);
-                  }
-                };
-                const selectionModeInputs: SelectRowOptions = {
-                  clickToSelect: false,
-                  hideSelectColumn: !isEditing,
-                  mode: "checkbox",
-                  nonSelectable: props.isRequestVerification === true ? inputVulnsRemediated :
-                  props.isVerifyRequest === true ? inputVulnsVerified : undefined,
-                  onSelect: handleOnSelectInputs,
-                  onSelectAll: handleOnSelectAllInputs,
-                  selected: selectRowsInputs,
-                };
-                const selectionModeLines: SelectRowOptions = {
-                  clickToSelect: false,
-                  hideSelectColumn: !isEditing,
-                  mode: "checkbox",
-                  nonSelectable: props.isRequestVerification === true ? lineVulnsRemediated :
-                  props.isVerifyRequest === true ? lineVulnsVerified : undefined,
-                  onSelect: handleOnSelectLines,
-                  onSelectAll: handleOnSelectAllLines,
-                  selected: selectRowsLines,
-                };
-                const selectionModePorts: SelectRowOptions = {
-                  clickToSelect: false,
-                  hideSelectColumn: !isEditing,
-                  mode: "checkbox",
-                  nonSelectable: props.isRequestVerification === true ? portVulnsRemediated :
-                  props.isVerifyRequest === true ? portVulnsVerified : undefined,
-                  onSelect: handleOnSelectPorts,
-                  onSelectAll: handleOnSelectAllPorts,
-                  selected: selectRowsPorts,
-                };
-
-                return (
-                    <React.StrictMode>
-                      { dataInputs.length > 0
-                        ? <React.Fragment>
-                            <label className={style.vuln_title}>
-                              {translate.t("search_findings.tab_description.inputs")}
-                            </label>
-                            <DataTableNext
-                              id="inputsVulns"
-                              bordered={false}
-                              dataset={formattedDataInputs}
-                              defaultSorted={JSON.parse(_.get(sessionStorage, "vulnInputsSort", "{}"))}
-                              exportCsv={false}
-                              headers={inputsHeader}
-                              pageSize={10}
-                              search={false}
-                              selectionMode={selectionModeInputs}
-                              tableBody={style.tableBody}
-                              tableHeader={style.tableHeader}
-                            />
-                          </React.Fragment>
-                        : undefined
-                      }
-                      { dataLines.length > 0
-                        ? <React.Fragment>
-                            <label className={style.vuln_title}>
-                              {translate.t("search_findings.tab_description.line", {count: 2})}
-                            </label>
-                            <DataTableNext
-                              id="linesVulns"
-                              bordered={false}
-                              dataset={formattedDataLines}
-                              defaultSorted={JSON.parse(_.get(sessionStorage, "vulnLinesSort", "{}"))}
-                              exportCsv={false}
-                              headers={linesHeader}
-                              pageSize={10}
-                              search={false}
-                              selectionMode={selectionModeLines}
-                              tableBody={style.tableBody}
-                              tableHeader={style.tableHeader}
-                            />
-                          </React.Fragment>
-                        : undefined
-                      }
-                      { dataPorts.length > 0
-                        ? <React.Fragment>
-                            <label className={style.vuln_title}>
-                              {translate.t("search_findings.tab_description.port", {count: 2})}
-                            </label>
-                            <DataTableNext
-                              id="portsVulns"
-                              bordered={false}
-                              dataset={formattedDataPorts}
-                              defaultSorted={JSON.parse(_.get(sessionStorage, "vulnPortsSort", "{}"))}
-                              exportCsv={false}
-                              headers={portsHeader}
-                              pageSize={10}
-                              search={false}
-                              selectionMode={selectionModePorts}
-                              tableBody={style.tableBody}
-                              tableHeader={style.tableHeader}
-                            />
-                          </React.Fragment>
-                        : undefined
-                      }
-                      { dataPendingVulns.length > 0 ?
-                      <React.Fragment>
-                        <DataTableNext
-                          id="pendingVulns"
-                          bordered={false}
-                          dataset={formattedDataPendingVulns}
-                          exportCsv={false}
-                          headers={pendingsHeader}
-                          pageSize={10}
-                          search={false}
-                          tableBody={style.tableBody}
-                          tableHeader={style.tableHeader}
-                        />
-                        <Can do="backend_api_resolvers_vulnerability__do_approve_vulnerability">
-                          <ButtonToolbar className="pull-right">
-                            <ConfirmDialog title={translate.t("search_findings.tab_description.approve_all_vulns")}>
-                              {(confirm: IConfirmFn): React.ReactNode => {
-                                const handleClick: (() => void) = (): void => {
-                                  confirm(() => { handleApproveAllVulnerabilities(); });
-                                };
-
-                                return (
-                                  <Button onClick={handleClick}>
-                                    <FluidIcon icon="verified" />
-                                    {translate.t("search_findings.tab_description.approve_all")}
-                                  </Button>
-                                );
-                              }}
-                            </ConfirmDialog>
-                            <ConfirmDialog title={translate.t("search_findings.tab_description.delete_all_vulns")}>
-                              {(confirm: IConfirmFn): React.ReactNode => {
-                                const handleClick: (() => void) = (): void => {
-                                  confirm(() => { handleDeleteAllVulnerabilities(); });
-                                };
-
-                                return (
-                                  <Button onClick={handleClick}>
-                                    <FluidIcon icon="delete" />
-                                    {translate.t("search_findings.tab_description.delete_all")}
-                                  </Button>
-                                );
-                              }}
-                            </ConfirmDialog>
-                          </ButtonToolbar>
-                        </Can>
-                      </React.Fragment>
-                      : undefined }
-                      <DeleteVulnerabilityModal
-                        findingId={props.findingId}
-                        id={vulnerabilityId}
-                        open={deleteVulnModal}
-                        onClose={handleCloseDeleteVulnModal}
-                        onDeleteVulnRes={handleMtDeleteVulnRes}
+              <React.StrictMode>
+                { dataInputs.length > 0
+                  ? <React.Fragment>
+                      <label className={style.vuln_title}>
+                        {translate.t("search_findings.tab_description.inputs")}
+                      </label>
+                      <DataTableNext
+                        id="inputsVulns"
+                        bordered={false}
+                        dataset={formattedDataInputs}
+                        defaultSorted={JSON.parse(_.get(sessionStorage, "vulnInputsSort", "{}"))}
+                        exportCsv={false}
+                        headers={inputsHeader}
+                        pageSize={10}
+                        search={false}
+                        selectionMode={selectionModeInputs}
+                        tableBody={style.tableBody}
+                        tableHeader={style.tableHeader}
                       />
-                      { modalHidden ?
-                        <UpdateTreatmentModal
-                          btsUrl={props.btsUrl}
-                          findingId={props.findingId}
-                          lastTreatment={props.lastTreatment}
-                          projectName={props.projectName}
-                          vulnerabilities={vulnerabilitiesList}
-                          handleCloseModal={handleCloseTableSetClick}
-                        />
-                      : undefined }
-                      {props.editMode ? (
-                        <React.Fragment>
-                          <Can do="backend_api_resolvers_vulnerability__do_update_treatment_vuln">
-                            {renderButtonUpdateVuln()}
-                          </Can>
-                          <Can do="backend_api_resolvers_vulnerability__do_upload_file">
-                            <UploadVulnerabilites {...props} />
-                          </Can>
-                        </React.Fragment>
-                      ) : undefined}
-                      {props.isRequestVerification === true ? renderRequestVerification() : undefined}
-                      {renderVerifyRequest()}
-                    </React.StrictMode>
-                  );
-                }}
-              </Mutation>
+                    </React.Fragment>
+                  : undefined
+                }
+                { dataLines.length > 0
+                  ? <React.Fragment>
+                      <label className={style.vuln_title}>
+                        {translate.t("search_findings.tab_description.line", {count: 2})}
+                      </label>
+                      <DataTableNext
+                        id="linesVulns"
+                        bordered={false}
+                        dataset={formattedDataLines}
+                        defaultSorted={JSON.parse(_.get(sessionStorage, "vulnLinesSort", "{}"))}
+                        exportCsv={false}
+                        headers={linesHeader}
+                        pageSize={10}
+                        search={false}
+                        selectionMode={selectionModeLines}
+                        tableBody={style.tableBody}
+                        tableHeader={style.tableHeader}
+                      />
+                    </React.Fragment>
+                  : undefined
+                }
+                { dataPorts.length > 0
+                  ? <React.Fragment>
+                      <label className={style.vuln_title}>
+                        {translate.t("search_findings.tab_description.port", {count: 2})}
+                      </label>
+                      <DataTableNext
+                        id="portsVulns"
+                        bordered={false}
+                        dataset={formattedDataPorts}
+                        defaultSorted={JSON.parse(_.get(sessionStorage, "vulnPortsSort", "{}"))}
+                        exportCsv={false}
+                        headers={portsHeader}
+                        pageSize={10}
+                        search={false}
+                        selectionMode={selectionModePorts}
+                        tableBody={style.tableBody}
+                        tableHeader={style.tableHeader}
+                      />
+                    </React.Fragment>
+                  : undefined
+                }
+                { dataPendingVulns.length > 0 ?
+                <React.Fragment>
+                  <DataTableNext
+                    id="pendingVulns"
+                    bordered={false}
+                    dataset={formattedDataPendingVulns}
+                    exportCsv={false}
+                    headers={pendingsHeader}
+                    pageSize={10}
+                    search={false}
+                    tableBody={style.tableBody}
+                    tableHeader={style.tableHeader}
+                  />
+                </React.Fragment>
+                : undefined }
+                <DeleteVulnerabilityModal
+                  findingId={props.findingId}
+                  id={vulnerabilityId}
+                  open={deleteVulnModal}
+                  onClose={handleCloseDeleteVulnModal}
+                  onDeleteVulnRes={handleMtDeleteVulnRes}
+                />
+                { modalHidden ?
+                  <UpdateTreatmentModal
+                    btsUrl={props.btsUrl}
+                    findingId={props.findingId}
+                    lastTreatment={props.lastTreatment}
+                    projectName={props.projectName}
+                    vulnerabilities={vulnerabilitiesList}
+                    handleCloseModal={handleCloseTableSetClick}
+                  />
+                : undefined }
+                {props.editMode ? (
+                  <React.Fragment>
+                    <Can do="backend_api_resolvers_vulnerability__do_update_treatment_vuln">
+                      {renderButtonUpdateVuln()}
+                    </Can>
+                    <Can do="backend_api_resolvers_vulnerability__do_upload_file">
+                      <UploadVulnerabilites {...props} />
+                    </Can>
+                  </React.Fragment>
+                ) : undefined}
+                {props.isRequestVerification === true ? renderRequestVerification() : undefined}
+                {renderVerifyRequest()}
+              </React.StrictMode>
             );
           } else { return <React.Fragment />; }
         }}

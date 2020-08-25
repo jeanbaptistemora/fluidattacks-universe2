@@ -61,18 +61,6 @@ export const UPDATE_TREATMENT_MUTATION: DocumentNode = gql`
   }
   `;
 
-export const APPROVE_VULN_MUTATION: DocumentNode = gql`
-  mutation ApproveVulnMutation($uuid: String, $findingId: String!, $approvalStatus: Boolean!) {
-    approveVulnerability (
-      findingId: $findingId,
-      approvalStatus: $approvalStatus,
-      uuid: $uuid
-    ) {
-      success
-    }
-  }
-  `;
-
 export const UPLOAD_VULNERABILITIES: DocumentNode = gql`
   mutation UploadVulnerabilites ($file: Upload!, $findingId: String!){
     uploadFile(findingId: $findingId, file: $file) {
