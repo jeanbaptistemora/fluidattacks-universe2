@@ -165,7 +165,7 @@ describe("Environments", () => {
       .findWhere((element: ReactWrapper) => element.contains("Add"))
       .at(0);
     addButton.simulate("click");
-    const addEnvironmentsModal: ReactWrapper = wrapper.find("addEnvironmentsModal");
+    const addEnvironmentsModal: ReactWrapper = wrapper.find("AddEnvironmentsModal");
     const environmentInput: ReactWrapper = addEnvironmentsModal
       .find({name: "resources[0].urlEnv", type: "text"})
       .at(0)
@@ -308,7 +308,7 @@ describe("Environments", () => {
       .findWhere((element: ReactWrapper) => element.contains("Add"))
       .at(0);
     addButton.simulate("click");
-    const addEnvironmentsModal: ReactWrapper = wrapper.find("addEnvironmentsModal");
+    const addEnvironmentsModal: ReactWrapper = wrapper.find("AddEnvironmentsModal");
     const environmentInput: ReactWrapper = addEnvironmentsModal
       .find({name: "resources[0].urlEnv", type: "text"})
       .at(0)

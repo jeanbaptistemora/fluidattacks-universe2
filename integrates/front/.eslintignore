@@ -5,6 +5,6 @@ src/scenes/Dashboard/**/*.*
 !src/scenes/Dashboard/**/hooks.ts
 !src/scenes/Dashboard/*.*
 !src/scenes/Dashboard/components/APITokenModal/**
-!src/scenes/Dashboard/components/AddEnvironmentsModal/index.spec.tsx
+!src/scenes/Dashboard/components/AddEnvironmentsModal/**
 src/**/*.css.d.ts
 src/**/*.d.ts

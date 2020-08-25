@@ -200,6 +200,11 @@
       }
     ],
     /*
+     * This rule has been deprecated in favor of
+     * jsx-a11y/label-has-associated-control.
+     */
+    "jsx-a11y/label-has-for": "off",
+    /*
      * This rule requires the type attribute to be a string literal, because of
      * that it has a conflic with react/jsx-curly-brace-presence.
      */

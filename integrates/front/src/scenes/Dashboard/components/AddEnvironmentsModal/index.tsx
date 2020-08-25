@@ -1,100 +1,51 @@
-/* tslint:disable jsx-no-multiline-js
- * JSX-NO-MULTILINE-JS: Disabling this rule is necessary for the sake of
- * readability of the code that dynamically renders the fields
- */
-
-import React from "react";
-import { ButtonToolbar, Col, Glyphicon, Row } from "react-bootstrap";
-import { Field, FieldArray, InjectedFormProps, WrappedFieldArrayProps } from "redux-form";
-import { ConfigurableValidator } from "revalidate";
-import { Button } from "../../../../components/Button/index";
-import { Modal } from "../../../../components/Modal/index";
-import { TextArea } from "../../../../utils/forms/fields";
-import { translate } from "../../../../utils/translations/translate";
-import { maxLength, required, validField } from "../../../../utils/validations";
+import { Button } from "../../../../components/Button";
+import { ButtonToolbar } from "react-bootstrap";
+import { EnvironmentFields } from "./environmentFields";
 import { GenericForm } from "../GenericForm";
+import { IEnvironmentsAttr } from "../../containers/ProjectSettingsView/types";
+import { Modal } from "../../../../components/Modal";
+import React from "react";
+import { translate } from "../../../../utils/translations/translate";
+import { FieldArray, InjectedFormProps } from "redux-form";
 
-export interface IAddEnvironmentsModalProps {
+interface IAddEnvironmentsModalProps {
   isOpen: boolean;
-  onClose(): void;
-  onSubmit(values: {}): void;
+  onClose: () => void;
+  onSubmit: (values: { resources: IEnvironmentsAttr[] }) => void;
 }
 
-const maxEnvUrlLength: ConfigurableValidator = maxLength(400);
-const renderEnvsFields: React.FC<WrappedFieldArrayProps> = (props: WrappedFieldArrayProps): JSX.Element => {
-  const addItem: (() => void) = (): void => {
-    props.fields.push({ urlEnv: "" });
-  };
+const AddEnvironmentsModal: React.FC<IAddEnvironmentsModalProps> = (
+  props: IAddEnvironmentsModalProps
+): JSX.Element => {
+  const { onClose, onSubmit, isOpen } = props;
 
   return (
-    <React.Fragment>
-      {props.fields.map((fieldName: string, index: number) => {
-        const removeItem: (() => void) = (): void => { props.fields.remove(index); };
-
-        return (
-          <Row key={index}>
-            <Col md={10}>
-              <label>
-                <label style={{ color: "#f22" }}>* </label>
-                {translate.t("search_findings.tab_resources.environment.text")}
-              </label>
-              <Field
-                component={TextArea}
-                name={`${fieldName}.urlEnv`}
-                type="text"
-                validate={[required, validField, maxEnvUrlLength]}
-              />
-            </Col>
-            {index > 0 ? (
-              <Col md={2} style={{ marginTop: "40px" }}>
-                <Button bsStyle="primary" onClick={removeItem}>
-                  <Glyphicon glyph="trash" />
-                </Button>
-              </Col>
-            ) : undefined}
-          </Row>
-        );
-      })}
-      <br />
-      <Button onClick={addItem}>
-        <Glyphicon glyph="plus" />
-      </Button>
-    </React.Fragment>
-  );
-};
-
-const addEnvironmentsModal: React.FC<IAddEnvironmentsModalProps> = (props: IAddEnvironmentsModalProps): JSX.Element => {
-  const { onClose, onSubmit } = props;
-
-  return (
-    <React.StrictMode>
-      <Modal
-        open={props.isOpen}
-        headerTitle={translate.t("search_findings.tab_resources.modal_env_title")}
-        footer={<div />}
+    <Modal
+      footer={<div />}
+      headerTitle={translate.t("search_findings.tab_resources.modal_env_title")}
+      open={isOpen}
+    >
+      <GenericForm
+        initialValues={{ resources: [{ urlEnv: "" }] }}
+        name={"addEnvs"}
+        onSubmit={onSubmit}
       >
-        <GenericForm
-          name="addEnvs"
-          initialValues={{ resources: [{ urlEnv: "" }] }}
-          onSubmit={onSubmit}
-        >
-          {({ pristine }: InjectedFormProps): JSX.Element => (
-            <React.Fragment>
-              <FieldArray name="resources" component={renderEnvsFields} />
-              <ButtonToolbar className="pull-right">
-                <Button onClick={onClose}>
-                  {translate.t("confirmmodal.cancel")}
-                </Button>
-                <Button type="submit" disabled={pristine}>
-                  {translate.t("confirmmodal.proceed")}
-                </Button>
-              </ButtonToolbar>
-            </React.Fragment>
-          )}
-        </GenericForm>
-      </Modal>
-    </React.StrictMode>
+        {({ pristine }: InjectedFormProps): JSX.Element => (
+          <React.Fragment>
+            <FieldArray component={EnvironmentFields} name={"resources"} />
+            <ButtonToolbar bsClass={"btn-toolbar pull-right"}>
+              <Button onClick={onClose}>
+                {translate.t("confirmmodal.cancel")}
+              </Button>
+              <Button disabled={pristine} type={"submit"}>
+                {translate.t("confirmmodal.proceed")}
+              </Button>
+            </ButtonToolbar>
+          </React.Fragment>
+        )}
+      </GenericForm>
+    </Modal>
   );
 };
 
-export { addEnvironmentsModal as AddEnvironmentsModal };
+export { IAddEnvironmentsModalProps, AddEnvironmentsModal };

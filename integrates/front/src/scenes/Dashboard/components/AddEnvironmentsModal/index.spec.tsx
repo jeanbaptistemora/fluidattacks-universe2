@@ -1,4 +1,5 @@
 import { AddEnvironmentsModal } from ".";
+import { EnvironmentFields } from "./environmentFields";
 import { Provider } from "react-redux";
 import React from "react";
 import store from "../../../../store";
@@ -41,9 +42,9 @@ describe("Add Environments modal", (): void => {
       </Provider>
     );
 
-    expect(wrapper.find("renderEnvsFields").find("textarea")).toHaveLength(1);
+    expect(wrapper.find(EnvironmentFields).find("textarea")).toHaveLength(1);
     expect(
-      wrapper.find("renderEnvsFields").find(".glyphicon-plus")
+      wrapper.find(EnvironmentFields).find(".glyphicon-plus")
     ).toHaveLength(1);
   });
 
@@ -61,17 +62,17 @@ describe("Add Environments modal", (): void => {
     );
 
     const addButton: ReactWrapper = wrapper
-      .find("renderEnvsFields")
+      .find(EnvironmentFields)
       .find(".glyphicon-plus");
     addButton.simulate("click");
 
-    expect(wrapper.find("renderEnvsFields").find("textarea")).toHaveLength(2);
+    expect(wrapper.find(EnvironmentFields).find("textarea")).toHaveLength(2);
 
     const removeButton: ReactWrapper = wrapper
-      .find("renderEnvsFields")
+      .find(EnvironmentFields)
       .find(".glyphicon-trash");
     removeButton.simulate("click");
 
-    expect(wrapper.find("renderEnvsFields").find("textarea")).toHaveLength(1);
+    expect(wrapper.find(EnvironmentFields).find("textarea")).toHaveLength(1);
   });
 });
