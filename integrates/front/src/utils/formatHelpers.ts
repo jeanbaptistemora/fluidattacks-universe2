@@ -144,7 +144,7 @@ const formatTreatment: (treatment: string, findingState: string) => string = (
   findingState: string
 ): string => {
   const treatmentParameters: Record<string, string> = {
-    "-": findingState === "closed" ? "-" : "-",
+    "-": "-",
     ACCEPTED:
       findingState === "open"
         ? "search_findings.tab_description.treatment.accepted"
