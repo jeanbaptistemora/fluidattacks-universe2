@@ -508,7 +508,6 @@ function job_integrates_renew_certificates {
     review-apps/tls.yaml
   )
   local vars_to_replace_in_manifest=(
-    CI_PROJECT_NAME
     DNS_ZONE_ID
     RA_ACCESS_KEY
   )
@@ -522,7 +521,7 @@ function job_integrates_renew_certificates {
         &&  aws eks update-kubeconfig --name FluidServes --region us-east-1 \
         &&  kubectl config \
               set-context "$(kubectl config current-context)" \
-              --namespace="${CI_PROJECT_NAME}" \
+              --namespace=integrates \
         &&  echo '[INFO] Computing secrets' \
         &&  RA_ACCESS_KEY="${AWS_ACCESS_KEY_ID}" \
         &&  echo '[INFO] Replacing secrets' \
@@ -1114,7 +1113,7 @@ function job_integrates_infra_secret_management_test {
 }
 
 function job_integrates_rotate_jwt_token {
-  local integrates_repo_id='4620828'
+  local integrates_repo_id='20741933'
   local var_name='JWT_TOKEN'
   local var_value
   local bytes_of_entropy='32'
@@ -1232,7 +1231,7 @@ function job_integrates_deploy_k8s_back_ephemeral {
   &&  aws eks update-kubeconfig --name FluidServes --region us-east-1 \
   &&  kubectl config \
         set-context "$(kubectl config current-context)" \
-        --namespace="${CI_PROJECT_NAME}" \
+        --namespace=integrates \
   &&  echo '[INFO] Computing environment variables' \
   &&  B64_AWS_ACCESS_KEY_ID=$(
         echo -n "${AWS_ACCESS_KEY_ID}" | base64 --wrap=0) \
@@ -1340,7 +1339,7 @@ function job_integrates_deploy_k8s_stop_ephemeral {
   &&  aws eks update-kubeconfig --name FluidServes --region us-east-1 \
   &&  kubectl config \
         set-context "$(kubectl config current-context)" \
-        --namespace="${CI_PROJECT_NAME}" \
+        --namespace=integrates \
   &&  echo '[INFO] Deleting deployments' \
   &&  kubectl delete deployment "review-${CI_COMMIT_REF_SLUG}" \
   &&  kubectl delete service "service-${CI_COMMIT_REF_SLUG}" \

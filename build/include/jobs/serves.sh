@@ -517,7 +517,7 @@ function job_serves_rotate_keys_user_provision_integrates_dev {
   local resource_to_taint='aws_iam_access_key.integrates-dev-key'
   local output_key_id_name='integrates-dev-secret-key-id'
   local output_secret_key_name='integrates-dev-secret-key'
-  local gitlab_repo_id='4620828'
+  local gitlab_repo_id='20741933'
   local gitlab_key_id_name='DEV_AWS_ACCESS_KEY_ID'
   local gitlab_secret_key_name='DEV_AWS_SECRET_ACCESS_KEY'
   local gitlab_masked='true'
@@ -543,7 +543,7 @@ function job_serves_rotate_keys_user_provision_integrates_prod {
   local resource_to_taint='aws_iam_access_key.integrates-prod-key'
   local output_key_id_name='integrates-prod-secret-key-id'
   local output_secret_key_name='integrates-prod-secret-key'
-  local gitlab_repo_id='4620828'
+  local gitlab_repo_id='20741933'
   local gitlab_key_id_name='PROD_AWS_ACCESS_KEY_ID'
   local gitlab_secret_key_name='PROD_AWS_SECRET_ACCESS_KEY'
   local gitlab_masked='true'
@@ -625,7 +625,7 @@ function job_serves_rotate_keys_user_provision_serves {
   local resource_to_taint='aws_iam_access_key.dev-key'
   local output_key_id_name='dev-secret-key-id'
   local output_secret_key_name='dev-secret-key'
-  local gitlab_repo_id='4620828'
+  local gitlab_repo_id='20741933'
   local gitlab_key_id_name='SERVES_DEV_AWS_ACCESS_KEY_ID'
   local gitlab_secret_key_name='SERVES_DEV_AWS_SECRET_ACCESS_KEY'
   local gitlab_masked='true'
@@ -648,7 +648,7 @@ function job_serves_rotate_keys_user_provision_serves {
 
 function job_serves_rotate_keys_user_provision_observes {
   local terraform_dir='services/user-provision/observes/terraform'
-  local gitlab_repo_id='4620828'
+  local gitlab_repo_id='20741933'
 
   # Dev
   local dev_resource_to_taint='aws_iam_access_key.dev-key'

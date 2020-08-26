@@ -3,7 +3,7 @@ https://img.shields.io/pypi/v/skims?color=success&label=Release&style=flat-squar
 https://pypi.org/project/skims)
 [![Documentation](
 https://img.shields.io/badge/Documentation-click_here!-success?style=flat-square)](
-https://fluidattacks.gitlab.io/integrates/skims)
+https://fluidattacks.gitlab.io/product/skims)
 [![Downloads](
 https://img.shields.io/pypi/dm/skims?label=Downloads&style=flat-square)](
 https://pypi.org/project/skims)
@@ -12,4 +12,4 @@ https://img.shields.io/pypi/status/skims?label=Status&style=flat-square)](
 https://pypi.org/project/skims)
 [![License](
 https://img.shields.io/pypi/l/skims?color=success&label=License&style=flat-square)](
-https://gitlab.com/fluidattacks/integrates/-/blob/master/LICENSE)
+https://gitlab.com/fluidattacks/product/-/blob/master/LICENSE)

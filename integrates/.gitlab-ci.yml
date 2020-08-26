@@ -249,7 +249,7 @@ integrates_deploy_k8s_back_ephemeral:
   retry: 1
   environment:
     name: "ephemeral/$CI_COMMIT_REF_SLUG"
-    url: "https://$CI_COMMIT_REF_SLUG.$CI_PROJECT_NAME.env.fluidattacks.com/integrates"
+    url: "https://$CI_COMMIT_REF_SLUG.integrates.env.fluidattacks.com/integrates"
     on_stop: integrates_deploy_k8s_stop_ephemeral
 
 # Take into account that changing this job name impacts the rotation of

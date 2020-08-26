@@ -34,7 +34,7 @@ packages = [
   { include = "zone", from = "skims" },
 ]
 readme = "./README.md"
-repository = "https://gitlab.com/fluidattacks/integrates/-/tree/master/skims"
+repository = "https://gitlab.com/fluidattacks/product/-/tree/master/skims"
 version = "1.0.0"
 
 [tool.poetry.dependencies]

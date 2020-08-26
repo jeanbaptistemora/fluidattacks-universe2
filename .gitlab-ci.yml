@@ -95,7 +95,7 @@ common_lint_commit_msg:
   <<: *common_in_dev_branch
   stage: lint-code
 
-reviews:
+.reviews:
   <<: *with_nix
   <<: *common_in_mrs
   stage: merge-request

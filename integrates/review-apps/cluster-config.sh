@@ -41,7 +41,7 @@ aws_login "$ENV_NAME"
 # Set namespace preference for kubectl commands
 echo-blue "Setting namespace preferences..."
 kubectl config set-context \
-  "$(kubectl config current-context)" --namespace="$CI_PROJECT_NAME"
+  "$(kubectl config current-context)" --namespace=integrates
 
 # Check secret to pass env variables to container
 export DATE="$(date)"

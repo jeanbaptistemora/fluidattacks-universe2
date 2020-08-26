@@ -29,9 +29,9 @@ spec:
     - dns01:
         provider: route53
       domains:
-        - '*.__CI_PROJECT_NAME__.env.fluidattacks.com'
+        - '*.integrates.env.fluidattacks.com'
   dnsNames:
-  - '*.__CI_PROJECT_NAME__.env.fluidattacks.com'
+  - '*.integrates.env.fluidattacks.com'
   issuerRef:
     kind: Issuer
     name: letsencrypt

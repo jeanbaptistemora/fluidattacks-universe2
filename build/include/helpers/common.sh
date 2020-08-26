@@ -215,7 +215,7 @@ function reg_registry_id {
   # e.g reg_registry_id deps-base
 
   local registry_name="$1"
-  local integrates_id='4620828'
+  local integrates_id='20741933'
   local check_url
 
       check_url="https://gitlab.com/api/v4/projects/${integrates_id}/registry/repositories" \
@@ -232,7 +232,7 @@ function reg_registry_delete {
   local delete_url
 
       registry_id=$(reg_registry_id "${registry_name}") \
-  &&  delete_url="https://gitlab.com/api/v4/projects/4620828/registry/repositories/${registry_id}" \
+  &&  delete_url="https://gitlab.com/api/v4/projects/20741933/registry/repositories/${registry_id}" \
   &&  curl --request DELETE --header "PRIVATE-TOKEN: ${token}" "${delete_url}"
 }
 

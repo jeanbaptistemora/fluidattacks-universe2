@@ -7,7 +7,7 @@ packages = [
   { include = "forces", from = "." }
 ]
 readme = "./README.md"
-repository = "https://gitlab.com/fluidattacks/integrates/-/tree/master/forces"
+repository = "https://gitlab.com/fluidattacks/product/-/tree/master/forces"
 version = "1.0.0"
 
 [tool.poetry.dependencies]

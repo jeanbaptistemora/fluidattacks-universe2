@@ -16,4 +16,4 @@ Choose one of the methods presented bellow and then run Reviews: `reviews --help
 1.  Install Nix as explained [here](https://nixos.org/download.html).
 1.  Run the following command:
 
-    `nix-env -i product -f https://gitlab.com/fluidattacks/integrates/-/archive/master/integrates-master.tar.gz`
+    `nix-env -i product -f https://gitlab.com/fluidattacks/product/-/archive/master/product-master.tar.gz`

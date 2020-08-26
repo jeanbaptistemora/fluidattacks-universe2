@@ -6,7 +6,7 @@ Issues are public, and therefore should not contain confidential information.
 Before opening a new issue, make sure to search for keywords in the issues
 filtered by the "bug" label:
 
-- https://gitlab.com/fluidattacks/integrates/-/issues?label_name%5B%5D=bug
+- https://gitlab.com/fluidattacks/product/-/issues?label_name%5B%5D=bug
 
 and verify the issue you're about to submit isn't a duplicate.
 -->

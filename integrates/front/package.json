@@ -4,12 +4,12 @@
   "description": "",
   "repository": {
     "type": "git",
-    "url": "git+https://gitlab.com/fluidattacks/integrates.git"
+    "url": "git+https://gitlab.com/fluidattacks/product.git"
   },
   "author": "development@fluidattacks.com",
   "license": "MPL-2.0",
   "bugs": {
-    "url": "https://gitlab.com/fluidattacks/integrates/issues"
+    "url": "https://gitlab.com/fluidattacks/product/issues"
   },
   "dependencies": {
     "@apollo/react-common": "3.1.4",

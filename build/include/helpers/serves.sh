@@ -1,7 +1,7 @@
 # shellcheck shell=bash
 
 function helper_serves_deploy_integrates {
-  local integrates_id='4620828'
+  local integrates_id='20741933'
 
       helper_serves_aws_login prod \
   &&  sops_env secrets-prod.yaml default PRODUCT_PIPELINE_TOKEN \
