@@ -171,10 +171,6 @@ def validate_release_date(finding: Dict[str, str]) -> bool:
     return result
 
 
-def cloudwatch_log(request, msg: str) -> None:
-    asyncio.create_task(cloudwatch_log_queue(request, msg))
-
-
 def cloudwatch_log_sync(request, msg: str) -> None:
     try:
         user_data = get_jwt_content(request)
@@ -192,7 +188,7 @@ def cloudwatch_log_sync(request, msg: str) -> None:
     LOGGER_TRANSACTIONAL.info(':'.join(info), **NOEXTRA)
 
 
-async def cloudwatch_log_queue(request, msg: str) -> None:
+def cloudwatch_log(request, msg: str) -> None:
     user_data = get_jwt_content(request)
     info = [str(user_data['user_email'])]
     for parameter in ['project', 'findingid']:
@@ -569,23 +565,22 @@ def dict_to_object_field_node(input_dict: Dict[str, Any]) -> \
 
 async def get_filtered_elements(elements, filters) -> List[ProjectType]:
     """Return filtered findings accorging to filters."""
-    # This should be called with all() in the future, but there's a known bug
-    # of Python that currently prevents it: https://bugs.python.org/issue39562
-    filtered = []
-    if filters:
-        for element in elements:
-            hit_counter = 0
-            len_filters = len(filters)
-            for filt in filters:
-                filt_key = camelcase_to_snakecase(filt.name.value)
-                coro_result = await element[filt_key]
-                if str(coro_result) == str(filt.value.value):
-                    hit_counter += 1
-            if hit_counter == len_filters:
-                filtered.append(element)
-    else:
-        filtered = elements
-    return filtered
+
+    async def satisfies_filter(element) -> bool:
+        hits = 0
+        for filter_ in filters:
+            result = await element[camelcase_to_snakecase(filter_.name.value)]
+            if str(result) == str(filter_.value.value):
+                hits += 1
+        return hits == len(filters)
+
+    conditions = await collect(map(satisfies_filter, elements))
+
+    return [
+        element
+        for element, condition in zip(elements, conditions)
+        if condition
+    ]
 
 
 def check_concurrent_sessions(email: str, session_key: str):

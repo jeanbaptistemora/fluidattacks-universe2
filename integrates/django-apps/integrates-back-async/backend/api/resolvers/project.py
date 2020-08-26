@@ -219,7 +219,10 @@ async def _get_findings(
     ])
     return cast(
         List[Dict[str, FindingType]],
-        await util.get_filtered_elements(findings, filters)
+        (
+            await util.get_filtered_elements(findings, filters)
+            if filters else findings
+        )
     )
 
 
@@ -1225,4 +1228,7 @@ async def _get_alive_projects(
         for project in alive_projects
     ])
 
-    return await util.get_filtered_elements(projects, filters_ofn)
+    return (
+        await util.get_filtered_elements(projects, filters_ofn)
+        if filters_ofn else projects
+    )
