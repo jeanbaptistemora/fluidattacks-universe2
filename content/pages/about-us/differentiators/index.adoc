@@ -12,7 +12,7 @@ We're an Ethical Hacking and Pentesting company
 offering services to identify cybersecurity vulnerabilities.
 In the following table, we outline what differentiates us from our competitors:
 
-.Comparative table: Pentesting vs Vulnerability Analysis
+.Comparative table
 [role="tb-row"]
 [cols="15,45,40"]
 |====
@@ -20,127 +20,31 @@ In the following table, we outline what differentiates us from our competitors:
 | *Fluid Attacks*
 | *Others*
 
-a|==== Finding Types
-a|* Of a specific business impact.
-* Insecure programming practices.
-* Alignment with security standards and regulations.
-a|* Based on signatures.
-* Syntax-based.
+a|==== Precision
+| Our combination of technology and human expertise
+ensures that all of our reported findings are vulnerabilities
+– *0%* false positives (lies).
+| They report about *35%* false positives.<<f1 ,*>>
 
-a|==== Type of Evidence
-a|{yes}  Some of the most relevant evidence is:
+a|==== Completeness
+| Thanks to our combination of technology and human expertise,
+we have a *0%* false negatives (omissions).
+| They may reach a rate of 80% false negatives.<<f1 ,*>>
 
-* Images of the attack with explanatory annotations.
-* Animated `GIFs` of the attack.
-a|{no} In the case of other suppliers:
-
-* Images without annotations.
-* Copy-paste of test outcomes which may include false positives.
-
-a|==== Zero Day Vulnerabilities
-| {yes} Yes link:../../services/continuous-hacking/hacking-tech/[^20^]
-| {no} No
-
-a|==== False Positives
-| {yes} 0%
-| {no} ~20%
-
-a|==== Exploitation
-a|{yes} Yes, as long as we have
-link:../../services/continuous-hacking/break-build/[^21^]
-link:../../services/one-shot-hacking/infection/[^22^]:
-
-* An available environment.
-* The appropriate authorization.
-| {no} No
-
-a|==== Custom Exploits
-| {yes} Using our own exploitation engine
-[button]#link:../../asserts/[Asserts]#.
-| {no} Unable to create and execute exploits.
-
-a|==== link:../../blog/importance-pentesting/#diagram[Correlation]
-| {yes} By combining vulnerabilities `A` and `B` we are able to find
-a new vulnerability `C` of greater impact, which may compromise more registers.
-| {no} Only detects vulnerabilities `A` and `B`
-but is not able to correlate them.
-
-a|==== Infection
-| {yes} In our [button]#link:../../services/one-shot-hacking/infection/[One-shot hacking]#
-service we infect stations and critical servers
-using cyberweapons.
-| {no} Don't infect or dispose of cyberweapons.
-
-a|==== Compromised Records
-a|{yes} After discovering a vulnerability and exploiting it,
-we extract the critical business information
-which indicates a high impact level.
-This allows us to show the severity of any individual vulnerability on:
-
-* Users.
-* Passwords.
-* Wages.
-* Personal IDs.
-* Credit card numbers.
-* Files in hard disk.
-* Central repositories without password.
-
-| {no} No record extraction
-
-a|==== Cycles
-| {yes} Multiple cycles in our service: +
-{sp} +
-[button]#link:../../services/continuous-hacking/[Continuous Hacking]#
-link:../../services/continuous-hacking/hacking-tech/[^23^].
-| {no}  Only 1.
-
-a|==== link:../../blog/replaced-machines/[Escapes]
-| {yes} 0% on the agreed link:#scope[scope].
-| {no} ~65% on the agreed link:#scope[scope].
-
-a|==== Remediation
-a|{yes} During the project you can request clarifications
-directly from our hackers via
-[button]#link:../../products/integrates/[Integrates]#.
-link:../../services/continuous-hacking/remediation/[^24^]
-link:../../services/one-shot-hacking/[^25^].
-| {no} No support during the remediation phase.
-
-a|==== Deliverables
-a|{yes} Real-time documentation web system
-[button]#link:../../products/integrates/[Integrates]#
-which allows our customers to auto-generate and supervise
-every system from day 1 of the project
-link:../../services/continuous-hacking/vuln-manage/[^26^]
-link:../../services/one-shot-hacking/vuln-manage/[^27^]:
-
-* Executive report in `PDF`.
-* Technical report in `XLS`.
-* Technical report in `PDF`.
-* Graphics and metrics illustrating the system's security status.
-
-a|{no} Available only at the end of the project
-because it is manually generated.
-
-* Word document.
-* Tool reports without discarding false positives.
-
-a|==== End
-|{yes} Our service ends when the agreed upon scope is completed,
-without any increase in cost to you.
-link:../../services/continuous-hacking/critical-info/[^28^]
-link:../../services/one-shot-hacking/critical-info/[^29^]
-|{no} The service ends
-when a prior agreed upon time limit for the project runs out.
-Therefore, the scope and coverage
-are ultimately not defined and therefore unknown.
-
-a|==== Pricing
-| {yes} Fixed, according to the previously agreed upon scope.
-| {no} Variable, depending on time and materials.
+a|==== All in one
+| We provide comprehensive testing through a single solution,
+including the following techniques: `SAST`, `DAST`, `IAST`, `SCA`,
+Pentesting, DevSecOps, link:../../blog/fuzzy-bugs-online/[fuzzing], manual code review,
+link:../../blog/reversing-mortals/[reversing] (if the source is not given), false positive elimination,
+exploitation with public, private, and custom exploits, user enumeration,
+password guessing and cracking, and trojan infection.
+| Their standard solutions do not include all techniques.
+It is common that some have to be acquired separately.
 
 |====
 {sp} +
+[[f1]] * Data from a *3-year* experiment run by `Fluid Attacks`
+on *6* commercial tools and *6* open source tools.
+
 Do you want more information about our services?
-Do not hesitate to
-[button]#link:../../contact-us/[contact us]#.
+Do not hesitate to link:../../contact-us/[contact us].
