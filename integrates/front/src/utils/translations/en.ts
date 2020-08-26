@@ -1869,5 +1869,6 @@ export const enTranslations: ResourceKey = {
     tags: "This field can only contain alphanumeric characters and dashes",
     valid_date: "The date must be below six months",
     valid_date_token: "The date must be below six months",
+    valid_session_date: "The session has expired",
   },
 };

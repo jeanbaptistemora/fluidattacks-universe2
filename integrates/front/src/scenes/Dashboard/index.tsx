@@ -92,13 +92,16 @@ export const Dashboard: React.FC = (): JSX.Element => {
     authzPermissionsContext
   );
 
-  const { data: expDate, loading: expDateL } = useQuery(SESSION_EXPIRATION, {
-    onError: ({ graphQLErrors }: ApolloError): void => {
-      graphQLErrors.forEach((error: GraphQLError): void => {
-        Logger.error("Couldn't load session expiration", error);
-      });
-    },
-  });
+  const { data: expDate, loading: isExpDateLoaded } = useQuery(
+    SESSION_EXPIRATION,
+    {
+      onError: ({ graphQLErrors }: ApolloError): void => {
+        graphQLErrors.forEach((error: GraphQLError): void => {
+          Logger.error("Couldn't load session expiration", error);
+        });
+      },
+    }
+  );
 
   React.useEffect((): (() => void) => {
     const timersID: Record<string, number | undefined> = {
@@ -114,7 +117,7 @@ export const Dashboard: React.FC = (): JSX.Element => {
         if (Number(`${dat.me.sessionExpiration}000`) <= Date.now()) {
           if (!active) {
             window.clearInterval(timersID.interval);
-            alert("Session Expired");
+            alert(translate.t("validations.valid_session_date"));
           }
           window.location.replace(
             `https://${window.location.host}/integrates/`
@@ -173,7 +176,7 @@ export const Dashboard: React.FC = (): JSX.Element => {
       }
     };
 
-    const AISetupIntervals: (exp: boolean) => void = (exp: boolean): void => {
+    const setupSessionCheck: (exp: boolean) => void = (exp: boolean): void => {
       const events: EventListeners[] = [
         "mousemove",
         "mousedown",
@@ -191,12 +194,12 @@ export const Dashboard: React.FC = (): JSX.Element => {
       }
     };
 
-    AISetupIntervals(expDateL);
+    setupSessionCheck(isExpDateLoaded);
 
     return (): void => {
-      cleanUpListeners(expDateL);
+      cleanUpListeners(isExpDateLoaded);
     };
-  }, [expDate, expDateL]);
+  }, [expDate, isExpDateLoaded]);
 
   useQuery(GET_USER_PERMISSIONS, {
     onCompleted: (data: IGetUserPermissionsAttr): void => {
