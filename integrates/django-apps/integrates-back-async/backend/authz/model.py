@@ -74,7 +74,6 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             'backend_api_resolvers_user__do_remove_user_access',
             'backend_api_resolvers_forces_update_forces_access_token',
             'backend_api_resolvers_user_resolve_for_group',
-            'backend_api_resolvers_vulnerability__do_approve_vulnerability',
             'backend_api_resolvers_vulnerability__do_delete_vulnerability',
             'backend_api_resolvers_vulnerability__do_download_vuln_file',
             ('backend_api_resolvers_vulnerability__do_'
@@ -139,7 +138,6 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             'backend_api_resolvers_report__get_url_group_report',
             'backend_api_resolvers_resource__do_download_file',
             'backend_api_resolvers_resource_resolve_resources',
-            'backend_api_resolvers_vulnerability__do_approve_vulnerability',
             'backend_api_resolvers_vulnerability__do_delete_vulnerability',
             'backend_api_resolvers_vulnerability__do_download_vuln_file',
             ('backend_api_resolvers_vulnerability__do_'
@@ -483,7 +481,6 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             'backend_api_resolvers_resource__do_download_file',
             'backend_api_resolvers_resource_resolve_resources',
             'backend_api_resolvers_user_resolve_for_group',
-            'backend_api_resolvers_vulnerability__do_approve_vulnerability',
             ('backend_api_resolvers_vulnerability__do_'
                 'request_verification_vuln'),
             'backend_api_resolvers_vulnerability__do_upload_file',

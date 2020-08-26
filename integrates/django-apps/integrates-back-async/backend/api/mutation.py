@@ -103,8 +103,6 @@ MUTATION.set_field('deleteFinding', finding.resolve_finding_mutation)
 MUTATION.set_field('approveDraft', finding.resolve_finding_mutation)
 MUTATION.set_field('createDraft', finding.resolve_finding_mutation)
 MUTATION.set_field('submitDraft', finding.resolve_finding_mutation)
-MUTATION.set_field('approveVulnerability',
-                   vulnerability.resolve_vulnerability_mutation)
 MUTATION.set_field('deleteTags', vulnerability.resolve_vulnerability_mutation)
 MUTATION.set_field('updateTreatmentVuln',
                    vulnerability.resolve_vulnerability_mutation)

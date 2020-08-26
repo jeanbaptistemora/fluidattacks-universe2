@@ -82,12 +82,6 @@ type Mutation {
 
     downloadVulnFile(findingId: String!): DownloadFilePayload!
 
-    approveVulnerability(
-        uuid: String
-        findingId: String!
-        approvalStatus: Boolean!
-    ): SimplePayload!
-
     updateTreatmentVuln(
         findingId: String!
         treatmentManager: String
