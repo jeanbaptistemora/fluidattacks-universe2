@@ -364,7 +364,7 @@ integrates_functional_tests_prod:
 
 integrates_functional_tests_mobile:
   <<: *with_nix
-  <<: *in_dev_and_master_branch_integrates
+  <<: *in_dev_branch_integrates
   needs:
     - integrates_deploy_k8s_back_ephemeral
     - integrates_deploy_mobile_ota
