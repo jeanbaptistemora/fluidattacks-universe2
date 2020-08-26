@@ -6,7 +6,7 @@ from datetime import datetime, timedelta
 from typing import Dict, List, Set, Any, cast, Union
 
 from aioextensions import (
-    unblock,
+    in_thread,
 )
 from ariadne import (
     convert_kwargs_to_snake_case,
@@ -315,7 +315,7 @@ async def _do_sign_in(
         strategy = load_strategy(info.context)
         auth_backend = load_backend(
             strategy=strategy, name=provider, redirect_uri=None)
-        user = await unblock(
+        user = await in_thread(
             auth_backend.do_auth,
             auth_token,
             client='mobile'
@@ -334,7 +334,7 @@ async def _do_sign_in(
             key=settings.JWT_SECRET,
         )
         mp_obj = Mixpanel(settings.MIXPANEL_API_TOKEN)
-        await unblock(
+        await in_thread(
             mp_obj.track,
             email,
             'MobileAuth',

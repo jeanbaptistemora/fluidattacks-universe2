@@ -22,7 +22,7 @@ import pytz
 
 from aioextensions import (
     collect,
-    unblock,
+    in_thread,
 )
 from asgiref.sync import sync_to_async
 from cryptography.exceptions import InvalidKey
@@ -328,7 +328,7 @@ def snakecase_to_camelcase(str_value: str) -> str:
 async def invalidate_cache(*keys_pattern: str) -> None:
     """Remove keys from cache that matches a given pattern."""
     await collect(
-        unblock(cache.delete_pattern, f'*{key_pattern.lower()}*')
+        in_thread(cache.delete_pattern, f'*{key_pattern.lower()}*')
         for key_pattern in keys_pattern
     )
 

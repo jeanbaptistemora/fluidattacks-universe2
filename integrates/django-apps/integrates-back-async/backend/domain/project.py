@@ -13,7 +13,7 @@ from typing import Dict, List, NamedTuple, Tuple, Union, cast
 import pytz
 from aioextensions import (
     collect,
-    unblock_cpu,
+    in_process,
 )
 from django.conf import settings
 
@@ -772,7 +772,7 @@ async def get_mean_remediate(findings: List[Dict[str, FindingType]]) -> \
         [str(finding['finding_id']) for finding in validated_findings]
     )
     open_vuln_dates = await collect(
-        unblock_cpu(get_open_vulnerability_date, vuln)
+        in_process(get_open_vulnerability_date, vuln)
         for vuln in vulns
     )
     filtered_open_vuln_dates = [
@@ -781,7 +781,7 @@ async def get_mean_remediate(findings: List[Dict[str, FindingType]]) -> \
         if vuln
     ]
     closed_vuln_dates = await collect(
-        unblock_cpu(get_last_closing_date, vuln)
+        in_process(get_last_closing_date, vuln)
         for vuln, open_vuln in zip(vulns, open_vuln_dates)
         if open_vuln
     )
@@ -912,7 +912,7 @@ async def get_total_treatment(
 async def get_open_findings(
         finding_vulns: List[List[Dict[str, FindingType]]]) -> int:
     last_approved_status = await collect(
-        unblock_cpu(vuln_domain.get_last_approved_status, vuln)
+        in_process(vuln_domain.get_last_approved_status, vuln)
         for vulns in finding_vulns
         for vuln in vulns
     )

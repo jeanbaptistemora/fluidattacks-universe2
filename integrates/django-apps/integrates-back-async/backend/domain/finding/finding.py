@@ -7,7 +7,7 @@ from typing import Dict, List, Union, cast, Any, Optional
 
 from aioextensions import (
     collect,
-    unblock_cpu
+    in_process
 )
 import aioboto3
 import pytz
@@ -91,7 +91,7 @@ async def get_tracking_vulnerabilities(
 ) -> List[Dict[str, Union[int, str]]]:
     """get tracking vulnerabilities dictionary"""
     last_approved_status = await collect(
-        unblock_cpu(vuln_domain.get_last_approved_status, vuln)
+        in_process(vuln_domain.get_last_approved_status, vuln)
         for vuln in vulnerabilities
     )
     vulns_filtered = [
@@ -105,7 +105,7 @@ async def get_tracking_vulnerabilities(
         last_approved
     ]
     filter_deleted_status = await collect(
-        unblock_cpu(vuln_domain.filter_deleted_status, vuln)
+        in_process(vuln_domain.filter_deleted_status, vuln)
         for vuln in vulnerabilities
     )
     vulns_filtered = [

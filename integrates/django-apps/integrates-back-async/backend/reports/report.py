@@ -2,7 +2,7 @@ import asyncio
 from typing import List, Any
 
 from aioextensions import (
-    unblock_cpu,
+    in_process,
 )
 from backend.domain import (
     finding as finding_domain,
@@ -34,7 +34,7 @@ async def generate_group_report(
 
     findings = await finding_domain.get_findings_async(project_findings)
     findings = [
-        await unblock_cpu(
+        await in_process(
             finding_domain.cast_new_vulnerabilities,
             await vuln_domain.get_open_vuln_by_type(
                 str(finding['findingId']), context

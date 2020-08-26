@@ -3,7 +3,7 @@
 from typing import cast
 import os
 from aioextensions import (
-    unblock_cpu,
+    in_process,
 )
 from fpdf import FPDF
 from PyPDF4 import PdfFileWriter, PdfFileReader
@@ -69,14 +69,14 @@ class SecurePDF():
         )
         if (project_info and
                 historic_configuration[-1].get('type') == 'continuous'):
-            self.secure_pdf_filename = await unblock_cpu(
+            self.secure_pdf_filename = await in_process(
                 self.lock, basic_pdf_name
             )
         else:
-            water_pdf_name = await unblock_cpu(
+            water_pdf_name = await in_process(
                 self.overlays, basic_pdf_name
             )
-            self.secure_pdf_filename = await unblock_cpu(
+            self.secure_pdf_filename = await in_process(
                 self.lock, water_pdf_name
             )
         return self.result_dir + self.secure_pdf_filename

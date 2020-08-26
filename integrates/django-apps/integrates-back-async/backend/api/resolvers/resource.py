@@ -4,7 +4,7 @@ import sys
 from typing import Any, Dict, List, cast, Union
 
 from aioextensions import (
-    unblock,
+    in_thread,
 )
 from ariadne import convert_kwargs_to_snake_case, convert_camel_case_to_snake
 from django.conf import settings
@@ -341,7 +341,7 @@ async def _do_download_file(
         )
         util.cloudwatch_log(info.context, msg)  # pragma: no cover
         mp_obj = Mixpanel(settings.MIXPANEL_API_TOKEN)
-        await unblock(
+        await in_thread(
             mp_obj.track,
             user_email,
             'DownloadProjectFile',
