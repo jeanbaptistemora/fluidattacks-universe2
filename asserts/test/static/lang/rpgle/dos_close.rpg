@@ -1,0 +1,64 @@
+ * Definicion de directivas de compilacion
+HDatFmt(*YMD) DatEdit(*YMD) FixNbr(*Zoned) Option(*NoDebugIO:*SrcStmt)
+HAlwNull(*UsrCtl) DftActGrp(*No)
+
+
+ * Definicion de Archivos
+ * No Aplica.
+
+
+ * Definicion de parametros del programa.
+ * No Aplica.
+
+
+ * ------------------------------------------------------------------------
+ *  Bloque Principal
+ * ------------------------------------------------------------------------
+ /Free
+
+ * Definicion de Variables
+D wa_Id		  S              1A Inz(*zero)
+D wa_CodXTCOD     S              6A Inz(*zero)
+D wa_MsjXTCOD     S             45A Inz(*zero)
+D wa_PosVec       S              6S	0 Inz(*zero)
+D DateField       S   D   INZ(D’1988-09-03’)
+D CharField       S 10A   INZ(’abcdefghij’)
+D UCS2Field       S  2C   INZ(U’00610062’)
+D YmdDate         S   D   INZ(D’2001-01-13’)
+D NumField        S  5P 1 INZ(5.2)
+D varfld1         S   5   INZ VARYING
+D varfld2         S   5   INZ(’’) VARYING
+D blanks          S  10   INZ
+D vblanks         S  10   INZ(’ ’) VARYING
+D fixfld1         S   5   INZ(’abcde’)
+D Parm_Trama              Like(fixfld1)
+
+ /Free
+    If SQLCOD = 0;
+       V_Mensajes(ws_PosVec) = wa_CodXTCOD + wa_MsjXTCOD;
+       ws_PosVec += 1;
+       Exec SQL Fetch Cursor_Mensajes Into :wa_CodXTCOD, :wa_MsjXTCOD;"
+    EndIf;
+
+    If SQLCOD = 0;
+       V_Estados(ws_PosVec) = wa_Id;
+       ws_PosVec += 1;
+       Exec SQL Fetch Cursor_Estados Into :wa_Id;
+    EndIf;
+
+    monitor ;
+       eval(h) Result = Nbr1 / Nbr2 ;
+    on-error 102 ;
+       Result = 0 ;
+       Error = 'Divide by 0' ;
+    endmon ;
+
+
+ /End-Free
+
+   H*-------------------------------------------------------------------------
+   H   DATEDIT(*YMD) DEBUG(*NO)
+   H**************************************************************************
+
+   C     SR990         BegSR
+   C                   Move      *on           *INLR

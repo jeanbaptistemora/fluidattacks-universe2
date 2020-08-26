@@ -1,0 +1,6 @@
+# FROM docker
+FROM docker:17
+
+RUN apk update && apk upgrade && \
+    apk add python python-dev py-pip build-base && \
+    pip install docker-compose

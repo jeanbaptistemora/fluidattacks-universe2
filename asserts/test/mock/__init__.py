@@ -1,0 +1,1 @@
+"""Inicializa el modulo Mock."""

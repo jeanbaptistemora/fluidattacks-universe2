@@ -1,0 +1,240 @@
+{
+  "Description": "code_as_data_vulnerable",
+  "Parameters": {
+    "BackupPeriod": {
+      "Default": 0,
+      "Type": "Integer"
+    },
+    "DisableFeature": {
+      "Default": false,
+      "Type": "String"
+    },
+    "EnablePublicIp": {
+      "Default": true,
+      "Type": "Boolean"
+    },
+    "IpInsecureProtocol": {
+      "Default": "-1",
+      "Description": "Insecure ip protocol",
+      "Type": "String"
+    },
+    "IpSecurityGroup": {
+      "Default": "10.0.0.0/8",
+      "Description": "Ip of SecurityGroup",
+      "Type": "String"
+    },
+    "TerminateInstance": {
+      "Default": "terminate",
+      "Type": "String"
+    }
+  },
+  "Resources": {
+    "cluster1": {
+      "Properties": {
+        "BackupRetentionPeriod": {
+          "Ref": "BackupPeriod"
+        },
+        "DeletionProtection": "true",
+        "Engine": "postgres",
+        "StorageEncrypted": "false"
+      },
+      "Type": "AWS::RDS::DBCluster"
+    },
+    "cluster2": {
+      "Properties": {
+        "BackupRetentionPeriod": 0,
+        "DeletionProtection": "true",
+        "Engine": "postgres",
+        "StorageEncrypted": {
+          "Ref": "DisableFeature"
+        }
+      },
+      "Type": "AWS::RDS::DBCluster"
+    },
+    "ec2instance1": {
+      "Properties": {
+        "DisableApiTermination": "false",
+        "NetworkInterfaces": [
+          {
+            "AssociatePublicIpAddress": {
+              "Ref": "EnablePublicIp"
+            },
+            "DeviceIndex": 0
+          }
+        ]
+      },
+      "Type": "AWS::EC2::Instance"
+    },
+    "ec2instance2": {
+      "Properties": {
+        "IamInstanceProfile": "iamInstanceProfile1",
+        "LaunchTemplate": {
+          "LaunchTemplateId": {
+            "Ref": "launchTemplate"
+          },
+          "LaunchTemplateName": "launchTemplate",
+          "Version": {
+            "Fn::GetAtt": [
+              "launchTemplate",
+              "LatestVersionNumber"
+            ]
+          }
+        },
+        "NetworkInterfaces": [
+          {
+            "AssociatePublicIpAddress": "true",
+            "DeviceIndex": 0
+          }
+        ],
+        "SecurityGroups": [
+          "security-group-test"
+        ]
+      },
+      "Type": "AWS::EC2::Instance"
+    },
+    "ec2instance3": {
+      "Properties": {
+        "InstanceInitiatedShutdownBehavior": {
+          "Ref": "TerminateInstance"
+        }
+      },
+      "Type": "AWS::EC2::Instance"
+    },
+    "ec2instance4": {
+      "Properties": {
+        "DisableApiTermination": {
+          "Ref": "DisableFeature"
+        },
+        "InstanceInitiatedShutdownBehavior": "terminate"
+      },
+      "Type": "AWS::EC2::Instance"
+    },
+    "launchTemplate": {
+      "Properties": {
+        "LaunchTemplateData": {
+          "DisableApiTermination": "false",
+          "InstanceInitiatedShutdownBehavior": "terminate"
+        },
+        "LaunchTemplateName": "launchTemplate"
+      },
+      "Type": "AWS::EC2::LaunchTemplate"
+    },
+    "launchTemplate1": {
+      "Properties": {
+        "LaunchTemplateData": {
+          "DisableApiTermination": {
+            "Ref": "DisableFeature"
+          },
+          "InstanceInitiatedShutdownBehavior": "terminate"
+        },
+        "LaunchTemplateName": "launchTemplate1"
+      },
+      "Type": "AWS::EC2::LaunchTemplate"
+    },
+    "launchTemplate2": {
+      "Properties": {
+        "LaunchTemplateName": "launchTemplate2"
+      },
+      "Type": "AWS::EC2::LaunchTemplate"
+    },
+    "securityGroup1": {
+      "Properties": {
+        "GroupDescription": "groupDescription1",
+        "SecurityGroupIngress": [
+          {
+            "CidrIp": "0.0.0.0/0",
+            "FromPort": 1,
+            "IpProtocol": "-1",
+            "ToPort": 65535
+          },
+          {
+            "CidrIp": {
+              "Ref": "IpSecurityGroup"
+            },
+            "FromPort": 1,
+            "IpProtocol": "-1",
+            "ToPort": 65535
+          },
+          {
+            "CidrIpv6": "::/0",
+            "FromPort": 1,
+            "IpProtocol": {
+              "Ref": "IpInsecureProtocol"
+            },
+            "ToPort": 65535
+          }
+        ]
+      },
+      "Type": "AWS::EC2::SecurityGroup"
+    },
+    "securityGroup2": {
+      "Properties": {
+        "GroupDescription": "groupDescription2"
+      },
+      "Type": "AWS::EC2::SecurityGroup"
+    },
+    "securityGroupEgress1": {
+      "Properties": {
+        "CidrIp": "34.229.161.227/16",
+        "FromPort": 22,
+        "GroupId": {
+          "Ref": "securityGroup2"
+        },
+        "IpProtocol": "-1",
+        "ToPort": 8080
+      },
+      "Type": "AWS::EC2::SecurityGroupEgress"
+    },
+    "securityGroupIngress1": {
+      "Properties": {
+        "CidrIp": "110.229.161.227/16",
+        "FromPort": 22,
+        "GroupId": {
+          "Ref": "securityGroup2"
+        },
+        "GroupName": "securityGroup2",
+        "IpProtocol": {
+          "Ref": "IpInsecureProtocol"
+        },
+        "ToPort": 8080
+      },
+      "Type": "AWS::EC2::SecurityGroupIngress"
+    },
+    "securityGroupIngress2": {
+      "Properties": {
+        "CidrIp": {
+          "Ref": "IpSecurityGroup"
+        },
+        "FromPort": 22,
+        "GroupName": "securityGroup2",
+        "IpProtocol": "-1",
+        "ToPort": 8080
+      },
+      "Type": "AWS::EC2::SecurityGroupIngress"
+    },
+    "volume1": {
+      "Properties": {
+        "AvailabilityZone": {
+          "Ref": "AWS::Region"
+        },
+        "Encrypted": "false",
+        "Size": 120,
+        "VolumeType": "gp2"
+      },
+      "Type": "AWS::EC2::Volume"
+    },
+    "volume2": {
+      "Properties": {
+        "AvailabilityZone": {
+          "Ref": "AWS::Region"
+        },
+        "Encrypted": {
+          "Ref": "DisableFeature"
+        },
+        "Size": 120,
+        "VolumeType": "gp2"
+      },
+      "Type": "AWS::EC2::Volume"
+    }
+  }
+}

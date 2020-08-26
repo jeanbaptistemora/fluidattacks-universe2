@@ -1,0 +1,27 @@
+= Fluid Asserts
+:lang:                   en
+:author:                 Enginering Team
+:email:		         engineering@fluidattacks.com
+:revnumber:              v2.0
+:revdate:                2018
+:icons:                  font
+:source-highlighter:     pygments
+:keywords:               fluidasserts, fluidsignal, fsg, unit testing
+
+image:https://img.shields.io/lgtm/grade/python/g/fluidattacks/asserts.svg?logo=lgtm&logoWidth=18[link="https://lgtm.com/projects/g/fluidattacks/asserts/context:python", title="Language grade: Python"]
+image:https://sonarcloud.io/api/project_badges/measure?project=fluidattacks_asserts&metric=alert_status[link="https://sonarcloud.io/dashboard?id=fluidattacks_asserts", title="Quality Gate Status"]
+image:https://gitlab.com/fluidattacks/asserts/badges/master/pipeline.svg[link="https://gitlab.com/fluidattacks/asserts/commits/master",title="pipeline status"]
+image:https://img.shields.io/docker/pulls/fluidattacks/asserts.svg[link="https://hub.docker.com/r/fluidattacks/asserts"]
+image:https://codecov.io/gl/fluidattacks/asserts/branch/master/graph/badge.svg[link="https://codecov.io/gl/fluidattacks/asserts"]
+
+
+Please refer to
+link:https://fluidattacks.gitlab.io/asserts/[Fluid Asserts documentation].
+
+As an internal user or developer, you might find
+
+* the link:https://fluidattacks.gitlab.io/asserts/dev[Developer's section]
+
+* the link:https://fluidattacks.gitlab.io/asserts[general index]
+
+particularly useful.

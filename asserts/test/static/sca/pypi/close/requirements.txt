@@ -1,0 +1,2 @@
+viewstate==1.0.0
+pysmb==1.1.22

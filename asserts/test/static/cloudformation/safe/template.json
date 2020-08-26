@@ -1,0 +1,454 @@
+{
+  "Description": "safe",
+  "Resources": {
+    "Elb2Listener": {
+      "Properties": {
+        "Certificates": [],
+        "DefaultActions": [],
+        "LoadBalancerArn": "loadbal",
+        "Port": 443,
+        "Protocol": "HTTPS",
+        "SslPolicy": "ELBSecurityPolicy-2016-08"
+      },
+      "Type": "AWS::ElasticLoadBalancingV2::Listener"
+    },
+    "TargetGroup1": {
+      "Properties": {
+        "HealthCheckEnabled": "true",
+        "Name": "MyTargets",
+        "Port": 443,
+        "Protocol": "HTTPS",
+        "TargetType": "ip",
+        "VpcId": "test"
+      },
+      "Type": "AWS::ElasticLoadBalancingV2::TargetGroup"
+    },
+    "cluster1": {
+      "Properties": {
+        "BackupRetentionPeriod": 32,
+        "DBSubnetGroupName": {
+          "Ref": "DbSubnetGroup"
+        },
+        "DeletionProtection": "true",
+        "EnableIAMDatabaseAuthentication": "true",
+        "Engine": "postgres",
+        "StorageEncrypted": "true"
+      },
+      "Type": "AWS::RDS::DBCluster"
+    },
+    "distribution1": {
+      "Properties": {
+        "DistributionConfig": {
+          "CacheBehaviors": [
+            {
+              "ForwardedValues": {
+                "QueryString": "false"
+              },
+              "PathPattern": "test",
+              "TargetOriginId": "target-origin-id",
+              "ViewerProtocolPolicy": "redirect-to-https"
+            }
+          ],
+          "DefaultCacheBehavior": {
+            "ForwardedValues": {
+              "QueryString": "false"
+            },
+            "TargetOriginId": "target-origin-id",
+            "ViewerProtocolPolicy": "redirect-to-https"
+          },
+          "Enabled": "true",
+          "Logging": {
+            "Bucket": "buckettest",
+            "IncludeCookies": "false",
+            "Prefix": "log_"
+          },
+          "Origins": [
+            {
+              "CustomOriginConfig": {
+                "OriginProtocolPolicy": "https-only",
+                "OriginSSLProtocols": [
+                  "TLSv1.2"
+                ]
+              },
+              "DomainName": "domain-name",
+              "Id": "id"
+            }
+          ],
+          "Restrictions": {
+            "GeoRestriction": {
+              "Locations": [
+                "Colombia"
+              ],
+              "RestrictionType": "whitelist"
+            }
+          },
+          "ViewerCertificate": {
+            "MinimumProtocolVersion": "TLSv1.2_2018"
+          }
+        }
+      },
+      "Type": "AWS::CloudFront::Distribution"
+    },
+    "dynamoDBTable1": {
+      "Properties": {
+        "AttributeDefinitions": [
+          {
+            "AttributeName": "columnA",
+            "AttributeType": "S"
+          }
+        ],
+        "BillingMode": "PAY_PER_REQUEST",
+        "KeySchema": [
+          {
+            "AttributeName": "columnA",
+            "KeyType": "HASH"
+          }
+        ],
+        "PointInTimeRecoverySpecification": {
+          "PointInTimeRecoveryEnabled": "true"
+        }
+      },
+      "Type": "AWS::DynamoDB::Table"
+    },
+    "ec2Volume1": {
+      "Properties": {
+        "AvailabilityZone": "us-east-1"
+      },
+      "Type": "AWS::EC2::Volume"
+    },
+    "ec2Volume2": {
+      "Properties": {
+        "AvailabilityZone": "us-east-1",
+        "Encrypted": {
+          "Fn::Join": [
+            "",
+            [
+              "tr",
+              "ue"
+            ]
+          ]
+        }
+      },
+      "Type": "AWS::EC2::Volume"
+    },
+    "ec2instance1": {
+      "Properties": {
+        "DisableApiTermination": "true",
+        "IamInstanceProfile": "iamInstanceProfile1",
+        "LaunchTemplate": {
+          "LaunchTemplateId": {
+            "Ref": "launchTemplate"
+          },
+          "LaunchTemplateName": "launchTemplate",
+          "Version": {
+            "Fn::GetAtt": [
+              "launchTemplate",
+              "LatestVersionNumber"
+            ]
+          }
+        },
+        "NetworkInterfaces": [
+          {
+            "AssociatePublicIpAddress": "false",
+            "DeviceIndex": 0
+          }
+        ],
+        "SecurityGroups": [
+          "security-group-test"
+        ]
+      },
+      "Type": "AWS::EC2::Instance"
+    },
+    "elasticLoadBalancer": {
+      "Properties": {
+        "AccessLoggingPolicy": {
+          "Enabled": true
+        },
+        "Listeners": [
+          {
+            "InstancePort": 443,
+            "LoadBalancerPort": 443,
+            "Protocol": "HTTPS"
+          }
+        ]
+      },
+      "Type": "AWS::ElasticLoadBalancing::LoadBalancer"
+    },
+    "elasticLoadBalancerV2": {
+      "Properties": {
+        "LoadBalancerAttributes": [
+          {
+            "Key": "deletion_protection.enabled",
+            "Value": "true"
+          },
+          {
+            "Key": "access_logs.s3.enabled",
+            "Value": "true"
+          }
+        ],
+        "SubnetMappings": [
+          {
+            "AllocationId": "mock",
+            "SubnetId": "mock"
+          }
+        ]
+      },
+      "Type": "AWS::ElasticLoadBalancingV2::LoadBalancer"
+    },
+    "fileSystem1": {
+      "Properties": {
+        "FileSystemType": "LUSTRE",
+        "KmsKeyId": "kms-123",
+        "LustreConfiguration": {},
+        "SubnetIds": [
+          "sn-123"
+        ]
+      },
+      "Type": "AWS::FSx::FileSystem"
+    },
+    "instance1": {
+      "Properties": {
+        "BackupRetentionPeriod": "32",
+        "DBInstanceClass": "t3.nano",
+        "DBSubnetGroupName": {
+          "Ref": "DbSubnetGroup"
+        },
+        "DeletionProtection": "true",
+        "EnableIAMDatabaseAuthentication": "true",
+        "Engine": "postgres",
+        "MasterUserPassword": "pass",
+        "MasterUsername": "user",
+        "PubliclyAccessible": "false",
+        "StorageEncrypted": "true"
+      },
+      "Type": "AWS::RDS::DBInstance"
+    },
+    "key1": {
+      "Properties": {
+        "EnableKeyRotation": "true",
+        "KeyPolicy": {}
+      },
+      "Type": "AWS::KMS::Key"
+    },
+    "launchTemplate": {
+      "Properties": {
+        "LaunchTemplateData": {
+          "DisableApiTermination": "true",
+          "SecurityGroups": [
+            "security-group-test"
+          ]
+        },
+        "LaunchTemplateName": "launchTemplate"
+      },
+      "Type": "AWS::EC2::LaunchTemplate"
+    },
+    "mangedPolicy1": {
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
+                "ecr:Get*"
+              ],
+              "Effect": "Allow",
+              "Resource": [
+                "arn:aws:ecr:us-east-1::repository/*"
+              ]
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "Users": []
+      },
+      "Type": "AWS::IAM::ManagedPolicy"
+    },
+    "policy1": {
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
+                "ecr:Get*"
+              ],
+              "Effect": "Allow",
+              "Resource": [
+                "arn:aws:ecr:us-east-1::repository/*"
+              ]
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "PolicyName": "policy1",
+        "Users": []
+      },
+      "Type": "AWS::IAM::Policy"
+    },
+    "role1": {
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "*",
+              "Effect": "Deny",
+              "Resource": "*"
+            },
+            {
+              "Action": [
+                "ecr:Get*"
+              ],
+              "Effect": "Allow",
+              "Resource": [
+                "*"
+              ]
+            },
+            {
+              "Action": [
+                "rds:DeleteDBCluster"
+              ],
+              "Effect": "Allow",
+              "Resource": [
+                "arn:aws:rds:*:*:db/*"
+              ]
+            },
+            {
+              "Action": [
+                "rds:*"
+              ],
+              "Effect": "Deny",
+              "Resource": [
+                "*"
+              ]
+            },
+            {
+              "Action": [
+                "rds:DescribeAccountAttributes*"
+              ],
+              "Effect": "Allow",
+              "Resource": [
+                "*"
+              ]
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "ManagedPolicyArns": [],
+        "Policies": [
+          {
+            "PolicyDocument": {
+              "Statement": [
+                {
+                  "Action": "*",
+                  "Effect": "Deny",
+                  "Resource": "*"
+                },
+                {
+                  "Action": [
+                    "ecr:Get*"
+                  ],
+                  "Effect": "Allow",
+                  "Resource": [
+                    "arn:aws:ecr:us-east-1::repository/*"
+                  ]
+                }
+              ],
+              "Version": "2012-10-17"
+            },
+            "PolicyName": "policy1"
+          }
+        ]
+      },
+      "Type": "AWS::IAM::Role"
+    },
+    "rotation1": {
+      "Properties": {
+        "RotationLambdaARN": "lambd",
+        "SecretId": {
+          "Ref": "secret1"
+        }
+      },
+      "Type": "AWS::SecretsManager::RotationSchedule"
+    },
+    "s3Bucket": {
+      "Properties": {
+        "AccessControl": "Private",
+        "BucketEncryption": {
+          "ServerSideEncryptionConfiguration": [
+            {
+              "ServerSideEncryptionByDefault": {
+                "KMSMasterKeyID": "master_key",
+                "SSEAlgorithm": "aws:kms"
+              }
+            }
+          ]
+        },
+        "LoggingConfiguration": {
+          "LogFilePrefix": "log"
+        },
+        "ObjectLockConfiguration": {
+          "ObjectLockEnabled": "Enabled"
+        },
+        "ObjectLockEnabled": "true"
+      },
+      "Type": "AWS::S3::Bucket"
+    },
+    "s3BucketPolicy": {
+      "Properties": {
+        "Bucket": "s3Bucket",
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Principal": "account"
+            }
+          ]
+        }
+      },
+      "Type": "AWS::S3::BucketPolicy"
+    },
+    "secret1": {
+      "Properties": {
+        "GenerateSecretString": {
+          "ExcludeCharacters": "",
+          "ExcludeLowercase": "false",
+          "ExcludeNumbers": "false",
+          "ExcludePunctuation": "false",
+          "ExcludeUppercase": "false",
+          "PasswordLength": 32,
+          "RequireEachIncludedType": "true"
+        }
+      },
+      "Type": "AWS::SecretsManager::Secret"
+    },
+    "securityGroup1": {
+      "Properties": {
+        "GroupDescription": "groupDescription1",
+        "SecurityGroupEgress": [
+          {
+            "CidrIp": "127.0.0.1/32",
+            "FromPort": 8000,
+            "IpProtocol": "tcp",
+            "ToPort": 8000
+          }
+        ]
+      },
+      "Type": "AWS::EC2::SecurityGroup"
+    },
+    "trail1": {
+      "Properties": {
+        "EnableLogFileValidation": "true",
+        "IsLogging": "true",
+        "IsMultiRegionTrail": "true",
+        "S3BucketName": "bucketsito"
+      },
+      "Type": "AWS::CloudTrail::Trail"
+    },
+    "user1": {
+      "Properties": {
+        "Groups": [
+          "role1"
+        ]
+      },
+      "Type": "AWS::IAM::User"
+    }
+  }
+}

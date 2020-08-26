@@ -1,0 +1,19 @@
+dependencies {
+    testCompile('org.springframework.boot:spring-boot-starter-test') {
+        exclude group: 'org.mockito'
+    }
+    compile group: 'org.mockito', name: 'mockito-all', version: '1.9.5'
+    compile group: 'org.springframework.security', name: 'spring-security-crypto', version: '3.1.0.RELEASE'
+    compile "io.springfox:springfox-swagger-ui:2.6.1"
+    compile "io.springfox:springfox-swagger2:2.6.1"
+    compile "io.springfox:springfox-swagger2"
+    compile group: 'org.json', name: 'json', version: '20160810'
+    compile group: 'javax.mail', name: 'mail', version: '1.4'
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.9.9'
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.9'
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: '2.9.9'
+    compile group: 'org.springframework', name: 'spring-context-support', version: '3.2.0.RELEASE'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-amqp', version: '1.5.7.RELEASE'
+    compile(group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: springBootVersion)
+    compile(group: 'org.springframework.boot', name: 'spring-boot-starter-undertow', version: springBootVersion)
+}

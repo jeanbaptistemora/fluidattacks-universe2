@@ -1,0 +1,9 @@
+# This image does not support v1, but we set it up
+# how it would look if it did
+Protocol 1,2
+Port 22
+AllowAgentForwarding yes
+AllowTcpForwarding yes
+GatewayPorts yes
+X11Forwarding yes
+PermitRootLogin yes

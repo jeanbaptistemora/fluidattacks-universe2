@@ -1,0 +1,33 @@
+{
+  "name": "asserts",
+  "version": "1.0.0",
+  "description": "Fluid Asserts is an engine to automate the closing of security findings over execution environments. Asserts performs Dynamic and Static Application Security Testing (DAST and SAST) and dynamic testing of many protocols (DXST).",
+  "main": "index.js",
+  "directories": {
+    "example": "example",
+    "test": "test"
+  },
+  "scripts": {
+    "postinstall": "./ci-scripts/commitlint-conf.sh"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@gitlab.com/fluidattacks/asserts.git"
+  },
+  "author": "Fluid Attacks",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://gitlab.com/fluidattacks/asserts/issues"
+  },
+  "homepage": "https://gitlab.com/fluidattacks/asserts#readme",
+  "devDependencies": {
+    "@commitlint/cli": "7.6.0",
+    "@commitlint/config-conventional": "7.6.0",
+    "husky": "1.2.1"
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
+  }
+}

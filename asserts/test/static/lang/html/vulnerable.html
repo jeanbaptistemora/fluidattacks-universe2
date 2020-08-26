@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Pagina con vulnerabilideades de tipo cache</title>
+		<meta charset="UTF-8" />
+	</head>
+	<body>
+		<form action="/help/readerlogin-auth" method="POST">
+			<input type="hidden" name="r" value="/help/" />
+			<div class="form-group">
+				<label class="control-label" for="password">Username:</label>
+				<input type="text" id="username" name="username" class="form-control" />
+			</div>
+			<div class="form-group">
+				<label class="control-label" for="password">Password:</label>
+				<input type="password" id="password" name="password" class="form-control" />
+			</div>
+			<div class="col-lg-4 pw-reset-link">
+	    	  	<a href="#" data-toggle="modal" id="pw-reset-link" data-target="#hg-password-reset">Reset Password</a>
+	    	</div>
+	    	<div class="text-right">
+				<button type="submit" class="btn btn-primary">Submit</button>
+			</div>
+		</form>
+	</body>
+
+	<!-- has_reverse_tabnabbing -->
+	<a href="https://mathiasbynens.github.io/rel-noopener/malicious.html"
+	   target="_blank">
+		Click me for a failed attempt of reverse tabnabbing
+	</a>
+
+	<!-- has_not_subresource_integrity -->
+	<script src="https://example.com/example-framework.js">
+	</script>
+	<link href="/media/examples/link-element-example.css" rel="stylesheet">
+	</link>
+
+</html>

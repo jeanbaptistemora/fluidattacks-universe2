@@ -1,0 +1,20 @@
+# Exclude everything by default
+global-exclude *
+
+# Include the installer
+include setup.py
+
+# Include dependency file
+include requirements.txt
+
+# Include Python source files
+recursive-include fluidasserts *.py
+recursive-include fluidasserts/static *.lst
+recursive-include fluidasserts/static/mock_data_proxy *
+
+# Include build files
+include build.sh
+graft build
+
+# Include test folder
+graft test

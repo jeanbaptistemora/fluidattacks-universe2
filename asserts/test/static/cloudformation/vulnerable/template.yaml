@@ -1,0 +1,365 @@
+Description: vulnerable
+Resources:
+  Elb2Listener:
+    Properties:
+      Certificates: []
+      DefaultActions: []
+      LoadBalancerArn: loadbal
+      Port: 443
+      Protocol: HTTPS
+      SslPolicy: ELBSecurityPolicy-TLS-1-0-2015-04
+    Type: AWS::ElasticLoadBalancingV2::Listener
+  TargetGroup1:
+    Properties:
+      HealthCheckEnabled: 'false'
+      Name: MyTargets
+      Port: 80
+      Protocol: HTTP
+      TargetType: ip
+      VpcId: Test
+    Type: AWS::ElasticLoadBalancingV2::TargetGroup
+  cluster1:
+    Properties:
+      BackupRetentionPeriod: 0
+      DeletionProtection: 'false'
+      Engine: postgres
+      StorageEncrypted: 'false'
+    Type: AWS::RDS::DBCluster
+  cluster2:
+    Properties:
+      BackupRetentionPeriod:
+        Fn::If:
+          - prod
+          - 32
+          - 0
+      Engine: postgres
+    Type: AWS::RDS::DBCluster
+  distribution1:
+    Properties:
+      DistributionConfig:
+        CacheBehaviors:
+          - ForwardedValues:
+              QueryString: 'false'
+            PathPattern: test
+            TargetOriginId: target-origin-id
+            ViewerProtocolPolicy: allow-all
+        DefaultCacheBehavior:
+          ForwardedValues:
+            QueryString: 'false'
+          TargetOriginId: target-origin-id
+          ViewerProtocolPolicy: allow-all
+        Enabled: 'true'
+        Origins:
+          - CustomOriginConfig:
+              OriginProtocolPolicy: https-only
+              OriginSSLProtocols:
+                - SSLv3
+            DomainName: domain-name
+            Id: id
+        Restrictions:
+          GeoRestriction:
+            Locations:
+              - Colombia
+            RestrictionType: none
+        ViewerCertificate:
+          MinimumProtocolVersion: TLSv1.1_2016
+    Type: AWS::CloudFront::Distribution
+  dynamoDBTable1:
+    Properties:
+      AttributeDefinitions:
+        - AttributeName: columnA
+          AttributeType: S
+      BillingMode: PAY_PER_REQUEST
+      KeySchema:
+        - AttributeName: columnA
+          KeyType: HASH
+      PointInTimeRecoverySpecification:
+        PointInTimeRecoveryEnabled: 'false'
+    Type: AWS::DynamoDB::Table
+  dynamoDBTable2:
+    Properties:
+      AttributeDefinitions:
+        - AttributeName: columnA
+          AttributeType: S
+      BillingMode: PAY_PER_REQUEST
+      KeySchema:
+        - AttributeName: columnA
+          KeyType: HASH
+    Type: AWS::DynamoDB::Table
+  ec2Volume1:
+    Properties:
+      AvailabilityZone: us-east-1
+      Encrypted: 'false'
+    Type: AWS::EC2::Volume
+  ec2instance1:
+    Properties:
+      DisableApiTermination: 'false'
+      LaunchTemplate:
+        LaunchTemplateId:
+          Ref: launchTemplate
+        LaunchTemplateName: launchTemplate
+        Version:
+          Fn::GetAtt:
+            - launchTemplate
+            - LatestVersionNumber
+      NetworkInterfaces:
+        - AssociatePublicIpAddress: 'true'
+          DeviceIndex: 0
+    Type: AWS::EC2::Instance
+  elasticLoadBalancer:
+    Properties:
+      AccessLoggingPolicy:
+        Enabled: false
+      Listeners:
+        - InstancePort: 443
+          LoadBalancerPort: 443
+          Protocol: HTTPS
+    Type: AWS::ElasticLoadBalancing::LoadBalancer
+  elasticLoadBalancerV2:
+    Properties:
+      LoadBalancerAttributes:
+        - Key: deletion_protection.enabled
+          Value: 'false'
+        - Key: access_logs.s3.enabled
+          Value: 'false'
+      SubnetMappings:
+        - AllocationId: mock
+          SubnetId: mock
+    Type: AWS::ElasticLoadBalancingV2::LoadBalancer
+  fileSystem1:
+    Properties:
+      FileSystemType: LUSTRE
+      LustreConfiguration: {}
+      SubnetIds:
+        - sn-123
+    Type: AWS::FSx::FileSystem
+  instance1:
+    Properties:
+      BackupRetentionPeriod: '0'
+      DBInstanceClass: t3.nano
+      Engine: postgres
+      MasterUserPassword: pass
+      MasterUsername: user
+      PubliclyAccessible: 'true'
+      StorageEncrypted: 'false'
+    Type: AWS::RDS::DBInstance
+  key1:
+    Properties:
+      EnableKeyRotation: 'false'
+      KeyPolicy:
+        Id: key-default-1
+        Statement:
+          - Action: kms:*
+            Effect: Allow
+            Principal:
+              AWS: '*'
+            Resource: '*'
+            Sid: Enable IAM User Permissions
+        Version: '2012-10-17'
+    Type: AWS::KMS::Key
+  launchTemplate:
+    Properties:
+      LaunchTemplateData:
+        DisableApiTermination: 'false'
+        InstanceInitiatedShutdownBehavior: terminate
+      LaunchTemplateName: launchTemplate
+    Type: AWS::EC2::LaunchTemplate
+  launchTemplate2:
+    Properties:
+      LaunchTemplateName: launchTemplate2
+    Type: AWS::EC2::LaunchTemplate
+  mangedPolicy1:
+    Properties:
+      PolicyDocument:
+        Statement:
+          - Action: '*'
+            Effect: Deny
+            Resource: '*'
+          - Action:
+              - ecr:*
+            Effect: Allow
+            Resource:
+              - '*'
+          - Action: ecr:*
+            Effect: Allow
+            Resource: '*'
+          - Effect: Allow
+            NotAction: []
+          - Effect: Allow
+            NotResource: []
+        Version: '2012-10-17'
+      Users:
+        - user1
+    Type: AWS::IAM::ManagedPolicy
+  policy1:
+    Properties:
+      PolicyDocument:
+        Statement:
+          - Action:
+              - ecr:*
+            Effect: Allow
+            Resource:
+              - '*'
+          - Action: ecr:*
+            Effect: Allow
+            Resource: '*'
+          - Effect: Allow
+            NotAction: []
+          - Effect: Allow
+            NotResource: []
+        Version: '2012-10-17'
+      PolicyName: policy1
+      Users:
+        - user1
+    Type: AWS::IAM::Policy
+  role1:
+    Properties:
+      AssumeRolePolicyDocument:
+        Statement:
+          - Action:
+              - ecr:*
+            Effect: Allow
+            Resource:
+              - '*'
+          - Effect: Allow
+            NotAction: []
+          - Effect: Allow
+            NotPrincipal: []
+          - Action:
+              - rds:StopDBCluster
+            Effect: Allow
+            Resource: '*'
+          - Action:
+              - ec2:*KeyPair
+            Effect: Allow
+            Resource: '*'
+          - Action:
+              - ec2:*
+            Effect: Allow
+            Resource: '*'
+        Version: '2012-10-17'
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/AdministratorAccess
+      Policies:
+        - PolicyDocument:
+            Statement:
+              - Action:
+                  - ecr:*
+                  - ssm:*
+                Effect: Allow
+                Resource:
+                  - '*'
+              - Action: iam:ListUsers
+                Effect: Allow
+                Resource: '*'
+              - Action: ecr:*
+                Effect: Allow
+                Resource: '*'
+              - Effect: Allow
+                NotAction: []
+              - Effect: Allow
+                NotResource: []
+            Version: '2012-10-17'
+          PolicyName: policy1
+    Type: AWS::IAM::Role
+  s3Bucket:
+    Properties:
+      AccessControl: PublicReadWrite
+    Type: AWS::S3::Bucket
+  s3BucketPolicy:
+    Properties:
+      Bucket: s3Bucket
+      PolicyDocument:
+        Statement:
+          - Action: '*'
+            Condition:
+              Bool:
+                aws:SecureTransport: 'false'
+              'Null':
+                s3:x-amz-server-side-encryption: 'false'
+            Effect: Allow
+            Principal: '*'
+          - Action: '*'
+            Effect: Allow
+            Principal:
+              - AWS: '*'
+          - Action: '*'
+            Effect: Allow
+            Principal:
+              - '*'
+    Type: AWS::S3::BucketPolicy
+  secret1:
+    Properties:
+      GenerateSecretString:
+        ExcludeCharacters: 01234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~
+        ExcludeLowercase: 'true'
+        ExcludeNumbers: 'true'
+        ExcludePunctuation: 'true'
+        ExcludeUppercase: 'true'
+        PasswordLength: 10
+        RequireEachIncludedType: 'false'
+    Type: AWS::SecretsManager::Secret
+  secret2:
+    Type: AWS::SecretsManager::Secret
+  securityGroup1:
+    Properties:
+      GroupDescription: groupDescription1
+      SecurityGroupIngress:
+        - CidrIp: 0.0.0.0/0
+          FromPort: 1
+          IpProtocol: '-1'
+          ToPort: 65535
+        - CidrIpv6: ::/0
+          FromPort: 1
+          IpProtocol: '-1'
+          ToPort: 65535
+        - CidrIp: 123.123.123.0/24
+          FromPort: 22
+          IpProtocol: '-1'
+          ToPort: 22
+        - CidrIp: 10.0.0.0/8
+          FromPort: 69
+          IpProtocol: tcp
+          ToPort: 69
+        - CidrIpv6: 2001:db8:a0b:12f0::64/16
+          FromPort: 22
+          IpProtocol: '-1'
+          ToPort: 22
+    Type: AWS::EC2::SecurityGroup
+  securityGroupEgress1:
+    Properties:
+      DestinationSecurityGroupId:
+        Fn::GetAtt:
+          - securityGroup2
+          - GroupId
+      FromPort: 1
+      GroupId:
+        Ref: securityGroup1
+      IpProtocol: '-1'
+      ToPort: 65535
+    Type: AWS::EC2::SecurityGroupEgress
+  securityGroupIngress1:
+    Properties:
+      FromPort: 1
+      GroupId:
+        Fn::GetAtt:
+          - securityGroup2
+          - GroupId
+      IpProtocol: '-1'
+      SourceSecurityGroupId:
+        Fn::GetAtt:
+          - securityGroup1
+          - GroupId
+      ToPort: 65535
+    Type: AWS::EC2::SecurityGroupIngress
+  trail1:
+    Properties:
+      IsLogging: 'true'
+      IsMultiRegionTrail: 'false'
+      S3BucketName: bucketsito
+    Type: AWS::CloudTrail::Trail
+  user1:
+    Properties:
+      Policies:
+        - Ref: policy1
+    Type: AWS::IAM::User

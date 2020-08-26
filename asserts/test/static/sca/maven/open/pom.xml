@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.fluid.pagares</groupId>
+        <artifactId>Pagares</artifactId>
+        <version>1.0.0</version>
+    </parent>
+    <artifactId>SDLWeb</artifactId>
+    <packaging>war</packaging>
+    <name>Pagares : SDLWeb</name>
+
+    <repositories>
+        <repository>
+            <id>Jboss</id>
+            <url>https://repository.jboss.org/nexus/content/repositories/releases</url>
+        </repository>
+
+        <repository>
+			<id>prime-repo</id>
+			<name>Prime Technology Maven Repository</name>
+			<url>http://repository.prime.com.tr/</url>
+			<layout>default</layout>
+		</repository>
+    </repositories>
+
+    <dependencies>
+        <dependency>
+            <groupId>jython</groupId>
+            <artifactId>jython</artifactId>
+            <version>2.1</version>
+        </dependency>
+    </dependencies>
+    <properties>
+        <maven.compiler.source>1.7</maven.compiler.source>
+        <maven.compiler.target>1.7</maven.compiler.target>
+    </properties>
+</project>

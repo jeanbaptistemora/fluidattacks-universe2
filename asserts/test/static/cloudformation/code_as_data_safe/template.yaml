@@ -1,0 +1,59 @@
+Description: code_as_data_safe
+Parameters:
+  IpSecurityGroup:
+    Default: 111.123.123.0/32
+    Description: Ip of SecurityGroup
+    Type: String
+Resources:
+  securityGroup1:
+    Properties:
+      GroupDescription: groupDescription1
+      SecurityGroupIngress:
+        - CidrIp:
+            Ref: IpSecurityGroup
+          FromPort: 22
+          IpProtocol: tcp
+          ToPort: 22
+        - CidrIp: 32.45.123.0/32
+          FromPort: 22
+          IpProtocol: tcp
+          ToPort: 22
+        - CidrIpv6: 2001:db8:a0b:12f0::64/128
+          FromPort: 22
+          IpProtocol: udp
+          ToPort: 22
+    Type: AWS::EC2::SecurityGroup
+  securityGroup2:
+    Properties:
+      GroupDescription: groupDescription1
+      SecurityGroupEgress:
+        - CidrIp: 127.0.0.1/32
+          FromPort: 8000
+          IpProtocol: tcp
+          ToPort: 8000
+      SecurityGroupIngress:
+        - CidrIp: 20.123.123.0/32
+          FromPort: 22
+          IpProtocol: tcp
+          ToPort: 22
+    Type: AWS::EC2::SecurityGroup
+  securityGroupEgress1:
+    Properties:
+      DestinationSecurityGroupId:
+        Fn::GetAtt:
+          - securityGroup1
+          - GroupId
+      FromPort: 22
+      GroupId:
+        Ref: securityGroup1
+      IpProtocol: tcp
+      ToPort: 22
+    Type: AWS::EC2::SecurityGroupEgress
+  volume1:
+    Properties:
+      AvailabilityZone:
+        Ref: AWS::Region
+      Encrypted: 'true'
+      Size: 120
+      VolumeType: gp2
+    Type: AWS::EC2::Volume

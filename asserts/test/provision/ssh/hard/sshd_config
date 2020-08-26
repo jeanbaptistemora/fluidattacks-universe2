@@ -1,0 +1,8 @@
+Protocol 2
+Port 22
+AllowAgentForwarding no
+AllowTcpForwarding no
+GatewayPorts no
+X11Forwarding no
+PermitRootLogin no
+Banner /etc/banner

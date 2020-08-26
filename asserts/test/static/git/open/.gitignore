@@ -1,0 +1,43 @@
+# Fluid Asserts
+build/
+builds/
+
+# Coverage files
+.coverage*
+
+# Python bytecode
+*.py[cod]
+__pycache__/
+
+# Vim cache
+*.swp
+
+# Compatibilidad hacia atras
+Exploiting/
+
+# Desconocido
+.cache/
+.pytest_cache/
+
+# Temporal local
+tmp/
+
+# Failed ansible playbook runs
+*.retry
+
+# VScode
+.vscode/
+
+# mypy cache
+.mypy_cache/
+
+# Bundler
+Gemfile.lock
+
+# npm
+node_modules/
+package-lock.json
+
+# Commitlint
+commitlint.config.js
+parser-preset.js

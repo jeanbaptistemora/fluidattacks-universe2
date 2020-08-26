@@ -1,0 +1,71 @@
+# Fluid Asserts
+builds/
+test/times
+
+# Coverage files
+*coverage*
+
+# Log files
+log.asserts
+geckodriver.log
+
+# Python bytecode
+*.py[cdeo]
+__pycache__/
+
+# Vim cache
+*.swp
+
+# Backwards compatibility
+Exploiting/
+
+# Others
+.cache/
+.pytest_cache/
+
+# Temporal
+tmp/
+
+# Failed ansible playbook runs
+*.retry
+
+# VScode
+.vscode/
+
+# mypy cache
+.mypy_cache/
+
+# Bundler
+Gemfile.lock
+
+# npm
+node_modules/
+package-lock.json
+
+# Commitlint
+commitlint.config.js
+parser-preset.js
+
+# sphinxdoc
+public/
+sphinx/source/*.rst
+sphinx/source/example/*.out
+
+# Jetbrains IDEs
+.idea/
+
+# Direnv
+.envrc
+
+# Nix
+.tmp
+ephemeral-runner*
+secrets/development.sh
+secrets/production.sh
+TEMP_FD
+
+# Build
+ephemeral-test-runner*
+
+# Terraform
+.terraform

@@ -1,0 +1,15 @@
+autopep8==1.5
+flake8==3.7.9
+hacking==2.0.0
+mccabe==0.6.1
+pdoc==0.3.2
+pep257==0.7.0
+pep8==1.7.1
+pre-commit==2.4.0
+prospector[with_everything]==1.2.0
+pydocstyle==5.0.2
+pyflakes==2.1.1
+pylint==2.4.4
+pyroma==2.6
+pytest==5.4.1
+yamllint==1.20.0
