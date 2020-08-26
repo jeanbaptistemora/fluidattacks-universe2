@@ -107,7 +107,7 @@ def main():
                             list(
                                 map(str, row))), response_list))))
 
-    except Exception as exception:
+    except (psycopg2.Warning, psycopg2.Error) as exception:
         print(f"INFO: Statement ran with errors:\n{exception}")
     finally:
         close_access_point(db_connection, db_cursor)

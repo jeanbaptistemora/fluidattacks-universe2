@@ -10,6 +10,7 @@ import argparse
 import datetime
 
 from typing import List, Tuple, Any
+import subprocess
 
 import git
 
@@ -484,20 +485,30 @@ def main():
         if args.run_gitinspector:
             try:
                 scan_gitinspector(conf["location"])
-            except Exception as excp:
+            except (KeyError, OSError) as excp:
                 print_stderr(
                     f"EXCP: scan_gitinspector {repository}.", repr(excp))
 
         if args.with_metrics:
             try:
                 metrics.scan_metrics(conf["repository"], conf["location"])
-            except Exception as excp:
+            except (
+                KeyError,
+                OSError,
+                ValueError,
+                subprocess.SubprocessError
+            ) as excp:
                 print_stderr(
                     f"WARN: metrics.scan_metrics {repository}.", repr(excp))
 
         try:
             scan_commits(conf, args.sync_changes, after)
-        except Exception as excp:
+        except (
+            KeyError,
+            OSError,
+            ValueError,
+            subprocess.SubprocessError
+        ) as excp:
             print_stderr(
                 f"WARN: scan_commits {repository}.", repr(excp))
 
