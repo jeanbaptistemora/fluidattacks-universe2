@@ -1,4 +1,5 @@
 include:
+  - local: asserts/.gitlab-ci.yml
   - local: forces/.gitlab-ci.yml
   - local: integrates/.gitlab-ci.yml
   - local: observes/.gitlab-ci.yml
