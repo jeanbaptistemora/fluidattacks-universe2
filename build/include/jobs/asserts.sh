@@ -1,59 +1,11 @@
 # shellcheck shell=bash
 
-source "${srcIncludeHelpers}"
 source "${srcEnv}"
-
-function job_build_nix_caches {
-  local context='.'
-  local dockerfile='build/Dockerfile'
-  local provisioners
-
-      helper_use_pristine_workdir \
-  &&  provisioners=(./build/provisioners/*) \
-  &&  helper_build_nix_caches_parallel \
-  &&  for (( i="${lower_limit}";i<="${upper_limit}";i++ ))
-      do
-            provisioner=$(basename "${provisioners[${i}]}") \
-        &&  provisioner="${provisioner%.*}" \
-        &&  helper_docker_build_and_push \
-              "${CI_REGISTRY_IMAGE}/nix:${provisioner}" \
-              "${context}" \
-              "${dockerfile}" \
-              'PROVISIONER' "${provisioner}" \
-        ||  return 1
-      done
-}
 
 function job_build_asserts {
       helper_use_pristine_workdir \
   &&  helper_build_asserts \
   &&  cp -a asserts-release "${STARTDIR}"
-}
-
-function job_lint_commit_message {
-  local commit_diff
-  local commit_hashes
-  local public_url='https://static-objects.gitlab.net/fluidattacks/public/raw/master'
-  local parser_url="${public_url}/commitlint-configs/others/parser-preset.js"
-  local rules_url="${public_url}/commitlint-configs/others/commitlint.config.js"
-
-      helper_use_pristine_workdir \
-  &&  env_prepare_node_modules \
-  &&  curl -LOJ "${parser_url}" \
-  &&  curl -LOJ "${rules_url}" \
-  &&  git fetch --prune > /dev/null \
-  &&  if [ "${IS_LOCAL_BUILD}" = "${TRUE}" ]
-      then
-            commit_diff="origin/master..${CI_COMMIT_REF_NAME}"
-      else
-            commit_diff="origin/master..origin/${CI_COMMIT_REF_NAME}"
-      fi \
-  &&  commit_hashes="$(git log --pretty=%h "${commit_diff}")" \
-  &&  for commit_hash in ${commit_hashes}
-      do
-            git log -1 --pretty=%B "${commit_hash}" | commitlint \
-        ||  return 1
-      done
 }
 
 function job_lint_shell {
@@ -63,33 +15,6 @@ function job_lint_shell {
   &&  find "${path_to_check}" -name '*.sh' \
         -exec shellcheck --exclude=SC1090,SC2154,SC2164,SC2064 -x {} + \
   &&  shellcheck -x --exclude=SC2015,SC2064,SC2153 ./build.sh
-}
-
-function job_lint_nix {
-  local path_to_check='build'
-
-      echo "Verifying nix code in: ${path_to_check}" \
-  &&  nix-linter \
-        --check=DIYInherit \
-        --check=EmptyInherit \
-        --check=EmptyLet \
-        --check=EtaReduce \
-        --check=FreeLetInFunc \
-        --check=LetInInheritRecset \
-        --check=ListLiteralConcat \
-        --check=NegateAtom \
-        --check=SequentialLet \
-        --check=SetLiteralUpdate \
-        --check=UnfortunateArgName \
-        --check=UnneededRec \
-        --check=UnusedArg \
-        --check=UnusedLetBind \
-        --check=UpdateEmptySet \
-        --check=BetaReduction \
-        --check=EmptyVariadicParamSet \
-        --check=UnneededAntiquote \
-        --recursive \
-        "${path_to_check}"
 }
 
 function job_lint_asserts {
@@ -142,21 +67,6 @@ function job_test_infra_secret_management {
       helper_use_pristine_workdir \
   &&  helper_set_dev_secrets \
   &&  helper_terraform_test "${dir}"
-}
-
-function job_deploy_send_release_email {
-  export MANDRILL_EMAIL_TO='engineering@fluidattacks.com'
-
-      env_prepare_python_packages \
-  &&  helper_with_production_secrets \
-  &&  curl -Lo \
-        "${TEMP_FILE1}" \
-        'https://static-objects.gitlab.net/fluidattacks/public/raw/master/shared-scripts/mail.py' \
-  &&  echo "send_mail('new_version', MANDRILL_EMAIL_TO,
-        context={'project': PROJECT, 'project_url': '${CI_PROJECT_URL}',
-          'version': _get_version_date(), 'message': _get_message()},
-        tags=['general'])" >> "${TEMP_FILE1}" \
-  &&  python3 "${TEMP_FILE1}"
 }
 
 function job_test_asserts_api_cloud_aws_api {
@@ -557,24 +467,4 @@ function job_pages {
   &&  helper_pages_generate_credits \
   &&  helper_pages_generate_doc \
   &&  mv public/ "${STARTDIR}"
-}
-
-function job_reviews {
-  local public_url='https://static-objects.gitlab.net/fluidattacks/public/raw/master'
-  local parser_url="${public_url}/commitlint-configs/others/parser-preset.js"
-  local rules_url="${public_url}/commitlint-configs/others/commitlint.config.js"
-
-  function reviews {
-    export __NIX_PATH
-    export __NIX_SSL_CERT_FILE
-
-    NIX_PATH="${__NIX_PATH}" \
-    NIX_SSL_CERT_FILE="${__NIX_SSL_CERT_FILE}" \
-      "${srcProduct}/bin/reviews" "${@}"
-  }
-
-      helper_use_pristine_workdir \
-  &&  curl -LOJ "${parser_url}" \
-  &&  curl -LOJ "${rules_url}" \
-  &&  reviews flavor generic
 }
