@@ -11,6 +11,8 @@ data "aws_iam_policy_document" "prod-policy-data" {
     resources = [
       "arn:aws:s3:::fluidattacks-terraform-states-prod",
       "arn:aws:s3:::fluidattacks-terraform-states-prod/observes-*",
+      "arn:aws:s3:::continuous-repositories",
+      "arn:aws:s3:::continuous-repositories/*"
     ]
   }
 
