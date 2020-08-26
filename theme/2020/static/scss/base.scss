@@ -214,6 +214,7 @@ $codeyellow: rgba(230, 219, 116, 1);
 .shadow-menu { box-shadow: 0 5px 5px 0 rgb(176,176,176,0.2); }
 .h-logo { height: 70px; }
 .h-navbar { height: 6.875rem; }
+.h-360 { height: 360px; }
 
 // Tachyons custom responsive classes
 @media screen and (min-width: 960px) and (max-width: 1200px) {
@@ -938,5 +939,38 @@ video {
   color: $fluid-black;
   &:hover {
     color: $fluid-red;
+  }
+}
+
+.cardgrid{
+  .accordion {
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    background-color: white;
+    min-height: 200px;
+    outline: none;
+    border: none;
+    transition: all 0.5s;
+    img {
+      max-height: 150px;
+    }
+  }
+  .accordion::after{
+      font-size: 13px;
+      float: right;
+      margin-left: 5px;
+      .arrow{
+        -webkit-transform: rotate( 180deg );
+        transform: rotate( 180deg );
+      }
+  }
+  .panel{
+      padding: 0 10px;
+      background-color: white;
+      max-height: 0;
+      min-height: 0;
+      transition: all 0.5s;
+      overflow: hidden;
   }
 }

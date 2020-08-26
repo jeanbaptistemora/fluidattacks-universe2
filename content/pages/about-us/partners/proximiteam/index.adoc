@@ -1,0 +1,17 @@
+:slug: about-us/partners/proximiteam/
+:description: Our partners allow us to complete our portfolio and offer better security testing services. Get to know them and become one of them.
+:keywords: Fluid Attacks, Partners, Services, Security Testing, Software Development, Pentesting, Ethical Hacking
+:canada: image:../../images/icons/canada-flag.png[Canada Flag]
+:partnerlogo: logo-proximiteam
+:alt: Logo Proximiteam
+:partner: yes
+
+= Proximiteam
+
+{canada} Proximiteam is a global provider of high-quality software development
+services. It is based in Toronto and has a strong network of development centers
+and global partners. Their teams of highly skilled software engineers and IT
+specialists create innovative systems and apps for every industry.
+Other services include systems integration, data analysis, testing, and support.
+Also, they have defined efficient service delivery models that focus on value
+and productivity.

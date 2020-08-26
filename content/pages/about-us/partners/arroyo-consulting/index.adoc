@@ -1,0 +1,16 @@
+:slug: about-us/partners/arroyo-consulting/
+:description: Our partners allow us to complete our portfolio and offer better security testing services. Get to know them and become one of them.
+:keywords: Fluid Attacks, Partners, Services, Security Testing, Software Development, Pentesting, Ethical Hacking
+:usa: image:../../images/icons/us-flag.png[USA Flag]
+:partnerlogo: logo-arroyo
+:alt: Logo Arroyo
+:partner: yes
+
+= Arroyo Consulting
+
+{usa} Arroyo Consulting is an agile `IT` development firm formed in `2009`.
+They have offices in the United States
+and low-cost operation centers located in Mexico City, Mexico,
+and Medellín and Bogotá, Colombia.
+They have successfully delivered over `1000` projects internationally,
+with partners in a variety of industries and sectors.
