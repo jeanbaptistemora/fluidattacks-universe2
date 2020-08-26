@@ -21,6 +21,7 @@
 #
 #
 # Discovered around: 2019-11-27
+# Fixed in DB around: 2020-08-26 18:43:31+00:00
 #
 
 # Standard library
@@ -33,9 +34,13 @@ from typing import (
 
 # Third party library
 import aioboto3
+from aioextensions import (
+    collect,
+)
 import dateutil.parser
 
 from backend.dal.helpers import dynamodb
+from backend.dal.finding import update
 
 STAGE: str = os.environ['STAGE']
 FINDINGS_TABLE = 'FI_findings'
@@ -58,6 +63,7 @@ async def scan(*, table_name:str, **options: Any) -> Any:
 
 
 async def main() -> None:
+    updates = []
     async for finding in scan(table_name=FINDINGS_TABLE):
         if (
             # We don't care about wiped findings
@@ -128,6 +134,12 @@ async def main() -> None:
                 pprint(old_historic_state)
                 print(f'historic_state =')
                 pprint(historic_state)
+
+                updates.append(
+                    update(finding_id, {'historic_state': historic_state})
+                )
+
+    print(f'Success: {all(await collect(updates, workers=64))}')
 
 
 if __name__ == '__main__':
