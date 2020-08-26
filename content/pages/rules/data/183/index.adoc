@@ -102,3 +102,8 @@ or as the situation requires.
 Keep cardholder data storage to a minimum by implementing data retention and
 disposal policies, procedures and processes for secure deletion of data when no
 longer needed.
+
+. [[r14]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 9.8.2]
+Destroy media when it is no longer needed for business or legal reasons.
+Render cardholder data on electronic media unrecoverable so that cardholder
+data cannot be reconstructed.
