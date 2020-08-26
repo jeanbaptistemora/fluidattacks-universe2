@@ -275,7 +275,6 @@ async def persist_finding(
 
         success = await do_build_and_upload_vulnerabilities(
             finding_id=finding_id,
-            release=True,
             store=diff_store,
         )
 
