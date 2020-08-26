@@ -16,9 +16,9 @@ In the following table, we outline what differentiates us from our competitors:
 [role="tb-row"]
 [cols="15,45,40"]
 |====
-| *Aspect*
+| *Feature*
 | *Fluid Attacks*
-| *Others*
+| *Others' tools*
 
 a|==== Precision
 | Our combination of technology and human expertise
@@ -29,7 +29,7 @@ ensures that all of our reported findings are vulnerabilities
 a|==== Completeness
 | Thanks to our combination of technology and human expertise,
 we have a *0%* false negatives (omissions).
-| They may reach a rate of 80% false negatives.<<f1 ,*>>
+| They may reach a rate of *80%* false negatives.<<f1 ,*>>
 
 a|==== All in one
 | We provide comprehensive testing through a single solution,
@@ -40,6 +40,74 @@ exploitation with public, private, and custom exploits, user enumeration,
 password guessing and cracking, and trojan infection.
 | Their standard solutions do not include all techniques.
 It is common that some have to be acquired separately.
+
+a|==== Compliance
+| We validate the following standards: `OWASP`, `GDPR`,
+`NERC`, `NIST`, `PCI DSS`, `HIPAA`, `ISO27002`, `CWE`, `CVE`, `EPR`,
+`BSIMM9`, COMMON CRITERIA, as well as company-specific requirements.
+| They validate only some of the standards mentioned.
+
+a|==== Fast & automatic
+| Our scans take minutes for deterministic vulnerabilities
+and hours or days for the most critical vulnerabilities.
+| Generally, their scans take minutes or hours.
+
+a|==== Support
+| Our standard service includes consulting and clarification by hackers
+(via link:../../products/integrates/[Integrates]) so that users understand vulnerabilities.
+| Usually, companies provide support to the users of the tools
+as an additional and expensive service.
+
+a|==== Break the build
+| We break the build without false positives.
+| They break the build with false positives.
+
+a|==== Method
+| Hybrid (automated tools + hands-on expert review).
+| Automatic.
+
+a|==== link:../../blog/importance-pentesting/#diagram[Correlation of attacks]
+| By combining vulnerabilities A and B, we discover a new,
+higher impact vulnerability C, which may compromise more registers.
+| They do not achieve that correlation.
+
+a|==== Safe mode
+| We can operate in safe mode, avoiding being detected by the `SOCs`
+or affecting service availability in productive environments.
+| They can operate in safe mode but in a limited way, only for some checks.
+
+a|==== Type of evidence
+| Some of our most relevant evidence is (1) portions of code,
+(2) images of the attack with explanatory annotations,
+(3) animated `GIFs` of the attack, (4) executive reports in `PDF`,
+(5) technical reports in `XLS` and `PDF`,
+and (6) graphics and metrics illustrating the system's security status.
+| Some of their most relevant evidence
+is portions of code and executive reports.
+
+a|==== Exploitation
+| We can do exploitation as long as we have (1) an available environment
+and (2) the appropriate authorization.
+| There is no exploitation because they are not capable of doing `DAST`.
+
+a|==== Management
+| Through link:../../products/integrates/[Integrates], the entire security testing process is centrally managed,
+the vulnerability remediation process is controlled,
+permanent support is provided to the development teams,
+and executive indicators for organizational management are delivered
+in a simple way and in real time.
+| In some companies, the tools are fragmented
+and do not have a single centralized management process.
+
+a|==== Zero-day vulnerabilities
+| Our hackers are skilled at finding zero-day vulnerabilities.
+| They fail to find these vulnerabilities.
+
+a|==== Pricing
+| Our cost is variable and proportional to the number of developers
+building and modifying the code.
+| They tend to have a fixed cost,
+which is independent of the development team's size.
 
 |====
 {sp} +
