@@ -3,7 +3,7 @@ FROM debian:buster-slim
 ARG PATCHES='deploy/containers/app'
 ARG PIP_REQUIREMENTS='deploy/containers/app/requirements.txt'
 ARG PIP_REQUIREMENTS_PROD_LOCAL='deploy/containers/app/requirements_local_async.txt'
-ARG DYNAMODB_LOCAL_URL='https://s3-us-west-2.amazonaws.com/dynamodb-local/dynamodb_local_latest.tar.gz'
+ARG DYNAMODB_LOCAL_URL='https://s3-us-west-2.amazonaws.com/dynamodb-local/dynamodb_local_2020-05-19.tar.gz'
 ARG TREASUREDATA_URL='https://toolbelt.treasuredata.com/sh/install-debian-stretch-td-agent3.sh'
 ARG URL_SOPS='https://github.com/mozilla/sops/releases/download/v3.5.0/sops-v3.5.0.linux'
 
