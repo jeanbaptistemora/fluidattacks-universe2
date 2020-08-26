@@ -4,10 +4,10 @@ function helper_serves_deploy_integrates {
   local integrates_id='4620828'
 
       helper_serves_aws_login prod \
-  &&  sops_env secrets-prod.yaml default INTEGRATES_PIPELINE_TOKEN \
+  &&  sops_env secrets-prod.yaml default PRODUCT_PIPELINE_TOKEN \
   &&  curl \
         -X POST \
-        -F token="${INTEGRATES_PIPELINE_TOKEN}" \
+        -F token="${PRODUCT_PIPELINE_TOKEN}" \
         -F 'variables[CI_COMMIT_TITLE]=integrates' \
         -F ref=master \
         "https://gitlab.com/api/v4/projects/${integrates_id}/trigger/pipeline"
