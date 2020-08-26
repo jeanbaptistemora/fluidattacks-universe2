@@ -233,6 +233,7 @@ type Me {
     tags(organizationId: String!): [Tag!]
     permissions(entity: Entity!, identifier: String): [String]
     callerOrigin: CallerOrigin
+    sessionExpiration: String
 }
 
 "Comment/Consult type definition"

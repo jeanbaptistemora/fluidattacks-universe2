@@ -441,3 +441,10 @@ async def _do_add_push_token(
     success = await user_domain.add_push_token(user_email, token)
 
     return SimplePayloadType(success=success)
+
+
+async def _get_session_expiration(
+    info: GraphQLResolveInfo,
+    **_: Dict[Any, Any]
+) -> str:
+    return str(util.get_jwt_content(info.context)['exp'])

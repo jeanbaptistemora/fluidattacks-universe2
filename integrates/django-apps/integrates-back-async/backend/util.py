@@ -150,7 +150,7 @@ def has_release(finding: Dict[str, str]) -> bool:
 
 def get_last_vuln(finding: Dict[str, str]) -> datetime:
     """Gets last release of a finding"""
-    tzn = pytz.timezone(settings.TIME_ZONE)  # type: ignore
+    tzn = pytz.timezone(settings.TIME_ZONE)
     finding_last_vuln = datetime.strptime(
         finding["releaseDate"].split(" ")[0],
         '%Y-%m-%d'
@@ -163,7 +163,7 @@ def validate_release_date(finding: Dict[str, str]) -> bool:
     """Validate if a finding has a valid relese date."""
     if has_release(finding):
         last_vuln = get_last_vuln(finding)
-        tzn = pytz.timezone(settings.TIME_ZONE)  # type: ignore
+        tzn = pytz.timezone(settings.TIME_ZONE)
         today_day = datetime.now(tz=tzn).date()
         result = last_vuln <= today_day
     else:
@@ -213,7 +213,7 @@ def get_jwt_content(context) -> Dict[str, str]:
         cookies = context.COOKIES \
             if hasattr(context, 'COOKIES') \
             else context['request'].scope.get('cookies', {})
-        cookie_token = cookies.get(settings.JWT_COOKIE_NAME)  # type: ignore
+        cookie_token = cookies.get(settings.JWT_COOKIE_NAME)
         header_token = (
             context.META.get('HTTP_AUTHORIZATION')
             if hasattr(context, 'META')
@@ -229,13 +229,13 @@ def get_jwt_content(context) -> Dict[str, str]:
         if is_api_token(payload):
             content = jwt.decode(
                 token=token,
-                key=settings.JWT_SECRET_API,  # type: ignore
+                key=settings.JWT_SECRET_API,
                 algorithms='HS512'
             )
         else:
             content = jwt.decode(
                 token=token,
-                key=settings.JWT_SECRET,  # type: ignore
+                key=settings.JWT_SECRET,
                 algorithms='HS512'
             )
             jti = content.get('jti')

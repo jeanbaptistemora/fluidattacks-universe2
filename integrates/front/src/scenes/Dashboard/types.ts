@@ -11,4 +11,10 @@ interface IGetUserPermissionsAttr {
   };
 }
 
-export { IAddStakeholderAttr, IGetUserPermissionsAttr };
+interface ISessionExpirationAttr {
+  me: {
+    sessionExpiration: string;
+  };
+}
+
+export { IAddStakeholderAttr, IGetUserPermissionsAttr, ISessionExpirationAttr };

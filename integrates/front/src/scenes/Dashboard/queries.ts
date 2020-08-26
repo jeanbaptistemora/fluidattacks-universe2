@@ -23,4 +23,12 @@ const GET_USER_PERMISSIONS: DocumentNode = gql`
   }
 `;
 
-export { ADD_STAKEHOLDER_MUTATION, GET_USER_PERMISSIONS };
+const SESSION_EXPIRATION: DocumentNode = gql`
+  query sessionExpiration {
+    me(callerOrigin: "FRONT") {
+      sessionExpiration
+    }
+  }
+`;
+
+export { ADD_STAKEHOLDER_MUTATION, GET_USER_PERMISSIONS, SESSION_EXPIRATION };

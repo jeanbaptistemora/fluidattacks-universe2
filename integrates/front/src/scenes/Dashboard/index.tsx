@@ -2,10 +2,8 @@ import { APITokenModal } from "./components/APITokenModal";
 import { AddOrganizationModal } from "./components/AddOrganizationModal";
 import { addUserModal as AddUserModal } from "./components/AddUserModal";
 import { ApolloError } from "apollo-client";
-import { GET_USER_PERMISSIONS } from "./queries";
 import { GraphQLError } from "graphql";
 import { HomeView } from "./containers/HomeView";
-import { IGetUserPermissionsAttr } from "./types";
 import { IStakeholderDataAttr } from "./containers/ProjectStakeholdersView/types";
 import LogRocket from "logrocket";
 import { Logger } from "../../utils/logger";
@@ -19,12 +17,15 @@ import { ReportsView } from "./containers/ReportsView";
 import { ScrollUpButton } from "../../components/ScrollUpButton";
 import { Sidebar } from "./components/Sidebar";
 import { TagContent } from "./containers/TagContent";
+import _ from "lodash";
 import { msgError } from "../../utils/notifications";
 import style from "./index.css";
 import { translate } from "../../utils/translations/translate";
 import { useAddStakeholder } from "./hooks";
 import { useQuery } from "@apollo/react-hooks";
 import { ConfirmDialog, IConfirmFn } from "../../components/ConfirmDialog";
+import { GET_USER_PERMISSIONS, SESSION_EXPIRATION } from "./queries";
+import { IGetUserPermissionsAttr, ISessionExpirationAttr } from "./types";
 import { Redirect, Route, Switch, useLocation } from "react-router-dom";
 import {
   authzGroupContext,
@@ -33,6 +34,20 @@ import {
   groupLevelPermissions,
   organizationLevelPermissions,
 } from "../../utils/authz/config";
+
+// Type definition
+type EventListeners =
+  | "mousemove"
+  | "mousedown"
+  | "keypress"
+  | "DOMMouseScroll"
+  | "wheel"
+  | "touchmove"
+  | "MSPointerMove";
+
+// Constants
+const milliseconds: number = 1000;
+const seconds: number = 60;
 
 export const Dashboard: React.FC = (): JSX.Element => {
   const { hash } = useLocation();
@@ -76,6 +91,113 @@ export const Dashboard: React.FC = (): JSX.Element => {
   const permissions: PureAbility<string> = React.useContext(
     authzPermissionsContext
   );
+
+  const { data: expDate, loading: expDateL } = useQuery(SESSION_EXPIRATION, {
+    onError: ({ graphQLErrors }: ApolloError): void => {
+      graphQLErrors.forEach((error: GraphQLError): void => {
+        Logger.error("Couldn't load session expiration", error);
+      });
+    },
+  });
+
+  React.useEffect((): (() => void) => {
+    const timersID: Record<string, number | undefined> = {
+      interval: 0,
+      timeout: 0,
+    };
+
+    const sessionIsAlive: (active: boolean) => void = (
+      active: boolean
+    ): void => {
+      if (!_.isUndefined(expDate)) {
+        const dat: ISessionExpirationAttr = expDate;
+        if (Number(`${dat.me.sessionExpiration}000`) <= Date.now()) {
+          if (!active) {
+            window.clearInterval(timersID.interval);
+            alert("Session Expired");
+          }
+          window.location.replace(
+            `https://${window.location.host}/integrates/`
+          );
+        }
+      }
+    };
+
+    window.setInterval(
+      (): void => sessionIsAlive(true),
+      milliseconds * seconds * 2
+    );
+
+    const goInactive: () => void = (): void => {
+      const Iseconds: number = 10;
+      const total: number = milliseconds * Iseconds;
+      sessionIsAlive(false);
+      // eslint-disable-next-line fp/no-mutation
+      timersID.interval = window.setInterval(
+        (): void => sessionIsAlive(false),
+        total
+      );
+    };
+
+    const startTimer: () => void = (): void => {
+      const Iseconds: number = 10;
+      const total: number = milliseconds * Iseconds;
+      // eslint-disable-next-line fp/no-mutation
+      timersID.timeout = window.setTimeout(goInactive, total);
+    };
+
+    const goActive: () => void = (): void => {
+      window.clearInterval(timersID.interval);
+      startTimer();
+    };
+
+    const resetTimer: () => void = (): void => {
+      window.clearTimeout(timersID.timeout);
+      goActive();
+    };
+
+    const cleanUpListeners: (exp: boolean) => void = (exp: boolean): void => {
+      const events: EventListeners[] = [
+        "mousemove",
+        "mousedown",
+        "keypress",
+        "DOMMouseScroll",
+        "wheel",
+        "touchmove",
+        "MSPointerMove",
+      ];
+      if (!exp) {
+        events.forEach((item: EventListeners): void => {
+          window.removeEventListener(item, resetTimer, false);
+        });
+      }
+    };
+
+    const AISetupIntervals: (exp: boolean) => void = (exp: boolean): void => {
+      const events: EventListeners[] = [
+        "mousemove",
+        "mousedown",
+        "keypress",
+        "DOMMouseScroll",
+        "wheel",
+        "touchmove",
+        "MSPointerMove",
+      ];
+      if (!exp) {
+        events.forEach((item: EventListeners): void => {
+          window.addEventListener(item, resetTimer, false);
+        });
+        startTimer();
+      }
+    };
+
+    AISetupIntervals(expDateL);
+
+    return (): void => {
+      cleanUpListeners(expDateL);
+    };
+  }, [expDate, expDateL]);
+
   useQuery(GET_USER_PERMISSIONS, {
     onCompleted: (data: IGetUserPermissionsAttr): void => {
       permissions.update(
