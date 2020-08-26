@@ -136,7 +136,7 @@ observes_zoho:
 
 observes_git_process:
   <<: *with_nix_serial
-  image: "${CI_REGISTRY_IMAGE}/nix:analytics_git_process"
+  image: "${CI_REGISTRY_IMAGE}/nix:observes_git_process"
   tags: [autoscaling-analytics]
   stage: analytics
   artifacts:
