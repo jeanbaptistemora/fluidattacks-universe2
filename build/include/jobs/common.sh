@@ -23,7 +23,7 @@ function job_common_build_nix_caches {
 
 function job_common_send_new_release_email {
       env_prepare_python_packages \
-  &&  CI_COMMIT_REF_NAME=master aws_login 'production' \
+  &&  CI_COMMIT_REF_NAME=master helper_integrates_aws_login 'production' \
   &&  sops_env "integrates/secrets-production.yaml" default \
         MANDRILL_APIKEY \
         MANDRILL_EMAIL_TO \

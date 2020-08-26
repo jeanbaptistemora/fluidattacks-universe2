@@ -1,5 +1,61 @@
 # shellcheck shell=bash
 
+function helper_integrates_aws_login {
+
+  # Log in to aws for resources
+
+  local user="$1"
+  export TF_VAR_aws_access_key
+  export TF_VAR_aws_secret_key
+  export AWS_ACCESS_KEY_ID
+  export AWS_SECRET_ACCESS_KEY
+
+      if [ "${user}"  == 'production' ]; then
+        if [ "${CI_COMMIT_REF_NAME}" == 'master' ]; then
+              AWS_ACCESS_KEY_ID="${PROD_AWS_ACCESS_KEY_ID}" \
+          &&  AWS_SECRET_ACCESS_KEY="${PROD_AWS_SECRET_ACCESS_KEY}"
+        else
+              echo 'Not enough permissions for logging in as production' \
+          &&  return 1
+        fi
+      elif [ "${user}" == 'development' ]; then
+            AWS_ACCESS_KEY_ID="${DEV_AWS_ACCESS_KEY_ID}" \
+        &&  AWS_SECRET_ACCESS_KEY="${DEV_AWS_SECRET_ACCESS_KEY}"
+      else
+            echo 'No valid user was provided' \
+        &&  return 1
+      fi \
+  &&  TF_VAR_aws_access_key="${AWS_ACCESS_KEY_ID}" \
+  &&  TF_VAR_aws_secret_key="${AWS_SECRET_ACCESS_KEY}" \
+  &&  aws configure set aws_access_key_id "${AWS_ACCESS_KEY_ID}" \
+  &&  aws configure set aws_secret_access_key "${AWS_SECRET_ACCESS_KEY}"
+}
+
+function helper_integrates_set_dev_secrets {
+  export JWT_TOKEN
+  export AWS_ACCESS_KEY_ID
+  export AWS_SECRET_ACCESS_KEY
+  export AWS_DEFAULT_REGION
+
+      helper_integrates_aws_login development \
+  &&  echo '[INFO] Exporting development secrets' \
+  &&  sops_vars development
+}
+
+function helper_integrates_set_prod_secrets {
+  export JWT_TOKEN
+  export AWS_ACCESS_KEY_ID
+  export AWS_SECRET_ACCESS_KEY
+  export AWS_DEFAULT_REGION
+
+      helper_integrates_aws_login production \
+  &&  echo '[INFO] Exporting production secrets' \
+  &&  sops_vars production \
+  &&  export DEBUG="True" \
+  &&  export ENVIRONMENT='development' \
+  &&  export REDIS_SERVER='localhost'
+}
+
 function app_version {
   # Return a version for integrates app
 
@@ -11,7 +67,7 @@ function app_version {
 
 function helper_bootstrap_prod_ci {
   env_prepare_python_packages \
-  &&  helper_set_prod_secrets \
+  &&  helper_integrates_set_prod_secrets \
   &&  if test "${IS_LOCAL_BUILD}" = "${FALSE}"
       then
         helper_set_local_dynamo_and_redis
@@ -20,7 +76,7 @@ function helper_bootstrap_prod_ci {
 
 function helper_bootstrap_dev_ci {
   env_prepare_python_packages \
-  &&  helper_set_dev_secrets \
+  &&  helper_integrates_set_dev_secrets \
   &&  if test "${IS_LOCAL_BUILD}" = "${FALSE}"
       then
         helper_set_local_dynamo_and_redis
@@ -108,7 +164,7 @@ function helper_integrates_serve_back {
       env_prepare_python_packages \
   &&  env_prepare_ruby_modules \
   &&  env_prepare_node_modules \
-  &&  "helper_set_${1}_secrets" \
+  &&  "helper_integrates_set_${1}_secrets" \
   &&  echo "[INFO] Serving HTTP on port ${http_port}" \
   &&  {
         gunicorn \
@@ -131,7 +187,7 @@ function helper_integrates_serve_back {
 function helper_integrates_functional_tests {
       env_prepare_python_packages \
   &&  echo '[INFO] Logging in to AWS' \
-  &&  aws_login "${ENVIRONMENT_NAME}" \
+  &&  helper_integrates_aws_login "${ENVIRONMENT_NAME}" \
   &&  echo "[INFO] Firefox: ${pkgFirefox}" \
   &&  echo "[INFO] GeckoDriver:  ${pkgGeckoDriver}" \
   &&  echo '[INFO] Exporting vars' \

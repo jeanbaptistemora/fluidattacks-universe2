@@ -36,7 +36,7 @@ ENV_NAME='development'
 # Import functions
 . build/include/helpers.sh
 
-aws_login "$ENV_NAME"
+helper_integrates_aws_login "$ENV_NAME"
 
 # Set namespace preference for kubectl commands
 echo-blue "Setting namespace preferences..."

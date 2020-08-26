@@ -174,42 +174,6 @@ function helper_list_vars_with_regex {
   printenv | grep -oP "${regex}" | sort
 }
 
-function helper_set_dev_secrets {
-  export JWT_TOKEN
-  export AWS_ACCESS_KEY_ID
-  export AWS_SECRET_ACCESS_KEY
-  export AWS_DEFAULT_REGION
-
-      AWS_ACCESS_KEY_ID="${DEV_AWS_ACCESS_KEY_ID}" \
-  &&  AWS_SECRET_ACCESS_KEY="${DEV_AWS_SECRET_ACCESS_KEY}" \
-  &&  AWS_DEFAULT_REGION='us-east-1' \
-  &&  aws configure set aws_access_key_id "${AWS_ACCESS_KEY_ID}" \
-  &&  aws configure set aws_secret_access_key "${AWS_SECRET_ACCESS_KEY}" \
-  &&  aws configure set region 'us-east-1' \
-  &&  echo '[INFO] Exporting development secrets' \
-  &&  sops_vars development
-}
-
-function helper_set_prod_secrets {
-  export JWT_TOKEN
-  export AWS_ACCESS_KEY_ID
-  export AWS_SECRET_ACCESS_KEY
-  export AWS_DEFAULT_REGION
-
-      AWS_ACCESS_KEY_ID="${PROD_AWS_ACCESS_KEY_ID}" \
-  &&  AWS_SECRET_ACCESS_KEY="${PROD_AWS_SECRET_ACCESS_KEY}" \
-  &&  AWS_DEFAULT_REGION='us-east-1' \
-  &&  aws configure set aws_access_key_id "${AWS_ACCESS_KEY_ID}" \
-  &&  aws configure set aws_secret_access_key "${AWS_SECRET_ACCESS_KEY}" \
-  &&  aws configure set region 'us-east-1' \
-  &&  echo '[INFO] Exporting production secrets' \
-  &&  sops_vars production \
-  &&  export DEBUG="True" \
-  &&  export ENVIRONMENT='development' \
-  &&  export REDIS_SERVER='localhost' \
-
-}
-
 function reg_registry_id {
   # Get the id of a gitlab registry
   # e.g reg_registry_id deps-base
@@ -259,37 +223,6 @@ function minutes_of_month {
         minutes_of_current_hour
       )) \
   &&  echo "${minutes_of_month}"
-}
-
-function aws_login {
-
-  # Log in to aws for resources
-
-  local user="$1"
-  export TF_VAR_aws_access_key
-  export TF_VAR_aws_secret_key
-  export AWS_ACCESS_KEY_ID
-  export AWS_SECRET_ACCESS_KEY
-
-      if [ "${user}"  == 'production' ]; then
-        if [ "${CI_COMMIT_REF_NAME}" == 'master' ]; then
-              AWS_ACCESS_KEY_ID="${PROD_AWS_ACCESS_KEY_ID}" \
-          &&  AWS_SECRET_ACCESS_KEY="${PROD_AWS_SECRET_ACCESS_KEY}"
-        else
-              echo 'Not enough permissions for logging in as production' \
-          &&  return 1
-        fi
-      elif [ "${user}" == 'development' ]; then
-            AWS_ACCESS_KEY_ID="${DEV_AWS_ACCESS_KEY_ID}" \
-        &&  AWS_SECRET_ACCESS_KEY="${DEV_AWS_SECRET_ACCESS_KEY}"
-      else
-            echo 'No valid user was provided' \
-        &&  return 1
-      fi \
-  &&  TF_VAR_aws_access_key="${AWS_ACCESS_KEY_ID}" \
-  &&  TF_VAR_aws_secret_key="${AWS_SECRET_ACCESS_KEY}" \
-  &&  aws configure set aws_access_key_id "${AWS_ACCESS_KEY_ID}" \
-  &&  aws configure set aws_secret_access_key "${AWS_SECRET_ACCESS_KEY}"
 }
 
 function helper_common_terraform_login {

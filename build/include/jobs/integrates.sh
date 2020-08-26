@@ -47,7 +47,7 @@ function job_integrates_build_mobile_android {
       then
             pushd "${STARTDIR}/integrates" \
         &&  echo '[INFO] Logging in to AWS' \
-        &&  aws_login "${ENVIRONMENT_NAME}" \
+        &&  helper_integrates_aws_login "${ENVIRONMENT_NAME}" \
         &&  sops_env "secrets-${ENVIRONMENT_NAME}.yaml" 'default' \
               EXPO_USER \
               EXPO_PASS \
@@ -106,7 +106,7 @@ function job_integrates_build_mobile_ios {
 
       pushd "${STARTDIR}/integrates" \
   &&  echo '[INFO] Logging in to AWS' \
-  &&  aws_login "${ENVIRONMENT_NAME}" \
+  &&  helper_integrates_aws_login "${ENVIRONMENT_NAME}" \
   &&  sops_env "secrets-${ENVIRONMENT_NAME}.yaml" 'default' \
         APPLE_DIST_CERT_PASSWORD \
         APPLE_ID \
@@ -190,7 +190,7 @@ function job_integrates_coverage_report {
       pushd "${STARTDIR}/integrates" \
   &&  env_prepare_python_packages \
   &&  echo '[INFO] Logging in to AWS' \
-  &&  aws_login "${ENVIRONMENT_NAME}" \
+  &&  helper_integrates_aws_login "${ENVIRONMENT_NAME}" \
   &&  sops_env "secrets-${ENVIRONMENT_NAME}.yaml" 'default' \
         CODECOV_TOKEN \
   &&  codecov -b "${CI_COMMIT_REF_NAME}" \
@@ -206,7 +206,7 @@ function job_integrates_clean_registries {
   &&  if helper_is_today_first_day_of_month
       then
             echo '[INFO] Cleaning registries' \
-        &&  CI_COMMIT_REF_NAME='master' aws_login 'production' \
+        &&  CI_COMMIT_REF_NAME='master' helper_integrates_aws_login 'production' \
         &&  sops_env 'secrets-production.yaml' 'default' \
               GITLAB_API_TOKEN \
         &&  echo "[INFO] Computing registry ID for: ${registry_name}" \
@@ -234,7 +234,7 @@ function job_integrates_build_container_app {
   &&  echo '[INFO] Computing Fluid Integrates version' \
   &&  echo -n "${FI_VERSION}" > 'version.txt' \
   &&  echo '[INFO] Logging in to AWS' \
-  &&  aws_login "${ENVIRONMENT_NAME}" \
+  &&  helper_integrates_aws_login "${ENVIRONMENT_NAME}" \
   &&  sops_env "secrets-${ENVIRONMENT_NAME}.yaml" 'default' \
         SSL_KEY \
         SSL_CERT \
@@ -262,7 +262,7 @@ function job_integrates_deploy_front {
       pushd "${STARTDIR}/integrates" \
   &&  env_prepare_python_packages \
   &&  env_prepare_django_static_external \
-  &&  aws_login "${ENVIRONMENT_NAME}" \
+  &&  helper_integrates_aws_login "${ENVIRONMENT_NAME}" \
   &&  sops_vars "${ENVIRONMENT_NAME}" \
   &&  ./manage.py collectstatic --no-input \
   &&  popd \
@@ -275,7 +275,7 @@ function job_integrates_deploy_mobile_ota {
       helper_use_pristine_workdir \
   &&  pushd integrates \
     &&  echo '[INFO] Logging in to AWS' \
-    &&  aws_login "${ENVIRONMENT_NAME}" \
+    &&  helper_integrates_aws_login "${ENVIRONMENT_NAME}" \
     &&  sops_env "secrets-${ENVIRONMENT_NAME}.yaml" 'default' \
           EXPO_USER \
           EXPO_PASS \
@@ -323,7 +323,7 @@ function job_integrates_deploy_mobile_playstore {
       then
             pushd "${STARTDIR}/integrates" \
         &&  echo '[INFO] Logging in to AWS' \
-        &&  aws_login "${ENVIRONMENT_NAME}" \
+        &&  helper_integrates_aws_login "${ENVIRONMENT_NAME}" \
         &&  sops \
               --aws-profile default \
               --decrypt \
@@ -360,7 +360,7 @@ function job_integrates_deploy_permissions_matrix {
 
       pushd "${STARTDIR}/integrates" \
   &&  env_prepare_python_packages \
-  &&  helper_set_dev_secrets \
+  &&  helper_integrates_set_dev_secrets \
   &&  echo '[INFO] Deploying permissions matrix' \
   &&  python3 deploy/permissions-matrix/matrix.py \
   &&  popd \
@@ -374,7 +374,7 @@ function job_integrates_django_console {
   &&  env_prepare_python_packages \
   &&  env_prepare_ruby_modules \
   &&  env_prepare_node_modules \
-  &&  "helper_set_dev_secrets" \
+  &&  helper_integrates_set_dev_secrets \
   &&  ./manage.py shell \
   &&  popd \
   ||  return 1
@@ -418,7 +418,7 @@ function job_integrates_functional_tests_mobile {
 
       pushd "${STARTDIR}/integrates/mobile/e2e" \
   &&  echo '[INFO] Logging in to AWS' \
-  &&  aws_login "${ENVIRONMENT_NAME}" \
+  &&  helper_integrates_aws_login "${ENVIRONMENT_NAME}" \
   &&  aws configure set region 'us-west-2' \
   &&  project_arn=$(
         aws devicefarm list-projects \
@@ -510,7 +510,7 @@ function job_integrates_renew_certificates {
   &&  if helper_is_today_wednesday
       then
         # shellcheck disable=SC2034
-            aws_login 'development' \
+            helper_integrates_aws_login 'development' \
         &&  echo '[INFO] Setting context' \
         &&  aws eks update-kubeconfig --name FluidServes --region us-east-1 \
         &&  kubectl config \
@@ -640,7 +640,7 @@ function job_integrates_serve_front {
 function job_integrates_serve_mobile {
       pushd "${STARTDIR}/integrates" \
   &&  echo '[INFO] Logging in to AWS' \
-  &&  aws_login "${ENVIRONMENT_NAME}" \
+  &&  helper_integrates_aws_login "${ENVIRONMENT_NAME}" \
   &&  sops_env "secrets-${ENVIRONMENT_NAME}.yaml" 'default' \
         EXPO_USER \
         EXPO_PASS \
@@ -688,7 +688,7 @@ function job_integrates_cron_show {
 
       pushd "${STARTDIR}/integrates" \
   &&  env_prepare_python_packages \
-  &&  helper_set_dev_secrets \
+  &&  helper_integrates_set_dev_secrets \
   &&  python3 manage.py crontab add \
   &&  python3 manage.py crontab show \
   &&  popd \
@@ -701,7 +701,7 @@ function job_integrates_cron_run {
 
       pushd "${STARTDIR}/integrates" \
   &&  env_prepare_python_packages \
-  &&  helper_set_dev_secrets \
+  &&  helper_integrates_set_dev_secrets \
   &&  python3 manage.py crontab run "${cron_job}" \
   &&  popd \
   ||  return 1
@@ -721,7 +721,7 @@ function _job_integrates_make_migration {
   export DJANGO_SETTINGS_MODULE='fluidintegrates.settings'
 
       env_prepare_python_packages \
-  &&  "helper_set_${env}_secrets" \
+  &&  "helper_integrates_set_${env}_secrets" \
   &&  PYTHONPATH="${PWD}:${PYTHONPATH}" \
       STAGE="${stage}" \
       python3 "${migration_file}" \
@@ -805,7 +805,7 @@ function _job_integrates_analytics_make_snapshots {
 function job_integrates_analytics_make_documents_dev {
       pushd "${STARTDIR}/integrates" \
   &&  env_prepare_python_packages \
-  &&  helper_set_dev_secrets \
+  &&  helper_integrates_set_dev_secrets \
   &&  if test "${IS_LOCAL_BUILD}" = "${FALSE}"
       then
         helper_set_local_dynamo_and_redis
@@ -818,7 +818,7 @@ function job_integrates_analytics_make_documents_dev {
 function job_integrates_analytics_make_documents_prod {
       pushd "${STARTDIR}/integrates" \
   &&  env_prepare_python_packages \
-  &&  helper_set_prod_secrets \
+  &&  helper_integrates_set_prod_secrets \
   &&  _job_integrates_analytics_make_documents \
   &&  popd \
   ||  return 1
@@ -834,7 +834,7 @@ function job_integrates_analytics_make_documents_prod_schedule {
 function job_integrates_analytics_make_snapshots_prod_schedule {
       pushd "${STARTDIR}/integrates" \
   &&  env_prepare_python_packages \
-  &&  helper_set_prod_secrets \
+  &&  helper_integrates_set_prod_secrets \
   &&  _job_integrates_analytics_make_snapshots \
   &&  popd \
   ||  return 1
@@ -906,7 +906,7 @@ function job_integrates_infra_backup_deploy {
 
       pushd "${STARTDIR}/integrates" \
   &&  echo '[INFO] Logging in to AWS production' \
-  &&  CI_COMMIT_REF_NAME=master aws_login production \
+  &&  CI_COMMIT_REF_NAME=master helper_integrates_aws_login production \
   &&  sops_env 'secrets-production.yaml' 'default' \
         DB_USER \
         DB_PASSWD \
@@ -923,7 +923,7 @@ function job_integrates_infra_backup_deploy {
 function job_integrates_infra_backup_test {
       pushd "${STARTDIR}/integrates" \
   &&  echo '[INFO] Logging in to AWS development' \
-  &&  aws_login development \
+  &&  helper_integrates_aws_login development \
   &&  pushd deploy/backup/terraform \
     &&  terraform init \
     &&  tflint --deep --module \
@@ -939,7 +939,7 @@ function job_integrates_infra_database_deploy {
 
       pushd "${STARTDIR}/integrates" \
   &&  echo '[INFO] Logging in to AWS production' \
-  &&  CI_COMMIT_REF_NAME=master aws_login production \
+  &&  CI_COMMIT_REF_NAME=master helper_integrates_aws_login production \
   &&  sops_env 'secrets-production.yaml' 'default' \
         DB_USER \
         DB_PASSWD \
@@ -956,7 +956,7 @@ function job_integrates_infra_database_deploy {
 function job_integrates_infra_database_test {
       pushd "${STARTDIR}/integrates" \
   &&  echo '[INFO] Logging in to AWS development' \
-  &&  aws_login development \
+  &&  helper_integrates_aws_login development \
   &&  pushd deploy/database/terraform \
     &&  terraform init \
     &&  tflint --deep --module \
@@ -969,7 +969,7 @@ function job_integrates_infra_database_test {
 function job_integrates_infra_cache_db_deploy {
       pushd "${STARTDIR}/integrates" \
   &&  echo '[INFO] Logging in to AWS production' \
-  &&  CI_COMMIT_REF_NAME=master aws_login production \
+  &&  CI_COMMIT_REF_NAME=master helper_integrates_aws_login production \
   &&  pushd deploy/cache-db/terraform \
     &&  terraform init \
     &&  terraform apply -auto-approve -refresh=true \
@@ -981,7 +981,7 @@ function job_integrates_infra_cache_db_deploy {
 function job_integrates_infra_cache_db_test {
       pushd "${STARTDIR}/integrates" \
   &&  echo '[INFO] Logging in to AWS development' \
-  &&  aws_login development \
+  &&  helper_integrates_aws_login development \
   &&  pushd deploy/cache-db/terraform \
     &&  terraform init \
     &&  tflint --deep --module \
@@ -997,7 +997,7 @@ function job_integrates_infra_django_db_deploy {
 
       pushd "${STARTDIR}/integrates" \
   &&  echo '[INFO] Logging in to AWS production' \
-  &&  CI_COMMIT_REF_NAME=master aws_login production \
+  &&  CI_COMMIT_REF_NAME=master helper_integrates_aws_login production \
   &&  sops_env 'secrets-production.yaml' 'default' \
         DB_USER \
         DB_PASSWD \
@@ -1017,7 +1017,7 @@ function job_integrates_infra_django_db_test {
 
       pushd "${STARTDIR}/integrates" \
   &&  echo '[INFO] Logging in to AWS development' \
-  &&  aws_login development \
+  &&  helper_integrates_aws_login development \
   &&  sops_env 'secrets-development.yaml' 'default' \
         DB_USER \
         DB_PASSWD \
@@ -1035,7 +1035,7 @@ function job_integrates_infra_django_db_test {
 function job_integrates_infra_devicefarm_deploy {
       pushd "${STARTDIR}/integrates" \
   &&  echo '[INFO] Logging in to AWS production' \
-  &&  CI_COMMIT_REF_NAME=master aws_login production \
+  &&  CI_COMMIT_REF_NAME=master helper_integrates_aws_login production \
   &&  pushd deploy/devicefarm/terraform \
     &&  terraform init \
     &&  terraform apply -auto-approve -refresh=true \
@@ -1047,7 +1047,7 @@ function job_integrates_infra_devicefarm_deploy {
 function job_integrates_infra_devicefarm_test {
       pushd "${STARTDIR}/integrates" \
   &&  echo '[INFO] Logging in to AWS development' \
-  &&  aws_login development \
+  &&  helper_integrates_aws_login development \
   &&  pushd deploy/devicefarm/terraform \
     &&  terraform init \
     &&  tflint --deep --module \
@@ -1060,7 +1060,7 @@ function job_integrates_infra_devicefarm_test {
 function job_integrates_infra_resources_deploy {
       pushd "${STARTDIR}/integrates" \
   &&  echo '[INFO] Logging in to AWS production' \
-  &&  CI_COMMIT_REF_NAME=master aws_login production \
+  &&  CI_COMMIT_REF_NAME=master helper_integrates_aws_login production \
   &&  pushd deploy/terraform-resources \
     &&  terraform init \
     &&  terraform apply -auto-approve -refresh=true \
@@ -1072,7 +1072,7 @@ function job_integrates_infra_resources_deploy {
 function job_integrates_infra_resources_test {
       pushd "${STARTDIR}/integrates" \
   &&  echo '[INFO] Logging in to AWS development' \
-  &&  aws_login development \
+  &&  helper_integrates_aws_login development \
   &&  pushd deploy/terraform-resources \
     &&  terraform init \
     &&  tflint --deep --module \
@@ -1084,7 +1084,7 @@ function job_integrates_infra_resources_test {
 function job_integrates_infra_secret_management_deploy {
       pushd "${STARTDIR}/integrates" \
   &&  echo '[INFO] Logging in to AWS production' \
-  &&  CI_COMMIT_REF_NAME=master aws_login production \
+  &&  CI_COMMIT_REF_NAME=master helper_integrates_aws_login production \
   &&  pushd deploy/secret-management/terraform \
     &&  terraform init \
     &&  terraform apply -auto-approve -refresh=true \
@@ -1096,7 +1096,7 @@ function job_integrates_infra_secret_management_deploy {
 function job_integrates_infra_secret_management_test {
       pushd "${STARTDIR}/integrates" \
   &&  echo '[INFO] Logging in to AWS development' \
-  &&  aws_login development \
+  &&  helper_integrates_aws_login development \
   &&  pushd deploy/secret-management/terraform \
     &&  terraform init \
     &&  tflint --deep --module \
@@ -1118,7 +1118,7 @@ function job_integrates_rotate_jwt_token {
   &&  echo "[INFO] Extracting ${bytes_of_entropy} bytes of pseudo random entropy" \
   &&  var_value=$(head -c "${bytes_of_entropy}" /dev/urandom | base64) \
   &&  echo '[INFO] Extracting secrets' \
-  &&  aws_login "${ENVIRONMENT_NAME}" \
+  &&  helper_integrates_aws_login "${ENVIRONMENT_NAME}" \
   &&  sops_env "secrets-${ENVIRONMENT_NAME}.yaml" 'default' \
         GITLAB_API_TOKEN \
   &&  echo '[INFO] Updating var in GitLab' \
@@ -1159,7 +1159,7 @@ function job_integrates_test_back {
   # shellcheck disable=SC2015
       pushd "${STARTDIR}/integrates" \
   &&  env_prepare_python_packages \
-  &&  helper_set_dev_secrets \
+  &&  helper_integrates_set_dev_secrets \
   &&  helper_set_local_dynamo_and_redis \
   &&  for i in "${!markers[@]}"
       do
@@ -1220,7 +1220,7 @@ function job_integrates_deploy_k8s_back_ephemeral {
   # shellcheck disable=SC2034
       helper_use_pristine_workdir \
   &&  pushd "${STARTDIR}/integrates" \
-  &&  aws_login 'development' \
+  &&  helper_integrates_aws_login 'development' \
   &&  echo "[INFO] Setting namespace preferences..." \
   &&  aws eks update-kubeconfig --name FluidServes --region us-east-1 \
   &&  kubectl config \
@@ -1274,7 +1274,7 @@ function job_integrates_deploy_k8s_back {
   # shellcheck disable=SC2034
       helper_use_pristine_workdir \
   &&  pushd "${STARTDIR}/integrates" \
-  &&  CI_COMMIT_REF_NAME='master' aws_login 'production' \
+  &&  CI_COMMIT_REF_NAME='master' helper_integrates_aws_login 'production' \
   &&  sops_env 'secrets-production.yaml' 'default' \
         NEW_RELIC_API_KEY \
         NEW_RELIC_APP_ID \
@@ -1329,7 +1329,7 @@ function job_integrates_deploy_k8s_back {
 function job_integrates_deploy_k8s_stop_ephemeral {
       pushd "${STARTDIR}/integrates" \
   &&  echo "[INFO] Setting namespace preferences..." \
-  &&  aws_login 'development' \
+  &&  helper_integrates_aws_login 'development' \
   &&  aws eks update-kubeconfig --name FluidServes --region us-east-1 \
   &&  kubectl config \
         set-context "$(kubectl config current-context)" \

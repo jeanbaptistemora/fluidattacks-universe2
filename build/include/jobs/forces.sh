@@ -1,7 +1,7 @@
 # shellcheck shell=bash
 
 source "${srcEnv}"
-source "${srcIncludeHelpersCommon}"
+source "${srcIncludeHelpersIntegrates}"
 source "${srcIncludeHelpersForces}"
 
 function job_forces_lint {
@@ -71,7 +71,7 @@ function job_forces_deploy_to_docker_hub {
   local forces_image="fluidattacks/forces:new"
   local break_build_image="fluidattacks/break-build:new"
 
-      aws_login "${ENVIRONMENT_NAME}" \
+      helper_integrates_aws_login "${ENVIRONMENT_NAME}" \
   &&  sops_env "integrates/secrets-${ENVIRONMENT_NAME}.yaml" default \
         DOCKER_HUB_USER \
         DOCKER_HUB_PASS \
