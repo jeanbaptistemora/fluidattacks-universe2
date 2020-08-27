@@ -26,7 +26,11 @@ function decide_and_call_provisioner {
   export __NIX_SSL_CERT_FILE="${NIX_SSL_CERT_FILE}"
 
   # shellcheck disable=2016
-      provisioner="./build/provisioners/${job}.nix" \
+      if echo "${job}" | grep -q 'asserts_test_'
+      then
+        ./asserts/deploy/dependencies/scripts/odbc/set.sh
+      fi \
+  &&  provisioner="./build/provisioners/${job}.nix" \
   &&  if [ ! -f "${provisioner}" ]
       then
         provisioner='./build/provisioners/integrates_reset.nix'

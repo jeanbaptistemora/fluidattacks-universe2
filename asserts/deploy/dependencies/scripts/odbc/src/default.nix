@@ -1,5 +1,5 @@
 let
-  pkgs = import ../../../pkgs/stable.nix;
+  pkgs = import ../../../../../../build/pkgs/stable.nix;
 
   odbcIniContents = with pkgs.unixODBCDrivers; ''
     [${msodbcsql17.fancyName}]
@@ -9,8 +9,8 @@ in
   pkgs.stdenv.mkDerivation {
     name = "shell";
 
-    genericShellOptions = ../../../include/generic/shell-options.sh;
-    genericDirs = ../../../include/generic/dir-structure.sh;
+    genericShellOptions = ../../../../../../build/include/generic/shell-options.sh;
+    genericDirs = ../../../../../../build/include/generic/dir-structure.sh;
 
     inherit odbcIniContents;
     buildInputs = with pkgs; [

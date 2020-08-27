@@ -1,7 +1,7 @@
 { pkgs, inputs }:
 
 let
-  builders.pythonRequirements = import ../builders/python-requirements pkgs;
+  builders.pythonRequirements = import ../../../build/builders/python-requirements pkgs;
   base = [
     pkgs.git
     pkgs.awscli
@@ -11,14 +11,14 @@ let
   ];
 in
   pkgs.stdenv.mkDerivation (
-       (import ../src/basic.nix)
-    // (import ../src/external.nix pkgs)
+       (import ../../../build/src/basic.nix)
+    // (import ../../../build/src/external.nix pkgs)
     // (rec {
       name = "builder";
 
       buildInputs = base ++ inputs;
 
-      pyPkgTestrequirements = builders.pythonRequirements ../dependencies/tests.lst;
+      pyPkgTestrequirements = builders.pythonRequirements ./tests.lst;
       pyPkgAsserts = import ../.. pkgs;
     })
   )

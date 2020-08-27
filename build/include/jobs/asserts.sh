@@ -91,97 +91,157 @@ function job_asserts_infra_secret_management_deploy {
 function job_asserts_test_api_cloud_aws_api {
   local marker_name='cloud_aws_api'
 
+  trap "helper_asserts_mocks_ctl shutdown ${marker_name}" 'EXIT'
+
       helper_use_pristine_workdir \
+  &&  pushd asserts \
   &&  env_prepare_python_packages \
-  &&  helper_test_fluidasserts "${marker_name}"
+  &&  helper_test_fluidasserts "${marker_name}" \
+  &&  popd \
+  ||  return 1
 }
 
 function job_asserts_test_api_cloud_aws_new {
   local marker_name='cloud_aws_new'
 
+  trap "helper_asserts_mocks_ctl shutdown ${marker_name}" 'EXIT'
+
       helper_use_pristine_workdir \
+  &&  pushd asserts \
   &&  env_prepare_python_packages \
-  &&  helper_test_fluidasserts "${marker_name}"
+  &&  helper_test_fluidasserts "${marker_name}" \
+  &&  popd \
+  ||  return 1
 }
 
 function job_asserts_test_api_cloud_aws_cloudformation {
   local marker_name='cloud_aws_cloudformation'
 
+  trap "helper_asserts_mocks_ctl shutdown ${marker_name}" 'EXIT'
+
       helper_use_pristine_workdir \
+  &&  pushd asserts \
   &&  env_prepare_python_packages \
-  &&  helper_test_fluidasserts "${marker_name}"
+  &&  helper_test_fluidasserts "${marker_name}" \
+  &&  popd \
+  ||  return 1
 }
 
 function job_asserts_test_api_cloud_aws_terraform {
   local marker_name='cloud_aws_terraform'
 
+  trap "helper_asserts_mocks_ctl shutdown ${marker_name}" 'EXIT'
+
       helper_use_pristine_workdir \
+  &&  pushd asserts \
   &&  env_prepare_python_packages \
-  &&  helper_test_fluidasserts "${marker_name}"
+  &&  helper_test_fluidasserts "${marker_name}" \
+  &&  popd \
+  ||  return 1
 }
 
 function job_asserts_test_api_cloud_azure {
   local marker_name='cloud_azure'
 
+  trap "helper_asserts_mocks_ctl shutdown ${marker_name}" 'EXIT'
+
       helper_use_pristine_workdir \
+  &&  pushd asserts \
   &&  env_prepare_python_packages \
-  &&  helper_test_fluidasserts "${marker_name}"
+  &&  helper_test_fluidasserts "${marker_name}" \
+  &&  popd \
+  ||  return 1
 }
 
 function job_asserts_test_api_cloud_gcp {
   local marker_name='cloud_gcp'
 
+  trap "helper_asserts_mocks_ctl shutdown ${marker_name}" 'EXIT'
+
       helper_use_pristine_workdir \
+  &&  pushd asserts \
   &&  env_prepare_python_packages \
-  &&  helper_test_fluidasserts "${marker_name}"
+  &&  helper_test_fluidasserts "${marker_name}" \
+  &&  popd \
+  ||  return 1
 }
 
 function job_asserts_test_api_cloud_kubernetes {
   local marker_name='cloud_kubernetes'
 
+  trap "helper_asserts_mocks_ctl shutdown ${marker_name}" 'EXIT'
+
       helper_use_pristine_workdir \
+  &&  pushd asserts \
   &&  env_prepare_python_packages \
-  &&  helper_test_fluidasserts "${marker_name}"
+  &&  helper_test_fluidasserts "${marker_name}" \
+  &&  popd \
+  ||  return 1
 }
 
 function job_asserts_test_api_db_mssql {
   local marker_name='db_mssql'
 
+  trap "helper_asserts_mocks_ctl shutdown ${marker_name}" 'EXIT'
+
       helper_use_pristine_workdir \
+  &&  pushd asserts \
   &&  env_prepare_python_packages \
-  &&  helper_test_fluidasserts "${marker_name}"
+  &&  helper_test_fluidasserts "${marker_name}" \
+  &&  popd \
+  ||  return 1
 }
 
 function job_asserts_test_api_db_mysql {
   local marker_name='db_mysql'
 
+  trap "helper_asserts_mocks_ctl shutdown ${marker_name}" 'EXIT'
+
       helper_use_pristine_workdir \
+  &&  pushd asserts \
   &&  env_prepare_python_packages \
-  &&  helper_test_fluidasserts "${marker_name}"
+  &&  helper_test_fluidasserts "${marker_name}" \
+  &&  popd \
+  ||  return 1
 }
 
 function job_asserts_test_api_db_postgres {
   local marker_name='db_postgres'
 
+  trap "helper_asserts_mocks_ctl shutdown ${marker_name}" 'EXIT'
+
       helper_use_pristine_workdir \
+  &&  pushd asserts \
   &&  env_prepare_python_packages \
-  &&  helper_test_fluidasserts "${marker_name}"
+  &&  helper_test_fluidasserts "${marker_name}" \
+  &&  popd \
+  ||  return 1
 }
 
 function job_asserts_test_api_format {
   local marker_name='format'
 
+  trap "helper_asserts_mocks_ctl shutdown ${marker_name}" 'EXIT'
+
       helper_use_pristine_workdir \
+  &&  pushd asserts \
   &&  env_prepare_python_packages \
-  &&  helper_test_fluidasserts "${marker_name}"
+  &&  helper_test_fluidasserts "${marker_name}" \
+  &&  popd \
+  ||  return 1
 }
 
 function job_asserts_test_api_helper {
   local marker_name='helper'
 
+  trap "helper_asserts_mocks_ctl shutdown ${marker_name}" 'EXIT'
+
       helper_use_pristine_workdir \
+  &&  pushd asserts \
   &&  env_prepare_python_packages \
-  &&  helper_test_fluidasserts "${marker_name}"
+  &&  helper_test_fluidasserts "${marker_name}" \
+  &&  popd \
+  ||  return 1
 }
 
 function job_asserts_test_api_iot {

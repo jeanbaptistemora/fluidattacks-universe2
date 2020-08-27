@@ -20,7 +20,8 @@ function helper_asserts_aws_login {
       fi \
   &&  echo "[INFO] Logging into AWS with ${user} credentials" \
   &&  aws configure set aws_access_key_id "${AWS_ACCESS_KEY_ID}" \
-  &&  aws configure set aws_secret_access_key "${AWS_SECRET_ACCESS_KEY}"
+  &&  aws configure set aws_secret_access_key "${AWS_SECRET_ACCESS_KEY}" \
+  &&  aws configure set region 'us-east-1'
 }
 
 function helper_minutes_of_month {
@@ -98,25 +99,24 @@ function helper_with_production_secrets {
         MANDRILL_APIKEY
 }
 
+function helper_asserts_mocks_ctl {
+  local action="${1}"
+  local marker_name="${2}"
+
+  pytest \
+      -m "${action}" \
+      --asserts-module "${marker_name}" \
+      --capture=no \
+      --no-cov \
+      --reruns 10 \
+      --reruns-delay 1 \
+    "test/test_others_${action}.py"
+}
+
 function helper_test_fluidasserts {
   helper_with_development_secrets
 
   local marker_name="${1}"
-
-  function mocks_ctl {
-    local action="${1}"
-    local marker_name="${2}"
-
-    pytest \
-        -m "${action}" \
-        --asserts-module "${marker_name}" \
-        --capture=no \
-        --no-cov \
-        --reruns 10 \
-        --reruns-delay 1 \
-      "test/test_others_${action}.py"
-  }
-  trap 'mocks_ctl shutdown ${marker_name}' 'EXIT'
 
   function compute_needed_test_modules_for {
     grep -lrP "'${1}'" "test/test_"*
@@ -136,7 +136,7 @@ function helper_test_fluidasserts {
       "${test_modules[@]}"
   }
 
-  mocks_ctl prepare  "${marker_name}"
+  helper_asserts_mocks_ctl prepare  "${marker_name}"
 
   execute_tests_for "${marker_name}"
 }

@@ -66,7 +66,7 @@ function job_common_lint_build_system {
 
       shellcheck --external-sources --exclude=SC2153 build.sh \
   &&  find 'build' 'integrates/mobile/e2e' -name '*.sh' -exec \
-        shellcheck --external-sources --exclude=SC1090,SC2016,SC2153,SC2154 {} + \
+        shellcheck --external-sources --exclude=SC1090,SC2016,SC2153,SC2154,SC2064 {} + \
   &&  echo '[OK] Shell code is compliant'
 }
 

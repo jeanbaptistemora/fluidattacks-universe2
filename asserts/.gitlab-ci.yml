@@ -54,3 +54,66 @@ asserts_infra_secret_management_deploy:
   <<: *with_nix
   <<: *in_master_branch_asserts
   stage: deploy-infra
+
+# For some reason our innovation account is empty!
+#   disabling until we recreate it or found how to revert changes
+.asserts_test_api_cloud_aws_api:
+  <<: *with_nix
+  <<: *in_dev_branch_asserts
+  stage: test-code
+
+asserts_test_api_cloud_aws_new:
+  <<: *with_nix
+  <<: *in_dev_branch_asserts
+  stage: test-code
+
+asserts_test_api_cloud_aws_cloudformation:
+  <<: *with_nix
+  <<: *in_dev_branch_asserts
+  stage: test-code
+
+asserts_test_api_cloud_aws_terraform:
+  <<: *with_nix
+  <<: *in_dev_branch_asserts
+  stage: test-code
+
+asserts_test_api_cloud_azure:
+  <<: *with_nix
+  <<: *in_dev_branch_asserts
+  stage: test-code
+
+asserts_test_api_cloud_gcp:
+  <<: *with_nix
+  <<: *in_dev_branch_asserts
+  stage: test-code
+
+.asserts_test_api_cloud_kubernetes:
+  <<: *with_nix
+  <<: *in_dev_branch_asserts
+  stage: test-code
+
+asserts_test_api_db_mssql:
+  <<: *with_nix
+  <<: *in_dev_branch_asserts
+  stage: test-code
+
+asserts_test_api_db_mysql:
+  <<: *with_nix
+  <<: *in_dev_branch_asserts
+  stage: test-code
+
+asserts_test_api_db_postgres:
+  <<: *with_nix
+  <<: *in_dev_branch_asserts
+  stage: test-code
+
+asserts_test_api_format:
+  <<: *with_nix
+  <<: *in_dev_branch_asserts
+  stage: test-code
+  tags: [autoscaling-large]
+
+asserts_test_api_helper:
+  <<: *with_nix
+  <<: *in_dev_branch_asserts
+  stage: test-code

@@ -17,7 +17,7 @@ in
         pkgs.python37Packages.brotli
       ];
 
-      pyPkgAsserts = import ../.. pkgs;
+      pyPkgAsserts = import ../../asserts pkgs;
 
       pyPkgGitfame = builders.pythonPackage "git-fame==1.10.1";
       pyPkgSphinx = builders.pythonPackage "sphinx==2.2.1";
