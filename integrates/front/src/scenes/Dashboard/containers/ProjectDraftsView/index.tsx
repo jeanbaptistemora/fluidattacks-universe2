@@ -175,8 +175,7 @@ const projectDraftsView: React.FC<IProjectDraftsBaseProps> = (props: IProjectDra
                   translate.t("group.drafts.success_create"),
                   translate.t("group.drafts.title_success"),
                 );
-                refetch()
-                  .catch();
+                void refetch();
               }
             };
 
@@ -226,8 +225,7 @@ const projectDraftsView: React.FC<IProjectDraftsBaseProps> = (props: IProjectDra
                         const matchingSuggestion: ISuggestion = suggestions.filter((
                           suggestion: ISuggestion): boolean => suggestion.title === values.title)[0];
 
-                        createDraft({ variables: { ...matchingSuggestion, title: values.title, projectName } })
-                          .catch();
+                        void createDraft({ variables: { ...matchingSuggestion, title: values.title, projectName } });
                       };
 
                       return (

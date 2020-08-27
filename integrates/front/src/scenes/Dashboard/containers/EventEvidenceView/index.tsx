@@ -111,21 +111,18 @@ const eventEvidenceView: React.FC<EventEvidenceProps> = (props: EventEvidencePro
 
   const handleDownload: (() => void) = (): void => {
     if (!isEditing) {
-      downloadEvidence({ variables: { eventId, fileName: data.event.evidenceFile } })
-        .catch();
+      void downloadEvidence({ variables: { eventId, fileName: data.event.evidenceFile } });
     }
   };
 
   const removeImage: (() => void) = (): void => {
     setEditing(false);
-    removeEvidence({ variables: { eventId, evidenceType: "IMAGE" } })
-      .catch();
+    void removeEvidence({ variables: { eventId, evidenceType: "IMAGE" } });
   };
 
   const removeFile: (() => void) = (): void => {
     setEditing(false);
-    removeEvidence({ variables: { eventId, evidenceType: "FILE" } })
-      .catch();
+    void removeEvidence({ variables: { eventId, evidenceType: "FILE" } });
   };
 
   const handleUpdate: ((values: {}) => void) = async (values: {}): Promise<void> => {

@@ -194,8 +194,7 @@ const evidenceView: React.FC<EventEvidenceProps> = (props: EventEvidenceProps): 
                     const handleRemove: (() => void) = (): void => {
                       mixpanel.track("RemoveEvidence", { User: userName });
                       setEditing(false);
-                      removeEvidence({ variables: { evidenceId: name.toUpperCase(), findingId } })
-                        .catch();
+                      void removeEvidence({ variables: { evidenceId: name.toUpperCase(), findingId } });
                     };
 
                     const openImage: (() => void) = (): void => {

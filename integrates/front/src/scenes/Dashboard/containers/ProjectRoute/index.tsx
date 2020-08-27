@@ -109,8 +109,7 @@ const projectRoute: React.FC<IProjectRoute> = (props: IProjectRoute): JSX.Elemen
   });
 
   const handleSubmit: (() => void) = (): void => {
-    rejectRemoveProject({ variables: { projectName: projectName.toLowerCase() } })
-      .catch();
+    void rejectRemoveProject({ variables: { projectName: projectName.toLowerCase() } });
   };
   if (!_.isUndefined(error)) {
     return (

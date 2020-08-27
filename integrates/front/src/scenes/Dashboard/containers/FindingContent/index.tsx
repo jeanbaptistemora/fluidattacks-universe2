@@ -79,8 +79,7 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
           translate.t("group.drafts.success_submit"),
           translate.t("group.drafts.title_success"),
         );
-        headerRefetch()
-          .catch();
+        void headerRefetch();
       }
     },
     onError: (submitError: ApolloError): void => {
@@ -91,12 +90,10 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
           }));
         } else if (message === "Exception - This draft has already been submitted") {
           msgError(translate.t("group_alerts.draft_already_submitted"));
-          headerRefetch()
-            .catch();
+          void headerRefetch();
         } else if (message === "Exception - This draft has already been approved") {
           msgError(translate.t("group_alerts.draft_already_approved"));
-          headerRefetch()
-            .catch();
+          void headerRefetch();
         } else {
           msgError(translate.t("group_alerts.error_textsad"));
           Logger.warning("An error occurred submitting draft", submitError);
@@ -114,8 +111,7 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
           translate.t("search_findings.draft_approved"),
           translate.t("group.drafts.title_success"),
         );
-        headerRefetch()
-          .catch();
+        void headerRefetch();
       }
     },
     onError: (approveError: ApolloError): void => {
@@ -123,13 +119,11 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
         switch (message) {
           case "Exception - This draft has already been approved":
             msgError(translate.t("group_alerts.draft_already_approved"));
-            headerRefetch()
-              .catch();
+            void headerRefetch();
             break;
           case "Exception - The draft has not been submitted yet":
             msgError(translate.t("group_alerts.draft_not_submitted"));
-            headerRefetch()
-              .catch();
+            void headerRefetch();
             break;
           case "CANT_APPROVE_FINDING_WITHOUT_VULNS":
             msgError(translate.t("group_alerts.draft_without_vulns"));
@@ -151,8 +145,7 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
           translate.t("search_findings.finding_rejected", { findingId }),
           translate.t("group.drafts.title_success"),
         );
-        headerRefetch()
-          .catch();
+        void headerRefetch();
       }
     },
     onError: (rejectError: ApolloError): void => {
@@ -160,13 +153,11 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
         switch (message) {
           case "Exception - This draft has already been approved":
             msgError(translate.t("group_alerts.draft_already_approved"));
-            headerRefetch()
-              .catch();
+            void headerRefetch();
             break;
           case "Exception - The draft has not been submitted yet":
             msgError(translate.t("group_alerts.draft_not_submitted"));
-            headerRefetch()
-              .catch();
+            void headerRefetch();
             break;
           default:
             msgError(translate.t("group_alerts.error_textsad"));
@@ -197,8 +188,7 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
   });
 
   const handleDelete: ((values: { justification: string }) => void) = (values: { justification: string }): void => {
-    deleteFinding({ variables: { findingId, justification: values.justification } })
-      .catch();
+    void deleteFinding({ variables: { findingId, justification: values.justification } });
   };
 
   if (_.isUndefined(headerData) || _.isEmpty(headerData)) { return <React.Fragment />; }

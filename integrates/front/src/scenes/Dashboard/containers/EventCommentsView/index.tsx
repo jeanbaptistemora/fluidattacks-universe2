@@ -75,14 +75,13 @@ const eventCommentsView: React.FC<EventCommentsProps> = (props: EventCommentsPro
                     };
                   }
 
-                  addComment({ variables: { eventId, ...comment } })
+                  void addComment({ variables: { eventId, ...comment } })
                     .then((mtResult: void | {}): void => {
                       const result: IMutationResult["data"] = (mtResult as IMutationResult).data;
                       if (result.addEventConsult.success) {
                         callbackFn({ ...comment, id: Number(result.addEventConsult.commentId) });
                       }
-                    })
-                    .catch();
+                    });
                 };
 
                 return (<Comments id="event-comments" onLoad={getData} onPostComment={handlePost} />);

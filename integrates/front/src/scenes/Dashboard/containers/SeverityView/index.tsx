@@ -81,8 +81,7 @@ const severityView: React.FC<SeverityViewProps> = (props: SeverityViewProps): JS
                 (mtResult: IUpdateSeverityAttr): void => {
                   if (!_.isUndefined(mtResult)) {
                     if (mtResult.updateSeverity.success) {
-                      refetch()
-                        .catch();
+                      void refetch();
                       msgSuccess(translate.t("group_alerts.updated"), translate.t("group_alerts.updated_title"));
                       mixpanel.track("UpdateSeverity", { User: userName });
                     }
@@ -128,8 +127,7 @@ const severityView: React.FC<SeverityViewProps> = (props: SeverityViewProps): JS
                     {(updateSeverity: MutationFunction, mutationRes: MutationResult): JSX.Element => {
                       const handleUpdateSeverity: ((values: {}) => void) = (values: {}): void => {
                         setEditing(false);
-                        updateSeverity({ variables: { data: { ...values, id: findingId }, findingId } })
-                          .catch();
+                        void updateSeverity({ variables: { data: { ...values, id: findingId }, findingId } });
                       };
 
                       const handleFormChange: ((values: ISeverityAttr["finding"]["severity"]) => void) = (

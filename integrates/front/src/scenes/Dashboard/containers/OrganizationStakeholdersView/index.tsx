@@ -130,8 +130,7 @@ const organizationStakeholders: React.FC<IOrganizationStakeholders> =
   const [grantStakeholderAccess] = useMutation(ADD_STAKEHOLDER_MUTATION, {
     onCompleted: (mtResult: IAddStakeholderAttrs): void => {
       if (mtResult.grantStakeholderOrganizationAccess.success) {
-        refetchStakeholders()
-          .catch();
+        void refetchStakeholders();
         mixpanel.track("AddUserOrganzationAccess", { Organization: organizationName, User: userName });
         const { email } = mtResult.grantStakeholderOrganizationAccess.grantedStakeholder;
         msgSuccess(
@@ -146,8 +145,7 @@ const organizationStakeholders: React.FC<IOrganizationStakeholders> =
   const [editStakeholder] = useMutation(EDIT_STAKEHOLDER_MUTATION, {
     onCompleted: (mtResult: IEditStakeholderAttrs): void => {
       if (mtResult.editStakeholderOrganization.success) {
-        refetchStakeholders()
-          .catch();
+        void refetchStakeholders();
         mixpanel.track("EditUserOrganizationAccess", { Organization: organizationName, User: userName });
         const { email } = mtResult.editStakeholderOrganization.modifiedStakeholder;
         msgSuccess(
@@ -162,8 +160,7 @@ const organizationStakeholders: React.FC<IOrganizationStakeholders> =
   const [removeStakeholderAccess, { loading: removing }] = useMutation(REMOVE_STAKEHOLDER_MUTATION, {
     onCompleted: (mtResult: IRemoveStakeholderAttrs): void => {
       if (mtResult.removeStakeholderOrganizationAccess.success) {
-        refetchStakeholders()
-          .catch();
+        void refetchStakeholders();
         mixpanel.track("RemoveUserOrganizationAccess", { Organization: organizationName, User: userName });
         msgSuccess(
           `${currentRow.email} ${translate.t("organization.tabs.users.removeButton.success")}`,
@@ -182,26 +179,23 @@ const organizationStakeholders: React.FC<IOrganizationStakeholders> =
   const handleSubmit: ((values: IStakeholderAttrs) => void) = (values: IStakeholderAttrs): void => {
     closeStakeholderModal();
     if (stakeholderModalAction === "add") {
-      grantStakeholderAccess({ variables: {
+      void grantStakeholderAccess({ variables: {
         ...values,
         organizationId,
-      } })
-        .catch();
+      } });
     } else {
-      editStakeholder({ variables: {
+      void editStakeholder({ variables: {
         ...values,
         organizationId,
-      } })
-        .catch();
+      } });
     }
   };
 
   const handleRemoveStakeholder: (() => void) = (): void => {
-    removeStakeholderAccess({ variables: {
+    void removeStakeholderAccess({ variables: {
       organizationId,
       userEmail: currentRow.email,
-    } })
-      .catch();
+    } });
     setStakeholderModalAction("add");
   };
 

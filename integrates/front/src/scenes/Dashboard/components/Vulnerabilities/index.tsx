@@ -296,8 +296,7 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
               if (!_.isUndefined(mtResult)) {
                 if (mtResult.deleteVulnerability.success) {
                   setDeleteVulnModal(false);
-                  refetch()
-                    .catch();
+                  void refetch();
                   mixpanel.track(
                     "DeleteVulnerability",
                     {

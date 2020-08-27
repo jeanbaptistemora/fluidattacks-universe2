@@ -200,8 +200,7 @@ const projectEventsView: React.FunctionComponent<EventsViewProps> = (props: Even
                   translate.t("group.events.success_create"),
                   translate.t("group.events.title_success"),
                 );
-                refetch()
-                  .catch();
+                void refetch();
               }
             };
 
@@ -268,7 +267,7 @@ const projectEventsView: React.FunctionComponent<EventsViewProps> = (props: Even
                             .filter((key: string) => values.affectedComponents[key])
                             .map((key: string) => key.toUpperCase());
 
-                        createEvent({
+                        void createEvent({
                           variables: {
                             projectName,
                             ...values,
@@ -277,8 +276,7 @@ const projectEventsView: React.FunctionComponent<EventsViewProps> = (props: Even
                             file: _.isEmpty(values.file) ? undefined : (values.file as FileList)[0],
                             image: _.isEmpty(values.image) ? undefined : (values.image as FileList)[0],
                           },
-                        })
-                          .catch();
+                        });
                       };
 
                       return (

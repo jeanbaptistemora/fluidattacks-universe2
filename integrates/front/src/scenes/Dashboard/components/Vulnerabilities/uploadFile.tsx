@@ -148,13 +148,12 @@ const uploadVulnerabilities: ((props: IVulnerabilitiesViewProps) => JSX.Element)
         if (isValidVulnsFile("#vulnerabilities")) {
           const selected: FileList | null = (document.querySelector("#vulnerabilities") as HTMLInputElement).files;
           if (!_.isNil(selected)) {
-            uploadVulnerability({
+            void uploadVulnerability({
               variables: {
                 file: selected[0],
                 findingId: props.findingId,
               },
-            })
-            .catch();
+            });
           }
         }
       };

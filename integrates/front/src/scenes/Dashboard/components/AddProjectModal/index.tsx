@@ -157,7 +157,7 @@ const addProjectModal: ((props: IAddProjectModal) => JSX.Element) = (props: IAdd
                     values: { description: string; name: string; organization: string; type: string },
                   ): void => {
 
-                    createProject({
+                    void createProject({
                       variables: {
                         description: values.description,
                         hasDrills,
@@ -166,8 +166,7 @@ const addProjectModal: ((props: IAddProjectModal) => JSX.Element) = (props: IAdd
                         projectName: values.name,
                         subscription: values.type,
                       },
-                    })
-                      .catch();
+                    });
                   };
 
                   return (

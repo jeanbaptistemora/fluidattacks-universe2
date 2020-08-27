@@ -64,8 +64,7 @@ const eventDescriptionView: React.FC<EventDescriptionProps> = (props: EventDescr
           if (_.isUndefined(data) || _.isEmpty(data)) { return <React.Fragment />; }
 
           const handleUpdateResult: (() => void) = (): void => {
-            refetch()
-              .catch();
+            void refetch();
           };
 
           const handleUpdateError: ((updateError: ApolloError) => void) = (updateError: ApolloError): void => {
@@ -96,8 +95,7 @@ const eventDescriptionView: React.FC<EventDescriptionProps> = (props: EventDescr
                 >
                   {(solveEvent: MutationFunction, { loading: submitting }: MutationResult): JSX.Element => {
                     const handleSubmit: ((values: {}) => void) = (values: {}): void => {
-                      solveEvent({ variables: { eventId, ...values } })
-                        .catch();
+                      void solveEvent({ variables: { eventId, ...values } });
                       closeSolvingModal();
                     };
 

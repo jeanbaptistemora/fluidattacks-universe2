@@ -121,14 +121,13 @@ const updateTreatmentModal: ((props: IUpdateTreatmentModal) => JSX.Element) = (
               if (props.vulnerabilities.length === 0) {
                 msgError(translate.t("search_findings.tab_resources.no_selection"));
               } else {
-                updateTreatmentVuln({variables: {
+                void updateTreatmentVuln({variables: {
                   findingId: props.findingId,
                   severity: !_.isEmpty(dataTreatment.severity) ? Number(dataTreatment.severity) : -1,
                   tag: dataTreatment.tag,
                   treatmentManager: dataTreatment.treatmentManager,
                   vulnerabilities: props.vulnerabilities.map((vuln: IVulnDataType) => vuln.id),
-                }})
-                .catch();
+                }});
               }
           };
           const handleEditTreatment: (() => void) = (): void => {
@@ -175,20 +174,18 @@ const updateTreatmentModal: ((props: IUpdateTreatmentModal) => JSX.Element) = (
                   if (props.vulnerabilities.length === 0) {
                     msgError(translate.t("search_findings.tab_resources.no_selection"));
                   } else {
-                    deleteTagVuln({variables: {
+                    void deleteTagVuln({variables: {
                       findingId: props.findingId,
                       vulnerabilities: props.vulnerabilities.map((vuln: IVulnDataType) => vuln.id),
-                    }})
-                    .catch();
+                    }});
                   }
                 };
                 const handleDeletion: ((tag: string) => void) = (tag: string): void => {
-                  deleteTagVuln({variables: {
+                  void deleteTagVuln({variables: {
                     findingId: props.findingId,
                     tag,
                     vulnerabilities: props.vulnerabilities.map((vuln: IVulnDataType) => vuln.id),
-                  }})
-                  .catch();
+                  }});
                 };
 
                 return (
