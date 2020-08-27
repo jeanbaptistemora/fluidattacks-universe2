@@ -73,11 +73,7 @@ async def get_organization_level_actions(
 async def get_group_service_attributes(group: str) -> Set[str]:
     enforcer = await get_group_service_attributes_enforcer(group)
 
-    return {
-        attribute
-        for attribute in SERVICE_ATTRIBUTES_SET
-        if enforcer(attribute)
-    }
+    return set(filter(enforcer, SERVICE_ATTRIBUTES_SET))
 
 
 async def get_group_level_roles_a_user_can_grant(

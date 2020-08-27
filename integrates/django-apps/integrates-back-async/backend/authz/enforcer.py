@@ -54,26 +54,19 @@ async def get_group_level_enforcer(
     roles = GROUP_LEVEL_ROLES
 
     def enforcer(r_object: str, r_action: str) -> bool:
-        has_group_level: bool = any(
-            p_level == 'group'
-            and r_object == p_object
-            for p_level, p_object, _ in policies
-        )
-        can_do: bool = any(
+        return any(
+            # Regular user with a group policy set for the r_object
             p_level == 'group'
             and r_object == p_object
             and r_action in roles.get(p_role, {}).get('actions', set())
             for p_level, p_object, p_role in policies
-        )
-        is_an_admin: bool = any(
-            p_level == 'user' and p_role == 'admin'
+        ) or any(
+            # An admin
+            p_level == 'user'
+            and p_role == 'admin'
             and r_action in roles.get(p_role, {}).get('actions', set())
-            for p_level, p_object, p_role in policies
+            for p_level, _, p_role in policies
         )
-        should_grant_access: bool = (can_do if has_group_level
-                                     else is_an_admin)
-
-        return should_grant_access
 
     return enforcer
 
@@ -106,24 +99,18 @@ async def get_organization_level_enforcer(
     roles = ORGANIZATION_LEVEL_ROLES
 
     def enforcer(r_object: str, r_action: str) -> bool:
-        has_organization_level: bool = any(
-            p_level == 'organization'
-            and r_object == p_object
-            for p_level, p_object, _ in policies
-        )
-        can_do: bool = any(
+        return any(
+            # Regular user with an organization policy set for the r_object
             p_level == 'organization'
             and r_object == p_object
             and r_action in roles.get(p_role, {}).get('actions', set())
             for p_level, p_object, p_role in policies
+        ) or any(
+            # An admin
+            p_level == 'user'
+            and p_role == 'admin'
+            and r_action in roles.get(p_role, {}).get('actions', set())
+            for p_level, _, p_role in policies
         )
-        is_an_admin: bool = any(
-            p_level == 'user' and p_role == 'admin'
-            for p_level, p_object, p_role in policies
-        )
-        should_grant_access: bool = (can_do if has_organization_level
-                                     else is_an_admin)
-
-        return should_grant_access
 
     return enforcer
