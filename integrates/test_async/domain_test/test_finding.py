@@ -157,14 +157,14 @@ class FindingTests(TestCase):
             'parent': '0'
         }
         assert await add_comment(
-            'unittest@fluidattacks.com', comment_data, finding_id, False)
+            'unittest@fluidattacks.com', comment_data, finding_id)
 
         current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         comment_data['created'] = current_time
         comment_data['modified'] = current_time
         comment_data['parent'] = str(comment_id)
         assert await add_comment(
-            'unittest@fluidattacks.com', comment_data, finding_id, False)
+            'unittest@fluidattacks.com', comment_data, finding_id)
 
     @pytest.mark.changes_db
     async def test_handle_acceptation(self):

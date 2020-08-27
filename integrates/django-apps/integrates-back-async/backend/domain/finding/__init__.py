@@ -28,6 +28,7 @@ from .finding import (
     is_pending_verification,
     mask_finding,
     save_severity,
+    send_comment_mail,
     update_description,
     update_treatment_in_vuln,
     update_client_description,
@@ -36,6 +37,7 @@ from .finding import (
 )
 
 __all__ = [
+    # finding-related
     'add_comment',
     'cast_new_vulnerabilities',
     'compare_historic_treatments',
@@ -51,6 +53,7 @@ __all__ = [
     'is_pending_verification',
     'mask_finding',
     'save_severity',
+    'send_comment_mail',
     'update_description',
     'update_treatment_in_vuln',
     'update_client_description',

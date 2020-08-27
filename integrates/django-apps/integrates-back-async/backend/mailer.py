@@ -262,17 +262,17 @@ async def send_comment_mail(
     }
     if entity_name == 'finding':
         finding: Dict[str, FindingType] = cast(Dict[str, FindingType], entity)
-        project_name = str(finding.get('projectName', ''))
+        project_name = str(finding.get('project_name', ''))
         recipients = await get_email_recipients(project_name, comment_type)
 
-        email_context['finding_id'] = str(finding.get('findingId', ''))
+        email_context['finding_id'] = str(finding.get('id', ''))
         email_context['finding_name'] = str(finding.get('finding', ''))
 
         comment_url = (
             BASE_URL +
             f'/groups/{project_name}/' +
             ('vulns' if 'releaseDate' in finding else 'drafts') +
-            '/' + finding.get('findingId') + '/' +
+            '/' + str(finding.get('id', '')) + '/' +
             ('consulting' if comment_type == 'comment' else 'observations')
         )
 

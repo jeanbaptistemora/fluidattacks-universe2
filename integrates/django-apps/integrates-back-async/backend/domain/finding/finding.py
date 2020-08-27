@@ -48,8 +48,10 @@ from backend.typing import (
 
 
 async def add_comment(
-        user_email: str, comment_data: CommentType,
-        finding_id: str, is_remediation_comment: bool) -> bool:
+    user_email: str,
+    comment_data: CommentType,
+    finding_id: str
+) -> bool:
     parent = str(comment_data.get('parent'))
     if parent != '0':
         finding_comments = [
@@ -60,22 +62,27 @@ async def add_comment(
         ]
         if parent not in finding_comments:
             raise InvalidCommentParent()
-    current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-    comment_data['created'] = current_time
-    comment_data['modified'] = current_time
 
-    if not is_remediation_comment:
-        await mailer.send_comment_mail(
-            comment_data,
-            'finding',
-            user_email,
-            str(comment_data.get('comment_type')),
-            await get_finding(finding_id)
-        )
     user_data = await user_domain.get(user_email)
     user_data['user_email'] = user_data.pop('email')
     success = await comment_domain.create(finding_id, comment_data, user_data)
     return success[1]
+
+
+def send_comment_mail(
+    user_email: str,
+    comment_data: CommentType,
+    finding
+) -> None:
+    asyncio.create_task(
+        mailer.send_comment_mail(
+            comment_data,
+            'finding',
+            user_email,
+            str(comment_data.get('comment_type')),
+            finding
+        )
+    )
 
 
 def get_age_finding(act_finding: Dict[str, FindingType]) -> int:

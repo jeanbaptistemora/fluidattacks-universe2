@@ -1,4 +1,5 @@
 # pylint:disable=too-many-lines
+from datetime import datetime
 import logging
 import sys
 from time import time
@@ -835,6 +836,7 @@ async def _do_add_finding_comment(
 
         user_email = user_data['user_email']
         comment_id = int(round(time() * 1000))
+        current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         comment_data = {
             'user_id': comment_id,
             'comment_type': param_type,
@@ -843,18 +845,24 @@ async def _do_add_finding_comment(
                 [user_data['first_name'], user_data['last_name']]
             ),
             'parent': parameters.get('parent'),
+            'created': current_time,
+            'modified': current_time,
         }
         success = await finding_domain.add_comment(
             user_email=user_email,
             comment_data=comment_data,
-            finding_id=finding_id,
-            is_remediation_comment=False
+            finding_id=finding_id
         )
     else:
         raise GraphQLError('Invalid comment type')
 
     if success:
         util.queue_cache_invalidation(finding_id)
+        finding_domain.send_comment_mail(
+            user_email,
+            comment_data,
+            finding
+        )
         util.cloudwatch_log(
             info.context,
             ('Security: Added comment in '
@@ -900,6 +908,7 @@ async def _do_add_finding_consult(
 
         user_email = user_data['user_email']
         comment_id = int(round(time() * 1000))
+        current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         comment_data = {
             'user_id': comment_id,
             'comment_type': param_type,
@@ -908,17 +917,23 @@ async def _do_add_finding_consult(
                 [user_data['first_name'], user_data['last_name']]
             ),
             'parent': parameters.get('parent'),
+            'created': current_time,
+            'modified': current_time,
         }
         success = await finding_domain.add_comment(
             user_email=user_email,
             comment_data=comment_data,
-            finding_id=finding_id,
-            is_remediation_comment=False
+            finding_id=finding_id
         )
     else:
         raise GraphQLError('Invalid comment type')
     if success:
         util.queue_cache_invalidation(finding_id)
+        finding_domain.send_comment_mail(
+            user_email,
+            comment_data,
+            finding
+        )
         util.cloudwatch_log(
             info.context,
             ('Security: Added comment in '
