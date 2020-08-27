@@ -15,6 +15,7 @@ from graphql.type.definition import GraphQLResolveInfo
 from graphql import GraphQLError
 
 from backend.decorators import (
+    concurrent_decorators,
     enforce_group_level_auth_async, get_entity_cache_async, rename_kwargs,
     require_forces, require_integrates,
     require_login, require_finding_access
@@ -125,8 +126,10 @@ async def _get_lines_vulns(
 
 
 @rename_kwargs({'identifier': 'finding_id'})
-@enforce_group_level_auth_async
-@require_integrates
+@concurrent_decorators(
+    enforce_group_level_auth_async,
+    require_integrates,
+)
 @rename_kwargs({'finding_id': 'identifier'})
 @get_entity_cache_async
 async def _get_pending_vulns(
@@ -308,8 +311,10 @@ async def _get_consulting(
 
 
 @rename_kwargs({'identifier': 'finding_id'})
-@enforce_group_level_auth_async
-@require_integrates
+@concurrent_decorators(
+    enforce_group_level_auth_async,
+    require_integrates,
+)
 @rename_kwargs({'finding_id': 'identifier'})
 @get_entity_cache_async
 async def _get_observations(
@@ -357,8 +362,10 @@ async def _get_last_vulnerability(
 
 
 @rename_kwargs({'identifier': 'finding_id'})
-@enforce_group_level_auth_async
-@require_integrates
+@concurrent_decorators(
+    enforce_group_level_auth_async,
+    require_integrates,
+)
 @rename_kwargs({'finding_id': 'identifier'})
 @get_entity_cache_async
 async def _get_historic_state(
@@ -526,8 +533,10 @@ async def _get_report_date(info: GraphQLResolveInfo, identifier: str) -> str:
 
 
 @rename_kwargs({'identifier': 'finding_id'})
-@enforce_group_level_auth_async
-@require_integrates
+@concurrent_decorators(
+    enforce_group_level_auth_async,
+    require_integrates,
+)
 @rename_kwargs({'finding_id': 'identifier'})
 @get_entity_cache_async
 async def _get_analyst(info: GraphQLResolveInfo, identifier: str) -> str:
@@ -643,11 +652,13 @@ def resolve_finding_mutation(
 
 
 @convert_kwargs_to_snake_case  # type: ignore
-@require_login
 @rename_kwargs({'identifier': 'finding_id'})
-@enforce_group_level_auth_async
-@require_integrates
-@require_finding_access
+@concurrent_decorators(
+    require_login,
+    enforce_group_level_auth_async,
+    require_integrates,
+    require_finding_access,
+)
 @rename_kwargs({'finding_id': 'identifier'})
 async def resolve_finding(
         _: Any,
@@ -657,10 +668,12 @@ async def resolve_finding(
     return await resolve(info, identifier)
 
 
-@require_login
-@enforce_group_level_auth_async
-@require_integrates
-@require_finding_access
+@concurrent_decorators(
+    require_login,
+    enforce_group_level_auth_async,
+    require_integrates,
+    require_finding_access,
+)
 async def _do_remove_evidence(
         _: Any,
         info: GraphQLResolveInfo,
@@ -680,10 +693,12 @@ async def _do_remove_evidence(
     return SimpleFindingPayloadType(finding=finding, success=success)
 
 
-@require_login
-@enforce_group_level_auth_async
-@require_integrates
-@require_finding_access
+@concurrent_decorators(
+    require_login,
+    enforce_group_level_auth_async,
+    require_integrates,
+    require_finding_access,
+)
 async def _do_update_evidence(
         _: Any,
         info: GraphQLResolveInfo,
@@ -716,10 +731,12 @@ async def _do_update_evidence(
     return SimplePayloadType(success=success)
 
 
-@require_login
-@enforce_group_level_auth_async
-@require_integrates
-@require_finding_access
+@concurrent_decorators(
+    require_login,
+    enforce_group_level_auth_async,
+    require_integrates,
+    require_finding_access,
+)
 async def _do_update_evidence_description(
         _: Any,
         info: GraphQLResolveInfo,
@@ -751,10 +768,12 @@ async def _do_update_evidence_description(
     return SimplePayloadType(success=success)
 
 
-@require_login
-@enforce_group_level_auth_async
-@require_integrates
-@require_finding_access
+@concurrent_decorators(
+    require_login,
+    enforce_group_level_auth_async,
+    require_integrates,
+    require_finding_access,
+)
 async def _do_update_severity(
         _: Any,
         info: GraphQLResolveInfo,
@@ -785,10 +804,12 @@ async def _do_update_severity(
     return SimpleFindingPayloadType(finding=finding, success=success)
 
 
-@require_login
-@enforce_group_level_auth_async
-@require_integrates
-@require_finding_access
+@concurrent_decorators(
+    require_login,
+    enforce_group_level_auth_async,
+    require_integrates,
+    require_finding_access,
+)
 async def _do_add_finding_comment(
         _: Any,
         info: GraphQLResolveInfo,
@@ -849,10 +870,12 @@ async def _do_add_finding_comment(
     return ret
 
 
-@require_login
-@enforce_group_level_auth_async
-@require_integrates
-@require_finding_access
+@concurrent_decorators(
+    require_login,
+    enforce_group_level_auth_async,
+    require_integrates,
+    require_finding_access,
+)
 async def _do_add_finding_consult(
         _: Any,
         info: GraphQLResolveInfo,
@@ -911,10 +934,12 @@ async def _do_add_finding_consult(
     return ret
 
 
-@require_login
-@enforce_group_level_auth_async
-@require_integrates
-@require_finding_access
+@concurrent_decorators(
+    require_login,
+    enforce_group_level_auth_async,
+    require_integrates,
+    require_finding_access,
+)
 async def _do_handle_acceptation(
         _: Any,
         info: GraphQLResolveInfo,
@@ -951,10 +976,12 @@ async def _do_handle_acceptation(
     return SimplePayloadType(success=success)
 
 
-@require_login
-@enforce_group_level_auth_async
-@require_integrates
-@require_finding_access
+@concurrent_decorators(
+    require_login,
+    enforce_group_level_auth_async,
+    require_integrates,
+    require_finding_access,
+)
 async def _do_update_description(
         _: Any,
         info: GraphQLResolveInfo,
@@ -984,10 +1011,12 @@ async def _do_update_description(
     return SimpleFindingPayloadType(finding=finding, success=success)
 
 
-@require_login
-@enforce_group_level_auth_async
-@require_integrates
-@require_finding_access
+@concurrent_decorators(
+    require_login,
+    enforce_group_level_auth_async,
+    require_integrates,
+    require_finding_access,
+)
 async def _do_update_client_description(
     _: Any,
     info: GraphQLResolveInfo,
@@ -1033,10 +1062,12 @@ async def _do_update_client_description(
     return SimpleFindingPayloadType(finding=finding, success=success)
 
 
-@require_login
-@enforce_group_level_auth_async
-@require_integrates
-@require_finding_access
+@concurrent_decorators(
+    require_login,
+    enforce_group_level_auth_async,
+    require_integrates,
+    require_finding_access,
+)
 async def _do_reject_draft(
         _: Any,
         info: GraphQLResolveInfo,
@@ -1063,10 +1094,12 @@ async def _do_reject_draft(
     return SimplePayloadType(success=success)
 
 
-@require_login
-@enforce_group_level_auth_async
-@require_integrates
-@require_finding_access
+@concurrent_decorators(
+    require_login,
+    enforce_group_level_auth_async,
+    require_integrates,
+    require_finding_access,
+)
 async def _do_delete_finding(
         _: Any,
         info: GraphQLResolveInfo,
@@ -1097,9 +1130,11 @@ async def _do_delete_finding(
     return SimplePayloadType(success=success)
 
 
-@require_login
-@enforce_group_level_auth_async
-@require_integrates
+@concurrent_decorators(
+    require_login,
+    enforce_group_level_auth_async,
+    require_integrates,
+)
 async def _do_approve_draft(
         _: Any,
         info: GraphQLResolveInfo,
@@ -1128,9 +1163,11 @@ async def _do_approve_draft(
     return ApproveDraftPayloadType(release_date=release_date, success=success)
 
 
-@require_login
-@enforce_group_level_auth_async
-@require_integrates
+@concurrent_decorators(
+    require_login,
+    enforce_group_level_auth_async,
+    require_integrates,
+)
 async def _do_create_draft(
         _: Any,
         info: GraphQLResolveInfo,
@@ -1150,10 +1187,12 @@ async def _do_create_draft(
     return SimplePayloadType(success=success)
 
 
-@require_login
-@enforce_group_level_auth_async
-@require_integrates
-@require_finding_access
+@concurrent_decorators(
+    require_login,
+    enforce_group_level_auth_async,
+    require_integrates,
+    require_finding_access,
+)
 async def _do_submit_draft(
         _: Any,
         info: GraphQLResolveInfo,
