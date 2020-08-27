@@ -8,26 +8,21 @@ source "${srcExternalSops}"
 
 function job_asserts_build_asserts {
       helper_use_pristine_workdir \
+  &&  pushd asserts \
   &&  helper_build_asserts \
-  &&  cp -a asserts-release "${STARTDIR}"
+  &&  cp -a asserts-release "${STARTDIR}" \
+  &&  popd \
+  || return 1
 }
 
-function job_asserts_lint_shell {
-  local path_to_check='build'
-
-      echo "Verifying shell code in: ${path_to_check}" \
-  &&  find "${path_to_check}" -name '*.sh' \
-        -exec shellcheck --exclude=SC1090,SC2154,SC2164,SC2064 -x {} + \
-  &&  shellcheck -x --exclude=SC2015,SC2064,SC2153 ./build.sh
-}
-
-function job_asserts_lint {
+function job_asserts_lint_code {
   local config_file='.pylintrc'
 
       helper_use_pristine_workdir \
+  &&  pushd asserts \
   &&  env_prepare_python_packages \
   &&  helper_config_precommit \
-  &&  helper_list_touched_files | xargs pre-commit run -v --files \
+  &&  helper_common_list_touched_files | xargs pre-commit run -v --files \
   &&  prospector \
         --full-pep8 \
         --without-tool pep257 \
@@ -35,26 +30,32 @@ function job_asserts_lint {
         --strictness veryhigh \
         --output-format text \
         --pylint-config-file="${config_file}" \
-        fluidasserts/
+        fluidasserts/ \
+  &&  popd \
+  || return 1
 }
 
-function job_asserts_test_bandit {
+function job_asserts_lint_code_bandit {
       helper_use_pristine_workdir \
+  &&  pushd asserts \
   &&  env_prepare_python_packages \
   &&  bandit \
         -ii \
         -s B501,B601,B402,B105,B321,B102,B107,B307 \
         -r \
-        fluidasserts
+        fluidasserts \
+  &&  popd \
+  || return 1
 }
 
-function job_asserts_test_tests {
+function job_asserts_lint_tests {
   local config_file='.pylintrc'
 
       helper_use_pristine_workdir \
+  &&  pushd asserts \
   &&  env_prepare_python_packages \
   &&  helper_config_precommit \
-  &&  helper_list_touched_files | xargs pre-commit run -v --files \
+  &&  helper_common_list_touched_files | xargs pre-commit run -v --files \
   &&  prospector \
         --full-pep8 \
         --without-tool pep257 \
@@ -62,7 +63,9 @@ function job_asserts_test_tests {
         --strictness veryhigh \
         --output-format text \
         --pylint-config-file="${config_file}" \
-        test/
+        test/ \
+  &&  popd \
+  || return 1
 }
 
 function job_asserts_test_infra_secret_management {

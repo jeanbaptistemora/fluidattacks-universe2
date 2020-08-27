@@ -19,3 +19,18 @@
     - if: '$CI_PIPELINE_SOURCE == "trigger"'
       when: never
     - if: *asserts_commit_pattern
+
+asserts_lint_code:
+  <<: *with_nix
+  <<: *in_dev_branch_asserts
+  stage: lint-code
+
+asserts_lint_code_bandit:
+  <<: *with_nix
+  <<: *in_dev_branch_asserts
+  stage: lint-code
+
+asserts_lint_tests:
+  <<: *with_nix
+  <<: *in_dev_branch_asserts
+  stage: lint-code

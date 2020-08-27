@@ -23,18 +23,6 @@ function helper_asserts_aws_login {
   &&  aws configure set aws_secret_access_key "${AWS_SECRET_ACCESS_KEY}"
 }
 
-function helper_list_touched_files {
-  local path
-
-  git show --format= --name-only HEAD | while read -r path
-  do
-    if test -e "${path}"
-    then
-      echo "${path}"
-    fi
-  done
-}
-
 function helper_minutes_of_month {
   local minutes_of_passed_days
   local minutes_of_passed_hours

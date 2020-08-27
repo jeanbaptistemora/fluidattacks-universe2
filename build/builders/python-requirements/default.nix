@@ -20,5 +20,6 @@ path:
       ]))
       pkgs.libmysqlclient
       pkgs.postgresql
+      pkgs.unixODBC
     ];
   }

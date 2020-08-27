@@ -15,7 +15,7 @@ in
         pkgs.pre-commit
       ];
 
-      pyPkgAssertslintrequirements = builders.pythonRequirements ../dependencies/lint_asserts.lst;
-      pyPkgAsserts = import ../.. pkgs;
+      pyPkgAssertslintrequirements = builders.pythonRequirements ../../asserts/deploy/dependencies/lint_asserts.lst;
+      pyPkgAsserts = import ../../asserts pkgs;
     })
   )

@@ -223,31 +223,6 @@ test_infra_secret_management:
   <<: *in_dev_branch
   stage: test
 
-lint_shell:
-  <<: *with_nix
-  <<: *in_dev_branch
-  stage: test
-
-lint_nix:
-  <<: *with_nix
-  <<: *in_dev_branch
-  stage: test
-
-lint_asserts:
-  <<: *with_nix
-  <<: *in_dev_branch
-  stage: test
-
-lint_asserts_bandit:
-  <<: *with_nix
-  <<: *in_dev_branch
-  stage: test
-
-lint_asserts_tests:
-  <<: *with_nix
-  <<: *in_dev_branch
-  stage: test
-
 deploy_infra_secret_management:
   <<: *with_nix
   <<: *in_prod_branch

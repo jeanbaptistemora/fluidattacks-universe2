@@ -10,8 +10,9 @@ in
 
       buildInputs = [
         pkgs.git
+        pkgs.python38
       ];
 
-      pyPkgAssertslintrequirements = builders.pythonRequirements ../dependencies/lint_asserts.lst;
+      pyPkgAssertslintrequirements = builders.pythonRequirements ../../asserts/deploy/dependencies/lint_asserts.lst;
     })
   )

@@ -157,6 +157,18 @@ function helper_have_any_file_changed {
   &&  return 1
 }
 
+function helper_common_list_touched_files {
+  local path
+
+  git show --format= --name-only HEAD | while read -r path
+  do
+    if test -e "${path}"
+    then
+      echo "${path}"
+    fi
+  done
+}
+
 function helper_is_today_wednesday {
   test "$(date +%A)" == 'Wednesday'
 }
