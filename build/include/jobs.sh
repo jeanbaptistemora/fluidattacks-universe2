@@ -147,7 +147,7 @@ function job_test_blog {
   local all_blog_adoc_files
   local touched_blog_adoc_files
   local min_words='800'
-  local max_words='1400'
+  local max_words='1430'
   local max_lix='50'
 
       all_blog_adoc_files="$(find content/blog/ -type f -name '*.adoc')" \

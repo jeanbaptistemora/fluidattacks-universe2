@@ -2,7 +2,7 @@
 :date: 2020-08-27
 :category: attacks
 :subtitle: Exploiting Vulnserver with ROP
-:tags: osee, training, exploit
+:tags: osee, training, exploit, vulnserver
 :image: cover.png
 :alt: Photo by Syed Ali on Unsplash
 :description: This post will show how to create a complete, functional exploit creating a complex shellcode using ROP
@@ -32,8 +32,8 @@ In the link:../bypassing-dep/[last article], we used `ROP` to put the value
 `0xdeadbeef` on `EAX`. To do that, we used 2 gadgets (sequence of
 instructions ending with `RETN`) that performed the needed operations.
 What we used is something known as a *ROP chain*, because we chained together
-pointers to gadgets on the stack, that are tied together after each gadget
-returns, giving control to the next in the stack.
+pointers to gadgets on the stack. When one of the gadgets returns, will
+give control to the next, until the end of the chain.
 
 `ROP` chains leverage existing instructions on the executable environment
 to perform arbitrary actions. In fact, it was demonstrated that `ROP` is
@@ -44,7 +44,7 @@ reverse TCP connection shellcode and beyond.
 However, Turing-completeness does not imply code efficiency, and creating
 a working shellcode using `ROP` could be a very frustrating and tedious work.
 
-Fortunatly for us, we can reuse our old shellcodes. Yes, I mean it. But
+Fortunately for us, we can reuse our old shellcodes. Yes, I mean it. But
 on a DEP-enabled OS, that involves a little of extra effort!
 
 == Marking shellcode as executable
@@ -53,11 +53,11 @@ When you use a CPU with the `NX` (No-execute) bit present, Windows provide
 `DEP` as a mean to leverage it. `DEP` is enabled by the OS which means that
 it can be disabled too.
 
-The main idea is to use `ROP` to disable `DEP` on certain memory region, place
-our good old shellcode there and redirect execution to that memory space.
+That means that we can use `ROP` to disable `DEP` on certain memory region,
+place our good old shellcode there and redirect execution to that memory space.
 
 There are many ways to do that, from creating a new heap into the
-process with execution permission, allocating new memory on the default
+process with execution permission to allocating new memory on the default
 heap with execution bit enabled or modifying existing memory to mark it as
 executable.
 
@@ -66,7 +66,7 @@ is performed using the `VirtualAllow()` function. The second uses
 `VirtualProtect()`.
 
 What you may use depend on several things, mainly the version of Windows you
-are attacking. Also, if one of those functions are already loaded on the
+are attacking. Also, if one of those functions is already loaded on the
 executable environment of the vulnerable application, it would be a good
 indicator.
 
@@ -78,9 +78,9 @@ image::virtualprotect1.gif[VirtualProtect()]
 We were lucky. `VirtualProtect()` was found in the `IAT` (Import Address
 Table) of our executable. We will use that method.
 
-=== VirtualProtect() signature
+== VirtualProtect() signature
 
-According to Microsoft site, the `VirtualProtect()` signature is the following:
+According to Microsoft, the `VirtualProtect()` signature is the following:
 
 [source,cpp]
 ----
@@ -92,12 +92,12 @@ BOOL VirtualProtect(
 );
 ----
 
-The parameters are the following:
+The parameters are:
 
 . `lpAddress` is the starting address on where we will store the shellcode.
 . `dwSize` is the size of the memory region we'll mark as executable, starting
 at `lpAddress`.
-. `flNewProtect` is the mask of bits defining the permissions that address
+. `flNewProtect` is the mask of bits defining the permissions that the address
 region would have (We'll use this to mark it as executable).
 . `lpflOldProtect` is an address that will receive the current
 permissions of the `lpAddress + dwSize` region.
@@ -147,15 +147,18 @@ Let's see what would be the values to that parameters:
 
 . Address to `VirtualProtect()`: This can be obtained using the debugger.
 Ideally, we will use later the reference on the `IAT` to this function. For
-now we found that `VirtualProtect()` is at `0x76070420`:
+now, we found that `VirtualProtect()` is at `0x76070420`:
 
 image::virtualprotect1.png[VirtualProtect()]
 
 . Return address for `VirtualProtect()`: This should be a pointer to a
 `JMP ESP` or `CALL ESP` instruction. This will redirect the execution flow to
-our shellcode after enabling the execution flag on the stack. You can
-obtain multiple options for this value using `!mona jmp -n -r esp`. I will
-pick `0x625011AF`
+our shellcode when the `ROP` chain finishes, enabling the execution flag on
+the stack. You can obtain multiple options for this value using
+`!mona jmp -n -r esp`. I will pick `0x625011AF`
+
+image::monajmp1.png[Mona JMP]
+
 . `lpAddress`: This should be the start address on where we expect to
 store our shellcode. In our case, this should be the value of `ESP` and the
 value can only be obtained at runtime. We'll get to that later.
@@ -167,17 +170,17 @@ it as executable, readable and writable (`PAGE_EXECUTE_READWRITE`) whose
 value is `0x40`
 . `lpflOldProtect`: A pointer to a memory region that will receive the current
 permissions of `lpAddress`. That means that this value should point to a place
-we have write permissions. You can use the debugger to find the right place.
-Ideally this should be an address to a module without `ASRL` or `Rebase`. In
-this case I'll choose the one at `0x62504040`:
+where we have write permissions. You can use the debugger to find the right
+place. Ideally this should be an address to a module without `ASRL` or
+`Rebase`. In this case I'll choose the one at `0x62504040`:
 
 image::writable1.png[Writable]
 
 Before ROP'ing that values, let's check if that call works. I will update
 the exploit from the link:../bypassing-dep/[previous article] with that.
-The goal of that exploit is to make `EAX = 0xdeadbeef`, bypassing `DEP`.
-I will use placeholder values where needed, just to check how
-`VirtualProtect()` works:
+The goal of that exploit was to make `EAX = 0xdeadbeef`.
+I will use placeholder values where needed, and update them at debug time,
+just to check how `VirtualProtect()` works:
 
 [source,python]
 ----
@@ -234,8 +237,8 @@ I will now run the exploit in stages, to explain every step:
 image::run1.gif[Stage 1]
 
 Here, we can see that we effectively injected the parameters on the stack
-and that our first `RETN` gave control to the call to `VirtualProtect()`.
-However, there are some values that needs to be changed. Let's do that:
+and that our first `RETN` gave control to call `VirtualProtect()`.
+However, there are some values that need to be changed. Let's do that:
 
 image::run2.gif[Stage 2]
 
@@ -255,7 +258,7 @@ to change some values.
 
 We need to use `ROP` to setup that values. The easiest way is to put the
 required values on general purpose registers and then push them to the
-stack in the required order. To do that we can harness the `PUSHAD`
+stack in the required order. To do that, we can harness the `PUSHAD`
 instruction that will save all the general purpose registers on the stack
 in the following order:
 
@@ -301,9 +304,9 @@ Higher addresses
 ----
 
 The most important value for us is the original `ESP` value because that
-address is the one that must placed on `lpAddress` parameter. Using
+address is the one that must placed on the `lpAddress` parameter. Using
 `lpAddress` as the starting point, we need to place the other parameters
-to the equivalent registers, as well as the pointer to `VirtualProtect()`
+to the adjacent registers, as well as the pointer to `VirtualProtect()`
 and the return address:
 
 
@@ -344,13 +347,13 @@ EAX	|                 |
 Higher addresses
 ----
 
-Great, all the parameters for `VirtualProtect()` can fit on those registers.
+Great, all the parameters for `VirtualProtect()` fit on those registers.
 
 But something happens here. You may notice that the `EDI` register is not
-used but when our first `RETN` is executed, it will land there. In that case,
-we need to make `EDI` to point to a `RETN` instruction again. This will make
-the execution return to where `ESI` pointer is placed, which is the
-pointer to `VirtualProtect()`:
+used, but when our first `RETN` is executed, it will land there. In that case,
+we need to store on `EDI` a pointer to a `RETN` instruction again.
+This will make the execution return to where `ESI` address is pointing,
+which is the call to `VirtualProtect()`:
 
 .Stack layout
 [source,text]
@@ -390,8 +393,8 @@ Higher addresses
 ----
 
 You will also note that `EAX` is also not set and this is the place where
-the shellcode is suppose to start. We can then use `NOP` instructions here
-that will slide the execution to the shellcode:
+the shellcode is supposed to star. To overcome that, we can fill EAX with
+`NOP` instructions that will slide the execution to the shellcode:
 
 .Stack layout
 [source,text]
@@ -431,8 +434,9 @@ Higher addresses
 ----
 
 Perfect. We need to use `ROP` gadgets to setup those registers first and
-then add a pointer to a `PUSHAD # RETN` gadget. Fortunately for us, `mona`
-will do the hard work, by issuing the following command:
+then add a pointer to a `PUSHAD # RETN` gadget at the end of the chain.
+Fortunately for us, `mona` will do the hard work, by issuing the following
+command:
 
 [source,bash]
 ----
@@ -574,8 +578,9 @@ Let's resume the execution to check if that worked:
 
 image::run5.gif[ROP Chain]
 
-Indeed! Again, we were able to make `EAX = 0xdeadbeef`. We can now replace
-that mock shellcode with one of our good ol' ones from `msfvenom`:
+Indeed! Again, we were able to make `EAX = 0xdeadbeef` using a traditional
+shellcode. We can now replace that mock shellcode with one of our good ol'
+ones from `msfvenom`:
 
 [source,console]
 ----
@@ -728,8 +733,9 @@ with socket.create_connection((HOST, PORT)) as fd:
     fd.sendall(PAYLOAD)
 ----
 
-Note that I added the `and esp, 0xfffffff0` to align the stack. This
-is commonly needed when you mess around with the stack.
+Note that I added the `and esp, 0xfffffff0` instruction before the
+shellcode to align the stack. This is commonly needed when you mess
+around with the stack.
 
 Let's check it now:
 
@@ -741,7 +747,7 @@ You can download the final exploit link:exploit.py[here].
 
 == Conclusions
 
-In this article, we use the power of Return-Oriented Programming to
-complete a working exploit with a bind TCP shell on a DEP-enabled OS.
-Each application is different and using `ROP` gadgets to perform complex
+In this article, we used the power of Return-Oriented Programming to
+complete a working exploit with a binded `TCP` shell on a DEP-enabled OS.
+As each application is different, using `ROP` gadgets to perform complex
 operations is an art, because there is not a generic way to do it.
