@@ -47,8 +47,6 @@ function decide_and_call_provisioner {
         --keep CI_MERGE_REQUEST_IID \
         --keep CI_PIPELINE_ID \
         --keep CI_PROJECT_ID \
-        --keep DEV_AWS_ACCESS_KEY_ID \
-        --keep DEV_AWS_SECRET_ACCESS_KEY \
         --keep DNS_ZONE_ID \
         --keep GITLAB_API_TOKEN \
         --keep GITLAB_API_USER \
@@ -59,6 +57,8 @@ function decide_and_call_provisioner {
         --keep NIX_PATH \
         --keep NIX_PROFILES \
         --keep NIX_SSL_CERT_FILE \
+        --keep DEV_AWS_ACCESS_KEY_ID \
+        --keep DEV_AWS_SECRET_ACCESS_KEY \
         --keep PROD_AWS_ACCESS_KEY_ID \
         --keep PROD_AWS_SECRET_ACCESS_KEY \
         --keep SERVES_DEV_AWS_ACCESS_KEY_ID \
