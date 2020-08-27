@@ -3,11 +3,11 @@
 :description: Learn here the general terms and processes to join Fluid Attacks' team.
 :keywords: Fluid Attacks, Careers, Process, Selection, Terms, Company, Job, Terms and Conditions, Pentesting, Ethical Hacking
 
-= Careers Terms
+= Careers Terms & Conditions
 
 == Fluid Attacks Overview
 
-=== Who We Are, Who We Are Looking For, and How to Apply
+=== Who we are, who we are looking for, and how to apply
 
 Please read every item below carefully.
 
@@ -15,12 +15,12 @@ If you have any questions about any item,
 do not hesitate to email us at careers@fluidattacks.com.
 
 To take part in the process,
-fill out the following [inner]#link:https://fluidattacks.com/forms/seleccion[form]#.
+please fill out the following link:https://fluidattacks.com/forms/seleccion[form].
 
 == The Company
 
-For more information about `Fluid Attacks`,
-please read our [inner]#link:../../about-us/[About us]# section
+For information about `Fluid Attacks`,
+please read our link:../../about-us/[About us] section.
 
 
 === Context
@@ -34,7 +34,7 @@ We do this to:
 ** Be objective, precise, and fair in the performance evaluation
 
 * At `Fluid Attacks`, we follow an ethics code
-which you can read by clicking [inner]#link:../../about-us/values/[here]#
+which you can read by clicking link:../../about-us/values/[here].
 
 == The Selection Process
 
@@ -42,8 +42,8 @@ which you can read by clicking [inner]#link:../../about-us/values/[here]#
 assess, and ultimately hire candidates from the top `10%`
 of the `IT` population for each available position.
 
-. We select only the best to join the `Fluid Attacks` team.
-A team that is:
+. We select only the best to join the `Fluid Attacks` team,
+a team that is:
 
 ** Elite.
 ** Enduring.
@@ -60,8 +60,7 @@ the duration of the process is `90%` in your hands.
 
 . Our selection process is very detailed
 and may be different from what you see in other companies.
-Please read the process detailed link:../[here],
-carefully.
+Please carefully read the process details link:../[here].
 
 . Continuing with your application
 implies you understand who we are and what we stand for,
@@ -69,49 +68,49 @@ and are genuinely interested in becoming part of our team.
 
 === End of the Process
 
-. After completing the application process,
+After completing the application process,
 if you are no longer interested in being considered
 for a position with `Fluid Attacks`,
 please notify us and we will remove you from our candidate database.
-However, if we are not interested in your application, we will notify you.
+If we are not interested in your application, we will notify you.
 If we do not notify you, your application will remain active,
-and therefore, will be considered for any current or future opening.
+and be considered for any current or future opening.
 
 == The Hiring Process
 
-. By accepting these terms and conditions
+. By accepting these terms and conditions,
 you are stating that your current or previous contracts
-do not have any clauses (or that these have expired)
-that forbid you to work in any role in an information security company.
+do not have any clauses which forbid you to work in any role
+in an information security company, or that these have expired.
 
-. By accepting these terms and conditions
+. By accepting these terms and conditions,
 you understand that if you sign a contract with us,
 it will have the following clauses:
 
-* Exclusivity.
-* Non-compete.
-* No solicitation.
-* Confidentiality.
+* Exclusivity
+* Non-compete
+* No solicitation
+* Confidentiality
 +
 The previous clauses will remain valid
 throughout your work contract with `Fluid Attacks`.
 
-. Once you accept our job offer
-you must provide the following link:../hiring/[information]..
+. Once you accept our job offer,
+you must provide the following link:../hiring/[information].
 
-. When we make a salary proposal it may be lower than your expectations.
+. When we make a salary proposal, it may be lower than your expectations.
 This may be because we take the following factors into consideration:
 
 ** Salary equity among our team members.
 **  The correlation between pay
 and our perception of an employee's potential performance of required duties.
 
-. By participating in our hiring process
+. By participating in our hiring process,
 you also agree to being recommended for openings,
 not only with `Fluid Attacks`,
 but also for openings with some of our business associates.
 
-. By default, your records will stay in our database
+. By default, your records will stay in our database,
 so you may be considered for future open positions.
-** If you wish to have your data deleted from our database
-you must send us an email indicating so at careers@fluidattacks.com.
+** If you wish to have your data deleted from our database,
+please send us an email indicating so at careers@fluidattacks.com.
