@@ -84,7 +84,7 @@ async def add_user(organization_id: str, email: str, role: str) -> bool:
                 )
             )
         )
-    await util.invalidate_cache(organization_id.lower())
+    util.queue_cache_invalidation(organization_id.lower())
     return success
 
 

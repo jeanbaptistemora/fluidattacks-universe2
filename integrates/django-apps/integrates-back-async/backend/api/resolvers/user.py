@@ -543,7 +543,7 @@ async def _do_grant_user_access(
             })
 
     if success:
-        await util.invalidate_cache(project_name, new_user_email)
+        util.queue_cache_invalidation(project_name, new_user_email)
         util.cloudwatch_log(
             info.context,
             (f'Security: Given grant access to {new_user_email} '
@@ -611,7 +611,7 @@ async def _do_grant_stakeholder_access(
             })
 
     if success:
-        await util.invalidate_cache(project_name, new_user_email)
+        util.queue_cache_invalidation(project_name, new_user_email)
         util.cloudwatch_log(
             info.context,
             (f'Security: Given grant access to {new_user_email} '
@@ -647,7 +647,7 @@ async def _do_remove_user_access(
     )
     removed_email = user_email if success else ''
     if success:
-        await util.invalidate_cache(project_name, user_email)
+        util.queue_cache_invalidation(project_name, user_email)
         util.cloudwatch_log(
             info.context,
             (f'Security: Removed user: {user_email} from {project_name} '
@@ -678,7 +678,7 @@ async def _do_remove_stakeholder_access(
     )
     removed_email = user_email if success else ''
     if success:
-        await util.invalidate_cache(project_name, user_email)
+        util.queue_cache_invalidation(project_name, user_email)
         msg = (
             f'Security: Removed stakeholder: {user_email} from {project_name} '
             f'project successfully'
@@ -744,7 +744,7 @@ async def _do_edit_user(
             })
 
     if success:
-        await util.invalidate_cache(project_name, modified_email)
+        util.queue_cache_invalidation(project_name, modified_email)
         util.cloudwatch_log(
             info.context,
             (f'Security: Modified user data:{modified_email} '
@@ -814,7 +814,7 @@ async def _do_edit_stakeholder(
             })
 
     if success:
-        await util.invalidate_cache(project_name, modified_email)
+        util.queue_cache_invalidation(project_name, modified_email)
         msg = (
             f'Security: Modified stakeholder data: {modified_email} '
             f'in {project_name} project successfully'

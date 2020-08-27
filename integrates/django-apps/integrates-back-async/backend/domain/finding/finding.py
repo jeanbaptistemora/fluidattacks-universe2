@@ -649,6 +649,6 @@ async def mask_finding(finding_id: str) -> bool:
     mask_finding_tasks.extend(mask_vulns_task)
 
     success = all(await asyncio.gather(*mask_finding_tasks))
-    await util.invalidate_cache(finding_id)
+    util.queue_cache_invalidation(finding_id)
 
     return success

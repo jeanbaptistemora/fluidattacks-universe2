@@ -301,7 +301,7 @@ async def _do_create_event(
             ('Security: Created event in '
              f'{project_name} project successfully')  # pragma: no cover
         )
-        await util.invalidate_cache(project_name)
+        util.queue_cache_invalidation(project_name)
     return SimplePayloadType(success=success)
 
 
@@ -322,7 +322,7 @@ async def _do_solve_event(
     if success:
         event = await event_domain.get_event(event_id)
         project_name = str(event.get('project_name', ''))
-        await util.invalidate_cache(event_id, project_name)
+        util.queue_cache_invalidation(event_id, project_name)
         util.cloudwatch_log(
             info.context,
             (f'Security: Solved event {event_id} '
@@ -353,7 +353,7 @@ async def _do_add_event_comment(
         random_comment_id, content, event_id, parent, user_info
     )
     if success:
-        await util.invalidate_cache(event_id)
+        util.queue_cache_invalidation(event_id)
         util.cloudwatch_log(
             info.context,
             ('Security: Added comment to '
@@ -383,7 +383,7 @@ async def _do_add_event_consult(
         random_comment_id, content, event_id, parent, user_info
     )
     if success:
-        await util.invalidate_cache(event_id)
+        util.queue_cache_invalidation(event_id)
         util.cloudwatch_log(
             info.context,
             ('Security: Added comment to '
@@ -415,7 +415,7 @@ async def _do_update_event_evidence(
         success = await event_domain.update_evidence(
             event_id, evidence_type, file)
     if success:
-        await util.invalidate_cache(event_id)
+        util.queue_cache_invalidation(event_id)
         util.cloudwatch_log(
             info.context,
             ('Security: Updated evidence in '
@@ -473,5 +473,5 @@ async def _do_remove_event_evidence(
             ('Security: Removed evidence in '
              f'event {event_id}')  # pragma: no cover
         )
-        await util.invalidate_cache(event_id)
+        util.queue_cache_invalidation(event_id)
     return SimplePayloadType(success=success)

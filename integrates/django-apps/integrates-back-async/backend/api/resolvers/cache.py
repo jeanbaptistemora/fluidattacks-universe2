@@ -23,7 +23,7 @@ async def resolve_invalidate_cache(
     success = False
     regex = r'^\w+$'
     if re.match(regex, pattern):
-        await util.invalidate_cache(pattern)
+        util.queue_cache_invalidation(pattern)
         success = True
         util.cloudwatch_log(
             info.context,

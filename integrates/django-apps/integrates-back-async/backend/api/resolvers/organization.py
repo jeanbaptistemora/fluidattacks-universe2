@@ -124,7 +124,7 @@ async def _do_edit_user_organization(
         )
 
     if success:
-        await util.invalidate_cache(user_email, organization_id.lower())
+        util.queue_cache_invalidation(user_email, organization_id.lower())
         util.cloudwatch_log(
             info.context,
             f'Security: User {requester_email} modified information from the '
@@ -188,7 +188,7 @@ async def _do_edit_stakeholder_organization(
         )
 
     if success:
-        await util.invalidate_cache(user_email, organization_id.lower())
+        util.queue_cache_invalidation(user_email, organization_id.lower())
         util.cloudwatch_log(
             info.context,
             f'Security: Stakeholder {requester_email} modified '
@@ -244,7 +244,7 @@ async def _do_grant_user_organization_access(
     success = user_added and any([user_created, user_exists])
 
     if success:
-        await util.invalidate_cache(user_email, organization_id.lower())
+        util.queue_cache_invalidation(user_email, organization_id.lower())
         util.cloudwatch_log(
             info.context,
             f'Security: User {user_email} was granted access to organization '
@@ -301,7 +301,7 @@ async def _do_grant_stakeholder_organization_access(
     success = user_added and any([user_created, user_exists])
 
     if success:
-        await util.invalidate_cache(user_email, organization_id.lower())
+        util.queue_cache_invalidation(user_email, organization_id.lower())
         util.cloudwatch_log(
             info.context,
             f'Security: Stakeholder {user_email} was granted access '
@@ -340,7 +340,7 @@ async def _do_remove_user_organization_access(
         organization_id, user_email.lower()
     )
     if success:
-        await util.invalidate_cache(organization_id.lower())
+        util.queue_cache_invalidation(organization_id.lower())
         util.cloudwatch_log(
             info.context,
             f'Security: User {requester_email} removed user {user_email} '
@@ -372,7 +372,7 @@ async def _do_remove_stakeholder_organization_access(
         organization_id, user_email.lower()
     )
     if success:
-        await util.invalidate_cache(organization_id.lower())
+        util.queue_cache_invalidation(organization_id.lower())
         util.cloudwatch_log(
             info.context,
             f'Security: Stakeholder {requester_email} removed stakeholder'
