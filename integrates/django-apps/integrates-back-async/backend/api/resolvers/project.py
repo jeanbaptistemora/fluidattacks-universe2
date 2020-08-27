@@ -29,6 +29,7 @@ from backend.api.resolvers import (
     user as user_loader
 )
 from backend.decorators import (
+    concurrent_decorators,
     enforce_group_level_auth_async,
     get_entity_cache_async,
     require_login,
@@ -59,7 +60,6 @@ from backend.typing import (
 from backend import util
 from backend.utils import (
     aio,
-    apm,
 )
 from backend.api.resolvers.user import _create_new_user
 from fluidintegrates.settings import LOGGING
@@ -582,8 +582,10 @@ async def _get_description(
     return cast(str, project_attr.get('description', ''))
 
 
-@enforce_group_level_auth_async
-@require_integrates
+@concurrent_decorators(
+    enforce_group_level_auth_async,
+    require_integrates,
+)
 async def _get_comments(
         info: GraphQLResolveInfo,
         project_name: str,
@@ -596,8 +598,10 @@ async def _get_comments(
     return comments
 
 
-@enforce_group_level_auth_async
-@require_integrates
+@concurrent_decorators(
+    enforce_group_level_auth_async,
+    require_integrates,
+)
 async def _get_consulting(
         info: GraphQLResolveInfo,
         project_name: str,
@@ -609,9 +613,10 @@ async def _get_consulting(
     return consultings
 
 
-@apm.trace()
-@enforce_group_level_auth_async
-@require_drills_white
+@concurrent_decorators(
+    enforce_group_level_auth_async,
+    require_drills_white,
+)
 async def _get_bill(
         _: GraphQLResolveInfo,
         project_name: str,
@@ -627,8 +632,10 @@ async def _get_bill(
     }
 
 
-@enforce_group_level_auth_async
-@require_integrates
+@concurrent_decorators(
+    enforce_group_level_auth_async,
+    require_integrates,
+)
 async def _get_drafts(
         info: GraphQLResolveInfo,
         project_name: str,
@@ -649,8 +656,10 @@ async def _get_drafts(
     return drafts
 
 
-@enforce_group_level_auth_async
-@require_integrates
+@concurrent_decorators(
+    enforce_group_level_auth_async,
+    require_integrates,
+)
 async def _get_events(
         info: GraphQLResolveInfo,
         project_name: str,
@@ -690,8 +699,10 @@ async def _get_user_role(
     )
 
 
-@enforce_group_level_auth_async
-@require_integrates
+@concurrent_decorators(
+    enforce_group_level_auth_async,
+    require_integrates,
+)
 async def _get_users(
         info: GraphQLResolveInfo,
         project_name: str,
@@ -744,8 +755,10 @@ async def _get_users(
     )
 
 
-@enforce_group_level_auth_async
-@require_integrates
+@concurrent_decorators(
+    enforce_group_level_auth_async,
+    require_integrates,
+)
 async def _get_stakeholders(
         info: GraphQLResolveInfo,
         project_name: str,
@@ -857,8 +870,10 @@ async def resolve(
 
 
 @convert_kwargs_to_snake_case  # type: ignore
-@require_login
-@enforce_group_level_auth_async
+@concurrent_decorators(
+    require_login,
+    enforce_group_level_auth_async,
+)
 async def resolve_project(
         _: Any,
         info: GraphQLResolveInfo,
@@ -901,8 +916,10 @@ async def _create_forces_user(info: GraphQLResolveInfo,
     return success
 
 
-@require_login
-@enforce_user_level_auth_async
+@concurrent_decorators(
+    require_login,
+    enforce_user_level_auth_async,
+)
 async def _do_create_project(  # pylint: disable=too-many-arguments
         _: Any,
         info: GraphQLResolveInfo,
@@ -940,10 +957,12 @@ async def _do_create_project(  # pylint: disable=too-many-arguments
     return SimplePayloadType(success=success)
 
 
-@require_login
+@concurrent_decorators(
+    require_login,
+    enforce_group_level_auth_async,
+    require_integrates,
+)
 @turn_args_into_kwargs
-@enforce_group_level_auth_async
-@require_integrates
 async def _do_edit_group(  # pylint: disable=too-many-arguments
     _: Any,
     info: GraphQLResolveInfo,
@@ -985,8 +1004,10 @@ async def _do_edit_group(  # pylint: disable=too-many-arguments
     return SimplePayloadType(success=success)
 
 
-@require_login
-@enforce_group_level_auth_async
+@concurrent_decorators(
+    require_login,
+    enforce_group_level_auth_async,
+)
 # Intentionally not @require_integrates
 async def _do_reject_remove_project(
         _: Any,
@@ -1008,9 +1029,11 @@ async def _do_reject_remove_project(
     return SimplePayloadType(success=success)
 
 
-@require_login
-@enforce_group_level_auth_async
-@require_integrates
+@concurrent_decorators(
+    require_login,
+    enforce_group_level_auth_async,
+    require_integrates,
+)
 async def _do_add_project_comment(
         _: Any,
         info: GraphQLResolveInfo,
@@ -1051,9 +1074,11 @@ async def _do_add_project_comment(
     return ret
 
 
-@require_login
-@enforce_group_level_auth_async
-@require_integrates
+@concurrent_decorators(
+    require_login,
+    enforce_group_level_auth_async,
+    require_integrates,
+)
 async def _do_add_project_consult(
         _: Any,
         info: GraphQLResolveInfo,
@@ -1110,9 +1135,11 @@ async def _update_tags(
     return success
 
 
-@require_login
-@enforce_group_level_auth_async
-@require_integrates
+@concurrent_decorators(
+    require_login,
+    enforce_group_level_auth_async,
+    require_integrates,
+)
 async def _do_add_tags(
         _: Any,
         info: GraphQLResolveInfo,
@@ -1152,9 +1179,11 @@ async def _do_add_tags(
     return SimpleProjectPayloadType(success=success, project=project)
 
 
-@require_login
-@enforce_group_level_auth_async
-@require_integrates
+@concurrent_decorators(
+    require_login,
+    enforce_group_level_auth_async,
+    require_integrates,
+)
 async def _do_remove_tag(
         _: Any,
         info: GraphQLResolveInfo,
@@ -1198,8 +1227,10 @@ async def _do_remove_tag(
 
 
 @convert_kwargs_to_snake_case  # type: ignore
-@require_login
-@enforce_user_level_auth_async
+@concurrent_decorators(
+    require_login,
+    enforce_user_level_auth_async,
+)
 async def resolve_alive_projects(
         _: Any,
         info: GraphQLResolveInfo,

@@ -1,12 +1,15 @@
 # -*- coding: utf-8 -*-
 """ Decorators for FluidIntegrates. """
 
+# Standard library
+import asyncio
 from datetime import datetime
 import functools
 import inspect
 import logging
 from typing import Any, Callable, Dict, cast, TypeVar
 
+# Third party libraries
 from django.conf import settings
 from django.core.cache import cache
 from django.core.cache.backends.base import DEFAULT_TIMEOUT
@@ -17,6 +20,7 @@ from graphql import GraphQLError
 from graphql.type import GraphQLResolveInfo
 from rediscluster.nodemanager import RedisClusterException
 
+# Local libraries
 from backend.domain import (
     finding as finding_domain,
     organization as org_domain,
@@ -33,7 +37,6 @@ from backend.exceptions import (
 )
 from backend.utils import (
     aio,
-    apm,
     function,
 )
 from fluidintegrates.settings import LOGGING
@@ -44,6 +47,7 @@ logging.config.dictConfig(LOGGING)
 CACHE_TTL = getattr(settings, 'CACHE_TTL', DEFAULT_TIMEOUT)
 LOGGER = logging.getLogger(__name__)
 TVar = TypeVar('TVar')
+TFun = TypeVar('TFun', bound=Callable[..., Any])
 
 UNAUTHORIZED_ROLE_MSG = (
     'Security: Unauthorized role '
@@ -99,7 +103,6 @@ def require_login(func: TVar) -> TVar:
     # Unique ID for this decorator function
     context_store_key: str = function.get_id(require_login)
 
-    @apm.trace(overridden_function=require_login)
     @functools.wraps(_func)
     async def verify_and_call(*args: Any, **kwargs: Any) -> Any:
         # The underlying request object being served
@@ -501,7 +504,6 @@ def get_entity_cache_async(func: TVar) -> TVar:
 
     _func = cast(Callable[..., Any], func)
 
-    @apm.trace(overridden_function=get_entity_cache_async)
     @functools.wraps(_func)
     async def decorated(*args: Any, **kwargs: Any) -> Any:
         """Get cached response from function if it exists."""
@@ -574,7 +576,6 @@ def cache_idempotent(*, ttl: int) -> Callable[[TVar], TVar]:
 
         _func = cast(Callable[..., Any], func)
 
-        @apm.trace(overridden_function=cache_idempotent)
         @functools.wraps(_func)
         async def wrapper(*args: Any, **kwargs: Any) -> Any:
             signature = inspect.signature(_func).bind(*args, **kwargs)
@@ -630,3 +631,54 @@ def turn_args_into_kwargs(func: TVar) -> TVar:
         return await _func(*args[0:2], **args_as_kwargs, **kwargs)
 
     return cast(TVar, newfunc)
+
+
+def concurrent_decorators(
+    *decorators: Callable[[Any], Any],
+) -> Callable[[TFun], TFun]:
+    """Decorator to fusion many decorators which will be executed concurrently.
+
+    Either:
+    - All decorators succeed and the decorated function is called,
+    - Any decorator fail and the error is propagated to the caller.
+
+    In the second case the propagated error is guaranteed to come from the
+    first task to raise.
+    """
+
+    def decorator(func: TFun) -> TFun:
+
+        @functools.wraps(func)
+        async def dummy(*_: Any, **__: Any) -> bool:
+            """Dummy function to mimic `func`."""
+            return True
+
+        @functools.wraps(func)
+        async def wrapper(*args: Any, **kwargs: Any) -> Any:
+            success = []
+            tasks = iter(list(map(asyncio.create_task, [
+                dec(dummy)(*args, **kwargs) for dec in decorators
+            ])))
+
+            try:
+                for task in tasks:
+                    success.append(await task)  # may rise
+            finally:
+                # If two or more decorators raised exceptions let's propagate
+                # only the first to arrive and cancel the remaining ones
+                # to avoid an ugly traceback, also because if one failed
+                # there is no purpose in letting the remaining ones run
+                for task in tasks:
+                    task.cancel()
+
+            # If everything succeed let's call the decorated function
+            if all(success):
+                return await func(*args, **kwargs)
+
+            # May never happen as decorators raise something on errors
+            # But it's nice to have a default value here
+            raise RuntimeError('Decorators did not success')
+
+        return cast(TFun, wrapper)
+
+    return decorator
