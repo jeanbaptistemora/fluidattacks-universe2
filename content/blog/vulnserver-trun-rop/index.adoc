@@ -176,8 +176,11 @@ place. Ideally this should be an address to a module without `ASRL` or
 
 image::writable1.png[Writable]
 
+== Verifying execution
+
 Before ROP'ing that values, let's check if that call works. I will update
-the exploit from the link:../bypassing-dep/[previous article] with that.
+the exploit from the link:../bypassing-dep/[previous article] with the
+call to `VirtualProtect()`.
 The goal of that exploit was to make `EAX = 0xdeadbeef`.
 I will use placeholder values where needed, and update them at debug time,
 just to check how `VirtualProtect()` works:
@@ -255,6 +258,8 @@ where our shellcode was placed as executable and we could make
 
 However, that was not a valid execution because we had to use the debugger
 to change some values.
+
+== ROP it all
 
 We need to use `ROP` to setup that values. The easiest way is to put the
 required values on general purpose registers and then push them to the
@@ -393,7 +398,7 @@ Higher addresses
 ----
 
 You will also note that `EAX` is also not set and this is the place where
-the shellcode is supposed to star. To overcome that, we can fill EAX with
+the shellcode is supposed to start. To overcome that, we can fill `EAX` with
 `NOP` instructions that will slide the execution to the shellcode:
 
 .Stack layout
@@ -741,7 +746,7 @@ Let's check it now:
 
 image::success.gif[Success]
 
-Great! We got a shell!
+Great! We successfuly disabled `DEP` for our process and got a shell!
 
 You can download the final exploit link:exploit.py[here].
 
