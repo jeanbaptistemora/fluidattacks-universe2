@@ -325,12 +325,21 @@ def snakecase_to_camelcase(str_value: str) -> str:
     return re.sub('_.', lambda x: x.group()[1].upper(), str_value)
 
 
-async def invalidate_cache(*keys_pattern: str) -> None:
-    """Remove keys from cache that matches a given pattern."""
-    await collect(
+async def invalidate_cache(*keys_pattern: str) -> int:
+    """Remove keys from cache that matches a given pattern.
+
+    Return the total number of entries deleted.
+    """
+    entries_deleted: int = sum(await collect([
         in_thread(cache.delete_pattern, f'*{key_pattern.lower()}*')
         for key_pattern in keys_pattern
-    )
+    ]))
+
+    return entries_deleted
+
+
+def queue_cache_invalidation(*keys_pattern: str) -> None:
+    asyncio.create_task(invalidate_cache(*keys_pattern))
 
 
 def format_comment_date(date_string: str) -> str:
