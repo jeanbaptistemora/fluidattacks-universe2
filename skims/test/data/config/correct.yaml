@@ -6,3 +6,4 @@ path:
     - skims/
   exclude:
     - glob(skims/**/*)
+timeout: 300

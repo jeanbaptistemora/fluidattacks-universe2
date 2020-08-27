@@ -282,6 +282,7 @@ class SkimsConfig(NamedTuple):
     console_snippets: bool
     group: Optional[str]
     path: Optional[SkimsPathConfig]
+    timeout: Optional[float]
     language: LocalesEnum
 
 

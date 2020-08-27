@@ -32,6 +32,7 @@ def _load(path: str) -> SkimsConfig:
                 'exclude': confuse.Sequence(confuse.String()),
                 'include': confuse.Sequence(confuse.String()),
             }),
+            'timeout': confuse.Number(),
         }),
     )
 
@@ -47,6 +48,7 @@ def _load(path: str) -> SkimsConfig:
                 exclude=config_path.pop('exclude'),
                 include=config_path.pop('include'),
             ) if config_path else None,
+            timeout=config.pop('timeout', None),
         )
     except KeyError as exc:
         raise confuse.ConfigError(f'Key: {exc.args[0]} is required')

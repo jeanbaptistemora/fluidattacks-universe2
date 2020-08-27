@@ -4,6 +4,7 @@ from asyncio import (
     create_task,
     sleep,
     Task,
+    wait_for,
 )
 import logging
 from os import (
@@ -93,17 +94,20 @@ async def execute_skims(config: SkimsConfig, token: str) -> bool:
         finding: get_ephemeral_store() for finding in FindingEnum
     }
 
-    await collect((
-        analyze_paths(
-            paths_to_exclude=(
-                config.path.exclude if config.path else ()
+    await wait_for(
+        collect((
+            analyze_paths(
+                paths_to_exclude=(
+                    config.path.exclude if config.path else ()
+                ),
+                paths_to_include=(
+                    config.path.include if config.path else ()
+                ),
+                stores=stores,
             ),
-            paths_to_include=(
-                config.path.include if config.path else ()
-            ),
-            stores=stores,
-        ),
-    ))
+        )),
+        config.timeout,
+    )
 
     await notify_findings(config, stores)
 
