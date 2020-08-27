@@ -1,7 +1,7 @@
 :slug: rules/075/
 :category: logs
 :description: This requirement establishes the importance of recording exceptional events in logs, allowing backtracking and proper responses in undesired scenarios.
-:keywords: Logs, Events, Tracking, CWE, GDPR, ASVS, Rules, Ethical Hacking, Pentesting
+:keywords: Logs, Events, Tracking, CWE, GDPR, ASVS, OWASP, PCI DSS, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R075. Record exceptional events in logs
@@ -151,3 +151,33 @@ Verify the application monitors for unusual events or activity from a business
 logic perspective.
 For example, attempts to perform actions out of order or actions which a normal
 user would never attempt.
+
+. [[r15]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 10.2.1]
+Implement automated audit trails for all system components to reconstruct all
+individual user accesses to cardholder data.
+
+. [[r16]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 10.2.2]
+Implement automated audit trails for all system components to reconstruct all
+actions taken by any individual with root or administrative privileges.
+
+. [[r17]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 10.2.3]
+Implement automated audit trails for all system components to reconstruct
+access to all audit trails.
+
+. [[r18]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 10.2.4]
+Implement automated audit trails for all system components to reconstruct
+invalid logical access attempts.
+
+. [[r19]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 10.2.5]
+Implement automated audit trails for all system components to reconstruct use
+of and changes to identification and authentication mechanisms and all
+changes, additions, or deletions to accounts with root or administrative
+privileges.
+
+. [[r20]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 10.2.6]
+Implement automated audit trails for all system components to reconstruct
+initialization, stopping, or pausing of the audit logs.
+
+. [[r21]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 10.2.7]
+Implement automated audit trails for all system components to reconstruct
+creation and deletion of system-level objects.
