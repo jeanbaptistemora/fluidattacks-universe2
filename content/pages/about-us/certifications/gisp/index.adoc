@@ -1,0 +1,15 @@
+:slug: about-us/certifications/gisp/
+:description: Our team of ethical hackers and pentesters counts with high certifications related to cybersecurity information.
+:keywords: Fluid Attacks, Ethical Hackers, Team, Certifications, Cybersecurity, Pentesters, Whitehat Hackers
+:certificationlogo: logo-gisp
+:alt: Logo GISP
+:certification: yes
+
+= GIAC Information Security Professional (GISP)
+
+`GISP` is a certification for security professionals
+who want to expand their knowledge.
+It requires them to go beyond simple terminology and ideas
+to include practical applications.
+It is designed to provide skills
+to professionals in `IT` systems' hands-on roles involving security tasks.

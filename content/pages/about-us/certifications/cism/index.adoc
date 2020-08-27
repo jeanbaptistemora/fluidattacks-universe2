@@ -1,0 +1,12 @@
+:slug: about-us/certifications/cism/
+:description: Our team of ethical hackers and pentesters counts with high certifications related to cybersecurity information.
+:keywords: Fluid Attacks, Ethical Hackers, Team, Certifications, Cybersecurity, Pentesters, Whitehat Hackers
+:certificationlogo: logo-cism
+:alt: Logo CISM
+:certification: yes
+
+= Certified Information Security Manager (CISM)
+
+`CISM` is a certification focused on management, promoting global security
+standard practices. `CISM` accredits management professionals who lead, design,
+and assess the security of the data of a company.
