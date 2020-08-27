@@ -1,4 +1,5 @@
 rec {
+
   # Build
   srcEnv = ../include/env.sh;
   srcIncludeCli = ../include/cli.sh;
@@ -8,6 +9,10 @@ rec {
   # Common
   srcIncludeHelpersCommon = ../include/helpers/common.sh;
   srcIncludeCommonJobs = ../include/jobs/common.sh;
+
+  # Asserts
+  srcIncludeHelpersAsserts = ../include/helpers/asserts.sh;
+  srcIncludeAssertsJobs = ../include/jobs/asserts.sh;
 
   # Forces
   srcIncludeHelpersForces = ../include/helpers/forces.sh;

@@ -1,6 +1,27 @@
 # shellcheck shell=bash
 
-source "${srcExternalSops}"
+function helper_asserts_aws_login {
+  local user="${1}"
+  export AWS_ACCESS_KEY_ID
+  export AWS_SECRET_ACCESS_KEY
+
+
+      if [ "${user}" = 'dev' ]
+      then
+            AWS_ACCESS_KEY_ID="${ASSERTS_DEV_AWS_ACCESS_KEY_ID}" \
+        &&  AWS_SECRET_ACCESS_KEY="${ASSERTS_DEV_AWS_SECRET_ACCESS_KEY}"
+      elif [ "${user}" = 'prod' ]
+      then
+            AWS_ACCESS_KEY_ID="${ASSERTS_PROD_AWS_ACCESS_KEY_ID}" \
+        &&  AWS_SECRET_ACCESS_KEY="${ASSERTS_PROD_AWS_SECRET_ACCESS_KEY}"
+      else
+            echo '[ERROR] either prod or dev must be passed as arg' \
+        &&  return 1
+      fi \
+  &&  echo "[INFO] Logging into AWS with ${user} credentials" \
+  &&  aws configure set aws_access_key_id "${AWS_ACCESS_KEY_ID}" \
+  &&  aws configure set aws_secret_access_key "${AWS_SECRET_ACCESS_KEY}"
+}
 
 function helper_list_touched_files {
   local path
@@ -64,7 +85,7 @@ function helper_config_precommit {
 }
 
 function helper_with_development_secrets {
-      helper_set_dev_secrets \
+      helper_asserts_aws_login dev \
   &&  sops_env 'secrets/development.yaml' 'default' \
         AZURE_CLIENT_ID \
         AZURE_CLIENT_SECRET \
@@ -80,7 +101,7 @@ function helper_with_development_secrets {
 }
 
 function helper_with_production_secrets {
-      helper_set_prod_secrets \
+      helper_asserts_aws_login prod \
   &&  sops_env 'secrets/production.yaml' 'default' \
         TWINE_USERNAME \
         TWINE_PASSWORD \
@@ -182,32 +203,6 @@ function helper_pages_generate_doc {
         -b dirhtml -a sphinx/source/ public/ \
   &&  sphinx-build -b linkcheck sphinx/source public/review/ \
   &&  sphinx-build -b coverage  sphinx/source public/review/
-}
-
-function helper_set_dev_secrets {
-  export AWS_ACCESS_KEY_ID
-  export AWS_SECRET_ACCESS_KEY
-  export AWS_DEFAULT_REGION
-
-      AWS_ACCESS_KEY_ID="${DEV_AWS_ACCESS_KEY_ID}" \
-  &&  AWS_SECRET_ACCESS_KEY="${DEV_AWS_SECRET_ACCESS_KEY}" \
-  &&  AWS_DEFAULT_REGION='us-east-1' \
-  &&  aws configure set aws_access_key_id "${AWS_ACCESS_KEY_ID}" \
-  &&  aws configure set aws_secret_access_key "${AWS_SECRET_ACCESS_KEY}" \
-  &&  aws configure set region 'us-east-1'
-}
-
-function helper_set_prod_secrets {
-  export AWS_ACCESS_KEY_ID
-  export AWS_SECRET_ACCESS_KEY
-  export AWS_DEFAULT_REGION
-
-      AWS_ACCESS_KEY_ID=${PROD_AWS_ACCESS_KEY_ID} \
-  &&  AWS_SECRET_ACCESS_KEY=${PROD_AWS_SECRET_ACCESS_KEY} \
-  &&  AWS_DEFAULT_REGION='us-east-1' \
-  &&  aws configure set aws_access_key_id "${AWS_ACCESS_KEY_ID}" \
-  &&  aws configure set aws_secret_access_key "${AWS_SECRET_ACCESS_KEY}" \
-  &&  aws configure set region 'us-east-1'
 }
 
 function helper_terraform_login {

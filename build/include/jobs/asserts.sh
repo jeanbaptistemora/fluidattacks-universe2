@@ -1,14 +1,18 @@
 # shellcheck shell=bash
 
 source "${srcEnv}"
+source "${srcIncludeHelpersCommon}"
+source "${srcIncludeHelpersAsserts}"
+source "${srcExternalGitlabVariables}"
+source "${srcExternalSops}"
 
-function job_build_asserts {
+function job_asserts_build_asserts {
       helper_use_pristine_workdir \
   &&  helper_build_asserts \
   &&  cp -a asserts-release "${STARTDIR}"
 }
 
-function job_lint_shell {
+function job_asserts_lint_shell {
   local path_to_check='build'
 
       echo "Verifying shell code in: ${path_to_check}" \
@@ -17,7 +21,7 @@ function job_lint_shell {
   &&  shellcheck -x --exclude=SC2015,SC2064,SC2153 ./build.sh
 }
 
-function job_lint_asserts {
+function job_asserts_lint_asserts {
   local config_file='.pylintrc'
 
       helper_use_pristine_workdir \
@@ -34,7 +38,7 @@ function job_lint_asserts {
         fluidasserts/
 }
 
-function job_lint_asserts_bandit {
+function job_asserts_lint_asserts_bandit {
       helper_use_pristine_workdir \
   &&  env_prepare_python_packages \
   &&  bandit \
@@ -44,7 +48,7 @@ function job_lint_asserts_bandit {
         fluidasserts
 }
 
-function job_lint_asserts_tests {
+function job_asserts_lint_asserts_tests {
   local config_file='.pylintrc'
 
       helper_use_pristine_workdir \
@@ -61,15 +65,23 @@ function job_lint_asserts_tests {
         test/
 }
 
-function job_test_infra_secret_management {
+function job_asserts_test_infra_secret_management {
   local dir='deploy/secret-management/terraform'
 
       helper_use_pristine_workdir \
-  &&  helper_set_dev_secrets \
+  &&  helper_asserts_aws_login dev \
   &&  helper_terraform_test "${dir}"
 }
 
-function job_test_asserts_api_cloud_aws_api {
+function job_asserts_deploy_infra_secret_management {
+  local dir='deploy/secret-management/terraform'
+
+      helper_use_pristine_workdir \
+  &&  helper_asserts_aws_login prod \
+  &&  helper_terraform_apply "${dir}"
+}
+
+function job_asserts_test_asserts_api_cloud_aws_api {
   local marker_name='cloud_aws_api'
 
       helper_use_pristine_workdir \
@@ -77,7 +89,7 @@ function job_test_asserts_api_cloud_aws_api {
   &&  helper_test_fluidasserts "${marker_name}"
 }
 
-function job_test_asserts_api_cloud_aws_new {
+function job_asserts_test_asserts_api_cloud_aws_new {
   local marker_name='cloud_aws_new'
 
       helper_use_pristine_workdir \
@@ -85,7 +97,7 @@ function job_test_asserts_api_cloud_aws_new {
   &&  helper_test_fluidasserts "${marker_name}"
 }
 
-function job_test_asserts_api_cloud_aws_cloudformation {
+function job_asserts_test_asserts_api_cloud_aws_cloudformation {
   local marker_name='cloud_aws_cloudformation'
 
       helper_use_pristine_workdir \
@@ -93,7 +105,7 @@ function job_test_asserts_api_cloud_aws_cloudformation {
   &&  helper_test_fluidasserts "${marker_name}"
 }
 
-function job_test_asserts_api_cloud_aws_terraform {
+function job_asserts_test_asserts_api_cloud_aws_terraform {
   local marker_name='cloud_aws_terraform'
 
       helper_use_pristine_workdir \
@@ -101,7 +113,7 @@ function job_test_asserts_api_cloud_aws_terraform {
   &&  helper_test_fluidasserts "${marker_name}"
 }
 
-function job_test_asserts_api_cloud_azure {
+function job_asserts_test_asserts_api_cloud_azure {
   local marker_name='cloud_azure'
 
       helper_use_pristine_workdir \
@@ -109,7 +121,7 @@ function job_test_asserts_api_cloud_azure {
   &&  helper_test_fluidasserts "${marker_name}"
 }
 
-function job_test_asserts_api_cloud_gcp {
+function job_asserts_test_asserts_api_cloud_gcp {
   local marker_name='cloud_gcp'
 
       helper_use_pristine_workdir \
@@ -117,7 +129,7 @@ function job_test_asserts_api_cloud_gcp {
   &&  helper_test_fluidasserts "${marker_name}"
 }
 
-function job_test_asserts_api_cloud_kubernetes {
+function job_asserts_test_asserts_api_cloud_kubernetes {
   local marker_name='cloud_kubernetes'
 
       helper_use_pristine_workdir \
@@ -125,7 +137,7 @@ function job_test_asserts_api_cloud_kubernetes {
   &&  helper_test_fluidasserts "${marker_name}"
 }
 
-function job_test_asserts_api_db_mssql {
+function job_asserts_test_asserts_api_db_mssql {
   local marker_name='db_mssql'
 
       helper_use_pristine_workdir \
@@ -133,7 +145,7 @@ function job_test_asserts_api_db_mssql {
   &&  helper_test_fluidasserts "${marker_name}"
 }
 
-function job_test_asserts_api_db_mysql {
+function job_asserts_test_asserts_api_db_mysql {
   local marker_name='db_mysql'
 
       helper_use_pristine_workdir \
@@ -141,7 +153,7 @@ function job_test_asserts_api_db_mysql {
   &&  helper_test_fluidasserts "${marker_name}"
 }
 
-function job_test_asserts_api_db_postgres {
+function job_asserts_test_asserts_api_db_postgres {
   local marker_name='db_postgres'
 
       helper_use_pristine_workdir \
@@ -149,7 +161,7 @@ function job_test_asserts_api_db_postgres {
   &&  helper_test_fluidasserts "${marker_name}"
 }
 
-function job_test_asserts_api_format {
+function job_asserts_test_asserts_api_format {
   local marker_name='format'
 
       helper_use_pristine_workdir \
@@ -157,7 +169,7 @@ function job_test_asserts_api_format {
   &&  helper_test_fluidasserts "${marker_name}"
 }
 
-function job_test_asserts_api_helper {
+function job_asserts_test_asserts_api_helper {
   local marker_name='helper'
 
       helper_use_pristine_workdir \
@@ -165,7 +177,7 @@ function job_test_asserts_api_helper {
   &&  helper_test_fluidasserts "${marker_name}"
 }
 
-function job_test_asserts_api_iot {
+function job_asserts_test_asserts_api_iot {
   local marker_name='iot'
 
       helper_use_pristine_workdir \
@@ -173,7 +185,7 @@ function job_test_asserts_api_iot {
   &&  helper_test_fluidasserts "${marker_name}"
 }
 
-function job_test_asserts_api_lang_core {
+function job_asserts_test_asserts_api_lang_core {
   local marker_name='lang_core'
 
       helper_use_pristine_workdir \
@@ -181,7 +193,7 @@ function job_test_asserts_api_lang_core {
   &&  helper_test_fluidasserts "${marker_name}"
 }
 
-function job_test_asserts_api_lang_csharp {
+function job_asserts_test_asserts_api_lang_csharp {
   local marker_name='lang_csharp'
 
       helper_use_pristine_workdir \
@@ -189,7 +201,7 @@ function job_test_asserts_api_lang_csharp {
   &&  helper_test_fluidasserts "${marker_name}"
 }
 
-function job_test_asserts_api_lang_docker {
+function job_asserts_test_asserts_api_lang_docker {
   local marker_name='lang_docker'
 
       helper_use_pristine_workdir \
@@ -197,7 +209,7 @@ function job_test_asserts_api_lang_docker {
   &&  helper_test_fluidasserts "${marker_name}"
 }
 
-function job_test_asserts_api_lang_dotnetconfig {
+function job_asserts_test_asserts_api_lang_dotnetconfig {
   local marker_name='lang_dotnetconfig'
 
       helper_use_pristine_workdir \
@@ -205,7 +217,7 @@ function job_test_asserts_api_lang_dotnetconfig {
   &&  helper_test_fluidasserts "${marker_name}"
 }
 
-function job_test_asserts_api_lang_html {
+function job_asserts_test_asserts_api_lang_html {
   local marker_name='lang_html'
 
       helper_use_pristine_workdir \
@@ -213,7 +225,7 @@ function job_test_asserts_api_lang_html {
   &&  helper_test_fluidasserts "${marker_name}"
 }
 
-function job_test_asserts_api_lang_java {
+function job_asserts_test_asserts_api_lang_java {
   local marker_name='lang_java'
 
       helper_use_pristine_workdir \
@@ -221,7 +233,7 @@ function job_test_asserts_api_lang_java {
   &&  helper_test_fluidasserts "${marker_name}"
 }
 
-function job_test_asserts_api_lang_javascript {
+function job_asserts_test_asserts_api_lang_javascript {
   local marker_name='lang_javascript'
 
       helper_use_pristine_workdir \
@@ -229,7 +241,7 @@ function job_test_asserts_api_lang_javascript {
   &&  helper_test_fluidasserts "${marker_name}"
 }
 
-function job_test_asserts_api_lang_php {
+function job_asserts_test_asserts_api_lang_php {
   local marker_name='lang_php'
 
       helper_use_pristine_workdir \
@@ -237,7 +249,7 @@ function job_test_asserts_api_lang_php {
   &&  helper_test_fluidasserts "${marker_name}"
 }
 
-function job_test_asserts_api_lang_python {
+function job_asserts_test_asserts_api_lang_python {
   local marker_name='lang_python'
 
       helper_use_pristine_workdir \
@@ -245,7 +257,7 @@ function job_test_asserts_api_lang_python {
   &&  helper_test_fluidasserts "${marker_name}"
 }
 
-function job_test_asserts_api_lang_rpgle {
+function job_asserts_test_asserts_api_lang_rpgle {
   local marker_name='lang_rpgle'
 
       helper_use_pristine_workdir \
@@ -253,7 +265,7 @@ function job_test_asserts_api_lang_rpgle {
   &&  helper_test_fluidasserts "${marker_name}"
 }
 
-function job_test_asserts_api_lang_times {
+function job_asserts_test_asserts_api_lang_times {
   local marker_name='lang_times'
 
       helper_use_pristine_workdir \
@@ -261,7 +273,7 @@ function job_test_asserts_api_lang_times {
   &&  helper_test_fluidasserts "${marker_name}"
 }
 
-function job_test_asserts_api_ot {
+function job_asserts_test_asserts_api_ot {
   local marker_name='ot'
 
       helper_use_pristine_workdir \
@@ -269,7 +281,7 @@ function job_test_asserts_api_ot {
   &&  helper_test_fluidasserts "${marker_name}"
 }
 
-function job_test_asserts_api_proto_dns {
+function job_asserts_test_asserts_api_proto_dns {
   local marker_name='proto_dns'
 
       helper_use_pristine_workdir \
@@ -277,7 +289,7 @@ function job_test_asserts_api_proto_dns {
   &&  helper_test_fluidasserts "${marker_name}"
 }
 
-function job_test_asserts_api_proto_ftp {
+function job_asserts_test_asserts_api_proto_ftp {
   local marker_name='proto_ftp'
 
       helper_use_pristine_workdir \
@@ -285,7 +297,7 @@ function job_test_asserts_api_proto_ftp {
   &&  helper_test_fluidasserts "${marker_name}"
 }
 
-function job_test_asserts_api_proto_git {
+function job_asserts_test_asserts_api_proto_git {
   local marker_name='proto_git'
 
       helper_use_pristine_workdir \
@@ -293,7 +305,7 @@ function job_test_asserts_api_proto_git {
   &&  helper_test_fluidasserts "${marker_name}"
 }
 
-function job_test_asserts_api_proto_graphql {
+function job_asserts_test_asserts_api_proto_graphql {
   local marker_name='proto_graphql'
 
       helper_use_pristine_workdir \
@@ -301,7 +313,7 @@ function job_test_asserts_api_proto_graphql {
   &&  helper_test_fluidasserts "${marker_name}"
 }
 
-function job_test_asserts_api_proto_http {
+function job_asserts_test_asserts_api_proto_http {
   local marker_name='proto_http'
 
       helper_use_pristine_workdir \
@@ -309,7 +321,7 @@ function job_test_asserts_api_proto_http {
   &&  helper_test_fluidasserts "${marker_name}"
 }
 
-function job_test_asserts_api_proto_ldap {
+function job_asserts_test_asserts_api_proto_ldap {
   local marker_name='proto_ldap'
 
       helper_use_pristine_workdir \
@@ -317,7 +329,7 @@ function job_test_asserts_api_proto_ldap {
   &&  helper_test_fluidasserts "${marker_name}"
 }
 
-function job_test_asserts_api_proto_rest {
+function job_asserts_test_asserts_api_proto_rest {
   local marker_name='proto_rest'
 
       helper_use_pristine_workdir \
@@ -325,7 +337,7 @@ function job_test_asserts_api_proto_rest {
   &&  helper_test_fluidasserts "${marker_name}"
 }
 
-function job_test_asserts_api_proto_smb {
+function job_asserts_test_asserts_api_proto_smb {
   local marker_name='proto_smb'
 
       helper_use_pristine_workdir \
@@ -333,7 +345,7 @@ function job_test_asserts_api_proto_smb {
   &&  helper_test_fluidasserts "${marker_name}"
 }
 
-function job_test_asserts_api_proto_smtp {
+function job_asserts_test_asserts_api_proto_smtp {
   local marker_name='proto_smtp'
 
       helper_use_pristine_workdir \
@@ -341,7 +353,7 @@ function job_test_asserts_api_proto_smtp {
   &&  helper_test_fluidasserts "${marker_name}"
 }
 
-function job_test_asserts_api_proto_ssh {
+function job_asserts_test_asserts_api_proto_ssh {
   local marker_name='proto_ssh'
 
       helper_use_pristine_workdir \
@@ -349,7 +361,7 @@ function job_test_asserts_api_proto_ssh {
   &&  helper_test_fluidasserts "${marker_name}"
 }
 
-function job_test_asserts_api_proto_ssl {
+function job_asserts_test_asserts_api_proto_ssl {
   local marker_name='proto_ssl'
 
       helper_use_pristine_workdir \
@@ -357,7 +369,7 @@ function job_test_asserts_api_proto_ssl {
   &&  helper_test_fluidasserts "${marker_name}"
 }
 
-function job_test_asserts_api_proto_tcp {
+function job_asserts_test_asserts_api_proto_tcp {
   local marker_name='proto_tcp'
 
       helper_use_pristine_workdir \
@@ -365,7 +377,7 @@ function job_test_asserts_api_proto_tcp {
   &&  helper_test_fluidasserts "${marker_name}"
 }
 
-function job_test_asserts_api_sca {
+function job_asserts_test_asserts_api_sca {
   local marker_name='sca'
 
       helper_use_pristine_workdir \
@@ -373,7 +385,7 @@ function job_test_asserts_api_sca {
   &&  helper_test_fluidasserts "${marker_name}"
 }
 
-function job_test_asserts_api_syst {
+function job_asserts_test_asserts_api_syst {
   local marker_name='syst'
 
       helper_use_pristine_workdir \
@@ -381,7 +393,7 @@ function job_test_asserts_api_syst {
   &&  helper_test_fluidasserts "${marker_name}"
 }
 
-function job_test_asserts_api_utils {
+function job_asserts_test_asserts_api_utils {
   local marker_name='utils'
 
       helper_use_pristine_workdir \
@@ -389,7 +401,7 @@ function job_test_asserts_api_utils {
   &&  helper_test_fluidasserts "${marker_name}"
 }
 
-function job_test_output_asserts {
+function job_asserts_test_output_asserts {
   export FA_NOTRACK='true'
   export FA_STRICT='false'
 
@@ -403,15 +415,7 @@ function job_test_output_asserts {
         test
 }
 
-function job_deploy_infra_secret_management {
-  local dir='deploy/secret-management/terraform'
-
-      helper_use_pristine_workdir \
-  &&  helper_set_prod_secrets \
-  &&  helper_terraform_apply "${dir}"
-}
-
-function job_release_to_pypi {
+function job_asserts_release_to_pypi {
   local release_folder='asserts-release'
 
       helper_use_pristine_workdir \
@@ -422,7 +426,7 @@ function job_release_to_pypi {
   &&  twine upload "${release_folder}/"*
 }
 
-function job_release_to_docker_hub {
+function job_asserts_release_to_docker_hub {
   function build {
     local image_name="${1}"
     local target_name="${2}"
@@ -460,7 +464,7 @@ function job_release_to_docker_hub {
         'debian.Dockerfile'
 }
 
-function job_pages {
+function job_asserts_pages {
       helper_use_pristine_workdir \
   &&  env_prepare_python_packages \
   &&  helper_pages_execute_example_exploits \

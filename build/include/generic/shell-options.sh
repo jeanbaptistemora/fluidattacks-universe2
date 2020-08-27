@@ -15,7 +15,7 @@ set -o errtrace
 set -o monitor
 
 # make this shell POSIX compliant
-set -o posix
+# set -o posix
 
 # https://reproducible-builds.org/docs/source-date-epoch/
 # https://nixos.org/nixpkgs/manual/#faq (15.17.3.3)
