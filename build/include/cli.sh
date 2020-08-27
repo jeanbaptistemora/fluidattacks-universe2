@@ -35,7 +35,7 @@ function cli {
   env_prepare_environment_variables "${function_to_call}"
   env_prepare_ephemeral_vars
 
-  if [[ $function_to_call == "bugsnag_report" ]]
+  if [[ $function_to_call == "common_bugsnag_report" ]]
   then
     shift
     arguments_1="${ENVIRONMENT_NAME} $*"

@@ -16,7 +16,7 @@ function check_nix_version {
 function decide_and_call_provisioner {
   local job="${1:-}"
   local arg1="${2:-}"
-  if [[ $job == "bugsnag_report" ]]
+  if [[ $job == "common_bugsnag_report" ]]
   then
     shift
     arg1="$*"
@@ -93,7 +93,7 @@ function decide_and_call_provisioner {
 check_nix_version
 if decide_and_call_provisioner "${@}"
 then
-  decide_and_call_provisioner bugsnag_report &>/dev/null
+  decide_and_call_provisioner common_bugsnag_report &>/dev/null
 else
-  decide_and_call_provisioner bugsnag_report "${@}" &>/dev/null
+  decide_and_call_provisioner common_bugsnag_report "${@}" &>/dev/null
 fi

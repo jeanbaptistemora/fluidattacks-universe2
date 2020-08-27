@@ -70,7 +70,7 @@ function job_common_lint_build_system {
   &&  echo '[OK] Shell code is compliant'
 }
 
-function job_bugsnag_report {
+function job_common_bugsnag_report {
       export PYTHONPATH=${PYTHONPATH:-}
       env_prepare_python_packages \
   &&  python3 "${STARTDIR}/common/bugsnag-report.py" "${@}"
