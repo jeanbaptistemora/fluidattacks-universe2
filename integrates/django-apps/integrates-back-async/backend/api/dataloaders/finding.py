@@ -51,7 +51,7 @@ async def _batch_load_fn(
             threat=finding.get('threat', ''),
             title=finding.get('finding', ''),
             type=finding.get('findingType', ''),
-            historic_state=finding.get('historicState', []),
+            historic_state=finding.get('historicState', [{}]),
             historic_treatment=finding.get('historicTreatment', []),
             current_state=finding.get(  # type: ignore
                 'historicState', [{}])[-1].get('state', '')  # type: ignore

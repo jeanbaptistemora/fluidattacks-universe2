@@ -5,7 +5,6 @@ from datetime import datetime
 import functools
 import inspect
 import logging
-import re
 from typing import Any, Callable, Dict, cast, TypeVar
 
 from django.conf import settings
@@ -424,14 +423,8 @@ def require_finding_access(func: TVar) -> TVar:
             vuln = await vuln_domain.get(kwargs['vuln_uuid'])
             finding_id = vuln['finding_id']
 
-        if not re.match('^[0-9]*$', finding_id):
-            LOGGER.error(
-                'Invalid finding id format',
-                extra={'extra': {'context': context}})
-
-            raise GraphQLError('Invalid finding id format')
-
-        if not await finding_domain.validate_finding(finding_id):
+        finding = await context.loaders['finding'].load(finding_id)
+        if finding_domain.is_deleted(finding):
             raise FindingNotFound()
 
         return await _func(*args, **kwargs)

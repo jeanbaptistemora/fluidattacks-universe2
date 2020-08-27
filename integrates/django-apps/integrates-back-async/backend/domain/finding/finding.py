@@ -457,11 +457,16 @@ async def validate_finding(
     """Validate if a finding is not deleted."""
     if not finding:
         finding = await finding_dal.get_finding(str(finding_id))
+    return not is_deleted(finding)
+
+
+def is_deleted(finding: Dict[str, FindingType]) -> bool:
     historic_state = cast(
         List[Dict[str, str]],
         finding.get('historic_state', [{}])
     )
-    return historic_state[-1].get('state', '') != 'DELETED'
+
+    return historic_state[-1].get('state', '') == 'DELETED'
 
 
 def cast_new_vulnerabilities(
