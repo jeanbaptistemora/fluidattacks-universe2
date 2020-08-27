@@ -17,7 +17,6 @@ from backend.domain import (
     analytics as analytics_domain,
 )
 from backend.exceptions import DocumentNotFound
-from backend.utils import apm
 from fluidintegrates.settings import LOGGING
 
 logging.config.dictConfig(LOGGING)
@@ -26,7 +25,6 @@ logging.config.dictConfig(LOGGING)
 LOGGER = logging.getLogger(__name__)
 
 
-@apm.trace()
 @convert_kwargs_to_snake_case  # type: ignore
 async def resolve(
     *_: Any,

@@ -10,6 +10,7 @@ from django.core.files.uploadedfile import InMemoryUploadedFile
 from graphql.type.definition import GraphQLResolveInfo
 from backend.api.dataloaders.event import EventLoader
 from backend.decorators import (
+    concurrent_decorators,
     get_entity_cache_async, require_login, rename_kwargs,
     require_integrates,
     enforce_group_level_auth_async
@@ -243,12 +244,13 @@ async def resolve(
     return result
 
 
-@require_login
 @rename_kwargs({'identifier': 'event_id'})
-@enforce_group_level_auth_async
-@require_integrates
+@concurrent_decorators(
+    require_login,
+    enforce_group_level_auth_async,
+    require_integrates,
+)
 @rename_kwargs({'event_id': 'identifier'})
-@convert_kwargs_to_snake_case  # type: ignore
 async def resolve_event(
         _: Any,
         info: GraphQLResolveInfo,
@@ -264,9 +266,11 @@ async def _resolve_events_async(event_ids: List[str]) -> List[EventType]:
 
 
 @convert_kwargs_to_snake_case  # type: ignore
-@require_login
-@enforce_group_level_auth_async
-@require_integrates
+@concurrent_decorators(
+    require_login,
+    enforce_group_level_auth_async,
+    require_integrates,
+)
 async def resolve_events(
         _: Any,
         info: GraphQLResolveInfo,
@@ -280,9 +284,11 @@ async def resolve_events(
     return cast(List[EventType], await _resolve_events_async(event_ids))
 
 
-@require_login
-@enforce_group_level_auth_async
-@require_integrates
+@concurrent_decorators(
+    require_login,
+    enforce_group_level_auth_async,
+    require_integrates,
+)
 async def _do_create_event(
         _: Any,
         info: GraphQLResolveInfo,
@@ -305,9 +311,11 @@ async def _do_create_event(
     return SimplePayloadType(success=success)
 
 
-@require_login
-@enforce_group_level_auth_async
-@require_integrates
+@concurrent_decorators(
+    require_login,
+    enforce_group_level_auth_async,
+    require_integrates,
+)
 async def _do_solve_event(
         _: Any,
         info: GraphQLResolveInfo,
@@ -337,9 +345,11 @@ async def _do_solve_event(
     return SimplePayloadType(success=success)
 
 
-@require_login
-@enforce_group_level_auth_async
-@require_integrates
+@concurrent_decorators(
+    require_login,
+    enforce_group_level_auth_async,
+    require_integrates,
+)
 async def _do_add_event_comment(
         _: Any,
         info: GraphQLResolveInfo,
@@ -368,9 +378,11 @@ async def _do_add_event_comment(
     return AddCommentPayloadType(success=success, comment_id=str(comment_id))
 
 
-@require_login
-@enforce_group_level_auth_async
-@require_integrates
+@concurrent_decorators(
+    require_login,
+    enforce_group_level_auth_async,
+    require_integrates,
+)
 async def _do_add_event_consult(
         _: Any,
         info: GraphQLResolveInfo,
@@ -398,9 +410,11 @@ async def _do_add_event_consult(
     return AddConsultPayloadType(success=success, comment_id=str(comment_id))
 
 
-@require_login
-@enforce_group_level_auth_async
-@require_integrates
+@concurrent_decorators(
+    require_login,
+    enforce_group_level_auth_async,
+    require_integrates,
+)
 async def _do_update_event_evidence(
         _: Any,
         info: GraphQLResolveInfo,
@@ -430,9 +444,11 @@ async def _do_update_event_evidence(
     return SimplePayloadType(success=success)
 
 
-@require_login
-@enforce_group_level_auth_async
-@require_integrates
+@concurrent_decorators(
+    require_login,
+    enforce_group_level_auth_async,
+    require_integrates,
+)
 async def _do_download_event_file(
         _: Any,
         info: GraphQLResolveInfo,
@@ -457,9 +473,11 @@ async def _do_download_event_file(
     return DownloadFilePayloadType(success=success, url=signed_url)
 
 
-@require_login
-@enforce_group_level_auth_async
-@require_integrates
+@concurrent_decorators(
+    require_login,
+    enforce_group_level_auth_async,
+    require_integrates,
+)
 async def _do_remove_event_evidence(
         _: Any,
         info: GraphQLResolveInfo,

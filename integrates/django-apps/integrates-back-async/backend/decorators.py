@@ -645,6 +645,8 @@ def concurrent_decorators(
     In the second case the propagated error is guaranteed to come from the
     first task to raise.
     """
+    if len(decorators) <= 1:
+        raise ValueError('Expected at least 2 decorators as arguments')
 
     def decorator(func: TFun) -> TFun:
 
@@ -672,7 +674,7 @@ def concurrent_decorators(
                     task.cancel()
 
             # If everything succeed let's call the decorated function
-            if all(success):
+            if success and all(success):
                 return await func(*args, **kwargs)
 
             # May never happen as decorators raise something on errors

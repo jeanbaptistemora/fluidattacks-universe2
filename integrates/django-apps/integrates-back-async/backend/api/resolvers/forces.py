@@ -12,6 +12,7 @@ from asgiref.sync import sync_to_async
 from graphql.type.definition import GraphQLResolveInfo
 
 from backend.decorators import (
+    concurrent_decorators,
     enforce_group_level_auth_async,
     get_entity_cache_async,
     require_forces,
@@ -134,9 +135,11 @@ async def resolve_forces_execution_mutation(
 
 
 @convert_kwargs_to_snake_case  # type: ignore
-@require_login
-@enforce_group_level_auth_async
-@require_integrates
+@concurrent_decorators(
+    require_login,
+    enforce_group_level_auth_async,
+    require_integrates,
+)
 async def resolve_forces_executions(
         _: Any,
         info: GraphQLResolveInfo,
@@ -151,9 +154,11 @@ async def resolve_forces_executions(
 
 
 @convert_kwargs_to_snake_case  # type: ignore
-@require_login
-@enforce_group_level_auth_async
-@require_integrates
+@concurrent_decorators(
+    require_login,
+    enforce_group_level_auth_async,
+    require_integrates,
+)
 async def resolve_forces_executions_new(
         _: Any,
         __: GraphQLResolveInfo,

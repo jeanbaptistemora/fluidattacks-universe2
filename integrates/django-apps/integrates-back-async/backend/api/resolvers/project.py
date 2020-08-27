@@ -72,8 +72,10 @@ logging.config.dictConfig(LOGGING)
 LOGGER = logging.getLogger(__name__)
 
 
-@enforce_group_level_auth_async
-@require_integrates
+@concurrent_decorators(
+    enforce_group_level_auth_async,
+    require_integrates,
+)
 async def _get_analytics(
     info: GraphQLResolveInfo,
     document_name: str,

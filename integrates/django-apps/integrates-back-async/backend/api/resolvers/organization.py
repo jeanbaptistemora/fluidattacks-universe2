@@ -25,6 +25,7 @@ from backend.api.resolvers import (
     user as user_loader,
 )
 from backend.decorators import (
+    concurrent_decorators,
     enforce_organization_level_auth_async,
     get_entity_cache_async,
     rename_kwargs,
@@ -81,8 +82,10 @@ async def _do_create_organization(
     return response
 
 
-@require_organization_access
-@enforce_organization_level_auth_async
+@concurrent_decorators(
+    require_organization_access,
+    enforce_organization_level_auth_async,
+)
 async def _do_edit_user_organization(
     _: Any,
     info: GraphQLResolveInfo,
@@ -145,8 +148,10 @@ async def _do_edit_user_organization(
     )
 
 
-@require_organization_access
-@enforce_organization_level_auth_async
+@concurrent_decorators(
+    require_organization_access,
+    enforce_organization_level_auth_async,
+)
 async def _do_edit_stakeholder_organization(
     _: Any,
     info: GraphQLResolveInfo,
@@ -210,8 +215,10 @@ async def _do_edit_stakeholder_organization(
     )
 
 
-@require_organization_access
-@enforce_organization_level_auth_async
+@concurrent_decorators(
+    require_organization_access,
+    enforce_organization_level_auth_async,
+)
 async def _do_grant_user_organization_access(
     _: Any,
     info: GraphQLResolveInfo,
@@ -267,8 +274,10 @@ async def _do_grant_user_organization_access(
     )
 
 
-@require_organization_access
-@enforce_organization_level_auth_async
+@concurrent_decorators(
+    require_organization_access,
+    enforce_organization_level_auth_async,
+)
 async def _do_grant_stakeholder_organization_access(
     _: Any,
     info: GraphQLResolveInfo,
@@ -324,8 +333,10 @@ async def _do_grant_stakeholder_organization_access(
     )
 
 
-@require_organization_access
-@enforce_organization_level_auth_async
+@concurrent_decorators(
+    require_organization_access,
+    enforce_organization_level_auth_async,
+)
 async def _do_remove_user_organization_access(
     _: Any,
     info: GraphQLResolveInfo,
@@ -356,8 +367,10 @@ async def _do_remove_user_organization_access(
     return SimplePayloadType(success=success)
 
 
-@require_organization_access
-@enforce_organization_level_auth_async
+@concurrent_decorators(
+    require_organization_access,
+    enforce_organization_level_auth_async,
+)
 async def _do_remove_stakeholder_organization_access(
     _: Any,
     info: GraphQLResolveInfo,
@@ -388,8 +401,10 @@ async def _do_remove_stakeholder_organization_access(
     return SimplePayloadType(success=success)
 
 
-@require_organization_access
-@enforce_organization_level_auth_async
+@concurrent_decorators(
+    require_organization_access,
+    enforce_organization_level_auth_async,
+)
 async def _do_update_organization_policies(
     _: Any,
     info: GraphQLResolveInfo,
@@ -653,8 +668,10 @@ async def resolve(
 @rename_kwargs({
     'organization_id': 'identifier',
 })
-@require_login
-@require_organization_access
+@concurrent_decorators(
+    require_login,
+    require_organization_access,
+)
 async def resolve_organization(
     _: Any,
     info: GraphQLResolveInfo,

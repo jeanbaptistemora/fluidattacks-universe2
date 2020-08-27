@@ -1,10 +1,10 @@
 import re
 
 from typing import Any
-from ariadne import convert_kwargs_to_snake_case
 
 from graphql.type.definition import GraphQLResolveInfo
 from backend.decorators import (
+    concurrent_decorators,
     require_login,
     enforce_user_level_auth_async
 )
@@ -12,9 +12,10 @@ from backend.typing import SimplePayload as SimplePayloadType
 from backend import util
 
 
-@require_login
-@enforce_user_level_auth_async
-@convert_kwargs_to_snake_case  # type: ignore
+@concurrent_decorators(
+    require_login,
+    enforce_user_level_auth_async,
+)
 async def resolve_invalidate_cache(
         _: Any,
         info: GraphQLResolveInfo,
