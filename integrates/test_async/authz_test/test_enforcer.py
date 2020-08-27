@@ -27,12 +27,12 @@ async def test_group_level_enforcer():
         enforcer = await authz.get_group_level_enforcer(subject)
 
         for action in model[role]['actions']:
-            assert await enforcer(subject, group, action), \
+            assert enforcer(subject, group, action), \
                 f'{role} should be able to do {action}'
 
         for other_role in model:
             for action in model[other_role]['actions'] - model[role]['actions']:
-                assert not await enforcer(subject, group, action), \
+                assert not enforcer(subject, group, action), \
                     f'{role} should not be able to do {action}'
 
 
@@ -47,12 +47,12 @@ async def test_user_level_enforcer():
         enforcer = await authz.get_user_level_enforcer(subject)
 
         for action in model[role]['actions']:
-            assert await enforcer(subject, object_, action), \
+            assert enforcer(subject, object_, action), \
                 f'{role} should be able to do {action}'
 
         for other_role in model:
             for action in model[other_role]['actions'] - model[role]['actions']:
-                assert not await enforcer(subject, object_, action), \
+                assert not enforcer(subject, object_, action), \
                     f'{role} should not be able to do {action}'
 
 
@@ -94,7 +94,7 @@ async def test_group_service_attributes_enforcer():
     ]:
         enforcer = await authz.get_group_service_attributes_enforcer(group)
 
-        assert await enforcer(attribute) == result, \
+        assert enforcer(attribute) == result, \
             f'{group} attribute: {attribute}, should have value {result}'
 
         attributes_remaining_to_test.remove((group, attribute))

@@ -19,7 +19,6 @@ from backend.dal import (
 )
 from backend.utils import (
     aio,
-    apm,
     function,
 )
 from backend.utils.encodings import (
@@ -105,25 +104,27 @@ async def get_cached_subject_policies(
     return cast(Tuple[Tuple[str, str, str, str], ...], ret)
 
 
-@apm.trace()
 async def get_group_level_role(email: str, group: str) -> str:
     # Admins are granted access to all groups
     subject_policy = await user_dal.get_subject_policy(email, group)
     group_role = subject_policy.role
-    if await get_user_level_role(email) == 'admin' and not group_role:
+
+    # Please always make the query at the end
+    if not group_role and await get_user_level_role(email) == 'admin':
         return 'admin'
 
     return group_role
 
 
-@apm.trace()
 async def get_organization_level_role(email: str, organization_id: str) -> str:
     # Admins are granted access to all organizations
     subject_policy = await user_dal.get_subject_policy(
         email, organization_id.lower()
     )
     organization_role = subject_policy.role
-    if await get_user_level_role(email) == 'admin' and not organization_role:
+
+    # Please always make the query at the end
+    if not organization_role and await get_user_level_role(email) == 'admin':
         return 'admin'
 
     return organization_role

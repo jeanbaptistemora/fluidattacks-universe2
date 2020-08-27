@@ -27,7 +27,7 @@ async def get_user_level_actions(subject: str) -> Set[str]:
         action
         for role_definition in USER_LEVEL_ROLES.values()
         for action in role_definition['actions']
-        if await enforcer(subject, object_, action)
+        if enforcer(subject, object_, action)
     ]))
 
 
@@ -41,9 +41,7 @@ async def get_user_level_roles_a_user_can_grant(
     roles_the_user_can_grant: Tuple[str, ...] = tuple([
         role
         for role in USER_LEVEL_ROLES
-        if await enforcer(
-            requester_email, 'self', f'grant_user_level_role:{role}'
-        )
+        if enforcer(requester_email, 'self', f'grant_user_level_role:{role}')
     ])
 
     return roles_the_user_can_grant
@@ -56,7 +54,7 @@ async def get_group_level_actions(subject: str, group: str) -> Set[str]:
         action
         for role_definition in GROUP_LEVEL_ROLES.values()
         for action in role_definition['actions']
-        if await enforcer(subject, group.lower(), action)
+        if enforcer(subject, group.lower(), action)
     ]))
 
 
@@ -69,7 +67,7 @@ async def get_organization_level_actions(
         action
         for role_definition in ORGANIZATION_LEVEL_ROLES.values()
         for action in role_definition['actions']
-        if await enforcer(subject, organization_id.lower(), action)
+        if enforcer(subject, organization_id.lower(), action)
     ]))
 
 
@@ -80,7 +78,7 @@ async def get_group_service_attributes(group: str) -> Set[str]:
         attribute
         for attributes in SERVICE_ATTRIBUTES.values()
         for attribute in attributes
-        if await enforcer(attribute)
+        if enforcer(attribute)
     ]))
 
 
@@ -95,9 +93,7 @@ async def get_group_level_roles_a_user_can_grant(
     roles_the_user_can_grant: Tuple[str, ...] = tuple([
         role
         for role in GROUP_LEVEL_ROLES
-        if await enforcer(
-            requester_email, group, f'grant_group_level_role:{role}'
-        )
+        if enforcer(requester_email, group, f'grant_group_level_role:{role}')
     ])
 
     return roles_the_user_can_grant

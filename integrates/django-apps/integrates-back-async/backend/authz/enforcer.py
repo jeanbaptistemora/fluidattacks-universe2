@@ -2,8 +2,6 @@
 from collections import defaultdict
 from typing import (
     Callable,
-    Coroutine,
-    Any
 )
 
 # Local libraries
@@ -19,13 +17,14 @@ from .model import (
 )
 
 
-async def get_user_level_enforcer(subject: str) -> \
-        Callable[[str, str, str], Coroutine[Any, Any, bool]]:
+async def get_user_level_enforcer(
+    subject: str,
+) -> Callable[[str, str, str], bool]:
     """Return a filtered group-level authorization for the provided subject."""
     policies = await get_cached_subject_policies(subject)
     roles = USER_LEVEL_ROLES
 
-    async def enforcer(r_subject: str, r_object: str, r_action: str) -> bool:
+    def enforcer(r_subject: str, r_object: str, r_action: str) -> bool:
         should_grant_access: bool = any(
             p_level == 'user'
             and r_subject == p_subject
@@ -42,7 +41,7 @@ async def get_user_level_enforcer(subject: str) -> \
 async def get_group_level_enforcer(
     subject: str,
     context_store: defaultdict = None,
-) -> Callable[[str, str, str], Coroutine[Any, Any, bool]]:
+) -> Callable[[str, str, str], bool]:
     """Return a filtered group-level authorization for the provided subject.
 
     The argument `context_store` will be used to memoize round-trips.
@@ -50,7 +49,7 @@ async def get_group_level_enforcer(
     policies = await get_cached_subject_policies(subject, context_store)
     roles = GROUP_LEVEL_ROLES
 
-    async def enforcer(r_subject: str, r_object: str, r_action: str) -> bool:
+    def enforcer(r_subject: str, r_object: str, r_action: str) -> bool:
         has_group_level: bool = any(
             p_level == 'group'
             and r_subject == p_subject
@@ -78,12 +77,13 @@ async def get_group_level_enforcer(
     return enforcer
 
 
-async def get_group_service_attributes_enforcer(group: str) -> \
-        Callable[[str], Coroutine[Any, Any, bool]]:
+async def get_group_service_attributes_enforcer(
+    group: str,
+) -> Callable[[str], bool]:
     """Return a filtered group authorization for the provided group."""
     policies = await get_cached_group_service_attributes_policies(group)
 
-    async def enforcer(r_attribute: str) -> bool:
+    def enforcer(r_attribute: str) -> bool:
         should_grant_access: bool = any(
             group == p_group
             and r_attribute in SERVICE_ATTRIBUTES[p_service]
@@ -95,8 +95,9 @@ async def get_group_service_attributes_enforcer(group: str) -> \
     return enforcer
 
 
-async def get_organization_level_enforcer(subject: str) -> \
-        Callable[[str, str, str], Coroutine[Any, Any, bool]]:
+async def get_organization_level_enforcer(
+    subject: str,
+) -> Callable[[str, str, str], bool]:
     """
     Return a filtered organization-level authorization
     for the provided subject.
@@ -104,7 +105,7 @@ async def get_organization_level_enforcer(subject: str) -> \
     policies = await get_cached_subject_policies(subject)
     roles = ORGANIZATION_LEVEL_ROLES
 
-    async def enforcer(r_subject: str, r_object: str, r_action: str) -> bool:
+    def enforcer(r_subject: str, r_object: str, r_action: str) -> bool:
         has_organization_level: bool = any(
             p_level == 'organization'
             and r_subject == p_subject

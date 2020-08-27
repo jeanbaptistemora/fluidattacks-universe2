@@ -27,7 +27,7 @@ async def validate_fluidattacks_staff_on_group(
         role in authz.get_group_level_roles_with_tag('drills')
     )
 
-    group_must_only_have_fluidattacks_hackers: bool = await enforcer(
+    group_must_only_have_fluidattacks_hackers: bool = enforcer(
         'must_only_have_fluidattacks_hackers'
     )
 
@@ -38,9 +38,7 @@ async def validate_fluidattacks_staff_on_group(
                 'only have Hackers provided by Fluid Attacks'
             )
 
-    group_is_fluidattacks_customer: bool = await enforcer(
-        'is_fluidattacks_customer'
-    )
+    group_is_fluidattacks_customer: bool = enforcer('is_fluidattacks_customer')
 
     if not group_is_fluidattacks_customer and is_user_at_fluidattacks:
         raise UnexpectedUserRole(
