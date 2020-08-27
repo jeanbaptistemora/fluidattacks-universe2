@@ -506,6 +506,11 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
     ),
 )
 
+GROUP_LEVEL_ACTIONS: Set[str] = {
+    action
+    for definition in GROUP_LEVEL_ROLES.values()
+    for action in definition['actions']
+}
 
 ORGANIZATION_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
     admin=dict(
@@ -585,6 +590,11 @@ ORGANIZATION_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
     )
 )
 
+ORGANIZATION_LEVEL_ACTIONS: Set[str] = {
+    action
+    for definition in ORGANIZATION_LEVEL_ROLES.values()
+    for action in definition['actions']
+}
 
 # Map(role_name -> Map(actions|tags -> definition))
 USER_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
@@ -632,6 +642,11 @@ USER_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
     )
 )
 
+USER_LEVEL_ACTIONS: Set[str] = {
+    action
+    for definition in USER_LEVEL_ROLES.values()
+    for action in definition['actions']
+}
 
 # Map(service -> feature)
 SERVICE_ATTRIBUTES: Dict[str, Set[str]] = dict(
@@ -654,3 +669,9 @@ SERVICE_ATTRIBUTES: Dict[str, Set[str]] = dict(
         'has_integrates',
     },
 )
+
+SERVICE_ATTRIBUTES_SET: Set[str] = {
+    action
+    for actions in SERVICE_ATTRIBUTES.values()
+    for action in actions
+}

@@ -27,12 +27,12 @@ async def test_group_level_enforcer():
         enforcer = await authz.get_group_level_enforcer(subject)
 
         for action in model[role]['actions']:
-            assert enforcer(subject, group, action), \
+            assert enforcer(group, action), \
                 f'{role} should be able to do {action}'
 
         for other_role in model:
             for action in model[other_role]['actions'] - model[role]['actions']:
-                assert not enforcer(subject, group, action), \
+                assert not enforcer(group, action), \
                     f'{role} should not be able to do {action}'
 
 
@@ -47,12 +47,12 @@ async def test_user_level_enforcer():
         enforcer = await authz.get_user_level_enforcer(subject)
 
         for action in model[role]['actions']:
-            assert enforcer(subject, object_, action), \
+            assert enforcer(object_, action), \
                 f'{role} should be able to do {action}'
 
         for other_role in model:
             for action in model[other_role]['actions'] - model[role]['actions']:
-                assert not enforcer(subject, object_, action), \
+                assert not enforcer(object_, action), \
                     f'{role} should not be able to do {action}'
 
 

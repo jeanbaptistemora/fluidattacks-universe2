@@ -12,9 +12,11 @@ from .enforcer import (
     get_user_level_enforcer,
 )
 from .model import (
+    GROUP_LEVEL_ACTIONS,
     GROUP_LEVEL_ROLES,
-    ORGANIZATION_LEVEL_ROLES,
-    SERVICE_ATTRIBUTES,
+    ORGANIZATION_LEVEL_ACTIONS,
+    SERVICE_ATTRIBUTES_SET,
+    USER_LEVEL_ACTIONS,
     USER_LEVEL_ROLES,
 )
 
@@ -23,12 +25,11 @@ async def get_user_level_actions(subject: str) -> Set[str]:
     enforcer = await get_user_level_enforcer(subject)
     object_ = 'self'
 
-    return set(tuple([
+    return {
         action
-        for role_definition in USER_LEVEL_ROLES.values()
-        for action in role_definition['actions']
-        if enforcer(subject, object_, action)
-    ]))
+        for action in USER_LEVEL_ACTIONS
+        if enforcer(object_, action)
+    }
 
 
 async def get_user_level_roles_a_user_can_grant(
@@ -41,7 +42,7 @@ async def get_user_level_roles_a_user_can_grant(
     roles_the_user_can_grant: Tuple[str, ...] = tuple([
         role
         for role in USER_LEVEL_ROLES
-        if enforcer(requester_email, 'self', f'grant_user_level_role:{role}')
+        if enforcer('self', f'grant_user_level_role:{role}')
     ])
 
     return roles_the_user_can_grant
@@ -50,12 +51,11 @@ async def get_user_level_roles_a_user_can_grant(
 async def get_group_level_actions(subject: str, group: str) -> Set[str]:
     enforcer = await get_group_level_enforcer(subject)
 
-    return set(tuple([
+    return {
         action
-        for role_definition in GROUP_LEVEL_ROLES.values()
-        for action in role_definition['actions']
-        if enforcer(subject, group.lower(), action)
-    ]))
+        for action in GROUP_LEVEL_ACTIONS
+        if enforcer(group.lower(), action)
+    }
 
 
 async def get_organization_level_actions(
@@ -63,23 +63,21 @@ async def get_organization_level_actions(
         organization_id: str) -> Set[str]:
     enforcer = await get_organization_level_enforcer(subject)
 
-    return set(tuple([
+    return {
         action
-        for role_definition in ORGANIZATION_LEVEL_ROLES.values()
-        for action in role_definition['actions']
-        if enforcer(subject, organization_id.lower(), action)
-    ]))
+        for action in ORGANIZATION_LEVEL_ACTIONS
+        if enforcer(organization_id.lower(), action)
+    }
 
 
 async def get_group_service_attributes(group: str) -> Set[str]:
     enforcer = await get_group_service_attributes_enforcer(group)
 
-    return set(tuple([
+    return {
         attribute
-        for attributes in SERVICE_ATTRIBUTES.values()
-        for attribute in attributes
+        for attribute in SERVICE_ATTRIBUTES_SET
         if enforcer(attribute)
-    ]))
+    }
 
 
 async def get_group_level_roles_a_user_can_grant(
@@ -93,7 +91,7 @@ async def get_group_level_roles_a_user_can_grant(
     roles_the_user_can_grant: Tuple[str, ...] = tuple([
         role
         for role in GROUP_LEVEL_ROLES
-        if enforcer(requester_email, group, f'grant_group_level_role:{role}')
+        if enforcer(group, f'grant_group_level_role:{role}')
     ])
 
     return roles_the_user_can_grant

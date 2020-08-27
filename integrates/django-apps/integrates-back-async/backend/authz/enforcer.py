@@ -17,20 +17,24 @@ from .model import (
 )
 
 
-async def get_user_level_enforcer(
-    subject: str,
-) -> Callable[[str, str, str], bool]:
+async def get_user_level_enforcer(subject: str) -> Callable[[str, str], bool]:
     """Return a filtered group-level authorization for the provided subject."""
     policies = await get_cached_subject_policies(subject)
     roles = USER_LEVEL_ROLES
 
-    def enforcer(r_subject: str, r_object: str, r_action: str) -> bool:
+    # Filter results as early as possible to save cycles in the enforcer
+    policies = tuple(
+        item
+        for item in policies
+        for p_level, *_ in [item]
+        if p_level == 'user'
+    )
+
+    def enforcer(r_object: str, r_action: str) -> bool:
         should_grant_access: bool = any(
-            p_level == 'user'
-            and r_subject == p_subject
-            and r_object == p_object
+            r_object == p_object
             and r_action in roles.get(p_role, {}).get('actions', set())
-            for p_level, p_subject, p_object, p_role in policies
+            for _, p_object, p_role in policies
         )
 
         return should_grant_access
@@ -41,7 +45,7 @@ async def get_user_level_enforcer(
 async def get_group_level_enforcer(
     subject: str,
     context_store: defaultdict = None,
-) -> Callable[[str, str, str], bool]:
+) -> Callable[[str, str], bool]:
     """Return a filtered group-level authorization for the provided subject.
 
     The argument `context_store` will be used to memoize round-trips.
@@ -49,25 +53,22 @@ async def get_group_level_enforcer(
     policies = await get_cached_subject_policies(subject, context_store)
     roles = GROUP_LEVEL_ROLES
 
-    def enforcer(r_subject: str, r_object: str, r_action: str) -> bool:
+    def enforcer(r_object: str, r_action: str) -> bool:
         has_group_level: bool = any(
             p_level == 'group'
-            and r_subject == p_subject
             and r_object == p_object
-            for p_level, p_subject, p_object, _ in policies
+            for p_level, p_object, _ in policies
         )
         can_do: bool = any(
             p_level == 'group'
-            and r_subject == p_subject
             and r_object == p_object
             and r_action in roles.get(p_role, {}).get('actions', set())
-            for p_level, p_subject, p_object, p_role in policies
+            for p_level, p_object, p_role in policies
         )
         is_an_admin: bool = any(
             p_level == 'user' and p_role == 'admin'
-            and r_subject == p_subject
             and r_action in roles.get(p_role, {}).get('actions', set())
-            for p_level, p_subject, p_object, p_role in policies
+            for p_level, p_object, p_role in policies
         )
         should_grant_access: bool = (can_do if has_group_level
                                      else is_an_admin)
@@ -85,9 +86,8 @@ async def get_group_service_attributes_enforcer(
 
     def enforcer(r_attribute: str) -> bool:
         should_grant_access: bool = any(
-            group == p_group
-            and r_attribute in SERVICE_ATTRIBUTES[p_service]
-            for p_group, p_service in policies
+            r_attribute in SERVICE_ATTRIBUTES[p_service]
+            for p_service in policies
         )
 
         return should_grant_access
@@ -97,7 +97,7 @@ async def get_group_service_attributes_enforcer(
 
 async def get_organization_level_enforcer(
     subject: str,
-) -> Callable[[str, str, str], bool]:
+) -> Callable[[str, str], bool]:
     """
     Return a filtered organization-level authorization
     for the provided subject.
@@ -105,24 +105,21 @@ async def get_organization_level_enforcer(
     policies = await get_cached_subject_policies(subject)
     roles = ORGANIZATION_LEVEL_ROLES
 
-    def enforcer(r_subject: str, r_object: str, r_action: str) -> bool:
+    def enforcer(r_object: str, r_action: str) -> bool:
         has_organization_level: bool = any(
             p_level == 'organization'
-            and r_subject == p_subject
             and r_object == p_object
-            for p_level, p_subject, p_object, _ in policies
+            for p_level, p_object, _ in policies
         )
         can_do: bool = any(
             p_level == 'organization'
-            and r_subject == p_subject
             and r_object == p_object
             and r_action in roles.get(p_role, {}).get('actions', set())
-            for p_level, p_subject, p_object, p_role in policies
+            for p_level, p_object, p_role in policies
         )
         is_an_admin: bool = any(
             p_level == 'user' and p_role == 'admin'
-            and r_subject == p_subject
-            for p_level, p_subject, p_object, p_role in policies
+            for p_level, p_object, p_role in policies
         )
         should_grant_access: bool = (can_do if has_organization_level
                                      else is_an_admin)

@@ -213,7 +213,7 @@ def enforce_group_level_auth_async(func: TVar) -> TVar:
 
         enforcer = await authz.get_group_level_enforcer(subject, context.store)
 
-        if not enforcer(subject, object_, action):
+        if not enforcer(object_, action):
             util.cloudwatch_log(context, UNAUTHORIZED_ROLE_MSG)
             raise GraphQLError('Access denied')
         return await _func(*args, **kwargs)
@@ -260,7 +260,7 @@ def enforce_organization_level_auth_async(func: TVar) -> TVar:
 
         enforcer = await authz.get_organization_level_enforcer(subject)
 
-        if not enforcer(subject, object_, action):
+        if not enforcer(object_, action):
             util.cloudwatch_log(context, UNAUTHORIZED_ROLE_MSG)
             raise GraphQLError('Access denied')
         return await _func(*args, **kwargs)
@@ -289,7 +289,7 @@ def enforce_user_level_auth_async(func: TVar) -> TVar:
 
         enforcer = await authz.get_user_level_enforcer(subject)
 
-        if not enforcer(subject, object_, action):
+        if not enforcer(object_, action):
             util.cloudwatch_log(context, UNAUTHORIZED_ROLE_MSG)
             raise GraphQLError('Access denied')
         return await _func(*args, **kwargs)

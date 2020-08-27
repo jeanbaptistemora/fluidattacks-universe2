@@ -41,7 +41,7 @@ def get_subject_cache_key(subject: str) -> str:
 
 async def get_cached_group_service_attributes_policies(
     group: str,
-) -> Tuple[Tuple[str, str], ...]:
+) -> Tuple[str, ...]:
     """Cached function to get 1 group features authorization policies."""
     cache_key: str = get_group_cache_key(group)
 
@@ -54,21 +54,23 @@ async def get_cached_group_service_attributes_policies(
     if ret is None:
         # Let's fetch the data from the database
         ret = tuple(
-            (policy.group, policy.service)
-            for policy in await project_dal.get_service_policies(group))
+            policy.service
+            for policy in await project_dal.get_service_policies(group)
+            if policy.group == group
+        )
         try:
             # Put the data in the cache
-            await aio.ensure_io_bound(cache.set, cache_key, ret, timeout=3600)
+            await aio.ensure_io_bound(cache.set, cache_key, ret, timeout=86400)
         except RedisClusterException:
             pass
 
-    return cast(Tuple[Tuple[str, str], ...], ret)
+    return cast(Tuple[str, ...], ret)
 
 
 async def get_cached_subject_policies(
     subject: str,
     context_store: defaultdict = None,
-) -> Tuple[Tuple[str, str, str, str], ...]:
+) -> Tuple[Tuple[str, str, str], ...]:
     """Cached function to get 1 user authorization policies."""
     # Unique ID for this function and arguments
     context_store_key: str = function.get_id(
@@ -92,16 +94,18 @@ async def get_cached_subject_policies(
     if ret is None:
         # Let's fetch the data from the database
         ret = tuple(
-            (policy.level, policy.subject, policy.object, policy.role)
-            for policy in await user_dal.get_subject_policies(subject))
+            (policy.level, policy.object, policy.role)
+            for policy in await user_dal.get_subject_policies(subject)
+            if policy.subject == subject
+        )
         try:
             # Put the data in the cache
-            await aio.ensure_io_bound(cache.set, cache_key, ret, timeout=300)
+            await aio.ensure_io_bound(cache.set, cache_key, ret, timeout=86400)
         except RedisClusterException:
             pass
 
     context_store[context_store_key] = ret
-    return cast(Tuple[Tuple[str, str, str, str], ...], ret)
+    return cast(Tuple[Tuple[str, str, str], ...], ret)
 
 
 async def get_group_level_role(email: str, group: str) -> str:
@@ -137,9 +141,8 @@ async def get_group_level_roles(
 
     db_roles: Dict[str, str] = {
         object_: role
-        for level, subject, object_, role in policies
+        for level, object_, role in policies
         if level == 'group'
-        and subject == email
     }
 
     return {

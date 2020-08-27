@@ -24,13 +24,13 @@ async def test_get_cached_group_service_attributes_policies():
     assert sorted(await function('not-exists... probably')) == [
     ]
     assert sorted(await function('oneshottest')) == [
-        ('oneshottest', 'drills_black'),
-        ('oneshottest', 'integrates'),
+        'drills_black',
+        'integrates',
     ]
     assert sorted(await function('unittesting')) == [
-        ('unittesting', 'drills_white'),
-        ('unittesting', 'forces'),
-        ('unittesting', 'integrates'),
+        'drills_white',
+        'forces',
+        'integrates',
     ]
 
 
