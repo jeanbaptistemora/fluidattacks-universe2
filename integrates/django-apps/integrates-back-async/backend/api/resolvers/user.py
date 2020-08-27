@@ -22,6 +22,7 @@ from graphql.type.definition import GraphQLResolveInfo
 
 from backend.api.resolvers import project as project_resolver
 from backend.decorators import (
+    concurrent_decorators,
     require_integrates,
     require_login,
     require_organization_access,
@@ -291,8 +292,10 @@ async def resolve(  # pylint: disable=too-many-arguments
     return result
 
 
-@enforce_group_level_auth_async
-@require_integrates
+@concurrent_decorators(
+    enforce_group_level_auth_async,
+    require_integrates,
+)
 async def resolve_for_group(  # pylint: disable=too-many-arguments
     info: GraphQLResolveInfo,
     entity: str,
@@ -385,8 +388,10 @@ async def resolve_user_mutation(
     )
 
 
-@require_login
-@enforce_user_level_auth_async
+@concurrent_decorators(
+    require_login,
+    enforce_user_level_auth_async,
+)
 async def _do_add_user(
     _: Any,
     info: GraphQLResolveInfo,
@@ -440,8 +445,10 @@ async def _do_add_user(
     return AddUserPayloadType(success=success, email=email)
 
 
-@require_login
-@enforce_user_level_auth_async
+@concurrent_decorators(
+    require_login,
+    enforce_user_level_auth_async,
+)
 async def _do_add_stakeholder(
     _: Any,
     info: GraphQLResolveInfo,
@@ -495,9 +502,11 @@ async def _do_add_stakeholder(
     return AddStakeholderPayloadType(success=success, email=email)
 
 
-@require_login
-@enforce_group_level_auth_async
-@require_integrates
+@concurrent_decorators(
+    require_login,
+    enforce_group_level_auth_async,
+    require_integrates,
+)
 async def _do_grant_user_access(
         _: Any,
         info: GraphQLResolveInfo,
@@ -565,9 +574,11 @@ async def _do_grant_user_access(
     )
 
 
-@require_login
-@enforce_group_level_auth_async
-@require_integrates
+@concurrent_decorators(
+    require_login,
+    enforce_group_level_auth_async,
+    require_integrates,
+)
 async def _do_grant_stakeholder_access(
         _: Any,
         info: GraphQLResolveInfo,
@@ -633,9 +644,11 @@ async def _do_grant_stakeholder_access(
     )
 
 
-@require_login
-@enforce_group_level_auth_async
-@require_integrates
+@concurrent_decorators(
+    require_login,
+    enforce_group_level_auth_async,
+    require_integrates,
+)
 async def _do_remove_user_access(
         _: Any,
         info: GraphQLResolveInfo,
@@ -665,9 +678,11 @@ async def _do_remove_user_access(
     )
 
 
-@require_login
-@enforce_group_level_auth_async
-@require_integrates
+@concurrent_decorators(
+    require_login,
+    enforce_group_level_auth_async,
+    require_integrates,
+)
 async def _do_remove_stakeholder_access(
         _: Any,
         info: GraphQLResolveInfo,
@@ -696,9 +711,11 @@ async def _do_remove_stakeholder_access(
     )
 
 
-@require_login
-@enforce_group_level_auth_async
-@require_integrates
+@concurrent_decorators(
+    require_login,
+    enforce_group_level_auth_async,
+    require_integrates,
+)
 async def _do_edit_user(
         _: Any,
         info: GraphQLResolveInfo,
@@ -767,9 +784,11 @@ async def _do_edit_user(
     )
 
 
-@require_login
-@enforce_group_level_auth_async
-@require_integrates
+@concurrent_decorators(
+    require_login,
+    enforce_group_level_auth_async,
+    require_integrates,
+)
 async def _do_edit_stakeholder(
         _: Any,
         info: GraphQLResolveInfo,
@@ -890,8 +909,10 @@ async def modify_user_information(
 
 
 @convert_kwargs_to_snake_case  # type: ignore
-@require_login
-@enforce_user_level_auth_async
+@concurrent_decorators(
+    require_login,
+    enforce_user_level_auth_async,
+)
 async def resolve_user_list_projects(
         _: Any,
         info: GraphQLResolveInfo,

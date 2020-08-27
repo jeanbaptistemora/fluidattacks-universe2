@@ -12,6 +12,7 @@ from mixpanel import Mixpanel
 from graphql.type.definition import GraphQLResolveInfo
 
 from backend.decorators import (
+    concurrent_decorators,
     require_login,
     require_integrates,
     enforce_group_level_auth_async, get_entity_cache_async
@@ -113,9 +114,11 @@ async def _resolve_fields(
 
 
 @convert_kwargs_to_snake_case  # type: ignore
-@require_login
-@enforce_group_level_auth_async
-@require_integrates
+@concurrent_decorators(
+    require_login,
+    enforce_group_level_auth_async,
+    require_integrates,
+)
 async def resolve_resources(
         _: Any,
         info: GraphQLResolveInfo,
@@ -139,9 +142,11 @@ async def resolve_resources_mutation(
     )
 
 
-@require_login
-@enforce_group_level_auth_async
-@require_integrates
+@concurrent_decorators(
+    require_login,
+    enforce_group_level_auth_async,
+    require_integrates,
+)
 async def _do_add_repositories(
         _: Any,
         info: GraphQLResolveInfo,
@@ -178,9 +183,11 @@ async def _do_add_repositories(
     return SimplePayloadType(success=success)
 
 
-@require_login
-@enforce_group_level_auth_async
-@require_integrates
+@concurrent_decorators(
+    require_login,
+    enforce_group_level_auth_async,
+    require_integrates,
+)
 async def _do_add_environments(
         _: Any,
         info: GraphQLResolveInfo,
@@ -217,9 +224,11 @@ async def _do_add_environments(
     return SimplePayloadType(success=success)
 
 
-@require_login
-@enforce_group_level_auth_async
-@require_integrates
+@concurrent_decorators(
+    require_login,
+    enforce_group_level_auth_async,
+    require_integrates,
+)
 async def _do_add_files(
         _: Any,
         info: GraphQLResolveInfo,
@@ -268,9 +277,11 @@ async def _do_add_files(
     return SimplePayloadType(success=success)
 
 
-@require_login
-@enforce_group_level_auth_async
-@require_integrates
+@concurrent_decorators(
+    require_login,
+    enforce_group_level_auth_async,
+    require_integrates,
+)
 async def _do_remove_files(
         _: Any,
         info: GraphQLResolveInfo,
@@ -319,9 +330,11 @@ async def _do_remove_files(
     return SimplePayloadType(success=success)
 
 
-@require_login
-@enforce_group_level_auth_async
-@require_integrates
+@concurrent_decorators(
+    require_login,
+    enforce_group_level_auth_async,
+    require_integrates,
+)
 async def _do_download_file(
         _: Any,
         info: GraphQLResolveInfo,
@@ -365,9 +378,11 @@ async def _do_download_file(
     return DownloadFilePayloadType(success=success, url=str(signed_url))
 
 
-@require_login
-@enforce_group_level_auth_async
-@require_integrates
+@concurrent_decorators(
+    require_login,
+    enforce_group_level_auth_async,
+    require_integrates,
+)
 async def _do_update_environment(
         _: Any,
         info: GraphQLResolveInfo,
@@ -414,9 +429,11 @@ async def _do_update_environment(
     return SimplePayloadType(success=success)
 
 
-@require_login
-@enforce_group_level_auth_async
-@require_integrates
+@concurrent_decorators(
+    require_login,
+    enforce_group_level_auth_async,
+    require_integrates,
+)
 async def _do_update_repository(
         _: Any,
         info: GraphQLResolveInfo,
