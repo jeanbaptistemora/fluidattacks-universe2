@@ -20,6 +20,16 @@
       when: never
     - if: *asserts_commit_pattern
 
+.in_master_branch_asserts: &in_master_branch_asserts
+  rules:
+    - if: '$CI_COMMIT_BRANCH != "master"'
+      when: never
+    - if: '$CI_PIPELINE_SOURCE == "schedule"'
+      when: never
+    - if: '$CI_PIPELINE_SOURCE == "trigger"'
+      when: never
+    - if: *asserts_commit_pattern
+
 asserts_lint_code:
   <<: *with_nix
   <<: *in_dev_branch_asserts
@@ -34,3 +44,13 @@ asserts_lint_tests:
   <<: *with_nix
   <<: *in_dev_branch_asserts
   stage: lint-code
+
+asserts_infra_secret_management_test:
+  <<: *with_nix
+  <<: *in_dev_branch_asserts
+  stage: test-infra
+
+asserts_infra_secret_management_deploy:
+  <<: *with_nix
+  <<: *in_master_branch_asserts
+  stage: deploy-infra

@@ -3,26 +3,38 @@
   rev: f32bc648f034a2466f5d3326be66cd94c4c1c2f6
   hooks:
     - id: validate_manifest
+      files: asserts/.*$
 - repo: git://github.com/pre-commit/pre-commit-hooks
   rev: e37b2795ff01adeb76edd6fe808f8540b692160c
   hooks:
     - id: check-docstring-first
+      files: asserts/.*$
     - id: check-added-large-files
+      files: asserts/.*$
     - id: check-ast
+      files: asserts/.*$
     - id: check-json
+      files: asserts/.*$
     - id: check-case-conflict
+      files: asserts/.*$
     - id: check-merge-conflict
+      files: asserts/.*$
     - id: check-symlinks
+      files: asserts/.*$
     - id: check-xml
+      files: asserts/.*$
     - id: check-yaml
+      files: asserts/.*$
       exclude: ^.gitlab-ci.yml$
 - repo: git://github.com/pre-commit/mirrors-pylint
   rev: a9e0b1a08cec19691247fc26a0f51e5f48801e18
   hooks:
     - id: pylint
+      files: asserts/.*$
       args:
         - --rcfile=.pylintrc
 - repo: git://github.com/Lucas-C/pre-commit-hooks
   rev: ffbd448645bad2e7ca13f96fca5830058d27ccd5
   hooks:
     - id: forbid-crlf
+      files: asserts/.*$

@@ -218,16 +218,6 @@ test_output_asserts:
   <<: *in_dev_branch
   stage: test
 
-test_infra_secret_management:
-  <<: *with_nix
-  <<: *in_dev_branch
-  stage: test
-
-deploy_infra_secret_management:
-  <<: *with_nix
-  <<: *in_prod_branch
-  stage: deploy
-
 release_to_pypi:
   <<: *with_nix
   <<: *in_prod_branch

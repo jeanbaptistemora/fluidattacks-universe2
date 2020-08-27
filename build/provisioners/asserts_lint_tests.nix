@@ -12,7 +12,6 @@ in
         pkgs.git
         pkgs.cacert
         pkgs.python37
-        pkgs.pre-commit
       ];
 
       pyPkgAssertslintrequirements = builders.pythonRequirements ../../asserts/deploy/dependencies/lint_asserts.lst;

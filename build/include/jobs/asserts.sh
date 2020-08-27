@@ -54,8 +54,6 @@ function job_asserts_lint_tests {
       helper_use_pristine_workdir \
   &&  pushd asserts \
   &&  env_prepare_python_packages \
-  &&  helper_config_precommit \
-  &&  helper_common_list_touched_files | xargs pre-commit run -v --files \
   &&  prospector \
         --full-pep8 \
         --without-tool pep257 \
@@ -68,20 +66,26 @@ function job_asserts_lint_tests {
   || return 1
 }
 
-function job_asserts_test_infra_secret_management {
+function job_asserts_infra_secret_management_test {
   local dir='deploy/secret-management/terraform'
 
       helper_use_pristine_workdir \
+  &&  pushd asserts \
   &&  helper_asserts_aws_login dev \
-  &&  helper_terraform_test "${dir}"
+  &&  helper_common_terraform_plan "${dir}" \
+  &&  popd \
+  ||  return 1
 }
 
-function job_asserts_deploy_infra_secret_management {
+function job_asserts_infra_secret_management_deploy {
   local dir='deploy/secret-management/terraform'
 
       helper_use_pristine_workdir \
+  &&  pushd asserts \
   &&  helper_asserts_aws_login prod \
-  &&  helper_terraform_apply "${dir}"
+  &&  helper_common_terraform_apply "${dir}" \
+  &&  popd \
+  ||  return 1
 }
 
 function job_asserts_test_api_cloud_aws_api {

@@ -192,29 +192,3 @@ function helper_pages_generate_doc {
   &&  sphinx-build -b linkcheck sphinx/source public/review/ \
   &&  sphinx-build -b coverage  sphinx/source public/review/
 }
-
-function helper_terraform_login {
-  export TF_VAR_aws_access_key="$AWS_ACCESS_KEY_ID"
-  export TF_VAR_aws_secret_key="$AWS_SECRET_ACCESS_KEY"
-}
-
-function helper_terraform_test {
-  local dir="${1}"
-
-      helper_terraform_login \
-  &&  pushd "${dir}" || return 1 \
-  &&  terraform init \
-  &&  terraform plan -refresh=true \
-  &&  tflint --deep --module \
-  &&  popd || return 1
-}
-
-function helper_terraform_apply {
-  local dir="${1}"
-
-      helper_terraform_login \
-  &&  pushd "${dir}" || return 1 \
-  &&  terraform init \
-  &&  terraform apply -auto-approve -refresh=true \
-  &&  popd || return 1
-}
