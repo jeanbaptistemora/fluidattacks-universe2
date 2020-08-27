@@ -80,8 +80,8 @@
     <div class="cardgrid flex-ns flex-wrap-ns justify-between-m">
       {% for partnerpage in pages if partnerpage.partner %}
       <div class="br3 shadowbox-blog hover-card relative dt-ns mv3 mh2 bg-white w-card">
-        <button class="accordion"><img src="{{ SITEURL }}/about-us/partners/{{partnerpage.partnerlogo}}.png" alt="{{partnerpage.alt}}"></button>
-        <div class="panel">
+        <button class="accordion pointer pa3 w-100 bg-white outline-transparent bn t-all-5"><img src="{{ SITEURL }}/about-us/partners/{{partnerpage.partnerlogo}}.png" alt="{{partnerpage.alt}}"></button>
+        <div class="panel pv0 ph2 bg-white t-all-5 overflow-hidden">
           {{ partnerpage.content }}
         </div>
         <button class="readmore tc fw3 w-100 pointer bn bg-white outline-transparent">
@@ -92,6 +92,10 @@
       </div>
       {% endfor %}
     </div>
+    <div>
+      <p>If you are interested in partnering with <code>Fluid Attacks</code>,
+      please submit the following <a href="{{ SITEURL }}/contact-us/">Contact Form</a>.</p>
+      </div>
   </div>
 </div>
 

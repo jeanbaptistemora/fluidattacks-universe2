@@ -7,14 +7,11 @@
 
 = Partners
 
-Partners facilitate the delivery of our services to our end customers
-in a variety of geographic areas (Germany link:#teraport[^1^],
-Australia link:#the-missing-link[^2^], and the United States link:#arroyo-consulting[^3^] link:#sba[^4^])
+Partners facilitate the delivery of our services to our end clients in a variety
+of geographic areas (Germany link:#teraport[^1^],
+Australia link:#the-missing-link[^2^],
+and the U.S. link:#arroyo-consulting[^3^] link:#sba[^4^])
 and sectors (Government, Defense) link:#evolution-it[^5^].
 In addition to our services, they complete their portfolio
 (functional testing link:#choucair[^6^] link:#greensqa[^7^], software development),
 providing integrated solutions. The following are our current partners:
-
-
-If you are interested in partnering with `Fluid Attacks`,
-please submit the following link:../../contact-us/[Contact Form].
