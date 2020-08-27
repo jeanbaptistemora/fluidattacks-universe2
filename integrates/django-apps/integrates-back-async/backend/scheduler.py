@@ -188,12 +188,13 @@ def get_accepted_vulns(
         first_day: str, last_day: str) -> int:
     """Get all vulnerabilities accepted by time range"""
     accepted = 0
+    accepted_treatments = ['ACCEPTED', 'ACCEPTED_UNDEFINED']
     for finding in findings_released:
         historic_treatment = cast(
             List[Dict[str, str]],
             finding.get('historic_treatment', [{}])
         )
-        if historic_treatment[-1].get('treatment') == 'ACCEPTED':
+        if historic_treatment[-1].get('treatment') in accepted_treatments:
             for vuln in vulns:
                 accepted += get_by_time_range(
                     finding, vuln, first_day, last_day

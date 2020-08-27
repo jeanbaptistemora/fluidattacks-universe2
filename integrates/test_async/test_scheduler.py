@@ -107,7 +107,7 @@ class SchedulerTests(TestCase):
         test_data = get_status_vulns_by_time_range(
             vulns, first_day, last_day, released_findings
         )
-        expected_output = {'found': 8, 'accepted': 4, 'closed': 2}
+        expected_output = {'found': 8, 'accepted': 5, 'closed': 2}
         assert test_data == expected_output
 
     def test_create_weekly_date(self):
@@ -126,7 +126,7 @@ class SchedulerTests(TestCase):
         test_data = get_accepted_vulns(
             released_findings, vulns, first_day, last_day
         )
-        expected_output = 4
+        expected_output = 5
         assert test_data == expected_output
 
     async def test_get_by_time_range(self):
