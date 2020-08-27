@@ -28,15 +28,14 @@ Programming or `ROP`.
 When we are writing an exploit to a buffer overflow vulnerability on an
 application without `DEP`, we overwrite the saved instruction pointer on the
 stack frame of the affected function with a pointer to something like
-`JMP ESP` (or any other register pointing to our shellcode) and then put
-a shellcode on the stack which is finally executed when the `JMP ESP` is
+`JMP ESP` (or any other register pointing to our shellcode) and then place
+a shellcode on the stack, which is finally executed when the `JMP ESP` is
 performed.
 
 When we perform a `JMP ESP` (or any other general purpose register),
 the program expects to find *instructions* on the address pointed to `ESP`.
 With `DEP`, we can't execute instructions on the stack,
-but we still control the execution flow, and that is because we write on
-the `Saved EIP` of the stack frame.
+but we still control the execution flow.
 
 But what would happen if, instead of overwriting the `Saved EIP` with
 a pointer to `JMP ESP`, we overwrite it with a pointer to a `RETN`
@@ -54,7 +53,7 @@ do whatever we want. Let's find a `RETN` instruction first:
 !mona find -type instr -s "retn" -p 10 -o
 ----
 
-This will tell `mona` to find 10 `RETN` instrunctions. The result is:
+This will tell `mona` to find up to 10 `RETN` instrunctions. The result is:
 
 image::retn1.png[RETN instructions]
 
@@ -102,19 +101,20 @@ Here's a detail of what happened:
 . That value is part of the shellcode injected:
 .. `xor eax,eax` -> `\x31\xc0`
 .. `add eax,0xdeadbeee` -> `\x05\xee\xbe\xad\xde` (the first two bytes)
-. When the `RETN` instruction is executed that value `EE05C031` is stored on
+. When the `RETN` instruction is executed, that value `EE05C031` is stored on
 `EIP`.
 
-What it means is that we can replace the `EE05C031` bytes with a pointer that
-will become the next instruction to be executed!
+What it means is that we can replace the `EE05C031` bytes with an arbitrary
+pointer that will become the next instruction to be executed!
 
 In our exploit, we want to make `EAX` = `0xdeadbeef` using three
 instructions: `xor eax,eax`, `add eax,0xdeadbeee` and `inc eax`. Let's check
-if we can find a pointer to the first:
+if we can find a pointer in the execution environment that performs the
+first (`xor eax,eax`) operation:
 
 image::find1.gif[RETN]
 
-We could find one at `62501162` that points to `xor eax,eax`.
+We could find one at `62501162` that points to a `xor eax,eax`.
 Let's update our exploit and place that address instead of
 the `xor eax,eax` instruction:
 
@@ -165,8 +165,8 @@ instruction was placed but then, we lost control.
 We need to make `EAX = 0xdeadbeee`. There are several ways to do that. We
 tried with `xor eax,eax -> add eax,0xdeadbeee` but another way to do it
 is to place the value `0xdeadbeee` on top of the stack and then perform a
-`pop eax`. We also need regain control of the execution flow. To do that,
-we need to to return back to the stack, so we can execute the last
+`pop eax`. We also need regain control of the execution flow. This can be
+done by returning back to the stack, so we can execute the last
 instruction on our shellcode `inc eax` and thus, make `EAX = 0xdeadbeef`.
 That means that we need to find an address to a `pop eax` instruction followed
 by a `retn`.
@@ -265,7 +265,7 @@ instruction on the stack! We have bypassed `DEP`!
 == Using mona to find gadgets
 
 You may notice by now that finding useful gadgets could become something
-really tedious. Fortunately for us `mona` has made this task easy.
+really tedious. Fortunately for us, `mona` has made this task easy.
 You just need to simply issue the following:
 
 [source,bash]
@@ -283,11 +283,12 @@ application containing all the gadgets found. `mona` also generates
 proposal of something called `ROP chains`, which is nothing but a set of
 ROP gadgets chained together to perform something more complex. I won't spoil
 the next blog entry, but ROP chains will be used later on a more
-serious exploitation.
+link:../vulnserver-trun-rop/[serious exploitation].
 
 == Conclusions
 
 In this article, we could see a way to bypass the Data Execution Protection
 on a modern Windows system. However, the shellcode used here was very basic
 and was only for demonstrating the fact that `DEP` can be bypassed.
-We will use ROP to create something more complex in the next post.
+We will use ROP to create something more complex in the
+link:../vulnserver-trun-rop/[next post].
