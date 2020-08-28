@@ -1,6 +1,5 @@
 import { BugsnagErrorBoundary } from "./utils/bugsnagErrorBoundary";
 import { Dashboard } from "./scenes/Dashboard";
-import LogRocket from "logrocket";
 import { Login } from "./scenes/Login";
 import { NetworkStatus } from "react-apollo-network-status";
 import { Preloader } from "./components/Preloader";
@@ -9,7 +8,6 @@ import ReactDOM from "react-dom";
 import { Provider as ReduxProvider } from "react-redux";
 import { Registration } from "./scenes/Registration";
 import { ToastContainer } from "react-toastify";
-import { getEnvironment } from "./utils/environment";
 import mixpanel from "mixpanel-browser";
 import store from "./store";
 import { ApolloProvider, networkStatusNotifier } from "./utils/apollo";
@@ -65,10 +63,5 @@ if (extendedModule.hot !== undefined) {
   extendedModule.hot.accept();
 }
 
-const { userEmail, userName } = window as typeof window & Dictionary<string>;
-if (getEnvironment() === "production") {
-  LogRocket.init("3ktlih/integrates");
-  LogRocket.identify(userEmail, { email: userEmail, name: userName });
-}
 mixpanel.init("7a7ceb75ff1eed29f976310933d1cc3e");
 ReactDOM.render(React.createElement(App), document.getElementById("root"));

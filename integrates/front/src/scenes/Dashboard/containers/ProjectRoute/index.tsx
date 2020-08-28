@@ -7,7 +7,6 @@ import { PureAbility } from "@casl/ability";
 import { ApolloError } from "apollo-client";
 import { GraphQLError } from "graphql";
 import _ from "lodash";
-import LogRocket from "logrocket";
 import React from "react";
 import { ButtonToolbar, Col, Glyphicon, Row } from "react-bootstrap";
 import { Trans } from "react-i18next";
@@ -54,10 +53,7 @@ const projectRoute: React.FC<IProjectRoute> = (props: IProjectRoute): JSX.Elemen
     onCompleted: (permData: { me: { permissions: string[]; role: string | undefined } }): void => {
       permissions.update(permData.me.permissions.map((action: string) => ({ action })));
       if (permData.me.permissions.length === 0) {
-        LogRocket.captureMessage("Empty permissions", {
-          extra: { permissions: JSON.stringify(permData.me.permissions) },
-          tags: { level: "group" },
-        });
+        Logger.error("Empty permissions", JSON.stringify(permData.me.permissions));
       }
       setUserRole(permData.me.role);
     },

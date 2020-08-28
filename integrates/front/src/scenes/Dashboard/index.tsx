@@ -5,7 +5,6 @@ import { ApolloError } from "apollo-client";
 import { GraphQLError } from "graphql";
 import { HomeView } from "./containers/HomeView";
 import { IStakeholderDataAttr } from "./containers/ProjectStakeholdersView/types";
-import LogRocket from "logrocket";
 import { Logger } from "../../utils/logger";
 import { Navbar } from "./components/Navbar";
 import { OrganizationContent } from "./containers/OrganizationContent";
@@ -209,10 +208,7 @@ export const Dashboard: React.FC = (): JSX.Element => {
         }))
       );
       if (data.me.permissions.length === 0) {
-        LogRocket.captureMessage("Empty permissions", {
-          extra: { permissions: JSON.stringify(data.me.permissions) },
-          tags: { level: "user" },
-        });
+        Logger.error("Empty permissions", JSON.stringify(data.me.permissions));
       }
     },
     onError: ({ graphQLErrors }: ApolloError): void => {
