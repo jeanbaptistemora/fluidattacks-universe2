@@ -8,8 +8,9 @@ import uuid
 
 # Third party libraries
 import bugsnag
-from gql.transport.exceptions import (
-    TransportQueryError,
+from aiohttp.client_exceptions import (
+    ClientConnectorError,
+    ClientResponseError,
 )
 
 # Local imports
@@ -36,10 +37,13 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 def customize_bugsnag_error_reports(notification: Any) -> None:
     # Customize Login required error
-    if isinstance(notification.exception, TransportQueryError):
+    if isinstance(notification.exception, (
+            ClientConnectorError,
+            ClientResponseError,
+    )):
         login_error = any([
-            err.get('message') in ('Login required', 'Access denied')
-            for err in notification.exception.errors
+            err in str(notification.exception)
+            for err in ('Login required', 'Access denied')
         ])
         if login_error:
             notification.severity = 'info'
