@@ -1117,7 +1117,7 @@ function job_integrates_rotate_jwt_token {
   &&  helper_common_sops_env "secrets-${ENVIRONMENT_NAME}.yaml" 'default' \
         GITLAB_API_TOKEN \
   &&  echo '[INFO] Updating var in GitLab' \
-  &&  set_project_variable \
+  &&  helper_common_set_project_variable \
         "${GITLAB_API_TOKEN}" \
         "${integrates_repo_id}" \
         "${var_name}" \

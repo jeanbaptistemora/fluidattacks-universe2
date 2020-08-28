@@ -106,10 +106,10 @@ def timedoctor_start() -> bool:
     # Put it on vault, tokens are issued with 2 hours of duration
     new_values = json.dumps(
         {**timedoctor, **new_timedoctor})
-    url = "https://gitlab.com/fluidattacks/public"
-    url += "/raw/master/shared-scripts/gitlab-variables.sh"
+    url = "https://gitlab.com/fluidattacks/product"
+    url += "/raw/master/build/include/helpers/common.gitlab.sh"
     run_command((f"    source <(curl -sL {url})"
-                 f"&&  set_project_variable"
+                 f"&&  helper_common_set_project_variable"
                  f"      '{analytics_gitlab_token}'"
                  f"      '{project_id}'"
                  f"      'analytics_auth_timedoctor'"
@@ -140,10 +140,10 @@ def timedoctor_refresh() -> bool:
     # Put it on vault, tokens are issued with 2 hours of duration
     new_values = json.dumps(
         {**timedoctor, **new_timedoctor})
-    url = "https://gitlab.com/fluidattacks/public"
-    url += "/raw/master/shared-scripts/gitlab-variables.sh"
+    url = "https://gitlab.com/fluidattacks/product"
+    url += "/raw/master/build/include/helpers/common.gitlab.sh"
     run_command((f"    source <(curl -sL {url})"
-                 f"&&  set_project_variable"
+                 f"&&  helper_common_set_project_variable"
                  f"      '{analytics_gitlab_token}'"
                  f"      '{project_id}'"
                  f"      'analytics_auth_timedoctor'"

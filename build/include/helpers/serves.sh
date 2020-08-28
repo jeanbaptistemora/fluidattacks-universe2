@@ -226,11 +226,11 @@ function helper_serves_user_provision_rotate_keys {
         helper_serves_terraform_output \
           "${terraform_dir}" \
           "${output_secret_key_name}-${resource_to_taint_number}")  \
-  &&  set_project_variable \
+  &&  helper_common_set_project_variable \
         "${GITLAB_API_TOKEN}" "${gitlab_repo_id}" \
         "${gitlab_key_id_name}" "${output_key_id_value}" \
         "${gitlab_protected}" "${gitlab_masked}" \
-  &&  set_project_variable \
+  &&  helper_common_set_project_variable \
         "${GITLAB_API_TOKEN}" "${gitlab_repo_id}" \
         "${gitlab_secret_key_name}" "${output_secret_key_value}" \
         "${gitlab_protected}" "${gitlab_masked}"
