@@ -684,12 +684,12 @@ async def _do_remove_evidence(
     success = await finding_domain.remove_evidence(evidence_id, finding_id)
 
     if success:
+        util.queue_cache_invalidation(f'evidence*{finding_id}')
         util.cloudwatch_log(
             info.context,
             ('Security: Removed evidence '
              f'in finding {finding_id}')  # pragma: no cover
         )
-        util.queue_cache_invalidation(finding_id)
     finding = await info.context.loaders['finding'].load(finding_id)
     return SimpleFindingPayloadType(finding=finding, success=success)
 
@@ -717,7 +717,7 @@ async def _do_update_evidence(
         )
 
     if success:
-        util.queue_cache_invalidation(finding_id)
+        util.queue_cache_invalidation(f'evidence*{finding_id}')
         util.cloudwatch_log(
             info.context,
             ('Security: Updated evidence in finding '
@@ -751,7 +751,7 @@ async def _do_update_evidence_description(
             finding_id, evidence_id, description
         )
         if success:
-            util.queue_cache_invalidation(finding_id)
+            util.queue_cache_invalidation(f'evidence*{finding_id}')
             util.cloudwatch_log(
                 info.context,
                 ('Security: Evidence description '
