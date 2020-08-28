@@ -14,7 +14,7 @@ a|`Rules` is a set of security requirements
 that allows you to parameterize a pentest
 according to the risk appetite of your organization.
 `Rules` allows you to determine what is tested and what is not,
-and what is considered a vulnerability and what is not.
+and find out what is considered a vulnerability.
 It is also the basis for determining how rigorous a pentest was,
 based on tested and untested requirements.
 The security requirements are independent of the type of technology being used
