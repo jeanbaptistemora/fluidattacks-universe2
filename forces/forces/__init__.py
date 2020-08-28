@@ -1,7 +1,9 @@
 """Fluidattacks Forces package."""
 from typing import Any
+from importlib.metadata import version
 import copy
 import os
+import textwrap
 import uuid
 
 # Third party libraries
@@ -51,11 +53,32 @@ bugsnag.configure(
 )
 
 
+def show_banner() -> str:
+    """Show forces banner."""
+    header = textwrap.dedent(rf"""
+        #     ______
+        #    / ____/___  _____________  _____
+        #   / /_  / __ \/ ___/ ___/ _ \/ ___/
+        #  / __/ / /_/ / /  / /__/  __(__  )
+        # /_/    \____/_/   \___/\___/____/
+        #
+        #  v. {version('forces')}
+        #  ___
+        # | >>|> fluid
+        # |___|  attacks, we hack your software
+        #
+
+        """)
+    print(header)
+    return header
+
+
 async def entrypoint(token: str, group: str, **kwargs: Any) -> int:
     """Entrypoint function"""
     strict = kwargs.get('strict', False)
     exit_code = 1 if strict else 0
     set_api_token(token)
+    header = show_banner()
 
     report = await generate_report(project=group)
     yaml_report = await generate_report_log(
@@ -76,7 +99,7 @@ async def entrypoint(token: str, group: str, **kwargs: Any) -> int:
         execution_id=execution_id,
         exit_code=str(exit_code),
         report=report,
-        log=yaml_report,
+        log=header + yaml_report,
         strictness='strict' if strict else 'lax',
         git_metadata=metadata,
     )

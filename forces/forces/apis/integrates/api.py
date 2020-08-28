@@ -28,7 +28,7 @@ async def get_findings(project: str, **kwargs: str) -> List[str]:
     :param project: Project name.
     """
     query = """
-        query GetProjectFindings($project_name: String!) {
+        query ForcesDoGetProjectFindings($project_name: String!) {
           project (projectName: $project_name) {
             findings {
               id
@@ -59,7 +59,7 @@ async def get_vulnerabilities(
     :param finding: Finding identifier.
     """
     query = """
-        query GetFindingVulnerabilities($finding_id: String!){
+        query ForcesDoGetFindingVulnerabilities($finding_id: String!){
           finding(identifier: $finding_id) {
             vulnerabilities {
               findingId,
@@ -85,7 +85,7 @@ async def get_finding(finding: str, **kwargs: str) -> Dict[str, Any]:
     :param finding: Finding identifier.
     """
     query = """
-        query GetFinding($finding_id: String!) {
+        query ForcesDoGetFinding($finding_id: String!) {
           finding(identifier: $finding_id) {
             title
             id
@@ -130,7 +130,7 @@ async def upload_report(project: str, report: Dict[str, Any], log: str,
     :param date: Forces execution date.
     """
     query = """
-        mutation UploadReport(
+        mutation ForcesDoUploadReport(
             $project_name: String!
             $execution_id: String!
             $date: DateTime!
@@ -142,10 +142,9 @@ async def upload_report(project: str, report: Dict[str, Any], log: str,
             $kind: String
             $log: String
             $strictness: String!
-            $exploits: [ExploitResultInput!]
+            $open: [ExploitResultInput!]
+            $closed: [ExploitResultInput!]
             $accepted: [ExploitResultInput!]
-            $num_accepted: Int
-            $num_exploits: Int
         ) {
             addForcesExecution(
                 projectName: $project_name
@@ -160,31 +159,36 @@ async def upload_report(project: str, report: Dict[str, Any], log: str,
                 log: $log
                 strictness: $strictness
                 vulnerabilities: {
-                    exploits: $exploits,
-                    acceptedExploits: $accepted,
-                    integratesExploits: [],
-                    numOfVulnerabilitiesInAcceptedExploits: $num_accepted,
-                    numOfVulnerabilitiesInExploits: $num_exploits,
-                    numOfVulnerabilitiesInIntegratesExploits: 0
+                    open: $open,
+                    accepted: $accepted,
+                    closed: $closed,
                 }
             ) {
                 success
             }
         }
         """
-    exploits: List[Dict[str, str]] = []
-    accepted: List[Dict[str, str]] = []
+    open_vulns: List[Dict[str, str]] = []
+    closed_vulns: List[Dict[str, str]] = []
+    accepted_vulns: List[Dict[str, str]] = []
     for vuln in [
-            vuln
-            for find in report['findings'] for vuln in find['vulnerabilities']
+            vuln for find in report['findings']
+            for vuln in find['vulnerabilities']
     ]:
-        (accepted if vuln['state'] == 'accepted' else exploits).append({
+        vuln_state = {
             'kind': vuln['type'],
             'who': vuln['specific'],
             'where': vuln['where'],
             'state': vuln['state'].upper(),
             'exploitability': vuln['exploitability']
-        })
+        }
+        if vuln['state'] == 'open':
+            open_vulns.append(vuln_state)
+        elif vuln['state'] == 'closed':
+            closed_vulns.append(vuln_state)
+        elif vuln['state'] == 'accepted':
+            accepted_vulns.append(vuln_state)
+
     utc_dt = datetime.now(timezone.utc)
     bogota = pytz.timezone(os.environ.get('TZ', 'America/Bogota'))
     params: Dict[str, Any] = {
@@ -197,13 +201,12 @@ async def upload_report(project: str, report: Dict[str, Any], log: str,
         'git_commit': git_metadata['git_commit'],
         'git_origin': git_metadata['git_origin'],
         'git_repo': git_metadata['git_repo'],
-        'exploits': exploits,
-        'accepted': accepted,
+        'open': open_vulns,
+        'accepted': accepted_vulns,
+        'closed': closed_vulns,
         'log': log,
         'strictness': kwargs.pop('strictness'),
         'kind': 'other',
-        'num_accepted': report['summary']['accepted'],
-        'num_exploits': report['summary']['open']
     }
 
     response: Dict[str, Dict[str, bool]] = await execute(
