@@ -82,6 +82,30 @@ class FindingEnum(Enum):
         title='utils.model.finding.enum.f011.title',
         type=FindingTypeEnum.SECURITY,
     )
+    F031_CWE378: FindingMetadata = FindingMetadata(
+        auto_approve=False,
+        cwe='378',
+        description='utils.model.finding.enum.F031_CWE378.description',
+        impact='utils.model.finding.enum.F031_CWE378.impact',
+        recommendation='utils.model.finding.enum.F031_CWE378.recommendation',
+        requirements='utils.model.finding.enum.F031_CWE378.requirements',
+        severity={
+            'attackComplexity': 0.77,
+            'attackVector': 0.55,
+            'availabilityImpact': 0.0,
+            'confidentialityImpact': 0.22,
+            'exploitability': 0.94,
+            'integrityImpact': 0.22,
+            'privilegesRequired': 0.85,
+            'remediationLevel': 1.0,
+            'reportConfidence': 1.0,
+            'severityScope': 0.0,
+            'userInteraction': 0.62,
+        },
+        threat='utils.model.finding.enum.F031_CWE378.threat',
+        title='utils.model.finding.enum.F031_CWE378.beta_title',
+        type=FindingTypeEnum.SECURITY,
+    )
     F034: FindingMetadata = FindingMetadata(
         auto_approve=True,
         cwe='330',
