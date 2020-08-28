@@ -4,7 +4,7 @@
 :keywords: System, Log, File, Integrity, Security, ASVS, CWE, PCI DSS, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
-= R046. Manage integrity of critical files
+= R046. Manage the integrity of critical files
 
 == Requirement
 
@@ -30,3 +30,6 @@ actions taken by any individual with root or administrative privileges.
 . [[r4]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 10.2.6]
 Implement automated audit trails for all system components to reconstruct
 creation and deletion of system-level objects.
+
+. [[r5]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 10.4.2]
+Time data is protected.

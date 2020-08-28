@@ -8,9 +8,8 @@
 
 == Requirement
 
-The system must support the secure removal of sensitive data
-when they are no longer required,
-so that they can not be recovered.
+The system must support the secure removal of sensitive data,
+guaranteeing that it cannot be recovered.
 
 == Description
 
