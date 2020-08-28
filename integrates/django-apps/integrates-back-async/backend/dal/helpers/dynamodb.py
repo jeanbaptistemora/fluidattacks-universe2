@@ -5,6 +5,7 @@
 import os
 from typing import Any, Dict, List, Optional
 from contextlib import asynccontextmanager
+from decimal import Decimal
 
 import logging
 import aioboto3
@@ -125,3 +126,18 @@ async def async_update_item(
 async def start_context() -> aioboto3.session.Session.resource:
     async with aioboto3.resource(**RESOURCE_OPTIONS) as dynamodb_resource:
         yield dynamodb_resource
+
+
+def serialize(object_: Any) -> Any:
+    """Convert an object so it can be serialized to dynamodb."""
+    if isinstance(object_, (float, int)):
+        object_ = Decimal(str(object_))
+    elif isinstance(object_, dict):
+        for key, value in object_.items():
+            object_[key] = serialize(value)
+    elif isinstance(object_, (list, set, tuple)):
+        for value in object_:
+            value = serialize(value)
+    else:
+        return object_
+    return object_

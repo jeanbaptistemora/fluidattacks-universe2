@@ -103,6 +103,7 @@ async def create_execution(project_name: str,
             execution_attributes['date'], '%Y-%m-%dT%H:%M:%S.%f%z')
 
         execution_attributes['subscription'] = project_name
+        execution_attributes = dynamodb.serialize(execution_attributes)
         success = await dynamodb.async_put_item(TABLE_NAME_NEW_FORCES,
                                                 execution_attributes)
     except ClientError as ex:
