@@ -1,5 +1,5 @@
 let
-  pkgs = import ../pkgs/stable.nix;
+  pkgs = import ../pkgs/serves.nix;
 in
   pkgs.stdenv.mkDerivation (
         (import ../src/basic.nix)
@@ -11,7 +11,7 @@ in
             pkgs.git
             pkgs.jq
             pkgs.awscli
-            pkgs.terraform
+            pkgs.terraform_0_13
             pkgs.tflint
           ];
         })

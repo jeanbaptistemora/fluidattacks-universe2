@@ -1,5 +1,5 @@
 let
-  pkgs = import ../pkgs/stable.nix;
+  pkgs = import ../pkgs/serves.nix;
   helm-2-pkgs = import ../pkgs/helm-2.nix;
 in
   pkgs.stdenv.mkDerivation (
@@ -15,7 +15,7 @@ in
             pkgs.kubectl
             pkgs.sops
             pkgs.jq
-            pkgs.terraform
+            pkgs.terraform_0_13
             pkgs.tflint
             pkgs.envsubst
             helm-2-pkgs.kubernetes-helm
