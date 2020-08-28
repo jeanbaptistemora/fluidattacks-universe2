@@ -130,7 +130,7 @@ class EventTests(TestCase):
             }
         '''
         data = {'query': query}
-        request = create_dummy_session()
+        request = create_dummy_session(username='integratesmanager@gmail.com')
         _, result = await graphql(SCHEMA, data, context_value=request)
         assert 'errors' not in result
         assert 'success' in result['data']['addEventComment']

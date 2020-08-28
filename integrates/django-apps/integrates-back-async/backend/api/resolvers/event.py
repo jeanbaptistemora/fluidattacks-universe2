@@ -359,11 +359,26 @@ async def _do_add_event_comment(
     """Resolve add_event_comment mutation."""
     random_comment_id = int(round(time() * 1000))
     user_info: Any = util.get_jwt_content(info.context)
+    user_email = str(user_info['user_email'])
+    comment_data = {
+        'comment_type': 'event',
+        'parent': parent,
+        'content': content,
+        'user_id': random_comment_id
+    }
     comment_id, success = await event_domain.add_comment(
-        random_comment_id, content, event_id, parent, user_info
+        user_email,
+        comment_data,
+        event_id,
+        parent
     )
     if success:
         util.queue_cache_invalidation(event_id)
+        event_domain.send_comment_mail(
+            user_email,
+            comment_data,
+            await info.context.loaders['event'].load(event_id)
+        )
         util.cloudwatch_log(
             info.context,
             ('Security: Added comment to '
@@ -391,11 +406,26 @@ async def _do_add_event_consult(
         parent: str) -> AddConsultPayloadType:
     random_comment_id = int(round(time() * 1000))
     user_info: Any = util.get_jwt_content(info.context)
+    user_email = str(user_info['user_email'])
+    comment_data = {
+        'comment_type': 'event',
+        'parent': parent,
+        'content': content,
+        'user_id': random_comment_id
+    }
     comment_id, success = await event_domain.add_comment(
-        random_comment_id, content, event_id, parent, user_info
+        user_email,
+        comment_data,
+        event_id,
+        parent
     )
     if success:
         util.queue_cache_invalidation(event_id)
+        event_domain.send_comment_mail(
+            user_email,
+            comment_data,
+            await info.context.loaders['event'].load(event_id)
+        )
         util.cloudwatch_log(
             info.context,
             ('Security: Added comment to '

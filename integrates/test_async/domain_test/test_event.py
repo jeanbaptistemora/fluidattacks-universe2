@@ -96,44 +96,46 @@ async def test_solve_event():
 
 @pytest.mark.changes_db
 async def test_add_comment():
+    event_id = '538745942'
+    user_email = 'integratesmanager@gmail.com'
     comment_id = int(round(time() * 1000))
+    parent = '0'
+    comment_data = {
+        'comment_type': 'event',
+        'parent': parent,
+        'content': 'comment test',
+        'user_id': comment_id
+    }
     comment_id, success = await event_domain.add_comment(
-        comment_id=comment_id,
-        content='comment test',
-        event_id='538745942',
-        parent='0',
-        user_info={
-            'user_email': 'unittesting@fluidattacks.com',
-            'first_name': 'Unit',
-            'last_name': 'test'
-        })
+        user_email,
+        comment_data,
+        event_id,
+        parent
+    )
     assert success
     assert comment_id
 
+    comment_data['content'] = 'comment test 2'
+    comment_data['parent'] = str(comment_id)
+    comment_data['user_id'] = int(round(time() * 1000))
     comment_id, success = await event_domain.add_comment(
-        comment_id=int(round(time() * 1000)),
-        content='comment test 2',
-        event_id='538745942',
-        parent=str(comment_id),
-        user_info={
-            'user_email': 'unittesting@fluidattacks.com',
-            'first_name': 'Unit',
-            'last_name': 'test'
-        })
+        user_email,
+        comment_data,
+        event_id,
+        parent=str(comment_id)
+    )
     assert success
     assert comment_id
 
     with pytest.raises(InvalidCommentParent):
+        comment_data['parent'] = str(comment_id + 1)
+        comment_data['user_id'] = int(round(time() * 1000))
         assert await event_domain.add_comment(
-            comment_id=int(round(time() * 1000)),
-            content='comment test 2',
-            event_id='538745942',
-            parent=str(comment_id + 1),
-            user_info={
-                'user_email': 'unittesting@fluidattacks.com',
-                'first_name': 'Unit',
-                'last_name': 'test'
-            })
+            user_email,
+            comment_data,
+            event_id,
+            parent=str(comment_id + 1)
+        )
 
 @pytest.mark.changes_db
 async def test_update_evidence():
@@ -189,16 +191,18 @@ def test_validate_evidence_invalid_file_size():
 async def test_mask_event():
     event_id = '418900971'
     comment_id = int(round(time() * 1000))
+    comment_data = {
+        'comment_type': 'event',
+        'parent': '0',
+        'content': 'comment test',
+        'user_id': comment_id
+    }
     comment_id, success = await event_domain.add_comment(
-        comment_id=comment_id,
-        content='comment test',
-        event_id=event_id,
-        parent='0',
-        user_info={
-            'user_email': 'unittesting@fluidattacks.com',
-            'first_name': 'Unit',
-            'last_name': 'test'
-        })
+        'integratesmanager@gmail.com',
+        comment_data,
+        event_id,
+        parent='0'
+    )
     evidence_type = 'records'
     filename = os.path.dirname(os.path.abspath(__file__))
     filename = os.path.join(filename, '../mock/test-file-records.csv')

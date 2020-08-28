@@ -18,7 +18,8 @@ from backend.dal import (
 from backend.domain import (
     comment as comment_domain,
     organization as org_domain,
-    project as project_domain
+    project as project_domain,
+    user as user_domain
 )
 from backend.exceptions import (
     EventAlreadyClosed,
@@ -29,10 +30,10 @@ from backend.exceptions import (
     InvalidFileType
 )
 from backend.typing import (
+    Comment as CommentType,
     Event as EventType,
     Historic as HistoryType,
     MailContent as MailContentType,
-    User as UserType
 )
 from backend.utils import (
     events as event_utils,
@@ -300,8 +301,11 @@ async def get_events(event_ids: List[str]) -> List[EventType]:
 
 
 async def add_comment(
-        comment_id: int, content: str, event_id: str, parent: str,
-        user_info: UserType) -> Tuple[Union[int, None], bool]:
+    user_email: str,
+    comment_data: CommentType,
+    event_id: str,
+    parent: str
+) -> Tuple[Union[int, None], bool]:
     parent = str(parent)
     if parent != '0':
         event_comments = [
@@ -313,23 +317,28 @@ async def add_comment(
         ]
         if parent not in event_comments:
             raise InvalidCommentParent()
-    comment_data = {
-        'comment_type': 'event',
-        'parent': parent,
-        'content': content,
-        'user_id': comment_id
-    }
-    success = await comment_domain.create(event_id, comment_data, user_info)
+    user_data = await user_domain.get(user_email)
+    user_data['user_email'] = user_data.pop('email')
+    success = await comment_domain.create(event_id, comment_data, user_data)
     del comment_data['user_id']
-    if success:
-        await mailer.send_comment_mail(
-            comment_data,
-            'event',
-            str(user_info['user_email']),
-            'event', await get_event(event_id)
-        )
 
     return success
+
+
+def send_comment_mail(
+    user_email: str,
+    comment_data: CommentType,
+    event: EventType
+) -> None:
+    asyncio.create_task(
+        mailer.send_comment_mail(
+            comment_data,
+            'event',
+            user_email,
+            'event',
+            event
+        )
+    )
 
 
 async def get_evidence_link(event_id: str, file_name: str) -> str:
