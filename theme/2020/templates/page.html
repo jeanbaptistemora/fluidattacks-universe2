@@ -254,7 +254,12 @@
 {% block content %}
 <div class="bg-graylight">
   <div class="roboto internal mw-1200 ml-auto mr-auto roboto bg-white ph4-l ph3 pt5-l pt4 pb5">
-    <h1 class="roboto tc">{% if page.title == "People" %}{{ page.subtitle }}{% else %}{{ page.title }}{% endif %}</h1>
+    {% if not page.banner %}
+    <h1 class="roboto tc">{{ page.title }}</h1>
+    {% endif %}
+    {% if page.title == "People" %}
+    <h2 class="roboto tc">{{ page.subtitle }}</h2>
+    {% endif %}
     <div class="lh-2 tl">
       {{ page.content }}
       {% if page.faqindex %}
