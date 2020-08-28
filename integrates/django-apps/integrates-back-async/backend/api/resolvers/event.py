@@ -373,7 +373,7 @@ async def _do_add_event_comment(
         parent
     )
     if success:
-        util.queue_cache_invalidation(event_id)
+        util.queue_cache_invalidation(f'consulting*{event_id}')
         event_domain.send_comment_mail(
             user_email,
             comment_data,
@@ -420,7 +420,7 @@ async def _do_add_event_consult(
         parent
     )
     if success:
-        util.queue_cache_invalidation(event_id)
+        util.queue_cache_invalidation(f'consulting*{event_id}')
         event_domain.send_comment_mail(
             user_email,
             comment_data,
