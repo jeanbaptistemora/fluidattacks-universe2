@@ -32,6 +32,9 @@ from nvd.local import (
 from parse_json import (
     loads as json_loads,
 )
+from state.cache import (
+    cache_decorator,
+)
 from state.ephemeral import (
     EphemeralStore,
 )
@@ -112,6 +115,7 @@ def _get_build_gradle_dependencies(
     return tuple(dependencies)
 
 
+@cache_decorator()
 async def build_gradle(
     content: str,
     path: str,
@@ -142,6 +146,7 @@ def _get_npm_package_json_dependencies(
     return dependencies
 
 
+@cache_decorator()
 async def npm_package_json(
     content: str,
     path: str,
@@ -184,6 +189,7 @@ def _get_npm_package_lock_json_dependencies(
     return dependencies
 
 
+@cache_decorator()
 async def npm_package_lock_json(
     content: str,
     path: str,
@@ -241,6 +247,7 @@ def _get_yarn_lock_dependencies(
     return dependencies
 
 
+@cache_decorator()
 async def yarn_lock(
     content: str,
     path: str,

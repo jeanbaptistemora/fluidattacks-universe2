@@ -165,6 +165,7 @@ def _dockerfile_env_secrets(content: str) -> Tuple[Tuple[int, int], ...]:
     return tuple(secrets)
 
 
+@cache_decorator()
 async def dockerfile_env_secrets(
     content: str,
     path: str,

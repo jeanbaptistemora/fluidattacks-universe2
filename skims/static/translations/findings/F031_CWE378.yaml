@@ -1,3 +1,6 @@
+src.lib_path.f031_cwe378.java_file_create_temp_file.description:
+  en: Use of Java File.createTempFile in {path}
+  es: Uso de Java File.createTempFile en {path}
 utils.model.finding.enum.F031_CWE378.description:
   en: >
     Opening temporary files without appropriate measures or controls can leave
@@ -37,6 +40,3 @@ utils.model.finding.enum.F031_CWE378.threat:
 utils.model.finding.enum.F031_CWE378.title:
   en: FIN.S.031. Excessive privileges - Temporary files
   es: FIN.S.031. Permisos excesivos - Archivos temporales
-utils.model.finding.enum.F031_CWE378.beta_title:
-  en: SKIMS.666. Beta F031_CWE378 - Please delete
-  es: SKIMS.666. Beta F031_CWE378 - Por favor borrar

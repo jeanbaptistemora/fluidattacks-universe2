@@ -33,6 +33,9 @@ from lib_path.common import (
     SINGLE_QUOTED_STRING,
     VAR_ATTR_JAVA,
 )
+from state.cache import (
+    cache_decorator,
+)
 from state.ephemeral import (
     EphemeralStore,
 )
@@ -112,6 +115,7 @@ def _javascript_client_storage(
     )
 
 
+@cache_decorator()
 @SHIELD
 async def javascript_client_storage(
     content: str,

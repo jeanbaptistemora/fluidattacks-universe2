@@ -171,8 +171,9 @@ def test_dispatch_correct(
     assert blocking_get_group_data(group=test_group) == {
         ('F009', 'APPROVED', 0, 9),
         ('F011', 'APPROVED', 0, 13),
-        ('F060', 'APPROVED', 0, 17),
-        ('F061', 'APPROVED', 0, 9),
+        ('F031_CWE378', 'SUBMITTED', 0, 1),
+        ('F060', 'APPROVED', 0, 18),
+        ('F061', 'APPROVED', 0, 10),
         ('F085', 'SUBMITTED', 0, 4),  # This one is a beta finding
         ('F117', 'APPROVED', 0, 2),
     }
@@ -190,8 +191,9 @@ def test_dispatch_correct_nothing_to_do(
     assert blocking_get_group_data(group=test_group) == {
         ('F009', 'APPROVED', 9, 0),
         ('F011', 'APPROVED', 13, 0),
-        ('F060', 'APPROVED', 17, 0),
-        ('F061', 'APPROVED', 9, 0),
+        ('F031_CWE378', 'SUBMITTED', 1, 0),
+        ('F060', 'APPROVED', 18, 0),
+        ('F061', 'APPROVED', 10, 0),
         ('F085', 'SUBMITTED', 4, 0),
         ('F117', 'APPROVED', 2, 0),
     }
