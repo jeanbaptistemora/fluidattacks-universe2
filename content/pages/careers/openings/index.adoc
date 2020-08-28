@@ -6,7 +6,7 @@
 = Openings
 
 If you are interested, motivated,
-and have the required skills
+and have the required skills,
 we may have an opening for you.
 The list and descriptions below are our most frequent job openings.
 
@@ -25,7 +25,7 @@ and be able to work effectively as part of a team.
 Previous work experience is not needed.
 You do not need to have a university degree.
 You must be available full-time,
-but scheduling is negotiable, if you are a student.
+but scheduling is negotiable if you are a student.
 
 == IT Project Manager:
 
@@ -44,20 +44,18 @@ you must conduct yourself in a professional manner
 and have substantial knowledge and understanding of networks,
 `IT` infrastructure, and information security.
 
-* *Duties:*
+* *Responsibilities:*
 ** Structure, define, and jointly design security requirements
 and controls in physical facilities,
-and also in technologies and organizational processes.
+as well as in technologies and organizational processes.
 
-** You must be able to investigate,
-analyze, propose and implement methodologies,
+** Investigate, analyze, propose and implement methodologies
 and security best practices to maintain
 an impenetrable security environment.
 
-** You must be able to interact effectively
-in a variety of business areas
-to provide security risks and controls advice
-to help prevent the occurrence of critical security events.
+** Interact effectively in a variety of business areas
+to provide advice on security risks and controls
+in order to help prevent the occurrence of critical security events.
 
 A finished university degree is not mandatory.
 
@@ -66,14 +64,9 @@ A finished university degree is not mandatory.
 This is an intern position for systems and software areas.
 You must have experience in the use of office solutions.
 
-Intern for systems and software areas
-with knowledge in the use of office solutions.
-
-* *Duties:*
+* *Responsibilities:*
 ** Provide guidance and software support.
-** Support administrative,
-production and
-human resources areas.
+** Support the administrative, production and human resources departments.
 
 ++++
 <p style="text-align:center">
@@ -81,21 +74,21 @@ human resources areas.
 </p>
 ++++
 
-== Openings in Autonomicmind
+== Openings in Autonomic Mind
 
-Autonomicmind is a company providing specialized `IT` recruitment services.
+Autonomic Mind is a company providing specialized `IT` recruitment services.
 They find and recruit the top employees in the `IT` industry,
 and act as a bridge between them and prospective employers.
-Autonomicmind helps clients achieve their business goals by connecting people
-with the right skills to the right employers to advance a company's
-competitiveness.
+Autonomic Mind helps clients achieve their business goals by connecting people
+with the right skills to the right employers
+in order to advance a company's competitiveness.
 
-Autonomicmind also recruits top tier employees for `Fluid Attacks`,
-as well as, telecommunication companies,
-financial institutions, and other corporations
+Autonomic Mind also recruits top tier employees for `Fluid Attacks`,
+as well as telecommunication companies,
+financial institutions and other corporations
 that require employees with exceptional technical abilities.
 
-Openings currently available
+The following openings are currently available
 with clients other than `Fluid Attacks`:
 
 == Front End Developer
@@ -109,7 +102,6 @@ to design views and web components.
 to a user experience-based solution.
 * Knowledge of `CSS` and criteria sufficient
 to choose the best design for a given web project.
-for a given web project.
 * Ensure the consistency of the modules,
 the appearance and
 all interactions with the user interface.
@@ -121,13 +113,11 @@ in spoken and written English.
 * Understand the web development process,
 as well as business solutions,
 tests and debugging processes.
-* 3 to 5 year experience
+* 3 to 5 years experience
 with technologies such as
 `JavaScript`, `HTML`, `CSS3`, `JSON` and `AngularJS`.
-* Solid knowledge of
-what constitutes a good interaction design.
-* Experience building responsive and
-friendly web solutions.
+* Solid knowledge of what constitutes a good interaction design.
+* Experience building responsive and friendly web solutions.
 
 Desirable:
 
@@ -140,7 +130,7 @@ similar platforms.
 == Senior Software Developer
 
 Professional with at least `5` years of experience
-in software development to build programs and routines of low,
+in software development building programs and routines of low,
 medium and high complexity
 that provide solutions to requirements
 according to the norms
@@ -165,8 +155,8 @@ such as `GNU / Linux`, `Unix` (`AIX`, `SOLARIS`).
 
 == Junior Software Developer
 
-Students in computer science,
-electronics, engineering, or other related careers.
+Students in Computer Science,
+Electronics, Engineering, or other related careers.
 This position focuses on creating tools
 to support the manufacturing of products with methods,
 algorithms and solutions that meet a client company’s expectations.
@@ -179,14 +169,14 @@ based on the artifacts defined by the organization.
 For these reasons, software development experience
 is desired but not mandatory.
 
-Also desirable is that an applicant is knowledgeable in Inspire Designer,
+It is also desirable that the applicant be knowledgeable in Inspire Designer,
 Inspire Automation, and programming languages ​​
 such as `Java`, `VB`, `.Net`, among others.
 In addition, knowledge of databases
-and basic use of web tools is desirable.
+and basic use of web tools is preferred.
 
 A completed university degree is not required,
-but since we are looking for individuals
+however since we are looking for individuals
 who can easily adapt to different languages
 used within the organization, you must have good programming logic,
 regardless of the language.
@@ -198,15 +188,15 @@ Knowledge, skills, and abilities:
 * Design and execute assigned projects
 using the methodology and automation tools
 defined by the client company.
-Confirm certification of the tested application
+* Confirm certification of the tested application
 in accordance with test requirements
 determined by the client as specified in the scope
 and strategy of the project.
 
-Preferably a minimum of 1-year experience in:
+Preferably a minimum of 1 year experience in:
 
 * Web applications development.
-* Software architect.
+* Software architecture.
 * Architecture Design Patterns.
 * Architecture in layers and tiers.
 * `SOA`.
