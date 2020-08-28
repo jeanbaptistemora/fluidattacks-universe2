@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "streamer_dynamodb"
+version = "0.1.0"
+authors = ["Product Team <development@fluidattacks.com>"]
+description=""
+packages = [
+  { include = "streamer_dynamodb", from = "." }
+]
+
+[tool.poetry.dependencies]
+python = "^3.7"
+boto3 = "1.14.50"
+boto3-type-annotations = "0.3.1"
+
+[tool.poetry.scripts]
+streamer-dynamodb = 'streamer_dynamodb:main'
+
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"
