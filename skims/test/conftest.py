@@ -42,8 +42,8 @@ def test_integrates_api_token() -> Iterator[str]:
 
 @pytest.fixture(scope='function')  # type: ignore
 def test_integrates_session(test_integrates_api_token: str) -> Iterator[None]:
-    create_session(api_token=test_integrates_api_token)
+    token = create_session(api_token=test_integrates_api_token)
     try:
         yield
     finally:
-        end_session()
+        end_session(token)

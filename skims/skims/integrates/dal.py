@@ -17,7 +17,7 @@ import aiohttp
 
 # Local libraries
 from integrates.graphql import (
-    Session,
+    client as graphql_client,
 )
 from state.ephemeral import (
     EphemeralStore,
@@ -91,18 +91,20 @@ async def _execute(
     operation: str,
     variables: Dict[str, Any],
 ) -> Dict[str, Any]:
-    response: aiohttp.ClientResponse = await Session.value.execute(
-        query=query,
-        operation=operation,
-        variables=variables,
-    )
-    if response.status >= 400:
-        await log('debug', 'query: %s', query)
-        await log('debug', 'variables: %s', variables)
-        await log('debug', 'response status: %s', response.status)
-        raise aiohttp.ClientError()
+    async with graphql_client() as client:
+        response: aiohttp.ClientResponse = await client.execute(
+            query=query,
+            operation=operation,
+            variables=variables,
+        )
 
-    result: Dict[str, Any] = await response.json()
+        if response.status >= 400:
+            await log('debug', 'query: %s', query)
+            await log('debug', 'variables: %s', variables)
+            await log('debug', 'response status: %s', response.status)
+            raise aiohttp.ClientError()
+
+        result: Dict[str, Any] = await response.json()
 
     await raise_errors(
         errors=result.get('errors'),

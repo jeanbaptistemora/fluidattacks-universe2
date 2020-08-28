@@ -40,7 +40,7 @@ version = "1.0.0"
 [tool.poetry.dependencies]
 aioextensions = "20.8.1478538"
 aiofiles = "0.5.0"
-aiogqlc = "1.0.5"
+aiogqlc = "2.0.0b1"
 aiohttp = "3.6.2"
 bugsnag = "3.8.0"
 click = "7.1.2"

@@ -8,7 +8,7 @@ from aioextensions import (
 
 # Local libraries
 from integrates.graphql import (
-    Session,
+    client as graphql_client,
 )
 from integrates.dal import (
     do_create_draft,
@@ -39,14 +39,15 @@ from zone import (
 )
 
 
-def test_session(
+@run_decorator
+async def test_client(
     test_integrates_api_token: str,
     test_integrates_session: None,
 ) -> None:
-    assert Session.value is not None
-    assert Session.value.headers == {
-        'authorization': f'Bearer {test_integrates_api_token}'
-    }
+    async with graphql_client() as client:
+        assert client.session._default_headers == {
+            'authorization': f'Bearer {test_integrates_api_token}'
+        }
 
 
 @run_decorator

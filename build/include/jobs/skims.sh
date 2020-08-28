@@ -67,8 +67,7 @@ function job_skims_install {
 
 function job_skims_lint {
   local args_mypy=(
-    --ignore-missing-imports
-    --strict
+    --config-file 'settings.cfg'
   )
   local args_prospector=(
     # Some day when skims has https://readthedocs.org !
