@@ -187,7 +187,9 @@ async def test_get_user_organizations():
     user = 'integratesmanager@gmail.com'
     expected_orgs = [
         'ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3',
-        'ORG#c2ee2d15-04ab-4f39-9795-fbe30cdeee86'
+        'ORG#956e9107-fd8d-49bc-b550-5609a7a1f6ac',
+        'ORG#c2ee2d15-04ab-4f39-9795-fbe30cdeee86',
+        'ORG#c6cecc0e-bb92-4079-8b6d-c4e815c10bb1'
     ]
     user_orgs = await org_domain.get_user_organizations(user)
     assert sorted(user_orgs) == expected_orgs
@@ -345,7 +347,9 @@ async def test_iterate_organizations():
         'ORG#c2ee2d15-04ab-4f39-9795-fbe30cdeee86': 'bulat',
         'ORG#f2e2777d-a168-4bea-93cd-d79142b294d2': 'hajime',
         'ORG#fe80d2d4-ccb7-46d1-8489-67c6360581de': 'tatsumi',
-        'ORG#ffddc7a3-7f05-4fc7-b65d-7defffa883c2': 'himura'
+        'ORG#ffddc7a3-7f05-4fc7-b65d-7defffa883c2': 'himura',
+        'ORG#c6cecc0e-bb92-4079-8b6d-c4e815c10bb1': 'makimachi',
+        'ORG#956e9107-fd8d-49bc-b550-5609a7a1f6ac': 'kamiya'
     }
     async for org_id, org_name in org_domain.iterate_organizations():
         assert expected_organizations.pop(org_id) == org_name
@@ -368,6 +372,12 @@ async def test_iterate_organizations_and_groups():
         },
         'ORG#ffddc7a3-7f05-4fc7-b65d-7defffa883c2': {
             'himura': []
+        },
+        'ORG#c6cecc0e-bb92-4079-8b6d-c4e815c10bb1': {
+            'makimachi': ['metropolis', 'gotham', 'asgard']
+        },
+        'ORG#956e9107-fd8d-49bc-b550-5609a7a1f6ac': {
+            'kamiya': ['barranquilla', 'monteria']
         }
     }
     async for org_id, org_name, groups in org_domain.iterate_organizations_and_groups():
