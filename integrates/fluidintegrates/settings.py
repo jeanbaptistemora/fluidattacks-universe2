@@ -187,10 +187,20 @@ if FI_ENVIRONMENT == 'production':
     requests.post(URL, headers=HEADERS, data=json.dumps(PAYLOAD))
 
 
+# Customize errors for bugsnag
 def customize_bugsnag_error_reports(notification):
+    """Handle for expected errors and customization"""
+    ex_msg = str(notification.exception)
+    cont_msg = str(notification.context)
+
+    notification.grouping_hash = ex_msg
+
+    notification.context = type(notification.context)(ex_msg)
+    notification.exception = type(notification.exception)(cont_msg)
+
     # Customize Login required error
     if isinstance(notification.exception, GraphQLError) and \
-            str(notification.exception) == 'Login required':
+            ex_msg == 'Login required':
         notification.severity = 'warning'
         notification.unhandled = False
 
