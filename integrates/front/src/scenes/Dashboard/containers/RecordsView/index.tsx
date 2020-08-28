@@ -50,6 +50,11 @@ const recordsView: React.FC<IRecordsViewProps> = (props: IRecordsViewProps): JSX
     });
   };
 
+  const handleRemoveErrors: ((removeError: ApolloError) => void) = (removeError: ApolloError): void => {
+    msgError(translate.t("group_alerts.error_textsad"));
+    Logger.warning("An error occurred removing records", removeError);
+  };
+
   return (
     <React.StrictMode>
       <Query query={GET_FINDING_RECORDS} variables={{ findingId }} onError={handleErrors}>
@@ -57,8 +62,7 @@ const recordsView: React.FC<IRecordsViewProps> = (props: IRecordsViewProps): JSX
           if (_.isUndefined(data) || _.isEmpty(data)) { return <React.Fragment />; }
 
           const handleUpdateResult: (() => void) = (): void => {
-            refetch()
-              .catch();
+            void refetch();
           };
           const handleUpdateError: ((updateError: ApolloError) => void) = (updateError: ApolloError): void => {
             updateError.graphQLErrors.forEach(({ message }: GraphQLError): void => {
@@ -102,8 +106,7 @@ const recordsView: React.FC<IRecordsViewProps> = (props: IRecordsViewProps): JSX
                       values: { filename: FileList },
                     ): void => {
                       setEditing(false);
-                      updateRecords({ variables: { evidenceId: "RECORDS", file: values.filename[0], findingId } })
-                        .catch();
+                      void updateRecords({ variables: { evidenceId: "RECORDS", file: values.filename[0], findingId } });
                     };
 
                     return (
@@ -137,13 +140,16 @@ const recordsView: React.FC<IRecordsViewProps> = (props: IRecordsViewProps): JSX
                 </Mutation>
               ) : undefined}
               {isEditing && !_.isEmpty(JSON.parse(data.finding.records)) ? (
-                <Mutation mutation={REMOVE_EVIDENCE_MUTATION} onCompleted={handleUpdateResult}>
+                <Mutation
+                  mutation={REMOVE_EVIDENCE_MUTATION}
+                  onCompleted={handleUpdateResult}
+                  onError={handleRemoveErrors}
+                >
                   {(removeRecords: MutationFunction, removeRes: MutationResult): JSX.Element => {
                     const handleRemoveClick: (() => void) = (): void => {
                       mixpanel.track("RemoveRecords", { User: userName });
                       setEditing(false);
-                      removeRecords({ variables: { evidenceId: "RECORDS", findingId } })
-                        .catch();
+                      void removeRecords({ variables: { evidenceId: "RECORDS", findingId } });
                     };
 
                     return (

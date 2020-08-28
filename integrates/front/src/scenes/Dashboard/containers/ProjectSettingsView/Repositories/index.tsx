@@ -69,8 +69,7 @@ const repositories: React.FC<IRepositoriesProps> = (props: IRepositoriesProps): 
   });
   const [updateRepository] = useMutation(UPDATE_REPOSITORY_MUTATION, {
     onCompleted: (): void => {
-      refetch()
-        .catch();
+      void refetch();
       mixpanel.track("RemoveProjectRepo", { User: userName });
       msgSuccess(
         translate.t("search_findings.tab_resources.success_change"),
@@ -116,13 +115,12 @@ const repositories: React.FC<IRepositoriesProps> = (props: IRepositoriesProps): 
       msgError(translate.t("search_findings.tab_resources.repeated_item"));
     } else {
       closeAddModal();
-      addRepositories({
+      void addRepositories({
         variables: {
           projectName: props.projectName,
           repos: values.resources,
         },
-      })
-        .catch();
+      });
     }
   };
 
@@ -154,7 +152,7 @@ const repositories: React.FC<IRepositoriesProps> = (props: IRepositoriesProps): 
         {(confirm: IConfirmFn): React.ReactNode => {
           const handleStateUpdate: ((repo: Dictionary<string>) => void) = (repo: Dictionary<string>): void => {
             confirm(() => {
-              updateRepository({
+              void updateRepository({
                 variables: {
                   projectName: props.projectName,
                   repo: {
@@ -164,8 +162,7 @@ const repositories: React.FC<IRepositoriesProps> = (props: IRepositoriesProps): 
                   },
                   state: repo.state === "Active" ? "INACTIVE" : "ACTIVE",
                 },
-              })
-                .catch();
+              });
             });
           };
 

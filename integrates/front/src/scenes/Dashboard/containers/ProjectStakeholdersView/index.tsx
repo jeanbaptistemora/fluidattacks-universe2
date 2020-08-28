@@ -118,8 +118,7 @@ const projectStakeholdersView: React.FC<IProjectStakeholdersViewProps> =
   const [grantStakeholderAccess] = useMutation(ADD_STAKEHOLDER_MUTATION, {
     onCompleted: (mtResult: IAddStakeholderAttr): void => {
       if (mtResult.grantStakeholderAccess.success) {
-        refetch()
-          .catch();
+        void refetch();
         mixpanel.track("AddUserAccess", { User: userName });
         const { email } = mtResult.grantStakeholderAccess.grantedStakeholder;
         msgSuccess(
@@ -165,8 +164,7 @@ const projectStakeholdersView: React.FC<IProjectStakeholdersViewProps> =
   const [editStakeholder] = useMutation(EDIT_STAKEHOLDER_MUTATION, {
     onCompleted: (mtResult: IEditStakeholderAttr): void => {
       if (mtResult.editStakeholder.success) {
-        refetch()
-          .catch();
+        void refetch();
         mixpanel.track("EditUserAccess", { User: userName });
         msgSuccess(
           translate.t("search_findings.tab_users.success_admin"),
@@ -205,8 +203,7 @@ const projectStakeholdersView: React.FC<IProjectStakeholdersViewProps> =
   const [removeStakeholderAccess, { loading: removing }] = useMutation(REMOVE_STAKEHOLDER_MUTATION, {
     onCompleted: (mtResult: IRemoveStakeholderAttr): void => {
       if (mtResult.removeStakeholderAccess.success) {
-        refetch()
-          .catch();
+        void refetch();
         mixpanel.track("RemoveUserAccess", { User: userName });
         const { removedEmail } = mtResult.removeStakeholderAccess;
         msgSuccess(
@@ -224,23 +221,20 @@ const projectStakeholdersView: React.FC<IProjectStakeholdersViewProps> =
   const handleSubmit: ((values: IStakeholderDataAttr) => void) = (values: IStakeholderDataAttr): void => {
     closeUserModal();
     if (userModalAction === "add") {
-      grantStakeholderAccess({ variables: {
+      void grantStakeholderAccess({ variables: {
           ...values,
           projectName,
-      } })
-        .catch();
+      } });
     } else {
-      editStakeholder({ variables: {
+      void editStakeholder({ variables: {
           ...values,
           projectName,
-      } })
-        .catch();
+      } });
     }
   };
 
   const handleRemoveUser: (() => void) = (): void => {
-    removeStakeholderAccess({ variables: { projectName, userEmail: currentRow.email } })
-      .catch();
+    void removeStakeholderAccess({ variables: { projectName, userEmail: currentRow.email } });
     setCurrentRow({});
     setuserModalAction("add");
   };

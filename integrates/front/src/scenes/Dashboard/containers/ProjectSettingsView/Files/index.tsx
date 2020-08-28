@@ -75,8 +75,7 @@ const files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
 
   const [removeFile] = useMutation(REMOVE_FILE_MUTATION, {
     onCompleted: (): void => {
-      refetch()
-        .catch();
+      void refetch();
       mixpanel.track("RemoveProjectFiles", { User: userName });
       msgSuccess(
         translate.t("search_findings.tab_resources.success_remove"),
@@ -92,12 +91,11 @@ const files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
   });
   const handleRemoveFile: (() => void) = (): void => {
     closeOptionsModal();
-    removeFile({
+    void removeFile({
       variables: {
         filesData: JSON.stringify({ fileName: currentRow.fileName }), projectName: props.projectName,
       },
-    })
-      .catch();
+    });
   };
 
   const [uploadFile, { loading: uploading }] = useMutation(UPLOAD_FILE_MUTATION, {
@@ -110,8 +108,7 @@ const files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
       },
     },
     onCompleted: (): void => {
-      refetch()
-        .catch();
+      void refetch();
       mixpanel.track("AddProjectFiles", { User: userName });
       msgSuccess(
         translate.t("search_findings.tab_resources.success"),

@@ -47,8 +47,7 @@ const portfolio: React.FC<IPortfolioProps> = (props: IPortfolioProps): JSX.Eleme
 
   const [addTags] = useMutation(ADD_TAGS_MUTATION, {
     onCompleted: (): void => {
-      refetch()
-        .catch();
+      void refetch();
       mixpanel.track("AddProjectTags", { User: userName });
       msgSuccess(
         translate.t("search_findings.tab_resources.success"),
@@ -71,8 +70,7 @@ const portfolio: React.FC<IPortfolioProps> = (props: IPortfolioProps): JSX.Eleme
 
   const [removeTag, { loading: removing }] = useMutation(REMOVE_TAG_MUTATION, {
     onCompleted: (): void => {
-      refetch()
-        .catch();
+      void refetch();
       mixpanel.track("RemoveProjectEnv", { User: userName });
       msgSuccess(
         translate.t("search_findings.tab_resources.success_remove"),
@@ -105,24 +103,22 @@ const portfolio: React.FC<IPortfolioProps> = (props: IPortfolioProps): JSX.Eleme
       msgError(translate.t("search_findings.tab_resources.repeated_item"));
     } else {
       closeAddModal();
-      addTags({
+      void addTags({
         variables: {
           projectName: props.projectName,
           tagsData: JSON.stringify(values.tags),
         },
-      })
-        .catch();
+      });
     }
   };
 
   const handleRemoveTag: (() => void) = (): void => {
-    removeTag({
+    void removeTag({
       variables: {
         projectName: props.projectName,
         tagToRemove: currentRow.tagName,
       },
-    })
-      .catch();
+    });
     setCurrentRow({});
   };
 

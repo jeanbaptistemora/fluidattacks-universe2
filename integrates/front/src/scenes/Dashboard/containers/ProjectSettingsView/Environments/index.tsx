@@ -69,8 +69,7 @@ const environments: React.FC<IEnvironmentsProps> = (props: IEnvironmentsProps): 
   });
   const [updateEnvironment] = useMutation(UPDATE_ENVIRONMENT_MUTATION, {
     onCompleted: (): void => {
-      refetch()
-        .catch();
+      void refetch();
       mixpanel.track("RemoveProjectEnv", { User: userName });
       msgSuccess(
         translate.t("search_findings.tab_resources.success_change"),
@@ -115,13 +114,12 @@ const environments: React.FC<IEnvironmentsProps> = (props: IEnvironmentsProps): 
       msgError(translate.t("search_findings.tab_resources.repeated_item"));
     } else {
       closeAddModal();
-      addEnvironments({
+      void addEnvironments({
         variables: {
           envs: values.resources,
           projectName: props.projectName,
         },
-      })
-        .catch();
+      });
     }
   };
 
@@ -153,14 +151,13 @@ const environments: React.FC<IEnvironmentsProps> = (props: IEnvironmentsProps): 
         {(confirm: IConfirmFn): React.ReactNode => {
           const handleStateUpdate: ((env: Dictionary<string>) => void) = (env: Dictionary<string>): void => {
             confirm(() => {
-              updateEnvironment({
+              void updateEnvironment({
                 variables: {
                   env: { urlEnv: env.urlEnv },
                   projectName: props.projectName,
                   state: env.state === "Active" ? "INACTIVE" : "ACTIVE",
                 },
-              })
-                .catch();
+              });
             });
           };
 

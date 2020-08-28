@@ -94,18 +94,17 @@ const commentsView: React.FC<ICommentsViewProps> = (props: ICommentsViewProps): 
                     };
                   }
 
-                  addComment({ variables: { findingId,
-                                            type: type
+                  void addComment({ variables: { findingId,
+                                                 type: type
                                                    .toUpperCase()
                                                    .slice(0, -1),
-                                            ...comment } })
+                                                 ...comment } })
                     .then((mtResult: void | {}): void => {
                       const result: IMutationResult["data"] = (mtResult as IMutationResult).data;
                       if (result.addFindingConsult.success) {
                         callbackFn({ ...comment, id: Number(result.addFindingConsult.commentId) });
                       }
-                    })
-                    .catch();
+                    });
                 };
 
                 return (<Comments id={`finding-${type}`} onLoad={getData} onPostComment={handlePost} />);

@@ -88,14 +88,13 @@ const projectConsultingView: React.FC<IProjectConsultingViewProps> =
                     };
                   }
 
-                  addConsult({ variables: { projectName, ...consult } })
+                  void addConsult({ variables: { projectName, ...consult } })
                     .then((mtResult: void | {}): void => {
                       const result: IMutationResult["data"] = (mtResult as IMutationResult).data;
                       if (result.addProjectConsult.success) {
                         callbackFn({ ...consult, id: Number(result.addProjectConsult.commentId) });
                       }
-                    })
-                    .catch();
+                    });
                 };
 
                 return (<Comments id="project-comments" onLoad={getData} onPostComment={handlePost} />);
