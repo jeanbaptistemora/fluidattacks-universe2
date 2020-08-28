@@ -48,7 +48,6 @@ parser-preset.js
 
 # sphinxdoc
 public/
-sphinx/source/*.rst
 sphinx/source/example/*.out
 
 # Jetbrains IDEs
