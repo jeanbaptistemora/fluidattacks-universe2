@@ -944,13 +944,12 @@ video {
 
 .cardgrid{
   .accordion {
-    min-height: 200px;
+    min-height: 280px;
     img {
       max-height: 150px;
     }
   }
   .panel{
-      max-height: 0;
-      min-height: 0;
+      height: 0;
   }
 }
