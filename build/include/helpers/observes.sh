@@ -231,12 +231,8 @@ function helper_observes_gitlab {
     'autonomicmind/default'
     'autonomicmind/challenges'
     'fluidattacks/services'
-    'fluidattacks/asserts'
-    'fluidattacks/integrates'
-    'fluidattacks/private'
-    'fluidattacks/public'
+    'fluidattacks/product'
     'fluidattacks/web'
-    'fluidattacks/writeups'
   )
 
       helper_observes_aws_login prod \

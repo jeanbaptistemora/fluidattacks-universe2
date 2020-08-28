@@ -32,14 +32,9 @@ def main():
         workers.map(clone, [
             'autonomicmind/default',
             'autonomicmind/challenges',
+            'fluidattacks/product',
             'fluidattacks/web',
-            'fluidattacks/public',
-            'fluidattacks/asserts',
-            'fluidattacks/integrates',
-            'fluidattacks/bwapp',
-            'fluidattacks/serves',
             'fluidattacks/services',
-            'fluidattacks/private',
         ])
 
 
