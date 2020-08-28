@@ -5,74 +5,15 @@ use included model to get predictions and print and save output.
 import datetime
 import json
 import os
-import re
 import sys
 import time
 
 import git
-from git.exc import GitCommandError
 import numpy as np
 import pandas as pd
-from pydriller.metrics.process.hunks_count import HunksCount
 from sklearn.svm import LinearSVC
 
-
-def get_row_hunks(row):
-    """Get number of hunks corresponding to the commit in the given row"""
-    repo = row['repo']
-    commit = row['commit']
-    return get_hunks(repo, commit)
-
-
-def get_hunks(repo, commit):
-    """Get number of hunks introduced by given commit in given repo"""
-    metric = HunksCount(path_to_repo=repo,
-                        from_commit=commit, to_commit=commit)
-    files = metric.count()
-    hunks = sum(files.values())
-    return hunks
-
-
-def get_deltas(row):
-    comm = row.commit
-    repo = row.repo
-    tup = (np.nan) * 4
-    try:
-        gitrepo = git.Git(repo)
-        shortstat = gitrepo.show('--shortstat', '--pretty=format:', comm)
-        match = re.search(r'(\d+) ins', shortstat)
-        add = int(match.group(1) if match else 0)
-        match = re.search(r'(\d+) del', shortstat)
-        rem = int(match.group(1) if match else 0)
-        net = add - rem
-        tou = add + rem
-        tup = add, rem, net, tou
-    except GitCommandError:
-        print(f'error with repo {repo}')
-        print('commit', comm)
-    except IndexError:
-        print('shortstat error:', shortstat)
-    return tup
-
-
-def get_files(row):
-    comm = row.commit
-    repo = row.repo
-    touchers = []
-    try:
-        gitrepo = git.Git(repo)
-        filenames = gitrepo.show('--name-only', '--pretty=format:', comm)
-        for file in filenames.split('\n'):
-            authors = gitrepo.log('--follow', '--pretty=%aE', '--', file)
-            num_file_touchers = len(set(authors.split('\n')))
-            touchers.append(num_file_touchers)
-        touchers = np.array(touchers)
-    except GitCommandError:
-        print(f'error with repo {repo}')
-        print('commit', comm)
-    except IndexError:
-        print('shortstat error:', repo)
-    return np.array(touchers)
+from toolbox.sorts.utils import df_get_deltas, df_get_files, df_get_hunks
 
 
 def make_repo_dataset(repo):
@@ -92,11 +33,12 @@ def make_repo_dataset(repo):
 
 
 def make_base_dataset(subs):
-    repos = os.listdir(f'groups/{subs}/fusion')
+    subs_dir = f'groups/{subs}/fusion'
+    repos = os.listdir(subs_dir)
     print(f'This might take around {datetime.timedelta(seconds=len(repos))}')
     dataset = pd.DataFrame()
     for repo in repos:
-        repo_path = f'groups/{subs}/fusion/{repo}'
+        repo_path = f'{subs_dir}/{repo}'
         curr_dataset = make_repo_dataset(repo_path)
         if curr_dataset is not None:
             dataset = pd.concat([dataset, curr_dataset])
@@ -108,15 +50,18 @@ def make_base_dataset(subs):
 
 def make_full_dataset(subs):
     dataset = make_base_dataset(subs)
-    dataset['hunks'] = dataset.apply(get_row_hunks, axis=1)
-    deltas_info = dataset.apply(get_deltas, axis=1, result_type='expand')
-    deltas_info.columns = ['additions', 'deletions', 'deltas', 'touched']
-    dataset = pd.concat([dataset, deltas_info], axis=1)
-    touch_info = dataset.apply(get_files, axis=1)
-    dataset['touched_files'] = touch_info.apply(len)
-    dataset['max_other_touchers'] = touch_info.apply(lambda x:
-                                                     max(x) if x.size else 0)
-    dataset['touches_busy_file'] = dataset.max_other_touchers.apply(np.sign)
+    dataset['hunks'] = dataset.apply(df_get_hunks, axis=1)
+    dataset[['additions', 'deletions', 'deltas', 'touched']] = dataset.apply(
+        df_get_deltas, axis=1, result_type='expand'
+    )
+    files_df = dataset.apply(df_get_files, axis=1)
+    dataset['touched_files'] = files_df.apply(len)
+    dataset['max_other_touchers'] = files_df.apply(
+        lambda x: max(x) if x.size else 0
+    )
+    dataset['touches_busy_file'] = dataset.max_other_touchers.apply(
+        lambda x: 1 if x > 9 else 0
+    )
     dataset['authored_hour'] = dataset['hour']
     return dataset
 
