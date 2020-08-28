@@ -55,7 +55,7 @@ collapser.addEventListener("click", (event: Event) => {
 
   let count: number;
   for (count = 0; count < expanded.length; count += 1) {
-      togglecat(expanded[i]);
+      togglecat(expanded[count]);
   }
 });
 
