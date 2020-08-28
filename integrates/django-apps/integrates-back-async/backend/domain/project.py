@@ -81,14 +81,23 @@ async def add_comment(
         ]
         if parent not in project_comments:
             raise InvalidCommentParent()
-    await mailer.send_comment_mail(
-        comment_data,
-        'project',
-        email,
-        'project',
-        project_name
-    )
     return await project_dal.add_comment(project_name, email, comment_data)
+
+
+def send_comment_mail(
+    user_email: str,
+    comment_data: CommentType,
+    project_name: str
+) -> None:
+    asyncio.create_task(
+        mailer.send_comment_mail(
+            comment_data,
+            'project',
+            user_email,
+            'project',
+            project_name
+        )
+    )
 
 
 def validate_project_services_config(

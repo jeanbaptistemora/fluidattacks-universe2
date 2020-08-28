@@ -1043,6 +1043,7 @@ async def _do_add_project_comment(
     """Resolve add_project_comment mutation."""
     project_name = parameters.get('project_name', '').lower()
     user_info = util.get_jwt_content(info.context)
+    user_email = user_info['user_email']
     current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     comment_id = int(round(time.time() * 1000))
     comment_data = {
@@ -1058,11 +1059,16 @@ async def _do_add_project_comment(
     }
     success = await project_domain.add_comment(
         project_name,
-        user_info['user_email'],
+        user_email,
         comment_data
     )
     if success:
         util.queue_cache_invalidation(project_name)
+        project_domain.send_comment_mail(
+            user_email,
+            comment_data,
+            project_name
+        )
         util.cloudwatch_log(
             info.context, 'Security: Added comment to '
             f'{project_name} project successfully'  # pragma: no cover
@@ -1087,6 +1093,7 @@ async def _do_add_project_consult(
         **parameters: Any) -> AddConsultPayloadType:
     project_name = parameters.get('project_name', '').lower()
     user_info = util.get_jwt_content(info.context)
+    user_email = user_info['user_email']
     current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     comment_id = int(round(time.time() * 1000))
     comment_data = {
@@ -1102,11 +1109,16 @@ async def _do_add_project_consult(
     }
     success = await project_domain.add_comment(
         project_name,
-        user_info['user_email'],
+        user_email,
         comment_data
     )
     if success:
         util.queue_cache_invalidation(project_name)
+        project_domain.send_comment_mail(
+            user_email,
+            comment_data,
+            project_name
+        )
         util.cloudwatch_log(
             info.context, 'Security: Added comment to '
             f'{project_name} project successfully'  # pragma: no cover
