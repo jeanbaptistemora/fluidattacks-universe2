@@ -586,6 +586,7 @@ async def _get_description(
 
 @concurrent_decorators(
     enforce_group_level_auth_async,
+    get_entity_cache_async,
     require_integrates,
 )
 async def _get_comments(
@@ -602,6 +603,7 @@ async def _get_comments(
 
 @concurrent_decorators(
     enforce_group_level_auth_async,
+    get_entity_cache_async,
     require_integrates,
 )
 async def _get_consulting(
@@ -1063,7 +1065,7 @@ async def _do_add_project_comment(
         comment_data
     )
     if success:
-        util.queue_cache_invalidation(project_name)
+        util.queue_cache_invalidation(f'comment*{project_name}')
         project_domain.send_comment_mail(
             user_email,
             comment_data,
@@ -1113,7 +1115,7 @@ async def _do_add_project_consult(
         comment_data
     )
     if success:
-        util.queue_cache_invalidation(project_name)
+        util.queue_cache_invalidation(f'consulting*{project_name}')
         project_domain.send_comment_mail(
             user_email,
             comment_data,

@@ -857,7 +857,7 @@ async def _do_add_finding_comment(
         raise GraphQLError('Invalid comment type')
 
     if success:
-        util.queue_cache_invalidation(finding_id)
+        util.queue_cache_invalidation(f'comment*{finding_id}')
         finding_domain.send_comment_mail(
             user_email,
             comment_data,
@@ -928,7 +928,7 @@ async def _do_add_finding_consult(
     else:
         raise GraphQLError('Invalid comment type')
     if success:
-        util.queue_cache_invalidation(finding_id)
+        util.queue_cache_invalidation(f'consulting*{finding_id}')
         finding_domain.send_comment_mail(
             user_email,
             comment_data,
