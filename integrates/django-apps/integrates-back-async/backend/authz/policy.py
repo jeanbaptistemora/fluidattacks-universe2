@@ -7,6 +7,7 @@ from typing import (
     Tuple,
     cast
 )
+import logging
 
 # Third party library
 from django.core.cache import cache
@@ -24,11 +25,17 @@ from backend.utils import (
 from backend.utils.encodings import (
     safe_encode,
 )
+from fluidintegrates.settings import LOGGING
 from .model import (
     USER_LEVEL_ROLES,
     GROUP_LEVEL_ROLES,
     ORGANIZATION_LEVEL_ROLES
 )
+
+logging.config.dictConfig(LOGGING)
+
+# Constants
+LOGGER = logging.getLogger(__name__)
 
 
 def get_group_cache_key(group: str) -> str:
@@ -61,8 +68,8 @@ async def get_cached_group_service_attributes_policies(
         try:
             # Put the data in the cache
             await aio.ensure_io_bound(cache.set, cache_key, ret, timeout=86400)
-        except RedisClusterException:
-            pass
+        except RedisClusterException as ex:
+            LOGGER.exception(ex, extra={'extra': locals()})
 
     return cast(Tuple[str, ...], ret)
 
@@ -101,8 +108,8 @@ async def get_cached_subject_policies(
         try:
             # Put the data in the cache
             await aio.ensure_io_bound(cache.set, cache_key, ret, timeout=86400)
-        except RedisClusterException:
-            pass
+        except RedisClusterException as ex:
+            LOGGER.exception(ex, extra={'extra': locals()})
 
     context_store[context_store_key] = ret
     return cast(Tuple[Tuple[str, str, str], ...], ret)
