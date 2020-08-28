@@ -717,7 +717,7 @@ function job_serves_apply_config_autoscaling_ci {
         -H "${bastion_ip}" \
         >> ~/.ssh/known_hosts \
   &&  echo '[INFO] Exporting bastion SSH key' \
-  &&  sops_env secrets-prod.yaml default \
+  &&  helper_common_sops_env secrets-prod.yaml default \
         "${secrets_to_replace[@]}" \
         autoscaling_bastion_key_b64 \
   &&  echo -n "${autoscaling_bastion_key_b64}" \

@@ -235,7 +235,7 @@ sops_vars() {
 
   local env_name="$1"
 
-  sops_env "secrets-${env_name}.yaml" default \
+  helper_common_sops_env "secrets-${env_name}.yaml" default \
     AWS_DEFAULT_REGION \
     AWS_REDSHIFT_DBNAME \
     AWS_REDSHIFT_HOST \

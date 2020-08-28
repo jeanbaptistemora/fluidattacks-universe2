@@ -43,7 +43,7 @@ function job_integrates_build_mobile_android {
             pushd "${STARTDIR}/integrates" \
         &&  echo '[INFO] Logging in to AWS' \
         &&  helper_integrates_aws_login "${ENVIRONMENT_NAME}" \
-        &&  sops_env "secrets-${ENVIRONMENT_NAME}.yaml" 'default' \
+        &&  helper_common_sops_env "secrets-${ENVIRONMENT_NAME}.yaml" 'default' \
               EXPO_USER \
               EXPO_PASS \
         &&  sops \
@@ -102,7 +102,7 @@ function job_integrates_build_mobile_ios {
       pushd "${STARTDIR}/integrates" \
   &&  echo '[INFO] Logging in to AWS' \
   &&  helper_integrates_aws_login "${ENVIRONMENT_NAME}" \
-  &&  sops_env "secrets-${ENVIRONMENT_NAME}.yaml" 'default' \
+  &&  helper_common_sops_env "secrets-${ENVIRONMENT_NAME}.yaml" 'default' \
         APPLE_DIST_CERT_PASSWORD \
         APPLE_ID \
         APPLE_PASSWORD \
@@ -186,7 +186,7 @@ function job_integrates_coverage_report {
   &&  env_prepare_python_packages \
   &&  echo '[INFO] Logging in to AWS' \
   &&  helper_integrates_aws_login "${ENVIRONMENT_NAME}" \
-  &&  sops_env "secrets-${ENVIRONMENT_NAME}.yaml" 'default' \
+  &&  helper_common_sops_env "secrets-${ENVIRONMENT_NAME}.yaml" 'default' \
         CODECOV_TOKEN \
   &&  codecov -b "${CI_COMMIT_REF_NAME}" \
   &&  popd \
@@ -202,7 +202,7 @@ function job_integrates_clean_registries {
       then
             echo '[INFO] Cleaning registries' \
         &&  CI_COMMIT_REF_NAME='master' helper_integrates_aws_login 'production' \
-        &&  sops_env 'secrets-production.yaml' 'default' \
+        &&  helper_common_sops_env 'secrets-production.yaml' 'default' \
               GITLAB_API_TOKEN \
         &&  echo "[INFO] Computing registry ID for: ${registry_name}" \
         &&  registry_id=$(helper_get_gitlab_registry_id "${registry_name}") \
@@ -230,7 +230,7 @@ function job_integrates_build_container_app {
   &&  echo -n "${FI_VERSION}" > 'version.txt' \
   &&  echo '[INFO] Logging in to AWS' \
   &&  helper_integrates_aws_login "${ENVIRONMENT_NAME}" \
-  &&  sops_env "secrets-${ENVIRONMENT_NAME}.yaml" 'default' \
+  &&  helper_common_sops_env "secrets-${ENVIRONMENT_NAME}.yaml" 'default' \
         SSL_KEY \
         SSL_CERT \
   &&  cp ../build/include/helpers/common.sh . \
@@ -271,7 +271,7 @@ function job_integrates_deploy_mobile_ota {
   &&  pushd integrates \
     &&  echo '[INFO] Logging in to AWS' \
     &&  helper_integrates_aws_login "${ENVIRONMENT_NAME}" \
-    &&  sops_env "secrets-${ENVIRONMENT_NAME}.yaml" 'default' \
+    &&  helper_common_sops_env "secrets-${ENVIRONMENT_NAME}.yaml" 'default' \
           EXPO_USER \
           EXPO_PASS \
     &&  sops \
@@ -636,7 +636,7 @@ function job_integrates_serve_mobile {
       pushd "${STARTDIR}/integrates" \
   &&  echo '[INFO] Logging in to AWS' \
   &&  helper_integrates_aws_login "${ENVIRONMENT_NAME}" \
-  &&  sops_env "secrets-${ENVIRONMENT_NAME}.yaml" 'default' \
+  &&  helper_common_sops_env "secrets-${ENVIRONMENT_NAME}.yaml" 'default' \
         EXPO_USER \
         EXPO_PASS \
   &&  sops \
@@ -902,7 +902,7 @@ function job_integrates_infra_backup_deploy {
       pushd "${STARTDIR}/integrates" \
   &&  echo '[INFO] Logging in to AWS production' \
   &&  CI_COMMIT_REF_NAME=master helper_integrates_aws_login production \
-  &&  sops_env 'secrets-production.yaml' 'default' \
+  &&  helper_common_sops_env 'secrets-production.yaml' 'default' \
         DB_USER \
         DB_PASSWD \
   &&  TF_VAR_db_user="${DB_USER}" \
@@ -935,7 +935,7 @@ function job_integrates_infra_database_deploy {
       pushd "${STARTDIR}/integrates" \
   &&  echo '[INFO] Logging in to AWS production' \
   &&  CI_COMMIT_REF_NAME=master helper_integrates_aws_login production \
-  &&  sops_env 'secrets-production.yaml' 'default' \
+  &&  helper_common_sops_env 'secrets-production.yaml' 'default' \
         DB_USER \
         DB_PASSWD \
   &&  TF_VAR_db_user="${DB_USER}" \
@@ -993,7 +993,7 @@ function job_integrates_infra_django_db_deploy {
       pushd "${STARTDIR}/integrates" \
   &&  echo '[INFO] Logging in to AWS production' \
   &&  CI_COMMIT_REF_NAME=master helper_integrates_aws_login production \
-  &&  sops_env 'secrets-production.yaml' 'default' \
+  &&  helper_common_sops_env 'secrets-production.yaml' 'default' \
         DB_USER \
         DB_PASSWD \
   &&  TF_VAR_db_user="${DB_USER}" \
@@ -1013,7 +1013,7 @@ function job_integrates_infra_django_db_test {
       pushd "${STARTDIR}/integrates" \
   &&  echo '[INFO] Logging in to AWS development' \
   &&  helper_integrates_aws_login development \
-  &&  sops_env 'secrets-development.yaml' 'default' \
+  &&  helper_common_sops_env 'secrets-development.yaml' 'default' \
         DB_USER \
         DB_PASSWD \
   &&  TF_VAR_db_user="${DB_USER}" \
@@ -1114,7 +1114,7 @@ function job_integrates_rotate_jwt_token {
   &&  var_value=$(head -c "${bytes_of_entropy}" /dev/urandom | base64) \
   &&  echo '[INFO] Extracting secrets' \
   &&  helper_integrates_aws_login "${ENVIRONMENT_NAME}" \
-  &&  sops_env "secrets-${ENVIRONMENT_NAME}.yaml" 'default' \
+  &&  helper_common_sops_env "secrets-${ENVIRONMENT_NAME}.yaml" 'default' \
         GITLAB_API_TOKEN \
   &&  echo '[INFO] Updating var in GitLab' \
   &&  set_project_variable \
@@ -1270,7 +1270,7 @@ function job_integrates_deploy_k8s_back {
       helper_use_pristine_workdir \
   &&  pushd "${STARTDIR}/integrates" \
   &&  CI_COMMIT_REF_NAME='master' helper_integrates_aws_login 'production' \
-  &&  sops_env 'secrets-production.yaml' 'default' \
+  &&  helper_common_sops_env 'secrets-production.yaml' 'default' \
         NEW_RELIC_API_KEY \
         NEW_RELIC_APP_ID \
   &&  echo "[INFO] Setting namespace preferences..." \

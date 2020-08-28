@@ -4,7 +4,7 @@ function helper_serves_deploy_integrates {
   local integrates_id='20741933'
 
       helper_serves_aws_login prod \
-  &&  sops_env secrets-prod.yaml default PRODUCT_PIPELINE_TOKEN \
+  &&  helper_common_sops_env secrets-prod.yaml default PRODUCT_PIPELINE_TOKEN \
   &&  curl \
         -X POST \
         -F token="${PRODUCT_PIPELINE_TOKEN}" \
@@ -110,7 +110,7 @@ function helper_serves_infra_monolith {
           &&  kubectl config \
                 set-context "$(kubectl config current-context)" --namespace 'serves' \
           &&  helper_common_terraform_apply . \
-          &&  sops_env ../secrets-prod.yaml default \
+          &&  helper_common_sops_env ../secrets-prod.yaml default \
                 AUTONOMIC_TLS_CERT \
                 AUTONOMIC_TLS_KEY \
                 FLUIDATTACKS_TLS_CERT \

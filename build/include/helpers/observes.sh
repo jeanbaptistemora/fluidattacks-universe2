@@ -75,7 +75,7 @@ function helper_observes_move_services_fusion_to_master_git {
 
 function helper_observes_formstack {
       helper_observes_aws_login prod \
-  &&  sops_env observes/secrets-prod.yaml default \
+  &&  helper_common_sops_env observes/secrets-prod.yaml default \
         analytics_auth_redshift \
         analytics_auth_formstack \
   &&  echo '[INFO] Generating secret files' \
@@ -97,7 +97,7 @@ function helper_observes_formstack {
 
 function helper_observes_dynamodb {
       helper_observes_aws_login prod \
-  &&  sops_env observes/secrets-prod.yaml default \
+  &&  helper_common_sops_env observes/secrets-prod.yaml default \
         analytics_aws_access_key \
         analytics_aws_secret_key \
         analytics_aws_default_region \
@@ -127,7 +127,7 @@ function helper_observes_dynamodb {
 
 function helper_observes_services_toe {
       helper_observes_aws_login prod \
-  &&  sops_env observes/secrets-prod.yaml default \
+  &&  helper_common_sops_env observes/secrets-prod.yaml default \
         analytics_auth_redshift \
   &&  echo '[INFO] Generating secret files' \
   &&  echo "${analytics_auth_redshift}" > "${TEMP_FILE2}" \
@@ -153,7 +153,7 @@ function helper_observes_services_toe {
 
 function helper_observes_infrastructure {
       helper_observes_aws_login prod \
-  &&  sops_env observes/secrets-prod.yaml default \
+  &&  helper_common_sops_env observes/secrets-prod.yaml default \
         analytics_auth_infra \
         analytics_auth_redshift \
   &&  echo '[INFO] Generating secret files' \
@@ -177,7 +177,7 @@ function helper_observes_infrastructure {
 
 function helper_observes_intercom {
       helper_observes_aws_login prod \
-  &&  sops_env observes/secrets-prod.yaml default \
+  &&  helper_common_sops_env observes/secrets-prod.yaml default \
         analytics_auth_intercom \
         analytics_auth_redshift \
   &&  echo '[INFO] Generating secret files' \
@@ -202,7 +202,7 @@ function helper_observes_intercom {
 
 function helper_observes_mandrill {
       helper_observes_aws_login prod \
-  &&  sops_env observes/secrets-prod.yaml default \
+  &&  helper_common_sops_env observes/secrets-prod.yaml default \
         analytics_auth_mandrill \
         analytics_auth_redshift \
   &&  echo '[INFO] Generating secret files' \
@@ -240,7 +240,7 @@ function helper_observes_gitlab {
   )
 
       helper_observes_aws_login prod \
-  &&  sops_env observes/secrets-prod.yaml default \
+  &&  helper_common_sops_env observes/secrets-prod.yaml default \
         analytics_auth_redshift \
   &&  echo '[INFO] Generating secret files' \
   &&  echo "${analytics_auth_redshift}" > "${TEMP_FILE2}" \
@@ -263,7 +263,7 @@ function helper_observes_timedoctor {
 
       helper_observes_aws_login prod \
   &&  mkdir ./logs \
-  &&  sops_env observes/secrets-prod.yaml default \
+  &&  helper_common_sops_env observes/secrets-prod.yaml default \
         analytics_auth_redshift \
         analytics_s3_cache_timedoctor \
   &&  analytics_auth_timedoctor=$( \
@@ -304,7 +304,7 @@ function helper_observes_zoho {
   )
 
       helper_observes_aws_login prod \
-  &&  sops_env observes/secrets-prod.yaml default \
+  &&  helper_common_sops_env observes/secrets-prod.yaml default \
         analytics_zoho_email \
         analytics_zoho_token \
         analytics_zoho_space \
@@ -374,7 +374,7 @@ function helper_observes_git_upload {
   local artifacts="${PWD}/artifacts"
 
       helper_observes_aws_login prod \
-  &&  sops_env observes/secrets-prod.yaml default \
+  &&  helper_common_sops_env observes/secrets-prod.yaml default \
         analytics_auth_redshift \
   &&  echo '[INFO] Generating secret files' \
   &&  echo "${analytics_auth_redshift}" > "${TEMP_FILE1}" \
@@ -404,7 +404,7 @@ function helper_observes_timedoctor_backup {
 
       helper_observes_aws_login prod \
   &&  mkdir ./logs \
-  &&  sops_env observes/secrets-prod.yaml default \
+  &&  helper_common_sops_env observes/secrets-prod.yaml default \
         analytics_s3_cache_timedoctor \
   &&  analytics_auth_timedoctor=$( \
         helper_get_gitlab_var \
@@ -438,7 +438,7 @@ function helper_observes_timedoctor_backup {
 
 function helper_observes_timedoctor_manually_create_token {
       helper_observes_aws_login prod \
-  &&  sops_env observes/secrets-prod.yaml default \
+  &&  helper_common_sops_env observes/secrets-prod.yaml default \
         analytics_auth_timedoctor \
   &&  echo '[INFO] Executing creator, follow the steps' \
   &&  ./observes/auth_helper.py --timedoctor-start \

@@ -75,7 +75,7 @@ function helper_config_precommit {
 
 function helper_with_development_secrets {
       helper_asserts_aws_login dev \
-  &&  sops_env 'secrets/development.yaml' 'default' \
+  &&  helper_common_sops_env 'secrets/development.yaml' 'default' \
         AZURE_CLIENT_ID \
         AZURE_CLIENT_SECRET \
         AZURE_SUBSCRIPTION_ID \
@@ -91,7 +91,7 @@ function helper_with_development_secrets {
 
 function helper_with_production_secrets {
       helper_asserts_aws_login prod \
-  &&  sops_env 'secrets/production.yaml' 'default' \
+  &&  helper_common_sops_env 'secrets/production.yaml' 'default' \
         TWINE_USERNAME \
         TWINE_PASSWORD \
         DOCKER_HUB_USER \

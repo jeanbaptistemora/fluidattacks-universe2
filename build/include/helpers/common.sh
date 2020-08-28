@@ -7,7 +7,7 @@ function helper_common_sops_env {
   local variable_name
 
   # Export variables from sops yaml file
-  # e.g: sops_env secrets-production.yaml serves-admin var1 var2 var3 var4
+  # e.g: helper_common_sops_env secrets-production.yaml serves-admin var1 var2 var3 var4
   # note: needs jq
 
       file="${1}" \
@@ -306,16 +306,6 @@ function helper_common_terraform_apply {
     &&  terraform apply -auto-approve -refresh=true \
   &&  popd \
   || return 1
-}
-
-function get_sops_env {
-  local tmp_file
-  local src='https://static-objects.gitlab.net/fluidattacks/public/raw/master/shared-scripts/sops.sh'
-
-      tmp_file=$(mktemp) \
-  &&  curl -sL "${src}" \
-        > "${tmp_file}" \
-  &&  echo "${tmp_file}"
 }
 
 function helper_common_poetry_install_deps {
