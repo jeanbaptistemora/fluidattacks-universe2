@@ -1,11 +1,5 @@
 # shellcheck shell=bash
 
-source "${srcEnv}"
-source "${srcIncludeHelpersCommon}"
-source "${srcExternalGitlabVariables}"
-source "${srcExternalSops}"
-source "${srcIncludeHelpersServes}"
-
 function job_serves_test_infra_monolith {
       helper_use_pristine_workdir \
   &&  pushd serves \

@@ -1,11 +1,5 @@
 # shellcheck shell=bash
 
-source "${srcEnv}"
-source "${srcIncludeHelpersCommon}"
-source "${srcExternalGitlabVariables}"
-source "${srcExternalSops}"
-source "${srcIncludeHelpersObserves}"
-
 function job_observes_formstack {
       helper_use_pristine_workdir \
   &&  env_prepare_python_packages \

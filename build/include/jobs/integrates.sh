@@ -1,10 +1,5 @@
 # shellcheck shell=bash
 
-source "${srcEnv}"
-source "${srcIncludeHelpersCommon}"
-source "${srcExternalGitlabVariables}"
-source "${srcExternalSops}"
-
 function job_integrates_build_front {
       pushd "${STARTDIR}/integrates" \
   &&  pushd front \

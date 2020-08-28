@@ -1,5 +1,33 @@
 # shellcheck shell=bash
 
+function helper_common_sops_env {
+  local file
+  local decrypted_json
+  local profile
+  local variable_name
+
+  # Export variables from sops yaml file
+  # e.g: sops_env secrets-production.yaml serves-admin var1 var2 var3 var4
+  # note: needs jq
+
+      file="${1}" \
+  &&  profile="${2}" \
+  &&  decrypted_json=$( \
+        sops \
+          --aws-profile "${profile}" \
+          --decrypt \
+          --output-type json \
+          "${file}") \
+  &&  shift 2 \
+  &&  for variable_name in "${@}"; do
+            echo "Exporting: ${variable_name}" \
+        &&  variable_value=$( \
+              echo "${decrypted_json}" \
+                | jq -r ".${variable_name}") \
+        &&  export "${variable_name//./__}=${variable_value}"
+      done
+}
+
 function helper_use_pristine_workdir {
   export WORKDIR
   export STARTDIR

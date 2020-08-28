@@ -8,6 +8,7 @@ rec {
 
   # Common
   srcIncludeHelpersCommon = ../include/helpers/common.sh;
+  srcIncludeHelpersCommonGitlab = ../include/helpers/common.gitlab.sh;
   srcIncludeCommonJobs = ../include/jobs/common.sh;
 
   # Asserts

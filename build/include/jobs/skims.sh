@@ -1,9 +1,5 @@
 # shellcheck shell=bash
 
-source "${srcEnv}"
-source "${srcIncludeHelpersCommon}"
-source "${srcIncludeHelpersSkims}"
-
 declare -Arx SKIMS_GLOBAL_PKGS=(
   [cli]=skims/cli
   [config]=skims/config

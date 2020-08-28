@@ -1,11 +1,5 @@
 # shellcheck shell=bash
 
-source "${srcEnv}"
-source "${srcIncludeHelpersCommon}"
-source "${srcIncludeHelpersAsserts}"
-source "${srcExternalGitlabVariables}"
-source "${srcExternalSops}"
-
 function job_asserts_lint_code {
   local config_file='.pylintrc'
 

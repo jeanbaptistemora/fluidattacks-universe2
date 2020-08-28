@@ -1,16 +1,31 @@
 # shellcheck shell=bash
 
 source "${srcEnv}"
+
 source "${srcIncludeHelpersCommon}"
+source "${srcIncludeHelpersCommonGitlab}"
 source "${srcIncludeCommonJobs}"
+
+source "${srcIncludeHelpersAsserts}"
 source "${srcIncludeAssertsJobs}"
+
+source "${srcIncludeHelpersForces}"
 source "${srcIncludeForcesJobs}"
+
+source "${srcIncludeHelpersIntegrates}"
 source "${srcIncludeIntegratesJobs}"
 source "${srcIncludeIntegratesLintersJobs}"
+
+source "${srcIncludeHelpersObserves}"
 source "${srcIncludeObservesJobs}"
-source "${srcIncludeServesJobs}"
-source "${srcIncludeSkimsJobs}"
+
 source "${srcIncludeReviewsJobs}"
+
+source "${srcIncludeHelpersServes}"
+source "${srcIncludeServesJobs}"
+
+source "${srcIncludeHelpersSkims}"
+source "${srcIncludeSkimsJobs}"
 
 function cli {
   local function_to_call

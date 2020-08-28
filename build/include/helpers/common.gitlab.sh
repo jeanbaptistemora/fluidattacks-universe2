@@ -1,7 +1,4 @@
-#!/usr/bin/env bash
-
-# This file can be imported from anywhere by running:
-# . <(curl -s https://gitlab.com/fluidattacks/public/raw/master/shared-scripts/gitlab-variables.sh)
+# shellcheck shell=bash
 
 function __check_curl_output {
   local success_msg="${1}"
@@ -60,7 +57,7 @@ function __project_variable_generic_request {
         "${log_file}"
 }
 
-function set_project_variable {
+function helper_common_set_project_variable {
   local token="${1}"
   local repo_id="${2}"
   local var_name="${3}"
@@ -69,9 +66,9 @@ function set_project_variable {
   local masked="${6}"
 
       echo "[INFO] Setting gitlab variable: ${var_name}" \
-  &&  if check_variable_exists "${token}" "${repo_id}" "${var_name}"
+  &&  if helper_common_check_variable_exists "${token}" "${repo_id}" "${var_name}"
       then
-        update_project_variable \
+        helper_common_update_project_variable \
           "${token}" \
           "${repo_id}" \
           "${var_name}" \
@@ -79,7 +76,7 @@ function set_project_variable {
           "${protected}" \
           "${masked}"
       else
-        create_project_variable \
+        helper_common_create_project_variable \
           "${token}" \
           "${repo_id}" \
           "${var_name}" \
@@ -89,7 +86,7 @@ function set_project_variable {
       fi
 }
 
-function check_variable_exists {
+function helper_common_check_variable_exists {
   local token="${1}"
   local repo_id="${2}"
   local var_name="${3}"
@@ -113,7 +110,7 @@ function check_variable_exists {
         "${log_file}"
 }
 
-function create_project_variable {
+function helper_common_create_project_variable {
   local token="${1}"
   local repo_id="${2}"
   local var_name="${3}"
@@ -136,7 +133,7 @@ function create_project_variable {
     "${masked}"
 }
 
-function update_project_variable {
+function helper_common_update_project_variable {
   local token="${1}"
   local repo_id="${2}"
   local var_name="${3}"
@@ -161,30 +158,30 @@ function update_project_variable {
 
 ### Tests
 
-function __tests {
+function helper_common__tests {
   local token="${1}"
 
   set -u
 
-  check_variable_exists "${token}" '4603023' 'INTEGRATES_API_TOKEN' \
+  helper_common_check_variable_exists "${token}" '4603023' 'INTEGRATES_API_TOKEN' \
     && echo '[TEST][should-success] Ok' \
     || echo '[TEST][should-success] Review!!'
   echo ---
-  check_variable_exists "${token}" '4603023' 'INTEGRATES_API_TOKE' \
+  helper_common_check_variable_exists "${token}" '4603023' 'INTEGRATES_API_TOKE' \
     && echo '[TEST][should-fail] Review!!' \
     || echo '[TEST][should-fail] Ok'
   echo ---
-  set_project_variable "${token}" '4603023' 'test_var' 'test_value' 'true' 'true' \
+  helper_common_set_project_variable "${token}" '4603023' 'test_var' 'test_value' 'true' 'true' \
     && echo '[TEST][should-success] Ok' \
     || echo '[TEST][should-success] Review!!'
   echo ---
   # Something that cannot be masked
-  set_project_variable "${token}" '4603023' 'test_var' '^^^^' 'true' 'true' \
+  helper_common_set_project_variable "${token}" '4603023' 'test_var' '^^^^' 'true' 'true' \
     && echo '[TEST][should-fail] Review!!' \
     || echo '[TEST][should-fail] Ok'
   echo ---
   # Random var name and value but can be masked
-  set_project_variable "${token}" '4603023' "$(mktemp test_XXX)" "$(mktemp test_XXX)" 'true' 'true' \
+  helper_common_set_project_variable "${token}" '4603023' "$(mktemp test_XXX)" "$(mktemp test_XXX)" 'true' 'true' \
     && echo '[TEST][should-success] Ok' \
     || echo '[TEST][should-success] Review!!'
 }

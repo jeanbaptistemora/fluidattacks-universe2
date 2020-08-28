@@ -1,8 +1,5 @@
 # shellcheck shell=bash
 
-source "${srcEnv}"
-source "${srcIncludeHelpersCommon}"
-
 declare -Arx REVIEWS_GLOBAL_PKGS=(
   [cli]=src/cli
   [config]=src/config

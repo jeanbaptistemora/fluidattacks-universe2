@@ -1,9 +1,5 @@
 # shellcheck shell=bash
 
-source "${srcEnv}"
-source "${srcIncludeHelpersIntegrates}"
-source "${srcIncludeHelpersForces}"
-
 function job_forces_lint {
   args_mypy=(
     --ignore-missing-imports
