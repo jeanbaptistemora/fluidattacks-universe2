@@ -6,8 +6,7 @@
 = Portfolio
 
 The items we expect to see in your portfolio are described below.
-Through these, you can present your best academic
-and/or your professional achievements.
+These allow you to present your best academic and/or professional achievements.
 We also use your portfolio to assess your ability to express yourself,
 synthesize ideas, and capture our attention.
 Your portfolio is of utmost importance in the selection process.
@@ -31,7 +30,8 @@ Do not use your `CV` as a substitute for the portfolio.
 . The portfolio must contain your top `5` achievements,
 including personal, professional and academic achievements.
 Each one must be explained in at most `1` page.
-* Designs/Diagrams (network, data, class, circuits, etc).
+Feel free to include:
+* Designs/Diagrams (network, data, class, circuits, etc.).
 * Code examples.
 * Documentation.
 . The portfolio must respect copyrights:

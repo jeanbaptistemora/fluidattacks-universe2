@@ -45,11 +45,11 @@ of the `IT` population for each available position.
 . We select only the best to join the `Fluid Attacks` team,
 a team that is:
 
-** Elite.
-** Enduring.
-** Disciplined.
-** Responsible.
-** Ethical.
+** Elite
+** Enduring
+** Disciplined
+** Responsible
+** Ethical
 
 . We have automated many stages of the selection process
 so that you can optimize your time and

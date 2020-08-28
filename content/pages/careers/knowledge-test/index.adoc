@@ -5,13 +5,13 @@
 
 = Knowledge Test
 
-To continue in the selection process, complete the knowledge test.
+To continue in the selection process, please complete the knowledge test.
 This test contains questions in several areas of knowledge.
-Some will apply to your profile, and some will not.
+Some will apply to your profile and some will not.
 However, you must answer all of them thoroughly
 because we will use the test to determine your level of experience.
 
-To access, complete, and submit the test, please do the following:
+To access, complete and submit the test, please do the following:
 
 == Create an account
 
@@ -29,12 +29,12 @@ select the 'General Knowledge Test' group.
 Make sure you have the time and willingness to take it.
 . Enter your full name.
 . The test lasts a maximum of *3 hours* and *20 minutes*,
-so you should have enough time to take it without interruption.
+so you should have enough time to take it without interruptions.
 . Avoid exiting the main screen of the test.
-If you do it, the test will be automatically canceled,
-and there will not be a second attempt.
+If you do so, the test will be automatically canceled,
+and there is no chance for a second attempt.
 . If you have any questions regarding this test,
 please contact careers@fluidattacks.com.
 . *Send us an email notifying us that you finished the test.*
 
-Have fun! And good luck, although you don't need it.
+Have fun! And good luck, although you probably don't need it!

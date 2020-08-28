@@ -62,11 +62,11 @@ provides important information for management.
 If possible, and to minimize the number of graphs
 and maximize the number of variables, please use:
 
-* Stacked bars,
-* Data in the X and Y axis,
-* Box plots,
-* Pareto charts,
-* An "others" category to ignore all irrelevant categories.
+* Stacked bars
+* Data in the X and Y axis
+* Box plots
+* Pareto charts
+* An "others" category to ignore all irrelevant categories
 
 Many of the graphs can be made for the entire period
 in order to draw global conclusions.
@@ -107,7 +107,7 @@ and is 100% of your authorship.
 If you feel that you need help from other people to perform this task,
 this is a clue that the current needs of `Fluid Attacks`
 do not fit your current profile.
-This type of activities are the basis of the project and
+This type of activity is the basis of the project and
 team management philosophy in `Fluid Attacks`
 (management based on data and metrics),
 effectively making this activity no more than a simulation
