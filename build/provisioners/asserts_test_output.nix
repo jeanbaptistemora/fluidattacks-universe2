@@ -9,6 +9,7 @@ in
 
       buildInputs = [
         pkgs.git
+        pkgs.python37
       ];
 
       pyPkgAsserts = import ../../asserts pkgs;

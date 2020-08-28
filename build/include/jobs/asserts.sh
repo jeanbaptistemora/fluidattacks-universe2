@@ -6,15 +6,6 @@ source "${srcIncludeHelpersAsserts}"
 source "${srcExternalGitlabVariables}"
 source "${srcExternalSops}"
 
-function job_asserts_build_asserts {
-      helper_use_pristine_workdir \
-  &&  pushd asserts \
-  &&  helper_build_asserts \
-  &&  cp -a asserts-release "${STARTDIR}" \
-  &&  popd \
-  || return 1
-}
-
 function job_asserts_lint_code {
   local config_file='.pylintrc'
 
@@ -608,32 +599,47 @@ function job_asserts_test_api_utils {
   ||  return 1
 }
 
-function job_asserts_test_output_asserts {
+function job_asserts_test_output {
   export FA_NOTRACK='true'
   export FA_STRICT='false'
 
       helper_use_pristine_workdir \
+  &&  pushd asserts \
   &&  env_prepare_python_packages \
   &&  asserts \
         --kiss \
         --multiprocessing \
         --show-method-stats \
         --cloudformation \
-        test
+        test \
+  &&  popd \
+  ||  return 1
 }
 
-function job_asserts_release_to_pypi {
+function job_asserts_build {
+      helper_use_pristine_workdir \
+  &&  pushd asserts \
+  &&  helper_build_asserts \
+  &&  cp -a asserts-release "${STARTDIR}/asserts" \
+  &&  popd \
+  || return 1
+}
+
+function job_asserts_release_pypi {
   local release_folder='asserts-release'
 
       helper_use_pristine_workdir \
+  &&  pushd asserts \
   &&  env_prepare_python_packages \
   &&  helper_with_production_secrets \
   &&  helper_build_asserts \
   &&  twine check "${release_folder}/"* \
-  &&  twine upload "${release_folder}/"*
+  &&  twine upload "${release_folder}/"* \
+  &&  popd \
+  ||  return 1
 }
 
-function job_asserts_release_to_docker_hub {
+function job_asserts_release_docker_hub {
   function build {
     local image_name="${1}"
     local target_name="${2}"
@@ -648,6 +654,7 @@ function job_asserts_release_to_docker_hub {
   }
 
       helper_use_pristine_workdir \
+  &&  pushd asserts \
   &&  helper_with_production_secrets \
   &&  docker login "${DOCKER_HUB_URL}" \
         --username "${DOCKER_HUB_USER}" \
@@ -668,14 +675,19 @@ function job_asserts_release_to_docker_hub {
   &&  build \
         'fluidattacks/asserts' \
         'full' \
-        'debian.Dockerfile'
+        'debian.Dockerfile' \
+  &&  popd \
+  ||  return 1
 }
 
-function job_asserts_pages {
+function job_pages {
       helper_use_pristine_workdir \
+  &&  pushd asserts \
   &&  env_prepare_python_packages \
   &&  helper_pages_execute_example_exploits \
   &&  helper_pages_generate_credits \
   &&  helper_pages_generate_doc \
-  &&  mv public/ "${STARTDIR}"
+  &&  mv public/ "${STARTDIR}/asserts" \
+  &&  popd \
+  ||  return 1
 }

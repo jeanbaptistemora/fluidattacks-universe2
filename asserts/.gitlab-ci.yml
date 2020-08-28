@@ -257,3 +257,33 @@ asserts_test_api_utils:
   <<: *with_nix
   <<: *in_dev_branch_asserts
   stage: test-code
+
+asserts_test_output:
+  <<: *with_nix
+  <<: *in_dev_branch_asserts
+  stage: test-code
+
+asserts_build:
+  <<: *with_nix
+  <<: *in_dev_branch_asserts
+  stage: test-code
+  artifacts:
+    paths: [asserts/asserts-release/]
+
+asserts_release_pypi:
+  <<: *with_nix
+  <<: *in_master_branch_asserts
+  stage: deploy-infra
+
+asserts_release_docker_hub:
+  <<: *with_nix
+  <<: *in_master_branch_asserts
+  stage: deploy-app
+  needs: [asserts_release_pypi]
+
+pages:
+  <<: *with_nix
+  <<: *in_master_branch_asserts
+  stage: deploy-app
+  artifacts:
+    paths: [asserts/public/]

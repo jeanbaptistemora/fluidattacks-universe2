@@ -19,6 +19,8 @@ in
         ]))
       ];
 
-      pyPkgTwine = builders.pythonPackage "twine==2.0.0";
+      pyPkgTwine = builders.pythonPackage {
+        requirement = "twine==2.0.0";
+      };
     })
   )

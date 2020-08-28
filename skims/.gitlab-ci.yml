@@ -81,5 +81,5 @@ skims_test:
   <<: *skims_in_dev_branch
   stage: test-code
 
-pages:
+.pages:
   <<: *skims_doc
