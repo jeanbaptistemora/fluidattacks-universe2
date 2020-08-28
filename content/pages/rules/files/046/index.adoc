@@ -33,3 +33,7 @@ creation and deletion of system-level objects.
 
 . [[r5]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 10.4.2]
 Time data is protected.
+
+. [[r6]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 10.5.5]
+Use file-integrity monitoring or change-detection software on logs to ensure
+that existing log data cannot be changed without generating alerts.

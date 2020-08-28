@@ -49,3 +49,7 @@ directory traversal, and failure to restrict user access to functions).
 
 . [[r7]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 10.5.2]
 Protect audit trail files from unauthorized modifications.
+
+. [[r8]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 10.5.3]
+Promptly back up audit trail files to a centralized log server or media that is
+difficult to alter.

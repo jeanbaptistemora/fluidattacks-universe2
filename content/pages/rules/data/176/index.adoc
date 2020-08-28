@@ -145,3 +145,6 @@ directory traversal, and failure to restrict user access to functions).
 Define access needs for each role,
 including system components and data resources that each role needs to access
 for their job function.
+
+. [[r20]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 10.5.1]
+Limit viewing of audit trails to those with a job-related need.
