@@ -117,3 +117,143 @@ asserts_test_api_helper:
   <<: *with_nix
   <<: *in_dev_branch_asserts
   stage: test-code
+
+asserts_test_api_iot:
+  <<: *with_nix
+  <<: *in_dev_branch_asserts
+  stage: test-code
+
+asserts_test_api_lang_core:
+  <<: *with_nix
+  <<: *in_dev_branch_asserts
+  stage: test-code
+
+asserts_test_api_lang_csharp:
+  <<: *with_nix
+  <<: *in_dev_branch_asserts
+  stage: test-code
+
+asserts_test_api_lang_docker:
+  <<: *with_nix
+  <<: *in_dev_branch_asserts
+  stage: test-code
+
+asserts_test_api_lang_dotnetconfig:
+  <<: *with_nix
+  <<: *in_dev_branch_asserts
+  stage: test-code
+
+asserts_test_api_lang_html:
+  <<: *with_nix
+  <<: *in_dev_branch_asserts
+  stage: test-code
+
+asserts_test_api_lang_java:
+  <<: *with_nix
+  <<: *in_dev_branch_asserts
+  stage: test-code
+
+asserts_test_api_lang_javascript:
+  <<: *with_nix
+  <<: *in_dev_branch_asserts
+  stage: test-code
+
+asserts_test_api_lang_php:
+  <<: *with_nix
+  <<: *in_dev_branch_asserts
+  stage: test-code
+
+asserts_test_api_lang_python:
+  <<: *with_nix
+  <<: *in_dev_branch_asserts
+  stage: test-code
+
+asserts_test_api_lang_rpgle:
+  <<: *with_nix
+  <<: *in_dev_branch_asserts
+  stage: test-code
+
+asserts_test_api_lang_times:
+  <<: *with_nix
+  <<: *in_dev_branch_asserts
+  stage: test-code
+
+asserts_test_api_ot:
+  <<: *with_nix
+  <<: *in_dev_branch_asserts
+  stage: test-code
+
+asserts_test_api_proto_dns:
+  <<: *with_nix
+  <<: *in_dev_branch_asserts
+  stage: test-code
+
+asserts_test_api_proto_ftp:
+  <<: *with_nix
+  <<: *in_dev_branch_asserts
+  stage: test-code
+
+.asserts_test_api_proto_git:
+  <<: *with_nix
+  <<: *in_dev_branch_asserts
+  stage: test-code
+
+asserts_test_api_proto_graphql:
+  <<: *with_nix
+  <<: *in_dev_branch_asserts
+  stage: test-code
+
+asserts_test_api_proto_http:
+  <<: *with_nix
+  <<: *in_dev_branch_asserts
+  stage: test-code
+
+asserts_test_api_proto_ldap:
+  <<: *with_nix
+  <<: *in_dev_branch_asserts
+  stage: test-code
+
+asserts_test_api_proto_rest:
+  <<: *with_nix
+  <<: *in_dev_branch_asserts
+  stage: test-code
+
+asserts_test_api_proto_smb:
+  <<: *with_nix
+  <<: *in_dev_branch_asserts
+  stage: test-code
+
+asserts_test_api_proto_smtp:
+  <<: *with_nix
+  <<: *in_dev_branch_asserts
+  stage: test-code
+
+asserts_test_api_proto_ssh:
+  <<: *with_nix
+  <<: *in_dev_branch_asserts
+  stage: test-code
+
+asserts_test_api_proto_ssl:
+  <<: *with_nix
+  <<: *in_dev_branch_asserts
+  stage: test-code
+
+asserts_test_api_proto_tcp:
+  <<: *with_nix
+  <<: *in_dev_branch_asserts
+  stage: test-code
+
+asserts_test_api_sca:
+  <<: *with_nix
+  <<: *in_dev_branch_asserts
+  stage: test-code
+
+asserts_test_api_syst:
+  <<: *with_nix
+  <<: *in_dev_branch_asserts
+  stage: test-code
+
+asserts_test_api_utils:
+  <<: *with_nix
+  <<: *in_dev_branch_asserts
+  stage: test-code
