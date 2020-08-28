@@ -44,7 +44,6 @@ const commentsView: React.FC<ICommentsViewProps> = (props: ICommentsViewProps): 
   return (
     <React.StrictMode>
       <Query
-        fetchPolicy="network-only"
         query={type === "comments" ? GET_FINDING_CONSULTING : GET_FINDING_OBSERVATIONS}
         variables={{ findingId }}
         onError={handleErrors}
