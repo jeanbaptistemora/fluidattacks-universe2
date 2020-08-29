@@ -127,8 +127,7 @@ function job_observes_apply_infra {
 
 function job_observes_lint_code {
 
-      helper_use_pristine_workdir \
-  &&  pushd observes \
+      pushd observes \
   &&  env_prepare_python_packages \
   &&  helper_observes_lint_code_python \
   &&  popd \

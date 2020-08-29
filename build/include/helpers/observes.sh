@@ -471,6 +471,8 @@ function helper_observes_lint_code_python {
             &&  mypy \
                   --ignore-missing-imports \
                   --no-incremental \
+                  --allow-any-generics \
+                  --pretty \
                   "${path}" \
             || return 1
           done \
