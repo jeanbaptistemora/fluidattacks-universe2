@@ -82,6 +82,7 @@ function job_observes_code {
             echo '[INFO] Cloning services' \
         &&  git clone --branch master --single-branch --depth 1 "${services_url}" '.services'
       fi \
+  &&  shopt -s nullglob \
   &&  pushd '.services' \
     &&  aws s3 ls 's3://continuous-repositories/' \
           | sed 's|.*PRE ||g;s|/||g' \
