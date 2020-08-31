@@ -19,7 +19,7 @@ def df_get_deltas(row: Series) -> Tuple[int, int, int, int]:
     return get_deltas(repo, commit)
 
 
-def df_get_files(row: Series) -> ArrayType[int]:
+def df_get_files(row: Series) -> ArrayType:
     """
     Get information about modified files for an entire dataframe
     """
@@ -65,7 +65,7 @@ def get_deltas(repo: str, commit: str) -> Tuple[int, int, int, int]:
     return deltas_info
 
 
-def get_files(repo: str, commit: str) -> ArrayType[int]:
+def get_files(repo: str, commit: str) -> ArrayType:
     touchers: List[int] = []
     try:
         gitrepo: Git = git.Git(repo)
@@ -83,7 +83,7 @@ def get_files(repo: str, commit: str) -> ArrayType[int]:
         print('Commit', commit)
     except IndexError:
         print('Shortstat error:', repo)
-    touchers_array: ArrayType[int] = np.array(touchers)
+    touchers_array: ArrayType = np.array(touchers)
     return touchers_array
 
 

@@ -6,10 +6,15 @@ function helper_test_lint_code_python {
     --strictness veryhigh
     --test-warnings
   )
+  local args_mypy=(
+    --allow-any-generics
+    --ignore-missing-imports
+    --strict
+  )
 
       pushd melts \
   &&  echo '[INFO]: Checking static typing...' \
-  &&  mypy --ignore-missing-imports --strict toolbox/sorts \
+  &&  mypy "${args_mypy[@]}" toolbox/sorts \
   &&  echo '[INFO]: Linting...' \
   &&  prospector "${args_prospector[@]}" toolbox/ \
   &&  popd \
