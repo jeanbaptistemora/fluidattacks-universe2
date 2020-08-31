@@ -494,7 +494,7 @@ function job_integrates_renew_certificates {
   local secret_name='ssl-certificate'
   local RA_ACCESS_KEY
   local files=(
-    review-apps/tls.yaml
+    deploy/ephemeral/tls.yaml
   )
   local vars_to_replace_in_manifest=(
     DNS_ZONE_ID
@@ -528,8 +528,8 @@ function job_integrates_renew_certificates {
         &&  kubectl delete secret "${secret_name}" \
         &&  kubectl delete issuer "${certificate_issuer}" \
         &&  kubectl delete certificate "${certificate}" \
-        &&  echo '[INFO] Applying: review-apps/tls.yaml' \
-        &&  kubectl apply -f 'review-apps/tls.yaml' \
+        &&  echo '[INFO] Applying: deploy/ephemeral/tls.yaml' \
+        &&  kubectl apply -f 'deploy/ephemeral/tls.yaml' \
         &&  while ! kubectl describe certificate "${certificate}" \
               | tr -s ' ' \
               | grep 'Status: True'
@@ -1200,9 +1200,9 @@ function job_integrates_deploy_k8s_back_ephemeral {
   local DATE
   local DEPLOYMENT_NAME
   local files=(
-    review-apps/variables.yaml
-    review-apps/ingress.yaml
-    review-apps/deploy-integrates.yaml
+    deploy/ephemeral/variables.yaml
+    deploy/ephemeral/ingress.yaml
+    deploy/ephemeral/deploy-integrates.yaml
   )
   local vars_to_replace_in_manifest=(
     DATE
@@ -1240,12 +1240,12 @@ function job_integrates_deploy_k8s_back_ephemeral {
           ||  return 1
         done
       done \
-  &&  echo '[INFO] Applying: review-apps/variables.yaml' \
-  &&  kubectl apply -f 'review-apps/variables.yaml' \
-  &&  echo '[INFO] Applying: review-apps/ingress.yaml' \
-  &&  kubectl apply -f 'review-apps/ingress.yaml' \
-  &&  echo '[INFO] Applying: review-apps/deploy-integrates.yaml' \
-  &&  kubectl apply -f 'review-apps/deploy-integrates.yaml' \
+  &&  echo '[INFO] Applying: deploy/ephemeral/variables.yaml' \
+  &&  kubectl apply -f 'deploy/ephemeral/variables.yaml' \
+  &&  echo '[INFO] Applying: deploy/ephemeral/ingress.yaml' \
+  &&  kubectl apply -f 'deploy/ephemeral/ingress.yaml' \
+  &&  echo '[INFO] Applying: deploy/ephemeral/deploy-integrates.yaml' \
+  &&  kubectl apply -f 'deploy/ephemeral/deploy-integrates.yaml' \
   &&  kubectl rollout status "deploy/review-${CI_COMMIT_REF_SLUG}" --timeout=5m \
   &&  popd \
   ||  return 1
