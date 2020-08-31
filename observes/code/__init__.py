@@ -48,6 +48,7 @@ from psycopg2.extras import (
 )
 from git import (
     Commit,
+    GitCommandError,
     InvalidGitRepositoryError,
     Repo,
 )
@@ -194,7 +195,7 @@ async def manager(queue: Queue, namespace: str, *repositories: str) -> None:
             except ValueError:
                 await log('warning', 'Repository is possibly empty, ignoring')
                 continue
-            except InvalidGitRepositoryError:
+            except (GitCommandError, InvalidGitRepositoryError):
                 await log('warning', 'Invalid or corrupt repository')
                 continue
 
