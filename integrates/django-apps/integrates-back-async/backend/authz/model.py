@@ -378,6 +378,7 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             'backend_api_resolvers_project__get_stakeholders',
             'backend_api_resolvers_project__get_users',
             'backend_api_resolvers_project_resolve_project',
+            'backend_api_resolvers_report__get_url_group_report',
             'backend_api_resolvers_resource__do_add_environments',
             'backend_api_resolvers_resource__do_add_files',
             'backend_api_resolvers_resource__do_add_repositories',
