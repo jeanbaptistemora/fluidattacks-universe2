@@ -189,16 +189,6 @@ async def manager(queue: Queue, namespace: str, *repositories: str) -> None:
     commit: Commit
     with db_cursor() as cursor:
         for repo_path in repositories:
-            try:
-                repo_obj: Repo = Repo(repo_path)
-                repo_obj.iter_commits()
-            except ValueError:
-                await log('warning', 'Repository is possibly empty, ignoring')
-                continue
-            except (GitCommandError, InvalidGitRepositoryError):
-                await log('warning', 'Invalid or corrupt repository')
-                continue
-
             repo_name: str = basename(repo_path)
             repo_is_new: bool = not await does_commit_exist(
                 cursor, COMMIT_HASH_SENTINEL, namespace, repo_name,
@@ -207,19 +197,27 @@ async def manager(queue: Queue, namespace: str, *repositories: str) -> None:
                 cursor, namespace, repo_name,
             )
 
-            async for commit in generate_in_thread(
-                repo_obj.iter_commits,
-                topo_order=True,
-            ):
-                if commit.hexsha == repo_last_commit:
-                    break
+            try:
+                repo_obj: Repo = Repo(repo_path)
+                async for commit in generate_in_thread(
+                    repo_obj.iter_commits,
+                    topo_order=True,
+                ):
+                    if commit.hexsha == repo_last_commit:
+                        break
 
-                await queue.put(dict(
-                    namespace=namespace,
-                    repository=repo_name,
-                    seen_at=DATE_SENTINEL if repo_is_new else DATE_NOW,
-                    **get_commit_data(commit),
-                ))
+                    await queue.put(dict(
+                        namespace=namespace,
+                        repository=repo_name,
+                        seen_at=DATE_SENTINEL if repo_is_new else DATE_NOW,
+                        **get_commit_data(commit),
+                    ))
+            except ValueError:
+                await log('warning', 'Repository is possibly empty, ignoring')
+                continue
+            except (GitCommandError, InvalidGitRepositoryError):
+                await log('warning', 'Invalid or corrupt repository')
+                continue
 
             if repo_is_new:
                 await queue.join()
