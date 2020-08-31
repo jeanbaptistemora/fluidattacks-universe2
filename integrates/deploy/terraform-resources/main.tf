@@ -35,7 +35,7 @@ variable "aws_s3_forces_bucket" {
 }
 
 terraform {
-  required_version = ">= 0.13"
+  required_version = "~> 0.13.0"
 
   required_providers {
     aws = {
