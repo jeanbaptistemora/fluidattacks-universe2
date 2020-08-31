@@ -1,6 +1,6 @@
 let
   pkgs = import ../pkgs/serves.nix;
-  helm-2-pkgs = import ../pkgs/helm-2.nix;
+  helm-2-pkgs = import ../pkgs/serves-helm-2.nix;
 in
   pkgs.stdenv.mkDerivation (
         (import ../src/basic.nix)

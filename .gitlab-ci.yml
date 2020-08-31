@@ -25,9 +25,6 @@ stages:
   - external
   - scheduler
 
-.commit_stages:
-  - &common_commit_pattern '$CI_COMMIT_TITLE =~ /^(all|asserts|forces|integrates|observes|reviews|serves|skims|sorts|melts)/'
-
 .common_in_mrs: &common_in_mrs
   rules:
     - if: '$CI_PIPELINE_SOURCE != "merge_request_event"'
@@ -42,7 +39,7 @@ stages:
       when: never
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
       when: never
-    - if: *common_commit_pattern
+    - when: always
 
 .common_in_dev_branch: &common_in_dev_branch
   rules:
@@ -54,7 +51,7 @@ stages:
       when: never
     - if: '$CI_PIPELINE_SOURCE == "trigger"'
       when: never
-    - if: *common_commit_pattern
+    - when: always
 
 .common_in_master_branch: &common_in_master_branch
   rules:
@@ -64,7 +61,7 @@ stages:
       when: never
     - if: '$CI_PIPELINE_SOURCE == "trigger"'
       when: never
-    - if: *common_commit_pattern
+    - when: always
 
 .with_nix: &with_nix
   tags: [autoscaling]

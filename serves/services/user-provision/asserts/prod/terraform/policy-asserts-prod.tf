@@ -57,6 +57,19 @@ data "aws_iam_policy_document" "asserts-prod-policy-data" {
       "arn:aws:kms:${var.region}:${data.aws_caller_identity.current.account_id}:alias/asserts-*"
     ]
   }
+
+  # DynamoDB for locking terraform state
+  statement {
+    effect = "Allow"
+    actions = [
+      "dynamodb:DeleteItem",
+      "dynamodb:GetItem",
+      "dynamodb:PutItem",
+    ]
+    resources = [
+      var.terraform_state_lock_arn,
+    ]
+  }
 }
 
 resource "aws_iam_policy" "asserts-prod-policy" {
