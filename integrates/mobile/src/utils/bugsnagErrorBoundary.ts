@@ -1,4 +1,4 @@
-import { OnErrorCallback } from "@bugsnag/core";
+import { Event, OnErrorCallback } from "@bugsnag/core";
 import Bugsnag from "@bugsnag/expo";
 import BugsnagPluginReact from "@bugsnag/plugin-react";
 import * as Network from "expo-network";
@@ -27,6 +27,11 @@ interface IBugsnagPluginReactResultConfig {
 
 Bugsnag.start({
   apiKey: BUGSNAG_KEY,
+  onError: (event: Event): boolean => {
+    event.groupingHash = event.errors[0].errorMessage;
+
+    return true;
+  },
   plugins: [new BugsnagPluginReact(React)],
   releaseStage: `mobile-${getEnvironment().name}`,
 });
@@ -36,16 +41,16 @@ Promise.all([
   Network.getNetworkStateAsync(),
   Network.isAirplaneModeEnabledAsync(),
 ])
-.then((networkInfo: [string, Network.NetworkState, boolean]): void => {
-  Bugsnag.addMetadata("network", {
-    IpAddress: networkInfo[0],
-    IsAirplaneModeEnabled: networkInfo[2],
-    NetworkState: networkInfo[1],
+  .then((networkInfo: [string, Network.NetworkState, boolean]): void => {
+    Bugsnag.addMetadata("network", {
+      IpAddress: networkInfo[0],
+      IsAirplaneModeEnabled: networkInfo[2],
+      NetworkState: networkInfo[1],
+    });
+  })
+  .catch((error: Error): void => {
+    LOGGER.error("Couldn't get network info", error);
   });
-})
-.catch((error: Error): void => {
-  LOGGER.error("Couldn't get network info", error);
-});
 
 const reactPlugin:
   | IBugsnagPluginReactResultConfig
