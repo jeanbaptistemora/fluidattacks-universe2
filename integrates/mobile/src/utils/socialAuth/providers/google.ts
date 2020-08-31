@@ -1,4 +1,3 @@
-import { applicationId } from "expo-application";
 import {
   AuthRequest,
   AuthSessionResult,
@@ -17,9 +16,9 @@ import { Platform } from "react-native";
 
 import { IAuthResult } from "..";
 import {
+  GOOGLE_CLIENT_ID_ANDROID,
   GOOGLE_CLIENT_ID_DEV,
-  GOOGLE_LOGIN_KEY_ANDROID_PROD,
-  GOOGLE_LOGIN_KEY_IOS_PROD,
+  GOOGLE_CLIENT_ID_IOS,
 } from "../../constants";
 import { LOGGER } from "../../logger";
 
@@ -28,13 +27,12 @@ const inExpoClient: boolean = Constants.appOwnership === AppOwnership.Expo;
 const clientId: string = inExpoClient
   ? GOOGLE_CLIENT_ID_DEV
   : Platform.select({
-      android: GOOGLE_LOGIN_KEY_ANDROID_PROD,
+      android: GOOGLE_CLIENT_ID_ANDROID,
       default: "",
-      ios: GOOGLE_LOGIN_KEY_IOS_PROD,
+      ios: GOOGLE_CLIENT_ID_IOS,
     });
 
 const getRedirectUri: () => string = (): string => makeRedirectUri({
-  native: `${applicationId}:/oauth2redirect/google`,
   path: "oauth2redirect/google",
   useProxy: inExpoClient,
 });
@@ -88,8 +86,6 @@ const authWithGoogle: () => Promise<IAuthResult> = async (): Promise<
       ],
       usePKCE: !inExpoClient,
     });
-
-    await request.makeAuthUrlAsync(discovery);
 
     const logInResult: AuthSessionResult = await request.promptAsync(
       discovery,

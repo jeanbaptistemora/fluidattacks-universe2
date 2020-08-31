@@ -1,6 +1,5 @@
 import Bugsnag from "@bugsnag/expo";
 import * as AppAuth from "expo-app-auth";
-import * as Google from "expo-google-app-auth";
 import * as SecureStore from "expo-secure-store";
 import _ from "lodash";
 import { Alert, Platform } from "react-native";
@@ -10,10 +9,6 @@ import {
   BITBUCKET_LOGIN_KEY_PROD,
   BITBUCKET_LOGIN_SECRET_DEV,
   BITBUCKET_LOGIN_SECRET_PROD,
-  GOOGLE_LOGIN_KEY_ANDROID_DEV,
-  GOOGLE_LOGIN_KEY_ANDROID_PROD,
-  GOOGLE_LOGIN_KEY_IOS_DEV,
-  GOOGLE_LOGIN_KEY_IOS_PROD,
   MICROSOFT_LOGIN_KEY,
 } from "../constants";
 import { LOGGER } from "../logger";
@@ -68,61 +63,6 @@ export interface IAuthState {
 }
 
 export type IAuthResult = { type: "cancel" } | IAuthState & { type: "success" };
-
-const googleConfig: Google.GoogleLogInConfig = {
-  androidClientId: GOOGLE_LOGIN_KEY_ANDROID_DEV,
-  androidStandaloneAppClientId: GOOGLE_LOGIN_KEY_ANDROID_PROD,
-  iosClientId: GOOGLE_LOGIN_KEY_IOS_DEV,
-  iosStandaloneAppClientId: GOOGLE_LOGIN_KEY_IOS_PROD,
-  scopes: ["profile", "email"],
-};
-
-export const authWithGoogleOld: (() => Promise<IAuthResult>) = async (
-): Promise<IAuthResult> => {
-  try {
-    const logInResult: Google.LogInResult =
-      await Google.logInAsync(googleConfig);
-
-    if (logInResult.type === "success") {
-      return {
-        authProvider: "GOOGLE",
-        authToken: logInResult.accessToken as string,
-        type: "success",
-        user: {
-          email: logInResult.user.email as string,
-          firstName: _.capitalize(logInResult.user.givenName),
-          fullName: _.startCase(logInResult.user.name?.toLowerCase()),
-          id: logInResult.user.id as string,
-          lastName: logInResult.user.familyName,
-          photoUrl: logInResult.user.photoUrl,
-        },
-      };
-    }
-  } catch (error) {
-    const errorCode: AppAuthError =
-      getStandardErrorCode((error as { code: AppAuthError }).code);
-
-    switch (errorCode) {
-      case AppAuthError.UserCanceledAuthorizationFlow:
-      case AppAuthError.ProgramCanceledAuthorizationFlow:
-        break;
-      case AppAuthError.NetworkError:
-        Alert.alert(
-          i18next.t("common.networkError.title"),
-          i18next.t("common.networkError.msg"));
-        break;
-      default:
-        LOGGER.warning(
-          "An error occurred authenticating with Google",
-          { ...error });
-        Alert.alert(
-          i18next.t("common.error.title"),
-          i18next.t("common.error.msg"));
-    }
-  }
-
-  return { type: "cancel" };
-};
 
 const microsoftConfig: AppAuth.OAuthProps = {
   clientId: MICROSOFT_LOGIN_KEY,
