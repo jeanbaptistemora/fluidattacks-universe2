@@ -17,7 +17,7 @@ bcrypt==3.1.7                           # fluidasserts.proto.ssl
 beautifulsoup4==4.9.1                   # fluidasserts.helper.http_helper
 boto3==1.14.32                          # fluidasserts.cloud.aws
 certifi==2020.6.20                      # fluidasserts.proto.ssl
-cffi==1.14.1                            # fluidasserts.proto.ssl
+cffi==1.14.2                            # fluidasserts.proto.ssl
 colorama==0.4.3                         # logging
 configobj==5.0.6                        # fluidasserts
 cfn-flip==1.2.3                         # fluidasserts.helper.cloudformation

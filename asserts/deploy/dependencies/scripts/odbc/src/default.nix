@@ -1,5 +1,5 @@
 let
-  pkgs = import ../../../../../../build/pkgs/stable.nix;
+  pkgs = import ../../../../../../build/pkgs/asserts.nix;
 
   odbcIniContents = with pkgs.unixODBCDrivers; ''
     [${msodbcsql17.fancyName}]

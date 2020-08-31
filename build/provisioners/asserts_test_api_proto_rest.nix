@@ -1,5 +1,5 @@
 let
-  pkgs = import ../pkgs/stable.nix;
+  pkgs = import ../pkgs/asserts.nix;
   inputs = [
     pkgs.python37Packages.selenium
     pkgs.python37Packages.brotli

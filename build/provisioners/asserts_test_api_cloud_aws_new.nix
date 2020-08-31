@@ -1,5 +1,5 @@
 let
-  pkgs = import ../pkgs/stable.nix;
+  pkgs = import ../pkgs/asserts.nix;
   builders.pythonRequirements = import ../builders/python-requirements pkgs;
 in
   pkgs.stdenv.mkDerivation (

@@ -1,5 +1,5 @@
 let
-  pkgs = import ../pkgs/stable.nix;
+  pkgs = import ../pkgs/asserts.nix;
   inputs = [
     pkgs.tesseract
     pkgs.python37Packages.selenium
