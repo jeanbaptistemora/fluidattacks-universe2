@@ -82,7 +82,7 @@ common_build_nix_caches:
   interruptible: false
   only:
     refs: [schedules]
-    variables: [$build_nix_caches]
+    variables: [$common_build_nix_caches]
 
 common_lint_build_system:
   <<: *with_nix
