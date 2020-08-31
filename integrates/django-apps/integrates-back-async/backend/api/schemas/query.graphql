@@ -59,6 +59,12 @@ type Query {
         toDate: DateTime
     ): ForcesExecutionsNew
 
+    "Get Forces execution"
+    forcesExecution(
+        projectName: String!
+        executionId: String!
+    ): ForcesExecutionNew
+
     "Me entity"
     me(callerOrigin: String): Me
 

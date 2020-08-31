@@ -7,6 +7,7 @@ from functools import (
 )
 from typing import (
     Any,
+    cast,
     Dict,
     List,
     Union,
@@ -46,6 +47,30 @@ def match_fields(my_dict: Dict[str, Any]) -> ForcesExecutionType:
     return new
 
 
+def format_execution(execution: Any) -> ForcesExecutionType:
+    for _, vulnerabilities in execution.get('vulnerabilities', {}).items():
+        if not isinstance(vulnerabilities, list):
+            continue
+
+        for vuln in vulnerabilities:
+            explot = {
+                '0.91': 'Unproven',
+                '0.94': 'Proof of concept',
+                '0.97': 'Functional',
+                '1.0': 'High',
+                '1': 'High',
+            }.get(str(vuln.get('exploitability', 0)), '-')
+            vuln['exploitability'] = explot
+    execution['vulnerabilities']['num_of_open_vulnerabilities'] = len(
+        execution['vulnerabilities']['open'])
+    execution['vulnerabilities']['num_of_closed_vulnerabilities'] = len(
+        execution['vulnerabilities']['closed'])
+    execution['vulnerabilities']['num_of_accepted_vulnerabilities'] = len(
+        execution['vulnerabilities']['accepted'])
+
+    return cast(ForcesExecutionType, execution)
+
+
 async def get_executions(
     *,
     from_date: datetime,
@@ -68,28 +93,18 @@ async def get_executions_new(
     result = []
     async for execution in forces_dal.yield_executions_new(
             project_name=group_name, from_date=from_date, to_date=to_date):
-        for _, vulnerabilities in execution.get('vulnerabilities', {}).items():
-            if not isinstance(vulnerabilities, list):
-                continue
-
-            for vuln in vulnerabilities:
-                explot = {
-                    '0.91': 'Unproven',
-                    '0.94': 'Proof of concept',
-                    '0.97': 'Functional',
-                    '1.0': 'High',
-                    '1': 'High',
-                }.get(str(vuln.get('exploitability', 0)), '-')
-                vuln['exploitability'] = explot
-        execution['vulnerabilities']['num_of_open_vulnerabilities'] = len(
-            execution['vulnerabilities']['open'])
-        execution['vulnerabilities']['num_of_closed_vulnerabilities'] = len(
-            execution['vulnerabilities']['closed'])
-        execution['vulnerabilities']['num_of_accepted_vulnerabilities'] = len(
-            execution['vulnerabilities']['accepted'])
-        result.append(execution)
+        result.append(format_execution(execution))
 
     return result
+
+
+async def get_execution(
+    *,
+    group_name: str,
+    execution_id: str,
+) -> ForcesExecutionType:
+    execution = await forces_dal.get_execution(group_name, execution_id)
+    return format_execution(execution)
 
 
 async def add_forces_execution(*,

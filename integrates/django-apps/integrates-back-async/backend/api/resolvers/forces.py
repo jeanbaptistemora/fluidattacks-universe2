@@ -184,6 +184,24 @@ async def resolve_forces_executions_new(
         })
 
 
+@convert_kwargs_to_snake_case  # type: ignore
+@concurrent_decorators(
+    require_login,
+    enforce_group_level_auth_async,
+    require_integrates,
+)
+async def resolve_forces_execution(
+    _: Any,
+    __: GraphQLResolveInfo,
+    project_name: str,
+    execution_id: str,
+) -> ForcesExecutionType:
+    """Resolve forces_executions query."""
+    project_name = project_name.lower()
+    return await forces_domain.get_execution(execution_id=execution_id,
+                                             group_name=project_name)
+
+
 @convert_kwargs_to_snake_case
 @enforce_group_level_auth_async
 async def update_forces_access_token(
