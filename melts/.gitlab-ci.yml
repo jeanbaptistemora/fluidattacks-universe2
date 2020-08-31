@@ -29,3 +29,8 @@
     - if: '$CI_PIPELINE_SOURCE == "trigger"'
       when: never
     - if: *melts_commit_pattern
+
+melts_lint_code:
+  <<: *with_nix
+  <<: *in_dev_branch_melts
+  stage: lint-code

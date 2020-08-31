@@ -12,6 +12,9 @@ source "${srcIncludeAssertsJobs}"
 source "${srcIncludeHelpersForces}"
 source "${srcIncludeForcesJobs}"
 
+source "${srcIncludeHelpersMelts}"
+source "${srcIncludeJobsMelts}"
+
 source "${srcIncludeHelpersIntegrates}"
 source "${srcIncludeIntegratesJobs}"
 source "${srcIncludeIntegratesLintersJobs}"
