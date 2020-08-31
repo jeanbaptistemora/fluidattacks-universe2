@@ -17,7 +17,7 @@ in
 
       pyPkgAssertstestsrequirements = builders.pythonRequirements ../../asserts/deploy/dependencies/tests.lst;
       pyPkgAssertslintrequirements = builders.pythonRequirements ../../asserts/deploy/dependencies/lint_asserts.lst;
-      pyPrecommit = builders.pythonPackage {
+      pyPkgPrecommit = builders.pythonPackage {
         requirement = "pre-commit==2.7.1";
       };
       pyPkgAsserts = import ../../asserts pkgs;

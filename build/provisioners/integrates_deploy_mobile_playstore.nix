@@ -1,5 +1,5 @@
 let
-  pkgs = import ../pkgs/stable.nix;
+  pkgs = import ../pkgs/integrates.nix;
 
   builders.rubyGem = import ../builders/ruby-gem pkgs;
 in

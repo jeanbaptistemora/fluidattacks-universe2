@@ -1,5 +1,5 @@
 let
-  pkgs = import ../pkgs/stable.nix;
+  pkgs = import ../pkgs/integrates.nix;
   builders.nodeJsModule = import ../builders/nodejs-module pkgs;
   builders.pythonPackage = import ../builders/python-package pkgs;
   builders.pythonRequirements = import ../builders/python-requirements pkgs;
@@ -18,7 +18,7 @@ in
         pkgs.awscli
         pkgs.curl
         pkgs.cacert
-        pkgs.nodejs
+        pkgs.nodejs-10_x
         pkgs.openjdk
         pkgs.p7zip
         pkgs.redis

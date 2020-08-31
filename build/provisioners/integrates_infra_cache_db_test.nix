@@ -1,6 +1,6 @@
 let
-  pkgs = import ../pkgs/stable.nix;
-  pkgs-unstable = import ../pkgs/unstable.nix;
+  pkgs = import ../pkgs/integrates.nix;
+  pkgs-terraform = import ../pkgs/terraform-0-13.nix;
 in
   pkgs.stdenv.mkDerivation (
        (import ../src/basic.nix)
@@ -11,7 +11,7 @@ in
       buildInputs = [
         pkgs.git
         pkgs.awscli
-        pkgs-unstable.terraform
+        pkgs-terraform.terraform_0_13
         pkgs.tflint
       ];
     })

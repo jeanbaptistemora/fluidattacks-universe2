@@ -4,7 +4,6 @@ set -e
 # Initialize integrates app.
 
 # Import functions
-. <(curl -sL https://static-objects.gitlab.net/fluidattacks/public/raw/master/shared-scripts/sops.sh)
 . integrates.sh
 . common.sh
 

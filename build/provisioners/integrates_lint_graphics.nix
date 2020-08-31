@@ -1,5 +1,5 @@
 let
-  pkgs = import ../pkgs/stable.nix;
+  pkgs = import ../pkgs/integrates.nix;
 
   builders.nodeJsModule = import ../builders/nodejs-module pkgs;
 in

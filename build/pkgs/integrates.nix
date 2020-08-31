@@ -5,6 +5,4 @@ let
     digest = "1qqrglpgld1rdasf2018mmzd5cr2vf16mf519q04mc7v3fwfhgws";
   };
 in
-  import src {
-    config.android_sdk.accept_license = true;
-  }
+  import src { }
