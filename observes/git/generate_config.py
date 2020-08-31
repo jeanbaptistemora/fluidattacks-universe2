@@ -92,7 +92,7 @@ def main():
     # Clone the repositories for this job
     for group_path in services_assignments:
         group = os.path.basename(group_path)
-        clone(group, group_path, clone_cmd='fluid drills --pull-repos')
+        clone(group, group_path, clone_cmd='melts drills --pull-repos')
 
     branches: Dict[str, Dict[str, str]] = get_repos_and_branches()
 

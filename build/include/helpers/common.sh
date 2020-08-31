@@ -327,20 +327,3 @@ function helper_common_poetry_install {
   &&  popd \
   ||  return 1
 }
-
-function helper_run_bin {
-  # Simulates a ./install.sh and allow you to use any executable located in ./bin
-  #
-  # It requires you to add: srcProduct = import ../..;
-  # inside the job's provisioner
-  #
-  export __NIX_PATH
-  export __PATH
-  local bin="${1}"
-
-      shift \
-  &&  NIX_PATH="${__NIX_PATH}" \
-      PATH="${__PATH}" \
-        "${srcProduct}/bin/${bin}" "${@}" \
-
-}

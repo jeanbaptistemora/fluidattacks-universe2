@@ -14,6 +14,7 @@ in
             pkgs.awscli
             pkgs.sops
             pkgs.jq
+            pkgs.nix
             pkgs.python37
             pkgs.python37Packages.GitPython
             pkgs.python37Packages.psycopg2

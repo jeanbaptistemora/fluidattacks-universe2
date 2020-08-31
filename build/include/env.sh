@@ -30,6 +30,10 @@ function env_prepare_environment_variables {
             echo '[INFO] In development environment' \
         &&  ENVIRONMENT_NAME="development"
       fi \
+  &&  if test -n "${srcProduct:-}"
+      then
+        export PATH="${srcProduct}/bin:${PATH:-}"
+      fi \
   &&  FI_VERSION=$(app_version) \
   &&  FI_VERSION_MOBILE=$(mobile_get_version code) \
   &&  echo "[INFO] FI_VERSION: ${FI_VERSION}" \

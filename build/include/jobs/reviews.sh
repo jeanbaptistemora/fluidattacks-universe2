@@ -65,5 +65,5 @@ function job_reviews_structure {
 }
 
 function job_reviews {
-  helper_run_bin reviews reviews.toml
+  reviews reviews.toml
 }

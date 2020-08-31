@@ -63,7 +63,7 @@ function helper_observes_move_services_fusion_to_master_git {
           INTEGRATES_API_TOKEN="${mock_integrates_api_token}" \
           PROD_AWS_ACCESS_KEY_ID="${AWS_ACCESS_KEY_ID}" \
           PROD_AWS_SECRET_ACCESS_KEY="${AWS_SECRET_ACCESS_KEY}" \
-          fluid drills --pull-repos "${subs}" \
+          melts drills --pull-repos "${subs}" \
       &&  mkdir -p ../../"${subs}" \
       &&  cp -r groups/"${subs}"/fusion/* ../../"${subs}"
     done < "${path_empty_repos}"

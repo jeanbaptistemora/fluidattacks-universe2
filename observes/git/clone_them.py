@@ -25,7 +25,7 @@ def run_command(cmd: str, cwd: str) -> Tuple[int, str]:
 def clone(
     subs_name: str,
     subs_path: str,
-    clone_cmd: str = 'fluid resources --clone-from-customer-git',
+    clone_cmd: str = 'melts resources --clone-from-customer-git',
 ) -> None:
     """Clone a subs_path."""
     _, output = run_command(clone_cmd, cwd=subs_path)
@@ -44,7 +44,7 @@ def clone(
 
 
 def sync_to_s3(subs_path):
-    _, output = run_command('fluid drills --push-repos', cwd=subs_path)
+    _, output = run_command('melts drills --push-repos', cwd=subs_path)
     print(f'INFO: sync to S3 {subs_path}')
     print(f'      output:')
     print(textwrap.indent(output, ' ' * 16))
