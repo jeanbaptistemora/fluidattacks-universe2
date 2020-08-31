@@ -1,0 +1,13 @@
+#! /usr/bin/env nix-shell
+#!   nix-shell -i bash
+#!   nix-shell --option restrict-eval false
+#!   nix-shell --option sandbox false
+#!   nix-shell --show-trace
+#!   nix-shell asserts.nix
+#  shellcheck shell=bash
+
+export PYTHONPATH="${pyPkgAsserts}/site-packages/:${PYTHONPATH}"
+
+export PATH="${pyPkgAsserts}/site-packages/bin/:${PATH}"
+
+"${pyPkgAsserts}/site-packages/bin/asserts" "$@"

@@ -20,5 +20,14 @@ then
 fi
 
 echo
+echo '[INFO] Checking fluidasserts is not installed with pip'
+if command -v asserts | grep -v nix
+then
+  echo
+  echo '[ERROR] Please uninstall fluidasserts with pip'
+  exit
+fi
+
+echo
 echo '[INFO] Installing products'
 nix-env -i product -f default.nix

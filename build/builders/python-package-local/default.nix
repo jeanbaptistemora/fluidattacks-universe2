@@ -5,6 +5,7 @@ let
 in
   { path,
     python ? pkgs.python37,
+    requirements ? [],
   }:
     pkgs.stdenv.mkDerivation rec {
       name = stringToDerivationName (builtins.baseNameOf path);
@@ -14,7 +15,7 @@ in
       srcIncludeGenericDirStructure = ../../include/generic/dir-structure.sh;
 
       builder = ./builder.sh;
-      buildInputs = [
+      buildInputs = requirements ++ [
         (python.withPackages (ps: with ps; [
           matplotlib
           pip

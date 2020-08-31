@@ -63,7 +63,7 @@ distutils.core.setup(
     extras_require=get_extras_require(),
     entry_points={
         'console_scripts': [
-            'fluid=toolbox.cli:main'
+            'melts=toolbox.cli:main'
         ],
     },
     include_package_data=True,

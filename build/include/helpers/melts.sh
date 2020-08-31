@@ -9,9 +9,9 @@ function helper_test_lint_code_python {
 
       pushd melts \
   &&  echo '[INFO]: Checking static typing...' \
-  &&  mypy --ignore-missing-imports --strict sorts \
+  &&  mypy --ignore-missing-imports --strict toolbox/sorts \
   &&  echo '[INFO]: Linting...' \
-  &&  prospector "${args_prospector[@]}" . \
+  &&  prospector "${args_prospector[@]}" toolbox/ \
   &&  popd \
   || return 0
 }
