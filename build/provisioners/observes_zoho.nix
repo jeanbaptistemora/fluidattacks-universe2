@@ -1,5 +1,5 @@
 let
-  pkgs = import ../pkgs/stable.nix;
+  pkgs = import ../pkgs/observes.nix;
   builders.pythonPackage = import ../builders/python-package pkgs;
   builders.pythonPackageLocal = import ../builders/python-package-local pkgs;
 in
