@@ -9,6 +9,7 @@ import {
   Prompt,
   resolveDiscoveryAsync,
   ResponseType,
+  revokeAsync,
 } from "expo-auth-session";
 import { AppOwnership, default as Constants } from "expo-constants";
 import _ from "lodash";
@@ -32,11 +33,15 @@ const clientId: string = inExpoClient
       ios: GOOGLE_LOGIN_KEY_IOS_PROD,
     });
 
-const redirectUri: string = makeRedirectUri({
+const getRedirectUri: () => string = (): string => makeRedirectUri({
   native: `${applicationId}:/oauth2redirect/google`,
   path: "oauth2redirect/google",
   useProxy: inExpoClient,
 });
+
+const getDiscovery: () => Promise<DiscoveryDocument> = async (): Promise<
+  DiscoveryDocument
+> => resolveDiscoveryAsync("https://accounts.google.com");
 
 const getAccessToken: (
   discovery: DiscoveryDocument,
@@ -58,7 +63,7 @@ const getAccessToken: (
       extraParams: {
         code_verifier: request.codeVerifier as string,
       },
-      redirectUri,
+      redirectUri: getRedirectUri(),
     },
     { tokenEndpoint: discovery.tokenEndpoint },
   );
@@ -70,13 +75,11 @@ const authWithGoogle: () => Promise<IAuthResult> = async (): Promise<
   IAuthResult
 > => {
   try {
-    const discovery: DiscoveryDocument = await resolveDiscoveryAsync(
-      "https://accounts.google.com",
-    );
+    const discovery: DiscoveryDocument = await getDiscovery();
     const request: AuthRequest = new AuthRequest({
       clientId,
       prompt: Prompt.SelectAccount,
-      redirectUri,
+      redirectUri: getRedirectUri(),
       responseType: inExpoClient ? ResponseType.Token : ResponseType.Code,
       scopes: [
         "https://www.googleapis.com/auth/userinfo.email",
@@ -128,4 +131,19 @@ const authWithGoogle: () => Promise<IAuthResult> = async (): Promise<
   return { type: "cancel" };
 };
 
-export { authWithGoogle };
+const logoutFromGoogle: (authToken: string) => void = async (
+  authToken: string,
+): Promise<void> => {
+  try {
+    const discovery: DiscoveryDocument = await getDiscovery();
+
+    await revokeAsync(
+      { token: authToken },
+      { revocationEndpoint: discovery.revocationEndpoint },
+    );
+  } catch (error) {
+    LOGGER.warning("Couldn't revoke google session", { ...error });
+  }
+};
+
+export { authWithGoogle, logoutFromGoogle };

@@ -39,13 +39,13 @@ const welcomeView: React.FunctionComponent = (): JSX.Element => {
           result.signIn.sessionJwt);
         history.replace("/Dashboard", { user });
       } else {
-        LOGGER.warning("Unsuccessful API auth", result);
+        LOGGER.error("Unsuccessful API auth", result);
         Alert.alert(t("common.error.title"), t("common.error.msg"));
         handleLogout();
       }
     },
     onError: (error: ApolloError): void => {
-      LOGGER.warning("API auth failed", error);
+      LOGGER.error("API auth failed", error);
       Alert.alert(t("common.error.title"), t("common.error.msg"));
       handleLogout();
     },

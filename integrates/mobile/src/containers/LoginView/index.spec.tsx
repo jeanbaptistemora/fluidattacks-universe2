@@ -1,6 +1,5 @@
 import { mount, ReactWrapper } from "enzyme";
 import * as AppAuth from "expo-app-auth";
-import * as Google from "expo-google-app-auth";
 import { FetchMockStatic } from "fetch-mock";
 import React from "react";
 // tslint:disable-next-line: no-submodule-imports
@@ -10,6 +9,7 @@ import { Alert, Platform } from "react-native";
 import { Provider as PaperProvider } from "react-native-paper";
 import { NativeRouter } from "react-router-native";
 
+import { authWithGoogle, IAuthResult } from "../../utils/socialAuth";
 import { i18next } from "../../utils/translations/translate";
 
 import { BitbucketButton, IBitbucketButtonProps } from "./BitbucketButton";
@@ -18,12 +18,12 @@ import { LoginView } from "./index";
 import { IMicrosoftButtonProps, MicrosoftButton } from "./MicrosoftButton";
 import { checkPlayStoreVersion } from "./version";
 
-jest.mock("expo-google-app-auth", (): Dictionary => {
-  const mockedGoogleAuth: Dictionary = jest.requireActual("expo-google-app-auth");
-  mockedGoogleAuth.logInAsync = jest.fn();
-
-  return mockedGoogleAuth;
-});
+jest.mock(
+  "../../utils/socialAuth/providers/google",
+  (): Record<string, jest.Mock> => ({
+    authWithGoogle: jest.fn(),
+  }),
+);
 
 jest.mock("expo-app-auth", (): Dictionary => {
   const mockedMicrosoftAuth: Dictionary = jest.requireActual("expo-app-auth");
@@ -168,16 +168,16 @@ describe("LoginView", (): void => {
 
   it("should auth with google", async (): Promise<void> => {
     (checkPlayStoreVersion as jest.Mock).mockImplementation((): Promise<boolean> => Promise.resolve(false));
-    (Google.logInAsync as jest.Mock).mockImplementation((): Promise<Google.LogInResult> => Promise.resolve({
-      accessToken: "abc123",
-      idToken: "abc123",
-      refreshToken: "abc123",
+    (authWithGoogle as jest.Mock).mockImplementation((): Promise<IAuthResult> => Promise.resolve({
+      authProvider: "GOOGLE",
+      authToken: "abc123",
       type: "success",
       user: {
         email: "test@fluidattacks.com",
-        familyName: "Doe",
-        givenName: "John",
-        name: "JOHN DOE",
+        firstName: "John",
+        fullName: "John Doe",
+        id: "",
+        lastName: "Doe",
       },
     }));
 
@@ -212,6 +212,7 @@ describe("LoginView", (): void => {
           email: "test@fluidattacks.com",
           firstName: "John",
           fullName: "John Doe",
+          id: "",
           lastName: "Doe",
         },
       });
@@ -275,8 +276,8 @@ describe("LoginView", (): void => {
 
   it("should handle auth cancel", async (): Promise<void> => {
     (checkPlayStoreVersion as jest.Mock).mockImplementation((): Promise<boolean> => Promise.resolve(false));
-    (Google.logInAsync as jest.Mock).mockImplementation((): Promise<Google.LogInResult> => Promise.reject({
-      code: Platform.select({ android: 2, ios: -3 }),
+    (authWithGoogle as jest.Mock).mockImplementation((): Promise<IAuthResult> => Promise.resolve({
+      type: "cancel",
     }));
     (AppAuth.authAsync as jest.Mock).mockImplementation((): Promise<AppAuth.TokenResponse> => Promise.reject({
       code: Platform.select({ android: 2, ios: -3 }),
@@ -305,14 +306,6 @@ describe("LoginView", (): void => {
       wrapper.update();
     });
 
-    (Google.logInAsync as jest.Mock).mockImplementation((): Promise<Google.LogInResult> => Promise.resolve({
-      type: "cancel",
-    }));
-    await act(async (): Promise<void> => {
-      await (googleBtn.invoke("onPress") as () => Promise<void>)();
-      wrapper.update();
-    });
-
     const microsoftBtn: ReactWrapper<IMicrosoftButtonProps> = wrapper
       .find<IMicrosoftButtonProps>(MicrosoftButton);
     expect(microsoftBtn)
@@ -331,7 +324,6 @@ describe("LoginView", (): void => {
 
   it("should handle errors", async (): Promise<void> => {
     (checkPlayStoreVersion as jest.Mock).mockImplementation((): Promise<boolean> => Promise.reject("Oops :("));
-    (Google.logInAsync as jest.Mock).mockImplementation((): Promise<Google.LogInResult> => Promise.reject("Oops :("));
     (AppAuth.authAsync as jest.Mock).mockImplementation((): Promise<AppAuth.TokenResponse> =>
       Promise.reject("Oops :("));
 
@@ -378,7 +370,7 @@ describe("LoginView", (): void => {
       wrapper.update();
     });
 
-    const expectedErrors: number = 3;
+    const expectedErrors: number = 2;
 
     expect(Alert.alert)
       .toHaveBeenCalledTimes(expectedErrors);

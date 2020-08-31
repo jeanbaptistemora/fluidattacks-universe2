@@ -19,6 +19,8 @@ import {
 import { LOGGER } from "../logger";
 import { i18next } from "../translations/translate";
 
+import { logoutFromGoogle } from "./providers/google";
+
 /**
  * AppAuth Error codes
  * @see https://git.io/JforO
@@ -75,7 +77,7 @@ const googleConfig: Google.GoogleLogInConfig = {
   scopes: ["profile", "email"],
 };
 
-export const authWithGoogle: (() => Promise<IAuthResult>) = async (
+export const authWithGoogleOld: (() => Promise<IAuthResult>) = async (
 ): Promise<IAuthResult> => {
   try {
     const logInResult: Google.LogInResult =
@@ -291,10 +293,7 @@ export const logout: (() => Promise<void>) = async (): Promise<void> => {
       // Bitbucket does not implement a revoke endpoint for oauth2
       break;
     case "GOOGLE":
-      Google.logOutAsync({ accessToken: authToken, ...googleConfig })
-        .catch((error: Error): void => {
-          LOGGER.warning("Couldn't revoke google session", { ...error });
-        });
+      logoutFromGoogle(authToken);
       break;
     case "MICROSOFT":
       AppAuth.revokeAsync(
@@ -309,3 +308,5 @@ export const logout: (() => Promise<void>) = async (): Promise<void> => {
   await SecureStore.deleteItemAsync("authState");
   Bugsnag.setUser("", "", "");
 };
+
+export { authWithGoogle } from "./providers/google";
