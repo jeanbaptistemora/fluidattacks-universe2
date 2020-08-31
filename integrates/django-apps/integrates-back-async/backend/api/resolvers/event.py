@@ -459,7 +459,7 @@ async def _do_update_event_evidence(
         success = await event_domain.update_evidence(
             event_id, evidence_type, file)
     if success:
-        util.queue_cache_invalidation(event_id)
+        util.queue_cache_invalidation(f'evidence*{event_id}')
         util.cloudwatch_log(
             info.context,
             ('Security: Updated evidence in '
@@ -516,10 +516,10 @@ async def _do_remove_event_evidence(
     """Resolve remove_event_evidence mutation."""
     success = await event_domain.remove_evidence(evidence_type, event_id)
     if success:
+        util.queue_cache_invalidation(f'evidence*{event_id}')
         util.cloudwatch_log(
             info.context,
             ('Security: Removed evidence in '
              f'event {event_id}')  # pragma: no cover
         )
-        util.queue_cache_invalidation(event_id)
     return SimplePayloadType(success=success)
