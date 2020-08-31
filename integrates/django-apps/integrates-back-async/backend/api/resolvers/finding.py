@@ -1103,10 +1103,7 @@ async def _do_reject_draft(
     reviewer_email = util.get_jwt_content(info.context)['user_email']
     success = await finding_domain.reject_draft(finding_id, reviewer_email)
     if success:
-        finding_loader = info.context.loaders['finding']
-        finding_data = await finding_loader.load(finding_id)
-        project_name = finding_data['project_name']
-        util.queue_cache_invalidation(finding_id, project_name)
+        util.queue_cache_invalidation(finding_id)
         util.cloudwatch_log(
             info.context,
             (f'Security: Draft {finding_id}'
@@ -1141,7 +1138,13 @@ async def _do_delete_finding(
         finding_id, project_name, justification, info.context
     )
     if success:
-        util.queue_cache_invalidation(finding_id, project_name)
+        project_attrs_to_clean = {
+            'severity': project_name,
+            'finding': project_name,
+            'vuln': project_name
+        }
+        to_clean = util.format_cache_keys_pattern(project_attrs_to_clean)
+        util.queue_cache_invalidation(*to_clean, finding_id)
         util.forces_trigger_deployment(project_name)
         util.cloudwatch_log(
             info.context,
@@ -1174,7 +1177,13 @@ async def _do_approve_draft(
         draft_id, reviewer_email
     )
     if success:
-        util.queue_cache_invalidation(draft_id, project_name)
+        project_attrs_to_clean = {
+            'severity': project_name,
+            'finding': project_name,
+            'vuln': project_name
+        }
+        to_clean = util.format_cache_keys_pattern(project_attrs_to_clean)
+        util.queue_cache_invalidation(draft_id, *to_clean)
         util.forces_trigger_deployment(project_name)
         util.cloudwatch_log(
             info.context,
