@@ -130,7 +130,7 @@ def truncate_bytes(string: str, start: int, end: int) -> str:
 def cli() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument('--namespace', required=True)
-    parser.add_argument('repositories', nargs='+')
+    parser.add_argument('repositories', nargs='*')
     args = parser.parse_args()
 
     repositories: Iterator[str] = map(abspath, args.repositories)

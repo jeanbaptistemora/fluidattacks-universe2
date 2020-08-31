@@ -63,6 +63,50 @@ function job_observes_zoho {
   ||  return 1
 }
 
+function job_observes_code {
+  export GITLAB_API_USER
+  export GITLAB_API_TOKEN
+  local mock_integrates_api_token='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.e30.xxx'
+  local services_url="https://${GITLAB_API_USER}:${GITLAB_API_TOKEN}@gitlab.com/fluidattacks/services.git"
+
+      env_prepare_python_packages \
+  &&  helper_observes_aws_login prod \
+  &&  helper_common_sops_env 'observes/secrets-prod.yaml' 'default' \
+        'REDSHIFT_DATABASE' \
+        'REDSHIFT_HOST' \
+        'REDSHIFT_PASSWORD' \
+        'REDSHIFT_PORT' \
+        'REDSHIFT_USER' \
+  &&  if ! test -e .services
+      then
+            echo '[INFO] Cloning services' \
+        &&  git clone --branch master --single-branch --depth 1 "${services_url}" '.services'
+      fi \
+  &&  pushd '.services' \
+    &&  aws s3 ls 's3://continuous-repositories/' \
+          | sed 's|.*PRE ||g;s|/||g' \
+          | while read -r group
+            do
+                  echo "[INFO] Working on ${group}" \
+              &&  echo "[INFO] Cloning ${group}" \
+              &&  CI=true \
+                  CI_COMMIT_REF_NAME='master' \
+                  INTEGRATES_API_TOKEN="${mock_integrates_api_token}" \
+                  PROD_AWS_ACCESS_KEY_ID="${AWS_ACCESS_KEY_ID}" \
+                  PROD_AWS_SECRET_ACCESS_KEY="${AWS_SECRET_ACCESS_KEY}" \
+                  fluid drills --pull-repos "${group}" \
+              &&  echo "[INFO] Executing ${group}" \
+              &&  python3 "${STARTDIR}/observes/code/__init__.py" \
+                    --namespace "${group}" \
+                    "groups/${group}/fusion/"* \
+              &&  rm -rf "groups/${group}/fusion/" \
+
+            done \
+  &&  popd \
+  ||  return 1
+
+}
+
 function job_observes_git_process {
   # If you move me take into account the artifacts in the .gitlab-ci.yaml
 

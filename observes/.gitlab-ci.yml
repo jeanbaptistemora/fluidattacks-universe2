@@ -164,6 +164,15 @@ observes_git_upload:
     variables: [$observes_git_upload]
   interruptible: false
 
+observes_code:
+  <<: *with_nix_serial
+  only:
+    refs: [schedules]
+    variables: [$observes_code]
+  stage: analytics
+  tags: [autoscaling-large]
+  interruptible: false
+
 observes_timedoctor_refresh_token:
   <<: *with_nix
   stage: analytics
