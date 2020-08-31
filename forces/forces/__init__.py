@@ -4,6 +4,7 @@ from importlib.metadata import version
 import copy
 import os
 import textwrap
+import tempfile
 import uuid
 
 # Third party libraries
@@ -55,9 +56,11 @@ bugsnag.configure(
     api_key="3625546064ad4b5b78aa0c0c93919fc5",
     project_root=BASE_DIR,
 )
+bugsnag.start_session()
+bugsnag.send_sessions()
 
 
-def show_banner() -> str:
+def show_banner(show: bool = True) -> str:
     """Show forces banner."""
     header = textwrap.dedent(rf"""
         #     ______
@@ -73,7 +76,8 @@ def show_banner() -> str:
         #
 
         """)
-    print(header)
+    if show:
+        print(header)
     return header
 
 
@@ -82,14 +86,19 @@ async def entrypoint(token: str, group: str, **kwargs: Any) -> int:
     strict = kwargs.get('strict', False)
     exit_code = 1 if strict else 0
     set_api_token(token)
-    header = show_banner()
+    header = show_banner(not bool(kwargs.get('output', True)))
 
     report = await generate_report(project=group)
     yaml_report = await generate_report_log(
         copy.deepcopy(report), verbose_level=kwargs.pop('verbose_level', 3))
 
+    log = header + yaml_report
+    temp_file = tempfile.NamedTemporaryFile()
+    temp_file.write(log.encode())
+
     if kwargs.get('output', None):
-        await unblock(kwargs['output'].write, yaml_report)
+        temp_file.seek(os.SEEK_SET)
+        await unblock(kwargs['output'].write, temp_file.read().decode('utf-8'))
     else:
         print(yaml_report)
     if strict:
@@ -103,8 +112,9 @@ async def entrypoint(token: str, group: str, **kwargs: Any) -> int:
         execution_id=execution_id,
         exit_code=str(exit_code),
         report=report,
-        log=header + yaml_report,
+        log_file=temp_file.name,
         strictness='strict' if strict else 'lax',
         git_metadata=metadata,
     )
+    temp_file.close()
     return exit_code

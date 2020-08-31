@@ -39,11 +39,11 @@ async def get_findings(project: str, **kwargs: str) -> List[str]:
 
     params = {'project_name': project}
     result: Dict[str, Dict[str, List[Any]]] = await execute(
-        query=query, variables=params, default=dict(), **kwargs)
+        query=query, variables=params, default=dict(), **kwargs) or dict()
 
     findings: List[str] = [
         group['id']
-        for group in result.get('project', dict()).get('findings', [])
+        for group in (result.get('project', dict()) or {}).get('findings', [])
     ]
 
     return findings
@@ -114,7 +114,7 @@ async def vulns_generator(project: str, **kwargs: str) -> AsyncGenerator[Dict[
             yield vuln
 
 
-async def upload_report(project: str, report: Dict[str, Any], log: str,
+async def upload_report(project: str, report: Dict[str, Any], log_file: str,
                         git_metadata: Dict[str, str],
                         **kwargs: Union[datetime, str]) -> bool:
     """
@@ -140,7 +140,7 @@ async def upload_report(project: str, report: Dict[str, Any], log: str,
             $git_origin: String
             $git_repo: String
             $kind: String
-            $log: String
+            $log: Upload
             $strictness: String!
             $open: [ExploitResultInput!]
             $closed: [ExploitResultInput!]
@@ -191,6 +191,7 @@ async def upload_report(project: str, report: Dict[str, Any], log: str,
 
     utc_dt = datetime.now(timezone.utc)
     bogota = pytz.timezone(os.environ.get('TZ', 'America/Bogota'))
+
     params: Dict[str, Any] = {
         'project_name': project,
         'execution_id': kwargs.pop('execution_id'),
@@ -204,7 +205,7 @@ async def upload_report(project: str, report: Dict[str, Any], log: str,
         'open': open_vulns,
         'accepted': accepted_vulns,
         'closed': closed_vulns,
-        'log': log,
+        'log': open(log_file, 'rb'),
         'strictness': kwargs.pop('strictness'),
         'kind': 'other',
     }
