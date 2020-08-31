@@ -9,7 +9,7 @@ import { Alert, Platform } from "react-native";
 import { Provider as PaperProvider } from "react-native-paper";
 import { NativeRouter } from "react-router-native";
 
-import { authWithGoogle, IAuthResult } from "../../utils/socialAuth";
+import { authWithGoogle, authWithMicrosoft, IAuthResult } from "../../utils/socialAuth";
 import { i18next } from "../../utils/translations/translate";
 
 import { BitbucketButton, IBitbucketButtonProps } from "./BitbucketButton";
@@ -22,6 +22,13 @@ jest.mock(
   "../../utils/socialAuth/providers/google",
   (): Record<string, jest.Mock> => ({
     authWithGoogle: jest.fn(),
+  }),
+);
+
+jest.mock(
+  "../../utils/socialAuth/providers/microsoft",
+  (): Record<string, jest.Mock> => ({
+    authWithMicrosoft: jest.fn(),
   }),
 );
 
@@ -220,23 +227,18 @@ describe("LoginView", (): void => {
 
   it("should auth with microsoft", async (): Promise<void> => {
     (checkPlayStoreVersion as jest.Mock).mockImplementation((): Promise<boolean> => Promise.resolve(false));
-    (AppAuth.authAsync as jest.Mock).mockImplementation((): Promise<AppAuth.TokenResponse> => Promise.resolve({
-      accessToken: "abc123",
-      accessTokenExpirationDate: "",
-      additionalParameters: {},
-      idToken: "def456",
-      refreshToken: "",
-      tokenType: "",
-    }));
-    mockedFetch.mock("https://login.microsoftonline.com/common/openid/userinfo", {
-      body: {
+    (authWithMicrosoft as jest.Mock).mockImplementation((): Promise<IAuthResult> => Promise.resolve({
+      authProvider: "MICROSOFT",
+      authToken: "def456",
+      type: "success",
+      user: {
         email: "test@fluidattacks.com",
-        family_name: "DOE",
-        given_name: "JOHN",
-        name: "JOHN DOE",
+        firstName: "John",
+        fullName: "John Doe",
+        id: "",
+        lastName: "DOE",
       },
-      status: 200,
-    });
+    }));
 
     const wrapper: ReactWrapper = mount(
       <PaperProvider>
@@ -269,6 +271,7 @@ describe("LoginView", (): void => {
           email: "test@fluidattacks.com",
           firstName: "John",
           fullName: "John Doe",
+          id: "",
           lastName: "DOE",
         },
       });
@@ -277,6 +280,9 @@ describe("LoginView", (): void => {
   it("should handle auth cancel", async (): Promise<void> => {
     (checkPlayStoreVersion as jest.Mock).mockImplementation((): Promise<boolean> => Promise.resolve(false));
     (authWithGoogle as jest.Mock).mockImplementation((): Promise<IAuthResult> => Promise.resolve({
+      type: "cancel",
+    }));
+    (authWithMicrosoft as jest.Mock).mockImplementation((): Promise<IAuthResult> => Promise.resolve({
       type: "cancel",
     }));
     (AppAuth.authAsync as jest.Mock).mockImplementation((): Promise<AppAuth.TokenResponse> => Promise.reject({
@@ -370,7 +376,7 @@ describe("LoginView", (): void => {
       wrapper.update();
     });
 
-    const expectedErrors: number = 2;
+    const expectedErrors: number = 1;
 
     expect(Alert.alert)
       .toHaveBeenCalledTimes(expectedErrors);

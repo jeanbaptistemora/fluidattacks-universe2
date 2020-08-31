@@ -3,10 +3,10 @@ import {
   AuthSessionResult,
   DiscoveryDocument,
   exchangeCodeAsync,
+  fetchDiscoveryAsync,
   fetchUserInfoAsync,
   makeRedirectUri,
   Prompt,
-  resolveDiscoveryAsync,
   ResponseType,
   revokeAsync,
 } from "expo-auth-session";
@@ -39,7 +39,7 @@ const getRedirectUri: () => string = (): string => makeRedirectUri({
 
 const getDiscovery: () => Promise<DiscoveryDocument> = async (): Promise<
   DiscoveryDocument
-> => resolveDiscoveryAsync("https://accounts.google.com");
+> => fetchDiscoveryAsync("https://accounts.google.com");
 
 const getAccessToken: (
   discovery: DiscoveryDocument,
@@ -121,7 +121,7 @@ const authWithGoogle: () => Promise<IAuthResult> = async (): Promise<
       }
     }
   } catch (error) {
-    LOGGER.error("An error occurred authenticating with Google", { ...error });
+    LOGGER.error("Couldn't authenticate with Google", { ...error });
   }
 
   return { type: "cancel" };

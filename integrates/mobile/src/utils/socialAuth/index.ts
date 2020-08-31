@@ -9,12 +9,12 @@ import {
   BITBUCKET_LOGIN_KEY_PROD,
   BITBUCKET_LOGIN_SECRET_DEV,
   BITBUCKET_LOGIN_SECRET_PROD,
-  MICROSOFT_LOGIN_KEY,
 } from "../constants";
 import { LOGGER } from "../logger";
 import { i18next } from "../translations/translate";
 
 import { logoutFromGoogle } from "./providers/google";
+import { logoutFromMicrosoft } from "./providers/microsoft";
 
 /**
  * AppAuth Error codes
@@ -63,71 +63,6 @@ export interface IAuthState {
 }
 
 export type IAuthResult = { type: "cancel" } | IAuthState & { type: "success" };
-
-const microsoftConfig: AppAuth.OAuthProps = {
-  clientId: MICROSOFT_LOGIN_KEY,
-  issuer: "https://sts.windows.net/common/",
-  redirectUrl: `${AppAuth.OAuthRedirect}://oauth2redirect/microsoft`,
-  scopes: ["openid", "profile", "email"],
-  serviceConfiguration: {
-    authorizationEndpoint:
-      "https://login.microsoftonline.com/common/oauth2/authorize",
-    revocationEndpoint:
-      "https://login.microsoftonline.com/common/oauth2/logout",
-    tokenEndpoint: "https://login.microsoftonline.com/common/oauth2/token",
-  },
-};
-
-export const authWithMicrosoft: (() => Promise<IAuthResult>) = async (
-): Promise<IAuthResult> => {
-  try {
-    const logInResult: AppAuth.TokenResponse =
-      await AppAuth.authAsync(microsoftConfig);
-    const userResponse: Response = await fetch(
-      "https://login.microsoftonline.com/common/openid/userinfo",
-      { headers: { Authorization: `Bearer ${logInResult.accessToken}` } },
-    );
-
-    /**
-     * User properties returned by Microsoft's Graph API
-     * @see https://docs.microsoft.com/en-us/graph/api/resources/user?view=graph-rest-1.0#properties
-     */
-    const userProps: Record<string, string> =
-      await userResponse.json() as Record<string, string>;
-
-    return {
-      authProvider: "MICROSOFT",
-      authToken: logInResult.idToken as string,
-      type: "success",
-      user: {
-        email: _.get(userProps, "upn", userProps.email),
-        firstName: _.capitalize(userProps.given_name),
-        fullName: _.startCase(userProps.name.toLowerCase()),
-        id: userProps.oid,
-        lastName: userProps.family_name,
-      },
-    };
-  } catch (error) {
-    const errorCode: AppAuthError =
-      getStandardErrorCode(Number((error as { code: AppAuthError }).code));
-
-    switch (errorCode) {
-      case AppAuthError.UserCanceledAuthorizationFlow:
-      case AppAuthError.ProgramCanceledAuthorizationFlow:
-      case AppAuthError.AccessDenied:
-        break;
-      default:
-        LOGGER.warning(
-          "An error occurred authenticating with Microsoft",
-          { ...error });
-        Alert.alert(
-          i18next.t("common.error.title"),
-          i18next.t("common.error.msg"));
-    }
-  }
-
-  return { type: "cancel" };
-};
 
 const bitbucketConfig: AppAuth.OAuthProps = {
   clientId: __DEV__ ? BITBUCKET_LOGIN_KEY_DEV : BITBUCKET_LOGIN_KEY_PROD,
@@ -236,12 +171,7 @@ export const logout: (() => Promise<void>) = async (): Promise<void> => {
       logoutFromGoogle(authToken);
       break;
     case "MICROSOFT":
-      AppAuth.revokeAsync(
-        microsoftConfig,
-        { isClientIdProvided: true, token: authToken })
-        .catch((error: Error): void => {
-          LOGGER.warning("Couldn't revoke microsoft session", { ...error });
-        });
+      logoutFromMicrosoft(authToken);
       break;
     default:
   }
@@ -250,3 +180,4 @@ export const logout: (() => Promise<void>) = async (): Promise<void> => {
 };
 
 export { authWithGoogle } from "./providers/google";
+export { authWithMicrosoft } from "./providers/microsoft";

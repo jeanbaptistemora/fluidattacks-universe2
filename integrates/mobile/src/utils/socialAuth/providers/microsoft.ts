@@ -3,10 +3,10 @@ import {
   AuthSessionResult,
   DiscoveryDocument,
   exchangeCodeAsync,
+  fetchDiscoveryAsync,
   fetchUserInfoAsync,
   makeRedirectUri,
   Prompt,
-  resolveDiscoveryAsync,
   ResponseType,
   revokeAsync,
   TokenResponse,
@@ -14,10 +14,10 @@ import {
 import _ from "lodash";
 
 import { IAuthResult } from "..";
-import { MICROSOFT_LOGIN_KEY } from "../../constants";
+import { MICROSOFT_CLIENT_ID } from "../../constants";
 import { LOGGER } from "../../logger";
 
-const clientId: string = MICROSOFT_LOGIN_KEY;
+const clientId: string = MICROSOFT_CLIENT_ID;
 
 const getRedirectUri: () => string = (): string =>
   makeRedirectUri({
@@ -28,7 +28,7 @@ const getRedirectUri: () => string = (): string =>
 const getDiscovery: () => Promise<DiscoveryDocument> = async (): Promise<
   DiscoveryDocument
 > => {
-  const baseDocument: DiscoveryDocument = await resolveDiscoveryAsync(
+  const baseDocument: DiscoveryDocument = await fetchDiscoveryAsync(
     "https://login.microsoftonline.com/common",
   );
 
@@ -85,6 +85,10 @@ const authWithMicrosoft: () => Promise<IAuthResult> = async (): Promise<
         request,
       );
 
+      /**
+       * User properties returned by Microsoft's Graph API
+       * @see https://docs.microsoft.com/en-us/graph/api/resources/user?view=graph-rest-1.0#properties
+       */
       const userProps: Record<string, string> = await fetchUserInfoAsync(
         { accessToken },
         { userInfoEndpoint: discovery.userInfoEndpoint },
