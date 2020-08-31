@@ -24,6 +24,7 @@ from typing import (
     Dict,
     Iterator,
     List,
+    Optional,
 )
 
 # Third party libraries
@@ -47,11 +48,11 @@ from psycopg2.extras import (
 )
 from git import (
     Commit,
+    InvalidGitRepositoryError,
     Repo,
 )
 
 # Constants
-CHECK_INTERVAL: int = 1024
 COMMIT_HASH_SENTINEL: str = '-' * 40
 DATE_SENTINEL: datetime = datetime.utcfromtimestamp(0)
 DATE_NOW: datetime = datetime.utcnow()
@@ -63,7 +64,7 @@ INSERT_QUERY = """
         total_insertions, total_deletions,
         total_lines, total_files,
 
-        seen_at, namespace, repository
+        counter, namespace, repository, seen_at
     )
     VALUES (
         %(author_email)s, %(author_name)s, %(authored_at)s,
@@ -72,7 +73,7 @@ INSERT_QUERY = """
         %(total_insertions)s, %(total_deletions)s,
         %(total_lines)s, %(total_files)s,
 
-        %(seen_at)s, %(namespace)s, %(repository)s
+        %(counter)s, %(namespace)s, %(repository)s, %(seen_at)s
     )
 """
 WORKERS_COUNT: int = 16
@@ -177,32 +178,43 @@ def db_cursor() -> Iterator[cursor_cls]:
 
 
 async def manager(queue: Queue, namespace: str, *repositories: str) -> None:
-    counter = CHECK_INTERVAL
     commit: Commit
     with db_cursor() as cursor:
         for repo_path in repositories:
-            repo_obj: Repo = Repo(repo_path)
+            try:
+                repo_obj: Repo = Repo(repo_path)
+                repo_obj.iter_commits()
+            except ValueError:
+                await log('warning', 'Repository is possibly empty, ignoring')
+                continue
+            except InvalidGitRepositoryError:
+                await log('warning', 'Invalid or corrupt repository')
+                continue
+
             repo_name: str = basename(repo_path)
             repo_is_new: bool = not await does_commit_exist(
                 cursor, COMMIT_HASH_SENTINEL, namespace, repo_name,
             )
+            repo_last_commit: Optional[str] = await get_last_commit(
+                cursor, namespace, repo_name,
+            )
 
-            async for commit in generate_in_thread(repo_obj.iter_commits):
-                # Every # commits let's check if we've already walked this
-                if counter % CHECK_INTERVAL == 0:
-                    if await does_commit_exist(
-                        cursor, commit.hexsha, namespace, repo_name,
-                    ):
-                        break
+            counter = 0
+            async for commit in generate_in_thread(
+                repo_obj.iter_commits,
+                topo_order=True,
+            ):
+                counter += 1
+                if commit.hexsha == repo_last_commit:
+                    break
 
                 await queue.put(dict(
+                    counter=counter,
                     namespace=namespace,
                     repository=repo_name,
                     seen_at=DATE_SENTINEL if repo_is_new else DATE_NOW,
                     **get_commit_data(commit),
                 ))
-
-                counter += 1
 
             if repo_is_new:
                 await queue.join()
@@ -236,6 +248,38 @@ async def does_commit_exist(
 
     # The list has values if the item exists
     return bool(await in_thread(cursor.fetchall))
+
+
+async def get_last_commit(
+    cursor: cursor_cls,
+    namespace: str,
+    repository: str,
+) -> Optional[str]:
+    """Return the last seen commit for the provided namespace/repository."""
+    await in_thread(
+        cursor.execute,
+        """
+            SELECT hash
+            FROM code.commits
+            WHERE
+                hash != %(sentinel)s
+                and namespace = %(namespace)s
+                and repository = %(repository)s
+            ORDER BY seen_at DESC, counter ASC
+            LIMIT 1
+        """,
+        dict(
+            sentinel=COMMIT_HASH_SENTINEL,
+            namespace=namespace,
+            repository=repository,
+        ),
+    )
+
+    # The list has values if the item exists
+    data = await in_thread(cursor.fetchall)
+    if data and data[0]:
+        return data[0][0]
+    return None
 
 
 async def register_repository(
@@ -282,9 +326,10 @@ async def initialize() -> None:
                         total_lines INTEGER,
                         total_files INTEGER,
 
-                        seen_at TIMESTAMPTZ,
+                        counter INTEGER,
                         namespace VARCHAR(64),
                         repository VARCHAR(4096),
+                        seen_at TIMESTAMPTZ,
 
                         PRIMARY KEY (
                             namespace,
