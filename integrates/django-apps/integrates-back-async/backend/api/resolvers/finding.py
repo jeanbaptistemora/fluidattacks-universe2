@@ -785,11 +785,14 @@ async def _do_update_severity(
     finding_id = parameters.get('finding_id', '')
     finding_loader = info.context.loaders['finding']
     finding_data = await finding_loader.load(finding_id)
-    project = finding_data['project_name']
+    project_name = finding_data['project_name']
     success = False
     success = await finding_domain.save_severity(data)
     if success:
-        util.queue_cache_invalidation(finding_id, project)
+        util.queue_cache_invalidation(
+            f'severity*{finding_id}',
+            f'severity*{project_name}'
+        )
         util.cloudwatch_log(
             info.context,
             ('Security: Updated severity in '
@@ -962,6 +965,7 @@ async def _do_handle_acceptation(
     """Resolve handle_acceptation mutation."""
     user_info = util.get_jwt_content(info.context)
     user_mail = user_info['user_email']
+    project_name = parameters.get('project_name', '')
     finding_id = parameters.get('finding_id', '')
     finding_loader = info.context.loaders['finding']
     finding_data = await finding_loader.load(finding_id)
@@ -971,7 +975,6 @@ async def _do_handle_acceptation(
             'It cant be approved/rejected a finding'
             'definite assumption without being requested'
         )
-
     success = await finding_domain.handle_acceptation(
         finding_id,
         str(parameters.get('observations')),
@@ -979,9 +982,18 @@ async def _do_handle_acceptation(
         str(parameters.get('response'))
     )
     if success:
-        util.queue_cache_invalidation(
-            finding_id, parameters.get('project_name', '')
-        )
+        attrs_to_clean = {
+            'historic_treatment': finding_id,
+            'current_state': finding_id,
+            'open_vulnerabilities': project_name,
+            'open_findings': project_name,
+            'max*severity': project_name,
+            'mean_remediate': project_name,
+            'total_findings': project_name,
+            'total_treatment': project_name
+        }
+        to_clean = util.format_cache_keys_pattern(attrs_to_clean)
+        util.queue_cache_invalidation(*to_clean)
         util.forces_trigger_deployment(parameters.get('project_name', ''))
         util.cloudwatch_log(
             info.context,
@@ -1007,10 +1019,9 @@ async def _do_update_description(
         finding_id, parameters
     )
     if success:
-        finding_loader = info.context.loaders['finding']
-        finding_data = await finding_loader.load(finding_id)
-        project_name = finding_data['project_name']
-        util.queue_cache_invalidation(finding_id, project_name)
+        attrs_to_clean = {attribute: finding_id for attribute in parameters}
+        to_clean = util.format_cache_keys_pattern(attrs_to_clean)
+        util.queue_cache_invalidation(*to_clean)
         util.cloudwatch_log(
             info.context,
             ('Security: Updated description in '
@@ -1051,7 +1062,6 @@ async def _do_update_client_description(
         'historic_treatment': finding['historic_treatment'],
         'severity': finding['severity_score']
     }
-
     success = await finding_domain.update_client_description(
         finding_id,
         parameters,
@@ -1060,7 +1070,9 @@ async def _do_update_client_description(
         user_mail
     )
     if success:
-        util.queue_cache_invalidation(finding_id, project_name)
+        attrs_to_clean = {attribute: finding_id for attribute in parameters}
+        to_clean = util.format_cache_keys_pattern(attrs_to_clean)
+        util.queue_cache_invalidation(*to_clean)
         util.forces_trigger_deployment(project_name)
         util.cloudwatch_log(
             info.context,

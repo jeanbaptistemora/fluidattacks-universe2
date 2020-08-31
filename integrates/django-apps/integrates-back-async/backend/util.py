@@ -344,6 +344,13 @@ def queue_cache_invalidation(*keys_pattern: str) -> None:
     asyncio.create_task(_invalidate_cache(*keys_pattern))
 
 
+def format_cache_keys_pattern(attrs_to_clean: Dict[str, str]) -> List[str]:
+    return [
+        f'{attribute}*{identifier}'
+        for attribute, identifier in attrs_to_clean.items()
+    ]
+
+
 def format_comment_date(date_string: str) -> str:
     date = datetime.strptime(date_string, '%Y-%m-%d %H:%M:%S')
     formatted_date = date.strftime('%Y/%m/%d %H:%M:%S')
