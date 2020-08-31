@@ -26,7 +26,7 @@ actors.
 Application functions related to authentication and session management are
 often implemented incorrectly,
 allowing attackers to compromise passwords, keys, or session tokens,
-or to exploit other implementation flaws to assume other users’ identities
+or to exploit other implementation flaws to assume other users' identities
 temporarily or permanently.
 
 . [[r3]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 6.5.10]

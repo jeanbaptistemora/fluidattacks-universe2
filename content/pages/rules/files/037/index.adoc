@@ -104,7 +104,7 @@ but it does not restrict or incorrectly restricts the resulting name.
 Injection flaws, such as **SQL**, **NoSQL**, **OS**, and *LDAP* injection,
 occur when untrusted data is sent to an interpreter as part of a command or
 query.
-The attacker’s hostile data can trick the interpreter into executing unintended
+The attacker's hostile data can trick the interpreter into executing unintended
 commands or accessing data without proper authorization.
 
 . [[r8]] link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A3-Sensitive_Data_Exposure[OWASP Top 10 A3:2017-Sensitive Data Exposure].

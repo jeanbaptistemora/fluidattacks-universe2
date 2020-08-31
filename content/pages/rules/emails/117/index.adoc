@@ -21,7 +21,7 @@ must not display *HTML* code by default.
 Injection flaws, such as **SQL**, **NoSQL**, **OS**, and *LDAP* injection,
 occur when untrusted data is sent to an interpreter as part of a command or
 query.
-The attacker’s hostile data can trick the interpreter into executing unintended
+The attacker's hostile data can trick the interpreter into executing unintended
 commands or accessing data without proper authorization.
 
 . [[r2]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 6.5.1]

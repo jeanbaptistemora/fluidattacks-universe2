@@ -71,7 +71,7 @@ image::../out-of-scope/assets/004/diag1-req002.png[Req002 Diagram]
 
 An anonymous person or employee
 executes actions that attempt against
-the security of any of the organization’s information assets,
+the security of any of the organization's information assets,
 since the affected assets do not have an owner assigned
 the incident is not managed.
 

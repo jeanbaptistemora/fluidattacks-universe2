@@ -44,7 +44,7 @@ Where the controller is able to demonstrate that it is not in a position to
 identify the data subject,
 articles 15 to 20 shall not apply.
 
-. [[r3]] link:https://gdpr-info.eu/art-17-gdpr/[GDPR. Art. 17: Right to erasure (‘right to be forgotten’).(1).]
+. [[r3]] link:https://gdpr-info.eu/art-17-gdpr/[GDPR. Art. 17: Right to erasure (‘right to be forgotten').(1).]
 The data subject shall have the right to obtain from the controller the erasure
 of personal data concerning him or her without undue delay and the controller
 shall have the obligation to erase personal data without undue delay.

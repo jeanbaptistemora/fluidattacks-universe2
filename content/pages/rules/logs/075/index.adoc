@@ -181,3 +181,7 @@ initialization, stopping, or pausing of the audit logs.
 . [[r21]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 10.2.7]
 Implement automated audit trails for all system components to reconstruct
 creation and deletion of system-level objects.
+
+. [[r22]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Appendix A1 A1.3]
+Ensure logging and audit trails are enabled and unique to each entity's
+cardholder data environment

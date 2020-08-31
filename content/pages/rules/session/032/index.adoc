@@ -51,7 +51,7 @@ includes sensitive information in the query string of that request.
 Application functions related to authentication and session management are
 often implemented incorrectly,
 allowing attackers to compromise passwords, keys, or session tokens,
-or to exploit other implementation flaws to assume other users’ identities
+or to exploit other implementation flaws to assume other users' identities
 temporarily or permanently.
 
 . [[r5]] link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A3-Sensitive_Data_Exposure[OWASP Top 10 A3:2017-Sensitive Data Exposure].

@@ -50,7 +50,7 @@ but it does not properly control which attributes can be modified.
 Injection flaws, such as **SQL**, **NoSQL**, **OS**, and *LDAP* injection,
 occur when untrusted data is sent to an interpreter as part of a command or
 query.
-The attacker’s hostile data can trick the interpreter into executing unintended
+The attacker's hostile data can trick the interpreter into executing unintended
 commands or accessing data without proper authorization.
 
 . [[r6]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1

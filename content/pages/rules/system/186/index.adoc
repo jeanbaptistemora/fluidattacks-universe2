@@ -65,8 +65,8 @@ in accordance with organizational missions and business functions.
 Restrictions on what authenticated users are allowed to do are often not
 properly enforced.
 Attackers can exploit these flaws to access unauthorized functionality and/or
-data, such as access other users’ accounts, view sensitive files,
-modify other users’ data, change access rights, etc.
+data, such as access other users' accounts, view sensitive files,
+modify other users' data, change access rights, etc.
 
 . [[r9]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V1.2 Authentication Architectural Requirements.(1.2.1)]
@@ -128,3 +128,11 @@ directory traversal, and failure to restrict user access to functions).
 . [[r19]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 7.1.2]
 Restrict access to privileged user IDs to least privileges necessary to perform
 job responsibilities.
+
+. [[r20]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Appendix A1 A1.1]
+Ensure that each entity only runs processes that have access to that entity's
+cardholder data environment.
+
+. [[r21]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Appendix A1 A1.2]
+Restrict each entity's access and privileges to its own cardholder data
+environment only.

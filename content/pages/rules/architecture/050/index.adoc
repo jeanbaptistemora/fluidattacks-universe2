@@ -42,7 +42,7 @@ including for eval attacks, remote *JavaScript* includes, *CSP* bypasses,
 Injection flaws, such as **SQL**, **NoSQL**, **OS**, and *LDAP* injection,
 occur when untrusted data is sent to an interpreter as part of a command or
 query.
-The attacker’s hostile data can trick the interpreter into executing unintended
+The attacker's hostile data can trick the interpreter into executing unintended
 commands or accessing data without proper authorization.
 
 . [[r5]] link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A6-Security_Misconfiguration[OWASP Top 10 A6:2017-Security Misconfiguration].
@@ -59,7 +59,7 @@ securely configured, but they must be patched/upgraded in a timely fashion.
 page without proper validation or escaping,
 or updates an existing web page with user-supplied data using a browser *API*
 that can create *HTML* or **JavaScript**.
-*XSS* allows attackers to execute scripts in the victim’s browser which can
+*XSS* allows attackers to execute scripts in the victim's browser which can
 hijack user sessions, deface web sites, or redirect the user to malicious
 sites.
 

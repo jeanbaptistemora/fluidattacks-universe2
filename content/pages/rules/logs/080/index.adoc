@@ -33,8 +33,8 @@ when an actor attempts to access a resource or perform an action.
 Restrictions on what authenticated users are allowed to do are often not
 properly enforced.
 Attackers can exploit these flaws to access unauthorized functionality and/or
-data, such as access other users’ accounts, view sensitive files,
-modify other users’ data, change access rights, etc.
+data, such as access other users' accounts, view sensitive files,
+modify other users' data, change access rights, etc.
 
 . [[r5]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V7.3 Log Protection Requirements.(7.3.3)]

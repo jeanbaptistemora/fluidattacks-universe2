@@ -68,7 +68,7 @@ typically immediately following authentication.
 Application functions related to authentication and session management are
 often implemented incorrectly,
 allowing attackers to compromise passwords, keys, or session tokens,
-or to exploit other implementation flaws to assume other users’ identities
+or to exploit other implementation flaws to assume other users' identities
 temporarily or permanently.
 
 . [[r4]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
