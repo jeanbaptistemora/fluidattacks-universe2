@@ -307,7 +307,7 @@ type Mutation {
         content: String!,
         findingId: String!,
         parent: GenericScalar!,
-        type: FindingCommentType!
+        type: FindingConsultType!
     ): AddConsultPayload!
     rejectRemoveProject(projectName: String!): SimplePayload!
 

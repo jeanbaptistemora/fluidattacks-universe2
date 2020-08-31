@@ -489,6 +489,11 @@ enum FindingCommentType {
     OBSERVATION
 }
 
+enum FindingConsultType {
+    CONSULT
+    OBSERVATION
+}
+
 enum DeleteFindingJustification {
     DUPLICATED
     FALSE_POSITIVE

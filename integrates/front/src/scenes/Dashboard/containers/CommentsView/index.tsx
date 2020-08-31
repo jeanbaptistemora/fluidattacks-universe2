@@ -22,11 +22,10 @@ type ICommentsViewProps = RouteComponentProps<{ findingId: string; type: string 
 const commentsView: React.FC<ICommentsViewProps> = (props: ICommentsViewProps): JSX.Element => {
   const findingId: string = props.match.params.findingId;
   let type: string = props.match.params.type;
-  if (type === "consulting") {
-    type = "comments";
-  }
+  type = type === "observations" ? type.slice(0, -1) : type.slice(0, -3);
+
   const onMount: (() => void) = (): void => {
-    mixpanel.track(type === "comments" ? "FindingComments" : "FindingObservations", {
+    mixpanel.track(type === "consult" ? "FindingComments" : "FindingObservations", {
       User: (window as typeof window & { userName: string }).userName,
     });
   };
@@ -44,7 +43,7 @@ const commentsView: React.FC<ICommentsViewProps> = (props: ICommentsViewProps): 
   return (
     <React.StrictMode>
       <Query
-        query={type === "comments" ? GET_FINDING_CONSULTING : GET_FINDING_OBSERVATIONS}
+        query={type === "consult" ? GET_FINDING_CONSULTING : GET_FINDING_OBSERVATIONS}
         variables={{ findingId }}
         onError={handleErrors}
       >
@@ -53,7 +52,7 @@ const commentsView: React.FC<ICommentsViewProps> = (props: ICommentsViewProps): 
           const getData: ((callback: loadCallback) => void) = (
             callbackFn: (data: ICommentStructure[]) => void,
           ): void => {
-            const comments: ICommentStructure[] = type === "comments"
+            const comments: ICommentStructure[] = type === "consult"
               ? data.finding.consulting
               : data.finding.observations;
             callbackFn(comments.map((comment: ICommentStructure) => ({
@@ -94,9 +93,7 @@ const commentsView: React.FC<ICommentsViewProps> = (props: ICommentsViewProps): 
                   }
 
                   void addComment({ variables: { findingId,
-                                                 type: type
-                                                   .toUpperCase()
-                                                   .slice(0, -1),
+                                                 type: type.toUpperCase(),
                                                  ...comment } })
                     .then((mtResult: void | {}): void => {
                       const result: IMutationResult["data"] = (mtResult as IMutationResult).data;

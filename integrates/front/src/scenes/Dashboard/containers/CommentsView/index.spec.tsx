@@ -40,7 +40,7 @@ describe("FindingCommentsView", () => {
     location: { hash: "", pathname: "/", search: "", state: {} },
     match: {
       isExact: true,
-      params: { findingId: "413372600", type: "comments" },
+      params: { findingId: "413372600", type: "consulting" },
       path: "/",
       url: "",
     },
@@ -146,7 +146,7 @@ describe("FindingCommentsView", () => {
       { attachTo: container });
     await act(async () => { await wait(0); wrapper.update(); });
     const commentElement: ReactWrapper = wrapper.find("div")
-      .find({ id: "finding-comments" });
+      .find({ id: "finding-consult" });
     expect(commentElement)
       .toHaveLength(1);
     expect(wrapper.text())
@@ -171,7 +171,7 @@ describe("FindingCommentsView", () => {
       { attachTo: container });
     await act(async () => { await wait(0); wrapper.update(); });
     const commentElement: ReactWrapper = wrapper.find("div")
-      .find({ id: "finding-observations" });
+      .find({ id: "finding-observation" });
     expect(commentElement)
       .toHaveLength(1);
     expect(wrapper.text())

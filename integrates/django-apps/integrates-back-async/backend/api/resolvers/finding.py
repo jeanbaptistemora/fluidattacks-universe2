@@ -860,7 +860,7 @@ async def _do_add_finding_comment(
         raise GraphQLError('Invalid comment type')
 
     if success:
-        util.queue_cache_invalidation(f'comment*{finding_id}')
+        util.queue_cache_invalidation(f'{param_type}*{finding_id}')
         finding_domain.send_comment_mail(
             user_email,
             comment_data,
@@ -892,7 +892,7 @@ async def _do_add_finding_consult(
         info: GraphQLResolveInfo,
         **parameters: Any) -> AddConsultPayloadType:
     param_type = parameters.get('type', '').lower()
-    if param_type in ['comment', 'observation']:
+    if param_type in ['consult', 'observation']:
         user_data = util.get_jwt_content(info.context)
         user_email = user_data['user_email']
         finding_id = str(parameters.get('finding_id'))
@@ -914,7 +914,8 @@ async def _do_add_finding_consult(
         current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         comment_data = {
             'user_id': comment_id,
-            'comment_type': param_type,
+            'comment_type':
+                'comment' if param_type == 'consult' else param_type,
             'content': parameters.get('content'),
             'fullname': ' '.join(
                 [user_data['first_name'], user_data['last_name']]
@@ -931,7 +932,7 @@ async def _do_add_finding_consult(
     else:
         raise GraphQLError('Invalid comment type')
     if success:
-        util.queue_cache_invalidation(f'consulting*{finding_id}')
+        util.queue_cache_invalidation(f'{param_type}*{finding_id}')
         finding_domain.send_comment_mail(
             user_email,
             comment_data,
