@@ -1,5 +1,5 @@
 let
-  pkgs = import ../build/pkgs/stable.nix;
+  pkgs = import ../build/pkgs/reviews.nix;
 
   builders.pythonPackageLocal = import ../build/builders/python-package-local pkgs;
   builders.nodeJsModule = import ../build/builders/nodejs-module pkgs;

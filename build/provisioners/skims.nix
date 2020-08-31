@@ -1,5 +1,5 @@
 let
-  pkgs = import ../pkgs/stable.nix;
+  pkgs = import ../pkgs/skims.nix;
 in
   pkgs.stdenv.mkDerivation (
        (import ../src/basic.nix)

@@ -1,5 +1,5 @@
 let
-  pkgs = import ../build/pkgs/stable.nix;
+  pkgs = import ../build/pkgs/asserts.nix;
 
   builders.pythonPackageLocal = import ../build/builders/python-package-local pkgs;
 in
