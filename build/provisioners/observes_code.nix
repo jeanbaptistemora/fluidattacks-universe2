@@ -22,11 +22,7 @@ in
           pyPkgAioextensions = builders.pythonPackage {
             requirement = "aioextensions==20.8.2087641";
           };
-          pyPkgFluidCLI = builders.pythonPackage {
-            requirement = "fluidattacks";
-          };
 
-          # Constants for dynamic linked binaries
-          LD_LIBRARY_PATH="${pkgs.stdenv.cc.cc.lib}/lib64:$LD_LIBRARY_PATH";
+          srcProduct = import ../..;
         })
   )

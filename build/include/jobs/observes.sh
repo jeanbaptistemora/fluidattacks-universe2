@@ -95,7 +95,7 @@ function job_observes_code {
                   INTEGRATES_API_TOKEN="${mock_integrates_api_token}" \
                   PROD_AWS_ACCESS_KEY_ID="${AWS_ACCESS_KEY_ID}" \
                   PROD_AWS_SECRET_ACCESS_KEY="${AWS_SECRET_ACCESS_KEY}" \
-                  fluid drills --pull-repos "${group}" \
+                  helper_run_bin melts drills --pull-repos "${group}" \
               &&  echo "[INFO] Apending mailmaps" \
               &&  for repo in "groups/${group}/fusion/"*
                   do

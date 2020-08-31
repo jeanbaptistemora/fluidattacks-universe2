@@ -22,8 +22,8 @@ function decide_and_call_provisioner {
     arg1="$*"
   fi
   local provisioner
+  export __PATH="${PATH}"
   export __NIX_PATH="${NIX_PATH}"
-  export __NIX_SSL_CERT_FILE="${NIX_SSL_CERT_FILE}"
 
   # shellcheck disable=2016
       if echo "${job}" | grep -q 'asserts_test_'
@@ -57,9 +57,7 @@ function decide_and_call_provisioner {
         --keep INTEGRATES_API_TOKEN \
         --keep JWT_TOKEN \
         --keep __NIX_PATH \
-        --keep __NIX_SSL_CERT_FILE \
-        --keep NIX_PATH \
-        --keep NIX_PROFILES \
+        --keep __PATH \
         --keep NIX_SSL_CERT_FILE \
         --keep DEV_AWS_ACCESS_KEY_ID \
         --keep DEV_AWS_SECRET_ACCESS_KEY \
