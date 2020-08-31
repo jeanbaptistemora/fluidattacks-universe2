@@ -64,19 +64,26 @@ INSERT_QUERY = """
         total_insertions, total_deletions,
         total_lines, total_files,
 
-        counter, namespace, repository, seen_at
+        namespace, repository, seen_at
     )
-    VALUES (
+    SELECT
         %(author_email)s, %(author_name)s, %(authored_at)s,
         %(committer_email)s, %(committer_name)s, %(committed_at)s,
         %(hash)s, %(message)s, %(summary)s,
         %(total_insertions)s, %(total_deletions)s,
         %(total_lines)s, %(total_files)s,
 
-        %(counter)s, %(namespace)s, %(repository)s, %(seen_at)s
+        %(namespace)s, %(repository)s, %(seen_at)s
+    WHERE NOT EXISTS (
+        SELECT hash, namespace, repository
+        FROM code.commits
+        WHERE
+            hash = %(hash)s
+            and namespace = %(namespace)s
+            and repository = %(repository)s
     )
 """
-WORKERS_COUNT: int = 16
+WORKERS_COUNT: int = 8
 WORKERS_PAGE_SIZE: int = 1024
 
 # Logging
@@ -199,17 +206,14 @@ async def manager(queue: Queue, namespace: str, *repositories: str) -> None:
                 cursor, namespace, repo_name,
             )
 
-            counter = 0
             async for commit in generate_in_thread(
                 repo_obj.iter_commits,
                 topo_order=True,
             ):
-                counter += 1
                 if commit.hexsha == repo_last_commit:
                     break
 
                 await queue.put(dict(
-                    counter=counter,
                     namespace=namespace,
                     repository=repo_name,
                     seen_at=DATE_SENTINEL if repo_is_new else DATE_NOW,
@@ -265,7 +269,7 @@ async def get_last_commit(
                 hash != %(sentinel)s
                 and namespace = %(namespace)s
                 and repository = %(repository)s
-            ORDER BY seen_at DESC, counter ASC
+            ORDER BY seen_at DESC, authored_at DESC
             LIMIT 1
         """,
         dict(
@@ -326,7 +330,6 @@ async def initialize() -> None:
                         total_lines INTEGER,
                         total_files INTEGER,
 
-                        counter INTEGER,
                         namespace VARCHAR(64),
                         repository VARCHAR(4096),
                         seen_at TIMESTAMPTZ,
