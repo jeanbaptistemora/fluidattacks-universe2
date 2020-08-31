@@ -14,11 +14,11 @@ in
       ];
 
       pyPkgProspector = builders.pythonPackage {
-        requirement = "prospector[with_everything]==1.2.0";
+        requirement = "prospector[with_everything]==1.3.0";
       };
 
       pyPkgMypy = builders.pythonPackage {
-        requirement = "mypy==0.780";
+        requirement = "mypy==0.782";
       };
     })
   )
