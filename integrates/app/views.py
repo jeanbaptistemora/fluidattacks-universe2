@@ -202,7 +202,7 @@ def app(request: HttpRequest) -> HttpResponse:
                     last_name=request.session['last_name'],
                 ),
             )
-    except KeyError as ex:
+    except (KeyError, TypeError) as ex:
         bugsnag.notify(ex)
         return redirect('/integrates/error500')
     except ConcurrentSession:
