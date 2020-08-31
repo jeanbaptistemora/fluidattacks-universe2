@@ -13,25 +13,25 @@ aws configure set aws_secret_access_key "$AWS_SECRET_ACCESS_KEY"
 aws configure set region us-east-1
 
 system_vars() {
-  for var in ${@}; do
-    echo "export ${var}=\"${!var}\"" >> /root/.profile
-  done
+    for var in ${@}; do
+        echo "export ${var}=\"${!var}\"" >> /root/.profile
+    done
 }
 
 if [ "$CI_COMMIT_REF_NAME" = 'master' ]; then
-  ENV_NAME='production'
+    ENV_NAME='production'
 else
-  ENV_NAME='development'
+    ENV_NAME='development'
 fi
 
 sops_vars "$ENV_NAME"
 
 if [ "$CI_COMMIT_REF_NAME" = 'master' ]; then
     system_vars \
-      AWS_ACCESS_KEY_ID \
-      AWS_SECRET_ACCESS_KEY \
-      CI_COMMIT_REF_NAME \
-      JWT_TOKEN
+        AWS_ACCESS_KEY_ID \
+        AWS_SECRET_ACCESS_KEY \
+        CI_COMMIT_REF_NAME \
+        JWT_TOKEN
 fi
 
 /etc/init.d/td-agent restart
@@ -47,6 +47,7 @@ sleep 10
 # http://docs.gunicorn.org/en/latest/design.html#how-many-workers
 # Current number of CPUs defined at deploy/integrates-k8s.yaml
 gunicorn fluidintegrates.asgi:APP \
-	--bind=0.0.0.0:80 \
-	--workers=5 \
-	--worker-class=fluidintegrates.asgi.IntegratesWorker
+    --bind=0.0.0.0:80 \
+    --workers=5 \
+    --worker-class=fluidintegrates.asgi.IntegratesWorker \
+    --timeout=120
