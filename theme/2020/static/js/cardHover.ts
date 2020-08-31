@@ -9,7 +9,9 @@ for (count = 0; count < accordions.length; count += 1) {
     const arrow: HTMLElement = (panel.nextElementSibling as HTMLElement).children[1] as HTMLElement;
 
     arrow.classList.toggle("rotate-180");
-    (panel.nextElementSibling as HTMLElement).classList.toggle("pointer");
+    (event.currentTarget as HTMLElement).children[2].classList.toggle("dn");
+    (panel.nextElementSibling as HTMLElement).classList.toggle("dn");
+
     // tslint:disable-next-line: strict-boolean-expressions
     panel.style.height ?
     panel.style.height = ""
@@ -28,10 +30,6 @@ for (count = 0; count < readmores.length; count += 1) {
 
     if (mainbt.classList.contains("active")) {
       mainbt.click();
-    }
-
-    if (current.classList.contains("pointer")) {
-      current.classList.remove("pointer");
     }
   });
 }
