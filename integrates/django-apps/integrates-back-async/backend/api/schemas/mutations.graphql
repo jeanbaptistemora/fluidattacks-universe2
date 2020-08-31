@@ -443,7 +443,7 @@ type Mutation {
         gitOrigin: String
         gitRepo: String
         kind: String
-        log: String
+        log: Upload
         strictness: String!
         vulnerabilities: ExecutionVulnerabilitiesInput!
     ): SimplePayload!

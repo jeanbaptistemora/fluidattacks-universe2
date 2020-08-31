@@ -12,10 +12,14 @@ from boto3.dynamodb.conditions import Key, Attr
 from botocore.exceptions import ClientError
 
 # Local libraries
-from backend.dal.helpers import dynamodb
+from backend.dal.helpers import dynamodb, s3
 from fluidintegrates.settings import LOGGING
+from __init__ import (
+    FI_AWS_S3_FORCES_BUCKET,
+)
 
 logging.config.dictConfig(LOGGING)
+
 
 # Constants
 LOGGER = logging.getLogger(__name__)
@@ -92,6 +96,14 @@ async def yield_executions_new(project_name: str, from_date: datetime,
                 ExclusiveStartKey=results['LastEvaluatedKey'])
             for result in results['Items']:
                 yield result
+
+
+async def save_log_execution(file_object: object, file_name: str) -> bool:
+    return await s3.upload_memory_file(  # type: ignore
+        FI_AWS_S3_FORCES_BUCKET,
+        file_object,
+        file_name,
+    )
 
 
 async def create_execution(project_name: str,

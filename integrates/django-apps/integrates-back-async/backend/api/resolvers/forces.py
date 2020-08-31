@@ -9,6 +9,7 @@ from typing import (
 
 from ariadne import convert_kwargs_to_snake_case, convert_camel_case_to_snake
 from asgiref.sync import sync_to_async
+from django.core.files.uploadedfile import InMemoryUploadedFile
 from graphql.type.definition import GraphQLResolveInfo
 
 from backend.decorators import (
@@ -102,9 +103,11 @@ async def _resolve_fields(
 async def _do_add_forces_execution(_: Any,
                                    info: GraphQLResolveInfo,
                                    project_name: str,
+                                   log: Union[InMemoryUploadedFile,
+                                              None] = None,
                                    **parameters: Any) -> SimplePayloadType:
     success = await forces_domain.add_forces_execution(
-        project_name=project_name, **parameters)
+        project_name=project_name, log=log, **parameters)
     if success:
         util.cloudwatch_log(
             info.context,

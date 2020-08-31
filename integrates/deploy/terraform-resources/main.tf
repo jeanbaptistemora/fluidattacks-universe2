@@ -29,6 +29,11 @@ variable "aws_s3_build_bucket" {
   default = "fluidintegrates.build"
 }
 
+variable "aws_s3_forces_bucket" {
+  type    = string
+  default = "fluidintegrates.forces"
+}
+
 terraform {
   backend "s3" {
     bucket  = "servestf"
@@ -56,6 +61,7 @@ module "cloudfront" {
   evidences_bucket_name = var.aws_s3_evidences_bucket
   reports_bucket_name   = var.aws_s3_reports_bucket
   build_bucket_name     = var.aws_s3_build_bucket
+  forces_bucket_name    = var.aws_s3_forces_bucket
 }
 
 module "s3" {

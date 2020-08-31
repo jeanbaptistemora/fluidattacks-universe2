@@ -9,7 +9,11 @@ from typing import (
     Any,
     Dict,
     List,
+    Union,
 )
+
+# Third party libraries
+from django.core.files.uploadedfile import InMemoryUploadedFile
 
 # Local libraries
 from backend.dal import (
@@ -88,7 +92,13 @@ async def get_executions_new(
     return result
 
 
-async def add_forces_execution(*, project_name: str,
-                               **execution_attributes) -> bool:
-    return await forces_dal.create_execution(project_name=project_name,
-                                             **execution_attributes)
+async def add_forces_execution(*,
+                               project_name: str,
+                               log: Union[InMemoryUploadedFile, None] = None,
+                               **execution_attributes: Any) -> bool:
+    success = False
+    full_name = f'{project_name}/{execution_attributes["execution_id"]}.log'
+    if await forces_dal.save_log_execution(log, full_name):
+        success = await forces_dal.create_execution(project_name=project_name,
+                                                    **execution_attributes)
+    return success
