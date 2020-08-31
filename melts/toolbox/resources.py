@@ -7,12 +7,13 @@ import sys
 import json
 import platform
 import shlex
+from shlex import quote as shq
 import shutil
 import subprocess
 import urllib.parse
 from multiprocessing import cpu_count
 from multiprocessing.pool import ThreadPool
-from subprocess import Popen, PIPE, check_output
+from subprocess import DEVNULL, Popen, PIPE, check_output
 from typing import Dict, List, Tuple
 
 # Third parties imports
@@ -30,7 +31,8 @@ def cmd_execute(cmnd, folder='.'):
         'GIT_SSL_NO_VERIFY': '1',
     }
     process = Popen(
-        shlex.split(cmnd),
+        cmnd,
+        stdin=DEVNULL,
         stdout=PIPE,
         stderr=PIPE,
         cwd=folder,
@@ -81,8 +83,7 @@ def repo_url(baseurl, repo):
         uri = uri.replace('<user>', repo_user)
         uri = uri.replace('<pass>', repo_pass)
         # check if the user has permissions in the repo
-        command = f"git ls-remote {uri}"
-        cmd = cmd_execute(command)
+        cmd = cmd_execute(['git', 'ls-remote', uri])
         if 'fatal' not in cmd[1]:
             return uri
     return cmd[1]
@@ -102,11 +103,11 @@ def ssh_repo_cloning(subs, code) -> bool:
         keyfile = 'key'
     else:
         keyfile = os.popen('mktemp').read()[:-1]
-        os.system(f"chmod 600 '{keyfile}'")
+        cmd_execute(['chmod', '600', keyfile])
     file = open(keyfile, 'w+')
     file.write(key)
     file.close()
-    os.system("chmod 0400 " + keyfile)
+    cmd_execute(['chmod', '0400', keyfile])
     baseurl = code.get('url')[0]
     if 'source.developers.google' not in baseurl:
         baseurl = baseurl.replace('ssh://', '')
@@ -130,8 +131,12 @@ def ssh_repo_cloning(subs, code) -> bool:
         folder = repo.split('/')[-1]
         if os.path.isdir(folder):
             # Update already existing repo
-            command = f""" ssh-agent sh -c "ssh-add '{keyfile}'; \
-                     git pull origin '{branch}'"; """
+            command = [
+                'ssh-agent', 'sh', '-c', ';'.join((
+                    f"ssh-add {shq(keyfile)}",
+                    f"git pull origin {shq(branch)}",
+                )),
+            ]
 
             cmd = cmd_execute(command, folder)
             if len(cmd[0]) == 0 and 'fatal' in cmd[1]:
@@ -142,8 +147,12 @@ def ssh_repo_cloning(subs, code) -> bool:
                     f"""\n#UPDATING {repo_br} ....\n{cmd[1]}\n{cmd[0]}""")
         else:
             # Clone repo:
-            command = f""" ssh-agent sh -c "ssh-add '{keyfile}'; \
-                    git clone -b '{branch}' --single-branch '{uri}'"; """
+            command = [
+                'ssh-agent', 'sh', '-c', ';'.join((
+                    f"ssh-add {shq(keyfile)}",
+                    f"git clone -b {shq(branch)} --single-branch {shq(uri)}"
+                )),
+            ]
 
             cmd = cmd_execute(command)
             if len(cmd[0]) == 0 and 'fatal' in cmd[1]:
@@ -161,8 +170,12 @@ def ssh_repo_cloning(subs, code) -> bool:
         print_problems(problems, branches)
         return False
     # Remove identities and keys
-    clear = 'ssh-agent sh -c "ssh-add -D; rm -f ' + keyfile + '"'
-    os.system(clear)
+    cmd_execute([
+        'ssh-agent', 'sh', '-c', ';'.join((
+            'ssh-add -D',
+            f'rm -f {shq(keyfile)}'
+        ))
+    ])
     return True
 
 
@@ -185,11 +198,8 @@ def http_repo_cloning(subs, code) -> bool:
         folder = repo.split('/')[-1]
         if os.path.isdir(folder):
             # Update already existing repo
-            if platform.system() == 'Linux':
-                command = f"git pull origin '{branch}'"
-            else:
-                command = f"git pull origin {branch}"
-            cmd = cmd_execute(command, folder)
+            cmd = cmd_execute(['git', 'pull', 'origin', branch], folder)
+
             if len(cmd[0]) == 0 and 'fatal' in cmd[1]:
                 problems.append({'repo': repo_br, 'problem': cmd[1]})
             else:
@@ -197,13 +207,9 @@ def http_repo_cloning(subs, code) -> bool:
                 logger.info(
                     f"""\n#UPDATING {repo_br} ....\n{cmd[0]}\n{cmd[1]}""")
         else:
-            if platform.system() == 'Linux':
-                command = \
-                    f"git clone -b '{branch}' --single-branch '{uri}'"
-            else:
-                command = f"git clone -b {branch} --single-branch {uri}"
-
-            cmd = cmd_execute(command)
+            cmd = cmd_execute([
+                'git', 'clone', '-b', branch, '--single-branch', uri,
+            ])
             if len(cmd[0]) == 0 and 'fatal' in cmd[1]:
                 problems.append({'repo': repo_br, 'problem': cmd[1]})
             else:
