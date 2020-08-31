@@ -1,6 +1,7 @@
 """
 This migration is related to the removed approval flow for vulnerabilities.
 It takes those PENDING vulns and reject them as before.
+Executed: 2020-08-31 12:20:00-05:00
 """
 
 from time import time
