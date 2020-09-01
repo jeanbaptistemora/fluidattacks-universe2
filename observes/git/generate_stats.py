@@ -42,7 +42,7 @@ def main():  # noqa
 
         if int(subs_total_repos_count) > 0 \
                 and int(subs_cloned_repos_count) == 0:
-            with open('repos_to_get_from_cache.lst', 'a') as handle:
+            with open('subs_to_get_from_s3.lst', 'a') as handle:
                 handle.write(subs)
                 handle.write('\n')
 

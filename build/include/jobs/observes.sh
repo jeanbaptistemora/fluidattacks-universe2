@@ -150,8 +150,9 @@ function job_observes_timedoctor_manually_create_token {
 }
 
 function job_observes_services_repositories_cache {
-      helper_use_pristine_workdir \
-  &&  env_prepare_python_packages \
+  # Please don't add pristine workdir
+
+      env_prepare_python_packages \
   &&  helper_observes_services_repositories_cache \
   ||  return 1
 }

@@ -23,32 +23,9 @@ function helper_observes_aws_login {
   &&  aws configure set aws_secret_access_key "${AWS_SECRET_ACCESS_KEY}"
 }
 
-function helper_observes_move_artifacts_to_git {
-  local artifacts="${PWD}/artifacts"
-  local git="/git"
-
-  if test -e "${artifacts}"
-  then
-    # shellcheck disable=SC2015
-        echo '[INFO] Moving repositories from the artifacts to git' \
-    &&  mv "${artifacts}/"* "${git}" \
-    &&  ls "${git}" \
-    ||  true
-  fi
-}
-
-function helper_observes_move_git_to_artifacts {
-  local artifacts="${PWD}/artifacts"
-  local git="/git"
-
-      echo '[INFO] Moving repositories from git to artifacts' \
-  &&  mkdir -p "${artifacts}" \
-  &&  mv "${git}/"* "${artifacts}"
-}
-
 function helper_observes_move_services_fusion_to_master_git {
   local mock_integrates_api_token='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.e30.xxx'
-  local path_empty_repos="${PWD}/repos_to_get_from_cache.lst"
+  local path_empty_repos="${STARTDIR}/subs_to_get_from_s3.lst"
 
   set +o errexit
   set +o nounset
@@ -64,8 +41,8 @@ function helper_observes_move_services_fusion_to_master_git {
           PROD_AWS_ACCESS_KEY_ID="${AWS_ACCESS_KEY_ID}" \
           PROD_AWS_SECRET_ACCESS_KEY="${AWS_SECRET_ACCESS_KEY}" \
           melts drills --pull-repos "${subs}" \
-      &&  mkdir -p ../../"${subs}" \
-      &&  cp -r groups/"${subs}"/fusion/* ../../"${subs}"
+      &&  mkdir -p "/git/${subs}" \
+      &&  cp -r "groups/${subs}/fusion/"* "/git/${subs}"
     done < "${path_empty_repos}"
   popd
 
@@ -437,11 +414,14 @@ function helper_observes_timedoctor_manually_create_token {
 }
 
 function helper_observes_services_repositories_cache {
+  # Please if you ever modify this function test it!
+  #
+  # Every line is there for something, don't modify them until absolutely sure
+
   local mock_integrates_api_token='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.e30.xxx'
   helper_get_projects
 
       helper_observes_aws_login prod \
-  &&  helper_observes_move_artifacts_to_git \
   &&  echo '[INFO] Cloning our own repositories' \
   &&  python3 observes/git/clone_us.py "${PROJECTS[@]}" \
   &&  echo '[INFO] Cloning customer repositories' \
@@ -452,10 +432,13 @@ function helper_observes_services_repositories_cache {
       PROD_AWS_ACCESS_KEY_ID="${AWS_ACCESS_KEY_ID}" \
       PROD_AWS_SECRET_ACCESS_KEY="${AWS_SECRET_ACCESS_KEY}" \
       python3 observes/git/clone_them.py \
+  &&  echo '[INFO] Generating stats before filling with S3' \
+  &&  python3 observes/git/generate_stats.py \
+  &&  echo '[INFO] filling unclonable subscriptions with S3' \
   &&  helper_observes_move_services_fusion_to_master_git \
   &&  echo '[INFO] Generating stats' \
-  &&  { python3 observes/git/generate_stats.py || true; } \
-  &&  helper_observes_move_git_to_artifacts
+  &&  python3 observes/git/generate_stats.py \
+
 }
 
 function helper_observes_lint_code_python {

@@ -144,6 +144,7 @@ function job_skims_test {
     --no-cov-on-fail
     --reruns 10
     --reruns-delay 1
+    --show-capture no
     --verbose
   )
 
