@@ -1,5 +1,4 @@
 data "aws_caller_identity" "current" {}
-data "aws_availability_zones" "available" {}
 variable "aws_access_key" {}
 variable "aws_secret_key" {}
 
@@ -12,7 +11,7 @@ data "aws_eks_cluster_auth" "cluster" {
 variable "region" {
   default = "us-east-1"
 }
-variable "vpc_id" {
+variable "fluid_vpc_id" {
   default = "vpc-0ea1c7bd6be683d2d"
 }
 variable "cluster_name" {
@@ -24,7 +23,7 @@ variable "map_accounts" {
   type        = list(string)
 
   default = [
-    data.aws_caller_identity.current.account_id,
+    "205810638802",
   ]
 }
 variable "map_roles" {
@@ -37,12 +36,12 @@ variable "map_roles" {
 
   default = [
     {
-      rolearn  = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/integrates-prod"
+      rolearn  = "arn:aws:iam:205810638802:role/integrates-prod"
       username = "role-integrates-prod"
       groups   = ["system:masters"]
     },
     {
-      rolearn  = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/integrates-dev"
+      rolearn  = "arn:aws:iam:205810638802:role/integrates-dev"
       username = "role-integrates-dev"
       groups   = ["system:masters"]
     },
@@ -59,12 +58,12 @@ variable "map_users" {
 
   default = [
     {
-      userarn  = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/user-provision/integrates-prod"
+      userarn  = "arn:aws:iam::205810638802:user/user-provision/integrates-prod"
       username = "user-integrates-prod"
       groups   = ["system:masters"]
     },
     {
-      userarn  = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/user-provision/integrates-dev"
+      userarn  = "arn:aws:iam::205810638802:user/user-provision/integrates-dev"
       username = "user-integrates-dev"
       groups   = ["system:masters"]
     },

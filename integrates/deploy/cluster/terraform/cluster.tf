@@ -15,7 +15,7 @@ module "eks" {
     GithubOrg   = "terraform-aws-modules"
   }
 
-  vpc_id = var.vpc_id
+  vpc_id = var.fluid_vpc_id
 
   worker_groups = [
     {

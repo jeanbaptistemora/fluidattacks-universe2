@@ -1101,6 +1101,37 @@ function job_integrates_infra_secret_management_test {
   || return 1
 }
 
+function job_integrates_infra_cluster_deploy {
+  local target='deploy/cluster/terraform'
+
+      helper_use_pristine_workdir \
+  &&  pushd integrates \
+  &&  echo '[INFO] Logging in to AWS production' \
+  &&  CI_COMMIT_REF_NAME=master helper_integrates_aws_login production \
+  &&  pushd "${target}" \
+  &&  terraform init \
+  &&  terraform apply -auto-approve -refresh=true \
+  &&  popd \
+  &&  popd \
+  || return 1
+}
+
+function job_integrates_infra_cluster_test {
+  local target='deploy/cluster/terraform'
+
+      helper_use_pristine_workdir \
+  &&  pushd integrates \
+  &&  echo '[INFO] Logging in to AWS development' \
+  &&  helper_integrates_aws_login development \
+  &&  pushd "${target}" \
+  &&  terraform init \
+  &&  tflint --deep --module \
+  &&  terraform plan -lock=false -refresh=true \
+  &&  popd \
+  &&  popd \
+  || return 1
+}
+
 function job_integrates_rotate_jwt_token {
   local integrates_repo_id='20741933'
   local var_name='JWT_TOKEN'
