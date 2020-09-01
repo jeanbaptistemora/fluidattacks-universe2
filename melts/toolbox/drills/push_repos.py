@@ -105,6 +105,8 @@ def s3_sync_fusion_to_s3(
     if endpoint_url:
         command.append('--endpoint')
         command.append(endpoint_url)
+    if generic.is_env_ci():
+        command.append('--quiet')
     status, stdout, stderr = generic.run_command(
         cmd=command,
         cwd='.',
