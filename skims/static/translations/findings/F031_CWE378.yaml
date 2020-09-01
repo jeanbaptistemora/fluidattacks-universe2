@@ -34,9 +34,9 @@ utils.model.finding.enum.F031_CWE378.requirements:
     datos.
 utils.model.finding.enum.F031_CWE378.threat:
   en: >
-    Attacker with local access.
+    Anonymous attacker with local access.
   es: >
-    Atacante con acceso Local.
+    Atacante anónimo con acceso local.
 utils.model.finding.enum.F031_CWE378.title:
   en: FIN.S.031. Excessive privileges - Temporary files
   es: FIN.S.031. Permisos excesivos - Archivos temporales
