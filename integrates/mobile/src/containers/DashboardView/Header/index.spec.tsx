@@ -22,7 +22,6 @@ describe("Header", (): void => {
             email: "jdoe@mail.com",
             firstName: "John",
             fullName: "John Doe",
-            id: "0",
             photoUrl: "https://test.com/image.png",
           }}
           onLogout={jest.fn()}
@@ -49,7 +48,6 @@ describe("Header", (): void => {
             email: "jdoe@mail.com",
             firstName: "John",
             fullName: "John Doe",
-            id: "0",
             photoUrl: "https://test.com/image.png",
           }}
           onLogout={logoutMock}

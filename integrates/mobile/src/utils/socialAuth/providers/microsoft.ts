@@ -103,7 +103,6 @@ const authWithMicrosoft: () => Promise<IAuthResult> = async (): Promise<
           email: _.get(userProps, "upn", userProps.email),
           firstName: _.capitalize(userProps.given_name),
           fullName: _.startCase(userProps.name.toLowerCase()),
-          id: "",
           lastName: userProps.family_name,
         },
       };

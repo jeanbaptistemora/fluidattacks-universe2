@@ -113,8 +113,7 @@ const authWithGoogle: () => Promise<IAuthResult> = async (): Promise<
           email: userProps.email,
           firstName: _.capitalize(userProps.given_name),
           fullName: _.startCase(userProps.name.toLowerCase()),
-          id: "",
-          lastName: userProps.familyName,
+          lastName: userProps.family_name,
           photoUrl: userProps.picture,
         },
       };

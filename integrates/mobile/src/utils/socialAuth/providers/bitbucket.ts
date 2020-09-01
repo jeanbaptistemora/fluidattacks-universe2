@@ -106,7 +106,6 @@ const authWithBitbucket: () => Promise<IAuthResult> = async (): Promise<
           email: primaryEmail,
           firstName: _.capitalize(userProps.username),
           fullName: _.startCase(userProps.display_name.toLowerCase()),
-          id: "",
           photoUrl: userProps.links.avatar.href,
         },
       };

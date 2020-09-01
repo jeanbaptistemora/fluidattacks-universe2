@@ -60,8 +60,7 @@ const loginView: React.FunctionComponent = (): JSX.Element => {
   React.useEffect((): void => {
     const checkVersion: () => void = async (): Promise<void> => {
       const shouldSkipCheck: boolean =
-        Platform.OS === "ios"
-        || Constants.appOwnership === AppOwnership.Expo;
+        Platform.OS === "ios" || Constants.appOwnership === AppOwnership.Expo;
 
       if (!shouldSkipCheck) {
         setOutdated(await checkPlayStoreVersion());
@@ -89,7 +88,11 @@ const loginView: React.FunctionComponent = (): JSX.Element => {
 
     const result: IAuthResult = await authWithBitbucket();
     if (result.type === "success") {
-      Bugsnag.setUser(result.user.id, result.user.email, result.user.firstName);
+      Bugsnag.setUser(
+        result.user.email,
+        result.user.email,
+        result.user.firstName,
+      );
       await SecureStore.setItemAsync("authState", JSON.stringify(result));
       history.replace("/Welcome", result);
     } else {
@@ -102,7 +105,11 @@ const loginView: React.FunctionComponent = (): JSX.Element => {
 
     const result: IAuthResult = await authWithGoogle();
     if (result.type === "success") {
-      Bugsnag.setUser(result.user.id, result.user.email, result.user.firstName);
+      Bugsnag.setUser(
+        result.user.email,
+        result.user.email,
+        result.user.firstName,
+      );
       await SecureStore.setItemAsync("authState", JSON.stringify(result));
       history.replace("/Welcome", result);
     } else {
@@ -115,7 +122,11 @@ const loginView: React.FunctionComponent = (): JSX.Element => {
 
     const result: IAuthResult = await authWithMicrosoft();
     if (result.type === "success") {
-      Bugsnag.setUser(result.user.id, result.user.email, result.user.firstName);
+      Bugsnag.setUser(
+        result.user.email,
+        result.user.email,
+        result.user.firstName,
+      );
       await SecureStore.setItemAsync("authState", JSON.stringify(result));
       history.replace("/Welcome", result);
     } else {

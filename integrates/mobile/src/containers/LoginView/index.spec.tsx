@@ -1,10 +1,8 @@
 import { mount, ReactWrapper } from "enzyme";
-import { FetchMockStatic } from "fetch-mock";
 import React from "react";
 // tslint:disable-next-line: no-submodule-imports
 import { act } from "react-dom/test-utils";
 import { I18nextProvider } from "react-i18next";
-import { Alert, Platform } from "react-native";
 import { Provider as PaperProvider } from "react-native-paper";
 import { NativeRouter } from "react-router-native";
 
@@ -57,8 +55,6 @@ jest.mock("./version", (): Dictionary => {
 jest.mock("expo-secure-store");
 jest.mock("expo-local-authentication");
 
-const mockedFetch: FetchMockStatic = fetch as typeof fetch & FetchMockStatic;
-
 describe("LoginView", (): void => {
   afterEach((): void => {
     jest.clearAllMocks();
@@ -100,32 +96,9 @@ describe("LoginView", (): void => {
         email: "test@fluidattacks.com",
         firstName: "Jdoe",
         fullName: "John Doe",
-        id: "",
         photoUrl: "https://bitbucket.org/some/picture.png",
       },
     }));
-    mockedFetch.mock("https://api.bitbucket.org/2.0/user", {
-      body: {
-        account_id: "",
-        display_name: "JOHN DOE",
-        links: {
-          avatar: {
-            href: "https://bitbucket.org/some/picture.png",
-          },
-        },
-        username: "jdoe",
-      },
-      status: 200,
-    });
-    mockedFetch.mock("https://api.bitbucket.org/2.0/user/emails", {
-      body: {
-        values: [
-          { email: "something@test.com", is_primary: false },
-          { email: "test@fluidattacks.com", is_primary: true },
-        ],
-      },
-      status: 200,
-    });
 
     const wrapper: ReactWrapper = mount(
       <PaperProvider>
@@ -158,7 +131,6 @@ describe("LoginView", (): void => {
           email: "test@fluidattacks.com",
           firstName: "Jdoe",
           fullName: "John Doe",
-          id: "",
           photoUrl: "https://bitbucket.org/some/picture.png",
         },
       });
@@ -174,7 +146,6 @@ describe("LoginView", (): void => {
         email: "test@fluidattacks.com",
         firstName: "John",
         fullName: "John Doe",
-        id: "",
         lastName: "Doe",
       },
     }));
@@ -210,7 +181,6 @@ describe("LoginView", (): void => {
           email: "test@fluidattacks.com",
           firstName: "John",
           fullName: "John Doe",
-          id: "",
           lastName: "Doe",
         },
       });
@@ -226,7 +196,6 @@ describe("LoginView", (): void => {
         email: "test@fluidattacks.com",
         firstName: "John",
         fullName: "John Doe",
-        id: "",
         lastName: "DOE",
       },
     }));
@@ -262,7 +231,6 @@ describe("LoginView", (): void => {
           email: "test@fluidattacks.com",
           firstName: "John",
           fullName: "John Doe",
-          id: "",
           lastName: "DOE",
         },
       });
@@ -317,57 +285,5 @@ describe("LoginView", (): void => {
       .find("preloader")
       .prop("visible"))
       .toEqual(false);
-  });
-
-  it.skip("should handle errors", async (): Promise<void> => {
-    (checkPlayStoreVersion as jest.Mock).mockImplementation((): Promise<boolean> => Promise.reject("Oops :("));
-
-    const wrapper: ReactWrapper = mount(
-      <PaperProvider>
-        <I18nextProvider i18n={i18next}>
-          <NativeRouter initialEntries={["/"]}>
-            <LoginView />
-          </NativeRouter>
-        </I18nextProvider>
-      </PaperProvider>,
-    );
-
-    expect(wrapper)
-      .toHaveLength(1);
-
-    const googleBtn: ReactWrapper<IGoogleButtonProps> = wrapper
-      .find<IGoogleButtonProps>(GoogleButton);
-    expect(googleBtn)
-      .toHaveLength(1);
-
-    await act(async (): Promise<void> => {
-      await (googleBtn.invoke("onPress") as () => Promise<void>)();
-      wrapper.update();
-    });
-
-    const microsoftBtn: ReactWrapper<IMicrosoftButtonProps> = wrapper
-      .find<IMicrosoftButtonProps>(MicrosoftButton);
-    expect(microsoftBtn)
-      .toHaveLength(1);
-
-    await act(async (): Promise<void> => {
-      await (microsoftBtn.invoke("onPress") as () => Promise<void>)();
-      wrapper.update();
-    });
-
-    const bitbucketBtn: ReactWrapper<IBitbucketButtonProps> = wrapper
-      .find<IBitbucketButtonProps>(BitbucketButton);
-    expect(bitbucketBtn)
-      .toHaveLength(1);
-
-    await act(async (): Promise<void> => {
-      await (bitbucketBtn.invoke("onPress") as () => Promise<void>)();
-      wrapper.update();
-    });
-
-    const expectedErrors: number = 1;
-
-    expect(Alert.alert)
-      .toHaveBeenCalledTimes(expectedErrors);
   });
 });
