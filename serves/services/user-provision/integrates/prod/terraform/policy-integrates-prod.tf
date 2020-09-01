@@ -255,15 +255,22 @@ data "aws_iam_policy_document" "integrates-prod-policy-data" {
     ]
   }
 
-  # EKS describe cluster
+  # EKS full permissions over owned resources
   statement {
     effect = "Allow"
     actions = [
-      "eks:DescribeCluster",
+      "eks:Describe*",
+      "eks:List*",
+      "eks:Create*",
     ]
-    resources = [
-      "arn:aws:eks:${var.region}:${data.aws_caller_identity.current.account_id}:cluster/FluidServes",
+    resources = ["*"]
+  }
+  statement {
+    effect = "Allow"
+    actions = [
+      "eks:*"
     ]
+    resources = ["arn:aws:eks:${var.region}:${data.aws_caller_identity.current.account_id}:cluster/integrates-*"]
   }
 }
 

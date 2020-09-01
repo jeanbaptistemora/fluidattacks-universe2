@@ -255,15 +255,14 @@ data "aws_iam_policy_document" "integrates-dev-policy-data" {
     ]
   }
 
-  # EKS describe cluster
+  # EKS read permissions
   statement {
     effect = "Allow"
     actions = [
-      "eks:DescribeCluster",
+      "eks:Describe*",
+      "eks:List*",
     ]
-    resources = [
-      "arn:aws:eks:${var.region}:${data.aws_caller_identity.current.account_id}:cluster/FluidServes",
-    ]
+    resources = ["*"]
   }
 }
 

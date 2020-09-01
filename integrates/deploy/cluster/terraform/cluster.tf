@@ -4,13 +4,14 @@ module "eks" {
   cluster_version = "1.17"
 
   subnets = [
-    aws_subnet.region_a,
-    aws_subnet.region_b,
-    aws_subnet.region_c,
+    aws_subnet.region_a.id,
+    aws_subnet.region_b.id,
+    aws_subnet.region_c.id,
   ]
 
   tags = {
-    Environment = "test"
+    Name        = "integrates-cluster"
+    Environment = "production"
     GithubRepo  = "terraform-aws-eks"
     GithubOrg   = "terraform-aws-modules"
   }
