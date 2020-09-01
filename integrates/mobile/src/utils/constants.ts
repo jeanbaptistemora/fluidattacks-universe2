@@ -3,7 +3,7 @@
  *
  * All the following constants are just client ids.
  * They are not meant to be secret.
- * Their security relies on a whitelist of
+ * Their security relies on a list of allowed
  * origins and redirect urls
  */
 export const BUGSNAG_KEY: string = "c7b947a293ced0235cdd8edc8c09dad4";
@@ -15,6 +15,9 @@ export const GOOGLE_CLIENT_ID_IOS: string =
   "335718398321-s67kko7rj2cdf1a3jaj1vgdohjme2sna.apps.googleusercontent.com";
 export const MICROSOFT_CLIENT_ID: string =
   "4a9923e0-17f1-43b7-9b16-7892eed25f18";
+export const BITBUCKET_CLIENT_ID_DEV: string = "pYj72WzD7sGAXMvjFD";
+export const BITBUCKET_CLIENT_ID_PROD: string = "S3qM7quyfzGeemvnh2";
+
 export const BITBUCKET_LOGIN_KEY_DEV: string = "ht82hTFNUYABLSvd8M";
 export const BITBUCKET_LOGIN_SECRET_DEV: string =
   "2MLSTvREBFXb9sQ5TbLnbAVffPxVb8Aw";
