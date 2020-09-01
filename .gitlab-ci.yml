@@ -99,6 +99,17 @@ common_lint_commit_msg:
   <<: *common_in_dev_branch
   stage: lint-code
 
+common_mailmap_linter:
+  <<: *with_nix
+  <<: *common_in_dev_branch
+  tags: [autoscaling]
+  image: nixos/nix:2.3
+  stage: lint-code
+  before_script:
+    - nix-env -i -f https://github.com/kamadorueda/mailmap-linter/archive/master.tar.gz
+  script:
+    - mailmap-linter
+
 reviews:
   <<: *with_nix
   <<: *common_in_mrs
