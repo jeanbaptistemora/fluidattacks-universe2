@@ -3,7 +3,6 @@ from typing import (
     Awaitable,
     Callable,
     List,
-    Set,
     Tuple,
 )
 
@@ -14,6 +13,7 @@ from aioextensions import (
 )
 from pyparsing import (
     Keyword,
+    MatchFirst,
 )
 
 # Local libraries
@@ -43,16 +43,38 @@ def _java_insecure_hash(
     content: str,
     path: str,
 ) -> Tuple[Vulnerability, ...]:
-    weak: Set[str] = {'md2', 'md5', 'sha1', 'sha-1'}
-
-    algorithm = DOUBLE_QUOTED_STRING.copy()
-    algorithm.addCondition(lambda tokens: tokens[0].lower() in weak)
-
-    grammar = (
-        Keyword('MessageDigest') + '.' +
-        Keyword('getInstance') + '(' +
-        algorithm
-    )
+    grammar = MatchFirst([
+        (
+            Keyword('MessageDigest') + '.' +
+            Keyword('getInstance') + '(' +
+            DOUBLE_QUOTED_STRING.copy().addCondition(
+                lambda tokens: tokens[0].lower() in {
+                    'md2',
+                    'md4',
+                    'md5',
+                    'sha1',
+                    'sha-1',
+                }
+            )
+        ),
+        (
+            Keyword('DigestUtils') + '.' +
+            MatchFirst([
+                Keyword('getMd2Digest'),
+                Keyword('getMd5Digest'),
+                Keyword('getShaDigest'),
+                Keyword('getSha1Digest'),
+                Keyword('md2'),
+                Keyword('md2Hex'),
+                Keyword('md5'),
+                Keyword('md5Hex'),
+                Keyword('sha'),
+                Keyword('shaHex'),
+                Keyword('sha1'),
+                Keyword('sha1Hex'),
+            ]) + '('
+        ),
+    ])
     grammar.ignore(C_STYLE_COMMENT)
 
     return blocking_get_vulnerabilities(
