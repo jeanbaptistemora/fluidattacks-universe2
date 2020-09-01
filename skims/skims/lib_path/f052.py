@@ -74,6 +74,19 @@ def _java_insecure_hash(
                 Keyword('sha1Hex'),
             ]) + '('
         ),
+        (
+            Keyword('Hashing') + '.' +
+            MatchFirst([
+                Keyword('adler32'),
+                Keyword('crc32'),
+                Keyword('crc32c'),
+                Keyword('goodFastHash'),
+                Keyword('hmacMd5'),
+                Keyword('hmacSha1'),
+                Keyword('md5'),
+                Keyword('sha1'),
+            ]) + '('
+        ),
     ])
     grammar.ignore(C_STYLE_COMMENT)
 
