@@ -10,6 +10,11 @@ resource "aws_key_pair" "secure-app" {
   public_key = tls_private_key.this.public_key_openssh 
 }
 
+resource "aws_iam_instance_profile" "ec2-profile" {
+  name = "ec2_profile"
+  role = aws_iam_role.ec2-role.name
+}
+
 resource "aws_instance" "secure-app" {
   key_name      = aws_key_pair.secure-app.key_name
   ami           = "ami-0006ee48a8c534af9"
@@ -32,11 +37,6 @@ resource "aws_instance" "secure-app" {
     private_key = file("key")
     host        = self.public_ip
   }
-}
-
-resource "aws_iam_instance_profile" "ec2-profile" {
-  name = "ec2_profile"
-  role = aws_iam_role.ec2-role.name
 }
 
 resource "aws_eip" "secure-app" {
