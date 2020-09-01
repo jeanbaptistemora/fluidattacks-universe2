@@ -1,5 +1,5 @@
-resource "aws_s3_bucket" "my-secure-app-backup" {
-  bucket = "my-secure-app-backup" 
+resource "aws_s3_bucket" "ultra-secure-app-backup" {
+  bucket = "ultra-secure-app-backup" 
   acl    = "private"
 
   versioning {

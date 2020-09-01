@@ -39,10 +39,10 @@ resource "aws_security_group" "secure-app" {
   }
 }
 
-resource "aws_security_group" "intranet-app" {
-  name        = "intranet-app"
+resource "aws_security_group" "intranet" {
+  name        = "intranet"
   description = "Security group for Intranet App"
-  vpc_id      = var.secure-app-vpc-id
+  vpc_id      = var.intranet-vpc-id
 
   ingress {
     description = "http-access"
@@ -71,6 +71,10 @@ resource "aws_security_group" "intranet-app" {
   }
 }
 
-output "security_group" {
+output "security_group_secure_app" {
 	value = aws_security_group.secure-app.id
+}
+
+output "security_group_intranet" {
+	value = aws_security_group.intranet.id
 }

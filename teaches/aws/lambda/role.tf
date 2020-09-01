@@ -1,7 +1,7 @@
 variable "lambda_execution_policy" {}
 
 resource "aws_iam_role" "secure-function-role" {
-  name = "secure-function-role"
+  name = "LambdaExecutionRole"
 
   assume_role_policy = <<EOF
 {

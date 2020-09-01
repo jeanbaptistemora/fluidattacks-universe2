@@ -17,7 +17,8 @@ module "users" {
 
 module "instances" {
   source = "./instances"
-  security_group = module.shared.security_group
+  security_group_secure_app = module.shared.security_group_secure_app
+  security_group_intranet = module.shared.security_group_intranet
 }
 
 module "shared" {
