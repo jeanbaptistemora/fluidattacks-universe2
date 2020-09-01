@@ -179,7 +179,7 @@ class FindingEnum(Enum):
         type=FindingTypeEnum.SECURITY,
     )
     F085: FindingMetadata = FindingMetadata(
-        auto_approve=False,
+        auto_approve=True,
         cwe='922',
         description='utils.model.finding.enum.f085.description',
         impact='utils.model.finding.enum.f085.impact',

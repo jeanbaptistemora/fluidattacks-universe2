@@ -174,7 +174,7 @@ def test_dispatch_correct(
         ('F031_CWE378', 'SUBMITTED', 0, 1),
         ('F060', 'APPROVED', 0, 18),
         ('F061', 'APPROVED', 0, 10),
-        ('F085', 'SUBMITTED', 0, 4),  # This one is a beta finding
+        ('F085', 'APPROVED', 0, 4),
         ('F117', 'APPROVED', 0, 2),
     }
 
@@ -194,6 +194,6 @@ def test_dispatch_correct_nothing_to_do(
         ('F031_CWE378', 'SUBMITTED', 1, 0),
         ('F060', 'APPROVED', 18, 0),
         ('F061', 'APPROVED', 10, 0),
-        ('F085', 'SUBMITTED', 4, 0),
+        ('F085', 'APPROVED', 4, 0),
         ('F117', 'APPROVED', 2, 0),
     }
