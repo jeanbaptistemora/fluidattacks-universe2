@@ -684,7 +684,10 @@ async def _do_remove_evidence(
     success = await finding_domain.remove_evidence(evidence_id, finding_id)
 
     if success:
-        util.queue_cache_invalidation(f'evidence*{finding_id}')
+        util.queue_cache_invalidation(
+            f'evidence*{finding_id}',
+            f'records*{finding_id}'
+        )
         util.cloudwatch_log(
             info.context,
             ('Security: Removed evidence '
@@ -717,7 +720,10 @@ async def _do_update_evidence(
         )
 
     if success:
-        util.queue_cache_invalidation(f'evidence*{finding_id}')
+        util.queue_cache_invalidation(
+            f'evidence*{finding_id}',
+            f'records*{finding_id}'
+        )
         util.cloudwatch_log(
             info.context,
             ('Security: Updated evidence in finding '
