@@ -227,13 +227,7 @@ function helper_observes_mandrill {
 
 function helper_observes_gitlab {
   export GITLAB_API_TOKEN
-  local projects=(
-    'autonomicmind/default'
-    'autonomicmind/challenges'
-    'fluidattacks/services'
-    'fluidattacks/product'
-    'fluidattacks/web'
-  )
+  helper_get_projects
 
       helper_observes_aws_login prod \
   &&  helper_common_sops_env observes/secrets-prod.yaml default \
@@ -241,7 +235,7 @@ function helper_observes_gitlab {
   &&  echo '[INFO] Generating secret files' \
   &&  echo "${analytics_auth_redshift}" > "${TEMP_FILE2}" \
   &&  echo '[INFO] Running streamer' \
-  &&  python3 ./observes/singer/streamer_gitlab.py "${projects[@]}" > .jsonstream \
+  &&  python3 ./observes/singer/streamer_gitlab.py "${PROJECTS[@]}" > .jsonstream \
   &&  echo '[INFO] Running tap' \
   &&  tap-json  \
         > .singer \
@@ -338,12 +332,13 @@ function helper_observes_git_process {
   local artifacts="${PWD}/artifacts"
   local mock_integrates_api_token='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.e30.xxx'
   local num_threads='4'
+  helper_get_projects
   export CI_NODE_INDEX
   export CI_NODE_TOTAL
 
       helper_observes_aws_login prod \
   &&  echo '[INFO] Cloning our own repositories' \
-  &&  python3 observes/git/clone_us.py \
+  &&  python3 observes/git/clone_us.py "${PROJECTS[@]}" \
   &&  echo "[INFO] Generating config: ${CI_NODE_INDEX} / ${CI_NODE_TOTAL}" \
   &&  \
       CI=true \
@@ -443,11 +438,12 @@ function helper_observes_timedoctor_manually_create_token {
 
 function helper_observes_services_repositories_cache {
   local mock_integrates_api_token='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.e30.xxx'
+  helper_get_projects
 
       helper_observes_aws_login prod \
   &&  helper_observes_move_artifacts_to_git \
   &&  echo '[INFO] Cloning our own repositories' \
-  &&  python3 observes/git/clone_us.py \
+  &&  python3 observes/git/clone_us.py "${PROJECTS[@]}" \
   &&  echo '[INFO] Cloning customer repositories' \
   &&  \
       CI=true \

@@ -58,6 +58,16 @@ function helper_use_regular_workdir {
   ||  return 1
 }
 
+function helper_get_projects {
+  export PROJECTS=(
+    'autonomicmind/default'
+    'autonomicmind/challenges'
+    'fluidattacks/services'
+    'fluidattacks/product'
+    'fluidattacks/web'
+  )
+}
+
 function helper_docker_build_and_push {
   local tag="${1}"
   local context="${2}"

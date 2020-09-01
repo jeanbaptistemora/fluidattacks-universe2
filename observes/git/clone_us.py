@@ -3,7 +3,6 @@
 
 import os
 import sys
-from multiprocessing.pool import Pool
 
 USER = os.environ['GITLAB_API_USER']
 TOKEN = os.environ['GITLAB_API_TOKEN']
@@ -28,14 +27,8 @@ def clone(repo) -> None:
 
 def main():
     """Usual entrypoint."""
-    with Pool(processes=1) as workers:
-        workers.map(clone, [
-            'autonomicmind/default',
-            'autonomicmind/challenges',
-            'fluidattacks/product',
-            'fluidattacks/web',
-            'fluidattacks/services',
-        ])
+    for repo in sys.argv[1:]:
+        clone(repo)
 
 
 if __name__ == '__main__':
