@@ -20,7 +20,7 @@ type Query {
 
     "Get user info from project"
     user(
-        entity: Entity!
+        entity: StakeholderEntity!
         organizationId: String
         projectName: String
         userEmail: String!
@@ -29,7 +29,7 @@ type Query {
             reason: "Right now, you can query Users using both the 'User' and 'Stakeholder' keywords. After 2021-02-06, the 'User' keyword will be invalid."
         )
     stakeholder(
-        entity: Entity!
+        entity: StakeholderEntity!
         organizationId: String
         projectName: String
         userEmail: String!

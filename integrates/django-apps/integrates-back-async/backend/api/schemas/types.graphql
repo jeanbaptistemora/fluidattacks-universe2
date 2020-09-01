@@ -583,6 +583,11 @@ enum OrganizationRole {
     GROUP_MANAGER
 }
 
+enum StakeholderEntity {
+    ORGANIZATION
+    PROJECT
+}
+
 enum StakeholderRole {
     ADMIN
     ANALYST
