@@ -1786,6 +1786,36 @@
           "requirements": {
             "S": "REQ.0174. La aplicación debe garantizar que las peticiones que ejecuten transacciones no sigan un patrón discernible."
           },
+          "historic_state": {
+            "L": [
+              {
+                "M": {
+                  "date": {
+                    "S": "2018-11-20 19:43:18"
+                  },
+                  "analyst": {
+                    "S":"integratesmanager@gmail.com"
+                  },
+                  "state": {
+                    "S":"CREATED"
+                  }
+                }
+              },
+              {
+                "M": {
+                  "date": {
+                    "S": "2018-12-17"
+                  },
+                  "analyst": {
+                    "S": "integratesanalyst@gmail.com"
+                  },
+                  "state": {
+                    "S": "APPROVED"
+                  }
+                }
+              }
+            ]
+          },
           "releaseDate": {
             "S": "2018-12-17 00:00:00"
           },

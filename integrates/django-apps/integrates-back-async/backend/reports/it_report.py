@@ -3,6 +3,7 @@
 from typing import cast, Dict, List, Union
 
 from datetime import datetime
+from dateutil.parser import parse
 from django.conf import settings
 import pytz
 from pyexcelerate import (
@@ -26,6 +27,17 @@ HEADER_HEIGHT = 20
 ROW_HEIGHT = 57
 RED = Color(255, 52, 53, 1)  # FF3435
 WHITE = Color(255, 255, 255, 1)
+
+
+def get_formatted_last_date(
+    historic_state: HistoricType
+) -> Union[str, datetime]:
+    curr_trtmnt_date: Union[str, datetime] = EMPTY
+
+    if historic_state and 'date' in cast(HistoricType, historic_state)[-1]:
+        last_date = str(cast(HistoricType, historic_state)[-1]['date'])
+        curr_trtmnt_date = parse(last_date)
+    return curr_trtmnt_date
 
 
 class ITReport():
@@ -327,19 +339,20 @@ class ITReport():
                 treatment = 'Temporarily accepted'
             return treatment
 
-        historic_state = finding.get('historicState')
+        historic_state = cast(
+            HistoricType,
+            finding.get('historicState')
+        )
         finding_historic_treatment = cast(
             HistoricType,
             finding.get('historicTreatment')
         )
-        current_treatment_date: Union[str, datetime] = EMPTY
+        curr_trtmnt_date: Union[str, datetime] = get_formatted_last_date(
+            historic_state
+        )
         current_treatment_exp_date: Union[str, datetime] = EMPTY
         first_treatment_exp_date: Union[str, datetime] = EMPTY
-        if historic_state and 'date' in cast(HistoricType, historic_state)[-1]:
-            current_treatment_date = datetime.strptime(
-                str(cast(HistoricType, historic_state)[-1]['date']),
-                '%Y-%m-%d %H:%M:%S'
-            )
+
         if 'acceptance_date' in vuln:
             current_treatment_exp_date = datetime.strptime(
                 str(vuln.get('acceptance_date')),
@@ -364,7 +377,7 @@ class ITReport():
             'Current Treatment': format_treatment(
                 str(vuln.get('treatment', 'NEW'))
             ),
-            'Current Treatment Moment': current_treatment_date,
+            'Current Treatment Moment': curr_trtmnt_date,
             'Current Treatment Justification': str(
                 vuln.get('treatment_justification', EMPTY)),
             'Current Treatment expiration Moment': current_treatment_exp_date,
