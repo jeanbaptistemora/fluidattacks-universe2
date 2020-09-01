@@ -12,15 +12,15 @@ function helper_integrates_aws_login {
 
       if [ "${user}"  == 'production' ]; then
         if [ "${CI_COMMIT_REF_NAME}" == 'master' ]; then
-              AWS_ACCESS_KEY_ID="${PROD_AWS_ACCESS_KEY_ID}" \
-          &&  AWS_SECRET_ACCESS_KEY="${PROD_AWS_SECRET_ACCESS_KEY}"
+              AWS_ACCESS_KEY_ID="${INTEGRATES_PROD_AWS_ACCESS_KEY_ID}" \
+          &&  AWS_SECRET_ACCESS_KEY="${INTEGRATES_PROD_AWS_SECRET_ACCESS_KEY}"
         else
               echo 'Not enough permissions for logging in as production' \
           &&  return 1
         fi
       elif [ "${user}" == 'development' ]; then
-            AWS_ACCESS_KEY_ID="${DEV_AWS_ACCESS_KEY_ID}" \
-        &&  AWS_SECRET_ACCESS_KEY="${DEV_AWS_SECRET_ACCESS_KEY}"
+            AWS_ACCESS_KEY_ID="${INTEGRATES_DEV_AWS_ACCESS_KEY_ID}" \
+        &&  AWS_SECRET_ACCESS_KEY="${INTEGRATES_DEV_AWS_SECRET_ACCESS_KEY}"
       else
             echo 'No valid user was provided' \
         &&  return 1

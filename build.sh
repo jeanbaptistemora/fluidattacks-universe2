@@ -56,10 +56,10 @@ function decide_and_call_provisioner {
         --keep JWT_TOKEN \
         --keep NIX_PATH \
         --keep NIX_SSL_CERT_FILE \
-        --keep DEV_AWS_ACCESS_KEY_ID \
-        --keep DEV_AWS_SECRET_ACCESS_KEY \
-        --keep PROD_AWS_ACCESS_KEY_ID \
-        --keep PROD_AWS_SECRET_ACCESS_KEY \
+        --keep INTEGRATES_DEV_AWS_ACCESS_KEY_ID \
+        --keep INTEGRATES_DEV_AWS_SECRET_ACCESS_KEY \
+        --keep INTEGRATES_PROD_AWS_ACCESS_KEY_ID \
+        --keep INTEGRATES_PROD_AWS_SECRET_ACCESS_KEY \
         --keep SERVES_DEV_AWS_ACCESS_KEY_ID \
         --keep SERVES_DEV_AWS_SECRET_ACCESS_KEY \
         --keep SERVES_PROD_AWS_ACCESS_KEY_ID \
