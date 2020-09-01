@@ -60,7 +60,6 @@ async def monitor() -> None:
     while await sleep(10.0, result=True):
         tasks: int = len(all_tasks())
         await log('info', 'Still running, %s tasks pending to finish', tasks)
-        await log('info', 'Max memory usage: %s GB', get_max_memory_usage())
 
 
 async def adjust_working_dir(config: SkimsConfig) -> None:
@@ -187,4 +186,5 @@ async def main(
         return await execute_skims(config_obj, token)
     finally:
         await reset_ephemeral_state()
+        await log('info', 'Max memory usage: %s GB', get_max_memory_usage())
         monitor_task.cancel()

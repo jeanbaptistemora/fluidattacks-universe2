@@ -14,6 +14,9 @@ from utils.function import (
 from utils.logs import (
     blocking_log,
 )
+from utils.bugs import (
+    configure_bugsnag,
+)
 
 
 @click.command(
@@ -81,6 +84,7 @@ async def main_wrapped(
     # pylint: disable=import-outside-toplevel
     import core.entrypoint
 
+    configure_bugsnag()
     success: bool = await core.entrypoint.main(
         config=config,
         debug=debug,
