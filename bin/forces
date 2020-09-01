@@ -1,0 +1,13 @@
+#! /usr/bin/env nix-shell
+#!   nix-shell -i bash
+#!   nix-shell --option restrict-eval false
+#!   nix-shell --option sandbox false
+#!   nix-shell --show-trace
+#!   nix-shell forces.nix
+#  shellcheck shell=bash
+
+export PYTHONPATH="${pyPkgForces}/site-packages/:${PYTHONPATH}"
+
+export PATH="${pyPkgForces}/site-packages/bin/:${PATH}"
+
+"${pyPkgForces}/site-packages/bin/forces" "$@"
