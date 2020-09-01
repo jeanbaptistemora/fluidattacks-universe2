@@ -22,7 +22,7 @@ async def resolve_invalidate_cache(
         pattern: str) -> SimplePayloadType:
     """Resolve invalidate_cache."""
     success = False
-    regex = r'^\w+$'
+    regex = r'^\w+$|^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$'
     if re.match(regex, pattern):
         util.queue_cache_invalidation(pattern)
         success = True
