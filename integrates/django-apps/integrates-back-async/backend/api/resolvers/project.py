@@ -1189,7 +1189,12 @@ async def _do_add_tags(
              'without the allowed validations')  # pragma: no cover
         )
     if success:
-        util.queue_cache_invalidation(project_name)
+        util.queue_cache_invalidation(f'tags*{project_name}')
+        util.cloudwatch_log(
+            info.context,
+            ('Security: Added tag to '
+             f'{project_name} project successfully')
+        )
     project = await resolve(info, project_name, True, False)
     return SimpleProjectPayloadType(success=success, project=project)
 
@@ -1224,7 +1229,7 @@ async def _do_remove_tag(
         else:
             LOGGER.error('Couldn\'t remove a tag', extra={'extra': locals()})
     if success:
-        util.queue_cache_invalidation(project_name)
+        util.queue_cache_invalidation(f'tags*{project_name}')
         util.cloudwatch_log(
             info.context,
             ('Security: Removed tag from '
