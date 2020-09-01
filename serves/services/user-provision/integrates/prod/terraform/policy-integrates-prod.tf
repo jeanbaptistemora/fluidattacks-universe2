@@ -69,6 +69,8 @@ data "aws_iam_policy_document" "integrates-prod-policy-data" {
       "ec2:ModifySubnetAttribute",
       "ec2:CreateSubnet",
       "ec2:DescribeSubnets",
+      "ec2:CreateTags",
+      "ec2:DeleteTags",
       "ec2:ApplySecurityGroupsToClientVpnTargetNetwork",
       "ec2:AuthorizeSecurityGroupEgress",
       "ec2:AuthorizeSecurityGroupIngress",

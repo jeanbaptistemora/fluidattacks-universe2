@@ -10,7 +10,6 @@ module "eks" {
   ]
 
   tags = {
-    Name        = "integrates-cluster"
     Environment = "production"
     GithubRepo  = "terraform-aws-eks"
     GithubOrg   = "terraform-aws-modules"
