@@ -7,6 +7,7 @@ data "aws_iam_policy_document" "prod-policy-data" {
       "s3:ListBucket",
       "s3:PutObject",
       "s3:GetObject",
+      "s3:DeleteObject",
     ]
     resources = [
       "arn:aws:s3:::fluidattacks-terraform-states-prod",

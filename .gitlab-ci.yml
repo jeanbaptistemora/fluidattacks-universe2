@@ -26,6 +26,10 @@ stages:
   - external
   - scheduler
 
+workflow:
+  rules:
+    - when: always
+
 .common_in_mrs: &common_in_mrs
   rules:
     - if: '$CI_PIPELINE_SOURCE != "merge_request_event"'
