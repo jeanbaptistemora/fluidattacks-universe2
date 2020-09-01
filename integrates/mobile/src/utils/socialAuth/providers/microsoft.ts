@@ -21,6 +21,7 @@ const clientId: string = MICROSOFT_CLIENT_ID;
 
 const getRedirectUri: () => string = (): string =>
   makeRedirectUri({
+    native: "com.fluidattacks.integrates://oauth2redirect/microsoft",
     path: "oauth2redirect/microsoft",
     useProxy: false,
   });
@@ -94,20 +95,18 @@ const authWithMicrosoft: () => Promise<IAuthResult> = async (): Promise<
         { userInfoEndpoint: discovery.userInfoEndpoint },
       );
 
-      if (logInResult.type === "success") {
-        return {
-          authProvider: "MICROSOFT",
-          authToken: idToken as string,
-          type: "success",
-          user: {
-            email: _.get(userProps, "upn", userProps.email),
-            firstName: _.capitalize(userProps.given_name),
-            fullName: _.startCase(userProps.name.toLowerCase()),
-            id: "",
-            lastName: userProps.family_name,
-          },
-        };
-      }
+      return {
+        authProvider: "MICROSOFT",
+        authToken: idToken as string,
+        type: "success",
+        user: {
+          email: _.get(userProps, "upn", userProps.email),
+          firstName: _.capitalize(userProps.given_name),
+          fullName: _.startCase(userProps.name.toLowerCase()),
+          id: "",
+          lastName: userProps.family_name,
+        },
+      };
     }
   } catch (error) {
     LOGGER.error("Couldn't authenticate with Microsoft", { ...error });

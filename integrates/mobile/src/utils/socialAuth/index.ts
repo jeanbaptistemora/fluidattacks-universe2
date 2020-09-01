@@ -24,14 +24,16 @@ export interface IAuthState {
   user: IUser;
 }
 
-export type IAuthResult = { type: "cancel" } | IAuthState & { type: "success" };
+export type IAuthResult =
+  | { type: "cancel" }
+  | (IAuthState & { type: "success" });
 
-export const logout: (() => Promise<void>) = async (): Promise<void> => {
+export const logout: () => Promise<void> = async (): Promise<void> => {
   await SecureStore.deleteItemAsync("integrates_session");
   const authState: string | null = await SecureStore.getItemAsync("authState");
   const { authProvider, authToken }: Record<string, string> = _.isNil(authState)
     ? { authProvider: "", authToken: "" }
-    : JSON.parse(authState) as Record<string, string>;
+    : (JSON.parse(authState) as Record<string, string>);
 
   switch (authProvider) {
     case "BITBUCKET":

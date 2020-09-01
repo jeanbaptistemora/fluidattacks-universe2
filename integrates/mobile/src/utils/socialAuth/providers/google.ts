@@ -32,10 +32,11 @@ const clientId: string = inExpoClient
       ios: GOOGLE_CLIENT_ID_IOS,
     });
 
-const getRedirectUri: () => string = (): string => makeRedirectUri({
-  path: "oauth2redirect/google",
-  useProxy: inExpoClient,
-});
+const getRedirectUri: () => string = (): string =>
+  makeRedirectUri({
+    path: "oauth2redirect/google",
+    useProxy: inExpoClient,
+  });
 
 const getDiscovery: () => Promise<DiscoveryDocument> = async (): Promise<
   DiscoveryDocument
@@ -104,21 +105,19 @@ const authWithGoogle: () => Promise<IAuthResult> = async (): Promise<
         { userInfoEndpoint: discovery.userInfoEndpoint },
       );
 
-      if (logInResult.type === "success") {
-        return {
-          authProvider: "GOOGLE",
-          authToken: accessToken,
-          type: "success",
-          user: {
-            email: userProps.email,
-            firstName: _.capitalize(userProps.given_name),
-            fullName: _.startCase(userProps.name.toLowerCase()),
-            id: "",
-            lastName: userProps.familyName,
-            photoUrl: userProps.picture,
-          },
-        };
-      }
+      return {
+        authProvider: "GOOGLE",
+        authToken: accessToken,
+        type: "success",
+        user: {
+          email: userProps.email,
+          firstName: _.capitalize(userProps.given_name),
+          fullName: _.startCase(userProps.name.toLowerCase()),
+          id: "",
+          lastName: userProps.familyName,
+          photoUrl: userProps.picture,
+        },
+      };
     }
   } catch (error) {
     LOGGER.error("Couldn't authenticate with Google", { ...error });
