@@ -28,6 +28,7 @@ from lib_path import (
     f009,
     f011,
     f031_cwe378,
+    f052,
     f060,
     f061,
     f085,
@@ -89,6 +90,12 @@ async def analyze_one_path(
             file_extension=file_extension,
             path=path,
             store=stores[FindingEnum.F031_CWE378],
+        ),
+        f052.analyze(
+            content_generator=file_content_generator,
+            file_extension=file_extension,
+            path=path,
+            store=stores[FindingEnum.F052],
         ),
         f060.analyze(
             content_generator=file_content_generator,

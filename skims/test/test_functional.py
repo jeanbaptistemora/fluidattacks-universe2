@@ -169,9 +169,11 @@ def test_dispatch_correct(
 
     # The following findings must be met
     assert blocking_get_group_data(group=test_group) == {
+        # Finding, status, # closed, # open
         ('F009', 'APPROVED', 0, 9),
         ('F011', 'APPROVED', 0, 13),
         ('F031_CWE378', 'SUBMITTED', 0, 1),
+        ('F052', 'SUBMITTED', 0, 3),
         ('F060', 'APPROVED', 0, 18),
         ('F061', 'APPROVED', 0, 10),
         ('F085', 'APPROVED', 0, 4),
@@ -189,9 +191,11 @@ def test_dispatch_correct_nothing_to_do(
 
     # Skims should persist the null state, closing everything on Integrates
     assert blocking_get_group_data(group=test_group) == {
+        # Finding, status, # closed, # open
         ('F009', 'APPROVED', 9, 0),
         ('F011', 'APPROVED', 13, 0),
         ('F031_CWE378', 'SUBMITTED', 1, 0),
+        ('F052', 'SUBMITTED', 3, 0),
         ('F060', 'APPROVED', 18, 0),
         ('F061', 'APPROVED', 10, 0),
         ('F085', 'APPROVED', 4, 0),
