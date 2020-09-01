@@ -1,20 +1,20 @@
 output "dev-secret-key-id" {
   sensitive = true
-  value     = aws_iam_access_key.dev-key.id
+  value     = aws_iam_access_key.melts-dev-key-1.id
 }
 
 output "dev-secret-key" {
   sensitive = true
-  value     = aws_iam_access_key.dev-key.secret
+  value     = aws_iam_access_key.melts-dev-key-1.secret
 }
 
 output "prod-secret-key-id" {
   sensitive = true
-  value     = aws_iam_access_key.prod-key.id
+  value     = aws_iam_access_key.melts-prod-key-1.id
 }
 
 output "prod-secret-key" {
   sensitive = true
-  value     = aws_iam_access_key.prod-key.secret
+  value     = aws_iam_access_key.melts-prod-key-1.secret
 }
 
