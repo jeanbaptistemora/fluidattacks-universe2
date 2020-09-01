@@ -90,9 +90,6 @@ async def yield_executions_new(project_name: str, from_date: datetime,
                     result['vulnerabilities']['open'] = []
                 if 'closed' not in result['vulnerabilities']:
                     result['vulnerabilities']['closed'] = []
-                result['log'] = result.get(
-                    'log', None) or await get_log_execution(
-                        project_name, result['execution_id'])
                 result['project_name'] = result.get('subscription')
                 yield result
 

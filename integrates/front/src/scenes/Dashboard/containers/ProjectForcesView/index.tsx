@@ -27,6 +27,7 @@ import { Logger } from "../../../../utils/logger";
 import { msgError } from "../../../../utils/notifications";
 import { translate } from "../../../../utils/translations/translate";
 import styles from "./index.css";
+import { LogExecution } from "./logExecution";
 import { GET_FORCES_EXECUTIONS } from "./queries";
 
 type ForcesViewProps = RouteComponentProps<{ projectName: string }>;
@@ -78,7 +79,7 @@ export interface IExecution {
   foundVulnerabilities: IFoundVulnerabilities | IFoundVulnerabilitiesNew;
   gitRepo: string;
   kind: string;
-  log: string;
+  log?: string;
   status: string;
   strictness: string;
   vulnerabilities: IVulnerabilities | IVulnerabilitiesNew;
@@ -471,9 +472,13 @@ const projectForcesView: React.FunctionComponent<ForcesViewProps> = (props: Forc
                     pageSize={100}
                   />
                   <hr />
-                  <SyntaxHighlighter style={monokaiSublime} language="yaml" wrapLines={true}>
-                    {currentRow.log}
-                  </SyntaxHighlighter>
+                  {
+                    currentRow.log === undefined ? <LogExecution
+                      projectName={projectName} executionId={currentRow.execution_id} /> :
+                      <SyntaxHighlighter style={monokaiSublime} language="yaml" wrapLines={true}>
+                        {currentRow.log}
+                      </SyntaxHighlighter>
+                  }
                   <ButtonToolbar className="pull-right">
                     <Button bsStyle="success" onClick={closeSeeExecutionDetailsModal}>
                       {translate.t("group.forces.execution_details_modal.close")}

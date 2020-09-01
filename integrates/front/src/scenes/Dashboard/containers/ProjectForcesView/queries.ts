@@ -41,7 +41,6 @@ export const GET_FORCES_EXECUTIONS: DocumentNode = gql`
         gitRepo
         execution_id
         kind
-        log
         strictness
         vulnerabilities {
           open {
@@ -70,6 +69,13 @@ export const GET_FORCES_EXECUTIONS: DocumentNode = gql`
           numOfClosedVulnerabilities
         }
       }
+    }
+  }
+`;
+export const GET_FORCES_EXECUTION: DocumentNode = gql`
+  query GetForcesExecution($projectName: String!, $executionId: String!) {
+    forcesExecution(projectName: $projectName, executionId: $executionId) {
+      log
     }
   }
 `;
