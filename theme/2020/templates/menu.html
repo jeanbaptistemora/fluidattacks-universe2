@@ -1,4 +1,4 @@
-<div class="cssmenu bg-white lh-solid h-navbar cover shadow-menu relative">
+<div class="cssmenu bg-white lh-solid h-navbar cover shadow-menu fixed w-100 top-0 z-max">
   <div class="b relative w-100 z-5 mw9 mr-auto ml-auto h-navbar">
     <ul class="list ma0 pa0 overflow-hidden h-navbar">
       <li class="fl">
@@ -270,17 +270,17 @@
       </li>
     </ul>
   </div>
-</div>
-<div class="mw9 ml-auto mr-auto">
-  <form action="{{ SITEURL }}/search.html">
-    <div class="search-div search roboto h2 w-100 bg-graylight tr dn h3">
-      <input type="text"
-            name="q"
-            id="tipue_search_input"
-            pattern="[a-zA-Z0-9 ]*"
-            title="Only alphanumeric characters"
-            class="search-input dn h3 bn br1 h-search bg-graylight outline-transparent f5 mr0"
-            placeholder="Enter your search...">
-    </div>
-  </form>
+  <div class="mw9 ml-auto mr-auto">
+    <form action="{{ SITEURL }}/search.html">
+      <div class="search-div search roboto h2 w-100 bg-graylight tr dn h3">
+        <input type="text"
+              name="q"
+              id="tipue_search_input"
+              pattern="[a-zA-Z0-9 ]*"
+              title="Only alphanumeric characters"
+              class="search-input dn h3 bn br1 h-search bg-graylight outline-transparent f5 mr0"
+              placeholder="Enter your search...">
+      </div>
+    </form>
+  </div>
 </div>

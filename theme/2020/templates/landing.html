@@ -13,7 +13,7 @@
 
 {% block header %}
 
-<div class="flex-ns flex-wrap-ns justify-between-m banner-bg bg-banner-sz coverm cover-s h50-l h6-m h40-s mb5 pb5">
+<div class="flex-ns flex-wrap-ns justify-between-m banner-bg h50-l h6-m h40-s">
   <div class="ba1 mb3 relative dt-ns mt0-ns pr3-ns pl3-ns pt3 ma-auto pt6-l pt4 mw9 ml-auto mr-auto w-100">
     <!-- Banner Image-->
     <div class="fr-l w-45-l w100-m w90-s tc ml-auto mr-auto"
@@ -53,120 +53,136 @@
 
 {% block content %}
 
-<div class="tl pl3-l pr0-l mv4 bg-dk-red pv1 w-100">
-  <h1 class="white center roboto w-100 tc ph3-ns ph3 f1-l f2 lh-solid mw7">
-    Comprehensive Hacking at the Speed of your Business
-  </h1>
+<div class="slideshow-container bg-quotes">
+  <div class="slideshow-inner justify-center items-center flex w-100 h50-l h6-m h40-s">
+    <div class="mySlides fadein">
+      <div>
+        <h2 class="white center roboto w-100 tc pv0-l pv7 ph3 f1-l f2 lh-solid mw7">
+          Comprehensive Hacking at the Speed of your Business
+        </h2>
+      </div>
+    </div>
+    <div class="mySlides fadein dn">
+      <div>
+        <h2 class="white center roboto w-100 tc pv0-l pv7 ph3 f1-l f2 lh-solid mw7">
+          Effective automation and human intelligence
+        </h2>
+      </div>
+    </div>
+  </div>
+  <div class="tc pv4">
+    <span class="dot h-slide-bt w2 ma0 bg-fluid-gray dib slide-bt-trans" onclick='currentSlide(1)'></span>
+    <span class="dot h-slide-bt w2 ma0 bg-fluid-gray dib slide-bt-trans" onclick='currentSlide(2)'></span>
+  </div>
+  {% assets output="static/js/contactSlides.min.js", "js/tmp/contactSlides.min.js" %}
+  <script type="text/javascript"
+          src="{{ SITEURL }}/{{ ASSET_URL }}"></script>
+  {% endassets %}
 </div>
-<div class="mw9 center h6 pv4">
-  <div class="pl3-l pr0-l w-100">
-    <h2 class="roboto f2-ns f3 c-fluid-bk strong tc">Products</h2>
-    <div class="w-90 tc ml-auto mr-auto pv4">
-      <div class="w-50-l ml-auto mr-auto">
+</div>
+<div class="mw8 mr-auto ml-auto ph3">
+  <div class="w-100">
+    <div class="pv6 dt-ns ml-auto mr-auto">
+      <div class="w-50-l fr-l tc">
         <img
         data-aos="zoom-in"
         src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/products/product-integrates.png"
         alt="Young hacker smiling">
-
+      </div>
+      <div class="w-45-l fl-l tl mw6">
         <img
-        class="pv3"
         src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/products/integrates/integrates-logo.png"
         alt="integrates logo">
-        <h3 class="c-fluid-bk roboto fw1 f3-ns f4">
+        <h3 class="c-fluid-bk roboto fw7 f4 mv0 tl-l tc">
           The Platform Element that Controls the Process to Achieve Remediation
         </h3>
-        <p class="c-fluid-bk roboto fw1 f4 lh-2">
+        <p class="c-fluid-bk roboto fw1 f5 lh-2">
           <strong class="b">Integrates</strong> is a platform where vulnerabilities
           are reported, classified and prioritized.
           It also allows you to define their treatments,
           as well as check the status
           and progress of their remediation.
         </p>
-        <a href="{{ SITEURL }}/products/integrates/">
-          <button class="button-white tl roboto fw7">Learn More</button>
+        <a class="c-fluid-bk no-underline hv-fluid-dkred f5 roboto fw1" href="{{ SITEURL }}/products/integrates/">
+          Learn More <span class="c-dkred">></span>
         </a>
 
       </div>
     </div>
-    <div class="w-90 tc ml-auto mr-auto pv4">
-      <div class="w-50-l ml-auto mr-auto">
+    <div class="pv6 dt-ns ml-auto mr-auto">
+      <div class="w-50-l fl-l tc">
         <img
         data-aos="zoom-in"
         src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/products/product-drills.png"
         alt="Young hacker smiling">
-
+      </div>
+      <div class="w-45-l fr-l tl mw6">
         <img
-        class="pv3"
         src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/products/drills/drills-logo.png"
         alt="Drills logo">
-        <h3 class="c-fluid-bk roboto f3-ns f4 fw1 mt0">
+        <h3 class="c-fluid-bk roboto fw7 f4 mv0 tl-l tc">
           The Human Element that Continuously Detects Vulnerabilities
         </h3>
-        <p class="c-fluid-bk roboto fw1 f4 lh-2">
+        <p class="c-fluid-bk roboto fw1 f5 lh-2">
           <strong class="b">Drills</strong> uses the right combination
           of technology and human intelligence
           to find deep and zero-day vulnerabilities
           during the software development life cycle.
           Forget about false positives and false negatives!
         </p>
-        <a href="{{ SITEURL }}/products/drills/">
-          <button class="button-white tl roboto fw7">Learn More</button>
+        <a class="c-fluid-bk no-underline hv-fluid-dkred f5 roboto fw1" href="{{ SITEURL }}/products/drills/">
+          Learn More <span class="c-dkred">></span>
         </a>
       </div>
     </div>
-    <div class="w-90 tc ml-auto mr-auto pv4">
-      <div class="w-50-l ml-auto mr-auto">
+    <div class="pv6 dt-ns ml-auto mr-auto">
+      <div class="w-50-l fr-l tc">
         <img
         data-aos="zoom-in"
         src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/products/product-forces.png"
         alt="Young hacker smiling">
-
+      </div>
+      <div class="w-45-l fl-l tl mw6">
         <img
-        class="pv3"
         src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/products/forces/forces-logo.png"
         alt="Forces logo">
-        <h3 class="c-fluid-bk roboto f3-ns f4 fw1 mt0">
+        <h3 class="c-fluid-bk roboto fw7 f4 mv0 tl-l tc">
           The Robot Element that Breaks the Build to Force Remediation
         </h3>
-        <p class="c-fluid-bk roboto fw1 f4 lh-2">
+        <p class="c-fluid-bk roboto fw1 f5 lh-2">
           <strong class="b">Forces</strong> allows you to implement
           DevSecOps into your project.
           It breaks the build to force the remediation
           of confirmed deep, re-opened and new peripheral vulnerabilities.
           It can also verify your post-deploy production status.
         </p>
-        <a href="{{ SITEURL }}/products/forces/">
-          <button class="button-white tl roboto fw7">Learn More</button>
+        <a class="c-fluid-bk no-underline hv-fluid-dkred f5 roboto fw1" href="{{ SITEURL }}/products/forces/">
+          Learn More <span class="c-dkred">></span>
         </a>
       </div>
     </div>
-  </div>
-</div>
-<!-- Services -->
-<div class="mw9 center h6 pv4">
-  <div class="pl3-l pr0-l w-100 pv4">
-    <h2 class="roboto f2-ns f3 c-fluid-bk strong tc">Services</h2>
-    <div class="w-90 tc ml-auto mr-auto pv3">
-      <div class="w-50-l ml-auto mr-auto">
+    <div class="pv6 dt-ns ml-auto mr-auto">
+      <div class="w-50-l fl-l tc">
         <img
         data-aos="zoom-in"
         src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/services/service-continuous.png"
         alt="Young hacker smiling">
-
-        <h3 class="c-fluid-bk roboto f3-ns f4 fw7 mt0 pt3">Continuous Hacking</h3>
-        <p class="c-fluid-bk roboto fw1 f4 lh-2">
+      </div>
+      <div class="w-45-l fr-l tl mw6">
+        <h3 class="c-fluid-bk roboto f1-ns f2 fw7 mt0 pt3 tl-l tc">Continuous Hacking</h3>
+        <p class="c-fluid-bk roboto fw1 f5 lh-2">
           Vulnerabilities and security issues are continuously detected
           and reported during the entire software development cycle.
           Fluid Attacks runs comprehensive testing
           through SAST, DAST, IAST and SCA techniques,
           detecting all vulnerabilities with no false positives.
         </p>
-        <div class="dib ph2">
-          <a href="{{ SITEURL }}/services/continuous-hacking/">
-            <button class="button-white tl roboto fw7">Learn More</button>
+        <div class="dib-ns tc">
+          <a class="c-fluid-bk no-underline hv-fluid-dkred f5 roboto fw1" href="{{ SITEURL }}/services/continuous-hacking/">
+            Learn More <span class="c-dkred">></span>
           </a>
         </div>
-        <div class="dib ph2">
+        <div class="dib-ns ph3 tc pv0-ns pv3">
           <a href="{{ SITEURL }}/contact-us/">
             <button class="outline-transparent bannerbt hv-bt-fluid-rd pointer white pv2 ph4 roboto fw7 f5 dib bt-trans br2 bc-fluid-red ba">
               Get a Demo
@@ -175,16 +191,15 @@
         </div>
       </div>
     </div>
-  </div>
-  <div class="pl3-l pr0-l w-100 pv4">
-    <div class="w-90 tc ml-auto mr-auto pv3">
-      <div class="w-50-l ml-auto mr-auto">
+    <div class="pv6 dt-ns ml-auto mr-auto">
+      <div class="w-50-l fr-l tc">
         <img
         data-aos="zoom-in"
         src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/services/service-one-shot.png"
         alt="Young hacker smiling">
-
-        <h3 class="roboto c-fluid-bk f3-ns f4 fw7 mt0 pt3">One-Shot Hacking</h3>
+      </div>
+      <div class="w-45-l fl-l tl mw6">
+        <h3 class="c-fluid-bk roboto f1-ns f2 fw7 mt0 pt3 tl-l tc">One-Shot Hacking</h3>
         <p class="c-fluid-bk roboto fw1 f4 lh-2">
           Fluid Attacks detects and reports
           vulnerabilities within one specific
@@ -192,12 +207,12 @@
           All existing vulnerabilities are detected
           with no false positives.
         </p>
-        <div class="dib ph2">
-          <a href="{{ SITEURL }}/services/one-shot-hacking/">
-            <button class="button-white tl roboto fw7">Learn More</button>
+        <div class="dib-ns tc">
+          <a class="c-fluid-bk no-underline hv-fluid-dkred f5 roboto fw1" href="{{ SITEURL }}/services/one-shot-hacking/">
+            Learn More <span class="c-dkred">></span>
           </a>
         </div>
-        <div class="dib ph2">
+        <div class="dib-ns ph3 tc pv0-ns pv3">
           <a href="{{ SITEURL }}/contact-us/">
             <button class="outline-transparent bannerbt hv-bt-fluid-rd pointer white pv2 ph4 roboto fw7 f5 dib bt-trans br2 bc-fluid-red ba">
               Get a Demo
@@ -205,43 +220,6 @@
           </a>
         </div>
       </div>
-    </div>
-    <div class="oneshot w-100 mh0-l ph3-l center dn fl">
-      <ul class="list fl center w-40-l w-100 ph2 db-l dn">
-        <li>
-          <img
-          class="fr"
-          src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/services/service-one-shot.png"
-          alt="Young hacker smiling">
-        </li>
-      </ul>
-      <ul class="list fr-l w-40-l w-70-m w-100 pl0-l ph3 center tl-ns tc">
-        <li>
-          <p class="roboto fw1 tl f3-ns f5 lh-2">
-            Fluid Attacks detects and reports vulnerabilities within one
-            specific version of your application. All existing vulnerabilities
-            are detected with no false positives.
-          </p>
-        </li>
-        <li class="pt4-l">
-          <div class="dib">
-            <a class="no-underline pr4 b roboto dib-l dn"
-               href="{{ SITEURL }}/services/one-shot-hacking/">
-              <span class="br2 bg-white bc-fluid-red ba hv-fluid-rd hv-fluid-bd ph4 pv2 bt-trans c-dkred pointer mt2">
-                Learn More
-              </span>
-            </a>
-          </div>
-          <div class="dib tc w-auto-l w-100">
-            <a class="roboto fw1 f5 no-underline c-fluid-bk hv-fluid-dkred"
-               href="{{ SITEURL }}/contact-us/">
-              <span class="br2 bannerbt hv-bt-fluid-rd ph4-l ph5 pv2 bt-trans white b roboto pointer mt2">
-                  Get a Demo
-              </span>
-            </a>
-          </div>
-        </li>
-      </ul>
     </div>
   </div>
 </div>

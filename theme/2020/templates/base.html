@@ -200,18 +200,18 @@
               src="{{ SITEURL }}/{{ ASSET_URL }}"></script>
     {% endassets %}
     <!-- Navigation -->
-      <div class="skeleton">
+      <div class="skeleton bg-graylight">
         {% include "menu.html" %}
       </div>
-      <div>
+      <div class="mt-body">
         {% block breadcrumb %}{% endblock breadcrumb%}
         {% block header %}
         {% endblock header %}
       </div>
     <!-- Main Content -->
       <div class="contbody">
-        <div class="row">
-          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <div class="row bg-graylight">
+          <div class="bg-graylight">
             {% block content %}{% endblock content %}
           </div>
         </div>

@@ -8,7 +8,7 @@ $fluid-light-gray: rgba(241, 241, 241, 1);
 $fluid-red: rgba(255, 52, 53, 1);
 $lightblue: rgba(0, 133, 161, 1);
 $lightgray: rgba(211, 211, 211, 1);
-$graylight: rgba(248, 249, 249, 1);
+$graylight: rgba(249, 249, 249, 1);
 $lightergray: rgba(238, 238, 238, 1);
 $shadowgray: rgba(170, 170, 170, 1);
 $textblack: rgba(48, 48, 48, 1);
@@ -143,6 +143,7 @@ $codeyellow: rgba(230, 219, 116, 1);
 .security-bg { background-image: url('../../images/security/cover-security.png'); }
 .comparative-bg { background-image: url('../../images/services/comparative/cover-comparative.png'); }
 .asserts-bg { background-image: url('../../images/asserts/cover-asserts.png'); }
+.bg-quotes { background-image: url('../../images/bg-quotes.png'); }
 .b-max { font-weight: 999; }
 .nb-6 { margin-bottom: -6rem;}
 .lower-img { &:hover { transform: scale(1.1);
@@ -215,6 +216,7 @@ $codeyellow: rgba(230, 219, 116, 1);
 .h-logo { height: 70px; }
 .h-navbar { height: 6.875rem; }
 .t-all-5 { transition: all .5s; }
+.mt-body { margin-top: 110px; }
 
 // Tachyons custom responsive classes
 @media screen and (min-width: 960px) and (max-width: 1200px) {
@@ -287,7 +289,7 @@ $codeyellow: rgba(230, 219, 116, 1);
   .new-banner { width: 40em; }
   .mr-13-l { margin-right: 13rem; }
   .f-title-l { font-size: 2rem; }
-  .h50-l { height: 50rem; }
+  .h50-l { height: 40rem; }
   .h25-l { height: 25rem; }
   .w-45-l { width: 45%; }
   .w-50-l { width: 50%; }
