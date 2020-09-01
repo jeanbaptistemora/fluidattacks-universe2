@@ -28,14 +28,14 @@ data "aws_iam_policy_document" "dev-policy-data" {
 }
 
 resource "aws_iam_user" "melts-dev" {
-  name = var.user-name
+  name = "melts-dev" 
   path = "/user-provision/"
 }
 
 resource "aws_iam_access_key" "melts-dev-key-1" {
-  user = var.user-name
+  user = "melts-dev" 
 }
 
 resource "aws_iam_access_key" "melts-dev-key-2" {
-  user = var.user-name
+  user = "melts-dev" 
 }

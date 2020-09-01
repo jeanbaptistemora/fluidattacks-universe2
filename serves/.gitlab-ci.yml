@@ -123,6 +123,11 @@ serves_test_user_provision_serves:
   <<: *serves_in_dev_branch
   stage: test-infra
 
+serves_test_user_provision_melts:
+  <<: *with_nix
+  <<: *serves_in_dev_branch
+  stage: test-infra
+
 serves_test_user_provision_observes:
   <<: *with_nix
   <<: *serves_in_dev_branch
@@ -213,6 +218,11 @@ serves_apply_user_provision_serves:
   <<: *serves_in_master_branch
   stage: deploy-infra
 
+serves_apply_user_provision_melts:
+  <<: *with_nix
+  <<: *serves_in_master_branch
+  stage: deploy-infra
+
 serves_apply_user_provision_observes:
   <<: *with_nix
   <<: *serves_in_master_branch
@@ -259,6 +269,11 @@ serves_rotate_keys_user_provision_web_prod:
   stage: rotation
 
 serves_rotate_keys_user_provision_serves:
+  <<: *with_nix
+  <<: *serves_in_schedule_rotate_keys_user_provision
+  stage: rotation
+
+serves_rotate_keys_user_provision_melts:
   <<: *with_nix
   <<: *serves_in_schedule_rotate_keys_user_provision
   stage: rotation
