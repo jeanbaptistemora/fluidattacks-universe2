@@ -17,10 +17,3 @@ export const MICROSOFT_CLIENT_ID: string =
   "4a9923e0-17f1-43b7-9b16-7892eed25f18";
 export const BITBUCKET_CLIENT_ID_DEV: string = "pYj72WzD7sGAXMvjFD";
 export const BITBUCKET_CLIENT_ID_PROD: string = "S3qM7quyfzGeemvnh2";
-
-export const BITBUCKET_LOGIN_KEY_DEV: string = "ht82hTFNUYABLSvd8M";
-export const BITBUCKET_LOGIN_SECRET_DEV: string =
-  "2MLSTvREBFXb9sQ5TbLnbAVffPxVb8Aw";
-export const BITBUCKET_LOGIN_KEY_PROD: string = "2LCcqgAW3zyGMpHkx7";
-export const BITBUCKET_LOGIN_SECRET_PROD: string =
-  "pfpHhnWUaVbQRp2szgbTTYKNz7C9zRg9";
