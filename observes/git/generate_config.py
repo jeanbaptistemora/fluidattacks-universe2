@@ -74,7 +74,7 @@ def get_repos_and_branches(
                 repo = unquote(repo_branch.rsplit('/')[-2])
                 branch = unquote(repo_branch.rsplit('/')[-1])
                 # Let the format be without the .git at the end
-                branches[group].update({repo.rstrip('.git'): branch})
+                branches[group].update({repo.replace('.git', ''): branch})
 
     return branches
 
