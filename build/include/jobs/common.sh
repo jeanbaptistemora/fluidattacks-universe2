@@ -1,24 +1,28 @@
 # shellcheck shell=bash
 
-function job_common_build_nix_caches {
+function _job_common_build_nix_caches {
+  local provisioner
   local context='.'
   local dockerfile='build/Dockerfile'
+
+      provisioner=$(basename "${1:-}") \
+  &&  provisioner="${provisioner%.*}" \
+  &&  helper_docker_build_and_push \
+        "${CI_REGISTRY_IMAGE}/nix:${provisioner}" \
+        "${context}" \
+        "${dockerfile}" \
+        'PROVISIONER' "${provisioner}"
+}
+
+function job_common_build_nix_caches {
+  export TEMP_FILE1
   local provisioners
 
       helper_use_pristine_workdir \
   &&  provisioners=(./build/provisioners/*) \
-  &&  helper_build_nix_caches_parallel \
-  &&  for (( i="${lower_limit}";i<="${upper_limit}";i++ ))
-      do
-            provisioner=$(basename "${provisioners[${i}]}") \
-        &&  provisioner="${provisioner%.*}" \
-        &&  helper_docker_build_and_push \
-              "${CI_REGISTRY_IMAGE}/nix:${provisioner}" \
-              "${context}" \
-              "${dockerfile}" \
-              'PROVISIONER' "${provisioner}" \
-        ||  return 1
-      done
+  &&  printf "%s\n" "${provisioners[@]}" | LC_ALL=C sort > "${TEMP_FILE1}" \
+  &&  helper_execute_chunk_parallel \
+        "_job_common_build_nix_caches"
 }
 
 function job_common_send_new_release_email {

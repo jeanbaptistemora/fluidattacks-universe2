@@ -125,23 +125,20 @@ function helper_docker_build_and_push {
   &&  docker image remove "${tag}"
 }
 
-function helper_build_nix_caches_parallel {
-  local num_provisioners
-  local num_provisioners_per_group
-  local num_provisioners_remaining
-  export lower_limit
-  export upper_limit
+function helper_execute_chunk_parallel {
+  local function_to_call
+  export TEMP_FILE1
 
-      num_provisioners=$(find build/provisioners/ -type f | wc -l) \
-  &&  num_provisioners_per_group=$(( num_provisioners/CI_NODE_TOTAL )) \
-  &&  num_provisioners_remaining=$(( num_provisioners%CI_NODE_TOTAL )) \
-  &&  if [ "${num_provisioners_remaining}" -gt '0' ]
-      then
-        num_provisioners_per_group=$(( num_provisioners_per_group+=1 ))
-      fi \
-  &&  lower_limit=$(( (CI_NODE_INDEX-1)*num_provisioners_per_group )) \
-  &&  upper_limit=$(( CI_NODE_INDEX*num_provisioners_per_group-1 )) \
-  &&  upper_limit=$(( upper_limit > num_provisioners-1 ? num_provisioners-1 : upper_limit ))
+  function_to_call="${1:-}"
+
+      echo "Found $(wc -l "${TEMP_FILE1}") items to process" \
+  &&  echo "Processing batch: ${CI_NODE_INDEX} of ${CI_NODE_TOTAL}" \
+  &&  split --number="l/${CI_NODE_INDEX}/${CI_NODE_TOTAL}" "${TEMP_FILE1}" \
+        | while read -r item
+          do
+                "${function_to_call}" "${item}" \
+            ||  return 1
+          done
 }
 
 function helper_get_gitlab_var {

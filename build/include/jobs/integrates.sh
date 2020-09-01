@@ -764,19 +764,10 @@ function _job_integrates_analytics_make_documents {
   export PYTHONPATH="${PWD}:${PWD}/analytics:${PYTHONPATH}"
   export TEMP_FILE1
   local remote_bucket='fluidintegrates.analytics'
-  local num_of_generators
 
-      find 'analytics/generators' -wholename '*.py' \
-        | LC_ALL=C sort > "${TEMP_FILE1}" \
-  &&  num_of_generators=$(wc -l < "${TEMP_FILE1}") \
-  &&  echo "Found ${num_of_generators} generators to execute" \
-  &&  echo "Processing batch: ${CI_NODE_INDEX} of ${CI_NODE_TOTAL}" \
-  &&  split --number="l/${CI_NODE_INDEX}/${CI_NODE_TOTAL}" "${TEMP_FILE1}" \
-        | while read -r generator
-          do
-                _execute_analytics_generator "${generator}" \
-            ||  return 1
-          done \
+      find 'analytics/generators' -wholename '*.py' | LC_ALL=C sort > "${TEMP_FILE1}" \
+  &&  helper_execute_chunk_parallel \
+        "_execute_analytics_generator" \
   &&  echo '[INFO] Uploading documents' \
   &&  aws s3 sync \
         'analytics/generators' "s3://${remote_bucket}/${CI_COMMIT_REF_NAME}/documents" \
