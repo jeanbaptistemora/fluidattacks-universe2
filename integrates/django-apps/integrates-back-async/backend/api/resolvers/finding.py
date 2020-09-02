@@ -993,6 +993,7 @@ async def _do_handle_acceptation(
             'historic_treatment': finding_id,
             'current_state': finding_id,
             'open_vulnerabilities': project_name,
+            'drafts': project_name,
             'open_findings': project_name,
             'max*severity': project_name,
             'mean_remediate': project_name,
@@ -1148,6 +1149,7 @@ async def _do_delete_finding(
         project_attrs_to_clean = {
             'severity': project_name,
             'finding': project_name,
+            'drafts': project_name,
             'vuln': project_name
         }
         to_clean = util.format_cache_keys_pattern(project_attrs_to_clean)
@@ -1187,6 +1189,7 @@ async def _do_approve_draft(
         project_attrs_to_clean = {
             'severity': project_name,
             'finding': project_name,
+            'drafts': project_name,
             'vuln': project_name
         }
         to_clean = util.format_cache_keys_pattern(project_attrs_to_clean)
