@@ -142,7 +142,17 @@ data "aws_iam_policy_document" "integrates-dev-policy-data" {
       "application-autoscaling:DescribeScalingActivities",
       "application-autoscaling:DescribeScalableTargets",
       "application-autoscaling:DeregisterScalableTarget",
-      "application-autoscaling:DeleteScalingPolicy"
+      "application-autoscaling:DeleteScalingPolicy",
+    ]
+    resources = ["*"]
+  }
+
+  # Autoscaling read
+  statement {
+    effect = "Allow"
+    actions = [
+      "autoscaling:DescribeLaunchConfigurations",
+      "autoscaling:DescribeAutoScalingGroups"
     ]
     resources = ["*"]
   }
