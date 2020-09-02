@@ -13,9 +13,9 @@ import {
 } from "expo-auth-session";
 import _ from "lodash";
 
-import { IAuthResult } from "..";
-import { MICROSOFT_CLIENT_ID } from "../../constants";
-import { LOGGER } from "../../logger";
+import { IAuthResult } from "../..";
+import { MICROSOFT_CLIENT_ID } from "../../../constants";
+import { LOGGER } from "../../../logger";
 
 const clientId: string = MICROSOFT_CLIENT_ID;
 
