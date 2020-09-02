@@ -15,8 +15,12 @@ resource "aws_iam_access_key" "pibe-valderrama-access-key" {
 }
 
 
-resource "aws_iam_user_policy_attachment" "backuser-attack" {
+resource "aws_iam_user_policy_attachment" "backuser-attach" {
   user       = "BackupUser"
   policy_arn = "arn:aws:iam::aws:policy/AdministratorAccess"
 }
 
+resource "aws_iam_user_policy_attachment" "pibe-attach" {
+  user       = "PibeValderrama"
+  policy_arn = aws_iam_policy.lambda_user_policy.arn 
+}
