@@ -76,7 +76,7 @@ def predict(subs: str) -> None:
     dataset: DataFrame = make_full_dataset(subs)
     dataset = dataset.dropna()
     # https://github.com/python/mypy/issues/2410
-    x_test = dataset.loc[:, 'hunks':] # type: ignore
+    x_test = dataset.loc[:, 'hunks':]  # type: ignore
     model = LinearSVC()
     with open('toolbox/toolbox/sorts/model_parameters.json', 'r') as modfile:
         params = json.load(modfile)
@@ -92,7 +92,9 @@ def predict(subs: str) -> None:
     preds = pd.DataFrame(y_pred, columns=['prediction'])
     tog: DataFrame = pd.concat([probs, preds], axis=1)
     recom_commmits: DataFrame = tog[tog.prediction == 1]
-    output: DataFrame = recom_commmits.join(dataset)[['repo', 'commit', 'prob_vuln']]
+    output: DataFrame = recom_commmits.join(dataset)[
+        ['repo', 'commit', 'prob_vuln']
+    ]
     output['repo'] = output.repo.str.split('/').str[-1]
     output['commit'] = output.commit.str[:10]
     errort: float = 5 + 5 * np.random.rand(len(output), )
@@ -100,9 +102,7 @@ def predict(subs: str) -> None:
     output.to_csv('sorts_results.csv', index=False)
     output = output.sort_values(by='prob_vuln', ascending=False)
     output = output.reset_index(drop=True)
-    end: float = time.time()
-    sec = end - start
-    print('\nActually took', datetime.timedelta(seconds=sec))
+    print('\nActually took', datetime.timedelta(seconds=time.time() - start))
     print('Top recommended commits to look for vulnerabilities:')
     print(output.to_string(index=False,
                            float_format=lambda x: str(x) + '%'))

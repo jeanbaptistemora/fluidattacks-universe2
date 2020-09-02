@@ -5,17 +5,16 @@ out of open vulnerabilities json from integrates API
 
 import os
 import random
-from typing import Dict, List, Tuple, Set, Union
+from typing import List, Tuple, Set, Union
 
 import git
 import numpy as np
 import pandas as pd
-from git.exc import CommandError
 from git.cmd import Git
+from git.exc import CommandError
 from mypy_extensions import TypedDict
 from pandas import DataFrame
 from pandas.core.groupby import GroupBy
-from pydriller.metrics.process.hunks_count import HunksCount
 
 from toolbox.api import integrates
 from toolbox.constants import API_TOKEN

@@ -8,6 +8,8 @@ function helper_test_lint_code_python {
   )
   local args_mypy=(
     --allow-any-generics
+    # Remove following rule when all packages in melts are typed
+    --follow-imports=skip
     --ignore-missing-imports
     --strict
   )
@@ -16,7 +18,7 @@ function helper_test_lint_code_python {
   &&  echo '[INFO]: Checking static typing...' \
   &&  mypy "${args_mypy[@]}" toolbox/sorts \
   &&  echo '[INFO]: Linting...' \
-  &&  prospector "${args_prospector[@]}" toolbox/ \
+  &&  prospector "${args_prospector[@]}" toolbox/sorts \
   &&  popd \
-  || return 0
+  || return 1
 }
