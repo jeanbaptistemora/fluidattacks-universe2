@@ -23,6 +23,7 @@ from lib_path.common import (
     DOUBLE_QUOTED_STRING,
     EXTENSIONS_JAVA,
     SHIELD,
+    SINGLE_QUOTED_STRING,
 )
 from state.cache import (
     cache_decorator,
@@ -185,6 +186,50 @@ async def java_insecure_hash(
     )
 
 
+def _java_insecure_pass(
+    content: str,
+    path: str,
+) -> Tuple[Vulnerability, ...]:
+    framework = 'org.springframework.security'
+    grammar = MatchFirst([
+        Keyword(f'{framework}.authentication.encoding.ShaPasswordEncoder'),
+        Keyword(f'{framework}.authentication.encoding.Md5PasswordEncoder'),
+        Keyword(f'{framework}.crypto.password.LdapShaPasswordEncoder'),
+        Keyword(f'{framework}.crypto.password.Md4PasswordEncoder'),
+        Keyword(f'{framework}.crypto.password.MessageDigestPasswordEncoder'),
+        Keyword(f'{framework}.crypto.password.NoOpPasswordEncoder'),
+        Keyword(f'{framework}.crypto.password.StandardPasswordEncoder'),
+        Keyword(f'{framework}.crypto.scrypt.SCryptPasswordEncoder'),
+    ])
+    grammar.ignore(C_STYLE_COMMENT)
+    grammar.ignore(DOUBLE_QUOTED_STRING)
+    grammar.ignore(SINGLE_QUOTED_STRING)
+
+    return blocking_get_vulnerabilities(
+        content=content,
+        description=t(
+            key='src.lib_path.f052.java_insecure_pass.description',
+            path=path,
+        ),
+        finding=FindingEnum.F052,
+        grammar=grammar,
+        path=path,
+    )
+
+
+@cache_decorator()
+@SHIELD
+async def java_insecure_pass(
+    content: str,
+    path: str,
+) -> Tuple[Vulnerability, ...]:
+    return await in_process(
+        _java_insecure_pass,
+        content=content,
+        path=path,
+    )
+
+
 async def analyze(
     content_generator: Callable[[], Awaitable[str]],
     file_extension: str,
@@ -199,6 +244,10 @@ async def analyze(
             path=path,
         ))
         coroutines.append(java_insecure_hash(
+            content=await content_generator(),
+            path=path,
+        ))
+        coroutines.append(java_insecure_pass(
             content=await content_generator(),
             path=path,
         ))

@@ -1,3 +1,5 @@
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+
 MessageDigest md = MessageDigest.getInstance("ShA-256");
 MessageDigest md = MessageDigest.getInstance("ShA-1", provider);
 MessageDigest md = MessageDigest.getInstance("mD5");

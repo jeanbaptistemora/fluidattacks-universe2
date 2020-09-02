@@ -1,3 +1,4 @@
+console_snippets: false
 language: EN
 path:
   include:
