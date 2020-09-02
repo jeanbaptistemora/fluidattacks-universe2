@@ -8,6 +8,10 @@ in
     name = "melts";
 
     buildInputs = [
+      pkgs.git
+      pkgs.awscli
+      pkgs.sops
+      pkgs.jq
     ];
 
     pyPkgMelts = builders.pythonPackageLocal {
