@@ -1,6 +1,5 @@
 chdir: ../../
 console_snippets: false
-group: unittesting
 language: EN
 path:
   include:

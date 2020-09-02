@@ -16,6 +16,7 @@ from os.path import (
 )
 from typing import (
     Dict,
+    Optional,
 )
 
 # Third party imports
@@ -75,7 +76,7 @@ async def adjust_working_dir(config: SkimsConfig) -> None:
         chdir(newcwd)
 
 
-async def execute_skims(config: SkimsConfig, token: str) -> bool:
+async def execute_skims(config: SkimsConfig, token: Optional[str]) -> bool:
     """Execute skims according to the provided config.
 
     :param config: Skims configuration object
@@ -123,8 +124,7 @@ async def execute_skims(config: SkimsConfig, token: str) -> bool:
         success = True
         await log('info', ' '.join((
             'In case you want to persist results to Integrates',
-            'please make sure you set the --token flag in the CLI',
-            'and the "group" key in the config file'
+            'please make sure you set the --token and --group flag in the CLI',
         )))
 
     return success
@@ -171,7 +171,8 @@ async def notify_findings(
 async def main(
     config: str,
     debug: bool,
-    token: str,
+    group: Optional[str],
+    token: Optional[str],
 ) -> bool:
     monitor_task: Task[None] = create_task(monitor())
 
@@ -179,7 +180,7 @@ async def main(
         set_level(logging.DEBUG)
 
     try:
-        config_obj: SkimsConfig = await load(config)
+        config_obj: SkimsConfig = await load(group, config)
         set_locale(config_obj.language)
         await reset_ephemeral_state()
         await adjust_working_dir(config_obj)

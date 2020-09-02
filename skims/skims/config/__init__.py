@@ -1,3 +1,8 @@
+# Standard library
+from typing import (
+    Optional,
+)
+
 # Third party libraries
 import confuse
 
@@ -17,7 +22,7 @@ from utils.logs import (
 )
 
 
-def _load(path: str) -> SkimsConfig:
+def _load(group: Optional[str], path: str) -> SkimsConfig:
     template = confuse.Configuration('skims', read=False)
     template.set_file(path)
     template.read(user=False, defaults=False)
@@ -26,7 +31,6 @@ def _load(path: str) -> SkimsConfig:
         confuse.Template({
             'chdir': confuse.String(),
             'console_snippets': confuse.Choice((True, False)),
-            'group': confuse.String(pattern=r'^[a-z0-9]+$'),
             'language': confuse.Choice(LocalesEnum),
             'path': confuse.Template({
                 'exclude': confuse.Sequence(confuse.String()),
@@ -42,7 +46,7 @@ def _load(path: str) -> SkimsConfig:
         skims_config: SkimsConfig = SkimsConfig(
             chdir=config.pop('chdir', None),
             console_snippets=config.pop('console_snippets', True),
-            group=config.pop('group', None),
+            group=group,
             language=LocalesEnum(config.pop('language')),
             path=SkimsPathConfig(
                 exclude=config_path.pop('exclude'),
@@ -62,8 +66,8 @@ def _load(path: str) -> SkimsConfig:
     return skims_config
 
 
-async def load(path: str) -> SkimsConfig:
-    skims_config: SkimsConfig = await in_process(_load, path)
+async def load(group: Optional[str], path: str) -> SkimsConfig:
+    skims_config: SkimsConfig = await in_process(_load, group, path)
 
     await log('debug', '%s', skims_config)
 

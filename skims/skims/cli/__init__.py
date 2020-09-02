@@ -1,5 +1,8 @@
 # Standard libraries
 import sys
+from typing import (
+    Optional,
+)
 
 # Third party libraries
 from aioextensions import (
@@ -39,6 +42,12 @@ from utils.bugs import (
     is_flag=True,
 )
 @click.option(
+    '--group',
+    envvar='INTEGRATES_GROUP',
+    help='Integrates group to which results will be persisted.',
+    show_envvar=True,
+)
+@click.option(
     '--token',
     envvar='INTEGRATES_API_TOKEN',
     help='Integrates API token.',
@@ -47,13 +56,15 @@ from utils.bugs import (
 def dispatch(
     config: str,
     debug: bool,
-    token: str,
+    group: Optional[str],
+    token: Optional[str],
 ) -> None:
     """Read the execution flags from the CLI and dispatch them to Skims."""
     success: bool = run(
         main_wrapped(
             config=config,
             debug=debug,
+            group=group,
             token=token,
         ),
         debug=debug,
@@ -68,7 +79,8 @@ def dispatch(
 async def main_wrapped(
     config: str,
     debug: bool,
-    token: str,
+    group: Optional[str],
+    token: Optional[str],
 ) -> bool:
     """Wrap the main function in order to handle gracefully its errors.
 
@@ -87,6 +99,7 @@ async def main_wrapped(
     configure_bugsnag()
     success: bool = await core.entrypoint.main(
         config=config,
+        group=group,
         debug=debug,
         token=token,
     )

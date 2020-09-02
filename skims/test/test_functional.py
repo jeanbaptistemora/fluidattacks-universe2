@@ -133,8 +133,12 @@ def test_dispatch_bad_extra_things(test_config: Callable[[str], str]) -> None:
     assert result.exit_code == 1
 
 
-def test_dispatch_token(test_config: Callable[[str], str]) -> None:
-    result = _cli('--token', '123', test_config('correct_nothing_to_do'))
+def test_dispatch_token(
+    test_config: Callable[[str], str],
+    test_group: str,
+) -> None:
+    config: str = test_config('correct_nothing_to_do')
+    result = _cli('--token', '123', '--group', test_group, config)
     assert result.exit_code == 1
 
 
@@ -158,7 +162,8 @@ def test_dispatch_debug_correct_nothing_to_do(
     test_group: str,
     test_integrates_session: None,
 ) -> None:
-    result = _cli('--debug', test_config('correct_nothing_to_do'))
+    config: str = test_config('correct_nothing_to_do')
+    result = _cli('--debug', '--group', test_group, config)
     assert result.exit_code == 0
 
     # No findings should be created, there is nothing to do !
@@ -170,7 +175,7 @@ def test_dispatch_correct(
     test_group: str,
     test_integrates_session: None,
 ) -> None:
-    result = _cli(test_config('correct'))
+    result = _cli('--group', test_group, test_config('correct'))
     assert result.exit_code == 0
 
     # The following findings must be met
@@ -192,7 +197,7 @@ def test_dispatch_correct_nothing_to_do(
     test_group: str,
     test_integrates_session: None,
 ) -> None:
-    result = _cli(test_config('correct_nothing_to_do'))
+    result = _cli('--group', test_group, test_config('correct_nothing_to_do'))
     assert result.exit_code == 0
 
     # Skims should persist the null state, closing everything on Integrates
