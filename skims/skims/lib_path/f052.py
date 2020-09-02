@@ -64,6 +64,20 @@ def _java_insecure_cipher(
                 lambda tokens: _vuln_cipher_get_instance(tokens[0].lower())
             )
         ),
+        (
+            Keyword('SSLContext') + '.' +
+            Keyword('getInstance') + '(' +
+            DOUBLE_QUOTED_STRING.copy().addCondition(
+                lambda tokens: tokens[0].lower() not in {
+                    "TLS",
+                    "TLSv1.2",
+                    "TLSv1.3",
+                    "DTLS",
+                    "DTLSv1.2",
+                    "DTLSv1.3",
+                }
+            )
+        ),
     ])
     grammar.ignore(C_STYLE_COMMENT)
 
