@@ -41,7 +41,8 @@ data "aws_iam_policy_document" "integrates-prod-policy-data" {
     effect = "Allow"
     actions = [
       "iam:List*",
-      "iam:Get*"
+      "iam:Get*",
+      "iam:Create*",
     ]
     resources = ["*"]
   }
@@ -50,7 +51,8 @@ data "aws_iam_policy_document" "integrates-prod-policy-data" {
     actions = ["iam:*"]
     resources = [
       "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/integrates-*",
-      "arn:aws:iam::${data.aws_caller_identity.current.account_id}:policy/integrates-*"
+      "arn:aws:iam::${data.aws_caller_identity.current.account_id}:policy/integrates-*",
+      "arn:aws:iam::${data.aws_caller_identity.current.account_id}:instance-profile/integrates-*",
     ]
   }
   statement {
@@ -66,6 +68,7 @@ data "aws_iam_policy_document" "integrates-prod-policy-data" {
     effect = "Allow"
     actions = [
       "ec2:DeleteSubnet",
+      "ec2:DeleteNetworkInterface",
       "ec2:ModifySubnetAttribute",
       "ec2:CreateSubnet",
       "ec2:DescribeSubnets",
@@ -79,6 +82,7 @@ data "aws_iam_policy_document" "integrates-prod-policy-data" {
       "ec2:DescribeSecurityGroupReferences",
       "ec2:DescribeSecurityGroups",
       "ec2:DescribeStaleSecurityGroups",
+      "ec2:DescribeNetworkInterfaces",
       "ec2:RevokeSecurityGroupEgress",
       "ec2:RevokeSecurityGroupIngress",
       "ec2:UpdateSecurityGroupRuleDescriptionsEgress",
@@ -273,6 +277,27 @@ data "aws_iam_policy_document" "integrates-prod-policy-data" {
       "eks:*"
     ]
     resources = ["arn:aws:eks:${var.region}:${data.aws_caller_identity.current.account_id}:cluster/integrates-*"]
+  }
+
+  # Autoscaling read/write permissions over owned resources
+  statement {
+    effect = "Allow"
+    actions = [
+      "autoscaling:Create*",
+      "autoscaling:Describe*",
+      "autoscaling:Get*",
+    ]
+    resources = ["*"]
+  }
+  statement {
+    effect = "Allow"
+    actions = [
+      "autoscaling:*"
+    ]
+    resources = [
+      "arn:aws:autoscaling:${var.region}:${data.aws_caller_identity.current.account_id}:launchConfiguration:*:launchConfigurationName/integrates-*",
+      "arn:aws:autoscaling:${var.region}:${data.aws_caller_identity.current.account_id}:autoScalingGroup:*:autoScalingGroupName/integrates-*",
+    ]
   }
 }
 
