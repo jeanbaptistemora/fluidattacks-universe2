@@ -9,7 +9,22 @@ data "aws_iam_policy_document" "dev-policy-data" {
     ]
     resources = [
       "arn:aws:s3:::fluidattacks-terraform-states-prod",
-      "arn:aws:s3:::fluidattacks-terraform-states-prod/*"
+      "arn:aws:s3:::fluidattacks-terraform-states-prod/melts-*"
+    ]
+  }
+
+  # IAM
+  statement {
+    effect = "Allow"
+    actions = [
+      "iam:List*",
+      "iam:Get*"
+    ]
+    resources = [
+      "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/melts-*",
+      "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/melts-*",
+      "arn:aws:iam::${data.aws_caller_identity.current.account_id}:policy/melts-*",
+      "arn:aws:iam::${data.aws_caller_identity.current.account_id}:policy/user-provision/melts-*",
     ]
   }
 
@@ -25,6 +40,18 @@ data "aws_iam_policy_document" "dev-policy-data" {
       "*"
     ]
   }
+}
+
+resource "aws_iam_policy" "dev-policy" {
+  description = "melts dev policy"
+  name        = "melts-dev-policy"
+  path        = "/user-provision/"
+  policy      = data.aws_iam_policy_document.dev-policy-data.json
+}
+
+resource "aws_iam_user_policy_attachment" "dev-attach-policy" {
+  user       = "melts-dev"
+  policy_arn = aws_iam_policy.dev-policy.arn
 }
 
 resource "aws_iam_user" "melts-dev" {
