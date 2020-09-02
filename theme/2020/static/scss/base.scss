@@ -144,6 +144,8 @@ $codeyellow: rgba(230, 219, 116, 1);
 .comparative-bg { background-image: url('../../images/services/comparative/cover-comparative.png'); }
 .asserts-bg { background-image: url('../../images/asserts/cover-asserts.png'); }
 .bg-quotes { background-image: url('../../images/bg-quotes.png'); }
+.bg-solutions { background-image: url('../../images/bg-solutions.png'); }
+.bg-ebook { background-image: url('../../images/bg-ebook.png'); }
 .b-max { font-weight: 999; }
 .nb-6 { margin-bottom: -6rem;}
 .lower-img { &:hover { transform: scale(1.1);
@@ -219,6 +221,10 @@ $codeyellow: rgba(230, 219, 116, 1);
 .mt-body { margin-top: 110px; }
 
 // Tachyons custom responsive classes
+@media screen and (min-width: 1200px) and (max-width: 1900px) {
+  .minh-100vh { min-height: 100vh;}
+}
+
 @media screen and (min-width: 960px) and (max-width: 1200px) {
   .w-footer-links { width: auto; }
   .w-footer-phrase { width: 50% ; }
@@ -452,11 +458,12 @@ $codeyellow: rgba(230, 219, 116, 1);
 
 @keyframes scroll {
   0% { transform: translateX(0); }
-  100% { transform: translateX(calc(-200px * 9)); }
+  100% { transform: translateX(calc(-5443px)); }
 }
-.customer-carousel { animation: scroll 40s linear infinite;
+.customer-carousel {
+  animation: scroll 80s linear infinite;
   display: flex;
-  width: calc(200px * 18);
+  width: calc(5443px * 2);
 }
 
 .active-slide,

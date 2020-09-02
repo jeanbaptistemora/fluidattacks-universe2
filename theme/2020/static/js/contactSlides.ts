@@ -52,7 +52,7 @@ const contactSlider: (() => void) = (): void => {
   // Controls the current slide and resets interval if needed
   const currentSlide: ((n: number) => void) = (n: number): void => {
       clearInterval(myTimer);
-      myTimer = setInterval(() => {plusSlides(n + 1); }, 4000);
+      myTimer = setInterval(() => {plusSlides(n + 1); }, 5000);
       showSlides(slideIndex = n);
   };
 
