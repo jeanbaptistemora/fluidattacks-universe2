@@ -269,10 +269,18 @@ aws dynamodb batch-write-item \
   --endpoint-url 'http://localhost:8022' \
   --request-items 'file://test_async/dynamo_data/bb_executions.json.now'
 
+# This will insert two extra rows with current date-time
+# This rows are always visible in the front-end :)
+sed "s/2020-08-24.*/${iso_date_now}\"/g" \
+  < 'test_async/dynamo_data/FI_forces.json' \
+  | sed "s/33e5d863252940edbfb144ede56d56cf/aaa/g" \
+  | sed "s/a125217504d447ada2b81da3e4bdab0e/bbb/g" \
+  > test_async/dynamo_data/FI_forces.json.now
+
 echo '[INFO] Writing data from: test_async/dynamo_data/bb_executions.json.now'
 aws dynamodb batch-write-item \
   --endpoint-url 'http://localhost:8022' \
-  --request-items 'file://test_async/dynamo_data/FI_forces.json'
+  --request-items 'file://test_async/dynamo_data/FI_forces.json.now'
 
 if test "${CI_JOB_NAME:-}" = "integrates_serve_dynamodb_local"
 then
