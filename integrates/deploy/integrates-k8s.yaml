@@ -17,7 +17,7 @@ metadata:
   annotations:
     kubernetes.io/change-cause: "New deployment version of async Integrates on __DATE__"
 spec:
-  replicas: 4
+  replicas: 9
   strategy:
     rollingUpdate:
       maxSurge: 1
@@ -33,11 +33,11 @@ spec:
         imagePullPolicy: Always
         resources:
           requests:
-            cpu: 2500m
+            cpu: 2000m
             memory: 6Gi
           limits:
-            cpu: 3000m
-            memory: 8Gi
+            cpu: 2000m
+            memory: 6Gi
         envFrom:
           - secretRef:
               name: integrates-env
