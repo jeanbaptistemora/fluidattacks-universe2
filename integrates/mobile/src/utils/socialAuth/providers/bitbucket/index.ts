@@ -10,12 +10,12 @@ import {
 import { AppOwnership, default as Constants } from "expo-constants";
 import _ from "lodash";
 
-import { IAuthResult } from "..";
+import { IAuthResult } from "../..";
 import {
   BITBUCKET_CLIENT_ID_DEV,
   BITBUCKET_CLIENT_ID_PROD,
-} from "../../constants";
-import { LOGGER } from "../../logger";
+} from "../../../constants";
+import { LOGGER } from "../../../logger";
 
 const inExpoClient: boolean = Constants.appOwnership === AppOwnership.Expo;
 
