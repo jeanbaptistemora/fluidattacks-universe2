@@ -1,4 +1,6 @@
 # Standard library
+import ast
+import math
 from typing import (
     Any,
     Callable,
@@ -55,7 +57,7 @@ EXTENSIONS_YAML: Set[str] = {'yml', 'yaml'}
 BACKTICK_QUOTED_STRING: QuotedString = QuotedString("`", escChar='\\')
 SINGLE_QUOTED_STRING: QuotedString = QuotedString("'", escChar='\\')
 DOUBLE_QUOTED_STRING: QuotedString = QuotedString('"', escChar='\\')
-
+NUMBER: Word = Word('0123456789abcdefABCDEFxX.')
 VAR_NAME_JAVA: ParserElement = Word(alphas + '$_', alphanums + '$_')
 VAR_ATTR_JAVA: ParserElement = delimitedList(VAR_NAME_JAVA, '.', True)
 
@@ -112,3 +114,10 @@ def blocking_get_vulnerabilities(  # pylint: disable=too-many-arguments
     )
 
     return results
+
+
+def str_to_number(token: str, default: float = math.nan) -> float:
+    try:
+        return float(ast.literal_eval(token))
+    except (SyntaxError, ValueError):
+        return default

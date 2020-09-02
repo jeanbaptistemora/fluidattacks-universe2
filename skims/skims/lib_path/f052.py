@@ -22,8 +22,10 @@ from lib_path.common import (
     C_STYLE_COMMENT,
     DOUBLE_QUOTED_STRING,
     EXTENSIONS_JAVA,
+    NUMBER,
     SHIELD,
     SINGLE_QUOTED_STRING,
+    str_to_number,
 )
 from state.cache import (
     cache_decorator,
@@ -158,6 +160,7 @@ def _java_insecure_hash(
                 Keyword('sha1'),
             ]) + '('
         ),
+        Keyword('MGF1ParameterSpec') + '.' + Keyword('SHA1'),
     ])
     grammar.ignore(C_STYLE_COMMENT)
 
@@ -181,6 +184,97 @@ async def java_insecure_hash(
 ) -> Tuple[Vulnerability, ...]:
     return await in_process(
         _java_insecure_hash,
+        content=content,
+        path=path,
+    )
+
+
+def _java_insecure_key(
+    content: str,
+    path: str,
+) -> Tuple[Vulnerability, ...]:
+    grammar = MatchFirst([
+        (
+            Keyword('RSAKeyGenParameterSpec') + '(' +
+            NUMBER.copy().addCondition(
+                lambda tokens: str_to_number(tokens[0]) < 2048
+            )
+        ),
+        (
+            Keyword('ECGenParameterSpec') + '(' +
+            DOUBLE_QUOTED_STRING.copy().addCondition(
+                # openssl ecparam -list_curves
+                lambda tokens: tokens[0].lower() in {
+                    'secp112r1',
+                    'secp112r2',
+                    'secp128r1',
+                    'secp128r2',
+                    'secp160k1',
+                    'secp160r1',
+                    'secp160r2',
+                    'secp192k1',
+                    'prime192v1',
+                    'prime192v2',
+                    'prime192v3',
+                    'sect113r1',
+                    'sect113r2',
+                    'sect131r1',
+                    'sect131r2',
+                    'sect163k1',
+                    'sect163r1',
+                    'sect163r2',
+                    'sect193r1',
+                    'sect193r2',
+                    'c2pnb163v1',
+                    'c2pnb163v2',
+                    'c2pnb163v3',
+                    'c2pnb176v1',
+                    'c2tnb191v1',
+                    'c2tnb191v2',
+                    'c2tnb191v3',
+                    'c2pnb208w1',
+                    'wap-wsg-idm-ecid-wtls1',
+                    'wap-wsg-idm-ecid-wtls3',
+                    'wap-wsg-idm-ecid-wtls4',
+                    'wap-wsg-idm-ecid-wtls5',
+                    'wap-wsg-idm-ecid-wtls6',
+                    'wap-wsg-idm-ecid-wtls7',
+                    'wap-wsg-idm-ecid-wtls8',
+                    'wap-wsg-idm-ecid-wtls9',
+                    'wap-wsg-idm-ecid-wtls10',
+                    'wap-wsg-idm-ecid-wtls11',
+                    'oakley-ec2n-3',
+                    'oakley-ec2n-4',
+                    'brainpoolp160r1',
+                    'brainpoolp160t1',
+                    'brainpoolp192r1',
+                    'brainpoolp192t1',
+                }
+            )
+        ),
+    ])
+    grammar.ignore(C_STYLE_COMMENT)
+
+    return blocking_get_vulnerabilities(
+        content=content,
+        description=t(
+            key='src.lib_path.f052.java_insecure_key.description',
+            path=path,
+        ),
+        finding=FindingEnum.F052,
+        grammar=grammar,
+        path=path,
+    )
+
+
+@cache_decorator()
+@SHIELD
+async def java_insecure_key(
+    content: str,
+    path: str,
+) -> Tuple[Vulnerability, ...]:
+    return await in_process(
+        _java_insecure_key,
         content=content,
         path=path,
     )
@@ -244,6 +338,10 @@ async def analyze(
             path=path,
         ))
         coroutines.append(java_insecure_hash(
+            content=await content_generator(),
+            path=path,
+        ))
+        coroutines.append(java_insecure_key(
             content=await content_generator(),
             path=path,
         ))
