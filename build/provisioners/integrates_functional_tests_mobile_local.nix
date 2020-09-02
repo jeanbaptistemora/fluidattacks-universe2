@@ -29,7 +29,7 @@ in
       nodeJsModuleAppium =
         builders.nodeJsModule {
           moduleName = "appium";
-          requirement = "appium@1.18.0";
+          requirement = "appium@1.16.0";
         };
 
       pyPkgReqsTests =

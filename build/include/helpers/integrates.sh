@@ -326,7 +326,7 @@ function helper_upload_to_devicefarm {
                     echo "[ERROR] Couldn't upload ${file_type}" \
                 &&  return 1
               else
-                    echo "[INFO][${upload_status}] sleeping 5 seconds..." \
+                    echo "[INFO] Upload in ${upload_status} status, waiting for completion" \
                 &&  sleep 5 \
                 ||  return 1
               fi
@@ -341,30 +341,59 @@ function helper_run_test_devicefarm {
     local run_name="${4}"
     local test_pkg_arn="${5}"
     local test_spec_arn="${6}"
+    local job_arn
+    local logs_url
     local run_arn
     local run_result
 
         echo "[INFO] Scheduling run" \
     &&  run_arn=$(
           aws devicefarm schedule-run \
-            --project-arn "${project_arn}" \
             --app-arn "${app_arn}" \
             --device-pool-arn "${device_pool_arn}" \
             --name "${run_name}" \
-            --test "testSpecArn=${test_spec_arn},type=APPIUM_PYTHON,testPackageArn=${test_pkg_arn}" \
+            --project-arn "${project_arn}" \
+            --test "{
+              \"parameters\": {
+                \"app_performance_monitoring\": \"false\",
+                \"video_recording\": \"false\"
+              },
+              \"testPackageArn\": \"${test_pkg_arn}\",
+              \"testSpecArn\": \"${test_spec_arn}\",
+              \"type\": \"APPIUM_PYTHON\"
+            }" \
           | jq -r '.run | .arn'
         ) \
     &&  while true;
         do
-          run_status=$(
-            aws devicefarm get-run \
-              --arn "${run_arn}" \
-            | jq -r '.run | .status'
-          ) \
+              run_status=$(
+                aws devicefarm get-run \
+                  --arn "${run_arn}" \
+                | jq -r '.run | .status'
+              ) \
           &&  if [ "${run_status}" == "COMPLETED" ]; then
                 break
+              elif [ "${run_status}" == "RUNNING" ]; then
+                    job_arn=$(
+                      aws devicefarm list-jobs \
+                        --arn "${run_arn}" \
+                      | jq -r '.jobs[0] | .arn'
+                    ) \
+                &&  logs_url=$(
+                      aws devicefarm list-artifacts \
+                        --arn "${job_arn}" \
+                        --type FILE \
+                      | jq -r '.artifacts | .[] | select(.type == "TESTSPEC_OUTPUT") | .url'
+                    ) \
+                &&  if curl -so "${TEMP_FILE1}" "${logs_url}"
+                    then
+                          comm -13 --nocheck-order "${TEMP_FILE2}" "${TEMP_FILE1}" \
+                      &&  mv "${TEMP_FILE1}" "${TEMP_FILE2}"
+                    fi \
+                &&  sleep 5 \
+                ||  return 1
               else
-                    echo "[INFO][${run_status}] sleeping 10 seconds..." \
+                    echo "[INFO] Run in ${run_status} status, waiting for completion" \
                 &&  sleep 10 \
                 ||  return 1
               fi
@@ -378,7 +407,7 @@ function helper_run_test_devicefarm {
         then
           return 0
         else
-              echo "[ERROR] Run finished with state ${run_result}" \
+              echo "[ERROR] Run finished with status ${run_result}" \
           &&  return 1
         fi
   }

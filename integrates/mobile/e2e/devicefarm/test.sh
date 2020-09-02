@@ -1,6 +1,6 @@
 # shellcheck shell=bash
 
-export APPIUM_VERSION=1.18.0
+export APPIUM_VERSION=1.16.0
 export CI_COMMIT_REF_NAME="__CI_COMMIT_REF_NAME__"
 export PYTHON_VERSION=3
 

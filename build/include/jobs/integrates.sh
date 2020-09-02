@@ -267,8 +267,7 @@ function job_integrates_deploy_front {
 function job_integrates_deploy_mobile_ota {
   export EXPO_USE_DEV_SERVER="true"
 
-      helper_use_pristine_workdir \
-  &&  pushd integrates \
+      pushd integrates \
     &&  echo '[INFO] Logging in to AWS' \
     &&  helper_integrates_aws_login "${ENVIRONMENT_NAME}" \
     &&  helper_common_sops_env "secrets-${ENVIRONMENT_NAME}.yaml" 'default' \
