@@ -1,4 +1,7 @@
 # Standard library
+from asyncio import (
+    sleep,
+)
 from typing import (
     Callable,
     Dict,
@@ -55,6 +58,9 @@ def _cli(*args: str) -> Result:
 
 async def get_group_data(*, group: str) -> Set[Tuple[str, str, int, int]]:
     """Return a set of (finding, release_status, num_open, num_closed)."""
+    # Wait some seconds until Integrates stabilizes
+    await sleep(10.0)
+
     titles_to_finding: Dict[str, FindingEnum] = {
         t(finding.value.title): finding for finding in FindingEnum
     }
@@ -173,7 +179,7 @@ def test_dispatch_correct(
         ('F009', 'APPROVED', 0, 9),
         ('F011', 'APPROVED', 0, 13),
         ('F031_CWE378', 'SUBMITTED', 0, 1),
-        ('F052', 'SUBMITTED', 0, 5),
+        ('F052', 'SUBMITTED', 0, 21),
         ('F060', 'APPROVED', 0, 18),
         ('F061', 'APPROVED', 0, 10),
         ('F085', 'APPROVED', 0, 4),
@@ -195,7 +201,7 @@ def test_dispatch_correct_nothing_to_do(
         ('F009', 'APPROVED', 9, 0),
         ('F011', 'APPROVED', 13, 0),
         ('F031_CWE378', 'SUBMITTED', 1, 0),
-        ('F052', 'SUBMITTED', 5, 0),
+        ('F052', 'SUBMITTED', 21, 0),
         ('F060', 'APPROVED', 18, 0),
         ('F061', 'APPROVED', 10, 0),
         ('F085', 'APPROVED', 4, 0),

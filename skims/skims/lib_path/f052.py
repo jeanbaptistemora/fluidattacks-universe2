@@ -39,6 +39,59 @@ from zone import (
 )
 
 
+def _vuln_cipher_get_instance(transformation: str) -> bool:
+    alg, mode, pad, *_ = (transformation + '///').split('/', 3)
+
+    return any((
+        alg == 'aes' and not mode,
+        alg == 'aes' and mode == 'ecb',
+        alg == 'aes' and mode == 'cbc' and pad and pad != 'nopadding',
+        alg == 'des',
+        alg == 'desede',
+        alg == 'rsa' and 'oaep' not in pad,
+    ))
+
+
+def _java_insecure_cipher(
+    content: str,
+    path: str,
+) -> Tuple[Vulnerability, ...]:
+    grammar = MatchFirst([
+        (
+            Keyword('Cipher') + '.' +
+            Keyword('getInstance') + '(' +
+            DOUBLE_QUOTED_STRING.copy().addCondition(
+                lambda tokens: _vuln_cipher_get_instance(tokens[0].lower())
+            )
+        ),
+    ])
+    grammar.ignore(C_STYLE_COMMENT)
+
+    return blocking_get_vulnerabilities(
+        content=content,
+        description=t(
+            key='src.lib_path.f052.java_insecure_cipher.description',
+            path=path,
+        ),
+        finding=FindingEnum.F052,
+        grammar=grammar,
+        path=path,
+    )
+
+
+@cache_decorator()
+@SHIELD
+async def java_insecure_cipher(
+    content: str,
+    path: str,
+) -> Tuple[Vulnerability, ...]:
+    return await in_process(
+        _java_insecure_cipher,
+        content=content,
+        path=path,
+    )
+
+
 def _java_insecure_hash(
     content: str,
     path: str,
@@ -124,6 +177,10 @@ async def analyze(
     coroutines: List[Awaitable[Tuple[Vulnerability, ...]]] = []
 
     if file_extension in EXTENSIONS_JAVA:
+        coroutines.append(java_insecure_cipher(
+            content=await content_generator(),
+            path=path,
+        ))
         coroutines.append(java_insecure_hash(
             content=await content_generator(),
             path=path,

@@ -1,6 +1,9 @@
+src.lib_path.f052.java_insecure_cipher.description:
+  en: Use of insecure encryption algorithm in {path}
+  es: Uso de algoritmo de cifrado inseguro en {path}
 src.lib_path.f052.java_insecure_hash.description:
-  en: Use of insecure hashing algorithm in {path}
-  es: Uso de algoritmo resumen inseguro en {path}
+  en: Use of insecure hashing function in {path}
+  es: Uso de función resumen insegura en {path}
 utils.model.finding.enum.F052.description:
   en: >
     The application uses insecure encryption algorithms.
