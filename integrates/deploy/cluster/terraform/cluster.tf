@@ -6,7 +6,7 @@ module "eks" {
   subnets = [
     aws_subnet.region_a.id,
     aws_subnet.region_b.id,
-    aws_subnet.region_c.id,
+    aws_subnet.region_d.id,
   ]
 
   tags = {

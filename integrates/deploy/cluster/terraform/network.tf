@@ -22,9 +22,9 @@ resource "aws_subnet" "region_b" {
   }
 }
 
-resource "aws_subnet" "region_c" {
+resource "aws_subnet" "region_d" {
   vpc_id            = var.fluid_vpc_id
-  availability_zone = "${var.region}c"
+  availability_zone = "${var.region}d"
   cidr_block        = "192.168.7.0/24"
 
   tags = {

@@ -11,6 +11,7 @@ in
       buildInputs = [
         pkgs.git
         pkgs.awscli
+        pkgs.wget
         pkgs-terraform.terraform_0_13
       ];
     })
