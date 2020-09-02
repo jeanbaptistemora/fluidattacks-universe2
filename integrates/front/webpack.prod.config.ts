@@ -76,7 +76,7 @@ const prodConfig: webpack.Configuration = {
       appVersion,
       sourceControl: {
         provider: "gitlab",
-        repository: "https://gitlab.com/fluidattacks/integrates.git",
+        repository: "https://gitlab.com/fluidattacks/product.git",
         revision: `${commitSha}/integrates/front`,
       },
     }),

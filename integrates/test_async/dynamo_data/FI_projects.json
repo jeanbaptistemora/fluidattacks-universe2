@@ -490,7 +490,7 @@
                               "S" : "SSH"
                            },
                            "urlRepo" : {
-                              "S" : "git%40gitlab.com%3Afluidattacks%2Fintegrates.git"
+                              "S" : "git%40gitlab.com%3Afluidattacks%2Fproduct.git"
                            }
                         }
                      },

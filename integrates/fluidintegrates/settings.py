@@ -180,7 +180,7 @@ if FI_ENVIRONMENT == 'production':
         'releaseStage': FI_ENVIRONMENT,
         'sourceControl': {
             'provider': 'gitlab',
-            'repository': 'https://gitlab.com/fluidattacks/integrates.git',
+            'repository': 'https://gitlab.com/fluidattacks/product.git',
             'revision': f'{CI_COMMIT_SHA}/integrates/django-apps',
         },
     }

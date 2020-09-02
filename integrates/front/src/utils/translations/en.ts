@@ -1182,7 +1182,7 @@ export const enTranslations: ResourceKey = {
     },
     tab_resources: {
       add_repository: "Add",
-      base_url_placeholder: "gitlab.com/fluidattacks/integrates.git",
+      base_url_placeholder: "gitlab.com/fluidattacks/product.git",
       branch: {
         label: "Branch",
         tooltip: "Target branch",
