@@ -102,6 +102,36 @@ function helper_observes_dynamodb {
         < .singer
 }
 
+function helper_observes_dynamo {
+      helper_observes_aws_login prod \
+  &&  helper_common_sops_env observes/secrets-prod.yaml default \
+        analytics_aws_access_key \
+        analytics_aws_secret_key \
+        analytics_aws_default_region \
+        analytics_auth_redshift \
+  &&  echo '[INFO] Generating secret files' \
+  &&  {
+        echo '{'
+        echo "\"AWS_ACCESS_KEY_ID\":\"${analytics_aws_access_key}\","
+        echo "\"AWS_SECRET_ACCESS_KEY\":\"${analytics_aws_secret_key}\","
+        echo "\"AWS_DEFAULT_REGION\":\"${analytics_aws_default_region}\""
+        echo '}'
+      } > "${TEMP_FILE1}" \
+  &&  echo "${analytics_auth_redshift}" > "${TEMP_FILE2}" \
+  &&  echo '[INFO] Running tap' \
+  &&  mkdir ./logs \
+  &&  streamer-dynamodb \
+        --auth "${TEMP_FILE1}" \
+        --conf ./observes/conf/awsdynamo.json \
+        | tap-json > .singer \
+  &&  echo '[INFO] Running target' \
+  &&  target-redshift \
+        --auth "${TEMP_FILE2}" \
+        --drop-schema \
+        --schema-name 'dynamo' \
+        < .singer
+}
+
 function helper_observes_services_toe {
       helper_observes_aws_login prod \
   &&  helper_common_sops_env observes/secrets-prod.yaml default \

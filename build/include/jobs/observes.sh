@@ -14,6 +14,13 @@ function job_observes_dynamodb {
   ||  return 1
 }
 
+function job_observes_dynamo {
+      helper_use_pristine_workdir \
+  &&  env_prepare_python_packages \
+  &&  helper_observes_dynamo \
+  ||  return 1
+}
+
 function job_observes_services_toe {
       helper_use_pristine_workdir \
   &&  env_prepare_python_packages \
