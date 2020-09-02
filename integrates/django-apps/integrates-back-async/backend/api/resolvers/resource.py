@@ -35,6 +35,20 @@ logging.config.dictConfig(LOGGING)
 LOGGER = logging.getLogger(__name__)
 
 
+def _clean_resources_cache(project_name: str) -> None:
+    util.queue_cache_invalidation(
+        # resource entity related
+        f'environments*{project_name}',
+        f'files*{project_name}',
+        f'repositories*{project_name}',
+        # project entity related
+        f'has*{project_name}',
+        f'deletion*{project_name}',
+        f'tags*{project_name}',
+        f'subscription*{project_name}',
+    )
+
+
 @get_entity_cache_async
 async def _get_project_name(_: GraphQLResolveInfo, project_name: str) -> str:
     """Get project_name."""
@@ -160,7 +174,7 @@ async def _do_add_repositories(
     )
 
     if success:
-        util.queue_cache_invalidation(project_name)
+        _clean_resources_cache(project_name)
         util.cloudwatch_log(
             info.context,
             ('Security: Added repos to '
@@ -201,7 +215,7 @@ async def _do_add_environments(
     )
 
     if success:
-        util.queue_cache_invalidation(project_name)
+        _clean_resources_cache(project_name)
         util.cloudwatch_log(
             info.context,
             ('Security: Added envs to '
@@ -262,7 +276,7 @@ async def _do_add_files(
     else:
         LOGGER.error('Couldn\'t upload file', extra={'extra': parameters})
     if success:
-        util.queue_cache_invalidation(project_name)
+        _clean_resources_cache(project_name)
         util.cloudwatch_log(
             info.context,
             ('Security: Added resource files to '
