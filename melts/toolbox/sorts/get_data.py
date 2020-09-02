@@ -18,10 +18,7 @@ from pandas.core.groupby import GroupBy
 
 from toolbox.api import integrates
 from toolbox.constants import API_TOKEN
-from toolbox.sorts.utils import df_get_hunks
-
-
-INCL_PATH: str = os.path.dirname(__file__)
+from toolbox.sorts.utils import fill_model_features
 
 
 VulnerabilityType = TypedDict('VulnerabilityType', {
@@ -109,8 +106,8 @@ def filter_code_files(wheres: List[str], bad_repos: List[str]) -> DataFrame:
     binaries and those that are stored in bad repositories
     """
     wheres_code: List[str] = []
-    extensions = read_lst(f'{INCL_PATH}/extensions.lst')
-    composites = read_lst(f'{INCL_PATH}/composites.lst')
+    extensions = read_lst(f'{os.path.dirname(__file__)}/extensions.lst')
+    composites = read_lst(f'{os.path.dirname(__file__)}/composites.lst')
     for file_ in wheres:
         repo: str = file_.split('/')[0]
         name: str = file_.split('/')[-1]
@@ -236,6 +233,5 @@ def get_project_data(subscription_path: str) -> None:
         lambda filename: f'{fusion_path}{filename.split("/")[0]}'
     )
     balanced_commits['is_vuln'] = balanced_commits['vulns'].apply(np.sign)
-    balanced_commits['hunks'] = balanced_commits.apply(df_get_hunks, axis=1)
-    balanced_commits.to_csv(f'{group}_commits_df.csv',
-                            index=False)
+    complete_df = fill_model_features(balanced_commits)
+    complete_df.to_csv(f'{group}_commits_df.csv', index=False)

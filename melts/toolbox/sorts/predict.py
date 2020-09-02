@@ -18,7 +18,7 @@ from git.cmd import Git
 from pandas import DataFrame
 from sklearn.svm import LinearSVC
 
-from toolbox.sorts.utils import df_get_deltas, df_get_files, df_get_hunks
+from toolbox.sorts.utils import fill_model_features
 
 
 def make_repo_dataset(repo: str) -> Optional[DataFrame]:
@@ -37,13 +37,13 @@ def make_repo_dataset(repo: str) -> Optional[DataFrame]:
     return dataset
 
 
-def make_base_dataset(subs: str) -> DataFrame:
-    subs_dir: str = f'groups/{subs}/fusion'
-    repos: List[str] = os.listdir(subs_dir)
+def make_base_dataset(subscription_path: str) -> DataFrame:
+    fusion_path: str = f'{subscription_path}/fusion'
+    repos: List[str] = os.listdir(fusion_path)
     print(f'This might take around {datetime.timedelta(seconds=len(repos))}')
     dataset: DataFrame = pd.DataFrame()
     for repo in repos:
-        repo_path: str = f'{subs_dir}/{repo}'
+        repo_path: str = f'{fusion_path}/{repo}'
         curr_dataset = make_repo_dataset(repo_path)
         if curr_dataset is not None:
             dataset = pd.concat([dataset, curr_dataset])
@@ -53,32 +53,20 @@ def make_base_dataset(subs: str) -> DataFrame:
     return dataset
 
 
-def make_full_dataset(subs: str) -> DataFrame:
-    dataset: DataFrame = make_base_dataset(subs)
-    dataset['hunks'] = dataset.apply(df_get_hunks, axis=1)
-    dataset[['additions', 'deletions', 'deltas', 'touched']] = dataset.apply(
-        df_get_deltas, axis=1, result_type='expand'
-    )
-    files_df: DataFrame = dataset.apply(df_get_files, axis=1)
-    dataset['touched_files'] = files_df.apply(len)
-    dataset['max_other_touchers'] = files_df.apply(
-        lambda x: max(x) if x.size else 0
-    )
-    dataset['touches_busy_file'] = dataset.max_other_touchers.apply(
-        lambda x: 1 if x > 9 else 0
-    )
-    dataset['authored_hour'] = dataset['hour']
-    return dataset
+def make_full_dataset(subscription_path: str) -> DataFrame:
+    dataset: DataFrame = make_base_dataset(subscription_path)
+    return fill_model_features(dataset)
 
 
-def predict(subs: str) -> None:
+def predict(subscription_path: str) -> None:
     start: float = time.time()
-    dataset: DataFrame = make_full_dataset(subs)
+    dataset: DataFrame = make_full_dataset(subscription_path)
     dataset = dataset.dropna()
     # https://github.com/python/mypy/issues/2410
     x_test = dataset.loc[:, 'hunks':]  # type: ignore
     model = LinearSVC()
-    with open('toolbox/toolbox/sorts/model_parameters.json', 'r') as modfile:
+    with open(f'{os.path.dirname(__file__)}/model_parameters.json', 'r') \
+            as modfile:
         params = json.load(modfile)
     model.coef_ = np.array(params['coef'])
     model.intercept_ = np.array(params['intercept'])

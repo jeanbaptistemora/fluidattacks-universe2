@@ -1,12 +1,14 @@
 import re
+import time
 from array import ArrayType
 from typing import List, Match, Optional, Tuple
 
 import git
 import numpy as np
+import pandas as pd
 from git.cmd import Git
 from git.exc import GitCommandError
-from pandas import Series
+from pandas import DataFrame, Series
 from pydriller.metrics.process.hunks_count import HunksCount
 
 
@@ -35,6 +37,36 @@ def df_get_hunks(row: Series) -> float:
     repo: str = row['repo']
     commit: str = row['commit']
     return get_hunks(repo, commit)
+
+
+def fill_model_features(base_df: DataFrame) -> DataFrame:
+    """
+    Takes a base DataFrame that has at least the following columns:
+    [commit, hour, repo]
+    Based on these columns, it extracts more features in adds them to the
+    DataFrame
+    """
+    print('Extracting model features...')
+    start = time.time()
+    features_df: DataFrame = pd.DataFrame()
+    features_df['hunks'] = base_df.apply(df_get_hunks, axis=1)
+    print(f'Hunks added after {time.time() - start} secods.')
+    start = time.time()
+    features_df[['additions', 'deletions', 'deltas', 'touched']] = base_df\
+        .apply(df_get_deltas, axis=1, result_type='expand')
+    print(f'Deltas information was added after {time.time() - start}')
+    start = time.time()
+    files_df = base_df.apply(df_get_files, axis=1)
+    features_df['touched_files'] = files_df.apply(len)
+    features_df['max_other_touchers'] = files_df.apply(
+        lambda x: max(x) if x.size else 0
+    )
+    features_df['touches_busy_file'] = features_df.max_other_touchers.apply(
+        lambda x: 1 if x > 9 else 0
+    )
+    features_df['authored_hour'] = base_df['hour']
+    print(f'File information was added after {time.time() - start}')
+    return pd.concat([base_df, features_df], axis=1)
 
 
 def get_deltas(repo: str, commit: str) -> Tuple[int, int, int, int]:
