@@ -254,8 +254,7 @@ def analytics_management(analytics_forces_logs):
 @click.command(name='sorts', short_help='experimental')
 @click.argument(
     'group',
-    default=utils.generic.get_current_group(),
-    callback=utils.generic.is_valid_group)
+)
 @click.option(
     '--get-data',
     is_flag=True,

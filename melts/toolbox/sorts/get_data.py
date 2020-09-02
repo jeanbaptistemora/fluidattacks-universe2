@@ -13,7 +13,7 @@ import pandas as pd
 from git.cmd import Git
 from git.exc import CommandError
 from mypy_extensions import TypedDict
-from pandas import DataFrame
+from pandas import DataFrame, Series
 from pandas.core.groupby import GroupBy
 
 from toolbox.api import integrates
@@ -21,7 +21,6 @@ from toolbox.constants import API_TOKEN
 from toolbox.sorts.utils import df_get_hunks
 
 
-BASE_DIR: str = ''
 INCL_PATH: str = os.path.dirname(__file__)
 
 
@@ -53,7 +52,7 @@ def read_lst(path: str) -> List[str]:
     return lst
 
 
-def get_unique_wheres(subs: str) -> Tuple[List[str], int, Set[str]]:
+def get_unique_wheres(group: str) -> Tuple[List[str], int, Set[str]]:
     """
     Given vulnerabilities in graphQL format, return a sorted set
     containing the vulnerable files and the total number of vulnerabilities
@@ -62,8 +61,7 @@ def get_unique_wheres(subs: str) -> Tuple[List[str], int, Set[str]]:
     wheres_uniq: Set[str] = set()
     total_wheres: int = 0
     repos: Set[str] = set()
-
-    response = integrates.Queries.wheres(API_TOKEN, subs)
+    response = integrates.Queries.wheres(API_TOKEN, group)
     wheres_dict: ResponseType = response.data
     for finding in wheres_dict['project']['findings']:
         vulns: List[VulnerabilityType] = [
@@ -83,11 +81,11 @@ def get_unique_wheres(subs: str) -> Tuple[List[str], int, Set[str]]:
     return sorted_wheres_uniq, total_wheres, repos
 
 
-def test_repo(repo_name: str) -> bool:
+def test_repo(repo_name: str, fusion_path: str) -> bool:
     """
     Test if a repo is ok by executing a single `git log` on it.
     """
-    path: str = BASE_DIR + repo_name
+    path: str = fusion_path + repo_name
     repo: Git = git.Git(path)
     rpok: bool = True
     try:
@@ -97,9 +95,11 @@ def test_repo(repo_name: str) -> bool:
     return rpok
 
 
-def get_bad_repos(repos: Set[str]) -> List[str]:
+def get_bad_repos(repos: Set[str], fusion_path: str) -> List[str]:
     """Filter a list of repos, returning the bad ones"""
-    filt: List[str] = list(filter(lambda x: not test_repo(x), repos))
+    filt: List[str] = list(
+        filter(lambda x: not test_repo(x, fusion_path), repos)
+    )
     return filt
 
 
@@ -122,33 +122,34 @@ def filter_code_files(wheres: List[str], bad_repos: List[str]) -> DataFrame:
     return wheres_code_df
 
 
-def get_intro_commit(file_: str) -> str:
+def get_intro_commit(row: Series, fusion_path: str) -> Tuple[str, str]:
     """
     Given a vulnerable file, return the commit that introduced it,
     understood as the first commit that added that file
     (this rationale is subject to change).
     Obtained by doing a `git log` on the file and taking the last commit hash.
     """
+    file_: str = row.file
     repo_name: str = file_.split('/')[0]
     file_rest: str = '/'.join(file_.split('/')[1:])
-    intro_commit: str = ''
-    repo_ok = test_repo(repo_name)
-    if repo_ok:
-        try:
-            # this could be done after grouping by repo, not per-file
-            git_repo: Git = git.Git(BASE_DIR + repo_name)
-            hashes_log: str = git_repo.log(
-                '--pretty=%H',
-                '--follow',
-                '--',
-                file_rest
-            )
-            hashes_list: List[str] = hashes_log.split('\n')
-            intro_commit = hashes_list[-1]
-        except FileNotFoundError:
-            intro_commit = 'file_not_found'
-    else:
-        intro_commit = 'repo_not_found'
+    intro_commit = ('', '')
+    try:
+        # this could be done after grouping by repo, not per-file
+        git_repo: Git = git.Git(fusion_path + repo_name)
+        hashes_log: str = git_repo.log(
+            '--pretty=%H,%aI',
+            '--follow',
+            '--',
+            file_rest
+        )
+        hashes_list: List[str] = hashes_log.split('\n')
+        last_commit_info = hashes_list[-1].split(',')
+        intro_commit = (
+            last_commit_info[0],
+            last_commit_info[1].split('T')[1].split(':')[0]
+        )
+    except FileNotFoundError:
+        intro_commit = 'file_not_found', ''
     return intro_commit
 
 
@@ -159,15 +160,18 @@ def make_commit_df(files_df: DataFrame) -> DataFrame:
     of vulnerable files introduced by the commit.
     """
     groups: GroupBy = files_df.groupby('commit')
-    # np.min on the 'file' column just to get a sample file, discard rest
-    # np.size = #files tainted by commit < number of vulns (many per file)
-    commit_df: DataFrame = pd.DataFrame(groups['file'].agg([np.min, np.size]))
+    # np.min to get a sample file per commit, discard  the rest
+    # np.size = # of files tainted by commit < number of vulns (many per file)
+    commit_df: DataFrame = pd.DataFrame(groups.agg([np.min, np.size]))
     commit_df.reset_index(inplace=True)
-    commit_df.rename(columns={'amin': 'file', 'size': 'vulns'}, inplace=True)
+    commit_df.columns = ['commit', 'file', 'vulns', 'hour', 'size']
+    # Last column is not necessary since it's a duplicated
+    # from the 'vulns' column
+    commit_df = commit_df.drop(columns=['size'])
     return commit_df
 
 
-def balance_df(vuln_df: DataFrame) -> DataFrame:
+def balance_df(vuln_df: DataFrame, fusion_path: str) -> DataFrame:
     """
     Balance the dataset by adding as many 'safe' commits as there are
     vulnerable commits in the given dataset, chosen at random
@@ -175,14 +179,18 @@ def balance_df(vuln_df: DataFrame) -> DataFrame:
     df_skel: List[List[Union[int, str]]] = []
     count: int = 0
     goal: int = len(vuln_df)
-    repos_dirs: List[str] = os.listdir(BASE_DIR)
-
+    repos_dirs: List[str] = os.listdir(fusion_path)
     while count < goal:
         rand_repo: str = random.choice(repos_dirs)
-        rand_repo_git: Git = git.Git(BASE_DIR + rand_repo)
+        rand_repo_git: Git = git.Git(fusion_path + rand_repo)
         try:
-            hashes: List[str] = rand_repo_git.log('--pretty=%H').split('\n')
-            rand_hash: str = random.choice(hashes)
+            commits: List[str] = rand_repo_git.log(
+                '--pretty=%H,%aI'
+            ).split('\n')
+            rand_commit: str = random.choice(commits)
+            rand_hash: str = rand_commit.split(',')[0]
+            rand_hour: str = rand_commit.split(',')[1].split('T')[1]\
+                .split(':')[0]
             samp_files: List[str] = rand_repo_git.show(
                 '--name-only',
                 '--pretty=format:',
@@ -193,32 +201,41 @@ def balance_df(vuln_df: DataFrame) -> DataFrame:
                 continue  # ok, just make another random choice
             if rand_hash not in vuln_df['commit'].values:
                 samp_file = rand_repo + '/' + samp_file
-                df_skel.append([rand_hash, samp_file, 0])
+                df_skel.append([rand_hash, samp_file, 0, rand_hour])
                 count += 1
         except CommandError:
             continue  # ok, just make another random choice
     safe_commits: DataFrame = pd.DataFrame(
         df_skel,
-        columns=['commit', 'file', 'vulns']
+        columns=['commit', 'file', 'vulns', 'hour']
     )
     return safe_commits
 
 
-def get_project_data(subs: str) -> None:
+def get_project_data(subscription_path: str) -> None:
     """
     Produce a dataframe with commit metadata for a project in csv format
     out of open vulnerabilities json from integrates API
     """
-    global BASE_DIR  # pylint: disable=global-statement
-    BASE_DIR = f'groups/{subs}/fusion/'
-    wheres_uniq, _, repos = get_unique_wheres(subs)
-    bad_repos = get_bad_repos(repos)
+    group: str = subscription_path.split('/')[-1]
+    fusion_path: str = f'{subscription_path}/fusion/'
+    wheres_uniq, _, repos = get_unique_wheres(group)
+    bad_repos = get_bad_repos(repos, fusion_path)
     wheres_code = filter_code_files(wheres_uniq, bad_repos)
-    wheres_code['commit'] = wheres_code['file'].apply(get_intro_commit)
+    wheres_code[['commit', 'hour']] = wheres_code.apply(
+        get_intro_commit,
+        args=(fusion_path,),
+        axis=1,
+        result_type='expand'
+    )
     vuln_commits = make_commit_df(wheres_code)
-    safe_commits = balance_df(vuln_commits)
+    safe_commits = balance_df(vuln_commits, fusion_path)
     balanced_commits: DataFrame = pd.concat([vuln_commits, safe_commits])
     balanced_commits.reset_index(drop=True, inplace=True)
+    balanced_commits['repo'] = balanced_commits['file'].apply(
+        lambda filename: f'{fusion_path}{filename.split("/")[0]}'
+    )
+    balanced_commits['is_vuln'] = balanced_commits['vulns'].apply(np.sign)
     balanced_commits['hunks'] = balanced_commits.apply(df_get_hunks, axis=1)
-    balanced_commits.to_csv(f'{subs}_commits_df.csv',
+    balanced_commits.to_csv(f'{group}_commits_df.csv',
                             index=False)
