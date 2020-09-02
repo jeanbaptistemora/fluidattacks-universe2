@@ -1,0 +1,30 @@
+[tool.poetry]
+name = "tap_json"
+version = "0.1.0"
+description = "Singer tap for a generic JSON stream."
+authors = ["Product Team <development@fluidattacks.com>"]
+license = "GPL-2.0-or-later"
+maintainers = [
+    "Kevin Amado <amado@fluidattacks.com>",
+    "Diego Restrepo <drestrepo@fluidattacks>",
+]
+keywords = ["JSON"]
+classifiers = [
+    "Topic :: Database",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "License :: OSI Approved :: GNU General Public License (GPL)",
+]
+packages = [{ include = "tap_json", from = "." }]
+
+[tool.poetry.dependencies]
+python = "^3.7"
+
+[tool.poetry.dev-dependencies]
+
+[tool.poetry.scripts]
+tap-json = 'tap_json:main'
+
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"
