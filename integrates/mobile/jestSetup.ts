@@ -9,6 +9,9 @@ Object.assign(global, { fetch: fetchMock });
 configure({ adapter: new ReactSixteenAdapter() });
 jest.mock("react-native/Libraries/Animated/src/NativeAnimatedHelper");
 
+// Disable bugsnag calls
+jest.mock("@bugsnag/expo");
+
 /**
  * Supress DOM-related warnings
  *

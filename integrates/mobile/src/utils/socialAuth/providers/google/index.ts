@@ -14,13 +14,13 @@ import { AppOwnership, default as Constants } from "expo-constants";
 import _ from "lodash";
 import { Platform } from "react-native";
 
-import { IAuthResult } from "..";
+import { IAuthResult } from "../..";
 import {
   GOOGLE_CLIENT_ID_ANDROID,
   GOOGLE_CLIENT_ID_DEV,
   GOOGLE_CLIENT_ID_IOS,
-} from "../../constants";
-import { LOGGER } from "../../logger";
+} from "../../../constants";
+import { LOGGER } from "../../../logger";
 
 const inExpoClient: boolean = Constants.appOwnership === AppOwnership.Expo;
 
@@ -34,6 +34,7 @@ const clientId: string = inExpoClient
 
 const getRedirectUri: () => string = (): string =>
   makeRedirectUri({
+    native: "com.fluidattacks.integrates://oauth2redirect/google",
     path: "oauth2redirect/google",
     useProxy: inExpoClient,
   });
