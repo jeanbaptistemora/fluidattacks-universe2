@@ -26,11 +26,11 @@ spec:
         imagePullPolicy: Always
         resources:
           requests:
-            cpu: 750m
+            cpu: 500m
             memory: 2Gi
           limits:
-            cpu: 1000m
-            memory: 3Gi
+            cpu: 500m
+            memory: 2Gi
         env:
           - name: DEPLOYMENT_DATE
             value: "__DATE__"
