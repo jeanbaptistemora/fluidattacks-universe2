@@ -46,8 +46,11 @@ def _vuln_cipher_get_instance(transformation: str) -> bool:
         alg == 'aes' and not mode,
         alg == 'aes' and mode == 'ecb',
         alg == 'aes' and mode == 'cbc' and pad and pad != 'nopadding',
+        alg == 'blowfish',
         alg == 'des',
         alg == 'desede',
+        alg == 'rc2',
+        alg == 'rc4',
         alg == 'rsa' and 'oaep' not in pad,
     ))
 
