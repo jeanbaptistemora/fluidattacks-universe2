@@ -93,7 +93,10 @@ def is_primitive(object_):
 
 def object_to_dict(object_: object):
     """Convert an object into a nested dictionary."""
-    dict_ = object_.__dict__.copy()
+    try:
+        dict_ = object_.__dict__.copy()
+    except AttributeError:
+        return object_
     dict_['class_name'] = object_.__class__.__name__
     for key, value in dict_.items():
         if isinstance(value, (list, tuple, set)):
