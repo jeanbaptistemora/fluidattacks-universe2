@@ -4,6 +4,7 @@ import os
 from typing import (
     AsyncIterator,
     Callable,
+    Dict,
     Iterator,
 )
 
@@ -31,8 +32,18 @@ def test_config() -> Iterator[Callable[[str], str]]:
 
 
 @pytest.fixture(autouse=True, scope='session')  # type: ignore
-def test_group() -> Iterator[str]:
-    yield 'worcester'
+def test_branch() -> Iterator[str]:
+    yield os.environ['CI_COMMIT_REF_NAME']
+
+
+@pytest.fixture(autouse=True, scope='session')  # type: ignore
+def test_group(test_branch: str) -> Iterator[str]:
+    mapping: Dict[str, str] = {
+        'kamadoatfluid': 'worcester',
+        'master': 'tovuz',
+    }
+
+    yield mapping.get(test_branch, 'utuado')
 
 
 @pytest.fixture(autouse=True, scope='session')  # type: ignore
