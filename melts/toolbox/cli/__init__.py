@@ -256,16 +256,22 @@ def analytics_management(analytics_forces_logs):
     'group',
 )
 @click.option(
-    '--get-data',
+    '--get-commit-data',
     is_flag=True,
     help='get group commit data')
+@click.option(
+    '--get-file-data',
+    is_flag=True,
+    help='get group file data')
 @click.option(
     '--predict',
     is_flag=True,
     help="predict vuln likelihood in group's commits")
-def sorts_management(group, get_data, predict):
-    if get_data:
-        sys.exit(0 if sorts.get_data.get_project_data(group) else 1)
+def sorts_management(group, get_commit_data, get_file_data, predict):
+    if get_commit_data:
+        sys.exit(0 if sorts.get_data.get_project_data(group, 'commit') else 1)
+    if get_file_data:
+        sys.exit(0 if sorts.get_data.get_project_data(group, 'file') else 1)
     if predict:
         sys.exit(0 if sorts.predict.predict(group) else 1)
 

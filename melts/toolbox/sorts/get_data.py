@@ -37,6 +37,14 @@ ResponseType = TypedDict('ResponseType', {
 })
 
 
+def build_vulnerabilities_df(subscription_path: str) -> DataFrame:
+    group: str = subscription_path.rstrip('/').split('/')[-1]
+    fusion_path: str = f'{subscription_path.rstrip("/")}/fusion/'
+    vuln_files, _, vuln_repos = get_unique_vuln_files(group)
+    vuln_files = filter_vuln_files(vuln_files, vuln_repos, fusion_path)
+    return pd.DataFrame(vuln_files, columns=['file'])
+
+
 def read_lst(path: str) -> List[str]:
     """
     Read file and return a list of its contents
@@ -49,74 +57,82 @@ def read_lst(path: str) -> List[str]:
     return lst
 
 
-def get_unique_wheres(group: str) -> Tuple[List[str], int, Set[str]]:
+def get_unique_vuln_files(group: str) -> Tuple[List[str], int, List[str]]:
     """
-    Given vulnerabilities in graphQL format, return a sorted set
-    containing the vulnerable files and the total number of vulnerabilities
-    reported as open in the project.
+    Given vulnerabilities in JSON format, return a sorted list
+    containing the vulnerable files, the total number of open vulnerabilities
+    reported in the project, and a sorted list of the vulnerable repositories.
     """
-    wheres_uniq: Set[str] = set()
-    total_wheres: int = 0
-    repos: Set[str] = set()
-    response = integrates.Queries.wheres(API_TOKEN, group)
-    wheres_dict: ResponseType = response.data
-    for finding in wheres_dict['project']['findings']:
-        vulns: List[VulnerabilityType] = [
-            vuln for vuln in finding['vulnerabilities']
-            if vuln['vulnType'] == 'lines'
-        ]
-        total_wheres += len(vulns)
-        if vulns:
-            for vuln in vulns:
-                where: str = vuln['where']
-                # could test each where here
-                repo: str = where.split('/')[0]
-                # but testing each repo here would be redundant
-                repos.add(repo)
-                wheres_uniq.add(where)
-    sorted_wheres_uniq: List[str] = sorted(list(wheres_uniq))
-    return sorted_wheres_uniq, total_wheres, repos
+    unique_vuln_files: Set[str] = set()
+    unique_vuln_repos: Set[str] = set()
+    total_vulns: int = 0
+    query = integrates.Queries.wheres(API_TOKEN, group)
+    if query.ok:
+        response: ResponseType = query.data
+        for finding in response['project']['findings']:
+            vulns: List[VulnerabilityType] = [
+                vuln for vuln in finding['vulnerabilities']
+                if vuln['vulnType'] == 'lines'
+            ]
+            if vulns:
+                total_vulns += len(vulns)
+                for vuln in vulns:
+                    vuln_file: str = vuln['where']
+                    vuln_repo: str = vuln_file.split('/')[0]
+                    unique_vuln_files.add(vuln_file)
+                    unique_vuln_repos.add(vuln_repo)
+    else:
+        print(f'There was an error fetching vulnerabilities for group {group}')
+    return sorted(unique_vuln_files), total_vulns, sorted(unique_vuln_repos)
 
 
-def test_repo(repo_name: str, fusion_path: str) -> bool:
+def test_repo(fusion_path: str, repo: str) -> bool:
     """
-    Test if a repo is ok by executing a single `git log` on it.
+    Test if a repository is ok by executing a single `git log` on it.
     """
-    path: str = fusion_path + repo_name
-    repo: Git = git.Git(path)
-    rpok: bool = True
+    repo_path: str = fusion_path + repo
+    git_repo: Git = git.Git(repo_path)
+    repo_ok: bool = True
     try:
-        repo.log()
+        git_repo.log()
     except CommandError:
-        rpok = False
-    return rpok
+        repo_ok = False
+    return repo_ok
 
 
-def get_bad_repos(repos: Set[str], fusion_path: str) -> List[str]:
-    """Filter a list of repos, returning the bad ones"""
-    filt: List[str] = list(
-        filter(lambda x: not test_repo(x, fusion_path), repos)
+def get_bad_repos(fusion_path: str, repos: List[str]) -> List[str]:
+    """
+    Filter a list of repos, returning the bad ones
+    """
+    bad_repos: List[str] = list(
+        filter(lambda x: not test_repo(fusion_path, x), repos)
     )
-    return filt
+    return bad_repos
 
 
-def filter_code_files(wheres: List[str], bad_repos: List[str]) -> DataFrame:
+def filter_vuln_files(
+    vuln_files: List[str],
+    vuln_repos: List[str],
+    fusion_path: str
+) -> DataFrame:
     """
     Filter files that comply with certain extensions and remove
     binaries and those that are stored in bad repositories
     """
-    wheres_code: List[str] = []
+    filtered_vuln_files: List[str] = []
     extensions = read_lst(f'{os.path.dirname(__file__)}/extensions.lst')
     composites = read_lst(f'{os.path.dirname(__file__)}/composites.lst')
-    for file_ in wheres:
-        repo: str = file_.split('/')[0]
-        name: str = file_.split('/')[-1]
-        if repo not in bad_repos:
-            extn: str = file_.split('.')[-1]
-            if extn in extensions or name in composites:
-                wheres_code.append(file_)
-    wheres_code_df: DataFrame = pd.DataFrame(wheres_code, columns=['file'])
-    return wheres_code_df
+    bad_repos = get_bad_repos(fusion_path, vuln_repos)
+
+    for vuln_file in vuln_files:
+        vuln_repo: str = vuln_file.split('/')[0]
+        vuln_file_name: str = vuln_file.split('/')[-1]
+        if vuln_repo not in bad_repos:
+            vuln_file_extension: str = vuln_file_name.split('.')[-1]
+            if vuln_file_extension in extensions or \
+                    vuln_file_name in composites:
+                filtered_vuln_files.append(vuln_file)
+    return filtered_vuln_files
 
 
 def get_intro_commit(row: Series, fusion_path: str) -> Tuple[str, str]:
@@ -209,16 +225,26 @@ def balance_df(vuln_df: DataFrame, fusion_path: str) -> DataFrame:
     return safe_commits
 
 
-def get_project_data(subscription_path: str) -> None:
+def get_project_data(subscription_path: str, scope: str) -> None:
     """
     Produce a dataframe with commit metadata for a project in csv format
     out of open vulnerabilities json from integrates API
     """
+    if scope == 'commit':
+        get_project_commit_data(subscription_path)
+    if scope == 'file':
+        get_project_file_data(subscription_path)
+
+
+def get_project_commit_data(subscription_path: str) -> None:
+    """
+    Produce a DataFrame with commit metadata from a subscription,
+    out of open vulnerabilities extracted from Integrates API.
+    Export DataFrame to CSV file.
+    """
     group: str = subscription_path.split('/')[-1]
     fusion_path: str = f'{subscription_path}/fusion/'
-    wheres_uniq, _, repos = get_unique_wheres(group)
-    bad_repos = get_bad_repos(repos, fusion_path)
-    wheres_code = filter_code_files(wheres_uniq, bad_repos)
+    wheres_code: DataFrame = build_vulnerabilities_df(subscription_path)
     wheres_code[['commit', 'hour']] = wheres_code.apply(
         get_intro_commit,
         args=(fusion_path,),
@@ -235,3 +261,13 @@ def get_project_data(subscription_path: str) -> None:
     balanced_commits['is_vuln'] = balanced_commits['vulns'].apply(np.sign)
     complete_df = fill_model_features(balanced_commits)
     complete_df.to_csv(f'{group}_commits_df.csv', index=False)
+
+
+def get_project_file_data(subscription_path: str) -> None:
+    """
+    Produce a DataFrame with file metadata from a subscription,
+    out of open vulnerabilities extracted from Integrates API.
+    Export DataFrame to CSV file.
+    """
+    vulns_df: DataFrame = build_vulnerabilities_df(subscription_path)
+    vulns_df.to_csv('vulnerabilities.csv')
