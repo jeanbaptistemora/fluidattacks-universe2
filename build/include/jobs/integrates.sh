@@ -1314,6 +1314,8 @@ function job_integrates_deploy_k8s_back {
   &&  pushd "${STARTDIR}/integrates" \
   &&  CI_COMMIT_REF_NAME='master' helper_integrates_aws_login 'production' \
   &&  helper_common_sops_env 'secrets-production.yaml' 'default' \
+        CHECKLY_CHECK_ID \
+        CHECKLY_TRIGGER_ID \
         NEW_RELIC_API_KEY \
         NEW_RELIC_APP_ID \
   &&  echo "[INFO] Setting namespace preferences..." \
@@ -1360,6 +1362,11 @@ function job_integrates_deploy_k8s_back {
               \"user\": \"${CI_COMMIT_AUTHOR}\"
             }
           }" \
+  &&  curl "https://api.checklyhq.com/checks/${CHECKLY_CHECK_ID}/trigger/${CHECKLY_TRIGGER_ID}" \
+        --request 'GET' \
+        --data 'deployment=true' \
+        --data 'repository=product/integrates' \
+        --data "sha=${CI_COMMIT_SHA}" \
   &&  popd \
   ||  return 1
 }
