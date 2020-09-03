@@ -10,9 +10,9 @@ from backend.api.schema import SCHEMA
 from test_async.utils import create_dummy_session
 
 
-async def get_result(data, user='integratesmanager@gmail.com'):
+async def get_result(data, stakeholder='integratesmanager@gmail.com'):
     """Get result."""
-    request = create_dummy_session(user)
+    request = create_dummy_session(stakeholder)
     request.loaders = {
         'finding': FindingLoader(),
         'project': ProjectLoader(),
