@@ -9,17 +9,28 @@ from datetime import (
 from typing import (
     Any,
     AsyncGenerator,
+    Callable,
     Dict,
     List,
     Union,
+    TypeVar
 )
 # 3dr Imports
 import pytz
 
 # Local Library
-from forces.apis.integrates.client import (execute)
+from forces.apis.integrates.client import execute
+from forces.utils.function import shield
+
+# Constants
+TFun = TypeVar('TFun', bound=Callable[..., Any])
+SHIELD: Callable[[TFun], TFun] = shield(
+    retries=4,
+    sleep_between_retries=5,
+)
 
 
+@SHIELD
 async def get_findings(project: str, **kwargs: str) -> List[str]:
     """
     Returns the findings of a group.
@@ -49,6 +60,7 @@ async def get_findings(project: str, **kwargs: str) -> List[str]:
     return findings
 
 
+@SHIELD
 async def get_vulnerabilities(
         finding: str, **kwargs: str
 ) -> List[Dict[str, Union[str, List[Dict[str, Dict[str, Any]]]]]]:
@@ -78,6 +90,7 @@ async def get_vulnerabilities(
     return response.get('finding', dict()).get('vulnerabilities', list())
 
 
+@SHIELD
 async def get_finding(finding: str, **kwargs: str) -> Dict[str, Any]:
     """
     Returns a finding.
@@ -114,6 +127,7 @@ async def vulns_generator(project: str, **kwargs: str) -> AsyncGenerator[Dict[
             yield vuln
 
 
+@SHIELD
 async def upload_report(project: str, report: Dict[str, Any], log_file: str,
                         git_metadata: Dict[str, str],
                         **kwargs: Union[datetime, str]) -> bool:

@@ -5,6 +5,9 @@ from typing import (
     Any,
 )
 
+# Third libraries
+import bugsnag
+
 # Local libraries
 from forces.utils.aio import (
     unblock,
@@ -31,3 +34,7 @@ def set_level(level: int) -> None:
 
 async def log(level: str, msg: str, *args: Any) -> None:
     await unblock(getattr(_LOGGER, level), msg, *args)
+
+
+async def log_to_remote(exception: BaseException) -> None:
+    await unblock(bugsnag.notify, exception)

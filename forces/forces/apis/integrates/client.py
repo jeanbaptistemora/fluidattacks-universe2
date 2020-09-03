@@ -1,7 +1,6 @@
 """Fluid Forces Integrates api client."""
 # Standard library
 import contextlib
-import sys
 from contextvars import (
     ContextVar,
     Token,
@@ -15,12 +14,6 @@ from typing import (
 )
 
 # Third party libraries
-import bugsnag
-from aiohttp.client_exceptions import (
-    ClientConnectorError,
-    ClientResponseError,
-    ServerDisconnectedError
-)
 import aiohttp
 from aiogqlc import GraphQLClient
 
@@ -28,11 +21,7 @@ from aiogqlc import GraphQLClient
 from forces.apis.integrates import (
     get_api_token,
 )
-from forces.utils.logs import (
-    log,
-)
-from forces.utils.aio import (
-    unblock,)
+
 # Context
 SESSION: ContextVar[GraphQLClient] = ContextVar('SESSION')
 TVar = TypeVar('TVar')
@@ -69,34 +58,12 @@ async def execute(query: str,
     async with session(**kwargs) as client:
         result: Any = dict()
         response: aiohttp.ClientResponse
-        exc_metadata: Dict[str, Any] = {
-            'parameters': {
-                'query': query,
-                'default': default,
-                'variables': variables,
-                **kwargs
-            }
-        }
-        try:
-            response = await client.execute(query, variables=variables)
-            result = await response.json()
-        except (ClientConnectorError, ServerDisconnectedError) as exc:
-            await log('error', str(exc))
-            await unblock(bugsnag.notify,
-                          exc,
-                          metadata=exc_metadata,
-                          context='integrates_api')
-            sys.exit(1)
-        except ClientResponseError as exc:
-            await log('error', exc.message)
-            await unblock(bugsnag.notify,
-                          exc,
-                          metadata=exc_metadata,
-                          context='integrates_api')
+
+        response = await client.execute(query, variables=variables)
+        result = await response.json()
 
         if 'errors' in result.keys():
-            for error in result['errors']:
-                await log('error', error['message'])
+            raise Exception(*result['errors'])
 
         result = result.get('data', dict())
         return result or default  # type: ignore

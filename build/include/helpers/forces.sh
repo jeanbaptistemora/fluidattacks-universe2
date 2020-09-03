@@ -14,6 +14,8 @@ function helper_forces_compute_version {
 }
 
 function helper_forces_install_base_dependencies {
+    export PYTHONPATH="${PWD}/forces/.venv/lib64/python3.8/site-packages:${PYTHONPATH}"
+
       pushd forces/ \
     &&  { test -e poetry.lock || poetry install; } \
   &&  popd \
