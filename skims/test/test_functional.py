@@ -111,8 +111,15 @@ async def get_group_data(*, group: str) -> Set[Tuple[str, str, int, int]]:
     return result
 
 
-def blocking_get_group_data(*, group: str) -> Set[Tuple[str, str, int, int]]:
+def blocking_get_group_data(group: str) -> Set[Tuple[str, str, int, int]]:
     return run(get_group_data(group=group))
+
+
+def does_state_match(
+    group: str,
+    expected: Set[Tuple[str, str, int, int]],
+) -> bool:
+    return any(blocking_get_group_data(group) == expected for _ in range(10))
 
 
 def test_help() -> None:
@@ -179,17 +186,17 @@ def test_dispatch_correct(
     assert result.exit_code == 0
 
     # The following findings must be met
-    assert blocking_get_group_data(group=test_group) == {
+    assert does_state_match(test_group, {
         # Finding, status, # closed, # open
         ('F009', 'APPROVED', 0, 9),
         ('F011', 'APPROVED', 0, 13),
         ('F031_CWE378', 'SUBMITTED', 0, 1),
-        ('F052', 'SUBMITTED', 0, 26),
+        ('F052', 'SUBMITTED', 0, 28),
         ('F060', 'APPROVED', 0, 18),
         ('F061', 'APPROVED', 0, 10),
         ('F085', 'APPROVED', 0, 4),
         ('F117', 'APPROVED', 0, 2),
-    }
+    })
 
 
 def test_dispatch_correct_nothing_to_do(
@@ -201,14 +208,14 @@ def test_dispatch_correct_nothing_to_do(
     assert result.exit_code == 0
 
     # Skims should persist the null state, closing everything on Integrates
-    assert blocking_get_group_data(group=test_group) == {
+    assert does_state_match(test_group, {
         # Finding, status, # closed, # open
         ('F009', 'APPROVED', 9, 0),
         ('F011', 'APPROVED', 13, 0),
         ('F031_CWE378', 'SUBMITTED', 1, 0),
-        ('F052', 'SUBMITTED', 26, 0),
+        ('F052', 'SUBMITTED', 28, 0),
         ('F060', 'APPROVED', 18, 0),
         ('F061', 'APPROVED', 10, 0),
         ('F085', 'APPROVED', 4, 0),
         ('F117', 'APPROVED', 2, 0),
-    }
+    })

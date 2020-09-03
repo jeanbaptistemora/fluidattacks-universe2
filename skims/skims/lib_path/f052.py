@@ -44,6 +44,58 @@ from zone import (
 )
 
 
+def _csharp_insecure_cipher(
+    content: str,
+    path: str,
+) -> Tuple[Vulnerability, ...]:
+    grammar = (
+        MatchFirst([
+            Keyword('DES'),
+            Keyword('DESCryptoServiceProvider'),
+            Keyword('TripleDES'),
+            Keyword('TripleDESCng'),
+            Keyword('TripleDESCryptoServiceProvider'),
+            Keyword('RC2'),
+            Keyword('RC2CryptoServiceProvider'),
+        ]) +
+        Optional(
+            '.' +
+            MatchFirst([
+                Keyword('Create'),
+                Keyword('CreateDecryptor'),
+                Keyword('CreateEncryptor'),
+            ])
+        ) +
+        '('
+    )
+    grammar.ignore(C_STYLE_COMMENT)
+    grammar.ignore(DOUBLE_QUOTED_STRING)
+
+    return blocking_get_vulnerabilities(
+        content=content,
+        description=t(
+            key='src.lib_path.f052.insecure_cipher.description',
+            path=path,
+        ),
+        finding=FindingEnum.F052,
+        grammar=grammar,
+        path=path,
+    )
+
+
+@cache_decorator()
+@SHIELD
+async def csharp_insecure_cipher(
+    content: str,
+    path: str,
+) -> Tuple[Vulnerability, ...]:
+    return await in_process(
+        _csharp_insecure_cipher,
+        content=content,
+        path=path,
+    )
+
+
 def _csharp_insecure_hash(
     content: str,
     path: str,
@@ -382,6 +434,10 @@ async def analyze(
     coroutines: List[Awaitable[Tuple[Vulnerability, ...]]] = []
 
     if file_extension in EXTENSIONS_CSHARP:
+        coroutines.append(csharp_insecure_cipher(
+            content=await content_generator(),
+            path=path,
+        ))
         coroutines.append(csharp_insecure_hash(
             content=await content_generator(),
             path=path,
