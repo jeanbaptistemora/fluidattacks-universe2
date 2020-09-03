@@ -96,7 +96,7 @@ The protocol in use only supports secure versions or configurations.
 Address common coding vulnerabilities in software-development processes such as
 insecure communications.
 
-. [[r13]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Appendix A1 A1.3]
+. [[r13]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Appendix A2 A2.1]
 Where **POS POI** terminals use *SSL* and/or early *TLS*,
 the entity must confirm the devices are not susceptible to any known exploits
 for those protocols.
