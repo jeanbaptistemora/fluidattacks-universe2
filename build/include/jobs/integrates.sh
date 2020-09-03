@@ -375,6 +375,26 @@ function job_integrates_django_console {
   ||  return 1
 }
 
+function job_integrates_functional_tests_back {
+  local common_args=(
+    --ds 'fluidintegrates.settings'
+    --verbose
+    --disable-warnings
+  )
+
+  # shellcheck disable=SC2015
+      pushd "${STARTDIR}/integrates" \
+  &&  env_prepare_python_packages \
+  &&  helper_integrates_set_dev_secrets \
+  &&  helper_set_local_dynamo_and_redis \
+  &&  pytest \
+        "${common_args[@]}" \
+        'test_async/functional_test' \
+  ||  return 1 \
+  &&  popd \
+  ||  return 1
+}
+
 function job_integrates_functional_tests_mobile_local {
   export CI_COMMIT_REF_NAME
   local expo_apk_url="https://d1ahtucjixef4r.cloudfront.net/Exponent-2.16.1.apk"
@@ -1165,6 +1185,7 @@ function job_integrates_test_back {
     --cov-report 'xml:build/coverage/results.xml'
     --cov-report 'annotate:build/coverage/annotate'
     --disable-warnings
+    --ignore 'test_async/functional_test'
   )
   local extra_args=()
   local markers=(

@@ -333,6 +333,12 @@ integrates_deploy_front:
   stage: deploy-app
   needs: [integrates_build_front]
 
+integrates_functional_tests_back:
+  <<: *with_nix
+  <<: *in_dev_and_master_branch_integrates
+  stage: test-code
+  retry: 1
+
 integrates_functional_tests_dev:
   <<: *with_nix
   <<: *in_dev_branch_integrates
