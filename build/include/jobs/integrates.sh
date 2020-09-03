@@ -787,6 +787,7 @@ function _job_integrates_analytics_make_documents {
       find 'analytics/generators' -wholename '*.py' | LC_ALL=C sort > "${TEMP_FILE1}" \
   &&  helper_execute_chunk_parallel \
         "_execute_analytics_generator" \
+        "${TEMP_FILE1}" \
   &&  echo '[INFO] Uploading documents' \
   &&  aws s3 sync \
         'analytics/generators' "s3://${remote_bucket}/${CI_COMMIT_REF_NAME}/documents" \

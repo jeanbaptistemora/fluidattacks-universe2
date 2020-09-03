@@ -127,13 +127,14 @@ function helper_docker_build_and_push {
 
 function helper_execute_chunk_parallel {
   local function_to_call
-  export TEMP_FILE1
+  local todo_list
 
   function_to_call="${1:-}"
+  todo_list="${2:-}"
 
-      echo "Found $(wc -l "${TEMP_FILE1}") items to process" \
+      echo "Found $(wc -l "${todo_list}") items to process" \
   &&  echo "Processing batch: ${CI_NODE_INDEX} of ${CI_NODE_TOTAL}" \
-  &&  split --number="l/${CI_NODE_INDEX}/${CI_NODE_TOTAL}" "${TEMP_FILE1}" \
+  &&  split --number="l/${CI_NODE_INDEX}/${CI_NODE_TOTAL}" "${todo_list}" \
         | while read -r item
           do
                 "${function_to_call}" "${item}" \

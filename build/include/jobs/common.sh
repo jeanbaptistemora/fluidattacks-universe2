@@ -22,7 +22,8 @@ function job_common_build_nix_caches {
   &&  provisioners=(./build/provisioners/*) \
   &&  printf "%s\n" "${provisioners[@]}" | LC_ALL=C sort > "${TEMP_FILE1}" \
   &&  helper_execute_chunk_parallel \
-        "_job_common_build_nix_caches"
+        "_job_common_build_nix_caches" \
+        "${TEMP_FILE1}"
 }
 
 function job_common_send_new_release_email {

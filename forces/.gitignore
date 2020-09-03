@@ -5,6 +5,7 @@
 
 /**/*.egg-info
 /coverage*
+.coverage*
 /poetry.lock
 /dist
 test.yml
