@@ -1250,35 +1250,6 @@ async def _do_remove_tag(
     require_login,
     enforce_user_level_auth_async,
 )
-async def resolve_alive_projects(
-        _: Any,
-        info: GraphQLResolveInfo,
-        filters: Union[None, Dict[str, Any]] = None) -> List[ProjectType]:
+async def resolve_projects(*_: Any) -> List[str]:
     """Resolve for ACTIVE and SUSPENDED projects."""
-    return await _get_alive_projects(info, filters)
-
-
-async def _get_alive_projects(
-        info: GraphQLResolveInfo,
-        filters: Union[None, Dict[str, Any]]) -> List[ProjectType]:
-    """Resolve for ACTIVE and SUSPENDED projects."""
-    alive_projects = await project_domain.get_alive_projects()
-    req_fields: List[Union[FieldNode, ObjectFieldNode]] = []
-    selection_set = SelectionSetNode()
-    filters_ofn: List[Union[None, ObjectFieldNode]] = []
-    if filters:
-        filters_ofn = util.dict_to_object_field_node(filters)
-        req_fields.extend(filters_ofn)
-    selection_set.selections = req_fields
-
-    projects = await asyncio.gather(*[
-        asyncio.create_task(
-            resolve(info, project, selection_set=selection_set)
-        )
-        for project in alive_projects
-    ])
-
-    return (
-        await util.get_filtered_elements(projects, filters_ofn)
-        if filters_ofn else projects
-    )
+    return await project_domain.get_alive_projects()

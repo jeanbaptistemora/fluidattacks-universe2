@@ -157,40 +157,20 @@ class ProjectTests(TestCase):
         """Check for projects mutation."""
         query = '''
           query {
-            projects {
-              name
-            }
+            projects
           }
         '''
         data = {'query': query}
         expected_projects = [
-            {'name': 'suspendedtest'},
-            {'name': 'oneshottest'},
-            {'name': 'unittesting'},
-            {'name': 'continuoustesting'}
+            'suspendedtest',
+            'oneshottest',
+            'unittesting',
+            'continuoustesting'
         ]
 
         result = await self._get_result_async(data)
         assert 'errors' not in result
         assert result['data']['projects'] == expected_projects
-
-    async def test_alive_projects_filtered(self):
-        """Check for projects mutation."""
-        query = '''
-          query {
-            projects(filters: {name: "unittesting"}) {
-              subscription
-            }
-          }
-        '''
-        data = {'query': query}
-        expected_output = [
-            {'subscription': 'continuous'}
-        ]
-
-        result = await self._get_result_async(data)
-        assert 'errors' not in result
-        assert result['data']['projects'] == expected_output
 
     @pytest.mark.changes_db
     async def test_create_project(self):

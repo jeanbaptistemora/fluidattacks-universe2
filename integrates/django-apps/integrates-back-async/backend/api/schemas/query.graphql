@@ -80,5 +80,5 @@ type Query {
     ): Report
 
     "List of alive projects"
-    projects(filters: GenericScalar): [Project]
+    projects: [String]
 }
