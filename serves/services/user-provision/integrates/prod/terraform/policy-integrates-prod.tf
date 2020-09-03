@@ -53,6 +53,7 @@ data "aws_iam_policy_document" "integrates-prod-policy-data" {
       "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/integrates-*",
       "arn:aws:iam::${data.aws_caller_identity.current.account_id}:policy/integrates-*",
       "arn:aws:iam::${data.aws_caller_identity.current.account_id}:instance-profile/integrates-*",
+      "arn:aws:iam::${data.aws_caller_identity.current.account_id}:oidc-provider/*"
     ]
   }
   statement {
