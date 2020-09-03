@@ -7,6 +7,9 @@
 /**/.coverage*
 /**/.skims
 /**/.venv
+/ast/build/
+/ast/gradle/wrapper
+/ast/gradlew
 /coverage*
 /docs/skims
 /dist
