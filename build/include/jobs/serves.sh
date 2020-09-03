@@ -484,8 +484,8 @@ function job_serves_rotate_keys_user_provision_services_dev {
   local output_key_id_name='continuous-dev-secret-key-id'
   local output_secret_key_name='continuous-dev-secret-key'
   local gitlab_repo_id='4603023'
-  local gitlab_key_id_name='INTEGRATES_DEV_AWS_ACCESS_KEY_ID'
-  local gitlab_secret_key_name='INTEGRATES_DEV_AWS_SECRET_ACCESS_KEY'
+  local gitlab_key_id_name='DEV_AWS_ACCESS_KEY_ID'
+  local gitlab_secret_key_name='DEV_AWS_SECRET_ACCESS_KEY'
   local gitlab_masked='true'
   local gitlab_protected='false'
 
@@ -510,8 +510,8 @@ function job_serves_rotate_keys_user_provision_services_prod {
   local output_key_id_name='continuous-prod-secret-key-id'
   local output_secret_key_name='continuous-prod-secret-key'
   local gitlab_repo_id='4603023'
-  local gitlab_key_id_name='INTEGRATES_PROD_AWS_ACCESS_KEY_ID'
-  local gitlab_secret_key_name='INTEGRATES_PROD_AWS_SECRET_ACCESS_KEY'
+  local gitlab_key_id_name='PROD_AWS_ACCESS_KEY_ID'
+  local gitlab_secret_key_name='PROD_AWS_SECRET_ACCESS_KEY'
   local gitlab_masked='true'
   local gitlab_protected='true'
 
