@@ -75,12 +75,12 @@ def _java_insecure_cipher(
             Keyword('getInstance') + '(' +
             DOUBLE_QUOTED_STRING.copy().addCondition(
                 lambda tokens: tokens[0].lower() not in {
-                    "TLS",
-                    "TLSv1.2",
-                    "TLSv1.3",
-                    "DTLS",
-                    "DTLSv1.2",
-                    "DTLSv1.3",
+                    "tls",
+                    "tlsv1.2",
+                    "tlsv1.3",
+                    "dtls",
+                    "dtlsv1.2",
+                    "dtlsv1.3",
                 }
             )
         ),

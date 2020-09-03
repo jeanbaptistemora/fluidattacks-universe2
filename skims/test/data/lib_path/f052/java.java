@@ -28,6 +28,7 @@ Cipher c = Cipher.getInstance("RSA/ECB/PKCS1Padding");
 Cipher c = Cipher.getInstance("RSA/ECB/OAEPWithSHA-1AndMGF1Padding");
 Cipher c = Cipher.getInstance("RSA/ECB/OAEPWithSHA-256AndMGF1Padding");
 SSLContext.getInstance("SSLv3");
+SSLContext.getInstance("TLSv1.2");
 RSAKeyGenParameterSpec(2048, RSAKeyGenParameterSpec.F4)
 RSAKeyGenParameterSpec(2047, RSAKeyGenParameterSpec.F4)
 ECGenParameterSpec("secp521r1")
