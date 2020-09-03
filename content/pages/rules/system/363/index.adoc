@@ -1,7 +1,7 @@
 :slug: rules/363/
 :category: system
 :description: This requirement establishes the importance of synchronizing system clocks.
-:keywords: Synchronize, System, Clock, Time, Settings, PCI DSS, Security, Requirement, Rules, Ethical Hacking, Pentesting
+:keywords: Synchronize, System, Clock, Time, Settings, ISO, PCI DSS, Security, Requirement, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R363. Synchronize system clocks
@@ -22,11 +22,15 @@ to establish the event sequence that led the security incident.
 
 == References
 
-. [[r1]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 10.4.1]
+. [[r1]] link:https://www.iso.org/obp/ui/#iso:std:54534:en[ISO 27001:2013. Annex A - 12.4.4]
+Synchronize all information processing and security systems clocks using a
+single reference source.
+
+. [[r2]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 10.4.1]
 Critical systems have the correct and consistent time.
 
-. [[r2]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 10.4.2]
+. [[r3]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 10.4.2]
 Time data is protected.
 
-. [[r3]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 10.4.3]
+. [[r4]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 10.4.3]
 Time settings are received from industry-accepted time sources.
