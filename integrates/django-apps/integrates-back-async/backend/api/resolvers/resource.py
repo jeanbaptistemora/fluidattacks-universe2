@@ -329,7 +329,7 @@ async def _do_remove_files(
                 }
             })
     if success:
-        util.queue_cache_invalidation(project_name)
+        _clean_resources_cache(project_name)
         util.cloudwatch_log(
             info.context,
             ('Security: Removed Files from '
@@ -417,7 +417,7 @@ async def _do_update_environment(
     )
 
     if success:
-        util.queue_cache_invalidation(project_name)
+        _clean_resources_cache(project_name)
         util.cloudwatch_log(
             info.context,
             (f'Security: Updated environment state in {project_name} '
@@ -468,7 +468,7 @@ async def _do_update_repository(
     )
 
     if success:
-        util.queue_cache_invalidation(project_name)
+        _clean_resources_cache(project_name)
         util.cloudwatch_log(
             info.context,
             (f'Security: Updated repository state in {project_name} '
