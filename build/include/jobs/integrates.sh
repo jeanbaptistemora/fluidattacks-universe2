@@ -1362,7 +1362,7 @@ function job_integrates_deploy_k8s_back {
               \"user\": \"${CI_COMMIT_AUTHOR}\"
             }
           }" \
-  &&  curl "https://api.checklyhq.com/checks/${CHECKLY_CHECK_ID}/trigger/${CHECKLY_TRIGGER_ID}" \
+  &&  curl "https://api.checklyhq.com/check-groups/${CHECKLY_CHECK_ID}/trigger/${CHECKLY_TRIGGER_ID}" \
         --request 'GET' \
         --data 'deployment=true' \
         --data 'repository=product/integrates' \
