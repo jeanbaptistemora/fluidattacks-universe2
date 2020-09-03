@@ -8,9 +8,6 @@ data "aws_eks_cluster" "cluster" {
 data "aws_eks_cluster_auth" "cluster" {
   name = module.eks.cluster_id
 }
-data "tls_certificate" "cluster" {
-  url = module.eks.cluster_oidc_issuer_url
-}
 variable "region" {
   default = "us-east-1"
 }

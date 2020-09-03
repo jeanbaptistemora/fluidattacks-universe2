@@ -1,5 +1,6 @@
 module "eks" {
   source          = "terraform-aws-modules/eks/aws"
+  version         = "~> 12.2.0"
   cluster_name    = var.cluster_name
   cluster_version = "1.17"
 
@@ -32,10 +33,4 @@ module "eks" {
   map_roles    = var.map_roles
   map_users    = var.map_users
   map_accounts = var.map_accounts
-}
-
-resource "aws_iam_openid_connect_provider" "cluster" {
-  client_id_list = ["sts.amazonaws.com"]
-  thumbprint_list = [data.tls_certificate.cluster.certificates.0.sha1_fingerprint]
-  url = module.eks.cluster_oidc_issuer_url
 }
