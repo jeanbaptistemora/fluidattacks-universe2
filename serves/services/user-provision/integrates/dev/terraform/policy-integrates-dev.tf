@@ -190,10 +190,13 @@ data "aws_iam_policy_document" "integrates-dev-policy-data" {
       "devicefarm:GetProject",
       "devicefarm:GetRun",
       "devicefarm:GetUpload",
+      "devicefarm:ListArtifacts",
+      "devicefarm:ListJobs",
       "devicefarm:ScheduleRun",
     ]
     resources = [
       "arn:aws:devicefarm:us-west-2:${data.aws_caller_identity.current.account_id}:devicepool:*",
+      "arn:aws:devicefarm:us-west-2:${data.aws_caller_identity.current.account_id}:job:*",
       "arn:aws:devicefarm:us-west-2:${data.aws_caller_identity.current.account_id}:project:*",
       "arn:aws:devicefarm:us-west-2:${data.aws_caller_identity.current.account_id}:run:*",
       "arn:aws:devicefarm:us-west-2:${data.aws_caller_identity.current.account_id}:upload:*",
