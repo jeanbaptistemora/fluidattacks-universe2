@@ -12,7 +12,13 @@ resource "aws_route53_record" "web" {
 
 # CNAME records
 
-
+resource "aws_route53_record" "changelog" {
+  zone_id = aws_route53_zone.fs_maindomain.zone_id
+  name    = "releases.${aws_route53_zone.fs_maindomain.name}"
+  type    = "CNAME"
+  ttl     = "300"
+  records = ["headwayapp.co"]
+}
 resource "aws_route53_record" "zd1_domainkey" {
   zone_id = aws_route53_zone.fs_maindomain.zone_id
   name    = "zendesk1.domainkey.${aws_route53_zone.fs_maindomain.name}"
