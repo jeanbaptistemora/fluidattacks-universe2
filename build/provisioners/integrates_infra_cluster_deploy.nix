@@ -11,7 +11,8 @@ in
       buildInputs = [
         pkgs.git
         pkgs.awscli
-        pkgs.wget
+        pkgs-terraform.wget
+        pkgs-terraform.kubernetes-helm
         pkgs-terraform.terraform_0_13
       ];
     })

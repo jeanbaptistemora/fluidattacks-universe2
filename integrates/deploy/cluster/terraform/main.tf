@@ -26,6 +26,10 @@ terraform {
       source  = "hashicorp/template"
       version = "~> 2.1"
     }
+    tls = {
+      source  = "hashicorp/tls"
+      version = "~> 2.2.0"
+    }
   }
 
   backend "s3" {
@@ -49,7 +53,3 @@ provider "kubernetes" {
   token                  = data.aws_eks_cluster_auth.cluster.token
   load_config_file       = false
 }
-provider "random" {}
-provider "local" {}
-provider "null" {}
-provider "template" {}

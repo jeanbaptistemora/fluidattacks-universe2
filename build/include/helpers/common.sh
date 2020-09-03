@@ -316,6 +316,13 @@ function helper_common_terraform_apply {
   || return 1
 }
 
+function helper_common_update_kubeconfig {
+  local cluster_name="${1}"
+  local region="${2}"
+
+  aws eks update-kubeconfig --name "${cluster_name}" --region "${region}"
+}
+
 function helper_common_poetry_install_deps {
   local path="${1}"
   export PYTHONPATH="${PWD}/skims/.venv/lib64/python3.8/site-packages:${PYTHONPATH}"

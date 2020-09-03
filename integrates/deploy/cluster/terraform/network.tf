@@ -7,7 +7,7 @@ resource "aws_subnet" "region_a" {
   tags = {
     "Name"                                      = "integrates-cluster-1"
     "kubernetes.io/cluster/${var.cluster_name}" = "shared"
-    "kubernetes.io/role/internal-elb"           = "1"
+    "kubernetes.io/role/elb"                    = "1"
   }
 }
 
@@ -20,7 +20,7 @@ resource "aws_subnet" "region_b" {
   tags = {
     "Name"                                      = "integrates-cluster-2"
     "kubernetes.io/cluster/${var.cluster_name}" = "shared"
-    "kubernetes.io/role/internal-elb"           = "1"
+    "kubernetes.io/role/elb"                    = "1"
   }
 }
 
@@ -33,6 +33,6 @@ resource "aws_subnet" "region_d" {
   tags = {
     "Name"                                      = "integrates-cluster-3"
     "kubernetes.io/cluster/${var.cluster_name}" = "shared"
-    "kubernetes.io/role/internal-elb"           = "1"
+    "kubernetes.io/role/elb"                    = "1"
   }
 }

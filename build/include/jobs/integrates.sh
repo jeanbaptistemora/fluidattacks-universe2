@@ -526,7 +526,7 @@ function job_integrates_renew_certificates {
         # shellcheck disable=SC2034
             helper_integrates_aws_login 'development' \
         &&  echo '[INFO] Setting context' \
-        &&  aws eks update-kubeconfig --name FluidServes --region us-east-1 \
+        &&  helper_common_update_kubeconfig FluidServes us-east-1 \
         &&  kubectl config \
               set-context "$(kubectl config current-context)" \
               --namespace=integrates \
@@ -1260,7 +1260,7 @@ function job_integrates_deploy_k8s_back_ephemeral {
   &&  pushd "${STARTDIR}/integrates" \
   &&  helper_integrates_aws_login 'development' \
   &&  echo "[INFO] Setting namespace preferences..." \
-  &&  aws eks update-kubeconfig --name FluidServes --region us-east-1 \
+  &&  helper_common_update_kubeconfig FluidServes us-east-1 \
   &&  kubectl config \
         set-context "$(kubectl config current-context)" \
         --namespace=integrates \
@@ -1317,7 +1317,7 @@ function job_integrates_deploy_k8s_back {
         NEW_RELIC_API_KEY \
         NEW_RELIC_APP_ID \
   &&  echo "[INFO] Setting namespace preferences..." \
-  &&  aws eks update-kubeconfig --name FluidServes --region us-east-1 \
+  &&  helper_common_update_kubeconfig FluidServes us-east-1 \
   &&  kubectl config \
         set-context "$(kubectl config current-context)" \
         --namespace='serves' \
@@ -1368,7 +1368,7 @@ function job_integrates_deploy_k8s_stop_ephemeral {
       pushd "${STARTDIR}/integrates" \
   &&  echo "[INFO] Setting namespace preferences..." \
   &&  helper_integrates_aws_login 'development' \
-  &&  aws eks update-kubeconfig --name FluidServes --region us-east-1 \
+  &&  helper_common_update_kubeconfig FluidServes us-east-1 \
   &&  kubectl config \
         set-context "$(kubectl config current-context)" \
         --namespace=integrates \
