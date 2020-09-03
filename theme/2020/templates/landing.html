@@ -54,7 +54,7 @@
 {% block content %}
 
 <div class="slideshow-container bg-quotes bg-banner-sz coverm cover-s">
-  <div class="slideshow-inner justify-center items-center flex w-100">
+  <div class="slideshow-inner justify-center items-center flex w-100 ph4">
     <div class="mySlides fadein pv6">
       <div>
         <h2 class="white center roboto w-100 tc pv0-l pv7 ph3 f1-l f2 lh-solid mw7">
@@ -80,7 +80,7 @@
   {% endassets %}
 </div>
 </div>
-<div class="mw8 mr-auto ml-auto ph3">
+<div class="mw8 mr-auto ml-auto ph4">
   <div class="w-100">
     <div class="pv6 dt-ns ml-auto mr-auto">
       <div class="w-50-l fr-l tc">
@@ -116,14 +116,14 @@
         src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/products/product-drills.png"
         alt="Young hacker smiling">
       </div>
-      <div class="w-45-l fr-l tl mw6">
+      <div class="w-45-l fr-l tr mw6">
         <img
         src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/products/drills/drills-logo.png"
         alt="Drills logo">
-        <h3 class="c-fluid-bk roboto fw7 f4 mv0 tl-l tc">
+        <h3 class="c-fluid-bk roboto fw7 f4 mv0 tr-l tc">
           The Human Element that Continuously Detects Vulnerabilities
         </h3>
-        <p class="c-fluid-bk roboto fw1 f5 lh-2">
+        <p class="c-fluid-bk roboto fw1 f5 lh-2 tr-l tl">
           <strong class="b">Drills</strong> uses the right combination
           of technology and human intelligence
           to find deep and zero-day vulnerabilities
@@ -169,25 +169,27 @@
         alt="Young hacker smiling">
       </div>
       <div class="w-45-l fr-l tl mw6">
-        <h3 class="c-fluid-bk roboto f1-ns f2 fw7 mt0 pt3 tl-l tc">Continuous Hacking</h3>
-        <p class="c-fluid-bk roboto fw1 f5 lh-2">
+        <h3 class="c-fluid-bk roboto f1-ns f2 fw7 mt0 pt3 tr-l tc">Continuous Hacking</h3>
+        <p class="c-fluid-bk roboto fw1 f5 lh-2 tr-l tl">
           Vulnerabilities and security issues are continuously detected
           and reported during the entire software development cycle.
           Fluid Attacks runs comprehensive testing
           through SAST, DAST, IAST and SCA techniques,
           detecting all vulnerabilities with no false positives.
         </p>
-        <div class="dib-ns tc">
-          <a class="c-fluid-bk no-underline hv-fluid-dkred f5 roboto fw1" href="{{ SITEURL }}/services/continuous-hacking/">
-            Learn More <span class="c-dkred">></span>
-          </a>
-        </div>
-        <div class="dib-ns ph3 tc pv0-ns pv3">
-          <a href="{{ SITEURL }}/contact-us/">
-            <button class="outline-transparent bannerbt hv-bt-fluid-rd pointer white pv2 ph4 roboto fw7 f5 dib bt-trans br2 bc-fluid-red ba">
-              Get a Demo
-            </button>
-          </a>
+        <div class="fr-l">
+          <div class="dib-ns tr-l tc">
+            <a class="c-fluid-bk no-underline hv-fluid-dkred f5 roboto fw1" href="{{ SITEURL }}/services/continuous-hacking/">
+              Learn More <span class="c-dkred">></span>
+            </a>
+          </div>
+          <div class="dib-ns ph3 tc pv0-ns pv3">
+            <a href="{{ SITEURL }}/contact-us/">
+              <button class="outline-transparent bannerbt hv-bt-fluid-rd pointer white pv2 ph4 roboto fw7 f5 dib bt-trans br2 bc-fluid-red ba">
+                Get a Demo
+              </button>
+            </a>
+          </div>
         </div>
       </div>
     </div>
@@ -223,10 +225,108 @@
     </div>
   </div>
 </div>
+<div class="bg-solutions cover">
+  <div class="mw9 ph5 center pv7-l pv6-m pv4">
+    <div class="dib-l width-sols v-top">
+      <h2 class="white roboto f2 fw7 title-sols display-sols mv3">
+        Security Solutions for your Business
+      </h2>
+    </div>
+    <div class="dib">
+      <ul class="list roboto white f3-ns f4 fw7 dib-ns ph4-ns ph0">
+        <li>
+          <p class="mv0">
+            DevSecOps<br>
+            <img
+            class="w3 pb3 mb1"
+            src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/underline.png"
+            alt="Young hacker smiling">
+          </p>
+        </li>
+        <li>
+          <p class="mv0">
+            Security Testing<br>
+            <img
+            class="w3 pb3 mb1"
+            src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/underline.png"
+            alt="Young hacker smiling">
+          </p>
+        </li>
+        <li>
+          <p class="mv0">
+            Pentesting<br>
+            <img
+            class="w3 pb3 mb1"
+            src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/underline.png"
+            alt="Young hacker smiling">
+          </p>
+        </li>
+      </ul>
+      <ul class="list roboto white f3-ns f4 fw7 dib-ns ph4-ns ph0">
+        <li>
+          <p class="mv0">
+            Ethical Hacking<br>
+            <img
+            class="w3 pb3 mb1"
+            src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/underline.png"
+            alt="Young hacker smiling">
+          </p>
+        </li>
+        <li>
+          <p class="mv0">
+            Red Teaming<br>
+            <img
+            class="w3 pb3 mb1"
+            src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/underline.png"
+            alt="Young hacker smiling">
+          </p>
+        </li>
+        <li>
+          <p class="mv0">
+            Attack Simulation<br>
+            <img
+            class="w3 pb3 mb1"
+            src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/underline.png"
+            alt="Young hacker smiling">
+          </p>
+        </li>
+      </ul>
+      <ul class="list roboto white f3-ns f4 fw7 dib-ns ph4-ns ph0">
+        <li>
+          <p class="mv0">
+            Vulnerability Assesment<br>
+            <img
+            class="w3 pb3 mb1"
+            src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/underline.png"
+            alt="Young hacker smiling">
+          </p>
+        </li>
+        <li>
+          <p class="mv0">
+            Compliance<br>
+            <img
+            class="w3 pb3 mb1"
+            src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/underline.png"
+            alt="Young hacker smiling">
+          </p>
+        </li>
+        <li>
+          <p class="mv0">
+            IT Auditing<br>
+            <img
+            class="w3 pb3 mb1"
+            src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/underline.png"
+            alt="Young hacker smiling">
+          </p>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
 <!-- Ebook section -->
 <div class="bg-ebook">
   <div class="pv6">
-    <h2 class="white center roboto w-100 tc f1 lh3 pl3-l ph3">
+    <h2 class="white center roboto w-100 tc f1-ns f2 lh3 pl3-l ph3 mw7">
       Are you going fast in the wrong direction?<br>
       Hacking with speed and precision
     </h2>

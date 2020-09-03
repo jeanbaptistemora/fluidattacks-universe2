@@ -119,7 +119,7 @@ $codeyellow: rgba(230, 219, 116, 1);
 .tooltip { &:hover { .tooltip-text { visibility: visible; } } }
 .anchor-sign { &::before { content: '\0023'; } }
 .banner-bg { background-image: url('../../images/cover-main.png'); }
-.asap-bg { background-image: url('../../images/background-asap.png'); height: 25rem; }
+.asap-bg { background-image: url('../../images/background-asap.png'); height: 35rem; }
 .continuous-bg { background-image: url('../../images/services/continuous/main-continuous-hacking.png'); }
 .one-shot-bg { background-image: url('../../images/services/one-shot/main-one-shot.png'); }
 .products-bg { background-image: url('../../images/products/cover-products.png'); }
@@ -219,12 +219,10 @@ $codeyellow: rgba(230, 219, 116, 1);
 .h-navbar { height: 6.875rem; }
 .t-all-5 { transition: all .5s; }
 .mt-body { margin-top: 110px; }
+.title-sols { text-align: center; }
+.width-sols { width: 100%; }
 
 // Tachyons custom responsive classes
-@media screen and (min-width: 1200px) and (max-width: 1900px) {
-  .minh-100vh { min-height: 100vh;}
-}
-
 @media screen and (min-width: 960px) and (max-width: 1200px) {
   .w-footer-links { width: auto; }
   .w-footer-phrase { width: 50% ; }
@@ -242,6 +240,10 @@ $codeyellow: rgba(230, 219, 116, 1);
   .db-xl { display: block; }
   .fr-xl { float: right; }
   .mr3-xl { margin-right: 1rem; }
+  .solutions-title { width: 30%; text-align: left; }
+  .title-sols { text-align: left; }
+  .display-sols { display: inline-block; }
+  .width-sols { width: 30%; }
 }
 
 // Small screens
@@ -288,6 +290,7 @@ $codeyellow: rgba(230, 219, 116, 1);
 
 //Large screens
 @media screen and (min-width: 60em) {
+  .minh-100vh { min-height: 100vh; }
   .h-34em-l { height: 34em; }
   .h-banner-l { height: 20em; }
   .three-columns-l { column-count: 3; }
