@@ -14,6 +14,7 @@ from aioextensions import (
 from pyparsing import (
     Keyword,
     MatchFirst,
+    Optional,
 )
 
 # Local libraries
@@ -21,6 +22,7 @@ from lib_path.common import (
     blocking_get_vulnerabilities,
     C_STYLE_COMMENT,
     DOUBLE_QUOTED_STRING,
+    EXTENSIONS_CSHARP,
     EXTENSIONS_JAVA,
     NUMBER,
     SHIELD,
@@ -40,6 +42,54 @@ from utils.model import (
 from zone import (
     t,
 )
+
+
+def _csharp_insecure_hash(
+    content: str,
+    path: str,
+) -> Tuple[Vulnerability, ...]:
+    grammar = MatchFirst([
+        Keyword('HMACMD5'),
+        Keyword('HMACRIPEMD160'),
+        Keyword('HMACSHA1'),
+        Keyword('MACTripleDES'),
+        Keyword('MD5'),
+        Keyword('MD5Cng'),
+        Keyword('MD5CryptoServiceProvider'),
+        Keyword('MD5Managed'),
+        Keyword('RIPEMD160'),
+        Keyword('RIPEMD160Managed'),
+        Keyword('SHA1'),
+        Keyword('SHA1Cng'),
+        Keyword('SHA1CryptoServiceProvider'),
+        Keyword('SHA1Managed'),
+    ]) + Optional('.' + Keyword('Create')) + '('
+    grammar.ignore(C_STYLE_COMMENT)
+    grammar.ignore(DOUBLE_QUOTED_STRING)
+
+    return blocking_get_vulnerabilities(
+        content=content,
+        description=t(
+            key='src.lib_path.f052.insecure_hash.description',
+            path=path,
+        ),
+        finding=FindingEnum.F052,
+        grammar=grammar,
+        path=path,
+    )
+
+
+@cache_decorator()
+@SHIELD
+async def csharp_insecure_hash(
+    content: str,
+    path: str,
+) -> Tuple[Vulnerability, ...]:
+    return await in_process(
+        _csharp_insecure_hash,
+        content=content,
+        path=path,
+    )
 
 
 def _vuln_cipher_get_instance(transformation: str) -> bool:
@@ -90,7 +140,7 @@ def _java_insecure_cipher(
     return blocking_get_vulnerabilities(
         content=content,
         description=t(
-            key='src.lib_path.f052.java_insecure_cipher.description',
+            key='src.lib_path.f052.insecure_cipher.description',
             path=path,
         ),
         finding=FindingEnum.F052,
@@ -99,7 +149,6 @@ def _java_insecure_cipher(
     )
 
 
-@cache_decorator()
 @SHIELD
 async def java_insecure_cipher(
     content: str,
@@ -167,7 +216,7 @@ def _java_insecure_hash(
     return blocking_get_vulnerabilities(
         content=content,
         description=t(
-            key='src.lib_path.f052.java_insecure_hash.description',
+            key='src.lib_path.f052.insecure_hash.description',
             path=path,
         ),
         finding=FindingEnum.F052,
@@ -258,7 +307,7 @@ def _java_insecure_key(
     return blocking_get_vulnerabilities(
         content=content,
         description=t(
-            key='src.lib_path.f052.java_insecure_key.description',
+            key='src.lib_path.f052.insecure_key.description',
             path=path,
         ),
         finding=FindingEnum.F052,
@@ -302,7 +351,7 @@ def _java_insecure_pass(
     return blocking_get_vulnerabilities(
         content=content,
         description=t(
-            key='src.lib_path.f052.java_insecure_pass.description',
+            key='src.lib_path.f052.insecure_pass.description',
             path=path,
         ),
         finding=FindingEnum.F052,
@@ -332,7 +381,12 @@ async def analyze(
 ) -> None:
     coroutines: List[Awaitable[Tuple[Vulnerability, ...]]] = []
 
-    if file_extension in EXTENSIONS_JAVA:
+    if file_extension in EXTENSIONS_CSHARP:
+        coroutines.append(csharp_insecure_hash(
+            content=await content_generator(),
+            path=path,
+        ))
+    elif file_extension in EXTENSIONS_JAVA:
         coroutines.append(java_insecure_cipher(
             content=await content_generator(),
             path=path,
