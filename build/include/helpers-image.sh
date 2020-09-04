@@ -36,7 +36,7 @@ function helper_image_size {
 
       helper_file_exists "${path}" \
   &&  size_bytes="$(stat -c %s "${path}")" \
-  &&  if [ "${size_bytes}" -le '2000000' ]
+  &&  if [ "${size_bytes}" -le '1000000' ]
       then
             return 0
       else
