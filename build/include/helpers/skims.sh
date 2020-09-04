@@ -32,6 +32,7 @@ function helper_skims_compile_ast {
 
         done \
     &&  echo '[INFO] Building AST tool' \
+    &&  gradle build \
   &&  popd \
   ||  return 1
 }
