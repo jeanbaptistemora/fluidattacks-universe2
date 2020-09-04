@@ -200,8 +200,6 @@ function helper_integrates_functional_tests {
         --exitfirst \
         --basetemp='build/test' \
         --reruns 10 \
-        --test-group-count "${CI_NODE_TOTAL}" \
-        --test-group "${CI_NODE_INDEX}" \
         deploy/ephemeral/tests.py
 }
 
