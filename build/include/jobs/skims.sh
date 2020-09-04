@@ -62,7 +62,9 @@ function job_skims_deploy {
 }
 
 function job_skims_install {
-  helper_common_poetry_install skims
+      helper_skims_compile_ast \
+  &&  helper_common_poetry_install skims \
+
 }
 
 function job_skims_lint {
