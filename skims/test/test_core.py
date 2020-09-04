@@ -12,6 +12,9 @@ from aioextensions import (
 from core.persist import (
     diff_results,
 )
+from parse_grammar import (
+    parse,
+)
 from state.ephemeral import (
     get_ephemeral_store,
     EphemeralStore,

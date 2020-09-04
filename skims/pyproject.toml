@@ -28,6 +28,7 @@ packages = [
   { include = "integrates", from = "skims" },
   { include = "lib_path", from = "skims" },
   { include = "nvd", from = "skims" },
+  { include = "parse_grammar", from = "skims" },
   { include = "parse_json", from = "skims" },
   { include = "state", from = "skims" },
   { include = "utils", from = "skims" },

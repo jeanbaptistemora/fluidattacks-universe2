@@ -45,7 +45,8 @@ function job_skims_deploy {
     sed --in-place 's|^version.*$|version = "1.0.0"|g' "skims/pyproject.toml"
   }
 
-      helper_common_poetry_install_deps skims \
+      helper_skims_compile_ast \
+  &&  helper_common_poetry_install_deps skims \
   &&  pushd skims \
     &&  version=$(helper_skims_compute_version) \
     &&  echo "[INFO] Skims: ${version}" \
