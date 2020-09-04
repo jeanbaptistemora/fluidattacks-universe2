@@ -118,17 +118,18 @@ function helper_observes_dynamo {
         echo '}'
       } > "${TEMP_FILE1}" \
   &&  echo "${analytics_auth_redshift}" > "${TEMP_FILE2}" \
-  &&  echo '[INFO] Running tap' \
+  &&  echo '[INFO] Running streamer' \
   &&  mkdir ./logs \
   &&  streamer-dynamodb \
         --auth "${TEMP_FILE1}" \
-        --conf ./observes/conf/awsdynamo.json \
-        | tap-json > .singer \
+        --conf ./observes/conf/awsdynamo.json > .stream \
+ &&  echo '[INFO] Running tap' \
+      && tap-json < .stream > .singer \
   &&  echo '[INFO] Running target' \
   &&  target-redshift \
         --auth "${TEMP_FILE2}" \
         --drop-schema \
-        --schema-name 'dynamo' \
+        --schema-name 'dynamodb' \
         < .singer
 }
 
