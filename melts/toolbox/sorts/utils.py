@@ -1,3 +1,4 @@
+import os
 import re
 import time
 from array import ArrayType
@@ -10,6 +11,15 @@ from git.cmd import Git
 from git.exc import GitCommandError
 from pandas import DataFrame, Series
 from pydriller.metrics.process.hunks_count import HunksCount
+
+
+def df_get_file_commits_authors(row: Series) -> Tuple[int, int]:
+    """
+    Get the commit and authors information for each file in the DataFrame
+    """
+    repo: str = row['repo']
+    file_: str = row['file']
+    return get_file_commits_authors(repo, file_)
 
 
 def df_get_deltas(row: Series) -> Tuple[int, int, int, int]:
@@ -39,14 +49,14 @@ def df_get_hunks(row: Series) -> float:
     return get_hunks(repo, commit)
 
 
-def fill_model_features(base_df: DataFrame) -> DataFrame:
+def fill_model_commit_features(base_df: DataFrame) -> DataFrame:
     """
     Takes a base DataFrame that has at least the following columns:
     [commit, hour, repo]
     Based on these columns, it extracts more features in adds them to the
     DataFrame
     """
-    print('Extracting model features...')
+    print('Extracting model commit features...')
     start = time.time()
     features_df: DataFrame = pd.DataFrame()
     features_df['hunks'] = base_df.apply(df_get_hunks, axis=1)
@@ -66,6 +76,28 @@ def fill_model_features(base_df: DataFrame) -> DataFrame:
     )
     features_df['authored_hour'] = base_df['hour']
     print(f'File information was added after {time.time() - start}')
+    return pd.concat([base_df, features_df], axis=1)
+
+
+def fill_model_file_features(base_df: DataFrame) -> DataFrame:
+    """
+    Takes a base DataFrame that has at least the following columns:
+    [file, repo]
+    Based on these columns, it extracts file-related features and adds them
+    to the DataFrame
+    """
+    print('Extracting model file features...')
+    timer: float = time.time()
+    features_df: DataFrame = pd.DataFrame()
+    features_df[['num_commits', 'num_unique_authors']] = base_df.apply(
+        df_get_file_commits_authors,
+        axis=1,
+        result_type='expand'
+    )
+    print(
+        f'Commit/Authors information extracted after '
+        f'{time.time() - timer:.2f} seconds'
+    )
     return pd.concat([base_df, features_df], axis=1)
 
 
@@ -95,6 +127,29 @@ def get_deltas(repo: str, commit: str) -> Tuple[int, int, int, int]:
     except IndexError:
         print('shortstat error:', shortstat)
     return deltas_info
+
+
+def get_file_commits_authors(repo: str, file_: str) -> Tuple[int, int]:
+    """
+    Given a file in a repository, extract the number of commits that have
+    modified it, as well as the number of different authors
+    """
+    commits_authors: Tuple[int, int] = (0, 0)
+    try:
+        git_repo: Git = git.Git(repo)
+        file_relative_path = os.path.sep.join(file_.split(os.path.sep)[1:])
+        file_history = git_repo.log(
+            '--follow',
+            '--pretty=%H,%ae',
+            file_relative_path
+        ).split('\n')
+        commits_authors = (
+            len(file_history),
+            len({x.split(',')[1] for x in file_history})
+        )
+    except GitCommandError:
+        print('Error extracting the commits/authors that modified a file')
+    return commits_authors
 
 
 def get_files(repo: str, commit: str) -> ArrayType:

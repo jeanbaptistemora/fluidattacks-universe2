@@ -18,7 +18,7 @@ from git.cmd import Git
 from pandas import DataFrame
 from sklearn.svm import LinearSVC
 
-from toolbox.sorts.utils import fill_model_features
+from toolbox.sorts.utils import fill_model_commit_features
 
 
 def make_repo_dataset(repo: str) -> Optional[DataFrame]:
@@ -55,7 +55,7 @@ def make_base_dataset(subscription_path: str) -> DataFrame:
 
 def make_full_dataset(subscription_path: str) -> DataFrame:
     dataset: DataFrame = make_base_dataset(subscription_path)
-    return fill_model_features(dataset)
+    return fill_model_commit_features(dataset)
 
 
 def predict(subscription_path: str) -> None:

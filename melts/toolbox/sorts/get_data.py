@@ -20,8 +20,14 @@ from pandas.core.groupby import GroupBy
 
 from toolbox.api import integrates
 from toolbox.constants import API_TOKEN
-from toolbox.sorts.utils import fill_model_features
+from toolbox.sorts.utils import (
+    fill_model_commit_features,
+    fill_model_file_features
+)
 
+
+PATH_DELIMITER = os.path.sep
+MAX_RETRIES = 15
 
 VulnerabilityType = TypedDict('VulnerabilityType', {
     'vulnType': str,
@@ -39,7 +45,7 @@ ResponseType = TypedDict('ResponseType', {
 })
 
 
-def build_vulnerabilities_df(subscription_path: str) -> DataFrame:
+def build_vulnerabilities_df(subscription_path: str, scope: str) -> DataFrame:
     print('Building vulnerabilities DataFrame...')
     timer: float = time.time()
     group: str = os.path.basename(os.path.normpath(subscription_path))
@@ -52,18 +58,41 @@ def build_vulnerabilities_df(subscription_path: str) -> DataFrame:
         f'Vulnerable files extracted after {time.time() - timer:.2f} seconds'
     )
     timer = time.time()
-    safe_files = get_safe_files(vuln_files, vuln_repos, fusion_path)
-    print(f'Safe files extracted after {time.time() - timer:.2f} seconds')
-    vulns_df = pd.concat([
-        pd.DataFrame(
-            map(lambda x: (x, 1), vuln_files),
-            columns=['file', 'is_vuln']
-        ),
-        pd.DataFrame(
-            map(lambda x: (x, 0), safe_files),
-            columns=['file', 'is_vuln']
-        ),
-    ])
+    if scope == 'file':
+        safe_files = get_safe_files(vuln_files, vuln_repos, fusion_path)
+        print(f'Safe files extracted after {time.time() - timer:.2f} seconds')
+        vulns_df = pd.concat([
+            pd.DataFrame(
+                map(lambda x: (x, 1), vuln_files),
+                columns=['file', 'is_vuln']
+            ),
+            pd.DataFrame(
+                map(lambda x: (x, 0), safe_files),
+                columns=['file', 'is_vuln']
+            ),
+        ])
+    if scope == 'commit':
+        vulns_files_df = pd.DataFrame(vuln_files, columns=['file'])
+        vulns_files_df[['commit', 'hour']] = vulns_files_df.apply(
+            get_intro_commit,
+            args=(fusion_path,),
+            axis=1,
+            result_type='expand'
+        )
+        vuln_commits_df = make_commit_df(vulns_files_df)
+        safe_commits_df = get_safe_commits_df(
+            vuln_commits_df, vuln_repos, fusion_path
+        )
+        print(
+            f'Safe commits extracted after {time.time() - timer:.2f} seconds'
+        )
+        vulns_df = pd.concat([vuln_commits_df, safe_commits_df])
+        vulns_df['is_vuln'] = vulns_df['vulns'].apply(np.sign)
+    vulns_df['repo'] = vulns_df['file'].apply(
+        lambda filename: os.path.join(
+            fusion_path, filename.split(PATH_DELIMITER)[0]
+        )
+    )
     vulns_df.reset_index(drop=True, inplace=True)
     return vulns_df
 
@@ -80,6 +109,53 @@ def read_lst(path: str) -> List[str]:
     return lst
 
 
+def get_safe_commits_df(
+    vuln_commits_df: DataFrame,
+    vuln_repos: List[str],
+    fusion_path: str
+) -> DataFrame:
+    """
+    Balance the dataset by adding as many 'safe' commits as there are
+    vulnerable commits in the given dataset, chosen at random
+    """
+    safe_commits: List[List[Union[int, str]]] = []
+    retries: int = 0
+    while len(safe_commits) < len(vuln_commits_df):
+        if retries > MAX_RETRIES:
+            print('Could not find safe commit that matches all conditions')
+            break
+        repo = random.choice(vuln_repos)
+        git_repo: Git = git.Git(os.path.join(fusion_path, repo))
+        try:
+            commits: List[str] = git_repo.log(
+                '--pretty=%H,%aI'
+            ).split('\n')
+            rand_commit: str = random.choice(commits)
+            commit_hash: str = rand_commit.split(',')[0]
+            commit_hour: str = rand_commit.split(',')[1].split('T')[1]\
+                .split(':')[0]
+            commit_files: List[str] = git_repo.show(
+                '--name-only',
+                '--pretty=format:',
+                commit_hash
+            ).split('\n')
+            file_: str = random.choice(commit_files)
+            if not file_.strip():
+                continue  # ok, just make another random choice
+            if commit_hash not in vuln_commits_df['commit'].values:
+                file_ = os.path.join(repo, file_)
+                safe_commits.append([commit_hash, file_, 0, commit_hour])
+                retries = 0
+        except CommandError:
+            continue  # ok, just make another random choice
+        retries += 1
+    safe_commits_df: DataFrame = pd.DataFrame(
+        safe_commits,
+        columns=['commit', 'file', 'vulns', 'hour']
+    )
+    return safe_commits_df
+
+
 def get_safe_files(
     vuln_files: List[str],
     vuln_repos: List[str],
@@ -91,13 +167,15 @@ def get_safe_files(
     composites = read_lst(f'{os.path.dirname(__file__)}/composites.lst')
     repository_files: Dict[str, List[str]] = {}
     while len(safe_files) < len(vuln_files):
-        if retries > 15:
+        if retries > MAX_RETRIES:
             print('Could not find a safe file that matches the conditions')
             break
         repo = random.choice(vuln_repos)
         if repo not in repository_files.keys():
             repository_files[repo] = [
-                os.path.join(path, filename).replace(f'{fusion_path}/', '')
+                os.path.join(path, filename).replace(
+                    f'{fusion_path}{PATH_DELIMITER}', ''
+                )
                 for path, _, files in os.walk(os.path.join(fusion_path, repo))
                 for filename in files
             ]
@@ -135,7 +213,7 @@ def get_unique_vuln_files(group: str) -> Tuple[List[str], int, List[str]]:
                 total_vulns += len(vulns)
                 for vuln in vulns:
                     vuln_file: str = vuln['where']
-                    vuln_repo: str = vuln_file.split('/')[0]
+                    vuln_repo: str = vuln_file.split(PATH_DELIMITER)[0]
                     unique_vuln_files.add(vuln_file)
                     unique_vuln_repos.add(vuln_repo)
     else:
@@ -181,7 +259,7 @@ def filter_vuln_files(
     composites = read_lst(f'{os.path.dirname(__file__)}/composites.lst')
     bad_repos = get_bad_repos(fusion_path, vuln_repos)
     for vuln_file in vuln_files:
-        vuln_repo: str = vuln_file.split('/')[0]
+        vuln_repo: str = vuln_file.split(PATH_DELIMITER)[0]
         vuln_file_name: str = os.path.basename(vuln_file)
         if vuln_repo not in bad_repos:
             vuln_file_extension: str = os.path.splitext(vuln_file_name)[1]\
@@ -203,12 +281,12 @@ def get_intro_commit(row: Series, fusion_path: str) -> Tuple[str, str]:
     Obtained by doing a `git log` on the file and taking the last commit hash.
     """
     file_: str = row.file
-    repo_name: str = file_.split('/')[0]
-    file_rest: str = '/'.join(file_.split('/')[1:])
+    repo_name: str = file_.split(PATH_DELIMITER)[0]
+    file_rest: str = '/'.join(file_.split(PATH_DELIMITER)[1:])
     intro_commit = ('', '')
     try:
         # this could be done after grouping by repo, not per-file
-        git_repo: Git = git.Git(fusion_path + repo_name)
+        git_repo: Git = git.Git(os.path.join(fusion_path, repo_name))
         hashes_log: str = git_repo.log(
             '--pretty=%H,%aI',
             '--follow',
@@ -244,47 +322,6 @@ def make_commit_df(files_df: DataFrame) -> DataFrame:
     return commit_df
 
 
-def balance_df(vuln_df: DataFrame, fusion_path: str) -> DataFrame:
-    """
-    Balance the dataset by adding as many 'safe' commits as there are
-    vulnerable commits in the given dataset, chosen at random
-    """
-    df_skel: List[List[Union[int, str]]] = []
-    count: int = 0
-    goal: int = len(vuln_df)
-    repos_dirs: List[str] = os.listdir(fusion_path)
-    while count < goal:
-        rand_repo: str = random.choice(repos_dirs)
-        rand_repo_git: Git = git.Git(fusion_path + rand_repo)
-        try:
-            commits: List[str] = rand_repo_git.log(
-                '--pretty=%H,%aI'
-            ).split('\n')
-            rand_commit: str = random.choice(commits)
-            rand_hash: str = rand_commit.split(',')[0]
-            rand_hour: str = rand_commit.split(',')[1].split('T')[1]\
-                .split(':')[0]
-            samp_files: List[str] = rand_repo_git.show(
-                '--name-only',
-                '--pretty=format:',
-                rand_hash
-            ).split('\n')
-            samp_file: str = random.choice(samp_files)
-            if not samp_file.strip():
-                continue  # ok, just make another random choice
-            if rand_hash not in vuln_df['commit'].values:
-                samp_file = rand_repo + '/' + samp_file
-                df_skel.append([rand_hash, samp_file, 0, rand_hour])
-                count += 1
-        except CommandError:
-            continue  # ok, just make another random choice
-    safe_commits: DataFrame = pd.DataFrame(
-        df_skel,
-        columns=['commit', 'file', 'vulns', 'hour']
-    )
-    return safe_commits
-
-
 def get_project_data(subscription_path: str, scope: str) -> None:
     """
     Produce a dataframe with commit metadata for a project in csv format
@@ -302,24 +339,9 @@ def get_project_commit_data(subscription_path: str) -> None:
     out of open vulnerabilities extracted from Integrates API.
     Export DataFrame to CSV file.
     """
-    group: str = subscription_path.split('/')[-1]
-    fusion_path: str = f'{subscription_path}/fusion/'
-    wheres_code: DataFrame = build_vulnerabilities_df(subscription_path)
-    wheres_code[['commit', 'hour']] = wheres_code.apply(
-        get_intro_commit,
-        args=(fusion_path,),
-        axis=1,
-        result_type='expand'
-    )
-    vuln_commits = make_commit_df(wheres_code)
-    safe_commits = balance_df(vuln_commits, fusion_path)
-    balanced_commits: DataFrame = pd.concat([vuln_commits, safe_commits])
-    balanced_commits.reset_index(drop=True, inplace=True)
-    balanced_commits['repo'] = balanced_commits['file'].apply(
-        lambda filename: f'{fusion_path}{filename.split("/")[0]}'
-    )
-    balanced_commits['is_vuln'] = balanced_commits['vulns'].apply(np.sign)
-    complete_df = fill_model_features(balanced_commits)
+    group: str = subscription_path.split(PATH_DELIMITER)[-1]
+    vulns_df = build_vulnerabilities_df(subscription_path, 'commit')
+    complete_df = fill_model_commit_features(vulns_df)
     complete_df.to_csv(f'{group}_commits_df.csv', index=False)
 
 
@@ -330,5 +352,6 @@ def get_project_file_data(subscription_path: str) -> None:
     Export DataFrame to CSV file.
     """
     group: str = os.path.basename(os.path.normpath(subscription_path))
-    vulns_df: DataFrame = build_vulnerabilities_df(subscription_path)
-    vulns_df.to_csv(f'{group}_files_metadata.csv', index=False)
+    vulns_df = build_vulnerabilities_df(subscription_path, 'file')
+    complete_df = fill_model_file_features(vulns_df)
+    complete_df.to_csv(f'{group}_files_metadata.csv', index=False)
