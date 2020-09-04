@@ -325,7 +325,7 @@ def snakecase_to_camelcase(str_value: str) -> str:
     return re.sub('_.', lambda x: x.group()[1].upper(), str_value)
 
 
-async def _invalidate_cache(*keys_pattern: str) -> int:
+async def invalidate_cache(*keys_pattern: str) -> int:
     """Remove keys from cache that matches a given pattern.
 
     Return the total number of entries deleted.
@@ -341,7 +341,7 @@ async def _invalidate_cache(*keys_pattern: str) -> int:
 
 
 def queue_cache_invalidation(*keys_pattern: str) -> None:
-    asyncio.create_task(_invalidate_cache(*keys_pattern))
+    asyncio.create_task(invalidate_cache(*keys_pattern))
 
 
 def format_cache_keys_pattern(attrs_to_clean: Dict[str, str]) -> List[str]:

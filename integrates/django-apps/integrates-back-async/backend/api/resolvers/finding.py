@@ -720,7 +720,7 @@ async def _do_update_evidence(
         )
 
     if success:
-        util.queue_cache_invalidation(
+        await util.invalidate_cache(
             f'evidence*{finding_id}',
             f'records*{finding_id}'
         )
