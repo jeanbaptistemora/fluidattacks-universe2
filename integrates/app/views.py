@@ -263,7 +263,7 @@ async def _graphics_for_entity(
     entity: str,
     request: HttpRequest,
 ) -> HttpResponse:
-    request_data = util.get_jwt_content(request)
+    request_data = await util.get_jwt_content(request)
 
     response = await analytics_domain.handle_graphics_for_entity_request(
         entity=entity,

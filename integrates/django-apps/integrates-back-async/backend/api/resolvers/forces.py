@@ -218,7 +218,7 @@ async def update_forces_access_token(
         _: Any, info: GraphQLResolveInfo,
         project_name: str) -> UpdateAccessTokenPayloadType:
     """Resolve update_access_token mutation."""
-    user_info = util.get_jwt_content(info.context)
+    user_info = await util.get_jwt_content(info.context)
 
     user_email = user_domain.format_forces_user_email(project_name)
     if not user_domain.ensure_user_exists(user_email):

@@ -202,7 +202,7 @@ async def _resolve_fields(info: GraphQLResolveInfo) -> MeType:
     for requested_field in info.field_nodes[0].selection_set.selections:
         if util.is_skippable(info, requested_field):
             continue
-        jwt_content = util.get_jwt_content(info.context)
+        jwt_content = await util.get_jwt_content(info.context)
         params = {
             'user_email': jwt_content.get('user_email')
         }
@@ -231,7 +231,7 @@ async def resolve_me(
         info: GraphQLResolveInfo,
         caller_origin: str = '') -> MeType:
     """Resolve Me query."""
-    jwt_content = util.get_jwt_content(info.context)
+    jwt_content = await util.get_jwt_content(info.context)
     user_email = jwt_content.get('user_email')
 
     info.context.caller_origin = origin = caller_origin or 'API'
@@ -263,7 +263,7 @@ async def _do_subscribe_to_entity_report(
     report_subject: str,
 ) -> SimplePayloadType:
     success: bool = False
-    user_info = util.get_jwt_content(info.context)
+    user_info = await util.get_jwt_content(info.context)
     user_email = user_info['user_email']
 
     if await subscriptions_domain.can_subscribe_user_to_entity_report(
@@ -359,7 +359,7 @@ async def _do_update_access_token(
         info: GraphQLResolveInfo,
         expiration_time: int) -> UpdateAccessTokenPayloadType:
     """Resolve update_access_token mutation."""
-    user_info = util.get_jwt_content(info.context)
+    user_info = await util.get_jwt_content(info.context)
     email = user_info['user_email']
     try:
         result = await user_domain.update_access_token(
@@ -396,7 +396,7 @@ async def _do_invalidate_access_token(
         _: Any,
         info: GraphQLResolveInfo) -> SimplePayloadType:
     """Resolve invalidate_access_token mutation."""
-    user_info = util.get_jwt_content(info.context)
+    user_info = await util.get_jwt_content(info.context)
 
     success = await user_domain.remove_access_token(
         user_info['user_email']
@@ -421,7 +421,8 @@ async def _do_accept_legal(
         info: GraphQLResolveInfo,
         remember: bool = False) -> SimplePayloadType:
     """Resolve accept_legal mutation."""
-    user_email = util.get_jwt_content(info.context)['user_email']
+    user_info = await util.get_jwt_content(info.context)
+    user_email = user_info['user_email']
 
     success = await user_domain.update_legal_remember(
         user_email, remember
@@ -437,7 +438,8 @@ async def _do_add_push_token(
     token: str
 ) -> SimplePayloadType:
     """ Save push token """
-    user_email = util.get_jwt_content(info.context)['user_email']
+    user_info = await util.get_jwt_content(info.context)
+    user_email = user_info['user_email']
     success = await user_domain.add_push_token(user_email, token)
 
     return SimplePayloadType(success=success)
@@ -447,4 +449,5 @@ async def _get_session_expiration(
     info: GraphQLResolveInfo,
     **_: Dict[Any, Any]
 ) -> str:
-    return str(util.get_jwt_content(info.context)['exp'])
+    user_data = await util.get_jwt_content(info.context)
+    return str(user_data['exp'])

@@ -24,7 +24,7 @@ from aioextensions import (
     collect,
     in_thread,
 )
-from asgiref.sync import sync_to_async
+from asgiref.sync import async_to_sync, sync_to_async
 from cryptography.exceptions import InvalidKey
 from cryptography.hazmat.backends import default_backend
 from cryptography.hazmat.primitives.kdf.scrypt import Scrypt
@@ -174,7 +174,7 @@ def validate_release_date(finding: Dict[str, str]) -> bool:
 
 def cloudwatch_log_sync(request, msg: str) -> None:
     try:
-        user_data = get_jwt_content(request)
+        user_data = async_to_sync(get_jwt_content)(request)
         info = [str(user_data['user_email'])]
     except (ExpiredToken, InvalidAuthorization):
         info = ['unauthenticated user']
@@ -190,7 +190,11 @@ def cloudwatch_log_sync(request, msg: str) -> None:
 
 
 def cloudwatch_log(request, msg: str) -> None:
-    user_data = get_jwt_content(request)
+    asyncio.create_task(cloudwatch_log_async(request, msg))
+
+
+async def cloudwatch_log_async(request, msg: str) -> None:
+    user_data = await get_jwt_content(request)
     info = [str(user_data['user_email'])]
     for parameter in ['project', 'findingid']:
         if parameter in request.POST.dict():
@@ -203,7 +207,7 @@ def cloudwatch_log(request, msg: str) -> None:
         sync_to_async(LOGGER_TRANSACTIONAL.info)(':'.join(info), **NOEXTRA))
 
 
-def get_jwt_content(context) -> Dict[str, str]:
+async def get_jwt_content(context) -> Dict[str, str]:
     context_store_key = function.get_id(get_jwt_content)
 
     # Within the context of one request we only need to process it once
@@ -241,7 +245,7 @@ def get_jwt_content(context) -> Dict[str, str]:
             )
             jti = content.get('jti')
             if (content.get('sub') == 'django_session' and
-                    not token_exists(f'fi_jwt:{jti}')):
+                    not await token_exists(f'fi_jwt:{jti}')):
                 # Session expired (user logged out)
                 raise ExpiredToken()
 
@@ -640,5 +644,5 @@ async def remove_token(key: str):
     await session_dal.remove_element(key)
 
 
-def token_exists(key: str) -> bool:
-    return session_dal.element_exists(key)
+async def token_exists(key: str) -> bool:
+    return await session_dal.element_exists(key)

@@ -114,7 +114,7 @@ def require_login(func: TVar) -> TVar:
             return await _func(*args, **kwargs)
 
         try:
-            user_data: Any = util.get_jwt_content(context)
+            user_data: Any = await util.get_jwt_content(context)
             if util.is_api_token(user_data):
                 await verify_jti(
                     user_data['user_email'],
@@ -196,7 +196,7 @@ def enforce_group_level_auth_async(func: TVar) -> TVar:
         else:
             GraphQLError('Could not get context from request.')
 
-        user_data = util.get_jwt_content(context)
+        user_data = await util.get_jwt_content(context)
         subject = user_data['user_email']
         object_ = await resolve_group_name(context, args, kwargs)
         action = f'{_func.__module__}.{_func.__qualname__}'.replace('.', '_')
@@ -244,7 +244,7 @@ def enforce_organization_level_auth_async(func: TVar) -> TVar:
             if organization_identifier.startswith('ORG#')
             else await org_domain.get_id_by_name(organization_identifier)
         )
-        user_data = util.get_jwt_content(context)
+        user_data = await util.get_jwt_content(context)
 
         subject = user_data['user_email']
         object_ = organization_id.lower()
@@ -281,7 +281,7 @@ def enforce_user_level_auth_async(func: TVar) -> TVar:
         else:
             GraphQLError('Could not get context from request.')
 
-        user_data = util.get_jwt_content(context)
+        user_data = await util.get_jwt_content(context)
 
         subject = user_data['user_email']
         object_ = 'self'
@@ -380,7 +380,7 @@ def require_organization_access(func: TVar) -> TVar:
             kwargs.get('organization_name')
         )
 
-        user_data = util.get_jwt_content(context)
+        user_data = await util.get_jwt_content(context)
         user_email = user_data['user_email']
 
         organization_id = (

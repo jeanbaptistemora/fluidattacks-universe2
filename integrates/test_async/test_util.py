@@ -110,7 +110,7 @@ class UtilTests(TestCase):
         )
         request.COOKIES[settings.JWT_COOKIE_NAME] = token
         await save_token(f'fi_jwt:{payload["jti"]}', token, settings.SESSION_COOKIE_AGE)
-        test_data = get_jwt_content(request)
+        test_data = await get_jwt_content(request)
         expected_output = {
             u'user_email': u'unittest',
             u'exp': payload['exp'],
@@ -135,7 +135,7 @@ class UtilTests(TestCase):
         )
         request.COOKIES[settings.JWT_COOKIE_NAME] = token
         await save_token(f'fi_jwt:{payload["jti"]}', token, settings.SESSION_COOKIE_AGE)
-        test_data = get_jwt_content(request)
+        test_data = await get_jwt_content(request)
         expected_output = {
             u'user_email': u'unittest',
             u'exp': payload['exp'],
@@ -161,7 +161,7 @@ class UtilTests(TestCase):
         )
         request.COOKIES[settings.JWT_COOKIE_NAME] = token
         await save_token(f'fi_jwt:{payload["jti"]}', token, settings.SESSION_COOKIE_AGE)
-        test_data = get_jwt_content(request)
+        test_data = await get_jwt_content(request)
         expected_output = {
             u'user_email': u'unittest',
             u'exp': payload['exp'],
@@ -189,7 +189,7 @@ class UtilTests(TestCase):
         await save_token(f'fi_jwt:{payload["jti"]}', token, 5)
         time.sleep(6)
         with pytest.raises(ExpiredToken):
-            assert get_jwt_content(request)
+            assert await get_jwt_content(request)
 
     async def test_revoked_token(self):
         request = create_dummy_simple_session()
@@ -210,7 +210,7 @@ class UtilTests(TestCase):
         await save_token(redis_token_name, token, settings.SESSION_COOKIE_AGE + (20 * 60))
         await remove_token(redis_token_name)
         with pytest.raises(ExpiredToken):
-            assert get_jwt_content(request)
+            assert await get_jwt_content(request)
 
     def test_iterate_s3_keys(self):
         s3_client = client(

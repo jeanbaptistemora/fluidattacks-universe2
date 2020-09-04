@@ -594,7 +594,7 @@ async def _get_comments(
         project_name: str,
         **__: Any) -> List[CommentType]:
     """Get comments."""
-    user_data = util.get_jwt_content(info.context)
+    user_data = await util.get_jwt_content(info.context)
     user_email = user_data['user_email']
 
     comments = await project_domain.list_comments(project_name, user_email)
@@ -610,7 +610,7 @@ async def _get_consulting(
         info: GraphQLResolveInfo,
         project_name: str,
         **__: Any) -> List[CommentType]:
-    user_data = util.get_jwt_content(info.context)
+    user_data = await util.get_jwt_content(info.context)
     user_email = user_data['user_email']
 
     consultings = await project_domain.list_comments(project_name, user_email)
@@ -696,7 +696,8 @@ async def _get_user_role(
         info: GraphQLResolveInfo,
         project_name: str,
         **__: Any) -> str:
-    user_email = util.get_jwt_content(info.context)['user_email']
+    user_info = await util.get_jwt_content(info.context)
+    user_email = user_info['user_email']
     return cast(
         str,
         await authz.get_group_level_role(user_email, project_name)
@@ -712,7 +713,8 @@ async def _get_users(
         project_name: str,
         requested_fields: List[FieldNode]) -> List[UserType]:
     """Get users."""
-    requester_email = util.get_jwt_content(info.context)['user_email']
+    user_info = await util.get_jwt_content(info.context)
+    requester_email = user_info['user_email']
 
     group_user_emails = await project_domain.get_users(
         project_name
@@ -767,7 +769,8 @@ async def _get_stakeholders(
         info: GraphQLResolveInfo,
         project_name: str,
         requested_fields: List[FieldNode]) -> List[StakeholderType]:
-    requester_email = util.get_jwt_content(info.context)['user_email']
+    user_info = await util.get_jwt_content(info.context)
+    requester_email = user_info['user_email']
     group_user_emails = await project_domain.get_users(
         project_name
     )
@@ -934,7 +937,7 @@ async def _do_create_project(  # pylint: disable=too-many-arguments
         has_drills: bool = False,
         has_forces: bool = False) -> SimplePayloadType:
     """Resolve create_project mutation."""
-    user_data = util.get_jwt_content(info.context)
+    user_data = await util.get_jwt_content(info.context)
     user_email = user_data['user_email']
     user_role = await authz.get_user_level_role(user_email)
 
@@ -979,7 +982,8 @@ async def _do_edit_group(  # pylint: disable=too-many-arguments
     subscription: str
 ) -> SimplePayloadType:
     group_name = group_name.lower()
-    requester_email = util.get_jwt_content(info.context)['user_email']
+    user_info = await util.get_jwt_content(info.context)
+    requester_email = user_info['user_email']
 
     success = await project_domain.edit(
         comments=comments,
@@ -1018,7 +1022,7 @@ async def _do_reject_remove_project(
         info: GraphQLResolveInfo,
         project_name: str) -> SimplePayloadType:
     """Resolve reject_remove_project mutation."""
-    user_info = util.get_jwt_content(info.context)
+    user_info = await util.get_jwt_content(info.context)
     success = await project_domain.reject_deletion(
         project_name, user_info['user_email']
     )
@@ -1044,7 +1048,7 @@ async def _do_add_project_comment(
         **parameters: Any) -> AddCommentPayloadType:
     """Resolve add_project_comment mutation."""
     project_name = parameters.get('project_name', '').lower()
-    user_info = util.get_jwt_content(info.context)
+    user_info = await util.get_jwt_content(info.context)
     user_email = user_info['user_email']
     current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     comment_id = int(round(time.time() * 1000))
@@ -1094,7 +1098,7 @@ async def _do_add_project_consult(
         info: GraphQLResolveInfo,
         **parameters: Any) -> AddConsultPayloadType:
     project_name = parameters.get('project_name', '').lower()
-    user_info = util.get_jwt_content(info.context)
+    user_info = await util.get_jwt_content(info.context)
     user_email = user_info['user_email']
     current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     comment_id = int(round(time.time() * 1000))

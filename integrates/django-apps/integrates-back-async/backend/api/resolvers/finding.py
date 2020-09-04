@@ -196,7 +196,7 @@ async def _get_release_date(info: GraphQLResolveInfo, identifier: str) -> str:
     allowed_roles = ['admin', 'analyst', 'group_manager', 'reviewer']
     finding = await info.context.loaders['finding'].load(identifier)
     release_date = finding['release_date']
-    user_data = util.get_jwt_content(info.context)
+    user_data = await util.get_jwt_content(info.context)
     user_email = user_data['user_email']
     curr_user_role = await authz.get_group_level_role(
         user_email, finding['project_name']
@@ -286,7 +286,7 @@ async def _get_comments(
     finding = await info.context.loaders['finding'].load(identifier)
     finding_id = finding['id']
     project_name = finding.get('project_name')
-    user_data = util.get_jwt_content(info.context)
+    user_data = await util.get_jwt_content(info.context)
     user_email = user_data['user_email']
 
     comments = await comment_domain.get_comments(
@@ -302,7 +302,7 @@ async def _get_consulting(
     finding = await info.context.loaders['finding'].load(identifier)
     finding_id = finding['id']
     project_name = finding.get('project_name')
-    user_data = util.get_jwt_content(info.context)
+    user_data = await util.get_jwt_content(info.context)
     user_email = user_data['user_email']
 
     consultings = await comment_domain.get_comments(
@@ -325,7 +325,7 @@ async def _get_observations(
     finding = await info.context.loaders['finding'].load(identifier)
     finding_id = finding['id']
     project_name = finding['project_name']
-    user_data = util.get_jwt_content(info.context)
+    user_data = await util.get_jwt_content(info.context)
     user_email = user_data['user_email']
     observations = await comment_domain.get_observations(
         project_name, finding_id, user_email
@@ -827,7 +827,7 @@ async def _do_add_finding_comment(
     """Perform add_finding_comment mutation."""
     param_type = parameters.get('type', '').lower()
     if param_type in ['comment', 'observation']:
-        user_data = util.get_jwt_content(info.context)
+        user_data = await util.get_jwt_content(info.context)
         user_email = user_data['user_email']
         finding_id = str(parameters.get('finding_id'))
         finding_loader = info.context.loaders['finding']
@@ -899,7 +899,7 @@ async def _do_add_finding_consult(
         **parameters: Any) -> AddConsultPayloadType:
     param_type = parameters.get('type', '').lower()
     if param_type in ['consult', 'observation']:
-        user_data = util.get_jwt_content(info.context)
+        user_data = await util.get_jwt_content(info.context)
         user_email = user_data['user_email']
         finding_id = str(parameters.get('finding_id'))
         finding_loader = info.context.loaders['finding']
@@ -970,7 +970,7 @@ async def _do_handle_acceptation(
         info: GraphQLResolveInfo,
         **parameters: Any) -> SimplePayloadType:
     """Resolve handle_acceptation mutation."""
-    user_info = util.get_jwt_content(info.context)
+    user_info = await util.get_jwt_content(info.context)
     user_mail = user_info['user_email']
     project_name = parameters.get('project_name', '')
     finding_id = parameters.get('finding_id', '')
@@ -1064,7 +1064,8 @@ async def _do_update_client_description(
     finding = await finding_loader.load(finding_id)
     project_name = finding['project_name']
     organization = await org_domain.get_id_for_group(project_name)
-    user_mail = util.get_jwt_content(info.context)['user_email']
+    user_info = await util.get_jwt_content(info.context)
+    user_mail = user_info['user_email']
     finding_info_to_check = {
         'bts_url': finding['bts_url'],
         'historic_treatment': finding['historic_treatment'],
@@ -1108,7 +1109,8 @@ async def _do_reject_draft(
         info: GraphQLResolveInfo,
         finding_id: str) -> SimplePayloadType:
     """Resolve reject_draft mutation."""
-    reviewer_email = util.get_jwt_content(info.context)['user_email']
+    user_info = await util.get_jwt_content(info.context)
+    reviewer_email = user_info['user_email']
     success = await finding_domain.reject_draft(finding_id, reviewer_email)
     if success:
         util.queue_cache_invalidation(finding_id)
@@ -1179,7 +1181,8 @@ async def _do_approve_draft(
         info: GraphQLResolveInfo,
         draft_id: str) -> ApproveDraftPayloadType:
     """Resolve approve_draft mutation."""
-    reviewer_email = util.get_jwt_content(info.context)['user_email']
+    user_info = await util.get_jwt_content(info.context)
+    reviewer_email = user_info['user_email']
     project_name = await finding_domain.get_project(draft_id)
 
     success, release_date = await finding_domain.approve_draft(
@@ -1244,7 +1247,8 @@ async def _do_submit_draft(
         info: GraphQLResolveInfo,
         finding_id: str) -> SimplePayloadType:
     """Resolve submit_draft mutation."""
-    analyst_email = util.get_jwt_content(info.context)['user_email']
+    user_info = await util.get_jwt_content(info.context)
+    analyst_email = user_info['user_email']
     success = await finding_domain.submit_draft(finding_id, analyst_email)
 
     if success:

@@ -60,7 +60,8 @@ async def _do_create_organization(
         _: Any,
         info: GraphQLResolveInfo,
         name: str) -> CreateOrganizationPayloadType:
-    user_email = util.get_jwt_content(info.context)['user_email']
+    user_info = await util.get_jwt_content(info.context)
+    user_email = user_info['user_email']
 
     try:
         organization = await org_domain.create_organization(name, user_email)
@@ -95,7 +96,7 @@ async def _do_edit_user_organization(
 
     organization_id: str = str(parameters.get('organization_id'))
     organization_name: str = await org_domain.get_name_by_id(organization_id)
-    requester_data = util.get_jwt_content(info.context)
+    requester_data = await util.get_jwt_content(info.context)
     requester_email = requester_data['user_email']
 
     user_email: str = str(parameters.get('user_email'))
@@ -165,7 +166,7 @@ async def _do_edit_stakeholder_organization(
 
     organization_id: str = str(parameters.get('organization_id'))
     organization_name: str = await org_domain.get_name_by_id(organization_id)
-    requester_data = util.get_jwt_content(info.context)
+    requester_data = await util.get_jwt_content(info.context)
     requester_email = requester_data['user_email']
 
     user_email: str = str(parameters.get('user_email'))
@@ -237,7 +238,7 @@ async def _do_grant_user_organization_access(
     organization_id = str(parameters.get('organization_id'))
     organization_name = await org_domain.get_name_by_id(organization_id)
 
-    requester_data = util.get_jwt_content(info.context)
+    requester_data = await util.get_jwt_content(info.context)
     requester_email = requester_data['user_email']
 
     user_email = str(parameters.get('user_email'))
@@ -300,7 +301,7 @@ async def _do_grant_stakeholder_organization_access(
     organization_id = str(parameters.get('organization_id'))
     organization_name = await org_domain.get_name_by_id(organization_id)
 
-    requester_data = util.get_jwt_content(info.context)
+    requester_data = await util.get_jwt_content(info.context)
     requester_email = requester_data['user_email']
 
     user_email = str(parameters.get('user_email'))
@@ -359,7 +360,7 @@ async def _do_remove_user_organization_access(
     organization_id: str,
     user_email: str
 ) -> SimplePayloadType:
-    user_data = util.get_jwt_content(info.context)
+    user_data = await util.get_jwt_content(info.context)
     requester_email = user_data['user_email']
     organization_name = await org_domain.get_name_by_id(organization_id)
 
@@ -396,7 +397,7 @@ async def _do_remove_stakeholder_organization_access(
     organization_id: str,
     user_email: str
 ) -> SimplePayloadType:
-    user_data = util.get_jwt_content(info.context)
+    user_data = await util.get_jwt_content(info.context)
     requester_email = user_data['user_email']
     organization_name = await org_domain.get_name_by_id(organization_id)
 
@@ -432,7 +433,7 @@ async def _do_update_organization_policies(
     info: GraphQLResolveInfo,
     **parameters: Any
 ) -> SimplePayloadType:
-    user_data = util.get_jwt_content(info.context)
+    user_data = await util.get_jwt_content(info.context)
     user_email = user_data['user_email']
 
     organization_id = parameters.pop('organization_id')
@@ -532,7 +533,8 @@ async def _get_projects(
         info: GraphQLResolveInfo,
         organization_id: str,
         **__: Any) -> List[ProjectType]:
-    user_email = util.get_jwt_content(info.context)['user_email']
+    user_info = await util.get_jwt_content(info.context)
+    user_email = user_info['user_email']
     user_groups = await user_domain.get_projects(
         user_email, organization_id=organization_id
     )

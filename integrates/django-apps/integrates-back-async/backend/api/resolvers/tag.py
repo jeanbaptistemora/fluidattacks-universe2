@@ -30,7 +30,8 @@ async def resolve(info: GraphQLResolveInfo, tag: str) -> TagType:
     """Async resolve fields."""
     result: TagType = dict()
     requested_fields = info.field_nodes[0].selection_set.selections
-    user_email = util.get_jwt_content(info.context).get('user_email', '')
+    user_info = await util.get_jwt_content(info.context)
+    user_email = user_info.get('user_email', '')
     projects: List[str] = await get_list_projects(info, user_email, tag)
     organization: str = '-'
     if projects:

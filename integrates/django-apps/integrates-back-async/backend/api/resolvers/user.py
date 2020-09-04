@@ -402,7 +402,7 @@ async def _do_add_user(
     """Resolve add_user mutation."""
     success: bool = False
 
-    user_data = util.get_jwt_content(info.context)
+    user_data = await util.get_jwt_content(info.context)
     user_email = user_data['user_email']
 
     allowed_roles_to_grant = await authz.get_user_level_roles_a_user_can_grant(
@@ -458,7 +458,7 @@ async def _do_add_stakeholder(
 ) -> AddStakeholderPayloadType:
     success: bool = False
 
-    user_data = util.get_jwt_content(info.context)
+    user_data = await util.get_jwt_content(info.context)
     user_email = user_data['user_email']
 
     allowed_roles_to_grant = await authz.get_user_level_roles_a_user_can_grant(
@@ -515,7 +515,7 @@ async def _do_grant_user_access(
     """Resolve grant_user_access mutation."""
     project_name = query_args.get('project_name', '').lower()
     success = False
-    user_data = util.get_jwt_content(info.context)
+    user_data = await util.get_jwt_content(info.context)
     user_email = user_data['user_email']
 
     new_user_role = role
@@ -589,7 +589,7 @@ async def _do_grant_stakeholder_access(
         **query_args: str) -> GrantStakeholderAccessPayloadType:
     project_name = query_args.get('project_name', '').lower()
     success = False
-    user_data = util.get_jwt_content(info.context)
+    user_data = await util.get_jwt_content(info.context)
     user_email = user_data['user_email']
     new_user_role = role
     new_user_email = query_args.get('email', '')
@@ -738,7 +738,7 @@ async def _do_edit_user(
     modified_email = modified_user_data['email']
 
     success = False
-    user_data = util.get_jwt_content(info.context)
+    user_data = await util.get_jwt_content(info.context)
     user_email = user_data['user_email']
 
     allowed_roles_to_grant = \
@@ -813,7 +813,7 @@ async def _do_edit_stakeholder(
     modified_email = modified_user_data['email']
 
     success = False
-    user_data = util.get_jwt_content(info.context)
+    user_data = await util.get_jwt_content(info.context)
     user_email = user_data['user_email']
 
     allowed_roles_to_grant = \

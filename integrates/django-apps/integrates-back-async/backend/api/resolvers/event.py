@@ -166,7 +166,7 @@ async def _get_comments(
         info: GraphQLResolveInfo,
         identifier: str) -> List[CommentType]:
     """Get comments."""
-    user_data = util.get_jwt_content(info.context)
+    user_data = await util.get_jwt_content(info.context)
     user_email = user_data['user_email']
     event = await info.context.loaders['event'].load(identifier)
     project_name = event['project_name']
@@ -181,7 +181,7 @@ async def _get_comments(
 async def _get_consulting(
         info: GraphQLResolveInfo,
         identifier: str) -> List[CommentType]:
-    user_data = util.get_jwt_content(info.context)
+    user_data = await util.get_jwt_content(info.context)
     user_email = user_data['user_email']
     event = await info.context.loaders['event'].load(identifier)
     project_name = event['project_name']
@@ -297,7 +297,8 @@ async def _do_create_event(
         file: Union[InMemoryUploadedFile, None] = None,
         **kwa: Any) -> SimplePayloadType:
     """Resolve create_event mutation."""
-    analyst_email = util.get_jwt_content(info.context)['user_email']
+    user_info = await util.get_jwt_content(info.context)
+    analyst_email = user_info['user_email']
     success = await event_domain.create_event(
         analyst_email, project_name.lower(), file, image, **kwa
     )
@@ -323,7 +324,8 @@ async def _do_solve_event(
         affectation: str,
         date: datetime) -> SimplePayloadType:
     """Resolve solve_event mutation."""
-    analyst_email = util.get_jwt_content(info.context)['user_email']
+    user_info = await util.get_jwt_content(info.context)
+    analyst_email = user_info['user_email']
     success = await event_domain.solve_event(
         event_id, affectation, analyst_email, date
     )
@@ -358,7 +360,7 @@ async def _do_add_event_comment(
         parent: str) -> AddCommentPayloadType:
     """Resolve add_event_comment mutation."""
     random_comment_id = int(round(time() * 1000))
-    user_info: Any = util.get_jwt_content(info.context)
+    user_info: Any = await util.get_jwt_content(info.context)
     user_email = str(user_info['user_email'])
     comment_data = {
         'comment_type': 'event',
@@ -405,7 +407,7 @@ async def _do_add_event_consult(
         event_id: str,
         parent: str) -> AddConsultPayloadType:
     random_comment_id = int(round(time() * 1000))
-    user_info: Any = util.get_jwt_content(info.context)
+    user_info: Any = await util.get_jwt_content(info.context)
     user_email = str(user_info['user_email'])
     comment_data = {
         'comment_type': 'event',

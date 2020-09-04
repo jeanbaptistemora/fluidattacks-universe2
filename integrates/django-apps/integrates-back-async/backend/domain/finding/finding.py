@@ -398,11 +398,12 @@ async def delete_finding(
         tzn = pytz.timezone(settings.TIME_ZONE)
         today = datetime.now(tz=tzn).today()
         delete_date = str(today.strftime('%Y-%m-%d %H:%M:%S'))
+        user_info = await util.get_jwt_content(context)
         submission_history.append({
             'state': 'DELETED',
             'date': delete_date,
             'justification': justification,
-            'analyst': util.get_jwt_content(context)['user_email'],
+            'analyst': user_info['user_email'],
         })
         success = await finding_dal.update(finding_id, {
             'historic_state': submission_history

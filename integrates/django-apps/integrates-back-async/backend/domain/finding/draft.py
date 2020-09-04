@@ -127,7 +127,7 @@ async def create_draft(
     project_name = project_name.lower()
     today = datetime.now(tz=tzn).today()
     creation_date = today.strftime('%Y-%m-%d %H:%M:%S')
-    user_data = cast(UserType, util.get_jwt_content(info.context))
+    user_data = cast(UserType, await util.get_jwt_content(info.context))
     analyst_email = str(user_data.get('user_email', ''))
     submission_history = {
         'analyst': analyst_email,

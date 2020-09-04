@@ -12,7 +12,6 @@ from aioextensions import (
 )
 from backend.dal.helpers.redis import (
     AREDIS_CLIENT,
-    REDIS_CLIENT,
 )
 from backend.exceptions import ExpiredToken
 
@@ -83,5 +82,5 @@ async def remove_element(key: str):
     await AREDIS_CLIENT.delete(key)
 
 
-def element_exists(key: str) -> bool:
-    return REDIS_CLIENT.get(key)
+async def element_exists(key: str) -> bool:
+    return bool(await AREDIS_CLIENT.get(key))

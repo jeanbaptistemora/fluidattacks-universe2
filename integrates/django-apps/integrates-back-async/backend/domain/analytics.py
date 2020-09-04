@@ -124,7 +124,8 @@ async def handle_authz_claims(
     ],
     request: HttpRequest,
 ) -> None:
-    email = util.get_jwt_content(request)['user_email']
+    user_info = await util.get_jwt_content(request)
+    email = user_info['user_email']
 
     if params.entity == 'group':
         if not await has_access_to_group(

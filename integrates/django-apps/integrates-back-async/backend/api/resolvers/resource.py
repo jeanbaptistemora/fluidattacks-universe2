@@ -167,7 +167,8 @@ async def _do_add_repositories(
         repos: List[Dict[str, str]],
         project_name: str) -> SimplePayloadType:
     """Resolve add_repositories mutation."""
-    user_email = util.get_jwt_content(info.context)['user_email']
+    user_info = await util.get_jwt_content(info.context)
+    user_email = user_info['user_email']
     new_repos = util.camel_case_list_dict(repos)
     success = await resources.create_repositories(
         new_repos, project_name, user_email
@@ -209,7 +210,8 @@ async def _do_add_environments(
         project_name: str) -> SimplePayloadType:
     """Resolve add_environments mutation."""
     new_envs = util.camel_case_list_dict(envs)
-    user_email = util.get_jwt_content(info.context)['user_email']
+    user_info = await util.get_jwt_content(info.context)
+    user_email = user_info['user_email']
     success = await resources.create_environments(
         new_envs, project_name, user_email
     )
@@ -252,7 +254,8 @@ async def _do_add_files(
     files_data = parameters['files_data']
     new_files_data = util.camel_case_list_dict(files_data)
     uploaded_file = parameters['file']
-    user_email = util.get_jwt_content(info.context)['user_email']
+    user_info = await util.get_jwt_content(info.context)
+    user_email = user_info['user_email']
     project_name = parameters['project_name']
 
     virus_scan.scan_file(uploaded_file, user_email, project_name)
@@ -308,7 +311,8 @@ async def _do_remove_files(
         for k, v in files_data.items()
     }
     file_name = files_data.get('fileName')
-    user_email = util.get_jwt_content(info.context)['user_email']
+    user_info = await util.get_jwt_content(info.context)
+    user_email = user_info['user_email']
     remove_file = await resources.remove_file(str(file_name), project_name)
     if remove_file:
         await resources.send_mail(
@@ -357,7 +361,8 @@ async def _do_download_file(
     success = False
     file_info = parameters['files_data']
     project_name = parameters['project_name'].lower()
-    user_email = util.get_jwt_content(info.context)['user_email']
+    user_info = await util.get_jwt_content(info.context)
+    user_email = user_info['user_email']
     signed_url = await resources.download_file(
         file_info, project_name
     )
@@ -404,7 +409,8 @@ async def _do_update_environment(
         env: Dict[str, str],
         state: str) -> SimplePayloadType:
     """Resolve update_environment mutation."""
-    user_email = util.get_jwt_content(info.context)['user_email']
+    user_info = await util.get_jwt_content(info.context)
+    user_email = user_info['user_email']
     env = {
         re.sub(r'_([a-z])', lambda x: x.group(1).upper(), k): v
         for k, v in env.items()
@@ -455,7 +461,8 @@ async def _do_update_repository(
         repo: Dict[str, str],
         state: str) -> SimplePayloadType:
     """Resolve update_repository mutation."""
-    user_email = util.get_jwt_content(info.context)['user_email']
+    user_info = await util.get_jwt_content(info.context)
+    user_email = user_info['user_email']
     repo = {
         re.sub(r'_([a-z])', lambda x: x.group(1).upper(), k): v
         for k, v in repo.items()

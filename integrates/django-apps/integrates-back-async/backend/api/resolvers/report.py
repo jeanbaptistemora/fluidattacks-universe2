@@ -168,7 +168,7 @@ async def _get_url(
         report_type: str,
         **parameters: str) -> str:
     url = ''
-    user_info = util.get_jwt_content(info.context)
+    user_info = await util.get_jwt_content(info.context)
     user_email = user_info['user_email']
     project_name = parameters.get('project_name', '')
     if report_type == 'COMPLETE':
