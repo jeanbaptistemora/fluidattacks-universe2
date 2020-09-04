@@ -271,7 +271,7 @@ aws dynamodb batch-write-item \
 
 # This will insert two extra rows with current date-time
 # This rows are always visible in the front-end :)
-sed "s/2020-08-24.*/${iso_date_now}\"/g" \
+sed "s/2020-09-04.*/${iso_date_now}\"/g" \
   < 'test_async/dynamo_data/FI_forces.json' \
   | sed "s/33e5d863252940edbfb144ede56d56cf/aaa/g" \
   | sed "s/a125217504d447ada2b81da3e4bdab0e/bbb/g" \

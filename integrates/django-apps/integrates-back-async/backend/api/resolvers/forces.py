@@ -164,7 +164,7 @@ async def resolve_forces_executions(
 )
 async def resolve_forces_executions_new(
         _: Any,
-        __: GraphQLResolveInfo,
+        info: GraphQLResolveInfo,
         project_name: str,
         from_date: Union[datetime, None] = None,
         to_date: Union[datetime, None] = None) -> ForcesExecutionsType:
@@ -172,9 +172,15 @@ async def resolve_forces_executions_new(
     project_name = project_name.lower()
     from_date = from_date or util.get_current_time_minus_delta(weeks=1)
     to_date = to_date or datetime.utcnow()
-    result = await forces_domain.get_executions_new(from_date=from_date,
-                                                    to_date=to_date,
-                                                    group_name=project_name)
+    request_ast = util.get_requested_fields_ast(info)
+
+    result = await forces_domain.get_executions_new(
+        from_date=from_date,
+        to_date=to_date,
+        group_name=project_name,
+        requested_fields=request_ast.get('forcesExecutionsNew',
+                                         dict()).get('executions', {}),
+    )
     return cast(
         ForcesExecutionsType, {
             'project_name': project_name,
@@ -192,14 +198,18 @@ async def resolve_forces_executions_new(
 )
 async def resolve_forces_execution(
     _: Any,
-    __: GraphQLResolveInfo,
+    info: GraphQLResolveInfo,
     project_name: str,
     execution_id: str,
 ) -> ForcesExecutionType:
     """Resolve forces_executions query."""
     project_name = project_name.lower()
-    return await forces_domain.get_execution(execution_id=execution_id,
-                                             group_name=project_name)
+    request_ast = util.get_requested_fields_ast(info)
+    return await forces_domain.get_execution(
+        execution_id=execution_id,
+        group_name=project_name,
+        requested_fields=request_ast.get('forcesExecution', dict()),
+    )
 
 
 @convert_kwargs_to_snake_case

@@ -10,8 +10,12 @@ from typing import (
     cast,
     Dict,
     List,
+    Optional,
     Union,
 )
+import tempfile
+import json
+import os
 
 # Third party libraries
 from django.core.files.uploadedfile import InMemoryUploadedFile
@@ -61,12 +65,6 @@ def format_execution(execution: Any) -> ForcesExecutionType:
                 '1': 'High',
             }.get(str(vuln.get('exploitability', 0)), '-')
             vuln['exploitability'] = explot
-    execution['vulnerabilities']['num_of_open_vulnerabilities'] = len(
-        execution['vulnerabilities']['open'])
-    execution['vulnerabilities']['num_of_closed_vulnerabilities'] = len(
-        execution['vulnerabilities']['closed'])
-    execution['vulnerabilities']['num_of_accepted_vulnerabilities'] = len(
-        execution['vulnerabilities']['accepted'])
 
     return cast(ForcesExecutionType, execution)
 
@@ -89,10 +87,26 @@ async def get_executions_new(
     from_date: datetime,
     group_name: str,
     to_date: datetime,
+    requested_fields: Optional[Dict[str, Any]] = None,
 ) -> List[ForcesExecutionType]:
     result = []
     async for execution in forces_dal.yield_executions_new(
-            project_name=group_name, from_date=from_date, to_date=to_date):
+            project_name=group_name,
+            from_date=from_date,
+            to_date=to_date,
+    ):
+        requested_fields = requested_fields or {}
+        execution_id = execution['execution_id']
+        # if the request requires data of the vulnerabilities,
+        # it is obtained from s3
+        if {'open', 'closed', 'accepted'}.intersection(
+                requested_fields.get('vulnerabilities', {}).keys()):
+            execution.get('vulnerabilities', {}).update(
+                await forces_dal.get_vulns_execution(group_name, execution_id))
+        # if the request requires the log, it is obtained from s3
+        if 'log' in requested_fields:
+            execution['log'] = await forces_dal.get_log_execution(
+                group_name, execution_id)
         result.append(format_execution(execution))
 
     return result
@@ -102,8 +116,24 @@ async def get_execution(
     *,
     group_name: str,
     execution_id: str,
+    requested_fields: Optional[Dict[str, Any]] = None,
 ) -> ForcesExecutionType:
-    execution = await forces_dal.get_execution(group_name, execution_id)
+    requested_fields = requested_fields or dict()
+    execution = await forces_dal.get_execution(
+        group_name,
+        execution_id,
+    )
+    # if the request requires data of the vulnerabilities,
+    # it is obtained from s3
+    if {'open', 'closed', 'accepted'}.intersection(
+            requested_fields.get('vulnerabilities', {}).keys()):
+        execution.get('vulnerabilities', {}).update(
+            await forces_dal.get_vulns_execution(group_name, execution_id))
+    # if the request requires the log, it is obtained from s3
+    if 'log' in requested_fields:
+        execution['log'] = await forces_dal.get_log_execution(
+            group_name, execution_id)
+
     return format_execution(execution)
 
 
@@ -112,8 +142,26 @@ async def add_forces_execution(*,
                                log: Union[InMemoryUploadedFile, None] = None,
                                **execution_attributes: Any) -> bool:
     success = False
-    full_name = f'{project_name}/{execution_attributes["execution_id"]}.log'
-    if await forces_dal.save_log_execution(log, full_name):
-        success = await forces_dal.create_execution(project_name=project_name,
-                                                    **execution_attributes)
+    vulnerabilities = execution_attributes.pop('vulnerabilities')
+
+    execution_attributes['vulnerabilities'] = dict()
+    execution_attributes['vulnerabilities'][
+        'num_of_open_vulnerabilities'] = len(vulnerabilities['open'])
+    execution_attributes['vulnerabilities'][
+        'num_of_closed_vulnerabilities'] = len(vulnerabilities['closed'])
+    execution_attributes['vulnerabilities'][
+        'num_of_accepted_vulnerabilities'] = len(vulnerabilities['accepted'])
+
+    log_name = f'{project_name}/{execution_attributes["execution_id"]}.log'
+    vulns_name = f'{project_name}/{execution_attributes["execution_id"]}.json'
+    # Create a file for vulnerabilities
+    with tempfile.NamedTemporaryFile() as vulns_file:
+        vulns_file.write(json.dumps(vulnerabilities).encode('utf-8'))
+        vulns_file.seek(os.SEEK_SET)
+
+        if await forces_dal.save_log_execution(
+                log, log_name) and await forces_dal.save_log_execution(
+                    vulns_file, vulns_name):
+            success = await forces_dal.create_execution(
+                project_name=project_name, **execution_attributes)
     return success

@@ -141,3 +141,18 @@ def serialize(object_: Any) -> Any:
     else:
         return object_
     return object_
+
+
+def deserialize(object_: Any) -> Any:
+    """Convert a Dynamo element so it can be serialized to json."""
+    if isinstance(object_, Decimal):
+        object_ = float(str(object_))
+    elif isinstance(object_, dict):
+        for key, value in object_.items():
+            object_[key] = deserialize(value)
+    elif isinstance(object_, (list, set, tuple)):
+        for value in object_:
+            value = deserialize(value)
+    else:
+        return object_
+    return object_

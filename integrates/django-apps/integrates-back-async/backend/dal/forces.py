@@ -1,11 +1,15 @@
 """Data Access Layer to the Forces tables."""
 
-from typing import Any, AsyncIterator
+from typing import (
+    Any,
+    AsyncIterator,
+)
 
 # Standard library
 from datetime import datetime
 import logging
 import tempfile
+import json
 
 # Third party libraries
 import aioboto3
@@ -116,8 +120,6 @@ async def get_execution(project_name: str, execution_id: str) -> Any:
                 result['vulnerabilities']['open'] = []
             if 'closed' not in result['vulnerabilities']:
                 result['vulnerabilities']['closed'] = []
-            result['log'] = result.get('log', None) or await get_log_execution(
-                project_name, result['execution_id'])
             result['project_name'] = result.get('subscription')
             return result
 
@@ -132,12 +134,30 @@ async def save_log_execution(file_object: object, file_name: str) -> bool:
     )
 
 
+async def save_vulns_execution(file_object: object, file_name: str) -> bool:
+    return await s3.upload_memory_file(  # type: ignore
+        FI_AWS_S3_FORCES_BUCKET,
+        file_object,
+        file_name,
+    )
+
+
 async def get_log_execution(project_name: str, execution_id: str) -> str:
     with tempfile.NamedTemporaryFile(mode='w+') as file:
         await s3.download_file(FI_AWS_S3_FORCES_BUCKET,  # type: ignore
                                f'{project_name}/{execution_id}.log', file.name)
         with open(file.name) as reader:
             return reader.read()
+
+
+async def get_vulns_execution(project_name: str, execution_id: str) -> Any:
+    with tempfile.NamedTemporaryFile(mode='w+') as file:
+        await s3.download_file(  # type: ignore
+            FI_AWS_S3_FORCES_BUCKET,
+            f'{project_name}/{execution_id}.json',
+            file.name)
+        with open(file.name) as reader:
+            return json.load(reader)
 
 
 async def create_execution(project_name: str,
