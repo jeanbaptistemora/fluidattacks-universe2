@@ -162,7 +162,7 @@ def ssh_repo_cloning(subs, code) -> bool:
                 logger.info(
                     f"""\n#CLONNING {repo_br} ....\n{cmd[1]}\n{cmd[0]}""")
 
-    with ThreadPool(processes=8) as worker:
+    with ThreadPool(processes=cpu_count()) as worker:
         worker.map(action, branches)
         progress.finish()
 
@@ -217,7 +217,7 @@ def http_repo_cloning(subs, code) -> bool:
                 logger.info(
                     f"""\n#CLONNING {repo_br} ....\n{cmd[0]}\n{cmd[1]}""")
 
-    with ThreadPool(processes=8) as worker:
+    with ThreadPool(processes=cpu_count()) as worker:
         worker.map(action, branches)
         progress.finish()
 
