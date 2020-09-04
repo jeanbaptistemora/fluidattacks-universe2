@@ -1298,6 +1298,7 @@ function job_integrates_deploy_k8s_back {
   local B64_AWS_ACCESS_KEY_ID
   local B64_AWS_SECRET_ACCESS_KEY
   local B64_JWT_TOKEN
+  local checkly_params
   local DATE
   local files=(
     deploy/integrates-k8s.yaml
@@ -1362,11 +1363,10 @@ function job_integrates_deploy_k8s_back {
               \"user\": \"${CI_COMMIT_AUTHOR}\"
             }
           }" \
-  &&  curl "https://api.checklyhq.com/check-groups/${CHECKLY_CHECK_ID}/trigger/${CHECKLY_TRIGGER_ID}" \
+  &&  checkly_params="${CHECKLY_TRIGGER_ID}?deployment=true&repository=product/integrates&sha=${CI_COMMIT_SHA}" \
+  &&  curl \
         --request 'GET' \
-        --data 'deployment=true' \
-        --data 'repository=product/integrates' \
-        --data "sha=${CI_COMMIT_SHA}" \
+        "https://api.checklyhq.com/check-groups/${CHECKLY_CHECK_ID}/trigger/${checkly_params}" \
   &&  popd \
   ||  return 1
 }
