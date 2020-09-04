@@ -90,6 +90,7 @@ resource "kubernetes_cluster_role" "dns" {
     resources = [
       "services",
       "pods",
+      "endpoints",
     ]
     verbs = [
       "get",
@@ -182,6 +183,7 @@ resource "kubernetes_deployment" "dns" {
 
       spec {
         automount_service_account_token = true
+        service_account_name = kubernetes_service_account.dns.metadata[0].name
 
         container {
           name              = "aws-external-dns"
@@ -200,7 +202,9 @@ resource "kubernetes_deployment" "dns" {
           ]
         }
 
-        service_account_name = kubernetes_service_account.dns.metadata[0].name
+        security_context {
+          fs_group = 65534
+        }
       }
     }
   }
