@@ -3,6 +3,7 @@ module "eks" {
   version         = "~> 12.2.0"
   cluster_name    = var.cluster_name
   cluster_version = "1.17"
+  enable_irsa     = true
 
   subnets = [
     aws_subnet.region_a.id,
