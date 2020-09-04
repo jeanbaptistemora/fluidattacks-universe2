@@ -1,6 +1,6 @@
 :local .container {
   font-size: 18px;
-  margin-right: unset;
+  margin-bottom: 0px;
   background-color: #f5f5f5;
   border-bottom: 2px #e4e4e4 solid;
 }

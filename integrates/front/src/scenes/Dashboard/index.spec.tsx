@@ -96,11 +96,11 @@ describe("Dashboard", (): void => {
 
     const sideBar: ReactWrapper = wrapper.find("sidebar");
     const scrollUpButton: ReactWrapper = wrapper.find("ScrollUp");
-    const navBar: ReactWrapper = wrapper.find({ id: "navbar" }).find("Row");
+    const navBar: ReactWrapper = wrapper.find({ id: "navbar" });
 
     expect(wrapper).toHaveLength(1);
     expect(sideBar).toHaveLength(1);
     expect(scrollUpButton).toHaveLength(1);
-    expect(navBar).toHaveLength(1);
+    expect(navBar.length).toBeGreaterThan(0);
   });
 });

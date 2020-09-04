@@ -186,9 +186,8 @@ label {
     margin-bottom: 0;
   }
   :local .stickyContainer {
-    padding-top: 2px;
     position: sticky;
-    top: 45px;
+    top: 55px;
     z-index: 4;
   }
 }
@@ -284,4 +283,10 @@ label {
   @page {
     margin: 1cm;
   }
+}
+
+:global .HW_badge_cont {
+  display: inline-block !important;
+  left: 24px;
+  position: absolute !important;
 }

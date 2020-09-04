@@ -16,6 +16,7 @@
       "src/scenes/Dashboard/*.*",
       "src/scenes/Dashboard/components/AddEnvironmentsModal/**",
       "src/scenes/Dashboard/components/APITokenModal/**",
+      "src/scenes/Dashboard/components/NewsWidget/**",
       "src/scenes/Registration/**"
     ]
   },

@@ -6,10 +6,11 @@ import React from "react";
 import {
   Breadcrumb,
   BreadcrumbItem,
-  Col,
   InputGroup,
   MenuItem,
-  Row,
+  Nav,
+  Navbar,
+  NavItem,
   SelectCallback,
   SplitButton,
 } from "react-bootstrap";
@@ -25,6 +26,7 @@ import { msgError } from "../../../../utils/notifications";
 import { translate } from "../../../../utils/translations/translate";
 import { alphaNumeric } from "../../../../utils/validations";
 import { GenericForm } from "../GenericForm";
+import { NewsWidget } from "../NewsWidget";
 import { default as style } from "./index.css";
 import { GET_USER_ORGANIZATIONS } from "./queries";
 import { stylizeBreadcrumbItem } from "./utils";
@@ -116,8 +118,8 @@ export const navbarComponent: React.FC<RouteComponentProps> = (
 
   return (
     <React.StrictMode>
-      <Row className={style.container} id={"navbar"}>
-        <Col md={9} sm={12} xs={12}>
+      <Navbar className={style.container} fluid={true} id={"navbar"}>
+        <Navbar.Header>
           <Breadcrumb className={style.breadcrumb}>
             <BreadcrumbItem>
               <div className={style.splitButton}>
@@ -140,29 +142,37 @@ export const navbarComponent: React.FC<RouteComponentProps> = (
             </BreadcrumbItem>
             {breadcrumbItems}
           </Breadcrumb>
-        </Col>
-        <Col md={3} sm={12} xs={12}>
+          <Navbar.Toggle />
+        </Navbar.Header>
+        <Navbar.Collapse>
           {userEmail.endsWith("fluidattacks.com") ? (
-            <React.Fragment>
-              <GenericForm name={"searchBar"} onSubmit={handleSearchSubmit}>
-                <InputGroup className={style.groupsInput}>
-                  <Field
-                    component={Text}
-                    name={"projectName"}
-                    placeholder={translate.t("navbar.searchPlaceholder")}
-                    validate={[alphaNumeric]}
-                  />
-                  <InputGroup.Button>
-                    <Button className={style.searchButton} type={"submit"}>
-                      <FluidIcon icon={"search"} />
-                    </Button>
-                  </InputGroup.Button>
-                </InputGroup>
-              </GenericForm>
-            </React.Fragment>
+            <Nav pullRight={true}>
+              <NavItem>
+                <NewsWidget />
+              </NavItem>
+              <li role="presentation">
+                <Navbar.Form style={{ marginBottom: "4px", marginTop: "4px" }}>
+                  <GenericForm name={"searchBar"} onSubmit={handleSearchSubmit}>
+                    <InputGroup className={style.groupsInput}>
+                      <Field
+                        component={Text}
+                        name={"projectName"}
+                        placeholder={translate.t("navbar.searchPlaceholder")}
+                        validate={[alphaNumeric]}
+                      />
+                      <InputGroup.Button>
+                        <Button className={style.searchButton} type={"submit"}>
+                          <FluidIcon icon={"search"} />
+                        </Button>
+                      </InputGroup.Button>
+                    </InputGroup>
+                  </GenericForm>
+                </Navbar.Form>
+              </li>
+            </Nav>
           ) : undefined}
-        </Col>
-      </Row>
+        </Navbar.Collapse>
+      </Navbar>
     </React.StrictMode>
   );
 };
