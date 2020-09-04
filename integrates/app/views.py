@@ -50,6 +50,7 @@ from backend.services import (
 )
 from __init__ import (
     FI_AWS_S3_BUCKET,
+    FI_ENVIRONMENT
 )
 
 # Constants
@@ -165,10 +166,11 @@ def mobile(request: HttpRequest) -> HttpResponse:
 async def app(request: HttpRequest) -> HttpResponse:
     """App view for authenticated users."""
     try:
-        await util.check_concurrent_sessions(
-            request.session['username'],
-            request.session.session_key,
-        )
+        if FI_ENVIRONMENT == 'production':
+            await util.check_concurrent_sessions(
+                request.session['username'],
+                request.session.session_key,
+            )
 
         if not await org_domain.get_user_organizations(
                 request.session['username']):

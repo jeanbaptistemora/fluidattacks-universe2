@@ -21,8 +21,7 @@ SCR_PATH = './test/functional/screenshots/'
 
 class ViewTestCase(unittest.TestCase):
 
-    @classmethod
-    def setUpClass(self):
+    def setUp(self):
         self.geckodriver = os.environ['pkgGeckoDriver']
         self.geckodriver = f'{self.geckodriver}/bin/geckodriver'
 
@@ -63,18 +62,11 @@ class ViewTestCase(unittest.TestCase):
         else:
             self.url = 'https://localhost:8080/integrates'
 
-        self.__login(self)
+        super(ViewTestCase, self).setUp()
 
-    @classmethod
-    def tearDownClass(self):
-        if 'pe-7s-power' in self.selenium.page_source:  # logout icon
-            logout_btn = self.selenium.find_element_by_xpath(
-                '//*[@class="bm-item-list"]/div/ul/li/a')
-            self.__click(self, logout_btn)
-            proceed_btn = self.selenium.find_element_by_xpath(
-                '//*/button[contains(text(), "Proceed")]')
-            self.__click(self, proceed_btn)
+    def tearDown(self):
         self.selenium.quit()
+        super(ViewTestCase, self).tearDown()
 
     def __cancel_modal(self):
         cancel_btn = self.selenium.find_element_by_xpath(
@@ -113,31 +105,42 @@ class ViewTestCase(unittest.TestCase):
         time.sleep(6)
 
     def __login(self):
-        self.selenium.get(self.url)
-        WebDriverWait(self.selenium, self.delay).until(
+        selenium = self.selenium
+        selenium.get(self.url)
+        WebDriverWait(selenium, self.delay).until(
             expected.presence_of_element_located(
                 (By.XPATH, "//*[contains(text(), 'Sign in with Microsoft')]")))
-        self.selenium.save_screenshot(f'{SCR_PATH}00.00-init-page.png')
-        azure_login = self.selenium.find_element_by_xpath(
+        selenium.save_screenshot(f'{SCR_PATH}00.00-init-page.png')
+        azure_login = selenium.find_element_by_xpath(
             "//*[contains(text(), 'Sign in with Microsoft')]")
-        self.__click(self, azure_login)
-        self.__check_existing_session(self)
-        self.__check_legal_notice(self)
+        self.__click(azure_login)
+        self.__check_existing_session()
+        self.__check_legal_notice()
 
-        WebDriverWait(self.selenium, self.delay).until(
+        WebDriverWait(selenium, self.delay).until(
             expected.presence_of_element_located(
                 (By.XPATH,
                     "//*[contains(text(), 'Vulnerabilities over time')]")))
-        self.selenium.save_screenshot(f'{SCR_PATH}00.01-after-login.png')
+        selenium.save_screenshot(f'{SCR_PATH}00.01-after-login.png')
+        return selenium
+
+    def test_01_init_page(self):
+        selenium = self.selenium
+        selenium.get(self.url)
+        WebDriverWait(selenium, self.delay).until(
+            expected.presence_of_element_located(
+                (By.XPATH, "//*[contains(text(), 'Sign in with Google')]")))
+        selenium.save_screenshot(SCR_PATH + '01-init_page.png')
+        assert 'Sign in with Google' in selenium.page_source
 
     def test_02_dashboard(self):
-        selenium = self.selenium
+        selenium = self.__login()
         selenium.save_screenshot(SCR_PATH + '01-dashboard.png')
         assert 'Analytics' in selenium.page_source
         assert 'Vulnerabilities over time' in selenium.page_source
 
     def test_03_analytics(self):
-        selenium = self.selenium
+        selenium = self.__login()
         org = 'okada' if self.branch == 'master' else 'imamura'
         selenium.get(self.url + f'/orgs/{org}/groups/unittesting/')
         WebDriverWait(selenium, self.delay).until(
@@ -148,7 +151,7 @@ class ViewTestCase(unittest.TestCase):
         assert 'Vulnerabilities over time' in selenium.page_source
 
     def test_04_findings(self):
-        selenium = self.selenium
+        selenium = self.__login()
         org = 'okada' if self.branch == 'master' else 'imamura'
         selenium.get(self.url + f'/orgs/{org}/groups/unittesting/vulns')
         WebDriverWait(selenium, self.delay).until(
@@ -159,7 +162,7 @@ class ViewTestCase(unittest.TestCase):
         assert 'FIN.H.0037. Fuga de información técnica' in selenium.page_source
 
     def test_05_finding(self):
-        selenium = self.selenium
+        selenium = self.__login()
         org = 'okada' if self.branch == 'master' else 'imamura'
         selenium.get(self.url + f'/orgs/{org}/groups/unittesting/vulns')
         finding_elem = WebDriverWait(selenium, self.delay).until(
@@ -173,6 +176,7 @@ class ViewTestCase(unittest.TestCase):
             expected.presence_of_element_located(
                 (By.XPATH,
                     "//*[contains(text(), 'REQ.0132. Passwords (phrase type) must be at least 3 words long')]")))
+        time.sleep(5)
         selenium.save_screenshot(SCR_PATH + '05-02-finding.png')
 
         verify_btn = selenium.find_element_by_xpath(
@@ -203,7 +207,7 @@ class ViewTestCase(unittest.TestCase):
         assert 'possible reverse the users credentials due that password' in selenium.page_source
 
     def test_06_severity(self):
-        selenium = self.selenium
+        selenium = self.__login()
         org = 'okada' if self.branch == 'master' else 'imamura'
         selenium.get(self.url + f'/orgs/{org}/groups/unittesting/vulns')
         finding_elem = WebDriverWait(selenium, self.delay).until(
@@ -223,11 +227,12 @@ class ViewTestCase(unittest.TestCase):
             expected.presence_of_element_located(
                 (By.XPATH,
                     "//*[contains(text(), 'Confidentiality Impact')]")))
+        time.sleep(3)
         selenium.save_screenshot(SCR_PATH + '06-03-severity.png')
         assert 'Proof of Concept' in selenium.page_source
 
     def test_07_evidence(self):
-        selenium = self.selenium
+        selenium = self.__login()
         org = 'okada' if self.branch == 'master' else 'imamura'
         selenium.get(self.url + f'/orgs/{org}/groups/unittesting/vulns')
         finding_elem = WebDriverWait(selenium, self.delay).until(
@@ -248,11 +253,12 @@ class ViewTestCase(unittest.TestCase):
         WebDriverWait(selenium, self.delay).until(
             expected.presence_of_element_located(
                 (By.XPATH, "//*[contains(text(), 'Comentario')]")))
+        time.sleep(3)
         selenium.save_screenshot(SCR_PATH + '07-04-evidence.png')
         assert 'Comentario' in selenium.page_source
 
     def test_08_exploit(self):
-        selenium = self.selenium
+        selenium = self.__login()
         org = 'okada' if self.branch == 'master' else 'imamura'
         selenium.get(self.url + f'/orgs/{org}/groups/unittesting/vulns')
         finding_elem = WebDriverWait(selenium, self.delay).until(
@@ -271,11 +277,12 @@ class ViewTestCase(unittest.TestCase):
         WebDriverWait(selenium, self.delay).until(
             expected.presence_of_element_located(
                 (By.XPATH, "//*[contains(text(), 'It works')]")))
+        time.sleep(3)
         selenium.save_screenshot(SCR_PATH + '08-03-exploit.png')
         assert 'It works' in selenium.page_source
 
     def test_09_tracking(self):
-        selenium = self.selenium
+        selenium = self.__login()
         org = 'okada' if self.branch == 'master' else 'imamura'
         selenium.get(self.url + f'/orgs/{org}/groups/unittesting/vulns')
         finding_elem = WebDriverWait(selenium, self.delay).until(
@@ -295,11 +302,12 @@ class ViewTestCase(unittest.TestCase):
         WebDriverWait(selenium, self.delay).until(
             expected.presence_of_element_located(
                 (By.XPATH, "//*[contains(text(), '2019-09-16')]")))
+        time.sleep(3)
         selenium.save_screenshot(SCR_PATH + '09-03-tracking.png')
         assert '2019-09-16' in selenium.page_source
 
     def test_10_comments(self):
-        selenium = self.selenium
+        selenium = self.__login()
         org = 'okada' if self.branch == 'master' else 'imamura'
         selenium.get(self.url + f'/orgs/{org}/groups/unittesting/vulns')
         finding_elem = WebDriverWait(selenium, self.delay).until(
@@ -318,11 +326,12 @@ class ViewTestCase(unittest.TestCase):
         WebDriverWait(selenium, self.delay).until(
             expected.presence_of_element_located(
                 (By.XPATH, "//*[contains(text(), 'Oldest')]")))
+        time.sleep(3)
         selenium.save_screenshot(SCR_PATH + '10-03-comments.png')
         assert 'oldest' in selenium.page_source
 
     def test_11_techpdf(self):
-        selenium = self.selenium
+        selenium = self.__login()
         org = 'okada' if self.branch == 'master' else 'imamura'
         selenium.get(self.url + f'/orgs/{org}/groups/unittesting/vulns')
         WebDriverWait(selenium, self.delay).until(
@@ -350,7 +359,7 @@ class ViewTestCase(unittest.TestCase):
         assert 'FIN.H.0037. Fuga de información técnica' in selenium.page_source
 
     def test_13_events(self):
-        selenium = self.selenium
+        selenium = self.__login()
         org = 'okada' if self.branch == 'master' else 'imamura'
         selenium.get(self.url + f'/orgs/{org}/groups/unittesting/events')
         event_tab = WebDriverWait(selenium, self.delay).until(
@@ -364,11 +373,12 @@ class ViewTestCase(unittest.TestCase):
             expected.presence_of_element_located(
                 (By.XPATH,
                     "//*[contains(text(), 'This is an eventuality with evidence')]")))
+        time.sleep(3)
         selenium.save_screenshot(SCR_PATH + '13-02-events.png')
         assert 'This is an eventuality with evidence' in selenium.page_source
 
     def test_14_resources(self):
-        selenium = self.selenium
+        selenium = self.__login()
         org = 'okada' if self.branch == 'master' else 'imamura'
         selenium.get(self.url + f'/orgs/{org}/groups/unittesting/scope')
         WebDriverWait(selenium, self.delay).until(
@@ -437,7 +447,7 @@ class ViewTestCase(unittest.TestCase):
         assert 'https://fluidattacks.com' in selenium.page_source
 
     def test_15_project_comments(self):
-        selenium = self.selenium
+        selenium = self.__login()
         org = 'okada' if self.branch == 'master' else 'imamura'
         selenium.get(self.url + f'/orgs/{org}/groups/unittesting/consulting')
         WebDriverWait(selenium, self.delay).until(
@@ -449,7 +459,7 @@ class ViewTestCase(unittest.TestCase):
         assert 'Now we can post comments on projects' in selenium.page_source
 
     def test_16_forces(self):
-        selenium = self.selenium
+        selenium = self.__login()
         project_name = 'bwapp' if self.branch == 'master' else 'unittesting'
         selenium.get(
             self.url + f'/orgs/imamura/groups/{project_name}/devsecops')
@@ -473,7 +483,7 @@ class ViewTestCase(unittest.TestCase):
             assert 'Running Fluid Asserts' in selenium.page_source
 
     def test_17_pending_to_delete(self):
-        selenium = self.selenium
+        selenium = self.__login()
 
         org = 'okada' if self.branch == 'master' else 'testorg'
         selenium.get(self.url + f'/orgs/{org}/groups/pendingproject')
@@ -493,7 +503,7 @@ class ViewTestCase(unittest.TestCase):
 
 
     def test_18_tag_indicators(self):
-        selenium = self.selenium
+        selenium = self.__login()
 
         org = 'okada' if self.branch == 'master' else 'imamura'
         selenium.get(
