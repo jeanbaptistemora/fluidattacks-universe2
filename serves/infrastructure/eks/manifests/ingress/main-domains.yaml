@@ -24,7 +24,8 @@ metadata:
       set $CSP '${CSP} *.formstack.com *.jquery.com *.bootstrapcdn.com';    # Forms functionalities
       set $CSP '${CSP} *.d2yyd1h5u9mauk.cloudfront.net';	            # Delighted
       set $CSP '${CSP} *.zdassets.com';	        # Zendesk Widget
-      set $CSP '${CSP} *.cookiebot.com';        # Cookie consent
+      set $CSP '${CSP} cdn.headwayapp.co';      # News widget
+      set $CSP '${CSP} *.lr-ingest.io';	        # LogRocket cdn
       set $CSP '${CSP} *.lr-ingest.io';	        # LogRocket cdn
       set $CSP '${CSP}; worker-src blob:';      # LogRocket workers
 
