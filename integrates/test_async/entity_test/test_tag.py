@@ -45,7 +45,7 @@ class TagTests(TestCase):
             }
         '''
         data = {'query': query}
-        request = create_dummy_session('integratesuser@gmail.com')
+        request = await create_dummy_session('integratesuser@gmail.com')
         request.loaders = {
             'event': EventLoader(),
             'finding': FindingLoader(),
@@ -81,7 +81,7 @@ class TagTests(TestCase):
         '''
         data = {'query': query}
 
-        request = create_dummy_session('unittests')
+        request = await create_dummy_session('unittests')
         request.loaders = {
             'event': EventLoader(),
             'finding': FindingLoader(),

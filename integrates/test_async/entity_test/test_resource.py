@@ -24,7 +24,7 @@ class ResourceTests(TestCase):
 
     async def _get_result(self, data):
         """Get result."""
-        request = create_dummy_session('integratesmanager@gmail.com')
+        request = await create_dummy_session('integratesmanager@gmail.com')
         _, result = await graphql(SCHEMA, data, context_value=request)
         return result
 
@@ -40,7 +40,7 @@ class ResourceTests(TestCase):
           }
         }'''
         data = {'query': query}
-        request = create_dummy_session('integratesmanager@gmail.com')
+        request = await create_dummy_session('integratesmanager@gmail.com')
         request.loaders = {
             'project': ProjectLoader(),
         }

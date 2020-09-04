@@ -43,7 +43,7 @@ class MeTests(TestCase):
         }'''
         data = {'query': query}
         user_email = 'integratesuser@gmail.com'
-        request = create_dummy_session(user_email)
+        request = await create_dummy_session(user_email)
         request.loaders = {
             'project': ProjectLoader(),
         }
@@ -85,7 +85,7 @@ class MeTests(TestCase):
             }
         '''
         data = {'query': query}
-        request = create_dummy_session()
+        request = await create_dummy_session()
         _, result = await graphql(SCHEMA, data, context_value=request)
         assert 'errors' not in result
         assert not result['data']['signIn']['success']
@@ -110,7 +110,7 @@ class MeTests(TestCase):
                 'expirationTime': expiration_time
             }
         }
-        request = create_dummy_session()
+        request = await create_dummy_session()
         _, result = await graphql(SCHEMA, data, context_value=request)
         assert 'errors' not in result
         assert 'updateAccessToken' in result['data']
@@ -127,7 +127,7 @@ class MeTests(TestCase):
             }
         '''
         data = {'query': query}
-        request = create_dummy_session()
+        request = await create_dummy_session()
         _, result = await graphql(SCHEMA, data, context_value=request)
         assert 'invalidateAccessToken' in result['data']
         assert 'success' in result['data']['invalidateAccessToken']
@@ -143,7 +143,7 @@ class MeTests(TestCase):
             }
         '''
         data = {'query': query}
-        request = create_dummy_session()
+        request = await create_dummy_session()
         _, result = await graphql(SCHEMA, data, context_value=request)
         assert 'acceptLegal' in result['data']
         assert 'success' in result['data']['acceptLegal']
@@ -159,7 +159,7 @@ class MeTests(TestCase):
             }
         '''
         data = {'query': query}
-        request = create_dummy_session()
+        request = await create_dummy_session()
         _, result = await graphql(SCHEMA, data, context_value=request)
         assert 'error' not in result
         assert result['data']['addPushToken']['success']

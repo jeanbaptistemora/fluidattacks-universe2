@@ -24,7 +24,7 @@ def create_dummy_simple_session(
     return request
 
 
-def create_dummy_session(
+async def create_dummy_session(
     username: str = 'unittest'
 ) -> HttpResponseBase:
     request = create_dummy_simple_session(username)
@@ -43,5 +43,5 @@ def create_dummy_session(
         key=settings.JWT_SECRET,
     )
     request.COOKIES[settings.JWT_COOKIE_NAME] = token
-    util.save_token(f'fi_jwt:{payload["jti"]}', token, settings.SESSION_COOKIE_AGE)
+    await util.save_token(f'fi_jwt:{payload["jti"]}', token, settings.SESSION_COOKIE_AGE)
     return request

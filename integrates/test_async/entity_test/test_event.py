@@ -47,7 +47,7 @@ class EventTests(TestCase):
             }
         }'''
         data = {'query': query}
-        request = create_dummy_session()
+        request = await create_dummy_session()
         request.loaders = {
             'event': EventLoader(),
         }
@@ -66,7 +66,7 @@ class EventTests(TestCase):
             }
         }'''
         data = {'query': query}
-        request = create_dummy_session()
+        request = await create_dummy_session()
         _, result = await graphql(SCHEMA, data, context_value=request)
         assert 'events' in result['data']
         assert result['data']['events'][0]['projectName'] == 'unittesting'
@@ -90,7 +90,7 @@ class EventTests(TestCase):
             }
         '''
         data = {'query': query}
-        request = create_dummy_session()
+        request = await create_dummy_session()
         _, result = await graphql(SCHEMA, data, context_value=request)
         assert 'errors' not in result
         assert 'success' in result['data']['createEvent']
@@ -108,7 +108,7 @@ class EventTests(TestCase):
             }
         '''
         data = {'query': query}
-        request = create_dummy_session()
+        request = await create_dummy_session()
         _, result = await graphql(SCHEMA, data, context_value=request)
         if 'errors' not in result:
             assert 'errors' not in result
@@ -130,7 +130,7 @@ class EventTests(TestCase):
             }
         '''
         data = {'query': query}
-        request = create_dummy_session(username='integratesmanager@gmail.com')
+        request = await create_dummy_session(username='integratesmanager@gmail.com')
         _, result = await graphql(SCHEMA, data, context_value=request)
         assert 'errors' not in result
         assert 'success' in result['data']['addEventComment']
@@ -162,7 +162,7 @@ class EventTests(TestCase):
                 'file': uploaded_file
             }
             data = {'query': query, 'variables': variables}
-            request = create_dummy_session()
+            request = await create_dummy_session()
             _, result = await graphql(SCHEMA, data, context_value=request)
         if 'errors' not in result:
             assert 'errors' not in result
@@ -183,7 +183,7 @@ class EventTests(TestCase):
             }
         '''
         data = {'query': query}
-        request = create_dummy_session()
+        request = await create_dummy_session()
         _, result = await graphql(SCHEMA, data, context_value=request)
         assert 'errors' not in result
         assert 'success' in result['data']['downloadEventFile']
@@ -201,7 +201,7 @@ class EventTests(TestCase):
             }
         '''
         data = {'query': query}
-        request = create_dummy_session()
+        request = await create_dummy_session()
         _, result = await graphql(SCHEMA, data, context_value=request)
         assert 'errors' not in result
         assert 'success' in result['data']['removeEventEvidence']

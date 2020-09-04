@@ -52,7 +52,7 @@ class ReportTests(TestCase):
         data_pdf = {'query': query_pdf}
         data_xls = {'query': query_xls}
         data_data = {'query': query_data}
-        request = create_dummy_session('integratesmanager@gmail.com')
+        request = await create_dummy_session('integratesmanager@gmail.com')
         request.loaders = {
             'project': ProjectLoader(),
         }
@@ -72,7 +72,7 @@ class ReportTests(TestCase):
             }
         '''
         data_all_vulns = {'query': query_all_vulns}
-        request = create_dummy_session('integratesmanager@gmail.com')
+        request = await create_dummy_session('integratesmanager@gmail.com')
         request.loaders = {
             'project': ProjectLoader(),
         }
@@ -93,7 +93,7 @@ class ReportTests(TestCase):
             }
         '''
         data_all_users = {'query': query_all_users}
-        request = create_dummy_session('integratesmanager@gmail.com')
+        request = await create_dummy_session('integratesmanager@gmail.com')
         request.loaders = {
             'project': ProjectLoader(),
         }

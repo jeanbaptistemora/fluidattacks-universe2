@@ -38,7 +38,7 @@ class UserTests(TestCase):
             }
         '''
         data = {'query': query}
-        request = create_dummy_session()
+        request = await create_dummy_session()
         _, result = await graphql(SCHEMA, data, context_value=request)
         assert 'errors' not in result
         assert 'stakeholder' in result['data']
@@ -55,7 +55,7 @@ class UserTests(TestCase):
             }
         '''
         data = {'query': query}
-        request = create_dummy_session()
+        request = await create_dummy_session()
         _, result = await graphql(SCHEMA, data, context_value=request)
         assert 'errors' not in result
         assert result['data']['userListProjects'][0]['name'] == 'oneshottest'
@@ -76,7 +76,7 @@ class UserTests(TestCase):
             }
         '''
         data = {'query': query}
-        request = create_dummy_session('integratesmanager@gmail.com')
+        request = await create_dummy_session('integratesmanager@gmail.com')
         _, result = await graphql(SCHEMA, data, context_value=request)
         assert 'errors' not in result
         assert 'addStakeholder' in result['data']
@@ -107,7 +107,7 @@ class UserTests(TestCase):
             }
         '''
         data = {'query': query}
-        request = create_dummy_session()
+        request = await create_dummy_session()
         _, result = await graphql(SCHEMA, data, context_value=request)
         assert 'errors' not in result
         assert 'success' in result['data']['grantStakeholderAccess']
@@ -138,7 +138,7 @@ class UserTests(TestCase):
             }
         '''
         data = {'query': query}
-        request = create_dummy_session()
+        request = await create_dummy_session()
         _, result = await graphql(SCHEMA, data, context_value=request)
         assert 'errors' in result
         assert result['errors'][0]['message'] == (
@@ -170,7 +170,7 @@ class UserTests(TestCase):
             }
         '''
         data = {'query': query}
-        request = create_dummy_session()
+        request = await create_dummy_session()
         _, result = await graphql(SCHEMA, data, context_value=request)
         assert 'errors' not in result
         assert 'success' in result['data']['grantStakeholderAccess']
@@ -193,7 +193,7 @@ class UserTests(TestCase):
             }
         '''
         data = {'query': query}
-        request = create_dummy_session()
+        request = await create_dummy_session()
         _, result = await graphql(SCHEMA, data, context_value=request)
         assert 'errors' not in result
         assert 'success' in result['data']['removeStakeholderAccess']
@@ -215,7 +215,7 @@ class UserTests(TestCase):
             }
         '''
         data = {'query': query}
-        request = create_dummy_session()
+        request = await create_dummy_session()
         _, result = await graphql(SCHEMA, data, context_value=request)
         assert 'errors' not in result
         assert 'success' in result['data']['editStakeholder']

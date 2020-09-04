@@ -24,7 +24,7 @@ pytestmark = [
 
 async def _get_result_async(data, stakeholder='integratesmanager@gmail.com'):
     """Get result."""
-    request = create_dummy_session(username=stakeholder)
+    request = await create_dummy_session(username=stakeholder)
     request.loaders = {
         'event': EventLoader(),
         'finding': FindingLoader(),

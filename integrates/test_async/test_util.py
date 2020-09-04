@@ -94,7 +94,7 @@ class UtilTests(TestCase):
         assert validate_release_date(finding)
         assert not validate_release_date(unreleased_finding)
 
-    def test_get_jwt_content(self):
+    async def test_get_jwt_content(self):
         request = create_dummy_simple_session()
         payload = {
             'user_email': 'unittest',
@@ -109,7 +109,7 @@ class UtilTests(TestCase):
             key=settings.JWT_SECRET,
         )
         request.COOKIES[settings.JWT_COOKIE_NAME] = token
-        save_token(f'fi_jwt:{payload["jti"]}', token, settings.SESSION_COOKIE_AGE)
+        await save_token(f'fi_jwt:{payload["jti"]}', token, settings.SESSION_COOKIE_AGE)
         test_data = get_jwt_content(request)
         expected_output = {
             u'user_email': u'unittest',
@@ -119,7 +119,7 @@ class UtilTests(TestCase):
         }
         assert test_data == expected_output
 
-    def test_valid_token(self):
+    async def test_valid_token(self):
         request = create_dummy_simple_session()
         payload = {
             'user_email': 'unittest',
@@ -134,7 +134,7 @@ class UtilTests(TestCase):
             key=settings.JWT_SECRET,
         )
         request.COOKIES[settings.JWT_COOKIE_NAME] = token
-        save_token(f'fi_jwt:{payload["jti"]}', token, settings.SESSION_COOKIE_AGE)
+        await save_token(f'fi_jwt:{payload["jti"]}', token, settings.SESSION_COOKIE_AGE)
         test_data = get_jwt_content(request)
         expected_output = {
             u'user_email': u'unittest',
@@ -144,7 +144,7 @@ class UtilTests(TestCase):
         }
         assert test_data == expected_output
 
-    def test_valid_api_token(self):
+    async def test_valid_api_token(self):
         request = create_dummy_simple_session()
         payload = {
             'user_email': 'unittest',
@@ -160,7 +160,7 @@ class UtilTests(TestCase):
             key=settings.JWT_SECRET_API,
         )
         request.COOKIES[settings.JWT_COOKIE_NAME] = token
-        save_token(f'fi_jwt:{payload["jti"]}', token, settings.SESSION_COOKIE_AGE)
+        await save_token(f'fi_jwt:{payload["jti"]}', token, settings.SESSION_COOKIE_AGE)
         test_data = get_jwt_content(request)
         expected_output = {
             u'user_email': u'unittest',
@@ -171,7 +171,7 @@ class UtilTests(TestCase):
         }
         assert test_data == expected_output
 
-    def test_expired_token(self):
+    async def test_expired_token(self):
         request = create_dummy_simple_session()
         payload = {
             'user_email': 'unittest',
@@ -186,12 +186,12 @@ class UtilTests(TestCase):
             key=settings.JWT_SECRET,
         )
         request.COOKIES[settings.JWT_COOKIE_NAME] = token
-        save_token(f'fi_jwt:{payload["jti"]}', token, 5)
+        await save_token(f'fi_jwt:{payload["jti"]}', token, 5)
         time.sleep(6)
         with pytest.raises(ExpiredToken):
             assert get_jwt_content(request)
 
-    def test_revoked_token(self):
+    async def test_revoked_token(self):
         request = create_dummy_simple_session()
         payload = {
             'user_email': 'unittest',
@@ -207,8 +207,8 @@ class UtilTests(TestCase):
         )
         request.COOKIES[settings.JWT_COOKIE_NAME] = token
         redis_token_name = f'fi_jwt:{payload["jti"]}'
-        save_token(redis_token_name, token, settings.SESSION_COOKIE_AGE + (20 * 60))
-        remove_token(redis_token_name)
+        await save_token(redis_token_name, token, settings.SESSION_COOKIE_AGE + (20 * 60))
+        await remove_token(redis_token_name)
         with pytest.raises(ExpiredToken):
             assert get_jwt_content(request)
 

@@ -34,7 +34,7 @@ class ProjectTests(TestCase):
 
     async def _get_result_async(self, data, user='integratesmanager@gmail.com'):
         """Get result."""
-        request = create_dummy_session(username=user)
+        request = await create_dummy_session(username=user)
         request.loaders = {
             'event': EventLoader(),
             'finding': FindingLoader(),

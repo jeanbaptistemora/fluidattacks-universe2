@@ -24,7 +24,7 @@ class InternalNameTests(TestCase):
             }
         }'''
         data = {'query': query}
-        request = create_dummy_session('integratesuser@gmail.com')
+        request = await create_dummy_session('integratesuser@gmail.com')
         _, result = await graphql(SCHEMA, data, context_value=request)
         assert 'errors' not in result
         assert 'internalNames' in result['data']

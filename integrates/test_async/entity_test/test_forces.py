@@ -22,7 +22,7 @@ class ForcesExecutionsTests(TestCase):
 
     async def _get_result(self, data):
         """Get result."""
-        request = create_dummy_session(username='integratesuser@gmail.com')
+        request = await create_dummy_session(username='integratesuser@gmail.com')
         _, result = await graphql(SCHEMA, data, context_value=request)
         return result
 
