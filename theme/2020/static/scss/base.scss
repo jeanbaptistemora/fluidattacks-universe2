@@ -119,7 +119,7 @@ $codeyellow: rgba(230, 219, 116, 1);
 .tooltip { &:hover { .tooltip-text { visibility: visible; } } }
 .anchor-sign { &::before { content: '\0023'; } }
 .banner-bg { background-image: url('../../images/cover-main.png'); }
-.asap-bg { background-image: url('../../images/background-asap.png'); height: 35rem; }
+.asap-bg { background-image: url('../../images/background-asap.png'); }
 .continuous-bg { background-image: url('../../images/services/continuous/main-continuous-hacking.png'); }
 .one-shot-bg { background-image: url('../../images/services/one-shot/main-one-shot.png'); }
 .products-bg { background-image: url('../../images/products/cover-products.png'); }
@@ -221,6 +221,8 @@ $codeyellow: rgba(230, 219, 116, 1);
 .mt-body { margin-top: 110px; }
 .title-sols { text-align: center; }
 .width-sols { width: 100%; }
+.banner-height { height: 600px; }
+.lh-18 { line-height: 1.8; }
 
 // Tachyons custom responsive classes
 @media screen and (min-width: 960px) and (max-width: 1200px) {
@@ -229,6 +231,8 @@ $codeyellow: rgba(230, 219, 116, 1);
   .d-ml { display: block; }
   .mh-ml { margin-left: auto; margin-right: auto; }
   .text-center-ml { text-align: center; }
+  .bg-ebook { background-image: url('../../images/bg-ebook-l.png'); }
+  .asap-bg { background-image: url('../../images/team-l.png'); }
 }
 
 @media screen and (min-width: 1200px) {
@@ -244,6 +248,26 @@ $codeyellow: rgba(230, 219, 116, 1);
   .title-sols { text-align: left; }
   .display-sols { display: inline-block; }
   .width-sols { width: 30%; }
+}
+
+@media screen and (min-width: 1366px) {
+  .bg-ebook { background-image: url('../../images/bg-ebook-xl.png'); }
+  .asap-bg { background-image: url('../../images/team-xl.png'); }
+}
+
+@media screen and (min-width: 1200px) and (max-width: 1366px) {
+  .bg-ebook { background-image: url('../../images/bg-ebook-ml.png'); }
+  .asap-bg { background-image: url('../../images/team-ml.png'); }
+}
+
+@media screen and (min-width: 480px) and (max-width: 960px) {
+  .bg-ebook { background-image: url('../../images/bg-ebook-m.png'); }
+  .asap-bg { background-image: url('../../images/team-m.png'); }
+}
+
+@media screen and (min-width: 350px) and (max-width: 480px) {
+  .bg-ebook { background-image: url('../../images/bg-ebook-s.png'); }
+  .asap-bg { background-image: url('../../images/team-s.png'); }
 }
 
 // Small screens
@@ -271,6 +295,7 @@ $codeyellow: rgba(230, 219, 116, 1);
   .w-menu-bt { width: 18px; }
   .dn-s { display: none; }
   .h-logo { height: 50px; }
+  .banner-height { height: 800px; }
 }
 //medium resolutions
 @media screen and (min-width: 30em) and (max-width: 60em) {
@@ -287,6 +312,7 @@ $codeyellow: rgba(230, 219, 116, 1);
   .w-menu-bt { width: 18px; }
   .dn-s { display: none; }
   .h40-m { height: 40rem; }
+  .banner-height { height: 800px; }
 }
 
 //Large screens
@@ -299,7 +325,6 @@ $codeyellow: rgba(230, 219, 116, 1);
   .new-banner { width: 40em; }
   .mr-13-l { margin-right: 13rem; }
   .f-title-l { font-size: 2rem; }
-  .h50-l { height: 40rem; }
   .h25-l { height: 25rem; }
   .w-45-l { width: 45%; }
   .w-50-l { width: 50%; }
