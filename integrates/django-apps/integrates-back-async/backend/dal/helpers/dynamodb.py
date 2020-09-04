@@ -13,6 +13,7 @@ import boto3
 import botocore
 
 from botocore.exceptions import ClientError
+from backend.exceptions import UnavailabilityError
 from backend.typing import (
     DynamoDelete as DynamoDeleteType,
     DynamoQuery as DynamoQueryType
@@ -90,8 +91,7 @@ async def async_query(
                 response = await dynamo_table.query(**query_attrs)
                 response_items += response.get('Items', [])
     except ClientError as ex:
-        LOGGER.exception(ex, extra={'extra': locals()})
-        raise ex
+        raise UnavailabilityError() from ex
     return response_items
 
 

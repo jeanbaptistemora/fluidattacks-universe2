@@ -4,6 +4,7 @@ from typing import Dict, List, Optional, Union
 
 from boto3.dynamodb.conditions import Key
 from botocore.exceptions import ClientError
+from backend.exceptions import UnavailabilityError
 
 from backend.dal.helpers import dynamodb
 from backend.typing import (
@@ -109,5 +110,5 @@ async def get_tags(
     try:
         tags = await dynamodb.async_query(TABLE_NAME, query_attrs)
     except ClientError as ex:
-        LOGGER.exception(ex, extra={'extra': locals()})
+        raise UnavailabilityError() from ex
     return tags

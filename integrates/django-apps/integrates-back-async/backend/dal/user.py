@@ -6,6 +6,7 @@ from typing import Dict, List, NamedTuple
 # Third party libraries
 from boto3.dynamodb.conditions import Attr, Key, Not
 from botocore.exceptions import ClientError
+from backend.exceptions import UnavailabilityError
 from backend.dal.helpers import dynamodb
 from backend.typing import (
     DynamoDelete as DynamoDeleteType,
@@ -175,7 +176,7 @@ async def create(email: str, data: UserType) -> bool:
         data.update({'email': email})
         resp = await dynamodb.async_put_item(USERS_TABLE_NAME, data)
     except ClientError as ex:
-        LOGGER.exception(ex, extra={'extra': locals()})
+        raise UnavailabilityError() from ex
     return resp
 
 
