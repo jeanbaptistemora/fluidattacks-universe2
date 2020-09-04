@@ -148,7 +148,8 @@ function job_skims_test {
     --verbose
   )
 
-      helper_common_poetry_install_deps skims \
+      helper_skims_compile_ast \
+  &&  helper_common_poetry_install_deps skims \
   &&  pushd skims \
     &&  for pkg in "${SKIMS_GLOBAL_PKGS[@]}" "${SKIMS_GLOBAL_TEST_PKGS[@]}"
         do

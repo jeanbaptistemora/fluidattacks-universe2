@@ -3,15 +3,20 @@
 #  .
 #  [a-zA-Z] (caseless)
 
+/**/*.class
 /**/*.egg-info
+/**/*.interp
+/**/*.tokens
 /**/.coverage*
 /**/.skims
 /**/.venv
-/ast/build/
-/ast/gradle/wrapper
-/ast/gradlew
 /coverage*
 /docs/skims
 /dist
 /poetry.lock
 /skims.*.svg
+/static/ast/.gradle
+/static/ast/build/
+/static/ast/gradle/wrapper
+/static/ast/gradlew
+/static/ast/src/main/java/ast/Java9*

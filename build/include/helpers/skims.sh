@@ -12,3 +12,26 @@ function helper_skims_compute_version {
     print(time.strftime(f"%y.%m.{minutes_month}"))
   '
 }
+
+function helper_skims_compile_ast {
+  export CLASSPATH
+  export srcExternalANTLR4
+  local grammars=(
+    Java9
+  )
+
+      echo '[INFO] Compiling grammars' \
+  &&  pushd skims/static/ast/ \
+    &&  export CLASSPATH=".:${srcExternalANTLR4}:${CLASSPATH:-}" \
+    &&  for grammar in "${grammars[@]}"
+        do
+              echo "[INFO] Processing: ${grammar}" \
+          &&  java -jar "${srcExternalANTLR4}" src/main/java/ast/Java9.g4 \
+          &&  echo "[INFO] Compiling: ${grammar}" \
+          &&  javac -Werror src/main/java/ast/Java9*.java \
+
+        done \
+    &&  echo '[INFO] Building AST tool' \
+  &&  popd \
+  ||  return 1
+}

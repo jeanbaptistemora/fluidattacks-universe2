@@ -1,7 +1,4 @@
 # Standard library
-from asyncio import (
-    sleep,
-)
 from typing import (
     Callable,
     Dict,
@@ -56,11 +53,8 @@ def _cli(*args: str) -> Result:
     return runner.invoke(dispatch, args)
 
 
-async def get_group_data(*, group: str) -> Set[Tuple[str, str, int, int]]:
+async def get_group_data(group: str) -> Set[Tuple[str, str, int, int]]:
     """Return a set of (finding, release_status, num_open, num_closed)."""
-    # Wait some seconds until Integrates stabilizes
-    await sleep(10.0)
-
     titles_to_finding: Dict[str, FindingEnum] = {
         t(finding.value.title): finding for finding in FindingEnum
     }
@@ -111,15 +105,15 @@ async def get_group_data(*, group: str) -> Set[Tuple[str, str, int, int]]:
     return result
 
 
-def blocking_get_group_data(group: str) -> Set[Tuple[str, str, int, int]]:
-    return run(get_group_data(group=group))
-
-
-def does_state_match(
+async def match_expected(
     group: str,
     expected: Set[Tuple[str, str, int, int]],
-) -> bool:
-    return any(blocking_get_group_data(group) == expected for _ in range(10))
+) -> None:
+    for _ in range(10):
+        if (data := await get_group_data(group)) == expected:
+            break
+
+    assert data == expected
 
 
 def test_help() -> None:
@@ -161,7 +155,8 @@ async def test_reset_environment(
     ])
 
     assert all(findings_deleted)
-    assert not await get_group_data(group=test_group)
+    # No findings should exist because we just reset the environment
+    await match_expected(test_group, set())
 
 
 def test_dispatch_debug_correct_nothing_to_do(
@@ -174,7 +169,7 @@ def test_dispatch_debug_correct_nothing_to_do(
     assert result.exit_code == 0
 
     # No findings should be created, there is nothing to do !
-    assert not blocking_get_group_data(group=test_group)
+    run(match_expected(test_group, set()))
 
 
 def test_dispatch_correct(
@@ -186,7 +181,7 @@ def test_dispatch_correct(
     assert result.exit_code == 0
 
     # The following findings must be met
-    assert does_state_match(test_group, {
+    run(match_expected(test_group, {
         # Finding, status, # closed, # open
         ('F009', 'APPROVED', 0, 9),
         ('F011', 'APPROVED', 0, 13),
@@ -196,7 +191,7 @@ def test_dispatch_correct(
         ('F061', 'APPROVED', 0, 10),
         ('F085', 'APPROVED', 0, 4),
         ('F117', 'APPROVED', 0, 2),
-    })
+    }))
 
 
 def test_dispatch_correct_nothing_to_do(
@@ -208,7 +203,7 @@ def test_dispatch_correct_nothing_to_do(
     assert result.exit_code == 0
 
     # Skims should persist the null state, closing everything on Integrates
-    assert does_state_match(test_group, {
+    run(match_expected(test_group, {
         # Finding, status, # closed, # open
         ('F009', 'APPROVED', 9, 0),
         ('F011', 'APPROVED', 13, 0),
@@ -218,4 +213,4 @@ def test_dispatch_correct_nothing_to_do(
         ('F061', 'APPROVED', 10, 0),
         ('F085', 'APPROVED', 4, 0),
         ('F117', 'APPROVED', 2, 0),
-    })
+    }))
