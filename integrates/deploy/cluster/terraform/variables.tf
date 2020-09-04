@@ -17,6 +17,9 @@ variable "fluid_vpc_id" {
 variable "cluster_name" {
   default = "integrates-cluster"
 }
+variable "external_dns_version" {
+  default = "1.1.7"
+}
 
 variable "map_accounts" {
   description = "Additional AWS account numbers to add to the aws-auth configmap."
