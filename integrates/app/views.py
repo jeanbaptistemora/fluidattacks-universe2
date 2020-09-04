@@ -16,6 +16,9 @@ from typing import (
 )
 
 # Third party libraries
+from aioextensions import (
+    in_thread,
+)
 import bugsnag
 from asgiref.sync import async_to_sync
 from django.conf import settings
@@ -43,7 +46,10 @@ from backend.decorators import (
     cache_content,
     require_login,
 )
-from backend.exceptions import ConcurrentSession
+from backend.exceptions import (
+    ConcurrentSession,
+    ExpiredToken,
+)
 from backend.services import (
     has_access_to_finding,
     has_access_to_event
@@ -185,7 +191,7 @@ async def app(request: HttpRequest) -> HttpResponse:
                     'username': request.session['username']
                 }
             )
-            logout(request)
+            await in_thread(logout, request)
         else:
             response = render(
                 request,
@@ -213,6 +219,16 @@ async def app(request: HttpRequest) -> HttpResponse:
             'location.assign("/integrates/registration"); '
             '</script>'
         )
+    except ExpiredToken:
+        response = render(
+            request,
+            'unauthorized.html',
+            {
+                'debug': settings.DEBUG,
+                'username': request.session['username']
+            }
+        )
+        await in_thread(logout, request)
     return response
 
 
