@@ -14,7 +14,7 @@ resource "aws_route53_record" "web" {
 
 resource "aws_route53_record" "changelog" {
   zone_id = aws_route53_zone.fs_maindomain.zone_id
-  name    = "releases.${aws_route53_zone.fs_maindomain.name}"
+  name    = "news.${aws_route53_zone.fs_maindomain.name}"
   type    = "CNAME"
   ttl     = "300"
   records = ["headwayapp.co"]
