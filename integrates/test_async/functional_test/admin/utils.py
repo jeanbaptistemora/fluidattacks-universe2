@@ -1,5 +1,6 @@
 from ariadne import graphql
 
+from backend.api.dataloaders.event import EventLoader
 from backend.api.dataloaders.finding import FindingLoader
 from backend.api.dataloaders.single_vulnerability import (
     SingleVulnerabilityLoader
@@ -14,6 +15,7 @@ async def get_result(data, stakeholder='integratesmanager@gmail.com'):
     """Get result."""
     request = await create_dummy_session(stakeholder)
     request.loaders = {
+        'event': EventLoader(),
         'finding': FindingLoader(),
         'project': ProjectLoader(),
         'single_vulnerability': SingleVulnerabilityLoader(),
