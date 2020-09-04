@@ -53,7 +53,7 @@ data "aws_iam_policy_document" "integrates-prod-policy-data" {
       "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/integrates-*",
       "arn:aws:iam::${data.aws_caller_identity.current.account_id}:policy/integrates-*",
       "arn:aws:iam::${data.aws_caller_identity.current.account_id}:instance-profile/integrates-*",
-      "arn:aws:iam::${data.aws_caller_identity.current.account_id}:oidc-provider/*"
+      "arn:aws:iam::${data.aws_caller_identity.current.account_id}:oidc-provider/*",
     ]
   }
   statement {
@@ -68,11 +68,11 @@ data "aws_iam_policy_document" "integrates-prod-policy-data" {
   statement {
     effect = "Allow"
     actions = [
+      "ec2:Describe*",
       "ec2:DeleteSubnet",
       "ec2:DeleteNetworkInterface",
       "ec2:ModifySubnetAttribute",
       "ec2:CreateSubnet",
-      "ec2:DescribeSubnets",
       "ec2:CreateTags",
       "ec2:DeleteTags",
       "ec2:ApplySecurityGroupsToClientVpnTargetNetwork",
@@ -80,14 +80,10 @@ data "aws_iam_policy_document" "integrates-prod-policy-data" {
       "ec2:AuthorizeSecurityGroupIngress",
       "ec2:CreateSecurityGroup",
       "ec2:DeleteSecurityGroup",
-      "ec2:DescribeSecurityGroupReferences",
-      "ec2:DescribeSecurityGroups",
-      "ec2:DescribeStaleSecurityGroups",
-      "ec2:DescribeNetworkInterfaces",
       "ec2:RevokeSecurityGroupEgress",
       "ec2:RevokeSecurityGroupIngress",
       "ec2:UpdateSecurityGroupRuleDescriptionsEgress",
-      "ec2:UpdateSecurityGroupRuleDescriptionsIngress"
+      "ec2:UpdateSecurityGroupRuleDescriptionsIngress",
     ]
     resources = ["*"]
   }
