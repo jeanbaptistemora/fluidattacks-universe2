@@ -33,7 +33,7 @@ async def get_all_logged_users() -> List[Dict[str, str]]:
     async for key in AREDIS_CLIENT.scan_iter('fi_session:*'):
         coroutines.append(deserialize(key))
         keys.append(key)
-    dicts_deserialized = await collect(coroutines)
+    dicts_deserialized = await collect(coroutines, workers=5)
 
     return [
         {
