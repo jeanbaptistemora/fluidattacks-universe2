@@ -88,7 +88,7 @@ async def enforce_group_level_role(
     return None
 
 
-def create_session_token(
+async def create_session_token(
     *,
     email: str,
     first_name: str,
@@ -113,7 +113,7 @@ def create_session_token(
     )
 
     # Save the JTI so future requests can check for concurrency
-    util.save_token(f'fi_jwt:{jti}', token, settings.SESSION_COOKIE_AGE)
+    await util.save_token(f'fi_jwt:{jti}', token, settings.SESSION_COOKIE_AGE)
 
     return cast(str, token)
 
@@ -161,15 +161,16 @@ def mobile(request: HttpRequest) -> HttpResponse:
 @csrf_exempt  # type: ignore
 @cache_control(private=True, max_age=3600)  # type: ignore
 @authenticate  # type: ignore
-def app(request: HttpRequest) -> HttpResponse:
+@async_to_sync  # type: ignore
+async def app(request: HttpRequest) -> HttpResponse:
     """App view for authenticated users."""
     try:
-        util.check_concurrent_sessions(
+        await util.check_concurrent_sessions(
             request.session['username'],
             request.session.session_key,
         )
 
-        if not async_to_sync(org_domain.get_user_organizations)(
+        if not await org_domain.get_user_organizations(
                 request.session['username']):
             LOGGER.warning(
                 'User does not have organizations',
@@ -194,7 +195,7 @@ def app(request: HttpRequest) -> HttpResponse:
             )
             set_session_cookie_in_response(
                 response=response,
-                token=create_session_token(
+                token=await create_session_token(
                     email=request.session['username'],
                     first_name=request.session['first_name'],
                     last_name=request.session['last_name'],
@@ -253,7 +254,7 @@ async def _graphics_for_entity(
 
     set_session_cookie_in_response(
         response=response,
-        token=create_session_token(
+        token=await create_session_token(
             email=request_data['user_email'],
             first_name=request_data['first_name'],
             last_name=request_data['last_name'],
@@ -274,7 +275,8 @@ async def graphics_report(request: HttpRequest) -> HttpResponse:
 
 @csrf_exempt  # type: ignore
 @authenticate  # type: ignore
-def logout(request: HttpRequest) -> HttpResponse:
+@async_to_sync  # type: ignore
+async def logout(request: HttpRequest) -> HttpResponse:
     """Close a user's active session"""
     try:
         jwt_cookie = request.COOKIES.get(settings.JWT_COOKIE_NAME)
@@ -286,7 +288,7 @@ def logout(request: HttpRequest) -> HttpResponse:
             )
             jti = cookie_content.get('jti')
             if jti:
-                util.remove_token(f'fi_jwt:{jti}')
+                await util.remove_token(f'fi_jwt:{jti}')
 
         request.session.flush()
     except KeyError as ex:

@@ -601,23 +601,25 @@ async def get_filtered_elements(elements, filters) -> List[ProjectType]:
     ]
 
 
-def check_concurrent_sessions(email: str, session_key: str):
+async def check_concurrent_sessions(email: str, session_key: str):
     """
     This method checks if current user
     already has an active session and if so, removes it
     """
-    previous_session_key = session_dal.get_previous_session(email, session_key)
+    previous_session_key = await session_dal.get_previous_session(
+        email, session_key
+    )
     if previous_session_key:
-        session_dal.invalidate_session(previous_session_key)
+        await session_dal.invalidate_session(previous_session_key)
         raise ConcurrentSession()
 
 
-def save_token(key: str, token: str, time: int):
-    session_dal.add_element(key, token, time)
+async def save_token(key: str, token: str, time: int):
+    await session_dal.add_element(key, token, time)
 
 
-def remove_token(key: str):
-    session_dal.remove_element(key)
+async def remove_token(key: str):
+    await session_dal.remove_element(key)
 
 
 def token_exists(key: str) -> bool:
