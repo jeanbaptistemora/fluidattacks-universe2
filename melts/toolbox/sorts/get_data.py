@@ -5,7 +5,9 @@ out of open vulnerabilities json from integrates API
 
 import os
 import random
-from typing import List, Tuple, Set, Union
+import time
+from itertools import filterfalse
+from typing import Dict, List, Tuple, Set, Union
 
 import git
 import numpy as np
@@ -38,11 +40,32 @@ ResponseType = TypedDict('ResponseType', {
 
 
 def build_vulnerabilities_df(subscription_path: str) -> DataFrame:
-    group: str = subscription_path.rstrip('/').split('/')[-1]
-    fusion_path: str = f'{subscription_path.rstrip("/")}/fusion/'
+    print('Building vulnerabilities DataFrame...')
+    timer: float = time.time()
+    group: str = os.path.basename(os.path.normpath(subscription_path))
+    fusion_path: str = os.path.join(subscription_path, 'fusion')
     vuln_files, _, vuln_repos = get_unique_vuln_files(group)
-    vuln_files = filter_vuln_files(vuln_files, vuln_repos, fusion_path)
-    return pd.DataFrame(vuln_files, columns=['file'])
+    vuln_files, vuln_repos = filter_vuln_files(
+        vuln_files, vuln_repos, fusion_path
+    )
+    print(
+        f'Vulnerable files extracted after {time.time() - timer:.2f} seconds'
+    )
+    timer = time.time()
+    safe_files = get_safe_files(vuln_files, vuln_repos, fusion_path)
+    print(f'Safe files extracted after {time.time() - timer:.2f} seconds')
+    vulns_df = pd.concat([
+        pd.DataFrame(
+            map(lambda x: (x, 1), vuln_files),
+            columns=['file', 'is_vuln']
+        ),
+        pd.DataFrame(
+            map(lambda x: (x, 0), safe_files),
+            columns=['file', 'is_vuln']
+        ),
+    ])
+    vulns_df.reset_index(drop=True, inplace=True)
+    return vulns_df
 
 
 def read_lst(path: str) -> List[str]:
@@ -55,6 +78,40 @@ def read_lst(path: str) -> List[str]:
         if '' in lst:
             lst.remove('')
     return lst
+
+
+def get_safe_files(
+    vuln_files: List[str],
+    vuln_repos: List[str],
+    fusion_path: str
+) -> List[str]:
+    safe_files: Set[str] = set()
+    retries: int = 0
+    extensions = read_lst(f'{os.path.dirname(__file__)}/extensions.lst')
+    composites = read_lst(f'{os.path.dirname(__file__)}/composites.lst')
+    repository_files: Dict[str, List[str]] = {}
+    while len(safe_files) < len(vuln_files):
+        if retries > 15:
+            print('Could not find a safe file that matches the conditions')
+            break
+        repo = random.choice(vuln_repos)
+        if repo not in repository_files.keys():
+            repository_files[repo] = [
+                os.path.join(path, filename).replace(f'{fusion_path}/', '')
+                for path, _, files in os.walk(os.path.join(fusion_path, repo))
+                for filename in files
+            ]
+        file_ = random.choice(repository_files[repo])
+        if (
+            file_ and
+            file_ not in vuln_files and
+            file_ not in composites and
+            os.path.splitext(file_)[1].strip('.') in extensions
+        ):
+            safe_files.add(file_)
+            retries = 0
+        retries += 1
+    return sorted(safe_files)
 
 
 def get_unique_vuln_files(group: str) -> Tuple[List[str], int, List[str]]:
@@ -90,7 +147,7 @@ def test_repo(fusion_path: str, repo: str) -> bool:
     """
     Test if a repository is ok by executing a single `git log` on it.
     """
-    repo_path: str = fusion_path + repo
+    repo_path: str = os.path.join(fusion_path, repo)
     git_repo: Git = git.Git(repo_path)
     repo_ok: bool = True
     try:
@@ -105,7 +162,7 @@ def get_bad_repos(fusion_path: str, repos: List[str]) -> List[str]:
     Filter a list of repos, returning the bad ones
     """
     bad_repos: List[str] = list(
-        filter(lambda x: not test_repo(fusion_path, x), repos)
+        filterfalse(lambda x: test_repo(fusion_path, x), repos)
     )
     return bad_repos
 
@@ -123,16 +180,19 @@ def filter_vuln_files(
     extensions = read_lst(f'{os.path.dirname(__file__)}/extensions.lst')
     composites = read_lst(f'{os.path.dirname(__file__)}/composites.lst')
     bad_repos = get_bad_repos(fusion_path, vuln_repos)
-
     for vuln_file in vuln_files:
         vuln_repo: str = vuln_file.split('/')[0]
-        vuln_file_name: str = vuln_file.split('/')[-1]
+        vuln_file_name: str = os.path.basename(vuln_file)
         if vuln_repo not in bad_repos:
-            vuln_file_extension: str = vuln_file_name.split('.')[-1]
+            vuln_file_extension: str = os.path.splitext(vuln_file_name)[1]\
+                .strip('.')
             if vuln_file_extension in extensions or \
                     vuln_file_name in composites:
                 filtered_vuln_files.append(vuln_file)
-    return filtered_vuln_files
+    return (
+        filtered_vuln_files,
+        [repo for repo in vuln_repos if repo not in bad_repos]
+    )
 
 
 def get_intro_commit(row: Series, fusion_path: str) -> Tuple[str, str]:
@@ -269,5 +329,6 @@ def get_project_file_data(subscription_path: str) -> None:
     out of open vulnerabilities extracted from Integrates API.
     Export DataFrame to CSV file.
     """
+    group: str = os.path.basename(os.path.normpath(subscription_path))
     vulns_df: DataFrame = build_vulnerabilities_df(subscription_path)
-    vulns_df.to_csv('vulnerabilities.csv')
+    vulns_df.to_csv(f'{group}_files_metadata.csv', index=False)
