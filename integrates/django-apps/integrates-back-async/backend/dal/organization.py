@@ -22,7 +22,10 @@ from backend.dal.helpers.dynamodb import (
     async_update_item as dynamo_async_update_item,
     client as dynamodb_client,
 )
-from backend.exceptions import InvalidOrganization
+from backend.exceptions import (
+    InvalidOrganization,
+    UnavailabilityError,
+)
 from backend.typing import (
     Dynamo as DynamoType,
     DynamoDelete as DynamoDeleteType,
@@ -110,7 +113,7 @@ async def add_group(organization_id: str, group: str) -> bool:
     try:
         success = await dynamo_async_put_item(TABLE_NAME, new_item)
     except ClientError as ex:
-        LOGGER.exception(ex, extra={'extra': locals()})
+        raise UnavailabilityError() from ex
     return success
 
 
@@ -123,7 +126,7 @@ async def add_user(organization_id: str, email: str) -> bool:
     try:
         success = await dynamo_async_put_item(TABLE_NAME, new_item)
     except ClientError as ex:
-        LOGGER.exception(ex, extra={'extra': locals()})
+        raise UnavailabilityError() from ex
     return success
 
 
@@ -145,7 +148,7 @@ async def create(organization_name: str) -> OrganizationType:
         await dynamo_async_put_item(TABLE_NAME, new_item)
         new_item.update({'sk': organization_name.lower().strip()})
     except ClientError as ex:
-        LOGGER.exception(ex, extra={'extra': locals()})
+        raise UnavailabilityError() from ex
     return _map_keys_to_domain(new_item)
 
 
@@ -163,7 +166,7 @@ async def delete(organization_id: str, organization_name: str) -> bool:
     try:
         success = await dynamo_async_delete_item(TABLE_NAME, item)
     except ClientError as ex:
-        LOGGER.exception(ex, extra={'extra': locals()})
+        raise UnavailabilityError() from ex
     return success
 
 
@@ -181,7 +184,7 @@ async def remove_group(organization_id: str, group_name: str) -> bool:
     try:
         success = await dynamo_async_delete_item(TABLE_NAME, group_item)
     except ClientError as ex:
-        LOGGER.exception(ex, extra={'extra': locals()})
+        raise UnavailabilityError() from ex
     return success
 
 
@@ -199,7 +202,7 @@ async def remove_user(organization_id: str, email: str) -> bool:
     try:
         success = await dynamo_async_delete_item(TABLE_NAME, user_item)
     except ClientError as ex:
-        LOGGER.exception(ex, extra={'extra': locals()})
+        raise UnavailabilityError() from ex
     return success
 
 
@@ -242,7 +245,7 @@ async def get_by_id(
                     'sk': cast(str, organization['sk']).split('#')[1]
                 })
     except ClientError as ex:
-        LOGGER.exception(ex, extra={'extra': locals()})
+        raise UnavailabilityError() from ex
     return _map_keys_to_domain(organization)
 
 
@@ -275,7 +278,7 @@ async def get_by_name(
                     'sk': cast(str, organization['sk']).split('#')[1]
                 })
     except ClientError as ex:
-        LOGGER.exception(ex, extra={'extra': locals()})
+        raise UnavailabilityError() from ex
     return _map_keys_to_domain(organization)
 
 
@@ -311,7 +314,7 @@ async def get_id_for_group(group_name: str) -> str:
         if response_item:
             organization_id = response_item[0]['pk']
     except ClientError as ex:
-        LOGGER.exception(ex, extra={'extra': locals()})
+        raise UnavailabilityError() from ex
     return organization_id
 
 
@@ -332,7 +335,7 @@ async def get_ids_for_user(email: str) -> List[str]:
         if response_items:
             organization_ids = [item['pk'] for item in response_items]
     except ClientError as ex:
-        LOGGER.exception(ex, extra={'extra': locals()})
+        raise UnavailabilityError() from ex
     return organization_ids
 
 
@@ -356,7 +359,7 @@ async def get_groups(organization_id: str) -> List[str]:
                 for item in response_items
             ]
     except ClientError as ex:
-        LOGGER.exception(ex, extra={'extra': locals()})
+        raise UnavailabilityError() from ex
     return groups
 
 
@@ -380,7 +383,7 @@ async def get_users(organization_id: str) -> List[str]:
                 for item in response_items
             ]
     except ClientError as ex:
-        LOGGER.exception(ex, extra={'extra': locals()})
+        raise UnavailabilityError() from ex
     return users
 
 
@@ -450,7 +453,7 @@ async def update(
         }
         success = await dynamo_async_update_item(TABLE_NAME, update_attrs)
     except ClientError as ex:
-        LOGGER.exception(ex, extra={'extra': locals()})
+        raise UnavailabilityError() from ex
     return success
 
 

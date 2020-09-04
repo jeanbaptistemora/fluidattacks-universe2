@@ -21,6 +21,7 @@ import bugsnag
 import requests
 from boto3.session import Session
 from botocore.exceptions import ClientError
+from backend.exceptions import UnavailabilityError
 from graphql import GraphQLError
 
 from __init__ import (
@@ -191,14 +192,12 @@ if FI_ENVIRONMENT == 'production':
 def customize_bugsnag_error_reports(notification):
     """Handle for expected errors and customization"""
     ex_msg = str(notification.exception)
-    cont_msg = str(notification.context)
 
     notification.grouping_hash = ex_msg
 
-    notification.context = type(notification.context)(ex_msg)
-    notification.exception = type(notification.exception)(cont_msg)
-
     # Customize Login required error
+    if isinstance(notification.exception, UnavailabilityError):
+        notification.unhandled = False
     if isinstance(notification.exception, GraphQLError) and \
             ex_msg == 'Login required':
         notification.severity = 'warning'

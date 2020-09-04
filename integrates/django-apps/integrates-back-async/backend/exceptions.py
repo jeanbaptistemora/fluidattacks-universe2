@@ -566,3 +566,12 @@ class InvalidPushToken(Exception):
         """ Constructor """
         msg = 'Exception - Invalid push token'
         super(InvalidPushToken, self).__init__(msg)
+
+
+class UnavailabilityError(Exception):
+    """Unavailability for some ClienErrors"""
+
+    def __init__(self) -> None:
+        """ Constructor """
+        msg = 'Service unavalible, please retry'
+        super(UnavailabilityError, self).__init__(msg)
