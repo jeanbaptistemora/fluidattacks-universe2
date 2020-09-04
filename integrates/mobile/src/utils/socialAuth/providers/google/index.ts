@@ -34,7 +34,6 @@ const clientId: string = inExpoClient
 
 const getRedirectUri: () => string = (): string =>
   makeRedirectUri({
-    native: "com.fluidattacks.integrates://oauth2redirect/google",
     path: "oauth2redirect/google",
     useProxy: inExpoClient,
   });
