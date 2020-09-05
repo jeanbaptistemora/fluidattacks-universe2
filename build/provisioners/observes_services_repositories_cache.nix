@@ -20,5 +20,6 @@ in
           ];
 
           srcProduct = import ../..;
+          pyPkgTracers = builders.pythonPackage { requirement = "tracers==20.7.1645"; };
         })
   )

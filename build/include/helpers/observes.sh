@@ -450,6 +450,7 @@ function helper_observes_services_repositories_cache {
   # Every line is there for something, don't modify them until absolutely sure
 
   local mock_integrates_api_token='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.e30.xxx'
+  export DEBUG="True"
   helper_get_projects
 
       helper_observes_aws_login prod \

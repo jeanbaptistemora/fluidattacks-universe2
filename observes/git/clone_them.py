@@ -7,8 +7,17 @@ import textwrap
 import subprocess
 
 from typing import Tuple
+import tracers.function
 
 
+def trace(overridden_function=None):
+    return tracers.function.trace(
+        enabled=os.environ['DEBUG'].lower() == 'true',
+        overridden_function=overridden_function,
+    )
+
+
+@trace()
 def run_command(cmd: str, cwd: str) -> Tuple[int, str]:
     """Run a command and return exit code and output."""
     # pylint: disable=subprocess-run-check
@@ -22,6 +31,7 @@ def run_command(cmd: str, cwd: str) -> Tuple[int, str]:
     return proc.returncode, proc.stdout
 
 
+@trace()
 def clone(
     subs_name: str,
     subs_path: str,
@@ -43,6 +53,7 @@ def clone(
         os.symlink(repo_path, repo_git_path)
 
 
+@trace()
 def sync_to_s3(subs_path):
     _, output = run_command('melts drills --push-repos', cwd=subs_path)
     print(f'INFO: sync to S3 {subs_path}')
@@ -50,6 +61,7 @@ def sync_to_s3(subs_path):
     print(textwrap.indent(output, ' ' * 16))
 
 
+@trace()
 def main() -> None:
     """Usual entry point."""
     subs_paths = glob.glob(f'/git/fluidattacks/services/groups/*')
