@@ -165,21 +165,21 @@ def get_safe_files(
     retries: int = 0
     extensions = read_lst(f'{os.path.dirname(__file__)}/extensions.lst')
     composites = read_lst(f'{os.path.dirname(__file__)}/composites.lst')
-    repository_files: Dict[str, List[str]] = {}
+    repo_files: Dict[str, List[str]] = {}
     while len(safe_files) < len(vuln_files):
         if retries > MAX_RETRIES:
             print('Could not find a safe file that matches the conditions')
             break
         repo = random.choice(vuln_repos)
-        if repo not in repository_files.keys():
-            repository_files[repo] = [
+        if repo not in repo_files.keys():
+            repo_files[repo] = [
                 os.path.join(path, filename).replace(
                     f'{fusion_path}{PATH_DELIMITER}', ''
                 )
                 for path, _, files in os.walk(os.path.join(fusion_path, repo))
                 for filename in files
             ]
-        file_ = random.choice(repository_files[repo])
+        file_ = random.choice(repo_files[repo]) if repo_files[repo] else ''
         if (
             file_ and
             file_ not in vuln_files and
@@ -353,5 +353,8 @@ def get_project_file_data(subscription_path: str) -> None:
     """
     group: str = os.path.basename(os.path.normpath(subscription_path))
     vulns_df = build_vulnerabilities_df(subscription_path, 'file')
-    complete_df = fill_model_file_features(vulns_df)
-    complete_df.to_csv(f'{group}_files_metadata.csv', index=False)
+    if not vulns_df.empty:
+        complete_df = fill_model_file_features(vulns_df)
+        complete_df.to_csv(f'{group}_files_metadata.csv', index=False)
+    else:
+        print(f'Group {group} has an empty vulnerabilities DataFrame')

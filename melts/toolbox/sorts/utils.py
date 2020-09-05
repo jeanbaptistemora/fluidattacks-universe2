@@ -143,10 +143,12 @@ def get_file_commits_authors(repo: str, file_: str) -> Tuple[int, int]:
             '--pretty=%H,%ae',
             file_relative_path
         ).split('\n')
-        commits_authors = (
-            len(file_history),
-            len({x.split(',')[1] for x in file_history})
-        )
+        file_history = list(filter(None, file_history))
+        if file_history:
+            commits_authors = (
+                len(file_history),
+                len({x.split(',')[1] for x in file_history})
+            )
     except GitCommandError:
         print('Error extracting the commits/authors that modified a file')
     return commits_authors
