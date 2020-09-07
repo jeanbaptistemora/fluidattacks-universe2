@@ -13,6 +13,20 @@ data "aws_iam_policy_document" "dev-policy-data" {
     ]
   }
 
+  # S3 read over continuous buckets
+  statement {
+    sid = "s3ContinuousRepositoriesRead"
+    effect = "Allow"
+    actions = [
+      "s3:Get*",
+      "s3:ListBucket"
+    ]
+    resources = [
+      "arn:aws:s3:::continuous-*",
+      "arn:aws:s3:::continuous-*/*",
+    ]
+  }
+
   # IAM
   statement {
     effect = "Allow"
