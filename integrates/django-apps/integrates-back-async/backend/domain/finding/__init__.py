@@ -4,7 +4,8 @@ from .draft import (
     approve_draft,
     create_draft,
     reject_draft,
-    submit_draft
+    submit_draft,
+    send_draft_email
 )
 from .evidence import (
     remove_evidence,
@@ -65,6 +66,7 @@ __all__ = [
     'create_draft',
     'reject_draft',
     'submit_draft',
+    'send_draft_email',
 
     # evidences
     'update_evidence',

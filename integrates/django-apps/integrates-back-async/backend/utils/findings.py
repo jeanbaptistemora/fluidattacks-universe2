@@ -553,9 +553,9 @@ async def send_accepted_email(
 
 async def send_draft_reject_mail(
         draft_id: str,
+        finding_name: str,
         project_name: str,
         discoverer_email: str,
-        finding_name: str,
         reviewer_email: str) -> None:
     recipients = FI_MAIL_REVIEWERS.split(',')
     recipients.append(discoverer_email)
@@ -578,9 +578,10 @@ async def send_draft_reject_mail(
 
 
 async def send_new_draft_mail(
-        analyst_email: str,
-        finding_id: str, finding_title: str,
-        project_name: str) -> None:
+        finding_id: str,
+        finding_title: str,
+        project_name: str,
+        analyst_email: str) -> None:
     recipients = FI_MAIL_REVIEWERS.split(',')
     recipients += await project_dal.list_internal_managers(project_name)
 

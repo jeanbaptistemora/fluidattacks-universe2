@@ -1115,6 +1115,16 @@ async def _do_reject_draft(
     success = await finding_domain.reject_draft(finding_id, reviewer_email)
     if success:
         util.queue_cache_invalidation(finding_id)
+        finding_loader = info.context.loaders['finding']
+        finding = await finding_loader.load(finding_id)
+        finding_domain.send_draft_email(
+            finding_utils.send_draft_reject_mail,
+            finding_id,
+            str(finding.get('title', '')),
+            str(finding.get('project_name', '')),
+            str(finding.get('analyst', '')),
+            reviewer_email
+        )
         util.cloudwatch_log(
             info.context,
             (f'Security: Draft {finding_id}'
@@ -1254,6 +1264,15 @@ async def _do_submit_draft(
 
     if success:
         util.queue_cache_invalidation(finding_id)
+        finding_loader = info.context.loaders['finding']
+        finding = await finding_loader.load(finding_id)
+        finding_domain.send_draft_email(
+            finding_utils.send_new_draft_mail,
+            finding_id,
+            str(finding.get('title', '')),
+            str(finding.get('project_name', '')),
+            analyst_email,
+        )
         util.cloudwatch_log(
             info.context,
             ('Security: Submitted draft '
