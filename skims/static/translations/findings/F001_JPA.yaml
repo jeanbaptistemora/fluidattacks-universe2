@@ -1,0 +1,54 @@
+src.lib_path.f001_jpa.java_like.description:
+  en: LIKE statement without escape in {path}
+  es: LIKE sin uso de escape en {path}
+utils.model.finding.enum.F001_JPA.description:
+  en: >
+    Dynamic SQL statements are generated without the required data validation
+    and without using parameterized statements or stored procedures.
+
+    When using LIKE-conditions with values that are coming from a not secure
+    source in the Java Persistence API the values should be sanitized so they
+    can’t contain any wildcards and thereby allow attackers to select more data
+    than they should be able to. For this purpose the escape(String) method
+    is available.
+  es: >
+    Se generan sentencias SQL dinámicas sin la validación requerida de datos
+    y sin utilizar sentencias parametrizadas o procedimientos almacenados.
+
+    Cuando se utilizan condiciones LIKE con valores que provienen de una fuente
+    no segura en la API de persistencia de Java, los valores deben sanitizarse
+    para que no contengan comodines y, por lo tanto, permitan a los atacantes
+    seleccionar más datos de lo debido. Para este propósito, se puede usar el
+    método escape(String).
+utils.model.finding.enum.F001_JPA.impact:
+  en: >
+    An authorized user in the application can inject SQL statements, with
+    the possibility of obtaining information about the database, as well as
+    extract information from it.
+  es: >
+    Inyectar sentencias SQL, con la posibilidad de obtener información sobre la
+    base de datos, así como extraer información de la
+    misma.
+utils.model.finding.enum.F001_JPA.recommendation:
+  en: >
+    Perform queries to the database through sentences or parameterized procedures.
+    Alternatively use escape(String) built-in function.
+  es: |
+    Realizar las consultas a la base de datos por medio de sentencias o
+    procedimientos parametrizados, o alternativamente usar la función escape(String)
+    del framework.
+utils.model.finding.enum.F001_JPA.requirements:
+  en: >
+    R169. Use parameterized queries.
+  es: >
+    R169. Debe usarse construcciones parametrizadas o procedimientos
+    almacenados parametrizados para la creación dinámica de sentencias
+    (ej: java.sql.PreparedStatement).
+utils.model.finding.enum.F001_JPA.threat:
+  en: >
+    Autenticated attacker from the Internet.
+  es: >
+    Atacante autenticado desde Internet.
+utils.model.finding.enum.F001_JPA.title:
+  en: FIN.S.001. Inyección SQL - Java Persistence API
+  es: FIN.S.001. SQL injection - Java Persistence API

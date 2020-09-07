@@ -34,28 +34,28 @@ class FindingMetadata(NamedTuple):
 
 
 class FindingEnum(Enum):
-    F001: FindingMetadata = FindingMetadata(
+    F001_JPA: FindingMetadata = FindingMetadata(
         auto_approve=False,
         cwe='89',
-        description='utils.model.finding.enum.F001.description',
-        impact='utils.model.finding.enum.F001.impact',
-        recommendation='utils.model.finding.enum.F001.recommendation',
-        requirements='utils.model.finding.enum.F001.requirements',
+        description='utils.model.finding.enum.F001_JPA.description',
+        impact='utils.model.finding.enum.F001_JPA.impact',
+        recommendation='utils.model.finding.enum.F001_JPA.recommendation',
+        requirements='utils.model.finding.enum.F001_JPA.requirements',
         severity={
             'attackComplexity': 0.77,
             'attackVector': 0.85,
-            'availabilityImpact': 0.22,
-            'confidentialityImpact': 0.22,
+            'availabilityImpact': 0.0,
+            'confidentialityImpact': 0.56,
             'exploitability': 0.94,
-            'integrityImpact': 0.22,
+            'integrityImpact': 0.0,
             'privilegesRequired': 0.62,
             'remediationLevel': 1.0,
             'reportConfidence': 0.96,
             'severityScope': 0.0,
             'userInteraction': 0.85,
         },
-        threat='utils.model.finding.enum.F001.threat',
-        title='utils.model.finding.enum.F001.beta_title',
+        threat='utils.model.finding.enum.F001_JPA.threat',
+        title='utils.model.finding.enum.F001_JPA.title',
         type=FindingTypeEnum.SECURITY,
     )
     F009: FindingMetadata = FindingMetadata(
