@@ -32,6 +32,9 @@ utils.model.finding.enum.F001.threat:
     Autenticated attacker from the Internet.
   es: >
     Atacante autenticado desde Internet.
+utils.model.finding.enum.F001.beta_title:
+  en: FIN.S.001. Inyección SQL - Skims development phase please do not approve
+  es: FIN.S.001. SQL injection - Skims development phase please do not approve
 utils.model.finding.enum.F001.title:
   en: FIN.S.001. Inyección SQL
   es: FIN.S.001. SQL injection
