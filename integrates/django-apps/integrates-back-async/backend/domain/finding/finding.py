@@ -13,6 +13,7 @@ import aioboto3
 import pytz
 from django.conf import settings
 from graphql import GraphQLError
+from graphql.type.definition import GraphQLResolveInfo
 from pytz.tzinfo import DstTzInfo
 
 from backend.domain import (
@@ -26,6 +27,7 @@ from backend.exceptions import (
     FindingNotFound,
     InvalidCommentParent,
     InvalidDraftTitle,
+    PermissionDenied
 )
 from backend.utils import (
     cvss,
@@ -48,11 +50,22 @@ from backend.typing import (
 
 
 async def add_comment(
+    info: GraphQLResolveInfo,
     user_email: str,
     comment_data: CommentType,
-    finding_id: str
+    finding_id: str,
+    project_name: str
 ) -> bool:
+    param_type = comment_data.get('comment_type')
     parent = str(comment_data.get('parent'))
+
+    if param_type == 'observation':
+        enforcer = await authz.get_group_level_enforcer(
+            user_email, info.context.store
+        )
+        if not enforcer(project_name, 'post_finding_observation'):
+            raise PermissionDenied()
+
     if parent != '0':
         finding_comments = [
             str(comment.get('user_id'))

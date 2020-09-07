@@ -93,6 +93,7 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             'grant_group_level_role:group_manager',
             'grant_group_level_role:resourcer',
             'grant_group_level_role:reviewer',
+            'post_finding_observation'
         },
         tags=set(),
     ),
@@ -150,6 +151,7 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
                 'vulnerability_resolve_analyst'),
             ('backend_api_resolvers_vulnerability_resolve_'
                 'vulnerability_resolve_last_analyst'),
+            'post_finding_observation'
         },
         tags={
             'drills',
@@ -420,6 +422,7 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             'grant_group_level_role:group_manager',
             'grant_group_level_role:reviewer',
             'grant_group_level_role:resourcer',
+            'post_finding_observation'
         },
         tags=set(),
     ),
@@ -498,6 +501,7 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
                 'vulnerability_resolve_analyst'),
             ('backend_api_resolvers_vulnerability_resolve_'
                 'vulnerability_resolve_last_analyst'),
+            'post_finding_observation'
         },
         tags={
             'drills',

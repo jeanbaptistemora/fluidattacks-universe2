@@ -27,6 +27,7 @@ from backend.domain import (
     organization as org_domain,
     vulnerability as vuln_domain
 )
+from backend.exceptions import PermissionDenied
 from backend.typing import (
     Comment as CommentType,
     Finding as FindingType,
@@ -825,45 +826,43 @@ async def _do_add_finding_comment(
         info: GraphQLResolveInfo,
         **parameters: Any) -> AddCommentPayloadType:
     """Perform add_finding_comment mutation."""
+    success = False
     param_type = parameters.get('type', '').lower()
-    if param_type in ['comment', 'observation']:
-        user_data = await util.get_jwt_content(info.context)
-        user_email = user_data['user_email']
-        finding_id = str(parameters.get('finding_id'))
-        finding_loader = info.context.loaders['finding']
-        finding = await finding_loader.load(finding_id)
-        group = finding.get('project_name')
-        role = await authz.get_group_level_role(user_email, group)
-        if (param_type == 'observation' and
-                role not in ['analyst', 'admin', 'group_manager', 'reviewer']):
-            util.cloudwatch_log(
-                info.context,
-                ('Security: Unauthorized role '
-                 'attempted to add observation')  # pragma: no cover
-            )
-            raise GraphQLError('Access denied')
+    user_data = await util.get_jwt_content(info.context)
+    user_email = user_data['user_email']
+    finding_id = str(parameters.get('finding_id'))
+    finding_loader = info.context.loaders['finding']
+    finding = await finding_loader.load(finding_id)
+    group = finding.get('project_name')
 
-        user_email = user_data['user_email']
-        comment_id = int(round(time() * 1000))
-        current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-        comment_data = {
-            'user_id': comment_id,
-            'comment_type': param_type,
-            'content': parameters.get('content'),
-            'fullname': ' '.join(
-                [user_data['first_name'], user_data['last_name']]
-            ),
-            'parent': parameters.get('parent'),
-            'created': current_time,
-            'modified': current_time,
-        }
+    user_email = user_data['user_email']
+    comment_id = int(round(time() * 1000))
+    current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    comment_data = {
+        'user_id': comment_id,
+        'comment_type': param_type,
+        'content': parameters.get('content'),
+        'fullname': ' '.join(
+            [user_data['first_name'], user_data['last_name']]
+        ),
+        'parent': parameters.get('parent'),
+        'created': current_time,
+        'modified': current_time,
+    }
+    try:
         success = await finding_domain.add_comment(
-            user_email=user_email,
-            comment_data=comment_data,
-            finding_id=finding_id
+            info,
+            user_email,
+            comment_data,
+            finding_id,
+            group
         )
-    else:
-        raise GraphQLError('Invalid comment type')
+    except PermissionDenied:
+        util.cloudwatch_log(
+            info.context,
+            ('Security: Unauthorized role '
+                'attempted to add observation')  # pragma: no cover
+        )
 
     if success:
         util.queue_cache_invalidation(f'{param_type}*{finding_id}')
@@ -897,46 +896,44 @@ async def _do_add_finding_consult(
         _: Any,
         info: GraphQLResolveInfo,
         **parameters: Any) -> AddConsultPayloadType:
+    success = False
     param_type = parameters.get('type', '').lower()
-    if param_type in ['consult', 'observation']:
-        user_data = await util.get_jwt_content(info.context)
-        user_email = user_data['user_email']
-        finding_id = str(parameters.get('finding_id'))
-        finding_loader = info.context.loaders['finding']
-        finding = await finding_loader.load(finding_id)
-        group = finding.get('project_name')
-        role = await authz.get_group_level_role(user_email, group)
-        if (param_type == 'observation' and
-                role not in ['analyst', 'admin', 'group_manager', 'reviewer']):
-            util.cloudwatch_log(
-                info.context,
-                ('Security: Unauthorized role '
-                 'attempted to add observation')  # pragma: no cover
-            )
-            raise GraphQLError('Access denied')
+    user_data = await util.get_jwt_content(info.context)
+    user_email = user_data['user_email']
+    finding_id = str(parameters.get('finding_id'))
+    finding_loader = info.context.loaders['finding']
+    finding = await finding_loader.load(finding_id)
+    group = finding.get('project_name')
 
-        user_email = user_data['user_email']
-        comment_id = int(round(time() * 1000))
-        current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-        comment_data = {
-            'user_id': comment_id,
-            'comment_type':
-                'comment' if param_type == 'consult' else param_type,
-            'content': parameters.get('content'),
-            'fullname': ' '.join(
-                [user_data['first_name'], user_data['last_name']]
-            ),
-            'parent': parameters.get('parent'),
-            'created': current_time,
-            'modified': current_time,
-        }
+    user_email = user_data['user_email']
+    comment_id = int(round(time() * 1000))
+    current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    comment_data = {
+        'user_id': comment_id,
+        'comment_type': param_type if param_type != 'consult' else 'comment',
+        'content': parameters.get('content'),
+        'fullname': ' '.join(
+            [user_data['first_name'], user_data['last_name']]
+        ),
+        'parent': parameters.get('parent'),
+        'created': current_time,
+        'modified': current_time,
+    }
+    try:
         success = await finding_domain.add_comment(
-            user_email=user_email,
-            comment_data=comment_data,
-            finding_id=finding_id
+            info,
+            user_email,
+            comment_data,
+            finding_id,
+            group
         )
-    else:
-        raise GraphQLError('Invalid comment type')
+    except PermissionDenied:
+        util.cloudwatch_log(
+            info.context,
+            ('Security: Unauthorized role '
+                'attempted to add observation')  # pragma: no cover
+        )
+
     if success:
         util.queue_cache_invalidation(f'{param_type}*{finding_id}')
         finding_domain.send_comment_mail(

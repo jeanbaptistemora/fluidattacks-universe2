@@ -9,6 +9,7 @@ from collections import namedtuple
 from django.conf import settings
 from django.test import TestCase
 from django.core.files.uploadedfile import SimpleUploadedFile
+from graphql.type import GraphQLResolveInfo
 
 from backend import mailer
 from backend.domain.finding import (
@@ -28,6 +29,8 @@ from backend.exceptions import (
     InvalidFileType,
     InvalidNumberAcceptations
 )
+
+from test_async.utils import create_dummy_session
 
 pytestmark = [
     pytest.mark.asyncio,
@@ -144,6 +147,8 @@ class FindingTests(TestCase):
 
     @pytest.mark.changes_db
     async def test_add_comment(self):
+        request = await create_dummy_session('unittest@fluidattacks.com')
+        info = GraphQLResolveInfo(None , None, None, None, None, None, None, None, None, None, request)
         finding_id = '463461507'
         current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         comment_id = int(round(time.time() * 1000))
@@ -157,14 +162,24 @@ class FindingTests(TestCase):
             'parent': '0'
         }
         assert await add_comment(
-            'unittest@fluidattacks.com', comment_data, finding_id)
+            info,
+            'unittest@fluidattacks.com',
+            comment_data,
+            finding_id,
+            'unittesting'
+        )
 
         current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         comment_data['created'] = current_time
         comment_data['modified'] = current_time
         comment_data['parent'] = str(comment_id)
         assert await add_comment(
-            'unittest@fluidattacks.com', comment_data, finding_id)
+            info,
+            'unittest@fluidattacks.com',
+            comment_data,
+            finding_id,
+            'unittesting'
+        )
 
     @pytest.mark.changes_db
     async def test_handle_acceptation(self):
