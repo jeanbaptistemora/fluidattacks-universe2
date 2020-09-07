@@ -8,6 +8,11 @@ from typing import (
     Literal,
 )
 
+# Third party libraries
+from aioextensions import (
+    in_process,
+)
+
 # Local libraries
 from utils.ctx import (
     get_artifact,
@@ -42,7 +47,7 @@ async def parse(
 
         if process.stdout and (out_bytes := await process.stdout.read()):
             out: str = out_bytes.decode('utf-8')
-            data: Dict[str, Any] = json.loads(out)
+            data: Dict[str, Any] = await in_process(json.loads, out)
             return data
 
         raise IOError('No stdout in process')
