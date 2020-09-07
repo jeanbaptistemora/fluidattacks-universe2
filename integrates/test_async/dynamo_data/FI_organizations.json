@@ -9,6 +9,23 @@
                     "sk": {
                         "S": "INFO#makimachi"
                     },
+                    "historic_max_number_acceptations": {
+                        "L": [
+                            {
+                                "M": {
+                                    "date": {
+                                        "S": "2019-11-22 15:07:57"
+                                    },
+                                    "user": {
+                                        "S": "integratesmanager@gmail.com"
+                                    },
+                                    "max_number_acceptations": {
+                                        "N": "4"
+                                    }
+                                }
+                            }
+                        ]
+                    },
                     "max_acceptance_days": {
                         "N": "90"
                     },
@@ -104,6 +121,23 @@
                     },
                     "sk": {
                         "S": "INFO#kamiya"
+                    },
+                    "historic_max_number_acceptations": {
+                        "L": [
+                            {
+                                "M": {
+                                    "date": {
+                                        "S": "2019-11-22 15:07:57"
+                                    },
+                                    "user": {
+                                        "S": "integratesmanager@gmail.com"
+                                    },
+                                    "max_number_acceptations": {
+                                        "N": "3"
+                                    }
+                                }
+                            }
+                        ]
                     },
                     "max_acceptance_days": {
                         "N": "30"

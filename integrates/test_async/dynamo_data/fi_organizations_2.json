@@ -9,6 +9,23 @@
                     "sk": {
                         "S": "INFO#imamura"
                     },
+                    "historic_max_number_acceptations": {
+                        "L": [
+                            {
+                                "M": {
+                                    "date": {
+                                        "S": "2019-11-22 15:07:57"
+                                    },
+                                    "user": {
+                                        "S": "integratesmanager@gmail.com"
+                                    },
+                                    "max_number_acceptations": {
+                                        "N": "2"
+                                    }
+                                }
+                            }
+                        ]
+                    },
                     "max_acceptance_days": {
                         "N": "60"
                     },
@@ -176,6 +193,23 @@
                     },
                     "sk": {
                         "S": "INFO#hajime"
+                    },
+                    "historic_max_number_acceptations": {
+                        "L": [
+                            {
+                                "M": {
+                                    "date": {
+                                        "S": "2019-11-22 15:07:57"
+                                    },
+                                    "user": {
+                                        "S": "integratesmanager@gmail.com"
+                                    },
+                                    "max_number_acceptations": {
+                                        "N": "1"
+                                    }
+                                }
+                            }
+                        ]
                     },
                     "max_acceptance_days": {
                         "N": "60"
