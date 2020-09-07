@@ -195,7 +195,7 @@ resource "kubernetes_deployment" "dns" {
             "--source=ingress",
             "--domain-filter=fluidattacks.com",
             "--provider=aws",
-            "--policy=upsert-only",
+            "--policy=sync",
             "--aws-zone-type=public",
             "--registry=txt",
             "--txt-owner-id=aws-external-dns",
