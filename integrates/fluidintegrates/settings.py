@@ -69,7 +69,11 @@ CI_COMMIT_REF_NAME = os.environ['CI_COMMIT_REF_NAME']
 
 ALLOWED_HOSTS = ["localhost", "127.0.0.1", "fluid.la",
                  "fluidattacks.com", "192.168.200.100.xip.io",
-                 "192.168.200.100", ".integrates.env.fluidattacks.com"]
+                 "192.168.200.100", ".integrates.env.fluidattacks.com",
+                 ".integrates.fluidattacks.com"]
+ALLOWED_HOSTS += [
+    '192.168.{}.{}'.format(i, j) for i in range(256) for j in range(256)
+]
 
 if DEBUG:
     # Needed for mobile development so it can connect through LAN

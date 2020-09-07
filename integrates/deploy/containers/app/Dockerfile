@@ -122,7 +122,7 @@ RUN pip3 install --no-cache-dir --no-index \
   && apt -y autoremove \
   && rm -rf /tmp/*
 
-EXPOSE 80 24224
+EXPOSE 8080 24224
 
 # Start integrates
 CMD ./deploy/containers/common/vars/run.sh

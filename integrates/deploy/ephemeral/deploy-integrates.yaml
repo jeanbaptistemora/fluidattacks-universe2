@@ -5,7 +5,7 @@ metadata:
 spec:
   ports:
   - port: 80
-    targetPort: 80
+    targetPort: 8080
   selector:
     app: integrates-__DEPLOYMENT_NAME__
 ---
@@ -38,13 +38,13 @@ spec:
           - secretRef:
               name: env-secret-__DEPLOYMENT_NAME__
         ports:
-        - containerPort: 443
+        - containerPort: 8080
         readinessProbe:
           exec:
             command:
               - sh
               - -ce
-              - "curl -sS http://localhost | grep 'FluidIntegrates'"
+              - "curl -sS http://localhost:8080 | grep 'FluidIntegrates'"
           initialDelaySeconds: 20
           periodSeconds: 5
           successThreshold: 3
