@@ -1,7 +1,7 @@
 :slug: rules/034/
 :category: authorization
 :description: This requirement establishes the importance of allowing the system to manage and disable the user accounts through privileged users or system administrators.
-:keywords: Requirement, Security, User, Accounts, Management, Administration, HIPAA, ISO, PCI DSS, Rules, Ethical Hacking, Pentesting
+:keywords: Requirement, Security, User, Accounts, Management, Administration, HIPAA, ISO, NERC, PCI DSS, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R034. Manage user accounts
@@ -27,6 +27,10 @@ enable access rights assignation.
 Implement a formal access granting process to assign or revoke access rights
 to all types of users to systems and services.
 
-. [[r4]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 8.1.2]
+. [[r4]] link:https://www.nerc.com/pa/Stand/Reliability%20Standards/CIP-004-6.pdf[NERC CIP-004-6. B. Requirements and measures. R5]
+Each Responsible Entity shall implement one or more documented access
+revocation program(s).
+
+. [[r5]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 8.1.2]
 Control addition, deletion, and modification of user IDs, credentials,
 and other identifier objects.

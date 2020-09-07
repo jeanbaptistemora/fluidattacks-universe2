@@ -1,7 +1,7 @@
 :slug: rules/273/
 :category: system
 :description: This requirement establishes the importance of installing a fixed and unalterable security suite in all production workstations.
-:keywords: CWE, ASVS, Suite, Workstation, Antivirus, Firewall, PCI DSS, Rules, Ethical Hacking, Pentesting
+:keywords: CWE, ASVS, Suite, Workstation, Antivirus, Firewall, NERC, PCI DSS, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R273. Define a fixed security suite
@@ -30,18 +30,26 @@ privileged or protected operations,
 but it does not properly ensure that it is communicating with the correct
 endpoint.
 
-. [[r2]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r2]] link:https://www.nerc.com/pa/Stand/Reliability%20Standards/CIP-003-8.pdf[NERC CIP-003-8. Attachment 1. Section 5 - 5.1]
+Each Responsible Entity shall implement,
+except under CIP Exceptional Circumstances,
+one or more plan(s) to achieve the objective of mitigating the risk of the
+introduction of malicious code to low impact BES Cyber Systems.
+The plan(s) shall include antivirus software,
+or other method(s) to mitigate the introduction of malicious code.
+
+. [[r3]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V1.14 Configuration Architectural Requirements.(1.14.1)]
 Verify the application does not use unsupported, insecure, or deprecated
 client-side technologies such as *NSAPI* plugins, *Flash*, *Shockwave*,
 *ActiveX*, *Silverlight*, *NACL*, or client-side *Java* applets.
 
-. [[r3]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r4]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V12.4 File Storage Requirements.(12.4.2)]
 Verify that files obtained from untrusted sources are scanned by antivirus
 scanners to prevent upload of known malicious content.
 
-. [[r4]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 5.1]
+. [[r5]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 5.1]
 Deploy anti-virus software on all systems commonly affected by malicious
 software
 (particularly personal computers and servers).
