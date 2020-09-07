@@ -129,7 +129,7 @@ function helper_observes_dynamo {
   &&  target-redshift \
         --auth "${TEMP_FILE2}" \
         --drop-schema \
-        --schema-name 'dynamodb' \
+        --schema-name 'dynamo' \
         < .singer
 }
 

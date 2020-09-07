@@ -8,9 +8,10 @@ packages = [
 ]
 
 [tool.poetry.dependencies]
-python = "^3.7"
-boto3 = "1.14.50"
-boto3-type-annotations = "0.3.1"
+python = "^3.6"
+aioboto3 = "8.0.5"
+aioextensions = "20.8.2087641"
+aiomultiprocess = "0.8.0"
 
 [tool.poetry.scripts]
 streamer-dynamodb = 'streamer_dynamodb:main'

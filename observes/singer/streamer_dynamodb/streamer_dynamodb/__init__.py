@@ -1,53 +1,40 @@
 # Standard Library
 import argparse
+import asyncio
 import json
 import time
 from decimal import Decimal
 from typing import (
     Any,
+    AsyncGenerator,
     Dict,
-    NamedTuple,
-    Generator,
+    Optional,
+    TypeVar,
 )
 
 # Third Library
-import boto3
+import aioboto3
 import botocore
-from boto3_type_annotations.dynamodb import (
-    Client,
-    Table,
-    ServiceResource,
-)
-from boto3.session import Session
+from aioextensions import in_thread
+from aiomultiprocess import Pool
 
-Connection = NamedTuple('Connection', [('client', Client),
-                                       ('resource', ServiceResource)])
+# Local imports
+from .logs import LOGGER
 
+# Constants
+CLIENT_CONFIG = botocore.config.Config(max_pool_connections=50)
 
-def get_connection(aws_access_key_id: str, aws_secret_access_key: str,
-                   region_name: str) -> Connection:
-    """Creates and access point to DynamoDB.
-
-    :param aws_access_key_id: aws access key.
-    :param aws_secret_access_key: aws secret key.
-    :param region_name: aws region.
-    :return: A tuple with a client and a resource object.
-    :rtype: Connection.
-    """
-    session: Session = boto3.session.Session(
-        aws_access_key_id=aws_access_key_id,
-        aws_secret_access_key=aws_secret_access_key,
-        region_name=region_name)
-
-    client: Client = session.client('dynamodb')
-    resource: ServiceResource = session.resource('dynamodb')
-
-    return Connection(client, resource)
+# Constants
+TVar = TypeVar('TVar')
 
 
-def scan_table(
-        table_name: str,
-        connection: Connection) -> Generator[Dict[str, Any], None, None]:
+async def scan_table(
+    table_name: str,
+    aws_access_key_id: str,
+    aws_secret_access_key: str,
+    region_name: str,
+    **kwargs: str,
+) -> AsyncGenerator[Dict[str, Any], None]:
     """Return an dynamodb result generator.
 
     :param table_name: Name of dynamodb table.
@@ -55,25 +42,63 @@ def scan_table(
     :yield: DynamoDb scan result.
     :rtype: Generator[Dict, None, None].
     """
+    resource_options: Dict[str, Optional[str]] = {
+        'service_name': 'dynamodb',
+        'aws_access_key_id': aws_access_key_id,
+        'aws_secret_access_key': aws_secret_access_key,
+        'region_name': region_name,
+        'config': CLIENT_CONFIG,
+        **kwargs
+    }
     scan_params = {'TableName': table_name, 'Limit': 1000}
 
-    table: Table = connection.resource.Table(table_name)
-    has_more = True
+    async with aioboto3.resource(**resource_options) as dynamodb_resource:
+        table = await dynamodb_resource.Table(table_name)
+        has_more = True
+        result = {}
+        retries = 0
 
-    result = {}
-    while has_more:
-        try:
-            result = table.scan(**scan_params)
-            yield result
-        except (botocore.exceptions.ClientError,
-                botocore.exceptions.BotoCoreError):
-            time.sleep(10)
-            continue
+        while has_more:
+            try:
+                result = await table.scan(**scan_params)
+                retries = 0
+                for item in result.get('Items', []):
+                    yield item
+            except botocore.exceptions.ClientError as exc:
+                if exc.response['Error'][
+                        'Code'] == 'ResourceNotFoundException':
+                    LOGGER.error("Failed to scan table %s", table_name)
+                    LOGGER.error("Exception: %s", str(exc))
+                    has_more = False
+                    continue
+                if retries > 4:
+                    LOGGER.error("Failed to scan table %s", table_name)
+                    LOGGER.error("Exception: %s", str(exc))
+                    has_more = False
+                    continue
+                time.sleep(5)
+                LOGGER.warning("Trying to scan the table %s", table_name)
+                retries += 1
+                continue
 
-        if result.get('LastEvaluatedKey', None):
-            scan_params['ExclusiveStartKey'] = result.get('LastEvaluatedKey')
+            if result.get('LastEvaluatedKey', None):
+                scan_params['ExclusiveStartKey'] = result.get(
+                    'LastEvaluatedKey')
 
-        has_more = result.get('LastEvaluatedKey', False)
+            has_more = result.get('LastEvaluatedKey', False)
+
+
+async def dump_table(connection_args: Dict[str, str]) -> str:
+    table_name = connection_args.pop('table_name')
+    LOGGER.info("Scanning %s", table_name)
+    async for item in scan_table(table_name, **connection_args):
+        item = deserialize(item)
+        record: str = await in_thread(json.dumps, {
+            "stream": table_name,
+            "record": item
+        })
+        print(record)
+    return table_name
 
 
 def deserialize(object_: Any) -> Any:
@@ -102,7 +127,7 @@ def deserialize(object_: Any) -> Any:
     return object_
 
 
-def main() -> None:
+async def _main() -> None:
     # user interface
     parser = argparse.ArgumentParser()
     parser.add_argument('-a',
@@ -122,16 +147,22 @@ def main() -> None:
     credentials: Dict[str, str] = json.load(args.auth)
     configuration = json.load(args.conf)
 
-    db_connection = get_connection(
-        aws_access_key_id=credentials['AWS_ACCESS_KEY_ID'],
-        aws_secret_access_key=credentials['AWS_SECRET_ACCESS_KEY'],
-        region_name=credentials['AWS_DEFAULT_REGION'])
+    aws_access_key_id = credentials.pop('AWS_ACCESS_KEY_ID')
+    aws_secret_access_key = credentials.pop('AWS_SECRET_ACCESS_KEY')
+    region_name = credentials.pop('AWS_DEFAULT_REGION')
+    async with Pool() as pool:
+        async for result in pool.map(dump_table, [
+                dict(table_name=table,
+                     aws_access_key_id=aws_access_key_id,
+                     aws_secret_access_key=aws_secret_access_key,
+                     region_name=region_name)
+                for table in configuration.get("tables", [])
+        ]):
+            LOGGER.info("Success dump table: %s", result)
 
-    for table in configuration.get("tables", []):
-        for result in scan_table(table, db_connection):
-            for item in result.get('Items', []):
-                item = deserialize(item)
-                print(json.dumps({"stream": table, "record": item}))
+
+def main() -> None:
+    asyncio.run(_main())
 
 
 if __name__ == "__main__":
