@@ -221,7 +221,7 @@ $codeyellow: rgba(230, 219, 116, 1);
 .mt-body { margin-top: 110px; }
 .title-sols { text-align: center; }
 .width-sols { width: 100%; }
-.banner-height { height: 600px; }
+.section-height { height: 600px; }
 .lh-18 { line-height: 1.8; }
 
 // Tachyons custom responsive classes
@@ -295,7 +295,7 @@ $codeyellow: rgba(230, 219, 116, 1);
   .w-menu-bt { width: 18px; }
   .dn-s { display: none; }
   .h-logo { height: 50px; }
-  .banner-height { height: 800px; }
+  .section-height { height: 800px; }
 }
 //medium resolutions
 @media screen and (min-width: 30em) and (max-width: 60em) {
