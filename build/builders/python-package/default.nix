@@ -5,10 +5,12 @@ let
 in
   { requirement ? "",
     dependencies ? [],
+    python ? pkgs.python37,
+    cacheKey ? "",
   }:
     pkgs.stdenv.mkDerivation rec {
       name = stringToDerivationName requirement;
-      inherit requirement;
+      inherit cacheKey requirement;
 
       srcIncludeGenericShellOptions = ../../include/generic/shell-options.sh;
       srcIncludeGenericDirStructure = ../../include/generic/dir-structure.sh;
@@ -16,7 +18,7 @@ in
       builder = ./builder.sh;
       propagatedBuildInputs = [
         dependencies
-        (pkgs.python37.withPackages (ps: with ps; [
+        (python.withPackages (ps: with ps; [
           wheel
           setuptools
           pip
