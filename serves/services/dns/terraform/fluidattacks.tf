@@ -12,6 +12,14 @@ resource "aws_route53_record" "web" {
 
 # CNAME records
 
+resource "aws_route53_record" "checkly" {
+  zone_id = aws_route53_zone.fs_maindomain.zone_id
+  name    = "check.${aws_route53_zone.fs_maindomain.name}"
+  type    = "CNAME"
+  ttl     = "300"
+  records = ["dashboards.checklyhq.com"]
+}
+
 resource "aws_route53_record" "changelog" {
   zone_id = aws_route53_zone.fs_maindomain.zone_id
   name    = "news.${aws_route53_zone.fs_maindomain.name}"
@@ -19,6 +27,7 @@ resource "aws_route53_record" "changelog" {
   ttl     = "300"
   records = ["headwayapp.co"]
 }
+
 resource "aws_route53_record" "zd1_domainkey" {
   zone_id = aws_route53_zone.fs_maindomain.zone_id
   name    = "zendesk1.domainkey.${aws_route53_zone.fs_maindomain.name}"
