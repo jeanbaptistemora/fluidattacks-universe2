@@ -1,7 +1,7 @@
 :slug: rules/176/
 :category: data
 :description: This requirement establishes the importance of restricting access to sensitive information to authorized users only.
-:keywords: Data, Authorization, Restriction, GDPR, ASVS, CWE, OWASP, PCI DSS, Rules, Ethical Hacking, Pentesting
+:keywords: Data, Authorization, Restriction, GDPR, ASVS, CWE, NERC, OWASP, PCI DSS, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R176. Restrict system objects
@@ -84,7 +84,11 @@ Technology has transformed both the economy and social life,
 and should further facilitate the free flow of personal data,
 while ensuring a high level of the protection of personal data.
 
-. [[r9]] link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A3-Sensitive_Data_Exposure[OWASP Top 10 A3:2017-Sensitive Data Exposure].
+. [[r9]] link:https://www.nerc.com/pa/Stand/Reliability%20Standards/CIP-003-8.pdf[NERC CIP-003-8. Attachment 1. Section 3 - 3.1]
+Permit only necessary inbound and outbound electronic access as determined by
+the Responsible Entity.
+
+. [[r10]] link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A3-Sensitive_Data_Exposure[OWASP Top 10 A3:2017-Sensitive Data Exposure].
 Many web applications and **API**s do not properly protect sensitive data,
 such as financial, healthcare, and *PII*.
 Attackers may steal or modify such weakly protected data to conduct credit card
@@ -93,44 +97,44 @@ Sensitive data may be compromised without extra protection,
 such as encryption at rest or in transit, and requires special precautions when
 exchanged with the browser.
 
-. [[r10]] link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A5-Broken_Access_Control[OWASP Top 10 A5:2017-Broken Access Control].
+. [[r11]] link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A5-Broken_Access_Control[OWASP Top 10 A5:2017-Broken Access Control].
 Restrictions on what authenticated users are allowed to do are often not
 properly enforced.
 Attackers can exploit these flaws to access unauthorized functionality and/or
 data, such as access other users' accounts, view sensitive files,
 modify other users' data, change access rights, etc.
 
-. [[r11]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r12]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V1.2 Authentication Architectural Requirements.(1.2.2)]
 Verify that communications between application components,
 including APIs, middleware and data layers, are authenticated.
 Components should have the least necessary privileges needed.
 
-. [[r12]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r13]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V1.4 Access Control Architectural Requirements.(1.4.5)]
 Verify that attribute or feature-based access control is used whereby the code
 checks the user's authorization for a feature/data item rather than just their
 role.
 Permissions should still be allocated using roles.
 
-. [[r13]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r14]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V4.2 Operation Level Access Control.(4.2.1)]
 Verify that sensitive data and APIs are protected against direct object attacks
 targeting creation, reading, updating and deletion of records,
 such as creating or updating someone else's record, viewing everyone's records,
 or deleting all records.
 
-. [[r14]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r15]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V13.2 RESTful Web Service Verification Requirements.(13.2.1)]
 Verify that enabled **RESTful HTTP** methods are a valid choice for the user or
 action,
 such as preventing normal users using *DELETE* or *PUT* on protected *API* or
 resources.
 
-. [[r15]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 1.2.2]
+. [[r16]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 1.2.2]
 Secure and synchronize router configuration files.
 
-. [[r16]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 3.6.7]
+. [[r17]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 3.6.7]
 Fully document and implement all key-management processes and procedures for
 cryptographic keys including prevention of unauthorized substitution of
 cryptographic keys.
