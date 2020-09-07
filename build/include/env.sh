@@ -112,6 +112,22 @@ function env_prepare_dynamodb_local {
   ||  return 1
 }
 
+function env_prepare_minio_local {
+  export PYTHONPATH
+  export FI_MINIO_LOCAL_ENABLED
+      echo '[INFO] Preparing MinIO local' \
+  &&  mkdir -p './.MinIO' \
+  &&  env_prepare_python_packages \
+  &&  PYTHONPATH="${PYTHONPATH}:${STARTDIR}/integrates" \
+  &&  FI_MINIO_LOCAL_ENABLED='True' \
+  &&  helper_integrates_set_dev_secrets \
+  &&  pushd './.MinIO' \
+    &&  mkdir -p './temp' \
+    &&  mkdir -p './data' \
+  && popd \
+  ||  return 1
+}
+
 function env_prepare_django_static_external {
       echo '[INFO] Unzipping C3 local' \
   &&  mkdir -p 'app/static/external/C3' \

@@ -1,5 +1,6 @@
 test_async/dynamo_data/bb_executions.json.now
 .DynamoDB
+.MinIO
 .tmp
 oneshottest-vulnerabilities-*
 version.txt
