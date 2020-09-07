@@ -1311,6 +1311,68 @@ function job_integrates_deploy_k8s_back_ephemeral {
   ||  return 1
 }
 
+function job_integrates_ephemeral_deploy {
+  local B64_AWS_ACCESS_KEY_ID
+  local B64_AWS_SECRET_ACCESS_KEY
+  local B64_JWT_TOKEN
+  local DATE
+  local DEPLOYMENT_NAME
+  local cluster='integrates-cluster'
+  local region='us-east-1'
+  local namespace='ephemeral'
+  local timeout='5m'
+  local files=(
+    deploy/ephemeral/deployment.yaml
+    deploy/ephemeral/service.yaml
+    deploy/ephemeral/ingress-2.yaml
+    deploy/ephemeral/variables-2.yaml
+  )
+  local vars_to_replace_in_manifest=(
+    DEPLOYMENT_NAME
+    DATE
+    EPHEMERAL_CERTIFICATE_ARN
+    B64_AWS_ACCESS_KEY_ID
+    B64_AWS_SECRET_ACCESS_KEY
+    B64_JWT_TOKEN
+  )
+
+  # shellcheck disable=SC2034
+      helper_use_pristine_workdir \
+  &&  pushd integrates \
+  &&  helper_integrates_aws_login 'development' \
+  &&  helper_common_sops_env 'secrets-development.yaml' 'default' \
+      EPHEMERAL_CERTIFICATE_ARN \
+  &&  helper_common_update_kubeconfig "${cluster}" "${region}" \
+  &&  echo '[INFO] Computing environment variables' \
+  &&  B64_AWS_ACCESS_KEY_ID=$(helper_integrates_to_b64 "${AWS_ACCESS_KEY_ID}") \
+  &&  B64_AWS_SECRET_ACCESS_KEY=$(helper_integrates_to_b64 "${AWS_SECRET_ACCESS_KEY}") \
+  &&  B64_JWT_TOKEN=$(helper_integrates_to_b64 "${JWT_TOKEN}") \
+  &&  DATE="$(date)" \
+  &&  DEPLOYMENT_NAME="${CI_COMMIT_REF_SLUG}" \
+  &&  for file in "${files[@]}"
+      do
+        for var in "${vars_to_replace_in_manifest[@]}"
+        do
+              rpl "__${var}__" "${!var}" "${file}" \
+          |&  grep 'Replacing' \
+          |&  sed -E 's/with.*$//g' \
+          ||  return 1
+        done
+      done \
+  &&  for file in "${files[@]}"
+      do
+              echo "[INFO] Applying: ${file}" \
+          &&  kubectl apply -f "${file}" \
+          ||  return 1
+      done \
+  &&  kubectl rollout status \
+        "deploy/integrates-${CI_COMMIT_REF_SLUG}" \
+        -n "${namespace}" \
+        --timeout="${timeout}" \
+  &&  popd \
+  ||  return 1
+}
+
 function job_integrates_deploy_k8s_back {
   local B64_AWS_ACCESS_KEY_ID
   local B64_AWS_SECRET_ACCESS_KEY

@@ -411,3 +411,9 @@ function helper_run_test_devicefarm {
           &&  return 1
         fi
   }
+
+function helper_integrates_to_b64 {
+  local value="${1}"
+
+  echo -n "${value}" | base64 --wrap=0
+}

@@ -1,0 +1,18 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: integrates-__DEPLOYMENT_NAME__
+  namespace: ephemeral
+  annotations:
+    kubernetes.io/ingress.class: alb
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/certificate-arn: __EPHEMERAL_CERTIFICATE_ARN__
+spec:
+  rules:
+    - host: __DEPLOYMENT_NAME__.integrates.fluidattacks.com
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: integrates-__DEPLOYMENT_NAME__
+              servicePort: 80

@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: integrates-__DEPLOYMENT_NAME__
+  namespace: ephemeral
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: integrates-__DEPLOYMENT_NAME__
+  template:
+    metadata:
+      labels:
+        app: integrates-__DEPLOYMENT_NAME__
+    spec:
+      imagePullSecrets:
+        - name: gitlab-reg
+      containers:
+        - name: integrates
+          image: registry.gitlab.com/fluidattacks/product/app:__DEPLOYMENT_NAME__
+          imagePullPolicy: Always
+          resources:
+            requests:
+              cpu: 500m
+              memory: 2Gi
+            limits:
+              cpu: 500m
+              memory: 2Gi
+          env:
+            - name: DEPLOYMENT_DATE
+              value: "__DATE__"
+          envFrom:
+            - secretRef:
+                name: integrates-__DEPLOYMENT_NAME__
+          ports:
+            - containerPort: 443
+          readinessProbe:
+            exec:
+              command:
+                - sh
+                - -ce
+                - "curl -sS http://localhost | grep 'FluidIntegrates'"
+            initialDelaySeconds: 20
+            periodSeconds: 5
+            successThreshold: 3
+            failureThreshold: 10
