@@ -860,12 +860,14 @@ async def _do_add_finding_comment(
     except PermissionDenied:
         util.cloudwatch_log(
             info.context,
-            ('Security: Unauthorized role '
-                'attempted to add observation')  # pragma: no cover
+            'Security: Unauthorized role attempted to add observation'
         )
 
     if success:
-        util.queue_cache_invalidation(f'{param_type}*{finding_id}')
+        util.queue_cache_invalidation(
+            f'{param_type}*{finding_id}',
+            f'consult*{finding_id}'
+        )
         finding_domain.send_comment_mail(
             user_email,
             comment_data,
@@ -930,12 +932,14 @@ async def _do_add_finding_consult(
     except PermissionDenied:
         util.cloudwatch_log(
             info.context,
-            ('Security: Unauthorized role '
-                'attempted to add observation')  # pragma: no cover
+            'Security: Unauthorized role attempted to add observation'
         )
 
     if success:
-        util.queue_cache_invalidation(f'{param_type}*{finding_id}')
+        util.queue_cache_invalidation(
+            f'{param_type}*{finding_id}',
+            f'comment*{finding_id}'
+        )
         finding_domain.send_comment_mail(
             user_email,
             comment_data,

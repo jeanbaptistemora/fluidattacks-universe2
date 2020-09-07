@@ -1069,7 +1069,10 @@ async def _do_add_project_comment(
         comment_data
     )
     if success:
-        util.queue_cache_invalidation(f'comment*{project_name}')
+        util.queue_cache_invalidation(
+            f'comment*{project_name}',
+            f'consult*{project_name}'
+        )
         project_domain.send_comment_mail(
             user_email,
             comment_data,
@@ -1119,7 +1122,10 @@ async def _do_add_project_consult(
         comment_data
     )
     if success:
-        util.queue_cache_invalidation(f'consulting*{project_name}')
+        util.queue_cache_invalidation(
+            f'consulting*{project_name}',
+            f'comment*{project_name}'
+        )
         project_domain.send_comment_mail(
             user_email,
             comment_data,
