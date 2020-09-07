@@ -145,11 +145,11 @@ export const navbarComponent: React.FC<RouteComponentProps> = (
           <Navbar.Toggle />
         </Navbar.Header>
         <Navbar.Collapse>
-          {userEmail.endsWith("fluidattacks.com") ? (
-            <Nav pullRight={true}>
-              <NavItem>
-                <NewsWidget />
-              </NavItem>
+          <Nav pullRight={true}>
+            <NavItem>
+              <NewsWidget />
+            </NavItem>
+            {userEmail.endsWith("fluidattacks.com") ? (
               <li role="presentation">
                 <Navbar.Form style={{ marginBottom: "4px", marginTop: "4px" }}>
                   <GenericForm name={"searchBar"} onSubmit={handleSearchSubmit}>
@@ -169,8 +169,8 @@ export const navbarComponent: React.FC<RouteComponentProps> = (
                   </GenericForm>
                 </Navbar.Form>
               </li>
-            </Nav>
-          ) : undefined}
+            ) : undefined}
+          </Nav>
         </Navbar.Collapse>
       </Navbar>
     </React.StrictMode>
