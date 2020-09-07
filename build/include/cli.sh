@@ -56,7 +56,7 @@ function cli {
   if [[ $function_to_call == "common_bugsnag_report" ]]
   then
     shift
-    arguments_1="${ENVIRONMENT_NAME} $*"
+    arguments_1="$*"
   fi
 
   echo "[INFO] Executing function: job_${function_to_call} ${arguments_1}"
