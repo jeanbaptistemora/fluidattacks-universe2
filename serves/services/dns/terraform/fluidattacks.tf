@@ -14,7 +14,7 @@ resource "aws_route53_record" "web" {
 
 resource "aws_route53_record" "checkly" {
   zone_id = aws_route53_zone.fs_maindomain.zone_id
-  name    = "check.${aws_route53_zone.fs_maindomain.name}"
+  name    = "status.${aws_route53_zone.fs_maindomain.name}"
   type    = "CNAME"
   ttl     = "300"
   records = ["dashboards.checklyhq.com"]
@@ -170,14 +170,6 @@ resource "aws_route53_record" "s2_domainkey" {
   type    = "CNAME"
   ttl     = "3600"
   records = ["s2.domainkey.u6002333.wl084.sendgrid.net"]
-}
-
-resource "aws_route53_record" "status_fluid" {
-  zone_id = aws_route53_zone.fs_maindomain.zone_id
-  name    = "status.${aws_route53_zone.fs_maindomain.name}"
-  type    = "CNAME"
-  ttl     = "300"
-  records = ["stats.pingdom.com"]
 }
 
 resource "aws_route53_record" "t_emailmkt" {
