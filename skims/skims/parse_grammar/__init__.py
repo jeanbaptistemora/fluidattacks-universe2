@@ -36,8 +36,10 @@ async def parse(
 ) -> Dict[str, Any]:
     process: asyncio.subprocess.Process = await call(AST, grammar, path)
 
+    out_bytes, err_bytes = await process.communicate()
+
     try:
-        if process.stderr and (err_bytes := await process.stderr.read()):
+        if err_bytes:
             err: str = err_bytes.decode('utf-8')
             await log('error', 'Parse[%s]: %s, %s', grammar, path, err)
             raise IOError('AST Parser found syntax errors')
@@ -45,7 +47,7 @@ async def parse(
         if process.returncode != 0:
             raise IOError('AST Parser return non-zero exit code')
 
-        if process.stdout and (out_bytes := await process.stdout.read()):
+        if out_bytes:
             out: str = out_bytes.decode('utf-8')
             data: Dict[str, Any] = await in_process(json.loads, out)
             return data

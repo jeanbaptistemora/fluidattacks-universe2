@@ -32,6 +32,4 @@ async def call(
         **kwargs,
     )
 
-    await process.wait()
-
     return process
