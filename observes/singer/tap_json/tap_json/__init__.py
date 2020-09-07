@@ -6,6 +6,10 @@ import os
 import sys
 import datetime
 import argparse
+import threading
+import contextlib
+from multiprocessing import cpu_count
+from concurrent.futures import ThreadPoolExecutor
 
 from json import load, loads, dumps
 from json.decoder import JSONDecodeError
@@ -28,6 +32,7 @@ DATE_FORMATS: List[str] = [
     "%Y-%m-%dT%H:%M:%S.%f%z",
     "%Y-%m-%dT%H:%M:%S%z",
 ]
+LOCK = threading.Lock()
 
 
 def is_str(stru: STRU) -> bool:
@@ -261,6 +266,37 @@ def catalog() -> None:
         write(SCHEMAS_DIR, table_name, schema, dumps)
 
 
+def dump_schema(table: str) -> None:
+    def dump_record(precord):
+        with LOCK:
+            print(
+                dumps({
+                    "type": "RECORD",
+                    "stream": table,
+                    "record": {
+                        f"{f}_{stru_type(v)}": stru_cast(v)
+                        for f, v in precord.items()
+                    }
+                }))
+
+    pschema = json_from_file(f"{SCHEMAS_DIR}/{table}")
+    with LOCK:
+        print(
+            dumps({
+                "type": "SCHEMA",
+                "stream": table,
+                "schema": {
+                    "properties": {
+                        f"{f}_{ft}": pt2st(ft)
+                        for f, fts in pschema.items() for ft in fts
+                    }
+                },
+                "key_properties": []
+            }))
+    with ThreadPoolExecutor(max_workers=cpu_count()) as worker:
+        worker.map(dump_record, read(RECORDS_DIR, table, loads))
+
+
 def main():
     """Usual entry point."""
     parser = argparse.ArgumentParser(
@@ -291,40 +327,21 @@ def main():
 
     # Do the heavy lifting (structura)
     prepare_env()
-    for stream_str in io.TextIOWrapper(sys.stdin.buffer, encoding="utf-8"):
-        try:
-            stream_stru = loads(stream_str)
-        except JSONDecodeError:
-            # possibly an empty line
-            continue
-        linearize(stream_stru["stream"], stream_stru["record"])
+
+    def structure(stream: str) -> None:
+        with contextlib.suppress(JSONDecodeError):
+            stream_stru = loads(stream)
+            linearize(stream_stru["stream"], stream_stru["record"])
+
+    with ThreadPoolExecutor(max_workers=cpu_count()) as worker:
+        worker.map(structure,
+                   io.TextIOWrapper(sys.stdin.buffer, encoding="utf-8"))
+
     catalog()
 
     # Parse everything to singer
-    for table in os.listdir(SCHEMAS_DIR):
-        pschema = json_from_file(f"{SCHEMAS_DIR}/{table}")
-        print(dumps({
-            "type": "SCHEMA",
-            "stream": table,
-            "schema": {
-                "properties": {
-                    f"{f}_{ft}": pt2st(ft)
-                    for f, fts in pschema.items()
-                    for ft in fts
-                }
-            },
-            "key_properties": []
-        }))
-
-        for precord in read(RECORDS_DIR, table, loads):
-            print(dumps({
-                "type": "RECORD",
-                "stream": table,
-                "record": {
-                    f"{f}_{stru_type(v)}": stru_cast(v)
-                    for f, v in precord.items()
-                }
-            }))
+    with ThreadPoolExecutor(max_workers=cpu_count()) as worker:
+        worker.map(dump_schema, os.listdir(SCHEMAS_DIR))
 
     release_env()
 
