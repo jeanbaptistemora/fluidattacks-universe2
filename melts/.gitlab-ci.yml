@@ -34,3 +34,8 @@ melts_lint_code:
   <<: *with_nix
   <<: *in_dev_branch_melts
   stage: lint-code
+
+melts_test:
+  <<: *with_nix
+  <<: *in_dev_branch_melts
+  stage: test-code

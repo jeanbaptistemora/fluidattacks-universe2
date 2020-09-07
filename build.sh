@@ -60,6 +60,10 @@ function decide_and_call_provisioner {
         --keep INTEGRATES_DEV_AWS_SECRET_ACCESS_KEY \
         --keep INTEGRATES_PROD_AWS_ACCESS_KEY_ID \
         --keep INTEGRATES_PROD_AWS_SECRET_ACCESS_KEY \
+        --keep MELTS_DEV_AWS_ACCESS_KEY_ID \
+        --keep MELTS_DEV_AWS_SECRET_ACCESS_KEY \
+        --keep MELTS_PROD_AWS_ACCESS_KEY_ID \
+        --keep MELTS_PROD_AWS_SECRET_ACCESS_KEY \
         --keep SERVES_DEV_AWS_ACCESS_KEY_ID \
         --keep SERVES_DEV_AWS_SECRET_ACCESS_KEY \
         --keep SERVES_PROD_AWS_ACCESS_KEY_ID \

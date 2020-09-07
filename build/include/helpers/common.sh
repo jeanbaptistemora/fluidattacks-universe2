@@ -342,3 +342,23 @@ function helper_common_poetry_install {
   &&  popd \
   ||  return 1
 }
+
+function helper_start_localstack {
+  local time='0'
+  local timeout='60'
+  local services='s3'
+
+      echo '[INFO] Starting localstack' \
+  &&  docker stop localstack_main || true \
+  &&  ENTRYPOINT=-d SERVICES="${services}" localstack start \
+  &&  while ! docker logs localstack_main | grep -q 'Ready.'
+      do
+            sleep 1 \
+        &&  time=$(( time + 1 )) \
+        &&  if [ "${time}" = "${timeout}" ]
+            then
+                  echo "[ERROR] Timeout reached. Looks like container did not start properly" \
+              &&  return 1
+            fi
+      done
+}
