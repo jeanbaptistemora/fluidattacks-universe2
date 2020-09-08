@@ -643,6 +643,26 @@ function job_integrates_serve_dynamodb_local {
   ||  return 1
 }
 
+function job_integrates_serve_minio_local {
+  local port=9000
+
+      pushd "${STARTDIR}/integrates" \
+  &&  env_prepare_minio_local \
+  &&  echo '[INFO] Launching MinIO local' \
+  &&  {
+        ${srcExternalMinIOLocal} server "${STARTDIR}/integrates/.MinIO/data" --address ":${port}" &
+      } \
+  &&  echo '[INFO] Waiting 5 seconds to leave MinIO start' \
+  &&  sleep 5 \
+  &&  echo '[INFO] Populating MinIO local' \
+  &&  python "${STARTDIR}/integrates/django-apps/integrates-back-async/backend/dal/helpers/minio.py" \
+  &&  echo "[INFO] MinIO is ready and listening on port ${port}!" \
+  &&  echo "[INFO] Hit Ctrl+C to exit" \
+  &&  fg %1 \
+  &&  popd \
+  ||  return 1
+}
+
 function job_integrates_serve_front {
       pushd "${STARTDIR}/integrates/front" \
     &&  npm install \
