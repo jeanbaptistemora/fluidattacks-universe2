@@ -43,19 +43,6 @@ data "aws_iam_policy_document" "analytics_policy_document_data" {
       "*"
     ]
   }
-
-  statement {
-    sid = "AnalyticsReadS3"
-    effect = "Allow"
-    actions = [
-      "s3:GetObject",
-      "s3:ListBucket"
-    ]
-    resources = [
-      "arn:aws:s3:::fluidanalytics",
-      "arn:aws:s3:::fluidanalytics/"
-    ]
-  }
 }
 
 resource "aws_iam_policy" "analytics_policy" {
