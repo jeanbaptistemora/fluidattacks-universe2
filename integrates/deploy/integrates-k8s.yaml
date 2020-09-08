@@ -72,8 +72,6 @@ spec:
                       values:
                       - integrates-app
                 topologyKey: "kubernetes.io/hostname"
-      imagePullSecrets:
-      - name: gitlab-reg
 ---
 apiVersion: v1
 kind: Service

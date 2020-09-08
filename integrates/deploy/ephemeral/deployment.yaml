@@ -13,8 +13,6 @@ spec:
       labels:
         app: integrates-__DEPLOYMENT_NAME__
     spec:
-      imagePullSecrets:
-        - name: gitlab-reg
       containers:
         - name: integrates
           image: registry.gitlab.com/fluidattacks/product/app:__DEPLOYMENT_NAME__

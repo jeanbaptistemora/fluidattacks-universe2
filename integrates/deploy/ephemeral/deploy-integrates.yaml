@@ -49,5 +49,3 @@ spec:
           periodSeconds: 5
           successThreshold: 3
           failureThreshold: 10
-      imagePullSecrets:
-      - name: gitlab-reg
