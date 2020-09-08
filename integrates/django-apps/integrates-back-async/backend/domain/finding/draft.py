@@ -1,10 +1,9 @@
 # pylint:disable=too-many-branches
-import asyncio
 import re
 import random
 from datetime import datetime
 from decimal import Decimal
-from typing import Callable, cast, Dict, List, Tuple, Any
+from typing import cast, Dict, List, Tuple, Any
 import pytz
 from django.conf import settings
 from graphql.type.definition import GraphQLResolveInfo
@@ -24,19 +23,6 @@ from backend.typing import (
     User as UserType
 )
 from .finding import get_finding
-
-
-def send_draft_email(
-    send_email_function: Callable,
-    finding_id: str,
-    *mail_params: str
-) -> None:
-    asyncio.create_task(
-        send_email_function(
-            finding_id,
-            *mail_params
-        )
-    )
 
 
 async def reject_draft(draft_id: str, reviewer_email: str) -> bool:

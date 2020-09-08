@@ -1122,7 +1122,7 @@ async def _do_reject_draft(
         util.queue_cache_invalidation(finding_id)
         finding_loader = info.context.loaders['finding']
         finding = await finding_loader.load(finding_id)
-        finding_domain.send_draft_email(
+        finding_domain.send_finding_mail(
             finding_utils.send_draft_reject_mail,
             finding_id,
             str(finding.get('title', '')),
@@ -1284,7 +1284,7 @@ async def _do_submit_draft(
         util.queue_cache_invalidation(finding_id)
         finding_loader = info.context.loaders['finding']
         finding = await finding_loader.load(finding_id)
-        finding_domain.send_draft_email(
+        finding_domain.send_finding_mail(
             finding_utils.send_new_draft_mail,
             finding_id,
             str(finding.get('title', '')),
