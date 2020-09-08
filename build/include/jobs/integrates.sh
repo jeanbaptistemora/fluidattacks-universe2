@@ -507,64 +507,6 @@ function job_integrates_functional_tests_prod {
   ||  return 1
 }
 
-function job_integrates_renew_certificates {
-  local certificate='ssl-review-apps'
-  local certificate_issuer='letsencrypt'
-  local secret_name='ssl-certificate'
-  local RA_ACCESS_KEY
-  local files=(
-    deploy/ephemeral/tls.yaml
-  )
-  local vars_to_replace_in_manifest=(
-    DNS_ZONE_ID
-    RA_ACCESS_KEY
-  )
-
-      pushd "${STARTDIR}/integrates" \
-  &&  if helper_is_today_wednesday
-      then
-        # shellcheck disable=SC2034
-            helper_integrates_aws_login 'development' \
-        &&  echo '[INFO] Setting context' \
-        &&  helper_common_update_kubeconfig FluidServes us-east-1 \
-        &&  kubectl config \
-              set-context "$(kubectl config current-context)" \
-              --namespace=integrates \
-        &&  echo '[INFO] Computing secrets' \
-        &&  RA_ACCESS_KEY="${AWS_ACCESS_KEY_ID}" \
-        &&  echo '[INFO] Replacing secrets' \
-        &&  for file in "${files[@]}"
-            do
-              for var in "${vars_to_replace_in_manifest[@]}"
-              do
-                    rpl "__${var}__" "${!var}" "${file}" \
-                |&  grep 'Replacing' \
-                |&  sed -E 's/with.*$//g' \
-                ||  return 1
-              done
-            done \
-        &&  echo '[INFO] Deleting current resources' \
-        &&  kubectl delete secret "${secret_name}" \
-        &&  kubectl delete issuer "${certificate_issuer}" \
-        &&  kubectl delete certificate "${certificate}" \
-        &&  echo '[INFO] Applying: deploy/ephemeral/tls.yaml' \
-        &&  kubectl apply -f 'deploy/ephemeral/tls.yaml' \
-        &&  while ! kubectl describe certificate "${certificate}" \
-              | tr -s ' ' \
-              | grep 'Status: True'
-            do
-                  echo '[INFO] Still issuing certificate, sleeping 10 seconds...' \
-              &&  sleep 10 \
-              ||  return 1
-            done
-      else
-            echo '[INFO] Skipping, this is only meant to be run on wednesday' \
-        &&  return 0
-      fi \
-  &&  popd \
-  ||  return 1
-}
-
 function job_integrates_reset {
   local files_to_delete=(
     'app/static/dashboard/'
@@ -1395,6 +1337,24 @@ function job_integrates_ephemeral_deploy {
         "deploy/integrates-${CI_COMMIT_REF_SLUG}" \
         -n "${namespace}" \
         --timeout="${timeout}" \
+  &&  popd \
+  ||  return 1
+}
+
+function job_integrates_ephemeral_stop {
+  local cluster='integrates-cluster'
+  local region='us-east-1'
+
+      helper_use_pristine_workdir \
+  &&  pushd integrates \
+  &&  echo "[INFO] Setting namespace preferences..." \
+  &&  helper_integrates_aws_login 'development' \
+  &&  helper_common_update_kubeconfig "${cluster}" "${region}" \
+  &&  echo '[INFO] Deleting deployment' \
+  &&  kubectl delete deployment -n ephemeral "integrates-${CI_COMMIT_REF_SLUG}" \
+  &&  kubectl delete service -n ephemeral "integrates-${CI_COMMIT_REF_SLUG}" \
+  &&  kubectl delete ingress -n ephemeral "integrates-${CI_COMMIT_REF_SLUG}" \
+  &&  kubectl delete secret -n ephemeral "integrates-${CI_COMMIT_REF_SLUG}" \
   &&  popd \
   ||  return 1
 }

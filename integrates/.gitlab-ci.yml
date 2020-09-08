@@ -251,17 +251,26 @@ integrates_ephemeral_deploy:
   environment:
     name: "ephemeral/$CI_COMMIT_REF_SLUG"
     url: "https://$CI_COMMIT_REF_SLUG.integrates.fluidattacks.com/integrates"
+    on_stop: integrates_ephemeral_stop
 
-integrates_deploy_k8s_back_ephemeral:
+integrates_ephemeral_stop:
   <<: *with_nix
-  <<: *in_dev_branch_integrates
   stage: deploy-app
-  needs: [integrates_build_container_app]
   retry: 1
   environment:
     name: "ephemeral/$CI_COMMIT_REF_SLUG"
-    url: "https://$CI_COMMIT_REF_SLUG.integrates.env.fluidattacks.com/integrates"
-    on_stop: integrates_deploy_k8s_stop_ephemeral
+    action: stop
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "master"'
+      when: never
+    - if: '$CI_PIPELINE_SOURCE == "trigger"'
+      when: never
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+      when: never
+    - if: '$CI_PIPELINE_SOURCE == "schedule"'
+      when: never
+    - if: *integrates_commit_pattern
+      when: manual
 
 # Take into account that changing this job name impacts the rotation of
 #   AWS secrets at serves.
@@ -280,25 +289,6 @@ integrates_deploy_k8s_back:
   environment:
     name: "production"
     url: "https://fluidattacks.com/integrates"
-
-integrates_deploy_k8s_stop_ephemeral:
-  <<: *with_nix
-  stage: deploy-app
-  retry: 1
-  environment:
-    name: "ephemeral/$CI_COMMIT_REF_SLUG"
-    action: stop
-  rules:
-    - if: '$CI_PIPELINE_SOURCE == "master"'
-      when: never
-    - if: '$CI_PIPELINE_SOURCE == "trigger"'
-      when: never
-    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
-      when: never
-    - if: '$CI_PIPELINE_SOURCE == "schedule"'
-      when: never
-    - if: *integrates_commit_pattern
-      when: manual
 
 integrates_deploy_mobile_ota:
   <<: *with_nix
@@ -354,7 +344,7 @@ integrates_functional_tests_dev:
   <<: *in_dev_branch_integrates
   image: "${CI_REGISTRY_IMAGE}/nix:integrates_functional_tests_dev"
   needs:
-    - integrates_deploy_k8s_back_ephemeral
+    - integrates_ephemeral_deploy
     - integrates_deploy_front
   stage: post-deploy
   retry: 1
@@ -385,7 +375,7 @@ integrates_functional_tests_mobile:
   <<: *with_nix
   <<: *in_dev_branch_integrates
   needs:
-    - integrates_deploy_k8s_back_ephemeral
+    - integrates_ephemeral_deploy
     - integrates_deploy_mobile_ota
   stage: post-deploy
 
@@ -507,14 +497,6 @@ integrates_lint_secrets:
   <<: *with_nix
   <<: *in_dev_and_master_branch_integrates
   stage: lint-code
-
-integrates_renew_certificates:
-  <<: *with_nix
-  <<: *in_schedule_nightly_build_integrates
-  stage: post-deploy
-  environment:
-    name: "ephemeral/renew-ephemeral-cert"
-    auto_stop_in: 1 hour
 
 integrates_rotate_jwt_token:
   <<: *with_nix
