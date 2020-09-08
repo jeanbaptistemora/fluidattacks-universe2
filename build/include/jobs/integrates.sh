@@ -650,10 +650,16 @@ function job_integrates_serve_minio_local {
   &&  env_prepare_minio_local \
   &&  echo '[INFO] Launching MinIO local' \
   &&  {
-        ${srcExternalMinIOLocal} server "${STARTDIR}/integrates/.MinIO/data" --address ":${port}" &
+        "${minio}" server "${STARTDIR}/integrates/.MinIO/data" --address ":${port}" &
       } \
   &&  echo '[INFO] Waiting 5 seconds to leave MinIO start' \
   &&  sleep 5 \
+  &&  echo '[INFO] Configuring local user' \
+  &&  "${mc}" alias set local_minio "http://localhost:${port}" "${MINIO_ACCESS_KEY}" "${MINIO_SECRET_KEY}" \
+  &&  "${mc}" admin user add local_minio "${USER_MINIO_ACCESS_KEY}" "${USER_MINIO_SECRET_KEY}" \
+  &&  "${mc}" admin policy set local_minio readwrite user="${USER_MINIO_ACCESS_KEY}" \
+  &&  echo '[INFO] Setting bucket' \
+  &&  "${mc}" mb --ignore-existing local_minio/fluidintegrates.evidences \
   &&  echo '[INFO] Populating MinIO local' \
   &&  python "${STARTDIR}/integrates/django-apps/integrates-back-async/backend/dal/helpers/minio.py" \
   &&  echo "[INFO] MinIO is ready and listening on port ${port}!" \
