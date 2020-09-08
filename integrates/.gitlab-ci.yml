@@ -358,6 +358,7 @@ integrates_functional_tests_dev:
 integrates_functional_tests_prod:
   <<: *with_nix
   <<: *in_master_branch_integrates
+  image: "${CI_REGISTRY_IMAGE}/nix:integrates_functional_tests_prod"
   needs:
     - integrates_deploy_k8s_back
     - integrates_deploy_front
