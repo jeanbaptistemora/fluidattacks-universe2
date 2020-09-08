@@ -640,5 +640,5 @@ class FindingTests(TestCase):
         data = {'query': query, 'variables': variables}
         result = await self._get_result(data)
         assert 'errors' in result
-        expected_error = 'Exception - Finding not found'
+        expected_error = 'Access denied'
         assert result['errors'][0]['message'] == expected_error

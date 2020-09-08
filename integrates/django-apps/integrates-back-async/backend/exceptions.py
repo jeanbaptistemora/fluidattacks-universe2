@@ -291,7 +291,7 @@ class FindingNotFound(Exception):
 
     def __init__(self) -> None:
         """ Constructor """
-        msg = 'Exception - Finding not found'
+        msg = 'Access denied'
         super(FindingNotFound, self).__init__(msg)
 
 
