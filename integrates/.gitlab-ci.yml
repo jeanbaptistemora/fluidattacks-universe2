@@ -348,7 +348,7 @@ integrates_functional_tests_dev:
     - integrates_deploy_front
   stage: post-deploy
   retry: 1
-  parallel: 6
+  parallel: 2
   artifacts:
     name: "regression_${CI_COMMIT_REF_NAME}_${CI_COMMIT_SHA:0:8}"
     paths:
@@ -363,6 +363,7 @@ integrates_functional_tests_prod:
     - integrates_deploy_front
   stage: post-deploy
   retry: 1
+  parallel: 2
   artifacts:
     name: "regression_${CI_COMMIT_REF_NAME}_${CI_COMMIT_SHA:0:8}"
     paths:
