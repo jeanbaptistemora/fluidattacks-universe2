@@ -3,7 +3,15 @@ import asyncio
 import re
 from datetime import datetime
 from contextlib import AsyncExitStack
-from typing import Dict, List, Union, cast, Any, Optional
+from typing import (
+    Any,
+    Callable,
+    cast,
+    Dict,
+    List,
+    Optional,
+    Union
+)
 
 from aioextensions import (
     collect,
@@ -94,6 +102,19 @@ def send_comment_mail(
             user_email,
             str(comment_data.get('comment_type')),
             finding
+        )
+    )
+
+
+def send_finding_mail(
+    send_email_function: Callable,
+    finding_id: str,
+    *mail_params: Union[str, Dict[str, str]]
+) -> None:
+    asyncio.create_task(
+        send_email_function(
+            finding_id,
+            *mail_params
         )
     )
 
@@ -354,12 +375,7 @@ async def update_treatment(
     )
     result_update_vuln = await update_treatment_in_vuln(
         finding_id, historic_treatment[-1])
-    if result_update_finding and result_update_vuln:
-        await finding_utils.should_send_mail(
-            finding,
-            updated_values
-        )
-        success = True
+    success = result_update_finding and result_update_vuln
     return success
 
 
@@ -397,7 +413,6 @@ async def save_severity(finding: Dict[str, FindingType]) -> bool:
 
 async def delete_finding(
         finding_id: str,
-        project_name: str,
         justification: str,
         context: Any) -> bool:
     finding_data = await get_finding(finding_id)
@@ -421,20 +436,6 @@ async def delete_finding(
         success = await finding_dal.update(finding_id, {
             'historic_state': submission_history
         })
-
-        if success:
-            justification_dict = {
-                'DUPLICATED': 'It is duplicated',
-                'FALSE_POSITIVE': 'It is a false positive',
-                'NOT_REQUIRED': 'Finding not required',
-            }
-            await finding_utils.send_finding_delete_mail(
-                finding_id,
-                str(finding_data.get('finding', '')),
-                project_name,
-                str(finding_data.get('analyst', '')),
-                justification_dict[justification]
-            )
 
     return success
 

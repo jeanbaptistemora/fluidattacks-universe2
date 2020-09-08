@@ -1083,6 +1083,11 @@ async def _do_update_client_description(
         attrs_to_clean = {attribute: finding_id for attribute in parameters}
         to_clean = util.format_cache_keys_pattern(attrs_to_clean)
         util.queue_cache_invalidation(*to_clean)
+        finding_domain.send_finding_mail(
+            finding_utils.should_send_mail,
+            finding_id,
+            util.update_treatment_values(parameters)
+        )
         util.forces_trigger_deployment(project_name)
         util.cloudwatch_log(
             info.context,
@@ -1156,7 +1161,7 @@ async def _do_delete_finding(
     project_name = finding_data['project_name']
 
     success = await finding_domain.delete_finding(
-        finding_id, project_name, justification, info.context
+        finding_id, justification, info.context
     )
     if success:
         project_attrs_to_clean = {
@@ -1167,6 +1172,19 @@ async def _do_delete_finding(
         }
         to_clean = util.format_cache_keys_pattern(project_attrs_to_clean)
         util.queue_cache_invalidation(*to_clean, finding_id)
+        justification_dict = {
+            'DUPLICATED': 'It is duplicated',
+            'FALSE_POSITIVE': 'It is a false positive',
+            'NOT_REQUIRED': 'Finding not required',
+        }
+        finding_domain.send_finding_mail(
+            finding_utils.send_finding_delete_mail,
+            finding_id,
+            str(finding_data.get('finding', '')),
+            project_name,
+            str(finding_data.get('analyst', '')),
+            justification_dict[justification]
+        )
         util.forces_trigger_deployment(project_name)
         util.cloudwatch_log(
             info.context,

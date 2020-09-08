@@ -601,8 +601,9 @@ async def send_new_draft_mail(
 
 
 async def should_send_mail(
-        finding: Dict[str, FindingType],
+        finding_id: str,
         updated_values: Dict[str, str]) -> None:
+    finding = await finding_dal.get_finding(finding_id)
     if updated_values['treatment'] == 'ACCEPTED':
         await send_accepted_email(
             finding, str(updated_values.get('justification', ''))
