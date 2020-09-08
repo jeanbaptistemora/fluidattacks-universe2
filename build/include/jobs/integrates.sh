@@ -1221,64 +1221,6 @@ function job_integrates_test_mobile {
   ||  return 1
 }
 
-function job_integrates_deploy_k8s_back_ephemeral {
-  local B64_AWS_ACCESS_KEY_ID
-  local B64_AWS_SECRET_ACCESS_KEY
-  local B64_JWT_TOKEN
-  local DATE
-  local DEPLOYMENT_NAME
-  local files=(
-    deploy/ephemeral/variables.yaml
-    deploy/ephemeral/ingress.yaml
-    deploy/ephemeral/deploy-integrates.yaml
-  )
-  local vars_to_replace_in_manifest=(
-    DATE
-    B64_AWS_ACCESS_KEY_ID
-    B64_AWS_SECRET_ACCESS_KEY
-    B64_JWT_TOKEN
-    DEPLOYMENT_NAME
-  )
-
-  # shellcheck disable=SC2034
-      helper_use_pristine_workdir \
-  &&  pushd "${STARTDIR}/integrates" \
-  &&  helper_integrates_aws_login 'development' \
-  &&  echo "[INFO] Setting namespace preferences..." \
-  &&  helper_common_update_kubeconfig FluidServes us-east-1 \
-  &&  kubectl config \
-        set-context "$(kubectl config current-context)" \
-        --namespace=integrates \
-  &&  echo '[INFO] Computing environment variables' \
-  &&  B64_AWS_ACCESS_KEY_ID=$(
-        echo -n "${AWS_ACCESS_KEY_ID}" | base64 --wrap=0) \
-  &&  B64_AWS_SECRET_ACCESS_KEY=$(
-        echo -n "${AWS_SECRET_ACCESS_KEY}" | base64 --wrap=0) \
-  &&  B64_JWT_TOKEN=$(
-        echo -n "${JWT_TOKEN}" | base64 --wrap=0) \
-  &&  DATE="$(date)" \
-  &&  DEPLOYMENT_NAME="${CI_COMMIT_REF_SLUG}" \
-  &&  for file in "${files[@]}"
-      do
-        for var in "${vars_to_replace_in_manifest[@]}"
-        do
-              rpl "__${var}__" "${!var}" "${file}" \
-          |&  grep 'Replacing' \
-          |&  sed -E 's/with.*$//g' \
-          ||  return 1
-        done
-      done \
-  &&  echo '[INFO] Applying: deploy/ephemeral/variables.yaml' \
-  &&  kubectl apply -f 'deploy/ephemeral/variables.yaml' \
-  &&  echo '[INFO] Applying: deploy/ephemeral/ingress.yaml' \
-  &&  kubectl apply -f 'deploy/ephemeral/ingress.yaml' \
-  &&  echo '[INFO] Applying: deploy/ephemeral/deploy-integrates.yaml' \
-  &&  kubectl apply -f 'deploy/ephemeral/deploy-integrates.yaml' \
-  &&  kubectl rollout status "deploy/review-${CI_COMMIT_REF_SLUG}" --timeout=5m \
-  &&  popd \
-  ||  return 1
-}
-
 function job_integrates_ephemeral_deploy {
   local B64_AWS_ACCESS_KEY_ID
   local B64_AWS_SECRET_ACCESS_KEY
@@ -1292,8 +1234,8 @@ function job_integrates_ephemeral_deploy {
   local files=(
     deploy/ephemeral/deployment.yaml
     deploy/ephemeral/service.yaml
-    deploy/ephemeral/ingress-2.yaml
-    deploy/ephemeral/variables-2.yaml
+    deploy/ephemeral/ingress.yaml
+    deploy/ephemeral/variables.yaml
   )
   local vars_to_replace_in_manifest=(
     DEPLOYMENT_NAME
@@ -1432,22 +1374,6 @@ function job_integrates_deploy_k8s_back {
   &&  curl \
         --request 'GET' \
         "https://api.checklyhq.com/check-groups/${CHECKLY_CHECK_ID}/trigger/${checkly_params}" \
-  &&  popd \
-  ||  return 1
-}
-
-function job_integrates_deploy_k8s_stop_ephemeral {
-      pushd "${STARTDIR}/integrates" \
-  &&  echo "[INFO] Setting namespace preferences..." \
-  &&  helper_integrates_aws_login 'development' \
-  &&  helper_common_update_kubeconfig FluidServes us-east-1 \
-  &&  kubectl config \
-        set-context "$(kubectl config current-context)" \
-        --namespace=integrates \
-  &&  echo '[INFO] Deleting deployments' \
-  &&  kubectl delete deployment "review-${CI_COMMIT_REF_SLUG}" \
-  &&  kubectl delete service "service-${CI_COMMIT_REF_SLUG}" \
-  &&  kubectl delete ingress "review-${CI_COMMIT_REF_SLUG}" \
   &&  popd \
   ||  return 1
 }

@@ -1,26 +1,24 @@
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: review-__DEPLOYMENT_NAME__
+  name: integrates-__DEPLOYMENT_NAME__
+  namespace: ephemeral
   annotations:
-    kubernetes.io/ingress.class: nginx
-    nginx.ingress.kubernetes.io/proxy-read-timeout: "300"
-    nginx.ingress.kubernetes.io/app-root: /integrates
-    nginx.ingress.kubernetes.io/rewrite-target: /$2
+    kubernetes.io/ingress.class: alb
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/certificate-arn: __EPHEMERAL_CERTIFICATE_ARN__
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}, {"HTTPS":443}]'
+    alb.ingress.kubernetes.io/actions.ssl-redirect: '{"Type": "redirect", "RedirectConfig": { "Protocol": "HTTPS", "Port": "443", "StatusCode": "HTTP_301"}}'
 spec:
-  tls:
-  - hosts:
-    - __DEPLOYMENT_NAME__.integrates.env.fluidattacks.com
-    secretName: ssl-certificate
   rules:
-  - host: __DEPLOYMENT_NAME__.integrates.env.fluidattacks.com
-    http:
-      paths:
-      - backend:
-          serviceName: service-__DEPLOYMENT_NAME__
-          servicePort: 80
-        path: /integrates(/|$)(.*)
-      - backend:
-          serviceName: service-__DEPLOYMENT_NAME__
-          servicePort: 80
-        path: /
+    - host: __DEPLOYMENT_NAME__.integrates.fluidattacks.com
+      http:
+        paths:
+          - path: /*
+            backend:
+              serviceName: ssl-redirect
+              servicePort: use-annotation
+          - path: /*
+            backend:
+              serviceName: integrates-__DEPLOYMENT_NAME__
+              servicePort: 80
