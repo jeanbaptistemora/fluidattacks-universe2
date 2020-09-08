@@ -43,7 +43,7 @@ def get_install_requires():
 
 
 distutils.core.setup(
-    name='fluidattacks',
+    name='melts',
     version=get_version(),
     description='Fluid Attacks Toolkit and SDK',
     author='Fluid Attacks',
