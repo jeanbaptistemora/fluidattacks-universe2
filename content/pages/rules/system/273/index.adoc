@@ -38,18 +38,22 @@ introduction of malicious code to low impact BES Cyber Systems.
 The plan(s) shall include antivirus software,
 or other method(s) to mitigate the introduction of malicious code.
 
-. [[r3]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r3]] link:https://www.nerc.com/pa/Stand/Reliability%20Standards/CIP-005-5.pdf[NERC CIP-005-5. B. Requirements and measures. R1.5]
+Have one or more methods for detecting known or suspected malicious
+communications for both inbound and outbound communications.
+
+. [[r4]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V1.14 Configuration Architectural Requirements.(1.14.1)]
 Verify the application does not use unsupported, insecure, or deprecated
 client-side technologies such as *NSAPI* plugins, *Flash*, *Shockwave*,
 *ActiveX*, *Silverlight*, *NACL*, or client-side *Java* applets.
 
-. [[r4]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r5]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V12.4 File Storage Requirements.(12.4.2)]
 Verify that files obtained from untrusted sources are scanned by antivirus
 scanners to prevent upload of known malicious content.
 
-. [[r5]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 5.1]
+. [[r6]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 5.1]
 Deploy anti-virus software on all systems commonly affected by malicious
 software
 (particularly personal computers and servers).

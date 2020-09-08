@@ -1,7 +1,7 @@
 :slug: rules/341/
 :category: authorization
 :description: This requirement establishes the importance of using the principle of deny by default when creating new users/roles or when adding new features.
-:keywords: Principle, Deny, Default, Permission, ASVS, CWE, OWASP, PCI DSS, Rules, Ethical Hacking, Pentesting
+:keywords: Principle, Deny, Default, Permission, ASVS, CWE, NERC, OWASP, PCI DSS, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R341. Use the principle of deny by default
@@ -31,44 +31,49 @@ exposes it to an unintended actor.
 The product specifies permissions for a security-critical resource in a way
 that allows that resource to be read or modified by unintended actors.
 
-. [[r3]] link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A5-Broken_Access_Control[OWASP Top 10 A5:2017-Broken Access Control].
+. [[r3]] link:https://www.nerc.com/pa/Stand/Reliability%20Standards/CIP-005-5.pdf[NERC CIP-005-5. B. Requirements and measures. R1.3]
+Require inbound and outbound access permissions,
+including the reason for granting access,
+and deny all other access by default.
+
+. [[r4]] link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A5-Broken_Access_Control[OWASP Top 10 A5:2017-Broken Access Control].
 Restrictions on what authenticated users are allowed to do are often not
 properly enforced.
 Attackers can exploit these flaws to access unauthorized functionality and/or
 data, such as access other users' accounts, view sensitive files,
 modify other users' data, change access rights, etc.
 
-. [[r4]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r5]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V4.1 General Access Control Design.(4.1.4)]
 Verify that the principle of deny by default exists whereby new users/roles
 start with minimal or no permissions and users/roles do not receive access to
 new features until access is explicitly assigned.
 
-. [[r5]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r6]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V10.2 Malicious Code Search.(10.2.2)]
 Verify that the application does not ask for unnecessary or excessive
 permissions to privacy related features or sensors, such as contacts, cameras,
 microphones, or location.
 
-. [[r6]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r7]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V14.2 Dependency.(14.2.6)]
 Verify that the attack surface is reduced by sandboxing or encapsulating third
 party libraries to expose only the required behavior into the application.
 
-. [[r7]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r8]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V14.5 Validate HTTP Request Header Requirements.(14.5.1)]
 Verify that the application server only accepts the *HTTP* methods in use by
 the application or *API*, including pre-flight *OPTIONS*.
 
-. [[r8]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 6.5.8]
+. [[r9]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 6.5.8]
 Address common coding vulnerabilities in software-development processes
 including improper access control
 (such as insecure direct object references, failure to restrict URL access,
 directory traversal, and failure to restrict user access to functions).
 
-. [[r9]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 7.1.2]
+. [[r10]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 7.1.2]
 Restrict access to privileged user IDs to least privileges necessary to perform
 job responsibilities.
 
-. [[r10]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 7.2.2]
+. [[r11]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 7.2.2]
 This access control system(s) must include a default "deny-all" setting.
