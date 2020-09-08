@@ -21,6 +21,7 @@ from toolbox import (
 )
 from .misc import misc_management
 from .analytics import analytics_management
+from .integrates import integrates_management
 
 EXP_METAVAR = '[<EXPLOIT | all>]'
 SUBS_METAVAR = '[GROUP]'
@@ -206,39 +207,6 @@ def forces_management(
         success = forces.upload.from_repo_to_integrates(group)
 
     sys.exit(0 if success else 1)
-
-
-@click.command(name='integrates', short_help='use the integrates API')
-@click.argument(
-    'kind', type=click.Choice(['dynamic', 'static', 'all']), default='all')
-@click.argument(
-    'group',
-    default=utils.generic.get_current_group(),
-    callback=utils.generic.is_valid_group)
-@click.option('--check-token', is_flag=True)
-@click.option(
-    '--delete-pending-vulns', metavar=EXP_METAVAR, callback=_convert_exploit)
-@click.option(
-    '--get-static-dict',
-    metavar='[<find_id> | all | local]',
-    help='execute in group path')
-@click.option('--report-vulns', metavar=EXP_METAVAR, callback=_convert_exploit)
-def integrates_management(kind, group, check_token,
-                          delete_pending_vulns, get_static_dict, report_vulns):
-    """Perform operations with the Integrates API."""
-    if delete_pending_vulns is not None:
-        sys.exit(0 if toolbox.delete_pending_vulnerabilities(
-            group, delete_pending_vulns, kind) else 1)
-    elif report_vulns:
-        sys.exit(0 if toolbox.report_vulnerabilities(
-            group, report_vulns, kind) else 1)
-    elif get_static_dict:
-        sys.exit(0 if toolbox.get_static_dictionary(
-            group, get_static_dict) else 1)
-    elif check_token:
-        from toolbox import constants
-        assert constants
-        sys.exit(0)
 
 
 @click.command(name='sorts', short_help='experimental')
