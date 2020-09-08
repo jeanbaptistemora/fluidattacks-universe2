@@ -20,7 +20,7 @@ from toolbox import (
     drills,
 )
 from .misc import misc_management
-
+from .analytics import analytics_management
 
 EXP_METAVAR = '[<EXPLOIT | all>]'
 SUBS_METAVAR = '[GROUP]'
@@ -239,16 +239,6 @@ def integrates_management(kind, group, check_token,
         from toolbox import constants
         assert constants
         sys.exit(0)
-
-
-@click.command(name='analytics')
-@click.option(
-    '--analytics-forces-logs',
-    is_flag=True,
-    help='pipelines-only')
-def analytics_management(analytics_forces_logs):
-    if analytics_forces_logs:
-        sys.exit(0 if analytics.logs.load_executions_to_database() else 1)
 
 
 @click.command(name='sorts', short_help='experimental')
