@@ -83,6 +83,7 @@ $codeyellow: rgba(230, 219, 116, 1);
 .c-dkgrey { color: $darkgray; }
 .c-lightblack { color: $lightblack; }
 .c-lightergray { color: $lightergray; }
+.c-lightred { color: $button-hover; }
 .grayscale { filter: grayscale(100);}
 .hv-fluid-dkred { &:hover { color: $fluid-dark-red;} }
 .hv-fluid-bk { &:hover { color: $fluid-black;} }
@@ -223,6 +224,8 @@ $codeyellow: rgba(230, 219, 116, 1);
 .width-sols { width: 100%; }
 .section-height { height: 600px; }
 .lh-18 { line-height: 1.8; }
+.f-solution { font-size: 1.25rem; }
+.f-card { font-size: 3.75rem; }
 
 // Tachyons custom responsive classes
 @media screen and (min-width: 960px) and (max-width: 1200px) {
@@ -312,7 +315,7 @@ $codeyellow: rgba(230, 219, 116, 1);
   .w-menu-bt { width: 18px; }
   .dn-s { display: none; }
   .h40-m { height: 40rem; }
-  .banner-height { height: 800px; }
+  .section-height { height: 800px; }
 }
 
 //Large screens
@@ -347,6 +350,7 @@ $codeyellow: rgba(230, 219, 116, 1);
   .fheader-vl { font-size: 10rem; }
   .new-banner { width: 40em; }
   .h-27-vl { height: 27em; }
+  .f-solution { font-size: 1.5rem; }
 }
 // End Tachyons
 
@@ -990,4 +994,37 @@ video {
   .panel{
       height: 0;
   }
+}
+
+.solution-benefits {
+  .sect2 {
+    display: inline-block;
+    min-height: 420px;
+    padding: 0 2rem;
+    vertical-align: top;
+    width: 33%;
+    h3 {
+      color: $fluid-black;
+      font-size: 24px;
+      font-weight: 700;
+    }
+    p {
+      color: $fluid-black;
+      font-size: 18px;
+      font-weight: 300;
+      line-height: 36px;
+    }
+  }
+}
+
+.solution-benefits .sect2 h3::after {
+  content: "";
+  display: block;
+  width: 30%;
+  border-bottom: 4px solid $button-hover;
+}
+
+.counter-container {
+  height: 290px;
+  width: 290px;
 }
