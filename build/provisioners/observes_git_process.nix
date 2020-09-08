@@ -24,5 +24,6 @@ in
           LD_LIBRARY_PATH="${pkgs.stdenv.cc.cc.lib}/lib64:$LD_LIBRARY_PATH";
 
           pyPkgTapgit = builders.pythonPackageLocal { path = ../../observes/singer/tap_git; };
+          pyPkgTracers = builders.pythonPackage { requirement = "tracers==20.7.1645"; };
         })
   )

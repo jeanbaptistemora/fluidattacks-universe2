@@ -341,6 +341,7 @@ function helper_observes_git_process {
   local mock_integrates_api_token='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.e30.xxx'
   local num_threads='4'
   helper_get_projects
+  export DEBUG="True"
   export CI_NODE_INDEX
   export CI_NODE_TOTAL
 
