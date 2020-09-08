@@ -115,12 +115,28 @@ function env_prepare_dynamodb_local {
 function env_prepare_minio_local {
   export PYTHONPATH
   export FI_MINIO_LOCAL_ENABLED
+  export MINIO_ACCESS_KEY
+  export MINIO_SECRET_KEY
+  export MINIO_REGION_NAME
+  export USER_MINIO_ACCESS_KEY
+  export USER_MINIO_SECRET_KEY
+  export minio
+  export mc
+  # MinIO credentials are only for local test development enviroment
       echo '[INFO] Preparing MinIO local' \
   &&  mkdir -p './.MinIO' \
   &&  env_prepare_python_packages \
   &&  PYTHONPATH="${PYTHONPATH}:${STARTDIR}/integrates" \
   &&  FI_MINIO_LOCAL_ENABLED='True' \
   &&  helper_integrates_set_dev_secrets \
+  &&  MINIO_ACCESS_KEY="test_access_key" \
+  &&  MINIO_SECRET_KEY="test_secret_key" \
+  &&  MINIO_REGION_NAME="${AWS_DEFAULT_REGION}" \
+  &&  USER_MINIO_ACCESS_KEY="${AWS_ACCESS_KEY_ID}" \
+  &&  USER_MINIO_SECRET_KEY="${AWS_SECRET_ACCESS_KEY}" \
+  &&  minio="${srcExternalMinIOLocal}" \
+  &&  mc="${srcExternalMinIOCli}" \
+  &&  chmod +x "${mc}" \
   &&  pushd './.MinIO' \
     &&  mkdir -p './temp' \
     &&  mkdir -p './data' \
