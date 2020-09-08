@@ -16,6 +16,8 @@ public interface ParametersJpaRepository extends JpaRepository<Parameter, String
     @Query("select u from User u where u.firstname like %?#{escape([0])}% escape ?#{escapeCharacter()}")
     List<User> findContainingEscaped(String namePart);
 
+    /* secure*/
+    @Query("select u from User u where u.lastname like :#{[0]}")
     /* LIKE statement injection */
     @Query("select u from User u where u.lastname like %:#{[0]}%")
     List<User> findByLastnameWithSpelExpression(@Param("lastname") String lastname);
@@ -41,6 +43,10 @@ public interface ParametersJpaRepository extends JpaRepository<Parameter, String
     /* LIKE statement injection */
     @Query("SEL" +
         "ECT e FROM ExamplePage e WHERE e.id LIKE ?10%")
+    Page<ExamplePage> getRechargeEvents(@Param("id") Long id, Pageable pageable);
+    /* Secure */
+    @Query("SEL" +
+        "ECT e FROM ExamplePage e WHERE e.id LIKE ?10")
     Page<ExamplePage> getRechargeEvents(@Param("id") Long id, Pageable pageable);
 }
 
