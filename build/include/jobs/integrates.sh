@@ -1294,8 +1294,6 @@ function job_integrates_ephemeral_stop {
   &&  helper_common_update_kubeconfig "${cluster}" "${region}" \
   &&  echo '[INFO] Deleting deployment' \
   &&  kubectl delete deployment -n ephemeral "integrates-${CI_COMMIT_REF_SLUG}" \
-  &&  kubectl delete service -n ephemeral "integrates-${CI_COMMIT_REF_SLUG}" \
-  &&  kubectl delete ingress -n ephemeral "integrates-${CI_COMMIT_REF_SLUG}" \
   &&  kubectl delete secret -n ephemeral "integrates-${CI_COMMIT_REF_SLUG}" \
   &&  popd \
   ||  return 1

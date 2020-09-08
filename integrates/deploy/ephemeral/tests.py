@@ -200,7 +200,6 @@ class ViewTestCase(unittest.TestCase):
             expected.presence_of_element_located(
                 (By.XPATH,
                     "//*[contains(text(), 'REQ.0132. Passwords (phrase type) must be at least 3 words long')]")))
-        time.sleep(5)
         selenium.save_screenshot(SCR_PATH + '05-02-finding.png')
 
         verify_btn = selenium.find_element_by_xpath(
@@ -220,7 +219,6 @@ class ViewTestCase(unittest.TestCase):
         WebDriverWait(selenium, self.delay).until(
             expected.presence_of_element_located(
                 (By.XPATH, "//*[contains(text(), 'Justification')]")))
-        time.sleep(2)
         selenium.save_screenshot(SCR_PATH + '05-05-finding.png')
 
         modal_btn = selenium.find_element_by_xpath(
@@ -251,7 +249,6 @@ class ViewTestCase(unittest.TestCase):
             expected.presence_of_element_located(
                 (By.XPATH,
                     "//*[contains(text(), 'Confidentiality Impact')]")))
-        time.sleep(3)
         selenium.save_screenshot(SCR_PATH + '06-03-severity.png')
         assert 'Proof of Concept' in selenium.page_source
 
@@ -277,7 +274,6 @@ class ViewTestCase(unittest.TestCase):
         WebDriverWait(selenium, self.delay).until(
             expected.presence_of_element_located(
                 (By.XPATH, "//*[contains(text(), 'Comentario')]")))
-        time.sleep(3)
         selenium.save_screenshot(SCR_PATH + '07-04-evidence.png')
         assert 'Comentario' in selenium.page_source
 
@@ -301,7 +297,6 @@ class ViewTestCase(unittest.TestCase):
         WebDriverWait(selenium, self.delay).until(
             expected.presence_of_element_located(
                 (By.XPATH, "//*[contains(text(), 'It works')]")))
-        time.sleep(3)
         selenium.save_screenshot(SCR_PATH + '08-03-exploit.png')
         assert 'It works' in selenium.page_source
 
@@ -326,7 +321,6 @@ class ViewTestCase(unittest.TestCase):
         WebDriverWait(selenium, self.delay).until(
             expected.presence_of_element_located(
                 (By.XPATH, "//*[contains(text(), '2019-09-16')]")))
-        time.sleep(3)
         selenium.save_screenshot(SCR_PATH + '09-03-tracking.png')
         assert '2019-09-16' in selenium.page_source
 
@@ -350,7 +344,6 @@ class ViewTestCase(unittest.TestCase):
         WebDriverWait(selenium, self.delay).until(
             expected.presence_of_element_located(
                 (By.XPATH, "//*[contains(text(), 'Oldest')]")))
-        time.sleep(3)
         selenium.save_screenshot(SCR_PATH + '10-03-comments.png')
         assert 'oldest' in selenium.page_source
 
@@ -397,7 +390,6 @@ class ViewTestCase(unittest.TestCase):
             expected.presence_of_element_located(
                 (By.XPATH,
                     "//*[contains(text(), 'This is an eventuality with evidence')]")))
-        time.sleep(3)
         selenium.save_screenshot(SCR_PATH + '13-02-events.png')
         assert 'This is an eventuality with evidence' in selenium.page_source
 
@@ -419,7 +411,6 @@ class ViewTestCase(unittest.TestCase):
         WebDriverWait(selenium, self.delay).until(
             expected.presence_of_element_located(
                 (By.XPATH, "//*[contains(text(), 'Add repository')]")))
-        time.sleep(1)
         selenium.save_screenshot(SCR_PATH + '14-02-resources.png')
         self.__cancel_modal()
 
@@ -429,7 +420,6 @@ class ViewTestCase(unittest.TestCase):
         WebDriverWait(selenium, self.delay).until(
             expected.presence_of_element_located(
                 (By.XPATH, "//*[contains(text(), 'Add environment')]")))
-        time.sleep(1)
         selenium.save_screenshot(SCR_PATH + '14-03-resources.png')
         self.__cancel_modal()
 
@@ -449,7 +439,6 @@ class ViewTestCase(unittest.TestCase):
         WebDriverWait(selenium, self.delay).until(
             expected.presence_of_element_located(
                 (By.XPATH, "//*[contains(text(), 'Add file')]")))
-        time.sleep(1)
         selenium.save_screenshot(SCR_PATH + '14-05-resources.png')
         self.__cancel_modal()
 
@@ -459,7 +448,6 @@ class ViewTestCase(unittest.TestCase):
         WebDriverWait(selenium, self.delay).until(
             expected.presence_of_element_located(
                 (By.XPATH, "//*[contains(text(), 'Add tags')]")))
-        time.sleep(1)
         selenium.save_screenshot(SCR_PATH + '14-06-resources.png')
         self.__cancel_modal()
 
@@ -478,7 +466,6 @@ class ViewTestCase(unittest.TestCase):
             expected.presence_of_element_located(
                 (By.XPATH,
                  "//*[contains(text(), 'Now we can post comments on projects')]")))
-        time.sleep(3)
         selenium.save_screenshot(SCR_PATH + '15-01-proj_comments.png')
         assert 'Now we can post comments on projects' in selenium.page_source
 
@@ -502,7 +489,6 @@ class ViewTestCase(unittest.TestCase):
             WebDriverWait(selenium, self.delay).until(
                 expected.presence_of_element_located(
                     (By.XPATH, "//*[contains(text(), 'Exploitable')]")))
-            time.sleep(1)
             selenium.save_screenshot(SCR_PATH + '16.03-forces-execution-modal.png')
             assert 'Running Fluid Asserts' in selenium.page_source
 
@@ -514,7 +500,6 @@ class ViewTestCase(unittest.TestCase):
         WebDriverWait(selenium, self.delay).until(
             expected.presence_of_element_located(
                 (By.XPATH, "//*[contains(text(), 'Cancel group deletion')]")))
-        time.sleep(2)
         selenium.save_screenshot(SCR_PATH + '17-02-pending_to_delete.png')
         assert 'Group pending to delete' in selenium.page_source
 
