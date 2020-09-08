@@ -7,8 +7,6 @@ const NewsWidget: React.FC = (): JSX.Element => {
 
     script.setAttribute("async", "true");
     script.setAttribute("src", "https://cdn.headwayapp.co/widget.js");
-    document.head.appendChild(script);
-
     script.addEventListener("load", (): void => {
       const { Headway } = window as typeof window & {
         Headway: { init: (options: Record<string, string>) => void };
@@ -16,6 +14,8 @@ const NewsWidget: React.FC = (): JSX.Element => {
 
       Headway.init({ account: "yZBW5y", selector: "#news", trigger: "#news" });
     });
+
+    document.head.appendChild(script);
   }, []);
 
   return (
