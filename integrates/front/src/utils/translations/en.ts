@@ -694,7 +694,7 @@ export const enTranslations: ResourceKey = {
         value: "Value",
       },
       portfolios: {
-        remainingDescription: "and {{remaining}} more",
+        remainingDescription: " and {{remaining}} more",
         table: {
           groups: "Groups",
           n_groups: "# of Groups",
