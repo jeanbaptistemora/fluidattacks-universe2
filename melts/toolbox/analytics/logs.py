@@ -390,6 +390,8 @@ def load_executions_to_database() -> bool:
     for execution_group in yield_execution_groups(s3_client):
         result = get_execution_object(s3_client, execution_group)
         try:
+            if not result.trace_end and result.kind == 'other':
+                continue
             logger.info(f'  - {result.subscription} {result.execution_id}')
             result.save()
         except (botocore.exceptions.ClientError,
