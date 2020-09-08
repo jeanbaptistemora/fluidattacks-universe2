@@ -59,7 +59,7 @@ class ViewTestCase(unittest.TestCase):
             self.url = BASE_URL
         elif self.in_ci:
             self.url = \
-                f'https://{self.branch}.integrates.env.fluidattacks.com/integrates'
+                f'https://{self.branch}.integrates.fluidattacks.com/integrates'
         else:
             self.url = 'https://localhost:8080/integrates'
 

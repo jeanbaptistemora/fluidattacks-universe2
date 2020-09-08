@@ -242,6 +242,16 @@ integrates_clean_registries:
   <<: *in_schedule_nightly_build_integrates
   stage: post-deploy
 
+integrates_ephemeral_deploy:
+  <<: *with_nix
+  <<: *in_dev_branch_integrates
+  stage: deploy-app
+  needs: [integrates_build_container_app]
+  retry: 1
+  environment:
+    name: "ephemeral/$CI_COMMIT_REF_SLUG"
+    url: "https://$CI_COMMIT_REF_SLUG.integrates.fluidattacks.com/integrates"
+
 integrates_deploy_k8s_back_ephemeral:
   <<: *with_nix
   <<: *in_dev_branch_integrates

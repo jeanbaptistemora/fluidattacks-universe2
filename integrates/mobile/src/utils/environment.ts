@@ -22,7 +22,7 @@ export const getEnvironment: (() => IEnvironment) = (): IEnvironment => {
   } else if (releaseChannel === "master") {
     environment = { name: "production", url: "https://fluidattacks.com" };
   } else if (_.endsWith(String(releaseChannel), "atfluid")) {
-    environment = { name: "review", url: `https://${releaseChannel}.integrates.env.fluidattacks.com` };
+    environment = { name: "ephemeral", url: `https://${releaseChannel}.integrates.fluidattacks.com` };
   } else {
     throw new TypeError("Couldn't identify environment");
   }
