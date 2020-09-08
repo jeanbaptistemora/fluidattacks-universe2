@@ -72,7 +72,7 @@ ALLOWED_HOSTS = ["localhost", "127.0.0.1", "fluid.la",
                  "192.168.200.100", ".integrates.env.fluidattacks.com",
                  ".integrates.fluidattacks.com"]
 ALLOWED_HOSTS += [
-    '192.168.{}.{}'.format(i, j) for i in range(256) for j in range(256)
+    f'192.168.{i}.{j}' for i in range(256) for j in range(256)
 ]
 
 if DEBUG:
