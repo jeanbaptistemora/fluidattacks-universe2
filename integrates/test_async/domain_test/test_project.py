@@ -311,7 +311,9 @@ class ProjectTest(TestCase):
 
     async def test_get_managers(self):
         project_name = 'unittesting'
-        expected_output = ['integratesuser@gmail.com', 'continuoushacking@gmail.com']
+        expected_output = [
+            'integratesuser@gmail.com', 'continuoushacking@gmail.com', 'continuoushack2@gmail.com'
+        ]
         assert expected_output == await get_managers(project_name)
 
     async def test_get_description(self):
@@ -323,7 +325,7 @@ class ProjectTest(TestCase):
         project_name = 'unittesting'
         expected_output = [
             'integratesmanager@gmail.com', 'unittest@fluidattacks.com', 'integratesanalyst@gmail.com',
-            'integratesuser@gmail.com', 'continuoushacking@gmail.com'
+            'integratesuser@gmail.com', 'continuoushacking@gmail.com', 'continuoushack2@gmail.com'
         ]
         assert expected_output == await get_users(project_name)
 

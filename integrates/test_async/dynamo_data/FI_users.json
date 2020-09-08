@@ -240,6 +240,39 @@
         }
       },
       {
+        "PutRequest": {
+          "Item": {
+            "company": {
+              "S": "fluid"
+            },
+            "organization": {
+              "S" : "ORG#91ec53c5-e57e-4d1f-9f90-970cf0f9290f"
+            },
+            "last_name": {
+              "S": "Hacking"
+            },
+            "first_name": {
+              "S": "Continuous2"
+            },
+            "date_joined": {
+              "S": "2018-02-28 11:54:12"
+            },
+            "legal_remember": {
+              "BOOL": true
+            },
+            "last_login": {
+              "S": "2020-03-23 10:45:37"
+            },
+            "email": {
+              "S": "continuoushack2@gmail.com"
+            },
+            "registered": {
+              "BOOL": true
+            }
+          }
+        }
+      },
+      {
         "PutRequest" : {
            "Item" : {
               "company" : {

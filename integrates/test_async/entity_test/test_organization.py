@@ -239,6 +239,7 @@ async def test_organization():
     org_id = 'ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3'
     expected_groups = ['oneshottest', 'unittesting']
     expected_stakeholders = [
+        'continuoushack2@gmail.com',
         'continuoushacking@gmail.com',
         'integratesmanager@gmail.com',
         'integratesuser@gmail.com'

@@ -118,7 +118,7 @@ class ProjectTests(TestCase):
         assert len(result['data']['project']['drafts']) == 1
         assert len(result['data']['project']['events']) == 5
         assert result['data']['project']['consulting'][0]['content'] == 'Now we can post comments on projects'
-        assert len(result['data']['project']['users']) == 4
+        assert len(result['data']['project']['users']) == 5
 
     async def test_project_filtered(self):
         """Check for project mutation."""

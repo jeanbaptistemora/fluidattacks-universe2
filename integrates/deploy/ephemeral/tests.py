@@ -38,7 +38,7 @@ class ViewTestCase(unittest.TestCase):
                 aws_session_token=os.environ.get('AWS_SESSION_TOKEN'))
             resource = session.resource('s3')
             resource.Bucket(s3_bucket).download_file(
-                'selenium/firefox-selenium-two-accounts-profile.tar.gz',
+                'selenium/firefox-selenium-three-accounts-profile.tar.gz',
                 './test/functional/profile.tar.gz')
             with tarfile.open('./test/functional/profile.tar.gz') as tar:
                 tar.extractall('./test/functional')
@@ -55,6 +55,8 @@ class ViewTestCase(unittest.TestCase):
           options=options)
         self.branch = os.environ['CI_COMMIT_REF_NAME']
         self.in_ci = bool(os.environ['CI'])
+        self.ci_node_index = int(os.environ.get('CI_NODE_INDEX', 1))
+        self.ci_node_total = int(os.environ.get('CI_NODE_TOTAL', 1))
         if self.branch == 'master':
             self.url = BASE_URL
         elif self.in_ci:
@@ -117,6 +119,19 @@ class ViewTestCase(unittest.TestCase):
         self.selenium.execute_script('arguments[0].click()', element)
         time.sleep(6)
 
+    def __login_aux(self):
+        try:
+            selenium = self.selenium
+            WebDriverWait(selenium, self.delay/10).until(
+                expected.presence_of_element_located(
+                    (By.XPATH, "//*[contains(text(), 'Elegir una cuenta')]")))
+            user_to_login = self.ci_node_index % self.ci_node_total
+            btn_user = selenium.find_element_by_xpath(
+                f"//*[contains(text(), 'continuoushack{user_to_login}@gmail.com')]")
+            self.__click(btn_user)
+        except TimeoutException:
+            pass
+
     def __login(self):
         selenium = self.selenium
         selenium.get(self.url)
@@ -124,15 +139,14 @@ class ViewTestCase(unittest.TestCase):
             expected.presence_of_element_located(
                 (By.XPATH, "//*[contains(text(), 'Sign in with Microsoft')]")))
         selenium.save_screenshot(f'{SCR_PATH}00.00-init-page.png')
-        ci_node_index = int(os.environ.get('CI_NODE_INDEX', 1))
-        ci_node_total = int(os.environ.get('CI_NODE_TOTAL', 1))
-        if ci_node_index % 2 == 1 and ci_node_total > 1:
+        if self.ci_node_index % self.ci_node_total != 0 and self.ci_node_total > 1:
             btn_login = selenium.find_element_by_xpath(
                 "//*[contains(text(), 'Sign in with Google')]")
         else:
             btn_login = selenium.find_element_by_xpath(
                 "//*[contains(text(), 'Sign in with Microsoft')]")
         self.__click(btn_login)
+        self.__login_aux()
         self.__check_existing_session()
         self.__check_legal_notice()
 
