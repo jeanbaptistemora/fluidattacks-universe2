@@ -81,5 +81,43 @@ class IntegratesWorker(UvicornWorker):
         'http': 'httptools',
         'root_path': '/integrates',
         'interface': 'asgi2',
-        'log_level': 'info'
+        'log_level': 'info',
+        'headers': [
+            [
+                'Pragma',
+                'no-cache'
+            ],
+            [
+                'WWW-Authenticate',
+                'OAuth realm="Access to FLUIDIntegrates" charset="UTF-8"'
+            ],
+            [
+                'X-XSS-Protection',
+                '1; mode=block'
+            ],
+            [
+                'X-Permitted-Cross-Domain-Policies',
+                'master-only'
+            ],
+            [
+                'X-Content-Type-Options',
+                'nosniff'
+            ],
+            [
+                'Expires',
+                '0'
+            ],
+            [
+                'Content-Security-Policy',
+                "script-src 'self' 'unsafe-inline' 'unsafe-eval' "
+                'localhost:* *.amazonaws.com *.cloudfront.net *.mxpnl.com '
+                '*.cloudflare.com *.cookiebot.com *.zdassets.com '
+                'https://d2yyd1h5u9mauk.cloudfront.net *.pingdom.net '
+                'cdn.jsdelivr.net/npm/ cdn.headwayapp.co;'
+            ],
+            [
+                'Accept-Encoding',
+                'identity'
+            ],
+        ],
     }
