@@ -30,6 +30,11 @@ from toolbox.drills import (
     default=utils.generic.get_current_group(),
     callback=utils.generic.is_valid_group)
 @option(
+    '--name', 'o_name',
+    help='Specific name of repository',
+    default='all',
+    type=str)
+@option(
     '--generate-commit-msg', 'o_generate_commit_msg',
     is_flag=True,
     help='Generate drills commit message')
@@ -64,6 +69,7 @@ from toolbox.drills import (
     is_flag=True)
 def drills_management(
         group,
+        o_name,
         o_generate_commit_msg,
         o_update_lines,
         o_upload_history,
@@ -87,7 +93,7 @@ def drills_management(
     elif o_to_reattack_exp:
         to_reattack.main(True)
     elif o_pull_repos:
-        success = pull_repos.main(group)
+        success = pull_repos.main(group, o_name)
     elif o_push_repos:
         success = push_repos.main(group)
     elif o_count_toe:

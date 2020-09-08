@@ -58,14 +58,21 @@ def delete_out_of_scope_files(group: str) -> bool:
     return notify_out_of_scope(include_regexps, exclude_regexps)
 
 
-def pull_repos_s3_to_fusion(subs: str, local_path: str) -> bool:
+def pull_repos_s3_to_fusion(subs: str, local_path: str, repository_name: str = 'all') -> bool:
     '''
     Download repos from s3 to a provided path
 
     param: subs: group to work with
     param: local_path: Path to store downloads
     '''
-    bucket_path: str = f's3://continuous-repositories/{subs}/active/'
+
+    if repository_name != 'all':
+        local_path = f'{local_path}/{repository_name}'
+    else:
+        repository_name = ''
+
+    bucket_path: str = f's3://continuous-repositories/{subs}/active/{repository_name}'
+
     os.makedirs(local_path, exist_ok=True)
     sync_command: List[str] = [
         'aws', 's3', 'sync',
@@ -98,7 +105,7 @@ def pull_repos_s3_to_fusion(subs: str, local_path: str) -> bool:
     return True
 
 
-def main(subs: str) -> bool:
+def main(subs: str, repository_name: str = 'all') -> bool:
     '''
     Clone all repos for a group
 
@@ -125,7 +132,7 @@ def main(subs: str) -> bool:
                 drills_generic.get_last_upload(bucket, f'{subs}/'))
 
         passed = passed \
-            and pull_repos_s3_to_fusion(subs, local_path) \
+            and pull_repos_s3_to_fusion(subs, local_path, repository_name) \
             and delete_out_of_scope_files(subs)
 
         logger.info(f'Data for {subs} was uploaded to S3 {days} days ago')
