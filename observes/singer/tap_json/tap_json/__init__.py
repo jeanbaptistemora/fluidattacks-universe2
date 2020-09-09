@@ -174,7 +174,8 @@ def read(
     """Yield func(line) per every line of a file."""
     with open(f"{directory}/{table_name}", "r") as file:
         for line in file:
-            yield func(line)
+            with contextlib.suppress(JSONDecodeError):
+                yield func(line)
 
 
 def json_from_file(file_path: str) -> JSON:
@@ -293,7 +294,7 @@ def dump_schema(table: str) -> None:
                 },
                 "key_properties": []
             }))
-    with ThreadPoolExecutor(max_workers=cpu_count()) as worker:
+    with ThreadPoolExecutor(max_workers=cpu_count() * 3) as worker:
         worker.map(dump_record, read(RECORDS_DIR, table, loads))
 
 
@@ -333,14 +334,14 @@ def main():
             stream_stru = loads(stream)
             linearize(stream_stru["stream"], stream_stru["record"])
 
-    with ThreadPoolExecutor(max_workers=cpu_count()) as worker:
+    with ThreadPoolExecutor(max_workers=cpu_count() * 3) as worker:
         worker.map(structure,
                    io.TextIOWrapper(sys.stdin.buffer, encoding="utf-8"))
 
     catalog()
 
     # Parse everything to singer
-    with ThreadPoolExecutor(max_workers=cpu_count()) as worker:
+    with ThreadPoolExecutor(max_workers=cpu_count() * 3) as worker:
         worker.map(dump_schema, os.listdir(SCHEMAS_DIR))
 
     release_env()

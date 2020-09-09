@@ -60,7 +60,7 @@ JSON_SCHEMA_TYPES: JSON = {
             ]
         }
     ],
-    "INT8": [
+    "NUMERIC(38)": [
         {
             "type": "integer"
         },
@@ -348,7 +348,7 @@ def translate_record(schema: JSON, record: JSON) -> Dict[str, str]:
             new_field_type = schema[new_field]
             if new_field_type == "BOOLEAN":
                 new_value = f"{escape(user_value).lower()}"
-            elif new_field_type == "INT8":
+            elif new_field_type == "NUMERIC(38)":
                 new_value = f"{escape(user_value)}"
             elif new_field_type == "FLOAT8":
                 new_value = f"{escape(user_value)}"
@@ -668,7 +668,10 @@ def persist_messages(batcher: Batcher, schema_name: str) -> None:
     validators: Any = {}
 
     for message in io.TextIOWrapper(sys.stdin.buffer, encoding="utf-8"):
-        json_obj: JSON = json.loads(message)
+        try:
+            json_obj: JSON = json.loads(message)
+        except json.JSONDecodeError:
+            continue
         if json_obj["type"] == "RECORD":
             tname: str = escape(json_obj["stream"].lower())
             tschema: JSON = schemas[tname]

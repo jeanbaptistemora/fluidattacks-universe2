@@ -91,13 +91,16 @@ async def scan_table(
 async def dump_table(connection_args: Dict[str, str]) -> str:
     table_name = connection_args.pop('table_name')
     LOGGER.info("Scanning %s", table_name)
+
+    lock = asyncio.Lock()
     async for item in scan_table(table_name, **connection_args):
         item = deserialize(item)
         record: str = await in_thread(json.dumps, {
             "stream": table_name,
             "record": item
         })
-        print(record)
+        async with lock:
+            print(record)
     return table_name
 
 
