@@ -1,6 +1,8 @@
 """
 This migration adds time part to those finding dates that
 do not have it.
+Execution Time:    2020-09-09 15:31:00 UTC-5
+Finalization Time: 2020-09-09 15:48:00 UTC-5
 """
 
 from asyncio import run
@@ -63,7 +65,7 @@ async def main() -> None:
 
         to_update = False
         for state in historic_state:
-            if not date_has_time(state['date']):
+            if 'date' in state and state['date'] and not date_has_time(state['date']):
                 to_update = True
                 state['date'] += ' 00:00:00'
         if to_update:
