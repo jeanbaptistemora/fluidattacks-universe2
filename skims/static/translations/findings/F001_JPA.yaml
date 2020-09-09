@@ -33,7 +33,7 @@ utils.model.finding.enum.F001_JPA.recommendation:
   en: >
     Perform queries to the database through sentences or parameterized procedures.
     Alternatively use escape(String) built-in function.
-  es: |
+  es: >
     Realizar las consultas a la base de datos por medio de sentencias o
     procedimientos parametrizados, o alternativamente usar la función escape(String)
     del framework.
