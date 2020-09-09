@@ -28,6 +28,7 @@ module "eks" {
       asg_max_size         = 3
       root_volume_type     = "gp2"
       root_volume_size     = "50"
+      kubelet_extra_args   = "--node-labels=worker_group=large"
     },
     {
       name                 = "xlarge"
@@ -37,6 +38,7 @@ module "eks" {
       asg_max_size         = 2
       root_volume_type     = "gp2"
       root_volume_size     = "50"
+      kubelet_extra_args   = "--node-labels=worker_group=xlarge"
     },
   ]
 
