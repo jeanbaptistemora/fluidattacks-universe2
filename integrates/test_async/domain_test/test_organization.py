@@ -149,13 +149,42 @@ async def test_get_max_acceptance_severity():
     assert max_severity == Decimal('10.0')
 
 
-async def test_get_max_number_acceptations():
+async def test_get_historic_max_number_acceptations():
     org_with_data = 'ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3'
-    max_acceptations = await org_domain.get_max_number_acceptations(org_with_data)
+    historic_max_acceptations = await org_domain.get_historic_max_number_acceptations(org_with_data)
+    expected_max_acceptations = [{
+        'date': '2019-11-22 15:07:57',
+        'user': 'integratesmanager@gmail.com',
+        'max_number_acceptations': Decimal('2'),
+    }]
+    assert historic_max_acceptations == expected_max_acceptations
+
+    org_without_data = 'ORG#c2ee2d15-04ab-4f39-9795-fbe30cdeee86'
+    historic_max_acceptations = await org_domain.get_historic_max_number_acceptations(org_without_data)
+    assert historic_max_acceptations == []
+
+
+async def test_get_current_max_number_acceptations_info():
+    org_with_data = 'ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3'
+    current_max_number_acceptations_info = (
+        await org_domain.get_current_max_number_acceptations_info(
+            org_with_data
+        )
+    )
+    max_acceptations = (
+        current_max_number_acceptations_info.get('max_number_acceptations')
+    )
     assert max_acceptations == Decimal('2')
 
     org_without_data = 'ORG#c2ee2d15-04ab-4f39-9795-fbe30cdeee86'
-    max_acceptations = await org_domain.get_max_number_acceptations(org_without_data)
+    current_max_number_acceptations_info = (
+        await org_domain.get_current_max_number_acceptations_info(
+            org_without_data
+        )
+    )
+    max_acceptations = (
+        current_max_number_acceptations_info.get('max_number_acceptations')
+    )
     assert max_acceptations is None
 
 
@@ -251,9 +280,16 @@ async def test_remove_user():
 async def test_update_policies():
     org_id = 'ORG#c2ee2d15-04ab-4f39-9795-fbe30cdeee86'
     org_name = 'bulat'
+    current_max_number_acceptations_info = (
+        await org_domain.get_current_max_number_acceptations_info(
+            org_id
+        )
+    )
     max_acceptance_days = await org_domain.get_max_acceptance_days(org_id)
     max_acceptance_severity = await org_domain.get_max_acceptance_severity(org_id)
-    max_number_acceptations = await org_domain.get_max_number_acceptations(org_id)
+    max_number_acceptations = (
+        current_max_number_acceptations_info.get('max_number_acceptations')
+    )
     min_acceptance_severity = await org_domain.get_min_acceptance_severity(org_id)
 
     assert max_acceptance_days is None
@@ -267,11 +303,18 @@ async def test_update_policies():
         'max_number_acceptations': '3',
         'min_acceptance_severity': '2.2'
     }
-    await org_domain.update_policies(org_id, org_name, new_values)
+    await org_domain.update_policies(org_id, org_name, '', new_values)
 
+    current_max_number_acceptations_info = (
+        await org_domain.get_current_max_number_acceptations_info(
+            org_id
+        )
+    )
     max_acceptance_days = await org_domain.get_max_acceptance_days(org_id)
     max_acceptance_severity = await org_domain.get_max_acceptance_severity(org_id)
-    max_number_acceptations = await org_domain.get_max_number_acceptations(org_id)
+    max_number_acceptations = (
+        current_max_number_acceptations_info.get('max_number_acceptations')
+    )
     min_acceptance_severity = await org_domain.get_min_acceptance_severity(org_id)
 
     assert max_acceptance_days == Decimal('20')
@@ -282,25 +325,25 @@ async def test_update_policies():
     new_values = {'max_acceptance_days': '-10'}
     exe = InvalidAcceptanceDays()
     with pytest.raises(GraphQLError) as excinfo:
-        await org_domain.update_policies(org_id, org_name, new_values)
+        await org_domain.update_policies(org_id, org_name, '', new_values)
     assert GraphQLError(exe.args[0]) == excinfo.value
 
     new_values = {'max_acceptance_severity': '10.5'}
     exe = InvalidAcceptanceSeverity()
     with pytest.raises(GraphQLError) as excinfo:
-        await org_domain.update_policies(org_id, org_name, new_values)
+        await org_domain.update_policies(org_id, org_name, '', new_values)
     assert GraphQLError(exe.args[0]) == excinfo.value
 
     new_values = {'max_number_acceptations': '-1'}
     exe = InvalidNumberAcceptations()
     with pytest.raises(GraphQLError) as excinfo:
-        await org_domain.update_policies(org_id, org_name, new_values)
+        await org_domain.update_policies(org_id, org_name, '', new_values)
     assert GraphQLError(exe.args[0]) == excinfo.value
 
     new_values = {'min_acceptance_severity': '-1.5'}
     exe = InvalidAcceptanceSeverity()
     with pytest.raises(GraphQLError) as excinfo:
-        await org_domain.update_policies(org_id, org_name, new_values)
+        await org_domain.update_policies(org_id, org_name, '', new_values)
     assert GraphQLError(exe.args[0]) == excinfo.value
 
     new_values = {
@@ -309,7 +352,7 @@ async def test_update_policies():
     }
     exe = InvalidAcceptanceSeverityRange()
     with pytest.raises(GraphQLError) as excinfo:
-        await org_domain.update_policies(org_id, org_name, new_values)
+        await org_domain.update_policies(org_id, org_name, '', new_values)
     assert GraphQLError(exe.args[0]) == excinfo.value
 
 

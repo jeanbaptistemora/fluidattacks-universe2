@@ -441,6 +441,7 @@ async def _do_update_organization_policies(
     success: bool = await org_domain.update_policies(
         organization_id,
         organization_name,
+        user_email,
         parameters
     )
     if success:
@@ -516,7 +517,15 @@ async def _get_max_number_acceptations(
     organization_id: str,
     **__: Any
 ) -> Optional[Decimal]:
-    return await org_domain.get_max_number_acceptations(organization_id)
+    current_max_number_acceptations_info = (
+        await org_domain.get_current_max_number_acceptations_info(
+            organization_id
+        )
+    )
+    return cast(
+        Optional[Decimal],
+        current_max_number_acceptations_info.get('max_number_acceptations')
+    )
 
 
 @rename_kwargs({'identifier': 'organization_id'})

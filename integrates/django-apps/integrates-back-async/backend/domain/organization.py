@@ -1,5 +1,6 @@
 import logging
 import sys
+from datetime import datetime
 from decimal import Decimal
 from typing import (
     AsyncIterator,
@@ -8,9 +9,13 @@ from typing import (
     List,
     Optional,
     Tuple,
+    Union,
 )
 
+import pytz
+from django.conf import settings
 from graphql import GraphQLError
+from pytz.tzinfo import DstTzInfo
 
 from backend import (
     authz,
@@ -161,13 +166,29 @@ async def get_max_acceptance_severity(organization_id: str) -> Decimal:
     return result.get('max_acceptance_severity', DEFAULT_MAX_SEVERITY)
 
 
-async def get_max_number_acceptations(organization_id: str) -> \
-        Optional[Decimal]:
-    result = cast(
-        Dict[str, Decimal],
-        await org_dal.get_by_id(organization_id, ['max_number_acceptations'])
+async def get_historic_max_number_acceptations(organization_id: str) -> \
+        List[Dict[str, Union[Decimal, None, str]]]:
+    org_result = await org_dal.get_by_id(
+        organization_id,
+        ['historic_max_number_acceptations']
     )
-    return result.get('max_number_acceptations', None)
+    historic_max_number_acceptations = cast(
+        List[Dict[str, Union[Decimal, None, str]]],
+        org_result.get('historic_max_number_acceptations', [])
+    )
+    return historic_max_number_acceptations
+
+
+async def get_current_max_number_acceptations_info(organization_id: str) -> \
+        Dict[str, Union[Decimal, None, str]]:
+    historic_max_number_acceptations = (
+        await get_historic_max_number_acceptations(organization_id)
+    )
+    current_max_number_acceptations_info = (
+        historic_max_number_acceptations[-1]
+        if historic_max_number_acceptations else {}
+    )
+    return current_max_number_acceptations_info
 
 
 async def get_min_acceptance_severity(organization_id: str) -> Decimal:
@@ -243,10 +264,109 @@ async def remove_user(organization_id: str, email: str) -> bool:
     return user_removed and role_removed and groups_removed
 
 
+async def _add_updated_max_acceptance_days(
+    organization_id: str,
+    values: Dict[str, Optional[Decimal]],
+    new_policies: OrganizationType
+) -> None:
+    new_max_acceptance_days = values.get('max_acceptance_days')
+    max_acceptance_days = (
+        await get_max_acceptance_days(organization_id)
+    )
+    if new_max_acceptance_days != max_acceptance_days:
+        new_policies['max_acceptance_days'] = (
+            new_max_acceptance_days
+        )
+
+
+async def _add_updated_max_number_acceptations(
+    organization_id: str,
+    values: Dict[str, Optional[Decimal]],
+    new_policies: OrganizationType,
+    email: str,
+    date: str,
+) -> None:
+    new_max_number_acceptation = values.get('max_number_acceptations')
+    current_max_number_acceptations_info = (
+        await get_current_max_number_acceptations_info(
+            organization_id
+        )
+    )
+    max_number_acceptations = (
+        current_max_number_acceptations_info.get('max_number_acceptations')
+    )
+    if new_max_number_acceptation != max_number_acceptations:
+        historic_max_number_acceptations = (
+            await get_historic_max_number_acceptations(organization_id)
+        )
+        historic_max_number_acceptations.append({
+            'date': date,
+            'max_number_acceptations': new_max_number_acceptation,
+            'user': email
+        })
+        new_policies['historic_max_number_acceptations'] = (
+            historic_max_number_acceptations
+        )
+
+
+async def _add_updated_max_acceptance_severity(
+    organization_id: str,
+    values: Dict[str, Optional[Decimal]],
+    new_policies: OrganizationType
+) -> None:
+    new_max_acceptance_severity = values.get('max_acceptance_severity')
+    max_acceptance_severity = (
+        await get_max_acceptance_severity(organization_id)
+    )
+    if new_max_acceptance_severity != max_acceptance_severity:
+        new_policies['max_acceptance_severity'] = (
+            new_max_acceptance_severity
+        )
+
+
+async def _add_updated_min_acceptance_severity(
+    organization_id: str,
+    values: Dict[str, Optional[Decimal]],
+    new_policies: OrganizationType
+) -> None:
+    new_min_acceptance_severity = values.get('min_acceptance_severity')
+    min_acceptance_severity = (
+        await get_min_acceptance_severity(organization_id)
+    )
+    if new_min_acceptance_severity != min_acceptance_severity:
+        new_policies['min_acceptance_severity'] = (
+            new_min_acceptance_severity
+        )
+
+
+async def _get_new_policies(
+    organization_id: str,
+    email: str,
+    values: Dict[str, Optional[Decimal]]
+) -> Union[OrganizationType, None]:
+    tzn: DstTzInfo = pytz.timezone(settings.TIME_ZONE)
+    date = datetime.now(tz=tzn).strftime('%Y-%m-%d %H:%M:%S')
+    new_policies: OrganizationType = {}
+    await _add_updated_max_acceptance_days(
+        organization_id, values, new_policies
+    )
+    await _add_updated_max_number_acceptations(
+        organization_id, values, new_policies, email, date
+    )
+    await _add_updated_max_acceptance_severity(
+        organization_id, values, new_policies
+    )
+    await _add_updated_min_acceptance_severity(
+        organization_id, values, new_policies
+    )
+    return new_policies or None
+
+
 async def update_policies(
     organization_id: str,
     organization_name: str,
-    values: OrganizationType
+    email: str,
+    values: Dict[str, Optional[Decimal]]
 ) -> bool:
     """
     Validate setting values to update and update them
@@ -284,17 +404,21 @@ async def update_policies(
         raise GraphQLError(str(exe))
 
     if all(valid):
-        success = await org_dal.update(
-            organization_id,
-            organization_name,
-            values
-        )
+        success = True
+        new_policies = await _get_new_policies(organization_id, email, values)
+        if new_policies:
+            success = await org_dal.update(
+                organization_id,
+                organization_name,
+                new_policies
+            )
+
     return success
 
 
 async def validate_acceptance_severity_range(
     organization_id,
-    values: OrganizationType
+    values: Dict[str, Optional[Decimal]]
 ) -> bool:
     success: bool = True
     min_value: Decimal = (

@@ -5,7 +5,7 @@ import itertools
 import logging
 from datetime import datetime
 from decimal import Decimal
-from typing import Dict, List, Union, cast, Tuple
+from typing import Dict, List, Union, cast, Tuple, Optional
 
 import pytz
 from backports import csv
@@ -706,11 +706,31 @@ async def validate_number_acceptations(
     """
     valid: bool = True
     if values['treatment'] == 'ACCEPTED':
-        max_acceptations = await org_domain.get_max_number_acceptations(
-            organization_id
+        current_max_number_acceptations_info = (
+            await org_domain.get_current_max_number_acceptations_info(
+                organization_id
+            )
+        )
+        max_acceptations = cast(
+            Optional[Decimal],
+            current_max_number_acceptations_info.get('max_number_acceptations')
+        )
+        max_acceptations_date = datetime.strptime(
+            cast(
+                str,
+                current_max_number_acceptations_info.get(
+                    'date', '0000-00-00 00:00:00'
+                )
+            ),
+            '%Y-%m-%d %H:%M:%S'
         )
         current_acceptations: int = sum(
-            1 for item in historic_treatment if item['treatment'] == 'ACCEPTED'
+            1 for item in historic_treatment
+            if item['treatment'] == 'ACCEPTED'
+            and datetime.strptime(
+                item['date'],
+                '%Y-%m-%d %H:%M:%S'
+            ) > max_acceptations_date
         )
         if max_acceptations and current_acceptations + 1 > max_acceptations:
             raise InvalidNumberAcceptations(cast(str, current_acceptations))

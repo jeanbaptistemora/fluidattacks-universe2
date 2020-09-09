@@ -4,7 +4,7 @@
 
 from datetime import datetime
 from decimal import Decimal
-from typing import Any, List, Dict, Union, Set, NamedTuple
+from typing import Any, List, Dict, Union, Set, NamedTuple, Optional
 
 from boto3.dynamodb.conditions import Key
 
@@ -25,6 +25,7 @@ Project = Dict[str, Union[
 ]]
 Organization = Dict[str, Union[
     Decimal,
+    List[Dict[str, Union[Optional[Decimal], str]]],
     None,
     str
 ]]
