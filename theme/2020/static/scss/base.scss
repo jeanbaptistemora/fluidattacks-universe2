@@ -220,6 +220,7 @@ $codeyellow: rgba(230, 219, 116, 1);
 .h-navbar { height: 6.875rem; }
 .t-all-5 { transition: all .5s; }
 .mt-body { margin-top: 110px; }
+.nt-landing { margin-top: -110px;}
 .title-sols { text-align: center; }
 .width-sols { width: 100%; }
 .section-height { height: 600px; }
@@ -998,11 +999,12 @@ video {
 
 .solution-benefits {
   .sect2 {
-    display: inline-block;
+    margin-left: auto;
+    margin-right: auto;
     min-height: 420px;
     padding: 0 2rem;
     vertical-align: top;
-    width: 33%;
+    width: 420px;
     h3 {
       color: $fluid-black;
       font-size: 24px;

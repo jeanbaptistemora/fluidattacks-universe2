@@ -20,6 +20,8 @@ const dynClasses: (() => void) = (): void => {
 
     addClasses(".intl-tel-input", "db");
 
+    addClasses(".solution-benefits > .sect2", "dib-l");
+
     if ($("div")
         .hasClass("contact-page")) {
       $(".footer-component")
