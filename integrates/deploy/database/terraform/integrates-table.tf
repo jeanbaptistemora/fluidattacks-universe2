@@ -59,6 +59,13 @@ resource "aws_dynamodb_table" "fi_roots" {
     type = "S"
   }
 
+  global_secondary_index {
+    name               = "roots_index"
+    hash_key           = "sk"
+    range_key          = "pk"
+    projection_type    = "ALL"
+  }
+
   point_in_time_recovery {
     enabled = true
   }
