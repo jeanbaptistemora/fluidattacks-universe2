@@ -5,6 +5,7 @@ export const GET_FORCES_EXECUTIONS: DocumentNode = gql`
   query GetForcesExecutions($projectName: String!) {
     forcesExecutions(projectName: $projectName) {
       executions {
+        projectName
         date
         exitCode
         gitRepo
@@ -36,6 +37,7 @@ export const GET_FORCES_EXECUTIONS: DocumentNode = gql`
     }
     forcesExecutionsNew(projectName: $projectName) {
       executions {
+        projectName
         date
         exitCode
         gitRepo
@@ -43,7 +45,21 @@ export const GET_FORCES_EXECUTIONS: DocumentNode = gql`
         kind
         strictness
         vulnerabilities {
-          open {
+          numOfAcceptedVulnerabilities
+          numOfOpenVulnerabilities
+          numOfClosedVulnerabilities
+        }
+      }
+    }
+  }
+`;
+export const GET_FORCES_EXECUTION: DocumentNode = gql`
+  query GetForcesExecution($projectName: String!, $executionId: String!) {
+    forcesExecution(projectName: $projectName, executionId: $executionId) {
+      projectName
+      log
+      vulnerabilities {
+        open {
             kind
             who
             where
@@ -64,18 +80,10 @@ export const GET_FORCES_EXECUTIONS: DocumentNode = gql`
             state
             exploitability
           }
-          numOfAcceptedVulnerabilities
-          numOfOpenVulnerabilities
-          numOfClosedVulnerabilities
-        }
+        numOfAcceptedVulnerabilities
+        numOfOpenVulnerabilities
+        numOfClosedVulnerabilities
       }
-    }
-  }
-`;
-export const GET_FORCES_EXECUTION: DocumentNode = gql`
-  query GetForcesExecution($projectName: String!, $executionId: String!) {
-    forcesExecution(projectName: $projectName, executionId: $executionId) {
-      log
     }
   }
 `;

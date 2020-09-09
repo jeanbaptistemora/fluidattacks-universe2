@@ -10,10 +10,6 @@ import _ from "lodash";
 import React, { ReactElement } from "react";
 import { ButtonToolbar, Col, Row } from "react-bootstrap";
 import { RouteComponentProps } from "react-router";
-// tslint:disable-next-line no-submodule-imports
-import SyntaxHighlighter from "react-syntax-highlighter/dist/esm/light";
-// tslint:disable-next-line no-submodule-imports
-import { default as monokaiSublime } from "react-syntax-highlighter/dist/esm/styles/hljs/monokai-sublime";
 
 // Local imports
 import { ApolloError } from "apollo-client";
@@ -26,8 +22,7 @@ import { Modal } from "../../../../components/Modal";
 import { Logger } from "../../../../utils/logger";
 import { msgError } from "../../../../utils/notifications";
 import { translate } from "../../../../utils/translations/translate";
-import styles from "./index.css";
-import { LogExecution } from "./logExecution";
+import { Execution } from "./execution";
 import { GET_FORCES_EXECUTIONS } from "./queries";
 
 type ForcesViewProps = RouteComponentProps<{ projectName: string }>;
@@ -80,6 +75,7 @@ export interface IExecution {
   gitRepo: string;
   kind: string;
   log?: string;
+  projectName?: string;
   status: string;
   strictness: string;
   vulnerabilities: IVulnerabilities | IVulnerabilitiesNew;
@@ -128,97 +124,6 @@ const projectForcesView: React.FunctionComponent<ForcesViewProps> = (props: Forc
         .toLowerCase())
       .join(" ");
 
-  const getVulnerabilitySummary:
-    ((exploitable: number, accepted: number, notExploitable: number, total: number) => string) =
-  (exploitable: number, accepted: number, notExploitable: number, total: number): string => {
-    const exploitableTrans: string = translate.t("group.forces.found_vulnerabilities.exploitable");
-    const acceptedTrans: string = translate.t("group.forces.found_vulnerabilities.accepted");
-    const notExploitableTrans: string = translate.t("group.forces.found_vulnerabilities.not_exploitable");
-    const totalTrans: string = translate.t("group.forces.found_vulnerabilities.total");
-
-    const exploitableStr: string = `${exploitable} ${exploitableTrans}`;
-    const acceptedStr: string = `${accepted} ${acceptedTrans}`;
-    const notExploitableStr: string = `${notExploitable} ${notExploitableTrans}`;
-    const totalStr: string = `${total} ${totalTrans}`;
-
-    return `${exploitableStr}, ${acceptedStr}, ${notExploitableStr}, ${totalStr}`;
-  };
-
-  const getVulnerabilitySummaries: (
-    foundVulnerabilities: IFoundVulnerabilities | IFoundVulnerabilitiesNew,
-  ) => string = (
-    foundVulnerabilities: IFoundVulnerabilities | IFoundVulnerabilitiesNew,
-    ): string => {
-      if ("exploitable" in foundVulnerabilities) {
-        const exploitableTrans: string = translate.t(
-          "group.forces.found_vulnerabilities.exploitable");
-        const acceptedTrans: string = translate.t(
-          "group.forces.found_vulnerabilities.accepted");
-        const notExploitableTrans: string = translate.t(
-          "group.forces.found_vulnerabilities.not_exploitable");
-        const totalTrans: string = translate.t(
-          "group.forces.found_vulnerabilities.total");
-
-        const exploitableStr: string = `${foundVulnerabilities.exploitable} ${exploitableTrans}`;
-        const acceptedStr: string = `${foundVulnerabilities.accepted} ${acceptedTrans}`;
-        const notExploitableStr: string = `${foundVulnerabilities.notExploitable} ${notExploitableTrans}`;
-        const totalStr: string = `${foundVulnerabilities.total} ${totalTrans}`;
-
-        return `${exploitableStr}, ${acceptedStr}, ${notExploitableStr}, ${totalStr}`;
-      } else {
-        const openTrans: string = translate.t(
-          "group.forces.found_vulnerabilities_new.open");
-        const acceptedTrans: string = translate.t(
-          "group.forces.found_vulnerabilities_new.accepted");
-        const closedTrans: string = translate.t(
-          "group.forces.found_vulnerabilities_new.closed");
-        const totalTrans: string = translate.t(
-          "group.forces.found_vulnerabilities_new.total");
-
-        const openStr: string = `${foundVulnerabilities.open} ${openTrans}`;
-        const acceptedStr: string = `${foundVulnerabilities.accepted} ${acceptedTrans}`;
-        const closedStr: string = `${foundVulnerabilities.closed} ${closedTrans}`;
-        const totalStr: string = `${foundVulnerabilities.total} ${totalTrans}`;
-
-        return `${openStr}, ${acceptedStr}, ${closedStr}, ${totalStr}`;
-      }
-    };
-
-  const stateResolve: (status: string) => string = (status: string): string => {
-    switch (status) {
-      case "OPEN":
-        return translate.t("group.forces.status.vulnerable");
-      case "CLOSED":
-        return translate.t("group.forces.status.secure");
-      case "ACCEPTED":
-        return translate.t("group.forces.status.accepted");
-      default:
-        return "";
-    }
-  };
-
-  const getDatasetFromVulnerabilities: (
-    vulnerabilities: IVulnerabilities | IVulnerabilitiesNew,
-) => Dictionary[] = (
-    vulnerabilities: IVulnerabilities | IVulnerabilitiesNew,
-    ): Dictionary[] => {
-      const vulns: IExploitResult[] =
-        "exploits" in vulnerabilities
-          ? vulnerabilities.exploits.concat(
-            vulnerabilities.acceptedExploits.concat(
-              vulnerabilities.integratesExploits,
-            ),
-          )
-          : vulnerabilities.open.concat(
-            vulnerabilities.closed.concat(vulnerabilities.accepted),
-          );
-
-      return vulns.map((elem: IExploitResult) => ({
-        ...elem,
-        state: statusFormatter(stateResolve(elem.state)),
-      }));
-    };
-
   const formatDate: ((date: string) => string) = (date: string): string => {
     const dateObj: Date = new Date(date);
 
@@ -236,9 +141,6 @@ const projectForcesView: React.FunctionComponent<ForcesViewProps> = (props: Forc
 
     return `${year}-${month}-${day} ${hours}:${minutes}`;
   };
-
-  const formatText: ((text: string) => ReactElement<Text>) = (text: string): ReactElement<Text> =>
-    <p className={styles.wrapped}>{text}</p>;
 
   const headersExecutionTable: IHeaderConfig[] = [
     {
@@ -271,49 +173,7 @@ const projectForcesView: React.FunctionComponent<ForcesViewProps> = (props: Forc
       onSort: onSortState, wrapped: true,
     },
   ];
-  const headersCompromisedToeTable: (
-    vulnerabilities: IVulnerabilities | IVulnerabilitiesNew,
-  ) => IHeaderConfig[] = (
-    vulnerabilities: IVulnerabilities | IVulnerabilitiesNew,
-    ) => [
-        ...("open" in vulnerabilities
-          ? [
-            {
-              dataField: "exploitability",
-              formatter: formatText,
-              header: translate.t("group.forces.compromised_toe.exploitability"),
-              width: "15%",
-              wrapped: true,
-            },
-            {
-              dataField: "state",
-              formatter: formatText,
-              header: translate.t("group.forces.compromised_toe.status"),
-              width: "10%",
-              wrapped: true,
-            },
-          ]
-          : []),
-        {
-          dataField: "kind",
-          formatter: formatText,
-          header: translate.t("group.forces.compromised_toe.type"),
-          width: "10%",
-          wrapped: true,
-        },
-        {
-          dataField: "who",
-          formatter: formatText,
-          header: translate.t("group.forces.compromised_toe.what"),
-          wrapped: true,
-        },
-        {
-          dataField: "where",
-          formatter: formatText,
-          header: translate.t("group.forces.compromised_toe.where"),
-          wrapped: true,
-        },
-      ];
+
   const { projectName } = props.match.params;
 
   const openSeeExecutionDetailsModal: ((event: object, row: IExecution) => void) = (
@@ -367,7 +227,7 @@ const projectForcesView: React.FunctionComponent<ForcesViewProps> = (props: Forc
               const foundVulnerabilities:
                 | IFoundVulnerabilitiesNew
                 | IFoundVulnerabilities =
-                "open" in vulnerabilities
+                "numOfAcceptedVulnerabilities" in vulnerabilities
                   ? {
                     accepted: vulnerabilities.numOfAcceptedVulnerabilities,
                     closed: vulnerabilities.numOfClosedVulnerabilities,
@@ -428,63 +288,12 @@ const projectForcesView: React.FunctionComponent<ForcesViewProps> = (props: Forc
                   open={isExecutionDetailsModalOpen}
                   onClose={closeSeeExecutionDetailsModal}
               >
-                <div>
-                  <Row>
-                    <Col md={4}><p><b>{translate.t("group.forces.date")}</b></p></Col>
-                    <Col md={8}><p>{currentRow.date}</p></Col>
-                  </Row>
-                  <Row>
-                    <Col md={4}><p><b>{translate.t("group.forces.status.title")}</b></p></Col>
-                    <Col md={8}><p>{currentRow.status}</p></Col>
-                  </Row>
-                  <Row>
-                    <Col md={4}><p><b>{translate.t("group.forces.strictness.title")}</b></p></Col>
-                    <Col md={8}><p>{currentRow.strictness}</p></Col>
-                  </Row>
-                  <Row>
-                    <Col md={4}><p><b>{translate.t("group.forces.kind.title")}</b></p></Col>
-                    <Col md={8}><p>{currentRow.kind}</p></Col>
-                  </Row>
-                  <Row>
-                    <Col md={4}><p><b>{translate.t("group.forces.git_repo")}</b></p></Col>
-                    <Col md={8}><p>{currentRow.gitRepo}</p></Col>
-                  </Row>
-                  <Row>
-                    <Col md={4}><p><b>{translate.t("group.forces.identifier")}</b></p></Col>
-                    <Col md={8}><p>{currentRow.execution_id}</p></Col>
-                  </Row>
-                  <Row>
-                    <Col md={4}><p><b>{translate.t("group.forces.found_vulnerabilities.title")}</b></p></Col>
-                    <Col md={8}>
-                      <p className={styles.wrapped}>
-                        {getVulnerabilitySummaries(currentRow.foundVulnerabilities)}
-                      </p>
-                    </Col>
-                  </Row>
-                  <br />
-                  <DataTableNext
-                    bordered={true}
-                    dataset={getDatasetFromVulnerabilities(currentRow.vulnerabilities)}
-                    exportCsv={false}
-                    search={false}
-                    headers={headersCompromisedToeTable(currentRow.vulnerabilities)}
-                    id="tblCompromisedToe"
-                    pageSize={100}
-                  />
-                  <hr />
-                  {
-                    currentRow.log === undefined ? <LogExecution
-                      projectName={projectName} executionId={currentRow.execution_id} /> :
-                      <SyntaxHighlighter style={monokaiSublime} language="yaml" wrapLines={true}>
-                        {currentRow.log}
-                      </SyntaxHighlighter>
-                  }
-                  <ButtonToolbar className="pull-right">
-                    <Button bsStyle="success" onClick={closeSeeExecutionDetailsModal}>
-                      {translate.t("group.forces.execution_details_modal.close")}
-                    </Button>
-                  </ButtonToolbar>
-                </div>
+                <Execution {...currentRow} />
+                <ButtonToolbar className="pull-right">
+                  <Button bsStyle="success" onClick={closeSeeExecutionDetailsModal}>
+                    {translate.t("group.forces.execution_details_modal.close")}
+                  </Button>
+                </ButtonToolbar>
               </Modal>
               </React.StrictMode>
             );

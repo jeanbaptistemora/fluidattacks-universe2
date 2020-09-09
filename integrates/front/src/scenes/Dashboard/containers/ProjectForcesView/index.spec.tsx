@@ -56,6 +56,7 @@ describe("ForcesView", () => {
                 gitRepo: "Repository",
                 kind: "dynamic",
                 log: "...",
+                projectName: "unittesting",
                 strictness: "strict",
                 vulnerabilities: {
                   acceptedExploits: [

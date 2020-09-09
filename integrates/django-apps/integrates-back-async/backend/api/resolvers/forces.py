@@ -61,7 +61,6 @@ def _get_to_date(
     return to_date
 
 
-@get_entity_cache_async
 async def _get_executions(
         _: GraphQLResolveInfo,
         project_name: str,
@@ -196,6 +195,7 @@ async def resolve_forces_executions_new(
     enforce_group_level_auth_async,
     require_integrates,
 )
+@get_entity_cache_async
 async def resolve_forces_execution(
     _: Any,
     info: GraphQLResolveInfo,
