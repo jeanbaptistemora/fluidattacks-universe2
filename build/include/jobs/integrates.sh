@@ -578,7 +578,14 @@ function job_integrates_serve_minio_local {
   &&  echo '[INFO] Setting bucket' \
   &&  "${mc}" mb --ignore-existing local_minio/fluidintegrates.evidences \
   &&  echo '[INFO] Populating MinIO local' \
-  &&  python "${STARTDIR}/integrates/django-apps/integrates-back-async/backend/dal/helpers/minio.py" \
+  &&  readarray -d , -t projects <<< "${TEST_PROJECTS}" \
+  &&  {
+        for (( n=0; n < ${#projects[*]}; n++))
+        do
+          aws s3 sync "s3://fluidintegrates.evidences/${projects[n]}" \
+          "${STARTDIR}/integrates/.MinIO/data/fluidintegrates.evidences/${projects[n]}"
+        done
+      } \
   &&  echo "[INFO] MinIO is ready and listening on port ${port}!" \
   &&  echo "[INFO] Hit Ctrl+C to exit" \
   &&  fg %1 \
