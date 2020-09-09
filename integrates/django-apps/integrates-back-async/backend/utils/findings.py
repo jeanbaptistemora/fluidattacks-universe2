@@ -719,7 +719,7 @@ async def validate_number_acceptations(
             cast(
                 str,
                 current_max_number_acceptations_info.get(
-                    'date', '0000-00-00 00:00:00'
+                    'date', '0001-01-01 00:00:00'
                 )
             ),
             '%Y-%m-%d %H:%M:%S'
@@ -728,7 +728,7 @@ async def validate_number_acceptations(
             1 for item in historic_treatment
             if item['treatment'] == 'ACCEPTED'
             and datetime.strptime(
-                item['date'],
+                item.get('date', '0001-01-01 00:00:00'),
                 '%Y-%m-%d %H:%M:%S'
             ) > max_acceptations_date
         )
