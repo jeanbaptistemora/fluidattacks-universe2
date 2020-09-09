@@ -106,6 +106,7 @@ function job_common_test_jobs_provisioner {
                     echo "[ERROR] Could not find a job for ${provisioner}." \
                 &&  return 1
               fi
-            fi
+            fi \
+        &&  sleep 0.01
       done
 }

@@ -27,7 +27,16 @@ module "eks" {
       asg_desired_capacity = 3
       asg_max_size         = 3
       root_volume_type     = "gp2"
-      root_volume_size     = "80"
+      root_volume_size     = "50"
+    },
+    {
+      name                 = "xlarge"
+      instance_type        = "m5a.xlarge"
+      asg_min_size         = 2
+      asg_desired_capacity = 2
+      asg_max_size         = 2
+      root_volume_type     = "gp2"
+      root_volume_size     = "50"
     },
   ]
 
