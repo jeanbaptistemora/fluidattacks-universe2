@@ -50,7 +50,9 @@ async def get_all_logged_users() -> List[Dict[str, str]]:
 
 
 async def get_previous_session(
-        user_mail: str, session_key: str) -> Optional[str]:
+    user_mail: str,
+    session_key: str
+) -> Optional[str]:
     """
     checks if exists other active session with
     the same user_mail and if so returns it
@@ -60,14 +62,14 @@ async def get_previous_session(
     if not current_session:
         # session_key get None
         raise ExpiredToken()
-    old_session_key = [
-        session
-        for session in all_active_sessions
-        if session.get('username') == user_mail
-        and session.get('client') == current_session.get('client', 'web')
-        and session['key'] != f'fi_session:{session_key}'
-    ]
-    return old_session_key[0]['key'] if old_session_key else None
+    old_session_key = None
+    for session in all_active_sessions:
+        if session.get('username') == user_mail and \
+           session.get('client') == current_session.get('client', 'web') and \
+           session['key'] != f'fi_session:{session_key}':
+            old_session_key = session['key']
+            break
+    return old_session_key
 
 
 async def invalidate_session(session_key: str):
