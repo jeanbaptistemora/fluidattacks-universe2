@@ -55,7 +55,9 @@ async def skims(*args: str) -> Tuple[int, bytes, bytes]:
     return code, stdout, stderr
 
 
-async def get_group_data(group: str) -> Set[Tuple[str, str, int, int]]:
+async def get_group_data(group: str) -> Set[
+    Tuple[str, str, Tuple[Tuple[str, str], ...]],
+]:
     """Return a set of (finding, release_status, num_open, num_closed)."""
     titles_to_finding: Dict[str, FindingEnum] = {
         t(finding.value.title): finding for finding in FindingEnum
@@ -76,31 +78,26 @@ async def get_group_data(group: str) -> Set[Tuple[str, str, int, int]]:
         for finding in findings
     ])
 
-    findings_closed_vulns: List[int] = []
-    findings_open_vulns: List[int] = []
+    findings_vulns_summary: List[List[Tuple[str, str]]] = []
     for vulnerabilities in findings_vulns:
-        findings_closed_vulns.append(0)
-        findings_open_vulns.append(0)
+        findings_vulns_summary.append([])
         async for vulnerability in vulnerabilities.iterate():
-            if vulnerability.state is VulnerabilityStateEnum.CLOSED:
-                findings_closed_vulns[-1] += 1
-            elif vulnerability.state is VulnerabilityStateEnum.OPEN:
-                findings_open_vulns[-1] += 1
-            else:
-                raise NotImplementedError()
+            if vulnerability.state is VulnerabilityStateEnum.OPEN:
+                findings_vulns_summary[-1].append((
+                    vulnerability.what,
+                    vulnerability.where,
+                ))
 
-    result: Set[Tuple[str, str, int, int]] = set(
+    result: Set[Tuple[str, str, Tuple[Tuple[str, str], ...]]] = set(
         (
             titles_to_finding[finding.title].name,
             status.name,
-            finding_closed_vulns,
-            finding_open_vulns,
+            tuple(sorted(finding_vulns_summary)),
         )
-        for finding, status, finding_closed_vulns, finding_open_vulns in zip(
+        for finding, status, finding_vulns_summary in zip(
             findings,
             findings_statuses,
-            findings_closed_vulns,
-            findings_open_vulns,
+            findings_vulns_summary,
         )
     )
 
@@ -109,9 +106,9 @@ async def get_group_data(group: str) -> Set[Tuple[str, str, int, int]]:
 
 async def match_expected(
     group: str,
-    expected: Set[Tuple[str, str, int, int]],
+    expected: Set[Tuple[str, str, Tuple[Tuple[str, str], ...]]],
 ) -> None:
-    for _ in range(10):
+    for _ in range(3):
         if (data := await get_group_data(group)) == expected:
             break
 
@@ -208,15 +205,108 @@ async def test_correct(
 
     # The following findings must be met
     await match_expected(test_group, {
-        # Finding, status, # closed, # open
-        ('F009', 'APPROVED', 0, 9),
-        ('F011', 'APPROVED', 0, 13),
-        ('F031_CWE378', 'SUBMITTED', 0, 1),
-        ('F052', 'SUBMITTED', 0, 28),
-        ('F060', 'APPROVED', 0, 18),
-        ('F061', 'APPROVED', 0, 10),
-        ('F085', 'APPROVED', 0, 4),
-        ('F117', 'APPROVED', 0, 2),
+        # Finding, status, open vulnerabilities
+        ('F009', 'APPROVED', (
+            ('test/data/lib_path/f009/Dockerfile', '1'),
+            ('test/data/lib_path/f009/Dockerfile', '2'),
+            ('test/data/lib_path/f009/javascript.js', '3'),
+            ('test/data/lib_path/f009/javascript.js', '4'),
+            ('test/data/lib_path/f009/javascript.js', '5'),
+            ('test/data/lib_path/f009/javascript.js', '6'),
+            ('test/data/lib_path/f009/javascript.js', '7'),
+            ('test/data/lib_path/f009/javascript.js', '8'),
+            ('test/data/lib_path/f009/secrets.yaml', '1'),
+        )),
+        ('F011', 'APPROVED', (
+            ('test/data/lib_path/f011/package-lock.json (hoek v5.0.0) [CVE-2018-3728]', '6'),
+            ('test/data/lib_path/f011/package.json (hoek v^5.0.0) [CVE-2018-3728]', '5'),
+            ('test/data/lib_path/f011/package.json (jquery v0.*) [CVE-2011-4969]', '7'),
+            ('test/data/lib_path/f011/package.json (jquery v0.*) [CVE-2015-9251]', '7'),
+            ('test/data/lib_path/f011/package.json (jquery v0.*) [CVE-2017-16012]', '7'),
+            ('test/data/lib_path/f011/package.json (jquery v0.*) [CVE-2019-11358]', '7'),
+            ('test/data/lib_path/f011/package.json (jquery v0.*) [CVE-2020-7656]', '7'),
+            ('test/data/lib_path/f011/package.json (lodash v0.*) [CVE-2018-16487]', '6'),
+            ('test/data/lib_path/f011/package.json (lodash v0.*) [CVE-2018-3721]', '6'),
+            ('test/data/lib_path/f011/package.json (lodash v0.*) [CVE-2019-1010266]', '6'),
+            ('test/data/lib_path/f011/package.json (lodash v0.*) [CVE-2019-10744]', '6'),
+            ('test/data/lib_path/f011/package.json (lodash v0.*) [CVE-2020-8203]', '6'),
+            ('test/data/lib_path/f011/package.json (lodash v0.*) [github.com/lodash/lodash/issues/4874]', '6'),
+        )),
+        ('F031_CWE378', 'SUBMITTED', (
+            ('test/data/lib_path/f031_cwe378/Test.java', '6'),
+        )),
+        ('F052', 'SUBMITTED', (
+            ('test/data/lib_path/f052/csharp.cs', '2'),
+            ('test/data/lib_path/f052/csharp.cs', '3'),
+            ('test/data/lib_path/f052/csharp.cs', '5'),
+            ('test/data/lib_path/f052/java.java', '1'),
+            ('test/data/lib_path/f052/java.java', '11'),
+            ('test/data/lib_path/f052/java.java', '12'),
+            ('test/data/lib_path/f052/java.java', '13'),
+            ('test/data/lib_path/f052/java.java', '14'),
+            ('test/data/lib_path/f052/java.java', '15'),
+            ('test/data/lib_path/f052/java.java', '17'),
+            ('test/data/lib_path/f052/java.java', '18'),
+            ('test/data/lib_path/f052/java.java', '19'),
+            ('test/data/lib_path/f052/java.java', '20'),
+            ('test/data/lib_path/f052/java.java', '21'),
+            ('test/data/lib_path/f052/java.java', '22'),
+            ('test/data/lib_path/f052/java.java', '23'),
+            ('test/data/lib_path/f052/java.java', '24'),
+            ('test/data/lib_path/f052/java.java', '25'),
+            ('test/data/lib_path/f052/java.java', '26'),
+            ('test/data/lib_path/f052/java.java', '27'),
+            ('test/data/lib_path/f052/java.java', '30'),
+            ('test/data/lib_path/f052/java.java', '33'),
+            ('test/data/lib_path/f052/java.java', '35'),
+            ('test/data/lib_path/f052/java.java', '4'),
+            ('test/data/lib_path/f052/java.java', '5'),
+            ('test/data/lib_path/f052/java.java', '6'),
+            ('test/data/lib_path/f052/java.java', '8'),
+            ('test/data/lib_path/f052/java.java', '9'),
+        )),
+        ('F060', 'APPROVED', (
+            ('test/data/lib_path/f031_cwe378/Test.java', '7'),
+            ('test/data/lib_path/f060/csharp.cs', '2'),
+            ('test/data/lib_path/f060/csharp.cs', '3'),
+            ('test/data/lib_path/f060/csharp.cs', '4'),
+            ('test/data/lib_path/f060/csharp.cs', '5'),
+            ('test/data/lib_path/f060/java.java', '2'),
+            ('test/data/lib_path/f060/java.java', '3'),
+            ('test/data/lib_path/f060/java.java', '4'),
+            ('test/data/lib_path/f060/java.java', '5'),
+            ('test/data/lib_path/f060/python.py', '2'),
+            ('test/data/lib_path/f060/python.py', '4'),
+            ('test/data/lib_path/f060/python.py', '5'),
+            ('test/data/lib_path/f060/swift.swift', '5'),
+            ('test/data/lib_path/f060/swift.swift', '6'),
+            ('test/data/lib_path/f060/swift.swift', '7'),
+            ('test/data/lib_path/f061/swift.swift', '5'),
+            ('test/data/lib_path/f061/swift.swift', '6'),
+            ('test/data/lib_path/f061/swift.swift', '7'),
+        )),
+        ('F061', 'APPROVED', (
+            ('test/data/lib_path/f031_cwe378/Test.java', '7'),
+            ('test/data/lib_path/f061/csharp.cs', '2'),
+            ('test/data/lib_path/f061/java.java', '2'),
+            ('test/data/lib_path/f061/javascript.js', '3'),
+            ('test/data/lib_path/f061/javascript.js', '4'),
+            ('test/data/lib_path/f061/javascript.js', '5'),
+            ('test/data/lib_path/f061/python.py', '21'),
+            ('test/data/lib_path/f061/swift.swift', '5'),
+            ('test/data/lib_path/f061/swift.swift', '6'),
+            ('test/data/lib_path/f061/swift.swift', '7'),
+        )),
+        ('F085', 'APPROVED', (
+            ('test/data/lib_path/f085/react.jsx', '1'),
+            ('test/data/lib_path/f085/react.jsx', '4'),
+            ('test/data/lib_path/f085/react.jsx', '5'),
+            ('test/data/lib_path/f085/react.jsx', '6'),
+        )),
+        ('F117', 'APPROVED', (
+            ('test/data/lib_path/f117/MyJar.class', '1'),
+            ('test/data/lib_path/f117/MyJar.jar', '1'),
+        )),
     })
 
 
@@ -236,13 +326,13 @@ async def test_correct_nothing_to_do(
 
     # Skims should persist the null state, closing everything on Integrates
     await match_expected(test_group, {
-        # Finding, status, # closed, # open
-        ('F009', 'APPROVED', 9, 0),
-        ('F011', 'APPROVED', 13, 0),
-        ('F031_CWE378', 'SUBMITTED', 1, 0),
-        ('F052', 'SUBMITTED', 28, 0),
-        ('F060', 'APPROVED', 18, 0),
-        ('F061', 'APPROVED', 10, 0),
-        ('F085', 'APPROVED', 4, 0),
-        ('F117', 'APPROVED', 2, 0),
+        # Finding, status, open vulnerabilities
+        ('F009', 'APPROVED', ()),
+        ('F011', 'APPROVED', ()),
+        ('F031_CWE378', 'SUBMITTED', ()),
+        ('F052', 'SUBMITTED', ()),
+        ('F060', 'APPROVED', ()),
+        ('F061', 'APPROVED', ()),
+        ('F085', 'APPROVED', ()),
+        ('F117', 'APPROVED', ()),
     })

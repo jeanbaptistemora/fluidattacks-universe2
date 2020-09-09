@@ -137,6 +137,7 @@ function job_skims_structure {
 }
 
 function job_skims_test {
+  export PYTHONUNBUFFERED='1'
   local args_pytest=(
     --cov-branch
     --cov-report 'term'
