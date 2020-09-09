@@ -1330,6 +1330,10 @@ function job_integrates_production_deploy {
   &&  CI_COMMIT_REF_NAME='master' helper_integrates_aws_login 'production' \
   &&  helper_common_sops_env 'secrets-production.yaml' 'default' \
       PRODUCTION_CERTIFICATE_ARN \
+      CHECKLY_CHECK_ID \
+      CHECKLY_TRIGGER_ID \
+      NEW_RELIC_API_KEY \
+      NEW_RELIC_APP_ID \
   &&  helper_common_update_kubeconfig "${cluster}" "${region}" \
   &&  echo '[INFO] Computing environment variables' \
   &&  B64_AWS_ACCESS_KEY_ID=$(helper_integrates_to_b64 "${AWS_ACCESS_KEY_ID}") \
@@ -1353,10 +1357,29 @@ function job_integrates_production_deploy {
           &&  kubectl apply -f "${file}" \
           ||  return 1
       done \
-  &&  kubectl rollout status \
-        "deploy/integrates-${CI_COMMIT_REF_SLUG}" \
-        -n "${namespace}" \
-        --timeout="${timeout}" \
+  &&  if ! kubectl rollout status -n "${namespace}" --timeout="${timeout}" 'deploy/integrates-master'
+      then
+            echo '[INFO] Undoing deployment' \
+        &&  kubectl rollout undo 'deploy/integrates-master' \
+        &&  return 1
+      fi \
+  &&  curl "https://api.newrelic.com/v2/applications/${NEW_RELIC_APP_ID}/deployments.json" \
+        --request 'POST' \
+        --header "X-Api-Key: ${NEW_RELIC_API_KEY}" \
+        --header 'Content-Type: application/json' \
+        --include \
+        --data "{
+            \"deployment\": {
+              \"revision\": \"${CI_COMMIT_SHA}\",
+              \"changelog\": \"${CHANGELOG}\",
+              \"description\": \"production\",
+              \"user\": \"${CI_COMMIT_AUTHOR}\"
+            }
+          }" \
+  &&  checkly_params="${CHECKLY_TRIGGER_ID}?deployment=true&repository=product/integrates&sha=${CI_COMMIT_SHA}" \
+  &&  curl \
+        --request 'GET' \
+        "https://api.checklyhq.com/check-groups/${CHECKLY_CHECK_ID}/trigger/${checkly_params}" \
   &&  popd \
   ||  return 1
 }
