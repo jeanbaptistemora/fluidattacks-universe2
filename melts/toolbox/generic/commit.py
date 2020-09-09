@@ -47,11 +47,11 @@ def has_short_line_length(summary: str, body: str) -> bool:
     success: bool = True
 
     if any(len(summary_line) > 50 for summary_line in summary.splitlines()):
-        logger.error(f'Summary too long, 50 chars max')
+        logger.error('Summary too long, 50 chars max')
         success = False
 
     if any(len(body_line) > 72 for body_line in body.splitlines()):
-        logger.error(f'Body lines too long, 72 chars max')
+        logger.error('Body lines too long, 72 chars max')
         success = False
 
     return success
@@ -88,7 +88,7 @@ def is_valid_summary(summary: str) -> bool:
     )
     # fix(back): #123.1 comment, continuted
     generic_pattern = base_pattern + (
-        f': '
+        ': '
         r'(?P<issue>#[1-9]\d*)'
         r'\.'
         r'(?P<issue_part>[1-9]\d*)'
@@ -110,10 +110,10 @@ def is_valid_summary(summary: str) -> bool:
             else:
                 logger.error('Provide a valid commit type(scope)')
                 logger.info(f'Yours is: {type_}({scope})')
-                logger.info(f'Valid types are:')
+                logger.info('Valid types are:')
                 for type_, desc in VALID__TYPES_DESC:
                     logger.info(f'  - {type_}: {desc}')
-                logger.info(f'Valid scopes are:')
+                logger.info('Valid scopes are:')
                 for scope, desc in VALID__SCOPES_DESC:
                     logger.info(f'  - {scope}: {desc}')
                 is_valid = False

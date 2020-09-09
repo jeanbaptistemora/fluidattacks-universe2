@@ -13,7 +13,6 @@ import click
 from toolbox import (
     resources,
     toolbox,
-    analytics,
     forces,
     sorts,
     utils,
@@ -91,9 +90,9 @@ def resources_management(
     elif read_dev:
         success = resources.read_secrets(group, 'dev', f'continuous-{group}')
     elif edit_prod:
-        success = resources.edit_secrets(group, 'prod', f'continuous-admin')
+        success = resources.edit_secrets(group, 'prod', 'continuous-admin')
     elif read_prod:
-        success = resources.read_secrets(group, 'prod', f'continuous-admin')
+        success = resources.read_secrets(group, 'prod', 'continuous-admin')
     elif login:
         success = utils.generic.okta_aws_login(f'continuous-{group}')
     elif check_repos != 'unspecified-subs':

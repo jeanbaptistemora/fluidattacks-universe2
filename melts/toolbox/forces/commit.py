@@ -45,13 +45,13 @@ def is_valid_summary(summary: str) -> bool:
     )
     # feat(exp): subs
     regular_pattern = base_pattern + (
-        f': '
+        ': '
         r'(?P<group>[a-z]+)'
         r'$'
     )
     # fix(exp): #123 subs tag
     fix_pattern = base_pattern + (
-        f': '
+        ': '
         r'(?P<issue>#[1-9]\d*)'
         r' '
         r'(?P<group>[a-z]+)'
@@ -92,7 +92,7 @@ def is_valid_summary(summary: str) -> bool:
                 else:
                     logger.error('Provide a valid modification reason')
                     logger.info(f'Yours is: {mod_reason}')
-                    logger.info(f'Valid ones are:')
+                    logger.info('Valid ones are:')
                     for mod_reason, desc in mods__reason_desc:
                         logger.info(f'  - {mod_reason}: {desc}')
                     is_valid = False
@@ -108,7 +108,7 @@ def is_valid_summary(summary: str) -> bool:
                 else:
                     logger.error('Provide a valid commit type(scope)')
                     logger.info(f'Yours is: {type_}(exp)')
-                    logger.info(f'Valid types are:')
+                    logger.info('Valid types are:')
                     for type_, desc in VALID__TYPES_DESC:
                         logger.info(f'  - {type_}: {desc}')
                     is_valid = False

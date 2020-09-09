@@ -59,7 +59,7 @@ def do_apply_config(file_path: str):
     """apply config in the git repository"""
     current_path = os.getcwd()
     os.chdir(file_path)
-    command(f'git config core.quotepath off')
+    command('git config core.quotepath off')
     os.chdir(current_path)
 
 

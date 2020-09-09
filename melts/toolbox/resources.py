@@ -6,7 +6,6 @@ import os
 import sys
 import json
 import platform
-import shlex
 from shlex import quote as shq
 import shutil
 import subprocess
@@ -44,7 +43,7 @@ def cmd_execute(cmnd, folder='.'):
 
 def print_problems(problems, branches):
     """ print problems in the repos"""
-    logger.info(f'Problems with the following repositories:' +
+    logger.info('Problems with the following repositories:' +
                 f'[{len(problems)}/{len(branches)}]\n\n')
     for problem in problems:
         logger.info(problem['repo'] + '\n')
@@ -69,13 +68,13 @@ def repo_url(baseurl, repo):
             if f'{user}:' in secrets.read():
                 repo_user = utils.generic.get_sops_secret(
                     user,
-                    f'../config/secrets-prod.yaml',
-                    f'continuous-admin'
+                    '../config/secrets-prod.yaml',
+                    'continuous-admin'
                 )
                 repo_pass = utils.generic.get_sops_secret(
                     passw,
-                    f'../config/secrets-prod.yaml',
-                    f'continuous-admin'
+                    '../config/secrets-prod.yaml',
+                    'continuous-admin'
                 )
                 repo_user = urllib.parse.quote_plus(repo_user)
                 repo_pass = urllib.parse.quote_plus(repo_pass)
@@ -94,8 +93,8 @@ def ssh_repo_cloning(subs, code) -> bool:
     problems: list = []
     credentials = utils.generic.get_sops_secret(
         'repo_key',
-        f'../config/secrets-prod.yaml',
-        f'continuous-admin'
+        '../config/secrets-prod.yaml',
+        'continuous-admin'
     )
     key = base64.b64decode(credentials).decode('utf-8')
     # Improve compatibility with windows

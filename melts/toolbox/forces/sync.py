@@ -50,7 +50,7 @@ def _get_integrates_msg(
 
 def _get_bb_fernet_key(group: str) -> str:
     return utils.generic.get_sops_secret(
-        f'forces_aws_secret_access_key',
+        'forces_aws_secret_access_key',
         f'groups/{group}/config/secrets-dev.yaml',
         f'continuous-{group}')
 
@@ -446,7 +446,7 @@ def are_exploits_synced__static(subs: str, exp_name: str) -> List[dict]:
             utils.forces.scan_exploit_for_kind_and_id(exploit_path)[1]
 
         if not utils.integrates.does_finding_exist(finding_id):
-            logger.error(f'This finding does not exist at integrates!')
+            logger.error('This finding does not exist at integrates!')
             logger.error(f'  finding_id: {finding_id}')
             logger.error(f'  exploit_path: {exploit_path}')
             continue
@@ -489,7 +489,7 @@ def are_exploits_synced__dynamic(subs: str, exp_name: str) -> List[dict]:
             utils.forces.scan_exploit_for_kind_and_id(exploit_path)[1]
 
         if not utils.integrates.does_finding_exist(finding_id):
-            logger.error(f'This finding does not exist at integrates!')
+            logger.error('This finding does not exist at integrates!')
             logger.error(f'  finding_id: {finding_id}')
             logger.error(f'  exploit_path: {exploit_path}')
             continue
@@ -577,6 +577,6 @@ def are_exploits_synced(subs: str, exp_name: str) -> bool:
             results_handle.write('\n')
 
     logger.info()
-    logger.info(f'Helpful files were generated:')
+    logger.info('Helpful files were generated:')
     logger.info(f'- {patch_file}')
     return True

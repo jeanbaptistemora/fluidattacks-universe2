@@ -305,7 +305,7 @@ def run_static_exploits(
     utils.generic.aws_login(f'continuous-{subs}')
 
     fernet_key: str = utils.generic.get_sops_secret(
-        f'forces_aws_secret_access_key',
+        'forces_aws_secret_access_key',
         f'groups/{subs}/config/secrets-dev.yaml',
         f'continuous-{subs}')
 
@@ -378,7 +378,7 @@ def run_dynamic_exploits(subs: str, exp_name: str) -> bool:
     start = time()
     times: Dict[str, Any] = {}
     fernet_key: str = utils.generic.get_sops_secret(
-        f'forces_aws_secret_access_key',
+        'forces_aws_secret_access_key',
         f'groups/{subs}/config/secrets-dev.yaml',
         f'continuous-{subs}')
 
@@ -588,7 +588,7 @@ def get_exps_fragments(subs: str, exp_name: str) -> bool:
                         )
                     ])
                     fragments_file.write('=' * 256 + '\n')
-        logger.info(f'Done')
+        logger.info('Done')
     return True
 
 

@@ -14,14 +14,14 @@ from toolbox import (
 
 
 def notify_out_of_scope(include_regexps, exclude_regexps) -> bool:
-    logger.info(f'Please remember the scope:')
-    logger.info(f'  In scope:')
+    logger.info('Please remember the scope:')
+    logger.info('  In scope:')
     for regex in include_regexps:
         logger.info(f'    - {regex}')
 
     if exclude_regexps:
         logger.info()
-        logger.info(f'  Out of scope:')
+        logger.info('  Out of scope:')
         for regex in exclude_regexps:
             logger.info(f'    - {regex}')
 
@@ -58,7 +58,9 @@ def delete_out_of_scope_files(group: str) -> bool:
     return notify_out_of_scope(include_regexps, exclude_regexps)
 
 
-def pull_repos_s3_to_fusion(subs: str, local_path: str, repository_name: str = 'all') -> bool:
+def pull_repos_s3_to_fusion(subs: str,
+                            local_path: str,
+                            repository_name: str = 'all') -> bool:
     '''
     Download repos from s3 to a provided path
 
@@ -71,7 +73,8 @@ def pull_repos_s3_to_fusion(subs: str, local_path: str, repository_name: str = '
     else:
         repository_name = ''
 
-    bucket_path: str = f's3://continuous-repositories/{subs}/active/{repository_name}'
+    bucket_path: str = f's3://continuous-repositories/' \
+        f'{subs}/active/{repository_name}'
 
     os.makedirs(local_path, exist_ok=True)
     sync_command: List[str] = [
@@ -126,7 +129,7 @@ def main(subs: str, repository_name: str = 'all') -> bool:
     else:
         local_path: str = f'groups/{subs}/fusion/'
 
-        logger.info(f'Computing last upload date')
+        logger.info('Computing last upload date')
         days: int = \
             drills_generic.calculate_days_ago(
                 drills_generic.get_last_upload(bucket, f'{subs}/'))

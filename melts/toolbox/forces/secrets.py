@@ -29,7 +29,7 @@ def encrypt(subs: str) -> bool:
                 open(secrets, 'w') as encrypted_handle:
             crypto.create_encrypted_yaml(
                 key_b64=utils.generic.get_sops_secret(
-                    f'forces_aws_secret_access_key',
+                    'forces_aws_secret_access_key',
                     f'groups/{subs}/config/secrets-dev.yaml',
                     f'continuous-{subs}'),
                 secrets={
@@ -68,7 +68,7 @@ def decrypt(subs: str) -> bool:
 
             crypto.create_decrypted_yaml(
                 key_b64=utils.generic.get_sops_secret(
-                    f'forces_aws_secret_access_key',
+                    'forces_aws_secret_access_key',
                     f'groups/{subs}/config/secrets-dev.yaml',
                     f'continuous-{subs}'),
                 input_file=secrets,

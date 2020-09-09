@@ -1,0 +1,16 @@
+inherits:
+    - strictness_veryhigh
+
+pylint:
+  disable:
+    - too-many-lines
+    - too-many-locals
+    - too-many-arguments
+    - too-few-public-methods
+    - import-error
+  options:
+    max-branches: 16
+
+mccabe:
+  options:
+    max-complexity: 16

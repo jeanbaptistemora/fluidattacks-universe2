@@ -84,7 +84,7 @@ def is_valid_summary(  # pylint: disable=too-many-statements,too-many-branches
     )
     # drills(conf): continuoustest - comment, continued
     config_pattern = base_pattern + (
-        f': '
+        ': '
         r'(?P<group>[a-z0-9]+)'
         r' - '
         r'(?P<comment>[a-z, _-]+)'
@@ -105,7 +105,7 @@ def is_valid_summary(  # pylint: disable=too-many-statements,too-many-branches
                     is_valid = True
                 else:
                     logger.error('Provide a valid reason for non-cross hack')
-                    logger.info(f'Valid reasons are:')
+                    logger.info('Valid reasons are:')
                     for reason in VALID_REASONS:
                         logger.info(f'  - {reason}')
                     is_valid = False
@@ -134,10 +134,10 @@ def is_valid_summary(  # pylint: disable=too-many-statements,too-many-branches
     else:
         logger.error('Provide a valid commit type(scope)')
         logger.info(f'Yours is: {type_}({scope})')
-        logger.info(f'Valid types are:')
+        logger.info('Valid types are:')
         for type_, desc in VALID__TYPES_DESC:
             logger.info(f'  - {type_}: {desc}')
-        logger.info(f'Valid scopes are:')
+        logger.info('Valid scopes are:')
         for scope, desc in VALID__SCOPES_DESC:
             logger.info(f'  - {scope}: {desc}')
         is_valid = False

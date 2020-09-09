@@ -37,10 +37,10 @@ def _get_exploits_bundles(group: str) -> Dict[str, str]:
     data: Dict[str, str] = {}
 
     for finding_id, _ in utils.integrates.get_project_findings(group):
-        logger.info(f'---')
+        logger.info('---')
         logger.info(f'group: {group}')
         logger.info(f'finding_id: {finding_id}')
-        logger.info(f'exploits:')
+        logger.info('exploits:')
         exploits = _get_exploits_for_finding(group, finding_id)
 
         data[finding_id] = dedent(f"""

@@ -11,15 +11,17 @@ from click import (
 
 # Local libraries
 from toolbox import (
-    drills,
+    constants,
     toolbox,
     utils
 )
 
 EXP_METAVAR = '[<EXPLOIT | all>]'
 
-def _convert_exploit(ctx, param, value):
+
+def _convert_exploit(ctx, param, value):  # pylint: disable=unused-argument
     return '' if value == 'all' else value
+
 
 @command(name='integrates', short_help='use the integrates API')
 @argument(
@@ -49,6 +51,5 @@ def integrates_management(kind, group, check_token,
         sys.exit(0 if toolbox.get_static_dictionary(
             group, get_static_dict) else 1)
     elif check_token:
-        from toolbox import constants
         assert constants
         sys.exit(0)

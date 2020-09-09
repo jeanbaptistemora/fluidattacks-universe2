@@ -1,16 +1,14 @@
 # Local libraries
 import sys
-import os
 
 # Third party libraries
 from click import (
     command,
     option,
-    argument
 )
 
 # Local libraries
-from toolbox import sorts, analytics
+from toolbox import analytics
 
 
 @command(name='analytics')

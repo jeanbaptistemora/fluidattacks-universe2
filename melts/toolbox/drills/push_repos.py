@@ -152,6 +152,6 @@ def main(
         passed = passed \
             and s3_sync_fusion_to_s3(subs, bucket, endpoint_url)
     else:
-        logger.error(f'Either the subs or the fusion folder does not exist')
+        logger.error('Either the subs or the fusion folder does not exist')
         passed = False
     return passed

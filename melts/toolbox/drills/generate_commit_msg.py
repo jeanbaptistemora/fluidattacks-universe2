@@ -104,19 +104,19 @@ def main(subs: str) -> bool:
 
     if scope != 'cross':
         if inputs.count == 0:
-            commit_msg += dedent(f"""
+            commit_msg += dedent("""
             not-drills(cross)-because: toe-has-lines-only
             """)
         elif lines.count == lines.sofar:
-            commit_msg += dedent(f"""
+            commit_msg += dedent("""
             not-drills(cross)-because: i-already-tested-all-lines
             """)
         elif inputs.count == inputs.sofar:
-            commit_msg += dedent(f"""
+            commit_msg += dedent("""
             not-drills(cross)-because: i-already-tested-all-inputs
             """)
         else:
-            commit_msg += dedent(f"""
+            commit_msg += dedent("""
             not-drills(cross)-because: <EXPLAIN HERE>
             """)
     else:
