@@ -51,6 +51,32 @@ WS = r'\s*'
 SEP = f'{WS},{WS}'
 
 
+def _java_jpa_like_normal_annotation(
+    model: Dict[str, Any],
+) -> Tuple[Tuple[int, int], ...]:
+    # Match: @Query(identifier = ..., identifier = ...)
+    # Return the nodes inside. Most of the time simplified to StringLiteral
+    return tuple(yield_nodes(
+        value=model,
+        key_predicates=(
+            'NormalAnnotation'.__eq__,
+        ),
+        value_predicates=(
+            '[0].type==`AT`',
+            """
+            contains(
+                ['Query', 'SqlQuery'],
+                [1].TypeName[0].Identifier[0].text
+            )
+            """,
+            '[2].type==`LPAREN`',
+            '[4].type==`RPAREN`',
+        ),
+        post_extraction=(),
+        value_extraction="[3][?[0].text=='value'][2]|[0]",
+    ))
+
+
 def _java_jpa_like_single_element_annotation(
     model: Dict[str, Any],
 ) -> Tuple[Tuple[int, int], ...]:
@@ -73,6 +99,7 @@ def _java_jpa_like_single_element_annotation(
             '[4].type==`RPAREN`',
         ),
         value_extraction='[3].ElementValue',
+        pre_extraction=(),
     ))
 
 
@@ -118,6 +145,7 @@ def _java_jpa_like(model: Dict[str, Any]) -> Tuple[Tuple[int, int], ...]:
     return tuple(
         (line_no, column_no)
         for vulnerable, line_no, column_no in map(_check_like_injection, chain(
+            _java_jpa_like_normal_annotation(model),
             _java_jpa_like_single_element_annotation(model),
         ))
         if vulnerable

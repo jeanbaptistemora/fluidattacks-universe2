@@ -67,7 +67,11 @@ def yield_nodes(
     key_predicates: Tuple[Callable[[str], bool], ...] = (),
     value_extraction: str = '@',
     value_predicates: Tuple[str, ...] = (),
-    post_actions: Tuple[Callable[[Any], Any], ...] = (
+    pre_extraction: Tuple[Callable[[Any], Any], ...] = (
+        simplify,
+        symbolic_evaluate,
+    ),
+    post_extraction: Tuple[Callable[[Any], Any], ...] = (
         simplify,
         symbolic_evaluate,
     ),
@@ -77,9 +81,12 @@ def yield_nodes(
     def _yield_if_matches() -> Iterator[Any]:
         if all(jsh(pred, value) for pred in value_predicates) \
                 and all(pred(key) for pred in key_predicates):
-            to_yield = jsh(value_extraction, value)
-            for post_action in post_actions:
-                to_yield = post_action(to_yield)
+            to_yield = value
+            for action in pre_extraction:
+                to_yield = action(to_yield)
+            to_yield = jsh(value_extraction, to_yield)
+            for action in post_extraction:
+                to_yield = action(to_yield)
             yield to_yield
 
     if isinstance(value, dict):
@@ -89,6 +96,8 @@ def yield_nodes(
                 key=child_key,
                 value=child_value,
                 key_predicates=key_predicates,
+                post_extraction=post_extraction,
+                pre_extraction=pre_extraction,
                 value_extraction=value_extraction,
                 value_predicates=value_predicates,
             )
@@ -99,6 +108,8 @@ def yield_nodes(
                 key=f'{key}[{child_key}]',
                 value=child_value,
                 key_predicates=key_predicates,
+                post_extraction=post_extraction,
+                pre_extraction=pre_extraction,
                 value_extraction=value_extraction,
                 value_predicates=value_predicates,
             )

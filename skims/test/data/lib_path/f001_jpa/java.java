@@ -42,8 +42,10 @@ public interface ParametersJpaRepository extends JpaRepository<Parameter, String
     @Query("SELECT e FROM ExamplePage e WHERE e.id LIKE CONCAT('%',:id,'%')")
     Page<ExamplePage> getRechargeEvents(@Param("id") Long id, Pageable pageable);
     /* LIKE statement injection */
-    @SqlQuery("SEL" +
-        "ECT e FROM ExamplePage e WHERE e.id LIKE ?10%")
+    @SqlQuery(x = 123, y = "a", value = "SEL" +
+        "ECT e FROM ExamplePage e WHERE e.id LIKE ?10%",
+        z = 123
+    )
     Page<ExamplePage> getRechargeEvents(@Param("id") Long id, Pageable pageable);
     /* Secure */
     @SqlQuery("SEL" +
