@@ -99,6 +99,11 @@ common_lint_commit_msg:
   <<: *common_in_dev_branch
   stage: lint-code
 
+common_test_jobs_provisioner:
+  <<: *with_nix
+  <<: *common_in_dev_branch
+  stage: test-code
+
 common_mailmap_linter:
   <<: *with_nix
   <<: *common_in_dev_branch

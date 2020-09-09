@@ -205,10 +205,6 @@ function helper_common_list_touched_files {
   done
 }
 
-function helper_is_today_wednesday {
-  test "$(date +%A)" == 'Wednesday'
-}
-
 function helper_is_today_first_day_of_month {
   test "$(date +%d)" == '01'
 }
@@ -361,4 +357,11 @@ function helper_start_localstack {
               &&  return 1
             fi
       done
+}
+
+function helper_common_array_contains_element {
+  local e match="$1"
+  shift
+  for e; do [[ "$e" == "$match" ]] && return 0; done
+  return 1
 }

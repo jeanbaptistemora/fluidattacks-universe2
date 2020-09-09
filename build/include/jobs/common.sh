@@ -80,3 +80,32 @@ function job_common_bugsnag_report {
       env_prepare_python_packages \
   &&  python3 "${STARTDIR}/common/bugsnag-report.py" "${@}"
 }
+
+function job_common_test_jobs_provisioner {
+  local jobs_output
+  local exclude=(
+    'forces'
+    'skims'
+    'skims_pages'
+    'integrates_analytics_make_snapshots_prod'
+  )
+
+      helper_use_pristine_workdir \
+  &&  jobs_output="$(cat build/include/jobs/*)" \
+  &&  for file in build/provisioners/*
+      do
+            provisioner="$(basename "${file%.nix}")" \
+        &&  if helper_common_array_contains_element "${provisioner}" "${exclude[@]}"
+            then
+              echo "[INFO] Provisioner ${provisioner} is excluded. It can exist without a job."
+            else
+              if echo "${jobs_output}" | grep -qP "^function job_${provisioner} {$"
+              then
+                echo "[INFO] Job found for ${provisioner}."
+              else
+                    echo "[ERROR] Could not find a job for ${provisioner}." \
+                &&  return 1
+              fi
+            fi
+      done
+}
