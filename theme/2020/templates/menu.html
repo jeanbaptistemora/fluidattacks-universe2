@@ -1,4 +1,4 @@
-<div class="cssmenu bg-white lh-solid h-navbar cover shadow-menu fixed w-100 top-0 z-max">
+<div id="navbar" class="cssmenu bg-white lh-solid h-navbar cover shadow-menu fixed w-100 top-0 z-max t-all-5">
   <div class="b relative w-100 z-5 mw9 mr-auto ml-auto h-navbar">
     <ul class="list ma0 pa0 overflow-hidden h-navbar">
       <li class="fl">
@@ -284,3 +284,7 @@
     </form>
   </div>
 </div>
+{% assets output="static/js/navbar.min.js", "js/tmp/navbar.min.js" %}
+<script type="text/javascript"
+        src="{{ SITEURL }}/{{ ASSET_URL }}"></script>
+{% endassets %}
