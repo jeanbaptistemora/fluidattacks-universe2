@@ -212,12 +212,12 @@ async def test_correct(
     await match_expected(test_group, {
         # Finding, status, open vulnerabilities
         ('F001_JPA', 'SUBMITTED', (
-            ('test/data/lib_path/f001_jpa/java.java', '22'),
-            ('test/data/lib_path/f001_jpa/java.java', '25'),
-            ('test/data/lib_path/f001_jpa/java.java', '35'),
-            ('test/data/lib_path/f001_jpa/java.java', '38'),
-            ('test/data/lib_path/f001_jpa/java.java', '41'),
-            ('test/data/lib_path/f001_jpa/java.java', '44'),
+            ('test/data/lib_path/f001_jpa/java.java', '23'),
+            ('test/data/lib_path/f001_jpa/java.java', '26'),
+            ('test/data/lib_path/f001_jpa/java.java', '36'),
+            ('test/data/lib_path/f001_jpa/java.java', '39'),
+            ('test/data/lib_path/f001_jpa/java.java', '42'),
+            ('test/data/lib_path/f001_jpa/java.java', '45'),
         )),
         ('F009', 'APPROVED', (
             ('test/data/lib_path/f009/Dockerfile', '1'),

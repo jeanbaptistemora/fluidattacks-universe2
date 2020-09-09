@@ -1,5 +1,6 @@
 package com.fluidattacks.skims.test.f001;
 
+import org.skife.jdbi.v2.sqlobject.SqlQuery;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -19,7 +20,7 @@ public interface ParametersJpaRepository extends JpaRepository<Parameter, String
     /* secure*/
     @Query("select u from User u where u.lastname like :#{[0]}")
     /* LIKE statement injection */
-    @Query("select u from User u where u.lastname like %:#{[0]}%")
+    @SqlQuery("select u from User u where u.lastname like %:#{[0]}%")
     List<User> findByLastnameWithSpelExpression(@Param("lastname") String lastname);
     /* LIKE statement injection */
     @Query("select u from User u where u.lastname like %:#{" + "[0]}%")
@@ -41,11 +42,11 @@ public interface ParametersJpaRepository extends JpaRepository<Parameter, String
     @Query("SELECT e FROM ExamplePage e WHERE e.id LIKE CONCAT('%',:id,'%')")
     Page<ExamplePage> getRechargeEvents(@Param("id") Long id, Pageable pageable);
     /* LIKE statement injection */
-    @Query("SEL" +
+    @SqlQuery("SEL" +
         "ECT e FROM ExamplePage e WHERE e.id LIKE ?10%")
     Page<ExamplePage> getRechargeEvents(@Param("id") Long id, Pageable pageable);
     /* Secure */
-    @Query("SEL" +
+    @SqlQuery("SEL" +
         "ECT e FROM ExamplePage e WHERE e.id LIKE ?10")
     Page<ExamplePage> getRechargeEvents(@Param("id") Long id, Pageable pageable);
 }

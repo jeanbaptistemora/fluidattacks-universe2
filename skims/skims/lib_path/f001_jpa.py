@@ -63,7 +63,12 @@ def _java_jpa_like_single_element_annotation(
         ),
         value_predicates=(
             '[0].type==`AT`',
-            '[1].TypeName[0].Identifier[0].text==`Query`',
+            """
+            contains(
+                ['Query', 'SqlQuery'],
+                [1].TypeName[0].Identifier[0].text
+            )
+            """,
             '[2].type==`LPAREN`',
             '[4].type==`RPAREN`',
         ),
