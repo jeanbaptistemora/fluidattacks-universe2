@@ -9,10 +9,8 @@ in
 
       buildInputs = [
         pkgs.git
-        pkgs.sops
-        pkgs.jq
-        pkgs.curl
-        pkgs.cacert
+        pkgs.kubectl
+        pkgs.awscli
       ];
     })
   )

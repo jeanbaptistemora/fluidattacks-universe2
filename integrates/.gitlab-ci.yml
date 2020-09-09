@@ -237,10 +237,10 @@ integrates_coverage_report:
   stage: external
   retry: 1
 
-integrates_clean_registries:
+integrates_ephemeral_clean:
   <<: *with_nix
   <<: *in_schedule_nightly_build_integrates
-  stage: post-deploy
+  stage: rotation
 
 integrates_ephemeral_deploy:
   <<: *with_nix

@@ -193,31 +193,6 @@ function job_integrates_coverage_report {
   || return 1
 }
 
-function job_integrates_clean_registries {
-  local registry_name='app'
-  local registry_id
-
-      pushd "${STARTDIR}/integrates" \
-  &&  if helper_is_today_first_day_of_month
-      then
-            echo '[INFO] Cleaning registries' \
-        &&  CI_COMMIT_REF_NAME='master' helper_integrates_aws_login 'production' \
-        &&  helper_common_sops_env 'secrets-production.yaml' 'default' \
-              GITLAB_API_TOKEN \
-        &&  echo "[INFO] Computing registry ID for: ${registry_name}" \
-        &&  registry_id=$(helper_get_gitlab_registry_id "${registry_name}") \
-        &&  echo "[INFO] Deleting registry ID: ${registry_id}" \
-        &&  curl "https://gitlab.com/api/v4/projects/${CI_PROJECT_ID}/registry/repositories/${registry_id}" \
-              --request 'DELETE' \
-              --header "private-token: ${GITLAB_API_TOKEN}"
-      else
-            echo '[INFO] Skipping, this is only meant to be run on first of each month' \
-        &&  return 0
-      fi \
-  &&  popd \
-  ||  return 1
-}
-
 function job_integrates_build_container_app {
   local context='.'
   local dockerfile='deploy/containers/app/Dockerfile'
@@ -1285,6 +1260,7 @@ function job_integrates_ephemeral_deploy {
 
 function job_integrates_ephemeral_stop {
   local cluster='integrates-cluster'
+  local namespace='ephemeral'
   local region='us-east-1'
 
       helper_use_pristine_workdir \
@@ -1293,8 +1269,27 @@ function job_integrates_ephemeral_stop {
   &&  helper_integrates_aws_login 'development' \
   &&  helper_common_update_kubeconfig "${cluster}" "${region}" \
   &&  echo '[INFO] Deleting deployment' \
-  &&  kubectl delete deployment -n ephemeral "integrates-${CI_COMMIT_REF_SLUG}" \
-  &&  kubectl delete secret -n ephemeral "integrates-${CI_COMMIT_REF_SLUG}" \
+  &&  kubectl delete deployment -n "${namespace}" "integrates-${CI_COMMIT_REF_SLUG}" \
+  &&  kubectl delete secret -n "${namespace}" "integrates-${CI_COMMIT_REF_SLUG}" \
+  &&  popd \
+  ||  return 1
+}
+
+function job_integrates_ephemeral_clean {
+  local cluster='integrates-cluster'
+  local namespace='ephemeral'
+  local region='us-east-1'
+
+      helper_use_pristine_workdir \
+  &&  pushd integrates \
+  &&  echo "[INFO] Setting namespace preferences..." \
+  &&  helper_integrates_aws_login 'development' \
+  &&  helper_common_update_kubeconfig "${cluster}" "${region}" \
+  &&  echo '[INFO] Deleting ephemeral environments' \
+  &&  kubectl delete --all deployment -n "${namespace}" \
+  &&  kubectl delete --all secret -n "${namespace}" \
+  &&  kubectl delete --all service -n "${namespace}" \
+  &&  kubectl delete --all ingress -n "${namespace}" \
   &&  popd \
   ||  return 1
 }
