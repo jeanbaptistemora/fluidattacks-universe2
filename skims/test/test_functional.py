@@ -47,7 +47,7 @@ set_locale(LocalesEnum.EN)
 
 
 async def skims(*args: str) -> Tuple[int, bytes, bytes]:
-    return await asyncio.wait_for(_skims(*args), 300)
+    return await asyncio.wait_for(_skims(*args), 180)
 
 
 async def _skims(*args: str) -> Tuple[int, bytes, bytes]:
@@ -113,7 +113,7 @@ async def match_expected(
     group: str,
     expected: Set[Tuple[str, str, Tuple[Tuple[str, str], ...]]],
 ) -> None:
-    for _ in range(3):
+    for _ in range(5):
         if (data := await get_group_data(group)) == expected:
             break
 

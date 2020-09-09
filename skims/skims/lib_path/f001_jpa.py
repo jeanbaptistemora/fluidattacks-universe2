@@ -157,7 +157,7 @@ async def java_jpa_like(
     content: str,
     path: str,
 ) -> Tuple[Vulnerability, ...]:
-    if not content or 'f001_jpa/java.java' not in path:
+    if not content:
         return ()
 
     model = await parse('Java9', path)

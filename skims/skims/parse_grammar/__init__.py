@@ -41,7 +41,7 @@ async def parse(
     try:
         if err_bytes:
             err: str = err_bytes.decode('utf-8')
-            await log('error', 'Parse[%s]: %s, %s', grammar, path, err)
+            await log('debug', 'Parse[%s]: %s, %s', grammar, path, err)
             raise IOError('AST Parser found syntax errors')
 
         if process.returncode != 0:
