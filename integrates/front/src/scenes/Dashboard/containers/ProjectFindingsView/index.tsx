@@ -64,28 +64,24 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
     },
   });
 
-  const tableSetStorage: (string | null) = localStorage.getItem("tableSet");
-
-  const [checkedItems, setCheckedItems]: [
-    Record<string, boolean>,
-    (param: Record<string, boolean>) => void
-  ] = React.useState(
-    tableSetStorage !== null
-      ? JSON.parse(tableSetStorage)
-      : {
-          age: false,
-          description: true,
-          isExploitable: true,
-          lastVulnerability: true,
-          openVulnerabilities: true,
-          remediated: false,
-          severityScore: true,
-          state: true,
-          title: true,
-          treatment: true,
-          where: false,
-        },
+  const [checkedItems, setCheckedItems] = useStoredState<Record<string, boolean>>(
+    "tableSet",
+    {
+      age: false,
+      description: true,
+      isExploitable: true,
+      lastVulnerability: true,
+      openVulnerabilities: true,
+      remediated: false,
+      severityScore: true,
+      state: true,
+      title: true,
+      treatment: true,
+      where: false,
+    },
+    localStorage,
   );
+
   const [isFilterEnabled, setFilterEnabled] = useStoredState<boolean>("findingsFilters", false);
 
   const selectOptionsExploitable: optionSelectFilterProps[] = [
@@ -131,24 +127,16 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
       .filter((val: boolean) => val)
       .length === 1 && checkedItems[columnName]
     ) {
-      alert("At least 1 column must be shown");
+      alert(translate.t("validations.columns"));
       setCheckedItems({
         ...checkedItems,
         [columnName]: true,
       });
-      localStorage.setItem("tableSet", JSON.stringify({
-        ...checkedItems,
-        [columnName]: true,
-      }));
     } else {
       setCheckedItems({
         ...checkedItems,
         [columnName]: !checkedItems[columnName],
       });
-      localStorage.setItem("tableSet", JSON.stringify({
-        ...checkedItems,
-        [columnName]: !checkedItems[columnName],
-      }));
     }
   };
   const handleUpdateFilter: () => void = (): void => {

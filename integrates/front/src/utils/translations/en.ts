@@ -1836,6 +1836,7 @@ export const enTranslations: ResourceKey = {
   validations: {
     alphanumeric: "Only alphanumeric characters",
     between: "This value must be between {{min}} and {{max}}",
+    columns: "At least 1 column must be shown",
     datetime: "The datetime format is not valid",
     draftTitle: "The title format is not valid",
     email: "The email format is not valid",
