@@ -1,7 +1,7 @@
 :slug: rules/250/
 :category: networks
 :description: This requirement establishes the importance of limiting the management of wireless access points to a unique physical port.
-:keywords: Wireless, Network, Access Point, Ports, Security, Management, Rules, Ethical Hacking, Pentesting
+:keywords: Wireless, Network, Access Point, Ports, NERC, Security, Management, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R250. Manage access points
@@ -10,3 +10,10 @@
 
 The management of wireless access points
 must be enabled for only one physical port of the equipment.
+
+== References
+
+. [[r1]] link:https://www.nerc.com/pa/Stand/Reliability%20Standards/CIP-007-6.pdf[NERC CIP-007-6. B. Requirements and measures. R1.1]
+Where technically feasible, enable only logical network accessible ports that
+have been determined to be needed by the Responsible Entity,
+including port ranges or services where needed to handle dynamic ports.

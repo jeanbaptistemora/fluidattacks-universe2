@@ -1,7 +1,7 @@
 :slug: rules/075/
 :category: logs
 :description: This requirement establishes the importance of recording exceptional events in logs, allowing backtracking and proper responses in undesired scenarios.
-:keywords: Logs, Events, Tracking, CWE, GDPR, ASVS, HIPAA, ISO, OWASP, PCI DSS, Rules, Ethical Hacking, Pentesting
+:keywords: Logs, Events, Tracking, CWE, GDPR, ASVS, HIPAA, ISO, NERC, OWASP, PCI DSS, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R075. Record exceptional events in logs
@@ -107,89 +107,93 @@ failures and information security events.
 Record operator and administrator actions in logs,
 and protect and regularly review the records.
 
-. [[r8]] link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A10-Insufficient_Logging%252526Monitoring[OWASP Top 10 A10:2017-Insufficient Logging & Monitoring].
+. [[r8]] link:https://www.nerc.com/pa/Stand/Reliability%20Standards/CIP-007-6.pdf[NERC CIP-007-6. B. Requirements and measures. R4.1]
+Log events for identification of, and after-the-fact investigations of, Cyber
+Security Incidents.
+
+. [[r9]] link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A10-Insufficient_Logging%252526Monitoring[OWASP Top 10 A10:2017-Insufficient Logging & Monitoring].
 Insufficient logging and monitoring,
 coupled with missing or ineffective integration with incident response,
 allows attackers to further attack systems, maintain persistence,
 pivot to more systems, and tamper, extract, or destroy data.
 
-. [[r9]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r10]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V1.7 Errors, Logging and Auditing Architectural Requirements.(1.7.1)]
 Verify that a common logging format and approach is used across the system.
 
-. [[r10]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r11]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V7.1 Log Content Requirements.(7.1.3)]
 Verify that the application logs security relevant events including successful
 and failed authentication events, access control failures, deserialization
 failures and input validation failures.
 
-. [[r11]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r12]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V7.1 Log Content Requirements.(7.1.4)]
 Verify that each log event includes necessary information that would allow for
 a detailed investigation of the timeline when an event happens.
 
-. [[r12]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r13]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V7.2 Log Processing Requirements.(7.2.1)]
 Verify that all authentication decisions are logged,
 without storing sensitive session identifiers or passwords.
 This should include requests with relevant metadata needed for security
 investigations.
 
-. [[r13]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r14]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V7.2 Log Processing Requirements.(7.2.2)]
 Verify that all access control decisions can be logged and all failed decisions
 are logged.
 This should include requests with relevant metadata needed for security
 investigations.
 
-. [[r14]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r15]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V8.3 Sensitive Private Data.(8.3.5)]
 Verify accessing sensitive data is audited
 (without logging the sensitive data itself),
 if the data is collected under relevant data protection directives or where
 logging of access is required.
 
-. [[r15]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r16]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V9.2 Server Communications Security Requirements.(9.2.5)]
 Verify that backend *TLS* connection failures are logged.
 
-. [[r16]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r17]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V11.1 Business Logic Security Requirements.(11.1.7)]
 Verify the application monitors for unusual events or activity from a business
 logic perspective.
 For example, attempts to perform actions out of order or actions which a normal
 user would never attempt.
 
-. [[r17]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 10.2.1]
+. [[r18]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 10.2.1]
 Implement automated audit trails for all system components to reconstruct all
 individual user accesses to cardholder data.
 
-. [[r18]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 10.2.2]
+. [[r19]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 10.2.2]
 Implement automated audit trails for all system components to reconstruct all
 actions taken by any individual with root or administrative privileges.
 
-. [[r19]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 10.2.3]
+. [[r20]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 10.2.3]
 Implement automated audit trails for all system components to reconstruct
 access to all audit trails.
 
-. [[r20]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 10.2.4]
+. [[r21]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 10.2.4]
 Implement automated audit trails for all system components to reconstruct
 invalid logical access attempts.
 
-. [[r21]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 10.2.5]
+. [[r22]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 10.2.5]
 Implement automated audit trails for all system components to reconstruct use
 of and changes to identification and authentication mechanisms and all
 changes, additions, or deletions to accounts with root or administrative
 privileges.
 
-. [[r22]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 10.2.6]
+. [[r23]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 10.2.6]
 Implement automated audit trails for all system components to reconstruct
 initialization, stopping, or pausing of the audit logs.
 
-. [[r23]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 10.2.7]
+. [[r24]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 10.2.7]
 Implement automated audit trails for all system components to reconstruct
 creation and deletion of system-level objects.
 
-. [[r24]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Appendix A1 A1.3]
+. [[r25]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Appendix A1 A1.3]
 Ensure logging and audit trails are enabled and unique to each entity's
 cardholder data environment

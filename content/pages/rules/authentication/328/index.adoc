@@ -1,7 +1,7 @@
 :slug: rules/328/
 :category: authentication
 :description: This requirement states that multi-factor authentication (MFA) must be enabled and required to access critical systems.
-:keywords: MFA, Authentication, Multi, Factor, ASVS, CWE, OWASP, PCI DSS, Rules, Ethical Hacking, Pentesting
+:keywords: MFA, Authentication, Multi, Factor, ASVS, CWE, NERC, OWASP, PCI DSS, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R328. Request MFA for critical systems
@@ -50,65 +50,68 @@ evaluation of a single condition or the integrity of a single object or entity
 in order to make a decision about granting access to restricted resources or
 functionality.
 
-. [[r6]] link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A2-Broken_Authentication[OWASP Top 10 A2:2017-Broken Authentication].
+. [[r6]] link:https://www.nerc.com/pa/Stand/Reliability%20Standards/CIP-005-5.pdf[NERC CIP-005-5. B. Requirements and measures. R2.3]
+Require multi-factor authentication for all Interactive Remote Access sessions.
+
+. [[r7]] link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A2-Broken_Authentication[OWASP Top 10 A2:2017-Broken Authentication].
 Application functions related to authentication and session management are
 often implemented incorrectly,
 allowing attackers to compromise passwords, keys, or session tokens,
 or to exploit other implementation flaws to assume other users' identities
 temporarily or permanently.
 
-. [[r7]] link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A5-Broken_Access_Control[OWASP Top 10 A5:2017-Broken Access Control].
+. [[r8]] link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A5-Broken_Access_Control[OWASP Top 10 A5:2017-Broken Access Control].
 Restrictions on what authenticated users are allowed to do are often not
 properly enforced.
 Attackers can exploit these flaws to access unauthorized functionality and/or
 data, such as access other users' accounts, view sensitive files,
 modify other users' data, change access rights, etc.
 
-. [[r8]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r9]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V1.2 Authentication Architectural Requirements.(1.2.4)]
 Verify that all authentication pathways and identity management APIs implement
 consistent authentication security control strength,
 such that there are no weaker alternatives per the risk of the application.
 
-. [[r9]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r10]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V2.2 General Authenticator Requirements.(2.2.4)]
 Verify impersonation resistance against phishing,
 such as the use of multi-factor authentication, cryptographic devices with
 intent (such as connected keys with a push to authenticate),
 or at higher AAL levels, client-side certificates.
 
-. [[r10]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r11]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V2.2 General Authenticator Requirements.(2.2.7)]
 Verify intent to authenticate by requiring the entry of an *OTP* token or
 user-initiated action such as a button press on a *FIDO* hardware key.
 
-. [[r11]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r12]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V4.3 Other Access Control Considerations.(4.3.1)]
 Verify administrative interfaces use appropriate multi-factor authentication to
 prevent unauthorized use.
 
-. [[r12]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r13]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V4.3 Other Access Control Considerations.(4.3.3)]
 Verify the application has additional authorization
 (such as step up or adaptive authentication) for lower value systems,
 and/or segregation of duties for high value applications to enforce anti-fraud
 controls as per the risk of application and past fraud.
 
-. [[r13]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 6.5.8]
+. [[r14]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 6.5.8]
 Address common coding vulnerabilities in software-development processes
 including improper access control
 (such as insecure direct object references, failure to restrict URL access,
 directory traversal, and failure to restrict user access to functions).
 
-. [[r14]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 6.5.10]
+. [[r15]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 6.5.10]
 Address common coding vulnerabilities in software-development processes such as
 broken authentication and session management.
 
-. [[r15]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 8.3.1]
+. [[r16]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 8.3.1]
 Incorporate multi-factor authentication for all non-console access into the
 CDE (Cardholder Data Environment) for personnel with administrative access.
 
-. [[r16]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 8.3.2]
+. [[r17]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 8.3.2]
 Incorporate multi-factor authentication for all remote network access
 (both user and administrator, and including third-party access for support or
 maintenance)
