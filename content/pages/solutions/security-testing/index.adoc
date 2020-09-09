@@ -1,0 +1,31 @@
+:slug: solutions/security-testing/
+:description: Thanks to our comprehensive Security Testing, you can be sure that all your IT systems’ vulnerabilities will be found without false positives or negatives.
+:keywords: Fluid Attacks, Solutions, Security, Testing, Ethical Hacking, Vulnerability, SDLC
+:image: security-testing.png
+:solutiontitle: security-testing
+:solution: Fluid Attacks’ Security Testing solution allows the comprehensive and accurate detection of security vulnerabilities in your IT infrastructure, applications, or source code. Our security testing team consists of certified ethical hackers who work on diverse environments, both with automated tools and manual exploitation. We prioritize all findings according to their severity and provide you with recommendations and guidance on their remediation in order to mitigate the risks of cyberattacks from internal and external sources. Our security testing, which is available for your entire software development life cycle, succeeds in identifying both known and unknown vulnerabilities while guaranteeing that reports do not contain lies (false positives) nor omissions (false negatives).
+:template: solution
+
+= Security Testing
+
+=== Vulnerability report
+
+Our certified team of ethical hackers will be actively searching your systems
+for cybersecurity vulnerabilities that may pose a risk to your information
+assets and those of your users. You will receive detailed reports based on
+which you can decide what you want to fix according to the severity and impact
+on your business.
+
+=== No false positives
+
+We place much more emphasis on tool-supported manual work than relying on the
+intensive use of automatic tools, and are more concerned with accuracy than
+speed. This is why you will find neither false positives nor false negatives
+in our projects.
+
+=== Centralized management
+
+We manage the security testing from a unique point, our platform Integrates.
+This allows our red team to be available and in constant communication with
+your developers in order to achieve high remediation rates. We also use this
+platform to provide you with easy-to-understand, real-time executive indicators.

@@ -1,0 +1,27 @@
+:slug: solutions/compliance/
+:description: Our Compliance solution offers you a complete analysis of your information technology to establish if it complies with the corresponding security standards.
+:keywords: Fluid Attacks, Solutions, Compliance, Ethical Hacking, Security, Standards
+:image: compliance.png
+:solutiontitle: compliance
+:solution: Ensuring compliance with up-to-date security standards may become a complicated issue for diverse organizations that use continually evolving information technology for their businesses. Fluid Attacks recognizes this and offers you comprehensive testing and analysis to determine whether your company is effectively complying with all corresponding security regulations. In addition, we provide you with reliable reports so that your team can take the necessary steps to adjust and maintain your information systems in line with such requirements. Our Compliance solution will allow you to avoid penalties and, above all, guarantee secure systems for customers or users, thus ensuring their continued trust.
+:template: solution
+
+= Compliance
+
+=== Wide range of standards
+
+We are able to help you comply with the following standards: OWASP, PCI DSS,
+NIST, GDPR, NERC, HIPAA, ISO27002, CWE, CVE, EPR, BSIMM9, COMMON CRITERIA, as
+well as company-specific requirements.
+
+=== All security technical standards
+
+We go beyond the most popular or critical breaches of standards. Fluid Attacks
+can test around 200 technical security requirements in each of your projects.
+
+=== Centralized security requirements
+
+Rules is a set of security requirements written by us in a comprehensible
+manner, using several international standards as a reference. It allows you to
+parameterize the assessments we make to your systems and determine what your
+company agrees to comply with and what would be considered a vulnerability.
