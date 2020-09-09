@@ -25,6 +25,7 @@ from aioextensions import (
 
 # Local imports
 from lib_path import (
+    f001_jpa,
     f009,
     f011,
     f031_cwe378,
@@ -71,6 +72,12 @@ async def analyze_one_path(
     file_extension = file_extension[1:]
 
     await collect((
+        f001_jpa.analyze(
+            content_generator=file_content_generator,
+            file_extension=file_extension,
+            path=path,
+            store=stores[FindingEnum.F001_JPA],
+        ),
         f009.analyze(
             content_generator=file_content_generator,
             file_extension=file_extension,

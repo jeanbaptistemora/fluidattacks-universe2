@@ -47,7 +47,12 @@ set_locale(LocalesEnum.EN)
 
 
 async def skims(*args: str) -> Tuple[int, bytes, bytes]:
-    process: asyncio.subprocess.Process = await call('skims', *args)
+    return await asyncio.wait_for(_skims(*args), 300)
+
+
+async def _skims(*args: str) -> Tuple[int, bytes, bytes]:
+    process: asyncio.subprocess.Process = \
+        await call('poetry', 'run', 'skims', *args)
 
     stdout, stderr = await process.communicate()
     code = -1 if process.returncode is None else process.returncode
@@ -206,6 +211,14 @@ async def test_correct(
     # The following findings must be met
     await match_expected(test_group, {
         # Finding, status, open vulnerabilities
+        ('F001_JPA', 'SUBMITTED', (
+            ('test/data/lib_path/f001_jpa/java.java', '22'),
+            ('test/data/lib_path/f001_jpa/java.java', '25'),
+            ('test/data/lib_path/f001_jpa/java.java', '35'),
+            ('test/data/lib_path/f001_jpa/java.java', '38'),
+            ('test/data/lib_path/f001_jpa/java.java', '41'),
+            ('test/data/lib_path/f001_jpa/java.java', '44'),
+        )),
         ('F009', 'APPROVED', (
             ('test/data/lib_path/f009/Dockerfile', '1'),
             ('test/data/lib_path/f009/Dockerfile', '2'),
@@ -327,6 +340,7 @@ async def test_correct_nothing_to_do(
     # Skims should persist the null state, closing everything on Integrates
     await match_expected(test_group, {
         # Finding, status, open vulnerabilities
+        ('F001_JPA', 'SUBMITTED', ()),
         ('F009', 'APPROVED', ()),
         ('F011', 'APPROVED', ()),
         ('F031_CWE378', 'SUBMITTED', ()),

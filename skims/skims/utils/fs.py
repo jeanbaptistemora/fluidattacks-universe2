@@ -22,7 +22,6 @@ import aiofiles
 from aioextensions import (
     collect,
     in_thread,
-    in_process,
 )
 
 # Local libraries
@@ -93,7 +92,7 @@ async def mkdir(name: str, mode: int = 0o777, exist_ok: bool = False) -> None:
 
 
 async def rmdir(name: str) -> None:
-    return await in_process(rmtree, name)
+    return await in_thread(rmtree, name)
 
 
 async def recurse_dir(path: str) -> Tuple[str, ...]:
