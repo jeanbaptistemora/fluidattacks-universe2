@@ -8,6 +8,9 @@ from datetime import datetime
 from typing import Dict, List, Set, Any, cast, Union
 
 # Third party libraries
+from aioextensions import (
+    collect,
+)
 import simplejson as json
 from ariadne import (
     convert_camel_case_to_snake,
@@ -643,11 +646,18 @@ async def _get_bill(
 async def _get_drafts(
         info: GraphQLResolveInfo,
         project_name: str,
+        requested_fields: List[FieldNode],
         **__: Any) -> List[Dict[str, FindingType]]:
     """Get drafts."""
     util.cloudwatch_log(
         info.context,
         f'Security: Access to {project_name} drafts')  # pragma: no cover
+    selection_set = SelectionSetNode()
+    selection_set.selections = requested_fields
+    selection_set.selections = util.get_requested_fields(
+        'drafts', selection_set
+    )
+
     project_drafts = await info.context.loaders['project'].load(project_name)
     project_drafts = project_drafts['drafts']
     findings = await info.context.loaders['finding'].load_many(project_drafts)
@@ -657,7 +667,16 @@ async def _get_drafts(
         if ('current_state' in draft and
             draft['current_state'] != 'DELETED')
     ]
-    return drafts
+
+    return await collect(
+        finding_loader.resolve(
+            info,
+            draft['id'],
+            as_field=True,
+            selection_set=selection_set
+        )
+        for draft in drafts
+    )
 
 
 @concurrent_decorators(

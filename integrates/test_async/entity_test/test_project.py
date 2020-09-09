@@ -78,6 +78,7 @@ class ProjectTests(TestCase):
               }
               drafts {
                 age
+                openVulnerabilities
               }
               events {
                 analyst
@@ -116,6 +117,7 @@ class ProjectTests(TestCase):
         assert result['data']['project']['tags'][0] == 'test-projects'
         assert result['data']['project']['description'] == 'Integrates unit test project'
         assert len(result['data']['project']['drafts']) == 1
+        assert result['data']['project']['drafts'][0]['openVulnerabilities'] == 0
         assert len(result['data']['project']['events']) == 5
         assert result['data']['project']['consulting'][0]['content'] == 'Now we can post comments on projects'
         assert len(result['data']['project']['users']) == 5
