@@ -1301,6 +1301,66 @@ function job_integrates_ephemeral_clean {
   ||  return 1
 }
 
+function job_integrates_production_deploy {
+  local B64_AWS_ACCESS_KEY_ID
+  local B64_AWS_SECRET_ACCESS_KEY
+  local B64_JWT_TOKEN
+  local DATE
+  local cluster='integrates-cluster'
+  local region='us-east-1'
+  local namespace='production'
+  local timeout='10m'
+  local files=(
+    deploy/production/deployment.yaml
+    deploy/production/service.yaml
+    deploy/production/ingress.yaml
+    deploy/production/variables.yaml
+  )
+  local vars_to_replace_in_manifest=(
+    DATE
+    PRODUCTION_CERTIFICATE_ARN
+    B64_AWS_ACCESS_KEY_ID
+    B64_AWS_SECRET_ACCESS_KEY
+    B64_JWT_TOKEN
+  )
+
+  # shellcheck disable=SC2034
+      helper_use_pristine_workdir \
+  &&  pushd integrates \
+  &&  CI_COMMIT_REF_NAME='master' helper_integrates_aws_login 'production' \
+  &&  helper_common_sops_env 'secrets-production.yaml' 'default' \
+      PRODUCTION_CERTIFICATE_ARN \
+  &&  helper_common_update_kubeconfig "${cluster}" "${region}" \
+  &&  echo '[INFO] Computing environment variables' \
+  &&  B64_AWS_ACCESS_KEY_ID=$(helper_integrates_to_b64 "${AWS_ACCESS_KEY_ID}") \
+  &&  B64_AWS_SECRET_ACCESS_KEY=$(helper_integrates_to_b64 "${AWS_SECRET_ACCESS_KEY}") \
+  &&  B64_JWT_TOKEN=$(helper_integrates_to_b64 "${JWT_TOKEN}") \
+  &&  DATE="$(date)" \
+  &&  DEPLOYMENT_NAME="${CI_COMMIT_REF_SLUG}" \
+  &&  for file in "${files[@]}"
+      do
+        for var in "${vars_to_replace_in_manifest[@]}"
+        do
+              rpl "__${var}__" "${!var}" "${file}" \
+          |&  grep 'Replacing' \
+          |&  sed -E 's/with.*$//g' \
+          ||  return 1
+        done
+      done \
+  &&  for file in "${files[@]}"
+      do
+              echo "[INFO] Applying: ${file}" \
+          &&  kubectl apply -f "${file}" \
+          ||  return 1
+      done \
+  &&  kubectl rollout status \
+        "deploy/integrates-${CI_COMMIT_REF_SLUG}" \
+        -n "${namespace}" \
+        --timeout="${timeout}" \
+  &&  popd \
+  ||  return 1
+}
+
 function job_integrates_deploy_k8s_back {
   local B64_AWS_ACCESS_KEY_ID
   local B64_AWS_SECRET_ACCESS_KEY

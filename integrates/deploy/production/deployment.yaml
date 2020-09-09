@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: integrates-master
+  namespace: production
+  annotations:
+    kubernetes.io/change-cause: "New deployment version of async Integrates on __DATE__"
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: integrates-master
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 2
+  template:
+    metadata:
+      labels:
+        app: integrates-master
+    spec:
+      nodeSelector:
+        worker_group: xlarge
+      containers:
+      - name: integrates
+        image: registry.gitlab.com/fluidattacks/product/app:master
+        imagePullPolicy: Always
+        resources:
+          requests:
+            cpu: 1500m
+            memory: 6Gi
+          limits:
+            cpu: 2000m
+            memory: 6Gi
+        env:
+          - name: DEPLOYMENT_DATE
+            value: "__DATE__"
+          - name: INSTANA_AGENT_HOST
+            valueFrom:
+              fieldRef:
+                fieldPath: status.hostIP
+        envFrom:
+          - secretRef:
+              name: integrates-master
+        ports:
+          - containerPort: 8080
+        readinessProbe:
+          exec:
+            command:
+              - sh
+              - -ce
+              - "curl -sS http://localhost:8080 | grep 'FluidIntegrates'"
+          initialDelaySeconds: 20
+          periodSeconds: 5
+          successThreshold: 3
+          failureThreshold: 10

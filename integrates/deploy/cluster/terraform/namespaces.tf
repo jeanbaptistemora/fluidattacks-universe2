@@ -3,3 +3,9 @@ resource "kubernetes_namespace" "ephemeral" {
     name = "ephemeral"
   }
 }
+
+resource "kubernetes_namespace" "production" {
+  metadata {
+    name = "production"
+  }
+}
