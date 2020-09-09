@@ -97,15 +97,18 @@ data "aws_iam_policy_document" "integrates-prod-policy-data" {
       "elasticache:CreateReplicationGroup",
       "elasticache:CreateCacheSecurityGroup",
       "elasticache:CreateCacheSubnetGroup",
-      "elasticache:DeleteCacheSecurityGroup",
-      "elasticache:AuthorizeCacheSecurityGroupIngress",
-      "elasticache:RevokeCacheSecurityGroupIngress",
-      "elasticache:ModifyCacheCluster",
-      "elasticache:RebootCacheCluster",
-      "elasticache:ModifyCacheParameterGroup",
-      "elasticache:ResetCacheParameterGroup",
     ]
     resources = ["*"]
+  }
+  statement {
+    effect = "Allow"
+    actions = [
+      "elasticache:*",
+    ]
+    resources = [
+      "arn:aws:elasticache:${var.region}:${data.aws_caller_identity.current.account_id}:subnetgroup:integrates-*",
+      "arn:aws:elasticache:${var.region}:${data.aws_caller_identity.current.account_id}:replicationgroup:integrates-*",
+    ]
   }
 
   # Lambda
