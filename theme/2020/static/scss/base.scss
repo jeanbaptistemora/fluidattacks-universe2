@@ -1030,3 +1030,15 @@ video {
   height: 290px;
   width: 290px;
 }
+
+.solution-link::after {
+  content: "";
+  display: block;
+  width: 30%;
+  border-bottom: 4px solid $button-hover;
+  transition: width .5s;
+}
+
+.solution-link:hover::after {
+  width: 60%;
+}
