@@ -29,8 +29,8 @@ async def test_generate_report1(test_group: str, test_token: str,
     report = await generate_report(
         project=test_group, api_token=test_token)
     assert report['summary']['total'] == 5
-    assert report['summary']['open'] == 3
-    assert report['summary']['closed'] == 2
+    assert report['summary']['open']['total'] == 3
+    assert report['summary']['closed']['total'] == 2
 
     findings = [
         find for find in report['findings'] if find['id'] == test_finding
