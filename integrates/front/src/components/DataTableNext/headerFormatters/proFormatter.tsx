@@ -1,6 +1,6 @@
-import { Badge } from "../../Badge";
+import { Badge } from "components/Badge";
 import { Column } from "react-bootstrap-table-next";
-import style from "../index.css";
+import style from "components/DataTableNext/index.css";
 import React, { ReactElement } from "react";
 
 export const proFormatter: (

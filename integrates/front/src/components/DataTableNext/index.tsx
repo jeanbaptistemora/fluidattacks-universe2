@@ -1,12 +1,15 @@
-import { ITableProps } from "./types";
+import { ITableProps } from "components/DataTableNext/types";
 import React from "react";
-import { TableWrapper } from "./table";
+import { TableWrapper } from "components/DataTableNext/table";
 import _ from "lodash";
-import style from "./index.css";
+import style from "components/DataTableNext/index.css";
 import ToolkitProvider, {
   ToolkitProviderProps,
 } from "react-bootstrap-table2-toolkit";
-import { addUniqueKeys, customizeColumns } from "./utils";
+import {
+  addUniqueKeys,
+  customizeColumns,
+} from "components/DataTableNext/utils";
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
 import "react-bootstrap-table2-paginator/dist/react-bootstrap-table2-paginator.min.css";
 import "react-bootstrap-table2-toolkit/dist/react-bootstrap-table2-toolkit.min.css";

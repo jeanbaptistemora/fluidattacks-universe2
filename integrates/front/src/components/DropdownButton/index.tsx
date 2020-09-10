@@ -4,7 +4,7 @@
   order to pass down props to react-bootstrap DropdownButton.
 */
 import React from "react";
-import style from "./index.css";
+import style from "components/DropdownButton/index.css";
 import { DropdownButton, MenuItem } from "react-bootstrap";
 
 /*

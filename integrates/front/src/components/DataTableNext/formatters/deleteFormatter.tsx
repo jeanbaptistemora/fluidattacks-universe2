@@ -1,7 +1,7 @@
-import { FluidIcon } from "../../FluidIcon";
-import { IHeaderConfig } from "../types";
+import { FluidIcon } from "components/FluidIcon";
+import { IHeaderConfig } from "components/DataTableNext/types";
 import React from "react";
-import style from "../index.css";
+import style from "components/DataTableNext/index.css";
 
 export const deleteFormatter: (
   value: string,

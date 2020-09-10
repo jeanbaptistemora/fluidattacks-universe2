@@ -1,5 +1,5 @@
 import BootstrapSwitchButton from "bootstrap-switch-button-react";
-import { IHeaderConfig } from "../types";
+import { IHeaderConfig } from "components/DataTableNext/types";
 import React from "react";
 
 export const changeVulnStateFormatter: (

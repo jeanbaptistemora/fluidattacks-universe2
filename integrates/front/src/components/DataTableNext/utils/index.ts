@@ -1,2 +1,2 @@
-export { addUniqueKeys } from "./addUniqueKeys";
-export { customizeColumns } from "./customizeColumns";
+export { addUniqueKeys } from "components/DataTableNext/utils/addUniqueKeys";
+export { customizeColumns } from "components/DataTableNext/utils/customizeColumns";

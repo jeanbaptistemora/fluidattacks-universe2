@@ -1,4 +1,4 @@
-import { FluidIcon } from ".";
+import { FluidIcon } from "components/FluidIcon";
 import React from "react";
 import { ShallowWrapper, shallow } from "enzyme";
 

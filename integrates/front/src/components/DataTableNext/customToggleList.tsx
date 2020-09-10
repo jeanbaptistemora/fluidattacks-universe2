@@ -1,12 +1,12 @@
-import { Button } from "../Button";
+import { Button } from "components/Button";
 import { Column } from "react-bootstrap-table-next";
 import { ColumnToggle } from "react-bootstrap-table2-toolkit";
-import { ICustomToggleProps } from "./types";
-import { Modal } from "../Modal";
+import { ICustomToggleProps } from "components/DataTableNext/types";
+import { Modal } from "components/Modal";
 import React from "react";
-import { TooltipWrapper } from "../TooltipWrapper";
+import { TooltipWrapper } from "components/TooltipWrapper";
 import _ from "lodash";
-import { translate } from "../../utils/translations/translate";
+import { translate } from "utils/translations/translate";
 import { ButtonToolbar, Checkbox, Col, Glyphicon } from "react-bootstrap";
 
 export const CustomToggleList: React.FC<ICustomToggleProps> = (

@@ -1,5 +1,5 @@
 import { Column } from "react-bootstrap-table-next";
-import { IHeaderConfig } from "../types";
+import { IHeaderConfig } from "components/DataTableNext/types";
 import _ from "lodash";
 import { CSSProperties, ReactElement } from "react";
 

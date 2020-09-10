@@ -3,8 +3,8 @@
   We need className to override default styles from react-bootstrap.
 */
 import React from "react";
-import style from "../index.css";
-import { translate } from "../../../utils/translations/translate";
+import style from "components/DataTableNext/index.css";
+import { translate } from "utils/translations/translate";
 import { Col, Row } from "react-bootstrap";
 
 export const limitFormatter: (value: string) => JSX.Element = (

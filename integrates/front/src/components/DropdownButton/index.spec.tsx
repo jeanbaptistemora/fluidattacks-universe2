@@ -1,4 +1,4 @@
-import { DropdownButton } from ".";
+import { DropdownButton } from "components/DropdownButton";
 import React from "react";
 import { ShallowWrapper, shallow } from "enzyme";
 

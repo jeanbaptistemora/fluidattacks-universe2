@@ -5,19 +5,19 @@
   down props
   */
 import BootstrapTable from "react-bootstrap-table-next";
-import { Button } from "../Button";
-import { CustomToggleList } from "./customToggleList";
-import { ExportCSVButtonWrapper } from "./exportCSVButton";
-import { ITableWrapperProps } from "./types";
+import { Button } from "components/Button";
+import { CustomToggleList } from "components/DataTableNext/customToggleList";
+import { ExportCSVButtonWrapper } from "components/DataTableNext/exportCSVButton";
+import { ITableWrapperProps } from "components/DataTableNext/types";
 import React from "react";
 import { Search } from "react-bootstrap-table2-toolkit";
-import { SizePerPageRenderer } from "./sizePerPageRenderer";
-import { TooltipWrapper } from "../TooltipWrapper";
+import { SizePerPageRenderer } from "components/DataTableNext/sizePerPageRenderer";
+import { TooltipWrapper } from "components/TooltipWrapper";
 import _ from "lodash";
 import filterFactory from "react-bootstrap-table2-filter";
 import paginationFactory from "react-bootstrap-table2-paginator";
-import style from "./index.css";
-import { translate } from "../../utils/translations/translate";
+import style from "components/DataTableNext/index.css";
+import { translate } from "utils/translations/translate";
 import {
   ButtonGroup,
   ButtonToolbar,

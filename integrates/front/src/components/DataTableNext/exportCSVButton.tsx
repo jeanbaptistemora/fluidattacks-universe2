@@ -1,8 +1,8 @@
-import { FluidIcon } from "../FluidIcon";
+import { FluidIcon } from "components/FluidIcon";
 import React from "react";
-import { TooltipWrapper } from "../TooltipWrapper";
-import style from "./index.css";
-import { translate } from "../../utils/translations/translate";
+import { TooltipWrapper } from "components/TooltipWrapper";
+import style from "components/DataTableNext/index.css";
+import { translate } from "utils/translations/translate";
 import {
   CSVExport,
   ToolkitProviderProps,
