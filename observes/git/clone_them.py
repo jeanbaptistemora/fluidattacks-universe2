@@ -64,6 +64,9 @@ def sync_to_s3(subs_path):
 @trace()
 def main() -> None:
     """Usual entry point."""
+    # This is to load melts dependencies before start cloning repos
+    run_command('melts --help', '/git/fluidattacks/services/groups/')
+
     subs_paths = glob.glob(f'/git/fluidattacks/services/groups/*')
     for subs_path in subs_paths:
         subs_name: str = os.path.basename(subs_path)
