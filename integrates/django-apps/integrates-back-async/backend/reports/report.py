@@ -1,9 +1,14 @@
+# Standard library
 import asyncio
-from typing import List, Any
+import logging
+from typing import Dict, List, Any
 
+# Third party libraries
 from aioextensions import (
     in_process,
 )
+
+# Local libraries
 from backend.domain import (
     finding as finding_domain,
     project as project_domain,
@@ -18,6 +23,33 @@ from backend.reports.reports import (
     all_vulns as all_vulns_report,
 )
 from backend import util
+
+# Constants
+LOGGER = logging.getLogger(__name__)
+
+
+def reports_exception_handler(
+    _: asyncio.AbstractEventLoop,
+    context: Dict[str, str]
+) -> None:
+    """
+    Catches any exception raised in report generation
+    process and reports information to bugsnag
+    """
+
+    exception = context.get('exception', 'not provided')
+    error_msg = (
+        f'Message: {context.get("message", "")} '
+        f'Exception: \'{exception}\''
+    )
+    LOGGER.error(
+        error_msg,
+        extra={
+            'extra': {
+                'exception': exception
+            }
+        }
+    )
 
 
 async def generate_group_report(
@@ -48,6 +80,7 @@ async def generate_group_report(
     )
     findings_ord = util.ord_asc_by_criticality(findings)
 
+    asyncio.get_event_loop().set_exception_handler(reports_exception_handler)
     if report_type == 'PDF':
         asyncio.create_task(
             technical_report.generate_pdf(
