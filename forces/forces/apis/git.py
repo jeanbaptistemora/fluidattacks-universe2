@@ -28,7 +28,7 @@ def get_repository_metadata(repo_path: str = '.') -> Dict[str, str]:
     git_repo = DEFAULT_COLUMN_VALUE
     git_origin = DEFAULT_COLUMN_VALUE
     with suppress(InvalidGitRepositoryError):
-        repo = Repo(repo_path)
+        repo = Repo(repo_path, search_parent_directories=True)
         head_commit: Commit = repo.head.commit
 
         git_branch = DEFAULT_COLUMN_VALUE
