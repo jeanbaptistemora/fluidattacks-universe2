@@ -90,8 +90,7 @@ function job_common_test_jobs_provisioner {
     'integrates_analytics_make_snapshots_prod'
   )
 
-      helper_use_pristine_workdir \
-  &&  jobs_output="$(cat build/include/jobs/*)" \
+      jobs_output="$(cat build/include/jobs/*)" \
   &&  for file in build/provisioners/*
       do
             provisioner="$(basename "${file%.nix}")" \
@@ -99,7 +98,7 @@ function job_common_test_jobs_provisioner {
             then
               echo "[INFO] Provisioner ${provisioner} is excluded. It can exist without a job."
             else
-              if echo "${jobs_output}" | grep -qP "^function job_${provisioner} {$"
+              if { echo "${jobs_output}" | grep -qP "^function job_${provisioner} \{$"; }
               then
                 echo "[INFO] Job found for ${provisioner}."
               else
@@ -107,7 +106,6 @@ function job_common_test_jobs_provisioner {
                 &&  return 1
               fi
             fi \
-        &&  sleep 0.01 \
         ||  return 1
       done
 }

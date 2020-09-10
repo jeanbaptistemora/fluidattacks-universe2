@@ -1,5 +1,10 @@
 # Standard library
 import asyncio
+from contextlib import (
+    redirect_stderr,
+    redirect_stdout,
+)
+import io
 from typing import (
     Callable,
     Dict,
@@ -34,7 +39,7 @@ from utils.model import (
     VulnerabilityStateEnum,
 )
 from utils.system import (
-    call,
+    read,
 )
 from zone import (
     set_locale,
@@ -46,18 +51,16 @@ from zone import (
 set_locale(LocalesEnum.EN)
 
 
-async def skims(*args: str) -> Tuple[int, bytes, bytes]:
-    return await asyncio.wait_for(_skims(*args), 180)
+def skims(*args: str) -> Tuple[int, str, str]:
+    out_buffer, err_buffer = io.StringIO(), io.StringIO()
 
+    with redirect_stdout(out_buffer), redirect_stderr(err_buffer):
+        try:
+            dispatch.main(args=list(args), prog_name='skims')
+        except SystemExit as exc:
+            code: int = exc.code
 
-async def _skims(*args: str) -> Tuple[int, bytes, bytes]:
-    process: asyncio.subprocess.Process = \
-        await call('poetry', 'run', 'skims', *args)
-
-    stdout, stderr = await process.communicate()
-    code = -1 if process.returncode is None else process.returncode
-
-    return code, stdout, stderr
+    return code, out_buffer.getvalue(), err_buffer.getvalue()
 
 
 async def get_group_data(group: str) -> Set[
@@ -109,58 +112,40 @@ async def get_group_data(group: str) -> Set[
     return result
 
 
-async def match_expected(
-    group: str,
-    expected: Set[Tuple[str, str, Tuple[Tuple[str, str], ...]]],
-) -> None:
-    for _ in range(5):
-        if (data := await get_group_data(group)) == expected:
-            break
-
-    assert data == expected
-
-
-@run_decorator
-async def test_help() -> None:
-    code, stdout, stderr = await skims('--help')
+def test_help() -> None:
+    code, stdout, stderr = skims('--help')
     assert code == 0
-    assert b'Usage:' in stdout, stdout
+    assert 'Usage:' in stdout
+    assert not stderr
+
+
+def test_non_existent_config() -> None:
+    code, stdout, stderr = skims('#')
+    assert code == 2
+    assert not stdout, stdout
+    assert "File '#' does not exist." in stderr, stderr
+
+
+def test_config_with_extra_parameters() -> None:
+    code, stdout, stderr = skims('test/data/config/bad_extra_things.yaml')
+    assert code == 1
+    assert not stdout, stdout
+    assert not stderr, stderr
+
+
+def test_bad_integrates_api_token(test_group: str) -> None:
+    code, stdout, stderr = skims(
+        '--token', '123',
+        '--group', test_group,
+        'test/data/config/correct_nothing_to_do.yaml',
+    )
+    assert code == 1
+    assert not stdout, stdout
     assert not stderr, stderr
 
 
 @run_decorator
-async def test_config_not_found(test_config: Callable[[str], str]) -> None:
-    code, stdout, stderr = await skims('#')
-    assert code == 2
-    assert not stdout, stdout
-    assert b"File '#' does not exist." in stderr, stderr
-
-
-@run_decorator
-async def test_bad_extra_things(test_config: Callable[[str], str]) -> None:
-    code, stdout, stderr = await skims(test_config('bad_extra_things'))
-    assert code == 1
-    assert not stdout, stdout
-    assert b'Some keys were not recognized: unrecognized_key' in stderr, stderr
-
-
-@run_decorator
-async def test_token(
-    test_config: Callable[[str], str],
-    test_group: str,
-) -> None:
-    code, stdout, stderr = await skims(
-        '--token', '123',
-        '--group', test_group,
-        test_config('correct_nothing_to_do'),
-    )
-    assert code == 1
-    assert not stdout, stdout
-    assert b'Invalid API token' in stderr, stderr
-
-
-@run_decorator
-async def test_reset_environment(
+async def test_reset_environment_run(
     test_group: str,
     test_integrates_session: None,
 ) -> None:
@@ -171,45 +156,54 @@ async def test_reset_environment(
     ])
 
     assert all(findings_deleted)
-    # No findings should exist because we just reset the environment
-    await match_expected(test_group, set())
 
 
 @run_decorator
-async def test_debug_correct_nothing_to_do(
-    test_config: Callable[[str], str],
+async def test_reset_environment_assert(
     test_group: str,
     test_integrates_session: None,
 ) -> None:
-    code, stdout, stderr = await skims(
+    # No findings should exist because we just reset the environment
+    await get_group_data(test_group) == set()
+
+
+def test_debug_correct_nothing_to_do_run(test_group: str) -> None:
+    code, stdout, stderr = skims(
         '--debug',
         '--group', test_group,
-        test_config('correct_nothing_to_do'),
+        'test/data/config/correct_nothing_to_do.yaml',
     )
     assert code == 0
     assert not stdout, stdout
-    assert b'[INFO] Success: True' in stderr, stderr
-
-    # No findings should be created, there is nothing to do !
-    await match_expected(test_group, set())
+    assert not stderr, stderr
 
 
 @run_decorator
-async def test_correct(
-    test_config: Callable[[str], str],
+async def test_debug_correct_nothing_to_do_assert(
     test_group: str,
     test_integrates_session: None,
 ) -> None:
-    code, stdout, stderr = await skims(
+    # No findings should be created, there is nothing to do !
+    await get_group_data(test_group) == set()
+
+
+def test_correct_run(test_group: str) -> None:
+    code, stdout, stderr = skims(
         '--group', test_group,
-        test_config('correct'),
+        'test/data/config/correct.yaml',
     )
     assert code == 0
     assert not stdout, stdout
-    assert b'[INFO] Success: True' in stderr, stderr
+    assert not stderr, stderr
 
+
+@run_decorator
+async def test_correct_assert(
+    test_group: str,
+    test_integrates_session: None,
+) -> None:
     # The following findings must be met
-    await match_expected(test_group, {
+    await get_group_data(test_group) == {
         # Finding, status, open vulnerabilities
         ('F001_JPA', 'SUBMITTED', (
             ('test/data/lib_path/f001_jpa/java.java', '23'),
@@ -320,25 +314,26 @@ async def test_correct(
             ('test/data/lib_path/f117/MyJar.class', '1'),
             ('test/data/lib_path/f117/MyJar.jar', '1'),
         )),
-    })
+    }
 
 
-@run_decorator
-async def test_correct_nothing_to_do(
-    test_config: Callable[[str], str],
-    test_group: str,
-    test_integrates_session: None,
-) -> None:
-    code, stdout, stderr = await skims(
+def test_correct_nothing_to_do_run(test_group: str) -> None:
+    code, stdout, stderr = skims(
         '--group', test_group,
-        test_config('correct_nothing_to_do'),
+        'test/data/config/correct_nothing_to_do.yaml',
     )
     assert code == 0
     assert not stdout, stdout
-    assert b'[INFO] Success: True' in stderr, stderr
+    assert not stderr, stderr
 
+
+@run_decorator
+async def test_correct_nothing_to_do_assert(
+    test_group: str,
+    test_integrates_session: None,
+) -> None:
     # Skims should persist the null state, closing everything on Integrates
-    await match_expected(test_group, {
+    await get_group_data(test_group) == {
         # Finding, status, open vulnerabilities
         ('F001_JPA', 'SUBMITTED', ()),
         ('F009', 'APPROVED', ()),
@@ -349,4 +344,4 @@ async def test_correct_nothing_to_do(
         ('F061', 'APPROVED', ()),
         ('F085', 'APPROVED', ()),
         ('F117', 'APPROVED', ()),
-    })
+    }

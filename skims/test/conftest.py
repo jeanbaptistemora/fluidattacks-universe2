@@ -23,15 +23,6 @@ from integrates.graphql import (
 
 
 @pytest.fixture(autouse=True, scope='session')  # type: ignore
-def test_config() -> Iterator[Callable[[str], str]]:
-
-    def config(name: str) -> str:
-        return f'test/data/config/{name}.yaml'
-
-    yield config
-
-
-@pytest.fixture(autouse=True, scope='session')  # type: ignore
 def test_branch() -> Iterator[str]:
     yield os.environ['CI_COMMIT_REF_NAME']
 

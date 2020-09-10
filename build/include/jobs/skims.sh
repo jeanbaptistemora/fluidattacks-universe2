@@ -139,6 +139,7 @@ function job_skims_structure {
 function job_skims_test {
   export PYTHONUNBUFFERED='1'
   local args_pytest=(
+    --capture tee-sys
     --cov-branch
     --cov-report 'term'
     --cov-report "html:${PWD}/skims/coverage/"
@@ -146,8 +147,7 @@ function job_skims_test {
     --disable-pytest-warnings
     --exitfirst
     --no-cov-on-fail
-    --reruns 10
-    --reruns-delay 1
+    --reruns 2
     --show-capture no
     --verbose
   )
@@ -159,7 +159,7 @@ function job_skims_test {
         do
           args_pytest+=( "--cov=${pkg}" )
         done \
-    &&  poetry run pytest "${args_pytest[@]}" \
+    &&  poetry run pytest "${args_pytest[@]}" < /dev/null \
   &&  popd \
   ||  return 1
 }

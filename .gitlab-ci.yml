@@ -136,6 +136,7 @@ common_forces:
 
 common_sonarcloud_check:
   <<: *common_in_dev_and_master_branch
+  interruptible: true
   variables:
     SONAR_USER_HOME: "${CI_PROJECT_DIR}/.sonar"  # Defines the location of the analysis task cache
     GIT_DEPTH: "0"  # Tells git to fetch all the branches of the project, required by the analysis task

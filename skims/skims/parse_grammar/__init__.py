@@ -1,5 +1,4 @@
 # Standard library
-import asyncio
 import json
 from typing import (
     Any,
@@ -21,7 +20,7 @@ from utils.logs import (
     log,
 )
 from utils.system import (
-    call,
+    read,
 )
 
 # Constants
@@ -34,9 +33,7 @@ async def parse(
     ],
     path: str,
 ) -> Dict[str, Any]:
-    process: asyncio.subprocess.Process = await call(AST, grammar, path)
-
-    out_bytes, err_bytes = await process.communicate()
+    code, out_bytes, err_bytes = await read(AST, grammar, path)
 
     try:
         if err_bytes:
@@ -44,7 +41,7 @@ async def parse(
             await log('debug', 'Parse[%s]: %s, %s', grammar, path, err)
             raise IOError('AST Parser found syntax errors')
 
-        if process.returncode != 0:
+        if code != 0:
             raise IOError('AST Parser return non-zero exit code')
 
         if out_bytes:

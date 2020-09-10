@@ -5,14 +5,14 @@ from aioextensions import (
 
 # Local libraries
 from utils.system import (
-    call,
+    read,
 )
 
 
 @run_decorator
-async def test_call() -> None:
-    process = await call('echo', 'test')
+async def test_read() -> None:
+    code, stdout, stderr = await read('echo', 'test')
 
-    stdout: bytes = await process.stdout.read() if process.stdout else bytes()
-
-    assert stdout == 'test\n'.encode(), process
+    assert code == 0
+    assert stdout == b'test\n', stdout
+    assert not stderr, stderr
