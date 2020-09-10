@@ -102,7 +102,7 @@ async def entrypoint(token: str, group: str, **kwargs: Any) -> int:
     else:
         print(yaml_report)
     if strict:
-        if report['summary']['open'] > 0:
+        if report['summary']['open']['total'] > 0:
             exit_code = 1
     execution_id = str(uuid.uuid4()).replace('-', '')
     metadata = await unblock(
