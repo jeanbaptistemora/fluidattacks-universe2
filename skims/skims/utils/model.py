@@ -107,7 +107,7 @@ class FindingEnum(Enum):
         type=FindingTypeEnum.SECURITY,
     )
     F031_CWE378: FindingMetadata = FindingMetadata(
-        auto_approve=False,
+        auto_approve=True,
         cwe='378',
         description='utils.model.finding.enum.F031_CWE378.description',
         impact='utils.model.finding.enum.F031_CWE378.impact',
@@ -155,7 +155,7 @@ class FindingEnum(Enum):
         type=FindingTypeEnum.SECURITY,
     )
     F052: FindingMetadata = FindingMetadata(
-        auto_approve=False,
+        auto_approve=True,
         cwe='310',
         description='utils.model.finding.enum.F052.description',
         impact='utils.model.finding.enum.F052.impact',
