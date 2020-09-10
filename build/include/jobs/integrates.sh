@@ -233,7 +233,7 @@ function job_integrates_deploy_front {
   &&  env_prepare_python_packages \
   &&  env_prepare_django_static_external \
   &&  helper_integrates_aws_login "${ENVIRONMENT_NAME}" \
-  &&  sops_vars "${ENVIRONMENT_NAME}" \
+  &&  helper_integrates_sops_vars "${ENVIRONMENT_NAME}" \
   &&  ./manage.py collectstatic --no-input \
   &&  popd \
   ||  return 1

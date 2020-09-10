@@ -39,7 +39,7 @@ function helper_integrates_set_dev_secrets {
 
       helper_integrates_aws_login development \
   &&  echo '[INFO] Exporting development secrets' \
-  &&  sops_vars development
+  &&  helper_integrates_sops_vars development
 }
 
 function helper_integrates_set_prod_secrets {
@@ -50,7 +50,7 @@ function helper_integrates_set_prod_secrets {
 
       helper_integrates_aws_login production \
   &&  echo '[INFO] Exporting production secrets' \
-  &&  sops_vars production \
+  &&  helper_integrates_sops_vars production \
   &&  export DEBUG="True" \
   &&  export ENVIRONMENT='development' \
   &&  export REDIS_SERVER='localhost'
@@ -191,7 +191,7 @@ function helper_integrates_functional_tests {
   &&  echo "[INFO] Firefox: ${pkgFirefox}" \
   &&  echo "[INFO] GeckoDriver:  ${pkgGeckoDriver}" \
   &&  echo '[INFO] Exporting vars' \
-  &&  sops_vars "${ENVIRONMENT_NAME}" \
+  &&  helper_integrates_sops_vars "${ENVIRONMENT_NAME}" \
   &&  echo "[INFO] Running test suite: ${CI_NODE_INDEX}/${CI_NODE_TOTAL}" \
   &&  mkdir -p test/functional/screenshots \
   &&  pytest \
@@ -230,7 +230,7 @@ mobile_get_version() {
       fi
 }
 
-sops_vars() {
+function helper_integrates_sops_vars {
   # Set necessary vars for integrates
 
   local env_name="$1"
@@ -280,6 +280,7 @@ sops_vars() {
     NEW_RELIC_LICENSE_KEY \
     NEW_RELIC_ENVIRONMENT \
     REDIS_SERVER \
+    REDIS_SERVER_2 \
     SQS_QUEUE_URL \
     TEST_PROJECTS \
     ZENDESK_EMAIL \
