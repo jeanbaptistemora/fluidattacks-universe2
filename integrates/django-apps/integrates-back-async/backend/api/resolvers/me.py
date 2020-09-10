@@ -153,6 +153,12 @@ async def _get_permissions(
     else:
         permissions = await authz.get_user_level_actions(user_email)
 
+    if not permissions:
+        LOGGER.error(
+            'Empty permissions',
+            extra=dict(extra=locals())
+        )
+
     return permissions
 
 
