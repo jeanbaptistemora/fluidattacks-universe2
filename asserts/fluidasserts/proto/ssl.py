@@ -7,6 +7,7 @@ Heartbleed code inspired from original PoC by
 Jared Stafford (jspenguin@jspenguin.org)
 """
 
+# pylint: disable=too-many-lines
 # standard imports
 from __future__ import absolute_import
 import copy
@@ -197,6 +198,60 @@ def _build_freak_client_hello(tls_ver: str) -> List:
         0x00, 0x62, 0x00, 0x61, 0x00, 0x64, 0x00, 0x60,
         0x00, 0x14, 0x00, 0x11, 0x00, 0x08, 0x00, 0x06,
         0x00, 0x03, 0x00, 0xff,
+        0x01,               # Compression methods length
+        0x00,               # Compression method (0x00 for NULL)
+        0x00, 0x49,         # Extensions length
+        # Extension: ec_point_formats
+        0x00, 0x0b, 0x00, 0x04, 0x03, 0x00, 0x01, 0x02,
+        # Extension: elliptic_curves
+        0x00, 0x0a, 0x00, 0x34, 0x00, 0x32, 0x00, 0x0e,
+        0x00, 0x0d, 0x00, 0x19, 0x00, 0x0b, 0x00, 0x0c,
+        0x00, 0x18, 0x00, 0x09, 0x00, 0x0a, 0x00, 0x16,
+        0x00, 0x17, 0x00, 0x08, 0x00, 0x06, 0x00, 0x07,
+        0x00, 0x14, 0x00, 0x15, 0x00, 0x04, 0x00, 0x05,
+        0x00, 0x12, 0x00, 0x13, 0x00, 0x01, 0x00, 0x02,
+        0x00, 0x03, 0x00, 0x0f, 0x00, 0x10, 0x00, 0x11,
+        # Extension: SessionTicket TLS
+        0x00, 0x23, 0x00, 0x00,
+        # Extension: Heartbeat
+        0x00, 0x0f, 0x00, 0x01, 0x01]
+    return client_hello
+
+
+def _build_raccoon_client_hello() -> List:
+    """
+    Build CLIENTHELLO TLS message with DHE ciphers only.
+
+    :param tls_ver: TLS version.
+    :return: A List with the corresponding hex codes.
+    """
+    client_hello = [
+        # TLS header ( 5 bytes)
+        0x16,               # Content type (0x16 for handshake)
+        0x03, 0x03,         # TLSv1.2
+        0x00, 0x8a,         # Length
+        # Handshake header
+        0x01,               # Type (0x01 for ClientHello)
+        0x00, 0x00, 0x86,   # Length
+        0x03, 0x03,         # TLSv1.2
+        # Random (32 byte)
+        0x53, 0x43, 0x5b, 0x90, 0x9d, 0x9b, 0x72, 0x0b,
+        0xbc, 0x0c, 0xbc, 0x2b, 0x92, 0xa8, 0x48, 0x97,
+        0xcf, 0xbd, 0x39, 0x04, 0xcc, 0x16, 0x0a, 0x85,
+        0x03, 0x90, 0x9f, 0x77, 0x04, 0x33, 0xd4, 0xde,
+        0x00,               # Session ID length
+        0x00, 0x14,         # Cipher suites length
+        # Cipher suites (10 suites DHE)
+        0xcc, 0xaa,         # TLS_DHE_RSA_WITH_CHACHA20_POLY1305_SHA256
+        0x00, 0x9f,         # TLS_DHE_RSA_WITH_AES_256_GCM_SHA384
+        0x00, 0x9e,         # TLS_DHE_RSA_WITH_AES_128_GCM_SHA256
+        0xc0, 0x9f,         # TLS_DHE_RSA_WITH_AES_256_CCM
+        0xc0, 0x9e,         # TLS_DHE_RSA_WITH_AES_128_CCM
+        0x00, 0x6b,         # TLS_DHE_RSA_WITH_AES_256_CBC_SHA256
+        0x00, 0x67,         # TLS_DHE_RSA_WITH_AES_128_CBC_SHA256
+        0x00, 0x39,         # TLS_DHE_RSA_WITH_AES_256_CBC_SHA
+        0x00, 0x33,         # TLS_DHE_RSA_WITH_AES_128_CBC_SHA
+        0x00, 0x16,         # TLS_DHE_RSA_WITH_3DES_EDE_CBC_SHA
         0x01,               # Compression methods length
         0x00,               # Compression method (0x00 for NULL)
         0x00, 0x49,         # Extensions length
@@ -894,8 +949,8 @@ def has_freak(site: str, port: int = PORT) -> tuple:
 
     :param site: Address to connect to.
     :param port: If necessary, specify port to connect to.
-    :returns: - ``OPEN`` if we are able to make the server return a response
-                with a length longer than sent (a.k.a. FREAK Attack).
+    :returns: - ``OPEN`` if we are able to make the server accepts
+                RSA export keys (a.k.a. FREAK Attack).
               - ``UNKNOWN`` on errors.
               - ``CLOSED`` otherwise.
     :rtype: :class:`fluidasserts.Result`
@@ -929,4 +984,48 @@ def has_freak(site: str, port: int = PORT) -> tuple:
         port=port,
         msg_open=f'Site is vulnerable to FREAK ({vers})',
         msg_closed='Site not vulnerable to FREAK',
+        open_if=is_vulnerable)
+
+
+@api(risk=MEDIUM, kind=DAST)
+@unknown_if(socket.error, )
+def has_raccoon(site: str, port: int = PORT) -> tuple:
+    """
+    Check if site allows Raccon Attack.
+
+    https://raccoon-attack.com/
+
+    :param site: Address to connect to.
+    :param port: If necessary, specify port to connect to.
+    :returns: - ``OPEN`` if we are able to make the server accepts
+                DHE ciphers (a.k.a. Raccon Attack).
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+    :rtype: :class:`fluidasserts.Result`
+    """
+    is_vulnerable: bool = False
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
+        sock.settimeout(5)
+        sock.connect((site, port))
+        sock.send(bytes(_build_raccoon_client_hello()))
+        typ, _, _ = _rcv_tls_record(sock)
+        if not typ:
+            is_vulnerable = False
+        else:
+            if typ == 22:
+                is_vulnerable = True
+
+            elif typ == 21:
+                is_vulnerable = False
+            else:
+                units: List[Unit] = [
+                    Unit(where=f'{site}@{port}',
+                         specific=[f'SSL/Raccoon/Response/{typ}'])]
+                return UNKNOWN, 'Unknown response', [], units
+
+    return _get_result_as_tuple(
+        site=site,
+        port=port,
+        msg_open=f'Site is vulnerable to Raccoon Attack',
+        msg_closed='Site not vulnerable to Raccoon Attack',
         open_if=is_vulnerable)
