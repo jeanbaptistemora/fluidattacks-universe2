@@ -395,6 +395,11 @@
       ">=0.7.1,<2.0.0"
     ]
   },
+  "node-fetch": {
+    "CVE-2020-15168": [
+      "<2.6.1"
+    ]
+  },
   "normalize-package-data": {},
   "normalize-path": {},
   "npm-package-arg": {},
