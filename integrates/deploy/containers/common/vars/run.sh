@@ -27,6 +27,7 @@ helper_integrates_sops_vars "$ENV_NAME"
 
 if echo "${HOSTNAME}" | grep -q 'integrates-master'
 then
+  BASE_URL='https://integrates.fluidattacks.com/integrates'
   REDIS_SERVER="${REDIS_SERVER_2}"
 fi
 

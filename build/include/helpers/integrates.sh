@@ -234,6 +234,7 @@ function helper_integrates_sops_vars {
   # Set necessary vars for integrates
 
   local env_name="$1"
+  export BASE_URL='https://fluidattacks.com/integrates'
 
   helper_common_sops_env "secrets-${env_name}.yaml" default \
     AWS_DEFAULT_REGION \

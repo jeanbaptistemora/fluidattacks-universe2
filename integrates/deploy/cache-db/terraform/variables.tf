@@ -21,6 +21,13 @@ variable "subnets" {
   ]
 }
 
+variable "security_groups"{
+  type = list(string)
+  default = [
+    "sg-00b14fffdfb71a20c"
+  ]
+}
+
 variable "region" {
   default = "us-east-1"
 }
