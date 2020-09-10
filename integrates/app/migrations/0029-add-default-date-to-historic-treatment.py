@@ -1,6 +1,8 @@
 """
 This migration adds a dafault date to those finding historic_treatments that
 do not have a date.
+Execution Time:    2020-09-10 17:29:15 UTC-5
+Finalization Time: 2020-09-10 18:23:20 UTC-5
 """
 
 from asyncio import run
@@ -36,7 +38,7 @@ async def scan(*, table_name:str, **options: Any) -> Any:
 async def main() -> None:
     async for finding in scan(table_name=FINDINGS_TABLE):
         finding_id = finding['finding_id']
-        project_name = finding['project_name']
+        project_name = finding.get('project_name', '')
         historic_treatment = finding.get('historic_treatment', [])
         old_historic_treatment = copy.deepcopy(historic_treatment)
         to_update = False
