@@ -26,6 +26,9 @@ from aioextensions import (
 )
 
 # Local libraries
+from lib_path.common import (
+    SHIELD,
+)
 from nvd.local import (
     query,
 )
@@ -116,6 +119,7 @@ def _get_build_gradle_dependencies(
 
 
 @cache_decorator()
+@SHIELD
 async def build_gradle(
     content: str,
     path: str,
@@ -147,6 +151,7 @@ def _get_npm_package_json_dependencies(
 
 
 @cache_decorator()
+@SHIELD
 async def npm_package_json(
     content: str,
     path: str,
@@ -190,6 +195,7 @@ def _get_npm_package_lock_json_dependencies(
 
 
 @cache_decorator()
+@SHIELD
 async def npm_package_lock_json(
     content: str,
     path: str,
@@ -248,6 +254,7 @@ def _get_yarn_lock_dependencies(
 
 
 @cache_decorator()
+@SHIELD
 async def yarn_lock(
     content: str,
     path: str,

@@ -201,6 +201,7 @@ def _java_insecure_cipher(
     )
 
 
+@cache_decorator()
 @SHIELD
 async def java_insecure_cipher(
     content: str,

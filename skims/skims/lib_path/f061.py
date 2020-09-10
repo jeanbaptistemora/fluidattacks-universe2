@@ -230,6 +230,7 @@ def _python_swallows_exceptions(
 
 
 @cache_decorator()
+@SHIELD
 async def python_swallows_exceptions(
     content: str,
     path: str,

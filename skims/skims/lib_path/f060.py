@@ -248,6 +248,7 @@ def _python_insecure_exceptions(
 
 
 @cache_decorator()
+@SHIELD
 async def python_insecure_exceptions(
     content: str,
     path: str,

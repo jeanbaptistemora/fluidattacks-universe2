@@ -14,6 +14,9 @@ from aioextensions import (
 )
 
 # Local libraries
+from lib_path.common import (
+    SHIELD,
+)
 from state.cache import (
     cache_decorator,
 )
@@ -40,6 +43,7 @@ ALLOWED: Set[Tuple[str, str]] = {
 
 
 @cache_decorator()
+@SHIELD
 async def unverifiable_files(
     file_name: str,
     file_extension: str,

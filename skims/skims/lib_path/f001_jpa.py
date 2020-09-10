@@ -26,6 +26,9 @@ from lib_path.common import (
     EXTENSIONS_JAVA,
     SHIELD,
 )
+from state.cache import (
+    cache_decorator,
+)
 from state.ephemeral import (
     EphemeralStore,
 )
@@ -152,6 +155,7 @@ def _java_jpa_like(model: Dict[str, Any]) -> Tuple[Tuple[int, int], ...]:
     )
 
 
+@cache_decorator()
 @SHIELD
 async def java_jpa_like(
     content: str,
