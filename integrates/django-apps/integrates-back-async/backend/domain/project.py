@@ -918,6 +918,21 @@ async def get_total_treatment(
     return treatment
 
 
+async def get_closers(
+        project_name: str,
+        active: bool = True) -> List[str]:
+    users = await get_users(project_name, active)
+    user_roles = await collect(
+        get_group_level_role(user, project_name)
+        for user in users
+    )
+    return [
+        str(user)
+        for user, user_role in zip(users, user_roles)
+        if user_role == 'closer'
+    ]
+
+
 async def get_open_findings(
         finding_vulns: List[List[Dict[str, FindingType]]]) -> int:
     last_approved_status = await collect(

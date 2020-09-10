@@ -6,7 +6,7 @@ from django.test import TestCase
 
 from backend.utils.findings import (
     _get_evidence, _download_evidence_file, get_records_from_file,
-    get_exploit_from_file, format_data
+    get_exploit_from_file, format_data, get_reattack_requesters
 )
 from backend.dal.finding import get_finding
 
@@ -106,3 +106,11 @@ class FindingsTests(TestCase):
             'exploitability']
 
         assert sorted(test_data) == sorted(expected_keys)
+
+    async def test_get_reattack_requesters(self):
+        finding = await get_finding('463558592')
+        recipients = get_reattack_requesters(
+            finding.get('historic_verification', []),
+            ['3bcdb384-5547-4170-a0b6-3b397a245465']
+        )
+        assert recipients == ['integratesuser@gmail.com']

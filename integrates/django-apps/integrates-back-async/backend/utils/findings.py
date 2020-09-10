@@ -7,6 +7,9 @@ from datetime import datetime
 from decimal import Decimal
 from typing import Dict, List, Union, cast, Tuple, Optional
 
+from aioextensions import (
+    in_process,
+)
 import pytz
 from backports import csv
 from django.conf import settings
@@ -427,13 +430,43 @@ async def mask_verification(
     )
 
 
+def get_reattack_requesters(
+        historic_verification: List[Dict[str, str]],
+        vulnerabilities: List[str]) -> List[str]:
+    historic_verification = list(reversed(historic_verification))
+    users: List[str] = []
+    for verification in historic_verification:
+        if verification.get('status', '') == 'REQUESTED':
+            vulns = cast(List[str], verification.get('vulns', []))
+            if any([vuln for vuln in vulns if vuln in vulnerabilities]):
+                vulnerabilities = [
+                    vuln for vuln in vulnerabilities if vuln not in vulns
+                ]
+                users.append(str(verification.get('user', '')))
+        if not vulnerabilities:
+            break
+
+    return list(set(users))
+
+
 async def send_finding_verified_email(
         finding_id: str,
         finding_name: str,
-        project_name: str) -> None:
-    recipients = await project_domain.get_users_to_notify(
+        project_name: str,
+        historic_verification: List[Dict[str, str]],
+        vulnerabilities: List[str]) -> None:
+    all_recipients = await project_domain.get_users_to_notify(
         project_name
     )
+    recipients = await in_process(
+        get_reattack_requesters,
+        historic_verification,
+        vulnerabilities
+    )
+    recipients = [
+        recipient for recipient in recipients if recipient in all_recipients
+    ]
+
     asyncio.create_task(
         mailer.send_mail_verified_finding(
             recipients,
@@ -500,7 +533,7 @@ async def send_remediation_email(
         finding_name: str,
         project_name: str,
         justification: str) -> None:
-    recipients = await project_domain.get_users_to_notify(
+    recipients = await project_domain.get_closers(
         project_name
     )
     asyncio.create_task(

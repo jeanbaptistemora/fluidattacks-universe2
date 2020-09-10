@@ -21,7 +21,7 @@ from backend.domain.project import (
     get_mean_remediate_severity, remove_access, validate_project_services_config,
     create_project, total_vulnerabilities,
     get_open_vulnerabilities, get_closed_vulnerabilities, get_open_finding,
-    remove_project
+    remove_project, get_closers
 )
 from backend.exceptions import (
     InvalidProjectServicesConfig, RepeatedValues
@@ -334,6 +334,9 @@ class ProjectTest(TestCase):
         projects = [project['project_name'] for project in projects]
         expected_output = ['pendingproject']
         assert expected_output == projects
+
+    async def test_get_closers(self):
+        await get_closers('oneshottest') == 'integratesanalyst@gmail.com'
 
     @freeze_time("2020-04-12")
     async def test_get_mean_remediate_severity(self):

@@ -156,7 +156,7 @@
           "level": {"S": "group"},
           "subject": {"S": "integratesanalyst@gmail.com"},
           "object": {"S": "oneshottest"},
-          "role": {"S": "analyst"}
+          "role": {"S": "closer"}
         }
       }
     },
