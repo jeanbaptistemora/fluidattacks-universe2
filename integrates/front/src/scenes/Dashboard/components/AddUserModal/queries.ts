@@ -3,7 +3,7 @@ import gql from "graphql-tag";
 
 export const GET_USER: DocumentNode = gql`
   query GetStakeholderDataQuery(
-    $entity: Entity!,
+    $entity: StakeholderEntity!,
     $organizationId: String,
     $projectName: String,
     $userEmail: String!
