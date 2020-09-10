@@ -88,7 +88,7 @@ def repo_url(baseurl, repo):
     return cmd[1]
 
 
-def ssh_repo_cloning(subs, code) -> bool:
+def ssh_repo_cloning(subs, code) -> list:
     """ cloning or updated a repository ssh """
     problems: list = []
     credentials = utils.generic.get_sops_secret(
@@ -165,9 +165,6 @@ def ssh_repo_cloning(subs, code) -> bool:
         worker.map(action, branches)
         progress.finish()
 
-    if len(problems) > 0:
-        print_problems(problems, branches)
-        return False
     # Remove identities and keys
     cmd_execute([
         'ssh-agent', 'sh', '-c', ';'.join((
@@ -175,10 +172,10 @@ def ssh_repo_cloning(subs, code) -> bool:
             f'rm -f {shq(keyfile)}'
         ))
     ])
-    return True
+    return problems
 
 
-def http_repo_cloning(subs, code) -> bool:
+def http_repo_cloning(subs, code) -> list:
     """ cloning or updated a repository https """
     problems: list = []
     # script does not support vpns atm
@@ -220,16 +217,14 @@ def http_repo_cloning(subs, code) -> bool:
         worker.map(action, branches)
         progress.finish()
 
-    if problems:
-        print_problems(problems, branches)
-        return False
-    return True
+    return problems
 
 
 def repo_cloning(subs: str) -> bool:
     """ cloning or updated a repository"""
 
     success = True
+    problems: list = []
     original_dir: str = os.getcwd()
     config_file = f'groups/{subs}/config/config.yml'
     destination_folder = f'groups/{subs}/fusion'
@@ -254,7 +249,7 @@ def repo_cloning(subs: str) -> bool:
         repo_names: list = []
         for repo in repos_config:
             repo_names.extend(
-                ''.join(i.split('/')[:-1]) for i in repo['branches'])
+                ''.join(i.split('/')[-2:-1]) for i in repo['branches'])
 
         repo_difference = set(repos_fusion).difference(set(repo_names))
 
@@ -268,13 +263,19 @@ def repo_cloning(subs: str) -> bool:
         for repo in repos_config:
             repo_type = repo.get('git-type')
             if repo_type == 'ssh':
-                success = ssh_repo_cloning(subs, repo)
+                problems.extend(ssh_repo_cloning(subs, repo))
             elif repo_type == 'https':
-                success = http_repo_cloning(subs, repo)
+                problems.extend(http_repo_cloning(subs, repo))
             else:
                 logger.info(f"Invalid git-type on group {subs}")
                 success = False
 
+    if problems:
+        logger.error("Some problems occured: \n")
+
+        for problem in problems:
+            print(f'Repository: {problem["repo"]}')
+            print(f'Description: {problem["problem"]}')
     os.chdir(original_dir)
 
     return success
