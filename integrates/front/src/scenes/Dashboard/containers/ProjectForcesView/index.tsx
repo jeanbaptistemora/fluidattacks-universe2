@@ -148,8 +148,8 @@ const projectForcesView: React.FunctionComponent<ForcesViewProps> = (props: Forc
       onSort: onSortState,
     },
     {
-      align: "center", dataField: "status", header: translate.t("group.forces.status.title"),
-      onSort: onSortState, wrapped: true,
+      align: "center", dataField: "status", formatter: statusFormatter,
+      header: translate.t("group.forces.status.title"), onSort: onSortState, wrapped: true,
     },
     {
       align: "center", dataField: "foundVulnerabilities.total",
@@ -249,11 +249,10 @@ const projectForcesView: React.FunctionComponent<ForcesViewProps> = (props: Forc
                       vulnerabilities.numOfVulnerabilitiesInIntegratesExploits +
                       vulnerabilities.numOfVulnerabilitiesInAcceptedExploits,
                   };
-              const status: ReactElement = statusFormatter(
-                translate.t(
-                  foundVulnerabilities.total === 0
-                    ? "group.forces.status.secure"
-                    : "group.forces.status.vulnerable"));
+              const status: string = translate.t(
+                foundVulnerabilities.total === 0
+                  ? "group.forces.status.secure"
+                  : "group.forces.status.vulnerable");
 
               return {
                 ...execution,
