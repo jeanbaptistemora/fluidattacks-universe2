@@ -2,6 +2,7 @@ import os
 import re
 import time
 from array import ArrayType
+from functools import partial
 from typing import List, Match, Optional, Tuple
 
 import git
@@ -13,13 +14,17 @@ from pandas import DataFrame, Series
 from pydriller.metrics.process.hunks_count import HunksCount
 
 
-def df_get_file_commits_authors(row: Series) -> Tuple[int, int]:
-    """
-    Get the commit and authors information for each file in the DataFrame
-    """
-    repo: str = row['repo']
-    file_: str = row['file']
-    return get_file_commits_authors(repo, file_)
+def count_loc(file_path: str) -> int:
+    result: int = 0
+    try:
+        file_ = open(file_path, 'rb')
+        bufgen = iter(
+            partial(file_.raw.read, 1024 * 1024), b''  # type: ignore
+        )
+        result = sum(buf.count(b'\n') for buf in bufgen)
+    except FileNotFoundError:
+        print(f'File {file_path} not found. ')
+    return result
 
 
 def df_get_deltas(row: Series) -> Tuple[int, int, int, int]:
@@ -29,6 +34,24 @@ def df_get_deltas(row: Series) -> Tuple[int, int, int, int]:
     repo: str = row['repo']
     commit: str = row['commit']
     return get_deltas(repo, commit)
+
+
+def df_get_file_commits_authors(row: Series) -> Tuple[int, int]:
+    """
+    Get the commit and authors information for each file in the DataFrame
+    """
+    repo: str = row['repo']
+    file_: str = row['file']
+    return get_file_commits_authors(repo, file_)
+
+
+def df_get_file_loc(row: Series) -> int:
+    """
+    Get the number of lines for each file in the DataFrame
+    """
+    repo: str = row['repo']
+    file_: str = row['file']
+    return get_file_loc(repo, file_)
 
 
 def df_get_files(row: Series) -> ArrayType:
@@ -94,6 +117,7 @@ def fill_model_file_features(base_df: DataFrame) -> DataFrame:
         axis=1,
         result_type='expand'
     )
+    features_df['num_lines'] = base_df.apply(df_get_file_loc, axis=1)
     print(
         f'Commit/Authors information extracted after '
         f'{time.time() - timer:.2f} seconds'
@@ -152,6 +176,12 @@ def get_file_commits_authors(repo: str, file_: str) -> Tuple[int, int]:
     except GitCommandError:
         print('Error extracting the commits/authors that modified a file')
     return commits_authors
+
+
+def get_file_loc(repo: str, file_: str) -> int:
+    file_relative_path: str = os.path.sep.join(file_.split(os.path.sep)[1:])
+    file_path: str = os.path.join(repo, file_relative_path)
+    return count_loc(file_path)
 
 
 def get_files(repo: str, commit: str) -> ArrayType:
