@@ -60,6 +60,16 @@ export const commonConfig: webpack.Configuration = {
     }),
   ],
   resolve: {
+    alias: {
+      components: path.join(__dirname, "src", "components"),
+      graphics: path.join(__dirname, "src", "graphics"),
+      resources: path.join(__dirname, "src", "resources"),
+      scenes: path.join(__dirname, "src", "scenes"),
+      store: path.join(__dirname, "src", "store"),
+      styles: path.join(__dirname, "src", "styles"),
+      typings: path.join(__dirname, "src", "typings"),
+      utils: path.join(__dirname, "src", "utils"),
+    },
     extensions: [".js", ".jsx", ".ts", ".tsx"],
   },
   stats: {

@@ -5,7 +5,7 @@
 */
 import { Button } from "react-bootstrap";
 import React from "react";
-import style from "./index.css";
+import style from "components/Button/index.css";
 
 const button: React.FC<Button.ButtonProps> = (
   props: Readonly<Button.ButtonProps>

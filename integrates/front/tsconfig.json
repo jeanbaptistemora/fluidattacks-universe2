@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "allowJs": false,
+    "baseUrl": "src",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "jsx": "react",
@@ -10,6 +11,16 @@
     ],
     "module": "CommonJS",
     "moduleResolution": "node",
+    "paths": {
+      "components/*": [ "components/*" ],
+      "graphics/*": [ "graphics/*" ],
+      "resources/*": [ "resources/*" ],
+      "scenes/*": [ "scenes/*" ],
+      "store/*": [ "store/*" ],
+      "styles/*": [ "styles/*" ],
+      "typings/*": [ "typings/*" ],
+      "utils/*": [ "utils/*" ],
+    },
     "noEmit": true,
     "skipLibCheck": true,
     "strict": true,

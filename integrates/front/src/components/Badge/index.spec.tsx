@@ -1,4 +1,4 @@
-import { Badge } from ".";
+import { Badge } from "components/Badge";
 import React from "react";
 import { ShallowWrapper, shallow } from "enzyme";
 
