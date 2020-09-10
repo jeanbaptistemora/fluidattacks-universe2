@@ -1,4 +1,7 @@
 # Standard library
+import asyncio
+import logging
+from typing import Dict
 from uuid import uuid4 as uuid
 
 # Third party libraries
@@ -17,6 +20,9 @@ from __init__ import (
     FI_CLOUDFRONT_REPORTS_DOMAIN,
     FI_AWS_S3_REPORTS_BUCKET,
 )
+
+# Constants
+LOGGER = logging.getLogger(__name__)
 
 
 async def sign_url(path: str, minutes: float = 60.0) -> str:
@@ -71,3 +77,31 @@ async def upload_report_from_file_descriptor(report) -> str:
         raise ErrorUploadingFileS3()
 
     return file_name
+
+
+def reports_exception_handler(
+    _: asyncio.AbstractEventLoop,
+    context: Dict[str, str]
+) -> None:
+    """
+    Catches any exception raised in report generation
+    process and reports information to bugsnag
+    """
+
+    exception = context.get('exception', 'not provided')
+    error_msg = (
+        f'Message: {context.get("message", "")} '
+        f'Exception: \'{exception}\''
+    )
+    LOGGER.error(
+        error_msg,
+        extra={
+            'extra': {
+                'exception': exception
+            }
+        }
+    )
+
+
+def patch_loop_exception_handler() -> None:
+    asyncio.get_event_loop().set_exception_handler(reports_exception_handler)
