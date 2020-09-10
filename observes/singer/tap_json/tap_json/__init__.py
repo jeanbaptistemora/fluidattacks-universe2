@@ -8,13 +8,20 @@ import datetime
 import argparse
 import threading
 import contextlib
+from io import TextIOWrapper
+from itertools import repeat
 from multiprocessing import cpu_count
 from concurrent.futures import ThreadPoolExecutor
 
 from json import load, loads, dumps
 from json.decoder import JSONDecodeError
 
-from typing import Callable, List, Any
+from typing import (
+    Callable,
+    List,
+    Any,
+    Optional,
+)
 
 # type aliases that improve clarity
 JSON = Any
@@ -267,38 +274,44 @@ def catalog() -> None:
         write(SCHEMAS_DIR, table_name, schema, dumps)
 
 
-def dump_schema(table: str) -> None:
-    def dump_record(precord):
+def dump_schema(table: str, file: Optional[TextIOWrapper] = None) -> None:
+    def dump_record(precord: Any) -> None:
+        record = dumps({
+            "type": "RECORD",
+            "stream": table,
+            "record":
+            {f"{f}_{stru_type(v)}": stru_cast(v)
+             for f, v in precord.items()}
+        })
         with LOCK:
-            print(
-                dumps({
-                    "type": "RECORD",
-                    "stream": table,
-                    "record": {
-                        f"{f}_{stru_type(v)}": stru_cast(v)
-                        for f, v in precord.items()
-                    }
-                }))
+            if file:
+                file.write("{}\r".format(record))
+            else:
+                print(record)
 
     pschema = json_from_file(f"{SCHEMAS_DIR}/{table}")
+    schema = dumps({
+        "type": "SCHEMA",
+        "stream": table,
+        "schema": {
+            "properties": {
+                f"{f}_{ft}": pt2st(ft)
+                for f, fts in pschema.items() for ft in fts
+            }
+        },
+        "key_properties": []
+    })
+    schema = "{}\r".format(schema)
     with LOCK:
-        print(
-            dumps({
-                "type": "SCHEMA",
-                "stream": table,
-                "schema": {
-                    "properties": {
-                        f"{f}_{ft}": pt2st(ft)
-                        for f, fts in pschema.items() for ft in fts
-                    }
-                },
-                "key_properties": []
-            }))
+        if file:
+            file.write("{}\r".format(schema))
+        else:
+            print(schema)
     with ThreadPoolExecutor(max_workers=cpu_count() * 3) as worker:
         worker.map(dump_record, read(RECORDS_DIR, table, loads))
 
 
-def main():
+def main() -> None:
     """Usual entry point."""
     parser = argparse.ArgumentParser(
         description="Dump a JSON stream to a Singer stream.")
@@ -313,6 +326,12 @@ def main():
         help="A string of formats separated by comma, extends RFC3339",
         default="",
         dest="date_formats")
+    parser.add_argument(
+        "--out",
+        help="Dump out to file",
+        type=argparse.FileType('a+'),
+        required=False,
+        dest="out")
     args = parser.parse_args()
 
     # some dates may come in the form of a timestamp
@@ -342,7 +361,7 @@ def main():
 
     # Parse everything to singer
     with ThreadPoolExecutor(max_workers=cpu_count() * 3) as worker:
-        worker.map(dump_schema, os.listdir(SCHEMAS_DIR))
+        worker.map(dump_schema, os.listdir(SCHEMAS_DIR), repeat(args.out))
 
     release_env()
 

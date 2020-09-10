@@ -124,7 +124,7 @@ function helper_observes_dynamo {
         --auth "${TEMP_FILE1}" \
         --conf ./observes/conf/awsdynamo.json > .stream \
  &&  echo '[INFO] Running tap' \
-      && tap-json < .stream > .singer \
+      && tap-json --out ".singer" < .stream \
   &&  echo '[INFO] Running target' \
   &&  target-redshift \
         --auth "${TEMP_FILE2}" \
