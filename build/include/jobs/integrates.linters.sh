@@ -23,7 +23,7 @@ function job_integrates_lint_back {
 function job_integrates_lint_front {
         pushd "${STARTDIR}/integrates/front" \
     &&  npm install \
-    &&  npm audit \
+    &&  npm audit --audit-level=moderate \
     &&  npm run lint:tslint \
     &&  npm run lint:eslint \
     &&  popd \
