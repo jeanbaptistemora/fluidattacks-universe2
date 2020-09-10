@@ -14,18 +14,19 @@ import React from "react";
 import { ButtonToolbar, Col, ControlLabel, FormGroup, Row } from "react-bootstrap";
 import { EventWithDataHandler, Field, InjectedFormProps } from "redux-form";
 import { ConfigurableValidator } from "revalidate";
-import { Button } from "../../../../components/Button";
-import { Modal } from "../../../../components/Modal/index";
-import { TooltipWrapper } from "../../../../components/TooltipWrapper";
-import { authzPermissionsContext } from "../../../../utils/authz/config";
-import { Dropdown, Text } from "../../../../utils/forms/fields";
-import { Logger } from "../../../../utils/logger";
-import { msgError, msgSuccess } from "../../../../utils/notifications";
-import { translate } from "../../../../utils/translations/translate";
-import { alphaNumeric, maxLength, required, validTextField } from "../../../../utils/validations";
-import { GenericForm } from "../../components/GenericForm";
-import { CREATE_PROJECT_MUTATION, PROJECTS_NAME_QUERY } from "./queries";
-import { IAddProjectModal, IProjectName } from "./types";
+
+import { Button } from "components/Button";
+import { Modal } from "components/Modal/index";
+import { TooltipWrapper } from "components/TooltipWrapper";
+import { CREATE_PROJECT_MUTATION, PROJECTS_NAME_QUERY } from "scenes/Dashboard/components/AddProjectModal/queries";
+import { IAddProjectModal, IProjectName } from "scenes/Dashboard/components/AddProjectModal/types";
+import { GenericForm } from "scenes/Dashboard/components/GenericForm";
+import { authzPermissionsContext } from "utils/authz/config";
+import { Dropdown, Text } from "utils/forms/fields";
+import { Logger } from "utils/logger";
+import { msgError, msgSuccess } from "utils/notifications";
+import { translate } from "utils/translations/translate";
+import { alphaNumeric, maxLength, required, validTextField } from "utils/validations";
 
 /*
   * Business rules to create a project:

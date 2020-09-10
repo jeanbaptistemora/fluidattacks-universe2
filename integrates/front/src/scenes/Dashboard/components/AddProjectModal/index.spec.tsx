@@ -2,10 +2,11 @@ import { MockedProvider, MockedResponse } from "@apollo/react-testing";
 import { mount, ReactWrapper } from "enzyme";
 import React from "react";
 import { Provider } from "react-redux";
-import store from "../../../../store";
-import { AddProjectModal } from "./index";
-import { PROJECTS_NAME_QUERY } from "./queries";
-import { IProjectName } from "./types";
+
+import { AddProjectModal } from "scenes/Dashboard/components/AddProjectModal";
+import { PROJECTS_NAME_QUERY } from "scenes/Dashboard/components/AddProjectModal/queries";
+import { IProjectName } from "scenes/Dashboard/components/AddProjectModal/types";
+import store from "store";
 
 describe("AddProjectModal component", () => {
 

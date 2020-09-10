@@ -1,19 +1,19 @@
 /* tslint:disable:jsx-no-multiline-js
  * Disabling this rule is necessary for using components with render props
  */
-
 import React from "react";
 import { ButtonToolbar, Col, ProgressBar, Row } from "react-bootstrap";
 import { Field, InjectedFormProps, Validator } from "redux-form";
 import { ConfigurableValidator } from "revalidate";
-import { Button } from "../../../../components/Button/index";
-import { Modal } from "../../../../components/Modal/index";
-import { FileInput, TextArea } from "../../../../utils/forms/fields";
-import { translate } from "../../../../utils/translations/translate";
+
+import { Button } from "components/Button";
+import { Modal } from "components/Modal";
+import { GenericForm } from "scenes/Dashboard/components/GenericForm";
+import { FileInput, TextArea } from "utils/forms/fields";
+import { translate } from "utils/translations/translate";
 import {
   isValidFileName, isValidFileSize, maxLength, required, validField, validTextField,
-} from "../../../../utils/validations";
-import { GenericForm } from "../GenericForm";
+} from "utils/validations";
 
 export interface IAddFilesModalProps {
   isOpen: boolean;

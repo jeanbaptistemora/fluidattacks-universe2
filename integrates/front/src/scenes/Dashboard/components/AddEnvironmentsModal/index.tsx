@@ -1,11 +1,11 @@
-import { Button } from "../../../../components/Button";
+import { Button } from "components/Button";
 import { ButtonToolbar } from "react-bootstrap";
-import { EnvironmentFields } from "./environmentFields";
-import { GenericForm } from "../GenericForm";
-import { IEnvironmentsAttr } from "../../containers/ProjectSettingsView/types";
-import { Modal } from "../../../../components/Modal";
+import { EnvironmentFields } from "scenes/Dashboard/components/AddEnvironmentsModal/environmentFields";
+import { GenericForm } from "scenes/Dashboard/components/GenericForm";
+import { IEnvironmentsAttr } from "scenes/Dashboard/containers/ProjectSettingsView/types";
+import { Modal } from "components/Modal";
 import React from "react";
-import { translate } from "../../../../utils/translations/translate";
+import { translate } from "utils/translations/translate";
 import { FieldArray, InjectedFormProps } from "redux-form";
 
 interface IAddEnvironmentsModalProps {

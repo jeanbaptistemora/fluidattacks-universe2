@@ -6,13 +6,14 @@
 import React from "react";
 import { ButtonToolbar, Col, Glyphicon, Row } from "react-bootstrap";
 import { Field, FieldArray, InjectedFormProps, WrappedFieldArrayProps } from "redux-form";
-import { Button } from "../../../../components/Button/index";
-import { Modal } from "../../../../components/Modal/index";
-import { Text } from "../../../../utils/forms/fields";
-import { translate } from "../../../../utils/translations/translate";
-import { required, validTag } from "../../../../utils/validations";
-import { GenericForm } from "../GenericForm";
-import { default as style } from "./index.css";
+
+import { Button } from "components/Button";
+import { Modal } from "components/Modal";
+import { default as style } from "scenes/Dashboard/components/AddTagsModal/index.css";
+import { GenericForm } from "scenes/Dashboard/components/GenericForm";
+import { Text } from "utils/forms/fields";
+import { translate } from "utils/translations/translate";
+import { required, validTag } from "utils/validations";
 
 export interface IAddTagsModalProps {
   isOpen: boolean;

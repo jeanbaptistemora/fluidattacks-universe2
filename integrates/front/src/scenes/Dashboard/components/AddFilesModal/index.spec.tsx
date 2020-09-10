@@ -1,8 +1,8 @@
 import { mount, ReactWrapper, shallow, ShallowWrapper } from "enzyme";
 import * as React from "react";
 import { Provider } from "react-redux";
-import store from "../../../../store";
-import { AddFilesModal } from "./index";
+import { AddFilesModal } from "scenes/Dashboard/components/AddFilesModal/";
+import store from "store";
 
 describe("Add Files modal", (): void => {
 

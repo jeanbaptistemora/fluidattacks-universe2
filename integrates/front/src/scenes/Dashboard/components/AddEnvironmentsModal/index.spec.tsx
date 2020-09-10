@@ -1,8 +1,8 @@
-import { AddEnvironmentsModal } from ".";
-import { EnvironmentFields } from "./environmentFields";
+import { AddEnvironmentsModal } from "scenes/Dashboard/components/AddEnvironmentsModal";
+import { EnvironmentFields } from "scenes/Dashboard/components/AddEnvironmentsModal/environmentFields";
 import { Provider } from "react-redux";
 import React from "react";
-import store from "../../../../store";
+import store from "store";
 import { ReactWrapper, ShallowWrapper, mount, shallow } from "enzyme";
 
 describe("Add Environments modal", (): void => {

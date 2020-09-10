@@ -7,16 +7,24 @@ import React from "react";
 import { ButtonToolbar, Col, ControlLabel, FormGroup, Row } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 import { Field } from "redux-form";
-import { Button } from "../../../../components/Button";
-import { Modal } from "../../../../components/Modal/index";
-import { TooltipWrapper } from "../../../../components/TooltipWrapper/index";
-import { Text } from "../../../../utils/forms/fields";
-import { Logger } from "../../../../utils/logger";
-import { msgError, msgSuccess } from "../../../../utils/notifications";
-import { translate } from "../../../../utils/translations/translate";
-import { GenericForm } from "../GenericForm/index";
-import { CREATE_NEW_ORGANIZATION, GET_AVAILABLE_ORGANIZATION_NAME } from "./queries";
-import { IAddOrganizationModalProps, IAddOrganizationMtResult, IAddOrganizationQryResult } from "./types";
+
+import { Button } from "components/Button";
+import { Modal } from "components/Modal/index";
+import { TooltipWrapper } from "components/TooltipWrapper/index";
+import {
+  CREATE_NEW_ORGANIZATION,
+  GET_AVAILABLE_ORGANIZATION_NAME,
+} from "scenes/Dashboard/components/AddOrganizationModal/queries";
+import {
+  IAddOrganizationModalProps,
+  IAddOrganizationMtResult,
+  IAddOrganizationQryResult,
+} from "scenes/Dashboard/components/AddOrganizationModal/types";
+import { GenericForm } from "scenes/Dashboard/components/GenericForm";
+import { Text } from "utils/forms/fields";
+import { Logger } from "utils/logger";
+import { msgError, msgSuccess } from "utils/notifications";
+import { translate } from "utils/translations/translate";
 
 const addOrganizationModal: React.FC<IAddOrganizationModalProps> =
     (props: IAddOrganizationModalProps): JSX.Element => {

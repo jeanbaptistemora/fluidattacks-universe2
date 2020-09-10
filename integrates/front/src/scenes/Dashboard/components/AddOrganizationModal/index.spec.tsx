@@ -5,10 +5,14 @@ import React from "react";
 import { act } from "react-dom/test-utils";
 import { Provider } from "react-redux";
 import waitForExpect from "wait-for-expect";
-import store from "../../../../store";
-import { AddOrganizationModal } from "./index";
-import { CREATE_NEW_ORGANIZATION, GET_AVAILABLE_ORGANIZATION_NAME } from "./queries";
-import { IAddOrganizationModalProps } from "./types";
+
+import { AddOrganizationModal } from "scenes/Dashboard/components/AddOrganizationModal";
+import {
+  CREATE_NEW_ORGANIZATION,
+  GET_AVAILABLE_ORGANIZATION_NAME,
+} from "scenes/Dashboard/components/AddOrganizationModal/queries";
+import { IAddOrganizationModalProps } from "scenes/Dashboard/components/AddOrganizationModal/types";
+import store from "store";
 
 const mockCloseModal: jest.Mock = jest.fn();
 const mockHistoryPush: jest.Mock = jest.fn();

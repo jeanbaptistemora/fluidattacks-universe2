@@ -1,8 +1,9 @@
 import { mount, ReactWrapper, shallow, ShallowWrapper } from "enzyme";
 import * as React from "react";
 import { Provider } from "react-redux";
-import store from "../../../../store";
-import { AddTagsModal } from "./index";
+
+import { AddTagsModal } from "scenes/Dashboard/components/AddTagsModal";
+import store from "store";
 
 const functionMock: (() => void) = (): void => undefined;
 
