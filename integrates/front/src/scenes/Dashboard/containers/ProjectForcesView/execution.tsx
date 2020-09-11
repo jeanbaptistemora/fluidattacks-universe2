@@ -5,6 +5,7 @@
 
 // Third parties imports
 import { useQuery } from "@apollo/react-hooks";
+import _ from "lodash";
 import React, { ReactElement } from "react";
 import { Col, Row } from "react-bootstrap";
 // tslint:disable-next-line no-submodule-imports
@@ -14,8 +15,10 @@ import { default as monokaiSublime } from "react-syntax-highlighter/dist/esm/sty
 import { statusFormatter } from "../../../../components/DataTableNext/formatters";
 
 // Local imports
+import { selectFilter } from "react-bootstrap-table2-filter";
 import { DataTableNext } from "../../../../components/DataTableNext/index";
 import { IHeaderConfig } from "../../../../components/DataTableNext/types";
+import { useStoredState } from "../../../../utils/hooks";
 import { translate } from "../../../../utils/translations/translate";
 import {
   IExecution,
@@ -33,6 +36,8 @@ const modalExecution: React.FC<IExecution> = (
 ): JSX.Element => {
   const isOld: boolean = props.log !== undefined;
 
+  const [isFilterEnabled, setFilterEnabled] = useStoredState<boolean>("forcesExecutionFilters", false);
+
   const { loading, data } = useQuery(GET_FORCES_EXECUTION, {
     skip: isOld,
     variables: {
@@ -45,8 +50,35 @@ const modalExecution: React.FC<IExecution> = (
     return <p>Loading ...</p>;
   }
 
+  const selectOptionsStatus: optionSelectFilterProps[] = [
+    { value: "Vulnerable", label: "Vulnerable" },
+    { value: "Secure", label: "Secure" },
+  ];
+  const selectOptionsKind: optionSelectFilterProps[] = [
+    { value: "DAST", label: "DAST" },
+    { value: "SAST", label: "SAST" },
+  ];
+  const selectOptionsExploitability: optionSelectFilterProps[] = [
+    { value: "Unproven", label: "Unproven" },
+    { value: "Proof of concept", label: "Proof of concept" },
+    { value: "Functional", label: "Functional" },
+    { value: "High", label: "High" },
+  ];
+
   const execution: IExecution = isOld ? props : { ...props, ...data.forcesExecution };
 
+  const handleUpdateFilter: () => void = (): void => {
+    setFilterEnabled(!isFilterEnabled);
+  };
+  const onFilterStatus: ((filterVal: string) => void) = (filterVal: string): void => {
+    sessionStorage.setItem("statusFilter", filterVal);
+  };
+  const onFilterKind: ((filterVal: string) => void) = (filterVal: string): void => {
+    sessionStorage.setItem("kindFilter", filterVal);
+  };
+  const onFilterExploitability: ((filterVal: string) => void) = (filterVal: string): void => {
+    sessionStorage.setItem("exploitabilityFilter", filterVal);
+  };
   const formatText: ((text: string) => ReactElement<Text>) = (text: string): ReactElement<Text> =>
     <p className={styles.wrapped}>{text}</p>;
 
@@ -121,7 +153,7 @@ const modalExecution: React.FC<IExecution> = (
 
       return vulns.map((elem: IExploitResult) => ({
         ...elem,
-        state: statusFormatter(stateResolve(elem.state)),
+        state: stateResolve(elem.state),
       }));
     };
 
@@ -134,6 +166,11 @@ const modalExecution: React.FC<IExecution> = (
           ? [
             {
               dataField: "exploitability",
+              filter: selectFilter({
+                defaultValue: _.get(sessionStorage, "exploitabilityFilter"),
+                onFilter: onFilterExploitability,
+                options: selectOptionsExploitability,
+              }),
               formatter: formatText,
               header: translate.t("group.forces.compromised_toe.exploitability"),
               width: "15%",
@@ -141,7 +178,12 @@ const modalExecution: React.FC<IExecution> = (
             },
             {
               dataField: "state",
-              formatter: formatText,
+              filter: selectFilter({
+                defaultValue: _.get(sessionStorage, "statusFilter"),
+                onFilter: onFilterStatus,
+                options: selectOptionsStatus,
+              }),
+              formatter: statusFormatter,
               header: translate.t("group.forces.compromised_toe.status"),
               width: "10%",
               wrapped: true,
@@ -150,6 +192,11 @@ const modalExecution: React.FC<IExecution> = (
           : []),
         {
           dataField: "kind",
+          filter: selectFilter({
+            defaultValue: _.get(sessionStorage, "kindFilter"),
+            onFilter: onFilterKind,
+            options: selectOptionsKind,
+          }),
           formatter: formatText,
           header: translate.t("group.forces.compromised_toe.type"),
           width: "10%",
@@ -208,10 +255,13 @@ const modalExecution: React.FC<IExecution> = (
         bordered={true}
         dataset={getDatasetFromVulnerabilities(execution.vulnerabilities)}
         exportCsv={false}
-        search={false}
+        search={true}
         headers={headersCompromisedToeTable(execution.vulnerabilities)}
         id="tblCompromisedToe"
         pageSize={100}
+        columnToggle={true}
+        isFilterEnabled={isFilterEnabled}
+        onUpdateEnableFilter={handleUpdateFilter}
       />
       <hr />
 
