@@ -12,24 +12,25 @@ import {
   Panel,
   Row,
 } from "react-bootstrap";
-import { Badge } from "../../../../../../components/Badge";
-import { Button } from "../../../../../../components/Button";
-import { DropdownButton } from "../../../../../../components/DropdownButton";
-import { TooltipWrapper } from "../../../../../../components/TooltipWrapper";
-import { Logger } from "../../../../../../utils/logger";
-import { msgError, msgSuccess } from "../../../../../../utils/notifications";
-import { translate } from "../../../../../../utils/translations/translate";
-import styles from "../../index.css";
+
+import { Badge } from "components/Badge";
+import { Button } from "components/Button";
+import { DropdownButton } from "components/DropdownButton";
+import { TooltipWrapper } from "components/TooltipWrapper";
+import styles from "scenes/Dashboard/containers/ChartsGenericView/index.css";
 import {
   SUBSCRIBE_TO_ENTITY_REPORT,
   SUBSCRIPTIONS_TO_ENTITY_REPORT,
-} from "../../queries";
+} from "scenes/Dashboard/containers/ChartsGenericView/queries";
 import {
   EntityType,
   IChartsGenericViewProps,
   ISubscriptionsToEntityReport,
   ISubscriptionToEntityReport,
-} from "../../types";
+} from "scenes/Dashboard/containers/ChartsGenericView/types";
+import { Logger } from "utils/logger";
+import { msgError, msgSuccess } from "utils/notifications";
+import { translate } from "utils/translations/translate";
 
 const frequencies: string[] = [
   "daily",

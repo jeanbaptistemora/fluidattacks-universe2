@@ -4,9 +4,9 @@ import React from "react";
 // tslint:disable-next-line: no-submodule-imports
 import { act } from "react-dom/test-utils";
 import { Provider } from "react-redux";
-import store from "../../../../../store";
-import { ITreatmentViewProps, TreatmentView } from "./index";
-import { GET_FINDING_TREATMENT } from "./queries";
+import { ITreatmentViewProps, TreatmentView } from "scenes/Dashboard/containers/DescriptionView/TreatmentView";
+import { GET_FINDING_TREATMENT } from "scenes/Dashboard/containers/DescriptionView/TreatmentView/queries";
+import store from "store";
 
 describe("Finding Treatment", () => {
 

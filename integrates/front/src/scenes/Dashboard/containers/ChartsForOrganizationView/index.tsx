@@ -1,8 +1,8 @@
 import _ from "lodash";
 import React from "react";
 import { useLocation } from "react-router";
-import { ChartsGenericView } from "../ChartsGenericView";
-import { IChartsForOrganizationViewProps } from "./types";
+import { IChartsForOrganizationViewProps } from "scenes/Dashboard/containers/ChartsForOrganizationView/types";
+import { ChartsGenericView } from "scenes/Dashboard/containers/ChartsGenericView";
 
 const chartsForOrganizationView: React.FC<IChartsForOrganizationViewProps> = (
   props: IChartsForOrganizationViewProps,

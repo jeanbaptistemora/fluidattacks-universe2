@@ -7,8 +7,12 @@ import * as React from "react";
 import { act } from "react-dom/test-utils";
 import { RouteComponentProps } from "react-router";
 import wait from "waait";
-import { CommentsView } from "./index";
-import { GET_FINDING_CONSULTING, GET_FINDING_OBSERVATIONS } from "./queries";
+
+import { CommentsView } from "scenes/Dashboard/containers/CommentsView";
+import {
+  GET_FINDING_CONSULTING,
+  GET_FINDING_OBSERVATIONS,
+} from "scenes/Dashboard/containers/CommentsView/queries";
 
 jest.mock("jquery-comments_brainkit", () => jest.requireActual("jquery-comments_brainkit")($));
 

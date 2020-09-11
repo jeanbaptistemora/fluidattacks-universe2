@@ -6,12 +6,13 @@
 import _ from "lodash";
 import React from "react";
 import { ButtonToolbar, Glyphicon, Row } from "react-bootstrap";
-import { Button } from "../../../../../components/Button";
-import { FluidIcon } from "../../../../../components/FluidIcon";
-import { TooltipWrapper } from "../../../../../components/TooltipWrapper";
-import { Can } from "../../../../../utils/authz/Can";
-import { translate } from "../../../../../utils/translations/translate";
-import { IHistoricTreatment } from "../types";
+
+import { Button } from "components/Button";
+import { FluidIcon } from "components/FluidIcon";
+import { TooltipWrapper } from "components/TooltipWrapper";
+import { IHistoricTreatment } from "scenes/Dashboard/containers/DescriptionView/types";
+import { Can } from "utils/authz/Can";
+import { translate } from "utils/translations/translate";
 
 export interface IActionButtonsProps {
   isEditing: boolean;

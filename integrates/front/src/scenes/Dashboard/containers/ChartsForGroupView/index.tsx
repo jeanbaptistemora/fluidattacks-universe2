@@ -1,7 +1,7 @@
 import _ from "lodash";
 import React from "react";
 import { useLocation, useParams } from "react-router";
-import { ChartsGenericView } from "../ChartsGenericView";
+import { ChartsGenericView } from "scenes/Dashboard/containers/ChartsGenericView";
 
 const chartsForGroupView: React.FC = (): JSX.Element => {
   const params: { projectName: string } = useParams();

@@ -1,4 +1,4 @@
-import { ChartsForOrganizationView } from "./index";
+import { ChartsForOrganizationView } from "scenes/Dashboard/containers/ChartsForOrganizationView";
 
 describe("ChartsForOrganizationView", () => {
 

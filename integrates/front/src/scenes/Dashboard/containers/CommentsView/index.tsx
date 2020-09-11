@@ -11,11 +11,22 @@ import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React from "react";
 import { RouteComponentProps } from "react-router";
-import { Logger } from "../../../../utils/logger";
-import { msgError } from "../../../../utils/notifications";
-import { translate } from "../../../../utils/translations/translate";
-import { Comments, ICommentStructure, loadCallback, postCallback } from "../../components/Comments/index";
-import { ADD_FINDING_CONSULT, GET_FINDING_CONSULTING, GET_FINDING_OBSERVATIONS } from "./queries";
+
+import {
+  Comments,
+  ICommentStructure,
+  loadCallback,
+  postCallback,
+} from "scenes/Dashboard/components/Comments/index";
+import {
+  ADD_FINDING_CONSULT,
+  GET_FINDING_CONSULTING,
+  GET_FINDING_OBSERVATIONS,
+} from "scenes/Dashboard/containers/CommentsView/queries";
+
+import { Logger } from "utils/logger";
+import { msgError } from "utils/notifications";
+import { translate } from "utils/translations/translate";
 
 type ICommentsViewProps = RouteComponentProps<{ findingId: string; type: string }>;
 

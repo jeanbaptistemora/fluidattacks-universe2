@@ -13,28 +13,29 @@ import { Col, ControlLabel, FormGroup, Row } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { formValueSelector } from "redux-form";
 import { ConfigurableValidator } from "revalidate";
-import { ConfirmDialog, IConfirmFn } from "../../../../../components/ConfirmDialog";
-import { DataTableNext } from "../../../../../components/DataTableNext";
-import { IHeaderConfig } from "../../../../../components/DataTableNext/types";
-import { FluidIcon } from "../../../../../components/FluidIcon";
-import { Can } from "../../../../../utils/authz/Can";
-import { formatDropdownField } from "../../../../../utils/formatHelpers";
-import { Date, Dropdown, Text, TextArea } from "../../../../../utils/forms/fields";
-import { Logger } from "../../../../../utils/logger";
-import { msgError, msgSuccess } from "../../../../../utils/notifications";
-import { translate } from "../../../../../utils/translations/translate";
+
+import { ConfirmDialog, IConfirmFn } from "components/ConfirmDialog";
+import { DataTableNext } from "components/DataTableNext";
+import { IHeaderConfig } from "components/DataTableNext/types";
+import { FluidIcon } from "components/FluidIcon";
+import { EditableField } from "scenes/Dashboard/components/EditableField";
+import { GenericForm } from "scenes/Dashboard/components/GenericForm";
+import { RemediationModal } from "scenes/Dashboard/components/RemediationModal";
+import { HANDLE_ACCEPTATION } from "scenes/Dashboard/containers/DescriptionView/queries";
+import { default as style } from "scenes/Dashboard/containers/DescriptionView/TreatmentView/index.css";
+import { GET_FINDING_TREATMENT, UPDATE_TREATMENT_MUTATION } from "scenes/Dashboard/containers/DescriptionView/TreatmentView/queries";
+import { getPreviousTreatment } from "scenes/Dashboard/containers/DescriptionView/TreatmentView/utils";
+import { IHistoricTreatment } from "scenes/Dashboard/containers/DescriptionView/types";
+import { getLastTreatment } from "scenes/Dashboard/containers/DescriptionView/utils";
+import { Can } from "utils/authz/Can";
+import { formatDropdownField } from "utils/formatHelpers";
+import { Date, Dropdown, Text, TextArea } from "utils/forms/fields";
+import { Logger } from "utils/logger";
+import { msgError, msgSuccess } from "utils/notifications";
+import { translate } from "utils/translations/translate";
 import {
   isLowerDate, maxLength, required, validTextField, validUrlField,
-} from "../../../../../utils/validations";
-import { EditableField } from "../../../components/EditableField";
-import { GenericForm } from "../../../components/GenericForm";
-import { RemediationModal } from "../../../components/RemediationModal";
-import { HANDLE_ACCEPTATION } from "../queries";
-import { IHistoricTreatment } from "../types";
-import { getLastTreatment } from "../utils";
-import { default as style } from "./index.css";
-import { GET_FINDING_TREATMENT, UPDATE_TREATMENT_MUTATION } from "./queries";
-import { getPreviousTreatment } from "./utils";
+} from "utils/validations";
 
 export interface ITreatmentViewProps {
   approvalModalConfig: { open: boolean; type: string };

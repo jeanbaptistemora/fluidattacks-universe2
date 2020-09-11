@@ -1,4 +1,4 @@
-import { ChartsGenericView } from "./index";
+import { ChartsGenericView } from "scenes/Dashboard/containers/ChartsGenericView";
 
 describe("ChartsGenericView", () => {
 

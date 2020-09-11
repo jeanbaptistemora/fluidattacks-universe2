@@ -3,8 +3,8 @@ import { mount, ReactWrapper } from "enzyme";
 import React from "react";
 // tslint:disable-next-line: no-submodule-imports
 import { act } from "react-dom/test-utils";
-import { authzPermissionsContext } from "../../../../../utils/authz/config";
-import { ActionButtons, IActionButtonsProps } from "./index";
+import { ActionButtons, IActionButtonsProps } from "scenes/Dashboard/containers/DescriptionView/ActionButtons";
+import { authzPermissionsContext } from "utils/authz/config";
 
 describe("ActionButtons", () => {
 
