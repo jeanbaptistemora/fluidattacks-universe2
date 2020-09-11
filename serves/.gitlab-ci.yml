@@ -103,7 +103,7 @@ serves_test_user_provision_integrates_dev:
   <<: *serves_in_dev_branch
   stage: test-infra
 
-.serves_test_user_provision_integrates_prod:
+serves_test_user_provision_integrates_prod:
   <<: *with_nix
   <<: *serves_in_dev_branch
   stage: test-infra
@@ -253,7 +253,7 @@ serves_rotate_keys_user_provision_integrates_dev:
   <<: *serves_in_schedule_rotate_keys_user_provision
   stage: rotation
 
-serves_rotate_keys_user_provision_integrates_prod:
+.serves_rotate_keys_user_provision_integrates_prod:
   <<: *with_nix
   <<: *serves_in_schedule_rotate_keys_user_provision
   stage: rotation
