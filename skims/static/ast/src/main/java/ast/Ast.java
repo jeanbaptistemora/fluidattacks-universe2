@@ -7,6 +7,9 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
+import java.util.regex.Pattern;
+import java.util.Scanner;
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
@@ -16,6 +19,7 @@ import org.antlr.v4.runtime.tree.*;
 public class Ast {
 
   private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
+  private static final Pattern ALL = Pattern.compile("\\A");
 
   public static Map<String, Object> toMap(ParseTree tree, Vocabulary vocabulary) {
     Map<String, Object> map = new LinkedHashMap<>();
@@ -47,7 +51,16 @@ public class Ast {
 
   public static void main(String[] args) {
     try {
-      String source = new String(Files.readAllBytes(Paths.get(args[1])));
+      // Read Stdin until EOF
+      Scanner scanner = new Scanner(System.in);
+      String source;
+      try {
+        source = scanner.useDelimiter(ALL).next();
+      } catch (NoSuchElementException e) {
+        source = "";
+      }
+
+      // Do the parsing
       CharStream charStream = CharStreams.fromString(source);
       ParseTree tree;
 
@@ -65,9 +78,6 @@ public class Ast {
       System.exit(0);
     } catch (ArrayIndexOutOfBoundsException e) {
       System.err.println("Invalid arguments");
-      System.exit(1);
-    } catch (IOException e) {
-      System.err.println("Invalid file path, encoding or contents");
       System.exit(1);
     }
   }

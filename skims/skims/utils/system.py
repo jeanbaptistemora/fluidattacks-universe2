@@ -14,7 +14,7 @@ async def call(
     *binary_args: str,
     cwd: Optional[str] = None,
     env: Optional[Dict[str, str]] = None,
-    stdin: Optional[int] = None,
+    stdin: int = asyncio.subprocess.DEVNULL,
     stdout: int = asyncio.subprocess.PIPE,
     stderr: int = asyncio.subprocess.PIPE,
     **kwargs: Any,
@@ -41,7 +41,7 @@ async def read(
     *binary_args: str,
     cwd: Optional[str] = None,
     env: Optional[Dict[str, str]] = None,
-    stdin: Optional[int] = None,
+    stdin_bytes: Optional[bytes] = None,
     stdout: int = asyncio.subprocess.PIPE,
     stderr: int = asyncio.subprocess.PIPE,
     **kwargs: Any,
@@ -51,13 +51,17 @@ async def read(
         *binary_args,
         cwd=cwd,
         env=env,
-        stdin=stdin,
+        stdin=(
+            asyncio.subprocess.DEVNULL
+            if stdin_bytes is None
+            else asyncio.subprocess.PIPE
+        ),
         stdout=stdout,
         stderr=stderr,
         **kwargs,
     )
 
-    out, err = await process.communicate()
+    out, err = await process.communicate(input=stdin_bytes)
     code = -1 if process.returncode is None else process.returncode
 
     return code, out, err

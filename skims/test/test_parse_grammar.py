@@ -7,11 +7,19 @@ from aioextensions import (
 from parse_grammar import (
     parse,
 )
+from utils.fs import (
+    get_file_raw_content,
+)
 
 
 @run_decorator
 async def test_parse_success() -> None:
-    data = await parse('Java9', 'test/data/lib_path/f031_cwe378/Test.java')
+    path = 'test/data/lib_path/f031_cwe378/Test.java'
+    data = await parse(
+        'Java9',
+        content=await get_file_raw_content(path),
+        path=path,
+    )
 
     assert 'CompilationUnit' in data
     data = data['CompilationUnit'][0]
@@ -36,6 +44,11 @@ async def test_parse_success() -> None:
 
 @run_decorator
 async def test_parse_fail() -> None:
-    data = await parse('Java9', 'test/data/lib_path/f011/yarn.lock')
+    path = 'test/data/lib_path/f011/yarn.lock'
+    data = await parse(
+        'Java9',
+        content=await get_file_raw_content(path),
+        path=path,
+    )
 
     assert data == {}

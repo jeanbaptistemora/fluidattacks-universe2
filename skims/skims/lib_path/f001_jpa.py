@@ -164,7 +164,7 @@ async def java_jpa_like(
     if not content:
         return ()
 
-    model = await parse('Java9', path)
+    model = await parse('Java9', content=content.encode(), path=path)
     results = await in_process(_java_jpa_like, model)
 
     return tuple([
