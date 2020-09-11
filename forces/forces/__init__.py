@@ -16,6 +16,8 @@ from aiohttp.client_exceptions import (
 
 # Local imports
 from forces.apis.integrates import (
+    get_api_token_email,
+    get_api_token_group,
     set_api_token,
 )
 from forces.apis.integrates.api import (
@@ -38,6 +40,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 def customize_bugsnag_error_reports(notification: Any) -> None:
     # Customize Login required error
+    notification.user = {
+        'email': get_api_token_email(),
+        'name': get_api_token_group()
+    }
     if isinstance(notification.exception, (
             ClientConnectorError,
             ClientResponseError,
