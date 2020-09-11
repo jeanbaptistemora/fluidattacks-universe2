@@ -11,6 +11,11 @@ from aioextensions import (
 )
 import bugsnag
 
+# Local libraries
+from utils.bugs import (
+    META as BUGS_META,
+)
+
 # Private constants
 _FORMAT: str = '[%(levelname)s] %(message)s'
 
@@ -54,4 +59,4 @@ async def log_exception(level: str, exception: BaseException) -> None:
 
 
 async def log_to_remote(exception: BaseException) -> None:
-    await in_thread(bugsnag.notify, exception)
+    await in_thread(bugsnag.notify, exception, meta_data=BUGS_META.get())

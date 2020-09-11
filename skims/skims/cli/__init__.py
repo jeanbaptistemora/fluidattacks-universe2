@@ -96,7 +96,11 @@ async def main_wrapped(
     # pylint: disable=import-outside-toplevel
     import core.entrypoint
 
-    configure_bugsnag()
+    configure_bugsnag(
+        config=config,
+        group=group or '',
+        token='set' if token else '',
+    )
     success: bool = await core.entrypoint.main(
         config=config,
         group=group,

@@ -1,3 +1,12 @@
+# Standard library
+from contextvars import (
+    ContextVar,
+)
+from typing import (
+    Dict,
+    Optional,
+)
+
 # Third party libraries
 import bugsnag
 
@@ -6,8 +15,15 @@ from utils.env import (
     guess_environment,
 )
 
+# Constants
+META: ContextVar[Optional[Dict[str, str]]] = (
+    ContextVar('META', default=None)
+)
 
-def configure_bugsnag() -> None:
+
+def configure_bugsnag(**data: str) -> None:
+    # Metadata configuration
+    META.set(data)
     # Initialization
     bugsnag.configure(
         # There is no problem in making this key public
