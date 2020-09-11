@@ -10,19 +10,20 @@ from graphql.type.definition import GraphQLResolveInfo
 
 from backend.decorators import (
     enforce_group_level_auth_async,
+    enforce_user_level_auth_async,
     require_login
 )
 from backend.domain import (
     user as user_domain,
 )
 from backend.exceptions import (
-    PermissionDenied, RequestedReportError,
+    RequestedReportError,
 )
 from backend.reports import report
 from backend.typing import (
     Report as ReportType,
 )
-from backend import authz, util
+from backend import util
 from fluidintegrates.settings import LOGGING
 
 logging.config.dictConfig(LOGGING)
@@ -82,27 +83,21 @@ async def _get_url_complete(info: GraphQLResolveInfo, user_email: str) -> str:
     return url
 
 
+@enforce_user_level_auth_async
 async def _get_url_all_vulns(
         info: GraphQLResolveInfo,
         user_email: str,
         project_name: str) -> str:
-    if await authz.get_user_level_role(user_email) == 'admin':
-        url = await report.generate_all_vulns_report(
-            user_email,
-            project_name
-        )
-        msg = (
-            'Security: All vulnerabilities report '
-            f'successfully requested by {user_email}'
-        )
-        util.cloudwatch_log(info.context, msg)
-    else:
-        msg = (
-            f'Security: {user_email} is not allowed to '
-            'request an all vulnerabilites report'
-        )
-        util.cloudwatch_log(info.context, msg)
-        raise PermissionDenied()
+    url = await report.generate_all_vulns_report(
+        user_email,
+        project_name
+    )
+    msg = (
+        'Security: All vulnerabilities report '
+        f'successfully requested by {user_email}'
+    )
+    util.cloudwatch_log(info.context, msg)
+
     return url
 
 
@@ -143,23 +138,17 @@ async def _get_url_group_report(
     return url
 
 
+@enforce_user_level_auth_async
 async def _get_url_all_users(
         info: GraphQLResolveInfo,
         user_email: str) -> str:
-    if await authz.get_user_level_role(user_email) == 'admin':
-        url = await report.generate_all_users_report(user_email)
-        msg = (
-            f'Security: All users report successfully requested '
-            f'by {user_email}'
-        )
-        util.cloudwatch_log(info.context, msg)
-    else:
-        msg = (
-            f'Security: {user_email} is not allowed to request an '
-            'all users report'
-        )
-        util.cloudwatch_log(info.context, msg)
-        raise PermissionDenied()
+    url = await report.generate_all_users_report(user_email)
+    msg = (
+        f'Security: All users report successfully requested '
+        f'by {user_email}'
+    )
+    util.cloudwatch_log(info.context, msg)
+
     return url
 
 
