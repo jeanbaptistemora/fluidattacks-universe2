@@ -7,7 +7,7 @@ const navbar: (() => void) = (): void => {
   const navbarElement: HTMLElement = document.getElementById("navbar") as HTMLElement;
   prevScrollpos > currentScrollPos ?
   navbarElement.style.top = "0" :
-  navbarElement.style.top = "-110px";
+  navbarElement.style.top = "-104px";
 
   prevScrollpos = currentScrollPos;
   };
