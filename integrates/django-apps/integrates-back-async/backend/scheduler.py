@@ -7,7 +7,7 @@ import logging.config
 from collections import OrderedDict, defaultdict
 from datetime import datetime, timedelta
 from decimal import Decimal
-from typing import Dict, List, Tuple, Union, cast
+from typing import Callable, Dict, List, Tuple, Union, cast
 import bugsnag
 
 from more_itertools import chunked
@@ -126,7 +126,11 @@ async def send_unsolved_events_email(project: str) -> None:
         'event_url': f'{BASE_URL}/groups/{project}/events'
     }
     if context_event['events_len'] and mail_to:
-        await mailer.send_mail_unsolved_events(mail_to, context_event)
+        scheduler_send_mail(
+            mailer.send_mail_unsolved_events,
+            mail_to,
+            context_event
+        )
 
 
 async def get_external_recipients(project: str) -> List[str]:
@@ -378,7 +382,8 @@ async def get_group_new_vulnerabilities(group_name: str) -> None:
         raise
     if context['updated_findings']:
         mail_to = await project_domain.get_users_to_notify(group_name)
-        await mailer.send_mail_new_vulnerabilities(
+        scheduler_send_mail(
+            mailer.send_mail_new_vulnerabilities,
             mail_to,
             context
         )
@@ -537,8 +542,10 @@ async def get_remediated_findings() -> None:
                     'project': str.upper(str(finding['project_name']))
                 })
             context['total'] = len(findings)
-            await mailer.send_mail_new_remediated(
-                mail_to, context
+            scheduler_send_mail(
+                mailer.send_mail_new_remediated,
+                mail_to,
+                context
             )
         except (TypeError, KeyError) as ex:
             LOGGER.exception(ex, extra={'extra': locals()})
@@ -611,8 +618,10 @@ async def get_new_releases() -> None:  # pylint: disable=too-many-locals
         approvers = FI_MAIL_REVIEWERS.split(',')
         mail_to = [FI_MAIL_PROJECTS]
         mail_to.extend(approvers)
-        await mailer.send_mail_new_releases(
-            mail_to, email_context
+        scheduler_send_mail(
+            mailer.send_mail_new_releases,
+            mail_to,
+            email_context
         )
     else:
         msg = '[scheduler]: There are no new drafts'
@@ -895,3 +904,13 @@ async def delete_pending_projects() -> None:
             remove_project_tasks.append(task)
             util.queue_cache_invalidation(str(project.get('project_name')))
     await asyncio.gather(*remove_project_tasks)
+
+
+def scheduler_send_mail(
+    send_mail_function: Callable,
+    mail_to: List[str],
+    mail_context: MailContentType
+) -> None:
+    asyncio.create_task(
+        send_mail_function(mail_to, mail_context)
+    )
