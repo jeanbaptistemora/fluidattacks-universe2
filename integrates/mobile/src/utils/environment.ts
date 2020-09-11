@@ -20,7 +20,7 @@ export const getEnvironment: (() => IEnvironment) = (): IEnvironment => {
         .split(":")[0]}:8000`,
     };
   } else if (releaseChannel === "master") {
-    environment = { name: "production", url: "https://fluidattacks.com" };
+    environment = { name: "production", url: "https://integrates.fluidattacks.com" };
   } else if (_.endsWith(String(releaseChannel), "atfluid")) {
     environment = { name: "ephemeral", url: `https://${releaseChannel}.integrates.fluidattacks.com` };
   } else {
