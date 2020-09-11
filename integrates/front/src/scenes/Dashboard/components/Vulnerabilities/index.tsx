@@ -14,27 +14,30 @@ import mixpanel from "mixpanel-browser";
 import React, { useState } from "react";
 import { ButtonToolbar, Col, Row } from "react-bootstrap";
 import { Comparator, textFilter } from "react-bootstrap-table2-filter";
-import { Button } from "../../../../components/Button/index";
-import { ConfirmDialog, IConfirmFn } from "../../../../components/ConfirmDialog/index";
-import { DataTableNext } from "../../../../components/DataTableNext";
-import { approveFormatter, deleteFormatter, statusFormatter } from "../../../../components/DataTableNext/formatters";
-import { proFormatter } from "../../../../components/DataTableNext/headerFormatters/proFormatter";
-import { IHeaderConfig } from "../../../../components/DataTableNext/types";
-import { FluidIcon } from "../../../../components/FluidIcon";
-import { Can } from "../../../../utils/authz/Can";
-import { authzPermissionsContext } from "../../../../utils/authz/config";
-import { Logger } from "../../../../utils/logger";
-import { msgError, msgSuccess } from "../../../../utils/notifications";
-import { translate } from "../../../../utils/translations/translate";
-import { deleteVulnerabilityModal as DeleteVulnerabilityModal } from "../DeleteVulnerability/index";
-import { IDeleteVulnAttr } from "../DeleteVulnerability/types";
-import { default as style } from "./index.css";
-import { GET_VULNERABILITIES } from "./queries";
+
+import { Button } from "components/Button";
+import { ConfirmDialog, IConfirmFn } from "components/ConfirmDialog";
+import { DataTableNext } from "components/DataTableNext";
+import { approveFormatter, deleteFormatter, statusFormatter } from "components/DataTableNext/formatters";
+import { proFormatter } from "components/DataTableNext/headerFormatters/proFormatter";
+import { IHeaderConfig } from "components/DataTableNext/types";
+import { FluidIcon } from "components/FluidIcon";
+import {
+  deleteVulnerabilityModal as DeleteVulnerabilityModal,
+} from "scenes/Dashboard/components/DeleteVulnerability/index";
+import { IDeleteVulnAttr } from "scenes/Dashboard/components/DeleteVulnerability/types";
+import { default as style } from "scenes/Dashboard/components/Vulnerabilities/index.css";
+import { GET_VULNERABILITIES } from "scenes/Dashboard/components/Vulnerabilities/queries";
 import {
   IVulnDataType, IVulnerabilitiesViewProps, IVulnRow, IVulnsAttr, IVulnType,
-} from "./types";
-import { UpdateTreatmentModal } from "./updateTreatment";
-import { UploadVulnerabilites } from "./uploadFile";
+} from "scenes/Dashboard/components/Vulnerabilities/types";
+import { UpdateTreatmentModal } from "scenes/Dashboard/components/Vulnerabilities/updateTreatment";
+import { UploadVulnerabilites } from "scenes/Dashboard/components/Vulnerabilities/uploadFile";
+import { Can } from "utils/authz/Can";
+import { authzPermissionsContext } from "utils/authz/config";
+import { Logger } from "utils/logger";
+import { msgError, msgSuccess } from "utils/notifications";
+import { translate } from "utils/translations/translate";
 
 const filterApprovalStatus:
   ((dataVuln: IVulnType, state: string) => IVulnType) =

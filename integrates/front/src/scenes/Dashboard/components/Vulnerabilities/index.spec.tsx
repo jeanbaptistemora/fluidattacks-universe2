@@ -7,12 +7,19 @@ import React from "react";
 import { act } from "react-dom/test-utils";
 import { Provider } from "react-redux";
 import wait from "waait";
-import store from "../../../../store";
-import { authzPermissionsContext } from "../../../../utils/authz/config";
-import { compareNumbers, VulnerabilitiesView } from "./index";
-import { GET_VULNERABILITIES, UPDATE_TREATMENT_MUTATION } from "./queries";
-import { IUpdateVulnTreatment, IVulnDataType } from "./types";
-import { UpdateTreatmentModal } from "./updateTreatment";
+
+import { compareNumbers, VulnerabilitiesView } from "scenes/Dashboard/components/Vulnerabilities";
+import {
+  GET_VULNERABILITIES,
+  UPDATE_TREATMENT_MUTATION,
+} from "scenes/Dashboard/components/Vulnerabilities/queries";
+import {
+  IUpdateVulnTreatment,
+  IVulnDataType,
+} from "scenes/Dashboard/components/Vulnerabilities/types";
+import { UpdateTreatmentModal } from "scenes/Dashboard/components/Vulnerabilities/updateTreatment";
+import store from "store";
+import { authzPermissionsContext } from "utils/authz/config";
 
 describe("Vulnerabilities view", () => {
 

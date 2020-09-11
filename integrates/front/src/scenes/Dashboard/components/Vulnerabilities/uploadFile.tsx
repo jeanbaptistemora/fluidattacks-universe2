@@ -12,23 +12,24 @@ import _ from "lodash";
 import React from "react";
 import { Col, Row } from "react-bootstrap";
 import { submit } from "redux-form";
-import { Button } from "../../../../components/Button/index";
-import { FluidIcon } from "../../../../components/FluidIcon";
-import store from "../../../../store/index";
-import { authzGroupContext, authzPermissionsContext } from "../../../../utils/authz/config";
-import { Logger } from "../../../../utils/logger";
-import { msgError, msgErrorStick, msgSuccess } from "../../../../utils/notifications";
-import { openUrl } from "../../../../utils/resourceHelpers";
-import { translate } from "../../../../utils/translations/translate";
-import { isValidVulnsFile } from "../../../../utils/validations";
-import { GET_FINDING_HEADER } from "../../containers/FindingContent/queries";
-import { FileInput } from "../FileInput";
+
+import { Button } from "components/Button";
+import { FluidIcon } from "components/FluidIcon";
+import { FileInput } from "scenes/Dashboard/components/FileInput";
 import {
   DOWNLOAD_VULNERABILITIES, GET_VULNERABILITIES, UPLOAD_VULNERABILITIES,
-} from "./queries";
+} from "scenes/Dashboard/components/Vulnerabilities/queries";
 import {
   IDownloadVulnerabilitiesResult, IUploadVulnerabilitiesResult, IVulnerabilitiesViewProps,
-} from "./types";
+} from "scenes/Dashboard/components/Vulnerabilities/types";
+import { GET_FINDING_HEADER } from "scenes/Dashboard/containers/FindingContent/queries";
+import store from "store";
+import { authzGroupContext, authzPermissionsContext } from "utils/authz/config";
+import { Logger } from "utils/logger";
+import { msgError, msgErrorStick, msgSuccess } from "utils/notifications";
+import { openUrl } from "utils/resourceHelpers";
+import { translate } from "utils/translations/translate";
+import { isValidVulnsFile } from "utils/validations";
 
 const uploadVulnerabilities: ((props: IVulnerabilitiesViewProps) => JSX.Element) =
 (props: IVulnerabilitiesViewProps): JSX.Element => {

@@ -6,11 +6,15 @@ import React from "react";
 import { act } from "react-dom/test-utils";
 import { Provider } from "react-redux";
 import wait from "waait";
-import store from "../../../../store";
-import { GET_FINDING_HEADER } from "../../containers/FindingContent/queries";
-import { GET_VULNERABILITIES } from "../Vulnerabilities/queries";
-import { UpdateVerificationModal } from "./index";
-import { REQUEST_VERIFICATION_VULN, VERIFY_VULNERABILITIES } from "./queries";
+
+import { UpdateVerificationModal } from "scenes/Dashboard/components/UpdateVerificationModal";
+import {
+  REQUEST_VERIFICATION_VULN,
+  VERIFY_VULNERABILITIES,
+} from "scenes/Dashboard/components/UpdateVerificationModal/queries";
+import { GET_VULNERABILITIES } from "scenes/Dashboard/components/Vulnerabilities/queries";
+import { GET_FINDING_HEADER } from "scenes/Dashboard/containers/FindingContent/queries";
+import store from "store";
 
 describe("update verification component", () => {
   const mocksVulns: MockedResponse = {

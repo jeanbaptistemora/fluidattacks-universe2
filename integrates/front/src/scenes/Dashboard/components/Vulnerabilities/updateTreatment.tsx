@@ -14,22 +14,28 @@ import mixpanel from "mixpanel-browser";
 import React from "react";
 import { ButtonToolbar, Col, ControlLabel, FormGroup, Glyphicon, Row } from "react-bootstrap";
 import { Field, submit } from "redux-form";
-import { Button } from "../../../../components/Button";
-import { Modal } from "../../../../components/Modal";
-import store from "../../../../store";
-import { authzPermissionsContext } from "../../../../utils/authz/config";
-import { formatDropdownField } from "../../../../utils/formatHelpers";
-import { Dropdown, TagInput, Text } from "../../../../utils/forms/fields";
-import { Logger } from "../../../../utils/logger";
-import { msgError, msgSuccess } from "../../../../utils/notifications";
-import { translate } from "../../../../utils/translations/translate";
-import { isValidVulnSeverity, numeric, required } from "../../../../utils/validations";
-import { IHistoricTreatment } from "../../containers/DescriptionView/types";
-import { GenericForm } from "../GenericForm";
-import { DELETE_TAGS_MUTATION, GET_PROJECT_USERS, GET_VULNERABILITIES, UPDATE_TREATMENT_MUTATION } from "./queries";
+
+import { Button } from "components/Button";
+import { Modal } from "components/Modal";
+import { GenericForm } from "scenes/Dashboard/components/GenericForm";
+import {
+  DELETE_TAGS_MUTATION,
+  GET_PROJECT_USERS,
+  GET_VULNERABILITIES,
+  UPDATE_TREATMENT_MUTATION,
+} from "scenes/Dashboard/components/Vulnerabilities/queries";
 import {
   IDeleteTagAttr, IDeleteTagResult, IUpdateTreatmentVulnAttr, IUpdateVulnTreatment, IVulnDataType,
-} from "./types";
+} from "scenes/Dashboard/components/Vulnerabilities/types";
+import { IHistoricTreatment } from "scenes/Dashboard/containers/DescriptionView/types";
+import store from "store";
+import { authzPermissionsContext } from "utils/authz/config";
+import { formatDropdownField } from "utils/formatHelpers";
+import { Dropdown, TagInput, Text } from "utils/forms/fields";
+import { Logger } from "utils/logger";
+import { msgError, msgSuccess } from "utils/notifications";
+import { translate } from "utils/translations/translate";
+import { isValidVulnSeverity, numeric, required } from "utils/validations";
 
 export interface IUpdateTreatmentModal {
   btsUrl?: string;

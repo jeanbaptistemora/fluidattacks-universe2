@@ -1,4 +1,4 @@
-import { IHistoricTreatment } from "../../containers/DescriptionView/types";
+import { IHistoricTreatment } from "scenes/Dashboard/containers/DescriptionView/types";
 
 export interface IVulnsAttr {
   finding: {

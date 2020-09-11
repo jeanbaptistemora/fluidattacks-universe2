@@ -8,19 +8,26 @@ import { ApolloError } from "apollo-client";
 import { GraphQLError } from "graphql";
 import _ from "lodash";
 import React from "react";
-import { DataTableNext } from "../../../../components/DataTableNext";
-import { changeVulnStateFormatter } from "../../../../components/DataTableNext/formatters";
-import { IHeaderConfig } from "../../../../components/DataTableNext/types";
-import { authzGroupContext, authzPermissionsContext } from "../../../../utils/authz/config";
-import { Logger } from "../../../../utils/logger";
-import { msgError, msgSuccess } from "../../../../utils/notifications";
-import { translate } from "../../../../utils/translations/translate";
-import { GET_FINDING_HEADER } from "../../containers/FindingContent/queries";
-import { RemediationModal } from "../RemediationModal/index";
-import { GET_VULNERABILITIES } from "../Vulnerabilities/queries";
-import { default as style } from "./index.css";
-import { REQUEST_VERIFICATION_VULN, VERIFY_VULNERABILITIES } from "./queries";
-import { IRequestVerificationVulnResult, IVerifyRequestVulnResult } from "./types";
+
+import { DataTableNext } from "components/DataTableNext";
+import { changeVulnStateFormatter } from "components/DataTableNext/formatters";
+import { IHeaderConfig } from "components/DataTableNext/types";
+import { RemediationModal } from "scenes/Dashboard/components/RemediationModal/index";
+import { default as style } from "scenes/Dashboard/components/UpdateVerificationModal/index.css";
+import {
+  REQUEST_VERIFICATION_VULN,
+  VERIFY_VULNERABILITIES,
+} from "scenes/Dashboard/components/UpdateVerificationModal/queries";
+import {
+  IRequestVerificationVulnResult,
+  IVerifyRequestVulnResult,
+} from "scenes/Dashboard/components/UpdateVerificationModal/types";
+import { GET_VULNERABILITIES } from "scenes/Dashboard/components/Vulnerabilities/queries";
+import { GET_FINDING_HEADER } from "scenes/Dashboard/containers/FindingContent/queries";
+import { authzGroupContext, authzPermissionsContext } from "utils/authz/config";
+import { Logger } from "utils/logger";
+import { msgError, msgSuccess } from "utils/notifications";
+import { translate } from "utils/translations/translate";
 
 interface IVulnData {
   currentState: string;
