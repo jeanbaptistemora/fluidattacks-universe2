@@ -1,4 +1,5 @@
 test_async/dynamo_data/bb_executions.json.now
+test_async/dynamo_data/FI_forces.json.now
 .DynamoDB
 .MinIO
 .tmp
