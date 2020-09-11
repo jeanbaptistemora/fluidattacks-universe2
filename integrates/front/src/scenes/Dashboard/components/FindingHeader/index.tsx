@@ -5,13 +5,13 @@ import { CircularProgressbar } from "react-circular-progressbar";
  * Necessary because react-circular-progressbar doesn't export its props indexed
  */
 import { CircularProgressbarDefaultProps } from "react-circular-progressbar/dist/types";
-import { default as calendarIcon } from "../../../../resources/calendar.svg";
-import { default as defaultIcon } from "../../../../resources/default_finding_state.svg";
-import { default as failIcon } from "../../../../resources/fail.svg";
-import { default as okIcon } from "../../../../resources/ok.svg";
-import { default as vulnerabilitiesIcon } from "../../../../resources/vulnerabilities.svg";
-import { translate } from "../../../../utils/translations/translate";
-import { default as style } from "./index.css";
+import { default as calendarIcon } from "resources/calendar.svg";
+import { default as defaultIcon } from "resources/default_finding_state.svg";
+import { default as failIcon } from "resources/fail.svg";
+import { default as okIcon } from "resources/ok.svg";
+import { default as vulnerabilitiesIcon } from "resources/vulnerabilities.svg";
+import { default as style } from "scenes/Dashboard/components/FindingHeader/index.css";
+import { translate } from "utils/translations/translate";
 
 interface IFindingHeaderProps {
   openVulns: number;

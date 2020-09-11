@@ -1,6 +1,6 @@
 import { shallow, ShallowWrapper } from "enzyme";
 import React from "react";
-import { TrackingItem } from "./index";
+import { TrackingItem } from "scenes/Dashboard/components/TrackingItem";
 
 describe("TrackingItem", () => {
 

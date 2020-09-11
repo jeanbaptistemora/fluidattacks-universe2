@@ -2,8 +2,8 @@ import { AxisProps } from "@nivo/axes";
 import { LegendProps } from "@nivo/legends";
 import { Datum, ResponsiveLine, Serie } from "@nivo/line";
 import React from "react";
-import { translate } from "../../../../utils/translations/translate";
-import { default as style } from "./index.css";
+import { default as style } from "scenes/Dashboard/components/IndicatorChart/index.css";
+import { translate } from "utils/translations/translate";
 
 /**
  * Indicator's Chart properties

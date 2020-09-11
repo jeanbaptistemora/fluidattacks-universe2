@@ -1,6 +1,7 @@
 import { mount, ReactWrapper, shallow, ShallowWrapper } from "enzyme";
 import React from "react";
-import { FileInput } from "./index";
+
+import { FileInput } from "scenes/Dashboard/components/FileInput";
 
 describe("File input", () => {
   it("should return a function", () => {

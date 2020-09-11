@@ -1,6 +1,6 @@
 import { shallow, ShallowWrapper } from "enzyme";
 import * as React from "react";
-import { FindingHeader } from "./index";
+import { FindingHeader } from "scenes/Dashboard/components/FindingHeader";
 
 describe("FindingHeader", () => {
 

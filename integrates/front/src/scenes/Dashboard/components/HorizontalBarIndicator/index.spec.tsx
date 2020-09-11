@@ -1,7 +1,7 @@
 import { ChartData } from "chart.js";
 import { shallow, ShallowWrapper } from "enzyme";
 import React from "react";
-import { HorizontalBarIndicator } from "./index";
+import { HorizontalBarIndicator } from "scenes/Dashboard/components/HorizontalBarIndicator";
 
 describe("HorizontalBarIndicator", () => {
 

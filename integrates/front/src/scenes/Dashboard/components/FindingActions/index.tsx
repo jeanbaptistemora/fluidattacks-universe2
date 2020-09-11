@@ -6,12 +6,13 @@
 import _ from "lodash";
 import React from "react";
 import { ButtonToolbar } from "react-bootstrap";
-import { Button } from "../../../../components/Button";
-import { ConfirmDialog, IConfirmFn } from "../../../../components/ConfirmDialog";
-import { FluidIcon } from "../../../../components/FluidIcon";
-import { TooltipWrapper } from "../../../../components/TooltipWrapper";
-import { Can } from "../../../../utils/authz/Can";
-import { translate } from "../../../../utils/translations/translate";
+
+import { Button } from "components/Button";
+import { ConfirmDialog, IConfirmFn } from "components/ConfirmDialog";
+import { FluidIcon } from "components/FluidIcon";
+import { TooltipWrapper } from "components/TooltipWrapper";
+import { Can } from "utils/authz/Can";
+import { translate } from "utils/translations/translate";
 
 interface IFindingActionsProps {
   hasSubmission: boolean;

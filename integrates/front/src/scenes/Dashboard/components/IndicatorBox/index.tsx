@@ -5,9 +5,10 @@
 import _ from "lodash";
 import React from "react";
 import { Col, Row } from "react-bootstrap";
-import { FluidIcon } from "../../../../components/FluidIcon/index";
-import { TooltipWrapper } from "../../../../components/TooltipWrapper";
-import { default as style } from "./index.css";
+
+import { FluidIcon } from "components/FluidIcon/index";
+import { TooltipWrapper } from "components/TooltipWrapper";
+import { default as style } from "scenes/Dashboard/components/IndicatorBox/index.css";
 /**
  * Indicator's Box properties
  */

@@ -1,7 +1,7 @@
 import { ChartData, ChartOptions } from "chart.js";
 import React from "react";
 import { Bar } from "react-chartjs-2";
-import { default as style } from "./index.css";
+import { default as style } from "scenes/Dashboard/components/IndicatorStack/index.css";
 
 interface IStackedBarProps {
   data: ChartData;

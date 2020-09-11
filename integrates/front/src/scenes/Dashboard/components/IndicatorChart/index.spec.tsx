@@ -1,7 +1,7 @@
 import { Datum } from "@nivo/line";
 import { shallow, ShallowWrapper } from "enzyme";
 import React from "react";
-import { IndicatorChart } from "./index";
+import { IndicatorChart } from "scenes/Dashboard/components/IndicatorChart";
 
 describe("Indicator Chart", () => {
   const dataChart: Datum[][] = JSON.parse(JSON.stringify([

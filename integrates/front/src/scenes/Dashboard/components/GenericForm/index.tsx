@@ -1,7 +1,7 @@
 import React from "react";
 import { Form } from "react-bootstrap";
 import { ConfigProps, DecoratedComponentClass, InjectedFormProps, reduxForm } from "redux-form";
-import { focusError } from "../../../../utils/forms/events";
+import { focusError } from "utils/forms/events";
 
 type FormChildren = React.ReactNode | ((props: formProps) => React.ReactNode);
 

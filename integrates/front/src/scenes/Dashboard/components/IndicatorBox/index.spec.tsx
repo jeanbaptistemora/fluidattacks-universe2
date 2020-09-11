@@ -1,7 +1,8 @@
 import { shallow, ShallowWrapper } from "enzyme";
 import React from "react";
-import { FluidIcon } from "../../../../components/FluidIcon";
-import { IndicatorBox } from "./index";
+
+import { FluidIcon } from "components/FluidIcon";
+import { IndicatorBox } from "scenes/Dashboard/components/IndicatorBox";
 
 describe("Indicator Box", () => {
 

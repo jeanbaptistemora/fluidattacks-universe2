@@ -8,10 +8,11 @@ import { Provider } from "react-redux";
 import { RouteComponentProps } from "react-router";
 import { MemoryRouter } from "react-router-dom";
 import waitForExpect from "wait-for-expect";
-import store from "../../../../store";
-import { GenericForm } from "../GenericForm";
-import { navbarComponent as NavbarComponent } from "./index";
-import { GET_USER_ORGANIZATIONS } from "./queries";
+
+import { GenericForm } from "scenes/Dashboard/components/GenericForm";
+import { navbarComponent as NavbarComponent } from "scenes/Dashboard/components/Navbar";
+import { GET_USER_ORGANIZATIONS } from "scenes/Dashboard/components/Navbar/queries";
+import store from "store";
 
 describe("Navbar", () => {
   (window as typeof window & { userEmail: string }).userEmail = "test@fluidattacks.com";

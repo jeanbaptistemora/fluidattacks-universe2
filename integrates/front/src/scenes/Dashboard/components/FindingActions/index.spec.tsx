@@ -1,8 +1,9 @@
 import { PureAbility } from "@casl/ability";
 import { mount, ReactWrapper } from "enzyme";
 import * as React from "react";
-import { authzPermissionsContext } from "../../../../utils/authz/config";
-import { FindingActions } from "./index";
+
+import { FindingActions } from "scenes/Dashboard/components/FindingActions";
+import { authzPermissionsContext } from "utils/authz/config";
 
 describe("FindingActions", (): void => {
 

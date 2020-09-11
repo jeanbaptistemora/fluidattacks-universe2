@@ -1,7 +1,7 @@
 import { ChartData } from "chart.js";
 import { shallow, ShallowWrapper } from "enzyme";
 import React from "react";
-import { IndicatorStack } from "./index";
+import { IndicatorStack } from "scenes/Dashboard/components/IndicatorStack";
 
 describe("IndicatorStack", () => {
 

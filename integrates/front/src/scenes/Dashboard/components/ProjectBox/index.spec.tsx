@@ -1,7 +1,7 @@
 import { shallow, ShallowWrapper } from "enzyme";
 import * as React from "react";
 import { Col, Row } from "react-bootstrap";
-import { ProjectBox } from "./index";
+import { ProjectBox } from "scenes/Dashboard/components/ProjectBox";
 
 const functionMock: (() => JSX.Element) = (): JSX.Element => <div />;
 

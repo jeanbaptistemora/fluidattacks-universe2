@@ -3,8 +3,8 @@
  * Disabling this rule is necessary for conditional rendering
  */
 import React from "react";
-import { translate } from "../../../../utils/translations/translate";
-import styles from "./index.css";
+import styles from "scenes/Dashboard/components/TrackingItem/index.css";
+import { translate } from "utils/translations/translate";
 
 interface ITrackingItemProps {
   closed: number;

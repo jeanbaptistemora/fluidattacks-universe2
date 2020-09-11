@@ -1,6 +1,6 @@
 import { shallow, ShallowWrapper } from "enzyme";
 import React from "react";
-import { IndicatorGraph } from "./index";
+import { IndicatorGraph } from "scenes/Dashboard/components/IndicatorGraph";
 
 describe("Indicator Graph", () => {
 

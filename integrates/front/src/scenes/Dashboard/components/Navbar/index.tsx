@@ -17,19 +17,20 @@ import {
 import { RouteComponentProps, withRouter } from "react-router";
 import { Link, useHistory } from "react-router-dom";
 import { Field } from "redux-form";
-import { Button } from "../../../../components/Button";
-import { FluidIcon } from "../../../../components/FluidIcon";
-import { Text } from "../../../../utils/forms/fields";
-import { useStoredState } from "../../../../utils/hooks";
-import { Logger } from "../../../../utils/logger";
-import { msgError } from "../../../../utils/notifications";
-import { translate } from "../../../../utils/translations/translate";
-import { alphaNumeric } from "../../../../utils/validations";
-import { GenericForm } from "../GenericForm";
-import { NewsWidget } from "../NewsWidget";
-import { default as style } from "./index.css";
-import { GET_USER_ORGANIZATIONS } from "./queries";
-import { stylizeBreadcrumbItem } from "./utils";
+
+import { Button } from "components/Button";
+import { FluidIcon } from "components/FluidIcon";
+import { GenericForm } from "scenes/Dashboard/components/GenericForm";
+import { default as style } from "scenes/Dashboard/components/Navbar/index.css";
+import { GET_USER_ORGANIZATIONS } from "scenes/Dashboard/components/Navbar/queries";
+import { stylizeBreadcrumbItem } from "scenes/Dashboard/components/Navbar/utils";
+import { NewsWidget } from "scenes/Dashboard/components/NewsWidget";
+import { Text } from "utils/forms/fields";
+import { useStoredState } from "utils/hooks";
+import { Logger } from "utils/logger";
+import { msgError } from "utils/notifications";
+import { translate } from "utils/translations/translate";
+import { alphaNumeric } from "utils/validations";
 
 export const navbarComponent: React.FC<RouteComponentProps> = (
   props: RouteComponentProps,

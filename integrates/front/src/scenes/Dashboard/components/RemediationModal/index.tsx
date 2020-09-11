@@ -7,13 +7,14 @@ import React from "react";
 import { ButtonToolbar, ControlLabel, FormGroup } from "react-bootstrap";
 import { Field, InjectedFormProps } from "redux-form";
 import { ConfigurableValidator } from "revalidate";
-import { Button } from "../../../../components/Button/index";
-import { Modal } from "../../../../components/Modal/index";
-import { default as globalStyle } from "../../../../styles/global.css";
-import { TextArea } from "../../../../utils/forms/fields";
-import { translate } from "../../../../utils/translations/translate";
-import { minLength, required } from "../../../../utils/validations";
-import { GenericForm } from "../GenericForm";
+
+import { Button } from "components/Button";
+import { Modal } from "components/Modal";
+import { GenericForm } from "scenes/Dashboard/components/GenericForm";
+import { default as globalStyle } from "styles/global.css";
+import { TextArea } from "utils/forms/fields";
+import { translate } from "utils/translations/translate";
+import { minLength, required } from "utils/validations";
 
 export interface IAddRemediationProps {
   additionalInfo?: string;
