@@ -9,14 +9,15 @@ import { Provider } from "react-redux";
 import { MemoryRouter } from "react-router-dom";
 import wait from "waait";
 import waitForExpect from "wait-for-expect";
-import store from "../../../../store";
-import { authzGroupContext, authzPermissionsContext } from "../../../../utils/authz/config";
-import { msgError, msgSuccess } from "../../../../utils/notifications";
-import { FindingContent } from "./index";
+
+import { FindingContent } from "scenes/Dashboard/containers/FindingContent";
 import {
   APPROVE_DRAFT_MUTATION, DELETE_FINDING_MUTATION, GET_FINDING_HEADER, REJECT_DRAFT_MUTATION, SUBMIT_DRAFT_MUTATION,
-} from "./queries";
-import { IFindingContentProps } from "./types";
+} from "scenes/Dashboard/containers/FindingContent/queries";
+import { IFindingContentProps } from "scenes/Dashboard/containers/FindingContent/types";
+import store from "store";
+import { authzGroupContext, authzPermissionsContext } from "utils/authz/config";
+import { msgError, msgSuccess } from "utils/notifications";
 
 jest.mock("../../../../utils/notifications", () => {
   const mockedNotifications: Dictionary = jest.requireActual("../../../../utils/notifications");

@@ -13,21 +13,22 @@ import React from "react";
 import { Col, Glyphicon, Row } from "react-bootstrap";
 import { RouteComponentProps } from "react-router";
 import { InjectedFormProps, Validator } from "redux-form";
-import { Button } from "../../../../components/Button";
-import { FluidIcon } from "../../../../components/FluidIcon";
-import { default as globalStyle } from "../../../../styles/global.css";
-import { Can } from "../../../../utils/authz/Can";
-import { Logger } from "../../../../utils/logger";
-import { msgError } from "../../../../utils/notifications";
-import { translate } from "../../../../utils/translations/translate";
-import { isValidFileSize, validEvidenceImage } from "../../../../utils/validations";
-import { evidenceImage as EvidenceImage } from "../../components/EvidenceImage/index";
-import { EvidenceLightbox } from "../../components/EvidenceLightbox";
-import { GenericForm } from "../../components/GenericForm";
-import styles from "./index.css";
+
+import { Button } from "components/Button";
+import { FluidIcon } from "components/FluidIcon";
+import { evidenceImage as EvidenceImage } from "scenes/Dashboard/components/EvidenceImage/index";
+import { EvidenceLightbox } from "scenes/Dashboard/components/EvidenceLightbox";
+import { GenericForm } from "scenes/Dashboard/components/GenericForm";
+import styles from "scenes/Dashboard/containers/EvidenceView/index.css";
 import {
   GET_FINDING_EVIDENCES, REMOVE_EVIDENCE_MUTATION, UPDATE_DESCRIPTION_MUTATION, UPDATE_EVIDENCE_MUTATION,
-} from "./queries";
+} from "scenes/Dashboard/containers/EvidenceView/queries";
+import { default as globalStyle } from "styles/global.css";
+import { Can } from "utils/authz/Can";
+import { Logger } from "utils/logger";
+import { msgError } from "utils/notifications";
+import { translate } from "utils/translations/translate";
+import { isValidFileSize, validEvidenceImage } from "utils/validations";
 
 type EventEvidenceProps = RouteComponentProps<{ findingId: string }>;
 

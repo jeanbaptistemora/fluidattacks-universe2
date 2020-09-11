@@ -7,9 +7,10 @@ import { act } from "react-dom/test-utils";
 import { Provider } from "react-redux";
 import { RouteComponentProps } from "react-router";
 import wait from "waait";
-import store from "../../../../store";
-import { EvidenceView } from "./index";
-import { GET_FINDING_EVIDENCES } from "./queries";
+
+import { EvidenceView } from "scenes/Dashboard/containers/EvidenceView";
+import { GET_FINDING_EVIDENCES } from "scenes/Dashboard/containers/EvidenceView/queries";
+import store from "store";
 
 describe("FindingEvidenceView", () => {
 

@@ -16,33 +16,34 @@ import React from "react";
 import { ButtonToolbar, Col, ControlLabel, FormGroup, Row } from "react-bootstrap";
 import { Redirect, Route, Switch, useHistory } from "react-router-dom";
 import { Field } from "redux-form";
-import { Button } from "../../../../components/Button";
-import { Modal } from "../../../../components/Modal";
-import { Can } from "../../../../utils/authz/Can";
-import { authzGroupContext, authzPermissionsContext } from "../../../../utils/authz/config";
-import { Have } from "../../../../utils/authz/Have";
-import { Dropdown } from "../../../../utils/forms/fields";
-import { Logger } from "../../../../utils/logger";
-import { msgError, msgSuccess } from "../../../../utils/notifications";
-import { translate } from "../../../../utils/translations/translate";
-import { required } from "../../../../utils/validations";
-import { ContentTab } from "../../components/ContentTab";
-import { default as style } from "../../components/ContentTab/index.css";
-import { FindingActions } from "../../components/FindingActions";
-import { FindingHeader } from "../../components/FindingHeader";
-import { GenericForm } from "../../components/GenericForm";
-import { CommentsView } from "../CommentsView/index";
-import { DescriptionView } from "../DescriptionView/index";
-import { EvidenceView } from "../EvidenceView/index";
-import { ExploitView } from "../ExploitView/index";
-import { RecordsView } from "../RecordsView/index";
-import { SeverityView } from "../SeverityView/index";
-import { TrackingView } from "../TrackingView/index";
+
+import { Button } from "components/Button";
+import { Modal } from "components/Modal";
+import { ContentTab } from "scenes/Dashboard/components/ContentTab";
+import { default as style } from "scenes/Dashboard/components/ContentTab/index.css";
+import { FindingActions } from "scenes/Dashboard/components/FindingActions";
+import { FindingHeader } from "scenes/Dashboard/components/FindingHeader";
+import { GenericForm } from "scenes/Dashboard/components/GenericForm";
+import { CommentsView } from "scenes/Dashboard/containers/CommentsView/index";
+import { DescriptionView } from "scenes/Dashboard/containers/DescriptionView/index";
+import { EvidenceView } from "scenes/Dashboard/containers/EvidenceView/index";
+import { ExploitView } from "scenes/Dashboard/containers/ExploitView/index";
 import {
   APPROVE_DRAFT_MUTATION, DELETE_FINDING_MUTATION, GET_FINDING_HEADER,
   REJECT_DRAFT_MUTATION, SUBMIT_DRAFT_MUTATION,
-} from "./queries";
-import { IFindingContentProps, IHeaderQueryResult } from "./types";
+} from "scenes/Dashboard/containers/FindingContent/queries";
+import { IFindingContentProps, IHeaderQueryResult } from "scenes/Dashboard/containers/FindingContent/types";
+import { RecordsView } from "scenes/Dashboard/containers/RecordsView/index";
+import { SeverityView } from "scenes/Dashboard/containers/SeverityView/index";
+import { TrackingView } from "scenes/Dashboard/containers/TrackingView/index";
+import { Can } from "utils/authz/Can";
+import { authzGroupContext, authzPermissionsContext } from "utils/authz/config";
+import { Have } from "utils/authz/Have";
+import { Dropdown } from "utils/forms/fields";
+import { Logger } from "utils/logger";
+import { msgError, msgSuccess } from "utils/notifications";
+import { translate } from "utils/translations/translate";
+import { required } from "utils/validations";
 
 const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentProps): JSX.Element => {
   const { findingId, projectName } = props.match.params;
