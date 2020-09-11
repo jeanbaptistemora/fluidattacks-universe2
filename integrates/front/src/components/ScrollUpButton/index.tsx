@@ -6,7 +6,7 @@ import React from "react";
  */
 // @ts-expect-error: Explanation above
 import ScrollUp from "react-scroll-up";
-import style from "./index.css";
+import style from "components/ScrollUpButton/index.css";
 
 interface IScrollUPButtonProps {
   visibleAt: number;

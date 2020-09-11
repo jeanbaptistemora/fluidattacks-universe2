@@ -1,12 +1,12 @@
-import { Dashboard } from ".";
-import { GET_USER_ORGANIZATIONS } from "./components/Navbar/queries";
-import { GET_USER_PERMISSIONS } from "./queries";
-import { IGetUserPermissionsAttr } from "./types";
+import { Dashboard } from "scenes/Dashboard";
+import { GET_USER_ORGANIZATIONS } from "scenes/Dashboard/components/Navbar/queries";
+import { GET_USER_PERMISSIONS } from "scenes/Dashboard/queries";
+import { IGetUserPermissionsAttr } from "scenes/Dashboard/types";
 import { MemoryRouter } from "react-router";
 import { Provider } from "react-redux";
 import React from "react";
 import { act } from "react-dom/test-utils";
-import store from "../../store";
+import store from "store";
 import { MockedProvider, MockedResponse, wait } from "@apollo/react-testing";
 import { ReactWrapper, mount } from "enzyme";
 

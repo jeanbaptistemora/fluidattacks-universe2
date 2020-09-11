@@ -1,11 +1,11 @@
-import { Button } from "../../../../components/Button";
+import { Button } from "components/Button";
 import { ButtonToolbar } from "react-bootstrap";
-import { Checkbox } from "../../../../utils/forms/fields";
+import { Checkbox } from "utils/forms/fields";
 import { Field } from "redux-form";
-import { GenericForm } from "../../../Dashboard/components/GenericForm";
-import { Modal } from "../../../../components/Modal";
+import { GenericForm } from "scenes/Dashboard/components/GenericForm";
+import { Modal } from "components/Modal";
 import React from "react";
-import { translate } from "../../../../utils/translations/translate";
+import { translate } from "utils/translations/translate";
 
 interface ICompulsoryNoticeProps {
   content: string;

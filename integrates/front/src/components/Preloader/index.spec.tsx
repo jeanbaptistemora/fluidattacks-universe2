@@ -1,7 +1,7 @@
-import { Preloader } from ".";
+import { Preloader } from "components/Preloader";
 import React from "react";
-import loadingAnim from "../../resources/loading.gif";
-import style from "./index.css";
+import loadingAnim from "resources/loading.gif";
+import style from "components/Preloader/index.css";
 import { ShallowWrapper, shallow } from "enzyme";
 
 describe("Preloader", (): void => {

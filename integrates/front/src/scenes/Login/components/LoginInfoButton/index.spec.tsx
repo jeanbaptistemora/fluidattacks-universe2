@@ -1,4 +1,4 @@
-import { LoginInfoButton } from ".";
+import { LoginInfoButton } from "scenes/Login/components/LoginInfoButton";
 import React from "react";
 import { ShallowWrapper, shallow } from "enzyme";
 

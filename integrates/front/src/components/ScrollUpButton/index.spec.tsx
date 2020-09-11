@@ -1,5 +1,5 @@
 import React from "react";
-import { ScrollUpButton } from ".";
+import { ScrollUpButton } from "components/ScrollUpButton";
 import { ShallowWrapper, shallow } from "enzyme";
 
 describe("ScrollUpButton", (): void => {

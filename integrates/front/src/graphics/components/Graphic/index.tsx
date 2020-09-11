@@ -2,10 +2,10 @@
   --------
   We need className to override default styles from react-bootstrap.
   */
-import { IGraphicProps } from "../../types";
+import { IGraphicProps } from "graphics/types";
 import React from "react";
 import _ from "lodash";
-import styles from "./index.css";
+import styles from "graphics/components/Graphic/index.css";
 import {
   Button,
   ButtonGroup,
@@ -15,10 +15,7 @@ import {
   Panel,
   Row,
 } from "react-bootstrap";
-import {
-  ISecureStoreConfig,
-  secureStoreContext,
-} from "../../../utils/secureStore";
+import { ISecureStoreConfig, secureStoreContext } from "utils/secureStore";
 import useComponentSize, { ComponentSize } from "@rehooks/component-size";
 
 const glyphPadding: number = 15;

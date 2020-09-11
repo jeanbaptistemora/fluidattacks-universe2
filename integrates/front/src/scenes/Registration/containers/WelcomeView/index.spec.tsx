@@ -1,12 +1,12 @@
-import { GET_USER_AUTHORIZATION } from "./queries";
+import { GET_USER_AUTHORIZATION } from "scenes/Registration/containers/WelcomeView/queries";
 import { MemoryRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import React from "react";
-import { WelcomeView } from ".";
+import { WelcomeView } from "scenes/Registration/containers/WelcomeView";
 import _ from "lodash";
 import { act } from "react-dom/test-utils";
-import store from "../../../../store";
-import { translate } from "../../../../utils/translations/translate";
+import store from "store";
+import { translate } from "utils/translations/translate";
 import { MockedProvider, MockedResponse, wait } from "@apollo/react-testing";
 import { ReactWrapper, mount } from "enzyme";
 

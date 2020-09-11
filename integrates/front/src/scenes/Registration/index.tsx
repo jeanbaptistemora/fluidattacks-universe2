@@ -1,1 +1,1 @@
-export { WelcomeView as Registration } from "./containers/WelcomeView";
+export { WelcomeView as Registration } from "scenes/Registration/containers/WelcomeView";

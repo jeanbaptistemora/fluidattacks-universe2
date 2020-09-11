@@ -2,12 +2,12 @@
   -------
   We need className to override default styles from react-boostrap.
 */
-import { LoginButton } from "./components/LoginButton";
-import { LoginInfoButton } from "./components/LoginInfoButton";
+import { LoginButton } from "scenes/Login/components/LoginButton";
+import { LoginInfoButton } from "scenes/Login/components/LoginInfoButton";
 import React from "react";
-import logo from "../../resources/integrates.svg";
+import logo from "resources/integrates.svg";
 import mixpanel from "mixpanel-browser";
-import style from "./index.css";
+import style from "scenes/Login/index.css";
 import { useTranslation } from "react-i18next";
 import { Col, Grid, Row } from "react-bootstrap";
 import { Slide, toast } from "react-toastify";

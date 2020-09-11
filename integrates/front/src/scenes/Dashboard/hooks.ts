@@ -1,14 +1,14 @@
-import { ADD_STAKEHOLDER_MUTATION } from "./queries";
+import { ADD_STAKEHOLDER_MUTATION } from "scenes/Dashboard/queries";
 import { ApolloError } from "apollo-client";
 import { GraphQLError } from "graphql";
-import { IAddStakeholderAttr } from "./types";
-import { Logger } from "../../utils/logger";
+import { IAddStakeholderAttr } from "scenes/Dashboard/types";
+import { Logger } from "utils/logger";
 import { MutationFunction } from "@apollo/react-common";
 import React from "react";
 import _ from "lodash";
 import { useMutation } from "@apollo/react-hooks";
 import { useTranslation } from "react-i18next";
-import { msgError, msgSuccess } from "../../utils/notifications";
+import { msgError, msgSuccess } from "utils/notifications";
 
 export const useAddStakeholder: () => readonly [
   MutationFunction,

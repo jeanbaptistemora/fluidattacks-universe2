@@ -3,18 +3,21 @@
   We need to override default styles from react-bootstrap
 */
 import { ApolloError } from "apollo-client";
-import { Button } from "../../../../components/Button";
-import { CompulsoryNotice } from "../../components/CompulsoryNotice";
+import { Button } from "components/Button";
+import { CompulsoryNotice } from "scenes/Registration/components/CompulsoryNotice";
 import { GraphQLError } from "graphql";
-import { Logger } from "../../../../utils/logger";
+import { Logger } from "utils/logger";
 import React from "react";
 import _ from "lodash";
-import globalStyle from "../../../../styles/global.css";
-import logo from "../../../../resources/integrates.svg";
-import style from "./index.css";
-import { translate } from "../../../../utils/translations/translate";
+import globalStyle from "styles/global.css";
+import logo from "resources/integrates.svg";
+import style from "scenes/Registration/containers/WelcomeView/index.css";
+import { translate } from "utils/translations/translate";
 import { useHistory } from "react-router-dom";
-import { ACCEPT_LEGAL_MUTATION, GET_USER_AUTHORIZATION } from "./queries";
+import {
+  ACCEPT_LEGAL_MUTATION,
+  GET_USER_AUTHORIZATION,
+} from "scenes/Registration/containers/WelcomeView/queries";
 import { Col, Row } from "react-bootstrap";
 import { useMutation, useQuery } from "@apollo/react-hooks";
 

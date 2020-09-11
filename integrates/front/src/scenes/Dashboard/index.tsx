@@ -1,30 +1,36 @@
-import { APITokenModal } from "./components/APITokenModal";
-import { AddOrganizationModal } from "./components/AddOrganizationModal";
-import { addUserModal as AddUserModal } from "./components/AddUserModal";
+import { APITokenModal } from "scenes/Dashboard/components/APITokenModal";
+import { AddOrganizationModal } from "scenes/Dashboard/components/AddOrganizationModal";
+import { addUserModal as AddUserModal } from "scenes/Dashboard/components/AddUserModal";
 import { ApolloError } from "apollo-client";
 import { GraphQLError } from "graphql";
-import { HomeView } from "./containers/HomeView";
-import { IStakeholderDataAttr } from "./containers/ProjectStakeholdersView/types";
-import { Logger } from "../../utils/logger";
-import { Navbar } from "./components/Navbar";
-import { OrganizationContent } from "./containers/OrganizationContent";
-import { OrganizationRedirect } from "./containers/OrganizationRedirectView";
-import { ProjectRoute } from "./containers/ProjectRoute";
+import { HomeView } from "scenes/Dashboard/containers/HomeView";
+import { IStakeholderDataAttr } from "scenes/Dashboard/containers/ProjectStakeholdersView/types";
+import { Logger } from "utils/logger";
+import { Navbar } from "scenes/Dashboard/components/Navbar";
+import { OrganizationContent } from "scenes/Dashboard/containers/OrganizationContent";
+import { OrganizationRedirect } from "scenes/Dashboard/containers/OrganizationRedirectView";
+import { ProjectRoute } from "scenes/Dashboard/containers/ProjectRoute";
 import { PureAbility } from "@casl/ability";
 import React from "react";
-import { ReportsView } from "./containers/ReportsView";
-import { ScrollUpButton } from "../../components/ScrollUpButton";
-import { Sidebar } from "./components/Sidebar";
-import { TagContent } from "./containers/TagContent";
+import { ReportsView } from "scenes/Dashboard/containers/ReportsView";
+import { ScrollUpButton } from "components/ScrollUpButton";
+import { Sidebar } from "scenes/Dashboard/components/Sidebar";
+import { TagContent } from "scenes/Dashboard/containers/TagContent";
 import _ from "lodash";
-import { msgError } from "../../utils/notifications";
-import style from "./index.css";
-import { translate } from "../../utils/translations/translate";
-import { useAddStakeholder } from "./hooks";
+import { msgError } from "utils/notifications";
+import style from "scenes/Dashboard/index.css";
+import { translate } from "utils/translations/translate";
+import { useAddStakeholder } from "scenes/Dashboard/hooks";
 import { useQuery } from "@apollo/react-hooks";
-import { ConfirmDialog, IConfirmFn } from "../../components/ConfirmDialog";
-import { GET_USER_PERMISSIONS, SESSION_EXPIRATION } from "./queries";
-import { IGetUserPermissionsAttr, ISessionExpirationAttr } from "./types";
+import { ConfirmDialog, IConfirmFn } from "components/ConfirmDialog";
+import {
+  GET_USER_PERMISSIONS,
+  SESSION_EXPIRATION,
+} from "scenes/Dashboard/queries";
+import {
+  IGetUserPermissionsAttr,
+  ISessionExpirationAttr,
+} from "scenes/Dashboard/types";
 import { Redirect, Route, Switch, useLocation } from "react-router-dom";
 import {
   authzGroupContext,
@@ -32,7 +38,7 @@ import {
   groupAttributes,
   groupLevelPermissions,
   organizationLevelPermissions,
-} from "../../utils/authz/config";
+} from "utils/authz/config";
 
 // Type definition
 type EventListeners =

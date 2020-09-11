@@ -3,7 +3,7 @@
   We need className to override default styles from react-bootstrap
 */
 import React from "react";
-import style from "./index.css";
+import style from "components/Modal/index.css";
 import { Modal, Sizes } from "react-bootstrap";
 
 interface IModalProps {

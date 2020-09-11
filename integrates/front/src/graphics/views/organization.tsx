@@ -1,8 +1,8 @@
-import { ChartsForOrganizationView } from "../../scenes/Dashboard/containers/ChartsForOrganizationView";
+import { ChartsForOrganizationView } from "scenes/Dashboard/containers/ChartsForOrganizationView";
 import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-import { secureStore, secureStoreContext } from "../../utils/secureStore";
+import { secureStore, secureStoreContext } from "utils/secureStore";
 
 const App: React.FC = (): JSX.Element => (
   <React.StrictMode>
