@@ -1,6 +1,7 @@
 data "aws_caller_identity" "current" {}
 variable "aws_access_key" {}
 variable "aws_secret_key" {}
+variable "newrelic_license_key" {}
 
 data "aws_eks_cluster" "cluster" {
   name = module.eks.cluster_id

@@ -13,6 +13,8 @@ in
         pkgs.awscli
         pkgs-terraform.wget
         pkgs-terraform.terraform_0_13
+        pkgs-terraform.sops
+        pkgs-terraform.jq
       ];
     })
   )

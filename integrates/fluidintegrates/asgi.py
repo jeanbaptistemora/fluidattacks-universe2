@@ -110,9 +110,10 @@ class IntegratesWorker(UvicornWorker):
             [
                 'Content-Security-Policy',
                 "script-src 'self' 'unsafe-inline' 'unsafe-eval' "
-                'localhost:* *.amazonaws.com *.cloudfront.net *.mxpnl.com '
+                'localhost:* *.amazonaws.com *.cloudfront.net '
                 '*.cloudflare.com *.cookiebot.com *.zdassets.com '
-                'https://d2yyd1h5u9mauk.cloudfront.net *.pingdom.net '
+                '*.newrelic.com *.mxpnl.com *.pingdom.net '
+                'https://d2yyd1h5u9mauk.cloudfront.net '
                 'cdn.jsdelivr.net/npm/ cdn.headwayapp.co;'
             ],
             [

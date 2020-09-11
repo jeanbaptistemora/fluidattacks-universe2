@@ -1065,11 +1065,17 @@ function job_integrates_infra_secret_management_test {
 
 function job_integrates_infra_cluster_deploy {
   local target='deploy/cluster/terraform'
+  local cluster='integrates-cluster'
+  local region='us-east-1'
 
       helper_use_pristine_workdir \
   &&  pushd integrates \
   &&  echo '[INFO] Logging in to AWS production' \
   &&  CI_COMMIT_REF_NAME=master helper_integrates_aws_login production \
+  &&  helper_common_update_kubeconfig "${cluster}" "${region}" \
+  &&  helper_common_sops_env 'secrets-development.yaml' 'default' \
+      NEW_RELIC_LICENSE_KEY \
+  &&  export TF_VAR_newrelic_license_key="${NEW_RELIC_LICENSE_KEY}" \
   &&  helper_common_terraform_apply "${target}" \
   &&  popd \
   || return 1
@@ -1077,11 +1083,17 @@ function job_integrates_infra_cluster_deploy {
 
 function job_integrates_infra_cluster_test {
   local target='deploy/cluster/terraform'
+  local cluster='integrates-cluster'
+  local region='us-east-1'
 
       helper_use_pristine_workdir \
   &&  pushd integrates \
   &&  echo '[INFO] Logging in to AWS development' \
   &&  helper_integrates_aws_login development \
+  &&  helper_common_update_kubeconfig "${cluster}" "${region}" \
+  &&  helper_common_sops_env 'secrets-development.yaml' 'default' \
+      NEW_RELIC_LICENSE_KEY \
+  &&  export TF_VAR_newrelic_license_key="${NEW_RELIC_LICENSE_KEY}" \
   &&  helper_common_terraform_plan "${target}" \
   &&  popd \
   || return 1

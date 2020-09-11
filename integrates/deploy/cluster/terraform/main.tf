@@ -30,6 +30,10 @@ terraform {
       source  = "hashicorp/tls"
       version = "~> 2.2.0"
     }
+    helm = {
+      source  = "hashicorp/helm"
+      version = "~> 1.3.0"
+    }
   }
 
   backend "s3" {
