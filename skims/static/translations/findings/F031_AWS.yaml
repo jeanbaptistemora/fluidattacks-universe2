@@ -1,0 +1,32 @@
+utils.model.finding.enum.F031_AWS.description:
+  en: >
+    The application, a user or a role have more privileges than they require.
+    This can be leveraged by an attacker to execute normally restricted actions
+    on a system.
+  es: >
+    La aplicación, un usuario o un rol tienen más privilegios/permisos que los
+    que requieren. Esto puede ser aprovechado por un atacante para ejecutar
+    acciones sobre un sistema que normalmente estarían restringidas.
+utils.model.finding.enum.F031_AWS.impact:
+  en: >
+    Perform actions outside of the expected control sphere.
+  es: >
+    Realizar acciones a las que no se deberia tener acceso.
+utils.model.finding.enum.F031_AWS.recommendation:
+  en: >
+    Grant privileges strictly to the roles that need them.
+  es: >
+    Otorgar privilegios estrictamente a los roles que lo necesitan.
+utils.model.finding.enum.F031_AWS.requirements:
+  en: |
+    R186. Use the principle of least privilege
+  es: |
+    R186. Se debe aplicar el principio del mínimo privilegio al crear objetos y roles, configurar permisos de acceso y acceder a otros sistemas y bases de datos.
+utils.model.finding.enum.F031_AWS.threat:
+  en: >
+    Attacker with access to any of the misconfigured roles.
+  es: >
+    Atacante con acceso a cualquiera de los roles mal configurados.
+utils.model.finding.enum.F031_AWS.title:
+  en: FIN.S.031. Excessive privileges - AWS
+  es: FIN.S.031. Permisos excesivos - AWS
