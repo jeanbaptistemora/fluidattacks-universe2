@@ -60,11 +60,11 @@
         </div>
     </div>
     <script>
-        var getUrl=window.location.href.split(`${window.location.host}/integrates`);
+        var getUrl=window.location.href.split(`${window.location.host}`);
         localStorage.setItem("start_url",getUrl[getUrl.length - 1]);
         function Redirect()
         {
-            location = "/integrates";
+            location = "/";
         }
         setTimeout(Redirect, 3000);
     </script>

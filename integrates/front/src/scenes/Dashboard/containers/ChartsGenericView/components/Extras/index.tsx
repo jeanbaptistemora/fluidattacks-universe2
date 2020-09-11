@@ -53,7 +53,7 @@ const chartsGenericViewExtras: React.FC<IChartsGenericViewProps> = (props: IChar
   const { entity, subject } = props;
 
   const entityName: EntityType = entity;
-  const downloadPngUrl: URL = new URL("/integrates/graphics-report", window.location.origin);
+  const downloadPngUrl: URL = new URL("/graphics-report", window.location.origin);
   downloadPngUrl.searchParams.set("entity", entity);
   downloadPngUrl.searchParams.set(entityName, subject);
 

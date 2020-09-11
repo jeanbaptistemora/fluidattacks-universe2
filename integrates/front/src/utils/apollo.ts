@@ -128,7 +128,7 @@ const httpLink: ApolloLink = createUploadLink({
     "X-CSRFToken": getCookie("csrftoken"),
     accept: "application/json",
   },
-  uri: `${window.location.origin}/integrates/api`,
+  uri: `${window.location.origin}/api`,
 });
 
 const wsLink: ApolloLink = new WebSocketLink({
@@ -136,7 +136,7 @@ const wsLink: ApolloLink = new WebSocketLink({
     lazy: true,
     reconnect: true,
   },
-  uri: `wss://${window.location.host}/integrates/api`,
+  uri: `wss://${window.location.host}/api`,
 });
 
 const networkStatusNotifier: ReturnType<typeof createNetworkStatusNotifier> = createNetworkStatusNotifier();
@@ -279,7 +279,7 @@ const errorLink: (history: History) => ApolloLink = (
                     skipForwarding();
                   }
                 }
-                location.assign("/integrates/logout");
+                location.assign("/logout");
                 break;
               case "Access denied":
               case "Exception - Event not found":

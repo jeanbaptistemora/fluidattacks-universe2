@@ -56,9 +56,9 @@ try:
     FORCES_TRIGGER_REF = os.environ['FORCES_TRIGGER_REF']
     FORCES_TRIGGER_TOKEN = os.environ['FORCES_TRIGGER_TOKEN']
     SQS_QUEUE_URL = os.environ['SQS_QUEUE_URL']
-    BASE_URL = os.environ['BASE_URL']
 
     # not secrets but must be environment vars
+    BASE_URL = 'https://integrates.fluidattacks.com'
     FI_AWS_REDSHIFT_PORT = 5439
     FI_AWS_S3_BUCKET = 'fluidintegrates.evidences'
     FI_AWS_S3_ANALYTICS_BUCKET = 'fluidintegrates.analytics'

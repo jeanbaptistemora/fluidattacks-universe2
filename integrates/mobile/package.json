@@ -12,7 +12,7 @@
   "bugs": {
     "url": "https://gitlab.com/fluidattacks/product/issues"
   },
-  "homepage": "https://fluidattacks.com/integrates",
+  "homepage": "https://integrates.fluidattacks.com",
   "dependencies": {
     "@apollo/react-hooks": "3.1.5",
     "@bugsnag/core": "7.3.3",

@@ -250,7 +250,7 @@ integrates_deploy_back_ephemeral:
   retry: 1
   environment:
     name: "ephemeral/$CI_COMMIT_REF_SLUG"
-    url: "https://$CI_COMMIT_REF_SLUG.integrates.fluidattacks.com/integrates"
+    url: "https://$CI_COMMIT_REF_SLUG.integrates.fluidattacks.com"
     on_stop: integrates_deploy_back_ephemeral_stop
 
 integrates_deploy_back_ephemeral_stop:

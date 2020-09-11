@@ -79,7 +79,7 @@ class IntegratesWorker(UvicornWorker):
     CONFIG_KWARGS = {
         'loop': 'uvloop',
         'http': 'httptools',
-        'root_path': '/integrates',
+        'root_path': '',
         'interface': 'asgi2',
         'log_level': 'info',
         'headers': [

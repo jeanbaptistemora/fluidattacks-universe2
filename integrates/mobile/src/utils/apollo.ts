@@ -171,7 +171,7 @@ const authLink: ApolloLink = setContext(async (): Promise<Dictionary> => {
 });
 
 const httpLink: ApolloLink = createHttpLink({
-  uri: `${apiHost}/integrates/api`,
+  uri: `${apiHost}/api`,
 });
 
 type ProviderProps = Omit<

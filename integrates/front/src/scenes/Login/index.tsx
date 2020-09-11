@@ -51,15 +51,15 @@ export const Login: React.FC = (): JSX.Element => {
   // Event handlers
   function handleBitbucketLogin(): void {
     mixpanel.track("Login Bitbucket");
-    window.location.assign("/integrates/oauth/login/bitbucket-oauth2/");
+    window.location.assign("/oauth/login/bitbucket-oauth2/");
   }
   function handleGoogleLogin(): void {
     mixpanel.track("Login Google");
-    window.location.assign("/integrates/oauth/login/google-oauth2/");
+    window.location.assign("/oauth/login/google-oauth2/");
   }
   function handleMicrosoftLogin(): void {
     mixpanel.track("Login Azure");
-    window.location.assign("/integrates/oauth/login/azuread-tenant-oauth2/");
+    window.location.assign("/oauth/login/azuread-tenant-oauth2/");
   }
 
   return (

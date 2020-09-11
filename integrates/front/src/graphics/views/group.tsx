@@ -6,7 +6,7 @@ import { secureStore, secureStoreContext } from "utils/secureStore";
 
 const App: React.FC = (): JSX.Element => (
   <React.StrictMode>
-    <BrowserRouter basename={"/integrates/graphics-for-group"}>
+    <BrowserRouter basename={"/graphics-for-group"}>
       <secureStoreContext.Provider value={secureStore}>
         <Switch>
           <Route component={ChartsForGroupView} path={"/"} />

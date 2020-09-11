@@ -25,7 +25,6 @@ from backend.exceptions import UnavailabilityError
 from graphql import GraphQLError
 
 from __init__ import (
-    BASE_URL,
     CI_COMMIT_AUTHOR,
     CI_COMMIT_SHA,
     FI_AWS_CLOUDWATCH_ACCESS_KEY,
@@ -469,18 +468,13 @@ USE_X_FORWARDED_HOST = True
 MIXPANEL_API_TOKEN = FI_MIXPANEL_API_TOKEN
 ANALYTICAL_AUTO_IDENTIFY = False
 
-
-if DEBUG:
-    SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/integrates/registration'
-    SOCIAL_AUTH_NEW_USER_REDIRECT_URL = '/integrates/registration'
-else:
-    SOCIAL_AUTH_LOGIN_REDIRECT_URL = f'{BASE_URL}/registration'
-    SOCIAL_AUTH_NEW_USER_REDIRECT_URL = f'{BASE_URL}/registration'
-
-SOCIAL_AUTH_DISCONNECT_REDIRECT_URL = '/integrates'
-SOCIAL_AUTH_INACTIVE_USER_URL = '/integrates'
-SOCIAL_AUTH_LOGIN_URL = '/integrates'
-SOCIAL_AUTH_LOGIN_ERROR_URL = '/integrates'
+# Social Auth
+SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/registration'
+SOCIAL_AUTH_NEW_USER_REDIRECT_URL = '/registration'
+SOCIAL_AUTH_DISCONNECT_REDIRECT_URL = '/'
+SOCIAL_AUTH_INACTIVE_USER_URL = '/'
+SOCIAL_AUTH_LOGIN_URL = '/'
+SOCIAL_AUTH_LOGIN_ERROR_URL = '/'
 
 # Bitbucket OAuth2
 SOCIAL_AUTH_BITBUCKET_OAUTH2_KEY = FI_BITBUCKET_OAUTH2_KEY

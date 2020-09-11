@@ -124,9 +124,7 @@ export const Dashboard: React.FC = (): JSX.Element => {
             window.clearInterval(timersID.interval);
             alert(translate.t("validations.valid_session_date"));
           }
-          window.location.replace(
-            `https://${window.location.host}/integrates/`
-          );
+          window.location.replace(`https://${window.location.host}`);
         }
       }
     };
@@ -234,7 +232,7 @@ export const Dashboard: React.FC = (): JSX.Element => {
         {(confirm: IConfirmFn): React.ReactNode => {
           function handleLogout(): void {
             confirm((): void => {
-              location.assign("/integrates/logout");
+              location.assign("/logout");
             });
           }
 

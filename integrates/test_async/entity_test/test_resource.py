@@ -92,7 +92,7 @@ class ResourceTests(TestCase):
         """Check for addEnvironments mutation."""
         query = '''mutation {
           addEnvironments(projectName: "unittesting", envs: [
-            {urlEnv: "https://fluidattacks.com/integrates"},
+            {urlEnv: "https://integrates.fluidattacks.com"},
             {urlEnv: "https://fluidattacks.com/web"},
           ]) {
             success

@@ -58,12 +58,12 @@ class ViewTestCase(unittest.TestCase):
         self.ci_node_index = int(os.environ.get('CI_NODE_INDEX', 1))
         self.ci_node_total = int(os.environ.get('CI_NODE_TOTAL', 1))
         if self.branch == 'master':
-            self.url = 'https://integrates.fluidattacks.com/integrates'
+            self.url = 'https://integrates.fluidattacks.com'
         elif self.in_ci:
             self.url = \
-                f'https://{self.branch}.integrates.fluidattacks.com/integrates'
+                f'https://{self.branch}.integrates.fluidattacks.com'
         else:
-            self.url = 'https://localhost:8080/integrates'
+            self.url = 'https://localhost:8080'
 
         self.selenium = ViewTestCase().__login()
 

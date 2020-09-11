@@ -27,9 +27,9 @@ class SocialAuthException(SocialAuthExceptionMiddleware):  # type: ignore
                 return HttpResponse(
                     '<script> '
                     'localStorage.setItem("showAlreadyLoggedin","1"); '
-                    'location.assign("/integrates/registration");</script>'
+                    'location.assign("/registration");</script>'
                 )
-            return redirect('/integrates')
+            return redirect('/')
         return super(SocialAuthException, self).process_exception(
             request, exception
         )

@@ -79,9 +79,9 @@ async def enforce_group_level_role(
         return HttpResponse(
             '<script> '
             'var getUrl=window.location.href.split('
-            '`${window.location.host}/integrates`); '
+            '`${window.location.host}/`); '
             'localStorage.setItem("start_url",getUrl[getUrl.length - 1]); '
-            'location = "/integrates"; '
+            'location = "/"; '
             '</script>'
         )
 
@@ -209,12 +209,12 @@ async def app(request: HttpRequest) -> HttpResponse:
             )
     except (KeyError, TypeError) as ex:
         bugsnag.notify(ex)
-        return redirect('/integrates/error500')
+        return redirect('/error500')
     except ConcurrentSession:
         return HttpResponse(
             '<script> '
             'localStorage.setItem("concurrentSession","1"); '
-            'location.assign("/integrates/registration"); '
+            'location.assign("/registration"); '
             '</script>'
         )
     except ExpiredToken:
@@ -310,7 +310,7 @@ async def logout(request: HttpRequest) -> HttpResponse:
     except KeyError as ex:
         bugsnag.notify(ex)
 
-    response = redirect('/integrates')
+    response = redirect('/')
     response.delete_cookie(settings.JWT_COOKIE_NAME)
     return response
 

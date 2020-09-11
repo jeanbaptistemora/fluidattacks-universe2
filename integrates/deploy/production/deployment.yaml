@@ -6,14 +6,14 @@ metadata:
   annotations:
     kubernetes.io/change-cause: "New deployment version of async Integrates on __DATE__"
 spec:
-  replicas: 2
+  replicas: 3
   selector:
     matchLabels:
       app: integrates-master
   strategy:
     rollingUpdate:
       maxSurge: 1
-      maxUnavailable: 2
+      maxUnavailable: 1
   template:
     metadata:
       labels:

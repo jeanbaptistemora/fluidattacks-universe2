@@ -78,7 +78,7 @@ describe("Dashboard", (): void => {
       },
     ];
     const wrapper: ReactWrapper = mount(
-      <MemoryRouter initialEntries={["/integrates/orgs/imamura"]}>
+      <MemoryRouter initialEntries={["/orgs/imamura"]}>
         <MockedProvider mocks={mocks}>
           <Provider store={store}>
             <Dashboard />

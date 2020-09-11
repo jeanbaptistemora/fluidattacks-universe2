@@ -49,7 +49,7 @@ function buildUrl(
   const roundedWidth: number =
     pixelsSensitivity * Math.floor(size.width / pixelsSensitivity);
 
-  const url: URL = new URL("/integrates/graphic", window.location.origin);
+  const url: URL = new URL("/graphic", window.location.origin);
   url.searchParams.set("documentName", props.documentName);
   url.searchParams.set("documentType", props.documentType);
   url.searchParams.set("entity", props.entity);
