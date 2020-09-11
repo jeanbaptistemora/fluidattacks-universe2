@@ -580,10 +580,11 @@ function job_integrates_serve_minio_local {
   &&  echo '[INFO] Populating MinIO local' \
   &&  readarray -d , -t projects <<< "${TEST_PROJECTS}" \
   &&  {
-        for (( n=0; n < ${#projects[*]}; n++))
+        for project in "${projects[@]}"
         do
-          aws s3 sync "s3://fluidintegrates.evidences/${projects[n]}" \
-          "${STARTDIR}/integrates/.MinIO/data/fluidintegrates.evidences/${projects[n]}"
+          aws s3 sync "s3://fluidintegrates.evidences/${project}" \
+          "${STARTDIR}/integrates/.MinIO/data/fluidintegrates.evidences/${project}" \
+        || return 1
         done
       } \
   &&  echo "[INFO] MinIO is ready and listening on port ${port}!" \
