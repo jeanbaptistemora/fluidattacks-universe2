@@ -23,8 +23,9 @@ import pytz
 from aioextensions import (
     collect,
     in_thread,
+    schedule,
 )
-from asgiref.sync import async_to_sync, sync_to_async
+from asgiref.sync import async_to_sync
 from cryptography.exceptions import InvalidKey
 from cryptography.hazmat.backends import default_backend
 from cryptography.hazmat.primitives.kdf.scrypt import Scrypt
@@ -203,8 +204,8 @@ async def cloudwatch_log_async(request, msg: str) -> None:
             info.append(request.GET.dict()[parameter])
     info.append(FI_ENVIRONMENT)
     info.append(msg)
-    asyncio.create_task(
-        sync_to_async(LOGGER_TRANSACTIONAL.info)(':'.join(info), **NOEXTRA))
+    schedule(
+        in_thread(LOGGER_TRANSACTIONAL.info, ':'.join(info), **NOEXTRA))
 
 
 async def get_jwt_content(context) -> Dict[str, str]:

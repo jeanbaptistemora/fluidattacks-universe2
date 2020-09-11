@@ -2,6 +2,9 @@
 from typing import Dict, List, Union, cast, Optional, Any
 from magic import Magic
 
+from aioextensions import (
+    in_process,
+)
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from backend import util
 from backend.dal import finding as finding_dal
@@ -156,9 +159,12 @@ async def remove_evidence(evidence_name: str, finding_id: str) -> bool:
     return success
 
 
-def validate_evidence(evidence_id: str, file: InMemoryUploadedFile) -> bool:
+async def validate_evidence(
+        evidence_id: str,
+        file: InMemoryUploadedFile) -> bool:
     mib = 2097152
     success = False
+    allowed_mimes = []
     max_size = {
         'animation': 15,
         'exploitation': 10,
@@ -169,19 +175,19 @@ def validate_evidence(evidence_id: str, file: InMemoryUploadedFile) -> bool:
     if (evidence_id in ['animation', 'exploitation'] or
             evidence_id.startswith('evidence')):
         allowed_mimes = ['image/gif', 'image/jpeg', 'image/png']
-        if not util.assert_uploaded_file_mime(file, allowed_mimes):
-            raise InvalidFileType()
     elif evidence_id == 'exploit':
         allowed_mimes = ['text/x-python', 'text/plain']
-        if not util.assert_uploaded_file_mime(file, allowed_mimes):
-            raise InvalidFileType()
     elif evidence_id == 'fileRecords':
         allowed_mimes = ['text/csv', 'text/plain']
-        if not util.assert_uploaded_file_mime(file, allowed_mimes):
-            raise InvalidFileType()
 
-    if file.size > max_size.get(evidence_id, 10) * mib:
+    if not await in_process(
+        util.assert_uploaded_file_mime, file, allowed_mimes
+    ):
+        raise InvalidFileType()
+
+    if file.size < max_size.get(evidence_id, 10) * mib:
+        success = True
+    else:
         raise InvalidFileSize()
-    success = True
 
     return success

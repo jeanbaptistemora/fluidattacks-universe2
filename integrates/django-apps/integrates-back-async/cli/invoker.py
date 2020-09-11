@@ -2,7 +2,10 @@
 import asyncio
 import importlib
 import sys
-from asgiref.sync import sync_to_async
+
+from aioextensions import (
+    in_thread,
+)
 
 
 async def main():
@@ -11,7 +14,7 @@ async def main():
     if asyncio.iscoroutinefunction(to_invoke):
         await to_invoke()
     else:
-        await sync_to_async(to_invoke)()
+        await in_thread(to_invoke,)
 
 
 if __name__ == '__main__':

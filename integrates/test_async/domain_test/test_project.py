@@ -2,7 +2,10 @@ import time
 from decimal import Decimal
 from datetime import datetime
 
-from asgiref.sync import async_to_sync
+from aioextensions import (
+    collect,
+)
+from django.conf import settings
 from django.test import TestCase
 from pytz import timezone
 from freezegun import freeze_time
@@ -27,12 +30,11 @@ from backend.exceptions import (
     InvalidProjectServicesConfig, RepeatedValues
 )
 from backend.dal import (
+    finding as finding_dal,
     project as project_dal,
     vulnerability as vuln_dal,
     available_name as available_name_dal
 )
-
-DYNAMODB_RESOURCE = dynamodb.DYNAMODB_RESOURCE  # type: ignore
 
 pytestmark = [
     pytest.mark.asyncio,
@@ -77,18 +79,15 @@ class ProjectTest(TestCase):
         expected_output = 2
         assert test_data == expected_output
 
-    @pytest.mark.skip(
-        reason="https://gitlab.com/fluidattacks/integrates/issues/1761")
-    def test_get_last_closing_vuln(self):
+    async def test_get_last_closing_vuln(self):
         findings_to_get = ['463558592', '422286126']
-        findings = [
-            DYNAMODB_RESOURCE.Table('FI_findings').get_item(
-                TableName='FI_findings',
-                Key={'finding_id': finding_id}
-            )['Item']
-            for finding_id in findings_to_get]
-        test_data = async_to_sync(get_last_closing_vuln_info)(findings)
-        actual_date = datetime.now().date()
+        findings = await collect(
+            finding_dal.get_finding(finding_id)
+            for finding_id in findings_to_get
+        )
+        test_data = await get_last_closing_vuln_info(findings)
+        tzn = timezone(settings.TIME_ZONE)
+        actual_date = datetime.now(tz=tzn).date()
         initial_date = datetime(2019, 1, 15).date()
         assert test_data[0] == (actual_date - initial_date).days
         assert test_data[1]['UUID'] == '6f023c26-5b10-4ded-aa27-bb563c2206ab'
@@ -144,15 +143,13 @@ class ProjectTest(TestCase):
         assert is_vulnerability_closed(closed_vulnerability)
         assert not is_vulnerability_closed(open_vulnerability[0])
 
-    def test_get_max_open_severity(self):
+    async def test_get_max_open_severity(self):
         findings_to_get = ['463558592', '422286126']
-        findings = [
-            DYNAMODB_RESOURCE.Table('FI_findings').get_item(
-                TableName='FI_findings',
-                Key={'finding_id': finding_id}
-            )['Item']
-            for finding_id in findings_to_get]
-        test_data = async_to_sync(get_max_open_severity)(findings)
+        findings = await collect(
+            finding_dal.get_finding(finding_id)
+            for finding_id in findings_to_get
+        )
+        test_data = await get_max_open_severity(findings)
         assert test_data[0] == Decimal(4.3).quantize(Decimal('0.1'))
         assert test_data[1]['finding_id'] == "463558592"
 
@@ -199,40 +196,28 @@ class ProjectTest(TestCase):
         assert test_data is None
 
     @freeze_time("2019-12-01")
-    def test_get_mean_remediate(self):
-        open_vuln_finding = ['463558592']
-        open_finding = [
-            DYNAMODB_RESOURCE.Table('FI_findings').get_item(
-                TableName='FI_findings',
-                Key={'finding_id': finding_id}
-            )['Item']
-            for finding_id in open_vuln_finding]
+    async def test_get_mean_remediate(self):
+        open_vuln_finding = '463558592'
+        open_finding = await finding_dal.get_finding(open_vuln_finding)
 
-        test_data = async_to_sync(get_mean_remediate)(open_finding)
+        test_data = await get_mean_remediate([open_finding])
         expected_output = Decimal('212.0')
         assert test_data == expected_output
 
-        closed_vuln_finding = ['457497316']
-        closed_finding = [
-            DYNAMODB_RESOURCE.Table('FI_findings').get_item(
-                TableName='FI_findings',
-                Key={'finding_id': finding_id}
-            )['Item']
-            for finding_id in closed_vuln_finding]
+        closed_vuln_finding = '457497316'
+        closed_finding = await finding_dal.get_finding(closed_vuln_finding)
 
-        test_data = async_to_sync(get_mean_remediate)(closed_finding)
+        test_data = await get_mean_remediate([closed_finding])
         expected_output = 293
         assert test_data == expected_output
 
-    def test_get_total_treatment(self):
+    async def test_get_total_treatment(self):
         findings_to_get = ['463558592', '422286126']
-        findings = [
-            DYNAMODB_RESOURCE.Table('FI_findings').get_item(
-                TableName='FI_findings',
-                Key={'finding_id': finding_id}
-            )['Item']
-            for finding_id in findings_to_get]
-        test_data = async_to_sync(get_total_treatment)(findings)
+        findings = await collect(
+            finding_dal.get_finding(finding_id)
+            for finding_id in findings_to_get
+        )
+        test_data = await get_total_treatment(findings)
         expected_output = \
             {'inProgress': 1, 'accepted': 4, 'acceptedUndefined': 0, 'undefined': 0}
         assert test_data == expected_output

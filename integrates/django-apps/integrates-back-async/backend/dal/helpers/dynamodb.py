@@ -9,7 +9,6 @@ from decimal import Decimal
 
 import logging
 import aioboto3
-import boto3
 import botocore
 
 from botocore.exceptions import ClientError
@@ -46,7 +45,6 @@ if FI_ENVIRONMENT == 'development' and FI_DYNAMODB_HOST:
     ENDPOINT_URL = 'http://{}:{}'.format(FI_DYNAMODB_HOST, FI_DYNAMODB_PORT)
     RESOURCE_OPTIONS['endpoint_url'] = ENDPOINT_URL
 
-DYNAMODB_RESOURCE = boto3.resource(**RESOURCE_OPTIONS)
 TABLE_NAME: str = 'integrates'
 
 

@@ -4,7 +4,6 @@ import sys
 from typing import List, Any, Union, cast
 
 from ariadne import convert_kwargs_to_snake_case, convert_camel_case_to_snake
-from asgiref.sync import sync_to_async
 from django.core.files.uploadedfile import InMemoryUploadedFile
 
 from graphql.type.definition import GraphQLResolveInfo
@@ -461,9 +460,7 @@ async def _do_update_event_evidence(
         file: InMemoryUploadedFile) -> SimplePayloadType:
     """Resolve update_event_evidence mutation."""
     success = False
-    if await sync_to_async(event_domain.validate_evidence)(
-        evidence_type, file
-    ):
+    if await event_domain.validate_evidence(evidence_type, file):
         success = await event_domain.update_evidence(
             event_id, evidence_type, file)
     if success:

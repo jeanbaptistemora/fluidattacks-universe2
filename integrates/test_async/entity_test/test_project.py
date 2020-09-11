@@ -25,11 +25,6 @@ from test_async.utils import create_dummy_session
 pytestmark = pytest.mark.asyncio
 
 
-def random_project_name(string_length=8):
-    letters = string.ascii_lowercase
-    return ''.join(random.choice(letters) for i in range(string_length))
-
-
 class ProjectTests(TestCase):
 
     async def _get_result_async(self, data, user='integratesmanager@gmail.com'):

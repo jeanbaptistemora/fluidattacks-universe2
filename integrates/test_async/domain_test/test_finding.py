@@ -208,7 +208,7 @@ class FindingTests(TestCase):
         finding = await finding_dal.get_finding(finding_id)
         assert finding.get('historic_treatment', [{}])[-1].get('user') == 'Masked'
 
-    def test_validate_evidence_exploit(self):
+    async def test_validate_evidence_exploit(self):
         evidence_id = 'exploit'
         filename = os.path.dirname(os.path.abspath(__file__))
         filename = os.path.join(filename, '../mock/test-exploit.py')
@@ -216,12 +216,12 @@ class FindingTests(TestCase):
             uploaded_file = SimpleUploadedFile(name=test_file.name,
                                                content=test_file.read(),
                                                content_type='text/x-python')
-        test_data = validate_evidence(evidence_id, uploaded_file)
+        test_data = await validate_evidence(evidence_id, uploaded_file)
         expected_output = True
         assert isinstance(test_data, bool)
         assert test_data == expected_output
 
-    def test_validate_evidence_exploit_invalid_type(self):
+    async def test_validate_evidence_exploit_invalid_type(self):
         evidence_id = 'exploit'
         filename = os.path.dirname(os.path.abspath(__file__))
         filename = os.path.join(filename, '../mock/test-anim.gif')
@@ -230,10 +230,10 @@ class FindingTests(TestCase):
                                                content=test_file.read(),
                                                content_type='image/gif')
         with self.assertRaises(InvalidFileType) as context:
-            validate_evidence(evidence_id, uploaded_file)
+            await validate_evidence(evidence_id, uploaded_file)
         self.assertTrue('Exception - Invalid File Type' in str(context.exception))
 
-    def test_validate_evidence_records(self):
+    async def test_validate_evidence_records(self):
         evidence_id = 'fileRecords'
         filename = os.path.dirname(os.path.abspath(__file__))
         filename = os.path.join(filename, '../mock/test-file-records.csv')
@@ -241,12 +241,12 @@ class FindingTests(TestCase):
             uploaded_file = SimpleUploadedFile(name=test_file.name,
                                                content=test_file.read(),
                                                content_type='text/csv')
-        test_data = validate_evidence(evidence_id, uploaded_file)
+        test_data = await validate_evidence(evidence_id, uploaded_file)
         expected_output = True
         assert isinstance(test_data, bool)
         assert test_data == expected_output
 
-    def test_validate_evidence_records_invalid_type(self):
+    async def test_validate_evidence_records_invalid_type(self):
         evidence_id = 'fileRecords'
         filename = os.path.dirname(os.path.abspath(__file__))
         filename = os.path.join(filename, '../mock/test-anim.gif')
@@ -255,7 +255,7 @@ class FindingTests(TestCase):
                                                content=test_file.read(),
                                                content_type='image/gif')
         with self.assertRaises(InvalidFileType) as context:
-            validate_evidence(evidence_id, uploaded_file)
+            await validate_evidence(evidence_id, uploaded_file)
         self.assertTrue('Exception - Invalid File Type' in str(context.exception))
 
     async def test_validate_acceptance_severity(self):

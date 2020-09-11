@@ -163,7 +163,7 @@ async def test_update_evidence_attribute_error():
     assert isinstance(test_data, bool)
     assert test_data == expected_output
 
-def test_validate_evidence_invalid_image_type():
+async def test_validate_evidence_invalid_image_type():
     evidence_type = 'evidence'
     filename = os.path.dirname(os.path.abspath(__file__))
     filename = os.path.join(filename, '../mock/test-file-records.csv')
@@ -172,10 +172,10 @@ def test_validate_evidence_invalid_image_type():
                                             content=test_file.read(),
                                             content_type='text/csv')
     with pytest.raises(InvalidFileType) as context:
-        event_domain.validate_evidence(evidence_type, uploaded_file)
+        await event_domain.validate_evidence(evidence_type, uploaded_file)
     assert 'Exception - Invalid File Type: EVENT_IMAGE' in str(context.value)
 
-def test_validate_evidence_invalid_file_size():
+async def test_validate_evidence_invalid_file_size():
     evidence_type = 'evidence'
     filename = os.path.dirname(os.path.abspath(__file__))
     filename = os.path.join(filename, '../mock/test-big-image.jpg')
@@ -184,7 +184,7 @@ def test_validate_evidence_invalid_file_size():
                                             content=test_file.read(),
                                             content_type='image/jpg')
     with pytest.raises(InvalidFileSize) as context:
-        event_domain.validate_evidence(evidence_type, uploaded_file)
+        await event_domain.validate_evidence(evidence_type, uploaded_file)
     assert 'Exception - Invalid File Size' in str(context.value)
 
 @pytest.mark.changes_db

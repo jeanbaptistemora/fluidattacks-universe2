@@ -713,9 +713,7 @@ async def _do_update_evidence(
     """Resolve update_evidence mutation."""
     success = False
 
-    if await sync_to_async(finding_domain.validate_evidence)(
-        evidence_id, file
-    ):
+    if await finding_domain.validate_evidence(evidence_id, file):
         success = await finding_domain.update_evidence(
             finding_id, evidence_id, file
         )
