@@ -8,10 +8,11 @@ import { act } from "react-dom/test-utils";
 import { Provider } from "react-redux";
 import { RouteComponentProps } from "react-router";
 import wait from "waait";
-import store from "../../../../store";
-import { authzPermissionsContext } from "../../../../utils/authz/config";
-import { EventDescriptionView } from "./index";
-import { GET_EVENT_DESCRIPTION } from "./queries";
+
+import { EventDescriptionView } from "scenes/Dashboard/containers/EventDescriptionView";
+import { GET_EVENT_DESCRIPTION } from "scenes/Dashboard/containers/EventDescriptionView/queries";
+import store from "store";
+import { authzPermissionsContext } from "utils/authz/config";
 
 describe("EventDescriptionView", () => {
 

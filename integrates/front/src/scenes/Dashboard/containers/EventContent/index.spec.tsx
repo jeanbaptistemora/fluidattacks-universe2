@@ -4,8 +4,9 @@ import _ from "lodash";
 import * as React from "react";
 import { MemoryRouter, RouteComponentProps } from "react-router";
 import wait from "waait";
-import { EventContent } from "./index";
-import { GET_EVENT_HEADER } from "./queries";
+
+import { EventContent } from "scenes/Dashboard/containers/EventContent";
+import { GET_EVENT_HEADER } from "scenes/Dashboard/containers/EventContent/queries";
 
 describe("EventContent", () => {
   const mockProps: RouteComponentProps<{ eventId: string }> = {

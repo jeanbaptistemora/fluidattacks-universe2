@@ -8,10 +8,14 @@ import { act } from "react-dom/test-utils";
 import { Provider } from "react-redux";
 import { RouteComponentProps } from "react-router";
 import wait from "waait";
-import store from "../../../../store";
-import { authzPermissionsContext } from "../../../../utils/authz/config";
-import { EventEvidenceView } from "./index";
-import { DOWNLOAD_FILE_MUTATION, GET_EVENT_EVIDENCES } from "./queries";
+
+import { EventEvidenceView } from "scenes/Dashboard/containers/EventEvidenceView";
+import {
+  DOWNLOAD_FILE_MUTATION,
+  GET_EVENT_EVIDENCES,
+} from "scenes/Dashboard/containers/EventEvidenceView/queries";
+import store from "store";
+import { authzPermissionsContext } from "utils/authz/config";
 
 describe("EventEvidenceView", () => {
 

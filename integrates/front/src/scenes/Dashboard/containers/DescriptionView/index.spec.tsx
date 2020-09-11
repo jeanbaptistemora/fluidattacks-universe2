@@ -6,11 +6,16 @@ import React from "react";
 import { act } from "react-dom/test-utils";
 import { Provider } from "react-redux";
 import { MemoryRouter, Route } from "react-router";
-import store from "../../../../store";
-import { authzPermissionsContext } from "../../../../utils/authz/config";
-import { DescriptionView } from "./index";
-import { GET_FINDING_DESCRIPTION } from "./queries";
-import { IFinding, IFindingDescriptionData, IFindingDescriptionVars, IProject } from "./types";
+import { DescriptionView } from "scenes/Dashboard/containers/DescriptionView";
+import { GET_FINDING_DESCRIPTION } from "scenes/Dashboard/containers/DescriptionView/queries";
+import {
+  IFinding,
+  IFindingDescriptionData,
+  IFindingDescriptionVars,
+  IProject,
+} from "scenes/Dashboard/containers/DescriptionView/types";
+import store from "store";
+import { authzPermissionsContext } from "utils/authz/config";
 
 describe("Finding Description", () => {
   const project: IProject = {

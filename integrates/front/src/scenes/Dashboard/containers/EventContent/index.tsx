@@ -12,15 +12,15 @@ import React from "react";
 import { Col, Row } from "react-bootstrap";
 import { Redirect, Route, RouteComponentProps, Switch } from "react-router";
 import { NavLink } from "react-router-dom";
-import { Logger } from "../../../../utils/logger";
-import { msgError } from "../../../../utils/notifications";
-import { translate } from "../../../../utils/translations/translate";
-import { default as style } from "../../components/ContentTab/index.css";
-import { EventHeader } from "../../components/EventHeader";
-import { EventCommentsView } from "../EventCommentsView";
-import { EventDescriptionView } from "../EventDescriptionView/index";
-import { EventEvidenceView } from "../EventEvidenceView";
-import { GET_EVENT_HEADER } from "./queries";
+import { default as style } from "scenes/Dashboard/components/ContentTab/index.css";
+import { EventHeader } from "scenes/Dashboard/components/EventHeader";
+import { EventCommentsView } from "scenes/Dashboard/containers/EventCommentsView";
+import { GET_EVENT_HEADER } from "scenes/Dashboard/containers/EventContent/queries";
+import { EventDescriptionView } from "scenes/Dashboard/containers/EventDescriptionView/index";
+import { EventEvidenceView } from "scenes/Dashboard/containers/EventEvidenceView";
+import { Logger } from "utils/logger";
+import { msgError } from "utils/notifications";
+import { translate } from "utils/translations/translate";
 
 type EventContentProps = RouteComponentProps<{ eventId: string }>;
 

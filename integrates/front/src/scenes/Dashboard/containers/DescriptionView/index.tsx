@@ -18,26 +18,35 @@ import { useParams } from "react-router";
 import { Dispatch } from "redux";
 import { Field, isPristine, reset, submit } from "redux-form";
 import { ConfigurableValidator } from "revalidate";
-import { TooltipWrapper } from "../../../../components/TooltipWrapper/index";
-import { Can } from "../../../../utils/authz/Can";
-import { authzPermissionsContext } from "../../../../utils/authz/config";
-import { Dropdown, Text, TextArea } from "../../../../utils/forms/fields";
-import { Logger } from "../../../../utils/logger";
-import { msgError, msgSuccess } from "../../../../utils/notifications";
-import { translate } from "../../../../utils/translations/translate";
-import { maxLength, numeric, required, validDraftTitle, validTextField } from "../../../../utils/validations";
-import { EditableField } from "../../components/EditableField";
-import { GenericForm } from "../../components/GenericForm";
-import { UpdateVerificationModal } from "../../components/UpdateVerificationModal";
-import { VulnerabilitiesView } from "../../components/Vulnerabilities";
-import { IVulnDataType } from "../../components/Vulnerabilities/types";
-import { ActionButtons } from "./ActionButtons";
-import { GET_FINDING_DESCRIPTION, UPDATE_DESCRIPTION_MUTATION } from "./queries";
-import { TreatmentView } from "./TreatmentView";
-import { IFinding, IFindingDescriptionData, IFindingDescriptionVars, IHistoricTreatment } from "./types";
+
+import { TooltipWrapper } from "components/TooltipWrapper";
+import { EditableField } from "scenes/Dashboard/components/EditableField";
+import { GenericForm } from "scenes/Dashboard/components/GenericForm";
+import { UpdateVerificationModal } from "scenes/Dashboard/components/UpdateVerificationModal";
+import { VulnerabilitiesView } from "scenes/Dashboard/components/Vulnerabilities";
+import { IVulnDataType } from "scenes/Dashboard/components/Vulnerabilities/types";
+import { ActionButtons } from "scenes/Dashboard/containers/DescriptionView/ActionButtons";
+import {
+  GET_FINDING_DESCRIPTION,
+  UPDATE_DESCRIPTION_MUTATION,
+} from "scenes/Dashboard/containers/DescriptionView/queries";
+import { TreatmentView } from "scenes/Dashboard/containers/DescriptionView/TreatmentView";
+import {
+  IFinding,
+  IFindingDescriptionData,
+  IFindingDescriptionVars,
+  IHistoricTreatment,
+} from "scenes/Dashboard/containers/DescriptionView/types";
 import {
   formatCompromisedRecords, formatCweUrl, formatFindingType, getLastTreatment,
-} from "./utils";
+} from "scenes/Dashboard/containers/DescriptionView/utils";
+import { Can } from "utils/authz/Can";
+import { authzPermissionsContext } from "utils/authz/config";
+import { Dropdown, Text, TextArea } from "utils/forms/fields";
+import { Logger } from "utils/logger";
+import { msgError, msgSuccess } from "utils/notifications";
+import { translate } from "utils/translations/translate";
+import { maxLength, numeric, required, validDraftTitle, validTextField } from "utils/validations";
 
 const maxTitleLength: ConfigurableValidator = maxLength(90);
 const maxDescriptionLength: ConfigurableValidator = maxLength(500);

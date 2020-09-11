@@ -11,19 +11,23 @@ import React from "react";
 import { ButtonToolbar, Col, ControlLabel, FormGroup, Row } from "react-bootstrap";
 import { RouteComponentProps } from "react-router";
 import { Field, InjectedFormProps } from "redux-form";
-import { Button } from "../../../../components/Button";
-import { FluidIcon } from "../../../../components/FluidIcon";
-import { Modal } from "../../../../components/Modal";
-import { Can } from "../../../../utils/authz/Can";
-import { DateTime, Text } from "../../../../utils/forms/fields";
-import { Logger } from "../../../../utils/logger";
-import { msgError } from "../../../../utils/notifications";
-import { translate } from "../../../../utils/translations/translate";
-import { dateTimeBeforeToday, numeric, required, validDatetime } from "../../../../utils/validations";
-import { EditableField } from "../../components/EditableField";
-import { GenericForm } from "../../components/GenericForm";
-import { GET_EVENT_HEADER } from "../EventContent/queries";
-import { GET_EVENT_DESCRIPTION, SOLVE_EVENT_MUTATION } from "./queries";
+
+import { Button } from "components/Button";
+import { FluidIcon } from "components/FluidIcon";
+import { Modal } from "components/Modal";
+import { EditableField } from "scenes/Dashboard/components/EditableField";
+import { GenericForm } from "scenes/Dashboard/components/GenericForm";
+import { GET_EVENT_HEADER } from "scenes/Dashboard/containers/EventContent/queries";
+import {
+  GET_EVENT_DESCRIPTION,
+  SOLVE_EVENT_MUTATION,
+} from "scenes/Dashboard/containers/EventDescriptionView/queries";
+import { Can } from "utils/authz/Can";
+import { DateTime, Text } from "utils/forms/fields";
+import { Logger } from "utils/logger";
+import { msgError } from "utils/notifications";
+import { translate } from "utils/translations/translate";
+import { dateTimeBeforeToday, numeric, required, validDatetime } from "utils/validations";
 
 type EventDescriptionProps = RouteComponentProps<{ eventId: string }>;
 

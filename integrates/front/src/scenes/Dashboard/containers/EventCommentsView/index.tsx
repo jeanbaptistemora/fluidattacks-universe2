@@ -10,11 +10,19 @@ import { GraphQLError } from "graphql";
 import _ from "lodash";
 import React from "react";
 import { RouteComponentProps } from "react-router";
-import { Logger } from "../../../../utils/logger";
-import { msgError } from "../../../../utils/notifications";
-import { translate } from "../../../../utils/translations/translate";
-import { Comments, ICommentStructure, loadCallback, postCallback } from "../../components/Comments/index";
-import { ADD_EVENT_CONSULT, GET_EVENT_CONSULTING } from "./queries";
+import {
+  Comments,
+  ICommentStructure,
+  loadCallback,
+  postCallback,
+} from "scenes/Dashboard/components/Comments/index";
+import {
+  ADD_EVENT_CONSULT,
+  GET_EVENT_CONSULTING,
+} from "scenes/Dashboard/containers/EventCommentsView/queries";
+import { Logger } from "utils/logger";
+import { msgError } from "utils/notifications";
+import { translate } from "utils/translations/translate";
 
 type EventCommentsProps = RouteComponentProps<{ eventId: string }>;
 

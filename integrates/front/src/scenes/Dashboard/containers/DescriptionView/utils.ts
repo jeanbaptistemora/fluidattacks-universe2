@@ -1,7 +1,7 @@
-import { IHistoricTreatment } from "./types";
+import { IHistoricTreatment } from "scenes/Dashboard/containers/DescriptionView/types";
 import _ from "lodash";
-import { formatTreatment } from "../../../../utils/formatHelpers";
-import { translate } from "../../../../utils/translations/translate";
+import { formatTreatment } from "utils/formatHelpers";
+import { translate } from "utils/translations/translate";
 
 const formatCweUrl: (cweId: string) => string = (cweId: string): string =>
   _.includes(["None", ""], cweId)
