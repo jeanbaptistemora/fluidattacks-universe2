@@ -139,14 +139,19 @@ class ViewTestCase(unittest.TestCase):
             expected.presence_of_element_located(
                 (By.XPATH, "//*[contains(text(), 'Sign in with Microsoft')]")))
         selenium.save_screenshot(f'{SCR_PATH}00.00-init-page.png')
-        if self.ci_node_index % self.ci_node_total != 0 and self.ci_node_total > 1:
+        should_choose_account = (
+            self.ci_node_index % self.ci_node_total != 0
+            and self.ci_node_total > 1
+        )
+        if should_choose_account:
             btn_login = selenium.find_element_by_xpath(
                 "//*[contains(text(), 'Sign in with Google')]")
         else:
             btn_login = selenium.find_element_by_xpath(
                 "//*[contains(text(), 'Sign in with Microsoft')]")
         self.__click(btn_login)
-        self.__login_aux()
+        if should_choose_account:
+            self.__login_aux()
         self.__check_existing_session()
         self.__check_legal_notice()
 
@@ -471,9 +476,9 @@ class ViewTestCase(unittest.TestCase):
 
     def test_16_forces(self):
         selenium = self.selenium
-        project_name = 'bwapp' if self.branch == 'master' else 'unittesting'
+        org = 'okada' if self.branch == 'master' else 'imamura'
         selenium.get(
-            self.url + f'/orgs/imamura/groups/{project_name}/devsecops')
+            self.url + f'/orgs/{org}/groups/unittesting/devsecops')
         time.sleep(3.0)
         selenium.save_screenshot(SCR_PATH + '16.01-forces-executions.png')
 
