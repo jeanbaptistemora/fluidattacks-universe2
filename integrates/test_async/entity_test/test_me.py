@@ -52,6 +52,11 @@ class MeTests(TestCase):
         assert 'me' in result['data']
         assert 'role' in result['data']['me']
         assert result['data']['me']['role'] == 'internal_manager'
+        assert result['data']['me']['permissions'] == [
+            'backend_api_resolvers_internal_names_resolve_project_name',
+            'backend_api_resolvers_user_resolve_user_list_projects',
+            'backend_api_resolvers_project__do_create_project'
+        ]
         assert result['data']['me']['callerOrigin'] == 'API'
         assert 'projects' in result['data']['me']
         assert 'tags' in result['data']['me']
