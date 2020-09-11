@@ -138,24 +138,37 @@ async def _get_permissions(
         user_email: str,
         entity: str = 'USER',
         identifier: str = '',
-        project_name: str = '') -> Set[str]:
+        project_name: str = '',
+        with_cache: bool = True) -> Set[str]:
     """Get the actions the user is allowed to perform."""
     if project_name or (entity == 'PROJECT' and identifier):
         group_name = project_name or identifier
         permissions = await authz.get_group_level_actions(
-            user_email, group_name
+            user_email, group_name, with_cache
         )
     elif entity == 'ORGANIZATION' and identifier:
         organization_id = identifier
         permissions = await authz.get_organization_level_actions(
-            user_email, organization_id
+            user_email, organization_id, with_cache
         )
     else:
-        permissions = await authz.get_user_level_actions(user_email)
+        permissions = await authz.get_user_level_actions(
+            user_email, with_cache
+        )
 
     if not permissions:
+        await authz.revoke_cached_subject_policies(user_email)
+        if with_cache:
+            LOGGER.error(
+                'Empty permissions on _get_permissions with cache',
+                extra=dict(extra=locals())
+            )
+            return await _get_permissions(
+                _, user_email, entity, identifier,
+                project_name, with_cache=False
+            )
         LOGGER.error(
-            'Empty permissions',
+            'Empty permissions on _get_permissions without cache',
             extra=dict(extra=locals())
         )
 

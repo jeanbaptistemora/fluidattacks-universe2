@@ -17,9 +17,15 @@ from .model import (
 )
 
 
-async def get_user_level_enforcer(subject: str) -> Callable[[str, str], bool]:
+async def get_user_level_enforcer(
+    subject: str,
+    with_cache: bool = True,
+) -> Callable[[str, str], bool]:
     """Return a filtered group-level authorization for the provided subject."""
-    policies = await get_cached_subject_policies(subject)
+    policies = await get_cached_subject_policies(
+        subject,
+        with_cache=with_cache
+    )
     roles = USER_LEVEL_ROLES
 
     # Filter results as early as possible to save cycles in the enforcer
@@ -45,12 +51,17 @@ async def get_user_level_enforcer(subject: str) -> Callable[[str, str], bool]:
 async def get_group_level_enforcer(
     subject: str,
     context_store: defaultdict = None,
+    with_cache: bool = True,
 ) -> Callable[[str, str], bool]:
     """Return a filtered group-level authorization for the provided subject.
 
     The argument `context_store` will be used to memoize round-trips.
     """
-    policies = await get_cached_subject_policies(subject, context_store)
+    policies = await get_cached_subject_policies(
+        subject,
+        context_store,
+        with_cache=with_cache
+    )
     roles = GROUP_LEVEL_ROLES
 
     def enforcer(r_object: str, r_action: str) -> bool:
@@ -90,12 +101,16 @@ async def get_group_service_attributes_enforcer(
 
 async def get_organization_level_enforcer(
     subject: str,
+    with_cache: bool = True,
 ) -> Callable[[str, str], bool]:
     """
     Return a filtered organization-level authorization
     for the provided subject.
     """
-    policies = await get_cached_subject_policies(subject)
+    policies = await get_cached_subject_policies(
+        subject,
+        with_cache=with_cache
+    )
     roles = ORGANIZATION_LEVEL_ROLES
 
     def enforcer(r_object: str, r_action: str) -> bool:

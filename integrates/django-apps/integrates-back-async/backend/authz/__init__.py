@@ -51,6 +51,7 @@ __all__ = [
     # enforcer
     'get_group_level_enforcer',
     'get_group_service_attributes_enforcer',
+    'get_organization_level_enforcer',
     'get_user_level_enforcer',
 
     # model

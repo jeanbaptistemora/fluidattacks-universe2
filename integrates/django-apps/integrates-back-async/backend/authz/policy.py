@@ -77,41 +77,56 @@ async def get_cached_group_service_attributes_policies(
 async def get_cached_subject_policies(
     subject: str,
     context_store: defaultdict = None,
+    with_cache: bool = True,
 ) -> Tuple[Tuple[str, str, str], ...]:
     """Cached function to get 1 user authorization policies."""
-    # Unique ID for this function and arguments
-    context_store_key: str = function.get_id(
-        get_cached_subject_policies, subject,
+    if with_cache:
+        # Unique ID for this function and arguments
+        context_store_key: str = function.get_id(
+            get_cached_subject_policies, subject,
+        )
+
+        # If there is already a result for this operation within the context of
+        # this request let's return it
+        context_store = context_store or defaultdict()
+        if context_store_key in context_store:
+            return context_store[context_store_key]
+
+        cache_key: str = get_subject_cache_key(subject)
+
+        try:
+            # Attempt to retrieve data from the cache
+            ret = await aio.ensure_io_bound(cache.get, cache_key)
+        except RedisClusterException:
+            ret = None
+
+        if ret is None:
+            # Let's fetch the data from the database
+            ret = tuple(
+                (policy.level, policy.object, policy.role)
+                for policy in await user_dal.get_subject_policies(subject)
+                if policy.subject == subject
+            )
+            try:
+                # Put the data in the cache
+                await aio.ensure_io_bound(
+                    cache.set,
+                    cache_key,
+                    ret,
+                    timeout=300
+                )
+            except RedisClusterException as ex:
+                LOGGER.exception(ex, extra={'extra': locals()})
+
+        context_store[context_store_key] = ret
+        return cast(Tuple[Tuple[str, str, str], ...], ret)
+    # Let's fetch the data from the database
+    ret = tuple(
+        (policy.level, policy.object, policy.role)
+        for policy in await user_dal.get_subject_policies(subject)
+        if policy.subject == subject
     )
 
-    # If there is already a result for this operation within the context of
-    # this request let's return it
-    context_store = context_store or defaultdict()
-    if context_store_key in context_store:
-        return context_store[context_store_key]
-
-    cache_key: str = get_subject_cache_key(subject)
-
-    try:
-        # Attempt to retrieve data from the cache
-        ret = await aio.ensure_io_bound(cache.get, cache_key)
-    except RedisClusterException:
-        ret = None
-
-    if ret is None:
-        # Let's fetch the data from the database
-        ret = tuple(
-            (policy.level, policy.object, policy.role)
-            for policy in await user_dal.get_subject_policies(subject)
-            if policy.subject == subject
-        )
-        try:
-            # Put the data in the cache
-            await aio.ensure_io_bound(cache.set, cache_key, ret, timeout=86400)
-        except RedisClusterException as ex:
-            LOGGER.exception(ex, extra={'extra': locals()})
-
-    context_store[context_store_key] = ret
     return cast(Tuple[Tuple[str, str, str], ...], ret)
 
 
