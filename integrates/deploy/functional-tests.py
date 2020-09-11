@@ -58,7 +58,7 @@ class ViewTestCase(unittest.TestCase):
         self.ci_node_index = int(os.environ.get('CI_NODE_INDEX', 1))
         self.ci_node_total = int(os.environ.get('CI_NODE_TOTAL', 1))
         if self.branch == 'master':
-            self.url = BASE_URL
+            self.url = 'https://integrates.fluidattacks.com/integrates'
         elif self.in_ci:
             self.url = \
                 f'https://{self.branch}.integrates.fluidattacks.com/integrates'

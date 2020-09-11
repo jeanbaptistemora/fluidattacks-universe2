@@ -1219,7 +1219,7 @@ function job_integrates_test_mobile {
   ||  return 1
 }
 
-function job_integrates_ephemeral_deploy {
+function job_integrates_deploy_back_ephemeral {
   local B64_AWS_ACCESS_KEY_ID
   local B64_AWS_SECRET_ACCESS_KEY
   local B64_JWT_TOKEN
@@ -1281,7 +1281,7 @@ function job_integrates_ephemeral_deploy {
   ||  return 1
 }
 
-function job_integrates_ephemeral_stop {
+function job_integrates_deploy_back_ephemeral_stop {
   local cluster='integrates-cluster'
   local namespace='ephemeral'
   local region='us-east-1'
@@ -1298,7 +1298,7 @@ function job_integrates_ephemeral_stop {
   ||  return 1
 }
 
-function job_integrates_ephemeral_clean {
+function job_integrates_deploy_back_ephemeral_clean {
   local cluster='integrates-cluster'
   local namespace='ephemeral'
   local region='us-east-1'
@@ -1317,7 +1317,7 @@ function job_integrates_ephemeral_clean {
   ||  return 1
 }
 
-function job_integrates_production_deploy {
+function job_integrates_deploy_back_production {
   local B64_AWS_ACCESS_KEY_ID
   local B64_AWS_SECRET_ACCESS_KEY
   local B64_JWT_TOKEN
@@ -1377,83 +1377,6 @@ function job_integrates_production_deploy {
       then
             echo '[INFO] Undoing deployment' \
         &&  kubectl rollout undo 'deploy/integrates-master' \
-        &&  return 1
-      fi \
-  &&  curl "https://api.newrelic.com/v2/applications/${NEW_RELIC_APP_ID}/deployments.json" \
-        --request 'POST' \
-        --header "X-Api-Key: ${NEW_RELIC_API_KEY}" \
-        --header 'Content-Type: application/json' \
-        --include \
-        --data "{
-            \"deployment\": {
-              \"revision\": \"${CI_COMMIT_SHA}\",
-              \"changelog\": \"${CHANGELOG}\",
-              \"description\": \"production\",
-              \"user\": \"${CI_COMMIT_AUTHOR}\"
-            }
-          }" \
-  &&  checkly_params="${CHECKLY_TRIGGER_ID}?deployment=true&repository=product/integrates&sha=${CI_COMMIT_SHA}" \
-  &&  curl \
-        --request 'GET' \
-        "https://api.checklyhq.com/check-groups/${CHECKLY_CHECK_ID}/trigger/${checkly_params}" \
-  &&  popd \
-  ||  return 1
-}
-
-function job_integrates_deploy_k8s_back {
-  local B64_AWS_ACCESS_KEY_ID
-  local B64_AWS_SECRET_ACCESS_KEY
-  local B64_JWT_TOKEN
-  local checkly_params
-  local DATE
-  local files=(
-    deploy/integrates-k8s.yaml
-  )
-  local vars_to_replace_in_manifest=(
-    DATE
-    B64_AWS_ACCESS_KEY_ID
-    B64_AWS_SECRET_ACCESS_KEY
-    B64_JWT_TOKEN
-  )
-
-  # shellcheck disable=SC2034
-      helper_use_pristine_workdir \
-  &&  pushd "${STARTDIR}/integrates" \
-  &&  CI_COMMIT_REF_NAME='master' helper_integrates_aws_login 'production' \
-  &&  helper_common_sops_env 'secrets-production.yaml' 'default' \
-        CHECKLY_CHECK_ID \
-        CHECKLY_TRIGGER_ID \
-        NEW_RELIC_API_KEY \
-        NEW_RELIC_APP_ID \
-  &&  echo "[INFO] Setting namespace preferences..." \
-  &&  helper_common_update_kubeconfig FluidServes us-east-1 \
-  &&  kubectl config \
-        set-context "$(kubectl config current-context)" \
-        --namespace='serves' \
-  &&  echo '[INFO] Computing environment variables' \
-  &&  B64_AWS_ACCESS_KEY_ID=$(
-        echo -n "${AWS_ACCESS_KEY_ID}" | base64 --wrap=0) \
-  &&  B64_AWS_SECRET_ACCESS_KEY=$(
-        echo -n "${AWS_SECRET_ACCESS_KEY}" | base64 --wrap=0) \
-  &&  B64_JWT_TOKEN=$(
-        echo -n "${JWT_TOKEN}" | base64 --wrap=0) \
-  &&  DATE="$(date)" \
-  &&  for file in "${files[@]}"
-      do
-        for var in "${vars_to_replace_in_manifest[@]}"
-        do
-              rpl "__${var}__" "${!var}" "${file}" \
-          |&  grep 'Replacing' \
-          |&  sed -E 's/with.*$//g' \
-          ||  return 1
-        done
-      done \
-  &&  echo '[INFO] Applying: deploy/integrates-k8s.yaml' \
-  &&  kubectl apply -f 'deploy/integrates-k8s.yaml' \
-  &&  if ! kubectl rollout status --timeout=10m 'deploy/integrates-app'
-      then
-            echo '[INFO] Undoing deployment' \
-        &&  kubectl rollout undo 'deploy/integrates-app' \
         &&  return 1
       fi \
   &&  curl "https://api.newrelic.com/v2/applications/${NEW_RELIC_APP_ID}/deployments.json" \

@@ -570,7 +570,7 @@ function job_serves_rotate_keys_user_provision_integrates_prod {
       pushd serves \
   &&  helper_serves_check_last_job_succeeded \
         "${gitlab_repo_id}" \
-        'integrates_deploy_k8s_back' \
+        'integrates_deploy_back_production' \
   &&  helper_serves_user_provision_rotate_keys \
         "${terraform_dir}" \
         "${resource_to_taint}" \

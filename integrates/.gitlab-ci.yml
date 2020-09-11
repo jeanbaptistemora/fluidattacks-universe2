@@ -237,12 +237,12 @@ integrates_coverage_report:
   stage: external
   retry: 1
 
-integrates_ephemeral_clean:
+integrates_deploy_back_ephemeral_clean:
   <<: *with_nix
   <<: *in_schedule_nightly_build_integrates
   stage: rotation
 
-integrates_ephemeral_deploy:
+integrates_deploy_back_ephemeral:
   <<: *with_nix
   <<: *in_dev_branch_integrates
   stage: deploy-app
@@ -251,9 +251,9 @@ integrates_ephemeral_deploy:
   environment:
     name: "ephemeral/$CI_COMMIT_REF_SLUG"
     url: "https://$CI_COMMIT_REF_SLUG.integrates.fluidattacks.com/integrates"
-    on_stop: integrates_ephemeral_stop
+    on_stop: integrates_deploy_back_ephemeral_stop
 
-integrates_ephemeral_stop:
+integrates_deploy_back_ephemeral_stop:
   <<: *with_nix
   stage: deploy-app
   retry: 1
@@ -274,13 +274,12 @@ integrates_ephemeral_stop:
 
 # Take into account that changing this job name impacts the rotation of
 #   AWS secrets at serves.
-# The rotation script looks the last integrates_deploy_k8s_back execution
+# The rotation script looks the last integrates_deploy_back_production execution
 #   and decides if keys should be rotated or not.
 # This is done to avoid keys expiration on the current integrates deployment
 #   in case the continuous delivery system at Integrates is failing
-# Please follow the link and adjust if needed, thanks!
-#   https://gitlab.com/fluidattacks/serves/-/blob/0cb7556d236a3668bdcae64027941565e92131ad/build/include/helpers.sh#L180
-integrates_deploy_k8s_back:
+# Please adjust the serves_rotate_keys_user_provision_integrates_prod job
+integrates_deploy_back_production:
   <<: *with_nix
   <<: *in_master_except_periodic_jobs_integrates
   stage: deploy-app
@@ -288,7 +287,7 @@ integrates_deploy_k8s_back:
   retry: 1
   environment:
     name: "production"
-    url: "https://fluidattacks.com/integrates"
+    url: "https://integrates.fluidattacks.com"
 
 integrates_deploy_mobile_ota:
   <<: *with_nix
@@ -344,7 +343,7 @@ integrates_functional_tests_dev:
   <<: *in_dev_branch_integrates
   image: "${CI_REGISTRY_IMAGE}/nix:integrates_functional_tests_dev"
   needs:
-    - integrates_ephemeral_deploy
+    - integrates_deploy_back_ephemeral
     - integrates_deploy_front
   stage: post-deploy
   retry: 1
@@ -360,7 +359,7 @@ integrates_functional_tests_prod:
   <<: *in_master_branch_integrates
   image: "${CI_REGISTRY_IMAGE}/nix:integrates_functional_tests_prod"
   needs:
-    - integrates_deploy_k8s_back
+    - integrates_deploy_back_production
     - integrates_deploy_front
   stage: post-deploy
   retry: 1
@@ -375,7 +374,7 @@ integrates_functional_tests_mobile:
   <<: *with_nix
   <<: *in_dev_branch_integrates
   needs:
-    - integrates_ephemeral_deploy
+    - integrates_deploy_back_ephemeral
     - integrates_deploy_mobile_ota
   stage: post-deploy
 
@@ -539,4 +538,4 @@ common_send_new_release_email:
   <<: *in_master_branch_integrates
   stage: post-deploy
   needs:
-    - integrates_deploy_k8s_back
+    - integrates_deploy_back_production
