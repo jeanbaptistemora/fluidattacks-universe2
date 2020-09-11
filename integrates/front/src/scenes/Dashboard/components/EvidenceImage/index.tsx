@@ -5,12 +5,13 @@
 import React from "react";
 import { Col, Row } from "react-bootstrap";
 import { Field, FormSection, Validator } from "redux-form";
-import { Button } from "../../../../components/Button/index";
-import { FluidIcon } from "../../../../components/FluidIcon";
-import { FileInput, TextArea } from "../../../../utils/forms/fields";
-import { translate } from "../../../../utils/translations/translate";
-import { validEvidenceDescription, validTextField } from "../../../../utils/validations";
-import { default as style } from "./index.css";
+
+import { Button } from "components/Button/index";
+import { FluidIcon } from "components/FluidIcon";
+import { default as style } from "scenes/Dashboard/components/EvidenceImage/index.css";
+import { FileInput, TextArea } from "utils/forms/fields";
+import { translate } from "utils/translations/translate";
+import { validEvidenceDescription, validTextField } from "utils/validations";
 
 interface IEvidenceImageProps {
   acceptedMimes?: string;

@@ -1,9 +1,10 @@
 import { mount, ReactWrapper, shallow, ShallowWrapper } from "enzyme";
 import React from "react";
 import { Provider } from "react-redux";
-import store from "../../../../store";
-import { GenericForm } from "../GenericForm";
-import { evidenceImage as EvidenceImage } from "./index";
+import store from "store";
+
+import { evidenceImage as EvidenceImage } from "scenes/Dashboard/components/EvidenceImage";
+import { GenericForm } from "scenes/Dashboard/components/GenericForm";
 
 describe("Evidence image", () => {
 

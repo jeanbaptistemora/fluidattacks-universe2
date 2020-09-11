@@ -10,17 +10,18 @@ import _ from "lodash";
 import React from "react";
 import { ButtonToolbar, Col, ControlLabel, FormGroup, Row } from "react-bootstrap";
 import { Field } from "redux-form";
-import { Button } from "../../../../components/Button/index";
-import { Modal } from "../../../../components/Modal/index";
-import { Can } from "../../../../utils/authz/Can";
-import { Dropdown, PhoneNumber, Text } from "../../../../utils/forms/fields";
-import { Logger } from "../../../../utils/logger";
-import { msgError } from "../../../../utils/notifications";
-import { translate } from "../../../../utils/translations/translate";
-import { required, validEmail, validTextField } from "../../../../utils/validations";
-import { GenericForm } from "../GenericForm/index";
-import { GET_USER } from "./queries";
-import { IAddStakeholderModalProps, IStakeholderDataAttr } from "./types";
+
+import { Button } from "components/Button/index";
+import { Modal } from "components/Modal/index";
+import { GET_USER } from "scenes/Dashboard/components/AddUserModal/queries";
+import { IAddStakeholderModalProps, IStakeholderDataAttr } from "scenes/Dashboard/components/AddUserModal/types";
+import { GenericForm } from "scenes/Dashboard/components/GenericForm";
+import { Can } from "utils/authz/Can";
+import { Dropdown, PhoneNumber, Text } from "utils/forms/fields";
+import { Logger } from "utils/logger";
+import { msgError } from "utils/notifications";
+import { translate } from "utils/translations/translate";
+import { required, validEmail, validTextField } from "utils/validations";
 
 const requiredIndicator: JSX.Element = <label style={{ color: "#f22" }}>* </label>;
 const userLevelRoles: string[] = [

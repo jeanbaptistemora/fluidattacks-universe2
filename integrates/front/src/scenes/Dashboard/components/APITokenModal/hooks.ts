@@ -1,5 +1,5 @@
 import { GraphQLError } from "graphql";
-import { Logger } from "../../../../utils/logger";
+import { Logger } from "utils/logger";
 import { useDispatch } from "react-redux";
 import { useTranslation } from "react-i18next";
 import { ApolloError, ApolloQueryResult } from "apollo-client";
@@ -8,14 +8,14 @@ import {
   GET_ACCESS_TOKEN,
   INVALIDATE_ACCESS_TOKEN_MUTATION,
   UPDATE_ACCESS_TOKEN_MUTATION,
-} from "./queries";
+} from "scenes/Dashboard/components/APITokenModal/queries";
 import {
   IGetAccessTokenAttr,
   IInvalidateAccessTokenAttr,
   IUpdateAccessTokenAttr,
-} from "./types";
+} from "scenes/Dashboard/components/APITokenModal/types";
 import { MutationFunction, MutationResult } from "@apollo/react-common";
-import { msgError, msgSuccess } from "../../../../utils/notifications";
+import { msgError, msgSuccess } from "utils/notifications";
 import { useMutation, useQuery } from "@apollo/react-hooks";
 
 const useUpdateAPIToken: (

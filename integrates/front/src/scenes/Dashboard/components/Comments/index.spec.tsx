@@ -1,6 +1,6 @@
 import { shallow, ShallowWrapper } from "enzyme";
 import React from "react";
-import { Comments } from "./index";
+import { Comments } from "scenes/Dashboard/components/Comments";
 
 const functionMock: (() => void) = (): void => undefined;
 

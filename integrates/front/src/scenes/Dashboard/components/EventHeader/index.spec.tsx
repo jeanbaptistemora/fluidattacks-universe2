@@ -1,6 +1,6 @@
 import { shallow, ShallowWrapper } from "enzyme";
 import * as React from "react";
-import { EventHeader, IEventHeaderProps } from "./index";
+import { EventHeader, IEventHeaderProps } from "scenes/Dashboard/components/EventHeader";
 
 describe("EventHeader", () => {
 

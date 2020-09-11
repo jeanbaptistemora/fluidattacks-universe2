@@ -6,13 +6,14 @@ import React from "react";
 // tslint:disable-next-line: no-submodule-imports
 import { act } from "react-dom/test-utils";
 import { Provider } from "react-redux";
+import store from "store";
 import wait from "waait";
-import store from "../../../../store";
-import { authzPermissionsContext } from "../../../../utils/authz/config";
-import { msgError } from "../../../../utils/notifications";
-import { addUserModal as AddUserModal } from "./index";
-import { GET_USER } from "./queries";
-import { IAddStakeholderModalProps } from "./types";
+
+import { addUserModal as AddUserModal } from "scenes/Dashboard/components/AddUserModal";
+import { GET_USER } from "scenes/Dashboard/components/AddUserModal/queries";
+import { IAddStakeholderModalProps } from "scenes/Dashboard/components/AddUserModal/types";
+import { authzPermissionsContext } from "utils/authz/config";
+import { msgError } from "utils/notifications";
 
 jest.mock("../../../../utils/notifications", () => {
   const mockedNotifications: Dictionary = jest.requireActual("../../../../utils/notifications");

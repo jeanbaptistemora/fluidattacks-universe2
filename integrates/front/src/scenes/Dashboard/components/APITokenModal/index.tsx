@@ -2,14 +2,14 @@
   --------
   We need className to override default styles from react-bootstrap.
 */
-import { Button } from "../../../../components/Button";
-import { GenericForm } from "../GenericForm";
-import { Modal } from "../../../../components/Modal";
+import { Button } from "components/Button";
+import { GenericForm } from "scenes/Dashboard/components/GenericForm";
+import { Modal } from "components/Modal";
 import { MutationFunction } from "@apollo/react-common";
 import React from "react";
 import _ from "lodash";
-import globalStyle from "../../../../styles/global.css";
-import { translate } from "../../../../utils/translations/translate";
+import globalStyle from "styles/global.css";
+import { translate } from "utils/translations/translate";
 import {
   ButtonToolbar,
   Col,
@@ -17,20 +17,23 @@ import {
   FormGroup,
   Row,
 } from "react-bootstrap";
-import { Date as DateField, TextArea } from "../../../../utils/forms/fields";
+import { Date as DateField, TextArea } from "utils/forms/fields";
 import { Field, InjectedFormProps } from "redux-form";
-import { IAccessTokenAttr, IGetAccessTokenDictAttr } from "./types";
+import {
+  IAccessTokenAttr,
+  IGetAccessTokenDictAttr,
+} from "scenes/Dashboard/components/APITokenModal/types";
 import {
   isLowerDate,
   isValidDateAccessToken,
   required,
-} from "../../../../utils/validations";
-import { msgError, msgSuccess } from "../../../../utils/notifications";
+} from "utils/validations";
+import { msgError, msgSuccess } from "utils/notifications";
 import {
   useGetAPIToken,
   useInvalidateAPIToken,
   useUpdateAPIToken,
-} from "./hooks";
+} from "scenes/Dashboard/components/APITokenModal/hooks";
 
 interface IAPITokenModalProps {
   open: boolean;

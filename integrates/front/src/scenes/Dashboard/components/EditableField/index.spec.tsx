@@ -1,6 +1,6 @@
 import { shallow, ShallowWrapper } from "enzyme";
 import * as React from "react";
-import { EditableField } from "./index";
+import { EditableField } from "scenes/Dashboard/components/EditableField";
 
 describe("Confirm dialog", () => {
 

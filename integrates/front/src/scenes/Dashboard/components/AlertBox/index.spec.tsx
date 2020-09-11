@@ -1,6 +1,6 @@
 import { shallow, ShallowWrapper } from "enzyme";
 import * as React from "react";
-import { AlertBox } from "./index";
+import { AlertBox } from "scenes/Dashboard/components/AlertBox";
 
 describe("AlertBox", () => {
 

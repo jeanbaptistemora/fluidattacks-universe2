@@ -1,7 +1,7 @@
 import React from "react";
 import { Col, Label, Row } from "react-bootstrap";
-import { castEventStatus, castEventType } from "../../../../utils/formatHelpers";
-import { translate } from "../../../../utils/translations/translate";
+import { castEventStatus, castEventType } from "utils/formatHelpers";
+import { translate } from "utils/translations/translate";
 
 export interface IEventHeaderProps {
   eventDate: string;

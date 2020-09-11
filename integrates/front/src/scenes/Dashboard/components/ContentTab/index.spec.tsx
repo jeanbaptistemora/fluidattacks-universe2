@@ -1,6 +1,6 @@
 import { shallow, ShallowWrapper } from "enzyme";
 import React from "react";
-import { ContentTab } from "./index";
+import { ContentTab } from "scenes/Dashboard/components/ContentTab";
 
 describe("ContentTab", () => {
 

@@ -2,8 +2,9 @@ import _ from "lodash";
 import React, { TextareaHTMLAttributes } from "react";
 import { Col, ControlLabel, FormGroup, Row } from "react-bootstrap";
 import { BaseFieldProps, Field } from "redux-form";
-import { TooltipWrapper } from "../../../../components/TooltipWrapper/index";
-import { default as style } from "./index.css";
+
+import { TooltipWrapper } from "components/TooltipWrapper";
+import { default as style } from "scenes/Dashboard/components/EditableField/index.css";
 
 type EditableFieldProps = BaseFieldProps & TextareaHTMLAttributes<HTMLTextAreaElement> & {
   alignField?: string;

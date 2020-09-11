@@ -1,13 +1,19 @@
-import { APITokenModal } from ".";
+import { APITokenModal } from "scenes/Dashboard/components/APITokenModal";
 import { GraphQLError } from "graphql";
 import { Provider } from "react-redux";
 import React from "react";
 import { act } from "react-dom/test-utils";
 import moment from "moment";
-import store from "../../../../store";
+import store from "store";
 import waitForExpect from "wait-for-expect";
-import { GET_ACCESS_TOKEN, UPDATE_ACCESS_TOKEN_MUTATION } from "./queries";
-import { IGetAccessTokenDictAttr, IUpdateAccessTokenAttr } from "./types";
+import {
+  GET_ACCESS_TOKEN,
+  UPDATE_ACCESS_TOKEN_MUTATION,
+} from "scenes/Dashboard/components/APITokenModal/queries";
+import {
+  IGetAccessTokenDictAttr,
+  IUpdateAccessTokenAttr,
+} from "scenes/Dashboard/components/APITokenModal/types";
 import { MockedProvider, MockedResponse, wait } from "@apollo/react-testing";
 import { ReactWrapper, mount } from "enzyme";
 

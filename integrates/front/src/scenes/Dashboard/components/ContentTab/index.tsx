@@ -1,9 +1,10 @@
 import _ from "lodash";
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { Badge, IBadgeProps } from "../../../../components/Badge";
-import { TooltipWrapper } from "../../../../components/TooltipWrapper/index";
-import { default as style } from "./index.css";
+
+import { Badge, IBadgeProps } from "components/Badge";
+import { TooltipWrapper } from "components/TooltipWrapper";
+import { default as style } from "scenes/Dashboard/components/ContentTab/index.css";
 
 interface IContentTabProps {
   icon: string;
