@@ -8,7 +8,6 @@ import os
 from tempfile import _TemporaryFileWrapper as TemporaryFileWrapper
 
 import aioboto3
-import boto3
 from botocore.exceptions import ClientError
 from django.core.files.base import ContentFile
 from django.core.files.uploadedfile import (
@@ -19,7 +18,8 @@ from django.core.files.uploadedfile import (
 from backend.utils import apm
 from fluidintegrates.settings import LOGGING
 from __init__ import (
-    FI_AWS_S3_ACCESS_KEY, FI_AWS_S3_SECRET_KEY
+    FI_AWS_S3_ACCESS_KEY, FI_AWS_S3_SECRET_KEY,
+    FI_ENVIRONMENT, FI_MINIO_LOCAL_ENABLED
 )
 
 logging.config.dictConfig(LOGGING)
@@ -33,7 +33,10 @@ OPTIONS = dict(
     region_name='us-east-1',
     service_name='s3',
 )
-CLIENT = boto3.client(**OPTIONS)
+
+if FI_ENVIRONMENT == 'development' and FI_MINIO_LOCAL_ENABLED == 'True':
+    OPTIONS.pop('aws_session_token', None)
+    OPTIONS['endpoint_url'] = 'http://localhost:9000'
 
 
 @apm.trace()

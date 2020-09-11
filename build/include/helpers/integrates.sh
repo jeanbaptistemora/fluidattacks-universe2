@@ -275,6 +275,7 @@ function helper_integrates_sops_vars {
     MAIL_REVIEWERS \
     MAIL_RESOURCERS \
     MANDRILL_APIKEY \
+    MINIO_LOCAL_ENABLED \
     MIXPANEL_API_TOKEN \
     NEW_RELIC_API_KEY \
     NEW_RELIC_APP_ID \
