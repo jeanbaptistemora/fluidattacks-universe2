@@ -8,18 +8,22 @@ import { ButtonToolbar, Col, Grid, Row } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router";
 import { Field, formValueSelector, InjectedFormProps } from "redux-form";
-import { Button } from "../../../../components/Button/index";
-import { DataTableNext } from "../../../../components/DataTableNext/index";
-import { IHeaderConfig } from "../../../../components/DataTableNext/types";
-import { Can } from "../../../../utils/authz/Can";
-import { Text } from "../../../../utils/forms/fields";
-import { Logger } from "../../../../utils/logger";
-import { msgError, msgSuccess } from "../../../../utils/notifications";
-import { translate } from "../../../../utils/translations/translate";
-import { GenericForm } from "../../components/GenericForm";
-import { default as style } from "./index.css";
-import { GET_ORGANIZATION_POLICIES, UPDATE_ORGANIZATION_POLICIES } from "./queries";
-import { IOrganizationPolicies, IPoliciesFormData } from "./types";
+
+import { Button } from "components/Button";
+import { DataTableNext } from "components/DataTableNext";
+import { IHeaderConfig } from "components/DataTableNext/types";
+import { GenericForm } from "scenes/Dashboard/components/GenericForm";
+import { default as style } from "scenes/Dashboard/containers/OrganizationPoliciesView/index.css";
+import {
+  GET_ORGANIZATION_POLICIES,
+  UPDATE_ORGANIZATION_POLICIES,
+} from "scenes/Dashboard/containers/OrganizationPoliciesView/queries";
+import { IOrganizationPolicies, IPoliciesFormData } from "scenes/Dashboard/containers/OrganizationPoliciesView/types";
+import { Can } from "utils/authz/Can";
+import { Text } from "utils/forms/fields";
+import { Logger } from "utils/logger";
+import { msgError, msgSuccess } from "utils/notifications";
+import { translate } from "utils/translations/translate";
 
 const organizationPolicies: React.FC<IOrganizationPolicies> = (props: IOrganizationPolicies): JSX.Element => {
 

@@ -8,14 +8,15 @@ import { act } from "react-dom/test-utils";
 import { Provider } from "react-redux";
 import { MemoryRouter, Route } from "react-router";
 import waitForExpect from "wait-for-expect";
-import store from "../../../../store/index";
-import { authzPermissionsContext } from "../../../../utils/authz/config";
-import { msgError } from "../../../../utils/notifications";
-import { AddProjectModal } from "../../components/AddProjectModal/index";
-import { CREATE_PROJECT_MUTATION, PROJECTS_NAME_QUERY } from "../../components/AddProjectModal/queries";
-import { OrganizationGroups } from "./index";
-import { GET_ORGANIZATION_GROUPS } from "./queries";
-import { IOrganizationGroupsProps } from "./types";
+
+import { AddProjectModal } from "scenes/Dashboard/components/AddProjectModal";
+import { CREATE_PROJECT_MUTATION, PROJECTS_NAME_QUERY } from "scenes/Dashboard/components/AddProjectModal/queries";
+import { OrganizationGroups } from "scenes/Dashboard/containers/OrganizationGroupsView";
+import { GET_ORGANIZATION_GROUPS } from "scenes/Dashboard/containers/OrganizationGroupsView/queries";
+import { IOrganizationGroupsProps } from "scenes/Dashboard/containers/OrganizationGroupsView/types";
+import store from "store/index";
+import { authzPermissionsContext } from "utils/authz/config";
+import { msgError } from "utils/notifications";
 
 const mockHistoryPush: jest.Mock = jest.fn();
 

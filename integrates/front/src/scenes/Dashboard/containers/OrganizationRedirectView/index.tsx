@@ -4,11 +4,11 @@ import { GraphQLError } from "graphql";
 import _ from "lodash";
 import React from "react";
 import {  Redirect, Switch, useLocation, useParams } from "react-router";
-import { Logger } from "../../../../utils/logger";
-import { msgError } from "../../../../utils/notifications";
-import { translate } from "../../../../utils/translations/translate";
-import { GET_ENTITY_ORGANIZATION } from "./queries";
-import { IOrganizationRedirectProps } from "./types";
+import { GET_ENTITY_ORGANIZATION } from "scenes/Dashboard/containers/OrganizationRedirectView/queries";
+import { IOrganizationRedirectProps } from "scenes/Dashboard/containers/OrganizationRedirectView/types";
+import { Logger } from "utils/logger";
+import { msgError } from "utils/notifications";
+import { translate } from "utils/translations/translate";
 
 const organizationtRedirect: React.FC<IOrganizationRedirectProps> =
     (props: IOrganizationRedirectProps): JSX.Element => {

@@ -6,19 +6,20 @@ import React from "react";
 import {
   ButtonToolbar, Col, Glyphicon, Row } from "react-bootstrap";
 import { useHistory, useParams, useRouteMatch } from "react-router-dom";
-import { Button } from "../../../../components/Button";
-import { statusFormatter } from "../../../../components/DataTableNext/formatters";
-import { DataTableNext } from "../../../../components/DataTableNext/index";
-import { IHeaderConfig } from "../../../../components/DataTableNext/types";
-import { TooltipWrapper } from "../../../../components/TooltipWrapper/index";
-import { Can } from "../../../../utils/authz/Can";
-import { Logger } from "../../../../utils/logger";
-import { msgError } from "../../../../utils/notifications";
-import { translate } from "../../../../utils/translations/translate";
-import { AddProjectModal } from "../../components/AddProjectModal";
-import { default as style } from "./index.css";
-import { GET_ORGANIZATION_GROUPS } from "./queries";
-import { IGroupData, IOrganizationGroupsProps } from "./types";
+
+import { Button } from "components/Button";
+import { statusFormatter } from "components/DataTableNext/formatters";
+import { DataTableNext } from "components/DataTableNext/index";
+import { IHeaderConfig } from "components/DataTableNext/types";
+import { TooltipWrapper } from "components/TooltipWrapper/index";
+import { AddProjectModal } from "scenes/Dashboard/components/AddProjectModal";
+import { default as style } from "scenes/Dashboard/containers/OrganizationGroupsView/index.css";
+import { GET_ORGANIZATION_GROUPS } from "scenes/Dashboard/containers/OrganizationGroupsView/queries";
+import { IGroupData, IOrganizationGroupsProps } from "scenes/Dashboard/containers/OrganizationGroupsView/types";
+import { Can } from "utils/authz/Can";
+import { Logger } from "utils/logger";
+import { msgError } from "utils/notifications";
+import { translate } from "utils/translations/translate";
 
 const organizationGroups: React.FC<IOrganizationGroupsProps> = (props: IOrganizationGroupsProps): JSX.Element => {
   const { organizationId } = props;

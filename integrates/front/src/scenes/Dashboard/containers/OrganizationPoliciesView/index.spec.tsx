@@ -8,13 +8,17 @@ import { act } from "react-dom/test-utils";
 import { Provider } from "react-redux";
 import { MemoryRouter, Route } from "react-router";
 import waitForExpect from "wait-for-expect";
-import store from "../../../../store";
-import { authzPermissionsContext } from "../../../../utils/authz/config";
-import { msgError, msgSuccess } from "../../../../utils/notifications";
-import { translate } from "../../../../utils/translations/translate";
-import { OrganizationPolicies } from "./index";
-import { GET_ORGANIZATION_POLICIES, UPDATE_ORGANIZATION_POLICIES } from "./queries";
-import { IOrganizationPolicies } from "./types";
+
+import { OrganizationPolicies } from "scenes/Dashboard/containers/OrganizationPoliciesView";
+import {
+  GET_ORGANIZATION_POLICIES,
+  UPDATE_ORGANIZATION_POLICIES,
+} from "scenes/Dashboard/containers/OrganizationPoliciesView/queries";
+import { IOrganizationPolicies } from "scenes/Dashboard/containers/OrganizationPoliciesView/types";
+import store from "store";
+import { authzPermissionsContext } from "utils/authz/config";
+import { msgError, msgSuccess } from "utils/notifications";
+import { translate } from "utils/translations/translate";
 
 jest.mock("../../../../utils/notifications", (): Dictionary => {
   const mockedNotifications: Dictionary = jest.requireActual("../../../../utils/notifications");

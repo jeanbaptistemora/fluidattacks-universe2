@@ -2,13 +2,18 @@ import _ from "lodash";
 import React from "react";
 import { ButtonToolbar, Col, Glyphicon, Row, ToggleButton, ToggleButtonGroup } from "react-bootstrap";
 import { useHistory, useRouteMatch } from "react-router";
-import { DataTableNext } from "../../../../components/DataTableNext/index";
-import { IHeaderConfig } from "../../../../components/DataTableNext/types";
-import { useStoredState } from "../../../../utils/hooks";
-import { translate } from "../../../../utils/translations/translate";
-import { ProjectBox } from "../../components/ProjectBox";
-import { default as style } from "../OrganizationGroupsView/index.css";
-import { IOrganizationPortfoliosProps, IPortfolios, IPortfoliosTable } from "./types";
+
+import { DataTableNext } from "components/DataTableNext/index";
+import { IHeaderConfig } from "components/DataTableNext/types";
+import { ProjectBox } from "scenes/Dashboard/components/ProjectBox";
+import { default as style } from "scenes/Dashboard/containers/OrganizationGroupsView/index.css";
+import {
+  IOrganizationPortfoliosProps,
+  IPortfolios,
+  IPortfoliosTable,
+} from "scenes/Dashboard/containers/OrganizationPortfoliosView/types";
+import { useStoredState } from "utils/hooks";
+import { translate } from "utils/translations/translate";
 
 const organizationPortfolios: React.FC<IOrganizationPortfoliosProps> =
   (props: IOrganizationPortfoliosProps): JSX.Element => {
