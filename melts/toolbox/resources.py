@@ -18,10 +18,14 @@ from typing import Dict, List, Tuple
 # Third parties imports
 from progress.bar import ChargingBar
 import ruamel.yaml as yaml
+from alive_progress import alive_bar, config_handler
+
 
 # Local libraries
 from toolbox import logger
 from toolbox import utils
+
+config_handler.set_global(length=25)
 
 
 def cmd_execute(cmnd, folder='.'):
@@ -115,55 +119,55 @@ def ssh_repo_cloning(subs, code) -> list:
     host = baseurl.split('@')[1].split(':')[0]
     subprocess.getstatusoutput(
         "ssh-keyscan -H " + host + " >> ~/.ssh/known_hosts")
-    progress = ChargingBar(
-        'Progress:',
-        max=len(branches),
-        suffix='%(percent)d%% [%(index)d/%(max)d]')
 
-    def action(repo_br):
-        has_vpn(code, subs)
-        repo = '/'.join(repo_br.split('/')[0:-1])
-        branch = repo_br.split('/')[-1]
-        # handle urls special chars in branch names
-        branch = (urllib.parse.unquote(branch)) if "%2" in branch else branch
-        uri = baseurl + repo
-        folder = repo.split('/')[-1]
-        if os.path.isdir(folder):
-            # Update already existing repo
-            command = [
-                'ssh-agent', 'sh', '-c', ';'.join((
-                    f"ssh-add {shq(keyfile)}",
-                    f"git pull origin {shq(branch)}",
-                )),
-            ]
+    with alive_bar(len(branches)) as progress_bar:
 
-            cmd = cmd_execute(command, folder)
-            if len(cmd[0]) == 0 and 'fatal' in cmd[1]:
-                problems.append({'repo': repo_br, 'problem': cmd[1]})
+        def action(repo_br):
+            has_vpn(code, subs)
+            repo = '/'.join(repo_br.split('/')[0:-1])
+            branch = repo_br.split('/')[-1]
+            # handle urls special chars in branch names
+            branch = (urllib.parse.unquote(branch)
+                      ) if "%2" in branch else branch
+            uri = baseurl + repo
+            folder = repo.split('/')[-1]
+            if os.path.isdir(folder):
+                # Update already existing repo
+                command = [
+                    'ssh-agent', 'sh', '-c', ';'.join((
+                        f"ssh-add {shq(keyfile)}",
+                        f"git pull origin {shq(branch)}",
+                    )),
+                ]
+
+                cmd = cmd_execute(command, folder)
+                if len(cmd[0]) == 0 and 'fatal' in cmd[1]:
+                    print(f'{repo_br} failed')
+                    problems.append({'repo': repo_br, 'problem': cmd[1]})
+                else:
+                    print(f'{repo_br} updated')
+                    progress_bar()
+
             else:
-                progress.next()
-                logger.info(
-                    f"""\n#UPDATING {repo_br} ....\n{cmd[1]}\n{cmd[0]}""")
-        else:
-            # Clone repo:
-            command = [
-                'ssh-agent', 'sh', '-c', ';'.join((
-                    f"ssh-add {shq(keyfile)}",
-                    f"git clone -b {shq(branch)} --single-branch {shq(uri)}"
-                )),
-            ]
+                # Clone repo:
+                command = [
+                    'ssh-agent', 'sh', '-c', ';'.join((
+                        f"ssh-add {shq(keyfile)}",
+                        f"git clone -b {shq(branch)} "
+                        f"--single-branch {shq(uri)}"
+                    )),
+                ]
 
-            cmd = cmd_execute(command)
-            if len(cmd[0]) == 0 and 'fatal' in cmd[1]:
-                problems.append({'repo': repo_br, 'problem': cmd[1]})
-            else:
-                progress.next()
-                logger.info(
-                    f"""\n#CLONNING {repo_br} ....\n{cmd[1]}\n{cmd[0]}""")
+                cmd = cmd_execute(command)
+                if len(cmd[0]) == 0 and 'fatal' in cmd[1]:
+                    print(f'{repo_br} failed')
+                    problems.append({'repo': repo_br, 'problem': cmd[1]})
+                else:
+                    print(f'{repo_br} cloned')
+                    progress_bar()
 
-    with ThreadPool(processes=cpu_count()) as worker:
-        worker.map(action, branches)
-        progress.finish()
+        with ThreadPool(processes=cpu_count()) as worker:
+            worker.map(action, branches)
 
     # Remove identities and keys
     cmd_execute([
