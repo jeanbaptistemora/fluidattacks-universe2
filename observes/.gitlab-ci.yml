@@ -73,7 +73,7 @@ observes_dynamodb:
 
 observes_dynamo:
   <<: *with_nix
-  tags: [autoscaling-analytics]
+  tags: [autoscaling-large]
   stage: analytics
   only:
     refs: [schedules]
