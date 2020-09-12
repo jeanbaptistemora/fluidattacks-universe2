@@ -1,7 +1,7 @@
 :slug: rules/324/
 :category: architecture
 :description: This requirement establishes the importance of controlling redirects as they may lead to malicious sites.
-:keywords: Control, Redirect, External, Site, ASVS, CWE, Rules, Ethical Hacking, Pentesting
+:keywords: Control, Redirect, External, Site, ASVS, CWE, ISO, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R324. Control redirects
@@ -49,41 +49,46 @@ expected destination.
 The software does not restrict or incorrectly restricts access to a resource
 from an unauthorized actor.
 
-. [[r5]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r5]] link:https://www.iso.org/obp/ui/#iso:std:54534:en[ISO 27001:2013. Annex A - 14.1.3]
+Protect information included in application services transactions to avoid
+partial transmission, improper routing, unauthorized message modifications,
+unauthorized disclosure and unauthorized message duplication or replay.
+
+. [[r6]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V1.4 Access Control Architectural Requirements.(1.4.1)]
 Verify that trusted enforcement points such as at access control gateways,
 servers, and serverless functions enforce access controls.
 Never enforce access controls on the client.
 
-. [[r6]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r7]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V1.5 Input and Output Architectural Requirements.(1.5.3)]
 Verify that input validation is enforced on a trusted service layer.
 
-. [[r7]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r8]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V4.1 General Access Control Design.(4.1.1)]
 Verify that the application enforces access control rules on a trusted service
 layer,
 especially if client-side access control is present and could be bypassed.
 
-. [[r8]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r9]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V5.1 Input Validation Requirements.(5.1.5)]
 Verify that URL redirects and forwards only allow whitelisted destinations,
 or show a warning when redirecting to potentially untrusted content.
 
-. [[r9]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r10]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V5.2 Sanitization and Sandboxing Requirements.(5.2.6)]
 Verify that the application protects against *SSRF* attacks,
 by validating or sanitizing untrusted data or *HTTP* file metadata,
 such as filenames and URL input fields,
 or using whitelisting of protocols, domains, paths and ports.
 
-. [[r10]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r11]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V12.6 SSRF Protection Requirements.(12.6.1)]
 Verify that the web or application server is configured with a whitelist of
 resources or systems to which the server can send requests or load data/files
 from.
 
-. [[r11]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r12]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V14.4 HTTP Security Headers Requirements.(14.4.6)]
 Verify that a suitable "**Referrer-Policy**" header is included,
 such as "**no-referrer**" or "**same-origin**".
