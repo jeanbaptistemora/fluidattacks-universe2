@@ -16,7 +16,6 @@ from subprocess import DEVNULL, Popen, PIPE, check_output
 from typing import Dict, List, Tuple
 
 # Third parties imports
-from progress.bar import ChargingBar
 import ruamel.yaml as yaml
 from alive_progress import alive_bar, config_handler
 
@@ -92,7 +91,7 @@ def repo_url(baseurl, repo):
     return cmd[1]
 
 
-def ssh_repo_cloning(subs, code) -> list:
+def ssh_repo_cloning(code) -> list:
     """ cloning or updated a repository ssh """
     problems: list = []
     credentials = utils.generic.get_sops_secret(
@@ -123,7 +122,6 @@ def ssh_repo_cloning(subs, code) -> list:
     with alive_bar(len(branches)) as progress_bar:
 
         def action(repo_br):
-            has_vpn(code, subs)
             repo = '/'.join(repo_br.split('/')[0:-1])
             branch = repo_br.split('/')[-1]
             # handle urls special chars in branch names
@@ -179,47 +177,42 @@ def ssh_repo_cloning(subs, code) -> list:
     return problems
 
 
-def http_repo_cloning(subs, code) -> list:
+def http_repo_cloning(code) -> list:
     """ cloning or updated a repository https """
     problems: list = []
     # script does not support vpns atm
     baseurl = code.get('url')[0]
     branches = code.get('branches')
-    progress = ChargingBar(
-        'Progress:',
-        max=len(branches),
-        suffix='%(percent)d%% [%(index)d/%(max)d]')
+    with alive_bar(len(branches)) as progress_bar:
 
-    def action(repo_br):
-        has_vpn(code, subs)
-        repo = '/'.join(repo_br.split('/')[0:-1])
-        uri = repo_url(baseurl, repo)
-        branch = repo_br.split('/')[-1]
-        folder = repo.split('/')[-1]
-        if os.path.isdir(folder):
-            # Update already existing repo
-            cmd = cmd_execute(['git', 'pull', 'origin', branch], folder)
+        def action(repo_br):
+            repo = '/'.join(repo_br.split('/')[0:-1])
+            uri = repo_url(baseurl, repo)
+            branch = repo_br.split('/')[-1]
+            folder = repo.split('/')[-1]
+            if os.path.isdir(folder):
+                # Update already existing repo
+                cmd = cmd_execute(['git', 'pull', 'origin', branch], folder)
 
-            if len(cmd[0]) == 0 and 'fatal' in cmd[1]:
-                problems.append({'repo': repo_br, 'problem': cmd[1]})
+                if len(cmd[0]) == 0 and 'fatal' in cmd[1]:
+                    print(f'{repo_br} failed')
+                    problems.append({'repo': repo_br, 'problem': cmd[1]})
+                else:
+                    print(f'{repo_br} updated')
+                    progress_bar()
             else:
-                progress.next()
-                logger.info(
-                    f"""\n#UPDATING {repo_br} ....\n{cmd[0]}\n{cmd[1]}""")
-        else:
-            cmd = cmd_execute([
-                'git', 'clone', '-b', branch, '--single-branch', uri,
-            ])
-            if len(cmd[0]) == 0 and 'fatal' in cmd[1]:
-                problems.append({'repo': repo_br, 'problem': cmd[1]})
-            else:
-                progress.next()
-                logger.info(
-                    f"""\n#CLONNING {repo_br} ....\n{cmd[0]}\n{cmd[1]}""")
+                cmd = cmd_execute([
+                    'git', 'clone', '-b', branch, '--single-branch', uri,
+                ])
+                if len(cmd[0]) == 0 and 'fatal' in cmd[1]:
+                    print(f'{repo_br} failed')
+                    problems.append({'repo': repo_br, 'problem': cmd[1]})
+                else:
+                    print(f'{repo_br} cloned')
+                    progress_bar()
 
-    with ThreadPool(processes=cpu_count()) as worker:
-        worker.map(action, branches)
-        progress.finish()
+        with ThreadPool(processes=cpu_count()) as worker:
+            worker.map(action, branches)
 
     return problems
 
@@ -267,9 +260,9 @@ def repo_cloning(subs: str) -> bool:
         for repo in repos_config:
             repo_type = repo.get('git-type')
             if repo_type == 'ssh':
-                problems.extend(ssh_repo_cloning(subs, repo))
+                problems.extend(ssh_repo_cloning(repo))
             elif repo_type == 'https':
-                problems.extend(http_repo_cloning(subs, repo))
+                problems.extend(http_repo_cloning(repo))
             else:
                 logger.info(f"Invalid git-type on group {subs}")
                 success = False
@@ -280,6 +273,7 @@ def repo_cloning(subs: str) -> bool:
         for problem in problems:
             print(f'Repository: {problem["repo"]}')
             print(f'Description: {problem["problem"]}')
+        has_vpn(repo, subs)
     os.chdir(original_dir)
 
     return success

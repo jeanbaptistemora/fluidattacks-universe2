@@ -10,7 +10,6 @@ frozendict==1.2
 mypy_extensions==0.4.3
 numpy==1.18.2
 pandas==1.0.3
-progress==1.5
 pydriller==1.13
 pykwalify==1.7.0
 pynamodb==4.3.1
