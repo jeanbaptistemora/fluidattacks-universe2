@@ -7,7 +7,6 @@ metadata:
     kubernetes.io/ingress.class: nginx
     nginx.ingress.kubernetes.io/from-to-www-redirect: "true"
     nginx.ingress.kubernetes.io/proxy-read-timeout: "300"
-    nginx.ingress.kubernetes.io/rewrite-target: /$2
     nginx.ingress.kubernetes.io/configuration-snippet: |
       set $CSP '';
       set $CSP "${CSP} script-src 'self' 'unsafe-inline' 'unsafe-eval'";
@@ -51,4 +50,36 @@ spec:
       - backend:
           serviceName: integrates-app
           servicePort: 80
-        path: /integrates(/|$)(.*)
+        path: /integrates/api(.*)
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: integrates-new
+  namespace: serves
+spec:
+  type: ExternalName
+  externalName: integrates.fluidattacks.com
+---
+  apiVersion: extensions/v1beta1
+  kind: Ingress
+  metadata:
+    name: integrates
+    namespace: serves
+    annotations:
+      kubernetes.io/ingress.class: nginx
+      nginx.ingress.kubernetes.io/permanent-redirect: "https://integrates.fluidattacks.com"
+      nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+  spec:
+    tls:
+    - hosts:
+      - fluidattacks.com
+      secretName: fluidattacks-cert
+    rules:
+    - host: fluidattacks.com
+      http:
+        paths:
+        - backend:
+            serviceName: integrates-new
+            servicePort: 443
+          path: /integrates(.*)
