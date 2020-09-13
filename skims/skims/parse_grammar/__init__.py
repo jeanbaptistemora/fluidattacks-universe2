@@ -20,7 +20,7 @@ from utils.ctx import (
     get_artifact,
 )
 from utils.logs import (
-    log,
+    log_exception,
 )
 from utils.system import (
     read,
@@ -39,16 +39,23 @@ async def parse(
     content: bytes,
     path: str,
 ) -> Dict[str, Any]:
-    code, out_bytes, err_bytes = await read(AST, grammar, stdin_bytes=content)
+    code, out_bytes, err_bytes = await read(
+        AST,
+        grammar,
+        env=dict(
+            # Limit heap size
+            JAVA_OPTS='-Xmx2g',
+        ),
+        stdin_bytes=content,
+    )
 
     try:
         if err_bytes:
             err: str = err_bytes.decode('utf-8')
-            await log('debug', 'Parse[%s]: %s, %s', grammar, path, err)
-            raise IOError('AST Parser found syntax errors')
+            raise IOError(err)
 
         if code != 0:
-            raise IOError('AST Parser return non-zero exit code')
+            raise IOError('AST Parser returned a non-zero exit code')
 
         if out_bytes:
             out: str = out_bytes.decode('utf-8')
@@ -57,5 +64,5 @@ async def parse(
 
         raise IOError('No stdout in process')
     except (IOError, json.JSONDecodeError) as exc:
-        await log('error', 'Parsing[%s]: %s, %s', grammar, path, exc)
+        await log_exception('error', exc, grammar=grammar, path=path)
         return {}

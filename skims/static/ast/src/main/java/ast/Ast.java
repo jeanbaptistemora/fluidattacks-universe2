@@ -68,6 +68,9 @@ public class Ast {
       case "Java9":
         Java9Lexer lexer = new Java9Lexer(charStream);
         Java9Parser parser = new Java9Parser(new CommonTokenStream(lexer));
+        lexer.removeErrorListener(ConsoleErrorListener.INSTANCE);
+        parser.removeErrorListener(ConsoleErrorListener.INSTANCE);
+        parser.setErrorHandler(new BailErrorStrategy());
         tree = parser.compilationUnit();
         break;
       default:
@@ -78,6 +81,12 @@ public class Ast {
       System.exit(0);
     } catch (ArrayIndexOutOfBoundsException e) {
       System.err.println("Invalid arguments");
+      System.exit(1);
+    } catch (OutOfMemoryError e) {
+      System.err.println("Not enough memory could be allocated");
+      System.exit(1);
+    } catch (ParseCancellationException e) {
+      System.err.println("Content does not match grammar");
       System.exit(1);
     }
   }
