@@ -264,13 +264,14 @@ image::aftercrash1.png[Stack]
 We can see several things here:
 
 . `EIP` is `42424242`.
-. There are 8 bytes between the `ESP` at `0104EBA0` and our buffer at
-`0104EBA8`.
-. So, if we'd run a `JMP ESP`, we'd land at a pointer which we don't control,
-and exploitation would fail.
+. There are 8 bytes between the `ESP` at `0104EBA0` and a pointer to
+our buffer at `0104EBA8`.
+. So, if we'd run a `JMP ESP`, we'd land at a place in the stack
+which we don't control, and exploitation would likely fail.
 
 So we need to find a way of removing those 8 bytes off of the stack in order
-to redirect the execution flow to our buffer.
+to redirect the execution flow to `0104EBA8` which has a pointer to our
+controlled buffer.
 
 == POP/POP/RET
 
@@ -282,8 +283,9 @@ exactly 4 bytes off of the stack, increasing the stack pointer
 (`ESP = ESP + 4`).
 
 With that in mind, and knowing that we need to remove 8 bytes of the
-stack to then return to our controlled buffer, we need to find an
-address that contains a sequence of these instructions:
+stack to then return to `0104EBA8` which has a pointer to our controlled
+buffer, we need to find an address that contains a sequence of these
+instructions:
 
 [source,x86asm]
 ----
@@ -293,7 +295,8 @@ RET
 ----
 
 The first `POP` will remove the first 4 bytes of the stack, the next `POP` the
-other 4 bytes. The `RET` will redirect the execution flow to our buffer.
+other 4 bytes. The `RET` will place the pointer at `0104EBA8` to `EIP`
+which will redirect the execution flow to our buffer.
 
 We can find those 3 instructions using many ways. I will use `mona.py`:
 
