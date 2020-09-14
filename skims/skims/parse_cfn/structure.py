@@ -6,17 +6,11 @@ from typing import (
     Tuple,
 )
 
-# Local libraries
-from parse_cfn.loader import (
-    loads,
-)
-
 
 def iterate_resources(
-    content: str,
+    template: Any,
     *expected_resource_kinds: str,
 ) -> Iterator[Tuple[str, str, Dict[str, Any]]]:
-    template = loads(content)
     template_resources = template.get('Resources', {})
 
     for resource_name, resource_config in template_resources.items():
@@ -29,14 +23,14 @@ def iterate_resources(
                     yield resource_name, resource_kind, resource_properties
 
 
-def iterate_iam_policy_statements(content: str) -> Iterator[Dict[str, Any]]:
+def iterate_iam_policy_documents(template: Any) -> Iterator[Dict[str, Any]]:
 
     def _yield_statements_from_policy(policy: Any) -> Iterator[Any]:
         document = policy.get('PolicyDocument', {})
         for statement in document.get('Statement', []):
             yield statement
 
-    for _, kind, props in iterate_resources(content, 'AWS::IAM'):
+    for _, kind, props in iterate_resources(template, 'AWS::IAM'):
 
         if kind in {'AWS::IAM::ManagedPolicy', 'AWS::IAM::Policy'}:
             yield from _yield_statements_from_policy(props)

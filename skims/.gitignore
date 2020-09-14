@@ -20,3 +20,4 @@
 /static/ast/gradle/wrapper
 /static/ast/gradlew
 /static/ast/src/main/java/ast/Java9*
+/test/**/*.yaml.json

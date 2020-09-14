@@ -41,8 +41,12 @@ def overloaded_multi_constructor(
     return mapping
 
 
-def loads(content: str) -> Any:
-    loader = Loader(content)
+def load_as_yaml_without_line_number(content: str) -> Any:
+    return load_as_yaml(content, loader_cls=CfnYamlLoader)
+
+
+def load_as_yaml(content: str, *, loader_cls=Loader) -> Any:
+    loader = loader_cls(content)
     try:
         return loader.get_single_data()
     finally:

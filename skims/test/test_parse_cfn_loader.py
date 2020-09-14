@@ -1,20 +1,14 @@
-# Standard library
-from datetime import datetime
-
 # Local libraries
 from parse_cfn.loader import (
-    loads,
+    load_as_yaml,
 )
 
 
-def test_loads() -> None:
-    with open('test/data/parse_cfn/1.yaml') as file:
-        data = loads(file.read())
-
-    assert data == {
+def test_load_as() -> None:
+    expected = {
         '__column__': 0,
         '__line__': 1,
-        'AWSTemplateFormatVersion': datetime(2010, 9, 9).date(),
+        'AWSTemplateFormatVersion': '2010-09-09',
         'Description': 'test',
         'Parameters': {
             '__column__': 2,
@@ -68,3 +62,6 @@ def test_loads() -> None:
             },
         },
     }
+
+    with open('test/data/parse_cfn/1.yaml') as file:
+        assert load_as_yaml(file.read()) == expected

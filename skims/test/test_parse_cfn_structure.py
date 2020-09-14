@@ -3,18 +3,15 @@ from datetime import datetime
 
 # Local libraries
 from parse_cfn.loader import (
-    loads,
+    load_as_yaml,
 )
 from parse_cfn.structure import (
-    iterate_iam_policy_statements,
+    iterate_iam_policy_documents,
 )
 
 
-def test_iterate_iam_policy_statements() -> None:
-    with open('test/data/parse_cfn/full.yaml') as file:
-        content = file.read()
-
-    assert tuple(iterate_iam_policy_statements(content)) == (
+def test_iterate_iam_policy_documents() -> None:
+    expected = (
         {
             'Action': [
                 's3:ListBucket',
@@ -99,3 +96,8 @@ def test_iterate_iam_policy_statements() -> None:
             '__line__': 80,
         },
     )
+
+    with open('test/data/parse_cfn/full.yaml') as file:
+        template = load_as_yaml(file.read())
+
+    assert tuple(iterate_iam_policy_documents(template)) == expected

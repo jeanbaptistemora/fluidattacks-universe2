@@ -1,5 +1,12 @@
 # Standard library
 import asyncio
+import json
+from glob import (
+    iglob,
+)
+from itertools import (
+    chain,
+)
 import os
 from typing import (
     AsyncIterator,
@@ -19,6 +26,9 @@ import pytest
 from integrates.graphql import (
     create_session,
     end_session,
+)
+from parse_cfn.loader import (
+    load_as_yaml_without_line_number,
 )
 
 
@@ -49,3 +59,15 @@ def test_integrates_session(test_integrates_api_token: str) -> Iterator[None]:
         yield
     finally:
         end_session(token)
+
+
+@pytest.fixture(autouse=True, scope='session')  # type: ignore
+def test_prepare_cfn_json_data() -> None:
+    for path in chain(
+        iglob('test/data/lib_path/**/*.yaml', recursive=True),
+        iglob('test/data/parse_cfn/**/*.yaml', recursive=True),
+    ):
+        # Take the yaml and dump it as json as is
+        with open(path) as source, open(path + '.json', 'w') as target:
+            source_data = load_as_yaml_without_line_number(source.read())
+            target.write(json.dumps(source_data, indent=2))
