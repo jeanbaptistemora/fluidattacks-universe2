@@ -33,9 +33,9 @@ module "eks" {
     {
       name                 = "xlarge"
       instance_type        = "m5a.xlarge"
-      asg_min_size         = 2
-      asg_desired_capacity = 2
-      asg_max_size         = 2
+      asg_min_size         = 5
+      asg_desired_capacity = 5
+      asg_max_size         = 5
       root_volume_type     = "gp2"
       root_volume_size     = "50"
       kubelet_extra_args   = "--node-labels=worker_group=xlarge"

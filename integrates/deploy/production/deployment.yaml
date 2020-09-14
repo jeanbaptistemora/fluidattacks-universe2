@@ -6,7 +6,7 @@ metadata:
   annotations:
     kubernetes.io/change-cause: "New deployment version of async Integrates on __DATE__"
 spec:
-  replicas: 3
+  replicas: 10
   selector:
     matchLabels:
       app: integrates-master
