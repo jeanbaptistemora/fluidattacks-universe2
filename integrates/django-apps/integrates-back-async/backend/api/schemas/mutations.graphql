@@ -19,18 +19,6 @@ type Mutation {
         repos: [RepositoryInput]!
     ): SimplePayload!
 
-    addResources(
-        resourceData: JSONString!
-        projectName: String!
-        resType: String!
-    ): ResourcesPayload!
-        @deprecated(
-            reason: """
-            This mutation is deprecated and will be removed in the future.
-            Please use the AddRepositories and AddEnvironments mutations instead
-            """
-        )
-
     createOrganization(name: String!): CreateOrganizationPayload!
 
     updateEnvironment(
@@ -54,17 +42,6 @@ type Mutation {
         state: ResourceState!
     ): SimplePayload!
 
-    updateResources(
-        resourceData: JSONString!
-        projectName: String!
-        resType: String!
-    ): ResourcesPayload!
-        @deprecated(
-            reason: """
-            This mutation is deprecated and will be removed in the future.
-            Please use the UpdateRepository and UpdateEnvironment mutations instead
-            """
-        )
     addFiles(
         file: Upload!
         filesData: JSONString!
