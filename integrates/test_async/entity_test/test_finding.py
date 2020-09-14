@@ -324,14 +324,14 @@ class FindingTests(TestCase):
         assert result['data']['updateSeverity']['success']
 
     @pytest.mark.changes_db
-    async def test_add_finding_comment_parent_zero(self):
-        """Check for addFindingComment mutation."""
+    async def test_add_finding_consult_parent_zero(self):
+        """Check for addFindingConsult mutation."""
         query = '''
           mutation {
-            addFindingComment(
+            addFindingConsult(
               content: "This is a comenting test",
               findingId: "422286126",
-              type: COMMENT,
+              type: CONSULT,
               parent: "0"
             ) {
               success
@@ -342,18 +342,18 @@ class FindingTests(TestCase):
         data = {'query': query}
         result = await self._get_result(data)
         assert 'errors' not in result
-        assert 'success' in result['data']['addFindingComment']
-        assert result['data']['addFindingComment']['success']
+        assert 'success' in result['data']['addFindingConsult']
+        assert result['data']['addFindingConsult']['success']
 
     @pytest.mark.changes_db
-    async def test_add_finding_comment_parent_non_zero(self):
-        """Check for addFindingComment mutation."""
+    async def test_add_finding_consult_parent_non_zero(self):
+        """Check for addFindingConsult mutation."""
         query = '''
           mutation {
-            addFindingComment(
+            addFindingConsult(
               content: "This is a comenting test",
               findingId: "422286126",
-              type: COMMENT,
+              type: CONSULT,
               parent: "1566336916294"
             ) {
               success
@@ -364,8 +364,8 @@ class FindingTests(TestCase):
         data = {'query': query}
         result = await self._get_result(data)
         assert 'errors' not in result
-        assert 'success' in result['data']['addFindingComment']
-        assert result['data']['addFindingComment']['success']
+        assert 'success' in result['data']['addFindingConsult']
+        assert result['data']['addFindingConsult']['success']
 
     @pytest.mark.changes_db
     async def test_update_description(self):

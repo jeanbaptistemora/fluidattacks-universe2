@@ -483,11 +483,6 @@ enum FindingType {
     SECURITY
 }
 
-enum FindingCommentType {
-    COMMENT
-    OBSERVATION
-}
-
 enum FindingConsultType {
     CONSULT
     OBSERVATION

@@ -259,23 +259,13 @@ type Mutation {
         subscription: SubscriptionType!
     ): SimplePayload!
 
-    addFindingComment(
-        content: String!
-        findingId: String!
-        parent: GenericScalar!
-        type: FindingCommentType!
-    ): AddCommentPayload! @deprecated(reason:
-        """
-        Right now, you can add a finding comment using both the 'addFindingComment'
-        and 'addFindingConsult' query. After 2021-02-06, the 'addFindingComment'
-        query will be invalid.
-        """)
     addFindingConsult(
         content: String!,
         findingId: String!,
         parent: GenericScalar!,
         type: FindingConsultType!
     ): AddConsultPayload!
+
     rejectRemoveProject(projectName: String!): SimplePayload!
 
     handleAcceptation(
