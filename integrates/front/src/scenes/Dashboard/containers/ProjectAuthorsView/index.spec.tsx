@@ -9,9 +9,10 @@ import { act } from "react-dom/test-utils";
 import { Provider } from "react-redux";
 import { RouteComponentProps } from "react-router";
 import wait from "waait";
-import store from "../../../../store/index";
-import { ProjectAuthorsView } from "./index";
-import { GET_BILL } from "./queries";
+
+import { ProjectAuthorsView } from "scenes/Dashboard/containers/ProjectAuthorsView";
+import { GET_BILL } from "scenes/Dashboard/containers/ProjectAuthorsView/queries";
+import store from "store";
 
 describe("AuthorsView", () => {
   const date: Date = new Date(2020, 0);

@@ -14,21 +14,22 @@ import { ButtonToolbar, Col, Glyphicon, Row } from "react-bootstrap";
 import { selectFilter } from "react-bootstrap-table2-filter";
 import { useHistory } from "react-router-dom";
 import { Field, InjectedFormProps } from "redux-form";
-import { Button } from "../../../../components/Button";
-import { statusFormatter } from "../../../../components/DataTableNext/formatters";
-import { DataTableNext } from "../../../../components/DataTableNext/index";
-import { IHeaderConfig } from "../../../../components/DataTableNext/types";
-import { Modal } from "../../../../components/Modal";
-import { TooltipWrapper } from "../../../../components/TooltipWrapper/index";
-import { AutoCompleteText } from "../../../../utils/forms/fields";
-import { Logger } from "../../../../utils/logger";
-import { msgError, msgSuccess } from "../../../../utils/notifications";
-import { translate } from "../../../../utils/translations/translate";
-import { required, validDraftTitle } from "../../../../utils/validations";
-import { GenericForm } from "../../components/GenericForm";
-import { CREATE_DRAFT_MUTATION, GET_DRAFTS } from "./queries";
-import { IProjectDraftsAttr, IProjectDraftsBaseProps } from "./types";
-import { formatDrafts } from "./utils";
+
+import { Button } from "components/Button";
+import { DataTableNext } from "components/DataTableNext";
+import { statusFormatter } from "components/DataTableNext/formatters";
+import { IHeaderConfig } from "components/DataTableNext/types";
+import { Modal } from "components/Modal";
+import { TooltipWrapper } from "components/TooltipWrapper";
+import { GenericForm } from "scenes/Dashboard/components/GenericForm";
+import { CREATE_DRAFT_MUTATION, GET_DRAFTS } from "scenes/Dashboard/containers/ProjectDraftsView/queries";
+import { IProjectDraftsAttr, IProjectDraftsBaseProps } from "scenes/Dashboard/containers/ProjectDraftsView/types";
+import { formatDrafts } from "scenes/Dashboard/containers/ProjectDraftsView/utils";
+import { AutoCompleteText } from "utils/forms/fields";
+import { Logger } from "utils/logger";
+import { msgError, msgSuccess } from "utils/notifications";
+import { translate } from "utils/translations/translate";
+import { required, validDraftTitle } from "utils/validations";
 
 const projectDraftsView: React.FC<IProjectDraftsBaseProps> = (props: IProjectDraftsBaseProps): JSX.Element => {
   const { projectName } = props.match.params;

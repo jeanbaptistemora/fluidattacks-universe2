@@ -13,14 +13,15 @@ import { RouteComponentProps } from "react-router";
 
 // Local imports
 import { GraphQLError } from "graphql";
-import { DataTableNext } from "../../../../components/DataTableNext/index";
-import { IHeaderConfig } from "../../../../components/DataTableNext/types";
-import { Logger } from "../../../../utils/logger";
-import { msgError } from "../../../../utils/notifications";
-import { translate } from "../../../../utils/translations/translate";
-import styles from "./index.css";
-import { GET_BILL } from "./queries";
-import { IBillDeveloper, IData } from "./types";
+
+import { DataTableNext } from "components/DataTableNext";
+import { IHeaderConfig } from "components/DataTableNext/types";
+import styles from "scenes/Dashboard/containers/ProjectAuthorsView/index.css";
+import { GET_BILL } from "scenes/Dashboard/containers/ProjectAuthorsView/queries";
+import { IBillDeveloper, IData } from "scenes/Dashboard/containers/ProjectAuthorsView/types";
+import { Logger } from "utils/logger";
+import { msgError } from "utils/notifications";
+import { translate } from "utils/translations/translate";
 
 type ForcesViewProps = RouteComponentProps<{ projectName: string }>;
 

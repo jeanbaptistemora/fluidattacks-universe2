@@ -6,30 +6,31 @@ import mixpanel from "mixpanel-browser";
 import React from "react";
 import { ButtonToolbar, Col, Glyphicon, Row } from "react-bootstrap";
 import { useParams } from "react-router";
-import { Button } from "../../../../components/Button/index";
-import { DataTableNext } from "../../../../components/DataTableNext/index";
-import { IHeaderConfig } from "../../../../components/DataTableNext/types";
-import { FluidIcon } from "../../../../components/FluidIcon/index";
-import { TooltipWrapper } from "../../../../components/TooltipWrapper/index";
-import { formatLastLogin, formatUserlist } from "../../../../utils/formatHelpers";
-import { Logger } from "../../../../utils/logger";
-import { msgError, msgSuccess } from "../../../../utils/notifications";
-import { sortLastLogin } from "../../../../utils/sortHelpers";
-import { translate } from "../../../../utils/translations/translate";
-import { addUserModal as AddUserModal } from "../../components/AddUserModal/index";
+
+import { Button } from "components/Button";
+import { DataTableNext } from "components/DataTableNext";
+import { IHeaderConfig } from "components/DataTableNext/types";
+import { FluidIcon } from "components/FluidIcon";
+import { TooltipWrapper } from "components/TooltipWrapper";
+import { addUserModal as AddUserModal } from "scenes/Dashboard/components/AddUserModal";
 import {
   ADD_STAKEHOLDER_MUTATION,
   EDIT_STAKEHOLDER_MUTATION,
   GET_ORGANIZATION_STAKEHOLDERS,
   REMOVE_STAKEHOLDER_MUTATION,
-} from "./queries";
+} from "scenes/Dashboard/containers/OrganizationStakeholdersView/queries";
 import {
   IAddStakeholderAttrs,
   IEditStakeholderAttrs,
   IOrganizationStakeholders,
   IRemoveStakeholderAttrs,
   IStakeholderAttrs,
-} from "./types";
+} from "scenes/Dashboard/containers/OrganizationStakeholdersView/types";
+import { formatLastLogin, formatUserlist } from "utils/formatHelpers";
+import { Logger } from "utils/logger";
+import { msgError, msgSuccess } from "utils/notifications";
+import { sortLastLogin } from "utils/sortHelpers";
+import { translate } from "utils/translations/translate";
 
 const tableHeaders: IHeaderConfig[] = [
   {

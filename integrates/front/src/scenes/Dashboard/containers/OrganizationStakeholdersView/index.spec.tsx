@@ -7,19 +7,20 @@ import { act } from "react-dom/test-utils";
 import { Provider } from "react-redux";
 import { MemoryRouter, Route } from "react-router";
 import waitForExpect from "wait-for-expect";
-import store from "../../../../store";
-import { msgError, msgSuccess } from "../../../../utils/notifications";
-import { translate } from "../../../../utils/translations/translate";
-import { addUserModal } from "../../components/AddUserModal/index";
-import { GET_USER } from "../../components/AddUserModal/queries";
-import { OrganizationStakeholders } from "./index";
+
+import { addUserModal } from "scenes/Dashboard/components/AddUserModal/index";
+import { GET_USER } from "scenes/Dashboard/components/AddUserModal/queries";
+import { OrganizationStakeholders } from "scenes/Dashboard/containers/OrganizationStakeholdersView";
 import {
   ADD_STAKEHOLDER_MUTATION,
   EDIT_STAKEHOLDER_MUTATION,
   GET_ORGANIZATION_STAKEHOLDERS,
   REMOVE_STAKEHOLDER_MUTATION,
-} from "./queries";
-import { IOrganizationStakeholders } from "./types";
+} from "scenes/Dashboard/containers/OrganizationStakeholdersView/queries";
+import { IOrganizationStakeholders } from "scenes/Dashboard/containers/OrganizationStakeholdersView/types";
+import store from "store";
+import { msgError, msgSuccess } from "utils/notifications";
+import { translate } from "utils/translations/translate";
 
 jest.mock("../../../../utils/notifications", (): Dictionary => {
   const mockedNotifications: Dictionary = jest.requireActual("../../../../utils/notifications");

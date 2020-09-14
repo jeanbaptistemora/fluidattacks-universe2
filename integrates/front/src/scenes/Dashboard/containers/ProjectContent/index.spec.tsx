@@ -4,8 +4,9 @@ import * as React from "react";
 import { Provider } from "react-redux";
 import { MemoryRouter, RouteComponentProps } from "react-router-dom";
 import wait from "waait";
-import store from "../../../../store/index";
-import { ProjectContent } from "./index";
+
+import { ProjectContent } from "scenes/Dashboard/containers/ProjectContent";
+import store from "store";
 
 describe("ProjectContent", () => {
 

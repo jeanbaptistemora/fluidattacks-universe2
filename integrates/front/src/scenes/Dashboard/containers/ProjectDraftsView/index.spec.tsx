@@ -7,10 +7,11 @@ import * as React from "react";
 import { act } from "react-dom/test-utils";
 import { Provider } from "react-redux";
 import { MemoryRouter } from "react-router-dom";
-import store from "../../../../store/index";
-import { ProjectDraftsView } from "./index";
-import { GET_DRAFTS } from "./queries";
-import { IProjectDraftsBaseProps } from "./types";
+
+import { ProjectDraftsView } from "scenes/Dashboard/containers/ProjectDraftsView";
+import { GET_DRAFTS } from "scenes/Dashboard/containers/ProjectDraftsView/queries";
+import { IProjectDraftsBaseProps } from "scenes/Dashboard/containers/ProjectDraftsView/types";
+import store from "store";
 
 const mockedFetch: FetchMockStatic = fetch as typeof fetch & FetchMockStatic;
 const baseUrl: string = "https://spreadsheets.google.com/feeds/list";

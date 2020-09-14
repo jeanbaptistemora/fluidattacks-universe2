@@ -11,11 +11,19 @@ import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React from "react";
 import { RouteComponentProps } from "react-router";
-import { Logger } from "../../../../utils/logger";
-import { msgError } from "../../../../utils/notifications";
-import { translate } from "../../../../utils/translations/translate";
-import { Comments, ICommentStructure, loadCallback, postCallback } from "../../components/Comments/index";
-import { ADD_PROJECT_CONSULT, GET_PROJECT_CONSULTING } from "./queries";
+import {
+  Comments,
+  ICommentStructure,
+  loadCallback,
+  postCallback,
+} from "scenes/Dashboard/components/Comments/index";
+import {
+  ADD_PROJECT_CONSULT,
+  GET_PROJECT_CONSULTING,
+} from "scenes/Dashboard/containers/ProjectConsultingView/queries";
+import { Logger } from "utils/logger";
+import { msgError } from "utils/notifications";
+import { translate } from "utils/translations/translate";
 
 type IProjectConsultingViewProps = RouteComponentProps<{ projectName: string }>;
 
