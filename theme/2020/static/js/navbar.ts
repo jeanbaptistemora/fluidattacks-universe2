@@ -5,6 +5,7 @@ const navbar: (() => void) = (): void => {
   window.onscroll = (): void => {
   const currentScrollPos: number = window.pageYOffset;
   const navbarElement: HTMLElement = document.getElementById("navbar") as HTMLElement;
+
   prevScrollpos > currentScrollPos ?
   navbarElement.style.top = "0" :
   navbarElement.style.top = "-104px";
