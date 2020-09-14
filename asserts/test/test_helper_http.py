@@ -88,7 +88,7 @@ def test_WebBot_login_3():
     """The goal here is to login to integrates."""
     with WebBot(developer_mode=True) as bot:
         # Visit Integrates
-        bot.visit('https://fluidattacks.com/integrates')
+        bot.visit('https://integrates.fluidattacks.com')
 
         # Click the login with Google button
         bot.click_by_human_text('Log in with Google')

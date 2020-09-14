@@ -5,7 +5,7 @@ with FluidAsserts(risk=MEDIUM,
                   kind=DAST,
                   message='This is a custom test!') as creator:
 
-    creator.set_open(where='https://fluidattacks.com/integrates',
+    creator.set_open(where='https://integrates.fluidattacks.com',
                      specific=['HTTP/Header/X-Frame-Options is missing'])
 
     creator.set_closed(where='https://fluidattacks.com/web',
