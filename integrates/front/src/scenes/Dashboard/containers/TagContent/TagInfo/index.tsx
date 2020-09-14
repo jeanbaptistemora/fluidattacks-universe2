@@ -15,23 +15,23 @@ import _ from "lodash";
 import React from "react";
 import { Col, Glyphicon, Row } from "react-bootstrap";
 import { RouteComponentProps, useHistory } from "react-router-dom";
-import { DataTableNext } from "../../../../../components/DataTableNext";
-import { IHeaderConfig } from "../../../../../components/DataTableNext/types";
-import { default as globalStyle } from "../../../../../styles/global.css";
-import { Logger } from "../../../../../utils/logger";
-import { msgError } from "../../../../../utils/notifications";
-import { translate } from "../../../../../utils/translations/translate";
-import { HorizontalBarIndicator } from "../../../components/HorizontalBarIndicator";
-import { IndicatorBox } from "../../../components/IndicatorBox";
-import { IndicatorGraph } from "../../../components/IndicatorGraph";
-import { IndicatorStack } from "../../../components/IndicatorStack";
-import { IFindingAttr } from "../../ProjectFindingsView/types";
-import { default as style } from "./index.css";
-import { TAG_QUERY } from "./queries";
+
+import { DataTableNext } from "components/DataTableNext";
+import { IHeaderConfig } from "components/DataTableNext/types";
+import { HorizontalBarIndicator } from "scenes/Dashboard/components/HorizontalBarIndicator";
+import { IndicatorBox } from "scenes/Dashboard/components/IndicatorBox";
+import { IndicatorGraph } from "scenes/Dashboard/components/IndicatorGraph";
+import { IndicatorStack } from "scenes/Dashboard/components/IndicatorStack";
+import { IFindingAttr } from "scenes/Dashboard/containers/ProjectFindingsView/types";
+import { default as style } from "scenes/Dashboard/containers/TagContent/TagInfo/index.css";
+import { TAG_QUERY } from "scenes/Dashboard/containers/TagContent/TagInfo/queries";
 import {
   calcPercent, IStatusGraphConfig, ITreatmentGraphConfig, statusGraph, treatmentGraph,
-} from "./utils";
-
+} from "scenes/Dashboard/containers/TagContent/TagInfo/utils";
+import { default as globalStyle } from "styles/global.css";
+import { Logger } from "utils/logger";
+import { msgError } from "utils/notifications";
+import { translate } from "utils/translations/translate";
 export type TagsProps = RouteComponentProps<{ tagName: string }>;
 
 interface IStackedGraph {

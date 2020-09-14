@@ -6,9 +6,9 @@ import React from "react";
 import { act } from "react-dom/test-utils";
 import { Provider } from "react-redux";
 import { MemoryRouter } from "react-router-dom";
-import store from "../../../../../store";
-import { TagsInfo, TagsProps } from "./index";
-import { TAG_QUERY } from "./queries";
+import { TagsInfo, TagsProps } from "scenes/Dashboard/containers/TagContent/TagInfo";
+import { TAG_QUERY } from "scenes/Dashboard/containers/TagContent/TagInfo/queries";
+import store from "store";
 
 describe("Tag Info", () => {
 

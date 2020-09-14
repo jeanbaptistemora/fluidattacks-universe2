@@ -8,10 +8,11 @@ import { act } from "react-dom/test-utils";
 import { Provider } from "react-redux";
 import { RouteComponentProps } from "react-router";
 import wait from "waait";
-import store from "../../../../store/index";
-import { authzPermissionsContext } from "../../../../utils/authz/config";
-import { SeverityView } from "./index";
-import { GET_SEVERITY } from "./queries";
+
+import { SeverityView } from "scenes/Dashboard/containers/SeverityView";
+import { GET_SEVERITY } from "scenes/Dashboard/containers/SeverityView/queries";
+import store from "store";
+import { authzPermissionsContext } from "utils/authz/config";
 
 describe("SeverityView", () => {
 

@@ -3,12 +3,13 @@ import { ApolloError } from "apollo-client";
 import { GraphQLError } from "graphql";
 import React from "react";
 import { Button, Col, Row } from "react-bootstrap";
-import { Logger } from "../../../../utils/logger";
-import { msgError } from "../../../../utils/notifications";
-import { openUrl } from "../../../../utils/resourceHelpers";
-import { translate } from "../../../../utils/translations/translate";
-import { default as style } from "./index.css";
-import { GET_COMPLETE_REPORT } from "./queries";
+
+import { default as style } from "scenes/Dashboard/containers/ReportsView/index.css";
+import { GET_COMPLETE_REPORT } from "scenes/Dashboard/containers/ReportsView/queries";
+import { Logger } from "utils/logger";
+import { msgError } from "utils/notifications";
+import { openUrl } from "utils/resourceHelpers";
+import { translate } from "utils/translations/translate";
 
 const reportsView: React.FC = (): JSX.Element => {
   const { userEmail } = window as typeof window & Dictionary<string>;

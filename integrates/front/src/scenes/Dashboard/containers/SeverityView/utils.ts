@@ -1,5 +1,8 @@
-import { translate } from "../../../../utils/translations/translate";
-import { ISeverityAttr, ISeverityField } from "./types";
+import { translate } from "utils/translations/translate";
+import {
+  ISeverityAttr,
+  ISeverityField,
+} from "scenes/Dashboard/containers/SeverityView/types";
 
 const castPrivileges: (scope: string) => Record<string, string> = (
   scope: string

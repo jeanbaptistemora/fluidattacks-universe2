@@ -2,8 +2,8 @@ import { MockedProvider, MockedResponse } from "@apollo/react-testing";
 import { shallow, ShallowWrapper } from "enzyme";
 import * as React from "react";
 import { Button } from "react-bootstrap";
-import { ReportsView } from "./index";
-import { GET_COMPLETE_REPORT } from "./queries";
+import { ReportsView } from "scenes/Dashboard/containers/ReportsView";
+import { GET_COMPLETE_REPORT } from "scenes/Dashboard/containers/ReportsView/queries";
 
 describe("ReportsView", () => {
   const mocks: ReadonlyArray<MockedResponse> = [

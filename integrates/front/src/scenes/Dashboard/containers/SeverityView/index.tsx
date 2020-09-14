@@ -16,23 +16,31 @@ import { Col, ControlLabel, FormGroup, Row } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { RouteComponentProps } from "react-router";
 import { Field, formValueSelector, InjectedFormProps } from "redux-form";
-import { Button } from "../../../../components/Button/index";
-import { FluidIcon } from "../../../../components/FluidIcon";
-import { Can } from "../../../../utils/authz/Can";
-import { authzGroupContext, authzPermissionsContext } from "../../../../utils/authz/config";
-import { calcCVSSv3 } from "../../../../utils/cvss";
-import { Dropdown } from "../../../../utils/forms/fields";
-import { Logger } from "../../../../utils/logger";
-import { msgError, msgSuccess } from "../../../../utils/notifications";
-import { translate } from "../../../../utils/translations/translate";
-import { required } from "../../../../utils/validations";
-import { EditableField } from "../../components/EditableField";
-import { GenericForm } from "../../components/GenericForm/index";
-import { GET_FINDING_HEADER } from "../FindingContent/queries";
-import { default as style } from "./index.css";
-import { GET_SEVERITY, UPDATE_SEVERITY_MUTATION } from "./queries";
-import { ISeverityAttr, ISeverityField, IUpdateSeverityAttr } from "./types";
-import { castFieldsCVSS3 } from "./utils";
+
+import { Button } from "components/Button/index";
+import { FluidIcon } from "components/FluidIcon";
+import { EditableField } from "scenes/Dashboard/components/EditableField";
+import { GenericForm } from "scenes/Dashboard/components/GenericForm/index";
+import { GET_FINDING_HEADER } from "scenes/Dashboard/containers/FindingContent/queries";
+import { default as style } from "scenes/Dashboard/containers/SeverityView/index.css";
+import {
+  GET_SEVERITY,
+  UPDATE_SEVERITY_MUTATION,
+} from "scenes/Dashboard/containers/SeverityView/queries";
+import {
+  ISeverityAttr,
+  ISeverityField,
+  IUpdateSeverityAttr,
+} from "scenes/Dashboard/containers/SeverityView/types";
+import { castFieldsCVSS3 } from "scenes/Dashboard/containers/SeverityView/utils";
+import { Can } from "utils/authz/Can";
+import { authzGroupContext, authzPermissionsContext } from "utils/authz/config";
+import { calcCVSSv3 } from "utils/cvss";
+import { Dropdown } from "utils/forms/fields";
+import { Logger } from "utils/logger";
+import { msgError, msgSuccess } from "utils/notifications";
+import { translate } from "utils/translations/translate";
+import { required } from "utils/validations";
 
 type SeverityViewProps = RouteComponentProps<{ findingId: string }>;
 

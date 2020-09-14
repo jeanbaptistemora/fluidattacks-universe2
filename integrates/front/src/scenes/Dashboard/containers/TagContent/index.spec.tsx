@@ -3,9 +3,9 @@ import { mount, ReactWrapper } from "enzyme";
 import React from "react";
 import { Provider } from "react-redux";
 import { MemoryRouter, RouteComponentProps } from "react-router-dom";
-import store from "../../../../store/index";
-import { TagContent } from "./index";
-import { TAG_QUERY } from "./TagInfo/queries";
+import { TagContent } from "scenes/Dashboard/containers/TagContent";
+import { TAG_QUERY } from "scenes/Dashboard/containers/TagContent/TagInfo/queries";
+import store from "store";
 
 describe("TagContent", () => {
 

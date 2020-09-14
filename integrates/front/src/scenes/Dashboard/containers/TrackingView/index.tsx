@@ -12,14 +12,14 @@ import mixpanel from "mixpanel-browser";
 import React from "react";
 import { Col, Row } from "react-bootstrap";
 import { RouteComponentProps } from "react-router";
-import { Can } from "../../../../utils/authz/Can";
-import { Logger } from "../../../../utils/logger";
-import { msgError } from "../../../../utils/notifications";
-import { translate } from "../../../../utils/translations/translate";
-import { TrackingItem } from "../../components/TrackingItem";
-import { VulnerabilitiesView } from "../../components/Vulnerabilities/index";
-import { default as style } from "./index.css";
-import { GET_FINDING_TRACKING } from "./queries";
+import { TrackingItem } from "scenes/Dashboard/components/TrackingItem";
+import { VulnerabilitiesView } from "scenes/Dashboard/components/Vulnerabilities/index";
+import { default as style } from "scenes/Dashboard/containers/TrackingView/index.css";
+import { GET_FINDING_TRACKING } from "scenes/Dashboard/containers/TrackingView/queries";
+import { Can } from "utils/authz/Can";
+import { Logger } from "utils/logger";
+import { msgError } from "utils/notifications";
+import { translate } from "utils/translations/translate";
 
 type TrackingViewProps = RouteComponentProps<{ findingId: string }>;
 

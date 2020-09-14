@@ -6,9 +6,10 @@ import React from "react";
 import { act } from "react-dom/test-utils";
 import { RouteComponentProps } from "react-router";
 import wait from "waait";
-import { authzPermissionsContext } from "../../../../utils/authz/config";
-import { TrackingView } from "./index";
-import { GET_FINDING_TRACKING } from "./queries";
+
+import { TrackingView } from "scenes/Dashboard/containers/TrackingView";
+import { GET_FINDING_TRACKING } from "scenes/Dashboard/containers/TrackingView/queries";
+import { authzPermissionsContext } from "utils/authz/config";
 
 describe("FindingExploitView", (): void => {
 
