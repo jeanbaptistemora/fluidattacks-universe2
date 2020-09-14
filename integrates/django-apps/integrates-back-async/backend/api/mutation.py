@@ -62,9 +62,6 @@ MUTATION.set_field(
     organization.resolve_organization_mutation
 )
 MUTATION.set_field(
-    'removeUserOrganizationAccess', organization.resolve_organization_mutation
-)
-MUTATION.set_field(
     'updateOrganizationPolicies', organization.resolve_organization_mutation
 )
 MUTATION.set_field('createProject', project.resolve_project_mutation)

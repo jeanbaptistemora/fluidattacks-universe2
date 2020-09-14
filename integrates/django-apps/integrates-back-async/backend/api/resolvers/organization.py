@@ -290,43 +290,6 @@ async def _do_grant_stakeholder_organization_access(
     require_organization_access,
     enforce_organization_level_auth_async,
 )
-async def _do_remove_user_organization_access(
-    _: Any,
-    info: GraphQLResolveInfo,
-    organization_id: str,
-    user_email: str
-) -> SimplePayloadType:
-    user_data = await util.get_jwt_content(info.context)
-    requester_email = user_data['user_email']
-    organization_name = await org_domain.get_name_by_id(organization_id)
-
-    success: bool = await org_domain.remove_user(
-        organization_id, user_email.lower()
-    )
-    if success:
-        util.queue_cache_invalidation(
-            user_email,
-            f'users*{organization_id.lower()}',
-        )
-        util.cloudwatch_log(
-            info.context,
-            f'Security: User {requester_email} removed user {user_email} '
-            f'from organization {organization_name}'
-        )
-    else:
-        util.cloudwatch_log(
-            info.context,
-            f'Security: User {requester_email} attempted to remove user '
-            f'{user_email} from organization {organization_name}'
-        )
-
-    return SimplePayloadType(success=success)
-
-
-@concurrent_decorators(
-    require_organization_access,
-    enforce_organization_level_auth_async,
-)
 async def _do_remove_stakeholder_organization_access(
     _: Any,
     info: GraphQLResolveInfo,
