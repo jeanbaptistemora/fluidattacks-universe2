@@ -46,11 +46,15 @@ spec:
           - containerPort: 8080
         readinessProbe:
           exec:
-            command:
-              - sh
-              - -ce
-              - "curl -sS http://localhost:8080 | grep 'FluidIntegrates'"
-          initialDelaySeconds: 20
-          periodSeconds: 5
-          successThreshold: 3
-          failureThreshold: 10
+            command: [bash, deploy/production/readiness-probe.sh, run_readiness_probe]
+          initialDelaySeconds: 60
+          periodSeconds: 30
+          successThreshold: 1
+          failureThreshold: 20
+        livenessProbe:
+          exec:
+            command: [bash, deploy/production/readiness-probe.sh, run_liveness_probe]
+          initialDelaySeconds: 60
+          periodSeconds: 30
+          successThreshold: 1
+          failureThreshold: 20
