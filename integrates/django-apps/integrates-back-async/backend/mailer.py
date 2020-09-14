@@ -278,7 +278,7 @@ async def send_comment_mail(
 
     elif entity_name == 'event':
         event = cast(EventType, entity)
-        event_id = str(event.get('event_id', ''))
+        event_id = str(event.get('id', ''))
         project_name = str(event.get('project_name', ''))
         recipients = await project_domain.get_users_to_notify(
             project_name, True
