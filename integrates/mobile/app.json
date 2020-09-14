@@ -8,7 +8,7 @@
       "googleServicesFile": "./google-services.json",
       "icon": "./assets/icon.png",
       "package": "com.fluidattacks.integrates",
-      "permissions": [],
+      "permissions": ["USE_FINGERPRINT"],
       "playStoreUrl": "https://play.google.com/store/apps/details?id=com.fluidattacks.integrates",
       "versionCode": 0
     },
