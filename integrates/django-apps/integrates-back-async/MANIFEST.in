@@ -1,5 +1,5 @@
 include LICENSE
 include README.rst
 include backend/entity/schema.yaml
-include backend/api/schemas/*
+include backend/api/schema/**/*.graphql
 include backend/domain/vuln_template.yaml
