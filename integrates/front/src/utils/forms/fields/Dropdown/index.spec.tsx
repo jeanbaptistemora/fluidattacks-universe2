@@ -1,10 +1,10 @@
-import { Dropdown } from ".";
+import { Dropdown } from "utils/forms/fields/Dropdown";
 import { Field } from "redux-form";
-import { GenericForm } from "../../../../scenes/Dashboard/components/GenericForm";
+import { GenericForm } from "scenes/Dashboard/components/GenericForm";
 import { Provider } from "react-redux";
 import React from "react";
-import { required } from "../../../validations";
-import store from "../../../../store";
+import { required } from "utils/validations";
+import store from "store";
 import { ReactWrapper, mount } from "enzyme";
 
 describe("Dropdown Field", (): void => {

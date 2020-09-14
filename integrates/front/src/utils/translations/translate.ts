@@ -1,5 +1,5 @@
-import { Logger } from "../logger";
-import { enTranslations } from "./en";
+import { Logger } from "utils/logger";
+import { enTranslations } from "utils/translations/en";
 import { initReactI18next } from "react-i18next";
 import i18next, { TOptions } from "i18next";
 

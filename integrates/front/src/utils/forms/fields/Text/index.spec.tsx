@@ -1,11 +1,11 @@
 import { Field } from "redux-form";
 import { FormControl } from "react-bootstrap";
-import { GenericForm } from "../../../../scenes/Dashboard/components/GenericForm";
+import { GenericForm } from "scenes/Dashboard/components/GenericForm";
 import { Provider } from "react-redux";
 import React from "react";
-import { Text } from ".";
-import { required } from "../../../validations";
-import store from "../../../../store";
+import { Text } from "utils/forms/fields/Text";
+import { required } from "utils/validations";
+import store from "store";
 import { ReactWrapper, mount } from "enzyme";
 
 describe("Text Field", (): void => {

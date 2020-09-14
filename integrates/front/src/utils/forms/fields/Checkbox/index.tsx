@@ -1,7 +1,7 @@
 import React from "react";
 import { WrappedFieldProps } from "redux-form";
 import _ from "lodash";
-import style from "../../index.css";
+import style from "utils/forms/index.css";
 import {
   Checkbox as BootstrapCheckbox,
   FormControlProps,

@@ -1,11 +1,11 @@
 import { Field } from "redux-form";
-import { FileInput } from ".";
+import { FileInput } from "utils/forms/fields/FileInput";
 import { FormGroup } from "react-bootstrap";
-import { GenericForm } from "../../../../scenes/Dashboard/components/GenericForm";
+import { GenericForm } from "scenes/Dashboard/components/GenericForm";
 import { Provider } from "react-redux";
 import React from "react";
-import { required } from "../../../validations";
-import store from "../../../../store";
+import { required } from "utils/validations";
+import store from "store";
 import { ReactWrapper, mount } from "enzyme";
 
 describe("FileInput Field", (): void => {

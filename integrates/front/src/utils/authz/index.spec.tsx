@@ -1,5 +1,5 @@
-import { Can } from "./Can";
-import { Have } from "./Have";
+import { Can } from "utils/authz/Can";
+import { Have } from "utils/authz/Have";
 import React from "react";
 import { ReactWrapper, mount } from "enzyme";
 import {
@@ -7,7 +7,7 @@ import {
   authzPermissionsContext,
   groupAttributes,
   userLevelPermissions,
-} from "./config";
+} from "utils/authz/config";
 
 describe("Authorization", (): void => {
   it("should return functions", (): void => {

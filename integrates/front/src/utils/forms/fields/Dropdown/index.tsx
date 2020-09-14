@@ -6,7 +6,7 @@
 import React from "react";
 import { WrappedFieldProps } from "redux-form";
 import _ from "lodash";
-import style from "../../index.css";
+import style from "utils/forms/index.css";
 import { FormControl, FormControlProps, HelpBlock } from "react-bootstrap";
 
 export const Dropdown: React.FC<WrappedFieldProps & FormControlProps> = (

@@ -1,10 +1,10 @@
 import { Field } from "redux-form";
-import { GenericForm } from "../../../../scenes/Dashboard/components/GenericForm";
+import { GenericForm } from "scenes/Dashboard/components/GenericForm";
 import { Provider } from "react-redux";
 import React from "react";
 import { WithContext as ReactTags } from "react-tag-input";
-import { TagInput } from ".";
-import store from "../../../../store";
+import { TagInput } from "utils/forms/fields/TagInput";
+import store from "store";
 import { ReactWrapper, mount } from "enzyme";
 
 describe("TagInput Field", (): void => {

@@ -16,7 +16,7 @@ import {
   validTag,
   validTextField,
   validUrlField,
-} from "./validations";
+} from "utils/validations";
 
 describe("Validations", (): void => {
   it("should be in the range of numbers", (): void => {

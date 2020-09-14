@@ -1,11 +1,11 @@
 import { Field } from "redux-form";
-import { GenericForm } from "../../../../scenes/Dashboard/components/GenericForm";
+import { GenericForm } from "scenes/Dashboard/components/GenericForm";
 import PhoneInput from "react-phone-input-2";
-import { PhoneNumber } from ".";
+import { PhoneNumber } from "utils/forms/fields/PhoneNumber";
 import { Provider } from "react-redux";
 import React from "react";
-import { required } from "../../../validations";
-import store from "../../../../store";
+import { required } from "utils/validations";
+import store from "store";
 import { ReactWrapper, mount } from "enzyme";
 
 describe("PhoneNumber Field", (): void => {

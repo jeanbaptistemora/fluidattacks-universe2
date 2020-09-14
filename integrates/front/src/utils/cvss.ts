@@ -1,5 +1,5 @@
 /* eslint @typescript-eslint/no-magic-numbers: ["error", { "ignore": [0,1,10] }] */
-import { ISeverityAttr } from "../scenes/Dashboard/containers/SeverityView/types";
+import { ISeverityAttr } from "scenes/Dashboard/containers/SeverityView/types";
 
 /**
  * Values were taken from:

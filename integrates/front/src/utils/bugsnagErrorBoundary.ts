@@ -3,7 +3,7 @@ import BugsnagPluginReact from "@bugsnag/plugin-react";
 import { Error } from "@bugsnag/core/types/event";
 import React from "react";
 import _ from "lodash";
-import { getEnvironment } from "./environment";
+import { getEnvironment } from "utils/environment";
 import { Event, OnErrorCallback } from "@bugsnag/core";
 
 type BugsnagErrorBoundary = React.ComponentType<{

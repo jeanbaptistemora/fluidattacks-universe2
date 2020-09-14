@@ -1,11 +1,11 @@
-import { AutoCompleteText } from ".";
+import { AutoCompleteText } from "utils/forms/fields/AutoCompleteText";
 import { Field } from "redux-form";
 import { FormControl } from "react-bootstrap";
-import { GenericForm } from "../../../../scenes/Dashboard/components/GenericForm";
+import { GenericForm } from "scenes/Dashboard/components/GenericForm";
 import { Provider } from "react-redux";
 import React from "react";
-import { required } from "../../../validations";
-import store from "../../../../store";
+import { required } from "utils/validations";
+import store from "store";
 import { ReactWrapper, mount } from "enzyme";
 
 describe("AutoCompleteText Field", (): void => {

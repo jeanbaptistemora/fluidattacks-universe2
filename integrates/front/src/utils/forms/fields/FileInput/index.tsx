@@ -5,7 +5,7 @@
 */
 import React from "react";
 import _ from "lodash";
-import style from "../../index.css";
+import style from "utils/forms/index.css";
 import {
   ControlLabel,
   FormControl,

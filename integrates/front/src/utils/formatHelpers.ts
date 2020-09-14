@@ -1,10 +1,10 @@
 import _ from "lodash";
-import { translate } from "./translations/translate";
+import { translate } from "utils/translations/translate";
 import {
   ILastLogin,
   IStakeholderAttr,
   IStakeholderDataAttr,
-} from "../scenes/Dashboard/containers/ProjectStakeholdersView/types";
+} from "scenes/Dashboard/containers/ProjectStakeholdersView/types";
 
 type User = IStakeholderAttr["project"]["stakeholders"][0];
 

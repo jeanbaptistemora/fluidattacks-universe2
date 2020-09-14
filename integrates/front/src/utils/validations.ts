@@ -1,8 +1,8 @@
-import { Logger } from "./logger";
+import { Logger } from "utils/logger";
 import { Validator } from "redux-form";
 import _ from "lodash";
-import { msgError } from "./notifications";
-import { translate } from "./translations/translate";
+import { msgError } from "utils/notifications";
+import { translate } from "utils/translations/translate";
 import {
   hasLengthGreaterThan,
   hasLengthLessThan,

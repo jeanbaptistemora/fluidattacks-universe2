@@ -6,16 +6,16 @@
 import { ApolloClient } from "apollo-client";
 import { ApolloProvider as BaseApolloProvider } from "@apollo/react-hooks";
 import { ErrorResponse } from "apollo-link-error";
-import { Logger } from "./logger";
+import { Logger } from "utils/logger";
 import React from "react";
 import { WebSocketLink } from "apollo-link-ws";
 import _ from "lodash";
 import { createNetworkStatusNotifier } from "react-apollo-network-status";
 import { createUploadLink } from "apollo-upload-client";
-import { getEnvironment } from "./environment";
+import { getEnvironment } from "utils/environment";
 import { getMainDefinition } from "apollo-utilities";
-import { msgError } from "./notifications";
-import { translate } from "./translations/translate";
+import { msgError } from "utils/notifications";
+import { translate } from "utils/translations/translate";
 import { useHistory } from "react-router";
 import {
   ApolloLink,
