@@ -19,6 +19,9 @@ from state.cache import (
 from utils.ctx import (
     get_artifact,
 )
+from utils.function import (
+    never_concurrent,
+)
 from utils.logs import (
     log_exception,
 )
@@ -31,6 +34,7 @@ AST: str = get_artifact('static/ast/build/install/ast/bin/ast')
 
 
 @cache_decorator()
+@never_concurrent
 async def parse(
     grammar: Union[
         Literal['Java9'],
@@ -44,7 +48,7 @@ async def parse(
         grammar,
         env=dict(
             # Limit heap size
-            JAVA_OPTS='-Xmx2g',
+            JAVA_OPTS='-Xmx8g',
         ),
         stdin_bytes=content,
     )
