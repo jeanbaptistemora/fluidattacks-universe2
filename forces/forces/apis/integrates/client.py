@@ -30,7 +30,7 @@ TVar = TypeVar('TVar')
 @contextlib.asynccontextmanager
 async def session(
     api_token: str = '',
-    endpoint_url: str = 'https://fluidattacks.com/integrates/api',
+    endpoint_url: str = 'https://integrates.fluidattacks.com/api',
     **kwargs: str,
 ) -> AsyncIterator[GraphQLClient]:
     """Returns an Async GraphQL Client."""

@@ -59,7 +59,7 @@ class IntegratesToken(click.ParamType):
         except jose.exceptions.JOSEError:
             self.fail(
                 ("Please verify the validity of your integrates api token.\n"
-                 "You can generate one at https://fluidattacks.com/integrates"
+                 "You can generate one at https://integrates.fluidattacks.com"
                  ),
                 param,
                 ctx,
