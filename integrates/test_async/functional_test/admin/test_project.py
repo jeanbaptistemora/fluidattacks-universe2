@@ -69,7 +69,6 @@ async def test_project():
         query {{
             project(projectName: "{group_name}"){{
                 name
-                remediatedOverTime
                 hasDrills
                 hasForces
                 findings {{
@@ -114,7 +113,6 @@ async def test_project():
     result = await get_result(data)
     assert 'errors' not in result
     assert result['data']['project']['name'] == group_name
-    assert result['data']['project']['remediatedOverTime'] == '[]'
     assert result['data']['project']['hasDrills']
     assert result['data']['project']['hasForces']
     assert result['data']['project']['hasIntegrates']

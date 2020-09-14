@@ -187,7 +187,6 @@ type Project {
     totalTreatment: GenericScalar
     drafts: [Finding!]
     description: String
-    remediatedOverTime: String
     events: [Event!]
     userDeletion: String
 }

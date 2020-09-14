@@ -45,7 +45,6 @@ class ProjectTests(TestCase):
           query {
             project(projectName: "unittesting"){
               name
-              remediatedOverTime
               hasDrills
               hasForces
               findings {
@@ -91,7 +90,6 @@ class ProjectTests(TestCase):
         result = await self._get_result_async(data)
         assert 'errors' not in result
         assert result['data']['project']['name'] == 'unittesting'
-        assert 'remediatedOverTime' in result['data']['project']
         assert result['data']['project']['hasDrills']
         assert result['data']['project']['hasForces']
         assert len(result['data']['project']['findings']) == 6

@@ -118,28 +118,6 @@ async def _get_organization(
     return await org_domain.get_name_by_id(org_id)
 
 
-@require_integrates
-@get_entity_cache_async
-async def _get_remediated_over_time(
-        info: GraphQLResolveInfo,
-        project_name: str,
-        **__: Any) -> str:
-    """Get remediated_over_time."""
-    project_attrs = \
-        await info.context.loaders['project'].load(project_name)
-    project_attrs = project_attrs['attrs']
-    remediate_over_time_decimal = project_attrs.get('remediated_over_time', {})
-    remediated_twelve_weeks = [
-        lst_rem[-12:]
-        for lst_rem in remediate_over_time_decimal
-    ]
-    remediated_over_time = json.dumps(
-        remediated_twelve_weeks,
-        use_decimal=True
-    )
-    return remediated_over_time
-
-
 @get_entity_cache_async
 async def _get_has_drills(
         info: GraphQLResolveInfo,
