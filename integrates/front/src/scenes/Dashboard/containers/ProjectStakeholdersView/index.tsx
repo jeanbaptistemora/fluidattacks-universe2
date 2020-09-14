@@ -254,7 +254,7 @@ const projectStakeholdersView: React.FC<IProjectStakeholdersViewProps> =
             <Row>
               <Col md={12} sm={12}>
                 <ButtonToolbar className="pull-right md-12 sm-12">
-                  <Can do="backend_api_resolvers_user__do_grant_user_access">
+                  <Can do="backend_api_resolvers_user__do_grant_stakeholder_access">
                     <TooltipWrapper
                       message={translate.t("search_findings.tab_users.add_button.tooltip")}
                     >

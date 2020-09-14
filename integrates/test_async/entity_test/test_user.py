@@ -84,7 +84,7 @@ class UserTests(TestCase):
         assert 'email' in result['data']['addStakeholder']
 
     @pytest.mark.changes_db
-    async def test_grant_user_access_1(self):
+    async def test_grant_stakeholder_access_1(self):
         """Check for grantStakeholderAccess mutation."""
         query = '''
             mutation {

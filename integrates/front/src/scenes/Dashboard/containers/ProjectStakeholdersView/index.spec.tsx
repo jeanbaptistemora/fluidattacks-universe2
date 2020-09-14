@@ -173,7 +173,7 @@ describe("Project users view", () => {
 
   it("should open a modal to add stakeholder", async () => {
     const mockedPermissions: PureAbility<string> = new PureAbility([
-      { action: "backend_api_resolvers_user__do_grant_user_access" },
+      { action: "backend_api_resolvers_user__do_grant_stakeholder_access" },
     ]);
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
@@ -261,7 +261,7 @@ describe("Project users view", () => {
       },
     }];
     const mockedPermissions: PureAbility<string> = new PureAbility([
-      { action: "backend_api_resolvers_user__do_grant_user_access" },
+      { action: "backend_api_resolvers_user__do_grant_stakeholder_access" },
       { action: "grant_group_level_role:analyst" },
     ]);
     const wrapper: ReactWrapper = mount(
@@ -448,7 +448,7 @@ describe("Project users view", () => {
       ]},
     }];
     const mockedPermissions: PureAbility<string> = new PureAbility([
-      { action: "backend_api_resolvers_user__do_grant_user_access" },
+      { action: "backend_api_resolvers_user__do_grant_stakeholder_access" },
       { action: "grant_group_level_role:analyst" },
     ]);
     const wrapper: ReactWrapper = mount(
