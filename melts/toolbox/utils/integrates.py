@@ -16,7 +16,7 @@ from toolbox import logger
 
 def get_integrates_url(group: str, finding_id: str) -> str:
     return (
-        f'https://fluidattacks.com/integrates/dashboard'
+        f'https://integrates.fluidattacks.com/dashboard'
         f'#!/project/{group.upper()}/findings/{finding_id}/description'
     )
 

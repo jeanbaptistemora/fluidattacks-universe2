@@ -33,7 +33,7 @@ LOGGER_DEBUG: bool = os.environ.get('LOGGER_DEBUG', 'false') == 'true'
 # Validations
 if not API_TOKEN:
     print('Please set INTEGRATES_API_TOKEN environment variable.')
-    print('  You can generate one at https://fluidattacks.com/integrates')
+    print('  You can generate one at https://integrates.fluidattacks.com')
     sys.exit(78)
 
 try:
@@ -52,7 +52,7 @@ try:
 except jose.exceptions.JOSEError:
     traceback.print_exc()
     print('Please verify the validity of your INTEGRATES_API_TOKEN env var.')
-    print('  You can generate one at https://fluidattacks.com/integrates')
+    print('  You can generate one at https://integrates.fluidattacks.com')
     sys.exit(78)
 
 

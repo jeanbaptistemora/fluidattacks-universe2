@@ -34,7 +34,7 @@ def process_exploit(exp_path: str):
         score = utils.integrates.get_finding_cvss_score(finding_id)
         title = utils.integrates.get_finding_title(finding_id)
 
-        url = ('https://fluidattacks.com/integrates/dashboard#!/'
+        url = ('https://integrates.fluidattacks.com/dashboard#!/'
                f'project/{subs}/findings/{finding_id}/evidence')
         status = ('accepted' if 'accepted' in exp_path else
                   ('open' if utils.integrates.is_finding_open(

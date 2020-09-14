@@ -9,7 +9,7 @@ from toolbox import api, utils
 from toolbox.constants import API_TOKEN
 
 
-BASE_URL: str = 'https://fluidattacks.com/integrates/dashboard#!/project'
+BASE_URL: str = 'https://integrates.fluidattacks.com/dashboard#!/project'
 
 
 def get_subs_unverified_findings(subs: str):
