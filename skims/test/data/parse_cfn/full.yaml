@@ -9,6 +9,27 @@ Parameters:
 
 Resources:
 
+  AWSManagedPolicy1:
+    Type: AWS::IAM::ManagedPolicy
+    Properties:
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+        - Effect: Allow
+          Action:
+            - s3:ListBucket
+            - s3:GetBucketLocation
+          Resource:
+            Fn::Sub: arn:aws:s3:::${pS3RestoreBucket}
+        - Effect: Allow
+          Action:
+            - s3:GetObjectMetaData
+            - s3:GetObject
+            - s3:PutObject
+            - s3:ListMultipartUploadParts
+            - s3:AbortMultipartUpload
+          Resource: '*'
+
   AWSIamRole1:
     Type: AWS::IAM::Role
     Properties:

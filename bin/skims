@@ -7,6 +7,7 @@
 #  shellcheck shell=bash
 
 export PYTHONPATH="${pyPkgSkims}/site-packages/:${PYTHONPATH}"
+export PYTHONUNBUFFERED='1'
 
 export PATH="${pyPkgSkims}/site-packages/bin/:${PATH}"
 

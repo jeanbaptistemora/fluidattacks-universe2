@@ -15,6 +15,32 @@ def test_iterate_iam_policy_statements() -> None:
         content = file.read()
 
     assert tuple(iterate_iam_policy_statements(content)) == (
+        ('AWSManagedPolicy1', [{
+            'Action': [
+                's3:ListBucket',
+                's3:GetBucketLocation',
+            ],
+            'Effect': 'Allow',
+            'Resource': {
+                'Fn::Sub': 'arn:aws:s3:::${pS3RestoreBucket}',
+                '__column__': 12,
+                '__line__': 22,
+            },
+            '__column__': 10,
+            '__line__': 17,
+        }, {
+            'Action': [
+                's3:GetObjectMetaData',
+                's3:GetObject',
+                's3:PutObject',
+                's3:ListMultipartUploadParts',
+                's3:AbortMultipartUpload',
+            ],
+            'Effect': 'Allow',
+            'Resource': '*',
+            '__column__': 10,
+            '__line__': 23,
+        }]),
         ('AWSIamRole1', [{
             'Action': [
                 'logs:CreateLogStream',
@@ -22,9 +48,11 @@ def test_iterate_iam_policy_statements() -> None:
                 'logs:PutLogEvents',
             ],
             'Effect': 'Allow',
-            'Resource': ['arn:aws:logs:*:*:*'],
+            'Resource': [
+                'arn:aws:logs:*:*:*',
+            ],
             '__column__': 12,
-            '__line__': 17,
+            '__line__': 38,
         }]),
         ('AWSIamRole1', [{
             'Action': [
@@ -34,6 +62,6 @@ def test_iterate_iam_policy_statements() -> None:
             'Effect': 'Allow',
             'Resource': '*',
             '__column__': 12,
-            '__line__': 27,
+            '__line__': 48,
         }]),
     )
