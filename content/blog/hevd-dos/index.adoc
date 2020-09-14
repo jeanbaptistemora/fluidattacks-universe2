@@ -17,15 +17,16 @@
 = HEVD: Denial of Service
 
 In the last link:../windows-kernel-debugging/[post], we were able to setup
-a lab environment to start exploiting vulnerabilities on the Windows Kernel.
+a lab environment to start exploiting vulnerabilities in the Windows kernel
+space.
 
 This article will focus on the first steps to exploit the vulnerabilities
 on HackSys Extreme Vulnerable Driver (`HEVD`).
 
 First we need to get familiar with `WinDBG` which is a very powerful
 debugger from Microsoft but has a steep learning curve. We'll also use
-IDA. I'm using the freeware version which is enough for most of what we're
-going to face.
+IDA, of which I'm using the freeware version which is enough for most of
+what we're going to face.
 
 In the end, we're going to be able to crash our Windows 10 OS by leveraging
 a vulnerability on `HEVD`. It's nice to crash things for the sake of science.
@@ -105,18 +106,19 @@ address.
 image::bp1.png[? command]
 
 This is by no means a comprehensive WinDBG reference but will show the
-commands I use most when debugging.
+commands I use the most when debugging.
 
 == Talking to Windows drivers
 
 The common main goal of Windows Kernel exploitation is to elevate privileges
 to perform any desired task on the affected computer with the most
-powerful permissions. We do that, by performing a communication between the
+powerful permissions. We do that, by finding a vulnerability in a piece of
+code running at kernel-space and establishing a communication between the
 OS user-mode (our exploit) and kernel-mode which is where the drivers live.
 
 As Windows runs in protected mode, user-land instructions cannot
-access to kernel-space addresses. However, there is an interface provided
-by the OS that allows to talk to drivers.
+access to kernel-space memory. However, there is an interface provided
+by the OS that allows to talk to drivers: `IOCTL` calls.
 
 When a driver is installed, it sets a device name using the `IoCreateDevice`
 call.
@@ -125,9 +127,9 @@ image::iocreatedevice1.png[IoCreateDevice]
 
 It then defines the routines that will expose. Commonly, those routines are
 basically functions that will interact with other layer of the OS
-(HAL for example) to manipulate a hardware device. In `HEVD`, those routines
-are simply functions happening at kernel level with several kind of
-vulnerabilities.
+(Hardware Abstraction Layer or `HAL` for example) to manipulate a hardware
+device. In `HEVD`, those routines are simply functions happening at kernel
+level with several vulnerabilities.
 
 Each routine is identified by a `IOCTL` (I/O control) code.
 
@@ -160,7 +162,7 @@ those calls nicely:
 from infi.wioctl import DeviceIoControl
 
 HANDLE = DeviceIoControl(DEVICE_NAME)
-HANDLE.ioctl(IOCTL_HEVD_STACK_OVERFLOW, PAYLOAD, SIZE, 0, 0)
+HANDLE.ioctl(IOCTL_CODE, PAYLOAD, SIZE, 0, 0)
 ----
 
 With that, we can start looking for our fist vulnerability on `HEVD`.
@@ -221,11 +223,11 @@ to notice is that a `memset(&KernelBuffer, 0, 800h)` call is done:
 
 image::trigger1.png[TriggerBufferOverflowStack]
 
-Which indicates that the buffer length is `800h` or `2048` bytes long.
+This indicates that the buffer is `800h` or `2048` bytes long.
 
 In the end of `TriggerBufferOverflowStack`, a call to
 `memcpy(&KernelBuffer, &UserBuffer, SizeOfUserBuffer)` is performed,
-which is a classic example of buffer overflow, because we control the
+which is a classic example of buffer overflow, because we control both the
 `UserBuffer` data and the `SizeOfUserBuffer` value:
 
 image::trigger2.png[TriggerBufferOverflowStack]
@@ -275,7 +277,7 @@ the execution flow.
 
 == Conclusions
 
-This post was intended to cover the very first approach to interacting
-with a Windows driver. We were able to perform a full Denial of Service
+This post was intended to cover the very first part for interacting
+with a Windows driver and we were able to perform a full Denial of Service
 of the victim machine. In the next post, we will use the proven ability
 to control the execution flow to gain an `SYSTEM` shell.
