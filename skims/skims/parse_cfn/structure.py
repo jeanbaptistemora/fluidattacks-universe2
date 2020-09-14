@@ -30,7 +30,10 @@ def iterate_resources(
 
 def iterate_iam_policy_statements(content: str) -> Tuple[str, Dict[str, Any]]:
     for name, kind, props in iterate_resources(content, 'AWS::IAM'):
-        if kind == 'AWS::IAM::ManagedPolicy':
+        if kind in {
+            'AWS::IAM::ManagedPolicy',
+            'AWS::IAM::Policy',
+        }:
             document = props.get('PolicyDocument', {})
             yield name, document.get('Statement', [])
         if kind == 'AWS::IAM::Role':

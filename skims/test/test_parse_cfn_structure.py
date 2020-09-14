@@ -64,4 +64,14 @@ def test_iterate_iam_policy_statements() -> None:
             '__column__': 12,
             '__line__': 48,
         }]),
+        ('AWSPolicy1', [{
+            'Action': [
+                's3:ListBucket',
+                's3:GetBucketLocation',
+            ],
+            'Effect': 'Allow',
+            'Resource': '*',
+            '__column__': 12,
+            '__line__': 61,
+        }]),
     )

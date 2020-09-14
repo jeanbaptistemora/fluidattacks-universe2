@@ -52,3 +52,15 @@ Resources:
             Effect: Allow
             Resource: '*'
           Version: '2012-10-17'
+
+  AWSPolicy1:
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: 'Allow'
+            Action:
+            - s3:ListBucket
+            - s3:GetBucketLocation
+            Resource: '*'
