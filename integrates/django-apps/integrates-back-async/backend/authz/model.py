@@ -501,7 +501,6 @@ ORGANIZATION_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
         actions={
             ('backend_api_resolvers_organization__do_'
                 'edit_stakeholder_organization'),
-            'backend_api_resolvers_organization__do_edit_user_organization',
             ('backend_api_resolvers_organization__do_'
                 'grant_stakeholder_organization_access'),
             ('backend_api_resolvers_organization__'
@@ -528,7 +527,6 @@ ORGANIZATION_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
         actions={
             ('backend_api_resolvers_organization__do_'
                 'edit_stakeholder_organization'),
-            'backend_api_resolvers_organization__do_edit_user_organization',
             ('backend_api_resolvers_organization__do_'
                 'grant_stakeholder_organization_access'),
             ('backend_api_resolvers_organization__'
@@ -548,7 +546,6 @@ ORGANIZATION_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
         actions={
             ('backend_api_resolvers_organization__do_'
                 'edit_stakeholder_organization'),
-            'backend_api_resolvers_organization__do_edit_user_organization',
             ('backend_api_resolvers_organization__do_'
                 'grant_stakeholder_organization_access'),
             ('backend_api_resolvers_organization__'

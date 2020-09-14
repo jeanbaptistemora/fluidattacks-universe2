@@ -44,7 +44,6 @@ from backend.exceptions import (
 from backend.typing import (
     CreateOrganizationPayload as CreateOrganizationPayloadType,
     EditStakeholderPayload as EditStakeholderPayloadType,
-    EditUserPayload as EditUserPayloadType,
     GrantStakeholderAccessPayload as GrantStakeholderAccessPayloadType,
     Organization as OrganizationType,
     Project as ProjectType,
@@ -80,76 +79,6 @@ async def _do_create_organization(
         )
         raise GraphQLError(str(exe))
     return response
-
-
-@concurrent_decorators(
-    require_organization_access,
-    enforce_organization_level_auth_async,
-)
-async def _do_edit_user_organization(
-    _: Any,
-    info: GraphQLResolveInfo,
-    **parameters: Any
-) -> EditUserPayloadType:
-    success: bool = False
-
-    organization_id: str = str(parameters.get('organization_id'))
-    organization_name: str = await org_domain.get_name_by_id(organization_id)
-    requester_data = await util.get_jwt_content(info.context)
-    requester_email = requester_data['user_email']
-
-    user_email: str = str(parameters.get('user_email'))
-    new_phone_number: str = str(parameters.get('phone_number'))
-    new_role: str = str(parameters.get('role')).lower()
-
-    if not await org_domain.has_user_access(organization_id, user_email):
-        util.cloudwatch_log(
-            info.context,
-            f'Security: User {requester_email} attempted to edit information '
-            f'from a not existent user {user_email} in organization'
-            f'{organization_name}'
-        )
-        raise UserNotInOrganization()
-
-    if await org_domain.add_user(
-        organization_id,
-        user_email,
-        new_role
-    ):
-        success = await user_loader.modify_user_information(
-            info.context,
-            {
-                'email': user_email,
-                'phone_number': new_phone_number,
-                'responsibility': ''
-            },
-            ''
-        )
-
-    if success:
-        util.queue_cache_invalidation(
-            user_email,
-            f'users*{organization_id.lower()}',
-            f'projects*{organization_id.lower()}'
-        )
-        util.cloudwatch_log(
-            info.context,
-            f'Security: User {requester_email} modified information from the '
-            f'user {user_email} in the organization {organization_name}'
-        )
-    else:
-        util.cloudwatch_log(
-            info.context,
-            f'Security: User {requester_email} attempted to modify '
-            f'information from user {user_email} in organization '
-            f'{organization_name}'
-        )
-    return EditUserPayloadType(
-        success=success,
-        modified_user=dict(
-            email=user_email
-        )
-    )
 
 
 @concurrent_decorators(

@@ -137,17 +137,6 @@ type Mutation {
         phoneNumber: String!
     ): EditStakeholderPayload!
 
-    editUserOrganization(
-        organizationId: String!
-        phoneNumber: String
-        role: OrganizationRole!
-        userEmail: String!
-    ): EditUserPayload! @deprecated(reason:
-        """
-        Right now, you can edit a project user/stakeholder using both the 'editUserOrganization'
-        and 'editStakeholderOrganization' query. After 2021-02-06, the 'editUserOrganization'
-        query will be invalid.
-        """)
     editStakeholderOrganization(
         organizationId: String!
         phoneNumber: String

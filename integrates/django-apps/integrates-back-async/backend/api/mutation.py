@@ -51,9 +51,6 @@ MUTATION.set_field(
     'editStakeholderOrganization', organization.resolve_organization_mutation
 )
 MUTATION.set_field(
-    'editUserOrganization', organization.resolve_organization_mutation
-)
-MUTATION.set_field(
     'grantStakeholderOrganizationAccess',
     organization.resolve_organization_mutation
 )
