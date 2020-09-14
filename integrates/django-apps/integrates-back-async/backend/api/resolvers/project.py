@@ -54,7 +54,6 @@ from backend.typing import (
     Project as ProjectType,
     Stakeholder as StakeholderType,
     User as UserType,
-    AddCommentPayload as AddCommentPayloadType,
     AddConsultPayload as AddConsultPayloadType,
     SimplePayload as SimplePayloadType,
     SimpleProjectPayload as SimpleProjectPayloadType,
@@ -1032,60 +1031,6 @@ async def _do_reject_remove_project(
             f'{project} deletion successfully'  # pragma: no cover
         )
     return SimplePayloadType(success=success)
-
-
-@concurrent_decorators(
-    require_login,
-    enforce_group_level_auth_async,
-    require_integrates,
-)
-async def _do_add_project_comment(
-        _: Any,
-        info: GraphQLResolveInfo,
-        **parameters: Any) -> AddCommentPayloadType:
-    """Resolve add_project_comment mutation."""
-    project_name = parameters.get('project_name', '').lower()
-    user_info = await util.get_jwt_content(info.context)
-    user_email = user_info['user_email']
-    current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-    comment_id = int(round(time.time() * 1000))
-    comment_data = {
-        'user_id': comment_id,
-        'content': parameters.get('content'),
-        'created': current_time,
-        'fullname': str.join(
-            ' ',
-            [user_info['first_name'], user_info['last_name']]
-        ),
-        'modified': current_time,
-        'parent': parameters.get('parent')
-    }
-    success = await project_domain.add_comment(
-        project_name,
-        user_email,
-        comment_data
-    )
-    if success:
-        util.queue_cache_invalidation(
-            f'comment*{project_name}',
-            f'consult*{project_name}'
-        )
-        project_domain.send_comment_mail(
-            user_email,
-            comment_data,
-            project_name
-        )
-        util.cloudwatch_log(
-            info.context, 'Security: Added comment to '
-            f'{project_name} project successfully'  # pragma: no cover
-        )
-    else:
-        util.cloudwatch_log(
-            info.context, 'Security: Attempted to add '
-            f'comment in {project_name} project'  # pragma: no cover
-        )
-    ret = AddCommentPayloadType(success=success, comment_id=str(comment_id))
-    return ret
 
 
 @concurrent_decorators(

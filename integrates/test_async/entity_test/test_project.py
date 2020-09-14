@@ -274,11 +274,11 @@ class ProjectTests(TestCase):
         assert result['data']['removeTag']['success']
 
     @pytest.mark.changes_db
-    async def test_add_project_comment_parent_zero(self):
-        """Check for addProjectComment mutation."""
+    async def test_add_project_consult_parent_zero(self):
+        """Check for addProjectConsult mutation."""
         query = '''
           mutation {
-            addProjectComment(
+            addProjectConsult(
               content: "Test comment",
               parent: "0",
               projectName: "unittesting",
@@ -291,15 +291,15 @@ class ProjectTests(TestCase):
         data = {'query': query}
         result = await self._get_result_async(data)
         assert 'errors' not in result
-        assert 'success' in result['data']['addProjectComment']
-        assert result['data']['addProjectComment']['success']
+        assert 'success' in result['data']['addProjectConsult']
+        assert result['data']['addProjectConsult']['success']
 
     @pytest.mark.changes_db
-    async def test_add_project_comment_parent_non_zero(self):
-        """Check for addProjectComment mutation."""
+    async def test_add_project_consult_parent_non_zero(self):
+        """Check for addProjectConsult mutation."""
         query = '''
           mutation {
-            addProjectComment(
+            addProjectConsult(
               content: "Test comment",
               parent: "1545946228675",
               projectName: "unittesting",
@@ -312,8 +312,8 @@ class ProjectTests(TestCase):
         data = {'query': query}
         result = await self._get_result_async(data)
         assert 'errors' not in result
-        assert 'success' in result['data']['addProjectComment']
-        assert result['data']['addProjectComment']['success']
+        assert 'success' in result['data']['addProjectConsult']
+        assert result['data']['addProjectConsult']['success']
 
 
 @pytest.mark.changes_db

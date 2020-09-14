@@ -77,8 +77,6 @@ MUTATION.set_field('createProject', project.resolve_project_mutation)
 MUTATION.set_field('editGroup', project.resolve_project_mutation)
 MUTATION.set_field('rejectRemoveProject',
                    project.resolve_project_mutation)
-MUTATION.set_field('addProjectComment',
-                   project.resolve_project_mutation)
 MUTATION.set_field('addProjectConsult',
                    project.resolve_project_mutation)
 MUTATION.set_field('addTags', project.resolve_project_mutation)
