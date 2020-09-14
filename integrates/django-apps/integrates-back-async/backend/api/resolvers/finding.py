@@ -1007,7 +1007,7 @@ async def _do_update_client_description(
     if success:
         attrs_to_clean = {attribute: finding_id for attribute in parameters}
         to_clean = util.format_cache_keys_pattern(attrs_to_clean)
-        util.queue_cache_invalidation(*to_clean)
+        await util.invalidate_cache(*to_clean)
         finding_domain.send_finding_mail(
             finding_utils.should_send_mail,
             finding_id,
