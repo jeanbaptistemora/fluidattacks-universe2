@@ -11,22 +11,23 @@ import React from "react";
 import { ButtonToolbar, Col, Glyphicon, Row } from "react-bootstrap";
 import { Trans } from "react-i18next";
 import { Redirect, Route, Switch, useHistory, useParams, useRouteMatch } from "react-router-dom";
-import { Button } from "../../../../components/Button";
-import { Modal } from "../../../../components/Modal";
-import { authzGroupContext, authzPermissionsContext } from "../../../../utils/authz/config";
-import { Logger } from "../../../../utils/logger";
-import { msgError, msgSuccess } from "../../../../utils/notifications";
-import { translate } from "../../../../utils/translations/translate";
-import { GET_USER_PERMISSIONS } from "../../queries";
-import { EventContent } from "../EventContent";
-import { FindingContent } from "../FindingContent";
-import { ProjectContent } from "../ProjectContent";
-import { default as style } from "./index.css";
+
+import { Button } from "components/Button";
+import { Modal } from "components/Modal";
+import { EventContent } from "scenes/Dashboard/containers/EventContent";
+import { FindingContent } from "scenes/Dashboard/containers/FindingContent";
+import { ProjectContent } from "scenes/Dashboard/containers/ProjectContent";
+import { default as style } from "scenes/Dashboard/containers/ProjectRoute/index.css";
 import {
   GET_GROUP_DATA,
   REJECT_REMOVE_PROJECT_MUTATION,
-} from "./queries";
-import { IProjectData, IProjectRoute, IRejectRemoveProject } from "./types";
+} from "scenes/Dashboard/containers/ProjectRoute/queries";
+import { IProjectData, IProjectRoute, IRejectRemoveProject } from "scenes/Dashboard/containers/ProjectRoute/types";
+import { GET_USER_PERMISSIONS } from "scenes/Dashboard/queries";
+import { authzGroupContext, authzPermissionsContext } from "utils/authz/config";
+import { Logger } from "utils/logger";
+import { msgError, msgSuccess } from "utils/notifications";
+import { translate } from "utils/translations/translate";
 
 const projectRoute: React.FC<IProjectRoute> = (props: IProjectRoute): JSX.Element => {
   const { setUserRole } = props;

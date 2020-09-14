@@ -5,9 +5,9 @@ import React from "react";
 // tslint:disable-next-line: no-submodule-imports
 import { act } from "react-dom/test-utils";
 import { MemoryRouter, Route } from "react-router-dom";
-import { authzPermissionsContext } from "../../../../utils/authz/config";
-import { ProjectRoute } from "./index";
-import { GET_GROUP_DATA } from "./queries";
+
+import { ProjectRoute } from "scenes/Dashboard/containers/ProjectRoute";
+import { GET_GROUP_DATA } from "scenes/Dashboard/containers/ProjectRoute/queries";
 
 describe("ProjectRoute", () => {
 

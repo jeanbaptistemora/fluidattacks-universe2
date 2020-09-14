@@ -7,11 +7,16 @@ import * as React from "react";
 import { act } from "react-dom/test-utils";
 import { Provider } from "react-redux";
 import wait from "waait";
-import store from "../../../../store/index";
-import { authzPermissionsContext } from "../../../../utils/authz/config";
-import { ProjectSettingsView } from "./index";
-import { GET_ENVIRONMENTS, GET_REPOSITORIES, GET_TAGS } from "./queries";
-import { ISettingsViewProps } from "./types";
+
+import { ProjectSettingsView } from "scenes/Dashboard/containers/ProjectSettingsView";
+import {
+  GET_ENVIRONMENTS,
+  GET_REPOSITORIES,
+  GET_TAGS,
+} from "scenes/Dashboard/containers/ProjectSettingsView/queries";
+import { ISettingsViewProps } from "scenes/Dashboard/containers/ProjectSettingsView/types";
+import store from "store";
+import { authzPermissionsContext } from "utils/authz/config";
 
 describe("ProjectSettingsView", () => {
 

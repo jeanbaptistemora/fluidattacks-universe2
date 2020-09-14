@@ -9,17 +9,20 @@ import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React from "react";
 import { ButtonToolbar, Col, Glyphicon, Row } from "react-bootstrap";
-import { Badge } from "../../../../../components/Badge";
-import { Button } from "../../../../../components/Button";
-import { DataTableNext } from "../../../../../components/DataTableNext";
-import { IHeaderConfig } from "../../../../../components/DataTableNext/types";
-import { TooltipWrapper } from "../../../../../components/TooltipWrapper";
-import { Can } from "../../../../../utils/authz/Can";
-import { Logger } from "../../../../../utils/logger";
-import { msgError, msgSuccess } from "../../../../../utils/notifications";
-import { translate } from "../../../../../utils/translations/translate";
-import { AddTagsModal } from "../../../components/AddTagsModal/index";
-import { ADD_TAGS_MUTATION, GET_TAGS, REMOVE_TAG_MUTATION } from "../queries";
+
+import { Badge } from "components/Badge";
+import { Button } from "components/Button";
+import { DataTableNext } from "components/DataTableNext";
+import { IHeaderConfig } from "components/DataTableNext/types";
+import { TooltipWrapper } from "components/TooltipWrapper";
+import { AddTagsModal } from "scenes/Dashboard/components/AddTagsModal";
+import { ADD_TAGS_MUTATION, GET_TAGS,
+  REMOVE_TAG_MUTATION,
+} from "scenes/Dashboard/containers/ProjectSettingsView/queries";
+import { Can } from "utils/authz/Can";
+import { Logger } from "utils/logger";
+import { msgError, msgSuccess } from "utils/notifications";
+import { translate } from "utils/translations/translate";
 
 export interface IPortfolioProps {
   projectName: string;

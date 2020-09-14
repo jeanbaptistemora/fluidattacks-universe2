@@ -8,18 +8,24 @@ import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React from "react";
 import { ButtonToolbar, Col, Glyphicon, Row } from "react-bootstrap";
-import { Button } from "../../../../../components/Button";
-import { DataTableNext } from "../../../../../components/DataTableNext";
-import { IHeaderConfig } from "../../../../../components/DataTableNext/types";
-import { TooltipWrapper } from "../../../../../components/TooltipWrapper";
-import { Can } from "../../../../../utils/authz/Can";
-import { Logger } from "../../../../../utils/logger";
-import { msgError, msgSuccess } from "../../../../../utils/notifications";
-import { openUrl } from "../../../../../utils/resourceHelpers";
-import { translate } from "../../../../../utils/translations/translate";
-import { AddFilesModal } from "../../../components/AddFilesModal";
-import { FileOptionsModal } from "../../../components/FileOptionsModal";
-import { DOWNLOAD_FILE_MUTATION, GET_FILES, REMOVE_FILE_MUTATION, UPLOAD_FILE_MUTATION } from "../queries";
+
+import { Button } from "components/Button";
+import { DataTableNext } from "components/DataTableNext";
+import { IHeaderConfig } from "components/DataTableNext/types";
+import { TooltipWrapper } from "components/TooltipWrapper";
+import { AddFilesModal } from "scenes/Dashboard/components/AddFilesModal";
+import { FileOptionsModal } from "scenes/Dashboard/components/FileOptionsModal";
+import {
+  DOWNLOAD_FILE_MUTATION,
+  GET_FILES,
+  REMOVE_FILE_MUTATION,
+  UPLOAD_FILE_MUTATION,
+} from "scenes/Dashboard/containers/ProjectSettingsView/queries";
+import { Can } from "utils/authz/Can";
+import { Logger } from "utils/logger";
+import { msgError, msgSuccess } from "utils/notifications";
+import { openUrl } from "utils/resourceHelpers";
+import { translate } from "utils/translations/translate";
 
 export interface IFilesProps {
   projectName: string;

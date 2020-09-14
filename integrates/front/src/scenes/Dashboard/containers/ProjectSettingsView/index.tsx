@@ -6,13 +6,14 @@
 import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React from "react";
-import { Can } from "../../../../utils/authz/Can";
-import { Environments } from "./Environments";
-import { Files } from "./Files";
-import { Portfolio } from "./Portfolio";
-import { Repositories } from "./Repositories";
-import { Services } from "./Services";
-import { ISettingsViewProps } from "./types";
+
+import { Environments } from "scenes/Dashboard/containers/ProjectSettingsView/Environments";
+import { Files } from "scenes/Dashboard/containers/ProjectSettingsView/Files";
+import { Portfolio } from "scenes/Dashboard/containers/ProjectSettingsView/Portfolio";
+import { Repositories } from "scenes/Dashboard/containers/ProjectSettingsView/Repositories";
+import { Services } from "scenes/Dashboard/containers/ProjectSettingsView/Services";
+import { ISettingsViewProps } from "scenes/Dashboard/containers/ProjectSettingsView/types";
+import { Can } from "utils/authz/Can";
 
 const projectSettingsView: React.FC<ISettingsViewProps> = (props: ISettingsViewProps): JSX.Element => {
   const { projectName } = props.match.params;

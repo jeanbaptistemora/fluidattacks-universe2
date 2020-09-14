@@ -10,19 +10,24 @@ import mixpanel from "mixpanel-browser";
 import React from "react";
 import { ButtonToolbar, Col, Glyphicon, Row } from "react-bootstrap";
 import { selectFilter } from "react-bootstrap-table2-filter";
-import { Button } from "../../../../../components/Button";
-import { ConfirmDialog, IConfirmFn } from "../../../../../components/ConfirmDialog";
-import { DataTableNext } from "../../../../../components/DataTableNext";
-import { changeFormatter, statusFormatter } from "../../../../../components/DataTableNext/formatters";
-import { IHeaderConfig } from "../../../../../components/DataTableNext/types";
-import { TooltipWrapper } from "../../../../../components/TooltipWrapper";
-import { Can } from "../../../../../utils/authz/Can";
-import { Logger } from "../../../../../utils/logger";
-import { msgError, msgSuccess } from "../../../../../utils/notifications";
-import { translate } from "../../../../../utils/translations/translate";
-import { AddEnvironmentsModal } from "../../../components/AddEnvironmentsModal/index";
-import { ADD_ENVIRONMENTS_MUTATION, GET_ENVIRONMENTS, UPDATE_ENVIRONMENT_MUTATION } from "../queries";
-import { IEnvironmentsAttr, IHistoricState } from "../types";
+
+import { Button } from "components/Button";
+import { ConfirmDialog, IConfirmFn } from "components/ConfirmDialog";
+import { DataTableNext } from "components/DataTableNext";
+import { changeFormatter, statusFormatter } from "components/DataTableNext/formatters";
+import { IHeaderConfig } from "components/DataTableNext/types";
+import { TooltipWrapper } from "components/TooltipWrapper";
+import { AddEnvironmentsModal } from "scenes/Dashboard/components/AddEnvironmentsModal/index";
+import {
+  ADD_ENVIRONMENTS_MUTATION,
+  GET_ENVIRONMENTS,
+  UPDATE_ENVIRONMENT_MUTATION,
+} from "scenes/Dashboard/containers/ProjectSettingsView/queries";
+import { IEnvironmentsAttr, IHistoricState } from "scenes/Dashboard/containers/ProjectSettingsView/types";
+import { Can } from "utils/authz/Can";
+import { Logger } from "utils/logger";
+import { msgError, msgSuccess } from "utils/notifications";
+import { translate } from "utils/translations/translate";
 
 export interface IEnvironmentsProps {
   projectName: string;

@@ -7,11 +7,17 @@ import * as React from "react";
 import { act } from "react-dom/test-utils";
 import { Provider } from "react-redux";
 import wait from "waait";
-import store from "../../../../../store/index";
-import { authzPermissionsContext } from "../../../../../utils/authz/config";
-import { msgError, msgSuccess } from "../../../../../utils/notifications";
-import { DOWNLOAD_FILE_MUTATION, GET_FILES, REMOVE_FILE_MUTATION, UPLOAD_FILE_MUTATION } from "../queries";
-import { Files, IFilesProps } from "./index";
+
+import { Files, IFilesProps } from "scenes/Dashboard/containers/ProjectSettingsView/Files";
+import {
+  DOWNLOAD_FILE_MUTATION,
+  GET_FILES,
+  REMOVE_FILE_MUTATION,
+  UPLOAD_FILE_MUTATION,
+} from "scenes/Dashboard/containers/ProjectSettingsView/queries";
+import store from "store";
+import { authzPermissionsContext } from "utils/authz/config";
+import { msgError, msgSuccess } from "utils/notifications";
 
 jest.mock("../../../../../utils/notifications", () => {
   const mockedNotifications: Dictionary = jest.requireActual("../../../../../utils/notifications");
