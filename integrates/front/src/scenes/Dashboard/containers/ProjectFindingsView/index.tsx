@@ -16,24 +16,32 @@ import { selectFilter, textFilter } from "react-bootstrap-table2-filter";
 import FontAwesome from "react-fontawesome";
 import { Trans } from "react-i18next";
 import { useHistory } from "react-router-dom";
-import { Button } from "../../../../components/Button";
-import { limitFormatter, statusFormatter } from "../../../../components/DataTableNext/formatters";
-import { DataTableNext } from "../../../../components/DataTableNext/index";
-import { IHeaderConfig } from "../../../../components/DataTableNext/types";
-import { Modal } from "../../../../components/Modal/index";
-import { TooltipWrapper } from "../../../../components/TooltipWrapper/index";
-import { default as AppstoreBadge } from "../../../../resources/appstore_badge.svg";
-import { default as GoogleplayBadge } from "../../../../resources/googleplay_badge.svg";
-import { Can } from "../../../../utils/authz/Can";
-import { formatTreatment } from "../../../../utils/formatHelpers";
-import { useStoredState } from "../../../../utils/hooks";
-import { Logger } from "../../../../utils/logger";
-import { msgError, msgSuccess } from "../../../../utils/notifications";
-import { translate } from "../../../../utils/translations/translate";
-import { default as style } from "./index.css";
-import { GET_FINDINGS, REQUEST_PROJECT_REPORT } from "./queries";
-import { IFindingAttr, IProjectFindingsAttr, IProjectFindingsProps } from "./types";
-import { formatFindings } from "./utils";
+
+import { Button } from "components/Button";
+import { DataTableNext } from "components/DataTableNext";
+import { limitFormatter, statusFormatter } from "components/DataTableNext/formatters";
+import { IHeaderConfig } from "components/DataTableNext/types";
+import { Modal } from "components/Modal/index";
+import { TooltipWrapper } from "components/TooltipWrapper";
+import { default as AppstoreBadge } from "resources/appstore_badge.svg";
+import { default as GoogleplayBadge } from "resources/googleplay_badge.svg";
+import { default as style } from "scenes/Dashboard/containers/ProjectFindingsView/index.css";
+import {
+  GET_FINDINGS,
+  REQUEST_PROJECT_REPORT,
+} from "scenes/Dashboard/containers/ProjectFindingsView/queries";
+import {
+  IFindingAttr,
+  IProjectFindingsAttr,
+  IProjectFindingsProps,
+} from "scenes/Dashboard/containers/ProjectFindingsView/types";
+import { formatFindings } from "scenes/Dashboard/containers/ProjectFindingsView/utils";
+import { Can } from "utils/authz/Can";
+import { formatTreatment } from "utils/formatHelpers";
+import { useStoredState } from "utils/hooks";
+import { Logger } from "utils/logger";
+import { msgError, msgSuccess } from "utils/notifications";
+import { translate } from "utils/translations/translate";
 
 const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFindingsProps): JSX.Element => {
   const now: Date = new Date();

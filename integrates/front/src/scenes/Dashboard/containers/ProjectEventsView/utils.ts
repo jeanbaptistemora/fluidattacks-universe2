@@ -1,8 +1,5 @@
-import { translate } from "../../../../utils/translations/translate";
-import {
-  castEventStatus,
-  castEventType,
-} from "../../../../utils/formatHelpers";
+import { translate } from "utils/translations/translate";
+import { castEventStatus, castEventType } from "utils/formatHelpers";
 
 interface IEventConfig {
   eventStatus: string;

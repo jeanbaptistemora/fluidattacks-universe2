@@ -8,9 +8,10 @@ import { act } from "react-dom/test-utils";
 import { Provider } from "react-redux";
 import { RouteComponentProps } from "react-router";
 import wait from "waait";
-import store from "../../../../store/index";
-import { ProjectForcesView } from "./index";
-import { GET_FORCES_EXECUTIONS } from "./queries";
+
+import { ProjectForcesView } from "scenes/Dashboard/containers/ProjectForcesView";
+import { GET_FORCES_EXECUTIONS } from "scenes/Dashboard/containers/ProjectForcesView/queries";
+import store from "store";
 
 describe("ForcesView", () => {
 

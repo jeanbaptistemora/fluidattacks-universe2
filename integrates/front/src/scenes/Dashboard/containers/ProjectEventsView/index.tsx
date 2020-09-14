@@ -15,28 +15,29 @@ import { useSelector } from "react-redux";
 import { RouteComponentProps, useHistory } from "react-router";
 import { Field, FormSection, formValueSelector, InjectedFormProps, Validator } from "redux-form";
 import { ConfigurableValidator } from "revalidate";
-import { Button } from "../../../../components/Button";
-import { statusFormatter } from "../../../../components/DataTableNext/formatters";
-import { DataTableNext } from "../../../../components/DataTableNext/index";
-import { IHeaderConfig } from "../../../../components/DataTableNext/types";
-import { Modal } from "../../../../components/Modal";
-import { TooltipWrapper } from "../../../../components/TooltipWrapper/index";
-import { default as globalStyle } from "../../../../styles/global.css";
-import { Can } from "../../../../utils/authz/Can";
-import { castEventType } from "../../../../utils/formatHelpers";
+
+import { Button } from "components/Button";
+import { DataTableNext } from "components/DataTableNext";
+import { statusFormatter } from "components/DataTableNext/formatters";
+import { IHeaderConfig } from "components/DataTableNext/types";
+import { Modal } from "components/Modal";
+import { TooltipWrapper } from "components/TooltipWrapper";
+import { GenericForm } from "scenes/Dashboard/components/GenericForm";
+import { CREATE_EVENT_MUTATION, GET_EVENTS } from "scenes/Dashboard/containers/ProjectEventsView/queries";
+import { formatEvents } from "scenes/Dashboard/containers/ProjectEventsView/utils";
+import { default as globalStyle } from "styles/global.css";
+import { Can } from "utils/authz/Can";
+import { castEventType } from "utils/formatHelpers";
 import {
   Checkbox, DateTime, Dropdown, FileInput, Text, TextArea,
-} from "../../../../utils/forms/fields";
-import { Logger } from "../../../../utils/logger";
-import { msgError, msgSuccess } from "../../../../utils/notifications";
-import { translate } from "../../../../utils/translations/translate";
+} from "utils/forms/fields";
+import { Logger } from "utils/logger";
+import { msgError, msgSuccess } from "utils/notifications";
+import { translate } from "utils/translations/translate";
 import {
   dateTimeBeforeToday, isValidFileSize, maxLength, numeric, required, someRequired, validDatetime,
   validEventFile, validEvidenceImage, validTextField,
-} from "../../../../utils/validations";
-import { GenericForm } from "../../components/GenericForm";
-import { CREATE_EVENT_MUTATION, GET_EVENTS } from "./queries";
-import { formatEvents } from "./utils";
+} from "utils/validations";
 
 type EventsViewProps = RouteComponentProps<{ projectName: string }>;
 

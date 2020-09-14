@@ -1,5 +1,5 @@
 import { RouteComponentProps } from "react-router";
-import { IHistoricTreatment } from "../DescriptionView/types";
+import { IHistoricTreatment } from "scenes/Dashboard/containers/DescriptionView/types";
 
 export type IProjectFindingsProps = RouteComponentProps<{ projectName: string }>;
 

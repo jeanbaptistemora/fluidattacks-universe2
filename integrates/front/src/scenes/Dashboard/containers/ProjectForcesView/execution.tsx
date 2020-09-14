@@ -8,18 +8,15 @@ import { useQuery } from "@apollo/react-hooks";
 import _ from "lodash";
 import React, { ReactElement } from "react";
 import { Col, Row } from "react-bootstrap";
+import { selectFilter } from "react-bootstrap-table2-filter";
 // tslint:disable-next-line no-submodule-imports
 import SyntaxHighlighter from "react-syntax-highlighter/dist/esm/light";
 // tslint:disable-next-line no-submodule-imports
 import { default as monokaiSublime } from "react-syntax-highlighter/dist/esm/styles/hljs/monokai-sublime";
-import { statusFormatter } from "../../../../components/DataTableNext/formatters";
 
-// Local imports
-import { selectFilter } from "react-bootstrap-table2-filter";
-import { DataTableNext } from "../../../../components/DataTableNext/index";
-import { IHeaderConfig } from "../../../../components/DataTableNext/types";
-import { useStoredState } from "../../../../utils/hooks";
-import { translate } from "../../../../utils/translations/translate";
+import { DataTableNext } from "components/DataTableNext";
+import { statusFormatter } from "components/DataTableNext/formatters";
+import { IHeaderConfig } from "components/DataTableNext/types";
 import {
   IExecution,
   IExploitResult,
@@ -27,9 +24,11 @@ import {
   IFoundVulnerabilitiesNew,
   IVulnerabilities,
   IVulnerabilitiesNew,
-} from "./index";
-import styles from "./index.css";
-import { GET_FORCES_EXECUTION } from "./queries";
+} from "scenes/Dashboard/containers/ProjectForcesView";
+import styles from "scenes/Dashboard/containers/ProjectForcesView/index.css";
+import { GET_FORCES_EXECUTION } from "scenes/Dashboard/containers/ProjectForcesView/queries";
+import { useStoredState } from "utils/hooks";
+import { translate } from "utils/translations/translate";
 
 const modalExecution: React.FC<IExecution> = (
   props: Readonly<IExecution>,

@@ -14,16 +14,17 @@ import { RouteComponentProps } from "react-router";
 // Local imports
 import { ApolloError } from "apollo-client";
 import { GraphQLError } from "graphql";
-import { Button } from "../../../../components/Button";
-import { statusFormatter } from "../../../../components/DataTableNext/formatters";
-import { DataTableNext } from "../../../../components/DataTableNext/index";
-import { IHeaderConfig } from "../../../../components/DataTableNext/types";
-import { Modal } from "../../../../components/Modal";
-import { Logger } from "../../../../utils/logger";
-import { msgError } from "../../../../utils/notifications";
-import { translate } from "../../../../utils/translations/translate";
-import { Execution } from "./execution";
-import { GET_FORCES_EXECUTIONS } from "./queries";
+
+import { Button } from "components/Button";
+import { DataTableNext } from "components/DataTableNext";
+import { statusFormatter } from "components/DataTableNext/formatters";
+import { IHeaderConfig } from "components/DataTableNext/types";
+import { Modal } from "components/Modal";
+import { Execution } from "scenes/Dashboard/containers/ProjectForcesView/execution";
+import { GET_FORCES_EXECUTIONS } from "scenes/Dashboard/containers/ProjectForcesView/queries";
+import { Logger } from "utils/logger";
+import { msgError } from "utils/notifications";
+import { translate } from "utils/translations/translate";
 
 type ForcesViewProps = RouteComponentProps<{ projectName: string }>;
 

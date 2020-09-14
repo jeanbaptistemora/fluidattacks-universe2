@@ -10,10 +10,11 @@ import { Provider } from "react-redux";
 import { RouteComponentProps } from "react-router";
 import { MemoryRouter } from "react-router-dom";
 import wait from "waait";
-import store from "../../../../store/index";
-import { authzPermissionsContext } from "../../../../utils/authz/config";
-import { ProjectEventsView } from "./index";
-import { GET_EVENTS } from "./queries";
+
+import { ProjectEventsView } from "scenes/Dashboard/containers/ProjectEventsView";
+import { GET_EVENTS } from "scenes/Dashboard/containers/ProjectEventsView/queries";
+import store from "store";
+import { authzPermissionsContext } from "utils/authz/config";
 
 describe("EventsView", () => {
 

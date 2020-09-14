@@ -5,10 +5,11 @@ import * as React from "react";
 import { Provider } from "react-redux";
 import { MemoryRouter } from "react-router-dom";
 import wait from "waait";
-import store from "../../../../store/index";
-import { ProjectFindingsView } from "./index";
-import { GET_FINDINGS } from "./queries";
-import { IProjectFindingsProps } from "./types";
+
+import { ProjectFindingsView } from "scenes/Dashboard/containers/ProjectFindingsView";
+import { GET_FINDINGS } from "scenes/Dashboard/containers/ProjectFindingsView/queries";
+import { IProjectFindingsProps } from "scenes/Dashboard/containers/ProjectFindingsView/types";
+import store from "store";
 
 describe("ProjectFindingsView", () => {
 
