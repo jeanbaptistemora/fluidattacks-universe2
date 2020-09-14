@@ -117,11 +117,11 @@ class EventTests(TestCase):
             assert 'The event has already been closed' in result['errors'][0]['message']
 
     @pytest.mark.changes_db
-    async def test_add_event_comment(self):
-        """Check for addEventComment mutation."""
+    async def test_add_event_consult(self):
+        """Check for addEventConsult mutation."""
         query = '''
             mutation {
-                addEventComment(eventId: "538745942",
+                addEventConsult(eventId: "538745942",
                                 parent: "0",
                                 content: "Test comment") {
                     success
@@ -133,8 +133,8 @@ class EventTests(TestCase):
         request = await create_dummy_session(username='integratesmanager@gmail.com')
         _, result = await graphql(SCHEMA, data, context_value=request)
         assert 'errors' not in result
-        assert 'success' in result['data']['addEventComment']
-        assert 'commentId' in result['data']['addEventComment']
+        assert 'success' in result['data']['addEventConsult']
+        assert 'commentId' in result['data']['addEventConsult']
 
     @pytest.mark.changes_db
     async def test_update_event_evidence(self):
