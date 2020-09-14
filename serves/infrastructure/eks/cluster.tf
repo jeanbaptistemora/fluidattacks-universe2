@@ -59,10 +59,10 @@ resource "aws_launch_configuration" "k8s_nodes_launch_config" {
 }
 
 resource "aws_autoscaling_group" "k8s_nodes_autoscaling" {
-  desired_capacity     = 6
+  desired_capacity     = 2
   launch_configuration = aws_launch_configuration.k8s_nodes_launch_config.id
-  max_size             = 7
-  min_size             = 6
+  max_size             = 2
+  min_size             = 2
   name                 = "EKSWorkerNodes"
   vpc_zone_identifier  = aws_subnet.k8s_subnets_secondary.*.id
 
