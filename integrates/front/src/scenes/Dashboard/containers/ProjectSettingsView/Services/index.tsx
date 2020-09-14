@@ -13,20 +13,29 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { Dispatch } from "redux";
 import { change, EventWithDataHandler, Field, formValueSelector, InjectedFormProps, Validator } from "redux-form";
-import { Button } from "../../../../../components/Button/index";
-import { DataTableNext } from "../../../../../components/DataTableNext";
-import { IHeaderConfig } from "../../../../../components/DataTableNext/types";
-import { Modal } from "../../../../../components/Modal/index";
-import { Dropdown, SwitchButton, Text, TextArea } from "../../../../../utils/forms/fields";
-import { Logger } from "../../../../../utils/logger";
-import { msgError, msgSuccess } from "../../../../../utils/notifications";
-import { translate } from "../../../../../utils/translations/translate";
-import { maxLength, required, validTextField } from "../../../../../utils/validations";
-import { GenericForm } from "../../../components/GenericForm";
-import { EDIT_GROUP_DATA, GET_GROUP_DATA } from "../queries";
-import { computeConfirmationMessage, isDowngrading, isDowngradingServices } from "./businessLogic";
-import styles from "./index.css";
-import { IFormData, IServicesDataSet, IServicesProps } from "./types";
+
+import { Button } from "components/Button";
+import { DataTableNext } from "components/DataTableNext";
+import { IHeaderConfig } from "components/DataTableNext/types";
+import { Modal } from "components/Modal";
+import { GenericForm } from "scenes/Dashboard/components/GenericForm";
+import { EDIT_GROUP_DATA, GET_GROUP_DATA } from "scenes/Dashboard/containers/ProjectSettingsView/queries";
+import {
+  computeConfirmationMessage,
+  isDowngrading,
+  isDowngradingServices,
+} from "scenes/Dashboard/containers/ProjectSettingsView/Services/businessLogic";
+import styles from "scenes/Dashboard/containers/ProjectSettingsView/Services/index.css";
+import {
+  IFormData,
+  IServicesDataSet,
+  IServicesProps,
+} from "scenes/Dashboard/containers/ProjectSettingsView/Services/types";
+import { Dropdown, SwitchButton, Text, TextArea } from "utils/forms/fields";
+import { Logger } from "utils/logger";
+import { msgError, msgSuccess } from "utils/notifications";
+import { translate } from "utils/translations/translate";
+import { maxLength, required, validTextField } from "utils/validations";
 
 const downgradeReasons: string[] = [
   "NONE",

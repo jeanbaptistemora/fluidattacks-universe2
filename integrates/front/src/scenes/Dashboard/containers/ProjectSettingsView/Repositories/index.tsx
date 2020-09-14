@@ -10,19 +10,24 @@ import mixpanel from "mixpanel-browser";
 import React from "react";
 import { ButtonToolbar, Col, Glyphicon, Row } from "react-bootstrap";
 import { selectFilter } from "react-bootstrap-table2-filter";
-import { Button } from "../../../../../components/Button";
-import { ConfirmDialog, IConfirmFn } from "../../../../../components/ConfirmDialog";
-import { DataTableNext } from "../../../../../components/DataTableNext";
-import { changeFormatter, statusFormatter } from "../../../../../components/DataTableNext/formatters";
-import { IHeaderConfig } from "../../../../../components/DataTableNext/types";
-import { TooltipWrapper } from "../../../../../components/TooltipWrapper";
-import { Can } from "../../../../../utils/authz/Can";
-import { Logger } from "../../../../../utils/logger";
-import { msgError, msgSuccess } from "../../../../../utils/notifications";
-import { translate } from "../../../../../utils/translations/translate";
-import { AddRepositoriesModal } from "../../../components/AddRepositoriesModal/index";
-import { ADD_REPOSITORIES_MUTATION, GET_REPOSITORIES, UPDATE_REPOSITORY_MUTATION } from "../queries";
-import { IHistoricState, IRepositoriesAttr } from "../types";
+
+import { Button } from "components/Button";
+import { ConfirmDialog, IConfirmFn } from "components/ConfirmDialog";
+import { DataTableNext } from "components/DataTableNext";
+import { changeFormatter, statusFormatter } from "components/DataTableNext/formatters";
+import { IHeaderConfig } from "components/DataTableNext/types";
+import { TooltipWrapper } from "components/TooltipWrapper";
+import { AddRepositoriesModal } from "scenes/Dashboard/components/AddRepositoriesModal";
+import {
+  ADD_REPOSITORIES_MUTATION,
+  GET_REPOSITORIES,
+  UPDATE_REPOSITORY_MUTATION,
+} from "scenes/Dashboard/containers/ProjectSettingsView/queries";
+import { IHistoricState, IRepositoriesAttr } from "scenes/Dashboard/containers/ProjectSettingsView/types";
+import { Can } from "utils/authz/Can";
+import { Logger } from "utils/logger";
+import { msgError, msgSuccess } from "utils/notifications";
+import { translate } from "utils/translations/translate";
 
 export interface IRepositoriesProps {
   projectName: string;

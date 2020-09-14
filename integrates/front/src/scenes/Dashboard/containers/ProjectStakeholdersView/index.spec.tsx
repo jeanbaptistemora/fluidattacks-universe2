@@ -7,17 +7,18 @@ import * as React from "react";
 import { act } from "react-dom/test-utils";
 import { Provider } from "react-redux";
 import wait from "waait";
-import store from "../../../../store/index";
-import { authzPermissionsContext } from "../../../../utils/authz/config";
-import { msgError, msgSuccess } from "../../../../utils/notifications";
-import { ProjectStakeholdersView } from "./index";
+
+import { ProjectStakeholdersView } from "scenes/Dashboard/containers/ProjectStakeholdersView";
 import {
   ADD_STAKEHOLDER_MUTATION,
   EDIT_STAKEHOLDER_MUTATION,
   GET_STAKEHOLDERS,
   REMOVE_STAKEHOLDER_MUTATION,
-} from "./queries";
-import { IProjectStakeholdersViewProps } from "./types";
+} from "scenes/Dashboard/containers/ProjectStakeholdersView/queries";
+import { IProjectStakeholdersViewProps } from "scenes/Dashboard/containers/ProjectStakeholdersView/types";
+import store from "store";
+import { authzPermissionsContext } from "utils/authz/config";
+import { msgError, msgSuccess } from "utils/notifications";
 
 jest.mock("../../../../utils/notifications", () => {
   const mockedNotifications: Dictionary = jest.requireActual("../../../../utils/notifications");

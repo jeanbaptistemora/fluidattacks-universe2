@@ -7,10 +7,11 @@ import { act } from "react-dom/test-utils";
 import { Provider } from "react-redux";
 import { MemoryRouter } from "react-router-dom";
 import wait from "waait";
-import store from "../../../../../store/index";
-import { authzPermissionsContext } from "../../../../../utils/authz/config";
-import { EDIT_GROUP_DATA, GET_GROUP_DATA } from "../queries";
-import { Services } from "./index";
+
+import { EDIT_GROUP_DATA, GET_GROUP_DATA } from "scenes/Dashboard/containers/ProjectSettingsView/queries";
+import { Services } from "scenes/Dashboard/containers/ProjectSettingsView/Services";
+import store from "store";
+import { authzPermissionsContext } from "utils/authz/config";
 
 interface IFormValues {
   drills: boolean;

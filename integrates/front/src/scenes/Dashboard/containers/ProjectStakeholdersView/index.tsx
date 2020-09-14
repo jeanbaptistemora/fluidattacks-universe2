@@ -12,25 +12,19 @@ import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React from "react";
 import { ButtonToolbar, Col, Glyphicon, Row } from "react-bootstrap";
-import { Button } from "../../../../components/Button/index";
-import { DataTableNext } from "../../../../components/DataTableNext/index";
-import { IHeaderConfig } from "../../../../components/DataTableNext/types";
-import { FluidIcon } from "../../../../components/FluidIcon";
-import { TooltipWrapper } from "../../../../components/TooltipWrapper/index";
-import { Can } from "../../../../utils/authz/Can";
-import { authzPermissionsContext } from "../../../../utils/authz/config";
-import { formatLastLogin, formatUserlist } from "../../../../utils/formatHelpers";
-import { Logger } from "../../../../utils/logger";
-import { msgError, msgSuccess } from "../../../../utils/notifications";
-import { sortLastLogin } from "../../../../utils/sortHelpers";
-import { translate } from "../../../../utils/translations/translate";
-import { addUserModal as AddUserModal } from "../../components/AddUserModal/index";
+
+import { Button } from "components/Button";
+import { DataTableNext } from "components/DataTableNext";
+import { IHeaderConfig } from "components/DataTableNext/types";
+import { FluidIcon } from "components/FluidIcon";
+import { TooltipWrapper } from "components/TooltipWrapper";
+import { addUserModal as AddUserModal } from "scenes/Dashboard/components/AddUserModal";
 import {
   ADD_STAKEHOLDER_MUTATION,
   EDIT_STAKEHOLDER_MUTATION,
   GET_STAKEHOLDERS,
   REMOVE_STAKEHOLDER_MUTATION,
-} from "./queries";
+} from "scenes/Dashboard/containers/ProjectStakeholdersView/queries";
 import {
   IAddStakeholderAttr,
   IEditStakeholderAttr,
@@ -38,7 +32,14 @@ import {
   IRemoveStakeholderAttr,
   IStakeholderAttr,
   IStakeholderDataAttr,
-} from "./types";
+} from "scenes/Dashboard/containers/ProjectStakeholdersView/types";
+import { Can } from "utils/authz/Can";
+import { authzPermissionsContext } from "utils/authz/config";
+import { formatLastLogin, formatUserlist } from "utils/formatHelpers";
+import { Logger } from "utils/logger";
+import { msgError, msgSuccess } from "utils/notifications";
+import { sortLastLogin } from "utils/sortHelpers";
+import { translate } from "utils/translations/translate";
 
 const tableHeaders: IHeaderConfig[] = [
   {

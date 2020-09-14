@@ -1,6 +1,6 @@
 import _ from "lodash";
-import { translate } from "../../../../../utils/translations/translate";
-import { IFormData, IGroupData } from "./types";
+import { IFormData, IGroupData } from "scenes/Dashboard/containers/ProjectSettingsView/Services/types";
+import { translate } from "utils/translations/translate";
 
 const serviceStateToString: ((value: boolean | string | undefined) => string) =
   (value: boolean | string | undefined): string => {

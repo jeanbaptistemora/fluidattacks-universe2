@@ -7,10 +7,11 @@ import { act } from "react-dom/test-utils";
 import { Provider } from "react-redux";
 import { RouteComponentProps } from "react-router";
 import wait from "waait";
-import store from "../../../../store";
-import { authzPermissionsContext } from "../../../../utils/authz/config";
-import { RecordsView } from "./index";
-import { GET_FINDING_RECORDS } from "./queries";
+
+import { RecordsView } from "scenes/Dashboard/containers/RecordsView";
+import { GET_FINDING_RECORDS } from "scenes/Dashboard/containers/RecordsView/queries";
+import store from "store";
+import { authzPermissionsContext } from "utils/authz/config";
 
 describe("FindingRecordsView", () => {
 

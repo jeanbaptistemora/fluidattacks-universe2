@@ -7,11 +7,16 @@ import * as React from "react";
 import { act } from "react-dom/test-utils";
 import { Provider } from "react-redux";
 import wait from "waait";
-import store from "../../../../../store/index";
-import { authzPermissionsContext } from "../../../../../utils/authz/config";
-import { msgError, msgSuccess } from "../../../../../utils/notifications";
-import { ADD_REPOSITORIES_MUTATION, GET_REPOSITORIES, UPDATE_REPOSITORY_MUTATION } from "../queries";
-import { IRepositoriesProps, Repositories } from "./index";
+
+import {
+  ADD_REPOSITORIES_MUTATION,
+  GET_REPOSITORIES,
+  UPDATE_REPOSITORY_MUTATION,
+} from "scenes/Dashboard/containers/ProjectSettingsView/queries";
+import { IRepositoriesProps, Repositories } from "scenes/Dashboard/containers/ProjectSettingsView/Repositories";
+import store from "store";
+import { authzPermissionsContext } from "utils/authz/config";
+import { msgError, msgSuccess } from "utils/notifications";
 
 jest.mock("../../../../../utils/notifications", () => {
   const mockedNotifications: Dictionary = jest.requireActual("../../../../../utils/notifications");

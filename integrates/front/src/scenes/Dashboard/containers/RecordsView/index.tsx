@@ -13,19 +13,20 @@ import React from "react";
 import { Col, FormGroup, Glyphicon, Row } from "react-bootstrap";
 import { RouteComponentProps } from "react-router";
 import { Field, InjectedFormProps } from "redux-form";
-import { Button } from "../../../../components/Button/index";
-import { DataTableNext } from "../../../../components/DataTableNext/index";
-import { FluidIcon } from "../../../../components/FluidIcon";
-import { default as globalStyle } from "../../../../styles/global.css";
-import { Can } from "../../../../utils/authz/Can";
-import { FileInput } from "../../../../utils/forms/fields";
-import { Logger } from "../../../../utils/logger";
-import { msgError } from "../../../../utils/notifications";
-import { translate } from "../../../../utils/translations/translate";
-import { required, validRecordsFile } from "../../../../utils/validations";
-import { GenericForm } from "../../components/GenericForm";
-import { REMOVE_EVIDENCE_MUTATION, UPDATE_EVIDENCE_MUTATION } from "../EvidenceView/queries";
-import { GET_FINDING_RECORDS } from "./queries";
+
+import { Button } from "components/Button";
+import { DataTableNext } from "components/DataTableNext";
+import { FluidIcon } from "components/FluidIcon";
+import { GenericForm } from "scenes/Dashboard/components/GenericForm";
+import { REMOVE_EVIDENCE_MUTATION, UPDATE_EVIDENCE_MUTATION } from "scenes/Dashboard/containers/EvidenceView/queries";
+import { GET_FINDING_RECORDS } from "scenes/Dashboard/containers/RecordsView/queries";
+import { default as globalStyle } from "styles/global.css";
+import { Can } from "utils/authz/Can";
+import { FileInput } from "utils/forms/fields";
+import { Logger } from "utils/logger";
+import { msgError } from "utils/notifications";
+import { translate } from "utils/translations/translate";
+import { required, validRecordsFile } from "utils/validations";
 
 type IRecordsViewProps = RouteComponentProps<{ findingId: string }>;
 
