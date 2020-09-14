@@ -1,10 +1,74 @@
 # Local libraries
 from parse_cfn.loader import (
+    load_as_json,
     load_as_yaml,
 )
 
 
-def test_load_as() -> None:
+def test_load_as_json() -> None:
+    expected = {
+        'AWSTemplateFormatVersion': '2010-09-09',
+        'Description': 'test',
+        'Parameters': {
+            '__column__': 5,
+            '__line__': 5,
+            'pTest': {
+                'Description': 'description',
+                'Type': 'type',
+                '__column__': 7,
+                '__line__': 6
+            }
+        },
+        'Resources': {
+            '__column__': 5,
+            '__line__': 11,
+            'rTest': {
+                'Properties': {
+                    'EngineName': 'mysql',
+                    'OptionGroupDescription': {
+                        'Ref': 'AWS::StackName',
+                        '__column__': 11,
+                        '__line__': 16
+                    },
+                    'Tags': [
+                        {
+                            'Key': 'Name',
+                            'Value': {
+                                'Fn::Join': [
+                                    '',
+                                    [
+                                        {
+                                            'Ref': 'AWS::StackName',
+                                            '__column__': 21,
+                                            '__line__': 26
+                                        },
+                                        '-option-group',
+                                    ],
+                                ],
+                                '__column__': 15,
+                                '__line__': 22
+                            },
+                            '__column__': 13,
+                            '__line__': 20
+                        }
+                    ],
+                    '__column__': 9,
+                    '__line__': 14
+                },
+                'Type': 'AWS::RDS::OptionGroup',
+                '__column__': 7,
+                '__line__': 12
+            }
+        },
+        '__column__': 3,
+        '__line__': 2
+    }
+
+    with open('test/data/parse_cfn/1.yaml.json') as file:
+        assert load_as_json(file.read()) == expected
+
+
+def test_load_as_yaml() -> None:
     expected = {
         '__column__': 0,
         '__line__': 1,
