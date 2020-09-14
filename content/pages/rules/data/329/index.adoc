@@ -1,7 +1,7 @@
 :slug: rules/329/
 :category: data
 :description: This requirement establishes the importance of avoiding the storage of sensitive information in the client-side storage.
-:keywords: Local, Session, Storage, ASVS, GDPR, NIST
+:keywords: Local, Session, Storage, ASVS, GDPR, ISO, NIST, OWASP, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R329. Keep client-side storage without sensitive data
@@ -52,12 +52,17 @@ fundamental rights and freedoms merit specific protection as the context of
 their processing could create significant risks to the fundamental rights and
 freedoms.
 
-. [[r5]] link:https://pages.nist.gov/800-63-3/sp800-63b.html[NIST 800-63B 7.1 Session Bindings]
+. [[r5]] link:https://www.iso.org/obp/ui/#iso:std:54534:en[ISO 27001:2013. Annex A - 18.1.3]
+Protect records against loss, destruction, forgery, unauthorized access and
+unauthorized release,
+in accordance with legal, regulatory, contractual and business requirements.
+
+. [[r6]] link:https://pages.nist.gov/800-63-3/sp800-63b.html[NIST 800-63B 7.1 Session Bindings]
 Secrets used for session binding SHOULD NOT be placed in insecure locations
 such as *HTML5* Local Storage due to the potential exposure of local storage to
 cross-site scripting (*XSS*) attacks.
 
-. [[r6]] link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A3-Sensitive_Data_Exposure[OWASP Top 10 A3:2017-Sensitive Data Exposure].
+. [[r7]] link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A3-Sensitive_Data_Exposure[OWASP Top 10 A3:2017-Sensitive Data Exposure].
 Many web applications and **API**s do not properly protect sensitive data,
 such as financial, healthcare, and *PII*.
 Attackers may steal or modify such weakly protected data to conduct credit card
@@ -66,7 +71,7 @@ Sensitive data may be compromised without extra protection,
 such as encryption at rest or in transit, and requires special precautions when
 exchanged with the browser.
 
-. [[r7]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r8]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V8.2 Client-side Data Protection.(8.2.2)]
 Verify that data stored in client side storage (such as *HTML5* local storage,
 session storage, **IndexedDB**, regular cookies or *Flash* cookies) does not

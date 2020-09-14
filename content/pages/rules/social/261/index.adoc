@@ -1,7 +1,7 @@
 :slug: rules/261/
 :category: social
 :description: This requirement establishes the importance of not exposing corporate information on publicly accessible web pages and application sections.
-:keywords: Corporate, Personal, Security, Sensitive, ASVS, CWE, GDPR, OWASP, PCI DSS, Rules, Ethical Hacking, Pentesting
+:keywords: Corporate, Personal, Security, Sensitive, ASVS, CWE, GDPR, ISO, OWASP, PCI DSS, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R261. Avoid exposing sensitive information
@@ -52,7 +52,12 @@ of the personal data,
 including protection against unauthorized or unlawful processing and against
 accidental loss, destruction or damage.
 
-. [[r6]] link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A3-Sensitive_Data_Exposure[OWASP Top 10 A3:2017-Sensitive Data Exposure].
+. [[r6]] link:https://www.iso.org/obp/ui/#iso:std:54534:en[ISO 27001:2013. Annex A - 18.1.3]
+Protect records against loss, destruction, forgery, unauthorized access and
+unauthorized release,
+in accordance with legal, regulatory, contractual and business requirements.
+
+. [[r7]] link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A3-Sensitive_Data_Exposure[OWASP Top 10 A3:2017-Sensitive Data Exposure].
 Many web applications and **API**s do not properly protect sensitive data,
 such as financial, healthcare, and *PII*.
 Attackers may steal or modify such weakly protected data to conduct credit card
@@ -61,13 +66,13 @@ Sensitive data may be compromised without extra protection,
 such as encryption at rest or in transit, and requires special precautions when
 exchanged with the browser.
 
-. [[r7]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r8]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V4.3 Other Access Control Considerations.(4.3.2)]
 Verify that directory browsing is disabled unless deliberately desired.
 Additionally, applications should not allow discovery or disclosure of file or
 directory metadata,
 such as Thumbs.db, .DS_Store, .git or .svn folders.
 
-. [[r8]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 1.3.7]
+. [[r9]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 1.3.7]
 Do not disclose private *IP* addresses and routing information to unauthorized
 parties.

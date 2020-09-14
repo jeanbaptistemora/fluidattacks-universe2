@@ -1,7 +1,7 @@
 :slug: rules/300/
 :category: data
 :description: This requirement establishes the importance of masking sensitive personal and business data to avoid information leakages.
-:keywords: Requirement, Security, Data, Information, Business, Mask, GDPR, OWASP, PCI DSS, Rules, Ethical Hacking, Pentesting
+:keywords: Requirement, Security, Data, Information, Business, Mask, GDPR, ISO, OWASP, PCI DSS, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R300. Mask sensitive data
@@ -38,7 +38,12 @@ to fundamental rights and freedoms merit specific protection as the context of
 their processing could create significant risks to the fundamental rights
 and freedoms.
 
-. [[r3]] link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A3-Sensitive_Data_Exposure[OWASP Top 10 A3:2017-Sensitive Data Exposure].
+. [[r3]] link:https://www.iso.org/obp/ui/#iso:std:54534:en[ISO 27001:2013. Annex A - 18.1.3]
+Protect records against loss, destruction, forgery, unauthorized access and
+unauthorized release,
+in accordance with legal, regulatory, contractual and business requirements.
+
+. [[r4]] link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A3-Sensitive_Data_Exposure[OWASP Top 10 A3:2017-Sensitive Data Exposure].
 Many web applications and **API**s do not properly protect sensitive data,
 such as financial, healthcare, and *PII*.
 Attackers may steal or modify such weakly protected data to conduct credit card
@@ -47,7 +52,7 @@ Sensitive data may be compromised without extra protection,
 such as encryption at rest or in transit, and requires special precautions when
 exchanged with the browser.
 
-. [[r4]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 3.3]
+. [[r5]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 3.3]
 Mask *PAN* (Primary Account Number) when displayed
 (the first sixand last four digits are the maximum number of digits to be
 displayed),
