@@ -92,18 +92,6 @@ type Mutation {
         closedVulns: [String]!
     ): SimplePayload!
 
-    grantUserAccess(
-        projectName: String
-        email: String!
-        responsibility: String
-        role: StakeholderRole!
-        phoneNumber: String
-    ): GrantUserAccessPayload! @deprecated(reason:
-        """
-        Right now, you can grant a stakeholder/user access to a project using both
-        the 'grantUserAccess' and 'grantStakeholderAccess' queries. After 2021-02-06,
-        the 'grantUserAccess' query will be invalid.
-        """)
     grantStakeholderAccess(
         projectName: String
         email: String!
@@ -112,17 +100,6 @@ type Mutation {
         phoneNumber: String
     ): GrantStakeholderAccessPayload!
 
-    grantUserOrganizationAccess(
-        organizationId: String!
-        phoneNumber: String
-        role: OrganizationRole!
-        userEmail: String!
-    ): GrantUserAccessPayload! @deprecated(reason:
-        """
-        Right now, you can grant a stakeholder/user access to a project using both
-        the 'grantUserOrganizationAccess' and 'grantStakeholderOrganizationAccess' queries. After 2021-02-06,
-        the 'grantUserOrganizationAccess' query will be invalid.
-        """)
     grantStakeholderOrganizationAccess(
         organizationId: String!
         phoneNumber: String

@@ -34,7 +34,6 @@ MUTATION.set_field('addPushToken', me.resolve_me_mutation)
 MUTATION.set_field('addStakeholder', user.resolve_user_mutation)
 MUTATION.set_field('addUser', user.resolve_user_mutation)
 MUTATION.set_field('grantStakeholderAccess', user.resolve_user_mutation)
-MUTATION.set_field('grantUserAccess', user.resolve_user_mutation)
 MUTATION.set_field('removeStakeholderAccess', user.resolve_user_mutation)
 MUTATION.set_field('removeUserAccess', user.resolve_user_mutation)
 MUTATION.set_field('editStakeholder', user.resolve_user_mutation)
@@ -58,9 +57,6 @@ MUTATION.set_field(
 MUTATION.set_field(
     'grantStakeholderOrganizationAccess',
     organization.resolve_organization_mutation
-)
-MUTATION.set_field(
-    'grantUserOrganizationAccess', organization.resolve_organization_mutation
 )
 MUTATION.set_field(
     'removeStakeholderOrganizationAccess',
