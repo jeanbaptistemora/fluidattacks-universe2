@@ -73,8 +73,9 @@ async def get_vulnerabilities(
     query = """
         query ForcesDoGetFindingVulnerabilities($finding_id: String!){
           finding(identifier: $finding_id) {
+            historicTreatment
             vulnerabilities {
-              findingId,
+              findingId
               currentState
               vulnType
               where
@@ -85,9 +86,21 @@ async def get_vulnerabilities(
         """
 
     params = {'finding_id': finding}
-    response: Dict[str, Dict[str, List[Any]]] = await execute(
-        query=query, variables=params, default=dict(), **kwargs)
-    return response.get('finding', dict()).get('vulnerabilities', list())
+    response: Dict[str, Dict[str, List[Any]]] = await execute(query=query,
+                                                              variables=params,
+                                                              default=dict(),
+                                                              **kwargs)
+    finding_value = response.get('finding', dict())
+
+    # if a findinge its accepted, all vulnerabilities are accepted
+    current_state: Dict[str, str] = (finding_value.get('historicTreatment', [])
+                                     or ['unknown'])[-1]
+
+    if 'accepted' in current_state.get('treatment', 'unknown').lower():
+        vulnerabilities = finding_value.get('vulnerabilities', list())
+        for index, _ in enumerate(vulnerabilities):
+            vulnerabilities[index]['currentState'] = 'accepted'
+    return finding_value.get('vulnerabilities', list())
 
 
 @SHIELD

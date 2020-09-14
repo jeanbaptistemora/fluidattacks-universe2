@@ -1,6 +1,7 @@
 """Fluidattacks Forces package."""
 from typing import Any
 from importlib.metadata import version
+from contextlib import suppress
 import copy
 import os
 import textwrap
@@ -40,10 +41,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 def customize_bugsnag_error_reports(notification: Any) -> None:
     # Customize Login required error
-    notification.user = {
-        'email': get_api_token_email(),
-        'name': get_api_token_group()
-    }
+    with suppress(LookupError):
+        notification.user = {
+            'email': get_api_token_email(),
+            'name': get_api_token_group()
+        }
+
     if isinstance(notification.exception, (
             ClientConnectorError,
             ClientResponseError,
