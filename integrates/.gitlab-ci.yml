@@ -261,13 +261,13 @@ integrates_deploy_back_ephemeral_stop:
     name: "ephemeral/$CI_COMMIT_REF_SLUG"
     action: stop
   rules:
-    - if: '$CI_PIPELINE_SOURCE == "master"'
-      when: never
-    - if: '$CI_PIPELINE_SOURCE == "trigger"'
+    - if: '$CI_COMMIT_BRANCH == "master"'
       when: never
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
       when: never
     - if: '$CI_PIPELINE_SOURCE == "schedule"'
+      when: never
+    - if: '$CI_PIPELINE_SOURCE == "trigger"'
       when: never
     - if: *integrates_commit_pattern
       when: manual

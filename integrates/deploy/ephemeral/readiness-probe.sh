@@ -21,7 +21,7 @@ function test_curl_localhost {
 }
 
 function test_curl_ephemeral {
-  if curl -sS "${CI_COMMIT_REF_NAME}.integrates.fluidattacks.com" | grep -q 'FluidIntegrates'
+  if curl -sS "https://${CI_COMMIT_REF_NAME}.integrates.fluidattacks.com" | grep -q 'FluidIntegrates'
   then
     echo '[INFO] Passed: test_curl_ephemeral'
   else

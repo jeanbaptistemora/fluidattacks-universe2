@@ -21,7 +21,7 @@ function test_curl_localhost {
 }
 
 function test_curl_production {
-  if curl -sS "integrates.fluidattacks.com" | grep -q 'FluidIntegrates'
+  if curl -sS "https://integrates.fluidattacks.com" | grep -q 'FluidIntegrates'
   then
     echo '[INFO] Passed: test_curl_production'
   else

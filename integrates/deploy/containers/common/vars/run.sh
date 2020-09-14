@@ -52,6 +52,6 @@ sleep 10
 # Current number of CPUs defined at deploy/production/deployment.yaml
 gunicorn fluidintegrates.asgi:APP \
   --bind=0.0.0.0:8080 \
-  --workers=2 \
+  --workers=5 \
   --worker-class=fluidintegrates.asgi.IntegratesWorker \
   --timeout=120
