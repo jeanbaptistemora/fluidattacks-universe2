@@ -77,11 +77,20 @@ def pull_repos_s3_to_fusion(subs: str,
         f'{subs}/active/{repository_name}'
 
     os.makedirs(local_path, exist_ok=True)
-    sync_command: List[str] = [
+
+    aws_sync_command: List[str] = [
         'aws', 's3', 'sync',
         '--delete',
         '--sse', 'AES256',
         bucket_path, local_path,
+    ]
+
+    git_expand_repositories_command: List[str] = [
+        'find', local_path,
+        '-name', '.git',
+        '-execdir',
+        'git', 'checkout',
+        '--', '.', ';'
     ]
     logger.info(f'Downloading {subs} repositories')
 
@@ -93,7 +102,7 @@ def pull_repos_s3_to_fusion(subs: str,
     )
 
     status, stdout, stderr = utils.generic.run_command(
-        cmd=sync_command,
+        cmd=aws_sync_command,
         cwd='.',
         env={},
         **kwargs,
@@ -103,6 +112,20 @@ def pull_repos_s3_to_fusion(subs: str,
         logger.error('Sync from bucket has failed:')
         logger.info(stdout)
         logger.info(stderr)
+        logger.info()
+        return False
+
+    git_status, git_stdout, git_stderr = utils.generic.run_command(
+        cmd=git_expand_repositories_command,
+        cwd='.',
+        env={},
+        **kwargs,
+    )
+
+    if git_status:
+        logger.error('Expand repositories has failed:')
+        logger.info(git_stdout)
+        logger.info(git_stderr)
         logger.info()
         return False
     return True

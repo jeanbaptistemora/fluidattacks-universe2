@@ -96,19 +96,47 @@ def s3_sync_fusion_to_s3(
         stdout=None,
         stderr=None,
     )
-    command: List[str] = [
+
+    git_optimize_all_command: List[str] = [
+        'find', fusion_dir,
+        '-name', '.git',
+        '-execdir',
+        'git', 'gc',
+        '--aggressive', '--prune=all', ';'
+    ]
+
+    aws_sync_command: List[str] = [
         'aws', 's3', 'sync',
         '--delete',
         '--sse', 'AES256',
+        '--exclude', "*",
+        '--include', "*/.git/*",
         fusion_dir, f's3://{bucket}/{s3_subs_active_repos_path}',
     ]
-    if endpoint_url:
-        command.append('--endpoint')
-        command.append(endpoint_url)
+
     if generic.is_env_ci():
-        command.append('--quiet')
+        git_optimize_all_command.append('--quiet')
+
+    git_status, git_stdout, git_stderr = generic.run_command(
+        cmd=git_optimize_all_command,
+        cwd='.',
+        env={},
+        **kwargs,
+    )
+
+    if git_status:
+        logger.error('Git optimization has failed:')
+        logger.info(git_stdout)
+        logger.info(git_stderr)
+        return False
+
+    if endpoint_url:
+        aws_sync_command.append('--endpoint')
+        aws_sync_command.append(endpoint_url)
+    if generic.is_env_ci():
+        aws_sync_command.append('--quiet')
     status, stdout, stderr = generic.run_command(
-        cmd=command,
+        cmd=aws_sync_command,
         cwd='.',
         env={},
         **kwargs,
