@@ -2,7 +2,7 @@
 from datetime import datetime
 
 # Local libraries
-from parse_cfn import (
+from parse_cfn.loader import (
     loads,
 )
 

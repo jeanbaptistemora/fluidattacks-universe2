@@ -48,7 +48,7 @@ async def parse(
         grammar,
         env=dict(
             # Limit heap size
-            JAVA_OPTS='-Xmx8g',
+            JAVA_OPTS='-Xmx6g',
         ),
         stdin_bytes=content,
     )

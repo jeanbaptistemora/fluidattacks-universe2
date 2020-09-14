@@ -1,0 +1,33 @@
+---
+AWSTemplateFormatVersion: 2010-09-09
+Description: test
+Parameters:
+
+  pTest:
+    Description: description
+    Type: type
+
+Resources:
+
+  AWSIamRole1:
+    Type: AWS::IAM::Role
+    Properties:
+      Policies:
+      - PolicyDocument:
+          Statement:
+          - Action:
+            - logs:CreateLogStream
+            - logs:CreateLogGroup
+            - logs:PutLogEvents
+            Effect: Allow
+            Resource:
+            - arn:aws:logs:*:*:*
+          Version: '2012-10-17'
+      - PolicyDocument:
+          Statement:
+          - Action:
+            - comprehend:Detect*
+            - comprehend:BatchDetect*
+            Effect: Allow
+            Resource: '*'
+          Version: '2012-10-17'

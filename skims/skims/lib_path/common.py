@@ -54,6 +54,7 @@ EXTENSIONS_JSON: Set[str] = {'json'}
 EXTENSIONS_PYTHON: Set[str] = {'py', 'pyw'}
 EXTENSIONS_SWIFT: Set[str] = {'swift'}
 EXTENSIONS_YAML: Set[str] = {'yml', 'yaml'}
+EXTENSIONS_CLOUDFORMATION: Set[str] = EXTENSIONS_YAML | EXTENSIONS_JSON
 BACKTICK_QUOTED_STRING: QuotedString = QuotedString("`", escChar='\\')
 SINGLE_QUOTED_STRING: QuotedString = QuotedString("'", escChar='\\')
 DOUBLE_QUOTED_STRING: QuotedString = QuotedString('"', escChar='\\')
