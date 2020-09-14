@@ -107,15 +107,6 @@ type Mutation {
         userEmail: String!
     ): GrantStakeholderAccessPayload!
 
-    removeUserAccess(
-        projectName: String!
-        userEmail: String!
-    ): RemoveUserAccessPayload! @deprecated(reason:
-        """
-        Right now, you can add a project comment using both the 'removeUserAccess'
-        and 'removeStakeholderAccess' query. After 2021-02-06, the 'removeUserAccess'
-        query will be invalid.
-        """)
     removeStakeholderAccess(
         projectName: String!
         userEmail: String!
