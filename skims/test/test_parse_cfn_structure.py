@@ -15,7 +15,7 @@ def test_iterate_iam_policy_statements() -> None:
         content = file.read()
 
     assert tuple(iterate_iam_policy_statements(content)) == (
-        ('AWSManagedPolicy1', [{
+        {
             'Action': [
                 's3:ListBucket',
                 's3:GetBucketLocation',
@@ -23,12 +23,13 @@ def test_iterate_iam_policy_statements() -> None:
             'Effect': 'Allow',
             'Resource': {
                 'Fn::Sub': 'arn:aws:s3:::${pS3RestoreBucket}',
-                '__column__': 12,
+                '__column__': 14,
                 '__line__': 22,
             },
-            '__column__': 10,
+            '__column__': 12,
             '__line__': 17,
-        }, {
+        },
+        {
             'Action': [
                 's3:GetObjectMetaData',
                 's3:GetObject',
@@ -38,10 +39,10 @@ def test_iterate_iam_policy_statements() -> None:
             ],
             'Effect': 'Allow',
             'Resource': '*',
-            '__column__': 10,
+            '__column__': 12,
             '__line__': 23,
-        }]),
-        ('AWSIamRole1', [{
+        },
+        {
             'Action': [
                 'logs:CreateLogStream',
                 'logs:CreateLogGroup',
@@ -51,20 +52,20 @@ def test_iterate_iam_policy_statements() -> None:
             'Resource': [
                 'arn:aws:logs:*:*:*',
             ],
-            '__column__': 12,
+            '__column__': 16,
             '__line__': 38,
-        }]),
-        ('AWSIamRole1', [{
+        },
+        {
             'Action': [
                 'comprehend:Detect*',
                 'comprehend:BatchDetect*',
             ],
             'Effect': 'Allow',
             'Resource': '*',
-            '__column__': 12,
+            '__column__': 16,
             '__line__': 48,
-        }]),
-        ('AWSPolicy1', [{
+        },
+        {
             'Action': [
                 's3:ListBucket',
                 's3:GetBucketLocation',
@@ -73,5 +74,28 @@ def test_iterate_iam_policy_statements() -> None:
             'Resource': '*',
             '__column__': 12,
             '__line__': 61,
-        }]),
+        },
+        {
+            'Action': '*',
+            'Condition': {
+                'StringNotEquals': {
+                    '__column__': 20,
+                    '__line__': 79,
+                    'aws:RequestedRegion': 'us-east-1',
+                },
+                '__column__': 18,
+                '__line__': 78,
+            },
+            'Effect': 'Deny',
+            'Resource': '*',
+            '__column__': 16,
+            '__line__': 74,
+        },
+        {
+            'Action': 'sts:AssumeRole',
+            'Effect': 'Allow',
+            'Resource': 'arn:aws:iam::*:role/cloud-lambda',
+            '__column__': 16,
+            '__line__': 80,
+        },
     )

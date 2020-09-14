@@ -2,6 +2,7 @@
 from typing import (
     Any,
     Dict,
+    Iterator,
     Tuple,
 )
 
@@ -14,7 +15,7 @@ from parse_cfn.loader import (
 def iterate_resources(
     content: str,
     *expected_resource_kinds: str,
-) -> Tuple[str, str, Dict[str, Any]]:
+) -> Iterator[Tuple[str, str, Dict[str, Any]]]:
     template = loads(content)
     template_resources = template.get('Resources', {})
 
@@ -28,15 +29,18 @@ def iterate_resources(
                     yield resource_name, resource_kind, resource_properties
 
 
-def iterate_iam_policy_statements(content: str) -> Tuple[str, Dict[str, Any]]:
-    for name, kind, props in iterate_resources(content, 'AWS::IAM'):
-        if kind in {
-            'AWS::IAM::ManagedPolicy',
-            'AWS::IAM::Policy',
-        }:
-            document = props.get('PolicyDocument', {})
-            yield name, document.get('Statement', [])
-        if kind == 'AWS::IAM::Role':
+def iterate_iam_policy_statements(content: str) -> Iterator[Dict[str, Any]]:
+
+    def _yield_statements_from_policy(policy: Any) -> Iterator[Any]:
+        document = policy.get('PolicyDocument', {})
+        for statement in document.get('Statement', []):
+            yield statement
+
+    for _, kind, props in iterate_resources(content, 'AWS::IAM'):
+
+        if kind in {'AWS::IAM::ManagedPolicy', 'AWS::IAM::Policy'}:
+            yield from _yield_statements_from_policy(props)
+
+        if kind in {'AWS::IAM::Role', 'AWS::IAM::User'}:
             for policy in props.get('Policies', []):
-                document = policy.get('PolicyDocument', {})
-                yield name, document.get('Statement', [])
+                yield from _yield_statements_from_policy(policy)
