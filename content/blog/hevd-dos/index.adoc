@@ -132,7 +132,7 @@ vulnerabilities.
 Each routine is identified by a `IOCTL` (I/O control) code.
 
 The driver will accept calls to that routines using `IRP` (I/O Request Packets)
-structures and will set a handler that will dispatch the specific routin,
+structures and will set a handler that will dispatch the specific routine,
 given a specific `IOCTL` code:
 
 image::iohandler1.png[IrpHandler]
@@ -189,7 +189,32 @@ the pointer to the size of the user data is placed on `EAX`. That information
 is then pushed to the stack as the parameters for `TriggerBufferOverflowStack`.
 You can see the same in the source code of `HEVD` :
 
-image::source1.png[Source code of BufferOverflowStackIoctlHandler]
+[source,cpp]
+----
+NTSTATUS
+BufferOverflowStackIoctlHandler(
+    _In_ PIRP Irp,
+    _In_ PIO_STACK_LOCATION IrpSp
+)
+{
+    SIZE_T Size = 0;
+    PVOID UserBuffer = NULL;
+    NTSTATUS Status = STATUS_UNSUCCESSFUL;
+
+    UNREFERENCED_PARAMETER(Irp);
+    PAGED_CODE();
+
+    UserBuffer = IrpSp->Parameters.DeviceIoControl.Type3InputBuffer;
+    Size = IrpSp->Parameters.DeviceIoControl.InputBufferLength;
+
+    if (UserBuffer)
+    {
+        Status = TriggerBufferOverflowStack(UserBuffer, Size);
+    }
+
+    return Status;
+}
+----
 
 In the `TriggerBufferOverflowStack` function, the first important thing
 to notice is that a `memset(&KernelBuffer, 0, 800h)` call is done:
