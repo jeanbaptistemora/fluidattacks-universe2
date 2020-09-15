@@ -630,6 +630,58 @@ function job_serves_rotate_keys_user_provision_integrates_prod {
   ||  return 1
 }
 
+function job_serves_rotate_keys_user_provision_skims_dev {
+  local terraform_dir='services/user-provision/skims/dev/terraform'
+  local resource_to_taint='aws_iam_access_key.skims_dev_key'
+  local output_key_id_name='skims_dev_secret_key_id'
+  local output_secret_key_name='skims_dev_secret_key'
+  local gitlab_repo_id='20741933'
+  local gitlab_key_id_name='SKIMS_DEV_AWS_ACCESS_KEY_ID'
+  local gitlab_secret_key_name='SKIMS_DEV_AWS_SECRET_ACCESS_KEY'
+  local gitlab_masked='true'
+  local gitlab_protected='false'
+
+      pushd serves \
+    &&  helper_serves_user_provision_rotate_keys \
+          "${terraform_dir}" \
+          "${resource_to_taint}" \
+          "${output_key_id_name}" \
+          "${output_secret_key_name}" \
+          "${gitlab_repo_id}" \
+          "${gitlab_key_id_name}" \
+          "${gitlab_secret_key_name}" \
+          "${gitlab_masked}" \
+          "${gitlab_protected}" \
+  &&  popd \
+  ||  return 1
+}
+
+function job_serves_rotate_keys_user_provision_skims_prod {
+  local terraform_dir='services/user-provision/skims/prod/terraform'
+  local resource_to_taint='aws_iam_access_key.skims_prod_key'
+  local output_key_id_name='skims_prod_secret_key_id'
+  local output_secret_key_name='skims_prod_secret_key'
+  local gitlab_repo_id='20741933'
+  local gitlab_key_id_name='SKIMS_PROD_AWS_ACCESS_KEY_ID'
+  local gitlab_secret_key_name='SKIMS_PROD_AWS_SECRET_ACCESS_KEY'
+  local gitlab_masked='true'
+  local gitlab_protected='true'
+
+      pushd serves \
+    &&  helper_serves_user_provision_rotate_keys \
+          "${terraform_dir}" \
+          "${resource_to_taint}" \
+          "${output_key_id_name}" \
+          "${output_secret_key_name}" \
+          "${gitlab_repo_id}" \
+          "${gitlab_key_id_name}" \
+          "${gitlab_secret_key_name}" \
+          "${gitlab_masked}" \
+          "${gitlab_protected}" \
+  &&  popd \
+  ||  return 1
+}
+
 function job_serves_rotate_keys_user_provision_web_dev {
   local terraform_dir='services/user-provision/web/dev/terraform'
   local resource_to_taint='aws_iam_access_key.web-dev-key'
