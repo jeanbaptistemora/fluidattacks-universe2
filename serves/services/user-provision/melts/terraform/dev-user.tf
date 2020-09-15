@@ -27,6 +27,17 @@ data "aws_iam_policy_document" "dev-policy-data" {
     ]
   }
 
+  # S3 put over continuoustest repository
+  statement {
+    effect = "Allow"
+    actions = [
+      "s3:Put*"
+    ]
+    resources = [
+      "arn:aws:s3:::continuous-repositoriest/continuoustest/*",
+    ]
+  }
+
   # IAM
   statement {
     effect = "Allow"

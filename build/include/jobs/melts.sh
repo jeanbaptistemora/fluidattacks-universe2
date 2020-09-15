@@ -24,6 +24,7 @@ function job_melts_test {
       then
           helper_start_localstack
       fi \
+  &&  helper_use_pristine_workdir \
   &&  echo '[INFO] Cloning test repository' \
   &&  helper_clone_test_repo \
   &&  mv melts services \
