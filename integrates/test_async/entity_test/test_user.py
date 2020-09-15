@@ -61,7 +61,7 @@ class UserTests(TestCase):
         assert result['data']['userListProjects'][0]['name'] == 'oneshottest'
 
     @pytest.mark.changes_db
-    async def test_add_user(self):
+    async def test_add_stakeholder(self):
         """Check for addStakeholder mutation."""
         query = '''
             mutation {

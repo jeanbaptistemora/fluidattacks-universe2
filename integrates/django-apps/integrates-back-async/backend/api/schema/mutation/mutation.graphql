@@ -144,16 +144,6 @@ type Mutation {
         userEmail: String!
     ): EditStakeholderPayload!
 
-    addUser(
-        email: String!
-        role: StakeholderRole!
-        phoneNumber: String
-    ): AddUserPayload! @deprecated(reason:
-        """
-        Right now, you can add a project comment using both the 'addUser'
-        and 'addStakeholder' query. After 2021-02-06, the 'addUser'
-        query will be invalid.
-        """)
     addStakeholder(
         email: String!
         role: StakeholderRole!
