@@ -266,6 +266,7 @@ function helper_integrates_sops_vars {
     FORCES_TRIGGER_URL \
     GOOGLE_OAUTH2_KEY \
     GOOGLE_OAUTH2_SECRET \
+    JWT_ENCRYPTION_KEY \
     JWT_SECRET \
     JWT_SECRET_API \
     MAIL_CONTINUOUS \
