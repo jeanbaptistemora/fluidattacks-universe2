@@ -5,7 +5,6 @@ from contextlib import suppress
 import copy
 import os
 import textwrap
-import tempfile
 import uuid
 
 # Third party libraries
@@ -33,6 +32,10 @@ from forces.report import (
 )
 from forces.utils.aio import (
     unblock,
+)
+from forces.utils.logs import (
+    log,
+    LOG_FILE,
 )
 
 # contants
@@ -69,7 +72,7 @@ bugsnag.start_session()
 bugsnag.send_sessions()
 
 
-def show_banner(show: bool = True) -> str:
+async def show_banner() -> None:
     """Show forces banner."""
     header = textwrap.dedent(rf"""
         #     ______
@@ -83,34 +86,28 @@ def show_banner(show: bool = True) -> str:
         # | >>|> fluid
         # |___|  attacks, we hack your software
         #
-
         """)
-    if show:
-        print(header)
-    return header
+    await log('info', '%s', header)
 
 
 async def entrypoint(token: str, group: str, **kwargs: Any) -> int:
     """Entrypoint function"""
+    temp_file = LOG_FILE.get()
+
     strict = kwargs.get('strict', False)
     exit_code = 1 if strict else 0
     set_api_token(token)
-    header = show_banner(not bool(kwargs.get('output', True)))
+    await show_banner()
 
     report = await generate_report(project=group,
                                    kind=kwargs.get('kind', 'all'))
     yaml_report = await generate_report_log(
         copy.deepcopy(report), verbose_level=kwargs.pop('verbose_level', 3))
-
-    log = header + yaml_report
-    temp_file = tempfile.NamedTemporaryFile()
-    temp_file.write(log.encode())
+    await log('info', '\n%s', yaml_report)
 
     if kwargs.get('output', None):
         temp_file.seek(os.SEEK_SET)
         await unblock(kwargs['output'].write, temp_file.read().decode('utf-8'))
-    else:
-        print(yaml_report)
     if strict:
         if report['summary']['open']['total'] > 0:
             exit_code = 1
@@ -126,5 +123,4 @@ async def entrypoint(token: str, group: str, **kwargs: Any) -> int:
         strictness='strict' if strict else 'lax',
         git_metadata=metadata,
     )
-    temp_file.close()
     return exit_code

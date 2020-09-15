@@ -14,12 +14,12 @@ You can also integrate forces into your `CI/CD` to ensure that your software is 
    - python3.8
    - pip
 3. Install forces by running the following command:
-    * Windows: `python -m pip install forces`.
-    * Linux and Mac OS: `python3.8 -m pip install forces`
+    - Windows: `python -m pip install forces`
+    - Linux and Mac OS: `python3.8 -m pip install forces`
 4. You can also make use of the Docker image `docker pull fluidattacks/forces:new`.
 5. Be sure to use forces within a git repository.
 
-# Options:
+# Options
 
 - `--token`: Your token for integrates API [required]
 - `--verbose <number>`: Declare the level of detail of the report (default 3)
@@ -30,19 +30,23 @@ You can also integrate forces into your `CI/CD` to ensure that your software is 
   - You can use `-v`, `-vv`, `-vvv`, `-vvvv` instead of `--verbose`
 - `--strict / --lax`: Run forces in strict mode (default `--lax`)
 - `--repo-path`: Git repository path (optional)
+- `--dynamic`: Only check DAST vulnerabilities
+- `--static`: Only check SAST vulnerabilities
+- If you do not specify `--dynamic/--static` all vulnerabilities are checked
 
-# Examples.
+# Examples
 
 In your local environment you execute:
-`forces --token <your-token>`.
+`forces --token <your-token>`
 
 You can also use the Docker image:
-`docker run --rm fluidattacks/forces:new forces --token <your-token>`.
+`docker run --rm fluidattacks/forces:new forces --token <your-token>`
 
-## Use in some CI\CD.
+## Use in some CI\CD
 
 In `GitLab` add these lines to your `.gitlab-ci.yml`
-```
+
+```yaml
 forces:
   image:
     name: fluidattacks/forces:new
@@ -52,7 +56,8 @@ forces:
 ```
 
 In `Azure DevOps` add these lines to you configuration file:
-```
+
+```yaml
 jobs:
   - forces:
     container: fluidattacks/forces:new
@@ -61,7 +66,8 @@ jobs:
 ```
 
 In `Jenkins`, the configuration file should look like this:
-```
+
+```groovy  
 pipeline {
   agent {
     label 'label'
