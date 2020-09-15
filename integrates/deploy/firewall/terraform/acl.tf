@@ -1,8 +1,9 @@
 module "waf_acl" {
-  source               = "umotif-public/waf-webaclv2/aws"
-  version              = "~> 1.4.0"
-  name_prefix          = "integrates-firewall"
-  allow_default_action = true
+  source                 = "umotif-public/waf-webaclv2/aws"
+  version                = "~> 1.4.0"
+  name_prefix            = "integrates-firewall"
+  allow_default_action   = true
+  create_alb_association = false
 
   visibility_config = {
     cloudwatch_metrics_enabled = true
@@ -72,22 +73,6 @@ module "waf_acl" {
 
       managed_rule_group_statement = {
         name        = "AWSManagedRulesLinuxRuleSet"
-        vendor_name = "AWS"
-      }
-    },
-    {
-      name            = "AWSManagedRulesWindowsRuleSet"
-      priority        = "5"
-      override_action = "count"
-
-      visibility_config = {
-        cloudwatch_metrics_enabled = true
-        metric_name                = "AWSManagedRulesWindowsRuleSet-metric"
-        sampled_requests_enabled   = true
-      }
-
-      managed_rule_group_statement = {
-        name        = "AWSManagedRulesWindowsRuleSet"
         vendor_name = "AWS"
       }
     },
