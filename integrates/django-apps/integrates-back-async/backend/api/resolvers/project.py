@@ -249,19 +249,6 @@ async def _get_closed_vulnerabilities(
 
 @require_integrates
 @get_entity_cache_async
-async def _get_pending_closing_check(
-        _: GraphQLResolveInfo,
-        project_name: str,
-        **__: Any) -> int:
-    """Get pending_closing_check."""
-    pending_closing_check = await project_domain.get_pending_closing_check(
-        project_name
-    )
-    return pending_closing_check
-
-
-@require_integrates
-@get_entity_cache_async
 async def _get_last_closing_vuln(
         info: GraphQLResolveInfo,
         project_name: str,

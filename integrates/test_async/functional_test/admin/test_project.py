@@ -78,7 +78,6 @@ async def test_project():
                 openVulnerabilities
                 closedVulnerabilities
                 lastClosingVuln
-                pendingClosingCheck
                 maxSeverity
                 meanRemediate
                 meanRemediateLowSeverity
@@ -120,7 +119,6 @@ async def test_project():
     assert result['data']['project']['openVulnerabilities'] == 0
     assert result['data']['project']['closedVulnerabilities'] == 0
     assert result['data']['project']['lastClosingVuln'] == 0
-    assert result['data']['project']['pendingClosingCheck'] == 0
     assert result['data']['project']['maxSeverity'] == 0.0
     assert result['data']['project']['meanRemediate'] == 0
     assert result['data']['project']['meanRemediateLowSeverity'] == 0

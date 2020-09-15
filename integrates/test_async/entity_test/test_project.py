@@ -54,7 +54,6 @@ class ProjectTests(TestCase):
               openVulnerabilities
               closedVulnerabilities
               lastClosingVuln
-              pendingClosingCheck
               maxSeverity
               meanRemediate
               meanRemediateLowSeverity
@@ -96,7 +95,6 @@ class ProjectTests(TestCase):
         assert result['data']['project']['openVulnerabilities'] == 31
         assert result['data']['project']['closedVulnerabilities'] == 8
         assert 'lastClosingVuln' in result['data']['project']
-        assert result['data']['project']['pendingClosingCheck'] == 2
         assert result['data']['project']['maxSeverity'] == 6.3
         assert result['data']['project']['meanRemediate'] == 245
         assert result['data']['project']['meanRemediateLowSeverity'] == 232
