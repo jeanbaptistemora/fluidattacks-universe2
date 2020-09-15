@@ -39,6 +39,38 @@ function job_skims_doc {
 
 }
 
+function job_skims_queue_group_processing {
+  local definition
+  export group="${1}"
+
+      if test -z "${group}"
+      then
+            echo '[INFO] Please set the first argument to the group name' \
+        &&  return 1
+      fi \
+  &&  echo "[INFO] Submitting job to group: ${group}" \
+  &&  definition=$(jq -e -n -r \
+      '{
+        command: ["./build.sh", "skims_process_group", env.group],
+        environment: [
+          {name: "GITLAB_API_TOKEN", value: env.GITLAB_API_TOKEN},
+          {name: "GITLAB_API_USER", value: env.GITLAB_API_USER},
+          {name: "INTEGRATES_API_TOKEN", value: env.INTEGRATES_API_TOKEN}
+        ],
+        memory: 1024,
+        vcpus: 1
+      }') \
+  &&  echo "[INFO] Job definition: ${definition}" \
+  &&  helper_skims_aws_login prod \
+  &&  aws batch submit-job \
+        --container-overrides "${definition}" \
+        --job-name "${group}" \
+        --job-queue 'skims' \
+        --job-definition 'skims' \
+        --timeout 'attemptDurationSeconds=3600' \
+
+}
+
 function job_skims_deploy_infra {
       pushd skims \
     &&  helper_skims_aws_login prod \

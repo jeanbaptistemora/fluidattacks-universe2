@@ -11,6 +11,7 @@ COPY ./forces /code/forces
 COPY ./melts /code/melts
 COPY ./skims /code/skims
 COPY ./reviews /code/reviews
+COPY ./.envrc.public /code/.envrc.public
 COPY ./build.sh /code/build.sh
 COPY ./default.nix /code/default.nix
 COPY ./install.sh /code/install.sh

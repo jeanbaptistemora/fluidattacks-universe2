@@ -1,5 +1,9 @@
 # shellcheck shell=bash
 
+function helper_common_json_to_yaml {
+  yq -y .
+}
+
 function helper_common_sops_env {
   local file
   local decrypted_json
