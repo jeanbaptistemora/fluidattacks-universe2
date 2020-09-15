@@ -299,6 +299,28 @@ data "aws_iam_policy_document" "integrates-prod-policy-data" {
       "arn:aws:autoscaling:${var.region}:${data.aws_caller_identity.current.account_id}:autoScalingGroup:*:autoScalingGroupName/integrates-*",
     ]
   }
+
+  # WAF read/write permissions over owned resources
+  statement {
+    effect = "Allow"
+    actions = [
+      "wafv2:Describe*",
+      "wafv2:List*",
+      "wafv2:Get*",
+      "wafv2:Check*",
+      "wafv2:CreateWebACL",
+    ]
+    resources = ["*"]
+  }
+  statement {
+    effect = "Allow"
+    actions = [
+      "wafv2:*",
+    ]
+    resources = [
+      "arn:aws:wafv2:${var.region}:${data.aws_caller_identity.current.account_id}:regional/webacl/integrates-*"
+    ]
+  }
 }
 
 resource "aws_iam_policy" "integrates-prod-policy" {

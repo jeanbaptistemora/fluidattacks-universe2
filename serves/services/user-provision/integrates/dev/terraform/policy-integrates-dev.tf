@@ -274,6 +274,18 @@ data "aws_iam_policy_document" "integrates-dev-policy-data" {
     ]
     resources = ["*"]
   }
+
+  # WAF read permissions
+  statement {
+    effect = "Allow"
+    actions = [
+      "wafv2:Describe*",
+      "wafv2:List*",
+      "wafv2:Get*",
+      "wafv2:Check*",
+    ]
+    resources = ["*"]
+  }
 }
 
 resource "aws_iam_policy" "integrates-dev-policy" {
