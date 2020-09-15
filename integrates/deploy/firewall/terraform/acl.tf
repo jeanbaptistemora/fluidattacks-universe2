@@ -1,4 +1,4 @@
-module "waf_acl" {
+module "web_acl" {
   source                 = "umotif-public/waf-webaclv2/aws"
   version                = "~> 1.4.0"
   name_prefix            = "integrates-firewall"
@@ -13,9 +13,8 @@ module "waf_acl" {
 
   rules = [
     {
-      name            = "AWSManagedRulesAmazonIpReputationList"
-      priority        = "1"
-      override_action = "count"
+      name     = "AWSManagedRulesAmazonIpReputationList"
+      priority = "1"
 
       visibility_config = {
         cloudwatch_metrics_enabled = true
@@ -29,9 +28,8 @@ module "waf_acl" {
       }
     },
     {
-      name            = "AWSManagedRulesUnixRuleSet"
-      priority        = "2"
-      override_action = "count"
+      name     = "AWSManagedRulesUnixRuleSet"
+      priority = "2"
 
       visibility_config = {
         cloudwatch_metrics_enabled = true
@@ -45,9 +43,8 @@ module "waf_acl" {
       }
     },
     {
-      name            = "AWSManagedRulesKnownBadInputsRuleSet"
-      priority        = "3"
-      override_action = "count"
+      name     = "AWSManagedRulesKnownBadInputsRuleSet"
+      priority = "3"
 
       visibility_config = {
         cloudwatch_metrics_enabled = true
@@ -61,9 +58,8 @@ module "waf_acl" {
       }
     },
     {
-      name            = "AWSManagedRulesLinuxRuleSet"
-      priority        = "4"
-      override_action = "count"
+      name     = "AWSManagedRulesLinuxRuleSet"
+      priority = "4"
 
       visibility_config = {
         cloudwatch_metrics_enabled = true
@@ -77,9 +73,8 @@ module "waf_acl" {
       }
     },
     {
-      name            = "AWSManagedRulesCommonRuleSet"
-      priority        = "5"
-      override_action = "count"
+      name     = "AWSManagedRulesCommonRuleSet"
+      priority = "5"
 
       visibility_config = {
         cloudwatch_metrics_enabled = true
