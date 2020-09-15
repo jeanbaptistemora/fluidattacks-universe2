@@ -1,7 +1,7 @@
 :slug: rules/314/
 :category: privacy
 :description: This requirement establishes the importance of confirming the users of whether or not their data is being processed.
-:keywords: Requirement, Security, Data, GDPR, Confirmation, Personal, Rules, Ethical Hacking, Pentesting
+:keywords: Requirement, Security, Data, GDPR, ISO, Confirmation, Personal, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R314. Provide processing confirmation
@@ -69,3 +69,7 @@ Where personal data are processed for archiving purposes in the public
 interest,
 Union or Member State law may provide for derogations from the rights referred
 to in Articles 15, 16, 18, 19, 20 and 21.
+
+. [[r5]] link:https://www.iso.org/obp/ui/#iso:std:54534:en[ISO 27001:2013. Annex A - 18.1.4]
+When applicable, guarantee the privacy and security of personal information,
+as required by the relevant legislation and regulations.

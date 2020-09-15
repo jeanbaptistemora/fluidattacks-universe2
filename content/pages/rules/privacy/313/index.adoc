@@ -1,7 +1,7 @@
 :slug: rules/313/
 :category: privacy
 :description: This requirement establishes the importance of informing the user of the system's inability to identify them whenever it can be demonstrated.
-:keywords: Requirement, Security, Data, GDPR, User Identification, Regulation, Rules, Ethical Hacking, Pentesting
+:keywords: Requirement, Security, Data, GDPR, ISO, User Identification, Regulation, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R313. Inform inability to identify users
@@ -39,3 +39,7 @@ V8.3 Sensitive Private Data.(8.3.4)]
 Verify that all sensitive data created and processed by the application has
 been identified,
 and ensure that a policy is in place on how to deal with sensitive data.
+
+. [[r3]] link:https://www.iso.org/obp/ui/#iso:std:54534:en[ISO 27001:2013. Annex A - 18.1.4]
+When applicable, guarantee the privacy and security of personal information,
+as required by the relevant legislation and regulations.

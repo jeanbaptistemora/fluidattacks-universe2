@@ -1,7 +1,7 @@
 :slug: rules/315/
 :category: privacy
 :description: This requirement establishes the importance of informing users about what personal information is being processed.
-:keywords: Requirement, Security, Data, GDPR, Information, Personal, Rules, Ethical Hacking, Pentesting
+:keywords: Requirement, Security, Data, GDPR, ISO, Information, Personal, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R315. Provide processed data information
@@ -105,7 +105,11 @@ interest,
 Union or Member State law may provide for derogations from the rights referred
 to in Articles 15, 16, 18, 19, 20 and 21.
 
-. [[r8]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r8]] link:https://www.iso.org/obp/ui/#iso:std:54534:en[ISO 27001:2013. Annex A - 18.1.4]
+When applicable, guarantee the privacy and security of personal information,
+as required by the relevant legislation and regulations.
+
+. [[r9]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V8.3 Sensitive Private Data.(8.3.4)]
 Verify that all sensitive data created and processed by the application has
 been identified,

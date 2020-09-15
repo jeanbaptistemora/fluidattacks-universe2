@@ -1,7 +1,7 @@
 :slug: rules/317/
 :category: privacy
 :description: This requirement establishes the importance of allowing users to request the erasure of data belonging to them.
-:keywords: Requirement, Security, Data, GDPR, Erasure, Personal, Rules, Ethical Hacking, Pentesting
+:keywords: Requirement, Security, Data, GDPR, ISO, Erasure, Personal, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R317. Allow erasure requests
@@ -49,6 +49,10 @@ The data subject shall have the right to obtain from the controller the erasure
 of personal data concerning him or her without undue delay and the controller
 shall have the obligation to erase personal data without undue delay.
 
-. [[r4]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r4]] link:https://www.iso.org/obp/ui/#iso:std:54534:en[ISO 27001:2013. Annex A - 18.1.4]
+When applicable, guarantee the privacy and security of personal information,
+as required by the relevant legislation and regulations.
+
+. [[r5]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V8.3 Sensitive Private Data.(8.3.2)]
 Verify that users have a method to remove or export their data on demand.

@@ -1,7 +1,7 @@
 :slug: rules/310/
 :category: privacy
 :description: This requirement establishes the importance of requesting the user's consent whenever their data is to be collected.
-:keywords: Security, Data, ASVS, GDPR, Consent Request, Regulation, Rules, Ethical Hacking, Pentesting
+:keywords: Security, Data, ASVS, GDPR, ISO, Consent Request, Regulation, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R310. Request user consent
@@ -53,13 +53,17 @@ Where processing is based on consent, the controller shall be able to
 demonstrate that the data subject has consented to processing of his or her
 personal data.
 
-. [[r4]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r4]] link:https://www.iso.org/obp/ui/#iso:std:54534:en[ISO 27001:2013. Annex A - 18.1.4]
+When applicable, guarantee the privacy and security of personal information,
+as required by the relevant legislation and regulations.
+
+. [[r5]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V8.3 Sensitive Private Data.(8.3.3)]
 Verify that users are provided clear language regarding collection and use of
 supplied personal information and that users have provided opt-in consent for
 the use of that data before it is used in any way.
 
-. [[r5]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r6]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V10.2 Malicious Code Search.(10.2.1)]
 Verify that the application source code and third party libraries do not
 contain unauthorized phone home or data collection capabilities.
