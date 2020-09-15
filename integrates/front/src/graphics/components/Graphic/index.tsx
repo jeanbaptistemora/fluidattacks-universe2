@@ -6,6 +6,7 @@ import { IGraphicProps } from "graphics/types";
 import React from "react";
 import _ from "lodash";
 import styles from "graphics/components/Graphic/index.css";
+import { translate } from "utils/translations/translate";
 import {
   Button,
   ButtonGroup,
@@ -19,6 +20,7 @@ import { ISecureStoreConfig, secureStoreContext } from "utils/secureStore";
 import useComponentSize, { ComponentSize } from "@rehooks/component-size";
 
 const glyphPadding: number = 15;
+const fontSize: number = 16;
 const pixelsSensitivity: number = 5;
 const minWidthToShowButtons: number = 320;
 const bigGraphicSize: ComponentSize = {
@@ -150,7 +152,8 @@ export const Graphic: React.FC<IGraphicProps> = (
   }
 
   const glyphSize: number = Math.min(bodySize.height, bodySize.width) / 2;
-  const glyphSizeTop: number = headSize.height + glyphPadding + glyphSize / 2;
+  const glyphSizeTop: number =
+    headSize.height + glyphPadding + glyphSize / 2 - fontSize;
 
   return (
     <React.Fragment>
@@ -277,9 +280,16 @@ export const Graphic: React.FC<IGraphicProps> = (
                     top: glyphSizeTop,
                   }}
                 >
-                  <Glyphicon
-                    glyph={iframeState === "loading" ? "hourglass" : "wrench"}
-                  />
+                  {iframeState === "loading" ? (
+                    <Glyphicon glyph={"hourglass"} />
+                  ) : (
+                    <React.Fragment>
+                      <Glyphicon glyph={"wrench"} />
+                      <p className={styles.emptyChart}>
+                        {translate.t("analytics.emptyChart.text")}
+                      </p>
+                    </React.Fragment>
+                  )}
                 </div>
               )}
             </div>

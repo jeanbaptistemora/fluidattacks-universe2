@@ -14,6 +14,9 @@ export const enTranslations: ResourceKey = {
         title: "Systems Risk",
       },
     },
+    emptyChart: {
+      text: "Your data will be available soon!",
+    },
     gauge: {
       forcesBuildsRisk: {
         footer: {

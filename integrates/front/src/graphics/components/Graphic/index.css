@@ -4,6 +4,13 @@
   width: 100px;
 }
 
+:local .emptyChart {
+  color: black;
+  font-size: 16px;
+  text-align: center;
+  margin: 0px;
+}
+
 :local .frame {
   border-style: none;
   height: 100%;
@@ -17,6 +24,7 @@
   position: absolute;
   text-align: center;
   transform: translate(-50%);
+  line-height: 1;
 }
 
 :local .modalDialog {
