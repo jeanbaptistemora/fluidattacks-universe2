@@ -712,6 +712,8 @@ async def _do_update_evidence(
         file: InMemoryUploadedFile) -> SimplePayloadType:
     """Resolve update_evidence mutation."""
     success = False
+    user_data = await util.get_jwt_content(info.context)
+    user_email = user_data['user_email']
 
     if await finding_domain.validate_evidence(evidence_id, file):
         success = await finding_domain.update_evidence(
@@ -720,6 +722,7 @@ async def _do_update_evidence(
 
     if success:
         await util.invalidate_cache(
+            f'{user_email}*{finding_id}',
             f'evidence*{finding_id}',
             f'records*{finding_id}'
         )
