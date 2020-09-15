@@ -6,8 +6,8 @@ variable "region" {
   default = "us-east-1"
 }
 
-variable "user-name" {
-  default = "skims-prod"
+variable "user_name" {
+  default = "skims_prod"
 }
 
 variable "terraform_state_lock_arn" {
