@@ -23,6 +23,7 @@ data "aws_iam_policy_document" "skims_dev_policy_data" {
   statement {
     effect = "Allow"
     actions = [
+      "iam:GetInstanceProfile",
       "iam:GetUser",
       "iam:GetRole",
       "iam:GetPolicy",
@@ -32,10 +33,30 @@ data "aws_iam_policy_document" "skims_dev_policy_data" {
       "iam:ListAttachedRolePolicies",
     ]
     resources = [
+      "arn:aws:iam::${data.aws_caller_identity.current.account_id}:instance-profile/skims_*",
       "arn:aws:iam::${data.aws_caller_identity.current.account_id}:policy/user_provision/skims_*",
       "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/skims_*",
       "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/skims_*",
     ]
+  }
+
+  # Batch access
+  statement {
+    effect = "Allow"
+    actions = [
+      "batch:Describe*",
+      "batch:Get*",
+    ]
+    resources = ["*"]
+  }
+
+  # EC2
+  statement {
+    effect = "Allow"
+    actions = [
+      "ec2:Describe*",
+    ]
+    resources = ["*"]
   }
 
   # KMS

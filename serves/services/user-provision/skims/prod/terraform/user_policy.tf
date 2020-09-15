@@ -27,10 +27,40 @@ data "aws_iam_policy_document" "skims_prod_policy_data" {
       "iam:*",
     ]
     resources = [
+      "arn:aws:iam::${data.aws_caller_identity.current.account_id}:instance-profile/skims_*",
       "arn:aws:iam::${data.aws_caller_identity.current.account_id}:policy/user_provision/skims_*",
       "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/skims_*",
       "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/skims_*",
     ]
+  }
+
+  # Batch access
+  statement {
+    effect = "Allow"
+    actions = ["batch:*"]
+    resources = ["*"]
+  }
+
+  # EC2
+  statement {
+    effect = "Allow"
+    actions = [
+      "ec2:ApplySecurityGroupsToClientVpnTargetNetwork",
+      "ec2:AuthorizeSecurityGroupEgress",
+      "ec2:AuthorizeSecurityGroupIngress",
+      "ec2:Create*",
+      "ec2:Describe*",
+      "ec2:DeleteSecurityGroup",
+      "ec2:DeleteSubnet",
+      "ec2:DeleteTags",
+      "ec2:DeleteNetworkInterface",
+      "ec2:ModifySubnetAttribute",
+      "ec2:RevokeSecurityGroupEgress",
+      "ec2:RevokeSecurityGroupIngress",
+      "ec2:UpdateSecurityGroupRuleDescriptionsEgress",
+      "ec2:UpdateSecurityGroupRuleDescriptionsIngress",
+    ]
+    resources = ["*"]
   }
 
   # KMS
