@@ -477,6 +477,8 @@ function helper_observes_services_repositories_cache {
 function helper_observes_services_repositories_cache_new {
   local mock_integrates_api_token='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.e30.xxx'
   export DEBUG="True"
+  export CI_NODE_INDEX
+  export CI_NODE_TOTAL
   helper_get_projects
 
       helper_observes_aws_login prod \

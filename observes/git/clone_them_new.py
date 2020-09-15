@@ -222,7 +222,6 @@ def main() -> None:
         stats = add_stats(stats, subs_name)
         _, output = run_command('du -sh', cwd='/git/')
         diskusage.append(output.split()[0])
-        print(diskusage)
 
         run_command('rm -rf */* */.*', cwd=f'{subs_path}/fusion/')
 
@@ -241,6 +240,7 @@ def main() -> None:
                     'CI_NODE_TOTAL': CI_NODE_TOTAL
                 },
                 'FAILED_REPOS':  error_repos,
+                'DISK_USAGE': diskusage,
             },
         )
 
