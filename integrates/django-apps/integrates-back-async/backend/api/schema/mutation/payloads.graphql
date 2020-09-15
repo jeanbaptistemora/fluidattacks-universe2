@@ -51,11 +51,6 @@ type SimpleFindingPayload implements Payload {
     finding: Finding
 }
 
-type AddCommentPayload implements Payload {
-    success: Boolean!
-    commentId: String
-}
-
 type AddConsultPayload implements Payload {
     success: Boolean!
     commentId: String

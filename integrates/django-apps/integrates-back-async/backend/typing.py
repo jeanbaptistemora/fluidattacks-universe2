@@ -124,10 +124,6 @@ ApproveDraftPayload = NamedTuple('ApproveDraftPayload', [
     ('success', bool),
     ('release_date', str),
 ])
-AddCommentPayload = NamedTuple('AddCommentPayload', [
-    ('success', bool),
-    ('comment_id', str),
-])
 AddConsultPayload = NamedTuple('AddConsultPayload', [
     ('success', bool),
     ('comment_id', str),

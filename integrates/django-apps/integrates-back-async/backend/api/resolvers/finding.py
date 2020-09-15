@@ -34,7 +34,6 @@ from backend.typing import (
     SimplePayload as SimplePayloadType,
     SimpleFindingPayload as SimpleFindingPayloadType,
     ApproveDraftPayload as ApproveDraftPayloadType,
-    AddCommentPayload as AddCommentPayloadType,
     AddConsultPayload as AddConsultPayloadType,
     Vulnerability as VulnerabilityType,
 )
@@ -619,7 +618,7 @@ def resolve_finding_mutation(
 ) -> Union[
     SimpleFindingPayloadType,
     SimplePayloadType,
-    AddCommentPayloadType,
+    AddConsultPayloadType,
     ApproveDraftPayloadType
 ]:
     """Resolve findings mutation."""
@@ -629,7 +628,7 @@ def resolve_finding_mutation(
         Union[
             SimpleFindingPayloadType,
             SimplePayloadType,
-            AddCommentPayloadType,
+            AddConsultPayloadType,
             ApproveDraftPayloadType
         ],
         resolver_func(obj, info, **parameters)
