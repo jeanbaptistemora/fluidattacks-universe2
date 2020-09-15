@@ -306,6 +306,50 @@ function job_serves_apply_user_provision_integrates_prod {
   ||  return 1
 }
 
+function job_serves_test_user_provision_skims_dev {
+  local target='services/user-provision/skims/dev/terraform'
+
+      helper_use_pristine_workdir \
+  &&  pushd serves \
+    &&  helper_serves_aws_login dev \
+    &&  helper_common_terraform_plan "${target}" \
+  &&  popd \
+  ||  return 1
+}
+
+function job_serves_apply_user_provision_skims_dev {
+  local target='services/user-provision/skims/dev/terraform'
+
+      helper_use_pristine_workdir \
+  &&  pushd serves \
+    &&  helper_serves_aws_login prod \
+    &&  helper_common_terraform_apply "${target}" \
+  &&  popd \
+  ||  return 1
+}
+
+function job_serves_test_user_provision_skims_prod {
+  local target='services/user-provision/skims/prod/terraform'
+
+      helper_use_pristine_workdir \
+  &&  pushd serves \
+    &&  helper_serves_aws_login dev \
+    &&  helper_common_terraform_plan "${target}" \
+  &&  popd \
+  ||  return 1
+}
+
+function job_serves_apply_user_provision_skims_prod {
+  local target='services/user-provision/skims/prod/terraform'
+
+      helper_use_pristine_workdir \
+  &&  pushd serves \
+    &&  helper_serves_aws_login prod \
+    &&  helper_common_terraform_apply "${target}" \
+  &&  popd \
+  ||  return 1
+}
+
 function job_serves_test_user_provision_web_dev {
   local target='services/user-provision/web/dev/terraform'
 

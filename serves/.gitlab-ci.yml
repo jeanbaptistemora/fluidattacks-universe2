@@ -108,6 +108,16 @@ serves_test_user_provision_integrates_prod:
   <<: *serves_in_dev_branch
   stage: test-infra
 
+serves_test_user_provision_skims_dev:
+  <<: *with_nix
+  <<: *serves_in_dev_branch
+  stage: test-infra
+
+serves_test_user_provision_skims_prod:
+  <<: *with_nix
+  <<: *serves_in_dev_branch
+  stage: test-infra
+
 serves_test_user_provision_web_dev:
   <<: *with_nix
   <<: *serves_in_dev_branch
@@ -199,6 +209,16 @@ serves_apply_user_provision_integrates_dev:
   stage: deploy-infra
 
 serves_apply_user_provision_integrates_prod:
+  <<: *with_nix
+  <<: *serves_in_master_branch
+  stage: deploy-infra
+
+serves_apply_user_provision_skims_dev:
+  <<: *with_nix
+  <<: *serves_in_master_branch
+  stage: deploy-infra
+
+serves_apply_user_provision_skims_prod:
   <<: *with_nix
   <<: *serves_in_master_branch
   stage: deploy-infra
