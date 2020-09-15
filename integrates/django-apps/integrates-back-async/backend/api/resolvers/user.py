@@ -41,9 +41,7 @@ from backend.typing import (
     User as UserType,
     AddStakeholderPayload as AddStakeholderPayloadType,
     GrantStakeholderAccessPayload as GrantStakeholderAccessPayloadType,
-    GrantUserAccessPayload as GrantUserAccessPayloadType,
     RemoveStakeholderAccessPayload as RemoveStakeholderAccessPayloadType,
-    RemoveUserAccessPayload as RemoveUserAccessPayloadType,
     EditStakeholderPayload as EditStakeholderPayloadType,
     MailContent as MailContentType,
     Project as ProjectType
@@ -368,8 +366,8 @@ async def resolve_user_mutation(
     **parameters: Any
 ) -> Union[
     AddStakeholderPayloadType,
-    GrantUserAccessPayloadType,
-    RemoveUserAccessPayloadType,
+    GrantStakeholderAccessPayloadType,
+    RemoveStakeholderAccessPayloadType,
     EditStakeholderPayloadType
 ]:
     """Wrap user mutations."""
@@ -378,8 +376,8 @@ async def resolve_user_mutation(
     return cast(
         Union[
             AddStakeholderPayloadType,
-            GrantUserAccessPayloadType,
-            RemoveUserAccessPayloadType,
+            GrantStakeholderAccessPayloadType,
+            RemoveStakeholderAccessPayloadType,
             EditStakeholderPayloadType
         ],
         await resolver_func(obj, info, **parameters)

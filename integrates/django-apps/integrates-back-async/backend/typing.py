@@ -93,10 +93,6 @@ Vulnerability = Dict[str, Union[
 Report = Dict[str, Union[
     str
 ]]
-AddUserPayload = NamedTuple('AddUserPayload', [
-    ('success', bool),
-    ('email', str),
-])
 AddStakeholderPayload = NamedTuple('AddStakeholderPayload', [
     ('success', bool),
     ('email', str),
@@ -105,17 +101,9 @@ CreateOrganizationPayload = NamedTuple('CreateOrganizationPayload', [
     ('success', bool),
     ('organization', Organization)
 ])
-GrantUserAccessPayload = NamedTuple('GrantUserAccessPayload', [
-    ('success', bool),
-    ('granted_user', User),
-])
 GrantStakeholderAccessPayload = NamedTuple('GrantStakeholderAccessPayload', [
     ('success', bool),
     ('granted_stakeholder', Stakeholder),
-])
-RemoveUserAccessPayload = NamedTuple('RemoveUserAccessPayload', [
-    ('success', bool),
-    ('removed_email', str),
 ])
 RemoveStakeholderAccessPayload = NamedTuple('RemoveStakeholderAccessPayload', [
     ('success', bool),
@@ -123,7 +111,7 @@ RemoveStakeholderAccessPayload = NamedTuple('RemoveStakeholderAccessPayload', [
 ])
 EditStakeholderPayload = NamedTuple('EditStakeholderPayload', [
     ('success', bool),
-    ('modified_stakeholder', User),
+    ('modified_stakeholder', Stakeholder),
 ])
 SimplePayload = NamedTuple('SimplePayload', [
     ('success', bool),

@@ -26,19 +26,9 @@ type DownloadFilePayload implements Payload {
     url: String
 }
 
-type GrantUserAccessPayload implements Payload {
-    success: Boolean!
-    grantedUser: User
-}
-
 type GrantStakeholderAccessPayload implements Payload {
     success: Boolean!
     grantedStakeholder: Stakeholder
-}
-
-type RemoveUserAccessPayload implements Payload {
-    success: Boolean!
-    removedEmail: String
 }
 
 type RemoveStakeholderAccessPayload implements Payload {
@@ -49,11 +39,6 @@ type RemoveStakeholderAccessPayload implements Payload {
 type EditStakeholderPayload implements Payload {
     success: Boolean!
     modifiedStakeholder: User
-}
-
-type AddUserPayload implements Payload {
-    success: Boolean!
-    email: String
 }
 
 type AddStakeholderPayload implements Payload {
