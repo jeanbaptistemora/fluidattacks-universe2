@@ -1,10 +1,7 @@
 # pylint:disable=too-many-branches
+import time
 from typing import Dict, List, Union, cast, Optional, Any
 from magic import Magic
-
-from aioextensions import (
-    in_process,
-)
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from backend import util
 from backend.dal import finding as finding_dal
@@ -60,7 +57,8 @@ async def update_evidence(
         }[mime]
     except AttributeError:
         extension = ''
-    evidence_id = f'{project_name}-{finding_id}-{evidence_type}{extension}'
+    evidence_id = f'{project_name}-{finding_id}-{evidence_type}-' \
+        f'{int(time.time())}{extension}'
     full_name = f'{project_name}/{finding_id}/{evidence_id}'
 
     if await finding_dal.save_evidence(file, full_name):
@@ -180,9 +178,7 @@ async def validate_evidence(
     elif evidence_id == 'fileRecords':
         allowed_mimes = ['text/csv', 'text/plain']
 
-    if not await in_process(
-        util.assert_uploaded_file_mime, file, allowed_mimes
-    ):
+    if not util.assert_uploaded_file_mime(file, allowed_mimes):
         raise InvalidFileType()
 
     if file.size < max_size.get(evidence_id, 10) * mib:
