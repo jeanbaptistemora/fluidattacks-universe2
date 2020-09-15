@@ -89,7 +89,7 @@ common_build_nix_caches:
     refs: [schedules]
     variables: [$common_build_nix_caches]
 
-common_common_deploy_container_image:
+common_deploy_container_image:
   <<: *with_nix
   <<: *common_in_master_branch
   stage: deploy-app

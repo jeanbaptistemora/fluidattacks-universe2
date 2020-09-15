@@ -39,6 +39,19 @@ function job_skims_doc {
 
 }
 
+function job_skims_process_group {
+  local group="${1}"
+
+  if test -n "${group}"
+  then
+        echo "[INFO] Processing: ${group}" \
+    &&  helper_skims_process_group "${group}"
+  else
+        echo '[INFO] Please set the first argument to the group name' \
+    &&  return 1
+  fi
+}
+
 function job_skims_queue_group_processing {
   local definition
   export group="${1}"
@@ -55,7 +68,9 @@ function job_skims_queue_group_processing {
         environment: [
           {name: "GITLAB_API_TOKEN", value: env.GITLAB_API_TOKEN},
           {name: "GITLAB_API_USER", value: env.GITLAB_API_USER},
-          {name: "INTEGRATES_API_TOKEN", value: env.INTEGRATES_API_TOKEN}
+          {name: "INTEGRATES_API_TOKEN", value: env.INTEGRATES_API_TOKEN},
+          {name: "SKIMS_PROD_AWS_ACCESS_KEY_ID", value: env.SKIMS_PROD_AWS_ACCESS_KEY_ID},
+          {name: "SKIMS_PROD_AWS_SECRET_ACCESS_KEY", value: env.SKIMS_PROD_AWS_SECRET_ACCESS_KEY}
         ],
         memory: 1024,
         vcpus: 1

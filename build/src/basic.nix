@@ -40,6 +40,7 @@ rec {
   srcIncludeServesJobs = ../include/jobs/serves.sh;
 
   # Skims
+  srcIncludeHelpersSkimsProcess = ../include/helpers/skims.process.sh;
   srcIncludeHelpersSkims = ../include/helpers/skims.sh;
   srcIncludeSkimsJobs = ../include/jobs/skims.sh;
 }

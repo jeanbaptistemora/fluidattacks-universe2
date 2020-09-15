@@ -27,6 +27,7 @@ source "${srcIncludeReviewsJobs}"
 source "${srcIncludeHelpersServes}"
 source "${srcIncludeServesJobs}"
 
+source "${srcIncludeHelpersSkimsProcess}"
 source "${srcIncludeHelpersSkims}"
 source "${srcIncludeSkimsJobs}"
 

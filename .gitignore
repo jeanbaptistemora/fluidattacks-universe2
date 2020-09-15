@@ -22,7 +22,7 @@ package-lock.json
 /TEMP_FD
 /test
 /test.py
-/.services
+/*services
 
 # Secrets
 .envrc
