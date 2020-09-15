@@ -51,7 +51,7 @@
     - ./build.sh skims_doc
   stage: deploy-app
 
-skims_deploy:
+skims_deploy_to_pypi:
   <<: *with_nix
   <<: *skims_in_master_branch
   stage: deploy-app
