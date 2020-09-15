@@ -7,5 +7,6 @@ src/scenes/Dashboard/**/*.*
 !src/scenes/Dashboard/components/APITokenModal/**
 !src/scenes/Dashboard/components/AddEnvironmentsModal/**
 !src/scenes/Dashboard/components/NewsWidget/**
+!src/scenes/Dashboard/components/AddFilesModal/index.spec.tsx
 src/**/*.css.d.ts
 src/**/*.d.ts

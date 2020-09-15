@@ -1,67 +1,72 @@
-import { mount, ReactWrapper, shallow, ShallowWrapper } from "enzyme";
-import * as React from "react";
+import { AddFilesModal } from "scenes/Dashboard/components/AddFilesModal";
 import { Provider } from "react-redux";
-import { AddFilesModal } from "scenes/Dashboard/components/AddFilesModal/";
+import React from "react";
 import store from "store";
+import { ReactWrapper, ShallowWrapper, mount, shallow } from "enzyme";
 
 describe("Add Files modal", (): void => {
-
   it("should return a function", (): void => {
-    expect(typeof (AddFilesModal))
-      .toEqual("function");
+    expect.hasAssertions();
+    expect(typeof AddFilesModal).toStrictEqual("function");
   });
 
   it("should render", (): void => {
+    expect.hasAssertions();
+
     const wrapper: ShallowWrapper = shallow(
       <Provider store={store}>
         <AddFilesModal
           isOpen={true}
+          isUploading={false}
           onClose={jest.fn()}
           onSubmit={jest.fn()}
-          isUploading={false}
           uploadProgress={10}
         />
-      </Provider>,
+      </Provider>
     );
 
-    expect(wrapper)
-      .toHaveLength(1);
+    expect(wrapper).toHaveLength(1);
   });
 
   it("should render uploadbar", (): void => {
+    expect.hasAssertions();
+
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
         <AddFilesModal
           isOpen={true}
+          isUploading={true}
           onClose={jest.fn()}
           onSubmit={jest.fn()}
-          isUploading={true}
           uploadProgress={10}
         />
-      </Provider>,
+      </Provider>
     );
-    expect(wrapper.find("ProgressBar").length)
-      .toEqual(1);
+
+    expect(wrapper.find("ProgressBar")).toHaveLength(1);
   });
 
   it("should close on cancel", (): void => {
+    expect.hasAssertions();
+
     const handleClose: jest.Mock = jest.fn();
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
         <AddFilesModal
           isOpen={true}
+          isUploading={false}
           onClose={handleClose}
           onSubmit={jest.fn()}
-          isUploading={false}
           uploadProgress={10}
         />
-      </Provider>,
+      </Provider>
     );
-    const cancelButton: ReactWrapper = wrapper.find("button")
-      .findWhere((element: ReactWrapper) => element.contains("Cancel"))
+    const cancelButton: ReactWrapper = wrapper
+      .find("button")
+      .findWhere((element: ReactWrapper): boolean => element.contains("Cancel"))
       .at(0);
     cancelButton.simulate("click");
-    expect(handleClose.mock.calls.length)
-      .toEqual(1);
+
+    expect(handleClose.mock.calls).toHaveLength(1);
   });
 });
