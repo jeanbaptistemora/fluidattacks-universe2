@@ -44,7 +44,6 @@ from backend.typing import (
     GrantUserAccessPayload as GrantUserAccessPayloadType,
     RemoveStakeholderAccessPayload as RemoveStakeholderAccessPayloadType,
     RemoveUserAccessPayload as RemoveUserAccessPayloadType,
-    EditUserPayload as EditUserPayloadType,
     EditStakeholderPayload as EditStakeholderPayloadType,
     MailContent as MailContentType,
     Project as ProjectType
@@ -371,7 +370,7 @@ async def resolve_user_mutation(
     AddStakeholderPayloadType,
     GrantUserAccessPayloadType,
     RemoveUserAccessPayloadType,
-    EditUserPayloadType
+    EditStakeholderPayloadType
 ]:
     """Wrap user mutations."""
     field = util.camelcase_to_snakecase(info.field_name)
@@ -381,7 +380,7 @@ async def resolve_user_mutation(
             AddStakeholderPayloadType,
             GrantUserAccessPayloadType,
             RemoveUserAccessPayloadType,
-            EditUserPayloadType
+            EditStakeholderPayloadType
         ],
         await resolver_func(obj, info, **parameters)
     )
@@ -550,82 +549,6 @@ async def _do_remove_stakeholder_access(
     return RemoveStakeholderAccessPayloadType(
         success=success,
         removed_email=removed_email
-    )
-
-
-@concurrent_decorators(
-    require_login,
-    enforce_group_level_auth_async,
-    require_integrates,
-)
-async def _do_edit_user(
-        _: Any,
-        info: GraphQLResolveInfo,
-        **modified_user_data: str) -> EditUserPayloadType:
-    """Resolve edit_user mutation."""
-    project_name = modified_user_data['project_name'].lower()
-    modified_role = modified_user_data['role']
-    modified_email = modified_user_data['email']
-
-    success = False
-    user_data = await util.get_jwt_content(info.context)
-    user_email = user_data['user_email']
-
-    allowed_roles_to_grant = \
-        await authz.get_group_level_roles_a_user_can_grant(
-            group=project_name,
-            requester_email=user_email,
-        )
-
-    await validate_fluidattacks_staff_on_group(
-        project_name, modified_email, modified_role
-    )
-
-    if modified_role in allowed_roles_to_grant:
-        if await authz.grant_group_level_role(
-                modified_email, project_name, modified_role):
-            success = await modify_user_information(
-                info.context, modified_user_data, project_name
-            )
-        else:
-            LOGGER.error(
-                'Couldn\'t update user role',
-                extra={'extra': info.context})
-    else:
-        LOGGER.error(
-            'Invalid role provided',
-            extra={
-                'extra': {
-                    'modified_user_role': modified_role,
-                    'project_name': project_name,
-                    'requester_email': user_email
-                }
-            })
-
-    if success:
-        util.queue_cache_invalidation(
-            f'users*{project_name}',
-            modified_email
-        )
-        util.cloudwatch_log(
-            info.context,
-            (f'Security: Modified user data:{modified_email} '
-             'in {project_name} project successfully')  # pragma: no cover
-        )
-    else:
-        util.cloudwatch_log(
-            info.context,
-            ('Security: Attempted to modify user '
-             f'data:{modified_email} in '
-             f'{project_name} project')  # pragma: no cover
-        )
-
-    return EditUserPayloadType(
-        success=success,
-        modified_user=dict(
-            project_name=project_name,
-            email=modified_user_data['email']
-        )
     )
 
 

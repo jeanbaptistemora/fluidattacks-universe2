@@ -204,7 +204,7 @@ describe("Project users view", () => {
 
   it("should open a modal to edit stakeholder", async () => {
     const mockedPermissions: PureAbility<string> = new PureAbility([
-      { action: "backend_api_resolvers_user__do_edit_user" },
+      { action: "backend_api_resolvers_user__do_edit_stakeholder" },
     ]);
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
@@ -368,7 +368,7 @@ describe("Project users view", () => {
       result: { data: { editStakeholder : { success: true } } },
     }];
     const mockedPermissions: PureAbility<string> = new PureAbility([
-      { action: "backend_api_resolvers_user__do_edit_user" },
+      { action: "backend_api_resolvers_user__do_edit_stakeholder" },
       { action: "grant_group_level_role:analyst" },
     ]);
     const wrapper: ReactWrapper = mount(
@@ -564,7 +564,7 @@ describe("Project users view", () => {
       ]},
     }];
     const mockedPermissions: PureAbility<string> = new PureAbility([
-      { action: "backend_api_resolvers_user__do_edit_user" },
+      { action: "backend_api_resolvers_user__do_edit_stakeholder" },
       { action: "grant_group_level_role:analyst" },
     ]);
     const wrapper: ReactWrapper = mount(

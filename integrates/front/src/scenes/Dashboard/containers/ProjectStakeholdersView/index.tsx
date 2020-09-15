@@ -264,7 +264,7 @@ const projectStakeholdersView: React.FC<IProjectStakeholdersViewProps> =
                       </Button>
                     </TooltipWrapper>
                   </Can>
-                  <Can do="backend_api_resolvers_user__do_edit_user">
+                  <Can do="backend_api_resolvers_user__do_edit_stakeholder">
                     <TooltipWrapper
                       message={translate.t("search_findings.tab_users.edit_button.tooltip")}
                     >
@@ -306,7 +306,7 @@ const projectStakeholdersView: React.FC<IProjectStakeholdersViewProps> =
                   selectionMode={{
                     clickToSelect: true,
                     hideSelectColumn:
-                      permissions.cannot("backend_api_resolvers_user__do_edit_user")
+                      permissions.cannot("backend_api_resolvers_user__do_edit_stakeholder")
                       || permissions.cannot("backend_api_resolvers_user__do_remove_stakeholder_access"),
                     mode: "radio",
                     onSelect: setCurrentRow,
@@ -318,7 +318,7 @@ const projectStakeholdersView: React.FC<IProjectStakeholdersViewProps> =
         </Row>
         <AddUserModal
           action={userModalAction}
-          editTitle={translate.t("search_findings.tab_users.edit_user_title")}
+          editTitle={translate.t("search_findings.tab_users.edit_stakeholder_title")}
           initialValues={userModalAction === "edit" ? currentRow : {}}
           onSubmit={handleSubmit}
           open={isUserModalOpen}

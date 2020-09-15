@@ -117,18 +117,6 @@ type Mutation {
         userEmail: String!
     ): SimplePayload!
 
-    editUser(
-        projectName: String!
-        email: String!
-        responsibility: String!
-        role: StakeholderRole!
-        phoneNumber: String!
-    ): EditUserPayload! @deprecated(reason:
-        """
-        Right now, you can edit a project user/stakeholder using both the 'editUser'
-        and 'editStakeholder' query. After 2021-02-06, the 'editUser'
-        query will be invalid.
-        """)
     editStakeholder(
         projectName: String!
         email: String!

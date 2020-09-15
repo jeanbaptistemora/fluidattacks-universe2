@@ -1713,7 +1713,7 @@ export const enTranslations: ResourceKey = {
         text: "Edit",
         tooltip: "Select a user and edit their information",
       },
-      edit_user_title: "Edit stakeholder information",
+      edit_stakeholder_title: "Edit stakeholder information",
       hours_ago: "{{count}} hour ago",
       hours_ago_plural: "{{count}} hours ago",
       minutes_ago: "{{count}} minute ago",
