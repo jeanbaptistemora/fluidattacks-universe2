@@ -16,8 +16,6 @@ import React from "react";
 import { Col, Glyphicon, Row } from "react-bootstrap";
 import { RouteComponentProps, useHistory } from "react-router-dom";
 
-import { DataTableNext } from "components/DataTableNext";
-import { IHeaderConfig } from "components/DataTableNext/types";
 import { HorizontalBarIndicator } from "scenes/Dashboard/components/HorizontalBarIndicator";
 import { IndicatorBox } from "scenes/Dashboard/components/IndicatorBox";
 import { IndicatorGraph } from "scenes/Dashboard/components/IndicatorGraph";
@@ -79,10 +77,7 @@ interface ITag {
     projects: IProjectTag[];
   };
 }
-interface IProjectTable {
-  description: string;
-  name: string;
-}
+
 const maxNumberOfDisplayedProjects: number = 6;
 
 const tagsInfo: React.FC<TagsProps> = (props: TagsProps): JSX.Element => {
@@ -97,23 +92,6 @@ const tagsInfo: React.FC<TagsProps> = (props: TagsProps): JSX.Element => {
     variables: { tag: tagName },
   });
   const { push } = useHistory();
-
-  const tableHeaders: IHeaderConfig[] = [
-    { dataField: "name", header: "Project Name" },
-    { dataField: "description", header: "Description" },
-  ];
-
-  const handleRowTagClick: ((event: React.FormEvent<HTMLButtonElement>, rowInfo: { name: string }) => void) = (
-    _0: React.FormEvent<HTMLButtonElement>, rowInfo: { name: string },
-  ): void => {
-    push(`/groups/${rowInfo.name.toLowerCase()}/indicators`);
-  };
-
-  const formatTableData: ((projects: IProjectTag[]) => IProjectTable[]) = (
-    projects: IProjectTag[],
-  ): IProjectTable[] => (
-    projects.map((project: IProjectTag) => ({ name: project.name, description: project.description }))
-  );
 
   const formatStatusGraphData: ((projects: ITreatmentGraphConfig[]) => IStatusGraphConfig) = (
     projects: ITreatmentGraphConfig[],
@@ -576,18 +554,6 @@ const tagsInfo: React.FC<TagsProps> = (props: TagsProps): JSX.Element => {
 
   return (
     <React.Fragment>
-      <Row>
-        <DataTableNext
-          bordered={true}
-          dataset={formatTableData(data.tag.projects)}
-          exportCsv={false}
-          headers={tableHeaders}
-          id="tblProjectsTag"
-          pageSize={10}
-          rowEvents={{ onClick: handleRowTagClick }}
-          search={true}
-        />
-      </Row>
       <Row>
         <Col md={3} sm={12} xs={12}>
           <IndicatorBox

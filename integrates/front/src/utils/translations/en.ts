@@ -703,6 +703,16 @@ export const enTranslations: ResourceKey = {
           n_groups: "# of Groups",
           portfolio: "Portfolio",
         },
+        tabs: {
+          group: {
+            text: "Groups",
+            tooltip: "Groups that belong to the portfolio",
+          },
+          indicators: {
+            text: "Analytics",
+            tooltip: "Summary of the portfolio status",
+          },
+        },
         text: "Portfolios",
         tooltip:
           "Classify groups using tags and have overall indicators of those tags",

@@ -545,8 +545,6 @@ class ViewTestCase(unittest.TestCase):
         selenium.execute_script('window.scrollTo(2300, 2700);')
         selenium.save_screenshot(SCR_PATH + '18-07-tag_indicators.png')
 
-        total_tables = len(selenium.find_elements_by_tag_name("table"))
-        assert total_tables == 1
         assert 'Open vulnerabilities by group' in selenium.page_source
         assert 'Findings by group' in selenium.page_source
         assert 'Open findings by group' in selenium.page_source
@@ -555,6 +553,15 @@ class ViewTestCase(unittest.TestCase):
         assert 'Status' in selenium.page_source
         assert 'Treatment' in selenium.page_source
         assert 'Treatmentless by group' in selenium.page_source
+
+        selenium.get(
+            self.url + f'/orgs/{org}/portfolios/test-projects/groups')
+        WebDriverWait(selenium, self.delay).until(
+            expected.presence_of_element_located(
+                (By.XPATH, "//*[contains(text(), 'Description')]")))
+        selenium.save_screenshot(SCR_PATH + '18-08-tag_groups.png')
+        total_tables = len(selenium.find_elements_by_tag_name("table"))
+        assert total_tables == 1
 
         selenium.get(
             self.url + f'/orgs/{org}/portfolios/doesnotexists/indicators')

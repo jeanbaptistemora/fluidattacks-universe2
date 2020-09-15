@@ -1,18 +1,16 @@
 import _ from "lodash";
 import React from "react";
-import { ButtonToolbar, Col, Glyphicon, Row, ToggleButton, ToggleButtonGroup } from "react-bootstrap";
+import { Col, Row } from "react-bootstrap";
 import { useHistory, useRouteMatch } from "react-router";
 
 import { DataTableNext } from "components/DataTableNext/index";
 import { IHeaderConfig } from "components/DataTableNext/types";
-import { ProjectBox } from "scenes/Dashboard/components/ProjectBox";
 import { default as style } from "scenes/Dashboard/containers/OrganizationGroupsView/index.css";
 import {
   IOrganizationPortfoliosProps,
   IPortfolios,
   IPortfoliosTable,
 } from "scenes/Dashboard/containers/OrganizationPortfoliosView/types";
-import { useStoredState } from "utils/hooks";
 import { translate } from "utils/translations/translate";
 
 const organizationPortfolios: React.FC<IOrganizationPortfoliosProps> =
@@ -20,9 +18,6 @@ const organizationPortfolios: React.FC<IOrganizationPortfoliosProps> =
     const portfoliosList: IPortfolios[] = props.portfolios;
     const { url } = useRouteMatch();
     const { push } = useHistory();
-
-    // State Management
-    const [display, setDisplay] = useStoredState("portfoliosDisplay", { mode: "grid" }, localStorage);
 
     // Auxiliary Opertaions
     const formatPortfolioDescription: ((groups: Array<{ name: string }>) => string) =
@@ -51,10 +46,6 @@ const organizationPortfolios: React.FC<IOrganizationPortfoliosProps> =
 
     const goToPortfolio: (portfolioName: string) => void = (portfolioName: string): void => {
       push(`${url}/${portfolioName.toLowerCase()}/`);
-    };
-
-    const handleDisplayChange: ((value: string) => void) = (value: string): void => {
-      setDisplay({ mode: value });
     };
 
     const handleRowClick: (event: React.FormEvent<HTMLButtonElement>, rowInfo: { portfolio: string }) => void =

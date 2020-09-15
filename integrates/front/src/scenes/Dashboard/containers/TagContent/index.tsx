@@ -1,7 +1,9 @@
 import _ from "lodash";
 import React from "react";
 import { Col, Row } from "react-bootstrap";
-import { NavLink, Redirect, Route, RouteComponentProps, Switch } from "react-router-dom";
+import { Redirect, Route, RouteComponentProps, Switch } from "react-router-dom";
+import { ContentTab } from "scenes/Dashboard/components/ContentTab";
+import { TagsGroup } from "scenes/Dashboard/containers/TagContent/TagGroup";
 import { TagsInfo } from "scenes/Dashboard/containers/TagContent/TagInfo";
 import { default as globalStyle } from "styles/global.css";
 import { translate } from "utils/translations/translate";
@@ -17,17 +19,26 @@ const tagContent: React.FC<IProjectContentProps> = (props: IProjectContentProps)
             <React.Fragment>
               <div className={globalStyle.stickyContainer}>
                 <ul className={globalStyle.tabsContainer}>
-                  <li id="tagIndicatorsTab" className={globalStyle.tab}>
-                    <NavLink activeClassName={globalStyle.active} to={`${props.match.url}/indicators`}>
-                      <i className="icon pe-7s-graph3" />
-                      &nbsp;{translate.t("group.tabs.indicators.text")}
-                    </NavLink>
-                  </li>
+                  <ContentTab
+                    icon="icon pe-7s-graph3"
+                    id="tagIndicatorsTab"
+                    link={`${props.match.url}/indicators`}
+                    title={translate.t("organization.tabs.portfolios.tabs.indicators.text")}
+                    tooltip={translate.t("organization.tabs.portfolios.tabs.indicators.tooltip")}
+                  />
+                  <ContentTab
+                    icon="icon pe-7s-albums"
+                    id="tagGroupsTab"
+                    link={`${props.match.url}/groups`}
+                    title={translate.t("organization.tabs.portfolios.tabs.group.text")}
+                    tooltip={translate.t("organization.tabs.portfolios.tabs.group.tooltip")}
+                  />
                 </ul>
               </div>
               <div className={globalStyle.tabContent}>
                 <Switch>
                   <Route path={`${props.match.path}/indicators`} component={TagsInfo} exact={true} />
+                  <Route path={`${props.match.path}/groups`} component={TagsGroup} exact={true} />
                   <Redirect to={`${props.match.path}/indicators`} />
                 </Switch>
               </div>
