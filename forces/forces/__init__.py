@@ -97,7 +97,8 @@ async def entrypoint(token: str, group: str, **kwargs: Any) -> int:
     set_api_token(token)
     header = show_banner(not bool(kwargs.get('output', True)))
 
-    report = await generate_report(project=group)
+    report = await generate_report(project=group,
+                                   kind=kwargs.get('kind', 'all'))
     yaml_report = await generate_report_log(
         copy.deepcopy(report), verbose_level=kwargs.pop('verbose_level', 3))
 

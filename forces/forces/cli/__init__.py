@@ -83,19 +83,31 @@ class IntegratesToken(click.ParamType):
     help='save output in FILE',
     required=False)
 @click.option('--strict/--lax')
+@click.option('--dynamic', required=False, is_flag=True)
+@click.option('--static', required=False, is_flag=True)
 @click.option('--repo-path', default=('.'))
 def main(token: str,  # pylint: disable=too-many-arguments
          verbose: int,
          strict: bool,
          output: TextIOWrapper,
-         repo_path: str) -> None:
+         repo_path: str,
+         dynamic: bool,
+         static: bool) -> None:
     """Main function"""
     group = get_group_from_email(decode_token(token)['user_email'])
+
+    kind = 'all'
+    if dynamic:
+        kind = 'dynamic'
+    elif static:
+        kind = 'static'
+
     result = block(entrypoint,
                    token=token,
                    group=group,
                    verbose_level=verbose,
                    strict=strict,
                    output=output,
-                   repo_path=repo_path)
+                   repo_path=repo_path,
+                   kind=kind)
     sys.exit(result)

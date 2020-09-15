@@ -84,61 +84,66 @@ async def generate_report(project: str, **kwargs: str) -> Dict[str, Any]:
     :param verbose_level: Level of detail of the report.
     """
     _start_time = timer()
-    _summary_dict = {
+    kind = kwargs.pop('kind', 'all')
+
+    _summary_dict: Dict[str, Dict[str, int]] = {
         'open': {
-            'DAST': 0,
-            'SAST': 0,
-            'total': 0,
+            'total': 0
         },
         'closed': {
-            'DAST': 0,
-            'SAST': 0,
-            'total': 0,
+            'total': 0
         },
         'accepted': {
-            'DAST': 0,
-            'SAST': 0,
-            'total': 0,
+            'total': 0
         }
     }
+
+    _summary_dict = _summary_dict if kind != 'all' else {
+        key: {
+            'DAST': 0,
+            'SAST': 0,
+            'total': 0
+        }
+        for key in _summary_dict
+    }
+
     raw_report: Dict[str, List[Any]] = {'findings': list()}
     findings_dict = await create_findings_dict(project, **kwargs)
 
     async for vuln in vulns_generator(project):
         find_id: str = vuln['findingId']  # type: ignore
         state = vuln['currentState']
-        if state == 'open' and findings_dict[find_id]['state'] == 'accepted':
-            state = 'accepted'
-        vuln_type = 'SAST' if vuln['vulnType'] == 'lines' else 'DAST'
-        if state == 'closed':
-            _summary_dict['closed']['total'] += 1
-            _summary_dict['closed']['DAST'] += 1 if vuln_type == 'DAST' else 0
-            _summary_dict['closed']['SAST'] += 1 if vuln_type == 'SAST' else 0
-            findings_dict[find_id]['closed'] += 1
-        elif state == 'accepted':
-            _summary_dict['accepted']['total'] += 1
-            _summary_dict['accepted'][
-                'SAST'] += 1 if vuln_type == 'SAST' else 0
-            _summary_dict['accepted'][
-                'DAST'] += 1 if vuln_type == 'DAST' else 0
-            findings_dict[find_id]['accepted'] += 1
-        elif state == 'open':
-            _summary_dict['open']['total'] += 1
-            _summary_dict['open']['SAST'] += 1 if vuln_type == 'SAST' else 0
-            _summary_dict['open']['DAST'] += 1 if vuln_type == 'DAST' else 0
-            findings_dict[find_id]['open'] += 1
 
-        vulnerability = {
-            'type': vuln_type,
-            'where': vuln['where'],
-            'specific': vuln['specific'],
+        vuln_type = 'SAST' if vuln['vulnType'] == 'lines' else 'DAST'
+        if (kind == 'dynamic'
+                and vuln_type == 'SAST') or (kind == 'static'
+                                             and vuln_type == 'DAST'):
+            continue
+
+        for r_state in ('closed', 'accepted', 'open'):
+            if state == r_state:
+                _summary_dict[r_state]['total'] += 1
+                if kind == 'all':
+                    _summary_dict[r_state][
+                        'DAST'] += 1 if vuln_type == 'DAST' else 0
+                    _summary_dict[r_state][
+                        'SAST'] += 1 if vuln_type == 'SAST' else 0
+                findings_dict[find_id][r_state] += 1
+
+        findings_dict[find_id]['vulnerabilities'].append({
+            'type':
+            vuln_type,
+            'where':
+            vuln['where'],
+            'specific':
+            vuln['specific'],
             'URL': ('https://integrates.fluidattacks.com/groups'
                     f'{project}/vulns/{vuln["findingId"]}'),
-            'state': state,
-            'exploitability': findings_dict[find_id]['exploitability']
-        }
-
-        findings_dict[find_id]['vulnerabilities'].append(vulnerability)
+            'state':
+            state,
+            'exploitability':
+            findings_dict[find_id]['exploitability']
+        })
 
     for find in findings_dict.values():
         raw_report['findings'].append(find)
