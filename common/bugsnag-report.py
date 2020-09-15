@@ -20,23 +20,24 @@ def get_bugsnag_api_key(job_name):
 
 
 def main():
-    bugsnag.configure_request(
-        meta_data={
-            'JOB_INFO': {
-                'ENVIRONMENT': RELEASE_STAGE,
-                'CI_JOB_ID': JOB_ID,
-                'JOB_NAME': ARGV[1],
-                'PARAMATERS': ARGV[2:],
-                'JOB_COMPLETE': ' '.join(ARGV[1:]),
+    if RELEASE_STAGE == 'production':
+        bugsnag.configure_request(
+            meta_data={
+                'JOB_INFO': {
+                    'ENVIRONMENT': RELEASE_STAGE,
+                    'CI_JOB_ID': JOB_ID,
+                    'JOB_NAME': ARGV[1],
+                    'PARAMATERS': ARGV[2:],
+                    'JOB_COMPLETE': ' '.join(ARGV[1:]),
+                },
             },
-        },
-    )
-    bugsnag.configure(
-        api_key=get_bugsnag_api_key(ARGV[1].lower()),
-        release_stage=RELEASE_STAGE,
-    )
-    bugsnag.start_session()
-    bugsnag.send_sessions()
+        )
+        bugsnag.configure(
+            api_key=get_bugsnag_api_key(ARGV[1].lower()),
+            release_stage=RELEASE_STAGE,
+        )
+        bugsnag.start_session()
+        bugsnag.send_sessions()
 
     if ARGV[0] == 'failed':
         raise Exception(
