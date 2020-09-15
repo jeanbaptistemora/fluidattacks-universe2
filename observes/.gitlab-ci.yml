@@ -207,3 +207,13 @@ observes_services_repositories_cache:
     refs: [schedules]
     variables: [$observes_services_repositories_cache]
   interruptible: false
+
+observes_services_repositories_cache_new:
+  <<: *with_nix
+  tags: [autoscaling-large]
+  stage: analytics
+  parallel: 10
+  only:
+    refs: [schedules]
+    variables: [$observes_services_repositories_cache_new]
+  interruptible: false

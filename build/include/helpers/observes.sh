@@ -474,6 +474,25 @@ function helper_observes_services_repositories_cache {
 
 }
 
+function helper_observes_services_repositories_cache_new {
+  local mock_integrates_api_token='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.e30.xxx'
+  export DEBUG="True"
+  helper_get_projects
+
+      helper_observes_aws_login prod \
+  &&  echo '[INFO] Cloning our own repositories' \
+  &&  python3 observes/git/clone_us.py "${PROJECTS[2]}" \
+  &&  echo '[INFO] Cloning customer repositories' \
+  &&  \
+      CI=true \
+      CI_COMMIT_REF_NAME='master' \
+      INTEGRATES_API_TOKEN="${mock_integrates_api_token}" \
+      PROD_AWS_ACCESS_KEY_ID="${AWS_ACCESS_KEY_ID}" \
+      PROD_AWS_SECRET_ACCESS_KEY="${AWS_SECRET_ACCESS_KEY}" \
+      python3 observes/git/clone_them_new.py \
+
+}
+
 function helper_observes_lint_code_python {
       find . -type f -name '*.py' \
         | (grep -vP './singer' || cat) \
