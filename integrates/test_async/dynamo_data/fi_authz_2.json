@@ -1,0 +1,14 @@
+{
+  "fi_authz": [
+    {
+      "PutRequest": {
+        "Item": {
+          "level": {"S": "group"},
+          "subject": {"S": "customer@gmail.com"},
+          "object": {"S": "unittesting"},
+          "role": {"S": "customer"}
+        }
+      }
+    }
+  ]
+}
