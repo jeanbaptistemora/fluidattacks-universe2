@@ -109,3 +109,17 @@ function job_common_test_jobs_provisioner {
         ||  return 1
       done
 }
+
+function job_common_deploy_container_image {
+  local context='.'
+  local dockerfile='Dockerfile'
+  local tag="${CI_REGISTRY_IMAGE}/bin:latest"
+
+      echo '[INFO] Building' \
+  &&  helper_use_pristine_workdir \
+  &&  helper_docker_build_and_push \
+        "${tag}" \
+        "${context}" \
+        "${dockerfile}" \
+
+}
