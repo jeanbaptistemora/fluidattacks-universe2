@@ -1,89 +1,88 @@
-/* tslint:disable:jsx-no-multiline-js
- * Disabling this rule is necessary for using components with render props
- */
-import React from "react";
-import { ButtonToolbar, Col, ProgressBar, Row } from "react-bootstrap";
-import { Field, InjectedFormProps, Validator } from "redux-form";
-import { ConfigurableValidator } from "revalidate";
-
+/* eslint-disable react/forbid-component-props
+  -------
+  We need className to override default styles from react-boostrap.
+*/
 import { Button } from "components/Button";
-import { Modal } from "components/Modal";
+import { ConfigurableValidator } from "revalidate";
 import { GenericForm } from "scenes/Dashboard/components/GenericForm";
-import { FileInput, TextArea } from "utils/forms/fields";
+import { IAddFilesModalProps } from "scenes/Dashboard/components/AddFilesModal/types.ts";
+import { Modal } from "components/Modal";
+import React from "react";
+import { renderUploadBar } from "scenes/Dashboard/components/AddFilesModal/renderUploadBar";
 import { translate } from "utils/translations/translate";
+import { ButtonToolbar, Col, Row } from "react-bootstrap";
+import { Field, InjectedFormProps, Validator } from "redux-form";
+import { FileInput, TextArea } from "utils/forms/fields";
 import {
-  isValidFileName, isValidFileSize, maxLength, required, validField, validTextField,
+  isValidFileName,
+  isValidFileSize,
+  maxLength,
+  required,
+  validField,
+  validTextField,
 } from "utils/validations";
 
-export interface IAddFilesModalProps {
-  isOpen: boolean;
-  isUploading: boolean;
-  uploadProgress: number;
-  onClose(): void;
-  onSubmit(values: {}): void;
-}
+const MAX_LENGTH: number = 200;
+const maxFileDescriptionLength: ConfigurableValidator = maxLength(MAX_LENGTH);
 
-const renderUploadBar: ((props: IAddFilesModalProps) => JSX.Element) = (props: IAddFilesModalProps): JSX.Element => (
-  <React.Fragment>
-    <br />
-    {translate.t("search_findings.tab_resources.uploading_progress")}
-    <ProgressBar active={true} now={props.uploadProgress} label={`${props.uploadProgress}%`} />
-  </React.Fragment>
-);
+const addFilesModal: React.FC<IAddFilesModalProps> = (
+  props: IAddFilesModalProps
+): JSX.Element => {
+  const { isOpen, isUploading, onClose, onSubmit } = props;
 
-const maxFileDescriptionLength: ConfigurableValidator = maxLength(200);
-const addFilesModal: React.FC<IAddFilesModalProps> = (props: IAddFilesModalProps): JSX.Element => {
-  const handleClose: (() => void) = (): void => { props.onClose(); };
-  const handleSubmit: ((values: {}) => void) = (values: {}): void => { props.onSubmit(values); };
-
-  const maxFileSize: Validator = isValidFileSize(100);
+  const MAX_FILE_SIZE: number = 100;
+  const maxFileSize: Validator = isValidFileSize(MAX_FILE_SIZE);
 
   return (
     <React.StrictMode>
       <Modal
-        open={props.isOpen}
-        headerTitle={translate.t("search_findings.tab_resources.modal_file_title")}
         footer={<div />}
+        headerTitle={translate.t(
+          "search_findings.tab_resources.modal_file_title"
+        )}
+        open={isOpen}
       >
-        <GenericForm
-          name="addFiles"
-          onSubmit={handleSubmit}
-        >
+        <GenericForm name={"addFiles"} onSubmit={onSubmit}>
           {({ pristine }: InjectedFormProps): React.ReactNode => (
             <React.Fragment>
               <Row>
                 <Col md={12}>
                   <label>
-                    <label style={{ color: "#f22" }}>* </label>
+                    <label style={{ color: "#f22" }}>{"*"} </label>
                     {translate.t("validations.file_size", { count: 100 })}
                   </label>
                   <Field
                     component={FileInput}
-                    id="file"
-                    name="file"
+                    id={"file"}
+                    name={"file"}
                     validate={[required, isValidFileName, maxFileSize]}
                   />
                 </Col>
                 <Col md={12}>
                   <label>
-                    <label style={{ color: "#f22" }}>* </label>
+                    <label style={{ color: "#f22" }}>{"*"} </label>
                     {translate.t("search_findings.tab_resources.description")}
                   </label>
                   <Field
                     component={TextArea}
-                    name="description"
-                    type="text"
-                    validate={[required, validField, maxFileDescriptionLength, validTextField]}
+                    name={"description"}
+                    type={"text"}
+                    validate={[
+                      required,
+                      validField,
+                      maxFileDescriptionLength,
+                      validTextField,
+                    ]}
                   />
                 </Col>
               </Row>
-              {props.isUploading ? renderUploadBar(props) : undefined}
+              {isUploading ? renderUploadBar(props) : undefined}
               <br />
-              <ButtonToolbar className="pull-right">
-                <Button onClick={handleClose} disabled={props.isUploading}>
+              <ButtonToolbar className={"pull-right"}>
+                <Button disabled={isUploading} onClick={onClose}>
                   {translate.t("confirmmodal.cancel")}
                 </Button>
-                <Button type="submit" disabled={pristine || props.isUploading}>
+                <Button disabled={pristine || isUploading} type={"submit"}>
                   {translate.t("confirmmodal.proceed")}
                 </Button>
               </ButtonToolbar>
@@ -95,4 +94,4 @@ const addFilesModal: React.FC<IAddFilesModalProps> = (props: IAddFilesModalProps
   );
 };
 
-export { addFilesModal as AddFilesModal };
+export { IAddFilesModalProps, addFilesModal as AddFilesModal };
