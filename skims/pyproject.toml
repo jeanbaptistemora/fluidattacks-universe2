@@ -31,6 +31,7 @@ packages = [
   { include = "parse_cfn", from = "skims" },
   { include = "parse_grammar", from = "skims" },
   { include = "parse_json", from = "skims" },
+  { include = "serialization", from = "skims" },
   { include = "state", from = "skims" },
   { include = "utils", from = "skims" },
   { include = "zone", from = "skims" },

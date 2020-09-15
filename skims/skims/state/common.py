@@ -11,12 +11,12 @@ from typing import (
 import aiofiles
 
 # Local libraries
-from utils.crypto import (
-    get_hash,
-)
-from utils.serialization import (
+from serialization import (
     dump as py_dumps,
     load as py_loads,
+)
+from utils.crypto import (
+    get_hash,
 )
 
 

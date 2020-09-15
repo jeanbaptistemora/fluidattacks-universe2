@@ -16,11 +16,11 @@ from aioextensions import (
 from state.cache import (
     cache_decorator,
 )
+from utils.concurrency import (
+    never_concurrent,
+)
 from utils.ctx import (
     get_artifact,
-)
-from utils.function import (
-    never_concurrent,
 )
 from utils.logs import (
     log_exception,

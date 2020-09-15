@@ -16,15 +16,15 @@ from typing import (
 )
 
 # Local libraries
+from serialization import (
+    LoadError,
+)
 from state import (
     STATE_FOLDER,
 )
 from state.common import (
     retrieve_object,
     store_object,
-)
-from utils.serialization import (
-    LoadError,
 )
 
 # Constants

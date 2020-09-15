@@ -25,7 +25,7 @@ from aioextensions import (
 )
 
 # Local libraries
-from utils.function import (
+from utils.concurrency import (
     never_concurrent,
 )
 
