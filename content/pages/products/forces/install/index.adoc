@@ -5,47 +5,71 @@
 
 = Forces Install
 
-You can integrate Forces into your `CI/CD` pipeline to ensure that your software
-is built and shipped with `no open vulnerabilities`. We will provide a custom
-`Docker` container with the specific tests you need and maintain the
-build-breaker exploit.
+You can use forces on any operating system that Python can run on, you can see
+the status of the package in link:https://pypi.org/project/forces/[Pypi].
+You can also integrate forces into your `CI/CD` to ensure that your software
+is built and shipped without previously reported vulnerabilities in
+*integrates*.
 
 == Installation
 
-To achieve this, follow these steps:
-
-1. Add the provided `ID` and `SECRET` variables to the CI environment.
-** `ID`: an identifier that works like your username
-** `SECRET`: another identifier that works like your password
+1. Make sure you own an integrates API token. Follow this link:https://community.fluidattacks.com/t/integrates-api-access/540/[guide] to generate it.
 2. Make sure your execution environment has the required dependencies:
-** Bash
-** Up-to-date Docker
-3. Please note that using *sh* instead of *bash* is not supported.
+** git
+** Python 3.8
+** pip
+3. Install forces by running the following command:
+** Windows: `python -m pip install forces`.
+** Linux and Mac OS: `python3.8 -m pip install forces`.
+4. You can also make use of the Docker image
+`docker pull fluidattacks/forces:new`.
+5. Be sure to use forces within a git repository.
+
+== Options
+
+* `--token`: Your token for integrates API [required].
+* `-verbose <number>`: Declare the level of detail of the report (default 3)
+** `1`:It only shows the number of open, closed and accepted vulnerabilities.
+** `2`: Only show open vulnerabilities.
+** `3`: Show open and closed vulnerabilities.
+** `4`: Show open, closed and accepted vulnerabilities.
+** You can use `-v`, `-vv`, `-vvv`, `-vvvv` instead of `--verbose`.
+* `--strict / --lax`: Run forces in strict mode (default `--lax`).
+* `--repo-path`: Git repository path (optional)
 
 == Examples
 
+In your local environment you execute: `forces --token <your-token>`.
+You can also use the Docker image:
+`docker run --rm fluidattacks/forces:new forces --token <your-token>`.
+
+== Use in some CI\CD
+
 in `GitLab`, +
-add these three lines to your ``.gitlab-ci.yml`:
+add these three lines to your `.gitlab-ci.yml`:
 
 [source,yaml]
 ----
 forces:
+  image:
+    name: fluidattacks/forces:new
+    entrypoint: [""]
   script:
-    - docker pull fluidattacks/break-build
-    - bash <(docker run fluidattacks/break-build --static --id ${ID} --secret ${SECRET})
+    - forces --token <your-token> --strict
 ----
 
-in `Azure DevOps (VSTS)`, +
-add a *Command Line* task with the following script:
+in `Azure DevOps`add these lines to you configuration file:
 
-[source,bash]
+[source,yaml]
 ----
-docker pull fluidattacks/break-build
-bash <(docker run fluidattacks/break-build --static --id ${ID} --secret ${SECRET})
+jobs:
+  - forces:
+    container: fluidattacks/forces:new
+    steps:
+    - bash: forces --token <your-token>
 ----
 
-in `Jenkins`,
-the configuration file should look like this:
+in `Jenkins`, the configuration file should look like this:
 
 [source,json]
 ----
@@ -54,26 +78,15 @@ pipeline {
     label 'label'
   }
   environment {
-    ID = "test"
-    SECRET = "test"
+    TOKEN = "test"
   }
   stages {
-    stage('Break Build Static') {
+    stage('Forces') {
       steps {
         script {
           sh """
-            docker pull fluidattacks/break-build
-            docker run fluidattacks/break-build --static --id $ {ID} --secret $ {SECRET} | bash
-          """
-        }
-      }
-    }
-    stage('Break Build Dynamic') {
-      steps {
-        script {
-          sh """
-            docker pull fluidattacks/break-build
-            docker run fluidattacks/break-build --dynamic --id $ {ID} --secret $ {SECRET} | bash
+            docker pull fluidattacks/forces:new
+            docker run fluidattacks/forces:new --token ${TOKEN}
           """
         }
       }
@@ -81,27 +94,3 @@ pipeline {
   }
 }
 ----
-
-Please note that while *sh* is the pipeline executor, break build commands are
-piped to *bash*, so *bash* is the actual executor.
-Now your pipeline will break if any vulnerability is found to be open. In case
-you decide not to break the build but still run the tests, add the `--no-strict`
-flag on the command.
-
-== Options
-
-* `--id ID`: Use this flag to set your user ID.
-* `--secret SECRET`: Use this flag to set your user Secret.
-* `--static`: Run the static container.
-* `--dynamic`: Run the dynamic container.
-* `--no-strict`: Do not Break the Build if any vulnerability is found to be
-open.
-* `--cpus N`: Add this flag to allow execution in N host CPUs (defaults to 1).
-Using –cpus 0 will use all CPUs in the host.
-* `--no-image-rm`: Use this flag to indicate that you do not want to delete
-images after execution.
-* `--no-container-rm`: Use this flag to indicate that you do not want to delete
-containers after execution (for security reasons, containers should always be
-removed).
-* `--color`: Colorize the execution output (in some environments colorizing the
-output makes the output unreadable).
