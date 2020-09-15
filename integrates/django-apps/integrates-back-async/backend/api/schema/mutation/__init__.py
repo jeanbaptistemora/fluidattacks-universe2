@@ -1,5 +1,11 @@
+# Standard
+# None
+
+# Third party
 from ariadne import MutationType
 
+# Local
+from backend.api.mutations import organization as org_mutations
 from backend.api.resolvers import (
     cache,
     event,
@@ -15,6 +21,9 @@ from backend.api.resolvers import (
 
 
 MUTATION = MutationType()
+
+# Organization
+MUTATION.set_field('createOrganization', org_mutations.create)
 
 MUTATION.set_field('invalidateCache', cache.resolve_invalidate_cache)
 MUTATION.set_field('createEvent', event.resolve_event_mutation)
@@ -43,9 +52,6 @@ MUTATION.set_field('downloadFile', resource.resolve_resources_mutation)
 MUTATION.set_field('removeFiles', resource.resolve_resources_mutation)
 MUTATION.set_field('updateRepository', resource.resolve_resources_mutation)
 MUTATION.set_field('updateEnvironment', resource.resolve_resources_mutation)
-MUTATION.set_field(
-    'createOrganization', organization.resolve_organization_mutation
-)
 MUTATION.set_field(
     'editStakeholderOrganization', organization.resolve_organization_mutation
 )

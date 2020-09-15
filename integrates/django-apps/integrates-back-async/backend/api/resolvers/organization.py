@@ -14,7 +14,6 @@ from ariadne import (
     convert_camel_case_to_snake,
     convert_kwargs_to_snake_case
 )
-from graphql import GraphQLError
 from graphql.language.ast import FieldNode, SelectionSetNode, ObjectFieldNode
 from graphql.type.definition import GraphQLResolveInfo
 
@@ -38,11 +37,9 @@ from backend.domain import (
     user as user_domain
 )
 from backend.exceptions import (
-    InvalidOrganization,
     UserNotInOrganization
 )
 from backend.typing import (
-    CreateOrganizationPayload as CreateOrganizationPayloadType,
     EditStakeholderPayload as EditStakeholderPayloadType,
     GrantStakeholderAccessPayload as GrantStakeholderAccessPayloadType,
     Organization as OrganizationType,
@@ -52,33 +49,6 @@ from backend.typing import (
     User as UserType
 )
 from backend.utils import aio
-
-
-async def _do_create_organization(
-        _: Any,
-        info: GraphQLResolveInfo,
-        name: str) -> CreateOrganizationPayloadType:
-    user_info = await util.get_jwt_content(info.context)
-    user_email = user_info['user_email']
-
-    try:
-        organization = await org_domain.create_organization(name, user_email)
-        util.cloudwatch_log(
-            info.context,
-            f'Security: Organization {organization["name"]} with ID '
-            f'{organization["id"]} was successfully created by {user_email}'
-        )
-        response = CreateOrganizationPayloadType(
-            success=True, organization=organization
-        )
-    except InvalidOrganization as exe:
-        util.cloudwatch_log(
-            info.context,
-            f'Security: User {user_email} attempted to create organization '
-            f'with name {name}'
-        )
-        raise GraphQLError(str(exe))
-    return response
 
 
 @concurrent_decorators(

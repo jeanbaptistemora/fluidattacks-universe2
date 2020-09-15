@@ -17,10 +17,10 @@ from backend.api.schema.types import TYPES
 
 
 SCHEMA_PATH: str = os.path.dirname(os.path.abspath(__file__))
-SDL_FILES: str = load_schema_from_path(SCHEMA_PATH)
+SDL_CONTENT: str = load_schema_from_path(SCHEMA_PATH)
 
 SCHEMA: GraphQLSchema = make_executable_schema(
-    SDL_FILES,
+    SDL_CONTENT,
     QUERY,
     MUTATION,
     *TYPES,
