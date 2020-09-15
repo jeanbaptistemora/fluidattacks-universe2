@@ -160,22 +160,6 @@ async def _get_closing_date(info: GraphQLResolveInfo, identifier: str) -> str:
 
 
 @get_entity_cache_async
-async def _get_comments(
-        info: GraphQLResolveInfo,
-        identifier: str) -> List[CommentType]:
-    """Get comments."""
-    user_data = await util.get_jwt_content(info.context)
-    user_email = user_data['user_email']
-    event = await info.context.loaders['event'].load(identifier)
-    project_name = event['project_name']
-
-    comments = await comment_domain.get_event_comments(
-        project_name, identifier, user_email
-    )
-    return comments
-
-
-@get_entity_cache_async
 async def _get_consulting(
         info: GraphQLResolveInfo,
         identifier: str) -> List[CommentType]:

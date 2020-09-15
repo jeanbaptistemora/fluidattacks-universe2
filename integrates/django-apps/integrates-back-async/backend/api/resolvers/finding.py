@@ -280,23 +280,6 @@ async def _get_evidence(
 
 
 @get_entity_cache_async
-async def _get_comments(
-        info: GraphQLResolveInfo,
-        identifier: str) -> List[CommentType]:
-    """Get comments."""
-    finding = await info.context.loaders['finding'].load(identifier)
-    finding_id = finding['id']
-    project_name = finding.get('project_name')
-    user_data = await util.get_jwt_content(info.context)
-    user_email = user_data['user_email']
-
-    comments = await comment_domain.get_comments(
-        project_name, finding_id, user_email
-    )
-    return comments
-
-
-@get_entity_cache_async
 async def _get_consulting(
         info: GraphQLResolveInfo,
         identifier: str) -> List[CommentType]:

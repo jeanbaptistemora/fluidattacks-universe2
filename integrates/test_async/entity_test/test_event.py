@@ -40,7 +40,7 @@ class EventTests(TestCase):
                 subscription
                 evidenceFile
                 closingDate
-                comments {
+                consulting {
                     content
                 }
                 __typename

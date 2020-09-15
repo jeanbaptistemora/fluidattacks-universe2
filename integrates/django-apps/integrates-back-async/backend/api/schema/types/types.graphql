@@ -3,12 +3,6 @@ type Event {
     id: String
     analyst: String
     client: String
-    comments: [Comment!] @deprecated(
-        reason: """
-        Right now, you can query comments using both the 'comments' and 'consulting' keywords.
-        After 2021-02-06, the 'comments' keyword will be invalid.
-        """
-    )
     consulting: [Consult!]
     projectName: String
     clientProject: String
@@ -36,13 +30,6 @@ type Finding {
     attackVectorDesc: String
     btsUrl: String
     closedVulnerabilities: Int
-    comments: [Comment]
-        @deprecated(
-            reason: """
-            Right now, you can query comments using both the 'comments' and 'consulting' keywords.
-            After 2021-02-06, the 'comments' keyword will be invalid.
-            """
-        )
     compromisedAttributes: String
     compromisedRecords: Int
     consulting: [Consult]
@@ -149,13 +136,6 @@ type Project {
     openVulnerabilities: Int
     closedVulnerabilities: Int
     subscription: String
-    comments: [Comment!]
-        @deprecated(
-            reason: """
-            Right now, you can query comments using both the 'comments' and 'consulting' keywords.
-            After 2021-02-06, the 'comments' keyword will be invalid.
-            """
-        )
     consulting: [Consult!]
     tags: [String!]
     deletionDate: String
