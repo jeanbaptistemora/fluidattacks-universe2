@@ -234,7 +234,7 @@ async def upload_report(project: str, report: Dict[str, Any], log_file: str,
         'closed': closed_vulns,
         'log': open(log_file, 'rb'),
         'strictness': kwargs.pop('strictness'),
-        'kind': 'other',
+        'kind': kwargs.pop('kind', 'all'),
     }
 
     response: Dict[str, Dict[str, bool]] = await execute(

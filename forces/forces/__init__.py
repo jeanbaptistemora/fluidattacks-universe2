@@ -98,6 +98,7 @@ async def entrypoint(token: str, group: str, **kwargs: Any) -> int:
     exit_code = 1 if strict else 0
     set_api_token(token)
     await show_banner()
+    await log('info', 'Running forces in %s kind', kwargs.get('kind', 'all'))
 
     report = await generate_report(project=group,
                                    kind=kwargs.get('kind', 'all'))
@@ -122,5 +123,6 @@ async def entrypoint(token: str, group: str, **kwargs: Any) -> int:
         log_file=temp_file.name,
         strictness='strict' if strict else 'lax',
         git_metadata=metadata,
+        kind=kwargs.get('kind', 'all'),
     )
     return exit_code
