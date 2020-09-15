@@ -73,22 +73,22 @@ export const enTranslations: ResourceKey = {
       status: {
         footer: {
           intro:
-            "Ratio of open to closed vulnerabilities, ignoring treatments.",
+            "Ratio between open and closed vulnerabilities, ignoring treatments.",
         },
         title: "Vulnerabilities status",
       },
       treatment: {
         footer: {
           accepted:
-            "Temporarily accepted: A manager decided to temporarily coexist with the risk.",
+            "Temporarily accepted: A manager decided to coexist with the risk temporarily.",
           eternally:
             "Eternally accepted: A vulnerability that will never be remediated.",
           inProgress:
             "In progress: The system is currently being hardened by your developers.",
           intro:
-            "At Integrates you can plan and manage the remediation of security findings:",
+            "In Integrates, you can plan and manage the remediation of security findings:",
           notDefined:
-            "Not defined: New vulnerabilities goes here until one of your managers generate an action plan.",
+            "Not defined: New vulnerabilities go here until one of your managers generates an action plan.",
         },
         title: "Vulnerabilities treatment",
       },
@@ -136,12 +136,12 @@ export const enTranslations: ResourceKey = {
       riskOverTime: {
         footer: {
           accepted:
-            "Open vulnerabilities with accepted treatment are exactly as the open ones" +
-            ", except you decided to coexist with that risk.",
+            "Open vulnerabilities with accepted treatment are exactly like open ones" +
+            ", except that you decided to coexist with that risk.",
           closed:
-            "Closed vulnerabilities may be seen as security breaches your system no longer have.",
+            "Closed vulnerabilities may be seen as security breaches that your system no longer has.",
           intro:
-            "At Integrates you can track the evolution of your systems from a security point of view:",
+            "In Integrates, you can track the evolution of your systems from a security point of view:",
           opened:
             "Open vulnerabilities represent a risk currently impacting your end-users and systems.",
         },
@@ -176,20 +176,20 @@ export const enTranslations: ResourceKey = {
         footer: {
           breaks:
             "In case Forces finds one vulnerability to be open, " +
-            "we can (optionally) mark the build as failed so you never introduce known vulnerabilities " +
+            "we can (optionally) mark the build as failed, so you never introduce known vulnerabilities " +
             "into the production environment.",
           intro:
             "By enabling Forces you get access to a Docker container built to specifically verify the status " +
             "of security findings found in your system. " +
-            "You can embed this container in your Continuous Integration system in order " +
-            "to test changes for security vulnerabilities:",
+            "You can embed this container in your Continuous Integration system to test " +
+            "for changes in security vulnerabilities:",
           smart:
-            "Forces is fast and automatic, yet made by the same hackers intelligence " +
-            "that already know in deep your system, and thus is able to verify attack vectors that no " +
-            "other tool can.",
+            "Forces is fast and automatic, but it is created by the same intelligence " +
+            "of the hackers who already know your system in-depth, and therefore can verify the " +
+            "attack vectors that no other tool can.",
           stats:
-            "The statistics of more than a hundred different systems show that Forces increases " +
-            "the remediation ratio, hence helping you build a safer system, and being more cost-effective " +
+            "Statistics from over a hundred different systems show that Forces increases the " +
+            "remediation ratio, helping you to build a safer system and to be more cost-effective " +
             "throughout your Software Security Development Life Cycle.",
         },
         title: "Service status",
