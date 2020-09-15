@@ -37,6 +37,7 @@ data "aws_iam_policy_document" "skims_prod_policy_data" {
   statement {
     effect = "Allow"
     actions = [
+      "kms:CreateKey",
       "kms:ListAliases",
     ]
     resources = [

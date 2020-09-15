@@ -147,7 +147,7 @@ common_sonarcloud_check:
     name: sonarsource/sonar-scanner-cli:latest
     entrypoint: [""]
   cache:
-    key: "${CI_COMMIT_REF_NAME}-${CI_JOB_NAME}"
+    key: ${CI_COMMIT_REF_SLUG}
     paths:
       - .sonar/cache
   script:

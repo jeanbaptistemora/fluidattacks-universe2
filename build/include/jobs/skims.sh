@@ -40,8 +40,7 @@ function job_skims_doc {
 }
 
 function job_skims_deploy_infra {
-      helper_use_pristine_workdir \
-  &&  pushd skims \
+      pushd skims \
     &&  helper_skims_aws_login prod \
     &&  helper_common_terraform_apply infra \
   &&  popd \
@@ -177,8 +176,7 @@ function job_skims_test {
 }
 
 function job_skims_test_infra {
-      helper_use_pristine_workdir \
-  &&  pushd skims \
+      pushd skims \
     &&  helper_skims_aws_login dev \
     &&  helper_common_terraform_plan infra \
   &&  popd \

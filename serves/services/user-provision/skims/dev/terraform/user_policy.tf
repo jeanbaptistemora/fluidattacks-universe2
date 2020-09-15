@@ -42,19 +42,12 @@ data "aws_iam_policy_document" "skims_dev_policy_data" {
   statement {
     effect = "Allow"
     actions = [
-      "kms:ListAliases",
+      "kms:Describe*",
+      "kms:Get*",
+      "kms:List*",
     ]
     resources = [
       "*"
-    ]
-  }
-  statement {
-    effect = "Allow"
-    actions = [
-      "kms:GetKeyPolicy",
-    ]
-    resources = [
-      "arn:aws:kms:${var.region}:${data.aws_caller_identity.current.account_id}:alias/skims_*"
     ]
   }
 
