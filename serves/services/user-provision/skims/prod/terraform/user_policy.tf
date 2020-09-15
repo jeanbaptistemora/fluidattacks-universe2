@@ -33,6 +33,26 @@ data "aws_iam_policy_document" "skims_prod_policy_data" {
     ]
   }
 
+  # KMS
+  statement {
+    effect = "Allow"
+    actions = [
+      "kms:ListAliases",
+    ]
+    resources = [
+      "*"
+    ]
+  }
+  statement {
+    effect = "Allow"
+    actions = [
+      "kms:*"
+    ]
+    resources = [
+      "arn:aws:kms:${var.region}:${data.aws_caller_identity.current.account_id}:alias/skims_*"
+    ]
+  }
+
   # DynamoDB for locking terraform state
   statement {
     effect = "Allow"

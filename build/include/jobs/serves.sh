@@ -309,8 +309,7 @@ function job_serves_apply_user_provision_integrates_prod {
 function job_serves_test_user_provision_skims_dev {
   local target='services/user-provision/skims/dev/terraform'
 
-      helper_use_pristine_workdir \
-  &&  pushd serves \
+      pushd serves \
     &&  helper_serves_aws_login dev \
     &&  helper_common_terraform_plan "${target}" \
   &&  popd \
@@ -320,8 +319,7 @@ function job_serves_test_user_provision_skims_dev {
 function job_serves_apply_user_provision_skims_dev {
   local target='services/user-provision/skims/dev/terraform'
 
-      helper_use_pristine_workdir \
-  &&  pushd serves \
+      pushd serves \
     &&  helper_serves_aws_login prod \
     &&  helper_common_terraform_apply "${target}" \
   &&  popd \
@@ -331,8 +329,7 @@ function job_serves_apply_user_provision_skims_dev {
 function job_serves_test_user_provision_skims_prod {
   local target='services/user-provision/skims/prod/terraform'
 
-      helper_use_pristine_workdir \
-  &&  pushd serves \
+      pushd serves \
     &&  helper_serves_aws_login dev \
     &&  helper_common_terraform_plan "${target}" \
   &&  popd \
@@ -342,8 +339,7 @@ function job_serves_test_user_provision_skims_prod {
 function job_serves_apply_user_provision_skims_prod {
   local target='services/user-provision/skims/prod/terraform'
 
-      helper_use_pristine_workdir \
-  &&  pushd serves \
+      pushd serves \
     &&  helper_serves_aws_login prod \
     &&  helper_common_terraform_apply "${target}" \
   &&  popd \
