@@ -23,6 +23,7 @@ $greenyellow: rgba(173, 255, 47, 1);
 $button-hover: rgba(255, 52, 53, 1);
 $button-red: rgba(191, 38, 38, 1);
 $shadowblack: rgba(0, 0, 0, .2);
+$graybar: rgba(0, 0, 0, .8);
 $nearwhite: rgba(246, 246, 246, 1);
 $headergray: rgba(230, 228, 228, 1);
 $bordertable: rgba(0, 0, 0, .1);
@@ -56,6 +57,7 @@ $codeyellow: rgba(230, 219, 116, 1);
 .bc-fluid-red { border-color: $button-red; }
 .bg-dk-red { background-color: $button-red;}
 .bg-graylight { background-color: $graylight; }
+.bg-graybar { background-color: $graybar; }
 .minw-100 { min-width: 100%; }
 .ma-auto { margin: auto; }
 .w-32 { width: 32%; }
@@ -147,6 +149,9 @@ $codeyellow: rgba(230, 219, 116, 1);
 .bg-quotes { background-image: url('../../images/bg-quotes.png'); }
 .bg-solutions { background-image: url('../../images/bg-solutions.png'); }
 .bg-ebook { background-image: url('../../images/bg-ebook.png'); }
+.bg-menu-products { background-image: url('../../images/menu/bg-menu-products.png'); }
+.bg-menu-solutions { background-image: url('../../images/menu/bg-menu-solutions.png'); }
+.bg-menu-aboutus { background-image: url('../../images/menu/bg-menu-aboutus.png'); }
 .b-max { font-weight: 999; }
 .nb-6 { margin-bottom: -6rem;}
 .lower-img { &:hover { transform: scale(1.1);
@@ -216,8 +221,8 @@ $codeyellow: rgba(230, 219, 116, 1);
 .mw-1200 { max-width: 1200px; }
 .h30-em { height: 30em; }
 .shadow-menu { box-shadow: 0 5px 5px 0 rgb(176,176,176,0.2); }
-.h-logo { height: 80px; }
-.h-navbar { height: 104px; }
+.h-logo { height: 5rem; }
+.h-navbar { height: 6.5rem; }
 .t-all-5 { transition: all .5s; }
 .mt-body { margin-top: 104px; }
 .nt-landing { margin-top: -110px;}
@@ -443,32 +448,6 @@ $codeyellow: rgba(230, 219, 116, 1);
 
 #op11:checked~.datasheet-tag {
   @include menu-font;
-}
-
-// New menu component
-
-.lower~.overlay-hugeinc {
-  opacity: 0;
-  transition: opacity .5s, visibility 0s .5s;
-  visibility: hidden;
-}
-
-//scss-lint:disable IdSelector
-#op:checked~.overlay-hugeinc {
-  opacity: 1;
-  transition: opacity .5s;
-  visibility: visible;
-}
-
-//scss-lint:disable IdSelector MergeableSelector
-#op:checked~.overlay-hugeinc nav ul {
-  opacity: 1;
-  transform: rotateX(0deg);
-}
-
-//scss-lint:disable IdSelector MergeableSelector
-#op:not(:checked)~.overlay-hugeinc nav ul {
-  transform: translateY(25%) rotateX(-35deg);
 }
 
 .carousel.active {
@@ -780,6 +759,10 @@ video {
     color: $fluid-red;
   }
 }
+#tipue_search_input {
+  width: 13rem;
+  height: 3rem;
+}
 
 #tipue_search_input,
 #tipue_search_foot_boxes {
@@ -926,6 +909,11 @@ video {
   display: block;
 }
 
+#solutions-title:checked~.solutions-list {
+  animation: fadein .5s;
+  display: block;
+}
+
 #aboutus-title:checked~.aboutus-list {
   animation: fadein .5s;
   display: block;
@@ -1026,8 +1014,8 @@ video {
 }
 
 .counter-container {
-  height: 290px;
-  width: 290px;
+  height: 18.125rem;
+  width: 18.125rem;
 }
 
 .solution-link::after {
@@ -1040,4 +1028,20 @@ video {
 
 .solution-link:hover::after {
   width: 60%;
+}
+
+.menulink::after {
+  content: "";
+  display: block;
+  width: 0;
+  border-bottom: 1px solid $white;
+  transition: width .5s;
+}
+
+.menulink:hover::after {
+  width: 100%;
+}
+
+.sidenav-s {
+  width: 0;
 }

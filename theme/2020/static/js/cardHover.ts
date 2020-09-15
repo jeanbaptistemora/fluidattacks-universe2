@@ -15,7 +15,7 @@ for (count = 0; count < accordions.length; count += 1) {
     // tslint:disable-next-line: strict-boolean-expressions
     panel.style.height ?
     panel.style.height = ""
-    : panel.style.height = "360px";
+    : panel.style.height = "22.5rem";
 
   });
 }
