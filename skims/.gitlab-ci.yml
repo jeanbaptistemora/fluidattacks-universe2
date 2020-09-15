@@ -51,6 +51,11 @@
     - ./build.sh skims_doc
   stage: deploy-app
 
+skims_deploy_infra:
+  <<: *with_nix
+  <<: *skims_in_master_branch
+  stage: deploy-app
+
 skims_deploy_to_pypi:
   <<: *with_nix
   <<: *skims_in_master_branch
@@ -77,6 +82,11 @@ skims_structure:
   stage: test-code
 
 skims_test:
+  <<: *with_nix
+  <<: *skims_in_dev_branch
+  stage: test-code
+
+skims_test_infra:
   <<: *with_nix
   <<: *skims_in_dev_branch
   stage: test-code

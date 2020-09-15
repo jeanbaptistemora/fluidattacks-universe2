@@ -39,6 +39,15 @@ function job_skims_doc {
 
 }
 
+function job_skims_deploy_infra {
+      helper_use_pristine_workdir \
+  &&  pushd skims \
+    &&  helper_skims_aws_login prod \
+    &&  helper_common_terraform_apply infra \
+  &&  popd \
+  ||  return 1
+}
+
 function job_skims_deploy_to_pypi {
   # Propagated from Gitlab env vars
   export SKIMS_PYPI_TOKEN
@@ -163,6 +172,15 @@ function job_skims_test {
           args_pytest+=( "--cov=${pkg}" )
         done \
     &&  poetry run pytest "${args_pytest[@]}" < /dev/null \
+  &&  popd \
+  ||  return 1
+}
+
+function job_skims_test_infra {
+      helper_use_pristine_workdir \
+  &&  pushd skims \
+    &&  helper_skims_aws_login dev \
+    &&  helper_common_terraform_plan infra \
   &&  popd \
   ||  return 1
 }

@@ -68,6 +68,10 @@ function decide_and_call_provisioner {
         --keep SERVES_DEV_AWS_SECRET_ACCESS_KEY \
         --keep SERVES_PROD_AWS_ACCESS_KEY_ID \
         --keep SERVES_PROD_AWS_SECRET_ACCESS_KEY \
+        --keep SKIMS_DEV_AWS_ACCESS_KEY_ID \
+        --keep SKIMS_DEV_AWS_SECRET_ACCESS_KEY \
+        --keep SKIMS_PROD_AWS_ACCESS_KEY_ID \
+        --keep SKIMS_PROD_AWS_SECRET_ACCESS_KEY \
         --keep OBSERVES_DEV_AWS_ACCESS_KEY_ID \
         --keep OBSERVES_DEV_AWS_SECRET_ACCESS_KEY \
         --keep OBSERVES_PROD_AWS_ACCESS_KEY_ID \
