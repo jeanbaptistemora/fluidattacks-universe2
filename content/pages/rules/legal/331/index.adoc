@@ -27,24 +27,37 @@ Implement appropriate processes to ensure compliance with legal, regulatory and
 contractual requirements related with intellectual property rights and the use
 of patented software products.
 
-. [[r3]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r3]] link:https://www.iso.org/obp/ui/#iso:std:54534:en[ISO 27001:2013. Annex A - 18.1.3]
+Protect records against loss, destruction, forgery, unauthorized access and
+unauthorized release,
+in accordance with legal, regulatory, contractual and business requirements.
+
+. [[r4]] link:https://www.iso.org/obp/ui/#iso:std:54534:en[ISO 27001:2013. Annex A - 18.1.4]
+When applicable, guarantee the privacy and security of personal information,
+as required by the relevant legislation and regulations.
+
+. [[r5]] link:https://www.iso.org/obp/ui/#iso:std:54534:en[ISO 27001:2013. Annex A - 18.1.5]
+Use cryptographic mechanisms as required by the relevant legislation and
+regulations.
+
+. [[r6]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V1.5 Input and Output Architectural Requirements.(1.5.1)]
 Verify that input and output requirements clearly define how to handle and
 process data based on type, content, and applicable laws, regulations, and
 other policy compliance.
 
-. [[r4]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r7]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V6.1 Data Classification.(6.1.1)]
 Verify that regulated private data is stored encrypted while at rest,
 such as personally identifiable information (PII), sensitive personal
 information, or data assessed likely to be subject to EU's GDPR.
 
-. [[r5]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r8]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V7.1 Log Content Requirements.(1.7.2)]
 Verify that the application does not log other sensitive data as defined under
 local privacy laws or relevant security policy.
 
-. [[r6]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r9]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V8.3 Sensitive Private Data.(8.3.4)]
 Verify that all sensitive data created and processed by the application has
 been identified,
