@@ -20,8 +20,11 @@ import { DataTableNext } from "components/DataTableNext";
 import { statusFormatter } from "components/DataTableNext/formatters";
 import { IHeaderConfig } from "components/DataTableNext/types";
 import { Modal } from "components/Modal";
+import { selectFilter } from "react-bootstrap-table2-filter";
 import { Execution } from "scenes/Dashboard/containers/ProjectForcesView/execution";
+import styles from "scenes/Dashboard/containers/ProjectForcesView/index.css";
 import { GET_FORCES_EXECUTIONS } from "scenes/Dashboard/containers/ProjectForcesView/queries";
+import { useStoredState } from "utils/hooks";
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
 import { translate } from "utils/translations/translate";
@@ -109,9 +112,32 @@ const projectForcesView: React.FunctionComponent<ForcesViewProps> = (props: Forc
       numOfVulnerabilitiesInIntegratesExploits: 0,
     },
   };
+
+  const selectOptionsKind: optionSelectFilterProps[] = [
+    { value: "ALL", label: "ALL" },
+    { value: "DAST", label: "DAST" },
+    { value: "SAST", label: "SAST" },
+  ];
+  const selectOptionsStatus: optionSelectFilterProps[] = [
+    { value: "Vulnerable", label: "Vulnerable" },
+    { value: "Secure", label: "Secure" },
+  ];
+
+  const [isFilterEnabled, setFilterEnabled] = useStoredState<boolean>("forcesExecutionFilters", false);
+
   const [currentRow, updateRow] = React.useState(defaultCurrentRow);
   const [isExecutionDetailsModalOpen, setExecutionDetailsModalOpen] = React.useState(false);
 
+  const handleUpdateFilter: () => void = (): void => {
+    setFilterEnabled(!isFilterEnabled);
+  };
+
+  const onFilterKind: ((filterVal: string) => void) = (filterVal: string): void => {
+    sessionStorage.setItem("kindForcesFilter", filterVal);
+  };
+  const onFilterStatus: ((filterVal: string) => void) = (filterVal: string): void => {
+    sessionStorage.setItem("statusForcesFilter", filterVal);
+  };
   const onSortState: ((dataField: string, order: SortOrder) => void) = (
     dataField: string, order: SortOrder,
   ): void => {
@@ -149,7 +175,12 @@ const projectForcesView: React.FunctionComponent<ForcesViewProps> = (props: Forc
       onSort: onSortState,
     },
     {
-      align: "center", dataField: "status", formatter: statusFormatter,
+      align: "center", dataField: "status", filter: selectFilter({
+        defaultValue: _.get(sessionStorage, "statusForcesFilter"),
+        onFilter: onFilterStatus,
+        options: selectOptionsStatus,
+      }),
+      formatter: statusFormatter,
       header: translate.t("group.forces.status.title"), onSort: onSortState, wrapped: true,
     },
     {
@@ -162,7 +193,12 @@ const projectForcesView: React.FunctionComponent<ForcesViewProps> = (props: Forc
       onSort: onSortState, wrapped: true,
     },
     {
-      align: "center", dataField: "kind", header: translate.t("group.forces.kind.title"),
+      align: "center", dataField: "kind", filter: selectFilter({
+        defaultValue: _.get(sessionStorage, "kindForcesFilter"),
+        onFilter: onFilterKind,
+        options: selectOptionsKind,
+      }),
+      header: translate.t("group.forces.kind.title"),
       onSort: onSortState,  wrapped: true,
     },
     {
@@ -213,11 +249,8 @@ const projectForcesView: React.FunctionComponent<ForcesViewProps> = (props: Forc
             .concat(data.forcesExecutionsNew.executions)
             .map((execution: IExecution) => {
               const date: string = formatDate(execution.date);
-              const kind: string = toTitleCase(
-                translate.t(
-                  execution.kind === "static"
-                    ? "group.forces.kind.static"
-                    : "group.forces.kind.dynamic"));
+              const kind: string =
+                translate.t(`group.forces.kind.${execution.kind}`);
               const strictness: string = toTitleCase(
                 translate.t(
                   execution.strictness === "lax"
@@ -280,6 +313,8 @@ const projectForcesView: React.FunctionComponent<ForcesViewProps> = (props: Forc
                   id="tblForcesExecutions"
                   pageSize={100}
                   rowEvents={{ onClick: openSeeExecutionDetailsModal }}
+                  isFilterEnabled={isFilterEnabled}
+                  onUpdateEnableFilter={handleUpdateFilter}
                 />
               <Modal
                   bsSize="large"

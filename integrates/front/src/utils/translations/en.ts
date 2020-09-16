@@ -447,9 +447,11 @@ export const enTranslations: ResourceKey = {
       git_repo: "Git Repository",
       identifier: "Identifier",
       kind: {
-        dynamic: "Deployed System",
-        static: "Source Code",
-        title: "Target of Evaluation",
+        all: "ALL",
+        dynamic: "DAST",
+        other: "ALL",
+        static: "SAST",
+        title: "Type",
       },
       status: {
         accepted: "Accepted",

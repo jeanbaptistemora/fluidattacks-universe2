@@ -70,13 +70,13 @@ const modalExecution: React.FC<IExecution> = (
     setFilterEnabled(!isFilterEnabled);
   };
   const onFilterStatus: ((filterVal: string) => void) = (filterVal: string): void => {
-    sessionStorage.setItem("statusFilter", filterVal);
+    sessionStorage.setItem("statusExecutionFilter", filterVal);
   };
   const onFilterKind: ((filterVal: string) => void) = (filterVal: string): void => {
-    sessionStorage.setItem("kindFilter", filterVal);
+    sessionStorage.setItem("kindExecutionFilter", filterVal);
   };
   const onFilterExploitability: ((filterVal: string) => void) = (filterVal: string): void => {
-    sessionStorage.setItem("exploitabilityFilter", filterVal);
+    sessionStorage.setItem("exploitabilityForcesFilter", filterVal);
   };
   const formatText: ((text: string) => ReactElement<Text>) = (text: string): ReactElement<Text> =>
     <p className={styles.wrapped}>{text}</p>;
@@ -166,7 +166,7 @@ const modalExecution: React.FC<IExecution> = (
             {
               dataField: "exploitability",
               filter: selectFilter({
-                defaultValue: _.get(sessionStorage, "exploitabilityFilter"),
+                defaultValue: _.get(sessionStorage, "exploitabilityForcesFilter"),
                 onFilter: onFilterExploitability,
                 options: selectOptionsExploitability,
               }),
@@ -178,7 +178,7 @@ const modalExecution: React.FC<IExecution> = (
             {
               dataField: "state",
               filter: selectFilter({
-                defaultValue: _.get(sessionStorage, "statusFilter"),
+                defaultValue: _.get(sessionStorage, "statusExecutionFilter"),
                 onFilter: onFilterStatus,
                 options: selectOptionsStatus,
               }),
@@ -192,7 +192,7 @@ const modalExecution: React.FC<IExecution> = (
         {
           dataField: "kind",
           filter: selectFilter({
-            defaultValue: _.get(sessionStorage, "kindFilter"),
+            defaultValue: _.get(sessionStorage, "kindExecutionFilter"),
             onFilter: onFilterKind,
             options: selectOptionsKind,
           }),
