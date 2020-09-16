@@ -554,6 +554,9 @@ function job_serves_rotate_keys_user_provision_services_prod {
   local gitlab_secret_key_name='PROD_AWS_SECRET_ACCESS_KEY'
   local gitlab_masked='true'
   local gitlab_protected='true'
+  local gitlab_repo_id_2='20741933'
+  local gitlab_key_id_name_2='SERVICES_PROD_AWS_ACCESS_KEY_ID'
+  local gitlab_secret_key_name_2='SERVICES_PROD_AWS_SECRET_ACCESS_KEY'
 
       pushd serves \
   &&  helper_serves_user_provision_rotate_keys \
@@ -566,6 +569,9 @@ function job_serves_rotate_keys_user_provision_services_prod {
         "${gitlab_secret_key_name}" \
         "${gitlab_masked}" \
         "${gitlab_protected}" \
+        "${gitlab_repo_id_2}" \
+        "${gitlab_key_id_name_2}" \
+        "${gitlab_secret_key_name_2}" \
   &&  popd \
   ||  return 1
 }

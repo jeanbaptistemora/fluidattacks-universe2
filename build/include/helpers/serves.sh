@@ -208,6 +208,9 @@ function helper_serves_user_provision_rotate_keys {
   local gitlab_secret_key_name="${7}"
   local gitlab_masked="${8}"
   local gitlab_protected="${9}"
+  local gitlab_repo_id_2="${10:-}"
+  local gitlab_key_id_name_2="${11:-}"
+  local gitlab_secret_key_name_2="${12:-}"
   local resource_to_taint_number
 
       resource_to_taint_number="$( \
@@ -233,7 +236,18 @@ function helper_serves_user_provision_rotate_keys {
   &&  helper_common_set_project_variable \
         "${GITLAB_API_TOKEN}" "${gitlab_repo_id}" \
         "${gitlab_secret_key_name}" "${output_secret_key_value}" \
-        "${gitlab_protected}" "${gitlab_masked}"
+        "${gitlab_protected}" "${gitlab_masked}" \
+  &&  if test -n "${gitlab_repo_id_2}"
+      then
+            helper_common_set_project_variable \
+              "${GITLAB_API_TOKEN}" "${gitlab_repo_id_2}" \
+              "${gitlab_key_id_name_2}" "${output_key_id_value}" \
+              "${gitlab_protected}" "${gitlab_masked}" \
+        &&  helper_common_set_project_variable \
+              "${GITLAB_API_TOKEN}" "${gitlab_repo_id_2}" \
+              "${gitlab_secret_key_name_2}" "${output_secret_key_value}" \
+              "${gitlab_protected}" "${gitlab_masked}"
+      fi
 }
 
 function helper_serves_test_lint_code_shell {
