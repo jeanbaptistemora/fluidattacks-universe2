@@ -4,9 +4,6 @@ import asyncio
 import random
 from datetime import datetime
 
-from aioextensions import (
-    in_process,
-)
 import pytz
 from django.conf import settings
 from django.core.files.uploadedfile import InMemoryUploadedFile
@@ -128,13 +125,12 @@ async def update_evidence(
 async def validate_evidence(
         evidence_type: str,
         file: InMemoryUploadedFile) -> bool:
+    mib = 1048576
     success = False
 
     if evidence_type == 'evidence':
         allowed_mimes = ['image/gif', 'image/jpeg', 'image/png']
-        if not await in_process(
-            util.assert_uploaded_file_mime, file, allowed_mimes
-        ):
+        if not util.assert_uploaded_file_mime(file, allowed_mimes):
             raise InvalidFileType('EVENT_IMAGE')
     else:
         allowed_mimes = [
@@ -143,12 +139,9 @@ async def validate_evidence(
             'text/csv',
             'text/plain'
         ]
-        if not await in_process(
-            util.assert_uploaded_file_mime, file, allowed_mimes
-        ):
+        if not util.assert_uploaded_file_mime(file, allowed_mimes):
             raise InvalidFileType('EVENT_FILE')
 
-    mib = 1048576
     if file.size < 10 * mib:
         success = True
     else:
