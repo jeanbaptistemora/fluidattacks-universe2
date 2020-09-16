@@ -9,7 +9,6 @@ import argparse
 import threading
 import contextlib
 from io import TextIOWrapper
-from itertools import repeat
 from multiprocessing import cpu_count
 from concurrent.futures import ThreadPoolExecutor
 
@@ -304,10 +303,10 @@ def dump_schema(table: str, file: Optional[TextIOWrapper] = None) -> None:
     schema = "{}\r".format(schema)
     with LOCK:
         if file:
-            file.write("{}\r".format(schema))
+            file.write("{}".format(schema))
         else:
             print(schema)
-    with ThreadPoolExecutor(max_workers=cpu_count() * 3) as worker:
+    with ThreadPoolExecutor(max_workers=cpu_count() * 4) as worker:
         worker.map(dump_record, read(RECORDS_DIR, table, loads))
 
 
@@ -360,8 +359,8 @@ def main() -> None:
     catalog()
 
     # Parse everything to singer
-    with ThreadPoolExecutor(max_workers=cpu_count() * 3) as worker:
-        worker.map(dump_schema, os.listdir(SCHEMAS_DIR), repeat(args.out))
+    for schema in os.listdir(SCHEMAS_DIR):
+        dump_schema(schema, args.out)
 
     release_env()
 
