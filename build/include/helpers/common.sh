@@ -253,8 +253,8 @@ function helper_list_declared_jobs {
   declare -F \
     | sed 's/declare -f //' \
     | grep -P '^job_[a-z_]+' \
-    | grep -P "${product}" \
     | sed 's/job_//' \
+    | grep -P "${product}" \
     | sort
 }
 

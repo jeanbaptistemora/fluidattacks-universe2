@@ -73,9 +73,10 @@ resource "aws_security_group" "skims_aws_batch_compute_environment_security_grou
 
 resource "aws_batch_compute_environment" "skims" {
   compute_environment_name = "skims"
+  depends_on = [aws_iam_role_policy_attachment.skims_aws_batch_service_role]
   service_role = aws_iam_role.skims_aws_batch_service_role.arn
-  type         = "MANAGED"
-  depends_on   = [aws_iam_role_policy_attachment.skims_aws_batch_service_role]
+  state = "ENABLED"
+  type = "MANAGED"
 
   compute_resources {
     allocation_strategy = "SPOT_CAPACITY_OPTIMIZED"
@@ -102,12 +103,12 @@ resource "aws_batch_compute_environment" "skims" {
 }
 
 resource "aws_batch_job_queue" "skims" {
-  name     = "skims"
-  state    = "ENABLED"
-  priority = 1
   compute_environments = [
     aws_batch_compute_environment.skims.arn,
   ]
+  name = "skims"
+  priority = 1
+  state = "ENABLED"
 }
 
 resource "aws_batch_job_definition" "skims" {

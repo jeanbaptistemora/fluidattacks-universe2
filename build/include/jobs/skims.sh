@@ -55,6 +55,7 @@ function job_skims_process_group {
 function job_skims_process_group_on_aws {
   local definition
   export group="${1}"
+  export AWS_DEFAULT_REGION='us-east-1'
 
       if test -z "${group}"
       then
