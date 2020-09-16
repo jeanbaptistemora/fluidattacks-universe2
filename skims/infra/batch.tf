@@ -8,20 +8,16 @@ resource "aws_subnet" "skims_batch_subnet" {
 resource "aws_iam_role" "skims_ecs_instance_role" {
   name = "skims_ecs_instance_role"
 
-  assume_role_policy = <<EOF
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Action": "sts:AssumeRole",
-      "Effect": "Allow",
-      "Principal": {
-        "Service": "ec2.amazonaws.com"
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [{
+      Action = "sts:AssumeRole",
+      Effect = "Allow",
+      Principal = {
+        Service = "ec2.amazonaws.com"
       }
-    }
-  ]
-}
-EOF
+    }]
+  })
 }
 
 resource "aws_iam_role_policy_attachment" "skims_ecs_instance_role" {
@@ -37,20 +33,16 @@ resource "aws_iam_instance_profile" "skims_ecs_instance_role" {
 resource "aws_iam_role" "skims_aws_batch_service_role" {
   name = "skims_aws_batch_service_role"
 
-  assume_role_policy = <<EOF
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Action": "sts:AssumeRole",
-      "Effect": "Allow",
-      "Principal": {
-        "Service": "batch.amazonaws.com"
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [{
+      Action = "sts:AssumeRole",
+      Effect = "Allow",
+      Principal = {
+        Service = "batch.amazonaws.com"
       }
-    }
-  ]
-}
-EOF
+    }]
+  })
 }
 
 resource "aws_iam_role_policy_attachment" "skims_aws_batch_service_role" {
@@ -116,15 +108,11 @@ resource "aws_batch_job_definition" "skims" {
   name = "skims"
   type = "container"
 
-  container_properties = <<EOF
-{
-  "image": "registry.gitlab.com/fluidattacks/product/bin:latest",
-  "memory": 1024,
-  "vcpus": 1,
-  "command": [
-    "./build.sh",
-    "--help"
-  ]
-}
-EOF
+  # Thid can be overriden on a per-job basis so let's add default values
+  container_properties = jsonencode({
+    command = ["./build.sh", "--help"]
+    image = "registry.gitlab.com/fluidattacks/product/bin:latest"
+    memory = 512
+    vcpus = 1
+  })
 }
