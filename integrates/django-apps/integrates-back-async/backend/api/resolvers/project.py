@@ -65,7 +65,6 @@ from backend.utils import (
 from backend.api.resolvers.user import _create_new_user
 from fluidintegrates.settings import LOGGING
 
-from __init__ import FI_COMMUNITY_PROJECTS
 
 logging.config.dictConfig(LOGGING)
 
@@ -640,13 +639,6 @@ async def _get_events(
     event_ids = await project_domain.list_events(project_name)
     events = await info.context.loaders['event'].load_many(event_ids)
     return cast(List[EventType], events)
-
-
-async def _get_is_community(
-        _: GraphQLResolveInfo,
-        project_name: str,
-        **__: Any) -> bool:
-    return project_name.lower() in FI_COMMUNITY_PROJECTS.split(',')
 
 
 @enforce_group_level_auth_async

@@ -27,7 +27,6 @@ class EventTests(TestCase):
                 client
                 evidence
                 projectName
-                clientProject
                 eventType
                 detail
                 eventDate

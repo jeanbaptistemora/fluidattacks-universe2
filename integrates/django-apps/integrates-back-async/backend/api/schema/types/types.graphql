@@ -5,7 +5,6 @@ type Event {
     client: String
     consulting: [Consult!]
     projectName: String
-    clientProject: String
     detail: String
     evidence: String
     eventType: String
@@ -117,7 +116,6 @@ type Project {
     hasDrills: Boolean
     hasForces: Boolean
     hasIntegrates: Boolean
-    isCommunity: Boolean
     openVulnerabilities: Int
     closedVulnerabilities: Int
     subscription: String

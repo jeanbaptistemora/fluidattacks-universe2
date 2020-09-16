@@ -63,15 +63,6 @@ async def _get_project_name(info: GraphQLResolveInfo, identifier: str) -> str:
 
 
 @get_entity_cache_async
-async def _get_client_project(
-        info: GraphQLResolveInfo,
-        identifier: str) -> str:
-    """Get client_project."""
-    event = await info.context.loaders['event'].load(identifier)
-    return cast(str, event['client_project'])
-
-
-@get_entity_cache_async
 async def _get_event_type(info: GraphQLResolveInfo, identifier: str) -> str:
     """Get event_type."""
     event = await info.context.loaders['event'].load(identifier)
