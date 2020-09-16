@@ -13,14 +13,10 @@ in
         pkgs.awscli
         pkgs.sops
         pkgs.jq
-        (pkgs.python37.withPackages (ps: with ps; [
-          wheel
-          setuptools
-        ]))
+        pkgs.python37
+        pkgs.python37Packages.twine
+        pkgs.python37Packages.wheel
       ];
 
-      pyPkgTwine = builders.pythonPackage {
-        requirement = "twine==2.0.0";
-      };
     })
   )

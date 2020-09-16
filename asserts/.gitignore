@@ -64,6 +64,9 @@ secrets/production.sh
 TEMP_FD
 
 # Build
+/build/
+/dist/
+/**/*.egg-info
 ephemeral-test-runner*
 
 # Terraform
