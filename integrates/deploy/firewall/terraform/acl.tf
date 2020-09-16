@@ -105,6 +105,9 @@ resource "aws_wafv2_web_acl" "integrates_firewall" {
         excluded_rule {
           name = "SizeRestrictions_BODY"
         }
+        excluded_rule {
+          name = "GenericRFI_QUERYARGUMENTS"
+        }
       }
     }
     visibility_config {

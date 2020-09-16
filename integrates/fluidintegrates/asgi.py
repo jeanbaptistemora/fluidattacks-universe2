@@ -113,7 +113,7 @@ class IntegratesWorker(UvicornWorker):
                 'localhost:* *.amazonaws.com *.cloudfront.net '
                 '*.cloudflare.com *.cookiebot.com *.zdassets.com '
                 '*.newrelic.com *.mxpnl.com *.pingdom.net '
-                'https://d2yyd1h5u9mauk.cloudfront.net '
+                'https://d2yyd1h5u9mauk.cloudfront.net bam.nr-data.net '
                 'cdn.jsdelivr.net/npm/ cdn.headwayapp.co;'
             ],
             [
