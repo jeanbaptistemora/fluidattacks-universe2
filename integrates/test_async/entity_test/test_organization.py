@@ -241,6 +241,7 @@ async def test_organization():
     expected_stakeholders = [
         'continuoushack2@gmail.com',
         'continuoushacking@gmail.com',
+        'integratescustomer@gmail.com',
         'integratesmanager@gmail.com',
         'integratesuser@gmail.com'
     ]

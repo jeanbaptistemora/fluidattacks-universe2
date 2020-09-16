@@ -4,8 +4,18 @@
       "PutRequest": {
         "Item": {
           "level": {"S": "group"},
-          "subject": {"S": "customer@gmail.com"},
+          "subject": {"S": "integratescustomer@gmail.com"},
           "object": {"S": "unittesting"},
+          "role": {"S": "customer"}
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "level": {"S": "organization"},
+          "subject": {"S": "integratescustomer@gmail.com"},
+          "object": {"S": "org#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"},
           "role": {"S": "customer"}
         }
       }
