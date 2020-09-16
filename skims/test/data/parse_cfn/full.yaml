@@ -78,6 +78,9 @@ Resources:
                 Condition:
                   StringNotEquals:
                     aws:RequestedRegion: us-east-1
-              - Effect: Allow
-                Action: sts:AssumeRole
-                Resource: arn:aws:iam::*:role/cloud-lambda
+        - PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              Effect: Allow
+              Action: sts:AssumeRole
+              Resource: arn:aws:iam::*:role/cloud-lambda
