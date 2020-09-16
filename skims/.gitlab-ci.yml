@@ -95,7 +95,7 @@ skims_test:
   <<: *skims_in_dev_branch
   stage: test-code
 
-skims_test_infra:
+.skims_test_infra:
   <<: *with_nix
   <<: *skims_in_dev_branch
   stage: test-code

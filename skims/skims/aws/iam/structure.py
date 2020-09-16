@@ -12,3 +12,14 @@ def is_action_permissive(action: str) -> bool:
         or (effect and effect.startswith('*'))
         or ('*' in provider and effect is None)
     )
+
+
+def is_resource_permissive(resource: str) -> bool:
+    if not isinstance(resource, str):
+        # A var or syntax error
+        return False
+
+    return (
+        # Consider adding here arn:aws:iam::* and derivatives
+        (resource == '*')
+    )
