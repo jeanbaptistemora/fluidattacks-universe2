@@ -15,7 +15,11 @@ import { TooltipWrapper } from "components/TooltipWrapper/index";
 import { AddProjectModal } from "scenes/Dashboard/components/AddProjectModal";
 import { default as style } from "scenes/Dashboard/containers/OrganizationGroupsView/index.css";
 import { GET_ORGANIZATION_GROUPS } from "scenes/Dashboard/containers/OrganizationGroupsView/queries";
-import { IGroupData, IOrganizationGroupsProps } from "scenes/Dashboard/containers/OrganizationGroupsView/types";
+import {
+  IGetOrganizationGroups,
+  IGroupData,
+  IOrganizationGroupsProps,
+} from "scenes/Dashboard/containers/OrganizationGroupsView/types";
 import { Can } from "utils/authz/Can";
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
@@ -40,6 +44,11 @@ const organizationGroups: React.FC<IOrganizationGroupsProps> = (props: IOrganiza
 
   // GraphQL operations
   const { data, refetch: refetchGroups } = useQuery(GET_ORGANIZATION_GROUPS, {
+    onCompleted: (paramData: IGetOrganizationGroups): void => {
+      if (_.isEmpty(paramData.organization.projects)) {
+        Logger.warning("Empty projects", document.location.pathname);
+      }
+    },
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
         msgError(translate.t("group_alerts.error_textsad"));

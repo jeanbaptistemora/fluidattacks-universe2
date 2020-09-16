@@ -14,3 +14,9 @@ export interface IGroupData {
 export interface IOrganizationGroupsProps {
   organizationId: string;
 }
+
+export interface IGetOrganizationGroups {
+  organization: {
+    projects: IGroupData[];
+  };
+}
