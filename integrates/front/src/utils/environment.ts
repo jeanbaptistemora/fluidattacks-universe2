@@ -5,13 +5,12 @@ export const getEnvironment: () => string = (): string => {
     return "development";
   } else {
     const currentUrl: string = window.location.hostname;
+    const ephemeralDomainRegex: RegExp = /[a-z]+atfluid.integrates.fluidattacks.com/gu;
 
     if (currentUrl === "localhost") {
       return "development";
-    } else if (_.includes(currentUrl, ".integrates.env")) {
+    } else if (ephemeralDomainRegex.test(currentUrl)) {
       return "review";
-    } else if (currentUrl === "fluidattacks.com") {
-      return "production";
     } else {
       return "production";
     }
