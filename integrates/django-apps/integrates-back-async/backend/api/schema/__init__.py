@@ -10,6 +10,7 @@ from ariadne import (
 from graphql import GraphQLSchema
 
 # Local
+from backend.api.schema.enums import ENUMS
 from backend.api.schema.mutation import MUTATION
 from backend.api.schema.query import QUERY
 from backend.api.schema.scalars import SCALARS
@@ -23,7 +24,8 @@ SCHEMA: GraphQLSchema = make_executable_schema(
     SDL_CONTENT,
     QUERY,
     MUTATION,
-    *TYPES,
+    *ENUMS,
     *SCALARS,
+    *TYPES,
     snake_case_fallback_resolvers
 )
