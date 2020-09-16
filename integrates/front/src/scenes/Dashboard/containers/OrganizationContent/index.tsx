@@ -64,6 +64,9 @@ const organizationContent: React.FC<IOrganizationContent> = (props: IOrganizatio
   useQuery(GET_USER_PERMISSIONS, {
     onCompleted: (permData: IOrganizationPermission): void => {
       if (!_.isUndefined(permData)) {
+        if (_.isEmpty(permData.me.permissions)) {
+          Logger.error("Empty permissions", JSON.stringify(permData.me.permissions));
+        }
         permissions.update(permData.me.permissions.map((action: string) => ({ action })));
         setUserRole(permData.me.role);
       }
