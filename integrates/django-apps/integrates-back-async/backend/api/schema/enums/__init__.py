@@ -85,6 +85,24 @@ ENUMS: Tuple[EnumType, ...] = (
         }
     ),
     EnumType(
+        'EditGroupReason',
+        {
+            'BUDGET': 'BUDGET',
+            'NONE': 'NONE',
+            'OTHER': 'OTHER',
+            'PROJECT_FINALIZATION': 'PROJECT_FINALIZATION',
+            'PROJECT_SUSPENSION': 'PROJECT_SUSPENSION'
+        }
+    ),
+    EnumType(
+        'Entity',
+        {
+            'ORGANIZATION': 'ORGANIZATION',
+            'PROJECT': 'PROJECT',
+            'USER': 'USER'
+        }
+    ),
+    EnumType(
         'EventAccessibility',
         {
             'ENVIRONMENT': 'Ambiente',
@@ -145,10 +163,49 @@ ENUMS: Tuple[EnumType, ...] = (
         }
     ),
     EnumType(
+        'FindingConsultType',
+        {
+            'CONSULT': 'CONSULT',
+            'OBSERVATION': 'OBSERVATION'
+        }
+    ),
+    EnumType(
         'FindingType',
         {
             'HYGIENE': 'HYGIENE',
             'SECURITY': 'SECURITY'
+        }
+    ),
+    EnumType(
+        'Frequency',
+        {
+            'DAILY': 'DAILY',
+            'HOURLY': 'HOURLY',
+            'MONTHLY': 'MONTHLY',
+            'NEVER': 'NEVER',
+            'WEEKLY': 'WEEKLY'
+        }
+    ),
+    EnumType(
+        'NameEntity',
+        {
+            'GROUP': 'GROUP',
+            'ORGANIZATION': 'ORGANIZATION'
+        }
+    ),
+    EnumType(
+        'OrganizationRole',
+        {
+            'CUSTOMER': 'CUSTOMER',
+            'CUSTOMERADMIN': 'CUSTOMERADMIN',
+            'GROUP_MANAGER': 'GROUP_MANAGER'
+        }
+    ),
+    EnumType(
+        'RepoProtocol',
+        {
+            'HTTPS': 'HTTPS',
+            'SSH': 'SSH'
         }
     ),
     EnumType(
@@ -160,8 +217,26 @@ ENUMS: Tuple[EnumType, ...] = (
     EnumType(
         'ReportType',
         {
+            'ALL_USERS': 'ALL_USERS',
+            'ALL_VULNS': 'ALL_VULNS',
+            'COMPLETE': 'COMPLETE',
+            'DATA': 'DATA',
             'PDF': 'PDF',
             'XLS': 'XLS'
+        }
+    ),
+    EnumType(
+        'ResourceState',
+        {
+            'ACTIVE': 'ACTIVE',
+            'INACTIVE': 'INACTIVE'
+        }
+    ),
+    EnumType(
+        'StakeholderEntity',
+        {
+            'ORGANIZATION': 'ORGANIZATION',
+            'PROJECT': 'PROJECT'
         }
     ),
     EnumType(
@@ -181,6 +256,13 @@ ENUMS: Tuple[EnumType, ...] = (
         }
     ),
     EnumType(
+        'SubscriptionReportEntity',
+        {
+            'GROUP': 'GROUP',
+            'ORGANIZATION': 'ORGANIZATION'
+        }
+    ),
+    EnumType(
         'SubscriptionType',
         {
             'CONTINUOUS': 'continuous',
@@ -193,6 +275,15 @@ ENUMS: Tuple[EnumType, ...] = (
             'ACCEPTED': 'ACCEPTED',
             'ACCEPTED_UNDEFINED': 'ACCEPTED_UNDEFINED',
             'IN_PROGRESS': 'IN PROGRESS'
+        }
+    ),
+    EnumType(
+        'VulnerabilityState',
+        {
+            'ACCEPTED': 'ACCEPTED',
+            'CLOSED': 'CLOSED',
+            'OPEN': 'OPEN',
+            'UNKNOWN': 'UNKNOWN'
         }
     )
 )
