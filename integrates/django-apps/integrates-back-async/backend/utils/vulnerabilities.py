@@ -126,11 +126,16 @@ def is_sequence(specific: str) -> bool:
 def range_to_list(range_value: str) -> List[str]:
     """Convert a range value into list."""
     limits = range_value.split('-')
-    if int(limits[1]) > int(limits[0]):
-        init_val = int(limits[0])
-        end_val = int(limits[1]) + 1
-    else:
-        error_value = f'"values": "{limits[0]} >= {limits[1]}"'
+    init_val = int(limits[0])
+    end_val = int(limits[1]) + 1
+    if end_val - init_val > 1000:
+        error_value = (
+            '"values": "You can upload a maximum of '
+            '1000 vulnerabilites per range"'
+        )
+        raise InvalidRange(expr=error_value)
+    if end_val <= init_val:
+        error_value = f'"values": "{init_val} >= {end_val}"'
         raise InvalidRange(expr=error_value)
     specific_values = list(map(str, list(range(init_val, end_val))))
     return specific_values
