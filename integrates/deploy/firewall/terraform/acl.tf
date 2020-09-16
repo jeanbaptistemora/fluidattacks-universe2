@@ -64,6 +64,9 @@ resource "aws_wafv2_web_acl" "integrates_firewall" {
       managed_rule_group_statement {
         name        = "AWSManagedRulesKnownBadInputsRuleSet"
         vendor_name = "AWS"
+        excluded_rule {
+          name = "Host_localhost_HEADER"
+        }
       }
     }
     visibility_config {
@@ -116,6 +119,9 @@ resource "aws_wafv2_web_acl" "integrates_firewall" {
         }
         excluded_rule {
           name = "GenericRFI_BODY"
+        }
+        excluded_rule {
+          name = "RestrictedExtensions_QUERYARGUMENTS"
         }
       }
     }
