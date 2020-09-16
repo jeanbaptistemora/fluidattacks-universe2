@@ -10,15 +10,13 @@ from timeit import default_timer as timer
 
 # Third parties libraries
 import oyaml as yaml
+from aioextensions import in_thread
 
 # Local imports
 from forces.apis.integrates.api import (
     get_finding,
     get_findings,
     vulns_generator,
-)
-from forces.utils.aio import (
-    unblock,
 )
 
 
@@ -73,7 +71,7 @@ async def generate_report_log(report: Dict[str, Any],
                 vuln for vuln in finding['vulnerabilities']
                 if vuln['state'] in ('open', 'closed')
             ]
-    return await unblock(yaml.dump, report, allow_unicode=True)
+    return await in_thread(yaml.dump, report, allow_unicode=True)
 
 
 async def generate_report(project: str, **kwargs: str) -> Dict[str, Any]:

@@ -15,6 +15,7 @@ import click
 # Local imports
 from forces import entrypoint
 from forces.utils.aio import block
+from forces.utils.bugs import configure_bugsnag
 
 # Constants
 USER_PATTERN = r'forces.(?P<group>\w+)@fluidattacks.com'
@@ -95,7 +96,7 @@ def main(token: str,  # pylint: disable=too-many-arguments
          static: bool) -> None:
     """Main function"""
     group = get_group_from_email(decode_token(token)['user_email'])
-
+    configure_bugsnag(group=group or '')
     kind = 'all'
     if dynamic:
         kind = 'dynamic'

@@ -23,6 +23,7 @@ pytz = "2020.1"
 bugsnag = "3.7.1"
 aiogqlc = "2.0.0b1"
 more-itertools = "8.5.0"
+aioextensions = "20.8.2087641"
 
 [tool.poetry.dev-dependencies]
 prospector = "1.2.0"
