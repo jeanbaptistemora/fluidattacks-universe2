@@ -131,10 +131,24 @@ class ViewTestCase(unittest.TestCase):
             self.__click(btn_user)
         except TimeoutException:
             pass
+    
+    def __accept_cookies(self):
+        try:
+            selenium = self.selenium
+            WebDriverWait(selenium, self.delay/10).until(
+                expected.presence_of_element_located(
+                    (By.XPATH, "//*[contains(text(), 'Allow all cookies')]")))
+            accept_cookies = selenium.find_element_by_xpath(
+                "//*[contains(text(), 'Allow all cookies')]")
+            self.__click(accept_cookies)
+        except TimeoutException:
+            pass
 
     def __login(self):
         selenium = self.selenium
         selenium.get(self.url)
+        if 'Allow all cookies' in selenium.page_source:
+            self.__accept_cookies()
         WebDriverWait(selenium, self.delay).until(
             expected.presence_of_element_located(
                 (By.XPATH, "//*[contains(text(), 'Sign in with Microsoft')]")))
