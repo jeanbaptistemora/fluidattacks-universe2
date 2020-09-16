@@ -98,7 +98,7 @@ const updateTreatmentModal: ((props: IUpdateTreatmentModal) => JSX.Element) = (
 
   const userEmails: string[] = (_.isUndefined(data) || _.isEmpty(data))
     ? [userEmail]
-    : data.project.users.map((user: Dictionary<string>): string => user.email);
+    : data.project.stakeholders.map((stakeholder: Dictionary<string>): string => stakeholder.email);
 
   const lastTreatment: IHistoricTreatment = props.lastTreatment === undefined
     ? {date: "", treatment: "", user: ""}

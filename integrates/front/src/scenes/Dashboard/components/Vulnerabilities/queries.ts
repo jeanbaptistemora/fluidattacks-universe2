@@ -80,7 +80,7 @@ export const DELETE_TAGS_MUTATION: DocumentNode = gql`
 export const GET_PROJECT_USERS: DocumentNode = gql`
   query GetProjectUsers($projectName: String!) {
     project(projectName: $projectName) {
-      users {
+      stakeholders {
         email
       }
     }

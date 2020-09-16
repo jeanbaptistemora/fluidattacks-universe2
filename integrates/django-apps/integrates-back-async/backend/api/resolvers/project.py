@@ -53,7 +53,6 @@ from backend.typing import (
     Finding as FindingType,
     Project as ProjectType,
     Stakeholder as StakeholderType,
-    User as UserType,
     AddConsultPayload as AddConsultPayloadType,
     SimplePayload as SimplePayloadType,
     SimpleProjectPayload as SimpleProjectPayloadType,
@@ -667,63 +666,6 @@ async def _get_user_role(
     return cast(
         str,
         await authz.get_group_level_role(user_email, project_name)
-    )
-
-
-@concurrent_decorators(
-    enforce_group_level_auth_async,
-    require_integrates,
-)
-async def _get_users(
-        info: GraphQLResolveInfo,
-        project_name: str,
-        requested_fields: List[FieldNode]) -> List[UserType]:
-    """Get users."""
-    user_info = await util.get_jwt_content(info.context)
-    requester_email = user_info['user_email']
-
-    group_user_emails = await project_domain.get_users(
-        project_name
-    )
-
-    as_field = True
-    selection_set = SelectionSetNode()
-    selection_set.selections = requested_fields
-
-    if '@fluidattacks.com' in requester_email:
-        filtered_group_user_emails = group_user_emails
-    else:
-        # All non Fluid Attacks users
-        filtered_group_user_emails = [
-            user_email
-            for user_email in group_user_emails
-            if '@fluidattacks.com' not in user_email
-        ]
-        # Plus the Fluid Attacks manager
-        filtered_group_user_emails += [
-            user_email
-            for user_email in group_user_emails
-            if user_email.endswith('@fluidattacks.com')
-            and await authz.get_group_level_role(
-                user_email, project_name) == 'group_manager'
-        ]
-
-    # Load users concurrently
-    return cast(
-        List[UserType],
-        await asyncio.gather(*[
-            asyncio.create_task(
-                user_loader.resolve_for_group(
-                    info,
-                    'PROJECT',
-                    user_email,
-                    project_name=project_name,
-                    as_field=as_field,
-                    selection_set=selection_set
-                )
-            )
-            for user_email in filtered_group_user_emails
-        ])
     )
 
 

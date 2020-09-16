@@ -46,7 +46,6 @@ from backend.typing import (
     Project as ProjectType,
     SimplePayload as SimplePayloadType,
     Stakeholder as StakeholderType,
-    User as UserType
 )
 from backend.utils import aio
 
@@ -365,40 +364,6 @@ async def _get_projects(
             )
             for group in active_user_groups
         )
-    )
-
-
-@rename_kwargs({'identifier': 'organization_id'})
-@enforce_organization_level_auth_async
-@get_entity_cache_async
-async def _get_users(
-    info: GraphQLResolveInfo,
-    organization_id: str,
-    requested_fields: List[FieldNode],
-    **__: Any
-) -> List[UserType]:
-    """Get users."""
-    organization_users = await org_domain.get_users(organization_id)
-
-    as_field = True
-    selection_set = SelectionSetNode()
-    selection_set.selections = requested_fields
-
-    return cast(
-        List[UserType],
-        await asyncio.gather(*[
-            asyncio.create_task(
-                user_loader.resolve_for_organization(
-                    info,
-                    'ORGANIZATION',
-                    user_email,
-                    organization_id=organization_id,
-                    as_field=as_field,
-                    selection_set=selection_set,
-                )
-            )
-            for user_email in organization_users
-        ])
     )
 
 
