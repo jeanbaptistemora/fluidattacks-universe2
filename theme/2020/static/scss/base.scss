@@ -232,6 +232,9 @@ $codeyellow: rgba(230, 219, 116, 1);
 .lh-18 { line-height: 1.8; }
 .f-solution { font-size: 1.25rem; }
 .f-card { font-size: 3.75rem; }
+.mw-1366 { max-width: 1366px; }
+.ph-body { padding: 0 1.875rem; }
+.pl-body { padding-left: 1.875rem; }
 
 // Tachyons custom responsive classes
 @media screen and (min-width: 960px) and (max-width: 1200px) {
@@ -337,7 +340,7 @@ $codeyellow: rgba(230, 219, 116, 1);
   .w-45-l { width: 45%; }
   .w-50-l { width: 50%; }
   .h-menu { height: 9rem; }
-  .fheader-l { font-size: 9.5vw; }
+  .fheader-l { font-size: 9vw; }
   .bg-banner-sz { background-size: 100% 100%; }
   .w-15-l { width: 15%; }
   .w40-l { width: 40rem; }
@@ -347,12 +350,14 @@ $codeyellow: rgba(230, 219, 116, 1);
   .w36-l{ width: 36rem; }
   .f-error { font-size: 17rem; }
   .w-search-icon { width: 1.125rem; }
-  .nt-menu-btn { margin-top: -1px;}
+  .nt-menu-btn { margin-top: -1px; }
+  .ph-body { padding: 0 3.75rem; }
+  .pl-body { padding-left: 3.75rem; }
 }
 
 //Very large screens
 @media screen and (min-width: 120em) {
-  .fheader-vl { font-size: 10rem; }
+  .fheader-vl { font-size: 9rem; }
   .new-banner { width: 40em; }
   .h-27-vl { height: 27em; }
   .f-solution { font-size: 1.5rem; }
@@ -894,7 +899,7 @@ video {
     &.current {
       @include foot-box;
       margin: 1rem;
-      color: $fluid-red;
+      color: $white;
     }
   }
 }
