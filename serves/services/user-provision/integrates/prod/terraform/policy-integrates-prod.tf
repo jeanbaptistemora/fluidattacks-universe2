@@ -318,7 +318,8 @@ data "aws_iam_policy_document" "integrates-prod-policy-data" {
       "wafv2:*",
     ]
     resources = [
-      "arn:aws:wafv2:${var.region}:${data.aws_caller_identity.current.account_id}:regional/webacl/integrates-*"
+      "arn:aws:wafv2:${var.region}:${data.aws_caller_identity.current.account_id}:regional/webacl/integrates-*",
+      "arn:aws:wafv2:${var.region}:${data.aws_caller_identity.current.account_id}:regional/managedruleset/*",
     ]
   }
 }
