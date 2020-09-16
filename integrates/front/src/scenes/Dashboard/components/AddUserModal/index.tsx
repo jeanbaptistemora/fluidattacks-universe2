@@ -13,6 +13,7 @@ import { Field } from "redux-form";
 
 import { Button } from "components/Button/index";
 import { Modal } from "components/Modal/index";
+import { default as style } from "scenes/Dashboard/components/AddUserModal/index.css";
 import { GET_USER } from "scenes/Dashboard/components/AddUserModal/queries";
 import { IAddStakeholderModalProps, IStakeholderDataAttr } from "scenes/Dashboard/components/AddUserModal/types";
 import { GenericForm } from "scenes/Dashboard/components/GenericForm";
@@ -23,7 +24,7 @@ import { msgError } from "utils/notifications";
 import { translate } from "utils/translations/translate";
 import { required, validEmail, validTextField } from "utils/validations";
 
-const requiredIndicator: JSX.Element = <label style={{ color: "#f22" }}>* </label>;
+const requiredIndicator: JSX.Element = <label className={style.lbl}>* </label>;
 const userLevelRoles: string[] = [
   "admin",
   "customer",

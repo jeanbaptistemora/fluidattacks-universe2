@@ -45,7 +45,7 @@ const renderReposFields: React.FC<WrappedFieldArrayProps> = (props: WrappedField
                   placement="top"
                 >
                   <label>
-                    <label style={{ color: "#f22" }}>* </label>
+                    <label className={style.lbl}>* </label>
                     {translate.t("search_findings.tab_resources.protocol.label")}
                   </label>
                 </TooltipWrapper>
@@ -61,7 +61,7 @@ const renderReposFields: React.FC<WrappedFieldArrayProps> = (props: WrappedField
                   placement="top"
                 >
                   <label>
-                    <label style={{ color: "#f22" }}>* </label>
+                    <label className={style.lbl}>* </label>
                     {translate.t("search_findings.tab_resources.repository.label")}
                   </label>
                 </TooltipWrapper>
@@ -81,7 +81,7 @@ const renderReposFields: React.FC<WrappedFieldArrayProps> = (props: WrappedField
                   placement="top"
                 >
                   <label>
-                    <label style={{ color: "#f22" }}>* </label>
+                    <label className={style.lbl}>* </label>
                     {translate.t("search_findings.tab_resources.branch.label")}
                   </label>
                 </TooltipWrapper>

@@ -9,6 +9,7 @@ import { IAddFilesModalProps } from "scenes/Dashboard/components/AddFilesModal/t
 import { Modal } from "components/Modal";
 import React from "react";
 import { renderUploadBar } from "scenes/Dashboard/components/AddFilesModal/renderUploadBar";
+import style from "scenes/Dashboard/components/AddFilesModal/index.css";
 import { translate } from "utils/translations/translate";
 import { ButtonToolbar, Col, Row } from "react-bootstrap";
 import { Field, InjectedFormProps, Validator } from "redux-form";
@@ -48,7 +49,7 @@ const addFilesModal: React.FC<IAddFilesModalProps> = (
               <Row>
                 <Col md={12}>
                   <label>
-                    <label style={{ color: "#f22" }}>{"*"} </label>
+                    <label className={style.lbl}>{"*"} </label>
                     {translate.t("validations.file_size", { count: 100 })}
                   </label>
                   <Field
@@ -60,7 +61,7 @@ const addFilesModal: React.FC<IAddFilesModalProps> = (
                 </Col>
                 <Col md={12}>
                   <label>
-                    <label style={{ color: "#f22" }}>{"*"} </label>
+                    <label className={style.lbl}>{"*"} </label>
                     {translate.t("search_findings.tab_resources.description")}
                   </label>
                   <Field

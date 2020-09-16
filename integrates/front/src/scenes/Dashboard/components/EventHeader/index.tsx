@@ -1,5 +1,6 @@
 import React from "react";
 import { Col, Label, Row } from "react-bootstrap";
+import { default as style } from "scenes/Dashboard/components/EventHeader/index.css";
 import { castEventStatus, castEventType } from "utils/formatHelpers";
 import { translate } from "utils/translations/translate";
 
@@ -26,7 +27,7 @@ const eventHeader: ((props: IEventHeaderProps) => JSX.Element) =
              <hr/>
           </Col>
         </Row>
-        <Row style={{marginBottom: "15px"}}>
+        <Row className={style.row}>
           <Col md={12} sm={12} xs={12}>
             <Row>
               <Col md={2} sm={6} xs={6} className="text-right">

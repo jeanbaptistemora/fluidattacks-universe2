@@ -152,7 +152,7 @@ export const navbarComponent: React.FC<RouteComponentProps> = (
             </NavItem>
             {userEmail.endsWith("fluidattacks.com") ? (
               <li role="presentation">
-                <Navbar.Form style={{ marginBottom: "4px", marginTop: "4px" }}>
+                <Navbar.Form className={style.navbarForm}>
                   <GenericForm name={"searchBar"} onSubmit={handleSearchSubmit}>
                     <InputGroup className={style.groupsInput}>
                       <Field

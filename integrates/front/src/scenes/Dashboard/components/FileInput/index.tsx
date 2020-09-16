@@ -56,7 +56,7 @@ export const fileInputComponent: React.FunctionComponent<IFileInputProps> =
               </Row>
               { !_.isUndefined(props.fileSize) ?
                 <Row>
-                  <label style={{ color: "#f22" }}>* </label>
+                  <label className={style.lbl}>* </label>
                   {translate.t("validations.file_size", { count: props.fileSize })}
                 </Row>
                 : undefined

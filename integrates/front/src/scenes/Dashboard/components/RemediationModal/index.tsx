@@ -11,6 +11,7 @@ import { ConfigurableValidator } from "revalidate";
 import { Button } from "components/Button";
 import { Modal } from "components/Modal";
 import { GenericForm } from "scenes/Dashboard/components/GenericForm";
+import { default as style } from "scenes/Dashboard/components/RemediationModal/index.css";
 import { default as globalStyle } from "styles/global.css";
 import { TextArea } from "utils/forms/fields";
 import { translate } from "utils/translations/translate";
@@ -44,7 +45,7 @@ const remediationModal: React.FC<IAddRemediationProps> = (props: IAddRemediation
               {props.children === undefined ? undefined : props.children()}
               <FormGroup>
                 <ControlLabel>
-                  <label style={{ color: "#f22" }}>* </label>
+                  <label className={style.lbl}>* </label>
                   {props.message}
                 </ControlLabel>
                 <Field

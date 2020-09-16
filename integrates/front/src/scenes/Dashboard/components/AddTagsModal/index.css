@@ -1,3 +1,7 @@
+:local .lbl {
+	color: #f22222;
+}
+
 :local .removeBtn {
 	margin-top: 40px;
 }

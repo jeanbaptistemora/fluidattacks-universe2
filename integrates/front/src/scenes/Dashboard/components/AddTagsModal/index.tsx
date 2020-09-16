@@ -35,7 +35,7 @@ const renderTagsFields: React.FC<WrappedFieldArrayProps> = (props: WrappedFieldA
         <Row key={index}>
           <Col md={10}>
             <label>
-              <label style={{ color: "#f22" }}>* </label>
+              <label className={style.lbl}>* </label>
               Tag
             </label>
             <Field name={fieldName} component={Text} type="text" validate={[required, validTag]} />

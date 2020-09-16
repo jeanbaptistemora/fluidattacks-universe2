@@ -85,6 +85,10 @@
     background-color: #8E1616;
 }
 
+:local .lbl {
+    color: #f22222;
+}
+
 @media screen and (max-width: 50em) {
   .inputfile_evidence + label > strong {
     display: block;
