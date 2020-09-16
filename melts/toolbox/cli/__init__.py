@@ -19,6 +19,7 @@ from .integrates import integrates_management
 from .sorts import sorts_management
 from .resources import resources_management
 from .forces import forces_management
+from .reports import reports_management
 
 
 def _valid_integrates_token(ctx, param, value):
@@ -39,6 +40,7 @@ entrypoint.add_command(utils.cli.utils_management)
 entrypoint.add_command(sorts_management)
 entrypoint.add_command(drills.cli.drills_management)
 entrypoint.add_command(misc_management)
+entrypoint.add_command(reports_management)
 
 
 def retry_debugging_on_failure(func):
