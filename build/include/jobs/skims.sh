@@ -1,6 +1,7 @@
 # shellcheck shell=bash
 
 declare -Arx SKIMS_GLOBAL_PKGS=(
+  [aws]=skims/aws
   [cli]=skims/cli
   [config]=skims/config
   [core]=skims/core
