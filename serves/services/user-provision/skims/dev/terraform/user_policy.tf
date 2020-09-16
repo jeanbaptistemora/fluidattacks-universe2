@@ -72,6 +72,18 @@ data "aws_iam_policy_document" "skims_dev_policy_data" {
     ]
   }
 
+  # S3 access to skims buckets
+  statement {
+    effect = "Allow"
+    actions = [
+      "s3:Get*",
+      "s3:ListBucket",
+    ]
+    resources = [
+      "arn:aws:s3:::skims.*"
+    ]
+  }
+
   # DynamoDB for locking terraform state
   statement {
     effect = "Allow"
