@@ -8,10 +8,11 @@
 
 = Proximiteam
 
-{canada} Proximiteam is a global provider of high-quality software development
-services. It is based in Toronto and has a strong network of development centers
-and global partners. Their teams of highly skilled software engineers and IT
+{canada} Proximiteam is a global provider
+of high-quality software development services.
+Their teams of highly skilled software engineers and IT
 specialists create innovative systems and apps for every industry.
-Other services include systems integration, data analysis, testing, and support.
-Also, they have defined efficient service delivery models that focus on value
-and productivity.
+Other services include systems integration,
+data analysis, testing, and support.
+Additionally, they have defined efficient service delivery models
+that focus on value and productivity.
