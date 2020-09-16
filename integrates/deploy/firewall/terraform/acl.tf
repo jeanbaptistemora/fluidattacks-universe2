@@ -123,6 +123,9 @@ resource "aws_wafv2_web_acl" "integrates_firewall" {
         excluded_rule {
           name = "RestrictedExtensions_QUERYARGUMENTS"
         }
+        excluded_rule {
+          name = "CrossSiteScripting_BODY"
+        }
       }
     }
     visibility_config {
