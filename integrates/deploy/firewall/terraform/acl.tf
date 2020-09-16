@@ -1,91 +1,116 @@
-module "web_acl" {
-  source                 = "umotif-public/waf-webaclv2/aws"
-  version                = "~> 1.4.0"
-  name_prefix            = "integrates-firewall"
-  allow_default_action   = true
-  create_alb_association = false
+resource "aws_wafv2_web_acl" "integrates_firewall" {
+  name        = var.name
+  description = "Firewall for Integrates ephemeral and production environments"
+  scope       = "REGIONAL"
 
-  visibility_config = {
+  default_action {
+    allow {}
+  }
+
+  visibility_config {
     cloudwatch_metrics_enabled = true
-    metric_name                = "integrates-firewall-main-metrics"
+    metric_name                = "${var.name}-main-metrics"
     sampled_requests_enabled   = true
   }
 
-  rules = [
-    {
-      name     = "AWSManagedRulesAmazonIpReputationList"
-      priority = "1"
-
-      visibility_config = {
-        cloudwatch_metrics_enabled = true
-        metric_name                = "AWSManagedRulesAmazonIpReputationList-metric"
-        sampled_requests_enabled   = true
-      }
-
-      managed_rule_group_statement = {
+  rule {
+    name     = "AWSManagedRulesAmazonIpReputationList"
+    priority = 1
+    override_action {
+      none {}
+    }
+    statement {
+      managed_rule_group_statement {
         name        = "AWSManagedRulesAmazonIpReputationList"
         vendor_name = "AWS"
       }
-    },
-    {
-      name     = "AWSManagedRulesUnixRuleSet"
-      priority = "2"
+    }
+    visibility_config {
+      cloudwatch_metrics_enabled = true
+      metric_name                = "${var.name}-AWSManagedRulesAmazonIpReputationList-metrics"
+      sampled_requests_enabled   = true
+    }
+  }
 
-      visibility_config = {
-        cloudwatch_metrics_enabled = true
-        metric_name                = "AWSManagedRulesUnixRuleSet-metric"
-        sampled_requests_enabled   = true
-      }
-
-      managed_rule_group_statement = {
+  rule {
+    name     = "AWSManagedRulesUnixRuleSet"
+    priority = 2
+    override_action {
+      none {}
+    }
+    statement {
+      managed_rule_group_statement {
         name        = "AWSManagedRulesUnixRuleSet"
         vendor_name = "AWS"
       }
-    },
-    {
-      name     = "AWSManagedRulesKnownBadInputsRuleSet"
-      priority = "3"
+    }
+    visibility_config {
+      cloudwatch_metrics_enabled = true
+      metric_name                = "${var.name}-AWSManagedRulesUnixRuleSet-metrics"
+      sampled_requests_enabled   = true
+    }
+  }
 
-      visibility_config = {
-        cloudwatch_metrics_enabled = true
-        metric_name                = "AWSManagedRulesKnownBadInputsRuleSet-metric"
-        sampled_requests_enabled   = true
-      }
-
-      managed_rule_group_statement = {
+  rule {
+    name     = "AWSManagedRulesKnownBadInputsRuleSet"
+    priority = 3
+    override_action {
+      none {}
+    }
+    statement {
+      managed_rule_group_statement {
         name        = "AWSManagedRulesKnownBadInputsRuleSet"
         vendor_name = "AWS"
       }
-    },
-    {
-      name     = "AWSManagedRulesLinuxRuleSet"
-      priority = "4"
+    }
+    visibility_config {
+      cloudwatch_metrics_enabled = true
+      metric_name                = "${var.name}-AWSManagedRulesKnownBadInputsRuleSet-metrics"
+      sampled_requests_enabled   = true
+    }
+  }
 
-      visibility_config = {
-        cloudwatch_metrics_enabled = true
-        metric_name                = "AWSManagedRulesLinuxRuleSet-metric"
-        sampled_requests_enabled   = true
-      }
-
-      managed_rule_group_statement = {
+  rule {
+    name     = "AWSManagedRulesLinuxRuleSet"
+    priority = 4
+    override_action {
+      none {}
+    }
+    statement {
+      managed_rule_group_statement {
         name        = "AWSManagedRulesLinuxRuleSet"
         vendor_name = "AWS"
       }
-    },
-    {
-      name     = "AWSManagedRulesCommonRuleSet"
-      priority = "5"
+    }
+    visibility_config {
+      cloudwatch_metrics_enabled = true
+      metric_name                = "${var.name}-AWSManagedRulesLinuxRuleSet-metrics"
+      sampled_requests_enabled   = true
+    }
+  }
 
-      visibility_config = {
-        cloudwatch_metrics_enabled = true
-        metric_name                = "AWSManagedRulesCommonRuleSet-metric"
-        sampled_requests_enabled   = true
-      }
-
-      managed_rule_group_statement = {
+  rule {
+    name     = "AWSManagedRulesCommonRuleSet"
+    priority = 5
+    override_action {
+      none {}
+    }
+    statement {
+      managed_rule_group_statement {
         name        = "AWSManagedRulesCommonRuleSet"
         vendor_name = "AWS"
+        excluded_rule {
+          name = "NoUserAgent_HEADER"
+        }
+        excluded_rule {
+          name = "SizeRestrictions_BODY"
+        }
       }
-    },
-  ]
+    }
+    visibility_config {
+      cloudwatch_metrics_enabled = true
+      metric_name                = "${var.name}-AWSManagedRulesCommonRuleSet-metrics"
+      sampled_requests_enabled   = true
+    }
+  }
 }
