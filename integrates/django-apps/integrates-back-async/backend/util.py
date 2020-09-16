@@ -9,6 +9,7 @@ import functools
 import logging
 import re
 import secrets
+import json
 from typing import (
     Any,
     cast,
@@ -26,11 +27,14 @@ from aioextensions import (
     schedule,
 )
 from asgiref.sync import async_to_sync
+from jwcrypto.jwe import JWE
+from jwcrypto.jwk import JWK
 from cryptography.exceptions import InvalidKey
 from cryptography.hazmat.backends import default_backend
 from cryptography.hazmat.primitives.kdf.scrypt import Scrypt
 from django.conf import settings
 from django.core.cache import cache
+from django.core.serializers.json import DjangoJSONEncoder
 from django.core.files.uploadedfile import (
     InMemoryUploadedFile,
     TemporaryUploadedFile,
@@ -74,7 +78,8 @@ from __init__ import (
     FI_TEST_PROJECTS,
     FORCES_TRIGGER_URL,
     FORCES_TRIGGER_REF,
-    FORCES_TRIGGER_TOKEN
+    FORCES_TRIGGER_TOKEN,
+    FI_JWT_ENCRYPTION_KEY
 )
 
 logging.config.dictConfig(LOGGING)
@@ -206,6 +211,39 @@ async def cloudwatch_log_async(request, msg: str) -> None:
     info.append(msg)
     schedule(
         in_thread(LOGGER_TRANSACTIONAL.info, ':'.join(info), **NOEXTRA))
+
+
+def encrypt_jwt_payload(payload: dict) -> dict:
+    serialized_payload = json.dumps(
+        payload,
+        cls=DjangoJSONEncoder
+    )
+    key = JWK.from_json(FI_JWT_ENCRYPTION_KEY)
+    claims = JWE(
+        algs=[
+            'A256GCM',
+            'A256GCMKW',
+        ],
+        plaintext=serialized_payload.encode('utf-8'),
+        protected={
+            'alg': 'A256GCMKW',
+            'enc': 'A256GCM',
+        },
+        recipient=key,
+    ).serialize()
+    return json.loads(claims)
+
+
+def decrypt_jwt_payload(payload: dict) -> dict:
+    serialized_payload = json.dumps(
+        payload,
+        cls=DjangoJSONEncoder
+    )
+    key = JWK.from_json(FI_JWT_ENCRYPTION_KEY)
+    result = JWE()
+    result.deserialize(serialized_payload.encode('utf-8'))
+    result.decrypt(key)
+    return json.loads(result.payload)
 
 
 async def get_jwt_content(context) -> Dict[str, str]:
