@@ -7,6 +7,8 @@ function helper_skims_process_group {
   export GITLAB_API_TOKEN
   export GITLAB_API_USER
   export INTEGRATES_API_TOKEN
+  export SERVICES_PROD_AWS_ACCESS_KEY_ID
+  export SERVICES_PROD_AWS_SECRET_ACCESS_KEY
   export SKIMS_PROD_AWS_ACCESS_KEY_ID
   export SKIMS_PROD_AWS_SECRET_ACCESS_KEY
 
@@ -24,7 +26,7 @@ function helper_skims_process_group {
   } \
   &&  echo '[INFO] Running skims:' \
   &&  _get_group_config_as_json "${group}" \
-        | helper_json_to_yaml \
+        | helper_common_json_to_yaml \
         | tee "${TEMP_FILE1}" \
   &&  if "${product}/bin/skims" --group "${group}" "${TEMP_FILE1}"
       then
@@ -38,14 +40,15 @@ function helper_skims_process_group {
 }
 
 function _pull_repos {
+  export SERVICES_PROD_AWS_ACCESS_KEY_ID
+  export SERVICES_PROD_AWS_SECRET_ACCESS_KEY
   local group="${1}"
 
   CI='true' \
   CI_COMMIT_REF_NAME='master' \
-  PROD_AWS_ACCESS_KEY_ID="${AWS_ACCESS_KEY_ID}" \
-  PROD_AWS_SECRET_ACCESS_KEY="${AWS_SECRET_ACCESS_KEY}" \
-  "${product}/bin/melts" drills --pull-repos "${group}" \
-
+  PROD_AWS_ACCESS_KEY_ID="${SERVICES_PROD_AWS_ACCESS_KEY_ID}" \
+  PROD_AWS_SECRET_ACCESS_KEY="${SERVICES_PROD_AWS_SECRET_ACCESS_KEY}" \
+  "${product}/bin/melts" drills --pull-repos "${group}"
 }
 
 function _get_group_config_as_json {

@@ -69,6 +69,8 @@ function job_skims_queue_group_processing {
           {name: "GITLAB_API_TOKEN", value: env.GITLAB_API_TOKEN},
           {name: "GITLAB_API_USER", value: env.GITLAB_API_USER},
           {name: "INTEGRATES_API_TOKEN", value: env.INTEGRATES_API_TOKEN},
+          {name: "SERVICES_PROD_AWS_ACCESS_KEY_ID", value: env.SERVICES_PROD_AWS_ACCESS_KEY_ID},
+          {name: "SERVICES_PROD_AWS_SECRET_ACCESS_KEY", value: env.SERVICES_PROD_AWS_SECRET_ACCESS_KEY},
           {name: "SKIMS_PROD_AWS_ACCESS_KEY_ID", value: env.SKIMS_PROD_AWS_ACCESS_KEY_ID},
           {name: "SKIMS_PROD_AWS_SECRET_ACCESS_KEY", value: env.SKIMS_PROD_AWS_SECRET_ACCESS_KEY}
         ],
