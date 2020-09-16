@@ -42,6 +42,9 @@ resource "aws_wafv2_web_acl" "integrates_firewall" {
       managed_rule_group_statement {
         name        = "AWSManagedRulesUnixRuleSet"
         vendor_name = "AWS"
+        excluded_rule {
+          name = "UNIXShellCommandsVariables_BODY"
+        }
       }
     }
     visibility_config {
@@ -107,6 +110,12 @@ resource "aws_wafv2_web_acl" "integrates_firewall" {
         }
         excluded_rule {
           name = "GenericRFI_QUERYARGUMENTS"
+        }
+        excluded_rule {
+          name = "UserAgent_BadBots_HEADER"
+        }
+        excluded_rule {
+          name = "GenericRFI_BODY"
         }
       }
     }
