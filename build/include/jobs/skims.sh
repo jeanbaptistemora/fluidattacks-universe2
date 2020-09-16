@@ -66,6 +66,8 @@ function job_skims_queue_group_processing {
       '{
         command: ["./build.sh", "skims_process_group", env.group],
         environment: [
+          {name: "CI_REGISTRY_PASSWORD", value: env.GITLAB_API_TOKEN},
+          {name: "CI_REGISTRY_USER", value: env.GITLAB_API_USER},
           {name: "GITLAB_API_TOKEN", value: env.GITLAB_API_TOKEN},
           {name: "GITLAB_API_USER", value: env.GITLAB_API_USER},
           {name: "INTEGRATES_API_TOKEN", value: env.INTEGRATES_API_TOKEN},
@@ -74,8 +76,8 @@ function job_skims_queue_group_processing {
           {name: "SKIMS_PROD_AWS_ACCESS_KEY_ID", value: env.SKIMS_PROD_AWS_ACCESS_KEY_ID},
           {name: "SKIMS_PROD_AWS_SECRET_ACCESS_KEY", value: env.SKIMS_PROD_AWS_SECRET_ACCESS_KEY}
         ],
-        memory: 1024,
-        vcpus: 1
+        memory: 7300,
+        vcpus: 2
       }') \
   &&  echo "[INFO] Job definition: ${definition}" \
   &&  helper_skims_aws_login prod \
@@ -84,7 +86,7 @@ function job_skims_queue_group_processing {
         --job-name "${group}" \
         --job-queue 'skims' \
         --job-definition 'skims' \
-        --timeout 'attemptDurationSeconds=3600' \
+        --timeout 'attemptDurationSeconds=18000' \
 
 }
 

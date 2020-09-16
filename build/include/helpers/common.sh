@@ -49,7 +49,10 @@ function helper_use_pristine_workdir {
   &&  echo '[INFO] Entering the workdir' \
   &&  pushd "${WORKDIR}" \
   &&  echo '[INFO] Running: git clean -xdf' \
+  &&  rm -rf ./* \
   &&  git clean -xdf \
+  &&  git clean -Xdf \
+  &&  git reset --hard HEAD \
   &&  trap 'helper_teardown_workdir' 'EXIT' \
   ||  return 1
 }

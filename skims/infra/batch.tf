@@ -78,11 +78,15 @@ resource "aws_batch_compute_environment" "skims" {
   depends_on   = [aws_iam_role_policy_attachment.skims_aws_batch_service_role]
 
   compute_resources {
+    allocation_strategy = "SPOT_CAPACITY_OPTIMIZED"
     instance_role = aws_iam_instance_profile.skims_ecs_instance_role.arn
     instance_type = [
       "optimal",
     ]
-    max_vcpus = 2
+    # If a job requires `x` vcpus then at most `max_vcpus / x` jobs would run simultaneosly.
+    # This parameter should be tuned so the vcpus and memory per job coincides
+    #   with the launched instance
+    max_vcpus = 16
     min_vcpus = 0
     security_group_ids = [
       aws_security_group.skims_aws_batch_compute_environment_security_group.id,
@@ -90,7 +94,10 @@ resource "aws_batch_compute_environment" "skims" {
     subnets = [
       aws_subnet.skims_batch_subnet.id,
     ]
-    type = "EC2"
+    tags = {
+      Product = "Skims"
+    }
+    type = "SPOT"
   }
 }
 
@@ -101,7 +108,6 @@ resource "aws_batch_job_queue" "skims" {
   compute_environments = [
     aws_batch_compute_environment.skims.arn,
   ]
-  depends_on = [aws_batch_compute_environment.skims]
 }
 
 resource "aws_batch_job_definition" "skims" {
