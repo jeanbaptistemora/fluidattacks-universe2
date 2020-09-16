@@ -34,7 +34,7 @@ data "aws_iam_policy_document" "dev-policy-data" {
       "s3:Put*"
     ]
     resources = [
-      "arn:aws:s3:::continuous-repositoriest/continuoustest/*",
+      "arn:aws:s3:::continuous-repositoriest/continuoustest*/*",
     ]
   }
 
