@@ -87,6 +87,15 @@ function helper_use_services {
   fi
 }
 
+function helper_list_services_groups {
+  local store="${1}"
+
+      helper_use_services \
+    &&  ls -1 groups/ > "${store}" \
+  &&  popd \
+  ||  return 1
+}
+
 function helper_get_projects {
   export PROJECTS=(
     'autonomicmind/default'

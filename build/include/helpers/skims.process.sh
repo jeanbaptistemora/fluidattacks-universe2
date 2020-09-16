@@ -3,7 +3,7 @@
 function helper_skims_process_group {
   local success
 
-  # Make sure these exports are declared in `skims_queue_group_processing`
+  # Make sure these exports are declared in `skims_process_group_on_aws`
   export GITLAB_API_TOKEN
   export GITLAB_API_USER
   export INTEGRATES_API_TOKEN

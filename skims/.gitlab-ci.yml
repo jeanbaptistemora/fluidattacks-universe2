@@ -66,6 +66,15 @@ skims_lint:
   <<: *skims_in_dev_and_master_branch
   stage: lint-code
 
+skims_process_all_groups_on_aws:
+  <<: *with_nix
+  interruptible: false
+  only:
+    refs: [schedules]
+    variables: [$skims_process_all_groups_on_aws]
+  stage: scheduler
+  tags: [autoscaling]
+
 skims_security:
   <<: *with_nix
   <<: *skims_in_dev_and_master_branch

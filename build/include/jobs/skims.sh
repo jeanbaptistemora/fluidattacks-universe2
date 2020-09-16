@@ -52,7 +52,7 @@ function job_skims_process_group {
   fi
 }
 
-function job_skims_queue_group_processing {
+function job_skims_process_group_on_aws {
   local definition
   export group="${1}"
 
@@ -79,7 +79,6 @@ function job_skims_queue_group_processing {
         memory: 7300,
         vcpus: 2
       }') \
-  &&  echo "[INFO] Job definition: ${definition}" \
   &&  helper_skims_aws_login prod \
   &&  aws batch submit-job \
         --container-overrides "${definition}" \
@@ -88,6 +87,22 @@ function job_skims_queue_group_processing {
         --job-definition 'skims' \
         --timeout 'attemptDurationSeconds=18000' \
 
+}
+
+function job_skims_process_all_groups_on_aws {
+  local groups_file="${TEMP_FILE1}"
+  local groups_count
+
+      echo '[INFO] Computing groups list' \
+  &&  helper_list_services_groups "${groups_file}" \
+  &&  groups_count=$(wc -l < "${groups_file}") \
+  &&  echo "[INFO] ${groups_count} groups found" \
+  &&  while read -r group
+      do
+            echo "[INFO] Submitting: ${group}" \
+        &&  job_skims_process_group_on_aws "${group}" \
+        ||  return 1
+      done < "${groups_file}"
 }
 
 function job_skims_deploy_infra {
