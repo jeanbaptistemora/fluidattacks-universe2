@@ -15,19 +15,17 @@ function helper_skims_process_group {
       helper_use_services \
   &&  helper_skims_aws_login prod \
   &&  echo '[INFO] Cloning repositories' \
-  &&  {
-        _pull_repos "${group}" \
-    &&  if ! test -e "groups/${group}/fusion"
-        then
-              echo '[WARNING] No repositories to test' \
-          &&  return 0
-        fi \
-    ||  true;
-  } \
+  &&  { helper_skims_pull_repositories "${group}" ||  true; } \
+  &&  if ! test -e "groups/${group}/fusion"
+      then
+            echo '[WARNING] No repositories to test' \
+        &&  return 0
+      fi \
   &&  echo '[INFO] Running skims:' \
-  &&  _get_group_config_as_json "${group}" \
+  &&  helper_skims_get_group_config_as_json "${group}" \
         | helper_common_json_to_yaml \
         | tee "${TEMP_FILE1}" \
+  &&  helper_skims_pull_cache "${group}" \
   &&  if "${product}/bin/skims" --group "${group}" "${TEMP_FILE1}"
       then
             echo "[INFO] Succesfully processed: ${group}" \
@@ -36,10 +34,21 @@ function helper_skims_process_group {
             echo "[ERROR] While running skims on: ${group}" \
         &&  success='false'
       fi \
+  &&  helper_skims_push_cache "${group}" \
   &&  test "${success}" = 'true'
 }
 
-function _pull_repos {
+function helper_skims_pull_cache {
+  local group="${1}"
+  local source="s3://skims.data/cache/${group}"
+  local target="${HOME}/.skims"
+
+      echo "[INFO] Moving skims state from ${source} to ${target}" \
+  &&  mkdir -p "${target}" \
+  &&  aws s3 sync --delete --quiet "${source}" "${target}"
+}
+
+function helper_skims_pull_repositories {
   export SERVICES_PROD_AWS_ACCESS_KEY_ID
   export SERVICES_PROD_AWS_SECRET_ACCESS_KEY
   local group="${1}"
@@ -51,7 +60,17 @@ function _pull_repos {
   "${product}/bin/melts" drills --pull-repos "${group}"
 }
 
-function _get_group_config_as_json {
+function helper_skims_push_cache {
+  local group="${1}"
+  local target="s3://skims.data/cache/${group}"
+  local source="${HOME}/.skims"
+
+      echo "[INFO] Moving skims state from ${source} to ${target}" \
+  &&  aws s3 sync --delete --quiet "${source}" "${target}" \
+  &&  rm -rf "${source}"
+}
+
+function helper_skims_get_group_config_as_json {
   local group="${1}"
 
   jq -e -n -r \
