@@ -3,6 +3,16 @@
     {
       "PutRequest": {
         "Item": {
+          "level": {"S": "user"},
+          "subject": {"S": "integratescustomer@gmail.com"},
+          "object": {"S": "self"},
+          "role": {"S": "customer"}
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
           "level": {"S": "group"},
           "subject": {"S": "integratescustomer@gmail.com"},
           "object": {"S": "unittesting"},
