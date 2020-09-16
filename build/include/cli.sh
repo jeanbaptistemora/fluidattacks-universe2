@@ -46,7 +46,7 @@ function cli {
     echo "Use: ./build.sh [job-name]"
     echo
     echo 'List of jobs:'
-    helper_list_declared_jobs | sed -e 's/^/  * /g'
+    helper_list_declared_jobs "${arguments_1}" | sed -e 's/^/  * /g'
     return 0
   fi
 

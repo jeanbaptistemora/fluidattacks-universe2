@@ -248,7 +248,14 @@ function helper_is_today_first_day_of_month {
 }
 
 function helper_list_declared_jobs {
-  declare -F | sed 's/declare -f //' | grep -P '^job_[a-z_]+' | sed 's/job_//' | sort
+  local product="${1:-}"
+
+  declare -F \
+    | sed 's/declare -f //' \
+    | grep -P '^job_[a-z_]+' \
+    | grep -P "${product}" \
+    | sed 's/job_//' \
+    | sort
 }
 
 function helper_list_vars_with_regex {
