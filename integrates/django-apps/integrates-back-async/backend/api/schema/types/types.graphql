@@ -97,16 +97,7 @@ type Resource {
     files: JSONString
 }
 
-"User/Stakeholder type definition"
-type User {
-    email: String
-    role: String
-    responsibility: String
-    phoneNumber: String
-    firstLogin: String
-    lastLogin: String
-    projects: [Project]
-}
+"Stakeholder type definition"
 type Stakeholder {
     email: String
     role: String
