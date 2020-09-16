@@ -7,8 +7,9 @@
 import { QueryResult } from "@apollo/react-common";
 import { Query } from "@apollo/react-components";
 import _ from "lodash";
-import React, { ReactElement } from "react";
-import { ButtonToolbar, Col, Row } from "react-bootstrap";
+import React from "react";
+import { ButtonToolbar } from "react-bootstrap";
+import { dateFilter, selectFilter } from "react-bootstrap-table2-filter";
 import { RouteComponentProps } from "react-router";
 
 // Local imports
@@ -20,9 +21,7 @@ import { DataTableNext } from "components/DataTableNext";
 import { statusFormatter } from "components/DataTableNext/formatters";
 import { IHeaderConfig } from "components/DataTableNext/types";
 import { Modal } from "components/Modal";
-import { selectFilter } from "react-bootstrap-table2-filter";
 import { Execution } from "scenes/Dashboard/containers/ProjectForcesView/execution";
-import styles from "scenes/Dashboard/containers/ProjectForcesView/index.css";
 import { GET_FORCES_EXECUTIONS } from "scenes/Dashboard/containers/ProjectForcesView/queries";
 import { useStoredState } from "utils/hooks";
 import { Logger } from "utils/logger";
@@ -122,6 +121,10 @@ const projectForcesView: React.FunctionComponent<ForcesViewProps> = (props: Forc
     { value: "Vulnerable", label: "Vulnerable" },
     { value: "Secure", label: "Secure" },
   ];
+  const selectOptionsStrictness: optionSelectFilterProps[] = [
+    { value: "Tolerant", label: "Tolerant" },
+    { value: "Strict", label: "Strict" },
+  ];
 
   const [isFilterEnabled, setFilterEnabled] = useStoredState<boolean>("forcesExecutionFilters", false);
 
@@ -137,6 +140,9 @@ const projectForcesView: React.FunctionComponent<ForcesViewProps> = (props: Forc
   };
   const onFilterStatus: ((filterVal: string) => void) = (filterVal: string): void => {
     sessionStorage.setItem("statusForcesFilter", filterVal);
+  };
+  const onStrictnessStatus: ((filterVal: string) => void) = (filterVal: string): void => {
+    sessionStorage.setItem("strictnessForcesFilter", filterVal);
   };
   const onSortState: ((dataField: string, order: SortOrder) => void) = (
     dataField: string, order: SortOrder,
@@ -171,8 +177,8 @@ const projectForcesView: React.FunctionComponent<ForcesViewProps> = (props: Forc
 
   const headersExecutionTable: IHeaderConfig[] = [
     {
-      align: "center", dataField: "date", header: translate.t("group.forces.date"),
-      onSort: onSortState,
+      align: "center", dataField: "date", filter: dateFilter(),
+      header: translate.t("group.forces.date"), onSort: onSortState,
     },
     {
       align: "center", dataField: "status", filter: selectFilter({
@@ -189,7 +195,12 @@ const projectForcesView: React.FunctionComponent<ForcesViewProps> = (props: Forc
       onSort: onSortState, wrapped: true,
     },
     {
-      align: "center", dataField: "strictness", header: translate.t("group.forces.strictness.title"),
+      align: "center", dataField: "strictness", filter: selectFilter({
+        defaultValue: _.get(sessionStorage, "strictnessForcesFilter"),
+        onFilter: onStrictnessStatus,
+        options: selectOptionsStrictness,
+      }),
+      header: translate.t("group.forces.strictness.title"),
       onSort: onSortState, wrapped: true,
     },
     {
