@@ -4,6 +4,9 @@ from typing import (
 )
 
 # Third party libraries
+from aioextensions import (
+    in_process,
+)
 from cfn_tools.yaml_loader import (
     CfnYamlLoader,
     construct_mapping,
@@ -117,6 +120,16 @@ def load_as_json(content: str) -> Any:
         last_l=1,
         obj=blocking_loads(content, default={}),
     )
+
+
+async def load(content: str, fmt: str) -> Any:
+    if fmt in {'yml', 'yaml'}:
+        return await in_process(load_as_yaml, content)
+
+    if fmt in {'json'}:
+        return await in_process(load_as_json, content)
+
+    return {}
 
 
 Loader.add_constructor(TAG_MAP, overloaded_construct_mapping)

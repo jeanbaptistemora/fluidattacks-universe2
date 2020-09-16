@@ -239,6 +239,14 @@ async def test_correct_assert(
             ('test/data/lib_path/f011/package.json (lodash v0.*) [CVE-2020-8203]', '6'),
             ('test/data/lib_path/f011/package.json (lodash v0.*) [github.com/lodash/lodash/issues/4874]', '6'),
         )),
+        ('F031_AWS', 'SUBMITTED', (
+            ('test/data/lib_path/f031_aws/full.yaml', '12'),
+            ('test/data/lib_path/f031_aws/full.yaml', '16'),
+            ('test/data/lib_path/f031_aws/full.yaml', '20'),
+            ('test/data/lib_path/f031_aws/full.yaml.json', '14'),
+            ('test/data/lib_path/f031_aws/full.yaml.json', '19'),
+            ('test/data/lib_path/f031_aws/full.yaml.json', '24'),
+        )),
         ('F031_CWE378', 'APPROVED', (
             ('test/data/lib_path/f031_cwe378/Test.java', '6'),
         )),
@@ -338,6 +346,7 @@ async def test_correct_nothing_to_do_assert(
         ('F001_JPA', 'SUBMITTED', ()),
         ('F009', 'APPROVED', ()),
         ('F011', 'APPROVED', ()),
+        ('F031_AWS', 'SUBMITTED', ()),
         ('F031_CWE378', 'APPROVED', ()),
         ('F052', 'APPROVED', ()),
         ('F060', 'APPROVED', ()),

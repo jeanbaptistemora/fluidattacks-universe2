@@ -1,0 +1,132 @@
+# Standard library
+from typing import (
+    Any,
+    Awaitable,
+    Callable,
+    Dict,
+    Iterator,
+    List,
+    Tuple,
+)
+
+# Third party libraries
+from aioextensions import (
+    resolve,
+    in_process,
+)
+
+# Local libraries
+from aws.iam.structure import (
+    is_action_permissive,
+    is_resource_permissive,
+)
+from lib_path.common import (
+    EXTENSIONS_CLOUDFORMATION,
+    SHIELD,
+)
+from parse_cfn.loader import (
+    load as load_cfn,
+)
+from parse_cfn.structure import (
+    iterate_iam_policy_documents,
+)
+from state.cache import (
+    cache_decorator,
+)
+from state.ephemeral import (
+    EphemeralStore,
+)
+from utils.model import (
+    FindingEnum,
+    SkimsVulnerabilityMetadata,
+    Vulnerability,
+    VulnerabilityKindEnum,
+    VulnerabilityStateEnum,
+)
+from utils.string import (
+    blocking_to_snippet,
+)
+from zone import (
+    t,
+)
+
+
+def _cfn_negative_statement(
+    content: str,
+    path: str,
+    template: Any,
+) -> Tuple[Vulnerability, ...]:
+
+    def _iterate_vulnerabilities() -> Iterator[Dict[str, Any]]:
+        for stmt in iterate_iam_policy_documents(template):
+            if stmt.get('Effect') != 'Allow':
+                continue
+
+            if 'NotAction' in stmt:
+                if not any(map(is_action_permissive, stmt['NotAction'])):
+                    yield stmt
+
+            if 'NotResource' in stmt:
+                if not any(map(is_resource_permissive, stmt['NotResource'])):
+                    yield stmt
+
+    return tuple(
+        Vulnerability(
+            finding=FindingEnum.F031_AWS,
+            kind=VulnerabilityKindEnum.LINES,
+            state=VulnerabilityStateEnum.OPEN,
+            what=path,
+            where=f'{line_no}',
+            skims_metadata=SkimsVulnerabilityMetadata(
+                description=t(
+                    key='src.lib_path.f031_aws.cfn_negative_statement',
+                    path=path,
+                ),
+                snippet=blocking_to_snippet(
+                    column=column_no,
+                    content=content,
+                    line=line_no,
+                )
+            )
+        )
+        for stmt in _iterate_vulnerabilities()
+        for column_no in [stmt['__column__']]
+        for line_no in [stmt['__line__']]
+    )
+
+
+@cache_decorator()
+@SHIELD
+async def cfn_negative_statement(
+    content: str,
+    path: str,
+    template: Any,
+) -> Tuple[Vulnerability, ...]:
+    return await in_process(
+        _cfn_negative_statement,
+        content=content,
+        path=path,
+        template=template,
+    )
+
+
+async def analyze(
+    content_generator: Callable[[], Awaitable[str]],
+    file_extension: str,
+    path: str,
+    store: EphemeralStore,
+) -> None:
+    coroutines: List[Awaitable[Tuple[Vulnerability, ...]]] = []
+
+    if file_extension in EXTENSIONS_CLOUDFORMATION:
+        content = await content_generator()
+        template = await load_cfn(content=content, fmt=file_extension)
+        coroutines.append(cfn_negative_statement(
+            content=content,
+            path=path,
+            template=template,
+        ))
+
+    for results in resolve(coroutines, worker_greediness=1):
+        for result in await results:
+            await store.store(result)

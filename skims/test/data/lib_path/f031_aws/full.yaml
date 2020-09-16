@@ -1,0 +1,23 @@
+---
+Resources:
+
+  AWS_IAM_ManagedPolicy_1:
+    Type: AWS::IAM::ManagedPolicy
+    Properties:
+      PolicyDocument:
+        Statement:
+          - Effect: Allow
+            NotAction: "*"
+            NotResource: "*"
+
+          - Effect: Allow
+            NotAction: "*"
+            NotResource: "something"
+
+          - Effect: Allow
+            NotAction: s3:ListBucket
+            NotResource: "*"
+
+          - Effect: Allow
+            NotAction: s3:ListBucket
+            NotResource: "something"

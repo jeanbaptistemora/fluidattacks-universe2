@@ -11,6 +11,9 @@ def iterate_resources(
     template: Any,
     *expected_resource_kinds: str,
 ) -> Iterator[Tuple[str, str, Dict[str, Any]]]:
+    if not isinstance(template, dict):
+        return
+
     template_resources = template.get('Resources', {})
 
     for resource_name, resource_config in template_resources.items():

@@ -28,6 +28,7 @@ from lib_path import (
     f001_jpa,
     f009,
     f011,
+    f031_aws,
     f031_cwe378,
     f052,
     f060,
@@ -91,6 +92,12 @@ async def analyze_one_path(
             file_name=file_name,
             path=path,
             store=stores[FindingEnum.F011],
+        ),
+        f031_aws.analyze(
+            content_generator=file_content_generator,
+            file_extension=file_extension,
+            path=path,
+            store=stores[FindingEnum.F031_AWS],
         ),
         f031_cwe378.analyze(
             content_generator=file_content_generator,
