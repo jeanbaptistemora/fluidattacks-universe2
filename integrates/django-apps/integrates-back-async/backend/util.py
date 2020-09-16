@@ -58,7 +58,8 @@ from backend.dal import session as session_dal
 from backend.exceptions import (
     ConcurrentSession,
     ExpiredToken,
-    InvalidAuthorization
+    InvalidAuthorization,
+    InvalidFileType
 )
 from backend.typing import (
     Finding as FindingType,
@@ -144,7 +145,7 @@ def assert_uploaded_file_mime(
     elif isinstance(file_instance, InMemoryUploadedFile):
         mime_type = mime.from_buffer(file_instance.file.getvalue())
     else:
-        raise Exception(
+        raise InvalidFileType(
             'Provided file is not a valid django upload file. '
             'Use util.assert_file_mime instead.'
         )
