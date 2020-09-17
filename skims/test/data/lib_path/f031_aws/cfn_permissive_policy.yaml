@@ -1,0 +1,24 @@
+Resources:
+  AWS_IAM_Role_1:
+    Type: AWS::IAM::Role
+    Properties:
+      Policies:
+        - PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Action:
+                  - ec2:*
+                  - autoscaling:*
+                  - eks:*
+                Resource: '*'
+                Effect: Allow
+              - Action:
+                  - ec2:Something
+                Resource: '*'
+                Effect: Allow
+              - Action: '*'
+                Resource: arn:::ec2/specific
+                Effect: Allow
+              - Action: ec2:Something
+                Resource: arn:::ec2/specific
+                Effect: Allow

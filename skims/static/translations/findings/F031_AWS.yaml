@@ -1,3 +1,6 @@
+src.lib_path.f031_aws.cfn_permissive_policy:
+  en: Excessive privileges in {path}
+  es: Privilegios excesivos in {path}
 src.lib_path.f031_aws.cfn_negative_statement:
   en: Excessive privileges in {path}, avoid the use of negative statements
   es: Privilegios excesivos en {path}, evitar el uso de políticas negativas

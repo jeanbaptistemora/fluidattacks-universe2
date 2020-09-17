@@ -48,7 +48,12 @@ def iterate_iam_policy_documents(template: Any) -> Iterator[Dict[str, Any]]:
 
 
 def _patch_statement(stmt: Any) -> Iterator[Any]:
+    # https://docs.aws.amazon.com/IAM/latest/UserGuide
+    #   /reference_policies_elements_effect.html
+
     if isinstance(stmt, dict):
+        stmt.setdefault('Effect', 'Deny')
+
         for key in {'Action', 'NotAction', 'NotResource', 'Resource'}:
             if key in stmt:
                 if not isinstance(stmt[key], list):

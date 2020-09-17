@@ -58,7 +58,7 @@ def _cfn_negative_statement(
 ) -> Tuple[Vulnerability, ...]:
     def _iterate_vulnerabilities() -> Iterator[Dict[str, Any]]:
         for stmt in iterate_iam_policy_documents(template):
-            if stmt.get('Effect') != 'Allow':
+            if stmt['Effect'] != 'Allow':
                 continue
 
             if 'NotAction' in stmt:
@@ -101,8 +101,68 @@ async def cfn_negative_statement(
     path: str,
     template: Any,
 ) -> Tuple[Vulnerability, ...]:
+    # cloudconformity IAM-061
     return await in_process(
         _cfn_negative_statement,
+        content=content,
+        path=path,
+        template=template,
+    )
+
+
+def _cfn_permissive_policy(
+    content: str,
+    path: str,
+    template: Any,
+) -> Tuple[Vulnerability, ...]:
+    def _iterate_vulnerabilities() -> Iterator[Dict[str, Any]]:
+        for stmt in iterate_iam_policy_documents(template):
+            if stmt['Effect'] == 'Allow':
+                actions = stmt.get('Action', [])
+                resources = stmt.get('Resource', [])
+
+                if all((
+                    any(map(is_action_permissive, actions)),
+                    any(map(is_resource_permissive, resources)),
+                )):
+                    yield stmt
+
+    return tuple(
+        Vulnerability(
+            finding=FindingEnum.F031_AWS,
+            kind=VulnerabilityKindEnum.LINES,
+            state=VulnerabilityStateEnum.OPEN,
+            what=path,
+            where=f'{line_no}',
+            skims_metadata=SkimsVulnerabilityMetadata(
+                description=t(
+                    key='src.lib_path.f031_aws.cfn_permissive_policy',
+                    path=path,
+                ),
+                snippet=blocking_to_snippet(
+                    column=column_no,
+                    content=content,
+                    line=line_no,
+                )
+            )
+        )
+        for stmt in _iterate_vulnerabilities()
+        for column_no in [stmt['__column__']]
+        for line_no in [stmt['__line__']]
+    )
+
+
+@cache_decorator()
+@SHIELD
+async def cfn_permissive_policy(
+    content: str,
+    path: str,
+    template: Any,
+) -> Tuple[Vulnerability, ...]:
+    # cloudconformity IAM-045
+    # cloudconformity IAM-049
+    return await in_process(
+        _cfn_permissive_policy,
         content=content,
         path=path,
         template=template,
@@ -121,6 +181,11 @@ async def analyze(
         content = await content_generator()
         template = await load_cfn(content=content, fmt=file_extension)
         coroutines.append(cfn_negative_statement(
+            content=content,
+            path=path,
+            template=template,
+        ))
+        coroutines.append(cfn_permissive_policy(
             content=content,
             path=path,
             template=template,
