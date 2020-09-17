@@ -18,24 +18,26 @@ utils.model.finding.enum.F031_AWS.description:
     acciones sobre un sistema que normalmente estarían restringidas.
 utils.model.finding.enum.F031_AWS.impact:
   en: >
-    Perform actions outside of the expected control sphere.
+    Execute actions that should be restricted to other groups or roles.
   es: >
-    Realizar acciones a las que no se deberia tener acceso.
+    Ejecutar acciones que deberían estar restringidas a otros grupos o roles.
 utils.model.finding.enum.F031_AWS.recommendation:
   en: >
-    Grant privileges strictly to the roles that need them.
+    Explicitly assign permissions to the appropriate groups and roles following
+    the principle of least privilege.
   es: >
-    Otorgar privilegios estrictamente a los roles que lo necesitan.
+    Asignar permisos explícitamente a los grupos y roles adecuados siguiendo
+    el principio del mínimo privilegio.
 utils.model.finding.enum.F031_AWS.requirements:
   en: |
-    R186. Use the principle of least privilege
+    REQ.186. Use the principle of least privilege
   es: |
-    R186. Se debe aplicar el principio del mínimo privilegio al crear objetos y roles, configurar permisos de acceso y acceder a otros sistemas y bases de datos.
+    REQ.186. Se debe aplicar el principio del mínimo privilegio al crear objetos y roles, configurar permisos de acceso y acceder a otros sistemas y bases de datos.
 utils.model.finding.enum.F031_AWS.threat:
   en: >
-    Attacker with access to any of the misconfigured roles.
+    Attacker from the internet with access to any of the misconfigured roles.
   es: >
-    Atacante con acceso a cualquiera de los roles mal configurados.
+    Atacante desde internet con acceso a cualquiera de los roles mal configurados.
 utils.model.finding.enum.F031_AWS.title:
   en: FIN.S.031. Excessive privileges - AWS
   es: FIN.S.031. Permisos excesivos - AWS
