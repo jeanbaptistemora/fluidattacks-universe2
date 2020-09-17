@@ -226,7 +226,7 @@ function job_skims_test {
     --disable-pytest-warnings
     --exitfirst
     --no-cov-on-fail
-    --reruns 2
+    --reruns 10
     --show-capture no
     --verbose
   )

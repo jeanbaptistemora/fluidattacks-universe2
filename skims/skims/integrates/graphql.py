@@ -31,7 +31,7 @@ async def client() -> AsyncIterator[GraphQLClient]:
                 'authorization': f'Bearer {API_TOKEN.get()}'
             },
             timeout=aiohttp.ClientTimeout(
-                total=None,
+                total=30,
                 connect=None,
                 sock_read=None,
                 sock_connect=None,
