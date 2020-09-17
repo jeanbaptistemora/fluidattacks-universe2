@@ -151,7 +151,6 @@ metadata:
       proxy_ssl_name fluidattacks.formstack.com;
       proxy_ssl_server_name on;
     nginx.ingress.kubernetes.io/upstream-vhost: fluidattacks.formstack.com
-
 spec:
   tls:
   - hosts:
