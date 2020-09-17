@@ -26,7 +26,4 @@ def create():
             writer.writerow(
                 dict(zip(map(itemgetter(0), cursor.description), row))
             )
-
-
-if __name__ == '__main__':
-    create()
+    return True

@@ -76,7 +76,4 @@ def create_bills():
                             for key in get_common_columns()
                         },
                     })
-
-
-if __name__ == '__main__':
-    create_bills()
+        return True

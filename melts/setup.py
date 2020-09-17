@@ -58,6 +58,7 @@ distutils.core.setup(
         'toolbox.generic',
         'toolbox.sorts',
         'toolbox.utils',
+        'toolbox.reports'
     ],
     install_requires=get_install_requires(),
     extras_require=get_extras_require(),

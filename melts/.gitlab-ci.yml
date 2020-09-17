@@ -32,7 +32,7 @@
       when: never
     - if: *melts_commit_pattern
 
-.test_toolbox_template: &test_toolbox_template
+.test_melts_template: &test_melts_template
   <<: *with_nix
   stage: test-code
   variables:
@@ -50,7 +50,7 @@ melts_lint_code:
 melts_test:
   <<: *with_nix
   <<: *in_dev_branch_melts
-  <<: *test_toolbox_template
+  <<: *test_melts_template
   stage: test-code
 
 melts_deploy:
