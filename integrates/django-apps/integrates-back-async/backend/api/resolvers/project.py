@@ -902,7 +902,7 @@ async def _do_edit_group(  # pylint: disable=too-many-arguments
         await project_domain.remove_user_access(
             group_name, user_domain.format_forces_user_email(group_name))
     if success:
-        util.queue_cache_invalidation(group_name, requester_email)
+        await util.invalidate_cache(group_name, requester_email)
         await authz.revoke_cached_group_service_attributes_policies(group_name)
         util.cloudwatch_log(
             info.context,
