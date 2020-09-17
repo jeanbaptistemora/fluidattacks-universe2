@@ -31,10 +31,11 @@ data "aws_iam_policy_document" "dev-policy-data" {
   statement {
     effect = "Allow"
     actions = [
-      "s3:Put*"
+      "s3:Put*",
+      "s3:Delete*"
     ]
     resources = [
-      "arn:aws:s3:::continuous-repositoriest/continuoustest*/*",
+      "arn:aws:s3:::continuous-repositories/continuoustest*/*",
     ]
   }
 
