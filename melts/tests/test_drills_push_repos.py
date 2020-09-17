@@ -32,7 +32,6 @@ EXPECTED_REPOS: List[str] = [
     f'{SUBS}/active/repo3/'
 ]
 
-@pytest.mark.skip(reason="Pending to fix")
 def test_drills_push_repos(relocate, prepare_s3_continuous_repositories):
     """
     This tests does the following:
@@ -45,8 +44,9 @@ def test_drills_push_repos(relocate, prepare_s3_continuous_repositories):
     def create_repo(path: str):
         files: List[str] = ['file1', 'file2', 'file3']
         os.mkdir(path)
+        os.mkdir(f'{path}/.git')
         for filename in files:
-            file_path: str = f'{path}/{filename}'
+            file_path: str = f'{path}/.git/{filename}'
             Path(file_path).touch()
 
 

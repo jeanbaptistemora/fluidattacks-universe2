@@ -114,21 +114,19 @@ def s3_sync_fusion_to_s3(
         fusion_dir, f's3://{bucket}/{s3_subs_active_repos_path}',
     ]
 
-    if generic.is_env_ci():
-        git_optimize_all_command.append('--quiet')
+    if not generic.is_env_ci():
+        git_status, git_stdout, git_stderr = generic.run_command(
+            cmd=git_optimize_all_command,
+            cwd='.',
+            env={},
+            **kwargs,
+        )
 
-    git_status, git_stdout, git_stderr = generic.run_command(
-        cmd=git_optimize_all_command,
-        cwd='.',
-        env={},
-        **kwargs,
-    )
-
-    if git_status:
-        logger.error('Git optimization has failed:')
-        logger.info(git_stdout)
-        logger.info(git_stderr)
-        return False
+        if git_status:
+            logger.error('Git optimization has failed:')
+            logger.info(git_stdout)
+            logger.info(git_stderr)
+            return False
 
     if endpoint_url:
         aws_sync_command.append('--endpoint')
