@@ -126,6 +126,9 @@ resource "aws_wafv2_web_acl" "integrates_firewall" {
         excluded_rule {
           name = "CrossSiteScripting_BODY"
         }
+        excluded_rule {
+          name = "EC2MetaDataSSRF_BODY"
+        }
       }
     }
     visibility_config {
