@@ -32,6 +32,7 @@ from backend.exceptions import (
     InvalidAcceptanceSeverityRange,
     InvalidNumberAcceptations,
     InvalidOrganization,
+    OrganizationNotFound,
     UserNotInOrganization
 )
 from backend.typing import Organization as OrganizationType
@@ -476,3 +477,50 @@ async def iterate_organizations_and_groups() -> AsyncIterator[
     """Yield (org_id, org_name, org_groups) non-concurrently generated."""
     async for org_id, org_name in org_dal.iterate_organizations():
         yield org_id, org_name, await get_groups(org_id)
+
+
+def format_organization(organization: OrganizationType) -> OrganizationType:
+    historic_policies: List[Dict[str, Decimal]] = cast(
+        List[Dict[str, Decimal]],
+        organization.get('historic_max_number_acceptations', [])
+    )
+    max_number_acceptations: Decimal = (
+        historic_policies[-1]['max_number_acceptations']
+        if historic_policies
+        else Decimal(0)
+    )
+
+    return {
+        **organization,
+        'max_acceptance_days': organization.get(
+            'min_acceptance_severity',
+            Decimal(0)
+        ),
+        'max_acceptance_severity': organization.get(
+            'max_acceptance_severity',
+            DEFAULT_MAX_SEVERITY
+        ),
+        'max_number_acceptations': max_number_acceptations,
+        'min_acceptance_severity': organization.get(
+            'min_acceptance_severity',
+            DEFAULT_MIN_SEVERITY
+        )
+    }
+
+
+async def get_by_id(org_id: str) -> OrganizationType:
+    organization: OrganizationType = await org_dal.get_by_id(org_id)
+
+    if organization:
+        return format_organization(organization)
+
+    raise OrganizationNotFound()
+
+
+async def get_by_name(name: str) -> OrganizationType:
+    organization: OrganizationType = await org_dal.get_by_name(name.lower())
+
+    if organization:
+        return format_organization(organization)
+
+    raise OrganizationNotFound()

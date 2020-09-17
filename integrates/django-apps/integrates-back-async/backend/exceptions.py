@@ -575,3 +575,12 @@ class UnavailabilityError(Exception):
         """ Constructor """
         msg = 'Service unavalible, please retry'
         super(UnavailabilityError, self).__init__(msg)
+
+
+class OrganizationNotFound(Exception):
+    """Exception to control organization availability"""
+
+    def __init__(self) -> None:
+        """ Constructor """
+        msg = 'Access denied or organization not found'
+        super(OrganizationNotFound, self).__init__(msg)
