@@ -99,7 +99,7 @@ describe("Organization groups view", () => {
       { action: "backend_api_resolvers_project__do_create_project" },
     ]);
     const wrapper: ReactWrapper = mount(
-      <MemoryRouter initialEntries={["/orgs/imamura/groups"]}>
+      <MemoryRouter initialEntries={["/orgs/okada/groups"]}>
         <Provider store={store}>
           <MockedProvider mocks={mocks} addTypename={false} >
             <Route path="/orgs/:organizationName/groups">
@@ -182,7 +182,7 @@ describe("Organization groups view", () => {
 
     unittestingRow.simulate("click");
     expect(mockHistoryPush)
-      .toBeCalledWith("/orgs/imamura/groups/unittesting/");
+      .toBeCalledWith("/orgs/okada/groups/unittesting/");
   });
 
   it("should show an error", async (): Promise<void> => {
@@ -200,7 +200,7 @@ describe("Organization groups view", () => {
       },
     ];
     const wrapper: ReactWrapper = mount(
-      <MemoryRouter initialEntries={["/orgs/imamura/groups"]}>
+      <MemoryRouter initialEntries={["/orgs/okada/groups"]}>
         <Provider store={store}>
           <MockedProvider mocks={mockErrors} addTypename={false} >
             <Route path="/orgs/:organizationName/groups">
@@ -279,7 +279,7 @@ describe("Organization groups view", () => {
             description: "Test project",
             hasDrills: true,
             hasForces: true,
-            organization: "IMAMURA",
+            organization: "OKADA",
             projectName: "AKAME",
             subscription: "CONTINUOUS",
           },
@@ -340,7 +340,7 @@ describe("Organization groups view", () => {
       { action: "backend_api_resolvers_project__do_create_project" },
     ]);
     const wrapper: ReactWrapper = mount(
-      <MemoryRouter initialEntries={["/orgs/imamura/groups"]}>
+      <MemoryRouter initialEntries={["/orgs/okada/groups"]}>
         <Provider store={store}>
           <MockedProvider mocks={mocks} addTypename={false} >
             <Route path="/orgs/:organizationName/groups">

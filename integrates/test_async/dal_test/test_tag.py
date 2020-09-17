@@ -16,7 +16,7 @@ class TagTest(TestCase):
     @pytest.mark.changes_db
     async def test_update(self):
         # company, tag, data
-        test_1 = ('imamura', 'test-updates', {
+        test_1 = ('okada', 'test-updates', {
             'mean_remediate_critical_severity' : None,
             'mean_remediate' : None,
             'max_severity' : Decimal('3.3')

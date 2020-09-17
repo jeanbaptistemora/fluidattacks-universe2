@@ -353,7 +353,7 @@ class ProjectTest(TestCase):
             user_email=user_email,
             user_role=user_role,
             project_name='NEWAVAILABLENAME',
-            organization='imamura',
+            organization='okada',
             description='This is a new project',
             has_drills=True,
             has_forces=True,

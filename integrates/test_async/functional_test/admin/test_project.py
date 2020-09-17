@@ -9,7 +9,7 @@ pytestmark = pytest.mark.asyncio
 
 
 async def test_project():
-    org_name = 'imamura'
+    org_name = 'okada'
     group_name = await get_name('group')
     query = f'''
         mutation {{

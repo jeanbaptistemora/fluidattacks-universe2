@@ -209,7 +209,7 @@ async def test_update_organization_policies():
 
 
 async def test_get_organization_id():
-    org_name = 'imamura'
+    org_name = 'okada'
     expected_org_id = 'ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3'
     query = Template('''
         query {
@@ -275,7 +275,7 @@ async def test_organization():
     assert result['data']['organization']['maxAcceptanceSeverity'] == Decimal('10.0')
     assert result['data']['organization']['maxNumberAcceptations'] == Decimal('2')
     assert result['data']['organization']['minAcceptanceSeverity'] == Decimal('0.0')
-    assert result['data']['organization']['name'] == 'imamura'
+    assert result['data']['organization']['name'] == 'okada'
     assert sorted(groups) == expected_groups
     assert sorted(stakeholders) == expected_stakeholders
 

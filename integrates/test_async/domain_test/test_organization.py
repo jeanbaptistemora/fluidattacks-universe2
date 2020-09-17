@@ -101,7 +101,7 @@ async def test_get_groups():
 
 
 async def test_get_id_by_name():
-    org_name = 'imamura'
+    org_name = 'okada'
     expected_org_id = 'ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3'
     org_id = await org_domain.get_id_by_name(org_name)
     assert org_id == expected_org_id
@@ -112,7 +112,7 @@ async def test_get_id_by_name():
 
 async def test_get_name_by_id():
     org_id = 'ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3'
-    expected_org_name = 'imamura'
+    expected_org_name = 'okada'
     org_name = await org_domain.get_name_by_id(org_id)
     assert org_name == expected_org_name
 
@@ -200,7 +200,7 @@ async def test_get_min_acceptance_severity():
 
 @pytest.mark.changes_db
 async def test_get_or_create():
-    ex_org_name = 'imamura'
+    ex_org_name = 'okada'
     email = 'unittest@fluidattacks.com'
     not_ex_org_name = 'new-org'
     existing_org = await org_domain.get_or_create(ex_org_name, email)
@@ -388,7 +388,7 @@ async def test_validate_severity_range():
 
 async def test_iterate_organizations():
     expected_organizations = {
-        'ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3': 'imamura',
+        'ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3': 'okada',
         'ORG#c2ee2d15-04ab-4f39-9795-fbe30cdeee86': 'bulat',
         'ORG#f2e2777d-a168-4bea-93cd-d79142b294d2': 'hajime',
         'ORG#fe80d2d4-ccb7-46d1-8489-67c6360581de': 'tatsumi',
@@ -404,7 +404,7 @@ async def test_iterate_organizations():
 async def test_iterate_organizations_and_groups():
     expected_organizations_and_groups = {
         'ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3': {
-            'imamura': ['oneshottest', 'continuoustesting', 'unittesting']
+            'okada': ['oneshottest', 'continuoustesting', 'unittesting']
         },
         'ORG#c2ee2d15-04ab-4f39-9795-fbe30cdeee86': {
             'bulat': ['pendingproject']

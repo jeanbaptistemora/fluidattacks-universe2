@@ -166,7 +166,7 @@ class ProjectTests(TestCase):
         query = '''
         mutation {
             createProject(
-                organization: "imamura",
+                organization: "okada",
                 description: "This is a new project from pytest",
                 projectName: "%(name)s",
                 subscription: CONTINUOUS,

@@ -60,7 +60,7 @@ describe("Organization policies view", () => {
       },
     ];
     const wrapper: ReactWrapper = mount(
-      <MemoryRouter initialEntries={["/orgs/imamura/policies"]}>
+      <MemoryRouter initialEntries={["/orgs/okada/policies"]}>
         <Provider store={store}>
           <MockedProvider mocks={mocks} addTypename={false}>
             <Route path="/orgs/:organizationName/policies">
@@ -126,7 +126,7 @@ describe("Organization policies view", () => {
       },
     ];
     const wrapper: ReactWrapper = mount(
-      <MemoryRouter initialEntries={["/orgs/imamura/policies"]}>
+      <MemoryRouter initialEntries={["/orgs/okada/policies"]}>
         <Provider store={store}>
           <MockedProvider mocks={mocks} addTypename={false}>
             <Route path="/orgs/:organizationName/policies">
@@ -179,7 +179,7 @@ describe("Organization policies view", () => {
             // tslint:disable-next-line: no-null-keyword
             minAcceptanceSeverity: null,
             organizationId: mockProps.organizationId,
-            organizationName: "imamura",
+            organizationName: "okada",
           },
         },
         result: {
@@ -213,7 +213,7 @@ describe("Organization policies view", () => {
       { action: "backend_api_resolvers_organization__do_update_organization_policies" },
     ]);
     const wrapper: ReactWrapper = mount(
-      <MemoryRouter initialEntries={["/orgs/imamura/policies"]}>
+      <MemoryRouter initialEntries={["/orgs/okada/policies"]}>
         <Provider store={store}>
           <MockedProvider mocks={mocks} addTypename={false}>
             <Route path="/orgs/:organizationName/policies">
@@ -316,7 +316,7 @@ describe("Organization policies view", () => {
       },
     ];
     const wrapper: ReactWrapper = mount(
-      <MemoryRouter initialEntries={["/orgs/imamura/policies"]}>
+      <MemoryRouter initialEntries={["/orgs/okada/policies"]}>
         <Provider store={store}>
           <MockedProvider mocks={mocks} addTypename={false}>
             <Route path="/orgs/:organizationName/policies">
@@ -394,7 +394,7 @@ describe("Organization policies view", () => {
             maxNumberAcceptations: 2,
             minAcceptanceSeverity: 3,
             organizationId: mockProps.organizationId,
-            organizationName: "imamura",
+            organizationName: "okada",
           },
         },
         result: {
@@ -410,7 +410,7 @@ describe("Organization policies view", () => {
             maxNumberAcceptations: 2,
             minAcceptanceSeverity: 3,
             organizationId: mockProps.organizationId,
-            organizationName: "imamura",
+            organizationName: "okada",
           },
         },
         result: {
@@ -428,7 +428,7 @@ describe("Organization policies view", () => {
             maxNumberAcceptations: 2,
             minAcceptanceSeverity: 3,
             organizationId: mockProps.organizationId,
-            organizationName: "imamura",
+            organizationName: "okada",
           },
         },
         result: {
@@ -446,7 +446,7 @@ describe("Organization policies view", () => {
             maxNumberAcceptations: 2,
             minAcceptanceSeverity: 3,
             organizationId: mockProps.organizationId,
-            organizationName: "imamura",
+            organizationName: "okada",
           },
         },
         result: {
@@ -462,7 +462,7 @@ describe("Organization policies view", () => {
             maxNumberAcceptations: 2,
             minAcceptanceSeverity: 3,
             organizationId: mockProps.organizationId,
-            organizationName: "imamura",
+            organizationName: "okada",
           },
         },
         result: {
@@ -474,7 +474,7 @@ describe("Organization policies view", () => {
       { action: "backend_api_resolvers_organization__do_update_organization_policies" },
     ]);
     const wrapper: ReactWrapper = mount(
-      <MemoryRouter initialEntries={["/orgs/imamura/policies"]}>
+      <MemoryRouter initialEntries={["/orgs/okada/policies"]}>
         <Provider store={store}>
           <MockedProvider mocks={mocks} addTypename={false}>
             <Route path="/orgs/:organizationName/policies">

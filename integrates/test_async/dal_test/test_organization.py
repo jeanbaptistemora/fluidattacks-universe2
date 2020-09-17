@@ -125,7 +125,7 @@ async def test_remove_user():
 
 
 async def test_exists():
-    existing_group = await org_dal.exists('imamura')
+    existing_group = await org_dal.exists('okada')
     assert existing_group
     non_existent_group = await org_dal.exists('no-exists')
     assert not non_existent_group
@@ -143,7 +143,7 @@ async def test_get_by_id():
 
 
 async def test_get_by_name():
-    ex_org_name = 'imamura'
+    ex_org_name = 'okada'
     not_ex_org_name = 'no-exists'
     existing_org = await org_dal.get_by_name(ex_org_name)
     assert isinstance(existing_org, dict)
@@ -231,7 +231,7 @@ async def test_has_user_access():
 @pytest.mark.changes_db
 async def test_update():
     org_id = 'ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3'
-    org_name = 'imamura'
+    org_name = 'okada'
     org_details = await org_dal.get_by_id(org_id)
     assert org_details['max_acceptance_days'] == 60
     assert 'max_acceptance_severity' not in org_details
@@ -254,7 +254,7 @@ async def test_update():
 
 async def test_iterate_organizations():
     expected_organizations = {
-        'ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3': 'imamura',
+        'ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3': 'okada',
         'ORG#c2ee2d15-04ab-4f39-9795-fbe30cdeee86': 'bulat',
         'ORG#f2e2777d-a168-4bea-93cd-d79142b294d2': 'hajime',
         'ORG#fe80d2d4-ccb7-46d1-8489-67c6360581de': 'tatsumi',

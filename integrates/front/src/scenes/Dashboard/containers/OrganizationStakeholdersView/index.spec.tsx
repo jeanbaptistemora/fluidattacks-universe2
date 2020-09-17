@@ -72,7 +72,7 @@ describe("Organization users view", () => {
       },
     ];
     const wrapper: ReactWrapper = mount(
-      <MemoryRouter initialEntries={["/orgs/imamura/stakeholders"]} >
+      <MemoryRouter initialEntries={["/orgs/okada/stakeholders"]} >
         <Provider store={store}>
           <MockedProvider mocks={mocks} addTypename={false} >
             <Route path="/orgs/:organizationName/stakeholders" >
@@ -291,7 +291,7 @@ describe("Organization users view", () => {
       },
     ];
     const wrapper: ReactWrapper = mount(
-      <MemoryRouter initialEntries={["/orgs/imamura/stakeholders"]} >
+      <MemoryRouter initialEntries={["/orgs/okada/stakeholders"]} >
         <Provider store={store}>
           <MockedProvider mocks={mocks} addTypename={false} >
             <Route path="/orgs/:organizationName/stakeholders" >
@@ -452,7 +452,7 @@ describe("Organization users view", () => {
       },
     ];
     const wrapper: ReactWrapper = mount(
-      <MemoryRouter initialEntries={["/orgs/imamura/stakeholders"]} >
+      <MemoryRouter initialEntries={["/orgs/okada/stakeholders"]} >
         <Provider store={store} >
           <MockedProvider mocks={mocks} addTypename={false} >
             <Route path="/orgs/:organizationName/stakeholders" >
@@ -626,7 +626,7 @@ describe("Organization users view", () => {
       },
     ];
     const wrapper: ReactWrapper = mount(
-      <MemoryRouter initialEntries={["/orgs/imamura/stakeholders"]} >
+      <MemoryRouter initialEntries={["/orgs/okada/stakeholders"]} >
         <Provider store={store}>
           <MockedProvider mocks={mocks} addTypename={false} >
             <Route path="/orgs/:organizationName/stakeholders" >
@@ -698,7 +698,7 @@ describe("Organization users view", () => {
       },
     ];
     const wrapper: ReactWrapper = mount(
-      <MemoryRouter initialEntries={["/orgs/imamura/stakeholders"]} >
+      <MemoryRouter initialEntries={["/orgs/okada/stakeholders"]} >
         <Provider store={store}>
           <MockedProvider mocks={mocks} addTypename={false} >
             <Route path="/orgs/:organizationName/stakeholders" >
@@ -844,7 +844,7 @@ describe("Organization users view", () => {
       },
     ];
     const wrapper: ReactWrapper = mount(
-      <MemoryRouter initialEntries={["/orgs/imamura/stakeholders"]} >
+      <MemoryRouter initialEntries={["/orgs/okada/stakeholders"]} >
         <Provider store={store}>
           <MockedProvider mocks={mocks} addTypename={false} >
             <Route path="/orgs/:organizationName/stakeholders" >

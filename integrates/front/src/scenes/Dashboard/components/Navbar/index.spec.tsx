@@ -44,7 +44,7 @@ describe("Navbar", () => {
       },
       location: {
         hash: "",
-        pathname: "/orgs/imamura",
+        pathname: "/orgs/okada",
         search: "",
         state: {
           userInfo: {
@@ -55,7 +55,7 @@ describe("Navbar", () => {
       match: {
         isExact: true,
         params: {},
-        path: "/orgs/imamura",
+        path: "/orgs/okada",
         url: "",
       },
     };
@@ -71,7 +71,7 @@ describe("Navbar", () => {
             organizations: [
               {
                 __typename: "Organization",
-                name: "imamura",
+                name: "okada",
               },
             ],
           },
@@ -95,7 +95,7 @@ describe("Navbar", () => {
 
         expect(wrapper.find(SplitButton)
           .props().title)
-          .toBe("imamura");
+          .toBe("okada");
         expect(wrapper.find(GenericForm)
           .props().name)
           .toBe("searchBar");

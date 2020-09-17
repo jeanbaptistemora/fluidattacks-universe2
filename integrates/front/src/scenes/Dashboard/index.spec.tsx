@@ -51,7 +51,7 @@ describe("Dashboard", (): void => {
               organizations: [
                 {
                   __typename: "Organization",
-                  name: "imamura",
+                  name: "okada",
                 },
               ],
             },
@@ -69,7 +69,7 @@ describe("Dashboard", (): void => {
               organizations: [
                 {
                   __typename: "Organization",
-                  name: "imamura",
+                  name: "okada",
                 },
               ],
             },
@@ -78,7 +78,7 @@ describe("Dashboard", (): void => {
       },
     ];
     const wrapper: ReactWrapper = mount(
-      <MemoryRouter initialEntries={["/orgs/imamura"]}>
+      <MemoryRouter initialEntries={["/orgs/okada"]}>
         <MockedProvider mocks={mocks}>
           <Provider store={store}>
             <Dashboard />
