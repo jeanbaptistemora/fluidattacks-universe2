@@ -53,10 +53,7 @@ from zone import (
 
 # Constants
 TFun = TypeVar('TFun', bound=Callable[..., Any])
-SHIELD: Callable[[TFun], TFun] = shield(
-    retries=12,
-    sleep_between_retries=5,
-)
+SHIELD: Callable[[TFun], TFun] = shield(retries=12)
 
 
 class ErrorMapping(NamedTuple):

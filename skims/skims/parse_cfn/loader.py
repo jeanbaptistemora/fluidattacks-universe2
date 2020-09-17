@@ -64,13 +64,16 @@ def load_as_yaml_without_line_number(content: str) -> Any:
 
 
 def load_as_yaml(content: str, *, loader_cls=Loader) -> Any:
-    loader = loader_cls(content)
     try:
-        if loader.check_data():
-            return loader.get_data()
+        loader = loader_cls(content)
+        try:
+            if loader.check_data():
+                return loader.get_data()
+            return {}
+        finally:
+            loader.dispose()
+    except yaml.error.YAMLError:
         return {}
-    finally:
-        loader.dispose()
 
 
 def load_as_json(content: str) -> Any:
