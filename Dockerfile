@@ -4,8 +4,8 @@ RUN apk add --no-cache \
       bash=5.0.0-r0 \
       git=2.22.4-r0
 
-COPY . /product
+COPY . /data
 
-WORKDIR /product
+WORKDIR /data
 
 RUN ./install.sh

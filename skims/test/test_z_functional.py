@@ -240,9 +240,9 @@ async def test_correct_assert(
             ('test/data/lib_path/f011/package.json (lodash v0.*) [github.com/lodash/lodash/issues/4874]', '6'),
         )),
         ('F031_AWS', 'SUBMITTED', (
-            ('test/data/lib_path/f031_aws/full.yaml', '12'),
-            ('test/data/lib_path/f031_aws/full.yaml', '16'),
-            ('test/data/lib_path/f031_aws/full.yaml', '20'),
+            ('test/data/lib_path/f031_aws/full.yaml', '13'),
+            ('test/data/lib_path/f031_aws/full.yaml', '17'),
+            ('test/data/lib_path/f031_aws/full.yaml', '21'),
             ('test/data/lib_path/f031_aws/full.yaml.json', '14'),
             ('test/data/lib_path/f031_aws/full.yaml.json', '19'),
             ('test/data/lib_path/f031_aws/full.yaml.json', '24'),

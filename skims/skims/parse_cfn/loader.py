@@ -37,7 +37,7 @@ def overloaded_construct_mapping(
 ) -> Any:
     mapping = dict(construct_mapping(self, node, deep=deep))
     mapping['__column__'] = node.start_mark.column
-    mapping['__line__'] = node.start_mark.line
+    mapping['__line__'] = node.start_mark.line + 1
     return mapping
 
 
@@ -48,8 +48,15 @@ def overloaded_multi_constructor(
 ) -> Any:
     mapping = dict(multi_constructor(loader, tag_suffix, node))
     mapping['__column__'] = node.start_mark.column
-    mapping['__line__'] = node.start_mark.line
+    mapping['__line__'] = node.start_mark.line + 1
     return mapping
+
+
+def overloaded_construct_yaml_timestamp(
+    self: yaml.Loader,
+    node: yaml.Node,
+) -> str:
+    return self.construct_yaml_timestamp(node).isoformat()
 
 
 def load_as_yaml_without_line_number(content: str) -> Any:
@@ -59,7 +66,9 @@ def load_as_yaml_without_line_number(content: str) -> Any:
 def load_as_yaml(content: str, *, loader_cls=Loader) -> Any:
     loader = loader_cls(content)
     try:
-        return loader.get_single_data()
+        if loader.check_data():
+            return loader.get_data()
+        return {}
     finally:
         loader.dispose()
 
@@ -132,5 +141,13 @@ async def load(content: str, fmt: str) -> Any:
     return {}
 
 
+CfnYamlLoader.add_constructor(
+    'tag:yaml.org,2002:timestamp',
+    overloaded_construct_yaml_timestamp,
+)
 Loader.add_constructor(TAG_MAP, overloaded_construct_mapping)
 Loader.add_multi_constructor("!", overloaded_multi_constructor)
+Loader.add_constructor(
+    'tag:yaml.org,2002:timestamp',
+    overloaded_construct_yaml_timestamp,
+)

@@ -21,3 +21,4 @@ Resources:
           - Effect: Allow
             NotAction: s3:ListBucket
             NotResource: "something"
+---

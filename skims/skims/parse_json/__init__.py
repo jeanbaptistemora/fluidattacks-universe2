@@ -22,14 +22,16 @@ GRAMMAR = r"""
             | array
             | string
             | SIGNED_NUMBER      -> number
-            | "true"             -> true
-            | "false"            -> false
-            | "null"             -> null
+            | single
 
     array  : "[" [value ("," value)*] "]"
     object : "{" [pair ("," pair)*] "}"
     pair   : string ":" value
 
+    false : "false"
+    true : "true"
+    null : "null"
+    single : false | true | null
     string : ESCAPED_STRING
 
     %import common.ESCAPED_STRING
@@ -75,6 +77,21 @@ class Builder(lark.Transformer[frozendict]):
 
     pair = tuple
     object = frozendict
+    single_map = {
+        "false": False,
+        "null": None,
+        "true": True,
+    }
+
+    @staticmethod
+    @lark.v_args(tree=True)
+    def single(tree: lark.Tree) -> frozendict:
+        children: lark.Tree = tree.children[0]  # type: ignore
+        return frozendict({
+            'column': 0,
+            'item': Builder.single_map[children.data],
+            'line': 0,
+        })
 
     @staticmethod
     @lark.v_args(inline=True)

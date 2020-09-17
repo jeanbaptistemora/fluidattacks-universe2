@@ -56,7 +56,6 @@ def _cfn_negative_statement(
     path: str,
     template: Any,
 ) -> Tuple[Vulnerability, ...]:
-
     def _iterate_vulnerabilities() -> Iterator[Dict[str, Any]]:
         for stmt in iterate_iam_policy_documents(template):
             if stmt.get('Effect') != 'Allow':

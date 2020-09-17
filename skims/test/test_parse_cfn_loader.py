@@ -52,6 +52,8 @@ def test_load_as_json() -> None:
                             '__line__': 20
                         }
                     ],
+                    'X': True,
+                    'Y': None,
                     '__column__': 9,
                     '__line__': 14
                 },
@@ -71,48 +73,48 @@ def test_load_as_json() -> None:
 def test_load_as_yaml() -> None:
     expected = {
         '__column__': 0,
-        '__line__': 1,
+        '__line__': 2,
         'AWSTemplateFormatVersion': '2010-09-09',
         'Description': 'test',
         'Parameters': {
             '__column__': 2,
-            '__line__': 5,
+            '__line__': 6,
             'pTest': {
                 '__column__': 4,
-                '__line__': 6,
+                '__line__': 7,
                 'Description': 'description',
                 'Type': 'type',
             },
         },
         'Resources': {
             '__column__': 2,
-            '__line__': 11,
+            '__line__': 12,
             'rTest': {
                 '__column__': 4,
-                '__line__': 12,
+                '__line__': 13,
                 'Properties': {
                     '__column__': 6,
-                    '__line__': 14,
+                    '__line__': 15,
                     'EngineName': 'mysql',
                     'OptionGroupDescription': {
                         '__column__': 30,
-                        '__line__': 15,
+                        '__line__': 16,
                         'Ref': 'AWS::StackName',
                     },
                     'Tags': [
                         {
                             '__column__': 10,
-                            '__line__': 17,
+                            '__line__': 18,
                             'Key': 'Name',
                             'Value': {
                                 '__column__': 17,
-                                '__line__': 18,
+                                '__line__': 19,
                                 'Fn::Join': [
                                     '',
                                     [
                                         {
                                             '__column__': 29,
-                                            '__line__': 18,
+                                            '__line__': 19,
                                             'Ref': 'AWS::StackName',
                                         },
                                         '-option-group',
@@ -121,6 +123,8 @@ def test_load_as_yaml() -> None:
                             },
                         },
                     ],
+                    'X': True,
+                    'Y': None,
                 },
                 'Type': 'AWS::RDS::OptionGroup',
             },

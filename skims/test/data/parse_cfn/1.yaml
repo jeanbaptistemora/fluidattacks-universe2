@@ -1,5 +1,5 @@
 ---
-AWSTemplateFormatVersion: '2010-09-09'
+AWSTemplateFormatVersion: 2010-09-09
 Description: test
 Parameters:
 
@@ -17,3 +17,5 @@ Resources:
       Tags:
         - Key: Name
           Value: !Join ["", [!Ref 'AWS::StackName' , "-option-group"]]
+      X: true
+      Y: null

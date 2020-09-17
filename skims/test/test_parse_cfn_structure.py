@@ -22,10 +22,10 @@ def test_iterate_iam_policy_documents_as_yml() -> None:
             'Resource': [{
                 'Fn::Sub': 'arn:aws:s3:::${pS3RestoreBucket}',
                 '__column__': 14,
-                '__line__': 22,
+                '__line__': 23,
             }],
             '__column__': 12,
-            '__line__': 17,
+            '__line__': 18,
         },
         {
             'Action': [
@@ -38,7 +38,7 @@ def test_iterate_iam_policy_documents_as_yml() -> None:
             'Effect': 'Allow',
             'Resource': ['*'],
             '__column__': 12,
-            '__line__': 23,
+            '__line__': 24,
         },
         {
             'Action': [
@@ -51,7 +51,7 @@ def test_iterate_iam_policy_documents_as_yml() -> None:
                 'arn:aws:logs:*:*:*',
             ],
             '__column__': 16,
-            '__line__': 38,
+            '__line__': 39,
         },
         {
             'Action': [
@@ -61,7 +61,7 @@ def test_iterate_iam_policy_documents_as_yml() -> None:
             'Effect': 'Allow',
             'Resource': ['*'],
             '__column__': 16,
-            '__line__': 48,
+            '__line__': 49,
         },
         {
             'Action': [
@@ -71,30 +71,30 @@ def test_iterate_iam_policy_documents_as_yml() -> None:
             'Effect': 'Allow',
             'Resource': ['*'],
             '__column__': 12,
-            '__line__': 61,
+            '__line__': 62,
         },
         {
             'Action': ['*'],
             'Condition': {
                 'StringNotEquals': {
                     '__column__': 20,
-                    '__line__': 79,
+                    '__line__': 80,
                     'aws:RequestedRegion': 'us-east-1',
                 },
                 '__column__': 18,
-                '__line__': 78,
+                '__line__': 79,
             },
             'Effect': 'Deny',
             'Resource': ['*'],
             '__column__': 16,
-            '__line__': 74,
+            '__line__': 75,
         },
         {
             'Action': ['sts:AssumeRole'],
             'Effect': 'Allow',
             'Resource': ['arn:aws:iam::*:role/cloud-lambda'],
             '__column__': 14,
-            '__line__': 83,
+            '__line__': 84,
         },
     )
 
