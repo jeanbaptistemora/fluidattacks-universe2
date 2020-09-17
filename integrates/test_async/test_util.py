@@ -32,9 +32,13 @@ from backend.util import (
     get_jwt_content, iterate_s3_keys, replace_all,
     list_to_dict, camelcase_to_snakecase, is_valid_format,
     calculate_hash_token, remove_token, save_token,
-    get_field_parameters, get_requested_fields
+    get_field_parameters, get_requested_fields,
+    decrypt_jwt_payload, encrypt_jwt_payload
 )
-
+from backend.utils import (
+    encodings,
+    decodings
+)
 from backend.dal.finding import get_finding
 from test_async.utils import create_dummy_simple_session
 
@@ -93,6 +97,29 @@ class UtilTests(TestCase):
         unreleased_finding = await get_finding('560175507')
         assert validate_release_date(finding)
         assert not validate_release_date(unreleased_finding)
+
+    async def test_payload_encode_decode(self):
+        payload = {
+            'user_email': 'unittest',
+            'exp': datetime.utcnow() +
+            timedelta(seconds=settings.SESSION_COOKIE_AGE),
+            'sub': 'django_session',
+            'jti': calculate_hash_token()['jti'],
+        }
+        result = decodings.jwt_payload_decode(
+            encodings.jwt_payload_encode(payload))
+        assert payload == result
+
+    async def test_payload_encrypt_decrypt(self):
+        payload = {
+            'user_email': 'unittest',
+            'exp': datetime.utcnow() +
+            timedelta(seconds=settings.SESSION_COOKIE_AGE),
+            'sub': 'django_session',
+            'jti': calculate_hash_token()['jti'],
+        }
+        result = decrypt_jwt_payload(encrypt_jwt_payload(payload))
+        assert payload == result
 
     async def test_get_jwt_content(self):
         request = create_dummy_simple_session()
