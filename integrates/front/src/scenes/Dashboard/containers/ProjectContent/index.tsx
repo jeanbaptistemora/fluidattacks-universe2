@@ -69,6 +69,7 @@ const projectContent: React.FC<IProjectContentProps> = (props: IProjectContentPr
                     icon="icon pe-7s-comment"
                     id="commentsTab"
                     link={`${props.match.url}/consulting`}
+                    plus={{visible: true}}
                     title={translate.t("group.tabs.comments.text")}
                     tooltip={translate.t("group.tabs.comments.tooltip")}
                   />

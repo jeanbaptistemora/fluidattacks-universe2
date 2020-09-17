@@ -138,6 +138,7 @@ const chartsGenericViewExtras: React.FC<IChartsGenericViewProps> = (props: IChar
                         href={downloadPngUrl.toString()}
                       >
                         <Glyphicon glyph="save" /> {translate.t("analytics.sections.extras.download")}
+                        <Badge>pro</Badge>
                       </Button>
                       <DropdownButton
                         bsSize="large"
