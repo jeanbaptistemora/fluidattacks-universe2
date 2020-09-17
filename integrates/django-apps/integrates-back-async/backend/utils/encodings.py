@@ -1,4 +1,6 @@
 # Standard library
+import json
+from datetime import datetime
 from typing import (
     Dict,
 )
@@ -45,3 +47,15 @@ def key_to_mapping(key: str) -> Dict[str, str]:
         for attribute in key.split('/')
         for attribute_name, attribute_value in [attribute.split(':')]
     }
+
+
+def jwt_payload_encode(payload: dict) -> str:
+    def hook(obj: object) -> str:
+        # special cases where json encoder does not handle the object type
+        # or a special format is needed
+        if isinstance(obj, datetime):
+            return obj.strftime('%Y-%m-%dT%H:%M:%S.%f')
+        # let JSONEncoder handle unsupported object types
+        return json.JSONEncoder().default(obj)
+    encoder = json.JSONEncoder(default=hook)
+    return encoder.encode(payload)

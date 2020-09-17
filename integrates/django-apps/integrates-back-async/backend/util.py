@@ -9,7 +9,6 @@ import functools
 import logging
 import re
 import secrets
-import json
 from typing import (
     Any,
     cast,
@@ -34,7 +33,6 @@ from cryptography.hazmat.backends import default_backend
 from cryptography.hazmat.primitives.kdf.scrypt import Scrypt
 from django.conf import settings
 from django.core.cache import cache
-from django.core.serializers.json import DjangoJSONEncoder
 from django.core.files.uploadedfile import (
     InMemoryUploadedFile,
     TemporaryUploadedFile,
@@ -69,6 +67,8 @@ from backend.typing import (
 from backend.utils import (
     apm,
     function,
+    encodings,
+    decodings
 )
 from fluidintegrates.settings import (
     LOGGING,
@@ -215,10 +215,7 @@ async def cloudwatch_log_async(request, msg: str) -> None:
 
 
 def encrypt_jwt_payload(payload: dict) -> dict:
-    serialized_payload = json.dumps(
-        payload,
-        cls=DjangoJSONEncoder
-    )
+    serialized_payload = encodings.jwt_payload_encode(payload)
     key = JWK.from_json(FI_JWT_ENCRYPTION_KEY)
     claims = JWE(
         algs=[
@@ -232,19 +229,16 @@ def encrypt_jwt_payload(payload: dict) -> dict:
         },
         recipient=key,
     ).serialize()
-    return json.loads(claims)
+    return decodings.jwt_payload_decode(claims)
 
 
 def decrypt_jwt_payload(payload: dict) -> dict:
-    serialized_payload = json.dumps(
-        payload,
-        cls=DjangoJSONEncoder
-    )
+    serialized_payload = encodings.jwt_payload_encode(payload)
     key = JWK.from_json(FI_JWT_ENCRYPTION_KEY)
     result = JWE()
     result.deserialize(serialized_payload.encode('utf-8'))
     result.decrypt(key)
-    return json.loads(result.payload)
+    return decodings.jwt_payload_decode(result.payload.decode('utf-8'))
 
 
 async def get_jwt_content(context) -> Dict[str, str]:
