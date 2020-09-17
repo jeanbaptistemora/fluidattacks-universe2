@@ -60,7 +60,7 @@ depending on your profile.
 Before doing this, you must first complete the previous stage.
 
 [role="a_formLink"]
-To begin, please follow these detailed link:https://fluidattacks.com/forms/aplicacion[instructions].
+To begin, please follow these detailed link:https://fluidattacks.formstack.com/forms/aplicacion[instructions].
 
 [role="etapa_h"]
 == 6. History
