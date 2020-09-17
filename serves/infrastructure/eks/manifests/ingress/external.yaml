@@ -1,78 +1,6 @@
 kind: Service
 apiVersion: v1
 metadata:
-    name: usa
-    namespace: serves
-spec:
-    type: ExternalName
-    externalName: usa.fluidattacks.com
----
-apiVersion: extensions/v1beta1
-kind: Ingress
-metadata:
-    name: usa
-    namespace: serves
-    annotations:
-        kubernetes.io/ingress.class: nginx
-        nginx.ingress.kubernetes.io/backend-protocol: HTTPS
-        nginx.ingress.kubernetes.io/rewrite-target: /
-        nginx.ingress.kubernetes.io/server-snippet: |
-          proxy_ssl_name usa.formstack.com;
-          proxy_ssl_server_name on;
-        nginx.ingress.kubernetes.io/upstream-vhost: usa.fluidattacks.com
-spec:
-    tls:
-        - hosts:
-            - fluidattacks.com
-          secretName: fluidattacks-cert
-    rules:
-    - host: fluidattacks.com
-      http:
-        paths:
-        - backend:
-            serviceName: usa
-            servicePort: 443
-          path: /usa(.*)
----
-kind: Service
-apiVersion: v1
-metadata:
-    name: thanks
-    namespace: serves
-spec:
-    type: ExternalName
-    externalName: thanks.fluidattacks.com
----
-apiVersion: extensions/v1beta1
-kind: Ingress
-metadata:
-    name: thanks
-    namespace: serves
-    annotations:
-        kubernetes.io/ingress.class: nginx
-        nginx.ingress.kubernetes.io/backend-protocol: HTTPS
-        nginx.ingress.kubernetes.io/rewrite-target: /
-        nginx.ingress.kubernetes.io/server-snippet: |
-          proxy_ssl_name thanks.formstack.com;
-          proxy_ssl_server_name on;
-        nginx.ingress.kubernetes.io/upstream-vhost: thanks.fluidattacks.com
-spec:
-    tls:
-    - hosts:
-        - fluidattacks.com
-      secretName: fluidattacks-cert
-    rules:
-    - host: fluidattacks.com
-      http:
-        paths:
-        - backend:
-            serviceName: thanks
-            servicePort: 443
-          path: /thanks(.*)
----
-kind: Service
-apiVersion: v1
-metadata:
   name: gitlab-pages
   namespace: serves
 spec:
@@ -133,41 +61,6 @@ spec:
 kind: Service
 apiVersion: v1
 metadata:
-  name: formstack
-  namespace: serves
-spec:
-  type: ExternalName
-  externalName: fluidattacks.formstack.com
----
-apiVersion: extensions/v1beta1
-kind: Ingress
-metadata:
-  name: formstack
-  namespace: serves
-  annotations:
-    kubernetes.io/ingress.class: nginx
-    nginx.ingress.kubernetes.io/backend-protocol: HTTPS
-    nginx.ingress.kubernetes.io/server-snippet: |
-      proxy_ssl_name fluidattacks.formstack.com;
-      proxy_ssl_server_name on;
-    nginx.ingress.kubernetes.io/upstream-vhost: fluidattacks.formstack.com
-spec:
-  tls:
-  - hosts:
-    - fluidattacks.com
-    secretName: fluidattacks-cert
-  rules:
-  - host: fluidattacks.com
-    http:
-      paths:
-      - backend:
-          serviceName: formstack
-          servicePort: 443
-        path: /forms(.*)
----
-kind: Service
-apiVersion: v1
-metadata:
   name: web
   namespace: serves
 spec:
@@ -218,4 +111,3 @@ spec:
           serviceName: web
           servicePort: 80
         path: /(.*)?
-
