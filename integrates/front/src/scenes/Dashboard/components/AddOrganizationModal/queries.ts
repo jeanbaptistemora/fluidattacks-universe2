@@ -1,7 +1,7 @@
 import { DocumentNode } from "graphql";
 import gql from "graphql-tag";
 
-export const GET_AVAILABLE_ORGANIZATION_NAME: DocumentNode = gql`
+const GET_AVAILABLE_ORGANIZATION_NAME: DocumentNode = gql`
   query InternalOrganizationName {
     internalNames(entity: ORGANIZATION) {
       name
@@ -9,7 +9,7 @@ export const GET_AVAILABLE_ORGANIZATION_NAME: DocumentNode = gql`
   }
 `;
 
-export const CREATE_NEW_ORGANIZATION: DocumentNode = gql`
+const CREATE_NEW_ORGANIZATION: DocumentNode = gql`
   mutation CreateOrganization($name: String!) {
     createOrganization(name: $name) {
       organization {
@@ -20,3 +20,5 @@ export const CREATE_NEW_ORGANIZATION: DocumentNode = gql`
     }
   }
 `;
+
+export { CREATE_NEW_ORGANIZATION, GET_AVAILABLE_ORGANIZATION_NAME };

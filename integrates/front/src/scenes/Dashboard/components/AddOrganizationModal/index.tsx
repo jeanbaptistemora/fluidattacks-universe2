@@ -1,4 +1,4 @@
-/* eslint-disable react/forbid-component-props, react/jsx-no-useless-fragment
+/* eslint-disable react/forbid-component-props
   -------
   We need className to override default styles from react-boostrap.
 */
@@ -29,8 +29,8 @@ import {
 } from "scenes/Dashboard/components/AddOrganizationModal/queries";
 import {
   IAddOrganizationModalProps,
-  IAddOrganizationMtResult,
-  IAddOrganizationQryResult,
+  IAddOrganizationMtProps,
+  IAddOrganizationQryProps,
 } from "scenes/Dashboard/components/AddOrganizationModal/types";
 import { msgError, msgSuccess } from "utils/notifications";
 import { useMutation, useQuery } from "@apollo/react-hooks";
@@ -44,7 +44,7 @@ const AddOrganizationModal: React.FC<IAddOrganizationModalProps> = (
   const { push } = useHistory();
 
   // GraphQL Operations
-  const { data, loading } = useQuery<IAddOrganizationQryResult>(
+  const { data, loading } = useQuery<IAddOrganizationQryProps>(
     GET_AVAILABLE_ORGANIZATION_NAME,
     {
       onError: (error: ApolloError): void => {
@@ -71,7 +71,7 @@ const AddOrganizationModal: React.FC<IAddOrganizationModalProps> = (
   const [createOrganization, { loading: submitting }] = useMutation(
     CREATE_NEW_ORGANIZATION,
     {
-      onCompleted: (result: IAddOrganizationMtResult): void => {
+      onCompleted: (result: IAddOrganizationMtProps): void => {
         if (result.createOrganization.success) {
           onClose();
           mixpanel.track("NewOrganization", {
@@ -121,54 +121,52 @@ const AddOrganizationModal: React.FC<IAddOrganizationModalProps> = (
   // Render Elements
   return (
     <React.StrictMode>
-      <React.Fragment>
-        <Modal
-          footer={<div />}
-          headerTitle={translate.t("sidebar.newOrganization.modal.title")}
-          open={open}
+      <Modal
+        footer={<div />}
+        headerTitle={translate.t("sidebar.newOrganization.modal.title")}
+        open={open}
+      >
+        <GenericForm
+          initialValues={{ name: organizationName.toUpperCase() }}
+          name={"newOrganization"}
+          onSubmit={handleSubmit}
         >
-          <GenericForm
-            initialValues={{ name: organizationName.toUpperCase() }}
-            name={"newOrganization"}
-            onSubmit={handleSubmit}
-          >
-            <Row>
-              <Col md={12} sm={12}>
-                <FormGroup>
-                  <ControlLabel>
-                    {translate.t("sidebar.newOrganization.modal.name")}
-                  </ControlLabel>
-                  <TooltipWrapper
-                    message={translate.t(
-                      "sidebar.newOrganization.modal.nameTooltip"
-                    )}
-                    placement={"top"}
-                  >
-                    <Field
-                      component={Text}
-                      disabled={true}
-                      name={"name"}
-                      type={"text"}
-                    />
-                  </TooltipWrapper>
-                </FormGroup>
-              </Col>
-            </Row>
-            <ButtonToolbar className={"pull-right"}>
-              <Button bsStyle={"success"} onClick={onClose}>
-                {translate.t("confirmmodal.cancel")}
-              </Button>
-              <Button
-                bsStyle={"success"}
-                disabled={loading || submitting}
-                type={"submit"}
-              >
-                {translate.t("confirmmodal.proceed")}
-              </Button>
-            </ButtonToolbar>
-          </GenericForm>
-        </Modal>
-      </React.Fragment>
+          <Row>
+            <Col md={12} sm={12}>
+              <FormGroup>
+                <ControlLabel>
+                  {translate.t("sidebar.newOrganization.modal.name")}
+                </ControlLabel>
+                <TooltipWrapper
+                  message={translate.t(
+                    "sidebar.newOrganization.modal.nameTooltip"
+                  )}
+                  placement={"top"}
+                >
+                  <Field
+                    component={Text}
+                    disabled={true}
+                    name={"name"}
+                    type={"text"}
+                  />
+                </TooltipWrapper>
+              </FormGroup>
+            </Col>
+          </Row>
+          <ButtonToolbar className={"pull-right"}>
+            <Button bsStyle={"success"} onClick={onClose}>
+              {translate.t("confirmmodal.cancel")}
+            </Button>
+            <Button
+              bsStyle={"success"}
+              disabled={loading || submitting}
+              type={"submit"}
+            >
+              {translate.t("confirmmodal.proceed")}
+            </Button>
+          </ButtonToolbar>
+        </GenericForm>
+      </Modal>
     </React.StrictMode>
   );
 };

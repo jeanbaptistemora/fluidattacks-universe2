@@ -1,15 +1,15 @@
-export interface IAddOrganizationModalProps {
+interface IAddOrganizationModalProps {
   open: boolean;
-  onClose(): void;
+  onClose: () => void;
 }
 
-export interface IAddOrganizationQryResult {
+interface IAddOrganizationQryProps {
   internalNames: {
     name: string;
   };
 }
 
-export interface IAddOrganizationMtResult {
+interface IAddOrganizationMtProps {
   createOrganization: {
     organization: {
       id: string;
@@ -18,3 +18,9 @@ export interface IAddOrganizationMtResult {
     success: boolean;
   };
 }
+
+export {
+  IAddOrganizationModalProps,
+  IAddOrganizationMtProps,
+  IAddOrganizationQryProps,
+};
