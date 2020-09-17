@@ -10,7 +10,7 @@ export const getEnvironment: () => string = (): string => {
     if (currentUrl === "localhost") {
       return "development";
     } else if (ephemeralDomainRegex.test(currentUrl)) {
-      return "review";
+      return "ephemeral";
     } else {
       return "production";
     }
