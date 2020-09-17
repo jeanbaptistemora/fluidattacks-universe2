@@ -1,3 +1,6 @@
+src.lib_path.f031_aws.cfn_open_passrole:
+  en: iam:PassRole with wildcard resource allows an elevation of privileges, {path}
+  es: iam:PassRole con recurso no especifico permite una elevación de privilegios, {path}
 src.lib_path.f031_aws.cfn_permissive_policy:
   en: Excessive privileges in {path}
   es: Privilegios excesivos in {path}

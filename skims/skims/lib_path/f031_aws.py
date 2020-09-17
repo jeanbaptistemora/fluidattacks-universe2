@@ -20,6 +20,9 @@ from aws.iam.structure import (
     is_action_permissive,
     is_resource_permissive,
 )
+from aws.iam.utils import (
+    match_pattern,
+)
 from lib_path.common import (
     EXTENSIONS_CLOUDFORMATION,
     SHIELD,
@@ -183,6 +186,71 @@ async def cfn_permissive_policy(
     )
 
 
+def _cfn_open_passrole(
+    content: str,
+    path: str,
+    template: Any,
+) -> Tuple[Vulnerability, ...]:
+    def _is_iam_passrole(action: str) -> bool:
+        return match_pattern(action, 'iam:PassRole')
+
+    def _iterate_vulnerabilities() -> Iterator[Dict[str, Any]]:
+        for stmt in iterate_iam_policy_documents(template):
+            if stmt['Effect'] == 'Allow':
+                actions = stmt.get('Action', [])
+                resources = stmt.get('Resource', [])
+
+                if all((
+                    any(map(_is_iam_passrole, actions)),
+                    any(map(is_resource_permissive, resources)),
+                )):
+                    yield stmt
+
+    return tuple(
+        Vulnerability(
+            finding=FindingEnum.F031_AWS,
+            kind=VulnerabilityKindEnum.LINES,
+            state=VulnerabilityStateEnum.OPEN,
+            what=path,
+            where=f'{line_no}',
+            skims_metadata=SkimsVulnerabilityMetadata(
+                description=t(
+                    key='src.lib_path.f031_aws.cfn_open_passrole',
+                    path=path,
+                ),
+                snippet=blocking_to_snippet(
+                    column=column_no,
+                    content=content,
+                    line=line_no,
+                )
+            )
+        )
+        for stmt in _iterate_vulnerabilities()
+        for column_no in [stmt['__column__']]
+        for line_no in [stmt['__line__']]
+    )
+
+
+@cache_decorator()
+@SHIELD
+async def cfn_open_passrole(
+    content: str,
+    path: str,
+    template: Any,
+) -> Tuple[Vulnerability, ...]:
+    # cfn_nag F38 IAM role should not allow * resource with PassRole action
+    #             on its permissions policy
+    # cfn_nag F39 IAM policy should not allow * resource with PassRole action
+    # cfn_nag F40 IAM managed policy should not allow a * resource with
+    #             PassRole action
+    return await in_process(
+        _cfn_open_passrole,
+        content=content,
+        path=path,
+        template=template,
+    )
+
+
 async def analyze(
     content_generator: Callable[[], Awaitable[str]],
     file_extension: str,
@@ -195,6 +263,11 @@ async def analyze(
         content = await content_generator()
         template = await load_cfn(content=content, fmt=file_extension)
         coroutines.append(cfn_negative_statement(
+            content=content,
+            path=path,
+            template=template,
+        ))
+        coroutines.append(cfn_open_passrole(
             content=content,
             path=path,
             template=template,
