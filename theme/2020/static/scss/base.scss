@@ -235,6 +235,7 @@ $codeyellow: rgba(230, 219, 116, 1);
 .mw-1366 { max-width: 1366px; }
 .ph-body { padding: 0 1.875rem; }
 .pl-body { padding-left: 1.875rem; }
+.fheader { font-size: 9rem; }
 
 // Tachyons custom responsive classes
 @media screen and (min-width: 960px) and (max-width: 1200px) {
@@ -245,6 +246,7 @@ $codeyellow: rgba(230, 219, 116, 1);
   .text-center-ml { text-align: center; }
   .bg-ebook { background-image: url('../../images/bg-ebook-l.png'); }
   .asap-bg { background-image: url('../../images/team-l.png'); }
+  .fheader { font-size: 9vw; }
 }
 
 @media screen and (min-width: 1200px) {
@@ -294,7 +296,7 @@ $codeyellow: rgba(230, 219, 116, 1);
   .w-logo { width: 10rem; }
   .pv-4-m { padding-bottom: 1.6rem; padding-top: 1.6rem; }
   .w90-s { width: 90%; }
-  .fheader-s { font-size: 4.5rem; }
+  .fheader { font-size: 4.5rem; }
   .cover-s { background-size: cover; }
   .w-100-s { width: 100%; }
   .asap-bg-s { background-image: url('../../images/bg-asap-mobile.png'); height: 25rem; }
@@ -340,7 +342,6 @@ $codeyellow: rgba(230, 219, 116, 1);
   .w-45-l { width: 45%; }
   .w-50-l { width: 50%; }
   .h-menu { height: 9rem; }
-  .fheader-l { font-size: 9vw; }
   .bg-banner-sz { background-size: 100% 100%; }
   .w-15-l { width: 15%; }
   .w40-l { width: 40rem; }
@@ -357,7 +358,6 @@ $codeyellow: rgba(230, 219, 116, 1);
 
 //Very large screens
 @media screen and (min-width: 120em) {
-  .fheader-vl { font-size: 9rem; }
   .new-banner { width: 40em; }
   .h-27-vl { height: 27em; }
   .f-solution { font-size: 1.5rem; }
