@@ -74,9 +74,9 @@ def _javascript_client_storage(
     )
 
     argument_value = MatchFirst([
-        BACKTICK_QUOTED_STRING,
-        DOUBLE_QUOTED_STRING,
-        SINGLE_QUOTED_STRING,
+        BACKTICK_QUOTED_STRING.copy(),
+        DOUBLE_QUOTED_STRING.copy(),
+        SINGLE_QUOTED_STRING.copy(),
         VAR_ATTR_JAVA.copy(),
     ])
     arguments = delimitedList(argument_value, delim=',')

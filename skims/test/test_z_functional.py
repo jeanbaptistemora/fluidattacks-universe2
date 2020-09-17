@@ -164,7 +164,7 @@ async def test_reset_environment_assert(
     test_integrates_session: None,
 ) -> None:
     # No findings should exist because we just reset the environment
-    await get_group_data(test_group) == set()
+    assert await get_group_data(test_group) == set()
 
 
 def test_debug_correct_nothing_to_do_run(test_group: str) -> None:
@@ -184,7 +184,7 @@ async def test_debug_correct_nothing_to_do_assert(
     test_integrates_session: None,
 ) -> None:
     # No findings should be created, there is nothing to do !
-    await get_group_data(test_group) == set()
+    assert await get_group_data(test_group) == set()
 
 
 def test_correct_run(test_group: str) -> None:
@@ -203,7 +203,7 @@ async def test_correct_assert(
     test_integrates_session: None,
 ) -> None:
     # The following findings must be met
-    await get_group_data(test_group) == {
+    assert await get_group_data(test_group) == {
         # Finding, status, open vulnerabilities
         ('F001_JPA', 'SUBMITTED', (
             ('test/data/lib_path/f001_jpa/java.java', '23'),
@@ -223,6 +223,7 @@ async def test_correct_assert(
             ('test/data/lib_path/f009/javascript.js', '7'),
             ('test/data/lib_path/f009/javascript.js', '8'),
             ('test/data/lib_path/f009/secrets.yaml', '1'),
+            ('test/data/lib_path/f009/secrets.yaml.json', '1'),
         )),
         ('F011', 'APPROVED', (
             ('test/data/lib_path/f011/package-lock.json (hoek v5.0.0) [CVE-2018-3728]', '6'),
@@ -248,8 +249,10 @@ async def test_correct_assert(
             ('test/data/lib_path/f031_aws/cfn_negative_statement.yaml.json', '19'),
             ('test/data/lib_path/f031_aws/cfn_negative_statement.yaml.json', '24'),
             ('test/data/lib_path/f031_aws/cfn_negative_statement.yaml.json', '49'),
+            ('test/data/lib_path/f031_aws/cfn_permissive_policy.yaml', '33'),
             ('test/data/lib_path/f031_aws/cfn_permissive_policy.yaml', '9'),
             ('test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json', '12'),
+            ('test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json', '55'),
         )),
         ('F031_CWE378', 'APPROVED', (
             ('test/data/lib_path/f031_cwe378/Test.java', '6'),
@@ -345,7 +348,7 @@ async def test_correct_nothing_to_do_assert(
     test_integrates_session: None,
 ) -> None:
     # Skims should persist the null state, closing everything on Integrates
-    await get_group_data(test_group) == {
+    assert await get_group_data(test_group) == {
         # Finding, status, open vulnerabilities
         ('F001_JPA', 'SUBMITTED', ()),
         ('F009', 'APPROVED', ()),

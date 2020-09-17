@@ -11,6 +11,7 @@ from typing import (
 
 # Third party libraries
 from pyparsing import (
+    Keyword,
     MatchFirst,
     nestedExpr,
     Regex,
@@ -110,18 +111,18 @@ def _crypto_js_credentials(
 ) -> Tuple[Vulnerability, ...]:
     grammar = (
         'CryptoJS' + '.' + 'enc' + '.' + MatchFirst({
-            'Base64',
-            'Utf16',
-            'Utf16LE',
-            'Hex',
-            'Latin1',
-            'Utf8',
+            Keyword('Base64'),
+            Keyword('Utf16'),
+            Keyword('Utf16LE'),
+            Keyword('Hex'),
+            Keyword('Latin1'),
+            Keyword('Utf8'),
         }) + '.' + 'parse' + nestedExpr(
             closer=')',
             content=MatchFirst({
-                BACKTICK_QUOTED_STRING,
-                DOUBLE_QUOTED_STRING,
-                SINGLE_QUOTED_STRING,
+                BACKTICK_QUOTED_STRING.copy(),
+                DOUBLE_QUOTED_STRING.copy(),
+                SINGLE_QUOTED_STRING.copy(),
             }),
             ignoreExpr=None,
             opener='(',
