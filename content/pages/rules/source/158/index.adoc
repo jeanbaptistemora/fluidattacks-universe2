@@ -1,7 +1,7 @@
 :slug: rules/158/
 :category: source
 :description: This requirement establishes the importance of developing applications in an adequately updated and free of known vulnerabilities programming language.
-:keywords: Security, Source Code, Updates, Vulnerabilities, Programming, ASVS, PCI DSS, Rules, Ethical Hacking, Pentesting
+:keywords: Security, Source Code, Updates, Vulnerabilities, Programming, ASVS, CAPEC, CWE, PCI DSS, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R158. Use a secure programming language
@@ -20,7 +20,30 @@ version of the chosen programming language.
 
 == References
 
-. [[r1]] link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A9-Using_Components_with_Known_Vulnerabilities[OWASP Top 10 A9:2017-Using Components with Known Vulnerabilities].
+. [[r1]] link:http://capec.mitre.org/data/definitions/8.html[CAPEC-8: Buffer Overflow in an API Call].
+This attack targets libraries or shared code modules which are vulnerable to
+buffer overflow attacks.
+An attacker who has access to an *API* may try to embed malicious code in the
+*API* function call and exploit a buffer overflow vulnerability in the
+function's implementation.
+
+. [[r2]] link:http://capec.mitre.org/data/definitions/9.html[CAPEC-9: Buffer Overflow in Local Command-Line Utilities].
+This attack targets command-line utilities available in a number of shells.
+An attacker can leverage a vulnerability found in a command-line utility to
+escalate privilege to root.
+
+. [[r3]] link:http://capec.mitre.org/data/definitions/10.html[CAPEC-10: Buffer Overflow via Environment Variables].
+This attack pattern involves causing a buffer overflow through manipulation of
+environment variables.
+Once the attacker finds that they can modify an environment variable,
+they may try to overflow associated buffers.
+
+. [[r4]] link:https://cwe.mitre.org/data/definitions/120.html[CWE-120: Classic Buffer Overflow].
+The program copies an input buffer to an output buffer without verifying that
+the size of the input buffer is less than the size of the output buffer,
+leading to a buffer overflow.
+
+. [[r5]] link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A9-Using_Components_with_Known_Vulnerabilities[OWASP Top 10 A9:2017-Using Components with Known Vulnerabilities].
 Components, such as libraries, frameworks, and other software modules,
 run with the same privileges as the application.
 If a vulnerable component is exploited,
@@ -28,26 +51,26 @@ such an attack can facilitate serious data loss or server takeover.
 Applications and **API**s using components with known vulnerabilities may
 undermine application defenses and enable various attacks and impacts.
 
-. [[r2]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r6]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 Appendix C: Internet of Things Verification Requirements.(C.11)]
 Verify that any use of banned *C* functions are replaced with the appropriate
 safe equivalent functions.
 
-. [[r3]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r7]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V5.4 Memory, String, and Unmanaged Code Requirements.(5.4.1)]
 Verify that the application uses memory-safe string, safer memory copy and
 pointer arithmetic to detect or prevent stack, buffer, or heap overflows.
 
-. [[r4]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r8]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V14.2 Dependency.(14.2.1)]
 Verify that all components are up to date, preferably using a dependency
 checker during build or compile time.
 
-. [[r5]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r9]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V14.2 Dependency.(14.2.4)]
 Verify that third party components come from pre-defined, trusted and
 continually maintained repositories.
 
-. [[r6]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 6.2]
+. [[r10]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 6.2]
 Ensure that all system components and software are protected from known
 vulnerabilities by installing applicable vendor-supplied security patches.

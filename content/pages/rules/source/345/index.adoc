@@ -1,7 +1,7 @@
 :slug: rules/345/
 :category: source
 :description: This requirement establishes the importance of establishing protection mechanisms against overflow attacks.
-:keywords: Overflow, Buffer, Mechanism, Protection, ASVS, CWE, PCI DSS, Rules, Ethical Hacking, Pentesting
+:keywords: Overflow, Buffer, Mechanism, Protection, ASVS, CAPEC, CWE, PCI DSS, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R345. Establish protections against overflows
@@ -25,36 +25,54 @@ such as memory-safe strings, and safe memory copy and pointer arithmetic.
 
 == Rereferences
 
-. [[r1]] link:https://cwe.mitre.org/data/definitions/120.html[CWE-120: Classic Buffer Overflow].
+. [[r1]] link:http://capec.mitre.org/data/definitions/8.html[CAPEC-8: Buffer Overflow in an API Call].
+This attack targets libraries or shared code modules which are vulnerable to
+buffer overflow attacks.
+An attacker who has access to an *API* may try to embed malicious code in the
+*API* function call and exploit a buffer overflow vulnerability in the
+function's implementation.
+
+. [[r2]] link:http://capec.mitre.org/data/definitions/9.html[CAPEC-9: Buffer Overflow in Local Command-Line Utilities].
+This attack targets command-line utilities available in a number of shells.
+An attacker can leverage a vulnerability found in a command-line utility to
+escalate privilege to root.
+
+. [[r3]] link:http://capec.mitre.org/data/definitions/10.html[CAPEC-10: Buffer Overflow via Environment Variables].
+This attack pattern involves causing a buffer overflow through manipulation of
+environment variables.
+Once the attacker finds that they can modify an environment variable,
+they may try to overflow associated buffers.
+
+. [[r4]] link:https://cwe.mitre.org/data/definitions/120.html[CWE-120: Classic Buffer Overflow].
 The program copies an input buffer to an output buffer without verifying that
 the size of the input buffer is less than the size of the output buffer,
 leading to a buffer overflow.
 
-. [[r2]] link:https://cwe.mitre.org/data/definitions/134.html[CWE-134: Use of Externally-Controlled Format String].
+. [[r5]] link:https://cwe.mitre.org/data/definitions/134.html[CWE-134: Use of Externally-Controlled Format String].
 The software uses a function that accepts a format string as an argument,
 but the format string originates from an external source.
 
-. [[r3]] link:https://cwe.mitre.org/data/definitions/190.html[CWE-190: Integer Overflow or Wraparound].
+. [[r6]] link:https://cwe.mitre.org/data/definitions/190.html[CWE-190: Integer Overflow or Wraparound].
 The software performs a calculation that can produce an integer overflow or
 wraparound,
 when the logic assumes that the resulting value will always be larger than the
 original value.
 
-. [[r4]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r7]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V5.4 Memory, String, and Unmanaged Code Requirements.(5.4.1)]
 Verify that the application uses memory-safe string, safer memory copy and
 pointer arithmetic to detect or prevent *stack*, *buffer*, or *heap* overflows.
 
-. [[r5]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r8]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V5.4 Memory, String, and Unmanaged Code Requirements.(5.4.2)]
 Verify that format strings do not take potentially hostile input,
 and are constant.
 
-. [[r6]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r9]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V5.4 Memory, String, and Unmanaged Code Requirements.(5.4.3)]
 Verify that sign, range, and input validation techniques are used to prevent
 integer overflows.
 
-. [[r7]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 6.5.2]
+. [[r10]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 6.5.2]
 Address common coding vulnerabilities in software-development processes such as
 buffer overflows.
