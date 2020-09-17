@@ -102,6 +102,13 @@ async def cfn_negative_statement(
     template: Any,
 ) -> Tuple[Vulnerability, ...]:
     # cloudconformity IAM-061
+    # cfn_nag W14 IAM role should not allow Allow+NotAction on trust perms
+    # cfn_nag W15 IAM role should not allow Allow+NotAction
+    # cfn_nag W16 IAM policy should not allow Allow+NotAction
+    # cfn_nag W17 IAM managed policy should not allow Allow+NotAction
+    # cfn_nag W21 IAM role should not allow Allow+NotResource
+    # cfn_nag W22 IAM policy should not allow Allow+NotResource
+    # cfn_nag W23 IAM managed policy should not allow Allow+NotResource
     return await in_process(
         _cfn_negative_statement,
         content=content,
@@ -161,6 +168,13 @@ async def cfn_permissive_policy(
 ) -> Tuple[Vulnerability, ...]:
     # cloudconformity IAM-045
     # cloudconformity IAM-049
+    # cfn_nag W11 IAM role should not allow * resource on its permissions pol
+    # cfn_nag W12 IAM policy should not allow * resource
+    # cfn_nag W13 IAM managed policy should not allow * resource
+    # cfn_nag F2 IAM role should not allow * action on its trust policy
+    # cfn_nag F3 IAM role should not allow * action on its permissions policy
+    # cfn_nag F4 IAM policy should not allow * action
+    # cfn_nag F5 IAM managed policy should not allow * action
     return await in_process(
         _cfn_permissive_policy,
         content=content,

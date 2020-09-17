@@ -30,6 +30,9 @@ def iterate_iam_policy_documents(template: Any) -> Iterator[Dict[str, Any]]:
 
     def _yield_statements_from_policy(policy: Any) -> Iterator[Any]:
         document = policy.get('PolicyDocument', {})
+        yield from _yield_statements_from_policy_document(document)
+
+    def _yield_statements_from_policy_document(document: Any) -> Iterator[Any]:
         statement = document.get('Statement', [])
 
         if isinstance(statement, dict):
@@ -45,6 +48,10 @@ def iterate_iam_policy_documents(template: Any) -> Iterator[Dict[str, Any]]:
         if kind in {'AWS::IAM::Role', 'AWS::IAM::User'}:
             for policy in props.get('Policies', []):
                 yield from _yield_statements_from_policy(policy)
+
+        if kind in {'AWS::IAM::Role'}:
+            document = props.get('AssumeRolePolicyDocument', {})
+            yield from _yield_statements_from_policy_document(document)
 
 
 def _patch_statement(stmt: Any) -> Iterator[Any]:

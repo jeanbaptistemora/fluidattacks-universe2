@@ -21,4 +21,20 @@ Resources:
           - Effect: Allow
             NotAction: s3:ListBucket
             NotResource: "something"
+
+  AWS_IAM_Role_1:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - ec2.amazonaws.com
+            Action:
+              - sts:AssumeRole
+          - Effect: Allow
+            NotAction: s3:ListBucket
+            NotResource: "something"
+
 ---

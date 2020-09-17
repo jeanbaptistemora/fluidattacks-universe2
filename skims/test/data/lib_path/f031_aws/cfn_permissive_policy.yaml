@@ -22,3 +22,17 @@ Resources:
               - Action: ec2:Something
                 Resource: arn:::ec2/specific
                 Effect: Allow
+      AssumeRolePolicyDocument:
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - ec2.amazonaws.com
+            Action:
+              - sts:AssumeRole
+          - Effect: Allow
+            Action:
+              - ec2:*
+              - autoscaling:*
+              - eks:*
+            Resource: '*'
