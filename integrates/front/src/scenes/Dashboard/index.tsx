@@ -300,10 +300,12 @@ export const Dashboard: React.FC = (): JSX.Element => {
       {isTokenModalOpen ? (
         <APITokenModal onClose={closeTokenModal} open={isTokenModalOpen} />
       ) : undefined}
-      <AddOrganizationModal
-        onClose={closeOrganizationModal}
-        open={isOrganizationModalOpen}
-      />
+      {isOrganizationModalOpen ? (
+        <AddOrganizationModal
+          onClose={closeOrganizationModal}
+          open={isOrganizationModalOpen}
+        />
+      ) : undefined}
       <AddUserModal
         action={"add"}
         editTitle={""}
