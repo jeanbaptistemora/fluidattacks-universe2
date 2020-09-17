@@ -34,6 +34,7 @@ function helper_skims_process_group {
             echo "[ERROR] While running skims on: ${group}" \
         &&  success='false'
       fi \
+  &&  helper_skims_remove_repositories "${group}" \
   &&  helper_skims_push_cache "${group}" \
   &&  test "${success}" = 'true'
 }
@@ -58,6 +59,12 @@ function helper_skims_pull_repositories {
   PROD_AWS_ACCESS_KEY_ID="${SERVICES_PROD_AWS_ACCESS_KEY_ID}" \
   PROD_AWS_SECRET_ACCESS_KEY="${SERVICES_PROD_AWS_SECRET_ACCESS_KEY}" \
   "${product}/bin/melts" drills --pull-repos "${group}"
+}
+
+function helper_skims_remove_repositories {
+  local group="${1}"
+
+  rm -rf "groups/${group}/fusion"
 }
 
 function helper_skims_push_cache {

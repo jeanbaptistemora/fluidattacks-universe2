@@ -53,6 +53,24 @@ function job_skims_process_group {
   fi
 }
 
+function job_skims_process_all_groups {
+  local groups_file="${TEMP_FILE1}"
+  local groups_count
+  local success='true'
+
+      echo '[INFO] Computing groups list' \
+  &&  helper_list_services_groups "${groups_file}" \
+  &&  groups_count=$(wc -l < "${groups_file}") \
+  &&  echo "[INFO] ${groups_count} groups found" \
+  &&  while read -r group
+      do
+            job_skims_process_group "${group}" \
+        ||  success='false'
+      done < "${groups_file}" \
+  &&  test "${success}" = 'true' \
+  ||  return 1
+}
+
 function job_skims_process_group_on_aws {
   local definition
   export group="${1}"
