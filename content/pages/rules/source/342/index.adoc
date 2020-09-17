@@ -1,7 +1,7 @@
 :slug: rules/342/
 :category: source
 :description: This requirement establishes the importance of properly validating the content, length and amount of request parameters.
-:keywords: Request, Parameter, Validation, Pollution, ASVS, CWE, Rules, Ethical Hacking, Pentesting
+:keywords: Request, Parameter, Validation, Pollution, ASVS, CAPEC, CWE, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R342. Validate request parameters
@@ -25,6 +25,11 @@ and provides countermeasures to protect against unsafe parameter assignment.
 * [inner]#link:/web/findings/063/[F063. Lack of data validation]#
 
 == Rereferences
+
+. [[r1]] link:http://capec.mitre.org/data/definitions/6.html[CAPEC-6: Argument Injection].
+An attacker changes the behavior or state of a targeted application through
+injecting data or command syntax through the targets use of non-validated and
+non-filtered arguments of exposed services or methods.
 
 . [[r1]] link:https://cwe.mitre.org/data/definitions/20.html[CWE-20: Improper Input Validation].
 The product does not validate or incorrectly validates input that can affect
