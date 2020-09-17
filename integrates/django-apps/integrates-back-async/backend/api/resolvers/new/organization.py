@@ -1,5 +1,5 @@
 # Standard
-from typing import Any
+from typing import Any, cast
 
 # Third party
 from ariadne.utils import convert_kwargs_to_snake_case
@@ -8,10 +8,14 @@ from graphql.type.definition import GraphQLResolveInfo
 # Local
 from backend.decorators import (
     concurrent_decorators,
+    enforce_organization_level_auth_async,
     require_login,
     require_organization_access
 )
-from backend.domain import organization as org_domain
+from backend.domain import (
+    analytics as analytics_domain,
+    organization as org_domain
+)
 from backend.typing import Organization
 
 
@@ -42,3 +46,22 @@ async def resolve(
         'min_acceptance_severity': organization['min_acceptance_severity'],
         'name': organization['name']
     }
+
+
+@convert_kwargs_to_snake_case
+@enforce_organization_level_auth_async
+async def resolve_analytics(
+    obj: Organization,
+    _info: GraphQLResolveInfo,
+    **kwargs: str
+) -> object:
+    document_name: str = kwargs['document_name']
+    document_type: str = kwargs['document_type']
+    org_id: str = cast(str, obj['id'])
+
+    return await analytics_domain.get_document(
+        document_name=document_name,
+        document_type=document_type,
+        entity='organization',
+        subject=org_id,
+    )

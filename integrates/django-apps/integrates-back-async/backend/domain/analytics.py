@@ -33,6 +33,7 @@ from backend.decorators import (
 from backend.domain import (
     organization as organization_domain,
 )
+from backend.exceptions import DocumentNotFound
 from backend.services import (
     has_access_to_project as has_access_to_group,
 )
@@ -250,7 +251,7 @@ async def handle_graphic_request(request: HttpRequest) -> HttpResponse:
             subject=params.subject,
         )
     except (
-        botocore.exceptions.ClientError,
+        DocumentNotFound,
         KeyError,
         PermissionError,
         ValueError,

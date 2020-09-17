@@ -1,10 +1,14 @@
 # Standard library
 import io
 
+# Third party
+from botocore.exceptions import ClientError
+
 # Local libraries
 from backend.dal.helpers.s3 import (  # type: ignore
     aio_client,
 )
+from backend.exceptions import DocumentNotFound
 from backend.utils import (
     apm,
 )
@@ -22,7 +26,10 @@ async def get_document(key: str) -> str:
 
         # Stream the download to an in-memory buffer
         async with aio_client() as client:
-            await client.download_fileobj(BUCKET_ANALYTICS, key, stream)
+            try:
+                await client.download_fileobj(BUCKET_ANALYTICS, key, stream)
+            except ClientError:
+                raise DocumentNotFound()
 
         # Return pointer to begin-of-file
         stream.seek(0)
