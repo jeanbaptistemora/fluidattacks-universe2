@@ -121,6 +121,18 @@ class UtilTests(TestCase):
         result = decrypt_jwt_payload(encrypt_jwt_payload(payload))
         assert payload == result
 
+    async def test_decrypt_temp_support_for_nonencrypted(self):
+        payload = {
+            'user_email': 'unittest',
+            'exp': datetime.utcnow() +
+            timedelta(seconds=settings.SESSION_COOKIE_AGE),
+            'iat': datetime.utcnow().timestamp(),
+            'sub': 'django_session',
+            'jti': calculate_hash_token()['jti'],
+        }
+        result = decrypt_jwt_payload(payload)
+        assert payload == result
+
     async def test_get_jwt_content(self):
         request = create_dummy_simple_session()
         payload = {

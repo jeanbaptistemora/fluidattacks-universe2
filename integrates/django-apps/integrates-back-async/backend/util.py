@@ -233,6 +233,8 @@ def encrypt_jwt_payload(payload: dict) -> dict:
 
 
 def decrypt_jwt_payload(payload: dict) -> dict:
+    if 'ciphertext' not in payload:
+        return payload
     serialized_payload = encodings.jwt_payload_encode(payload)
     key = JWK.from_json(FI_JWT_ENCRYPTION_KEY)
     result = JWE()
@@ -265,18 +267,21 @@ async def get_jwt_content(context) -> Dict[str, str]:
             raise InvalidAuthorization()
 
         payload = jwt.get_unverified_claims(token)
+        payload = decrypt_jwt_payload(payload)
         if is_api_token(payload):
             content = jwt.decode(
                 token=token,
                 key=settings.JWT_SECRET_API,
                 algorithms='HS512'
             )
+            content = decrypt_jwt_payload(content)
         else:
             content = jwt.decode(
                 token=token,
                 key=settings.JWT_SECRET,
                 algorithms='HS512'
             )
+            content = decrypt_jwt_payload(content)
             jti = content.get('jti')
             if (content.get('sub') == 'django_session' and
                     not await token_exists(f'fi_jwt:{jti}')):
