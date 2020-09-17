@@ -37,15 +37,11 @@ _LOGGER.setLevel(logging.INFO)
 _LOGGER.addHandler(_LOGGER_HANDLER)
 
 
-def set_level(level: int) -> None:
-    _LOGGER.setLevel(level)
-    _LOGGER_HANDLER.setLevel(level)
-
-
 async def log(level: str, msg: str, *args: Any) -> None:
     await in_thread(getattr(_LOGGER, level), msg, *args)
 
 
-async def log_to_remote(exception: BaseException, **meta_data: str) -> None:
+async def log_to_remote(exception: BaseException,
+                        **meta_data: str) -> None:  # pragma: no cover
     meta_data.update(BUGS_META.get() or {})
     await in_thread(bugsnag.notify, exception, meta_data=meta_data)

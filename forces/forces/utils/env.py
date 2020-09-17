@@ -18,4 +18,4 @@ def guess_environment(
     )):
         return 'development'
 
-    return 'production'
+    return 'production'  # pragma: no cover

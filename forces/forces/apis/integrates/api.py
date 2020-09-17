@@ -25,7 +25,7 @@ from forces.utils.function import shield
 # Constants
 TFun = TypeVar('TFun', bound=Callable[..., Any])
 SHIELD: Callable[[TFun], TFun] = shield(
-    retries=4,
+    retries=8,
     sleep_between_retries=5,
 )
 

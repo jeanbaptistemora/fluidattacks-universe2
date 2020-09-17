@@ -43,9 +43,9 @@ def shield(*,
                BaseException,
                RetryAndFinallyReturn,
            ),
-           retries: int = 1,
+           retries: int = 4,
            sleep_between_retries: int = 0) -> Callable[[TFun], TFun]:
-    if retries < 1:
+    if retries < 1:  # pragma: no cover
         raise ValueError('retries must be >= 1')
 
     def decorator(function: TFun) -> TFun:
@@ -56,12 +56,14 @@ def shield(*,
             for _, is_last, number in mark_ends(range(retries)):
                 try:
                     return await function(*args, **kwargs)
-                except on_exceptions as exc:
+                except on_exceptions as exc:  # pragma: no cover
                     msg: str = 'Function: %s, %s: %s'
                     exc_msg: str = str(exc)
                     exc_type: str = type(exc).__name__
                     await log('warning', msg, function_id, exc_type, exc_msg)
-                    await log_to_remote(exc)
+                    await log_to_remote(exc,
+                                        function_id=function_id,
+                                        retry=str(number))
 
                     if is_last or isinstance(exc, StopRetrying):
                         if isinstance(exc, RetryAndFinallyReturn):

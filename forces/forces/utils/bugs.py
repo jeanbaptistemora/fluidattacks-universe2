@@ -1,4 +1,5 @@
 # Standard library
+import os
 from contextvars import (
     ContextVar, )
 from typing import (
@@ -21,8 +22,29 @@ from forces.utils.env import (guess_environment, BASE_DIR)
 META: ContextVar[Optional[Dict[str, str]]] = (ContextVar('META', default=None))
 
 
-def customize_bugsnag_error_reports(notification: Any) -> None:
+def customize_bugsnag_error_reports(
+        notification: Any) -> None:  # pragma: no cover
     # Customize Login required error
+    environment = dict()
+    if os.environ.get('CI_JOB_ID', None):
+        environment['PIPELINE'] = 'GITLAB_CI'
+        environment['CI_JOB_ID'] = os.environ.get('CI_JOB_ID', 'unknown')
+        environment['CI_JOB_URL'] = os.environ.get('CI_JOB_URL', 'unknown')
+    elif os.environ.get('CIRCLECI', None):
+        environment['PIPELINE'] = 'CIRCLECI'
+        environment['CIRCLE_BUILD_NUM'] = os.environ.get(
+            'CIRCLE_BUILD_NUM', 'unknown')
+        environment['CIRCLE_BUILD_URL'] = os.environ.get(
+            'CIRCLE_BUILD_URL', 'unknown')
+    elif os.environ.get('System.JobId', None):
+        environment['PIPELINE'] = 'AZURE_DEVOPS'
+        environment['System.JobId'] = os.environ.get('System.JobId', 'unknown')
+    elif os.environ.get('BUILD_NUMBER', None):
+        environment['PIPELINE'] = 'JENKINS'
+        os.environ['BUILD_NUMBER'] = os.environ.get('BUILD_NUMBER', 'unknown')
+        os.environ['BUILD_ID'] = os.environ.get('BUILD_ID', 'unknown')
+        os.environ['BUILD_URL'] = os.environ.get('BUILD_URL', 'unknown')
+    notification.add_tab("environment", environment)
 
     if isinstance(notification.exception, (
             ClientConnectorError,
