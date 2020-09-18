@@ -49,7 +49,6 @@ def test_toolbox_reporting_cycle(relocate):
     # remove the reported vulnerabilities
     assert utils.integrates.delete_pending_vulns(FINDING)
 
-@pytest.mark.skip(reason="Pending to fix")
 def test__get_static_dictionary():
     assert toolbox._get_static_dictionary(FINDING) == {
         "Test": [

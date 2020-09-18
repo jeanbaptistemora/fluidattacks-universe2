@@ -57,7 +57,6 @@ def test_integrates_queries_finding():
         with_vulns=True)
     assert response.ok
 
-@pytest.mark.skip(reason="Pending to fix")
 def test_integrates_queries_resources():
     """Test integrates queries."""
     # This will guarantee that we have always our fields updated

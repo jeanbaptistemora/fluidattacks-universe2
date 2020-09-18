@@ -77,7 +77,6 @@ def test_forces_7(relocate, cli_runner):
 
     assert result.exit_code == 0, result.output
 
-@pytest.mark.skip(reason="Pending to fix")
 def test_forces_8(relocate, cli_runner):
     result = cli_runner([
         'forces', '--upload-exps-from-repo-to-integrates', GROUP_BAD,
