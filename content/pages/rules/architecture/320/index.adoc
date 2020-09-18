@@ -1,7 +1,7 @@
 :slug: rules/320/
 :category: architecture
 :description: This requirement establishes the importance of enforcing access control on the server's side instead of on the client's.
-:keywords: Control Enforcement, Client, Server, Access, ASVS, CWE, PCI DSS, Rules, Ethical Hacking, Pentesting
+:keywords: Control Enforcement, Client, Server, Access, ASVS, CAPEC, CWE, PCI DSS, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R320. Avoid client-side control enforcement
@@ -38,101 +38,108 @@ to being bypassed and/or tampered with.
 
 == References
 
-. [[r1]] link:https://cwe.mitre.org/data/definitions/284.html[CWE-284: Improper Access Control].
+. [[r1]] link:http://capec.mitre.org/data/definitions/11.html[CAPEC-11: Cause Web Server Misclassification].
+An attack of this type exploits a Web server's decision to take action based on
+filename or file extension.
+Because different file types are handled by different server processes,
+misclassification may force the Web server to take unexpected action,
+or expected actions in an unexpected sequence.
+
+. [[r2]] link:https://cwe.mitre.org/data/definitions/284.html[CWE-284: Improper Access Control].
 The software does not restrict or incorrectly restricts access to a resource
 from an unauthorized actor.
 
-. [[r2]] link:https://cwe.mitre.org/data/definitions/285.html[CWE-285: Improper Authorization].
+. [[r3]] link:https://cwe.mitre.org/data/definitions/285.html[CWE-285: Improper Authorization].
 The software does not perform or incorrectly performs an authorization check
 when an actor attempts to access a resource or perform an action.
 
-. [[r3]] link:https://cwe.mitre.org/data/definitions/602.html[CWE-602: Client-Side Enforcement of Server-Side Security].
+. [[r4]] link:https://cwe.mitre.org/data/definitions/602.html[CWE-602: Client-Side Enforcement of Server-Side Security].
 The software is composed of a server that relies on the client to implement a
 mechanism that is intended to protect the server.
 
-. [[r4]] link:https://cwe.mitre.org/data/definitions/639.html[CWE-639: Authorization Bypass Through User-Controlled Key].
+. [[r5]] link:https://cwe.mitre.org/data/definitions/639.html[CWE-639: Authorization Bypass Through User-Controlled Key].
 The system's authorization functionality does not prevent one user from gaining
 access to another user's data or record by modifying the key value identifying
 the data.
 
-. [[r5]] link:https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:02002L0058-20091219[Directive 2002/58/EC (amended by E-privacy Directive 2009/136/EC).
+. [[r6]] link:https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:02002L0058-20091219[Directive 2002/58/EC (amended by E-privacy Directive 2009/136/EC).
 Art. 4: Security of processing.(1a)]
 The measures referred to in paragraph 1 shall at least ensure that personal
 data can be accessed only by authorized personnel for legally authorized
 purposes.
 
-. [[r6]] link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A2-Broken_Authentication[OWASP Top 10 A2:2017-Broken Authentication].
+. [[r7]] link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A2-Broken_Authentication[OWASP Top 10 A2:2017-Broken Authentication].
 Application functions related to authentication and session management are
 often implemented incorrectly,
 allowing attackers to compromise passwords, keys, or session tokens,
 or to exploit other implementation flaws to assume other users' identities
 temporarily or permanently.
 
-. [[r7]] link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A5-Broken_Access_Control[OWASP Top 10 A5:2017-Broken Access Control].
+. [[r8]] link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A5-Broken_Access_Control[OWASP Top 10 A5:2017-Broken Access Control].
 Restrictions on what authenticated users are allowed to do are often not
 properly enforced.
 Attackers can exploit these flaws to access unauthorized functionality and/or
 data, such as access other users' accounts, view sensitive files,
 modify other users' data, change access rights, etc.
 
-. [[r8]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r9]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V1.4 Access Control Architectural Requirements.(1.4.1)]
 Verify that trusted enforcement points such as at access control gateways,
 servers, and serverless functions enforce access controls.
 Never enforce access controls on the client.
 
-. [[r9]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r10]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V1.4 Access Control Architectural Requirements.(1.4.4)]
 Verify the application uses a single and well-vetted access control mechanism
 for accessing protected data and resources.
 All requests must pass through this single mechanism to avoid copy and paste or
 insecure alternative paths.
 
-. [[r10]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r11]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V1.5 Input and Output Architectural Requirements.(1.5.3)]
 Verify that input validation is enforced on a trusted service layer.
 
-. [[r11]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r12]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V4.1 General Access Control Design.(4.1.1)]
 Verify that the application enforces access control rules on a trusted service
 layer,
 especially if client-side access control is present and could be bypassed.
 
-. [[r12]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r13]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V4.1 General Access Control Design.(4.1.2)]
 Verify that all user and data attributes and policy information used by access
 controls cannot be manipulated by end users unless specifically authorized.
 
-. [[r13]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r14]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V4.2 Operation Level Access Control.(4.2.1)]
 Verify that sensitive data and APIs are protected against direct object attacks
 targeting creation, reading, updating and deletion of records,
 such as creating or updating someone else's record, viewing everyone's records,
 or deleting all records.
 
-. [[r14]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r15]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V13.1 Generic Web Service Security Verification Requirements.(13.1.4)]
 Verify that authorization decisions are made at both the URI,
 enforced by programmatic or declarative security at the controller or router,
 and at the resource level, enforced by model-based permissions.
 
-. [[r15]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r16]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V13.4 GraphQL and other Web Service Data Layer Security Requirements.(13.4.2)]
 Verify that *GraphQL* or other data layer authorization logic should be
 implemented at the business logic layer instead of the *GraphQL* layer.
 
-. [[r16]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r17]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V14.5 Validate HTTP Request Header Requirements.(14.5.2)]
 Verify that the supplied *Origin* header is not used for authentication or
 access control decisions,
 as the *Origin* header can easily be changed by an attacker.
 
-. [[r17]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 6.5.8]
+. [[r18]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 6.5.8]
 Address common coding vulnerabilities in software-development processes
 including improper access control
 (such as insecure direct object references, failure to restrict URL access,
 directory traversal, and failure to restrict user access to functions).
 
-. [[r18]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 6.5.10]
+. [[r19]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 6.5.10]
 Address common coding vulnerabilities in software-development processes such as
 broken authentication and session management.
