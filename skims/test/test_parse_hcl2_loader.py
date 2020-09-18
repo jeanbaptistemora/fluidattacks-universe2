@@ -51,20 +51,10 @@ def test_load_full() -> None:
                     ),
                     Attribute(
                         key='tags',
-                        val=Tree('object', [
-                            Tree('object_elem', [
-                                Tree('identifier', [
-                                    'proyecto'
-                                ]),
-                                '${var.proyecto}',
-                            ]),
-                            Tree('object_elem', [
-                                Tree('identifier', [
-                                    'analista'
-                                ]),
-                                '${var.analista}',
-                            ]),
-                        ]),
+                        val={
+                            'proyecto': '${var.proyecto}',
+                            'analista': '${var.analista}',
+                        },
                     ),
                 ]),
             ])
