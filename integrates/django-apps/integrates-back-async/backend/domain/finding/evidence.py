@@ -1,12 +1,7 @@
 # pylint:disable=too-many-branches
 import time
 from typing import Dict, List, Union, cast, Optional, Any
-from aioextensions import (
-    in_process
-)
-from magic import Magic
 from django.core.files.uploadedfile import InMemoryUploadedFile
-from backend import util
 from backend.dal import finding as finding_dal
 from backend.exceptions import (
     EvidenceNotFound,
@@ -21,9 +16,11 @@ from .finding import get_finding
 
 
 async def update_evidence(
-        finding_id: str,
-        evidence_type: str,
-        file: InMemoryUploadedFile) -> bool:
+    finding_id: str,
+    evidence_type: str,
+    file: InMemoryUploadedFile,
+    mime_type: str
+) -> bool:
     finding = await get_finding(finding_id)
     files = cast(List[Dict[str, str]], finding.get('files', []))
     project_name = str(finding.get('projectName', ''))
@@ -48,7 +45,6 @@ async def update_evidence(
                 file.open()
 
     try:
-        mime = Magic(mime=True).from_buffer(file.file.getvalue())
         extension = {
             'image/gif': '.gif',
             'image/jpeg': '.jpg',
@@ -57,7 +53,7 @@ async def update_evidence(
             'text/x-python': '.exp',
             'text/csv': '.csv',
             'text/plain': '.txt'
-        }[mime]
+        }[mime_type]
     except AttributeError:
         extension = ''
     evidence_id = f'{project_name}-{finding_id}-{evidence_type}-' \
@@ -161,8 +157,10 @@ async def remove_evidence(evidence_name: str, finding_id: str) -> bool:
 
 
 async def validate_evidence(
-        evidence_id: str,
-        file: InMemoryUploadedFile) -> bool:
+    evidence_id: str,
+    file: InMemoryUploadedFile,
+    mime_type: str
+) -> bool:
     mib = 2097152
     success = False
     allowed_mimes = []
@@ -181,14 +179,8 @@ async def validate_evidence(
     elif evidence_id == 'fileRecords':
         allowed_mimes = ['text/csv', 'text/plain']
 
-    try:
-        if not await in_process(
-            util.assert_uploaded_file_mime, file, allowed_mimes
-        ):
-            raise InvalidFileType()
-    except TypeError:
-        if not util.assert_uploaded_file_mime(file, allowed_mimes):
-            raise InvalidFileType()
+    if mime_type not in allowed_mimes:
+        raise InvalidFileType()
 
     if file.size < max_size.get(evidence_id, 10) * mib:
         success = True

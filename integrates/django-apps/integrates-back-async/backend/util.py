@@ -136,10 +136,9 @@ def assert_file_mime(filename: str, allowed_mimes: List[str]) -> bool:
     return mime_type in allowed_mimes
 
 
-def assert_uploaded_file_mime(
-        file_instance: str,
-        allowed_mimes: List[str]) -> bool:
+def get_uploaded_file_mime(file_instance: str) -> str:
     mime = Magic(mime=True)
+    mime_type = ''
     if isinstance(file_instance, TemporaryUploadedFile):
         mime_type = mime.from_file(file_instance.temporary_file_path())
     elif isinstance(file_instance, InMemoryUploadedFile):
@@ -149,6 +148,13 @@ def assert_uploaded_file_mime(
             'Provided file is not a valid django upload file. '
             'Use util.assert_file_mime instead.'
         )
+    return mime_type
+
+
+def assert_uploaded_file_mime(
+        file_instance: str,
+        allowed_mimes: List[str]) -> bool:
+    mime_type = get_uploaded_file_mime(file_instance)
     return mime_type in allowed_mimes
 
 
