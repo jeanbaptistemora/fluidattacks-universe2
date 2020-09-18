@@ -50,7 +50,7 @@ spec:
       - backend:
           serviceName: integrates-app
           servicePort: 80
-        path: /integrates/api(.*)
+        path: /integrates/api
 ---
 kind: Service
 apiVersion: v1
@@ -82,4 +82,4 @@ spec:
         - backend:
             serviceName: integrates-new
             servicePort: 443
-          path: /integrates(.*)
+          path: /integrates

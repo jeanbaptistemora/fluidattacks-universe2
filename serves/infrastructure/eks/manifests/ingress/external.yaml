@@ -56,7 +56,7 @@ spec:
       - backend:
           serviceName: gitlab-pages
           servicePort: 443
-        path: /asserts(.*)
+        path: /asserts
 ---
 kind: Service
 apiVersion: v1
@@ -78,14 +78,6 @@ metadata:
     nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
     nginx.ingress.kubernetes.io/app-root: "/web/"
     nginx.ingress.kubernetes.io/configuration-snippet: |
-      location ~* /web/en/(.*) {
-        return 308 https://fluidattacks.com/web/$1;
-      }
-
-      location ~* /web/es/(.*) {
-        return 308 https://fluidattacks.com/web/;
-      }
-
       more_set_headers "Content-Security-Policy: ${CSP};";
       more_set_headers "Expires: 0";
       more_set_headers "Pragma: no-cache";
@@ -110,4 +102,4 @@ spec:
       - backend:
           serviceName: web
           servicePort: 80
-        path: /(.*)?
+        path: /
