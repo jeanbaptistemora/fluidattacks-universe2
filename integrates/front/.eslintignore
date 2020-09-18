@@ -6,9 +6,7 @@ src/scenes/Dashboard/**/*.*
 !src/scenes/Dashboard/*.*
 !src/scenes/Dashboard/components/APITokenModal/**
 !src/scenes/Dashboard/components/AddEnvironmentsModal/**
-!src/scenes/Dashboard/components/AddOrganizationModal/index.tsx
-!src/scenes/Dashboard/components/AddOrganizationModal/queries.ts
-!src/scenes/Dashboard/components/AddOrganizationModal/types.ts
+!src/scenes/Dashboard/components/AddOrganizationModal/**
 !src/scenes/Dashboard/components/NewsWidget/**
 !src/scenes/Dashboard/components/AddFilesModal/**
 src/**/*.css.d.ts

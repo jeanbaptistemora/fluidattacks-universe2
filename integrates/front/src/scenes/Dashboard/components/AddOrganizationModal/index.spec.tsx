@@ -1,46 +1,46 @@
-import { MockedProvider, MockedResponse } from "@apollo/react-testing";
-import { mount, ReactWrapper } from "enzyme";
-import React from "react";
-// tslint:disable-next-line: no-submodule-imports
-import { act } from "react-dom/test-utils";
-import { Provider } from "react-redux";
-import waitForExpect from "wait-for-expect";
-
 import { AddOrganizationModal } from "scenes/Dashboard/components/AddOrganizationModal";
+import { Provider } from "react-redux";
+import React from "react";
+import ReactRouterDom from "react-router-dom";
+import { act } from "react-dom/test-utils";
+import store from "store";
+import waitForExpect from "wait-for-expect";
 import {
   CREATE_NEW_ORGANIZATION,
   GET_AVAILABLE_ORGANIZATION_NAME,
 } from "scenes/Dashboard/components/AddOrganizationModal/queries";
-import { IAddOrganizationModalProps } from "scenes/Dashboard/components/AddOrganizationModal/types";
-import store from "store";
+import { MockedProvider, MockedResponse } from "@apollo/react-testing";
+import { ReactWrapper, mount } from "enzyme";
 
-const mockCloseModal: jest.Mock = jest.fn();
+const handleCloseModal: jest.Mock = jest.fn();
 const mockHistoryPush: jest.Mock = jest.fn();
-jest.mock("react-router-dom", (): Dictionary => {
-  const mockedRouter: Dictionary<() => Dictionary> = jest.requireActual("react-router-dom");
+jest.mock(
+  "react-router-dom",
+  (): Dictionary => {
+    const mockedRouter: typeof ReactRouterDom = jest.requireActual(
+      "react-router-dom"
+    );
 
-  return {
-    ...mockedRouter,
-    useHistory: (): Dictionary => ({
-      ...mockedRouter.useHistory(),
-      push: mockHistoryPush,
-    }),
-  };
-});
+    return {
+      ...mockedRouter,
+      useHistory: (): Dictionary => ({
+        ...mockedRouter.useHistory(),
+        push: mockHistoryPush,
+      }),
+    };
+  }
+);
 
-describe("Add organization modal", () => {
-  const mockProps: IAddOrganizationModalProps = {
-    onClose: mockCloseModal,
-    open: true,
-  };
-
-  it("should return a function", () => {
-    expect(typeof AddOrganizationModal)
-      .toEqual("function");
+describe("Add organization modal", (): void => {
+  it("should return a function", (): void => {
+    expect.hasAssertions();
+    expect(typeof AddOrganizationModal).toStrictEqual("function");
   });
 
-  it("should render component", async () => {
-    const mocks: ReadonlyArray<MockedResponse> = [
+  it("should render component", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    const mocks: MockedResponse[] = [
       {
         request: {
           query: GET_AVAILABLE_ORGANIZATION_NAME,
@@ -55,48 +55,46 @@ describe("Add organization modal", () => {
       },
     ];
     const wrapper: ReactWrapper = mount(
-      <Provider store={store} >
-        <MockedProvider mocks={mocks} addTypename={false}>
-          <AddOrganizationModal {...mockProps} />
+      <Provider store={store}>
+        <MockedProvider addTypename={false} mocks={mocks}>
+          <AddOrganizationModal onClose={handleCloseModal} open={true} />
         </MockedProvider>
-      </Provider>,
+      </Provider>
     );
 
-    await act(async () => {
-      await waitForExpect(() => {
-        wrapper.update();
+    await act(
+      async (): Promise<void> => {
+        await waitForExpect((): void => {
+          wrapper.update();
 
-        expect(wrapper)
-          .toHaveLength(1);
-        expect(
-          wrapper
-            .find({ name: "name" })
-            .find("input")
-            .prop("value"))
-          .toBe("ESDEATH");
-      });
-    });
+          expect(wrapper).toHaveLength(1);
+          expect(
+            wrapper.find({ name: "name" }).find("input").prop("value")
+          ).toBe("ESDEATH");
+        });
+      }
+    );
 
-    expect(
-      wrapper
-        .find({ name: "name" })
-        .find("input")
-        .prop("disabled"))
-        .toBe(true);
+    expect(wrapper.find({ name: "name" }).find("input").prop("disabled")).toBe(
+      true
+    );
 
     const cancelButton: ReactWrapper = wrapper
       .find("button")
-      .filterWhere((element: ReactWrapper) => element.contains("Cancel"))
+      .filterWhere((element: ReactWrapper): boolean =>
+        element.contains("Cancel")
+      )
       .first();
 
     cancelButton.simulate("click");
 
-    expect(mockCloseModal)
-      .toHaveBeenCalled();
+    expect(handleCloseModal).toHaveBeenCalledWith(expect.anything());
   });
 
-  it("should create an organization", async () => {
-    const mocks: ReadonlyArray<MockedResponse> = [
+  it("should create an organization", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    const mocks: MockedResponse[] = [
       {
         request: {
           query: GET_AVAILABLE_ORGANIZATION_NAME,
@@ -130,41 +128,37 @@ describe("Add organization modal", () => {
       },
     ];
     const wrapper: ReactWrapper = mount(
-      <Provider store={store} >
-        <MockedProvider mocks={mocks} addTypename={false}>
-          <AddOrganizationModal {...mockProps} />
+      <Provider store={store}>
+        <MockedProvider addTypename={false} mocks={mocks}>
+          <AddOrganizationModal onClose={handleCloseModal} open={true} />
         </MockedProvider>
-      </Provider>,
+      </Provider>
     );
 
-    await act(async () => {
-      await waitForExpect(() => {
-        wrapper.update();
+    await act(
+      async (): Promise<void> => {
+        await waitForExpect((): void => {
+          wrapper.update();
 
-        expect(wrapper)
-          .toHaveLength(1);
-        expect(
-          wrapper
-            .find({ name: "name" })
-            .find("input")
-            .prop("value"))
-          .toBe("ESDEATH");
-      });
-    });
+          expect(wrapper).toHaveLength(1);
+          expect(
+            wrapper.find({ name: "name" }).find("input").prop("value")
+          ).toBe("ESDEATH");
+        });
+      }
+    );
 
-    wrapper
-      .find("genericForm")
-      .simulate("submit");
+    wrapper.find("genericForm").simulate("submit");
 
-    await act(async () => {
-      await waitForExpect(() => {
-        wrapper.update();
+    await act(
+      async (): Promise<void> => {
+        await waitForExpect((): void => {
+          wrapper.update();
 
-        expect(mockCloseModal)
-          .toHaveBeenCalled();
-        expect(mockHistoryPush)
-          .toHaveBeenCalledWith("/orgs/esdeath/");
-      });
-    });
+          expect(handleCloseModal).toHaveBeenCalledWith(expect.anything());
+          expect(mockHistoryPush).toHaveBeenCalledWith("/orgs/esdeath/");
+        });
+      }
+    );
   });
 });
