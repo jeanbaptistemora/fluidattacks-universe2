@@ -30,29 +30,29 @@ def test_load_full() -> None:
         Tree('body', [
             Tree('block', [
                 Tree('identifier', [
-                    Token('__ANON_3', 'module')
+                    'module'
                 ]),
-                Token('STRING_LIT', '"iam_user"'),
+                'iam_user',
                 Tree('body', [
                     Tree('attribute', [
                         Tree('identifier', [
-                            Token('__ANON_3', 'source')
+                            'source'
                         ]),
                         Tree('expr_term', [
-                            Token('STRING_LIT', '"modules\\/iam-user"')
+                            'modules\\/iam-user'
                         ]),
                     ]),
                     Tree('attribute', [
                         Tree('identifier', [
-                            Token('__ANON_3', 'name')
+                            'name'
                         ]),
                         Tree('expr_term', [
-                            Token('STRING_LIT', '"${var.iamuser}"')
+                            '${var.iamuser}'
                         ]),
                     ]),
                     Tree('attribute', [
                         Tree('identifier', [
-                            Token('__ANON_3', 'force_destroy')
+                            'force_destroy'
                         ]),
                         Tree('expr_term', [
                             Tree('true_lit', [])
@@ -60,24 +60,24 @@ def test_load_full() -> None:
                     ]),
                     Tree('attribute', [
                         Tree('identifier', [
-                            Token('__ANON_3', 'tags')
+                            'tags'
                         ]),
                         Tree('expr_term', [
                             Tree('object', [
                                 Tree('object_elem', [
                                     Tree('identifier', [
-                                        Token('__ANON_3', 'proyecto')
+                                        'proyecto'
                                     ]),
                                     Tree('expr_term', [
-                                        Token('STRING_LIT', '"${var.proyecto}"')
+                                        '${var.proyecto}'
                                     ])
                                 ]),
                                 Tree('object_elem', [
                                     Tree('identifier', [
-                                        Token('__ANON_3', 'analista')
+                                        'analista'
                                     ]),
                                     Tree('expr_term', [
-                                        Token('STRING_LIT', '"${var.analista}"')
+                                        '${var.analista}'
                                     ])
                                 ]),
                             ])

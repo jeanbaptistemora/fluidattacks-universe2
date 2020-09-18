@@ -1,4 +1,5 @@
 # Standard library
+import ast
 from typing import (
     Any,
     List,
@@ -40,6 +41,8 @@ def load(stream: str) -> Any:
 
 def post_process(data: Any) -> Any:
     data = remove_discarded(data)
+    data = coerce_to_string_lit(data)
+
     return data
 
 
@@ -50,5 +53,17 @@ def remove_discarded(data: Any) -> Any:
             for children in data.children
             if not isinstance(children, lark.Discard)
         ]
+
+    return data
+
+
+def coerce_to_string_lit(data: Any) -> Any:
+    if isinstance(data, lark.Tree):
+        data.children = list(map(coerce_to_string_lit, data.children))
+    elif isinstance(data, lark.Token):
+        if data.type == '__ANON_3':
+            data = data.value
+        elif data.type == 'STRING_LIT':
+            data = ast.literal_eval(data.value)
 
     return data
