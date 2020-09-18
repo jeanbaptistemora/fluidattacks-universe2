@@ -87,7 +87,7 @@ resource "aws_batch_compute_environment" "skims" {
     # If a job requires `x` vcpus then at most `max_vcpus / x` jobs would run simultaneosly.
     # This parameter should be tuned so the vcpus and memory per job coincides
     #   with the launched instance
-    max_vcpus = 16
+    max_vcpus = 32
     min_vcpus = 0
     security_group_ids = [
       aws_security_group.skims_aws_batch_compute_environment_security_group.id,
