@@ -11,7 +11,7 @@
   color: #666666;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1030px) {
   .tab {
     display: table-cell;
     width: 1%;
