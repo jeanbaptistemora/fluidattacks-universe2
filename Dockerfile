@@ -8,4 +8,6 @@ COPY . /data
 
 WORKDIR /data
 
+ENV CI_COMMIT_REF_NAME=master
+
 RUN ./install.sh

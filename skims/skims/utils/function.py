@@ -14,11 +14,15 @@ from typing import (
 )
 
 # Third party libraries
+import aioextensions
 from more_itertools import (
     mark_ends,
 )
 
 # Local libraries
+from utils.env import (
+    guess_environment,
+)
 from utils.logs import (
     log,
     log_to_remote,
@@ -26,6 +30,7 @@ from utils.logs import (
 
 # Constants
 RAISE = object()
+RATE_LIMIT_ENABLED: bool = guess_environment() == 'production'
 TFun = TypeVar('TFun', bound=Callable[..., Any])
 
 
@@ -104,3 +109,14 @@ def shield(
         return cast(TFun, wrapper)
 
     return decorator
+
+
+def rate_limited(*, rpm: float) -> Callable[[TFun], TFun]:
+    if RATE_LIMIT_ENABLED:
+        return aioextensions.rate_limited(
+            max_calls=1,
+            max_calls_period=60.0 / rpm,
+            min_seconds_between_calls=60.0 / rpm,
+        )
+
+    return lambda x: x

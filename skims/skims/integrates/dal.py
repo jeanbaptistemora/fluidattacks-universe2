@@ -19,11 +19,16 @@ import aiohttp
 from integrates.graphql import (
     client as graphql_client,
 )
+from integrates.limits import (
+    DEFAULT as DEFAULT_RATE_LIMIT,
+    DO_UPDATE_EVIDENCE as DO_UPDATE_EVIDENCE_RATE_LIMIT,
+)
 from state.ephemeral import (
     EphemeralStore,
     get_ephemeral_store,
 )
 from utils.function import (
+    rate_limited,
     shield,
     RetryAndFinallyReturn,
     StopRetrying,
@@ -82,6 +87,7 @@ async def raise_errors(
         pass
 
 
+@rate_limited(rpm=DEFAULT_RATE_LIMIT)
 async def _execute(
     *,
     query: str,
@@ -476,6 +482,7 @@ async def do_update_finding_severity(
     return success
 
 
+@rate_limited(rpm=DO_UPDATE_EVIDENCE_RATE_LIMIT)
 @SHIELD
 async def do_update_evidence(
     *,
