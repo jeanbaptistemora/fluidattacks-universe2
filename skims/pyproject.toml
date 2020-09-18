@@ -31,6 +31,7 @@ packages = [
   { include = "nvd", from = "skims" },
   { include = "parse_cfn", from = "skims" },
   { include = "parse_grammar", from = "skims" },
+  { include = "parse_hcl2", from = "skims" },
   { include = "parse_json", from = "skims" },
   { include = "serialization", from = "skims" },
   { include = "state", from = "skims" },
