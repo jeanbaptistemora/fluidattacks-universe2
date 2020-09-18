@@ -151,7 +151,7 @@
                         "N": "113"
                     },
                     "organization": {
-                        "S": "testorg"
+                        "S": "okada"
                     },
                     "projects" : {
                         "SS" : [

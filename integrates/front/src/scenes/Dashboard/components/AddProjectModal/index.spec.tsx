@@ -30,7 +30,7 @@ describe("AddProjectModal component", () => {
           <AddProjectModal
             isOpen={true}
             onClose={handleOnClose}
-            organization="testorg"
+            organization="okada"
           />
         </MockedProvider>
       </Provider>,
@@ -53,7 +53,7 @@ describe("AddProjectModal component", () => {
           <AddProjectModal
             isOpen={true}
             onClose={handleOnClose}
-            organization="testorg"
+            organization="okada"
           />
         </MockedProvider>
       </Provider>,
@@ -105,7 +105,7 @@ describe("AddProjectModal component", () => {
           <AddProjectModal
             isOpen={true}
             onClose={handleOnClose}
-            organization="testorg"
+            organization="okada"
           />
         </MockedProvider>
       </Provider>,
@@ -128,7 +128,7 @@ describe("AddProjectModal component", () => {
           <AddProjectModal
             isOpen={true}
             onClose={handleOnClose}
-            organization="testorg"
+            organization="okada"
           />
         </MockedProvider>
       </Provider>,

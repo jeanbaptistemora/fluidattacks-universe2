@@ -80,7 +80,7 @@ describe("Portfolio Groups", () => {
 
   it("should render a component", async () => {
     const wrapper: ReactWrapper = mount(
-      <MemoryRouter initialEntries={["/orgs/testorg/portfolios/test-projects/groups"]}>
+      <MemoryRouter initialEntries={["/orgs/okada/portfolios/test-projects/groups"]}>
         <Provider store={store}>
           <MockedProvider mocks={[portfolioQuery]} addTypename={false}>
             <Route path="/orgs/:organizationName/portfolios/:tagName/groups" component={TagsGroup} />
@@ -114,7 +114,7 @@ describe("Portfolio Groups", () => {
 
   it("should render an error in component", async () => {
     const wrapper: ReactWrapper = mount(
-      <MemoryRouter initialEntries={["/orgs/testorg/portfolios/another-tag/groups"]}>
+      <MemoryRouter initialEntries={["/orgs/okada/portfolios/another-tag/groups"]}>
         <Provider store={store}>
           <MockedProvider mocks={[portfolioQueryError]} addTypename={false}>
             <Route path="/orgs/:organizationName/portfolios/:tagName/groups" component={TagsGroup} />

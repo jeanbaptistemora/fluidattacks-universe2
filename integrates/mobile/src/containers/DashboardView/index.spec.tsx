@@ -62,7 +62,7 @@ describe("DashboardView", (): void => {
                   },
                   totalGroups: 1,
                 },
-                name: "testorg",
+                name: "okada",
               },
             ],
           },
@@ -185,7 +185,7 @@ describe("DashboardView", (): void => {
                   },
                   totalGroups: 1,
                 },
-                name: "testorg",
+                name: "okada",
               },
               {
                 // tslint:disable-next-line: no-null-keyword
@@ -269,7 +269,7 @@ describe("DashboardView", (): void => {
                   },
                   totalGroups: 1,
                 },
-                name: "testorg",
+                name: "okada",
               },
             ],
           },
@@ -297,7 +297,7 @@ describe("DashboardView", (): void => {
                   },
                   totalGroups: 1,
                 },
-                name: "testorg",
+                name: "okada",
               },
               {
                 analytics: {

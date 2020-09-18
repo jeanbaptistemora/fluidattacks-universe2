@@ -501,15 +501,14 @@ class ViewTestCase(unittest.TestCase):
     def test_17_pending_to_delete(self):
         selenium = self.selenium
 
-        org = 'okada' if self.branch == 'master' else 'testorg'
-        selenium.get(self.url + f'/orgs/{org}/groups/pendingproject')
+        selenium.get(self.url + f'/orgs/okada/groups/pendingproject')
         WebDriverWait(selenium, self.delay).until(
             expected.presence_of_element_located(
                 (By.XPATH, "//*[contains(text(), 'Cancel group deletion')]")))
         selenium.save_screenshot(SCR_PATH + '17-02-pending_to_delete.png')
         assert 'Group pending to delete' in selenium.page_source
 
-        selenium.get(self.url + f'/orgs/{org}/groups/pendingproject/vulns')
+        selenium.get(self.url + f'/orgs/okada/groups/pendingproject/vulns')
         WebDriverWait(selenium, self.delay).until(
             expected.presence_of_element_located(
                 (By.XPATH, "//*[contains(text(), 'Cancel group deletion')]")))
