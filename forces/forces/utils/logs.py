@@ -37,6 +37,10 @@ _LOGGER.setLevel(logging.INFO)
 _LOGGER.addHandler(_LOGGER_HANDLER)
 
 
+def blocking_log(level: str, msg: str, *args: Any) -> None:
+    getattr(_LOGGER, level)(msg, *args)
+
+
 async def log(level: str, msg: str, *args: Any) -> None:
     await in_thread(getattr(_LOGGER, level), msg, *args)
 

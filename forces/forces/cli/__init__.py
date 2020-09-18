@@ -5,17 +5,21 @@ from typing import (
 )
 import sys
 import re
+import textwrap
 from io import TextIOWrapper
+from importlib.metadata import version
 
 # Third parties libraries
 import jose.jwt
 import jose.exceptions
 import click
+from aioextensions import run
 
 # Local imports
 from forces import entrypoint
-from forces.utils.aio import block
 from forces.utils.bugs import configure_bugsnag
+from forces.utils.function import shield
+from forces.utils.logs import blocking_log
 
 # Constants
 USER_PATTERN = r'forces.(?P<group>\w+)@fluidattacks.com'
@@ -45,6 +49,24 @@ def decode_token(token: str) -> Any:
                                'verify_at_hash': True,
                                'leeway': 0,
                            })
+
+
+def show_banner() -> None:
+    """Show forces banner."""
+    header = textwrap.dedent(rf"""
+        #     ______
+        #    / ____/___  _____________  _____
+        #   / /_  / __ \/ ___/ ___/ _ \/ ___/
+        #  / __/ / /_/ / /  / /__/  __(__  )
+        # /_/    \____/_/   \___/\___/____/
+        #
+        #  v. {version('forces')}
+        #  ___
+        # | >>|> fluid
+        # |___|  attacks, we hack your software
+        #
+        """)
+    blocking_log('info', '%s', header)
 
 
 class IntegratesToken(click.ParamType):
@@ -97,18 +119,42 @@ def main(token: str,  # pylint: disable=too-many-arguments
     """Main function"""
     group = get_group_from_email(decode_token(token)['user_email'])
     configure_bugsnag(group=group or '')
+    show_banner()
     kind = 'all'
     if dynamic:
         kind = 'dynamic'
     elif static:
         kind = 'static'
 
-    result = block(entrypoint,
-                   token=token,
-                   group=group,
-                   verbose_level=verbose,
-                   strict=strict,
-                   output=output,
-                   repo_path=repo_path,
-                   kind=kind)
+    striccness = 'strict' if strict else 'lax'
+    blocking_log('info', 'Running forces in %s mode', striccness)
+    blocking_log('info', 'Running forces in %s kind', kind)
+
+    result = run(
+        main_wrapped(
+            group=group,
+            token=token,
+            verbose=verbose,
+            strict=strict,
+            output=output,
+            repo_path=repo_path,
+            kind=kind,
+        ))
+
+    blocking_log('info', 'Success: %s', result == 0)
     sys.exit(result)
+
+
+@shield(on_error_return=1)
+async def main_wrapped(  # pylint: disable=too-many-arguments
+        group: str, token: str, verbose: int, strict: bool,
+        output: TextIOWrapper, repo_path: str, kind: str) -> int:
+    return await entrypoint(
+        token=token,
+        group=group,
+        verbose_level=verbose,
+        strict=strict,
+        output=output,
+        repo_path=repo_path,
+        kind=kind,
+    )

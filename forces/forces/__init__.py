@@ -1,9 +1,7 @@
 """Fluidattacks Forces package."""
 from typing import Any
-from importlib.metadata import version
 import copy
 import os
-import textwrap
 import uuid
 
 # Third party libraries
@@ -28,24 +26,6 @@ from forces.utils.logs import (
 )
 
 
-async def show_banner() -> None:
-    """Show forces banner."""
-    header = textwrap.dedent(rf"""
-        #     ______
-        #    / ____/___  _____________  _____
-        #   / /_  / __ \/ ___/ ___/ _ \/ ___/
-        #  / __/ / /_/ / /  / /__/  __(__  )
-        # /_/    \____/_/   \___/\___/____/
-        #
-        #  v. {version('forces')}
-        #  ___
-        # | >>|> fluid
-        # |___|  attacks, we hack your software
-        #
-        """)
-    await log('info', '%s', header)
-
-
 async def entrypoint(token: str, group: str, **kwargs: Any) -> int:
     """Entrypoint function"""
     temp_file = LOG_FILE.get()
@@ -53,8 +33,6 @@ async def entrypoint(token: str, group: str, **kwargs: Any) -> int:
     strict = kwargs.get('strict', False)
     exit_code = 1 if strict else 0
     set_api_token(token)
-    await show_banner()
-    await log('info', 'Running forces in %s kind', kwargs.get('kind', 'all'))
 
     report = await generate_report(project=group,
                                    kind=kwargs.get('kind', 'all'))
