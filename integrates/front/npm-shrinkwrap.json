@@ -1,0 +1,22 @@
+{
+  "name": "integrates",
+  "version": "1.0.0",
+  "lockfileVersion": 1,
+  "requires": true,
+  "dependencies": {
+    "isomorphic-fetch": {
+      "version": "2.2.1",
+      "requires": {
+        "node-fetch": "2.6.1",
+        "whatwg-fetch": ">=0.10.0"
+      }
+    },
+    "node-fetch": {
+      "version": "2.6.1",
+      "requires": {
+        "encoding": "^0.1.11",
+        "is-stream": "^1.0.1"
+      }
+    }
+  }
+}
