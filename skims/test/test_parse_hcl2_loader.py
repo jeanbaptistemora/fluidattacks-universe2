@@ -39,43 +39,31 @@ def test_load_full() -> None:
                 Tree('body', [
                     Attribute(
                         key='source',
-                        val=Tree('expr_term', [
-                            'modules\\/iam-user'
-                        ]),
+                        val='modules\\/iam-user',
                     ),
                     Attribute(
                         key='name',
-                        val=Tree('expr_term', [
-                            '${var.iamuser}'
-                        ]),
+                        val='${var.iamuser}',
                     ),
                     Attribute(
                         key='force_destroy',
-                        val=Tree('expr_term', [
-                            True,
-                        ]),
+                        val=True,
                     ),
                     Attribute(
                         key='tags',
-                        val=Tree('expr_term', [
-                            Tree('object', [
-                                Tree('object_elem', [
-                                    Tree('identifier', [
-                                        'proyecto'
-                                    ]),
-                                    Tree('expr_term', [
-                                        '${var.proyecto}'
-                                    ])
+                        val=Tree('object', [
+                            Tree('object_elem', [
+                                Tree('identifier', [
+                                    'proyecto'
                                 ]),
-                                Tree('object_elem', [
-                                    Tree('identifier', [
-                                        'analista'
-                                    ]),
-                                    Tree('expr_term', [
-                                        '${var.analista}'
-                                    ])
+                                '${var.proyecto}',
+                            ]),
+                            Tree('object_elem', [
+                                Tree('identifier', [
+                                    'analista'
                                 ]),
-                            ])
+                                '${var.analista}',
+                            ]),
                         ]),
                     ),
                 ]),

@@ -47,6 +47,7 @@ def post_process(data: Any) -> Any:
     data = remove_discarded(data)
     data = coerce_to_string_lit(data)
     data = coerce_to_boolean(data)
+    data = extract_single_expr_term(data)
     data = replace_attributes(data)
 
     return data
@@ -84,6 +85,15 @@ def coerce_to_string_lit(data: Any) -> Any:
         elif data.type == 'STRING_LIT':
             data = ast.literal_eval(data.value)
 
+    return data
+
+
+def extract_single_expr_term(data: Any) -> Any:
+    if isinstance(data, lark.Tree):
+        if data.data == 'expr_term' and len(data.children) == 1:
+            data = extract_single_expr_term(data.children[0])
+        else:
+            data.children = list(map(extract_single_expr_term, data.children))
     return data
 
 
