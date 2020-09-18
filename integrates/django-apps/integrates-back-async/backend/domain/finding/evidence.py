@@ -184,8 +184,8 @@ async def validate_evidence(
     success = False
     allowed_mimes = []
     max_size = {
-        'animation': 15,
-        'exploitation': 10,
+        'animation': 10,
+        'exploitation': 1,
         'exploit': 1,
         'fileRecords': 1
     }
