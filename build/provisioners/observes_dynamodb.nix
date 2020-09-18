@@ -15,7 +15,8 @@ in
             pkgs.jq
           ];
 
-          pyPkgTapdynamodb = builders.pythonPackageLocal { path = ../../observes/singer/tap_awsdynamodb; };
+          pyPkgStreamdynamodb = builders.pythonPackageLocal { path = ../../observes/singer/streamer_dynamodb; };
+          pyPkgTargetjson = builders.pythonPackageLocal { path = ../../observes/singer/tap_json; };
           pyPkgTargetRedshift = builders.pythonPackageLocal { path = ../../observes/singer/target_redshift; };
         })
   )

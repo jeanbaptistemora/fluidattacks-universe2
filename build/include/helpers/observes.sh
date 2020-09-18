@@ -88,36 +88,6 @@ function helper_observes_dynamodb {
         echo '}'
       } > "${TEMP_FILE1}" \
   &&  echo "${analytics_auth_redshift}" > "${TEMP_FILE2}" \
-  &&  echo '[INFO] Running tap' \
-  &&  mkdir ./logs \
-  &&  tap-awsdynamodb \
-        --auth "${TEMP_FILE1}" \
-        --conf ./observes/conf/awsdynamodb.json \
-        > .singer \
-  &&  echo '[INFO] Running target' \
-  &&  target-redshift \
-        --auth "${TEMP_FILE2}" \
-        --drop-schema \
-        --schema-name 'dynamodb' \
-        < .singer
-}
-
-function helper_observes_dynamo {
-      helper_observes_aws_login prod \
-  &&  helper_common_sops_env observes/secrets-prod.yaml default \
-        analytics_aws_access_key \
-        analytics_aws_secret_key \
-        analytics_aws_default_region \
-        analytics_auth_redshift \
-  &&  echo '[INFO] Generating secret files' \
-  &&  {
-        echo '{'
-        echo "\"AWS_ACCESS_KEY_ID\":\"${analytics_aws_access_key}\","
-        echo "\"AWS_SECRET_ACCESS_KEY\":\"${analytics_aws_secret_key}\","
-        echo "\"AWS_DEFAULT_REGION\":\"${analytics_aws_default_region}\""
-        echo '}'
-      } > "${TEMP_FILE1}" \
-  &&  echo "${analytics_auth_redshift}" > "${TEMP_FILE2}" \
   &&  echo '[INFO] Running streamer' \
   &&  mkdir ./logs \
   &&  streamer-dynamodb \
@@ -129,7 +99,7 @@ function helper_observes_dynamo {
   &&  target-redshift \
         --auth "${TEMP_FILE2}" \
         --drop-schema \
-        --schema-name 'dynamo' \
+        --schema-name 'dynamodb' \
         < .singer
 }
 
