@@ -64,20 +64,11 @@ observes_formstack:
 
 observes_dynamodb:
   <<: *with_nix
-  tags: [autoscaling-analytics]
-  stage: analytics
-  only:
-    refs: [schedules]
-    variables: [$observes_dynamodb]
-  interruptible: false
-
-observes_dynamo:
-  <<: *with_nix
   tags: [autoscaling-large]
   stage: analytics
   only:
     refs: [schedules]
-    variables: [$observes_dynamo]
+    variables: [$observes_dynamodb]
   interruptible: false
 
 observes_services_toe:
