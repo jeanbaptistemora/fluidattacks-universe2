@@ -14,8 +14,9 @@ function job_integrates_lint_back {
   &&  prospector -F -s veryhigh lambda \
   &&  prospector -F -s veryhigh -u django -i node_modules deploy/permissions-matrix \
   &&  npx graphql-schema-linter \
-        --except 'enum-values-have-descriptions,fields-are-camel-cased,fields-have-descriptions,input-object-values-are-camel-cased,relay-page-info-spec,types-have-descriptions,type-fields-sorted-alphabetically,arguments-have-descriptions,type-fields-sorted-alphabetically' \
+        --except 'enum-values-have-descriptions,fields-are-camel-cased,fields-have-descriptions,input-object-values-are-camel-cased,relay-page-info-spec,types-have-descriptions,type-fields-sorted-alphabetically,arguments-have-descriptions' \
         django-apps/integrates-back-async/backend/api/schema/**/*.graphql \
+        django-apps/integrates-back-async/backend/api/schema/types/**/*.graphql \
   &&  popd \
   || return 1
 }

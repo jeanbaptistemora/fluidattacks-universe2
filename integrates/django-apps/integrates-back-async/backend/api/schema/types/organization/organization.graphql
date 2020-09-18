@@ -1,0 +1,12 @@
+"Organization type definition"
+type Organization {
+  analytics(documentName: String!, documentType: String!): GenericScalar
+  id: String!
+  maxAcceptanceDays: Int
+  maxAcceptanceSeverity: Float!
+  maxNumberAcceptations: Int
+  minAcceptanceSeverity: Float!
+  name: String!
+  projects: [Project]
+  stakeholders: [Stakeholder]
+}

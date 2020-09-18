@@ -75,19 +75,6 @@ type InternalName {
     name: String
 }
 
-"Organization type definition"
-type Organization {
-    analytics(documentName: String!, documentType: String!): GenericScalar
-    projects: [Project]
-    id: String!
-    maxAcceptanceDays: Int
-    maxAcceptanceSeverity: Float!
-    maxNumberAcceptations: Int
-    minAcceptanceSeverity: Float!
-    name: String!
-    stakeholders: [Stakeholder]
-}
-
 "Resource type definition"
 type Resource {
     projectName: String

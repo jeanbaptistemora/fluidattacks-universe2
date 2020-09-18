@@ -5,7 +5,9 @@ from typing import Tuple
 from ariadne import ObjectType
 
 # Local
+from backend.api.schema.types.mutation import MUTATION
 from backend.api.schema.types.organization import ORGANIZATION
+from backend.api.schema.types.query import QUERY
 
 
 EVENT = ObjectType('Event')
@@ -24,9 +26,11 @@ TYPES: Tuple[ObjectType, ...] = (
     FORCES_EXECUTIONS,
     INTERNAL_NAME,
     ME,
+    MUTATION,
     ORGANIZATION,
     PROJECT,
     RESOURCE,
     STAKEHOLDER,
-    VULNERABILITY
+    VULNERABILITY,
+    QUERY
 )
