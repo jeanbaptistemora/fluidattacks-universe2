@@ -5,3 +5,5 @@
     - cfn_nag F11 IAM policy should not apply directly to users.  Should be on group
     - cfn_nag F12 IAM managed policy should not apply directly to users.  Should be on group
 - Add an HCL2 parser with line number
+- Keyboard interrupts in production environment affect stability,
+  we should intercept them with a sys-handler
