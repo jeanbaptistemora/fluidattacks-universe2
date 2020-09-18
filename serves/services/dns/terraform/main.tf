@@ -39,31 +39,3 @@ resource "aws_route53_record" "mainA" {
     evaluate_target_health = false
   }
 }
-
-resource "aws_route53_zone" "fs_old_domains" {
-  count         = 8
-  name          = element(var.secDomains, count.index)
-  comment       = "Dominio secundario de Fluid Attacks"
-  force_destroy = true
-}
-
-resource "aws_route53_record" "old_domains_elb" {
-  count   = 8
-  zone_id = aws_route53_zone.fs_old_domains[count.index].zone_id
-  name    = aws_route53_zone.fs_old_domains[count.index].name
-  type    = "A"
-  alias {
-    name                   = var.elbDns
-    zone_id                = var.elbZone
-    evaluate_target_health = false
-  }
-}
-
-resource "aws_route53_record" "old_domains_www" {
-  count   = 8
-  zone_id = aws_route53_zone.fs_old_domains[count.index].zone_id
-  name    = "www.${aws_route53_zone.fs_old_domains[count.index].name}"
-  type    = "CNAME"
-  ttl     = "300"
-  records = [aws_route53_zone.fs_old_domains[count.index].name]
-}

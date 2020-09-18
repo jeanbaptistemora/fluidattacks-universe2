@@ -106,33 +106,6 @@ function install_amazon_vpc_plugin() {
   fi
 }
 
-# Automate the generation and renewal of TLS certificates for secondary domains
-function issue_secondary_domain_certificates() {
-  local manifest="${1}"
-  local tls_manifest
-  local secret="${2}"
-  local certificate_name="${3}"
-  local secret_age
-
-  tls_manifest="$(echo "${manifest}" | cut -d. -f1)-tls.yaml"
-  secret_age="$(kubectl get secret "${secret}" | grep -Po '(?<=\s)[0-9]+d' | sed 's/.$//')"
-  if [ -z "${secret_age}" ]; then
-    echo-blue "Certificates for secondary domains are valid."
-  elif [ "${secret_age}" -gt 80 ] || [[ $(get_changed_files) == *"${manifest}"*  ]]; then
-    echo-blue "Issuing TLS certificates for secondary domains..."
-    kubectl delete "$(echo "${manifest}" | cut -d. -f1)"
-    kubectl delete secret "${secret}"
-    kubectl delete certificate "${certificate_name}"
-    sleep 10
-    kubectl apply -f "${tls_manifest}"
-    until kubectl describe certificate "${certificate_name}" | grep 'CertObtained'; do
-      echo-blue "Issuing certificate..."
-      sleep 10
-    done
-  fi
-  kubectl apply -f "${manifest}"
-}
-
 function wait_elb_initialization() {
   local elb_name
   local elb_status
@@ -185,8 +158,6 @@ replace_env_variables ingress/certificates.yaml
 kubectl apply -f ingress/certificates.yaml
 kubectl apply -f ingress/main-domains.yaml
 kubectl apply -f ingress/external.yaml
-issue_secondary_domain_certificates ingress/secondary-domains.yaml \
-  secondary-domains-cert secondary-domains
 
 # Prepare environments for Review Apps
 sed 's/$PROJECT/integrates/g' review-apps/env-template.yaml | kubectl apply -f -
