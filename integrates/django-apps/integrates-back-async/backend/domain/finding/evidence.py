@@ -180,7 +180,7 @@ async def validate_evidence(
     file: InMemoryUploadedFile,
     mime_type: str
 ) -> bool:
-    mib = 2097152
+    mib = 1048576
     success = False
     allowed_mimes = []
     max_size = {
