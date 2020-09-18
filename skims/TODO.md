@@ -1,0 +1,7 @@
+- Test if the following rules are a vulnerability and include them
+    - cfn_nag W43 IAM role should not have AdministratorAccess policy
+    - cfn_nag F6 IAM role should not allow Allow+NotPrincipal in its trust policy
+    - cfn_nag F10 IAM user should not have any inline policies.  Should be centralized Policy object on group
+    - cfn_nag F11 IAM policy should not apply directly to users.  Should be on group
+    - cfn_nag F12 IAM managed policy should not apply directly to users.  Should be on group
+- Add an HCL2 parser with line number

@@ -54,7 +54,7 @@ function job_skims_process_group {
 }
 
 function job_skims_process_all_groups {
-  local groups_file="${TEMP_FILE1}"
+  local groups_file="${TEMP_FILE2}"
   local groups_count
   local success='true'
 
@@ -64,7 +64,8 @@ function job_skims_process_all_groups {
   &&  echo "[INFO] ${groups_count} groups found" \
   &&  while read -r group
       do
-            job_skims_process_group "${group}" \
+            cd "${STARTDIR}" \
+        &&  job_skims_process_group "${group}" \
         ||  success='false'
       done < "${groups_file}" \
   &&  test "${success}" = 'true' \
