@@ -15,6 +15,10 @@ from hcl2.lark_parser import (
 )
 import lark
 
+# Local libraries
+from parse_hcl2.tokens import (
+    Attribute,
+)
 
 # Side effects
 DATA['options']['propagate_positions'] = True
@@ -42,6 +46,7 @@ def load(stream: str) -> Any:
 def post_process(data: Any) -> Any:
     data = remove_discarded(data)
     data = coerce_to_string_lit(data)
+    data = replace_attributes(data)
 
     return data
 
@@ -65,5 +70,18 @@ def coerce_to_string_lit(data: Any) -> Any:
             data = data.value
         elif data.type == 'STRING_LIT':
             data = ast.literal_eval(data.value)
+
+    return data
+
+
+def replace_attributes(data: Any) -> Any:
+    if isinstance(data, lark.Tree):
+        if data.data == 'attribute' and data.children[0].data == 'identifier':
+            data = Attribute(
+                key=data.children[0].children[0],
+                val=data.children[1],
+            )
+        else:
+            data.children = list(map(replace_attributes, data.children))
 
     return data

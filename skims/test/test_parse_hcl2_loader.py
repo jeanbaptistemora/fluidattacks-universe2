@@ -10,6 +10,9 @@ from lark.lexer import (
 from parse_hcl2.loader import (
     load,
 )
+from parse_hcl2.tokens import (
+    Attribute,
+)
 
 
 def test_load_empty() -> None:
@@ -34,35 +37,27 @@ def test_load_full() -> None:
                 ]),
                 'iam_user',
                 Tree('body', [
-                    Tree('attribute', [
-                        Tree('identifier', [
-                            'source'
-                        ]),
-                        Tree('expr_term', [
+                    Attribute(
+                        key='source',
+                        val=Tree('expr_term', [
                             'modules\\/iam-user'
                         ]),
-                    ]),
-                    Tree('attribute', [
-                        Tree('identifier', [
-                            'name'
-                        ]),
-                        Tree('expr_term', [
+                    ),
+                    Attribute(
+                        key='name',
+                        val=Tree('expr_term', [
                             '${var.iamuser}'
                         ]),
-                    ]),
-                    Tree('attribute', [
-                        Tree('identifier', [
-                            'force_destroy'
-                        ]),
-                        Tree('expr_term', [
+                    ),
+                    Attribute(
+                        key='force_destroy',
+                        val=Tree('expr_term', [
                             Tree('true_lit', [])
                         ]),
-                    ]),
-                    Tree('attribute', [
-                        Tree('identifier', [
-                            'tags'
-                        ]),
-                        Tree('expr_term', [
+                    ),
+                    Attribute(
+                        key='tags',
+                        val=Tree('expr_term', [
                             Tree('object', [
                                 Tree('object_elem', [
                                     Tree('identifier', [
@@ -82,7 +77,7 @@ def test_load_full() -> None:
                                 ]),
                             ])
                         ]),
-                    ])
+                    ),
                 ]),
             ])
         ])
