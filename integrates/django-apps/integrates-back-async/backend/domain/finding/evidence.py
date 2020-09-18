@@ -1,7 +1,9 @@
 # pylint:disable=too-many-branches
 import time
 from typing import Dict, List, Union, cast, Optional, Any
+from aioextensions import in_thread
 from django.core.files.uploadedfile import InMemoryUploadedFile
+from backend import util
 from backend.dal import finding as finding_dal
 from backend.exceptions import (
     EvidenceNotFound,
@@ -13,6 +15,23 @@ from backend.utils import (
     validations
 )
 from .finding import get_finding
+
+
+async def validate_and_upload_evidence(
+    finding_id: str,
+    evidence_id: str,
+    file: InMemoryUploadedFile
+) -> bool:
+    success = False
+    mime_type = await in_thread(util.get_uploaded_file_mime, file)
+    if await validate_evidence(evidence_id, file, mime_type):
+        success = await update_evidence(
+            finding_id,
+            evidence_id,
+            file,
+            mime_type
+        )
+    return success
 
 
 async def update_evidence(

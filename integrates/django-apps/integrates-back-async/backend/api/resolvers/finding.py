@@ -4,9 +4,6 @@ import logging
 import sys
 from time import time
 from typing import Dict, List, Any, Union, cast
-from aioextensions import (
-    in_process
-)
 
 # Third party libraries
 from ariadne import convert_camel_case_to_snake, convert_kwargs_to_snake_case
@@ -699,14 +696,12 @@ async def _do_update_evidence(
     success = False
     user_data = await util.get_jwt_content(info.context)
     user_email = user_data['user_email']
-    try:
-        mime_type = await in_process(util.get_uploaded_file_mime, file)
-    except TypeError:
-        mime_type = util.get_uploaded_file_mime(file)
-    if await finding_domain.validate_evidence(evidence_id, file, mime_type):
-        success = await finding_domain.update_evidence(
-            finding_id, evidence_id, file, mime_type
-        )
+
+    success = await finding_domain.validate_and_upload_evidence(
+        finding_id,
+        evidence_id,
+        file
+    )
 
     if success:
         await util.invalidate_cache(

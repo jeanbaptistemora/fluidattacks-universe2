@@ -10,6 +10,7 @@ from .evidence import (
     remove_evidence,
     update_evidence,
     update_evidence_description,
+    validate_and_upload_evidence,
     validate_evidence,
 )
 from .finding import (
@@ -72,5 +73,6 @@ __all__ = [
     'update_evidence',
     'update_evidence_description',
     'remove_evidence',
+    'validate_and_upload_evidence',
     'validate_evidence',
 ]
