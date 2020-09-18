@@ -1,5 +1,10 @@
+# Standard
+# None
+
+# Third party
 from ariadne import QueryType
 
+# Local
 from backend.api.resolvers import (
     event,
     finding,

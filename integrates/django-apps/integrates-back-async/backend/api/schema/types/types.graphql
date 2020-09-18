@@ -94,45 +94,6 @@ type Stakeholder {
     projects: [Project]
 }
 
-"Project type definition"
-type Project {
-    analytics(documentName: String!, documentType: String!): GenericScalar
-    bill(date: DateTime): Bill
-    name: String
-    findings(filters: GenericScalar): [Finding]
-    hasDrills: Boolean
-    hasForces: Boolean
-    hasIntegrates: Boolean
-    openVulnerabilities: Int
-    closedVulnerabilities: Int
-    subscription: String
-    consulting: [Consult!]
-    tags: [String!]
-    deletionDate: String
-    lastClosingVuln: Int
-    lastClosingVulnFinding: Finding
-    maxSeverity: Float
-    maxSeverityFinding: Finding
-    maxOpenSeverity: Float
-    maxOpenSeverityFinding: Finding
-    meanRemediateCriticalSeverity: Int
-    meanRemediateHighSeverity: Int
-    meanRemediateLowSeverity: Int
-    meanRemediateMediumSeverity: Int
-    meanRemediate: Int
-    openFindings: Int
-    organization: String!
-    serviceAttributes: [String]
-    stakeholders: [Stakeholder!]
-    totalFindings: Int
-    userRole: String
-    totalTreatment: GenericScalar
-    drafts: [Finding!]
-    description: String
-    events: [Event!]
-    userDeletion: String
-}
-
 "Bill type definition"
 type Bill {
     developers: [BillDeveloper]

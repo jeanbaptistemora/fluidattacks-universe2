@@ -1,0 +1,38 @@
+"Project type definition"
+type Project {
+  analytics(documentName: String!, documentType: String!): GenericScalar
+  bill(date: DateTime): Bill
+  closedVulnerabilities: Int
+  consulting: [Consult!]
+  deletionDate: String
+  description: String
+  drafts: [Finding!]
+  events: [Event!]
+  findings(filters: GenericScalar): [Finding]
+  hasDrills: Boolean
+  hasForces: Boolean
+  hasIntegrates: Boolean
+  lastClosingVuln: Int
+  lastClosingVulnFinding: Finding
+  maxOpenSeverity: Float
+  maxOpenSeverityFinding: Finding
+  maxSeverity: Float
+  maxSeverityFinding: Finding
+  meanRemediate: Int
+  meanRemediateCriticalSeverity: Int
+  meanRemediateHighSeverity: Int
+  meanRemediateLowSeverity: Int
+  meanRemediateMediumSeverity: Int
+  name: String
+  openFindings: Int
+  openVulnerabilities: Int
+  organization: String!
+  serviceAttributes: [String]
+  stakeholders: [Stakeholder!]
+  subscription: String
+  tags: [String!]
+  totalFindings: Int
+  totalTreatment: GenericScalar
+  userDeletion: String
+  userRole: String
+}
