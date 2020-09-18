@@ -302,6 +302,7 @@ async def logout(request: HttpRequest) -> HttpResponse:
                 key=settings.JWT_SECRET,
                 algorithms='HS512'
             )
+            cookie_content = util.decrypt_jwt_payload(cookie_content)
             jti = cookie_content.get('jti')
             if jti:
                 await util.remove_token(f'fi_jwt:{jti}')
