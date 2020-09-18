@@ -145,7 +145,7 @@ async def list_drafts(
         should_list_deleted: bool = False) -> List[str]:
     key_exp = Key('project_name').eq(project_name)
     tzn = pytz.timezone(settings.TIME_ZONE)  # type: ignore
-    today = datetime.now(tz=tzn).today().strftime('%Y-%m-%d %H:%M:%S')
+    today = datetime.now(tz=tzn).strftime('%Y-%m-%d %H:%M:%S')
     filter_exp = Attr('releaseDate').not_exists() \
         | Attr('releaseDate').gt(today)
     query_attrs = {
@@ -176,7 +176,7 @@ async def list_findings(
         should_list_deleted: bool = False) -> List[str]:
     key_exp = Key('project_name').eq(project_name)
     tzn = pytz.timezone(settings.TIME_ZONE)  # type: ignore
-    today = datetime.now(tz=tzn).today().strftime('%Y-%m-%d %H:%M:%S')
+    today = datetime.now(tz=tzn).strftime('%Y-%m-%d %H:%M:%S')
     filter_exp = (
         Attr('releaseDate').exists() &
         Attr('releaseDate').lte(today)

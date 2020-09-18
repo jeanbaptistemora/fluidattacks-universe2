@@ -336,7 +336,7 @@ class FindingTests(TestCase):
         test_success, test_date = await approve_draft(
             finding_id, reviewer_email)
         tzn = pytz.timezone(settings.TIME_ZONE)
-        today = datetime.now(tz=tzn).today()
+        today = datetime.now(tz=tzn)
         date = str(today.strftime('%Y-%m-%d %H:%M'))
         expected_output =  True, date
         assert isinstance(test_success, bool)

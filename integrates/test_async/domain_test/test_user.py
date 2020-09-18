@@ -11,7 +11,7 @@ from backend.exceptions import InvalidPushToken
 class UserTests(TestCase):
     def test_get_current_date(self):
         tzn = pytz.timezone(settings.TIME_ZONE)
-        today = datetime.now(tz=tzn).today()
+        today = datetime.now(tz=tzn)
         date = today.strftime('%Y-%m-%d %H:%M')
         test_data = user_domain.get_current_date()[:-3]
         assert isinstance(test_data, str)

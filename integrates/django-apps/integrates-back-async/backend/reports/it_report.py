@@ -93,7 +93,7 @@ class ITReport():
 
     def save(self) -> None:
         tzn = pytz.timezone(settings.TIME_ZONE)
-        today_date = datetime.now(tz=tzn).today().strftime('%Y-%m-%dT%H-%M-%S')
+        today_date = datetime.now(tz=tzn).strftime('%Y-%m-%dT%H-%M-%S')
         self.result_filename = (
             f'{self.project_name}-vulnerabilities-{today_date}.xlsx'
         )
@@ -307,7 +307,8 @@ class ITReport():
             vuln_historic_state[0]['date'], '%Y-%m-%d %H:%M:%S'
         )
         vuln_closed = vuln_historic_state[-1]['state'] == 'closed'
-        limit_date = datetime.today()
+        tzn = pytz.timezone(settings.TIME_ZONE)
+        limit_date = datetime.now(tz=tzn)
         vuln_close_date: Union[str, datetime] = EMPTY
         if vuln_closed:
             limit_date = datetime.strptime(

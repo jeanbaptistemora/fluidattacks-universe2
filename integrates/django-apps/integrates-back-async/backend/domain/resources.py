@@ -6,6 +6,8 @@ from collections import namedtuple
 from datetime import datetime
 from typing import Dict, List, NamedTuple, cast
 from urllib.parse import quote, unquote
+import pytz
+from django.conf import settings
 from django.core.files.uploadedfile import InMemoryUploadedFile
 
 from backend import mailer
@@ -347,10 +349,11 @@ async def update_resource(
 
         if res_id in resource and matches:
             resource_exists = True
+            today = datetime.now(tz=pytz.timezone(settings.TIME_ZONE))
             new_state = {
                 'user': user_email,
                 'date': util.format_comment_date(
-                    datetime.today().strftime('%Y-%m-%d %H:%M:%S')
+                    today.strftime('%Y-%m-%d %H:%M:%S')
                 ),
                 'state': 'INACTIVE'
             }

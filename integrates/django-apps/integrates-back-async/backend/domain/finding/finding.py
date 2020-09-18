@@ -174,7 +174,7 @@ async def handle_acceptation(
         user_mail: str,
         response: str) -> bool:
     tzn = pytz.timezone(settings.TIME_ZONE)
-    today = datetime.now(tz=tzn).today().strftime('%Y-%m-%d %H:%M:%S')
+    today = datetime.now(tz=tzn).strftime('%Y-%m-%d %H:%M:%S')
     new_state = {
         'acceptance_status': response,
         'treatment': 'ACCEPTED_UNDEFINED',
@@ -424,7 +424,7 @@ async def delete_finding(
 
     if submission_history[-1].get('state') != 'DELETED':
         tzn = pytz.timezone(settings.TIME_ZONE)
-        today = datetime.now(tz=tzn).today()
+        today = datetime.now(tz=tzn)
         delete_date = str(today.strftime('%Y-%m-%d %H:%M:%S'))
         user_info = await util.get_jwt_content(context)
         submission_history.append({

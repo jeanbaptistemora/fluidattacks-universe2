@@ -361,7 +361,7 @@ async def request_deletion(project_name: str, user_email: str) -> bool:
         )
         if data.get('project_status') not in ['DELETED', 'PENDING_DELETION']:
             tzn = pytz.timezone(settings.TIME_ZONE)
-            today = datetime.now(tz=tzn).today()
+            today = datetime.now(tz=tzn)
             deletion_date = (
                 (today + timedelta(days=30))
                 .strftime('%Y-%m-%d') + ' 23:59:59'
@@ -404,7 +404,7 @@ async def reject_deletion(project_name: str, user_email: str) -> bool:
         )
         if data.get('project_status') == 'PENDING_DELETION':
             tzn = pytz.timezone(settings.TIME_ZONE)
-            today = datetime.now(tz=tzn).today()
+            today = datetime.now(tz=tzn)
             new_state = {
                 'date': today.strftime('%Y-%m-%d %H:%M:%S'),
                 'user': user_email.lower(),
@@ -431,7 +431,7 @@ async def reject_deletion(project_name: str, user_email: str) -> bool:
 
 async def mask(group_name: str) -> bool:
     tzn = pytz.timezone(settings.TIME_ZONE)
-    today = datetime.now(tz=tzn).today().strftime('%Y-%m-%d %H:%M:%S')
+    today = datetime.now(tz=tzn).strftime('%Y-%m-%d %H:%M:%S')
     comments = await project_dal.get_comments(group_name)
     comments_result = all(await aio.materialize([
         project_dal.delete_comment(comment['project_name'], comment['user_id'])

@@ -64,7 +64,7 @@ async def solve_event(
         raise EventAlreadyClosed()
 
     tzn = pytz.timezone(settings.TIME_ZONE)
-    today = datetime.now(tz=tzn).today()
+    today = datetime.now(tz=tzn)
     history = cast(List[Dict[str, str]], event.get('historic_state', []))
     history += [
         {
@@ -207,7 +207,7 @@ async def create_event(
     event_id = str(random.randint(10000000, 170000000))
 
     tzn = pytz.timezone(settings.TIME_ZONE)
-    today = datetime.now(tz=tzn).today()
+    today = datetime.now(tz=tzn)
 
     project_info = await project_domain.get_attributes(
         project_name, ['historic_configuration']
@@ -222,7 +222,6 @@ async def create_event(
     event_date = (
         event_attrs['event_date']
         .astimezone(tzn)
-        .replace(tzinfo=None)
     )
     del event_attrs['event_date']
     if event_date > today:
