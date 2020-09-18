@@ -46,6 +46,7 @@ def load(stream: str) -> Any:
 def post_process(data: Any) -> Any:
     data = remove_discarded(data)
     data = coerce_to_string_lit(data)
+    data = coerce_to_boolean(data)
     data = replace_attributes(data)
 
     return data
@@ -58,6 +59,18 @@ def remove_discarded(data: Any) -> Any:
             for children in data.children
             if not isinstance(children, lark.Discard)
         ]
+
+    return data
+
+
+def coerce_to_boolean(data: Any) -> Any:
+    if isinstance(data, lark.Tree):
+        if data.data == 'true_lit' and not data.children:
+            data = True
+        elif data.data == 'false_lit' and not data.children:
+            data = False
+        else:
+            data.children = list(map(coerce_to_string_lit, data.children))
 
     return data
 

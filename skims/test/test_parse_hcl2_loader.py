@@ -52,7 +52,7 @@ def test_load_full() -> None:
                     Attribute(
                         key='force_destroy',
                         val=Tree('expr_term', [
-                            Tree('true_lit', [])
+                            True,
                         ]),
                     ),
                     Attribute(
