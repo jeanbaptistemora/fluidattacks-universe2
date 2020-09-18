@@ -305,7 +305,8 @@ function helper_word_count {
             words="$(echo "${file_style}" | grep -Po "${regex}")" \
         &&  if [ "${words}" -ge "${min_words}" ] && [ "${words}" -le "${max_words}" ]
             then
-                  return 0
+                  echo "[OK] ${file} must have [${min_words}-${max_words}] words. It currently has ${words}" \
+              &&  return 0
             else
                   echo "[ERROR] ${file} must have [${min_words}-${max_words}] words. It currently has ${words}" \
               &&  return 1
