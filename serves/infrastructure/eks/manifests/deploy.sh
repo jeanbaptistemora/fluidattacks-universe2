@@ -181,13 +181,10 @@ install_helm_chart jetstack/cert-manager cert-manager operations cert-manager.ya
 
 # Set TLS certificates for the main domains and automatically issue valid
 # certificates for the secondary domains using Cert-Manager and ACME protocol
-sed -i "s/\$AUTONOMIC_TLS_CERT/$AUTONOMIC_TLS_CERT/g" ingress/autonomic.yaml
-sed -i "s/\$AUTONOMIC_TLS_KEY/$AUTONOMIC_TLS_KEY/g" ingress/autonomic.yaml
 replace_env_variables ingress/certificates.yaml
 kubectl apply -f ingress/certificates.yaml
 kubectl apply -f ingress/main-domains.yaml
 kubectl apply -f ingress/external.yaml
-kubectl apply -f ingress/autonomic.yaml
 issue_secondary_domain_certificates ingress/secondary-domains.yaml \
   secondary-domains-cert secondary-domains
 

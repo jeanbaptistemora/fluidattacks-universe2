@@ -111,8 +111,6 @@ function helper_serves_infra_monolith {
                 set-context "$(kubectl config current-context)" --namespace 'serves' \
           &&  helper_common_terraform_apply . \
           &&  helper_common_sops_env ../secrets-prod.yaml default \
-                AUTONOMIC_TLS_CERT \
-                AUTONOMIC_TLS_KEY \
                 FLUIDATTACKS_TLS_CERT \
                 FLUID_TLS_KEY \
                 HELM_CA \
