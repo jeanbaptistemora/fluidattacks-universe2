@@ -14,6 +14,7 @@ from graphql.language.ast import (
 )
 from graphql.type.definition import GraphQLResolveInfo
 from graphql import GraphQLError
+import newrelic.agent
 
 from backend.decorators import (
     concurrent_decorators,
@@ -680,6 +681,7 @@ async def _do_remove_evidence(
     return SimpleFindingPayloadType(finding=finding, success=success)
 
 
+@newrelic.agent.background_task()
 @concurrent_decorators(
     require_login,
     enforce_group_level_auth_async,
