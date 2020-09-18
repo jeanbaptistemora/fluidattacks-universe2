@@ -39,7 +39,7 @@ DUMMY_IMG: Image = Image.new('RGB', (0, 0))
 DUMMY_DRAWING: ImageDraw = ImageDraw.Draw(DUMMY_IMG)
 FONT: ImageFont = ImageFont.truetype(
     font=get_artifact('vendor/fonts/roboto_mono_from_google/regular.ttf'),
-    size=22,
+    size=18,
 )
 WATERMARK: Image = blocking_clarify(
     image=Image.open(
@@ -47,6 +47,8 @@ WATERMARK: Image = blocking_clarify(
     ),
     ratio=0.15,
 )
+SNIPPETS_CONTEXT: int = 10
+SNIPPETS_COLUMNS: int = 12 * SNIPPETS_CONTEXT
 
 
 def are_similar(string_a: str, string_b: str, threshold: float = 0.85) -> bool:
@@ -63,10 +65,10 @@ async def to_in_memory_file(string: str) -> BytesIO:
 
 def blocking_to_snippet(
     *,
-    chars_per_line: int = 120,
+    chars_per_line: int = SNIPPETS_COLUMNS,
     column: int,
     content: str,
-    context: int = 10,
+    context: int = SNIPPETS_CONTEXT,
     line: int,
 ) -> str:
     lines: Tuple[str, ...] = tuple(content.replace('\t', ' ').splitlines())
@@ -101,10 +103,10 @@ def blocking_to_snippet(
 
 async def to_snippet(
     *,
-    chars_per_line: int = 120,
+    chars_per_line: int = SNIPPETS_COLUMNS,
     column: int,
     content: str,
-    context: int = 10,
+    context: int = SNIPPETS_CONTEXT,
     line: int,
 ) -> str:
     return await in_process(
@@ -169,7 +171,7 @@ def _to_png(*, string: str, margin: int = 25) -> BytesIO:
 
     stream: BytesIO = BytesIO()
 
-    img.save(stream, format='PNG')
+    img.save(stream, format='JPEG', quality=25)
 
     stream.seek(0)
 
