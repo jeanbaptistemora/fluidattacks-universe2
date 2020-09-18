@@ -1,6 +1,9 @@
 # pylint:disable=too-many-branches
 import time
 from typing import Dict, List, Union, cast, Optional, Any
+from aioextensions import (
+    in_process
+)
 from magic import Magic
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from backend import util
@@ -178,8 +181,14 @@ async def validate_evidence(
     elif evidence_id == 'fileRecords':
         allowed_mimes = ['text/csv', 'text/plain']
 
-    if not util.assert_uploaded_file_mime(file, allowed_mimes):
-        raise InvalidFileType()
+    try:
+        if not await in_process(
+            util.assert_uploaded_file_mime, file, allowed_mimes
+        ):
+            raise InvalidFileType()
+    except TypeError:
+        if not util.assert_uploaded_file_mime(file, allowed_mimes):
+            raise InvalidFileType()
 
     if file.size < max_size.get(evidence_id, 10) * mib:
         success = True
