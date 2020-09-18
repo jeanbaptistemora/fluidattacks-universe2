@@ -43,6 +43,7 @@ from backend.domain import (
 )
 from backend.exceptions import (
     AlreadyPendingDeletion,
+    GroupNotFound,
     InvalidCommentParent,
     InvalidParameter,
     InvalidProjectName,
@@ -1114,41 +1115,44 @@ async def get_open_finding(project_name: str) -> int:
 async def get_by_name(name: str) -> ProjectType:
     group: dict = await project_dal.get_attributes(name)
 
-    return {
-        'deletion_date': (
-            group['historic_deletion'][-1].get('deletion_date', '')
-            if 'historic_deletion' in group else ''
-        ),
-        'description': group.get('description', ''),
-        'has_drills': group['historic_configuration'][-1]['has_drills'],
-        'has_forces': group['historic_configuration'][-1]['has_forces'],
-        'has_integrates': group['project_status'] == 'ACTIVE',
-        'last_closing_vuln': group.get('last_closing_date', 0),
-        'max_open_severity': group.get('max_open_severity', 0),
-        'mean_remediate_critical_severity': group.get(
-            'mean_remediate_critical_severity',
-            0
-        ),
-        'mean_remediate_high_severity': group.get(
-            'mean_remediate_high_severity',
-            0
-        ),
-        'mean_remediate_low_severity': group.get(
-            'mean_remediate_low_severity',
-            0
-        ),
-        'mean_remediate_medium_severity': group.get(
-            'mean_remediate_medium_severity',
-            0
-        ),
-        'mean_remediate': group.get('mean_remediate', 0),
-        'name': group['project_name'],
-        'open_findings': group.get('open_findings', 0),
-        'subscription': group['historic_configuration'][-1]['type'],
-        'tags': group.get('tag', []),
-        'total_treatment': group.get('total_treatment', {}),
-        'user_deletion': (
-            group['historic_deletion'][-1].get('user', '')
-            if 'historic_deletion' in group else ''
-        )
-    }
+    if group and 'deletion_date' not in group:
+        return {
+            'deletion_date': (
+                group['historic_deletion'][-1].get('deletion_date', '')
+                if 'historic_deletion' in group else ''
+            ),
+            'description': group.get('description', ''),
+            'has_drills': group['historic_configuration'][-1]['has_drills'],
+            'has_forces': group['historic_configuration'][-1]['has_forces'],
+            'has_integrates': group['project_status'] == 'ACTIVE',
+            'last_closing_vuln': group.get('last_closing_date', 0),
+            'max_open_severity': group.get('max_open_severity', 0),
+            'mean_remediate_critical_severity': group.get(
+                'mean_remediate_critical_severity',
+                0
+            ),
+            'mean_remediate_high_severity': group.get(
+                'mean_remediate_high_severity',
+                0
+            ),
+            'mean_remediate_low_severity': group.get(
+                'mean_remediate_low_severity',
+                0
+            ),
+            'mean_remediate_medium_severity': group.get(
+                'mean_remediate_medium_severity',
+                0
+            ),
+            'mean_remediate': group.get('mean_remediate', 0),
+            'name': group['project_name'],
+            'open_findings': group.get('open_findings', 0),
+            'subscription': group['historic_configuration'][-1]['type'],
+            'tags': group.get('tag', []),
+            'total_treatment': group.get('total_treatment', {}),
+            'user_deletion': (
+                group['historic_deletion'][-1].get('user', '')
+                if 'historic_deletion' in group else ''
+            )
+        }
+
+    raise GroupNotFound()

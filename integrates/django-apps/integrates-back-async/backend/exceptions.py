@@ -593,3 +593,12 @@ class StakeholderNotFound(Exception):
         """ Constructor """
         msg = 'Access denied or stakeholder not found'
         super(StakeholderNotFound, self).__init__(msg)
+
+
+class GroupNotFound(Exception):
+    """Exception to control group availability"""
+
+    def __init__(self) -> None:
+        """ Constructor """
+        msg = 'Access denied or group not found'
+        super(GroupNotFound, self).__init__(msg)
