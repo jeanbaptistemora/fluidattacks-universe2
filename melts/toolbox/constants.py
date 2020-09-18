@@ -2,12 +2,7 @@
 import os
 import re
 import sys
-import traceback
 from typing import Dict
-
-# Third parties libraries
-import jose.jwt
-import jose.exceptions
 
 # Constants
 SAST: tuple = ('lines',)
@@ -35,26 +30,6 @@ if not API_TOKEN:
     print('Please set INTEGRATES_API_TOKEN environment variable.')
     print('  You can generate one at https://integrates.fluidattacks.com')
     sys.exit(78)
-
-try:
-    jose.jwt.decode(API_TOKEN, key='', options={
-        'verify_signature': False,
-        'verify_aud': True,
-        'verify_iat': True,
-        'verify_exp': True,
-        'verify_nbf': True,
-        'verify_iss': True,
-        'verify_sub': True,
-        'verify_jti': True,
-        'verify_at_hash': True,
-        'leeway': 0,
-    })
-except jose.exceptions.JOSEError:
-    traceback.print_exc()
-    print('Please verify the validity of your INTEGRATES_API_TOKEN env var.')
-    print('  You can generate one at https://integrates.fluidattacks.com')
-    sys.exit(78)
-
 
 EXP_LABELS = ('product-ch', 'product-ch', 'product-fn',
               'service-logic', 'toe-location', 'toe-resource', 'toe-unreach')
