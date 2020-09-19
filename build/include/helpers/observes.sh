@@ -92,7 +92,7 @@ function helper_observes_dynamodb {
   &&  mkdir ./logs \
   &&  streamer-dynamodb \
         --auth "${TEMP_FILE1}" \
-        --conf ./observes/conf/awsdynamo.json > .stream \
+        --conf ./observes/conf/awsdynamodb.json > .stream \
  &&  echo '[INFO] Running tap' \
       && tap-json --out ".singer" < .stream \
   &&  echo '[INFO] Running target' \
