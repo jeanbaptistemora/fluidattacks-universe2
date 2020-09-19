@@ -24,7 +24,7 @@ practitioners sharpen the Windows Kernel exploitation skills.
 
 In the last link:../hevd-dos/[post], we successfully created a DoS exploit
 leveraging a stack overflow vulnerability in `HEVD`. The DoS ocurred because
-we placed an arbitrary value on `EIP` ('41414141') and when the OS tried
+we placed an arbitrary value on `EIP` (`41414141`) and when the OS tried
 to access that memory address, it was not accessible.
 
 In this article, we will use that ability to overwrite `EIP` to execute code
@@ -61,7 +61,7 @@ surely later. Stay tuned.
 == Stack Overflow exploitation
 
 We left off our link:../hevd-dos/[previous article] performing a DoS to
-the target machine. We used the following exploit:
+the target machine, on where we used the following exploit:
 
 [source,python]
 ----
@@ -92,10 +92,10 @@ HANDLE.ioctl(IOCTL_HEVD_STACK_OVERFLOW, PAYLOAD, SIZE, 0, 0)
 ----
 
 And we were able to overwrite EIP with the value `41414141`. If we are going
-to perform something more meaningful, we must know the exact offset on which
-`EIP` is overwritten. Just like on any other user-space exploitation
-process, we can create a cyclic pattern to find that offset. We can use
-`mona` to do that:
+to perform something more meaningful, we must start by locating the exact
+offset on which `EIP` is overwritten. Just like on any other user-space
+exploitation process, we can create a cyclic pattern to find that offset.
+We can use `mona` to do that:
 
 image::mona1.gif[Mona Cyclic Pattern]
 
@@ -136,8 +136,8 @@ image::mona2.gif[Mona Cyclic Pattern]
 
 Good, `mona` discovered that EIP gets overwritten starting at byte `2080`.
 
-Now, for illustration purposes, let's create a simple shellcode to
-make `EAX = 0xdeadbeef`. We will insert it in a dynamic generated
+Now, for illustration purposes, we'll create a simple shellcode to
+make `EAX = 0xdeadbeef`. Then, we must copy it in a dynamic generated
 location created by `VirtualAlloc()`. The return value of `VirtualAlloc()` is
 a pointer that will be placed starting at byte 2081 of our buffer to divert
 the execution flow to our shellcode.
@@ -208,12 +208,12 @@ execute. That means that `SMEP` did protect the kernel.
 == SMEP: Supervisor Mode Execution Prevention
 
 There's a concept called
-link:https://en.wikipedia.org/wiki/Protection_ring[Protection rings]. Read
-the article to details. In the context of this article, the relevant
-information is that Windows uses only 2 Current Privilege Levels (`CPL`):
-0 and 3. `CPL` levels are also referred as `rings`. `CPL0` or `ring-0` is
-where the kernel is executed and `CPL3` or `ring-3` is where user mode
-instructions are performed.
+link:https://en.wikipedia.org/wiki/Protection_ring[Protection rings] which
+is used by operating systems to delimit capabilities and provide
+fault tolerance, by defining levels of privileges. Windows OS versions
+uses only 2 Current Privilege Levels (`CPL`): 0 and 3. `CPL` levels are also
+referred as `rings`. `CPL0` or `ring-0` is where the kernel is executed
+and `CPL3` or `ring-3` is where user mode instructions are performed.
 
 `SMEP` is a protection introduced at CPU-level which prevents the kernel
 to execute code belonging to `ring-3`.
@@ -222,7 +222,8 @@ The `ATTEMPTED_EXECUTE_OF_NOEXECUTE_MEMORY` exception was triggered
 because `HEVD` is executing at `ring-0` and our shellcode was allocated at
 `ring-3`.
 
-Technically, `SMEP` is the 20th bit of the `CR4` control register:
+Technically, `SMEP` is nothing but a bit in a CPU control register,
+specifically the 20th bit of the `CR4` control register:
 
 image::cr4.png[CR4 register]
 
@@ -236,10 +237,11 @@ It would be `000406e9`. We need to place that value on `CR4` to turn off
 `SMEP`.
 
 But, how can we do that if we are not allowed to execute instructions at
-`ring-3`? link:../bypassing-dep/[ROP] comes to the rescue! At `ring-0` `ROP`
-is often referred as `kROP` because we will reuse instructions located at
-kernel level. We then need to execute a `kROP` chain and change the value of
-`CR4`. With that, we should be able to make `EAX = 0xdeadbeef`.
+`ring-3`? link:../bypassing-dep/[ROP] comes to the rescue! We need to execute
+a `ROP` chain with instructions that are already in kernel mode. At `ring-0`
+`ROP` is often referred as `kROP`. We then need to execute a `kROP` chain
+and change the value of `CR4`. With that, we should be able to make
+`EAX = 0xdeadbeef`.
 
 In `nt!KeFlushCurrentTb`, we find a gadget that sets `CR4` from whatever
 value `EAX` may have: `mov cr4, eax # ret`
@@ -264,7 +266,7 @@ image::offset2.png[POP EAX Offset]
 
 We must remember to pad our `ROP` chain with 8 bytes because the overflowed
 function epilog uses `ret 8` which will return to the value pointed by `ESP`
-and then pop 8 bytes from the stack:
+and then will pop 8 bytes from the stack:
 
 image::rop-padding.png[ROP Padding]
 
@@ -390,7 +392,7 @@ HANDLE = DeviceIoControl(DEVICE_NAME)
 HANDLE.ioctl(IOCTL_HEVD_STACK_OVERFLOW, PAYLOAD, SIZE, 0, 0)
 ----
 
-And check it:
+Looks good. Now check it:
 
 image::success1.gif[Success]
 
@@ -403,7 +405,7 @@ As you can see, we were able to disable `SMEP` and made `EAX = 0xdeadbeef`!
 == Conclusions
 
 In this post we were able to execute a shellcode which made `EAX = 0xdeadbeef`.
-We also bypassed `SMEP` protection using a `kROP` gadget and defeated `kASRL`
+We also bypassed `SMEP` protection using a `kROP` chain and defeated `kASRL`
 by leaking the kernel base address from `ring-3`.
 However, we have still have to get a privileged shell on this system, which
 will be covered in the next article.
