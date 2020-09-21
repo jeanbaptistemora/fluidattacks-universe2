@@ -3,6 +3,8 @@ data "aws_iam_policy_document" "dev-policy-data" {
   statement {
     effect  = "Allow"
     actions = [
+      "batch:Describe*",
+      "batch:Get*",
       "s3:List*",
       "s3:Get*",
       "iam:List*",

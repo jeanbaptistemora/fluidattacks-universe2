@@ -58,7 +58,7 @@ serves_test_infra_compute:
   <<: *serves_in_dev_branch
   stage: test-infra
 
-serves_test_infra_dns:
+.serves_test_infra_dns:
   <<: *with_nix
   <<: *serves_in_dev_branch
   stage: test-infra

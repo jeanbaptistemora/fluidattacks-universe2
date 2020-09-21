@@ -3,6 +3,7 @@ data "aws_iam_policy_document" "prod-policy-data" {
   statement {
     effect  = "Allow"
     actions = [
+      "batch:*",
       "sns:*",
       "rds:*",
       "s3:*",
