@@ -737,6 +737,56 @@
                     }
                 }
             }
-        }
+        },
+        {
+            "PutRequest" : {
+               "Item" : {
+                  "UUID" : {
+                     "S" : "0a848781-b6a4-422e-95fa-692151e6a98z"
+                  },
+                  "acceptance_date" : {
+                     "S" : "2020-04-26 13:40:04"
+                  },
+                  "finding_id" : {
+                     "S" : "422286126"
+                  },
+                  "historic_state" : {
+                     "L" : [
+                        {
+                           "M" : {
+                              "analyst" : {
+                                 "S" : "unittest@fluidattacks.com"
+                              },
+                              "date" : {
+                                 "S" : "2020-09-09 10:43:39"
+                              },
+                              "state" : {
+                                 "S" : "open"
+                              }
+                           }
+                        }
+                     ]
+                  },
+                  "specific" : {
+                     "S" : "12"
+                  },
+                  "treatment" : {
+                     "S" : "ACCEPTED"
+                  },
+                  "treatment_justification" : {
+                     "S" : "This is a treatment justification test"
+                  },
+                  "treatment_manager" : {
+                     "S" : "integratesuser@gmail.com"
+                  },
+                  "vuln_type" : {
+                     "S" : "lines"
+                  },
+                  "where" : {
+                     "S" : "path/to/file2.ext"
+                  }
+               }
+            }
+         }
     ]
 }

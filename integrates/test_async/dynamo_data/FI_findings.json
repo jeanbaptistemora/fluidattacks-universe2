@@ -389,10 +389,10 @@
             "N": "0.22"
           },
           "vulnerability": {
-            "S": "It's possible reverse the users credentials due that password policies no force to the users to used  good practices for strong credentials in the system.\n\nTest\n\nLine\n\nbreak"
+            "S": "The source code uses generic exceptions to handle unexpected errors. Catching generic exceptions obscures the problem that caused the error and promotes a generic way to handle different categories or sources of error. This may cause security vulnerabilities to materialize, as some special flows go unnoticed."
           },
           "finding": {
-            "S": "FIN.S.0051. Weak passwords reversed"
+            "S": "FIN.H.060. Insecure exceptions"
           },
           "attack_vector": {
             "N": "0.62"
@@ -411,7 +411,7 @@
                     "S": "evidence_route_2"
                   },
                   "description": {
-                    "S": "changed for testing purposes"
+                    "S": "exception"
                   },
                   "file_url": {
                     "S": "unittesting-422286126-evidence_route_2.png"
@@ -572,7 +572,7 @@
             "S": "422286126"
           },
           "requirements": {
-            "S": "REQ.0132. Passwords (phrase type) must be at least 3 words long."
+            "S": "R359. Avoid using generic exceptions."
           },
           "releaseDate": {
             "S": "2018-07-09 00:00:00"

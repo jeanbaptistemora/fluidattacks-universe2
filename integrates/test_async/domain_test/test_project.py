@@ -155,7 +155,7 @@ class ProjectTest(TestCase):
 
     async def test_get_open_vulnerabilities(self):
         project_name = 'unittesting'
-        expected_output = 31
+        expected_output = 32
         assert await get_open_vulnerabilities(project_name) == expected_output
 
     async def test_get_closed_vulnerabilities(self):
@@ -219,7 +219,7 @@ class ProjectTest(TestCase):
         )
         test_data = await get_total_treatment(findings)
         expected_output = \
-            {'inProgress': 1, 'accepted': 4, 'acceptedUndefined': 0, 'undefined': 0}
+            {'inProgress': 2, 'accepted': 4, 'acceptedUndefined': 0, 'undefined': 0}
         assert test_data == expected_output
 
     async def test_list_drafts(self):
@@ -335,7 +335,7 @@ class ProjectTest(TestCase):
         max_severity = 3.9
         mean_remediate_low_severity = await get_mean_remediate_severity(
             project_name, min_severity, max_severity)
-        expected_output = (218, 232)
+        expected_output = (212, 232)
         assert mean_remediate_low_severity in expected_output
         min_severity = 4
         max_severity = 6.9

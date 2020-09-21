@@ -132,12 +132,12 @@ class SchedulerTests(TestCase):
     async def test_get_by_time_range(self):
         finding = await get_finding('422286126')
         first_day = '2019-01-01 12:00:00'
-        last_day = '2019-06-30 23:59:59'
+        last_day = '2020-09-07 23:59:59'
         vuln = await get_vuln('80d6a69f-a376-46be-98cd-2fdedcffdcc0')
         test_data = get_by_time_range(
             finding, vuln[0], first_day, last_day
         )
-        expected_output = 1
+        expected_output = 0
         assert test_data == expected_output
 
     async def test_create_register_by_week(self):
@@ -174,7 +174,7 @@ class SchedulerTests(TestCase):
     async def test_get_date_last_vulns(self):
         vulns = await list_vulnerabilities_async(['422286126'])
         test_data = get_date_last_vulns(vulns)
-        expected_output = '2019-01-07 16:01:26'
+        expected_output = '2020-09-07 16:01:26'
         assert test_data == expected_output
 
     async def test_format_vulnerabilities(self):
@@ -184,7 +184,7 @@ class SchedulerTests(TestCase):
         negative_delta = -1
 
         test_data = format_vulnerabilities(positive_delta, act_finding)
-        expected_output = 'FIN.S.0051. Weak passwords reversed (+1)'
+        expected_output = 'FIN.H.060. Insecure exceptions (+1)'
         assert test_data == expected_output
 
         test_data = format_vulnerabilities(neutral_delta, act_finding)
@@ -192,7 +192,7 @@ class SchedulerTests(TestCase):
         assert test_data == expected_output
 
         test_data = format_vulnerabilities(negative_delta, act_finding)
-        expected_output = 'FIN.S.0051. Weak passwords reversed (-1)'
+        expected_output = 'FIN.H.060. Insecure exceptions (-1)'
         assert test_data == expected_output
 
     async def test_create_msj_finding_pending(self):

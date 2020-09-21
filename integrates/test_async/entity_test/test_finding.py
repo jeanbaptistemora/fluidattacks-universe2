@@ -51,7 +51,7 @@ class FindingTests(TestCase):
               'state': 'open'
             },
             {
-              'date': '2019-01-08 16:01:26',
+              'date': '2020-09-09 16:01:26',
               'analyst': 'test@unittesting.com',
               'state': 'open'
             }
@@ -162,7 +162,7 @@ class FindingTests(TestCase):
         assert 'errors' not in result
         assert result['data']['finding']['id'] == '422286126'
         assert result['data']['finding']['projectName'] == 'unittesting'
-        assert result['data']['finding']['openVulnerabilities'] == 1
+        assert result['data']['finding']['openVulnerabilities'] == 2
         assert result['data']['finding']['closedVulnerabilities'] == 0
         assert result['data']['finding']['releaseDate'] == '2018-07-09 00:00:00'
         assert result['data']['finding']['tracking'][0]['cycle'] == 0
@@ -210,7 +210,7 @@ class FindingTests(TestCase):
         assert 'lastVulnerability' in result['data']['finding']
         assert 'historicState' in result['data']['finding']
         assert 'vulnerabilities' in result['data']['finding']
-        for field, value in result['data']['finding']['vulnerabilities'][0].items():
+        for field, value in result['data']['finding']['vulnerabilities'][1].items():
             assert value == expected_vuln[field]
 
     @pytest.mark.changes_db

@@ -198,9 +198,9 @@ class ViewTestCase(unittest.TestCase):
         WebDriverWait(selenium, self.delay).until(
             expected.presence_of_element_located(
                 (By.XPATH,
-                    "//*[contains(text(), 'FIN.H.0037. Fuga de información técnica')]")))
+                    "//*[contains(text(), 'FIN.H.060. Insecure exceptions')]")))
         selenium.save_screenshot(SCR_PATH + '04-01-findings.png')
-        assert 'FIN.H.0037. Fuga de información técnica' in selenium.page_source
+        assert 'FIN.H.060. Insecure exceptions' in selenium.page_source
 
     def test_05_finding(self):
         selenium = self.selenium
@@ -208,14 +208,14 @@ class ViewTestCase(unittest.TestCase):
         finding_elem = WebDriverWait(selenium, self.delay).until(
             expected.presence_of_element_located(
                 (By.XPATH,
-                    "//*[contains(text(), 'FIN.S.0051. Weak passwords reversed')]")))
+                    "//*[contains(text(), 'FIN.H.060. Insecure exceptions')]")))
         selenium.save_screenshot(SCR_PATH + '05-01-finding.png')
 
         self.__click(finding_elem)
         WebDriverWait(selenium, self.delay).until(
             expected.presence_of_element_located(
                 (By.XPATH,
-                    "//*[contains(text(), 'REQ.0132. Passwords (phrase type) must be at least 3 words long')]")))
+                    "//*[contains(text(), 'R359. Avoid using generic exceptions.')]")))
         selenium.save_screenshot(SCR_PATH + '05-02-finding.png')
 
         verify_btn = selenium.find_element_by_xpath(
@@ -223,7 +223,7 @@ class ViewTestCase(unittest.TestCase):
         self.__click(verify_btn)
         selenium.save_screenshot(SCR_PATH + '05-03-finding.png')
 
-        checkboxes = selenium.find_elements_by_css_selector("#inputsVulns input[type='checkbox']")
+        checkboxes = selenium.find_elements_by_css_selector("#linesVulns input[type='checkbox']")
         for checkbox in checkboxes:
             if not checkbox.is_selected():
                 self.__click(checkbox)
@@ -242,7 +242,7 @@ class ViewTestCase(unittest.TestCase):
         self.__click(modal_btn)
         time.sleep(1)
         selenium.execute_script('window.scrollTo(0, 0);')
-        assert 'possible reverse the users credentials due that password' in selenium.page_source
+        assert 'The source code uses generic exceptions to handle unexpected errors' in selenium.page_source
 
     def test_06_severity(self):
         selenium = self.selenium
@@ -250,7 +250,7 @@ class ViewTestCase(unittest.TestCase):
         finding_elem = WebDriverWait(selenium, self.delay).until(
             expected.presence_of_element_located(
                 (By.XPATH,
-                    "//*[contains(text(), 'FIN.H.0037. Fuga de información técnica')]")))
+                    "//*[contains(text(), 'FIN.H.060. Insecure exceptions')]")))
         selenium.save_screenshot(SCR_PATH + '06-01-severity.png')
 
         self.__click(finding_elem)
@@ -265,7 +265,7 @@ class ViewTestCase(unittest.TestCase):
                 (By.XPATH,
                     "//*[contains(text(), 'Confidentiality Impact')]")))
         selenium.save_screenshot(SCR_PATH + '06-03-severity.png')
-        assert 'Proof of Concept' in selenium.page_source
+        assert 'Confidentiality Impact' in selenium.page_source
 
     def test_07_evidence(self):
         selenium = self.selenium
@@ -273,7 +273,7 @@ class ViewTestCase(unittest.TestCase):
         finding_elem = WebDriverWait(selenium, self.delay).until(
             expected.presence_of_element_located(
                 (By.XPATH,
-                    "//*[contains(text(), 'FIN.H.0037. Fuga de información técnica')]")))
+                    "//*[contains(text(), 'FIN.H.060. Insecure exceptions')]")))
         selenium.save_screenshot(SCR_PATH + '07-01-evidence.png')
 
         self.__click(finding_elem)
@@ -287,9 +287,9 @@ class ViewTestCase(unittest.TestCase):
 
         WebDriverWait(selenium, self.delay).until(
             expected.presence_of_element_located(
-                (By.XPATH, "//*[contains(text(), 'Comentario')]")))
+                (By.XPATH, "//*[contains(text(), 'exception')]")))
         selenium.save_screenshot(SCR_PATH + '07-04-evidence.png')
-        assert 'Comentario' in selenium.page_source
+        assert 'exception' in selenium.page_source
 
     def test_08_exploit(self):
         selenium = self.selenium
@@ -319,7 +319,7 @@ class ViewTestCase(unittest.TestCase):
         finding_elem = WebDriverWait(selenium, self.delay).until(
             expected.presence_of_element_located(
                 (By.XPATH,
-                    "//*[contains(text(), 'FIN.H.0037. Fuga de información técnica')]")))
+                    "//*[contains(text(), 'FIN.H.060. Insecure exceptions')]")))
         selenium.save_screenshot(SCR_PATH + '09-01-tracking.png')
 
         self.__click(finding_elem)
@@ -332,9 +332,9 @@ class ViewTestCase(unittest.TestCase):
 
         WebDriverWait(selenium, self.delay).until(
             expected.presence_of_element_located(
-                (By.XPATH, "//*[contains(text(), '2019-09-16')]")))
+                (By.XPATH, "//*[contains(text(), '2020-09-09')]")))
         selenium.save_screenshot(SCR_PATH + '09-03-tracking.png')
-        assert '2019-09-16' in selenium.page_source
+        assert '2020-09-09' in selenium.page_source
 
     def test_10_comments(self):
         selenium = self.selenium
@@ -342,7 +342,7 @@ class ViewTestCase(unittest.TestCase):
         finding_elem = WebDriverWait(selenium, self.delay).until(
             expected.presence_of_element_located(
                 (By.XPATH,
-                    "//*[contains(text(), 'FIN.H.0037. Fuga de información técnica')]")))
+                    "//*[contains(text(), 'FIN.H.060. Insecure exceptions')]")))
         selenium.save_screenshot(SCR_PATH + '10-01-comments.png')
 
         self.__click(finding_elem)
@@ -364,7 +364,7 @@ class ViewTestCase(unittest.TestCase):
         WebDriverWait(selenium, self.delay).until(
             expected.presence_of_element_located(
                 (By.XPATH,
-                    "//*[contains(text(), 'FIN.H.0037. Fuga de información técnica')]")))
+                    "//*[contains(text(), 'FIN.H.060. Insecure exceptions')]")))
         rep_modal = WebDriverWait(selenium, self.delay).until(
             expected.presence_of_element_located(
                 (By.XPATH, "//button[contains(text(),'Reports')]")))
@@ -381,9 +381,9 @@ class ViewTestCase(unittest.TestCase):
         WebDriverWait(selenium, self.delay).until(
             expected.presence_of_element_located(
                 (By.XPATH,
-                    "//*[contains(text(), 'FIN.H.0037. Fuga de información')]")))
+                    "//*[contains(text(), 'FIN.H.060. Insecure exceptions')]")))
         selenium.save_screenshot(SCR_PATH + '11-03-techpdf.png')
-        assert 'FIN.H.0037. Fuga de información técnica' in selenium.page_source
+        assert 'FIN.H.060. Insecure exceptions' in selenium.page_source
 
     def test_13_events(self):
         selenium = self.selenium
