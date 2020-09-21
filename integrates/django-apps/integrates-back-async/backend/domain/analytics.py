@@ -1,4 +1,7 @@
 # Standard library
+from io import (
+    BytesIO,
+)
 import json
 import logging
 import os
@@ -10,6 +13,9 @@ from typing import (
 )
 
 # Third party libraries
+from aioextensions import (
+    in_thread,
+)
 from ariadne import (
     convert_camel_case_to_snake,
 )
@@ -21,6 +27,9 @@ from django.http import (
 )
 from django.shortcuts import (
     render,
+)
+from PIL import (
+    Image,
 )
 
 # Local libraries
@@ -80,6 +89,8 @@ ReportParameters = NamedTuple(
 # Constants
 LOGGER = logging.getLogger(__name__)
 ALLOWED_CHARS_IN_PARAMS: str = string.ascii_letters + string.digits + '#-'
+IMAGE_PATH: str = 'reports/resources/themes/logo.png'
+TRANSPARENCY_RATIO: float = 0.40
 
 
 @apm.trace()
@@ -112,8 +123,9 @@ async def get_graphics_report(
     document: bytes = await analytics_dal.get_snapshot(
         f'reports/{entity}:{safe_encode(subject.lower())}.png',
     )
+    base_image: Image = Image.open(BytesIO(document))
 
-    return document
+    return await in_thread(add_watermark, base_image)
 
 
 async def handle_authz_claims(
@@ -346,3 +358,44 @@ async def handle_graphics_report_request(
         response = HttpResponse(report, content_type='image/png')
 
     return response
+
+
+def clarify(image_path: str) -> Image:
+    path_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    if not os.path.exists(
+        os.path.abspath(os.path.join(path_dir, image_path))
+    ):
+        raise FileNotFoundError(
+            os.path.abspath(os.path.join(path_dir, image_path))
+        )
+
+    watermark = Image.open(
+        os.path.abspath(os.path.join(path_dir, image_path))
+    )
+    watermark_mask = watermark.convert('L').point(
+        lambda x: x * TRANSPARENCY_RATIO
+    )
+    watermark.putalpha(watermark_mask)
+
+    return watermark
+
+
+def add_watermark(base_image: Image) -> bytes:
+    watermark: Image = clarify(IMAGE_PATH)
+    watermark_width, watermark_height = watermark.size
+    width = max(base_image.width, watermark_width)
+    height = max(base_image.height, watermark_height)
+
+    transparent = Image.new('RGB', (width, height), (0, 0, 0, 0))
+    transparent.paste(base_image, (0, 0))
+    transparent.paste(
+        watermark,
+        ((width - watermark_width) // 2, (height - watermark_height) // 2),
+        watermark,
+    )
+
+    stream: BytesIO = BytesIO()
+    transparent.save(stream, format='png')
+    stream.seek(0)
+
+    return stream.read()
