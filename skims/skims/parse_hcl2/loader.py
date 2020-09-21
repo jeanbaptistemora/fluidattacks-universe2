@@ -135,7 +135,12 @@ def load_blocks(data: Any) -> Any:
                 else:
                     namespace.append(child)
 
-            data = Block(body=body, namespace=namespace)
+            data = Block(
+                body=body,
+                column=data.column - 1,
+                line=data.line,
+                namespace=namespace,
+            )
         else:
             data.children = list(map(load_blocks, data.children))
     return data
@@ -162,7 +167,9 @@ def replace_attributes(data: Any) -> Any:
     if isinstance(data, lark.Tree):
         if data.data == 'attribute' and data.children[0].data == 'identifier':
             data = Attribute(
+                column=data.column - 1,
                 key=data.children[0].children[0],
+                line=data.line,
                 val=data.children[1],
             )
         else:
