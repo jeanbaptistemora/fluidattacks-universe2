@@ -238,10 +238,13 @@ def linearize__deconstruct(
         ids = [] if ids is None else ids
         linearize__deconstruct(table=table, stru=[stru], ids=ids)
     elif is_list(stru):
-        for nstru in stru:
+        len_stru = len(stru)
+        for index, nstru in enumerate(stru):
             mstru = nstru if is_dict(nstru) else {"val": nstru}
             for lvl, this_id in enumerate(ids):
                 mstru[f"sid{lvl}"] = this_id
+                mstru["forward_index"] = index
+                mstru["backward_index"] = len_stru - 1 - index
             linearize__deconstruct(table=table, ids=ids, stru=mstru)
     elif is_dict(stru):
         record = {}

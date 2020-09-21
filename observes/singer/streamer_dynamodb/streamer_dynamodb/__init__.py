@@ -112,7 +112,7 @@ def deserialize(object_: Any) -> Any:
     :rtype: Any.
     """
     if isinstance(object_, Decimal):
-        object_ = int(object_)
+        object_ = float(object_)
     elif isinstance(object_, dict):
         for key, value in object_.items():
             object_[key] = deserialize(value)
