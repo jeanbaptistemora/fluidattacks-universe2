@@ -1,12 +1,17 @@
-from datetime import date
 import pytest
+import pytz
+from datetime import datetime
 
 from test_async.functional_test.customer.utils import get_result
+
+from fluidintegrates.settings import TIME_ZONE
 
 pytestmark = pytest.mark.asyncio
 
 
 async def test_finding():
+    tzn = pytz.timezone(TIME_ZONE)
+    today = datetime.now(tz=tzn).strftime('%Y-%m-%d')
     finding_id = '463558592'
     expected_output =  {
         'id': finding_id,
@@ -32,7 +37,7 @@ async def test_finding():
             {
                 'closed': 4,
                 'cycle': 2,
-                'date': date.today().isoformat(),
+                'date': today,
                 'effectiveness': 66,
                 'open': 2
             }
@@ -322,7 +327,7 @@ async def test_finding():
                 'user': 'unittest@fluidattacks.com'
             },
             {
-                'date': date.today().isoformat(),
+                'date': today,
                 'justification': 'This is a treatment justification test',
                 'treatment': 'IN PROGRESS',
                 'user': 'integratescustomer@gmail.com'

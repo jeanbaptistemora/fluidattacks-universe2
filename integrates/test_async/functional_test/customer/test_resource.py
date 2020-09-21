@@ -1,17 +1,22 @@
 import json
 import os
 import pytest
-from datetime import date
+import pytz
+from datetime import datetime
 
 from django.core.files.uploadedfile import SimpleUploadedFile
 from urllib.parse import quote
 
+from fluidintegrates.settings import TIME_ZONE
 from test_async.functional_test.customer.utils import get_result
 
 pytestmark = pytest.mark.asyncio
 
 
 async def test_resource():
+    tzn = pytz.timezone(TIME_ZONE)
+    today = datetime.now(tz=tzn).strftime('%Y-%m-%d')
+    state_today = datetime.now(tz=tzn).strftime('%Y/%m/%d')
     group_name = 'unittesting'
     url_env = 'https://url.env1.com'
     query = f'''mutation {{
@@ -89,18 +94,18 @@ async def test_resource():
     result = await get_result(data)
     environments = json.loads(result['data']['resources']['environments'])
     env = [env for env in environments if env['urlEnv'] == quote(url_env, safe='')][0]
-    assert date.today().isoformat() in env['historic_state'][0]['date']
+    assert today in env['historic_state'][0]['date']
     assert env['historic_state'][0]['state'] == 'ACTIVE'
     assert env['historic_state'][0]['user'] == 'integratescustomer@gmail.com'
     repositories = json.loads(result['data']['resources']['repositories'])
     repo = [repo for repo in repositories if repo['urlRepo'] == quote(url_repo, safe='')][0]
     assert repo['branch'] == 'master'
-    assert date.today().isoformat() in repo['historic_state'][0]['date']
+    assert today in repo['historic_state'][0]['date']
     assert repo['historic_state'][0]['state'] == 'ACTIVE'
     assert repo['historic_state'][0]['user'] == 'integratescustomer@gmail.com'
     assert repo['protocol'] == 'HTTPS'
     files = json.loads(result['data']['resources']['files'])
-    file = [file for file in files if file['uploadDate'][:-6] == date.today().isoformat()][0]
+    file = [file for file in files if file['uploadDate'][:-6] == today][0]
     assert file['uploader'] == 'integratescustomer@gmail.com'
     file_name = file['fileName']
     query = f'''
@@ -178,16 +183,16 @@ async def test_resource():
     result = await get_result(data)
     environments = json.loads(result['data']['resources']['environments'])
     env = [env for env in environments if env['urlEnv'] == quote(url_env, safe='')][0]
-    assert date.today().strftime('%Y/%m/%d') in env['historic_state'][1]['date']
+    assert state_today in env['historic_state'][1]['date']
     assert env['historic_state'][1]['state'] == 'INACTIVE'
     assert env['historic_state'][1]['user'] == 'integratescustomer@gmail.com'
     repositories = json.loads(result['data']['resources']['repositories'])
     repo = [repo for repo in repositories if repo['urlRepo'] == quote(url_repo, safe='')][0]
     assert repo['branch'] == 'master'
-    assert date.today().strftime('%Y/%m/%d') in repo['historic_state'][1]['date']
+    assert state_today in repo['historic_state'][1]['date']
     assert repo['historic_state'][1]['state'] == 'INACTIVE'
     assert repo['historic_state'][1]['user'] == 'integratescustomer@gmail.com'
     assert repo['protocol'] == 'HTTPS'
     files = json.loads(result['data']['resources']['files'])
-    today_files = [file for file in files if file['uploadDate'][:-6] == date.today().isoformat()]
+    today_files = [file for file in files if file['uploadDate'][:-6] == today]
     assert today_files == []
