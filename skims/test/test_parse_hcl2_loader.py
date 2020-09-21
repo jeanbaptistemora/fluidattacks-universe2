@@ -184,9 +184,29 @@ def test_load_2() -> None:
                         column=2,
                         key='policy',
                         line=20,
-                        val=Tree('heredoc_template', [
-                            Token('__ANON_10', '<<EOF\n{\n    "Version": "2012-10-17",\n    "Statement": [\n        {\n            "Sid": "rule1",\n            "Effect": "Allow",\n            "Action": [\n                "sns:ListSubscriptionsByTopic",\n                "sns:Publish"\n            ],\n            "Resource": [\n                "${aws_sns_topic.test.arn}",\n                "${aws_sns_topic.test2.arn}"\n            ]\n        },\n        {\n            "Sid": "rule2",\n            "Effect": "Allow",\n            "Action": "sns:ListTopics",\n            "Resource": "*"\n        }\n    ]\n}\nEOF'),
-                        ]),
+                        val={
+                            'Version': '2012-10-17',
+                            'Statement': [
+                                {
+                                    'Sid': 'rule1',
+                                    'Effect': 'Allow',
+                                    'Action': [
+                                        'sns:ListSubscriptionsByTopic',
+                                        'sns:Publish'
+                                    ],
+                                    'Resource': [
+                                        '${aws_sns_topic.test.arn}',
+                                        '${aws_sns_topic.test2.arn}'
+                                    ]
+                                },
+                                {
+                                    'Sid': 'rule2',
+                                    'Effect': 'Allow',
+                                    'Action': 'sns:ListTopics',
+                                    'Resource': '*'
+                                }
+                            ]
+                        },
                     ),
                 ],
                 column=0,

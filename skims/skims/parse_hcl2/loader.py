@@ -1,5 +1,6 @@
 # Standard library
 import ast
+import json
 from typing import (
     Any,
     List,
@@ -51,6 +52,7 @@ def load(stream: str, *, default: Any = None) -> Any:
 
 def post_process(data: Any) -> Any:
     data = remove_discarded(data)
+    data = load_heredocs(data)
     data = coerce_to_int_lit(data)
     data = coerce_to_string_lit(data)
     data = coerce_to_boolean(data)
@@ -118,6 +120,16 @@ def extract_single_expr_term(data: Any) -> Any:
             data = extract_single_expr_term(data.children[0])
         else:
             data.children = list(map(extract_single_expr_term, data.children))
+    return data
+
+
+def load_heredocs(data: Any) -> Any:
+    if isinstance(data, lark.Tree):
+        if data.data.startswith('heredoc_template'):
+            raw = '\n'.join(data.children[0].value.splitlines()[1:-1])
+            data = json.loads(raw)
+        else:
+            data.children = list(map(load_heredocs, data.children))
     return data
 
 
