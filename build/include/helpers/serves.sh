@@ -3,8 +3,9 @@
 function helper_serves_deploy_integrates {
   local integrates_id='20741933'
 
-      helper_serves_aws_login prod \
-  &&  helper_common_sops_env secrets-prod.yaml default PRODUCT_PIPELINE_TOKEN \
+      helper_serves_aws_login production \
+  &&  helper_common_sops_env secret-management/production.yaml default \
+        PRODUCT_PIPELINE_TOKEN \
   &&  curl \
         -X POST \
         -F token="${PRODUCT_PIPELINE_TOKEN}" \
@@ -19,21 +20,33 @@ function helper_serves_aws_login {
   export AWS_SECRET_ACCESS_KEY
 
 
-      if [ "${user}" = 'dev' ]
+      if [ "${user}" = 'development' ]
       then
             AWS_ACCESS_KEY_ID="${SERVES_DEV_AWS_ACCESS_KEY_ID}" \
         &&  AWS_SECRET_ACCESS_KEY="${SERVES_DEV_AWS_SECRET_ACCESS_KEY}"
-      elif [ "${user}" = 'prod' ]
+      elif [ "${user}" = 'production' ]
       then
             AWS_ACCESS_KEY_ID="${SERVES_PROD_AWS_ACCESS_KEY_ID}" \
         &&  AWS_SECRET_ACCESS_KEY="${SERVES_PROD_AWS_SECRET_ACCESS_KEY}"
       else
-            echo '[ERROR] either prod or dev must be passed as arg' \
+            echo '[ERROR] either "production" or "development" must be passed as arg' \
         &&  return 1
       fi \
   &&  echo "[INFO] Logging into AWS with ${user} credentials" \
   &&  aws configure set aws_access_key_id "${AWS_ACCESS_KEY_ID}" \
   &&  aws configure set aws_secret_access_key "${AWS_SECRET_ACCESS_KEY}"
+}
+
+function helper_serves_cloudflare_login {
+  local user="${1}"
+  export TF_VAR_cloudflare_email
+  export TF_VAR_cloudflare_api_key
+
+      helper_common_sops_env "secret-management/${user}.yaml" default \
+        CLOUDFLARE_EMAIL \
+        CLOUDFLARE_API_KEY \
+  &&  TF_VAR_cloudflare_email="${CLOUDFLARE_EMAIL}" \
+  &&  TF_VAR_cloudflare_api_key="${CLOUDFLARE_API_KEY}"
 }
 
 function helper_serves_terraform_taint {
@@ -100,17 +113,17 @@ function helper_serves_infra_monolith {
   local helm_home
   local first_argument="${1}"
 
-      helper_serves_aws_login dev \
+      helper_serves_aws_login development \
   &&  pushd infrastructure/ || return 1 \
     &&  helper_common_terraform_plan . \
     &&  if [ "${first_argument}" == "deploy" ]; then
-              helper_serves_aws_login prod \
+              helper_serves_aws_login production \
           &&  aws eks update-kubeconfig \
                 --name 'FluidServes' --region 'us-east-1' \
           &&  kubectl config \
                 set-context "$(kubectl config current-context)" --namespace 'serves' \
           &&  helper_common_terraform_apply . \
-          &&  helper_common_sops_env ../secrets-prod.yaml default \
+          &&  helper_common_sops_env ../secret-management/production.yaml default \
                 FLUIDATTACKS_TLS_CERT \
                 FLUID_TLS_KEY \
                 HELM_CA \
@@ -213,7 +226,7 @@ function helper_serves_user_provision_rotate_keys {
 
       resource_to_taint_number="$( \
         helper_serves_get_resource_to_taint_number)" \
-  &&  helper_serves_aws_login prod \
+  &&  helper_serves_aws_login production \
   &&  helper_serves_terraform_taint \
         "${terraform_dir}" \
         "${resource_to_taint}-${resource_to_taint_number}" \
@@ -253,12 +266,4 @@ function helper_serves_test_lint_code_shell {
 
   find "${path}" -name '*.sh' -exec \
     shellcheck --external-sources --exclude=SC1090,SC2016,SC2153,SC2154 {} +
-}
-
-function helper_serves_cloudflare_login {
-      helper_common_sops_env secrets-prod.yaml default \
-        CLOUDFLARE_EMAIL \
-        CLOUDFLARE_API_KEY \
-  &&  export TF_VAR_cloudflare_email="${CLOUDFLARE_EMAIL}" \
-  &&  export TF_VAR_cloudflare_api_key="${CLOUDFLARE_API_KEY}"
 }

@@ -21,7 +21,8 @@ function job_serves_test_infra_dns {
 
       helper_use_pristine_workdir \
   &&  pushd serves \
-  &&  helper_serves_aws_login dev \
+  &&  helper_serves_aws_login development \
+  &&  helper_serves_cloudflare_login development \
   &&  helper_serves_infra_dns_get_load_balancer \
   &&  helper_common_terraform_plan \
         "${target}" \
@@ -34,7 +35,8 @@ function job_serves_apply_infra_dns {
 
       helper_use_pristine_workdir \
   &&  pushd serves \
-  &&  helper_serves_aws_login prod \
+  &&  helper_serves_aws_login production \
+  &&  helper_serves_cloudflare_login production \
   &&  helper_serves_infra_dns_get_load_balancer \
   &&  helper_common_terraform_apply \
         "${target}" \
@@ -47,7 +49,7 @@ function job_serves_test_infra_autoscaling_ci {
 
       helper_use_pristine_workdir \
   &&  pushd serves \
-  &&  helper_serves_aws_login dev \
+  &&  helper_serves_aws_login development \
   &&  helper_common_terraform_plan \
         "${target}" \
   &&  popd \
@@ -59,7 +61,7 @@ function job_serves_apply_infra_autoscaling_ci {
 
       helper_use_pristine_workdir \
   &&  pushd serves \
-  &&  helper_serves_aws_login prod \
+  &&  helper_serves_aws_login production \
   &&  helper_common_terraform_apply \
         "${target}" \
   &&  popd \
@@ -71,7 +73,7 @@ function job_serves_test_infra_aws_sso {
 
       helper_use_pristine_workdir \
   &&  pushd serves \
-  &&  helper_serves_aws_login dev \
+  &&  helper_serves_aws_login development \
   &&  helper_common_terraform_plan \
         "${target}" \
   &&  popd \
@@ -83,7 +85,7 @@ function job_serves_apply_infra_aws_sso {
 
       helper_use_pristine_workdir \
   &&  pushd serves \
-  &&  helper_serves_aws_login prod \
+  &&  helper_serves_aws_login production \
   &&  helper_common_terraform_apply \
         "${target}" \
   &&  popd \
@@ -95,7 +97,7 @@ function job_serves_test_infra_fluid_vpc {
 
       helper_use_pristine_workdir \
   &&  pushd serves \
-  &&  helper_serves_aws_login dev \
+  &&  helper_serves_aws_login development \
   &&  helper_common_terraform_plan \
         "${target}" \
   &&  popd \
@@ -107,7 +109,7 @@ function job_serves_apply_infra_fluid_vpc {
 
       helper_use_pristine_workdir \
   &&  pushd serves \
-  &&  helper_serves_aws_login prod \
+  &&  helper_serves_aws_login production \
   &&  helper_common_terraform_apply \
         "${target}" \
   &&  popd \
@@ -119,7 +121,7 @@ function job_serves_test_infra_secret_management {
 
       helper_use_pristine_workdir \
   &&  pushd serves \
-  &&  helper_serves_aws_login dev \
+  &&  helper_serves_aws_login development \
   &&  helper_common_terraform_plan \
         "${target}" \
   &&  popd \
@@ -131,7 +133,7 @@ function job_serves_apply_infra_secret_management {
 
       helper_use_pristine_workdir \
   &&  pushd serves \
-  &&  helper_serves_aws_login prod \
+  &&  helper_serves_aws_login production \
   &&  helper_common_terraform_apply \
         "${target}" \
   &&  popd \
@@ -143,7 +145,7 @@ function job_serves_test_infra_certificates {
 
       helper_use_pristine_workdir \
   &&  pushd serves \
-  &&  helper_serves_aws_login dev \
+  &&  helper_serves_aws_login development \
   &&  helper_common_terraform_plan \
         "${target}" \
   &&  popd \
@@ -155,7 +157,7 @@ function job_serves_apply_infra_certificates {
 
       helper_use_pristine_workdir \
   &&  pushd serves \
-  &&  helper_serves_aws_login prod \
+  &&  helper_serves_aws_login production \
   &&  helper_common_terraform_apply \
         "${target}" \
   &&  popd \
@@ -167,7 +169,7 @@ function job_serves_test_user_provision_asserts_dev {
 
       helper_use_pristine_workdir \
   &&  pushd serves \
-  &&  helper_serves_aws_login dev \
+  &&  helper_serves_aws_login development \
   &&  helper_common_terraform_plan \
         "${target}" \
   &&  popd \
@@ -179,7 +181,7 @@ function job_serves_apply_user_provision_asserts_dev {
 
       helper_use_pristine_workdir \
   &&  pushd serves \
-  &&  helper_serves_aws_login prod \
+  &&  helper_serves_aws_login production \
   &&  helper_common_terraform_apply \
         "${target}" \
   &&  popd \
@@ -191,7 +193,7 @@ function job_serves_test_user_provision_asserts_prod {
 
       helper_use_pristine_workdir \
   &&  pushd serves \
-  &&  helper_serves_aws_login dev \
+  &&  helper_serves_aws_login development \
   &&  helper_common_terraform_plan \
         "${target}" \
   &&  popd \
@@ -203,7 +205,7 @@ function job_serves_apply_user_provision_asserts_prod {
 
       helper_use_pristine_workdir \
   &&  pushd serves \
-  &&  helper_serves_aws_login prod \
+  &&  helper_serves_aws_login production \
   &&  helper_common_terraform_apply \
         "${target}" \
   &&  popd \
@@ -215,7 +217,7 @@ function job_serves_test_user_provision_services_dev {
 
       helper_use_pristine_workdir \
   &&  pushd serves \
-  &&  helper_serves_aws_login dev \
+  &&  helper_serves_aws_login development \
   &&  helper_common_terraform_plan \
         "${target}" \
   &&  popd \
@@ -227,7 +229,7 @@ function job_serves_apply_user_provision_services_dev {
 
       helper_use_pristine_workdir \
   &&  pushd serves \
-  &&  helper_serves_aws_login prod \
+  &&  helper_serves_aws_login production \
   &&  helper_common_terraform_apply \
         "${target}" \
   &&  popd \
@@ -239,7 +241,7 @@ function job_serves_test_user_provision_services_prod {
 
       helper_use_pristine_workdir \
   &&  pushd serves \
-  &&  helper_serves_aws_login dev \
+  &&  helper_serves_aws_login development \
   &&  helper_common_terraform_plan \
         "${target}" \
   &&  popd \
@@ -251,7 +253,7 @@ function job_serves_apply_user_provision_services_prod {
 
       helper_use_pristine_workdir \
   &&  pushd serves \
-  &&  helper_serves_aws_login prod \
+  &&  helper_serves_aws_login production \
   &&  helper_common_terraform_apply \
         "${target}" \
   &&  popd \
@@ -263,7 +265,7 @@ function job_serves_test_user_provision_integrates_dev {
 
       helper_use_pristine_workdir \
   &&  pushd serves \
-  &&  helper_serves_aws_login dev \
+  &&  helper_serves_aws_login development \
   &&  helper_common_terraform_plan \
         "${target}" \
   &&  popd \
@@ -275,7 +277,7 @@ function job_serves_apply_user_provision_integrates_dev {
 
       helper_use_pristine_workdir \
   &&  pushd serves \
-  &&  helper_serves_aws_login prod \
+  &&  helper_serves_aws_login production \
   &&  helper_common_terraform_apply \
         "${target}" \
   &&  popd \
@@ -287,7 +289,7 @@ function job_serves_test_user_provision_integrates_prod {
 
       helper_use_pristine_workdir \
   &&  pushd serves \
-  &&  helper_serves_aws_login dev \
+  &&  helper_serves_aws_login development \
   &&  helper_common_terraform_plan \
         "${target}" \
   &&  popd \
@@ -299,7 +301,7 @@ function job_serves_apply_user_provision_integrates_prod {
 
       helper_use_pristine_workdir \
   &&  pushd serves \
-  &&  helper_serves_aws_login prod \
+  &&  helper_serves_aws_login production \
   &&  helper_common_terraform_apply \
         "${target}" \
   &&  popd \
@@ -310,7 +312,7 @@ function job_serves_test_user_provision_skims_dev {
   local target='services/user-provision/skims/dev/terraform'
 
       pushd serves \
-    &&  helper_serves_aws_login dev \
+    &&  helper_serves_aws_login development \
     &&  helper_common_terraform_plan "${target}" \
   &&  popd \
   ||  return 1
@@ -320,7 +322,7 @@ function job_serves_apply_user_provision_skims_dev {
   local target='services/user-provision/skims/dev/terraform'
 
       pushd serves \
-    &&  helper_serves_aws_login prod \
+    &&  helper_serves_aws_login production \
     &&  helper_common_terraform_apply "${target}" \
   &&  popd \
   ||  return 1
@@ -330,7 +332,7 @@ function job_serves_test_user_provision_skims_prod {
   local target='services/user-provision/skims/prod/terraform'
 
       pushd serves \
-    &&  helper_serves_aws_login dev \
+    &&  helper_serves_aws_login development \
     &&  helper_common_terraform_plan "${target}" \
   &&  popd \
   ||  return 1
@@ -340,7 +342,7 @@ function job_serves_apply_user_provision_skims_prod {
   local target='services/user-provision/skims/prod/terraform'
 
       pushd serves \
-    &&  helper_serves_aws_login prod \
+    &&  helper_serves_aws_login production \
     &&  helper_common_terraform_apply "${target}" \
   &&  popd \
   ||  return 1
@@ -351,7 +353,7 @@ function job_serves_test_user_provision_web_dev {
 
       helper_use_pristine_workdir \
   &&  pushd serves \
-  &&  helper_serves_aws_login dev \
+  &&  helper_serves_aws_login development \
   &&  helper_common_terraform_plan \
         "${target}" \
   &&  popd \
@@ -363,7 +365,7 @@ function job_serves_apply_user_provision_web_dev {
 
       helper_use_pristine_workdir \
   &&  pushd serves \
-  &&  helper_serves_aws_login prod \
+  &&  helper_serves_aws_login production \
   &&  helper_common_terraform_apply \
         "${target}" \
   &&  popd \
@@ -375,7 +377,7 @@ function job_serves_test_user_provision_web_prod {
 
       helper_use_pristine_workdir \
   &&  pushd serves \
-  &&  helper_serves_aws_login dev \
+  &&  helper_serves_aws_login development \
   &&  helper_common_terraform_plan \
         "${target}" \
   &&  popd \
@@ -387,7 +389,7 @@ function job_serves_apply_user_provision_web_prod {
 
       helper_use_pristine_workdir \
   &&  pushd serves \
-  &&  helper_serves_aws_login prod \
+  &&  helper_serves_aws_login production \
   &&  helper_common_terraform_apply \
         "${target}" \
   &&  popd \
@@ -399,7 +401,7 @@ function job_serves_test_user_provision_serves {
 
       helper_use_pristine_workdir \
   &&  pushd serves \
-  &&  helper_serves_aws_login dev \
+  &&  helper_serves_aws_login development \
   &&  helper_common_terraform_plan \
         "${target}" \
   &&  popd \
@@ -411,7 +413,7 @@ function job_serves_apply_user_provision_serves {
 
       helper_use_pristine_workdir \
   &&  pushd serves \
-  &&  helper_serves_aws_login prod \
+  &&  helper_serves_aws_login production \
   &&  helper_common_terraform_apply \
         "${target}" \
   &&  popd \
@@ -423,7 +425,7 @@ function job_serves_test_user_provision_melts {
 
       helper_use_pristine_workdir \
   &&  pushd serves\
-  &&  helper_serves_aws_login dev \
+  &&  helper_serves_aws_login development \
   &&  helper_common_terraform_plan \
         "${target}" \
   &&  popd \
@@ -435,7 +437,7 @@ function job_serves_apply_user_provision_melts {
 
       helper_use_pristine_workdir \
   &&  pushd serves \
-  &&  helper_serves_aws_login prod \
+  &&  helper_serves_aws_login production \
   &&  helper_common_terraform_apply \
         "${target}" \
   &&  popd \
@@ -447,7 +449,7 @@ function job_serves_test_user_provision_observes {
 
       helper_use_pristine_workdir \
   &&  pushd serves \
-  &&  helper_serves_aws_login dev \
+  &&  helper_serves_aws_login development \
   &&  helper_common_terraform_plan \
         "${target}" \
   &&  popd \
@@ -459,7 +461,7 @@ function job_serves_apply_user_provision_observes {
 
       helper_use_pristine_workdir \
   &&  pushd serves \
-  &&  helper_serves_aws_login prod \
+  &&  helper_serves_aws_login production \
   &&  helper_common_terraform_apply \
         "${target}" \
   &&  popd \
@@ -879,14 +881,14 @@ function job_serves_apply_config_autoscaling_ci {
 
       pushd serves \
   &&  echo '[INFO] Adding bastion to known hosts' \
-  &&  helper_serves_aws_login prod \
+  &&  helper_serves_aws_login production \
   &&  mkdir -p ~/.ssh \
   &&  touch ~/.ssh/known_hosts \
   &&  ssh-keyscan \
         -H "${bastion_ip}" \
         >> ~/.ssh/known_hosts \
   &&  echo '[INFO] Exporting bastion SSH key' \
-  &&  helper_common_sops_env secrets-prod.yaml default \
+  &&  helper_common_sops_env secret-management/production.yaml default \
         "${secrets_to_replace[@]}" \
         autoscaling_bastion_key_b64 \
   &&  echo -n "${autoscaling_bastion_key_b64}" \

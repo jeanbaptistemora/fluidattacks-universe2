@@ -1,3 +1,19 @@
+resource "aws_route53_zone" "fs_maindomain" {
+  name    = var.domain
+  comment = "Dominio principal de FLUID"
+}
+
+resource "aws_route53_record" "mainA" {
+  zone_id = aws_route53_zone.fs_maindomain.zone_id
+  name    = aws_route53_zone.fs_maindomain.name
+  type    = "A"
+  alias {
+    name                   = var.elbDns
+    zone_id                = var.elbZone
+    evaluate_target_health = false
+  }
+}
+
 # A Records
 resource "aws_route53_record" "web" {
   zone_id = aws_route53_zone.fs_maindomain.zone_id
