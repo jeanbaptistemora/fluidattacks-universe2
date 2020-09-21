@@ -1,0 +1,63 @@
+:slug: rules/072/
+:category: architecture
+:description: This requirement establishes the importance of defining an adequate maximum response time with the maximum expected concurrence.
+:keywords: Time, Response, Concurrency, ASVS, CWE, GDPR, Rules, Ethical Hacking, Pentesting
+:rules: yes
+
+= R072. Set maximum response time
+
+== Requirement
+
+The response time with the maximum expected concurrence
+must be no more than 5 seconds.
+
+== Description
+
+Response time is a relevant measure of a system's availability and
+adaptability to stress.
+It is also important when it comes to usability and reliance.
+For these reasons the response time must not surpass 5 seconds when the
+number of concurrent users reaches its peak.
+
+== Findings
+
+* [inner]#link:/web/findings/002/[F002. Asymmetric denial of service]#
+
+* [inner]#link:/web/findings/003/[F003. Symmetric denial of service]#
+
+* [inner]#link:/web/findings/067/[F067. Improper resource allocation]#
+
+* [inner]#link:/web/findings/108/[F108. Improper control of interaction frequency]#
+
+== References
+
+. [[r1]] link:https://cwe.mitre.org/data/definitions/400.html[CWE-400: Uncontrolled Resource Consumption].
+The software does not properly control the allocation and maintenance of a
+limited resource thereby enabling an actor to influence the amount of resources
+consumed,
+eventually leading to the exhaustion of available resources.
+
+. [[r2]] link:https://cwe.mitre.org/data/definitions/770.html[CWE-770: Allocation of Resources Without Limits or Throttling].
+The software allocates a reusable resource or group of resources on behalf of
+an actor without imposing any restrictions on the size or number of resources
+that can be allocated,
+in violation of the intended security policy for that actor.
+
+. [[r3]] link:https://gdpr-info.eu/art-32-gdpr/[GDPR. Art. 32: Security of processing.(1)(c).]
+The controller and the processor shall implement appropriate technical and
+organizational measures to ensure an appropriate level of security,
+including the the ability to restore the availability and access to personal
+data in a timely manner in the event of a physical or technical incident.
+
+. [[r4]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V11.1 Business Logic Security Requirements.(11.1.4)]
+Verify the application has sufficient anti-automation controls to detect and
+protect against data exfiltration, excessive business logic requests,
+excessive file uploads or denial of service attacks.
+
+. [[r5]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V13.4 GraphQL and other Web Service Data Layer Security Requirements.(13.4.1)]
+Verify that query whitelisting or a combination of depth limiting and amount
+limiting should be used to prevent *GraphQL* or data layer expression denial of
+service (*DoS*) as a result of expensive, nested queries.
+For more advanced scenarios, query cost analysis should be used.

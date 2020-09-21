@@ -1,0 +1,47 @@
+:slug: rules/064/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestion segura de los requisitos de seguridad definidos para un determinado sistema. Por lo tanto, dichos requisitos deben estar definidos al momento de realizar las pruebas de caja blanca.
+:keywords: Requisitos, Sistema, Comprobar, Caja Blanca, Definir, Seguridad.
+:rules: yes
+
+= REQ.064 Definir requisitos a comprobar
+
+== Requisito
+
+Los requisitos de seguridad que serán probados
+(en pruebas de caja blanca) deben estar definidos.
+
+== Descripción
+
+Cuando se definen las pruebas
+para los componentes de los sistemas
+(antes de producción y en ambientes productivos),
+dentro del plan de pruebas
+se debe establecer los requisitos
+que serán probados con el fin de ser comprobados.
+
+== Implementación
+
+. Para el establecimiento de los requisitos
+se debe verificar el diseño del sistema,
+el plan de pruebas
+debe incluir los requisitos
+definidos en etapa de diseño de los componentes.
+Las pruebas definidas deben tener una cobertura total
+de los requisitos de seguridad definidos.
+
+== Ataques
+
+. El plan de pruebas
+no contempla la verificación de todos los requisitos de seguridad definidos
+y el sistema se encuentra en producción con vulnerabilidades expuestas.
+Un atacante aprovecha esta condición
+para afectar la Confidencialidad, Integridad o Disponibilidad del sistema.
+
+== Atributos
+
+* Capa: Negocio.
+* Activo: Arquitectura de seguridad.
+* Alcance: Adherencia.
+* Fase: Pruebas.
+* Tipo de Control: Recomendación.

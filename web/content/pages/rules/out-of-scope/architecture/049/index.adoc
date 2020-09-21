@@ -1,0 +1,13 @@
+:slug: rules/049/
+:category: architecture
+:description: This requirement establishes the importance of using interfaces instead of implementations in the source code.
+:keywords: Requirement, Security, Architecture, Components, Interfaces, Implementation, Rules, Ethical Hacking, Pentesting
+:rules: yes
+:extended: yes
+
+= R049. Use interfaces in components
+
+== Requirement
+
+In the source code,
+the components must use interfaces instead of implementations.

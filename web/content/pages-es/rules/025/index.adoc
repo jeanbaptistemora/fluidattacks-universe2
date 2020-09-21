@@ -1,0 +1,55 @@
+:slug: rules/025/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestion adecuada de sesiones concurrentes en un sistema que permita el acceso simultáneo de usuarios a sus servicios, evitando así, que un usuario mal intencionado interactúe al tiempo con un usuario válido.
+:keywords: Requerimiento, Seguridad, Sesión de usuario, Sesiones concurrentes, Robo de sesión, Credenciales.
+:rules: yes
+
+= REQ.025 Controlar sesiones concurrentes
+
+== Requisito
+
+Las sesiones concurrentes de un sistema se deben controlar o informar.
+
+== Descripción
+
+Un sistema que maneja sesiones de acceso autenticadas
+y asociadas a usuarios únicos
+puede permitir el acceso simultaneo a sus servicios
+mediante el uso de las mismas credenciales,
+esto supone varios riesgos para el servicio, la información
+y los usuarios del sistema
+al permitir que un usuario mal intencionado
+interactúe al tiempo con el sistema que un usuario válido,
+lo que conlleva a robos de sesión inadvertidos,
+ejecución de acciones a nombre de un usuario válido
+sin su autorización (suplantación)
+y pérdida de la trazabilidad de las acciones de un usuario suplantado.^<<r1,[1]>>,<<r2,[2]>>^
+
+== Implementación
+
+. Limitar o eliminar la concurrencia en sesiones:
+Configurar en el sistema según su naturaleza
+la opción de controlar la conexión simultanea
+utilizando las mismas credenciales
+ya sea desde un sistema de autenticación externo o desde el mismo sistema.
+
+== Ataques
+
+. Un atacante inicia sesión en una cuenta
+de manera simultánea a un usuario legítimo.
+
+. Un atacante efectúa acciones a nombre de un usuario legítimo sin trazabilidad
+y sin autorización del usuario legítimo.
+
+== Atributos
+
+. Capa: Capa de Aplicación
+. Activo: Administración de sesiones
+. ​Alcance: Integridad
+. ​Fase: Operación
+. ​Tipo Control: Procedimiento
+
+== Referencias
+
+. [[r1]] link:https://pcinetwork.org/forum/index.php?threads/pci-dss-3-0-6-5-10-broken-authentication-and-session-management.667/[[PCI DSS 3.0\] 6.5.10 Broken authentication and session management].
+. [[r2]] link:https://www.owasp.org/index.php/Top_10_2013-A2-Broken_Authentication_and_Session_Management[Top 10 2013-A2-Broken Authentication and Session Management].

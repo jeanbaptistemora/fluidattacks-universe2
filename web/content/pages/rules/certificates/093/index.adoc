@@ -1,0 +1,16 @@
+:slug: rules/093/
+:category: certificates
+:description: This requirement establishes the importance of using consistent certificates with valid and updated information about the associated organization.
+:keywords: Services, Server, Digital, Certificates, Consistent, Organization, Rules, Ethical Hacking, Pentesting
+:rules: yes
+
+= R093. Use consistent certificates
+
+== Requirement
+
+The system must use digital certificates with a consistent identification
+of the associated organization (service, server, among others).
+
+== Findings
+
+* [inner]#link:/web/findings/049/[F049. Insecure digital certificates]#

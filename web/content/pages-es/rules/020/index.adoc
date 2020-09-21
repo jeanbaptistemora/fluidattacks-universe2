@@ -1,0 +1,57 @@
+:slug: rules/020/
+:category: rules
+:description: En el presente documento se detallan los requerimientos relacionados a la gestion adecuada en cuanto a los acuerdos por servicios se refiere. En este requerimiento se define la importancia de establecer penalizaciones aplicadas en caso de incumplimiento de un acuerdo a nivel de servicio.
+:keywords: Requerimiento, Seguridad, Penalización, Incumplimiento, Acuerdos, Servicio.
+:rules: yes
+
+= REQ.020 Definir penalizaciones por incumplimiento
+
+== Requisito
+
+La organización debe definir penalizaciones
+para ser aplicadas por el incumplimiento
+en los acuerdos de niveles de servicio.
+
+== Descripción
+
+El incumplimiento de los acuerdos establecidos
+debe estar asociado a una penalidad que retribuya total
+o parcialmente los efectos negativos causados.
+
+== Implementación
+
+. Los acuerdos de nivel de servicio
+deben contar con un soporte para obligar su cumplimiento,
+las penalidades deberían ser representativas al costo del servicio contratado.
+
+. Las penalizaciones deben ser acordadas
+y aceptadas a nivel contractual
+y para hacerse efectivas,
+deben tener una revisión periódica del cumplimiento del servicio.
+
+== Ataques
+
+. Un servicio incumple los acuerdos establecidos,
+no es posible aplicar ninguna penalidad
+al no estar definido a nivel contractual.
+
+== Atributos
+
+* Capa: Capa de Negocio.
+* Activo: Acuerdo de nivel de servicio.
+* Alcance: Adherencia.
+* Fase: Operación.
+* Tipo de Control: Recomendación.
+
+== Referencias
+
+. [[r1]] link:http://es.presidencia.gov.co/dapre/DocumentosSIGEPRE/L-TI-05-Administracion-Niveles-Servicio.pdf[Lineamientos de Administración de Niveles de Servicio].
+
+. [[r2]] link:https://www.law.cornell.edu/cfr/text/45/164.308[+HIPAA Security Rules+ 164.308(a)(1)(ii)(C):]
+Políticas de sanción: Aplicar sanciones apropiadas
+contra miembros que incumplan las políticas de seguridad y procedimientos
+definidos por la entidad.
+
+. [[r3]] link:https://gdpr-info.eu/recitals/no-149/[GDPR- 149  Penalizaciones por incumplimiento a reglas nacionales].
+
+. [[r4]] link:https://gdpr-info.eu/recitals/no-150/[GDPR- 150  Multas administrativas].

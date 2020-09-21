@@ -1,0 +1,11 @@
+:slug: rules/048/
+:category: architecture
+:description: This requirement establishes that a component in the source code must have as few dependencies as possible.
+:keywords: Component, Source Code, System, Dependencies, Requirement, Security, Rules, Ethical Hacking, Pentesting
+:rules: yes
+
+= R048. Components with a minimum of dependencies
+
+== Requirement
+
+The components in the source code must have as few dependencies as possible.

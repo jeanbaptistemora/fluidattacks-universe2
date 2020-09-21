@@ -1,0 +1,164 @@
+:slug: defends/java/definir-control-clases/
+:category: java
+:description: Nuestros ethical hackers explican en que consiste el control de acceso y porque es importante tenerlo en cuenta a la hora de proteger la información. Además, mediante un ejemplo explican como se establece el control de acceso por defecto en los miembros de una clase.
+:keywords: Java, Seguridad, Acceso, Control, Clases, Miembros.
+:defends: yes
+
+= Definir Control de Acceso a Miembros de Clases
+
+== Necesidad
+
+Definir control de acceso por defecto a miembros de clases.
+
+== Contexto
+
+A continuación se describen las circunstancias
+bajo las cuales la siguiente solución tiene sentido:
+
+. Se va a programar utilizando el lenguaje +Java+.
+
+. Se quiere encapsular el acceso
+a un miembro de una clase
+desde clases pertenecientes a otros paquetes.
+
+== Solución
+
+El control de acceso se define como un conjunto de reglas que,
+tal como su nombre lo indica,
+permite o rechaza el acceso a determinados componentes de un sistema.
+Para poder realizar dicho control, el usuario que solicita el acceso,
+por lo general, debe autenticarse ante el sistema
+para que este pueda identificar el +rol+ que desempeña el usuario
+y así brindarle o negarle el acceso solicitado.
+
+Por lo general, el control de acceso se hace
+con el fin de cumplir los siguientes objetivos:
+
+Mantener la integridad de la información.
+Esto se refiere a que toda la información que se almacena
+sólo pueda ser modificada por las personas autorizadas.
+
+Preservar la confidencialidad de la información.
+En este caso, se hace referencia a que la información confidencial
+únicamente pueda ser consultada o leída
+por los roles definidos para tal fin.
+Cualquier otro rol, no tendrá acceso a dicha información.
+
+Mantener el control de acceso, es decir,
+tener siempre disponible información sobre quien
+y porque ha accedido a determinado recurso.
+Esto, con el fin de que,
+en caso de que suceda algún evento
+que comprometa la seguridad y la integridad de la información,
+saber quien, posiblemente, fue el responsable.
+
+En esta solución abordaremos la manera adecuada
+de establecer mecanismos de control de acceso
+a los diferentes métodos y atributos de una clase.
+
+. Los miembros de las clases, es decir, métodos y atributos,
+poseen cuatro tipos de modificadores de acceso:
++public+, +protected+, +default+ y +private+.
+
+. Todos los miembros de la clase originalmente
+tienen el identificador +default+,
+esto indica que sólo los miembros de la misma clase o paquete
+podrán acceder al método o atributo original.
+
+. Para verificar tal comportamiento,
+se creará una clase con el modificador en +default+.
++
+.person.java
+[source, java, linenums]
+----
+package fluidattacks;
+
+public class Person {
+  int attribute;
+
+  void method() {
+    System.out.println("Method was invoked");
+  }
+}
+----
+
+. Después se creará otra clase
+que utilizará la previamente creada.
++
+.cli.java
+[source, java, linenums]
+----
+package fluidattacks;
+
+class CLI {
+  public static void main(String[] args) {
+    Person p = new Person();
+    p.attribute = 1;
+    p.method();
+  }
+}
+----
+
+. Se compilan las clases y se ejecuta la clase CLI.
++
+.compilar.bash
+[source, bash, linenums]
+----
+$ javac fluidattacks/*.java
+$ java fluidattacks.CLI
+
+Method was invoked
+----
+
+. Por último, se creara una clase externa
+con el fin de intentar acceder a la clase persona.
++
+.cli2.java
+[source, java, linenums]
+----
+import fluidattacks.Person;
+
+class CLI2 {
+  public static void main(String[] args) {
+    Person p = new Person();
+    p.attribute = 1;
+    p.method();
+  }
+}
+----
+
+. Debido a que el modificador de acceso
+sólo permite miembros de la misma clase o paquete,
+al momento de compilar
+saldrá un error de control de acceso.
++
+.error.bash
+[source, bash, linenums]
+----
+CLI2.java:8: attribute is not public in fluidattacks.Person;
+  cannot be accessed from outside package
+  p.attribute = 1;
+
+CLI2.java:9: method() is not public in fluidattacks.Person;
+  cannot be accessed from outside package
+  p.method();
+----
+
+== Descargas
+
+Puedes descargar el código fuente
+pulsando en los siguientes enlaces:
+
+[button]#link:src/person.java[Person.java]#
+Clase Person.
+
+[button]#link:src/cli.java[CLI.java]#
+Clase CLI.
+
+[button]#link:src/cli2.java[CLI2.java]#
+Clase CLI2.
+
+== Referencias
+
+. [[r1]] link:https://docs.oracle.com/javase/tutorial/java/javaOO/accesscontrol.html[Controlling Access to Members of a Class]
+. [[r2]] link:https://www.techopedia.com/definition/5831/access-control[Access Control]

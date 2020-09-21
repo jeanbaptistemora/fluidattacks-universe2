@@ -1,0 +1,46 @@
+:slug: rules/229/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestion segura de autenticacion de usuarios. En este caso, se recomienda que el sistema solicite por lo menos un nombre de usuario con su respectiva contraseña en cualquier intento de inicio de sesión.
+:keywords: Sistema, Nombre Usuario, Constraseña, Autenticación, Username, Password.
+:rules: yes
+
+= REQ.229 Solicitar credenciales de acceso
+
+== Requisito
+
+El sistema debe solicitar a cualquier actor que intenta autenticarse,
+como mínimo un nombre de usuario y una contraseña.
+
+== Referencias
+
+. [[r1]] link:https://www.law.cornell.edu/cfr/text/45/164.312[+HIPAA Security Rules+ 164.312(a)(1):]
+Control de Acceso: Implementar políticas y procedimientos técnicos
+para sistemas de información electrónica
+que almacenen información sensible, permitiendo el acceso
+sólo a personas o programas autorizados,
+de acuerdo a lo especificado en link:https://www.law.cornell.edu/cfr/text/45/164.308[164.308(a)(4)]
+
+. [[r2]] link:https://www.law.cornell.edu/cfr/text/45/164.312[+HIPAA Security Rules+ 164.312(d):]
+Autenticación de Personas o Entidades: Implementar procedimientos
+para verificar que una persona o entidad que solicita acceso
+a la información sensible es quien dice ser.
+
+. [[r3]] link:https://www.law.cornell.edu/cfr/text/45/164.310[+HIPAA Security Rules+ 164.310(a)(2)(iii):]
+Procedimientos de control de acceso y validación:
+Implementar procedimientos para controlar y validar
+el acceso de una persona a las instalaciones basándose
+en su rol o función, incluyendo control de visitantes
+y control de acceso a software de la compañía
+para pruebas o revisión.
+
+. [[r4]] link:https://www.owasp.org/index.php/ASVS_V4_Access_Control[+OWASP-ASVS v3.1-4.4+]
+Verificar que el acceso a registros sensibles esté protegido,
+por ejemplo, que sólo objetos o datos autorizados
+sean accesibles a cada usuario
+(por ejemplo, proteger a los usuarios de la manipulación de parámetros
+para espiar o alterar otra cuenta de usuario)
+
+. [[r5]] link:https://nvd.nist.gov/800-53/Rev4/control/IA-1[+NIST+ 800-53 IA-1 - 2]
+La organización debe ejecutar procedimientos para facilitar la implementación
+de políticas de identificación y autenticación,
+así como sus controles asociados.

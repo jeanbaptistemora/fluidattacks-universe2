@@ -1,0 +1,16 @@
+:slug: rules/246/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestion adecuada del proceso de negocio con el que cuenta una organización. En este caso, se recomienda que la organizacion defina y documente un procedimiento para las cuentas de usuario.
+:keywords: Seguridad, Usuario, Organización, Documentar, Procedimiento, Cuenta.
+:rules: yes
+
+= REQ.246 Gestionar cuentas de usuario
+
+== Requisito
+
+La organización debe definir
+y documentar un procedimiento
+para la administración de cuentas de usuario.
+La administración debe incluir como mínimo:
+Creación de cuentas, modificación de cuentas, eliminación de cuentas,
+activación o desactivación de cuentas, asignación de privilegios.

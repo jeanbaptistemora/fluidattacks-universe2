@@ -1,0 +1,14 @@
+:slug: rules/220/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestion adecuada de hipervisores en máquinas virtuales. En este requerimiento se recomienda que la aplicación de gestión de hipervisores tenga control de los perfiles de dichas máquinas.
+:keywords: Perfiles, Aplicación, Hipervisor, Máquina, Virtualización, Monitorear.
+:rules: yes
+
+= REQ.220 Gestionar perfiles de máquinas a monitorear
+
+== Requisito
+
+En una granja de virtualización,
+la aplicación de gestión de los hipervisores
+debe tener perfiles de máquina
+para monitorear posibles cambios no autorizados.

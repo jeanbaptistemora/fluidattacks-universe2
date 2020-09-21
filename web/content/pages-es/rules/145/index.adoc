@@ -1,0 +1,34 @@
+:slug: rules/145/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la importancia de proteger las llaves asimétricas privadas o simétricas de todo sistema. Evitando que estas sean expuestas y por ende mitigar de cierta manera, posibles ataques al sistema.
+:keywords: Requerimiento, Exponer, Llaves, Simétrica, Asimétrica, Privada.
+:rules: yes
+
+= REQ.145 Proteger llaves del sistema
+
+== Requisito
+
+Las llaves asimétricas privadas o simétricas del sistema deben estar protegidas
+y no deben ser expuestas.
+
+== Referencias
+
+. [[r1]] link:https://www.owasp.org/index.php/ASVS_V1_Architecture[`OWASP-ASVS v3.1-1.12`]
+Verificar que exista una política explícita
+sobre cómo administrar las claves criptográficas (si las hay)
+y se impone el ciclo de vida de las claves criptográficas.
+Idealmente, seguir un estándar de gestión de claves como `NIST SP 800-57`
+
+. [[r2]] link:https://www.owasp.org/index.php/ASVS_V7_Cryptography[`OWASP-ASVS v3.1-7.9`]
+Verificar que exista una política explícita
+para la administración de llaves criptográficas
+(por ejemplo: generación, distribución, llaves revocadas y expiradas).
+Verificar que el ciclo de vida de la llave se aplique adecuadamente.
+
+. [[r3]] link:https://www.owasp.org/index.php/ASVS_V7_Cryptography[`OWASP-ASVS v3.1-7.11`]
+Verificar que ningún consumidor de servicios criptográficos
+tenga acceso directo al material de las llaves.
+Aislar los procesos criptográficos,
+incluyendo secretos maestros
+y considere el uso de una bóveda de llaves virtualizada
+o de hardware físico (HSM).

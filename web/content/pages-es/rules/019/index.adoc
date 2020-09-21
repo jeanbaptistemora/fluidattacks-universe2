@@ -1,0 +1,62 @@
+:slug: rules/019/
+:category: rules
+:description: En el presente documento se detallan los requerimientos relacionados a la gestion adecuada en cuanto a los acuerdos por servicios se refiere. El objetivo de este requerimiento es definir la importancia de los acuerdos de confiabilidad con terceros con los cuales se comparte información.
+:keywords: Requerimiento, Seguridad, Acuerdos, Confiabilidad, Terceros, Información.
+:rules: yes
+
+= REQ.019 Acuerdos de confiabilidad con terceros
+
+== Requisito
+
+La organización debe tener un acuerdo de nivel de servicio
+de confiabilidad con todos los terceros
+con los cuales comparte información.
+
+== Descripción
+
+La organización debe establecer acuerdos
+que le permitan garantizar el cumplimiento de la misión de un sistema
+bajo condiciones de uso determinadas en un periodo determinado.
+
+== Implementación
+
+. La confiabilidad de un sistema
+está ligada a su aptitud
+para mantener la continuidad de servicio
+en caso de falla de alguno de los componentes que lo conforman.
+Depende directamente de la fiabilidad de los equipos instalados en él
+y del tiempo de reparación de los mismos en caso de falla.
+
+. Para calcular la confiabilidad del sistema se debe calcular:
+
+* *Disponibilidad:* porcentaje de tiempo sobre el total acordado
+en que los servicios +TI+ han sido accesibles al usuario
+y han funcionado correctamente.<<r1,^[1]^>>
+
+* *Fiabilidad:* medida del tiempo durante el cual los servicios
+han funcionado correctamente de forma ininterrumpida
+(operación lenta, operación con caídas insignificantes).
+
+* *Mantenibilidad:* capacidad de mantener el servicio operativo
+y recuperarlo en caso de interrupción.
+
+== Ataques
+
+. Se presentan incumplimientos en la prestación del servicio
+y se afecta la producción de la organización,
+no es posible aplicar multas
+debido a la falta de definición de acuerdos de nivel de servicio
+orientados a la disponibilidad requerida para el negocio.
+
+== Atributos
+
+* Capa: Capa de Negocio.
+* Activo: Acuerdo de nivel de servicio.
+* Alcance: Adherencia.
+* Fase: Operación.
+* Tipo de Control: Recomendación.
+
+== Referencias
+
+. [[r1]] link:../018/[REQ.018 Acuerdos a nivel de servicio con terceros].
+. link:http://es.presidencia.gov.co/dapre/DocumentosSIGEPRE/L-TI-05-Administracion-Niveles-Servicio.pdf[LINEAMIENTOS DE ADMINISTRACIÓN DE NIVELES DE SERVICIO].

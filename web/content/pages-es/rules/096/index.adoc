@@ -1,0 +1,50 @@
+:slug: rules/096/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestion segura en cuanto al control de acceso en una organizacion. Por lo tanto, se recomienda que los privilegios requeridos para el acceso de usuarios estén bien definidos.
+:keywords: Sistema, Seguridad, Usuario, Acceso, Privilegios, Definir.
+:rules: yes
+
+= REQ.096 Definir privilegios requeridos de usuario
+
+== Requisito
+
+Los privilegios requeridos por los usuarios
+que accederán al sistema deben estar definidos.
+
+== Referencias
+
+. [[r1]] link:https://www.law.cornell.edu/cfr/text/45/164.312[+HIPAA Security Rules+ 164.312(a)(1):]
+Control de Acceso: Implementar políticas y procedimientos técnicos
+para sistemas de información electrónica
+que almacenen información sensible, permitiendo el acceso
+sólo a personas o programas autorizados,
+de acuerdo a lo especificado en link:https://www.law.cornell.edu/cfr/text/45/164.308[164.308(a)(4)]
+
+. [[r2]] link:https://www.law.cornell.edu/cfr/text/45/164.312[+HIPAA Security Rules+ 164.312(d):]
+Autenticación de Personas o Entidades: Implementar procedimientos
+para verificar que una persona o entidad que solicita acceso
+a la información sensible es quien dice ser.
+
+. [[r3]] link:https://www.owasp.org/index.php/ASVS_V4_Access_Control[+OWASP-ASVS v3.1-4.4+]
+Verificar que el acceso a registros sensibles esté protegido,
+por ejemplo, que sólo objetos o datos autorizados
+sean accesibles a cada usuario
+(por ejemplo, proteger a los usuarios de la manipulación de parámetros
+para espiar o alterar otra cuenta de usuario)
+
+. [[r4]] link:https://nvd.nist.gov/800-53/Rev4/control/AC-2[+NIST+ 800-53 AC-2 (6)]
+El sistema de información implementa el manejo dinámico de privilegios
+definidos por la organización.
+
+. [[r5]] link:https://nvd.nist.gov/800-53/Rev4/control/AC-2[+NIST+ 800-53 AC-2 (7) a]
+La organización establece y administra las cuentas de usuario
+de acuerdo con un esquema de acceso basado en roles
+que organice los accesos permitidos al sistema de información
+y los privilegios en roles.
+
+. [[r6]] link:https://nvd.nist.gov/800-53/Rev4/control/AC-2[+NIST+ 800-53 AC-2 (7) b]
+La organización monitorea las asignaciones de roles con privilegio asignadas.
+
+. [[r7]] link:https://nvd.nist.gov/800-53/Rev4/control/AC-2[+NIST+ 800-53 AC-2 (7) c]
+La organización toma acciones definidas
+cuando la asignación de roles con privilegio ya no son apropiadas.

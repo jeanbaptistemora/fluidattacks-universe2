@@ -1,0 +1,160 @@
+{% extends "base.html" %}
+{% block meta %}
+<meta name="description"
+      content="{{ page.description }}">
+<meta name="keywords"
+      content="{{ page.keywords }}">
+{% endblock meta %}
+
+{% block title %}
+  {% set TITLE = 0 %}
+  {% if DEFAULT_LANG == "en" %}
+    {% if page.title|length < 23 %}
+{{ page.title }} | {{ SITENAME }}
+      {% set TITLE = 1 %}
+    {% endif %}
+  {% elif DEFAULT_LANG == "es" %}
+    {% if page.title|length < 11 %}
+{{ page.title }} | {{ SITENAME }}
+      {% set TITLE =1 %}
+    {% endif %}
+  {% endif %}
+  {% if TITLE == 0 %}
+{{ page.title }} | {{ AUTHOR }}
+  {% endif %}
+{% endblock title %}
+
+{% block breadcrumb%}
+  <!-- navcontent-container -->
+<div class="pv0 mt-body">
+  <!-- navcontent-info -->
+  <div class="df ma-auto bg-fluid-black">
+    <div class="roboto f6-l f7 tl mw-1366 ph-body ml-auto mr-auto">
+      <ul class="dib list w-auto ph0">
+        <li class="dib mt0">
+          <a class="c-fluid-gray hover-white no-underline"
+             href="{{ SITEURL }}/">
+            Home
+          </a>
+          <span class="c-fluid-gray v-mid b"> / </span>
+        </li>
+        <li class="dib mt0">
+          <a class="c-fluid-gray hover-white no-underline"
+             href="{{ SITEURL }}/about-us/">
+            About Us
+          </a>
+          <span class="c-fluid-gray v-mid b"> / </span>
+        </li>
+        <li class="dib mt0">
+          <a class="white hover-white no-underline"
+             href=".">
+            {{ page.title }}
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+{% endblock breadcrumb %}
+
+{% block header %}
+<div
+  class="{{ page.banner }} coverm cover-s banner-height justify-center items-center flex bg-center mw-1200 ml-auto mr-auto">
+  <div class="w-100 center">
+    <h1 class="white fw7 f1 neue tc f-5-l ma0">
+      {{ page.title }}
+    </h1>
+  </div>
+</div>
+{% endblock header %}
+
+{% block content %}
+<div class="bg-graylight">
+  <div class="roboto mw-1200 ml-auto mr-auto roboto bg-white ph4-l ph3 pt5-l pt4 pb5">
+    <div class="w-100">
+      <div class="flex items-center justify-center flex-wrap pb5">
+        <div>
+          <div class="fl-l pr3-l tl-l tc w-50-l" data-aos="fade-right">
+            <img
+            src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/about-us/people/people-1.png"
+            alt="Fluid Attacks Team">
+          </div>
+          <div class="fr-l tl pl4-l mw6 w-45-l">
+            <h2 class="c-fluid-bk fw7 f2 mv0 tl lh-18">
+              Fluid Attacks Team
+            </h2>
+            <p class="c-fluid-bk fw3 f-solution lh-2 tl f3">
+              We are a dedicated and enthusiastic company.
+              We are focused on software hacking,
+              finding vulnerabilities in a wide range of information systems
+              comprehensively and passionately, and ASAP for all our clients.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="flex items-center justify-center flex-wrap pv5">
+        <div>
+          <div class="fr-l pr3-l tl-l tc w-50-l" data-aos="fade-left">
+            <img
+            src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/about-us/people/people-2.png"
+            alt="Hacking Team">
+          </div>
+          <div class="fl-l tl pl4-l mw6 w-45-l">
+            <h2 class="c-fluid-bk fw7 f2 mv0 tl lh-18">
+              Hacking Team
+            </h2>
+            <p class="c-fluid-bk fw3 f-solution lh-2 tl f3">
+              Our highly certified experts make up a robust red team
+              divided into some sub-teams, depending on their specialties.
+              They are always attacking, testing, and also developing
+              new applications or tools.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="flex items-center justify-center flex-wrap pv5">
+        <div>
+          <div class="fl-l pr3-l tl-l tc w-50-l" data-aos="fade-right">
+            <img
+            src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/about-us/people/people-3.png"
+            alt="Product & Projects Teams">
+          </div>
+          <div class="fr-l tl pl4-l mw6 w-45-l">
+            <h2 class="c-fluid-bk fw7 f2 mv0 tl lh-18">
+              Product & Projects Teams
+            </h2>
+            <p class="c-fluid-bk fw3 f-solution lh-2 tl f3">
+              Besides having experts helping our clients
+              discover their risks, we have professionals who
+              provide them with sufficient guidance with the
+              products and solutions in their projects to offer
+              their users secure systems.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="flex items-center justify-center flex-wrap pv5">
+        <div>
+          <div class="fr-l pl4-l tl-l tc w-50-l" data-aos="fade-left">
+            <img
+            src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/about-us/people/people-4.png"
+            alt="Marketing & Sales Teams">
+          </div>
+          <div class="fl-l tl pr3-l mw6 w-45-l">
+            <h2 class="c-fluid-bk fw7 f2 mv0 tl lh-18">
+              Marketing & Sales Teams
+            </h2>
+            <p class="c-fluid-bk fw3 f-solution lh-2 tl f3">
+              All previous experts work alongside other marketing
+              and sales professionals who, with their extensive
+              knowledge and commitment, end up giving enough
+              support for Fluid Attacks to stand out from its
+              competitors.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}

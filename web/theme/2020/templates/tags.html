@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block meta %}
+  <meta name="description"
+        content="Here you can find the list of tags used to classify the articles of the
+        blog. These articles are all related to the field of Information Security
+        and may range from an opinion related to a certain topic, or a solution
+        to a challenge, all the way to just general information">
+  <meta name="keywords"
+        content="Tag, Classify, Articles, Blog, Information, Security">
+{% endblock meta %}
+
+{% block title %} Tags | {{ SITENAME }}{% endblock %}
+
+{% block canonical %}
+  <link rel="canonical"
+       href="{{ SITEURL }}/blog/">
+{% endblock canonical %}
+
+{% block breadcrumb%}
+<!-- navcontent-container -->
+<div class="pv0 mt-body">
+  <!-- navcontent-info -->
+  <div class="df ma-auto bg-fluid-black">
+    <div class="roboto f6-l f7 tl mw-1366 ph-body ml-auto mr-auto">
+      <ul class="dib list w-auto ph0">
+        <li class="dib mt0">
+          <a class="c-fluid-gray hover-white no-underline"
+             href="{{ SITEURL }}/">
+            Home
+          </a>
+          <span class="c-fluid-gray v-mid b"> / </span>
+        </li>
+        <li class="dib mt0">
+          <a class="c-fluid-gray hover-white no-underline"
+              href="{{ SITEURL }}/blog/">Blog</a>
+        </li>
+        <span class="c-fluid-gray v-mid b"> / </span>
+        </li>
+        <li class="dib mt0">
+          <a class="white hover-white no-underline"
+             href="{{ SITEURL }}/blog/tags/">
+            Tags
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+{% endblock breadcrumb %}
+{% block content %}
+  <div class="divpage internal roboto">
+    <article class="ma-auto tc mw7">
+      <h1 class="tc">Tags:</h1>
+      <ul class="tagcloud">
+        {% for tag in tag_cloud %}
+          <li class="tag-{{ tag.1 }} dib">
+            <a class="no-underline c-fluid-bk ttc hv-fluid-rd"
+                href="{{ SITEURL }}/{{ tag.0.url }}">
+              {{ tag.0 }}
+              {% if TAG_CLOUD_BADGE %}
+                <span class="badge">{{ tag.2 }}</span>
+              {% endif %}
+            </a>
+          </li>
+        {% endfor %}
+      </ul>
+    </article>
+  </div>
+{% endblock content %}

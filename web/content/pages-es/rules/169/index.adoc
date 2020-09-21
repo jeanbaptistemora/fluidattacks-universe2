@@ -1,0 +1,20 @@
+:slug: rules/169/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la creación de sentencias, construcciones o procedimientos almacenados parametrizados en la elaboración dinámica de sentencias dentro del codigo fuente de la aplicación.
+:keywords: Requerimiento, Seguridad, Código Fuente, Parametrizada, Procedimientos, Sentencias.
+:rules: yes
+
+= REQ.169 Usar construcciones parametrizadas
+
+== Requisito
+
+Debe usarse construcciones parametrizadas
+o procedimientos almacenados parametrizados
+para la creación dinámica de sentencias (ejemplo: `java.sql.PreparedStatement`)
+
+== Referencias
+
+ . [[r1]] link:https://www.owasp.org/index.php/ASVS_V5_Input_validation_and_output_encoding[`OWASP-ASVS v3.1-5.10`]
+Verificar que todas las consultas a bases de datos estén protegidas
+por el uso de consultas parametrizadas
+o el uso adecuado de `ORM` para evitar inyecciones `SQL`.

@@ -1,0 +1,22 @@
+:slug: rules/044/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados al manejo de archivos dentro de la organización. En este requerimiento se establece la importancia de definir un Character Set explícito en archivos generados de forma dinámica.
+:keywords: Requerimiento, Seguridad, Archivos, Dinámicos, Charset, Explícito.
+:rules: yes
+
+= REQ.044 Definir charset explícito
+
+== Requisito
+
+Los archivos generados de forma dinámica por el sistema
+deben tener definido un +Character-Set+ explícito.
+
+== Referencias
+
+. [[r1]] link:https://www.owasp.org/index.php/ASVS_V5_Input_validation_and_output_encoding[+OWASP-ASVS v3.1-5.21+]
+Verificar que los datos no estructurados estén desinfectados
+para mejorar las medidas de seguridad genéricas
+como caracteres permitidos y longitud,
+y caracteres potencialmente peligrosos en un contexto dado
+deben eliminarse (por ejemplo nombre naturales con +Unicode+
+o apóstrofes como ねこ u O'Hara).

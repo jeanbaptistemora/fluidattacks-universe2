@@ -1,0 +1,58 @@
+:slug: rules/353/
+:category: devices
+:description: This requirement establishes the importance of scheduling automatic firmware updates.
+:keywords: Schedule, Firmware, Update, Automatic, IoT, ASVS, CWE, Rules, Ethical Hacking, Pentesting
+:rules: yes
+
+= R353. Schedule firmware updates
+
+== Requirement
+
+Devices should update their own firmware upon a predefined schedule.
+
+== References
+
+. [[r1]] link:https://cwe.mitre.org/data/definitions/367.html[CWE-367: Time-of-check Time-of-use (TOCTOU) Race Condition.]
+The software checks the state of a resource before using that resource,
+but the resource's state can change between the check and the use in a way that
+invalidates the results of the check.
+This can cause the software to perform invalid actions when the resource is in
+an unexpected state.
+
+. [[r2]] link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A6-Security_Misconfiguration[OWASP Top 10 A6:2017-Security Misconfiguration].
+Security misconfiguration is the most commonly seen issue.
+This is commonly a result of insecure default configurations,
+incomplete or ad hoc configurations, open cloud storage,
+misconfigured *HTTP* headers,
+and verbose error messages containing sensitive information.
+Not only must all operating systems, frameworks, libraries, and applications be
+securely configured, but they must be patched/upgraded in a timely fashion.
+
+. [[r3]] link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A9-Using_Components_with_Known_Vulnerabilities[OWASP Top 10 A9:2017-Using Components with Known Vulnerabilities].
+Components, such as libraries, frameworks, and other software modules,
+run with the same privileges as the application.
+If a vulnerable component is exploited,
+such an attack can facilitate serious data loss or server takeover.
+Applications and **API**s using components with known vulnerabilities may
+undermine application defenses and enable various attacks and impacts.
+
+. [[r4]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+Appendix C: Internet of Things Verification Requirements.(C.20)]
+Verify that the firmware update process is not vulnerable to time-of-check vs
+time-of-use attacks.
+
+. [[r5]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+Appendix C: Internet of Things Verification Requirements.(C.24)]
+Verify that firmware can perform automatic firmware updates upon a predefined
+schedule.
+
+. [[r6]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V1.11 Business Logic Architectural Requirements.(1.11.3)]
+Verify that all high-value business logic flows,
+including authentication, session management and access control,
+are thread safe and resistant to time-of-check and time-of-use race conditions.
+
+. [[r7]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V11.1 Business Logic Security Requirements.(11.1.6)]
+Verify the application does not suffer from "time of check to time of use"
+(*TOCTOU*) issues or other race conditions for sensitive operations.

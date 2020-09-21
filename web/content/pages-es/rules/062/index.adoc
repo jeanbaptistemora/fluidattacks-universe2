@@ -1,0 +1,67 @@
+:slug: rules/062/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestion de la documentación que prinda soporte en todo sistema de una organización. Por lo tanto, se recomienda que se dedique al menos un capítulo donde se traten temas de seguridad del sistema.
+:keywords: Configuración, Vulnerabilidad, Estándar, Industria, Organización, Seguridad.
+:rules: yes
+
+= REQ.062 Definir configuraciones estándar
+
+== Requisito
+
+Debe definirse configuraciones estándares
+que corrijan todas las vulnerabilidades conocidas
+y que sean consistentes con estándares de la industria (ej: líneas base).
+
+== Descripción
+
+Se debe establecer para cada componente de un sistema,
+la parametrización que le permita cumplir los estándares de seguridad
+definidos por la organización,
+teniendo en cuenta las recomendaciones de los fabricantes,
+los requisitos establecidos por los entes regulatorios
+y evitando la existencia de vulnerabilidades conocidas.
+
+== Implementación
+
+. Para definir las configuraciones
+es necesario primero establecer una serie de requisitos estándar
+que los componentes del sistema deban cumplir,
+esta lista de requisitos debe tener en cuenta,
+los parámetros establecidos por el negocio
+y las buenas prácticas definidas por los proveedores y la industria.
+
+. Con los requisitos definidos
+se deberían crear documentos
+donde se especifique la aplicación de estos
+según el tipo de documento.
+
+. Periódicamente se deben validar la existencia de actualizaciones o parches
+para cada componente de un sistema
+de forma que se apliquen
+y se evite la existencia de vulnerabilidades.
+
+. La aplicación de los requisitos
+se debería validar periódicamente
+de forma que se garantice el cumplimiento
+en cada uno de los componentes.
+
+== Ataques
+
+. Un atacante aprovecha una vulnerabilidad de un componente del sistema
+que se encuentra desactualizado.
+
+. Un atacante aprovecha una vulnerabilidad de un componente del sistema
+que no cumple con los requisitos de seguridad
+establecidos por los entes reguladores.
+
+. Un atacante aprovecha una vulnerabilidad de un componente del sistema
+que no se encontraba correctamente configurado
+según las recomendaciones del fabricante.
+
+== Atributos
+
+* Capa: Negocio.
+* Activo: Arquitectura de seguridad.
+* Alcance: Adherencia.
+* Fase: Construcción.
+* Tipo de Control: Recomendación.

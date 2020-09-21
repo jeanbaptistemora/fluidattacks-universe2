@@ -1,0 +1,24 @@
+:slug: rules/160/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados al código fuente que compone a las aplicaciones de la compañía. En este requerimiento se establece la importancia de codificar las salidas arrojadas por la aplicación a través del escaping.
+:keywords: Requerimiento, Seguridad, Código Fuente, Salidas, Codificar, Escaping.
+:rules: yes
+
+= REQ.160 Salidas codificadas
+
+== Requisito
+
+La salida de información del sistema
+debe estar codificada en el lenguaje correspondiente (+escaping+).
+
+== Referencias
+
+. [[r1]] link:https://www.owasp.org/index.php/ASVS_V5_Input_validation_and_output_encoding[+OWASP-ASVS v3.1-5.21+]
+Verificar que los datos no estructurados estén desinfectados
+para mejorar las medidas de seguridad genéricas
+como caracteres permitidos y longitud,
+y caracteres potencialmente peligrosos en un contexto dado
+deben eliminarse (por ejemplo nombre naturales con +Unicode+
+o apóstrofes como ねこ u O'Hara).
+
+. [[r2]] link:https://www.bsimm.com/framework/deployment/software-environment.html[+BSSIM9+ SE3.2  Utilizar protección de código].

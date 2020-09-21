@@ -1,0 +1,18 @@
+:slug: findings/046/
+:description: The purpose of this page is to present information about the set of findings reported by Fluid Attacks. In this case, the finding presents information about vulnerabilities arising from not obfuscating binary files, recommendations to avoid them and related security requirements.
+:keywords: Obfuscation, Binary, File, Technical, Information, Source Code
+:findings: yes
+:type: hygiene
+
+= F046. Missing secure obfuscation
+
+== Description
+
+It is possible to obtain source code of the application because it has not been
+obfuscated using a secure mechanism.
+This could allow an attacker to understand the inner workings of the
+application or get technical or sensitive information.
+
+== Rules
+
+. [[r1]] [inner]#link:/web/rules/159/[R159. Obfuscate code]#

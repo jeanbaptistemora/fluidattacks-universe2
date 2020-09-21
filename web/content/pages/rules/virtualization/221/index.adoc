@@ -1,0 +1,13 @@
+:slug: rules/221/
+:category: virtualization
+:description: This requirement states that a virtual machine must not have connected input devices that are not going to be used.
+:keywords: Virtual Machine, Input, Devices, USB, CD/DVD, IDE, Rules, Ethical Hacking, Pentesting
+:rules: yes
+
+= R221. Disconnect unnecessary input devices
+
+== Requirement
+
+A virtual machine must not have connected devices
+that are not necessary for its operation
+(+Floppy+, +IDE+, +CD/DVD+, +USB+, +Serial+).

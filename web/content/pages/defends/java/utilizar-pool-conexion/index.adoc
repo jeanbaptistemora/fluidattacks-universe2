@@ -1,0 +1,132 @@
+:slug: defends/java/utilizar-pool-conexion/
+:category: java
+:description: Nuestros ethical hackers explican que es un pool de conexiones y cuales son las ventajas de utilizarlos con respecto a una conexión cliente-servidor. Además, por medio de un ejemplo utilizando JSP enseñan la manera de crear y utilizar dicho pool de manera segura.
+:keywords: Java, Seguridad, Pool, Conexión, Base de datos, JDBC.
+:defends: yes
+
+= Utilizar Pool de Conexiones
+
+== Necesidad
+
+Utilizar un +pool+ de conexiones en una aplicación +Java EE+.
+
+== Contexto
+
+A continuación se describe las circunstancias
+bajo las cuales la siguiente solución tiene sentido:
+
+. Se está desarrollando una aplicación con +Java EE+.
+
+. Se desea utilizar un +pool+ de conexiones.
+
+. Se ha configurado el +pool+ en el servidor de aplicaciones.
+
+. Se ha configurado el recurso +JDBC+.
+
+== Solución
+
+Normalmente las aplicaciones que utilizan base de datos
+suelen usar un modelo lineal de conexión
+entre el cliente y el servidor, es decir,
+cuando un usuario empieza a utilizar una aplicación
+se establece una conexión exclusiva entre ambas partes y,
+cuando el usuario termina de consumir la aplicación,
+la conexión previamente creada es destruida.
+
+Dicho modelo que, en teoría, parece normal y simple,
+presenta un gran problema;
+no es posible crear una conexión independiente
+para cada uno de los clientes, entre otras cosas,
+porque hacerlo consumiría demasiados recursos del servidor,
+lo que a corto plazo terminaría por colapsar
+el servidor comprometiendo la disponibilidad
+de todo el sistema como tal.
+
+Entonces, la solución para dicho problema
+es la creación de un +pool+ de conexiones.
+Un +pool+ de conexiones no es más que,
+un conjunto limitado de conexiones a una base de datos
+que es manejado por un servidor de aplicaciones
+de forma tal que dichas conexiones
+pueden ser reutilizadas por los diferentes usuarios.
+
+Básicamente lo que se consigue con esto
+es la reutilización de conexiones existentes.
+Esta reutilización consiste en que el servidor de aplicaciones
+se encarga de gestionar
+todas las conexiones a la base de datos
+verificando cuales están abiertas y cuales están inactivas y,
+de acuerdo a esto, asigna esas conexiones a nuevos usuarios
+que requieran establecer una conexión a la base de datos.
+De esa manera se está evitando cerrar y crear
+una nueva conexión, lo que evita que haya un mayor consumo
+tanto de memoria como de procesamiento en el servidor.
+
+Para manejar un +pool+ de conexiones en +Java+
+se hace uso del +JDBC+ o +Java Database Connectivity+.
+
+. En este ejemplo se utilizará una página +JSP+
+el cual contendrá las siguientes líneas de código
++
+.jdbc.java
+[source, java, linenums]
+----
+<%@page import="java.sql.ResultSet"%>
+<%@page import="java.sql.PreparedStatement"%>
+<%@page import="java.sql.SQLException"%>
+<%@page import="java.sql.Connection"%>
+<%@page import="javax.sql.DataSource"%>
+<%@page import="javax.naming.InitialContext"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+----
+
+. En el cuerpo del mensaje se definirá
+la conexión haciendo referencia al nombre del recurso +JDBC+.
++
+[source, java, linenums]
+----
+InitialContext ctx = new InitialContext();
+DataSource ds = (DataSource) ctx.lookup("ExampleJDBCResource");
+Connection connection = ds.getConnection();
+----
+
+. Después habrá que verificar
+que el objeto +connection+ es igual a null.
+Dicha verificación se hace con el fin de determinar
+que no hay una conexión establecida
+con el servidor de bases de datos.
++
+[source, java, linenums]
+----
+if (connection == null)
+{
+  throw new SQLException("Error establishing connection!");
+}
+----
+
+. Para realizar una consulta
+se crea un objeto +PreparedStatement+
+el cual será ejecutado con el método +executeQuery+.
++
+[source, java, linenums]
+----
+String query = "SELECT * FROM data";
+PreparedStatement statement = connection.prepareStatement(query);
+ResultSet rs = statement.executeQuery();
+----
+
+. Por último, se recorren todos los registros del +ResultSet+.
++
+[source, java, linenums]
+----
+while (rs.next())
+{
+ out.print(rs.getString("name") + "<br>");
+}
+%>
+----
+
+== Referencias
+
+. [[r1]] link:http://library.gxtechnical.com/gxdlsp/pub/GeneXus/Java/Docum/Manuals/8.0/MjavaF5.htm[Pool de conexiones]
+. [[r2]] link:https://www.oracle.com/technetwork/java/javase/jdbc/index.html[JDBC]

@@ -1,0 +1,19 @@
+:slug: rules/128/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a las credenciales de acceso a información sensible de la organización. En este requerimiento, se recomienda que el sistema almacene todas sus contraseñas en una única fuente de datos.
+:keywords: Sistema, Almacenar, Contraseña, Fuente, Autenticación, Datos.
+:rules: yes
+
+= REQ.128 Establecer única fuente de datos
+
+== Requisito
+
+Las contraseñas deben estar almacenadas
+en una fuente de datos única.
+
+== Referencias
+
+. [[r1]] link:https://www.owasp.org/index.php/ASVS_V2_Authentication[+OWASP-ASVS v3.1-2.21+]
+Verificar que todas las credenciales de autenticación
+para acceder a servicios externos a la aplicación
+estén encriptadas y almacenadas en una localización protegida.

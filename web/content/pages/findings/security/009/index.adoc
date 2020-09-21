@@ -1,0 +1,18 @@
+:slug: findings/009/
+:description: This finding presents information about vulnerabilities arising from storing sensitive information in the source code.
+:keywords: Sensitive, Information, Source Code, Repository, Username, Password
+:findings: yes
+:type: security
+
+= F009. Source code with sensitive information
+
+== Description
+
+The source code repository contains sensitive information such as usernames,
+passwords, encryption keys, email addresses and IP addresses.
+
+== Rules
+
+. [[r1]] [inner]#link:/web/rules/145/[R145. Protect system cryptographic keys]#
+
+. [[r2]] [inner]#link:/web/rules/156/[R156. Source code without sensitive information]#

@@ -1,0 +1,12 @@
+:slug: rules/254/
+:category: networks
+:description: This requirement states that the factory default name of the wireless network SSID must be changed.
+:keywords: Factory, SSID, Change, Wireless, Name, Organization, Rules, Ethical Hacking, Pentesting
+:rules: yes
+
+= R254. Change SSID name
+
+== Requirement
+
+The organization must change
+the factory default name of the wireless network `SSID`.

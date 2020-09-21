@@ -1,0 +1,68 @@
+:slug: rules/266/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a los sistemas operativos manejados dentro de la organización. El objetivo del presente requerimiento es definir la importancia de deshabilitar las funciones inseguras de un sistema.
+:keywords: Requerimiento, Seguridad, Sistema Operativo, Deshabilitar, Funciones, Inseguras.
+:rules: yes
+
+= REQ.266 Deshabilitar funciones inseguras
+
+== Requisito
+
+La organización debe deshabilitar
+las funciones inseguras de un sistema
+(hardening de sistemas).
+
+== Descripción
+
+Las organizaciones después de instalar productos
+dentro de su infraestructura,
+por lo general mantienen las configuraciones por defecto del producto
+ya que estas se adaptan a la mayoría de entornos en donde se instalan
+y facilitan el despliegue a producción,
+pero esto permite muchas veces que funciones inseguras
+que vienen por defecto permanezcan activadas
+y en muchos casos usen servicios abiertos que no están siendo utilizados.
+Por esta razón es importante revisar el contexto del negocio
+antes del despliegue para hacer una configuración de los servicios a la medida
+y deshabilitar funciones inseguras e innecesarias
+y al mismo tiempo dejar solo entradas
+para lo que específicamente se está utilizando el servicio.
+
+== Implementación
+
+. Desarrollar líneas base de configuración segura
+para todos los componentes del sistema verificando su cumplimiento
+antes de salir a producción (Evitar al máximo configuraciones por defecto).
+Las líneas base de configuración segura
+deben ser actualizadas constantemente
+y su aplicación validada de forma periódica.
+
+. Estándar de configuración segura:
+Instalación en un ambiente de pruebas
+para la validación del funcionamiento e integración,
+aplicar las líneas base de configuración segura
+adaptándolas al contexto del negocio (hardening de servicios),
+antes de la salida a producción
+
+== Ataques
+
+. Cross Site Tracing (`XST`).
+. Fuga de información: Técnica.
+. Funcionalidad insegura.
+. Ejecución Remota de Comandos.
+
+== Atributos
+
+. Capa: Capa de Negocio
+. ​Activo: Servicios y funciones
+. ​Alcance: Madurez
+. ​Fase: Operación
+. Tipo Control: Recomendación
+
+== Referencias
+
+. [[r1]] link:https://www.owasp.org/index.php/Top_10_2013-A4-Insecure_Direct_Object_References[OWASP - Top 10 2013: A4]
+. [[r2]] link:https://www.owasp.org/index.php/Top_10_2013-A5-Security_Misconfiguration[OWASP - Top 10 2013: A5]
+. [[r3]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2es-LA.pdf[PCI DSS - Requisito 2.2]
+. [[r4]] link:https://cwe.mitre.org/data/definitions/749.html[CWE-749 - Exposed Dangerous Method or Function]
+. [[r5]] link:https://cwe.mitre.org/data/definitions/94.html[CWE-94 - Improper Control of Generation of Code ('Code Injection')]

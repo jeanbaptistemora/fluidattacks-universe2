@@ -1,0 +1,13 @@
+:slug: rules/305/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a los datos sensibles de la organización. Por lo tanto, para el presente requerimiento de seguridad, se recomienda que se haga uso de los tokens en lugar de almacenar los datos de la tarjeta.
+:keywords: Tarjeta, Crédito, Token, Datos, Almacenar, Información.
+:rules: yes
+
+= REQ.305 Priorizar uso de tokens
+
+== Requisito
+
+Los sistemas relacionados con tarjeta de crédito
+deben hacer uso de `tokenización`
+en vez de almacenar los datos de la tarjeta.

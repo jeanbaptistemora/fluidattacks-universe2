@@ -1,0 +1,1044 @@
+:slug: security/
+:description: These are the best practices and technology implemented by Fluid Attacks to keep internal products and customer data secure.
+:keywords: Fluid Attacks, Security, Data, Policy, Breach, Best Practices, Pentesting, Ethical Hacking
+:subtitle: How we keep things secure
+:banner: security-bg
+
+= Security
+
+As a security company,
+`Fluid Attacks` is aware of the importance of
+
+- having honesty, teamwork, and discipline
+  as immovable principles
+  (our full manifest can be found
+  [inner]#link:../about-us/values/[here]#);
+- developing products
+  that comply with the highest worldwide
+  [inner]#link:../rules/[security standards]#;
+- acquiring only
+  [inner]#link:../rules/262/[compliant services and products for internal use]#;
+- implementing best security practices within our organization;
+- being completely transparent with our clients,
+  especially regarding their data:
+  [inner]#link:../rules/315/[how we use it, and what we do to protect it]#.
+
+These concerns,
+conceived since the early days of the company,
+have allowed us to implement
+a large number of measures
+throughout the years.
+On this page, we will mention
+those that provide the highest
+value to our customers in
+terms of security.
+
+== 1. Transparency
+
+This section focuses on what we do to keep our clients informed
+about their data and our services' status.
+
+=== 1.1 Open Source
+
+[[OPENSOURCE]]
+The source code of all our applications
+is available to the entire Internet.
+There are no backdoors or sensitive data exposed.
+The code is transparent and can be reviewed by anyone.
+All our source code can be found
+link:https://gitlab.com/fluidattacks[here].
+
+Besides, here is the commit history of all our repositories:
+
+- link:https://gitlab.com/fluidattacks/web/-/commits/master[Web]
+- link:https://gitlab.com/fluidattacks/integrates/-/commits/master[Integrates]
+- link:https://gitlab.com/fluidattacks/asserts/-/commits/master[Asserts]
+- link:https://gitlab.com/fluidattacks/public/-/commits/master[Public]
+
+=== 1.2 Public incidents
+
+All incidents are reported in our
+link:https://community.fluidattacks.com/tag/transparency/[Community Site]
+with details like *_what happened_*, *_what we've done_*,
+*_what's the impact_*, and *_what we're doing to help_*.
+
+=== 1.3 Data leakage policy
+
+In case that `Fluid Attacks` detects a breach,
+emails notifying the involved parties will be sent.
+Emails will contain information on what data was leaked or compromised,
+when, and for how long (to the extent this information is available).
+For a breach that exposes private data of a large number of users,
+the public will also be informed via email.
+
+=== 1.4 Status page
+
+We continuously monitor
+[inner]#link:../products/integrates[Integrates]#,
+its [inner]#link:../../integrates/api[API]#,
+and [inner]#link:../[our website]#.
+Monitoring checks run
+in North America and Europe servers
+every minute
+for all applications.
+They send HTTP GET requests,
+and this information is real-time and available on our
+link:http://status.fluidattacks.com/[Status Site].
+
+
+== 2. Confidentiality
+
+This section provides details on what we do
+to keep confidential information always protected.
+
+=== 2.1 Encryption at rest
+
+All our applications and services have
+industry-standard
+[inner]#link:../rules/224/[encryption at rest]#.
+
+- All the sensitive data provided by our clients
+  (Repository access keys, VPN credentials, etc.)
+  is encrypted using the symmetric algorithm
+  of our key management system (KMS).
+  This algorithm is based on Advanced Encryption Standard (AES)
+  in Galois Counter Mode (GCM)
+  with
+  [inner]#link:../rules/150/[256-bit]#
+  [inner]#link:../rules/145/[private keys]#.
+  AES256 is the
+  link:https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.197.pdf[US government standard]
+  encryption algorithm
+  used to protect top-secret information.
+  Additionally, client data is also
+  protected using
+  link:https://en.wikipedia.org/wiki/HMAC[HMAC]
+  with link:https://en.wikipedia.org/wiki/SHA-2[SHA-256]
+  hashes.
+- All our clients' repositories are
+  stored in private,
+  [inner]#link:../rules/185/[AES256 ciphered]#
+  redundant data centers.
+- Forces exploits are stored encrypted using AES256 keys.
+- All
+  [inner]#link:../products/integrates[Integrates]#
+  data is stored in an AES256 encrypted database.
+- Most of our encrypted-at-rest secrets
+  are only decrypted in memory,
+  meaning that they are never stored
+  in a hard drive when decrypted.
+  This highly reduces the possibility of
+  data leakage by leaving unprotected
+  files with decrypted secrets stored
+  in hard drives.
+- All our products use our KMS
+  for both development and production secrets.
+- All our Windows laptops
+  have their hard drives encrypted
+  using Bitlocker.
+  A domain controller continuously checks
+  adherence to this policy.
+- All our Linux laptops
+  have their hard drives encrypted
+  from bootloader using LUKS.
+
+=== 2.2 Encryption in transit
+
+All our applications and services have
+industry-standard
+[inner]#link:../rules/224/[encryption in transit]#.
+
+- The [inner]#link:../../[Fluid Attacks]# domain
+  uses the latest
+  [inner]#link:../rules/181/[TLSv1.3]#
+  cryptographic protocol for maximum in transit protection.
+- We maintain an SSL A+ score from
+  link:https://www.ssllabs.com/ssltest/analyze.html?d=fluidattacks.com&latest[SSL Labs].
+- We use the
+  link:https://es.wikipedia.org/wiki/HTTP_Strict_Transport_Security[HSTS]
+  policy to ensure that every connection to our domain goes
+  through link:https://en.wikipedia.org/wiki/HTTPS[HTTPS].
+- [inner]#link:../products/integrates[Integrates]#'s
+  database uses TLSv1.2 for in transit protection.
+- We possess fully dedicated network channels with some of our biggest clients,
+  allowing us to isolate all unwanted traffic. This is especially useful
+  for running secure dynamic application hacking.
+- For the rest of our clients, we use fully encrypted VPNs.
+- <<EPH, Ephemeral environments>>
+  always bring a digital certificate,
+  validated with ACME protocol,
+  and [inner]#link:../rules/092/[not self-signed]#.
+
+=== 2.3 Continuous hacking to our technology
+
+We have projects focused on hacking our software.
+For us, it is essential to set an example of secure software,
+that is why today our entire technology stack
+goes through a process of comprehensive [inner]#link:../services/continuous-hacking/[Continuous Hacking]#.
+
+All our development projects run
+<<CI, Continuous Integration>>
+pipelines,
+including Forces exploits and strict linters,
+to ensure that
+[inner]#link:../rules/155/[no known vulnerabilities]#
+are released to production.
+
+=== 2.4 All our hired personnel must accept an NDA
+
+Everyone within our company knows
+how important it is to keep our
+clients' information secure.
+We enforce this by requiring
+all our new employees to sign a
+non-disclosure agreement (NDA).
+
+=== 2.5 We only hire directly
+
+All our employees have indefinite time contracts
+directly with the company.
+Due to our business nature,
+we never hire through contractors,
+freelance, or any other third parties.
+
+=== 2.6 Formatting and accumulation of data
+
+Formatting of our equipment happens often,
+and the information does not accumulate in local storage.
+
+== 3. Authentication
+
+Authentication refers to the process
+of validating your identity within a service or platform.
+In this context,
+we talk about our services
+and third-party services we use.
+
+=== 3.1 For clients
+
+[inner]#link:../products/integrates[Integrates]#
+only uses
+link:https://en.wikipedia.org/wiki/Single_sign-on[SSO]
+with Google and Microsoft Accounts.
+link:https://oauth.net/2/[Oauth2] protocol is used.
+Such protocol only accepts login attempts from trusted URLs
+and has industry-standard 2048 bytes access tokens.
+We do not store any account passwords.
+The only personal information we store of our clients is
+
+- full name (provided by Google or Microsoft);
+- company and cellphone (only if shared, user can decide).
+
+It is also worth noting that once users lose their
+corporate email,
+[inner]#link:../rules/114/[they also lose access]#
+to their
+[inner]#link:../products/integrates[Integrates]#
+account. Clients can
+[inner]#link:../rules/034/[easily manage]#
+who has and who does not have access to
+their projects.
+
+=== 3.2 Internal
+
+==== 3.2.1 Centralized authentication
+
+We use a centralized authentication platform (IAM)
+to manage all the applications
+we internally use from just one place. Our employees do
+not know any of the passwords of the managed applications;
+they only know their own IAM passphrase.
+Once they log in to IAM,
+they can access applications
+[inner]#link:../rules/096/[assigned to them]#.
+
+Some of our IAM specifications and requirements are listed below:
+
+- [inner]#link:../rules/132/[Passphrases instead of passwords]#
+  (more information [inner]#link:../blog/requiem-password/[here]#).
+- [inner]#link:../rules/130/[Passphrases expire every 30 days]#.
+- Previous passphrases can only be reused after a
+  [inner]#link:../rules/129/[24 reset cycle]#.
+- [inner]#link:../rules/328/[Multi-factor authentication]# (MFA)
+  from a mobile device must be set.
+- Our MFA uses
+  [inner]#link:../rules/153/[OOB]#,
+  a mechanism that transports all the MFA data
+  through a different channel than the application's channel itself.
+  Text messages and emails are examples of OOB.
+  It reduces the risk in case a communication channel becomes compromised.
+- We use both
+  link:https://en.wikipedia.org/wiki/Security_Assertion_Markup_Language[SAML]
+  and
+  link:https://oauth.net/2/[Oauth2]
+  for logging in.
+  These two protocols allow us to log in to external applications
+  by only having our IAM active account.
+  No passwords or users are needed.
+- In case a mobile phone supports
+  [inner]#link:../rules/231/[biometric authentication]#,
+  our IAM enforces its usage.
+- All successful sessions have a duration of 9 hours.
+
+==== 3.2.2 GPG signature for repository commits
+
+In order to avoid identity hijacking,
+all our source code repositories
+require developers to use a
+link:https://en.wikipedia.org/wiki/GNU_Privacy_Guard[GPG digital signature]
+that verifies the developer's identity on the Internet.
+Signatures can be found on the repository commit histories linked in the
+<<OPENSOURCE, Open Source section>>.
+
+== 4. Authorization
+
+Authorization refers to the ability to give users
+within an application
+the
+[inner]#link:../rules/186/[minimum privileges]#
+they need to do their work.
+No users should be allowed
+to do what they should not.
+
+=== 4.1 For clients
+
+[inner]#link:../products/integrates[Integrates]#
+has a set of
+[inner]#link:../rules/096/[roles]#
+that are necessary for every hacking project.
+Once the client decides
+which members of her team
+should be *_project managers_*,
+`Fluid Attacks` assigns the roles to them,
+providing them with the
+[inner]#link:../rules/035/[ability to assign]#
+the
+[inner]#link:../rules/186/[minimum required permissions]#
+to other members of their team.
+Some of the available roles are
+_hacker_, _admin_, _releaser_, _escaper_,
+_user_, _project manager_, etc.
+
+=== 4.2 Internal
+
+Every application we use must have user-granular authorization settings
+to grant minimum-privilege policy at all times.
+Some examples are as follows:
+
+- *IAM and KMS:*
+  These two tools are widely used within `Fluid Attacks`.
+  They allow us to ensure
+  that hackers can only access the source code,
+  environments, exploits, and secrets
+  of the projects they have access to.
+  Access can be easily removed
+  should the need arise,
+  with no users/passwords leaked.
+  These tools also let us keep application
+  production secrets hidden from developers
+  (Production-Development secrets separation).
+- *Infrastructure:*
+  Infrastructure components always provide
+  minimum privileges only to the applications
+  that need to use them.
+  We never give any service full permissions
+  over our entire infrastructure.
+- *IAM:*
+  It is possible to give application access at the user level,
+  which allows us to give employees access
+  [inner]#link:../rules/176/[only to what they need]#
+  to execute their tasks.
+  [inner]#link:../rules/034/[Giving or removing access to applications]#
+  is simple, and no users/passwords are leaked.
+
+=== 4.3 Secret rotation
+
+[inner]#link:../rules/130/[Key rotation]#
+is essential when dealing with
+sensitive data. The best way to prevent a key leakage is by
+changing the keys regularly. We continuously rotate
+
+- *KMS keys:*
+  They rotate every year or before in case it is needed;
+- *JWT Tokens:*
+  They rotate daily;
+- *Digital Certificates:*
+  They rotate [inner]#link:../rules/089/[every three months]#;
+- *IAM passphrases:*
+  They rotate every three months.
+
+Rotations are done in these two different ways:
+
+- *Automatic rotation:*
+  Some secrets are stored in secret vaults.
+  They are only accessible by administrators
+  and are rotated daily.
+  These secrets include JWT Tokens,
+  IAM passphrases, and digital certificates.
+
+- *Manual rotation:*
+  Some secrets are stored versioned and encrypted
+  in git repositories using AES256 symmetric keys.
+  They are treated as code,
+  meaning that to be rotated
+  a <<PR, manual approval>> needs to be done.
+  These secrets include KMS keys and
+  other application credentials.
+
+=== 4.4 Access revocation
+
+When employees go on vacation or leave the company,
+it is essential to revoke their access
+to the systems and information that were accessible to them.
+At `Fluid Attacks`, we have a two-step process for
+access revocation:
+
+  . *Deactivating IAM account:*
+    By doing this, users lose
+    access to all the company applications
+    and client data.
+    This includes
+    Integrates, Forces, mail, etc.
+  . *Removing Git repository access:*
+    Users can no longer see confidential information from the repository,
+    such as registry images, confidential issues,
+    link:https://docs.gitlab.com/ee/user/project/merge_requests/[Merge requests],
+    etc.
+
+It is worth noting that ease of access revocation
+is fundamental when dealing with sensitive data in an organization;
+that is why we have put so much effort
+into making this process as simple as possible.
+
+=== 4.5 Secure policies for enrolled mobile devices
+
+Our collaboration systems also provide security requirements
+that mobile devices must comply with
+before enrolling in the organization's systems.
+This is especially useful,
+as personal mobile devices
+are common targets for malicious hackers.
+
+== 5. Privacy
+
+This section talks about our efforts to protect
+both `Fluid Attacks's` and clients' privacy.
+
+=== 5.1 Project pseudonymization
+
+Every project has a pseudonym within our systems,
+which brings advantages such as the following:
+
+- Employees without direct access to the project
+  do not know the client's name or any other information
+  that can help them to
+  [inner]#link:../rules/313/[connect the project with the client]#.
+- Internal analytics charts and other documents
+  never use the client's name; they use the project's pseudonym.
+
+Generally speaking, only the people who need to know
+who the client of a project is,
+are the people who actually know it.
+
+=== 5.2 Secure delivery of sensitive data
+
+Here is what we do to reduce information leakage
+when delivering data to the client.
+
+==== 5.2.1 Secure information sharing system
+
+We use an information-sharing system with
+link:https://en.wikipedia.org/wiki/Data_loss_prevention_software[DLP]
+when sending any sensitive information to our clients.
+This includes contracts, portfolios, and other sensitive documents.
+
+==== 5.2.2 Signed URLs
+
+[inner]#link:../products/integrates[Integrates]#
+has the feature of creating signed download URLs
+with an expiration date when downloading reports,
+meaning that links expire
+and can only be used
+by the user who requested the download.
+
+==== 5.2.3 Passphrase protected reports
+
+All reports downloaded via
+[inner]#link:../products/integrates[Integrates]#
+have a randomly generated four-word passphrase.
+This passphrase is sent to the email of the user
+who requested the download.
+This applies to both XLS and PDF formats.
+
+==== 5.2.4 Watermarked reports
+
+Every report downloaded via
+[inner]#link:../products/integrates[Integrates]#
+comes with a watermark on all its pages,
+specifying that only the individual
+who generated it is allowed to read it.
+This is used as a measure to identify
+who generated the report in the first place
+and discourage its distribution through channels
+other than
+[inner]#link:../products/integrates[Integrates]#.
+
+=== 5.3 Unsubscribe email
+
+To be respectful to users
+regarding what information they want to receive,
+for all commercial and informative emails,
+receptors can stop getting them
+by clicking on the *_unsubscribe from this list_* link.
+By doing so, their emails are placed on a list
+of unsubscribed emails,
+and no new emails will be sent to them.
+
+=== 5.4 Transparent cookie usage
+
+Both [inner]#link:../products/integrates[Integrates]#
+and [inner]#link:../[Web]#
+use a
+link:https://en.wikipedia.org/wiki/General_Data_Protection_Regulation[GDPR]
+module that
+
+- informs the user about
+  every cookie the site creates;
+- lets users specify
+  which ones to allow,
+  thus giving them full control
+  over what information we are creating
+  and manipulating within their browser.
+
+By doing this, we become compliant with
+security rules such as the following:
+
+- [inner]#link:../rules/310/[Request user consent]#
+- [inner]#link:../rules/312/[Allow user consent revocation]#
+- [inner]#link:../rules/315/[Provide processed data information]#
+
+=== 5.5 Data policies
+
+The following policies apply to all the information
+provided by a client in a project context.
+
+==== 5.5.1 Data use policy
+
+We are committed to using our clients' data
+exclusively for vulnerability scanning
+in the context of the service we are providing.
+No other activities will be executed
+over the provided information.
+
+==== 5.5.2 Data retention policy
+
+All the data related to a project
+can be deleted from
+[inner]#link:../products/integrates[Integrates]#
+by a user with a *_project manager_* role.
+Once this action is performed,
+a 30 days [inner]#link:../rules/317/[deletion window]# begins.
+Any *_project manager_* can undo the deletion action.
+After the 30 days waiting period, the project source code,
+secrets, metadata, and other project-related
+[inner]#link:../rules/183/[data are completely removed]#
+from all our systems.
+
+=== 5.6 OTR Messaging
+
+We use a messaging system with
+link:https://en.wikipedia.org/wiki/Off-the-Record_Messaging[OTR]
+and
+link:https://en.wikipedia.org/wiki/End-to-end_encryption[E2EE]
+for communication within the organization.
+Also, all chat histories
+[inner]#link:../rules/183/[are reset every week]#
+as an extra measure to avoid leaks.
+
+=== 5.7 Employee time tracking software
+
+We use a time tracking system that periodically takes
+screenshots from laptop screens
+when employees are working. Only managers have access to such
+screenshots in case an incident happens. Employees
+have control over the software, which means that
+no screenshots are taken once they stop working.
+
+=== 5.8 Polygraph tests
+
+We regularly run polygraph tests on all
+employees with access to sensitive information.
+Tests fully focus on identifying
+whether an employee disclosed confidential information
+to a third party.
+Personal questions are never asked.
+
+== 6. Non-repudiation
+
+Non-repudiation refers to the capability
+of keeping a log of every action
+performed on a system.
+What was done, who did it, and when.
+Knowing this,
+no one can deny their actions.
+
+We implement this in several ways
+depending on the context.
+
+=== 6.1 Everything as code
+
+[[EAC]]
+At `Fluid Attacks`, we try to keep as much as possible
+versioned in a Git repository.
+By doing so, we are able to have
+comprehensive logs of
+
+- what exactly was changed;
+- who changed it;
+- when it was changed;
+- who approved a change.
+
+Currently, we keep the following systems as code:
+
+- link:https://gitlab.com/fluidattacks/integrates/-/commits/master[Integrates]
+- link:https://gitlab.com/fluidattacks/asserts/-/commits/master[Asserts]
+- link:https://gitlab.com/fluidattacks/web/-/commits/master[Website]
+- [inner]#link:../services/continuous-hacking/[Continuous hacking]#
+- <<IAC, Infrastructure>>
+- General documentation
+
+=== 6.2 Extensive logs
+
+Typical logs are also essential
+for a non-repudiation policy to be successful.
+Currently, we store logs for:
+
+- *[inner]#link:../products/integrates[Integrates]#'s*
+  *logging system:*
+  Integrates stores a historical status
+  of projects, findings, vulnerabilities,
+  and other critical components.
+  Changes made to these components
+  are always tied to a user and a date.
+  The historical status never expires.
+- *[inner]#link:../products/integrates[Integrates]#'s*
+  *error tracking system:*
+  It provides real-time logging
+  of errors that occur in its production environments.
+  It is especially useful for quickly detecting
+  new errors and hacking attempts.
+  These logs never expire.
+- *Redundant data centers:*
+  They store comprehensive logs
+  of all our infrastructure components.
+  Logs here never expire.
+- *Forces executions:*
+  Whenever a client's <<CI, CI pipeline>> runs Forces,
+  logs containing information like who ran it,
+  vulnerability status, and other relevant data
+  are uploaded to our data centers,
+  allowing us always to know the current status
+  of our client's Forces service.
+  These logs never expire.
+- *IAM authentication:*
+  Our IAM stores logs of
+  login attempts made by users,
+  accessed applications,
+  and possible threats.
+  Logs here expire after seven (7) days.
+- *Collaboration systems activity:*
+  Our collaboration systems such as email, calendar, etc.,
+  store comprehensive logs of employee activity,
+  spam, phishing and malware emails,
+  suspicious login attempts,
+  and other potential threats.
+  Employee activity logs never expire.
+  Other security logs expire after 30 days.
+- *CI job logs:*
+  All our <<CI, CI pipelines>> provide a full record
+  of who triggered them, when,
+  and the console output.
+  These logs never expire.
+
+== 7. Availability
+
+Availability refers to the capacity
+to keep all our systems up and running.
+Avoiding service interruptions is crucial here.
+
+=== 7.1 Distributed applications
+
+[inner]#link:../products/integrates[Integrates]#
+is hosted in an application cluster with
+autoscaling policies and distributed
+replicas. This ensures high availability,
+as there is always one instance ready to
+receive user requests if another stops
+working. Every cluster node has at least one
+[inner]#link:../products/integrates[Integrates]#
+instance running in it.
+Additionally,
+its front side is served via a region-distributed
+link:https://en.wikipedia.org/wiki/Content_delivery_network[CDN],
+providing maximum speed and availability across the globe.
+
+=== 7.2 Forever-lasting backups
+
+As all our backups are stored in decentralized data centers,
+problems like hard drive lifespans
+are not a concern.
+The backups exist seamlessly
+for as long as we want to,
+giving us full traceability
+and recoverability.
+
+=== 7.3 Everything is backed up
+
+As data is likely our most valuable asset,
+we have strong backup policies for everything;
+for example
+
+- Our redundant data centers are fully versioned,
+  meaning that any file can be recovered
+  or returned to a previous version.
+- [inner]#link:../products/integrates[Integrates]#'s
+  database has daily, weekly, quarterly,
+  and annual full backup schedules.
+  The daily backups last one week,
+  the weekly ones twelve weeks,
+  the quarterly ones three years,
+  and the annual ones fifteen years.
+- [inner]#link:../products/integrates[Integrates]#'s
+  database has point-in-time
+  recovery with the ability to recover
+  the database to the state it was
+  at a specific date and time (hours, minutes, and seconds)
+  during the last 35 days.
+- All Forces's exploits are versioned.
+
+== 8. Resilience
+
+By resilience,
+we refer to the organization's ability
+to adapt to unexpected circumstances
+that would affect the way our team
+usually works.
+
+=== 8.1 Redundant roles
+
+Every role within the organization
+has a minimum of two different employees
+executing its tasks.
+This allows us to be able to fill the gap
+in case an employee goes on sick leave,
+vacation, etc.
+
+=== 8.2 Everything is decentralized
+
+All our infrastructure is decentralized,
+meaning that we have independent data centers
+spread across multiple regions.
+No hardware maintenance is needed
+as a third party does it.
+No local networks are used.
+We only use Wifi connections with
+[inner]#link:../rules/253/[strong random generated passwords]#
+with the sole purpose of accessing the Internet.
+Connections are always encrypted
+[inner]#link:../rules/252/[using WPA2-AES]#.
+
+=== 8.3 Own equipment and ready for telecommuting
+
+link:https://en.wikipedia.org/wiki/Bring_your_own_device[BYOD] is not allowed.
+Every employee receives a computer with a password-secured BIOS,
+link:https://docs.microsoft.com/en-us/windows/security/information-protection/tpm/trusted-platform-module-overview[TPM] hardware, and [inner]#link:../rules/231/[biometric fingerprint reader]#.
+Going to the office is the rule,
+but employees can always fill out an exception form
+to telework in case they need to.
+In case our offices close
+(e.g., due to link:https://en.wikipedia.org/wiki/Coronavirus_disease_2019[COVID-19] pandemic),
+everyone can still do their job seamlessly.
+
+== 9. Integrity
+
+Integrity refers to the ability
+to
+
+- avoid data loss or corruption;
+- have clear definitions
+  of all technological components
+  within the organization
+  and make sure
+  such definitions are followed;
+- have a clear development cycle
+  that ensures applications are
+  secure and true to their source code.
+
+=== 9.1 Certified hackers
+
+We continuously encourage our hackers
+to certify their knowledge.
+Usually, hackers start applying for
+certificates after spending six (6) months
+in the company.
+[inner]#link:../about-us/certifications/[Here]#
+you can find a comprehensive list of certifications
+that our team of hackers currently holds.
+
+=== 9.2 Extensive hiring process
+
+All job applicants must undergo
+an extensive [inner]#link:../careers[testing process]# to prove
+their technical capabilities and human values.
+
+The technical part of the testing process
+involves solving programming and hacking challenges,
+uploading them to a Git repository with highly strict linters and compilers,
+and ascending in an
+[inner]#link:https://autonomicmind.com/challenges/[organizational ranking]#.
+
+The human values section of the testing process
+includes creating a portfolio with the five most
+important achievements of the candidate,
+going to the office during a training
+phase to work alongside the team,
+and job interviews, among other things.
+
+=== 9.3 Secure emails
+
+The [inner]#link:../../[Fluid Attacks]# domain
+has DKIM, and SPF protocols enabled.
+Additionally, it has the DMARCv1 protocol
+enabled in verbose mode
+for running advanced diagnostics.
+These protocols help email receptors
+to verify if an email comes from a trusted source,
+thus helping them to avoid
+phishing and fake emails.
+
+=== 9.4 Developing for integrity
+
+This section describes everything
+we do in our development cycle
+to reach a high integrity level.
+
+==== 9.4.1 Monorepo
+
+We have a Git repository for all our applications.
+By taking this approach instead of dividing applications
+into smaller repositories, we get the following:
+
+- *Centralized source of truth:*
+  Everything regarding the application
+  can be found in a single place.
+- *Centralized knowledge:*
+  Teams have an all-inclusive knowledge of
+  the application, as they spend
+  their time working in the same
+  repository.
+- *Standardization:*
+  Standardizing a project
+  (folder structure, naming conventions, etc.)
+  is easier when there is only one repo
+  where everyone works, as there is no need
+  to duplicate efforts or synchronize repositories.
+
+==== 9.4.2 Everything as code
+
+As mentioned in the
+<<EAC, "Everything as code" previous section>>,
+we try to keep as much as possible
+versioned in a Git repository.
+The application integrity becomes a matter
+of keeping a healthy source code,
+after making the source code the only
+variable affecting an application.
+
+==== 9.4.3 Infrastructure as Code (IaC)
+
+[[IAC]]
+Our entire infrastructure is versioned
+in a Git repository written as code.
+Such code can be deployed anywhere
+and has all the properties of any
+other source code,
+such as auditability, history,
+revert capabilities, etc.
+
+==== 9.4.4 Regenerative infrastructure
+
+By having our infrastructure written as code,
+we can recreate it
+on a daily basis.
+Regenerating our infrastructure every day
+brings the following advantages:
+
+- Any injected trojans or malicious scripts are removed.
+- Having fresh new servers every 24 hours let us avoid
+  availability and performance issues generated by
+  memory leaks and not released resources.
+- To have the capability of deploying our infrastructure
+  from zero (0) to production in an automated process.
+
+==== 9.4.5 Immutable infrastructure
+
+The infrastructure code can be audited,
+and changes can only be made by
+[inner]#link:../rules/265/[changing such code]#.
+This provides full transparency on
+[inner]#link:../rules/046/[what was changed, when, and who did it]#.
+Also, no administrative protocols like ssh
+or administrative accounts are needed.
+
+==== 9.4.6 Continuous Integration
+
+[[CI]]
+We run an Application Build Process for every change a
+developer wants to introduce to the source
+code of the application via
+link:https://docs.gitlab.com/ee/user/project/merge_requests/[Merge Request].
+The Application Build Process includes steps like the following:
+
+- Forces exploits tests
+- Linting tests
+- Compilation tests
+- Unit tests
+- End to end tests
+- Commit message tests
+- Commit deltas tests
+- Creation of <<EPH, Ephemeral environment>>
+- <<EPH, Ephemeral environment>> tests
+
+By always building and testing everything,
+we can guarantee that every change
+is compliant with the application's quality standards.
+
+==== 9.4.7 Peer review
+
+[[PR]]
+We recognize that not all the steps of
+a building process can be automatized,
+especially some tests.
+That is why developers also need
+to ask a peer to review their code changes
+before their Merge Requests can go to production.
+Reviewers usually evaluate code quality,
+commit message coherence,
+and other semantic properties of the change.
+
+Peer reviewing also becomes an activity
+where product teams discuss philosophies,
+standards, and future plans for the application.
+This space is ideal for senior developers to
+guide juniors on the right path.
+
+==== 9.4.8 Continuous Deployment (CD)
+
+In addition to running an automated building process
+for every change,
+we also run an automatic deployment process.
+Once a Merge Request is accepted,
+an additional Continuous Deployment pipeline is triggered,
+automatically deploying a new production version
+based on the new source code.
+
+==== 9.4.9 Ephemeral environments
+
+[[EPH]]
+Instead of having long-term development environments
+like *_staging_*,
+we use testing environments
+that are created during a CI pipeline.
+We call them ephemeral environments,
+as they only exist in pipeline time.
+These environments are created on demand
+when a developer triggers a CI pipeline.
+They are also written as code,
+regenerable, and immutable,
+allowing us to certify
+that a new version of an application
+is stable and secure
+before it reaches production environments.
+Once a change reaches production,
+its ephemeral environment
+is destroyed forever.
+
+==== 9.4.10 Trunk based development
+
+We use
+link:https://trunkbaseddevelopment.com/[Trunk based development]
+to keep only one long-term master branch.
+That branch is the source of truth regarding
+what code is running in the production environments.
+
+==== 9.4.11 Micro-changes
+
+Merge requests made by developers
+can not be bigger than 200 deltas of code.
+A delta consists of
+either a removed or an added line of code.
+The following are some advantages of working with micro-changes:
+
+- Merge requests are small and easy to review
+  by peer reviewers.
+- Introducing critical bugs to production
+  becomes harder as changes are smaller.
+- In case something goes wrong with
+  a deployment, identifying the error
+  within those 200 deltas is
+  easier.
+- Developers go to production
+  multiple times in a day,
+  and no code goes stale.
+- Users of the application
+  see it evolve on a daily basis.
+
+==== 9.4.12 One branch per developer
+
+Developers can only have one short-term branch
+with their names (employeeatfluid) for every application.
+Once they develop a portion of code (200 deltas maximum),
+they run the Continuous Integration phase,
+create a Merge Request, and ask for peer review.
+If everything goes well, their branch is
+merged to the master branch,
+their changes are deployed to production,
+and their short-term branch is deleted.
+
+==== 9.4.13 Isolated and sudo-less dependencies
+
+Some of our dependencies
+do not require OS libraries like libc.
+Instead, they are completely built from scratch,
+thus guarantying total reproducibility.
+
+Additionally,
+these dependencies do not require any administrative privileges like sudo.
+They are entirely built on user space,
+considerably reducing the possibility of compromising OS core files.
+
+==== 9.4.14 No dependency auto-update
+
+All external dependencies are pinned to a specific version
+(this is highly related to the immutability property).
+Meaning that to update a dependency,
+a developer must do the following:
+
+. Change the version in the source code.
+. Run all CI tests on the generated ephemeral environment
+  with the new dependency version.
+. Get the change approved by a colleague
+  after running a peer review.
+
+In case all tests and peer review pass,
+a new production version with the updated
+dependency will be automatically deployed.
+
+=== 9.5 Static website
+
+Our [inner]#link:../[Website]# is a
+link:https://en.wikipedia.org/wiki/Static_web_page[static website],
+meaning that it only serves plain HTML files.
+As it does not have any complex functionality
+that would require an application server,
+it cannot be hacked.

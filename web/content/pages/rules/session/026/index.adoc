@@ -1,0 +1,34 @@
+:slug: rules/026/
+:category: session
+:description: This requirement establishes the importance of encrypting and verifying client-side session information.
+:keywords: Requirement, Security, Session, Information, ViewState, OWASP, CWE, PCI DSS, Client Side, Rules, Ethical Hacking, Pentesting
+:rules: yes
+
+= R026. Encrypt client-side session information
+
+== Requirement
+
+The system must encrypt and verify
+client-side session information (**ViewState**).
+
+== Findings
+
+* [inner]#link:/web/findings/036/[F036. ViewState not encrypted]#
+
+== References
+
+. [[r1]] link:https://cwe.mitre.org/data/definitions/642.html[CWE-642: External Control of Critical State Data].
+The software stores security-critical state information about its users,
+or the software itself, in a location that is accessible to unauthorized
+actors.
+
+. [[r2]] link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A2-Broken_Authentication[OWASP Top 10 A2:2017-Broken Authentication].
+Application functions related to authentication and session management are
+often implemented incorrectly,
+allowing attackers to compromise passwords, keys, or session tokens,
+or to exploit other implementation flaws to assume other users' identities
+temporarily or permanently.
+
+. [[r3]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 6.5.10]
+Address common coding vulnerabilities in software-development processes such as
+broken authentication and session management.

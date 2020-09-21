@@ -1,0 +1,66 @@
+:slug: rules/361/
+:category: cryptography
+:description: This requirement establishes the importance of replacing cryptographic keys.
+:keywords: Expire, Cryptographic, Key, Replace, Invalidate, ASVS, CWE, Rules, Ethical Hacking, Pentesting
+:rules: yes
+
+= R361. Replace cryptographic keys
+
+== Requirement
+
+System cryptographic keys must be replaced after a defined period of time,
+after having produced a certain amount of cipher-text or after its integrity
+has been weakened.
+E.g. when an employee with knowledge of a key departs or when it is believed to
+have been compromised.
+
+== Description
+
+System cryptographic keys are essential for maintaining the confidentiality
+and integrity of transactions and communications.
+In order to mitigate their decreased effectiveness over time and any possible
+loss of their integrity,
+they should be replaced often.
+
+== References
+
+. [[r1]] link:https://cwe.mitre.org/data/definitions/324.html[CWE-324: Use of a Key Past its Expiration Date].
+The product uses a cryptographic key or password past its expiration date,
+which diminishes its safety significantly by increasing the timing window for
+cracking attacks against that key.
+
+. [[r2]] link:https://cwe.mitre.org/data/definitions/326.html[CWE-326: Inadequate Encryption Strength].
+The software stores or transmits sensitive data using an encryption scheme that
+is theoretically sound,
+but is not strong enough for the level of protection required.
+
+. [[r3]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V1.6 Cryptographic Architectural Requirements.(1.6.3)]
+Verify that all keys and passwords are replaceable and are part of a
+well-defined process to re-encrypt sensitive data.
+
+. [[r4]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V2.9 Cryptographic Software and Devices Verifier Requirements.(2.9.2)]
+Verify that the challenge nonce is at least 64 bits in length,
+and statistically unique or unique over the lifetime of the cryptographic
+device.
+
+. [[r5]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V6.2 Algorithms.(6.2.6)]
+Verify that nonces, initialization vectors, and other single use numbers must
+not be used more than once with a given encryption key.
+The method of generation must be appropriate for the algorithm being used.
+
+. [[r6]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 3.6.4]
+Fully document and implement all key-management processes and procedures for
+cryptographic keys including cryptographic key changes for keys that have
+reached the end of their cryptoperiod.
+For example, after a defined period of time has passed and/or after a certain
+amount of cipher-text has been produced by a given key.
+
+. [[r7]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 3.6.5]
+Fully document and implement all key-management processes and procedures for
+cryptographic keys including retirement or replacement
+(for example, archiving, destruction, and/or revocation)
+of keys as deemed necessary when the integrity of the key has been weakened,
+or keys are suspected of being compromised.

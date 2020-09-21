@@ -1,0 +1,16 @@
+:slug: rules/089/
+:category: certificates
+:description: This requirement establishes the importance of limiting the periods of validity of digital certificates to use in the organizations.
+:keywords: Digital Certificate, Abuse Case, Man-in-the-middle, Certification Authority, Expiry, Renewal, Rules, Ethical Hacking, Pentesting
+:rules: yes
+
+= R089. Limit validity of certificates
+
+== Requirement
+
+The organization must not use digital certificates
+with a validity greater than two years.
+
+== Findings
+
+* [inner]#link:/web/findings/049/[F049. Insecure digital certificates]#

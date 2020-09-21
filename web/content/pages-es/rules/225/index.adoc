@@ -1,0 +1,56 @@
+:slug: rules/225/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados al proceso de autenticación realizado en las aplicaciones. En este requerimiento se establece la importancia de configurar las respuestas de fallos de autenticación de forma segura.
+:keywords: Requerimiento, Seguridad, Autenticación, Fallo, Respuesta, Información.
+:rules: yes
+
+= REQ.225 Respuestas de autenticación adecuadas
+
+== Requisito
+
+Las respuestas del sistema a los fallos de autenticación
+no deben indicar cuál parte de la autenticación fue incorrecta.
+
+== Descripción
+
+Un sistema debe evitar exponer información adicional
+acerca del proceso de autenticación
+cuando alguna parte de las credenciales de acceso es inválida o no existe,
+de esta forma se evita que un atacante enumere usuarios válidos
+y trate de conseguir sus respectivas contraseñas.
+
+== Implementación
+
+. Errores Genéricos: Los mensajes de error ante una autenticación inválida
+no deben especificar si el usuario o la contraseña es inválida o no existe,
+de esta forma evitar identificar usuarios válidos para un atacante.
+La implementación de este tipo de errores debe estar considerada
+desde la fase de diseño,
+implementando para todos los tipos de error descripciones genéricas
+que no revelen información adicional;
+es decir mantener el balance entre un mensaje demasiado críptico
+que confunda al usuario y un mensaje no lo suficiente críptico
+que revele información del sistema
+que puede ser usada para realizar un ataque. Ejemplos:
+
+* Credenciales inválidas
+* No se pueden verificar los datos
+* Usuario o contraseña inválidos
+
+== Ataques
+
+. Enumeración de usuarios
+
+== Atributos
+
+* Capa: Capa de Aplicación
+* Activo: Proceso de autenticación
+* ​Alcance: Confidencialidad
+* ​Fase: Operación
+* ​Tipo Control: Recomendación
+
+== Referencias
+
+. [[r1]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2es-LA.pdf[PCI DSS - Requisito 6.5.5 Manejo inadecuado de errores].
+
+. [[r2]] link:https://cwe.mitre.org/data/definitions/204.html[CWE 204 - Response Discrepancy Information Exposure].

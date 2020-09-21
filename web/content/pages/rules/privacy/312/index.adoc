@@ -1,0 +1,50 @@
+:slug: rules/312/
+:category: privacy
+:description: This requirement establishes the importance of allowing the user to revoke their consent regarding the collection of their information.
+:keywords: Requirement, Security, Data, GDPR, ISO, Consent Revocation, Regulation, Rules, Ethical Hacking, Pentesting
+:rules: yes
+
+= R312. Allow user consent revocation
+
+== Requirement
+
+The system must enable the users to revoke whatever consent they have granted.
+
+== Description
+
+Systems usually request information from the users or collect it based
+on their interactions with the application.
+Regulations demand that none of these collections occur without the user's
+consent and that this consent be demonstrable afterwards.
+Regulations also demand that the user be allowed to revoke,
+at any given time,
+whatever consent they may have granted regarding the collection and
+processing of their information.
+
+== Findings
+
+* [inner]#link:/web/findings/088/[F088. Privacy violation]#
+
+== References
+
+. [[r1]] link:https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:02002L0058-20091219[Directive 2002/58/EC (amended by E-privacy Directive 2009/136/EC).
+Art. 6: Traffic data.(3)]
+Users or subscribers shall be given the possibility to withdraw their consent
+for the processing of traffic data at any time.
+
+. [[r2]] link:https://gdpr-info.eu/art-7-gdpr/[GDPR. Art. 7: Conditions for consent.(3).]
+The data subject shall have the right to withdraw his or her consent at any
+time.
+
+. [[r3]] link:https://gdpr-info.eu/art-18-gdpr/[GDPR. Art. 18: Right to restriction of processing.(1).]
+The data subject shall have the right to obtain from the controller restriction
+of processing.
+
+. [[r4]] link:https://gdpr-info.eu/art-21-gdpr/[GDPR. Art. 21: Right to object.(1).]
+The data subject shall have the right to object,
+on grounds relating to his or her particular situation,
+at any time to processing of personal data concerning him or her.
+
+. [[r5]] link:https://www.iso.org/obp/ui/#iso:std:54534:en[ISO 27001:2013. Annex A - 18.1.4]
+When applicable, guarantee the privacy and security of personal information,
+as required by the relevant legislation and regulations.

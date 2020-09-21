@@ -1,0 +1,18 @@
+:slug: rules/259/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la administración lógica de la red de una determinada organización. Por lo tanto, se recomienda que en toda organizacion, la red de la misma deba estar segmentada adecuadamente.
+:keywords: Organización, Segmentar, Red, Seguridad, Requerimiento, Administrar.
+:rules: yes
+
+= REQ.259 Segmentar la red de la organización
+
+== Requisito
+
+La red de la organización debe estar segmentada.
+
+== Referencias
+
+. [[r1]] link:https://www.owasp.org/index.php/ASVS_V1_Architecture[`OWASP-ASVS v3.1-1.8`]
+Los componentes son separados mediante un control de seguridad definido
+tales como segmentación de red, reglas de firewall
+o grupos de seguridad basados en la nube

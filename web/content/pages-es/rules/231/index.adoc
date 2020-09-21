@@ -1,0 +1,37 @@
+:slug: rules/231/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestion segura de autenticacion de usuarios. En este caso, se recomienda que cuando se maneje información crítica, se cuente con componentes de verificación biométrica en un proceso de autenticación.
+:keywords: Sistema, Información, Negocio, Verificación, Biométrica, Autenticación.
+:rules: yes
+
+= REQ.231 Definir componente verificación biométrica
+
+== Requisito
+
+Un sistema con información crítica para el negocio
+debe tener un componente para verificación biométrica
+durante el proceso de autenticación.
+
+== Referencias
+
+. [[r1]] link:https://www.law.cornell.edu/cfr/text/45/164.312[+HIPAA Security Rules+ 164.312(d):]
+Autenticación de Personas o Entidades: Implementar procedimientos
+para verificar que una persona o entidad que solicita acceso
+a la información sensible es quien dice ser.
+
+. [[r2]] link:https://www.law.cornell.edu/cfr/text/45/164.310[+HIPAA Security Rules+ 164.310(a)(2)(iii):]
+Procedimientos de control de acceso y validación:
+Implementar procedimientos para controlar y validar
+el acceso de una persona a las instalaciones basándose
+en su rol o función, incluyendo control de visitantes
+y control de acceso a software de la compañía
+para pruebas o revisión.
+
+. [[r3]] link:https://www.owasp.org/index.php/ASVS_V2_Authentication[+OWASP-ASVS v3.1-2.31+]
+Verificar que los usuarios puedan inscribirse
+y usar la verificación TOTP, de dos factores, biométrico
+(Touch ID o similar) o un mecanismo equivalente de autenticación
+de múltiples factores que brinde protección
+contra la divulgación de credenciales de un solo factor.
+
+. [[r4]] link:https://gdpr-info.eu/recitals/no-64/[GDPR- 64  Verificación de Identidad].

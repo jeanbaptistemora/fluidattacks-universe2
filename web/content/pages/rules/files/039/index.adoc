@@ -1,0 +1,98 @@
+:slug: rules/039/
+:category: files
+:description: This requirement establishes the importance of defining a maximum size for files in the application to avoid DoS attacks.
+:keywords: Files, Size, Limit, DoS, ASVS, CWE, Rules, Ethical Hacking, Pentesting
+:rules: yes
+
+= R039. Define maximum file size
+
+== Requirement
+
+The files manipulated by the system and the users
+must have defined a maximum file size (*5MB* recommended).
+
+== Description
+
+When a system allows to upload or attach files to be stored,
+the maximum file size limit must be defined for these files,
+to avoid issues
+involving the availability of the service
+and reducing the chance that an attacker
+may upload a file containing malicious software.
+
+== Implementation
+
+In order to define the file size limit,
+you must first define the information storage needs,
+and the infrastructure size.
+The company can set a default file size
+for information management,
+and define the exceptions they deem necessary
+to increase the admitted file size,
+but always keeping a defined limit
+to avoid denial-of-service attacks
+caused by abusing the system storage.
+
+== Attacks
+
+. An application allows the upload and storage of files.
+A user continuously uploads large size files
+until they cause a denial of service
+because of the lack of space in the system.
+
+== Attributes
+
+* Layer: Application layer.
+* Asset: Files.
+* Scope: Availability.
+* Phase: Operation.
+* Type of Control: Recommendation.
+
+== Findings
+
+* [inner]#link:/web/findings/029/[F029. Inadequate file size control]#
+
+== References
+
+. [[r1]] link:https://cwe.mitre.org/data/definitions/400.html[CWE-400: Uncontrolled Resource Consumption].
+The software does not properly control the allocation and maintenance of a
+limited resource,
+thereby enabling an actor to influence the amount of resources consumed,
+eventually leading to the exhaustion of available resources.
+
+. [[r2]] link:https://cwe.mitre.org/data/definitions/409.html[CWE-409: Improper Handling of Highly Compressed Data (Data Amplification)].
+The software does not handle or incorrectly handles a compressed input with a
+very high compression ratio that produces a large output.
+
+. [[r3]] link:https://cwe.mitre.org/data/definitions/770.html[CWE-770: Allocation of Resources Without Limits or Throttling].
+The software allocates a reusable resource or group of resources on behalf of
+an actor without imposing any restrictions on the size or number of resources
+that can be allocated,
+in violation of the intended security policy for that actor.
+
+. [[r4]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V11.1 Business Logic Security Requirements.(11.1.3)]
+Verify the application has appropriate limits for specific business actions or
+transactions which are correctly enforced on a per user basis.
+
+. [[r5]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V11.1 Business Logic Security Requirements.(11.1.4)]
+Verify the application has sufficient anti-automation controls to detect and
+protect against data exfiltration, excessive business logic requests, excessive
+file uploads or denial of service attacks.
+
+. [[r6]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V12.1 File Upload Requirements.(12.1.1)]
+Verify that the application will not accept large files that could fill up
+storage or cause a denial of service attack.
+
+. [[r7]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V12.1 File Upload Requirements.(12.1.2)]
+Verify that compressed files are checked for "zip bombs" - small input files
+that will decompress into huge files thus exhausting file storage limits.
+
+. [[r8]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V12.1 File Upload Requirements.(12.1.3)]
+Verify that a file size quota and maximum number of files per user is enforced
+to ensure that a single user cannot fill up the storage with too many files,
+or excessively large files.

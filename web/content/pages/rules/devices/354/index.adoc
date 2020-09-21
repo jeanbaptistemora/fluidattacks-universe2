@@ -1,0 +1,30 @@
+:slug: rules/354/
+:category: devices
+:description: This requirement establishes the importance of preventing firmware downgrades.
+:keywords: Firmware, Downgrade, Protection, Anti-rollback, IoT, ASVS, CWE, Rules, Ethical Hacking, Pentesting
+:rules: yes
+
+= R354. Prevent firmware downgrades
+
+== Requirement
+
+Devices should have mechanisms that protect their firmware (anti-rollback) from
+being downgraded.
+
+== References
+
+. [[r1]] link:https://cwe.mitre.org/data/definitions/693.html[CWE-693: Protection Mechanism Failure].
+The product does not use or incorrectly uses a protection mechanism that
+provides sufficient defense against directed attacks against the product.
+
+. [[r2]] link:https://cwe.mitre.org/data/definitions/757.html[Algorithm Downgrade].
+A protocol or its implementation supports interaction between multiple actors
+and allows those actors to negotiate which algorithm should be used as a
+protection mechanism such as encryption or authentication,
+but it does not select the strongest algorithm that is available to both
+parties.
+
+. [[r3]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+Appendix C: Internet of Things Verification Requirements.(C.22)]
+Verify that the device cannot be downgraded to old versions (anti-rollback) of
+valid firmware.

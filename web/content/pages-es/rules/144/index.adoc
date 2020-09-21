@@ -1,0 +1,27 @@
+:slug: rules/144/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la necesidad que tiene toda organización en cuanto a la depuración de todas las cuentas de usuario. Lo anterior, se debe realizar de manera periódica mitigando posibles cuentas basura o de atacantes al sistema.
+:keywords: Requerimiento, Seguridad, Organización, Cuentas de usuario, Depurar, Periódica.
+:rules: yes
+
+= REQ.144 Depurar cuentas periódicamente
+
+== Requisito
+
+La organización debe depurar las cuentas de usuario de forma periódica.
+
+
+== Referencias
+
+. [[r1]] link:https://nvd.nist.gov/800-53/Rev4/control/AC-2[+NIST+ 800-53 AC-2 (3)]
+El sistema de información deshabilita automáticamente las cuentas inactivas
+luego de un periodo de tiempo definido por la organización.
+
+. [[r2]] link:https://nvd.nist.gov/800-53/Rev4/control/AC-2[+NIST+ 800-53 AC-2 (10)]
+El sistema de información elimina las credenciales compartidas o grupales
+cuando los miembros dejan el grupo.
+
+. [[r3]] link:https://nvd.nist.gov/800-53/Rev4/control/AC-2[+NIST+ 800-53 AC-2 (13)]
+La organización debe deshabilitar las cuentas de usuario
+que presenten un riesgo significante dentro de un periodo de tiempo
+definido por la organización a partir del descubrimiento del riesgo.

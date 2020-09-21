@@ -1,0 +1,261 @@
+{% extends "index.html" %}
+
+{% block meta %}
+  <meta name="description"
+        content="{{ page.description }}">
+  <meta name="keywords"
+        content="{{ page.keywords }}">
+{% endblock meta %}
+
+{% block title %}
+  {% set TITLE = 0 %}
+  {% if DEFAULT_LANG == "en" and not TITLE %}
+    {% if page.title|length < 23 %}
+{{ page.title }} | {{ SITENAME }}
+      {% set TITLE = 1 %}
+    {% endif %}
+  {% elif DEFAULT_LANG == "es" %}
+    {% if page.title|length < 11 and not TITLE %}
+{{ page.title }} | {{ SITENAME }}
+      {% set TITLE =1 %}
+    {% endif %}
+  {% endif %}
+  {% if TITLE == 0 %}
+{{ page.title }} | {{ AUTHOR }}
+  {% endif %}
+{% endblock title %}
+
+{% block canonical %}
+<link rel="canonical"
+      href="{{ SITEURL }}/{{ page.url }}">
+{% endblock canonical %}
+
+{% block breadcrumb %}
+<div class="pv0 mt-body">
+  <!-- navcontent-info -->
+  <div class="df ma-auto bg-fluid-black">
+    <div class="roboto f6-l f7 tl mw-1366 ph-body ml-auto mr-auto">
+      <ul class="dib list w-auto ph0">
+        <li class="dib mt0">
+          <a class="c-fluid-gray hover-white no-underline"
+             href="{{ SITEURL }}/">
+             Home
+          </a>
+          <span class="c-fluid-gray v-mid b"> / </span>
+        </li>
+        {% if page.findings %}
+        <li class="dib mt0" >
+          <a class="c-fluid-gray hover-white no-underline"
+              href="{{ SITEURL }}/findings/">
+              Findings
+          </a>
+          <span class="c-fluid-gray v-mid b"> / </span>
+        </li>
+        {% endif %}
+        {% if page.defends %}
+        <li class="dib mt0" >
+          <a class="c-fluid-gray hover-white no-underline"
+             href="{{ SITEURL }}/defends/">
+             Defends
+          </a>
+        </li>
+        <span class="c-fluid-gray v-mid b"> / </span>
+        <li class="dib mt0" >
+          <a class="white hover-white no-underline"
+             href="{{ SITEURL }}/defends/#{{ page.category.name }}">
+             {{ page.category|capitalize }}
+          </a>
+        </li>
+        {% endif %}
+        {% if page.eventspage %}
+          <li class="dib mt0" >
+            <a class="c-fluid-gray hover-white no-underline"
+              href="{{ SITEURL }}/about-us/">
+                About Us
+            </a>
+            <span class="c-fluid-gray v-mid b"> / </span>
+          </li>
+          <li class="dib mt0" >
+            <a class="c-fluid-gray hover-white no-underline"
+              href="{{ SITEURL }}/about-us/{{ page.category.name }}/">
+                Events
+            </a>
+            <span class="c-fluid-gray v-mid b"> / </span>
+          </li>
+        {% endif %}
+        {% if page.partnerspage %}
+        <li class="dib mt0" >
+          <a class="c-fluid-gray hover-white no-underline"
+            href="{{ SITEURL }}/about-us/">
+              About Us
+          </a>
+          <span class="c-fluid-gray v-mid b"> / </span>
+        </li>
+        <li class="dib mt0" >
+          <a class="c-fluid-gray hover-white no-underline"
+            href="{{ SITEURL }}/about-us/{{ page.category.name }}/">
+              Partners
+          </a>
+          <span class="c-fluid-gray v-mid b"> / </span>
+        </li>
+      {% endif %}
+      {% if page.forcespage %}
+      <li class="dib mt0" >
+        <a class="c-fluid-gray hover-white no-underline"
+          href="{{ SITEURL }}/products/">
+            Products
+        </a>
+        <span class="c-fluid-gray v-mid b"> / </span>
+      </li>
+      <li class="dib mt0" >
+        <a class="c-fluid-gray hover-white no-underline"
+          href="{{ SITEURL }}/products/forces/">
+            Forces
+        </a>
+        <span class="c-fluid-gray v-mid b"> / </span>
+      </li>
+      {% endif %}
+      {% if page.usecasespage %}
+      <li class="dib mt0" >
+        <a class="c-fluid-gray hover-white no-underline"
+          href="{{ SITEURL }}/services/continuous-hacking/">
+            Services
+        </a>
+        <span class="c-fluid-gray v-mid b"> / </span>
+      </li>
+    {% endif %}
+        {% if "misc" not in page.category.name and not page.defends
+           and not page.eventspage and not page.partnerspage and not page.usecasespage %}
+          {% if page.rules %}
+            {% if page.extended %}
+            <li class="dib mt0">
+              <a class="c-fluid-gray hover-white no-underline"
+                 href="{{ SITEURL }}/resources/">
+                 Resources
+              </a>
+            </li>
+            <span class="c-fluid-gray v-mid b"> / </span>
+            <li class="dib mt0">
+              <a class="c-fluid-gray hover-white no-underline"
+                 href="{{ SITEURL }}/rules/">
+                 Rules
+              </a>
+            </li>
+            <span class="c-fluid-gray v-mid b"> / </span>
+            <li class="dib mt0">
+              <a class="c-fluid-gray hover-white no-underline"
+                  href="{{ SITEURL }}/rules/out-of-scope/">
+                  Out of Scope Security rules
+              </a>
+            </li>
+            <span class="c-fluid-gray v-mid b"> / </span>
+            <li class="dib mt0">
+              <a class="c-fluid-gray hover-white no-underline"
+                  href="{{ SITEURL }}/rules/out-of-scope/#{{ page.category.name }}">
+                  {{ page.category|capitalize|replace('-', ' ') }}
+              </a>
+            </li>
+            {% else %}
+            <li class="dib mt0">
+              <a class="c-fluid-gray hover-white no-underline"
+                 href="{{ SITEURL }}/resources/">
+                 Resources
+              </a>
+            </li>
+            <span class="c-fluid-gray v-mid b"> / </span>
+            <li class="dib mt0">
+              <a class="c-fluid-gray hover-white no-underline"
+                 href="{{ SITEURL }}/rules/">
+                 Rules
+              </a>
+            </li>
+            <span class="c-fluid-gray v-mid b"> / </span>
+            <li class="dib mt0">
+              <a class="c-fluid-gray hover-white no-underline"
+                  href="{{ SITEURL }}/rules/#{{ page.category.name }}">
+                  {{ page.category|capitalize|replace('-', ' ') }}
+              </a>
+            </li>
+            {% endif %}
+          <span class="c-fluid-gray v-mid b"> / </span>
+          {% else %}
+          <li class="dib mt0">
+            <a class="c-fluid-gray hover-white no-underline"
+                href="{{ SITEURL }}/{{ page.category.name }}/">
+                {{ page.category|capitalize|replace('-', ' ') }}
+            </a>
+          </li>
+          <span class="c-fluid-gray v-mid b"> / </span>
+          {% endif %}
+        <li class="dib mt0" >
+          <a class="white hover-white no-underline"
+              href=".">{{ page.title }}</a>
+        </li>
+      {% elif not page.rulesindex %}
+        {% if not page.forcespage %}
+          <li class="dib mt0" >
+            <a class="white hover-white no-underline"
+                href=".">{{ page.title }}</a>
+          </li>
+        {% else %}
+          <li class="dib mt0" >
+            <a class="white hover-white no-underline"
+                href=".">Install</a>
+          </li>
+        {% endif %}
+      {% endif %}
+      </ul>
+    </div>
+  </div>
+</div>
+{% endblock breadcrumb %}
+
+{% block header %}
+{% if page.banner %}
+  {% if page.slug == "careers/" %}
+  <div class="bg-graylight">
+    <div
+      class="{{ page.banner }} coverm cover-s banner-height justify-center items-center flex bg-center mw-1200 ml-auto mr-auto">
+      <div class="w-100 center">
+        <h1 class="white fw7 f1 f-5-l neue tc ma0">
+          {{ page.subtitle }}
+        </h1>
+        {% if page.subtext %}
+        <h2 class="white f3-l f5-m f6 fw3 roboto tc ma0">
+          {{ page.subtext }}
+        </h2>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  {% else %}
+  <div class="bg-graylight">
+    <div
+      class="{{ page.banner }} coverm cover-s banner-height justify-center items-center flex bg-center mw-1200 ml-auto mr-auto">
+      <div class="w-100 center">
+        <h1 class="white fw7 f1 f-5-l neue tc ma0">
+          {{ page.title }}
+        </h1>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+{% endif %}
+{% endblock header %}
+{% block content %}
+<div class="bg-graylight">
+  <div class="roboto internal mw-1200 ml-auto mr-auto roboto bg-white ph4-l ph3 pt5-l pt4 pb5">
+    {% if not page.banner %}
+    <h1 class="roboto tc">{{ page.title }}</h1>
+    {% endif %}
+    <div class="lh-2 tl">
+      {{ page.content }}
+      {% if page.faqindex %}
+        {% for faqpage in pages if faqpage.faq %}
+          {{ faqpage.content }}
+        {% endfor %}
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock content %}

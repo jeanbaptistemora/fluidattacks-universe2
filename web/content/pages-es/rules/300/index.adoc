@@ -1,0 +1,16 @@
+:slug: rules/300/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a los datos sensibles de la organización. El objetivo del presente requerimiento de seguridad es recomendar que toda información sensible del negocio esté debidamente enmascarada.
+:keywords: CVV, Seguridad, Datos, Información, Negocio, Enmascarar.
+:rules: yes
+
+= REQ.300 Enmascarar datos sensibles
+
+== Requisito
+
+Los datos sensibles de negocio
+(número de tarjeta de crédito, `CVV`, etc) deben estar enmascarados.
+
+== Referencias
+
+. [[r1]] link:https://gdpr-info.eu/recitals/no-51/[GDPR-51:  Proteger información sensible personal]

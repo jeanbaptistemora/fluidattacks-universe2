@@ -1,0 +1,84 @@
+:slug: rules/035/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la administración de los sistemas. El objetivo del presente requerimiento es definir la importancia de implementar medidas para evitar que un actor del sistema aumente los privilegios para él mismo.
+:keywords: Requerimiento, Seguridad, Sistema, Privilegios, Actor, Administración.
+:rules: yes
+
+= REQ.035 Administrar modificaciones de privilegios
+
+== Requisito
+
+El sistema no debe permitir a un actor del sistema,
+modificar los privilegios para él mismo.
+
+== Descripción
+
+La elevación de privilegios
+consiste en proporcionar permisos a un actor
+más allá de aquéllos concedidos inicialmente,
+en este caso el mismo actor
+logra aumentar sus propios privilegios sin autorización.
+Por ejemplo, un atacante con un conjunto de privilegios de permisos
+de "solo lectura" eleva de algún modo
+el conjunto para incluir la "lectura y escritura".
+
+== Implementación
+
+. La elevación de privilegios sin autorización
+puede tener varias causas,
+por lo tanto es importante que se aplique el modelo de seguridad en profundidad
+al activo para ser protegido
+y evitar la mayor cantidad de vulnerabilidades.
++
+Algunas de las causas más comunes para esto son:
+
+* Dejar los identificaciones de sesión expuestos y fácilmente modificables.
+
+* Almacenar privilegios en variables de usuario final (ejemplo: +cookies+).
+
+* Permitir el acceso a páginas administrativas con usuarios básicos.
+
+* Uso de software desactualizado
+con vulnerabilidades conocidas
+que permitan la elevación de privilegios.
+
+* Uso de credenciales por defecto
+o contraseñas poco seguras.
+
+* Dejar claves quemadas en código fuente.
+
+. Para evitar estas situaciones
+puede seguir las siguientes recomendaciones:
+
+* Aplicar prácticas de desarrollo seguro.
+
+** Uso de +tokens+ de sesión.
+** Ofuscamiento de código expuesto.
+** Adecuando manejo de variables de sesión.
+
+* Realizar +hardening+ a la infraestructura.
+
+** Actualización y aplicación de parches permanente.
+** Establecimiento de líneas base
+con características de seguridad.
+
+* Establecer procedimientos de control de acceso.
+
+** Establecimiento de manejo y monitoreo de usuarios de altos privilegios.
+** Protección de plataformas administradoras de usuarios.
+** Establecimiento de lineamientos para uso de contraseñas seguras
+y protección de datos de usuario.
+
+== Ataques
+
+. Un usuario del sistema
+identifica una debilidad que le permite aumentar sus privilegios
+y la explota para lograr ejecutar actividades no permitidas.
+
+== Atributos
+
+* Capa: Aplicación.
+* Activo: Administración del sistema.
+* Alcance: Autorización.
+* Fase: Operación.
+* Tipo de Control: Recomendación.

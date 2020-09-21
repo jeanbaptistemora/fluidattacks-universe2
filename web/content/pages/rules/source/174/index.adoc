@@ -1,0 +1,34 @@
+:slug: rules/174/
+:category: source
+:description: This requirement establishes the importance of avoiding distinguishable patterns in requests that execute transactions.
+:keywords: Transactions, Request, Pattern, Application, ASVS, CWE, PCI DSS, Rules, Ethical Hacking, Pentesting
+:rules: yes
+
+= R174. Transactions without a distinguishable pattern
+
+== Requirement
+
+Requests that execute transactions must not follow any
+distinguishable pattern.
+
+== Findings
+
+* [inner]#link:/web/findings/007/[F007. Cross-site request forgery]#
+
+== References
+
+. [[r1]] link:https://cwe.mitre.org/data/definitions/352.html[CWE-352: Cross-Site Request Forgery (CSRF)].
+The web application does not, or can not, sufficiently verify whether a
+well-formed, valid, consistent request was intentionally provided by the user
+who submitted the request.
+
+. [[r2]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V4.2 Operation Level Access Control.(4.2.2)]
+Verify that the application or framework enforces a strong anti-*CSRF*
+mechanism to protect authenticated functionality,
+and effective anti-automation or anti-*CSRF* protects unauthenticated
+functionality.
+
+. [[r3]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 6.5.9]
+Address common coding vulnerabilities in software-development processes such as
+cross-site request forgery (*CSRF*).

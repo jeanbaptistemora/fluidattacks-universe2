@@ -1,0 +1,79 @@
+:slug: rules/021/
+:category: rules
+:description: En el presente documento se detallan los requerimientos relacionados a la gestion adecuada en cuanto a los acuerdos por servicios se refiere. En este requerimiento se define la importancia de garantizar el cumplimiento de los requisitos por terceras partes de los proveedores de la organización.
+:keywords: Requerimiento, Seguridad, Acuerdos, Servicio, Terceros, Proveedores.
+:rules: yes
+
+= REQ.021 Garantizar cumplimiento requisitos
+
+== Requisito
+
+Los proveedores de la organización
+deben asegurar que sus terceras partes
+cumplen los requisitos definidos.
+
+== Descripción
+
+En los acuerdos con terceros deben existir cláusulas
+donde se especifique que
+si el proveedor contratado
+va a subcontratar alguna tarea con otro tercero,
+este debe también cumplir con los requisitos definidos.
+
+== Implementación
+
+. Es una práctica común en las licitaciones
+que existan asociaciones entre empresas
+que permitan cumplir con los requisitos solicitados
+para la prestación de un servicio
+o se subcontraten actividades.
+En algunas ocasiones esto no lo conoce el cliente
+sino hasta el momento de recibir el servicio.
+
+. Al no haber un acuerdo contractual entre el cliente
+y el tercero subcontratado
+en ocasiones se incumplen requisitos definidos
+y se retrasan los trámites de corrección del servicio,
+afectando las actividades en la organización por un tiempo indeterminado.
+
+. Para evitar este inconveniente
+es importante que en la solicitud del servicio se establezcan clausulas,
+ya sea prohibiendo la subcontratación
+o permitiéndola solo cuando se presenta una asociación formal
+con un compromiso de todas las partes en el cumplimiento
+de todos los requisitos del contrato.
+
+. De la misma forma,
+los requisitos de validación de prestación del servicio
+se deberían extender a los terceros subcontratados,
+pues es necesario para dar cumplimiento a algunos requisitos legales
+que la organización pueda validar su cumplimiento en todos los terceros.
+
+== Ataques
+
+. Un servicio contratado presenta incumplimientos con los requisitos,
+el servicio fue subcontratado
+y por lo tanto a pesar de tener un contrato establecido
+no se ha podido solicitar el cumplimiento a los ejecutores.
+
+. Se requiere evidencia para comprobar la apelación de un requisito de ley,
+el servicio que debe entregar la evidencia
+o se debe auditar
+es subcontratado por un tercero
+y según sus acuerdos con el tercero
+no se tiene permitido entregar evidencias
+o ser auditado por el cliente,
+por esta razón no es posible entregar evidencias
+del cumplimiento del requisito legal.
+
+== Atributos
+
+* Capa: Capa de Negocio.
+* Activo: Acuerdo de nivel de servicio.
+* Alcance: Adherencia.
+* Fase: Operación.
+* Tipo de Control: Recomendación.
+
+== Referencias
+
+. link:http://es.presidencia.gov.co/dapre/DocumentosSIGEPRE/L-TI-05-Administracion-Niveles-Servicio.pdf[LINEAMIENTOS DE ADMINISTRACIÓN DE NIVELES DE SERVICIO].

@@ -1,0 +1,20 @@
+:slug: rules/131/
+:category: rules
+:description: En el presente documento se detallan los lineamientos o requerimientos de seguridad relacionados a la importancia que todo sistema debe darle al cambio de contraseña de sus usuarios. Por lo tanto, se debe impedir el cambio de la misma más de una vez el mismo día.
+:keywords: Requerimiento, Contraseña, Cambio, Impedir, Seguridad, Sistema.
+:rules: yes
+
+= REQ.131 Impedir cambiar contraseña mas de una vez
+
+== Requisito
+
+La contraseña no debe poder cambiarse mas de una vez en un mismo día.
+
+== Referencias
+
+. [[r1]] link:https://www.owasp.org/index.php/ASVS_V2_Authentication[+OWASP-ASVS v3.1-2.8+]
+Verificar que todas las funciones de identidad
+(Por ejemplo: contraseña olvidada, cambiar contraseña,
+cambiar email, administrar token +2Fa+, etc)
+tengan como controles de seguridad el mecanismo de autenticación primaria
+(Por ejemplo: formulario de inicio de sesión).

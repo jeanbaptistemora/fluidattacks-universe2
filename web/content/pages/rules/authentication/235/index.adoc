@@ -1,0 +1,16 @@
+:slug: rules/235/
+:category: authentication
+:description: This requirement states that every application or system must have an independent user interface for the entry of credentials.
+:keywords: Authentication, Interface, Credentials, Security, Users, Requirement, Rules, Ethical Hacking, Pentesting
+:rules: yes
+
+= R235. Define credentials interface
+
+== Requirement
+
+The authentication must have a separate interface for on-screen credentials
+input.
+
+== Findings
+
+* [inner]#link:/web/findings/006/[F006. Authentication mechanism absence or evasion]#

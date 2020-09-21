@@ -1,0 +1,279 @@
+{% extends "base.html" %}
+{% block meta %}
+<script id="Cookiebot" src="https://consent.cookiebot.com/uc.js" data-cbid="9c4480b4-b8ae-44d8-9c6f-6300b86e9094" data-blockingmode="auto" type="text/javascript"></script>
+<meta name="description"
+      content="We're a pentesting and ethical hacking company
+      that identifies and reports all your applications
+      and software vulnerabilities ASAP.">
+<meta name="keywords"
+      content="{Fluid Attacks, Pentesting, Ethical Hacking, Security Testing, Cybersecurity">
+{% endblock meta %}
+
+{% block title %}Home | {{ SITENAME }}{% endblock title %}
+
+{% block header %}
+
+<div class="flex-ns flex-wrap-ns justify-between-m banner-bg bg-banner-sz coverm cover-s section-height minh-100vh">
+  <div class="ba1 mb3 relative dt-ns mt-body ph-body pt3 ma-auto pt6-l pt4 mw-1366 ml-auto mr-auto w-100">
+    <!-- Banner Image-->
+    <div class="fr-l w-45-l w100-m w90-s tc ml-auto mr-auto"
+         data-aos="fade-right"
+         data-aos-offset="300"
+         data-aos-easing="ease-in-sine"
+         data-aos-duration="1500">
+      <img class="new-banner"
+      src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/turbine-main.png"
+      alt="Young hacker smiling">
+    </div>
+    <!-- Banner title and text -->
+    <div class="fl-l w-50-l w100-m w90-s mt3-l center pt0-ns pt4"
+         data-aos="fade-zoom-in"
+         data-aos-easing="ease-in-back"
+         data-aos-delay="1000"
+         data-aos-offset="0"
+         data-aos-duration="500">
+      <h1 class="c-fluid-bk fheader fw9 tl tc-m neue ma0">PENTEST</h1>
+      <p class="c-fluid-bk roboto fw3 lh2 f-sub ma0 tl tc-m w-auto-ns nt4-ns">
+        FOR YOUR SOFTWARE DEVELOPMENT LIFE CYCLE
+      </p>
+      <!-- Get a Demo button -->
+      <div class="tl-l tc pt2-l pt5">
+        <a class="no-underline" href="{{ SITEURL }}/contact-us/">
+          <span class="dib br2 bannerbt hv-bt-fluid-rd ph4-l ph5 pv2 bt-trans white b roboto pointer mt2">
+              Get a Demo
+          </span>
+        </a>
+      </div>
+      <!-- End Demo button -->
+    </div>
+  </div>
+</div>
+
+{% endblock header %}
+
+{% block content %}
+
+<div class="slideshow-container bg-quotes bg-banner-sz coverm cover-s section-height justify-center items-center flex flex-wrap minh-100vh">
+  <div class="slideshow-inner w-100 ph4">
+    <div class="mySlides fadein">
+      <div>
+        <h2 class="white center roboto w-100 tc ph3 f1-l f2 lh-solid mw7">
+          Comprehensive Hacking at the Speed of your Business
+        </h2>
+      </div>
+    </div>
+    <div class="mySlides fadein dn">
+      <div>
+        <h2 class="white center roboto w-100 tc ph3 f1-l f2 lh-solid mw7">
+          Effective Automation and Human Intelligence
+        </h2>
+      </div>
+    </div>
+  </div>
+  <div class="tc w-100 h1 absolute pt7 mt6">
+    <span class="dot h-slide-bt w2 ma0 bg-fluid-gray dib slide-bt-trans"></span>
+    <span class="dot h-slide-bt w2 ma0 bg-fluid-gray dib slide-bt-trans"></span>
+  </div>
+  {% assets output="static/js/contactSlides.min.js", "js/tmp/contactSlides.min.js" %}
+  <script type="text/javascript"
+          src="{{ SITEURL }}/{{ ASSET_URL }}"></script>
+  {% endassets %}
+</div>
+<div class="mw8 mr-auto ml-auto ph4">
+  <div class="w-100">
+    <div class="section-height center justify-center items-center flex flex-wrap">
+      <div>
+        <div class="w-50-l fr-l tc">
+          <img
+          data-aos="zoom-in"
+          src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/products/product-integrates.png"
+          alt="Young hacker smiling">
+        </div>
+        <div class="w-45-l fl-l tl-l tc mw6">
+          <h2 class="f1 fw6 c-fluid-bk roboto mv3">
+            <i>
+              <img
+              class="nb2"
+              src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/mini-logo.png"
+              alt="Fluid Attacks Small Logo">
+            </i>
+            integrates
+          </h2>
+          <h3 class="c-fluid-bk roboto fw7 f4 mv0 tl-l tc lh-18">
+            The Platform Element that Controls the Process to Achieve Remediation
+          </h3>
+          <p class="c-fluid-bk roboto fw1 f5 lh-2 tl">
+            <strong class="b">Integrates</strong> is a platform where vulnerabilities
+            are reported, classified and prioritized.
+            It also allows you to define their treatments,
+            as well as check the status
+            and progress of their remediation.
+          </p>
+          <a class="c-fluid-bk no-underline hv-fluid-dkred f5 roboto fw1" href="{{ SITEURL }}/products/integrates/">
+            Learn More <span class="c-dkred">></span>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="section-height center justify-center items-center flex flex-wrap">
+      <div>
+        <div class="w-50-l fl-l tc">
+          <img
+          data-aos="zoom-in"
+          src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/products/product-drills.png"
+          alt="Young hacker smiling">
+        </div>
+        <div class="w-45-l fr-l tr-l tc mw6">
+          <h2 class="f1 fw6 c-fluid-bk roboto mv3">
+            <i>
+              <img
+              class="nb2"
+              src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/mini-logo.png"
+              alt="Fluid Attacks Small Logo">
+            </i>
+            drills
+          </h2>
+          <h3 class="c-fluid-bk roboto fw7 f4 mv0 tr-l tc lh-18">
+            The Human Element that Continuously Detects Vulnerabilities
+          </h3>
+          <p class="c-fluid-bk roboto fw1 f5 lh-2 tr-l tl">
+            <strong class="b">Drills</strong> uses the right combination
+            of technology and human intelligence
+            to find deep and zero-day vulnerabilities
+            during the software development life cycle.
+            Forget about false positives and false negatives!
+          </p>
+          <a class="c-fluid-bk no-underline hv-fluid-dkred f5 roboto fw1" href="{{ SITEURL }}/products/drills/">
+            Learn More <span class="c-dkred">></span>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="section-height center justify-center items-center flex flex-wrap">
+      <div>
+        <div class="w-50-l fr-l tc">
+          <img
+          data-aos="zoom-in"
+          src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/products/product-forces.png"
+          alt="Young hacker smiling">
+        </div>
+        <div class="w-45-l fl-l tl-l tc mw6">
+          <h2 class="f1 fw6 c-fluid-bk roboto mv3">
+            <i>
+              <img
+              class="nb2"
+              src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/mini-logo.png"
+              alt="Fluid Attacks Small Logo">
+            </i>
+            forces
+          </h2>
+          <h3 class="c-fluid-bk roboto fw7 f4 mv0 tl-l tc lh-18">
+            The Robot Element that Breaks the Build to Force Remediation
+          </h3>
+          <p class="c-fluid-bk roboto fw1 f5 lh-2 tl">
+            <strong class="b">Forces</strong> allows you to implement
+            DevSecOps into your project.
+            It breaks the build to force the remediation
+            of confirmed deep, re-opened and new peripheral vulnerabilities.
+            It can also verify your post-deploy production status.
+          </p>
+          <a class="c-fluid-bk no-underline hv-fluid-dkred f5 roboto fw1" href="{{ SITEURL }}/products/forces/">
+            Learn More <span class="c-dkred">></span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="bg-solutions bg-banner-sz coverm cover-s section-height justify-center items-center flex flex-wrap minh-100vh">
+  <div class="mw-1366 ph-body center pv0-l pv4">
+    <div class="dib-l width-sols v-top">
+      <h2 class="white roboto f2 fw7 title-sols display-sols mv3">
+        Security Solutions for your Business
+      </h2>
+    </div>
+    <div class="dib-l ph0-l w-auto-l w5 center">
+      <ul class="list roboto f3-ns f4 fw7 dib-l ph4 mv0">
+        <li class="mb3">
+          <a href="{{ SITEURL }}/solutions/devsecops/" class="white solution-link no-underline mt0 mb3 t-all-5">
+            DevSecOps
+          </a>
+        </li>
+        <li class="mb3">
+          <a href="{{ SITEURL }}/solutions/security-testing/" class="white solution-link no-underline mt0 mb3 nowrap">
+            Security Testing
+          </a>
+        </li>
+        <li class="mb3">
+          <a href="{{ SITEURL }}/solutions/pentesting/" class="white solution-link no-underline mt0 mb3">
+            Pentesting
+          </a>
+        </li>
+      </ul>
+      <ul class="list roboto white f3-ns f4 fw7 dib-l ph4 mv0">
+        <li class="mb3">
+          <a href="{{ SITEURL }}/solutions/ethical-hacking/" class="white solution-link no-underline mt0 mb3 nowrap">
+            Ethical Hacking
+          </a>
+        </li>
+        <li class="mb3">
+          <a href="{{ SITEURL }}/solutions/red-teaming/" class="white solution-link no-underline mt0 mb3 nowrap">
+            Red Teaming
+          </a>
+        </li>
+        <li class="mb3">
+          <a href="{{ SITEURL }}/solutions/attack-simulation/" class="white solution-link no-underline mt0 mb3 nowrap">
+            Attack Simulation
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<!-- Ebook section -->
+<div class="bg-ebook bg-banner-sz cover bg-center section-height justify-center items-center flex flex-wrap minh-100vh">
+  <div>
+    <h2 class="white center roboto w-100 tc f1-ns f2 lh3 pl3-l ph3 mw7">
+      Are you going fast in the wrong direction?<br>
+    </h2>
+    <h3 class="white center roboto w-100 tc f2-ns f3 pl3-l ph3 mw7">
+      Hacking with speed and precision
+    </h3>
+    <div class="tc">
+      <a href="https://usa.fluidattacks.com/ebook/">
+        <button class="bg-transparent pointer white pv2 ph4 roboto fw7 f5 mt3 dib bt-trans br2 b--white ba">Download eBook Now</button>
+      </a>
+    </div>
+  </div>
+</div>
+<!-- About us section -->
+<div class="section-height justify-center items-center flex flex-wrap minh-100vh">
+  <div class="overflow-hidden">
+    <div class="tc mw7 center">
+      <h2 class="c-fluid-bk roboto tc f1-ns lh3 mv4">
+        Worldwide Hacking Experts
+      </h2>
+    </div>
+    <div class="tc mw7 center pb4">
+      <p class="roboto c-fluid-bk fw1 f5 lh-2 mv4 ph5-l">
+        Since 2001, <b class="fw7">Fluid Attacks</b> has been developing
+        cybersecurity products and providing solutions for clients in
+        industries like technology, banking, finance, healthcare, insurance,
+        airlines, and retail.
+      </p>
+      <a class="c-fluid-bk no-underline hv-fluid-dkred f5 roboto fw1" href="{{ SITEURL }}/about-us/">
+        Learn More <span class="c-dkred">></span>
+      </a>
+    </div>
+    {% include "clients-carousel.html" %}
+  </div>
+</div>
+<div class="asap-bg bg-banner-sz cover bg-center section-height justify-center items-center flex flex-wrap">
+  <p class="white f2-ns f3 tc roboto b mv0">
+    We find all vulnerabilities and report them ASAP
+  </p>
+
+</div>
+{% endblock content %}
+ <!-- Cookie consent -->
+ <script id="CookieDeclaration" src="https://consent.cookiebot.com/9c4480b4-b8ae-44d8-9c6f-6300b86e9094/cd.js" type="text/javascript" async></script>

@@ -1,0 +1,50 @@
+:slug: rules/047/
+:category: files
+:description: This requirement establishes the importance of classifying critical files and defining the tools to monitor them to detect any possible security breach.
+:keywords: Requirement, Security, Critical, Components, Application, Identification, Security Breaches, Rules, Ethical Hacking, Pentesting
+:rules: yes
+:extended: yes
+
+= R047. Classify critical files for monitoring
+
+== Requirement
+
+The system's critical files must be identified in order to monitor their
+integrity.
+
+== Description
+
+Each system has files that are necessary for its operation
+(master files, setting files, among others).
+Each one of these files must be identified
+and tracked using tools that permanently monitor the activities
+carried out on them.
+
+== Implementation
+
+Each system has a file structure
+that contains information about its configuration and operation.
+If these files are modified,
+they can alter the execution of the system and, for this reason,
+it is important to permanently monitor their integrity.
+The monitoring should immediately notify the system administrator of any
+changes,
+and keep a record of the activities.
+
+== Attacks
+
+. An attacker modifies one or more of the critical files and the malicious
+activity is not detected on time due to a lack of detection or monitoring
+mechanisms.
+
+== Attributes
+
+* Layer: Application Layer.
+
+* Asset: Critical Files.
+
+* Scope: Integrity.
+
+* Phase: Operation.
+
+* Type of Control: Recommendation.

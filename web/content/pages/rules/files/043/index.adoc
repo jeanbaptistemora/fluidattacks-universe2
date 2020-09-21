@@ -1,0 +1,87 @@
+:slug: rules/043/
+:category: files
+:description: This requirement establishes the importance of defining explicit Content-Type and codification for all system files dynamically generated.
+:keywords: Content Type, Encoding, Files, Dynamic, ASVS, CWE, Rules, Ethical Hacking, Pentesting
+:rules: yes
+
+= R043. Define a explicit content type
+
+== Requirement
+
+All system files generated dynamically
+must have a **Content-Type** explicitly defined.
+
+== References
+
+. [[r1]] link:https://cwe.mitre.org/data/definitions/116.html[CWE-116: Improper Encoding or Escaping of Output].
+The product does not validate or incorrectly validates input that can affect
+the control flow or data flow of a program.
+
+. [[r2]] link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A1-Injection[OWASP Top 10 A1:2017-Injection].
+Injection flaws, such as **SQL**, **NoSQL**, **OS**, and *LDAP* injection,
+occur when untrusted data is sent to an interpreter as part of a command or
+query.
+The attacker's hostile data can trick the interpreter into executing unintended
+commands or accessing data without proper authorization.
+
+. [[r3]] link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A6-Security_Misconfiguration[OWASP Top 10 A6:2017-Security Misconfiguration].
+Security misconfiguration is the most commonly seen issue.
+This is commonly a result of insecure default configurations,
+incomplete or ad hoc configurations, open cloud storage,
+misconfigured *HTTP* headers,
+and verbose error messages containing sensitive information.
+Not only must all operating systems, frameworks, libraries, and applications be
+securely configured, but they must be patched/upgraded in a timely fashion.
+
+. [[r4]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V5.3 Output encoding and Injection Prevention Requirements.(5.3.1)]
+Verify that output encoding is relevant for the interpreter and context
+required.
+For example, use encoders specifically for *HTML* values, *HTML* attributes,
+JavaScript, URL Parameters, *HTTP* headers, *SMTP*, and others as the context
+requires, especially from untrusted inputs
+(e.g. names with Unicode or apostrophes, such as ねこ or O'Hara).
+
+. [[r5]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V12.3 File execution Requirements.(12.3.4)]
+Verify that the application protects against reflective file download (*RFD*)
+by validating or ignoring user-submitted filenames in a *JSON*, *JSONP*,
+or *URL* parameter,
+the response **Content-Type** header should be set to **text/plain**,
+and the **Content-Disposition** header should have a fixed filename.
+
+. [[r6]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V12.5 File Download Requirements.(12.5.1)]
+Verify that the web tier is configured to serve only files with specific file
+extensions to prevent unintentional information and source code leakage.
+For example, backup files (e.g. *.bak*), temporary working files (e.g. *.swp*),
+compressed files (*.zip*, *.tar.gz*, etc.) and other extensions commonly used
+by editors should be blocked unless required.
+
+. [[r7]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V12.5 File Download Requirements.(12.5.2)]
+Verify that direct requests to uploaded files will never be executed as
+**HTML**/**JavaScript** content.
+
+. [[r8]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V13.1 Generic Web Service Security Verification Requirements.(13.1.5)]
+Verify that requests containing unexpected or missing content types are
+rejected with appropriate headers
+(*HTTP* response status **406 Unacceptable** or
+**415 Unsupported Media Type**).
+
+. [[r9]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V13.2 RESTful Web Service Verification Requirements.(13.2.5)]
+Verify that *REST* services explicitly check the incoming **Content-Type** to
+be the expected one, such as *application/xml* or *application/JSON*.
+
+. [[r10]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V14.4 HTTP Security Headers Requirements.(14.4.1)]
+Verify that every *HTTP* response contains a content type header specifying a
+safe character set (e.g., *UTF-8*, **ISO 8859-1**).
+
+. [[r11]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V14.4 HTTP Security Headers Requirements.(14.4.2)]
+Verify that all *API* responses contain
+**Content-Disposition: attachment; filename="api.json"**
+(or other appropriate filename for the content type).

@@ -1,0 +1,13 @@
+:slug: rules/197/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestion adecuada de dispositivos foraneos de la organizacion. En este requerimiento, se recomienda que la organizacion determine qué aplicaciones están prohibidas para acceder a recursos internos.
+:keywords: Sistema, Organización, Aplicaciones, Foráneos, Recursos, Internos.
+:rules: yes
+
+= REQ.197 Denegar permisos a aplicaciones prohibidas
+
+== Requisito
+
+La organización debe determinar
+qué aplicaciones están prohibidas en los dispositivos foráneos
+para consumir recursos internos.

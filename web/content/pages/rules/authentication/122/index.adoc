@@ -1,0 +1,43 @@
+:slug: rules/122/
+:category: authentication
+:description: This requirement establishes the importance of validating that the indicated email account belongs to the user claiming it.
+:keywords: Person, Email, Guarantee, Owner, Security, Electronic, Rules, Ethical Hacking, Pentesting
+:rules: yes
+
+= R122. Validate credential ownership
+
+== Requirement
+
+The system must validate that the given credentials (email, phone number, etc.)
+actually belong to the user that claimed ownership of them.
+
+== Findings
+
+* [inner]#link:/web/findings/103/[F103. Insufficient data authenticity validation]#
+
+== References
+
+. [[r1]] link:https://cwe.mitre.org/data/definitions/345.html[CWE-345: Insufficient Verification of Data Authenticity]
+The software does not sufficiently verify the origin or authenticity of data,
+in a way that causes it to accept invalid data.
+
+. [[r2]] link:https://cwe.mitre.org/data/definitions/602.html[CWE-602: Client-Side Enforcement of Server-Side Security]
+The software is composed of a server that relies on the client to implement a
+mechanism that is intended to protect the server.
+
+. [[r3]] link:https://gdpr-info.eu/recitals/no-64/[GDPR. Recital 64: Identity verification].
+The controller should use all reasonable measures to verify the identity of a
+data subject who requests access,
+in particular in the context of online services and online identifiers.
+
+. [[r4]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V1.4 Access Control Architectural Requirements.(1.4.1)]
+Verify that trusted enforcement points such as at access control gateways,
+servers, and serverless functions enforce access controls.
+Never enforce access controls on the client.
+
+. [[r5]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V2.5 Credential Recovery Requirements.(2.5.7)]
+Verify that if *OTP* or multi-factor authentication factors are lost,
+that evidence of identity proofing is performed at the same level as during
+enrollment.

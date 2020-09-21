@@ -1,0 +1,12 @@
+:slug: rules/119/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados con la administración de correos electrónicos en la empresa. En este requerimiento se recomienda que las direcciones de correo electrónico permanezcan invisibles a los demás destinatarios.
+:keywords: BCC, Correo, Destinatario, Ocultar, Masivo, Campo.
+:rules: yes
+
+= REQ.119 Ocultar destinatarios
+
+== Requisito
+
+Se debe hacer uso del campo `BCC`
+en lugar de destinatario al momento de enviar correos masivos.

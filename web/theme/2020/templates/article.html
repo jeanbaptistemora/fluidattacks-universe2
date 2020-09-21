@@ -1,0 +1,144 @@
+{% extends "index.html" %}
+{% block meta %}
+  <meta name="description"
+        content="{{ article.description }}">
+  <meta name="keywords"
+        content="{{ article.keywords }}">
+  <meta name="image"
+        property="og:image"
+        content="{{ SITEURL }}/{{ article.url }}cover.png">
+{% endblock meta %}
+
+{% block title %}
+  {% set TITLE = 0 %}
+  {% if DEFAULT_LANG == "en" %}
+    {% if article.title|length < 23 %}
+{{ article.title }} | {{ SITENAME }}
+      {% set TITLE = 1 %}
+    {% endif %}
+  {% elif DEFAULT_LANG == "es" %}
+    {% if article.title|length < 11 %}
+{{ article.title }} | {{ SITENAME }}
+      {% set TITLE =1 %}
+    {% endif %}
+  {% endif %}
+  {% if TITLE == 0 %}
+{{ article.title }} | {{ AUTHOR }}
+  {% endif %}
+{% endblock title %}
+
+{% block canonical %}
+  <link rel="canonical"
+        href="{{ SITEURL }}/{{ article.url }}">
+{% endblock canonical %}
+
+{% block breadcrumb%}
+  <!-- navcontent-container -->
+<div class="pv0 mt-body">
+  <!-- navcontent-info -->
+  <div class="df ma-auto bg-fluid-black">
+    <div class="roboto f6-l f7 tl mw-1366 ph-body ml-auto mr-auto">
+      <ul class="dib list w-auto ph0">
+        <li class="dib mt0">
+          <a class="c-fluid-gray hover-white no-underline"
+             href="{{ SITEURL }}/">
+            Home
+          </a>
+          <span class="c-fluid-gray v-mid b"> / </span>
+        </li>
+        <li class="dib mt0">
+          <a class="c-fluid-gray hover-white no-underline"
+             href="{{ SITEURL }}/blog/">
+            Blog
+          </a>
+          <span class="c-fluid-gray v-mid b"> / </span>
+        </li>
+        <li class="dib mt0">
+          <a class="white hover-white no-underline"
+             href=".">
+            {{ article.title }}
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+{% endblock breadcrumb %}
+
+{% block header %}
+<div class="bg-graylight">
+  <div
+    class="coverm cover-s h-auto justify-center items-center flex bg-center mw-banner ml-auto mr-auto">
+    <div class="w-100 center">
+      <div class="w-100">
+        <img loading="lazy" src="{{ SITEURL }}/{{ article.url}}{{ article.image }}"
+             alt="{{ article.alt }}"
+             class="w-100 db">
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock header %}
+
+{% block content %}
+<div class="bg-graylight">
+  <div class="roboto internal mw-banner ml-auto mr-auto roboto bg-white ph4-l ph3 pt4 pb5">
+    <h1 class="roboto tc">{{ article.title }}</h1>
+    {% if article.subtitle %}
+    <!-- Article subtitle -->
+      <span class="db tc c-fluid-bk b f3 mt0">{{ article.subtitle }}</span>
+    {% endif %}
+    <div class="pv3">
+      <p class="f5">
+        By {% for author in article.authors %}<a href="{{ SITEURL }}/{{ author.url }}">
+          {{ author }}</a>{% endfor %} | {{ article.date|strftime('%B %d, %Y') }}
+      </p>
+    </div>
+    <div class="lh-2">
+      {{ article.content }}
+    </div>
+    <div class="w-100 tl pt6-l pt5 mw6-m ml-auto mr-auto">
+      <img loading="lazy" class="w4 br-100 dib-l"
+            src="{{ SITEURL }}/images/authors/{{ article.writer }}.png"
+            alt="Author picture">
+      <div class="dib-l tl v-top ph3-l pv4-l">
+          <!-- Author -->
+          <p class="c-fluid-bk fw4 f-key-features dib-l v-mid mr4-l pv0-l pv3">
+            {% for author in article.authors %}
+              <a class="c-fluid-bk no-underline"
+                  href="{{ SITEURL }}/{{ author.url }}">
+                  {{ author }}
+              </a><br/>
+            {% endfor %}
+          </p>
+          <!-- Share -->
+          <p class="c-fluid-bk fw4 f-key-features dib-l v-mid mh4-l pv0-l pv3">Share:
+            <a class="mh2" href="{{article.share_post['twitter']}}" target="_blank" title="Share on Twitter">
+              <img loading="lazy" class="w-social" src="{{ SITEURL }}/theme/images/social-media/social-twitter.png"
+                   alt="Twitter logo">
+            </a>
+            <a class="mh2" href="{{article.share_post['facebook']}}" target="_blank" title="Share on Facebook">
+              <img loading="lazy" class="w1" src="{{ SITEURL }}/theme/images/social-media/social-facebook.png"
+                   alt="Facebook logo">
+            </a>
+            <a class="mh2" href="{{article.share_post['linkedin']}}" target="_blank" title="Share on LinkedIn">
+              <img loading="lazy" class="w-social" src="{{ SITEURL }}/theme/images/social-media/social-linkedin.png"
+                   alt="Linkedin logo">
+            </a>
+          </p>
+          <!-- Tags -->
+          <p class="c-fluid-bk fw4 f-key-features dib-l v-mid mh4-l pt0-l pt4">
+            <a class="sub-btn f3"
+               href="{{ SITEURL }}/subscription/">
+              Subscribe Now
+              <img
+                class="w1"
+                src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/arrow-btn.svg"
+                alt="Young hacker smiling">
+            </a>
+          </p>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}

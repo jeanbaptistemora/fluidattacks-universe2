@@ -1,0 +1,62 @@
+:slug: rules/338/
+:category: cryptography
+:description: This requirement establishes the importance of implementing perfect forward secrecy for communications with critical sensitive information.
+:keywords: Perfect, Forward, Secrecy, ASVS, CWE, NIST, PCI DSS, Rules, Ethical Hacking, Pentesting
+:rules: yes
+
+= R338. Implement perfect forward secrecy
+
+== Requirement
+
+Critical communications should travel through a secure channel
+that implements **perfect forward secrecy**.
+
+== Descriptions
+
+All communications between the client and the server should take place over
+channels that are protected and encrypted.
+Secure channels often use a single secret to encrypt all communications.
+Therefore, if that secret is breached,
+all past communications can be decrypted an compromised.
+**Perfect forward secrecy** is attained when each message in a conversation is
+encrypted using a different secret.
+Thus, if a secret is breached,
+only a small portion of a conversation can be compromised,
+which represents an increase in the overall security of the system.
+
+== References
+
+. [[r1]] link:https://cwe.mitre.org/data/definitions/326.html[CWE-326: Inadequate Encryption Strength].
+The software stores or transmits sensitive data using an encryption scheme that
+is theoretically sound,
+but is not strong enough for the level of protection required.
+
+. [[r2]] link:https://csrc.nist.gov/publications/detail/sp/800-52/rev-2/final[NIST 800-52 3.3.1.1 Cipher Suites for TLS 1.2 and Earlier Versions]
+Prefer ephemeral keys over static keys
+(i.e., prefer DHE over DH, and prefer ECDHE 690 over ECDH).
+Ephemeral keys provide **perfect forward secrecy**.
+
+. [[r3]] link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A3-Sensitive_Data_Exposure[OWASP Top 10 A3:2017-Sensitive Data Exposure].
+Many web applications and **API**s do not properly protect sensitive data,
+such as financial, healthcare, and *PII*.
+Attackers may steal or modify such weakly protected data to conduct credit card
+fraud, identity theft, or other crimes.
+Sensitive data may be compromised without extra protection,
+such as encryption at rest or in transit, and requires special precautions when
+exchanged with the browser.
+
+. [[r4]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V9.1 Communications Security Requirements.(9.1.1)]
+Verify that secured TLS is used for all client connectivity,
+and does not fall back to insecure or unencrypted protocols.
+
+. [[r5]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V9.1 Communications Security Requirements.(9.1.2)]
+Verify using online or up to date *TLS* testing tools that only strong
+algorithms, ciphers, and protocols are enabled,
+with the strongest algorithms and ciphers set as preferred.
+
+. [[r6]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 3.6.4]
+Fully document and implement all key-management processes and procedures for
+cryptographic keys including cryptographic key changes for keys that have
+reached the end of their cryptoperiod.

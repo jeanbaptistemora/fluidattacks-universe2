@@ -1,0 +1,63 @@
+:slug: rules/302/
+:category: source
+:description: This requirement establishes the importance of explicitly declaring all the dependencies used in the source code.
+:keywords: Security, Files, Dependencies, Source Code, Libraries, ASVS, CWE, PCI DSS, Rules, Ethical Hacking, Pentesting
+:rules: yes
+
+= R302. Declare dependencies explicitly
+
+== Requirement
+
+All dependencies (third-party software/libraries) must be explicitly declared
+(name and specific version) in a file inside the source code repository.
+Their source code must not be directly included in the repository.
+
+== Description
+
+The usage of third-party software and libraries is very common in modern
+applications as it greatly reduces the effort required to develop them.
+Unfortunately, this software may introduce vulnerabilities into the
+application,
+which causes it to require frequent updates.
+In order to ease the constant update process,
+instead of directly including third-party software source code in application
+repositories,
+it should merely be referenced and managed using a package manager.
+
+== Findings
+
+* [inner]#link:/web/findings/079/[F079. Non-upgradable dependencies]#
+
+* [inner]#link:/web/findings/120/[F120. Improper dependency pinning]#
+
+== References
+
+. [[r1]] link:https://cwe.mitre.org/data/definitions/829.html[CWE-829: Inclusion of Functionality from Untrusted Control Sphere].
+The software imports, requires, or includes executable functionality
+(such as a library) from a source that is outside of the intended control
+sphere.
+
+. [[r2]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+Appendix C: Internet of Things Verification Requirements.(C.12)]
+Verify that each firmware maintains a software bill of materials cataloging
+third-party components, versioning, and published vulnerabilities.
+
+. [[r3]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V14.1 Build.(14.1.4)]
+Verify that the application, configuration, and all dependencies can be
+re-deployed using automated deployment scripts,
+built from a documented and tested runbook in a reasonable time,
+or restored from backups in a timely fashion.
+
+. [[r4]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V14.2 Dependency.(14.2.1)]
+Verify that all components are up to date, preferably using a dependency
+checker during build or compile time.
+
+. [[r5]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V14.2 Dependency.(14.2.5)]
+Verify that an inventory catalog is maintained of all third party libraries in
+use.
+
+. [[r6]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 2.3]
+Maintain an inventory of system components that are in scope for **PCI DSS**.

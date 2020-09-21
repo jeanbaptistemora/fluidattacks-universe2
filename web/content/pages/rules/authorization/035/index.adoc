@@ -1,0 +1,85 @@
+:slug: rules/035/
+:category: authorization
+:description: This requirement aims to define the importance of implementing measures to prevent system actors from increasing privileges for themselves.
+:keywords: System, Privileges, Modification, Administration, ASVS, CWE, ISO, OWASP, PCI DSS, Rules, Ethical Hacking, Pentesting
+:rules: yes
+
+= R035. Manage privilege modifications
+
+== Requirement
+
+The system must not allow system actors to modify privileges for themselves.
+
+== Description
+
+Systems should usually have a set of roles with different levels of
+privilege for accessing resources.
+The privileges of each role must be clearly defined and the role of each user
+should also be clearly stated.
+Furthermore, users should not be allowed to modify their own privileges,
+as this could be leveraged to access otherwise restricted functionalities and
+resources.
+
+== Findings
+
+* [inner]#link:/web/findings/005/[F005. Privilege escalation]#
+
+* [inner]#link:/web/findings/032/[F032. Spoofing]#
+
+== References
+
+. [[r1]] link:https://cwe.mitre.org/data/definitions/267.html[CWE-267: Privilege Defined With Unsafe Actions].
+A particular privilege, role, capability, or right can be used to perform
+unsafe actions that were not intended,
+even when it is assigned to the correct entity.
+
+. [[r2]] link:https://cwe.mitre.org/data/definitions/269.html[CWE-269: Improper Privilege Management].
+The software does not properly assign, modify, track, or check privileges for
+an actor,
+creating an unintended sphere of control for that actor.
+
+. [[r3]] link:https://cwe.mitre.org/data/definitions/285.html[CWE-285: Improper Authorization].
+The software does not perform or incorrectly performs an authorization check
+when an actor attempts to access a resource or perform an action.
+
+. [[r4]] link:https://cwe.mitre.org/data/definitions/639.html[CWE-639: Authorization Bypass Through User-Controlled Key].
+The system's authorization functionality does not prevent one user from gaining
+access to another user's data or record by modifying the key value identifying
+the data.
+
+. [[r5]] link:https://www.iso.org/obp/ui/#iso:std:54534:en[ISO 27001:2013. Annex A - 9.2.3]
+Restrict and control the assignation and usage of privileged access rights.
+
+. [[r6]] link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A5-Broken_Access_Control[OWASP Top 10 A5:2017-Broken Access Control].
+Restrictions on what authenticated users are allowed to do are often not
+properly enforced.
+Attackers can exploit these flaws to access unauthorized functionality and/or
+data, such as access other users' accounts, view sensitive files,
+modify other users' data, change access rights, etc.
+
+. [[r7]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V4.1 General Access Control Design.(4.1.2)]
+Verify that all user and data attributes and policy information used by access
+controls cannot be manipulated by end users unless specifically authorized.
+
+. [[r8]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V4.1 General Access Control Design.(4.1.3)]
+Verify that the principle of least privilege exists - users should only be able
+to access functions, data files, URLs, controllers, services, and other
+resources, for which they possess specific authorization.
+This implies protection against spoofing and elevation of privilege.
+
+. [[r9]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V13.1 Generic Web Service Security Verification Requirements.(13.1.2)]
+Verify that access to administration and management functions is limited to
+authorized administrators.
+
+. [[r10]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 6.5.8]
+Address common coding vulnerabilities in software-development processes
+including improper access control
+(such as insecure direct object references, failure to restrict URL access,
+directory traversal, and failure to restrict user access to functions).
+
+. [[r11]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 8.1.2]
+Control addition, deletion, and modification of user IDs, credentials,
+and other identifier objects.

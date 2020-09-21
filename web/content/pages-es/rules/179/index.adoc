@@ -1,0 +1,27 @@
+:slug: rules/179/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la importancia que implica realizar copias de seguridad o respaldos de información para un determinado sistema; definiendo un periodo o frecuencia para realizar dicha acción.
+:keywords: Requerimiento, Seguridad, Periodo, Frecuencia, Respaldo, Copia de seguridad.
+:rules: yes
+
+= REQ.179 Definir frecuencia de respaldo
+
+== Requisito
+
+La organización debe definir el periodo de frecuencia
+para ejecutar el respaldo a cada sistema de información.
+
+== Referencias
+
+. [[r1]] link:https://www.law.cornell.edu/cfr/text/45/164.310[+HIPAA Security Rules+ 164.310(a)(2)(i)]
+Operaciones de Contingencia:
+Establecer (e implementar de ser necesario) procedimientos
+que permitan el acceso a las instalaciones
+en apoyo a la restauración de datos perdidos
+bajo el plan de recuperación ante desastres
+y el plan de operaciones en caso de una emergencia.
+
+. [[r2]] link:https://www.law.cornell.edu/cfr/text/45/164.310[+HIPAA Security Rules+ 164.310(d)(2)(iv)]
+Respaldo de datos y almacenamiento: Crear una copia exacta y recuperable
+de la información sensible cuando sea necesario,
+ antes de realizar movimiento del equipos.

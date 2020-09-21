@@ -1,0 +1,153 @@
+{% extends "base.html" %}
+{% block meta %}
+<meta name="description"
+      content="{{ page.description }}">
+<meta name="keywords"
+      content="{{ page.keywords }}">
+{% endblock meta %}
+
+{% block title %}
+  {% set TITLE = 0 %}
+  {% if DEFAULT_LANG == "en" %}
+    {% if page.title|length < 23 %}
+{{ page.title }} | {{ SITENAME }}
+      {% set TITLE = 1 %}
+    {% endif %}
+  {% elif DEFAULT_LANG == "es" %}
+    {% if page.title|length < 11 %}
+{{ page.title }} | {{ SITENAME }}
+      {% set TITLE =1 %}
+    {% endif %}
+  {% endif %}
+  {% if TITLE == 0 %}
+{{ page.title }} | {{ AUTHOR }}
+  {% endif %}
+{% endblock title %}
+
+<!-- This block is for the breadcrumb -->
+{% block breadcrumb%}
+<div class="pv0 mt-body">
+  <div class="df ma-auto bg-fluid-black">
+    <div class="roboto f6-l f7 tl mw-1366 ph-body ml-auto mr-auto">
+      <ul class="dib list w-auto ph0">
+        <li class="dib mt0">
+          <a class="c-fluid-gray hover-white no-underline"
+             href="{{ SITEURL }}/">
+            Home
+          </a>
+          <span class="c-fluid-gray v-mid b"> / </span>
+        </li>
+        <li class="dib mt0">
+          <a class="c-fluid-gray hover-white no-underline"
+             href="{{ SITEURL }}/about-us/">
+            About Us
+          </a>
+          <span class="c-fluid-gray v-mid b"> / </span>
+        </li>
+        {% if page.partnersindex %}
+        <li class="dib mt0">
+          <a class="white hover-white no-underline"
+             href=".">
+            Partners
+          </a>
+        </li>
+        {% elif page.certificationsindex %}
+        <li class="dib mt0">
+          <a class="white hover-white no-underline"
+             href=".">
+            Certifications
+          </a>
+        </li>
+        {% endif %}
+      </ul>
+    </div>
+  </div>
+</div>
+{% endblock breadcrumb %}
+
+<!-- Block used for the banner of the page -->
+{% block header %}
+<div class="bg-graylight">
+  <div
+    class="{{page.banner}} coverm cover-s banner-height justify-center items-center flex bg-center mw-1200 ml-auto mr-auto">
+    <div class="w-100 center">
+      <h1 class="white fw7 f1 neue tc f-5-l ma0">
+        {{ page.title }}
+      </h1>
+    </div>
+  </div>
+</div>
+{% endblock header %}
+
+<!-- This block is for the content of the page -->
+{% block content %}
+<div class="bg-graylight">
+  <div class="roboto internal mw-1200 ml-auto mr-auto roboto bg-white ph4-l ph3 pt5-l pt4 pb5">
+    <div>
+      {{ page.content }}
+    </div>
+    {% if page.partnersindex %}
+    <div class="cardgrid flex-ns flex-wrap-ns justify-between-m">
+      {% for partnerpage in pages if partnerpage.partner %}
+      <div class="br3 shadowbox-blog hover-card relative dt-ns mv3 mh2 bg-white w-card">
+        <button class="accordion partner pointer pa3 w-100 bg-white outline-transparent bn t-all-5">
+          <img src="{{ SITEURL }}/about-us/partners/{{partnerpage.partnerlogo}}.png" alt="{{partnerpage.alt}}">
+          <br>
+          <div class="fakebt absolute bottom-0 right-0 left-0 fw3 fadein">
+            Read More <br>
+            <img loading="lazy" class="arrow w1 pv3" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/angle-arrow-down.svg"
+                  alt="Fluid Arrow">
+          </div>
+        </button>
+        <div class="panel pv0 ph2 bg-white t-all-5 overflow-hidden ph4">
+          {{ partnerpage.content }}
+        </div>
+        <button class="readmore tc fw3 w-100 pointer bn bg-white outline-transparent dn">
+          Read More <br>
+          <img loading="lazy" class="arrow w1 pv3" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/angle-arrow-down.svg"
+               alt="Fluid Arrow">
+        </button>
+      </div>
+      {% endfor %}
+    </div>
+    <div>
+      <p>If you are interested in partnering with <code>Fluid Attacks</code>,
+      please submit the following <a href="{{ SITEURL }}/contact-us/">Contact Form</a>.</p>
+      </div>
+    {% endif %}
+
+    {% if page.certificationsindex %}
+    <div class="cardgrid flex-ns flex-wrap-ns justify-between-m">
+      {% for certificationspage in pages if certificationspage.certification %}
+      <div class="br3 shadowbox-blog hover-card relative dt-ns mv3 mh2 bg-white w-card">
+        <button class="accordion pointer pa3 w-100 bg-white outline-transparent bn t-all-5">
+          <img src="{{ SITEURL }}/about-us/certifications/{{certificationspage.certificationlogo}}.png" alt="{{certificationspage.alt}}">
+          <h4>
+            {{ certificationspage.title }}
+          </h4>
+          <div class="fakebt fw3 fadein">
+            Read More <br>
+            <img loading="lazy" class="arrow w1 pv3" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/angle-arrow-down.svg"
+                alt="Fluid Arrow">
+          </div>
+        </button>
+        <div class="panel pv0 ph2 bg-white t-all-5 overflow-hidden ph4">
+          {{ certificationspage.content }}
+        </div>
+        <button class="readmore tc fw3 w-100 pointer bn bg-white outline-transparent dn">
+          Read More <br>
+          <img loading="lazy" class="arrow w1 pv3" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/angle-arrow-down.svg"
+               alt="Fluid Arrow">
+        </button>
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %}
+  </div>
+</div>
+
+{% assets output="static/js/cardHover.min.js", "js/tmp/cardHover.min.js" %}
+<script type="text/javascript"
+        src="{{ SITEURL }}/{{ ASSET_URL }}"></script>
+{% endassets %}
+{% endblock content %}

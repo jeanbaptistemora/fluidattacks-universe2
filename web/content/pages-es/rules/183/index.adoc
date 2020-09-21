@@ -1,0 +1,25 @@
+:slug: rules/183/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la importancia de eliminar de manera segura, todos aquellos datos del sistema cuyo contenido sea información sensible, de tal manera, que éstos no puedan ser recuperados.
+:keywords: Requerimiento, Seguridad, Datos sensibles, Eliminar, Recuperar, Eliminación segura.
+:rules: yes
+
+= REQ.183 Eliminación segura de datos
+
+== Requisito
+
+El sistema debe soportar la eliminación segura de datos sensibles
+cuando estos ya no son requeridos,
+de tal forma que no puedan ser recuperados.
+
+== Referencias
+
+. [[r1]] link:https://www.owasp.org/index.php/ASVS_V9_Data_Protection[+OWASP-ASVS v3.1-9.6+]
+Verificar que exista un método para remover todos los datos sensibles
+de la aplicación cuando ya no sean necesarios
+al final de la política de retención.
+
+. [[r2]] link:https://www.owasp.org/index.php/ASVS_V9_Data_Protection[+OWASP-ASVS v3.1-9.11+]
+Verificar que la información mantenida en memoria
+sea sobreescrita con ceros cuando ya no sea necesaria,
+para mitigar ataques de vaciado de memoria.

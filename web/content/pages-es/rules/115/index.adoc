@@ -1,0 +1,12 @@
+:slug: rules/115/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados con la administración de correos electrónicos en la empresa. En este requerimiento se establece la importancia de filtrar contra posible spam tanto a correos salientes como entrantes.
+:keywords: Entrada, Correo, Salida, Filtro, Spam, Bandeja.
+:rules: yes
+
+= REQ.115 Filtrar correos maliciosos
+
+== Requisito
+
+Los correos electrónicos de entradas
+y salida deben pasar por un filtro +anti-spam+.

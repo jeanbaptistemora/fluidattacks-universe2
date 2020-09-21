@@ -1,0 +1,13 @@
+:slug: rules/241/
+:category: development
+:description: This requirement establishes the importance of defining requirements that will be checked according to the organization's security criteria.
+:keywords: Requirement, Security, Criteria, Requirements, Development, Process, Rules, Ethical Hacking, Pentesting
+:rules: yes
+:extended: yes
+
+= R241. Define security requirements
+
+== Requirement
+
+The organization must define the information security criteria requirements
+that apply to the system.

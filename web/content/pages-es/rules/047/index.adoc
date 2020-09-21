@@ -1,0 +1,57 @@
+:slug: rules/047/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestion de archivos dentro de la organización. Por lo tanto, en este requerimiento se recomienda que el sistema realice monitoreo a todos aquellos archivos considerados críticos dentro de la organización.
+:keywords: Sistema, Archivos, Monitoreo, Integridad, Seguridad, Requerimiento.
+:rules: yes
+
+= REQ.047 Clasificar archivos críticos para monitoreo
+
+== Requisito
+
+Se debe establecer los archivos críticos para cada sistema
+sobre los que se debe ejercer monitoreo a su integridad.
+
+== Descripción
+
+Cada sistema tiene archivos
+que son necesarios para su operación
+(archivos maestros, archivos de configuración, entre otros),
+se debe identificar cuáles son estos archivos
+y establecer herramientas que monitoreen
+permanentemente las actividades realizadas sobre estos.
+
+== Implementación
+
+Cada sistema cuenta con una estructura de archivos
+que contiene información sobre su configuración y operación,
+si estos archivos se modifican
+pueden alterar la ejecución del sistema
+y por esta razón
+es importante establecer un monitoreo permanente de la integridad de estos.
+El monitoreo debería notificar al administrador del sistema
+los cambios realizados de forma inmediata,
+y habilitar un registro de las actividades realizadas.<<r1,^[1]^>>
+
+== Ataques
+
+. Ocurre un incidente en el cual
+se identifica una modificación de archivos críticos,
+sin embargo no se logró detectar con anticipación
+al no contar con una herramienta
+que registre las modificaciones en los archivos comprometidos.
+
+== Atributos
+
+* Capa: Aplicación.
+* Activo: Archivos.
+* Alcance: Integridad.
+* Fase: Operación.
+* Tipo de Control: Recomendación.
+
+== Referencias
+
+. [[r1]] link:../046/[REQ.046 Gestionar integridad de archivos críticos].
+
+. [[r2]] link:https://www.owasp.org/index.php/ASVS_V1_Architecture[`OWASP-ASVS v3.1-1.4`]
+Los datos considerados sensibles en el contexto de la aplicación
+deben ser claramente identificados.

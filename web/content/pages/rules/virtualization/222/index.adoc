@@ -1,0 +1,11 @@
+:slug: rules/222/
+:category: virtualization
+:description: This requirement states that the organization must not allow a virtual machine to access any resources of the host machine.
+:keywords: Virtual Machine, Information, Host, Requirement, Security, Access, Rules, Ethical Hacking, Pentesting
+:rules: yes
+
+= R222. Deny access to the host machine
+
+== Requirement
+
+A virtual machine must not have access to information of the +host+ machine.

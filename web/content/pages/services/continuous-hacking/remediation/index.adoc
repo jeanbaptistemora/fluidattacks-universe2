@@ -1,0 +1,16 @@
+:slug: services/continuous-hacking/remediation/
+:description: Fluid Attacks always allows you to check whether all vulnerabilities found in your project have been closed or remediated.
+:keywords: Fluid Attacks, Services, Continuous Hacking, Ethical Hacking, Pentesting, Findings, Security, Vulnerability, Remediation
+:nextpage: services/continuous-hacking/critical-info/
+:category: continuous-hacking
+:section: Continuous Hacking
+:template: services/feature
+
+= Remediation
+
+`Fluid Attacks` performs multiple finding validations.
+You can check at any time if any of the findings have been closed.
+To perform remediation validation:
+First, you must define the treatment used to remediate the vulnerability.
+Then, you must request, through link:../../../products/integrates/[*Integrates*], a finding validation.
+You can always resolve any doubts by contacting `Fluid Attacks` directly.

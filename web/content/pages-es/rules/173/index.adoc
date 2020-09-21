@@ -1,0 +1,171 @@
+:slug: rules/173/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados al código fuente que compone a las aplicaciones de la compañía. En este requerimiento se establece la importancia de descartar la información potencialmente insegura recibida por entradas de la aplicación.
+:keywords: Requerimiento, Seguridad, Código Fuente, Descartar, Información, Insegura.
+:rules: yes
+
+= REQ.173 Descartar entradas inseguras
+
+== Requisito
+
+El sistema debe descartar toda la información
+potencialmente insegura que sea recibida por entradas de datos.
+
+== Descripción
+
+Los artefactos tecnológicos y en particular las aplicaciones
+deben ser capaces de identificar la información ingresada o recibida
+que no corresponda con sus propósitos operativos,
+con el fin de darle un tratamiento adecuado
+(por ejemplo, rechazándola y/o generando alertas oportunas)
+y que no impacte negativamente la operación.
+Ejemplos típicos de esto son:
+sentencias +SQL+, código +JavaScript+, comandos de sistema operativo
+o consultas +LDAP+ en campos y parámetros de aplicaciones;
+texto con caracteres especiales no requeridos
+y sus combinaciones en campos y parámetros;
+archivos manipulados en estructura y extensión
+a ser cargados en una aplicación o artefacto de tecnología,
+y en general cualquier tipo de información
+que no corresponda con el formato solicitado.
+Una gran cantidad de tráfico entrante a un artefacto tecnológico
+puede ser considerado igual (que no corresponde con los propósitos operativos)
+e igualmente debe ser sujeto de controles y un adecuado tratamiento.
+
+== Implementación
+
+. Preferir listas blancas sobre negras:
+Al utilizar este principio la implementación del control
+definirá que todo será rechazado sino esta explícitamente aprobado,
+por ende descarta todo el universo posible
+y obliga a la enumeración de lo estrictamente permitido.
+Por ejemplo, solo permitir: +a-z+, +A-Z+ y +0-9+.
+
+. Utilizar manchado de variables:
+De ser soportado, lenguaje y compilador
+puede ayudar a detectar variables provenientes del exterior
+que no pasan por un filtro de validación.
+Para ello se pueden utilizar técnicas que manchen dichas variables
+y compiladores o pre-procesadores ayuden a detectar
+que ellas no están siendo validadas.
+
+. Validación de entrada no solo de usuario:
+Cualquier entrada proveniente del exterior
+debe ser considerada como no confiable,
+es decir, no solo el usuario
+esta en capacidad de ingresar información incorrecta
+y potencialmente peligrosa,
+también sistemas externos pueden ser comprometidos
+y por ende esta información debe ser validada.
+
+== Ataques
+
+. Inyectar software o código malicioso.
+. Indisponer un sistema por inundación de registros.
+. Cross-Site Scripting (+XSS+).
+. Inyección de comandos +OS+.
+. Inyección +SQL+.
+. Inyección +LDAP+.
+. Redireccionar a páginas no seguras.
+
+== Atributos
+
+* Capa: aplicación
+* Activo: código fuente
+* Alcance: madurez
+* Fase: construcción
+* Tipo control: recomendación.
+
+== Referencias
+
+. [[r1]] link:https://www.owasp.org/index.php/Top_10_2013-A1-Injection[+A1+ Injection +OWASP+ - Top 10 2013].
+
+. [[r2]] link:https://www.owasp.org/index.php/Top_10_2013-A3-Cross-Site_Scripting_(XSS)[A3 Cross-site Scripting (+XSS+) +OWASP+ - TOP 10 2013].
+
+. [[r3]] link:https://www.owasp.org/index.php/Top_10_2013-A10-Unvalidated_Redirects_and_Forwards[+A10+ Unvalidated Redirects and Forwards +OWASP+ - TOP 10 2013].
+
+. [[r4]] link:https://cwe.mitre.org/data/definitions/20.html[​+CWE-20+: Improper Input Validation].
+
+. [[r5]] link:https://cwe.mitre.org/data/definitions/74.html[+CWE-74+: Injection].
+
+. [[r6]] link:https://cwe.mitre.org/data/definitions/78.html[+CWE-78+: OS Command Injection].
+
+. [[r7]] link:https://cwe.mitre.org/data/definitions/79.html[​+CWE-79+: Cross-site Scripting].
+
+. [[r8]] link:https://cwe.mitre.org/data/definitions/80.html[+CWE-80+: Basic +XSS+].
+
+. [[r9]] link:https://cwe.mitre.org/data/definitions/89.html[+CWE-89+: +SQL+ Injection].
+
+. [[r10]] link:https://cwe.mitre.org/data/definitions/89.html[Taint checking - Wikipedia].
+
+. [[r11]] link:https://www.owasp.org/index.php/ASVS_V5_Input_validation_and_output_encoding[+OWASP-ASVS v3.1-5.10+]
+Verificar que todas las consultas a bases de datos estén protegidas
+por el uso de consultas parametrizadas
+o el uso adecuado de +ORM+ para evitar inyecciones +SQL+.
+
+. [[r12]] link:https://www.owasp.org/index.php/ASVS_V5_Input_validation_and_output_encoding[+OWASP-ASVS v3.1-5.11+]
+Verificar que la aplicación no sea susceptible a inyección +LDAP+
+o que existan controles de seguridad que la prevengan.
+
+. [[r13]] link:https://www.owasp.org/index.php/ASVS_V5_Input_validation_and_output_encoding[+OWASP-ASVS v3.1-5.12+]
+Verificar que la aplicación no sea susceptible a inyección de comandos +OS+
+o que existan controles de seguridad que la prevengan.
+
+. [[r14]] link:https://www.owasp.org/index.php/ASVS_V5_Input_validation_and_output_encoding[+OWASP-ASVS v3.1-5.13+]
+Verificar que la aplicación no sea susceptible
+a ataques de inclusión de archivo remoto (+RFI+)
+o inclusión de archivo local (+LFI+)
+cuando el contenido utilizado incluye una ruta a un archivo.
+
+. [[r15]] link:https://www.owasp.org/index.php/ASVS_V5_Input_validation_and_output_encoding[+OWASP-ASVS v3.1-5.14+]
+Verificar que la aplicación no sea susceptible
+a ataques de inyección +XPath+ o +XML+.
+
+. [[r16]] link:https://www.owasp.org/index.php/ASVS_V5_Input_validation_and_output_encoding[+OWASP-ASVS v3.1-5.15+]
+Verificar que todas las variables de tipo +string+ colocadas en el +HTML+
+u otras partes del código del lado del cliente
+sean apropiadamente codificadas contextualmente
+de forma manual, o que utilicen plantillas que automáticamente
+las codifique contextualmente para garantizar que la aplicación
+no sea susceptible a ataques reflejados o ataques +XSS+ basados en +DOM+.
+
+. [[r17]] link:https://www.owasp.org/index.php/ASVS_V5_Input_validation_and_output_encoding[+OWASP-ASVS v3.1-5.17+]
+Verificar que la aplicación tenga defensas
+contra ataques de contaminación de parámetros +HTTP+,
+particularmente si el +framework+ de la aplicación
+no hace distinción de la fuente de los parámetros solicitados
+(+GET+, +POST+, +cookies+, encabezados, ambientes, etc.)
+
+. [[r18]] link:https://www.owasp.org/index.php/ASVS_V5_Input_validation_and_output_encoding[+OWASP-ASVS v3.1-5.19+]
+Verificar que todas las entradas de datos sean validadas,
+no solo los campos de formularios +HTML+
+sino todas las fuentes de entrada, como llamados a +REST+,
+parámetros de consultas, encabezados +HTTP+, +cookies+,
+archivos +batch+, fuentes +RSS+, etc;
+utilizando validación positiva (lista blanca),
+luego formas de validación menores como la lista gris
+(eliminar cadenas maliciosas conocidas),
+o rechazando entradas maliciosas (lista negra).
+
+. [[r19]] link:https://www.owasp.org/index.php/ASVS_V5_Input_validation_and_output_encoding[+OWASP-ASVS v3.1-5.20+]
+Verificar que los datos estructurados estén fuertemente tipados
+y validados con un esquema definido que incluya
+caracteres permitidos, longitud y patrones
+(por ejemplo los números de tarjeta de crédito o teléfonos,
+o validando que dos campos relacionados sean razonables, por ejemplo
+validar que coincidan los códigos postales).
+
+. [[r20]] link:https://www.owasp.org/index.php/ASVS_V5_Input_validation_and_output_encoding[+OWASP-ASVS v3.1-5.21+]
+Verificar que los datos no estructurados estén desinfectados
+para mejorar las medidas de seguridad genéricas
+como caracteres permitidos y longitud,
+y caracteres potencialmente peligrosos en un contexto dado
+deben eliminarse (por ejemplo nombre naturales con +Unicode+
+o apóstrofes como ねこ u O'Hara).
+
+
+. [[r21]] link:https://www.owasp.org/index.php/ASVS_V5_Input_validation_and_output_encoding[+OWASP-ASVS v3.1-5.22+]
+Verificar que toda entrada +HTML+ no confiable
+de editores como +WYSIWYG+ o similares
+sea desinfectada con una librería de desifección +HTML+
+o una característica de un +framework+.

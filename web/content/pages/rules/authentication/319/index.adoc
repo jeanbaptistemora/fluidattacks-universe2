@@ -1,0 +1,73 @@
+:slug: rules/319/
+:category: authentication
+:description: This requirement states that all system authentication options must have the same security control strength.
+:keywords: Control Strength, Identity, Authentication, Access, ASVS, CWE, OWASP, PCI DSS, Rules, Ethical Hacking, Pentesting
+:rules: yes
+
+= R319. Make authentication options equally secure
+
+== Requirement
+
+All of the system's authentication pathways and identity management APIs
+must be equally secure.
+
+== Description
+
+Some systems offer more than one option to authenticate their users or verify
+their identity.
+All of these options must have the same security control strength,
+so that there is no weaker alternative.
+
+== Findings
+
+* [inner]#link:/web/findings/006/[F006. Authentication mechanism absence or evasion]#
+
+* [inner]#link:/web/findings/015/[F015. Insecure authentication method]#
+
+* [inner]#link:/web/findings/056/[F056. Anonymous connection]#
+
+* [inner]#link:/web/findings/081/[F081. Lack of two-factor authentication]#
+
+== References
+
+. [[r1]] link:https://cwe.mitre.org/data/definitions/287.html[CWE-287: Improper Authentication].
+When an actor claims to have a given identity,
+the software does not prove or insufficiently proves that the claim is correct.
+
+. [[r2]] link:https://cwe.mitre.org/data/definitions/306.html[CWE-306: Missing Authentication for Critical Function].
+The software does not perform any authentication for functionality that
+requires a provable user identity or consumes a significant amount of
+resources.
+
+. [[r3]] link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A2-Broken_Authentication[OWASP Top 10 A2:2017-Broken Authentication].
+Application functions related to authentication and session management are
+often implemented incorrectly,
+allowing attackers to compromise passwords, keys, or session tokens,
+or to exploit other implementation flaws to assume other users' identities
+temporarily or permanently.
+
+. [[r4]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V1.2 Authentication Architectural Requirements.(1.2.4)]
+Verify that all authentication pathways and identity management APIs implement
+consistent authentication security control strength,
+such that there are no weaker alternatives per the risk of the application.
+
+. [[r5]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V2.5 Credential Recovery Requirements.(2.5.7)]
+Verify that if *OTP* or multi-factor authentication factors are lost,
+evidence of identity proofing is performed at the same level as during
+enrollment.
+
+. [[r6]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V11.1 Business Logic Security Requirements.(11.1.1)]
+Verify the application will only process business logic flows for the same user
+in sequential step order and without skipping steps.
+
+. [[r7]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V14.5 Validate HTTP Request Header Requirements.(14.5.4)]
+Verify that *HTTP* headers added by a trusted proxy or *SSO* devices,
+such as a bearer token, are authenticated by the application.
+
+. [[r8]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 6.5.10]
+Address common coding vulnerabilities in software-development processes such as
+broken authentication and session management.

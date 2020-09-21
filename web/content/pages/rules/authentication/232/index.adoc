@@ -1,0 +1,12 @@
+:slug: rules/232/
+:category: authentication
+:description: This requirement states that when handling critical information, the identity of the equipment from which a user is being authenticated must be required.
+:keywords: System, Information, Business, Identification, Equipment, Authentication, Rules, Ethical Hacking, Pentesting
+:rules: yes
+
+= R232. Require equipment identity
+
+== Requirement
+
+A system with critical information must require the identification of the
+equipment from which a user or system is authenticated.

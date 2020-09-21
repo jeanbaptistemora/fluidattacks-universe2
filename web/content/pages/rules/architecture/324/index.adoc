@@ -1,0 +1,94 @@
+:slug: rules/324/
+:category: architecture
+:description: This requirement establishes the importance of controlling redirects as they may lead to malicious sites.
+:keywords: Control, Redirect, External, Site, ASVS, CWE, ISO, Rules, Ethical Hacking, Pentesting
+:rules: yes
+
+= R324. Control redirects
+
+== Requirement
+
+Redirects must be controlled,
+especially when they depend on external input.
+
+== Description
+
+Systems must guarantee that all redirects lead to a controlled or trusted site.
+In general, redirects based on input data should be avoided as they could
+enable *phishing* attacks.
+If they are required, they should be controlled so that users are only
+redirected to trusted sites.
+
+== Findings
+
+* [inner]#link:/web/findings/023/[F023. Uncontrolled external site redirect]#
+
+* [inner]#link:/web/findings/097/[F097. Reverse tabnabbing]#
+
+* [inner]#link:/web/findings/100/[F100. Server-side request forgery (SSRF)]#
+
+== References
+
+. [[r1]] link:https://cwe.mitre.org/data/definitions/601.html[CWE-601: URL Redirection to Untrusted Site ('Open Redirect')].
+A web application accepts a user-controlled input that specifies a link to an
+external site,
+and uses that link in a Redirect.
+This simplifies *phishing* attacks.
+
+. [[r2]] link:https://cwe.mitre.org/data/definitions/602.html[CWE-602: Client-Side Enforcement of Server-Side Security].
+The software is composed of a server that relies on the client to implement a
+mechanism that is intended to protect the server.
+
+. [[r3]] link:https://cwe.mitre.org/data/definitions/918.html[CWE-918: Server-Side Request Forgery (SSRF)].
+The web server receives a URL or similar request from an upstream component
+and retrieves the contents of this URL,
+but it does not sufficiently ensure that the request is being sent to the
+expected destination.
+
+. [[r4]] link:https://cwe.mitre.org/data/definitions/1022.html[CWE-1022: Use of Web Link to Untrusted Target with window.opener Access].
+The software does not restrict or incorrectly restricts access to a resource
+from an unauthorized actor.
+
+. [[r5]] link:https://www.iso.org/obp/ui/#iso:std:54534:en[ISO 27001:2013. Annex A - 14.1.3]
+Protect information included in application services transactions to avoid
+partial transmission, improper routing, unauthorized message modifications,
+unauthorized disclosure and unauthorized message duplication or replay.
+
+. [[r6]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V1.4 Access Control Architectural Requirements.(1.4.1)]
+Verify that trusted enforcement points such as at access control gateways,
+servers, and serverless functions enforce access controls.
+Never enforce access controls on the client.
+
+. [[r7]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V1.5 Input and Output Architectural Requirements.(1.5.3)]
+Verify that input validation is enforced on a trusted service layer.
+
+. [[r8]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V4.1 General Access Control Design.(4.1.1)]
+Verify that the application enforces access control rules on a trusted service
+layer,
+especially if client-side access control is present and could be bypassed.
+
+. [[r9]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V5.1 Input Validation Requirements.(5.1.5)]
+Verify that URL redirects and forwards only allow whitelisted destinations,
+or show a warning when redirecting to potentially untrusted content.
+
+. [[r10]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V5.2 Sanitization and Sandboxing Requirements.(5.2.6)]
+Verify that the application protects against *SSRF* attacks,
+by validating or sanitizing untrusted data or *HTTP* file metadata,
+such as filenames and URL input fields,
+or using whitelisting of protocols, domains, paths and ports.
+
+. [[r11]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V12.6 SSRF Protection Requirements.(12.6.1)]
+Verify that the web or application server is configured with a whitelist of
+resources or systems to which the server can send requests or load data/files
+from.
+
+. [[r12]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V14.4 HTTP Security Headers Requirements.(14.4.6)]
+Verify that a suitable "**Referrer-Policy**" header is included,
+such as "**no-referrer**" or "**same-origin**".

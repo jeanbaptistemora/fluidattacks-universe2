@@ -1,0 +1,20 @@
+:slug: rules/151/
+:category: cryptography
+:description: This requirement establishes the importance of using asymmetric cryptography with different keys for encryption and signatures.
+:keywords: Security, Asymmetric, Encryption, Keys, Signatures, ASVS, Rules, Ethical Hacking, Pentesting
+:rules: yes
+
+= R151. Separate keys for encryption and signatures
+
+== Requirement
+
+System must use asymmetric cryptography with separated keys
+for encryption and signatures.
+
+== References
+
+. [[r1]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V1.6 Cryptographic Architectural Requirements.(1.6.1)]
+Verify that there is an explicit policy for management of cryptographic keys
+and that a cryptographic key lifecycle follows a key management standard such
+as **NIST SP 800-57**.

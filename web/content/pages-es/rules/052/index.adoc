@@ -1,0 +1,20 @@
+:slug: rules/052/
+:category: rules
+:description: En el presente documento se detallan los lineamientos o requerimientos de seguridad a seguir relacionados al uso y gestión de componentes de un sistema. Por lo tanto, en todo sistema, los componentes críticos para la seguridad deben ser identificados.
+:keywords: Componente, Identificar, Sistema, Crítico, Requerimiento, Seguridad.
+:rules: yes
+
+= REQ.052 Identificar componentes críticos
+
+== Requisito
+
+Los componentes críticos para la seguridad deben identificarse (+TCB+).
+
+== Referencias
+
+. [[r1]] link:https://www.owasp.org/index.php/ASVS_V1_Architecture[+OWASP-ASVS v3.1-1.1+]
+Todos los componentes que se necesitan son conocidos e identificados.
+
+. [[r2]] link:https://www.owasp.org/index.php/ASVS_V1_Architecture[+OWASP-ASVS v3.1-1.4+]
+Los datos considerados sensibles en el contexto de la aplicación
+deben ser claramente identificados.

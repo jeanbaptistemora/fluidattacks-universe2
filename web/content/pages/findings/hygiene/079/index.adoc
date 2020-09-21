@@ -1,0 +1,17 @@
+:slug: findings/079/
+:description: This finding presents information about vulnerabilities arising from directly including dependencies in repositories.
+:keywords: Non-upgradable, Upgrade, Update, Dependency, Library, Repository
+:findings: yes
+:type: hygiene
+
+= F079. Non-upgradable dependencies
+
+== Description
+
+The application's dependencies are not explicitly declared in the source code
+(name and specific version).
+They are directly included in the source code repositories.
+
+== Rules
+
+. [[r1]] [inner]#link:/web/rules/302/[R302. Declare dependencies explicitly]#

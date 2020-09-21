@@ -1,0 +1,12 @@
+:slug: rules/204/
+:category: physical
+:description: This requirement establishes that any screen presented to the user must only allow perpendicular viewing.
+:keywords: Device, Screen, User, Viewing, Perpendicular, Security, Rules, Ethical Hacking, Pentesting
+:rules: yes
+:extended: yes
+
+= R204. Allow perpendicular viewing
+
+== Requirement
+
+Screens exposed to the user must only allow perpendicular viewing.

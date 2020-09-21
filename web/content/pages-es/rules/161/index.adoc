@@ -1,0 +1,74 @@
+:slug: rules/161/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados al código fuente que compone a las aplicaciones de la compañía. En este requerimiento se establece la importancia de definir opciones por defecto seguras cuando se utilizan condicionales.
+:keywords: Requerimiento, Seguridad, Código Fuente, Condicionales, Seguros, Default.
+:rules: yes
+
+= REQ.161 Opciones por defecto seguras
+
+== Requisito
+
+El código debe definir opciones por defecto seguras
+que garanticen fallos seguros en la aplicación.
+(+try+, +catch/except; default+ en +switches+)
+
+== Descripción
+
+La organización debe asegurarse que los sistemas propios y los de terceros
+sean seguros y cumplan en su totalidad las funciones
+para los que fueron implementados,
+para esto se deben implementar líneas base
+desde la fase de diseño y desarrollo
+para evitar malas prácticas en los ciclos de desarrollo
+como el uso de condicionales sin la opción por defecto,
+que pueden llegar a causar comportamientos inesperados en el sistema.
+
+El código fuente de un sistema tiende a ser más seguro
+cuando desde el inicio del desarrollo
+se implementan buenas prácticas de programación
+y con esto garantizar la portabilidad y mantenimiento de la aplicación.
+Si un sistema es complejo de mantener
+es muy probable que se encuentren vulnerabilidades en el código fuente.
+
+== Implementación
+
+. Definición de líneas base desde la fase de diseño/arquitectura
+para garantizar las buenas prácticas en el desarrollo del código fuente.
+
+. En el ciclo de vida del desarrollo se debe designar
+un responsable de la revisión del producto desde el código fuente
+hasta el comportamiento del sistema
+y de esa forma evitar comportamientos inesperados
+en la fase final de la implementación.
+
+. Analizadores de calidad y vulnerabilidades de código fuente:
+Son herramientas que a partir de analizadores léxicos y sintácticos
+revisan el código fuente, lo procesan y realizan sugerencias de mejora
+o resaltan posibles vulnerabilidades en el desarrollo.
+El uso de este tipo de herramientas durante el desarrollo
+ayudan a mejorar el redimiendo del código,
+detectar excesiva complejidad de programación
+y suponer un problema de seguridad que manualmente el desarrollador
+puede entrar a verificar y descartar si es un falso positivo.
+
+== Ataques
+
+. Provocar comportamientos inesperados en la aplicación.
+. Conocer información confidencial a partir de errores inesperados.
+
+== Atributos
+
+* Capa: Capa de Aplicación
+* Activo: Código fuente
+* Alcance: Madurez
+* Fase: Construcción
+* Tipo Control: Recomendación
+
+== Referencias
+
+. [[r1]] link:https://cwe.mitre.org/data/definitions/474.html[+CWE-474+: Use of Function with Inconsistent Implementations].
+. [[r2]] link:https://cwe.mitre.org/data/definitions/398.html[+CWE-398+: Indicator of Poor Code Quality].
+. [[r3]] link:https://cwe.mitre.org/data/definitions/388.html[+CWE-388+: Error Handling].
+. [[r4]] link:https://standards.ieee.org/findstds/standard/1028-2008.html[+IEEE+: Standard for Software Reviews and Audits].
+. [[r5]] link:https://www.owasp.org/index.php/ASVS_V4_Access_Control[+OWASP-ASVS v3.1-4.8+]
+Verificar que los controles de acceso fallen de manera segura.

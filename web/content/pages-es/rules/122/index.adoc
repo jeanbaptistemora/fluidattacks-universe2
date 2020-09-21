@@ -1,0 +1,12 @@
+:slug: rules/122/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados con la administración de correos electrónicos en la empresa. En este requerimiento se recomienda que se valide que el correo electrónico en cuestión pertenezca a quien realidad dice ser.
+:keywords: Persona, Correo, Garantizar, Propietario, Seguridad, Electrónico.
+:rules: yes
+
+= REQ.122 Validar propietario de correo
+
+== Requisito
+
+El sistema debe garantizar que el correo electrónico declarado
+realmente pertenece a la persona en cuestión.

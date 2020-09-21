@@ -1,0 +1,64 @@
+:slug: rules/339/
+:category: files
+:description: This requirement states that the system must not store user-uploaded files or files containing sensitive information in the web root.
+:keywords: Web, Root, File, Directory, ASVS, CWE, Rules, Ethical Hacking, Pentesting
+:rules: yes
+
+= R339. Avoid storing sensitive files in the web root
+
+== Requirement
+
+The system should store neither user-uploaded files nor files containing
+sensitive information in the **web root**.
+
+== Description
+
+The **web root** is the topmost directory on a web server.
+If there is no sufficient access control,
+any file in this directory will be publicly available.
+Therefore, user-uploaded files and files containing sensitive information
+should not be stored in it.
+
+== References
+
+. [[r1]] link:https://cwe.mitre.org/data/definitions/219.html[CWE-219: Storage of File with Sensitive Data Under Web Root].
+The application stores sensitive data under the web document root with
+insufficient access control,
+which might make it accessible to untrusted parties.
+
+. [[r2]] link:https://cwe.mitre.org/data/definitions/552.html[CWE-552: Files or Directories Accessible to External Parties].
+The product makes files or directories accessible to unauthorized actors,
+even though they should not be.
+
+. [[r3]] link:https://cwe.mitre.org/data/definitions/548.html[CWE-548: Exposure of Information Through Directory Listing].
+A directory listing is inappropriately exposed,
+yielding potentially sensitive information to attackers.
+
+. [[r4]] link:https://cwe.mitre.org/data/definitions/922.html[CWE-922: Insecure Storage of Sensitive Information].
+The software stores sensitive information without properly limiting read or
+write access by unauthorized actors.
+
+. [[r5]] link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A3-Sensitive_Data_Exposure[OWASP Top 10 A3:2017-Sensitive Data Exposure].
+Many web applications and **API**s do not properly protect sensitive data,
+such as financial, healthcare, and *PII*.
+Attackers may steal or modify such weakly protected data to conduct credit card
+fraud, identity theft, or other crimes.
+Sensitive data may be compromised without extra protection,
+such as encryption at rest or in transit, and requires special precautions when
+exchanged with the browser.
+
+. [[r6]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V1.12 Secure File Upload Architectural Requirements.(1.12.1)]
+Verify that user-uploaded files are stored outside of the **web root**.
+
+. [[r7]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V4.3 Other Access Control Considerations.(4.3.2)]
+Verify that directory browsing is disabled unless deliberately desired.
+Additionally, applications should not allow discovery or disclosure of file or
+directory metadata,
+such as Thumbs.db, .DS_Store, .git or .svn folders.
+
+. [[r8]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V12.4 File Storage Requirements.(12.4.1)]
+Verify that files obtained from untrusted sources are stored outside the
+**web root**, with limited permissions, preferably with strong validation.

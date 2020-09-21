@@ -1,0 +1,17 @@
+:slug: rules/092/
+:category: certificates
+:description: This requirement establishes that certificates, to use within the organization for external apps, must be signed by valid external certification bodies.
+:keywords: Certificate, Certification Bodies, Applications, Signature, Requirement, Security, Rules, Ethical Hacking, Pentesting
+:rules: yes
+
+= R092. Use externally signed certificates
+
+== Requirement
+
+The organization must use certificates
+signed by valid external certification authorities
+when these are for external applications.
+
+== Findings
+
+* [inner]#link:/web/findings/049/[F049. Insecure digital certificates]#

@@ -1,0 +1,260 @@
+{% extends "base.html" %}
+{% block meta %}
+<meta name="description"
+      content="Integrates is a platform
+      that provides information such as security findings,
+      criticality, occurrences, among other data
+      to all project stakeholders.">
+<meta name="keywords"
+      content="Fluid Attacks, Products, Integrates, Stakeholders,
+      Security, Red Team Platform, Pentesting, Ethical Hacking">
+{% endblock meta %}
+
+{% block title %}
+  {% set TITLE = 0 %}
+  {% if DEFAULT_LANG == "en" %}
+    {% if page.title|length < 23 %}
+{{ page.title }} | {{ SITENAME }}
+      {% set TITLE = 1 %}
+    {% endif %}
+  {% elif DEFAULT_LANG == "es" %}
+    {% if page.title|length < 11 %}
+{{ page.title }} | {{ SITENAME }}
+      {% set TITLE =1 %}
+    {% endif %}
+  {% endif %}
+  {% if TITLE == 0 %}
+{{ page.title }} | {{ AUTHOR }}
+  {% endif %}
+{% endblock title %}
+
+{% block breadcrumb%}
+  <!-- navcontent-container -->
+<div class="pv0 mt-body">
+  <!-- navcontent-info -->
+  <div class="df ma-auto bg-fluid-black">
+    <div class="roboto f6-l f7 tl mw-1366 ph-body ml-auto mr-auto">
+      <ul class="dib list w-auto ph0">
+        <li class="dib mt0">
+          <a class="c-fluid-gray hover-white no-underline"
+             href="{{ SITEURL }}/">
+            Home
+          </a>
+          <span class="c-fluid-gray v-mid b"> / </span>
+        </li>
+        <li class="dib mt0">
+          <a class="c-fluid-gray hover-white no-underline"
+             href="{{ SITEURL }}/products/">
+            Products
+          </a>
+          <span class="c-fluid-gray v-mid b"> / </span>
+        </li>
+        <li class="dib mt0">
+          <a class="white hover-white no-underline"
+             href=".">
+            Integrates
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+{% endblock breadcrumb %}
+
+{% block header %}
+<div
+  class="integrates-bg bg-banner-sz coverm cover-s banner-height justify-center items-center flex bg-center">
+  <div class="w-100 center">
+    <h1 class="white fw7 f1 neue tc f-5-l ma0">
+      {{ page.title }}
+    </h1>
+  </div>
+</div>
+{% endblock header %}
+
+{% block content %}
+<div class="tc pt3">
+  <ul class="pl0">
+    <li class="dib pr4-l pr3-m pr2">
+      <img loading="lazy" class="w1 h1 nbs"
+        src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/line-menu.svg"
+        alt="Young hacker smiling">
+      <a href="{{ SITEURL }}/products/integrates/"
+         class="c-lightblack f4 roboto fw4 pointer no-underline">
+        1. Integrates
+      </a>
+    </li>
+    <li class="dib pr4-l pr3-m pr2">
+      <a href="{{ SITEURL }}/products/drills/"
+      class="c-fluid-gray f4 roboto no-underline fw3 hv-fluid-bk pointer link mr3">
+        2. Drills
+      </a>
+    </li>
+    <li class="dib">
+      <a href="{{ SITEURL }}/products/forces/"
+      class="c-fluid-gray f4 roboto no-underline fw3 hv-fluid-bk pointer link mr3">
+        3. Forces
+      </a>
+    </li>
+  </ul>
+</div>
+<div class="tc roboto w-100 center c-lightblack pb6">
+  <p class="tl fw1 w-40-l w-50-m w90-s center f3 lh-2">
+    <b class="fw7">Integrates</b> is a platform which allows control of
+    the vulnerability testing and remediation processes.
+    In <b class="fw7">Integrates</b>, every project stakeholder
+    (e.g., developers, technicians, security analysts and managers) can interact
+    and access information about all security issues and manage them.
+    Through this platform, an internal or external security team communicates all
+    security risks identified in a hacking project so that they can be remedied
+    quickly, efficiently and effectively.
+  </p>
+  <div class="tc pt4">
+    <a class="roboto fw1 f5 no-underline c-fluid-bk hv-fluid-dkred"
+       href="{{ SITEURL }}/contact-us/">
+      <span class="br2 bannerbt hv-bt-fluid-rd bt-pd contact-pd bt-trans white b roboto pointer mt2">
+          Get a Quote
+      </span>
+    </a>
+  </div>
+</div>
+<div class="w-100 center">
+  <h1 class="c-lightblack b f-benefits roboto tc ma0">
+    Key Benefits
+  </h1>
+  <h2 class="c-lightblack f-benefits-p fw1 roboto tc ma0">
+    The Integrates platform will allow you to:
+  </h2>
+</div>
+
+<div class="mw-1366 ph-body center pb5">
+  <div class="carousel overflow-y-hidden overflow-x-auto w-auto pa2 nowrap pv5"
+       id="carousel">
+    <div class="item-carousel ml4-l ml6 mr4 pa0 dib">
+      <img
+        src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/products/integrates/integrates-1.png"
+        alt="Young hacker smiling">
+        <p class="roboto fw1 c-lightblack f5 lh-2">
+          Know the security status and trends of<br>
+          your application. <br>
+          <br>
+          <br>
+          <br>
+        </p>
+    </div>
+    <div class="item-carousel mh4 pa0 dib">
+      <img
+        src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/products/integrates/integrates-2.png"
+        alt="Young hacker smiling">
+        <p class="roboto fw1 c-lightblack f5 lh-2">
+          Facilitate collaboration of all stakeholders<br>
+          to manage the vulnerabilities and reach a<br>
+          high fixing rate. <br>
+          <br>
+          <br>
+        </p>
+    </div>
+    <div class="item-carousel mh4 pa0 dib">
+      <img
+        src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/products/integrates/integrates-3.png"
+        alt="Young hacker smiling">
+        <p class="roboto fw1 c-lightblack f5 lh-2">
+          See the details of each detected<br>
+          vulnerability. <br>
+          <br>
+          <br>
+          <br>
+        </p>
+    </div>
+    <div class="item-carousel mh4 pa0 dib">
+      <img
+        src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/products/integrates/integrates-4.png"
+        alt="Young hacker smiling">
+        <p class="roboto fw1 c-lightblack f5 lh-2">
+          Have a thorough prioritization of <br>
+          security risks for their timely <br>
+          remediation. <br>
+          <br>
+          <br>
+        </p>
+    </div>
+    <div class="item-carousel mh4 pa0 dib">
+      <img
+        src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/products/integrates/integrates-8.png"
+        alt="Young hacker smiling">
+        <p class="roboto fw1 c-lightblack f5 lh-2">
+          Facilitate the executive control of processes<br>
+          via the Integrates-App (on Android and iOS)<br>
+          by providing crucial information<br>
+          on the vulnerability remediation rate<br>
+          on your tested systems.
+        </p>
+    </div>
+    <div class="item-carousel mh4 pa0 dib">
+      <img
+        src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/products/integrates/integrates-5.png"
+        alt="Young hacker smiling">
+        <p class="roboto fw1 c-lightblack f5 lh-2">
+          Integrate our app with your existing <br>
+          products using a common query language <br>
+          for modern APIs (GraphQL).<br>
+          <br>
+        </p>
+    </div>
+    <div class="item-carousel mh4 pa0 dib">
+      <img
+        src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/products/integrates/integrates-6.png"
+        alt="Young hacker smiling">
+        <p class="roboto fw1 c-lightblack f5 lh-2">
+          Request verification of treatments and <br>
+          documentation from your security team. <br>
+          <br>
+          <br>
+          <br>
+        </p>
+    </div>
+    <div class="item-carousel ml4 pa0 dib">
+      <img
+        src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/products/integrates/integrates-7.png"
+        alt="Young hacker smiling">
+        <p class="roboto fw1 c-lightblack f5 lh-2">
+          Establish quick communication with, and <br>
+          receive important notifications from, <br>
+          our team (when you purchase Drills). <br>
+          <br>
+        </p>
+    </div>
+  </div>
+  <div class="w5 h-cont-bar bg-fluid-lightgray center mw5 br4 ba bc-lightergray">
+    <div class="h-bar w1 bg-dk-red mw5 br4" id="progress-bar"></div>
+  </div>
+  <div class="w-100 roboto tc pv6">
+    <h1 class="c-lightblack b f2 roboto tc ma0">
+      Key Features
+    </h1>
+    {{ page.content }}
+  </div>
+  <div class="w-100 roboto tc pb6">
+    <img
+      class="w6"
+      src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/products/integrates/datasheet-integrates.png"
+      alt="Young hacker smiling">
+      <h1 class="c-lightblack f2-l fw7 tc f3 center roboto">
+        Do you want to know more about Integrates?
+      </h1>
+      <a class="no-underline c-fluid-bk" href="https://fluidattacks.docsend.com/view/ymup7742z3wkkzex">
+        <button class="f2-l fw1 tc f4 center roboto download-btn bg-transparent bn pointer">
+          Download DataSheet  <span><img loading="lazy" class="w2-ns w1" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/download.svg" alt="Young hacker smiling"></span>
+        </button>
+      </a>
+  </div>
+</div>
+{% assets output="static/js/progressBar.min.js", "js/tmp/progressBar.min.js" %}
+<script type="text/javascript"
+        src="{{ SITEURL }}/{{ ASSET_URL }}"></script>
+{% endassets %}
+{% assets output="static/js/carousel.min.js", "js/tmp/carousel.min.js" %}
+<script type="text/javascript"
+        src="{{ SITEURL }}/{{ ASSET_URL }}"></script>
+{% endassets %}
+{% endblock content %}

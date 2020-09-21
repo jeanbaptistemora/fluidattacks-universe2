@@ -1,0 +1,73 @@
+:slug: rules/033/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la administración de los sistemas. Por lo tanto, para el presente requerimiento se recomienda que todo sistema con mecanismo de administración sea accesible sólo por determinados segmentos de red de gestión.
+:keywords: Administración, Sistema, Red, Gestión, Acceso, Seguridad.
+:rules: yes
+
+= REQ.033 Restringir acceso administrativo
+
+== Requisito
+
+Si el sistema posee un mecanismo de administración,
+este debe ser accesible
+sólo desde segmentos de red de gestión o administrativos.
+
+== Descripción
+
+Se debe limitar el acceso de red a módulos
+o mecanismos de administración de un sistema
+solamente a las partes que requieren acceso a ellos (administradores),
+personal que no tiene necesidades, labores u obligaciones administrativas
+no debe tener entrada a estos mecanismos.
+El seguir esta recomendación
+cumple con el objetivo de reducir la superficie de ataque
+a los sistemas en cuestión
+(así un tercero malintencionado
+no podrá intentar acceso directo a la administración del sistema)
+y aumenta el nivel de confidencialidad
+y disponibilidad del sistema.
+
+== Implementación
+
+. +Principio de mínimo privilegio+:
+Para cada sistema que se encuentre en la organización
+se debe garantizar que cada módulo (como un proceso, un usuario o un programa)
+pueda ser capaz de acceder solo a la información
+y recursos que son necesarios para su legitimo propósito.<<r1,^[1]^>>
+
+== Ataques
+
+. Atacante anónimo intenta acceder por fuerza bruta
+a una interfaz de administración expuesta
+lo que puede causar denegación del sistema, de cuentas
+o acceso a la interfaz de administración y/o al sistema.
+
+. Atacante anónimo y/o usuarios con sus propias cuentas
+explota una vulnerabilidad conocida en el sistema de administración
+que puede permitir el acceso al sistema, denegación del sistema
+o elevación de privilegios para un usuario o proceso del sistema.
+
+. Atacante anónimo consigue información técnica del sistema
+mediante el análisis de los datos
+que entrega la interfaz de administración,
+para realizar ataques más detallados y profundos.
+
+== Atributos
+
+* Capa: Capa de Aplicación.
+* Activo: Administración del sistema.
+* Alcance: Confidencialidad.
+* Fase: Operación.
+* Tipo de Control: Recomendación.
+
+== Referencias
+
+. [[r1]] link:../269/[269 Usar principio mínimo privilegio].
+. [[r2]] link:https://cwe.mitre.org/data/definitions/419.html[CWE-419: Unprotected Primary Channel].
+. [[r3]] link:https://cwe.mitre.org/data/definitions/264.html[CWE CATEGORY: Permissions, Privileges, and Access Controls].
+. [[r4]] link:https://www.owasp.org/index.php/Category:Access_Control[Category:Access Control].
+. [[r5]] link:https://www.owasp.org/index.php/Top_10_2013-A5-Security_Misconfiguration[Top 10 2013-A5-Security Misconfiguration].
+. [[r6]] link:https://www.owasp.org/index.php/ASVS_V2_Authentication[+OWASP-ASVS v3.1-2.32+]
+Verificar que el acceso a interfaces administrativas
+sea estrictamente controlado y no sea accesible
+a partes no confiables.

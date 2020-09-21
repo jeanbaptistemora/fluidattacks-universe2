@@ -1,0 +1,51 @@
+:slug: rules/069/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestion segura de los requisitos y vulnerabilidades de seguridad definidos en un sistema. Por lo tanto, se deben gestionar los riesgos derivados de vulnerabilidades no corregidas.
+:keywords: Organización, Identificar, Riesgos, Vulnerabilidades, Corregir, Seguridad.
+:rules: yes
+
+= REQ.069 Gestionar vulnerabilidades no corregidas
+
+== Requisito
+
+La organización debe identificar
+y tratar los riesgos derivados de vulnerabilidades no corregidas.
+
+== Descripción
+
+Toda vulnerabilidad no tratada debería ser manejada como causa de un riesgo
+y se debería manejar según lo establecido
+por el proceso de gestión de riesgos de la institución.
+
+== Implementación
+
+. Es posible que algunas de las vulnerabilidades
+reportadas en los procesos de ethical hacking no puedan ser tratadas
+o corregidas inmediatamente,
+pues pueden existir implicaciones funcionales o económicas
+que la organización por el momento no pueda soportar.
+Es importante que estas vulnerabilidades pasen a ser reportadas
+al proceso de gestión de riesgos de la organización,
+de forma que se pueda realizar el debido análisis, valoración
+y establecer controles alternos para disminuir
+la posibilidad de la materialización de un riesgo
+debido a la existencia de la vulnerabilidad.
+En caso de existir una aceptación de riesgo
+(no definir controles alternos) causado la vulnerabilidad,
+se debería monitorear permanente el riesgo
+de forma que en el caso de la ocurrencia de un incidente,
+se pueda reaccionar lo más rápido posible y evitar impactos mayores.
+
+== Ataques
+
+. Un atacante aprovecha una vulnerabilidad reportada y no tratada,
+sin controles complementarios
+y genera un impacto importante en la organización.
+
+== Atributos
+
+* Capa: Negocio
+* Activo: Arquitectura de seguridad
+* Alcance: Responsabilidad
+* Fase: Pruebas
+* Tipo de Control: Verificación

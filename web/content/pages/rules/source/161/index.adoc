@@ -1,0 +1,117 @@
+:slug: rules/161/
+:category: source
+:description: This requirement establishes the importance of defining secure default options to avoid unexpected behaviors in the application.
+:keywords: Default, Source Code, Conditional, Programming, ASVS, CAPEC, CWE, PCI DSS, Rules, Ethical Hacking, Pentesting
+:rules: yes
+
+= R161. Define secure default options
+
+== Requirement
+
+The source code must have secure default options
+ensuring secure failures in the application
+(**try, catch/except**; *default* for *switches*).
+
+== Description
+
+The organization must ensure that its own systems and those of third parties
+are safe and fully comply with the functions for which they were implemented.
+For this, baselines must be implemented from the design
+and development phase,
+in order to avoid bad practices in the development cycles.
+E.g. the use of a conditional without a default option,
+which can cause unexpected behaviors in the system.
+
+The system's source code is safer when good programming practices are
+implemented from the development stage,
+ensuring the portability and maintenance of the application.
+If a system is difficult to maintain,
+vulnerabilities are more prone to arise.
+
+== Implementation
+
+. Definition of baselines from design/architecture stages
+in order to guarantee the implementation of good programming practices
+in the development of the source code.
+
+. Quality code and source code vulnerabilities scanners:
+These are tools that perform code revision using lexical and syntactical
+analyzers. They process it, suggest improvements and highlight possible
+vulnerabilities in the development stage.
+Using this kind of tools during the development process
+helps improve performance, detect excessively complex logic
+and detect potential security issues.
+
+== Attacks
+
+. Cause unexpected behaviors in the application.
+. Leak sensitive information from unexpected errors.
+
+== Attributes
+
+* Layer: Application Layer
+* Asset: Source Code
+* Scope: Maturity
+* Phase: Building
+* Type of Control: Recommendation
+
+== Findings
+
+* [inner]#link:/web/findings/060/[F060. Insecure exceptions]#
+
+* [inner]#link:/web/findings/061/[F061. Errors without traceability]#
+
+* [inner]#link:/web/findings/073/[F073. Conditional statement without a default option]#
+
+== References
+
+. [[r1]] link:http://capec.mitre.org/data/definitions/24.html[CAPEC-24: Filter Failure through Buffer Overflow].
+In this attack, the idea is to cause an active filter to fail by causing an
+oversized transaction.
+An attacker may try to feed overly long input strings to the program in an
+attempt to overwhelm the filter (by causing a buffer overflow) and hoping that
+the filter does not fail securely
+(i.e. the user input is let into the system unfiltered).
+
+. [[r2]] link:https://cwe.mitre.org/data/definitions/396.html[CWE-396: Declaration of Catch for Generic Exception].
+Catching overly broad exceptions promotes complex error handling code that is
+more likely to contain security vulnerabilities.
+
+. [[r3]] link:https://cwe.mitre.org/data/definitions/397.html[CWE-397: Declaration of Throws for Generic Exception].
+Throwing overly broad exceptions promotes complex error handling code that is
+more likely to contain security vulnerabilities.
+
+. [[r4]] link:https://cwe.mitre.org/data/definitions/478.html[CWE-478: Missing Default Case in Switch Statement].
+The code does not have a default case in a switch statement,
+which might lead to complex logical errors and resultant weaknesses.
+
+. [[r5]] link:https://cwe.mitre.org/data/definitions/544.html[CWE-544: Missing Standardized Error Handling Mechanism].
+The software does not use a standardized method for handling errors throughout
+the code,
+which might introduce inconsistent error handling and resultant weaknesses.
+
+. [[r6]] link:https://standards.ieee.org/findstds/standard/1028-2008.html[IEEE: Standard for Software Reviews and Audits].
+
+. [[r7]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V4.1 General Access Control Design.(4.1.5)]
+Verify that access controls fail securely including when an exception occurs.
+
+. [[r8]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V6.2 Algorithms.(6.2.1)]
+Verify that all cryptographic modules fail securely,
+and errors are handled in a way that does not enable **Padding Oracle**
+attacks.
+
+. [[r9]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V7.4 Error Handling.(7.4.2)]
+Verify that exception handling (or a functional equivalent) is used across the
+codebase to account for expected and unexpected error conditions.
+
+. [[r10]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V7.4 Error Handling.(7.4.3)]
+Verify that a "last resort" error handler is defined which will catch all
+unhandled exceptions.
+
+. [[r11]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 6.5.5]
+Address common coding vulnerabilities in software-development processes such as
+improper error handling.

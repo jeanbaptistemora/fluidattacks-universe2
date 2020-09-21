@@ -1,0 +1,21 @@
+:slug: rules/198/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestion adecuada de dispositivos foraneos de la organizacion. En este requerimiento, se recomienda que la organizacion determine qué personas pueden acceder a recursos internos.
+:keywords: Sistema, Organización, Personas, Foráneos, Recursos, Internos.
+:rules: yes
+
+= REQ.198 Determinar personal para usar dispositivos
+
+== Requisito
+
+La organización debe determinar
+qué personas (empleados de ciertos roles, visitantes, etc)
+pueden usar dispositivos foráneos.
+
+== Referencias
+
+. [[r1]] link:https://www.law.cornell.edu/cfr/text/45/164.310[`HIPAA Security Rules` 164.310(d)(1):]
+Control de dispositivos y medios: Implementar políticas y procedimientos
+para la recepción y remoción de hardware y medios electrónicos
+que contengan información sensible dentro y fuera de las instalaciones,
+y el movimiento de dichos objetos dentro de las instalaciones.

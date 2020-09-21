@@ -1,0 +1,12 @@
+:slug: rules/059/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestion de los eventos de seguridad que se pueden presentar en un determinado sistema. Por lo tanto, los eventos de seguridad del sistema que deben ser monitoreados deben estar identificados.
+:keywords: Monitorear, Sistema, Requerimiento, Evento, Organización, Seguridad.
+:rules: yes
+
+= REQ.059 Identificar eventos de seguridad
+
+== Requisito
+
+Los eventos de seguridad del sistema
+que deben ser monitoreados deben estar identificados.

@@ -1,0 +1,13 @@
+:slug: rules/124/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a las credenciales de acceso a información sensible de la organización. En este requerimiento, se recomienda que el sistema notifique a sus usuarios el vencimiento de su contraseña de manera oportuna.
+:keywords: Notificar, Usuario, Contraseña, Credenciales, Antelación, Vencimiento.
+:rules: yes
+
+= REQ.124 Notificar vencimiento de contraseña
+
+== Requisito
+
+El sistema debe notificar a un usuario
+el vencimiento de su contraseña
+con una antelación de 7 días.

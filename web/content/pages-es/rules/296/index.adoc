@@ -1,0 +1,26 @@
+:slug: rules/296/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestion adecuada de sistemas de control. Por lo tanto, en este requerimiento, se recomienda que toda organización cuente con sistemas de alarma de intrusión física.
+:keywords: Organización, Alarma, Intrusión Física, Control, Sistema, Seguridad.
+:rules: yes
+
+= REQ.296 Establecer alarmas de intrusión física
+
+== Requisito
+
+La organización debe contar con sistema de alarmas de intrusión física.
+
+== Referencias
+
+. [[r1]] link:https://www.law.cornell.edu/cfr/text/45/164.310[+HIPAA Security Rules+ 164.310(a)(2)(ii):]
+Plan de Seguridad en las Instalaciones:
+Implementar políticas y procedimientos para salvaguardar
+las instalaciones y los equipos
+de accesos no autorizados, manipulación y robo.
+
+. [[r2]] link:https://www.law.cornell.edu/cfr/text/45/164.310[+HIPAA Security Rules+ 164.310(c):]
+Seguridad en las estaciones de trabajo:
+Implementar sistemas de protección física
+para todas las estaciones de trabajo
+que tengan acceso a información sensible,
+restringiéndo su acceso sólo a usuarios autorizados.

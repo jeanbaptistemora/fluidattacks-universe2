@@ -1,0 +1,13 @@
+:slug: rules/129/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a las credenciales de acceso a información sensible de la organización. En este requerimiento, se recomienda que el sistema no permita cambiar la contraseña por una ya usada anteriormente.
+:keywords: Sistema, Requerimiento, Contraseña, Cambiar, Autenticación, Restablecer.
+:rules: yes
+
+= REQ.129 Validar contraseñas precedentes
+
+== Requisito
+
+El sistema no debe permitir cambio de contraseña para un usuario,
+si la nueva contraseña
+es igual a alguna de las últimas 5 contraseñas de ese usuario.

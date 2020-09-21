@@ -1,0 +1,37 @@
+:slug: rules/103/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestion del control de acceso en una organizacion. Por lo tanto, se recomienda que toda organización tenga un proceso de gestión bien definido para sus tarjetas de acceso.
+:keywords: Seguridad, Proceso, Organización, Acceso, Gestión, Tarjetas.
+:rules: yes
+
+= REQ.103 Gestionar tarjetas de acceso
+
+== Requisito
+
+La organización debe contar
+con un proceso definido para la asignación, inventario, cambio, reasignación
+y retiro de tarjetas de acceso.
+
+== Referencias
+
+. [[r1]] link:https://www.law.cornell.edu/cfr/text/45/164.308[`HIPAA Security Rules` 164.308(a)(3)(i):]
+Implementar políticas y procedimientos para asegurarse
+que todos los empleados tengan acceso apropiado a la información sensible
+como se especifica en el párrafo (a)(4) de esta sección,
+y para prevenir que los empleados no autorizados
+obtengan acceso a esta información.
+
+. [[r2]] link:https://www.law.cornell.edu/cfr/text/45/164.310[`HIPAA Security Rules` 164.310(c):]
+Seguridad en las estaciones de trabajo:
+Implementar sistemas de protección física
+para todas las estaciones de trabajo
+que tengan acceso a información sensible,
+restringiéndo su acceso sólo a usuarios autorizados.
+
+. [[r3]] link:https://www.law.cornell.edu/cfr/text/45/164.310[`HIPAA Security Rules` 164.310(a)(2)(iii):]
+Procedimientos de control de acceso y validación:
+Implementar procedimientos para controlar y validar
+el acceso de una persona a las instalaciones basándose
+en su rol o función, incluyendo control de visitantes
+y control de acceso a software de la compañía
+para pruebas o revisión.

@@ -1,0 +1,21 @@
+:slug: rules/034/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la administración de los sistemas. Por lo tanto, para el presente requerimiento se recomienda que todo usuario con privilegios de administración pueda deshabilitar cuentas de otros usuarios.
+:keywords: Seguridad, Sistema, Superusuario, Deshabilitar, Cuenta, Administrador.
+:rules: yes
+
+= REQ.034 Gestionar cuentas de usuarios
+
+== Requisito
+
+El sistema debe permitir a un +superusuario+
+o usuario administrador del sistema,
+deshabilitar cuentas de usuarios.
+
+== Referencias
+
+. [[r1]] link:https://www.law.cornell.edu/cfr/text/45/164.308[+HIPAA Security Rules+ 164.308(a)(3)(ii)(A):]
+Autorización y/o Supervisión: Implementar procedimientos
+para la autorización y/o supervisión de los empleados
+que trabajen con información sensible
+o en lugares donde puede accederse a ésta.

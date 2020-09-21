@@ -1,0 +1,18 @@
+:slug: about-us/partners/
+:category: about-us
+:description: Our partners allow us to complete our portfolio and offer better security testing services. Get to know them and become one of them.
+:keywords: Fluid Attacks, Partners, Services, Security Testing, Software Development, Pentesting, Ethical Hacking
+:banner: partners-bg
+:template: about-us/cardsgen
+:partnersindex: yes
+
+= Partners
+
+Partners facilitate the delivery of our services to our end clients in a variety
+of geographic areas (Germany link:#teraport[^1^],
+Australia link:#the-missing-link[^2^],
+and the U.S. link:#arroyo-consulting[^3^] link:#sba[^4^])
+and sectors (Government, Defense) link:#evolution-it[^5^].
+In addition to our services, they complete their portfolio
+(functional testing link:#choucair[^6^] link:#greensqa[^7^], software development),
+providing integrated solutions. The following are our current partners:

@@ -1,0 +1,13 @@
+:slug: rules/116/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados con la administración de correos electrónicos en la empresa. En este requerimiento se establece la importancia de filtrar contra posible spam tanto a correos salientes como entrantes.
+:keywords: Imágenes, Correo, Mostrar, Seguridad, Requerimiento, Cliente.
+:rules: yes
+
+= REQ.116 Desactivar imágenes de origen desconocido
+
+== Requisito
+
+El cliente de correo electrónico corporativo
+no debe mostrar de forma predeterminada
+imágenes cuyo origen sea desconocido.

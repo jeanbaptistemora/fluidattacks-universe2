@@ -1,0 +1,12 @@
+:slug: rules/248/
+:category: networks
+:description: This requirement establishes the importance of avoiding dictionary or common words when defining a wireless SSID.
+:keywords: SSID, Network, Security, Wireless, Dictionary, Words, Rules, Ethical Hacking, Pentesting
+:rules: yes
+
+= R248. SSID without dictionary words
+
+== Requirement
+
+The name of the wireless `SSID`
+must not contain dictionary words.

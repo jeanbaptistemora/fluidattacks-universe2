@@ -1,0 +1,24 @@
+:slug: rules/205/
+:category: devices
+:description: This requirement establishes that devices must have a personal identification number or PIN configured on the SIM card.
+:keywords: Device, Cellular Network, Requirement, PIN, SIM Card, Security, Rules, Ethical Hacking, Pentesting
+:rules: yes
+
+= R205. Configure PIN
+
+== Requirement
+
+Devices that connect to the mobile network
+must have a personal identification number (**PIN**)
+configured on the *SIM* card.
+
+== References
+
+. [[r1]] link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A6-Security_Misconfiguration[OWASP Top 10 A6:2017-Security Misconfiguration].
+Security misconfiguration is the most commonly seen issue.
+This is commonly a result of insecure default configurations,
+incomplete or ad hoc configurations, open cloud storage,
+misconfigured *HTTP* headers,
+and verbose error messages containing sensitive information.
+Not only must all operating systems, frameworks, libraries, and applications be
+securely configured, but they must be patched/upgraded in a timely fashion.

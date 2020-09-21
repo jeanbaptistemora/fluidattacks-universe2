@@ -1,0 +1,160 @@
+:slug: rules/262/
+:category: services
+:description: This requirement establishes the importance of verifying that third-party components are always up to date in a stable and tested version.
+:keywords: Third-party, Dependency, Up-to-date, Stable, ASVS, ISO, OWASP, PCI DSS, Rules, Ethical Hacking, Pentesting
+:rules: yes
+
+= R262. Verify third-party components
+
+== Requirement
+
+The system must use stable, tested,
+and up-to-date versions of third-party components.
+
+== Description
+
+. The organization must ensure the version of all of its products
+and the products provided by third-parties
+is up to date, stable and tested.
+This reduces the risk of including vulnerabilities
+reported in previous versions.
+
+. When a product changes its version,
+the implemented improvements must be checked
+to verify if there were fixes or new controls
+related to recently discovered vulnerabilities.
+
+== Implementation
+
+. Identify all the products that compose the technology stack,
+including operating systems, versions, dependencies, and
+logical and physical authentication features.
+This inventory must be constantly updated.
+
+. Monitor the security of all identified components in public databases,
+implementing alerts when public vulnerabilities are disclosed
+for the products used by the organization
+and determining the affectation level
+caused by the reported vulnerabilities.
+
+. Apply the necessary updates taking into account the vulnerability type,
+the affected components,
+and its risk classification within the organization.
+
+. Define security policies for the used components,
+requiring updated versions, specific software,
+ethical hacking and product licenses;
+include internal policies to disable unused features
+and update default settings
+that may pose a risk to the organization.
+
+== Attacks
+
+. An attacker obtains technical information about a specific product.
+If the service/software is out of date,
+there could be public exploits
+designed to attack known vulnerabilities
+present in the in-use version of the product.
+
+== Attributes
+
+. Layer: Application layer.
+. Asset: Services and functions.
+. Scope: Stability.
+. Phase: Operation.
+. Type of Control: Recommendation.
+
+== Findings
+
+* [inner]#link:/web/findings/011/[F011. Use of software with known vulnerabilities]#
+
+* [inner]#link:/web/findings/086/[F086. Missing subresource integrity check]#
+
+== References
+
+. [[r1]] link:https://cwe.mitre.org/data/definitions/507.html[CWE-507: Trojan Horse].
+The software appears to contain benign or useful functionality,
+but it also contains code that is hidden from normal operation that violates
+the intended security policy of the user or the system administrator.
+
+. [[r2]] link:https://www.iso.org/obp/ui/#iso:std:54534:en[ISO 27001:2013. Annex A - 12.6.1]
+Gather timely information regarding technical vulnerabilities in information
+systems in use.
+
+. [[r3]] link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A9-Using_Components_with_Known_Vulnerabilities[OWASP Top 10 A9:2017-Using Components with Known Vulnerabilities].
+Components, such as libraries, frameworks, and other software modules,
+run with the same privileges as the application.
+If a vulnerable component is exploited,
+such an attack can facilitate serious data loss or server takeover.
+Applications and **API**s using components with known vulnerabilities may
+undermine application defenses and enable various attacks and impacts.
+
+. [[r4]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+Appendix C: Internet of Things Verification Requirements.(C.13)]
+Verify all code including third-party binaries, libraries, frameworks are
+reviewed for hardcoded credentials (*backdoors*).
+
+. [[r5]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+Appendix C: Internet of Things Verification Requirements.(C.26)]
+Verify that only micro controllers that support disabling debugging interfaces
+(e.g. *JTAG*, *SWD*) are used.
+
+. [[r6]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+Appendix C: Internet of Things Verification Requirements.(C.27)]
+Verify that only micro controllers that provide substantial protection from
+de-capping and side channel attacks are used.
+
+. [[r7]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V1.14 Configuration Architectural Requirements.(1.14.1)]
+Verify the application does not use unsupported, insecure, or deprecated
+client-side technologies such as *NSAPI* plugins, *Flash*, *Shockwave*,
+*ActiveX*, *Silverlight*, *NACL*, or client-side *Java* applets.
+
+. [[r8]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V10.2 Malicious Code Search.(10.2.1)]
+Verify that the application source code and third party libraries do not
+contain unauthorized phone home or data collection capabilities.
+Where such functionality exists, obtain the user's permission for it to operate
+before collecting any data.
+
+. [[r9]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V10.2 Malicious Code Search.(10.2.3)]
+Verify that the application source code and third party libraries do not contain
+backdoors,
+such as hard-coded or additional undocumented accounts or keys,
+code obfuscation, undocumented binary blobs, rootkits,
+or anti-debugging, insecure debugging features,
+or otherwise out of date, insecure, or hidden functionality that could be used
+maliciously if discovered.
+
+. [[r10]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V10.2 Malicious Code Search.(10.2.4)]
+Verify that the application source code and third party libraries do not
+contain time bombs by searching for date and time related functions.
+
+. [[r11]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V10.2 Malicious Code Search.(10.2.5)]
+Verify that the application source code and third party libraries do not
+contain malicious code, such as salami attacks, logic bypasses, or logic bombs.
+
+. [[r12]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V10.2 Malicious Code Search.(10.2.6)]
+Verify that the application source code and third party libraries do not
+contain Easter eggs or any other potentially unwanted functionality.
+
+. [[r13]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V14.2 Dependency.(14.2.1)]
+Verify that all components are up to date, preferably using a dependency
+checker during build or compile time.
+
+. [[r14]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V14.2 Dependency.(14.2.4)]
+Verify that third party components come from pre-defined, trusted and
+continually maintained repositories.
+
+. [[r15]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 5.2]
+Ensure that all anti-virus mechanisms are kept current.
+
+. [[r16]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 6.2]
+Ensure that all system components and software are protected from known
+vulnerabilities by installing applicable vendor-supplied security patches.

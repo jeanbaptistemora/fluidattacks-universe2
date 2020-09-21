@@ -1,0 +1,12 @@
+:slug: rules/306/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a los datos sensibles de la organización. Por lo tanto, para el presente requerimiento de seguridad, se recomienda que no se envíe información confidencial a través de mensajes de texto.
+:keywords: Mensajes, SMS, Datos, MMS, Aplicación, Información.
+:rules: yes
+
+= REQ.306 No utilizar mensajes de texto
+
+== Requisito
+
+No se deben usar mensajes de texto (`SMS`, `MMS`)
+para el envío de información confidencial desde la aplicación.

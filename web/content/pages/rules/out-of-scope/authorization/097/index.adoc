@@ -1,0 +1,39 @@
+:slug: rules/097/
+:category: authorization
+:description: This requirement establishes the importance of defining an access control model to the systems and sensitive information.
+:keywords: Requirement, Security, Access, Control, Model, Systems, Rules, Ethical Hacking, Pentesting
+:rules: yes
+:extended: yes
+
+= R097. Define an access control model
+
+== Requirement
+
+The organization must define an access control model for the systems.
+
+== References
+
+. [[r1]] link:https://www.law.cornell.edu/cfr/text/45/164.310[+HIPAA Security Rules+ 164.310(a)(2)(iii):]
+Access Control and Validation Procedures: Implement procedures
+to control and validate a person's access to facilities
+based on their role or function, including visitor control,
+and control of access to software programs for testing and revision.
+
+. [[r2]] link:https://www.law.cornell.edu/cfr/text/45/164.312[+HIPAA Security Rules+ 164.312(a)(1):]
+Access Control: Implement technical policies and procedures
+for electronic information systems
+that maintain electronic protected health information
+to allow access only to those persons or software programs
+that have been granted access rights as specified in link:https://www.law.cornell.edu/cfr/text/45/164.308[164.308(a)(4)]
+
+. [[r3]] link:https://www.law.cornell.edu/cfr/text/45/164.312[+HIPAA Security Rules+ 164.312(d):]
+Person or Entity Authentication:
+Implement procedures to verify that a person or entity
+seeking access to electronic protected health information
+is the one claimed.
+
+. [[r4]] link:https://nvd.nist.gov/800-53/Rev4/control/IA-1[+NIST+ 800-53 IA-1 - 2]
+The organization must implement procedures
+to facilitate the implementation of the identification
+and authentication policy and associated identification
+and authentication controls.

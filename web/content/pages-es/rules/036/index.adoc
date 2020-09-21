@@ -1,0 +1,11 @@
+:slug: rules/036/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la administración de los sistemas. Por lo tanto, para el presente requerimiento se recomienda que todo sistema no despliegue archivos temporales cuando se encuentre en producción.
+:keywords: Ambiente, Sistema, Archivo, Desplegar, Producción, Temporal.
+:rules: yes
+
+= REQ.036 No desplegar archivos temporales
+
+== Requisito
+
+El sistema no debe desplegar archivos temporales en ambiente de producción.

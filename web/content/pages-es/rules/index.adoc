@@ -1,0 +1,406 @@
+:slug: rules/
+:description: El propósito de esta página es presentar los productos ofrecidos por Fluid Attacks. Rules es una recopilación de criterios de seguridad desarrollados por Fluid Attacks, basados en diferentes estándares internacionales para garantizar la seguridad de la información en diferentes áreas.
+:keywords: Fluid Attacks, Productos, Rules, Criterios, Seguridad, Aplicaciones.
+:rulesindex: yes
+
+= Rules
+
+== Sesiones
+
+* link:023/[REQ.023 Cerrar sesión de un usuario inactivo].
+* link:024/[REQ.024 Transferir información con objetos de sesión].
+* link:025/[REQ.025 Controlar sesiones concurrentes].
+* link:026/[REQ.026 Cifrar las sesiones en el cliente].
+* link:027/[REQ.027 Permitir bloqueo de sesión de usuario].
+* link:028/[REQ.028 Permitir finalizar sesión de usuario].
+* link:029/[REQ.029 Cookies con atributos de seguridad].
+* link:030/[REQ.030 Evitar reciclaje de objetos de autenticación].
+* link:031/[REQ.031 Descartar datos de sesión del usuario].
+* link:032/[REQ.032 Evitar exponer identificadores de sesión].
+
+== Archivos
+
+* link:036/[REQ.036 No desplegar archivos temporales].
+* link:037/[REQ.037 Parámetros sin datos sensibles].
+* link:038/[REQ.038 Referenciar archivo mediante ruta absoluta].
+* link:039/[REQ.039 Establecer tamaño máximo de archivos].
+* link:040/[REQ.040 Contrastar formato y extensión de archivos].
+* link:041/[REQ.041 Depurar archivos de código malicioso].
+* link:042/[REQ.042 Validar formato de archivos].
+* link:043/[REQ.043 Definir content type explícito].
+* link:044/[REQ.044 Definir charset explícito].
+* link:045/[REQ.045 Eliminar metadatos al compartir archivos].
+* link:046/[REQ.046 Gestionar integridad de archivos críticos].
+* link:047/[REQ.047 Clasificar archivos críticos para monitoreo].
+
+== Administración
+
+* link:033/[REQ.033 Restringir acceso administrativo].
+* link:034/[REQ.034 Gestionar cuentas de usuarios].
+* link:035/[REQ.035 Administrar modificaciones de privilegios].
+
+== Bitácoras
+
+* link:075/[REQ.075 Registrar eventos en bitácoras].
+* link:076/[REQ.076 Registrar niveles de severidad de eventos].
+* link:077/[REQ.077 No revelar detalles del sistema interno].
+* link:078/[REQ.078 Eventos con severidad deshabilitados].
+* link:079/[REQ.079 Registrar momento de ocurrencia de eventos].
+* link:080/[REQ.080 Impedir modificación de bitácoras].
+* link:081/[REQ.081 Almacenar bitácoras según legislación].
+* link:082/[REQ.082 Gestión de bitácoras].
+* link:083/[REQ.083 No registrar datos sensibles en bitácoras].
+* link:084/[REQ.084 Permitir consultar historial transacciones].
+* link:085/[REQ.085 Permitir consultar historial de sesiones].
+* link:086/[REQ.086 Generar alarma en evento de seguridad].
+* link:087/[REQ.087 Registrar llamadas en bitácoras].
+
+== Certificados
+
+* link:088/[REQ.088 Requerir certificados de cliente].
+* link:089/[REQ.089 Limitar vigencia de certificados].
+* link:090/[REQ.090 Utilizar certificados vigentes].
+* link:091/[REQ.091 Utilizar certificados firmados internos].
+* link:092/[REQ.092 Utilizar certificados firmados externos].
+* link:093/[REQ.093 Utilizar certificados coherentes].
+
+== Control Acceso
+
+* link:094/[REQ.094 Especificar reglas de modo declarativo].
+* link:095/[REQ.095 Definir usuarios con privilegios].
+* link:096/[REQ.096 Definir privilegios requeridos de usuario].
+* link:097/[REQ.097 Definir modelo de control de acceso].
+* link:098/[REQ.098 Custodiar activos de información].
+* link:099/[REQ.099 Controlar acceso vehícular y de personas].
+* link:100/[REQ.100 Sellar ventanas que contengan activos].
+* link:101/[REQ.101 Asignar carnés y tarjetas a personal].
+* link:102/[REQ.102 Carné visible dentro de las instalaciones].
+* link:103/[REQ.103 Gestionar tarjetas de acceso].
+* link:104/[REQ.104 Uniformar a operarios de la organización].
+* link:105/[REQ.105 Evitar fuga de activos].
+* link:106/[REQ.106 Asignar personal a líneas telefónicas].
+* link:107/[REQ.107 Realizar requisas continuas].
+* link:108/[REQ.108 Ubicar casilleros en puntos estratégicos].
+* link:109/[REQ.109 Monitorear áreas restringidas].
+* link:110/[REQ.110 Prevenir robos a la organización].
+* link:111/[REQ.111 Definir control físico detectivo y disuasivo].
+* link:112/[REQ.112 Ubicar bolardos en sitios estratégicos].
+* link:113/[REQ.113 Gestionar puntos de acceso].
+* link:114/[REQ.114 Denegar acceso con credenciales inactivas].
+
+== Dispositivos
+
+* link:205/[REQ.205 Configurar PIN].
+* link:206/[REQ.206 Configurar protocolos de comunicación].
+* link:207/[REQ.207 Cifrar particiones de discos].
+* link:208/[REQ.208 Registrar dispositivo en la red celular].
+* link:209/[REQ.209 Gestionar contraseña en caché].
+* link:210/[REQ.210 Eliminar información de dispositivos móviles].
+* link:211/[REQ.211 Establecer políticas de seguridad].
+* link:212/[REQ.212 Apagar interfaces de comunicación].
+* link:213/[REQ.213 Permitir ubicación geográfica].
+* link:214/[REQ.214 Permitir destruir datos].
+* link:303/[REQ.303 Desplegar aplicaciones en tiendas confiables].
+* link:304/[REQ.304 Publicar aplicación con nombre oficial].
+
+== Firewall
+
+* link:215/[REQ.215 Eliminar reglas redundantes].
+* link:216/[REQ.216 Eliminar objetos de red en desuso].
+* link:217/[REQ.217 Eliminar reglas desactivadas del firewall].
+
+== Arquitectura
+
+* link:048/[REQ.048 Componentes con mínimo de dependencias].
+* link:049/[REQ.049 Los Componentes deben usar interfaces].
+* link:050/[REQ.050 Controlar llamada a código interpretado].
+* link:051/[REQ.051 Almacenar código fuente en repositorio].
+* link:052/[REQ.052 Identificar componentes críticos].
+* link:053/[REQ.053 Gestionar casos de abuso del sistema].
+* link:054/[REQ.054 Documentar dependencia entre casos de abuso].
+* link:055/[REQ.055 Documentar casos de seguridad del sistema].
+* link:056/[REQ.056 Establecer caso de abuso de control].
+* link:057/[REQ.057 Relacionar casos de abuso].
+* link:058/[REQ.058 Documentar eventos de seguridad].
+* link:059/[REQ.059 Identificar eventos de seguridad].
+* link:060/[REQ.060 Identificar componentes de ataque].
+* link:061/[REQ.061 Documentar capítulo de seguridad].
+* link:062/[REQ.062 Definir configuraciones estándar].
+* link:063/[REQ.063 Comprobar requisitos de seguridad].
+* link:064/[REQ.064 Definir requisitos a comprobar].
+* link:065/[REQ.065 Identificar requisitos probados].
+* link:066/[REQ.066 Definir componentes que puedan ser probados].
+* link:067/[REQ.067 Definir componentes a ser probados].
+* link:068/[REQ.068 Identificar componentes probados].
+* link:069/[REQ.069 Gestionar vulnerabilidades no corregidas].
+* link:070/[REQ.070 Definir pruebas de seguridad automatizadas].
+* link:071/[REQ.071 Incluir vulnerabilidades en pruebas].
+* link:072/[REQ.072 Establecer tiempo máximo de respuesta].
+* link:073/[REQ.073 Minimizar porcentaje de error].
+* link:074/[REQ.074 Establecer redundancia en sistemas críticos].
+
+== Correos
+
+* link:115/[REQ.115 Filtrar correos maliciosos].
+* link:116/[REQ.116 Desactivar imágenes de origen desconocido].
+* link:117/[REQ.117 No interpretar código HTML].
+* link:118/[REQ.118 Inspeccionar archivos adjuntos].
+* link:119/[REQ.119 Ocultar destinatarios].
+* link:120/[REQ.120 Centralizar correos electrónicos].
+* link:121/[REQ.121 Garantizar unicidad de correos].
+* link:122/[REQ.122 Validar propietario de correo].
+* link:123/[REQ.123 Restringir lectura de correos].
+
+== Credenciales
+
+* link:124/[REQ.124 Notificar vencimiento de contraseña].
+* link:125/[REQ.125 Permitir actualización de contraseña].
+* link:126/[REQ.126 Establecer mecanismo de restauración].
+* link:127/[REQ.127 Almacenar contraseña mediante criptografía].
+* link:128/[REQ.128 Establecer única fuente de datos].
+* link:129/[REQ.129 Validar contraseñas precedentes].
+* link:130/[REQ.130 Limitar tiempo de vida en contraseñas].
+* link:131/[REQ.131 Impedir cambiar contraseña mas de una vez].
+* link:132/[REQ.132 Contraseñas con al menos 4 palabras].
+* link:133/[REQ.133 Contraseñas de más de 20 caracteres].
+* link:134/[REQ.134 Almacenar contraseñas con Salt].
+* link:135/[REQ.135 Derivaciones de clave aleatorias].
+* link:136/[REQ.136 Forzar cambio de contraseñas temporales].
+* link:137/[REQ.137 Cambiar contraseñas temporales de terceros].
+* link:138/[REQ.138 Definir tiempo de vida contraseña temporal].
+* link:139/[REQ.139 Establecer longitud mínima de clave].
+* link:140/[REQ.140 Establecer tiempo de vida de clave].
+* link:141/[REQ.141 Forzar proceso de autenticación].
+* link:142/[REQ.142 Modificar credenciales de acceso por defecto].
+* link:143/[REQ.143 Credenciales de acceso únicas].
+* link:144/[REQ.144 Depurar cuentas periódicamente].
+
+== Foráneos
+
+* link:194/[REQ.194 Determinar permiso de dispositivo a recursos].
+* link:195/[REQ.195 Determinar permiso de sistema a recursos].
+* link:196/[REQ.196 Determinar permiso de aplicación a recursos].
+* link:197/[REQ.197 Denegar permisos a aplicaciones prohibidas].
+* link:198/[REQ.198 Determinar personal para usar dispositivos].
+* link:199/[REQ.199 Determinar acceso con dispositivos foráneos].
+* link:200/[REQ.200 LLevar un registro de máquinas].
+
+== Físicos
+
+* link:201/[REQ.201 Detectar manipulación de dispositivo].
+* link:202/[REQ.202 Eliminar información confidencial].
+* link:203/[REQ.203 Ocultar ingreso de información].
+* link:204/[REQ.204 Permitir visualización perpendicular].
+
+== Criptografía
+
+* link:145/[REQ.145 Proteger llaves del sistema].
+* link:146/[REQ.146 Establecer tiempo a las llaves].
+* link:147/[REQ.147 Utilizar mecanismos pre-existentes].
+* link:148/[REQ.148 Cifrado asimétrico de tamaño mínimo].
+* link:149/[REQ.149 Cifrado simétrico de tamaño mínimo].
+* link:150/[REQ.150 Funciones resumen de tamaño mínimo].
+* link:151/[REQ.151 Claves separadas para cifrado y firmado].
+
+== Fuente
+
+* link:152/[REQ.152 Reutilizar conexiones a bases de datos].
+* link:153/[REQ.153 Transacciones fuera de banda].
+* link:154/[REQ.154 Eliminar puertas traseras].
+* link:155/[REQ.155 Aplicación libre de código malicioso].
+* link:156/[REQ.156 Código sin información sensible].
+* link:157/[REQ.157 Compilación estricta].
+* link:158/[REQ.158 Codificación Actualizada].
+* link:159/[REQ.159 Código ofuscado].
+* link:160/[REQ.160 Salidas codificadas].
+* link:161/[REQ.161 Opciones por defecto seguras].
+* link:162/[REQ.162 Eliminar código redundante].
+* link:163/[REQ.163 Invocar en escenario funcional].
+* link:164/[REQ.164 Utilizar estructuras optimizadas].
+* link:166/[REQ.166 Determinar complejidad del código].
+* link:167/[REQ.167 Cerrar recursos no utilizados].
+* link:168/[REQ.168 Variables inicializadas explícitamente].
+* link:169/[REQ.169 Usar construcciones parametrizadas].
+* link:170/[REQ.170 Asociar tipo a variables].
+* link:171/[REQ.171 Remover comentarios en producción].
+* link:172/[REQ.172 Cifrar cadenas de conexión].
+* link:173/[REQ.173 Descartar entradas inseguras].
+* link:174/[REQ.174 Transacciones sin patrón discernible].
+* link:175/[REQ.175 Proteger página de clickjacking].
+* link:302/[REQ.302 Declarar explícitamente dependencias].
+
+== Redes inalámbricas
+
+* link:247/[REQ.247 Ocultar SSID en redes privadas].
+* link:248/[REQ.248 SSID sin palabras de diccionario].
+* link:249/[REQ.249 Ubicar puntos de acceso].
+* link:250/[REQ.250 Administrar puntos de acceso].
+* link:251/[REQ.251 Cambiar IP del punto de acceso].
+* link:252/[REQ.252 Configurar cifrado de clave].
+* link:253/[REQ.253 Filtrar acceso a la red].
+* link:254/[REQ.254 Cambiar nombre de SSID].
+
+== Redes lógicas
+
+* link:255/[REQ.255 Permitir acceso sólo en puertos necesarios].
+* link:256/[REQ.256 Servidores con acceso a puertos necesarios].
+* link:257/[REQ.257 Acceso basado en credenciales de usuario].
+* link:258/[REQ.258 Filtrar el contenido de sitios web].
+* link:259/[REQ.259 Segmentar la red de la organización].
+
+== Redes sociales
+
+* link:260/[REQ.260 Utilizar correos alternos].
+* link:261/[REQ.261 No exponer información corporativa].
+
+== Proceso desarrollo
+
+* link:239/[REQ.239 Criterio de seguridad con requisitos legales].
+* link:240/[REQ.240 Automatizar revisión de código fuente].
+* link:241/[REQ.241 Definir requisitos de criterio de seguridad].
+* link:242/[REQ.242 Realizar soporte fuera de producción].
+
+== Proceso negocio
+
+* link:243/[REQ.243 Gestionar incidentes de seguridad].
+* link:244/[REQ.244 Gestionar respaldo de información].
+* link:245/[REQ.245 Gestionar control de cambios].
+* link:246/[REQ.246 Gestionar cuentas de usuario].
+
+== Servicios
+
+* link:262/[REQ.262 Verificar componentes de terceros].
+* link:263/[REQ.263 Establecer mecanismos de protección].
+* link:264/[REQ.264 Establecer autenticación en recursos].
+* link:265/[REQ.265 Restringir acceso a procesos críticos].
+* link:266/[REQ.266 Deshabilitar funciones inseguras].
+* link:267/[REQ.267 Deshabilitar funciones innecesarias].
+
+== Datos
+
+* link:176/[REQ.176 Restringir objetos del sistema].
+* link:177/[REQ.177 Almacenar datos de forma segura].
+* link:178/[REQ.178 Utilizar firmas digitales].
+* link:179/[REQ.179 Definir frecuencia de respaldo].
+* link:180/[REQ.180 Enmascarar datos].
+* link:181/[REQ.181 Transmitir por medio de protocolos seguros].
+* link:182/[REQ.182 Datos en ubicaciones diferentes].
+* link:183/[REQ.183 Eliminación segura de datos].
+* link:184/[REQ.184 Distorsionar datos de aplicación].
+* link:185/[REQ.185 Información sensible cifrada].
+* link:186/[REQ.186 Utilizar el mínimo nivel de privilegios].
+* link:187/[REQ.187 Recolección de datos debe ser autorizada].
+* link:188/[REQ.188 Actualizar datos personales].
+* link:189/[REQ.189 Especificar recolección de datos personales].
+* link:190/[REQ.190 Usar datos para el propósito indicado].
+* link:191/[REQ.191 Proteger datos con el máximo nivel].
+* link:192/[REQ.192 Cifrar datos de respaldo].
+* link:193/[REQ.193 Separar datos de respaldo de su origen].
+* link:300/[REQ.300 Enmascarar datos sensibles].
+* link:301/[REQ.301 Notificar cambios en configuración].
+* link:305/[REQ.305 Priorizar uso de tokens].
+* link:306/[REQ.306 No utilizar mensajes de texto].
+* link:998/[REQ.998 Limitar tiempo de vida de variables].
+* link:999/[REQ.999 Limitar tiempo de vida de recursos].
+
+== Hipervisor
+
+* link:218/[REQ.218 Controlar acceso a máquina virtual].
+* link:219/[REQ.219 Gestionar hipervisores mediante software].
+* link:220/[REQ.220 Gestionar perfiles de máquinas a monitorear].
+
+== Máquinas
+
+* link:221/[REQ.221 Desconectar periféricos innecesarios].
+* link:222/[REQ.222 Denegar acceso a máquina anfitriona].
+
+== Números
+
+* link:223/[REQ.223 Generar números con distribución uniforme].
+* link:224/[REQ.224 Usar mecanismos criptográficos seguros].
+
+== Autenticación
+
+* link:225/[REQ.225 Respuestas de autenticación adecuadas].
+* link:226/[REQ.226 Evitar bloquear cuenta de usuario].
+* link:227/[REQ.227 Desplegar notificación de acceso].
+* link:228/[REQ.228 Autentificar mediante protocolos estándar].
+* link:229/[REQ.229 Solicitar credenciales de acceso].
+* link:230/[REQ.230 Establecer claves de un sólo uso].
+* link:231/[REQ.231 Definir componente verificación biométrica].
+* link:232/[REQ.232 Requerir identidad de equipo].
+* link:233/[REQ.233 No imprimir credenciales de acceso].
+* link:234/[REQ.234 Custodiar credenciales de autenticación].
+* link:235/[REQ.235 Definir interfaz de credenciales].
+* link:236/[REQ.236 Establecer tiempo de autenticación].
+* link:237/[REQ.237 Establecer acciones de usuario seguras].
+* link:238/[REQ.238 Establecer restablecimiento seguro].
+
+== Sistema
+
+* link:268/[REQ.268 Utilizar software autenticado].
+* link:269/[REQ.269 Usar principio mínimo privilegio].
+* link:270/[REQ.270 Emplear usuarios con privilegios].
+* link:271/[REQ.271 Restringir el uso de compiladores].
+* link:272/[REQ.272 Diferenciar modos de gestión].
+* link:273/[REQ.273 Establecer suite de seguridad segura].
+* link:274/[REQ.274 Establecer alcance de un sistema].
+* link:275/[REQ.275 Establecer inicio por defecto].
+* link:276/[REQ.276 Establecer rutas de sistema seguras].
+* link:277/[REQ.277 Información de servicios inaccesible].
+* link:278/[REQ.278 Establecer acceso seguro a la BIOS].
+* link:279/[REQ.279 Configurar acceso al inicio del sistema].
+* link:280/[REQ.280 Configurar directorio de proceso de servicio].
+* link:281/[REQ.281 Configurar acceso a variables de entorno].
+* link:282/[REQ.282 Deshabilitar ejecución automática].
+* link:283/[REQ.283 Deshabilitar accesos en usuarios genéricos].
+* link:284/[REQ.284 Establecer máximo de conexiones en puerto].
+* link:285/[REQ.285 Evitar costos de procesamiento].
+* link:286/[REQ.286 Definir umbrales en recursos].
+* link:287/[REQ.287 Generar alerta en recursos].
+* link:288/[REQ.288 Denegar escritura en medios extraíbles].
+* link:289/[REQ.289 Asegurar medios e imágenes del sistema].
+* link:290/[REQ.290 Instalar S.O. desde imagen preconfigurada].
+* link:291/[REQ.291 Establecer hora oficial en equipos].
+* link:292/[REQ.292 Gestionar periféricos de entrada].
+* link:293/[REQ.293 Gestionar ejecución de código en stack].
+* link:294/[REQ.294 Usar sólo software con licencia].
+* link:295/[REQ.295 Evitar uso de archivos ilegales].
+
+== Control
+
+* link:296/[REQ.296 Establecer alarmas de intrusión física].
+* link:297/[REQ.297 Fijar sensores en activos de información].
+* link:298/[REQ.298 Realizar pruebas periódicas de sensores].
+* link:299/[REQ.299 Garantizar sistema de extinción seguro].
+
+== Activos
+
+* link:001/[REQ.001 Activos de información identificados].
+* link:002/[REQ.002 Identificar dependencias o componentes].
+* link:003/[REQ.003 Definir arquitectura del sistema].
+* link:004/[REQ.004 Activo de información asociado a responsable].
+* link:005/[REQ.005 Activo de información valorado en moneda].
+* link:006/[REQ.006 Identificar amenazas asociadas a activo].
+* link:007/[REQ.007 Identificar posibles vulnerabilidades].
+* link:008/[REQ.008 Generar modelo de amenazas del sistema].
+* link:009/[REQ.009 Amenazas medidas en términos de ocurrencia].
+* link:010/[REQ.010 Amenazas medidas en términos de impacto].
+* link:011/[REQ.011 Riesgos medidos por probabilidad e impacto].
+* link:012/[REQ.012 Identificar posibles atacantes].
+* link:013/[REQ.013 Proceso reclasificación definido].
+* link:014/[REQ.014 Activos clasificados según criticidad].
+* link:015/[REQ.015 Priorizar vulnerabilidades de activos].
+* link:016/[REQ.016 Garantizar corrección de vulnerabilidades].
+* link:017/[REQ.017 Medio seguro para información física].
+
+== Acuerdos
+
+* link:018/[REQ.018 Acuerdos a nivel de servicio con terceros].
+* link:019/[REQ.019 Acuerdos de confiabilidad con terceros].
+* link:020/[REQ.020 Definir penalizaciones por incumplimiento].
+* link:021/[REQ.021 Garantizar cumplimiento requisitos].
+* link:022/[REQ.022 Permitir auditorías de cliente].
+* link:307/[REQ.307 Establecer cláusulas de confidencialidad].
+* link:308/[REQ.308 Establecer cláusulas de responsabilidad].
+* link:309/[REQ.309 Establecer requisitos contractuales].

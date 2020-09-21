@@ -1,0 +1,28 @@
+:slug: rules/111/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestion del control de acceso en una organizacion. Por lo tanto, se recomienda que toda organización cuente con controles físicos detectivos y disuasivos dentro de sus instalaciones.
+:keywords: Controles, Detectivos, Disuasivos, Cámaras, Iluminación, Vigilantes.
+:rules: yes
+
+= REQ.111 Definir control físico detectivo y disuasivo
+
+== Requisito
+
+La organización debe contar con controles físicos detectivos
+y disuasivos en la periferia de las instalaciones
+(Iluminación, cámaras, vigilantes, etc).
+
+== Referencias
+
+. [[r1]] link:https://www.law.cornell.edu/cfr/text/45/164.310[+HIPAA Security Rules+ 164.310(a)(2)(ii):]
+Plan de Seguridad en las Instalaciones:
+Implementar políticas y procedimientos para salvaguardar
+las instalaciones y los equipos
+de accesos no autorizados, manipulación y robo.
+
+. [[r2]] link:https://www.law.cornell.edu/cfr/text/45/164.310[+HIPAA Security Rules+ 164.310(c):]
+Seguridad en las estaciones de trabajo:
+Implementar sistemas de protección física
+para todas las estaciones de trabajo
+que tengan acceso a información sensible,
+restringiéndo su acceso sólo a usuarios autorizados.

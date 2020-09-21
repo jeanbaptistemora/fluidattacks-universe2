@@ -1,0 +1,121 @@
+:slug: rules/185/
+:category: data
+:description: This requirement establishes the importance of protecting sensitive data using secure cryptographic mechanisms to avoid information leakages.
+:keywords: GDPR, Sensitive, Information, Encrypt, ASVS, CWE, ISO, NERC, PCI DSS, Rules, Ethical Hacking, Pentesting
+:rules: yes
+
+= R185. Encrypt sensitive information
+
+== Requirement
+
+All stored sensitive information must be encrypted.
+
+== Description
+
+Systems usually store personal data, e.i. Personally Identifiable Information
+(*PII*), medical records, credentials and other types of sensitive information.
+All of these must be encrypted before being stored using safe cryptographic
+mechanisms.
+This is also applicable when personal information must be temporarily stored
+in the client-side storage.
+The encryption prevents unauthorized actors that may have accessed the storage
+system from obtaining the information.
+
+== Findings
+
+* [inner]#link:/web/findings/020/[F020. Non-encrypted confidential information]#
+
+== References
+
+. [[r1]] link:https://cwe.mitre.org/data/definitions/311.html[CWE-311: Missing Encryption of Sensitive Data].
+The software does not encrypt sensitive or critical information before storage
+or transmission.
+
+. [[r2]] link:https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:02002L0058-20091219[Directive 2002/58/EC (amended by E-privacy Directive 2009/136/EC).
+Art. 4: Security of processing.(1a)]
+The measures referred to in paragraph 1 shall at least protect personal data
+stored or transmitted against accidental or unlawful destruction,
+accidental loss or alteration,
+and unauthorized or unlawful storage, processing, access or disclosure.
+
+. [[r3]] link:https://gdpr-info.eu/art-32-gdpr/[GDPR. Art. 32: Security of processing.(1)(a).]
+The controller and the processor shall implement appropriate technical and
+organizational measures to ensure an appropriate level of security,
+including the pseudonymization and encryption of personal data.
+
+. [[r4]] link:https://gdpr-info.eu/recitals/no-51/[GDPR. Recital 45: Protecting sensitive personal data].
+Personal data which are, by their nature, particularly sensitive in relation to
+fundamental rights and freedoms merit specific protection as the context of
+their processing could create significant risks to the fundamental rights and
+freedoms.
+
+. [[r5]] link:https://www.iso.org/obp/ui/#iso:std:54534:en[ISO 27001:2013. Annex A - 18.1.3]
+Protect records against loss, destruction, forgery, unauthorized access and
+unauthorized release,
+in accordance with legal, regulatory, contractual and business requirements.
+
+. [[r6]] link:https://www.nerc.com/pa/Stand/Reliability%20Standards/CIP-011-2.pdf[NERC CIP-011-2. B. Requirements and measures. R1.2]
+Implement procedure(s)for protecting and securely handling BES Cyber System
+Information,
+including storage, transit, and use.
+
+. [[r7]] link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A3-Sensitive_Data_Exposure[OWASP Top 10 A3:2017-Sensitive Data Exposure].
+Many web applications and **API**s do not properly protect sensitive data,
+such as financial, healthcare, and *PII*.
+Attackers may steal or modify such weakly protected data to conduct credit card
+fraud, identity theft, or other crimes.
+Sensitive data may be compromised without extra protection,
+such as encryption at rest or in transit, and requires special precautions when
+exchanged with the browser.
+
+. [[r8]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+Appendix C: Internet of Things Verification Requirements.(C.6)]
+Verify that sensitive data, private keys and certificates are stored securely
+in a Secure Element, *TPM*, *TEE* (Trusted Execution Environment),
+or protected using strong cryptography.
+
+. [[r9]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V6.1 Data Classification.(6.1.1)]
+Verify that regulated private data is stored encrypted while at rest,
+such as personally identifiable information (PII), sensitive personal
+information, or data assessed likely to be subject to EU's GDPR.
+
+. [[r10]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V6.1 Data Classification.(6.1.2)]
+Verify that regulated health data is stored encrypted while at rest,
+such as medical records, medical device details, or de-anonymized research
+records.
+
+. [[r11]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V6.1 Data Classification.(6.1.3)]
+Verify that regulated financial data is stored encrypted while at rest,
+such as financial accounts, defaults or credit history, tax records,
+pay history, beneficiaries, or de-anonymized market or research records.
+
+. [[r12]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V8.3 Sensitive Private Data.(8.3.7)]
+Verify that sensitive or private information that is required to be encrypted,
+is encrypted using approved algorithms that provide both confidentiality and
+integrity.
+
+. [[r13]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 2.3]
+Encrypt all non-console administrative access using strong cryptography.
+
+. [[r14]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 3.4]
+Render *PAN* (Primary Account Number) unreadable anywhere it is stored
+(including on portable digital media, backup media, and in logs).
+
+. [[r15]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 3.5.3]
+Store secret and private keys used to encrypt/decrypt cardholder data encrypted
+with a key-encrypting key that is at least as strong as the data-encrypting
+key,
+and that is stored separately from the data-encrypting key.
+
+. [[r16]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 6.5.3]
+Address common coding vulnerabilities in software-development processes such as
+insecure cryptographic storage.
+
+. [[r17]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 8.2.1]
+Using strong cryptography, render all authentication credentials
+(such as passwords/phrases) unreadable during transmission and storage on all
+system components.

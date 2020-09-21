@@ -1,0 +1,40 @@
+:slug: rules/301/
+:category: data
+:description: This requirement establishes the importance of notifying users when modifications to their authentication details or security settings occur.
+:keywords: Requirement, Security, Settings, Notification, Configuration, ASVS, NIST, Rules, Ethical Hacking, Pentesting
+:rules: yes
+
+= R301. Notify configuration changes
+
+== Requirement
+
+The system must notify the users whenever their authentication details or other
+security settings are changed.
+
+== Description
+
+Most systems allow their users to modify relevant information such as
+access credentials and contact data.
+Users should be notified whenever any of these or other security settings are
+modified,
+as it could be a part of several types of attacks.
+E.g. account takeover attacks.
+
+== References
+
+. [[r1]] link:https://cwe.mitre.org/data/definitions/620.html[CWE-620: Unverified Password Change]
+When setting a new password for a user,
+the product does not require knowledge of the original password,
+or using another form of authentication.
+
+. [[r2]] link:https://nvd.nist.gov/800-53/Rev4/control/AC-2[NIST 800-53 AC-2 (4)]
+The information system automatically audits account creation,
+modification, enabling, disabling, and removal actions,
+and notifies [Assignment: organization-defined personnel or roles].
+
+. [[r3]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V2.2 General Authenticator Requirements.(2.2.3)]
+Verify that secure notifications are sent to users after updates to
+authentication details,
+such as credential resets, email or address changes, logging in from unknown or
+risky locations.

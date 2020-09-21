@@ -1,0 +1,7 @@
+:slug: publications/
+:description: The main purpose of this page is to describe the different publications and contributions of Fluid Attacks to the information security over the years, including conferences, papers, journal articles, press articles and security findings in applications inside and outside Colombia.
+:keywords: Fluid Attacks, Publication, Information, Articles, Research, Press.
+
+= Publications
+
+Under construction.

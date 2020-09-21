@@ -1,0 +1,135 @@
+:slug: defends/java/transmitir-https/
+:category: java
+:description: Nuestros ethical hackers explican en que consiste el protocolo HTTPS el cual es utilizado con el fin de transmitir la información de manera segura ya que esta viaja cifrada. Además, mediante un ejemplo, enseñan como utilizarlo usando el framework HttpClient.
+:keywords: Java, Seguridad, HTTPS, HTTPClient, Protocolo, Apache.
+:defends: yes
+
+= Transmitir Información por HTTPS
+
+== Necesidad
+
+Transmitir por un canal seguro información a un servidor web.
+
+== Contexto
+
+A continuación se describen las circunstancias
+bajo las cuales la siguiente solución tiene sentido:
+
+. La aplicación está construida en +Java+.
+
+. Se debe tener instalado el +JDK 1.4+ o superior.
+
+. La aplicación requiere transmitir información a un servidor web.
+
+. Se va a utilizar el +framework+ +HttpClient+ de +Apache+.
+
+== Solución
+
+Desde actividades de ocio
+como ver vídeos musicales,
+ver películas o leer las noticias, entre otras,
+hasta actividades de carácter más serio
+como realizar transacciones bancarias,
+Internet, es sin duda, al día de hoy Internet
+es una herramienta fundamental para casi todas las personas.
+
+Pues bien, gracias a tan alta demanda y, además,
+debido a la cantidad e importancia de la información
+que puede llegar a ser transmitida,
+es imperativo implementar medidas de seguridad
+que prevengan la exposición de todo tipo de información.
+
+Entonces, para poder transmitir la información
+de una manera segura y cifrada,
+se utiliza el protocolo +HTTPS+.
++HTTPS+, es un protocolo de aplicación
+basado en el protocolo +HTTP+,
+destinado a la transferencia segura de datos de Hipertexto,
+es decir, es la versión segura de +HTTP+.
+Eso se debe a que utiliza
+un cifrado basado en +SSL/TLS+
+para crear un canal cifrado más apropiado
+para el tráfico de información sensible
+que el protocolo +HTTP+.
+De este modo se consigue que
+la información sensible no pueda ser usada
+por un atacante que haya conseguido interceptar
+la transferencia de datos de la conexión,
+ya que lo único que obtendrá
+será un flujo de datos cifrados
+que le resultará imposible de descifrar.
+
+En el siguiente ejemplo
+se verá la manera de transmitir información
+a través de el protocolo +HTTPS+
+usando el +framework+ +HTTPClient+ de +Apache+.
+Específicamente se enviarán las credenciales de autenticación
+(usuario y contraseña) a un sitio web de ejemplo.
+
+. Primero, es necesario importar las siguientes clases +httpclient+.
++
+.example.java
+[source, java, linenums]
+----
+import org.apache.commons.httpclient.HttpClient;
+import org.apache.commons.httpclient.UsernamePasswordCredentials;
+import org.apache.commons.httpclient.auth.AuthScope;
+import org.apache.commons.httpclient.methods.GetMethod;
+----
+
+. Segundo, es necesario crear un objeto de la clase +HttpClient()+.
++
+[source, java, linenums]
+----
+HttpClient client = new HttpClient();
+----
+
+. Tercero, se debe establecer el ámbito de autenticación.
+Es decir, es necesario especificar el servidor
+con el cual se establecerá la comunicación +HTTPS+,
+el nombre del dominio, el puerto
+y el nombre del esquema de autenticación.
++
+[source, java, linenums]
+----
+client.getState().setCredentials(
+  new AuthScope("www.fluidattacks.com", 443, "Secure Area"),
+  new UsernamePasswordCredentials("user", "password")
+);
+----
+
+. Como cuarto paso, se necesita crear el objeto +GetMethod+.
+Dicho objeto accederá al recurso expuesto
+por el servidor +web+ después de que
+el usuario se haya autenticado.
+Además, también controlara,
+de manera automática, la autenticación.
++
+[source, java, linenums]
+----
+GetMethod get = new GetMethod("https://www.fluidattacks.com/example.html");
+get.setDoAuthentication( true );
+----
+
+. Por último, se ejecuta el método
+generando la solicitud al servidor.
++
+[source, java, linenums]
+----
+try {
+  int status = client.executeMethod( get );
+}
+catch(PersonalException e) {
+  //  code for trying possible exceptions
+finally {
+  get.releaseConnection();
+}
+----
+
+== Referencias
+
+. [[r1]] link:https://es.wikipedia.org/wiki/Protocolo_seguro_de_transferencia_de_hipertexto[Protocolo seguro de transferencia de hipertexto]
+. [[r2]] link:http://hc.apache.org/httpclient-3.x/authentication.html[HttpClient Authentication]
+. [[r3]] link:http://hc.apache.org/httpclient-3.x/sslguide.html[Standard SSL in HttpClient]
+. [[r4]] link:http://svn.apache.org/viewvc/httpcomponents/oac.hc3x/trunk/src/examples/BasicAuthenticationExample.java?view=markup[BasicAuthenticationExample]
+. [[r5]] link:../../../rules/181/[REQ.181 Transmitir por medio de protocolos seguros]

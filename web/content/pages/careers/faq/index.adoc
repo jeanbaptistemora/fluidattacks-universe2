@@ -1,0 +1,12 @@
+:slug: careers/faq/
+:category: careers
+:description: Here we present a Frequently Asked Questions (FAQ) section, which intends to guide our candidates through Fluid Attacks' selection process.
+:keywords: Fluid Attacks, Careers, Selection, Process, FAQ, Questions, Candidates, Pentesting, Ethical Hacking
+
+:faqindex: yes
+
+= Frequently Asked Questions (FAQ)
+
+If you have questions about `Fluid Attacks` products or the selection process,
+please read through the `FAQ` list.
+You might find the answer to your question here:

@@ -1,0 +1,27 @@
+:slug: rules/090/
+:category: certificates
+:description: This requirement establishes the importance of using valid certificates in the applications to avoid security and legal issues.
+:keywords: Security, Requirement, Digital, Certificates, Validation, Expired, Rules, Ethical Hacking, Pentesting
+:rules: yes
+
+= R090. Use valid certificates
+
+== Requirement
+
+The system must not use expired digital certificates.
+
+== Findings
+
+* [inner]#link:/web/findings/049/[F049. Insecure digital certificates]#
+
+== References
+
+. [[r1]] link:https://cwe.mitre.org/data/definitions/299.html[CWE-299: Improper Check for Certificate Revocation].
+The software does not check or incorrectly checks the revocation status of a
+certificate,
+which may cause it to use a certificate that has been compromised.
+
+. [[r2]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V9.2 Server Communications Security Requirements.(9.2.4)]
+Verify that proper certification revocation, such as Online Certificate Status
+Protocol (**OCSP**) Stapling, is enabled and configured.

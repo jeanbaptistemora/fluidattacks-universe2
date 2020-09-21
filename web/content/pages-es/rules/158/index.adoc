@@ -1,0 +1,24 @@
+:slug: rules/158/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados al código fuente que compone a las aplicaciones de la compañía. En este requerimiento se establece la importancia de implementar la codificación del sistema con una versión estable y actualizada.
+:keywords: Requerimiento, Seguridad, Código Fuente, Codificación, Estable, Actualizada.
+:rules: yes
+
+= REQ.158 Codificación Actualizada
+
+== Requisito
+
+La codificación del sistema
+debe estar implementada en una versión
+de un lenguaje de programación estable,
+actualizada, probada y libre de vulnerabilidades conocidas.
+
+== Referencias
+
+. [[r1]] link:https://www.owasp.org/index.php/ASVS_V1_Architecture[+OWASP-ASVS v3.1-1.9+]
+Definir mecanismos para aplicar actualizaciones a la aplicación.
+
+. [[r2]] link:https://www.owasp.org/index.php/ASVS_V1_Architecture[+OWASP-ASVS v3.1-1.11+]
+Todos los componentes de la aplicación, librerías, módulos, +frameworks+
+plataformas y sistemas operativos deben estar libres
+de vulnerabilidades conocidas.

@@ -1,0 +1,24 @@
+:slug: rules/028/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados al manejo de sesiones y variables de sesión de las aplicaciones. Por lo tanto, para el presente requerimiento, se recomienda que el sistema permita a un usuario cerrar su sesión de manera manual.
+:keywords: Sistema, Usuario, Sesión, Cerrar, Recurso, Autenticación.
+:rules: yes
+
+= REQ.028 Permitir finalizar sesión de usuario
+
+== Requisito
+
+El sistema debe permitir al usuario
+terminar la sesión de forma manual,
+desde cualquier recurso protegido por autenticación.
+
+
+== Referencias
+
+. [[r1]] link:https://www.owasp.org/index.php/ASVS_V3_Session_Management[`OWASP-ASVS v3.1-3.17`].
+Verificar que la aplicación realice un seguimiento
+de todas las sesiones activas y permita a los usuarios
+finalizar sesiones selectivamente o globalmente desde sus cuentas.
+
+. [[r2]] link:https://www.bsimm.com/framework/governance/software-security-metrics-strategy.html[`BSSIM9` SM2.6:]
+Requerir cierre de sesión de seguridad.

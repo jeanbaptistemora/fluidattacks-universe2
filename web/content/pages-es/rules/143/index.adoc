@@ -1,0 +1,17 @@
+:slug: rules/143/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados al establecimiento y gestión de credenciales de usuarios, las cuales, deben ser únicas para cada actor que necesite ser identificado de manera exclusiva por la aplicación.
+:keywords: Requerimiento, Seguridad, Sistema, Credenciales, Acceso, Actor.
+:rules: yes
+
+= REQ.143 Credenciales de acceso únicas
+
+== Requisito
+
+Las credenciales de acceso al sistema deben ser únicas para cada actor.
+
+== Referencias
+
+. [[r1]] link:https://www.law.cornell.edu/cfr/text/45/164.312[+HIPAA Security Rules+ 164.312(a)(2)(i):]
+Identificación de Usuario única: Asignar un único nombre y/o número
+para identificar y llevar el seguimiento de la identidad del usuario.

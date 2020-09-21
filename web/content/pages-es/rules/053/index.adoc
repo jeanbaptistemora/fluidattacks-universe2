@@ -1,0 +1,12 @@
+:slug: rules/053/
+:category: rules
+:description: En el presente documento se detallan los requerimientos de seguridad relacionados a la gestion de los casos de abuso que se pueden presentar en un determinado sistema. Por lo tanto, la organización debe identificar y documentar los casos de abuso que se relacionan con el sistema.
+:keywords: Casos de abuso, Organización, Sistema, Identificar, Documentar, Seguridad.
+:rules: yes
+
+= REQ.053 Gestionar casos de abuso del sistema
+
+== Requisito
+
+La organización debe identificar
+y documentar los casos de abuso que se relacionan con el sistema.
