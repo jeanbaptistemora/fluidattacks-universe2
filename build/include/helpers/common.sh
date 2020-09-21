@@ -410,3 +410,37 @@ function helper_common_array_contains_element {
   for e; do [[ "$e" == "$match" ]] && return 0; done
   return 1
 }
+
+function helper_common_run_on_aws {
+  export EXTERNAL_ENV_VARS
+  export NIX_PATH
+  export STARTDIR
+  local job_definition
+  local vcpus="${1}"
+  local memory="${2}"
+  local attempts="${3}"
+  local timeout="${4}"
+  local command=('./build.sh' "${@:5}")
+
+      echo "[INFO] Running on AWS:" \
+  &&  for arg in "${command[@]}"; do echo "       ${arg}"; done \
+  &&  echo "[INFO] Memory: ${memory} MB" \
+  &&  echo "[INFO] VCPU: ${vcpus} units" \
+  &&  echo "[INFO] Attempts: ${attempts}" \
+  &&  echo "[INFO] Timeout: ${timeout} seconds" \
+  &&  NIX_PATH='/root/.nix-defexpr/channels' \
+      job_definition=$( \
+        python "${STARTDIR}/build/include/helpers/create_aws_batch_job_definition.py" \
+          "${vcpus}" \
+          "${memory}" \
+          "${command[@]}" \
+      ) \
+  &&  aws batch submit-job \
+        --container-overrides "${job_definition}" \
+        --job-name "${group}" \
+        --job-queue 'default' \
+        --job-definition 'default' \
+        --retry-strategy "attempts=${attempts}" \
+        --timeout "attemptDurationSeconds=${timeout}" \
+
+}

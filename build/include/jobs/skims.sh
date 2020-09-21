@@ -74,7 +74,10 @@ function job_skims_process_all_groups {
 }
 
 function job_skims_process_group_on_aws {
-  local definition
+  local vcpus='2'
+  local memory='7300'
+  local attempts='1'
+  local timeout='18000'
   export group="${1}"
   export AWS_DEFAULT_REGION='us-east-1'
 
@@ -83,32 +86,13 @@ function job_skims_process_group_on_aws {
             echo '[INFO] Please set the first argument to the group name' \
         &&  return 1
       fi \
-  &&  echo "[INFO] Submitting job to group: ${group}" \
-  &&  definition=$(jq -e -n -r \
-      '{
-        command: ["./build.sh", "skims_process_group", env.group],
-        environment: [
-          {name: "CI_REGISTRY_PASSWORD", value: env.GITLAB_API_TOKEN},
-          {name: "CI_REGISTRY_USER", value: env.GITLAB_API_USER},
-          {name: "GITLAB_API_TOKEN", value: env.GITLAB_API_TOKEN},
-          {name: "GITLAB_API_USER", value: env.GITLAB_API_USER},
-          {name: "INTEGRATES_API_TOKEN", value: env.INTEGRATES_API_TOKEN},
-          {name: "SERVICES_PROD_AWS_ACCESS_KEY_ID", value: env.SERVICES_PROD_AWS_ACCESS_KEY_ID},
-          {name: "SERVICES_PROD_AWS_SECRET_ACCESS_KEY", value: env.SERVICES_PROD_AWS_SECRET_ACCESS_KEY},
-          {name: "SKIMS_PROD_AWS_ACCESS_KEY_ID", value: env.SKIMS_PROD_AWS_ACCESS_KEY_ID},
-          {name: "SKIMS_PROD_AWS_SECRET_ACCESS_KEY", value: env.SKIMS_PROD_AWS_SECRET_ACCESS_KEY}
-        ],
-        memory: 7300,
-        vcpus: 2
-      }') \
   &&  helper_skims_aws_login prod \
-  &&  aws batch submit-job \
-        --container-overrides "${definition}" \
-        --job-name "${group}" \
-        --job-queue 'default' \
-        --job-definition 'default' \
-        --timeout 'attemptDurationSeconds=18000' \
-
+  &&  helper_common_run_on_aws \
+        "${vcpus}" \
+        "${memory}" \
+        "${attempts}" \
+        "${timeout}" \
+        'skims_process_group' "${group}"
 }
 
 function job_skims_process_all_groups_on_aws {

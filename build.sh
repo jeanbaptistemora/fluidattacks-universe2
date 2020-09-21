@@ -22,6 +22,7 @@ function decide_and_call_provisioner {
     arg1="$*"
   fi
   local provisioner
+  local keep=()
 
   # shellcheck disable=2016
       if echo "${job}" | grep -q 'asserts_test_'
@@ -34,57 +35,12 @@ function decide_and_call_provisioner {
         provisioner='./build/provisioners/integrates_reset.nix'
       fi \
   &&  echo "[INFO] Running with provisioner: ${provisioner}" \
+  &&  while read -r secret
+      do keep+=('--keep' "${secret}")
+      done < env.lst \
   &&  nix-shell \
         --cores 0 \
-        --keep AWS_SESSION_TOKEN \
-        --keep CI \
-        --keep CI_COMMIT_REF_NAME \
-        --keep CI_COMMIT_REF_SLUG \
-        --keep CI_JOB_ID \
-        --keep CI_NODE_INDEX \
-        --keep CI_NODE_TOTAL \
-        --keep CI_PROJECT_DIR \
-        --keep CI_REGISTRY_USER \
-        --keep CI_REGISTRY_PASSWORD \
-        --keep CI_MERGE_REQUEST_IID \
-        --keep CI_PIPELINE_ID \
-        --keep CI_PROJECT_ID \
-        --keep DNS_ZONE_ID \
-        --keep GITLAB_API_TOKEN \
-        --keep GITLAB_API_USER \
-        --keep INTEGRATES_API_TOKEN \
-        --keep JWT_TOKEN \
-        --keep NIX_PATH \
-        --keep NIX_SSL_CERT_FILE \
-        --keep INTEGRATES_DEV_AWS_ACCESS_KEY_ID \
-        --keep INTEGRATES_DEV_AWS_SECRET_ACCESS_KEY \
-        --keep INTEGRATES_PROD_AWS_ACCESS_KEY_ID \
-        --keep INTEGRATES_PROD_AWS_SECRET_ACCESS_KEY \
-        --keep MELTS_DEV_AWS_ACCESS_KEY_ID \
-        --keep MELTS_DEV_AWS_SECRET_ACCESS_KEY \
-        --keep MELTS_PROD_AWS_ACCESS_KEY_ID \
-        --keep MELTS_PROD_AWS_SECRET_ACCESS_KEY \
-        --keep SERVES_DEV_AWS_ACCESS_KEY_ID \
-        --keep SERVES_DEV_AWS_SECRET_ACCESS_KEY \
-        --keep SERVES_PROD_AWS_ACCESS_KEY_ID \
-        --keep SERVES_PROD_AWS_SECRET_ACCESS_KEY \
-        --keep SERVICES_PROD_AWS_ACCESS_KEY_ID \
-        --keep SERVICES_PROD_AWS_SECRET_ACCESS_KEY \
-        --keep SKIMS_DEV_AWS_ACCESS_KEY_ID \
-        --keep SKIMS_DEV_AWS_SECRET_ACCESS_KEY \
-        --keep SKIMS_PROD_AWS_ACCESS_KEY_ID \
-        --keep SKIMS_PROD_AWS_SECRET_ACCESS_KEY \
-        --keep OBSERVES_DEV_AWS_ACCESS_KEY_ID \
-        --keep OBSERVES_DEV_AWS_SECRET_ACCESS_KEY \
-        --keep OBSERVES_PROD_AWS_ACCESS_KEY_ID \
-        --keep OBSERVES_PROD_AWS_SECRET_ACCESS_KEY \
-        --keep ASSERTS_DEV_AWS_ACCESS_KEY_ID \
-        --keep ASSERTS_DEV_AWS_SECRET_ACCESS_KEY \
-        --keep ASSERTS_PROD_AWS_ACCESS_KEY_ID \
-        --keep ASSERTS_PROD_AWS_SECRET_ACCESS_KEY \
-        --keep REVIEWS_TOKEN \
-        --keep PYPI_TOKEN \
-        --keep INTEGRATES_FORCES_API_TOKEN \
+        "${keep[@]}" \
         --max-jobs auto \
         --option restrict-eval false \
         --option sandbox false \
