@@ -53,6 +53,11 @@ serves_test_infra_autoscaling_ci:
   <<: *serves_in_dev_branch
   stage: test-infra
 
+serves_test_infra_compute:
+  <<: *with_nix
+  <<: *serves_in_dev_branch
+  stage: test-infra
+
 serves_test_infra_dns:
   <<: *with_nix
   <<: *serves_in_dev_branch
@@ -149,6 +154,11 @@ serves_apply_infra_monolith:
   stage: deploy-infra
 
 serves_apply_infra_autoscaling_ci:
+  <<: *with_nix
+  <<: *serves_in_master_branch
+  stage: deploy-infra
+
+serves_apply_infra_compute:
   <<: *with_nix
   <<: *serves_in_master_branch
   stage: deploy-infra
