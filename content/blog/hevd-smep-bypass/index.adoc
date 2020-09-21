@@ -1,7 +1,7 @@
 :slug: hevd-smep-bypass/
 :date: 2020-09-18
 :category: attacks
-:subtitle: Bypassing SMEP
+:subtitle: Bypassing OS protections
 :tags: osee, training, exploit, windows, kernel, hevd
 :image: cover.png
 :alt: Photo by Basil James on Unsplash
