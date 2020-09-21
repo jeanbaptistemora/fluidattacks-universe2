@@ -162,6 +162,36 @@ def test_load_2() -> None:
                 column=0,
                 line=8,
             ),
+            Block(
+                namespace=['resource', 'aws_iam_user_policy', 'topics_policy1'],
+                body=[
+                    Attribute(
+                        column=2,
+                        key='name',
+                        line=17,
+                        val='sns_policy',
+                    ),
+                    Attribute(
+                        column=2,
+                        key='user',
+                        line=18,
+                        val=Tree('get_attr_expr_term', [
+                            Tree('identifier', ['var']),
+                            Tree('identifier', ['arn_user']),
+                        ]),
+                    ),
+                    Attribute(
+                        column=2,
+                        key='policy',
+                        line=20,
+                        val=Tree('heredoc_template', [
+                            Token('__ANON_10', '<<EOF\n{\n    "Version": "2012-10-17",\n    "Statement": [\n        {\n            "Sid": "rule1",\n            "Effect": "Allow",\n            "Action": [\n                "sns:ListSubscriptionsByTopic",\n                "sns:Publish"\n            ],\n            "Resource": [\n                "${aws_sns_topic.test.arn}",\n                "${aws_sns_topic.test2.arn}"\n            ]\n        },\n        {\n            "Sid": "rule2",\n            "Effect": "Allow",\n            "Action": "sns:ListTopics",\n            "Resource": "*"\n        }\n    ]\n}\nEOF'),
+                        ]),
+                    ),
+                ],
+                column=0,
+                line=16,
+            ),
         ]),
     ])
 
