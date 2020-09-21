@@ -18,7 +18,7 @@ from toolbox.reports import (
 
 
 @command(name='reports', short_help="Service reports")
-@option('--generate-exploits-report',
+@option('--generate-exploits-report', 'o_generate_exploits_report',
         default='')
 @option('--compute-bill', 'o_compute_bill', help='Export compute bill',
         is_flag=True)
