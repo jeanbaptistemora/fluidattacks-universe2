@@ -27,9 +27,12 @@ async def resolve(
         organization_id=org_id
     )
 
-    groups: List[Group] = cast(List[Group], await aio.materialize(
-        group_domain.get_by_name(group)
-        for group in user_groups
-    ))
+    groups: List[Group] = cast(
+        List[Group],
+        await aio.materialize(
+            group_domain.get_by_name(group)
+            for group in user_groups
+        )
+    )
 
     return groups

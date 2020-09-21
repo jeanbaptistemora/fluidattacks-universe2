@@ -250,3 +250,19 @@ def is_forces_user(email: str) -> bool:
 
 def format_forces_user_email(project_name: str) -> str:
     return f'forces.{project_name}@fluidattacks.com'
+
+
+async def get_by_email(email: str) -> UserType:
+    user: UserType = await user_dal.get(email)
+
+    return {
+        'date_joined': user['date_joined'],
+        'email': user['email'],
+        'first_login': user.get('first_login', ''),
+        'first_name': user['first_name'],
+        'last_login': user['last_login'],
+        'last_name': user['last_name'],
+        'legal_remember': user['legal_remember'],
+        'phone_number': user.get('phone', ''),
+        'push_tokens': user.get('push_tokens', [])
+    }
