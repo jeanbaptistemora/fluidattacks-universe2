@@ -56,3 +56,48 @@ resource "cloudflare_page_rule" "fluidsignal_redirect" {
     }
   }
 }
+
+resource "cloudflare_record" "fluidsignal_com_email_1" {
+  zone_id  = cloudflare_zone.fluidsignal_com.id
+  name     = cloudflare_zone.fluidsignal_com.zone
+  type     = "MX"
+  priority = 1
+  value    = "aspmx.l.google.com"
+  ttl      = 300
+}
+
+resource "cloudflare_record" "fluidsignal_com_email_2" {
+  zone_id  = cloudflare_zone.fluidsignal_com.id
+  name     = cloudflare_zone.fluidsignal_com.zone
+  type     = "MX"
+  priority = 5
+  value    = "alt1.aspmx.l.google.com"
+  ttl      = 300
+}
+
+resource "cloudflare_record" "fluidsignal_com_email_3" {
+  zone_id  = cloudflare_zone.fluidsignal_com.id
+  name     = cloudflare_zone.fluidsignal_com.zone
+  type     = "MX"
+  priority = 5
+  value    = "alt2.aspmx.l.google.com"
+  ttl      = 300
+}
+
+resource "cloudflare_record" "fluidsignal_com_email_4" {
+  zone_id  = cloudflare_zone.fluidsignal_com.id
+  name     = cloudflare_zone.fluidsignal_com.zone
+  type     = "MX"
+  priority = 10
+  value    = "aspmx2.googlemail.com"
+  ttl      = 300
+}
+
+resource "cloudflare_record" "fluidsignal_com_email_5" {
+  zone_id  = cloudflare_zone.fluidsignal_com.id
+  name     = cloudflare_zone.fluidsignal_com.zone
+  type     = "MX"
+  priority = 10
+  value    = "aspmx3.googlemail.com"
+  ttl      = 300
+}
