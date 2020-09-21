@@ -105,8 +105,8 @@ function job_skims_process_group_on_aws {
   &&  aws batch submit-job \
         --container-overrides "${definition}" \
         --job-name "${group}" \
-        --job-queue 'skims' \
-        --job-definition 'skims' \
+        --job-queue 'default' \
+        --job-definition 'default' \
         --timeout 'attemptDurationSeconds=18000' \
 
 }

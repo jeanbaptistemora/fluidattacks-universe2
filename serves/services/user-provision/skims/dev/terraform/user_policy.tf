@@ -40,16 +40,6 @@ data "aws_iam_policy_document" "skims_dev_policy_data" {
     ]
   }
 
-  # Batch access
-  statement {
-    effect = "Allow"
-    actions = [
-      "batch:Describe*",
-      "batch:Get*",
-    ]
-    resources = ["*"]
-  }
-
   # EC2
   statement {
     effect = "Allow"
