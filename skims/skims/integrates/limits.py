@@ -4,4 +4,4 @@
 DEFAULT = 60
 
 # Rate limit on specific funcionalities
-DO_UPDATE_EVIDENCE = 10
+DO_UPDATE_EVIDENCE = 6

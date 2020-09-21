@@ -16,6 +16,15 @@ from parse_hcl2.tokens import (
 )
 
 
+def test_bad() -> None:
+    expected = 'ERROR'
+
+    with open('test/data/parse_hcl2/bad.tf') as file:
+        template = load(file.read(), default=expected)
+
+    assert template == expected
+
+
 def test_load_empty() -> None:
     expected = Tree('start', [
         Tree('body', [
@@ -29,7 +38,7 @@ def test_load_empty() -> None:
     assert template == expected
 
 
-def test_load_full() -> None:
+def test_load_1() -> None:
     expected = Tree('start', [
         Tree('body', [
             Block(
@@ -62,7 +71,36 @@ def test_load_full() -> None:
         ])
     ])
 
-    with open('test/data/parse_hcl2/full.tf') as file:
+    with open('test/data/parse_hcl2/1.tf') as file:
+        template = load(file.read())
+
+    assert template == expected
+
+
+def test_load_2() -> None:
+    expected = Tree('start', [
+        Tree('body', [
+            Block(
+                namespace=['resource', 'aws_sqs_queue', 'app_queue'],
+                body=[
+                    Attribute(key='name', val=Tree('get_attr_expr_term', [
+                        Tree('identifier', ['var']),
+                        Tree('identifier', ['queue_name'])
+                    ])),
+                    Attribute(key='tags', val=Tree('get_attr_expr_term', [
+                        Tree('identifier', ['var']),
+                        Tree('identifier', ['tags']),
+                    ])),
+                    Attribute(key='kms_master_key_id', val=Tree('get_attr_expr_term', [
+                        Tree('identifier', ['var']),
+                        Tree('identifier', ['keysqs_name']),
+                    ])),
+                    Attribute(key='kms_data_key_reuse_period_seconds', val=86400),
+                ]),
+            ]),
+        ])
+
+    with open('test/data/parse_hcl2/2.tf') as file:
         template = load(file.read())
 
     assert template == expected

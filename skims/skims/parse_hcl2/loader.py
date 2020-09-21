@@ -40,12 +40,18 @@ class HCL2Builder(  # pylint: disable=too-few-public-methods
         return self.transformer.new_line_or_comment(args)
 
 
-def load(stream: str) -> Any:
-    return post_process(Lark_StandAlone(HCL2Builder()).parse(stream))
+def load(stream: str, *, default: Any = None) -> Any:
+    try:
+        return post_process(Lark_StandAlone(HCL2Builder()).parse(stream))
+    except lark.exceptions.LarkError:
+        if default:
+            return default
+        raise
 
 
 def post_process(data: Any) -> Any:
     data = remove_discarded(data)
+    data = coerce_to_int_lit(data)
     data = coerce_to_string_lit(data)
     data = coerce_to_boolean(data)
     data = extract_single_expr_term(data)
@@ -75,6 +81,21 @@ def coerce_to_boolean(data: Any) -> Any:
             data = False
         else:
             data.children = list(map(coerce_to_string_lit, data.children))
+
+    return data
+
+
+def coerce_to_int_lit(data: Any) -> Any:
+    if isinstance(data, lark.Tree):
+        if data.data == 'int_lit':
+            data = int(''.join(child.value for child in data.children))
+        else:
+            data.children = list(map(coerce_to_int_lit, data.children))
+    elif isinstance(data, lark.Token):
+        if data.type == '__ANON_3':
+            data = data.value
+        elif data.type == 'STRING_LIT':
+            data = ast.literal_eval(data.value)
 
     return data
 
