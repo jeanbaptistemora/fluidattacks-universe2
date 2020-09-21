@@ -130,6 +130,38 @@ def test_load_2() -> None:
                 column=0,
                 line=1,
             ),
+            Block(
+                namespace=['resource', 'aws_sns_topic_subscription', 'test'],
+                body=[
+                    Attribute(
+                        column=2,
+                        key='topic_arn',
+                        line=9,
+                        val='${aws_sns_topic.app_topic.arn}',
+                    ),
+                    Attribute(column=2, key='protocol', line=10, val='sqs'),
+                    Attribute(
+                        column=2,
+                        key='endpoint',
+                        line=11,
+                        val='arn:aws:sqs:${var.zone}:${var.aws_account}:xxxx-${var.environment_prefix}',
+                    ),
+                    Attribute(
+                        column=2,
+                        key='filter_policy',
+                        line=12,
+                        val='{ "scope": [ "SEND_TO_UI", "SEND_TO_ALL" ] }',
+                    ),
+                    Attribute(
+                        column=2,
+                        key='raw_message_delivery',
+                        line=13,
+                        val=True,
+                    ),
+                ],
+                column=0,
+                line=8,
+            ),
         ]),
     ])
 
