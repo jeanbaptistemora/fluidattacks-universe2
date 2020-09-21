@@ -1,7 +1,7 @@
 :slug: rules/223/
 :category: cryptography
 :description: This requirement establishes the importance of generating random numbers using a uniform distribution.
-:keywords: Random, Numbers, Distribution, CWE, NIST, ASVS, Rules, Ethical Hacking, Pentesting
+:keywords: Random, Numbers, Distribution, ASVS, CAPEC, CWE, NIST, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R223. Uniform distribution in random numbers
@@ -26,51 +26,56 @@ mechanisms that guarantee a random distribution,
 
 == References
 
-. [[r1]] link:https://cwe.mitre.org/data/definitions/330.html[CWE-330: Use of Insufficiently Random Values]
+. [[r1]] link:http://capec.mitre.org/data/definitions/20.html[CAPEC-20: Encryption Brute Forcing].
+An attacker, armed with the cipher text and the encryption algorithm used,
+performs an exhaustive (brute force) search on the key space to determine the
+key that decrypts the cipher text to obtain the plaintext.
+
+. [[r2]] link:https://cwe.mitre.org/data/definitions/330.html[CWE-330: Use of Insufficiently Random Values]
 The software uses insufficiently random numbers or values in a security context
 that depends on unpredictable numbers.
 
-. [[r2]] link:https://cwe.mitre.org/data/definitions/331.html[CWE-331: Insufficient Entropy]
+. [[r3]] link:https://cwe.mitre.org/data/definitions/331.html[CWE-331: Insufficient Entropy]
 The software uses an algorithm or scheme that produces insufficient entropy,
 leaving patterns or clusters of values that are more likely to occur than
 others.
 
-. [[r3]] link:https://cwe.mitre.org/data/definitions/332.html[CWE-332: Insufficient Entropy in PRNG]
+. [[r4]] link:https://cwe.mitre.org/data/definitions/332.html[CWE-332: Insufficient Entropy in PRNG]
 The lack of entropy available for, or used by, a Pseudo-Random Number Generator
 (PRNG) can be a stability and security threat.
 
-. [[r4]] link:https://cwe.mitre.org/data/definitions/335.html[CWE-335: Incorrect Usage of Seeds in Pseudo-Random Number Generator (PRNG)]
+. [[r5]] link:https://cwe.mitre.org/data/definitions/335.html[CWE-335: Incorrect Usage of Seeds in Pseudo-Random Number Generator (PRNG)]
 The software uses a Pseudo-Random Number Generator (PRNG) that does not
 correctly manage seeds.
 
-. [[r5]] link:https://cwe.mitre.org/data/definitions/338.html[CWE-338: Use of Cryptographically Weak Pseudo-Random Number Generator (PRNG)]
+. [[r6]] link:https://cwe.mitre.org/data/definitions/338.html[CWE-338: Use of Cryptographically Weak Pseudo-Random Number Generator (PRNG)]
 The product uses a Pseudo-Random Number Generator (PRNG) in a security context,
 but the PRNG's algorithm is not cryptographically strong.
 
-. [[r6]] link:https://cwe.mitre.org/data/definitions/340.html[CWE-340: Generation of Predictable Numbers or Identifiers]
+. [[r7]] link:https://cwe.mitre.org/data/definitions/340.html[CWE-340: Generation of Predictable Numbers or Identifiers]
 The product uses a scheme that generates numbers or identifiers that are more
 predictable than required.
 
-. [[r7]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r8]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V2.6 Look-up Secret Verifier Requirements.(2.6.3)]
 Verify that lookup secrets are resistant to offline attacks,
 such as predictable values.
 
-. [[r8]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r9]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V6.3 Random Values.(6.3.1)]
 Verify that all random numbers, random file names, random **GUID**s, and random
 strings are generated using the cryptographic module's approved
 cryptographically secure random number generator when these random values are
 intended to be not guessable by an attacker.
 
-. [[r9]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r10]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V6.3 Random Values.(6.3.2)]
 Verify that random GUIDs are created using the *GUID* v4 algorithm,
 and a cryptographically-secure pseudo-random number generator (*CSPRNG*).
 **GUID**s created using other pseudo-random number generators may be
 predictable.
 
-. [[r10]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r11]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V6.3 Random Values.(6.3.3)]
 Verify that random numbers are created with proper entropy even when the
 application is under heavy load,

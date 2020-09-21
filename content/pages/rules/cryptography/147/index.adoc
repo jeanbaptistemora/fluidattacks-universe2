@@ -1,7 +1,7 @@
 :slug: rules/147/
 :category: cryptography
 :description: This requirement establishes the importance of using pre-existing and up-to-date cryptographic mechanisms.
-:keywords: Cryptographic, Encryption, Mechanisms, HIPAA, NIST, ASVS, PCI DSS, Rules, Ethical Hacking, Pentesting
+:keywords: Cryptographic, Encryption, Mechanisms, HIPAA, NIST, ASVS, CAPEC, CWE, PCI DSS, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R147. Use pre-existent mechanisms
@@ -20,68 +20,73 @@ secure mechanisms.
 
 == References
 
-. [[r1]] link:https://cwe.mitre.org/data/definitions/326.html[CWE-326: Inadequate Encryption Strength]
+. [[r1]] link:http://capec.mitre.org/data/definitions/20.html[CAPEC-20: Encryption Brute Forcing].
+An attacker, armed with the cipher text and the encryption algorithm used,
+performs an exhaustive (brute force) search on the key space to determine the
+key that decrypts the cipher text to obtain the plaintext.
+
+. [[r2]] link:https://cwe.mitre.org/data/definitions/326.html[CWE-326: Inadequate Encryption Strength]
 The software stores or transmits sensitive data using an encryption scheme that
 is theoretically sound,
 but is not strong enough for the level of protection required.
 
-. [[r2]] link:https://cwe.mitre.org/data/definitions/327.html[CWE-327: Use of a Broken or Risky Cryptographic Algorithm]
+. [[r3]] link:https://cwe.mitre.org/data/definitions/327.html[CWE-327: Use of a Broken or Risky Cryptographic Algorithm]
 The use of a broken or risky cryptographic algorithm is an unnecessary risk
 that may result in the exposure of sensitive information.
 
-. [[r3]] link:https://www.law.cornell.edu/cfr/text/45/164.312[HIPAA Security Rules 164.312(a)(2)(iv):]
+. [[r4]] link:https://www.law.cornell.edu/cfr/text/45/164.312[HIPAA Security Rules 164.312(a)(2)(iv):]
 Encryption and Decryption: Implement a mechanism to encrypt and decrypt
 electronic protected health information.
 
-. [[r4]] link:https://nvd.nist.gov/800-53/Rev4/control/IA-7[NIST 800-53 IA-7]
+. [[r5]] link:https://nvd.nist.gov/800-53/Rev4/control/IA-7[NIST 800-53 IA-7]
 Cryptographic module authentication:
 The information system implements mechanisms for authentication
 to a cryptographic module that meet the requirements
 of applicable federal laws, Executive Orders, directives, policies,
 regulations, standards, and guidance for such authentication.
 
-. [[r5]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r6]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 Appendix C: Internet of Things Verification Requirements.(C.23)]
 Verify usage of cryptographically secure pseudo-random number generator on
 embedded device (e.g., using chip-provided random number generators).
 
-. [[r6]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r7]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V1.6 Cryptographic Architectural Requirements.(1.6.1)]
 Verify that there is an explicit policy for management of cryptographic keys
 and that a cryptographic key lifecycle follows a key management standard such
 as **NIST SP 800-57**.
 
-. [[r7]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r8]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V1.6 Cryptographic Architectural Requirements.(1.6.2)]
 Verify that consumers of cryptographic services protect key material and other
 secrets by using key vaults or API based alternatives.
 
-. [[r8]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r9]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V1.6 Cryptographic Architectural Requirements.(1.6.3)]
 Verify that all keys and passwords are replaceable and are part of a
 well-defined process to re-encrypt sensitive data.
 
-. [[r9]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r10]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V2.8 Single or Multi Factor One Time Verifier Requirements.(2.8.3)]
 Verify that approved cryptographic algorithms are used in the generation,
 seeding, and verification.
 
-. [[r10]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r11]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V2.9 Cryptographic Software and Devices Verifier Requirements.(2.9.3)]
 Verify that approved cryptographic algorithms are used in the generation,
 seeding, and verification.
 
-. [[r11]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r12]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V6.2 Algorithms.(6.2.2)]
 Verify that industry proven or government approved cryptographic algorithms,
 modes, and libraries are used, instead of custom coded cryptography.
 
-. [[r12]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r13]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V6.2 Algorithms.(6.2.3)]
 Verify that encryption initialization vector, cipher configuration,
 and block modes are configured securely using the latest advice.
 
-. [[r13]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 4.1.1]
+. [[r14]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 4.1.1]
 Ensure wireless networks transmitting cardholder data or connected to the
 cardholder data environment,
 use industry best practices to implement strong encryption for authentication

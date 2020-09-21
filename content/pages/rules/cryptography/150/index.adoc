@@ -1,14 +1,14 @@
 :slug: rules/150/
 :category: cryptography
 :description: This requirement establishes the importance of protecting encrypted sensitive information by setting a minimum size for all hash functions.
-:keywords: Security, Hash, Function, Size, Cryptography, ASVS, Rules, Ethical Hacking, Pentesting
+:keywords: Security, Hash, Function, Size, Cryptography, CAPEC, ASVS, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R150. Set minimum size for hash functions
 
 == Requirement
 
-Hash functions must be used with a minimum size of *256* bits.
+Use hash functions with a minimum size of *256* bits.
 
 == Findings
 
@@ -18,7 +18,12 @@ Hash functions must be used with a minimum size of *256* bits.
 
 == References
 
-. [[r1]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r1]] link:http://capec.mitre.org/data/definitions/20.html[CAPEC-20: Encryption Brute Forcing].
+An attacker, armed with the cipher text and the encryption algorithm used,
+performs an exhaustive (brute force) search on the key space to determine the
+key that decrypts the cipher text to obtain the plaintext.
+
+. [[r2]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V1.6 Cryptographic Architectural Requirements.(1.6.1)]
 Verify that there is an explicit policy for management of cryptographic keys
 and that a cryptographic key lifecycle follows a key management standard such
