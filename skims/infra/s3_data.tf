@@ -1,7 +1,7 @@
 resource "aws_s3_bucket" "skims_data" {
   acl = "private"
   bucket = "skims.data"
-  region = "us-east-1"
+  region = var.region
   tags = {
     Product = "Skims"
   }
