@@ -18,6 +18,7 @@ import lark
 # Local libraries
 from parse_hcl2.tokens import (
     Attribute,
+    Block,
 )
 
 # Side effects
@@ -50,6 +51,7 @@ def post_process(data: Any) -> Any:
     data = extract_single_expr_term(data)
     data = load_objects(data)
     data = replace_attributes(data)
+    data = load_blocks(data)
 
     return data
 
@@ -95,6 +97,26 @@ def extract_single_expr_term(data: Any) -> Any:
             data = extract_single_expr_term(data.children[0])
         else:
             data.children = list(map(extract_single_expr_term, data.children))
+    return data
+
+
+def load_blocks(data: Any) -> Any:
+    if isinstance(data, lark.Tree):
+        if data.data == 'block':
+            body = []
+            namespace = []
+            for child in data.children:
+                if isinstance(child, lark.Tree) and child.data == 'body':
+                    body = list(map(load_blocks, child.children))
+                elif isinstance(child, lark.Tree) \
+                        and child.data == 'identifier':
+                    namespace.append(child.children[0])
+                else:
+                    namespace.append(child)
+
+            data = Block(body=body, namespace=namespace)
+        else:
+            data.children = list(map(load_blocks, data.children))
     return data
 
 

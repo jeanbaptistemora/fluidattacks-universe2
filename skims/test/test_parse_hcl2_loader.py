@@ -12,6 +12,7 @@ from parse_hcl2.loader import (
 )
 from parse_hcl2.tokens import (
     Attribute,
+    Block,
 )
 
 
@@ -31,12 +32,12 @@ def test_load_empty() -> None:
 def test_load_full() -> None:
     expected = Tree('start', [
         Tree('body', [
-            Tree('block', [
-                Tree('identifier', [
-                    'module'
-                ]),
-                'iam_user',
-                Tree('body', [
+            Block(
+                namespace=[
+                    'module',
+                    'iam_user',
+                ],
+                body=[
                     Attribute(
                         key='source',
                         val='modules\\/iam-user',
@@ -56,8 +57,8 @@ def test_load_full() -> None:
                             'analista': '${var.analista}',
                         },
                     ),
-                ]),
-            ])
+                ],
+            ),
         ])
     ])
 

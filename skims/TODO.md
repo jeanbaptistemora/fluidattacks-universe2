@@ -7,3 +7,6 @@
 - Add an HCL2 parser with line number
 - Keyboard interrupts in production environment affect stability,
   we should intercept them with a sys-handler
+- Yaml implementations are vulnerable to RCE so we should:
+    - Fork the libraries and patch them, or
+    - Avoid using yaml, for instance in the config file
