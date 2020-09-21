@@ -1,6 +1,7 @@
 import Bugsnag from "@bugsnag/js";
 import BugsnagPluginReact from "@bugsnag/plugin-react";
 import { Error } from "@bugsnag/core/types/event";
+import { Logger } from "./logger";
 import React from "react";
 import _ from "lodash";
 import { getEnvironment } from "utils/environment";
@@ -21,6 +22,18 @@ interface IBugsnagPluginReactResultConfig {
 
 const { userEmail, userName } = window as typeof window & Dictionary<string>;
 
+const noSpaceLeftOnDevice: (error: Error) => boolean = (
+  error: Error
+): boolean => {
+  /*
+   * In this array should be added all errors related
+   * to the space in the device
+   */
+  const expectedErrors: string[] = ["NS_ERROR_FILE_NO_DEVICE_SPACE"];
+
+  return _.includes(expectedErrors, error.errorClass);
+};
+
 Bugsnag.start({
   apiKey: "99a64555a50340cfa856f6623c6bf35d",
   appVersion: "integrates_version",
@@ -34,6 +47,12 @@ Bugsnag.start({
       // eslint-disable-next-line fp/no-mutation
       event.groupingHash = event.context;
     });
+    // custom handling to space device errors
+    if (noSpaceLeftOnDevice(event.errors[0])) {
+      Logger.error("noSpaceLeftOnDevice", event);
+
+      return false;
+    }
 
     return true;
   },
