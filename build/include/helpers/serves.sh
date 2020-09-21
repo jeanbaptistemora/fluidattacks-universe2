@@ -254,3 +254,11 @@ function helper_serves_test_lint_code_shell {
   find "${path}" -name '*.sh' -exec \
     shellcheck --external-sources --exclude=SC1090,SC2016,SC2153,SC2154 {} +
 }
+
+function helper_serves_cloudflare_login {
+      helper_common_sops_env secrets-prod.yaml default \
+        CLOUDFLARE_EMAIL \
+        CLOUDFLARE_API_KEY \
+  &&  export TF_VAR_cloudflare_email="${CLOUDFLARE_EMAIL}" \
+  &&  export TF_VAR_cloudflare_api_key="${CLOUDFLARE_API_KEY}"
+}
