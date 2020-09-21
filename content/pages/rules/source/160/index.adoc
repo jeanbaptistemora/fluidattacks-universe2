@@ -1,7 +1,7 @@
 :slug: rules/160/
 :category: source
 :description: This requirement establishes the importance of encoding system outputs in the corresponding language.
-:keywords: Encoding, Outputs, Escaping, BSIMM9, ASVS, CWE, PCI DSS, Rules, Ethical Hacking, Pentesting
+:keywords: Encoding, Outputs, Escaping, BSIMM9, ASVS, CAPEC, CWE, PCI DSS, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R160. Encode system outputs
@@ -20,41 +20,57 @@ For this reason, enconding or escaping must occur before sending the messages.
 
 == References
 
-. [[r1]] link:https://cwe.mitre.org/data/definitions/20.html[CWE-20: Improper Input Validation].
+. [[r1]] link:http://capec.mitre.org/data/definitions/18.html[CAPEC-18: XSS Targeting Non-Script Elements].
+This attack is a form of Cross-Site Scripting (*XSS*) where malicious scripts
+are embedded in elements that are not expected to host scripts such as image
+tags (**<img>**), comments in *XML* documents (**<!-CDATA->**), etc.
+These tags may not be subject to the same input validation, output validation,
+and other content filtering and checking routines.
+
+. [[r2]] link:http://capec.mitre.org/data/definitions/19.html[CAPEC-19: Embedding Scripts within Scripts].
+An attack of this type exploits a programs' vulnerabilities that are brought on
+by allowing remote hosts to execute scripts.
+The adversary leverages this capability to execute their own script by
+embedding it within other scripts that the target software is likely to
+execute.
+The adversary must have the ability to inject their script into a script that
+is likely to be executed.
+
+. [[r3]] link:https://cwe.mitre.org/data/definitions/20.html[CWE-20: Improper Input Validation].
 The product does not validate or incorrectly validates input that can affect
 the control flow or data flow of a program.
 
-. [[r2]] link:https://cwe.mitre.org/data/definitions/79.html[CWE-79: Cross-site Scripting].
+. [[r4]] link:https://cwe.mitre.org/data/definitions/79.html[CWE-79: Cross-site Scripting].
 The software does not neutralize or incorrectly neutralizes user-controllable
 input before it is placed in output that is used as a web page that is served
 to other users.
 
-. [[r3]] link:https://cwe.mitre.org/data/definitions/116.html[CWE-116: Improper Encoding or Escaping of Output].
+. [[r5]] link:https://cwe.mitre.org/data/definitions/116.html[CWE-116: Improper Encoding or Escaping of Output].
 The product does not validate or incorrectly validates input that can affect
 the control flow or data flow of a program.
 
-. [[r4]] link:https://cwe.mitre.org/data/definitions/117.html[CWE-117: Improper Output Neutralization for Logs].
+. [[r6]] link:https://cwe.mitre.org/data/definitions/117.html[CWE-117: Improper Output Neutralization for Logs].
 The software does not neutralize or incorrectly neutralizes output that is
 written to logs.
 
-. [[r5]] link:https://cwe.mitre.org/data/definitions/173.html[CWE-173: Improper Handling of Alternate Encoding].
+. [[r7]] link:https://cwe.mitre.org/data/definitions/173.html[CWE-173: Improper Handling of Alternate Encoding].
 The software does not properly handle when an input uses an alternate encoding
 that is valid for the control sphere to which the input is being sent.
 
-. [[r6]] link:https://cwe.mitre.org/data/definitions/176.html[CWE-176: Improper Handling of Unicode Encoding].
+. [[r8]] link:https://cwe.mitre.org/data/definitions/176.html[CWE-176: Improper Handling of Unicode Encoding].
 The product does not validate or incorrectly validates input that can affect
 the control flow or data flow of a program.
 
-. [[r7]] link:https://www.bsimm.com/framework/deployment/software-environment.html[BSIMM9 SE3.2 UThe software does not neutralize or incorrectly neutralizes output that is written to logs].
+. [[r9]] link:https://www.bsimm.com/framework/deployment/software-environment.html[BSIMM9 SE3.2 UThe software does not neutralize or incorrectly neutralizes output that is written to logs].
 
-. [[r8]] link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A1-Injection[OWASP Top 10 A1:2017-Injection].
+. [[r10]] link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A1-Injection[OWASP Top 10 A1:2017-Injection].
 Injection flaws, such as **SQL**, **NoSQL**, **OS**, and *LDAP* injection,
 occur when untrusted data is sent to an interpreter as part of a command or
 query.
 The attacker's hostile data can trick the interpreter into executing unintended
 commands or accessing data without proper authorization.
 
-. [[r9]] link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A7-Cross-Site_Scripting_(XSS)[OWASP Top 10 A7:2017-Cross-Site Scripting (XSS)].
+. [[r11]] link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A7-Cross-Site_Scripting_(XSS)[OWASP Top 10 A7:2017-Cross-Site Scripting (XSS)].
 *XSS* flaws occur whenever an application includes untrusted data in a new web
 page without proper validation or escaping,
 or updates an existing web page with user-supplied data using a browser *API*
@@ -63,16 +79,16 @@ that can create *HTML* or **JavaScript**.
 hijack user sessions, deface web sites, or redirect the user to malicious
 sites.
 
-. [[r10]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r12]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V1.5 Input and Output Architectural Requirements.(1.5.3)]
 Verify that input validation is enforced on a trusted service layer.
 
-. [[r11]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r13]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V1.5 Input and Output Architectural Requirements.(1.5.4)]
 Verify that output encoding occurs close to or by the interpreter for which it
 is intended.
 
-. [[r12]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r14]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V5.3 Output encoding and Injection Prevention Requirements.(5.3.1)]
 Verify that output encoding is relevant for the interpreter and context
 required.
@@ -81,52 +97,52 @@ JavaScript, URL Parameters, *HTTP* headers, *SMTP*, and others as the context
 requires, especially from untrusted inputs
 (e.g. names with Unicode or apostrophes, such as ねこ or O'Hara).
 
-. [[r13]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r15]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V5.3 Output encoding and Injection Prevention Requirements.(5.3.2)]
 Verify that output encoding preserves the user's chosen character set and
 locale,
 such that any Unicode character point is valid and safely handled.
 
-. [[r14]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r16]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V5.3 Output encoding and Injection Prevention Requirements.(5.3.3)]
 Verify that context-aware, preferably automated - or at worst, manual - output
 escaping protects against reflected, stored, and *DOM* based *XSS*.
 
-. [[r15]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r17]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V5.3 Output encoding and Injection Prevention Requirements.(5.3.5)]
 Verify that where parameterized or safer mechanisms are not present,
 context-specific output encoding is used to protect against injection attacks,
 such as the use of *SQL* escaping to protect against *SQL* injection.
 
-. [[r16]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r18]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V5.3 Output encoding and Injection Prevention Requirements.(5.3.6)]
 Verify that the application projects against JavaScript or *JSON* injection
 attacks,
 including for eval attacks, remote JavaScript includes, *CSP* bypasses,
 **DOM XSS**, and JavaScript expression evaluation.
 
-. [[r17]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r19]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V5.3 Output encoding and Injection Prevention Requirements.(5.3.8)]
 Verify that the application protects against *OS* command injection and that
 operating system calls use parameterized *OS* queries or use contextual command
 line output encoding.
 
-. [[r18]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r20]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V7.3 Log Protection Requirements.(7.3.1)]
 Verify that the application appropriately encodes user-supplied data to prevent
 log injection.
 
-. [[r19]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r21]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V7.3 Log Protection Requirements.(7.3.2)]
 Verify that all events are protected from injection when viewed in log viewing
 software.
 
-. [[r20]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 6.5.1]
+. [[r22]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 6.5.1]
 Address common coding vulnerabilities in software-development processes such as
 injection flaws, particularly *SQL* injection.
 Also consider *OS* Command Injection, *LDAP* and *XPath* injection flaws as
 well as other injection flaws.
 
-. [[r21]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 6.5.7]
+. [[r23]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 6.5.7]
 Address common coding vulnerabilities in software-development processes such as
 cross-site scripting (*XSS*).
