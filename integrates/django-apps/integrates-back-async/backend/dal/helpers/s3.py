@@ -7,7 +7,9 @@ import logging
 import os
 from tempfile import _TemporaryFileWrapper as TemporaryFileWrapper
 
+from aioextensions import in_thread
 import aioboto3
+import boto3
 from botocore.exceptions import ClientError
 from django.core.files.base import ContentFile
 from django.core.files.uploadedfile import (
@@ -37,6 +39,8 @@ OPTIONS = dict(
 if FI_ENVIRONMENT == 'development' and FI_MINIO_LOCAL_ENABLED == 'True':
     OPTIONS.pop('aws_session_token', None)
     OPTIONS['endpoint_url'] = 'http://localhost:9000'
+
+SYNC_CLIENT = boto3.client(**OPTIONS)
 
 
 @apm.trace()
@@ -78,24 +82,35 @@ async def remove_file(bucket, name):
     return success
 
 
-async def _send_to_s3(bucket, file_object, file_name):
+async def _send_to_s3(
+    bucket: str,
+    file_object: object,
+    file_name: str
+) -> bool:
     success = False
-    async with aio_client() as client:
-        try:
-            repeated_files = await list_files(bucket, file_name)
-            await asyncio.gather(*[
-                remove_file(bucket, name)
-                for name in repeated_files
-            ])
-            await client.upload_fileobj(file_object, bucket, file_name)
-            success = True
-        except ClientError as ex:
-            LOGGER.exception(ex, extra={'extra': locals()})
-
+    try:
+        repeated_files = await list_files(bucket, file_name)
+        await asyncio.gather(*[
+            remove_file(bucket, name)
+            for name in repeated_files
+        ])
+        await in_thread(
+            SYNC_CLIENT.upload_fileobj,
+            file_object,
+            bucket,
+            file_name
+        )
+        success = True
+    except ClientError as ex:
+        LOGGER.exception(ex, extra={'extra': locals()})
     return success
 
 
-async def upload_memory_file(bucket, file_object, file_name):
+async def upload_memory_file(
+    bucket: str,
+    file_object: object,
+    file_name: str
+) -> None:
     valid_in_memory_files = (
         ContentFile,
         InMemoryUploadedFile,
