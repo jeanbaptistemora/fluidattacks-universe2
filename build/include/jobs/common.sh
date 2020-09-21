@@ -81,7 +81,7 @@ function job_common_bugsnag_report {
   &&  python3 "${STARTDIR}/common/bugsnag-report.py" "${@}"
 }
 
-function job_common_test_jobs_provisioner {
+function _job_common_test_jobs_provisioner {
   local jobs_output
   local exclude=(
     'forces'
@@ -108,6 +108,17 @@ function job_common_test_jobs_provisioner {
             fi \
         ||  return 1
       done
+}
+
+function job_common_test_jobs_provisioner {
+  # Retry 5 times
+
+      _job_common_test_jobs_provisioner \
+  ||  _job_common_test_jobs_provisioner \
+  ||  _job_common_test_jobs_provisioner \
+  ||  _job_common_test_jobs_provisioner \
+  ||  _job_common_test_jobs_provisioner \
+
 }
 
 function job_common_deploy_container_image {
