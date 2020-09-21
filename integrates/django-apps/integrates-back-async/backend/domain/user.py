@@ -19,6 +19,7 @@ from backend.domain import organization as org_domain
 from backend.exceptions import (
     InvalidPushToken,
     InvalidExpirationTime,
+    StakeholderNotFound
 )
 from backend.typing import (
     User as UserType,
@@ -255,14 +256,16 @@ def format_forces_user_email(project_name: str) -> str:
 async def get_by_email(email: str) -> UserType:
     user: UserType = await user_dal.get(email)
 
-    return {
-        'date_joined': user['date_joined'],
-        'email': user['email'],
-        'first_login': user.get('first_login', ''),
-        'first_name': user['first_name'],
-        'last_login': user['last_login'],
-        'last_name': user['last_name'],
-        'legal_remember': user['legal_remember'],
-        'phone_number': user.get('phone', ''),
-        'push_tokens': user.get('push_tokens', [])
-    }
+    if user:
+        return {
+            'email': user['email'],
+            'first_login': user.get('date_joined', ''),
+            'first_name': user.get('first_name', ''),
+            'last_login': user.get('last_login', ''),
+            'last_name': user.get('last_name', ''),
+            'legal_remember': user.get('legal_remember', False),
+            'phone_number': user.get('phone', ''),
+            'push_tokens': user.get('push_tokens', [])
+        }
+
+    raise StakeholderNotFound()

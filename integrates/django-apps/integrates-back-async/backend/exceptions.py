@@ -584,3 +584,12 @@ class OrganizationNotFound(Exception):
         """ Constructor """
         msg = 'Access denied or organization not found'
         super(OrganizationNotFound, self).__init__(msg)
+
+
+class StakeholderNotFound(Exception):
+    """Exception to control stakeholder availability"""
+
+    def __init__(self) -> None:
+        """ Constructor """
+        msg = 'Access denied or stakeholder not found'
+        super(StakeholderNotFound, self).__init__(msg)
