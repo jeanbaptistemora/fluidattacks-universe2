@@ -5,12 +5,12 @@ import { Provider } from "react-redux";
 
 import { AddProjectModal } from "scenes/Dashboard/components/AddProjectModal";
 import { PROJECTS_NAME_QUERY } from "scenes/Dashboard/components/AddProjectModal/queries";
-import { IProjectName } from "scenes/Dashboard/components/AddProjectModal/types";
+import { IProjectNameProps } from "scenes/Dashboard/components/AddProjectModal/types";
 import store from "store";
 
 describe("AddProjectModal component", () => {
 
-  const projectName: IProjectName = { internalNames : { name: "" } };
+  const projectName: IProjectNameProps = { internalNames : { name: "" } };
 
   const mocksMutation: MockedResponse[] = [{
     request: {

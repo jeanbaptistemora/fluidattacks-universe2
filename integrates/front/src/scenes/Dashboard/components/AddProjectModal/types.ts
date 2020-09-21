@@ -1,9 +1,11 @@
-export interface IAddProjectModal {
+interface IAddProjectModalProps {
   isOpen: boolean;
   organization: string;
-  onClose(): void;
+  onClose: () => void;
 }
 
-export interface IProjectName {
+interface IProjectNameProps {
   internalNames: { name: string };
 }
+
+export { IAddProjectModalProps, IProjectNameProps };

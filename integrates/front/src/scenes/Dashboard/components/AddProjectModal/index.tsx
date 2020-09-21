@@ -19,7 +19,7 @@ import { Button } from "components/Button";
 import { Modal } from "components/Modal/index";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import { CREATE_PROJECT_MUTATION, PROJECTS_NAME_QUERY } from "scenes/Dashboard/components/AddProjectModal/queries";
-import { IAddProjectModal, IProjectName } from "scenes/Dashboard/components/AddProjectModal/types";
+import { IAddProjectModalProps, IProjectNameProps } from "scenes/Dashboard/components/AddProjectModal/types";
 import { GenericForm } from "scenes/Dashboard/components/GenericForm";
 import { authzPermissionsContext } from "utils/authz/config";
 import { Dropdown, Text } from "utils/forms/fields";
@@ -27,6 +27,7 @@ import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 import { translate } from "utils/translations/translate";
 import { alphaNumeric, maxLength, required, validTextField } from "utils/validations";
+import { IAddFilesModalProps } from "../AddFilesModal";
 
 /*
   * Business rules to create a project:
@@ -41,7 +42,7 @@ import { alphaNumeric, maxLength, required, validTextField } from "utils/validat
 const maxDescriptionLength: ConfigurableValidator = maxLength(200);
 const maxProjectNameLength: ConfigurableValidator = maxLength(20);
 const maxOrganizationLength: ConfigurableValidator = maxLength(50);
-const addProjectModal: ((props: IAddProjectModal) => JSX.Element) = (props: IAddProjectModal): JSX.Element => {
+const addProjectModal: React.FC<IAddProjectModalProps> = (props: IAddProjectModalProps): JSX.Element => {
   // State management
   const [hasDrills, setHasDrills] = React.useState(true);
   const [hasForces, setHasForces] = React.useState(true);
@@ -83,7 +84,7 @@ const addProjectModal: ((props: IAddProjectModal) => JSX.Element) = (props: IAdd
           fetchPolicy="network-only"
           onError={handleProjectNameError}
         >
-          {({ data }: QueryResult<IProjectName>): JSX.Element => {
+          {({ data }: QueryResult<IProjectNameProps>): JSX.Element => {
             const projectName: string = _.isUndefined(data) || _.isEmpty(data)
               ? ""
               : data.internalNames.name;

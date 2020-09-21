@@ -17,6 +17,8 @@
       "src/scenes/Dashboard/components/AddEnvironmentsModal/**",
       "src/scenes/Dashboard/components/AddFilesModal/**",
       "src/scenes/Dashboard/components/AddOrganizationModal/**",
+      "src/scenes/Dashboard/components/AddProjectModal/queries.ts",
+      "src/scenes/Dashboard/components/AddProjectModal/types.ts",
       "src/scenes/Dashboard/components/APITokenModal/**",
       "src/scenes/Dashboard/components/NewsWidget/**",
       "src/scenes/Registration/**"
