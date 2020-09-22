@@ -257,6 +257,8 @@ async def test_correct_assert(
             ('test/data/lib_path/f031_aws/cfn_permissive_policy.yaml', '9'),
             ('test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json', '12'),
             ('test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json', '55'),
+            ('test/data/lib_path/f031_aws/hcl2_permissive_policy.tf', '37'),
+            ('test/data/lib_path/f031_aws/hcl2_permissive_policy.tf', '5'),
         )),
         ('F031_CWE378', 'APPROVED', (
             ('test/data/lib_path/f031_cwe378/Test.java', '6'),

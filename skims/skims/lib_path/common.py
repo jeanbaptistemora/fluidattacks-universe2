@@ -52,6 +52,7 @@ EXTENSIONS_JAVA: Set[str] = {'class', 'java'}
 EXTENSIONS_JAVASCRIPT: Set[str] = {'js', 'jsx', 'ts', 'tsx'}
 EXTENSIONS_JSON: Set[str] = {'json'}
 EXTENSIONS_PYTHON: Set[str] = {'py', 'pyw'}
+EXTENSIONS_TERRAFORM: Set[str] = {'tf'}
 EXTENSIONS_SWIFT: Set[str] = {'swift'}
 EXTENSIONS_YAML: Set[str] = {'yml', 'yaml'}
 EXTENSIONS_CLOUDFORMATION: Set[str] = EXTENSIONS_YAML | EXTENSIONS_JSON

@@ -25,13 +25,21 @@ from aws.iam.utils import (
 )
 from lib_path.common import (
     EXTENSIONS_CLOUDFORMATION,
+    EXTENSIONS_TERRAFORM,
     SHIELD,
 )
 from parse_cfn.loader import (
     load as load_cfn,
 )
 from parse_cfn.structure import (
-    iterate_iam_policy_documents,
+    iterate_iam_policy_documents as cfn_iterate_iam_policy_documents,
+)
+from parse_hcl2.loader import (
+    load as load_terraform,
+)
+from parse_hcl2.structure import (
+    IamPolicyStatement,
+    iterate_iam_policy_documents as terraform_iterate_iam_policy_documents,
 )
 from state.cache import (
     cache_decorator,
@@ -89,13 +97,44 @@ def _cfn_create_vulns(
     )
 
 
+def _terraform_create_vulns(
+    content: str,
+    description_key: str,
+    path: str,
+    statements_iterator: Iterator[IamPolicyStatement],
+) -> Tuple[Vulnerability, ...]:
+    return tuple(
+        Vulnerability(
+            finding=FindingEnum.F031_AWS,
+            kind=VulnerabilityKindEnum.LINES,
+            state=VulnerabilityStateEnum.OPEN,
+            what=path,
+            where=f'{line_no}',
+            skims_metadata=SkimsVulnerabilityMetadata(
+                description=t(
+                    key=description_key,
+                    path=path,
+                ),
+                snippet=blocking_to_snippet(
+                    column=column_no,
+                    content=content,
+                    line=line_no,
+                )
+            )
+        )
+        for stmt in statements_iterator
+        for column_no in [stmt.column]
+        for line_no in [stmt.line]
+    )
+
+
 def _cfn_negative_statement(
     content: str,
     path: str,
     template: Any,
 ) -> Tuple[Vulnerability, ...]:
     def _iterate_vulnerabilities() -> Iterator[Dict[str, Any]]:
-        for stmt in iterate_iam_policy_documents(template):
+        for stmt in cfn_iterate_iam_policy_documents(template):
             if stmt['Effect'] != 'Allow':
                 continue
 
@@ -144,7 +183,7 @@ def _cfn_permissive_policy(
     template: Any,
 ) -> Tuple[Vulnerability, ...]:
     def _iterate_vulnerabilities() -> Iterator[Dict[str, Any]]:
-        for stmt in iterate_iam_policy_documents(template):
+        for stmt in cfn_iterate_iam_policy_documents(template):
             if stmt['Effect'] == 'Allow':
                 actions = stmt.get('Action', [])
                 resources = stmt.get('Resource', [])
@@ -193,7 +232,7 @@ def _cfn_open_passrole(
     template: Any,
 ) -> Tuple[Vulnerability, ...]:
     def _iterate_vulnerabilities() -> Iterator[Dict[str, Any]]:
-        for stmt in iterate_iam_policy_documents(template):
+        for stmt in cfn_iterate_iam_policy_documents(template):
             if stmt['Effect'] == 'Allow':
                 actions = stmt.get('Action', [])
                 resources = stmt.get('Resource', [])
@@ -232,6 +271,54 @@ async def cfn_open_passrole(
     )
 
 
+def _terraform_permissive_policy(
+    content: str,
+    path: str,
+    model: Any,
+) -> Tuple[Vulnerability, ...]:
+    def _iterate_vulnerabilities() -> Iterator[IamPolicyStatement]:
+        for stmt in terraform_iterate_iam_policy_documents(model):
+            if stmt.data['Effect'] == 'Allow':
+                actions = stmt.data.get('Action', [])
+                resources = stmt.data.get('Resource', [])
+
+                if all((
+                    any(map(is_action_permissive, actions)),
+                    any(map(is_resource_permissive, resources)),
+                )):
+                    yield stmt
+
+    return _terraform_create_vulns(
+        content=content,
+        description_key='src.lib_path.f031_aws.permissive_policy',
+        path=path,
+        statements_iterator=_iterate_vulnerabilities()
+    )
+
+
+@SHIELD
+async def terraform_permissive_policy(
+    content: str,
+    path: str,
+    model: Any,
+) -> Tuple[Vulnerability, ...]:
+    # cloudconformity IAM-045
+    # cloudconformity IAM-049
+    # cfn_nag W11 IAM role should not allow * resource on its permissions pol
+    # cfn_nag W12 IAM policy should not allow * resource
+    # cfn_nag W13 IAM managed policy should not allow * resource
+    # cfn_nag F2 IAM role should not allow * action on its trust policy
+    # cfn_nag F3 IAM role should not allow * action on its permissions policy
+    # cfn_nag F4 IAM policy should not allow * action
+    # cfn_nag F5 IAM managed policy should not allow * action
+    return await in_process(
+        _terraform_permissive_policy,
+        content=content,
+        path=path,
+        model=model,
+    )
+
+
 async def analyze(
     content_generator: Callable[[], Awaitable[str]],
     file_extension: str,
@@ -257,6 +344,14 @@ async def analyze(
             content=content,
             path=path,
             template=template,
+        ))
+    elif file_extension in EXTENSIONS_TERRAFORM:
+        content = await content_generator()
+        model = await load_terraform(stream=content, default=[])
+        coroutines.append(terraform_permissive_policy(
+            content=content,
+            path=path,
+            model=model,
         ))
 
     for results in resolve(coroutines, worker_greediness=1):
