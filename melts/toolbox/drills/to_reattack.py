@@ -232,4 +232,4 @@ def main(with_exp: bool):
 
     param: with_exp: Show findings with or without exploits
     """
-    to_reattack(with_exp, 'continuoustest')
+    to_reattack(with_exp, 'all')
