@@ -31,30 +31,39 @@ execute.
 The adversary must have the ability to inject their script into a script that
 is likely to be executed.
 
-. [[r2]] link:https://cwe.mitre.org/data/definitions/116.html[CWE-116: Improper Encoding or Escaping of Output].
+. [[r2]] link:http://capec.mitre.org/data/definitions/31.html[CAPEC-31: Accessing/Intercepting/Modifying HTTP Cookies].
+This attack relies on the use of *HTTP* Cookies to store credentials,
+state information and other critical data on client systems.
+There are several different forms of this attack.
+The first form of this attack involves accessing *HTTP* Cookies to mine for
+potentially sensitive data contained therein.
+The second form involves intercepting this data as it is transmitted from
+client to server.
+
+. [[r3]] link:https://cwe.mitre.org/data/definitions/116.html[CWE-116: Improper Encoding or Escaping of Output].
 The product does not validate or incorrectly validates input that can affect
 the control flow or data flow of a program.
 
-. [[r3]] link:https://cwe.mitre.org/data/definitions/173.html[CWE-173: Improper Handling of Alternate Encoding].
+. [[r4]] link:https://cwe.mitre.org/data/definitions/173.html[CWE-173: Improper Handling of Alternate Encoding].
 The software does not properly handle when an input uses an alternate encoding
 that is valid for the control sphere to which the input is being sent.
 
-. [[r4]] link:https://cwe.mitre.org/data/definitions/319.html[CWE-319: Cleartext Transmission of Sensitive Information]
+. [[r5]] link:https://cwe.mitre.org/data/definitions/319.html[CWE-319: Cleartext Transmission of Sensitive Information]
 The software transmits sensitive or security-critical data in clear text in a
 communication channel that can be sniffed by unauthorized actors.
 
-. [[r5]] link:https://cwe.mitre.org/data/definitions/352.html[CWE-352: Cross-Site Request Forgery (CSRF)].
+. [[r6]] link:https://cwe.mitre.org/data/definitions/352.html[CWE-352: Cross-Site Request Forgery (CSRF)].
 The web application does not, or can not, sufficiently verify whether a
 well-formed, valid, consistent request was intentionally provided by the user
 who submitted the request.
 
-. [[r6]] link:https://cwe.mitre.org/data/definitions/451.html[CWE-451: User Interface (UI) Misrepresentation of Critical Information].
+. [[r7]] link:https://cwe.mitre.org/data/definitions/451.html[CWE-451: User Interface (UI) Misrepresentation of Critical Information].
 The user interface (*UI*) does not properly represent critical information to
 the user,
 allowing the information - or its source - to be obscured or spoofed.
 This is often a component in phishing attacks.
 
-. [[r7]] link:https://cwe.mitre.org/data/definitions/523.html[CWE-523: Unprotected Transport of Credentials].
+. [[r8]] link:https://cwe.mitre.org/data/definitions/523.html[CWE-523: Unprotected Transport of Credentials].
 Login pages do not use adequate measures to protect the user name and password
 while they are in transit from the client to the server.
 

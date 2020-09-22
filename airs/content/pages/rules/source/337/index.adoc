@@ -38,7 +38,30 @@ access takes place.
 The adversary can leverage a race condition by "running the race",
 modifying the resource and modifying the normal execution flow.
 
-. [[r3]] link:https://cwe.mitre.org/data/definitions/362.html[CWE-362: Concurrent Execution using Shared Resource with
+. [[r3]] link:http://capec.mitre.org/data/definitions/27.html[CAPEC-27: Leveraging Race Conditions via Symbolic Links].
+This attack leverages the use of symbolic links (Symlinks) in order to write to
+sensitive files.
+An attacker can create a Symlink link to a target file not otherwise accessible
+to them.
+When the privileged program tries to create a temporary file with the same name
+as the Symlink link,
+it will actually write to the target file pointed to by the attackers' Symlink
+link.
+
+. [[r4]] link:http://capec.mitre.org/data/definitions/29.html[CAPEC-29: Leveraging Time-of-Check and Time-of-Use (TOCTOU) Race Conditions].
+This attack targets a race condition occurring between the time of check
+(state) for a resource and the time of use of a resource.
+A typical example is file access.
+The adversary can leverage a file access race condition by "running the race",
+meaning that they would modify the resource between the first time the target
+program accesses the file and the time the target program uses the file.
+
+. [[r5]] link:http://capec.mitre.org/data/definitions/30.html[CAPEC-30: Hijacking a Privileged Thread of Execution].
+Adversaries can sometimes hijack a privileged thread from the underlying system
+through synchronous (calling a privileged function that returns incorrectly)
+or asynchronous (callbacks, signal handlers, and similar) means.
+
+. [[r6]] link:https://cwe.mitre.org/data/definitions/362.html[CWE-362: Concurrent Execution using Shared Resource with
 Improper Synchronization ('Race Condition').]
 The program contains a code sequence that can run concurrently with other code,
 and the code sequence requires temporary, exclusive access to a shared
@@ -46,31 +69,31 @@ resource,
 but a timing window exists in which the shared resource can be modified by
 another code sequence that is operating concurrently.
 
-. [[r4]] link:https://cwe.mitre.org/data/definitions/367.html[CWE-367: Time-of-check Time-of-use (TOCTOU) Race Condition.]
+. [[r7]] link:https://cwe.mitre.org/data/definitions/367.html[CWE-367: Time-of-check Time-of-use (TOCTOU) Race Condition.]
 The software checks the state of a resource before using that resource,
 but the resource's state can change between the check and the use in a way that
 invalidates the results of the check.
 This can cause the software to perform invalid actions when the resource is in
 an unexpected state.
 
-. [[r5]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r8]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 Appendix C: Internet of Things Verification Requirements.(C.20)]
 Verify that the firmware update process is not vulnerable to time-of-check vs
 time-of-use attacks.
 
-. [[r6]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r9]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V1.11 Business Logic Architectural Requirements.(1.11.2)]
 Verify that all high-value business logic flows,
 including authentication, session management and access control,
 do not share unsynchronized state.
 
-. [[r7]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r10]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V1.11 Business Logic Architectural Requirements.(1.11.3)]
 Verify that all high-value business logic flows,
 including authentication, session management and access control,
 are thread safe and resistant to time-of-check and time-of-use race conditions.
 
-. [[r8]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r11]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V11.1 Business Logic Security Requirements.(11.1.6)]
 Verify the application does not suffer from "time of check to time of use"
 (*TOCTOU*) issues or other race conditions for sensitive operations.
