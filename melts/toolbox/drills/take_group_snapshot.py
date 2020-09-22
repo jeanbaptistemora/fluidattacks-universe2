@@ -8,6 +8,7 @@ from multiprocessing.pool import ThreadPool
 
 # Third party libraries
 from git import Repo
+from git.exc import InvalidGitRepositoryError
 from binaryornot.check import is_binary
 
 # Local libraries
@@ -22,7 +23,12 @@ def command(cmd: str):
 
 def get_files_in_head(repo_path: str):
     """Get all files in the head in the repo."""
-    repo = Repo(repo_path)
+    repo = None
+    try:
+        repo = Repo(repo_path)
+    except InvalidGitRepositoryError:
+        print(f'Skiping {repo_path} Invalid git repository')
+        return False
     trees = repo.head.commit.tree.traverse()
     filepaths = fluidcounts(repo_path)
     for tree in trees:
@@ -33,6 +39,8 @@ def get_files_in_head(repo_path: str):
                 and path not in filepaths:
             yield path
     print(f'Finished getting the paths {repo_path}')
+
+    return True
 
 
 def get_last_hash(repo, file_path: str):
