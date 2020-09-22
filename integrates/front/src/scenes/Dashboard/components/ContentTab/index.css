@@ -42,7 +42,7 @@
   background-color: #EEEEEE !important;
 }
 
-@media (min-width: 992px) {
+@media (min-width: 1305px) {
   .stickyContainer {
     position: sticky;
     top: 55px;
