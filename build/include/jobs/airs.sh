@@ -1,53 +1,69 @@
 # shellcheck shell=bash
 
-source "${srcIncludeHelpers}"
-source "${srcIncludeHelpersBlog}"
-source "${srcIncludeHelpersDeploy}"
-source "${srcIncludeHelpersGeneric}"
-source "${srcIncludeHelpersImage}"
-source "${srcExternalSops}"
-source "${srcEnv}"
-
 function job_airs_infra_ephemeral_test {
   local dir='deploy/ephemeral/terraform'
 
-      helper_set_dev_secrets \
-  &&  helper_terraform_test "${dir}"
+      helper_use_pristine_workdir \
+  &&  pushd airs \
+  &&  helper_airs_aws_login development \
+  &&  helper_common_terraform_plan "${dir}" \
+  &&  popd \
+  ||  return 1
 }
 
 function job_airs_infra_production_test {
   local dir='deploy/production/terraform'
 
-      helper_set_dev_secrets \
-  &&  helper_terraform_test "${dir}"
+      helper_use_pristine_workdir \
+  &&  pushd airs \
+  &&  helper_airs_aws_login development \
+  &&  helper_common_terraform_plan "${dir}" \
+  &&  popd \
+  ||  return 1
 }
 
 function job_airs_infra_secret_management_test {
   local dir='deploy/secret-management/terraform'
 
-      helper_set_dev_secrets \
-  &&  helper_terraform_test "${dir}"
+      helper_use_pristine_workdir \
+  &&  pushd airs \
+  &&  helper_airs_aws_login development \
+  &&  helper_common_terraform_plan "${dir}" \
+  &&  popd \
+  ||  return 1
 }
 
 function job_airs_infra_ephemeral_apply {
   local dir='deploy/ephemeral/terraform'
 
-      helper_set_prod_secrets \
-  &&  helper_terraform_apply "${dir}"
+      helper_use_pristine_workdir \
+  &&  pushd airs \
+  &&  helper_airs_aws_login production \
+  &&  helper_common_terraform_apply "${dir}" \
+  &&  popd \
+  ||  return 1
 }
 
 function job_airs_infra_production_apply {
   local dir='deploy/production/terraform'
 
-      helper_set_prod_secrets \
-  &&  helper_terraform_apply "${dir}"
+      helper_use_pristine_workdir \
+  &&  pushd airs \
+  &&  helper_airs_aws_login production \
+  &&  helper_common_terraform_apply "${dir}" \
+  &&  popd \
+  ||  return 1
 }
 
 function job_airs_infra_secret_management_apply {
   local dir='deploy/secret-management/terraform'
 
-      helper_set_prod_secrets \
-  &&  helper_terraform_apply "${dir}"
+      helper_use_pristine_workdir \
+  &&  pushd airs \
+  &&  helper_airs_aws_login production \
+  &&  helper_common_terraform_apply "${dir}" \
+  &&  popd \
+  ||  return 1
 }
 
 function job_test_lint_code {
@@ -174,19 +190,19 @@ function job_deploy_local {
 
 function job_deploy_ephemeral {
       helper_use_pristine_workdir \
-  &&  helper_set_dev_secrets \
+  &&  helper_airs_aws_login development \
   &&  helper_deploy_compile_web "https://web.eph.fluidattacks.com/${CI_COMMIT_REF_NAME}" \
   &&  helper_deploy_sync_s3 'output/' "web.eph.fluidattacks.com/${CI_COMMIT_REF_NAME}"
 }
 
 function job_deploy_stop_ephemeral {
-      helper_set_dev_secrets \
+      helper_airs_aws_login development \
   &&  aws s3 rm "s3://web.eph.fluidattacks.com/$CI_COMMIT_REF_NAME" --recursive
 }
 
 function job_deploy_production {
       helper_use_pristine_workdir \
-  &&  helper_set_prod_secrets \
+  &&  helper_airs_aws_login production \
   &&  helper_deploy_compile_web 'https://fluidattacks.com' \
   &&  helper_deploy_sync_s3 'output/' 'web.fluidattacks.com'
 }

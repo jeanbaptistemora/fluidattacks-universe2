@@ -1,7 +1,5 @@
 # shellcheck shell=bash
 
-source "${srcIncludeHelpers}"
-
 function helper_deploy_install_plugins {
   local asciidoc='asciidoc_reader'
   local asciidoc_version='ad6d407'

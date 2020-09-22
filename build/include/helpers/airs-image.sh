@@ -1,7 +1,5 @@
 # shellcheck shell=bash
 
-source "${srcIncludeHelpers}"
-
 function helper_image_blog_cover_dimensions {
   local path="${1}"
   local dimensions

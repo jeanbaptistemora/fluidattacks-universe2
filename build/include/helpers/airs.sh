@@ -1,14 +1,5 @@
 # shellcheck shell=bash
 
-function helper_list_declared_jobs {
-  declare -F | sed 's/declare -f //' | grep -P '^job_[a-z_]+' | sed 's/job_//' | sort
-}
-
-function helper_list_vars_with_regex {
-  local regex="${1}"
-  printenv | grep -oP "${regex}" | sort
-}
-
 function helper_list_touched_files {
   local path
 
@@ -21,27 +12,25 @@ function helper_list_touched_files {
   done
 }
 
-function helper_set_dev_secrets {
+function helper_airs_aws_login {
+  local user="${1}"
   export AWS_ACCESS_KEY_ID
   export AWS_SECRET_ACCESS_KEY
-  export AWS_DEFAULT_REGION
 
-      AWS_ACCESS_KEY_ID="${DEV_AWS_ACCESS_KEY_ID}" \
-  &&  AWS_SECRET_ACCESS_KEY="${DEV_AWS_SECRET_ACCESS_KEY}" \
-  &&  AWS_DEFAULT_REGION='us-east-1' \
-  &&  aws configure set aws_access_key_id "${AWS_ACCESS_KEY_ID}" \
-  &&  aws configure set aws_secret_access_key "${AWS_SECRET_ACCESS_KEY}" \
-  &&  aws configure set region 'us-east-1'
-}
 
-function helper_set_prod_secrets {
-  export AWS_ACCESS_KEY_ID
-  export AWS_SECRET_ACCESS_KEY
-  export AWS_DEFAULT_REGION
-
-      AWS_ACCESS_KEY_ID=${PROD_AWS_ACCESS_KEY_ID} \
-  &&  AWS_SECRET_ACCESS_KEY=${PROD_AWS_SECRET_ACCESS_KEY} \
-  &&  AWS_DEFAULT_REGION='us-east-1' \
+      if [ "${user}" = 'development' ]
+      then
+            AWS_ACCESS_KEY_ID="${AIRS_DEV_AWS_ACCESS_KEY_ID}" \
+        &&  AWS_SECRET_ACCESS_KEY="${AIRS_DEV_AWS_SECRET_ACCESS_KEY}"
+      elif [ "${user}" = 'production' ]
+      then
+            AWS_ACCESS_KEY_ID="${AIRS_PROD_AWS_ACCESS_KEY_ID}" \
+        &&  AWS_SECRET_ACCESS_KEY="${AIRS_PROD_AWS_SECRET_ACCESS_KEY}"
+      else
+            echo '[ERROR] either prod or dev must be passed as arg' \
+        &&  return 1
+      fi \
+  &&  echo "[INFO] Logging into AWS with ${user} credentials" \
   &&  aws configure set aws_access_key_id "${AWS_ACCESS_KEY_ID}" \
   &&  aws configure set aws_secret_access_key "${AWS_SECRET_ACCESS_KEY}" \
   &&  aws configure set region 'us-east-1'

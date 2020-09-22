@@ -1,7 +1,5 @@
 # shellcheck shell=bash
 
-source "${srcIncludeHelpers}"
-
 function helper_blog_adoc_category {
   local file="${1}"
   local category
