@@ -106,8 +106,8 @@ airs_deploy_ephemeral:
   cache:
     key: "${CI_COMMIT_REF_NAME}-${CI_JOB_NAME}"
     paths:
-    - cache/
-    - new/cache/
+    - airs/cache/
+    - airs/new/cache/
 
 airs_deploy_stop_ephemeral:
   <<: *with_nix

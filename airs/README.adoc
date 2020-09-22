@@ -3,25 +3,9 @@
 :author: Oscar Eduardo Prado
 :date: 2019-10-19
 
-= Fluid Attacks Web Repository
+= Fluid Attacks Airs
 
-This repository contains all the pages
-in the Fluid Attacks website.
-
-== Dependencies
-
-As a developer you need these dependencies/tools
-to work on this repository,
-depending on what you need:
-
-. link:http://asciidoc.org/[AsciiDoc] for dynamically generated pages.
-. link:https://www.python.org/[Python 3.8] for web linters.
-. link:https://sass-lang.com/[sass] and link:https://tachyons.io/[tachyons]
-for styles customization.
-. HTML5 and link:https://jinja.palletsprojects.com/en/2.10.x/[Jinja2] for static pages.
-. link:https://blog.getpelican.com/[Pelican] for parsing AsciiDoc into HTML.
-. link:https://pre-commit.com/[pre-commit] for local linting over
-the changes in the commit.
+Fluidattacks website product.
 
 == Work Directories
 
@@ -46,5 +30,5 @@ You can locally build the entire website with just one command:
 .Local deployment
 [source, bash, linenums]
 ----
-$ ./build.sh deploy_local
+product$ ./build.sh airs_deploy_local
 ----

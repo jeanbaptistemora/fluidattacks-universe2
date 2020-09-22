@@ -110,11 +110,11 @@ function helper_airs_deploy_compile_web {
   &&  PATH="${PATH}:$(pwd)/theme/2020/node_modules/uglify-js/bin/" \
   &&  npm run --prefix theme/2020/ build \
   &&  sed -i "s#\$flagsImagePath:.*#\$flagsImagePath:\ \"../../images/\";#" "theme/2020/node_modules/intl-tel-input/src/css/intlTelInput.scss" \
-  &&  cp -a "${STARTDIR}/cache" . || true \
+  &&  cp -a "${STARTDIR}/airs/cache" . || true \
   &&  echo '[INFO] Compiling Web site' \
   &&  pelican --fatal errors --fatal warnings content/ \
   &&  echo '[INFO] Finished compiling Web site' \
-  &&  cp -a cache/ "${STARTDIR}" || true \
+  &&  cp -a cache/ "${STARTDIR}/airs" || true \
   &&  rm -rf output/web/de \
   &&  mv output/web/pages/* output/web/ \
   &&  rm -rf output/web/pages \
