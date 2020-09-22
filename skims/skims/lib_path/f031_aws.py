@@ -271,6 +271,55 @@ async def cfn_open_passrole(
     )
 
 
+def _terraform_negative_statement(
+    content: str,
+    path: str,
+    model: Any,
+) -> Tuple[Vulnerability, ...]:
+    def _iterate_vulnerabilities() -> Iterator[IamPolicyStatement]:
+        for stmt in terraform_iterate_iam_policy_documents(model):
+            data = stmt.data
+            if data['Effect'] != 'Allow':
+                continue
+
+            if 'NotAction' in data:
+                if not any(map(is_action_permissive, data['NotAction'])):
+                    yield stmt
+
+            if 'NotResource' in data:
+                if not any(map(is_resource_permissive, data['NotResource'])):
+                    yield stmt
+
+    return _terraform_create_vulns(
+        content=content,
+        description_key='src.lib_path.f031_aws.negative_statement',
+        path=path,
+        statements_iterator=_iterate_vulnerabilities()
+    )
+
+
+@SHIELD
+async def terraform_negative_statement(
+    content: str,
+    path: str,
+    model: Any,
+) -> Tuple[Vulnerability, ...]:
+    # cloudconformity IAM-061
+    # cfn_nag W14 IAM role should not allow Allow+NotAction on trust perms
+    # cfn_nag W15 IAM role should not allow Allow+NotAction
+    # cfn_nag W16 IAM policy should not allow Allow+NotAction
+    # cfn_nag W17 IAM managed policy should not allow Allow+NotAction
+    # cfn_nag W21 IAM role should not allow Allow+NotResource
+    # cfn_nag W22 IAM policy should not allow Allow+NotResource
+    # cfn_nag W23 IAM managed policy should not allow Allow+NotResource
+    return await in_process(
+        _terraform_negative_statement,
+        content=content,
+        path=path,
+        model=model,
+    )
+
+
 def _terraform_open_passrole(
     content: str,
     path: str,
@@ -392,6 +441,11 @@ async def analyze(
     elif file_extension in EXTENSIONS_TERRAFORM:
         content = await content_generator()
         model = await load_terraform(stream=content, default=[])
+        coroutines.append(terraform_negative_statement(
+            content=content,
+            path=path,
+            model=model,
+        ))
         coroutines.append(terraform_open_passrole(
             content=content,
             path=path,
