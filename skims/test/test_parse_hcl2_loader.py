@@ -151,7 +151,7 @@ def test_load_2() -> None:
                         column=2,
                         key='filter_policy',
                         line=12,
-                        val='{ "scope": [ "SEND_TO_UI", "SEND_TO_ALL" ] }',
+                        val='{ \\"scope\\": [ \\"SEND_TO_UI\\", \\"SEND_TO_ALL\\" ] }',
                     ),
                     Attribute(
                         column=2,

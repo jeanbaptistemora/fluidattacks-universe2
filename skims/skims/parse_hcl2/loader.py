@@ -1,5 +1,4 @@
 # Standard library
-import ast
 import json
 from typing import (
     Any,
@@ -49,7 +48,7 @@ def blocking_load(stream: str, *, default: Any = None) -> Any:
     try:
         return post_process(Lark_StandAlone(HCL2Builder()).parse(stream))
     except lark.exceptions.LarkError:
-        if default:
+        if default is not None:
             return default
         raise
 
@@ -105,7 +104,7 @@ def coerce_to_int_lit(data: Any) -> Any:
         if data.type == '__ANON_3':
             data = data.value
         elif data.type == 'STRING_LIT':
-            data = ast.literal_eval(data.value)
+            data = data.value[1:-1]
 
     return data
 
@@ -117,7 +116,7 @@ def coerce_to_string_lit(data: Any) -> Any:
         if data.type == '__ANON_3':
             data = data.value
         elif data.type == 'STRING_LIT':
-            data = ast.literal_eval(data.value)
+            data = data.value[1:-1]
 
     return data
 
@@ -177,6 +176,7 @@ def load_objects(data: Any) -> Any:
     if isinstance(data, lark.Tree) and data.data == 'object':
         if all(
             children.data == 'object_elem'
+            and isinstance(children.children[0], lark.Tree)
             and children.children[0].data == 'identifier'
             for children in data.children
         ):
