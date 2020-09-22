@@ -6,6 +6,12 @@ from typing import (
     Tuple,
 )
 
+# Local libraries
+from aws.iam.utils import (
+    yield_statements_from_policy,
+    yield_statements_from_policy_document,
+)
+
 
 def iterate_resources(
     template: Any,
@@ -27,43 +33,15 @@ def iterate_resources(
 
 
 def iterate_iam_policy_documents(template: Any) -> Iterator[Dict[str, Any]]:
-
-    def _yield_statements_from_policy(policy: Any) -> Iterator[Any]:
-        document = policy.get('PolicyDocument', {})
-        yield from _yield_statements_from_policy_document(document)
-
-    def _yield_statements_from_policy_document(document: Any) -> Iterator[Any]:
-        statement = document.get('Statement', [])
-
-        if isinstance(statement, dict):
-            yield _patch_statement(statement)
-        elif isinstance(statement, list):
-            yield from map(_patch_statement, statement)
-
     for _, kind, props in iterate_resources(template, 'AWS::IAM'):
 
         if kind in {'AWS::IAM::ManagedPolicy', 'AWS::IAM::Policy'}:
-            yield from _yield_statements_from_policy(props)
+            yield from yield_statements_from_policy(props)
 
         if kind in {'AWS::IAM::Role', 'AWS::IAM::User'}:
             for policy in props.get('Policies', []):
-                yield from _yield_statements_from_policy(policy)
+                yield from yield_statements_from_policy(policy)
 
         if kind in {'AWS::IAM::Role'}:
             document = props.get('AssumeRolePolicyDocument', {})
-            yield from _yield_statements_from_policy_document(document)
-
-
-def _patch_statement(stmt: Any) -> Iterator[Any]:
-    # https://docs.aws.amazon.com/IAM/latest/UserGuide
-    #   /reference_policies_elements_effect.html
-
-    if isinstance(stmt, dict):
-        stmt.setdefault('Effect', 'Deny')
-
-        for key in {'Action', 'NotAction', 'NotResource', 'Resource'}:
-            if key in stmt:
-                if not isinstance(stmt[key], list):
-                    stmt[key] = [stmt[key]]
-
-    return stmt
+            yield from yield_statements_from_policy_document(document)

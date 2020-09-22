@@ -11,13 +11,13 @@ from parse_hcl2.loader import (
     load,
 )
 from parse_hcl2.structure import (
+    IamPolicyStatement,
     iterate_iam_policy_documents,
     iterate_resources,
 )
 from parse_hcl2.tokens import (
     Attribute,
     Block,
-    Json,
 )
 
 
@@ -33,17 +33,14 @@ def test_iterate_iam_policy_documents() -> None:
         model = load(file.read())
 
     assert tuple(iterate_iam_policy_documents(model)) == (
-        Json(
+        IamPolicyStatement(
             column=23,
             data={
-                'Version': '2012-10-17',
-                'Statement': [{
-                    'Action': 'sts:AssumeRole',
-                    'Principal': {
-                        'Service': 'ec2.amazonaws.com',
-                    },
-                    'Effect': 'Allow',
-                }],
+                'Action': ['sts:AssumeRole'],
+                'Principal': {
+                    'Service': 'ec2.amazonaws.com',
+                },
+                'Effect': 'Allow',
             },
             line=5,
         ),
