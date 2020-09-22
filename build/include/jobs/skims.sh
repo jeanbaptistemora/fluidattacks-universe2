@@ -23,7 +23,7 @@ declare -Arx SKIMS_GLOBAL_TEST_PKGS=(
 )
 
 function job_skims_doc {
-      helper_common_poetry_install_deps skims \
+      helper_skims_install_dependencies \
   &&  pushd skims \
     &&  echo '[INFO] Building' \
     &&  rm -rf docs/skims/ \
@@ -39,6 +39,14 @@ function job_skims_doc {
   &&  mv skims/docs/skims public/ \
   ||  return 1
 
+}
+
+function job_skims_dependencies_pack {
+  helper_skims_dependencies_pack
+}
+
+function job_skims_dependencies_unpack {
+  helper_skims_dependencies_unpack
 }
 
 function job_skims_process_group {
@@ -79,7 +87,6 @@ function job_skims_process_group_on_aws {
   local attempts='1'
   local timeout='18000'
   export group="${1}"
-  export AWS_DEFAULT_REGION='us-east-1'
 
       if test -z "${group}"
       then
@@ -129,7 +136,7 @@ function job_skims_deploy_to_pypi {
   }
 
       helper_skims_compile_ast \
-  &&  helper_common_poetry_install_deps skims \
+  &&  helper_skims_install_dependencies \
   &&  pushd skims \
     &&  version=$(helper_skims_compute_version) \
     &&  echo "[INFO] Skims: ${version}" \
@@ -163,7 +170,7 @@ function job_skims_lint {
     --test-warnings
   )
 
-      helper_common_poetry_install_deps skims \
+      helper_skims_install_dependencies \
   &&  pushd skims \
     &&  echo '[INFO] Checking static typing' \
     &&  poetry run mypy "${args_mypy[@]}" skims/ \
@@ -180,7 +187,7 @@ function job_skims_security {
     --recursive skims/
   )
 
-      helper_common_poetry_install_deps skims \
+      helper_skims_install_dependencies \
   &&  pushd skims \
     &&  poetry run bandit "${bandit_args[@]}" \
   &&  popd \
@@ -202,7 +209,7 @@ function job_skims_structure {
     "${SKIMS_GLOBAL_PKGS[cli]}"
   )
 
-      helper_common_poetry_install_deps skims \
+      helper_skims_install_dependencies \
   &&  pushd skims \
     &&  echo "[INFO]: Running pydeps" \
     &&  poetry run pydeps -o skims.file-dag.svg "${base_args[@]}" \
@@ -236,7 +243,7 @@ function job_skims_test {
   )
 
       helper_skims_compile_ast \
-  &&  helper_common_poetry_install_deps skims \
+  &&  helper_skims_install_dependencies \
   &&  pushd skims \
     &&  for pkg in "${SKIMS_GLOBAL_PKGS[@]}" "${SKIMS_GLOBAL_TEST_PKGS[@]}"
         do

@@ -9,8 +9,10 @@ in
       name = "builder";
 
       buildInputs = [
+        pkgs.awscli
         pkgs.jdk11
         pkgs.git
+        pkgs.gnutar
         pkgs.gradle
         pkgs.graphviz
         pkgs.python38

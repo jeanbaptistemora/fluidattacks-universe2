@@ -3,6 +3,7 @@
 function helper_skims_aws_login {
   local user="${1}"
   export AWS_ACCESS_KEY_ID
+  export AWS_DEFAULT_REGION='us-east-1'
   export AWS_SECRET_ACCESS_KEY
 
       if [ "${user}" = 'dev' ]
@@ -57,4 +58,49 @@ function helper_skims_compile_ast {
     &&  gradle installDist \
   &&  popd \
   ||  return 1
+}
+
+function helper_skims_compute_dependencies_cache_key {
+  export CI_COMMIT_REF_NAME
+  export IS_LOCAL_BUILD
+
+  echo "branch:${CI_COMMIT_REF_NAME}-local:${IS_LOCAL_BUILD}"
+}
+
+function helper_skims_install_dependencies {
+  export PYTHONPATH="${PWD}/skims/.venv/lib64/python3.8/site-packages:${PYTHONPATH}"
+
+  # If the lock does not exist
+  if ! test -e skims/poetry.lock
+  then
+    # Attempt to unpack them from S3
+    if ! helper_skims_dependencies_unpack
+    then
+      # If we could not do that, then install and pack them to S3
+          helper_common_poetry_install_deps skims \
+      &&  helper_skims_dependencies_pack
+    fi
+  fi
+}
+
+function helper_skims_dependencies_pack {
+  local cache_key
+
+      echo '[INFO] Packing dependencies' \
+  &&  cache_key=$(helper_skims_compute_dependencies_cache_key) \
+  &&  helper_skims_aws_login dev \
+  &&  tar -czf "${TEMP_FILE1}" \
+        skims/.venv/ \
+        skims/poetry.lock \
+  &&  aws s3 cp "${TEMP_FILE1}" "s3://skims.data/dependencies/${cache_key}/bundle.tar.gz"
+}
+
+function helper_skims_dependencies_unpack {
+  local cache_key
+
+      echo '[INFO] Unpacking dependencies' \
+  &&  cache_key=$(helper_skims_compute_dependencies_cache_key) \
+  &&  helper_skims_aws_login dev \
+  &&  aws s3 cp "s3://skims.data/dependencies/${cache_key}/bundle.tar.gz" "${TEMP_FILE1}" \
+  &&  tar --no-same-owner -xf "${TEMP_FILE1}"
 }

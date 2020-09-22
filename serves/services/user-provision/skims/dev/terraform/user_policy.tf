@@ -73,6 +73,15 @@ data "aws_iam_policy_document" "skims_dev_policy_data" {
       "arn:aws:s3:::skims.*"
     ]
   }
+  statement {
+    effect = "Allow"
+    actions = [
+      "s3:Put*",
+    ]
+    resources = [
+      "arn:aws:s3:::skims.data/dependencies/*"
+    ]
+  }
 
   # DynamoDB for locking terraform state
   statement {
