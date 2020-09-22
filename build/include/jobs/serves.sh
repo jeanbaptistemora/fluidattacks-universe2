@@ -368,8 +368,8 @@ function job_serves_apply_user_provision_skims_prod {
   ||  return 1
 }
 
-function job_serves_test_user_provision_web_dev {
-  local target='services/user-provision/web/dev/terraform'
+function job_serves_test_user_provision_airs_dev {
+  local target='services/user-provision/airs/dev/terraform'
 
       helper_use_pristine_workdir \
   &&  pushd serves \
@@ -380,8 +380,8 @@ function job_serves_test_user_provision_web_dev {
   ||  return 1
 }
 
-function job_serves_apply_user_provision_web_dev {
-  local target='services/user-provision/web/dev/terraform'
+function job_serves_apply_user_provision_airs_dev {
+  local target='services/user-provision/airs/dev/terraform'
 
       helper_use_pristine_workdir \
   &&  pushd serves \
@@ -392,8 +392,8 @@ function job_serves_apply_user_provision_web_dev {
   ||  return 1
 }
 
-function job_serves_test_user_provision_web_prod {
-  local target='services/user-provision/web/prod/terraform'
+function job_serves_test_user_provision_airs_prod {
+  local target='services/user-provision/airs/prod/terraform'
 
       helper_use_pristine_workdir \
   &&  pushd serves \
@@ -404,8 +404,8 @@ function job_serves_test_user_provision_web_prod {
   ||  return 1
 }
 
-function job_serves_apply_user_provision_web_prod {
-  local target='services/user-provision/web/prod/terraform'
+function job_serves_apply_user_provision_airs_prod {
+  local target='services/user-provision/airs/prod/terraform'
 
       helper_use_pristine_workdir \
   &&  pushd serves \
@@ -706,14 +706,14 @@ function job_serves_rotate_keys_user_provision_skims_prod {
   ||  return 1
 }
 
-function job_serves_rotate_keys_user_provision_web_dev {
-  local terraform_dir='services/user-provision/web/dev/terraform'
+function job_serves_rotate_keys_user_provision_airs_dev {
+  local terraform_dir='services/user-provision/airs/dev/terraform'
   local resource_to_taint='aws_iam_access_key.web-dev-key'
   local output_key_id_name='web-dev-secret-key-id'
   local output_secret_key_name='web-dev-secret-key'
-  local gitlab_repo_id='4649627'
-  local gitlab_key_id_name='DEV_AWS_ACCESS_KEY_ID'
-  local gitlab_secret_key_name='DEV_AWS_SECRET_ACCESS_KEY'
+  local gitlab_repo_id='20741933'
+  local gitlab_key_id_name='AIRS_DEV_AWS_ACCESS_KEY_ID'
+  local gitlab_secret_key_name='AIRS_DEV_AWS_SECRET_ACCESS_KEY'
   local gitlab_masked='true'
   local gitlab_protected='false'
 
@@ -732,14 +732,14 @@ function job_serves_rotate_keys_user_provision_web_dev {
   ||  return 1
 }
 
-function job_serves_rotate_keys_user_provision_web_prod {
-  local terraform_dir='services/user-provision/web/prod/terraform'
+function job_serves_rotate_keys_user_provision_airs_prod {
+  local terraform_dir='services/user-provision/airs/prod/terraform'
   local resource_to_taint='aws_iam_access_key.web-prod-key'
   local output_key_id_name='web-prod-secret-key-id'
   local output_secret_key_name='web-prod-secret-key'
-  local gitlab_repo_id='4649627'
-  local gitlab_key_id_name='PROD_AWS_ACCESS_KEY_ID'
-  local gitlab_secret_key_name='PROD_AWS_SECRET_ACCESS_KEY'
+  local gitlab_repo_id='20741933'
+  local gitlab_key_id_name='AIRS_PROD_AWS_ACCESS_KEY_ID'
+  local gitlab_secret_key_name='AIRS_PROD_AWS_SECRET_ACCESS_KEY'
   local gitlab_masked='true'
   local gitlab_protected='true'
 
