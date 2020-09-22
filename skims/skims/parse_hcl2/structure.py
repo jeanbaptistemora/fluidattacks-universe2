@@ -1,4 +1,7 @@
 # Standard library
+from itertools import (
+    chain,
+)
 from typing import (
     Any,
     Iterator,
@@ -66,13 +69,13 @@ def iterate_iam_policy_documents(
     model: Any,
 ) -> Iterator[IamPolicyStatement]:
     for iterator in (
-        _iterate_iam_policy_documents_from_resource_aws_iam_role,
-        _iterate_iam_policy_documents_from_resource_aws_iam_role_policy,
+        _iterate_iam_policy_documents_from_resource_with_assume_role_policy,
+        _iterate_iam_policy_documents_from_resource_with_policy,
     ):
         yield from iterator(model)
 
 
-def _iterate_iam_policy_documents_from_resource_aws_iam_role(
+def _iterate_iam_policy_documents_from_resource_with_assume_role_policy(
     model: Any,
 ) -> Iterator[IamPolicyStatement]:
     for resource in iterate_resources(model, 'resource', 'aws_iam_role'):
@@ -80,10 +83,15 @@ def _iterate_iam_policy_documents_from_resource_aws_iam_role(
         yield from _yield_statements_from_policy_document_attribute(attribute)
 
 
-def _iterate_iam_policy_documents_from_resource_aws_iam_role_policy(
+def _iterate_iam_policy_documents_from_resource_with_policy(
     model: Any,
 ) -> Iterator[IamPolicyStatement]:
-    for res in iterate_resources(model, 'resource', 'aws_iam_role_policy'):
+    for res in chain(
+        iterate_resources(model, 'resource', 'aws_iam_group_policy'),
+        iterate_resources(model, 'resource', 'aws_iam_policy'),
+        iterate_resources(model, 'resource', 'aws_iam_role_policy'),
+        iterate_resources(model, 'resource', 'aws_iam_user_policy'),
+    ):
         attribute = get_block_attribute(res, 'policy')
         yield from _yield_statements_from_policy_document_attribute(attribute)
 

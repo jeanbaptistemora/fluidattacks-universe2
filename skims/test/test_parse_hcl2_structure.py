@@ -51,6 +51,33 @@ def test_iterate_iam_policy_documents() -> None:
                 'Effect': 'Allow',
                 'Resource': ['*'],
             },
+            line=45,
+        ),
+        IamPolicyStatement(
+            column=11,
+            data={
+                'Action': ['ec2:Describe*'],
+                'Effect': 'Allow',
+                'Resource': ['*'],
+            },
+            line=66,
+        ),
+        IamPolicyStatement(
+            column=11,
+            data={
+                'Action': ['ec2:Describe*'],
+                'Effect': 'Allow',
+                'Resource': ['*'],
+            },
             line=25,
+        ),
+        IamPolicyStatement(
+            column=11,
+            data={
+                'Action': ['ec2:Describe*'],
+                'Effect': 'Allow',
+                'Resource': ['*'],
+            },
+            line=86,
         ),
     )
