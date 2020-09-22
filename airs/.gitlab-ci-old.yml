@@ -1,27 +1,3 @@
-test_lint_code:
-  <<: *with_nix
-  stage: test
-
-test_images:
-  <<: *with_nix
-  stage: test
-
-test_generic:
-  <<: *with_nix
-  stage: test
-
-test_blog:
-  <<: *with_nix
-  stage: test
-
-test_defends:
-  <<: *with_nix
-  stage: test
-
-test_commit_msg:
-  <<: *with_nix
-  stage: test
-
 deploy_ephemeral:
   <<: *with_nix
   <<: *except_master_branch

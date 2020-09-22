@@ -16,17 +16,17 @@ function helper_deploy_install_plugins {
   local js_plugins_path='theme/2020/static/js'
   local url_tipuesearch_plugin='https://github.com/jekylltools/jekyll-tipue-search.git'
 
-      helper_git_sparse_checkout \
+      helper_airs_git_sparse_checkout \
         "${asciidoc}" \
         "${asciidoc_version}" \
         "${pelican_plugins_path}" \
         "${url_pelican_plugins}" \
-  &&  helper_git_sparse_checkout \
+  &&  helper_airs_git_sparse_checkout \
         "${tipuesearch}" \
         "${tipuesearch_version}" \
         "${js_plugins_path}" \
         "${url_tipuesearch_plugin}" \
-  &&  helper_git_sparse_checkout \
+  &&  helper_airs_git_sparse_checkout \
         "${others}" \
         "${others_version}" \
         "${pelican_plugins_path}" \

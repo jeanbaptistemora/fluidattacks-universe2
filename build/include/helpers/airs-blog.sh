@@ -40,8 +40,8 @@ function helper_blog_adoc_category {
     'yii'
   )
 
-      helper_file_exists "${file}" \
-  &&  helper_adoc_tag_exists "${file}" ':category:' \
+      helper_airs_file_exists "${file}" \
+  &&  helper_airs_adoc_tag_exists "${file}" ':category:' \
   &&  category="$(grep -Po "${regex}" "${file}")" \
   &&  if echo " ${valid_categories[*]} " | grep -q " ${category} "
       then
@@ -153,8 +153,8 @@ function helper_blog_adoc_tags {
     'xss'
   )
 
-      helper_file_exists "${file}" \
-  &&  helper_adoc_tag_exists "${file}" ':tags:' \
+      helper_airs_file_exists "${file}" \
+  &&  helper_airs_adoc_tag_exists "${file}" ':tags:' \
   &&  tags="$(grep -Po "${regex}" "${file}" | tr ',' ' ')" \
   &&  for tag in ${tags}
       do
@@ -185,10 +185,10 @@ function helper_blog_adoc_others {
     [error_source_unsplash]='The cover image is not from unsplash'
   )
 
-      helper_file_exists "${file}" \
+      helper_airs_file_exists "${file}" \
   &&  for test in "${tests[@]}"
       do
-            helper_adoc_regex_direct \
+            helper_airs_adoc_regex_direct \
               "${file}" \
               "${data[regex_${test}]}" \
               "${data[error_${test}]}" \

@@ -1,6 +1,10 @@
 # shellcheck shell=bash
 
-function helper_list_touched_files {
+function helper_airs_set_lc_all {
+  export LC_ALL='en_US.UTF-8'
+}
+
+function helper_airs_list_touched_files {
   local path
 
   git show --format= --name-only HEAD | while read -r path
@@ -36,7 +40,7 @@ function helper_airs_aws_login {
   &&  aws configure set region 'us-east-1'
 }
 
-function helper_file_exists {
+function helper_airs_file_exists {
   local path="${1}"
 
       if [ -f "${path}" ]
@@ -48,13 +52,13 @@ function helper_file_exists {
       fi
 }
 
-function helper_adoc_max_columns {
+function helper_airs_adoc_max_columns {
   local file="${1}"
   local max_columns="${2}"
   local regex
 
-      helper_file_exists "${file}" \
-  &&  normalized_file="$(helper_adoc_normalize "${file}")" \
+      helper_airs_file_exists "${file}" \
+  &&  normalized_file="$(helper_airs_adoc_normalize "${file}")" \
   &&  regex=".{${max_columns},}" \
   &&  if ! echo "${normalized_file}" | grep -Pq "${regex}"
       then
@@ -66,11 +70,11 @@ function helper_adoc_max_columns {
       fi
 }
 
-function helper_adoc_tag_exists {
+function helper_airs_adoc_tag_exists {
   file="${1}"
   tag="${2}"
 
-      helper_file_exists "${file}" \
+      helper_airs_file_exists "${file}" \
   &&  if grep -q "${tag}" "${file}"
       then
             return 0
@@ -80,12 +84,12 @@ function helper_adoc_tag_exists {
       fi
 }
 
-function helper_adoc_regex_direct {
+function helper_airs_adoc_regex_direct {
   local file="${1}"
   local regex="${2}"
   local error="${3}"
 
-      helper_file_exists "${file}" \
+      helper_airs_file_exists "${file}" \
   &&  if ! pcregrep -MH "${regex}" "${file}"
       then
             return 0
@@ -95,14 +99,14 @@ function helper_adoc_regex_direct {
       fi
 }
 
-function helper_adoc_regex_normalized {
+function helper_airs_adoc_regex_normalized {
   local file="${1}"
   local regex="${2}"
   local error="${3}"
   local normalized_file
 
-      helper_file_exists "${file}" \
-  &&  normalized_file="$(helper_adoc_normalize "${file}")" \
+      helper_airs_file_exists "${file}" \
+  &&  normalized_file="$(helper_airs_adoc_normalize "${file}")" \
   &&  if ! echo "${normalized_file}" | pcregrep -MH "${regex}"
       then
             return 0
@@ -112,7 +116,7 @@ function helper_adoc_regex_normalized {
       fi
 }
 
-function helper_adoc_normalize {
+function helper_airs_adoc_normalize {
   local file="${1}"
   local content
 
@@ -130,7 +134,7 @@ function helper_adoc_normalize {
   local hard_break_regex='^\+$'
   local numbered_list_regex='^\. .*'
 
-      helper_file_exists "${file}" \
+      helper_airs_file_exists "${file}" \
   &&  content="$(cat "${file}")" \
   &&  content="$(echo "${content}" | pcregrep -Mv "${blocks_regex}")" \
   &&  content="$(echo "${content}" | sed -r \
@@ -150,7 +154,7 @@ function helper_adoc_normalize {
   &&  echo "${content}"
 }
 
-function helper_word_count {
+function helper_airs_word_count {
   local file="${1}"
   local min_words="${2}"
   local max_words="${3}"
@@ -158,8 +162,8 @@ function helper_word_count {
   local words
   local regex='[0-9]+(?= words,)'
 
-      helper_file_exists "${file}" \
-  &&  file_style="$(helper_adoc_normalize "${file}" | style)" \
+      helper_airs_file_exists "${file}" \
+  &&  file_style="$(helper_airs_adoc_normalize "${file}" | style)" \
   &&  if [ "${file_style}" != 'No sentences found.' ]
       then
             words="$(echo "${file_style}" | grep -Po "${regex}")" \
@@ -177,15 +181,15 @@ function helper_word_count {
       fi
 }
 
-function helper_test_lix {
+function helper_airs_test_lix {
   local file="${1}"
   local max_lix="${2}"
   local file_lix
   local file_style
   local regex='Lix: (\d\d)'
 
-      helper_file_exists "${file}" \
-  &&  file_style="$(helper_adoc_normalize "${file}" | style)" \
+      helper_airs_file_exists "${file}" \
+  &&  file_style="$(helper_airs_adoc_normalize "${file}" | style)" \
   &&  if [ "${file_style}" != 'No sentences found.' ]
       then
             file_lix="$(echo "${file_style}" | pcregrep -o1 "${regex}")" \
@@ -202,7 +206,7 @@ function helper_test_lix {
       fi
 }
 
-function helper_git_sparse_checkout {
+function helper_airs_git_sparse_checkout {
   local files="${1}"
   local version="${2}"
   local install_path="${3}"

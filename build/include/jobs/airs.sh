@@ -66,21 +66,26 @@ function job_airs_infra_secret_management_apply {
   ||  return 1
 }
 
-function job_test_lint_code {
+function job_airs_test_lint_code {
       helper_use_pristine_workdir \
+  &&  pushd airs \
   &&  env_prepare_python_packages \
-  &&  helper_list_touched_files | xargs pre-commit run -v --files \
+  &&  helper_airs_list_touched_files | xargs pre-commit run -v --files \
   &&  npm install --prefix theme/2020/ \
-  &&  npm run --prefix theme/2020/ lint
+  &&  npm run --prefix theme/2020/ lint \
+  &&  popd \
+  ||  return 1
 }
 
-function job_test_images {
+function job_airs_test_images {
   local blog_covers
   local touched_png_images
   local all_images
 
-      blog_covers="$(find content/blog/ -type f -name cover.png)" \
-  &&  touched_png_images="$(helper_list_touched_files | grep '.png')" || true \
+      pushd airs \
+  &&  helper_airs_set_lc_all \
+  &&  blog_covers="$(find content/blog/ -type f -name cover.png)" \
+  &&  touched_png_images="$(helper_airs_list_touched_files | grep '.png')" || true \
   &&  all_images="$(find content/ -name '*' -exec file --mime-type {} \; | grep -oP '.*(?=: image/)')" \
   &&  echo '[INFO] Testing all images' \
   &&  for image in ${all_images}
@@ -100,10 +105,12 @@ function job_test_images {
             helper_image_optimized "${image}" \
         &&  helper_image_size "${image}" \
         ||  return 1
-      done
+      done \
+  &&  popd \
+  ||  return 1
 }
 
-function job_test_generic {
+function job_airs_test_generic {
   local all_content_files
   local touched_adoc_files
   local max_columns='81'
@@ -111,8 +118,10 @@ function job_test_generic {
   local max_words='4500'
   local max_lix='65'
 
-      all_content_files="$(find content/ -type f)" \
-  &&  touched_adoc_files="$(helper_list_touched_files | grep '.adoc')" || true \
+      pushd airs \
+  &&  helper_airs_set_lc_all \
+  &&  all_content_files="$(find content/ -type f)" \
+  &&  touched_adoc_files="$(helper_airs_list_touched_files | grep '.adoc')" || true \
   &&  echo '[INFO] Testing forbidden extensions' \
   &&  helper_generic_forbidden_extensions \
   &&  echo '[INFO] Testing compliant file names' \
@@ -130,56 +139,66 @@ function job_test_generic {
         &&  helper_generic_adoc_fluid_attacks_name "${path}" \
         &&  helper_generic_adoc_spelling "${path}" \
         &&  helper_generic_adoc_others "${path}" \
-        &&  helper_adoc_tag_exists "${path}" ':description:' \
-        &&  helper_adoc_max_columns "${path}" "${max_columns}" \
-        &&  helper_word_count "${path}" "${min_words}" "${max_words}" \
-        &&  helper_test_lix "${path}" "${max_lix}" \
+        &&  helper_airs_adoc_tag_exists "${path}" ':description:' \
+        &&  helper_airs_adoc_max_columns "${path}" "${max_columns}" \
+        &&  helper_airs_word_count "${path}" "${min_words}" "${max_words}" \
+        &&  helper_airs_test_lix "${path}" "${max_lix}" \
         ||  return 1
-      done
+      done \
+  &&  popd \
+  ||  return 1
 }
 
-function job_test_blog {
+function job_airs_test_blog {
   local all_blog_adoc_files
   local touched_blog_adoc_files
   local min_words='800'
   local max_words='1450'
   local max_lix='50'
 
-      all_blog_adoc_files="$(find content/blog/ -type f -name '*.adoc')" \
-  &&  touched_blog_adoc_files="$(helper_list_touched_files | grep 'content/blog/' | grep '.adoc')" || true \
+      pushd airs \
+  &&  helper_airs_set_lc_all \
+  &&  all_blog_adoc_files="$(find content/blog/ -type f -name '*.adoc')" \
+  &&  touched_blog_adoc_files="$(helper_airs_list_touched_files | grep 'content/blog/' | grep '.adoc')" || true \
   &&  echo '[INFO] Testing adoc files' \
   &&  for path in ${all_blog_adoc_files}
       do
             helper_blog_adoc_category "${path}" \
         &&  helper_blog_adoc_tags "${path}" \
-        &&  helper_adoc_tag_exists "${path}" ':subtitle:' \
-        &&  helper_adoc_tag_exists "${path}" ':alt:' \
+        &&  helper_airs_adoc_tag_exists "${path}" ':subtitle:' \
+        &&  helper_airs_adoc_tag_exists "${path}" ':alt:' \
         ||  return 1
       done \
   &&  for path in ${touched_blog_adoc_files}
       do
             helper_blog_adoc_others "${path}" \
-        &&  helper_adoc_tag_exists "${path}" ':source:' \
-        &&  helper_word_count "${path}" "${min_words}" "${max_words}" \
-        &&  helper_test_lix "${path}" "${max_lix}" \
+        &&  helper_airs_adoc_tag_exists "${path}" ':source:' \
+        &&  helper_airs_word_count "${path}" "${min_words}" "${max_words}" \
+        &&  helper_airs_test_lix "${path}" "${max_lix}" \
         ||  return 1
-      done
+      done \
+  &&  popd \
+  ||  return 1
 }
 
-function job_test_defends {
+function job_airs_test_defends {
   local touched_defends_adoc_files
   local min_words='400'
   local max_words='800'
   local max_lix='60'
 
-      touched_defends_adoc_files="$(helper_list_touched_files | grep 'content/pages/defends/' | grep '.adoc')" || true \
+      pushd airs \
+  &&  helper_airs_set_lc_all \
+  &&  touched_defends_adoc_files="$(helper_airs_list_touched_files | grep 'content/pages/defends/' | grep '.adoc')" || true \
   &&  echo '[INFO] Testing defends files' \
   &&  for path in ${touched_defends_adoc_files}
       do
-            helper_word_count "${path}" "${min_words}" "${max_words}" \
-        &&  helper_test_lix "${path}" "${max_lix}" \
+            helper_airs_word_count "${path}" "${min_words}" "${max_words}" \
+        &&  helper_airs_test_lix "${path}" "${max_lix}" \
         ||  return 1
-      done
+      done \
+  &&  popd \
+  ||  return 1
 }
 
 function job_deploy_local {

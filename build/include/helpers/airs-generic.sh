@@ -20,7 +20,7 @@ function helper_generic_file_name {
   local regex='^[a-z0-9-]+\.[a-z0-9]+\.*[a-z0-9]*$'
   local filename
 
-      helper_file_exists "${file}" \
+      helper_airs_file_exists "${file}" \
   &&  filename="$(basename "${file}")" \
   &&  if [[ ${filename} =~ ${regex} ]]
       then
@@ -35,7 +35,7 @@ function helper_generic_adoc_main_title {
   local file="${1}"
   local titles
 
-      helper_file_exists "${file}" \
+      helper_airs_file_exists "${file}" \
   &&  titles="$(grep -Pc '^=\s.*$' "${file}")" || titles='0' \
   &&  if [ "${titles}" = '1' ]
       then
@@ -52,8 +52,8 @@ function helper_generic_adoc_min_keywords {
   local min_keywords='5'
   local keywords
 
-      helper_file_exists "${file}" \
-  &&  helper_adoc_tag_exists "${file}" "${tag}" \
+      helper_airs_file_exists "${file}" \
+  &&  helper_airs_adoc_tag_exists "${file}" "${tag}" \
   &&  keywords="$(grep -Po '(?<=^:keywords:).*' "${file}" | tr ',' '\n' | wc -l)" \
   &&  if [ "${keywords}" -ge "${min_keywords}" ]
       then
@@ -70,8 +70,8 @@ function helper_generic_adoc_keywords_uppercase {
   local keywords
   local invalid_keywords
 
-      helper_file_exists "${file}" \
-  &&  helper_adoc_tag_exists "${file}" "${tag}" \
+      helper_airs_file_exists "${file}" \
+  &&  helper_airs_adoc_tag_exists "${file}" "${tag}" \
   &&  keywords="$(grep -Po '(?<=^:keywords:).*' "${file}" | tr ',' '\n' | sed -e 's/^\s*//g')" \
   &&  invalid_keywords="$( echo "${keywords}" | grep -Pvc '^[A-Z]')" || invalid_keywords='0' \
   &&  if [ "${invalid_keywords}" = '0' ]
@@ -96,8 +96,8 @@ function helper_generic_adoc_fluid_attacks_name {
   local regex_fluid_uppercase_2='FLUIDAttacks'
   local regex_fluid_uppercase_3='FLUID Attacks'
 
-      helper_file_exists "${file}" \
-  &&  normalized_file="$(helper_adoc_normalize "${file}")" \
+      helper_airs_file_exists "${file}" \
+  &&  normalized_file="$(helper_airs_adoc_normalize "${file}")" \
   &&  if ! echo "${normalized_file}" | pcregrep \
          -e "${regex_fluid_no_attacks}" \
          -e "${regex_fluidsignal_group}" \
@@ -143,8 +143,8 @@ function helper_generic_adoc_spelling {
     'Linux'
     'Scala'
   )
-      helper_file_exists "${file}" \
-  &&  normalized_file="$(helper_adoc_normalize "${file}")" \
+      helper_airs_file_exists "${file}" \
+  &&  normalized_file="$(helper_airs_adoc_normalize "${file}")" \
   &&  for word in "${words[@]}"
       do
             case_insensitive="$(echo "${normalized_file}" | grep -oi " ${word} ")" || true \
@@ -228,10 +228,10 @@ function helper_generic_adoc_others {
     [error_shortname_in_url]='Urls must always have a shortname between brackets []'
   )
 
-      helper_file_exists "${file}" \
+      helper_airs_file_exists "${file}" \
   &&  for test in "${tests_direct[@]}"
       do
-            helper_adoc_regex_direct \
+            helper_airs_adoc_regex_direct \
               "${file}" \
               "${data[regex_${test}]}" \
               "${data[error_${test}]}" \
@@ -239,7 +239,7 @@ function helper_generic_adoc_others {
       done \
   &&  for test in "${tests_normalized[@]}"
       do
-            helper_adoc_regex_normalized \
+            helper_airs_adoc_regex_normalized \
               "${file}" \
               "${data[regex_${test}]}" \
               "${data[error_${test}]}" \

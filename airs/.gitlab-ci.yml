@@ -69,3 +69,28 @@ airs_infra_secret_management_apply:
   <<: *with_nix
   <<: *in_master_branch_airs
   stage: deploy-infra
+
+airs_test_lint_code:
+  <<: *with_nix
+  <<: *in_dev_branch_airs
+  stage: test-code
+
+airs_test_images:
+  <<: *with_nix
+  <<: *in_dev_branch_airs
+  stage: test-code
+
+airs_test_generic:
+  <<: *with_nix
+  <<: *in_dev_branch_airs
+  stage: test-code
+
+airs_test_blog:
+  <<: *with_nix
+  <<: *in_dev_branch_airs
+  stage: test-code
+
+airs_test_defends:
+  <<: *with_nix
+  <<: *in_dev_branch_airs
+  stage: test-code
