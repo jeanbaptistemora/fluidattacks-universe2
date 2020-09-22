@@ -127,7 +127,10 @@ def load_heredocs(data: Any) -> Any:
     if isinstance(data, lark.Tree):
         if data.data.startswith('heredoc_template'):
             raw = '\n'.join(data.children[0].value.splitlines()[1:-1])
-            data = json.loads(raw)
+            try:
+                data = json.loads(raw)
+            except json.JSONDecodeError:
+                data = raw
         else:
             data.children = list(map(load_heredocs, data.children))
     return data
