@@ -196,7 +196,7 @@
           "level": {"S": "organization"},
           "subject": {"S": "integratesuser@gmail.com"},
           "object": {"S": "org#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"},
-          "role": {"S": "customer"}
+          "role": {"S": "customeradmin"}
         }
       }
     },
