@@ -1,5 +1,5 @@
 let
-  pkgs = import ../pkgs/stable.nix;
+  pkgs = import ../pkgs/airs.nix;
 in
   pkgs.stdenv.mkDerivation (
        (import ../src/basic.nix)
@@ -7,11 +7,11 @@ in
     // (rec {
       name = "builder";
 
-      buildInputs = []
-        ++ [
-          pkgs.git
-          pkgs.glibcLocales
-          pkgs.docker
-        ];
+      buildInputs = [
+        pkgs.git
+        pkgs.glibcLocales
+        pkgs.awscli
+        pkgs.terraform
+      ];
     })
   )

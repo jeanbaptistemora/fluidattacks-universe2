@@ -8,63 +8,42 @@ source "${srcIncludeHelpersImage}"
 source "${srcExternalSops}"
 source "${srcEnv}"
 
-function job_build_nix_caches {
-  local context='.'
-  local dockerfile='build/Dockerfile'
-  local provisioners
-
-      helper_use_pristine_workdir \
-  &&  provisioners=(./build/provisioners/*) \
-  &&  helper_build_nix_caches_parallel \
-  &&  for (( i="${lower_limit}";i<="${upper_limit}";i++ ))
-      do
-            provisioner=$(basename "${provisioners[${i}]}") \
-        &&  provisioner="${provisioner%.*}" \
-        &&  helper_docker_build_and_push \
-              "${CI_REGISTRY_IMAGE}/nix:${provisioner}" \
-              "${context}" \
-              "${dockerfile}" \
-              'PROVISIONER' "${provisioner}" \
-        ||  return 1
-      done
-}
-
-function job_infra_ephemeral_test {
+function job_airs_infra_ephemeral_test {
   local dir='deploy/ephemeral/terraform'
 
       helper_set_dev_secrets \
   &&  helper_terraform_test "${dir}"
 }
 
-function job_infra_production_test {
+function job_airs_infra_production_test {
   local dir='deploy/production/terraform'
 
       helper_set_dev_secrets \
   &&  helper_terraform_test "${dir}"
 }
 
-function job_infra_secret_management_test {
+function job_airs_infra_secret_management_test {
   local dir='deploy/secret-management/terraform'
 
       helper_set_dev_secrets \
   &&  helper_terraform_test "${dir}"
 }
 
-function job_infra_ephemeral_apply {
+function job_airs_infra_ephemeral_apply {
   local dir='deploy/ephemeral/terraform'
 
       helper_set_prod_secrets \
   &&  helper_terraform_apply "${dir}"
 }
 
-function job_infra_production_apply {
+function job_airs_infra_production_apply {
   local dir='deploy/production/terraform'
 
       helper_set_prod_secrets \
   &&  helper_terraform_apply "${dir}"
 }
 
-function job_infra_secret_management_apply {
+function job_airs_infra_secret_management_apply {
   local dir='deploy/secret-management/terraform'
 
       helper_set_prod_secrets \
@@ -187,32 +166,6 @@ function job_test_defends {
       done
 }
 
-function job_test_commit_msg {
-  local commit_diff
-  local commit_hashes
-  local public_url='https://static-objects.gitlab.net/fluidattacks/public/raw/master'
-  local parser_url="${public_url}/commitlint-configs/others/parser-preset.js"
-  local rules_url="${public_url}/commitlint-configs/others/commitlint.config.js"
-
-      helper_use_pristine_workdir \
-  &&  env_prepare_node_modules \
-  &&  curl -LOJ "${parser_url}" \
-  &&  curl -LOJ "${rules_url}" \
-  &&  git fetch --prune > /dev/null \
-  &&  if [ "${IS_LOCAL_BUILD}" = "${TRUE}" ]
-      then
-            commit_diff="origin/master..${CI_COMMIT_REF_NAME}"
-      else
-            commit_diff="origin/master..origin/${CI_COMMIT_REF_NAME}"
-      fi \
-  &&  commit_hashes="$(git log --pretty=%h "${commit_diff}")" \
-  &&  for commit_hash in ${commit_hashes}
-      do
-            git log -1 --pretty=%B "${commit_hash}" | commitlint \
-        ||  return 1
-      done
-}
-
 function job_deploy_local {
       helper_use_pristine_workdir \
   &&  helper_deploy_compile_web 'http://localhost:8000' \
@@ -236,40 +189,4 @@ function job_deploy_production {
   &&  helper_set_prod_secrets \
   &&  helper_deploy_compile_web 'https://fluidattacks.com' \
   &&  helper_deploy_sync_s3 'output/' 'web.fluidattacks.com'
-}
-
-function job_postdeploy_release_email {
-      env_prepare_python_packages \
-  &&  helper_set_prod_secrets \
-  &&  sops_env "secrets-prod.yaml" default \
-        MANDRILL_APIKEY \
-        MANDRILL_EMAIL_TO \
-  &&  curl -Lo \
-        "${TEMP_FILE1}" \
-        'https://static-objects.gitlab.net/fluidattacks/public/raw/master/shared-scripts/mail.py' \
-  &&  echo "send_mail('new_version', MANDRILL_EMAIL_TO,
-        context={'project': PROJECT, 'project_url': '$CI_PROJECT_URL',
-          'version': _get_version_date(), 'message': _get_message()},
-        tags=['general'])" >> "${TEMP_FILE1}" \
-  &&  python3 "${TEMP_FILE1}"
-}
-
-function job_reviews {
-  local public_url='https://static-objects.gitlab.net/fluidattacks/public/raw/master'
-  local parser_url="${public_url}/commitlint-configs/others/parser-preset.js"
-  local rules_url="${public_url}/commitlint-configs/others/commitlint.config.js"
-
-  function reviews {
-    export __NIX_PATH
-    export __NIX_SSL_CERT_FILE
-
-    NIX_PATH="${__NIX_PATH}" \
-    NIX_SSL_CERT_FILE="${__NIX_SSL_CERT_FILE}" \
-      "${srcProduct}/bin/reviews" "${@}"
-  }
-
-      helper_use_pristine_workdir \
-  &&  curl -LOJ "${parser_url}" \
-  &&  curl -LOJ "${rules_url}" \
-  &&  reviews reviews.toml
 }

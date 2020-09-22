@@ -11,6 +11,14 @@ rec {
   srcIncludeHelpersCommonGitlab = ../include/helpers/common.gitlab.sh;
   srcIncludeCommonJobs = ../include/jobs/common.sh;
 
+  # Airs
+  srcIncludeHelpersAirs = ../include/helpers/airs.sh;
+  srcIncludeHelpersAirsBlog = ../include/helpers/airs-blog.sh;
+  srcIncludeHelpersAirsDeploy = ../include/helpers/airs-deploy.sh;
+  srcIncludeHelpersAirsGeneric = ../include/helpers/airs-generic.sh;
+  srcIncludeHelpersAirsImage = ../include/helpers/airs-image.sh;
+  srcIncludeAirsJobs = ../include/jobs/airs.sh;
+
   # Asserts
   srcIncludeHelpersAsserts = ../include/helpers/asserts.sh;
   srcIncludeAssertsJobs = ../include/jobs/asserts.sh;
