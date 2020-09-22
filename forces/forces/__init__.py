@@ -30,12 +30,21 @@ async def entrypoint(token: str, group: str, **kwargs: Any) -> int:
     """Entrypoint function"""
     temp_file = LOG_FILE.get()
 
+    metadata = await in_thread(
+        get_repository_metadata,
+        repo_path=kwargs.get('repo_path', '.'),
+    )
+
     strict = kwargs.get('strict', False)
     exit_code = 1 if strict else 0
     set_api_token(token)
 
-    report = await generate_report(project=group,
-                                   kind=kwargs.get('kind', 'all'))
+    report = await generate_report(
+        project=group,
+        kind=kwargs.get('kind', 'all'),
+        repo_name=kwargs.pop('repo_name', None),
+    )
+
     yaml_report = await generate_report_log(
         copy.deepcopy(report), verbose_level=kwargs.pop('verbose_level', 3))
     await log('info', '\n%s', yaml_report)
@@ -48,8 +57,6 @@ async def entrypoint(token: str, group: str, **kwargs: Any) -> int:
         if report['summary']['open']['total'] > 0:
             exit_code = 1
     execution_id = str(uuid.uuid4()).replace('-', '')
-    metadata = await in_thread(
-        get_repository_metadata, repo_path=kwargs.get('repo_path', '.'))
     await upload_report(
         project=group,
         execution_id=execution_id,

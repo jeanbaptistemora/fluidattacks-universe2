@@ -1,8 +1,10 @@
 """Fluid Forces report module"""
 # Standard imports
 import asyncio
+import fnmatch
 from typing import (
     Any,
+    cast,
     Dict,
     List,
 )
@@ -83,6 +85,7 @@ async def generate_report(project: str, **kwargs: str) -> Dict[str, Any]:
     """
     _start_time = timer()
     kind = kwargs.pop('kind', 'all')
+    repo_name = kwargs.pop('repo_name', None)
 
     _summary_dict: Dict[str, Dict[str, int]] = {
         'open': {
@@ -117,6 +120,9 @@ async def generate_report(project: str, **kwargs: str) -> Dict[str, Any]:
                 and vuln_type == 'SAST') or (kind == 'static'
                                              and vuln_type == 'DAST'):
             continue
+        if kind in ('all', 'static') and vuln_type == 'SAST' and repo_name:
+            if not fnmatch.fnmatch(cast(str, vuln['where']), f"{repo_name}/*"):
+                continue
 
         for r_state in ('closed', 'accepted', 'open'):
             if state == r_state:
@@ -135,7 +141,7 @@ async def generate_report(project: str, **kwargs: str) -> Dict[str, Any]:
             vuln['where'],
             'specific':
             vuln['specific'],
-            'URL': ('https://integrates.fluidattacks.com/groups'
+            'URL': ('https://integrates.fluidattacks.com/groups/'
                     f'{project}/vulns/{vuln["findingId"]}'),
             'state':
             state,

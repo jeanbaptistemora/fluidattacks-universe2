@@ -109,13 +109,15 @@ class IntegratesToken(click.ParamType):
 @click.option('--dynamic', required=False, is_flag=True)
 @click.option('--static', required=False, is_flag=True)
 @click.option('--repo-path', default=('.'))
+@click.option('--repo-name', required=False, default=None)
 def main(token: str,  # pylint: disable=too-many-arguments
          verbose: int,
          strict: bool,
          output: TextIOWrapper,
          repo_path: str,
          dynamic: bool,
-         static: bool) -> None:
+         static: bool,
+         repo_name: str) -> None:
     """Main function"""
     group = get_group_from_email(decode_token(token)['user_email'])
     configure_bugsnag(group=group or '')
@@ -139,6 +141,7 @@ def main(token: str,  # pylint: disable=too-many-arguments
             output=output,
             repo_path=repo_path,
             kind=kind,
+            repo_name=repo_name,
         ))
 
     blocking_log('info', 'Success: %s', result == 0)
@@ -147,8 +150,15 @@ def main(token: str,  # pylint: disable=too-many-arguments
 
 @shield(on_error_return=1)
 async def main_wrapped(  # pylint: disable=too-many-arguments
-        group: str, token: str, verbose: int, strict: bool,
-        output: TextIOWrapper, repo_path: str, kind: str) -> int:
+    group: str,
+    token: str,
+    verbose: int,
+    strict: bool,
+    output: TextIOWrapper,
+    repo_path: str,
+    kind: str,
+    repo_name: str,
+) -> int:
     return await entrypoint(
         token=token,
         group=group,
@@ -157,4 +167,5 @@ async def main_wrapped(  # pylint: disable=too-many-arguments
         output=output,
         repo_path=repo_path,
         kind=kind,
+        repo_name=repo_name,
     )
