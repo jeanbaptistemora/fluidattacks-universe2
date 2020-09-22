@@ -109,7 +109,7 @@ common_test_jobs_provisioner:
   <<: *common_in_dev_branch
   stage: test-code
 
-common_mailmap_linter:
+.common_mailmap_linter:
   <<: *with_nix
   <<: *common_in_dev_branch
   tags: [autoscaling]
