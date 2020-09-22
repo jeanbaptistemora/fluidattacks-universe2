@@ -44,4 +44,13 @@ def test_iterate_iam_policy_documents() -> None:
             },
             line=5,
         ),
+        IamPolicyStatement(
+            column=11,
+            data={
+                'Action': ['ec2:Describe*'],
+                'Effect': 'Allow',
+                'Resource': ['*'],
+            },
+            line=25,
+        ),
     )

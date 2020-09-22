@@ -4,7 +4,6 @@ from typing import (
     Iterator,
     NamedTuple,
     Optional,
-    Tuple,
 )
 
 # Third party libraries
@@ -65,23 +64,38 @@ IamPolicyStatement = NamedTuple('IamPolicyStatement', [
 
 def iterate_iam_policy_documents(
     model: Any,
-) -> Iterator[Tuple[IamPolicyStatement]]:
+) -> Iterator[IamPolicyStatement]:
     for iterator in (
         _iterate_iam_policy_documents_from_resource_aws_iam_role,
+        _iterate_iam_policy_documents_from_resource_aws_iam_role_policy,
     ):
         yield from iterator(model)
 
 
 def _iterate_iam_policy_documents_from_resource_aws_iam_role(
     model: Any,
-) -> Iterator[Tuple[IamPolicyStatement]]:
+) -> Iterator[IamPolicyStatement]:
     for resource in iterate_resources(model, 'resource', 'aws_iam_role'):
         attribute = get_block_attribute(resource, 'assume_role_policy')
-        if attribute and isinstance(attribute.val, Json):
-            data = attribute.val
-            for stmt in yield_statements_from_policy_document(data.data):
-                yield IamPolicyStatement(
-                    column=data.column,
-                    data=stmt,
-                    line=data.line,
-                )
+        yield from _yield_statements_from_policy_document_attribute(attribute)
+
+
+def _iterate_iam_policy_documents_from_resource_aws_iam_role_policy(
+    model: Any,
+) -> Iterator[IamPolicyStatement]:
+    for res in iterate_resources(model, 'resource', 'aws_iam_role_policy'):
+        attribute = get_block_attribute(res, 'policy')
+        yield from _yield_statements_from_policy_document_attribute(attribute)
+
+
+def _yield_statements_from_policy_document_attribute(
+    attribute: Any,
+) -> Iterator[IamPolicyStatement]:
+    if attribute and isinstance(attribute.val, Json):
+        data = attribute.val
+        for stmt in yield_statements_from_policy_document(data.data):
+            yield IamPolicyStatement(
+                column=data.column,
+                data=stmt,
+                line=data.line,
+            )
