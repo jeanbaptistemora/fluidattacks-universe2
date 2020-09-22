@@ -9,6 +9,7 @@ from backend.api.schema.types.group import GROUP
 from backend.api.schema.types.mutation import MUTATION
 from backend.api.schema.types.organization import ORGANIZATION
 from backend.api.schema.types.query import QUERY
+from backend.api.schema.types.stakeholder import STAKEHOLDER
 
 
 EVENT = ObjectType('Event')
@@ -17,7 +18,6 @@ FORCES_EXECUTIONS = ObjectType('ForcesExecutions')
 INTERNAL_NAME = ObjectType('InternalName')
 ME = ObjectType('Me')
 RESOURCE = ObjectType('Resource')
-STAKEHOLDER = ObjectType('Stakeholder')
 VULNERABILITY = ObjectType('Vulnerability')
 
 TYPES: Tuple[ObjectType, ...] = (

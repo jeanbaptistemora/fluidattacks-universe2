@@ -1,0 +1,10 @@
+"Stakeholder type definition"
+type Stakeholder {
+  email: String
+  firstLogin: String
+  lastLogin: String
+  phoneNumber: String
+  projects: [Project]
+  responsibility: String
+  role: String
+}
