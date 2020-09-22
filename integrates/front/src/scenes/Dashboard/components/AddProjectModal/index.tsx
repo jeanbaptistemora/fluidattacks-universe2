@@ -27,7 +27,6 @@ import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 import { translate } from "utils/translations/translate";
 import { alphaNumeric, maxLength, required, validTextField } from "utils/validations";
-import { IAddFilesModalProps } from "../AddFilesModal";
 
 /*
   * Business rules to create a project:

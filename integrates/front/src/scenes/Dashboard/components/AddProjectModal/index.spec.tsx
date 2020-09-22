@@ -1,62 +1,67 @@
-import { MockedProvider, MockedResponse } from "@apollo/react-testing";
-import { mount, ReactWrapper } from "enzyme";
-import React from "react";
-import { Provider } from "react-redux";
-
 import { AddProjectModal } from "scenes/Dashboard/components/AddProjectModal";
-import { PROJECTS_NAME_QUERY } from "scenes/Dashboard/components/AddProjectModal/queries";
 import { IProjectNameProps } from "scenes/Dashboard/components/AddProjectModal/types";
+import { PROJECTS_NAME_QUERY } from "scenes/Dashboard/components/AddProjectModal/queries";
+import { Provider } from "react-redux";
+import React from "react";
 import store from "store";
+import { MockedProvider, MockedResponse } from "@apollo/react-testing";
+import { ReactWrapper, mount } from "enzyme";
 
-describe("AddProjectModal component", () => {
+describe("AddProjectModal component", (): void => {
+  const projectName: IProjectNameProps = { internalNames: { name: "" } };
 
-  const projectName: IProjectNameProps = { internalNames : { name: "" } };
-
-  const mocksMutation: MockedResponse[] = [{
-    request: {
-      query: PROJECTS_NAME_QUERY,
+  const mocksMutation: MockedResponse[] = [
+    {
+      request: {
+        query: PROJECTS_NAME_QUERY,
+      },
+      result: {
+        data: { projectName },
+      },
     },
-    result: {
-      data: { projectName },
-    },
-  }];
+  ];
 
   const handleOnClose: jest.Mock = jest.fn();
 
-  it("should render add project modal", () => {
+  it("should render add project modal", (): void => {
+    expect.hasAssertions();
+
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
-        <MockedProvider mocks={mocksMutation} addTypename={false}>
+        <MockedProvider addTypename={false} mocks={mocksMutation}>
           <AddProjectModal
             isOpen={true}
             onClose={handleOnClose}
-            organization="okada"
+            organization={"okada"}
           />
         </MockedProvider>
-      </Provider>,
+      </Provider>
     );
 
     const cancelButton: ReactWrapper = wrapper
       .find("Button")
-      .filterWhere((element: ReactWrapper) => element.contains("Cancel"));
+      .filterWhere((element: ReactWrapper): boolean =>
+        element.contains("Cancel")
+      );
     cancelButton.simulate("click");
-    expect(wrapper)
-      .toHaveLength(1);
-    expect(handleOnClose.mock.calls.length)
-      .toEqual(1);
+
+    expect(wrapper).toHaveLength(1);
+    expect(handleOnClose.mock.calls).toHaveLength(1);
   });
 
-  it("should render form fields", () => {
+  it("should render form fields", (): void => {
+    expect.hasAssertions();
+
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
-        <MockedProvider mocks={mocksMutation} addTypename={false}>
+        <MockedProvider addTypename={false} mocks={mocksMutation}>
           <AddProjectModal
             isOpen={true}
             onClose={handleOnClose}
-            organization="okada"
+            organization={"okada"}
           />
         </MockedProvider>
-      </Provider>,
+      </Provider>
     );
 
     const organizationField: ReactWrapper = wrapper
@@ -80,35 +85,33 @@ describe("AddProjectModal component", () => {
       .find(".switch-group");
 
     const submitButton: ReactWrapper = wrapper
-    .findWhere((element: ReactWrapper) => element.contains("Proceed"))
-    .at(0);
+      .findWhere((element: ReactWrapper): boolean =>
+        element.contains("Proceed")
+      )
+      .at(0);
+    const SWITCH_BUTTON_LENGTH: number = 3;
 
-    expect(organizationField)
-      .toHaveLength(1);
-    expect(projectNameField)
-      .toHaveLength(1);
-    expect(descriptionField)
-      .toHaveLength(1);
-    expect(typeField)
-      .toHaveLength(1);
-    expect(switchButtons)
-      .toHaveLength(3);
-    expect(submitButton)
-      .toHaveLength(1);
-
+    expect(organizationField).toHaveLength(1);
+    expect(projectNameField).toHaveLength(1);
+    expect(descriptionField).toHaveLength(1);
+    expect(typeField).toHaveLength(1);
+    expect(switchButtons).toHaveLength(SWITCH_BUTTON_LENGTH);
+    expect(submitButton).toHaveLength(1);
   });
 
-  it("should remove Forces and Drills switches", () => {
+  it("should remove Forces and Drills switches", (): void => {
+    expect.hasAssertions();
+
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
-        <MockedProvider mocks={mocksMutation} addTypename={false}>
+        <MockedProvider addTypename={false} mocks={mocksMutation}>
           <AddProjectModal
             isOpen={true}
             onClose={handleOnClose}
-            organization="okada"
+            organization={"okada"}
           />
         </MockedProvider>
-      </Provider>,
+      </Provider>
     );
 
     wrapper
@@ -116,22 +119,24 @@ describe("AddProjectModal component", () => {
       .find("select")
       .simulate("change", { target: { value: "ONESHOT" } });
 
-    expect(wrapper.find({ checked: true })
-      .find(".switch-group"))
-      .toHaveLength(2);
+    expect(wrapper.find({ checked: true }).find(".switch-group")).toHaveLength(
+      2
+    );
   });
 
-  it("should remove Forces Service switch", () => {
+  it("should remove Forces Service switch", (): void => {
+    expect.hasAssertions();
+
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
-        <MockedProvider mocks={mocksMutation} addTypename={false}>
+        <MockedProvider addTypename={false} mocks={mocksMutation}>
           <AddProjectModal
             isOpen={true}
             onClose={handleOnClose}
-            organization="okada"
+            organization={"okada"}
           />
         </MockedProvider>
-      </Provider>,
+      </Provider>
     );
 
     const drillsSwitch: ReactWrapper = wrapper
@@ -139,12 +144,10 @@ describe("AddProjectModal component", () => {
       .find(".switch-group")
       .at(1);
 
-    drillsSwitch
-      .simulate("click");
+    drillsSwitch.simulate("click");
 
-    expect(wrapper
-      .find({ checked: true })
-      .find(".switch-group"))
-      .toHaveLength(1);
+    expect(wrapper.find({ checked: true }).find(".switch-group")).toHaveLength(
+      1
+    );
   });
 });
