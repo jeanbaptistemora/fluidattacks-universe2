@@ -460,7 +460,6 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                   headerFormatter: proFormatter,
                   onSort: onSortLines,
                   visible: true,
-                  width: "20%",
                 },
                 {
                   align: "left",

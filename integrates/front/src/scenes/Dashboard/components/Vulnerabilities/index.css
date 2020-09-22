@@ -21,6 +21,5 @@
 
 :local .tableBody > td {
 	padding: 2px 3px !important;
-	word-break: break-all;
 	border: none !important;
 }
