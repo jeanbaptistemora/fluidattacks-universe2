@@ -13,6 +13,7 @@ from parse_hcl2.loader import (
 from parse_hcl2.tokens import (
     Attribute,
     Block,
+    Json,
 )
 
 
@@ -184,7 +185,7 @@ def test_load_2() -> None:
                         column=2,
                         key='policy',
                         line=20,
-                        val={
+                        val=Json(column=11, data={
                             'Version': '2012-10-17',
                             'Statement': [
                                 {
@@ -206,7 +207,7 @@ def test_load_2() -> None:
                                     'Resource': '*'
                                 }
                             ]
-                        },
+                        }, line=20),
                     ),
                 ],
                 column=0,

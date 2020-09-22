@@ -2,6 +2,8 @@
 from typing import (
     Any,
     Iterator,
+    Optional,
+    Tuple,
 )
 
 # Third party libraries
@@ -11,8 +13,17 @@ from lark import (
 
 # Local libraries
 from parse_hcl2.tokens import (
+    Attribute,
     Block,
+    Json,
 )
+
+
+def get_block_attribute(block: Block, key: str) -> Optional[Attribute]:
+    for attribute in iterate_block_attributes(block):
+        if attribute.key == key:
+            return attribute
+    return None
 
 
 def iterate_resources(
@@ -33,3 +44,16 @@ def iterate_resources(
         and model.namespace[1] in expected_kinds
     ):
         yield model
+
+
+def iterate_block_attributes(block: Block) -> Iterator[Attribute]:
+    for item in block.body:
+        if isinstance(item, Attribute):
+            yield item
+
+
+def iterate_iam_policy_documents(model: Any) -> Iterator[Tuple[Json]]:
+    for resource in iterate_resources(model, 'resource', 'aws_iam_role'):
+        data = get_block_attribute(resource, 'assume_role_policy')
+        if data and isinstance(data.val, Json):
+            yield data.val

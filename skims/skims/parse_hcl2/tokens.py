@@ -18,3 +18,9 @@ Block = NamedTuple('Block', [
     ('column', int),
     ('line', int),
 ])
+
+Json = NamedTuple('Json', [
+    ('column', int),
+    ('data', Any),
+    ('line', int),
+])

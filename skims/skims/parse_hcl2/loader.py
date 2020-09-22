@@ -20,6 +20,7 @@ import lark
 from parse_hcl2.tokens import (
     Attribute,
     Block,
+    Json,
 )
 
 # Side effects
@@ -128,7 +129,11 @@ def load_heredocs(data: Any) -> Any:
         if data.data.startswith('heredoc_template'):
             raw = '\n'.join(data.children[0].value.splitlines()[1:-1])
             try:
-                data = json.loads(raw)
+                data = Json(
+                    column=data.column - 1,
+                    data=json.loads(raw),
+                    line=data.line,
+                )
             except json.JSONDecodeError:
                 data = raw
         else:
