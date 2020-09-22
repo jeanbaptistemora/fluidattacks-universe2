@@ -75,8 +75,8 @@ def blocking_to_snippet(
     number_of_lines: int = len(lines)
     zeros_needed: int = max(len(str(number_of_lines)), 2) + 2
 
-    start_line: int = max(line - context - 1, 0)
-    end_line: int = min(line + context, number_of_lines)
+    start_line: int = max(line - context // 2 - 1, 0)
+    end_line: int = min(start_line + 2 * context + 1, number_of_lines)
 
     start_column: int = max(column - chars_per_line // 4, 0)
     end_column: int = start_column + chars_per_line

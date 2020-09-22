@@ -45,8 +45,6 @@ def test_to_snippet() -> None:
     assert snippet == dedent("""
         ¦ line ¦ Data                                        ¦
         ¦ ---- ¦ ------------------------------------------- ¦
-        ¦    1 ¦                                             ¦
-        ¦    2 ¦                                             ¦
         ¦    3 ¦                                             ¦
         ¦    4 ¦                                             ¦
         ¦  > 5 ¦                                             ¦
@@ -54,6 +52,8 @@ def test_to_snippet() -> None:
         ¦    7 ¦ x                                           ¦
         ¦    8 ¦ xxxxxxxxxxx                                 ¦
         ¦    9 ¦ x                                           ¦
+        ¦   10 ¦                                             ¦
+        ¦   11 ¦                                             ¦
         ¦ ---- ¦ ------------------------------------------- ¦
                ^ Column 29
     """)[1:-1], snippet
