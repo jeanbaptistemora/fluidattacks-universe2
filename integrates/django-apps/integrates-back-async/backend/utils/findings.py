@@ -335,6 +335,10 @@ def format_data(finding: Dict[str, FindingType]) -> Dict[str, FindingType]:
         finding['age'] = util.calculate_datediff_since(
             cast(datetime, finding['releaseDate'])
         ).days
+
+    if 'cvssVersion' not in finding:
+        finding['cvssVersion'] = '3.1'
+
     finding['exploitable'] = forms_utils.is_exploitable(
         float(str(finding.get('exploitability', 0))),
         str(finding.get('cvssVersion', ''))
