@@ -1,6 +1,6 @@
 # shellcheck shell=bash
 
-function helper_generic_forbidden_extensions {
+function helper_airs_generic_forbidden_extensions {
   local invalid_extensions='asc'
   local found_files
 
@@ -15,7 +15,7 @@ function helper_generic_forbidden_extensions {
       fi
 }
 
-function helper_generic_file_name {
+function helper_airs_generic_file_name {
   local file="${1}"
   local regex='^[a-z0-9-]+\.[a-z0-9]+\.*[a-z0-9]*$'
   local filename
@@ -31,7 +31,7 @@ function helper_generic_file_name {
       fi
 }
 
-function helper_generic_adoc_main_title {
+function helper_airs_generic_adoc_main_title {
   local file="${1}"
   local titles
 
@@ -46,7 +46,7 @@ function helper_generic_adoc_main_title {
       fi
 }
 
-function helper_generic_adoc_min_keywords {
+function helper_airs_generic_adoc_min_keywords {
   local file="${1}"
   local tag=':keywords:'
   local min_keywords='5'
@@ -64,7 +64,7 @@ function helper_generic_adoc_min_keywords {
       fi
 }
 
-function helper_generic_adoc_keywords_uppercase {
+function helper_airs_generic_adoc_keywords_uppercase {
   local file="${1}"
   local tag=":keywords:"
   local keywords
@@ -83,7 +83,7 @@ function helper_generic_adoc_keywords_uppercase {
       fi
 }
 
-function helper_generic_adoc_fluid_attacks_name {
+function helper_airs_generic_adoc_fluid_attacks_name {
   local file="${1}"
   local normalized_file
 
@@ -115,7 +115,7 @@ function helper_generic_adoc_fluid_attacks_name {
       fi
 }
 
-function helper_generic_adoc_spelling {
+function helper_airs_generic_adoc_spelling {
   local file="${1}"
   local normalized_file
   local case_insensitive
@@ -159,7 +159,7 @@ function helper_generic_adoc_spelling {
       done
 }
 
-function helper_generic_adoc_others {
+function helper_airs_generic_adoc_others {
   local file="${1}"
   local tests_direct=(
     'blank_space_header'

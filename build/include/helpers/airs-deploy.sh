@@ -1,6 +1,6 @@
 # shellcheck shell=bash
 
-function helper_deploy_install_plugins {
+function helper_airs_deploy_install_plugins {
   local asciidoc='asciidoc_reader'
   local asciidoc_version='ad6d407'
 
@@ -33,7 +33,7 @@ function helper_deploy_install_plugins {
         "${url_pelican_plugins}"
 }
 
-function helper_deploy_sync_s3 {
+function helper_airs_deploy_sync_s3 {
   local source_code="${1}"
   local bucket_path="${2}"
   local extensions=('html' 'css' 'js' 'png' 'svg')
@@ -99,11 +99,11 @@ function helper_deploy_sync_s3 {
         --delete
 }
 
-function helper_deploy_compile_web {
+function helper_airs_deploy_compile_web {
   local target="${1}"
 
       env_prepare_python_packages \
-  &&  helper_deploy_install_plugins \
+  &&  helper_airs_deploy_install_plugins \
   &&  sed -i "s|https://fluidattacks.com|${target}|g" pelicanconf.py \
   &&  npm install --prefix theme/2020/ \
   &&  PATH="${PATH}:$(pwd)/theme/2020/node_modules/.bin/" \

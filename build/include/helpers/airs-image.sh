@@ -1,6 +1,6 @@
 # shellcheck shell=bash
 
-function helper_image_blog_cover_dimensions {
+function helper_airs_image_blog_cover_dimensions {
   local path="${1}"
   local dimensions
 
@@ -15,7 +15,7 @@ function helper_image_blog_cover_dimensions {
       fi
 }
 
-function helper_image_optimized {
+function helper_airs_image_optimized {
   local path="${1}"
 
       helper_airs_file_exists "${path}" \
@@ -28,7 +28,7 @@ function helper_image_optimized {
       fi
 }
 
-function helper_image_size {
+function helper_airs_image_size {
   local path="${1}"
   local size_bytes
 
@@ -43,7 +43,7 @@ function helper_image_size {
       fi
 }
 
-function helper_image_valid {
+function helper_airs_image_valid {
   local path="${1}"
   local valid_extensions='image/\(png\|svg+xml\|gif\)'
 

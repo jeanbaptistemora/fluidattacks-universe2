@@ -90,20 +90,20 @@ function job_airs_test_images {
   &&  echo '[INFO] Testing all images' \
   &&  for image in ${all_images}
       do
-            helper_image_valid "${image}" \
+            helper_airs_image_valid "${image}" \
         ||  return 1
       done \
   &&  echo '[INFO] Testing blog covers' \
   &&  for cover in ${blog_covers}
       do
-            helper_image_blog_cover_dimensions "${cover}" \
+            helper_airs_image_blog_cover_dimensions "${cover}" \
         ||  return 1
       done \
   &&  echo '[INFO] Testing PNG images' \
   &&  for image in ${touched_png_images}
       do
-            helper_image_optimized "${image}" \
-        &&  helper_image_size "${image}" \
+            helper_airs_image_optimized "${image}" \
+        &&  helper_airs_image_size "${image}" \
         ||  return 1
       done \
   &&  popd \
@@ -123,22 +123,22 @@ function job_airs_test_generic {
   &&  all_content_files="$(find content/ -type f)" \
   &&  touched_adoc_files="$(helper_airs_list_touched_files | grep '.adoc')" || true \
   &&  echo '[INFO] Testing forbidden extensions' \
-  &&  helper_generic_forbidden_extensions \
+  &&  helper_airs_generic_forbidden_extensions \
   &&  echo '[INFO] Testing compliant file names' \
   &&  for path in ${all_content_files}
       do
-            helper_generic_file_name "${path}" \
+            helper_airs_generic_file_name "${path}" \
         ||  return 1
       done \
   && echo '[INFO] Testing touched adoc files' \
   &&  for path in ${touched_adoc_files}
       do
-            helper_generic_adoc_main_title "${path}" \
-        &&  helper_generic_adoc_min_keywords "${path}" \
-        &&  helper_generic_adoc_keywords_uppercase "${path}" \
-        &&  helper_generic_adoc_fluid_attacks_name "${path}" \
-        &&  helper_generic_adoc_spelling "${path}" \
-        &&  helper_generic_adoc_others "${path}" \
+            helper_airs_generic_adoc_main_title "${path}" \
+        &&  helper_airs_generic_adoc_min_keywords "${path}" \
+        &&  helper_airs_generic_adoc_keywords_uppercase "${path}" \
+        &&  helper_airs_generic_adoc_fluid_attacks_name "${path}" \
+        &&  helper_airs_generic_adoc_spelling "${path}" \
+        &&  helper_airs_generic_adoc_others "${path}" \
         &&  helper_airs_adoc_tag_exists "${path}" ':description:' \
         &&  helper_airs_adoc_max_columns "${path}" "${max_columns}" \
         &&  helper_airs_word_count "${path}" "${min_words}" "${max_words}" \
@@ -163,15 +163,15 @@ function job_airs_test_blog {
   &&  echo '[INFO] Testing adoc files' \
   &&  for path in ${all_blog_adoc_files}
       do
-            helper_blog_adoc_category "${path}" \
-        &&  helper_blog_adoc_tags "${path}" \
+            helper_airs_blog_adoc_category "${path}" \
+        &&  helper_airs_blog_adoc_tags "${path}" \
         &&  helper_airs_adoc_tag_exists "${path}" ':subtitle:' \
         &&  helper_airs_adoc_tag_exists "${path}" ':alt:' \
         ||  return 1
       done \
   &&  for path in ${touched_blog_adoc_files}
       do
-            helper_blog_adoc_others "${path}" \
+            helper_airs_blog_adoc_others "${path}" \
         &&  helper_airs_adoc_tag_exists "${path}" ':source:' \
         &&  helper_airs_word_count "${path}" "${min_words}" "${max_words}" \
         &&  helper_airs_test_lix "${path}" "${max_lix}" \
@@ -201,27 +201,43 @@ function job_airs_test_defends {
   ||  return 1
 }
 
-function job_deploy_local {
+function job_airs_deploy_local {
       helper_use_pristine_workdir \
-  &&  helper_deploy_compile_web 'http://localhost:8000' \
-  &&  python3 -m http.server --directory output
+  &&  pushd airs \
+  &&  helper_airs_set_lc_all \
+  &&  helper_airs_deploy_compile_web 'http://localhost:8000' \
+  &&  python3 -m http.server --directory output \
+  &&  popd \
+  ||  return 1
 }
 
-function job_deploy_ephemeral {
+function job_airs_deploy_ephemeral {
       helper_use_pristine_workdir \
+  &&  pushd airs \
+  &&  helper_airs_set_lc_all \
   &&  helper_airs_aws_login development \
-  &&  helper_deploy_compile_web "https://web.eph.fluidattacks.com/${CI_COMMIT_REF_NAME}" \
-  &&  helper_deploy_sync_s3 'output/' "web.eph.fluidattacks.com/${CI_COMMIT_REF_NAME}"
+  &&  helper_airs_deploy_compile_web "https://web.eph.fluidattacks.com/${CI_COMMIT_REF_NAME}" \
+  &&  helper_airs_deploy_sync_s3 'output/' "web.eph.fluidattacks.com/${CI_COMMIT_REF_NAME}" \
+  &&  popd \
+  ||  return 1
 }
 
-function job_deploy_stop_ephemeral {
-      helper_airs_aws_login development \
-  &&  aws s3 rm "s3://web.eph.fluidattacks.com/$CI_COMMIT_REF_NAME" --recursive
-}
-
-function job_deploy_production {
+function job_airs_deploy_stop_ephemeral {
       helper_use_pristine_workdir \
+  &&  pushd airs \
+  &&  helper_airs_aws_login development \
+  &&  aws s3 rm "s3://web.eph.fluidattacks.com/$CI_COMMIT_REF_NAME" --recursive \
+  &&  popd \
+  ||  return 1
+}
+
+function job_airs_deploy_production {
+      helper_use_pristine_workdir \
+  &&  pushd airs \
+  &&  helper_airs_set_lc_all \
   &&  helper_airs_aws_login production \
-  &&  helper_deploy_compile_web 'https://fluidattacks.com' \
-  &&  helper_deploy_sync_s3 'output/' 'web.fluidattacks.com'
+  &&  helper_airs_deploy_compile_web 'https://fluidattacks.com' \
+  &&  helper_airs_deploy_sync_s3 'output/' 'web.fluidattacks.com' \
+  &&  popd \
+  ||  return 1
 }

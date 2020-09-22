@@ -1,6 +1,6 @@
 # shellcheck shell=bash
 
-function helper_blog_adoc_category {
+function helper_airs_blog_adoc_category {
   local file="${1}"
   local category
   local regex='(?<=^:category: ).+$'
@@ -53,7 +53,7 @@ function helper_blog_adoc_category {
       fi
 }
 
-function helper_blog_adoc_tags {
+function helper_airs_blog_adoc_tags {
   local file="${1}"
   local tags
   local regex='(?<=^:tags: ).+$'
@@ -169,7 +169,7 @@ function helper_blog_adoc_tags {
       done
 }
 
-function helper_blog_adoc_others {
+function helper_airs_blog_adoc_others {
   local file="${1}"
   local tests=(
     'title_length_limit'

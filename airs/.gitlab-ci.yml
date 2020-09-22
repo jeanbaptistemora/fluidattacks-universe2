@@ -94,3 +94,40 @@ airs_test_defends:
   <<: *with_nix
   <<: *in_dev_branch_airs
   stage: test-code
+
+airs_deploy_ephemeral:
+  <<: *with_nix
+  <<: *in_dev_branch_airs
+  stage: deploy-app
+  environment:
+    name: ephemeral/${CI_COMMIT_REF_NAME}
+    url: https://web.eph.fluidattacks.com/${CI_COMMIT_REF_NAME}/web/
+    on_stop: airs_deploy_stop_ephemeral
+  cache:
+    key: "${CI_COMMIT_REF_NAME}-${CI_JOB_NAME}"
+    paths:
+    - cache/
+    - new/cache/
+
+airs_deploy_stop_ephemeral:
+  <<: *with_nix
+  stage: deploy-app
+  environment:
+    name: ephemeral/${CI_COMMIT_REF_NAME}
+    action: stop
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "master"'
+      when: never
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+      when: never
+    - if: '$CI_PIPELINE_SOURCE == "schedule"'
+      when: never
+    - if: '$CI_PIPELINE_SOURCE == "trigger"'
+      when: never
+    - if: *airs_commit_pattern
+      when: manual
+
+airs_deploy_production:
+  <<: *with_nix
+  <<: *in_master_branch_airs
+  stage: deploy-app
