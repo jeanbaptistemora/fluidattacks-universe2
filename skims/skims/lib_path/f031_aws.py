@@ -54,6 +54,41 @@ from zone import (
 )
 
 
+def _is_iam_passrole(action: str) -> bool:
+    return match_pattern(action, 'iam:PassRole')
+
+
+def _cfn_create_vulns(
+    content: str,
+    description_key: str,
+    path: str,
+    statements_iterator: Iterator[Dict[str, Any]],
+) -> Tuple[Vulnerability, ...]:
+    return tuple(
+        Vulnerability(
+            finding=FindingEnum.F031_AWS,
+            kind=VulnerabilityKindEnum.LINES,
+            state=VulnerabilityStateEnum.OPEN,
+            what=path,
+            where=f'{line_no}',
+            skims_metadata=SkimsVulnerabilityMetadata(
+                description=t(
+                    key=description_key,
+                    path=path,
+                ),
+                snippet=blocking_to_snippet(
+                    column=column_no,
+                    content=content,
+                    line=line_no,
+                )
+            )
+        )
+        for stmt in statements_iterator
+        for column_no in [stmt['__column__']]
+        for line_no in [stmt['__line__']]
+    )
+
+
 def _cfn_negative_statement(
     content: str,
     path: str,
@@ -72,28 +107,11 @@ def _cfn_negative_statement(
                 if not any(map(is_resource_permissive, stmt['NotResource'])):
                     yield stmt
 
-    return tuple(
-        Vulnerability(
-            finding=FindingEnum.F031_AWS,
-            kind=VulnerabilityKindEnum.LINES,
-            state=VulnerabilityStateEnum.OPEN,
-            what=path,
-            where=f'{line_no}',
-            skims_metadata=SkimsVulnerabilityMetadata(
-                description=t(
-                    key='src.lib_path.f031_aws.cfn_negative_statement',
-                    path=path,
-                ),
-                snippet=blocking_to_snippet(
-                    column=column_no,
-                    content=content,
-                    line=line_no,
-                )
-            )
-        )
-        for stmt in _iterate_vulnerabilities()
-        for column_no in [stmt['__column__']]
-        for line_no in [stmt['__line__']]
+    return _cfn_create_vulns(
+        content=content,
+        description_key='src.lib_path.f031_aws.negative_statement',
+        path=path,
+        statements_iterator=_iterate_vulnerabilities()
     )
 
 
@@ -137,28 +155,11 @@ def _cfn_permissive_policy(
                 )):
                     yield stmt
 
-    return tuple(
-        Vulnerability(
-            finding=FindingEnum.F031_AWS,
-            kind=VulnerabilityKindEnum.LINES,
-            state=VulnerabilityStateEnum.OPEN,
-            what=path,
-            where=f'{line_no}',
-            skims_metadata=SkimsVulnerabilityMetadata(
-                description=t(
-                    key='src.lib_path.f031_aws.cfn_permissive_policy',
-                    path=path,
-                ),
-                snippet=blocking_to_snippet(
-                    column=column_no,
-                    content=content,
-                    line=line_no,
-                )
-            )
-        )
-        for stmt in _iterate_vulnerabilities()
-        for column_no in [stmt['__column__']]
-        for line_no in [stmt['__line__']]
+    return _cfn_create_vulns(
+        content=content,
+        description_key='src.lib_path.f031_aws.permissive_policy',
+        path=path,
+        statements_iterator=_iterate_vulnerabilities()
     )
 
 
@@ -191,9 +192,6 @@ def _cfn_open_passrole(
     path: str,
     template: Any,
 ) -> Tuple[Vulnerability, ...]:
-    def _is_iam_passrole(action: str) -> bool:
-        return match_pattern(action, 'iam:PassRole')
-
     def _iterate_vulnerabilities() -> Iterator[Dict[str, Any]]:
         for stmt in iterate_iam_policy_documents(template):
             if stmt['Effect'] == 'Allow':
@@ -206,28 +204,11 @@ def _cfn_open_passrole(
                 )):
                     yield stmt
 
-    return tuple(
-        Vulnerability(
-            finding=FindingEnum.F031_AWS,
-            kind=VulnerabilityKindEnum.LINES,
-            state=VulnerabilityStateEnum.OPEN,
-            what=path,
-            where=f'{line_no}',
-            skims_metadata=SkimsVulnerabilityMetadata(
-                description=t(
-                    key='src.lib_path.f031_aws.cfn_open_passrole',
-                    path=path,
-                ),
-                snippet=blocking_to_snippet(
-                    column=column_no,
-                    content=content,
-                    line=line_no,
-                )
-            )
-        )
-        for stmt in _iterate_vulnerabilities()
-        for column_no in [stmt['__column__']]
-        for line_no in [stmt['__line__']]
+    return _cfn_create_vulns(
+        content=content,
+        description_key='src.lib_path.f031_aws.open_passrole',
+        path=path,
+        statements_iterator=_iterate_vulnerabilities()
     )
 
 
