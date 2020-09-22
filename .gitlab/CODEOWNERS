@@ -1,22 +1,25 @@
 # Default approvers
-* @dsalazaratfluid @jrestrepoatfluid @kamadoatfluid @mnorenaatfluid @ralvarezatfluid
+* @dsalazaratfluid @jrestrepoatfluid @kamadoatfluid @ralvarezatfluid
 
 # Front approvers
-/integrates/front/ @dacevedoatfluid @mnorenaatfluid @jrestrepoatfluid @kamadoatfluid
-/integrates/mobile/ @dacevedoatfluid @mnorenaatfluid @jrestrepoatfluid @kamadoatfluid
+/integrates/front/ @dacevedoatfluid @jrestrepoatfluid @kamadoatfluid
+/integrates/mobile/ @dacevedoatfluid @jrestrepoatfluid @kamadoatfluid
 
-# Back approvers
-/integrates/django-apps/integrates-back-async/backend/authz/ @jrestrepoatfluid @mnorenaatfluid @kamadoatfluid
+# Integrates back authz approvers
+/integrates/django-apps/integrates-back-async/backend/authz/ @jrestrepoatfluid @kamadoatfluid
 
 # Linter approvers
-/build/include/linter-jobs.sh @mnorenaatfluid @kamadoatfluid @jrestrepoatfluid
-/integrates/app/static/graphics/.eslintrc @mnorenaatfluid @kamadoatfluid @jrestrepoatfluid
-/integrates/front/.eslintignore @mnorenaatfluid @kamadoatfluid @jrestrepoatfluid
-/integrates/front/.eslintrc.json @mnorenaatfluid @kamadoatfluid @jrestrepoatfluid
-/integrates/front/tslint.json @mnorenaatfluid @kamadoatfluid @jrestrepoatfluid
-/integrates/mobile/tslint.json @mnorenaatfluid @kamadoatfluid @jrestrepoatfluid
+/build/include/linter-jobs.sh @kamadoatfluid @jrestrepoatfluid
+/integrates/app/static/graphics/.eslintrc @kamadoatfluid @jrestrepoatfluid
+/integrates/front/.eslintignore @kamadoatfluid @jrestrepoatfluid
+/integrates/front/.eslintrc.json @kamadoatfluid @jrestrepoatfluid
+/integrates/front/tslint.json @kamadoatfluid @jrestrepoatfluid
+/integrates/mobile/tslint.json @kamadoatfluid @jrestrepoatfluid
 
+# Product approvers
+/build/ @drestrepoatfluid @dsalazaratfluid @jrestrepoatfluid @kamadoatfluid @ralvarezatfluid
 /forces/ @drestrepoatfluid @jrestrepoatfluid @kamadoatfluid
 /observes/ @drestrepoatfluid @jrestrepoatfluid @kamadoatfluid
-/skims/ @drestrepoatfluid @jrestrepoatfluid @kamadoatfluid @mnorenaatfluid @ralvarezatfluid
+/skims/ @drestrepoatfluid @jrestrepoatfluid @kamadoatfluid @ralvarezatfluid
 /sorts/ @jrestrepoatfluid @kamadoatfluid @acuberosatfluid
+/.gitlab* @drestrepoatfluid @dsalazaratfluid @jrestrepoatfluid @kamadoatfluid @ralvarezatfluid
