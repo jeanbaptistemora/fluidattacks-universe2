@@ -1,4 +1,5 @@
 import os
+import pytest
 import shutil
 import tarfile
 import time
@@ -291,6 +292,7 @@ class ViewTestCase(unittest.TestCase):
         selenium.save_screenshot(SCR_PATH + '07-04-evidence.png')
         assert 'exception' in selenium.page_source
 
+    @pytest.mark.no_prod  # temporary mark
     def test_08_exploit(self):
         selenium = self.selenium
         selenium.get(self.url + f'/orgs/okada/groups/unittesting/vulns')

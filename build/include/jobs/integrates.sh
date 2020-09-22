@@ -477,7 +477,7 @@ function job_integrates_functional_tests_dev {
 
 function job_integrates_functional_tests_prod {
       pushd "${STARTDIR}/integrates" \
-  &&  CI_COMMIT_REF_NAME='master' helper_integrates_functional_tests \
+  &&  CI_COMMIT_REF_NAME='master' helper_integrates_functional_tests "no_prod" \
   &&  popd \
   ||  return 1
 }

@@ -185,6 +185,11 @@ function helper_integrates_serve_back {
 }
 
 function helper_integrates_functional_tests {
+  local modifier=""
+  if [ $# -eq 1 ]; then
+      local modifier="not $1"
+  fi
+
       env_prepare_python_packages \
   &&  echo '[INFO] Logging in to AWS' \
   &&  helper_integrates_aws_login "${ENVIRONMENT_NAME}" \
@@ -195,6 +200,7 @@ function helper_integrates_functional_tests {
   &&  echo "[INFO] Running test suite: ${CI_NODE_INDEX}/${CI_NODE_TOTAL}" \
   &&  mkdir -p test/functional/screenshots \
   &&  pytest \
+        -m "${modifier}" \
         --ds='fluidintegrates.settings' \
         --verbose \
         --exitfirst \
