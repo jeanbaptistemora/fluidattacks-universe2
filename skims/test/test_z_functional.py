@@ -257,6 +257,7 @@ async def test_correct_assert(
             ('test/data/lib_path/f031_aws/cfn_permissive_policy.yaml', '9'),
             ('test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json', '12'),
             ('test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json', '55'),
+            ('test/data/lib_path/f031_aws/hcl2_open_passrole.tf', '5'),
             ('test/data/lib_path/f031_aws/hcl2_permissive_policy.tf', '37'),
             ('test/data/lib_path/f031_aws/hcl2_permissive_policy.tf', '5'),
         )),

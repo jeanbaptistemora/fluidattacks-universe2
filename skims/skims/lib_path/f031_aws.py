@@ -271,6 +271,50 @@ async def cfn_open_passrole(
     )
 
 
+def _terraform_open_passrole(
+    content: str,
+    path: str,
+    model: Any,
+) -> Tuple[Vulnerability, ...]:
+    def _iterate_vulnerabilities() -> Iterator[IamPolicyStatement]:
+        for stmt in terraform_iterate_iam_policy_documents(model):
+            if stmt.data['Effect'] == 'Allow':
+                actions = stmt.data.get('Action', [])
+                resources = stmt.data.get('Resource', [])
+
+                if all((
+                    any(map(_is_iam_passrole, actions)),
+                    any(map(is_resource_permissive, resources)),
+                )):
+                    yield stmt
+
+    return _terraform_create_vulns(
+        content=content,
+        description_key='src.lib_path.f031_aws.open_passrole',
+        path=path,
+        statements_iterator=_iterate_vulnerabilities()
+    )
+
+
+@SHIELD
+async def terraform_open_passrole(
+    content: str,
+    path: str,
+    model: Any,
+) -> Tuple[Vulnerability, ...]:
+    # cfn_nag F38 IAM role should not allow * resource with PassRole action
+    #             on its permissions policy
+    # cfn_nag F39 IAM policy should not allow * resource with PassRole action
+    # cfn_nag F40 IAM managed policy should not allow a * resource with
+    #             PassRole action
+    return await in_process(
+        _terraform_open_passrole,
+        content=content,
+        path=path,
+        model=model,
+    )
+
+
 def _terraform_permissive_policy(
     content: str,
     path: str,
@@ -348,6 +392,11 @@ async def analyze(
     elif file_extension in EXTENSIONS_TERRAFORM:
         content = await content_generator()
         model = await load_terraform(stream=content, default=[])
+        coroutines.append(terraform_open_passrole(
+            content=content,
+            path=path,
+            model=model,
+        ))
         coroutines.append(terraform_permissive_policy(
             content=content,
             path=path,
