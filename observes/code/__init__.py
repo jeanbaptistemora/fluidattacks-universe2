@@ -201,6 +201,7 @@ async def manager(queue: Queue, namespace: str, *repositories: str) -> None:
                 repo_obj: Repo = Repo(repo_path)
                 async for commit in generate_in_thread(
                     repo_obj.iter_commits,
+                    no_merges=True,
                     topo_order=True,
                 ):
                     if commit.hexsha == repo_last_commit:
