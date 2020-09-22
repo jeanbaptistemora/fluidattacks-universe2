@@ -2,12 +2,14 @@ import os
 import re
 import time
 from array import ArrayType
+from datetime import datetime
 from functools import partial
-from typing import List, Match, Optional, Tuple
+from typing import Dict, List, Match, Optional, Set, Tuple
 
 import git
 import numpy as np
 import pandas as pd
+import pytz
 from git.cmd import Git
 from git.exc import GitCommandError
 from pandas import DataFrame, Series
@@ -36,13 +38,13 @@ def df_get_deltas(row: Series) -> Tuple[int, int, int, int]:
     return get_deltas(repo, commit)
 
 
-def df_get_file_commits_authors(row: Series) -> Tuple[int, int]:
+def df_get_file_features(row: Series) -> Tuple[int, int, int, int, int, int]:
     """
     Get the commit and authors information for each file in the DataFrame
     """
     repo: str = row['repo']
     file_: str = row['file']
-    return get_file_commits_authors(repo, file_)
+    return get_file_features(repo, file_)
 
 
 def df_get_file_loc(row: Series) -> int:
@@ -85,8 +87,12 @@ def fill_model_commit_features(base_df: DataFrame) -> DataFrame:
     features_df['hunks'] = base_df.apply(df_get_hunks, axis=1)
     print(f'Hunks added after {time.time() - start} secods.')
     start = time.time()
-    features_df[['additions', 'deletions', 'deltas', 'touched']] = base_df\
-        .apply(df_get_deltas, axis=1, result_type='expand')
+    features_df[[
+        'additions',
+        'deletions',
+        'deltas',
+        'touched'
+    ]] = base_df.apply(df_get_deltas, axis=1, result_type='expand')
     print(f'Deltas information was added after {time.time() - start}')
     start = time.time()
     files_df = base_df.apply(df_get_files, axis=1)
@@ -112,12 +118,27 @@ def fill_model_file_features(base_df: DataFrame) -> DataFrame:
     print('Extracting model file features...')
     timer: float = time.time()
     features_df: DataFrame = pd.DataFrame()
-    features_df[['num_commits', 'num_unique_authors']] = base_df.apply(
-        df_get_file_commits_authors,
+    features_df[[
+        'num_commits',
+        'num_unique_authors',
+        'file_age',
+        'midnight_commits',
+        'risky_commits',
+        'seldom_contributors'
+    ]] = base_df.apply(
+        df_get_file_features,
         axis=1,
         result_type='expand'
     )
     features_df['num_lines'] = base_df.apply(df_get_file_loc, axis=1)
+    features_df['commit_frequency'] = features_df.apply(
+        lambda x: round(float(x['num_commits']) / float(x['file_age']), 3)
+        if x['file_age'] else 0,
+        axis=1
+    )
+    features_df['busy_file'] = features_df['num_unique_authors'].apply(
+        lambda x: 1 if x > 9 else 0
+    )
     print(
         f'Commit/Authors information extracted after '
         f'{time.time() - timer:.2f} seconds'
@@ -153,29 +174,82 @@ def get_deltas(repo: str, commit: str) -> Tuple[int, int, int, int]:
     return deltas_info
 
 
-def get_file_commits_authors(repo: str, file_: str) -> Tuple[int, int]:
+def get_file_features(
+    repo: str,
+    file_: str
+) -> Tuple[int, int, int, int, int, int]:
     """
-    Given a file in a repository, extract the number of commits that have
-    modified it, as well as the number of different authors
+    Given a file in a repository, extract features by analizing its
+    history of commits
     """
-    commits_authors: Tuple[int, int] = (0, 0)
+    today = datetime.now(tz=pytz.timezone('America/Bogota'))
+    file_features: Tuple[int, int, int, int, int, int] = (0, 0, 0, 0, 0, 0)
     try:
         git_repo: Git = git.Git(repo)
         file_relative_path = os.path.sep.join(file_.split(os.path.sep)[1:])
+        authors_contribution, mean_contribution = \
+            get_repo_author_contributions(git_repo)
+
+        # History is retrieved in the following format from git:
+        #     commit_hash, commit_author, commit_date_iso_format\n
+        #     \n
+        #     deltas_info
+        # We translate it to:
+        #     commit_hash, commit_author, commit_date_iso_format, deltas_info
         file_history = git_repo.log(
+            '--shortstat',
             '--follow',
-            '--pretty=%H,%ae',
+            '--pretty=%H,%ae,%aI',
             file_relative_path
-        ).split('\n')
+        ).replace('\n\n', ',').split('\n')
+
+        # Filter empty commits
         file_history = list(filter(None, file_history))
+
         if file_history:
-            commits_authors = (
-                len(file_history),
-                len({x.split(',')[1] for x in file_history})
+            num_commits: int = len(file_history)
+            num_authors: int = len({x.split(',')[1] for x in file_history})
+
+            date_first_commit: str = file_history[-1].split(',')[2]
+            file_age: int = (
+                today - datetime.fromisoformat(date_first_commit)
+            ).days
+
+            midnight_commits: int = 0
+            risky_commits: int = 0
+            seldom_contributors: Set[str] = set()
+            for record in file_history:
+                record_as_list = record.split(',')
+
+                # Usually deltas info has the following format:
+                #     # files changed, # lines added, # lines deleted
+                # Sometimes there aren't either lines added or removed, so we
+                # fill that information with 0
+                while len(record_as_list) != 6:
+                    record_as_list.append('0')
+
+                if datetime.fromisoformat(record_as_list[2]).hour < 6:
+                    midnight_commits += 1
+
+                lines_added = int(record_as_list[4].strip().split(' ')[0])
+                lines_removed = int(record_as_list[5].strip().split(' ')[0])
+                if lines_added + lines_removed > 200:
+                    risky_commits += 1
+
+                if authors_contribution[record_as_list[1]] < mean_contribution:
+                    seldom_contributors.add(record_as_list[1])
+
+            file_features = (
+                num_commits,
+                num_authors,
+                file_age,
+                midnight_commits,
+                risky_commits,
+                len(seldom_contributors)
             )
     except GitCommandError:
         print('Error extracting the commits/authors that modified a file')
-    return commits_authors
+    return file_features
 
 
 def get_file_loc(repo: str, file_: str) -> int:
@@ -218,3 +292,27 @@ def get_hunks(repo: str, commit: str) -> float:
     files = metric.count()
     hunks = sum(files.values())
     return hunks
+
+
+def get_repo_author_contributions(repo: Git) -> Tuple[Dict[str, float], float]:
+    """
+    Analyzes a git repository's history and returns a tuple containing:
+        - A dictionary with the repo's authors and the percentage of commits
+          they contributed.
+        - The mean contribution value taken from all the authors.
+    """
+    authors_commit_contribution: Dict[str, int] = {}
+    repo_history: List[str] = repo.log('--pretty=%ae').split('\n')
+    total_commits: int = len(repo_history)
+    for author_email in repo_history:
+        if author_email not in authors_commit_contribution:
+            authors_commit_contribution[author_email] = 1
+        else:
+            authors_commit_contribution[author_email] += 1
+    authors_percentage_contribution: Dict[str, float] = {
+        author: round(commit * 100 / total_commits, 3)
+        for author, commit in authors_commit_contribution.items()
+    }
+    percentages: List[float] = list(authors_percentage_contribution.values())
+    mean_contribution: float = round(sum(percentages) / len(percentages), 3)
+    return authors_percentage_contribution, mean_contribution
