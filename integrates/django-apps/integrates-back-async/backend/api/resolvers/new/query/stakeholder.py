@@ -49,7 +49,7 @@ async def _resolve_for_group(group_name: str, email: str) -> Stakeholder:
 @convert_kwargs_to_snake_case
 @require_login
 async def resolve(
-    _obj: None,
+    _parent: None,
     info: GraphQLResolveInfo,
     **kwargs: str
 ) -> Stakeholder:

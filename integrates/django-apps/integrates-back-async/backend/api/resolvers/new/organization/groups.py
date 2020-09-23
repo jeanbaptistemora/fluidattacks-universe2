@@ -14,13 +14,13 @@ from backend.utils import aio
 
 @convert_kwargs_to_snake_case
 async def resolve(
-    obj: Organization,
+    parent: Organization,
     info: GraphQLResolveInfo,
     **_kwargs: str
 ) -> List[Group]:
     user_info: Dict[str, str] = await util.get_jwt_content(info.context)
     user_email: str = user_info['user_email']
-    org_id: str = cast(str, obj['id'])
+    org_id: str = cast(str, parent['id'])
 
     user_groups: List[str] = await user_domain.get_projects(
         user_email,

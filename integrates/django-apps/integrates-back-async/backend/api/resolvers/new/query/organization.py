@@ -21,7 +21,7 @@ from backend.typing import Organization
     require_organization_access,
 )
 async def resolve(
-    _obj: None,
+    _parent: None,
     _info: GraphQLResolveInfo,
     **kwargs: str
 ) -> Organization:

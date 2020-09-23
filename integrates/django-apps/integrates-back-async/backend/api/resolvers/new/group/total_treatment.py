@@ -12,13 +12,13 @@ from backend.typing import Project as Group
 
 @convert_kwargs_to_snake_case
 async def resolve(
-    obj: Group,
+    parent: Group,
     _info: GraphQLResolveInfo,
     **_kwargs: str
 ) -> str:
     total_treatment: Dict[str, int] = cast(
         Dict[str, int],
-        obj['total_treatment']
+        parent['total_treatment']
     )
 
     return json.dumps(total_treatment, use_decimal=True)

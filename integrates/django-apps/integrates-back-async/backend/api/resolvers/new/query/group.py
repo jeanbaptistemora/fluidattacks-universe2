@@ -21,7 +21,7 @@ from backend.typing import Project as Group
     enforce_group_level_auth_async,
 )
 async def resolve(
-    _obj: None,
+    _parent: None,
     _info: GraphQLResolveInfo,
     **kwargs: str
 ) -> Group:

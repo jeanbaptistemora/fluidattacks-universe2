@@ -26,11 +26,11 @@ async def _get_stakeholder(email: str, org_id: str) -> Stakeholder:
 @convert_kwargs_to_snake_case
 @enforce_organization_level_auth_async
 async def resolve(
-    obj: Organization,
+    parent: Organization,
     _info: GraphQLResolveInfo,
     **_kwargs: str
 ) -> List[Stakeholder]:
-    org_id: str = cast(str, obj['id'])
+    org_id: str = cast(str, parent['id'])
 
     org_stakeholders: List[str] = await org_domain.get_users(org_id)
 

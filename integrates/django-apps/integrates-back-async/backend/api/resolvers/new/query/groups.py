@@ -20,7 +20,7 @@ from backend.domain import project as group_domain
     enforce_user_level_auth_async,
 )
 async def resolve(
-    _obj: None,
+    _parent: None,
     _info: GraphQLResolveInfo,
     **_kwargs: str
 ) -> List[str]:

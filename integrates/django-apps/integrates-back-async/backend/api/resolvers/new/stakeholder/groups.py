@@ -14,11 +14,11 @@ from backend.utils import aio
 
 @convert_kwargs_to_snake_case
 async def resolve(
-    obj: Stakeholder,
+    parent: Stakeholder,
     _info: GraphQLResolveInfo,
     **_kwargs: str
 ) -> List[Group]:
-    email: str = cast(str, obj['email'])
+    email: str = cast(str, parent['email'])
 
     active_task = asyncio.create_task(user_domain.get_projects(email))
     inactive_task = asyncio.create_task(

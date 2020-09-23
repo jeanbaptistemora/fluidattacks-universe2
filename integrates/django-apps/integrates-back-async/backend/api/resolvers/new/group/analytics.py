@@ -2,29 +2,34 @@
 from typing import cast
 
 # Third party
-from ariadne.utils import convert_kwargs_to_snake_case
 from graphql.type.definition import GraphQLResolveInfo
 
 # Local
+from backend.decorators import (
+    concurrent_decorators,
+    enforce_group_level_auth_async,
+    require_integrates
+)
 from backend.domain import analytics as analytics_domain
-from backend.decorators import enforce_organization_level_auth_async
-from backend.typing import Organization
+from backend.typing import Project as Group
 
 
-@convert_kwargs_to_snake_case
-@enforce_organization_level_auth_async
+@concurrent_decorators(
+    enforce_group_level_auth_async,
+    require_integrates,
+)
 async def resolve(
-    parent: Organization,
+    parent: Group,
     _info: GraphQLResolveInfo,
     **kwargs: str
 ) -> object:
     document_name: str = kwargs['document_name']
     document_type: str = kwargs['document_type']
-    org_id: str = cast(str, parent['id'])
+    group_name: str = cast(str, parent['project_name'])
 
     return await analytics_domain.get_document(
         document_name=document_name,
         document_type=document_type,
-        entity='organization',
-        subject=org_id,
+        entity='group',
+        subject=group_name,
     )
