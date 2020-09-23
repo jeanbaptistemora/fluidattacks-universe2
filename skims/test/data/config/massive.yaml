@@ -1,6 +1,19 @@
-chdir: ../../
+chdir: ../
 language: EN
 path:
   include:
     - glob(*)
-  exclude: []
+  exclude:
+    - glob(**/.git)
+    - glob(**/*.min.js)
+    - glob(**/*bootstrap*)
+    - glob(**/*cordova*)
+    - glob(**/*dynatrace*)
+    - glob(**/*ibmmfpf.js*)
+    - glob(**/*jquery*)
+    - glob(**/*sjcl*)
+    - glob(**/cryptojs/components/core.js)
+    - glob(**/modernizr.js)
+    - glob(**/test)
+    - glob(**/UI/AutocompleteGenerico)
+    - glob(**/UI/Tabs)

@@ -262,6 +262,7 @@ async def test_correct_assert(
             ('test/data/lib_path/f031_aws/hcl2_open_passrole.tf', '5'),
             ('test/data/lib_path/f031_aws/hcl2_permissive_policy.tf', '37'),
             ('test/data/lib_path/f031_aws/hcl2_permissive_policy.tf', '5'),
+            ('test/data/lib_path/f031_aws/hcl2_permissive_policy.tf', '73'),
         )),
         ('F031_CWE378', 'APPROVED', (
             ('test/data/lib_path/f031_cwe378/Test.java', '6'),

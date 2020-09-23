@@ -48,7 +48,7 @@ SHARP_STYLE_COMMENT: ParserElement = pythonStyleComment
 
 NAMES_DOCKERFILE: Set[str] = {'Dockerfile'}
 EXTENSIONS_CSHARP: Set[str] = {'cs'}
-EXTENSIONS_JAVA: Set[str] = {'class', 'java'}
+EXTENSIONS_JAVA: Set[str] = {'java'}
 EXTENSIONS_JAVASCRIPT: Set[str] = {'js', 'jsx', 'ts', 'tsx'}
 EXTENSIONS_JSON: Set[str] = {'json'}
 EXTENSIONS_PYTHON: Set[str] = {'py', 'pyw'}

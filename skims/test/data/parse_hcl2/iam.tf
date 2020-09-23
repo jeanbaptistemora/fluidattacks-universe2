@@ -135,6 +135,8 @@ data "aws_iam_policy_document" "example" {
   }
 
   statement {
+    effect = "Deny"
+
     actions = [
       "s3:*",
     ]

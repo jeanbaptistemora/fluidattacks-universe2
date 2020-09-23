@@ -36,12 +36,13 @@ def test_iterate_iam_policy_documents() -> None:
         IamPolicyStatement(
             column=2,
             data={
-                'actions': [
+                'Effect': 'Allow',
+                'Action': [
                     's3:ListAllMyBuckets',
                     's3:GetBucketLocation',
                 ],
-                'sid': '1',
-                'resources': [
+                'Sid': '1',
+                'Resource': [
                     'arn:aws:s3:::*',
                 ],
             },
@@ -50,18 +51,20 @@ def test_iterate_iam_policy_documents() -> None:
         IamPolicyStatement(
             column=2,
             data={
-                'actions': ['s3:ListBucket'],
-                'resources': ['arn:aws:s3:::${var.s3_bucket_name}'],
+                'Effect': 'Allow',
+                'Action': ['s3:ListBucket'],
+                'Resource': ['arn:aws:s3:::${var.s3_bucket_name}'],
             },
             line=116,
         ),
         IamPolicyStatement(
             column=2,
             data={
-                'actions': [
+                'Effect': 'Deny',
+                'Action': [
                     's3:*',
                 ],
-                'resources': [
+                'Resource': [
                     'arn:aws:s3:::${var.s3_bucket_name}/home/&{aws:username}',
                     'arn:aws:s3:::${var.s3_bucket_name}/home/&{aws:username}/*',
                 ],

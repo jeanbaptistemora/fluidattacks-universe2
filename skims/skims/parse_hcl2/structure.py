@@ -106,23 +106,29 @@ def _iterate_iam_policy_documents_from_data_iam_policy_document(
             if isinstance(block, Block) \
                     and block.namespace \
                     and block.namespace[0] == 'statement':
+                data = {
+                    attr_alias: attr_data.val
+                    for attr, attr_alias in {
+                        'sid': "Sid",
+                        'effect': "Effect",
+                        'actions': "Action",
+                        'not_actions': "NotAction",
+                        'resources': "Resource",
+                        'not_resources': "NotResource",
+                        # pending to implement:
+                        #  condition, not_principals, principals
+                    }.items()
+                    for attr_data in [get_block_attribute(block, attr)]
+                    if attr_data is not None
+                }
+
+                # By default it's Allow in terraform
+                if 'Effect' not in data:
+                    data['Effect'] = 'Allow'
+
                 yield IamPolicyStatement(
                     column=block.column,
-                    data={
-                        attr_data.key: attr_data.val
-                        for attr in {
-                            'sid',
-                            'effect',
-                            'actions',
-                            'not_actions',
-                            'resources',
-                            'not_resources',
-                            # pending to implement:
-                            #  condition, not_principals, principals
-                        }
-                        for attr_data in [get_block_attribute(block, attr)]
-                        if attr_data is not None
-                    },
+                    data=data,
                     line=block.line,
                 )
 

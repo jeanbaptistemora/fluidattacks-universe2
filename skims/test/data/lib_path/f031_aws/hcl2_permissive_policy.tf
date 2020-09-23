@@ -68,3 +68,17 @@ resource "aws_iam_role_policy" "test_policy" {
   }
   EOF
 }
+
+data "aws_iam_policy_document" "example" {
+  statement {
+    actions = [
+      "ec2:*",
+      "autoscaling:*",
+      "eks:*"
+    ]
+
+    resources = [
+      "*",
+    ]
+  }
+}
