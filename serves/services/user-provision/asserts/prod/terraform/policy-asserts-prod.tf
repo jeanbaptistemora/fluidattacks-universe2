@@ -1,6 +1,6 @@
 data "aws_iam_policy_document" "asserts-prod-policy-data" {
 
-  # S3 state files
+  # S3 state files and documentation
   statement {
     effect = "Allow"
     actions = [
@@ -12,6 +12,8 @@ data "aws_iam_policy_document" "asserts-prod-policy-data" {
       "arn:aws:s3:::fluidattacks-terraform-states-*",
       "arn:aws:s3:::fluidattacks-terraform-states-prod/asserts-secret-management.tfstate",
       "arn:aws:s3:::fluidattacks-terraform-states-*/user-provision-asserts-*.tfstate",
+      "arn:aws:s3:::web.fluidattacks.com",
+      "arn:aws:s3:::web.fluidattacks.com/web/resources/doc/asserts/*",
     ]
   }
 
