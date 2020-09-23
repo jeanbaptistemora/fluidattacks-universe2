@@ -99,8 +99,6 @@ resource "aws_iam_user_policy" "lb_ro" {
 EOF
 }
 
-# Pending
-
 data "aws_iam_policy_document" "example" {
   statement {
     sid = "1"

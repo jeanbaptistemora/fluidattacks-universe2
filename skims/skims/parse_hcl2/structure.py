@@ -69,6 +69,7 @@ def iterate_iam_policy_documents(
     model: Any,
 ) -> Iterator[IamPolicyStatement]:
     for iterator in (
+        _iterate_iam_policy_documents_from_data_iam_policy_document,
         _iterate_iam_policy_documents_from_resource_with_assume_role_policy,
         _iterate_iam_policy_documents_from_resource_with_policy,
     ):
@@ -94,6 +95,36 @@ def _iterate_iam_policy_documents_from_resource_with_policy(
     ):
         attribute = get_block_attribute(res, 'policy')
         yield from _yield_statements_from_policy_document_attribute(attribute)
+
+
+def _iterate_iam_policy_documents_from_data_iam_policy_document(
+    model: Any,
+) -> Iterator[IamPolicyStatement]:
+    iterator = iterate_resources(model, 'data', 'aws_iam_policy_document')
+    for resource in iterator:
+        for block in resource.body:
+            if isinstance(block, Block) \
+                    and block.namespace \
+                    and block.namespace[0] == 'statement':
+                yield IamPolicyStatement(
+                    column=block.column,
+                    data={
+                        attr_data.key: attr_data.val
+                        for attr in {
+                            'sid',
+                            'effect',
+                            'actions',
+                            'not_actions',
+                            'resources',
+                            'not_resources',
+                            # pending to implement:
+                            #  condition, not_principals, principals
+                        }
+                        for attr_data in [get_block_attribute(block, attr)]
+                        if attr_data is not None
+                    },
+                    line=block.line,
+                )
 
 
 def _yield_statements_from_policy_document_attribute(
