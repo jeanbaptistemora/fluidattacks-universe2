@@ -13,7 +13,7 @@ from toolbox.constants import API_TOKEN
 BASE_URL: str = 'https://integrates.fluidattacks.com/dashboard#!/project'
 
 
-def get_subs_unverified_findings(sub_name: str):
+def get_subs_unverified_findings(group: str = 'all'):
 
     project_info_query = '''
         name
@@ -29,7 +29,7 @@ def get_subs_unverified_findings(sub_name: str):
 
     '''
 
-    if sub_name == 'all':
+    if group == 'all':
         query = f'''
             query {{
                 me {{
@@ -42,12 +42,11 @@ def get_subs_unverified_findings(sub_name: str):
     else:
         query = f'''
             query{{
-                project(projectName: "{sub_name}") {{
+                project(projectName: "{group}") {{
                                 {project_info_query}
                 }}
             }}
         '''
-
     return api.integrates.request(API_TOKEN, query)
 
 
@@ -67,18 +66,18 @@ def get_exploits_paths(subs_name: str, finding_id: str) -> List:
     return exploits_paths
 
 
-def to_reattack(with_exp: bool, sub_name: str = 'all') -> list:
+def to_reattack(with_exp: bool, group: str = 'all') -> list:
     """
     Return a string with non-verified findings from a subs.
     It includes integrates url and exploits paths in case they exist
 
-    param: sub_name: Name of the group to check
+    param: group: Name of the group to check
     param: with_exp: Show findings with or without exploits
     """
     graphql_date_format = '%Y-%m-%d %H:%M:%S'
 
-    projects_info = get_subs_unverified_findings(sub_name)
-    if sub_name != 'all':
+    projects_info = get_subs_unverified_findings(group)
+    if group != 'all':
         class Tmp():
             def __init__(self):
                 self.data = None
@@ -87,7 +86,7 @@ def to_reattack(with_exp: bool, sub_name: str = 'all') -> list:
         tmp.data['me'] = {'projects': [None]}
         tmp.data['me']['projects'][0] = projects_info.data['project']
         projects_info = tmp
-
+    print(projects_info)
     projects_info = list(projects_info.data['me']['projects'])
     # claning empty findigs
     projects_info = list(filter(
@@ -158,7 +157,7 @@ def to_reattack(with_exp: bool, sub_name: str = 'all') -> list:
                         'group': project_info['name'],
                         'date_dif': finding['oldest_vuln_dif']
                     }
-            elif not with_exp and finding['exploit_paths']:
+            elif not with_exp and not finding['exploit_paths']:
                 total_vulnerabilities += finding['vulnerability_counter']
                 # type: ignore
                 if (oldest_finding['date_dif'].days <  # type: ignore
@@ -226,10 +225,12 @@ def to_reattack(with_exp: bool, sub_name: str = 'all') -> list:
     return projects_info
 
 
-def main(with_exp: bool):
+def main(with_exp: bool, group: str = 'all'):
     """
     Print all non-verified findings and their exploits
 
     param: with_exp: Show findings with or without exploits
     """
-    to_reattack(with_exp, 'all')
+    to_reattack(with_exp, group)
+
+    return True

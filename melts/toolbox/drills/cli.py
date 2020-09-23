@@ -89,9 +89,13 @@ def drills_management(
     elif o_upload_history:
         upload_history.main()
     elif o_to_reattack:
-        to_reattack.main(False)
+        group = ('all' if group == 'unspecified-subs'
+                 else group)
+        to_reattack.main(False, group)
     elif o_to_reattack_exp:
-        to_reattack.main(True)
+        group = ('all' if group == 'unspecified-subs'
+                 else group)
+        to_reattack.main(True, group)
     elif o_pull_repos:
         success = pull_repos.main(group, o_name)
     elif o_push_repos:
