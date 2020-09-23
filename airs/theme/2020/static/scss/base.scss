@@ -240,6 +240,7 @@ $codeyellow: rgba(230, 219, 116, 1);
 .ph-body { padding: 0 1.875rem; }
 .pl-body { padding-left: 1.875rem; }
 .fheader { font-size: 144px; }
+.w-footer-form { width: 18.75rem; }
 
 // Tachyons custom responsive classes
 @media screen and (min-width: 960px) and (max-width: 1200px) {
@@ -260,6 +261,7 @@ $codeyellow: rgba(230, 219, 116, 1);
   .text-right-l { text-align: right; }
   .ml0-footer { margin-left: 0; }
   .db-xl { display: block; }
+  .dib-xl { display: inline-block;}
   .fr-xl { float: right; }
   .mr3-xl { margin-right: 1rem; }
   .solutions-title { width: 30%; text-align: left; }
@@ -290,7 +292,7 @@ $codeyellow: rgba(230, 219, 116, 1);
 
 // Small screens
 @media screen and (max-width: 30em) {
-  .contact-pd { padding: .75rem 7.65rem; }
+  .contact-pd { padding: .75rem 4rem; }
   .footer-bt{ padding: .75rem 5.6rem; }
   .mr-3-s { margin-right: 3rem; }
   .f-small-s { font-size: .6rem; }
@@ -358,6 +360,7 @@ $codeyellow: rgba(230, 219, 116, 1);
   .nt-menu-btn { margin-top: -1px; }
   .ph-body { padding: 0 3.75rem; }
   .pl-body { padding-left: 3.75rem; }
+  .w-footer-form { width: 30%; }
 }
 
 //Very large screens

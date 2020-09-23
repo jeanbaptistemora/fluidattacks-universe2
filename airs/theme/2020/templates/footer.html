@@ -17,30 +17,12 @@
           loading="lazy"
           src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/mini-logo.png"
           alt="Fluid Attacks logo">
-          Ready to start?
+          Contact us
         </p>
-        <div class="dib-l dn ml3">
-          <a class="roboto fw1 fl f4 no-underline c-fluid-bk hv-fluid-dkred"
-              href="{{ SITEURL }}/contact-us/">
-            <img
-            class="w1 relative pt2 ml2 fr"
-            src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/arrow-btn.svg"
-            alt="Young hacker smiling">
-            Contact Us
-          </a>
-        </div>
-        <div class="dn-l dib tc w-100-s w-100-m pb4">
-          <a class="roboto fw1 f5 no-underline c-fluid-bk hv-fluid-dkred"
-              href="{{ SITEURL }}/contact-us/">
-            <span class="br2 bannerbt hv-bt-fluid-rd ph5 pv2 bt-trans white b roboto pointer mt2">
-                Contact Fluid Attacks
-            </span>
-          </a>
-        </div>
       </div>
     </div>
-    <div class="pb4 w-100 ml0-footer text-center-ml db-l dn nowrap">
-      <div class="pt4-l b dib v-top tl mr2">
+    <div class="pb4 w-100 ml0-footer text-center-ml nowrap">
+      <div class="pt4-l b dib-xl display-none v-top tl mr2">
         <div class="lh-2">
           <a class="c-fluid-bk f4 roboto fw3 mt0-l no-underline hv-fluid-dkred"
             href="{{ SITEURL }}/products/" >
@@ -60,7 +42,7 @@
           </a><br>
         </div>
       </div>
-      <div class="pt4-l b dib v-top tl mh2">
+      <div class="pt4-l b dib-xl display-none v-top tl mh2">
         <div class="lh-2">
           <a class="c-fluid-bk f4 roboto fw3 mt0-l no-underline hv-fluid-dkred"
             href="{{ SITEURL }}/services/continuous-hacking/" >
@@ -80,7 +62,7 @@
           </a><br>
         </div>
       </div>
-      <div class="pt4-l b dib v-top tl mh2">
+      <div class="pt4-l b dib-xl display-none v-top tl mh2">
         <div class="lh-2">
           <a class="c-fluid-bk f4 roboto fw3 mt0-l no-underline hv-fluid-dkred"
             href="{{ SITEURL }}/solutions/devsecops/" >
@@ -112,7 +94,7 @@
           </a><br>
         </div>
       </div>
-      <div class="pt4-l b dib v-top tl mh2">
+      <div class="pt4-l b dib-xl display-none v-top tl mh2">
         <div class="lh-2">
           <a class="c-fluid-bk f4 roboto fw3 mt0-l no-underline hv-fluid-dkred"
             href="{{ SITEURL }}/about-us/" >
@@ -156,7 +138,7 @@
           </a><br>
         </div>
       </div>
-      <div class="pt4-l b dib v-top tl mh2">
+      <div class="pt4-l b dib-xl display-none v-top tl mh2">
         <div class="lh-2">
           <a class="c-fluid-bk f4 roboto fw3 mt0-l no-underline hv-fluid-dkred"
             href="{{ SITEURL }}/blog/" >
@@ -184,9 +166,206 @@
           </a><br>
         </div>
       </div>
-      <div class="pt4-l b dib v-top tl mw-14 fr">
-        <div class="social-media">
-          <a class="pr3 no-underline" href="https://www.instagram.com/fluidattacks/">
+      <div class="dib-l fr-xl w-footer-form center">
+        <div class="dib-l dn w-100 tc">
+          <p class="roboto fw1 f3 c-fluid-bk">
+            Contact Us
+          </p>
+        </div>
+        <div class="contact-form w-100">
+          <script src="https://www.google.com/recaptcha/api.js?hl=en"></script>
+          <script>
+            function timestamp() {
+              var response = document.getElementById("g-recaptcha-response");
+              if (response == null || response.value.trim() == "") {
+                var elems = JSON.parse(document.getElementsByName("captcha_settings")[0].value);elems["ts"] = JSON.stringify(new Date().getTime());
+                document.getElementsByName("captcha_settings")[0].value = JSON.stringify(elems);
+              }
+            }
+            setInterval(timestamp, 500);
+          </script>
+          <div>
+          <form action="https://webto.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8"
+                method="POST"
+                onsubmit="return validateForm()"
+                class="mh3">
+            <input type=hidden
+                   name='captcha_settings'
+                   value='{"keyname":"Fluidattacks","fallback":"true","orgId":"00D1I000001dGP6","ts":""}'>
+            <input type=hidden
+                   name="oid"
+                   value="00D1I000001dGP6"/>
+            <input type=hidden
+                   name="retURL"
+                   value="{{ SITEURL }}/contact-us/thank-you/"/>
+            <div class="pv3 ml-auto mr-auto">
+              <input  id="first_name"
+                      maxlength="40"
+                      name="first_name"
+                      size="20"
+                      type="text"
+                      class="db roboto f5 w-100 h2 ma0 outline-transparent bb-form bt-0 br-0 bl-0 bg-transparent pl2"
+                      required
+                      placeholder="First Name" />
+            </div>
+            <div class="pv3 ml-auto mr-auto">
+              <input  id="last_name"
+                      maxlength="40"
+                      name="last_name"
+                      size="20"
+                      type="text"
+                      class="db roboto f5 w-100 h2 ma0 outline-transparent bb-form bt-0 br-0 bl-0 bg-transparent pl2"
+                      required
+                      placeholder="Last name" />
+            </div>
+            <div class="pv3 ml-auto mr-auto">
+                <input  id="email"
+                        maxlength="80"
+                        name="email"
+                        size="20"
+                        type="text"
+                        class="db roboto f5 w-100 h2 ma0 outline-transparent bb-form bt-0 br-0 bl-0 bg-transparent pl2"
+                        required
+                        placeholder="Email" />
+            </div>
+            <div class="pv3 ml-auto mr-auto">
+              <input id="country"
+                     maxlength="40"
+                     name="country"
+                     size="20"
+                     type="hidden"
+                     value="">
+              <label for="mobile"
+                 class="db">
+              </label>
+                <input  id="mobile"
+                        maxlength="40"
+                        name="local_mobile"
+                        size="20"
+                        type="text"
+                        class="db roboto f5 w-100 h2 ma0 outline-transparent bb-form bt-0 br-0 bl-0 bg-transparent pl2"
+                        required
+                        placeholder="Mobile" />
+                <span id="valid-msg"
+                      class="green fr fw8 dn">
+                Number is valid</span>
+                <span id="error-msg"
+                      class="c-fluid-red fr fw8 dn">
+                Number is not valid</span>
+            </div>
+            {% assets filters="uglifyjs", output="static/js/intlTelInput.min.js", "../node_modules/intl-tel-input/build/js/intlTelInput.js" %}
+              <script type="text/javascript"
+                      src="{{ SITEURL }}/{{ ASSET_URL }}">
+              </script>
+            {% endassets %}
+            {% assets output="static/js/form.min.js", "js/tmp/form.min.js" %}
+                <script src="{{ SITEURL }}/{{ ASSET_URL }}"></script>
+            {% endassets %}
+            <div class="pv3 ml-auto mr-auto">
+              <select  id="00N1I00000NEIK7"
+                       name="00N1I00000NEIK7"
+                       title="Request"
+                       class="gray db roboto f5 w-100 h2 ma0 outline-transparent bb-form bt-0 br-0 bl-0 bg-transparent pl1"
+                       onchange="selectedValue()"
+                       required>
+                <option value="">How can we help you?</option>
+                <option value="Quiero una propuesta de servicios">
+                  I want a service proposal</option>
+                <option value="Estoy buscando trabajo">
+                  I am looking for a job</option>
+                <option value="Quiero una Demo">
+                  I want a Demo</option>
+                <option value="Quiero ser Partner">
+                  I want to be a partner</option>
+              </select>
+            </div>
+            <script type="text/javascript">
+              function selectedValue() {
+                var opt = document.getElementById("00N1I00000NEIK7");
+                var sel = opt.options[opt.selectedIndex].value;
+                var poi = document.getElementById("poi");
+                var selpoi = document.getElementById("00N1I00000Lfv4l");
+                var msg = document.getElementById("msg");
+                var msgtext = document.getElementById("00N1I00000O9iJ6")
+                if (sel != "Quiero una propuesta de servicios"){
+                  poi.style.display="none";
+                  selpoi.style.display="none";
+                }
+                else {
+                  poi.style.display="block";
+                  selpoi.style.display="block";
+                }
+
+                if (sel == "Quiero una propuesta de servicios" ||
+                    sel == "Quiero una Demo" ||
+                    sel == "Quiero ser Partner" ){
+                  msg.style.display="block";
+                  msgtext.style.display="block";
+                }
+                else {
+                  msg.style.display="none";
+                  msgtext.style.display="none";
+                }
+              }
+            </script>
+            <div class="pv3 ml-auto mr-auto">
+              <label id="poi"
+               class="dn">
+              </label>
+              <select id="00N1I00000Lfv4l"
+                      name="00N1I00000Lfv4l"
+                      title="Producto de interes"
+                      class="gray dn roboto f5 w-100 h2 ma0 outline-transparent bb-form bt-0 br-0 bl-0 bg-transparent pl1">
+                <option value="">Products of interest:</option>
+                <option value="Indeterminado">
+                        Undetermined
+                </option>
+                <option value="Puntual">
+                        One-Shot Hacking
+                </option>
+                <option value="Continuas">
+                        Continuous Hacking
+                </option>
+              </select>
+              <span class="c-fluid-red fr fw8 form-error dn">
+                    Please select an option
+              </span>
+            </div>
+            <label id="msg" class="dn"></label>
+            <textarea  id="00N1I00000O9iJ6"
+                       name="00N1I00000O9iJ6"
+                       wrap="soft"
+                       class="dn h4 ml-auto mr-auto"
+                       placeholder="Message"></textarea><br>
+            <br>
+            <script src="https://www.google.com/recaptcha/api.js?hl=en"
+                    async
+                    defer>
+            </script>
+            <div class="g-recaptcha ma-auto w6 mr-auto ml-auto"
+                 data-sitekey="6LduWqYUAAAAAArX5eMR9xBwFuQK291lVGoXfHHA"></div>
+            <br>
+            <div class="tc">
+              <input type="submit"
+                     name="submit"
+                     class="bn br2 bannerbt hv-bt-fluid-rd bt-pd contact-pd bt-trans white b roboto pointer"
+                     value="Send your message"/>
+            </div>
+          </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pt1 pt4-l w-100 center">
+      <div class="tc">
+        <div>
+          <a href="https://clutch.co/profile/fluid-attacks#reviews" target="_blank" rel="noopener noreferrer">
+            <img loading="lazy" src="{{ SITEURL }}/theme/images/clutch-review.png"
+                alt="Clutch Review">
+          </a>
+        </div>
+        <div class="social-media pt3">
+          <a class="ph3 no-underline" href="https://www.instagram.com/fluidattacks/">
             <img loading="lazy" class="hv-fluid-rd w-social" src="{{ SITEURL }}/theme/images/social-media/social-instagram.png"
               alt="Instagram logo">
           </a>
@@ -205,12 +384,6 @@
           <a class="pr3 no-underline" href="https://www.youtube.com/c/fluidattacks/">
             <img loading="lazy" class="hv-fluid-rd w-social" src="{{ SITEURL }}/theme/images/social-media/social-youtube.png"
               alt="Youtube logo">
-          </a>
-        </div>
-        <div class="pr3 pt3">
-          <a href="https://clutch.co/profile/fluid-attacks#reviews" target="_blank" rel="noopener noreferrer">
-            <img loading="lazy" src="{{ SITEURL }}/theme/images/clutch-review.png"
-                alt="Clutch Review">
           </a>
         </div>
       </div>
