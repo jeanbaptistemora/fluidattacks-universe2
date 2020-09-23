@@ -131,6 +131,10 @@ def main(token: str,  # pylint: disable=too-many-arguments
     striccness = 'strict' if strict else 'lax'
     blocking_log('info', 'Running forces in %s mode', striccness)
     blocking_log('info', 'Running forces in %s kind', kind)
+    if repo_name:
+        blocking_log(
+            'info',
+            f'Ruing forces for vulnerabilities in the repo {repo_name}')
 
     result = run(
         main_wrapped(
