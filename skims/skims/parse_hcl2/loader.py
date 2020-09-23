@@ -63,6 +63,7 @@ def post_process(data: Any) -> Any:
     data = coerce_to_int_lit(data)
     data = coerce_to_string_lit(data)
     data = coerce_to_boolean(data)
+    data = coerce_to_tuple(data)
     data = extract_single_expr_term(data)
     data = load_objects(data)
     data = replace_attributes(data)
@@ -90,6 +91,16 @@ def coerce_to_boolean(data: Any) -> Any:
             data = False
         else:
             data.children = list(map(coerce_to_string_lit, data.children))
+
+    return data
+
+
+def coerce_to_tuple(data: Any) -> Any:
+    if isinstance(data, lark.Tree):
+        if data.data == 'tuple':
+            data = data.children
+        else:
+            data.children = list(map(coerce_to_tuple, data.children))
 
     return data
 

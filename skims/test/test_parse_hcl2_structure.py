@@ -36,35 +36,35 @@ def test_iterate_iam_policy_documents() -> None:
         IamPolicyStatement(
             column=2,
             data={
-                'actions': Tree('tuple', [
+                'actions': [
                     's3:ListAllMyBuckets',
                     's3:GetBucketLocation',
-                ]),
+                ],
                 'sid': '1',
-                'resources': Tree('tuple', [
+                'resources': [
                     'arn:aws:s3:::*',
-                ]),
+                ],
             },
             line=103,
         ),
         IamPolicyStatement(
             column=2,
             data={
-                'actions': Tree('tuple', ['s3:ListBucket']),
-                'resources': Tree('tuple', ['arn:aws:s3:::${var.s3_bucket_name}']),
+                'actions': ['s3:ListBucket'],
+                'resources': ['arn:aws:s3:::${var.s3_bucket_name}'],
             },
             line=116,
         ),
         IamPolicyStatement(
             column=2,
             data={
-                'actions': Tree('tuple', [
+                'actions': [
                     's3:*',
-                ]),
-                'resources': Tree('tuple', [
+                ],
+                'resources': [
                     'arn:aws:s3:::${var.s3_bucket_name}/home/&{aws:username}',
                     'arn:aws:s3:::${var.s3_bucket_name}/home/&{aws:username}/*',
-                ]),
+                ],
             },
             line=137,
         ),
