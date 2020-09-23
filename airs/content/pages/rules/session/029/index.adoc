@@ -1,7 +1,7 @@
 :slug: rules/029/
 :category: session
 :description: This requirement establishes the importance of using cookies with the required security attributes such as HttpOnly and Secure.
-:keywords: Session, Cookies, Attributes, ASVS, CWE, NIST, OWASP, PCI DSS, Rules, Ethical Hacking, Pentesting
+:keywords: Session, Cookies, Attributes, ASVS, CAPEC, CWE, NIST, OWASP, PCI DSS, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R029. Cookies with security attributes
@@ -113,42 +113,51 @@ and extracting the session *cookie* used for session theft.
 
 == References
 
-. [[r1]] link:https://cwe.mitre.org/data/definitions/346.html[CWE-346: Origin Validation Error].
+. [[r1]] link:http://capec.mitre.org/data/definitions/31.html[CAPEC-31: Accessing/Intercepting/Modifying HTTP Cookies].
+This attack relies on the use of *HTTP* Cookies to store credentials,
+state information and other critical data on client systems.
+There are several different forms of this attack.
+The first form of this attack involves accessing *HTTP* Cookies to mine for
+potentially sensitive data contained therein.
+The second form involves intercepting this data as it is transmitted from
+client to server.
+
+. [[r2]] link:https://cwe.mitre.org/data/definitions/346.html[CWE-346: Origin Validation Error].
 The software does not properly verify that the source of data or communication
 is valid.
 
-. [[r2]] link:https://cwe.mitre.org/data/definitions/352.html[CWE-352: Cross-Site Request Forgery (CSRF)].
+. [[r3]] link:https://cwe.mitre.org/data/definitions/352.html[CWE-352: Cross-Site Request Forgery (CSRF)].
 The web application does not, or can not, sufficiently verify whether a
 well-formed, valid, consistent request was intentionally provided by the user
 who submitted the request.
 
-. [[r3]] link:https://cwe.mitre.org/data/definitions/614.html[CWE-614: Sensitive Cookie in HTTPS Session Without 'Secure' Attribute].
+. [[r4]] link:https://cwe.mitre.org/data/definitions/614.html[CWE-614: Sensitive Cookie in HTTPS Session Without 'Secure' Attribute].
 The Secure attribute for sensitive cookies in HTTPS sessions is not set,
 which could cause the user agent to send those cookies in plaintext over an
 HTTP session.
 
-. [[r4]] link:https://cwe.mitre.org/data/definitions/1004.html[CWE-1004: Sensitive Cookie Without 'HttpOnly' Flag].
+. [[r5]] link:https://cwe.mitre.org/data/definitions/1004.html[CWE-1004: Sensitive Cookie Without 'HttpOnly' Flag].
 The software uses a cookie to store sensitive information,
 but the cookie is not marked with the HttpOnly flag.
 
-. [[r5]] link:https://pages.nist.gov/800-63-3/sp800-63b.html[NIST 800-63B 7.1.1 Browser Cookies]
+. [[r6]] link:https://pages.nist.gov/800-63-3/sp800-63b.html[NIST 800-63B 7.1.1 Browser Cookies]
 Cookies SHALL be tagged to be accessible only on secure (HTTPS) sessions.
 
-. [[r6]] link:https://pages.nist.gov/800-63-3/sp800-63b.html[NIST 800-63B 7.1.1 Browser Cookies]
+. [[r7]] link:https://pages.nist.gov/800-63-3/sp800-63b.html[NIST 800-63B 7.1.1 Browser Cookies]
 Cookies SHALL be accessible to the minimum practical set of hostnames and
 paths.
 
-. [[r7]] link:https://pages.nist.gov/800-63-3/sp800-63b.html[NIST 800-63B 7.1.1 Browser Cookies]
+. [[r8]] link:https://pages.nist.gov/800-63-3/sp800-63b.html[NIST 800-63B 7.1.1 Browser Cookies]
 Cookies SHOULD be tagged to be inaccessible via JavaScript (HttpOnly).
 
-. [[r8]] link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A2-Broken_Authentication[OWASP Top 10 A2:2017-Broken Authentication].
+. [[r9]] link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A2-Broken_Authentication[OWASP Top 10 A2:2017-Broken Authentication].
 Application functions related to authentication and session management are
 often implemented incorrectly,
 allowing attackers to compromise passwords, keys, or session tokens,
 or to exploit other implementation flaws to assume other users' identities
 temporarily or permanently.
 
-. [[r9]] link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A3-Sensitive_Data_Exposure[OWASP Top 10 A3:2017-Sensitive Data Exposure].
+. [[r10]] link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A3-Sensitive_Data_Exposure[OWASP Top 10 A3:2017-Sensitive Data Exposure].
 Many web applications and **API**s do not properly protect sensitive data,
 such as financial, healthcare, and *PII*.
 Attackers may steal or modify such weakly protected data to conduct credit card
@@ -157,7 +166,7 @@ Sensitive data may be compromised without extra protection,
 such as encryption at rest or in transit, and requires special precautions when
 exchanged with the browser.
 
-. [[r10]] link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A7-Cross-Site_Scripting_(XSS)[OWASP Top 10 A7:2017-Cross-Site Scripting (XSS)].
+. [[r11]] link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A7-Cross-Site_Scripting_(XSS)[OWASP Top 10 A7:2017-Cross-Site Scripting (XSS)].
 *XSS* flaws occur whenever an application includes untrusted data in a new web
 page without proper validation or escaping,
 or updates an existing web page with user-supplied data using a browser *API*
@@ -166,31 +175,31 @@ that can create *HTML* or **JavaScript**.
 hijack user sessions, deface web sites, or redirect the user to malicious
 sites.
 
-. [[r11]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r12]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V3.2 Session Binding Requirements.(3.2.3)]
 Verify the application only stores session tokens in the browser using secure
 methods such as appropriately secured cookies (see section 3.4) or HTML 5
 session storage.
 
-. [[r12]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r13]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V3.4 Cookie-based Session Management.(3.4.1)]
 Verify that cookie-based session tokens have the 'Secure' attribute set.
 
-. [[r13]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r14]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V3.4 Cookie-based Session Management.(3.4.2)]
 Verify that cookie-based session tokens have the 'HttpOnly' attribute set.
 
-. [[r14]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r15]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V3.4 Cookie-based Session Management.(3.4.3)]
 Verify that cookie-based session tokens utilize the 'SameSite' attribute to
 limit exposure to cross-site request forgery attacks.
 
-. [[r15]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r16]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V3.4 Cookie-based Session Management.(3.4.4)]
 Verify that cookie-based session tokens use "**__Host-**" prefix
 (see references) to provide session cookie confidentiality.
 
-. [[r16]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r17]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V3.4 Cookie-based Session Management.(3.4.5)]
 Verify that if the application is published under a domain name with other
 applications that set or use session cookies that might override or disclose
@@ -198,36 +207,36 @@ the session cookies,
 the path attribute in cookie-based session tokens is set using the most precise
 path possible.
 
-. [[r17]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r18]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V4.2 Operation Level Access Control.(4.2.2)]
 Verify that the application or framework enforces a strong anti-**CSRF**
 mechanism to protect authenticated functionality,
 and effective anti-automation or anti-**CSRF** protects unauthenticated
 functionality.
 
-. [[r18]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r19]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V13.2 RESTful Web Service Verification Requirements.(13.2.3)]
 Verify that *RESTful* web services that utilize cookies are protected from
 Cross-Site Request Forgery via the use of at least one or more of the
 following: triple or double submit cookie pattern, *CSRF* nonces, or *ORIGIN*
 request header checks.
 
-. [[r19]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r20]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V14.5 Validate HTTP Request Header Requirements.(14.5.3)]
 Verify that the cross-domain resource sharing (*CORS*)
 *Access-Control-Allow-Origin* header uses a strict white-list of trusted
 domains to match against and does not support the "**null**" origin.
 
-. [[r20]] link:https://pcinetwork.org/forum/index.php?threads/pci-dss-3-0-6-5-10-broken-authentication-and-session-management.667/[[PCI DSS 3.0\] 6.5.10 Broken authentication and session management].
+. [[r21]] link:https://pcinetwork.org/forum/index.php?threads/pci-dss-3-0-6-5-10-broken-authentication-and-session-management.667/[[PCI DSS 3.0\] 6.5.10 Broken authentication and session management].
 
-. [[r21]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 6.5.7]
+. [[r22]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 6.5.7]
 Address common coding vulnerabilities in software-development processes such as
 cross-site scripting (*XSS*).
 
-. [[r22]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 6.5.9]
+. [[r23]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 6.5.9]
 Address common coding vulnerabilities in software-development processes such as
 cross-site request forgery (*CSRF*).
 
-. [[r23]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 6.5.10]
+. [[r24]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 6.5.10]
 Address common coding vulnerabilities in software-development processes such as
 broken authentication and session management.
