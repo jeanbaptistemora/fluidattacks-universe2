@@ -104,7 +104,7 @@ airs_deploy_ephemeral:
     url: https://web.eph.fluidattacks.com/${CI_COMMIT_REF_NAME}/web/
     on_stop: airs_deploy_stop_ephemeral
   cache:
-    key: "${CI_COMMIT_REF_NAME}-${CI_JOB_NAME}"
+    key: ${CI_JOB_NAME}-${CI_COMMIT_REF_SLUG}
     paths:
     - airs/cache/
     - airs/new/cache/
