@@ -118,7 +118,11 @@ def _permissive_policy_iterate_vulnerabilities(
     statements_iterator: Iterator[AWSIamPolicyStatement]
 ) -> Iterator[AWSIamPolicyStatement]:
     for stmt in statements_iterator:
-        if stmt.data['Effect'] == 'Allow':
+        if (
+            stmt.data['Effect'] == 'Allow'
+            and 'Principal' not in stmt.data
+            and 'Condition' not in stmt.data
+        ):
             actions = stmt.data.get('Action', [])
             resources = stmt.data.get('Resource', [])
 

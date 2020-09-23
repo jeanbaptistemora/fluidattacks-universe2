@@ -36,3 +36,8 @@ Resources:
               - autoscaling:*
               - eks:*
             Resource: '*'
+          - Effect: Allow
+            Principal:
+              AWS: arn:aws:iam:::root
+            Action: kms:*
+            Resource: "*"

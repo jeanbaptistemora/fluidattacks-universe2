@@ -34,6 +34,13 @@ def get_block_attribute(block: Block, key: str) -> Optional[Attribute]:
     return None
 
 
+def get_block_block(block: Block, namespace: str) -> Optional[Attribute]:
+    for nested_block in iterate_block_blocks(block):
+        if nested_block.namespace and nested_block.namespace[0] == namespace:
+            return nested_block
+    return None
+
+
 def iterate_resources(
     model: Any,
     expected_source: str,
@@ -57,6 +64,12 @@ def iterate_resources(
 def iterate_block_attributes(block: Block) -> Iterator[Attribute]:
     for item in block.body:
         if isinstance(item, Attribute):
+            yield item
+
+
+def iterate_block_blocks(block: Block) -> Iterator[Block]:
+    for item in block.body:
+        if isinstance(item, Block):
             yield item
 
 
@@ -116,6 +129,18 @@ def _iterate_iam_policy_documents_from_data_iam_policy_document(
                     for attr_data in [get_block_attribute(block, attr)]
                     if attr_data is not None
                 }
+
+                # Load nested blocks
+                data.update({
+                    attr_alias: 'set'
+                    for attr, attr_alias in {
+                        'condition': 'Condition',
+                        'principals': 'Principal',
+                        'not_principals': 'NotPrincipal',
+                    }.items()
+                    for sub_block in [get_block_block(block, attr)]
+                    if sub_block is not None
+                })
 
                 # By default it's Allow in terraform
                 if 'Effect' not in data:
