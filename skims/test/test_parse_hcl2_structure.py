@@ -7,11 +7,13 @@ from lark.lexer import (
 )
 
 # Local libraries
+from aws.model import (
+    AWSIamPolicyStatement,
+)
 from parse_hcl2.loader import (
     blocking_load,
 )
 from parse_hcl2.structure import (
-    IamPolicyStatement,
     iterate_iam_policy_documents,
     iterate_resources,
 )
@@ -33,7 +35,7 @@ def test_iterate_iam_policy_documents() -> None:
         model = blocking_load(file.read())
 
     assert tuple(iterate_iam_policy_documents(model)) == (
-        IamPolicyStatement(
+        AWSIamPolicyStatement(
             column=2,
             data={
                 'Effect': 'Allow',
@@ -48,7 +50,7 @@ def test_iterate_iam_policy_documents() -> None:
             },
             line=103,
         ),
-        IamPolicyStatement(
+        AWSIamPolicyStatement(
             column=2,
             data={
                 'Effect': 'Allow',
@@ -57,7 +59,7 @@ def test_iterate_iam_policy_documents() -> None:
             },
             line=116,
         ),
-        IamPolicyStatement(
+        AWSIamPolicyStatement(
             column=2,
             data={
                 'Effect': 'Deny',
@@ -71,7 +73,7 @@ def test_iterate_iam_policy_documents() -> None:
             },
             line=137,
         ),
-        IamPolicyStatement(
+        AWSIamPolicyStatement(
             column=23,
             data={
                 'Action': ['sts:AssumeRole'],
@@ -82,7 +84,7 @@ def test_iterate_iam_policy_documents() -> None:
             },
             line=5,
         ),
-        IamPolicyStatement(
+        AWSIamPolicyStatement(
             column=11,
             data={
                 'Action': ['ec2:Describe*'],
@@ -91,7 +93,7 @@ def test_iterate_iam_policy_documents() -> None:
             },
             line=45,
         ),
-        IamPolicyStatement(
+        AWSIamPolicyStatement(
             column=11,
             data={
                 'Action': ['ec2:Describe*'],
@@ -100,7 +102,7 @@ def test_iterate_iam_policy_documents() -> None:
             },
             line=66,
         ),
-        IamPolicyStatement(
+        AWSIamPolicyStatement(
             column=11,
             data={
                 'Action': ['ec2:Describe*'],
@@ -109,7 +111,7 @@ def test_iterate_iam_policy_documents() -> None:
             },
             line=25,
         ),
-        IamPolicyStatement(
+        AWSIamPolicyStatement(
             column=11,
             data={
                 'Action': ['ec2:Describe*'],

@@ -20,6 +20,9 @@ from aws.iam.structure import (
     is_action_permissive,
     is_resource_permissive,
 )
+from aws.model import (
+    AWSIamPolicyStatement,
+)
 from aws.iam.utils import (
     match_pattern,
 )
@@ -38,7 +41,6 @@ from parse_hcl2.loader import (
     load as load_terraform,
 )
 from parse_hcl2.structure import (
-    IamPolicyStatement,
     iterate_iam_policy_documents as terraform_iterate_iam_policy_documents,
 )
 from state.cache import (
@@ -101,7 +103,7 @@ def _terraform_create_vulns(
     content: str,
     description_key: str,
     path: str,
-    statements_iterator: Iterator[IamPolicyStatement],
+    statements_iterator: Iterator[AWSIamPolicyStatement],
 ) -> Tuple[Vulnerability, ...]:
     return tuple(
         Vulnerability(
@@ -276,7 +278,7 @@ def _terraform_negative_statement(
     path: str,
     model: Any,
 ) -> Tuple[Vulnerability, ...]:
-    def _iterate_vulnerabilities() -> Iterator[IamPolicyStatement]:
+    def _iterate_vulnerabilities() -> Iterator[AWSIamPolicyStatement]:
         for stmt in terraform_iterate_iam_policy_documents(model):
             data = stmt.data
             if data['Effect'] != 'Allow':
@@ -325,7 +327,7 @@ def _terraform_open_passrole(
     path: str,
     model: Any,
 ) -> Tuple[Vulnerability, ...]:
-    def _iterate_vulnerabilities() -> Iterator[IamPolicyStatement]:
+    def _iterate_vulnerabilities() -> Iterator[AWSIamPolicyStatement]:
         for stmt in terraform_iterate_iam_policy_documents(model):
             if stmt.data['Effect'] == 'Allow':
                 actions = stmt.data.get('Action', [])
@@ -369,7 +371,7 @@ def _terraform_permissive_policy(
     path: str,
     model: Any,
 ) -> Tuple[Vulnerability, ...]:
-    def _iterate_vulnerabilities() -> Iterator[IamPolicyStatement]:
+    def _iterate_vulnerabilities() -> Iterator[AWSIamPolicyStatement]:
         for stmt in terraform_iterate_iam_policy_documents(model):
             if stmt.data['Effect'] == 'Allow':
                 actions = stmt.data.get('Action', [])

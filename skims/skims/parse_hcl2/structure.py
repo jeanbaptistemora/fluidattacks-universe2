@@ -5,7 +5,6 @@ from itertools import (
 from typing import (
     Any,
     Iterator,
-    NamedTuple,
     Optional,
 )
 
@@ -15,6 +14,9 @@ from lark import (
 )
 
 # Local libraries
+from aws.model import (
+    AWSIamPolicyStatement,
+)
 from aws.iam.utils import (
     yield_statements_from_policy_document,
 )
@@ -58,16 +60,9 @@ def iterate_block_attributes(block: Block) -> Iterator[Attribute]:
             yield item
 
 
-IamPolicyStatement = NamedTuple('IamPolicyStatement', [
-    ('column', int),
-    ('data', Any),
-    ('line', int),
-])
-
-
 def iterate_iam_policy_documents(
     model: Any,
-) -> Iterator[IamPolicyStatement]:
+) -> Iterator[AWSIamPolicyStatement]:
     for iterator in (
         _iterate_iam_policy_documents_from_data_iam_policy_document,
         _iterate_iam_policy_documents_from_resource_with_assume_role_policy,
@@ -78,7 +73,7 @@ def iterate_iam_policy_documents(
 
 def _iterate_iam_policy_documents_from_resource_with_assume_role_policy(
     model: Any,
-) -> Iterator[IamPolicyStatement]:
+) -> Iterator[AWSIamPolicyStatement]:
     for resource in iterate_resources(model, 'resource', 'aws_iam_role'):
         attribute = get_block_attribute(resource, 'assume_role_policy')
         yield from _yield_statements_from_policy_document_attribute(attribute)
@@ -86,7 +81,7 @@ def _iterate_iam_policy_documents_from_resource_with_assume_role_policy(
 
 def _iterate_iam_policy_documents_from_resource_with_policy(
     model: Any,
-) -> Iterator[IamPolicyStatement]:
+) -> Iterator[AWSIamPolicyStatement]:
     for res in chain(
         iterate_resources(model, 'resource', 'aws_iam_group_policy'),
         iterate_resources(model, 'resource', 'aws_iam_policy'),
@@ -99,7 +94,7 @@ def _iterate_iam_policy_documents_from_resource_with_policy(
 
 def _iterate_iam_policy_documents_from_data_iam_policy_document(
     model: Any,
-) -> Iterator[IamPolicyStatement]:
+) -> Iterator[AWSIamPolicyStatement]:
     iterator = iterate_resources(model, 'data', 'aws_iam_policy_document')
     for resource in iterator:
         for block in resource.body:
@@ -126,7 +121,7 @@ def _iterate_iam_policy_documents_from_data_iam_policy_document(
                 if 'Effect' not in data:
                     data['Effect'] = 'Allow'
 
-                yield IamPolicyStatement(
+                yield AWSIamPolicyStatement(
                     column=block.column,
                     data=data,
                     line=block.line,
@@ -135,11 +130,11 @@ def _iterate_iam_policy_documents_from_data_iam_policy_document(
 
 def _yield_statements_from_policy_document_attribute(
     attribute: Any,
-) -> Iterator[IamPolicyStatement]:
+) -> Iterator[AWSIamPolicyStatement]:
     if attribute and isinstance(attribute.val, Json):
         data = attribute.val
         for stmt in yield_statements_from_policy_document(data.data):
-            yield IamPolicyStatement(
+            yield AWSIamPolicyStatement(
                 column=data.column,
                 data=stmt,
                 line=data.line,
