@@ -48,8 +48,6 @@ from backend.utils import (
 from fluidintegrates.settings import LOGGING
 from __init__ import (
     BASE_URL,
-    FI_MAIL_CONTINUOUS,
-    FI_MAIL_PROJECTS,
     FI_MAIL_REVIEWERS
 )
 
@@ -513,9 +511,7 @@ async def send_finding_delete_mail(
         project_name: str,
         discoverer_email: str,
         justification: str) -> None:
-    recipients = [FI_MAIL_CONTINUOUS, FI_MAIL_PROJECTS]
-    approvers = FI_MAIL_REVIEWERS.split(',')
-    recipients.extend(approvers)
+    recipients = FI_MAIL_REVIEWERS.split(',')
 
     asyncio.create_task(
         mailer.send_mail_delete_finding(
