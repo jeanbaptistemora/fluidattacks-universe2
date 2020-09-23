@@ -721,7 +721,7 @@ def does_not_invalidate_session_ids(dbname: str,
       docs/current/runtime-config-client.html>`_.
 
     Default TCP keepalives values taken from the
-    `TCP Man Pages <http://man7.org/linux/man-pages/man7/tcp.7.html>`_.
+    `TCP Man Pages <https://man7.org/linux/man-pages/man7/tcp.7.html>`_.
 
     :param dbname: database name.
     :param user: username with access permissions to the database.

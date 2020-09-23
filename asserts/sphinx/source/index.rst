@@ -61,14 +61,14 @@ What kind of vulnerabilities can ``Asserts`` test?
 
 * [*New in v18.6*]
   `Software composition analysis <https://fluidattacks.com/web/blog/stand-shoulders-giants/>`_
-  (:mod:`SCA <.sca>`): Now ``Asserts`` searches your dependencies' package managers
+  (:mod:`SCA <fluidasserts.sca>`): Now ``Asserts`` searches your dependencies' package managers
   for reported vulnerabilites. Including
   :mod:`Bower <.bower>`, :mod:`Chocolatey <.chocolatey>`,
   :mod:`Maven <.maven>`, :mod:`NPM <.npm>`, :mod:`NuGet <.nuget>` and
   :mod:`PyPI <.pypi>`.
 * :mod:`Operating System <fluidasserts.syst>` vulnerabilities:
-  :mod:`Linux <.linux>` and :mod:`Windows Server <.win>`.
-* :mod:`Code vulnerabilities <.lang>`:
+  :mod:`Linux <fluidasserts.linux>` and :mod:`Windows Server <.win>`.
+* :mod:`Code vulnerabilities <fluidasserts.lang>`:
   nine languages supported
   including proprietary (:mod:`C# <.csharp>`),
   open source (:mod:`Python <.python>`, :mod:`Java <.java>`,
@@ -89,16 +89,16 @@ What kind of vulnerabilities can ``Asserts`` test?
   since most vulnerabilities are network-borne.
   The main network protocols are covered:
 
-  * :mod:`SSL <.ssl>` (:func:`Heartbleed <.has_heartbleed>`, :func:`POODLE <.has_poodle_sslv3>`, :func:`BEAST <.has_beast>`, :func:`BREACH <.has_breach>`)
-  * :mod:`HTTP <.http>` (:func:`Cross-site scripting <.has_xss>`,
+  * :mod:`SSL <fluidasserts.proto.ssl>` (:func:`Heartbleed <.has_heartbleed>`, :func:`POODLE <.has_poodle_sslv3>`, :func:`BEAST <.has_beast>`, :func:`BREACH <.has_breach>`)
+  * :mod:`HTTP <fluidasserts.proto.http>` (:func:`Cross-site scripting <.has_xss>`,
     :func:`Parameter Pollution <.has_hpp>`,
-    :func:`User enumeration <.has_user_enumeration>`,
+    :func:`User enumeration <fluidasserts.proto.http.has_user_enumeration>`,
     :func:`Cross-site scripting <.has_xss>`,
     :func:`Brute forcing <.can_brute_force>`,
     :func:`Command injection <.has_command_injection>`)
   * :mod:`TCP <.tcp>` (:func:`Open ports <.is_port_open>`)
   * :mod:`LDAP <.ldap>` (:func:`Anonymous bind <.is_anonymous_bind_allowed>`)
-  * :mod:`SSH <.ssh>` (:func:`CBC check <.is_cbc_used>`)
+  * :mod:`SSH <fluidasserts.proto.ssh>` (:func:`CBC check <.is_cbc_used>`)
   * :mod:`DNS <.dns>` (:func:`Amplification attacks <.can_amplify>`)
   * :mod:`FTP <.ftp>` (:func:`Passwordless login <.user_without_password>`)
   * :mod:`REST <.rest>` (:func:`Empty requests <.accepts_empty_content_type>`)

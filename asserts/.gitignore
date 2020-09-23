@@ -47,7 +47,6 @@ commitlint.config.js
 parser-preset.js
 
 # sphinxdoc
-public/
 sphinx/source/example/*.out
 
 # Jetbrains IDEs

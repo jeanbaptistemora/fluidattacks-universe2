@@ -182,13 +182,13 @@ function helper_pages_generate_doc {
   local version
   local checks_number
 
-      mkdir -p public/ \
+      mkdir -p output/ \
   &&  sphinx-apidoc -efM fluidasserts -o sphinx/source \
   &&  version=$(helper_asserts_version) \
   &&  checks_number=$(grep -rIE '@(track|api)' fluidasserts/ | wc -l) \
   &&  sed -i "s/<CHECKS>/${checks_number}/" sphinx/source/index.rst \
   &&  sphinx-build -D version="v.${version}" -D release="v.${version}" \
-        -b dirhtml -a sphinx/source/ public/ \
-  &&  sphinx-build -b linkcheck sphinx/source public/review/ \
-  &&  sphinx-build -b coverage  sphinx/source public/review/
+        -b dirhtml -a sphinx/source/ output/ \
+  &&  sphinx-build -b linkcheck sphinx/source output/review/ \
+  &&  sphinx-build -b coverage  sphinx/source output/review/
 }

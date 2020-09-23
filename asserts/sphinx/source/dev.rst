@@ -292,7 +292,6 @@ to keep in mind when developing ``Fluid Asserts``:
 * https://www.hugeinc.com/work
 * https://wiki.mozilla.org/Security/Projects/Minion
 * https://devops.com/automated-security-testing-continuous-delivery-pipeline/
-* https://iriusrisk.com/open-source/
 * https://blog.joda.org/2004/11/testing-security-permission_5894.html
 * https://www.ibm.com/developerworks/java/library/j-fuzztest/index.html
 * https://howtodoinjava.com/junit/how-to-unit-test-spring-security-authentication-with-junit/

@@ -19,6 +19,9 @@ in
 
       pyPkgAsserts = import ../../asserts pkgs;
 
+      pyPkgAws = builders.pythonPackage {
+        requirement = "awscli==1.18.145";
+      };
       pyPkgGitfame = builders.pythonPackage {
         requirement = "git-fame==1.10.1";
       };

@@ -281,9 +281,7 @@ asserts_release_docker_hub:
   stage: deploy-app
   needs: [asserts_release_pypi]
 
-pages:
+asserts_documentation:
   <<: *with_nix
   <<: *in_master_branch_asserts
   stage: deploy-app
-  artifacts:
-    paths: [asserts/public/]

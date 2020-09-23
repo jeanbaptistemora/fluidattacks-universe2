@@ -674,14 +674,17 @@ function job_asserts_release_docker_hub {
   ||  return 1
 }
 
-function job_pages {
+function job_asserts_documentation {
+  local bucket_path='s3://web.fluidattacks.com/web/resources/doc/asserts/'
+
       helper_use_pristine_workdir \
   &&  pushd asserts \
   &&  env_prepare_python_packages \
+  &&  helper_asserts_aws_login prod \
   &&  helper_pages_execute_example_exploits \
   &&  helper_pages_generate_credits \
   &&  helper_pages_generate_doc \
-  &&  mv public/ "${STARTDIR}/asserts" \
+  &&  aws s3 sync output/ "${bucket_path}" --delete \
   &&  popd \
   ||  return 1
 }
