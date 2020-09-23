@@ -146,10 +146,6 @@ const chartsGenericView: React.FC<IChartsGenericViewProps> = (props: IChartsGene
                 />
               </Col>
             </Row>
-          </React.Fragment>
-        ) : undefined}
-        {doesEntityMatch("group") ? (
-          <React.Fragment>
             <Row>
               <Col md={4}>
                 <Graphic
@@ -200,6 +196,10 @@ const chartsGenericView: React.FC<IChartsGenericViewProps> = (props: IChartsGene
                 />
               </Col>
             </Row>
+          </React.Fragment>
+        ) : undefined}
+        {doesEntityMatch("group") ? (
+          <React.Fragment>
             <Row>
               <Col md={6}>
                 <Graphic
