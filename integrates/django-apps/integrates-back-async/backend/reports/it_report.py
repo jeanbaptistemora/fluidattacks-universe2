@@ -307,7 +307,7 @@ class ITReport():
             vuln_historic_state[0]['date'], '%Y-%m-%d %H:%M:%S'
         )
         vuln_closed = vuln_historic_state[-1]['state'] == 'closed'
-        limit_date = datetime.now()
+        limit_date = datetime.today()
         vuln_close_date: Union[str, datetime] = EMPTY
         if vuln_closed:
             limit_date = datetime.strptime(
