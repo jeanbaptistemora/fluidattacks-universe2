@@ -11,7 +11,6 @@ from aioextensions import (
     in_process,
 )
 from cfn_tools.yaml_loader import (
-    CfnYamlLoader,
     construct_mapping,
     multi_constructor,
     TAG_MAP,
@@ -27,8 +26,14 @@ from parse_json import (
 )
 
 
+class BasicLoader(  # pylint: disable=too-many-ancestors
+    yaml.SafeLoader,  # type: ignore
+):
+    pass
+
+
 class Loader(  # pylint: disable=too-many-ancestors
-    CfnYamlLoader,  # type: ignore
+    yaml.SafeLoader,  # type: ignore
 ):
     pass
 
@@ -78,7 +83,7 @@ def overloaded_construct_yaml_timestamp(
 
 
 def load_as_yaml_without_line_number(content: str) -> Any:
-    return load_as_yaml(content, loader_cls=CfnYamlLoader)
+    return load_as_yaml(content, loader_cls=BasicLoader)
 
 
 def load_as_yaml(content: str, *, loader_cls=Loader) -> Any:
@@ -163,13 +168,16 @@ async def load(content: str, fmt: str) -> Any:
     return {}
 
 
-CfnYamlLoader.add_constructor(
+BasicLoader.add_constructor(
+    'tag:yaml.org,2002:timestamp',
+    overloaded_construct_yaml_timestamp,
+)
+BasicLoader.add_constructor(TAG_MAP, construct_mapping)
+BasicLoader.add_multi_constructor("!", multi_constructor)
+
+Loader.add_constructor(
     'tag:yaml.org,2002:timestamp',
     overloaded_construct_yaml_timestamp,
 )
 Loader.add_constructor(TAG_MAP, overloaded_construct_mapping)
 Loader.add_multi_constructor("!", overloaded_multi_constructor)
-Loader.add_constructor(
-    'tag:yaml.org,2002:timestamp',
-    overloaded_construct_yaml_timestamp,
-)
