@@ -86,7 +86,6 @@ def to_reattack(with_exp: bool, group: str = 'all') -> list:
         tmp.data['me'] = {'projects': [None]}
         tmp.data['me']['projects'][0] = projects_info.data['project']
         projects_info = tmp
-    print(projects_info)
     projects_info = list(projects_info.data['me']['projects'])
     # claning empty findigs
     projects_info = list(filter(
