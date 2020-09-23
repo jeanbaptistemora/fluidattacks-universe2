@@ -1,7 +1,10 @@
 # Standard library
 from typing import (
     Any,
+    Iterable,
 )
+from collections import UserList
+from json import JSONEncoder
 
 # Third party libraries
 from aioextensions import (
@@ -28,6 +31,21 @@ class Loader(  # pylint: disable=too-many-ancestors
     CfnYamlLoader,  # type: ignore
 ):
     pass
+
+
+class CustomList(  # pylint: disable=too-many-ancestors
+        UserList,  # type: ignore
+        JSONEncoder,
+):
+    """Custom List that allows access to the line where each node is."""
+    def __init__(self,
+                 initlist: Iterable[Any],
+                 line: int = 0,
+                 column: int = 0) -> None:
+        """Initialize a custom list."""
+        super().__init__(initlist)
+        setattr(self, '__line__', line)
+        setattr(self, '__column__', column)
 
 
 def overloaded_construct_mapping(
@@ -122,6 +140,7 @@ def load_as_json(content: str) -> Any:
                 )
                 for value in obj
             ]
+            obj_copy = CustomList(obj_copy, last_l, last_c)  # type:ignore
         else:
             obj_copy = obj
 

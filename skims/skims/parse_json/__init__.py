@@ -90,9 +90,9 @@ class JSONBuilder(
     def single(tree: lark.Tree) -> frozendict:
         children: lark.Tree = tree.children[0]
         return frozendict({
-            'column': 0,
+            'column': children.column,
             'item': JSONBuilder.single_map[children.data],
-            'line': 0,
+            'line': children.line,
         })
 
     @staticmethod

@@ -4,6 +4,9 @@ from typing import (
     Any,
     Iterator,
 )
+from collections import (
+    UserList,
+)
 
 
 def match_pattern(pattern: str, target: str, flags: int = 0) -> bool:
@@ -22,7 +25,7 @@ def patch_statement(stmt: Any) -> Any:
 
         for key in {'Action', 'NotAction', 'NotResource', 'Resource'}:
             if key in stmt:
-                if not isinstance(stmt[key], list):
+                if not isinstance(stmt[key], (list, UserList)):
                     stmt[key] = [stmt[key]]
 
     return stmt
@@ -38,5 +41,5 @@ def yield_statements_from_policy_document(document: Any) -> Iterator[Any]:
 
     if isinstance(statement, dict):
         yield patch_statement(statement)
-    elif isinstance(statement, list):
+    elif isinstance(statement, (list, UserList)):
         yield from map(patch_statement, statement)
