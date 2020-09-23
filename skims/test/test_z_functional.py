@@ -205,7 +205,7 @@ async def test_correct_assert(
     # The following findings must be met
     assert await get_group_data(test_group) == {
         # Finding, status, open vulnerabilities
-        ('F001_JPA', 'SUBMITTED', (
+        ('F001_JPA', 'APPROVED', (
             ('test/data/lib_path/f001_jpa/java.java', '23'),
             ('test/data/lib_path/f001_jpa/java.java', '26'),
             ('test/data/lib_path/f001_jpa/java.java', '36'),
@@ -360,7 +360,7 @@ async def test_correct_nothing_to_do_assert(
     # Skims should persist the null state, closing everything on Integrates
     assert await get_group_data(test_group) == {
         # Finding, status, open vulnerabilities
-        ('F001_JPA', 'SUBMITTED', ()),
+        ('F001_JPA', 'APPROVED', ()),
         ('F009', 'APPROVED', ()),
         ('F011', 'APPROVED', ()),
         ('F031_AWS', 'SUBMITTED', ()),

@@ -35,7 +35,7 @@ class FindingMetadata(NamedTuple):
 
 class FindingEnum(Enum):
     F001_JPA: FindingMetadata = FindingMetadata(
-        auto_approve=False,
+        auto_approve=True,
         cwe='89',
         description='utils.model.finding.enum.F001_JPA.description',
         impact='utils.model.finding.enum.F001_JPA.impact',
