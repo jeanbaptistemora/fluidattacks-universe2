@@ -25,27 +25,36 @@ The files are poisoned with a malicious payload
 by the adversary and may be passed through standard channels such as via email,
 and standard web content like PDF and multimedia files.
 
-. [[r3]] link:https://cwe.mitre.org/data/definitions/778.html[CWE-778: Insufficient Logging].
+. [[r3]] link:http://capec.mitre.org/data/definitions/35.html[CAPEC-35: Leverage Executable Code in Non-Executable Files].
+An attack of this type exploits a system's trust in configuration and resource
+files.
+When the executable loads the resource
+(such as an image file or configuration file)
+the attacker has modified the file to either execute malicious code directly or
+manipulate the target process (e.g. application server) to execute based on the
+malicious configuration parameters.
+
+. [[r4]] link:https://cwe.mitre.org/data/definitions/778.html[CWE-778: Insufficient Logging].
 When a security-critical event occurs,
 the software either does not record the event or omits important details about
 the event when logging it.
 
-. [[r4]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r5]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V14.1 Build.(14.1.5)]
 Verify that authorized administrators can verify the integrity of all
 security-relevant configurations to detect tampering.
 
-. [[r5]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 10.2.2]
+. [[r6]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 10.2.2]
 Implement automated audit trails for all system components to reconstruct all
 actions taken by any individual with root or administrative privileges.
 
-. [[r6]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 10.2.6]
+. [[r7]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 10.2.6]
 Implement automated audit trails for all system components to reconstruct
 creation and deletion of system-level objects.
 
-. [[r7]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 10.4.2]
+. [[r8]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 10.4.2]
 Time data is protected.
 
-. [[r8]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 10.5.5]
+. [[r9]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 10.5.5]
 Use file-integrity monitoring or change-detection software on logs to ensure
 that existing log data cannot be changed without generating alerts.
