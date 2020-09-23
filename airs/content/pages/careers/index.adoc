@@ -60,7 +60,18 @@ depending on your profile.
 Before doing this, you must first complete the previous stage.
 
 [role="a_formLink"]
-To begin, please follow these detailed link:https://fluidattacks.formstack.com/forms/aplicacion[instructions].
+To begin, click the following link:https://careers.autonomicmind.com/candidateportal[link]
+and follow these detailed instructions:
+
+1. Log In with your existing account. If you don't have an account,
+click the *Create an account* button.
+2. Fill the form with all your valid information.
+3. In the menu at the left, click on *Jobs*. There you will see the details of
+our available job positions.
+4. Click on your preferred job and submit it by pressing the *Apply Now* button.
+
+If you find yourself in trouble with the process please contact us at
+careers@autonomicmind.com, we will be glad to help you!
 
 [role="etapa_h"]
 == 6. History
