@@ -1,7 +1,7 @@
 :local .currentValue {
   font-size: "18px";
   white-space: pre-wrap;
-  width: fit-content;
+  word-wrap: break-word;
 }
 
 :local .title {
