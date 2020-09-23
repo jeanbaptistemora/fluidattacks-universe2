@@ -3,7 +3,6 @@ from typing import (
     Any,
     Awaitable,
     Callable,
-    Dict,
     Iterator,
     List,
     Tuple,
@@ -68,38 +67,7 @@ def _is_iam_passrole(action: str) -> bool:
     return match_pattern(action, 'iam:PassRole')
 
 
-def _cfn_create_vulns(
-    content: str,
-    description_key: str,
-    path: str,
-    statements_iterator: Iterator[Dict[str, Any]],
-) -> Tuple[Vulnerability, ...]:
-    return tuple(
-        Vulnerability(
-            finding=FindingEnum.F031_AWS,
-            kind=VulnerabilityKindEnum.LINES,
-            state=VulnerabilityStateEnum.OPEN,
-            what=path,
-            where=f'{line_no}',
-            skims_metadata=SkimsVulnerabilityMetadata(
-                description=t(
-                    key=description_key,
-                    path=path,
-                ),
-                snippet=blocking_to_snippet(
-                    column=column_no,
-                    content=content,
-                    line=line_no,
-                )
-            )
-        )
-        for stmt in statements_iterator
-        for column_no in [stmt['__column__']]
-        for line_no in [stmt['__line__']]
-    )
-
-
-def _terraform_create_vulns(
+def _create_vulns(
     content: str,
     description_key: str,
     path: str,
@@ -130,29 +98,66 @@ def _terraform_create_vulns(
     )
 
 
+def _negative_statement_iterate_vulnerabilities(
+    statements_iterator: Iterator[AWSIamPolicyStatement]
+) -> Iterator[AWSIamPolicyStatement]:
+    for stmt in statements_iterator:
+        if stmt.data['Effect'] != 'Allow':
+            continue
+
+        if 'NotAction' in stmt.data:
+            if not any(map(is_action_permissive, stmt.data['NotAction'])):
+                yield stmt
+
+        if 'NotResource' in stmt.data:
+            if not any(map(is_resource_permissive, stmt.data['NotResource'])):
+                yield stmt
+
+
+def _permissive_policy_iterate_vulnerabilities(
+    statements_iterator: Iterator[AWSIamPolicyStatement]
+) -> Iterator[AWSIamPolicyStatement]:
+    for stmt in statements_iterator:
+        if stmt.data['Effect'] == 'Allow':
+            actions = stmt.data.get('Action', [])
+            resources = stmt.data.get('Resource', [])
+
+            if all((
+                any(map(is_action_permissive, actions)),
+                any(map(is_resource_permissive, resources)),
+            )):
+                yield stmt
+
+
+def _open_passrole_iterate_vulnerabilities(
+    statements_iterator: Iterator[AWSIamPolicyStatement]
+) -> Iterator[AWSIamPolicyStatement]:
+    for stmt in statements_iterator:
+        if stmt.data['Effect'] == 'Allow':
+            actions = stmt.data.get('Action', [])
+            resources = stmt.data.get('Resource', [])
+
+            if all((
+                any(map(_is_iam_passrole, actions)),
+                any(map(is_resource_permissive, resources)),
+            )):
+                yield stmt
+
+
 def _cfn_negative_statement(
     content: str,
     path: str,
     template: Any,
 ) -> Tuple[Vulnerability, ...]:
-    def _iterate_vulnerabilities() -> Iterator[Dict[str, Any]]:
-        for stmt in cfn_iterate_iam_policy_documents(template):
-            if stmt['Effect'] != 'Allow':
-                continue
-
-            if 'NotAction' in stmt:
-                if not any(map(is_action_permissive, stmt['NotAction'])):
-                    yield stmt
-
-            if 'NotResource' in stmt:
-                if not any(map(is_resource_permissive, stmt['NotResource'])):
-                    yield stmt
-
-    return _cfn_create_vulns(
+    return _create_vulns(
         content=content,
         description_key='src.lib_path.f031_aws.negative_statement',
         path=path,
-        statements_iterator=_iterate_vulnerabilities()
+        statements_iterator=_negative_statement_iterate_vulnerabilities(
+            statements_iterator=cfn_iterate_iam_policy_documents(
+                template=template,
+            )
+        )
     )
 
 
@@ -184,23 +189,15 @@ def _cfn_permissive_policy(
     path: str,
     template: Any,
 ) -> Tuple[Vulnerability, ...]:
-    def _iterate_vulnerabilities() -> Iterator[Dict[str, Any]]:
-        for stmt in cfn_iterate_iam_policy_documents(template):
-            if stmt['Effect'] == 'Allow':
-                actions = stmt.get('Action', [])
-                resources = stmt.get('Resource', [])
-
-                if all((
-                    any(map(is_action_permissive, actions)),
-                    any(map(is_resource_permissive, resources)),
-                )):
-                    yield stmt
-
-    return _cfn_create_vulns(
+    return _create_vulns(
         content=content,
         description_key='src.lib_path.f031_aws.permissive_policy',
         path=path,
-        statements_iterator=_iterate_vulnerabilities()
+        statements_iterator=_permissive_policy_iterate_vulnerabilities(
+            statements_iterator=cfn_iterate_iam_policy_documents(
+                template=template,
+            )
+        )
     )
 
 
@@ -233,23 +230,15 @@ def _cfn_open_passrole(
     path: str,
     template: Any,
 ) -> Tuple[Vulnerability, ...]:
-    def _iterate_vulnerabilities() -> Iterator[Dict[str, Any]]:
-        for stmt in cfn_iterate_iam_policy_documents(template):
-            if stmt['Effect'] == 'Allow':
-                actions = stmt.get('Action', [])
-                resources = stmt.get('Resource', [])
-
-                if all((
-                    any(map(_is_iam_passrole, actions)),
-                    any(map(is_resource_permissive, resources)),
-                )):
-                    yield stmt
-
-    return _cfn_create_vulns(
+    return _create_vulns(
         content=content,
         description_key='src.lib_path.f031_aws.open_passrole',
         path=path,
-        statements_iterator=_iterate_vulnerabilities()
+        statements_iterator=_open_passrole_iterate_vulnerabilities(
+            statements_iterator=cfn_iterate_iam_policy_documents(
+                template=template,
+            )
+        )
     )
 
 
@@ -278,25 +267,15 @@ def _terraform_negative_statement(
     path: str,
     model: Any,
 ) -> Tuple[Vulnerability, ...]:
-    def _iterate_vulnerabilities() -> Iterator[AWSIamPolicyStatement]:
-        for stmt in terraform_iterate_iam_policy_documents(model):
-            data = stmt.data
-            if data['Effect'] != 'Allow':
-                continue
-
-            if 'NotAction' in data:
-                if not any(map(is_action_permissive, data['NotAction'])):
-                    yield stmt
-
-            if 'NotResource' in data:
-                if not any(map(is_resource_permissive, data['NotResource'])):
-                    yield stmt
-
-    return _terraform_create_vulns(
+    return _create_vulns(
         content=content,
         description_key='src.lib_path.f031_aws.negative_statement',
         path=path,
-        statements_iterator=_iterate_vulnerabilities()
+        statements_iterator=_negative_statement_iterate_vulnerabilities(
+            statements_iterator=terraform_iterate_iam_policy_documents(
+                model=model,
+            )
+        )
     )
 
 
@@ -327,23 +306,15 @@ def _terraform_open_passrole(
     path: str,
     model: Any,
 ) -> Tuple[Vulnerability, ...]:
-    def _iterate_vulnerabilities() -> Iterator[AWSIamPolicyStatement]:
-        for stmt in terraform_iterate_iam_policy_documents(model):
-            if stmt.data['Effect'] == 'Allow':
-                actions = stmt.data.get('Action', [])
-                resources = stmt.data.get('Resource', [])
-
-                if all((
-                    any(map(_is_iam_passrole, actions)),
-                    any(map(is_resource_permissive, resources)),
-                )):
-                    yield stmt
-
-    return _terraform_create_vulns(
+    return _create_vulns(
         content=content,
         description_key='src.lib_path.f031_aws.open_passrole',
         path=path,
-        statements_iterator=_iterate_vulnerabilities()
+        statements_iterator=_open_passrole_iterate_vulnerabilities(
+            statements_iterator=terraform_iterate_iam_policy_documents(
+                model=model,
+            )
+        )
     )
 
 
@@ -371,23 +342,15 @@ def _terraform_permissive_policy(
     path: str,
     model: Any,
 ) -> Tuple[Vulnerability, ...]:
-    def _iterate_vulnerabilities() -> Iterator[AWSIamPolicyStatement]:
-        for stmt in terraform_iterate_iam_policy_documents(model):
-            if stmt.data['Effect'] == 'Allow':
-                actions = stmt.data.get('Action', [])
-                resources = stmt.data.get('Resource', [])
-
-                if all((
-                    any(map(is_action_permissive, actions)),
-                    any(map(is_resource_permissive, resources)),
-                )):
-                    yield stmt
-
-    return _terraform_create_vulns(
+    return _create_vulns(
         content=content,
         description_key='src.lib_path.f031_aws.permissive_policy',
         path=path,
-        statements_iterator=_iterate_vulnerabilities()
+        statements_iterator=_permissive_policy_iterate_vulnerabilities(
+            statements_iterator=terraform_iterate_iam_policy_documents(
+                model=model,
+            )
+        )
     )
 
 

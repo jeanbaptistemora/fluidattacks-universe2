@@ -11,6 +11,9 @@ from aws.iam.utils import (
     yield_statements_from_policy,
     yield_statements_from_policy_document,
 )
+from aws.model import (
+    AWSIamPolicyStatement,
+)
 
 
 def iterate_resources(
@@ -32,7 +35,20 @@ def iterate_resources(
                     yield resource_name, resource_kind, resource_properties
 
 
-def iterate_iam_policy_documents(template: Any) -> Iterator[Dict[str, Any]]:
+def iterate_iam_policy_documents(
+    template: Any,
+) -> Iterator[AWSIamPolicyStatement]:
+    for statement in _iterate_iam_policy_documents(template):
+        yield AWSIamPolicyStatement(
+            column=statement.pop('__column__'),
+            data=statement,
+            line=statement.pop('__line__'),
+        )
+
+
+def _iterate_iam_policy_documents(
+    template: Any,
+) -> Iterator[AWSIamPolicyStatement]:
     for _, kind, props in iterate_resources(template, 'AWS::IAM'):
 
         if kind in {'AWS::IAM::ManagedPolicy', 'AWS::IAM::Policy'}:
