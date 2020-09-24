@@ -17,4 +17,4 @@ Installation requires python 3.6 or later.
 
 [![Fluid attacks logo][logo]](https://fluidattacks.com/)
 
-[logo]: https://fluidattacks.com/web/theme/images/logo.png
+[logo]: https://fluidattacks.com/theme/images/logo.png

@@ -40,4 +40,4 @@ It will automatically run a VACUUM operation on your tables after the loading pr
 
 [![Fluid attacks logo][logo]](https://fluidattacks.com/)
 
-[logo]: https://fluidattacks.com/web/theme/images/logo.png
+[logo]: https://fluidattacks.com/theme/images/logo.png
