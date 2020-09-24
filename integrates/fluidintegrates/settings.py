@@ -21,7 +21,10 @@ import bugsnag
 import requests
 from boto3.session import Session
 from botocore.exceptions import ClientError
-from backend.exceptions import UnavailabilityError
+from backend.exceptions import (
+    DocumentNotFound,
+    UnavailabilityError,
+)
 from graphql import GraphQLError
 
 from __init__ import (
@@ -205,6 +208,8 @@ def customize_bugsnag_error_reports(notification):
             ex_msg == 'Login required':
         notification.severity = 'warning'
         notification.unhandled = False
+    if isinstance(notification.exception, DocumentNotFound):
+        notification.severity = 'info'
 
 
 bugsnag.before_notify(customize_bugsnag_error_reports)
