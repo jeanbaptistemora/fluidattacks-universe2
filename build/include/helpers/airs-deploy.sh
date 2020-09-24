@@ -81,6 +81,7 @@ function helper_airs_deploy_sync_s3 {
               "s3://${bucket_path}/"           \
               --acl public-read                \
               --exclude "*"                    \
+              --exclude "web/resources/doc/*"  \
               --include "*.${extension}"       \
               --metadata-directive REPLACE     \
               --content-type "${content_type}" \
@@ -89,13 +90,14 @@ function helper_airs_deploy_sync_s3 {
         ||  return 1
       done \
   &&  aws s3 sync \
-        "${source_code}/"      \
-        "s3://${bucket_path}/" \
-        --exclude "*.html"     \
-        --exclude "*.css"      \
-        --exclude "*.js"       \
-        --exclude "*.png"      \
-        --exclude "*.svg"      \
+        "${source_code}/"               \
+        "s3://${bucket_path}/"          \
+        --exclude "*.html"              \
+        --exclude "*.css"               \
+        --exclude "*.js"                \
+        --exclude "*.png"               \
+        --exclude "*.svg"               \
+        --exclude "web/resources/doc/*" \
         --delete
 }
 
