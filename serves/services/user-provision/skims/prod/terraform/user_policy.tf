@@ -1,5 +1,5 @@
 data "aws_iam_policy_document" "skims_prod_policy_data" {
-  # S3 access to the terraform state
+  # S3 access to the terraform state and Airs bucket
   statement {
     effect = "Allow"
     actions = [
@@ -17,6 +17,18 @@ data "aws_iam_policy_document" "skims_prod_policy_data" {
     ]
     resources = [
       "arn:aws:s3:::fluidattacks-terraform-states-prod/skims.tfstate",
+    ]
+  }
+  statement {
+    effect = "Allow"
+    actions = [
+      "s3:GetObject",
+      "s3:PutObject",
+      "s3:ListBucket",
+    ]
+    resources = [
+      "arn:aws:s3:::web.fluidattacks.com",
+      "arn:aws:s3:::web.fluidattacks.com/web/resources/doc/skims/*",
     ]
   }
 
