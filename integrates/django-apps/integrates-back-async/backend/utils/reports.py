@@ -82,7 +82,7 @@ async def upload_report_from_file_descriptor(report) -> str:
 def reports_exception_handler(
     _: asyncio.AbstractEventLoop,
     context: Dict[str, str],
-    *args: str
+    **kwargs: str
 ) -> None:
     """
     Catches any exception raised in report generation
@@ -99,9 +99,9 @@ def reports_exception_handler(
         extra={
             'extra': {
                 'exception': exception,
-                'group_name': args[0],
-                'user_email': args[1],
-                'report_type': args[2]
+                'group_name': kwargs.get('group_name'),
+                'user_email': kwargs.get('user_email'),
+                'report_type': kwargs.get('report_type')
             }
         }
     )
@@ -115,8 +115,8 @@ def patch_loop_exception_handler(
     asyncio.get_event_loop().set_exception_handler(
         lambda loop, context: reports_exception_handler(
             loop, context,
-            group_name,
-            user_email,
-            report_type
+            group_name=group_name,
+            user_email=user_email,
+            report_type=report_type
         )
     )
