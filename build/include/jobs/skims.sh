@@ -22,23 +22,24 @@ declare -Arx SKIMS_GLOBAL_TEST_PKGS=(
   [test]=test/
 )
 
-function job_skims_doc {
+function job_skims_documentation {
+  local bucket_path='s3://web.fluidattacks.com/web/resources/doc/skims/'
+
       helper_skims_install_dependencies \
   &&  pushd skims \
+    &&  helper_skims_aws_login prod \
+    &&  rm -rf docs/skims \
     &&  echo '[INFO] Building' \
-    &&  rm -rf docs/skims/ \
     &&  poetry run pdoc \
           --force \
           --html \
           --output-dir docs/ \
           --template-dir docs/templates/ \
           skims \
+    &&  aws s3 sync docs/skims/ "${bucket_path}" --delete \
+    &&  rm -rf docs/skims/ \
   &&  popd \
-  &&  rm -rf public/ \
-  &&  git checkout -- public/ \
-  &&  mv skims/docs/skims public/ \
   ||  return 1
-
 }
 
 function job_skims_dependencies_pack {

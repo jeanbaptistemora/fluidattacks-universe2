@@ -42,15 +42,6 @@
       when: never
     - if: *skims_commit_pattern
 
-.skims_doc: &skims_doc
-  <<: *with_nix
-  <<: *skims_in_master_branch
-  artifacts:
-    paths: [public/]
-  script:
-    - ./build.sh skims_doc
-  stage: deploy-app
-
 skims_deploy_infra:
   <<: *with_nix
   <<: *skims_in_master_branch
@@ -100,5 +91,7 @@ skims_test_infra:
   <<: *skims_in_dev_branch
   stage: test-code
 
-.pages:
-  <<: *skims_doc
+skims_documentation:
+  <<: *with_nix
+  <<: *skims_in_master_branch
+  stage: deploy-app
