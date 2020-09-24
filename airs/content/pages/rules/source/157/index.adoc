@@ -39,24 +39,36 @@ attempt to overwhelm the filter (by causing a buffer overflow) and hoping that
 the filter does not fail securely
 (i.e. the user input is let into the system unfiltered).
 
-. [[r5]] link:https://cwe.mitre.org/data/definitions/120.html[CWE-120: Classic Buffer Overflow].
+. [[r5]] link:http://capec.mitre.org/data/definitions/45.html[CAPEC-45: Buffer Overflow via Symbolic Links].
+This type of attack leverages the use of symbolic links to cause buffer
+overflows.
+An attacker can try to create or manipulate a symbolic link file such that its
+contents result in out of bounds data.
+
+. [[r6]] link:http://capec.mitre.org/data/definitions/46.html[CAPEC-46: Overflow Variables and Tags].
+This type of attack leverages the use of tags or variables from a formatted
+configuration data to cause buffer overflow.
+The attacker crafts a malicious *HTML* page or configuration file that includes
+oversized strings, thus causing an overflow.
+
+. [[r7]] link:https://cwe.mitre.org/data/definitions/120.html[CWE-120: Classic Buffer Overflow].
 The program copies an input buffer to an output buffer without verifying that
 the size of the input buffer is less than the size of the output buffer,
 leading to a buffer overflow.
 
-. [[r6]] link:https://cwe.mitre.org/data/definitions/611.html[CWE-611: Improper Restriction of XML External Entity Reference].
+. [[r8]] link:https://cwe.mitre.org/data/definitions/611.html[CWE-611: Improper Restriction of XML External Entity Reference].
 The software processes an *XML* document that can contain *XML* entities with
 **URI**s that resolve to documents outside of the intended sphere of control,
 causing the product to embed incorrect documents into its output.
 
-. [[r7]] link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A4-XML_External_Entities_(XXE)[OWASP Top 10 A4:2017-XML External Entities (XXE)].
+. [[r9]] link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A4-XML_External_Entities_(XXE)[OWASP Top 10 A4:2017-XML External Entities (XXE)].
 Many older or poorly configured *XML* processors evaluate external entity
 references within *XML* documents.
 External entities can be used to disclose internal files using the file *URI*
 handler, internal file shares, internal port scanning, remote code execution,
 and denial of service attacks.
 
-. [[r8]] link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A6-Security_Misconfiguration[OWASP Top 10 A6:2017-Security Misconfiguration].
+. [[r10]] link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A6-Security_Misconfiguration[OWASP Top 10 A6:2017-Security Misconfiguration].
 Security misconfiguration is the most commonly seen issue.
 This is commonly a result of insecure default configurations,
 incomplete or ad hoc configurations, open cloud storage,
@@ -65,25 +77,25 @@ and verbose error messages containing sensitive information.
 Not only must all operating systems, frameworks, libraries, and applications be
 securely configured, but they must be patched/upgraded in a timely fashion.
 
-. [[r9]] link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A8-Insecure_Deserialization[OWASP Top 10 A8:2017-Insecure Deserialization].
+. [[r11]] link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A8-Insecure_Deserialization[OWASP Top 10 A8:2017-Insecure Deserialization].
 Insecure deserialization often leads to remote code execution.
 Even if deserialization flaws do not result in remote code execution,
 they can be used to perform attacks,
 including replay attacks, injection attacks, and privilege escalation attacks.
 
-. [[r10]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r12]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 Appendix C: Internet of Things Verification Requirements.(C.33)]
 Verify that secure compiler flags such as **-fPIE**, **-fstack-protector-all**,
 **-Wl**, **-z,noexecstack**, **-Wl**, **-z,noexecheap** are configured for
 firmware builds.
 
-. [[r11]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r13]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V5.5 Deserialization Prevention Requirements.(5.5.2)]
 Verify that the application correctly restricts *XML* parsers to only use the
 most restrictive configuration possible and to ensure that unsafe features such
 as resolving external entities are disabled to prevent *XXE*.
 
-. [[r12]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r14]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V14.1 Build.(14.1.2)]
 Verify that compiler flags are configured to enable all available buffer
 overflow protections and warnings,
@@ -91,6 +103,6 @@ including stack randomization, data execution prevention,
 and to break the build if an unsafe pointer, memory, format string, integer,
 or string operations are found.
 
-. [[r13]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 6.5.2]
+. [[r15]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 6.5.2]
 Address common coding vulnerabilities in software-development processes such as
 buffer overflows.

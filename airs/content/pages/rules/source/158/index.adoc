@@ -38,12 +38,24 @@ environment variables.
 Once the attacker finds that they can modify an environment variable,
 they may try to overflow associated buffers.
 
-. [[r4]] link:https://cwe.mitre.org/data/definitions/120.html[CWE-120: Classic Buffer Overflow].
+. [[r4]] link:http://capec.mitre.org/data/definitions/45.html[CAPEC-45: Buffer Overflow via Symbolic Links].
+This type of attack leverages the use of symbolic links to cause buffer
+overflows.
+An attacker can try to create or manipulate a symbolic link file such that its
+contents result in out of bounds data.
+
+. [[r5]] link:http://capec.mitre.org/data/definitions/46.html[CAPEC-46: Overflow Variables and Tags].
+This type of attack leverages the use of tags or variables from a formatted
+configuration data to cause buffer overflow.
+The attacker crafts a malicious *HTML* page or configuration file that includes
+oversized strings, thus causing an overflow.
+
+. [[r6]] link:https://cwe.mitre.org/data/definitions/120.html[CWE-120: Classic Buffer Overflow].
 The program copies an input buffer to an output buffer without verifying that
 the size of the input buffer is less than the size of the output buffer,
 leading to a buffer overflow.
 
-. [[r5]] link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A9-Using_Components_with_Known_Vulnerabilities[OWASP Top 10 A9:2017-Using Components with Known Vulnerabilities].
+. [[r7]] link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A9-Using_Components_with_Known_Vulnerabilities[OWASP Top 10 A9:2017-Using Components with Known Vulnerabilities].
 Components, such as libraries, frameworks, and other software modules,
 run with the same privileges as the application.
 If a vulnerable component is exploited,
@@ -51,26 +63,26 @@ such an attack can facilitate serious data loss or server takeover.
 Applications and **API**s using components with known vulnerabilities may
 undermine application defenses and enable various attacks and impacts.
 
-. [[r6]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r8]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 Appendix C: Internet of Things Verification Requirements.(C.11)]
 Verify that any use of banned *C* functions are replaced with the appropriate
 safe equivalent functions.
 
-. [[r7]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r9]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V5.4 Memory, String, and Unmanaged Code Requirements.(5.4.1)]
 Verify that the application uses memory-safe string, safer memory copy and
 pointer arithmetic to detect or prevent stack, buffer, or heap overflows.
 
-. [[r8]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r10]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V14.2 Dependency.(14.2.1)]
 Verify that all components are up to date, preferably using a dependency
 checker during build or compile time.
 
-. [[r9]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r11]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V14.2 Dependency.(14.2.4)]
 Verify that third party components come from pre-defined, trusted and
 continually maintained repositories.
 
-. [[r10]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 6.2]
+. [[r12]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 6.2]
 Ensure that all system components and software are protected from known
 vulnerabilities by installing applicable vendor-supplied security patches.
