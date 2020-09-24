@@ -23,7 +23,7 @@ async def resolve(
     info: GraphQLResolveInfo,
     **_kwargs: None
 ) -> List[Finding]:
-    group_name: str = cast(str, parent['project_name'])
+    group_name: str = cast(str, parent['name'])
 
     group_loader: DataLoader = info.context.loaders['project']
     draft_ids: List[str] = (await group_loader.load(group_name))['drafts']

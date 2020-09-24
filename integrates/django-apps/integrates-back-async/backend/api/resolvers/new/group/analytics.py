@@ -23,9 +23,9 @@ async def resolve(
     _info: GraphQLResolveInfo,
     **kwargs: str
 ) -> object:
+    group_name: str = cast(str, parent['name'])
     document_name: str = kwargs['document_name']
     document_type: str = kwargs['document_type']
-    group_name: str = cast(str, parent['project_name'])
 
     return await analytics_domain.get_document(
         document_name=document_name,

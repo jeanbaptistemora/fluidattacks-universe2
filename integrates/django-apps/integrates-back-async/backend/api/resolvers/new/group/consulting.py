@@ -24,7 +24,7 @@ async def resolve(
     info: GraphQLResolveInfo,
     **_kwargs: None
 ) -> List[Comment]:
-    group_name: str = cast(str, parent['project_name'])
+    group_name: str = cast(str, parent['name'])
     user_data: Dict[str, str] = await util.get_jwt_content(info.context)
     user_email: str = user_data['user_email']
 

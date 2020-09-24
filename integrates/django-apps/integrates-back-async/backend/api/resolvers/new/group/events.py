@@ -24,7 +24,7 @@ async def resolve(
     info: GraphQLResolveInfo,
     **_kwargs: None
 ) -> List[Event]:
-    group_name: str = cast(str, parent['project_name'])
+    group_name: str = cast(str, parent['name'])
 
     event_ids = await group_domain.list_events(group_name)
     event_loader: DataLoader = info.context.loaders['event']

@@ -17,7 +17,7 @@ async def resolve(
     info: GraphQLResolveInfo,
     **kwargs: Any
 ) -> List[Finding]:
-    group_name: str = cast(str, parent['project_name'])
+    group_name: str = cast(str, parent['name'])
     filters: Optional[Dict[str, Any]] = kwargs.get('filters')
 
     group_loader: DataLoader = info.context.loaders['project']

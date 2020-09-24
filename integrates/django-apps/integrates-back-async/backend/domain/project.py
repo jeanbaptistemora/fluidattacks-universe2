@@ -1128,7 +1128,13 @@ async def get_by_name(name: str) -> ProjectType:
             'has_forces': group['historic_configuration'][-1]['has_forces'],
             'has_integrates': group['project_status'] == 'ACTIVE',
             'last_closing_vuln': group.get('last_closing_date', 0),
+            'last_closing_vuln_finding': group.get(
+                'last_closing_vuln_finding'
+            ),
             'max_open_severity': group.get('max_open_severity', 0),
+            'max_open_severity_finding': group.get(
+                'max_open_severity_finding'
+            ),
             'mean_remediate_critical_severity': group.get(
                 'mean_remediate_critical_severity',
                 0

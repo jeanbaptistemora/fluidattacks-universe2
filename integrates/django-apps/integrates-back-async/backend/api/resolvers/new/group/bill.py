@@ -24,7 +24,7 @@ async def resolve(
     _info: GraphQLResolveInfo,
     **kwargs: datetime
 ) -> Dict[str, Historic]:
-    group_name: str = cast(str, parent['project_name'])
+    group_name: str = cast(str, parent['name'])
     date: datetime = kwargs.get('date', datetime.utcnow())
 
     return {
