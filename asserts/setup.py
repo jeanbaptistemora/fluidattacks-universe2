@@ -38,7 +38,7 @@ setup(
     long_description=_get_readme(),
     long_description_content_type='text/x-rst',
     version=_get_version(),
-    url='https://fluidattacks.com/web/products/asserts',
+    url='https://fluidattacks.com/products/asserts',
     project_urls={
         'Documentation': 'https://fluidattacks.gitlab.io/asserts/',
     },

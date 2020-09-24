@@ -453,7 +453,7 @@ def has_poodle_tls(site: str, port: int = PORT) -> tuple:
     Check if POODLE TLS is present.
 
     See our `blog entry on POODLE
-    <https://fluidattacks.com/web/blog/treacherous-poodle/>`_.
+    <https://fluidattacks.com/blog/treacherous-poodle/>`_.
 
     :param site: Address to connect to.
     :param port: If necessary, specify port to connect to.
@@ -486,7 +486,7 @@ def has_poodle_sslv3(site: str, port: int = PORT) -> tuple:
     Check if POODLE SSLv3 is present.
 
     See our `blog entry on POODLE
-    <https://fluidattacks.com/web/blog/treacherous-poodle/>`_.
+    <https://fluidattacks.com/blog/treacherous-poodle/>`_.
 
     :param site: Address to connect to.
     :param port: If necessary, specify port to connect to.
@@ -619,7 +619,7 @@ def has_beast(site: str, port: int = PORT) -> tuple:
     Check if site allows BEAST attack.
 
     See our `blog entry on BEAST
-    <https://fluidattacks.com/web/blog/release-the-beast/>`_.
+    <https://fluidattacks.com/blog/release-the-beast/>`_.
 
     :param site: Address to connect to.
     :param port: If necessary, specify port to connect to.
@@ -651,7 +651,7 @@ def has_heartbleed(site: str, port: int = PORT) -> tuple:
     Check if site allows Heartbleed attack.
 
     See our `blog entry on Heartbleed
-    <https://fluidattacks.com/web/blog/my-heart-bleeds/>`_.
+    <https://fluidattacks.com/blog/my-heart-bleeds/>`_.
 
     :param site: Address to connect to.
     :param port: If necessary, specify port to connect to.

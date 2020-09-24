@@ -8,5 +8,5 @@ with FluidAsserts(risk=MEDIUM,
     creator.set_open(where='https://integrates.fluidattacks.com',
                      specific=['HTTP/Header/X-Frame-Options is missing'])
 
-    creator.set_closed(where='https://fluidattacks.com/web',
+    creator.set_closed(where='https://fluidattacks.com/',
                        specific=['HTTP/Header/X-Frame-Options is set'])

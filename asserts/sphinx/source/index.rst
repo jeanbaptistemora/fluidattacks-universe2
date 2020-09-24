@@ -60,7 +60,7 @@ Here are some of the things ``Asserts`` can do for you:
 What kind of vulnerabilities can ``Asserts`` test?
 
 * [*New in v18.6*]
-  `Software composition analysis <https://fluidattacks.com/web/blog/stand-shoulders-giants/>`_
+  `Software composition analysis <https://fluidattacks.com/blog/stand-shoulders-giants/>`_
   (:mod:`SCA <fluidasserts.sca>`): Now ``Asserts`` searches your dependencies' package managers
   for reported vulnerabilites. Including
   :mod:`Bower <.bower>`, :mod:`Chocolatey <.chocolatey>`,
