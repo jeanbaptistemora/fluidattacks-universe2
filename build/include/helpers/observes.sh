@@ -184,32 +184,6 @@ function helper_observes_mandrill {
         < .singer
 }
 
-function helper_use_observes_workdir {
-  export WORKDIR
-  export STARTDIR
-
-  function helper_teardown_workdir {
-        echo "[INFO] Deleting: ${WORKDIR}" \
-    &&  rm -rf "${WORKDIR}"
-  }
-  echo "${WORKDIR}"
-  echo "${STARTDIR}"
-      echo '[INFO] Creating a pristine workdir' \
-  &&  rm -rf "${WORKDIR}" \
-  &&  mkdir -p "${WORKDIR}" \
-  &&  echo '[INFO] Copying .git to workdir' \
-  &&  cp -r "${STARTDIR}/.git" "${WORKDIR}" \
-  &&  echo '[INFO] Entering the workdir' \
-  &&  pushd "${WORKDIR}" \
-  &&  echo '[INFO] Running: git clean -xdf' \
-  &&  git clean -xdf \
-  &&  git clean -Xdf \
-  &&  echo '[INFO] Reseting to HEAD' \
-  &&  git reset --hard HEAD \
-  &&  trap 'helper_teardown_workdir' 'EXIT' \
-  ||  return 1
-}
-
 function helper_observes_gitlab {
   export GITLAB_API_TOKEN
   helper_get_projects

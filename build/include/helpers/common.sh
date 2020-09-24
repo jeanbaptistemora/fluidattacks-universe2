@@ -38,21 +38,15 @@ function helper_use_pristine_workdir {
 
   function helper_teardown_workdir {
         echo "[INFO] Deleting: ${WORKDIR}" \
+    &&  pushd "${STARTDIR}" \
+    &&  git worktree remove -f "${WORKDIR}" \
     &&  rm -rf "${WORKDIR}"
   }
 
       echo '[INFO] Creating a pristine workdir' \
   &&  rm -rf "${WORKDIR}" \
-  &&  mkdir -p "${WORKDIR}" \
-  &&  echo '[INFO] Copying files to workdir' \
-  &&  cp -r "${STARTDIR}/." "${WORKDIR}" \
-  &&  echo '[INFO] Entering the workdir' \
+  &&  git worktree add -f "${WORKDIR}" "${CI_COMMIT_REF_NAME}" \
   &&  pushd "${WORKDIR}" \
-  &&  echo '[INFO] Running: git clean -xdf' \
-  &&  rm -rf ./* \
-  &&  git clean -xdf \
-  &&  git clean -Xdf \
-  &&  git reset --hard HEAD \
   &&  trap 'helper_teardown_workdir' 'EXIT' \
   ||  return 1
 }
