@@ -53,7 +53,7 @@ async def generate_group_report(
     )
     findings_ord = util.ord_asc_by_criticality(findings)
 
-    patch_loop_exception_handler()
+    patch_loop_exception_handler(user_email, project_name, report_type)
     if report_type == 'PDF':
         asyncio.create_task(
             technical_report.generate_pdf(
