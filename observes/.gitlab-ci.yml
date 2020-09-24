@@ -80,15 +80,6 @@ observes_services_toe:
     variables: [$observes_services_toe]
   interruptible: false
 
-observes_infrastructure:
-  <<: *with_nix
-  tags: [autoscaling-analytics]
-  stage: analytics
-  only:
-    refs: [schedules]
-    variables: [$observes_infrastructure]
-  interruptible: false
-
 observes_intercom:
   <<: *with_nix
   tags: [autoscaling-analytics]

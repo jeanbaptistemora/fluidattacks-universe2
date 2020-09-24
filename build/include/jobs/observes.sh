@@ -28,13 +28,6 @@ function job_observes_services_toe {
   ||  return 1
 }
 
-function job_observes_infrastructure {
-      helper_use_pristine_workdir \
-  &&  env_prepare_python_packages \
-  &&  helper_observes_infrastructure \
-  ||  return 1
-}
-
 function job_observes_intercom {
       helper_use_pristine_workdir \
   &&  env_prepare_python_packages \

@@ -132,30 +132,6 @@ function helper_observes_services_toe {
   && popd || return 1
 }
 
-function helper_observes_infrastructure {
-      helper_observes_aws_login prod \
-  &&  helper_common_sops_env observes/secrets-prod.yaml default \
-        analytics_auth_infra \
-        analytics_auth_redshift \
-  &&  echo '[INFO] Generating secret files' \
-  &&  echo "${analytics_auth_infra}" > "${TEMP_FILE1}" \
-  &&  echo "${analytics_auth_redshift}" > "${TEMP_FILE2}" \
-  &&  echo '[INFO] Running streamer' \
-  &&  streamer-infrastructure \
-        --auth "${TEMP_FILE1}" \
-        > .jsonstream \
-  &&  echo '[INFO] Running tap' \
-  &&  tap-json \
-        > .singer \
-        < .jsonstream \
-  &&  echo '[INFO] Running target' \
-  &&  target-redshift \
-        --auth "${TEMP_FILE2}" \
-        --drop-schema \
-        --schema-name 'infrastructure' \
-        < .singer
-}
-
 function helper_observes_intercom {
       helper_observes_aws_login prod \
   &&  helper_common_sops_env observes/secrets-prod.yaml default \
