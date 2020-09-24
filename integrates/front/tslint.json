@@ -19,6 +19,7 @@
       "src/scenes/Dashboard/components/AddOrganizationModal/**",
       "src/scenes/Dashboard/components/AddProjectModal/**",
       "src/scenes/Dashboard/components/AddRepositoriesModal/index.spec.tsx",
+      "src/scenes/Dashboard/components/AddRepositoriesModal/RepositoryFields.tsx",
       "src/scenes/Dashboard/components/APITokenModal/**",
       "src/scenes/Dashboard/components/NewsWidget/**",
       "src/scenes/Registration/**"
