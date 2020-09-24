@@ -34,11 +34,4 @@ async def resolve(
         else await org_domain.get_by_name(name)
     )
 
-    return {
-        'id': organization['id'],
-        'max_acceptance_days': organization['max_acceptance_days'],
-        'max_acceptance_severity': organization['max_acceptance_severity'],
-        'max_number_acceptations': organization['max_number_acceptations'],
-        'min_acceptance_severity': organization['min_acceptance_severity'],
-        'name': organization['name']
-    }
+    return organization

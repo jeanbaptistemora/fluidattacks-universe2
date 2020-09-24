@@ -2,6 +2,7 @@
 # None
 
 # Third party
+from aiodataloader import DataLoader
 from ariadne.utils import convert_kwargs_to_snake_case
 from graphql.type.definition import GraphQLResolveInfo
 
@@ -11,7 +12,6 @@ from backend.decorators import (
     enforce_group_level_auth_async,
     require_login,
 )
-from backend.domain import project as group_domain
 from backend.typing import Project as Group
 
 
@@ -22,10 +22,12 @@ from backend.typing import Project as Group
 )
 async def resolve(
     _parent: None,
-    _info: GraphQLResolveInfo,
+    info: GraphQLResolveInfo,
     **kwargs: str
 ) -> Group:
     name: str = kwargs['project_name']
-    group: Group = await group_domain.get_by_name(name)
+
+    group_loader: DataLoader = info.context.loaders['project']
+    group: Group = group_loader.load(name)
 
     return group

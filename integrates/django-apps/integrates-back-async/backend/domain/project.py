@@ -11,6 +11,7 @@ from decimal import Decimal
 from typing import Dict, List, NamedTuple, Tuple, Union, cast
 
 import pytz
+import simplejson as json
 from aioextensions import (
     collect,
     in_process,
@@ -1117,6 +1118,7 @@ async def get_by_name(name: str) -> ProjectType:
 
     if group and 'deletion_date' not in group:
         return {
+            'closed_vulnerabilities': group.get('closed_vulnerabilities', 0),
             'deletion_date': (
                 group['historic_deletion'][-1].get('deletion_date', '')
                 if 'historic_deletion' in group else ''
@@ -1146,9 +1148,13 @@ async def get_by_name(name: str) -> ProjectType:
             'mean_remediate': group.get('mean_remediate', 0),
             'name': group['project_name'],
             'open_findings': group.get('open_findings', 0),
+            'open_vulnerabilities': group.get('open_vulnerabilities', 0),
             'subscription': group['historic_configuration'][-1]['type'],
             'tags': group.get('tag', []),
-            'total_treatment': group.get('total_treatment', {}),
+            'total_treatment': json.dumps(
+                group.get('total_treatment', {}),
+                use_decimal=True
+            ),
             'user_deletion': (
                 group['historic_deletion'][-1].get('user', '')
                 if 'historic_deletion' in group else ''

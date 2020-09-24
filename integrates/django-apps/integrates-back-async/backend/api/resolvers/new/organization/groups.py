@@ -2,14 +2,14 @@
 from typing import cast, Dict, List
 
 # Third party
+from aiodataloader import DataLoader
 from ariadne.utils import convert_kwargs_to_snake_case
 from graphql.type.definition import GraphQLResolveInfo
 
 # Local
 from backend import util
-from backend.domain import project as group_domain, user as user_domain
+from backend.domain import user as user_domain
 from backend.typing import Organization, Project as Group
-from backend.utils import aio
 
 
 @convert_kwargs_to_snake_case
@@ -27,12 +27,7 @@ async def resolve(
         organization_id=org_id
     )
 
-    groups: List[Group] = cast(
-        List[Group],
-        await aio.materialize(
-            group_domain.get_by_name(group)
-            for group in user_groups
-        )
-    )
+    group_loader: DataLoader = info.context.loaders['project']
+    groups: List[Group] = group_loader.load_many(user_groups)
 
     return groups
