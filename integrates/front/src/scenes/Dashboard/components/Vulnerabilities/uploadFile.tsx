@@ -96,6 +96,10 @@ const uploadVulnerabilities: ((props: IVulnerabilitiesViewProps) => JSX.Element)
         Logger.warning(message);
       }
       dispatch(reset("vulns"));
+      const fileInput: HTMLInputElement | null = document.getElementById("vulnerabilities") as HTMLInputElement | null;
+      if (!_.isNil(fileInput)) {
+        fileInput.value = "";
+      }
     });
   };
 
