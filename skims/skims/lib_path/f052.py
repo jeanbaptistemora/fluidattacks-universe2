@@ -1,8 +1,11 @@
 # Standard library
+import contextlib
 from typing import (
     Awaitable,
     Callable,
+    Iterator,
     List,
+    Set,
     Tuple,
 )
 
@@ -24,6 +27,7 @@ from lib_path.common import (
     DOUBLE_QUOTED_STRING,
     EXTENSIONS_CSHARP,
     EXTENSIONS_JAVA,
+    EXTENSIONS_JAVA_PROPERTIES,
     NUMBER,
     SHIELD,
     SINGLE_QUOTED_STRING,
@@ -37,7 +41,13 @@ from state.ephemeral import (
 )
 from utils.model import (
     FindingEnum,
+    SkimsVulnerabilityMetadata,
     Vulnerability,
+    VulnerabilityKindEnum,
+    VulnerabilityStateEnum,
+)
+from utils.string import (
+    blocking_to_snippet,
 )
 from zone import (
     t,
@@ -426,6 +436,62 @@ async def java_insecure_pass(
     )
 
 
+def _java_properties_missing_ssl(
+    content: str,
+    path: str,
+) -> Tuple[Vulnerability, ...]:
+    missing_ssl_key: str = 'ibm.mq.use_ssl'
+    missing_ssl_values: Set[str] = {'false'}
+
+    def _iterate_vulnerabilities() -> Iterator[Tuple[int, int]]:
+        for line_no, line in enumerate(content.splitlines(), start=1):
+            # Strip comments
+            if '#' in line:
+                line = line.split('#', maxsplit=1)[0]
+
+            # Split in key and value
+            with contextlib.suppress(ValueError):
+                key, val = line.strip().split('=', maxsplit=1)
+                key, val = key.strip(), val.strip()
+                if key == missing_ssl_key and val in missing_ssl_values:
+                    yield line_no, 0
+
+    return tuple(
+        Vulnerability(
+            finding=FindingEnum.F052,
+            kind=VulnerabilityKindEnum.LINES,
+            state=VulnerabilityStateEnum.OPEN,
+            what=path,
+            where=f'{line_no}',
+            skims_metadata=SkimsVulnerabilityMetadata(
+                description=t(
+                    key='src.lib_path.f052.java_properties_missing_ssl',
+                    path=path,
+                ),
+                snippet=blocking_to_snippet(
+                    column=column,
+                    content=content,
+                    line=line_no,
+                )
+            )
+        )
+        for line_no, column in _iterate_vulnerabilities()
+    )
+
+
+@cache_decorator()
+@SHIELD
+async def java_properties_missing_ssl(
+    content: str,
+    path: str,
+) -> Tuple[Vulnerability, ...]:
+    return await in_process(
+        _java_properties_missing_ssl,
+        content=content,
+        path=path,
+    )
+
+
 async def analyze(
     content_generator: Callable[[], Awaitable[str]],
     file_extension: str,
@@ -457,6 +523,11 @@ async def analyze(
             path=path,
         ))
         coroutines.append(java_insecure_pass(
+            content=await content_generator(),
+            path=path,
+        ))
+    elif file_extension in EXTENSIONS_JAVA_PROPERTIES:
+        coroutines.append(java_properties_missing_ssl(
             content=await content_generator(),
             path=path,
         ))

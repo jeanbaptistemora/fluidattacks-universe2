@@ -296,6 +296,9 @@ async def test_correct_assert(
             ('test/data/lib_path/f052/java.java', '6'),
             ('test/data/lib_path/f052/java.java', '8'),
             ('test/data/lib_path/f052/java.java', '9'),
+            ('test/data/lib_path/f052/java.properties', '2'),
+            ('test/data/lib_path/f052/java.properties', '3'),
+            ('test/data/lib_path/f052/java.properties', '4'),
         )),
         ('F060', 'APPROVED', (
             ('test/data/lib_path/f031_cwe378/Test.java', '7'),
