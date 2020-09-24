@@ -123,7 +123,6 @@ $codeyellow: rgba(230, 219, 116, 1);
 .tooltip { &:hover { .tooltip-text { visibility: visible; } } }
 .anchor-sign { &::before { content: '\0023'; } }
 .banner-bg { background-image: url('../../images/cover-main.png'); }
-.asap-bg { background-image: url('../../images/background-asap.png'); }
 .continuous-bg { background-image: url('../../images/services/continuous/main-continuous-hacking.png'); }
 .one-shot-bg { background-image: url('../../images/services/one-shot/main-one-shot.png'); }
 .products-bg { background-image: url('../../images/products/cover-products.png'); }
@@ -244,7 +243,7 @@ $codeyellow: rgba(230, 219, 116, 1);
 .w-footer-form { width: 18.75rem; }
 
 // Tachyons custom responsive classes
-@media screen and (min-width: 960px) and (max-width: 1200px) {
+@media screen and (min-width: 961px) and (max-width: 1200px) {
   .w-footer-links { width: auto; }
   .w-footer-phrase { width: 50% ; }
   .d-ml { display: block; }
@@ -253,6 +252,7 @@ $codeyellow: rgba(230, 219, 116, 1);
   .bg-ebook { background-image: url('../../images/bg-ebook-l.png'); }
   .asap-bg { background-image: url('../../images/team-l.png'); }
   .fheader { font-size: 9vw; }
+  .show-l { display: block !important; }
 }
 
 @media screen and (min-width: 1200px) {
@@ -271,24 +271,28 @@ $codeyellow: rgba(230, 219, 116, 1);
   .width-sols { width: 30%; }
 }
 
-@media screen and (min-width: 1366px) {
+@media screen and (min-width: 1367px) {
   .bg-ebook { background-image: url('../../images/bg-ebook-xl.png'); }
   .asap-bg { background-image: url('../../images/team-xl.png'); }
+  .show-xl { display: block !important; }
 }
 
-@media screen and (min-width: 1200px) and (max-width: 1366px) {
+@media screen and (min-width: 1201px) and (max-width: 1366px) {
   .bg-ebook { background-image: url('../../images/bg-ebook-ml.png'); }
   .asap-bg { background-image: url('../../images/team-ml.png'); }
+  .show-ml { display: block !important; }
 }
 
-@media screen and (min-width: 480px) and (max-width: 960px) {
+@media screen and (min-width: 481px) and (max-width: 960px) {
   .bg-ebook { background-image: url('../../images/bg-ebook-m.png'); }
   .asap-bg { background-image: url('../../images/team-m.png'); }
+  .show-m { display: block !important; }
 }
 
 @media screen and (max-width: 480px) {
   .bg-ebook { background-image: url('../../images/bg-ebook-s.png'); }
   .asap-bg { background-image: url('../../images/team-s.png'); }
+  .show-s { display: block !important; }
 }
 
 // Small screens
@@ -306,7 +310,6 @@ $codeyellow: rgba(230, 219, 116, 1);
   .fheader { font-size: 4.5rem; }
   .cover-s { background-size: cover; }
   .w-100-s { width: 100%; }
-  .asap-bg-s { background-image: url('../../images/bg-asap-mobile.png'); height: 25rem; }
   .nt-menu { margin-top: -.125rem; }
   .tracked-1 { letter-spacing: .06rem; }
   .w-products { width: 20rem; }
@@ -362,6 +365,7 @@ $codeyellow: rgba(230, 219, 116, 1);
   .ph-body { padding: 0 3.75rem; }
   .pl-body { padding-left: 3.75rem; }
   .w-footer-form { width: 30%; }
+  .mw-20 { max-width: 20rem; }
 }
 
 //Very large screens

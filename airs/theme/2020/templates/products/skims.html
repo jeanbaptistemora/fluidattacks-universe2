@@ -69,11 +69,11 @@
 {% endblock header %}
 
 {% block content %}
-<div class="tc pt3">
+<div class="tc pt3 flex nowrap items-center justify-center overflow-x-auto">
   <ul class="pl0">
     <li class="dib ph2">
       <a href="{{ SITEURL }}/products/integrates/"
-         class="c-fluid-gray f4 roboto fw7 no-underline">
+         class="c-fluid-gray f4 roboto fw7 no-underline hv-fluid-bk">
         Integrates
       </a>
     </li>
@@ -85,16 +85,162 @@
     </li>
     <li class="dib ph2">
       <a href="{{ SITEURL }}/products/drills/"
-      class="c-fluid-gray f4 roboto no-underline fw7">
+      class="c-fluid-gray f4 roboto no-underline fw7 hv-fluid-bk">
         Drills
       </a>
     </li>
     <li class="dib ph2">
       <a href="{{ SITEURL }}/products/forces/"
-      class="c-fluid-gray f4 roboto no-underline fw7">
+      class="c-fluid-gray f4 roboto no-underline fw7 hv-fluid-bk">
         Forces
       </a>
     </li>
   </ul>
+</div>
+<div class="flex justify-center items-center ph-body">
+  <div class="mw7 center">
+    <p class="roboto f3-l f4 fw3 lh-2">
+      <b class="fw6">Skims</b> is Fluid Attacks’ SAST tool in charge of
+      searching and detecting superficial or peripheral vulnerabilities in your
+      IT systems through an easy, accurate, and fast execution.
+      <b class="fw6">Skims</b> can be part of your entire SDLC and send
+      real-time reports of its findings to our Integrates platform, where you
+      can stay informed and make essential and prompt decisions. Beyond the
+      early identification of multiple weaknesses in your code,
+      <b class="fw6">Skims</b> can also automatically verify if they have been
+      successfully remediated, guaranteeing that you have a much more secure,
+      high-quality system before going into production.
+    </p>
+    <div class="center tc">
+      <a class="no-underline tc f3 menu-txt-trans roboto hv-fluid-rd "
+      href="{{ SITEURL }}/contact-us/">
+        <button class="tc outline-transparent fw7 br2 bw1 ph5 pv2 bg-transparent bc-fluid-red ba hv-fluid-rd hv-fluid-bd bt-trans c-dkred pointer">
+          Get a Quote
+        </button>
+      </a>
+    </div>
+  </div>
+</div>
+<h2 class="roboto c-fluid-bk f1 fw6 tc">Key Benefits</h2>
+<div class="w-100 flex-l pv4">
+  <div class="w-100">
+    <div class="w-50-l fl-l tl ph0-ns ph4">
+      <img
+      class="dn show-xl"
+      src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/products/skims/skims-screen-1-xl.png"
+      alt="Young hacker smiling">
+      <img
+      class="dn show-l"
+      src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/products/skims/skims-screen-1-l.png"
+      alt="Young hacker smiling">
+      <img
+      class="dn show-ml"
+      src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/products/skims/skims-screen-1-ml.png"
+      alt="Young hacker smiling">
+      <img
+      class="dn show-m"
+      src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/products/skims/skims-screen-1-m.png"
+      alt="Young hacker smiling">
+      <img
+      class="dn show-s"
+      src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/products/skims/skims-screen-1-s.png"
+      alt="Young hacker smiling">
+    </div>
+    <div class="w-50-l fr-l ph0-l ph4">
+      <ul class="tl roboto list pl0 mw-20">
+        <li class="c-fluid-bk pv3">
+          <h3 class="f3 fw6 mv0">
+            Location
+          </h3>
+          <p class="f5 fw3 mv0 lh-copy">
+            Reveals the exact location (i.e., line of code) and severity of each
+            finding.
+          </p>
+        </li>
+        <li class="c-fluid-bk pv3">
+          <h3 class="f3 fw6 mv0">
+            Low Rates
+          </h3>
+          <p class="f5 fw3 mv0 lh-copy">
+            Produces low false positives rates.
+          </p>
+        </li>
+        <li class="c-fluid-bk pv3">
+          <h3 class="f3 fw6 mv0">
+            Easy Integration
+          </h3>
+          <p class="f5 fw3 mv0 lh-copy">
+            Can be easily integrated into the CI/CD pipelines of your whole SDLC.
+          </p>
+        </li>
+        <li class="c-fluid-bk pv3">
+          <h3 class="f3 fw6 mv0">
+            Feedback
+          </h3>
+          <p class="f5 fw3 mv0 lh-copy">
+            Provides your developers with real-time feedback about the security
+            of what they are currently building.
+          </p>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="w-100 flex pv4">
+  <div class="w-100">
+    <div class="w-50-l fr-l tr ph0-ns ph4">
+      <img
+      class="dn show-xl fr"
+      src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/products/skims/skims-screen-2-xl.png"
+      alt="Young hacker smiling">
+      <img
+      class="dn show-l fr"
+      src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/products/skims/skims-screen-2-l.png"
+      alt="Young hacker smiling">
+      <img
+      class="dn show-ml fr"
+      src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/products/skims/skims-screen-2-ml.png"
+      alt="Young hacker smiling">
+      <img
+      class="dn show-m ml-auto"
+      src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/products/skims/skims-screen-2-m.png"
+      alt="Young hacker smiling">
+      <img
+      class="dn show-s"
+      src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/products/skims/skims-screen-2-s.png"
+      alt="Young hacker smiling">
+    </div>
+    <div class="w-50-l fl-l ph0-l ph4">
+      <ul class="tr-l tl roboto list pl0 mw-20 fr-l">
+        <li class="c-fluid-bk pv3">
+          <h3 class="f3 fw6 mv0">
+            Closure
+          </h3>
+          <p class="f5 fw3 mv0 lh-copy">
+            Tracks remediation, confirming when each vulnerability has been
+            effectively closed.
+          </p>
+        </li>
+        <li class="c-fluid-bk pv3">
+          <h3 class="f3 fw6 mv0">
+            Improvement
+          </h3>
+          <p class="f5 fw3 mv0 lh-copy">
+            Allows you to improve your applications security without slowing down
+            the development speed in your company.
+          </p>
+        </li>
+        <li class="c-fluid-bk pv3">
+          <h3 class="f3 fw6 mv0">
+            Optimum
+          </h3>
+          <p class="f5 fw3 mv0 lh-copy">
+            Perfectly complements the other Fluid Attacks products to optimize
+            your IT systems’ security within a DevSecOps approach.
+          </p>
+        </li>
+      </ul>
+    </div>
+  </div>
 </div>
 {% endblock content %}
