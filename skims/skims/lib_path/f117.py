@@ -101,6 +101,8 @@ async def analyze(
         'jasper',
         'pdb',
         'pyc',
+    } or (file_name, file_extension) in {
+        ('debug', 'log'),
     }:
         coroutines.append(unverifiable_files(
             file_name=file_name,
