@@ -48,12 +48,9 @@ The code is transparent and can be reviewed by anyone.
 All our source code can be found
 link:https://gitlab.com/fluidattacks[here].
 
-Besides, here is the commit history of all our repositories:
+Besides, here is the commit history of our public repository:
 
-- link:https://gitlab.com/fluidattacks/web/-/commits/master[Web]
-- link:https://gitlab.com/fluidattacks/integrates/-/commits/master[Integrates]
-- link:https://gitlab.com/fluidattacks/asserts/-/commits/master[Asserts]
-- link:https://gitlab.com/fluidattacks/public/-/commits/master[Public]
+- link:https://gitlab.com/fluidattacks/product/-/commits/master[Product]
 
 === 1.2 Public incidents
 

@@ -22,7 +22,7 @@ even if it was not obtained from the users but from a third party.
 
 == Findings
 
-* [inner]#link:/web/findings/088/[F088. Privacy violation]#
+* [inner]#link:/findings/088/[F088. Privacy violation]#
 
 == Exceptions
 

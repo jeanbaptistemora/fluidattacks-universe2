@@ -23,7 +23,7 @@ the system must ascertain the user's ownership of the corresponding account.
 
 == Findings
 
-* [inner]#link:/web/findings/033/[F033. Password change without identity check]#
+* [inner]#link:/findings/033/[F033. Password change without identity check]#
 
 == References
 

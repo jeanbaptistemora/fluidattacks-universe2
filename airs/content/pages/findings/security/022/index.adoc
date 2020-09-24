@@ -14,4 +14,4 @@ clear text.
 
 == Rules
 
-. [[r1]] [inner]#link:/web/rules/181/[R181. Transmit data using secure protocols]#
+. [[r1]] [inner]#link:/rules/181/[R181. Transmit data using secure protocols]#

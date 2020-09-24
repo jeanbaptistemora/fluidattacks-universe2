@@ -24,15 +24,15 @@ information.
 
 == Findings
 
-* [inner]#link:/web/findings/019/[F019. Administrative credentials stored in cache memory]#
+* [inner]#link:/findings/019/[F019. Administrative credentials stored in cache memory]#
 
-* [inner]#link:/web/findings/028/[F028. Insecure temporary files]#
+* [inner]#link:/findings/028/[F028. Insecure temporary files]#
 
-* [inner]#link:/web/findings/038/[F038. Business information leak]#
+* [inner]#link:/findings/038/[F038. Business information leak]#
 
-* [inner]#link:/web/findings/065/[F065. Cached form fields]#
+* [inner]#link:/findings/065/[F065. Cached form fields]#
 
-* [inner]#link:/web/findings/085/[F085. Sensitive data stored in the client-side storage]#
+* [inner]#link:/findings/085/[F085. Sensitive data stored in the client-side storage]#
 
 == References
 

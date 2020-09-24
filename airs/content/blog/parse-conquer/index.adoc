@@ -94,7 +94,7 @@ def uses_des_algorithm(java_dest: str, exclude: list = None) -> bool:
     """
     Check if code uses DES as encryption algorithm.
 
-    See `REQ.150 <https://fluidattacks.com/web/es/rules/149/>`_.
+    See `REQ.150 <https://fluidattacks.com/es/rules/149/>`_.
 
     :param java_dest: Path to a Java source file or package.
     """

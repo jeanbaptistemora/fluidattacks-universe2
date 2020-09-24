@@ -12,4 +12,4 @@ The system must not deploy temporary files to production environments.
 
 == Findings
 
-* [inner]#link:/web/findings/028/[F028. Insecure temporary files]#
+* [inner]#link:/findings/028/[F028. Insecure temporary files]#

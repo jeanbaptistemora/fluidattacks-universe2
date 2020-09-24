@@ -293,7 +293,7 @@ when merged with tools like mypy,
 which turns very tedious processes into a matter of seconds.
 If you still do not know much about functional programming
 or functional programming in Python, we invite you to read
-[button]#link:/web/blog/why-we-go-functional/[Why we go functional?]#
+[button]#link:/blog/why-we-go-functional/[Why we go functional?]#
 and
-[button]#link:/web/blog/road-to-functional-python/[Road to functional Python]#.
+[button]#link:/blog/road-to-functional-python/[Road to functional Python]#.
 You already have the knowledge, so will you check types?

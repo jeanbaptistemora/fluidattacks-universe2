@@ -22,7 +22,7 @@ allowed to fall back to insecure or unencrypted protocols.
 
 == Findings
 
-* [inner]#link:/web/findings/052/[F052. Insecure encryption algorithm]#
+* [inner]#link:/findings/052/[F052. Insecure encryption algorithm]#
 
 == References
 

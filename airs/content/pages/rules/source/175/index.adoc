@@ -23,7 +23,7 @@ embedded in malicious sites (e.g. "**X-Frame-Options**").
 
 == Findings
 
-* [inner]#link:/web/findings/043/[F043. Improperly set HTTP headers]#
+* [inner]#link:/findings/043/[F043. Improperly set HTTP headers]#
 
 == References
 

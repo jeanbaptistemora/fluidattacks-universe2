@@ -57,11 +57,11 @@ and detect potential security issues.
 
 == Findings
 
-* [inner]#link:/web/findings/060/[F060. Insecure exceptions]#
+* [inner]#link:/findings/060/[F060. Insecure exceptions]#
 
-* [inner]#link:/web/findings/061/[F061. Errors without traceability]#
+* [inner]#link:/findings/061/[F061. Errors without traceability]#
 
-* [inner]#link:/web/findings/073/[F073. Conditional statement without a default option]#
+* [inner]#link:/findings/073/[F073. Conditional statement without a default option]#
 
 == References
 

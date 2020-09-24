@@ -26,9 +26,9 @@ it should merely be referenced and managed using a package manager.
 
 == Findings
 
-* [inner]#link:/web/findings/079/[F079. Non-upgradable dependencies]#
+* [inner]#link:/findings/079/[F079. Non-upgradable dependencies]#
 
-* [inner]#link:/web/findings/120/[F120. Improper dependency pinning]#
+* [inner]#link:/findings/120/[F120. Improper dependency pinning]#
 
 == References
 

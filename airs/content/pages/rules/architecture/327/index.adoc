@@ -25,13 +25,13 @@ request flow between a host and the server.
 
 == Findings
 
-* [inner]#link:/web/findings/003/[F003. Symmetric denial of service]#
+* [inner]#link:/findings/003/[F003. Symmetric denial of service]#
 
-* [inner]#link:/web/findings/047/[F047. Automatic information enumeration]#
+* [inner]#link:/findings/047/[F047. Automatic information enumeration]#
 
-* [inner]#link:/web/findings/053/[F053. Lack of protection against brute force attacks]#
+* [inner]#link:/findings/053/[F053. Lack of protection against brute force attacks]#
 
-* [inner]#link:/web/findings/108/[F108. Improper control of interaction frequency]#
+* [inner]#link:/findings/108/[F108. Improper control of interaction frequency]#
 
 == References
 

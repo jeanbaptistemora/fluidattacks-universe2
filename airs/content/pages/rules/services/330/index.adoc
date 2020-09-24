@@ -21,7 +21,7 @@ in case those systems are compromised.
 
 == Findings
 
-* [inner]#link:/web/findings/086/[F086. Missing subresource integrity check]#
+* [inner]#link:/findings/086/[F086. Missing subresource integrity check]#
 
 == References
 

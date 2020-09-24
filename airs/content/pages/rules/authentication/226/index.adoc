@@ -13,7 +13,7 @@ after one or several failed authentication attempts.
 
 == Findings
 
-* [inner]#link:/web/findings/087/[F087. Account lockout]#
+* [inner]#link:/findings/087/[F087. Account lockout]#
 
 == References
 

@@ -623,12 +623,9 @@ and implementing tools for checks like `Commitlint`,
 being Data Analytics the most important one.
 
 I invite you to check the commit history
-of our public repositories:
+of our public repository:
 
-* link:https://gitlab.com/fluidattacks/integrates/commits/master[Integrates]
-* link:https://gitlab.com/fluidattacks/asserts/commits/master[Asserts]
-* link:https://gitlab.com/fluidattacks/web/commits/master[Web]
-* link:https://gitlab.com/fluidattacks/default/commits/master[Default]
+* link:https://gitlab.com/fluidattacks/product/commits/master[Product]
 
 === Want to get more technical?
 

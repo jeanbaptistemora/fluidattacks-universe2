@@ -21,7 +21,7 @@ from being recovered.
 
 == Findings
 
-* [inner]#link:/web/findings/082/[F082. Insecurely deleted files]#
+* [inner]#link:/findings/082/[F082. Insecurely deleted files]#
 
 == References
 

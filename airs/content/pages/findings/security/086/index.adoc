@@ -13,8 +13,8 @@ third-party servers.
 
 == Rules
 
-. [[r1]] [inner]#link:/web/rules/178/[R178. Use digital signatures]#
+. [[r1]] [inner]#link:/rules/178/[R178. Use digital signatures]#
 
-. [[r2]] [inner]#link:/web/rules/262/[R262. Verify third-party components]#
+. [[r2]] [inner]#link:/rules/262/[R262. Verify third-party components]#
 
-. [[r3]] [inner]#link:/web/rules/330/[R330. Verify Subresource Integrity]#
+. [[r3]] [inner]#link:/rules/330/[R330. Verify Subresource Integrity]#

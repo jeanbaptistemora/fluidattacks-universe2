@@ -18,4 +18,4 @@ the same email address.
 
 == Rules
 
-. [[r1]] [inner]#link:/web/rules/121/[R121. Guarantee uniqueness of emails]#
+. [[r1]] [inner]#link:/rules/121/[R121. Guarantee uniqueness of emails]#

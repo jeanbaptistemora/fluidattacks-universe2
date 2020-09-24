@@ -19,7 +19,7 @@ as some special flows go unnoticed.
 
 == Findings
 
-* [inner]#link:/web/findings/060/[F060. Insecure exceptions]#
+* [inner]#link:/findings/060/[F060. Insecure exceptions]#
 
 == Rereferences
 

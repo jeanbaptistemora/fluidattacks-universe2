@@ -15,8 +15,8 @@ This is the basis for several types of injections.
 
 == Rules
 
-. [[r1]] [inner]#link:/web/rules/173/[R173. Discard unsafe inputs]#
+. [[r1]] [inner]#link:/rules/173/[R173. Discard unsafe inputs]#
 
-. [[r2]] [inner]#link:/web/rules/320/[R320. Avoid client-side control enforcement]#
+. [[r2]] [inner]#link:/rules/320/[R320. Avoid client-side control enforcement]#
 
-. [[r3]] [inner]#link:/web/rules/342/[R342. Validate request parameters]#
+. [[r3]] [inner]#link:/rules/342/[R342. Validate request parameters]#

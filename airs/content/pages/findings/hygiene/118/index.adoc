@@ -12,4 +12,4 @@ The system violates regulations of a jurisdiction to which it is subject.
 
 == Rules
 
-. [[r1]] [inner]#link:/web/rules/331/[R331. Guarantee legal compliance]#
+. [[r1]] [inner]#link:/rules/331/[R331. Guarantee legal compliance]#

@@ -25,7 +25,7 @@ increased.
 
 == Findings
 
-* [inner]#link:/web/findings/076/[F076. Insecure session management]#
+* [inner]#link:/findings/076/[F076. Insecure session management]#
 
 == References
 

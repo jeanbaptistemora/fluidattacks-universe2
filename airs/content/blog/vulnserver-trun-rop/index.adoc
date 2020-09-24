@@ -195,7 +195,7 @@ Vulnerable Software: Vulnserver
 Version: 1.00
 Exploit Author: Andres Roldan
 Tested On: Windows 10 20H2
-Writeup: https://fluidattacks.com/web/blog/vulnserver-trun-rop/
+Writeup: https://fluidattacks.com/blog/vulnserver-trun-rop/
 """
 
 import socket
@@ -511,7 +511,7 @@ Vulnerable Software: Vulnserver
 Version: 1.00
 Exploit Author: Andres Roldan
 Tested On: Windows 10 20H2
-Writeup: https://fluidattacks.com/web/blog/vulnserver-trun-rop/
+Writeup: https://fluidattacks.com/blog/vulnserver-trun-rop/
 """
 
 import socket
@@ -643,7 +643,7 @@ Vulnerable Software: Vulnserver
 Version: 1.00
 Exploit Author: Andres Roldan
 Tested On: Windows 10 20H2
-Writeup: https://fluidattacks.com/web/blog/vulnserver-trun-rop/
+Writeup: https://fluidattacks.com/blog/vulnserver-trun-rop/
 """
 
 import socket

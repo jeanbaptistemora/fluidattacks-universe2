@@ -12,7 +12,7 @@ The source code must not have repeated functions, methods or classes.
 
 == Findings
 
-* [inner]#link:/web/findings/072/[F072. Duplicate code]#
+* [inner]#link:/findings/072/[F072. Duplicate code]#
 
 == References
 

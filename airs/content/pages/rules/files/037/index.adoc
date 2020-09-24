@@ -60,7 +60,7 @@ the attacker may block the system access to all users.
 
 == Findings
 
-* [inner]#link:/web/findings/098/[F098. External control of file name or path]#
+* [inner]#link:/findings/098/[F098. External control of file name or path]#
 
 == References
 

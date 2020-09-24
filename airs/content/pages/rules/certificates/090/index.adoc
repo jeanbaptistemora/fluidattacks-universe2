@@ -12,7 +12,7 @@ The system must not use expired digital certificates.
 
 == Findings
 
-* [inner]#link:/web/findings/049/[F049. Insecure digital certificates]#
+* [inner]#link:/findings/049/[F049. Insecure digital certificates]#
 
 == References
 

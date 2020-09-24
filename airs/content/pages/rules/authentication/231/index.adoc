@@ -24,9 +24,9 @@ it should only be a secondary factor.
 
 == Findings
 
-* [inner]#link:/web/findings/006/[F006. Authentication mechanism absence or evasion]#
+* [inner]#link:/findings/006/[F006. Authentication mechanism absence or evasion]#
 
-* [inner]#link:/web/findings/081/[F081. Lack of two-factor authentication]#
+* [inner]#link:/findings/081/[F081. Lack of two-factor authentication]#
 
 == References
 

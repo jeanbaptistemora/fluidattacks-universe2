@@ -24,13 +24,13 @@ which it is interacting is a human being.
 
 == Findings
 
-* [inner]#link:/web/findings/003/[F003. Symmetric denial of service]#
+* [inner]#link:/findings/003/[F003. Symmetric denial of service]#
 
-* [inner]#link:/web/findings/047/[F047. Automatic information enumeration]#
+* [inner]#link:/findings/047/[F047. Automatic information enumeration]#
 
-* [inner]#link:/web/findings/053/[F053. Lack of protection against brute force attacks]#
+* [inner]#link:/findings/053/[F053. Lack of protection against brute force attacks]#
 
-* [inner]#link:/web/findings/069/[F069. Weak CAPTCHA]#
+* [inner]#link:/findings/069/[F069. Weak CAPTCHA]#
 
 == References
 

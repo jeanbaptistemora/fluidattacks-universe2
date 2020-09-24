@@ -13,7 +13,7 @@ the format (structure) of the files corresponds to their extension.
 
 == Findings
 
-* [inner]#link:/web/findings/027/[F027. Insecure file upload]#
+* [inner]#link:/findings/027/[F027. Insecure file upload]#
 
 == References
 

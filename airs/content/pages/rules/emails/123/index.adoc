@@ -23,7 +23,7 @@ email distribution lists.
 
 == Findings
 
-* [inner]#link:/web/findings/038/[F038. Business information leak]#
+* [inner]#link:/findings/038/[F038. Business information leak]#
 
 == References
 

@@ -13,7 +13,7 @@ when it is deployed to the production environment.
 
 == Findings
 
-* [inner]#link:/web/findings/074/[F074. Commented-out code]#
+* [inner]#link:/findings/074/[F074. Commented-out code]#
 
 == References
 

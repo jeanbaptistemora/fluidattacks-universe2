@@ -13,7 +13,7 @@ before sharing it or making it public.
 
 == Findings
 
-* [inner]#link:/web/findings/119/[F119. Metadata with sensitive information]#
+* [inner]#link:/findings/119/[F119. Metadata with sensitive information]#
 
 == References
 

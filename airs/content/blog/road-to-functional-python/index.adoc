@@ -43,7 +43,7 @@ If this is your case, do not feel bad,
 you can't walk if you don't even know how to stand,
 so go and scrape your knees in a Python playground.
 Also, get some context by reading
-[button]#link:/web/blog/why-we-go-functional/[Why we go functional?]#,
+[button]#link:/blog/why-we-go-functional/[Why we go functional?]#,
 which is the prequel of this article.
 When you think you're ready,
 come back to the road, always be waiting for you.

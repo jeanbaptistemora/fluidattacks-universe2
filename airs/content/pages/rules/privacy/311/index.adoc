@@ -22,7 +22,7 @@ grant of the consent.
 
 == Findings
 
-* [inner]#link:/web/findings/088/[F088. Privacy violation]#
+* [inner]#link:/findings/088/[F088. Privacy violation]#
 
 == References
 

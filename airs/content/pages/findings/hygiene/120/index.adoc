@@ -13,4 +13,4 @@ it depends.
 
 == Rules
 
-. [[r1]] [inner]#link:/web/rules/302/[R302. Declare dependencies explicitly]#
+. [[r1]] [inner]#link:/rules/302/[R302. Declare dependencies explicitly]#

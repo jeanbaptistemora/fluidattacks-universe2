@@ -73,7 +73,7 @@ Vulnerable Software: HackSysExtremeVulnerableDrive
 Version: 3.00
 Exploit Author: Andres Roldan
 Tested On: Windows 10 1703
-Writeup: https://fluidattacks.com/web/blog/hevd-smep-bypass/
+Writeup: https://fluidattacks.com/blog/hevd-smep-bypass/
 """
 
 from infi.wioctl import DeviceIoControl
@@ -111,7 +111,7 @@ Vulnerable Software: HackSysExtremeVulnerableDrive
 Version: 3.00
 Exploit Author: Andres Roldan
 Tested On: Windows 10 1703
-Writeup: https://fluidattacks.com/web/blog/hevd-smep-bypass/
+Writeup: https://fluidattacks.com/blog/hevd-smep-bypass/
 """
 
 from infi.wioctl import DeviceIoControl
@@ -154,7 +154,7 @@ Vulnerable Software: HackSysExtremeVulnerableDrive
 Version: 3.00
 Exploit Author: Andres Roldan
 Tested On: Windows 10 1703
-Writeup: https://fluidattacks.com/web/blog/hevd-smep-bypass/
+Writeup: https://fluidattacks.com/blog/hevd-smep-bypass/
 """
 
 import struct
@@ -325,7 +325,7 @@ Vulnerable Software: HackSysExtremeVulnerableDrive
 Version: 3.00
 Exploit Author: Andres Roldan
 Tested On: Windows 10 1703
-Writeup: https://fluidattacks.com/web/blog/hevd-smep-bypass/
+Writeup: https://fluidattacks.com/blog/hevd-smep-bypass/
 """
 
 import struct

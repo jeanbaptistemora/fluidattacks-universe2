@@ -13,7 +13,7 @@ must not display *HTML* code by default.
 
 == Findings
 
-* [inner]#link:/web/findings/114/[F114. Phishing]#
+* [inner]#link:/findings/114/[F114. Phishing]#
 
 == References
 

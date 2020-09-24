@@ -13,7 +13,7 @@ must be checked with an *anti-spam* filter.
 
 == Findings
 
-* [inner]#link:/web/findings/114/[F114. Phishing]#
+* [inner]#link:/findings/114/[F114. Phishing]#
 
 == References
 

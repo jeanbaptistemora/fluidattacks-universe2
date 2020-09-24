@@ -23,7 +23,7 @@ system from obtaining the information.
 
 == Findings
 
-* [inner]#link:/web/findings/020/[F020. Non-encrypted confidential information]#
+* [inner]#link:/findings/020/[F020. Non-encrypted confidential information]#
 
 == References
 

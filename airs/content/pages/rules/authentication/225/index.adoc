@@ -24,7 +24,7 @@ that they can use in brute force attacks.
 
 == Findings
 
-* [inner]#link:/web/findings/026/[F026. User enumeration]#
+* [inner]#link:/findings/026/[F026. User enumeration]#
 
 == References
 

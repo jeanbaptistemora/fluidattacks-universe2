@@ -13,4 +13,4 @@ with a validity greater than two years.
 
 == Findings
 
-* [inner]#link:/web/findings/049/[F049. Insecure digital certificates]#
+* [inner]#link:/findings/049/[F049. Insecure digital certificates]#

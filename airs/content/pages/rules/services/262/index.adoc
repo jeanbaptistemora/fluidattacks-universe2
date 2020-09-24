@@ -66,9 +66,9 @@ present in the in-use version of the product.
 
 == Findings
 
-* [inner]#link:/web/findings/011/[F011. Use of software with known vulnerabilities]#
+* [inner]#link:/findings/011/[F011. Use of software with known vulnerabilities]#
 
-* [inner]#link:/web/findings/086/[F086. Missing subresource integrity check]#
+* [inner]#link:/findings/086/[F086. Missing subresource integrity check]#
 
 == References
 

@@ -26,6 +26,6 @@ caught by the "*catch*" statement.
 
 == Rules
 
-. [[r1]] [inner]#link:/web/rules/161/[R161. Define secure default options]#
+. [[r1]] [inner]#link:/rules/161/[R161. Define secure default options]#
 
-. [[r2]] [inner]#link:/web/rules/359/[R359. Avoid using generic exceptions]#
+. [[r2]] [inner]#link:/rules/359/[R359. Avoid using generic exceptions]#
