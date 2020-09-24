@@ -104,7 +104,6 @@ function helper_skims_get_group_config_as_json {
           "glob(**/*sjcl*)",
           "glob(**/cryptojs/components/core.js)",
           "glob(**/modernizr.js)",
-          "glob(**/test)",
           "glob(**/UI/AutocompleteGenerico)",
           "glob(**/UI/Tabs)"
         ]
