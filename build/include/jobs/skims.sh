@@ -24,7 +24,7 @@ declare -Arx SKIMS_GLOBAL_TEST_PKGS=(
 )
 
 function job_skims_documentation {
-  local bucket_path='s3://web.fluidattacks.com/web/resources/doc/skims/'
+  local bucket_path='s3://web.fluidattacks.com/resources/doc/skims/'
 
       helper_skims_compile_ast \
   &&  helper_skims_install_dependencies \
