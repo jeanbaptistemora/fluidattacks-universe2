@@ -50,7 +50,7 @@ function job_observes_mandrill {
 }
 
 function job_observes_gitlab {
-      helper_use_pristine_workdir \
+      helper_use_observes_workdir \
   &&  env_prepare_python_packages \
   &&  helper_observes_gitlab \
   ||  return 1
