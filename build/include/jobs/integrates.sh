@@ -353,6 +353,11 @@ function job_integrates_functional_tests_back {
   local common_args=(
     --ds 'fluidintegrates.settings'
     --verbose
+    --cov "${pyPkgIntegratesBack}/site-packages/backend"
+    --cov-report 'term'
+    --cov-report 'html:build/coverage/functional/html'
+    --cov-report 'xml:build/coverage/functional/results.xml'
+    --cov-report 'annotate:build/coverage/functional/annotate'
     --disable-warnings
   )
 
