@@ -13,6 +13,7 @@ from aws.iam.utils import (
 )
 from aws.model import (
     AWSIamPolicyStatement,
+    AWSIamManagedPolicyArns,
 )
 
 
@@ -63,3 +64,15 @@ def _iterate_iam_policy_documents(
         if kind in {'AWS::IAM::Role'}:
             document = props.get('AssumeRolePolicyDocument', {})
             yield from yield_statements_from_policy_document(document)
+
+
+def iterate_managed_policy_arns(
+    template: Any,
+) -> Iterator[AWSIamManagedPolicyArns]:
+    for _, _, props in iterate_resources(template, 'AWS::IAM'):
+        if policies := props.get('ManagedPolicyArns', None):
+            yield AWSIamManagedPolicyArns(
+                column=policies.__column__,
+                data=policies,
+                line=policies.__line__,
+            )

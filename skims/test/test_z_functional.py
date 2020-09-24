@@ -253,6 +253,8 @@ async def test_correct_assert(
             ('test/data/lib_path/f031_aws/cfn_negative_statement.yaml.json', '19'),
             ('test/data/lib_path/f031_aws/cfn_negative_statement.yaml.json', '24'),
             ('test/data/lib_path/f031_aws/cfn_negative_statement.yaml.json', '49'),
+            ('test/data/lib_path/f031_aws/cfn_open_admin_policy_attached.yaml', '5'),
+            ('test/data/lib_path/f031_aws/cfn_open_admin_policy_attached.yaml.json','6'),
             ('test/data/lib_path/f031_aws/cfn_open_passrole.yaml', '16'),
             ('test/data/lib_path/f031_aws/cfn_open_passrole.yaml', '7'),
             ('test/data/lib_path/f031_aws/cfn_open_passrole.yaml.json', '24'),

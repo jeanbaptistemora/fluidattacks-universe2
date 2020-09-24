@@ -6,6 +6,7 @@ from typing import (
     Iterator,
     List,
     Tuple,
+    Union,
 )
 
 # Third party libraries
@@ -20,6 +21,7 @@ from aws.iam.structure import (
     is_resource_permissive,
 )
 from aws.model import (
+    AWSIamManagedPolicyArns,
     AWSIamPolicyStatement,
 )
 from aws.iam.utils import (
@@ -35,6 +37,7 @@ from parse_cfn.loader import (
 )
 from parse_cfn.structure import (
     iterate_iam_policy_documents as cfn_iterate_iam_policy_documents,
+    iterate_managed_policy_arns as cnf_iterate_managed_policy_arns,
 )
 from parse_hcl2.loader import (
     load as load_terraform,
@@ -71,7 +74,8 @@ def _create_vulns(
     content: str,
     description_key: str,
     path: str,
-    statements_iterator: Iterator[AWSIamPolicyStatement],
+    statements_iterator: Iterator[Union[AWSIamManagedPolicyArns,
+                                        AWSIamPolicyStatement]],
 ) -> Tuple[Vulnerability, ...]:
     return tuple(
         Vulnerability(
@@ -146,6 +150,20 @@ def _open_passrole_iterate_vulnerabilities(
                 any(map(is_resource_permissive, resources)),
             )):
                 yield stmt
+
+
+def _admin_policies_attached_iterate_vulnerabilities(
+    managed_policies_iterator: Iterator[AWSIamManagedPolicyArns],
+) -> Iterator[AWSIamManagedPolicyArns]:
+    elevated_policies = {
+        'arn:aws:iam::aws:policy/PowerUserAccess',
+        'arn:aws:iam::aws:policy/IAMFullAccess',
+        'arn:aws:iam::aws:policy/AdministratorAccess',
+    }
+    for policies in managed_policies_iterator:
+        if any(policy in elevated_policies
+               for policy in policies.data or list()):
+            yield policies
 
 
 def _cfn_negative_statement(
@@ -246,6 +264,20 @@ def _cfn_open_passrole(
     )
 
 
+def _cfn_admin_policy_attached(
+    content: str,
+    path: str,
+    template: Any,
+) -> Tuple[Vulnerability, ...]:
+    return _create_vulns(
+        content=content,
+        description_key='src.lib_path.f031_aws.permissive_policy',
+        path=path,
+        statements_iterator=_admin_policies_attached_iterate_vulnerabilities(
+            managed_policies_iterator=cnf_iterate_managed_policy_arns(
+                template=template)))
+
+
 @cache_decorator()
 @SHIELD
 async def cfn_open_passrole(
@@ -260,6 +292,22 @@ async def cfn_open_passrole(
     #             PassRole action
     return await in_process(
         _cfn_open_passrole,
+        content=content,
+        path=path,
+        template=template,
+    )
+
+
+@cache_decorator()
+@SHIELD
+async def cfn_admin_policy_attached(
+    content: str,
+    path: str,
+    template: Any,
+) -> Tuple[Vulnerability, ...]:
+    # cfn_nag W43 IAM role should not have AdministratorAccess policy
+    return await in_process(
+        _cfn_admin_policy_attached,
         content=content,
         path=path,
         template=template,
@@ -403,6 +451,11 @@ async def analyze(
             template=template,
         ))
         coroutines.append(cfn_permissive_policy(
+            content=content,
+            path=path,
+            template=template,
+        ))
+        coroutines.append(cfn_admin_policy_attached(
             content=content,
             path=path,
             template=template,

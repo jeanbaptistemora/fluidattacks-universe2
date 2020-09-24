@@ -64,6 +64,20 @@ def overloaded_construct_mapping(
     return mapping
 
 
+def overloaded_construct_sequence(
+    self: yaml.Loader,
+    node: yaml.Node,
+    deep: bool = False,
+) -> Any:
+    return CustomList(
+        [
+            self.construct_object(child, deep=deep)  # type: ignore
+            for child in node.value
+        ],
+        column=node.start_mark.column,
+        line=node.start_mark.line)
+
+
 def overloaded_multi_constructor(
     loader: yaml.Loader,
     tag_suffix: str,
@@ -180,4 +194,5 @@ Loader.add_constructor(
     overloaded_construct_yaml_timestamp,
 )
 Loader.add_constructor(TAG_MAP, overloaded_construct_mapping)
+Loader.add_constructor('tag:yaml.org,2002:seq', overloaded_construct_sequence)
 Loader.add_multi_constructor("!", overloaded_multi_constructor)
