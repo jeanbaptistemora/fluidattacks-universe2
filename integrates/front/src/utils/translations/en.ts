@@ -535,6 +535,8 @@ export const enTranslations: ResourceKey = {
     invalid: "is invalid",
     invalid_date:
       "The date must be minor than six month and greater than current date",
+    invalid_n_of_vulns:
+      "You can upload a maximum of 100 vulnerabilities per file",
     invalid_schema: "The uploaded file does not match the schema",
     invalid_specific: "Invalid field/line/port",
     invalid_structure: "The provided file has a wrong structure",

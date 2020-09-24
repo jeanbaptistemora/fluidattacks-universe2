@@ -87,8 +87,12 @@ const uploadVulnerabilities: ((props: IVulnerabilitiesViewProps) => JSX.Element)
         const errorObject: IErrorInfo = JSON.parse(message);
         msgErrorStick(`${translate.t("group_alerts.port_value")}
           ${formatError("group_alerts.value", errorObject.values)}`);
+      // We have multiple includes()
+      // tslint:disable-next-line: prefer-switch
       } else if (message === "Exception - Error in specific value") {
         msgError(translate.t("group_alerts.invalid_specific"));
+      } else if (message === "Exception - You can upload a maximum of 100 vulnerabilities per file") {
+        msgError(translate.t("group_alerts.invalid_n_of_vulns"));
       } else if (message === "Exception - Error Uploading File to S3") {
         msgError(translate.t("group_alerts.error_textsad"));
       } else {

@@ -96,6 +96,16 @@ class InvalidNumberAcceptations(Exception):
         super(InvalidNumberAcceptations, self).__init__(msg)
 
 
+class InvalidVulnsNumber(Exception):
+    """Exception to control number of vulnerabilities provided to upload."""
+    def __init__(self) -> None:
+        msg = (
+            'Exception - You can upload a maximum of '
+            '100 vulnerabilities per file'
+        )
+        super(InvalidVulnsNumber, self).__init__(msg)
+
+
 class InvalidRange(Exception):
     """Exception to control valid range in vulnerabilities."""
     def __init__(self, expr: str = '') -> None:
