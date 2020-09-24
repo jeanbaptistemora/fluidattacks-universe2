@@ -81,7 +81,7 @@ function helper_airs_deploy_sync_s3 {
               "s3://${bucket_path}/"           \
               --acl public-read                \
               --exclude "*"                    \
-              --exclude "web/resources/doc/*"  \
+              --exclude "resources/doc/*"  \
               --include "*.${extension}"       \
               --metadata-directive REPLACE     \
               --content-type "${content_type}" \
@@ -97,11 +97,11 @@ function helper_airs_deploy_sync_s3 {
         --exclude "*.js"                \
         --exclude "*.png"               \
         --exclude "*.svg"               \
-        --exclude "web/resources/doc/*" \
+        --exclude "resources/doc/*" \
         --delete
 }
 
-function helper_airs_deploy_compile_web {
+function helper_airs_compile {
   local target="${1}"
 
       env_prepare_python_packages \
@@ -113,15 +113,13 @@ function helper_airs_deploy_compile_web {
   &&  npm run --prefix theme/2020/ build \
   &&  sed -i "s#\$flagsImagePath:.*#\$flagsImagePath:\ \"../../images/\";#" "theme/2020/node_modules/intl-tel-input/src/css/intlTelInput.scss" \
   &&  cp -a "${STARTDIR}/airs/cache" . || true \
-  &&  echo '[INFO] Compiling Web site' \
+  &&  echo '[INFO] Compiling website' \
   &&  pelican --fatal errors --fatal warnings content/ \
-  &&  echo '[INFO] Finished compiling Web site' \
+  &&  echo '[INFO] Finished compiling website' \
   &&  cp -a cache/ "${STARTDIR}/airs" || true \
-  &&  rm -rf output/web/de \
-  &&  mv output/web/pages/* output/web/ \
-  &&  rm -rf output/web/pages \
-  &&  cp sitemap.xml output/sitemap.xml \
-  &&  tail -n +6 output/web/sitemap.xml >> output/sitemap.xml \
-  &&  cp robots.txt output/ \
-  &&  rm output/web/sitemap.xml
+  &&  rm -rf output/de \
+  &&  mv output/pages/* output/ \
+  &&  rm -rf output/pages \
+  &&  cp sitemap.xml output/ \
+  &&  cp robots.txt output/
 }

@@ -101,7 +101,7 @@ airs_deploy_ephemeral:
   stage: deploy-app
   environment:
     name: ephemeral/${CI_COMMIT_REF_NAME}
-    url: https://web.eph.fluidattacks.com/${CI_COMMIT_REF_NAME}/web/
+    url: https://web.eph.fluidattacks.com/${CI_COMMIT_REF_NAME}/
     on_stop: airs_deploy_stop_ephemeral
   cache:
     key: ${CI_JOB_NAME}-${CI_COMMIT_REF_SLUG}

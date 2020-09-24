@@ -14,7 +14,7 @@ THEME = 'theme/2020/'
 TIMEZONE = 'America/Bogota'
 DEFAULT_DATE_FORMAT = ('%Y-%m-%d')
 DEFAULT_LANG = 'de'
-OUTPUT_PATH = 'output/web/de'
+OUTPUT_PATH = 'output/de'
 
 # URLs format
 PATH = 'content'
@@ -72,8 +72,8 @@ DEFAULT_PAGINATION = 12
 JINJA_ENVIRONMENT = {'extensions': ['jinja2.ext.i18n', 'jinja2.ext.do']}
 
 SITENAME = 'A Pentesting Company | Fluid Attacks'
-SITEURL = 'https://fluidattacks.com/web'
-OUTPUT_PATH = 'output/web'
+SITEURL = 'https://fluidattacks.com'
+OUTPUT_PATH = 'output'
 THEME = 'theme/2020/'
 ARTICLE_PATHS = ['blog']
 PAGE_PATHS = ['pages']
@@ -92,11 +92,11 @@ CATEGORIES_SAVE_AS = 'blog/categories/index.html'
 CATEGORIES_URL = 'blog/categories/'
 CATEGORY_SAVE_AS = 'blog/categories/{slug}/index.html'
 CATEGORY_URL = 'blog/categories/{slug}/'
-ASCIIDOC_OPTIONS = ['-a icons', '-a iconsdir=/web/images/icons',
-                    '-a tooltip=/web/images/icons/tooltip.png']
+ASCIIDOC_OPTIONS = ['-a icons', '-a iconsdir=/images/icons',
+                    '-a tooltip=/images/icons/tooltip.png']
 
 SUBSITE_LANG = {
-    'en': 'fluidattacks.com/web',
+    'en': 'fluidattacks.com',
 }
 ASSET_BUNDLES = (
     ('bundle', [

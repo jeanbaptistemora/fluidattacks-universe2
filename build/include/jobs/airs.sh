@@ -205,7 +205,7 @@ function job_airs_deploy_local {
       helper_use_pristine_workdir \
   &&  pushd airs \
   &&  helper_airs_set_lc_all \
-  &&  helper_airs_deploy_compile_web 'http://localhost:8000' \
+  &&  helper_airs_compile 'http://localhost:8000' \
   &&  python3 -m http.server --directory output \
   &&  popd \
   ||  return 1
@@ -216,7 +216,7 @@ function job_airs_deploy_ephemeral {
   &&  pushd airs \
   &&  helper_airs_set_lc_all \
   &&  helper_airs_aws_login development \
-  &&  helper_airs_deploy_compile_web "https://web.eph.fluidattacks.com/${CI_COMMIT_REF_NAME}" \
+  &&  helper_airs_compile "https://web.eph.fluidattacks.com/${CI_COMMIT_REF_NAME}" \
   &&  helper_airs_deploy_sync_s3 'output/' "web.eph.fluidattacks.com/${CI_COMMIT_REF_NAME}" \
   &&  popd \
   ||  return 1
@@ -236,8 +236,8 @@ function job_airs_deploy_production {
   &&  pushd airs \
   &&  helper_airs_set_lc_all \
   &&  helper_airs_aws_login production \
-  &&  helper_airs_deploy_compile_web 'https://fluidattacks.com' \
-  &&  helper_airs_deploy_sync_s3 'output/' 'web.fluidattacks.com' \
+  &&  helper_airs_compile 'https://fluidattacks.com' \
+  &&  helper_airs_deploy_sync_s3 'output/' 'fluidattacks.com' \
   &&  popd \
   ||  return 1
 }
