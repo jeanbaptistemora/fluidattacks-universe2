@@ -25,7 +25,7 @@ on HackSys Extreme Vulnerable Driver (`HEVD`).
 
 First we need to get familiar with `WinDBG` which is a very powerful
 debugger from Microsoft but has a steep learning curve. We'll also use
-IDA, of which I'm using the freeware version which is enough for most of
+`IDA`, of which I'm using the freeware version which is enough for most of
 what we're going to face.
 
 In the end, we're going to be able to crash our Windows 10 OS by leveraging
@@ -35,11 +35,11 @@ Let's get our hands dirty!
 
 == WinDBG 101
 
-Before dealing with the exploitation process, I will list some WinDBG
+Before dealing with the exploitation process, I will list some `WinDBG`
 commands that have helped me. This is selfishly written as a reference
 for myself but kindly shared with you.
 
-* `g`: Short for `Go`. Will resume the execution of the debugee.
+* `g`: Short for `Go`. Will resume the execution of the debuggee.
 
 image::g1.png[g command]
 
@@ -105,7 +105,7 @@ address.
 
 image::bp1.png[? command]
 
-This is by no means a comprehensive WinDBG reference but will show the
+This is by no means a comprehensive `WinDBG` reference but will show the
 commands I use the most when debugging.
 
 == Talking to Windows drivers
@@ -114,11 +114,12 @@ The common main goal of Windows Kernel exploitation is to elevate privileges
 to perform any desired task on the affected computer with the most
 powerful permissions. We do that, by finding a vulnerability in a piece of
 code running at kernel-space and establishing a communication between the
-OS user-mode (our exploit) and kernel-mode which is where the drivers live.
+exploit in user-mode and the target in kernel-mode which is where the
+drivers live.
 
 As Windows runs in protected mode, user-land instructions cannot
 access to kernel-space memory. However, there is an interface provided
-by the OS that allows to talk to drivers: `IOCTL` calls.
+by the OS that allows talking to drivers: `IOCTL` calls.
 
 When a driver is installed, it sets a device name using the `IoCreateDevice`
 call.
@@ -145,13 +146,13 @@ a `switch` statement) for each managed `IOCTL` code:
 image::jmptable1.png[JMP table]
 
 In `HEVD`, each `case` of that `switch` statement is handled by another
-function that will trigger a different vulnerability:
+function that will trigger a specific vulnerable function:
 
 image::jmptable2.png[JMP table]
 
 Now, if we want to talk to that driver, we must get a handle to the
 driver's device name, which is `HackSysExtremeVulnerableDrive` in the
-case of `HEVD`, and use the function `DeviceIoControl` to send the
+case of `HEVD`, and use the `DeviceIoControl` function to send the
 `IOCTL` code we want, along with the payload.
 
 In Python, there's a third-party package called `infi.wioctl` that wraps
@@ -280,4 +281,5 @@ the execution flow.
 This post was intended to cover the very first part for interacting
 with a Windows driver and we were able to perform a full Denial of Service
 of the victim machine. In the next post, we will use the proven ability
-to control the execution flow to gain an `SYSTEM` shell.
+to control the execution flow to
+link:../hevd-smep-bypass/[execute code at kernel-level].
