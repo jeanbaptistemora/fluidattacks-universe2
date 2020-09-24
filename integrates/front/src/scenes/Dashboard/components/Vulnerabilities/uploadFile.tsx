@@ -10,12 +10,14 @@ import { ApolloError } from "apollo-client";
 import { GraphQLError } from "graphql";
 import _ from "lodash";
 import React from "react";
-import { Col, Row } from "react-bootstrap";
-import { submit } from "redux-form";
+import { Col, FormGroup, Row } from "react-bootstrap";
+import { useDispatch } from "react-redux";
+import { Dispatch } from "redux";
+import { Field, InjectedFormProps, reset, submit } from "redux-form";
 
 import { Button } from "components/Button";
 import { FluidIcon } from "components/FluidIcon";
-import { FileInput } from "scenes/Dashboard/components/FileInput";
+import { GenericForm } from "scenes/Dashboard/components/GenericForm";
 import {
   DOWNLOAD_VULNERABILITIES, GET_VULNERABILITIES, UPLOAD_VULNERABILITIES,
 } from "scenes/Dashboard/components/Vulnerabilities/queries";
@@ -23,8 +25,8 @@ import {
   IDownloadVulnerabilitiesResult, IUploadVulnerabilitiesResult, IVulnerabilitiesViewProps,
 } from "scenes/Dashboard/components/Vulnerabilities/types";
 import { GET_FINDING_HEADER } from "scenes/Dashboard/containers/FindingContent/queries";
-import store from "store";
 import { authzGroupContext, authzPermissionsContext } from "utils/authz/config";
+import { FileInput } from "utils/forms/fields";
 import { Logger } from "utils/logger";
 import { msgError, msgErrorStick, msgSuccess } from "utils/notifications";
 import { openUrl } from "utils/resourceHelpers";
@@ -33,6 +35,7 @@ import { isValidVulnsFile } from "utils/validations";
 
 const uploadVulnerabilities: ((props: IVulnerabilitiesViewProps) => JSX.Element) =
 (props: IVulnerabilitiesViewProps): JSX.Element => {
+  const dispatch: Dispatch = useDispatch();
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
   const groupPermissions: PureAbility<string> = useAbility(authzGroupContext);
 
@@ -40,7 +43,7 @@ const uploadVulnerabilities: ((props: IVulnerabilitiesViewProps) => JSX.Element)
   (mtResult: IUploadVulnerabilitiesResult): void => {
     if (!_.isUndefined(mtResult)) {
       if (mtResult.uploadFile.success) {
-        store.dispatch(submit("editDescription"));
+        dispatch(submit("editDescription"));
         msgSuccess(
           translate.t("group_alerts.file_updated"),
           translate.t("group_alerts.title_success"));
@@ -92,6 +95,7 @@ const uploadVulnerabilities: ((props: IVulnerabilitiesViewProps) => JSX.Element)
         msgError(translate.t("group_alerts.invalid_specific"));
         Logger.warning(message);
       }
+      dispatch(reset("vulns"));
     });
   };
 
@@ -145,18 +149,15 @@ const uploadVulnerabilities: ((props: IVulnerabilitiesViewProps) => JSX.Element)
     >
       {(uploadVulnerability: MutationFunction, mutationResult: MutationResult): JSX.Element => {
 
-      const handleUploadVulnerability: (() => void) = (): void => {
-        if (isValidVulnsFile("#vulnerabilities")) {
-          const selected: FileList | null = (document.querySelector("#vulnerabilities") as HTMLInputElement).files;
-          if (!_.isNil(selected)) {
-            void uploadVulnerability({
-              variables: {
-                file: selected[0],
-                findingId: props.findingId,
-              },
-            });
-          }
-        }
+      const handleUploadVulnerability: ((values: { filename: FileList }) => void) = (
+        values: { filename: FileList },
+      ): void => {
+        void uploadVulnerability({
+          variables: {
+            file: values.filename[0],
+            findingId: props.findingId,
+          },
+        });
       };
 
       const handleDownloadVulnerability: (() => void) = (): void => {
@@ -168,33 +169,46 @@ const uploadVulnerabilities: ((props: IVulnerabilitiesViewProps) => JSX.Element)
       };
 
       return (
-        <React.Fragment>
-          <Row>
-            <Col md={4} sm={12}>
-              <Button
-                bsStyle="default"
-                onClick={handleDownloadVulnerability}
-                disabled={mutationResult.loading}
-              >
-                <FluidIcon icon="export" />
-                &nbsp;{translate.t("search_findings.tab_description.download_vulnerabilities")}
-              </Button>
-            </Col>
-            <Col md={5} sm={12}>
-              <FileInput icon="search" id="vulnerabilities" type=".yaml, .yml" visible={true} />
-            </Col>
-            <Col md={3} sm={12}>
-              <Button
-                bsStyle="primary"
-                onClick={handleUploadVulnerability}
-                disabled={mutationResult.loading}
-              >
-                <FluidIcon icon="import" />
-                &nbsp;{translate.t("search_findings.tab_description.update_vulnerabilities")}
-              </Button>
-            </Col>
-          </Row>
-        </React.Fragment>
+        <GenericForm name="vulns" onSubmit={handleUploadVulnerability}>
+          {({ submit: submitForm }: InjectedFormProps & { submit(): void }): React.ReactNode => (
+            <React.Fragment>
+              <br/>
+              <Row>
+                <Col md={4} sm={12}>
+                  <Button
+                    bsStyle="default"
+                    onClick={handleDownloadVulnerability}
+                    disabled={mutationResult.loading}
+                  >
+                    <FluidIcon icon="export" />
+                    &nbsp;{translate.t("search_findings.tab_description.download_vulnerabilities")}
+                  </Button>
+                </Col>
+                <Col md={5} sm={12}>
+                  <FormGroup>
+                    <Field
+                      accept={".yaml, .yml"}
+                      component={FileInput}
+                      id={"vulnerabilities"}
+                      name={"filename"}
+                      validate={[isValidVulnsFile]}
+                    />
+                  </FormGroup>
+                </Col>
+                <Col md={3} sm={12}>
+                  <Button
+                    bsStyle={"primary"}
+                    onClick={submitForm}
+                    disabled={mutationResult.loading}
+                  >
+                    <FluidIcon icon="import" />
+                    &nbsp;{translate.t("search_findings.tab_description.update_vulnerabilities")}
+                  </Button>
+                </Col>
+              </Row>
+            </React.Fragment>
+          )}
+        </GenericForm>
       );
     }}
     </Mutation>

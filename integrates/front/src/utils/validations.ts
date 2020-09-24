@@ -1,7 +1,6 @@
 import { Logger } from "utils/logger";
 import { Validator } from "redux-form";
 import _ from "lodash";
-import { msgError } from "utils/notifications";
 import { translate } from "utils/translations/translate";
 import {
   hasLengthGreaterThan,
@@ -250,32 +249,23 @@ const dateTimeBeforeToday: Validator = (date: Moment): string | undefined => {
     : translate.t("validations.greater_date");
 };
 
-const isValidVulnsFile: (fieldId: string) => boolean = (
-  fieldId: string
-): boolean => {
-  const selected: FileList | null = (document.querySelector(
-    fieldId
-  ) as HTMLInputElement).files;
-
-  if (_.isNil(selected) || selected.length === 0) {
-    msgError(translate.t("group_alerts.no_file_selected"));
+const isValidVulnsFile: Validator = (value: FileList): string | undefined => {
+  if (_.isNil(value) || value.length === 0) {
+    return translate.t("group_alerts.no_file_selected");
   } else {
-    const file: File = selected[0];
+    const file: File = value[0];
     const MIB: number = 1048576;
     const fileType: string = `.${
       _.last(file.name.split(".")) as string
     }`.toLowerCase();
-
     if (file.size > MIB * 1) {
-      msgError(translate.t("validations.file_size", { count: 1 }));
+      return translate.t("validations.file_size", { count: 1 });
     } else if (!_.includes([".yml", ".yaml"], fileType)) {
-      msgError(translate.t("group_alerts.file_type_yaml"));
+      return translate.t("group_alerts.file_type_yaml");
     } else {
-      return true;
+      return undefined;
     }
   }
-
-  return false;
 };
 
 const validTag: Validator = (value: string): string | undefined => {
