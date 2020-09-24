@@ -1,0 +1,6 @@
+:slug: products/skims/
+:description: Forces makes use of human skills for the creation of exploits to break your build and force remediation of vulnerabilities performing DAST - SAST tests.
+:keywords: Fluid Attacks, Products, Forces, Ethical Hacking, Pentesting, Security
+:template: products/skims
+
+= Skims
