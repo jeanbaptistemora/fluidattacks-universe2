@@ -16,7 +16,6 @@ metadata:
     kubernetes.io/ingress.class: nginx
     nginx.ingress.kubernetes.io/upstream-vhost: "web.fluidattacks.com"
     nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
-    nginx.ingress.kubernetes.io/app-root: "/web/"
     nginx.ingress.kubernetes.io/configuration-snippet: |
       more_set_headers "Content-Security-Policy: ${CSP};";
       more_set_headers "Expires: 0";

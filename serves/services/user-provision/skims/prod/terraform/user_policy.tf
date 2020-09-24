@@ -28,7 +28,7 @@ data "aws_iam_policy_document" "skims_prod_policy_data" {
     ]
     resources = [
       "arn:aws:s3:::web.fluidattacks.com",
-      "arn:aws:s3:::web.fluidattacks.com/web/resources/doc/skims/*",
+      "arn:aws:s3:::web.fluidattacks.com/resources/doc/skims/*",
     ]
   }
 

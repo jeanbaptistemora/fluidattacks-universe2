@@ -13,7 +13,7 @@ data "aws_iam_policy_document" "asserts-prod-policy-data" {
       "arn:aws:s3:::fluidattacks-terraform-states-prod/asserts-secret-management.tfstate",
       "arn:aws:s3:::fluidattacks-terraform-states-*/user-provision-asserts-*.tfstate",
       "arn:aws:s3:::web.fluidattacks.com",
-      "arn:aws:s3:::web.fluidattacks.com/web/resources/doc/asserts/*",
+      "arn:aws:s3:::web.fluidattacks.com/resources/doc/asserts/*",
     ]
   }
 
