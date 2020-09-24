@@ -1,5 +1,4 @@
 # Standard library
-import contextlib
 from typing import (
     Awaitable,
     Callable,
@@ -32,6 +31,9 @@ from lib_path.common import (
     SHIELD,
     SINGLE_QUOTED_STRING,
     str_to_number,
+)
+from parse_java_properties import (
+    load as load_java_properties,
 )
 from state.cache import (
     cache_decorator,
@@ -444,17 +446,9 @@ def _java_properties_missing_ssl(
     missing_ssl_values: Set[str] = {'false'}
 
     def _iterate_vulnerabilities() -> Iterator[Tuple[int, int]]:
-        for line_no, line in enumerate(content.splitlines(), start=1):
-            # Strip comments
-            if '#' in line:
-                line = line.split('#', maxsplit=1)[0]
-
-            # Split in key and value
-            with contextlib.suppress(ValueError):
-                key, val = line.strip().split('=', maxsplit=1)
-                key, val = key.strip(), val.strip()
-                if key == missing_ssl_key and val in missing_ssl_values:
-                    yield line_no, 0
+        for line_no, (key, val) in load_java_properties(content).items():
+            if key == missing_ssl_key and val in missing_ssl_values:
+                yield line_no, 0
 
     return tuple(
         Vulnerability(
@@ -487,6 +481,55 @@ async def java_properties_missing_ssl(
 ) -> Tuple[Vulnerability, ...]:
     return await in_process(
         _java_properties_missing_ssl,
+        content=content,
+        path=path,
+    )
+
+
+def _java_properties_weak_cipher_suite(
+    content: str,
+    path: str,
+) -> Tuple[Vulnerability, ...]:
+    weak_cipher_suite: str = 'ibm.mq.cipher.suite'
+    weak_cipher_suite_values: Set[str] = {
+        'TLS_RSA_WITH_AES_128_CBC_SHA256',
+    }
+
+    def _iterate_vulnerabilities() -> Iterator[Tuple[int, int]]:
+        for line_no, (key, val) in load_java_properties(content).items():
+            if key == weak_cipher_suite and val in weak_cipher_suite_values:
+                yield line_no, 0
+
+    return tuple(
+        Vulnerability(
+            finding=FindingEnum.F052,
+            kind=VulnerabilityKindEnum.LINES,
+            state=VulnerabilityStateEnum.OPEN,
+            what=path,
+            where=f'{line_no}',
+            skims_metadata=SkimsVulnerabilityMetadata(
+                description=t(
+                    key='src.lib_path.f052.java_properties_weak_cipher_suite',
+                    path=path,
+                ),
+                snippet=blocking_to_snippet(
+                    column=column,
+                    content=content,
+                    line=line_no,
+                )
+            )
+        )
+        for line_no, column in _iterate_vulnerabilities()
+    )
+
+
+@SHIELD
+async def java_properties_weak_cipher_suite(
+    content: str,
+    path: str,
+) -> Tuple[Vulnerability, ...]:
+    return await in_process(
+        _java_properties_weak_cipher_suite,
         content=content,
         path=path,
     )
@@ -528,6 +571,10 @@ async def analyze(
         ))
     elif file_extension in EXTENSIONS_JAVA_PROPERTIES:
         coroutines.append(java_properties_missing_ssl(
+            content=await content_generator(),
+            path=path,
+        ))
+        coroutines.append(java_properties_weak_cipher_suite(
             content=await content_generator(),
             path=path,
         ))

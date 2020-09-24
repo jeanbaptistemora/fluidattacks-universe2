@@ -11,6 +11,7 @@ declare -Arx SKIMS_GLOBAL_PKGS=(
   [parse_cfn]=skims/parse_cfn
   [parse_grammar]=skims/parse_grammar
   [parse_hcl2]=skims/parse_hcl2
+  [parse_java_properties]=skims/parse_java_properties
   [parse_json]=skims/parse_json
   [serialization]=skims/serialization
   [state]=skims/state
