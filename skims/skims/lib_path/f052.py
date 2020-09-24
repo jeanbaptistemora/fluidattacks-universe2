@@ -48,6 +48,10 @@ from utils.model import (
     VulnerabilityKindEnum,
     VulnerabilityStateEnum,
 )
+from utils.crypto import (
+    is_open_ssl_cipher_suite_vulnerable,
+    is_iana_cipher_suite_vulnerable,
+)
 from utils.string import (
     blocking_to_snippet,
 )
@@ -491,13 +495,13 @@ def _java_properties_weak_cipher_suite(
     path: str,
 ) -> Tuple[Vulnerability, ...]:
     weak_cipher_suite: str = 'ibm.mq.cipher.suite'
-    weak_cipher_suite_values: Set[str] = {
-        'TLS_RSA_WITH_AES_128_CBC_SHA256',
-    }
 
     def _iterate_vulnerabilities() -> Iterator[Tuple[int, int]]:
         for line_no, (key, val) in load_java_properties(content).items():
-            if key == weak_cipher_suite and val in weak_cipher_suite_values:
+            if key == weak_cipher_suite and (
+                is_iana_cipher_suite_vulnerable(val)
+                or is_open_ssl_cipher_suite_vulnerable(val)
+            ):
                 yield line_no, 0
 
     return tuple(
