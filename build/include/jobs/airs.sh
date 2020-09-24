@@ -237,7 +237,7 @@ function job_airs_deploy_production {
   &&  helper_airs_set_lc_all \
   &&  helper_airs_aws_login production \
   &&  helper_airs_compile 'https://fluidattacks.com' \
-  &&  helper_airs_deploy_sync_s3 'output/' 'fluidattacks.com' \
+  &&  helper_airs_deploy_sync_s3 'output/' 'web.fluidattacks.com' \
   &&  popd \
   ||  return 1
 }

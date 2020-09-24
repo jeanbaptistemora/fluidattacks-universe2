@@ -102,7 +102,6 @@ function helper_get_projects {
     'autonomicmind/challenges'
     'fluidattacks/services'
     'fluidattacks/product'
-    'fluidattacks/web'
   )
 }
 
