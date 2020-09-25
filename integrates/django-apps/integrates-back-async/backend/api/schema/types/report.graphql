@@ -1,0 +1,4 @@
+"Report type definition"
+type Report {
+  url: String
+}

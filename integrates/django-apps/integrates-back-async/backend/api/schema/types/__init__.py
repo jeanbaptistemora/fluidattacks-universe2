@@ -24,8 +24,11 @@ from .me import ME
 from .mutation import MUTATION
 from .organization import ORGANIZATION
 from .query import QUERY
+from .report import REPORT
 from .resource import RESOURCE
 from .stakeholder import STAKEHOLDER
+from .tag import TAG
+from .verification import VERIFICATION
 from .vulnerability import VULNERABILITY
 
 
@@ -49,7 +52,10 @@ TYPES: Tuple[ObjectType, ...] = (
     MUTATION,
     ORGANIZATION,
     QUERY,
+    REPORT,
     RESOURCE,
     STAKEHOLDER,
+    TAG,
+    VERIFICATION,
     VULNERABILITY
 )
