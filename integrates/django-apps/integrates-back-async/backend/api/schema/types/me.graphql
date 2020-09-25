@@ -1,0 +1,13 @@
+"Me type definition"
+type Me {
+  accessToken: String
+  callerOrigin: CallerOrigin
+  organizations: [Organization!]
+  permissions(entity: Entity!, identifier: String): [String]
+  projects: [Project]
+  remember: Boolean
+  role(entity: Entity!, identifier: String): String
+  sessionExpiration: String
+  subscriptionsToEntityReport: [EntityReportSubscription]
+  tags(organizationId: String!): [Tag!]
+}

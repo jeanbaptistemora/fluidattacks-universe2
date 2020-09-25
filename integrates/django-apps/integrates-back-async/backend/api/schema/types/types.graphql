@@ -1,16 +1,3 @@
-"InternalNames type definition"
-type InternalName {
-    name: String
-}
-
-"Resource type definition"
-type Resource {
-    projectName: String
-    repositories: JSONString
-    environments: JSONString
-    files: JSONString
-}
-
 "Bill type definition"
 type Bill {
     developers: [BillDeveloper]
@@ -33,20 +20,6 @@ type ForcesExecutionsNew {
     executions: [ForcesExecutionNew]
 }
 
-"Me type definition"
-type Me {
-    accessToken: String
-    organizations: [Organization!]
-    projects: [Project]
-    remember: Boolean
-    role(entity: Entity!, identifier: String): String
-    subscriptionsToEntityReport: [EntityReportSubscription]
-    tags(organizationId: String!): [Tag!]
-    permissions(entity: Entity!, identifier: String): [String]
-    callerOrigin: CallerOrigin
-    sessionExpiration: String
-}
-
 "Comment/Consult type definition"
 type Comment {
     id: String
@@ -65,29 +38,6 @@ type Consult {
     fullname: String
     modified: String
     parent: String
-}
-
-"Vulnerability type definition"
-type Vulnerability {
-    id: String
-    analyst: String
-    findingId: String
-    vulnType: String
-    where: String
-    source: String
-    specific: String
-    historicState: [GenericScalar]
-    historicVerification: [Verification]
-    currentState: String
-    currentApprovalStatus: String
-    lastAnalyst: String
-    lastApprovedStatus: String
-    treatmentManager: String
-    severity: String
-    tag: String
-    tags: [String!]
-    remediated: Boolean
-    verification: String
 }
 
 "Verification type definition"
