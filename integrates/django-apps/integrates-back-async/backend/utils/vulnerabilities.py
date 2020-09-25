@@ -128,12 +128,6 @@ def range_to_list(range_value: str) -> List[str]:
     limits = range_value.split('-')
     init_val = int(limits[0])
     end_val = int(limits[1]) + 1
-    if end_val - init_val > 1000:
-        error_value = (
-            '"values": "You can upload a maximum of '
-            '1000 vulnerabilites per range"'
-        )
-        raise InvalidRange(expr=error_value)
     if end_val <= init_val:
         error_value = f'"values": "{init_val} >= {end_val}"'
         raise InvalidRange(expr=error_value)
