@@ -54,8 +54,8 @@ async def generate_one(group: str) -> Severity:
     )
 
 
-async def get_data_many_groups(groups: Tuple[str]) -> Severity:
-    groups_data = await collect(map(generate_one, list(groups)))
+async def get_data_many_groups(groups: Tuple[str, ...]) -> Severity:
+    groups_data = await collect(map(generate_one, groups))
 
     return Severity(
         max_open_severity=0 if not groups_data else max(

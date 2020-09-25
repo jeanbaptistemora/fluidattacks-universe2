@@ -55,8 +55,8 @@ async def generate_one(group: str):
     )
 
 
-async def get_data_many_groups(groups: Tuple[str]) -> Resources:
-    groups_data = await collect(map(generate_one, list(groups)))
+async def get_data_many_groups(groups: Tuple[str, ...]) -> Resources:
+    groups_data = await collect(map(generate_one, groups))
 
     return Resources(
         environments=list(

@@ -41,8 +41,8 @@ async def get_data_one_group(group: str) -> Status:
     )
 
 
-async def get_data_many_groups(groups: Tuple[str]) -> Status:
-    groups_data = await collect(map(get_data_one_group, list(groups)))
+async def get_data_many_groups(groups: Tuple[str, ...]) -> Status:
+    groups_data = await collect(map(get_data_one_group, groups))
 
     return Status(
         open_vulnerabilities=sum(
