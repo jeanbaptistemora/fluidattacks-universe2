@@ -86,6 +86,9 @@ resource "aws_wafv2_web_acl" "integrates_firewall" {
       managed_rule_group_statement {
         name        = "AWSManagedRulesLinuxRuleSet"
         vendor_name = "AWS"
+        excluded_rule {
+          name = "LFI_BODY"
+        }
       }
     }
     visibility_config {
