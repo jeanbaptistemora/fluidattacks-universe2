@@ -55,7 +55,7 @@ def overloaded_construct_sequence(
     deep: bool = False,
 ) -> Any:
     return ListToken(
-        initlist=[
+        value=[
             self.construct_object(child, deep=deep)  # type: ignore
             for child in node.value
         ],
@@ -146,7 +146,7 @@ def load_as_json(content: str) -> Any:
                 for value in obj
             ]
             obj_copy = ListToken(
-                initlist=obj_copy,
+                value=obj_copy,
                 line=last_l,
                 column=last_c,
             )

@@ -7,17 +7,18 @@ from collections import (
 from typing import (
     Any,
     Iterable,
+    Union,
 )
 
 
 class StringToken(UserString):  # pylint: disable=too-many-ancestors
     def __init__(
         self,
-        seq: str,
+        value: str,
         line: int,
         column: int,
     ):
-        super().__init__(seq)
+        super().__init__(value)
         self.__column__ = column
         self.__line__ = line
 
@@ -25,7 +26,7 @@ class StringToken(UserString):  # pylint: disable=too-many-ancestors
 class FloatToken(float):
     def __new__(  # type: ignore
             cls,
-            value: float,
+            value: Union[float, str, int],
             column: int,  # pylint: disable=unused-argument
             line: int,  # pylint: disable=unused-argument
     ) -> float:
@@ -33,11 +34,11 @@ class FloatToken(float):
 
     def __init__(
         self,
-        value: float,
+        value: Union[float, str, int],
         column: int,
         line: int,
     ):
-        float.__init__(value)
+        float.__init__(float(value))
         self.__column__ = column
         self.__line__ = line
 
@@ -45,7 +46,7 @@ class FloatToken(float):
 class IntToken(int):
     def __new__(  # type: ignore
             cls,
-            value: int,
+            value: Union[float, str, int],
             column: int,  # pylint: disable=unused-argument
             line: int,  # pylint: disable=unused-argument
     ) -> int:
@@ -53,11 +54,11 @@ class IntToken(int):
 
     def __init__(
         self,
-        value: int,
+        value: Union[float, str, int],
         column: int,
         line: int,
     ):
-        int.__init__(value)
+        int.__init__(int(value))
         self.__column__ = column
         self.__line__ = line
 
@@ -65,11 +66,11 @@ class IntToken(int):
 class ListToken(UserList):  # pylint: disable=too-many-ancestors
     def __init__(
         self,
-        initlist: Iterable[Any],
+        value: Iterable[Any],
         line: int = 0,
         column: int = 0,
     ):
-        super().__init__(initlist)
+        super().__init__(value)
         self.__line__ = line
         self.__column__ = column
 

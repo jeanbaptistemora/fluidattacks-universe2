@@ -1,0 +1,23 @@
+---
+AWSTemplateFormatVersion: 2010-09-09
+Description: test
+Parameters:
+
+  pTest:
+    Description: description
+    Type: type
+
+Resources:
+
+  rTest:
+    Type: 'AWS::RDS::OptionGroup'
+    Properties:
+      EngineName: mysql
+      OptionGroupDescription: !Ref 'AWS::StackName'
+      Tags:
+        - Key: Name
+          Value: !Join ["", [!Ref 'AWS::StackName' , "-option-group"]]
+      X: true
+      Y: null
+      days: 12
+      capacity: 123.325
