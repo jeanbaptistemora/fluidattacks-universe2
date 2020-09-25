@@ -1,10 +1,7 @@
 # Standard library
 from typing import (
     Any,
-    Iterable,
 )
-from collections import UserList
-from json import JSONEncoder
 
 # Third party libraries
 from aioextensions import (
@@ -24,6 +21,9 @@ import yaml
 from parse_json import (
     blocking_loads,
 )
+from parse_common.types import (
+    ListToken,
+)
 
 
 class BasicLoader(  # pylint: disable=too-many-ancestors
@@ -36,21 +36,6 @@ class Loader(  # pylint: disable=too-many-ancestors
     yaml.SafeLoader,  # type: ignore
 ):
     pass
-
-
-class CustomList(  # pylint: disable=too-many-ancestors
-        UserList,  # type: ignore
-        JSONEncoder,
-):
-    """Custom List that allows access to the line where each node is."""
-    def __init__(self,
-                 initlist: Iterable[Any],
-                 line: int = 0,
-                 column: int = 0) -> None:
-        """Initialize a custom list."""
-        super().__init__(initlist)
-        setattr(self, '__line__', line)
-        setattr(self, '__column__', column)
 
 
 def overloaded_construct_mapping(
@@ -69,13 +54,14 @@ def overloaded_construct_sequence(
     node: yaml.Node,
     deep: bool = False,
 ) -> Any:
-    return CustomList(
-        [
+    return ListToken(
+        initlist=[
             self.construct_object(child, deep=deep)  # type: ignore
             for child in node.value
         ],
         column=node.start_mark.column,
-        line=node.start_mark.line)
+        line=node.start_mark.line,
+    )
 
 
 def overloaded_multi_constructor(
@@ -159,7 +145,11 @@ def load_as_json(content: str) -> Any:
                 )
                 for value in obj
             ]
-            obj_copy = CustomList(obj_copy, last_l, last_c)  # type:ignore
+            obj_copy = ListToken(
+                initlist=obj_copy,
+                line=last_l,
+                column=last_c,
+            )
         else:
             obj_copy = obj
 

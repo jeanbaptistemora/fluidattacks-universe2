@@ -21,7 +21,9 @@ from aioextensions import (
 )
 
 # Local libraries
-from parse_cfn.loader import CustomList
+from parse_common.types import (
+    ListToken,
+)
 from utils.logs import (
     log_exception,
 )
@@ -130,7 +132,7 @@ ALLOWED_FACTORIES: Dict[type, Dict[str, Any]] = {
         (float, _dump_base, float),
         (int, _dump_base, int),
         (list, _dump_tuple, _load_list),
-        (CustomList, _dump_tuple, _load_list),
+        (ListToken, _dump_tuple, _load_list),
         (OrderedDict, _dump_dict, _load_ordered_dict),
         (str, _dump_base, str),
         (tuple, _dump_tuple, _load_tuple),
