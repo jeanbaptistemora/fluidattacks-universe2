@@ -4,3 +4,30 @@
 :template: products/skims
 
 = Skims
+
+=== Easy-to-use SAST tool
+
+Performs exhaustive analyses on portions of code or on ready-to-deploy
+applications to detect certain security weaknesses.
+
+=== Code Scanner
+
+Scans code as it is written by developers, saving time in fixing
+security-related flaws.
+
+=== Vulnerabilities Finder
+
+Finds peripheral or superficial vulnerabilities at high speed in 100% of the
+code.
+
+=== Communication
+
+Reports vulnerabilities on the Integrates platform in real time.
+
+=== Evidence
+
+Provides evidence of closure for each repaired weakness.
+
+=== Automation
+
+Contributes to the security of your DevOps with an automated SAST.

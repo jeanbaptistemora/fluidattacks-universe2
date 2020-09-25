@@ -241,6 +241,7 @@ $codeyellow: rgba(230, 219, 116, 1);
 .pl-body { padding-left: 1.875rem; }
 .fheader { font-size: 144px; }
 .w-footer-form { width: 18.75rem; }
+.sqr-card { min-height: 400px; width: 400px; }
 
 // Tachyons custom responsive classes
 @media screen and (min-width: 961px) and (max-width: 1200px) {
@@ -1008,7 +1009,7 @@ video {
     min-height: 420px;
     padding: 0 2rem;
     vertical-align: top;
-    width: 420px;
+    width: 400px;
     h3 {
       color: $fluid-black;
       font-size: 24px;
@@ -1061,4 +1062,33 @@ video {
 
 .sidenav-s {
   width: 0;
+}
+
+.product-features {
+  .sect2 {
+    margin-left: auto;
+    margin-right: auto;
+    min-height: 300px;
+    padding: 0 2rem;
+    vertical-align: top;
+    width: 400px;
+    h3 {
+      color: $fluid-black;
+      font-size: 24px;
+      font-weight: 700;
+    }
+    p {
+      color: $fluid-black;
+      font-size: 18px;
+      font-weight: 300;
+      line-height: 36px;
+    }
+  }
+}
+
+.product-features .sect2 h3::after {
+  content: "";
+  display: block;
+  width: 30%;
+  border-bottom: 4px solid $button-hover;
 }

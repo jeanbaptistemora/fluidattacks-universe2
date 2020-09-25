@@ -121,10 +121,10 @@
     </div>
   </div>
 </div>
-<h2 class="roboto c-fluid-bk f1 fw6 tc">Key Benefits</h2>
+<h2 class="roboto c-fluid-bk f1 fw6 tc pt6">Key Benefits</h2>
 <div class="w-100 flex-l pv4">
   <div class="w-100">
-    <div class="w-50-l fl-l tl ph0-ns ph4">
+    <div class="w-50-l fl-l tl ph0-ns ph4" data-aos="fade-right">
       <img
       class="dn show-xl"
       src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/products/skims/skims-screen-1-xl.png"
@@ -188,7 +188,7 @@
 </div>
 <div class="w-100 flex pv4">
   <div class="w-100">
-    <div class="w-50-l fr-l tr ph0-ns ph4">
+    <div class="w-50-l fr-l tr ph0-ns ph4" data-aos="fade-left">
       <img
       class="dn show-xl fr"
       src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/products/skims/skims-screen-2-xl.png"
@@ -241,6 +241,14 @@
         </li>
       </ul>
     </div>
+  </div>
+</div>
+<div class="mw-1366 ph-body center pt5">
+  <h2 class="roboto c-fluid-bk f1 fw6 tc">
+    Key Features
+  </h2>
+  <div class="product-features justify-center items-center flex flex-wrap roboto">
+    {{ page.content }}
   </div>
 </div>
 {% endblock content %}
