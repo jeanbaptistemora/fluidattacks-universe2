@@ -69,33 +69,37 @@
 {% endblock header %}
 
 {% block content %}
-<div class="tc pt3">
+<div class="tc pt3 flex nowrap items-center justify-center overflow-x-auto">
   <ul class="pl0">
-    <li class="dib pr4-l pr3-m pr2">
+    <li class="dib ph2">
       <a href="{{ SITEURL }}/products/integrates/"
-         class="c-fluid-gray f4 roboto no-underline fw3">
-        1. Integrates
+         class="c-fluid-gray f4 roboto fw7 no-underline hv-fluid-bk">
+        Integrates
       </a>
     </li>
-    <li class="dib pr4-l pr3-m pr2">
+    <li class="dib ph2">
+      <a href="{{ SITEURL }}/products/skims/"
+      class="c-fluid-gray f4 roboto fw7 no-underline">
+        Skims
+      </a>
+    </li>
+    <li class="dib ph2">
       <a href="{{ SITEURL }}/products/drills/"
-      class="c-fluid-gray f4 roboto no-underline fw3">
-        2. Drills
+      class="c-fluid-gray f4 roboto no-underline fw7 hv-fluid-bk">
+        Drills
       </a>
     </li>
-    <li class="dib">
-      <img loading="lazy" class="w1 h1 nbs"
-        src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/line-menu.svg"
-        alt="Young hacker smiling">
+    <li class="dib ph2 bb bc-hover-red bw2">
       <a href="{{ SITEURL }}/products/forces/"
-      class="c-lightblack f4 roboto fw4 pointer no-underline">
-        3. Forces
+      class="c-lightblack f4 roboto no-underline fw7 hv-fluid-bk">
+        Forces
       </a>
     </li>
   </ul>
 </div>
-<div class="tc roboto w-100 center c-lightblack pb6">
-  <p class="tl fw1 w-40-l w-50-m w90-s center f3 lh-2">
+<div class="flex justify-center items-center ph-body">
+  <div class="mw7 center">
+    <p class="roboto f3-l f4 fw3 lh-2">
     <b class="fw7">Forces</b> can be included as part of a continuous integration
     pipeline. It constitutes an essential element for the implementation of DevSecOps
     in projects. Thus, any changes to the Target of Evaluation (ToE) can be
@@ -104,106 +108,147 @@
     Deployment) environments as a security gate, and performs Dynamic and Static
     Application Security Testing (DAST - SAST) and dynamic testing of many
     protocols (DXST).
-  </p>
-  <div class="tc pt4 dib ph2">
-    <a href="{{ SITEURL }}/products/forces/install/">
-      <button class="outline-transparent pointer c-dkred bg-white bc-fluid-red ba hv-fluid-rd pv2 ph4 roboto fw7 f5 bt-trans br2 bc-fluid-red ba">
-          Check Installation Guide
-      </button>
-    </a>
-  </div>
-  <div class="tc pt4 dib ph2">
-    <a href="{{ SITEURL }}/contact-us/">
-      <button class="outline-transparent bannerbt hv-bt-fluid-rd pointer white pv2 ph4 roboto fw7 f5 dib bt-trans br2 bc-fluid-red ba">
-          Get a Quote
-      </button>
-    </a>
+    </p>
+    <div class="tl-l tc">
+      <div class="tc dib-l pr2-l pv0-l pv3">
+        <a href="{{ SITEURL }}/products/forces/install/">
+          <button class="roboto tc outline-transparent fw7 f4 br2 bw1 ph4 pv3 bg-transparent bc-fluid-red ba hv-fluid-rd hv-fluid-bd bt-trans c-dkred pointer">
+              Check Installation Guide
+          </button>
+        </a>
+      </div>
+      <div class="tc dib-l pl2-l pv0-l pv3">
+        <a href="{{ SITEURL }}/contact-us/">
+          <button class="outline-transparent bannerbt hv-bt-fluid-rd pointer white pv3 ph4 roboto fw7 f4 dib bt-trans br2 bc-fluid-red ba">
+            Get a Quote
+          </button>
+        </a>
+      </div>
+    </div>
   </div>
 </div>
-<div class="w-100 center">
-  <h1 class="c-lightblack b f-benefits roboto tc ma0">
-    Key Benefits
-  </h1>
-</div>
-
-<div class="mw-1366 ph-body center pb5">
-  <div class="carousel overflow-y-hidden overflow-x-auto w-auto pa2 nowrap pv5"
-       id="carousel">
-    <div class="item-carousel ml4-l ml6 mr4 pa0 dib v-top">
+<h2 class="roboto c-fluid-bk f1 fw6 tc pt6">Key Benefits</h2>
+<div class="w-100 flex-l pv4">
+  <div class="w-100">
+    <div class="w-50-l fl-l tl ph0-ns ph4" data-aos="fade-right">
       <img
-        src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/products/forces/forces-1.png"
-        alt="Young hacker smiling">
-        <p class="roboto fw1 c-lightblack f5 lh-2">
-          Forces supports vulnerability closing <br>
-          by breaking the build.
-        </p>
-    </div>
-    <div class="item-carousel mh4 pa0 dib v-top">
-      <img
-        src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/products/forces/forces-2.png"
-        alt="Young hacker smiling">
-        <p class="roboto fw1 c-lightblack f5 lh-2">
-          Identify the status of known vulnerabilities <br>
-          in your system.
-        </p>
-    </div>
-    <div class="item-carousel mh4 pa0 dib v-top">
-      <img
-        src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/products/forces/forces-3.png"
-        alt="Young hacker smiling">
-        <p class="roboto fw1 c-lightblack f5 lh-2">
-          Scalability, speed and precision <br>
-          for your tested system.
-        </p>
-    </div>
-    <div class="item-carousel mh4 pa0 dib v-top">
-      <img
-        src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/products/forces/forces-4.png"
-        alt="Young hacker smiling">
-        <p class="roboto fw1 c-lightblack f5 lh-2">
-          Confidence to deploy changes to <br>
-          production without known vulnerabilities.
-        </p>
-    </div>
-    <div class="item-carousel mh4 pa0 dib v-top">
-      <img
-        src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/products/forces/forces-5.png"
-        alt="Young hacker smiling">
-        <p class="roboto fw1 c-lightblack f5 lh-2">
-          Interactive cycle for the vulnerability closing process.
-        </p>
-    </div>
-  </div>
-  <div class="w5 h-cont-bar bg-fluid-lightgray center mw5 br4 ba bc-lightergray">
-    <div class="h-bar w1 bg-dk-red mw5 br4" id="progress-bar"></div>
-  </div>
-  <div class="w-100 roboto tc pv6">
-    <h1 class="c-lightblack b f2 roboto tc ma0">
-      Key Features
-    </h1>
-    {{ page.content }}
-    </div>
-    <div class="w-100 roboto tc pb6">
-    <img
-      class="w6"
-      src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/products/forces/datasheet-forces.png"
+      class="dn show-xl"
+      src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/products/forces/forces-screen-1-xl.png"
       alt="Young hacker smiling">
-      <h1 class="c-lightblack f2-l fw7 tc f3 center roboto">
-        Do you want to know more about Forces?
-      </h1>
-      <a class="no-underline c-fluid-bk" href="https://fluidattacks.docsend.com/view/utsh7u7hdef453fw">
-        <button class="f2-l fw1 tc f4 center roboto download-btn bg-transparent bn pointer">
-          Download DataSheet  <span><img loading="lazy" class="w2-ns w1" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/download.svg" alt="Young hacker smiling"></span>
-        </button>
-      </a>
+      <img
+      class="dn show-l"
+      src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/products/forces/forces-screen-1-l.png"
+      alt="Young hacker smiling">
+      <img
+      class="dn show-ml"
+      src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/products/forces/forces-screen-1-ml.png"
+      alt="Young hacker smiling">
+      <img
+      class="dn show-m"
+      src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/products/forces/forces-screen-1-m.png"
+      alt="Young hacker smiling">
+      <img
+      class="dn show-s"
+      src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/products/forces/forces-screen-1-s.png"
+      alt="Young hacker smiling">
     </div>
+    <div class="w-50-l fr-l ph0-l ph4">
+      <ul class="tl roboto list pl0 mw-20">
+        <li class="c-fluid-bk pv3">
+          <h3 class="f3 fw6 mv0">
+            Break the Build
+          </h3>
+          <p class="f5 fw3 mv0 lh-copy">
+            Forces supports vulnerability closing by breaking the build.
+          </p>
+        </li>
+        <li class="c-fluid-bk pv3">
+          <h3 class="f3 fw6 mv0">
+            Status
+          </h3>
+          <p class="f5 fw3 mv0 lh-copy">
+            Identify the status of known vulnerabilities in your system.
+          </p>
+        </li>
+        <li class="c-fluid-bk pv3">
+          <h3 class="f3 fw6 mv0">
+            System
+          </h3>
+          <p class="f5 fw3 mv0 lh-copy">
+            Scalability, speed and precision for your tested system.
+          </p>
+        </li>
+      </ul>
+    </div>
+  </div>
 </div>
-{% assets output="static/js/progressBar.min.js", "js/tmp/progressBar.min.js" %}
-<script type="text/javascript"
-        src="{{ SITEURL }}/{{ ASSET_URL }}"></script>
-{% endassets %}
-{% assets output="static/js/carousel.min.js", "js/tmp/carousel.min.js" %}
-<script type="text/javascript"
-        src="{{ SITEURL }}/{{ ASSET_URL }}"></script>
-{% endassets %}
+<div class="w-100 flex pv4">
+  <div class="w-100">
+    <div class="w-50-l fr-l tr ph0-ns ph4" data-aos="fade-left">
+      <img
+      class="dn show-xl fr"
+      src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/products/forces/forces-screen-2-xl.png"
+      alt="Young hacker smiling">
+      <img
+      class="dn show-l fr"
+      src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/products/forces/forces-screen-2-l.png"
+      alt="Young hacker smiling">
+      <img
+      class="dn show-ml fr"
+      src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/products/forces/forces-screen-2-ml.png"
+      alt="Young hacker smiling">
+      <img
+      class="dn show-m ml-auto"
+      src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/products/forces/forces-screen-2-m.png"
+      alt="Young hacker smiling">
+      <img
+      class="dn show-s"
+      src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/products/forces/forces-screen-2-s.png"
+      alt="Young hacker smiling">
+    </div>
+    <div class="w-50-l fl-l ph0-l ph4">
+      <ul class="tr-l tl roboto list pl0 mw-20 fr-l">
+        <li class="c-fluid-bk pv3">
+          <h3 class="f3 fw6 mv0">
+            Deployment
+          </h3>
+          <p class="f5 fw3 mv0 lh-copy">
+            Confidence to deploy changes to production without known
+            vulnerabilities.
+          </p>
+        </li>
+        <li class="c-fluid-bk pv3">
+          <h3 class="f3 fw6 mv0">
+            Findings
+          </h3>
+          <p class="f5 fw3 mv0 lh-copy">
+            Interactive cycle for the vulnerability closing process.
+          </p>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="mw-1366 ph-body center pv5">
+  <h2 class="roboto c-fluid-bk f1 fw6 tc">
+    Key Features
+  </h2>
+  <div class="other-features product-features justify-center items-center flex flex-wrap roboto">
+    {{ page.content }}
+  </div>
+</div>
+<div class="mw-1366 center ph-body roboto tc pb6">
+  <div class="w-100 tc">
+    <img
+      src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/products/forces/forces-datasheet.png"
+      alt="Young hacker smiling">
+  </div>
+  <div class="tc">
+    <a href="https://fluidattacks.docsend.com/view/utsh7u7hdef453fw">
+      <button class="outline-transparent bannerbt hv-bt-fluid-rd pointer white pv3 ph4 roboto fw7 f4 dib bt-trans br2 bc-fluid-red ba">
+        Download DataSheet
+      </button>
+    </a>
+  </div>
+</div>
 {% endblock content %}

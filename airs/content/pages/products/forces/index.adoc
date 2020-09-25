@@ -5,28 +5,22 @@
 
 = Forces
 
-[role="w-25-ns w-90 dib tl v-top pa3"]
-== Break the Build for Confirmed Vulnerabilities
+=== Break the Build for Confirmed Vulnerabilities
 
-[role="fw1 f-key-features lh-key-features"]
 Through Forces, you can interrupt your deployment processes
 — aka break the build — in cases where the detected vulnerabilities
 (without false positives) that you do not accept in your systems
 are still open, in other words, have not yet been remediated.
 
-[role="w-25-ns w-90 dib tl v-top pa3"]
-== Easy Integration With Any CI System
+=== Easy Integration With Any CI System
 
-[role="fw1 f-key-features lh-key-features"]
 Forces can be easily incorporated into any
 Continuous Integration/Continuous Deployment (CI/CD) system
 to act as a security gate, allowing everything that goes into production
 to be free of the vulnerabilities you decide to remediate.
 
-[role="w-25-ns w-90 dib tl v-top pa3"]
-== SAST, DAST and DXST
+=== SAST, DAST and DXST
 
-[role="fw1 f-key-features lh-key-features"]
 Forces can perform Dynamic and Static Application Security Testing
 (DAST - SAST), as well as dynamic testing of many protocols (DXST),
 directly in your CI environment,
