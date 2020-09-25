@@ -25,8 +25,9 @@ class ResourcesTests(TestCase):
                 assert resources_domain.validate_file_size(file_to_test, 0)
 
     async def test_has_repeated_envs(self):
+        project_name = 'unittesting'
         existing_envs = await project_dal.get_attributes(
-            'unittesting', ['environments']
+            project_name, ['environments']
         )
         existing_envs = existing_envs.get('environments', [])
         envs = [{'urlEnv': 'https://test.com/new'}]
@@ -38,17 +39,20 @@ class ResourcesTests(TestCase):
             'urlEnv': 'https%3A%2F%2Funittesting.fluidattacks.com%2F'
         }]
 
-        assert not resources_domain.has_repeated_envs(existing_envs, envs)
-        assert resources_domain.has_repeated_envs(
-            existing_envs, repeated_inputs
+        assert not resources_domain.has_repeated_envs(
+            project_name, existing_envs, envs
         )
         assert resources_domain.has_repeated_envs(
-            existing_envs, repeated_envs
+            project_name, existing_envs, repeated_inputs
+        )
+        assert resources_domain.has_repeated_envs(
+            project_name, existing_envs, repeated_envs
         )
 
     async def test_has_repeated_repos(self):
+        project_name = 'unittesting'
         existing_repos = await project_dal.get_attributes(
-            'unittesting', ['repositories']
+            project_name, ['repositories']
         )
         existing_repos = existing_repos.get('repositories', [])
         repos = [
@@ -78,10 +82,12 @@ class ResourcesTests(TestCase):
             }
         ]
 
-        assert not resources_domain.has_repeated_repos(existing_repos, repos)
-        assert resources_domain.has_repeated_repos(
-            existing_repos, repeated_inputs
+        assert not resources_domain.has_repeated_repos(
+            project_name, existing_repos, repos
         )
         assert resources_domain.has_repeated_repos(
-            existing_repos, repeated_repos
+            project_name, existing_repos, repeated_inputs
+        )
+        assert resources_domain.has_repeated_repos(
+            project_name, existing_repos, repeated_repos
         )

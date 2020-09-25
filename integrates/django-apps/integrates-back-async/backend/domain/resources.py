@@ -177,6 +177,7 @@ async def download_file(file_info: str, project_name: str) -> str:
 
 
 def has_repeated_envs(
+        project_name: str,
         existing_envs: List[ResourceType],
         envs: List[ResourceType]) -> bool:
     unique_inputs = list(
@@ -191,10 +192,19 @@ def has_repeated_envs(
     )
     has_repeated_existing = len(all_envs) != len(unique_envs)
 
+    if has_repeated_existing:
+        for environment in unique_envs:
+            if all_envs.count(environment) > 1 and environment not in envs:
+                LOGGER.warning(
+                    "Duplicated environment",
+                    extra=dict(repo=environment, project=project_name)
+                )
+
     return has_repeated_inputs or has_repeated_existing
 
 
 def has_repeated_repos(
+        project_name: str,
         existing_repos: List[ResourceType],
         repos: List[ResourceType]) -> bool:
     unique_inputs = list({
@@ -217,6 +227,14 @@ def has_repeated_repos(
         for repo in all_repos
     }.values())
     has_repeated_existing = len(all_repos) != len(unique_repos)
+
+    if has_repeated_existing:
+        for repository in unique_repos:
+            if all_repos.count(repository) > 1 and repository not in repos:
+                LOGGER.warning(
+                    "Duplicated repository",
+                    extra=dict(repo=repository, project=project_name)
+                )
 
     return has_repeated_inputs or has_repeated_existing
 
@@ -253,7 +271,7 @@ async def create_repositories(
     )
 
     res_data_enc = encode_resources(res_data)
-    if has_repeated_repos(existing_repos, res_data_enc):
+    if has_repeated_repos(project_name, existing_repos, res_data_enc):
         raise RepeatedValues()
 
     json_data: List[ResourceType] = []
@@ -291,7 +309,7 @@ async def create_environments(
     existing_envs = cast(
         List[ResourceType], environments.get('environments', [])
     )
-    if has_repeated_envs(existing_envs, res_data_enc):
+    if has_repeated_envs(project_name, existing_envs, res_data_enc):
         raise RepeatedValues()
 
     json_data: List[ResourceType] = []
