@@ -20,7 +20,7 @@ function helper_test_lint_code_python {
 function helper_clone_test_repo {
   export GITLAB_API_TOKEN
 
-      git clone --depth 1 --no-checkout \
+      git clone \
   "https://gitlab.com:${GITLAB_API_TOKEN}@gitlab.com/fluidattacks/services.git" \
   &&  pushd services \
   &&  git checkout HEAD groups/continuoustest/ \

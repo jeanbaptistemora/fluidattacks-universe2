@@ -11,9 +11,8 @@ from toolbox.utils.generic import (
     get_change_request_deltas,
 )
 
-@pytest.mark.skip(reason="Pending to fix")
 def test_get_change_request_summary():
-    assert get_change_request_summary('44c9195') == 'create .gitignore'
+    assert 'drills' in get_change_request_summary('83c7ec89')
 
 @pytest.mark.skip(reason="Pending to fix")
 def test_get_change_request_body():
