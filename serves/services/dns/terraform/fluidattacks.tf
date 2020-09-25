@@ -1,6 +1,11 @@
 resource "aws_route53_zone" "fs_maindomain" {
   name    = var.domain
   comment = "Dominio principal de FLUID"
+
+  tags = {
+    "management:type"    = "production"
+    "management:product" = "serves"
+  }
 }
 
 resource "aws_route53_record" "mainA" {
