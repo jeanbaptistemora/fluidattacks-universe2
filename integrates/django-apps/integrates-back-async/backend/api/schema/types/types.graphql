@@ -1,75 +1,3 @@
-"Event type definition"
-type Event {
-    id: String
-    analyst: String
-    client: String
-    consulting: [Consult!]
-    projectName: String
-    detail: String
-    evidence: String
-    eventType: String
-    eventDate: String
-    eventStatus: String
-    historicState: [GenericScalar]
-    affectation: String
-    accessibility: String
-    affectedComponents: String
-    context: String
-    subscription: String
-    evidenceFile: String
-    closingDate: String
-}
-
-"Finding type definition"
-type Finding {
-    actor: String!
-    affectedSystems: String
-    age: Int
-    analyst: String
-    attackVectorDesc: String
-    btsUrl: String
-    closedVulnerabilities: Int
-    compromisedAttributes: String
-    compromisedRecords: Int
-    consulting: [Consult]
-    currentState: String
-    cvssVersion: String
-    cweUrl: String
-    description: String
-    evidence: GenericScalar
-    exploit: String
-    id: String
-    isExploitable: Boolean
-    lastVulnerability: Int
-    observations: [Comment]
-    openVulnerabilities: Int
-    projectName: String
-    recommendation: String
-    records: JSONString
-    releaseDate: String
-    remediated: Boolean
-    newRemediated: Boolean
-    verified: Boolean
-    reportDate: String
-    requirements: String
-    risk: String
-    scenario: String
-    severity: GenericScalar
-    severityScore: Float
-    state: String
-    historicState: [GenericScalar]
-    historicTreatment: [GenericScalar]
-    threat: String
-    title: String
-    tracking: [GenericScalar]
-    type: String
-    vulnerabilities(state: String): [Vulnerability]
-    portsVulns: [Vulnerability]
-    inputsVulns: [Vulnerability]
-    linesVulns: [Vulnerability]
-    pendingVulns: [Vulnerability]
-}
-
 "InternalNames type definition"
 type InternalName {
     name: String
@@ -95,14 +23,6 @@ type BillDeveloper {
     groups: String
     organization: String
     repository: String
-}
-
-"ForcesExecutions type definition"
-type ForcesExecutions {
-    projectName: String!
-    fromDate: String
-    toDate: String
-    executions: [ForcesExecution]
 }
 
 "ForcesExecutions type definition"
