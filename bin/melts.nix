@@ -12,6 +12,7 @@ in
       pkgs.awscli
       pkgs.sops
       pkgs.jq
+      pkgs.python38Packages.psycopg2
     ];
 
     pyPkgMelts = builders.pythonPackageLocal {
