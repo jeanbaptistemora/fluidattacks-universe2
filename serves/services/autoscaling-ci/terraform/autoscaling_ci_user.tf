@@ -37,6 +37,11 @@ resource "aws_iam_policy" "autoscaling_ci_policy" {
 resource "aws_iam_user" "autoscaling_ci_user" {
   name     = "autoscaling-ci"
   path     = "/autoscaling-ci/"
+
+  tags = {
+    "management:type"    = "production"
+    "management:product" = "serves"
+  }
 }
 
 resource "aws_iam_user_policy_attachment" "attach_autoscaling_ci_policy" {

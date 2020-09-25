@@ -28,4 +28,9 @@ resource "aws_security_group" "autoscaling_ci_security_group_2" {
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
+
+  tags = {
+    "management:type"    = "production"
+    "management:product" = "serves"
+  }
 }

@@ -15,4 +15,9 @@ resource "aws_s3_bucket" "autoscaling_ci_cache" {
       }
     }
   }
+
+  tags = {
+    "management:type"    = "production"
+    "management:product" = "serves"
+  }
 }

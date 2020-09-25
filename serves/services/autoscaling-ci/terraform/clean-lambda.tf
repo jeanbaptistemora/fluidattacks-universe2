@@ -38,6 +38,11 @@ resource "aws_iam_policy" "autoscaling-clean" {
 resource "aws_iam_role" "autoscaling-clean" {
   name = "autoscaling-clean"
   assume_role_policy = data.aws_iam_policy_document.lambda-assume-role-policy.json
+
+  tags = {
+    "management:type"    = "production"
+    "management:product" = "serves"
+  }
 }
 
 resource "aws_iam_role_policy_attachment" "autoscaling-clean" {
@@ -62,4 +67,9 @@ resource "aws_lambda_function" "autoscaling-clean" {
   source_code_hash = data.archive_file.autoscaling-clean.output_base64sha256
 
   runtime = "nodejs12.x"
+
+  tags = {
+    "management:type"    = "production"
+    "management:product" = "serves"
+  }
 }

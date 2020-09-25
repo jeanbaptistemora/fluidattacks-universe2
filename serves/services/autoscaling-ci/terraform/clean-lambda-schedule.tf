@@ -2,6 +2,11 @@ resource "aws_cloudwatch_event_rule" "every-hour" {
   name                = "every--hour"
   description         = "Fires every one hours"
   schedule_expression = "rate(1 hour)"
+
+  tags = {
+    "management:type"    = "production"
+    "management:product" = "serves"
+  }
 }
 
 resource "aws_cloudwatch_event_target" "autoscaling-clean" {
