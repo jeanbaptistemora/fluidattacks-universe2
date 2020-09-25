@@ -19,6 +19,19 @@ class UserTests(TestCase):
     @pytest.mark.asyncio
     async def test_get_user(self):
         """Check for user."""
+        expected_output = {
+            'email': 'continuoushacking@gmail.com',
+            'role': 'customeradmin',
+            'responsibility': 'Test',
+            'phone_number': '-',
+            'first_login': '2018-02-28 11:54:12',
+            'last_login': '[186, 33677]',
+            'projects': [
+                {'name': 'oneshottest'},
+                {'name': 'pendingproject'},
+                {'name': 'unittesting'}
+            ]
+        }
         query = '''
             query {
                 stakeholder(entity: PROJECT,
@@ -41,6 +54,12 @@ class UserTests(TestCase):
         request = await create_dummy_session()
         _, result = await graphql(SCHEMA, data, context_value=request)
         assert 'errors' not in result
+        assert result['data']['stakeholder']['email'] == expected_output.get('email')
+        assert result['data']['stakeholder']['role'] == expected_output.get('role')
+        assert result['data']['stakeholder']['responsibility'] == expected_output.get('responsibility')
+        assert result['data']['stakeholder']['phoneNumber'] == expected_output.get('phone_number')
+        assert result['data']['stakeholder']['firstLogin'] == expected_output.get('first_login')
+        assert result['data']['stakeholder']['projects'] == expected_output.get('projects')
         assert 'stakeholder' in result['data']
         assert 'responsibility' in result['data']['stakeholder']
         assert 'phoneNumber' in result['data']['stakeholder']
