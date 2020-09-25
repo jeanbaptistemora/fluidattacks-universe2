@@ -339,6 +339,19 @@ function helper_common_terraform_plan {
   || return 1
 }
 
+function helper_common_terraform_plan_new {
+  local target_dir="${1}"
+  local config="${2}"
+
+      helper_common_terraform_init "${target_dir}" \
+  &&  pushd "${target_dir}" \
+    &&  echo '[INFO] Running terraform plan' \
+    &&  terraform plan -lock=false -refresh=true \
+    &&  tflint --config "${config}" \
+  &&  popd \
+  || return 1
+}
+
 function helper_common_terraform_apply {
   local target_dir="${1}"
 

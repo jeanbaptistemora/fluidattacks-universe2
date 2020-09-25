@@ -46,12 +46,13 @@ function job_serves_apply_infra_dns {
 
 function job_serves_test_infra_autoscaling_ci {
   local target='services/autoscaling-ci/terraform'
+  local config
 
       helper_use_pristine_workdir \
+  &&  config="${PWD}/.tflint.hcl" \
   &&  pushd serves \
-  &&  helper_serves_aws_login development \
-  &&  helper_common_terraform_plan \
-        "${target}" \
+    &&  helper_serves_aws_login development \
+    &&  helper_common_terraform_plan_new "${target}" "${config}" \
   &&  popd \
   ||  return 1
 }
