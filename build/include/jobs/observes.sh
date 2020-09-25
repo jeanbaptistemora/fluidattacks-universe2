@@ -139,6 +139,7 @@ function job_observes_code_ammend_authors {
 function job_observes_code_compute_authors {
   export GITLAB_API_USER
   export GITLAB_API_TOKEN
+  local folder
 
       env_prepare_python_packages \
   &&  helper_observes_aws_login prod \
@@ -148,7 +149,10 @@ function job_observes_code_compute_authors {
         'REDSHIFT_PASSWORD' \
         'REDSHIFT_PORT' \
         'REDSHIFT_USER' \
+  &&  folder="$(mktemp -d)" \
+  &&  echo "[INFO] Temporary results folder: ${folder}" \
   &&  python3 "${STARTDIR}/observes/code/compute_bills.py" \
+        --folder "${folder}" \
         --year "$(date +%Y)" \
         --month "$(date +%m)" \
 

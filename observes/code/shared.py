@@ -38,8 +38,12 @@ LOG.addHandler(logging.StreamHandler())
 LOG.handlers[0].setFormatter(logging.Formatter('[%(levelname)s] %(message)s'))
 
 
+def log_sync(level: str, msg: str, *args: Any) -> None:
+    getattr(LOG, level)(msg, *args)
+
+
 async def log(level: str, msg: str, *args: Any) -> None:
-    await in_thread(getattr(LOG, level), msg, *args)
+    await in_thread(log_sync, level, msg, *args)
 
 
 @contextmanager
