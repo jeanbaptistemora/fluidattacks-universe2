@@ -773,7 +773,7 @@ async def resolve(
             f'_get_{requested_field}'
         )
         result[requested_field] = resolver_func(info, **params)
-    return result
+    return dict(zip(result, await collect(result.values())))
 
 
 @convert_kwargs_to_snake_case  # type: ignore

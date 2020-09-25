@@ -1,4 +1,3 @@
-import asyncio
 import sys
 from decimal import Decimal
 from typing import (
@@ -380,23 +379,20 @@ async def _get_stakeholders(
 
     selection_set = SelectionSetNode()
     selection_set.selections = requested_fields
-
     return cast(
         List[StakeholderType],
-        await asyncio.gather(*[
-            asyncio.create_task(
-                user_loader.resolve_for_organization(
-                    info,
-                    'ORGANIZATION',
-                    user_email,
-                    organization_id=organization_id,
-                    as_field=True,
-                    selection_set=selection_set,
-                    field_name='stakeholders'
-                )
+        await aio.materialize(
+            user_loader.resolve_for_organization(
+                info,
+                'ORGANIZATION',
+                user_email,
+                organization_id=organization_id,
+                as_field=True,
+                selection_set=selection_set,
+                field_name='stakeholders'
             )
             for user_email in organization_stakeholders
-        ])
+        )
     )
 
 

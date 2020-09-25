@@ -19,6 +19,11 @@ from ariadne import convert_kwargs_to_snake_case, convert_camel_case_to_snake
 from asgiref.sync import sync_to_async
 
 from graphql.type.definition import GraphQLResolveInfo
+from graphql.language.ast import (
+    FieldNode,
+    SelectionSetNode,
+    ObjectFieldNode
+)
 
 from backend.api.resolvers import project as project_resolver
 from backend.decorators import (
@@ -233,8 +238,8 @@ async def _get_last_login(_: GraphQLResolveInfo, email: str, *__: str) -> str:
 async def _get_projects(
     info: GraphQLResolveInfo,
     email: str,
-    *_: str,
-    project_as_field: bool = True,
+    requested_fields: Union[List[FieldNode], None] = None,
+    project_as_field: bool = False,
     **__: Any
 ) -> List[ProjectType]:
     """Get list projects."""
@@ -244,12 +249,20 @@ async def _get_projects(
     )
     active, inactive = tuple(await asyncio.gather(active_task, inactive_task))
     user_projects = active + inactive
-    list_projects = await asyncio.gather(*[
-        asyncio.create_task(
-            project_resolver.resolve(info, project, as_field=project_as_field)
+
+    if requested_fields:
+        req_fields: List[Union[FieldNode, ObjectFieldNode]] = []
+        selection_set = SelectionSetNode()
+        selection_set.selections = requested_fields
+        req_fields.extend(
+            util.get_requested_fields('projects', selection_set)
         )
+        selection_set.selections = req_fields
+        info.field_nodes[0].selection_set.selections = req_fields
+    list_projects = await aio.materialize(
+        project_resolver.resolve(info, project, as_field=project_as_field)
         for project in user_projects
-    ])
+    )
     return list_projects
 
 
@@ -276,14 +289,23 @@ async def resolve(  # pylint: disable=too-many-arguments
         requested_field = convert_camel_case_to_snake(
             requested_field.name.value
         )
+        params = {
+            'email': email,
+            'entity': entity,
+            'identifier': identifier
+        }
+        if requested_field == 'projects':
+            del params['entity']
+            del params['identifier']
+            params['requested_fields'] = requested_fields
         if requested_field.startswith('_'):
             continue
         resolver_func = getattr(
             sys.modules[__name__],
             f'_get_{requested_field}'
         )
-        result[requested_field] = await resolver_func(
-            info, email, entity, identifier,
+        result[requested_field] = resolver_func(
+            info, *params.values()
         )
     return result
 
@@ -325,7 +347,7 @@ async def resolve_for_organization(  # pylint: disable=too-many-arguments
     field_name: str = 'users'
 ) -> UserType:
     email = user_email.lower()
-    return await resolve(
+    result = await resolve(
         info,
         entity,
         email,
@@ -334,6 +356,7 @@ async def resolve_for_organization(  # pylint: disable=too-many-arguments
         selection_set,
         field_name
     )
+    return dict(zip(result, await collect(result.values())))
 
 
 @convert_kwargs_to_snake_case  # type: ignore
