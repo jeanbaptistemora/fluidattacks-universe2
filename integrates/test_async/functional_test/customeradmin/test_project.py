@@ -140,7 +140,10 @@ async def test_project():
     assert result['data']['project']['consulting'] == [{'content': 'Test consult'}]
     assert result['data']['project']['drafts'] == []
     assert result['data']['project']['events'] == []
-    assert result['data']['project']['stakeholders'] == [{'email': 'integratesuser@gmail.com', 'role': 'group_manager'}]
+    assert result['data']['project']['stakeholders'] ==  [
+        {'email': 'integratesuser@gmail.com', 'role': 'group_manager'},
+        {'email': 'unittest2@fluidattacks.com', 'role': 'group_manager'},
+    ]
     assert result['data']['project']['serviceAttributes'] == [
         'has_drills_white',
         'is_fluidattacks_customer',

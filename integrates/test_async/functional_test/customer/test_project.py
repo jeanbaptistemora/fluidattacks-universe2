@@ -130,7 +130,10 @@ async def test_project():
     assert result['data']['project']['description'] == 'This is a new project from pytest'
     assert result['data']['project']['consulting'] == [{'content': 'Test consult'}]
     assert result['data']['project']['events'] == []
-    assert result['data']['project']['stakeholders'] == [{'email': 'integratescustomer@gmail.com', 'role': 'customeradmin'}]
+    assert result['data']['project']['stakeholders'] == [
+        {'email': 'integratescustomer@gmail.com', 'role': 'customeradmin'},
+        {'email': 'unittest2@fluidattacks.com', 'role': 'group_manager'},
+    ]
     assert result['data']['project']['serviceAttributes'] == ['has_drills_white', 'is_fluidattacks_customer', 'has_integrates', 'has_forces', 'must_only_have_fluidattacks_hackers']
     query = f'''
         mutation {{

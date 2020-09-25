@@ -29,6 +29,26 @@
           "role": {"S": "customer"}
         }
       }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "level": {"S": "user"},
+          "subject": {"S": "unittest2@fluidattacks.com"},
+          "object": {"S": "self"},
+          "role": {"S": "group_manager"}
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "level": {"S": "organization"},
+          "subject": {"S": "unittest2@fluidattacks.com"},
+          "object": {"S": "org#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"},
+          "role": {"S": "group_manager"}
+        }
+      }
     }
   ]
 }

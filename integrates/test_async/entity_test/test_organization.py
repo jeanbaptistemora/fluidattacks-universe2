@@ -243,7 +243,8 @@ async def test_organization():
         'continuoushacking@gmail.com',
         'integratescustomer@gmail.com',
         'integratesmanager@gmail.com',
-        'integratesuser@gmail.com'
+        'integratesuser@gmail.com',
+        'unittest2@fluidattacks.com'
     ]
     query = f'''
         query {{

@@ -37,7 +37,7 @@
          "PutRequest" : {
             "Item" : {
                "has_access" : {
-                  "BOOL" : false
+                  "BOOL" : true
                },
                "project_name" : {
                   "S" : "unittesting"
