@@ -71,6 +71,15 @@ observes_dynamodb:
     variables: [$observes_dynamodb]
   interruptible: false
 
+observes_dynamodb_forces:
+  <<: *with_nix
+  tags: [autoscaling-analytics]
+  stage: analytics
+  only:
+    refs: [schedules]
+    variables: [$observes_dynamodb_forces]
+  interruptible: false
+
 observes_services_toe:
   <<: *with_nix
   tags: [autoscaling-analytics]

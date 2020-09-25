@@ -10,7 +10,16 @@ function job_observes_formstack {
 function job_observes_dynamodb {
       helper_use_pristine_workdir \
   &&  env_prepare_python_packages \
+  &&  helper_observes_dynamodb "./observes/conf/awsdynamodb.json" "dynamodb" \
+  ||  return 1
+}
+
+function job_observes_dynamodb_forces {
+      helper_use_pristine_workdir \
+  &&  env_prepare_python_packages \
   &&  helper_observes_dynamodb \
+      "./observes/conf/awsdynamodb_forces.json" \
+      "dynamodb_forces" \
   ||  return 1
 }
 

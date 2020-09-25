@@ -73,6 +73,8 @@ function helper_observes_formstack {
 }
 
 function helper_observes_dynamodb {
+      local conf="${1}"
+      local schema="${2}"
       helper_observes_aws_login prod \
   &&  helper_common_sops_env observes/secrets-prod.yaml default \
         analytics_aws_access_key \
@@ -92,7 +94,7 @@ function helper_observes_dynamodb {
   &&  mkdir ./logs \
   &&  streamer-dynamodb \
         --auth "${TEMP_FILE1}" \
-        --conf ./observes/conf/awsdynamodb.json > .stream \
+        --conf "${conf}" > .stream \
  &&  echo '[INFO] Running tap' \
       && tap-json \
       --out ".singer" \
@@ -102,7 +104,7 @@ function helper_observes_dynamodb {
   &&  target-redshift \
         --auth "${TEMP_FILE2}" \
         --drop-schema \
-        --schema-name 'dynamodb' \
+        --schema-name "${schema}" \
         < .singer
 }
 

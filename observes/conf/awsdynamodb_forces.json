@@ -1,0 +1,6 @@
+{
+  "tables": [
+    "bb_executions",
+    "FI_forces"
+  ]
+}
