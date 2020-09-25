@@ -2,7 +2,6 @@
 from typing import cast, List
 
 # Third party
-from ariadne.utils import convert_kwargs_to_snake_case
 from graphql.type.definition import GraphQLResolveInfo
 
 # Local
@@ -23,12 +22,11 @@ async def _get_stakeholder(email: str, org_id: str) -> Stakeholder:
     return {**stakeholder, 'responsibility': '', 'role': org_role}
 
 
-@convert_kwargs_to_snake_case
 @enforce_organization_level_auth_async
 async def resolve(
     parent: Organization,
     _info: GraphQLResolveInfo,
-    **_kwargs: str
+    **_kwargs: None
 ) -> List[Stakeholder]:
     org_id: str = cast(str, parent['id'])
 

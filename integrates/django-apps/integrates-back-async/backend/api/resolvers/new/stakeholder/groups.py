@@ -4,7 +4,6 @@ from typing import cast, List
 
 # Third party
 from aiodataloader import DataLoader
-from ariadne.utils import convert_kwargs_to_snake_case
 from graphql.type.definition import GraphQLResolveInfo
 
 # Local
@@ -12,11 +11,10 @@ from backend.domain import user as user_domain
 from backend.typing import Project as Group, Stakeholder
 
 
-@convert_kwargs_to_snake_case
 async def resolve(
     parent: Stakeholder,
     info: GraphQLResolveInfo,
-    **_kwargs: str
+    **_kwargs: None
 ) -> List[Group]:
     email: str = cast(str, parent['email'])
 

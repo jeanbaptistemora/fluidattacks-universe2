@@ -38,7 +38,7 @@ async def _get_stakeholder(email: str, group_name: str) -> Stakeholder:
 async def resolve(
     parent: Group,
     _info: GraphQLResolveInfo,
-    **_kwargs: str
+    **_kwargs: None
 ) -> List[Stakeholder]:
     group_name: str = cast(str, parent['name'])
 

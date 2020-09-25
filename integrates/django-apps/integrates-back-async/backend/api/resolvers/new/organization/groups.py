@@ -3,7 +3,6 @@ from typing import cast, Dict, List
 
 # Third party
 from aiodataloader import DataLoader
-from ariadne.utils import convert_kwargs_to_snake_case
 from graphql.type.definition import GraphQLResolveInfo
 
 # Local
@@ -12,11 +11,10 @@ from backend.domain import user as user_domain
 from backend.typing import Organization, Project as Group
 
 
-@convert_kwargs_to_snake_case
 async def resolve(
     parent: Organization,
     info: GraphQLResolveInfo,
-    **_kwargs: str
+    **_kwargs: None
 ) -> List[Group]:
     user_info: Dict[str, str] = await util.get_jwt_content(info.context)
     user_email: str = user_info['user_email']

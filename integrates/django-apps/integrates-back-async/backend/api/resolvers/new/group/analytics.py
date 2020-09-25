@@ -2,6 +2,7 @@
 from typing import cast
 
 # Third party
+from ariadne.utils import convert_kwargs_to_snake_case
 from graphql.type.definition import GraphQLResolveInfo
 
 # Local
@@ -14,6 +15,7 @@ from backend.domain import analytics as analytics_domain
 from backend.typing import Project as Group
 
 
+@convert_kwargs_to_snake_case
 @concurrent_decorators(
     enforce_group_level_auth_async,
     require_integrates,
