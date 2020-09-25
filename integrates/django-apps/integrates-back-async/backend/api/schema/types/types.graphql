@@ -1,43 +1,9 @@
-"Bill type definition"
-type Bill {
-    developers: [BillDeveloper]
-}
-
-"BillDeveloper type definition"
-type BillDeveloper {
-    actor: String
-    commit: String
-    groups: String
-    organization: String
-    repository: String
-}
-
 "ForcesExecutions type definition"
 type ForcesExecutionsNew {
     projectName: String!
     fromDate: String
     toDate: String
     executions: [ForcesExecutionNew]
-}
-
-"Comment/Consult type definition"
-type Comment {
-    id: String
-    content: String
-    created: String
-    email: String
-    fullname: String
-    modified: String
-    parent: String
-}
-type Consult {
-    id: String
-    content: String
-    created: String
-    email: String
-    fullname: String
-    modified: String
-    parent: String
 }
 
 "Verification type definition"
@@ -100,24 +66,6 @@ input ExecutionVulnerabilitiesInput {
     open: [ExploitResultInput!]
 }
 
-type ExecutionVulnerabilities {
-    exploits: [ExploitResult!]
-    integratesExploits: [ExploitResult!]
-    acceptedExploits: [ExploitResult!]
-    numOfVulnerabilitiesInExploits: Int
-    numOfVulnerabilitiesInIntegratesExploits: Int
-    numOfVulnerabilitiesInAcceptedExploits: Int
-}
-
-type ExecutionVulnerabilitiesNew {
-    open: [ExploitResult!]
-    closed: [ExploitResult!]
-    accepted: [ExploitResult!]
-    numOfOpenVulnerabilities: Int
-    numOfClosedVulnerabilities: Int
-    numOfAcceptedVulnerabilities: Int
-}
-
 input ExploitResultInput {
     "CVSS Exploitability"
     exploitability: Float
@@ -142,12 +90,6 @@ type ExploitResult {
 "Report type definition"
 type Report {
     url: String
-}
-
-type EntityReportSubscription {
-    entity: SubscriptionReportEntity!
-    frequency: Frequency!
-    subject: String!
 }
 
 input EnvironmentInput {

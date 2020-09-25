@@ -1,0 +1,5 @@
+type EntityReportSubscription {
+  entity: SubscriptionReportEntity!
+  frequency: Frequency!
+  subject: String!
+}

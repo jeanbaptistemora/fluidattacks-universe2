@@ -24,7 +24,7 @@ type Finding {
   lastVulnerability: Int
   linesVulns: [Vulnerability]
   newRemediated: Boolean
-  observations: [Comment]
+  observations: [Consult]
   openVulnerabilities: Int
   pendingVulns: [Vulnerability]
   portsVulns: [Vulnerability]
