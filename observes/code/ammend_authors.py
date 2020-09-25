@@ -23,9 +23,6 @@ from aioextensions import (
     in_thread,
     run,
 )
-from psycopg2.extras import (
-    execute_batch,
-)
 
 # Local libraries
 from shared import (
@@ -35,7 +32,6 @@ from shared import (
 
 # Constants
 WORKERS_COUNT: int = 8
-WORKERS_PAGE_SIZE: int = 1024
 MailmapMapping = Dict[Tuple[str, str], Tuple[str, str]]
 """Mapping from (author, email) to (canonical_author, canonical_email)."""
 UPDATE_QUERY: str = """
@@ -104,23 +100,18 @@ async def worker(
 ) -> None:
     with db_cursor() as cursor:
         while True:
-            items: List[Item] = await drain_queue(queue)
-            items_to_change = await get_items_to_change(items, mailmap_dict)
+            item: Item = await queue.get()
+            items_to_change = await get_items_to_change([item], mailmap_dict)
 
             await log(
-                'info', 'Worker[%s]: Sending %s',
-                identifier, len(items_to_change),
-            )
-            await in_thread(
-                execute_batch,
-                cur=cursor,
-                sql=UPDATE_QUERY,
-                argslist=[item._asdict() for item in items],
-                page_size=WORKERS_PAGE_SIZE,
+                'info', 'Worker[%s]: Sending %s to %s',
+                identifier, len(items_to_change), item.namespace,
             )
 
-            for _ in items:
-                queue.task_done()
+            for item in items_to_change:
+                await in_thread(cursor.execute, UPDATE_QUERY, item._asdict())
+
+            queue.task_done()
 
 
 def get_mailmap_dict(mailmap_path: str) -> MailmapMapping:
@@ -159,15 +150,8 @@ def cli() -> None:
     ))
 
 
-async def drain_queue(queue: Queue) -> List[Item]:
-    items = [await queue.get()]
-    items_to_get = min(WORKERS_PAGE_SIZE - 1, queue.qsize())
-    items.extend(queue.get_nowait() for _ in range(items_to_get))
-    return items
-
-
 async def main(mailmap_dict: MailmapMapping) -> None:
-    queue: Queue = Queue(maxsize=2 * WORKERS_PAGE_SIZE * WORKERS_COUNT)
+    queue: Queue = Queue(maxsize=2 * WORKERS_COUNT)
     worker_tasks = [
         create_task(worker(identifier, queue, mailmap_dict))
         for identifier in range(WORKERS_COUNT)
@@ -191,7 +175,7 @@ async def manager(queue: Queue) -> None:
                     author_email, author_name,
                     committer_email, committer_name
                 FROM code.commits
-                WHERE namespace = 'continuoustest'
+                ORDER BY namespace
             """
         )
         async for (
