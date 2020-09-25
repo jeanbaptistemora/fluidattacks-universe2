@@ -104,6 +104,11 @@ resource "aws_kms_key" "key-serves-production" {
   policy                  = data.aws_iam_policy_document.key-serves-production.json
   deletion_window_in_days = 30
   is_enabled              = true
+
+  tags = {
+    "management:type"    = "production"
+    "management:product" = "serves"
+  }
 }
 
 resource "aws_kms_alias" "key-serves-production" {

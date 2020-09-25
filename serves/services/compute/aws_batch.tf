@@ -3,6 +3,11 @@ resource "aws_subnet" "default" {
   cidr_block = "192.168.8.0/23"
   map_public_ip_on_launch = true
   vpc_id = var.batch_vpc_id
+
+  tags = {
+    "management:type"    = "production"
+    "management:product" = "serves"
+  }
 }
 
 resource "aws_iam_role" "aws_ecs_instance_role" {
@@ -17,6 +22,11 @@ resource "aws_iam_role" "aws_ecs_instance_role" {
     }]
   })
   name = "aws_ecs_instance_role"
+
+  tags = {
+    "management:type"    = "production"
+    "management:product" = "serves"
+  }
 }
 
 resource "aws_iam_role_policy_attachment" "aws_ecs_instance_role" {
@@ -41,6 +51,11 @@ resource "aws_iam_role" "aws_batch_service_role" {
     }]
   })
   name = "aws_batch_service_role"
+
+  tags = {
+    "management:type"    = "production"
+    "management:product" = "serves"
+  }
 }
 
 resource "aws_iam_role_policy_attachment" "aws_batch_service_role" {
@@ -66,6 +81,11 @@ resource "aws_security_group" "aws_batch_compute_environment_security_group" {
     to_port = 0
     protocol = "-1"
     cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    "management:type"    = "production"
+    "management:product" = "serves"
   }
 }
 

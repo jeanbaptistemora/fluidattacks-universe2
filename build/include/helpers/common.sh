@@ -346,8 +346,8 @@ function helper_common_terraform_plan_new {
       helper_common_terraform_init "${target_dir}" \
   &&  pushd "${target_dir}" \
     &&  echo '[INFO] Running terraform plan' \
-    &&  terraform plan -lock=false -refresh=true \
     &&  tflint --config "${config}" \
+    &&  terraform plan -lock=false -refresh=true \
   &&  popd \
   || return 1
 }

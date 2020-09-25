@@ -4,6 +4,8 @@ resource "aws_subnet" "subnet-autoscaling-ci" {
   availability_zone = "us-east-1a"
 
   tags = {
-    Name = "autoscaling-ci"
+    Name                 = "autoscaling-ci"
+    "management:type"    = "production"
+    "management:product" = "serves"
   }
 }

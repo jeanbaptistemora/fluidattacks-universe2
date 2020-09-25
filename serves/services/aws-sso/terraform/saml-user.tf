@@ -15,6 +15,11 @@ data "aws_iam_policy_document" "okta-saml-policy-data" {
 resource "aws_iam_user" "okta-access-user" {
   name = "okta-access-user"
   path = "/"
+
+  tags = {
+    "management:type"    = "production"
+    "management:product" = "serves"
+  }
 }
 
 resource "aws_iam_access_key" "okta-access-user-key" {

@@ -72,12 +72,13 @@ function job_serves_apply_infra_autoscaling_ci {
 
 function job_serves_test_infra_aws_sso {
   local target='services/aws-sso/terraform'
+  local config
 
       helper_use_pristine_workdir \
+  &&  config="${PWD}/.tflint.hcl" \
   &&  pushd serves \
-  &&  helper_serves_aws_login development \
-  &&  helper_common_terraform_plan \
-        "${target}" \
+    &&  helper_serves_aws_login development \
+    &&  helper_common_terraform_plan_new "${target}" "${config}" \
   &&  popd \
   ||  return 1
 }
@@ -96,12 +97,13 @@ function job_serves_apply_infra_aws_sso {
 
 function job_serves_test_infra_fluid_vpc {
   local target='services/fluid-vpc/terraform'
+  local config
 
       helper_use_pristine_workdir \
+  &&  config="${PWD}/.tflint.hcl" \
   &&  pushd serves \
-  &&  helper_serves_aws_login development \
-  &&  helper_common_terraform_plan \
-        "${target}" \
+    &&  helper_serves_aws_login development \
+    &&  helper_common_terraform_plan_new "${target}" "${config}" \
   &&  popd \
   ||  return 1
 }
@@ -120,12 +122,13 @@ function job_serves_apply_infra_fluid_vpc {
 
 function job_serves_test_infra_secret_management {
   local target='secret-management/terraform'
+  local config
 
       helper_use_pristine_workdir \
+  &&  config="${PWD}/.tflint.hcl" \
   &&  pushd serves \
-  &&  helper_serves_aws_login development \
-  &&  helper_common_terraform_plan \
-        "${target}" \
+    &&  helper_serves_aws_login development \
+    &&  helper_common_terraform_plan_new "${target}" "${config}" \
   &&  popd \
   ||  return 1
 }
@@ -144,12 +147,13 @@ function job_serves_apply_infra_secret_management {
 
 function job_serves_test_infra_certificates {
   local target='services/certificates/terraform'
+  local config
 
       helper_use_pristine_workdir \
+  &&  config="${PWD}/.tflint.hcl" \
   &&  pushd serves \
-  &&  helper_serves_aws_login development \
-  &&  helper_common_terraform_plan \
-        "${target}" \
+    &&  helper_serves_aws_login development \
+    &&  helper_common_terraform_plan_new "${target}" "${config}" \
   &&  popd \
   ||  return 1
 }
@@ -168,10 +172,12 @@ function job_serves_apply_infra_certificates {
 
 function job_serves_test_infra_compute {
   local target='services/compute'
+  local config
 
-      pushd serves \
+      config="${PWD}/.tflint.hcl" \
+  &&  pushd serves \
     &&  helper_serves_aws_login development \
-    &&  helper_common_terraform_plan "${target}" \
+    &&  helper_common_terraform_plan_new "${target}" "${config}" \
   &&  popd \
   ||  return 1
 }
