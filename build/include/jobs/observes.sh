@@ -139,6 +139,8 @@ function job_observes_code_ammend_authors {
 function job_observes_code_compute_authors {
   export GITLAB_API_USER
   export GITLAB_API_TOKEN
+  local bucket_month
+  local bucket_day
   local folder
 
       env_prepare_python_packages \
@@ -150,11 +152,18 @@ function job_observes_code_compute_authors {
         'REDSHIFT_PORT' \
         'REDSHIFT_USER' \
   &&  folder="$(mktemp -d)" \
+  &&  bucket_month="s3://continuous-data/bills/$(date +%Y)/$(date +%m)" \
+  &&  bucket_day="s3://continuous-data/bills/$(date +%Y)/$(date +%m)/$(date +%d)" \
   &&  echo "[INFO] Temporary results folder: ${folder}" \
   &&  python3 "${STARTDIR}/observes/code/compute_bills.py" \
         --folder "${folder}" \
         --year "$(date +%Y)" \
         --month "$(date +%m)" \
+  &&  helper_services_aws_login prod \
+  &&  echo "[INFO] Syncing data from: ${folder} to ${bucket_month}" \
+  &&  aws s3 sync "${folder}" "${bucket_month}" \
+  &&  echo "[INFO] Syncing data from: ${folder} to ${bucket_day}" \
+  &&  aws s3 sync "${folder}" "${bucket_day}" \
 
 }
 
