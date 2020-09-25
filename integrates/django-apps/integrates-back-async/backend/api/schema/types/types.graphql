@@ -1,11 +1,3 @@
-"ForcesExecutions type definition"
-type ForcesExecutionsNew {
-    projectName: String!
-    fromDate: String
-    toDate: String
-    executions: [ForcesExecutionNew]
-}
-
 "Verification type definition"
 type Verification {
     date: String
@@ -25,36 +17,6 @@ type Tag {
     meanRemediate: Float
     organization: String
     projects: [Project]
-}
-
-type ForcesExecution {
-    projectName: String
-    execution_id: String
-    date: DateTime
-    exitCode: String
-    gitBranch: String
-    gitCommit: String
-    gitOrigin: String
-    gitRepo: String
-    kind: String
-    log: String
-    strictness: String
-    vulnerabilities: ExecutionVulnerabilities
-}
-
-type ForcesExecutionNew {
-    projectName: String
-    execution_id: String
-    date: DateTime
-    exitCode: String
-    gitBranch: String
-    gitCommit: String
-    gitOrigin: String
-    gitRepo: String
-    kind: String
-    log: String
-    strictness: String
-    vulnerabilities: ExecutionVulnerabilitiesNew
 }
 
 input ExecutionVulnerabilitiesInput {
@@ -77,14 +39,6 @@ input ExploitResultInput {
     where: String
     "Execution specific"
     who: String
-}
-
-type ExploitResult {
-    kind: String
-    where: String
-    who: String
-    state: VulnerabilityState
-    exploitability: String
 }
 
 "Report type definition"

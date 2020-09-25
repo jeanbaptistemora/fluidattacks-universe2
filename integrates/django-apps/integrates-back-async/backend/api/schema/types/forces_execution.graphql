@@ -1,0 +1,14 @@
+type ForcesExecution {
+  date: DateTime
+  execution_id: String
+  exitCode: String
+  gitBranch: String
+  gitCommit: String
+  gitOrigin: String
+  gitRepo: String
+  kind: String
+  log: String
+  projectName: String
+  strictness: String
+  vulnerabilities: ExecutionVulnerabilities
+}
