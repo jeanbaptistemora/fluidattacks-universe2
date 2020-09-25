@@ -7,6 +7,7 @@ import time
 import json
 import asyncio
 import statistics
+import contextlib
 
 from typing import List, Dict, Any
 
@@ -92,10 +93,8 @@ async def get_async_blames(
             elif tokens[0] in ("author", "author-mail",):
                 blame_entry[tokens[0]] = tokens[1]
             elif tokens[0] == "author-time":
-                try:
+                with contextlib.suppress(ValueError):
                     blame_entry["author-time"] = float(tokens[1])
-                except ValueError:
-                    pass
             elif tokens[0] == "filename":
                 safety_checks = (
                     "author" in blame_entry,

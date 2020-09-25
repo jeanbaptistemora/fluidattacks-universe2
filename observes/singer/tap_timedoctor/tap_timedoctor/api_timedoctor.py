@@ -5,6 +5,7 @@ import time
 import datetime
 import urllib.error
 import urllib.request
+from . import logs
 
 
 def current_timestamp(offset=0.0):
@@ -57,8 +58,8 @@ class Worker():
             elif status_code == 403:
                 print("INFO: Unauthorized/Forbidden")
                 sys.exit(1)
-        except urllib.error.URLError:
-            pass
+        except urllib.error.URLError as error:
+            logs.log_error(f'URL:  [{request.full_url}] | {error}')
 
         return (status_code, response)
 

@@ -96,24 +96,20 @@ def clean_str(stru: str) -> str:
 def to_date(date_time: Any) -> Any:
     """Manipulate a date to provide a RFC339 compatible date."""
     if ENABLE_TIMESTAMPS and is_timestamp(date_time):
-        try:
+        with contextlib.suppress(ValueError):
             date_stru = datetime.datetime.utcfromtimestamp(date_time)
             date_time = date_stru.strftime("%Y-%m-%dT%H:%M:%SZ")
             return date_time
-        except ValueError:
-            pass
 
     if is_str(date_time):
         date_time = re.sub(r"\s+", r" ", date_time)
         date_time = date_time.strip(" ")
 
         for date_format in DATE_FORMATS:
-            try:
+            with contextlib.suppress(ValueError):
                 date_stru = datetime.datetime.strptime(date_time, date_format)
                 date_time = date_stru.strftime("%Y-%m-%dT%H:%M:%SZ")
                 return date_time
-            except ValueError:
-                pass
 
     return False
 

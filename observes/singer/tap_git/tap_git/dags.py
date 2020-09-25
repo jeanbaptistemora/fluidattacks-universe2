@@ -7,6 +7,7 @@
 import os
 import re
 import datetime
+import contextlib
 
 from typing import Iterator, List, Any
 from collections import OrderedDict
@@ -61,8 +62,8 @@ def get_commits__parse_git_rev_list(
         r".* !([0-9a-fA-F]{40})!!(.*)!!(.*)!!((?:[0-9a-fA-F]{40} ?)*)!")
 
     # get base information by parsing git rev-list
-    try:
-        while 1:
+    with contextlib.suppress(StopIteration):
+        while True:
             # iter until the next node
             graph, commit_node_sha = \
                 get_next_match(iter_git_rev_list, rev_list_node)
@@ -90,8 +91,6 @@ def get_commits__parse_git_rev_list(
                 # used when stamping the integration date
                 "visit__stamp_integration_date": True,
             }
-    except StopIteration:
-        pass
 
 
 def get_commits__stamp_integration_date(commits: OrderedDict) -> None:

@@ -462,8 +462,8 @@ def main():
             write_records(form_name, form_schema)
         # Given an encrypted form is not downloaded
         # Then the file doesn't exist
-        except FileNotFoundError:
-            pass
+        except FileNotFoundError as error:
+            logs.log_error(f'File:    [{form_name}] | {error}')
 
 
 if __name__ == "__main__":
