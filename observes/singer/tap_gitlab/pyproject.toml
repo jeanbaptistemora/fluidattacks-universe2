@@ -6,6 +6,9 @@ authors = ["Product Team <development@fluidattacks.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.8"
+aiohttp = "3.6.2"
+aioextensions = "20.8.2087641"
+asgiref = "3.2.10"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
