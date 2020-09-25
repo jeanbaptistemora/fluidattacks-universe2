@@ -25,10 +25,31 @@ async def test_project():
         }}
     '''
     data = {'query': query}
-    result = await get_result(data)
+    result = await get_result(data, stakeholder='integratesmanager@gmail.com')
     assert 'errors' not in result
     assert 'success' in result['data']['createProject']
     assert result['data']['createProject']['success']
+    role = 'CUSTOMER'
+    query = f'''
+        mutation {{
+            grantStakeholderAccess (
+                email: "integratescustomer@gmail.com",
+                phoneNumber: "-"
+                projectName: "{group_name}",
+                responsibility: "Customer",
+                role: {role}
+            ) {{
+            success
+                grantedStakeholder {{
+                    email
+                }}
+            }}
+        }}
+    '''
+    data = {'query': query}
+    result = await get_result(data, stakeholder='integratesmanager@gmail.com')
+    assert 'errors' not in result
+    assert  result['data']['grantStakeholderAccess']['success']
     query = f'''
         mutation {{
             addProjectConsult(
@@ -96,10 +117,6 @@ async def test_project():
                     analyst
                     detail
                 }}
-                stakeholders {{
-                    email
-                    role
-                }}
                 serviceAttributes
                 __typename
             }}
@@ -130,10 +147,6 @@ async def test_project():
     assert result['data']['project']['description'] == 'This is a new project from pytest'
     assert result['data']['project']['consulting'] == [{'content': 'Test consult'}]
     assert result['data']['project']['events'] == []
-    assert result['data']['project']['stakeholders'] == [
-        {'email': 'integratescustomer@gmail.com', 'role': 'customeradmin'},
-        {'email': 'unittest2@fluidattacks.com', 'role': 'group_manager'},
-    ]
     assert result['data']['project']['serviceAttributes'] == ['has_drills_white', 'is_fluidattacks_customer', 'has_integrates', 'has_forces', 'must_only_have_fluidattacks_hackers']
     query = f'''
         mutation {{

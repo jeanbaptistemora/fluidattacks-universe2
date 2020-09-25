@@ -22,7 +22,7 @@ pytestmark = [
     ['email'],
     [
         ['continuoushacking@gmail.com'],
-        ['integratesuser@gmail.com'],
+        ['integratescustomer@gmail.com'],
     ]
 )
 async def test_get_user_level_actions(email):

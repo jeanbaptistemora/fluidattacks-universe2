@@ -30,6 +30,24 @@ async def test_project():
     assert 'errors' not in result
     assert 'success' in result['data']['createProject']
     assert result['data']['createProject']['success']
+    role = 'ADMIN'
+    query = f'''
+        mutation {{
+            editStakeholder (
+                email: "integratesmanager@gmail.com",
+                phoneNumber: "-",
+                projectName: "{group_name}"
+                responsibility: "Admin",
+                role: {role}
+            ) {{
+                success
+            }}
+        }}
+    '''
+    data = {'query': query}
+    result = await get_result(data)
+    assert 'errors' not in result
+    assert 'success' in result['data']['editStakeholder']
     query = f'''
         mutation {{
             addProjectConsult(

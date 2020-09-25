@@ -46,7 +46,7 @@
           "level": {"S": "user"},
           "subject": {"S": "integratesuser@gmail.com"},
           "object": {"S": "self"},
-          "role": {"S": "internal_manager"}
+          "role": {"S": "customeradmin"}
         }
       }
     },

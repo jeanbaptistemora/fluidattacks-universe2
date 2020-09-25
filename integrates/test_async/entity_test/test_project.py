@@ -178,7 +178,7 @@ class ProjectTests(TestCase):
         }'''
         query = query % {'name': await get_name('group')}
         data = {'query': query}
-        result = await self._get_result_async(data, user='integratesuser@gmail.com')
+        result = await self._get_result_async(data)
         assert 'errors' not in result
         assert 'success' in result['data']['createProject']
         assert result['data']['createProject']['success']
