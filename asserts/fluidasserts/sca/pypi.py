@@ -4,6 +4,7 @@
 
 # standard imports
 import os
+import contextlib
 
 # 3rd party imports
 from requirements_detector import find_requirements
@@ -31,14 +32,12 @@ def _get_requirements(path: str, exclude: tuple) -> set:
     if not os.path.exists(path):
         return reqs
     for full_path in get_dir_paths(path, exclude=exclude):
-        try:
+        with contextlib.suppress(RequirementsNotFound):
             reqs.update(
                 (req.location_defined,
                  req.name,
                  req.version_specs[0][1] if req.version_specs else None)
                 for req in find_requirements(full_path))
-        except RequirementsNotFound:
-            pass
     return reqs
 
 

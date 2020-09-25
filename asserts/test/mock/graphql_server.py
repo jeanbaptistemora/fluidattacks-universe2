@@ -2,6 +2,7 @@
 
 """Simple Flask/GraphQL server."""
 
+import contextlib
 from time import sleep
 from flask import Flask
 from flask_graphql import GraphQLView
@@ -251,7 +252,5 @@ APP.add_url_rule('/lazy-graphql',
 
 def start():
     """Start this GraphQL Server."""
-    try:
+    with contextlib.suppress(OSError):
         APP.run(port=4001)
-    except OSError:
-        pass

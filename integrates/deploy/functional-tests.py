@@ -4,11 +4,14 @@ import shutil
 import tarfile
 import time
 import unittest
+import contextlib
 
 import boto3
 from selenium import webdriver
 from selenium.common.exceptions import (
-    ElementClickInterceptedException, TimeoutException)
+    ElementClickInterceptedException,
+    TimeoutException
+)
 from selenium.webdriver.common.by import By
 from selenium.webdriver.firefox.options import Options
 from selenium.webdriver.support import expected_conditions as expected
@@ -91,18 +94,15 @@ class ViewTestCase(unittest.TestCase):
         time.sleep(2)
 
     def __check_existing_session(self):
-        try:
+        with contextlib.suppress(TimeoutException):  # User does not have existing session
             selenium = self.selenium
             continue_btn = WebDriverWait(selenium, self.delay/10).until(
                 expected.presence_of_element_located(
                     (By.XPATH, "//*[contains(text(), 'Continue')]")))
             self.__click(continue_btn)
-        except TimeoutException:
-            # User does not have existing session
-            pass
 
     def __check_legal_notice(self):
-        try:
+        with contextlib.suppress(TimeoutException):  # User has already checked the legal notice
             selenium = self.selenium
             WebDriverWait(selenium, self.delay/10).until(
                 expected.presence_of_element_located(
@@ -112,16 +112,13 @@ class ViewTestCase(unittest.TestCase):
             accept_btn = selenium.find_element_by_xpath(
                 "//*[contains(text(), 'Accept and continue')]")
             self.__click(accept_btn)
-        except TimeoutException:
-            # User has already checked the legal notice
-            pass
 
     def __click(self, element):
         self.selenium.execute_script('arguments[0].click()', element)
         time.sleep(6)
 
     def __login_aux(self):
-        try:
+        with contextlib.suppress(TimeoutException):
             selenium = self.selenium
             WebDriverWait(selenium, self.delay/10).until(
                 expected.presence_of_element_located(
@@ -130,11 +127,9 @@ class ViewTestCase(unittest.TestCase):
             btn_user = selenium.find_element_by_xpath(
                 f"//*[contains(text(), 'continuoushack{user_to_login}@gmail.com')]")
             self.__click(btn_user)
-        except TimeoutException:
-            pass
-    
+
     def __accept_cookies(self):
-        try:
+        with contextlib.suppress(TimeoutException):
             selenium = self.selenium
             WebDriverWait(selenium, self.delay/10).until(
                 expected.presence_of_element_located(
@@ -142,8 +137,6 @@ class ViewTestCase(unittest.TestCase):
             accept_cookies = selenium.find_element_by_xpath(
                 "//*[contains(text(), 'Allow all cookies')]")
             self.__click(accept_cookies)
-        except TimeoutException:
-            pass
 
     def __login(self):
         selenium = self.selenium
@@ -521,7 +514,7 @@ class ViewTestCase(unittest.TestCase):
     def test_18_tag_indicators(self):
         selenium = self.selenium
 
-        
+
         selenium.get(
             self.url + f'/orgs/okada/portfolios/test-projects/indicators')
         WebDriverWait(selenium, self.delay).until(

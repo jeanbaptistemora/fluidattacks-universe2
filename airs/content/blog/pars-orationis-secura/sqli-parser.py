@@ -7,6 +7,7 @@ of the dangerously concatenated variable in the same file.
 """
 
 import os
+import contextlib
 from pyparsing import (Combine, Literal, CaselessKeyword, Word, alphanums,
                        delimitedList, Group, Optional, ZeroOrMore, line,
                        lineno, col, ParseException)
@@ -71,7 +72,9 @@ def scan_test_file(path='test-cases.lst'):
             try:
                 injectable_variables = tokens["values"]
                 for injectable_variable in injectable_variables:
-                    try:
+                    # If parse fails or key "phpvar" does not exist,
+                    # there is simply no danger variable.
+                    with contextlib.suppress(ParseException, KeyError):
                         # Re-parsing is ugly but necessary since a PHP_FUNCALL
                         # might not contain any PHP_IDENTIFIERs.
                         res = (PHP_IDENTIFIER ^ PHP_FUNCALL
@@ -87,10 +90,6 @@ def scan_test_file(path='test-cases.lst'):
                                   .format(lineno(start2, content),
                                           line(start2, content).strip()))
                         queries += + 1
-                    except (ParseException, KeyError):
-                        # If parse fails or key "phpvar" does not exist,
-                        # there is simply no danger variable.
-                        pass
             except (ParseException, KeyError): # Same as above
                 print(" No dangerous concatenations in this query.")
         print("Found {0} SQL injections in {1}.".format(queries, path))

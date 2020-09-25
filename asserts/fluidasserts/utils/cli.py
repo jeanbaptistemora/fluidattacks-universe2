@@ -187,10 +187,8 @@ def enable_win_colors():
     """Enable windows colors."""
     global OUTFILE
     if sys.platform in ('win32', 'cygwin'):
-        try:
+        with contextlib.suppress(AttributeError):
             OUTFILE = UnclosingTextIOWrapper(sys.stdout.buffer)
-        except AttributeError:
-            pass
         try:
             import colorama.initialise
         except ImportError:

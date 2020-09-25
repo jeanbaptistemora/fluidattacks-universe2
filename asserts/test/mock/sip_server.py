@@ -4,6 +4,7 @@
 
 # standard imports
 import base64
+import contextlib
 
 # 3rd party imports
 from flask import Flask
@@ -56,7 +57,5 @@ def polycom_login_action_ok():
 
 def start():
     """Inicia el servidor de pruebas."""
-    try:
+    with contextlib.suppress(OSError):
         APP.run(port=8001)
-    except OSError:
-        pass

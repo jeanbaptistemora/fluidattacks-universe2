@@ -29,6 +29,7 @@ import os
 import time
 import random
 import datetime
+import contextlib
 
 # 3rd party imports
 from flask import Flask
@@ -1120,7 +1121,5 @@ def egx100_creds_ok():
 
 def start():
     """Inicia el servidor de pruebas."""
-    try:
+    with contextlib.suppress(OSError):
         APP.run(port=5000)
-    except OSError:
-        pass

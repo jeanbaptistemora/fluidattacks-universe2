@@ -3,6 +3,7 @@
 """Camera mocks."""
 
 # standard imports
+import contextlib
 
 # 3rd party imports
 from flask import Flask
@@ -29,7 +30,5 @@ def axis_rce():
 
 def start():
     """Start server."""
-    try:
+    with contextlib.suppress(OSError):
         APP.run(port=9001)
-    except OSError:
-        pass
