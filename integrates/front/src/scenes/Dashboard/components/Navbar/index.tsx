@@ -14,8 +14,8 @@ import {
   SelectCallback,
   SplitButton,
 } from "react-bootstrap";
-import { RouteComponentProps, withRouter } from "react-router";
-import { Link, useHistory } from "react-router-dom";
+import { withRouter } from "react-router";
+import { Link, useHistory, useLocation } from "react-router-dom";
 import { Field } from "redux-form";
 
 import { Button } from "components/Button";
@@ -32,10 +32,9 @@ import { msgError } from "utils/notifications";
 import { translate } from "utils/translations/translate";
 import { alphaNumeric } from "utils/validations";
 
-export const navbarComponent: React.FC<RouteComponentProps> = (
-  props: RouteComponentProps,
-): JSX.Element => {
+export const navbarComponent: React.FC = (): JSX.Element => {
   const { push } = useHistory();
+  const { pathname } = useLocation();
   const [lastOrganization, setLastOrganization] = useStoredState(
     "organization",
     { name: "" },
@@ -43,7 +42,7 @@ export const navbarComponent: React.FC<RouteComponentProps> = (
   );
   const { userEmail } = window as typeof window & { userEmail: string };
 
-  const path: string = props.location.pathname;
+  const path: string = pathname;
   const pathData: string[] = path.split("/")
     .slice(2);
   const pathOrganization: string = path.includes("/orgs")

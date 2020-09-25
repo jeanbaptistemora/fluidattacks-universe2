@@ -5,7 +5,6 @@ import { SplitButton } from "react-bootstrap";
 // tslint:disable-next-line: no-submodule-imports
 import { act } from "react-dom/test-utils";
 import { Provider } from "react-redux";
-import { RouteComponentProps } from "react-router";
 import { MemoryRouter } from "react-router-dom";
 import waitForExpect from "wait-for-expect";
 
@@ -23,43 +22,6 @@ describe("Navbar", () => {
   });
 
   it("should render", async () => {
-    const mockProps: RouteComponentProps = {
-      history: {
-        action: "PUSH",
-        block: (): (() => void) => (): void => undefined,
-        createHref: (): string => "",
-        go: (): void => undefined,
-        goBack: (): void => undefined,
-        goForward: (): void => undefined,
-        length: 1,
-        listen: (): (() => void) => (): void => undefined,
-        location: {
-          hash: "",
-          pathname: "/",
-          search: "",
-          state: {},
-        },
-        push: (): void => undefined,
-        replace: (): void => undefined,
-      },
-      location: {
-        hash: "",
-        pathname: "/orgs/okada",
-        search: "",
-        state: {
-          userInfo: {
-            givenName: "Test",
-          },
-        },
-      },
-      match: {
-        isExact: true,
-        params: {},
-        path: "/orgs/okada",
-        url: "",
-      },
-    };
-
     const organizationsQuery: Readonly<MockedResponse> = {
       request: {
         query: GET_USER_ORGANIZATIONS,
@@ -80,10 +42,10 @@ describe("Navbar", () => {
     };
 
     const wrapper: ReactWrapper = mount(
-      <MemoryRouter initialEntries={["/home"]}>
+      <MemoryRouter initialEntries={["/orgs/okada"]}>
         <Provider store={store}>
           <MockedProvider mocks={[organizationsQuery]} addTypename={true} >
-            <NavbarComponent {...mockProps}/>
+            <NavbarComponent />
          </MockedProvider>
         </Provider>
       </MemoryRouter>,
