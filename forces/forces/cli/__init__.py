@@ -134,7 +134,7 @@ def main(token: str,  # pylint: disable=too-many-arguments
     if repo_name:
         blocking_log(
             'info',
-            f'Ruing forces for vulnerabilities in the repo {repo_name}')
+            f'Ruing forces for vulnerabilities in the repo: {repo_name}')
 
     result = run(
         main_wrapped(

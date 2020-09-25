@@ -38,7 +38,7 @@ async def entrypoint(token: str, group: str, **kwargs: Any) -> int:
     await log('info',
               f"Running forces on the repository: {metadata['git_repo']}")
     strict = kwargs.get('strict', False)
-    exit_code = 1 if strict else 0
+    exit_code = 0
     set_api_token(token)
 
     report = await generate_report(
