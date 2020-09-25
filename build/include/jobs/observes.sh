@@ -136,6 +136,24 @@ function job_observes_code_ammend_authors {
   ||  return 1
 }
 
+function job_observes_code_compute_authors {
+  export GITLAB_API_USER
+  export GITLAB_API_TOKEN
+
+      env_prepare_python_packages \
+  &&  helper_observes_aws_login prod \
+  &&  helper_common_sops_env 'observes/secrets-prod.yaml' 'default' \
+        'REDSHIFT_DATABASE' \
+        'REDSHIFT_HOST' \
+        'REDSHIFT_PASSWORD' \
+        'REDSHIFT_PORT' \
+        'REDSHIFT_USER' \
+  &&  python3 "${STARTDIR}/observes/code/compute_bills.py" \
+        --year "$(date +%Y)" \
+        --month "$(date +%m)" \
+
+}
+
 function job_observes_git_process {
   # If you move me take into account the artifacts in the .gitlab-ci.yaml
 
