@@ -42,6 +42,9 @@ link:https://www.owasp.org/index.php/Category:OWASP_Application_Security_Verific
 . [inner]#link:../../search.html?q=bsimm9[BSIMM9, role="link-hvred"]#.
 link:https://www.bsimm.com/download.html[Building Security In Maturity Model, role="link-hvred"].
 
+. [inner]#link:../../search.html?q=CAPEC[CAPEC, role="link-hvred"]#.
+link:https://capec.mitre.org/index.html[Common Attack Pattern Enumeration and Classification, role="link-hvred"].
+
 . [inner]#link:../../search.html?q=CWE[CWE, role="link-hvred"]#.
 link:https://cwe.mitre.org/[Common Weakness Enumeration, role="link-hvred"].
 
@@ -54,14 +57,20 @@ link:https://gdpr-info.eu/[General Data Protection Regulation, role="link-hvred"
 . [inner]#link:../../search.html?q=HIPAA[HIPAA, role="link-hvred"]#.
 link:https://www.hhs.gov/hipaa/for-professionals/security/laws-regulations/index.html[Health Insurance Portability and Accountability Act, role="link-hvred"].
 
+. [inner]#link:../../search.html?q=ISO[ISO, role="link-hvred"]#.
+link:https://www.iso.org/isoiec-27001-information-security.html[`ISO` 27001, role="link-hvred"].
+
+. [inner]#link:../../search.html?q=NERC[NERC, role="link-hvred"]#.
+link:https://www.nerc.com/pa/Stand/Pages/Default.aspx[North America Electronic Reliability Corporation Standards, role="link-hvred"].
+
 . [inner]#link:../../search.html?q=NIST+800-53[NIST, role="link-hvred"]#.
 link:https://nvd.nist.gov/800-53/Rev4[`NIST` Special Publication 800-53 (Rev. 4), role="link-hvred"].
 
 . [inner]#link:../../search.html?q=OWASP[OWASP, role="link-hvred"]#.
 link:https://owasp.org/www-project-top-ten/[`OWASP` Top 10, role="link-hvred"].
 
-. [inner]#link:../../search.html?q=pci[`PCI`, role="link-hvred"]#.
-link:https://www.pcisecuritystandards.org/[PCI Security Standards Council, role="link-hvred"].
+. [inner]#link:../../search.html?q=pci[PCI, role="link-hvred"]#.
+link:https://www.pcisecuritystandards.org/[`PCI` Security Standards Council, role="link-hvred"].
 
 == Categories
 
