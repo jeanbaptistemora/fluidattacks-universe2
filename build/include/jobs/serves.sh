@@ -18,14 +18,15 @@ function job_serves_apply_infra_monolith {
 
 function job_serves_test_infra_dns {
   local target='services/dns/terraform'
+  local config
 
       helper_use_pristine_workdir \
+  &&  config="${PWD}/.tflint.hcl" \
   &&  pushd serves \
-  &&  helper_serves_aws_login development \
-  &&  helper_serves_cloudflare_login development \
-  &&  helper_serves_infra_dns_get_load_balancer \
-  &&  helper_common_terraform_plan \
-        "${target}" \
+    &&  helper_serves_aws_login development \
+    &&  helper_serves_cloudflare_login development \
+    &&  helper_serves_infra_dns_get_load_balancer \
+    &&  helper_common_terraform_plan_new "${target}" "${config}" \
   &&  popd \
   ||  return 1
 }
