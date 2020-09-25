@@ -30,7 +30,9 @@ from utils.system import (
 )
 
 # Constants
-AST: str = get_artifact('static/ast/build/install/ast/bin/ast')
+ANTLR_PARSER: str = get_artifact(
+    'static/parsers/antlr/build/install/parse/bin/parse',
+)
 
 
 @cache_decorator()
@@ -44,7 +46,7 @@ async def parse(
     path: str,
 ) -> Dict[str, Any]:
     code, out_bytes, err_bytes = await read(
-        AST,
+        ANTLR_PARSER,
         grammar,
         env=dict(
             # Limit heap size
@@ -59,7 +61,7 @@ async def parse(
             raise IOError(err)
 
         if code != 0:
-            raise IOError('AST Parser returned a non-zero exit code')
+            raise IOError('ANTLR Parser returned a non-zero exit code')
 
         if out_bytes:
             out: str = out_bytes.decode('utf-8')

@@ -36,26 +36,21 @@ function helper_skims_compute_version {
   '
 }
 
-function helper_skims_compile_ast {
+function helper_skims_compile_parsers {
   export CLASSPATH
   export srcExternalANTLR4
-  local grammars=(
-    Java9
-  )
+  local compile_antlr=(java -jar "${srcExternalANTLR4}" -no-listener -no-visitor)
+  local compile_java=(javac -Werror)
 
       echo '[INFO] Compiling grammars' \
-  &&  pushd skims/static/ast/ \
+  &&  pushd skims/static/parsers/ \
     &&  export CLASSPATH=".:${srcExternalANTLR4}:${CLASSPATH:-}" \
-    &&  for grammar in "${grammars[@]}"
-        do
-              echo "[INFO] Processing: ${grammar}" \
-          &&  java -jar "${srcExternalANTLR4}" src/main/java/ast/Java9.g4 \
-          &&  echo "[INFO] Compiling: ${grammar}" \
-          &&  javac -Werror src/main/java/ast/Java9*.java \
-
-        done \
-    &&  echo '[INFO] Building AST tool' \
-    &&  gradle installDist \
+    &&  echo "[INFO] Building Java9 parser" \
+    &&  pushd antlr \
+      &&  "${compile_antlr[@]}" src/main/java/parse/Java9.g4 \
+      &&  "${compile_java[@]}" src/main/java/parse/Java9*.java \
+      &&  gradle installDist \
+    &&  popd \
   &&  popd \
   ||  return 1
 }

@@ -26,7 +26,7 @@ declare -Arx SKIMS_GLOBAL_TEST_PKGS=(
 function job_skims_documentation {
   local bucket_path='s3://web.fluidattacks.com/resources/doc/skims/'
 
-      helper_skims_compile_ast \
+      helper_skims_compile_parsers \
   &&  helper_skims_install_dependencies \
   &&  pushd skims \
     &&  helper_skims_aws_login prod \
@@ -138,7 +138,7 @@ function job_skims_deploy_to_pypi {
     sed --in-place 's|^version.*$|version = "1.0.0"|g' "skims/pyproject.toml"
   }
 
-      helper_skims_compile_ast \
+      helper_skims_compile_parsers \
   &&  helper_skims_install_dependencies \
   &&  pushd skims \
     &&  version=$(helper_skims_compute_version) \
@@ -156,7 +156,7 @@ function job_skims_deploy_to_pypi {
 }
 
 function job_skims_install {
-      helper_skims_compile_ast \
+      helper_skims_compile_parsers \
   &&  helper_common_poetry_install skims \
 
 }
@@ -245,7 +245,7 @@ function job_skims_test {
     --verbose
   )
 
-      helper_skims_compile_ast \
+      helper_skims_compile_parsers \
   &&  helper_skims_install_dependencies \
   &&  pushd skims \
     &&  for pkg in "${SKIMS_GLOBAL_PKGS[@]}" "${SKIMS_GLOBAL_TEST_PKGS[@]}"

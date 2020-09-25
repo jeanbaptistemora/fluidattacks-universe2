@@ -13,12 +13,12 @@ dependencies {
 }
 
 application {
-    mainClassName = 'Ast'
+    mainClassName = 'Parse'
 }
 
 jar {
     manifest {
-        attributes "Main-Class": "Ast"
+        attributes "Main-Class": "Parse"
     }
 
     from {

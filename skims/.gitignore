@@ -15,9 +15,9 @@
 /dist
 /poetry.lock
 /skims.*.svg
-/static/ast/.gradle
-/static/ast/build/
-/static/ast/gradle/wrapper
-/static/ast/gradlew
-/static/ast/src/main/java/ast/Java9*
+/static/parsers/antlr/.gradle
+/static/parsers/antlr/build/
+/static/parsers/antlr/gradle/wrapper
+/static/parsers/antlr/gradlew
+/static/parsers/antlr/src/main/java/parse/Java9*
 /test/**/*.yaml.json

@@ -18,7 +18,7 @@ import org.antlr.v4.runtime.dfa.DFA;
 import org.antlr.v4.runtime.misc.*;
 import org.antlr.v4.runtime.tree.*;
 
-public class Ast {
+public class Parse {
 
   private static final Pattern ALL = Pattern.compile("\\A");
 
