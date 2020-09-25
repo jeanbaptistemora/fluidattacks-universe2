@@ -117,6 +117,25 @@ function job_observes_code_upload {
 
 }
 
+function job_observes_code_ammend_authors {
+  export GITLAB_API_USER
+  export GITLAB_API_TOKEN
+
+      env_prepare_python_packages \
+  &&  helper_observes_aws_login prod \
+  &&  helper_common_sops_env 'observes/secrets-prod.yaml' 'default' \
+        'REDSHIFT_DATABASE' \
+        'REDSHIFT_HOST' \
+        'REDSHIFT_PASSWORD' \
+        'REDSHIFT_PORT' \
+        'REDSHIFT_USER' \
+  &&  helper_use_services \
+    &&  python3 "${STARTDIR}/observes/code/ammend_authors.py" \
+          --mailmap '.groups-mailmap' \
+  &&  popd \
+  ||  return 1
+}
+
 function job_observes_git_process {
   # If you move me take into account the artifacts in the .gitlab-ci.yaml
 
