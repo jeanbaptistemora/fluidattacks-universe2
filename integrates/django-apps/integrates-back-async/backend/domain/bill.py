@@ -11,22 +11,17 @@ from typing import (
 from backend.dal import (
     bill as bill_dal,
 )
-from backend.utils import (
-    apm,
-)
 
-# Constants
-COLUMNS: Dict[str, str] = {
-    # Map(original_bill -> parsed_bill)
-    'actor': 'actor',
-    'groups': 'groups',
-    'organization': 'organization',
-    'repository': 'repository',
-    'sha1': 'commit',
+# Columns we want to show to the customers, with their correct names
+# mapping to all possible names it may have in the data source
+EXPECTED_COLUMNS: Dict[str, List[str]] = {
+    'actor': ['actor'],
+    'groups': ['groups'],
+    'commit': ['commit', 'sha1'],
+    'repository': ['repository'],
 }
 
 
-@apm.trace()
 async def get_authors_data(
         *, date: datetime, group: str) -> List[Dict[str, str]]:
     buffer: io.BytesIO = await bill_dal.get_bill_buffer(
@@ -36,8 +31,14 @@ async def get_authors_data(
 
     return [
         {
-            here_column: str(row.get(source_column, '-'))
-            for source_column, here_column in COLUMNS.items()
+            column: next(value_generator, '-')
+            for column, possible_names in EXPECTED_COLUMNS.items()
+            for value_generator in [
+                # This attempts to get the column value by trying the
+                # possible names the column may have
+                # this only yields truthy values (values with data)
+                filter(None, (row.get(name) for name in possible_names)),
+            ]
         }
         for row in csv.DictReader(buffer_str)
     ]

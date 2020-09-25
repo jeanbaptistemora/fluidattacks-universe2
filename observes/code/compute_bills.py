@@ -97,7 +97,6 @@ def create_csv_file(folder: str, data: MonthData, group: str) -> None:
             fieldnames=(
                 'actor',
                 'groups',
-                '# groups',
                 'commit',
                 'repository',
             ),
@@ -111,7 +110,6 @@ def create_csv_file(folder: str, data: MonthData, group: str) -> None:
                 writer.writerow({
                     'actor': actor,
                     'groups': ', '.join(groups_contributed),
-                    '# groups': len(groups_contributed),
                     'commit': actor_groups[group][-1]['hash'],
                     'repository': actor_groups[group][-1]['repository'],
                 })
