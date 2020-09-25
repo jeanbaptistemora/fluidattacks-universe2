@@ -26,7 +26,9 @@ def iterate_resources(
     template_resources = template.get('Resources', {})
 
     for resource_name, resource_config in template_resources.items():
-        if isinstance(resource_config, dict):
+        if isinstance(resource_config, dict) \
+                and 'Properties' in resource_config \
+                and 'Type' in resource_config:
             resource_properties = resource_config['Properties']
             resource_kind = resource_config['Type']
 

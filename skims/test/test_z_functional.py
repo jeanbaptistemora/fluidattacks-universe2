@@ -219,6 +219,7 @@ async def test_correct_assert(
             ('test/data/lib_path/f009/java.properties', '1'),
             ('test/data/lib_path/f009/java.properties', '2'),
             ('test/data/lib_path/f009/java.properties', '4'),
+            ('test/data/lib_path/f009/java.properties', '8'),
             ('test/data/lib_path/f009/javascript.js', '3'),
             ('test/data/lib_path/f009/javascript.js', '4'),
             ('test/data/lib_path/f009/javascript.js', '5'),

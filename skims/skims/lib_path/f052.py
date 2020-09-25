@@ -527,6 +527,7 @@ def _java_properties_weak_cipher_suite(
     )
 
 
+@cache_decorator()
 @SHIELD
 async def java_properties_weak_cipher_suite(
     content: str,

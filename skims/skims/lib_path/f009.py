@@ -3,6 +3,7 @@ import re
 from typing import (
     Awaitable,
     Callable,
+    Iterator,
     List,
     Pattern,
     Set,
@@ -28,10 +29,14 @@ from lib_path.common import (
     BACKTICK_QUOTED_STRING,
     blocking_get_vulnerabilities,
     DOUBLE_QUOTED_STRING,
+    EXTENSIONS_JAVA_PROPERTIES,
     EXTENSIONS_JAVASCRIPT,
     SHIELD,
     NAMES_DOCKERFILE,
     SINGLE_QUOTED_STRING,
+)
+from parse_java_properties import (
+    load as load_java_properties,
 )
 from state.cache import (
     cache_decorator,
@@ -47,6 +52,7 @@ from utils.model import (
     VulnerabilityStateEnum,
 )
 from utils.string import (
+    blocking_to_snippet,
     to_snippet,
 )
 from zone import (
@@ -197,6 +203,90 @@ async def dockerfile_env_secrets(
     ])
 
 
+def _java_properties_sensitive_info(
+    content: str,
+    path: str,
+) -> Tuple[Vulnerability, ...]:
+    sensible_key_smells = {
+        'amazon.aws.key',
+        'amazon.aws.secret',
+        'artifactory_user',
+        'artifactory_password',
+        'aws.accesskey',
+        'aws.secretkey',
+        'bg.ws.aws.password',
+        'bg.ws.key-store-password',
+        'bg.ws.trust-store-password',
+        'certificate.password',
+        'crypto.password',
+        'db.password',
+        'database.password',
+        'facephi.password',
+        'jasypt.encryptor.password',
+        'jwt.token.basic.signing.secret',
+        'key.alias.password',
+        'lambda.credentials2.key',
+        'lambda.credentials2.secret',
+        'mbda.credentials2.secret',
+        'micro.password',
+        'org.apache.ws.security.crypto.merlin.alias.password',
+        'org.apache.ws.security.crypto.merlin.keystore.password',
+        'passwordkeystore',
+        'sonar.password',
+        'spring.datasource.password',
+        'spring.mail.password',
+        'spring.mail.username',
+        'truststore.password',
+        'ws.aws.password',
+    }
+
+    def _iterate_vulnerabilities() -> Iterator[Tuple[int, int]]:
+        data = load_java_properties(content, include_comments=True)
+        for line_no, (key, val) in data.items():
+            key = key.lower()
+            for sensible_key_smell in sensible_key_smells:
+                if sensible_key_smell in key and val and not (
+                    val.startswith('${')  # env var
+                    or val.startswith('ENC(')  # encrypted with Jasypt
+                    or val.startswith('#{')  # encrypted with unknown tool
+                ):
+                    yield line_no, 0
+
+    return tuple(
+        Vulnerability(
+            finding=FindingEnum.F009,
+            kind=VulnerabilityKindEnum.LINES,
+            state=VulnerabilityStateEnum.OPEN,
+            what=path,
+            where=f'{line_no}',
+            skims_metadata=SkimsVulnerabilityMetadata(
+                description=t(
+                    key='src.lib_path.f009.java_properties_sensitive_info',
+                    path=path,
+                ),
+                snippet=blocking_to_snippet(
+                    column=column,
+                    content=content,
+                    line=line_no,
+                )
+            )
+        )
+        for line_no, column in _iterate_vulnerabilities()
+    )
+
+
+@SHIELD
+async def java_properties_sensitive_info(
+    content: str,
+    path: str,
+) -> Tuple[Vulnerability, ...]:
+    return await in_process(
+        _java_properties_sensitive_info,
+        content=content,
+        path=path,
+    )
+
+
 async def analyze(  # pylint: disable=too-many-arguments
     content_generator: Callable[[], Awaitable[str]],
     file_extension: str,
@@ -232,6 +322,11 @@ async def analyze(  # pylint: disable=too-many-arguments
         ))
     elif file_name in NAMES_DOCKERFILE:
         coroutines.append(dockerfile_env_secrets(
+            content=await content_generator(),
+            path=path,
+        ))
+    elif file_extension in EXTENSIONS_JAVA_PROPERTIES:
+        coroutines.append(java_properties_sensitive_info(
             content=await content_generator(),
             path=path,
         ))
