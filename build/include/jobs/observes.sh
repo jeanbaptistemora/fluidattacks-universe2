@@ -76,7 +76,6 @@ function job_observes_code {
   export GITLAB_API_USER
   export GITLAB_API_TOKEN
   local mock_integrates_api_token='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.e30.xxx'
-  local services_url="https://${GITLAB_API_USER}:${GITLAB_API_TOKEN}@gitlab.com/fluidattacks/services.git"
 
       env_prepare_python_packages \
   &&  helper_observes_aws_login prod \
@@ -86,13 +85,8 @@ function job_observes_code {
         'REDSHIFT_PASSWORD' \
         'REDSHIFT_PORT' \
         'REDSHIFT_USER' \
-  &&  if ! test -e .services
-      then
-            echo '[INFO] Cloning services' \
-        &&  git clone --branch master --single-branch --depth 1 "${services_url}" '.services'
-      fi \
-  &&  shopt -s nullglob \
-  &&  pushd '.services' \
+  &&  helper_use_services \
+    &&  shopt -s nullglob \
     &&  aws s3 ls 's3://continuous-repositories/' \
           | sed 's|.*PRE ||g;s|/||g' \
           | while read -r group
@@ -112,7 +106,7 @@ function job_observes_code {
                     ||  return 1
                   done \
               &&  echo "[INFO] Executing ${group}" \
-              &&  python3 "${STARTDIR}/observes/code/__init__.py" \
+              &&  python3 "${STARTDIR}/observes/code/upload.py" \
                     --namespace "${group}" \
                     "groups/${group}/fusion/"* \
               &&  rm -rf "groups/${group}/fusion/" \
