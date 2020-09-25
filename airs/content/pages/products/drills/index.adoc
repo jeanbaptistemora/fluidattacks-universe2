@@ -5,19 +5,15 @@
 
 = Drills
 
-[role="w-25-ns w-90 dib tl v-top pa3"]
-== Selection of Security Requirements
+=== Selection of Security Requirements
 
-[role="fw1 f-key-features lh-key-features"]
 You are able to decide which security requirements will be tested
 during each ethical hacking assignment: PCI, HIPAA, OWASP, NIST, GDPR.
 You will know the exact severity of each hacking project
 (for inspected and uninspected profiled requirements).
 
-[role="w-25-ns w-90 dib tl v-top pa3"]
-== Vulnerabilities Management Platform
+=== Vulnerabilities Management Platform
 
-[role="fw1 f-key-features lh-key-features"]
 Findings are reported in Integrates, Fluid Attacks' platform
 that allows control of the vulnerability testing and remediation processes.
 You can use it to access general information about each finding,
@@ -25,10 +21,8 @@ check its remediation status, classify it according to age,
 visualize real-time system statistics and progress,
 as well as other functionalities.
 
-[role="w-25-ns w-90 dib tl v-top pa3"]
-== Remediation
+=== Remediation
 
-[role="fw1 f-key-features lh-key-features"]
 Multiple finding validation cycles are performed.
 You can check if any findings have been successfully closed
 as many times as you require.
@@ -36,10 +30,8 @@ In order to perform a remediation validation,
 you must define the treatment used
 and then proceed to request a finding validation.
 
-[role="w-25-ns w-90 dib tl v-top pa3"]
-== Health Check
+=== Health Check
 
-[role="fw1 f-key-features lh-key-features"]
 All versions of existing code should be attacked up
 to the subscription start point, in addition to the monthly test limit.
 A health check is scheduled at the beginning of the subscription
@@ -47,16 +39,13 @@ in order to catch up with the development team.
 Then, the continuous hacking advances
 simultaneously with the development.
 
-[role="w-25-ns w-90 dib tl v-top pa3"]
-== Critical Information Extraction
+=== Critical Information Extraction
 
-[role="fw1 f-key-features lh-key-features"]
 Whenever findings indicate the need to obtain information,
 the extraction is done to maximize finding impacts
 without compromising sensitive information.
 
-[role="w-25-ns w-90 dib-ns dn tl v-top pa3"]
+[role="sect2 db-l dn"]
 == {nbsp}
 
-[role="fw1 f-key-features lh-key-features"]
 {nbsp} +
