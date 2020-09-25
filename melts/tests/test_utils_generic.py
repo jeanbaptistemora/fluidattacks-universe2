@@ -18,7 +18,6 @@ def test_get_change_request_body():
     expected: str = '- updated config\n'
     assert get_change_request_body('c2848e0b0') == expected
 
-@pytest.mark.skip(reason="Pending to fix")
 def test_get_change_request_patch_and_hunks():
     expected: str = textwrap.dedent(
         """
