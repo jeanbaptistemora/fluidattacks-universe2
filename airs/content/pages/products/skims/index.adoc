@@ -1,6 +1,6 @@
 :slug: products/skims/
-:description: Forces makes use of human skills for the creation of exploits to break your build and force remediation of vulnerabilities performing DAST - SAST tests.
-:keywords: Fluid Attacks, Products, Forces, Ethical Hacking, Pentesting, Security
+:description: Skims is a SAST tool used to search for and identify known vulnerabilities and then automatically verify if they have been closed.
+:keywords: Fluid Attacks, Products, Skims, SAST, Tool, Ethical Hacking, Pentesting, Security
 :template: products/skims
 
 = Skims
