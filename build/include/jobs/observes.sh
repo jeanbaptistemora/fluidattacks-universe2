@@ -72,7 +72,7 @@ function job_observes_zoho {
   ||  return 1
 }
 
-function job_observes_code {
+function job_observes_code_upload {
   export GITLAB_API_USER
   export GITLAB_API_TOKEN
   local mock_integrates_api_token='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.e30.xxx'

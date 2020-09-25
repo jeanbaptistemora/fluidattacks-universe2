@@ -86,6 +86,7 @@ function _job_common_test_jobs_provisioner {
   local exclude=(
     'forces'
     'skims'
+    'observes_code'
     'integrates_analytics_make_snapshots_prod'
   )
 

@@ -1,3 +1,5 @@
+"""Process repositories and upload their data to Redshift."""
+
 # Standard library
 import argparse
 from asyncio import (
@@ -5,15 +7,7 @@ from asyncio import (
     Queue,
 )
 from contextlib import (
-    contextmanager,
     suppress,
-)
-from datetime import (
-    datetime,
-)
-import logging
-from os import (
-    environ,
 )
 from os.path import (
     abspath,
@@ -33,15 +27,11 @@ from aioextensions import (
     in_thread,
     run,
 )
-from psycopg2 import (
-    connect,
-)
 from psycopg2.errors import (
     DuplicateTable,
 )
 from psycopg2.extensions import (
     cursor as cursor_cls,
-    ISOLATION_LEVEL_AUTOCOMMIT,
 )
 from psycopg2.extras import (
     execute_batch,
@@ -53,10 +43,16 @@ from git import (
     Repo,
 )
 
+# Local libraries
+from shared import (
+    COMMIT_HASH_SENTINEL,
+    DATE_NOW,
+    DATE_SENTINEL,
+    db_cursor,
+    log,
+)
+
 # Constants
-COMMIT_HASH_SENTINEL: str = '-' * 40
-DATE_SENTINEL: datetime = datetime.utcfromtimestamp(0)
-DATE_NOW: datetime = datetime.utcnow()
 INSERT_QUERY = """
     INSERT INTO code.commits (
         author_email, author_name, authored_at,
@@ -86,16 +82,6 @@ INSERT_QUERY = """
 """
 WORKERS_COUNT: int = 8
 WORKERS_PAGE_SIZE: int = 1024
-
-# Logging
-LOG = logging.getLogger(__name__)
-LOG.setLevel(logging.INFO)
-LOG.addHandler(logging.StreamHandler())
-LOG.handlers[0].setFormatter(logging.Formatter('[%(levelname)s] %(message)s'))
-
-
-async def log(level: str, msg: str, *args: Any) -> None:
-    await in_thread(getattr(LOG, level), msg, *args)
 
 
 async def worker(identifier: int, queue: Queue) -> None:
@@ -163,26 +149,6 @@ def get_commit_data(commit: Commit) -> Dict[str, Any]:
         total_lines=commit.stats.total['lines'],
         total_files=commit.stats.total['files'],
     )
-
-
-@contextmanager
-def db_cursor() -> Iterator[cursor_cls]:
-    connection = connect(
-        dbname=environ['REDSHIFT_DATABASE'],
-        host=environ['REDSHIFT_HOST'],
-        password=environ['REDSHIFT_PASSWORD'],
-        port=environ['REDSHIFT_PORT'],
-        user=environ['REDSHIFT_USER'],
-    )
-    connection.set_isolation_level(ISOLATION_LEVEL_AUTOCOMMIT)
-    try:
-        cursor: cursor_cls = connection.cursor()
-        try:
-            yield cursor
-        finally:
-            cursor.close()
-    finally:
-        connection.close()
 
 
 async def manager(queue: Queue, namespace: str, *repositories: str) -> None:

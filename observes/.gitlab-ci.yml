@@ -164,11 +164,11 @@ observes_git_upload:
     variables: [$observes_git_upload]
   interruptible: false
 
-observes_code:
+observes_code_upload:
   <<: *with_nix_serial
   only:
     refs: [schedules]
-    variables: [$observes_code]
+    variables: [$observes_code_upload]
   stage: analytics
   tags: [autoscaling-large]
   interruptible: false
