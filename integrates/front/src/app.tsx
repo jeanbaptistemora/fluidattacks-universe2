@@ -18,6 +18,7 @@ import {
 } from "utils/authz/config";
 import { secureStore, secureStoreContext } from "utils/secureStore";
 import "react-toastify/dist/ReactToastify.min.css";
+import "tachyons/css/tachyons.min.css";
 
 const App: React.FC = (): JSX.Element => {
   const status: NetworkStatus = networkStatusNotifier.useApolloNetworkStatus();

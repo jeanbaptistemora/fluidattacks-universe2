@@ -15,17 +15,4 @@ describe("Badge", (): void => {
 
     expect(wrapper).toHaveLength(1);
   });
-
-  it("should render a responsive medium size badge", (): void => {
-    expect.hasAssertions();
-
-    const wrapper: ShallowWrapper = shallow(
-      <Badge responsive={true} size={"md"}>
-        {"Test"}
-      </Badge>
-    );
-
-    expect(wrapper).toHaveLength(1);
-    expect(wrapper.prop("bsClass")).toStrictEqual("badge badge position md");
-  });
 });
