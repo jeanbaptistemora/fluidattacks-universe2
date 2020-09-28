@@ -8,7 +8,8 @@ from typing import (
 )
 
 # Third party imports
-import psycopg2
+with contextlib.suppress(ImportError):
+    import psycopg2
 
 
 def _get_connection_string_from_env():
