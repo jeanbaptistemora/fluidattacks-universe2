@@ -5,6 +5,11 @@ resource "aws_acm_certificate" "web-ephemeral-certificate" {
 lifecycle {
     create_before_destroy = true
   }
+
+  tags = {
+    "management:type"    = "development"
+    "management:product" = "airs"
+  }
 }
 
 resource "aws_route53_record" "web-ephemeral-certificate-validation" {

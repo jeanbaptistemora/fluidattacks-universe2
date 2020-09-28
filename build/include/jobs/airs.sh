@@ -1,34 +1,34 @@
 # shellcheck shell=bash
 
 function job_airs_infra_ephemeral_test {
-  local dir='deploy/ephemeral/terraform'
+  local target='deploy/ephemeral/terraform'
 
       helper_use_pristine_workdir \
   &&  pushd airs \
-  &&  helper_airs_aws_login development \
-  &&  helper_common_terraform_plan "${dir}" \
+    &&  helper_airs_aws_login development \
+    &&  helper_airs_terraform_plan "${target}" \
   &&  popd \
   ||  return 1
 }
 
 function job_airs_infra_production_test {
-  local dir='deploy/production/terraform'
+  local target='deploy/production/terraform'
 
       helper_use_pristine_workdir \
   &&  pushd airs \
-  &&  helper_airs_aws_login development \
-  &&  helper_common_terraform_plan "${dir}" \
+    &&  helper_airs_aws_login development \
+    &&  helper_airs_terraform_plan "${target}" \
   &&  popd \
   ||  return 1
 }
 
 function job_airs_infra_secret_management_test {
-  local dir='deploy/secret-management/terraform'
+  local target='deploy/secret-management/terraform'
 
       helper_use_pristine_workdir \
   &&  pushd airs \
-  &&  helper_airs_aws_login development \
-  &&  helper_common_terraform_plan "${dir}" \
+    &&  helper_airs_aws_login development \
+    &&  helper_airs_terraform_plan "${target}" \
   &&  popd \
   ||  return 1
 }

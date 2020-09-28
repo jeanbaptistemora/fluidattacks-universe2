@@ -107,6 +107,11 @@ resource "aws_kms_key" "key-web-prod" {
   policy                  = data.aws_iam_policy_document.key-web-production.json
   deletion_window_in_days = 30
   is_enabled              = true
+
+  tags = {
+    "management:type"    = "production"
+    "management:product" = "airs"
+  }
 }
 
 resource "aws_kms_alias" "key-web-prod" {

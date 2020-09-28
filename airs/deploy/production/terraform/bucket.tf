@@ -4,11 +4,14 @@ resource "aws_s3_bucket" "web-bucket" {
   region = var.region
 
   website {
-     index_document = "index.html"
-     error_document = "error/index.html"
-   }
-   tags = {
-    Pry = "General"
+    index_document = "index.html"
+    error_document = "error/index.html"
+  }
+
+  tags = {
+    Pry                  = "General"
+    "management:type"    = "production"
+    "management:product" = "airs"
   }
 }
 
@@ -18,10 +21,13 @@ resource "aws_s3_bucket" "bucket" {
   region = var.region
 
   website {
-     index_document = "index.html"
-     error_document = "error/index.html"
-   }
-   tags = {
-    Pry = "General"
+    index_document = "index.html"
+    error_document = "error/index.html"
+  }
+
+  tags = {
+    Pry                  = "General"
+    "management:type"    = "production"
+    "management:product" = "airs"
   }
 }

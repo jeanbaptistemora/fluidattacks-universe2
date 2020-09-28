@@ -223,3 +223,11 @@ function helper_airs_git_sparse_checkout {
   &&  rm -rf .git/ \
   &&  popd || return 1
 }
+
+function helper_airs_terraform_plan {
+  local target="${1}"
+  local config
+
+      config="$(readlink -f ../.tflint.hcl)" \
+  &&  helper_common_terraform_plan_new "${target}" "${config}"
+}

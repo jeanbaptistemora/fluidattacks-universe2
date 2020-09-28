@@ -7,8 +7,11 @@ resource "aws_s3_bucket" "web-ephemeral-bucket" {
      index_document = "index.html"
      error_document = "error-index.html"
    }
-   tags = {
-    Pry = "General"
+
+  tags = {
+    Pry                  = "General"
+    "management:type"    = "development"
+    "management:product" = "airs"
   }
 }
 
@@ -18,6 +21,11 @@ resource "aws_s3_bucket_object" "home-index" {
   source       = "index.html"
   etag         = filemd5("index.html")
   content_type = "text/html"
+
+  tags = {
+    "management:type"    = "development"
+    "management:product" = "airs"
+  }
 }
 
 resource "aws_s3_bucket_object" "error-index" {
@@ -26,6 +34,11 @@ resource "aws_s3_bucket_object" "error-index" {
   source       = "error-index.html"
   etag         = filemd5("error-index.html")
   content_type = "text/html"
+
+  tags = {
+    "management:type"    = "development"
+    "management:product" = "airs"
+  }
 }
 
 resource "aws_s3_bucket_object" "img" {
@@ -35,6 +48,11 @@ resource "aws_s3_bucket_object" "img" {
   source       = each.value
   etag         = filemd5(each.value)
   content_type = "image/png"
+
+  tags = {
+    "management:type"    = "development"
+    "management:product" = "airs"
+  }
 }
 
 resource "aws_s3_bucket_object" "css" {
@@ -44,4 +62,9 @@ resource "aws_s3_bucket_object" "css" {
   source       = each.value
   etag         = filemd5(each.value)
   content_type = "text/css"
+
+  tags = {
+    "management:type"    = "development"
+    "management:product" = "airs"
+  }
 }

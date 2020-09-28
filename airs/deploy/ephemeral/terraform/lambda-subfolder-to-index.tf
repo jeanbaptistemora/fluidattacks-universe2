@@ -42,4 +42,9 @@ resource "aws_lambda_function" "web-ephemeral-subfolder-to-index" {
   source_code_hash = data.archive_file.web-ephemeral-subfolder-to-index-zip.output_base64sha256
 
   runtime = "nodejs12.x"
+
+  tags = {
+    "management:type"    = "development"
+    "management:product" = "airs"
+  }
 }

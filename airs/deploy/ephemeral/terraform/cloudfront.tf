@@ -57,6 +57,11 @@ resource "aws_cloudfront_distribution" "web-ephemeral-distribution" {
     minimum_protocol_version = "TLSv1.2_2018"
     ssl_support_method = "sni-only"
   }
+
+  tags = {
+    "management:type"    = "development"
+    "management:product" = "airs"
+  }
 }
 
 resource "aws_cloudfront_origin_access_identity" "web-ephemeral-oai" {
