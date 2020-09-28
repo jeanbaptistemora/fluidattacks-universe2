@@ -6,7 +6,7 @@ resource "aws_subnet" "default" {
 
   tags = {
     "management:type"    = "production"
-    "management:product" = "serves"
+    "management:product" = "common"
   }
 }
 
@@ -25,7 +25,7 @@ resource "aws_iam_role" "aws_ecs_instance_role" {
 
   tags = {
     "management:type"    = "production"
-    "management:product" = "serves"
+    "management:product" = "common"
   }
 }
 
@@ -54,7 +54,7 @@ resource "aws_iam_role" "aws_batch_service_role" {
 
   tags = {
     "management:type"    = "production"
-    "management:product" = "serves"
+    "management:product" = "common"
   }
 }
 
@@ -85,7 +85,7 @@ resource "aws_security_group" "aws_batch_compute_environment_security_group" {
 
   tags = {
     "management:type"    = "production"
-    "management:product" = "serves"
+    "management:product" = "common"
   }
 }
 
@@ -111,6 +111,10 @@ resource "aws_batch_compute_environment" "default" {
       aws_subnet.default.id,
     ]
     type = "SPOT"
+    tags = {
+      "management:type"    = "production"
+      "management:product" = "common"
+    }
   }
 }
 
