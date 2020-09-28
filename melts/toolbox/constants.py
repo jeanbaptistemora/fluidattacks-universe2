@@ -34,3 +34,5 @@ if not API_TOKEN:
 EXP_LABELS = ('product-ch', 'product-ch', 'product-fn',
               'service-logic', 'toe-location', 'toe-resource', 'toe-unreach')
 RE_EXPLOIT_REASON = re.compile(r'(?::\s*(?P<reason>[\w ]+))')
+
+BASE_DIR = os.path.dirname(__file__)
