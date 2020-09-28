@@ -3,7 +3,7 @@ import gql from "graphql-tag";
 
 const FRAGMENTS: Dictionary<DocumentNode> = {
   commentFields: gql`
-    fragment commentFields on Comment {
+    fragment commentFields on Consult {
       id
       content
       created
