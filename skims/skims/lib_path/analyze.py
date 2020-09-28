@@ -198,5 +198,4 @@ async def analyze(
     await collect(
         (analyze_one_path(path, stores) for path in unique_paths),
         workers=CPU_CORES,
-        worker_greediness=4,
     )

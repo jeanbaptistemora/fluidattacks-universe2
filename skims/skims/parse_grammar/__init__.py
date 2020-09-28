@@ -1,4 +1,5 @@
 # Standard library
+import contextlib
 import json
 from typing import (
     Any,
@@ -16,11 +17,12 @@ from aioextensions import (
 from state.cache import (
     cache_decorator,
 )
-from utils.concurrency import (
-    never_concurrent,
-)
 from utils.ctx import (
     get_artifact,
+)
+from utils.hardware import (
+    get_memory_semaphore,
+    iterate_host_memory_levels,
 )
 from utils.logs import (
     log_exception,
@@ -36,7 +38,6 @@ ANTLR_PARSER: str = get_artifact(
 
 
 @cache_decorator()
-@never_concurrent
 async def parse(
     grammar: Union[
         Literal['Java9'],
@@ -45,12 +46,34 @@ async def parse(
     content: bytes,
     path: str,
 ) -> Dict[str, Any]:
+    for memory in iterate_host_memory_levels():
+        async with get_memory_semaphore().acquire_many(memory):
+            with contextlib.suppress(MemoryError):
+                return await _parse(
+                    content=content,
+                    grammar=grammar,
+                    memory=memory,
+                    path=path,
+                )
+
+    return {}
+
+
+async def _parse(
+    grammar: Union[
+        Literal['Java9'],
+    ],
+    *,
+    content: bytes,
+    memory: int,
+    path: str,
+) -> Dict[str, Any]:
     code, out_bytes, err_bytes = await read(
         ANTLR_PARSER,
         grammar,
         env=dict(
             # Limit heap size
-            JAVA_OPTS='-Xmx6g',
+            JAVA_OPTS=f'-Xmx{memory}g',
         ),
         stdin_bytes=content,
     )
@@ -58,6 +81,10 @@ async def parse(
     try:
         if err_bytes:
             err: str = err_bytes.decode('utf-8')
+
+            if 'Not enough memory' in err:
+                raise MemoryError(err)
+
             raise IOError(err)
 
         if code != 0:
