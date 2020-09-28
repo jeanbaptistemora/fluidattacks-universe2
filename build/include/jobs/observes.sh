@@ -51,14 +51,14 @@ function job_observes_mandrill {
   ||  return 1
 }
 
-function job_observes_gitlab {
+function job_observes_gitlab_run {
       helper_use_pristine_workdir \
   &&  env_prepare_python_packages \
   &&  helper_observes_gitlab \
   ||  return 1
 }
 
-function job_observes_gitlab_on_aws {
+function job_observes_gitlab {
   local vcpus='1'
   local memory='900'
   local attempts='1'
@@ -70,7 +70,7 @@ function job_observes_gitlab_on_aws {
         "${memory}" \
         "${attempts}" \
         "${timeout}" \
-        'observes_gitlab'
+        'observes_gitlab_run'
 }
 
 function job_observes_timedoctor {
