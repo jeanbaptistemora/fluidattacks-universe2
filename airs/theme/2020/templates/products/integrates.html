@@ -73,188 +73,208 @@
 {% endblock header %}
 
 {% block content %}
-<div class="tc pt3">
+<div class="tc pt3 flex nowrap items-center justify-center overflow-x-auto">
   <ul class="pl0">
-    <li class="dib pr4-l pr3-m pr2">
-      <img loading="lazy" class="w1 h1 nbs"
-        src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/line-menu.svg"
-        alt="Young hacker smiling">
+    <li class="dib ph2 bb bc-hover-red bw2">
       <a href="{{ SITEURL }}/products/integrates/"
-         class="c-lightblack f4 roboto fw4 pointer no-underline">
-        1. Integrates
+         class="c-lightblack f4 roboto fw7 no-underline hv-fluid-bk">
+        Integrates
       </a>
     </li>
-    <li class="dib pr4-l pr3-m pr2">
+    <li class="dib ph2">
+      <a href="{{ SITEURL }}/products/skims/"
+      class="c-fluid-gray f4 roboto fw7 no-underline">
+        Skims
+      </a>
+    </li>
+    <li class="dib ph2">
       <a href="{{ SITEURL }}/products/drills/"
-      class="c-fluid-gray f4 roboto no-underline fw3 hv-fluid-bk pointer link mr3">
-        2. Drills
+      class="c-fluid-gray f4 roboto no-underline fw7 hv-fluid-bk">
+        Drills
       </a>
     </li>
-    <li class="dib">
+    <li class="dib ph2">
       <a href="{{ SITEURL }}/products/forces/"
-      class="c-fluid-gray f4 roboto no-underline fw3 hv-fluid-bk pointer link mr3">
-        3. Forces
+      class="c-fluid-gray f4 roboto no-underline fw7 hv-fluid-bk">
+        Forces
       </a>
     </li>
   </ul>
 </div>
-<div class="tc roboto w-100 center c-lightblack pb6">
-  <p class="tl fw1 w-40-l w-50-m w90-s center f3 lh-2">
-    <b class="fw7">Integrates</b> is a platform which allows control of
-    the vulnerability testing and remediation processes.
-    In <b class="fw7">Integrates</b>, every project stakeholder
-    (e.g., developers, technicians, security analysts and managers) can interact
-    and access information about all security issues and manage them.
-    Through this platform, an internal or external security team communicates all
-    security risks identified in a hacking project so that they can be remedied
-    quickly, efficiently and effectively.
-  </p>
-  <div class="tc pt4">
-    <a class="roboto fw1 f5 no-underline c-fluid-bk hv-fluid-dkred"
-       href="{{ SITEURL }}/contact-us/">
-      <span class="br2 bannerbt hv-bt-fluid-rd bt-pd contact-pd bt-trans white b roboto pointer mt2">
+<div class="flex justify-center items-center ph-body">
+  <div class="mw7 center">
+    <p class="roboto f3-l f4 fw3 lh-2">
+      <b class="fw7">Integrates</b> is a platform which allows control of
+      the vulnerability testing and remediation processes.
+      In <b class="fw7">Integrates</b>, every project stakeholder
+      (e.g., developers, technicians, security analysts and managers) can interact
+      and access information about all security issues and manage them.
+      Through this platform, an internal or external security team communicates all
+      security risks identified in a hacking project so that they can be remedied
+      quickly, efficiently and effectively.
+    </p>
+    <div class="center tc">
+      <a class="no-underline tc f3 menu-txt-trans roboto hv-fluid-rd "
+      href="{{ SITEURL }}/contact-us/">
+        <button class="tc outline-transparent fw7 br2 bw1 ph5 pv2 bg-transparent bc-fluid-red ba hv-fluid-rd hv-fluid-bd bt-trans c-dkred pointer">
           Get a Quote
-      </span>
+        </button>
+      </a>
+    </div>
+  </div>
+</div>
+<h2 class="roboto c-fluid-bk f1 fw6 tc pt6">Key Benefits</h2>
+<div class="w-100 flex-l pv4">
+  <div class="w-100">
+    <div class="w-50-l fl-l tl ph0-ns ph4" data-aos="fade-right">
+      <img
+      class="dn show-xl"
+      src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/products/integrates/integrates-screen-1-xl.png"
+      alt="Young hacker smiling">
+      <img
+      class="dn show-l"
+      src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/products/integrates/integrates-screen-1-l.png"
+      alt="Young hacker smiling">
+      <img
+      class="dn show-ml"
+      src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/products/integrates/integrates-screen-1-ml.png"
+      alt="Young hacker smiling">
+      <img
+      class="dn show-m"
+      src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/products/integrates/integrates-screen-1-m.png"
+      alt="Young hacker smiling">
+      <img
+      class="dn show-s"
+      src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/products/integrates/integrates-screen-1-s.png"
+      alt="Young hacker smiling">
+    </div>
+    <div class="w-50-l fr-l ph-body">
+      <ul class="tl roboto list pl0 mw-20">
+        <li class="c-fluid-bk pv3">
+          <h3 class="f3 fw6 mv0">
+            Security
+          </h3>
+          <p class="f5 fw3 mv0 lh-copy">
+            Know the security status and trends of your application.
+          </p>
+        </li>
+        <li class="c-fluid-bk pv3">
+          <h3 class="f3 fw6 mv0">
+            Easy Collaboration
+          </h3>
+          <p class="f5 fw3 mv0 lh-copy">
+            Facilitate collaboration of all stakeholders to manage the
+            vulnerabilities and reach a high fixing rate.
+          </p>
+        </li>
+        <li class="c-fluid-bk pv3">
+          <h3 class="f3 fw6 mv0">
+            Detailed Information
+          </h3>
+          <p class="f5 fw3 mv0 lh-copy">
+            See the details of each detected vulnerability.
+          </p>
+        </li>
+        <li class="c-fluid-bk pv3">
+          <h3 class="f3 fw6 mv0">
+            Prioritization
+          </h3>
+          <p class="f5 fw3 mv0 lh-copy">
+            Have a through priorization of security risks for their timely
+            remediation.
+          </p>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="w-100 flex pv4">
+  <div class="w-100">
+    <div class="w-50-l fr-l tr ph0-ns ph4" data-aos="fade-left">
+      <img
+      class="dn show-xl fr"
+      src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/products/integrates/integrates-screen-2-xl.png"
+      alt="Young hacker smiling">
+      <img
+      class="dn show-l fr"
+      src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/products/integrates/integrates-screen-2-l.png"
+      alt="Young hacker smiling">
+      <img
+      class="dn show-ml fr"
+      src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/products/integrates/integrates-screen-2-ml.png"
+      alt="Young hacker smiling">
+      <img
+      class="dn show-m ml-auto"
+      src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/products/integrates/integrates-screen-2-m.png"
+      alt="Young hacker smiling">
+      <img
+      class="dn show-s"
+      src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/products/integrates/integrates-screen-2-s.png"
+      alt="Young hacker smiling">
+    </div>
+    <div class="w-50-l fl-l ph-body">
+      <ul class="tr-l tl roboto list pl0 mw-20 fr-l">
+        <li class="c-fluid-bk pv3">
+          <h3 class="f3 fw6 mv0">
+            Integrates
+          </h3>
+          <p class="f5 fw3 mv0 lh-copy">
+            Facilitates the executive control of processes via the
+            Integrates-App (on Android and iOS) by providing crucial information
+            on the vulnerability remediation rate on your tested systems.
+          </p>
+        </li>
+        <li class="c-fluid-bk pv3">
+          <h3 class="f3 fw6 mv0">
+            API's
+          </h3>
+          <p class="f5 fw3 mv0 lh-copy">
+            Integrate our app with your existing products using a common query
+            language for modern API's (GraphQL).
+          </p>
+        </li>
+        <li class="c-fluid-bk pv3">
+          <h3 class="f3 fw6 mv0">
+            Treatments
+          </h3>
+          <p class="f5 fw3 mv0 lh-copy">
+            Request verification of treatments and documentation from your
+            security team.
+          </p>
+        </li>
+        <li class="c-fluid-bk pv3">
+          <h3 class="f3 fw6 mv0">
+            Communication
+          </h3>
+          <p class="f5 fw3 mv0 lh-copy">
+            Establish quick communication with, and receive important
+            notifications from, our team (when you purchase Drills).
+          </p>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="mw-1366 ph-body center pv5">
+  <h2 class="roboto c-fluid-bk f1 fw6 tc">
+    Key Features
+  </h2>
+  <div class="other-features product-features justify-center items-center flex flex-wrap roboto">
+    {{ page.content }}
+  </div>
+</div>
+<div class="mw-1366 center ph-body roboto tc pb6">
+  <div class="w-100 tc">
+    <img
+      src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/products/integrates/integrates-datasheet.png"
+      alt="Young hacker smiling">
+  </div>
+  <div class="tc">
+    <a href="https://fluidattacks.docsend.com/view/ymup7742z3wkkzex">
+      <button class="outline-transparent bannerbt hv-bt-fluid-rd pointer white pv3 ph4 roboto fw7 f4 dib bt-trans br2 bc-fluid-red ba">
+        Download DataSheet
+      </button>
     </a>
   </div>
 </div>
-<div class="w-100 center">
-  <h1 class="c-lightblack b f-benefits roboto tc ma0">
-    Key Benefits
-  </h1>
-  <h2 class="c-lightblack f-benefits-p fw1 roboto tc ma0">
-    The Integrates platform will allow you to:
-  </h2>
-</div>
-
-<div class="mw-1366 ph-body center pb5">
-  <div class="carousel overflow-y-hidden overflow-x-auto w-auto pa2 nowrap pv5"
-       id="carousel">
-    <div class="item-carousel ml4-l ml6 mr4 pa0 dib">
-      <img
-        src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/products/integrates/integrates-1.png"
-        alt="Young hacker smiling">
-        <p class="roboto fw1 c-lightblack f5 lh-2">
-          Know the security status and trends of<br>
-          your application. <br>
-          <br>
-          <br>
-          <br>
-        </p>
-    </div>
-    <div class="item-carousel mh4 pa0 dib">
-      <img
-        src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/products/integrates/integrates-2.png"
-        alt="Young hacker smiling">
-        <p class="roboto fw1 c-lightblack f5 lh-2">
-          Facilitate collaboration of all stakeholders<br>
-          to manage the vulnerabilities and reach a<br>
-          high fixing rate. <br>
-          <br>
-          <br>
-        </p>
-    </div>
-    <div class="item-carousel mh4 pa0 dib">
-      <img
-        src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/products/integrates/integrates-3.png"
-        alt="Young hacker smiling">
-        <p class="roboto fw1 c-lightblack f5 lh-2">
-          See the details of each detected<br>
-          vulnerability. <br>
-          <br>
-          <br>
-          <br>
-        </p>
-    </div>
-    <div class="item-carousel mh4 pa0 dib">
-      <img
-        src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/products/integrates/integrates-4.png"
-        alt="Young hacker smiling">
-        <p class="roboto fw1 c-lightblack f5 lh-2">
-          Have a thorough prioritization of <br>
-          security risks for their timely <br>
-          remediation. <br>
-          <br>
-          <br>
-        </p>
-    </div>
-    <div class="item-carousel mh4 pa0 dib">
-      <img
-        src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/products/integrates/integrates-8.png"
-        alt="Young hacker smiling">
-        <p class="roboto fw1 c-lightblack f5 lh-2">
-          Facilitate the executive control of processes<br>
-          via the Integrates-App (on Android and iOS)<br>
-          by providing crucial information<br>
-          on the vulnerability remediation rate<br>
-          on your tested systems.
-        </p>
-    </div>
-    <div class="item-carousel mh4 pa0 dib">
-      <img
-        src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/products/integrates/integrates-5.png"
-        alt="Young hacker smiling">
-        <p class="roboto fw1 c-lightblack f5 lh-2">
-          Integrate our app with your existing <br>
-          products using a common query language <br>
-          for modern APIs (GraphQL).<br>
-          <br>
-        </p>
-    </div>
-    <div class="item-carousel mh4 pa0 dib">
-      <img
-        src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/products/integrates/integrates-6.png"
-        alt="Young hacker smiling">
-        <p class="roboto fw1 c-lightblack f5 lh-2">
-          Request verification of treatments and <br>
-          documentation from your security team. <br>
-          <br>
-          <br>
-          <br>
-        </p>
-    </div>
-    <div class="item-carousel ml4 pa0 dib">
-      <img
-        src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/products/integrates/integrates-7.png"
-        alt="Young hacker smiling">
-        <p class="roboto fw1 c-lightblack f5 lh-2">
-          Establish quick communication with, and <br>
-          receive important notifications from, <br>
-          our team (when you purchase Drills). <br>
-          <br>
-        </p>
-    </div>
-  </div>
-  <div class="w5 h-cont-bar bg-fluid-lightgray center mw5 br4 ba bc-lightergray">
-    <div class="h-bar w1 bg-dk-red mw5 br4" id="progress-bar"></div>
-  </div>
-  <div class="w-100 roboto tc pv6">
-    <h1 class="c-lightblack b f2 roboto tc ma0">
-      Key Features
-    </h1>
-    {{ page.content }}
-  </div>
-  <div class="w-100 roboto tc pb6">
-    <img
-      class="w6"
-      src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/products/integrates/datasheet-integrates.png"
-      alt="Young hacker smiling">
-      <h1 class="c-lightblack f2-l fw7 tc f3 center roboto">
-        Do you want to know more about Integrates?
-      </h1>
-      <a class="no-underline c-fluid-bk" href="https://fluidattacks.docsend.com/view/ymup7742z3wkkzex">
-        <button class="f2-l fw1 tc f4 center roboto download-btn bg-transparent bn pointer">
-          Download DataSheet  <span><img loading="lazy" class="w2-ns w1" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/download.svg" alt="Young hacker smiling"></span>
-        </button>
-      </a>
-  </div>
-</div>
-{% assets output="static/js/progressBar.min.js", "js/tmp/progressBar.min.js" %}
-<script type="text/javascript"
-        src="{{ SITEURL }}/{{ ASSET_URL }}"></script>
-{% endassets %}
-{% assets output="static/js/carousel.min.js", "js/tmp/carousel.min.js" %}
-<script type="text/javascript"
-        src="{{ SITEURL }}/{{ ASSET_URL }}"></script>
-{% endassets %}
 {% endblock content %}

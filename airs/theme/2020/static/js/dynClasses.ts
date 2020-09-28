@@ -22,7 +22,9 @@ const dynClasses: (() => void) = (): void => {
 
     addClasses(".solution-benefits > .sect2", "dib-l");
 
-    addClasses(".other-features.product-features > .sect2", "w-benefit dib-l");
+    addClasses(".other-features > .sect2", "w-benefit dib-l");
+
+    addClasses(".product-features > .sect2", "w-benefit dib-l");
 
     if ($("div")
         .hasClass("contact-page")) {
