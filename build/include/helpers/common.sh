@@ -64,7 +64,7 @@ function helper_use_services {
   export GITLAB_API_TOKEN
   export GITLAB_API_USER
   local source="https://${GITLAB_API_USER}:${GITLAB_API_TOKEN}@gitlab.com/fluidattacks/services.git"
-  local target="${STARTDIR}/services"
+  local target="${STARTDIR}/../services"
 
   if test -e "${target}"
   then

@@ -30,6 +30,7 @@ packages = [
   { include = "lib_path", from = "skims" },
   { include = "nvd", from = "skims" },
   { include = "parse_cfn", from = "skims" },
+  { include = "parse_common", from = "skims" },
   { include = "parse_grammar", from = "skims" },
   { include = "parse_hcl2", from = "skims" },
   { include = "parse_java_properties", from = "skims"},

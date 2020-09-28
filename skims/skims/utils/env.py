@@ -16,7 +16,7 @@ def guess_environment() -> Union[
     Literal['production'],
 ]:
     if any((
-        'product/' in ROOT,
+        'product' in ROOT,
         environ.get('CI_COMMIT_REF_NAME', 'master') != 'master',
     )):
         return 'development'
