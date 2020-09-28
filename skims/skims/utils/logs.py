@@ -62,6 +62,10 @@ async def log_exception(
         await log_to_remote(exception, **meta_data)
 
 
-async def log_to_remote(exception: BaseException, **meta_data: str) -> None:
+def blocking_log_to_remote(exception: BaseException, **meta_data: str) -> None:
     meta_data.update(BUGS_META.get() or {})
-    await in_thread(bugsnag.notify, exception, meta_data=meta_data)
+    bugsnag.notify(exception, meta_data=meta_data)
+
+
+async def log_to_remote(exception: BaseException, **meta_data: str) -> None:
+    await in_thread(blocking_log_to_remote, exception, **meta_data)

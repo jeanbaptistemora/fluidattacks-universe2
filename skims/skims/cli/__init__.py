@@ -1,5 +1,8 @@
 # Standard libraries
 import sys
+from time import (
+    time,
+)
 from typing import (
     Optional,
 )
@@ -16,10 +19,15 @@ from utils.function import (
 )
 from utils.logs import (
     blocking_log,
+    blocking_log_to_remote,
 )
 from utils.bugs import (
     configure_bugsnag,
 )
+
+
+class Execution(Exception):
+    pass
 
 
 @click.command(
@@ -60,6 +68,7 @@ def dispatch(
     token: Optional[str],
 ) -> None:
     """Read the execution flags from the CLI and dispatch them to Skims."""
+    start_time: float = time()
     success: bool = run(
         main_wrapped(
             config=config,
@@ -71,6 +80,10 @@ def dispatch(
     )
 
     blocking_log('info', 'Success: %s', success)
+    blocking_log_to_remote(
+        Execution('Success' if success else 'Failure'),
+        execution_seconds=f'{time() - start_time}',
+    )
 
     sys.exit(0 if success else 1)
 
