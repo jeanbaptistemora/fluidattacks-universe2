@@ -9,7 +9,7 @@ import aiohttp
 from aioextensions import rate_limited
 
 # Local libraries
-from .log import log
+from tap_gitlab.log import log
 
 
 @rate_limited(
@@ -43,10 +43,11 @@ async def gitlab_data_emitter(
     async def data_emitter(queue: Queue) -> None:
         errors: int = 0
         page: int = 1
+        per_page: int = 100
         async with aiohttp.ClientSession() as session:
             while errors <= 10:
                 try:
-                    params.update({'page': page, 'per_page': 100})
+                    params.update({'page': page, 'per_page': per_page})
                     records = await get_request(
                         session,
                         (
@@ -62,7 +63,13 @@ async def gitlab_data_emitter(
                 else:
                     if not records:
                         break
-
+                    result = {
+                        'type': 'gitlab_page_data',
+                        'project': project,
+                        'resource': resource,
+                        'page': page, 'per_page': per_page,
+                        'records': records
+                    }
                     errors, page = 0, page + 1
-                    await queue.put({'resource': resource, 'records': records})
+                    await queue.put(result)
     return data_emitter
