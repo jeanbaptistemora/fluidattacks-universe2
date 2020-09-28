@@ -1,10 +1,7 @@
 # Local imports
-from toolbox.reports import (compute_bill,
-                             exploits,
-                             snapshot_bill
-                             )
+from toolbox.reports import (
+    exploits,
+)
 
 # Imported but unused
-assert compute_bill
 assert exploits
-assert snapshot_bill
