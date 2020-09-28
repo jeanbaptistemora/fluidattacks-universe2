@@ -22,13 +22,13 @@ def main(subs: str) -> bool:
         if city == '1':
             generic.aws_login(f'continuous-{subs}')
             subprocess.call(
-                f'./{config_file}-bogota.sh',
+                f'{config_file}-bogota.sh',
                 shell=True
             )
         else:
             generic.aws_login(f'continuous-{subs}')
             subprocess.call(
-                f'./{config_file}-medellin.sh',
+                f'{config_file}-medellin.sh',
                 shell=True
             )
     else:
@@ -39,7 +39,7 @@ def main(subs: str) -> bool:
         else:
             generic.aws_login(f'continuous-{subs}')
             subprocess.call(
-                f'./{config_file}.sh',
+                f'{config_file}.sh',
                 shell=True
             )
     return success
