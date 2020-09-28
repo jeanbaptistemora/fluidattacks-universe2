@@ -120,6 +120,5 @@ function helper_airs_compile {
   &&  rm -rf output/de \
   &&  mv output/pages/* output/ \
   &&  rm -rf output/pages \
-  &&  cp sitemap.xml output/ \
   &&  cp robots.txt output/
 }
