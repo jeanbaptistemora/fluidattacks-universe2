@@ -4,6 +4,7 @@ import math
 from typing import (
     Any,
     Callable,
+    Iterator,
     Set,
     Tuple,
     TypeVar,
@@ -114,6 +115,35 @@ def blocking_get_vulnerabilities(  # pylint: disable=too-many-arguments
             content=content,
             grammar=grammar,
         )
+    )
+
+    return results
+
+
+def blocking_get_vulnerabilities_from_iterator(
+    content: str,
+    description: str,
+    finding: FindingEnum,
+    iterator: Iterator[Tuple[int, int]],
+    path: str,
+) -> Tuple[Vulnerability, ...]:
+    results: Tuple[Vulnerability, ...] = tuple(
+        Vulnerability(
+            finding=finding,
+            kind=VulnerabilityKindEnum.LINES,
+            state=VulnerabilityStateEnum.OPEN,
+            what=path,
+            where=f'{line_no}',
+            skims_metadata=SkimsVulnerabilityMetadata(
+                description=description,
+                snippet=blocking_to_snippet(
+                    column=column_no,
+                    content=content,
+                    line=line_no,
+                )
+            )
+        )
+        for line_no, column_no in iterator
     )
 
     return results

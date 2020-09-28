@@ -29,9 +29,9 @@ public class Test {
                      break;
             case 10: monthString = "October";
                      break;
-            case 11: monthString = "November";
+            case monthString: monthString = "November";
                      break;
-            case 12: monthString = "December";
+            case (false): monthString = "December";
                      break;
             default: monthString = "Invalid month";
                      break;

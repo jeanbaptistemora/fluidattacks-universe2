@@ -339,6 +339,9 @@ async def test_correct_assert(
             ('test/data/lib_path/f061/swift.swift', '6'),
             ('test/data/lib_path/f061/swift.swift', '7'),
         )),
+        ('F073', 'SUBMITTED', (
+            ('test/data/lib_path/f073/Test.java', '45'),
+        )),
         ('F085', 'APPROVED', (
             ('test/data/lib_path/f085/react.jsx', '1'),
             ('test/data/lib_path/f085/react.jsx', '4'),
@@ -378,6 +381,7 @@ async def test_correct_nothing_to_do_assert(
         ('F052', 'APPROVED', ()),
         ('F060', 'APPROVED', ()),
         ('F061', 'APPROVED', ()),
+        ('F073', 'SUBMITTED', ()),
         ('F085', 'APPROVED', ()),
         ('F117', 'APPROVED', ()),
     }

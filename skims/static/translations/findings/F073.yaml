@@ -28,5 +28,5 @@ utils.model.finding.enum.F073.threat:
   en: Autenticated attacker from the Internet.
   es: Atacante autenticado desde Internet.
 utils.model.finding.enum.F073.title:
-  en: FIN.H.061. Conditional statement without a default option
+  en: FIN.H.073. Conditional statement without a default option
   es: FIN.H.073. Condicionales sin opción por defecto
