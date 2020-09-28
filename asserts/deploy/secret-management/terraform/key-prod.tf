@@ -107,6 +107,11 @@ resource "aws_kms_key" "asserts-prod-key" {
   policy                  = data.aws_iam_policy_document.asserts-prod-key.json
   deletion_window_in_days = 30
   is_enabled              = true
+
+  tags = {
+    "management:type"    = "production"
+    "management:product" = "asserts"
+  }
 }
 
 resource "aws_kms_alias" "asserts-prod-key" {

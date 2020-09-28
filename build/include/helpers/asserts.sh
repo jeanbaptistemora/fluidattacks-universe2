@@ -192,3 +192,11 @@ function helper_pages_generate_doc {
   &&  sphinx-build -b linkcheck sphinx/source output/review/ \
   &&  sphinx-build -b coverage  sphinx/source output/review/
 }
+
+function helper_asserts_terraform_plan {
+  local target="${1}"
+  local config
+
+      config="$(readlink -f ../.tflint.hcl)" \
+  &&  helper_common_terraform_plan_new "${target}" "${config}"
+}

@@ -113,6 +113,11 @@ resource "aws_kms_key" "asserts-dev-key" {
   policy                  = data.aws_iam_policy_document.asserts-dev-key.json
   deletion_window_in_days = 30
   is_enabled              = true
+
+  tags = {
+    "management:type"    = "development"
+    "management:product" = "asserts"
+  }
 }
 
 resource "aws_kms_alias" "asserts-dev-key" {

@@ -52,12 +52,12 @@ function job_asserts_lint_tests {
 }
 
 function job_asserts_infra_secret_management_test {
-  local dir='deploy/secret-management/terraform'
+  local target='deploy/secret-management/terraform'
 
       helper_use_pristine_workdir \
   &&  pushd asserts \
-  &&  helper_asserts_aws_login dev \
-  &&  helper_common_terraform_plan "${dir}" \
+    &&  helper_asserts_aws_login dev \
+    &&  helper_asserts_terraform_plan "${target}" \
   &&  popd \
   ||  return 1
 }
