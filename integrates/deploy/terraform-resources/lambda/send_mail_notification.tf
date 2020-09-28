@@ -9,6 +9,11 @@ resource "aws_lambda_function" "integrates-send-mail-notification" {
   timeout       = 60
 
   runtime = "python3.7"
+
+  tags = {
+    "management:type"    = "production"
+    "management:product" = "integrates"
+  }
 }
 
 resource "aws_lambda_event_source_mapping" "integrates-event-source-mapping" {

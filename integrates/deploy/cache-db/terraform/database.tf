@@ -18,6 +18,11 @@ resource "aws_elasticache_replication_group" "cache-db" {
     replicas_per_node_group = 1
     num_node_groups         = 1
   }
+
+  tags = {
+    "management:type"    = "production"
+    "management:product" = "integrates"
+  }
 }
 
 resource "aws_elasticache_subnet_group" "cache_db" {
@@ -40,5 +45,10 @@ resource "aws_elasticache_replication_group" "cache_db" {
   cluster_mode {
     replicas_per_node_group = 1
     num_node_groups         = 1
+  }
+
+  tags = {
+    "management:type"    = "production"
+    "management:product" = "integrates"
   }
 }

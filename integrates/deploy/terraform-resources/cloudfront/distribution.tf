@@ -10,6 +10,12 @@ resource "aws_cloudfront_distribution" "fi_resources_cloudfront" {
   retain_on_delete    = false
   wait_for_deployment = true
 
+  tags = {
+    Pry                  = "Integrates"
+    "management:type"    = "production"
+    "management:product" = "integrates"
+  }
+
   origin {
     origin_id = "S3-fluidintegrates.resources"
     domain_name = aws_s3_bucket.fi_resources_bucket.bucket_domain_name
@@ -98,10 +104,6 @@ resource "aws_cloudfront_distribution" "fi_resources_cloudfront" {
     cloudfront_default_certificate = true
     minimum_protocol_version       = "TLSv1.2_2018"
   }
-
-  tags = {
-    Pry = "Integrates"
-  }
 }
 
 resource "aws_cloudfront_distribution" "fi_reports_cloudfront" {
@@ -111,6 +113,12 @@ resource "aws_cloudfront_distribution" "fi_reports_cloudfront" {
   price_class         = "PriceClass_All"
   retain_on_delete    = false
   wait_for_deployment = true
+
+  tags = {
+    Pry                  = "Integrates"
+    "management:type"    = "production"
+    "management:product" = "integrates"
+  }
 
   origin {
     origin_id = "S3-fluidintegrates.reports"
@@ -160,9 +168,5 @@ resource "aws_cloudfront_distribution" "fi_reports_cloudfront" {
     acm_certificate_arn = aws_acm_certificate.files-certificate.arn
     minimum_protocol_version = "TLSv1.2_2018"
     ssl_support_method = "sni-only"
-  }
-
-  tags = {
-    Pry = "Integrates"
   }
 }

@@ -10,6 +10,8 @@ resource "aws_sqs_queue" "integrates-queue" {
 
   tags = {
     Pry = "Integrates"
+    "management:type"    = "production"
+    "management:product" = "integrates"
   }
 }
 

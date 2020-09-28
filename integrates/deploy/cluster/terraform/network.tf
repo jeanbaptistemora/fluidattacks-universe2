@@ -8,6 +8,8 @@ resource "aws_subnet" "region_a" {
     "Name"                                      = "integrates-cluster-1"
     "kubernetes.io/cluster/${var.cluster_name}" = "shared"
     "kubernetes.io/role/elb"                    = "1"
+    "management:type"                           = "production"
+    "management:product"                        = "integrates"
   }
 }
 
@@ -21,6 +23,8 @@ resource "aws_subnet" "region_b" {
     "Name"                                      = "integrates-cluster-2"
     "kubernetes.io/cluster/${var.cluster_name}" = "shared"
     "kubernetes.io/role/elb"                    = "1"
+    "management:type"                           = "production"
+    "management:product"                        = "integrates"
   }
 }
 
@@ -34,5 +38,7 @@ resource "aws_subnet" "region_d" {
     "Name"                                      = "integrates-cluster-3"
     "kubernetes.io/cluster/${var.cluster_name}" = "shared"
     "kubernetes.io/role/elb"                    = "1"
+    "management:type"                           = "production"
+    "management:product"                        = "integrates"
   }
 }

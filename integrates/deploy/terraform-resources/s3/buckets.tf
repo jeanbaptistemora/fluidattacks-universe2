@@ -3,8 +3,11 @@ resource "aws_s3_bucket" "fi_analytics_bucket" {
   bucket        = var.analytics_bucket_name
   region        = "us-east-1"
   request_payer = "BucketOwner"
-  tags          = {
-    Pry = "Integrates"
+
+  tags = {
+    Pry                  = "Integrates"
+    "management:type"    = "production"
+    "management:product" = "integrates"
   }
 
   server_side_encryption_configuration {

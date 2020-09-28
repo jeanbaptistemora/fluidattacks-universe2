@@ -2,8 +2,13 @@ resource "aws_acm_certificate" "ephemeral" {
   domain_name       = "*.integrates.fluidattacks.com"
   validation_method = "DNS"
 
-lifecycle {
+  lifecycle {
     create_before_destroy = true
+  }
+
+  tags = {
+    "management:type"    = "development"
+    "management:product" = "integrates"
   }
 }
 

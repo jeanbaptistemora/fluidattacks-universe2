@@ -426,3 +426,11 @@ function helper_integrates_to_b64 {
 
   echo -n "${value}" | base64 --wrap=0
 }
+
+function helper_integrates_terraform_plan {
+  local target="${1}"
+  local config
+
+      config="$(readlink -f ../.tflint.hcl)" \
+  &&  helper_common_terraform_plan_new "${target}" "${config}"
+}

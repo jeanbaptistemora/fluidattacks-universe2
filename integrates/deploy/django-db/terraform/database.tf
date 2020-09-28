@@ -17,6 +17,11 @@ resource "aws_db_instance" "django-db" {
   apply_immediately         = true
   skip_final_snapshot       = false
   publicly_accessible       = true
+
+  tags = {
+    "management:type"    = "production"
+    "management:product" = "integrates"
+  }
 }
 
 output "endpoint" {

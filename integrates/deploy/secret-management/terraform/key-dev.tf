@@ -110,6 +110,11 @@ resource "aws_kms_key" "integrates-dev-key" {
   policy                  = data.aws_iam_policy_document.integrates-dev-key.json
   deletion_window_in_days = 30
   is_enabled              = true
+
+  tags = {
+    "management:type"    = "development"
+    "management:product" = "integrates"
+  }
 }
 
 resource "aws_kms_alias" "integrates-dev-key" {

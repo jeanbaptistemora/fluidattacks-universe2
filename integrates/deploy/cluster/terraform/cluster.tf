@@ -12,9 +12,11 @@ module "eks" {
   ]
 
   tags = {
-    Environment = "production"
-    GithubRepo  = "terraform-aws-eks"
-    GithubOrg   = "terraform-aws-modules"
+    Environment          = "production"
+    GithubRepo           = "terraform-aws-eks"
+    GithubOrg            = "terraform-aws-modules"
+    "management:type"    = "production"
+    "management:product" = "integrates"
   }
 
   vpc_id = var.fluid_vpc_id

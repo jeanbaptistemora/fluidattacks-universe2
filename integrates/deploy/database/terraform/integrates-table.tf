@@ -41,6 +41,11 @@ resource "aws_dynamodb_table" "integrates" {
   point_in_time_recovery {
     enabled = true
   }
+
+  tags = {
+    "management:type"    = "production"
+    "management:product" = "integrates"
+  }
 }
 
 resource "aws_dynamodb_table" "fi_roots" {
@@ -68,5 +73,10 @@ resource "aws_dynamodb_table" "fi_roots" {
 
   point_in_time_recovery {
     enabled = true
+  }
+
+  tags = {
+    "management:type"    = "production"
+    "management:product" = "integrates"
   }
 }

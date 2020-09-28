@@ -13,6 +13,11 @@ resource "aws_wafv2_web_acl" "integrates_firewall" {
     sampled_requests_enabled   = true
   }
 
+  tags = {
+    "management:type"    = "production"
+    "management:product" = "integrates"
+  }
+
   rule {
     name     = "AWSManagedRulesAmazonIpReputationList"
     priority = 1

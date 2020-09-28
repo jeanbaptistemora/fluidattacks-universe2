@@ -1,6 +1,11 @@
 resource "aws_iam_role" "integrates-backup-role" {
   name = "integrates-backup"
   assume_role_policy = data.aws_iam_policy_document.backup-assume-role-policy-data.json
+
+  tags = {
+    "management:type"    = "production"
+    "management:product" = "integrates"
+  }
 }
 
 resource "aws_iam_role_policy_attachment" "integrates-backup-policy-backup" {

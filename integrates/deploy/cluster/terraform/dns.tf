@@ -52,6 +52,11 @@ resource "aws_iam_policy" "dns" {
 resource "aws_iam_role" "dns" {
   name               = "${var.cluster_name}-dns"
   assume_role_policy = data.aws_iam_policy_document.oidc_assume_role_dns.json
+
+  tags = {
+    "management:type"    = "production"
+    "management:product" = "integrates"
+  }
 }
 
 resource "aws_iam_role_policy_attachment" "dns" {

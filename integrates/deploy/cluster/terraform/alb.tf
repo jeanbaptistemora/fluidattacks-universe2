@@ -10,4 +10,9 @@ module "alb_ingress_controller" {
 
   aws_alb_ingress_controller_version = "1.1.7"
   aws_resource_name_prefix = ""
+
+  aws_tags = {
+    "management:type"    = "production"
+    "management:product" = "integrates"
+  }
 }

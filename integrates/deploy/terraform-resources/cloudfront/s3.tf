@@ -17,7 +17,9 @@ resource "aws_s3_bucket" "fi_resources_bucket" {
   }
 
   tags = {
-    Pry = "Integrates"
+    Pry                  = "Integrates"
+    "management:type"    = "production"
+    "management:product" = "integrates"
   }
 }
 
@@ -38,7 +40,9 @@ resource "aws_s3_bucket" "fi_evidences_bucket" {
   }
 
   tags = {
-    Pry = "Integrates"
+    Pry                  = "Integrates"
+    "management:type"    = "production"
+    "management:product" = "integrates"
   }
 }
 
@@ -68,7 +72,9 @@ resource "aws_s3_bucket" "fi_reports_bucket" {
   }
 
   tags = {
-    Pry = "Integrates"
+    Pry                  = "Integrates"
+    "management:type"    = "production"
+    "management:product" = "integrates"
   }
 }
 
@@ -89,7 +95,9 @@ resource "aws_s3_bucket" "fi_build_bucket" {
   }
 
   tags = {
-    Pry = "Integrates"
+    Pry                  = "Integrates"
+    "management:type"    = "production"
+    "management:product" = "integrates"
   }
 }
 
@@ -110,7 +118,9 @@ resource "aws_s3_bucket" "fi_forces_bucket" {
   }
 
   tags = {
-    Pry = "Integrates"
+    Pry                  = "Integrates"
+    "management:type"    = "production"
+    "management:product" = "integrates"
   }
 }
 

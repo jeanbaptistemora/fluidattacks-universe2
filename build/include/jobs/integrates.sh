@@ -886,14 +886,12 @@ function job_integrates_infra_backup_deploy {
 }
 
 function job_integrates_infra_backup_test {
-      pushd "${STARTDIR}/integrates" \
-  &&  echo '[INFO] Logging in to AWS development' \
-  &&  helper_integrates_aws_login development \
-  &&  pushd deploy/backup/terraform \
-    &&  terraform init \
-    &&  tflint --deep --module \
-    &&  terraform plan -lock=false -refresh=true \
-  &&  popd \
+  local target='deploy/backup/terraform'
+
+      helper_use_pristine_workdir \
+  &&  pushd integrates \
+    &&  helper_integrates_aws_login development \
+    &&  helper_integrates_terraform_plan "${target}" \
   &&  popd \
   || return 1
 }
@@ -919,14 +917,12 @@ function job_integrates_infra_database_deploy {
 }
 
 function job_integrates_infra_database_test {
-      pushd "${STARTDIR}/integrates" \
-  &&  echo '[INFO] Logging in to AWS development' \
-  &&  helper_integrates_aws_login development \
-  &&  pushd deploy/database/terraform \
-    &&  terraform init \
-    &&  tflint --deep --module \
-    &&  terraform plan -lock=false -refresh=true \
-  &&  popd \
+  local target='deploy/database/terraform'
+
+      helper_use_pristine_workdir \
+  &&  pushd integrates \
+    &&  helper_integrates_aws_login development \
+    &&  helper_integrates_terraform_plan "${target}" \
   &&  popd \
   || return 1
 }
@@ -944,14 +940,12 @@ function job_integrates_infra_cache_db_deploy {
 }
 
 function job_integrates_infra_cache_db_test {
-      pushd "${STARTDIR}/integrates" \
-  &&  echo '[INFO] Logging in to AWS development' \
-  &&  helper_integrates_aws_login development \
-  &&  pushd deploy/cache-db/terraform \
-    &&  terraform init \
-    &&  tflint --deep --module \
-    &&  terraform plan -lock=false -refresh=true \
-  &&  popd \
+  local target='deploy/cache-db/terraform'
+
+      helper_use_pristine_workdir \
+  &&  pushd integrates \
+    &&  helper_integrates_aws_login development \
+    &&  helper_integrates_terraform_plan "${target}" \
   &&  popd \
   || return 1
 }
@@ -977,22 +971,19 @@ function job_integrates_infra_django_db_deploy {
 }
 
 function job_integrates_infra_django_db_test {
+  local target='deploy/django-db/terraform'
   export TF_VAR_db_user
   export TF_VAR_db_password
 
-      pushd "${STARTDIR}/integrates" \
-  &&  echo '[INFO] Logging in to AWS development' \
-  &&  helper_integrates_aws_login development \
-  &&  helper_common_sops_env 'secrets-development.yaml' 'default' \
-        DB_USER \
-        DB_PASSWD \
-  &&  TF_VAR_db_user="${DB_USER}" \
-  &&  TF_VAR_db_password="${DB_PASSWD}" \
-  &&  pushd deploy/django-db/terraform \
-    &&  terraform init \
-    &&  tflint --deep --module \
-    &&  terraform plan -lock=false -refresh=true \
-  &&  popd \
+      helper_use_pristine_workdir \
+  &&  pushd integrates \
+    &&  helper_integrates_aws_login development \
+    &&  helper_common_sops_env 'secrets-development.yaml' 'default' \
+          DB_USER \
+          DB_PASSWD \
+    &&  TF_VAR_db_user="${DB_USER}" \
+    &&  TF_VAR_db_password="${DB_PASSWD}" \
+    &&  helper_integrates_terraform_plan "${target}" \
   &&  popd \
   || return 1
 }
@@ -1010,14 +1001,12 @@ function job_integrates_infra_devicefarm_deploy {
 }
 
 function job_integrates_infra_devicefarm_test {
-      pushd "${STARTDIR}/integrates" \
-  &&  echo '[INFO] Logging in to AWS development' \
-  &&  helper_integrates_aws_login development \
-  &&  pushd deploy/devicefarm/terraform \
-    &&  terraform init \
-    &&  tflint --deep --module \
-    &&  terraform plan -lock=false -refresh=true \
-  &&  popd \
+  local target='deploy/devicefarm/terraform'
+
+      helper_use_pristine_workdir \
+  &&  pushd integrates \
+    &&  helper_integrates_aws_login development \
+    &&  helper_integrates_terraform_plan "${target}" \
   &&  popd \
   || return 1
 }
@@ -1035,13 +1024,12 @@ function job_integrates_infra_resources_deploy {
 }
 
 function job_integrates_infra_resources_test {
-      pushd "${STARTDIR}/integrates" \
-  &&  echo '[INFO] Logging in to AWS development' \
-  &&  helper_integrates_aws_login development \
-  &&  pushd deploy/terraform-resources \
-    &&  terraform init \
-    &&  tflint --deep --module \
-    &&  terraform plan -lock=false -refresh=true \
+  local target='deploy/terraform-resources'
+
+      helper_use_pristine_workdir \
+  &&  pushd integrates \
+    &&  helper_integrates_aws_login development \
+    &&  helper_integrates_terraform_plan "${target}" \
   &&  popd \
   || return 1
 }
@@ -1059,14 +1047,12 @@ function job_integrates_infra_secret_management_deploy {
 }
 
 function job_integrates_infra_secret_management_test {
-      pushd "${STARTDIR}/integrates" \
-  &&  echo '[INFO] Logging in to AWS development' \
-  &&  helper_integrates_aws_login development \
-  &&  pushd deploy/secret-management/terraform \
-    &&  terraform init \
-    &&  tflint --deep --module \
-    &&  terraform plan -lock=false -refresh=true \
-  &&  popd \
+  local target='deploy/secret-management/terraform'
+
+      helper_use_pristine_workdir \
+  &&  pushd integrates \
+    &&  helper_integrates_aws_login development \
+    &&  helper_integrates_terraform_plan "${target}" \
   &&  popd \
   || return 1
 }
@@ -1096,13 +1082,12 @@ function job_integrates_infra_cluster_test {
 
       helper_use_pristine_workdir \
   &&  pushd integrates \
-  &&  echo '[INFO] Logging in to AWS development' \
-  &&  helper_integrates_aws_login development \
-  &&  helper_common_update_kubeconfig "${cluster}" "${region}" \
-  &&  helper_common_sops_env 'secrets-development.yaml' 'default' \
-      NEW_RELIC_LICENSE_KEY \
-  &&  export TF_VAR_newrelic_license_key="${NEW_RELIC_LICENSE_KEY}" \
-  &&  helper_common_terraform_plan "${target}" \
+    &&  helper_integrates_aws_login development \
+    &&  helper_common_update_kubeconfig "${cluster}" "${region}" \
+    &&  helper_common_sops_env 'secrets-development.yaml' 'default' \
+          NEW_RELIC_LICENSE_KEY \
+    &&  export TF_VAR_newrelic_license_key="${NEW_RELIC_LICENSE_KEY}" \
+    &&  helper_integrates_terraform_plan "${target}" \
   &&  popd \
   || return 1
 }
@@ -1125,8 +1110,8 @@ function job_integrates_infra_ephemeral_test {
       helper_use_pristine_workdir \
   &&  pushd integrates \
   &&  echo '[INFO] Logging in to AWS development' \
-  &&  helper_integrates_aws_login development \
-  &&  helper_common_terraform_plan "${target}" \
+    &&  helper_integrates_aws_login development \
+    &&  helper_integrates_terraform_plan "${target}" \
   &&  popd \
   || return 1
 }
@@ -1149,8 +1134,8 @@ function job_integrates_infra_firewall_test {
       helper_use_pristine_workdir \
   &&  pushd integrates \
   &&  echo '[INFO] Logging in to AWS development' \
-  &&  helper_integrates_aws_login development \
-  &&  helper_common_terraform_plan "${target}" \
+    &&  helper_integrates_aws_login development \
+    &&  helper_integrates_terraform_plan "${target}" \
   &&  popd \
   || return 1
 }

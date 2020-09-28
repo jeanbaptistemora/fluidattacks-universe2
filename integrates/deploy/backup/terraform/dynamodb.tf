@@ -1,10 +1,20 @@
 resource "aws_backup_vault" "integrates_dynamodb_backup_vault" {
   name        = "integrates-dynamodb-backup-vault"
   kms_key_arn = "arn:aws:kms:us-east-1:205810638802:key/d33073aa-19f8-4390-afa1-abcda2be27d7"
+
+  tags = {
+    "management:type"    = "production"
+    "management:product" = "integrates"
+  }
 }
 
 resource "aws_backup_plan" "integrates_dynamodb_backup_plan" {
   name = "integrates-dynamodb-backup-plan"
+
+  tags = {
+    "management:type"    = "production"
+    "management:product" = "integrates"
+  }
 
   rule {
     rule_name         = "integrates-dynamodb-backup-daily-rule"

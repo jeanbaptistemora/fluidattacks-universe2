@@ -4,7 +4,9 @@ resource "aws_subnet" "region-a" {
   cidr_block        = "192.168.4.0/25"
 
   tags = {
-    Name = "integrates-1"
+    Name                 = "integrates-1"
+    "management:type"    = "production"
+    "management:product" = "integrates"
   }
 }
 
@@ -14,7 +16,9 @@ resource "aws_subnet" "region-b" {
   cidr_block        = "192.168.4.128/25"
 
   tags = {
-    Name = "integrates-2"
+    Name                 = "integrates-2"
+    "management:type"    = "production"
+    "management:product" = "integrates"
   }
 }
 
@@ -24,4 +28,8 @@ resource "aws_db_subnet_group" "django-db" {
     aws_subnet.region-a.id,
     aws_subnet.region-b.id,
   ]
+  tags = {
+    "management:type"    = "production"
+    "management:product" = "integrates"
+  }
 }

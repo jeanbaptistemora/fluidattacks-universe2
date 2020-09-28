@@ -16,6 +16,11 @@ resource "aws_dynamodb_table" "authz" {
   point_in_time_recovery {
     enabled = true
   }
+
+  tags = {
+    "management:type"    = "production"
+    "management:product" = "integrates"
+  }
 }
 
 resource "aws_dynamodb_table" "subscriptions" {
@@ -61,6 +66,11 @@ resource "aws_dynamodb_table" "subscriptions" {
   point_in_time_recovery {
     enabled = true
   }
+
+  tags = {
+    "management:type"    = "production"
+    "management:product" = "integrates"
+  }
 }
 
 resource "aws_dynamodb_table" "comments" {
@@ -90,6 +100,11 @@ resource "aws_dynamodb_table" "comments" {
       write_capacity
     ]
   }
+
+  tags = {
+    "management:type"    = "production"
+    "management:product" = "integrates"
+  }
 }
 
 resource "aws_dynamodb_table" "project_comments" {
@@ -110,6 +125,11 @@ resource "aws_dynamodb_table" "project_comments" {
 
   point_in_time_recovery {
     enabled = true
+  }
+
+  tags = {
+    "management:type"    = "production"
+    "management:product" = "integrates"
   }
 }
 
@@ -137,6 +157,11 @@ resource "aws_dynamodb_table" "events" {
   point_in_time_recovery {
     enabled = true
   }
+
+  tags = {
+    "management:type"    = "production"
+    "management:product" = "integrates"
+  }
 }
 
 resource "aws_dynamodb_table" "toe" {
@@ -151,6 +176,11 @@ resource "aws_dynamodb_table" "toe" {
 
   point_in_time_recovery {
     enabled = true
+  }
+
+  tags = {
+    "management:type"    = "production"
+    "management:product" = "integrates"
   }
 }
 
@@ -167,6 +197,11 @@ resource "aws_dynamodb_table" "projects" {
   point_in_time_recovery {
     enabled = true
   }
+
+  tags = {
+    "management:type"    = "production"
+    "management:product" = "integrates"
+  }
 }
 
 resource "aws_dynamodb_table" "users" {
@@ -181,6 +216,11 @@ resource "aws_dynamodb_table" "users" {
 
   point_in_time_recovery {
     enabled = true
+  }
+
+  tags = {
+    "management:type"    = "production"
+    "management:product" = "integrates"
   }
 }
 
@@ -213,6 +253,11 @@ resource "aws_dynamodb_table" "project_access" {
 
   point_in_time_recovery {
     enabled = true
+  }
+
+  tags = {
+    "management:type"    = "production"
+    "management:product" = "integrates"
   }
 }
 
@@ -248,6 +293,11 @@ resource "aws_dynamodb_table" "findings" {
   point_in_time_recovery {
     enabled = true
   }
+
+  tags = {
+    "management:type"    = "production"
+    "management:product" = "integrates"
+  }
 }
 
 resource "aws_dynamodb_table" "vulnerabilities" {
@@ -275,6 +325,11 @@ resource "aws_dynamodb_table" "vulnerabilities" {
     hash_key =  "UUID"
     projection_type = "ALL"
   }
+
+  tags = {
+    "management:type"    = "production"
+    "management:product" = "integrates"
+  }
 }
 
 resource "aws_dynamodb_table" "portfolios" {
@@ -295,6 +350,11 @@ resource "aws_dynamodb_table" "portfolios" {
 
   point_in_time_recovery {
     enabled = true
+  }
+
+  tags = {
+    "management:type"    = "production"
+    "management:product" = "integrates"
   }
 }
 
@@ -324,6 +384,11 @@ resource "aws_dynamodb_table" "organizations" {
     range_key = "pk"
     projection_type = "ALL"
   }
+
+  tags = {
+    "management:type"    = "production"
+    "management:product" = "integrates"
+  }
 }
 
 resource "aws_dynamodb_table" "forces" {
@@ -344,5 +409,10 @@ resource "aws_dynamodb_table" "forces" {
 
   point_in_time_recovery {
     enabled = true
+  }
+
+  tags = {
+    "management:type"    = "production"
+    "management:product" = "integrates"
   }
 }

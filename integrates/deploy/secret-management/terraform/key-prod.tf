@@ -106,6 +106,11 @@ resource "aws_kms_key" "integrates-prod-key" {
   policy                  = data.aws_iam_policy_document.integrates-prod-key.json
   deletion_window_in_days = 30
   is_enabled              = true
+
+  tags = {
+    "management:type"    = "production"
+    "management:product" = "integrates"
+  }
 }
 
 resource "aws_kms_alias" "integrates-prod-key" {

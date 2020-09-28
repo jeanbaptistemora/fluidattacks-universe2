@@ -2,6 +2,11 @@ resource "aws_iam_role" "integrates-prod" {
   name = "integrates-prod"
   assume_role_policy = data.aws_iam_policy_document.okta-assume-role-policy-data.json
   max_session_duration = "32400"
+
+  tags = {
+    "management:type"    = "production"
+    "management:product" = "integrates"
+  }
 }
 
 resource "aws_iam_role_policy_attachment" "integrates-prod-push-cloudwatch" {

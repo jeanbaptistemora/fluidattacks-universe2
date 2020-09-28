@@ -6,8 +6,13 @@ resource "aws_acm_certificate" "files-certificate" {
   domain_name       = "files.fluidattacks.com"
   validation_method = "DNS"
 
-lifecycle {
+  lifecycle {
     create_before_destroy = true
+  }
+
+  tags = {
+    "management:type"    = "production"
+    "management:product" = "integrates"
   }
 }
 
