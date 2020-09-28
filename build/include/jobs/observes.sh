@@ -58,6 +58,21 @@ function job_observes_gitlab {
   ||  return 1
 }
 
+function job_observes_gitlab_on_aws {
+  local vcpus='1'
+  local memory='900'
+  local attempts='1'
+  local timeout='18000'
+  export group="observes_gitlab"
+  helper_observes_aws_login prod \
+  &&  helper_common_run_on_aws \
+        "${vcpus}" \
+        "${memory}" \
+        "${attempts}" \
+        "${timeout}" \
+        'observes_gitlab'
+}
+
 function job_observes_timedoctor {
       helper_use_pristine_workdir \
   &&  env_prepare_python_packages \
