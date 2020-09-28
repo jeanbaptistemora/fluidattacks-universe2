@@ -9,36 +9,37 @@ def main() -> None:
     with db_cursor() as cursor_old, db_cursor() as cursor:
         cursor_old.execute(
             """ SELECT
-                    integration_authored_at,
-                    sha1,
-                    subscription,
+                    authored_at,
+                    hash,
+                    namespace,
                     repository
-                FROM git.commits
+                FROM code.commits
                 WHERE (
-                    (integration_authored_at AT TIME ZONE 'UTC') < '2020-08-01'
+                    seen_at < '2020-01-01'
+                    AND authored_at >= '2020-01-01'
+                    AND authored_at < '2020-08-01'
                 )
             """
         )
         for (
-            integration_authored_at,
-            sha1,
-            subscription,
+            authored_at,
+            commit_hash,
+            namespace,
             repository,
         ) in cursor_old:
             query = cursor.mogrify(
                 """
                 UPDATE code.commits
-                SET
-                    seen_at = %(seen_at)s
+                SET seen_at = %(seen_at)s
                 WHERE
                     hash = %(hash)s
-                    and namespace = %(namespace)s
-                    and repository = %(repository)s
+                    AND namespace = %(namespace)s
+                    AND repository = %(repository)s
                 """,
                 dict(
-                    hash=sha1,
-                    seen_at=integration_authored_at,
-                    namespace=subscription,
+                    hash=commit_hash,
+                    seen_at=authored_at,
+                    namespace=namespace,
                     repository=repository,
                 )
             ).decode()

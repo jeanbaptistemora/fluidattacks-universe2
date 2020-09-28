@@ -70,6 +70,7 @@ function helper_use_services {
   then
         echo "[INFO] Updating local services copy at: ${target}" \
     &&  pushd "${target}" \
+      &&  git remote set-url origin "${source}" \
       &&  git fetch \
       &&  git reset --hard HEAD \
     ||  return 1
