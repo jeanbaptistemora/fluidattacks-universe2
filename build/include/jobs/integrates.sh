@@ -656,6 +656,13 @@ function job_integrates_serve_back_dev {
   ||  return 1
 }
 
+function job_integrates_serve_back_dev2 {
+      pushd "${STARTDIR}/integrates" \
+  &&  helper_integrates_serve_back2 dev \
+  &&  popd \
+  ||  return 1
+}
+
 function job_integrates_cron_show {
   export DJANGO_SETTINGS_MODULE='fluidintegrates.settings'
 

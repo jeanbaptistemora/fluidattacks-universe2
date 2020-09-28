@@ -184,6 +184,42 @@ function helper_integrates_serve_back {
   &&  kill -TERM "${HTTP_PID}"
 }
 
+function helper_integrates_serve_back2 {
+  local app='backend_new.app:APP'
+  local host='0.0.0.0'
+  local http_port='8000'
+  local https_port='8080'
+  local workers='5'
+  local worker_class='uvicorn.workers.UvicornWorker'
+  local common_args=(
+    --timeout "3600"
+    --workers "${workers}"
+    --worker-class "${worker_class}"
+  )
+
+      env_prepare_python_packages \
+  &&  env_prepare_ruby_modules \
+  &&  env_prepare_node_modules \
+  &&  "helper_integrates_set_${1}_secrets" \
+  &&  echo "[INFO] Serving HTTP on port ${http_port}" \
+  &&  {
+        gunicorn \
+          "${common_args[@]}" \
+          --bind="${host}:${http_port}" \
+          "${app}" \
+          &
+        HTTP_PID=$!
+      } \
+  &&  echo "[INFO] Serving HTTPS on port ${https_port}" \
+  &&  gunicorn \
+        "${common_args[@]}" \
+        --bind="${host}:${https_port}" \
+        --certfile="${srcDerivationsCerts}/fluidla.crt" \
+        --keyfile="${srcDerivationsCerts}/fluidla.key" \
+        "${app}" \
+  &&  kill -TERM "${HTTP_PID}"
+}
+
 function helper_integrates_functional_tests {
   local modifier=""
   if [ $# -eq 1 ]; then
