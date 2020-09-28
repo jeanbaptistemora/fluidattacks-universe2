@@ -113,7 +113,7 @@ asserts_test_api_format:
   stage: test-code
   tags: [autoscaling-large]
 
-asserts_test_api_helper:
+.asserts_test_api_helper:
   <<: *with_nix
   <<: *in_dev_branch_asserts
   stage: test-code
@@ -203,7 +203,7 @@ asserts_test_api_proto_graphql:
   <<: *in_dev_branch_asserts
   stage: test-code
 
-asserts_test_api_proto_http:
+.asserts_test_api_proto_http:
   <<: *with_nix
   <<: *in_dev_branch_asserts
   stage: test-code

@@ -1,4 +1,4 @@
-FROM registry.gitlab.com/fluidattacks/asserts/mocks/smtp:weak
+FROM registry.gitlab.com/fluidattacks/product/asserts/smtp:weak
 
 ENV FLAVOR hard
 

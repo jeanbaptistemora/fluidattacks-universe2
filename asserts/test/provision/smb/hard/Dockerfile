@@ -1,4 +1,4 @@
-FROM registry.gitlab.com/fluidattacks/asserts/mocks/smb:weak
+FROM registry.gitlab.com/fluidattacks/product/asserts/smb:weak
 
 ENV FLAVOR hard
 

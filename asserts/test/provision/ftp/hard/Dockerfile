@@ -1,4 +1,4 @@
-FROM registry.gitlab.com/fluidattacks/asserts/mocks/ftp:weak
+FROM registry.gitlab.com/fluidattacks/product/asserts/ftp:weak
 
 ENV FLAVOR hard
 

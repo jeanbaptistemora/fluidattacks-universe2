@@ -1,4 +1,4 @@
-FROM registry.gitlab.com/fluidattacks/asserts/mocks/mysql_os:hard
+FROM registry.gitlab.com/fluidattacks/product/asserts/mysql_os:hard
 
 ENV MYSQL_PWD=something
 

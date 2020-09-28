@@ -1,1 +1,1 @@
-FROM registry.gitlab.com/fluidattacks/asserts/mocks/mysql_db:weak
+FROM registry.gitlab.com/fluidattacks/product/asserts/mysql_db:weak

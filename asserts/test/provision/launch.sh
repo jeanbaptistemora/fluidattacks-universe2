@@ -4,7 +4,7 @@ module="${1}"
 context="${2}"
 exposed_port="${3}"
 
-tag_name="registry.gitlab.com/fluidattacks/asserts/mocks/${module}:${context}"
+tag_name="registry.gitlab.com/fluidattacks/product/asserts/${module}:${context}"
 context_path="./test/provision/${module}/${context}/"
 
 {

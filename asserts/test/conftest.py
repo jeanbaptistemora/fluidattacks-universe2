@@ -282,7 +282,7 @@ def exec_extra_commands(mock: str, mock_name: str) -> None:
 
 def create_container(mock: str) -> None:
     """Build mocks caching imgs/containers and building/running when needed."""
-    image = f'registry.gitlab.com/fluidattacks/asserts/mocks/{mock}'
+    image = f'registry.gitlab.com/fluidattacks/product/asserts/{mock}'
     context = f'test/provision/{mock.replace(":", "/")}'
 
     mock_name = get_mock_name(mock)
