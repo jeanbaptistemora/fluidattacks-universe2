@@ -79,6 +79,11 @@ resource "aws_iam_user_policy_attachment" "dev-attach-policy" {
 resource "aws_iam_user" "dev" {
   name = "observes-dev"
   path = "/user-provision/"
+
+  tags = {
+    "management:type"    = "production"
+    "management:product" = "serves"
+  }
 }
 
 resource "aws_iam_access_key" "dev-key-1" {

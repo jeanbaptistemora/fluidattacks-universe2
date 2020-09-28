@@ -18,15 +18,13 @@ function job_serves_apply_infra_monolith {
 
 function job_serves_test_infra_dns {
   local target='services/dns/terraform'
-  local config
 
       helper_use_pristine_workdir \
-  &&  config="${PWD}/.tflint.hcl" \
   &&  pushd serves \
     &&  helper_serves_aws_login development \
     &&  helper_serves_cloudflare_login development \
     &&  helper_serves_infra_dns_get_load_balancer \
-    &&  helper_common_terraform_plan_new "${target}" "${config}" \
+    &&  helper_serves_terraform_plan "${target}" \
   &&  popd \
   ||  return 1
 }
@@ -47,13 +45,11 @@ function job_serves_apply_infra_dns {
 
 function job_serves_test_infra_autoscaling_ci {
   local target='services/autoscaling-ci/terraform'
-  local config
 
       helper_use_pristine_workdir \
-  &&  config="${PWD}/.tflint.hcl" \
   &&  pushd serves \
     &&  helper_serves_aws_login development \
-    &&  helper_common_terraform_plan_new "${target}" "${config}" \
+    &&  helper_serves_terraform_plan "${target}" \
   &&  popd \
   ||  return 1
 }
@@ -72,13 +68,11 @@ function job_serves_apply_infra_autoscaling_ci {
 
 function job_serves_test_infra_aws_sso {
   local target='services/aws-sso/terraform'
-  local config
 
       helper_use_pristine_workdir \
-  &&  config="${PWD}/.tflint.hcl" \
   &&  pushd serves \
     &&  helper_serves_aws_login development \
-    &&  helper_common_terraform_plan_new "${target}" "${config}" \
+    &&  helper_serves_terraform_plan "${target}" \
   &&  popd \
   ||  return 1
 }
@@ -97,13 +91,11 @@ function job_serves_apply_infra_aws_sso {
 
 function job_serves_test_infra_fluid_vpc {
   local target='services/fluid-vpc/terraform'
-  local config
 
       helper_use_pristine_workdir \
-  &&  config="${PWD}/.tflint.hcl" \
   &&  pushd serves \
     &&  helper_serves_aws_login development \
-    &&  helper_common_terraform_plan_new "${target}" "${config}" \
+    &&  helper_serves_terraform_plan "${target}" \
   &&  popd \
   ||  return 1
 }
@@ -122,13 +114,11 @@ function job_serves_apply_infra_fluid_vpc {
 
 function job_serves_test_infra_secret_management {
   local target='secret-management/terraform'
-  local config
 
       helper_use_pristine_workdir \
-  &&  config="${PWD}/.tflint.hcl" \
   &&  pushd serves \
     &&  helper_serves_aws_login development \
-    &&  helper_common_terraform_plan_new "${target}" "${config}" \
+    &&  helper_serves_terraform_plan "${target}" \
   &&  popd \
   ||  return 1
 }
@@ -147,13 +137,11 @@ function job_serves_apply_infra_secret_management {
 
 function job_serves_test_infra_certificates {
   local target='services/certificates/terraform'
-  local config
 
       helper_use_pristine_workdir \
-  &&  config="${PWD}/.tflint.hcl" \
   &&  pushd serves \
     &&  helper_serves_aws_login development \
-    &&  helper_common_terraform_plan_new "${target}" "${config}" \
+    &&  helper_serves_terraform_plan "${target}" \
   &&  popd \
   ||  return 1
 }
@@ -172,12 +160,10 @@ function job_serves_apply_infra_certificates {
 
 function job_serves_test_infra_compute {
   local target='services/compute'
-  local config
 
-      config="${PWD}/.tflint.hcl" \
-  &&  pushd serves \
+      pushd serves \
     &&  helper_serves_aws_login development \
-    &&  helper_common_terraform_plan_new "${target}" "${config}" \
+    &&  helper_serves_terraform_plan "${target}" \
   &&  popd \
   ||  return 1
 }
@@ -197,9 +183,8 @@ function job_serves_test_user_provision_asserts_dev {
 
       helper_use_pristine_workdir \
   &&  pushd serves \
-  &&  helper_serves_aws_login development \
-  &&  helper_common_terraform_plan \
-        "${target}" \
+    &&  helper_serves_aws_login development \
+    &&  helper_serves_terraform_plan "${target}" \
   &&  popd \
   ||  return 1
 }
@@ -221,9 +206,8 @@ function job_serves_test_user_provision_asserts_prod {
 
       helper_use_pristine_workdir \
   &&  pushd serves \
-  &&  helper_serves_aws_login development \
-  &&  helper_common_terraform_plan \
-        "${target}" \
+    &&  helper_serves_aws_login development \
+    &&  helper_serves_terraform_plan "${target}" \
   &&  popd \
   ||  return 1
 }
@@ -245,9 +229,8 @@ function job_serves_test_user_provision_services_dev {
 
       helper_use_pristine_workdir \
   &&  pushd serves \
-  &&  helper_serves_aws_login development \
-  &&  helper_common_terraform_plan \
-        "${target}" \
+    &&  helper_serves_aws_login development \
+    &&  helper_serves_terraform_plan "${target}" \
   &&  popd \
   ||  return 1
 }
@@ -269,9 +252,8 @@ function job_serves_test_user_provision_services_prod {
 
       helper_use_pristine_workdir \
   &&  pushd serves \
-  &&  helper_serves_aws_login development \
-  &&  helper_common_terraform_plan \
-        "${target}" \
+    &&  helper_serves_aws_login development \
+    &&  helper_serves_terraform_plan "${target}" \
   &&  popd \
   ||  return 1
 }
@@ -293,9 +275,8 @@ function job_serves_test_user_provision_integrates_dev {
 
       helper_use_pristine_workdir \
   &&  pushd serves \
-  &&  helper_serves_aws_login development \
-  &&  helper_common_terraform_plan \
-        "${target}" \
+    &&  helper_serves_aws_login development \
+    &&  helper_serves_terraform_plan "${target}" \
   &&  popd \
   ||  return 1
 }
@@ -317,9 +298,8 @@ function job_serves_test_user_provision_integrates_prod {
 
       helper_use_pristine_workdir \
   &&  pushd serves \
-  &&  helper_serves_aws_login development \
-  &&  helper_common_terraform_plan \
-        "${target}" \
+    &&  helper_serves_aws_login development \
+    &&  helper_serves_terraform_plan "${target}" \
   &&  popd \
   ||  return 1
 }
@@ -341,7 +321,7 @@ function job_serves_test_user_provision_skims_dev {
 
       pushd serves \
     &&  helper_serves_aws_login development \
-    &&  helper_common_terraform_plan "${target}" \
+    &&  helper_serves_terraform_plan "${target}" \
   &&  popd \
   ||  return 1
 }
@@ -361,7 +341,7 @@ function job_serves_test_user_provision_skims_prod {
 
       pushd serves \
     &&  helper_serves_aws_login development \
-    &&  helper_common_terraform_plan "${target}" \
+    &&  helper_serves_terraform_plan "${target}" \
   &&  popd \
   ||  return 1
 }
@@ -381,9 +361,8 @@ function job_serves_test_user_provision_airs_dev {
 
       helper_use_pristine_workdir \
   &&  pushd serves \
-  &&  helper_serves_aws_login development \
-  &&  helper_common_terraform_plan \
-        "${target}" \
+    &&  helper_serves_aws_login development \
+    &&  helper_serves_terraform_plan "${target}" \
   &&  popd \
   ||  return 1
 }
@@ -405,9 +384,8 @@ function job_serves_test_user_provision_airs_prod {
 
       helper_use_pristine_workdir \
   &&  pushd serves \
-  &&  helper_serves_aws_login development \
-  &&  helper_common_terraform_plan \
-        "${target}" \
+    &&  helper_serves_aws_login development \
+    &&  helper_serves_terraform_plan "${target}" \
   &&  popd \
   ||  return 1
 }
@@ -429,9 +407,8 @@ function job_serves_test_user_provision_serves {
 
       helper_use_pristine_workdir \
   &&  pushd serves \
-  &&  helper_serves_aws_login development \
-  &&  helper_common_terraform_plan \
-        "${target}" \
+    &&  helper_serves_aws_login development \
+    &&  helper_serves_terraform_plan "${target}" \
   &&  popd \
   ||  return 1
 }
@@ -453,9 +430,8 @@ function job_serves_test_user_provision_melts {
 
       helper_use_pristine_workdir \
   &&  pushd serves\
-  &&  helper_serves_aws_login development \
-  &&  helper_common_terraform_plan \
-        "${target}" \
+    &&  helper_serves_aws_login development \
+    &&  helper_serves_terraform_plan "${target}" \
   &&  popd \
   ||  return 1
 }
@@ -477,9 +453,8 @@ function job_serves_test_user_provision_observes {
 
       helper_use_pristine_workdir \
   &&  pushd serves \
-  &&  helper_serves_aws_login development \
-  &&  helper_common_terraform_plan \
-        "${target}" \
+    &&  helper_serves_aws_login development \
+    &&  helper_serves_terraform_plan "${target}" \
   &&  popd \
   ||  return 1
 }

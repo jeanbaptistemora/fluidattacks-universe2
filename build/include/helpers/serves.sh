@@ -267,3 +267,11 @@ function helper_serves_test_lint_code_shell {
   find "${path}" -name '*.sh' -exec \
     shellcheck --external-sources --exclude=SC1090,SC2016,SC2153,SC2154 {} +
 }
+
+function helper_serves_terraform_plan {
+  local target="${1}"
+  local config
+
+      config="$(readlink -f ../.tflint.hcl)" \
+  &&  helper_common_terraform_plan_new "${target}" "${config}"
+}

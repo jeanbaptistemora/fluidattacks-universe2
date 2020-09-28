@@ -57,6 +57,11 @@ resource "aws_iam_user_policy_attachment" "prod-attach-policy" {
 resource "aws_iam_user" "melts-prod" {
   name = "melts-prod"
   path = "/user-provision/"
+
+  tags = {
+    "management:type"    = "production"
+    "management:product" = "serves"
+  }
 }
 
 resource "aws_iam_access_key" "melts-prod-key-1" {

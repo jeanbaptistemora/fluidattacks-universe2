@@ -81,14 +81,19 @@ resource "aws_iam_user_policy_attachment" "dev-attach-policy" {
 }
 
 resource "aws_iam_user" "melts-dev" {
-  name = "melts-dev" 
+  name = "melts-dev"
   path = "/user-provision/"
+
+  tags = {
+    "management:type"    = "production"
+    "management:product" = "serves"
+  }
 }
 
 resource "aws_iam_access_key" "melts-dev-key-1" {
-  user = "melts-dev" 
+  user = "melts-dev"
 }
 
 resource "aws_iam_access_key" "melts-dev-key-2" {
-  user = "melts-dev" 
+  user = "melts-dev"
 }

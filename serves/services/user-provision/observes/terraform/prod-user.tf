@@ -98,6 +98,11 @@ resource "aws_iam_user_policy_attachment" "prod-attach-policy" {
 resource "aws_iam_user" "prod" {
   name = "observes-prod"
   path = "/user-provision/"
+
+  tags = {
+    "management:type"    = "production"
+    "management:product" = "serves"
+  }
 }
 
 resource "aws_iam_access_key" "prod-key-1" {

@@ -1,6 +1,11 @@
 resource "aws_iam_user" "asserts-dev" {
   name = var.user-name
   path = "/user-provision/"
+
+  tags = {
+    "management:type"    = "production"
+    "management:product" = "serves"
+  }
 }
 
 resource "aws_iam_access_key" "asserts-dev-key-1" {
