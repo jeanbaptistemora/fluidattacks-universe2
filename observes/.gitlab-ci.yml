@@ -173,13 +173,22 @@ observes_code_upload:
   tags: [autoscaling-large]
   interruptible: false
 
-observes_code_ammend_authors:
+observes_code_amend_authors:
   <<: *with_nix_serial
   only:
     refs: [schedules]
-    variables: [$observes_code_ammend_authors]
+    variables: [$observes_code_amend_authors]
   stage: analytics
-  tags: [autoscaling-large]
+  tags: [autoscaling]
+  interruptible: false
+
+observes_code_compute_bills:
+  <<: *with_nix_serial
+  only:
+    refs: [schedules]
+    variables: [$observes_code_compute_bills]
+  stage: analytics
+  tags: [autoscaling]
   interruptible: false
 
 observes_timedoctor_refresh_token:

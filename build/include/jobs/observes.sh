@@ -132,7 +132,7 @@ function job_observes_code_upload {
 
 }
 
-function job_observes_code_ammend_authors {
+function job_observes_code_amend_authors {
   export GITLAB_API_USER
   export GITLAB_API_TOKEN
 
@@ -151,7 +151,7 @@ function job_observes_code_ammend_authors {
   ||  return 1
 }
 
-function job_observes_code_compute_authors {
+function job_observes_code_compute_bills {
   export GITLAB_API_USER
   export GITLAB_API_TOKEN
   local bucket_month
