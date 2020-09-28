@@ -140,9 +140,17 @@ function job_skims_deploy_to_pypi {
 
       helper_skims_compile_parsers \
   &&  helper_skims_install_dependencies \
+  &&  env_prepare_node_modules \
   &&  pushd skims \
     &&  version=$(helper_skims_compute_version) \
     &&  echo "[INFO] Skims: ${version}" \
+    &&  bugsnag-build-reporter \
+          --api-key 'f990c9a571de4cb44c96050ff0d50ddb' \
+          --app-version "${version}" \
+          --release-stage 'production' \
+          --source-control-provider 'gitlab' \
+          --source-control-repository 'https://gitlab.com/fluidattacks/product.git' \
+          --source-control-revision "${CI_COMMIT_SHA}" \
     &&  trap 'restore_version' EXIT \
     &&  sed --in-place \
           "s|^version = .*$|version = \"${version}\"|g" \
