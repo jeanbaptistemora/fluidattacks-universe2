@@ -5,9 +5,24 @@
         content="Here you can find the list of tags used to classify the articles of the
         blog. These articles are all related to the field of Information Security
         and may range from an opinion related to a certain topic, or a solution
-        to a challenge, all the way to just general information">
+        to a challenge, all the way to just general information.">
   <meta name="keywords"
         content="Tag, Classify, Articles, Blog, Information, Security">
+  <meta name="title"
+        property="og:title"
+        content="Blog Tags | {{ SITENAME }}">
+  <meta name="description"
+        property="og:description"
+        content="Here you can find the list of tags used to classify the articles of the
+        blog. These articles are all related to the field of Information Security
+        and may range from an opinion related to a certain topic, or a solution
+        to a challenge, all the way to just general information">
+  <meta name="image"
+        property="og:image"
+        content="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/logo-menu-new.svg">
+  <meta name="type"
+        property="og:type"
+        content="website">
 {% endblock meta %}
 
 {% block title %} Tags | {{ SITENAME }}{% endblock %}

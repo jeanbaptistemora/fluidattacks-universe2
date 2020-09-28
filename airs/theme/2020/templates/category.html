@@ -7,6 +7,23 @@
         address different subjets related to the field of Information Security.">
   <meta name="keywords"
         content="Article, Category, Blog, Information, Security, Date">
+  <meta name="url"
+        property="og:url"
+        content="{{ SITEURL }}/{{ category.url }}">
+  <meta name="title"
+        property="og:title | {{ SITENAME }}"
+        content="{{ category.name|replace('-', ' ')|capitalize }}">
+  <meta name="description"
+        property="og:description"
+        content="Here you can find all the articles of the blog which are related to the
+        category {{ category.name|replace('-', ' ')|capitalize }}. The articles are ordered according to their publishing date and may
+        address different subjets related to the field of Information Security.">
+  <meta name="image"
+        property="og:image"
+        content="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/logo-menu-new.svg">
+  <meta name="type"
+        property="og:type"
+        content="website">
 {% endblock meta %}
 
 {% block title %}{{ category.name|replace("-", " ")|capitalize }} | {{ AUTHOR }}{% endblock %}

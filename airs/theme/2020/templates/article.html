@@ -4,9 +4,21 @@
         content="{{ article.description }}">
   <meta name="keywords"
         content="{{ article.keywords }}">
+  <meta name="url"
+        property="og:url"
+        content="{{ SITEURL }}/{{ article.url }}">
+  <meta name="title"
+        property="og:title"
+        content="{{ article.title }} | {{ SITENAME }}">
+  <meta name="description"
+        property="og:description"
+        content="{{ article.description }}">
   <meta name="image"
         property="og:image"
         content="{{ SITEURL }}/{{ article.url }}cover.png">
+  <meta name="type"
+        property="og:type"
+        content="article">
 {% endblock meta %}
 
 {% block title %}

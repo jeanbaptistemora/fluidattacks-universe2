@@ -1,9 +1,24 @@
 {% extends "base.html" %}
 {% block meta %}
-<meta name="description"
-      content="{{ page.description }}">
-<meta name="keywords"
-      content="{{ page.keywords }}">
+  <meta name="description"
+        content="{{ page.description }}">
+  <meta name="keywords"
+        content="{{ page.keywords }}">
+  <meta name="url"
+        property="og:url"
+        content="{{ SITEURL }}/{{ page.url }}">
+  <meta name="title"
+        property="og:title"
+        content="{{ page.title }} | {{ SITENAME }}">
+  <meta name="description"
+        property="og:description"
+        content="{{ page.description }}">
+  <meta name="image"
+        property="og:image"
+        content="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/logo-menu-new.svg">
+  <meta name="type"
+        property="og:type"
+        content="website">
 {% endblock meta %}
 
 {% block title %}

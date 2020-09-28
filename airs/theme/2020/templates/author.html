@@ -7,6 +7,23 @@
         Information Security.">
   <meta name="keywords"
         content="Author, Article, Information, Security, Blog, Publising, Date">
+  <meta name="url"
+        property="og:url"
+        content="{{ SITEURL }}/{{ author.url }}">
+  <meta name="title"
+        property="og:title"
+        content="{{ author }} | {{ SITENAME }}">
+  <meta name="description"
+        property="og:description"
+        content="Here you can find all the articles written by the author {{ author }}.The articles are ordered by publishing date, starting with the last one.
+        They offer information about the different topics in the field of
+        Information Security.">
+  <meta name="image"
+        property="og:image"
+        content="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/logo-menu-new.svg">
+  <meta name="type"
+        property="og:type"
+        content="website">
 {% endblock meta %}
 
 {% block title %} {{ author }} | {{ AUTHOR }}{% endblock %}
