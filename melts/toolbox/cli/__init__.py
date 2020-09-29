@@ -61,4 +61,5 @@ def retry_debugging_on_failure(func):
 @retry_debugging_on_failure
 def main():
     """Usual entrypoint."""
+    utils.bugs.configure_bugsnag()
     entrypoint()

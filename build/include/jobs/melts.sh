@@ -29,6 +29,7 @@ function job_melts_test {
   &&  helper_clone_test_repo \
   &&  mv melts services \
   &&  pushd services \
+  &&  echo '[INFO] Cloning continuoustest repository' \
   &&  melts drills --pull-repos continuoustest \
   &&  pushd melts \
   &&  pytest \

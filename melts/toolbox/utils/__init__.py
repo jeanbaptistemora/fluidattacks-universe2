@@ -8,6 +8,9 @@ from toolbox.utils import (
     generic,
     get_commit_subs,
     postgres,
+    bugs,
+    logs,
+    env,
 )
 
 # Imported but unused
@@ -19,3 +22,6 @@ assert integrates
 assert generic
 assert get_commit_subs
 assert postgres
+assert bugs
+assert logs
+assert env
