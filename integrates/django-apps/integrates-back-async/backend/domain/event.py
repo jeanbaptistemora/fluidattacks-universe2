@@ -36,6 +36,7 @@ from backend.typing import (
     MailContent as MailContentType,
 )
 from backend.utils import (
+    datetime as datetime_utils,
     events as event_utils,
     validations
 )
@@ -63,19 +64,18 @@ async def solve_event(
     )[-1].get('state') == 'SOLVED':
         raise EventAlreadyClosed()
 
-    tzn = pytz.timezone(settings.TIME_ZONE)
-    today = datetime.now(tz=tzn)
+    today = datetime_utils.get_now()
     history = cast(List[Dict[str, str]], event.get('historic_state', []))
     history += [
         {
             'analyst': analyst_email,
-            'date': date.strftime('%Y-%m-%d %H:%M:%S'),
+            'date': datetime_utils.get_as_str(date),
             'state': 'CLOSED'
         },
         {
             'affectation': affectation,
             'analyst': analyst_email,
-            'date': today.strftime('%Y-%m-%d %H:%M:%S'),
+            'date': datetime_utils.get_as_str(today),
             'state': 'SOLVED'
         }
     ]
@@ -207,7 +207,7 @@ async def create_event(
     event_id = str(random.randint(10000000, 170000000))
 
     tzn = pytz.timezone(settings.TIME_ZONE)
-    today = datetime.now(tz=tzn)
+    today = datetime_utils.get_now()
 
     project_info = await project_domain.get_attributes(
         project_name, ['historic_configuration']
@@ -234,12 +234,12 @@ async def create_event(
         'historic_state': [
             {
                 'analyst': analyst_email,
-                'date': event_date.strftime('%Y-%m-%d %H:%M:%S'),
+                'date': datetime_utils.get_as_str(event_date),
                 'state': 'OPEN'
             },
             {
                 'analyst': analyst_email,
-                'date': today.strftime('%Y-%m-%d %H:%M:%S'),
+                'date': datetime_utils.get_as_str(today),
                 'state': 'CREATED'
             }
         ],

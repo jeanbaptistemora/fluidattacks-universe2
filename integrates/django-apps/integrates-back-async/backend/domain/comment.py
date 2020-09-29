@@ -1,9 +1,5 @@
 
 from typing import Dict, List, Tuple, Union, cast
-from datetime import datetime
-
-import pytz
-from django.conf import settings
 
 from backend import authz, util
 from backend.dal import (
@@ -15,7 +11,10 @@ from backend.typing import (
     Comment as CommentType,
     User as UserType
 )
-from backend.utils import aio
+from backend.utils import (
+    aio,
+    datetime as datetime_utils,
+)
 
 
 async def _get_comments(
@@ -175,8 +174,9 @@ async def get_observations(
 async def create(
         element_id: str, comment_data: CommentType,
         user_info: UserType) -> Tuple[Union[int, None], bool]:
-    tzn = pytz.timezone(settings.TIME_ZONE)
-    today = datetime.now(tz=tzn).strftime('%Y-%m-%d %H:%M:%S')
+    today = datetime_utils.get_as_str(
+        datetime_utils.get_now()
+    )
     comment_id = cast(int, comment_data.get('user_id', 0))
     comment_attributes = {
         'comment_type': str(comment_data.get('comment_type')),

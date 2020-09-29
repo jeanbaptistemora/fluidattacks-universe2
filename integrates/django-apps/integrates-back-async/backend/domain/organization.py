@@ -1,6 +1,5 @@
 import logging
 import sys
-from datetime import datetime
 from decimal import Decimal
 from typing import (
     AsyncIterator,
@@ -12,10 +11,7 @@ from typing import (
     Union,
 )
 
-import pytz
-from django.conf import settings
 from graphql import GraphQLError
-from pytz.tzinfo import DstTzInfo
 
 from backend import (
     authz,
@@ -36,7 +32,10 @@ from backend.exceptions import (
     UserNotInOrganization
 )
 from backend.typing import Organization as OrganizationType
-from backend.utils import aio
+from backend.utils import (
+    aio,
+    datetime as datetime_utils,
+)
 from fluidintegrates.settings import LOGGING
 
 logging.config.dictConfig(LOGGING)
@@ -345,8 +344,9 @@ async def _get_new_policies(
     email: str,
     values: Dict[str, Optional[Decimal]]
 ) -> Union[OrganizationType, None]:
-    tzn: DstTzInfo = pytz.timezone(settings.TIME_ZONE)
-    date = datetime.now(tz=tzn).strftime('%Y-%m-%d %H:%M:%S')
+    date = datetime_utils.get_as_str(
+        datetime_utils.get_now()
+    )
     new_policies: OrganizationType = {}
     await _add_updated_max_acceptance_days(
         organization_id, values, new_policies

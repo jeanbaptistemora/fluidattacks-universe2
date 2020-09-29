@@ -1,14 +1,11 @@
 # Standard library
-from datetime import datetime
 from typing import cast, Dict, List, Union
 import html
 
 # Third party imports
-import pytz
 from aioextensions import (
     collect,
 )
-from django.conf import settings
 from exponent_server_sdk import DeviceNotRegisteredError
 
 # Local imports
@@ -19,7 +16,10 @@ from backend.dal import (
 from backend.domain import (
     user as user_domain
 )
-from backend.utils import aio
+from backend.utils import (
+    aio,
+    datetime as datetime_utils,
+)
 
 
 async def new_group(
@@ -139,8 +139,7 @@ async def new_password_protected_report(
     file_type: str,
     file_link: str = '',
 ) -> None:
-    tzn = pytz.timezone(settings.TIME_ZONE)
-    today = datetime.now(tz=tzn)
+    today = datetime_utils.get_now()
     await collect((
         send_push_notification(
             user_email,
@@ -150,8 +149,8 @@ async def new_password_protected_report(
             [user_email],
             {
                 'filetype': file_type,
-                'date': today.strftime('%Y-%m-%d'),
-                'time': today.strftime('%H:%M'),
+                'date': datetime_utils.get_as_str(today, '%Y-%m-%d'),
+                'time': datetime_utils.get_as_str(today, '%H:%M'),
                 'projectname': project_name,
                 'filelink': file_link
             }
