@@ -1,4 +1,4 @@
-src.lib_path.f073.switch_without_default:
+src.lib_path.f073.switch_no_default:
   en: Switch without default in {path}
   es: Switch sin caso por defecto en {path}
 utils.model.finding.enum.F073.description:

@@ -42,9 +42,12 @@ from utils.model import (
     FindingEnum,
     Vulnerability,
 )
+from zone import (
+    t,
+)
 
 
-def _java_switch_without_default(
+def _java_switch_no_default(
     content: str,
     model: Dict[str, Any],
     path: str,
@@ -77,7 +80,10 @@ def _java_switch_without_default(
 
     return blocking_get_vulnerabilities_from_iterator(
         content=content,
-        description='src.lib_path.f073.switch_without_default',
+        description=t(
+            key='src.lib_path.f073.switch_no_default',
+            path=path,
+        ),
         finding=FindingEnum.F073,
         iterator=iterator(),
         path=path,
@@ -86,12 +92,12 @@ def _java_switch_without_default(
 
 @cache_decorator()
 @SHIELD
-async def java_switch_without_default(
+async def java_switch_no_default(
     content: str,
     path: str,
 ) -> Tuple[Vulnerability, ...]:
     return await in_process(
-        _java_switch_without_default,
+        _java_switch_no_default,
         content=content,
         model=await parse_antlr(
             'Java9',
@@ -102,7 +108,7 @@ async def java_switch_without_default(
     )
 
 
-def _javascript_switch_without_default(
+def _javascript_switch_no_default(
     content: str,
     model: Dict[str, Any],
     path: str,
@@ -135,20 +141,24 @@ def _javascript_switch_without_default(
 
     return blocking_get_vulnerabilities_from_iterator(
         content=content,
-        description='src.lib_path.f073.switch_without_default',
+        description=t(
+            key='src.lib_path.f073.switch_no_default',
+            path=path,
+        ),
         finding=FindingEnum.F073,
         iterator=iterator(),
         path=path,
     )
 
 
+@cache_decorator()
 @SHIELD
-async def javascript_switch_without_default(
+async def javascript_switch_no_default(
     content: str,
     path: str,
 ) -> Tuple[Vulnerability, ...]:
     return await in_process(
-        _javascript_switch_without_default,
+        _javascript_switch_no_default,
         content=content,
         model=await parse_babel(
             content=content.encode(),
@@ -167,12 +177,12 @@ async def analyze(
     coroutines: List[Awaitable[Tuple[Vulnerability, ...]]] = []
 
     if file_extension in EXTENSIONS_JAVA:
-        coroutines.append(java_switch_without_default(
+        coroutines.append(java_switch_no_default(
             content=await content_generator(),
             path=path,
         ))
     elif file_extension in EXTENSIONS_JAVASCRIPT:
-        coroutines.append(javascript_switch_without_default(
+        coroutines.append(javascript_switch_no_default(
             content=await content_generator(),
             path=path,
         ))
