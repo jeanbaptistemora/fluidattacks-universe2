@@ -12,7 +12,7 @@ from aioextensions import (
 from core.persist import (
     diff_results,
 )
-from parse_grammar import (
+from parse_antlr import (
     parse,
 )
 from state.ephemeral import (

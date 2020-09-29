@@ -4,7 +4,7 @@ from aioextensions import (
 )
 
 # Local libraries
-from parse_grammar import (
+from parse_antlr import (
     parse,
 )
 from utils.fs import (

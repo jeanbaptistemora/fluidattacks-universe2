@@ -45,11 +45,15 @@ function helper_skims_compile_parsers {
       echo '[INFO] Compiling grammars' \
   &&  pushd skims/static/parsers/ \
     &&  export CLASSPATH=".:${srcExternalANTLR4}:${CLASSPATH:-}" \
-    &&  echo "[INFO] Building Java9 parser" \
+    &&  echo "[INFO] Building ANTLR parsers" \
     &&  pushd antlr \
       &&  "${compile_antlr[@]}" src/main/java/parse/Java9.g4 \
       &&  "${compile_java[@]}" src/main/java/parse/Java9*.java \
       &&  gradle installDist \
+    &&  popd \
+    &&  echo "[INFO] Building Babel parsers" \
+    &&  pushd babel \
+      &&  npm install \
     &&  popd \
   &&  popd \
   ||  return 1
