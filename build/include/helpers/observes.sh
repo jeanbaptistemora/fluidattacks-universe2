@@ -3,6 +3,7 @@
 function helper_observes_aws_login {
   local user="${1}"
   export AWS_ACCESS_KEY_ID
+  export AWS_DEFAULT_REGION='us-east-1'
   export AWS_SECRET_ACCESS_KEY
 
 
