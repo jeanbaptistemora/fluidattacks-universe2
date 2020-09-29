@@ -8,6 +8,7 @@ botocore==1.15.40
 bugsnag==3.7.1
 click==7.1.2
 frozendict==1.2
+more-itertools==8.5.0
 mypy_extensions==0.4.3
 numpy==1.18.2
 pandas==1.0.3

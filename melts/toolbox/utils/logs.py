@@ -33,12 +33,12 @@ _LOGGER_REMOTE.setLevel(logging.ERROR)
 _LOGGER_REMOTE.addHandler(_LOGGER_REMOTE_HANDLER)  # Sorry sir event-loop
 
 
-def set_level(level: int) -> None:
+def set_level(level: int):
     _LOGGER.setLevel(level)
     _LOGGER_HANDLER.setLevel(level)
 
 
-def log(level: str, msg: str, *args: Any) -> None:
+def log(level: str, msg: str, *args: Any):
     getattr(_LOGGER, level)(msg, *args)
 
 
@@ -54,6 +54,6 @@ def log_exception(
         log_to_remote(exception, **meta_data)
 
 
-def log_to_remote(exception: BaseException, **meta_data: str) -> None:
+def log_to_remote(exception: BaseException, **meta_data: str):
     meta_data.update(BUGS_META.get() or {})
     bugsnag.notify(exception, meta_data=meta_data)

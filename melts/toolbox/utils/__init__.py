@@ -11,6 +11,7 @@ from toolbox.utils import (
     bugs,
     logs,
     env,
+    function,
 )
 
 # Imported but unused
@@ -25,3 +26,4 @@ assert postgres
 assert bugs
 assert logs
 assert env
+assert function

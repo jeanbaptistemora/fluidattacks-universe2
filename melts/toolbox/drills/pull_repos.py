@@ -7,10 +7,13 @@ import ruamel.yaml as yaml
 
 # Local libraries
 from toolbox.drills import generic as drills_generic
+from toolbox.utils.function import shield
 from toolbox import (
     logger,
     utils,
 )
+
+SHIELD = shield(retries=12)
 
 
 def notify_out_of_scope(include_regexps, exclude_regexps) -> bool:
@@ -131,6 +134,7 @@ def pull_repos_s3_to_fusion(subs: str,
     return True
 
 
+@SHIELD
 def main(subs: str, repository_name: str = 'all') -> bool:
     '''
     Clone all repos for a group
