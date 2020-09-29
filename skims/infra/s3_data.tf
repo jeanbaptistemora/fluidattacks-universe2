@@ -4,6 +4,8 @@ resource "aws_s3_bucket" "skims_data" {
   region = var.region
   tags = {
     Product = "Skims"
+    "management:type"    = "production"
+    "management:product" = "skims"
   }
 
   lifecycle_rule {

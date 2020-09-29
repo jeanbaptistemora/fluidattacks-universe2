@@ -124,9 +124,12 @@ function job_skims_process_all_groups_on_aws {
 }
 
 function job_skims_deploy_infra {
-      pushd skims \
+  local target='infra'
+
+      helper_use_pristine_workdir \
+  &&  pushd skims \
     &&  helper_skims_aws_login prod \
-    &&  helper_common_terraform_apply infra \
+    &&  helper_common_terraform_apply "${target}" \
   &&  popd \
   ||  return 1
 }
@@ -268,9 +271,13 @@ function job_skims_test {
 }
 
 function job_skims_test_infra {
-      pushd skims \
+  local target='infra'
+
+
+      helper_use_pristine_workdir \
+  &&  pushd skims \
     &&  helper_skims_aws_login dev \
-    &&  helper_common_terraform_plan infra \
+    &&  helper_skims_terraform_plan "${target}" \
   &&  popd \
   ||  return 1
 }

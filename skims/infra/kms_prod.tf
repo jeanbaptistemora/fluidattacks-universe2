@@ -69,6 +69,11 @@ resource "aws_kms_key" "key_skims_prod" {
   policy = data.aws_iam_policy_document.key_skims_prod.json
   deletion_window_in_days = 30
   is_enabled = true
+
+  tags = {
+    "management:type"    = "production"
+    "management:product" = "skims"
+  }
 }
 
 resource "aws_kms_alias" "key_skims_prod" {
