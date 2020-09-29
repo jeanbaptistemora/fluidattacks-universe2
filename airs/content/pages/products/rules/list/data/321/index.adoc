@@ -1,7 +1,7 @@
 :slug: products/rules/list/321/
 :category: data
 :description: This requirement establishes the importance of properly validating untrusted data before applying deserialization.
-:keywords: Deserialization, Untrusted, Object, Injection, ASVS, CWE, PCI DSS, Rules, Ethical Hacking, Pentesting
+:keywords: Deserialization, Untrusted, Object, Injection, ASVS, CAPEC, CWE, PCI DSS, Rules, Ethical Hacking, Pentesting
 :rules: yes
 
 = R321. Avoid deserializing untrusted data
@@ -27,42 +27,51 @@ it can lead to deserialization attacks such as object injection.
 
 == Rereferences
 
-. [[r1]] link:https://cwe.mitre.org/data/definitions/94.html[CWE-94: Code Injection].
+. [[r1]] link:http://capec.mitre.org/data/definitions/130.html[CAPEC-130: Excessive Allocation].
+An adversary causes the target to allocate excessive resources to servicing the
+attackers' request,
+thereby reducing the resources available for legitimate services and degrading
+or denying services.
+Usually, this attack focuses on memory allocation,
+but any finite resource on the target could be the attacked, including
+bandwidth, processing cycles, or other resources.
+
+. [[r2]] link:https://cwe.mitre.org/data/definitions/94.html[CWE-94: Code Injection].
 The software constructs all or part of a code segment using
 externally-influenced input from an upstream component,
 but it does not neutralize or incorrectly neutralizes special elements that
 could modify the syntax or behavior of the intended code segment.
 
-. [[r2]] link:https://cwe.mitre.org/data/definitions/95.html[CWE-95: Eval Injection].
+. [[r3]] link:https://cwe.mitre.org/data/definitions/95.html[CWE-95: Eval Injection].
 The software receives input from an upstream component,
 but it does not neutralize or incorrectly neutralizes code syntax before using
 the input in a dynamic evaluation call (e.g. "*eval*").
 
-. [[r3]] link:https://cwe.mitre.org/data/definitions/502.html[CWE-502: Deserialization of Untrusted Data]
+. [[r4]] link:https://cwe.mitre.org/data/definitions/502.html[CWE-502: Deserialization of Untrusted Data]
 The application deserializes untrusted data without sufficiently verifying that
 the resulting data will be valid.
 
-. [[r4]] link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A1-Injection[OWASP Top 10 A1:2017-Injection].
+. [[r5]] link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A1-Injection[OWASP Top 10 A1:2017-Injection].
 Injection flaws, such as **SQL**, **NoSQL**, **OS**, and *LDAP* injection,
 occur when untrusted data is sent to an interpreter as part of a command or
 query.
 The attacker's hostile data can trick the interpreter into executing unintended
 commands or accessing data without proper authorization.
 
-. [[r5]] link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A4-XML_External_Entities_(XXE)[OWASP Top 10 A4:2017-XML External Entities (XXE)].
+. [[r6]] link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A4-XML_External_Entities_(XXE)[OWASP Top 10 A4:2017-XML External Entities (XXE)].
 Many older or poorly configured *XML* processors evaluate external entity
 references within *XML* documents.
 External entities can be used to disclose internal files using the file *URI*
 handler, internal file shares, internal port scanning, remote code execution,
 and denial of service attacks.
 
-. [[r6]] link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A8-Insecure_Deserialization[OWASP Top 10 A8:2017-Insecure Deserialization].
+. [[r7]] link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A8-Insecure_Deserialization[OWASP Top 10 A8:2017-Insecure Deserialization].
 Insecure deserialization often leads to remote code execution.
 Even if deserialization flaws do not result in remote code execution,
 they can be used to perform attacks,
 including replay attacks, injection attacks, and privilege escalation attacks.
 
-. [[r7]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r8]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V1.5 Input and Output Architectural Requirements.(1.5.2)]
 Verify that serialization is not used when communicating with untrusted
 clients.
@@ -71,36 +80,36 @@ ensure that adequate integrity controls
 (and possibly encryption if sensitive data is sent)
 are enforced to prevent deserialization attacks including object injection.
 
-. [[r8]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r9]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V5.5 Deserialization Prevention Requirements.(5.5.1)]
 Verify that serialized objects use integrity checks or are encrypted to prevent
 hostile object creation or data tampering.
 
-. [[r9]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r10]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V5.5 Deserialization Prevention Requirements.(5.5.3)]
 Verify that deserialization of untrusted data is avoided or is protected in
 both custom code and third-party libraries
 (such as *JSON*, *XML* and *YAML* parsers).
 
-. [[r10]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r11]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V5.5 Deserialization Prevention Requirements.(5.5.4)]
 Verify that when parsing *JSON* in browsers or JavaScript-based backends,
 **JSON.parse** is used to parse the *JSON* document.
 Do not use **eval()** to parse *JSON*.
 
-. [[r11]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r12]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V13.2 RESTful Web Service Verification Requirements.(13.2.2)]
 Verify that *JSON* schema validation is in place and verified before accepting
 input.
 
-. [[r12]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r13]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V13.3 SOAP Web Service Verification Requirements.(13.3.1)]
 Verify that *XSD* schema validation takes place to ensure a properly formed
 *XML* document,
 followed by validation of each input field before any processing of that data
 takes place.
 
-. [[r13]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 6.5.1]
+. [[r14]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 6.5.1]
 Address common coding vulnerabilities in software-development processes such as
 injection flaws, particularly *SQL* injection.
 Also consider *OS* Command Injection, *LDAP* and *XPath* injection flaws as
