@@ -61,6 +61,7 @@ from backend.typing import (
 from backend import util
 from backend.utils import (
     aio,
+    datetime as datetime_utils,
 )
 from backend.api.resolvers.user import _create_new_user
 from fluidintegrates.settings import LOGGING
@@ -574,7 +575,7 @@ async def _get_bill(
         project_name: str,
         date: Union[datetime, None] = None,
         **__: Any) -> Dict[str, HistoricType]:
-    date = date or datetime.utcnow()
+    date = date or datetime_utils.get_now()
 
     return {
         'developers': await bill_domain.get_authors_data(
@@ -949,7 +950,9 @@ async def _do_add_project_consult(
     project_name = parameters.get('project_name', '').lower()
     user_info = await util.get_jwt_content(info.context)
     user_email = user_info['user_email']
-    current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    current_time = datetime_utils.get_as_str(
+        datetime_utils.get_now()
+    )
     comment_id = int(round(time.time() * 1000))
     comment_data = {
         'user_id': comment_id,

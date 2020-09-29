@@ -1,5 +1,4 @@
 # pylint:disable=too-many-lines
-from datetime import datetime
 import logging
 import sys
 from time import time
@@ -39,6 +38,7 @@ from backend.typing import (
     Vulnerability as VulnerabilityType,
 )
 from backend.utils import (
+    datetime as datetime_utils,
     findings as finding_utils,
 )
 from backend import authz, util
@@ -822,7 +822,9 @@ async def _do_add_finding_consult(
 
     user_email = user_data['user_email']
     comment_id = int(round(time() * 1000))
-    current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    current_time = datetime_utils.get_as_str(
+        datetime_utils.get_now()
+    )
     comment_data = {
         'user_id': comment_id,
         'comment_type': param_type if param_type != 'consult' else 'comment',

@@ -21,8 +21,7 @@ def test_get_from_str():
 @freeze_time("2019-12-01")
 def test_get_as_str():
     now = datetime_utils.get_now()
-    now_str = datetime_utils.get_as_str(now)
-    assert datetime_utils.get_as_str(now) == now_str
+    assert datetime_utils.get_as_str(now) == '2019-11-30 19:00:00'
 
 
 @freeze_time("2019-12-01")

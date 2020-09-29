@@ -13,6 +13,9 @@ from backend.decorators import (
 )
 from backend.domain import bill as bill_domain
 from backend.typing import Historic, Project as Group
+from backend.utils import (
+    datetime as datetime_utils,
+)
 
 
 @concurrent_decorators(
@@ -25,7 +28,7 @@ async def resolve(
     **kwargs: datetime
 ) -> Dict[str, Historic]:
     group_name: str = cast(str, parent['name'])
-    date: datetime = kwargs.get('date', datetime.utcnow())
+    date: datetime = kwargs.get('date', datetime_utils.get_now())
 
     return {
         'developers': await bill_domain.get_authors_data(

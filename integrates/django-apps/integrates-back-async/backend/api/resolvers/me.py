@@ -2,7 +2,6 @@ import asyncio
 import json
 import logging
 import sys
-from datetime import datetime, timedelta
 from typing import Dict, List, Set, Any, cast, Union
 
 from aioextensions import (
@@ -43,7 +42,10 @@ from backend.typing import (
     SimplePayload as SimplePayloadType,
     UpdateAccessTokenPayload as UpdateAccessTokenPayloadType,
 )
-from backend.utils import aio
+from backend.utils import (
+    aio,
+    datetime as datetime_utils,
+)
 from backend import util
 from backend import authz
 from fluidintegrates.settings import LOGGING
@@ -345,8 +347,9 @@ async def _do_sign_in(
                 'user_email': email,
                 'first_name': getattr(user, 'first_name'),
                 'last_name': getattr(user, 'last_name'),
-                'exp': datetime.utcnow() +
-                timedelta(seconds=settings.MOBILE_SESSION_AGE),
+                'exp': datetime_utils.get_now_plus_delta(
+                    seconds=settings.MOBILE_SESSION_AGE
+                ),
                 'sub': 'session_token',
             },
             algorithm='HS512',

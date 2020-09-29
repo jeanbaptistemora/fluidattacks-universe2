@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta
+from datetime import datetime
 import sys
 from typing import (
     Any,
@@ -29,6 +29,9 @@ from backend.typing import (
     ForcesExecutions as ForcesExecutionsType,
     SimplePayload as SimplePayloadType,
     UpdateAccessTokenPayload as UpdateAccessTokenPayloadType,
+)
+from backend.utils import (
+    datetime as datetime_utils,
 )
 from backend.exceptions import InvalidExpirationTime
 from backend import util
@@ -151,7 +154,7 @@ async def resolve_forces_executions(
     """Resolve forces_executions query."""
     project_name = project_name.lower()
     from_date = from_date or util.get_current_time_minus_delta(weeks=1)
-    to_date = to_date or datetime.utcnow()
+    to_date = to_date or datetime_utils.get_now()
     return await _resolve_fields(info, project_name, from_date, to_date)
 
 
@@ -170,7 +173,7 @@ async def resolve_forces_executions_new(
     """Resolve forces_executions query."""
     project_name = project_name.lower()
     from_date = from_date or util.get_current_time_minus_delta(weeks=1)
-    to_date = to_date or datetime.utcnow()
+    to_date = to_date or datetime_utils.get_now()
     request_ast = util.get_requested_fields_ast(info)
 
     result = await forces_domain.get_executions_new(
@@ -231,7 +234,9 @@ async def update_forces_access_token(
         )
         return UpdateAccessTokenPayloadType(success=False, session_jwt='')
 
-    expiration_time = int((datetime.now() + timedelta(days=180)).timestamp())
+    expiration_time = int(
+        datetime_utils.get_now_plus_delta(days=180).timestamp()
+    )
     try:
         result = await user_domain.update_access_token(
             user_email,

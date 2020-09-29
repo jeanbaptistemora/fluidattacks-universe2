@@ -2,7 +2,6 @@
 import asyncio
 import logging
 import sys
-from datetime import datetime
 from typing import (
     cast,
     Awaitable,
@@ -56,7 +55,10 @@ from backend.services import (
     has_access_to_project
 )
 from backend import authz, mailer
-from backend.utils import aio
+from backend.utils import (
+    aio,
+    datetime as datetime_utils,
+)
 from backend.utils.validations import (
     validate_fluidattacks_staff_on_group,
     validate_email_address, validate_alphanumeric_field, validate_phone_field
@@ -227,8 +229,8 @@ async def _get_last_login(_: GraphQLResolveInfo, email: str, *__: str) -> str:
         last_login = [-1, -1]
     else:
         dates_difference = (
-            datetime.now() -
-            datetime.strptime(last_login_response, '%Y-%m-%d %H:%M:%S')
+            datetime_utils.get_now() -
+            datetime_utils.get_from_str(last_login_response)
         )
         diff_last_login = [dates_difference.days, dates_difference.seconds]
         last_login = diff_last_login
