@@ -25,7 +25,7 @@ or `HEVD` as the target. In the previous articles, we've covered:
 environment needed to do Windows Kernel debugging.
 * link:../hevd-dos/[Denial of Service] in which we performed an initial
 attack to `HEVD`.
-* link:../hevd-smep-bypass/[kASRL SMEP] were also successfully bypassed and
+* link:../hevd-smep-bypass/[kASLR SMEP] were also successfully bypassed and
 we could execute a simple shellcode in kernel mode.
 
 In this article we will be able to obtain a privileged `SYSTEM` shell,

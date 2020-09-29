@@ -14,7 +14,7 @@
 :about2: "We don't need the key, we'll break in" RATM
 :source: https://unsplash.com/photos/1bjsASjhfkE
 
-= HEVD: kASRL + SMEP Bypass
+= HEVD: kASLR + SMEP Bypass
 
 During the last posts, we've been dealing with exploitation in Windows
 Kernel space. We are using
@@ -273,10 +273,10 @@ image::rop-padding.png[ROP Padding]
 
 With that, we can now disable `SMEP`!
 
-== Defeating kASRL
+== Defeating kASLR
 
 We've got all the required information to create the `ROP` chain to disable
-`SMEP`. However, we need to deal with kernel `ASRL`. As I mentioned before,
+`SMEP`. However, we need to deal with kernel `ASLR`. As I mentioned before,
 there are several functions that can be executed in user mode (`ring-3`) that
 can give information of addresses at `ring-0`. The most used are
 `NtQuerySystemInformation()` and `EnumDeviceDrivers()`. The later is the
@@ -406,7 +406,7 @@ As you can see, we were able to disable `SMEP` and made `EAX = 0xdeadbeef`!
 == Conclusions
 
 In this post we were able to execute a shellcode which made `EAX = 0xdeadbeef`.
-We also bypassed `SMEP` protection using a `kROP` chain and defeated `kASRL`
+We also bypassed `SMEP` protection using a `kROP` chain and defeated `kASLR`
 by leaking the kernel base address from `ring-3`.
 However, we have still have to get a privileged shell on this system, which
 will be covered in the link:../hevd-privilege-escalation/[next article].
