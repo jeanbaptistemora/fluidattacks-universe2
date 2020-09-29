@@ -10,11 +10,11 @@ utils.model.finding.enum.F073.description:
     Ejemplo: se tiene un switch que no contempla un caso por defecto.
 utils.model.finding.enum.F073.impact:
   en: >
-    A valid user in the application may experience unexpected behaviors
-    due to the missing default outputs.
+    Drive the application into unexpected behaviors due to the missing default
+    options.
   es: >
-    Un usuario válido en la aplicación puede experimentar comportamientos
-    inesperados debido a que no se encuentran definidas salidas por defecto.
+    Conducir la aplicación a comportamientos inesperados debido a la clausula
+    por defecto faltante.
 utils.model.finding.enum.F073.recommendation:
   en: Define a default option for statements that do not yet have it.
   es: Definir una opción por defecto para las sentencias que aún no cuentan con esta.
