@@ -12,6 +12,7 @@ from typing import (
     Callable,
     Dict,
     List,
+    NamedTuple,
     Tuple,
     Type,
     Union,
@@ -25,11 +26,17 @@ from backend.domain import (
     organization as org_domain,
     project as group_domain,
     forces as forces_domain,
+    tag as portfolio_domain,
 )
 from backend.utils.encodings import (
     safe_encode,
 )
 from frozendict import frozendict
+
+PortfoliosGroups = NamedTuple('PortfoliosGroups', [
+    ('portfolio', str),
+    ('groups', List[str]),
+])
 
 
 async def get_all_time_forces_executions(
@@ -79,6 +86,20 @@ def get_vulnerability_source(vulnerability: Dict[str, str]) -> str:
         root = where
 
     return root
+
+
+async def get_portfolios_groups(org_name: str) -> List[PortfoliosGroups]:
+    portfolios = await portfolio_domain.get_tags(
+        org_name, ['tag', 'projects']
+    )
+
+    return [
+        PortfoliosGroups(
+            portfolio=data.get('tag', '').lower(),
+            groups=data.get('projects', [])
+        )
+        for data in portfolios
+    ]
 
 
 async def iterate_groups() -> AsyncIterator[str]:

@@ -151,6 +151,12 @@ async def handle_authz_claims(
             organization_id=params.subject,
         ):
             raise PermissionError('Access denied')
+    elif params.entity == 'portfolio':
+        if not await organization_domain.has_user_access(
+            email=email,
+            organization_id=params.subject.split('PORTFOLIO#')[0],
+        ):
+            raise PermissionError('Access denied')
     else:
         raise ValueError(f'Invalid entity: {params.entity}')
 
