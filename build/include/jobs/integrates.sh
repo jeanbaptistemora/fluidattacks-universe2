@@ -228,6 +228,41 @@ function job_integrates_build_container_app {
   || return 1
 }
 
+function job_integrates_build_container_app2 {
+  local context='.'
+  local dockerfile='deploy/containers/app/Dockerfile2'
+  local tag="${CI_REGISTRY_IMAGE}/app2:${CI_COMMIT_REF_NAME}"
+
+      pushd "${STARTDIR}/integrates" \
+  &&  echo '[INFO] Remember that this job needs: build_lambdas' \
+  &&  helper_build_django_apps \
+  &&  echo '[INFO] Computing Fluid Integrates version' \
+  &&  echo -n "${FI_VERSION}" > 'version.txt' \
+  &&  echo '[INFO] Logging in to AWS' \
+  &&  helper_integrates_aws_login "${ENVIRONMENT_NAME}" \
+  &&  helper_common_sops_env "secrets-${ENVIRONMENT_NAME}.yaml" 'default' \
+        SSL_KEY \
+        SSL_CERT \
+  &&  cp ../build/include/helpers/common.sh . \
+  &&  cp ../build/include/helpers/integrates.sh . \
+  &&  helper_docker_build_and_push \
+        "${tag}" \
+        "${context}" \
+        "${dockerfile}" \
+        'CI_API_V4_URL' "${CI_API_V4_URL}" \
+        'CI_COMMIT_AUTHOR' "${CI_COMMIT_AUTHOR}" \
+        'CI_COMMIT_REF_NAME' "${CI_COMMIT_REF_NAME}" \
+        'CI_COMMIT_SHA' "${CI_COMMIT_SHA}" \
+        'CI_PROJECT_ID' "${CI_PROJECT_ID}" \
+        'CI_REPOSITORY_URL' "${CI_REPOSITORY_URL}" \
+        'ENV_NAME' "${ENVIRONMENT_NAME}" \
+        'SSL_CERT' "${SSL_CERT}" \
+        'SSL_KEY' "${SSL_KEY}" \
+        'VERSION' "${FI_VERSION}" \
+  &&  popd \
+  || return 1
+}
+
 function job_integrates_deploy_front {
       pushd "${STARTDIR}/integrates" \
   &&  env_prepare_python_packages \
