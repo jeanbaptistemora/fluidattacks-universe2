@@ -5,15 +5,14 @@ from toolbox.utils import generic
 
 # Local libraries
 from toolbox import logger
-from toolbox.constants import BASE_DIR
 
 
 def main(subs: str) -> bool:
     """Use subs vpn"""
     success: bool = True
-    config_file = f'{BASE_DIR}/vpns/{subs}'
-    vpn_list = [f for f in os.listdir(f'{BASE_DIR}/vpns')
-                if os.path.isfile(os.path.join(f'{BASE_DIR}/vpns/', f))]
+    config_file = f'tools/vpns/{subs}'
+    vpn_list = [f for f in os.listdir('tools/vpns')
+                if os.path.isfile(os.path.join('tools/vpns/', f))]
 
     if (os.path.exists(f'{config_file}-bogota.sh') and
             os.path.exists(f'{config_file}-medellin.sh')):
@@ -22,13 +21,13 @@ def main(subs: str) -> bool:
         if city == '1':
             generic.aws_login(f'continuous-{subs}')
             subprocess.call(
-                f'{config_file}-bogota.sh',
+                f'./{config_file}-bogota.sh',
                 shell=True
             )
         else:
             generic.aws_login(f'continuous-{subs}')
             subprocess.call(
-                f'{config_file}-medellin.sh',
+                f'./{config_file}-medellin.sh',
                 shell=True
             )
     else:
@@ -39,7 +38,7 @@ def main(subs: str) -> bool:
         else:
             generic.aws_login(f'continuous-{subs}')
             subprocess.call(
-                f'{config_file}.sh',
+                f'./{config_file}.sh',
                 shell=True
             )
     return success

@@ -3,4 +3,3 @@ include toolbox/rules.def
 include toolbox/sorts/extensions.lst
 include toolbox/sorts/composites.lst
 include toolbox/sorts/model_parameters.json
-include toolbox/vpns/*
