@@ -1,6 +1,7 @@
 # Standard library
 from typing import (
     Any,
+    Dict,
     Callable,
     Iterator,
     Tuple,
@@ -113,3 +114,13 @@ def yield_nodes(
                 value_extraction=value_extraction,
                 value_predicates=value_predicates,
             )
+
+
+def yield_dicts(model: Any) -> Iterator[Dict[str, Any]]:
+    if isinstance(model, dict):
+        yield model
+        for sub_model in model.values():
+            yield from yield_dicts(sub_model)
+    elif isinstance(model, list):
+        for sub_model in model:
+            yield from yield_dicts(sub_model)

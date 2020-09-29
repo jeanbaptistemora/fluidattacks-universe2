@@ -342,6 +342,7 @@ async def test_correct_assert(
         ('F073', 'SUBMITTED', (
             ('test/data/lib_path/f073/Test.java', '44'),
             ('test/data/lib_path/f073/Test.java', '92'),
+            ('test/data/lib_path/f073/javascript.js', '3'),
         )),
         ('F085', 'APPROVED', (
             ('test/data/lib_path/f085/react.jsx', '1'),
