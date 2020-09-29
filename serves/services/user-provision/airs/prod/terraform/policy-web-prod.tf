@@ -69,6 +69,7 @@ data "aws_iam_policy_document" "web-prod-policy-data" {
       "acm:RequestCertificate",
       "acm:DescribeCertificate",
       "acm:ListTagsForCertificate",
+      "acm:AddTagsToCertificate",
     ]
     resources = [
       "*",
