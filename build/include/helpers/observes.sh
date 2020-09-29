@@ -476,3 +476,11 @@ function helper_observes_lint_code_python {
   &&  popd || return 1 \
   &&  prospector --profile .prospector.yml .
 }
+
+function helper_observes_terraform_plan {
+  local target="${1}"
+  local config
+
+      config="$(readlink -f ../.tflint.hcl)" \
+  &&  helper_common_terraform_plan_new "${target}" "${config}"
+}

@@ -234,22 +234,24 @@ function job_observes_services_repositories_cache_new {
 }
 
 function job_observes_test_infra {
-  local target='observes/infra/terraform'
+  local target='infra/terraform'
 
       helper_use_pristine_workdir \
-  &&  helper_observes_aws_login dev \
-  &&  helper_common_terraform_plan \
-        "${target}" \
+  &&  pushd observes \
+    &&  helper_observes_aws_login dev \
+    &&  helper_observes_terraform_plan "${target}" \
+  &&  popd \
   ||  return 1
 }
 
 function job_observes_apply_infra {
-  local target='observes/infra/terraform'
+  local target='infra/terraform'
 
       helper_use_pristine_workdir \
-  &&  helper_observes_aws_login prod \
-  &&  helper_common_terraform_apply \
-        "${target}" \
+  &&  pushd observes \
+    &&  helper_observes_aws_login prod \
+    &&  helper_common_terraform_apply "${target}" \
+  &&  popd \
   ||  return 1
 }
 

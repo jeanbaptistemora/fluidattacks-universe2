@@ -56,6 +56,11 @@ resource "aws_iam_policy" "analytics_policy" {
 resource "aws_iam_user" "analytics_user" {
   name     = "analytics"
   path     = "/analytics/"
+
+  tags = {
+    "management:type"    = "production"
+    "management:product" = "observes"
+  }
 }
 
 resource "aws_iam_user_policy_attachment" "attach_analytics_policy" {

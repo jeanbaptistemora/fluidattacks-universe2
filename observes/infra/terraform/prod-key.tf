@@ -101,6 +101,11 @@ resource "aws_kms_key" "key-prod" {
   policy                  = data.aws_iam_policy_document.key-prod.json
   deletion_window_in_days = 30
   is_enabled              = true
+
+  tags = {
+    "management:type"    = "production"
+    "management:product" = "observes"
+  }
 }
 
 resource "aws_kms_alias" "key-prod" {
