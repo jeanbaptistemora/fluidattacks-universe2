@@ -7,8 +7,10 @@ function job_integrates_lint_back {
   &&  mypy --ignore-missing-imports --follow-imports=skip \
         django-apps/integrates-back-async \
   &&  mypy --strict --ignore-missing-imports app/migrations/ \
+  &&  mypy --strict --ignore-missing-imports backend_new \
   &&  prospector -F -s veryhigh analytics/ \
   &&  prospector -F -s veryhigh -u django -i node_modules app \
+  &&  prospector -F -s veryhigh -u django -i node_modules backend_new \
   &&  prospector -F -s veryhigh -u django -i node_modules django-apps/integrates-back-async \
   &&  prospector -F -s veryhigh -u django -i node_modules fluidintegrates \
   &&  prospector -F -s veryhigh lambda \
