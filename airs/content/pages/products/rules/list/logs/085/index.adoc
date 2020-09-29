@@ -1,0 +1,36 @@
+:slug: products/rules/list/085/
+:category: logs
+:description: This requirement establishes the importance of allowing authorized users to query and inspect their session history.
+:keywords: Logs, Session, Query, ASVS, GDPR, History Queries, Rules, Ethical Hacking, Pentesting
+:rules: yes
+
+= R085. Allow session history queries
+
+== Requirement
+
+The system must allow authorized users to inspect their own session history.
+
+== Description
+
+Systems usually collect personal and transactional data from their users.
+Users should have control of their own data and, as such,
+should be allowed to query and inspect whatever information the system has
+collected from them,
+including their session history.
+
+== References
+
+. [[r1]] link:https://gdpr-info.eu/recitals/no-7/[GDPR. Recital 7: The Framework is Based on Control and Certainty].
+Natural persons should have control of their own personal data.
+
+. [[r2]] link:https://www.law.cornell.edu/cfr/text/45/164.308[HIPAA Security Rules 164.308(a)(1)(ii)(D):]
+Information System Activity Review: Implement procedures
+to regularly review records of information system activity,
+such as audit logs, access reports, and security incident tracking reports.
+
+. [[r3]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V7.2 Log Processing Requirements.(7.2.1)]
+Verify that all authentication decisions are logged,
+without storing sensitive session identifiers or passwords.
+This should include requests with relevant metadata needed for security
+investigations.

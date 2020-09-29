@@ -128,6 +128,6 @@ $results = $command->execute(array(':date' => $date, ':text' => "%{$text}%"));
 
 == Referencias
 
-. [[r1]] link:../../../rules/173/[REQ.173 Descartar información insegura].
+. [[r1]] link:../../../products/rules/list/173/[REQ.173 Descartar información insegura].
 
 . [[r2]] link:https://www.yiiframework.com/wiki/275/how-to-write-secure-yii-applications#hh11[How to write secure Yii applications]

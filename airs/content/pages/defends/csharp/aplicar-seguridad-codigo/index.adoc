@@ -135,5 +135,5 @@ image::code-group-properties.png[Propiedades del Grupo de Código]
 
 . [[r1]] link:http://www.codeproject.com/Articles/5724/Understanding-NET-Code-Access-Security[Codeproject, Understanding NET Code Access Security]
 . [[r2]] link:https://msdn.microsoft.com/en-us/library/5ayb8fx6(v=vs.100).aspx[How to: Modify Permissions in a Permission Set]
-. [[r3]] link:../../../rules/269/[REQ.269 Usar principio mínimo privilegio]
-. [[r4]] link:../../../rules/176/[REQ.176 Restringir objetos del sistema]
+. [[r3]] link:../../../products/rules/list/269/[REQ.269 Usar principio mínimo privilegio]
+. [[r4]] link:../../../products/rules/list/176/[REQ.176 Restringir objetos del sistema]

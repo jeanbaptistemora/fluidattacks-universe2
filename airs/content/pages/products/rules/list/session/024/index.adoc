@@ -1,0 +1,23 @@
+:slug: products/rules/list/024/
+:category: session
+:description: This requirement establishes the importance of transferring sensitive information securely using session objects.
+:keywords: Requirement, Security, Session, Transfer, Information, Objects, Rules, Ethical Hacking, Pentesting
+:rules: yes
+
+= R024. Transfer information using session objects
+
+== Requirement
+
+The system must use session objects
+to transfer information between pages when needed.
+
+== References
+
+. [[r1]] link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A3-Sensitive_Data_Exposure[OWASP Top 10 A3:2017-Sensitive Data Exposure].
+Many web applications and **API**s do not properly protect sensitive data,
+such as financial, healthcare, and *PII*.
+Attackers may steal or modify such weakly protected data to conduct credit card
+fraud, identity theft, or other crimes.
+Sensitive data may be compromised without extra protection,
+such as encryption at rest or in transit, and requires special precautions when
+exchanged with the browser.

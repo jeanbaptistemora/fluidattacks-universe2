@@ -84,7 +84,7 @@ y +sockets+, los semáforos, etc.
 
 == Referencias
 
-. [[r1]] link:../../../rules/167/[REQ.167 Cerrar recursos no utilizados].
+. [[r1]] link:../../../products/rules/list/167/[REQ.167 Cerrar recursos no utilizados].
 . [[r2]] link:https://www.ibm.com/support/knowledgecenter/en/ssw_i5_54/cl/alcobj.htm[Allocate Object (ALCOBJ)].
 . [[r3]] link:https://www.ibm.com/support/knowledgecenter/SSAE4W_9.6.0/com.ibm.etools.iseries.langref.doc/evferlsh315.htm[OPEN (Open File for Processing)].
 . [[r4]] link:https://www.ibm.com/support/knowledgecenter/en/ssw_ibm_i_71/rzasd/sc092508816.htm[%ALLOC (Allocate Storage)].

@@ -1,0 +1,30 @@
+:slug: products/rules/list/084/
+:category: logs
+:description: This requirement establishes the importance of allowing authorized users to query and inspect their transaction history.
+:keywords: Requirement, Security, Logs, Transaction, GDPR, Rules, History Queries, Ethical Hacking, Pentesting
+:rules: yes
+
+= R084. Allow transaction history queries
+
+== Requirement
+
+The system must allow authorized users to inspect their own transaction
+history.
+
+== Description
+
+Systems usually collect personal and transactional data from their users.
+Users should have control of their own data and, as such,
+should be allowed to query and inspect whatever information the system has
+collected from them,
+including their transactional records.
+
+== References
+
+. [[r1]] link:https://gdpr-info.eu/recitals/no-7/[GDPR. Recital 7: The Framework is Based on Control and Certainty].
+Natural persons should have control of their own personal data.
+
+. [[r2]] link:https://www.law.cornell.edu/cfr/text/45/164.308[+HIPAA Security Rules+ 164.308(a)(1)(ii)(D):]
+Information System Activity Review: Implement procedures
+to regularly review records of information system activity,
+such as audit logs, access reports, and security incident tracking reports.

@@ -1,0 +1,199 @@
+:slug: products/rules/list/224/
+:category: cryptography
+:description: This requirement establishes the importance of using secure cryptographic mechanisms to generate the random numbers used in data encryption.
+:keywords: Cryptographic, Mechanism, Random Number, CAPEC, CWE, NIST, ASVS, PCI DSS, Rules, Ethical Hacking, Pentesting
+:rules: yes
+
+= R224. Use secure cryptographic mechanisms
+
+== Requirement
+
+The system must use the most secure cryptographic mechanism
+provided by the platform (e.g., **java.security.SecureRandom**)
+for random number generation used in critical processes
+(e.g., ID generation, code mapping, cryptographic keys).
+
+== Descriptions
+
+System cryptographic keys are essential for maintaining the confidentiality
+and integrity of transactions and communications.
+Some of these keys and other critical elements are generated using random
+numbers.
+In these cases, the random numbers themselves must be generated using secure
+mechanisms,
+which have often already been implemented by the platform.
+
+== Findings
+
+* [inner]#link:/findings/034/[F034. Insecure generation of random numbers]#
+
+* [inner]#link:/findings/078/[F078. Insecurely generated token]#
+
+== References
+
+. [[r1]] link:http://capec.mitre.org/data/definitions/20.html[CAPEC-20: Encryption Brute Forcing].
+An attacker, armed with the cipher text and the encryption algorithm used,
+performs an exhaustive (brute force) search on the key space to determine the
+key that decrypts the cipher text to obtain the plaintext.
+
+. [[r2]] link:http://capec.mitre.org/data/definitions/94.html[CAPEC-94: Man in the Middle Attack].
+This type of attack targets the communication between two components
+(typically client and server).
+The attacker places themself in the communication channel between the two
+components.
+Whenever one component attempts to communicate with the other
+(data flow, authentication challenges, etc.),
+the data first goes to the attacker,
+who has the opportunity to observe or alter it,
+and it is then passed on to the other component as if it was never observed.
+
+. [[r3]] link:http://capec.mitre.org/data/definitions/117.html[CAPEC-117: Interception].
+An adversary monitors data streams to or from the target for information
+gathering purposes.
+This attack may be undertaken to solely gather sensitive information or to
+support a further attack against the target.
+This attack pattern can involve sniffing network traffic as well as other types
+of data streams (e.g. radio).
+
+. [[r4]] link:https://cwe.mitre.org/data/definitions/327.html[CWE-327: Use of a Broken or Risky Cryptographic Algorithm]
+The use of a broken or risky cryptographic algorithm is an unnecessary risk
+that may result in the exposure of sensitive information.
+
+. [[r5]] link:https://cwe.mitre.org/data/definitions/330.html[CWE-330: Use of Insufficiently Random Values]
+The software uses insufficiently random numbers or values in a security context
+that depends on unpredictable numbers.
+
+. [[r6]] link:https://cwe.mitre.org/data/definitions/331.html[CWE-331: Insufficient Entropy]
+The software uses an algorithm or scheme that produces insufficient entropy,
+leaving patterns or clusters of values that are more likely to occur than
+others.
+
+. [[r7]] link:https://cwe.mitre.org/data/definitions/332.html[CWE-332: Insufficient Entropy in PRNG]
+The lack of entropy available for, or used by, a Pseudo-Random Number Generator
+(PRNG) can be a stability and security threat.
+
+. [[r8]] link:https://cwe.mitre.org/data/definitions/333.html[CWE-333: Improper Handling of Insufficient Entropy in TRNG]
+True random number generators (TRNG) generally have a limited source of entropy
+and therefore can fail or block.
+
+. [[r9]] link:https://cwe.mitre.org/data/definitions/334.html[CWE-334: Small Space of Random Values]
+The number of possible random values is smaller than needed by the product,
+making it more susceptible to brute force attacks.
+
+. [[r10]] link:https://cwe.mitre.org/data/definitions/335.html[CWE-335: Incorrect Usage of Seeds in Pseudo-Random Number Generator (PRNG)]
+The software uses a Pseudo-Random Number Generator (PRNG) that does not
+correctly manage seeds.
+
+. [[r11]] link:https://cwe.mitre.org/data/definitions/338.html[CWE-338: Use of Cryptographically Weak Pseudo-Random Number Generator (PRNG)]
+The product uses a Pseudo-Random Number Generator (PRNG) in a security context,
+but the PRNG's algorithm is not cryptographically strong.
+
+. [[r12]] link:https://cwe.mitre.org/data/definitions/340.html[CWE-340: Generation of Predictable Numbers or Identifiers]
+The product uses a scheme that generates numbers or identifiers that are more
+predictable than required.
+
+. [[r13]] link:https://nvd.nist.gov/800-53/Rev4/control/IA-7[NIST 800-53 IA-7]
+Cryptographic module authentication:
+The information system implements mechanisms for authentication
+to a cryptographic module that meet the requirements
+of applicable federal laws, Executive Orders, directives, policies,
+regulations, standards, and guidance for such authentication.
+
+. [[r14]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+Appendix C: Internet of Things Verification Requirements.(C.23)]
+Verify usage of cryptographically secure pseudo-random number generator on
+embedded device (e.g., using chip-provided random number generators).
+
+. [[r15]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V1.6 Cryptographic Architectural Requirements.(1.6.1)]
+Verify that there is an explicit policy for management of cryptographic keys
+and that a cryptographic key lifecycle follows a key management standard such
+as **NIST SP 800-57**.
+
+. [[r16]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V2.6 Look-up Secret Verifier Requirements.(2.6.2)]
+Verify that lookup secrets have sufficient randomness (112 bits of entropy),
+or if less than 112 bits of entropy,
+salted with a unique and random 32-bit salt and hashed with an approved one-way
+hash.
+
+. [[r17]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V2.6 Look-up Secret Verifier Requirements.(2.6.3)]
+Verify that lookup secrets are resistant to offline attacks,
+such as predictable values.
+
+. [[r18]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V2.7 Out of Band Verifier Requirements.(2.7.6)]
+Verify that the initial authentication code is generated by a secure random
+number generator,
+containing at least 20 bits of entropy
+(typically a six digital random number is sufficient).
+
+. [[r19]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V2.8 Single or Multi Factor One Time Verifier Requirements.(2.8.3)]
+Verify that approved cryptographic algorithms are used in the generation,
+seeding, and verification.
+
+. [[r20]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V2.9 Cryptographic Software and Devices Verifier Requirements.(2.9.2)]
+Verify that the challenge nonce is at least 64 bits in length,
+and statistically unique or unique over the lifetime of the cryptographic
+device.
+
+. [[r21]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V2.9 Cryptographic Software and Devices Verifier Requirements.(2.9.3)]
+Verify that approved cryptographic algorithms are used in the generation,
+seeding, and verification.
+
+. [[r22]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V3.2 Session Binding Requirements.(3.2.4)]
+Verify that session token are generated using approved cryptographic
+algorithms.
+
+. [[r23]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V6.2 Algorithms.(6.2.3)]
+Verify that encryption initialization vector, cipher configuration,
+and block modes are configured securely using the latest advice.
+
+. [[r24]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V6.2 Algorithms.(6.2.5)]
+Verify that known insecure block modes (i.e. *ECB*, etc.), padding modes
+(i.e. **PKCS#1** v1.5, etc.), ciphers with small block sizes
+(i.e. **Triple-DES**, *Blowfish*, etc.), and weak hashing algorithms
+(i.e. *MD5*, *SHA1*, etc.) are not used unless required for backwards
+compatibility.
+
+. [[r25]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V6.3 Random Values.(6.3.1)]
+Verify that all random numbers, random file names, random **GUID**s, and random
+strings are generated using the cryptographic module's approved
+cryptographically secure random number generator when these random values are
+intended to be not guessable by an attacker.
+
+. [[r26]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V8.3 Sensitive Private Data.(8.3.7)]
+Verify that sensitive or private information that is required to be encrypted,
+is encrypted using approved algorithms that provide both confidentiality and
+integrity.
+
+. [[r27]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V9.1 Communications Security Requirements.(9.1.2)]
+Verify using online or up to date *TLS* testing tools that only strong
+algorithms, ciphers, and protocols are enabled,
+with the strongest algorithms and ciphers set as preferred.
+
+. [[r28]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 2.3]
+Encrypt all non-console administrative access using strong cryptography.
+
+. [[r29]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 3.6.1]
+Fully document and implement all key-management processes and procedures for
+cryptographic keys including generation of strong cryptographic keys.
+
+. [[r30]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 4.1]
+Use strong cryptography and security protocols to safeguard sensitive
+cardholder data during transmission over open, public networks.
+The encryption strength is appropriate for the encryption methodology in use.
+
+. [[r31]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 6.5.3]
+Address common coding vulnerabilities in software-development processes such as
+insecure cryptographic storage.

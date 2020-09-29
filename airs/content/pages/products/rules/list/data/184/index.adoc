@@ -1,0 +1,49 @@
+:slug: products/rules/list/184/
+:category: data
+:description: This requirement establishes the importance of obfuscating all sensitive data when the application is not the main focus.
+:keywords: Requirement, Security, Data, Focus, Obfuscate, Application, ASVS, CWE, ISO, OWASP, Rules, Ethical Hacking, Pentesting
+:rules: yes
+
+= R184. Obfuscate application data
+
+== Requirement
+
+The system must obfuscate the data if the application is not in focus.
+
+== References
+
+. [[r1]] link:https://cwe.mitre.org/data/definitions/200.html[CWE-200: Exposure of Sensitive Information to an Unauthorized Actor].
+The product exposes sensitive information to an actor that is not explicitly
+authorized to have access to that information.
+
+. [[r2]] link:https://cwe.mitre.org/data/definitions/359.html[CWE-359: Exposure of Private Personal Information to an Unauthorized Actor].
+The product does not properly prevent a person's private, personal information
+from being accessed by actors who either are not explicitly authorized to
+access the information or do not have the implicit consent of the person about
+whom the information is collected.
+
+. [[r3]] link:https://gdpr-info.eu/art-5-gdpr/[GDPR. Art. 5: Principles relating to processing of personal data.(1)(f).]
+Personal data shall be processed in a manner that ensures appropriate security
+of the personal data,
+including protection against unauthorized or unlawful processing and against
+accidental loss, destruction or damage.
+
+. [[r4]] link:https://www.iso.org/obp/ui/#iso:std:54534:en[ISO 27001:2013. Annex A - 18.1.3]
+Protect records against loss, destruction, forgery, unauthorized access and
+unauthorized release,
+in accordance with legal, regulatory, contractual and business requirements.
+
+. [[r5]] link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A3-Sensitive_Data_Exposure[OWASP Top 10 A3:2017-Sensitive Data Exposure].
+Many web applications and **API**s do not properly protect sensitive data,
+such as financial, healthcare, and *PII*.
+Attackers may steal or modify such weakly protected data to conduct credit card
+fraud, identity theft, or other crimes.
+Sensitive data may be compromised without extra protection,
+such as encryption at rest or in transit, and requires special precautions when
+exchanged with the browser.
+
+. [[r6]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V8.3 Sensitive Private Data.(8.3.4)]
+Verify that all sensitive data created and processed by the application has
+been identified,
+and ensure that a policy is in place on how to deal with sensitive data.

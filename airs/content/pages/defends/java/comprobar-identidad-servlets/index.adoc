@@ -227,4 +227,4 @@ pulsando en el siguiente enlace:
 
 . [[r1]] link:https://docs.oracle.com/javaee/6/tutorial/doc/gjiie.html[The Java EE 6 Tutorial]
 . [[r2]] link:http://www.cua.uam.mx/pdfs/revistas_electronicas/libros-electronicos/2017/java/Java.pdf[Introducción a la Programación Web con Java]
-. [[r3]] link:../../../rules/269/[REQ.269 Usar principio mínimo privilegio]
+. [[r3]] link:../../../products/rules/list/269/[REQ.269 Usar principio mínimo privilegio]

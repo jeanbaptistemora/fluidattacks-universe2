@@ -1,0 +1,38 @@
+:slug: products/rules/list/228/
+:category: authentication
+:description: This requirement states that the unified authentication process must be carried out employing some standard protocols.
+:keywords: Protocol, Standard, User Account, Authentication, SSO, SAML, CAPEC, OWASP, PCI DSS, Rules, Ethical Hacking, Pentesting
+:rules: yes
+
+= R228. Authenticate using standard protocols
+
+== Requirement
+
+The organization must implement the Single Sign On (*SSO*) process
+using standard protocols (e.g., *SAML*).
+
+== Findings
+
+* [inner]#link:/findings/006/[F006. Authentication mechanism absence or evasion]#
+
+* [inner]#link:/findings/015/[F015. Insecure authentication method]#
+
+== References
+
+. [[r1]] link:http://capec.mitre.org/data/definitions/115.html[CAPEC-115: Authentication Bypass].
+An attacker gains access to application, service, or device with the privileges
+of an authorized or privileged user by evading or circumventing an
+authentication mechanism.
+The attacker is therefore able to access protected data without authentication
+ever having taken place.
+
+. [[r2]] link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A2-Broken_Authentication[OWASP Top 10 A2:2017-Broken Authentication].
+Application functions related to authentication and session management are
+often implemented incorrectly,
+allowing attackers to compromise passwords, keys, or session tokens,
+or to exploit other implementation flaws to assume other users' identities
+temporarily or permanently.
+
+. [[r3]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 6.5.10]
+Address common coding vulnerabilities in software-development processes such as
+broken authentication and session management.

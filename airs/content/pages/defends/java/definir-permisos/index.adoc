@@ -181,4 +181,4 @@ at CLI.main(CLI.java:8)
 . [[r1]] link:https://www.uv.es/sto/cursos/seguridad.java/html/sjava-33.html[Dominios protegidos, modelo de permisos y políticas de seguridad]
 . [[r2]] link:https://docs.oracle.com/javase/tutorial/security/userperm/index.html[Lesson: Implementing Your Own Permission]
 . [[r3]] link:https://docs.oracle.com/javase/7/docs/api/java/security/AccessController.html[Class AccessController]
-. [[r4]] link:../../../rules/269/[REQ.269 Usar principio mínimo privilegio]
+. [[r4]] link:../../../products/rules/list/269/[REQ.269 Usar principio mínimo privilegio]

@@ -189,4 +189,4 @@ Clase Cli.
 . [[r1]] link:https://es.wikipedia.org/wiki/Log_(inform%C3%A1tica)[Log (informática)]
 . [[r2]] link:https://docs.oracle.com/javase/7/docs/technotes/guides/logging/overview.html[Java Logging Overview]
 . [[r3]] link:https://docs.oracle.com/javase/7/docs/api/java/util/logging/Formatter.html[Class Formatter]
-. [[r4]] link:../../../rules/075/[REQ.075 Registrar eventos en bitácoras]
+. [[r4]] link:../../../products/rules/list/075/[REQ.075 Registrar eventos en bitácoras]

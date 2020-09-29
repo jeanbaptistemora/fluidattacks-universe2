@@ -1,0 +1,97 @@
+:slug: products/rules/list/078/
+:category: logs
+:description: This requirement establishes for companies or organizations the importance of disabling debugging events in different production environments.
+:keywords: Debugging, Logs, Events, ASVS, CAPEC, CWE, PCI DSS, Production, Rules, Ethical Hacking, Pentesting
+:rules: yes
+
+= R078. Disable debugging events
+
+== Requirement
+
+The organization must disable debugging events in production.
+
+== Findings
+
+* [inner]#link:/findings/058/[F058. Debugging enabled in production]#
+
+== References
+
+. [[r1]] link:http://capec.mitre.org/data/definitions/113.html[CAPEC-113: API Manipulation].
+An adversary manipulates the use or processing of an Application Programming
+Interface (*API*) resulting in an adverse impact upon the security of the
+system implementing the *API*.
+This can allow the adversary to execute functionality not intended by the *API*
+implementation,
+possibly compromising the system which integrates the *API*.
+
+. [[r2]] link:http://capec.mitre.org/data/definitions/116.html[CAPEC-116: Excavation].
+An adversary actively probes the target in a manner that is designed to solicit
+information that could be leveraged for malicious purposes.
+This is achieved by exploring the target via ordinary interactions for the
+purpose of gathering intelligence about the target,
+or by sending data that is syntactically invalid or non-standard in an attempt
+to produce a response that contains the desired data.
+
+. [[r3]] link:https://cwe.mitre.org/data/definitions/209.html[CWE-209: Generation of Error Message Containing Sensitive Information].
+The software generates an error message that includes sensitive information
+about its environment, users, or associated data.
+
+. [[r4]] link:https://cwe.mitre.org/data/definitions/210.html[CWE-210: Self-generated Error Message Containing Sensitive Information].
+The software identifies an error condition and creates its own diagnostic or
+error messages that contain sensitive information.
+
+. [[r5]] link:https://cwe.mitre.org/data/definitions/497.html[CWE-497: Exposure of Sensitive System Information to an
+Unauthorized Control Sphere].
+The application does not properly prevent sensitive system-level information
+from being accessed by unauthorized actors who do not have the same level of
+access to the underlying system as the application does.
+
+. [[r6]] link:https://cwe.mitre.org/data/definitions/1269.html[CWE-1269: Product Released in Non-Release Configuration].
+The product released to market is released in pre-production or manufacturing
+configuration.
+
+. [[r7]] link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A6-Security_Misconfiguration[OWASP Top 10 A6:2017-Security Misconfiguration].
+Security misconfiguration is the most commonly seen issue.
+This is commonly a result of insecure default configurations,
+incomplete or ad hoc configurations, open cloud storage,
+misconfigured *HTTP* headers,
+and verbose error messages containing sensitive information.
+Not only must all operating systems, frameworks, libraries, and applications be
+securely configured, but they must be patched/upgraded in a timely fashion.
+
+. [[r8]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+Appendix C: Internet of Things Verification Requirements.(C.1)]
+Verify that application layer debugging interfaces such *USB*, *UART*,
+and other serial variants are disabled or protected by a complex password.
+
+. [[r9]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+Appendix C: Internet of Things Verification Requirements.(C.26)]
+Verify that only micro controllers that support disabling debugging interfaces
+(e.g. *JTAG*, *SWD*) are used.
+
+. [[r10]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+Appendix C: Internet of Things Verification Requirements.(C.4)]
+Verify that on-chip debugging interfaces such as *JTAG* or *SWD* are disabled
+or that an available protection mechanism is enabled and configured
+appropriately.
+
+. [[r11]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+Appendix C: Internet of Things Verification Requirements.(C.18)]
+Verify security controls are in place to hinder firmware reverse engineering
+(e.g., removal of verbose debugging symbols).
+
+. [[r12]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V7.4 Error Handling.(7.4.1)]
+Verify that a generic message is shown when an unexpected or security sensitive
+error occurs,
+potentially with a unique ID which support personnel can use to investigate.
+
+. [[r13]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V14.3 Unintended Security Disclosure Requirements.(14.3.2)]
+Verify that web or application server and application framework debug modes
+are disabled in production to eliminate debug features, developer consoles,
+and unintended security disclosures.
+
+. [[r14]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 6.5.5]
+Address common coding vulnerabilities in software-development processes such as
+improper error handling.

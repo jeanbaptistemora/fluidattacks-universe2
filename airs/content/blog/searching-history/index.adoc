@@ -358,5 +358,5 @@ is to revoke any exposed credentials
 in order to minimize the damage done.
 
 If you want more information about secure coding,
-you can check our [inner]#link:../../rules/#source[rules]#
+you can check our [inner]#link:../../products/rules/list/#source[rules]#
 about them.

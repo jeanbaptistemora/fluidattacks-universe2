@@ -127,6 +127,6 @@ Command set-log-levels executed successfully.
 
 . [[r1]] link:https://docs.oracle.com/cd/E18930_01/html/821-2416/gklmn.html#gklni[Oracle GlassFish - Configuring the logging service].
 . [[r2]] link:https://docs.oracle.com/cd/E18930_01/html/821-2416/abluk.html#ablul[Oracle GlassFish - About Logging].
-. [[r3]] link:../../../rules/075/[REQ.075 Registrar eventos en bitácoras].
-. [[r4]] link:../../../rules/079/[REQ.079 Registrar momento de ocurrencia de eventos].
-. [[r5]] link:../../../rules/083/[REQ.083 No registrar datos sensibles en bitácoras].
+. [[r3]] link:../../../products/rules/list/075/[REQ.075 Registrar eventos en bitácoras].
+. [[r4]] link:../../../products/rules/list/079/[REQ.079 Registrar momento de ocurrencia de eventos].
+. [[r5]] link:../../../products/rules/list/083/[REQ.083 No registrar datos sensibles en bitácoras].

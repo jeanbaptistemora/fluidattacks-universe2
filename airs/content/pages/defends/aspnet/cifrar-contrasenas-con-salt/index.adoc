@@ -102,10 +102,10 @@ de la aplicación y se establece el formato de contraseña en +Hashed+.
 
 == Referencias
 
-. [[r1]] link:../../../rules/134/[REQ.134 Almacenar contraseñas con Salt].
-. [[r2]] link:../../../rules/135/[REQ.135 Derivaciones de clave aleatorias].
-. [[r3]] link:../../../rules/147/[REQ.147 Utilizar mecanismos pre-existentes].
-. [[r4]] link:../../../rules/150/[REQ.150 Funciones resumen de tamaño mínimo].
+. [[r1]] link:../../../products/rules/list/134/[REQ.134 Almacenar contraseñas con Salt].
+. [[r2]] link:../../../products/rules/list/135/[REQ.135 Derivaciones de clave aleatorias].
+. [[r3]] link:../../../products/rules/list/147/[REQ.147 Utilizar mecanismos pre-existentes].
+. [[r4]] link:../../../products/rules/list/150/[REQ.150 Funciones resumen de tamaño mínimo].
 . [[r5]] link:https://stackoverflow.com/questions/949271/storing-hashed-passwords-base64-or-hex-string-or-something-else[Storing Hashed Passwords].
 . [[r6]] link:https://msdn.microsoft.com/es-es/library/system.web.security.sqlmembershipprovider.passwordformat(v=vs.110).aspx[Password Format].
 . [[r7]] link:https://msdn.microsoft.com/en-us/library/system.security.cryptography.hashalgorithm.aspx[HashAlgorithm Class].

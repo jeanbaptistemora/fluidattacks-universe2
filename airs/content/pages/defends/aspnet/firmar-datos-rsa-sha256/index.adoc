@@ -114,6 +114,6 @@ if (!key.VerifyData(data, CryptoConfig.MapNameToOID("SHA256"), sig))
 
 == Referencias
 
-. [[r1]] link:../../../rules/178/[REQ.178 Utilizar firmas digitales].
+. [[r1]] link:../../../products/rules/list/178/[REQ.178 Utilizar firmas digitales].
 . [[r2]] link:https://stackoverflow.com/questions/7444586/how-can-i-sign-a-file-using-rsa-and-sha256-with-net[StackOverFlow, Sign a File Using RSA and Sha256 with .NET].
 . [[r3]] link:https://msdn.microsoft.com/es-es/library/system.security.cryptography.rsacryptoserviceprovider(v=vs.80).aspx[Microsoft, RSACryptoServiceProvider].

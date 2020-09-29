@@ -175,7 +175,7 @@ aún sabiendo que el valor +100+ no está especificado:
 
 == Referencias
 
-. [[r1]] link:../../../rules/161/[REQ.161 Opciones por defecto seguras].
-. [[r2]] link:../../../rules/168/[REQ.168 Variables inicializadas explícitamente].
+. [[r1]] link:../../../products/rules/list/161/[REQ.161 Opciones por defecto seguras].
+. [[r2]] link:../../../products/rules/list/168/[REQ.168 Variables inicializadas explícitamente].
 . [[r3]] link:http://www.nonstoptools.com/manuals/Tal-Guide.pdf[TAL Programmer's guide].
 . [[r4]] link:https://support.hpe.com/hpsc/doc/public/display?docId=emr_na-c02133238[TAL Reference Manual - Expressions]

@@ -76,6 +76,6 @@ image::opcion.png[manage users]
 
 == Referencias
 
-. [[r1]] link:../../../rules/176/[REQ.176 Restringir objetos del sistema].
+. [[r1]] link:../../../products/rules/list/176/[REQ.176 Restringir objetos del sistema].
 . [[r2]] link:https://es.wikipedia.org/wiki/GlassFish[GlassFish].
 . [[r3]] link:https://docs.oracle.com/cd/E19316-01/820-4335/abloe/index.html[Understanding Users, Groups, Roles, and Realms].

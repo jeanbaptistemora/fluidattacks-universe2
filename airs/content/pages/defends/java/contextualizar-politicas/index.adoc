@@ -99,4 +99,4 @@ que especifican a que código se le desea otorgar privilegios.
 
 . [[r1]] link:https://docs.oracle.com/javase/7/docs/technotes/guides/security/PolicyFiles.html[Default Policy Implementation and Policy File Syntax]
 . [[r2]] link:https://www.ibm.com/support/knowledgecenter/es/SSAW57_9.0.0/com.ibm.websphere.nd.multiplatform.doc/ae/rsec_javapolicy.html[Permisos de archivo java.policy]
-. [[r3]] link:../../../rules/269/[REQ.269 Usar principio mínimo privilegio]
+. [[r3]] link:../../../products/rules/list/269/[REQ.269 Usar principio mínimo privilegio]

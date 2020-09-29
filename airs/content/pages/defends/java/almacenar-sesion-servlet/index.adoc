@@ -109,4 +109,4 @@ session.invalidate();
 
 . [[r1]] link:https://tomcat.apache.org/tomcat-5.5-doc/servletapi/javax/servlet/http/HttpSession.html[Interface HttpSession]
 . [[r2]] link:https://www.ibm.com/support/knowledgecenter/es/SSEQTP_8.5.5/com.ibm.websphere.base.doc/ae/tprs_sesi.html[Desarrollo de la gestión de sesiones en servlets]
-. [[r3]] link:../../../rules/024/[REQ.024 Transferir información con objetos de sesión]
+. [[r3]] link:../../../products/rules/list/024/[REQ.024 Transferir información con objetos de sesión]

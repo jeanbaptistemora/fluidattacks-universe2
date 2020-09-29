@@ -270,4 +270,4 @@ pulsando en los siguientes enlaces:
 
 . [[r1]] link:https://tools.ietf.org/html/rfc1738[Uniform Resource Locators (URL)]
 . [[r2]] link:https://www.owasp.org/index.php/Testing_for_HTTP_Parameter_pollution_(OTG-INPVAL-004)[Testing for HTTP Parameter pollution (OTG-INPVAL-004)]
-. [[r3]] link:../../../rules/173/[REQ.173 Descartar entradas inseguras]
+. [[r3]] link:../../../products/rules/list/173/[REQ.173 Descartar entradas inseguras]

@@ -75,4 +75,4 @@ si un usuario realiza muchos intentos de autenticación fallidos,
 
 . [[r1]] link:https://wordpress.org/plugins/wpsecureops-bruteforce-protect/[WPSecureOps Brute Force Protect].
 
-. [[r2]] link:../../../rules/237/[REQ.237 Establecer acciones de usuario seguras].
+. [[r2]] link:../../../products/rules/list/237/[REQ.237 Establecer acciones de usuario seguras].

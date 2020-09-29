@@ -372,4 +372,4 @@ Código que muestra como usar +opensaml+.
 
 . [[r1]] link:https://wiki.shibboleth.net/confluence/display/OpenSAML/Home[OpenSAML 2]
 . [[r2]] link:https://wiki.shibboleth.net/confluence/display/OpenSAML/OSTwoUserManJavaSOAPClientExample[OSTwoUserManJavaSOAPClientExample]
-. [[r3]] link:../../../rules/228/[REQ.228 Autentificar mediante protocolos estándar]
+. [[r3]] link:../../../products/rules/list/228/[REQ.228 Autentificar mediante protocolos estándar]

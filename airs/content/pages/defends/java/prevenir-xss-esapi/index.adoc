@@ -118,5 +118,5 @@ que sea ella misma quien ejecuta la inyección de código.
 . [[r1]] link:https://www.owasp.org/index.php/Category:OWASP_Enterprise_Security_API#tab=Java_EE[OWASP ESAPI for Java EE]
 . [[r2]] link:https://www.owasp.org/index.php/XSS_(Cross_Site_Scripting)_Prevention_Cheat_Sheet[XSS Prevention Cheat Sheet]
 . [[r3]] link:https://www.owasp.org/index.php/Category:OWASP_Enterprise_Security_API/es[OWASP Enterprise Security API]
-. [[r4]] link:../../../rules/173/[REQ.173 Descartar entradas inseguras]
-. [[r5]] link:../../../rules/160/[REQ.160 Salidas codificadas]
+. [[r4]] link:../../../products/rules/list/173/[REQ.173 Descartar entradas inseguras]
+. [[r5]] link:../../../products/rules/list/160/[REQ.160 Salidas codificadas]

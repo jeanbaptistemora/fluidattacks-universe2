@@ -107,6 +107,6 @@ hace caso omiso de su comportamiento.
 
 == Referencias
 
-. [[r1]] link:../../../rules/023/[REQ.023 Cerrar sesión de un usuario inactivo].
+. [[r1]] link:../../../products/rules/list/023/[REQ.023 Cerrar sesión de un usuario inactivo].
 . [[r2]] link:https://en.wikipedia.org/wiki/Timeout_(computing)[Timeout (computing)].
 . [[r3]] link:http://rm-rf.es/bash-y-ssh-establecer-timeout-por-inactividad/[Establecer timeout por inactividad].

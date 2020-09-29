@@ -120,4 +120,4 @@ $ Keytool -Keystore example -storepass StrongPassword* -storepasswd -new NewPass
 
 . [[r1]] link:https://es.wikipedia.org/wiki/Certificado_digital[Certificado digital]
 . [[r2]] link:https://docs.oracle.com/javase/7/docs/technotes/tools/windows/Keytool.html[Keytool - Key and Certificate Management Tool]
-. [[r3]] link:../../../rules/147/[REQ.147 Utilizar mecanismos pre-existentes]
+. [[r3]] link:../../../products/rules/list/147/[REQ.147 Utilizar mecanismos pre-existentes]

@@ -87,6 +87,6 @@ es necesario reiniciar el servidor de aplicaciones.
 
 == Referencias
 
-. [[r1]] link:../../../rules/033/[REQ.033 Restringir acceso administrativo].
+. [[r1]] link:../../../products/rules/list/033/[REQ.033 Restringir acceso administrativo].
 
 . [[r2]] link:http://164.156.186.112/_ocsh/help/topics/help_for_translation_urm_user_es_urm_user_html_help_l10n_rmdug_l10n/help_for_translation/cs_admin/es/cs_sysadmin_html_l10n/c01_introduction005.htm?tp=true&locale=es[Consola de Administración de Oracle WebLogic Server].

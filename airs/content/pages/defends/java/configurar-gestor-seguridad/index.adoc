@@ -179,4 +179,4 @@ con el propósito de ejecutar el código de forma segura.
 . [[r1]] link:https://www.uv.es/sto/cursos/seguridad.java/html/sjava-33.html[Dominios protegidos, modelo de permisos y políticas de seguridad]
 . [[r2]] link:https://docs.oracle.com/javase/7/docs/technotes/guides/security/PolicyFiles.html[Default Policy Implementation and Policy File Syntax]
 . [[r3]] link:http://pages.cs.wisc.edu/~horwitz/java-docs/guide/security/permissions.html[Permissions in the JavaTM 2 SDK]
-. [[r4]] link:../../../rules/176/[REQ.176 Restringir objetos del sistema]
+. [[r4]] link:../../../products/rules/list/176/[REQ.176 Restringir objetos del sistema]

@@ -294,6 +294,6 @@ Cryptography.SHA1
 
 == Referencias
 
-. [[r1]] link:../../../rules/147[REQ.147 Utilizar mecanismos pre-existentes].
+. [[r1]] link:../../../products/rules/list/147[REQ.147 Utilizar mecanismos pre-existentes].
 . [[r2]] link:https://docs.microsoft.com/en-us/dotnet/standard/security/cryptography-model[.NET Framework Cryptography Model].
 . [[r3]] link:https://www.c-sharpcorner.com/article/cryptography-in-Asp-Net/[Cryptography in Asp.net].

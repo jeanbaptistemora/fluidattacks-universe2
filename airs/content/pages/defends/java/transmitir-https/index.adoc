@@ -132,4 +132,4 @@ finally {
 . [[r2]] link:http://hc.apache.org/httpclient-3.x/authentication.html[HttpClient Authentication]
 . [[r3]] link:http://hc.apache.org/httpclient-3.x/sslguide.html[Standard SSL in HttpClient]
 . [[r4]] link:http://svn.apache.org/viewvc/httpcomponents/oac.hc3x/trunk/src/examples/BasicAuthenticationExample.java?view=markup[BasicAuthenticationExample]
-. [[r5]] link:../../../rules/181/[REQ.181 Transmitir por medio de protocolos seguros]
+. [[r5]] link:../../../products/rules/list/181/[REQ.181 Transmitir por medio de protocolos seguros]

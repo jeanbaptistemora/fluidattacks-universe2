@@ -353,5 +353,5 @@ You can also set an alert to notify you when someone is logged in
 with your most critical and high-privileged users.
 
 If you want more information about strong credentials,
-you can check our [inner]#link:../../rules/#credentials[rules]#
+you can check our [inner]#link:../../products/rules/list/#credentials[rules]#
 about them.

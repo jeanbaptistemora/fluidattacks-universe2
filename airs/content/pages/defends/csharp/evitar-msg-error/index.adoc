@@ -85,4 +85,4 @@ si error se produjo en el nombre de usuario o la contraseña.
 
 . [[r3]] link:https://www.owasp.org/index.php/Improper_Error_Handling[OWASP - Improper Error Handling].
 
-. [[r4]] link:../../../rules/225/[REQ.225 Respuestas de autenticación adecuadas].
+. [[r4]] link:../../../products/rules/list/225/[REQ.225 Respuestas de autenticación adecuadas].

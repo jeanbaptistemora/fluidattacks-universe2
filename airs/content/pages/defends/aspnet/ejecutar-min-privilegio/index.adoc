@@ -133,8 +133,8 @@ colocó en la pila no se detectará nunca.
 
 == Referencias
 
-. [[r1]] link:../../../rules/269/[REQ.269 Usar principio mínimo privilegio].
-. [[r2]] link:../../../rules/008/[REQ.008 Generar modelo de amenazas del sistema].
+. [[r1]] link:../../../products/rules/list/269/[REQ.269 Usar principio mínimo privilegio].
+. [[r2]] link:../../../products/rules/list/008/[REQ.008 Generar modelo de amenazas del sistema].
 . [[r3]] link:https://es.wikipedia.org/wiki/Principio_de_m%C3%ADnimo_privilegio[Principio de Mínimo Privilegio].
 . [[r4]] link:https://msdn.microsoft.com/es-es/library/system.security.codeaccesspermission.permitonly.aspx[Microsoft, CodeAccessPermission PermitOnly].
-. [[r5]] link:../../../rules/176/[REQ.176 Restringir objetos del sistema].
+. [[r5]] link:../../../products/rules/list/176/[REQ.176 Restringir objetos del sistema].

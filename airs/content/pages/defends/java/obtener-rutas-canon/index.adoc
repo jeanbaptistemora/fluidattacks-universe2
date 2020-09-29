@@ -129,4 +129,4 @@ Posible link simbólico
 . [[r1]] link:https://wiki.sei.cmu.edu/confluence/display/java/FIO16-J.+Canonicalize+path+names+before+validating+them[FIO16-J. Canonicalize path names before validating].
 . [[r2]] link:https://stackoverflow.com/questions/813710/java-1-6-determine-symbolic-links[Determine symbolic links].
 . [[r3]] link:http://cwe.mitre.org/data/definitions/22.html[CWE-22: Path Traversal Weakness].
-. [[r4]] link:../../../rules/037/[REQ.037 Parámetros sin datos sensibles].
+. [[r4]] link:../../../products/rules/list/037/[REQ.037 Parámetros sin datos sensibles].

@@ -445,4 +445,4 @@ get access to the database.
 
 If you want more information about protections against `SQLi`,
 you can check link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A1-Injection[OWASP]
-or our [inner]#link:../../rules/#source[rules]#.
+or our [inner]#link:../../products/rules/list/#source[rules]#.

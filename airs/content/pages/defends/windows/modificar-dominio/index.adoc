@@ -90,4 +90,4 @@ para replicar directivas a través de diferentes dominios.
 . [[r1]] link:https://docs.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2000/bb727091(v=technet.10)[Step-by-Step Guide to Bulk Import and Export to Active Directory]
 . [[r2]] link:https://msdn.microsoft.com/en-us/library/aa374162(v=vs.85).aspx[Group Policy Objects]
 . [[r3]] link:https://msdn.microsoft.com/en-us/library/aa814316(v=vs.85).aspx[Group Policy Management Console]
-. [[r4]] link:../../../rules/176/[REQ.176 Restringir objetos del sistema]
+. [[r4]] link:../../../products/rules/list/176/[REQ.176 Restringir objetos del sistema]

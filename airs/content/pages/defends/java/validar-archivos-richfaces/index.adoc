@@ -81,4 +81,4 @@ o archivos comprimidos con extensión +zip+.
 
 . [[r1]] link:http://docs.jboss.org/richfaces/latest_3_3_X/en/devguide/html/rich_fileUpload.html[JBoss - Richfile]
 . [[r2]] link:http://richfaces.jboss.org/[RichFaces]
-. [[r3]] link:../../../rules/173/[REQ.173 Descartar entradas inseguras]
+. [[r3]] link:../../../products/rules/list/173/[REQ.173 Descartar entradas inseguras]

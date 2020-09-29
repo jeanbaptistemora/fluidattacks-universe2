@@ -161,4 +161,4 @@ los casos que no correspondían a ninguno de los +When+ especificados.
 
 . [[r1]] link:http://www.shireyllc.com/Download%20Documents/RPG%20Free%20-%20Tutorial%202.pdf[RPG Free Tutorial - Logic Control Statements].
 
-. [[r2]] link:../../../rules/161/[REQ.161 Opciones por defecto seguras].
+. [[r2]] link:../../../products/rules/list/161/[REQ.161 Opciones por defecto seguras].

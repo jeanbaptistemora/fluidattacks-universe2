@@ -217,4 +217,4 @@ un certificado de servidor seguro.
 == Referencias
 
 . [[r1]] link:https://web.certicamara.com/soporte_tecnico[Manuales de soporte Certicámara].
-. [[r2]] link:../../../rules/092/[REQ.092 Utilizar certificados firmados externos].
+. [[r2]] link:../../../products/rules/list/092/[REQ.092 Utilizar certificados firmados externos].

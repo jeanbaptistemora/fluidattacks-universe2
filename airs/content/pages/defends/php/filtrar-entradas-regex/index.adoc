@@ -153,5 +153,5 @@ puede visitar la link:http://php.net/manual/es/function.preg-match.php[Web ofici
 
 == Referencias
 
-. [[r1]] link:../../../rules/173/[REQ.173 Descartar información insegura]
+. [[r1]] link:../../../products/rules/list/173/[REQ.173 Descartar información insegura]
 . [[r2]] link:http://css-tricks.com/snippets/php/sanitize-database-inputs/[Sanitize database inputs]

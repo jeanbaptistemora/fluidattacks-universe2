@@ -159,6 +159,6 @@ para el manejo de credenciales de manera segura.
 
 == Referencias
 
-. [[r1]] link:../../../rules/998/[REQ.998 Limitar tiempo de vida de variables].
+. [[r1]] link:../../../products/rules/list/998/[REQ.998 Limitar tiempo de vida de variables].
 . *+Java+* link:../../java/limitar-vida-variable/[Limitar tiempo de vida de variables].
 . *+SCALA+* link:../../scala/limitar-vida-variable/[Limitar tiempo de vida de variables].

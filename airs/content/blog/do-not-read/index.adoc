@@ -174,7 +174,7 @@ their remediation, and reporting or results.
 
 . *Provide tools to augment heuristics:*
 developers can rely on heuristics too for secure coding.
-Have you visited our [inner]#link:../../rules/[Rules product]# ?
+Have you visited our [inner]#link:../../products/rules/list/[Rules product]# ?
 It is completely FREE!
 Your company can leverage
 what we have built over the years

@@ -1,0 +1,41 @@
+:slug: products/rules/list/040/
+:category: files
+:description: This requirement establishes that the system validates that the files' format corresponds to the specified extension.
+:keywords: System, Size, File, MB, ASVS, CAPEC, CWE, Rules, Ethical Hacking, Pentesting
+:rules: yes
+
+= R040. Compare file format and extension
+
+== Requirement
+
+The system must validate that
+the format (structure) of the files corresponds to their extension.
+
+== Findings
+
+* [inner]#link:/findings/027/[F027. Insecure file upload]#
+
+== References
+
+. [[r1]] link:http://capec.mitre.org/data/definitions/11.html[CAPEC-11: Cause Web Server Misclassification].
+An attack of this type exploits a Web server's decision to take action based on
+filename or file extension.
+Because different file types are handled by different server processes,
+misclassification may force the Web server to take unexpected action,
+or expected actions in an unexpected sequence.
+
+. [[r2]] link:https://cwe.mitre.org/data/definitions/434.html[CWE-434: Unrestricted Upload of File with Dangerous Type].
+The software allows the attacker to upload or transfer files of dangerous types
+that can be automatically processed within the product's environment.
+
+. [[r3]] link:https://cwe.mitre.org/data/definitions/646.html[CWE-646: Reliance on File Name or Extension of Externally-Supplied File].
+The software allows a file to be uploaded,
+but it relies on the file name or extension of the file to determine the
+appropriate behaviors.
+This could be used by attackers to cause the file to be misclassified and
+processed in a dangerous fashion.
+
+. [[r4]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V12.2 File Integrity Requirements.(12.2.1)]
+Verify that files obtained from untrusted sources are validated to be of
+expected type based on the file's content.

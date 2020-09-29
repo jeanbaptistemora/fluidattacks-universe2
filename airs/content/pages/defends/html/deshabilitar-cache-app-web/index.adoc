@@ -108,7 +108,7 @@ no es necesario en este caso especificar el atributo en cada +input+.
 
 == Referencias
 
-. [[r1]] link:../../../rules/177/[REQ.177 Almacenar datos de forma segura].
+. [[r1]] link:../../../products/rules/list/177/[REQ.177 Almacenar datos de forma segura].
 . [[r2]] link:https://es.wikipedia.org/wiki/Formulario_web[Formulario web].
 . [[r3]] link:https://html.com/attributes/input-autocomplete/[INPUT AUTOCOMPLETE].
 . [[r4]] link:http://ryanfarley.com/blog/archive/2005/02/23/1739.aspx[Disabling Auto-Complete on ASP.NET Forms].

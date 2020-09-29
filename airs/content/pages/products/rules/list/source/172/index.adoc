@@ -1,0 +1,48 @@
+:slug: products/rules/list/172/
+:category: source
+:description: This requirement establishes that the secure encryption of database connection strings must be performed in configuration files separate from the source code.
+:keywords: Source Code, Databases, Connection, Encryption, ASVS, CWE, Rules, Ethical Hacking, Pentesting
+:rules: yes
+
+= R172. Encrypt connection strings
+
+== Requirement
+
+The system should load encrypted database connection strings from a protected
+configuration file that resides separately from the source code.
+
+== Description
+
+Database connection strings are very sensitive information because they contain
+credentials that often have high privileges over the system's database.
+Thus, these strings should not be part of the system's source code and should
+not be stored in plain text.
+They should be encrypted using a secure cryptographic algorithm and the
+encryption key should also be protected.
+
+== References
+
+. [[r1]] link:https://cwe.mitre.org/data/definitions/259.html[CWE-259: Use of Hard-coded Password]
+The software contains a hard-coded password,
+which it uses for its own inbound authentication or for outbound communication
+to external components.
+
+. [[r2]] link:https://cwe.mitre.org/data/definitions/259.html[CWE-311: Missing Encryption of Sensitive Data]
+The software does not encrypt sensitive or critical information before storage
+or transmission.
+
+. [[r3]] link:https://cwe.mitre.org/data/definitions/798.html[CWE-798: Use of Hard-coded Credentials]
+The software contains hard-coded credentials,
+such as a password or cryptographic key,
+which it uses for its own inbound authentication,
+outbound communication to external components, or encryption of internal data.
+
+. [[r4]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V2.10 Service Authentication Requirements.(2.10.4)]
+Verify passwords, integrations with databases and third-party systems, seeds
+and internal secrets, and API keys are managed securely and not included in the
+source code or stored within source code repositories.
+Such storage SHOULD resist offline attacks.
+The use of a secure software key store (L1),
+hardware trusted platform module (TPM),
+or a hardware security module (L3) is recommended for password storage.

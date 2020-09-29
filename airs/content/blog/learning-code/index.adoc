@@ -44,7 +44,7 @@ of interesting debates at `Fluid Attacks` some time ago.
 as Ricardo mentioned, starting at the hiring process.
 Take a look at our products,
 like [inner]#link:../../products/integrates/[Integrates]#
-and [inner]#link:../../rules/[Rules]# (this one is *FREE!*).
+and [inner]#link:../../products/rules/list/[Rules]# (this one is *FREE!*).
 
 *In cybersecurity strategy, what should organizations start*
 *and what should they stop doing?*

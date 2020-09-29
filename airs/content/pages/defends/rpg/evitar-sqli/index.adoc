@@ -245,5 +245,5 @@ para evitar inyecciones +SQL+ en +RPG+.
 
 == Referencias
 
-. [[r1]] link:../../../rules/173/[REQ.173 Descartar información insegura].
+. [[r1]] link:../../../products/rules/list/173/[REQ.173 Descartar información insegura].
 . [[r2]] link:https://www.itjungle.com/2005/10/05/fhg100505-story02/[The Dangers of Dynamic SQL]

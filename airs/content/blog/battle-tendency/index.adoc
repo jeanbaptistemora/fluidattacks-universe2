@@ -85,7 +85,7 @@ Investments must be balanced
 with good security practices and procedures
 to address worst-case scenarios,
 guaranteeing the safest and best use of every resource.
-With this in mind, we created [inner]#link:../../rules/[Rules]#,
+With this in mind, we created [inner]#link:../../products/rules/list/[Rules]#,
 a summary of security practices and recommendations
 based on international security standards
 primarily in software,

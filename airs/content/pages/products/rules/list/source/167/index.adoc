@@ -1,0 +1,18 @@
+:slug: products/rules/list/167/
+:category: source
+:description: This requirement establishes the importance of closing unused resources to avoid security issues and improve the application's maintainability.
+:keywords: Requirement, Source, Code, Resources, Unused, CWE, Rules, Ethical Hacking, Pentesting
+:rules: yes
+
+= R167. Close unused resources
+
+== Requirement
+
+The source code must implement mechanisms
+to ensure the closure of any unused open resource.
+
+== References
+
+. [[r1]] link:https://cwe.mitre.org/data/definitions/404.html[CWE-404: Improper Resource Shutdown or Release]
+The program does not release or incorrectly releases a resource before it is
+made available for re-use.

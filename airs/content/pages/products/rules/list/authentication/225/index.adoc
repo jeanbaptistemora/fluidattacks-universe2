@@ -1,0 +1,51 @@
+:slug: products/rules/list/225/
+:category: authentication
+:description: This requirement establishes the importance of securely configuring the system responses to authentication failures.
+:keywords: Requirement, Security, Authentication, Failure, Response, CWE, OWASP, PCI DSS, Rules, Ethical Hacking, Pentesting
+:rules: yes
+
+= R225. Proper authentication responses
+
+== Requirement
+
+System responses to authentication failures
+must not indicate which part of the authentication was incorrect.
+
+== Description
+
+Authentication forms are one of the most publicly accessible parts of an
+application,
+which makes them more susceptible to be attacked.
+Most authentication mechanisms require only a username and a password.
+If the responses to authentication attempts indicate which authentication
+parameter was incorrect,
+attackers may be able to obtain a list of valid usernames (user enumeration)
+that they can use in brute force attacks.
+
+== Findings
+
+* [inner]#link:/findings/026/[F026. User enumeration]#
+
+== References
+
+. [[r1]] link:https://cwe.mitre.org/data/definitions/203.html[CWE-203: Observable Differences in Behavior to Error Inputs].
+Differences in device behavior to an error input may be used by an attacker to
+gather security-relevant information about the device.
+The information may be as simple as whether a particular operation was
+successful.
+
+. [[r2]] link:https://cwe.mitre.org/data/definitions/204.html[CWE-204: Observable Response Discrepancy].
+The product provides different responses to incoming requests in a way that
+reveals internal state information to an unauthorized actor outside of the
+intended control sphere.
+
+. [[r3]] link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A2-Broken_Authentication[OWASP Top 10 A2:2017-Broken Authentication].
+Application functions related to authentication and session management are
+often implemented incorrectly,
+allowing attackers to compromise passwords, keys, or session tokens,
+or to exploit other implementation flaws to assume other users' identities
+temporarily or permanently.
+
+. [[r4]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 6.5.10]
+Address common coding vulnerabilities in software-development processes such as
+broken authentication and session management.

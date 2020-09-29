@@ -1,0 +1,30 @@
+:slug: products/rules/list/091/
+:category: certificates
+:description: This requirement establishes that certificates, to use within the organization for internal apps, must be signed by valid internal certification bodies.
+:keywords: Certificate, Certification Bodies, Applications, Signature, ASVS, CWE, Rules, Ethical Hacking, Pentesting
+:rules: yes
+
+= R091. Use internally signed certificates
+
+== Requirement
+
+The organization must use certificates
+signed by valid internal certification authorities
+when these are for internal applications.
+
+== Findings
+
+* [inner]#link:/findings/049/[F049. Insecure digital certificates]#
+
+== References
+
+. [[r1]] link:https://cwe.mitre.org/data/definitions/295.html[CWE-295: Improper Certificate Validation].
+The software does not validate, or incorrectly validates, a certificate.
+
+. [[r4]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V9.2 Server Communications Security Requirements.(9.2.1)]
+Verify that connections to and from the server use trusted *TLS* certificates.
+Where internally generated or self-signed certificates are used,
+the server must be configured to only trust specific internal **CA**s and
+specific self-signed certificates.
+All others should be rejected.

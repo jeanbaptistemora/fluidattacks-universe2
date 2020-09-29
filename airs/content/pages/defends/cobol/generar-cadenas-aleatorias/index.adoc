@@ -240,7 +240,7 @@ todas las instrucciones +COBOL+ del programa explicado anteriormente.
 
 == Referencias
 
-. [[r1]] link:../../../rules/037/[REQ.037 Parámetros sin datos sensibles].
+. [[r1]] link:../../../products/rules/list/037/[REQ.037 Parámetros sin datos sensibles].
 . [[r2]] link:https://www.ibm.com/support/knowledgecenter/en/ssw_ibm_i_73/rzasb/iddiv.htm[IBM - Identification Division].
 . [[r3]] link:http://www.escobol.com/modules.php?name=Sections&op=viewarticle&artid=11[Identification Division].
 . [[r4]] link:https://www.ibm.com/support/knowledgecenter/en/SS6SGM_3.1.0/com.ibm.aix.cbl.doc/PGandLR/ref/rlinfmod.htm[MOD function].

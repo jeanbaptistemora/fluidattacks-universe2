@@ -130,4 +130,4 @@ image::permisos-3.png[permisos.ntfs]
 
 . [[r1]] link:https://technet.microsoft.com/es-es/library/cc770962.aspx[Administrar permisos sobre los recursos]
 . [[r2]] link:https://technet.microsoft.com/es-es/library/cc772501(v=ws.11).aspx[Establecer los permisos de un recurso compartido]
-. [[r3]] link:../../../rules/035/[REQ.035 Administrar modificaciones de privilegios]
+. [[r3]] link:../../../products/rules/list/035/[REQ.035 Administrar modificaciones de privilegios]

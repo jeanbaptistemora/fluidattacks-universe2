@@ -1,0 +1,13 @@
+:slug: products/rules/list/203/
+:category: physical
+:description: This requirement establishes that every device must prevent third parties from observing the information entered.
+:keywords: Device, Entry, Information, Confidential, Observing, Security, Rules, Ethical Hacking, Pentesting
+:rules: yes
+:extended: yes
+
+= R203. Hide information entry
+
+== Requirement
+
+The device must impede that the entry of information
+be observed by a third party (cover).

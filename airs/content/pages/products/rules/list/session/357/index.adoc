@@ -1,0 +1,61 @@
+:slug: products/rules/list/357/
+:category: session
+:description: This requirement establishes the importance of avoiding the usage of static API secrets.
+:keywords: Stateless, Session, Token, API Secret, ASVS, CWE, OWASP, PCI DSS, Rules, Ethical Hacking, Pentesting
+:rules: yes
+
+= R357. Use stateless session tokens
+
+== Requirement
+
+The system should use securely generated, stateless session tokens that are
+validated using digital signatures instead of static *API* secrets.
+
+== Reference
+
+. [[r1]] link:https://cwe.mitre.org/data/definitions/290.html[CWE-290: Authentication Bypass by Spoofing].
+This attack-focused weakness is caused by improperly implemented authentication
+schemes that are subject to spoofing attacks.
+
+. [[r2]] link:https://cwe.mitre.org/data/definitions/345.html[CWE-345: Insufficient Verification of Data Authenticity].
+The software does not sufficiently verify the origin or authenticity of data,
+in a way that causes it to accept invalid data.
+
+. [[r3]] link:https://cwe.mitre.org/data/definitions/798.html[CWE-798: Use of Hard-coded Credentials].
+The software contains hard-coded credentials,
+such as a password or cryptographic key,
+which it uses for its own inbound authentication,
+outbound communication to external components, or encryption of internal data.
+
+. [[r4]] link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A2-Broken_Authentication[OWASP Top 10 A2:2017-Broken Authentication].
+Application functions related to authentication and session management are
+often implemented incorrectly,
+allowing attackers to compromise passwords, keys, or session tokens,
+or to exploit other implementation flaws to assume other users' identities
+temporarily or permanently.
+
+. [[r5]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V3.2 Session Binding Requirements.(3.2.2)]
+Verify that session tokens possess at least 64 bits of entropy.
+
+. [[r6]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V3.5 Token-based Session Management.(3.5.1)]
+Verify the application does not treat *OAuth* and refresh tokens — on their
+own — as the presence of the subscriber and allows users to terminate
+trust relationships with linked applications.
+
+. [[r7]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V3.5 Token-based Session Management.(3.5.2)]
+Verify the application uses session tokens rather than static *API* secrets
+and keys,
+except with legacy implementations.
+
+. [[r8]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V3.5 Token-based Session Management.(3.5.3)]
+Verify that stateless session tokens use digital signatures, encryption, and
+other countermeasures to protect against tampering, enveloping, replay,
+null cipher, and key substitution attacks.
+
+. [[r9]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 6.5.10]
+Address common coding vulnerabilities in software-development processes such as
+broken authentication and session management.

@@ -321,4 +321,4 @@ Clase CLI.
 
 . [[r1]] link:https://docs.oracle.com/cd/E24842_01/html/E23286/rbac-1.html[Control de acceso basado en roles]
 . [[r2]] link:https://www.ibm.com/support/knowledgecenter/es/SSAW57_8.5.5/com.ibm.websphere.nd.doc/ae/csec_rolebased.html[Autorización basada en roles]
-. [[r3]] link:../../../rules/176/[REQ.176 Restringir objetos del sistema]
+. [[r3]] link:../../../products/rules/list/176/[REQ.176 Restringir objetos del sistema]

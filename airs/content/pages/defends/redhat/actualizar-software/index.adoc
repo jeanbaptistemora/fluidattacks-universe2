@@ -94,4 +94,4 @@ image::verificar.png[verificacion]
 
 . [[r1]] link:http://www.redhat.com/security/[Red Hat].
 . [[r2]] link:https://www.cyberciti.biz/faq/rhel-centos-fedora-linux-yum-command-howto/[How to use yum command on CentOS RHEL].
-. [[r3]] link:../../../rules/262/[REQ.262 Verificar componentes de terceros]
+. [[r3]] link:../../../products/rules/list/262/[REQ.262 Verificar componentes de terceros]

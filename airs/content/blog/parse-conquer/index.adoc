@@ -41,7 +41,7 @@ For that, a regular expression will suffice.
 However, when what you need to do is more involved,
 such as looking for `SQL` injections
 or analyzing source code for poor programming practices
-per our [inner]#link:../../rules/[Rules]#
+per our [inner]#link:../../products/rules/list/[Rules]#
 and recommendations,
 then parsers are our tool of choice.
 This is one of the tasks at which `Asserts` excels.
@@ -94,7 +94,7 @@ def uses_des_algorithm(java_dest: str, exclude: list = None) -> bool:
     """
     Check if code uses DES as encryption algorithm.
 
-    See `REQ.150 <https://fluidattacks.com/es/rules/149/>`_.
+    See `REQ.150 <https://fluidattacks.c../../products/rules/list/149/>`_.
 
     :param java_dest: Path to a Java source file or package.
     """

@@ -1,0 +1,40 @@
+:slug: products/rules/list/325/
+:category: architecture
+:description: This requirement establishes the importance of restricting access to WSDL files containing sensitive information.
+:keywords: WSDL, File, Web, Services, ASVS, CAPEC, CWE, Rules, Ethical Hacking, Pentesting
+:rules: yes
+
+= R325. Protect WSDL files
+
+== Requirement
+
+WSDL files containing sensitive information must not be publicly accessible.
+
+== Description
+
+Some web services architectures require exposing a WSDL file.
+If this file contains sensitive information such as deprecated methods or
+administrative services,
+it should not be available to a wider audience than it requires.
+If it must be available on a very public network such as the internet,
+then it must not contain any sensitive information.
+
+== Findings
+
+* [inner]#link:/findings/040/[F040. Exposed web services]#
+
+== References
+
+. [[r1]] link:http://capec.mitre.org/data/definitions/116.html[CAPEC-116: Excavation].
+An adversary actively probes the target in a manner that is designed to solicit
+information that could be leveraged for malicious purposes.
+This is achieved by exploring the target via ordinary interactions for the
+purpose of gathering intelligence about the target,
+or by sending data that is syntactically invalid or non-standard in an attempt
+to produce a response that contains the desired data.
+
+. [[r2]] link:https://cwe.mitre.org/data/definitions/651.html[CWE-651: Exposure of WSDL File Containing Sensitive Information]
+The Web services architecture may require exposing a Web Service Definition
+Language (WSDL) file that contains information on the publicly accessible
+services and how callers of these services should interact with them
+(e.g. what parameters they expect and what types they return).

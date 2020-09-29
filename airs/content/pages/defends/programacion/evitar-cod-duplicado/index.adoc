@@ -73,4 +73,4 @@ según el tipo de vínculo que se quiera establecer.
 . [[r1]] link:https://es.wikipedia.org/wiki/C%C3%B3digo_duplicado[Código duplicado]
 . [[r2]] link:https://es.wikipedia.org/wiki/Subrutina[Subrutina]
 . [[r3]] link:https://es.wikipedia.org/wiki/Biblioteca_(inform%C3%A1tica)[Biblioteca (informática)]
-. [[r4]] link:../../../rules/162/[REQ.162 Eliminar código redundante]
+. [[r4]] link:../../../products/rules/list/162/[REQ.162 Eliminar código redundante]

@@ -278,4 +278,4 @@ Código de autenticación del lado servidor.
 . [[r2]] link:https://docs.oracle.com/javase/6/docs/api/javax/net/ssl/KeyManagerFactory.html[Class KeyManagerFactory]
 . [[r3]] link:https://docs.oracle.com/javase/7/docs/api/javax/net/ServerSocketFactory.html[Class ServerSocketFactory]
 . [[r4]] link:http://www.java2s.com/Code/Java/Network-Protocol/SSL-Server-Socket.htm[SSL Server Socket]
-. [[r5]] link:../../../rules/088/[REQ.088 Requerir certificados de cliente]
+. [[r5]] link:../../../products/rules/list/088/[REQ.088 Requerir certificados de cliente]

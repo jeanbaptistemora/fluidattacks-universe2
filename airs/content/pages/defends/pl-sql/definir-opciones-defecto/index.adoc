@@ -160,4 +160,4 @@ ocasionados por una entrada inválida.
 
 . [[r1]] link:https://docs.oracle.com/cd/B19306_01/appdev.102/b14261/controlstructures.htm[Using PL/SQL Control Structures].
 
-. [[r2]] link:../../../rules/161/[REQ.161 Opciones por defecto seguras].
+. [[r2]] link:../../../products/rules/list/161/[REQ.161 Opciones por defecto seguras].

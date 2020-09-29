@@ -118,4 +118,4 @@ image::formulario.png[formulario]
 
 . [[r1]] link:https://www.owasp.org/index.php/Cross-Site_Request_Forgery_(CSRF)[Cross-Site Request Forgery (CSRF)]
 . [[r2]] link:https://www.owasp.org/index.php/Category:OWASP_CSRFGuard_Project[CSRFGuard Project]
-. [[r3]] link:../../../rules/174/[REQ.174 Transacciones sin patrón discernible]
+. [[r3]] link:../../../products/rules/list/174/[REQ.174 Transacciones sin patrón discernible]

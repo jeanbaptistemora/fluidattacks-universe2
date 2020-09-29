@@ -132,4 +132,4 @@ pulsando en el siguiente enlace:
 
 . [[r1]] link:http://www.csharp-examples.net/string-format-datetime/[String format for DateTime].
 . [[r2]] link:https://www.ietf.org/rfc/rfc1123.txt[RFC 1123].
-. [[r3]] link:../../../rules/079/[REQ.079 Registrar momento de ocurrencia de eventos].
+. [[r3]] link:../../../products/rules/list/079/[REQ.079 Registrar momento de ocurrencia de eventos].

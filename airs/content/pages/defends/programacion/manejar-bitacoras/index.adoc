@@ -80,4 +80,4 @@ centralizada de eventos de bitácora.
 
 . [[r1]] link:https://es.wikipedia.org/wiki/Log_(inform%C3%A1tica)[Log (informática)]
 . [[r2]] link:http://www.manageengine.com.mx/Blog/8-habitos-efectivos-para-la-gestion-de-bitacoras-de-ti.html[8 Hábitos Efectivos para la Gestión de Bitácoras de TI]
-. [[r3]] link:../../../rules/075/[REQ.075 Registrar eventos en bitácoras]
+. [[r3]] link:../../../products/rules/list/075/[REQ.075 Registrar eventos en bitácoras]

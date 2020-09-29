@@ -1,0 +1,61 @@
+:slug: products/rules/list/318/
+:category: privacy
+:description: This requirement establishes the importance of notifying third parties whenever data rectification or erasure occurs.
+:keywords: Requirement, Security, Data, GDPR, ISO, Notification, Third Party, Rules, Ethical Hacking, Pentesting
+:rules: yes
+
+= R318. Notify third parties of changes
+
+== Requirement
+
+The system must notify third parties
+when it rectifies or erases shared personal information.
+
+== Description
+
+Systems usually request information from the users,
+obtain it from third parties or collect it based on their interactions with the
+application.
+They sometimes share personal information with third parties after having
+requested consent from its owner.
+Whenever this information will be rectified or erased upon request from its
+owner,
+the system must notify said third parties so that they may do the same.
+This is also the case when the user requests that the system stop processing
+their data.
+
+== Exceptions
+
+. The system must proceed with the notification unless it is impossible or
+involves disproportionate effort.
+
+. The processing of the personal information might have archiving purposes
+in the public interest.
+If the system properly safeguards this information and if complying with this
+requirement seriously impairs those purposes,
+this requirement is not applicable.
+
+== Findings
+
+* [inner]#link:/findings/088/[F088. Privacy violation]#
+
+== References
+
+. [[r1]] link:https://gdpr-info.eu/art-19-gdpr/[GDPR. Art. 19: Notification obligation regarding rectification
+or erasure of personal data or restriction of processing.]
+The controller shall communicate any rectification or erasure of personal data
+or restriction of processing to each recipient to whom the personal data have
+been disclosed,
+unless this proves impossible or involves disproportionate effort.
+
+. [[r2]] link:https://gdpr-info.eu/art-89-gdpr/[GDPR. Art. 89: Safeguards and derogations relating to processing
+for archiving purposes in the public interest,
+scientific or historical research purposes or statistical purposes.(3).]
+Where personal data are processed for archiving purposes in the public
+interest,
+Union or Member State law may provide for derogations from the rights referred
+to in Articles 15, 16, 18, 19, 20 and 21.
+
+. [[r3]] link:https://www.iso.org/obp/ui/#iso:std:54534:en[ISO 27001:2013. Annex A - 18.1.4]
+When applicable, guarantee the privacy and security of personal information,
+as required by the relevant legislation and regulations.

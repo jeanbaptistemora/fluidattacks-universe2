@@ -124,4 +124,4 @@ la cual cuenta con las siguientes clases:
 
 . [[r1]] link:https://docs.microsoft.com/en-us/previous-versions/dotnet/netframework-4.0/92f9ye3s(v=vs.100)[Servicios de cifrado en +ASP.NET+].
 
-. [[r2]] link:../../../rules/147/[REQ.147 Utilizar mecanismos pre-existentes].
+. [[r2]] link:../../../products/rules/list/147/[REQ.147 Utilizar mecanismos pre-existentes].

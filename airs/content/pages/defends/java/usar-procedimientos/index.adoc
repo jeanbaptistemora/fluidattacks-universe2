@@ -123,4 +123,4 @@ public static void setDeathAge(Poet dyingBard, int age) throws SQLException {
 
 . [[r1]] link:https://www.ecured.cu/Procedimientos_almacenados[Procedimientos almacenados]
 . [[r2]] link:https://docs.oracle.com/javase/tutorial/jdbc/basics/storedprocedures.html[Using Stored Procedures]
-. [[r3]] link:../../../rules/169/[REQ.169 Usar construcciones parametrizadas]
+. [[r3]] link:../../../products/rules/list/169/[REQ.169 Usar construcciones parametrizadas]

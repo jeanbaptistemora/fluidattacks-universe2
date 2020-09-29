@@ -73,6 +73,6 @@ por el conector utilizado en su aplicación.
 . [[r2]] link:https://technet.microsoft.com/es-es/library/aa996740(v=exchg.65).aspx[Cómo habilitar el registro SMTP].
 . [[r3]] link:https://support.microsoft.com/en-us/help/303734/how-to-configure-the-smtp-virtual-server-for-message-delivery[HOW TO: Configure the SMTP Virtual Server for Message Delivery].
 . [[r4]] link:http://www.serversmtp.com/es/que-es-servidor-smtp[Qué es un servidor SMTP].
-. [[r5]] link:../../../rules/075/[REQ.075 Registrar eventos en bitácoras].
-. [[r6]] link:../../../rules/079/[REQ.079 Registrar momento de ocurrencia de eventos].
-. [[r7]] link:../../../rules/083/[REQ.083 No registrar datos sensibles en bitácoras].
+. [[r5]] link:../../../products/rules/list/075/[REQ.075 Registrar eventos en bitácoras].
+. [[r6]] link:../../../products/rules/list/079/[REQ.079 Registrar momento de ocurrencia de eventos].
+. [[r7]] link:../../../products/rules/list/083/[REQ.083 No registrar datos sensibles en bitácoras].

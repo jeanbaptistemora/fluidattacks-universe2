@@ -95,7 +95,7 @@ HttpSessionState.Remove("nombreObjeto");
 
 == Referencias
 
-. [[r1]] link:../../../rules/024/[REQ.024 Transferir información con objetos de sesión].
+. [[r1]] link:../../../products/rules/list/024/[REQ.024 Transferir información con objetos de sesión].
 
 . [[r2]] link:http://www.uterra.com/codigo_php/codigo_php.php?ref=las_variables_de_sesion_en_php[¿Qué son las sesiones?].
 

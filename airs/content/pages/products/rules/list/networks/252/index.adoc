@@ -1,0 +1,34 @@
+:slug: products/rules/list/252/
+:category: networks
+:description: This requirement states that the use of WPA2 Personal or WPA2 Enterprise key encryption methods must be preferred.
+:keywords: Security, Personal, Key, Wireless, WPA2, Enterprise, OWASP, PCI DSS, Rules, Ethical Hacking, Pentesting
+:rules: yes
+
+= R252. Configure key encryption
+
+== Requirement
+
+The organization must prefer the use of `WPA2` Personal
+or `WPA2` Enterprise (**802.1x**) key encryption methods.
+
+== References
+
+. [[r1]] link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A6-Security_Misconfiguration[OWASP Top 10 A6:2017-Security Misconfiguration].
+Security misconfiguration is the most commonly seen issue.
+This is commonly a result of insecure default configurations,
+incomplete or ad hoc configurations, open cloud storage,
+misconfigured *HTTP* headers,
+and verbose error messages containing sensitive information.
+Not only must all operating systems, frameworks, libraries, and applications be
+securely configured, but they must be patched/upgraded in a timely fashion.
+
+. [[r2]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 4.1]
+Use strong cryptography and security protocols to safeguard sensitive
+cardholder data during transmission over open, public networks.
+The protocol in use only supports secure versions or configurations.
+
+. [[r3]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 4.1.1]
+Ensure wireless networks transmitting cardholder data or connected to the
+cardholder data environment,
+use industry best practices to implement strong encryption for authentication
+and transmission.

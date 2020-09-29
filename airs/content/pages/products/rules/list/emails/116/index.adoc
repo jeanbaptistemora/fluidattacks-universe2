@@ -1,0 +1,16 @@
+:slug: products/rules/list/116/
+:category: emails
+:description: This requirement establishes the importance of disabling the display of images of unknown origin in corporate emails.
+:keywords: Images, Email, Display, Security, Requirement, Client, Rules, Ethical Hacking, Pentesting
+:rules: yes
+
+= R116. Disable images of unknown origin
+
+== Requirement
+
+The corporate email client must not display, by default,
+images whose origin is unknown.
+
+== Findings
+
+* [inner]#link:/findings/114/[F114. Phishing]#

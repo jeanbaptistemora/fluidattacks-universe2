@@ -133,6 +133,6 @@ luego a +modificaciones+ y nos fijamos si la casilla +Grabar+ esta habilitada.
 
 == Referencias
 
-. [[r1]] link:../../../rules/045/[REQ.045 Eliminar metadatos al compartir archivos].
+. [[r1]] link:../../../products/rules/list/045/[REQ.045 Eliminar metadatos al compartir archivos].
 . [[r2]] link:http://www.exiv2.org/[EXIV2 C++ metadata library and tools].
 . [[r3]] link:https://www.pdflabs.com/tools/pdftk-the-pdf-toolkit/[PDFTK Tools].

@@ -1,0 +1,18 @@
+:slug: products/rules/list/086/
+:category: logs
+:description: This requirement establishes the importance of generating alarms when a security event is registered in the system logs.
+:keywords: Register, Log, Event, Security, Information, Alarm, Rules, Ethical Hacking, Pentesting
+:rules: yes
+:extended: yes
+
+= R086. Generate alarms on security events
+
+== Requirement
+
+Recording a security event in the log
+must generate an alarm.
+
+== References
+
+. [[r1]] link:https://gdpr-info.eu/recitals/no-85/[GDPR. Recital 85: Notification obligation of breaches to the supervisory authority].
+. [[r2]] link:https://gdpr-info.eu/recitals/no-86/[GDPR. Recital 86: Notification of data subjects in case of data breaches].

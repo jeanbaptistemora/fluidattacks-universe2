@@ -260,4 +260,4 @@ para comprobar que la aplicación no presenta fallas de inyección.
 
 . [[r1]] link:https://www.owasp.org/index.php/Preventing_SQL_Injection_in_Java[SQL Injection Prevention Cheat Sheet]
 . [[r2]] link:http://hdiv.org/[HDVI]
-. [[r3]] link:../../../rules/169/[REQ.169 Usar construcciones parametrizadas]
+. [[r3]] link:../../../products/rules/list/169/[REQ.169 Usar construcciones parametrizadas]

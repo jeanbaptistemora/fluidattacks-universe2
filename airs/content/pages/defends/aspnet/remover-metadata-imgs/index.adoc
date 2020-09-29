@@ -108,4 +108,4 @@ Al momento de volver a guardar la imagen,
 
 . [[r1]] link:https://www.welivesecurity.com/la-es/2014/05/13/metadatos-fotos-podrian-mostrar-mas/[ESET image metadata].
 . [[r2]] link:https://docs.microsoft.com/es-es/dotnet/framework/winforms/advanced/how-to-read-image-metadata[Microsoft .NET Cómo: Leer metadatos de imagen].
-. [[r3]] link:../../../rules/045/[REQ.045 Eliminar metadatos al compartir archivos].
+. [[r3]] link:../../../products/rules/list/045/[REQ.045 Eliminar metadatos al compartir archivos].

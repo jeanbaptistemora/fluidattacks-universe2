@@ -1,0 +1,50 @@
+:slug: products/rules/list/174/
+:category: source
+:description: This requirement establishes the importance of avoiding distinguishable patterns in requests that execute transactions.
+:keywords: Transactions, Request, Pattern, Application, ASVS, CAPEC, CWE, PCI DSS, Rules, Ethical Hacking, Pentesting
+:rules: yes
+
+= R174. Transactions without a distinguishable pattern
+
+== Requirement
+
+Requests that execute transactions must not follow any
+distinguishable pattern.
+
+== Findings
+
+* [inner]#link:/findings/007/[F007. Cross-site request forgery]#
+
+== References
+
+. [[r1]] link:http://capec.mitre.org/data/definitions/21.html[CAPEC-21: Exploitation of Trusted Identifiers].
+An adversary guesses, obtains, or "rides" a trusted identifier
+(e.g. session ID, resource ID, cookie, etc.) to perform authorized actions
+under the guise of an authenticated user or service.
+Attacks on trusted identifiers take advantage of the fact that some software
+accepts user input without verifying its authenticity.
+
+. [[r2]] link:http://capec.mitre.org/data/definitions/31.html[CAPEC-31: Accessing/Intercepting/Modifying HTTP Cookies].
+This attack relies on the use of *HTTP* Cookies to store credentials,
+state information and other critical data on client systems.
+There are several different forms of this attack.
+The first form of this attack involves accessing *HTTP* Cookies to mine for
+potentially sensitive data contained therein.
+The second form involves intercepting this data as it is transmitted from
+client to server.
+
+. [[r3]] link:https://cwe.mitre.org/data/definitions/352.html[CWE-352: Cross-Site Request Forgery (CSRF)].
+The web application does not, or can not, sufficiently verify whether a
+well-formed, valid, consistent request was intentionally provided by the user
+who submitted the request.
+
+. [[r4]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V4.2 Operation Level Access Control.(4.2.2)]
+Verify that the application or framework enforces a strong anti-*CSRF*
+mechanism to protect authenticated functionality,
+and effective anti-automation or anti-*CSRF* protects unauthenticated
+functionality.
+
+. [[r5]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 6.5.9]
+Address common coding vulnerabilities in software-development processes such as
+cross-site request forgery (*CSRF*).

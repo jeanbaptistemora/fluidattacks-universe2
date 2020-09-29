@@ -77,7 +77,7 @@ if (Response.Charset == "utf-8")
 
 == Referencias
 
-. [[r1]] link:../../../rules/043/[REQ.043 Definir content type explícito].
+. [[r1]] link:../../../products/rules/list/043/[REQ.043 Definir content type explícito].
 . [[r2]] link:https://www.owasp.org/index.php/Security_Headers[OWASP, Security Headers].
-. [[r3]] link:../../../rules/044/[REQ.044 Definir charset explícito].
+. [[r3]] link:../../../products/rules/list/044/[REQ.044 Definir charset explícito].
 . [[r4]] link:https://msdn.microsoft.com/en-us/library/system.web.httpresponse.contenttype.aspx[Microsoft, httpresponse.contenttype].

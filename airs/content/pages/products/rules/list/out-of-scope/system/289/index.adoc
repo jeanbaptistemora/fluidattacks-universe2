@@ -1,0 +1,14 @@
+:slug: products/rules/list/289/
+:category: system
+:description: This requirement establishes the importance of safely storing system media and images used to restore and configure the workstations.
+:keywords: Security, Images, Media, Operative System, Location, Organization, Rules, Ethical Hacking, Pentesting
+:rules: yes
+:extended: yes
+
+= R289. Secure system images and media
+
+== Requirement
+
+The installation media and pre-configured images
+of operating systems must be stored
+in a physically secure location.

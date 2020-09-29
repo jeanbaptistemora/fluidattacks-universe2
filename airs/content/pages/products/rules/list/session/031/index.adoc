@@ -1,0 +1,73 @@
+:slug: products/rules/list/031/
+:category: session
+:description: This requirement establishes the importance of discarding all related data when a session is terminated.
+:keywords: Session, Objects, Discard, ASVS, CWE, NIST, OWASP, PCI DSS, Rules, Ethical Hacking, Pentesting
+:rules: yes
+
+= R031. Discard user session data
+
+== Requirement
+
+When a session is terminated, either manually or automatically,
+the system must discard all related data and the session tokens must lose their
+validity.
+
+== Description
+
+Session tokens have associated permissions that allow any actor who possesses
+them to perform actions in a system.
+If session tokens are not removed from the client-side storage nor from the
+server,
+it increases the chances that they will be compromised.
+Furthermore, if they are not invalidated once a session is closed,
+the time during which a compromised session can be used maliciously is
+increased.
+
+== Findings
+
+* [inner]#link:/findings/076/[F076. Insecure session management]#
+
+== References
+
+. [[r1]] link:https://www.bsimm.com/framework/governance/software-security-metrics-strategy.html[BSIMM9 SM2.6:]
+Require security sign-off.
+
+. [[r2]] link:https://cwe.mitre.org/data/definitions/613.html[CWE-613: Insufficient Session Expiration].
+Insufficient Session Expiration is when a web site permits
+an attacker to reuse old session credentials or session IDs for authorization.
+
+. [[r3]] link:https://pages.nist.gov/800-63-3/sp800-63b.html[NIST 800-63B 7.1 Session Bindings]
+Secrets used for session binding SHALL be erased or invalidated by the session
+subject when the subscriber logs out.
+
+. [[r4]] link:https://pages.nist.gov/800-63-3/sp800-63b.html[NIST 800-63B 7.1 Session Bindings]
+Secrets used for session binding SHOULD be erased on the subscriber endpoint
+when the user logs out or when the secret is deemed to have expired.
+
+. [[r5]] link:https://pages.nist.gov/800-63-3/sp800-63b.html[NIST 800-63B 7.1 Session Bindings]
+Secrets used for session binding SHALL time out and not be accepted after the
+times specified in Sections 4.1.4, 4.2.4, and 4.3.4,
+as appropriate for the AAL.
+
+. [[r6]] link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A2-Broken_Authentication[OWASP Top 10 A2:2017-Broken Authentication].
+Application functions related to authentication and session management are
+often implemented incorrectly,
+allowing attackers to compromise passwords, keys, or session tokens,
+or to exploit other implementation flaws to assume other users' identities
+temporarily or permanently.
+
+. [[r7]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V3.3 Session Logout and Timeout Requirements.(3.3.1)]
+Verify that logout and expiration invalidate the session token,
+such that the back button or a downstream relying party does not resume an
+authenticated session,
+including across relying parties.
+
+. [[r8]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V8.2 Client-side Data Protection.(8.2.3)]
+Verify that authenticated data is cleared from client storage,
+such as the browser *DOM*, after the client or session is terminated.
+
+. [[r9]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 6.5.10]
+Address common coding vulnerabilities in software-development processes such as
+broken authentication and session management.

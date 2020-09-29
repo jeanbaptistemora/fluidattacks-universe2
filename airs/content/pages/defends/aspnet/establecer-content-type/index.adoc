@@ -104,9 +104,9 @@ if (Response.Charset == "utf-8")
 
 == Referencias
 
-. [[r1]] link:../../../rules/043/[REQ.043 Definir Content Type Explícito].
+. [[r1]] link:../../../products/rules/list/043/[REQ.043 Definir Content Type Explícito].
 
-. [[r2]] link:../../../rules/044/[REQ.044 Definir Charset Explícito].
+. [[r2]] link:../../../products/rules/list/044/[REQ.044 Definir Charset Explícito].
 
 . [[r3]] link:http://projects.webappsec.org/w/page/13246928/HTTP%20Request%20Smuggling[Http request smuggling].
 

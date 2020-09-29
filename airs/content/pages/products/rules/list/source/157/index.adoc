@@ -1,0 +1,77 @@
+:slug: products/rules/list/157/
+:category: source
+:description: This requirement establishes the importance of compiling and interpreting the source code in strict mode.
+:keywords: Source Code, Strict, Mode, Compilation, ASVS, CAPEC, CWE, PCI DSS, Interpretation, Rules, Ethical Hacking, Pentesting
+:rules: yes
+
+= R157. Use the strict mode
+
+== Requirement
+
+The organization should set its parsers, linters, compilers, and interpreters
+to run in strict mode.
+
+== Rereferences
+
+. [[r1]] link:http://capec.mitre.org/data/definitions/123.html[CAPEC-123: Buffer Manipulation].
+An adversary manipulates an application's interaction with a buffer in an
+attempt to read or modify data they shouldn't have access to.
+Buffer attacks are distinguished in that it is the buffer space itself that is
+the target of the attack rather than any code responsible for interpreting the
+content of the buffer.
+
+. [[r2]] link:https://cwe.mitre.org/data/definitions/120.html[CWE-120: Classic Buffer Overflow].
+The program copies an input buffer to an output buffer without verifying that
+the size of the input buffer is less than the size of the output buffer,
+leading to a buffer overflow.
+
+. [[r3]] link:https://cwe.mitre.org/data/definitions/611.html[CWE-611: Improper Restriction of XML External Entity Reference].
+The software processes an *XML* document that can contain *XML* entities with
+**URI**s that resolve to documents outside of the intended sphere of control,
+causing the product to embed incorrect documents into its output.
+
+. [[r4]] link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A4-XML_External_Entities_(XXE)[OWASP Top 10 A4:2017-XML External Entities (XXE)].
+Many older or poorly configured *XML* processors evaluate external entity
+references within *XML* documents.
+External entities can be used to disclose internal files using the file *URI*
+handler, internal file shares, internal port scanning, remote code execution,
+and denial of service attacks.
+
+. [[r5]] link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A6-Security_Misconfiguration[OWASP Top 10 A6:2017-Security Misconfiguration].
+Security misconfiguration is the most commonly seen issue.
+This is commonly a result of insecure default configurations,
+incomplete or ad hoc configurations, open cloud storage,
+misconfigured *HTTP* headers,
+and verbose error messages containing sensitive information.
+Not only must all operating systems, frameworks, libraries, and applications be
+securely configured, but they must be patched/upgraded in a timely fashion.
+
+. [[r6]] link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A8-Insecure_Deserialization[OWASP Top 10 A8:2017-Insecure Deserialization].
+Insecure deserialization often leads to remote code execution.
+Even if deserialization flaws do not result in remote code execution,
+they can be used to perform attacks,
+including replay attacks, injection attacks, and privilege escalation attacks.
+
+. [[r7]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+Appendix C: Internet of Things Verification Requirements.(C.33)]
+Verify that secure compiler flags such as **-fPIE**, **-fstack-protector-all**,
+**-Wl**, **-z,noexecstack**, **-Wl**, **-z,noexecheap** are configured for
+firmware builds.
+
+. [[r8]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V5.5 Deserialization Prevention Requirements.(5.5.2)]
+Verify that the application correctly restricts *XML* parsers to only use the
+most restrictive configuration possible and to ensure that unsafe features such
+as resolving external entities are disabled to prevent *XXE*.
+
+. [[r9]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V14.1 Build.(14.1.2)]
+Verify that compiler flags are configured to enable all available buffer
+overflow protections and warnings,
+including stack randomization, data execution prevention,
+and to break the build if an unsafe pointer, memory, format string, integer,
+or string operations are found.
+
+. [[r10]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 6.5.2]
+Address common coding vulnerabilities in software-development processes such as
+buffer overflows.

@@ -182,4 +182,4 @@ String par1 =contexto.getSessionMap().get("par1");
 
 . [[r1]] link:http://novacreations.net/usando-filtros-en-una-aplicacion-web-java/[Usando Filtros en Java Web]
 . [[r2]] link:https://docs.oracle.com/javaee/6/api/javax/servlet/ServletContext.html[Interface ServletContext]
-. [[r3]] link:../../../rules/024/[REQ.024 Transferir información con objetos de sesión]
+. [[r3]] link:../../../products/rules/list/024/[REQ.024 Transferir información con objetos de sesión]

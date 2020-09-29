@@ -1,0 +1,169 @@
+:slug: products/rules/list/037/
+:category: files
+:description: This requirement establishes the importance of discarding potentially harmful data inputs in parameters to avoid code injections and data leakage.
+:keywords: Path, Directory, Parameter, File, ASVS, CAPEC, CWE, PCI DSS, Rules, Ethical Hacking, Pentesting
+:rules: yes
+
+= R037. Parameters without sensitive data
+
+== Requirement
+
+System must not allow parameter inclusion
+in directory names or file paths.
+
+== Description
+
+A system must not allow the inclusion of directory names
+or files paths in its parameters.
+By tampering the fields associated to these parameters,
+an attacker may access those paths
+and compromise sensitive information.
+
+== Implementation
+
+It must be assumed that all data inputs are malicious,
+therefore, whitelisting and escaping should be used
+to discard any type of data input that is not acceptable
+(strictly complies with the specifications)
+or sanitize it.
+
+== Attacks
+
+. An attacker may create or overwrite critical files
+used to execute code, such as programs or libraries.
+If the target file is used as a security mechanism,
+then the attacker may surpass that mechanism.
+For example, by adding a new account at the end of a password file
+to bypass the authentication process.
+
+. An attacker may read the content of unexpected files
+and expose sensitive information.
+If the target file is used as a security mechanism,
+then the attacker may surpass that mechanism.
+For example, by reading a password file,
+the attacker may perform a brute force attack
+to obtain valid user credentials.
+
+. The attacker may overwrite, delete or corrupt critical files
+such as programs, libraries, or sensitive information.
+This may lead to a system failure,
+and in case of having authentication mechanisms,
+the attacker may block the system access to all users.
+
+== Attributes
+
+* Layer: Application Layer
+* Asset: Files
+* Scope: Confidentiality
+* Phase: Construction
+* Type of Control: Recommendation
+
+== Findings
+
+* [inner]#link:/findings/098/[F098. External control of file name or path]#
+
+== References
+
+. [[r1]] link:http://capec.mitre.org/data/definitions/11.html[CAPEC-11: Cause Web Server Misclassification].
+An attack of this type exploits a Web server's decision to take action based on
+filename or file extension.
+Because different file types are handled by different server processes,
+misclassification may force the Web server to take unexpected action,
+or expected actions in an unexpected sequence.
+
+. [[r2]] link:https://cwe.mitre.org/data/definitions/22.html[CWE-22: Improper Limitation of a Pathname to a Restricted Directory
+('Path traversal')].
+The software uses external input to construct a pathname that is intended to
+identify a file or directory that is located underneath a restricted parent
+directory,
+but the software does not properly neutralize special elements within the
+pathname that can cause the pathname to resolve to a location that is outside
+of the restricted directory.
+
+. [[r3]] link:https://cwe.mitre.org/data/definitions/23.html[CWE-23: Relative Path Traversal].
+The software uses external input to construct a pathname that should be within
+a restricted directory,
+but it does not properly neutralize sequences such as ""**..**" that can resolve
+to a location that is outside of that directory.
+
+. [[r4]] link:https://cwe.mitre.org/data/definitions/36.html[CWE-36: Absolute Path Traversal].
+The software uses external input to construct a pathname that should be within
+a restricted directory,
+but it does not properly neutralize absolute path sequences such as
+**"/abs/path"** that can resolve to a location that is outside of that
+directory.
+
+. [[r5]] link:https://cwe.mitre.org/data/definitions/73.html[CWE-73: External Control of File Name or Path].
+The software allows user input to control or influence paths or file names that
+are used in filesystem operations.
+
+. [[r6]] link:https://cwe.mitre.org/data/definitions/98.html[CWE-98: PHP Remote File Inclusion].
+The PHP application receives input from an upstream component,
+but it does not restrict or incorrectly restricts the input before its usage in
+"**require**," "**include**," or similar functions.
+
+. [[r7]] link:https://cwe.mitre.org/data/definitions/641.html[CWE-641: Improper Restriction of Names for Files and Other Resources].
+The application constructs the name of a file or other resource using input
+from an upstream component,
+but it does not restrict or incorrectly restricts the resulting name.
+
+. [[r8]] link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A1-Injection[OWASP Top 10 A1:2017-Injection].
+Injection flaws, such as **SQL**, **NoSQL**, **OS**, and *LDAP* injection,
+occur when untrusted data is sent to an interpreter as part of a command or
+query.
+The attacker's hostile data can trick the interpreter into executing unintended
+commands or accessing data without proper authorization.
+
+. [[r9]] link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A3-Sensitive_Data_Exposure[OWASP Top 10 A3:2017-Sensitive Data Exposure].
+Many web applications and **API**s do not properly protect sensitive data,
+such as financial, healthcare, and *PII*.
+Attackers may steal or modify such weakly protected data to conduct credit card
+fraud, identity theft, or other crimes.
+Sensitive data may be compromised without extra protection,
+such as encryption at rest or in transit, and requires special precautions when
+exchanged with the browser.
+
+. [[r10]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V5.3 Output encoding and Injection Prevention Requirements.(5.3.9)]
+Verify that the application protects against Local File Inclusion (*LFI*) or
+Remote File Inclusion (*RFI*) attacks.
+
+. [[r11]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V5.3 Output encoding and Injection Prevention Requirements.(5.3.10)]
+Verify that the application protects against *XPath* injection or *XML*
+injection attacks.
+
+. [[r12]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V12.3 File execution Requirements.(12.3.1)]
+Verify that user-submitted filename metadata is not used directly with system
+or framework file and *URL* *API* to protect against path traversal.
+
+. [[r13]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V12.3 File execution Requirements.(12.3.2)]
+Verify that user-submitted filename metadata is validated or ignored to prevent
+the disclosure, creation, updating or removal of local files (*LFI*).
+
+. [[r14]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V12.3 File execution Requirements.(12.3.3)]
+Verify that user-submitted filename metadata is validated or ignored to prevent
+the disclosure or execution of remote files (*RFI*),
+which may also lead to *SSRF*.
+
+. [[r15]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V12.3 File execution Requirements.(12.3.4)]
+Verify that the application protects against reflective file download (*RFD*)
+by validating or ignoring user-submitted filenames in a *JSON*, *JSONP*,
+or *URL* parameter,
+the response **Content-Type** header should be set to **text/plain**,
+and the **Content-Disposition** header should have a fixed filename.
+
+. [[r16]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V12.3 File execution Requirements.(12.3.5)]
+Verify that untrusted file metadata is not used directly with system *API* or
+libraries, to protect against *OS* command injection.
+
+. [[r17]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 6.5.1]
+Address common coding vulnerabilities in software-development processes such as
+injection flaws, particularly *SQL* injection.
+Also consider *OS* Command Injection, *LDAP* and *XPath* injection flaws as
+well as other injection flaws.

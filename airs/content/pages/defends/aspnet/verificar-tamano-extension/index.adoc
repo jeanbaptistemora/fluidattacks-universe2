@@ -223,6 +223,6 @@ Puedes descargar el código fuente pulsando en el siguiente enlace:
 
 . [[r3]] link:https://social.msdn.microsoft.com/Forums/vstudio/en-US/ccc1ab62-f172-4c85-b5cb-4b7afc9d2062/identifying-exe-files-by-reading-its-contents?forum=netfxbcl[Identifying files by reading its contents]
 
-. [[r4]] link:../../../rules/039/[REQ.039 Establecer tamaño máximo de archivos].
+. [[r4]] link:../../../products/rules/list/039/[REQ.039 Establecer tamaño máximo de archivos].
 
-. [[r5]] link:../../../rules/040/[REQ.040 Contrastar formato y extensión de archivos].
+. [[r5]] link:../../../products/rules/list/040/[REQ.040 Contrastar formato y extensión de archivos].

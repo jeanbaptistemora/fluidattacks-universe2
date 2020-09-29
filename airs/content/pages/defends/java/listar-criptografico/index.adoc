@@ -228,4 +228,4 @@ Clase CLI.
 
 . [[r1]] link:https://docs.oracle.com/javase/7/docs/api/java/security/Provider.html[Class Provider]
 . [[r2]] link:https://docs.oracle.com/javase/7/docs/api/java/security/Security.html[Class Security]
-. [[r3]] link:../../../rules/147/[REQ.147 Utilizar mecanismos pre-existentes]
+. [[r3]] link:../../../products/rules/list/147/[REQ.147 Utilizar mecanismos pre-existentes]

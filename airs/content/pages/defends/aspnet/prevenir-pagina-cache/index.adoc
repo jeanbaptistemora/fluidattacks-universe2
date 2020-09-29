@@ -77,7 +77,7 @@ se solicitará al servidor una nueva versión de la página.
 
 == Referencias
 
-. [[r1]] link:../../../rules/177/[REQ.177 Almacenar datos de forma segura].
+. [[r1]] link:../../../products/rules/list/177/[REQ.177 Almacenar datos de forma segura].
 . [[r2]] link:https://es.wikipedia.org/wiki/Cach%C3%A9_(inform%C3%A1tica)[Memoria Caché].
 . [[r3]] link:https://msdn.microsoft.com/es-es/library/xsbfdd8c(v=vs.100).aspx[Almacenamiento en caché en ASP.NET].
 . [[r4]] link:https://msdn.microsoft.com/es-es/library/ms178597(v=vs.100).aspx[Información general sobre el almacenamiento en caché en ASP.NET].

@@ -181,8 +181,8 @@ y el tamaño de las bitácoras en valores apropiados.
 
 == Referencias
 
-. [[r1]] link:../../../rules/075/[REQ 075: Registrar eventos en bitácoras].
+. [[r1]] link:../../../products/rules/list/075/[REQ 075: Registrar eventos en bitácoras].
 
-. [[r2]] link:../../../rules/078/[REQ 078: Eventos con severidad deshabilitados].
+. [[r2]] link:../../../products/rules/list/078/[REQ 078: Eventos con severidad deshabilitados].
 
 . [[r3]] link:https://medium.com/el-acordeon-del-programador/logs-en-java-con-java-util-logging-d344ae2ba7bc[Logs en Java con Java.util.logging].

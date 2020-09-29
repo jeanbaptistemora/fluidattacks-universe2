@@ -191,7 +191,7 @@ las instrucciones +C#+ para la lectura de un fichero desde un búfer.
 
 == Referencias
 
-. [[r1]] link:../../../rules/999/[REQ.999 Limitar tiempo de vida de recursos].
+. [[r1]] link:../../../products/rules/list/999/[REQ.999 Limitar tiempo de vida de recursos].
 . *+Java+* link:../../java/limitar-vida-recurso/[Limitar tiempo de vida de recursos].
 . *+SCALA+* link:../../scala/limitar-vida-recurso/[Limitar tiempo de vida de recursos].
 . *+PHP+* link:../../php/limitar-vida-recurso/[Limitar tiempo de vida de recursos].

@@ -110,5 +110,5 @@ image::login-2.png[login]
 
 . [[r1]] link:https://blog.rapid7.com/2017/06/15/about-user-enumeration/[About User Enumeration]
 . [[r2]] link:http://velozityweb.com/blog/all/enumeracion-de-usuarios-y-sistemas/#sthash.Rjwut7vV.dpbs[Enumeración de usuarios y sistemas]
-. [[r3]] link:../../../rules/229/[REQ.229 Solicitar credenciales de acceso]
-. [[r4]] link:../../../rules/177/[REQ.177 Almacenar datos de forma segura]
+. [[r3]] link:../../../products/rules/list/229/[REQ.229 Solicitar credenciales de acceso]
+. [[r4]] link:../../../products/rules/list/177/[REQ.177 Almacenar datos de forma segura]

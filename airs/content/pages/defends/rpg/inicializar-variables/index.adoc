@@ -155,5 +155,5 @@ las declaraciones de variables descritas anteriormente.
 
 == Referencias
 
-. [[r1]] link:../../../rules/168/[REQ.168 Variables inicializadas explícitamente].
+. [[r1]] link:../../../products/rules/list/168/[REQ.168 Variables inicializadas explícitamente].
 . [[r2]] link:http://www.rpgpgm.com/2014/02/defining-variables-in-rpg-all-free.html[Defining variables in RPG all free].

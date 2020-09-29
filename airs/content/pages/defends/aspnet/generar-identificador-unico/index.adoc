@@ -121,7 +121,7 @@ Copyright (C) Microsoft Corporation. All rights reserved.
 
 == Referencias
 
-. [[r1]] link:../../../rules/223/[REQ.223 Generar números con distribución uniforme].
+. [[r1]] link:../../../products/rules/list/223/[REQ.223 Generar números con distribución uniforme].
 
 . [[r2]] link:https://en.wikipedia.org/w/index.php?title=Universally_unique_identifier&oldid=457875938[Universally unique identifier, Wikipedia].
 

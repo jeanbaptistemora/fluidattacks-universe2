@@ -99,5 +99,5 @@ mostrando la forma de prevenir inyecciones de código +SQL+ en +C Sharp+.
 
 . [[r1]] link:https://docs.microsoft.com/en-us/previous-versions/msp-n-p/ff648339(v=pandp.10)[Microsoft, Protect Fomr SQL Injection in ASP.NET].
 . [[r2]] link:https://docs.microsoft.com/en-us/previous-versions/msp-n-p/ff650037(v=pandp.10)[Microsoft, ASP.NET Security Practices at a Glance].
-. [[r3]] link:../../../rules/169/[REQ.169 Usar construcciones parametrizadas].
-. [[r4]] link:../../../rules/173/[REQ.173 Descartar información insegura].
+. [[r3]] link:../../../products/rules/list/169/[REQ.169 Usar construcciones parametrizadas].
+. [[r4]] link:../../../products/rules/list/173/[REQ.173 Descartar información insegura].

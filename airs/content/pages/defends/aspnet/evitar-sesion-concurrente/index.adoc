@@ -226,4 +226,4 @@ Puedes descargar el código fuente pulsando en el siguiente enlace:
 
 . [[r1]] link:http://www.sharepoint4developers.net/en-nz/post/limit-session-account.aspx[Limit only one session per account].
 . [[r2]] link:https://www.owasp.org/index.php/Session_Management_Cheat_Sheet#Simultaneous_Session_Logons[Simultaneous Session Logons - OWASP].
-. [[r3]] link:../../../rules/025/[REQ.025 Controlar sesiones concurrentes].
+. [[r3]] link:../../../products/rules/list/025/[REQ.025 Controlar sesiones concurrentes].

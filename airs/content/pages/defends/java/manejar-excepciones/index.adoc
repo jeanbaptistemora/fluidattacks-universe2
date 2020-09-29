@@ -122,7 +122,7 @@ de las excepciones en los +logs+ de la aplicación.
 
 . [[r1]] link:https://es.wikipedia.org/wiki/Manejo_de_excepciones[Manejo de excepciones]
 . [[r2]] link:https://www.owasp.org/index.php/Improper_Error_Handling[Improper Error Handling]
-. [[r3]] link:../../../rules/075/[REQ.075 Registrar eventos en bitácoras]
-. [[r4]] link:../../../rules/076/[REQ.076 Registrar niveles de severidad de eventos]
-. [[r5]] link:../../../rules/077/[REQ.077 No revelar detalles del sistema interno]
-. [[r6]] link:../../../rules/079/[REQ.079 Registrar momento de ocurrencia de eventos]
+. [[r3]] link:../../../products/rules/list/075/[REQ.075 Registrar eventos en bitácoras]
+. [[r4]] link:../../../products/rules/list/076/[REQ.076 Registrar niveles de severidad de eventos]
+. [[r5]] link:../../../products/rules/list/077/[REQ.077 No revelar detalles del sistema interno]
+. [[r6]] link:../../../products/rules/list/079/[REQ.079 Registrar momento de ocurrencia de eventos]

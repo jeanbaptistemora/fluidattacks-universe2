@@ -1,0 +1,58 @@
+:slug: products/rules/list/317/
+:category: privacy
+:description: This requirement establishes the importance of allowing users to request the erasure of data belonging to them.
+:keywords: Requirement, Security, Data, GDPR, ISO, Erasure, Personal, Rules, Ethical Hacking, Pentesting
+:rules: yes
+
+= R317. Allow erasure requests
+
+== Requirement
+
+The system must allow users to request erasure of data belonging to them
+that it is managing.
+
+== Description
+
+Systems usually request information from the users,
+obtain it from third parties or collect it based on their interactions with the
+application.
+They should have a mechanism that allows users to request the erasure of this
+information and guarantees its complete deletion.
+Furthermore, the erasure should also occur if the user decides to revoke their
+consent.
+
+== Findings
+
+* [inner]#link:/findings/088/[F088. Privacy violation]#
+
+== Exceptions
+
+. If the system is able to demonstrate that it is not possible to individually
+identify the users based on the information collected from them,
+this requirement is not applicable.
+
+== References
+
+. [[r1]] link:https://cwe.mitre.org/data/definitions/212.html[CWE-212: Improper Removal of Sensitive Information Before Storage or Transfer].
+The product stores, transfers, or shares a resource that contains sensitive
+information,
+but it does not properly remove that information before the product makes the
+resource available to unauthorized actors.
+
+. [[r2]] link:https://gdpr-info.eu/art-11-gdpr/[GDPR. Art. 11: Processing which does not require identification.(2).]
+Where the controller is able to demonstrate that it is not in a position to
+identify the data subject,
+articles 15 to 20 shall not apply.
+
+. [[r3]] link:https://gdpr-info.eu/art-17-gdpr/[GDPR. Art. 17: Right to erasure (‘right to be forgotten').(1).]
+The data subject shall have the right to obtain from the controller the erasure
+of personal data concerning him or her without undue delay and the controller
+shall have the obligation to erase personal data without undue delay.
+
+. [[r4]] link:https://www.iso.org/obp/ui/#iso:std:54534:en[ISO 27001:2013. Annex A - 18.1.4]
+When applicable, guarantee the privacy and security of personal information,
+as required by the relevant legislation and regulations.
+
+. [[r5]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V8.3 Sensitive Private Data.(8.3.2)]
+Verify that users have a method to remove or export their data on demand.

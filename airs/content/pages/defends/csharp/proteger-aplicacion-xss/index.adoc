@@ -109,6 +109,6 @@ todas las instrucciones +C#+ del programa.
 
 == Referencias
 
-. [[r1]] link:../../../rules/160/[REQ.160 Salidas codificadas].
+. [[r1]] link:../../../products/rules/list/160/[REQ.160 Salidas codificadas].
 . [[r2]] link:http://msdn.microsoft.com/en-us/library/aa973813.aspx[Microsoft, Anti- Cross Site Scripting Library].
 . [[r3]] link:http://www.microsoft.com/download/en/search.aspx?q=antixss[Microsoft, Antixss].

@@ -1,0 +1,101 @@
+:slug: products/rules/list/050/
+:category: architecture
+:description: This requirement establishes the importance of controlling the calls to interpreted code in order to avoid malicious code injections.
+:keywords: Code, System, ASVS, CAPEC, CWE, PCI DSS, Interpreted, JavaScript, Rules, Ethical Hacking, Pentesting
+:rules: yes
+
+= R050. Control calls to interpreted code
+
+== Requirement
+
+Interpreted code (e.g. *Javascript*, *CSS*) must be loaded from domains
+controlled by the organization.
+
+== Description
+
+Applications often use resources or have dependencies that are hosted on
+other servers.
+These resources should be hosted on domains controlled by the organization
+in order to prevent several types of injection attacks.
+
+== References
+
+. [[r1]] link:http://capec.mitre.org/data/definitions/19.html[CAPEC-19: Embedding Scripts within Scripts].
+An attack of this type exploits a programs' vulnerabilities that are brought on
+by allowing remote hosts to execute scripts.
+The adversary leverages this capability to execute their own script by
+embedding it within other scripts that the target software is likely to
+execute.
+The adversary must have the ability to inject their script into a script that
+is likely to be executed.
+
+. [[r2]] link:https://cwe.mitre.org/data/definitions/829.html[CWE-829: Inclusion of Functionality from Untrusted Control Sphere].
+The software imports, requires, or includes executable functionality
+(such as a library) from a source that is outside of the intended control
+sphere.
+
+. [[r3]] link:https://cwe.mitre.org/data/definitions/830.html[CWE-830: Inclusion of Web Functionality from an Untrusted Source].
+The software includes web functionality (such as a web widget) from another
+domain,
+potentially granting total access and control of the software to the untrusted
+source.
+
+. [[r4]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V5.3 Output encoding and Injection Prevention Requirements.(5.3.6)]
+Verify that the application projects against *JavaScript* or *JSON* injection
+attacks,
+including for eval attacks, remote *JavaScript* includes, *CSP* bypasses,
+**DOM XSS**, and *JavaScript* expression evaluation.
+
+. [[r5]] link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A1-Injection[OWASP Top 10 A1:2017-Injection].
+Injection flaws, such as **SQL**, **NoSQL**, **OS**, and *LDAP* injection,
+occur when untrusted data is sent to an interpreter as part of a command or
+query.
+The attacker's hostile data can trick the interpreter into executing unintended
+commands or accessing data without proper authorization.
+
+. [[r6]] link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A6-Security_Misconfiguration[OWASP Top 10 A6:2017-Security Misconfiguration].
+Security misconfiguration is the most commonly seen issue.
+This is commonly a result of insecure default configurations,
+incomplete or ad hoc configurations, open cloud storage,
+misconfigured *HTTP* headers,
+and verbose error messages containing sensitive information.
+Not only must all operating systems, frameworks, libraries, and applications be
+securely configured, but they must be patched/upgraded in a timely fashion.
+
+. [[r7]] link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A7-Cross-Site_Scripting_(XSS)[OWASP Top 10 A7:2017-Cross-Site Scripting (XSS)].
+*XSS* flaws occur whenever an application includes untrusted data in a new web
+page without proper validation or escaping,
+or updates an existing web page with user-supplied data using a browser *API*
+that can create *HTML* or **JavaScript**.
+*XSS* allows attackers to execute scripts in the victim's browser which can
+hijack user sessions, deface web sites, or redirect the user to malicious
+sites.
+
+. [[r8]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V10.3 Deployed Application Integrity Controls.(10.3.2)]
+The application must not load or execute code from untrusted sources,
+such as loading includes, modules, plugins, code, or libraries from untrusted
+sources or the Internet.
+
+. [[r9]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V10.3 Deployed Application Integrity Controls.(10.3.3)]
+Verify that the application has protection from sub-domain takeovers if the
+application relies upon *DNS* entries or *DNS* sub-domains.
+
+. [[r10]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V12.3 File execution Requirements.(12.3.6)]
+Verify that the application does not include and execute functionality from
+untrusted sources,
+such as unverified content distribution networks, *JavaScript* libraries,
+or **node npm** libraries.
+
+. [[r11]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 6.5.1]
+Address common coding vulnerabilities in software-development processes such as
+injection flaws, particularly *SQL* injection.
+Also consider *OS* Command Injection, *LDAP* and *XPath* injection flaws as
+well as other injection flaws.
+
+. [[r12]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 6.5.7]
+Address common coding vulnerabilities in software-development processes such as
+cross-site scripting (*XSS*).

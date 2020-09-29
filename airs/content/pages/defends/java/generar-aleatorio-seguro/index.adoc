@@ -123,4 +123,4 @@ for (int i = 0; i < 4; i++) {
 . [[r2]] link:http://www.ietf.org/rfc/rfc1750.txt[RFC 1750]
 . [[r3]] link:http://bethecoder.com/applications/articles/java/basics/how-to-convert-byte-array-to-integer.html[How to convert Byte Array to Integer]
 . [[r4]] link:https://wiki.sei.cmu.edu/confluence/display/java/MSC02-J.+Generate+strong+random+numbers[MSC02-J. Generate strong random numbers]
-. [[r5]] link:../../../rules/224/[REQ.224 Usar mecanismos criptográficos seguros]
+. [[r5]] link:../../../products/rules/list/224/[REQ.224 Usar mecanismos criptográficos seguros]

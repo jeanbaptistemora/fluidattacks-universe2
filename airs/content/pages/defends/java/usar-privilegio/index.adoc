@@ -184,4 +184,4 @@ found 150 files in /etc
 
 . [[r1]] link:https://docs.oracle.com/javase/8/docs/api/java/security/AccessController.html[Class AccessController]
 . [[r2]] link:https://blogthinkbig.com/principio-de-minimo-privilegio[Qué es el Principio de Mínimo Privilegio]
-. [[r3]] link:../../../rules/176/[REQ.176 Restringir objetos del sistema]
+. [[r3]] link:../../../products/rules/list/176/[REQ.176 Restringir objetos del sistema]

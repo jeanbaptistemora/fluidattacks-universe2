@@ -130,4 +130,4 @@ Al volverla al guardar se eliminan todos los metadatos.
 
 . [[r1]] link:https://es.wikipedia.org/wiki/Metadatos[Metadatos]
 . [[r2]] link:https://docs.oracle.com/javase/7/docs/api/javax/imageio/ImageIO.html[Class ImageIO]
-. [[r3]] link:../../../rules/045/[REQ.045 Eliminar metadatos al compartir archivos]
+. [[r3]] link:../../../products/rules/list/045/[REQ.045 Eliminar metadatos al compartir archivos]

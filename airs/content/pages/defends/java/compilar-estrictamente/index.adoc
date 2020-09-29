@@ -143,4 +143,4 @@ javac -deprecation -g:none -implicit:none
 . [[r2]] link:https://groups.google.com/forum/#!topic/google-web-toolkit/tIf5Tdl9-u8[The "-implicit" argument of javac for JDK 6]
 . [[r3]] link:https://docs.oracle.com/javase/6/docs/technotes/tools/windows/javac.html#searching[Oracle Java 6 - Java Compiler]
 . [[r4]] link:http://www.idevelopment.info/data/Programming/java/miscellaneous_java/Using_CLASSPATH_and_SOURCEPATH.html[Using CLASSPATH and SOURCEPATH]
-. [[r5]] link:../../../rules/157/[REQ.157 Compilación estricta]
+. [[r5]] link:../../../products/rules/list/157/[REQ.157 Compilación estricta]

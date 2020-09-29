@@ -117,4 +117,4 @@ se debe considerar la siguiente configuración.
 == Referencias
 
 . [[r1]] link:http://www.adobepress.com/articles/article.asp?p=25445&seqNum=4[Customizing the Look of Error Messages in JSP]
-. [[r2]] link:../../../rules/083/[REQ.083 No registrar datos sensibles en bitácoras]
+. [[r2]] link:../../../products/rules/list/083/[REQ.083 No registrar datos sensibles en bitácoras]

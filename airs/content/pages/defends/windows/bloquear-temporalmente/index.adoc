@@ -76,6 +76,6 @@ en volver a cero después de alcanzar el umbral.
 
 . [[r1]] link:https://omicrono.elespanol.com/2016/11/bloquear-pc-temporalmente/[Cómo bloquear tu PC si alguien falla la contraseña varias veces].
 
-. [[r2]] link:../../../rules/226/[REQ.226 Evitar bloquear cuenta de usuario].
+. [[r2]] link:../../../products/rules/list/226/[REQ.226 Evitar bloquear cuenta de usuario].
 
-. [[r3]] link:../../../rules/237/[REQ.237 Establecer acciones de usuario seguras].
+. [[r3]] link:../../../products/rules/list/237/[REQ.237 Establecer acciones de usuario seguras].

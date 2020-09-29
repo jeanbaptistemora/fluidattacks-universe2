@@ -119,4 +119,4 @@ de +salts+ aleatorios generados con +SecureRandom+
 . [[r1]] link:https://www.seagate.com/files/docs/pdf/es-ES/whitepaper/fips-140-2-faq-mb605.1-1007es.pdf[Tecnología de la unidad FIPS 140-2 estándar y con autocifrado]
 . [[r2]] link:http://www.ietf.org/rfc/rfc1750.txt[Randomness Recommendations for Security]
 . [[r3]] link:https://docs.oracle.com/javase/8/docs/api/java/security/SecureRandom.html[Class SecureRandom]
-. [[r4]] link:../../../rules/224/[REQ.224 Usar mecanismos criptográficos seguros]
+. [[r4]] link:../../../products/rules/list/224/[REQ.224 Usar mecanismos criptográficos seguros]

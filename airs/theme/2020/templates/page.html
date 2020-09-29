@@ -145,49 +145,63 @@
             {% if page.extended %}
             <li class="dib mt0">
               <a class="c-fluid-gray hover-white no-underline"
-                 href="{{ SITEURL }}/resources/">
-                 Resources
+                 href="{{ SITEURL }}/products/">
+                 Products
               </a>
             </li>
             <span class="c-fluid-gray v-mid b"> / </span>
             <li class="dib mt0">
               <a class="c-fluid-gray hover-white no-underline"
-                 href="{{ SITEURL }}/rules/">
+                 href="{{ SITEURL }}/products/rules/">
                  Rules
               </a>
             </li>
             <span class="c-fluid-gray v-mid b"> / </span>
             <li class="dib mt0">
               <a class="c-fluid-gray hover-white no-underline"
-                  href="{{ SITEURL }}/rules/out-of-scope/">
+                 href="{{ SITEURL }}/products/rules/list/">
+                 List
+              </a>
+            </li>
+            <span class="c-fluid-gray v-mid b"> / </span>
+            <li class="dib mt0">
+              <a class="c-fluid-gray hover-white no-underline"
+                  href="{{ SITEURL }}/products/rules/list/out-of-scope/">
                   Out of Scope Security rules
               </a>
             </li>
             <span class="c-fluid-gray v-mid b"> / </span>
             <li class="dib mt0">
               <a class="c-fluid-gray hover-white no-underline"
-                  href="{{ SITEURL }}/rules/out-of-scope/#{{ page.category.name }}">
+                  href="{{ SITEURL }}/products/rules/list/out-of-scope/#{{ page.category.name }}">
                   {{ page.category|capitalize|replace('-', ' ') }}
               </a>
             </li>
             {% else %}
             <li class="dib mt0">
               <a class="c-fluid-gray hover-white no-underline"
-                 href="{{ SITEURL }}/resources/">
-                 Resources
+                 href="{{ SITEURL }}/products/">
+                 Products
               </a>
             </li>
             <span class="c-fluid-gray v-mid b"> / </span>
             <li class="dib mt0">
               <a class="c-fluid-gray hover-white no-underline"
-                 href="{{ SITEURL }}/rules/">
+                 href="{{ SITEURL }}/products/rules/">
                  Rules
               </a>
             </li>
             <span class="c-fluid-gray v-mid b"> / </span>
             <li class="dib mt0">
               <a class="c-fluid-gray hover-white no-underline"
-                  href="{{ SITEURL }}/rules/#{{ page.category.name }}">
+                 href="{{ SITEURL }}/products/rules/list/">
+                 List
+              </a>
+            </li>
+            <span class="c-fluid-gray v-mid b"> / </span>
+            <li class="dib mt0">
+              <a class="c-fluid-gray hover-white no-underline"
+                  href="{{ SITEURL }}/products/rules/list/#{{ page.category.name }}">
                   {{ page.category|capitalize|replace('-', ' ') }}
               </a>
             </li>

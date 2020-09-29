@@ -94,6 +94,6 @@ debe ser acompañada por una validación del lado del servidor.
 
 == Referencias
 
-. [[r1]] link:../../../rules/173/[REQ.173 Descartar información insegura].
+. [[r1]] link:../../../products/rules/list/173/[REQ.173 Descartar información insegura].
 . [[r2]] link:https://developer.mozilla.org/es/docs/Learn/HTML/Forms/Validacion_formulario_datos[Validación de formulario de datos].
 . [[r3]] link:http://www.um.es/docencia/barzana/DAWEB/Desarrollo-de-aplicaciones-web-teoria-formularios-ejemplo-1.html[DAWeb. Verificación de formularios].

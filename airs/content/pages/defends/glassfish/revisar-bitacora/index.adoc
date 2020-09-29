@@ -89,7 +89,7 @@ _ThreadID=188;_ThreadName=Thread-2;|Attempting to load ESAPI.properties via file
 
 == Referencias
 
-. [[r1]] link:../../../rules/076/[REQ.076 Registrar niveles de severidad de eventos].
-. [[r2]] link:../../../rules/078/[REQ.078 Eventos con severidad deshabilitados].
+. [[r1]] link:../../../products/rules/list/076/[REQ.076 Registrar niveles de severidad de eventos].
+. [[r2]] link:../../../products/rules/list/078/[REQ.078 Eventos con severidad deshabilitados].
 . [[r3]] link:https://es.wikipedia.org/wiki/Log_(inform%C3%A1tica)[Log (informática)].
 . [[r4]] link:https://docs.oracle.com/cd/E19798-01/821-1761/abgax/index.html[Examining Log Files].

@@ -178,4 +178,4 @@ y por ende no se puede hacer la resolución de nombres.
 
 . [[r2]] link:https://linuxpassion2.wordpress.com/2013/07/23/aix-chroot-jail-and-openssh/[AIX chroot jail and openssh].
 
-. [[r3]] link:../../../rules/037/[REQ.037 Parámetros sin datos sensibles].
+. [[r3]] link:../../../products/rules/list/037/[REQ.037 Parámetros sin datos sensibles].

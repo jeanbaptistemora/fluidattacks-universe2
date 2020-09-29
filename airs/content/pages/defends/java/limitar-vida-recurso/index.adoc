@@ -164,7 +164,7 @@ cuyo fin es la manipulación segura de ficheros.
 
 == Referencias
 
-. [[r1]] link:../../../rules/999/[REQ.999 Limitar tiempo de vida de recursos].
+. [[r1]] link:../../../products/rules/list/999/[REQ.999 Limitar tiempo de vida de recursos].
 . *+CSHARP+* link:../../csharp/limitar-vida-recurso/[Limitar tiempo de vida de recursos].
 . *+SCALA+* link:../../scala/limitar-vida-recurso/[Limitar tiempo de vida de recursos].
 . *+PHP+* link:../../php/limitar-vida-recurso/[Limitar tiempo de vida de recursos].

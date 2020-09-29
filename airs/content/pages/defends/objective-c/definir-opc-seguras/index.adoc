@@ -130,4 +130,4 @@ en +Objective C+.
 
 . [[r2]] link:https://www.tutorialspoint.com/objective_c/switch_statement_in_objective_c.htm[Objective-C - switch statement].
 
-. [[r3]] link:../../../rules/161/[REQ.161 Opciones por defecto seguras].
+. [[r3]] link:../../../products/rules/list/161/[REQ.161 Opciones por defecto seguras].

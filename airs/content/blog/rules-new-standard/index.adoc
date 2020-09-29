@@ -42,8 +42,8 @@ Not all of our requirements are linked to
 at least one of those standards we have.
 But these are things we intend to achieve in the near future.
 
-The technical requirements (we currently have [inner]#link:../../rules/[*189* in *20* categories]#),
-apart from those that may be [inner]#link:../../rules/out-of-scope/["out-of-scope,"]#
+The technical requirements (we currently have [inner]#link:../../products/rules/list/[*189* in *20* categories]#),
+apart from those that may be [inner]#link:../../products/rules/list/out-of-scope/["out-of-scope,"]#
 are linked to what is verifiable through a technical process in a system.
 They are those that can be evaluated with [inner]#link:../fuzzing-forallsecure/[`DAST`]#, [inner]#link:../sast-sca-kiuwan/[`SAST`, or `SCA`]#,
 techniques that we have already mentioned.

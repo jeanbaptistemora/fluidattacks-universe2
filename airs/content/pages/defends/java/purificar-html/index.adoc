@@ -186,4 +186,4 @@ contiene la manera en que se debe usar la biblioteca +Jsoup+.
 
 . [[r1]] link:https://jsoup.org/[JSOUP]
 . [[r2]] link:https://en.wikipedia.org/wiki/HTML_sanitization[HTML sanitization]
-. [[r3]] link:../../../rules/160/[REQ.160 Salidas codificadas]
+. [[r3]] link:../../../products/rules/list/160/[REQ.160 Salidas codificadas]

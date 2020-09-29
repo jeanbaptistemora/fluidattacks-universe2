@@ -1,0 +1,37 @@
+:slug: products/rules/list/210/
+:category: devices
+:description: This requirement states that information from mobile devices must be deleted after 10 failed attempts in the authentication process.
+:keywords: Mobile Device, Attempts, Password, Information, Delete, Failed, ASVS, CWE, Rules, Ethical Hacking, Pentesting
+:rules: yes
+
+= R210. Delete information from mobile devices
+
+== Requirement
+
+The system must delete the information from the mobile devices
+after *10* failed authentication attempts.
+
+== References
+
+. [[r1]] link:https://cwe.mitre.org/data/definitions/459.html[CWE-459: Incomplete Cleanup].
+The software does not properly "clean up" and remove temporary or supporting
+resources after they have been used.
+
+. [[r2]] link:https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:02002L0058-20091219[Directive 2002/58/EC (amended by E-privacy Directive 2009/136/EC).
+Art. 4: Security of processing.(1a)]
+The measures referred to in paragraph 1 shall at least protect personal data
+stored or transmitted against accidental or unlawful destruction,
+accidental loss or alteration,
+and unauthorized or unlawful storage, processing, access or disclosure.
+
+. [[r3]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+Appendix C: Internet of Things Verification Requirements.(C.25)]
+Verify that the device wipes firmware and sensitive data upon detection of
+tampering or receipt of invalid message.
+
+. [[r4]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V8.3 Sensitive Private Data.(8.3.8)]
+Verify that sensitive personal information is subject to data retention
+classification,
+such that old or out of date data is deleted automatically, on a schedule,
+or as the situation requires.

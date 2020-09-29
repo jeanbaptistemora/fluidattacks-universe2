@@ -155,7 +155,7 @@ We are genuinely independent auditors because
 we do not provide design and operation of defenses for the market.
 Although we provide expert advice and curated resources
 on how to better protect information assets (check
-[inner]#link:../../rules/[Rules]#, it's FREE).
+[inner]#link:../../products/rules/list/[Rules]#, it's FREE).
 
 *Identify conflicts of interest and design environments to avoid them.*
 [role="fluid-qanda"]

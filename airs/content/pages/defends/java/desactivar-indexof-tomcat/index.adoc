@@ -103,4 +103,4 @@ del archivo +web.xml+.
 
 . [[r1]] link:http://linux-sxs.org/internet_serving/c581.html[Tomcat 5 on Linux Step-By-Step]
 . [[r2]] link:https://www.aldeid.com/wiki/Web_applications_attacks/Directory_listening[Web applications attacks/Directory listening]
-. [[r3]] link:../../../rules/176/[REQ.176 Restringir objetos del sistema]
+. [[r3]] link:../../../products/rules/list/176/[REQ.176 Restringir objetos del sistema]

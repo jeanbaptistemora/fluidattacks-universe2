@@ -171,5 +171,5 @@ log/tomcat7 % tail -f catalina.out
 . [[r1]] link:https://en.wikipedia.org/wiki/Character_encoding#Character_sets,_character_maps_and_code_pages[Character encoding]
 . [[r2]] link:https://docs.oracle.com/javaee/5/tutorial/doc/bnayb.html[Character Sets and Encodings]
 . [[r3]] link:https://developer.mozilla.org/es/docs/Web/HTTP/Headers/Content-Type[Content-Type]
-. [[r4]] link:../../../rules/043/[REQ.043 Definir content type explícito]
-. [[r5]] link:../../../rules/044/[REQ.044 Definir charset explícito]
+. [[r4]] link:../../../products/rules/list/043/[REQ.043 Definir content type explícito]
+. [[r5]] link:../../../products/rules/list/044/[REQ.044 Definir charset explícito]

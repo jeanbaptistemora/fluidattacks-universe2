@@ -156,6 +156,6 @@ las instrucciones +C#+ anteriores.
 
 == Referencias
 
-. [[r1]] link:../../../rules/167/[REQ.167 Cerrar recursos no utilizados].
+. [[r1]] link:../../../products/rules/list/167/[REQ.167 Cerrar recursos no utilizados].
 . [[r2]] link:https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/using-statement[using Statement (C# Reference)].
 . [[r3]] link:https://msdn.microsoft.com/en-us/library/system.io.textreader.aspx[TextReader Class].

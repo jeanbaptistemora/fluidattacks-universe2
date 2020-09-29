@@ -1,0 +1,12 @@
+:slug: products/rules/list/260/
+:category: social
+:description: This requirement establishes the importance of using email accounts other than the corporate ones to register accounts in social networks.
+:keywords: Organization, Email, Social Network, Account, Register, LinkedIn, Rules, Ethical Hacking, Pentesting
+:rules: yes
+
+= R260. Use alternative emails
+
+== Requirement
+
+The employees must not use corporate emails
+to register accounts in social networks (even on +LinkedIn+).

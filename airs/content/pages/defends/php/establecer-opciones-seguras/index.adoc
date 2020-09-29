@@ -121,4 +121,4 @@ default:
 
 . [[r1]] link:http://php.net/manual/en/language.control-structures.php[Manual de PHP: Estructuras de control].
 
-. [[r2]] link:../../../rules/161/[REQ.161 Opciones por defecto seguras].
+. [[r2]] link:../../../products/rules/list/161/[REQ.161 Opciones por defecto seguras].

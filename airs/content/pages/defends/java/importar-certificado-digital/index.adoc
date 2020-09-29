@@ -122,4 +122,4 @@ Certificate was added to keystore
 . [[r1]] link:https://es.wikipedia.org/wiki/Certificado_digital[Certificado digital]
 . [[r2]] link:https://docs.microsoft.com/en-us/azure/java-add-certificate-ca-store[Adding a Certificate to the Java CA]
 . [[r3]] link:https://docs.oracle.com/javase/7/docs/technotes/tools/windows/keytool.html[Key and Certificate Management Tool]
-. [[r4]] link:../../../rules/147/[REQ.147 Utilizar mecanismos pre-existentes]
+. [[r4]] link:../../../products/rules/list/147/[REQ.147 Utilizar mecanismos pre-existentes]

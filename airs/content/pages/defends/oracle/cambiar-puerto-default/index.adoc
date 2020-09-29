@@ -97,6 +97,6 @@ puedes consultar <<r3, ^[3]^>>.
 
 == Referencias
 
-. [[r1]] link:../../../rules/033/[REQ.033 Restringir acceso administrativo].
+. [[r1]] link:../../../products/rules/list/033/[REQ.033 Restringir acceso administrativo].
 . [[r2]] link:https://docs.oracle.com/cd/B28359_01/install.111/b32002/app_port.htm#LADBI464[Puertos Oracle].
 . [[r3]] link:http://dbaoracle4hire.blogspot.com.co/2012/02/listado-de-puertos-por-defecto-que.html[ Listado de puertos por defecto que utilizan los productos de Oracle ].

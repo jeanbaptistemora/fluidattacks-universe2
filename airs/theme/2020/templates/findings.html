@@ -60,23 +60,40 @@
                 href=".">Findings</a>
           </li>
           {% endif %}
-          {% if page.rulesindex and page.slug == "rules/" %}
+          {% if page.rulesindex and page.slug == "products/rules/list/" %}
           <li class="dib mt0">
             <a class="c-fluid-gray hover-white no-underline"
-               href="{{ SITEURL }}/resources/">
-              Resources
+               href="{{ SITEURL }}/products/">
+              Products
             </a>
             <span class="c-fluid-gray v-mid b"> / </span>
           </li>
           <li class="dib mt0">
+            <a class="c-fluid-gray hover-white no-underline"
+                href="{{ SITEURL }}/products/rules/">Rules</a>
+            <span class="c-fluid-gray v-mid b"> / </span>
+          </li>
+          <li class="dib mt0">
             <a class="white hover-white no-underline"
-                href=".">Rules</a>
+                href=".">List</a>
           </li>
           {% endif %}
-          {% if page.slug == "rules/out-of-scope/" %}
+          {% if page.slug == "products/rules/list/out-of-scope/" %}
           <li class="dib mt0">
             <a class="c-fluid-gray hover-white no-underline"
-                href="{{ SITEURL }}/rules/">Rules</a>
+               href="{{ SITEURL }}/products/">
+              Products
+            </a>
+            <span class="c-fluid-gray v-mid b"> / </span>
+          </li>
+          <li class="dib mt0">
+            <a class="c-fluid-gray hover-white no-underline"
+                href="{{ SITEURL }}/products/rules/">Rules</a>
+            <span class="c-fluid-gray v-mid b"> / </span>
+          </li>
+          <li class="dib mt0">
+            <a class="c-fluid-gray hover-white no-underline"
+                href="{{ SITEURL }}/products/rules/list/">List</a>
           </li>
           <span class="c-fluid-gray v-mid b"> / </span>
           <li class="dib mt0">
@@ -97,7 +114,7 @@
 {% endblock breadcrumb %}
 
 {% block header %}
-  {% if (page.rulesindex and page.slug == "rules/") or (page.rulesindex and page.slug == "rules/out-of-scope/") %}
+  {% if (page.rulesindex and page.slug == "products/rules/list/") or (page.rulesindex and page.slug == "products/rules/list/out-of-scope/") %}
     <div
       class="rules-bg bg-banner-sz coverm cover-s banner-height justify-center items-center flex bg-center">
       <div class="w-100 center">
@@ -155,7 +172,7 @@
     {% endassets %}
   </article>
   {% endif %}
-  {% if page.rulesindex and page.slug == "rules/" %}
+  {% if page.rulesindex and page.slug == "products/rules/list/" %}
   <article class="internal roboto ma-auto tl mw8 mv4 ba b--moon-gray">
     <div class="expall bt bg-graylight b--moon-gray collapse flex ph3">
       <h3 class="w-90">Expand all</h3>
@@ -180,7 +197,7 @@
         <ul class="list ph3">
            <li>
              <a class="f3 link-hvred"
-                href="../{{ ruleart.slug }}">
+                href="{{ SITEURL }}/{{ ruleart.slug }}">
                 {{ ruleart.title }}
              </a><br>
            </li>
@@ -196,13 +213,13 @@
   <div class="internal roboto mw8 ml-auto mr-auto">
     <p class="pt4"> Looking for more security checks? Take a look at our
       <a class="fw6 f5 no-underline c-fluid-bk hv-fluid-dkred"
-          href="{{ SITEURL }}/rules/out-of-scope/">
+          href="{{ SITEURL }}/products/rules/list/out-of-scope/">
                 Out of Scope Security Rules
       </a>
     </p>
   </div>
   {% endif %}
-  {% if page.rulesindex and page.slug == "rules/out-of-scope/" %}
+  {% if page.rulesindex and page.slug == "products/rules/list/out-of-scope/" %}
   <div class="internal roboto mw8 ml-auto mr-auto mt4">
     {{ page.content }}
   </div>
@@ -223,7 +240,7 @@
             <ul class="list ph3">
               <li>
                 <a class="f3 link-hvred"
-                    href="../../{{ ruleart.slug }}">
+                    href="{{ SITEURL }}/{{ ruleart.slug }}">
                     {{ ruleart.title }}
                 </a><br>
               </li>
@@ -246,7 +263,7 @@
             <ul class="list ph3">
                 <li>
                   <a class="f3 link-hvred"
-                  href="../../{{ ruleart.slug }}">
+                  href="{{ SITEURL }}/{{ ruleart.slug }}">
                       {{ ruleart.title }}
                   </a><br>
                 </li>

@@ -62,7 +62,7 @@ more thought is given to the evaluation of compliance with rules.
 It's recommended to work from this compliance perspective
 and set requirements based on public security standards
 such as `GDPR`, `HIPAA`, and `ASVS`
-from the beginning (see our compilation called [inner]#link:../../rules/['Rules']#).
+from the beginning (see our compilation called [inner]#link:../../products/rules/list/['Rules']#).
 These requirements must be adjusted
 to the structure and functionality of the software developed in your business.
 Besides, some must mean translating your business risks to technical language.

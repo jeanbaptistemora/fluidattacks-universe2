@@ -143,4 +143,4 @@ prevenir posibles ataques de bots a la aplicación.
 
 . [[r2]] link:https://developers.google.com/recaptcha/old/docs/aspnet[Using reCAPTCHA with ASP.NET ].
 
-. [[r3]] link:../../../rules/237/[REQ.237 Establecer acciones de usuario seguras].
+. [[r3]] link:../../../products/rules/list/237/[REQ.237 Establecer acciones de usuario seguras].

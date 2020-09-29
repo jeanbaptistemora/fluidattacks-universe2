@@ -200,4 +200,4 @@ los eventos que tengan una mayor o igual jerarquía del nivel +INFO+.
 
 . [[r1]] link:https://docs.oracle.com/javase/7/docs/api/java/util/logging/LogManager.html[Class LogManager]
 . [[r2]] link:https://docs.oracle.com/cd/E50629_01/wls/WLAPI/com/bea/logging/LogLevel.html[Class LogLevel]
-. [[r3]] link:../../../rules/075/[REQ.075 Registrar eventos en bitácoras]
+. [[r3]] link:../../../products/rules/list/075/[REQ.075 Registrar eventos en bitácoras]

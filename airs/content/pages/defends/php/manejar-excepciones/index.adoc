@@ -146,4 +146,4 @@ Puede ver más información al respecto [button]#link:../../java/evitar-codigo-d
 
 . [[r1]] link:http://php.net/manual/es/class.exception.php[Class Exception]
 . [[r2]] link:http://php.net/exceptions[Exceptions]
-. [[r3]] link:../../../rules/277/[REQ.277 Información de servicios inaccesible]
+. [[r3]] link:../../../products/rules/list/277/[REQ.277 Información de servicios inaccesible]

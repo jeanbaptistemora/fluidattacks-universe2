@@ -393,4 +393,4 @@ but it does not work against local access.
 
 If you want more information about protections against SSRF,
 you can check link:https://cheatsheetseries.owasp.org/cheatsheets/Server_Side_Request_Forgery_Prevention_Cheat_Sheet.html[OWASP]
-or our [inner]#link:../../rules/#architecture[rules]#.
+or our [inner]#link:../../products/rules/list/#architecture[rules]#.

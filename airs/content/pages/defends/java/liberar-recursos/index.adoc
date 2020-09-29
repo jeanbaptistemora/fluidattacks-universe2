@@ -171,4 +171,4 @@ Clase Main.
 . [[r1]] link:https://docs.oracle.com/javase/tutorial/essential/exceptions/finally.html[The finally Block]
 . [[r2]] link:http://cwe.mitre.org/data/definitions/772.html[CWE-772: Missing Release of Resource after Effective Lifetime]
 . [[r3]] link:http://cwe.mitre.org/data/definitions/404.html[CWE-404: Improper Resource Shutdown or Release]
-. [[r4]] link:../../../rules/167/[REQ.167 Cerrar recursos no utilizados]
+. [[r4]] link:../../../products/rules/list/167/[REQ.167 Cerrar recursos no utilizados]

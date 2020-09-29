@@ -95,4 +95,4 @@ image::rename-admin.png["Modificación de usuario administrador"]
 
 . [[r2]] link:https://www.howtogeek.com/howto/6754/rename-the-guest-account-in-windows-7-for-enhanced-security/[Rename the Guest Account in Windows 7 for Enhanced Security].
 
-. [[r3]] link:../../../rules/142/[REQ.142 Modificar credenciales de acceso por defecto].
+. [[r3]] link:../../../products/rules/list/142/[REQ.142 Modificar credenciales de acceso por defecto].

@@ -90,6 +90,6 @@ se encuentren deshabilitados:
 
 == Referencias
 
-. [[r1]] link:../../../rules/267/[REQ.267 Deshabilitar funciones innecesarias]
+. [[r1]] link:../../../products/rules/list/267/[REQ.267 Deshabilitar funciones innecesarias]
 . [[r2]] link:https://es.wikipedia.org/wiki/Puerto_(inform%C3%A1tica)[Puerto (informática)].
 . [[r3]] link:https://support.microsoft.com/es-co/help/813878/how-to-block-specific-network-protocols-and-ports-by-using-ipsec[Deshabilitar protocolos y puertos].

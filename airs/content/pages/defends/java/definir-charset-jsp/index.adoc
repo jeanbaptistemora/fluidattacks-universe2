@@ -101,5 +101,5 @@ como en letra minúscula.
 . [[r1]] link:https://en.wikipedia.org/wiki/Character_encoding#Character_sets,_character_maps_and_code_pages[Character encoding]
 . [[r2]] link:https://docs.oracle.com/cd/E28280_01/bi.1111/b32121/pbr_nls003.htm#RSPUB23729[Specifying a Character Set in a JSP]
 . [[r3]] link:https://docs.oracle.com/cd/B10002_01/generic.903/a97681/jspprim.htm[JSP Primer]
-. [[r4]] link:../../../rules/043/[REQ.043 Definir content type explícito]
-. [[r5]] link:../../../rules/044/[REQ.044 Definir charset explícito]
+. [[r4]] link:../../../products/rules/list/043/[REQ.043 Definir content type explícito]
+. [[r5]] link:../../../products/rules/list/044/[REQ.044 Definir charset explícito]

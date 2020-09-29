@@ -123,4 +123,4 @@ se debe usar el contexto de las aplicaciones web.
 
 . [[r1]] link:http://tomcat.apache.org/tomcat-6.0-doc/config/context.html#Context_Parameters[Apache Tomcat Configuration Reference]
 . [[r2]] link:https://www.petefreitag.com/item/764.cfm[Setting up HTTPOnly Session Cookies for ColdFusion]
-. [[r3]] link:../../../rules/029/[REQ.029 Cookies con atributos de seguridad]
+. [[r3]] link:../../../products/rules/list/029/[REQ.029 Cookies con atributos de seguridad]

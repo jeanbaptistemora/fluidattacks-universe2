@@ -15,13 +15,13 @@ As a security company,
   [inner]#link:../about-us/values/[here]#);
 - developing products
   that comply with the highest worldwide
-  [inner]#link:../rules/[security standards]#;
+  [inner]#link:../products/rules/list/[security standards]#;
 - acquiring only
-  [inner]#link:../rules/262/[compliant services and products for internal use]#;
+  [inner]#link:../products/rules/list/262/[compliant services and products for internal use]#;
 - implementing best security practices within our organization;
 - being completely transparent with our clients,
   especially regarding their data:
-  [inner]#link:../rules/315/[how we use it, and what we do to protect it]#.
+  [inner]#link:../products/rules/list/315/[how we use it, and what we do to protect it]#.
 
 These concerns,
 conceived since the early days of the company,
@@ -92,7 +92,7 @@ to keep confidential information always protected.
 
 All our applications and services have
 industry-standard
-[inner]#link:../rules/224/[encryption at rest]#.
+[inner]#link:../products/rules/list/224/[encryption at rest]#.
 
 - All the sensitive data provided by our clients
   (Repository access keys, VPN credentials, etc.)
@@ -101,8 +101,8 @@ industry-standard
   This algorithm is based on Advanced Encryption Standard (AES)
   in Galois Counter Mode (GCM)
   with
-  [inner]#link:../rules/150/[256-bit]#
-  [inner]#link:../rules/145/[private keys]#.
+  [inner]#link:../products/rules/list/150/[256-bit]#
+  [inner]#link:../products/rules/list/145/[private keys]#.
   AES256 is the
   link:https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.197.pdf[US government standard]
   encryption algorithm
@@ -114,7 +114,7 @@ industry-standard
   hashes.
 - All our clients' repositories are
   stored in private,
-  [inner]#link:../rules/185/[AES256 ciphered]#
+  [inner]#link:../products/rules/list/185/[AES256 ciphered]#
   redundant data centers.
 - Forces exploits are stored encrypted using AES256 keys.
 - All
@@ -143,11 +143,11 @@ industry-standard
 
 All our applications and services have
 industry-standard
-[inner]#link:../rules/224/[encryption in transit]#.
+[inner]#link:../products/rules/list/224/[encryption in transit]#.
 
 - The [inner]#link:../../[Fluid Attacks]# domain
   uses the latest
-  [inner]#link:../rules/181/[TLSv1.3]#
+  [inner]#link:../products/rules/list/181/[TLSv1.3]#
   cryptographic protocol for maximum in transit protection.
 - We maintain an SSL A+ score from
   link:https://www.ssllabs.com/ssltest/analyze.html?d=fluidattacks.com&latest[SSL Labs].
@@ -164,7 +164,7 @@ industry-standard
 - <<EPH, Ephemeral environments>>
   always bring a digital certificate,
   validated with ACME protocol,
-  and [inner]#link:../rules/092/[not self-signed]#.
+  and [inner]#link:../products/rules/list/092/[not self-signed]#.
 
 === 2.3 Continuous hacking to our technology
 
@@ -178,7 +178,7 @@ All our development projects run
 pipelines,
 including Forces exploits and strict linters,
 to ensure that
-[inner]#link:../rules/155/[no known vulnerabilities]#
+[inner]#link:../products/rules/list/155/[no known vulnerabilities]#
 are released to production.
 
 === 2.4 All our hired personnel must accept an NDA
@@ -228,11 +228,11 @@ The only personal information we store of our clients is
 
 It is also worth noting that once users lose their
 corporate email,
-[inner]#link:../rules/114/[they also lose access]#
+[inner]#link:../products/rules/list/114/[they also lose access]#
 to their
 [inner]#link:../products/integrates[Integrates]#
 account. Clients can
-[inner]#link:../rules/034/[easily manage]#
+[inner]#link:../products/rules/list/034/[easily manage]#
 who has and who does not have access to
 their projects.
 
@@ -247,19 +247,19 @@ not know any of the passwords of the managed applications;
 they only know their own IAM passphrase.
 Once they log in to IAM,
 they can access applications
-[inner]#link:../rules/096/[assigned to them]#.
+[inner]#link:../products/rules/list/096/[assigned to them]#.
 
 Some of our IAM specifications and requirements are listed below:
 
-- [inner]#link:../rules/132/[Passphrases instead of passwords]#
+- [inner]#link:../products/rules/list/132/[Passphrases instead of passwords]#
   (more information [inner]#link:../blog/requiem-password/[here]#).
-- [inner]#link:../rules/130/[Passphrases expire every 30 days]#.
+- [inner]#link:../products/rules/list/130/[Passphrases expire every 30 days]#.
 - Previous passphrases can only be reused after a
-  [inner]#link:../rules/129/[24 reset cycle]#.
-- [inner]#link:../rules/328/[Multi-factor authentication]# (MFA)
+  [inner]#link:../products/rules/list/129/[24 reset cycle]#.
+- [inner]#link:../products/rules/list/328/[Multi-factor authentication]# (MFA)
   from a mobile device must be set.
 - Our MFA uses
-  [inner]#link:../rules/153/[OOB]#,
+  [inner]#link:../products/rules/list/153/[OOB]#,
   a mechanism that transports all the MFA data
   through a different channel than the application's channel itself.
   Text messages and emails are examples of OOB.
@@ -273,7 +273,7 @@ Some of our IAM specifications and requirements are listed below:
   by only having our IAM active account.
   No passwords or users are needed.
 - In case a mobile phone supports
-  [inner]#link:../rules/231/[biometric authentication]#,
+  [inner]#link:../products/rules/list/231/[biometric authentication]#,
   our IAM enforces its usage.
 - All successful sessions have a duration of 9 hours.
 
@@ -292,7 +292,7 @@ Signatures can be found on the repository commit histories linked in the
 Authorization refers to the ability to give users
 within an application
 the
-[inner]#link:../rules/186/[minimum privileges]#
+[inner]#link:../products/rules/list/186/[minimum privileges]#
 they need to do their work.
 No users should be allowed
 to do what they should not.
@@ -301,16 +301,16 @@ to do what they should not.
 
 [inner]#link:../products/integrates[Integrates]#
 has a set of
-[inner]#link:../rules/096/[roles]#
+[inner]#link:../products/rules/list/096/[roles]#
 that are necessary for every hacking project.
 Once the client decides
 which members of her team
 should be *_project managers_*,
 `Fluid Attacks` assigns the roles to them,
 providing them with the
-[inner]#link:../rules/035/[ability to assign]#
+[inner]#link:../products/rules/list/035/[ability to assign]#
 the
-[inner]#link:../rules/186/[minimum required permissions]#
+[inner]#link:../products/rules/list/186/[minimum required permissions]#
 to other members of their team.
 Some of the available roles are
 _hacker_, _admin_, _releaser_, _escaper_,
@@ -343,14 +343,14 @@ Some examples are as follows:
 - *IAM:*
   It is possible to give application access at the user level,
   which allows us to give employees access
-  [inner]#link:../rules/176/[only to what they need]#
+  [inner]#link:../products/rules/list/176/[only to what they need]#
   to execute their tasks.
-  [inner]#link:../rules/034/[Giving or removing access to applications]#
+  [inner]#link:../products/rules/list/034/[Giving or removing access to applications]#
   is simple, and no users/passwords are leaked.
 
 === 4.3 Secret rotation
 
-[inner]#link:../rules/130/[Key rotation]#
+[inner]#link:../products/rules/list/130/[Key rotation]#
 is essential when dealing with
 sensitive data. The best way to prevent a key leakage is by
 changing the keys regularly. We continuously rotate
@@ -360,7 +360,7 @@ changing the keys regularly. We continuously rotate
 - *JWT Tokens:*
   They rotate daily;
 - *Digital Certificates:*
-  They rotate [inner]#link:../rules/089/[every three months]#;
+  They rotate [inner]#link:../products/rules/list/089/[every three months]#;
 - *IAM passphrases:*
   They rotate every three months.
 
@@ -429,7 +429,7 @@ which brings advantages such as the following:
 - Employees without direct access to the project
   do not know the client's name or any other information
   that can help them to
-  [inner]#link:../rules/313/[connect the project with the client]#.
+  [inner]#link:../products/rules/list/313/[connect the project with the client]#.
 - Internal analytics charts and other documents
   never use the client's name; they use the project's pseudonym.
 
@@ -510,9 +510,9 @@ module that
 By doing this, we become compliant with
 security rules such as the following:
 
-- [inner]#link:../rules/310/[Request user consent]#
-- [inner]#link:../rules/312/[Allow user consent revocation]#
-- [inner]#link:../rules/315/[Provide processed data information]#
+- [inner]#link:../products/rules/list/310/[Request user consent]#
+- [inner]#link:../products/rules/list/312/[Allow user consent revocation]#
+- [inner]#link:../products/rules/list/315/[Provide processed data information]#
 
 === 5.5 Data policies
 
@@ -534,11 +534,11 @@ can be deleted from
 [inner]#link:../products/integrates[Integrates]#
 by a user with a *_project manager_* role.
 Once this action is performed,
-a 30 days [inner]#link:../rules/317/[deletion window]# begins.
+a 30 days [inner]#link:../products/rules/list/317/[deletion window]# begins.
 Any *_project manager_* can undo the deletion action.
 After the 30 days waiting period, the project source code,
 secrets, metadata, and other project-related
-[inner]#link:../rules/183/[data are completely removed]#
+[inner]#link:../products/rules/list/183/[data are completely removed]#
 from all our systems.
 
 === 5.6 OTR Messaging
@@ -549,7 +549,7 @@ and
 link:https://en.wikipedia.org/wiki/End-to-end_encryption[E2EE]
 for communication within the organization.
 Also, all chat histories
-[inner]#link:../rules/183/[are reset every week]#
+[inner]#link:../products/rules/list/183/[are reset every week]#
 as an extra measure to avoid leaks.
 
 === 5.7 Employee time tracking software
@@ -739,16 +739,16 @@ No hardware maintenance is needed
 as a third party does it.
 No local networks are used.
 We only use Wifi connections with
-[inner]#link:../rules/253/[strong random generated passwords]#
+[inner]#link:../products/rules/list/253/[strong random generated passwords]#
 with the sole purpose of accessing the Internet.
 Connections are always encrypted
-[inner]#link:../rules/252/[using WPA2-AES]#.
+[inner]#link:../products/rules/list/252/[using WPA2-AES]#.
 
 === 8.3 Own equipment and ready for telecommuting
 
 link:https://en.wikipedia.org/wiki/Bring_your_own_device[BYOD] is not allowed.
 Every employee receives a computer with a password-secured BIOS,
-link:https://docs.microsoft.com/en-us/windows/security/information-protection/tpm/trusted-platform-module-overview[TPM] hardware, and [inner]#link:../rules/231/[biometric fingerprint reader]#.
+link:https://docs.microsoft.com/en-us/windows/security/information-protection/tpm/trusted-platform-module-overview[TPM] hardware, and [inner]#link:../products/rules/list/231/[biometric fingerprint reader]#.
 Going to the office is the rule,
 but employees can always fill out an exception form
 to telework in case they need to.
@@ -881,9 +881,9 @@ brings the following advantages:
 
 The infrastructure code can be audited,
 and changes can only be made by
-[inner]#link:../rules/265/[changing such code]#.
+[inner]#link:../products/rules/list/265/[changing such code]#.
 This provides full transparency on
-[inner]#link:../rules/046/[what was changed, when, and who did it]#.
+[inner]#link:../products/rules/list/046/[what was changed, when, and who did it]#.
 Also, no administrative protocols like ssh
 or administrative accounts are needed.
 

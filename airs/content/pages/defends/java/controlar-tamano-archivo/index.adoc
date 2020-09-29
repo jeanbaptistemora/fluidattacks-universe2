@@ -199,6 +199,6 @@ permitted size of 5242880 characters.
 
 == Referencias
 
-. [[r1]] link:../../../rules/039/[REQ.039 Establecer tamaño máximo de archivos].
+. [[r1]] link:../../../products/rules/list/039/[REQ.039 Establecer tamaño máximo de archivos].
 . [[r2]] link:https://docs.oracle.com/javaee/6/tutorial/doc/glrbb.html[The Java EE 6 Tutorial].
 . [[r3]] link:http://www.codejava.net/java-ee/servlet/apache-commons-fileupload-example-with-servlet-and-jsp[Apache Commons FileUpload Example with Servlet and JSP].

@@ -162,4 +162,4 @@ todas las instrucciones +C#+ del programa.
 
 . [[r1]] link:http://palpapers.plynt.com/issues/2010Apr/secure-coding-aspdotnet-p2/[Palpapers, securecodingaspdotnet]
 . [[r2]] link:http://www.owasp.org/index.php/Cross-Site_Request_Forgery_(CSRF)_Prevention_Cheat_Sheet[OWASP, Cross-SiteRequestForgery(CSRF) Prevention Cheat Sheet]
-. [[r3]] link:../../../rules/174/[REQ.174 Transacciones sin patrón discernible]
+. [[r3]] link:../../../products/rules/list/174/[REQ.174 Transacciones sin patrón discernible]

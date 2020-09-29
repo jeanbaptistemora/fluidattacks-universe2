@@ -219,4 +219,4 @@ Clase ConnectionPoolFSG.
 . [[r2]] link:http://people.apache.org/~fhanik/jdbc-pool/jdbc-pool.html[The Tomcat JDBC Connection Pool]
 . [[r3]] link:http://www.tomcatexpert.com/blog/2010/03/22/understanding-jdbc-pool-performance-improvements[Understanding the jdbc-pool]
 . [[r4]] link:http://www.tomcatexpert.com/blog/2010/04/01/configuring-jdbc-pool-high-concurrency[Configuring jdbc-pool]
-. [[r5]] link:../../../rules/152/[REQ.152 Reutilizar conexiones a bases de datos]
+. [[r5]] link:../../../products/rules/list/152/[REQ.152 Reutilizar conexiones a bases de datos]

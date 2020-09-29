@@ -81,4 +81,4 @@ que pueden utilizarse para generar bitácoras con detalle condicional:
 . [[r1]] link:http://logging.apache.org/log4j/1.2/index.html[Apache Log4J].
 . [[r2]] link:http://logging.apache.org/log4net/index.html[Apache Log4Net].
 . [[r3]] link:https://linux.die.net/man/3/syslog[SYSLOG].
-. [[r4]] link:../../../rules/076/[REQ.076 Registrar niveles de severidad de eventos].
+. [[r4]] link:../../../products/rules/list/076/[REQ.076 Registrar niveles de severidad de eventos].

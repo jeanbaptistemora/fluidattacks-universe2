@@ -118,4 +118,4 @@ else
 
 . [[r1]] link:http://www.yiiframework.com/wiki/56/[YII]
 . [[r2]] link:http://yiiframeworkespanol.blogspot.com.co/2014/05/validacion-de-formularios.html[Validación de formularios]
-. [[r3]] link:../../../rules/173/[REQ.173 Descartar información insegura]
+. [[r3]] link:../../../products/rules/list/173/[REQ.173 Descartar información insegura]

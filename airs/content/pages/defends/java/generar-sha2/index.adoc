@@ -164,4 +164,4 @@ Clase CLI.
 . [[r1]] link:https://docs.oracle.com/javase/6/docs/api/javax/xml/bind/DatatypeConverter.html[Class DatatypeConverter]
 . [[r2]] link:https://wiki.sei.cmu.edu/confluence/display/java/MSC02-J.+Generate+strong+random+numbers[MSC02-J. Generate strong random numbers]
 . [[r3]] link:https://www.owasp.org/index.php/Hashing_Java[Hashing Java]
-. [[r4]] link:../../../rules/127/[REQ.127 Almacenar contraseña mediante criptografía]
+. [[r4]] link:../../../products/rules/list/127/[REQ.127 Almacenar contraseña mediante criptografía]

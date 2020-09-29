@@ -133,5 +133,5 @@ todas las instrucciones +C#+ del programa.
 
 == Referencias
 
-. [[r1]] link:../../../rules/078/[REQ.078 Eventos con severidad deshabilitados].
+. [[r1]] link:../../../products/rules/list/078/[REQ.078 Eventos con severidad deshabilitados].
 . [[r2]] link:http://msdn.microsoft.com/en-us/library/gg145030.aspx[System.Diagnostics Namespaces].

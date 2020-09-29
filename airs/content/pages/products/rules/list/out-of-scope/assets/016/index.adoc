@@ -1,0 +1,14 @@
+:slug: products/rules/list/016/
+:category: assets
+:description: The objective of this security requirement is to highlight the importance of correcting the vulnerabilities detected in information assets.
+:keywords: Requirement, Security, Assets, Information, Correction, Vulnerabilities, Rules, Ethical Hacking, Pentesting
+:rules: yes
+:extended: yes
+
+= R016. Ensure correction of vulnerabilities
+
+== Requirement
+
+The organization must ensure that each of the identified vulnerabilities
+in the information assets is corrected,
+and that the correction of each one is checked.

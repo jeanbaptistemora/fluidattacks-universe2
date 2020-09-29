@@ -1,0 +1,41 @@
+:slug: products/rules/list/359/
+:category: source
+:description: This requirement establishes the importance of using catching exceptions with specific types.
+:keywords: Exception, Error, Catch, Generic, Type, ASVS, CWE, Rules, Ethical Hacking, Pentesting
+:rules: yes
+
+= R359. Avoid using generic exceptions
+
+== Requirement
+
+The system should use typified exceptions instead of generic exceptions.
+
+== Description
+
+Catching generic exceptions obscures the problem that caused the error and
+promotes a generic way to handle different categories or sources of error.
+This may cause security vulnerabilities to materialize,
+as some special flows go unnoticed.
+
+== Findings
+
+* [inner]#link:/findings/060/[F060. Insecure exceptions]#
+
+== Rereferences
+
+. [[r1]] link:https://cwe.mitre.org/data/definitions/396.html[CWE-396: Declaration of Catch for Generic Exception].
+Catching overly broad exceptions promotes complex error handling code that is
+more likely to contain security vulnerabilities.
+
+. [[r2]] link:https://cwe.mitre.org/data/definitions/397.html[CWE-397: Declaration of Throws for Generic Exception].
+Throwing overly broad exceptions promotes complex error handling code that is
+more likely to contain security vulnerabilities.
+
+. [[r3]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V4.1 General Access Control Design.(4.1.5)]
+Verify that access controls fail securely including when an exception occurs.
+
+. [[r4]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V7.4 Error Handling.(7.4.2)]
+Verify that exception handling (or a functional equivalent) is used across the
+codebase to account for expected and unexpected error conditions.

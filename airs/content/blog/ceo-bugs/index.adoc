@@ -134,7 +134,7 @@ to attacks (controlled, of course) to production environments.
 We centralize every security hole in [inner]#link:../../products/integrates/[Integrates]#,
 our Vulnerability Management System.
 And along with processes and technology,
-our [inner]#link:../../rules/[Rules]# act as unifying chain;
+our [inner]#link:../../products/rules/list/[Rules]# act as unifying chain;
 a criteria to classify findings
 so customers can quickly identify and decide
 where to start fixing defects.

@@ -1,0 +1,136 @@
+:slug: products/rules/list/178/
+:category: data
+:description: This requirement establishes the importance of using digital signatures to guarantee the authenticity of the information.
+:keywords: Data, Digital Signatures, Authenticity, Information, ASVS, CAPEC, CWE, ISO, Rules, Ethical Hacking, Pentesting
+:rules: yes
+
+= R178. Use digital signatures
+
+== Requirement
+
+The system must use digital signatures
+to ensure the authenticity of sensitive information.
+
+== Description
+
+A digital signature is a cryptographic mechanism that helps identify the sender
+of a message, and guarantee its authenticity and integrity.
+It should be used when dealing with very sensitive information or with
+data and resources that are susceptible to being affected by third parties.
+
+== Findings
+
+* [inner]#link:/findings/086/[F086. Missing subresource integrity check]#
+
+* [inner]#link:/findings/103/[F103. Insufficient data authenticity validation]#
+
+== References
+
+. [[r1]] link:http://capec.mitre.org/data/definitions/21.html[CAPEC-21: Exploitation of Trusted Identifiers].
+An adversary guesses, obtains, or "rides" a trusted identifier
+(e.g. session ID, resource ID, cookie, etc.) to perform authorized actions
+under the guise of an authenticated user or service.
+Attacks on trusted identifiers take advantage of the fact that some software
+accepts user input without verifying its authenticity.
+
+. [[r2]] link:http://capec.mitre.org/data/definitions/22.html[CAPEC-22: Exploiting Trust in Client].
+An attack of this type exploits vulnerabilities in client/server communication
+channel authentication and data integrity.
+It leverages the implicit trust a server places in the client,
+or more importantly, that which the server believes is the client.
+
+. [[r3]] link:https://cwe.mitre.org/data/definitions/326.html[CWE-326: Inadequate Encryption Strength]
+The software stores or transmits sensitive data using an encryption scheme that
+is theoretically sound,
+but is not strong enough for the level of protection required.
+
+. [[r4]] link:https://cwe.mitre.org/data/definitions/345.html[CWE-345: Insufficient Verification of Data Authenticity]
+The software does not sufficiently verify the origin or authenticity of data,
+in a way that causes it to accept invalid data.
+
+. [[r5]] link:https://cwe.mitre.org/data/definitions/347.html[CWE-347: Improper Verification of Cryptographic Signature]
+The software does not verify, or incorrectly verifies,
+the cryptographic signature for data.
+
+. [[r6]] link:https://cwe.mitre.org/data/definitions/494.html[CWE-494: Download of Code Without Integrity Check]
+The product downloads source code or an executable from a remote location and
+executes the code without sufficiently verifying the origin and integrity of
+the code.
+
+. [[r7]] link:https://www.iso.org/obp/ui/#iso:std:54534:en[ISO 27001:2013. Annex A - 14.1.3]
+Protect information included in application services transactions to avoid
+partial transmission, improper routing, unauthorized message modifications,
+unauthorized disclosure and unauthorized message duplication or replay.
+
+. [[r8]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+Appendix C: Internet of Things Verification Requirements.(C.8)]
+Verify that the firmware apps validate the digital signature of server
+connections.
+
+. [[r9]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+Appendix C: Internet of Things Verification Requirements.(C.15)]
+Verify that the firmware apps pin the digital signature to a trusted server(s).
+
+. [[r10]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+Appendix C: Internet of Things Verification Requirements.(C.16)]
+Verify the presence of tamper resistance and/or tamper detection features.
+
+. [[r11]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+Appendix C: Internet of Things Verification Requirements.(C.19)]
+Verify the device validates the boot image signature before loading.
+
+. [[r12]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+Appendix C: Internet of Things Verification Requirements.(C.21)]
+Verify the device uses code signing and validates firmware upgrade files before
+installing.
+
+. [[r13]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+Appendix C: Internet of Things Verification Requirements.(C.30)]
+Verify the device uses code signing and validates code before execution.
+
+. [[r14]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V1.14 Configuration Architectural Requirements.(1.14.2)]
+Verify that deploying binaries to untrusted devices makes use of binary
+signatures, trusted connections, and verified endpoints.
+
+. [[r15]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V3.5 Token-based Session Management.(3.5.3)]
+Verify that stateless session tokens use digital signatures, encryption, and
+other countermeasures to protect against tampering, enveloping, replay,
+null cipher, and key substitution attacks.
+
+. [[r16]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V6.2 Algorithms.(6.2.7)]
+Verify that encrypted data is authenticated via signatures, authenticated
+cipher modes, or *HMAC* to ensure that ciphertext is not altered by an
+unauthorized party.
+
+. [[r17]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V10.3 Deployed Application Integrity Controls.(10.3.1)]
+Verify that if the application has a client or server auto-update feature,
+updates should be obtained over secure channels and digitally signed.
+The update code must validate the digital signature of the update before
+installing or executing the update.
+
+. [[r18]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V10.3 Deployed Application Integrity Controls.(10.3.2)]
+Verify that the application employs integrity protections,
+such as code signing or sub-resource integrity.
+The application must not load or execute code from untrusted sources,
+such as loading includes, modules, plugins, code, or libraries from untrusted
+sources or the Internet.
+
+. [[r19]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V13.2 RESTful Web Service Verification Requirements.(13.2.5)]
+Verify that the message headers and payload are trustworthy and not modified
+in transit.
+Requiring strong encryption for transport (*TLS* only) may be sufficient in
+many cases as it provides both confidentiality and integrity protection.
+Per-message digital signatures can provide additional assurance on top of the
+transport protections for high-security applications but bring with them
+additional complexity and risks to weigh against the benefits.
+
+. [[r20]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V13.3 SOAP Web Service Verification Requirements.(13.3.2)]
+Verify that the message payload is signed using *WS-Security* to ensure
+reliable transport between client and service.

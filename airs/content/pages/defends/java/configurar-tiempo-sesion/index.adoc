@@ -87,7 +87,7 @@ de la siguiente manera ^<<r4,[4]>>^:
 
 == Referencias
 
-. [[r1]] link:../../../rules/023/[REQ.023 Cerrar sesión de un usuario inactivo].
+. [[r1]] link:../../../products/rules/list/023/[REQ.023 Cerrar sesión de un usuario inactivo].
 . [[r2]] link:https://docs.oracle.com/javaee/1.4/tutorial/doc/[The J2EETrademarked 1.4 Tutorial].
 . [[r3]] link:https://docs.oracle.com/javaee/1.4/api/javax/servlet/http/HttpSession.html[Interface HttpSession].
 . [[r4]] link:http://lineadecodigo.com/java/modificar-time-out-de-sesion/[Modificar time-out de sesión].

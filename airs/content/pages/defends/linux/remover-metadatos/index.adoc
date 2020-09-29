@@ -133,4 +133,4 @@ se repiten los pasos anteriores utilizando la extensión deseada.
 . [[r1]] link:https://mat.boum.org/[Metadata Anonymisation Toolkit(Mat)].
 . [[r2]] link:https://www.welivesecurity.com/la-es/2014/05/13/metadatos-fotos-podrian-mostrar-mas/[ESET - Metadatos: tus fotos podrían mostrar más de lo que ves].
 . [[r3]] link:https://opendatasecurity.io/es/que-revelan-los-metadatos-en-las-fotos/[Open Data Security - ¿Qué revelan los metadatos en las fotos?].
-. [[r4]] link:../../../rules/045/[REQ.045 Eliminar metadatos al compartir archivos].
+. [[r4]] link:../../../products/rules/list/045/[REQ.045 Eliminar metadatos al compartir archivos].

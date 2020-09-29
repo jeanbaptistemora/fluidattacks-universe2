@@ -241,4 +241,4 @@ Clase CLI.
 . [[r2]] link:https://es.wikipedia.org/wiki/Control_de_Acceso_Discrecional[Control de Acceso Discrecional]
 . [[r3]] link:https://docs.oracle.com/cd/E24842_01/html/E23286/rbac-1.html[Control de acceso basado en roles]
 . [[r4]] link:https://en.wikipedia.org/wiki/Mandatory_access_control[Mandatory access control]
-. [[r5]] link:../../../rules/176/[REQ.176 Restringir objetos del sistema]
+. [[r5]] link:../../../products/rules/list/176/[REQ.176 Restringir objetos del sistema]

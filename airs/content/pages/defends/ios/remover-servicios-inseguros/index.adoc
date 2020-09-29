@@ -211,8 +211,8 @@ Switch(config)# no vtp pruning
 
 . [[r2]] link:https://www.nsa.gov/what-we-do/information-assurance/[Cisco IOS Switch Security Configuration Guide]
 
-. [[r3]] link:../../../rules/266/[REQ.266 Deshabilitar funciones inseguras].
+. [[r3]] link:../../../products/rules/list/266/[REQ.266 Deshabilitar funciones inseguras].
 
-. [[r4]] link:../../../rules/267/[REQ.267 Deshabilitar funciones innecesarias].
+. [[r4]] link:../../../products/rules/list/267/[REQ.267 Deshabilitar funciones innecesarias].
 
-. [[r5]] link:../../../rules/275/[REQ.275 Establecer inicio por defecto].
+. [[r5]] link:../../../products/rules/list/275/[REQ.275 Establecer inicio por defecto].

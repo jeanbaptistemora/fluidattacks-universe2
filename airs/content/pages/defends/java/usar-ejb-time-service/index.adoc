@@ -176,4 +176,4 @@ Clase TimeServlet.
 . [[r1]] link:http://cwe.mitre.org/data/definitions/383.html[CWE-383: J2EE Bad Practices: Direct Use of Threads]
 . [[r2]] link:http://cwe.mitre.org/data/definitions/381.html[CWE CATEGORY: J2EE Time and State Issues]
 . [[r3]] link:https://docs.oracle.com/javaee/6/api/javax/ejb/TimerService.html[javax.ejb Interface TimerService]
-. [[r4]] link:../../../rules/158/[REQ.158 Codificación Actualizada]
+. [[r4]] link:../../../products/rules/list/158/[REQ.158 Codificación Actualizada]

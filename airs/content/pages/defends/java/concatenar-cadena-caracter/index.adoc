@@ -129,4 +129,4 @@ con +4GB+ de memoria +RAM+.
 . [[r2]] link:http://www-01.ibm.com/software/webservers/appserv/ws_bestpractices.pdf[Best Practices for Performance]
 . [[r3]] link:https://docs.oracle.com/javase/7/docs/api/java/lang/StringBuilder.html[Class StringBuilder]
 . [[r4]] link:http://www.precisejava.com/javaperf/j2se/StringAndStringBuffer.htm#Strings104[Optimization techniques when Concatenating Strings]
-. [[r5]] link:../../../rules/164/[REQ.164 Utilizar estructuras optimizadas]
+. [[r5]] link:../../../products/rules/list/164/[REQ.164 Utilizar estructuras optimizadas]

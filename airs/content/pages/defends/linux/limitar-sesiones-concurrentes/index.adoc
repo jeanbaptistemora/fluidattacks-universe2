@@ -126,7 +126,7 @@ y por tanto, no admite la nueva conexión.
 
 == Referencias
 
-. [[r1]] link:../../../rules/025/[REQ.025 Controlar sesiones concurrentes].
+. [[r1]] link:../../../products/rules/list/025/[REQ.025 Controlar sesiones concurrentes].
 . [[r2]] link:https://es.wikipedia.org/wiki/GNU/Linux[GNU/Linux].
 . [[r3]] link:https://es.wikipedia.org/wiki/Multiusuario[Multiusuario].
 . [[r4]] link:https://www.hardmaniacos.com/sesiones-remotas-en-linux/[Sesiones remotas en Linux].

@@ -124,4 +124,4 @@ validando así la identidad del usuario como humano.
 
 . [[r1]] link:http://www.yiiframework.com/extension/recaptcha/[Yii Framework reCAPTCHA extension].
 
-. [[r2]] link:../../../rules/237/[REQ.237 Establecer acciones de usuario seguras].
+. [[r2]] link:../../../products/rules/list/237/[REQ.237 Establecer acciones de usuario seguras].

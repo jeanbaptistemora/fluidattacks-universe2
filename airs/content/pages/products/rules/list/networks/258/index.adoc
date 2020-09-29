@@ -1,0 +1,13 @@
+:slug: products/rules/list/258/
+:category: networks
+:description: This requirement establishes the importance of restricting the content of certain websites using a custom proxy configuration.
+:keywords: Security, Requirement, Content, Filter, Proxy, Network, Rules, Ethical Hacking, Pentesting
+:rules: yes
+
+= R258. Filter website content
+
+== Requirement
+
+The organization must filter the content of websites
+accessed from a location belonging to the same entity
+(Output +Proxy+).

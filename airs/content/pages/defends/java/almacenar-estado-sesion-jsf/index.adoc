@@ -89,4 +89,4 @@ image::sesion.png[uso variables de sesion]
 
 . [[r1]] link:http://www.javadocexamples.com/javax/faces/context/ExternalContext/getSessionMap().html[Demos and Usage]
 . [[r2]] link:http://www.javamexico.org/foros/comunidad/manejo_de_session_en_jsf_20[Manejo de session en JSF 2.0]
-. [[r3]] link:../../../rules/024/[REQ.024 Transferir información con objetos de sesión]
+. [[r3]] link:../../../products/rules/list/024/[REQ.024 Transferir información con objetos de sesión]

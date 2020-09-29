@@ -146,4 +146,4 @@ gracias a que las comillas simples fueron escapadas.
 . [[r2]] link:https://www.owasp.org/index.php/XSS_(Cross_Site_Scripting)_Prevention_Cheat_Sheet[XSS Prevention Cheat Sheet]
 . [[r3]] link:https://commons.apache.org/proper/commons-lang/javadocs/api-2.6/org/apache/commons/lang/StringEscapeUtils.html[Class StringEscapeUtils]
 . [[r4]] link:http://www.java2s.com/Code/Jar/c/Downloadcommonslang331jar.htm[commons-lang3-3.1.jar]
-. [[r5]] link:../../../rules/173/[REQ.173 Descartar entradas inseguras]
+. [[r5]] link:../../../products/rules/list/173/[REQ.173 Descartar entradas inseguras]

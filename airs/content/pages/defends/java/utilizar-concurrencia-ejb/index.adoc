@@ -271,4 +271,4 @@ Clase Cliente.
 
 . [[r1]] link:https://docs.oracle.com/cd/E11035_01/wls100/ejb30/index.html[Programming WebLogic Enterprise JavaBeans, Version 3.0]
 . [[r2]] link:http://wiki.eclipse.org/EclipseLink/Examples/JPA/WebLogic_Web_Tutorial[WebLogic Web Tutorial]
-. [[r3]] link:../../../rules/164/[REQ.164 Utilizar estructuras optimizadas]
+. [[r3]] link:../../../products/rules/list/164/[REQ.164 Utilizar estructuras optimizadas]

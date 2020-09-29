@@ -164,4 +164,4 @@ $ jarsigner -keystore keystore -certs -verbose -verify paquete-firmado-1.0.jar
 . [[r2]] link:https://docs.oracle.com/javase/tutorial/deployment/jar/signing.html[Signing JAR Files]
 . [[r3]] link:https://es.wikipedia.org/wiki/Java_Archive[Java Archive]
 . [[r4]] link:https://es.wikipedia.org/wiki/Certificado_digital[Certificado digital]
-. [[r5]] link:../../../rules/178/[REQ.178 Utilizar firmas digitales]
+. [[r5]] link:../../../products/rules/list/178/[REQ.178 Utilizar firmas digitales]

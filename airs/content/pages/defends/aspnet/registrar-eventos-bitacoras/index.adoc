@@ -133,6 +133,6 @@ con un nombre seguro e impleméntelo en la caché de ensamblados global.
 
 . [[r4]] link:https://msdn.microsoft.com/es-es/library/fwzzh56s(v=vs.100).aspx[Cómo: Crear controladores de eventos en las aplicaciones ASP.NET]
 
-. [[r5]] link:../../../rules/075[REQ.075 Registrar eventos en bitácoras].
+. [[r5]] link:../../../products/rules/list/075[REQ.075 Registrar eventos en bitácoras].
 
-. [[r6]] link:../../../rules/076[REQ.076 Registrar niveles de severidad de eventos].
+. [[r6]] link:../../../products/rules/list/076[REQ.076 Registrar niveles de severidad de eventos].

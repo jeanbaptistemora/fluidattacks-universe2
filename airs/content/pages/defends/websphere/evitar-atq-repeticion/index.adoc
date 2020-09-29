@@ -75,6 +75,6 @@ com.ibm.wsspi.wssecurity.token.username.verifyTimestamp
 
 == Referencias
 
-. [[r1]] link:../../../rules/030/[REQ.030 Evitar reciclaje de objetos de autenticación].
+. [[r1]] link:../../../products/rules/list/030/[REQ.030 Evitar reciclaje de objetos de autenticación].
 . [[r2]] link:https://en.wikipedia.org/wiki/Replay_attack[Wikipedia: Replay attack].
 . [[r3]] link:https://www.ibm.com/support/knowledgecenter/SSAW57_7.0.0/com.ibm.websphere.nd.multiplatform.doc/info/ae/ae/rwbs_customproperties.html[IBM WebSphere].

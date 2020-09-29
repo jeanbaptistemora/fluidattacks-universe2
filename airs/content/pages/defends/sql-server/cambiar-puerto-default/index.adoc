@@ -83,6 +83,6 @@ y reinicie los servicios de +SQL+.
 
 == Referencias
 
-. [[r1]] link:../../../rules/033/[REQ.033 Restringir acceso administrativo].
+. [[r1]] link:../../../products/rules/list/033/[REQ.033 Restringir acceso administrativo].
 . [[r2]] link:https://www.iana.org/assignments/service-names-port-numbers/service-names-port-numbers.xhtml[Service Name and Transport Protocol Port Number Registry].
 . [[r3]] link:https://docs.microsoft.com/en-us/sql/database-engine/configure-windows/configure-a-server-to-listen-on-a-specific-tcp-port?view=sql-server-2017[Configure a Server to Listen on a Specific TCP Port]

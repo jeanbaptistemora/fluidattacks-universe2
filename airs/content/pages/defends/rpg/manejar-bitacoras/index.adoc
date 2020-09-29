@@ -125,6 +125,6 @@ las condiciones de registro entre otras opciones personalizadas.
 
 . [[r1]] link:https://en.wikipedia.org/wiki/Security_log[Wikipedia - Security log].
 . [[r2]] link:https://www.mcpressonline.com/programming/rpg/job-logging-from-rpg-ivthe-easy-way[Job Logging from RPG IV--The Easy Way!].
-. [[r4]] link:../../../rules/075/[REQ.075 Registrar eventos en bitácoras].
-. [[r5]] link:../../../rules/079/[REQ.079 Registrar momento de ocurrencia de eventos].
-. [[r6]] link:../../../rules/083/[REQ.083 No registrar datos sensibles en bitácoras].
+. [[r4]] link:../../../products/rules/list/075/[REQ.075 Registrar eventos en bitácoras].
+. [[r5]] link:../../../products/rules/list/079/[REQ.079 Registrar momento de ocurrencia de eventos].
+. [[r6]] link:../../../products/rules/list/083/[REQ.083 No registrar datos sensibles en bitácoras].

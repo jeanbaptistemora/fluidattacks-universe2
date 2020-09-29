@@ -115,4 +115,4 @@ compressableMimeType="text/html,text/xml"
 
 . [[r1]] link:http://tomcat.apache.org/tomcat-5.5-doc/config/http.html[Apache Tomcat Configuration Reference]
 . [[r2]] link:https://wiki.genexus.com/commwiki/servlet/wiki?14074,Compresi%C3%B3n+HTTP,[Compresión HTTP]
-. [[r3]] link:../../../rules/181/[REQ.181 Transmitir por medio de protocolos seguros]
+. [[r3]] link:../../../products/rules/list/181/[REQ.181 Transmitir por medio de protocolos seguros]

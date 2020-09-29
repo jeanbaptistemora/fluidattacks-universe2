@@ -162,4 +162,4 @@ Puedes descargar el código fuente pulsando en el siguiente enlace:
 
 . [[r1]] link:https://docs.microsoft.com/en-us/dotnet/api/system.net.httpwebrequest?redirectedfrom=MSDN&view=netframework-4.7.2[Microsoft .NET HttpWebRequest Class].
 
-. [[r2]] link:../../../rules/181[REQ.181 Transmitir por medio de protocolos seguros].
+. [[r2]] link:../../../products/rules/list/181[REQ.181 Transmitir por medio de protocolos seguros].

@@ -100,5 +100,5 @@ para usuarios externos permitiendo el acceso
 == Referencias
 
 . [[r1]] link:https://msdn.microsoft.com/es-es/library/hh831725(v=ws.11).aspx[Introducción al servidor web (IIS)].
-. [[r2]] link:../../../rules/033/[REQ.033 Restringir acceso administrativo].
+. [[r2]] link:../../../products/rules/list/033/[REQ.033 Restringir acceso administrativo].
 . [[r3]] link:https://docs.microsoft.com/en-us/iis/configuration/system.webServer/security/ipSecurity/[IPSecurity].

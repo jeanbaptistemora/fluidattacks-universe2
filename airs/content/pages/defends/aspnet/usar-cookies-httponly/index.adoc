@@ -127,7 +127,7 @@ aparecerá +null+ en lugar del valor de la +cookie+.
 
 == Referencias
 
-. [[r1]] link:../../../rules/029/[REQ.029 Cookies con atributos de seguridad].
+. [[r1]] link:../../../products/rules/list/029/[REQ.029 Cookies con atributos de seguridad].
 
 . [[r2]] link:https://www.40defiebre.com/que-es/cookies/[¿Qué son las cookies?].
 

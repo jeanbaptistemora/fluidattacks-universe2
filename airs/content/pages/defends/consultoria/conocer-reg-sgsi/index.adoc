@@ -129,4 +129,4 @@ ley +1341+ de 2009.
 
 . [[r4]] link:http://www.alcaldiabogota.gov.co/sisjur/normas/Norma1.jsp?i=34488[Habeas data, ley +1266+ de 2008].
 
-. [[r7]] link:../../../rules/017/[REQ.017 Medio seguro para información física].
+. [[r7]] link:../../../products/rules/list/017/[REQ.017 Medio seguro para información física].

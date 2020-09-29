@@ -512,4 +512,4 @@ java.io.ObjectOutputStream.PutField.write(ObjectOutput)
 
 . [[r1]] link:https://docs.oracle.com/javase/1.5.0/docs/guide/javadoc/deprecation/deprecation.html[How and When To Deprecate APIs]
 . [[r2]] link:http://www.oracle.com/technetwork/java/faq-sun-packages-142232.html[Why Developers Should Not Write Programs That Call 'sun' Packages]
-. [[r3]] link:../../../rules/158/[REQ.158 Codificación Actualizada]
+. [[r3]] link:../../../products/rules/list/158/[REQ.158 Codificación Actualizada]

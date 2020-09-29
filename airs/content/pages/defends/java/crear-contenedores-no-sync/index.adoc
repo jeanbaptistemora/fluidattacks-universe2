@@ -120,4 +120,4 @@ Uso de clases no sincronizadas.
 . [[r3]] link:https://docs.oracle.com/javase/6/docs/api/java/util/ArrayList.html[Class ArrayList]
 . [[r4]] link:https://docs.oracle.com/javase/6/docs/api/java/lang/StringBuffer.html[Class StringBuffer]
 . [[r5]] link:https://docs.oracle.com/javase/6/docs/api/java/lang/StringBuilder.html[Class StringBuilder]
-. [[r6]] link:../../../rules/164/[REQ.164 Utilizar estructuras optimizadas]
+. [[r6]] link:../../../products/rules/list/164/[REQ.164 Utilizar estructuras optimizadas]

@@ -134,5 +134,5 @@ el anterior punto puede ser establecido de la siguiente forma:
 == Referencias
 
 . [[r1]] link:https://www.owasp.org/index.php/Top_10_2010-A10-Unvalidated_Redirects_and_Forwards[Top 10 2010-A10-Unvalidated Redirects and Forwards]
-. [[r2]] link:../../../rules/037/[REQ.037 Parámetros sin datos sensibles].
-. [[r3]] link:../../../rules/173/[REQ.173 Descartar información insegura].
+. [[r2]] link:../../../products/rules/list/037/[REQ.037 Parámetros sin datos sensibles].
+. [[r3]] link:../../../products/rules/list/173/[REQ.173 Descartar información insegura].

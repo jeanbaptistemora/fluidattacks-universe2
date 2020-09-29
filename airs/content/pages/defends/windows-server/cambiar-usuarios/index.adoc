@@ -85,4 +85,4 @@ se repite el paso anterior para el usuario +administrator+.
 
 . [[r1]] link:https://social.technet.microsoft.com/wiki/contents/articles/24962.renombrar-las-cuentas-administrador-e-invitado-en-windows-server-es-es.aspx[Renombrar las cuentas Administrador e Invitado en Windows Server].
 
-. [[r2]] link:../../../rules/142/[REQ.142 Modificar credenciales de acceso por defecto]
+. [[r2]] link:../../../products/rules/list/142/[REQ.142 Modificar credenciales de acceso por defecto]

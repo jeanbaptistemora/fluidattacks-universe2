@@ -175,4 +175,4 @@ X-Content-Type-Options: nosniff
 . [[r9]] link:http://zaynar.co.uk/docs/charset-encoding-xss.html[XSS vulnerabilities with unusual character encodings].
 . [[r10]] link:https://www.troyhunt.com/owasp-top-10-for-net-developers-part-9/[OWASP Top 10 for .NET developers: Insufficient Transport Layer Protection]
 . [[r11]] link:https://isc.sans.edu/diary/The+Security+Impact+of+HTTP+Caching+Headers/17033[The Security Impact of HTTP Caching Headers].
-. [[r12]] link:../../../rules/030/[REQ.030 Evitar reciclaje de objetos de autenticación].
+. [[r12]] link:../../../products/rules/list/030/[REQ.030 Evitar reciclaje de objetos de autenticación].

@@ -136,4 +136,4 @@ con la cual podemos recorrer los registros obtenidos en un +SELECT+.
 
 . [[r1]] link:https://cletusajibade.wordpress.com/tag/finacle-script/[Finacle Script - Reference]
 
-. [[r2]] link:../../../rules/173/[REQ.173 Descartar información insegura].
+. [[r2]] link:../../../products/rules/list/173/[REQ.173 Descartar información insegura].

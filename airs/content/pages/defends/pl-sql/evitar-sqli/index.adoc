@@ -135,4 +135,4 @@ end f;
 
 . [[r3]] link:http://www.oracle.com/technetwork/database/features/plsql/overview/how-to-write-injection-proof-plsql-1-129572.pdf[How to write SQL injection proof PL/SQL - Oracle].
 
-. [[r4]] link:../../../rules/173/[REQ.173 Descartar información insegura].
+. [[r4]] link:../../../products/rules/list/173/[REQ.173 Descartar información insegura].

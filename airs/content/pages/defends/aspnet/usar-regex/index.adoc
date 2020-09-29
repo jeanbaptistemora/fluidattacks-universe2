@@ -109,5 +109,5 @@ dependiendo del tipo de entrada.
 == Referencias
 
 . [[r1]] link:https://msdn.microsoft.com/en-us/library/ms998267[How To: Use Regular Expressions to Constrain Input in ASP.NET]
-. [[r2]] link:../../../rules/037/[REQ.037 Parámetros sin datos sensibles].
-. [[r3]] link:../../../rules/173/[REQ.173 Descartar información insegura].
+. [[r2]] link:../../../products/rules/list/037/[REQ.037 Parámetros sin datos sensibles].
+. [[r3]] link:../../../products/rules/list/173/[REQ.173 Descartar información insegura].

@@ -123,4 +123,4 @@ no se puedan establecer +2+ sesiones simultaneas.
 . [[r4]] link:https://cwe.mitre.org/data/definitions/724.html[CWE-724: OWASP Top Ten 2004 Category A3].
 . [[r5]] link:https://cwe.mitre.org/data/definitions/613.html[CWE-613: Insufficient Session Expiration].
 . [[r6]] link:https://seguinfo.wordpress.com/2009/01/17/seguridad-en-las-sesiones-de-las-aplicaciones-web/[Seguridad en las sesiones de las aplicaciones Web].
-. [[r7]] link:../../../rules/030/[REQ.030 Evitar reciclaje de objetos de autenticación].
+. [[r7]] link:../../../products/rules/list/030/[REQ.030 Evitar reciclaje de objetos de autenticación].

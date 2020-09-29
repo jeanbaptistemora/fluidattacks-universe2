@@ -132,6 +132,6 @@ podría permitir a un atacante escalar privilegios en el servidor.
 
 == Referencias
 
-. [[r1]] link:../../../rules/163/[REQ.163 Invocar en escenario funcional].
+. [[r1]] link:../../../products/rules/list/163/[REQ.163 Invocar en escenario funcional].
 . [[r2]] link:https://en.wikipedia.org/wiki/Dead_code[Dead Code - Wikipedia].
 . [[r3]] link:http://blog.utopicainformatica.com/2010/12/codigo-muerto.html[Código muerto].

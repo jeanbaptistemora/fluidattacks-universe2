@@ -114,4 +114,4 @@ public void run() {
 
 . [[r1]] link:https://es.wikipedia.org/wiki/Hilo_(inform%C3%A1tica)[Hilos]
 . [[r2]] link:https://docs.oracle.com/javase/8/docs/technotes/guides/concurrency/threadPrimitiveDeprecation.html[Java Thread Primitive Deprecation]
-. [[r3]] link:../../../rules/158/[REQ.158 Codificación Actualizada]
+. [[r3]] link:../../../products/rules/list/158/[REQ.158 Codificación Actualizada]

@@ -105,4 +105,4 @@ $stmt->execute();
 . [[r1]] link:http://www.php.net/manual/en/class.mysqli-stmt.php[PHP Manual - The mysqli_stmt class].
 . [[r2]] link:http://php.net/manual/en/pdo.prepared-statements.php[PHP Manual - Prepared statements and stored procedures].
 . [[r3]] link:http://www.php.net/manual/en/mysqli-stmt.execute.php[PHP Manual - mysqli_stmt::execute].
-. [[r4]] link:../../../rules/173/[REQ.173 Descartar información insegura].
+. [[r4]] link:../../../products/rules/list/173/[REQ.173 Descartar información insegura].

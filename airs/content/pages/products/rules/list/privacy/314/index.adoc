@@ -1,0 +1,75 @@
+:slug: products/rules/list/314/
+:category: privacy
+:description: This requirement establishes the importance of confirming the users of whether or not their data is being processed.
+:keywords: Requirement, Security, Data, GDPR, ISO, Confirmation, Personal, Rules, Ethical Hacking, Pentesting
+:rules: yes
+
+= R314. Provide processing confirmation
+
+== Requirement
+
+The system must provide confirmation to its users of whether or not it is
+storing and/or processing their personal data.
+
+== Description
+
+Systems usually request information from the users,
+obtain it from third parties or collect it based on their interactions with the
+application.
+They should have a mechanism that allows users to request confirmation of
+whether or not the system is managing their personal information,
+even if it was not obtained from the users but from a third party.
+
+== Findings
+
+* [inner]#link:/findings/088/[F088. Privacy violation]#
+
+== Exceptions
+
+. If the system is able to demonstrate that it is not possible to individually
+identify the users based on the information collected from them,
+this requirement is not applicable.
+
+. The processing of the personal information might have scientific or
+historical research purposes or statistical purposes.
+If the system properly safeguards this information and if complying with this
+requirement seriously impairs those purposes,
+this requirement is not applicable.
+
+. The processing of the personal information might have archiving purposes
+in the public interest.
+If the system properly safeguards this information and if complying with this
+requirement seriously impairs those purposes,
+this requirement is not applicable.
+
+== References
+
+. [[r1]] link:https://gdpr-info.eu/art-11-gdpr/[GDPR. Art. 11: Processing which does not require identification.(2).]
+Where the controller is able to demonstrate that it is not in a position to
+identify the data subject,
+articles 15 to 20 shall not apply.
+
+. [[r2]] link:https://gdpr-info.eu/art-15-gdpr/[GDPR. Art. 15: Right of access by the data subject.(1).]
+The data subject shall have the right to obtain from the controller
+confirmation as to whether or not personal data concerning him or her are being
+processed.
+
+. [[r3]] link:https://gdpr-info.eu/art-89-gdpr/[GDPR. Art. 89: Safeguards and derogations relating to processing
+for archiving purposes in the public interest,
+scientific or historical research purposes or statistical purposes.(2).]
+Where personal data are processed for scientific or historical research
+purposes or statistical purposes,
+Union or Member State law may provide for derogations from the rights referred
+to in Articles 15, 16, 18 and 21.
+
+. [[r4]] link:https://gdpr-info.eu/art-89-gdpr/[GDPR. Art. 89: Safeguards and derogations relating to processing
+for archiving purposes in the public interest,
+scientific or historical research purposes or statistical purposes.(3).]
+Where personal data are processed for archiving purposes in the public
+interest,
+Union or Member State law may provide for derogations from the rights referred
+to in Articles 15, 16, 18, 19, 20 and 21.
+
+. [[r5]] link:https://www.iso.org/obp/ui/#iso:std:54534:en[ISO 27001:2013. Annex A - 18.1.4]
+When applicable, guarantee the privacy and security of personal information,
+as required by the relevant legislation and regulations.

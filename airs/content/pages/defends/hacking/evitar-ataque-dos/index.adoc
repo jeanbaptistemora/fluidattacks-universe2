@@ -79,7 +79,7 @@ a un +e-business security checklist+ que puede ser de utilidad.
 
 == Referencias
 
-. [[r1]] link:../../../rules/008/[REQ.008 Generar modelo de amenazas del sistema].
+. [[r1]] link:../../../products/rules/list/008/[REQ.008 Generar modelo de amenazas del sistema].
 . [[r2]] link:https://es.wikipedia.org/wiki/Ataque_de_denegaci%C3%B3n_de_servicio[Ataque de denegación de servicio].
 . [[r3]] link:https://cwe.mitre.org/data/definitions/400.html[CWE-400: Uncontrolled Resource Consumption ('Resource Exhaustion')].
 . [[r4]] link:https://www-935.ibm.com/services/us/bcrs/pdf/wp_denial-of-service.pdf[Denial-of-Service attacks: Understanding network vulnerabilities].

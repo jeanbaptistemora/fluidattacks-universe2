@@ -1,0 +1,30 @@
+:slug: products/rules/list/164/
+:category: source
+:description: This requirement establishes the importance of using optimized data containers or structures.
+:keywords: Source Code, Structures, Containers, Optimization, ASVS, CWE, Rules, Ethical Hacking, Pentesting
+:rules: yes
+
+= R164. Use optimized structures
+
+== Requirement
+
+The code must use optimized data containers or structures.
+
+== Findings
+
+* [inner]#link:/findings/067/[F067. Improper resource allocation]#
+
+* [inner]#link:/findings/113/[F113. Improper type assignation]#
+
+== References
+
+. [[r1]] link:https://cwe.mitre.org/data/definitions/20.html[CWE-20: Improper Input Validation].
+The product does not validate or incorrectly validates input that can affect
+the control flow or data flow of a program.
+
+. [[r2]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+V5.1 Input Validation Requirements.(5.1.4)]
+Verify that structured data is strongly typed and validated against a defined
+schema including allowed characters, length and pattern
+(e.g. credit card numbers or telephone, or validating that two related fields
+are reasonable, such as checking that suburb and zip/postcode match).

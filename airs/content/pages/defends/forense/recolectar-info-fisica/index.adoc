@@ -136,6 +136,6 @@ sin paradas, hasta +Fluid Attacks+.
 
 == Referencias
 
-. [[r1]] link:../../../rules/017/[REQ.017 Medio seguro para información física].
+. [[r1]] link:../../../products/rules/list/017/[REQ.017 Medio seguro para información física].
 . [[r2]] link:https://www.iso.org/isoiec-27001-information-security.html[Serie de normas ISO/IEC 27000].
 . [[r3]] link:http://www.aenor.es/aenor/normas/normas/fichanorma.asp?tipo=N&codigo=N0044792&PDF=Si#.Wuy8NtYh08q[UNE-EN 15713:2010].

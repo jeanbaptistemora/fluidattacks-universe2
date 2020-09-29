@@ -283,4 +283,4 @@ class myActionListener implements ActionListener {
 . [[r1]] link:https://es.wikipedia.org/wiki/Inyecci%C3%B3n_XPath[XPATH Injection]
 . [[r2]] link:https://www.owasp.org/index.php/XPATH_Injection[XPath injection]
 . [[r3]] link:https://sourceforge.net/projects/saxon/files/latest/download?source=files[Saxon Home Edition (HE) (open source)]
-. [[r4]] link:../../../rules/173/[REQ.173 Descartar información insegura]
+. [[r4]] link:../../../products/rules/list/173/[REQ.173 Descartar información insegura]

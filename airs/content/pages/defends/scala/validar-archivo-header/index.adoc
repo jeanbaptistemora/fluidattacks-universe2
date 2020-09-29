@@ -130,4 +130,4 @@ y determinó correctamente que eran datos arbitrarios.
 . [[r3]] link:https://www.slf4j.org/download.html[Simple Logging Facade for Java].
 . [[r4]] link:http://mime-util.sourceforge.net/apidocs/eu/medsea/mimeutil/MimeUtil.html[Mime util API].
 . [[r5]] link:https://en.wikipedia.org/wiki/Media_type[Internet media type].
-. [[r6]] link:../../../rules/040/[REQ.040 Contrastar formato y extensión de archivos].
+. [[r6]] link:../../../products/rules/list/040/[REQ.040 Contrastar formato y extensión de archivos].

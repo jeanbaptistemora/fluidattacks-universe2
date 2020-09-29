@@ -97,6 +97,6 @@ e iniciar el servicio +Apache+.
 
 == Referencias
 
-. [[r1]] link:../../../rules/277/[REQ.277 Información de servicios inaccesible].
+. [[r1]] link:../../../products/rules/list/277/[REQ.277 Información de servicios inaccesible].
 . [[r2]] link:https://www.welivesecurity.com/la-es/2012/11/21/obtener-informacion-de-servidores-web-con-banner-grabbing/[Obtener información de servidores web con banner grabbing].
 . [[r3]] link:https://httpd.apache.org/docs/2.4/es/[Documentación Apache].

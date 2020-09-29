@@ -105,4 +105,4 @@ en la nueva imagen.
 . [[r1]] link:https://www.genbeta.com/imagen-digital/que-se-sabe-de-una-fotografia-a-partir-de-sus-metadatos[GenBeta - ¿Qué se sabe de una fotografía a partir de sus metadatos?].
 . [[r2]] link:https://www.welivesecurity.com/la-es/2014/05/13/metadatos-fotos-podrian-mostrar-mas/[ESET image metadata].
 . [[r3]] link:https://opendatasecurity.io/es/que-revelan-los-metadatos-en-las-fotos/[Open Data Security - ¿Qué revelan los metadatos en las fotos?].
-. [[r4]] link:../../../rules/045/[REQ.045 Eliminar metadatos al compartir archivos].
+. [[r4]] link:../../../products/rules/list/045/[REQ.045 Eliminar metadatos al compartir archivos].

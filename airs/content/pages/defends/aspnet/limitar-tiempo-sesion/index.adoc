@@ -83,7 +83,7 @@ El archivo debe tener las siguientes líneas:
 
 == Referencias
 
-. [[r1]] link:../../../rules/023/[REQ.023 Cerrar sesión de un usuario inactivo].
+. [[r1]] link:../../../products/rules/list/023/[REQ.023 Cerrar sesión de un usuario inactivo].
 
 . [[r2]] link:http://www.uterra.com/codigo_php/codigo_php.php?ref=las_variables_de_sesion_en_php[Variables de sesión].
 
