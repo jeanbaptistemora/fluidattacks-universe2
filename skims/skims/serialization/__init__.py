@@ -19,6 +19,10 @@ from typing import (
 from aioextensions import (
     in_process,
 )
+from metaloaders.model import (
+    Node,
+    Type,
+)
 
 # Local libraries
 from parse_common.types import (
@@ -146,6 +150,7 @@ ALLOWED_FACTORIES: Dict[type, Dict[str, Any]] = {
                 VulnerabilityKindEnum,
                 VulnerabilitySourceEnum,
                 VulnerabilityStateEnum,
+                Type,
             )
         ],
         *[
@@ -156,6 +161,7 @@ ALLOWED_FACTORIES: Dict[type, Dict[str, Any]] = {
                 NVDVulnerability,
                 SkimsVulnerabilityMetadata,
                 Vulnerability,
+                Node
             )
         ],
     ]

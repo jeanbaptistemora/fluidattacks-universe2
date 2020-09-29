@@ -67,6 +67,8 @@ requests = "2.24.0"
 "ruamel.yaml" = "0.16.10"
 semver = "2.10.2"
 uvloop = "0.14.0"
+metaloaders = "20.9.2466463"
+
 
 [tool.poetry.dev-dependencies]
 bandit = "1.6.2"
