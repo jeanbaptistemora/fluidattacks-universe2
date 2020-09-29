@@ -25,7 +25,7 @@ async def resolve(
         organization_id=org_id
     )
 
-    group_loader: DataLoader = info.context.loaders['project']
-    groups: List[Group] = group_loader.load_many(user_groups)
+    group_loader: DataLoader = info.context.loaders['group']
+    groups: List[Group] = await group_loader.load_many(user_groups)
 
     return groups

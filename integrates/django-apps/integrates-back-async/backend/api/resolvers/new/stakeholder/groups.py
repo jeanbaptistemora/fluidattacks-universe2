@@ -25,7 +25,7 @@ async def resolve(
     active, inactive = tuple(await asyncio.gather(active_task, inactive_task))
     user_groups: List[str] = active + inactive
 
-    group_loader: DataLoader = info.context.loaders['project']
-    groups: List[Group] = group_loader.load_many(user_groups)
+    group_loader: DataLoader = info.context.loaders['group']
+    groups: List[Group] = await group_loader.load_many(user_groups)
 
     return groups

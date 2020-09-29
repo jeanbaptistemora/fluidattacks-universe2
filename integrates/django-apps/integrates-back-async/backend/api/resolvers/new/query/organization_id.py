@@ -25,7 +25,7 @@ async def resolve(
     _info: GraphQLResolveInfo,
     **kwargs: str
 ) -> Organization:
-    org_id: str = kwargs['organization_id']
-    organization: Organization = await org_domain.get_by_id(org_id)
+    name: str = kwargs['organization_name']
+    organization: Organization = await org_domain.get_by_name(name)
 
     return organization
