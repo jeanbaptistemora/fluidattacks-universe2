@@ -743,10 +743,11 @@ video {
 
 .button-asserts {
   a {
-    color: white;
-    text-decoration: none;
+    color: white !important;
+    text-decoration: none !important;
+    border: none !important;
     &:hover {
-      color: white;;
+      color: white !important;
     }
   }
 }
