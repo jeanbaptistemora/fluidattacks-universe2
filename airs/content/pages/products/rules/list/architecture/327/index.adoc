@@ -50,18 +50,27 @@ This type of attack generally exposes a weakness in rate limiting or flow.
 When successful this attack prevents legitimate users from accessing the
 service and can cause the target to crash.
 
-. [[r3]] link:https://cwe.mitre.org/data/definitions/770.html[CWE-770: Allocation of Resources Without Limits or Throttling].
+. [[r3]] link:http://capec.mitre.org/data/definitions/130.html[CAPEC-130: Excessive Allocation].
+An adversary causes the target to allocate excessive resources to servicing the
+attackers' request,
+thereby reducing the resources available for legitimate services and degrading
+or denying services.
+Usually, this attack focuses on memory allocation,
+but any finite resource on the target could be the attacked, including
+bandwidth, processing cycles, or other resources.
+
+. [[r4]] link:https://cwe.mitre.org/data/definitions/770.html[CWE-770: Allocation of Resources Without Limits or Throttling].
 The software allocates a reusable resource or group of resources on behalf of
 an actor without imposing any restrictions on the size or number of resources
 that can be allocated,
 in violation of the intended security policy for that actor.
 
-. [[r4]] link:https://cwe.mitre.org/data/definitions/799.html[CWE-799: Improper Control of Interaction Frequency].
+. [[r5]] link:https://cwe.mitre.org/data/definitions/799.html[CWE-799: Improper Control of Interaction Frequency].
 The software does not properly limit the number or frequency of interactions
 that it has with an actor,
 such as the number of incoming requests.
 
-. [[r5]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r6]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V2.2 General Authenticator Requirements.(2.2.1)]
 Verify that anti-automation controls are effective at mitigating breached
 credential testing, brute force, and account lockout attacks.
@@ -73,47 +82,47 @@ recent attempts to unlock the account, or similar.
 Verify that no more than 100 failed attempts per hour is possible on a single
 account.
 
-. [[r6]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r7]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V8.1 General Data Protection.(8.1.4)]
 Verify the application can detect and alert on abnormal numbers of requests,
 such as by IP, user, total per hour or day, or whatever makes sense for the
 application.
 
-. [[r7]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r8]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V11.1 Business Logic Security Requirements.(11.1.2)]
 Verify the application will only process business logic flows with all steps
 being processed in realistic human time,
 i.e. transactions are not submitted too quickly.
 
-. [[r8]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r9]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V11.1 Business Logic Security Requirements.(11.1.3)]
 Verify the application has appropriate limits for specific business actions or
 transactions which are correctly enforced on a per user basis.
 
-. [[r9]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r10]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V11.1 Business Logic Security Requirements.(11.1.4)]
 Verify the application has sufficient anti-automation controls to detect and
 protect against data exfiltration, excessive business logic requests, excessive
 file uploads or denial of service attacks.
 
-. [[r10]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r11]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V11.1 Business Logic Security Requirements.(11.1.5)]
 Verify the application has business logic limits or validation to protect
 against likely business risks or threats, identified using threat modelling or
 similar methodologies.
 
-. [[r11]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r12]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V12.1 File Upload Requirements.(12.1.3)]
 Verify that a file size quota and maximum number of files per user is enforced
 to ensure that a single user cannot fill up the storage with too many files,
 or excessively large files.
 
-. [[r12]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r13]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V13.2 RESTful Web Service Verification Requirements.(13.2.4)]
 Verify that *REST* services have anti-automation controls to protect against
 excessive calls, especially if the *API* is unauthenticated.
 
-. [[r13]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r14]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V13.4 GraphQL and other Web Service Data Layer Security Requirements.(13.4.1)]
 Verify that query whitelisting or a combination of depth limiting and amount
 limiting should be used to prevent *GraphQL* or data layer expression denial of
