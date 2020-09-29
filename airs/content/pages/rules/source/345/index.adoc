@@ -25,95 +25,43 @@ such as memory-safe strings, and safe memory copy and pointer arithmetic.
 
 == Rereferences
 
-. [[r1]] link:http://capec.mitre.org/data/definitions/8.html[CAPEC-8: Buffer Overflow in an API Call].
-This attack targets libraries or shared code modules which are vulnerable to
-buffer overflow attacks.
-An attacker who has access to an *API* may try to embed malicious code in the
-*API* function call and exploit a buffer overflow vulnerability in the
-function's implementation.
+. [[r1]] link:http://capec.mitre.org/data/definitions/123.html[CAPEC-123: Buffer Manipulation].
+An adversary manipulates an application's interaction with a buffer in an
+attempt to read or modify data they shouldn't have access to.
+Buffer attacks are distinguished in that it is the buffer space itself that is
+the target of the attack rather than any code responsible for interpreting the
+content of the buffer.
 
-. [[r2]] link:http://capec.mitre.org/data/definitions/9.html[CAPEC-9: Buffer Overflow in Local Command-Line Utilities].
-This attack targets command-line utilities available in a number of shells.
-An attacker can leverage a vulnerability found in a command-line utility to
-escalate privilege to root.
-
-. [[r3]] link:http://capec.mitre.org/data/definitions/10.html[CAPEC-10: Buffer Overflow via Environment Variables].
-This attack pattern involves causing a buffer overflow through manipulation of
-environment variables.
-Once the attacker finds that they can modify an environment variable,
-they may try to overflow associated buffers.
-
-. [[r4]] link:http://capec.mitre.org/data/definitions/14.html[CAPEC-14: Client-side Injection-induced Buffer Overflow].
-This type of attack exploits a buffer overflow vulnerability in targeted client
-software through injection of malicious content from a custom-built hostile
-service.
-
-. [[r5]] link:http://capec.mitre.org/data/definitions/24.html[CAPEC-24: Filter Failure through Buffer Overflow].
-In this attack, the idea is to cause an active filter to fail by causing an
-oversized transaction.
-An attacker may try to feed overly long input strings to the program in an
-attempt to overwhelm the filter (by causing a buffer overflow) and hoping that
-the filter does not fail securely
-(i.e. the user input is let into the system unfiltered).
-
-. [[r6]] link:http://capec.mitre.org/data/definitions/44.html[CAPEC-44: Overflow Binary Resource File].
-An attack of this type exploits a buffer overflow vulnerability in the handling
-of binary resources.
-Binary resources may include music files like *MP3*, image files like *JPEG*
-files, and any other binary file.
-These attacks may pass unnoticed to the client machine through normal usage of
-files,
-such as a browser loading a seemingly innocent *JPEG* file.
-
-. [[r7]] link:http://capec.mitre.org/data/definitions/45.html[CAPEC-45: Buffer Overflow via Symbolic Links].
-This type of attack leverages the use of symbolic links to cause buffer
-overflows.
-An attacker can try to create or manipulate a symbolic link file such that its
-contents result in out of bounds data.
-
-. [[r8]] link:http://capec.mitre.org/data/definitions/46.html[CAPEC-46: Overflow Variables and Tags].
-This type of attack leverages the use of tags or variables from a formatted
-configuration data to cause buffer overflow.
-The attacker crafts a malicious *HTML* page or configuration file that includes
-oversized strings, thus causing an overflow.
-
-. [[r9]] link:http://capec.mitre.org/data/definitions/47.html[CAPEC-47: Buffer Overflow via Parameter Expansion].
-In this attack, the target software is given input that the attacker knows will
-be modified and expanded in size during processing.
-This attack relies on the target software failing to anticipate that the
-expanded data may exceed some internal limit,
-thereby creating a buffer overflow.
-
-. [[r10]] link:https://cwe.mitre.org/data/definitions/120.html[CWE-120: Classic Buffer Overflow].
+. [[r2]] link:https://cwe.mitre.org/data/definitions/120.html[CWE-120: Classic Buffer Overflow].
 The program copies an input buffer to an output buffer without verifying that
 the size of the input buffer is less than the size of the output buffer,
 leading to a buffer overflow.
 
-. [[r11]] link:https://cwe.mitre.org/data/definitions/134.html[CWE-134: Use of Externally-Controlled Format String].
+. [[r3]] link:https://cwe.mitre.org/data/definitions/134.html[CWE-134: Use of Externally-Controlled Format String].
 The software uses a function that accepts a format string as an argument,
 but the format string originates from an external source.
 
-. [[r12]] link:https://cwe.mitre.org/data/definitions/190.html[CWE-190: Integer Overflow or Wraparound].
+. [[r4]] link:https://cwe.mitre.org/data/definitions/190.html[CWE-190: Integer Overflow or Wraparound].
 The software performs a calculation that can produce an integer overflow or
 wraparound,
 when the logic assumes that the resulting value will always be larger than the
 original value.
 
-. [[r13]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r5]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V5.4 Memory, String, and Unmanaged Code Requirements.(5.4.1)]
 Verify that the application uses memory-safe string, safer memory copy and
 pointer arithmetic to detect or prevent *stack*, *buffer*, or *heap* overflows.
 
-. [[r14]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r6]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V5.4 Memory, String, and Unmanaged Code Requirements.(5.4.2)]
 Verify that format strings do not take potentially hostile input,
 and are constant.
 
-. [[r15]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r7]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V5.4 Memory, String, and Unmanaged Code Requirements.(5.4.3)]
 Verify that sign, range, and input validation techniques are used to prevent
 integer overflows.
 
-. [[r16]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 6.5.2]
+. [[r8]] link:https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf[PCI DSS v3.2.1 - Requirement 6.5.2]
 Address common coding vulnerabilities in software-development processes such as
 buffer overflows.
