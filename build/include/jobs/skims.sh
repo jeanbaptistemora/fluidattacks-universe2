@@ -9,6 +9,7 @@ declare -Arx SKIMS_GLOBAL_PKGS=(
   [lib_path]=skims/lib_path
   [nvd]=skims/nvd
   [parse_antlr]=skims/parse_antlr
+  [parse_babel]=skims/parse_babel
   [parse_cfn]=skims/parse_cfn
   [parse_common]=skims/parse_common
   [parse_hcl2]=skims/parse_hcl2

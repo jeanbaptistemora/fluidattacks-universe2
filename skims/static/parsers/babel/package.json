@@ -1,8 +1,7 @@
 {
   "author": "development@fluidattacks.com",
   "dependencies": {
-    "@babel/parser": "7.11.0",
-    "yargs": "16.0.3"
+    "@babel/parser": "7.11.0"
   },
   "description": "",
   "license": "MPL-2.0",

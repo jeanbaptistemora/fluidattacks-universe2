@@ -1,9 +1,9 @@
 const babelParser = require("@babel/parser");
 const fs = require("fs");
 
-function parse(target) {
-  const content = fs.readFileSync(target, "utf8");
+function parse(content) {
   // https://babeljs.io/docs/en/babel-parser
+  // https://github.com/babel/babel/blob/master/packages/babel-parser/ast/spec.md
   const parseTree = babelParser.parse(content, {
     allowAwaitOutsideFunction: true,
     allowImportExportEverywhere: true,
@@ -51,14 +51,10 @@ function parse(target) {
     sourceType: "module",
     startLine: 1,
   });
-  const parseTreeJson = JSON.stringify(parseTree, null, 2);
+  const parseTreeJson = JSON.stringify(parseTree);
 
   process.stdout.write(parseTreeJson);
 }
 
-function cli() {
-  const path = require('yargs').demandCommand(1).argv._[0];
-  parse(path);
-}
-
-cli()
+// Read from stdin and process it
+parse(fs.readFileSync(0).toString())

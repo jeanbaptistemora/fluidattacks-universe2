@@ -4,8 +4,6 @@ import json
 from typing import (
     Any,
     Dict,
-    Union,
-    Literal,
 )
 
 # Third party libraries
@@ -32,16 +30,11 @@ from utils.system import (
 )
 
 # Constants
-PARSER: str = get_artifact(
-    'static/parsers/antlr/build/install/parse/bin/parse',
-)
+PARSER: str = get_artifact('static/parsers/babel')
 
 
 @cache_decorator()
 async def parse(
-    grammar: Union[
-        Literal['Java9'],
-    ],
     *,
     content: bytes,
     path: str,
@@ -51,7 +44,6 @@ async def parse(
             with contextlib.suppress(MemoryError):
                 return await _parse(
                     content=content,
-                    grammar=grammar,
                     memory=memory,
                     path=path,
                 )
@@ -60,21 +52,15 @@ async def parse(
 
 
 async def _parse(
-    grammar: Union[
-        Literal['Java9'],
-    ],
-    *,
     content: bytes,
     memory: int,
     path: str,
 ) -> Dict[str, Any]:
     code, out_bytes, err_bytes = await read(
-        PARSER,
-        grammar,
-        env=dict(
-            # Limit heap size
-            JAVA_OPTS=f'-Xmx{memory}g',
-        ),
+        'node',
+        f'--max-old-space-size={1024 * memory}',
+        'parse.js',
+        cwd=PARSER,
         stdin_bytes=content,
     )
 
@@ -82,13 +68,13 @@ async def _parse(
         if err_bytes:
             err: str = err_bytes.decode('utf-8')
 
-            if 'Not enough memory' in err:
+            if 'memory' in err:
                 raise MemoryError(err)
 
             raise IOError(err)
 
         if code != 0:
-            raise IOError('ANTLR Parser returned a non-zero exit code')
+            raise IOError('Babel parser returned a non-zero exit code')
 
         if out_bytes:
             out: str = out_bytes.decode('utf-8')
@@ -97,5 +83,5 @@ async def _parse(
 
         raise IOError('No stdout in process')
     except (IOError, json.JSONDecodeError) as exc:
-        await log_exception('error', exc, grammar=grammar, path=path)
+        await log_exception('error', exc, path=path)
         return {}
