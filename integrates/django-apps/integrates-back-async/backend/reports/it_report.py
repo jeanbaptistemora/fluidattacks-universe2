@@ -4,8 +4,6 @@ from typing import cast, Dict, List, Union
 
 from datetime import datetime
 from dateutil.parser import parse
-from django.conf import settings
-import pytz
 from pyexcelerate import (
     Alignment,
     Color,
@@ -19,6 +17,9 @@ from backend.typing import (
     Finding as FindingType,
     Historic as HistoricType,
     Vulnerability as VulnType
+)
+from backend.utils import (
+    datetime as datetime_utils,
 )
 
 
@@ -36,7 +37,11 @@ def get_formatted_last_date(
 
     if historic_state and 'date' in cast(HistoricType, historic_state)[-1]:
         last_date = str(cast(HistoricType, historic_state)[-1]['date'])
-        curr_trtmnt_date = parse(last_date)
+        curr_trtmnt_date = datetime_utils.get_from_str(
+            datetime_utils.get_as_str(
+                parse(last_date)
+            )
+        )
     return curr_trtmnt_date
 
 
@@ -92,8 +97,10 @@ class ITReport():
         self.save()
 
     def save(self) -> None:
-        tzn = pytz.timezone(settings.TIME_ZONE)
-        today_date = datetime.now(tz=tzn).strftime('%Y-%m-%dT%H-%M-%S')
+        today_date = datetime_utils.get_as_str(
+            datetime_utils.get_now(),
+            date_format='%Y-%m-%dT%H-%M-%S'
+        )
         self.result_filename = (
             f'{self.project_name}-vulnerabilities-{today_date}.xlsx'
         )
@@ -303,18 +310,16 @@ class ITReport():
 
     def set_vuln_temporal_data(self, vuln: VulnType) -> None:
         vuln_historic_state = cast(HistoricType, vuln.get('historic_state'))
-        vuln_date = datetime.strptime(
-            vuln_historic_state[0]['date'], '%Y-%m-%d %H:%M:%S'
-        )
+        vuln_date = datetime_utils.get_from_str(vuln_historic_state[0]['date'])
         vuln_closed = vuln_historic_state[-1]['state'] == 'closed'
-        limit_date = datetime.today()
+        limit_date = datetime_utils.get_now()
         vuln_close_date: Union[str, datetime] = EMPTY
         if vuln_closed:
-            limit_date = datetime.strptime(
-                vuln_historic_state[-1]['date'], '%Y-%m-%d %H:%M:%S'
+            limit_date = datetime_utils.get_from_str(
+                vuln_historic_state[-1]['date']
             )
-            vuln_close_date = datetime.strptime(
-                vuln_historic_state[-1]['date'], '%Y-%m-%d %H:%M:%S'
+            vuln_close_date = datetime_utils.get_from_str(
+                vuln_historic_state[-1]['date']
             )
         vuln_age_days = int((limit_date - vuln_date).days)
 
@@ -354,9 +359,8 @@ class ITReport():
         first_treatment_exp_date: Union[str, datetime] = EMPTY
 
         if 'acceptance_date' in vuln:
-            current_treatment_exp_date = datetime.strptime(
-                str(vuln.get('acceptance_date')),
-                '%Y-%m-%d %H:%M:%S'
+            current_treatment_exp_date = datetime_utils.get_from_str(
+                str(vuln.get('acceptance_date'))
             )
         first_treatment_state = finding_historic_treatment[0]
         if len(str(finding.get('releaseDate')).split(' ')) == 2:
@@ -368,9 +372,8 @@ class ITReport():
                 'date', EMPTY
             )
             if first_treatment_exp_date != EMPTY:
-                first_treatment_exp_date = datetime.strptime(
-                    str(first_treatment_exp_date),
-                    '%Y-%m-%d %H:%M:%S'
+                first_treatment_exp_date = datetime_utils.get_from_str(
+                    str(first_treatment_exp_date)
                 )
 
         current_treatment_data: Dict[str, Union[str, int, datetime]] = {
@@ -389,9 +392,9 @@ class ITReport():
             'First Treatment': str(
                 format_treatment(first_treatment_state.get('treatment', 'NEW'))
             ),
-            'First Treatment Moment': datetime.strptime(
+            'First Treatment Moment': datetime_utils.get_from_str(
                 str(finding.get('releaseDate')),
-                first_treatment_date_format
+                date_format=first_treatment_date_format
             ),
             'First Treatment Justification': str(
                 first_treatment_state.get('justification', EMPTY)
@@ -436,8 +439,8 @@ class ITReport():
             if vuln_closed:
                 remediation_effectiveness = f'{100 / n_requested_reattacks}%'
             if reattack_requested:
-                reattack_date = datetime.strptime(
-                    historic_verification[-1]['date'], '%Y-%m-%d %H:%M:%S'
+                reattack_date = datetime_utils.get_from_str(
+                    historic_verification[-1]['date']
                 )
                 reattack_requester = historic_verification[-1]['user']
         reattack_data = {
