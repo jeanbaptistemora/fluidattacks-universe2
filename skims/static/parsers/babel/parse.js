@@ -17,6 +17,7 @@ function parse(content) {
       "classPrivateMethods",
       "classPrivateProperties",
       "classProperties",
+      ["decorators", {"decoratorsBeforeExport": true}],
       "doExpressions",
       "dynamicImport",
       "estree",
@@ -33,20 +34,11 @@ function parse(content) {
       "optionalCatchBinding",
       "optionalChaining",
       "partialApplication",
+      ["pipelineOperator", {"proposal": "smart"}],
       "throwExpressions",
       "topLevelAwait",
       "typescript",
       "v8intrinsic",
-      {
-        decorators: {
-          decoratorsBeforeExport: true,
-        },
-      },
-      {
-        pipelineOperator: {
-          proposal: "smart",
-        },
-      },
     ],
     sourceType: "module",
     startLine: 1,
