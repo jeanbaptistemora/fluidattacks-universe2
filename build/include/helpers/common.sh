@@ -427,7 +427,8 @@ function helper_common_run_on_aws {
   local memory="${2}"
   local attempts="${3}"
   local timeout="${4}"
-  local command=('./build.sh' "${@:5}")
+  local jobname="${5}"
+  local command=('./build.sh' "${@:6}")
 
       echo "[INFO] Running on AWS:" \
   &&  for arg in "${command[@]}"; do echo "       ${arg}"; done \
@@ -444,7 +445,7 @@ function helper_common_run_on_aws {
       ) \
   &&  aws batch submit-job \
         --container-overrides "${job_definition}" \
-        --job-name "${group}" \
+        --job-name "${jobname}" \
         --job-queue 'default' \
         --job-definition 'default' \
         --retry-strategy "attempts=${attempts}" \

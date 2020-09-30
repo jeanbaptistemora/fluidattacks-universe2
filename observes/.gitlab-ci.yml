@@ -107,13 +107,13 @@ observes_mandrill:
     variables: [$observes_mandrill]
   interruptible: false
 
-observes_gitlab:
+observes_gitlab_on_aws:
   <<: *with_nix
   tags: [autoscaling]
   stage: analytics
   only:
     refs: [schedules]
-    variables: [$observes_gitlab]
+    variables: [$observes_gitlab_on_aws]
   interruptible: false
 
 observes_timedoctor:
@@ -173,11 +173,11 @@ observes_code_upload:
   tags: [autoscaling-large]
   interruptible: false
 
-observes_code_amend_authors:
+observes_code_amend_authors_on_aws:
   <<: *with_nix_serial
   only:
     refs: [schedules]
-    variables: [$observes_code_amend_authors]
+    variables: [$observes_code_amend_authors_on_aws]
   stage: analytics
   tags: [autoscaling]
   interruptible: false

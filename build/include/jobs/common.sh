@@ -84,6 +84,7 @@ function job_common_bugsnag_report {
 function _job_common_test_jobs_provisioner {
   local jobs_output
   local exclude=(
+    'common_process_on_aws'
     'forces'
     'skims'
     'observes_code'

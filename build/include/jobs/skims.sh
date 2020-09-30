@@ -91,7 +91,8 @@ function job_skims_process_group_on_aws {
   local memory='7300'
   local attempts='1'
   local timeout='18000'
-  export group="${1}"
+  local group="${1}"
+  local jobname="skims_process_group__${group}"
 
       if test -z "${group}"
       then
@@ -104,6 +105,7 @@ function job_skims_process_group_on_aws {
         "${memory}" \
         "${attempts}" \
         "${timeout}" \
+        "${jobname}" \
         'skims_process_group' "${group}"
 }
 

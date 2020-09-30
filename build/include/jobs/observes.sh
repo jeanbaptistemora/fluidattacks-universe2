@@ -51,26 +51,28 @@ function job_observes_mandrill {
   ||  return 1
 }
 
-function job_observes_gitlab_run {
+function job_observes_gitlab {
       helper_use_pristine_workdir \
   &&  env_prepare_python_packages \
   &&  helper_observes_gitlab \
   ||  return 1
 }
 
-function job_observes_gitlab {
+function job_observes_gitlab_on_aws {
   local vcpus='1'
   local memory='900'
   local attempts='1'
   local timeout='18000'
-  export group="observes_gitlab"
-  helper_observes_aws_login prod \
+  local jobname="observes_gitlab"
+
+      helper_observes_aws_login prod \
   &&  helper_common_run_on_aws \
         "${vcpus}" \
         "${memory}" \
         "${attempts}" \
         "${timeout}" \
-        'observes_gitlab_run'
+        "${jobname}" \
+        'observes_gitlab'
 }
 
 function job_observes_timedoctor {
@@ -149,6 +151,23 @@ function job_observes_code_amend_authors {
           --mailmap '.groups-mailmap' \
   &&  popd \
   ||  return 1
+}
+
+function job_observes_code_amend_authors_on_aws {
+  local vcpus='1'
+  local memory='900'
+  local attempts='2'
+  local timeout='86400'
+  local jobname='observes_code_amend_authors'
+
+      helper_observes_aws_login prod \
+  &&  helper_common_run_on_aws \
+        "${vcpus}" \
+        "${memory}" \
+        "${attempts}" \
+        "${timeout}" \
+        "${jobname}" \
+        'observes_code_amend_authors'
 }
 
 function job_observes_code_compute_bills {
