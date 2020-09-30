@@ -29,7 +29,7 @@ _LOGGER_REMOTE: logging.Logger = logging.getLogger('Skims.stability')
 
 
 def configure() -> None:
-    _LOGGER_HANDLER.setStream(sys.stderr)
+    _LOGGER_HANDLER.setStream(sys.stdout)
     _LOGGER_HANDLER.setLevel(logging.INFO)
     _LOGGER_HANDLER.setFormatter(_LOGGER_FORMATTER)
 

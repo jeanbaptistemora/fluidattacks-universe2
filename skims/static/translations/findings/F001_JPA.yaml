@@ -50,5 +50,5 @@ utils.model.finding.enum.F001_JPA.threat:
   es: >
     Atacante autenticado desde Internet.
 utils.model.finding.enum.F001_JPA.title:
-  en: FIN.S.001. Inyección SQL - Java Persistence API
-  es: FIN.S.001. SQL injection - Java Persistence API
+  en: FIN.S.001. SQL injection - Java Persistence API
+  es: FIN.S.001. Inyección SQL - Java Persistence API
