@@ -70,15 +70,25 @@ public class Parse {
       Vocabulary vocabulary;
 
       switch (args[0]) {
+      case "CSharp":
+        CSharpLexer lexerCSharp = new CSharpLexer(charStream);
+        CSharpParser parserCSharp = new CSharpParser(new CommonTokenStream(lexerCSharp));
+        lexerCSharp.removeErrorListener(ConsoleErrorListener.INSTANCE);
+        parserCSharp.removeErrorListener(ConsoleErrorListener.INSTANCE);
+        parserCSharp.setTrimParseTree(true);
+        parserCSharp.setErrorHandler(new BailErrorStrategy());
+        vocabulary = parserCSharp.getVocabulary();
+        tree = parserCSharp.compilation_unit();
+        break;
       case "Java9":
-        Java9Lexer lexer = new Java9Lexer(charStream);
-        Java9Parser parser = new Java9Parser(new CommonTokenStream(lexer));
-        lexer.removeErrorListener(ConsoleErrorListener.INSTANCE);
-        parser.removeErrorListener(ConsoleErrorListener.INSTANCE);
-        parser.setTrimParseTree(true);
-        parser.setErrorHandler(new BailErrorStrategy());
-        vocabulary = parser.getVocabulary();
-        tree = parser.compilationUnit();
+        Java9Lexer lexerJava9 = new Java9Lexer(charStream);
+        Java9Parser parserJava9 = new Java9Parser(new CommonTokenStream(lexerJava9));
+        lexerJava9.removeErrorListener(ConsoleErrorListener.INSTANCE);
+        parserJava9.removeErrorListener(ConsoleErrorListener.INSTANCE);
+        parserJava9.setTrimParseTree(true);
+        parserJava9.setErrorHandler(new BailErrorStrategy());
+        vocabulary = parserJava9.getVocabulary();
+        tree = parserJava9.compilationUnit();
         break;
       default:
         throw new ArrayIndexOutOfBoundsException("Invalid parser selected");

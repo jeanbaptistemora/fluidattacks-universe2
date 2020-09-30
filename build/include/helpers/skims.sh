@@ -47,8 +47,13 @@ function helper_skims_compile_parsers {
     &&  export CLASSPATH=".:${srcExternalANTLR4}:${CLASSPATH:-}" \
     &&  echo "[INFO] Building ANTLR parsers" \
     &&  pushd antlr \
-      &&  "${compile_antlr[@]}" src/main/java/parse/Java9.g4 \
-      &&  "${compile_java[@]}" src/main/java/parse/Java9*.java \
+      &&  for name in CSharp Java9
+          do
+                echo "[INFO] Building ANTLR-${name} parser" \
+            &&  "${compile_antlr[@]}" "src/main/java/parse/${name}"*".g4" \
+            &&  "${compile_java[@]}" "src/main/java/parse/${name}"*".java" \
+            ||  return 1
+          done \
       &&  gradle installDist \
     &&  popd \
     &&  echo "[INFO] Building Babel parsers" \
