@@ -37,18 +37,24 @@ sequences of special characters designed to bypass input validation logic.
 This exploit relies on the target making multiples passes over the input data
 and processing a "layer" of special characters with each pass.
 
-. [[r3]] link:https://cwe.mitre.org/data/definitions/116.html[CWE-116: Improper Encoding or Escaping of Output].
+. [[r3]] link:http://capec.mitre.org/data/definitions/153.html[CAPEC-153: Input Data Manipulation].
+An attacker exploits a weakness in input validation by controlling the format,
+structure, and composition of data to an input-processing interface.
+By supplying input of a non-standard or unexpected form an attacker can
+adversely impact the security of the target.
+
+. [[r4]] link:https://cwe.mitre.org/data/definitions/116.html[CWE-116: Improper Encoding or Escaping of Output].
 The product does not validate or incorrectly validates input that can affect
 the control flow or data flow of a program.
 
-. [[r4]] link:https://cwe.mitre.org/data/definitions/444.html[CWE-444: HTTP Request Smuggling].
+. [[r5]] link:https://cwe.mitre.org/data/definitions/444.html[CWE-444: HTTP Request Smuggling].
 When malformed or abnormal *HTTP* requests are interpreted by one or more
 entities in the data flow between the user and the web server,
 such as a proxy or firewall, they can be interpreted inconsistently,
 allowing the attacker to "smuggle" a request to one device without the other
 device being aware of it.
 
-. [[r5]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r6]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V13.1 Generic Web Service Security Verification Requirements.(13.1.1)]
 Verify that all application components use the same encodings and parsers to
 avoid parsing attacks that exploit different *URI* or file parsing behavior
