@@ -20,11 +20,7 @@ from social_django.utils import load_backend
 from graphql.type.definition import GraphQLResolveInfo
 
 from backend.api.resolvers import (
-    organization as organization_resolver,
     project as project_resolver,
-)
-from backend.dal.organization import (
-    get_ids_for_user as get_user_organizations,
 )
 from backend.decorators import require_login
 from backend.domain import (
@@ -36,14 +32,12 @@ from backend.domain import (
 from backend.exceptions import InvalidExpirationTime
 from backend.typing import (
     Me as MeType,
-    Organization as OrganizationType,
     Project as ProjectType,
     SignInPayload as SignInPayloadType,
     SimplePayload as SimplePayloadType,
     UpdateAccessTokenPayload as UpdateAccessTokenPayloadType,
 )
 from backend.utils import (
-    aio,
     datetime as datetime_utils,
 )
 from backend import util
@@ -76,19 +70,6 @@ async def _get_role(
     else:
         role = await authz.get_user_level_role(user_email)
     return cast(str, role)
-
-
-async def _get_organizations(
-        info: GraphQLResolveInfo,
-        user_email: str) -> List[OrganizationType]:
-    organization_ids = await get_user_organizations(user_email)
-    organizations = await aio.materialize(
-        organization_resolver.resolve(
-            info, organization_id, as_field=True
-        )
-        for organization_id in organization_ids
-    )
-    return cast(List[OrganizationType], organizations)
 
 
 async def _get_projects(

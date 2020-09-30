@@ -3,36 +3,29 @@ from decimal import Decimal
 from typing import (
     cast,
     Dict,
-    List,
     Any,
     Optional,
-    Union
 )
 
 from ariadne import (
-    convert_camel_case_to_snake,
     convert_kwargs_to_snake_case
 )
-from graphql.language.ast import FieldNode, SelectionSetNode, ObjectFieldNode
 from graphql.type.definition import GraphQLResolveInfo
 
 from backend import util
 from backend.api.resolvers import (
     analytics as analytics_loader,
-    project as group_loader,
     user as user_loader,
 )
 from backend.decorators import (
     concurrent_decorators,
     enforce_organization_level_auth_async,
-    get_entity_cache_async,
     rename_kwargs,
     require_login,
     require_organization_access
 )
 from backend.domain import (
     organization as org_domain,
-    project as group_domain,
     user as user_domain
 )
 from backend.exceptions import (
@@ -41,12 +34,8 @@ from backend.exceptions import (
 from backend.typing import (
     EditStakeholderPayload as EditStakeholderPayloadType,
     GrantStakeholderAccessPayload as GrantStakeholderAccessPayloadType,
-    Organization as OrganizationType,
-    Project as ProjectType,
     SimplePayload as SimplePayloadType,
-    Stakeholder as StakeholderType,
 )
-from backend.utils import aio
 
 
 @concurrent_decorators(
@@ -331,147 +320,6 @@ async def _get_min_acceptance_severity(
     **__: Any
 ) -> Decimal:
     return await org_domain.get_min_acceptance_severity(organization_id)
-
-
-@rename_kwargs({'identifier': 'organization_id'})
-async def _get_projects(
-        info: GraphQLResolveInfo,
-        organization_id: str,
-        **__: Any) -> List[ProjectType]:
-    user_info = await util.get_jwt_content(info.context)
-    user_email = user_info['user_email']
-    user_groups = await user_domain.get_projects(
-        user_email, organization_id=organization_id
-    )
-    user_groups_attrs = await aio.materialize(
-        group_domain.get_attributes(group, ['project_name', 'project_status'])
-        for group in user_groups
-    )
-    active_user_groups = [
-        group_attrs['project_name']
-        for group_attrs in user_groups_attrs
-        if group_attrs['project_status'] in ['ACTIVE', 'PENDING_DELETION']
-    ]
-
-    return cast(
-        List[ProjectType],
-        await aio.materialize(
-            group_loader.resolve(
-                info,
-                group,
-                as_field=True
-            )
-            for group in active_user_groups
-        )
-    )
-
-
-@rename_kwargs({'identifier': 'organization_id'})
-@enforce_organization_level_auth_async
-@get_entity_cache_async
-async def _get_stakeholders(
-    info: GraphQLResolveInfo,
-    organization_id: str,
-    requested_fields: List[FieldNode],
-    **__: Any
-) -> List[StakeholderType]:
-    organization_stakeholders = await org_domain.get_users(organization_id)
-
-    selection_set = SelectionSetNode()
-    selection_set.selections = requested_fields
-    return cast(
-        List[StakeholderType],
-        await aio.materialize(
-            user_loader.resolve_for_organization(
-                info,
-                'ORGANIZATION',
-                user_email,
-                organization_id=organization_id,
-                as_field=True,
-                selection_set=selection_set,
-                field_name='stakeholders'
-            )
-            for user_email in organization_stakeholders
-        )
-    )
-
-
-def _get_requested_fields(
-        info: GraphQLResolveInfo,
-        as_field: bool,
-        as_list: bool) -> List[FieldNode]:
-    if as_field and as_list:
-        to_extend = util.get_requested_fields(
-            'organizations',
-            info.field_nodes[0].selection_set
-        )
-    elif as_field:
-        to_extend = util.get_requested_fields(
-            'organization',
-            info.field_nodes[0].selection_set
-        )
-    else:
-        to_extend = info.field_nodes[0].selection_set.selections
-    return to_extend
-
-
-async def resolve(
-        info: GraphQLResolveInfo,
-        identifier: str,
-        as_field: bool = False,
-        as_list: bool = True,
-        **kwargs: Any) -> OrganizationType:
-    """Async resolve fields."""
-    result = dict()
-    req_fields: List[Union[FieldNode, ObjectFieldNode]] = []
-
-    req_fields.extend(_get_requested_fields(info, as_field, as_list))
-    if kwargs.get('selection_set'):
-        req_fields.extend(kwargs['selection_set'].selections)
-
-    for requested_field in req_fields:
-        if util.is_skippable(info, requested_field):
-            continue
-
-        params = {
-            'identifier': identifier,
-            'organization_name': kwargs.get('organization_name'),
-            'requested_fields': req_fields
-        }
-        field_params = util.get_field_parameters(requested_field)
-        if field_params:
-            params.update(field_params)
-
-        requested_field = convert_camel_case_to_snake(
-            requested_field.name.value
-        )
-        if requested_field.startswith('_'):
-            continue
-
-        resolver_func = getattr(
-            sys.modules[__name__],
-            f'_get_{requested_field}'
-        )
-        result[requested_field] = resolver_func(info, **params)
-    return result
-
-
-@convert_kwargs_to_snake_case  # type: ignore
-@rename_kwargs({
-    'organization_id': 'identifier',
-})
-@concurrent_decorators(
-    require_login,
-    require_organization_access,
-)
-async def resolve_organization(
-    _: Any,
-    info: GraphQLResolveInfo,
-    identifier: str = '',
-    organization_name: str = ''
-) -> OrganizationType:
-    """Resolve Organization query """
-    return await resolve(info, identifier, organization_name=organization_name)
 
 
 @convert_kwargs_to_snake_case  # type: ignore

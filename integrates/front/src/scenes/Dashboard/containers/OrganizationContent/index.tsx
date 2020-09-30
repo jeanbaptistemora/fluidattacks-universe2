@@ -125,7 +125,7 @@ const organizationContent: React.FC<IOrganizationContent> = (props: IOrganizatio
                   )
                   : <React.Fragment />
                 }
-                <Can do="backend_api_resolvers_organization__get_stakeholders">
+                <Can do="backend_api_resolvers_new_organization_stakeholders_resolve">
                   <ContentTab
                     icon="icon pe-7s-users"
                     id="usersTab"

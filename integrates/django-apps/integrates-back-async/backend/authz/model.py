@@ -562,7 +562,7 @@ USER_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             'backend_api_resolvers_cache_resolve_invalidate_cache',
             'backend_api_resolvers_internal_names_resolve_project_name',
             'backend_api_resolvers_project__do_create_project',
-            'backend_api_resolvers_project_resolve_projects',
+            'backend_api_resolvers_new_query_groups_resolve',
             'backend_api_resolvers_report__get_url_all_users',
             'backend_api_resolvers_report__get_url_all_vulns',
             'backend_api_resolvers_user__do_add_stakeholder',

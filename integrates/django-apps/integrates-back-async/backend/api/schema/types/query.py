@@ -19,6 +19,7 @@ from backend.api.resolvers import (
     vulnerability
 )
 from backend.api.resolvers.new.query import (
+    groups,
     organization,
     organization_id,
 )
@@ -41,7 +42,7 @@ QUERY.set_field('vulnerability', vulnerability.resolve_vulnerability)
 QUERY.set_field('organization', organization.resolve)
 QUERY.set_field('organizationId', organization_id.resolve)
 QUERY.set_field('project', project.resolve_project)
-QUERY.set_field('projects', project.resolve_projects)
+QUERY.set_field('projects', groups.resolve)
 QUERY.set_field('userListProjects', user.resolve_user_list_projects)
 QUERY.set_field('tag', tag.resolve_tag)
 QUERY.set_field('report', report.resolve_report)
