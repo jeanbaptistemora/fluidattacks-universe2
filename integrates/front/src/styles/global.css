@@ -290,3 +290,96 @@ label {
   left: 24px;
   position: absolute !important;
 }
+
+/* Custom functions */
+
+:global .b--bd[disabled],
+:global .b--bd[disabled]:hover {
+  border-color: #DFDFDF;
+}
+
+:global .b--bd[disabled] svg path {
+  fill: #919191 !important;
+  stroke: #919191 !important;
+}
+
+:global .b--bd[disabled] svg circle {
+  stroke: #919191 !important;
+}
+
+:global .b--bh:hover {
+  border-color: #FF3435;
+}
+
+:global .b--bh:hover:not([disabled]) svg path {
+  fill: #FFFFFF !important;
+  stroke: #FFFFFF !important;
+}
+
+:global .b--bh:hover svg circle {
+  stroke: #FFFFFF !important;
+}
+
+:global .b--sb,
+:global .b--sb:active,
+:global .b--sb:focus,
+:global .b--sb:hover {
+  border: none !important;
+}
+
+:global .bg-bd[disabled],
+:global .bg-bd[disabled]:hover {
+  background-color: #FAFAFA;
+}
+
+:global .bg-bh:hover {
+  background-color: #FF3435;
+}
+
+:global .bg-sb,
+:global .bg-sb:active,
+:global .bg-sb:focus,
+:global .bg-sb:hover {
+  background: transparent !important;
+}
+
+:global .cna-bd[disabled],
+:global .cna-bd[disabled]:hover {
+  cursor: not-allowed;
+}
+
+:global .color-ah:hover {
+  color: #FFFFFF;
+}
+
+:global .color-bd[disabled],
+:global .color-bd[disabled]:hover {
+  color: #919191;
+}
+
+:global .color-bh:hover {
+  color: #FFFFFF;
+}
+
+:global .f2-5 {
+  font-size: 1.75rem;
+}
+
+:global .montserrat {
+  font-family: Montserrat, sans-serif;
+}
+
+:global .o-bd[disabled],
+:global .o-bd[disabled]:hover {
+  opacity: 1;
+}
+
+:global .pv2-5 {
+  padding-top: 0.7rem;
+  padding-bottom: 0.7rem;
+}
+
+:global .svg-box svg {
+  width: 16px !important;
+  height: 16px !important;
+}
