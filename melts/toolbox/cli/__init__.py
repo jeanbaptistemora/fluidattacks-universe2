@@ -1,6 +1,9 @@
 # pylint: disable=unused-argument
 # pylint: disable=import-outside-toplevel
 
+# Standard library
+import functools
+
 # Third parties imports
 import click
 
@@ -9,7 +12,6 @@ from toolbox import (
     drills,
     utils,
 )
-from toolbox.utils.function import shield
 
 from .misc import misc_management
 from .analytics import analytics_management
@@ -41,14 +43,22 @@ entrypoint.add_command(misc_management)
 entrypoint.add_command(reports_management)
 
 
-def enable_debug():
-    from toolbox import constants
-    from toolbox.api import integrates
-    integrates.clear_cache()
-    constants.LOGGER_DEBUG = True
+def retry_debugging_on_failure(func):
+    """Run a function ensuring the debugger output is shown on failures."""
+    @functools.wraps(func)
+    def wrapped(*args, **kwargs):
+        try:
+            return func(*args, **kwargs)
+        except Exception:  # noqa
+            from toolbox import constants
+            from toolbox.api import integrates
+            integrates.clear_cache()
+            constants.LOGGER_DEBUG = True
+            return func(*args, **kwargs)
+    return wrapped
 
 
-@shield(retries=2, on_retry=enable_debug)
+@retry_debugging_on_failure
 def main():
     """Usual entrypoint."""
     utils.bugs.configure_bugsnag()
