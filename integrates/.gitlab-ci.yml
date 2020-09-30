@@ -115,7 +115,7 @@ integrates_analytics_make_documents_prod_schedule:
   interruptible: false
   only:
     refs: [schedules]
-    variables: [$analytics]
+    variables: [$integrates_analytics_make_documents_prod_schedule]
   parallel: 6
 
 integrates_analytics_make_snapshots_prod_schedule:
@@ -136,7 +136,7 @@ integrates_subscriptions_trigger_user_to_entity_report_prod_schedule:
   stage: subscriptions
   only:
     refs: [schedules]
-    variables: [$subscriptions]
+    variables: [$integrates_subscriptions_trigger_user_to_entity_report_prod_schedule]
 
 scheduler_delete_pending_projects:
   <<: *integrates_scheduler_prod_template

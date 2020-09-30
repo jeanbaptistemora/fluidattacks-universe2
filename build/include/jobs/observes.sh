@@ -242,6 +242,45 @@ function job_observes_code_compute_bills {
 
 }
 
+function job_observes_code_mirror_all_groups_to_s3_on_aws {
+  local groups_file="${TEMP_FILE1}"
+
+      helper_list_services_groups "${groups_file}" \
+  &&  while read -r group
+      do
+            echo "[INFO] Submitting: ${group}" \
+        &&  job_observes_code_mirror_group_to_s3_on_aws "${group}" \
+        ||  return 1
+      done < "${groups_file}"
+}
+
+function job_observes_code_mirror_group_to_s3 {
+  echo 'Soon'
+}
+
+function job_observes_code_mirror_group_to_s3_on_aws {
+  local group="${1}"
+  local vcpus='1'
+  local memory='1800'
+  local attempts='3'
+  local timeout='86400'
+  local jobname="observes_code_mirror_group_to_s3__${group}"
+
+      if test -z "${group}"
+      then
+            echo '[INFO] Please set the first argument to the group name' \
+        &&  return 1
+      fi \
+  &&  helper_observes_aws_login prod \
+  &&  helper_common_run_on_aws \
+        "${vcpus}" \
+        "${memory}" \
+        "${attempts}" \
+        "${timeout}" \
+        "${jobname}" \
+        'observes_code_mirror_group_to_s3' "${group}"
+}
+
 function job_observes_git_process {
   # If you move me take into account the artifacts in the .gitlab-ci.yaml
 

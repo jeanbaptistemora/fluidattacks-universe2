@@ -170,7 +170,7 @@ observes_code_upload_all_groups_on_aws:
     refs: [schedules]
     variables: [$observes_code_upload_all_groups_on_aws]
   stage: analytics
-  tags: [autoscaling-large]
+  tags: [autoscaling]
   interruptible: false
 
 observes_code_amend_authors_on_aws:
@@ -187,6 +187,15 @@ observes_code_compute_bills:
   only:
     refs: [schedules]
     variables: [$observes_code_compute_bills]
+  stage: analytics
+  tags: [autoscaling]
+  interruptible: false
+
+observes_code_mirror_all_groups_to_s3_on_aws:
+  <<: *with_nix_serial
+  only:
+    refs: [schedules]
+    variables: [$observes_code_mirror_all_groups_to_s3_on_aws]
   stage: analytics
   tags: [autoscaling]
   interruptible: false
