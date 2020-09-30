@@ -11,13 +11,16 @@ from backend.api.resolvers import (
     forces,
     internal_names,
     me,
-    organization,
     project,
     report,
     resource,
     tag,
     user,
     vulnerability
+)
+from backend.api.resolvers.new.query import (
+    organization,
+    organization_id,
 )
 
 
@@ -35,8 +38,8 @@ QUERY.set_field('forcesExecutions', forces.resolve_forces_executions)
 QUERY.set_field('forcesExecutionsNew', forces.resolve_forces_executions_new)
 QUERY.set_field('finding', finding.resolve_finding)
 QUERY.set_field('vulnerability', vulnerability.resolve_vulnerability)
-QUERY.set_field('organization', organization.resolve_organization)
-QUERY.set_field('organizationId', organization.resolve_organization)
+QUERY.set_field('organization', organization.resolve)
+QUERY.set_field('organizationId', organization_id.resolve)
 QUERY.set_field('project', project.resolve_project)
 QUERY.set_field('projects', project.resolve_projects)
 QUERY.set_field('userListProjects', user.resolve_user_list_projects)

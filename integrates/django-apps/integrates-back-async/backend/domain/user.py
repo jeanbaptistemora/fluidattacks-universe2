@@ -11,6 +11,7 @@ from jose import jwt
 # Local libraries
 from backend.dal.helpers import dynamodb
 from backend.dal import (
+    organization as org_dal,
     project as project_dal,
     user as user_dal,
 )
@@ -265,8 +266,12 @@ async def get_by_email(email: str) -> UserType:
             'last_login': user.get('last_login', ''),
             'last_name': user.get('last_name', ''),
             'legal_remember': user.get('legal_remember', False),
-            'phone_number': user.get('phone', ''),
+            'phone_number': user.get('phone', '-'),
             'push_tokens': user.get('push_tokens', [])
         }
 
     raise StakeholderNotFound()
+
+
+async def get_organizations(email: str) -> List[str]:
+    return await org_dal.get_ids_for_user(email)

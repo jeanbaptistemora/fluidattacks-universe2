@@ -235,7 +235,8 @@ async def _resolve_fields(info: GraphQLResolveInfo) -> MeType:
         requested_field = convert_camel_case_to_snake(
             requested_field.name.value
         )
-        if requested_field.startswith('_'):
+        migrated = {'organizations'}
+        if requested_field.startswith('_') or requested_field in migrated:
             continue
         resolver_func = getattr(
             sys.modules[__name__],

@@ -6,6 +6,7 @@ from ariadne import graphql
 
 from backend.api.dataloaders.event import EventLoader
 from backend.api.dataloaders.finding import FindingLoader
+from backend.api.dataloaders.group import GroupLoader
 from backend.api.dataloaders.project import ProjectLoader
 from backend.api.dataloaders.vulnerability import VulnerabilityLoader
 from backend.api.schema import SCHEMA
@@ -28,6 +29,7 @@ async def _get_result_async(data, stakeholder='integratesmanager@gmail.com'):
     request.loaders = {
         'event': EventLoader(),
         'finding': FindingLoader(),
+        'group': GroupLoader(),
         'project': ProjectLoader(),
         'vulnerability': VulnerabilityLoader()
     }

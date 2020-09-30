@@ -159,6 +159,8 @@ async def resolve_group_name(  # noqa: MC0001
         name = args[0].project_name
     elif args and hasattr(args[0], 'finding_id'):
         name = await _resolve_from_finding_id(context, args[0].finding_id)
+    elif args and args[0] and 'name' in args[0]:
+        name = args[0]['name']
     elif 'project_name' in kwargs:
         name = kwargs['project_name']
     elif 'group_name' in kwargs:
@@ -237,7 +239,8 @@ def enforce_organization_level_auth_async(func: TVar) -> TVar:
         organization_identifier = str(
             kwargs.get('identifier') or
             kwargs.get('organization_id') or
-            kwargs.get('organization_name')
+            kwargs.get('organization_name') or
+            args[0]['id']
         )
         organization_id = (
             organization_identifier

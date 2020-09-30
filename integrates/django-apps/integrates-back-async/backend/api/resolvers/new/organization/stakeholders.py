@@ -6,6 +6,7 @@ from graphql.type.definition import GraphQLResolveInfo
 
 # Local
 from backend import authz
+from backend.api.resolvers import user as old_resolver
 from backend.decorators import enforce_organization_level_auth_async
 from backend.domain import (
     organization as org_domain,
@@ -25,19 +26,24 @@ async def _get_stakeholder(email: str, org_id: str) -> Stakeholder:
 @enforce_organization_level_auth_async
 async def resolve(
     parent: Organization,
-    _info: GraphQLResolveInfo,
+    info: GraphQLResolveInfo,
     **_kwargs: None
 ) -> List[Stakeholder]:
     org_id: str = cast(str, parent['id'])
 
     org_stakeholders: List[str] = await org_domain.get_users(org_id)
 
-    stakeholders: List[Stakeholder] = cast(
+    # Temporary while migrating stakeholder resolvers
+    return cast(
         List[Stakeholder],
         await aio.materialize(
-            _get_stakeholder(email, org_id)
-            for email in org_stakeholders
+            old_resolver.resolve_for_organization(
+                info,
+                'ORGANIZATION',
+                user_email,
+                organization_id=org_id,
+                field_name='stakeholders'
+            )
+            for user_email in org_stakeholders
         )
     )
-
-    return stakeholders

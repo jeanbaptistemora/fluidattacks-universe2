@@ -500,8 +500,8 @@ ORGANIZATION_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
                 'do_remove_stakeholder_organization_access'),
             ('backend_api_resolvers_organization__do_'
                 'update_organization_policies'),
-            'backend_api_resolvers_organization__get_analytics',
-            'backend_api_resolvers_organization__get_stakeholders',
+            'backend_api_resolvers_new_organization_analytics_resolve',
+            'backend_api_resolvers_new_organization_stakeholders_resolve',
             'backend_api_resolvers_project__do_create_project',
             'grant_organization_level_role:customer',
             'grant_organization_level_role:customeradmin'
@@ -510,7 +510,7 @@ ORGANIZATION_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
     ),
     customer=dict(
         actions={
-            'backend_api_resolvers_organization__get_analytics',
+            'backend_api_resolvers_new_organization_analytics_resolve',
             'backend_api_resolvers_project__do_create_project',
         },
         tags=set()
@@ -525,8 +525,8 @@ ORGANIZATION_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
                 'do_remove_stakeholder_organization_access'),
             ('backend_api_resolvers_organization__do_'
                 'update_organization_policies'),
-            'backend_api_resolvers_organization__get_analytics',
-            'backend_api_resolvers_organization__get_stakeholders',
+            'backend_api_resolvers_new_organization_analytics_resolve',
+            'backend_api_resolvers_new_organization_stakeholders_resolve',
             'backend_api_resolvers_project__do_create_project',
             'grant_organization_level_role:customer',
             'grant_organization_level_role:customeradmin'
@@ -541,8 +541,8 @@ ORGANIZATION_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
                 'grant_stakeholder_organization_access'),
             ('backend_api_resolvers_organization__'
                 'do_remove_stakeholder_organization_access'),
-            'backend_api_resolvers_organization__get_analytics',
-            'backend_api_resolvers_organization__get_stakeholders',
+            'backend_api_resolvers_new_organization_analytics_resolve',
+            'backend_api_resolvers_new_organization_stakeholders_resolve',
             'backend_api_resolvers_project__do_create_project',
         },
         tags=set()

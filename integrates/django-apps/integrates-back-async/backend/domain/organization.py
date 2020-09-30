@@ -493,7 +493,7 @@ def format_organization(organization: OrganizationType) -> OrganizationType:
     return {
         **organization,
         'max_acceptance_days': organization.get(
-            'min_acceptance_severity',
+            'max_acceptance_days',
             Decimal(0)
         ),
         'max_acceptance_severity': organization.get(
