@@ -5,6 +5,10 @@ variable "region" {
   default = "us-east-1"
 }
 
+data "aws_route53_zone" "fluidattacks" {
+  name = "fluidattacks.com."
+}
+
 variable "bucket_origin_id" {
   default = "production-bucket-origin"
 }
