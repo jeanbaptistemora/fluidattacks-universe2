@@ -285,14 +285,6 @@ function job_observes_services_repositories_cache {
   ||  return 1
 }
 
-function job_observes_services_repositories_cache_new {
-  # Please don't add pristine workdir
-
-      env_prepare_python_packages \
-  &&  helper_observes_services_repositories_cache_new \
-  ||  return 1
-}
-
 function job_observes_test_infra {
   local target='infra/terraform'
 
