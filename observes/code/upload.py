@@ -13,6 +13,7 @@ from os.path import (
     abspath,
     basename,
 )
+import sys
 from typing import (
     Any,
     Dict,
@@ -102,7 +103,7 @@ async def worker(identifier: int, queue: Queue) -> None:
                 queue.task_done()
 
 
-async def main(namespace: str, *repositories: str) -> None:
+async def main(namespace: str, *repositories: str) -> bool:
     await initialize()
 
     queue: Queue = Queue(maxsize=2 * WORKERS_PAGE_SIZE * WORKERS_COUNT)
@@ -111,11 +112,14 @@ async def main(namespace: str, *repositories: str) -> None:
         for identifier in range(WORKERS_COUNT)
     ]
 
-    await manager(queue, namespace, *repositories)
+    success: bool = await manager(queue, namespace, *repositories)
+
     await queue.join()
 
     for worker_task in worker_tasks:
         worker_task.cancel()
+
+    return success
 
 
 def truncate_bytes(string: str, start: int, end: int) -> str:
@@ -130,7 +134,9 @@ def cli() -> None:
 
     repositories: Iterator[str] = map(abspath, args.repositories)
 
-    run(main(args.namespace, *repositories))
+    success: bool = run(main(args.namespace, *repositories))
+
+    sys.exit(0 if success else 1)
 
 
 def get_commit_data(commit: Commit) -> Dict[str, Any]:
@@ -151,8 +157,9 @@ def get_commit_data(commit: Commit) -> Dict[str, Any]:
     )
 
 
-async def manager(queue: Queue, namespace: str, *repositories: str) -> None:
+async def manager(queue: Queue, namespace: str, *repositories: str) -> bool:
     commit: Commit
+    success: bool = True
     with db_cursor() as cursor:
         for repo_path in repositories:
             repo_name: str = basename(repo_path)
@@ -180,15 +187,17 @@ async def manager(queue: Queue, namespace: str, *repositories: str) -> None:
                         **get_commit_data(commit),
                     ))
             except ValueError:
-                await log('warning', 'Repository is possibly empty, ignoring')
-                continue
+                await log('error', 'Repository is possibly empty, ignoring')
+                success = False
             except (GitCommandError, InvalidGitRepositoryError):
-                await log('warning', 'Invalid or corrupt repository')
-                continue
+                await log('error', 'Invalid or corrupt repository')
+                success = False
 
             if repo_is_new:
                 await queue.join()
                 await register_repository(cursor, namespace, repo_name)
+
+    return success
 
 
 async def does_commit_exist(
