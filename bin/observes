@@ -1,0 +1,13 @@
+#! /usr/bin/env nix-shell
+#!   nix-shell -i bash
+#!   nix-shell --option restrict-eval false
+#!   nix-shell --option sandbox false
+#!   nix-shell --show-trace
+#!   nix-shell observes.nix
+#  shellcheck shell=bash
+
+export PYTHONPATH="${pyPkgTapJson}/site-packages/:${PYTHONPATH}"
+export PYTHONPATH="${pyPkgTargetRedshift}/site-packages/:${PYTHONPATH}"
+
+export PATH="${pyPkgTapJson}/site-packages/bin/:${PATH}"
+export PATH="${pyPkgTargetRedshift}/site-packages/bin/:${PATH}"

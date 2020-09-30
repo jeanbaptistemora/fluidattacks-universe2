@@ -7,6 +7,7 @@ stdenv.mkDerivation {
   repoBuild = ./build;
   repoForces = ./forces;
   repoMelts = ./melts;
+  repoObserves = ./observes;
   repoSkims = ./skims;
   repoReviews = ./reviews;
 
@@ -21,6 +22,7 @@ stdenv.mkDerivation {
     cp -r "$repoBuild" "$out/build"
     cp -r "$repoForces" "$out/forces"
     cp -r "$repoMelts" "$out/melts"
+    cp -r "$repoObserves" "$out/observes"
     cp -r "$repoSkims" "$out/skims"
     cp -r "$repoReviews" "$out/reviews"
   '';
