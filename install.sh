@@ -29,5 +29,14 @@ then
 fi
 
 echo
+echo '[INFO] Checking melts is not installed with pip'
+if command -v melts | grep -v nix
+then
+  echo
+  echo '[ERROR] Please uninstall melts with pip'
+  exit
+fi
+
+echo
 echo '[INFO] Installing products'
 nix-env -i product -f default.nix
