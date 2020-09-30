@@ -40,6 +40,7 @@ PARSER: str = get_artifact(
 @cache_decorator()
 async def parse(
     grammar: Union[
+        Literal['CSharp'],
         Literal['Java9'],
     ],
     *,
@@ -61,6 +62,7 @@ async def parse(
 
 async def _parse(
     grammar: Union[
+        Literal['CSharp'],
         Literal['Java9'],
     ],
     *,
