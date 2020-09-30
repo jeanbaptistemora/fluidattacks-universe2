@@ -246,7 +246,7 @@ integrates_deploy_back_ephemeral:
   <<: *with_nix
   <<: *in_dev_branch_integrates
   stage: deploy-app
-  needs: [integrates_build_container_app]
+  needs: [integrates_build_container_app, integrates_build_container_app2]
   retry: 1
   environment:
     name: "ephemeral/$CI_COMMIT_REF_SLUG"
@@ -283,7 +283,7 @@ integrates_deploy_back_production:
   <<: *with_nix
   <<: *in_master_except_periodic_jobs_integrates
   stage: deploy-app
-  needs: [integrates_build_container_app]
+  needs: [integrates_build_container_app, integrates_build_container_app2]
   retry: 1
   environment:
     name: "production"
@@ -315,6 +315,18 @@ integrates_deploy_permissions_matrix:
     when: on_success
 
 integrates_build_container_app:
+  <<: *with_nix
+  <<: *in_everywhere_except_periodic_jobs_and_mrs_integrates
+  stage: build
+  retry: 1
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - integrates/version.txt
+      - integrates/django-apps/packages/
+    when: on_success
+
+integrates_build_container_app2:
   <<: *with_nix
   <<: *in_everywhere_except_periodic_jobs_and_mrs_integrates
   stage: build
