@@ -3,11 +3,8 @@
 import asyncio
 import logging
 from collections import namedtuple
-from datetime import datetime
 from typing import Dict, List, NamedTuple, cast
 from urllib.parse import quote, unquote
-import pytz
-from django.conf import settings
 from django.core.files.uploadedfile import InMemoryUploadedFile
 
 from backend import mailer
@@ -25,7 +22,11 @@ from backend.exceptions import (
     RepeatedValues,
     InvalidResource
 )
-from backend.utils import validations, aio
+from backend.utils import (
+    aio,
+    datetime as datetime_utils,
+    validations,
+)
 from fluidintegrates.settings import (
     LOGGING,
     NOEXTRA
@@ -112,7 +113,10 @@ async def create_file(
         json_data.append({
             'fileName': file_info.get('fileName', file_info['fileName']),
             'description': description,
-            'uploadDate': datetime.now().strftime('%Y-%m-%d %H:%M'),
+            'uploadDate': datetime_utils.get_as_str(
+                datetime_utils.get_now(),
+                date_format='%Y-%m-%d %H:%M'
+            ),
             'uploader': user_email,
         })
     file_id = '{project}/{file_name}'.format(
@@ -251,7 +255,10 @@ def encode_resources(res_data: List[Dict[str, str]]) -> List[ResourceType]:
 def create_initial_state(user_email: str) -> Dict[str, str]:
     return {
         'user': user_email,
-        'date': str(datetime.now().strftime('%Y-%m-%d %H:%M')),
+        'date': datetime_utils.get_as_str(
+            datetime_utils.get_now(),
+            date_format='%Y-%m-%d %H:%M'
+        ),
         'state': 'ACTIVE'
     }
 
@@ -367,7 +374,7 @@ async def update_resource(
 
         if res_id in resource and matches:
             resource_exists = True
-            today = datetime.now(tz=pytz.timezone(settings.TIME_ZONE))
+            today = datetime_utils.get_now()
             new_state = {
                 'user': user_email,
                 'date': util.format_comment_date(

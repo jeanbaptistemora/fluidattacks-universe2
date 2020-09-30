@@ -1,11 +1,8 @@
 # pylint:disable=too-many-branches
 import re
 import random
-from datetime import datetime
 from decimal import Decimal
 from typing import cast, Dict, List, Tuple, Any
-import pytz
-from django.conf import settings
 from graphql.type.definition import GraphQLResolveInfo
 
 from backend import util
@@ -22,6 +19,9 @@ from backend.exceptions import (
 from backend.typing import (
     User as UserType
 )
+from backend.utils import (
+    datetime as datetime_utils,
+)
 from .finding import get_finding
 
 
@@ -36,8 +36,7 @@ async def reject_draft(draft_id: str, reviewer_email: str) -> bool:
 
     if 'releaseDate' not in draft_data:
         if status == 'SUBMITTED':
-            tzn = pytz.timezone(settings.TIME_ZONE)
-            today = datetime.now(tz=tzn)
+            today = datetime_utils.get_now()
             rejection_date = str(today.strftime('%Y-%m-%d %H:%M:%S'))
             history.append({
                 'date': rejection_date,
@@ -77,8 +76,7 @@ async def approve_draft(
         ]
         if has_vulns:
             if 'reportDate' in draft_data:
-                tzn = pytz.timezone(settings.TIME_ZONE)
-                today = datetime.now(tz=tzn)
+                today = datetime_utils.get_now()
                 release_date = str(today.strftime('%Y-%m-%d %H:%M:%S'))
                 history = cast(
                     List[Dict[str, str]],
@@ -112,9 +110,8 @@ async def create_draft(
         **kwargs: Any) -> bool:
     last_fs_id = 550000000
     finding_id = str(random.randint(last_fs_id, 1000000000))
-    tzn = pytz.timezone(settings.TIME_ZONE)
     project_name = project_name.lower()
-    today = datetime.now(tz=tzn)
+    today = datetime_utils.get_now()
     creation_date = today.strftime('%Y-%m-%d %H:%M:%S')
     user_data = cast(UserType, await util.get_jwt_content(info.context))
     analyst_email = str(user_data.get('user_email', ''))
@@ -194,10 +191,9 @@ async def submit_draft(finding_id: str, analyst_email: str) -> bool:
             )
 
             if all([has_evidence, has_severity, has_vulns]):
-                today = datetime.now(
-                    tz=pytz.timezone(settings.TIME_ZONE)
+                report_date = datetime_utils.get_as_str(
+                    datetime_utils.get_now()
                 )
-                report_date = today.strftime('%Y-%m-%d %H:%M:%S')
                 history = cast(
                     List[Dict[str, str]],
                     finding.get('historicState', [])

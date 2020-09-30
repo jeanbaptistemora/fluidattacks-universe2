@@ -6,17 +6,15 @@ import logging
 import re
 from collections import namedtuple, defaultdict
 from contextlib import AsyncExitStack
-from datetime import datetime, timedelta
+from datetime import date
 from decimal import Decimal
-from typing import Dict, List, NamedTuple, Tuple, Union, cast
+from typing import Dict, List, NamedTuple, Tuple, Union, cast, Optional
 
-import pytz
 import simplejson as json
 from aioextensions import (
     collect,
     in_process,
 )
-from django.conf import settings
 
 from backend.authz.policy import get_group_level_role
 from backend.dal.helpers.dynamodb import start_context
@@ -56,6 +54,7 @@ from backend.exceptions import (
 )
 from backend.utils import (
     aio,
+    datetime as datetime_utils,
     findings as finding_utils,
     validations
 )
@@ -362,14 +361,13 @@ async def request_deletion(project_name: str, user_email: str) -> bool:
             data.get('historic_deletion', [])
         )
         if data.get('project_status') not in ['DELETED', 'PENDING_DELETION']:
-            tzn = pytz.timezone(settings.TIME_ZONE)
-            today = datetime.now(tz=tzn)
-            deletion_date = (
-                (today + timedelta(days=30))
-                .strftime('%Y-%m-%d') + ' 23:59:59'
-            )
+            today = datetime_utils.get_now()
+            deletion_date = datetime_utils.get_as_str(
+                datetime_utils.get_now_plus_delta(days=30),
+                date_format='%Y-%m-%d'
+            ) + ' 23:59:59'
             new_state = {
-                'date': today.strftime('%Y-%m-%d %H:%M:%S'),
+                'date': datetime_utils.get_as_str(today),
                 'deletion_date': deletion_date,
                 'user': user_email.lower(),
             }
@@ -405,10 +403,9 @@ async def reject_deletion(project_name: str, user_email: str) -> bool:
             data.get('historic_deletion', [])
         )
         if data.get('project_status') == 'PENDING_DELETION':
-            tzn = pytz.timezone(settings.TIME_ZONE)
-            today = datetime.now(tz=tzn)
+            today = datetime_utils.get_now()
             new_state = {
-                'date': today.strftime('%Y-%m-%d %H:%M:%S'),
+                'date': datetime_utils.get_as_str(today),
                 'user': user_email.lower(),
                 'state': 'REJECTED'
             }
@@ -432,8 +429,7 @@ async def reject_deletion(project_name: str, user_email: str) -> bool:
 
 
 async def mask(group_name: str) -> bool:
-    tzn = pytz.timezone(settings.TIME_ZONE)
-    today = datetime.now(tz=tzn).strftime('%Y-%m-%d %H:%M:%S')
+    today = datetime_utils.get_now()
     comments = await project_dal.get_comments(group_name)
     comments_result = all(await aio.materialize([
         project_dal.delete_comment(comment['project_name'], comment['user_id'])
@@ -442,7 +438,7 @@ async def mask(group_name: str) -> bool:
 
     update_data: Dict[str, Union[str, List[str], object]] = {
         'project_status': 'FINISHED',
-        'deletion_date': today
+        'deletion_date': datetime_utils.get_as_str(today)
     }
     is_group_finished = await project_dal.update(
         group_name, update_data
@@ -672,9 +668,8 @@ async def get_last_closing_vuln_info(
         )
         last_closing_vuln = closed_vulns[date_index]
         current_date = max(closing_vuln_dates)
-        tzn = pytz.timezone(settings.TIME_ZONE)
         last_closing_days = (
-            Decimal((datetime.now(tz=tzn).date() - current_date).days)
+            Decimal((datetime_utils.get_now().date() - current_date).days)
             .quantize(Decimal('0.1'))
         )
     else:
@@ -683,22 +678,18 @@ async def get_last_closing_vuln_info(
     return last_closing_days, cast(VulnerabilityType, last_closing_vuln)
 
 
-def get_last_closing_date(vulnerability: Dict[str, FindingType]) -> datetime:
+def get_last_closing_date(
+        vulnerability: Dict[str, FindingType]) -> Optional[date]:
     """Get last closing date of a vulnerability."""
     current_state = vuln_domain.get_last_approved_state(vulnerability)
     last_closing_date = None
 
     if current_state and current_state.get('state') == 'closed':
-        last_closing_date = datetime.strptime(
+        last_closing_date = datetime_utils.get_from_str(
             current_state.get('date', '').split(' ')[0],
-            '%Y-%m-%d'
-        )
-        tzn = pytz.timezone(settings.TIME_ZONE)
-        last_closing_date = cast(
-            datetime,
-            last_closing_date.replace(tzinfo=tzn).date()
-        )
-    return cast(datetime, last_closing_date)
+            date_format='%Y-%m-%d'
+        ).date()
+    return last_closing_date
 
 
 def is_vulnerability_closed(vuln: Dict[str, FindingType]) -> bool:
@@ -741,8 +732,8 @@ async def get_max_open_severity(
     return max_severity, max_severity_finding
 
 
-def get_open_vulnerability_date(vulnerability: Dict[str, FindingType]) -> \
-        Union[datetime, None]:
+def get_open_vulnerability_date(
+        vulnerability: Dict[str, FindingType]) -> Optional[date]:
     """Get open vulnerability date of a vulnerability."""
     all_states = cast(
         List[Dict[str, str]],
@@ -752,12 +743,10 @@ def get_open_vulnerability_date(vulnerability: Dict[str, FindingType]) -> \
     open_date = None
     if (current_state.get('state') == 'open' and
             not current_state.get('approval_status')):
-        open_date = datetime.strptime(
+        open_date = datetime_utils.get_from_str(
             current_state.get('date', '').split(' ')[0],
-            '%Y-%m-%d'
-        )
-        tzn = pytz.timezone('America/Bogota')
-        open_date = cast(datetime, open_date.replace(tzinfo=tzn).date())
+            date_format='%Y-%m-%d'
+        ).date()
     return open_date
 
 
@@ -766,7 +755,6 @@ async def get_mean_remediate(findings: List[Dict[str, FindingType]]) -> \
     """Get mean time to remediate a vulnerability."""
     total_vuln = 0
     total_days = 0
-    tzn = pytz.timezone('America/Bogota')
     validate_findings = await asyncio.gather(*[
         asyncio.create_task(
             finding_domain.validate_finding(
@@ -802,7 +790,7 @@ async def get_mean_remediate(findings: List[Dict[str, FindingType]]) -> \
                 (closed_vuln_date - filtered_open_vuln_dates[index]).days
             )
         else:
-            current_day = datetime.now(tz=tzn).date()
+            current_day = datetime_utils.get_now().date()
             total_days += int(
                 (current_day - filtered_open_vuln_dates[index]).days
             )
@@ -822,7 +810,6 @@ async def get_mean_remediate_severity(
         max_severity: float) -> Decimal:
     """Get mean time to remediate."""
     total_days = 0
-    tzn = pytz.timezone('America/Bogota')
     finding_ids = await list_findings([project_name.lower()])
     vulns = await vuln_domain.list_vulnerabilities_async([
         str(finding['findingId'])
@@ -857,7 +844,7 @@ async def get_mean_remediate_severity(
                 (closed_vuln_date - filtered_open_vuln_dates[index]).days
             )
         else:
-            current_day = datetime.now(tz=tzn).date()
+            current_day = datetime_utils.get_now().date()
             total_days += int(
                 (current_day - filtered_open_vuln_dates[index]).days
             )

@@ -1,7 +1,6 @@
 # pylint:disable=too-many-branches
 import asyncio
 import re
-from datetime import datetime
 from contextlib import AsyncExitStack
 from typing import (
     Any,
@@ -18,11 +17,8 @@ from aioextensions import (
     in_process
 )
 import aioboto3
-import pytz
-from django.conf import settings
 from graphql import GraphQLError
 from graphql.type.definition import GraphQLResolveInfo
-from pytz.tzinfo import DstTzInfo
 
 from backend.domain import (
     comment as comment_domain,
@@ -54,6 +50,9 @@ from backend.typing import (
     Comment as CommentType,
     Finding as FindingType,
     Historic as HistoricType,
+)
+from backend.utils import (
+    datetime as datetime_utils,
 )
 
 
@@ -121,9 +120,14 @@ def send_finding_mail(
 
 def get_age_finding(act_finding: Dict[str, FindingType]) -> int:
     """Get days since the vulnerabilities was release"""
-    today = datetime.now()
+    today = datetime_utils.get_now()
     release_date = str(act_finding['releaseDate']).split(' ')
-    age = abs(datetime.strptime(release_date[0], '%Y-%m-%d') - today).days
+    age = abs(
+        datetime_utils.get_from_str(
+            release_date[0],
+            date_format='%Y-%m-%d'
+        ) - today
+    ).days
     return age
 
 
@@ -173,8 +177,9 @@ async def handle_acceptation(
         observations: str,
         user_mail: str,
         response: str) -> bool:
-    tzn = pytz.timezone(settings.TIME_ZONE)
-    today = datetime.now(tz=tzn).strftime('%Y-%m-%d %H:%M:%S')
+    today = datetime_utils.get_as_str(
+        datetime_utils.get_now()
+    )
     new_state = {
         'acceptance_status': response,
         'treatment': 'ACCEPTED_UNDEFINED',
@@ -341,8 +346,9 @@ async def update_treatment(
         updated_values: Dict[str, str],
         user_mail: str) -> bool:
     success = False
-    tzn: DstTzInfo = pytz.timezone(settings.TIME_ZONE)
-    today = datetime.now(tz=tzn).strftime('%Y-%m-%d %H:%M:%S')
+    today = datetime_utils.get_as_str(
+        datetime_utils.get_now()
+    )
     finding = await get_finding(finding_id)
     historic_treatment = cast(
         List[Dict[str, str]],
@@ -423,8 +429,7 @@ async def delete_finding(
     success = False
 
     if submission_history[-1].get('state') != 'DELETED':
-        tzn = pytz.timezone(settings.TIME_ZONE)
-        today = datetime.now(tz=tzn)
+        today = datetime_utils.get_now()
         delete_date = str(today.strftime('%Y-%m-%d %H:%M:%S'))
         user_info = await util.get_jwt_content(context)
         submission_history.append({

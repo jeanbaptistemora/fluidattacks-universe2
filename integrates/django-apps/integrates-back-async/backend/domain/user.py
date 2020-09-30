@@ -4,7 +4,6 @@ from datetime import datetime
 from typing import Any, List, Union, cast
 
 # Third libraries
-import pytz
 import aioboto3
 from django.conf import settings
 from jose import jwt
@@ -32,6 +31,7 @@ from backend.utils.validations import (
 from backend.utils import (
     aio,
     apm,
+    datetime as datetime_utils,
 )
 from backend import authz
 from backend import util
@@ -43,8 +43,9 @@ async def add_phone_to_user(email: str, phone: str) -> bool:
 
 
 def get_current_date() -> str:
-    tzn = pytz.timezone(settings.TIME_ZONE)
-    today = datetime.now(tz=tzn).strftime('%Y-%m-%d %H:%M:%S')
+    today = datetime_utils.get_as_str(
+        datetime_utils.get_now()
+    )
     return today
 
 

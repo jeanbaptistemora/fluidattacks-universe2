@@ -29,6 +29,9 @@ from backend.exceptions import (
     InvalidFileType,
     InvalidNumberAcceptations
 )
+from backend.utils import (
+    datetime as datetime_utils,
+)
 
 from test_async.utils import create_dummy_session
 
@@ -89,9 +92,9 @@ class FindingTests(TestCase):
                 }],
             'severity': 5
         }
-        acceptance_date = (
-            datetime.now() + timedelta(days=10)
-        ).strftime('%Y-%m-%d %H:%M:%S')
+        acceptance_date = datetime_utils.get_as_str(
+            datetime_utils.get_now_plus_delta(days=10)
+        )
         values_accepted = {
             'justification': 'This is a test treatment justification',
             'bts_url': '',
@@ -109,9 +112,9 @@ class FindingTests(TestCase):
 
         max_acceptance_days = await get_max_acceptance_days(org_id)
         assert max_acceptance_days == 60
-        acceptance_date = (
-            datetime.now() + timedelta(days=65)
-        ).strftime('%Y-%m-%d %H:%M:%S')
+        acceptance_date = datetime_utils.get_as_str(
+            datetime_utils.get_now_plus_delta(days=65)
+        )
         values_accepted_date_error = {
             'justification': 'This is a test treatment justification',
             'bts_url': '',
