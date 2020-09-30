@@ -48,3 +48,35 @@ spec:
             periodSeconds: 30
             successThreshold: 1
             failureThreshold: 20
+        - name: integrates
+          image: registry.gitlab.com/fluidattacks/product/app2:__DEPLOYMENT_NAME__
+          imagePullPolicy: Always
+          resources:
+            requests:
+              cpu: 500m
+              memory: 2Gi
+            limits:
+              cpu: 500m
+              memory: 2Gi
+          env:
+            - name: DEPLOYMENT_DATE
+              value: "__DATE__"
+          envFrom:
+            - secretRef:
+                name: integrates-__DEPLOYMENT_NAME__
+          ports:
+            - containerPort: 8080
+          readinessProbe:
+            exec:
+              command: [bash, deploy/ephemeral/readiness-probe.sh, run_readiness_probe]
+            initialDelaySeconds: 60
+            periodSeconds: 30
+            successThreshold: 1
+            failureThreshold: 20
+          livenessProbe:
+            exec:
+              command: [bash, deploy/ephemeral/readiness-probe.sh, run_liveness_probe]
+            initialDelaySeconds: 60
+            periodSeconds: 30
+            successThreshold: 1
+            failureThreshold: 20
