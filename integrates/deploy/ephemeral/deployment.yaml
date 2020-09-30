@@ -36,14 +36,14 @@ spec:
             - containerPort: 8080
           readinessProbe:
             exec:
-              command: [bash, deploy/ephemeral/readiness-probe.sh, run_readiness_probe]
+              command: [bash, deploy/ephemeral/integrates-probes.sh, run_readiness_probe]
             initialDelaySeconds: 60
             periodSeconds: 30
             successThreshold: 1
             failureThreshold: 20
           livenessProbe:
             exec:
-              command: [bash, deploy/ephemeral/readiness-probe.sh, run_liveness_probe]
+              command: [bash, deploy/ephemeral/integrates-probes.sh, run_liveness_probe]
             initialDelaySeconds: 60
             periodSeconds: 30
             successThreshold: 1

@@ -1,7 +1,7 @@
 # Third party libraries
 from starlette.applications import Starlette
 from starlette.requests import Request
-from starlette.responses import JSONResponse, TemplateResponse
+from starlette.responses import JSONResponse, HTMLResponse
 from starlette.routing import Mount, Route
 from starlette.staticfiles import StaticFiles
 from starlette.templating import Jinja2Templates
@@ -13,14 +13,14 @@ TEMPLATES_DIR = 'backend_new/templates'
 TEMPLATING_ENGINE = Jinja2Templates(directory=TEMPLATES_DIR)
 
 
-def error500(request: Request) -> TemplateResponse:
+def error500(request: Request) -> HTMLResponse:
     return TEMPLATING_ENGINE.TemplateResponse(
         name='HTTP500.html',
         context={'request': request}
     )
 
 
-def error401(request: Request) -> TemplateResponse:
+def error401(request: Request) -> HTMLResponse:
     return TEMPLATING_ENGINE.TemplateResponse(
         name='HTTP401.html',
         context={'request': request}
