@@ -21,20 +21,25 @@ _FORMAT: str = '[%(levelname)s] %(message)s'
 
 _LOGGER_FORMATTER: logging.Formatter = logging.Formatter(_FORMAT)
 
-_LOGGER_HANDLER: logging.Handler = logging.StreamHandler(sys.stderr)
-_LOGGER_HANDLER.setLevel(logging.INFO)
-_LOGGER_HANDLER.setFormatter(_LOGGER_FORMATTER)
-
+_LOGGER_HANDLER: logging.StreamHandler = logging.StreamHandler()
 _LOGGER: logging.Logger = logging.getLogger('Skims')
-_LOGGER.setLevel(logging.INFO)
-_LOGGER.addHandler(_LOGGER_HANDLER)
 
 _LOGGER_REMOTE_HANDLER = bugsnag.handlers.BugsnagHandler()
-_LOGGER_REMOTE_HANDLER.setLevel(logging.ERROR)
-
 _LOGGER_REMOTE: logging.Logger = logging.getLogger('Skims.stability')
-_LOGGER_REMOTE.setLevel(logging.ERROR)
-_LOGGER_REMOTE.addHandler(_LOGGER_REMOTE_HANDLER)  # Sorry sir event-loop
+
+
+def configure() -> None:
+    _LOGGER_HANDLER.setStream(sys.stderr)
+    _LOGGER_HANDLER.setLevel(logging.INFO)
+    _LOGGER_HANDLER.setFormatter(_LOGGER_FORMATTER)
+
+    _LOGGER.setLevel(logging.INFO)
+    _LOGGER.addHandler(_LOGGER_HANDLER)
+
+    _LOGGER_REMOTE_HANDLER.setLevel(logging.ERROR)
+
+    _LOGGER_REMOTE.setLevel(logging.ERROR)
+    _LOGGER_REMOTE.addHandler(_LOGGER_REMOTE_HANDLER)
 
 
 def set_level(level: int) -> None:
@@ -69,3 +74,7 @@ def blocking_log_to_remote(exception: BaseException, **meta_data: str) -> None:
 
 async def log_to_remote(exception: BaseException, **meta_data: str) -> None:
     await in_thread(blocking_log_to_remote, exception, **meta_data)
+
+
+# Side effects
+configure()

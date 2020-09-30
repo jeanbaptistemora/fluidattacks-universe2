@@ -1,12 +1,10 @@
 # Standard library
-import asyncio
 from contextlib import (
     redirect_stderr,
     redirect_stdout,
 )
 import io
 from typing import (
-    Callable,
     Dict,
     List,
     Set,
@@ -37,9 +35,6 @@ from utils.model import (
     FindingReleaseStatusEnum,
     LocalesEnum,
     VulnerabilityStateEnum,
-)
-from utils.system import (
-    read,
 )
 from zone import (
     set_locale,
