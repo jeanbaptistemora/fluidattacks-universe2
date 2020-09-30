@@ -1,10 +1,6 @@
 import sys
-from decimal import Decimal
 from typing import (
-    cast,
-    Dict,
     Any,
-    Optional,
 )
 
 from ariadne import (
@@ -14,13 +10,11 @@ from graphql.type.definition import GraphQLResolveInfo
 
 from backend import util
 from backend.api.resolvers import (
-    analytics as analytics_loader,
     user as user_loader,
 )
 from backend.decorators import (
     concurrent_decorators,
     enforce_organization_level_auth_async,
-    rename_kwargs,
     require_login,
     require_organization_access
 )
@@ -236,90 +230,6 @@ async def _do_update_organization_policies(
             f'{organization_name} with ID {organization_id}'
         )
     return SimplePayloadType(success=success)
-
-
-@rename_kwargs({'identifier': 'organization_id'})
-@enforce_organization_level_auth_async
-async def _get_analytics(
-        info: GraphQLResolveInfo,
-        document_name: str,
-        document_type: str,
-        organization_id: str,
-        **__: Any
-) -> Dict[str, object]:
-    """Get analytics document."""
-    return cast(
-        Dict[str, object],
-        await analytics_loader.resolve(
-            info,
-            document_name=document_name,
-            document_type=document_type,
-            entity='organization',
-            subject=organization_id
-        )
-    )
-
-
-@rename_kwargs({'identifier': 'organization_id'})
-async def _get_id(
-        _: GraphQLResolveInfo,
-        organization_id: str,
-        **kwargs: Any) -> str:
-    if kwargs.get('organization_name'):
-        return await org_domain.get_id_by_name(kwargs['organization_name'])
-    return organization_id
-
-
-@rename_kwargs({'identifier': 'organization_id'})
-async def _get_name(
-        _: GraphQLResolveInfo,
-        organization_id: str,
-        **__: Any) -> str:
-    return await org_domain.get_name_by_id(organization_id)
-
-
-@rename_kwargs({'identifier': 'organization_id'})
-async def _get_max_acceptance_days(
-    _: GraphQLResolveInfo,
-    organization_id: str,
-    **__: Any
-) -> Optional[Decimal]:
-    return await org_domain.get_max_acceptance_days(organization_id)
-
-
-@rename_kwargs({'identifier': 'organization_id'})
-async def _get_max_acceptance_severity(
-    _: GraphQLResolveInfo,
-    organization_id: str,
-    **__: Any
-) -> Decimal:
-    return await org_domain.get_max_acceptance_severity(organization_id)
-
-
-@rename_kwargs({'identifier': 'organization_id'})
-async def _get_max_number_acceptations(
-    _: GraphQLResolveInfo,
-    organization_id: str,
-    **__: Any
-) -> Optional[Decimal]:
-    current_max_number_acceptations_info = (
-        await org_domain.get_current_max_number_acceptations_info(
-            organization_id
-        )
-    )
-    return cast(
-        Optional[Decimal],
-        current_max_number_acceptations_info.get('max_number_acceptations')
-    )
-
-
-@rename_kwargs({'identifier': 'organization_id'})
-async def _get_min_acceptance_severity(
-    _: GraphQLResolveInfo,
-    organization_id: str,
-    **__: Any
-) -> Decimal:
-    return await org_domain.get_min_acceptance_severity(organization_id)
 
 
 @convert_kwargs_to_snake_case  # type: ignore
