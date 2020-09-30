@@ -2,6 +2,8 @@ let
   builders.nodeJsModule = import ../builders/nodejs-module pkgs;
 
   pkgs = import ../pkgs/skims.nix;
+
+  skimsDependencies = import ../src/skims-dependencies.nix pkgs;
 in
   pkgs.stdenv.mkDerivation (
        (import ../src/basic.nix)
@@ -11,15 +13,8 @@ in
       name = "builder";
 
       buildInputs = [
-        pkgs.awscli
-        pkgs.jdk11
-        pkgs.git
-        pkgs.gnutar
-        pkgs.gradle
-        pkgs.graphviz
-        pkgs.nodejs
-        pkgs.python38
-        pkgs.python38Packages.poetry
+        skimsDependencies.build
+        skimsDependencies.runtime
       ];
 
       nodeJsModuleBugsnagBuildReporter = builders.nodeJsModule {

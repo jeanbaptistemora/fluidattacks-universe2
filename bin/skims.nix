@@ -2,13 +2,13 @@ let
   pkgs = import ../build/pkgs/skims.nix;
 
   builders.pythonPackage = import ../build/builders/python-package pkgs;
+
+  skimsDependencies = import ../build/src/skims-dependencies.nix pkgs;
 in
   pkgs.stdenv.mkDerivation rec {
     name = "skims";
 
-    buildInputs = [
-      pkgs.jdk11
-    ];
+    buildInputs = skimsDependencies.runtime;
 
     pyPkgSkims = builders.pythonPackage {
       cacheKey = ../skims;
