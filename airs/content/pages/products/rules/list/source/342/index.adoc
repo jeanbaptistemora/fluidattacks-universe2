@@ -48,34 +48,38 @@ The web application then procedes to use the values parameters without properly
 validation them first and generates the HTML code that will be executed by the
 victim's browser.
 
-. [[r4]] link:https://cwe.mitre.org/data/definitions/20.html[CWE-20: Improper Input Validation].
+. [[r4]] link:http://capec.mitre.org/data/definitions/137.html[CAPEC-137: Parameter Injection].
+An adversary manipulates the content of request parameters for the purpose of
+undermining the security of the target.
+
+. [[r5]] link:https://cwe.mitre.org/data/definitions/20.html[CWE-20: Improper Input Validation].
 The product does not validate or incorrectly validates input that can affect
 the control flow or data flow of a program.
 
-. [[r5]] link:https://cwe.mitre.org/data/definitions/233.html[CWE-233: Improper Handling of Parameters].
+. [[r6]] link:https://cwe.mitre.org/data/definitions/233.html[CWE-233: Improper Handling of Parameters].
 The software stores sensitive information without properly limiting read or
 write access by unauthorized actors.
 
-. [[r6]] link:https://cwe.mitre.org/data/definitions/235.html[CWE-235: Improper Handling of Extra Parameters].
+. [[r7]] link:https://cwe.mitre.org/data/definitions/235.html[CWE-235: Improper Handling of Extra Parameters].
 The software does not handle or incorrectly handles when the number of
 parameters, fields, or arguments with the same name exceeds the expected
 amount.
 
-. [[r7]] link:https://cwe.mitre.org/data/definitions/915.html[CWE-915: Improperly Controlled Modification of Dynamically-Determined Object
+. [[r8]] link:https://cwe.mitre.org/data/definitions/915.html[CWE-915: Improperly Controlled Modification of Dynamically-Determined Object
 Attributes].
 The software receives input from an upstream component that specifies multiple
 attributes, properties, or fields that are to be initialized or updated in an
 object,
 but it does not properly control which attributes can be modified.
 
-. [[r8]] link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A1-Injection[OWASP Top 10 A1:2017-Injection].
+. [[r9]] link:https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A1-Injection[OWASP Top 10 A1:2017-Injection].
 Injection flaws, such as **SQL**, **NoSQL**, **OS**, and *LDAP* injection,
 occur when untrusted data is sent to an interpreter as part of a command or
 query.
 The attacker's hostile data can trick the interpreter into executing unintended
 commands or accessing data without proper authorization.
 
-. [[r9]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r10]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V5.1 Input Validation Requirements.(5.1.1)]
 Verify that the application has defenses against HTTP parameter pollution
 attacks,
@@ -83,20 +87,20 @@ particularly if the application framework makes no distinction about the source
 of request parameters (*GET*, *POST*, cookies, headers,
 or environment variables).
 
-. [[r10]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r11]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V5.1 Input Validation Requirements.(5.1.2)]
 Verify that frameworks protect against mass parameter assignment attacks,
 or that the application has countermeasures to protect against unsafe parameter
 assignment,
 such as marking fields private or similar.
 
-. [[r11]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r12]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V5.1 Input Validation Requirements.(5.1.3)]
 Verify that all input (*HTML* form fields, *REST* requests, *URL* parameters,
 *HTTP* headers, cookies, batch files, *RSS* feeds, etc) is validated using
 positive validation (*whitelisting*).
 
-. [[r12]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
+. [[r13]] link:https://owasp.org/www-project-application-security-verification-standard/[OWASP-ASVS v4.0.1
 V8.1 General Data Protection.(8.1.3)]
 Verify the application minimizes the number of parameters in a request,
 such as hidden fields, *Ajax* variables, cookies and header values.
