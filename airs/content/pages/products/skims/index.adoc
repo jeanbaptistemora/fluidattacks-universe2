@@ -5,20 +5,20 @@
 
 = Skims
 
-=== Easy-to-use SAST tool
+=== Different targets
 
 Performs exhaustive analyses on portions of code or on ready-to-deploy
 applications to detect certain security weaknesses.
 
-=== Code Scanner
+=== Simultaneous scanning
 
-Scans code as it is written by developers, saving time in fixing
-security-related flaws.
+Scans code as it is written by developers,
+saving time in fixing security-related flaws.
 
-=== Vulnerabilities Finder
+=== High speed
 
-Finds peripheral or superficial vulnerabilities at high speed in 100% of the
-code.
+Finds peripheral or superficial vulnerabilities
+at high speed in 100% of the code.
 
 === Communication
 
