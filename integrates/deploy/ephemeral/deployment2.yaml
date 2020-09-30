@@ -1,23 +1,23 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: integrates-__DEPLOYMENT_NAME__
+  name: integrates2-__DEPLOYMENT_NAME__
   namespace: ephemeral
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: integrates-__DEPLOYMENT_NAME__
+      app: integrates2-__DEPLOYMENT_NAME__
   template:
     metadata:
       labels:
-        app: integrates-__DEPLOYMENT_NAME__
+        app: integrates2-__DEPLOYMENT_NAME__
     spec:
       nodeSelector:
         worker_group: large
       containers:
-        - name: integrates
-          image: registry.gitlab.com/fluidattacks/product/app:__DEPLOYMENT_NAME__
+        - name: integrates2
+          image: registry.gitlab.com/fluidattacks/product/app2:__DEPLOYMENT_NAME__
           imagePullPolicy: Always
           resources:
             requests:
@@ -31,7 +31,7 @@ spec:
               value: "__DATE__"
           envFrom:
             - secretRef:
-                name: integrates-__DEPLOYMENT_NAME__
+                name: integrates2-__DEPLOYMENT_NAME__
           ports:
             - containerPort: 8080
           readinessProbe:
