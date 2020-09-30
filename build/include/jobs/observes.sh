@@ -255,7 +255,40 @@ function job_observes_code_mirror_all_groups_to_s3_on_aws {
 }
 
 function job_observes_code_mirror_group_to_s3 {
-  echo 'Soon'
+  local mock_integrates_api_token='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.e30.xxx'
+  local group="${1}"
+
+      if test -z "${group}"
+      then
+            echo '[INFO] Please set the first argument to the group name' \
+        &&  return 1
+      fi \
+  &&  helper_observes_aws_login prod \
+  &&  helper_use_services \
+    &&  echo "[INFO] Working on ${group}" \
+    &&  echo "[INFO] Cloning ${group} from source Git repository" \
+    &&  CI='true' \
+        CI_COMMIT_REF_NAME='master' \
+        INTEGRATES_API_TOKEN="${mock_integrates_api_token}" \
+        PROD_AWS_ACCESS_KEY_ID="${AWS_ACCESS_KEY_ID}" \
+        PROD_AWS_SECRET_ACCESS_KEY="${AWS_SECRET_ACCESS_KEY}" \
+        melts resources --clone-from-customer-git "${group}" \
+    &&  if find fusion/* -type d
+        then
+              echo '[INFO] Pushing repositories to S3' \
+          &&  CI='true' \
+              CI_COMMIT_REF_NAME='master' \
+              INTEGRATES_API_TOKEN="${mock_integrates_api_token}" \
+              PROD_AWS_ACCESS_KEY_ID="${AWS_ACCESS_KEY_ID}" \
+              PROD_AWS_SECRET_ACCESS_KEY="${AWS_SECRET_ACCESS_KEY}" \
+              melts drills --push-repos "${group}"
+        else
+              echo '[INFO] Unable to clone repositories from source' \
+          &&  echo '[INFO] Skipping push to S3'
+        fi \
+    &&  rm -rf "groups/${group}/fusion/" \
+  &&  popd \
+  ||  return 1
 }
 
 function job_observes_code_mirror_group_to_s3_on_aws {

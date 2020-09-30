@@ -12,9 +12,11 @@ in
           buildInputs = [
             pkgs.git
             pkgs.awscli
+            pkgs.cacert
             pkgs.sops
             pkgs.jq
             pkgs.nix
+            pkgs.openssh
             pkgs.python37
             pkgs.python37Packages.GitPython
             pkgs.python37Packages.psycopg2
