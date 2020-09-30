@@ -103,12 +103,11 @@ async def worker(
             item: Item = await queue.get()
             items_to_change = await get_items_to_change([item], mailmap_dict)
 
-            await log(
-                'info', 'Worker[%s]: Sending %s to %s',
-                identifier, len(items_to_change), item.namespace,
-            )
-
             for item in items_to_change:
+                await log(
+                    'info', 'Worker[%s]: Sending to %s',
+                    identifier, item.namespace,
+                )
                 await in_thread(cursor.execute, UPDATE_QUERY, item._asdict())
 
             queue.task_done()
