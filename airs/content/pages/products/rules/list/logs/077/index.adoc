@@ -23,9 +23,9 @@ vulnerabilities.
 
 == Findings
 
-* [inner]#link:/findings/037/[F037. Technical information leak]#
+* [inner]#link:/products/rules/findings/037/[F037. Technical information leak]#
 
-* [inner]#link:/findings/058/[F058. Debugging enabled in production]#
+* [inner]#link:/products/rules/findings/058/[F058. Debugging enabled in production]#
 
 == References
 

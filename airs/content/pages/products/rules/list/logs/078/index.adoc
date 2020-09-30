@@ -12,7 +12,7 @@ The organization must disable debugging events in production.
 
 == Findings
 
-* [inner]#link:/findings/058/[F058. Debugging enabled in production]#
+* [inner]#link:/products/rules/findings/058/[F058. Debugging enabled in production]#
 
 == References
 

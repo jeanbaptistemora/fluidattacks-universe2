@@ -20,9 +20,9 @@ data and resources that are susceptible to being affected by third parties.
 
 == Findings
 
-* [inner]#link:/findings/086/[F086. Missing subresource integrity check]#
+* [inner]#link:/products/rules/findings/086/[F086. Missing subresource integrity check]#
 
-* [inner]#link:/findings/103/[F103. Insufficient data authenticity validation]#
+* [inner]#link:/products/rules/findings/103/[F103. Insufficient data authenticity validation]#
 
 == References
 

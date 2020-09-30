@@ -50,7 +50,7 @@ without traceability nor authorization.
 
 == Findings
 
-* [inner]#link:/findings/062/[F062. Concurrent sessions]#
+* [inner]#link:/products/rules/findings/062/[F062. Concurrent sessions]#
 
 == References
 

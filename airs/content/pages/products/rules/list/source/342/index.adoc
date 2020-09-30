@@ -22,7 +22,7 @@ and provides countermeasures to protect against unsafe parameter assignment.
 
 == Findings
 
-* [inner]#link:/findings/063/[F063. Lack of data validation]#
+* [inner]#link:/products/rules/findings/063/[F063. Lack of data validation]#
 
 == Rereferences
 

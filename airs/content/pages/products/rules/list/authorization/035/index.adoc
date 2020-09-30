@@ -22,9 +22,9 @@ resources.
 
 == Findings
 
-* [inner]#link:/findings/005/[F005. Privilege escalation]#
+* [inner]#link:/products/rules/findings/005/[F005. Privilege escalation]#
 
-* [inner]#link:/findings/032/[F032. Spoofing]#
+* [inner]#link:/products/rules/findings/032/[F032. Spoofing]#
 
 == References
 

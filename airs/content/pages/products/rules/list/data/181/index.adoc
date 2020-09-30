@@ -53,15 +53,15 @@ the transmitted information.
 
 == Findings
 
-* [inner]#link:/findings/017/[F017. Sensitive information sent insecurely]#
+* [inner]#link:/products/rules/findings/017/[F017. Sensitive information sent insecurely]#
 
-* [inner]#link:/findings/022/[F022. Use of an insecure channel]#
+* [inner]#link:/products/rules/findings/022/[F022. Use of an insecure channel]#
 
-* [inner]#link:/findings/025/[F025. Call interception]#
+* [inner]#link:/products/rules/findings/025/[F025. Call interception]#
 
-* [inner]#link:/findings/030/[F030. Sensitive information sent via URL parameters]#
+* [inner]#link:/products/rules/findings/030/[F030. Sensitive information sent via URL parameters]#
 
-* [inner]#link:/findings/052/[F052. Insecure encryption algorithm]#
+* [inner]#link:/products/rules/findings/052/[F052. Insecure encryption algorithm]#
 
 == References
 

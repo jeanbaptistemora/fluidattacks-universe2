@@ -13,7 +13,7 @@ the content of the files transferred to it is free of malicious code.
 
 == Findings
 
-* [inner]#link:/findings/027/[F027. Insecure file upload]#
+* [inner]#link:/products/rules/findings/027/[F027. Insecure file upload]#
 
 == References
 

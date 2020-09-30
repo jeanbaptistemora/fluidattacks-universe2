@@ -13,9 +13,9 @@ using standard protocols (e.g., *SAML*).
 
 == Findings
 
-* [inner]#link:/findings/006/[F006. Authentication mechanism absence or evasion]#
+* [inner]#link:/products/rules/findings/006/[F006. Authentication mechanism absence or evasion]#
 
-* [inner]#link:/findings/015/[F015. Insecure authentication method]#
+* [inner]#link:/products/rules/findings/015/[F015. Insecure authentication method]#
 
 == References
 

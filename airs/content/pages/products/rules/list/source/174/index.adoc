@@ -13,7 +13,7 @@ distinguishable pattern.
 
 == Findings
 
-* [inner]#link:/findings/007/[F007. Cross-site request forgery]#
+* [inner]#link:/products/rules/findings/007/[F007. Cross-site request forgery]#
 
 == References
 

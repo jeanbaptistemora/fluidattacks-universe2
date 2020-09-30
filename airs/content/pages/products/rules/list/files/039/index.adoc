@@ -50,7 +50,7 @@ because of the lack of space in the system.
 
 == Findings
 
-* [inner]#link:/findings/029/[F029. Inadequate file size control]#
+* [inner]#link:/products/rules/findings/029/[F029. Inadequate file size control]#
 
 == References
 

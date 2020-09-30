@@ -12,7 +12,7 @@ An anti-malware tool must scan files that are attached to an email.
 
 == Findings
 
-* [inner]#link:/findings/114/[F114. Phishing]#
+* [inner]#link:/products/rules/findings/114/[F114. Phishing]#
 
 == References
 

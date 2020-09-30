@@ -22,7 +22,7 @@ as it could lead a source code leak to putting critical systems in jeopardy.
 
 == Findings
 
-* [inner]#link:/findings/009/[F009. Sensitive information in source code]#
+* [inner]#link:/products/rules/findings/009/[F009. Sensitive information in source code]#
 
 == References
 

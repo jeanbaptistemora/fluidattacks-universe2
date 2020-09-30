@@ -13,7 +13,7 @@ actually belong to the user that claimed ownership of them.
 
 == Findings
 
-* [inner]#link:/findings/103/[F103. Insufficient data authenticity validation]#
+* [inner]#link:/products/rules/findings/103/[F103. Insufficient data authenticity validation]#
 
 == References
 

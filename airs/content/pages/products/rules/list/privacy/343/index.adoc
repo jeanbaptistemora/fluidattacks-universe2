@@ -23,7 +23,7 @@ which could represent a privacy violation if no consent is requested.
 
 == Findings
 
-* [inner]#link:/findings/088/[F088. Privacy violation]#
+* [inner]#link:/products/rules/findings/088/[F088. Privacy violation]#
 
 == References
 

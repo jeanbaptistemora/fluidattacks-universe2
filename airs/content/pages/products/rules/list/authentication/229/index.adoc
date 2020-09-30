@@ -21,11 +21,11 @@ The authentication mechanism should request at least a username and a password.
 
 == Findings
 
-* [inner]#link:/findings/006/[F006. Authentication mechanism absence or evasion]#
+* [inner]#link:/products/rules/findings/006/[F006. Authentication mechanism absence or evasion]#
 
-* [inner]#link:/findings/018/[F018. Improper authentication for shared folders]#
+* [inner]#link:/products/rules/findings/018/[F018. Improper authentication for shared folders]#
 
-* [inner]#link:/findings/081/[F081. Lack of two-factor authentication]#
+* [inner]#link:/products/rules/findings/081/[F081. Lack of two-factor authentication]#
 
 == References
 

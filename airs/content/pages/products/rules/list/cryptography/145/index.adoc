@@ -23,7 +23,7 @@ standards.
 
 == Findings
 
-* [inner]#link:/findings/009/[F009. Sensitive information in source code]#
+* [inner]#link:/products/rules/findings/009/[F009. Sensitive information in source code]#
 
 == References
 

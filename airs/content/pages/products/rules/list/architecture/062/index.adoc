@@ -22,19 +22,19 @@ integrity, availability and resilience of systems and services.
 
 == Findings
 
-* [inner]#link:/findings/043/[F043. Improperly set HTTP headers]#
+* [inner]#link:/products/rules/findings/043/[F043. Improperly set HTTP headers]#
 
-* [inner]#link:/findings/077/[F077. ARP spoofing]#
+* [inner]#link:/products/rules/findings/077/[F077. ARP spoofing]#
 
-* [inner]#link:/findings/084/[F084. MDNS spoofing]#
+* [inner]#link:/products/rules/findings/084/[F084. MDNS spoofing]#
 
-* [inner]#link:/findings/110/[F110. HTTP request smuggling]#
+* [inner]#link:/products/rules/findings/110/[F110. HTTP request smuggling]#
 
-* [inner]#link:/findings/111/[F111. Out-of-bounds Read]#
+* [inner]#link:/products/rules/findings/111/[F111. Out-of-bounds Read]#
 
-* [inner]#link:/findings/115/[F115. Security controls bypass]#
+* [inner]#link:/products/rules/findings/115/[F115. Security controls bypass]#
 
-* [inner]#link:/findings/116/[F116. XS-Leaks]#
+* [inner]#link:/products/rules/findings/116/[F116. XS-Leaks]#
 
 == References
 

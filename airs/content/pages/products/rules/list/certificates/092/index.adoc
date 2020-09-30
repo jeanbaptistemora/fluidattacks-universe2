@@ -14,7 +14,7 @@ when these are for external applications.
 
 == Findings
 
-* [inner]#link:/findings/049/[F049. Insecure digital certificates]#
+* [inner]#link:/products/rules/findings/049/[F049. Insecure digital certificates]#
 
 == References
 

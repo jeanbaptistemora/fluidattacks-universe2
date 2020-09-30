@@ -76,9 +76,9 @@ the user surpasses a certain time limit without posting new requests.
 
 == Findings
 
-* [inner]#link:/findings/015/[F015. Insecure authentication method]#
+* [inner]#link:/products/rules/findings/015/[F015. Insecure authentication method]#
 
-* [inner]#link:/findings/076/[F076. Insecure session management]#
+* [inner]#link:/products/rules/findings/076/[F076. Insecure session management]#
 
 == References
 

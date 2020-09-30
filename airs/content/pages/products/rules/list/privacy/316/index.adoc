@@ -39,7 +39,7 @@ this requirement is not applicable.
 
 == Findings
 
-* [inner]#link:/findings/088/[F088. Privacy violation]#
+* [inner]#link:/products/rules/findings/088/[F088. Privacy violation]#
 
 == References
 

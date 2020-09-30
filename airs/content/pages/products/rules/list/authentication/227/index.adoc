@@ -23,7 +23,7 @@ users.
 
 == Findings
 
-* [inner]#link:/findings/006/[F006. Authentication mechanism absence or evasion]#
+* [inner]#link:/products/rules/findings/006/[F006. Authentication mechanism absence or evasion]#
 
 == References
 

@@ -13,4 +13,4 @@ emails.
 
 == Findings
 
-* [inner]#link:/findings/055/[F055. Insecure service configuration]#
+* [inner]#link:/products/rules/findings/055/[F055. Insecure service configuration]#

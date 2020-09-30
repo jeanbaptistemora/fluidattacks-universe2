@@ -20,13 +20,13 @@ so that there is no weaker alternative.
 
 == Findings
 
-* [inner]#link:/findings/006/[F006. Authentication mechanism absence or evasion]#
+* [inner]#link:/products/rules/findings/006/[F006. Authentication mechanism absence or evasion]#
 
-* [inner]#link:/findings/015/[F015. Insecure authentication method]#
+* [inner]#link:/products/rules/findings/015/[F015. Insecure authentication method]#
 
-* [inner]#link:/findings/056/[F056. Anonymous connection]#
+* [inner]#link:/products/rules/findings/056/[F056. Anonymous connection]#
 
-* [inner]#link:/findings/081/[F081. Lack of two-factor authentication]#
+* [inner]#link:/products/rules/findings/081/[F081. Lack of two-factor authentication]#
 
 == References
 

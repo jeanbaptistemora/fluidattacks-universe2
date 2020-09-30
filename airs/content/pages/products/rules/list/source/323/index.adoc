@@ -29,7 +29,7 @@ and exposed sensitive information.
 
 == Findings
 
-* [inner]#link:/findings/117/[F117. Unverifiable files]#
+* [inner]#link:/products/rules/findings/117/[F117. Unverifiable files]#
 
 == References
 

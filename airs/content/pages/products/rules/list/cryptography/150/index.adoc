@@ -12,9 +12,9 @@ Use hash functions with a minimum size of *256* bits.
 
 == Findings
 
-* [inner]#link:/findings/051/[F051. Cracked weak credentials]#
+* [inner]#link:/products/rules/findings/051/[F051. Cracked weak credentials]#
 
-* [inner]#link:/findings/052/[F052. Insecure encryption algorithm]#
+* [inner]#link:/products/rules/findings/052/[F052. Insecure encryption algorithm]#
 
 == References
 

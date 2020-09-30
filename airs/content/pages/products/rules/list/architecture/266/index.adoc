@@ -24,25 +24,25 @@ points such as access control gateways, severs and serverless functions.
 
 == Findings
 
-* [inner]#link:/findings/014/[F014. Insecure functionality]#
+* [inner]#link:/products/rules/findings/014/[F014. Insecure functionality]#
 
-* [inner]#link:/findings/044/[F044. Insecure HTTP methods enabled]#
+* [inner]#link:/products/rules/findings/044/[F044. Insecure HTTP methods enabled]#
 
-* [inner]#link:/findings/047/[F047. Automatic information enumeration]#
+* [inner]#link:/products/rules/findings/047/[F047. Automatic information enumeration]#
 
-* [inner]#link:/findings/055/[F055. Insecure service configuration]#
+* [inner]#link:/products/rules/findings/055/[F055. Insecure service configuration]#
 
-* [inner]#link:/findings/056/[F056. Anonymous connection]#
+* [inner]#link:/products/rules/findings/056/[F056. Anonymous connection]#
 
-* [inner]#link:/findings/101/[F101. Lack of protection against deletion]#
+* [inner]#link:/products/rules/findings/101/[F101. Lack of protection against deletion]#
 
-* [inner]#link:/findings/110/[F110. HTTP request smuggling]#
+* [inner]#link:/products/rules/findings/110/[F110. HTTP request smuggling]#
 
-* [inner]#link:/findings/111/[F111. Out-of-bounds Read]#
+* [inner]#link:/products/rules/findings/111/[F111. Out-of-bounds Read]#
 
-* [inner]#link:/findings/115/[F115. Security controls bypass]#
+* [inner]#link:/products/rules/findings/115/[F115. Security controls bypass]#
 
-* [inner]#link:/findings/116/[F116. XS-Leaks]#
+* [inner]#link:/products/rules/findings/116/[F116. XS-Leaks]#
 
 == References
 
