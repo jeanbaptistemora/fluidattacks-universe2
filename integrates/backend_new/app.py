@@ -34,7 +34,7 @@ async def app(request: Request) -> JSONResponse:
 APP = Starlette(
     debug=settings.DEBUG,
     routes=[
-        Route('/', app),
+        Route('/new', app),
         Route('/error401', error401),
         Route('/error500', error500),
         Mount(
