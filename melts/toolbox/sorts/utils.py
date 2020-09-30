@@ -4,7 +4,7 @@ import time
 from array import ArrayType
 from datetime import datetime
 from functools import partial
-from typing import Dict, List, Match, Optional, Set, Tuple
+from typing import Dict, List, Match, NamedTuple, Optional, Set, Tuple
 
 import git
 import numpy as np
@@ -14,6 +14,15 @@ from git.cmd import Git
 from git.exc import GitCommandError
 from pandas import DataFrame, Series
 from pydriller.metrics.process.hunks_count import HunksCount
+
+
+class FileFeatures(NamedTuple):
+    num_commits: int
+    num_unique_authors: int
+    file_age: int
+    midnight_commits: int
+    risky_commits: int
+    seldom_contributors: int
 
 
 def count_loc(file_path: str) -> int:
@@ -38,7 +47,7 @@ def df_get_deltas(row: Series) -> Tuple[int, int, int, int]:
     return get_deltas(repo, commit)
 
 
-def df_get_file_features(row: Series) -> Tuple[int, int, int, int, int, int]:
+def df_get_file_features(row: Series) -> FileFeatures:
     """
     Get the commit and authors information for each file in the DataFrame
     """
@@ -174,16 +183,19 @@ def get_deltas(repo: str, commit: str) -> Tuple[int, int, int, int]:
     return deltas_info
 
 
-def get_file_features(
-    repo: str,
-    file_: str
-) -> Tuple[int, int, int, int, int, int]:
+def get_file_features(repo: str, file_: str) -> FileFeatures:
     """
     Given a file in a repository, extract features by analizing its
     history of commits
     """
+    num_commits: int = 0
+    num_unique_authors: int = 0
+    file_age: int = 0
+    midnight_commits: int = 0
+    risky_commits: int = 0
+    seldom_contributors: Set[str] = set()
     today = datetime.now(tz=pytz.timezone('America/Bogota'))
-    file_features: Tuple[int, int, int, int, int, int] = (0, 0, 0, 0, 0, 0)
+
     try:
         git_repo: Git = git.Git(repo)
         file_relative_path = os.path.sep.join(file_.split(os.path.sep)[1:])
@@ -207,17 +219,13 @@ def get_file_features(
         file_history = list(filter(None, file_history))
 
         if file_history:
-            num_commits: int = len(file_history)
-            num_authors: int = len({x.split(',')[1] for x in file_history})
+            num_commits = len(file_history)
+            num_unique_authors = len({x.split(',')[1] for x in file_history})
 
             date_first_commit: str = file_history[-1].split(',')[2]
-            file_age: int = (
+            file_age = (
                 today - datetime.fromisoformat(date_first_commit)
             ).days
-
-            midnight_commits: int = 0
-            risky_commits: int = 0
-            seldom_contributors: Set[str] = set()
             for record in file_history:
                 record_as_list = record.split(',')
 
@@ -238,18 +246,16 @@ def get_file_features(
 
                 if authors_contribution[record_as_list[1]] < mean_contribution:
                     seldom_contributors.add(record_as_list[1])
-
-            file_features = (
-                num_commits,
-                num_authors,
-                file_age,
-                midnight_commits,
-                risky_commits,
-                len(seldom_contributors)
-            )
     except GitCommandError:
         print('Error extracting the commits/authors that modified a file')
-    return file_features
+    return FileFeatures(
+        num_commits=num_commits,
+        num_unique_authors=num_unique_authors,
+        file_age=file_age,
+        midnight_commits=midnight_commits,
+        risky_commits=risky_commits,
+        seldom_contributors=len(seldom_contributors)
+    )
 
 
 def get_file_loc(repo: str, file_: str) -> int:
@@ -305,10 +311,10 @@ def get_repo_author_contributions(repo: Git) -> Tuple[Dict[str, float], float]:
     repo_history: List[str] = repo.log('--pretty=%ae').split('\n')
     total_commits: int = len(repo_history)
     for author_email in repo_history:
-        if author_email not in authors_commit_contribution:
-            authors_commit_contribution[author_email] = 1
-        else:
+        if author_email in authors_commit_contribution:
             authors_commit_contribution[author_email] += 1
+        else:
+            authors_commit_contribution[author_email] = 1
     authors_percentage_contribution: Dict[str, float] = {
         author: round(commit * 100 / total_commits, 3)
         for author, commit in authors_commit_contribution.items()
