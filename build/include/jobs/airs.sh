@@ -189,7 +189,7 @@ function job_airs_test_defends {
 
       pushd airs \
   &&  helper_airs_set_lc_all \
-  &&  touched_defends_adoc_files="$(helper_airs_list_touched_files | grep 'content/pages/defends/' | grep '.adoc')" || true \
+  &&  touched_defends_adoc_files="$(helper_airs_list_touched_files | grep 'content/pages/products/defends/' | grep '.adoc')" || true \
   &&  echo '[INFO] Testing defends files' \
   &&  for path in ${touched_defends_adoc_files}
       do

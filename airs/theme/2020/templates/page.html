@@ -82,16 +82,23 @@
         </li>
         {% endif %}
         {% if page.defends %}
+        <li class="dib mt0">
+          <a class="c-fluid-gray hover-white no-underline"
+             href="{{ SITEURL }}/products/">
+             Products
+          </a>
+        </li>
+        <span class="c-fluid-gray v-mid b"> / </span>
         <li class="dib mt0" >
           <a class="c-fluid-gray hover-white no-underline"
-             href="{{ SITEURL }}/defends/">
+             href="{{ SITEURL }}/products/defends/">
              Defends
           </a>
         </li>
         <span class="c-fluid-gray v-mid b"> / </span>
         <li class="dib mt0" >
           <a class="white hover-white no-underline"
-             href="{{ SITEURL }}/defends/#{{ page.category.name }}">
+             href="{{ SITEURL }}/products/defends/#{{ page.category.name }}">
              {{ page.category|capitalize }}
           </a>
         </li>

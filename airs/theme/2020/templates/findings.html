@@ -113,7 +113,14 @@
                 href=".">{{ page.title }}</a>
           </li>
           {% endif %}
-          {% if page.defendsindex and page.slug == "defends/" %}
+          {% if page.defendsindex and page.slug == "products/defends/" %}
+          <li class="dib mt0">
+            <a class="c-fluid-gray hover-white no-underline"
+               href="{{ SITEURL }}/products/">
+              Products
+            </a>
+            <span class="c-fluid-gray v-mid b"> / </span>
+          </li>
           <li class="dib mt0">
             <a class="white hover-white no-underline"
                 href=".">Defends</a>
@@ -291,7 +298,7 @@
     {% endassets %}
   </article>
   {% endif %}
-  {% if page.defendsindex and page.slug == "defends/" %}
+  {% if page.defendsindex and page.slug == "products/defends/" %}
   <article class="internal defendspage roboto ma-auto tl mw8">
     <h1 class="tc pb4">
       {{ page.title }}
@@ -307,7 +314,7 @@
         <div class="defendspanel overflow-hidden bg-white mb2 pl4-l">
           {% for defendsarticle in pages if defendsarticle.defends and defendsarticle.category == cat%}
             <a class="c-fluid-bk hv-fluid-dkred no-underline defendslink"
-               href="../{{ defendsarticle.slug }}">
+               href="{{ SITEURL }}/{{ defendsarticle.slug }}">
                <h3 class="ml4">
                  {{ defendsarticle.title }}
                </h3>
@@ -325,7 +332,7 @@
           <div class="defendspanel overflow-hidden bg-white mb2 pl4-l">
             {% for defendsarticle in pages if defendsarticle.defends and defendsarticle.category == cat%}
               <a class="c-fluid-bk hv-fluid-dkred no-underline"
-                 href="../{{ defendsarticle.slug }}">
+                 href="{{ SITEURL }}/{{ defendsarticle.slug }}">
                  <h3 class="ml4">
                    {{ defendsarticle.title }}
                  </h3>
