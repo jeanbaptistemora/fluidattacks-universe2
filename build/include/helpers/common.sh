@@ -451,4 +451,13 @@ function helper_common_run_on_aws {
         --retry-strategy "attempts=${attempts}" \
         --timeout "attemptDurationSeconds=${timeout}" \
 
+  # Ideas:
+  # - get the log-stream with:
+  #     aws batch describe-jobs --jobs "${job_id}" \
+  #       | jq -r '.jobs[0].container.logStreamName'
+  # - Post the link to the logs on the console
+  # - Use: awslogs get --no-group --no-stream --timestamp --start '1y' \
+  #          /aws/batch/job "${log_stream}"
+  #   to stream logs in real time (locally, not on the CI)
+
 }
